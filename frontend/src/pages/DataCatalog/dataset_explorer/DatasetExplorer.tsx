@@ -1,16 +1,13 @@
-import React from "react";
 import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
 import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
-import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
-import Button from "@mui/material/Button";
+import { type DataSourceMetadata } from "../../../data/utils/DatasetTypes";
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
 } from "../../../utils/internalRoutes";
 import { WithMetadata } from "../../../data/react/WithLoadingOrErrorUI";
-import { Box, Grid } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import { Box, Grid, Typography, Button } from "@mui/material";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 
 // Map of filter id to list of datasets selected by that filter, or empty list
@@ -88,11 +85,11 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
 
               return (
                 <>
-                  {filteredDatasets.map((source_id, index) => (
+                  {filteredDatasets.map((sourceId, index) => (
                     <li className={styles.DatasetListItem} key={index}>
                       <DataSourceListing
-                        key={DataSourceMetadataMap[source_id].id}
-                        source_metadata={DataSourceMetadataMap[source_id]}
+                        key={DataSourceMetadataMap[sourceId].id}
+                        source_metadata={DataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
                       />
                     </li>

@@ -1,12 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import LinkIcon from "@mui/icons-material/Link";
 import styles from "./CopyLinkButton.module.scss";
-import { IconButton, Snackbar } from "@mui/material";
-import { ScrollableHashId } from "../../utils/hooks/useStepObserver";
-import { Alert } from "@mui/lab";
+import { IconButton, Snackbar, Alert } from "@mui/material";
+import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
 
 interface CopyLinkButtonProps {
-  scrollToHash: ScrollableHashId;
+  scrollToHash: ScrollableHashId
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
@@ -20,25 +19,31 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
   }
 
   function handleClick() {
-    navigator.clipboard.writeText(cardHashLink);
-    setOpen(true);
+    async function asyncHandleClick() {
+      await navigator.clipboard.writeText(cardHashLink);
+      setOpen(true);
+    }
+    asyncHandleClick().catch((error) => error);
   }
 
   let cardName = props.scrollToHash.replaceAll("-", " ");
   cardName = cardName[0].toUpperCase() + cardName.slice(1);
 
-  return <>
-    <IconButton
-      className={styles.CopyLinkButton}
-      aria-label={`copy direct link to: ${cardName}`}
-      onClick={handleClick}
-      size="large">
-      <LinkIcon />
-    </IconButton>
-    <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-      <Alert onClose={handleClose} className={styles.SnackBarAlert}>
-        Direct link to <b>{cardName}</b> copied to clipboard!
-      </Alert>
-    </Snackbar>
-  </>;
+  return (
+    <>
+      <IconButton
+        className={styles.CopyLinkButton}
+        aria-label={`copy direct link to: ${cardName}`}
+        onClick={handleClick}
+        size="large"
+      >
+        <LinkIcon />
+      </IconButton>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <Alert onClose={handleClose} className={styles.SnackBarAlert}>
+          Direct link to <b>{cardName}</b> copied to clipboard!
+        </Alert>
+      </Snackbar>
+    </>
+  );
 }

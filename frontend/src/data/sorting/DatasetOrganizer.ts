@@ -1,7 +1,7 @@
-import { Breakdowns } from "../query/Breakdowns";
+import { type Breakdowns } from "../query/Breakdowns";
 import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
-import { Row } from "../utils/DatasetTypes";
-import { AbstractSortStrategy } from "./AbstractDataSorter";
+import { type Row } from "../utils/DatasetTypes";
+import { type AbstractSortStrategy } from "./AbstractDataSorter";
 import { AgeSorterStrategy } from "./AgeSorterStrategy";
 import { AlphabeticalSorterStrategy } from "./AlphabeticalSorterStrategy";
 

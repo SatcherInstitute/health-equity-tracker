@@ -6,11 +6,10 @@ import ReportProvider from "../../reports/ReportProvider";
 import {
   getMadLibPhraseText,
   getSelectedConditions,
-  MadLib,
-  MadLibId,
+  type MadLib,
   MADLIB_LIST,
-  PhraseSegment,
-  PhraseSelections,
+  type PhraseSegment,
+  type PhraseSelections,
 } from "../../utils/MadLibs";
 import {
   DATA_TYPE_1_PARAM,
@@ -28,7 +27,7 @@ import {
 import styles from "./ExploreDataPage.module.scss";
 import { srSpeak } from "../../utils/a11yutils";
 import { urlMap } from "../../utils/externalUrls";
-import { VariableConfig } from "../../data/config/MetricConfig";
+import { type VariableConfig } from "../../data/config/MetricConfig";
 import { INCARCERATION_IDS } from "../../data/variables/IncarcerationProvider";
 import useScrollPosition from "../../utils/hooks/useScrollPosition";
 import { useHeaderScrollMargin } from "../../utils/hooks/useHeaderScrollMargin";
@@ -38,7 +37,7 @@ import sass from "../../styles/variables.module.scss";
 import DefaultHelperBox from "./DefaultHelperBox";
 import useDeprecatedParamRedirects from "../../utils/hooks/useDeprecatedParamRedirects";
 
-const Onboarding = React.lazy(() => import("./Onboarding"));
+const Onboarding = React.lazy(async () => await import("./Onboarding"));
 
 const EXPLORE_DATA_ID = "main";
 
@@ -56,11 +55,12 @@ function ExploreDataPage() {
     (madlib) => madlib.id === params[MADLIB_PHRASE_PARAM]
   );
   const initialIndex = foundIndex !== -1 ? foundIndex : 0;
-  let defaultValuesWithOverrides = MADLIB_LIST[initialIndex].defaultSelections;
+  const defaultValuesWithOverrides =
+    MADLIB_LIST[initialIndex].defaultSelections;
   if (params[MADLIB_SELECTIONS_PARAM]) {
     params[MADLIB_SELECTIONS_PARAM].split(",").forEach((override) => {
       const [phraseSegmentIndex, value] = override.split(":");
-      let phraseSegments: PhraseSegment[] = MADLIB_LIST[initialIndex].phrase;
+      const phraseSegments: PhraseSegment[] = MADLIB_LIST[initialIndex].phrase;
       if (
         Object.keys(phraseSegments).includes(phraseSegmentIndex) &&
         Object.keys(phraseSegments[Number(phraseSegmentIndex)]).includes(value)
@@ -79,10 +79,10 @@ function ExploreDataPage() {
 
   useEffect(() => {
     const readParams = () => {
-      let index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
+      const index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
         return MADLIB_LIST.findIndex((ele) => ele.id === str);
       });
-      let selection = getParameter(
+      const selection = getParameter(
         MADLIB_SELECTIONS_PARAM,
         MADLIB_LIST[index].defaultSelections,
         parseMls
@@ -119,10 +119,10 @@ function ExploreDataPage() {
   // Set up warm welcome onboarding behaviors
   let showOnboarding = false;
   if (noTopicChosen) {
-    if (params[SHOW_ONBOARDING_PARAM] === "true") {
+    if (params?.[SHOW_ONBOARDING_PARAM] === "true") {
       showOnboarding = true;
     }
-    if (params[SHOW_ONBOARDING_PARAM] === "false") {
+    if (params?.[SHOW_ONBOARDING_PARAM] === "false") {
       showOnboarding = false;
     }
   }
@@ -151,14 +151,8 @@ function ExploreDataPage() {
     300
   );
 
-  useEffect(() => {
-    if (activelyOnboarding) {
-      return;
-    }
-  }, [activelyOnboarding]);
-
   // calculate page size to determine if mobile or not
-  const isSingleColumn = (madLib.id as MadLibId) === "disparity";
+  const isSingleColumn = madLib.id === "disparity";
 
   const handleCarouselChange = (carouselMode: number) => {
     // Extract values from the current madlib
@@ -212,8 +206,6 @@ function ExploreDataPage() {
         INCARCERATION_IDS.includes(condition?.variableId)
       )
     );
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [madLib]);
 
   const headerScrollMargin = useHeaderScrollMargin(
@@ -243,7 +235,7 @@ function ExploreDataPage() {
             NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
             timeout={200}
             autoPlay={false}
-            indicators={noTopicChosen ? false : true}
+            indicators={!noTopicChosen}
             indicatorIconButtonProps={{
               "aria-label": "Report Type",
               style: {

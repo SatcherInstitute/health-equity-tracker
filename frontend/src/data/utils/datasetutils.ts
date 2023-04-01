@@ -1,5 +1,9 @@
 import { type IDataFrame } from "data-forge";
-import { type MetricId, type VariableConfig, type VariableId } from "../config/MetricConfig";
+import {
+  type MetricId,
+  type VariableConfig,
+  type VariableId,
+} from "../config/MetricConfig";
 import {
   type Breakdowns,
   type BreakdownVar,
@@ -368,7 +372,13 @@ export function getExclusionList(
   if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
     // get correct age buckets for this determinant
     const determinantBuckets: any[] = [];
-    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k)) { determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS); } else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k)) { determinantBuckets.push(...VOTER_AGE_BUCKETS); } else if (AHR_DETERMINANTS.includes(current100k)) { determinantBuckets.push(...BROAD_AGE_BUCKETS); }
+    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k)) {
+      determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS);
+    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k)) {
+      determinantBuckets.push(...VOTER_AGE_BUCKETS);
+    } else if (AHR_DETERMINANTS.includes(current100k)) {
+      determinantBuckets.push(...BROAD_AGE_BUCKETS);
+    }
 
     // remove all of the other age groups
     const irrelevantAgeBuckets = AGE_BUCKETS.filter(

@@ -153,11 +153,9 @@ function OptionsSelector(props: {
               />
               <span className={styles.NoteText}>
                 County, state, territory, or{" "}
-                {isUsa
-? (
+                {isUsa ? (
                   USA_DISPLAY_NAME
-                )
-: (
+                ) : (
                   <button
                     className={styles.UsaButton}
                     onClick={handleUsaButton}

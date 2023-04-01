@@ -1,8 +1,6 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./News.module.scss";
 import { Link, Redirect, useParams } from "react-router-dom";
 import {
@@ -10,20 +8,20 @@ import {
   ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
+  getHtml,
 } from "../../../utils/urlutils";
 import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import { Article } from "../NewsTab";
+import { type Article } from "../NewsTab";
 import hetLogo from "../../../assets/AppbarLogo.png";
 import { Skeleton } from "@mui/lab";
 import SignupSection from "../../ui/SignupSection";
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from "../../../reports/ui/ShareButtons";
-import { getHtml } from "../../../utils/urlutils";
 import LazyLoad from "react-lazyload";
 
 function prettyDate(dateString: string) {
@@ -36,7 +34,7 @@ export default function SinglePost() {
   const [prevArticle, setPrevArticle] = useState<Article>();
   const [nextArticle, setNextArticle] = useState<Article>();
 
-  let { slug }: { slug?: string } = useParams();
+  const { slug }: { slug?: string } = useParams();
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
@@ -55,9 +53,9 @@ export default function SinglePost() {
       // previous and next articles wrap around both ends of the array
       setPrevArticle(
         data.data[
-        fullArticleIndex - 1 >= 0
-          ? fullArticleIndex - 1
-          : data.data.length - 1
+          fullArticleIndex - 1 >= 0
+            ? fullArticleIndex - 1
+            : data.data.length - 1
         ]
       );
       setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length]);
@@ -69,12 +67,12 @@ export default function SinglePost() {
   // get the large version of the image if available, if not try for the full version
   const articleImage =
     fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
-      ?.large?.source_url ||
+      ?.large?.source_url ??
     fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
       ?.full?.source_url;
 
   const articleImageAltText =
-    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text || "";
+    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text ?? "";
 
   return (
     <>
@@ -87,13 +85,14 @@ export default function SinglePost() {
       )}
       <Grid container className={styles.Grid}>
         <Helmet>
-          <title>{`News${fullArticle ? ` - ${fullArticle?.title?.rendered}` : ""
-            } - Health Equity Tracker`}</title>
+          <title>{`News${
+            fullArticle ? ` - ${fullArticle?.title?.rendered}` : ""
+          } - Health Equity Tracker`}</title>
           {/* if cross-posted from external site, should be input on WP as canonical_url */}
           {fullArticle && (
             <link
               rel="canonical"
-              href={fullArticle.acf?.canonical_url || fullArticle.link}
+              href={fullArticle.acf?.canonical_url ?? fullArticle.link}
             />
           )}
           <meta name="description" content={ARTICLE_DESCRIPTION} />
@@ -118,8 +117,8 @@ export default function SinglePost() {
             )}
             {!isLoading && !error && (
               <img
-                src={articleImage || hetLogo}
-                className={styles.SingleArticleHeaderImg || hetLogo}
+                src={articleImage ?? hetLogo}
+                className={styles.SingleArticleHeaderImg ?? hetLogo}
                 alt={articleImageAltText}
                 width={200}
                 height={100}
@@ -145,7 +144,7 @@ export default function SinglePost() {
               {isLoading ? (
                 <Skeleton></Skeleton>
               ) : (
-                getHtml(fullArticle?.title?.rendered || "")
+                getHtml(fullArticle?.title?.rendered ?? "")
               )}
             </Typography>
 
@@ -171,7 +170,7 @@ export default function SinglePost() {
               )}
 
               {fullArticle?.acf?.contributing_author &&
-                fullArticle?.acf?.post_nominals
+              fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ""}
             </Typography>

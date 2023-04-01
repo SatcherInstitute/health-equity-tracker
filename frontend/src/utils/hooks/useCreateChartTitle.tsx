@@ -1,30 +1,32 @@
 import { useMediaQuery, createTheme } from "@mui/material";
-import { adaptV4Theme } from '@mui/material/styles';
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { adaptV4Theme } from "@mui/material/styles";
+import { type MetricConfig } from "../../data/config/MetricConfig";
 
-type ScreenDimensions = {
-  isMobile: boolean;
-  isSmall: boolean;
-  isNotLarge: boolean;
-  isLarge: boolean;
-  isComparing: boolean;
-};
+interface ScreenDimensions {
+  isMobile: boolean
+  isSmall: boolean
+  isNotLarge: boolean
+  isLarge: boolean
+  isComparing: boolean
+}
 
 type ScreenSize = "small" | "medium" | "large";
 
 // These are custom breakpoints used for the text wrapping of
 // titles in chart. The default breakpoints don't work well for the titles.
-const theme = createTheme(adaptV4Theme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 800,
-      md: 900,
-      lg: 1500,
-      xl: 1850,
+const theme = createTheme(
+  adaptV4Theme({
+    breakpoints: {
+      values: {
+        xs: 0,
+        sm: 800,
+        md: 900,
+        lg: 1500,
+        xl: 1850,
+      },
     },
-  },
-}));
+  })
+);
 
 export function createTitle(
   chartTitleLines: string[],
@@ -61,9 +63,9 @@ export function useCreateChartTitle(
   breakdown?: string
 ) {
   const screenDimensions: ScreenDimensions = {
-    isMobile: useMediaQuery(theme.breakpoints.down('sm')),
+    isMobile: useMediaQuery(theme.breakpoints.down("sm")),
     isSmall: useMediaQuery(theme.breakpoints.only("sm")),
-    isNotLarge: useMediaQuery(theme.breakpoints.down('lg')),
+    isNotLarge: useMediaQuery(theme.breakpoints.down("lg")),
     isLarge: useMediaQuery(theme.breakpoints.only("lg")),
     isComparing: window.location.href.includes("compare"),
   };

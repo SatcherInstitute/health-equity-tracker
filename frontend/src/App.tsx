@@ -49,7 +49,6 @@ import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquit
 import ErrorBoundaryDropParams from "./ErrorBoundaryDropParams";
 import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
 
-
 // declare module '@mui/styles/defaultTheme' {
 //   // eslint-disable-next-line @typescript-eslint/no-empty-interface
 //   interface DefaultTheme extends Theme { }
@@ -61,18 +60,21 @@ import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
 //   interface DefaultTheme extends Theme {}
 // }
 
-
 const ExploreDataPage = React.lazy(
-  () => import("./pages/ExploreData/ExploreDataPage")
+  async () => await import("./pages/ExploreData/ExploreDataPage")
 );
-const Footer = React.lazy(() => import("./Footer"));
-const LandingPage = React.lazy(() => import("./pages/Landing/LandingPage"));
-const NotFoundPage = React.lazy(() => import("./pages/NotFoundPage"));
+const Footer = React.lazy(async () => await import("./Footer"));
+const LandingPage = React.lazy(
+  async () => await import("./pages/Landing/LandingPage")
+);
+const NotFoundPage = React.lazy(
+  async () => await import("./pages/NotFoundPage")
+);
 const TermsOfUsePage = React.lazy(
-  () => import("./pages/TermsOfUsePage/TermsOfUsePage")
+  async () => await import("./pages/TermsOfUsePage/TermsOfUsePage")
 );
 const DataCatalogTab = React.lazy(
-  () => import("./pages/DataCatalog/DataCatalogTab")
+  async () => await import("./pages/DataCatalog/DataCatalogTab")
 );
 
 export const MOBILE_BREAKPOINT = 600;
@@ -100,15 +102,20 @@ function MobileAppToolbar() {
         Skip to main content
       </a>
       <IconButton
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setOpen(true);
+        }}
         aria-label="Expand site navigation"
-        size="large">
+        size="large"
+      >
         <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
       <Drawer variant="persistent" anchor="left" open={open}>
         <Button
           aria-label="Collapse site navigation"
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+          }}
         >
           <ChevronLeftIcon />
         </Button>
@@ -182,7 +189,9 @@ function App() {
       setWidth(window.innerWidth);
     }
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (

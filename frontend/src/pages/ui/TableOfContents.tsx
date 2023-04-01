@@ -6,10 +6,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React from "react";
 import { reportProviderSteps } from "../../reports/ReportProviderSteps";
 import {
-  ScrollableHashId,
+  type ScrollableHashId,
   useStepObserver,
 } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
@@ -23,9 +22,9 @@ const TABLE_OF_CONTENT_PADDING = 15;
 */
 
 interface TableOfContentsProps {
-  reportStepHashIds: ScrollableHashId[];
-  floatTopOffset?: number;
-  isScrolledToTop?: boolean;
+  reportStepHashIds: ScrollableHashId[]
+  floatTopOffset?: number
+  isScrolledToTop?: boolean
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
@@ -34,7 +33,7 @@ export function TableOfContents(props: TableOfContentsProps) {
 
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportStepHashIds,
-    props.isScrolledToTop || false
+    props.isScrolledToTop ?? false
   );
 
   function handleStepClick(stepId: ScrollableHashId) {
@@ -53,7 +52,7 @@ export function TableOfContents(props: TableOfContentsProps) {
     setRecentlyClicked(stepId);
   }
 
-  const tocOffset = (props.floatTopOffset || 0) + TABLE_OF_CONTENT_PADDING;
+  const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING;
 
   return (
     <Card raised={true} className={styles.Toc} style={{ top: tocOffset }}>

@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
 import {
-  Column,
-  HeaderGroup,
-  Row,
+  type Column,
+  type HeaderGroup,
+  type Row,
   usePagination,
   useSortBy,
   useTable,
@@ -15,14 +15,14 @@ import TableFooter from "@mui/material/TableFooter";
 import TablePagination from "@mui/material/TablePagination";
 import Paper from "@mui/material/Paper";
 import {
-  MetricConfig,
-  MetricId,
+  type MetricConfig,
+  type MetricId,
   formatFieldValue,
   SYMBOL_TYPE_LOOKUP,
 } from "../data/config/MetricConfig";
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  BreakdownVar,
+  type BreakdownVar,
 } from "../data/query/Breakdowns";
 import { Tooltip, useMediaQuery } from "@mui/material";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
@@ -49,9 +49,9 @@ export const altCellStyle = {
 };
 
 export interface TableChartProps {
-  data: Readonly<Record<string, any>>[];
-  breakdownVar: BreakdownVar;
-  metrics: MetricConfig[];
+  data: Array<Readonly<Record<string, any>>>
+  breakdownVar: BreakdownVar
+  metrics: MetricConfig[]
 }
 
 export function TableChart(props: TableChartProps) {
@@ -60,7 +60,7 @@ export function TableChart(props: TableChartProps) {
   const { data, metrics, breakdownVar } = props;
   let columns = metrics.map((metricConfig) => {
     return {
-      Header: metricConfig.columnTitleHeader || metricConfig.shortLabel,
+      Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
       Cell: (a: any) =>
         formatFieldValue(
           /* metricType: MetricType, */ metricConfig.type,
@@ -132,6 +132,7 @@ export function TableChart(props: TableChartProps) {
           cell.value == null ? (
             <TableCell
               {...cell.getCellProps()}
+              key={`no-data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               <Tooltip title={NO_DATA_MESSAGE}>
@@ -144,6 +145,7 @@ export function TableChart(props: TableChartProps) {
           ) : (
             <TableCell
               {...cell.getCellProps()}
+              key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               {cell.render("Cell")}
@@ -159,55 +161,57 @@ export function TableChart(props: TableChartProps) {
     );
   }
 
-  return <>
-    {props.data.length <= 0 || props.metrics.length <= 0 ? (
-      <h1>Insufficient Data</h1>
-    ) : (
-      <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
-        <Table {...getTableProps()}>
-          <TableHead>
-            {headerGroups.map((group, index) => (
-              <TableHeaderRow group={group} key={index} />
-            ))}
-          </TableHead>
-          <TableBody {...getTableBodyProps()}>
-            {page.map((row: Row<any>, index) => (
-              <TableDataRow row={row} key={index} />
-            ))}
-          </TableBody>
-          {/* If the number of rows is less than the smallest page size, we can hide pagination */}
-          {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
-            <TableFooter>
-              <TableRow>
-                <TablePagination
-                  count={memoData.length}
-                  rowsPerPage={pageSize}
-                  page={pageIndex}
-                  onPageChange={(event, newPage) => {
-                    gotoPage(newPage);
-                  }}
-                  onRowsPerPageChange={(event) => {
-                    setPageSize(Number(event.target.value));
-                  }}
-                  rowsPerPageOptions={[
-                    MAX_NUM_ROWS_WITHOUT_PAGINATION,
-                    MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
-                    MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                  ]} // If changed, update pagination condition above
-                />
-              </TableRow>
-            </TableFooter>
-          )}
-        </Table>
-      </TableContainer>
-    )}
-  </>;
+  return (
+    <>
+      {props.data.length <= 0 || props.metrics.length <= 0 ? (
+        <h1>Insufficient Data</h1>
+      ) : (
+        <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
+          <Table {...getTableProps()}>
+            <TableHead>
+              {headerGroups.map((group, index) => (
+                <TableHeaderRow group={group} key={index} />
+              ))}
+            </TableHead>
+            <TableBody {...getTableBodyProps()}>
+              {page.map((row: Row<any>, index) => (
+                <TableDataRow row={row} key={index} />
+              ))}
+            </TableBody>
+            {/* If the number of rows is less than the smallest page size, we can hide pagination */}
+            {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
+              <TableFooter>
+                <TableRow>
+                  <TablePagination
+                    count={memoData.length}
+                    rowsPerPage={pageSize}
+                    page={pageIndex}
+                    onPageChange={(event, newPage) => {
+                      gotoPage(newPage);
+                    }}
+                    onRowsPerPageChange={(event) => {
+                      setPageSize(Number(event.target.value));
+                    }}
+                    rowsPerPageOptions={[
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION,
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
+                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
+                    ]} // If changed, update pagination condition above
+                  />
+                </TableRow>
+              </TableFooter>
+            )}
+          </Table>
+        </TableContainer>
+      )}
+    </>
+  );
 }
 
 interface UnitsProps {
-  column: number;
-  metric: MetricConfig[];
-  wrap100kUnit: boolean;
+  column: number
+  metric: MetricConfig[]
+  wrap100kUnit: boolean
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;

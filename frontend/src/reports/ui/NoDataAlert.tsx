@@ -10,7 +10,7 @@ function NoDataAlert(props: { dropdownVarId: string }) {
         This data is not currently available in the Health Equity Tracker, but
         will be coming soon.
         <br />
-        {/* TODO - buttons should be actual working a href links and better follow UX*/}
+        {/* TODO - buttons should be actual working a href links and better follow UX */}
         <Button
           style={{
             padding: "0",
@@ -20,7 +20,9 @@ function NoDataAlert(props: { dropdownVarId: string }) {
             textDecoration: "underline",
           }}
           /* TODO - https://github.com/SatcherInstitute/health-equity-tracker/issues/431 */
-          onClick={() => alert("unimplemented")}
+          onClick={() => {
+            alert("unimplemented");
+          }}
         >
           See our roadmap to learn more.
         </Button>
@@ -37,7 +39,9 @@ function NoDataAlert(props: { dropdownVarId: string }) {
             textDecoration: "underline",
           }}
           /* TODO - https://github.com/SatcherInstitute/health-equity-tracker/issues/431 */
-          onClick={() => alert("unimplemented")}
+          onClick={() => {
+            alert("unimplemented");
+          }}
         >
           We would love to hear from you.
         </Button>

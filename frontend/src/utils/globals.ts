@@ -1,20 +1,20 @@
-import { ApiDataFetcher, DataFetcher } from "../data/loading/DataFetcher";
+import { ApiDataFetcher, type DataFetcher } from "../data/loading/DataFetcher";
 import DataManager from "../data/loading/DataManager";
 import FakeDataFetcher from "../testing/FakeDataFetcher";
-import { createEnvironment, Environment } from "./Environment";
+import { createEnvironment, type Environment } from "./Environment";
 import Logger from "./Logger";
 
 interface Globals {
-  initialized: boolean;
-  environment: Environment;
-  logger: Logger;
-  dataFetcher: DataFetcher;
-  dataManager: DataManager;
+  initialized: boolean
+  environment: Environment
+  logger: Logger
+  dataFetcher: DataFetcher
+  dataManager: DataManager
 }
 
 // TODO consider using interfaces for the various globals so they can have
 // default Noop variants instead of relying on a typecast.
-const globals = { initialized: false } as Globals;
+const globals: Partial<Globals> = { initialized: false };
 
 function assertInitialized() {
   if (!globals.initialized) {
@@ -23,7 +23,7 @@ function assertInitialized() {
 }
 
 export function resetCacheDebug() {
-  if (globals.environment.deployContext !== "test") {
+  if (globals?.environment?.deployContext !== "test") {
     throw new Error(
       "resetCacheDebug must only be called from the test environment"
     );
@@ -74,20 +74,24 @@ export function autoInitGlobals() {
 
 export function getEnvironment(): Environment {
   assertInitialized();
-  return globals.environment;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return globals.environment!;
 }
 
 export function getLogger(): Logger {
   assertInitialized();
-  return globals.logger;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return globals.logger!;
 }
 
 export function getDataFetcher(): DataFetcher {
   assertInitialized();
-  return globals.dataFetcher;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return globals.dataFetcher!;
 }
 
 export function getDataManager(): DataManager {
   assertInitialized();
-  return globals.dataManager;
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  return globals.dataManager!;
 }

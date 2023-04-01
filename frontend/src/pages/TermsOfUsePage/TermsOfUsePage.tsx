@@ -1,7 +1,5 @@
-import React from "react";
-import Grid from "@mui/material/Grid";
 import styles from "./TermsOfUsePage.module.scss";
-import { Typography } from "@mui/material";
+import { Typography, Grid } from "@mui/material";
 import { HET_URL } from "../../utils/internalRoutes";
 import { Helmet } from "react-helmet-async";
 

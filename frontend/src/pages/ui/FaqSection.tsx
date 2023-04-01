@@ -1,13 +1,14 @@
-import React from "react";
 import styles from "./FaqSection.module.scss";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import { Accordion, AccordionSummary } from "@mui/material";
-import AccordionDetails from "@mui/material/AccordionDetails";
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Grid,
+  Typography,
+} from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FAQ_TAB_LINK } from "../../utils/internalRoutes";
 import { ReactRouterLinkButton, getHtml } from "../../utils/urlutils";
-
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
 
 function Question(props: {

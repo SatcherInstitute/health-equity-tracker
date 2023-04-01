@@ -4,21 +4,22 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Button from "@mui/material/Button";
 import styles from "./MapBreadcrumbs.module.scss";
 import { useLocation } from "react-router-dom";
-import { ScrollableHashId } from "../../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
 
 function MapBreadcrumbs(props: {
-  fips: Fips;
-  updateFipsCallback: Function;
-  ariaLabel?: string;
-  scrollToHashId: ScrollableHashId;
+  fips: Fips
+  updateFipsCallback: (fips: Fips) => void
+  ariaLabel?: string
+  scrollToHashId: ScrollableHashId
 }) {
   const location = useLocation();
 
   return (
     <Breadcrumbs
       separator="›"
-      aria-label={`Breadcrumb navigation for ${props.ariaLabel
-        } in ${props.fips.getDisplayName()} report`}
+      aria-label={`Breadcrumb navigation for ${
+        props.ariaLabel ?? "data"
+      } in ${props.fips.getDisplayName()} report`}
     >
       <Crumb
         text={USA_DISPLAY_NAME}
@@ -46,9 +47,9 @@ function MapBreadcrumbs(props: {
 }
 
 function Crumb(props: {
-  text: string;
-  isClickable: boolean;
-  onClick?: () => void;
+  text: string
+  isClickable: boolean
+  onClick?: () => void
 }) {
   return (
     <>
@@ -56,7 +57,9 @@ function Crumb(props: {
         <Button
           color="primary"
           className={styles.Crumb}
-          onClick={() => props.onClick!()}
+          onClick={() => {
+            props.onClick?.();
+          }}
         >
           {props.text}
         </Button>

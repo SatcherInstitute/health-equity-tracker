@@ -166,9 +166,9 @@ function Logos() {
 }
 
 function LinkGridItem(props: {
-  text: string;
-  link: string;
-  ariaLabel: string;
+  text: string
+  link: string
+  ariaLabel: string
 }) {
   return (
     <Grid item className={styles.FooterLinkBox}>
@@ -186,7 +186,9 @@ function ReturnToTop() {
   return (
     <Button
       aria-label="Scroll to Top"
-      onClick={() => window.scrollTo(0, 0)}
+      onClick={() => {
+        window.scrollTo(0, 0);
+      }}
       className={styles.ScrollToTopButton}
     >
       <ArrowUpwardRoundedIcon />

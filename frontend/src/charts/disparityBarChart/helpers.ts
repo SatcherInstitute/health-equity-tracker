@@ -1,11 +1,11 @@
-import { Signal, Title } from "vega";
-import { MetricId } from "../../data/config/MetricConfig";
+import { type Signal, type Title } from "vega";
+import { type MetricId } from "../../data/config/MetricConfig";
 import { Y_STEP } from "./constants";
-import { getTitleProps } from "./types";
+import { type getTitleProps } from "./types";
 
 function getTitle(props: getTitleProps) {
   const title: Title = {
-    text: props.chartTitle || "",
+    text: props.chartTitle ?? "",
     subtitle: " ",
     encode: {
       title: {
@@ -35,7 +35,7 @@ function getSignals() {
 }
 
 function maxValueInField(
-  data: Readonly<Record<string, any>>[],
+  data: Array<Readonly<Record<string, any>>>,
   field: MetricId
 ) {
   return Math.max(
@@ -46,7 +46,7 @@ function maxValueInField(
 }
 
 function getLargerMeasure(
-  data: Readonly<Record<string, any>>[],
+  data: Array<Readonly<Record<string, any>>>,
   lightMetricId: MetricId,
   darkMetricId: MetricId
 ) {

@@ -1,13 +1,13 @@
 import React from "react";
 import { Vega } from "react-vega";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import {
-  BreakdownVar,
-  BreakdownVarDisplayName,
+  type BreakdownVar,
+  type BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import { type MetricConfig, type MetricId } from "../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -62,7 +62,7 @@ function getSpec(
     } else return measureDisplayName;
   };
 
-  //create bar label as array or string
+  // create bar label as array or string
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
   "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`;
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`;
@@ -74,12 +74,12 @@ function getSpec(
 
   const legends = showLegend
     ? [
-      {
-        fill: "variables",
-        orient: "top",
-        padding: 4,
-      },
-    ]
+        {
+          fill: "variables",
+          orient: "top",
+          padding: 4,
+        },
+      ]
     : [];
 
   const onlyZeros = data.every((row) => {
@@ -187,8 +187,9 @@ function getSpec(
             },
             baseline: { value: "middle" },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? "5" : "1"
-                })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
+                width > 250 ? "5" : "1"
+              })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
@@ -217,7 +218,7 @@ function getSpec(
           field: measure,
         },
         range: [0, { signal: "width" }],
-        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
+        nice: !pageIsTiny, // on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -286,19 +287,19 @@ function getSpec(
         },
       },
     ],
-    legends: legends,
+    legends,
   };
 }
 
 export interface SimpleHorizontalBarChartProps {
-  chartTitle?: string | string[];
-  data: Row[];
-  metric: MetricConfig;
-  breakdownVar: BreakdownVar;
-  showLegend: boolean;
-  hideActions?: boolean;
-  filename?: string;
-  usePercentSuffix?: boolean;
+  chartTitle?: string | string[]
+  data: Row[]
+  metric: MetricConfig
+  breakdownVar: BreakdownVar
+  showLegend: boolean
+  hideActions?: boolean
+  filename?: string
+  usePercentSuffix?: boolean
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -315,14 +316,14 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // swap race labels if applicable
   const dataLabelled = altLabelDeterminants.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
-      const altRow = { ...row };
-      altRow[props.breakdownVar] = getAltGroupLabel(
-        row[props.breakdownVar],
-        props.metric.metricId,
-        props.breakdownVar
-      );
-      return altRow;
-    })
+        const altRow = { ...row };
+        altRow[props.breakdownVar] = getAltGroupLabel(
+          row[props.breakdownVar],
+          props.metric.metricId,
+          props.breakdownVar
+        );
+        return altRow;
+      })
     : props.data;
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
@@ -346,15 +347,19 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer="svg"
-        downloadFileName={`${props.filename} - Health Equity Tracker`}
+        downloadFileName={`${
+          props.filename ?? "Data Download"
+        } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${props.filename}`,
+          /* altText  */ `Bar Chart showing ${
+            props.filename ?? "Data Download"
+          }`,
           /* data  */ data,
-          /* filename  */ props?.chartTitle || "",
+          /* filename  */ props?.chartTitle ?? "",
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-          props.breakdownVar
+            props.breakdownVar
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,
@@ -363,7 +368,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* showLegend  */ props.showLegend,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
-          /* usePercentSuffix  */ props.usePercentSuffix || false,
+          /* usePercentSuffix  */ props.usePercentSuffix ?? false,
           fontSize
         )}
         // custom 3-dot options menu
@@ -371,11 +376,11 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           props.hideActions
             ? false
             : {
-              export: { png: true, svg: true },
-              source: false,
-              compiled: false,
-              editor: false,
-            }
+                export: { png: true, svg: true },
+                source: false,
+                compiled: false,
+                editor: false,
+              }
         }
       />
     </div>

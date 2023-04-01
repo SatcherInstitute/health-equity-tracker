@@ -1,7 +1,7 @@
 import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA, LABEL_HEIGHT } from "../utils";
 import { BAR_HEIGHT, Z_MIDDLE } from "./constants";
-import { Axis } from "vega";
-import { AxesProps } from "./types";
+import { type Axis } from "vega";
+import { type AxesProps } from "./types";
 
 export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
   const verticalTickBars: Axis = {

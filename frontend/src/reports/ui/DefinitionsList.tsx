@@ -1,21 +1,24 @@
-/* 
+/*
 Receives list of variable objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
 import React from "react";
-import { DropdownVarId, VariableConfig } from "../../data/config/MetricConfig";
-import { CATEGORIES_LIST, Category } from "../../utils/MadLibs";
+import {
+  type DropdownVarId,
+  type VariableConfig,
+} from "../../data/config/MetricConfig";
+import { CATEGORIES_LIST, type Category } from "../../utils/MadLibs";
 
 export interface DefinitionsListProps {
-  variablesToDefine: [string, VariableConfig[]][];
+  variablesToDefine: Array<[string, VariableConfig[]]>
 }
 
 export default function DefinitionsList(
   props: DefinitionsListProps
 ): JSX.Element {
   // collect relevant categories
-  let relevantCategoriesSet: Set<Category> = new Set();
+  const relevantCategoriesSet = new Set<Category>();
   props.variablesToDefine.forEach((variable) => {
     const matchingCategory = CATEGORIES_LIST.find((category) =>
       category.options.includes(variable[0] as DropdownVarId)

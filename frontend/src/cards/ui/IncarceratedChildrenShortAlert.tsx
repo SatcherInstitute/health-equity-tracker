@@ -1,18 +1,17 @@
 import React from "react";
-import { Alert } from "@mui/lab";
-import { Fips } from "../../data/utils/Fips";
+import { type Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
-import { Row } from "../../data/utils/DatasetTypes";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type Row } from "../../data/utils/DatasetTypes";
 import { ALL } from "../../data/utils/Constants";
 import FlagIcon from "@mui/icons-material/Flag";
-import { BreakdownVar } from "../../data/query/Breakdowns";
-import { CardContent } from "@mui/material";
+import { type BreakdownVar } from "../../data/query/Breakdowns";
+import { CardContent, Alert } from "@mui/material";
 
 interface IncarceratedChildrenShortAlertProps {
-  queryResponse: MetricQueryResponse;
-  fips: Fips;
-  breakdownVar: BreakdownVar;
+  queryResponse: MetricQueryResponse
+  fips: Fips
+  breakdownVar: BreakdownVar
 }
 
 function IncarceratedChildrenShortAlert(

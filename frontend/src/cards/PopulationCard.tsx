@@ -2,19 +2,17 @@ import React from "react";
 import CardWrapper from "./CardWrapper";
 import { Breakdowns } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
-import { CardContent } from "@mui/material";
-import { Grid } from "@mui/material";
+import { type Fips } from "../data/utils/Fips";
+import { CardContent, Grid } from "@mui/material";
 import styles from "./Card.module.scss";
-import { MetricId } from "../data/config/MetricConfig";
-import Alert from "@mui/material/Alert";
+import { type MetricId } from "../data/config/MetricConfig";
 import SviAlert from "./ui/SviAlert";
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
-  fips: Fips;
+  fips: Fips
 }
 
 export function PopulationCard(props: PopulationCardProps) {

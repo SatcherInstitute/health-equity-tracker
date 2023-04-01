@@ -54,8 +54,6 @@ export function useHeaderScrollMargin(
 
   useEffect(() => {
     setHeaderScrollMargin(isWideEnoughForSticky ? measureHeight() : 0);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elemId, pageWidth, sticking, ...otherDependencies]);
 
   return headerScrollMargin;

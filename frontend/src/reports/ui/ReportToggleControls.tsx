@@ -3,19 +3,19 @@ import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { Grid } from "@mui/material";
 import {
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  VariableConfig,
-  VariableId,
+  type VariableConfig,
+  type VariableId,
 } from "../../data/config/MetricConfig";
 import styles from "../Report.module.scss";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   DEMOGRAPHIC_BREAKDOWNS,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-  GeographicBreakdown,
+  type GeographicBreakdown,
 } from "../../data/query/Breakdowns";
-import { Fips } from "../../data/utils/Fips";
+import { type Fips } from "../../data/utils/Fips";
 import { DATA_GAPS } from "../../data/utils/datasetutils";
 
 export const DATA_TYPE_LABEL = "Data Type";
@@ -34,13 +34,13 @@ function getToggleOptionStatus(
 }
 
 interface ReportToggleControlsProps {
-  dropdownVarId: DropdownVarId;
-  variableConfig: VariableConfig;
-  setVariableConfig: (variableConfig: VariableConfig) => void;
-  currentBreakdown: BreakdownVar;
-  setCurrentBreakdown: (breakdown: BreakdownVar) => void;
-  fips: Fips;
-  excludeId?: boolean;
+  dropdownVarId: DropdownVarId
+  variableConfig: VariableConfig
+  setVariableConfig: (variableConfig: VariableConfig) => void
+  currentBreakdown: BreakdownVar
+  setCurrentBreakdown: (breakdown: BreakdownVar) => void
+  fips: Fips
+  excludeId?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

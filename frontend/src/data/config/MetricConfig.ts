@@ -297,13 +297,13 @@ export function formatFieldValue(
   const formatOptions = isPctType(metricType)
     ? { minimumFractionDigits: 1 }
     : {};
-  const formattedValue =
+  const formattedValue: string =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
   const percentSuffix = isPctType(metricType) && !omitPctSymbol ? "%" : "";
   const ratioSuffix = isRatio ? "×" : "";
-  return `${formattedValue as string}${percentSuffix}${ratioSuffix}`;
+  return `${formattedValue}${percentSuffix}${ratioSuffix}`;
 }
 
 export function getPer100kAndPctShareMetrics(

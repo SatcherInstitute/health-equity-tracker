@@ -1,6 +1,6 @@
 import sass from "../../styles/variables.module.scss";
 
-//specs
+// specs
 const ACTIONS = {
   export: { png: true, svg: true },
   source: false,
@@ -10,7 +10,7 @@ const ACTIONS = {
 const DATASET = "DATASET";
 const SCHEMA = "https://vega.github.io/schema/vega/v5.json";
 
-//measurements
+// measurements
 const ALT_LIGHT_MEASURE_OPACITY = 0.8;
 const BAR_HEIGHT = 12;
 const BAR_PADDING = 0.1;
@@ -23,7 +23,7 @@ const THIN_RATIO = 0.3;
 const Y_STEP = 60;
 const Z_MIDDLE = 0;
 
-//calculations
+// calculations
 const SIDE_BY_SIDE_BAND_HEIGHT =
   SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT -
   SIDE_BY_SIDE_FULL_BAR_RATIO * BAR_HEIGHT * BAR_PADDING;
@@ -31,13 +31,13 @@ const MIDDLE_OF_BAND = SIDE_BY_SIDE_BAND_HEIGHT / 2;
 const SIDE_BY_SIDE_OFFSET =
   BAR_HEIGHT * SIDE_BY_SIDE_ONE_BAR_RATIO * (SIDE_BY_SIDE_FULL_BAR_RATIO / 2);
 
-//labels
+// labels
 const ALT_TEXT_LABELS = "alt_text_labels";
 const DARK_MEASURE_BARS = "darkMeasure_bars";
 const DARK_MEASURE_TEXT_LABELS = "darkMeasure_text_labels";
 const LIGHT_MEASURE_BARS = "lightMeasure_bars";
 
-//colors
+// colors
 const ALT_LIGHT_MEASURE_COLOR = sass.unknownMapMid;
 const BACKGROUND_COLOR = sass.white;
 const DARK_MEASURE_COLOR = sass.barChartDark;

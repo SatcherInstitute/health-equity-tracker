@@ -1,6 +1,6 @@
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns, GeographicBreakdown } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type Breakdowns, type GeographicBreakdown } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
@@ -12,8 +12,9 @@ class GeoContextProvider extends VariableProvider {
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") return "geo_context-national";
     if (breakdowns.geography === "state") return "geo_context-state";
-    if (breakdowns.geography === "county")
+    if (breakdowns.geography === "county") {
       return appendFipsIfNeeded("geo_context-county", breakdowns);
+    }
 
     throw new Error(`Geography-level ${breakdowns.geography}: Not implemented`);
   }

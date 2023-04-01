@@ -1,5 +1,5 @@
-import { DataFrame, IDataFrame } from "data-forge";
-import { BreakdownVar } from "../query/Breakdowns";
+import { DataFrame, type IDataFrame } from "data-forge";
+import { type BreakdownVar } from "../query/Breakdowns";
 import { ALL, UNKNOWN, UNKNOWN_RACE } from "./Constants";
 import { applyToGroups } from "./datasetutils";
 
@@ -66,6 +66,7 @@ export class DatasetCalculator {
 
     // If the number is not exactly 0 but rounded to 0, and we're still less
     // than the maximum number of decimals, add a decimal place and try again.
+    // eslint-disable-next-line no-unmodified-loop-condition
     while (pct === 0 && numerator !== 0 && decimals < maxDecimals) {
       decimals++;
       pct = this.percentToXDecimals(numerator, denominator, decimals);
@@ -154,7 +155,7 @@ export class DatasetCalculator {
     dataFrame = dataFrame.where((row) => row[breakdownCol] !== ALL);
 
     // Update original Total row to have a logic value, 100%, for the _share_of_known metric and attach to DF
-    let updatedTotalRow = originalTotalRow.toArray()[0];
+    const updatedTotalRow = originalTotalRow.toArray()[0];
     updatedTotalRow[shareOfKnownColumnName] = 100;
     dataFrame = dataFrame.concat(new DataFrame([updatedTotalRow])).resetIndex();
 

@@ -6,8 +6,8 @@ const INDICATORS = ".MuiIconButton-sizeSmall";
 
 const useScrollPosition = (
   effect: (arg0: {
-    pageYOffset: number;
-    stickyBarOffsetFromTop: number;
+    pageYOffset: number
+    stickyBarOffsetFromTop: number
   }) => void,
   sticking: boolean[],
   wait: number | undefined
@@ -24,7 +24,7 @@ const useScrollPosition = (
       const header = document.getElementById(EXPLORE_DATA_ID);
       const indicators =
         document.querySelectorAll(INDICATORS)?.[0]?.parentElement;
-      const stickyBarOffsetFromTop = header?.offsetTop || 1;
+      const stickyBarOffsetFromTop = header?.offsetTop ?? 1;
       const topOfCarousel = window.pageYOffset > stickyBarOffsetFromTop;
 
       if (topOfCarousel) {
@@ -48,7 +48,9 @@ const useScrollPosition = (
 
     window.addEventListener("scroll", handleScroll);
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, [sticking, effect, wait]);
 };
 

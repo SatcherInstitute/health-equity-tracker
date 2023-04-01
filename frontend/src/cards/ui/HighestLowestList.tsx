@@ -146,8 +146,7 @@ function ExtremeList(props: ExtremeListProps) {
       </h4>
 
       <ul className={styles.ExtremeList}>
-        {isTie
-? (
+        {isTie ? (
           <li>
             <>
               {props.values.map((row, i) => {
@@ -165,8 +164,7 @@ function ExtremeList(props: ExtremeListProps) {
               })}
             </>
           </li>
-        )
-: (
+        ) : (
           <>
             {!isTie &&
               props.values.map((row) => {

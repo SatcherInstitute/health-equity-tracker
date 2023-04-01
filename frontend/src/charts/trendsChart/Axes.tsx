@@ -24,7 +24,12 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { CONFIG, TYPES, FORMATTERS as F } from "./constants";
-import { TrendsData, XScale, YScale, AxisConfig } from "./types";
+import {
+  type TrendsData,
+  type XScale,
+  type YScale,
+  type AxisConfig,
+} from "./types";
 
 /* Helpers */
 import { getMinNumber, getMaxNumber, getDates } from "./helpers";
@@ -32,15 +37,15 @@ import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface AxesProps {
-  data: TrendsData;
-  xScale: XScale;
-  yScale: YScale;
-  width: number;
-  marginBottom: number;
-  marginLeft: number;
-  marginRight: number;
-  axisConfig: AxisConfig;
-  isSkinny: boolean;
+  data: TrendsData
+  xScale: XScale
+  yScale: YScale
+  width: number
+  marginBottom: number
+  marginLeft: number
+  marginRight: number
+  axisConfig: AxisConfig
+  isSkinny: boolean
 }
 
 /* Render component */
@@ -75,9 +80,9 @@ export function Axes({
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       topLabel:
-        (getMaxNumber(data) || 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
+        (getMaxNumber(data) ?? 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
       bottomLabel:
-        (getMinNumber(data) || 0) >= 0 ? "" : "← disproportionately low", // if there are negative numbers, append negative direction label
+        (getMinNumber(data) ?? 0) >= 0 ? "" : "← disproportionately low", // if there are negative numbers, append negative direction label
       formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
   };
@@ -90,14 +95,14 @@ export function Axes({
   const xAxis = axisBottom(xScale)
     .tickSize(0)
     .ticks(isSkinny ? 4 : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
-    // @ts-ignore
+    // @ts-expect-error
     .tickFormat(axisConfig.xAxisIsMonthly ? F.dateShort : F.dateYear)
     .tickPadding(TICK_PADDING);
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
     .tickSizeInner(-width + marginRight + marginLeft) // creates grid lines
-    // @ts-ignore
+    // @ts-expect-error
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
     .tickPadding(TICK_PADDING / 2);
 
@@ -108,12 +113,12 @@ export function Axes({
     if (xAxisRef.current && yAxisRef.current) {
       select(xAxisRef.current)
         .transition()
-        // @ts-ignore
+        // @ts-expect-error
         .call(xAxis);
 
       select(yAxisRef.current)
         .transition()
-        // @ts-ignore
+        // @ts-expect-error
         .call(yAxis)
         // styles the y grid lines after render (we think)
         .call((g) =>
@@ -151,9 +156,9 @@ export function Axes({
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${
             yAxisLabel || " percent disproportionately high or low"
-          } ranging from ${getMinNumber(data)}${optionalPct} to ${getMaxNumber(
-            data
-          )}${optionalPct}`}
+          } ranging from ${getMinNumber(data) ?? "lowest"}${optionalPct} to ${
+            getMaxNumber(data) ?? "highest"
+          }${optionalPct}`}
           role="group"
           tabIndex={0}
         />

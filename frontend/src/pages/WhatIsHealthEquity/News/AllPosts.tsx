@@ -13,7 +13,7 @@ import { Helmet } from "react-helmet-async";
 import ArticleFilters from "./ArticleFilters";
 import NewsPreviewCard from "./NewsPreviewCard";
 import { useQuery } from "react-query";
-import { Article } from "../NewsTab";
+import { type Article } from "../NewsTab";
 import SignupSection from "../../ui/SignupSection";
 import { Link } from "react-router-dom";
 
@@ -25,11 +25,11 @@ displays several loading indicator elements while blog content is fetched
 */
 
 export function ArticlesSkeleton(props: {
-  doPulse: boolean;
-  numberLoading?: number;
+  doPulse: boolean
+  numberLoading?: number
 }) {
   const numberLoadingSkeletons =
-    props.numberLoading || NUM_OF_LOADING_SKELETONS;
+    props.numberLoading ?? NUM_OF_LOADING_SKELETONS;
 
   return (
     <Grid spacing={1} justifyContent="space-between" container>
@@ -73,7 +73,7 @@ export function ArticlesSkeleton(props: {
 }
 
 interface PinnedArticlesProps {
-  articles: Article[];
+  articles: Article[]
 }
 
 function PinnedArticles(props: PinnedArticlesProps) {
@@ -134,20 +134,19 @@ function AllPosts() {
 
       if (selectedCategory && data?.data) {
         setFilteredArticles(
-          data.data.filter(
-            (article: Article) =>
-              article._embedded["wp:term"] &&
-              article._embedded["wp:term"][0].some(
-                (term: { name: string }) => term.name === selectedCategory
-              )
+          data.data.filter((article: Article) =>
+            article._embedded["wp:term"][0]?.some(
+              (term: { name: string }) => term.name === selectedCategory
+            )
           )
         );
       }
     } else {
-      if (data?.data?.length > 0)
+      if (data?.data?.length > 0) {
         setFilteredArticles(
           data.data.filter((article: Article) => !article.sticky)
         );
+      }
       setSelectedCategory("");
     }
   }, [data?.data, categories, categoryParam, selectedCategory]);
@@ -171,10 +170,11 @@ function AllPosts() {
         );
       }
     } else {
-      if (data?.data?.length > 0)
+      if (data?.data?.length > 0) {
         setFilteredArticles(
           data.data.filter((article: Article) => !article.sticky)
         );
+      }
       setSelectedAuthor("");
     }
   }, [data?.data, authorParam, authors, selectedAuthor]);
@@ -300,22 +300,21 @@ function AllPosts() {
               justifyContent="space-between"
               alignItems="flex-start"
             >
-              {filteredArticles &&
-                filteredArticles.map((post: any) => {
-                  return (
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      className={styles.AllArticlesItem}
-                      key={post.id}
-                    >
-                      <Box my={2}>
-                        <NewsPreviewCard article={post} />
-                      </Box>
-                    </Grid>
-                  );
-                })}
+              {filteredArticles?.map((post: any) => {
+                return (
+                  <Grid
+                    item
+                    xs={12}
+                    sm={6}
+                    className={styles.AllArticlesItem}
+                    key={post.id}
+                  >
+                    <Box my={2}>
+                      <NewsPreviewCard article={post} />
+                    </Box>
+                  </Grid>
+                );
+              })}
             </Grid>
             <Grid container direction="column" justifyContent="center">
               {isLoading && (

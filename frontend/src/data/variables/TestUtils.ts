@@ -1,14 +1,14 @@
 import { USA_FIPS, USA_DISPLAY_NAME } from "../utils/Fips";
-import { Breakdowns, BreakdownVar } from "../query/Breakdowns";
-import FakeDataFetcher from "../../testing/FakeDataFetcher";
-import VariableProvider from "./VariableProvider";
+import { type Breakdowns, type BreakdownVar } from "../query/Breakdowns";
+import type FakeDataFetcher from "../../testing/FakeDataFetcher";
+import type VariableProvider from "./VariableProvider";
 import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { MetricId } from "../config/MetricConfig";
+import { type MetricId } from "../config/MetricConfig";
 import { excludeAll } from "../query/BreakdownFilter";
 
 export interface FipsSpec {
-  code: string;
-  name: string;
+  code: string
+  name: string
 }
 export const CHATAM: FipsSpec = {
   code: "37037",

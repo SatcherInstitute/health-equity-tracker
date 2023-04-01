@@ -1,14 +1,14 @@
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns, TimeView } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type Breakdowns, type TimeView } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import type AcsPopulationProvider from "./AcsPopulationProvider";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
-import AcsPopulationProvider from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import { CROSS_SECTIONAL, TIME_SERIES } from "../utils/Constants";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 
 class CdcCovidProvider extends VariableProvider {
-  private acsProvider: AcsPopulationProvider;
+  private readonly acsProvider: AcsPopulationProvider;
 
   constructor(acsProvider: AcsPopulationProvider) {
     super("cdc_covid_provider", [
@@ -126,7 +126,7 @@ class CdcCovidProvider extends VariableProvider {
     const datasetId = this.getDatasetId(breakdowns, timeView);
 
     const covidDataset = await getDataManager().loadDataset(datasetId);
-    let consumedDatasetIds = [datasetId];
+    const consumedDatasetIds = [datasetId];
     let df = covidDataset.toDataFrame();
 
     // If requested, filter geography by state or county level. We apply the
@@ -144,36 +144,42 @@ class CdcCovidProvider extends VariableProvider {
     // TODO: this should be a reusable function that can work for all Providers, just like GetAcsDatasetId() does
     if (isIslandArea) {
       if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === "state")
+        if (breakdowns.geography === "state") {
           consumedDatasetIds.push(
             "decia_2020_territory_population-by_race_and_ethnicity_territory_state_level"
           );
-        if (breakdowns.geography === "county")
+        }
+        if (breakdowns.geography === "county") {
           consumedDatasetIds.push(
             "decia_2020_territory_population-by_race_and_ethnicity_territory_county_level"
           );
+        }
       }
 
       if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === "state")
+        if (breakdowns.geography === "state") {
           consumedDatasetIds.push(
             "decia_2020_territory_population-by_sex_territory_state_level"
           );
-        if (breakdowns.geography === "county")
+        }
+        if (breakdowns.geography === "county") {
           consumedDatasetIds.push(
             "decia_2020_territory_population-by_sex_territory_county_level"
           );
+        }
       }
 
       if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === "state")
+        if (breakdowns.geography === "state") {
           consumedDatasetIds.push(
             "decia_2020_territory_population-by_age_territory_state_level"
           );
-        if (breakdowns.geography === "county")
+        }
+        if (breakdowns.geography === "county") {
           consumedDatasetIds.push(
             "decia_2020_territory_population-by_age_territory_county_level"
           );
+        }
       }
     } else consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
 

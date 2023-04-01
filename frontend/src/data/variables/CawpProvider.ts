@@ -1,7 +1,7 @@
 import { getDataManager } from "../../utils/globals";
-import { MetricId, VariableId } from "../config/MetricConfig";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type MetricId, type VariableId } from "../config/MetricConfig";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import VariableProvider from "./VariableProvider";
 import {
@@ -9,7 +9,7 @@ import {
   HISPANIC,
   MULTI,
   UNREPRESENTED,
-  RaceAndEthnicityGroup,
+  type RaceAndEthnicityGroup,
   OTHER_W,
   MULTI_W,
   OTHER_STANDARD,
@@ -61,13 +61,14 @@ export function getWomenRaceLabel(
     case HISPANIC:
       return HISP_W;
   }
-  return `${raceLabel} women` as RaceAndEthnicityGroup;
+  return `${raceLabel} women`;
 }
 
 class CawpProvider extends VariableProvider {
   constructor() {
     super("cawp_provider", CAWP_DETERMINANTS);
   }
+
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national" && breakdowns.hasOnlyRace()) {
       return "cawp_time_data-race_and_ethnicity_national_time_series";
@@ -93,7 +94,7 @@ class CawpProvider extends VariableProvider {
     df = this.filterByTimeView(df, timeView, "2022");
     df = this.renameGeoColumns(df, breakdowns);
 
-    let consumedDatasetIds = [datasetId];
+    const consumedDatasetIds = [datasetId];
 
     // no population numbers used for rates, only comparison pop. and pct_rel_inequity
     if (
@@ -103,7 +104,7 @@ class CawpProvider extends VariableProvider {
       ) ||
       metricQuery.metricIds.includes("women_state_leg_pct_relative_inequity")
     ) {
-      let acsBreakdowns = breakdowns.copy();
+      const acsBreakdowns = breakdowns.copy();
       acsBreakdowns.time = false;
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
@@ -122,8 +123,9 @@ class CawpProvider extends VariableProvider {
         consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
       }
     }
-    if (metricQuery.metricIds.includes("pct_share_of_us_congress"))
+    if (metricQuery.metricIds.includes("pct_share_of_us_congress")) {
       consumedDatasetIds.push("the_unitedstates_project");
+    }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

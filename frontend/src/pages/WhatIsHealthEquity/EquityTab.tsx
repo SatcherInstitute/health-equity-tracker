@@ -24,25 +24,25 @@ import { urlMap } from "../../utils/externalUrls";
 import { Link } from "react-router-dom";
 
 interface WIHEWordpressCopy {
-  section2_headingLevel2: string;
-  section4_headingLevel2: string;
-  section4_heading2_text: string;
-  section4_a_headingLevel3: string;
-  section4_a_heading3_text: string;
+  section2_headingLevel2: string
+  section4_headingLevel2: string
+  section4_heading2_text: string
+  section4_a_headingLevel3: string
+  section4_a_heading3_text: string
   section4_a_heading3_link: {
-    title: string;
-    url: string;
-    target: string;
-  };
-  section4_b_headingLevel3: string;
-  section4_b_heading3_text: string;
+    title: string
+    url: string
+    target: string
+  }
+  section4_b_headingLevel3: string
+  section4_b_heading3_text: string
   section4_b_heading3_link: {
-    title: string;
-    url: string;
-    target: string;
-  };
-  section4_c_headingLevel3: string;
-  section4_c_heading3_text: string;
+    title: string
+    url: string
+    target: string
+  }
+  section4_c_headingLevel3: string
+  section4_c_heading3_text: string
 }
 
 /*
@@ -77,11 +77,11 @@ export const WIHEFallbackCopy: WIHEWordpressCopy = {
 };
 
 function JoinTheEffortContainer(props: {
-  imageUrl: string;
-  imageAlt: string;
-  imageBackground: string;
-  textTitle: string;
-  content: JSX.Element;
+  imageUrl: string
+  imageAlt: string
+  imageBackground: string
+  textTitle: string
+  content: JSX.Element
 }) {
   return (
     <Grid
@@ -124,7 +124,7 @@ function EquityTab() {
   let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy;
   const { data }: any = useQuery(
     DYNAMIC_COPY_KEY,
-    () => fetchCopyData(),
+    async () => await fetchCopyData(),
     REACT_QUERY_OPTIONS
   );
   if (data) wordpressCopy = data.data?.acf;

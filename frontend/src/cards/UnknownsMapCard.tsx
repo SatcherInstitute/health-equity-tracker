@@ -2,7 +2,10 @@ import React from "react";
 import { CardContent } from "@mui/material";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import type { MetricId, VariableConfig } from "../data/config/MetricConfig";
+import {
+  type MetricId,
+  type VariableConfig,
+} from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
 import { type Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";

@@ -18,15 +18,18 @@ import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMoti
 import { Helmet } from "react-helmet-async";
 import LazyLoad from "react-lazyload";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
-import { DropdownVarId, METRIC_CONFIG } from "../../data/config/MetricConfig";
+import {
+  type DropdownVarId,
+  METRIC_CONFIG,
+} from "../../data/config/MetricConfig";
 import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 import { LinkWithStickyParams } from "../../utils/urlutils";
 
 function GoalListItem(props: {
-  src?: string;
-  alt?: string;
-  title: string;
-  text: string;
+  src?: string
+  alt?: string
+  title: string
+  text: string
 }) {
   return (
     <Grid
