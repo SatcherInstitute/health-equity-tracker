@@ -1,4 +1,3 @@
-import { type IDataFrame } from "data-forge";
 import {
   type TimeSeries,
   type TrendsData,
@@ -277,18 +276,4 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   ];
 
   return lowestAndHighestGroups;
-}
-
-export function asDate(dateStr: string) {
-  const parts = dateStr.split("-").map(Number);
-  // Date expects month to be 0-indexed so need to subtract 1.
-  return new Date(parts[0], parts[1] - 1, parts[2]);
-}
-
-// TODO handle date series missing
-export function getLatestDate(df: IDataFrame): Date {
-  const dateTimes = df
-    .getSeries("date")
-    .select((dateStr) => asDate(dateStr).getTime());
-  return new Date(dateTimes.max());
 }
