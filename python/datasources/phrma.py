@@ -16,9 +16,9 @@ from ingestion.types import SEX_RACE_ETH_AGE_TYPE
 PHRMA_DIR = 'phrma'
 DTYPE = {'FIPS': str, 'Year': str}
 
-PHRMA_FILES = [
-    "PQA_STA Results_2023-02-09_draft.xlsx"
-]
+PHRMA_FILE_MAP = {
+    "sample_topic": "PQA_STA Results_2023-02-09_draft.xlsx"
+}
 
 # CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
 # CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
@@ -159,9 +159,9 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
         geo_level with data columns loaded from multiple Phrma source tables """
 
     # Start with the consistent cols to merge tables on to
-    output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
+    output_df = pd.DataFrame(columns=[std_col.STATE_FIPS_COL])
 
-    for determinant in HIV_DETERMINANTS.values():
+    for determinant in PHRMA_FILE_MAP.keys():
         if (determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL) or \
            (determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL
                 and geo_level != NATIONAL_LEVEL):
