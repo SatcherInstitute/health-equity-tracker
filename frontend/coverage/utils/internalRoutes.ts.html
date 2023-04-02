@@ -1,0 +1,241 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for utils/internalRoutes.ts</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">utils</a> internalRoutes.ts</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>52/52</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>2/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">6.45% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>2/31</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>52/52</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line high'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a>
+<a name='L4'></a><a href='#L4'>4</a>
+<a name='L5'></a><a href='#L5'>5</a>
+<a name='L6'></a><a href='#L6'>6</a>
+<a name='L7'></a><a href='#L7'>7</a>
+<a name='L8'></a><a href='#L8'>8</a>
+<a name='L9'></a><a href='#L9'>9</a>
+<a name='L10'></a><a href='#L10'>10</a>
+<a name='L11'></a><a href='#L11'>11</a>
+<a name='L12'></a><a href='#L12'>12</a>
+<a name='L13'></a><a href='#L13'>13</a>
+<a name='L14'></a><a href='#L14'>14</a>
+<a name='L15'></a><a href='#L15'>15</a>
+<a name='L16'></a><a href='#L16'>16</a>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// PAGE URLS
+export const HET_URL = <span class="fstat-no" title="function not covered" >"https://healthequitytracker.org";</span>
+&nbsp;
+export const EXPLORE_DATA_PAGE_LINK = "/exploredata";
+export const DATA_CATALOG_PAGE_LINK = "/datacatalog";
+export const ABOUT_US_PAGE_LINK = <span class="fstat-no" title="function not covered" >"/aboutus";</span>
+export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = <span class="fstat-no" title="function not covered" >"/whatishealthequity";</span>
+export const TERMS_OF_USE_PAGE_LINK = <span class="fstat-no" title="function not covered" >"/termsofuse";</span>
+&nbsp;
+// TAB URLS
+export const FAQ_TAB_LINK = <span class="fstat-no" title="function not covered" >"/faqs";</span>
+export const RESOURCES_TAB_LINK = <span class="fstat-no" title="function not covered" >"/resources";</span>
+export const METHODOLOGY_TAB_LINK = <span class="fstat-no" title="function not covered" >"/methodology";</span>
+export const AGE_ADJUSTMENT_TAB_LINK = <span class="fstat-no" title="function not covered" >"/ageadjustment";</span>
+export const DATA_TAB_LINK = <span class="fstat-no" title="function not covered" >"/datacatalog";</span>
+export const CONTACT_TAB_LINK = <span class="fstat-no" title="function not covered" >"/contact";</span>
+export const OURTEAM_TAB_LINK = <span class="fstat-no" title="function not covered" >"/ourteam";</span>
+export const NEWS_TAB_LINK = <span class="fstat-no" title="function not covered" >"/news";</span>
+&nbsp;
+// TRACKER SETTINGS
+export const COVID_DEATHS_US_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.covid_deaths-3.00&amp;demo=race_and_ethnicity";</span>
+export const COVID_HOSP_US_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.covid_hospitalizations-3.00&amp;demo=race_and_ethnicity";</span>
+export const COVID_HOSP_NY_COUNTY_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.covid_hospitalizations-3.36061";</span>
+export const COVID_VAX_US_SETTING = <span class="fstat-no" title="function not covered" >"?mls=1.covid_vaccinations-3.00";</span>
+export const COPD_US_SETTING = <span class="fstat-no" title="function not covered" >"?mls=1.copd-3.00";</span>
+export const DIABETES_US_SETTING = <span class="fstat-no" title="function not covered" >"?mls=1.diabetes-3.00";</span>
+export const UNINSURANCE_US_SETTING = <span class="fstat-no" title="function not covered" >"?mls=1.health_insurance-3.00";</span>
+export const POVERTY_US_SETTING = <span class="fstat-no" title="function not covered" >"?mls=1.poverty-3.00";</span>
+export const OPIOID_US_SETTING =
+<span class="fstat-no" title="function not covered" >  "?dt1=non_medical_drug_use&amp;mls=1.substance-3.00";</span>
+&nbsp;
+export const HIV_DIAGNOSES_RACE_USA_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.hiv_diagnoses-3.00&amp;mlp=disparity";</span>
+export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.covid_deaths-3.13121&amp;demo=age&amp;mlp=disparity";</span>
+export const PRISON_VS_POVERTY_RACE_GA_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.prison-3.poverty-5.13&amp;mlp=comparevars";</span>
+export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.health_insurance-3.12-5.06&amp;mlp=comparegeos&amp;demo=sex";</span>
+&nbsp;
+// warm welcome demo setting
+export const WARM_WELCOME_DEMO_SETTING =
+<span class="fstat-no" title="function not covered" >  "?mls=1.covid_cases-3.00&amp;mlp=disparity&amp;onboard=true";</span>
+&nbsp;
+// SECTION IDS
+export const WHAT_DATA_ARE_MISSING_ID = <span class="fstat-no" title="function not covered" >"definitions-missing-data";</span>
+export const EXPLORE_DATA_PAGE_WHAT_DATA_ARE_MISSING_LINK =
+  EXPLORE_DATA_PAGE_LINK + "#" + <span class="fstat-no" title="function not covered" >WHAT_DATA_ARE_MISSING_ID;</span>
+export const WIHE_JOIN_THE_EFFORT_SECTION_ID = <span class="fstat-no" title="function not covered" >"join";</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2023-04-02T05:19:06.188Z
+            </div>
+        <script src="../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
+    </body>
+</html>
+    
