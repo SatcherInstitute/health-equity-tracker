@@ -1,5 +1,11 @@
 import styles from './LandingPage.module.scss'
 import {
+    ARTICLES_KEY_4,
+    fetchLandingPageNewsData,
+    ReactRouterLinkButton,
+    REACT_QUERY_OPTIONS,
+} from '../../utils/urlutils'
+import {
     Button,
     Grid,
     Typography,
@@ -8,12 +14,6 @@ import {
     useMediaQuery,
     useTheme,
 } from '@mui/material'
-import {
-    ARTICLES_KEY_4,
-    fetchLandingPageNewsData,
-    ReactRouterLinkButton,
-    REACT_QUERY_OPTIONS,
-} from '../../utils/urlutils'
 import {
     EXPLORE_DATA_PAGE_LINK,
     NEWS_TAB_LINK,
