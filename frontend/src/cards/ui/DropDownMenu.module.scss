@@ -1,12 +1,17 @@
-@import "../../styles/variables.module";
+@import '../../styles/variables.module';
 
+.SectionFilterBy {
+    display: flex;
+}
 .FilterBy {
-  padding: 6px 8px;
-  float: left;
-  font-size: $text;
+    padding: 6px 8px;
+    float: left;
+    font-size: $text;
 }
 
 .GroupListMenuBox {
-  max-width: 95vw;
-  overflow-x: auto;
+    max-width: 95vw;
+    width: auto;
+    overflow-x: auto;
+    padding: 1rem;
 }

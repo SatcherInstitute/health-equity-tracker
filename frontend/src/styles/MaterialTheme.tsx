@@ -1,99 +1,150 @@
-import { createTheme, adaptV4Theme } from "@mui/material/styles";
-import "typeface-dm-sans";
-import sass from "./variables.module.scss";
+import { createTheme } from '@mui/material/styles'
+import 'typeface-dm-sans'
+import sass from './variables.module.scss'
 
-const MaterialTheme = createTheme(
-  adaptV4Theme({
+const MaterialTheme = createTheme({
     palette: {
-      primary: {
-        light: sass.barChartLight,
-        main: sass.altGreen,
-        dark: sass.darkGreen,
-      },
-      secondary: {
-        light: sass.secondaryLight,
-        main: sass.secondaryMain,
-        dark: sass.secondaryDark,
-      },
+        primary: {
+            light: sass.barChartLight,
+            main: sass.altGreen,
+            dark: sass.darkGreen,
+        },
+        secondary: {
+            light: sass.secondaryLight,
+            main: sass.secondaryMain,
+            dark: sass.secondaryDark,
+        },
     },
-    overrides: {
-      MuiCssBaseline: {
-        "@global": {
-          body: {
-            fontFamily: '"Inter", sans-serif',
-          },
-          ".MuiAlert-standardInfo .MuiAlert-icon": {
-            color: `${sass.altGreen} !important`,
-          },
-          ".MuiAlert-standardWarning .MuiAlert-icon": {
-            color: `${sass.alertColor} !important`,
-          },
+    components: {
+        MuiCssBaseline: {
+            styleOverrides: {
+                body: {
+                    fontFamily: '"Inter", sans-serif',
+                },
+                '.MuiAlert-standardInfo .MuiAlert-icon': {
+                    color: `${sass.altGreen} !important`,
+                },
+                '.MuiAlert-standardWarning .MuiAlert-icon': {
+                    color: `${sass.alertColor} !important`,
+                },
+            },
         },
-      },
-      MuiTab: {
-        root: {
-          textTransform: "none",
-          fontFamily: '"DM Sans", sans-serif !important',
+        MuiAlert: {
+            styleOverrides: {
+                root: {
+                    fontFamily: '"Inter", sans-serif',
+                },
+                standardInfo: {
+                    backgroundColor: `${sass.standardInfo} !important`,
+                    color: `${sass.black} !important`,
+                    textAlign: 'left',
+                },
+                standardWarning: {
+                    backgroundColor: `${sass.standardWarning} !important`,
+                    color: `${sass.black} !important`,
+                    textAlign: 'left',
+                },
+                standardError: {
+                    textAlign: 'left',
+                },
+            },
         },
-      },
-      MuiTabs: {
-        root: {
-          marginTop: "40px",
-          borderBottom: `1px solid ${sass.borderColor}`,
+        MuiAutocomplete: {
+            styleOverrides: {
+                endAdornment: {
+                    top: 'inherit',
+                },
+            },
         },
-      },
-      MuiButton: {
-        root: {
-          textTransform: "none",
-          fontFamily: '"Inter", sans-serif',
+        MuiButtonBase: {
+            styleOverrides: {},
         },
-        containedPrimary: {
-          color: `${sass.white} !important`,
+        MuiButton: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                    fontFamily: '"Inter", sans-serif',
+                },
+                containedPrimary: {
+                    color: sass.white,
+                },
+            },
         },
-      },
-      MuiPaper: {
-        root: {
-          "&.MuiPopover-paper": {
-            maxWidth: "unset",
-            minWidth: "unset",
-          },
+        // MuiPaper: {
+        //   styleOverrides: {
+        // root: {
+        //   "&.MuiPopover-paper": {
+        //     maxWidth: "unset",
+        //     minWidth: "unset",
+        //   },
+        // },
+        //   }
+        // },
+        MuiStepConnector: {
+            styleOverrides: {
+                vertical: {
+                    paddingBlock: '0',
+                },
+                lineVertical: {
+                    minHeight: '8px',
+                },
+            },
         },
-      },
-      MuiToggleButton: {
-        root: {
-          fontWeight: "normal",
-          fontSize: "14px",
-          lineHeight: "16px",
-          background: sass.white,
-          border: `1px solid ${sass.unknownGrey} !important`,
-          color: sass.black,
-          textTransform: "none",
-          "&.Mui-selected": {
-            backgroundColor: sass.toggleColor,
-            color: sass.altGreen,
-          },
+        MuiStepLabel: {
+            styleOverrides: {
+                label: {
+                    lineHeight: sass.lhTight,
+                },
+            },
         },
-      },
-      MuiAlert: {
-        root: {
-          fontFamily: '"Inter", sans-serif',
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    textTransform: 'none',
+                    fontFamily: '"DM Sans", sans-serif !important',
+                },
+            },
         },
-        standardInfo: {
-          backgroundColor: `${sass.standardInfo} !important`,
-          color: `${sass.black} !important`,
-          textAlign: "left",
+        MuiTabs: {
+            styleOverrides: {
+                root: {
+                    marginTop: '40px',
+                    borderBottom: `1px solid ${sass.borderColor}`,
+                },
+            },
         },
-        standardWarning: {
-          backgroundColor: `${sass.standardWarning} !important`,
-          color: `${sass.black} !important`,
-          textAlign: "left",
+        MuiToggleButtonGroup: {
+            styleOverrides: {
+                root: {
+                    outline: `1px solid ${sass.unknownGrey} !important`,
+                    borderRadius: '4px',
+                    overflow: 'hidden',
+                },
+            },
         },
-        standardError: {
-          textAlign: "left",
+        MuiToggleButton: {
+            styleOverrides: {
+                root: {
+                    outline: `1px solid ${sass.unknownGrey} !important`,
+                    fontWeight: 'normal',
+                    fontSize: '14px',
+                    color: sass.black,
+                    lineHeight: '16px !important',
+                    padding: '11px !important',
+                    backgroundColor: `${sass.white} !important`,
+                    textTransform: 'none',
+                    '&.Mui-selected': {
+                        color: sass.altGreen,
+                        backgroundColor: `${sass.toggleColor} !important`,
+                    },
+                    '&:hover': {
+                        color: sass.altGreen,
+                        backgroundColor: sass.toggleColor,
+                    },
+                },
+            },
         },
-      },
     },
-  })
-);
+})
 
-export default MaterialTheme;
+export default MaterialTheme

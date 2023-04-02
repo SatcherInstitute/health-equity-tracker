@@ -1,114 +1,120 @@
-@import "../styles/variables.module";
-@import "../styles/globals.scss";
+@import '../styles/variables.module';
+@import '../styles/globals.scss';
+
+.CardHeaderBox {
+    padding-block: 0px;
+}
 
 .CardHeader {
-  @include inter700();
-  text-align: left;
+    @include inter700();
+    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
 // negative margin to allow hover size of button without expanding the container height
 .CopyLinkButton {
-  padding: 8px;
-  margin: -8px;
+    padding: 8px;
+    margin: -8px;
 }
 
 .ChartCard {
-  margin: 10px;
+    margin: 10px;
 }
 
 .SmallMarginContent {
-  text-align: left;
-  padding-bottom: 6px !important;
-  padding-top: 6px !important;
+    text-align: left;
+    padding-bottom: 6px !important;
+    padding-top: 6px !important;
 }
 
 .PopulationCardContent {
-  padding: 16px 16px 0 16px !important;
+    padding: 16px 16px 0 16px !important;
 }
 
 .PopulationCard {
-  $populationTitleHeight: 57px; // vertically align all population card header text
+    $populationTitleHeight: 57px; // vertically align all population card header text
 
-  h1,
-  span {
-    text-align: left;
-  }
-
-  .TotalPopulationKey {
-    font-size: $smallestHeader;
-    line-height: $populationTitleHeight;
-    padding-right: 7px;
-  }
-
-  .TotalPopulationValue {
-    font-size: $smallestHeader;
-    line-height: $populationTitleHeight;
-    color: $alt-green;
-  }
-
-  .PopulationCardTitle {
-    @include inter500();
-    padding-right: 20px;
-    font-size: $header;
-    line-height: $populationTitleHeight;
-  }
-
-  .VerticalDivider {
-    height: $populationTitleHeight;
-    border-right: 1px solid grey;
-    margin-left: 20px;
-    float: right;
-
-    // divider should only show on screens wide enough to likely have name and pop info on 1 line
-    display: none;
-
-    @media only screen and (min-width: $md) {
-      display: block;
+    h1,
+    span {
+        text-align: left;
     }
-  }
+
+    .TotalPopulationKey {
+        font-size: $smallestHeader;
+        line-height: $populationTitleHeight;
+        padding-right: 7px;
+    }
+
+    .TotalPopulationValue {
+        font-size: $smallestHeader;
+        line-height: $populationTitleHeight;
+        color: $alt-green;
+    }
+
+    .PopulationCardTitle {
+        @include inter500();
+        padding-right: 20px;
+        font-size: $header;
+        line-height: $populationTitleHeight;
+    }
+
+    .VerticalDivider {
+        height: $populationTitleHeight;
+        border-right: 1px solid grey;
+        margin-left: 20px;
+        float: right;
+
+        // divider should only show on screens wide enough to likely have name and pop info on 1 line
+        display: none;
+
+        @media only screen and (min-width: $md) {
+            display: block;
+        }
+    }
 }
 
 .CardFooter {
-  text-align: left;
-  padding-bottom: 10px !important;
-  padding-top: 10px !important;
-  font-size: $smallest;
+    text-align: left;
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
+    font-size: $smallest;
 }
 
 .CardInfoPopover {
-  padding: 20px;
+    padding: 20px;
 }
 
 .InfoIconButton {
-  padding: 3px !important;
-  margin: 0px !important;
-  min-width: unset !important;
+    padding: 3px !important;
+    margin: 0px !important;
+    min-width: unset !important;
 }
 
 .TerritoryCirclesContainer {
-  width: 100%;
-  height: 55px;
+    width: 100%;
+    height: 55px;
 }
 
 .TerritoryCircle {
-  float: left;
-  width: 50px;
-  padding: 15px 0 0 30px;
-
-  @media only screen and (min-width: $sm) {
-    width: 20px;
-    padding: 20px 20px 0 20px;
-  }
-
-  @media only screen and (min-width: $md) {
+    float: left;
     width: 50px;
     padding: 15px 0 0 30px;
-  }
+
+    @media only screen and (min-width: $sm) {
+        width: 20px;
+        padding: 20px 20px 0 20px;
+    }
+
+    @media only screen and (min-width: $md) {
+        width: 50px;
+        padding: 15px 0 0 30px;
+    }
 }
 
 .SviContainer {
-  @media only screen and (min-width: $md) {
-    display: flex;
-    align-items: center;
-  }
+    @media only screen and (min-width: $md) {
+        display: flex;
+        align-items: center;
+    }
 }
