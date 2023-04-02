@@ -51,7 +51,7 @@ function FaqSection() {
                     Frequently asked questions
                 </Typography>
             </Grid>
-            <Grid item xs={12} className={styles.FaqQAItem} component="ul">
+            <Grid item xs={12} className={styles.FaqQAItem}>
                 {selectFaqs.map((faq, index) => {
                     return (
                         <Question
