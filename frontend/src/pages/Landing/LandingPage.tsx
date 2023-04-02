@@ -450,7 +450,6 @@ function LandingPage() {
                                     >
                                         Sign up
                                     </Button>
-                                    <img src="" />
                                 </Grid>
                             </Grid>
                         </form>
