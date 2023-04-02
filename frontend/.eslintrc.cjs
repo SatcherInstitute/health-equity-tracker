@@ -5,6 +5,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
+    "plugin:jsx-a11y/recommended",
     'standard-with-typescript'
   ],
   overrides: [
@@ -15,7 +16,7 @@ module.exports = {
     project: ['tsconfig.json']
   },
   plugins: [
-    'react'
+    'react', "jsx-a11y"
   ],
   settings: {
     react: {
