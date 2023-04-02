@@ -155,24 +155,26 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
 
     geo_level: string equal to `county`, `national`, or `state`
     breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `all`
-    return: a single data frame of time-based data by breakdown and
+    return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables """
 
-    # Start with the consistent cols to merge tables on to
-    output_df = pd.DataFrame(columns=[std_col.STATE_FIPS_COL])
+    fips_col = std_col.COUNTY_FIPS_COL if geo_level == "county" else std_col.STATE_FIPS_COL
+    geo_name_col = std_col.COUNTY_NAME_COL if geo_level == "county" else std_col.STATE_NAME_COL
 
-    for determinant in PHRMA_FILE_MAP.keys():
-        if (determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL) or \
-           (determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL
-                and geo_level != NATIONAL_LEVEL):
-            continue
+    scaffold_cols = [fips_col, geo_name_col, breakdown]
 
-        else:
-            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(PHRMA_DIR,
-                                                             f'{determinant}-{geo_level}-{breakdown}.csv',
-                                                             subdirectory=determinant,
-                                                             dtype=DTYPE)
+    # Starter cols to merge each loaded table on to
+    output_df = pd.DataFrame(columns=scaffold_cols)
 
-            output_df = output_df.merge(df, how='outer')
+    for determinant, filename in PHRMA_FILE_MAP.items():
+
+        topic_df = gcs_to_bq_util.load_xlsx_as_df_from_data_dir(PHRMA_DIR,
+                                                                filename,
+                                                                "All US",
+                                                                dtype=DTYPE)
+
+        print(topic_df)
+
+        output_df = output_df.merge(topic_df, how='outer')
 
     return output_df

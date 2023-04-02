@@ -224,6 +224,29 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
     return pd.read_csv(url, dtype=dtype, encoding=encoding)
 
 
+def load_xlsx_as_df_from_data_dir(directory: str,
+                                  filename: str,
+                                  sheet_name: str,
+                                  dtype=None):
+    """ Loads a single sheet of a .xlsx file within target
+     directory and outputs as a pandas dataframe
+
+    directory: string dir name to load from
+    filename: string file name to load from
+    sheet_name: string sheet name to load from
+    dtype: optional dict of column types"""
+
+    file_path = os.path.join(DATA_DIR, directory, filename)
+
+    sheet_df = pd.read_excel(file_path,
+                             sheet_name=sheet_name,
+                             dtype=dtype)
+    print("inside")
+    print(sheet_df)
+
+    return sheet_df
+
+
 def load_csv_as_df_from_data_dir(directory, filename,
                                  subdirectory='', dtype=None,
                                  skiprows=None, na_values=None, thousands=None, usecols=None):

@@ -21,13 +21,27 @@ GOLDEN_DATA = {
 EXP_DTYPE = {'state_fips': str, 'time_period': str}
 
 
-def _load_csv_as_df_from_data_dir(*args, **kwargs):
-    directory, filename = args
-    subdirectory = kwargs['subdirectory']
+def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
+    print("mocking read xlsx from data dir")
 
-    df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename))
+    file_path = os.path.join(TEST_DIR, directory, filename)
 
-    return df
+    sheet_df = pd.read_excel(file_path,
+                             sheet_name=sheet_name,
+                             dtype=dtype)
+    print("inside")
+    print(sheet_df)
+
+    return sheet_df
+
+
+# def _load_csv_as_df_from_data_dir(*args, **kwargs):
+#     directory, filename = args
+#     subdirectory = kwargs['subdirectory']
+
+#     df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename))
+
+#     return df
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
