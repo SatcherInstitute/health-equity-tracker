@@ -9,12 +9,10 @@ import {
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 import { CROSS_SECTIONAL, TIME_SERIES, TIME_PERIOD } from "../utils/Constants";
-import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
   readonly providesMetrics: MetricId[];
-  protected readonly calculations = new DatasetCalculator();
 
   constructor(providerId: ProviderId, providesMetrics: MetricId[]) {
     this.providerId = providerId;

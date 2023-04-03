@@ -43,95 +43,6 @@ import {
 import { type Row } from "./DatasetTypes";
 import { type Fips } from "./Fips";
 
-/**
- * Reshapes the data frame by creating a new column for each value in
- * newColNames, and using the values from newColValues, grouping by
- * groupedByCol. For example, if you have a dataset with columns: "fips_name",
- * "race_and_ethnicity", and "population", calling:
- *     reshapeRowsToCols(df, "population", "race_and_ethnicity", "fips_name");
- * will convert this to a data frame with a "fips_name" column and a population
- * column for each race. You can optionally rename the columns using
- * colNameGenerator.
- */
-export function reshapeRowsToCols(
-  df: IDataFrame,
-  newColValues: string,
-  newColNames: string,
-  groupedByCol: string,
-  colNameGenerator?: (value: any) => string
-): IDataFrame {
-  return df
-    .groupBy((row: any) => row[groupedByCol])
-    .select((group) => {
-      const newCols = group.aggregate({}, (acc: any, row: any) => {
-        let newColName = row[newColNames];
-        if (colNameGenerator) {
-          newColName = colNameGenerator(newColName);
-        }
-        acc[newColName] = row[newColValues];
-        return acc;
-      });
-      return { ...group.first(), ...newCols };
-    })
-    .inflate()
-    .dropSeries([newColNames, newColValues]);
-}
-
-/**
- * Does the opposite of reshapeRowsToCols. For example, if you have a dataset
- * with a "fips_name" column and a population column for each race, calling:
- *     reshapeColsToRows(
- *         df, ["Black", "White", "Hispanic", ...], "population",
- *         "race_and_ethnicity");
- * will convert it to a dataset with columns: "fips_name",
- * "race_and_ethnicity", and "population"
- * @param df
- * @param cols
- * @param newCol
- * @param groupedByCol
- */
-export function reshapeColsToRows(
-  df: IDataFrame,
-  cols: string[],
-  newCol: string,
-  groupedByCol: string
-) {
-  return df
-    .selectMany((row) => {
-      return cols.map((col) => {
-        return { ...row, [groupedByCol]: col, [newCol]: row[col] };
-      });
-    })
-    .dropSeries(cols);
-}
-
-/**
- * Groups df by all the columns in groupByCols, and applies the specified
- * function to each group, and then collects the resulting groups into a data
- * frame and returns that.
- */
-export function applyToGroups(
-  df: IDataFrame,
-  groupByCols: string[],
-  fn: (group: IDataFrame) => IDataFrame
-): IDataFrame {
-  const groups = df
-    .groupBy((row) => row[groupByCols[0]])
-    .select((group) => {
-      if (groupByCols.length === 1) {
-        return fn(group);
-      }
-      return applyToGroups(group, groupByCols.slice(1), fn);
-    });
-  if (groups.count() === 0) {
-    return df;
-  }
-  return groups
-    .skip(1)
-    .aggregate(groups.first(), (prev, next) => prev.concat(next))
-    .resetIndex();
-}
-
 export type JoinType = "inner" | "left" | "outer";
 
 // TODO consider finding different library for joins, or write our own. This
@@ -166,20 +77,6 @@ export function joinOnCols(
       break;
   }
   return joined.resetIndex();
-}
-
-export function asDate(dateStr: string) {
-  const parts = dateStr.split("-").map(Number);
-  // Date expects month to be 0-indexed so need to subtract 1.
-  return new Date(parts[0], parts[1] - 1, parts[2]);
-}
-
-// TODO handle date series missing
-export function getLatestDate(df: IDataFrame): Date {
-  const dateTimes = df
-    .getSeries("date")
-    .select((dateStr) => asDate(dateStr).getTime());
-  return new Date(dateTimes.max());
 }
 
 /*
@@ -232,9 +129,9 @@ export function getExtremeValues(
 Analyzes state and determines if the 2nd population source should be used
 */
 export interface ShouldShowAltPopCompareI {
-  fips: { isState: () => boolean }
-  breakdownVar: BreakdownVar
-  variableConfig: { variableId: VariableId }
+  fips: { isState: () => boolean };
+  breakdownVar: BreakdownVar;
+  variableConfig: { variableId: VariableId };
 }
 
 export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
