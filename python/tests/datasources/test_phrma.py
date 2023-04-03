@@ -23,6 +23,9 @@ EXP_DTYPE = {'state_fips': str, 'time_period': str}
 
 def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
     directory, filename, sheet_name = args
+    dtype = kwargs['dtype']
+    na_values = kwargs['na_values']
+
     print(
         f'mocking read xlsx from /data/{directory}/{filename}, sheet: {sheet_name}')
 
@@ -30,7 +33,8 @@ def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
 
     sheet_df = pd.read_excel(file_path,
                              sheet_name=sheet_name,
-                             dtype={})
+                             na_values=na_values,
+                             dtype=dtype)
 
     return sheet_df
 

@@ -227,7 +227,9 @@ def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
 def load_xlsx_as_df_from_data_dir(directory: str,
                                   filename: str,
                                   sheet_name: str,
-                                  dtype=None):
+                                  dtype=None,
+                                  na_values=None
+                                  ):
     """ Loads a single sheet of a .xlsx file within target
      directory and outputs as a pandas dataframe
 
@@ -240,10 +242,8 @@ def load_xlsx_as_df_from_data_dir(directory: str,
 
     sheet_df = pd.read_excel(file_path,
                              sheet_name=sheet_name,
-                             dtype=dtype)
-    print("inside")
-    print(sheet_df)
-
+                             dtype=dtype,
+                             na_values=na_values)
     return sheet_df
 
 

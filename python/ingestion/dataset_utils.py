@@ -346,7 +346,7 @@ def estimate_total(row, condition_name_per_100k):
     return round((float(row[condition_name_per_100k]) / 100_000) * float(row[std_col.POPULATION_COL]))
 
 
-def ensure_leading_zeros(df, fips_col_name: str, num_digits: int):
+def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) -> pd.DataFrame:
     """
     Ensure a column contains values of a certain digit length, adding leading zeros as needed.
     This could be used for 5 digit fips codes, or zip codes, etc.

@@ -6,7 +6,7 @@ from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
                                  US_FIPS, US_NAME, ALL_VALUE)
-from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
+from ingestion.dataset_utils import (ensure_leading_zeros, generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
@@ -14,7 +14,7 @@ from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
 
 # constants
 PHRMA_DIR = 'phrma'
-DTYPE = {'FIPS': str, 'Year': str}
+DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
 PHRMA_FILE_MAP = {
     "sample_topic": "PQA_STA Results_2023-02-09_draft.xlsx"
@@ -62,7 +62,8 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Black or African-American': std_col.Race.BLACK_NH.value,
         'Hispanic': std_col.Race.HISP.value,
         'Other': std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
-        'Non-Hispanic White': std_col.Race.WHITE_NH.value}
+        'Non-Hispanic White': std_col.Race.WHITE_NH.value
+    }
 }
 
 
@@ -120,11 +121,9 @@ class PhrmaData(DataSource):
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
         alls_df[demo_col] = all_val
 
-        geo_to_use = std_col.COUNTY_NAME_COL if geo_level == COUNTY_LEVEL else std_col.STATE_NAME_COL
         fips_to_use = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
         cols_to_keep = [
-            geo_to_use,
             fips_to_use,
             demo_col,
         ]
@@ -133,15 +132,17 @@ class PhrmaData(DataSource):
             geo_level, demo_breakdown)
 
         print("adding BREAKDOWN to ALL")
-        print(breakdown_group_df)
-        print(alls_df)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
-        df["race_codes_swapped"] = df[[std_col.RACE_CATEGORY_ID_COL]].replace(
+        print(df)
+
+        df = df.replace(
             to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
         if geo_level == COUNTY_LEVEL:
+            print("pre-merge county names")
+            print(df)
             df = merge_county_names(df)
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0,
                                                                                2)
@@ -153,9 +154,10 @@ class PhrmaData(DataSource):
             std_col.add_race_columns_from_category_id(df)
             cols_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
 
-        df = df[cols_to_keep]
+        print("pre-sort")
+        print(df)
         df = df.sort_values(
-            [demo_breakdown]).reset_index(drop=True)
+            by=[fips_to_use, demo_col]).reset_index(drop=True)
 
         return df
 
@@ -169,6 +171,10 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
 
     sheet_name = get_sheet_name(geo_level, breakdown)
     scaffold_cols = get_scaffold_cols(geo_level)
+    fips_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col. STATE_FIPS_COL
+    fips_length = 5 if geo_level == COUNTY_LEVEL else 2
+
+    demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
 
     # Starter cols to merge each loaded table on to
     output_df = pd.DataFrame(columns=scaffold_cols)
@@ -182,6 +188,7 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
             filename,
             sheet_name,
             dtype=DTYPE,
+            na_values=["."],
         )
 
         output_df = output_df.merge(topic_df, how='outer')
@@ -189,6 +196,14 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
     output_df = rename_cols(output_df,
                             cast(GEO_TYPE, geo_level),
                             cast(SEX_RACE_ETH_AGE_TYPE, breakdown))
+
+    if breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level == COUNTY_LEVEL:
+        output_df = output_df.drop(columns=["RTI_RACE_CD"])
+
+    # drop rows that dont include FIPS and DEMO values
+    output_df = output_df[output_df[std_col.COUNTY_FIPS_COL].notna()]
+
+    output_df = ensure_leading_zeros(output_df, fips_col, fips_length)
 
     return output_df
 
