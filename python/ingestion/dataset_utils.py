@@ -131,8 +131,12 @@ def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
     return _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val)
 
 
-def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
-                                         breakdown_col, all_val, unknown_val):
+def generate_pct_share_col_with_unknowns(df: pd.DataFrame,
+                                         raw_count_to_pct_share: dict,
+                                         breakdown_col: str,
+                                         all_val: str,
+                                         unknown_val: str
+                                         ):
     """Returns a DataFrame with a percent share column based on the raw_count_cols.
        The resulting `pct_share` value for the 'unknown' row will be the raw
        percent share, whereas the resulting `pct_share` values for all other
@@ -140,11 +144,11 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
 
        df: DataFrame to generate the share_of_known column for.
        raw_count_to_pct_share: dictionary {raw_col_name: pct_share_col_name }
-                    mapping a string column name for the raw condition count column to a
-                    string column name for the resulting percent share of known / percent
-                    share unknown column.
+            mapping a string column name for the raw condition count column to a
+            string column name for the resulting percent share of known / percent
+            share unknown column.
        breakdown_col: String column name representing the demographic breakdown
-                      (race/sex/age).
+            column name (race/race_and_ethnicity/sex/age).
        all_val: String representing an ALL demographic value in the dataframe.
        unknown_val: String representing an UNKNOWN value in the dataframe."""
 
@@ -158,7 +162,7 @@ def generate_pct_share_col_with_unknowns(df, raw_count_to_pct_share,
     unknown_df = df.loc[df[breakdown_col] ==
                         unknown_val].reset_index(drop=True)
     if len(unknown_df) == 0:
-        raise ValueError(('This dataset does not contains unknowns, use the'
+        raise ValueError(('This dataset does not contains unknowns, use the '
                           'generate_pct_share_col_without_unknowns function instead'))
 
     df = df.loc[~df[breakdown_col].isin({unknown_val, all_val})]

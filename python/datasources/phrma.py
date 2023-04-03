@@ -5,8 +5,8 @@ from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
-                                 US_FIPS, US_NAME, ALL_VALUE)
-from ingestion.dataset_utils import (ensure_leading_zeros, generate_pct_share_col_without_unknowns,
+                                 US_FIPS, US_NAME, ALL_VALUE, UNKNOWN)
+from ingestion.dataset_utils import (ensure_leading_zeros, generate_pct_share_col_with_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
@@ -103,6 +103,8 @@ class PhrmaData(DataSource):
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
+                df.to_json(f'{table_name}.json', orient="records")
+
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
@@ -131,31 +133,35 @@ class PhrmaData(DataSource):
         breakdown_group_df = load_phrma_df_from_data_dir(
             geo_level, demo_breakdown)
 
-        print("adding BREAKDOWN to ALL")
-
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
-        print(df)
+        df["sample_pct_rate"] = df["AVG PDC RATE"] * 100
+
+        unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
 
         df = df.replace(
             to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
         if geo_level == COUNTY_LEVEL:
-            print("pre-merge county names")
-            print(df)
             df = merge_county_names(df)
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0,
                                                                                2)
 
-        if geo_level == NATIONAL_LEVEL:
-            df[std_col.STATE_FIPS_COL] = US_FIPS
+        # if geo_level == NATIONAL_LEVEL:
+        #     df[std_col.STATE_FIPS_COL] = US_FIPS
+
+        print("unknown val:", unknown_val)
+        print("DF")
+        print(df.to_string())
+        df = generate_pct_share_col_with_unknowns(
+            df, {"COUNT_YES": "sample_pct_share"}, demo_col, all_val, unknown_val)
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
-            cols_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
 
-        print("pre-sort")
-        print(df)
+        df = df.drop(columns=["COUNT_YES", "COUNT_NO",
+                     "TOTAL_BENE", "AVG PDC RATE"])
+
         df = df.sort_values(
             by=[fips_to_use, demo_col]).reset_index(drop=True)
 
