@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import {
-  DataSourceMetadata,
-  MapOfDatasetMetadata,
-  DatasetMetadata,
+  type DataSourceMetadata,
+  type MapOfDatasetMetadata,
+  type DatasetMetadata,
 } from "../../../data/utils/DatasetTypes";
 import { getLogger } from "../../../utils/globals";
 import styles from "./DataSourceListing.module.scss";
@@ -57,7 +57,7 @@ function DownloadDatasetListItem(props: {
   };
 
   if (props.datasetMetadata === undefined) {
-    getLogger().logError(
+    void getLogger().logError(
       new Error(
         "Dataset metadata was missing for dataset with ID: " + props.datasetId
       ),
@@ -70,7 +70,10 @@ function DownloadDatasetListItem(props: {
     <ListItem
       className={styles.DownloadListItem}
       button
-      onClick={() => download()}
+      // eslint-disable-next-line @typescript-eslint/no-misused-promises
+      onClick={async () => {
+        await download();
+      }}
       key={props.datasetId}
     >
       {downloadStatus !== "error" ? (
@@ -163,7 +166,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
         {props.source_metadata.downloadable && (
           <Button
             color="primary"
-            onClick={() => setDialogIsOpen(true)}
+            onClick={() => {
+              setDialogIsOpen(true);
+            }}
             className={styles.DownloadListItem}
             aria-label={"Download " + props.source_metadata.data_source_name}
           >
@@ -172,7 +177,12 @@ export function DataSourceListing(props: DataSourceListingProps) {
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}
-        <Dialog onClose={() => setDialogIsOpen(false)} open={dialogIsOpen}>
+        <Dialog
+          onClose={() => {
+            setDialogIsOpen(false);
+          }}
+          open={dialogIsOpen}
+        >
           <DialogTitle>
             <Grid
               container
@@ -195,7 +205,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
               <Grid item xs={2} sm={1}>
                 <IconButton
                   aria-label="close dialogue"
-                  onClick={() => setDialogIsOpen(false)}
+                  onClick={() => {
+                    setDialogIsOpen(false);
+                  }}
                 >
                   <CloseIcon />
                 </IconButton>

@@ -6,10 +6,8 @@ import { Accordion, AccordionSummary } from "@material-ui/core";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { FAQ_TAB_LINK } from "../../utils/internalRoutes";
-import { ReactRouterLinkButton } from "../../utils/urlutils";
-
+import { ReactRouterLinkButton, getHtml } from "../../utils/urlutils";
 import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { getHtml } from "../../utils/urlutils";
 
 function Question(props: {
   questionText: string;

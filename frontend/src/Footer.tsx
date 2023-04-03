@@ -186,7 +186,9 @@ function ReturnToTop() {
   return (
     <Button
       aria-label="Scroll to Top"
-      onClick={() => window.scrollTo(0, 0)}
+      onClick={() => {
+        window.scrollTo(0, 0);
+      }}
       className={styles.ScrollToTopButton}
     >
       <ArrowUpwardRoundedIcon />

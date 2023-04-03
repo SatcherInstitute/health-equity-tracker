@@ -4,8 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import { NEWS_TAB_LINK } from "../../utils/internalRoutes";
 import { Route, Switch } from "react-router-dom";
 
-const AllPosts = React.lazy(() => import("./News/AllPosts"));
-const SinglePost = React.lazy(() => import("./News/SinglePost"));
+const AllPosts = React.lazy(async () => await import("./News/AllPosts"));
+const SinglePost = React.lazy(async () => await import("./News/SinglePost"));
 
 export interface Article {
   id: number;
@@ -32,7 +32,7 @@ export interface Article {
     author: {
       id: number;
     };
-    "wp:featuredmedia": {
+    "wp:featuredmedia": Array<{
       id: number;
       alt_text: string;
       source_url: string;
@@ -49,8 +49,8 @@ export interface Article {
           };
         };
       };
-    }[];
-    "wp:term": { 0: { id: number; name: string; link: string }[] };
+    }>;
+    "wp:term": { 0: Array<{ id: number; name: string; link: string }> };
   };
 }
 

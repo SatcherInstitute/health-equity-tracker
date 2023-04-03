@@ -1,7 +1,7 @@
 import React from "react";
 import Alert from "@material-ui/lab/Alert";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
-import { Fips } from "../../data/utils/Fips";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type Fips } from "../../data/utils/Fips";
 import { urlMap } from "../../utils/externalUrls";
 import styles from "./SviAlert.module.scss";
 import { HashLink } from "react-router-hash-link";

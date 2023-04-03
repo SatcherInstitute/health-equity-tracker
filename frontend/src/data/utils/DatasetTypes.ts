@@ -1,4 +1,4 @@
-import { DataFrame, IDataFrame } from "data-forge";
+import { DataFrame, type IDataFrame } from "data-forge";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
@@ -90,7 +90,7 @@ export class Dataset {
       headers.forEach((header, headerIndex) => {
         let value = "";
         if (header in row) {
-          value = row[header as string];
+          value = row[header];
         }
         csvString += convertSpecialCharactersForCsv(value);
 

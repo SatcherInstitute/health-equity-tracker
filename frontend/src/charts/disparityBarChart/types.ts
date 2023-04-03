@@ -1,8 +1,11 @@
-import { MetricConfig, MetricId } from "../../data/config/MetricConfig";
-import { BreakdownVar } from "../../data/query/Breakdowns";
-import { ChartDimensionProps } from "../../utils/hooks/useChartDimensions";
+import {
+  type MetricConfig,
+  type MetricId,
+} from "../../data/config/MetricConfig";
+import { type BreakdownVar } from "../../data/query/Breakdowns";
+import { type ChartDimensionProps } from "../../utils/hooks/useChartDimensions";
 
-type Data = Record<string, any>[];
+type Data = Array<Record<string, any>>;
 type Text = string | string[];
 
 export interface DisparityBarChartProps {

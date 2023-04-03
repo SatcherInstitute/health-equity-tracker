@@ -1,8 +1,8 @@
 import {
-  AgeBucket,
+  type AgeBucket,
   ALL,
-  DemographicGroup,
-  RaceAndEthnicityGroup,
+  type DemographicGroup,
+  type RaceAndEthnicityGroup,
 } from "../utils/Constants";
 
 /**

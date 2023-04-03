@@ -9,12 +9,15 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/hooks/usePopover";
-import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from "../data/query/MetricQuery";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";
-import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
+import { type MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 import CopyLinkButton from "./ui/CopyLinkButton";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads

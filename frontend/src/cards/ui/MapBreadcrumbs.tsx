@@ -4,11 +4,11 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Button from "@material-ui/core/Button";
 import styles from "./MapBreadcrumbs.module.scss";
 import { useLocation } from "react-router-dom";
-import { ScrollableHashId } from "../../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
 
 function MapBreadcrumbs(props: {
   fips: Fips;
-  updateFipsCallback: Function;
+  updateFipsCallback: (fips: Fips) => void;
   ariaLabel?: string;
   scrollToHashId: ScrollableHashId;
 }) {
@@ -18,7 +18,7 @@ function MapBreadcrumbs(props: {
     <Breadcrumbs
       separator="›"
       aria-label={`Breadcrumb navigation for ${
-        props.ariaLabel
+        props.ariaLabel ?? "data"
       } in ${props.fips.getDisplayName()} report`}
     >
       <Crumb
@@ -57,7 +57,9 @@ function Crumb(props: {
         <Button
           color="primary"
           className={styles.Crumb}
-          onClick={() => props.onClick!()}
+          onClick={() => {
+            props.onClick?.();
+          }}
         >
           {props.text}
         </Button>

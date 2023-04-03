@@ -1,7 +1,7 @@
 import { getDataManager } from "../../utils/globals";
-import { MetricId } from "../config/MetricConfig";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type MetricId } from "../config/MetricConfig";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
@@ -41,36 +41,43 @@ class HivProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
-      if (breakdowns.hasOnlyRace())
+      if (breakdowns.hasOnlyRace()) {
         return "cdc_hiv_data-race_and_ethnicity_national_time_series";
-      if (breakdowns.hasOnlyAge())
+      }
+      if (breakdowns.hasOnlyAge()) {
         return "cdc_hiv_data-age_national_time_series";
-      if (breakdowns.hasOnlySex())
+      }
+      if (breakdowns.hasOnlySex()) {
         return "cdc_hiv_data-sex_national_time_series";
+      }
     }
     if (breakdowns.geography === "state") {
-      if (breakdowns.hasOnlyRace())
+      if (breakdowns.hasOnlyRace()) {
         return "cdc_hiv_data-race_and_ethnicity_state_time_series";
+      }
       if (breakdowns.hasOnlyAge()) return "cdc_hiv_data-age_state_time_series";
       if (breakdowns.hasOnlySex()) return "cdc_hiv_data-sex_state_time_series";
     }
 
     if (breakdowns.geography === "county") {
-      if (breakdowns.hasOnlyRace())
+      if (breakdowns.hasOnlyRace()) {
         return appendFipsIfNeeded(
           "cdc_hiv_data-race_and_ethnicity_county_time_series",
           breakdowns
         );
-      if (breakdowns.hasOnlyAge())
+      }
+      if (breakdowns.hasOnlyAge()) {
         return appendFipsIfNeeded(
           "cdc_hiv_data-age_county_time_series",
           breakdowns
         );
-      if (breakdowns.hasOnlySex())
+      }
+      if (breakdowns.hasOnlySex()) {
         return appendFipsIfNeeded(
           "cdc_hiv_data-sex_county_time_series",
           breakdowns
         );
+      }
     }
     throw new Error("Not implemented");
   }
@@ -91,7 +98,7 @@ class HivProvider extends VariableProvider {
     df = this.filterByTimeView(df, timeView, mostRecentYear);
     df = this.renameGeoColumns(df, breakdowns);
 
-    let consumedDatasetIds = [datasetId];
+    const consumedDatasetIds = [datasetId];
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);

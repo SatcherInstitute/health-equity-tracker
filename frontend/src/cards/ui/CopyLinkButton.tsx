@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LinkIcon from "@material-ui/icons/Link";
 import styles from "./CopyLinkButton.module.scss";
 import { IconButton, Snackbar } from "@material-ui/core";
-import { ScrollableHashId } from "../../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
 import { Alert } from "@material-ui/lab";
 
 interface CopyLinkButtonProps {
@@ -20,8 +20,11 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
   }
 
   function handleClick() {
-    navigator.clipboard.writeText(cardHashLink);
-    setOpen(true);
+    async function asyncHandleClick() {
+      await navigator.clipboard.writeText(cardHashLink);
+      setOpen(true);
+    }
+    asyncHandleClick().catch((error) => error);
   }
 
   let cardName = props.scrollToHash.replaceAll("-", " ");

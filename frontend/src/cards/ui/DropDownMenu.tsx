@@ -5,12 +5,12 @@ import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import Popover, { PopoverOrigin } from "@material-ui/core/Popover";
-import { usePopover, PopoverElements } from "../../utils/hooks/usePopover";
+import Popover, { type PopoverOrigin } from "@material-ui/core/Popover";
+import { usePopover, type PopoverElements } from "../../utils/hooks/usePopover";
 import styles from "./DropDownMenu.module.scss";
 import { useMediaQuery, useTheme } from "@material-ui/core";
-import { DemographicGroup } from "../../data/utils/Constants";
-import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
+import { type DemographicGroup } from "../../data/utils/Constants";
+import { type BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 
 interface MenuPopoverProps {
   popover: PopoverElements;
@@ -60,7 +60,7 @@ function MenuPopover(props: MenuPopoverProps): JSX.Element {
           key={listItem}
           button
           onClick={(event) => {
-            props.onClick(event, listItem as DemographicGroup);
+            props.onClick(event, listItem);
           }}
         >
           <ListItemText primary={listItem} />
@@ -148,11 +148,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         aria-labelledby={`#groupMenu${props.idSuffix}`}
         popover={firstMenu}
         aria-expanded="true"
-        items={
-          oneLevelMenu
-            ? (Object.values(props.options)[0] as DemographicGroup[])
-            : (props.options as Record<string, DemographicGroup[]>)
-        }
+        items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
         onClick={(event: React.MouseEvent<HTMLElement>, value) => {
           if (oneLevelMenu) {
             props.onOptionUpdate(undefined, value);
@@ -167,14 +163,14 @@ function DropDownMenu(props: DropDownMenuProps) {
       {/* sub-menu feature: not currently in use */}
       <MenuPopover
         popover={secondMenu}
-        items={props.options[firstMenuSelection] as DemographicGroup[]}
+        items={props.options[firstMenuSelection]}
         onClick={(
-          unused_event: React.MouseEvent<HTMLElement>,
+          _unusedEvent: React.MouseEvent<HTMLElement>,
           value: DemographicGroup
         ) => {
           firstMenu.close();
           secondMenu.close();
-          props.onOptionUpdate(firstMenuSelection as DemographicGroup, value);
+          props.onOptionUpdate(firstMenuSelection, value);
         }}
         onClose={firstMenu.close}
       />

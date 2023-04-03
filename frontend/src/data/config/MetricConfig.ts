@@ -201,7 +201,7 @@ export type MetricType =
   | "index"
   | "ratio";
 
-export type MetricConfig = {
+export interface MetricConfig {
   metricId: MetricId;
   columnTitleHeader?: string;
   trendsCardTitleName?: string;
@@ -220,9 +220,9 @@ export type MetricConfig = {
   // (# of covid cases in the US excluding those with unknown race/ethnicity).
   knownBreakdownComparisonMetric?: MetricConfig;
   secondaryPopulationComparisonMetric?: MetricConfig;
-};
+}
 
-export type VariableConfig = {
+export interface VariableConfig {
   variableId: VariableId;
   variableDisplayName: string;
   variableFullDisplayName: string;
@@ -230,7 +230,7 @@ export type VariableConfig = {
   metrics: Record<string, MetricConfig>; // TODO - strongly type key
   surveyCollectedData?: boolean;
   timeSeriesData?: boolean;
-};
+}
 
 const populationPctTitle = "Population share";
 const populationPctShortLabel = "% of population";
@@ -294,8 +294,10 @@ export function formatFieldValue(
   if (value === 0 && metricType === "per100k") return "<1";
 
   const isRatio = metricType.includes("ratio");
-  let formatOptions = isPctType(metricType) ? { minimumFractionDigits: 1 } : {};
-  const formattedValue =
+  const formatOptions = isPctType(metricType)
+    ? { minimumFractionDigits: 1 }
+    : {};
+  const formattedValue: string =
     typeof value === "number"
       ? value.toLocaleString("en", formatOptions)
       : value;
@@ -307,16 +309,16 @@ export function formatFieldValue(
 export function getPer100kAndPctShareMetrics(
   variableConfig: VariableConfig
 ): MetricConfig[] {
-  let tableFields: MetricConfig[] = [];
+  const tableFields: MetricConfig[] = [];
   if (variableConfig) {
-    if (variableConfig.metrics["per100k"]) {
-      tableFields.push(variableConfig.metrics["per100k"]);
+    if (variableConfig.metrics.per100k) {
+      tableFields.push(variableConfig.metrics.per100k);
     }
-    if (variableConfig.metrics["pct_share"]) {
-      tableFields.push(variableConfig.metrics["pct_share"]);
-      if (variableConfig.metrics["pct_share"].populationComparisonMetric) {
+    if (variableConfig.metrics.pct_share) {
+      tableFields.push(variableConfig.metrics.pct_share);
+      if (variableConfig.metrics.pct_share.populationComparisonMetric) {
         tableFields.push(
-          variableConfig.metrics["pct_share"].populationComparisonMetric
+          variableConfig.metrics.pct_share.populationComparisonMetric
         );
       }
     }
@@ -327,13 +329,13 @@ export function getPer100kAndPctShareMetrics(
 export function getAgeAdjustedRatioMetric(
   variableConfig: VariableConfig
 ): MetricConfig[] {
-  let tableFields: MetricConfig[] = [];
+  const tableFields: MetricConfig[] = [];
   if (variableConfig) {
-    if (variableConfig.metrics["age_adjusted_ratio"]) {
+    if (variableConfig.metrics.age_adjusted_ratio) {
       // Ratios for Table
-      tableFields.push(variableConfig.metrics["age_adjusted_ratio"]);
+      tableFields.push(variableConfig.metrics.age_adjusted_ratio);
       // pct_share for Unknowns Alert
-      tableFields.push(variableConfig.metrics["pct_share"]);
+      tableFields.push(variableConfig.metrics.pct_share);
     }
   }
   return tableFields;
@@ -612,7 +614,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total HIV diagnoses",
             ],
             metricId: "hiv_population_pct",
-            columnTitleHeader: "Population share (ages 13+)", //populationPctTitle,
+            columnTitleHeader: "Population share (ages 13+)", // populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
@@ -663,7 +665,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total HIV deaths",
             ],
             metricId: "hiv_population_pct",
-            columnTitleHeader: "Population share (ages 13+)", //populationPctTitle,
+            columnTitleHeader: "Population share (ages 13+)", // populationPctTitle,
             shortLabel: populationPctShortLabel,
             type: "pct_share",
           },
@@ -715,7 +717,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
               "total PrEP prescriptions",
             ],
             metricId: "hiv_prep_population_pct",
-            columnTitleHeader: "PrEP-eligible population share (ages 16+)", //populationPctTitle,
+            columnTitleHeader: "PrEP-eligible population share (ages 16+)", // populationPctTitle,
             shortLabel: "% of PrEP-eligible population",
             type: "pct_share",
           },

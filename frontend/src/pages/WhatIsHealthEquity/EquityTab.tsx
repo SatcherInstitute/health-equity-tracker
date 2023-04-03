@@ -45,7 +45,7 @@ interface WIHEWordpressCopy {
   section4_c_heading3_text: string;
 }
 
-/* 
+/*
 Some of the copy for this tab page is loaded from https://hetblog.dreamhosters.com/wp-json/wp/v2/pages/37
 The object below provides fallback if that fetch fails
 */
@@ -124,7 +124,7 @@ function EquityTab() {
   let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy;
   const { data }: any = useQuery(
     DYNAMIC_COPY_KEY,
-    () => fetchCopyData(),
+    async () => await fetchCopyData(),
     REACT_QUERY_OPTIONS
   );
   if (data) wordpressCopy = data.data?.acf;

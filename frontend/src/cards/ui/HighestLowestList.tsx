@@ -1,16 +1,15 @@
 import React from "react";
 import styles from "./HighestLowestList.module.scss";
 import AnimateHeight from "react-animate-height";
-import { Grid } from "@material-ui/core";
+import { Grid, IconButton } from "@material-ui/core";
 import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { IconButton } from "@material-ui/core";
 import {
-  MetricConfig,
-  VariableConfig,
+  type MetricConfig,
+  type VariableConfig,
   formatFieldValue,
 } from "../../data/config/MetricConfig";
-import { Row } from "../../data/utils/DatasetTypes";
+import { type Row } from "../../data/utils/DatasetTypes";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 export interface HighestLowestListProps {
@@ -52,14 +51,18 @@ export function HighestLowestList(props: HighestLowestListProps) {
               ? `hide lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates `
               : `show lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates`
           }
-          onClick={() => props.setListExpanded(!props.listExpanded)}
+          onClick={() => {
+            props.setListExpanded(!props.listExpanded);
+          }}
           color="primary"
         >
           {props.listExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
       <div
-        onClick={() => props.setListExpanded(!props.listExpanded)}
+        onClick={() => {
+          props.setListExpanded(!props.listExpanded);
+        }}
         aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
@@ -146,13 +149,13 @@ function ExtremeList(props: ExtremeListProps) {
           <li>
             <>
               {props.values.map((row, i) => {
-                let placeName = row["fips_name"];
+                let placeName = row.fips_name;
                 if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage}`;
+                  placeName += ` ${props.qualifierMessage ?? ""}`;
                 }
 
                 return (
-                  <span key={row["fips_name"]}>
+                  <span key={row.fips_name}>
                     {placeName}
                     {i < props.values.length - 1 ? ", " : ""}
                   </span>
@@ -164,13 +167,13 @@ function ExtremeList(props: ExtremeListProps) {
           <>
             {!isTie &&
               props.values.map((row) => {
-                let placeName = row["fips_name"];
+                let placeName = row.fips_name;
                 if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage}`;
+                  placeName += ` ${props.qualifierMessage ?? ""}`;
                 }
 
                 return (
-                  <li key={row["fips_name"]}>
+                  <li key={row.fips_name}>
                     {placeName}: {formatFieldValue(metricType, row[metricId])}{" "}
                     <span className={styles.Unit}>
                       {metricType === "per100k" ? "per 100k" : ""}

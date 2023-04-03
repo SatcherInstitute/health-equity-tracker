@@ -1,11 +1,11 @@
 import React from "react";
-import { Alert, Color } from "@material-ui/lab";
+import { Alert, type Color } from "@material-ui/lab";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { Fips, USA_DISPLAY_NAME } from "../../data/utils/Fips";
-import { VariableId } from "../../data/config/MetricConfig";
+import { type Fips, USA_DISPLAY_NAME } from "../../data/utils/Fips";
+import { type VariableId } from "../../data/config/MetricConfig";
 import { AGE } from "../../data/utils/Constants";
 import {
   COMBINED_INCARCERATION_STATES_LIST,

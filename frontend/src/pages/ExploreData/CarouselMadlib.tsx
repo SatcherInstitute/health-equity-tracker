@@ -5,8 +5,8 @@ import { Fips } from "../../data/utils/Fips";
 import {
   getMadLibWithUpdatedValue,
   insertOptionalThe,
-  MadLib,
-  PhraseSegment,
+  type MadLib,
+  type PhraseSegment,
 } from "../../utils/MadLibs";
 import OptionsSelector from "./OptionsSelector";
 import styles from "./ExploreDataPage.module.scss";

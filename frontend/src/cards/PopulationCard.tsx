@@ -2,12 +2,10 @@ import React from "react";
 import CardWrapper from "./CardWrapper";
 import { Breakdowns } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
-import { CardContent } from "@material-ui/core";
-import { Grid } from "@material-ui/core";
+import { type Fips } from "../data/utils/Fips";
+import { CardContent, Grid } from "@material-ui/core";
 import styles from "./Card.module.scss";
-import { MetricId } from "../data/config/MetricConfig";
-import Alert from "@material-ui/lab/Alert";
+import { type MetricId } from "../data/config/MetricConfig";
 import SviAlert from "./ui/SviAlert";
 
 /* minimize layout shift */

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
-import { MetricConfig } from "../data/config/MetricConfig";
-import { FieldRange } from "../data/utils/DatasetTypes";
+import { type MetricConfig } from "../data/config/MetricConfig";
+import { type FieldRange } from "../data/utils/DatasetTypes";
 import sass from "../styles/variables.module.scss";
 import { ORDINAL } from "./utils";
-import { ScaleType } from "./mapHelpers";
+import { type ScaleType } from "./mapHelpers";
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 const COLOR_SCALE = "color_scale";
 const DOT_SIZE_SCALE = "dot_size_scale";
@@ -26,7 +26,7 @@ export const LEGEND_COLOR_COUNT = 7;
 */
 export interface LegendProps {
   // Data for which to create a legend.
-  legendData?: Record<string, any>[]; // Dataset for which to calculate legend.
+  legendData?: Array<Record<string, any>>; // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
   metric: MetricConfig;
   legendTitle: string;
@@ -54,15 +54,15 @@ export function Legend(props: LegendProps) {
   const [spec, setSpec] = useState({});
 
   useEffect(() => {
-    let colorScale: any = {
+    const colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
       range: { scheme: "yellowgreen", count: LEGEND_COLOR_COUNT },
     };
     if (props.fieldRange) {
-      colorScale["domainMax"] = props.fieldRange.max;
-      colorScale["domainMin"] = props.fieldRange.min;
+      colorScale.domainMax = props.fieldRange.max;
+      colorScale.domainMin = props.fieldRange.min;
     }
 
     const dotRange = props.sameDotSize

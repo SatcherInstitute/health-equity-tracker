@@ -1,7 +1,7 @@
 import {
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  VariableConfig,
+  type VariableConfig,
 } from "../data/config/MetricConfig";
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from "../data/utils/Fips";
 
@@ -39,8 +39,8 @@ function getMadLibPhraseText(madLib: MadLib): string {
     if (typeof phraseSegment === "string") {
       madLibText += phraseSegment;
     } else {
-      const phraseSelector = phraseSegment as PhraseSelector;
-      let selectionKey: string = madLib.activeSelections[index]
+      const phraseSelector = phraseSegment;
+      const selectionKey: string = madLib.activeSelections[index]
         ? madLib.activeSelections[index]
         : madLib.defaultSelections[index];
       madLibText += " " + phraseSelector[selectionKey] + " ";
@@ -55,7 +55,7 @@ export function getMadLibWithUpdatedValue(
   phraseSegementIndex: number,
   newValue: DropdownVarId | string // condition or numeric-string FIPS code
 ) {
-  let updatePhraseSelections: PhraseSelections = {
+  const updatePhraseSelections: PhraseSelections = {
     ...originalMadLib.activeSelections,
   };
   updatePhraseSelections[phraseSegementIndex] = newValue;

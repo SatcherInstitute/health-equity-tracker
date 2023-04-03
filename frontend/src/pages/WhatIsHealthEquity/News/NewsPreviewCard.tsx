@@ -3,7 +3,7 @@ import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
 import styles from "./News.module.scss";
 import AppbarLogo from "../../../assets/AppbarLogo.png";
 import { getHtml, ReactRouterLinkButton } from "../../../utils/urlutils";
-import { Article } from "../NewsTab";
+import { type Article } from "../NewsTab";
 import { Box, Grid } from "@material-ui/core";
 import LazyLoad from "react-lazyload";
 

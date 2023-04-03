@@ -1,4 +1,4 @@
-import { Mark, RectMark, TextMark } from "vega";
+import { type Mark, type RectMark, type TextMark } from "vega";
 import { oneLineLabel } from "../utils";
 import {
   ALT_LIGHT_MEASURE_COLOR,
@@ -16,7 +16,7 @@ import {
   SIDE_BY_SIDE_OFFSET,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
 } from "./constants";
-import { MarkProps } from "./types";
+import { type MarkProps } from "./types";
 
 export function Marks({
   barLabelBreakpoint,
@@ -48,8 +48,7 @@ export function Marks({
         fontSize: { value: 0 },
         text: {
           signal: !hasAltPop
-            ? // NORMAL
-              `${oneLineLabel(breakdownVar)}
+            ? `${oneLineLabel(breakdownVar)}
               +
                 ': '
                 +
@@ -63,8 +62,7 @@ export function Marks({
                 +
                 '${darkMeasureDisplayName}'
               `
-            : // FOR GEOS WITH ALT POPULATIONS
-              `
+            : `
                 ${oneLineLabel(breakdownVar)}
                 +
                 ': '
@@ -198,7 +196,7 @@ export function Marks({
   if (hasAltPop) {
     LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR);
     LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`;
-    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName!);
+    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName);
     marks.push({
       name: "altLightMeasure_bars",
       aria: false, // this data accessible in alt_text_labels
@@ -217,7 +215,7 @@ export function Marks({
           fill: { value: ALT_LIGHT_MEASURE_COLOR },
           fillOpacity: { value: ALT_LIGHT_MEASURE_OPACITY },
           ariaRoleDescription: { value: "bar" },
-          x: { scale: "x", field: altLightMeasure! },
+          x: { scale: "x", field: altLightMeasure },
           x2: { scale: "x", value: 0 },
           y: { scale: "y", field: breakdownVar },
           yc: {

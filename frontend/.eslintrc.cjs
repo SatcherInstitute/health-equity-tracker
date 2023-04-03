@@ -5,7 +5,8 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'standard-with-typescript'
+    'standard-with-typescript',
+    'prettier'
   ],
   overrides: [
   ],
@@ -17,6 +18,11 @@ module.exports = {
   plugins: [
     'react'
   ],
+  settings: {
+    react: {
+      version: "detect"
+    }
+  },
   rules: {
     quotes: 'off',
     '@typescript-eslint/quotes': 'off',
@@ -26,7 +32,12 @@ module.exports = {
     '@typescript-eslint/space-before-function-paren': "off",
     '@typescript-eslint/strict-boolean-expressions': "off",
     '@typescript-eslint/indent': "off",
-    "react/react-in-jsx-scope": "off"
-
+    "react/react-in-jsx-scope": "off",
+    '@typescript-eslint/restrict-plus-operands': "off",
+    '@typescript-eslint/require-array-sort-compare': "off",
+    '@typescript-eslint/ban-ts-comment': "off",
+    'react/no-unescaped-entities': "off",
+    "multiline-ternary": "off",
+    "react/prop-types": "off"
   }
 }

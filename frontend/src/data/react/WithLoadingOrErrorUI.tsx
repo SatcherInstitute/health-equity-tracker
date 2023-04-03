@@ -1,11 +1,18 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { Dataset, MapOfDatasetMetadata } from "../utils/DatasetTypes";
+import { type Dataset, type MapOfDatasetMetadata } from "../utils/DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetadataCache } from "../loading/DataManager";
-import { IncompleteLoadStatus, useMetrics, useResources } from "./useResources";
+import {
+  type IncompleteLoadStatus,
+  useMetrics,
+  useResources,
+} from "./useResources";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
 
 /**
@@ -31,7 +38,11 @@ export function WithLoadingOrErrorUI<R>(props: {
         <p>
           <b>Oops, something went wrong.</b>
         </p>
-        <Button onClick={() => window.location.reload()}>
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
           <b>Reload</b>
         </Button>
       </div>

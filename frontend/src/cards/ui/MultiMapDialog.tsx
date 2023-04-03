@@ -7,25 +7,25 @@ import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
 import { ChoroplethMap } from "../../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
 import { Legend } from "../../charts/Legend";
-import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
-  MetricConfig,
-  MetricId,
+  type MapOfDatasetMetadata,
+  type Row,
+  type FieldRange,
+} from "../../data/utils/DatasetTypes";
+import {
+  type MetricConfig,
+  type MetricId,
   SYMBOL_TYPE_LOOKUP,
 } from "../../data/config/MetricConfig";
-import { Row, FieldRange } from "../../data/utils/DatasetTypes";
 import { Sources } from "./Sources";
 import styles from "./MultiMapDialog.module.scss";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
 import { Alert } from "@material-ui/lab";
-import {
-  DemographicGroup,
-  RaceAndEthnicityGroup,
-} from "../../data/utils/Constants";
+import { type DemographicGroup } from "../../data/utils/Constants";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -101,7 +101,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             const mapLabel = CAWP_DETERMINANTS.includes(
               props.metricConfig.metricId
             )
-              ? getWomenRaceLabel(breakdownValue as RaceAndEthnicityGroup)
+              ? getWomenRaceLabel(breakdownValue)
               : breakdownValue;
 
             const dataForValue = props.data.filter(

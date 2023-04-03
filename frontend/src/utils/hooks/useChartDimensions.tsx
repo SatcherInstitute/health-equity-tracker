@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AlignValue, LegendOrient } from "vega";
+import { type AlignValue, type LegendOrient } from "vega";
 
 export interface ChartDimensionProps {
   axisTickMinStep?: number;
