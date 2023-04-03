@@ -1,4 +1,3 @@
-import React from "react";
 import Grid from "@material-ui/core/Grid";
 import styles from "./AboutUsPage.module.scss";
 import Typography from "@material-ui/core/Typography";

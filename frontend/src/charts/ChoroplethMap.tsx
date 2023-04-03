@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
-import { Fips } from "../data/utils/Fips";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
-import { FieldRange } from "../data/utils/DatasetTypes";
+import { type Fips } from "../data/utils/Fips";
+import { type MetricConfig, type MetricId } from "../data/config/MetricConfig";
+import { type FieldRange } from "../data/utils/DatasetTypes";
 import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
 import { useFontSize } from "../utils/hooks/useFontSize";
 import sass from "../styles/variables.module.scss";
@@ -29,7 +29,7 @@ import {
   LEGEND_DATASET,
   makeAltText,
   MISSING_DATASET,
-  ScaleType,
+  type ScaleType,
   setupColorScale,
   VAR_DATASET,
   GREY_DOT_SCALE_SPEC,
@@ -56,46 +56,46 @@ const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
   // Data used to create the map
-  data: Record<string, any>[];
+  data: Array<Record<string, any>>
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
-  geoData?: Record<string, any>;
+  geoData?: Record<string, any>
   // Metric within the data that we are visualizing
-  metric: MetricConfig;
+  metric: MetricConfig
   // The geography that this map is showing
-  fips: Fips;
+  fips: Fips
   // Use different labels for legend and tooltip if it's the unknowns map
-  isUnknownsMap?: boolean;
+  isUnknownsMap?: boolean
   // If true, maps will render counties, otherwise it will render states/territories
-  showCounties: boolean;
+  showCounties: boolean
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
-  legendData?: Record<string, any>[];
+  legendData?: Array<Record<string, any>>
   // Whether or not the legend is present
-  hideLegend?: boolean;
+  hideLegend?: boolean
   // If legend is present, what is the title
-  legendTitle?: string | string[];
+  legendTitle?: string | string[]
   // Max/min of the data range- if present it will set the color scale at these boundaries
-  fieldRange?: FieldRange;
+  fieldRange?: FieldRange
   // Hide the action bar in the corner of a vega chart
-  hideActions?: boolean;
+  hideActions?: boolean
   // How the color scale is computed mathematically
-  scaleType: ScaleType;
+  scaleType: ScaleType
   // Colors to use for the color scale. Default is yellowgreen
-  scaleColorScheme?: string;
+  scaleColorScheme?: string
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
-  overrideShapeWithCircle?: boolean;
+  overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
-  hideMissingDataTooltip?: boolean;
+  hideMissingDataTooltip?: boolean
   // Callbacks set up so map interactions can update the React UI
-  signalListeners: any;
+  signalListeners: any
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
-  filename?: string;
+  filename?: string
   titles?: {
-    chartTitle: string | string[];
-    subtitle?: string;
-  };
-  listExpanded?: boolean;
-  countColsToAdd: MetricId[];
+    chartTitle: string | string[]
+    subtitle?: string
+  }
+  listExpanded?: boolean
+  countColsToAdd: MetricId[]
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -130,7 +130,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
 
   // Dataset to use for computing the legend
-  const legendData = props.legendData || props.data;
+  const legendData = props.legendData ?? props.data;
 
   useEffect(() => {
     const geoData = props.geoData
@@ -139,7 +139,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
-    let geoTransformers: any[] = [
+    const geoTransformers: any[] = [
       {
         type: "lookup",
         from: VAR_DATASET,
@@ -161,7 +161,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
     if (props.fips.isStateOrTerritory()) {
       // The first two characters of a county FIPS are the state FIPS
-      let stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`;
+      const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`;
       geoTransformers.push({
         type: "filter",
         expr: stateFipsVar,
@@ -207,12 +207,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* includeSvi */ false
     );
 
-    if (isCawp)
+    if (isCawp) {
       addCAWPTooltipInfo(
         /* tooltipPairs */ tooltipPairs,
-        /* subTitle */ props.titles?.subtitle || "",
+        /* subTitle */ props.titles?.subtitle ?? "",
         /* colsToAdd */ props.countColsToAdd
       );
+    }
 
     // Hover tooltip for non-zero data
     const tooltipValue = buildTooltipTemplate(
@@ -222,7 +223,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     );
 
     /* SET UP LEGEND */
-    let legendList = [];
+    const legendList = [];
 
     const legend: any = {
       fill: COLOR_SCALE,
@@ -239,7 +240,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       format: "d",
     };
     if (props.metric.type === "pct_share") {
-      legend["encode"] = {
+      legend.encode = {
         labels: {
           update: {
             text: {
@@ -274,29 +275,29 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCirce */ props.overrideShapeWithCircle
     );
 
-    let marks = [
+    const marks = [
       isCawp && !props.listExpanded
         ? createShapeMarks(
-            /*datasetName=*/ ZERO_DATASET,
-            /*fillColor=*/ { value: sass.mapMin },
-            /*hoverColor=*/ RED_ORANGE,
-            /*tooltipExpression=*/ zeroTooltipValue,
+            /* datasetName= */ ZERO_DATASET,
+            /* fillColor= */ { value: sass.mapMin },
+            /* hoverColor= */ RED_ORANGE,
+            /* tooltipExpression= */ zeroTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
           )
         : createShapeMarks(
-            /*datasetName=*/ MISSING_DATASET,
-            /*fillColor=*/ { value: UNKNOWN_GREY },
-            /*hoverColor=*/ RED_ORANGE,
-            /*tooltipExpression=*/ missingDataTooltipValue,
+            /* datasetName= */ MISSING_DATASET,
+            /* fillColor= */ { value: UNKNOWN_GREY },
+            /* hoverColor= */ RED_ORANGE,
+            /* tooltipExpression= */ missingDataTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
           ),
       createShapeMarks(
-        /*datasetName=*/ VALID_DATASET,
-        /*fillColor=*/ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
-        /*hoverColor=*/ DARK_BLUE,
-        /*tooltipExpression=*/ tooltipValue,
+        /* datasetName= */ VALID_DATASET,
+        /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+        /* hoverColor= */ DARK_BLUE,
+        /* tooltipExpression= */ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip
       ),
@@ -319,7 +320,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     const altText = makeAltText(
       /* data */ props.data,
-      /* filename */ props.filename || "",
+      /* filename */ props.filename ?? "",
       /* fips */ props.fips,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle
     );
@@ -340,8 +341,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           values:
             // only use the nonZero subset if viewing high low lists, viewing CAWP,
             // or viewing multimap with some groups having only one non-zero value
-            props.listExpanded ||
-            !isCawp ||
+            props.listExpanded ??
+            !isCawp ??
             (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
@@ -415,7 +416,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         ZERO_YELLOW_SCALE,
       ],
       legends: legendList,
-      marks: marks,
+      marks,
       title: !props.overrideShapeWithCircle && {
         text: props.titles?.chartTitle,
         subtitle: props.titles?.subtitle,
@@ -452,7 +453,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true);
     }, 0);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     isCawp,
     width,
@@ -500,7 +500,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               editor: false,
             }
           }
-          downloadFileName={`${props.filename} - Health Equity Tracker`}
+          downloadFileName={`${props.filename ?? ""} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
       )}

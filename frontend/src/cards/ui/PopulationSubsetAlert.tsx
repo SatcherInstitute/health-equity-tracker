@@ -2,11 +2,11 @@ import { CardContent } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
 import { HashLink } from "react-router-hash-link";
-import { VariableId } from "../../data/config/MetricConfig";
+import { type VariableId } from "../../data/config/MetricConfig";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 
 interface PopulationSubsetAlertProps {
-  variableId: VariableId;
+  variableId: VariableId
 }
 
 export default function PopulationSubsetAlert({

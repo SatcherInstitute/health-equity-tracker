@@ -2,18 +2,18 @@ import React from "react";
 import { TableChart } from "../charts/TableChart";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
   METRIC_CONFIG,
-  MetricConfig,
-  MetricId,
-  VariableConfig,
+  type MetricConfig,
+  type MetricId,
+  type VariableConfig,
   getPer100kAndPctShareMetrics,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -29,10 +29,10 @@ import {
 import styles from "./Card.module.scss";
 import { INCARCERATION_IDS } from "../data/variables/IncarcerationProvider";
 import IncarceratedChildrenShortAlert from "./ui/IncarceratedChildrenShortAlert";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 // We need to get this property, but we want to show it as
@@ -43,9 +43,9 @@ export const NEVER_SHOW_PROPERTIES = [
 ];
 
 export interface TableCardProps {
-  fips: Fips;
-  breakdownVar: BreakdownVar;
-  variableConfig: VariableConfig;
+  fips: Fips
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
 }
 
 export function TableCard(props: TableCardProps) {
@@ -65,7 +65,7 @@ export function TableCard(props: TableCardProps) {
     )
   );
 
-  let metricConfigs: Partial<Record<MetricId, MetricConfig>> = {};
+  const metricConfigs: Partial<Record<MetricId, MetricConfig>> = {};
   metrics.forEach((metricConfig) => {
     // We prefer known breakdown metric if available.
     if (metricConfig.knownBreakdownComparisonMetric) {
@@ -92,7 +92,7 @@ export function TableCard(props: TableCardProps) {
   const metricIds = Object.keys(metricConfigs) as MetricId[];
   isIncarceration && metricIds.push("total_confined_children");
   const query = new MetricQuery(
-    metricIds as MetricId[],
+    metricIds,
     breakdowns,
     /* variableId */ props.variableConfig.variableId,
     /* timeView */ isCawp ? "cross_sectional" : undefined
@@ -196,9 +196,9 @@ export function TableCard(props: TableCardProps) {
 function fillInAltPops(data: any[]) {
   // This should only happen in the vaccine kff state case
   return data.map((item) => {
-    const { vaccinated_pop_pct, acs_vaccinated_pop_pct, ...restOfItem } = item;
+    const { vaccinatedPopPct, acsVaccinatedPopPct, ...restOfItem } = item;
     return {
-      vaccinated_pop_pct: vaccinated_pop_pct || acs_vaccinated_pop_pct,
+      vaccinated_pop_pct: vaccinatedPopPct || acsVaccinatedPopPct,
       ...restOfItem,
     };
   });

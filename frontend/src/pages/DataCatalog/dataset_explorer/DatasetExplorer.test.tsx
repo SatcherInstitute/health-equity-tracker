@@ -5,6 +5,8 @@ import DatasetExplorer from "./DatasetExplorer";
 import { DatasetMetadata } from "../../../data/utils/DatasetTypes";
 import { autoInitGlobals, getDataFetcher } from "../../../utils/globals";
 import FakeDataFetcher from "../../../testing/FakeDataFetcher";
+import { test, expect } from "vitest";
+import "@testing-library/jest-dom";
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   id: "acs_population-by_age_county",

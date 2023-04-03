@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import { Box, CardContent } from "@material-ui/core";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { type VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
-  DemographicGroup,
+  type DemographicGroup,
   TIME_SERIES,
   NON_HISPANIC,
   AIAN_API,
-  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
@@ -28,12 +27,12 @@ import { Alert } from "@material-ui/lab";
 import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
 import styles from "../charts/trendsChart/Trends.module.scss";
 
@@ -41,11 +40,11 @@ import styles from "../charts/trendsChart/Trends.module.scss";
 const PRELOAD_HEIGHT = 668;
 
 export interface RateTrendsChartCardProps {
-  key?: string;
-  breakdownVar: BreakdownVar;
-  variableConfig: VariableConfig;
-  fips: Fips;
-  isCompareCard?: boolean;
+  key?: string
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
+  fips: Fips
+  isCompareCard?: boolean
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -59,8 +58,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false);
   const [unknownsExpanded, setUnknownsExpanded] = useState(false);
 
-  const metricConfigRates = props.variableConfig.metrics["per100k"];
-  const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
+  const metricConfigRates = props.variableConfig.metrics.per100k;
+  const metricConfigPctShares = props.variableConfig.metrics.pct_share;
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -82,7 +81,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfigRates.trendsCardTitleName
+      metricConfigRates.trendsCardTitleName ?? "Data"
     } in ${props.fips.getSentenceDisplayName()}`;
   }
 
@@ -134,9 +133,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           : allDemographicGroups.filter((group) => group !== "Unknown race");
 
         const demographicGroupsLabelled = isCawp
-          ? demographicGroups.map((race) =>
-              getWomenRaceLabel(race as RaceAndEthnicityGroup)
-            )
+          ? demographicGroups.map((race) => getWomenRaceLabel(race))
           : demographicGroups;
 
         // we want to send Unknowns as Knowns for CAWP so we can plot as a line as well
@@ -218,9 +215,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   unknown={nestedUnknownPctShareData}
                   axisConfig={{
                     type: metricConfigRates.type,
-                    groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                      props.breakdownVar
-                    ] as DemographicGroup,
+                    groupLabel:
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                        props.breakdownVar
+                      ],
                     yAxisLabel: `${metricConfigRates.shortLabel} ${
                       props.fips.isUsa() ? "" : "from"
                     } ${
@@ -232,7 +230,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   }}
                   breakdownVar={props.breakdownVar}
                   setSelectedTableGroups={setSelectedTableGroups}
-                  isCompareCard={props.isCompareCard || false}
+                  isCompareCard={props.isCompareCard ?? false}
                   expanded={unknownsExpanded}
                   setExpanded={setUnknownsExpanded}
                   hasUnknowns={hasUnknowns}

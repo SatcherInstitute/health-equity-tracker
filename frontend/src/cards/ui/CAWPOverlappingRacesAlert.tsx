@@ -1,10 +1,10 @@
 import { CardContent } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 import React from "react";
-import { VariableConfig } from "../../data/config/MetricConfig";
+import { type VariableConfig } from "../../data/config/MetricConfig";
 
 interface CAWPOverlappingRacesAlertProps {
-  variableConfig: VariableConfig;
+  variableConfig: VariableConfig
 }
 
 export default function CAWPOverlappingRacesAlert(

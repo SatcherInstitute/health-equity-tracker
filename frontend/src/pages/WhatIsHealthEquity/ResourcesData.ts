@@ -1,11 +1,11 @@
 export interface Resource {
-  name: string;
-  url: string;
+  name: string
+  url: string
 }
 
 export interface ResourceGroup {
-  heading: string;
-  resources: Resource[];
+  heading: string
+  resources: Resource[]
 }
 
 export const PDOH_RESOURCES: ResourceGroup = {

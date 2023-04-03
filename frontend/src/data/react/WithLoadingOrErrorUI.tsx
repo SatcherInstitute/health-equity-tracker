@@ -1,11 +1,18 @@
 import { Button } from "@material-ui/core";
 import React from "react";
-import { Dataset, MapOfDatasetMetadata } from "../utils/DatasetTypes";
+import { type Dataset, type MapOfDatasetMetadata } from "../utils/DatasetTypes";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from "../query/MetricQuery";
 import { getDataManager } from "../../utils/globals";
 import { MetadataCache } from "../loading/DataManager";
-import { IncompleteLoadStatus, useMetrics, useResources } from "./useResources";
+import {
+  type IncompleteLoadStatus,
+  useMetrics,
+  useResources,
+} from "./useResources";
 import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
 
 /**
@@ -13,9 +20,9 @@ import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
  * error, and displays loading and error indicators.
  */
 export function WithLoadingOrErrorUI<R>(props: {
-  resources: R[] | IncompleteLoadStatus;
-  children: (resources: R[]) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  resources: R[] | IncompleteLoadStatus
+  children: (resources: R[]) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
   if (props.resources === "loading") {
     return props.loadingComponent ? (
@@ -31,7 +38,11 @@ export function WithLoadingOrErrorUI<R>(props: {
         <p>
           <b>Oops, something went wrong.</b>
         </p>
-        <Button onClick={() => window.location.reload()}>
+        <Button
+          onClick={() => {
+            window.location.reload();
+          }}
+        >
           <b>Reload</b>
         </Button>
       </div>
@@ -42,8 +53,8 @@ export function WithLoadingOrErrorUI<R>(props: {
 }
 
 export function WithMetadata(props: {
-  children: (metadata: MapOfDatasetMetadata) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  children: (metadata: MapOfDatasetMetadata) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
   const metadatas = useResources<string, MapOfDatasetMetadata>(
     [MetadataCache.METADATA_KEY],
@@ -68,9 +79,9 @@ export function WithMetadata(props: {
  * displays loading and error indicators.
  */
 export function WithMetrics(props: {
-  queries: MetricQuery[];
-  children: (responses: MetricQueryResponse[]) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  queries: MetricQuery[]
+  children: (responses: MetricQueryResponse[]) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
   const queryResponses = useMetrics(props.queries);
   return (
@@ -84,9 +95,9 @@ export function WithMetrics(props: {
 }
 
 function WithDatasets(props: {
-  datasetIds: string[];
-  children: (datasets: Dataset[]) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  datasetIds: string[]
+  children: (datasets: Dataset[]) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
   const datasets = useResources<string, Dataset>(
     props.datasetIds,
@@ -108,14 +119,14 @@ function WithDatasets(props: {
  * queries change so that the component's load screen is reset.
  */
 interface WithMetadataAndMetricsProps {
-  queries: MetricQuery[];
+  queries: MetricQuery[]
   children: (
     metadata: MapOfDatasetMetadata,
     queryResponses: MetricQueryResponse[],
     geoData?: Record<string, any>
-  ) => JSX.Element;
-  loadingComponent?: JSX.Element;
-  loadGeographies?: boolean;
+  ) => JSX.Element
+  loadingComponent?: JSX.Element
+  loadGeographies?: boolean
 }
 
 export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {

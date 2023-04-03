@@ -1,7 +1,7 @@
 import { useMediaQuery } from "@material-ui/core";
-import { Scale } from "vega";
+import { type Scale } from "vega";
 import { BAR_PADDING, DATASET, LEGEND_COLORS } from "./constants";
-import { ScalesProps } from "./types";
+import { type ScalesProps } from "./types";
 
 export function Scales({
   largerMeasure,
@@ -15,7 +15,7 @@ export function Scales({
     type: "linear",
     domain: { data: DATASET, field: largerMeasure },
     range: [0, { signal: "width" }],
-    nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
+    nice: !pageIsTiny, // on desktop, extend x-axis to a "nice" value
     zero: true,
   };
 

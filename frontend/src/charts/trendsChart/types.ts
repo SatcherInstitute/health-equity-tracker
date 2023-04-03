@@ -1,6 +1,6 @@
-import { ScaleTime, ScaleLinear, ScaleOrdinal } from "d3";
-import { MetricType } from "../../data/config/MetricConfig";
-import { DemographicGroup } from "../../data/utils/Constants";
+import { type ScaleTime, type ScaleLinear, type ScaleOrdinal } from "d3";
+import { type MetricType } from "../../data/config/MetricConfig";
+import { type DemographicGroup } from "../../data/utils/Constants";
 
 type TrendsData = GroupData[];
 type GroupData = [DemographicGroup, TimeSeries];
@@ -12,13 +12,13 @@ type Date = string;
 type XScale = ScaleTime<number, number | undefined>;
 type YScale = ScaleLinear<number, number | undefined>;
 type ColorScale = ScaleOrdinal<string, string, never>;
-type AxisConfig = {
-  type: MetricType;
-  groupLabel: DemographicGroup;
-  yAxisLabel?: string;
-  xAxisIsMonthly?: boolean;
-  xAxisMaxTicks?: number | null;
-};
+interface AxisConfig {
+  type: MetricType
+  groupLabel: DemographicGroup
+  yAxisLabel?: string
+  xAxisIsMonthly?: boolean
+  xAxisMaxTicks?: number | null
+}
 
 export type {
   Date,

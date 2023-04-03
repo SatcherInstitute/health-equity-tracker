@@ -1,16 +1,16 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
-import { Row } from "../../data/utils/DatasetTypes";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { type Row } from "../../data/utils/DatasetTypes";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type MetricConfig } from "../../data/config/MetricConfig";
 import styles from "../Card.module.scss";
 import { CardContent, Divider } from "@material-ui/core";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { Fips } from "../../data/utils/Fips";
-import { VisualizationType } from "../../charts/utils";
+import { type Fips } from "../../data/utils/Fips";
+import { type VisualizationType } from "../../charts/utils";
 import { splitIntoKnownsAndUnknowns } from "../../data/utils/datasetutils";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 import { AGE } from "../../data/utils/Constants";
@@ -18,18 +18,18 @@ import { AGE } from "../../data/utils/Constants";
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
 interface UnknownsAlertProps {
-  queryResponse: MetricQueryResponse;
-  ageQueryResponse?: MetricQueryResponse;
-  metricConfig: MetricConfig;
-  breakdownVar: BreakdownVar;
-  displayType: VisualizationType;
-  known: boolean;
-  overrideAndWithOr?: boolean;
-  raceEthDiffMap?: boolean;
-  noDemographicInfoMap?: boolean;
-  showingVisualization?: boolean;
-  fips: Fips;
-  jumpToData?: Function;
+  queryResponse: MetricQueryResponse
+  ageQueryResponse?: MetricQueryResponse
+  metricConfig: MetricConfig
+  breakdownVar: BreakdownVar
+  displayType: VisualizationType
+  known: boolean
+  overrideAndWithOr?: boolean
+  raceEthDiffMap?: boolean
+  noDemographicInfoMap?: boolean
+  showingVisualization?: boolean
+  fips: Fips
+  jumpToData?: () => void
 }
 
 function UnknownsAlert(props: UnknownsAlertProps) {
@@ -80,21 +80,21 @@ function UnknownsAlert(props: UnknownsAlertProps) {
 
   const percentageUnknown = unknowns[0][props.metricConfig.metricId];
 
-  const secondaryAgePercentageUnknown =
+  const secondaryAgePercentageUnknown: string =
     additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId];
 
   const showInfoSeverity = percentageUnknown === 0;
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
-    ${unknowns[0][props.metricConfig.metricId]}${
+    ${unknowns[0][props.metricConfig.metricId] as string}${
         props.metricConfig.shortLabel
       } reported an
-    ${unknowns[0][props.breakdownVar].toLowerCase()} and
-    ${unknowns[1][props.metricConfig.metricId]}${
-        props.metricConfig.knownBreakdownComparisonMetric!.shortLabel
+    ${unknowns[0][props.breakdownVar].toLowerCase() as string} and
+    ${unknowns[1][props.metricConfig.metricId] as string}${
+        props.metricConfig.knownBreakdownComparisonMetric?.shortLabel ?? ""
       } reported an
-    ${unknowns[1][props.breakdownVar].toLowerCase()}.`
+    ${unknowns[1][props.breakdownVar].toLowerCase() as string}.`
     : "";
 
   const showCardHelperText =

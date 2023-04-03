@@ -12,29 +12,29 @@ import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons";
 import React, { useRef } from "react";
 import AnimateHeight from "react-animate-height";
-import { MetricConfig } from "../../data/config/MetricConfig";
-import { BreakdownVar } from "../../data/query/Breakdowns";
+import { type MetricConfig } from "../../data/config/MetricConfig";
+import { type BreakdownVar } from "../../data/query/Breakdowns";
 import {
-  DemographicGroup,
+  type DemographicGroup,
   TIME_PERIOD_LABEL,
 } from "../../data/utils/Constants";
 import { makeA11yTableData } from "../../data/utils/DatasetTimeUtils";
-import { Row } from "../../data/utils/DatasetTypes";
+import { type Row } from "../../data/utils/DatasetTypes";
 import { DATA_TAB_LINK } from "../../utils/internalRoutes";
 import styles from "./AltTableView.module.scss";
 
 interface AltTableViewProps {
-  expanded: boolean;
-  setExpanded: Function;
-  expandBoxLabel: string;
-  tableCaption: string;
-  knownsData: Row[];
-  unknownsData: Row[];
-  breakdownVar: BreakdownVar;
-  knownMetricConfig: MetricConfig;
-  unknownMetricConfig: MetricConfig;
-  selectedGroups: DemographicGroup[];
-  hasUnknowns: boolean;
+  expanded: boolean
+  setExpanded: (expanded: boolean) => void
+  expandBoxLabel: string
+  tableCaption: string
+  knownsData: Row[]
+  unknownsData: Row[]
+  breakdownVar: BreakdownVar
+  knownMetricConfig: MetricConfig
+  unknownMetricConfig: MetricConfig
+  selectedGroups: DemographicGroup[]
+  hasUnknowns: boolean
 }
 
 export default function AltTableView(props: AltTableViewProps) {
@@ -53,8 +53,8 @@ export default function AltTableView(props: AltTableViewProps) {
     props.hasUnknowns
   );
 
-  const firstTimePeriod = accessibleData[0][TIME_PERIOD_LABEL];
-  const lastTimePeriod =
+  const firstTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL];
+  const lastTimePeriod: string =
     accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL];
 
   return (
@@ -70,14 +70,18 @@ export default function AltTableView(props: AltTableViewProps) {
             !props.expanded ? "Expand" : "Collapse"
           } data table view of ${props.expandBoxLabel}`}
           aria-expanded={props.expanded}
-          onClick={() => props.setExpanded(!props.expanded)}
+          onClick={() => {
+            props.setExpanded(!props.expanded);
+          }}
           color="primary"
         >
           {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
       <div
-        onClick={() => props.setExpanded(!props.expanded)}
+        onClick={() => {
+          props.setExpanded(!props.expanded);
+        }}
         aria-hidden={true}
         className={
           props.expanded ? styles.AltTableTitleExpanded : styles.AltTableTitle

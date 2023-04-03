@@ -1,5 +1,11 @@
-import React, { useMemo } from "react";
-import { Column, HeaderGroup, Row, useSortBy, useTable } from "react-table";
+import { useMemo } from "react";
+import {
+  type Column,
+  type HeaderGroup,
+  type Row,
+  useSortBy,
+  useTable,
+} from "react-table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
@@ -7,8 +13,8 @@ import TableRow from "@material-ui/core/TableRow";
 import TableFooter from "@material-ui/core/TableFooter";
 import Paper from "@material-ui/core/Paper";
 import {
-  MetricConfig,
-  MetricId,
+  type MetricConfig,
+  type MetricId,
   formatFieldValue,
 } from "../data/config/MetricConfig";
 import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
@@ -36,9 +42,9 @@ const altCellStyle = {
 };
 
 export interface AgeAdjustedTableChartProps {
-  data: Readonly<Record<string, any>>[];
-  metrics: MetricConfig[];
-  title?: string | string[];
+  data: Array<Readonly<Record<string, any>>>
+  metrics: MetricConfig[]
+  title?: string | string[]
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
@@ -108,6 +114,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           cell.value == null ? (
             <TableCell
               {...cell.getCellProps()}
+              key={`no-data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               <Tooltip title="No data available">
@@ -120,6 +127,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           ) : (
             <TableCell
               {...cell.getCellProps()}
+              key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               {cell.render("Cell")}
@@ -134,7 +142,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
 
   const titleStyle = {
     font: "Inter, sans-serif",
-    fontSize: fontSize,
+    fontSize,
     fontWeight: "bold",
     paddingTop: 10,
     paddingBottom: 10,

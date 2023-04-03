@@ -1,8 +1,8 @@
 import React from "react";
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { MetricId, VariableId } from "../config/MetricConfig";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type MetricId, type VariableId } from "../config/MetricConfig";
 import VariableProvider from "./VariableProvider";
 import { GetAcsDatasetId } from "./AcsPopulationProvider";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
@@ -63,34 +63,39 @@ class IncarcerationProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === "national") {
-      if (breakdowns.hasOnlyRace())
+      if (breakdowns.hasOnlyRace()) {
         return "bjs_incarceration_data-race_and_ethnicity_national";
+      }
       if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_national";
       if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_national";
     }
     if (breakdowns.geography === "state") {
-      if (breakdowns.hasOnlyRace())
+      if (breakdowns.hasOnlyRace()) {
         return "bjs_incarceration_data-race_and_ethnicity_state";
+      }
       if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_state";
       if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_state";
     }
 
     if (breakdowns.geography === "county") {
-      if (breakdowns.hasOnlyRace())
+      if (breakdowns.hasOnlyRace()) {
         return appendFipsIfNeeded(
           "vera_incarceration_county-by_race_and_ethnicity_county_time_series",
           breakdowns
         );
-      if (breakdowns.hasOnlyAge())
+      }
+      if (breakdowns.hasOnlyAge()) {
         return appendFipsIfNeeded(
           "vera_incarceration_county-by_age_county_time_series",
           breakdowns
         );
-      if (breakdowns.hasOnlySex())
+      }
+      if (breakdowns.hasOnlySex()) {
         return appendFipsIfNeeded(
           "vera_incarceration_county-by_sex_county_time_series",
           breakdowns
         );
+      }
     }
     throw new Error("Not implemented");
   }
@@ -137,10 +142,11 @@ class IncarcerationProvider extends VariableProvider {
         "decia_2020_territory_population-by_sex_territory_state_level"
       );
       // only time-series cards use decia 2010
-      if (timeView === "time_series")
+      if (timeView === "time_series") {
         consumedDatasetIds.push(
           "decia_2010_territory_population-by_sex_territory_state_level"
         );
+      }
     }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);

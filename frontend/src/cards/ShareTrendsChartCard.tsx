@@ -1,23 +1,22 @@
 import React, { useState } from "react";
 import { CardContent } from "@material-ui/core";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { VariableConfig } from "../data/config/MetricConfig";
+import { type VariableConfig } from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import { TrendsChart } from "../charts/trendsChart/Index";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
   ALL,
-  DemographicGroup,
+  type DemographicGroup,
   TIME_SERIES,
   NON_HISPANIC,
   UNKNOWN_LABELS,
-  RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
@@ -31,12 +30,12 @@ import { METHODOLOGY_TAB_LINK } from "../utils/internalRoutes";
 import AltTableView from "./ui/AltTableView";
 import UnknownBubblesAlert from "./ui/UnknownBubblesAlert";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from "../data/variables/CawpProvider";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import { hasNonZeroUnknowns } from "../charts/trendsChart/helpers";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
@@ -44,11 +43,11 @@ import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 const PRELOAD_HEIGHT = 668;
 
 export interface ShareTrendsChartCardProps {
-  key?: string;
-  breakdownVar: BreakdownVar;
-  variableConfig: VariableConfig;
-  fips: Fips;
-  isCompareCard?: boolean;
+  key?: string
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
+  fips: Fips
+  isCompareCard?: boolean
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -63,8 +62,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const [unknownsExpanded, setUnknownsExpanded] = useState(false);
 
   const metricConfigInequitable =
-    props.variableConfig.metrics["pct_relative_inequity"];
-  const metricConfigPctShares = props.variableConfig.metrics["pct_share"];
+    props.variableConfig.metrics.pct_relative_inequity;
+  const metricConfigPctShares = props.variableConfig.metrics.pct_share;
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -136,11 +135,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           .getFieldValues(props.breakdownVar, metricConfigInequitable.metricId)
           .withData.filter(
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
-          ) as DemographicGroup[];
+          );
 
         const demographicGroupsLabelled = isCawp
           ? demographicGroups.map((group: DemographicGroup) =>
-              getWomenRaceLabel(group as RaceAndEthnicityGroup)
+              getWomenRaceLabel(group)
             )
           : demographicGroups;
 
@@ -189,21 +188,21 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 </>
               ) : (
                 <>
-                  {/* @ts-ignore */}
                   <TrendsChart
                     data={nestedInequityData}
                     chartTitle={filename}
                     unknown={nestedUnknowns}
                     axisConfig={{
                       type: metricConfigInequitable.type,
-                      groupLabel: BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.breakdownVar
-                      ] as DemographicGroup,
+                      groupLabel:
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.breakdownVar
+                        ],
                       xAxisIsMonthly: metricConfigInequitable.isMonthly,
                     }}
                     breakdownVar={props.breakdownVar}
                     setSelectedTableGroups={setSelectedTableGroups}
-                    isCompareCard={props.isCompareCard || false}
+                    isCompareCard={props.isCompareCard ?? false}
                     expanded={unknownsExpanded}
                     setExpanded={setUnknownsExpanded}
                     hasUnknowns={hasUnknowns}

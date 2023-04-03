@@ -5,15 +5,15 @@ import { Fips } from "../../data/utils/Fips";
 import {
   getMadLibWithUpdatedValue,
   insertOptionalThe,
-  MadLib,
-  PhraseSegment,
+  type MadLib,
+  type PhraseSegment,
 } from "../../utils/MadLibs";
 import OptionsSelector from "./OptionsSelector";
 import styles from "./ExploreDataPage.module.scss";
 
 export default function CarouselMadLib(props: {
-  madLib: MadLib;
-  setMadLib: (updatedMadLib: MadLib) => void;
+  madLib: MadLib
+  setMadLib: (updatedMadLib: MadLib) => void
 }) {
   // TODO - this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegement(

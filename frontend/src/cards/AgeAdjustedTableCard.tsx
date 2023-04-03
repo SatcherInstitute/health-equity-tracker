@@ -2,21 +2,21 @@ import React from "react";
 import { AgeAdjustedTableChart } from "../charts/AgeAdjustedTableChart";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
 } from "../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 import {
-  MetricConfig,
-  MetricId,
-  VariableConfig,
+  type MetricConfig,
+  type MetricId,
+  type VariableConfig,
   getAgeAdjustedRatioMetric,
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  AgeAdjustedVariableId,
+  type AgeAdjustedVariableId,
 } from "../data/config/MetricConfig";
 import { exclude } from "../data/query/BreakdownFilter";
 import {
@@ -27,7 +27,7 @@ import {
   MULTI_OR_OTHER_STANDARD_NH,
   AGE,
   SEX,
-  RaceAndEthnicityGroup,
+  type RaceAndEthnicityGroup,
 } from "../data/utils/Constants";
 import Alert from "@material-ui/lab/Alert";
 import Divider from "@material-ui/core/Divider";
@@ -42,7 +42,7 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { Link } from "react-router-dom";
 import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
@@ -64,16 +64,16 @@ const exclusionList: RaceAndEthnicityGroup[] = [
 ];
 
 export interface AgeAdjustedTableCardProps {
-  fips: Fips;
-  variableConfig: VariableConfig;
-  breakdownVar: BreakdownVar;
-  dropdownVarId?: DropdownVarId;
-  setVariableConfigWithParam?: Function;
+  fips: Fips
+  variableConfig: VariableConfig
+  breakdownVar: BreakdownVar
+  dropdownVarId?: DropdownVarId
+  setVariableConfigWithParam?: (v: VariableConfig) => void
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
-  const metricConfigPctShare = props.variableConfig.metrics["pct_share"];
+  const metricConfigPctShare = props.variableConfig.metrics.pct_share;
 
   const raceBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
@@ -85,14 +85,14 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     exclude(...exclusionList)
   );
 
-  let metricConfigs: Record<string, MetricConfig> = {};
+  const metricConfigs: Record<string, MetricConfig> = {};
   metrics.forEach((metricConfig) => {
     metricConfigs[metricConfig.metricId] = metricConfig;
   });
 
   const metricIds = Object.keys(metricConfigs) as MetricId[];
-  const raceQuery = new MetricQuery(metricIds as MetricId[], raceBreakdowns);
-  const ageQuery = new MetricQuery(metricIds as MetricId[], ageBreakdowns);
+  const raceQuery = new MetricQuery(metricIds, raceBreakdowns);
+  const ageQuery = new MetricQuery(metricIds, ageBreakdowns);
   const ratioId = metricIds[0];
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
     config.metricId.includes("ratio")
@@ -105,12 +105,13 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   );
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
-  const ageAdjustedDataTypes: VariableConfig[] = METRIC_CONFIG[
-    props.dropdownVarId!
-  ].filter((dataType) => {
-    // TODO: once every data type has a unique variableId across all topics, we can simply check if that id is in the dataTypeLinkMap
-    return dataType?.metrics["age_adjusted_ratio"]?.ageAdjusted;
-  });
+  const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null;
+  const ageAdjustedDataTypes: VariableConfig[] = dropdownId
+    ? METRIC_CONFIG[dropdownId].filter((dataType) => {
+        // TODO: once every data type has a unique variableId across all topics, we can simply check if that id is in the dataTypeLinkMap
+        return dataType?.metrics.age_adjusted_ratio?.ageAdjusted;
+      })
+    : [];
 
   const HASH_ID: ScrollableHashId = "age-adjusted-risk";
 
@@ -172,9 +173,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {(noRatios ||
               isWrongBreakdownVar ||
               raceQueryResponse.dataIsMissing() ||
-              raceQueryResponse.shouldShowMissingDataMessage(
-                metricIds as MetricId[]
-              )) && (
+              raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
               <CardContent>
                 <MissingDataAlert
                   dataName={dataName}

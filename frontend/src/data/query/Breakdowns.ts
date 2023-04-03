@@ -1,5 +1,5 @@
 import { Fips } from "../utils/Fips";
-import BreakdownFilter from "./BreakdownFilter";
+import type BreakdownFilter from "./BreakdownFilter";
 
 export type TimeView = "cross_sectional" | "time_series";
 
@@ -24,7 +24,7 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
 ] as const;
 
 // union type of array
-export type DemographicBreakdownKey = typeof DEMOGRAPHIC_BREAKDOWNS[number];
+export type DemographicBreakdownKey = (typeof DEMOGRAPHIC_BREAKDOWNS)[number];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   race_and_ethnicity: "Race and Ethnicity",
@@ -36,7 +36,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
 export type BreakdownVarDisplayName =
-  typeof BREAKDOWN_VAR_DISPLAY_NAMES[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
+  (typeof BREAKDOWN_VAR_DISPLAY_NAMES)[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES];
 
 export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   BreakdownVar,
@@ -51,12 +51,12 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
 
 interface DemographicBreakdown {
   // Name of the column in the returned data
-  readonly columnName: BreakdownVar;
+  readonly columnName: BreakdownVar
   // Whether the demographic breakdown is requested
-  readonly enabled: boolean;
+  readonly enabled: boolean
   // Filter to apply to the breakdown. If no filter is specified, all available
   // values for that column should be returned.
-  readonly filter?: Readonly<BreakdownFilter>;
+  readonly filter?: Readonly<BreakdownFilter>
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {
@@ -76,9 +76,9 @@ function createDemographicBreakdown(
   filter?: BreakdownFilter
 ): DemographicBreakdown {
   return {
-    columnName: columnName,
-    enabled: enabled,
-    filter: filter,
+    columnName,
+    enabled,
+    filter,
   };
 }
 
@@ -91,6 +91,7 @@ export class Breakdowns {
     DemographicBreakdownKey,
     Readonly<DemographicBreakdown>
   >;
+
   filterFips?: Fips;
 
   constructor(
@@ -116,7 +117,7 @@ export class Breakdowns {
 
   // Returns a string that uniquely identifies a breakdown. Two identical breakdowns will return the same key
   getUniqueKey() {
-    let breakdowns: Record<string, any> = {
+    const breakdowns: Record<string, any> = {
       geography: this.geography,
       time: this.time || undefined,
       filterFips: this.filterFips ? this.filterFips.code : undefined,
@@ -131,7 +132,9 @@ export class Breakdowns {
     const orderedBreakdownKeys = Object.keys(breakdowns)
       .sort()
       .filter((k) => breakdowns[k] !== undefined);
-    return orderedBreakdownKeys.map((k) => `${k}:${breakdowns[k]}`).join(",");
+    return orderedBreakdownKeys
+      .map((k) => `${k}:${breakdowns[k] as string}`)
+      .join(",");
   }
 
   copy() {
@@ -244,9 +247,11 @@ export class Breakdowns {
       throw new Error("Invalid assertion of only one demographic breakdown");
     }
 
-    return Object.values(this.demographicBreakdowns).find(
-      (breakdown) => breakdown.enabled
-    )!;
+    return (
+      Object.values(this.demographicBreakdowns).find(
+        (breakdown) => breakdown.enabled
+      ) ?? createDemographicBreakdown("race_and_ethnicity")
+    );
   }
 
   hasOnlyRace() {

@@ -6,10 +6,9 @@ import {
   useMediaQuery,
   useTheme,
 } from "@material-ui/core";
-import React from "react";
 import { reportProviderSteps } from "../../reports/ReportProviderSteps";
 import {
-  ScrollableHashId,
+  type ScrollableHashId,
   useStepObserver,
 } from "../../utils/hooks/useStepObserver";
 import styles from "./TableOfContents.module.scss";
@@ -17,15 +16,15 @@ import { scrollIntoView } from "seamless-scroll-polyfill";
 
 const TABLE_OF_CONTENT_PADDING = 15;
 
-/* 
+/*
   reportStepHashIds: ScrollableHashId[]; Array of TOC "hashIds" used to map the hashId to the step display name
   isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
 */
 
 interface TableOfContentsProps {
-  reportStepHashIds: ScrollableHashId[];
-  floatTopOffset?: number;
-  isScrolledToTop?: boolean;
+  reportStepHashIds: ScrollableHashId[]
+  floatTopOffset?: number
+  isScrolledToTop?: boolean
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
@@ -34,7 +33,7 @@ export function TableOfContents(props: TableOfContentsProps) {
 
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportStepHashIds,
-    props.isScrolledToTop || false
+    props.isScrolledToTop ?? false
   );
 
   function handleStepClick(stepId: ScrollableHashId) {
@@ -53,7 +52,7 @@ export function TableOfContents(props: TableOfContentsProps) {
     setRecentlyClicked(stepId);
   }
 
-  const tocOffset = (props.floatTopOffset || 0) + TABLE_OF_CONTENT_PADDING;
+  const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING;
 
   return (
     <Card raised={true} className={styles.Toc} style={{ top: tocOffset }}>
