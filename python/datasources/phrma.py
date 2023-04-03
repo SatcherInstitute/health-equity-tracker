@@ -1,16 +1,16 @@
 import numpy as np
 import pandas as pd
-from typing import List, Dict
+from typing import List, Dict, Literal, cast
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
-                                 US_FIPS, US_NAME)
+                                 US_FIPS, US_NAME, ALL_VALUE)
 from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE
+from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
 
 # constants
 PHRMA_DIR = 'phrma'
@@ -48,20 +48,22 @@ PHRMA_FILE_MAP = {
 #         prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
 
 # a nested dictionary that contains values swaps per column name
-# BREAKDOWN_TO_STANDARD_BY_COL = {
-#     std_col.AGE_COL: {'Ages 13 years and older': std_col.ALL_VALUE},
-#     std_col.RACE_CATEGORY_ID_COL: {
-#         'All races/ethnicities': std_col.Race.ALL.value,
-#         'American Indian/Alaska Native': std_col.Race.AIAN_NH.value,
-#         'Asian': std_col.Race.ASIAN_NH.value,
-#         'Black/African American': std_col.Race.BLACK_NH.value,
-#         'Hispanic/Latino': std_col.Race.HISP.value,
-#         'Multiracial': std_col.Race.MULTI_NH.value,
-#         'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
-#         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
-#         'White': std_col.Race.WHITE_NH.value},
-#     std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
-# }
+BREAKDOWN_TO_STANDARD_BY_COL = {
+    std_col.AGE_COL: {
+        "_18-64": "18-64",
+        "_65-74": "65-74",
+        "_75-84": "75-84",
+        "_85+": "85+"
+    },
+    std_col.RACE_CATEGORY_ID_COL: {
+        'Unknown': std_col.Race.UNKNOWN.value,
+        'American Indian / Alaska Native': std_col.Race.AIAN_NH.value,
+        'Asian/Pacific Islander': std_col.Race.API_NH.value,
+        'Black or African-American': std_col.Race.BLACK_NH.value,
+        'Hispanic': std_col.Race.HISP.value,
+        'Other': std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+        'Non-Hispanic White': std_col.Race.WHITE_NH.value}
+}
 
 
 class PhrmaData(DataSource):
@@ -88,7 +90,11 @@ class PhrmaData(DataSource):
             print("geo_level:", geo_level)
             alls_df = load_phrma_df_from_data_dir(geo_level, 'all')
 
-            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
+            for breakdown in [
+                # std_col.AGE_COL,
+                std_col.RACE_OR_HISPANIC_COL,
+                # std_col.SEX_COL
+            ]:
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
@@ -101,38 +107,39 @@ class PhrmaData(DataSource):
                                             table_name,
                                             column_types=col_types)
 
-    def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
-        """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
+    def generate_breakdown_df(self, demo_breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+        """ Generates HET-stye dataframe by demo_breakdown and geo_level
 
-        breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
+        demo_breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
         geo_level: string equal to `county`, `national`, or `state`
-        alls_df: the data frame containing the all values for each demographic breakdown.
+        alls_df: the data frame containing the all values for each demographic demo_breakdown.
         return: a breakdown df by demographic and geo_level"""
+
+        # give the ALL df a demographic column with correct "All" or "ALL" value
+        demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
+        all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
+        alls_df[demo_col] = all_val
 
         geo_to_use = std_col.COUNTY_NAME_COL if geo_level == COUNTY_LEVEL else std_col.STATE_NAME_COL
         fips_to_use = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
-        cols_to_standard = {
-            'Age Group': std_col.AGE_COL,
-            'FIPS': fips_to_use,
-            'Geography': geo_to_use,
-            'Population': std_col.POPULATION_COL,
-            'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
-            'Sex': std_col.SEX_COL,
-            'Year': std_col.TIME_PERIOD_COL
-        }
-
         cols_to_keep = [
             geo_to_use,
             fips_to_use,
-            breakdown,
+            demo_col,
         ]
 
-        breakdown_group_df = load_phrma_df_from_data_dir(geo_level, breakdown)
+        breakdown_group_df = load_phrma_df_from_data_dir(
+            geo_level, demo_breakdown)
 
-        combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
+        print("adding BREAKDOWN to ALL")
+        print(breakdown_group_df)
+        print(alls_df)
 
-        df = combined_group_df.rename(columns=cols_to_standard)
+        df = pd.concat([breakdown_group_df, alls_df], axis=0)
+
+        df["race_codes_swapped"] = df[[std_col.RACE_CATEGORY_ID_COL]].replace(
+            to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
@@ -142,13 +149,13 @@ class PhrmaData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
             cols_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
 
         df = df[cols_to_keep]
         df = df.sort_values(
-            [breakdown]).reset_index(drop=True)
+            [demo_breakdown]).reset_index(drop=True)
 
         return df
 
@@ -177,11 +184,11 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
             dtype=DTYPE,
         )
 
-        print(topic_df)
-
         output_df = output_df.merge(topic_df, how='outer')
 
-    output_df = rename_cols(output_df, geo_level, breakdown)
+    output_df = rename_cols(output_df,
+                            cast(GEO_TYPE, geo_level),
+                            cast(SEX_RACE_ETH_AGE_TYPE, breakdown))
 
     return output_df
 
@@ -195,9 +202,9 @@ def get_sheet_name(geo_level: str, breakdown: str) -> str:
         ("all", "national"): "All US",
         ("all", "state"): "All by State",
         ("all", "county"): "All by County",
-        ("race", "national"): "Race_US",
-        ("race", "state"): "Race_State",
-        ("race", "county"): "Race_County",
+        ("race_and_ethnicity", "national"): "Race_US",
+        ("race_and_ethnicity", "state"): "Race_State",
+        ("race_and_ethnicity", "county"): "Race_County",
         ("sex", "national"): "Sex_US",
         ("sex", "state"): "Sex_State",
         ("sex", "county"): "Sex_County",
@@ -223,9 +230,9 @@ def get_scaffold_cols(geo_level: str) -> List[str]:
 
 
 def rename_cols(df: pd.DataFrame,
-                geo_level: str,
-                breakdown: str) -> Dict[str, str]:
-    """ Get map of col rename mappings to apply once sheets have been merged """
+                geo_level: Literal['national', 'state', 'county'],
+                breakdown:  Literal['age', 'sex', 'race_and_ethnicity']) -> pd.DataFrame:
+    """ Renames columns based on the demo/geo breakdown """
 
     rename_cols_map: Dict[str, str] = {}
 
@@ -239,12 +246,15 @@ def rename_cols(df: pd.DataFrame,
         rename_cols_map["STATE_CODE"] = std_col.STATE_NAME_COL
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        rename_cols_map["RACE"] = std_col.RACE_OR_HISPANIC_COL
+        print(df["RACE"].unique())
+        rename_cols_map["RACE"] = std_col.RACE_CATEGORY_ID_COL
 
     if breakdown == std_col.SEX_COL:
         rename_cols_map["SEX"] = std_col.SEX_COL
 
-    # if breakdown == std_col.RACE_OR_HISPANIC_COL:
-    #     rename_cols_map[]
+    if breakdown == std_col.AGE_COL:
+        rename_cols_map["AGE_GROUP"] = std_col.AGE_COL
 
-    return rename_cols_map
+    df = df.rename(columns=rename_cols_map)
+
+    return df
