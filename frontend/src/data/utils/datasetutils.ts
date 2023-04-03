@@ -129,9 +129,9 @@ export function getExtremeValues(
 Analyzes state and determines if the 2nd population source should be used
 */
 export interface ShouldShowAltPopCompareI {
-  fips: { isState: () => boolean }
-  breakdownVar: BreakdownVar
-  variableConfig: { variableId: VariableId }
+  fips: { isState: () => boolean };
+  breakdownVar: BreakdownVar;
+  variableConfig: { variableId: VariableId };
 }
 
 export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
