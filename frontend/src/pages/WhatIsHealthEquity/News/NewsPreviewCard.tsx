@@ -8,8 +8,8 @@ import { Box, Grid } from "@material-ui/core";
 import LazyLoad from "react-lazyload";
 
 export interface NewsPreviewCardProps {
-  article: Article
-  arrow?: "prev" | "next"
+  article: Article;
+  arrow?: "prev" | "next";
 }
 
 export default function NewsPreviewCard(props: NewsPreviewCardProps) {

@@ -24,17 +24,17 @@ import { DATA_TAB_LINK } from "../../utils/internalRoutes";
 import styles from "./AltTableView.module.scss";
 
 interface AltTableViewProps {
-  expanded: boolean
-  setExpanded: (expanded: boolean) => void
-  expandBoxLabel: string
-  tableCaption: string
-  knownsData: Row[]
-  unknownsData: Row[]
-  breakdownVar: BreakdownVar
-  knownMetricConfig: MetricConfig
-  unknownMetricConfig: MetricConfig
-  selectedGroups: DemographicGroup[]
-  hasUnknowns: boolean
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
+  expandBoxLabel: string;
+  tableCaption: string;
+  knownsData: Row[];
+  unknownsData: Row[];
+  breakdownVar: BreakdownVar;
+  knownMetricConfig: MetricConfig;
+  unknownMetricConfig: MetricConfig;
+  selectedGroups: DemographicGroup[];
+  hasUnknowns: boolean;
 }
 
 export default function AltTableView(props: AltTableViewProps) {

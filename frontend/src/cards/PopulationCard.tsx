@@ -12,7 +12,7 @@ import SviAlert from "./ui/SviAlert";
 const PRELOAD_HEIGHT = 139;
 
 export interface PopulationCardProps {
-  fips: Fips
+  fips: Fips;
 }
 
 export function PopulationCard(props: PopulationCardProps) {

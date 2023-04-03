@@ -38,14 +38,14 @@ import {
 export const SINGLE_COLUMN_WIDTH = 12;
 
 interface ReportProviderProps {
-  isSingleColumn: boolean
-  madLib: MadLib
-  selectedConditions: VariableConfig[]
-  showLifeLineAlert: boolean
-  setMadLib: (madLib: MadLib) => void
-  showIncarceratedChildrenAlert: boolean
-  isScrolledToTop: boolean
-  headerScrollMargin: number
+  isSingleColumn: boolean;
+  madLib: MadLib;
+  selectedConditions: VariableConfig[];
+  showLifeLineAlert: boolean;
+  setMadLib: (madLib: MadLib) => void;
+  showIncarceratedChildrenAlert: boolean;
+  isScrolledToTop: boolean;
+  headerScrollMargin: number;
 }
 
 function ReportProvider(props: ReportProviderProps) {

@@ -11,8 +11,8 @@ import {
  * `include` is false, removes the specified values and leaves the rest.
  */
 export default interface BreakdownFilter {
-  readonly values: Readonly<string[]>
-  readonly include: boolean
+  readonly values: Readonly<string[]>;
+  readonly include: boolean;
 }
 
 const STANDARD_RACES: RaceAndEthnicityGroup[] = [

@@ -26,10 +26,10 @@ import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
 import { LinkWithStickyParams } from "../../utils/urlutils";
 
 function GoalListItem(props: {
-  src?: string
-  alt?: string
-  title: string
-  text: string
+  src?: string;
+  alt?: string;
+  title: string;
+  text: string;
 }) {
   return (
     <Grid

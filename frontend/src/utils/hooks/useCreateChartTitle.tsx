@@ -2,11 +2,11 @@ import { useMediaQuery, createTheme } from "@material-ui/core";
 import { type MetricConfig } from "../../data/config/MetricConfig";
 
 interface ScreenDimensions {
-  isMobile: boolean
-  isSmall: boolean
-  isNotLarge: boolean
-  isLarge: boolean
-  isComparing: boolean
+  isMobile: boolean;
+  isSmall: boolean;
+  isNotLarge: boolean;
+  isLarge: boolean;
+  isComparing: boolean;
 }
 
 type ScreenSize = "small" | "medium" | "large";

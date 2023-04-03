@@ -26,8 +26,8 @@ export const shareIconAttributes = {
 };
 
 export interface ShareButtonProps {
-  madLib?: MadLib
-  article?: Article
+  madLib?: MadLib;
+  article?: Article;
 }
 
 function ShareButtons(props: ShareButtonProps) {

@@ -21,22 +21,22 @@ import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
-  minHeight?: number
-  title?: JSX.Element
+  minHeight?: number;
+  title?: JSX.Element;
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
-  infoPopover?: JSX.Element
-  hideFooter?: boolean
-  hideNH?: boolean
-  queries?: MetricQuery[]
+  infoPopover?: JSX.Element;
+  hideFooter?: boolean;
+  hideNH?: boolean;
+  queries?: MetricQuery[];
   // Whether to load the geographies dataset for this card.
-  loadGeographies?: boolean
+  loadGeographies?: boolean;
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>
-  ) => JSX.Element
-  isAgeAdjustedTable?: boolean
-  scrollToHash: ScrollableHashId
+  ) => JSX.Element;
+  isAgeAdjustedTable?: boolean;
+  scrollToHash: ScrollableHashId;
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];

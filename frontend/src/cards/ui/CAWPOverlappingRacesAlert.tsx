@@ -4,7 +4,7 @@ import React from "react";
 import { type VariableConfig } from "../../data/config/MetricConfig";
 
 interface CAWPOverlappingRacesAlertProps {
-  variableConfig: VariableConfig
+  variableConfig: VariableConfig;
 }
 
 export default function CAWPOverlappingRacesAlert(

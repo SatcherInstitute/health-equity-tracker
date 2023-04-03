@@ -13,8 +13,8 @@ const filterHeaderMap: Record<FilterType, string> = {
 };
 
 export interface ArticleFiltersProps {
-  filterType: FilterType
-  filterOptions: string[]
+  filterType: FilterType;
+  filterOptions: string[];
 }
 
 export default function ArticleFilters(props: ArticleFiltersProps) {

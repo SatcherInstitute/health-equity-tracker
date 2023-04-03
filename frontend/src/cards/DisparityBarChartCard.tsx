@@ -33,10 +33,10 @@ import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
 
 export interface DisparityBarChartCardProps {
-  key?: string
-  breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
-  fips: Fips
+  key?: string;
+  breakdownVar: BreakdownVar;
+  variableConfig: VariableConfig;
+  fips: Fips;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

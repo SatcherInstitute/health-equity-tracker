@@ -11,7 +11,7 @@ import {
 import { CATEGORIES_LIST, type Category } from "../../utils/MadLibs";
 
 export interface DefinitionsListProps {
-  variablesToDefine: Array<[string, VariableConfig[]]>
+  variablesToDefine: Array<[string, VariableConfig[]]>;
 }
 
 export default function DefinitionsList(

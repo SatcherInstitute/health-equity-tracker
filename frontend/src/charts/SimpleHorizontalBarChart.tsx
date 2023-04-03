@@ -292,14 +292,14 @@ function getSpec(
 }
 
 export interface SimpleHorizontalBarChartProps {
-  chartTitle?: string | string[]
-  data: Row[]
-  metric: MetricConfig
-  breakdownVar: BreakdownVar
-  showLegend: boolean
-  hideActions?: boolean
-  filename?: string
-  usePercentSuffix?: boolean
+  chartTitle?: string | string[];
+  data: Row[];
+  metric: MetricConfig;
+  breakdownVar: BreakdownVar;
+  showLegend: boolean;
+  hideActions?: boolean;
+  filename?: string;
+  usePercentSuffix?: boolean;
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {

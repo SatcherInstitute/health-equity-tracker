@@ -56,46 +56,46 @@ const VAR_FIPS = "fips";
 
 export interface ChoroplethMapProps {
   // Data used to create the map
-  data: Array<Record<string, any>>
+  data: Array<Record<string, any>>;
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
-  geoData?: Record<string, any>
+  geoData?: Record<string, any>;
   // Metric within the data that we are visualizing
-  metric: MetricConfig
+  metric: MetricConfig;
   // The geography that this map is showing
-  fips: Fips
+  fips: Fips;
   // Use different labels for legend and tooltip if it's the unknowns map
-  isUnknownsMap?: boolean
+  isUnknownsMap?: boolean;
   // If true, maps will render counties, otherwise it will render states/territories
-  showCounties: boolean
+  showCounties: boolean;
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
-  legendData?: Array<Record<string, any>>
+  legendData?: Array<Record<string, any>>;
   // Whether or not the legend is present
-  hideLegend?: boolean
+  hideLegend?: boolean;
   // If legend is present, what is the title
-  legendTitle?: string | string[]
+  legendTitle?: string | string[];
   // Max/min of the data range- if present it will set the color scale at these boundaries
-  fieldRange?: FieldRange
+  fieldRange?: FieldRange;
   // Hide the action bar in the corner of a vega chart
-  hideActions?: boolean
+  hideActions?: boolean;
   // How the color scale is computed mathematically
-  scaleType: ScaleType
+  scaleType: ScaleType;
   // Colors to use for the color scale. Default is yellowgreen
-  scaleColorScheme?: string
+  scaleColorScheme?: string;
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
-  overrideShapeWithCircle?: boolean
+  overrideShapeWithCircle?: boolean;
   // Do not show a tooltip when there is no data.
-  hideMissingDataTooltip?: boolean
+  hideMissingDataTooltip?: boolean;
   // Callbacks set up so map interactions can update the React UI
-  signalListeners: any
+  signalListeners: any;
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
-  filename?: string
+  filename?: string;
   titles?: {
-    chartTitle: string | string[]
-    subtitle?: string
-  }
-  listExpanded?: boolean
-  countColsToAdd: MetricId[]
+    chartTitle: string | string[];
+    subtitle?: string;
+  };
+  listExpanded?: boolean;
+  countColsToAdd: MetricId[];
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -219,7 +219,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
+      /* includeSvi */ props.showCounties
     );
 
     /* SET UP LEGEND */

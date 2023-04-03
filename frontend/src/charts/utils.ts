@@ -91,10 +91,10 @@ export function addMetricDisplayColumn(
 }
 
 interface subtitleProps {
-  activeBreakdownFilter: DemographicGroup
-  currentBreakdown: BreakdownVar
-  isPopulationSubset?: boolean
-  metricId: MetricId
+  activeBreakdownFilter: DemographicGroup;
+  currentBreakdown: BreakdownVar;
+  isPopulationSubset?: boolean;
+  metricId: MetricId;
 }
 
 export function generateSubtitle({
