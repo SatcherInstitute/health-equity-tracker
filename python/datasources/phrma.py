@@ -80,7 +80,11 @@ class PhrmaData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        for geo_level in [COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL]:
+        for geo_level in [
+            COUNTY_LEVEL,
+            # STATE_LEVEL,
+            # NATIONAL_LEVEL
+        ]:
             print("geo_level:", geo_level)
             alls_df = load_phrma_df_from_data_dir(geo_level, 'all')
 
@@ -224,6 +228,21 @@ def rename_cols(df: pd.DataFrame,
     """ Get map of col rename mappings to apply once sheets have been merged """
 
     rename_cols_map: Dict[str, str] = {}
+
+    if geo_level == COUNTY_LEVEL:
+        rename_cols_map["STATE_FIPS"] = std_col.STATE_FIPS_COL
+        rename_cols_map["COUNTY_FIPS"] = std_col.COUNTY_FIPS_COL
+        rename_cols_map["STATE"] = std_col.STATE_NAME_COL
+        rename_cols_map["COUNTY"] = std_col.COUNTY_NAME_COL
+
+    if geo_level == STATE_LEVEL:
+        rename_cols_map["STATE_CODE"] = std_col.STATE_NAME_COL
+
+    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        rename_cols_map["RACE"] = std_col.RACE_OR_HISPANIC_COL
+
+    if breakdown == std_col.SEX_COL:
+        rename_cols_map["SEX"] = std_col.SEX_COL
 
     # if breakdown == std_col.RACE_OR_HISPANIC_COL:
     #     rename_cols_map[]
