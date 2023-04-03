@@ -10,10 +10,10 @@ import {
   TwitterIcon,
 } from "react-share";
 import { Grid } from "@material-ui/core";
-import { getMadLibPhraseText, MadLib } from "../../utils/MadLibs";
+import { getMadLibPhraseText, type MadLib } from "../../utils/MadLibs";
 import styles from "./ShareButtons.module.scss";
 import sass from "../../styles/variables.module.scss";
-import { Article } from "../../pages/WhatIsHealthEquity/NewsTab";
+import { type Article } from "../../pages/WhatIsHealthEquity/NewsTab";
 import { getHtml } from "../../utils/urlutils";
 
 export const ARTICLE_DESCRIPTION =
@@ -26,19 +26,21 @@ export const shareIconAttributes = {
 };
 
 export interface ShareButtonProps {
-  madLib?: MadLib;
-  article?: Article;
+  madLib?: MadLib
+  article?: Article
 }
 
 function ShareButtons(props: ShareButtonProps) {
-  let sharedUrl: string = window.location.href;
+  const sharedUrl: string = window.location.href;
   let title: string = "Health Equity Tracker";
   if (props.madLib) {
     title += ": " + getMadLibPhraseText(props.madLib);
   }
   if (props.article) {
-    title +=
-      ((": “" + getHtml(props.article.title.rendered, true)) as string) + "”";
+    const htmlTitle = getHtml(props.article.title.rendered, true);
+    if (typeof htmlTitle === "string") {
+      title += ": “" + htmlTitle + "”";
+    }
   }
 
   return (

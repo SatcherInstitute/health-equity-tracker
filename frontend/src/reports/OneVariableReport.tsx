@@ -9,12 +9,12 @@ import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
 import { UnknownsMapCard } from "../cards/UnknownsMapCard";
 import { TableCard } from "../cards/TableCard";
 import {
-  DropdownVarId,
+  type DropdownVarId,
   METRIC_CONFIG,
-  VariableConfig,
+  type VariableConfig,
 } from "../data/config/MetricConfig";
 import { RACE } from "../data/utils/Constants";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -33,24 +33,24 @@ import { ShareTrendsChartCard } from "../cards/ShareTrendsChartCard";
 import styles from "./Report.module.scss";
 import { TableOfContents } from "../pages/ui/TableOfContents";
 import { reportProviderSteps } from "./ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { Helmet } from "react-helmet-async";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
 } from "../data/query/Breakdowns";
 
 export interface OneVariableReportProps {
-  key: string;
-  dropdownVarId: DropdownVarId;
-  fips: Fips;
-  updateFipsCallback: Function;
-  hidePopulationCard?: boolean;
-  isScrolledToTop: boolean;
-  reportStepHashIds?: ScrollableHashId[];
-  setReportStepHashIds?: Function;
-  headerScrollMargin: number;
+  key: string
+  dropdownVarId: DropdownVarId
+  fips: Fips
+  updateFipsCallback: (fips: Fips) => void
+  hidePopulationCard?: boolean
+  isScrolledToTop: boolean
+  reportStepHashIds?: ScrollableHashId[]
+  setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
+  headerScrollMargin: number
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -89,9 +89,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
           );
         }
       );
-      setVariableConfig(
-        demoParam1 ? demoParam1 : METRIC_CONFIG[props.dropdownVarId][0]
-      );
+      setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0]);
 
       const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
       setCurrentBreakdown(demo);
@@ -112,13 +110,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
     );
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variableConfig]);
 
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
     currentBreakdown === breakdownVar;
 
-  const browserTitle = `${variableConfig?.variableFullDisplayName} by ${
+  const browserTitle = `${
+    variableConfig?.variableFullDisplayName ?? "Data"
+  } by ${
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   } in ${props.fips.getFullDisplayName()}`;
 
@@ -231,7 +230,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                       <Fragment key={breakdownVar}>
                         {breakdownIsShown(breakdownVar) &&
-                          variableConfig.metrics["per100k"] && (
+                          variableConfig.metrics.per100k && (
                             <SimpleBarChartCard
                               variableConfig={variableConfig}
                               breakdownVar={breakdownVar}
@@ -254,7 +253,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   style={{ scrollMarginTop: props.headerScrollMargin }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {variableConfig.metrics["pct_share"] && (
+                    {variableConfig.metrics.pct_share && (
                       <UnknownsMapCard
                         overrideAndWithOr={currentBreakdown === RACE}
                         variableConfig={variableConfig}
@@ -312,7 +311,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
                       <Fragment key={breakdownVar}>
                         {breakdownIsShown(breakdownVar) &&
-                          variableConfig.metrics["pct_share"] && (
+                          variableConfig.metrics.pct_share && (
                             <DisparityBarChartCard
                               variableConfig={variableConfig}
                               breakdownVar={breakdownVar}

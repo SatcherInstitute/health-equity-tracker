@@ -3,28 +3,28 @@ import { Alert } from "@material-ui/lab";
 import React from "react";
 import {
   formatFieldValue,
-  MetricConfig,
-  VariableConfig,
+  type MetricConfig,
+  type VariableConfig,
 } from "../../data/config/MetricConfig";
 import {
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../../data/query/Breakdowns";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
-import { DemographicGroup } from "../../data/utils/Constants";
-import { Fips } from "../../data/utils/Fips";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type DemographicGroup } from "../../data/utils/Constants";
+import { type Fips } from "../../data/utils/Fips";
 import { MultiMapLink } from "./MultiMapLink";
 import styles from "../Card.module.scss";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 interface RateInfoAlertProps {
-  overallQueryResponse: MetricQueryResponse;
-  currentBreakdown: BreakdownVar;
-  activeBreakdownFilter: DemographicGroup;
-  metricConfig: MetricConfig;
-  fips: Fips;
-  setSmallMultiplesDialogOpen: Function;
-  variableConfig: VariableConfig;
+  overallQueryResponse: MetricQueryResponse
+  currentBreakdown: BreakdownVar
+  activeBreakdownFilter: DemographicGroup
+  metricConfig: MetricConfig
+  fips: Fips
+  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
+  variableConfig: VariableConfig
 }
 
 export function RateInfoAlert(props: RateInfoAlertProps) {
@@ -45,27 +45,27 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
             /* omitPctSymbol: boolean = false */ true
           )}
         </b>{" "}
-        {/*} HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
+        {/* } HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
         <a
           href={`#${WHAT_DATA_ARE_MISSING_ID}`}
           className={styles.ConditionDefinitionLink}
         >
           {props.metricConfig.shortLabel}
         </a>
-        {/*} for  */}
+        {/* } for  */}
         {props.activeBreakdownFilter !== "All" && " for"}
-        {/*} [ ages 30-39] */}
+        {/* } [ ages 30-39] */}
         {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] ===
           "age" &&
           props.activeBreakdownFilter !== "All" &&
           ` ages ${props.activeBreakdownFilter}`}
-        {/*} [Asian (non Hispanic) individuals] */}
+        {/* } [Asian (non Hispanic) individuals] */}
         {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] !==
           "age" &&
           props.activeBreakdownFilter !== "All" &&
           ` ${props.activeBreakdownFilter} individuals`}
         {" in  "}
-        {/*} Georgia */}
+        {/* } Georgia */}
         {props.fips.getSentenceDisplayName()}
         {". "}
       </>

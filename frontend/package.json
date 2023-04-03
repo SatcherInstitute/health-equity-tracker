@@ -13,7 +13,6 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@material-ui/styles": "^4.11.5",
     "@playwright/test": "^1.31.0",
-    "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/d3": "^7.4.0",
@@ -120,6 +119,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "eslint": "^8.37.0",
     "eslint-config-standard-with-typescript": "^34.0.1",

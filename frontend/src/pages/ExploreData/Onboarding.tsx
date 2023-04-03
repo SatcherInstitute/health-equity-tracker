@@ -4,8 +4,8 @@ import sass from "../../styles/variables.module.scss";
 import { ONBOARDING_STEPS } from "./OnboardingSteps";
 
 export default function Onboarding(props: {
-  callback: (data: any) => void;
-  activelyOnboarding: boolean;
+  callback: (data: any) => void
+  activelyOnboarding: boolean
 }) {
   return (
     <Joyride

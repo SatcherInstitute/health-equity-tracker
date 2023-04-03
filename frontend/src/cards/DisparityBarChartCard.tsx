@@ -2,14 +2,18 @@ import React from "react";
 import Alert from "@material-ui/lab/Alert";
 import { DisparityBarChart } from "../charts/disparityBarChart/Index";
 import { CardContent } from "@material-ui/core";
-import { Fips } from "../data/utils/Fips";
+import { type Fips } from "../data/utils/Fips";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import { MetricQuery } from "../data/query/MetricQuery";
-import { MetricConfig, VariableConfig } from "../data/config/MetricConfig";
+import {
+  type MetricId,
+  type MetricConfig,
+  type VariableConfig,
+} from "../data/config/MetricConfig";
 import CardWrapper from "./CardWrapper";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import { exclude } from "../data/query/BreakdownFilter";
@@ -22,17 +26,17 @@ import {
 import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import CAWPOverlappingRacesAlert from "./ui/CAWPOverlappingRacesAlert";
 import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
 
 export interface DisparityBarChartCardProps {
-  key?: string;
-  breakdownVar: BreakdownVar;
-  variableConfig: VariableConfig;
-  fips: Fips;
+  key?: string
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
+  fips: Fips
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -52,7 +56,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     props.breakdownVar === "sex"
   );
 
-  const metricConfig = props.variableConfig.metrics["pct_share"];
+  const metricConfig = props.variableConfig.metrics.pct_share;
   const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -64,10 +68,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
   // If MetricConfig supports known breakdown metric, prefer this metric.
-  let metricIds = [
-    metricConfig.metricId,
-    metricConfig.populationComparisonMetric!.metricId,
-  ];
+  const metricIds = [metricConfig.metricId];
+  const popCompareId: MetricId | null =
+    metricConfig?.populationComparisonMetric?.metricId ?? null;
+  if (popCompareId) {
+    metricIds.push(popCompareId);
+  }
   if (metricConfig.knownBreakdownComparisonMetric) {
     metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId);
   }
@@ -154,9 +160,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 <DisparityBarChart
                   chartTitle={chartTitle}
                   data={knownData}
-                  lightMetric={metricConfig.populationComparisonMetric!}
+                  lightMetric={
+                    metricConfig.populationComparisonMetric ?? metricConfig
+                  }
                   darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric || metricConfig
+                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
                   }
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortLabel}

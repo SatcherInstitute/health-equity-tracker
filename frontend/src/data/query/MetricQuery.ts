@@ -1,7 +1,11 @@
-import { Breakdowns, BreakdownVar, TimeView } from "./Breakdowns";
-import { Row, FieldRange } from "../utils/DatasetTypes";
-import { MetricId, VariableId } from "../config/MetricConfig";
-import { DemographicGroup } from "../utils/Constants";
+import {
+  type Breakdowns,
+  type BreakdownVar,
+  type TimeView,
+} from "./Breakdowns";
+import { type Row, type FieldRange } from "../utils/DatasetTypes";
+import { type MetricId, type VariableId } from "../config/MetricConfig";
+import { type DemographicGroup } from "../utils/Constants";
 
 export class MetricQuery {
   readonly metricIds: MetricId[];
@@ -18,7 +22,7 @@ export class MetricQuery {
     this.metricIds = [metricIds].flat();
     this.breakdowns = breakdowns;
     this.variableId = variableId;
-    this.timeView = timeView || "cross_sectional";
+    this.timeView = timeView ?? "cross_sectional";
   }
 
   getUniqueKey(): string {
@@ -33,7 +37,7 @@ export class MetricQuery {
 }
 
 function getInvalidValues(rows: Row[]) {
-  let invalidValues: Record<string, number> = {};
+  const invalidValues: Record<string, number> = {};
   rows.forEach((row: Row) => {
     Object.entries(row).forEach(([fieldName, value]) => {
       if (value === undefined || value === null) {
@@ -48,7 +52,7 @@ function getInvalidValues(rows: Row[]) {
 export function createMissingDataResponse(missingDataMessage: string) {
   return new MetricQueryResponse(
     [],
-    /*consumedDatasetIds=*/ [],
+    /* consumedDatasetIds= */ [],
     missingDataMessage
   );
 }
@@ -106,7 +110,7 @@ export class MetricQueryResponse {
   getFieldValues(
     fieldName: BreakdownVar,
     targetMetric: MetricId
-  ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
+  ): { withData: DemographicGroup[], noData: DemographicGroup[] } {
     const withData: DemographicGroup[] = [];
     const noData: DemographicGroup[] = [];
 

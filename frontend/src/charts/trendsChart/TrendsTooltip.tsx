@@ -6,7 +6,6 @@
  * @param {boolean} isSkinny a flag to determine whether user is viewing app below the mobile breakpoint or with resulting card column in compare mode below mobile breakpoint
  * returns jsx of a div with a grid of names, bar chart viz, and amounts
 
-
 /* External Imports */
 import React, { Fragment } from "react";
 
@@ -19,7 +18,12 @@ import styles from "./Trends.module.scss";
 /* Components */
 
 /* Constants */
-import { TrendsData, GroupData, TimeSeries, AxisConfig } from "./types";
+import {
+  type TrendsData,
+  type GroupData,
+  type TimeSeries,
+  type AxisConfig,
+} from "./types";
 import { TYPES, FORMATTERS as F, COLORS as C } from "./constants";
 
 /* Helpers */
@@ -33,10 +37,10 @@ import {
 
 /* Define type interface */
 export interface TrendsTooltipProps {
-  data: TrendsData;
-  selectedDate: string | null;
-  axisConfig: AxisConfig;
-  isSkinny: boolean;
+  data: TrendsData
+  selectedDate: string | null
+  axisConfig: AxisConfig
+  isSkinny: boolean
 }
 
 /* Render component */
@@ -71,8 +75,8 @@ export function TrendsTooltip({
 
   const isMonthly = (selectedDate?.length ?? 0) > 4;
   const displayDate = isMonthly
-    ? F.dateFromString_MM_YYYY(selectedDate || "")
-    : F.dateFromString_YYYY(selectedDate || "");
+    ? F.dateFromString_MM_YYYY(selectedDate ?? "")
+    : F.dateFromString_YYYY(selectedDate ?? "");
 
   return (
     <div className={styles.Tooltip} role="tooltip">
@@ -86,7 +90,7 @@ export function TrendsTooltip({
       </div>
       <div className={styles.grid}>
         {data &&
-          sortDataDescending(data, selectedDate || "").map(
+          sortDataDescending(data, selectedDate ?? "").map(
             ([group, d]: GroupData) => {
               // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
 
@@ -98,8 +102,7 @@ export function TrendsTooltip({
               return (
                 <Fragment key={`tooltipRow-${group}`}>
                   {/* group label - get from dictionary, if it doesn't exist, append group as label */}
-                  {/* @ts-ignore */}
-                  <div>{raceNameToCodeMap[group] || group}</div>
+                  <div>{raceNameToCodeMap[group] ?? group}</div>
                   {/* rectangle indicator */}
                   <div
                     style={{

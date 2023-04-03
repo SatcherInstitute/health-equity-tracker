@@ -1,7 +1,7 @@
-import { IDataFrame } from "data-forge";
+import { type IDataFrame } from "data-forge";
 import { getDataManager } from "../../utils/globals";
-import { Breakdowns } from "../query/Breakdowns";
-import { MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 

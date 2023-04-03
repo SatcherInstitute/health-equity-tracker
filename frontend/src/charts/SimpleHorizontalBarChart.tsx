@@ -1,13 +1,13 @@
 import React from "react";
 import { Vega } from "react-vega";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
 import {
-  BreakdownVar,
-  BreakdownVarDisplayName,
+  type BreakdownVar,
+  type BreakdownVarDisplayName,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
-import { MetricConfig, MetricId } from "../data/config/MetricConfig";
+import { type MetricConfig, type MetricId } from "../data/config/MetricConfig";
 import {
   addLineBreakDelimitersToField,
   MULTILINE_LABEL,
@@ -62,8 +62,8 @@ function getSpec(
     } else return measureDisplayName;
   };
 
-  //create bar label as array or string
-  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + 
+  // create bar label as array or string
+  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
   "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`;
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`;
   const createBarLabel = () => {
@@ -218,7 +218,7 @@ function getSpec(
           field: measure,
         },
         range: [0, { signal: "width" }],
-        nice: !pageIsTiny, //on desktop, extend x-axis to a "nice" value
+        nice: !pageIsTiny, // on desktop, extend x-axis to a "nice" value
         zero: true,
       },
       {
@@ -287,19 +287,19 @@ function getSpec(
         },
       },
     ],
-    legends: legends,
+    legends,
   };
 }
 
 export interface SimpleHorizontalBarChartProps {
-  chartTitle?: string | string[];
-  data: Row[];
-  metric: MetricConfig;
-  breakdownVar: BreakdownVar;
-  showLegend: boolean;
-  hideActions?: boolean;
-  filename?: string;
-  usePercentSuffix?: boolean;
+  chartTitle?: string | string[]
+  data: Row[]
+  metric: MetricConfig
+  breakdownVar: BreakdownVar
+  showLegend: boolean
+  hideActions?: boolean
+  filename?: string
+  usePercentSuffix?: boolean
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
@@ -347,11 +347,15 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer="svg"
-        downloadFileName={`${props.filename} - Health Equity Tracker`}
+        downloadFileName={`${
+          props.filename ?? "Data Download"
+        } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${props.filename}`,
+          /* altText  */ `Bar Chart showing ${
+            props.filename ?? "Data Download"
+          }`,
           /* data  */ data,
-          /* filename  */ props?.chartTitle || "",
+          /* filename  */ props?.chartTitle ?? "",
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
@@ -364,7 +368,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* showLegend  */ props.showLegend,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
-          /* usePercentSuffix  */ props.usePercentSuffix || false,
+          /* usePercentSuffix  */ props.usePercentSuffix ?? false,
           fontSize
         )}
         // custom 3-dot options menu

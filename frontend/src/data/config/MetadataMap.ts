@@ -1,4 +1,4 @@
-import { DataSourceMetadata } from "../utils/DatasetTypes";
+import { type DataSourceMetadata } from "../utils/DatasetTypes";
 
 export const GEOGRAPHIES_DATASET_ID = "geographies";
 

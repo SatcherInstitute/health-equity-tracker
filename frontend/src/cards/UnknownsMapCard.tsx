@@ -2,15 +2,18 @@ import React from "react";
 import { CardContent } from "@material-ui/core";
 import { ChoroplethMap } from "../charts/ChoroplethMap";
 import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
-import { MetricId, VariableConfig } from "../data/config/MetricConfig";
+import {
+  type MetricId,
+  type VariableConfig,
+} from "../data/config/MetricConfig";
 import MapBreadcrumbs from "./ui/MapBreadcrumbs";
-import { Row } from "../data/utils/DatasetTypes";
+import { type Row } from "../data/utils/DatasetTypes";
 import CardWrapper from "./CardWrapper";
 import { MetricQuery } from "../data/query/MetricQuery";
 import MissingDataAlert from "./ui/MissingDataAlert";
 import {
   Breakdowns,
-  BreakdownVar,
+  type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from "../data/query/Breakdowns";
 import {
@@ -27,21 +30,21 @@ import UnknownsAlert from "./ui/UnknownsAlert";
 import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
 import { useLocation } from "react-router-dom";
 import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
-  variableConfig: VariableConfig;
+  variableConfig: VariableConfig
   // Breakdown value to evaluate for unknowns
-  currentBreakdown: BreakdownVar;
+  currentBreakdown: BreakdownVar
   // Geographic region of maps
-  fips: Fips;
+  fips: Fips
   // Updates the madlib
-  updateFipsCallback: (fips: Fips) => void;
+  updateFipsCallback: (fips: Fips) => void
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
-  overrideAndWithOr?: boolean;
+  overrideAndWithOr?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -57,7 +60,7 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000]);
-  const metricConfig = props.variableConfig.metrics["pct_share"];
+  const metricConfig = props.variableConfig.metrics.pct_share;
   const currentBreakdown = props.currentBreakdown;
   const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`;
   const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId);
@@ -264,9 +267,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel || ""}
+                  legendTitle={metricConfig?.unknownsVegaLabel ?? ""}
                   data={unknowns}
-                  showCounties={props.fips.isUsa() ? false : true}
+                  showCounties={!props.fips.isUsa()}
                   fips={props.fips}
                   scaleType="symlog"
                   scaleColorScheme="greenblue"
@@ -288,7 +291,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                             signalListeners={signalListeners}
                             metric={metricConfig}
                             data={unknowns}
-                            showCounties={props.fips.isUsa() ? false : true}
+                            showCounties={!props.fips.isUsa()}
                             fips={fips}
                             scaleType="symlog"
                             scaleColorScheme="greenblue"

@@ -9,31 +9,34 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import InfoIcon from "@material-ui/icons/Info";
 import Popover from "@material-ui/core/Popover";
 import { usePopover } from "../utils/hooks/usePopover";
-import { MetricQuery, MetricQueryResponse } from "../data/query/MetricQuery";
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from "../data/query/MetricQuery";
 import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
 import { Sources } from "./ui/Sources";
-import { MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
+import { type MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
 import CopyLinkButton from "./ui/CopyLinkButton";
-import { ScrollableHashId } from "../utils/hooks/useStepObserver";
+import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
-  minHeight?: number;
-  title?: JSX.Element;
+  minHeight?: number
+  title?: JSX.Element
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
-  infoPopover?: JSX.Element;
-  hideFooter?: boolean;
-  hideNH?: boolean;
-  queries?: MetricQuery[];
+  infoPopover?: JSX.Element
+  hideFooter?: boolean
+  hideNH?: boolean
+  queries?: MetricQuery[]
   // Whether to load the geographies dataset for this card.
-  loadGeographies?: boolean;
+  loadGeographies?: boolean
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>
-  ) => JSX.Element;
-  isAgeAdjustedTable?: boolean;
-  scrollToHash: ScrollableHashId;
+  ) => JSX.Element
+  isAgeAdjustedTable?: boolean
+  scrollToHash: ScrollableHashId
 }) {
   const popover = usePopover();
   const queries = props.queries ? props.queries : [];

@@ -32,7 +32,7 @@ import styles from "./Trends.module.scss";
 
 /* Constants */
 import { CONFIG } from "./constants";
-import { UnknownData, TrendsData, AxisConfig } from "./types";
+import { type UnknownData, type TrendsData, type AxisConfig } from "./types";
 
 /* Helpers */
 import {
@@ -42,24 +42,24 @@ import {
   filterUnknownsByTimePeriod,
 } from "./helpers";
 import { MOBILE_BREAKPOINT } from "../../App";
-import { BreakdownVar } from "../../data/query/Breakdowns";
+import { type BreakdownVar } from "../../data/query/Breakdowns";
 import useEscape from "../../utils/hooks/useEscape";
 import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
 import { useFontSize } from "../../utils/hooks/useFontSize";
-import { DemographicGroup } from "../../data/utils/Constants";
+import { type DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface TrendsChartProps {
-  data: TrendsData;
-  unknown: UnknownData;
-  axisConfig: AxisConfig;
-  chartTitle: string | string[];
-  breakdownVar: BreakdownVar;
-  setSelectedTableGroups: Function;
-  isCompareCard: boolean;
-  expanded: boolean;
-  setExpanded: (expanded: boolean) => void;
-  hasUnknowns: boolean;
+  data: TrendsData
+  unknown: UnknownData
+  axisConfig: AxisConfig
+  chartTitle: string | string[]
+  breakdownVar: BreakdownVar
+  setSelectedTableGroups: (selectedTableGroups: any[]) => void
+  isCompareCard: boolean
+  expanded: boolean
+  setExpanded: (expanded: boolean) => void
+  hasUnknowns: boolean
 }
 
 /* Render component */
@@ -77,7 +77,7 @@ export function TrendsChart({
 }: TrendsChartProps) {
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
-  const { groupLabel } = axisConfig || {};
+  const { groupLabel } = axisConfig ?? {};
 
   const fontSize = useFontSize();
 
@@ -104,7 +104,7 @@ export function TrendsChart({
   ]);
 
   // treat medium screen compare mode like mobile
-  const isSkinny = isMobile || width < MOBILE_BREAKPOINT;
+  const isSkinny = isMobile ?? width < MOBILE_BREAKPOINT;
 
   // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null);
@@ -123,18 +123,20 @@ export function TrendsChart({
   useEffect(() => {
     function setDimensions() {
       const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-      // @ts-ignore
+      // @ts-expect-error
       setWidth([containerRef.current.getBoundingClientRect().width, isMobile]);
     }
     setDimensions();
     window.addEventListener("resize", setDimensions);
-    return () => window.removeEventListener("resize", setDimensions);
+    return () => {
+      window.removeEventListener("resize", setDimensions);
+    };
   }, []);
 
   // resets tooltip parent width on data, filter, or hover change
   // allows to dynamically position tooltip to left of hover line
   useEffect(() => {
-    // @ts-ignore
+    // @ts-expect-error
     setTooltipWidth(toolTipRef?.current?.getBoundingClientRect()?.width);
   }, [data, selectedTrendGroups, hoveredDate]);
 
@@ -186,7 +188,7 @@ export function TrendsChart({
     dates.map((date) => new Date(date))
   );
 
-  // @ts-ignore
+  // @ts-expect-error
   const yMin = min(amounts) < 0 ? min(amounts) : 0; // if numbers are all positive, y domain min should be 0
   const yMax = max(amounts) ? max(amounts) : 0;
   const yExtent: [number, number] = [yMin as number, yMax as number];
@@ -194,7 +196,7 @@ export function TrendsChart({
   // X-Scale
   const xScale = scaleTime(xExtent as [Date, Date], [
     marginLeft,
-    (width as number) - marginRight,
+    width - marginRight,
   ]);
   axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length + 1 : null; // d3 was adding duplicate time period ticks to sets with very few time periods
 
@@ -236,9 +238,9 @@ export function TrendsChart({
       const { clientX } = e;
       // need to offset by how far the element is from edge of page
       const { x: parentX } =
-        e.currentTarget?.parentElement?.getBoundingClientRect() || {};
+        e.currentTarget?.parentElement?.getBoundingClientRect() ?? {};
       // using position, find date (using inverted xScale)
-      const invertedDate = xScale.invert(clientX - (parentX || 0));
+      const invertedDate = xScale.invert(clientX - (parentX ?? 0));
       // initialize bisector
       const bisect = bisector((d) => d);
       // get closest date index
@@ -290,7 +292,7 @@ export function TrendsChart({
         className={styles.TooltipWrapper}
         // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
-          transform: `translate(${xScale(new Date(hoveredDate || ""))}px, ${
+          transform: `translate(${xScale(new Date(hoveredDate ?? ""))}px, ${
             MARGIN.top
           }px)`,
           opacity: hoveredDate ? 1 : 0,
@@ -300,7 +302,7 @@ export function TrendsChart({
           ref={toolTipRef}
           style={{
             transform: `translateX(${
-              xScale(new Date(hoveredDate || "")) > width / 2
+              xScale(new Date(hoveredDate ?? "")) > width / 2
                 ? -tooltipWidth - 10
                 : 10
             }px)`,
@@ -319,9 +321,11 @@ export function TrendsChart({
         <>
           <svg
             height={CONFIG.HEIGHT}
-            width={width as number}
+            width={width}
             onMouseMove={handleMousemove}
-            onMouseLeave={() => setHoveredDate(null)}
+            onMouseLeave={() => {
+              setHoveredDate(null);
+            }}
             role="group"
             aria-labelledby={chartTitleId}
           >
@@ -330,7 +334,7 @@ export function TrendsChart({
               data={filteredData}
               xScale={xScale}
               yScale={yScale}
-              width={width as number}
+              width={width}
               marginBottom={marginBottom}
               marginLeft={marginLeft}
               marginRight={marginRight}
@@ -350,7 +354,7 @@ export function TrendsChart({
               // transform group to hovered x position
               style={{
                 transform: `translateX(${xScale(
-                  new Date(hoveredDate || "")
+                  new Date(hoveredDate ?? "")
                 )}px)`,
                 opacity: hoveredDate ? 1 : 0,
               }}

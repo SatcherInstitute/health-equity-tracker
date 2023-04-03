@@ -23,17 +23,17 @@ import {
   UNKNOWN_GROUP_COLOR_EXTENT,
   FORMATTERS as F,
 } from "./constants";
-import { UnknownData, XScale } from "./types";
+import { type UnknownData, type XScale } from "./types";
 
 /* Define type interface */
 export interface CircleChartProps {
-  data: UnknownData;
-  xScale: XScale;
-  width: number;
-  groupLabel: string;
-  isSkinny: boolean;
-  selectedDate: string | null;
-  circleId: string;
+  data: UnknownData
+  xScale: XScale
+  width: number
+  groupLabel: string
+  isSkinny: boolean
+  selectedDate: string | null
+  circleId: string
 }
 
 /* Render component */
@@ -51,8 +51,7 @@ export function CircleChart({
   const [, MAX_RADIUS] = RADIUS_EXTENT;
 
   /* Scales */
-  const percentDomain =
-    data && data.map(([_, percent]: [string, number]) => percent);
+  const percentDomain = data?.map(([_, percent]: [string, number]) => percent);
   const unknownGroupExtent: [number, number] | [undefined, undefined] =
     extent(percentDomain);
 
@@ -93,46 +92,45 @@ export function CircleChart({
           HEIGHT - MARGIN.bottom_with_unknowns + 4 * MAX_RADIUS
         })`}
       >
-        {data &&
-          data.map(([date, percent]: [string, number], i: number) => {
-            const isEveryOtherBubble = i % 2 === 0;
-            const thisBubbleIsHovered = selectedDate === date;
-            const nothingIsHovered = !selectedDate;
+        {data?.map(([date, percent]: [string, number], i: number) => {
+          const isEveryOtherBubble = i % 2 === 0;
+          const thisBubbleIsHovered = selectedDate === date;
+          const nothingIsHovered = !selectedDate;
 
-            return (
-              <g
-                role="listitem"
-                key={`dataCircleGroup-${i}`}
-                transform={`translate(${xScale(new Date(date))}, 0)`}
-                className={styles.UnknownCircles}
-              >
-                {/* return a circle for every data point on desktop, limited to every other on mobile (to create more space) and showing only the currently hovered bubble when hover state is active */}
-                {(!isSkinny ||
-                  (isSkinny && isEveryOtherBubble) ||
-                  thisBubbleIsHovered) && (
-                  <>
-                    {(thisBubbleIsHovered || nothingIsHovered) && (
-                      <circle
-                        r={rScale(percent)}
-                        fill={colors(percent)}
-                        role="img"
-                        aria-label={date}
-                      />
-                    )}
-                    {/* show percent % annotation on hover */}
-                    <text
-                      id={`circleText-${i}-${circleId}`}
-                      className={selectedDate === date ? "" : styles.invisible}
-                      textAnchor={"middle"}
-                      dy="26px"
-                    >
-                      {percent && F.pct(percent)} unknown
-                    </text>
-                  </>
-                )}
-              </g>
-            );
-          })}
+          return (
+            <g
+              role="listitem"
+              key={`dataCircleGroup-${i}`}
+              transform={`translate(${xScale(new Date(date)) ?? ""}, 0)`}
+              className={styles.UnknownCircles}
+            >
+              {/* return a circle for every data point on desktop, limited to every other on mobile (to create more space) and showing only the currently hovered bubble when hover state is active */}
+              {(!isSkinny ||
+                (isSkinny && isEveryOtherBubble) ||
+                thisBubbleIsHovered) && (
+                <>
+                  {(thisBubbleIsHovered || nothingIsHovered) && (
+                    <circle
+                      r={rScale(percent)}
+                      fill={colors(percent)}
+                      role="img"
+                      aria-label={date}
+                    />
+                  )}
+                  {/* show percent % annotation on hover */}
+                  <text
+                    id={`circleText-${i}-${circleId}`}
+                    className={selectedDate === date ? "" : styles.invisible}
+                    textAnchor={"middle"}
+                    dy="26px"
+                  >
+                    {percent && F.pct(percent)} unknown
+                  </text>
+                </>
+              )}
+            </g>
+          );
+        })}
       </g>
       {/* Circle Legend */}
       <g

@@ -4,7 +4,7 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
-import { TimeView } from "../query/Breakdowns";
+import { type TimeView } from "../query/Breakdowns";
 
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = "race_and_ethnicity";

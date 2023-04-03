@@ -94,8 +94,8 @@ function MethodologyTab() {
                     cases, deaths, and hospitalizations, we only include the
                     population of states that do not have a suppressed case,
                     hospitalization, or death count as part of the total
-                    population for each respective measure. See the 'What data
-                    are missing' section for further details.
+                    population for each respective measure. See the{" "}
+                    <b>What data are missing</b> section for further details.
                   </li>
                   <li>
                     To protect the privacy of affected individuals, COVID-19
@@ -249,7 +249,7 @@ function MethodologyTab() {
                 <h4>Vaccination data limitations</h4>
                 <ul>
                   <li>
-                    <b>New Hampshire</b> lifted its national COVID-19 emergency
+                    <b>New Hampshire</b> lifted its national COVID-19 emergency
                     response declaration in May 2021, which allows vaccine
                     recipients to opt out of having their COVID-19 vaccinations
                     included in the state’s IIS. As such, data submitted by New
@@ -286,12 +286,12 @@ function MethodologyTab() {
                 </Card>
 
                 <h3 className={styles.MethodologySubsubheaderText}>
-                  America's Health Rankings
+                  America’s Health Rankings
                 </h3>
                 <p>
                   Multiple chronic disease, behavioral health, and social
                   determinants of health in the tracker are sourced from{" "}
-                  <a href={urlMap.amr}>America's Health Rankings (AHR)</a>, who
+                  <a href={urlMap.amr}>America’s Health Rankings (AHR)</a>, who
                   in turn source the majority of their data from the{" "}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
@@ -307,7 +307,7 @@ function MethodologyTab() {
                     of disease prevalence, especially for smaller and typically
                     marginalized racial groups. Please see the{" "}
                     <a href={urlMap.amrMethodology}>methodology page</a> of
-                    America's Health Rankings for details on data suppression.
+                    America’s Health Rankings for details on data suppression.
                   </li>
                   <li>
                     BRFSS data broken down by race and ethnicity is not
@@ -315,7 +315,7 @@ function MethodologyTab() {
                     display these conditions at the county level either.
                   </li>
                   <li>
-                    All metrics sourced from America's Health Rankings are
+                    All metrics sourced from America’s Health Rankings are
                     calculated based on prevalance rates provided from their
                     data API:
                     <ul>
@@ -496,7 +496,7 @@ function MethodologyTab() {
                   people diagnosed with HIV in the United States. This
                   information is gathered from state and local HIV surveillance
                   programs and is used to better understand the impact of HIV
-                  across the country. To protect people's privacy, the CDC and
+                  across the country. To protect people’s privacy, the CDC and
                   these programs have agreed to limit the amount of data
                   released at the state and county levels. It takes 12 months
                   for the data to become official, so the numbers reported
@@ -534,7 +534,7 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     All metrics sourced from the CDC are calculated based on the
-                    number of HIV deaths and diagnoses provided by the CDC's
+                    number of HIV deaths and diagnoses provided by the CDC’s
                     AtlasPlus database.
                     <ul>
                       <li>
@@ -604,7 +604,7 @@ function MethodologyTab() {
                 <ul>
                   <li>
                     All metrics sourced from the CDC are calculated based on the
-                    number of PrEP prescriptions provided by the CDC's Atlas
+                    number of PrEP prescriptions provided by the CDC’s Atlas
                     database.
                     <ul>
                       <li>
@@ -850,14 +850,14 @@ function MethodologyTab() {
 
                   <li>
                     State reports: Prison includes all individuals including
-                    under the jurisdiction of that state's adult prison
+                    under the jurisdiction of that state’s adult prison
                     facilities. This data is disaggregated by race/ethnicity and
                     sex, however the BJS Prisoners report does not provide age
                     disaggregation to the state level.
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
-                    that territory's adult prison facilities. Because{" "}
+                    that territory’s adult prison facilities. Because{" "}
                     <b>American Samoa</b> did not report a value for
                     jurisdictional population, we have used their value for
                     custodial population instead. This data is not disaggregated
@@ -873,7 +873,7 @@ function MethodologyTab() {
 
                 <p>
                   The race/ethnicity breakdowns provided match those used in the
-                  ACS population source, however we do combine the BJS's{" "}
+                  ACS population source, however we do combine the BJS’s{" "}
                   <b>Did not report</b> race values into our <b>Unknown</b> race
                   group.{" "}
                 </p>
@@ -968,7 +968,7 @@ function MethodologyTab() {
                     </b>
                     : Within a locale, the percentage of COVID-19 cases that
                     reported unknown race/ethnicity. For example, a value of 20%
-                    for Georgia means that 20% of Georgia's reported cases had
+                    for Georgia means that 20% of Georgia’s reported cases had
                     unknown race/ethnicity. This metric is rounded to one
                     decimal place. In instances where this would round to 0%,
                     two decimal places are used.
@@ -990,9 +990,9 @@ function MethodologyTab() {
                   <li>
                     <b>Inequitable distribution of COVID-19 cases by month</b>:
                     To demonstrate the often inequitable distribution of a
-                    condition or disease, we calculate each demographic group's
+                    condition or disease, we calculate each demographic group’s
                     percent share of that condition and present it as a
-                    proportion to that group's share of the entire population.
+                    proportion to that group’s share of the entire population.
                     This calculation is done for every point in time for which
                     we have data, and displayed over time to show trends in
                     inequity.
@@ -1009,7 +1009,7 @@ function MethodologyTab() {
                       this would be interpreted as “Deaths of individuals
                       identifying as White, Non Hispanic in Georgia from
                       COVID-19 were almost 25% higher than expected, based on
-                      their share of Georgia's overall population.”
+                      their share of Georgia’s overall population.”
                     </p>
                   </li>
                 </ul>
@@ -1119,7 +1119,7 @@ function MethodologyTab() {
                   <li>
                     <b>Two or more races & Unrepresented race (NH)</b>: People
                     who are either multiple races or a single race not
-                    represented by the data source's categorization, and who are
+                    represented by the data source’s categorization, and who are
                     not Hispanic/Latino.
                   </li>
                   <li>

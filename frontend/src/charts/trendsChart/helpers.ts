@@ -1,25 +1,28 @@
 import { ascending, descending, max, min } from "d3";
-import { TrendsData, GroupData, TimeSeries, UnknownData } from "./types";
+import {
+  type TrendsData,
+  type GroupData,
+  type TimeSeries,
+  type UnknownData,
+} from "./types";
 import { CONFIG } from "./constants";
 
 const { BAR_WIDTH } = CONFIG;
 
 /* Filters out data for groups that are not selected */
 function filterDataByGroup(data: TrendsData, groups: string[]) {
-  const filteredData = data && data.filter(([group]) => groups.includes(group));
+  const filteredData = data?.filter(([group]) => groups.includes(group));
   return filteredData;
 }
 
 /* Filters unknown data by time extent ( x extent ) of current filter */
 function filterUnknownsByTimePeriod(data: UnknownData, dates: string[]) {
-  return (
-    data && data.filter(([date]: [string, number]) => dates.includes(date))
-  );
+  return data?.filter(([date]: [string, number]) => dates.includes(date));
 }
 
 /* Returns the amount (y value) for a specific date (x value) & group */
 function getAmountsByDate(d: TimeSeries, selectedDate: string | null) {
-  const [, amount] = d.find(([date]) => date === selectedDate) || [0, 0];
+  const [, amount] = d.find(([date]) => date === selectedDate) ?? [0, 0];
 
   return amount;
 }
@@ -71,21 +74,20 @@ function getMaxNumber(data: TrendsData) {
 /* Returns an array of unique date strings in ascending order */
 function getDates(data: TrendsData) {
   // if there is data and data is an array with elements
-  return data && data.length
-    ? // create a new array of unique dates
-      Array.from(
+  // create a new array of unique dates
+  // and sort by time ascending
+  return data?.length
+    ? Array.from(
         new Set(
           data.flatMap(([_, d]) => d.map(([date]: [string, number]) => date))
         )
-      )
-        // and sort by time ascending
-        .sort((a, b) => ascending(new Date(a), new Date(b)))
+      ).sort((a, b) => ascending(new Date(a), new Date(b)))
     : [];
 }
 
 /* Returns an array of all amounts (y values) */
 function getAmounts(data: TrendsData) {
-  return data && data.length
+  return data?.length
     ? data.flatMap(([_, d]) =>
         d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0]
       )
@@ -100,7 +102,7 @@ function getWidthPctShare(
 ) {
   const width =
     (Math.abs(getAmountsByDate(d, selectedDate)) /
-      (getMaxNumberForDate(data, selectedDate) || 1)) *
+      (getMaxNumberForDate(data, selectedDate) ?? 1)) *
     (BAR_WIDTH / 4);
   return width;
 }
@@ -113,7 +115,7 @@ function getWidthHundredK(
 ) {
   const width =
     (getAmountsByDate(d, selectedDate) /
-      (getMaxNumberForDate(data, selectedDate) || 1)) *
+      (getMaxNumberForDate(data, selectedDate) ?? 1)) *
     (BAR_WIDTH / 2);
   return width;
 }
@@ -129,7 +131,7 @@ function translateXPctShare(
       ? BAR_WIDTH / 4
       : BAR_WIDTH / 4 +
         (getAmountsByDate(d, selectedDate) /
-          (getMaxNumberForDate(data, selectedDate) || 1)) *
+          (getMaxNumberForDate(data, selectedDate) ?? 1)) *
           (BAR_WIDTH / 4);
 
   return translateX;

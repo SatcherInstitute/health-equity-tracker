@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import { MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
+import { type MapOfDatasetMetadata } from "../../data/utils/DatasetTypes";
 import {
   DATA_SOURCE_PRE_FILTERS,
   LinkWithStickyParams,
 } from "../../utils/urlutils";
 import { DATA_CATALOG_PAGE_LINK } from "../../utils/internalRoutes";
 import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
-import { MetricQueryResponse } from "../../data/query/MetricQuery";
+import { type MetricQueryResponse } from "../../data/query/MetricQuery";
 import { DatasetMetadataMap } from "../../data/config/DatasetMetadata";
 
 function insertPunctuation(idx: number, numSources: number) {
@@ -20,10 +20,10 @@ function insertPunctuation(idx: number, numSources: number) {
   return punctuation;
 }
 
-type DataSourceInfo = {
-  name: string;
-  updateTimes: Set<string>;
-};
+interface DataSourceInfo {
+  name: string
+  updateTimes: Set<string>
+}
 
 export function getDatasetIdsFromResponses(
   queryResponses: MetricQueryResponse[]
@@ -37,7 +37,7 @@ export function getDatasetIdsFromResponses(
 
 export const stripCountyFips = (datasetIds: string[]) => {
   const strippedData = datasetIds.map((id) => {
-    //uses RegEx to check if datasetId string contains a hyphen followed by any two digits
+    // uses RegEx to check if datasetId string contains a hyphen followed by any two digits
     const regex = /-[0-9]/g;
     if (regex.test(id)) {
       return id.split("-").slice(0, 2).join("-");
@@ -50,9 +50,9 @@ export function getDataSourceMapFromDatasetIds(
   datasetIds: string[],
   metadata: MapOfDatasetMetadata
 ): Record<string, DataSourceInfo> {
-  let dataSourceMap: Record<string, DataSourceInfo> = {};
+  const dataSourceMap: Record<string, DataSourceInfo> = {};
   datasetIds.forEach((datasetId) => {
-    const dataSourceId = metadata[datasetId]?.source_id || undefined;
+    const dataSourceId = metadata?.[datasetId]?.source_id;
 
     if (dataSourceId === undefined) {
       return;
@@ -75,10 +75,10 @@ export function getDataSourceMapFromDatasetIds(
 }
 
 interface SourcesProps {
-  queryResponses: MetricQueryResponse[];
-  metadata: MapOfDatasetMetadata;
-  isAgeAdjustedTable?: boolean;
-  hideNH?: boolean;
+  queryResponses: MetricQueryResponse[]
+  metadata: MapOfDatasetMetadata
+  isAgeAdjustedTable?: boolean
+  hideNH?: boolean
 }
 
 export function Sources(props: SourcesProps) {

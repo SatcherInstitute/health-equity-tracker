@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { AlignValue, LegendOrient } from "vega";
+import { type AlignValue, type LegendOrient } from "vega";
 
 export interface ChartDimensionProps {
-  axisTickMinStep?: number;
-  axisTitleAlign?: AlignValue;
-  axisTitleX?: number;
-  verticalTickMinStep?: number;
-  legendOrient?: LegendOrient;
+  axisTickMinStep?: number
+  axisTitleAlign?: AlignValue
+  axisTitleX?: number
+  verticalTickMinStep?: number
+  legendOrient?: LegendOrient
 }
 
 export function useChartDimensions(width: number) {

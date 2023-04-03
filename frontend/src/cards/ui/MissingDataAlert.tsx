@@ -4,24 +4,24 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from "../../utils/internalRoutes";
-import { BreakdownVarDisplayName } from "../../data/query/Breakdowns";
-import { Fips } from "../../data/utils/Fips";
+import { type BreakdownVarDisplayName } from "../../data/query/Breakdowns";
+import { type Fips } from "../../data/utils/Fips";
 import {
-  AgeAdjustedVariableId,
-  DropdownVarId,
-  VariableConfig,
+  type AgeAdjustedVariableId,
+  type DropdownVarId,
+  type VariableConfig,
 } from "../../data/config/MetricConfig";
 import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
 import { LinkWithStickyParams } from "../../utils/urlutils";
 
 interface MissingDataAlertProps {
-  dataName: string;
-  breakdownString: BreakdownVarDisplayName;
-  noDemographicInfo?: boolean;
-  isMapCard?: boolean;
-  fips: Fips;
-  dropdownVarId?: DropdownVarId;
-  ageAdjustedDataTypes?: VariableConfig[];
+  dataName: string
+  breakdownString: BreakdownVarDisplayName
+  noDemographicInfo?: boolean
+  isMapCard?: boolean
+  fips: Fips
+  dropdownVarId?: DropdownVarId
+  ageAdjustedDataTypes?: VariableConfig[]
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -69,8 +69,8 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 export default MissingDataAlert;
 
 interface AltDataTypesMessageProps {
-  ageAdjustedDataTypes: VariableConfig[];
-  setVariableConfigWithParam?: any;
+  ageAdjustedDataTypes: VariableConfig[]
+  setVariableConfigWithParam?: any
 }
 function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;

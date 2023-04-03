@@ -1,5 +1,8 @@
-import { DataFetcher } from "../data/loading/DataFetcher";
-import { MapOfDatasetMetadata, Row } from "../data/utils/DatasetTypes";
+import { type DataFetcher } from "../data/loading/DataFetcher";
+import {
+  type MapOfDatasetMetadata,
+  type Row,
+} from "../data/utils/DatasetTypes";
 
 export default class FakeDataFetcher implements DataFetcher {
   private loadedDatasets: Record<string, Row[]> = {};
@@ -16,9 +19,9 @@ export default class FakeDataFetcher implements DataFetcher {
     if (this.loadedDatasets[datasetId]) {
       return this.loadedDatasets[datasetId];
     }
-    return new Promise((res, rej) => {
-      this.datasetResolverMap[datasetId] = res;
-      this.datasetRejecterMap[datasetId] = rej;
+    return await new Promise((resolve, reject) => {
+      this.datasetResolverMap[datasetId] = resolve;
+      this.datasetRejecterMap[datasetId] = reject;
     });
   }
 
@@ -27,9 +30,9 @@ export default class FakeDataFetcher implements DataFetcher {
     if (this.loadedMetadata) {
       return this.loadedMetadata;
     }
-    return new Promise((res, rej) => {
-      this.metadataResolver = res;
-      this.metadataRejecter = rej;
+    return await new Promise((resolve, reject) => {
+      this.metadataResolver = resolve;
+      this.metadataRejecter = reject;
     });
   }
 
@@ -55,6 +58,7 @@ export default class FakeDataFetcher implements DataFetcher {
   }
 
   setFakeMetadataFailedToLoad(err: Error) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     this.metadataRejecter!(err);
   }
 
