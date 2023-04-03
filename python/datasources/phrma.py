@@ -1,11 +1,11 @@
 import numpy as np
 import pandas as pd
-from typing import cast
+from typing import List, Dict
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
-                                 US_FIPS)
+                                 US_FIPS, US_NAME)
 from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
@@ -81,6 +81,7 @@ class PhrmaData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         for geo_level in [COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL]:
+            print("geo_level:", geo_level)
             alls_df = load_phrma_df_from_data_dir(geo_level, 'all')
 
             for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
@@ -115,14 +116,14 @@ class PhrmaData(DataSource):
             'Population': std_col.POPULATION_COL,
             'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
             'Sex': std_col.SEX_COL,
-            'Year': std_col.TIME_PERIOD_COL}
+            'Year': std_col.TIME_PERIOD_COL
+        }
 
         cols_to_keep = [
-            std_col.TIME_PERIOD_COL,
             geo_to_use,
             fips_to_use,
             breakdown,
-            std_col.HIV_POPULATION_PCT]
+        ]
 
         breakdown_group_df = load_phrma_df_from_data_dir(geo_level, breakdown)
 
@@ -150,31 +151,80 @@ class PhrmaData(DataSource):
 
 
 def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
-    """ Generates Phrma data (diagnoes, deaths & prep)
-    by breakdown and geo_level
-
+    """ Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
     breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `all`
     return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables """
 
-    fips_col = std_col.COUNTY_FIPS_COL if geo_level == "county" else std_col.STATE_FIPS_COL
-    geo_name_col = std_col.COUNTY_NAME_COL if geo_level == "county" else std_col.STATE_NAME_COL
-
-    scaffold_cols = [fips_col, geo_name_col, breakdown]
+    sheet_name = get_sheet_name(geo_level, breakdown)
+    scaffold_cols = get_scaffold_cols(geo_level)
 
     # Starter cols to merge each loaded table on to
     output_df = pd.DataFrame(columns=scaffold_cols)
 
     for determinant, filename in PHRMA_FILE_MAP.items():
 
-        topic_df = gcs_to_bq_util.load_xlsx_as_df_from_data_dir(PHRMA_DIR,
-                                                                filename,
-                                                                "All US",
-                                                                dtype=DTYPE)
+        print(determinant, filename, sheet_name)
+
+        topic_df = gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
+            PHRMA_DIR,
+            filename,
+            sheet_name,
+            dtype=DTYPE,
+        )
 
         print(topic_df)
 
         output_df = output_df.merge(topic_df, how='outer')
 
+    rename_col_map = get_rename_col_map(geo_level, breakdown)
+
     return output_df
+
+
+def get_sheet_name(geo_level: str, breakdown: str) -> str:
+    """ geo_level: string equal to `county`, `national`, or `state`
+   breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `all`
+   return: a string sheet name based on the provided args  """
+
+    sheet_map = {
+        ("all", "national"): "All US",
+        ("all", "state"): "All by State",
+        ("all", "county"): "All by County",
+        ("race", "national"): "Race_US",
+        ("race", "state"): "Race_State",
+        ("race", "county"): "Race_County",
+        ("sex", "national"): "Sex_US",
+        ("sex", "state"): "Sex_State",
+        ("sex", "county"): "Sex_County",
+        ("age", "national"): "Age_US",
+        ("age", "state"): "Age_State",
+        ("age", "county"): "Age_County",
+    }
+
+    return sheet_map[(breakdown, geo_level)]
+
+
+def get_scaffold_cols(geo_level: str) -> List[str]:
+    """ Get list of string column names that are consistent across all
+    needed sheets to merge """
+
+    scaffold_cols_map = {
+        "national": ["STATE_FIPS", "STATE"],
+        "state": ["STATE_CODE", "STATE_CODE"],
+        "county": ["COUNTY_FIPS", "STATE_FIPS", "STATE", "COUNTY"]
+    }
+
+    return scaffold_cols_map[geo_level]
+
+
+def get_rename_col_map(geo_level: str, breakdown: str) -> Dict[str, str]:
+    """ Get map of col rename mappings to apply once sheets have been merged """
+
+    rename_cols_map: Dict[str, str] = {}
+
+    # if breakdown == std_col.RACE_OR_HISPANIC_COL:
+    #     rename_cols_map[]
+
+    return rename_cols_map
