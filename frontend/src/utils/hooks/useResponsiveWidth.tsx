@@ -1,5 +1,4 @@
-import { useState, useRef, useEffect } from "react";
-import { RefObject } from "react";
+import { useState, useRef, useEffect, type RefObject } from "react";
 
 export function useResponsiveWidth(
   defaultWidth: number
@@ -9,12 +8,12 @@ export function useResponsiveWidth(
   const ref = useRef<HTMLDivElement>(document.createElement("div"));
 
   useEffect(() => {
-    if (ref && ref.current) {
+    if (ref?.current) {
       setWidth(ref.current.offsetWidth);
     }
 
     const handleResize = () => {
-      if (ref && ref.current) {
+      if (ref?.current) {
         setWidth(ref.current.offsetWidth);
       }
     };

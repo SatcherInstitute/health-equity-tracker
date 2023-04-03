@@ -1,14 +1,11 @@
 import {
   formatFieldValue,
-  MetricConfig,
-  MetricId,
+  type MetricConfig,
+  type MetricId,
 } from "../data/config/MetricConfig";
-import { BreakdownVar } from "../data/query/Breakdowns";
-import {
-  DemographicGroup,
-  RaceAndEthnicityGroup,
-} from "../data/utils/Constants";
-import { Row } from "../data/utils/DatasetTypes";
+import { type BreakdownVar } from "../data/query/Breakdowns";
+import { type DemographicGroup } from "../data/utils/Constants";
+import { type Row } from "../data/utils/DatasetTypes";
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -44,9 +41,9 @@ export function addLineBreakDelimitersToField(
   field: BreakdownVar
 ): Row[] {
   return rawData.map((data) => {
-    let lines = [];
+    const lines = [];
     let currentLine = "";
-    for (let word of data[field].split(" ")) {
+    for (const word of data[field].split(" ")) {
       if (word.length + currentLine.length >= MAX_LINE_LENGTH) {
         lines.push(currentLine.trim());
         currentLine = word + " ";
@@ -93,12 +90,12 @@ export function addMetricDisplayColumn(
   return [newData, displayColName];
 }
 
-type subtitleProps = {
-  activeBreakdownFilter: DemographicGroup;
-  currentBreakdown: BreakdownVar;
-  isPopulationSubset?: boolean;
-  metricId: MetricId;
-};
+interface subtitleProps {
+  activeBreakdownFilter: DemographicGroup
+  currentBreakdown: BreakdownVar
+  isPopulationSubset?: boolean
+  metricId: MetricId
+}
 
 export function generateSubtitle({
   activeBreakdownFilter,
@@ -117,7 +114,7 @@ export function generateSubtitle({
   }
 
   if (isPopulationSubset) {
-    let ageTitle = metricId === "hiv_prep_coverage" ? "Ages 16+" : "Ages 13+";
+    const ageTitle = metricId === "hiv_prep_coverage" ? "Ages 16+" : "Ages 13+";
     if (subtitle === "") {
       subtitle = ageTitle;
     } else if (currentBreakdown !== "age") {
@@ -133,13 +130,15 @@ export function getAltGroupLabel(
   metricId: MetricId,
   breakdown: BreakdownVar
 ) {
-  if (CAWP_DETERMINANTS.includes(metricId))
-    return getWomenRaceLabel(group as RaceAndEthnicityGroup);
+  if (CAWP_DETERMINANTS.includes(metricId)) {
+    return getWomenRaceLabel(group);
+  }
   if (
     HIV_DETERMINANTS.includes(metricId) &&
     group === "All" &&
     breakdown === "age"
-  )
+  ) {
     return `${group} (13+)`;
+  }
   return group;
 }

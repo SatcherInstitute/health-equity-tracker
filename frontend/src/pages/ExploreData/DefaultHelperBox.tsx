@@ -92,18 +92,16 @@ export default function DefaultHelperBox() {
                 className={styles.ResourceVideoEmbed}
                 src="https://www.youtube.com/embed/XBoqT9Jjc8w"
                 title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write;
-	encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             </div>
             <p>
-              {/* 
+              {/*
               Watch a{" "}
                 <a href="https://www.youtube.com/embed/XBoqT9Jjc8w">
                   video demo
-                </a> or 
+                </a> or
               */}
               <i>
                 New to the tracker? Watch the video demo, or take a{" "}

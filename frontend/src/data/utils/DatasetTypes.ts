@@ -1,42 +1,42 @@
-import { DataFrame, IDataFrame } from "data-forge";
+import { DataFrame, type IDataFrame } from "data-forge";
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
-  readonly id: string;
-  readonly description: string;
-  readonly dataset_ids: string[];
-  readonly data_source_name: string;
-  readonly data_source_pretty_site_name: string;
-  readonly data_source_link: string;
-  readonly geographic_level: string;
-  readonly demographic_granularity: string;
-  readonly update_frequency: string;
-  readonly downloadable: boolean;
-  readonly time_period_range?: string;
+  readonly id: string
+  readonly description: string
+  readonly dataset_ids: string[]
+  readonly data_source_name: string
+  readonly data_source_pretty_site_name: string
+  readonly data_source_link: string
+  readonly geographic_level: string
+  readonly demographic_granularity: string
+  readonly update_frequency: string
+  readonly downloadable: boolean
+  readonly time_period_range?: string
 }
 
 // Datasets contain data with specified breakdowns
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
-  readonly id: string;
-  readonly name: string;
-  readonly update_time: string;
-  readonly contains_nh?: boolean;
-  readonly contains_other_nh?: boolean;
+  readonly id: string
+  readonly name: string
+  readonly update_time: string
+  readonly contains_nh?: boolean
+  readonly contains_other_nh?: boolean
   // Source ID is added programmatically based on DataSourceMetadata config
-  source_id?: string;
+  source_id?: string
 }
 
 export interface Field {
-  readonly data_type: string;
-  readonly name: string;
-  readonly description: string;
-  readonly origin_dataset: string;
+  readonly data_type: string
+  readonly name: string
+  readonly description: string
+  readonly origin_dataset: string
 }
 
 export interface FieldRange {
-  readonly min: number;
-  readonly max: number;
+  readonly min: number
+  readonly max: number
 }
 
 // TODO: make typedef for valid data types instead of any.
@@ -90,7 +90,7 @@ export class Dataset {
       headers.forEach((header, headerIndex) => {
         let value = "";
         if (header in row) {
-          value = row[header as string];
+          value = row[header];
         }
         csvString += convertSpecialCharactersForCsv(value);
 

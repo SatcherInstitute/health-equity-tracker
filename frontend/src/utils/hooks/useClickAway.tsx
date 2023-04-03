@@ -1,8 +1,8 @@
-/* 
+/*
 Hook that allows a target component to rerender when user clicks outside of it
 Based off https://usehooks.com/useOnClickOutside/
 
-To use: 
+To use:
 1. place a ref on the component you want to target, and send that ref in as an argument to this hook
 2. place the key that this hook returns on that same targeted component
 

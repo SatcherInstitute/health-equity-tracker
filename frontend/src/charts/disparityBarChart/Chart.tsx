@@ -2,20 +2,19 @@ import React from "react";
 import { Vega } from "react-vega";
 import { useResponsiveWidth } from "../../utils/hooks/useResponsiveWidth";
 import { useFontSize } from "../../utils/hooks/useFontSize";
-import { DisparityBarChartProps } from "./types";
+import { type DisparityBarChartProps } from "./types";
 import {
   ACTIONS,
   BACKGROUND_COLOR,
   LABEL_SWAP_CUTOFF_PERCENT,
   SCHEMA,
 } from "./constants";
-import { getLargerMeasure, getTitle } from "./helpers";
+import { getLargerMeasure, getTitle, getSignals } from "./helpers";
 import { Axes } from "./Axes";
 import { Legends } from "./Legends";
-import { getSignals } from "./helpers";
 import { Marks } from "./Marks";
 import { AIAN, NHPI, RACE } from "../../data/utils/Constants";
-import { AutoSize } from "vega";
+import { type AutoSize } from "vega";
 import { useChartDimensions } from "../../utils/hooks/useChartDimensions";
 import { Scales } from "./Scales";
 import {
@@ -23,7 +22,7 @@ import {
   addMetricDisplayColumn,
   PADDING_FOR_ACTIONS_MENU,
 } from "../utils";
-import { MetricConfig } from "../../data/config/MetricConfig";
+import { type MetricConfig } from "../../data/config/MetricConfig";
 import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from "../../data/query/Breakdowns";
 
 export const altLightMetric: MetricConfig = {
@@ -63,11 +62,11 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       ) {
         hasAltPop = true;
         // remove KFF value
-        const { vaccinated_pop_pct, ...itemWithoutKFF } = item;
+        const { vaccinated_pop_pct: _, ...itemWithoutKFF } = item;
         return itemWithoutKFF;
       } else {
         // remove ACS value
-        const { acs_vaccinated_pop_pct, ...itemWithoutACS } = item;
+        const { acs_vaccinated_pop_pct: _, ...itemWithoutACS } = item;
         return itemWithoutACS;
       }
     });

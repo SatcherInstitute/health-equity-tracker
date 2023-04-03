@@ -1,7 +1,7 @@
 import { useMediaQuery, useTheme } from "@material-ui/core";
 import { useEffect, useState } from "react";
 
-/* 
+/*
 
 Hook that targets an element (madlib header) and measures the height to adjust the scroll-margin offset needed by the cards. this allows all of our "scroll to id" functionality to accurately target the element compensating for the dynamic height of the madlib header (which can have 1, 2 or 3 lines of text). Also compensates for scenarios where the header has a height but is not sticking and is not obstructing the scroll
 
@@ -54,8 +54,6 @@ export function useHeaderScrollMargin(
 
   useEffect(() => {
     setHeaderScrollMargin(isWideEnoughForSticky ? measureHeight() : 0);
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elemId, pageWidth, sticking, ...otherDependencies]);
 
   return headerScrollMargin;

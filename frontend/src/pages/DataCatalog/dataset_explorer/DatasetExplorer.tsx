@@ -2,7 +2,7 @@ import React from "react";
 import DataSourceListing from "./DataSourceListing";
 import styles from "./DatasetExplorer.module.scss";
 import { DataSourceMetadataMap } from "../../../data/config/MetadataMap";
-import { DataSourceMetadata } from "../../../data/utils/DatasetTypes";
+import { type DataSourceMetadata } from "../../../data/utils/DatasetTypes";
 import Button from "@material-ui/core/Button";
 import {
   DATA_CATALOG_PAGE_LINK,
@@ -88,11 +88,11 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
 
               return (
                 <>
-                  {filteredDatasets.map((source_id, index) => (
+                  {filteredDatasets.map((sourceId, index) => (
                     <li className={styles.DatasetListItem} key={index}>
                       <DataSourceListing
-                        key={DataSourceMetadataMap[source_id].id}
-                        source_metadata={DataSourceMetadataMap[source_id]}
+                        key={DataSourceMetadataMap[sourceId].id}
+                        source_metadata={DataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
                       />
                     </li>

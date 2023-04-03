@@ -1,5 +1,5 @@
-import { Breakdowns } from "../query/Breakdowns";
-import { Row } from "../utils/DatasetTypes";
+import { type Breakdowns } from "../query/Breakdowns";
+import { type Row } from "../utils/DatasetTypes";
 import { AbstractSortStrategy } from "./AbstractDataSorter";
 
 export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
@@ -26,27 +26,27 @@ export class AlphabeticalSorterStrategy extends AbstractSortStrategy {
   };
 
   compareFn = (l: Row | string, r: Row | string) => {
-    const l_val = typeof l === "string" ? l : l[this.reorderCol];
-    const r_val = typeof r === "string" ? r : r[this.reorderCol];
+    const lVal = typeof l === "string" ? l : l[this.reorderCol];
+    const rVal = typeof r === "string" ? r : r[this.reorderCol];
 
-    const front_left = this.frontValues.indexOf(l_val);
-    const front_right = this.frontValues.indexOf(r_val);
+    const frontLeft = this.frontValues.indexOf(lVal);
+    const frontRight = this.frontValues.indexOf(rVal);
 
-    let diff = front_right - front_left;
-
-    if (diff !== 0) {
-      return diff;
-    }
-
-    const back_left = this.backValues.indexOf(l_val);
-    const back_right = this.backValues.indexOf(r_val);
-
-    diff = back_left - back_right;
+    let diff = frontRight - frontLeft;
 
     if (diff !== 0) {
       return diff;
     }
 
-    return l_val.localeCompare(r_val);
+    const backLeft = this.backValues.indexOf(lVal);
+    const backRight = this.backValues.indexOf(rVal);
+
+    diff = backLeft - backRight;
+
+    if (diff !== 0) {
+      return diff;
+    }
+
+    return lVal.localeCompare(rVal);
   };
 }

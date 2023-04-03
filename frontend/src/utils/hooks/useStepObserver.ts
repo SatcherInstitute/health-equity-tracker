@@ -2,11 +2,11 @@ import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { scrollIntoView } from "seamless-scroll-polyfill";
 
-export type StepData = {
-  label: string;
-  hashId: ScrollableHashId;
-  pluralOnCompare: boolean;
-};
+export interface StepData {
+  label: string
+  hashId: ScrollableHashId
+  pluralOnCompare: boolean
+}
 
 export type ScrollableHashId =
   | "location-info"
@@ -65,7 +65,7 @@ export function useStepObserver(
           );
         } else if (entry?.isIntersecting) {
           // prefer a recently clicked id, otherwise set to the observed "in view" id
-          const preferredId = recentlyClicked || entry.target.id;
+          const preferredId = recentlyClicked ?? entry.target.id;
           setActiveId(preferredId);
         }
       });
@@ -103,7 +103,6 @@ export function useStepObserver(
       setActiveId(hashId);
       setRecentlyClicked(hashId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location?.hash, stepIds]);
 
   useEffect(() => {
@@ -112,12 +111,12 @@ export function useStepObserver(
     if (hashLink && stepIds.includes(hashId)) {
       let pulseIdCounter = 0;
 
-      const pulse_id = setInterval(() => {
+      const pulseId = setInterval(() => {
         // clear the auto-scroll regardless of user interaction after set time
         pulseIdCounter += 500;
-        if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulse_id);
+        if (pulseIdCounter > 500 * 2 * 30) clearInterval(pulseId);
         if (urlHashOverrideRef.current === hashId) {
-          const targetElem = document.querySelector(`#${hashId}`);
+          const targetElem = document.querySelector(`#${hashId as string}`);
           if (targetElem) {
             scrollIntoView(targetElem, {
               behavior: "smooth",
@@ -127,7 +126,7 @@ export function useStepObserver(
       }, 500);
 
       return () => {
-        clearInterval(pulse_id);
+        clearInterval(pulseId);
       };
     }
   }, [hashId, hashLink, stepIds]);

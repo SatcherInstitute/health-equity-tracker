@@ -1,5 +1,5 @@
 import { format, utcFormat, scaleOrdinal } from "d3";
-import { MetricType } from "../../data/config/MetricConfig";
+import { type MetricType } from "../../data/config/MetricConfig";
 import sass from "../../styles/variables.module.scss";
 import {
   AAPI_W,
@@ -10,7 +10,7 @@ import {
   ASIAN_NH,
   BLACK_NH,
   BLACK_W,
-  DemographicGroup,
+  type DemographicGroup,
   HISPANIC,
   HISP_W,
   MENA_W,
@@ -95,7 +95,7 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
 };
 
 // domain for color scale
-const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP) as DemographicGroup[];
+const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP);
 // range of colors for groups
 const COLOR_RANGE = Object.values(GROUP_COLOR_MAP);
 // color scale
@@ -131,7 +131,7 @@ const CONFIG = {
 };
 
 // line chart type dictionary
-const TYPES: { [key: string]: MetricType } = {
+const TYPES: Record<string, MetricType> = {
   HUNDRED_K: "per100k",
   PERCENT_SHARE: "pct_share",
   PERCENT_RELATIVE_INEQUITY: "pct_relative_inequity",

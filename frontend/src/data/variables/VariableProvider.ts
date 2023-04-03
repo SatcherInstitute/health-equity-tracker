@@ -1,21 +1,18 @@
-import { IDataFrame } from "data-forge";
-import { Fips } from "../../data/utils/Fips";
-import { MetricId, VariableId } from "../config/MetricConfig";
-import { ProviderId } from "../loading/VariableProviderMap";
-import { Breakdowns, TimeView } from "../query/Breakdowns";
+import { type IDataFrame } from "data-forge";
+import { type MetricId, type VariableId } from "../config/MetricConfig";
+import { type ProviderId } from "../loading/VariableProviderMap";
+import { type Breakdowns, type TimeView } from "../query/Breakdowns";
 import {
   createMissingDataResponse,
-  MetricQuery,
-  MetricQueryResponse,
+  type MetricQuery,
+  type MetricQueryResponse,
 } from "../query/MetricQuery";
 import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
 import { CROSS_SECTIONAL, TIME_SERIES, TIME_PERIOD } from "../utils/Constants";
-import { DatasetCalculator } from "../utils/DatasetCalculator";
 
 abstract class VariableProvider {
   readonly providerId: ProviderId;
   readonly providesMetrics: MetricId[];
-  protected readonly calculations = new DatasetCalculator();
 
   constructor(providerId: ProviderId, providesMetrics: MetricId[]) {
     this.providerId = providerId;
@@ -33,7 +30,7 @@ abstract class VariableProvider {
     }
 
     // TODO - check that the metrics are all provided by this provider once we don't have providers relying on other providers
-    let resp = await this.getDataInternal(metricQuery);
+    const resp = await this.getDataInternal(metricQuery);
     new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize();
     return resp;
   }
@@ -43,11 +40,9 @@ abstract class VariableProvider {
       breakdowns.geography === "county" ? "county_fips" : "state_fips";
 
     if (breakdowns.filterFips !== undefined) {
-      const fips = breakdowns.filterFips as Fips;
+      const fips = breakdowns.filterFips;
       if (fips.isStateOrTerritory() && breakdowns.geography === "county") {
-        return df
-          .where((row) => fips.isParentOf(row["county_fips"]))
-          .resetIndex();
+        return df.where((row) => fips.isParentOf(row.county_fips)).resetIndex();
       } else {
         return df.where((row) => row[fipsColumn] === fips.code).resetIndex();
       }
@@ -102,11 +97,12 @@ abstract class VariableProvider {
   }
 
   removeUnrequestedColumns(df: IDataFrame, metricQuery: MetricQuery) {
-    let dataFrame = df;
+    const dataFrame = df;
     let requestedColumns = ["fips", "fips_name"].concat(metricQuery.metricIds);
 
-    if (metricQuery.timeView === TIME_SERIES)
+    if (metricQuery.timeView === TIME_SERIES) {
       requestedColumns.push(TIME_PERIOD);
+    }
 
     // Add column names of enabled breakdowns
     requestedColumns = requestedColumns.concat(
