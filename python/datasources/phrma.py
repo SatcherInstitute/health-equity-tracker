@@ -163,7 +163,8 @@ class PhrmaData(DataSource):
         df = generate_pct_share_col_with_unknowns(
             df, {"TOTAL_BENE": "pqa_sta_bene_pct_share", "COUNT_YES": "pqa_sta_adherence_pct_share"}, demo_col, all_val, unknown_val)
 
-        df = df.rename(columns={std_col.POP_PCT_SHARE: "phrma_population_pct"})
+        df = df.rename(
+            columns={std_col.POPULATION_PCT_COL: "phrma_population_pct"})
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)

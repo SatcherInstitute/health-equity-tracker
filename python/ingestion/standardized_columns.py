@@ -130,7 +130,7 @@ JAIL_RATE = "jail_per_100k"
 PRISON_RATE = "prison_per_100k"
 JAIL_PCT_SHARE = "jail_pct_share"
 PRISON_PCT_SHARE = "prison_pct_share"
-POP_PCT_SHARE = "incarceration_population_pct"
+INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 # HIV
