@@ -31,7 +31,7 @@ export type DropdownVarId =
   | "women_in_state_legislature"
   | "prison"
   | "jail"
-  | "pqa_sta";
+  | "statin";
 
 export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
 
@@ -47,8 +47,8 @@ export type VariableId =
   | "suicides"
   | "covid_vaccinations"
   | "svi"
-  | "pqa_sta_bene"
-  | "pqa_sta_adherence";
+  | "statin_bene"
+  | "statin_adherence";
 
 export type MetricId =
   | "population"
@@ -193,14 +193,14 @@ export type MetricId =
   | "uninsured_ratio_age_adjusted"
   | "uninsured_pct_relative_inequity"
   | "phrma_population_pct"
-  | "pqa_sta_bene_per_100k"
-  | "pqa_sta_bene_pct_share"
-  | "pqa_sta_bene_pct_relative_inequity"
-  | "pqa_sta_bene_ratio_age_adjusted"
-  | "pqa_sta_adherence_pct_rate"
-  | "pqa_sta_adherence_pct_share"
-  | "pqa_sta_adherence_pct_relative_inequity"
-  | "pqa_sta_adherence_ratio_age_adjusted";
+  | "statin_bene_per_100k"
+  | "statin_bene_pct_share"
+  | "statin_bene_pct_relative_inequity"
+  | "statin_bene_ratio_age_adjusted"
+  | "statin_adherence_pct_rate"
+  | "statin_adherence_pct_share"
+  | "statin_adherence_pct_relative_inequity"
+  | "statin_adherence_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1817,33 +1817,33 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  pqa_sta: [
+  statin: [
     {
-      variableId: "pqa_sta_bene",
-      variableDisplayName: "TOTAL_BENE",
-      variableFullDisplayName: "TOTAL_BENE",
+      variableId: "statin_bene",
+      variableDisplayName: "Statin beneficiaries",
+      variableFullDisplayName: "statin beneficiaries",
       surveyCollectedData: true,
-      variableDefinition: `Sample definition from PQA_STA data`,
+      variableDefinition: `Sample definition from statins data`,
       metrics: {
         per100k: {
-          metricId: "pqa_sta_bene_per_100k",
-          chartTitleLines: ["PQA_STA", "beneficiaries per 100k"],
+          metricId: "statin_bene_per_100k",
+          chartTitleLines: ["statins", "beneficiaries per 100k"],
           // trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "beneficiaries per 100k",
           type: "per100k",
         },
         pct_share: {
-          chartTitleLines: ["Percent share of total PQA_STA beneficiaries"],
-          metricId: "pqa_sta_bene_pct_share",
+          chartTitleLines: ["Percent share of total statin beneficiaries"],
+          metricId: "statin_bene_pct_share",
           // trendsCardTitleName:
           //   "Inequitable share of jail incarceration over time",
-          columnTitleHeader: "Percent share of total PQA_STA beneficiaries",
-          shortLabel: "% of total PQA_STA",
+          columnTitleHeader: "Percent share of total statin beneficiaries",
+          shortLabel: "% of total statin usage",
           type: "pct_share",
           populationComparisonMetric: {
             chartTitleLines: [
               "Population vs. distribution of",
-              "total PQA_STA beneficiaries",
+              "total statin beneficiaries",
             ],
             metricId: "phrma_population_pct",
             columnTitleHeader: "Total population share",
@@ -1852,54 +1852,54 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             chartTitleLines: [],
-            metricId: "pqa_sta_bene_pct_share",
-            columnTitleHeader: "Percent share of total PQA_STA",
-            shortLabel: "% of total PQA_STA",
+            metricId: "statin_bene_pct_share",
+            columnTitleHeader: "Percent share of total statin usage",
+            shortLabel: "% of statin usage",
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ["Relative inequity of PQA_STA over time"],
-          metricId: "pqa_sta_bene_pct_relative_inequity",
+          chartTitleLines: ["Relative inequity of statins over time"],
+          metricId: "statin_bene_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           chartTitleLines: [
-            "Age-adjusted PQA_STA ratio compared to White (NH)",
+            "Age-adjusted statins ratio compared to White (NH)",
           ],
-          metricId: "pqa_sta_bene_ratio_age_adjusted",
+          metricId: "statin_bene_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },
       },
     },
     {
-      variableId: "pqa_sta_adherence",
-      variableDisplayName: "Adherence",
-      variableFullDisplayName: "Adherence",
+      variableId: "statin_adherence",
+      variableDisplayName: "Statin adherence",
+      variableFullDisplayName: "statin adherence",
       surveyCollectedData: true,
-      variableDefinition: `Sample definition from PQA_STA data`,
+      variableDefinition: `Sample definition from statin adherence data`,
       metrics: {
         per100k: {
-          metricId: "pqa_sta_adherence_pct_rate",
-          chartTitleLines: ["PQA_STA", "percent adherence"],
+          metricId: "statin_adherence_pct_rate",
+          chartTitleLines: ["statins", "percent adherence"],
           // trendsCardTitleName: "Rates of jail incarceration over time",
-          shortLabel: "% PQA_STA adherence",
+          shortLabel: "% statins adherence",
           type: "pct_incidence",
         },
         pct_share: {
-          chartTitleLines: ["Percent share of total PQA_STA adherence"],
-          metricId: "pqa_sta_adherence_pct_share",
+          chartTitleLines: ["Percent share of total statins adherence"],
+          metricId: "statin_adherence_pct_share",
           // trendsCardTitleName:
           //   "Inequitable share of jail incarceration over time",
-          columnTitleHeader: "Percent share of total PQA_STA adherence",
-          shortLabel: "% of total PQA_STA adherence",
+          columnTitleHeader: "Percent share of total statins adherence",
+          shortLabel: "% of total statins adherence",
           type: "pct_share",
           populationComparisonMetric: {
             chartTitleLines: [
               "Population vs. distribution of",
-              "total PQA_STA adherence",
+              "total statins adherence",
             ],
             metricId: "phrma_population_pct",
             columnTitleHeader: "Total population share",
@@ -1908,23 +1908,23 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             chartTitleLines: [],
-            metricId: "pqa_sta_adherence_pct_share",
-            columnTitleHeader: "Percent share of total PQA_STA adherence",
-            shortLabel: "% of total PQA_STA adherence",
+            metricId: "statin_adherence_pct_share",
+            columnTitleHeader: "Percent share of total statins adherence",
+            shortLabel: "% of total statins adherence",
             type: "pct_share",
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ["Relative inequity of PQA_STA adherence over time"],
-          metricId: "pqa_sta_adherence_pct_relative_inequity",
+          chartTitleLines: ["Relative inequity of statins adherence over time"],
+          metricId: "statin_adherence_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
         age_adjusted_ratio: {
           chartTitleLines: [
-            "Age-adjusted PQA_STA adherence ratio compared to White (NH)",
+            "Age-adjusted statins adherence ratio compared to White (NH)",
           ],
-          metricId: "pqa_sta_adherence_ratio_age_adjusted",
+          metricId: "statin_adherence_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },
