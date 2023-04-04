@@ -134,9 +134,14 @@ POP_PCT_SHARE = "incarceration_population_pct"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 # HIV
+HIV_CARE_PREFIX = 'hiv_care'
 HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
 HIV_DEATHS_PREFIX = 'hiv_deaths'
+HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
 PREP_PREFIX = 'hiv_prep'
+HIV_CARE_LINKAGE = 'hiv_care_linkage'
+HIV_CARE_POPULATION = 'hiv_care_population'
+HIV_CARE_POPULATION_PCT = 'hiv_care_population_pct'
 HIV_PREP_COVERAGE = 'hiv_prep_coverage'
 # population of individuals with PrEP indicators
 HIV_PREP_POPULATION = 'hiv_prep_population'
