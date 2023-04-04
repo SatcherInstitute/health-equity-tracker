@@ -2,13 +2,13 @@ import React from "react";
 
 export interface PopoverElements {
   // Element to which the popover will be anchored
-  anchor: HTMLElement | null
+  anchor: HTMLElement | null;
   // Function called when popover should be opened
-  open: (event: React.MouseEvent<HTMLElement>) => void
+  open: (event: React.MouseEvent<HTMLElement>) => void;
   // Function called when popover should be closed
-  close: () => void
+  close: () => void;
   // Whether or not popover should be open
-  isOpen: boolean
+  isOpen: boolean;
 }
 
 export function usePopover(anchorElement?: any): PopoverElements {

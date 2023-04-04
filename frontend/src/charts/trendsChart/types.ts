@@ -13,11 +13,11 @@ type XScale = ScaleTime<number, number | undefined>;
 type YScale = ScaleLinear<number, number | undefined>;
 type ColorScale = ScaleOrdinal<string, string, never>;
 interface AxisConfig {
-  type: MetricType
-  groupLabel: DemographicGroup
-  yAxisLabel?: string
-  xAxisIsMonthly?: boolean
-  xAxisMaxTicks?: number | null
+  type: MetricType;
+  groupLabel: DemographicGroup;
+  yAxisLabel?: string;
+  xAxisIsMonthly?: boolean;
+  xAxisMaxTicks?: number | null;
 }
 
 export type {

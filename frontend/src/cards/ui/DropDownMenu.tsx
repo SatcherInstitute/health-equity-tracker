@@ -13,17 +13,17 @@ import { type DemographicGroup } from "../../data/utils/Constants";
 import { type BreakdownVarDisplayName } from "../../data/query/Breakdowns";
 
 interface MenuPopoverProps {
-  popover: PopoverElements
+  popover: PopoverElements;
   // Map type indicates items are first level menu items, array indicates second level
   items:
     | Record<BreakdownVarDisplayName, DemographicGroup[]>
-    | DemographicGroup[]
+    | DemographicGroup[];
   onClick: (
     event: React.MouseEvent<HTMLElement>,
     value: DemographicGroup
-  ) => void
+  ) => void;
   // Optional additional actions to do when the popover is closed
-  onClose?: () => void
+  onClose?: () => void;
 }
 
 function MenuPopover(props: MenuPopoverProps): JSX.Element {
@@ -97,16 +97,16 @@ function MenuPopover(props: MenuPopoverProps): JSX.Element {
 
 export interface DropDownMenuProps {
   // Dropdown's currently selected option.
-  value: DemographicGroup
+  value: DemographicGroup;
   // Map of first level menu option to submenu options.
   // If only one key is present, submenu options will render as first level.
-  options: Record<string, DemographicGroup[]>
+  options: Record<string, DemographicGroup[]>;
   // Update parent component with a newly selected value.
   onOptionUpdate: (
     category: DemographicGroup | undefined,
     filterSelection: DemographicGroup
-  ) => void
-  idSuffix: string
+  ) => void;
+  idSuffix: string;
 }
 
 /*

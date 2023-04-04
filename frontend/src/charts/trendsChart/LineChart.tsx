@@ -29,10 +29,10 @@ import { UNKNOWN_W } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface LineChartProps {
-  data: TrendsData
-  xScale: XScale
-  yScale: YScale
-  valuesArePct: boolean
+  data: TrendsData;
+  xScale: XScale;
+  yScale: YScale;
+  valuesArePct: boolean;
 }
 
 /* Render component */

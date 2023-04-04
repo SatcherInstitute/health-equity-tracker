@@ -23,9 +23,9 @@ import { type DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface HoverCirclesProps {
-  data: TrendsData
-  yScale: YScale
-  selectedDate: string | null
+  data: TrendsData;
+  yScale: YScale;
+  selectedDate: string | null;
 }
 
 /* Render component */

@@ -49,9 +49,9 @@ export const altCellStyle = {
 };
 
 export interface TableChartProps {
-  data: Array<Readonly<Record<string, any>>>
-  breakdownVar: BreakdownVar
-  metrics: MetricConfig[]
+  data: Array<Readonly<Record<string, any>>>;
+  breakdownVar: BreakdownVar;
+  metrics: MetricConfig[];
 }
 
 export function TableChart(props: TableChartProps) {
@@ -209,9 +209,9 @@ export function TableChart(props: TableChartProps) {
 }
 
 interface UnitsProps {
-  column: number
-  metric: MetricConfig[]
-  wrap100kUnit: boolean
+  column: number;
+  metric: MetricConfig[];
+  wrap100kUnit: boolean;
 }
 function Units(props: UnitsProps) {
   if (!props.column) return null;

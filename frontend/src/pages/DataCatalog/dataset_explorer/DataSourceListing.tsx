@@ -27,8 +27,8 @@ import Link from "@material-ui/core/Link";
 type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
 
 function DownloadDatasetListItem(props: {
-  datasetId: string
-  datasetMetadata: DatasetMetadata
+  datasetId: string;
+  datasetMetadata: DatasetMetadata;
 }) {
   const [downloadStatus, setDownloadStatus] = useState<LoadStatus>("unloaded");
 
@@ -94,8 +94,8 @@ function DownloadDatasetListItem(props: {
   );
 }
 export interface DataSourceListingProps {
-  source_metadata: DataSourceMetadata
-  dataset_metadata: MapOfDatasetMetadata
+  source_metadata: DataSourceMetadata;
+  dataset_metadata: MapOfDatasetMetadata;
 }
 
 export function DataSourceListing(props: DataSourceListingProps) {

@@ -29,15 +29,15 @@ import {
 
 /* Define type interface */
 export interface FilterLegendProps {
-  data: TrendsData
-  selectedGroups: string[]
-  handleClick: (group: DemographicGroup | null) => void
-  handleMinMaxClick: (arg: any) => void
-  groupLabel: string
-  isSkinny: boolean
-  chartWidth: number
-  breakdownVar: BreakdownVar
-  legendId: string
+  data: TrendsData;
+  selectedGroups: string[];
+  handleClick: (group: DemographicGroup | null) => void;
+  handleMinMaxClick: (arg: any) => void;
+  groupLabel: string;
+  isSkinny: boolean;
+  chartWidth: number;
+  breakdownVar: BreakdownVar;
+  legendId: string;
 }
 
 /* Render component */

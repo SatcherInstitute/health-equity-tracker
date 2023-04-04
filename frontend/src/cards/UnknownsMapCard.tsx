@@ -36,15 +36,15 @@ import { CAWP_DATA_TYPES } from "../data/variables/CawpProvider";
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
-  variableConfig: VariableConfig
+  variableConfig: VariableConfig;
   // Breakdown value to evaluate for unknowns
-  currentBreakdown: BreakdownVar
+  currentBreakdown: BreakdownVar;
   // Geographic region of maps
-  fips: Fips
+  fips: Fips;
   // Updates the madlib
-  updateFipsCallback: (fips: Fips) => void
+  updateFipsCallback: (fips: Fips) => void;
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
-  overrideAndWithOr?: boolean
+  overrideAndWithOr?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when

@@ -7,8 +7,8 @@ import { type MetricId } from "../config/MetricConfig";
 import { excludeAll } from "../query/BreakdownFilter";
 
 export interface FipsSpec {
-  code: string
-  name: string
+  code: string;
+  name: string;
 }
 export const CHATAM: FipsSpec = {
   code: "37037",

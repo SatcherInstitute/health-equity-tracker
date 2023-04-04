@@ -23,8 +23,6 @@ import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMoti
 import { urlMap } from "../../utils/externalUrls";
 import { Link } from "react-router-dom";
 
-// TRIGGER BUILD
-
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,

@@ -6,7 +6,7 @@ import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
 import { Alert } from "@material-ui/lab";
 
 interface CopyLinkButtonProps {
-  scrollToHash: ScrollableHashId
+  scrollToHash: ScrollableHashId;
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {

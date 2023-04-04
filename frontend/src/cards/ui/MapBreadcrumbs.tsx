@@ -7,10 +7,10 @@ import { useLocation } from "react-router-dom";
 import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
 
 function MapBreadcrumbs(props: {
-  fips: Fips
-  updateFipsCallback: (fips: Fips) => void
-  ariaLabel?: string
-  scrollToHashId: ScrollableHashId
+  fips: Fips;
+  updateFipsCallback: (fips: Fips) => void;
+  ariaLabel?: string;
+  scrollToHashId: ScrollableHashId;
 }) {
   const location = useLocation();
 
@@ -47,9 +47,9 @@ function MapBreadcrumbs(props: {
 }
 
 function Crumb(props: {
-  text: string
-  isClickable: boolean
-  onClick?: () => void
+  text: string;
+  isClickable: boolean;
+  onClick?: () => void;
 }) {
   return (
     <>

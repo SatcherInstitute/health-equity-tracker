@@ -18,13 +18,13 @@ import styles from "../Card.module.scss";
 import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 interface RateInfoAlertProps {
-  overallQueryResponse: MetricQueryResponse
-  currentBreakdown: BreakdownVar
-  activeBreakdownFilter: DemographicGroup
-  metricConfig: MetricConfig
-  fips: Fips
-  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
-  variableConfig: VariableConfig
+  overallQueryResponse: MetricQueryResponse;
+  currentBreakdown: BreakdownVar;
+  activeBreakdownFilter: DemographicGroup;
+  metricConfig: MetricConfig;
+  fips: Fips;
+  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void;
+  variableConfig: VariableConfig;
 }
 
 export function RateInfoAlert(props: RateInfoAlertProps) {

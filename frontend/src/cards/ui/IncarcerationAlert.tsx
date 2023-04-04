@@ -19,9 +19,9 @@ const combinedAlertFipsList = [
 ];
 
 interface IncarcerationAlertProps {
-  dataType: VariableId
-  breakdown: BreakdownVar
-  fips: Fips
+  dataType: VariableId;
+  breakdown: BreakdownVar;
+  fips: Fips;
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
@@ -58,8 +58,8 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
 export default IncarcerationAlert;
 
 interface IncarcerationDetailsTextProps {
-  dataType: VariableId
-  breakdown: BreakdownVar
+  dataType: VariableId;
+  breakdown: BreakdownVar;
 }
 
 function IncarcerationDetailsText(props: IncarcerationDetailsTextProps) {

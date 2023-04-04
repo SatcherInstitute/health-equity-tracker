@@ -37,10 +37,10 @@ import {
 
 /* Define type interface */
 export interface TrendsTooltipProps {
-  data: TrendsData
-  selectedDate: string | null
-  axisConfig: AxisConfig
-  isSkinny: boolean
+  data: TrendsData;
+  selectedDate: string | null;
+  axisConfig: AxisConfig;
+  isSkinny: boolean;
 }
 
 /* Render component */

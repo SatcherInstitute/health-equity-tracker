@@ -13,10 +13,10 @@ export interface DataFetcher {
    * Fetches and returns the dataset associated with the provided ID.
    * @param datasetId The id of the dataset to load.
    */
-  loadDataset: (datasetId: string) => Promise<Row[]>
+  loadDataset: (datasetId: string) => Promise<Row[]>;
 
   /** Fetches and returns the MetadataMap for all datasets. */
-  getMetadata: () => Promise<MapOfDatasetMetadata>
+  getMetadata: () => Promise<MapOfDatasetMetadata>;
 }
 
 export class ApiDataFetcher implements DataFetcher {

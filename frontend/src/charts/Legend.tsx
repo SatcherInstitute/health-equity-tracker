@@ -26,21 +26,21 @@ export const LEGEND_COLOR_COUNT = 7;
 */
 export interface LegendProps {
   // Data for which to create a legend.
-  legendData?: Array<Record<string, any>> // Dataset for which to calculate legend.
+  legendData?: Array<Record<string, any>>; // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
-  metric: MetricConfig
-  legendTitle: string
+  metric: MetricConfig;
+  legendTitle: string;
   // May be used if standardizing legends across charts
-  fieldRange?: FieldRange
+  fieldRange?: FieldRange;
   // Quantile or quantize scale.
-  scaleType: ScaleType
+  scaleType: ScaleType;
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.
-  sameDotSize?: boolean
+  sameDotSize?: boolean;
   // Alt text
-  description: string
+  description: string;
   // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: "horizontal" | "vertical"
+  direction: "horizontal" | "vertical";
 }
 
 export function Legend(props: LegendProps) {

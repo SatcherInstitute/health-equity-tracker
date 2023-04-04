@@ -51,12 +51,12 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
 
 interface DemographicBreakdown {
   // Name of the column in the returned data
-  readonly columnName: BreakdownVar
+  readonly columnName: BreakdownVar;
   // Whether the demographic breakdown is requested
-  readonly enabled: boolean
+  readonly enabled: boolean;
   // Filter to apply to the breakdown. If no filter is specified, all available
   // values for that column should be returned.
-  readonly filter?: Readonly<BreakdownFilter>
+  readonly filter?: Readonly<BreakdownFilter>;
 }
 
 function stringifyDemographic(breakdown: DemographicBreakdown) {

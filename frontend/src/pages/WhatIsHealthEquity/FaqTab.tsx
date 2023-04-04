@@ -13,8 +13,8 @@ import { getHtml } from "../../utils/urlutils";
 import { urlMap } from "../../utils/externalUrls";
 
 export interface qAndA {
-  q: string
-  a: string
+  q: string;
+  a: string;
 }
 
 export const selectFaqs: qAndA[] = [

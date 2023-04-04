@@ -18,18 +18,18 @@ import { AGE } from "../../data/utils/Constants";
 export const RACE_OR_ETHNICITY = "race or ethnicity";
 
 interface UnknownsAlertProps {
-  queryResponse: MetricQueryResponse
-  ageQueryResponse?: MetricQueryResponse
-  metricConfig: MetricConfig
-  breakdownVar: BreakdownVar
-  displayType: VisualizationType
-  known: boolean
-  overrideAndWithOr?: boolean
-  raceEthDiffMap?: boolean
-  noDemographicInfoMap?: boolean
-  showingVisualization?: boolean
-  fips: Fips
-  jumpToData?: () => void
+  queryResponse: MetricQueryResponse;
+  ageQueryResponse?: MetricQueryResponse;
+  metricConfig: MetricConfig;
+  breakdownVar: BreakdownVar;
+  displayType: VisualizationType;
+  known: boolean;
+  overrideAndWithOr?: boolean;
+  raceEthDiffMap?: boolean;
+  noDemographicInfoMap?: boolean;
+  showingVisualization?: boolean;
+  fips: Fips;
+  jumpToData?: () => void;
 }
 
 function UnknownsAlert(props: UnknownsAlertProps) {

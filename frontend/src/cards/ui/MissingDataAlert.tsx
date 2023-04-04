@@ -15,13 +15,13 @@ import { dataTypeLinkMap } from "../AgeAdjustedTableCard";
 import { LinkWithStickyParams } from "../../utils/urlutils";
 
 interface MissingDataAlertProps {
-  dataName: string
-  breakdownString: BreakdownVarDisplayName
-  noDemographicInfo?: boolean
-  isMapCard?: boolean
-  fips: Fips
-  dropdownVarId?: DropdownVarId
-  ageAdjustedDataTypes?: VariableConfig[]
+  dataName: string;
+  breakdownString: BreakdownVarDisplayName;
+  noDemographicInfo?: boolean;
+  isMapCard?: boolean;
+  fips: Fips;
+  dropdownVarId?: DropdownVarId;
+  ageAdjustedDataTypes?: VariableConfig[];
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -69,8 +69,8 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 export default MissingDataAlert;
 
 interface AltDataTypesMessageProps {
-  ageAdjustedDataTypes: VariableConfig[]
-  setVariableConfigWithParam?: any
+  ageAdjustedDataTypes: VariableConfig[];
+  setVariableConfigWithParam?: any;
 }
 function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>;

@@ -48,17 +48,17 @@ const NON_LAZYLOADED_CARDS: ScrollableHashId[] = [
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
 function TwoVariableReport(props: {
-  key: string
-  dropdownVarId1: DropdownVarId
-  dropdownVarId2: DropdownVarId
-  fips1: Fips
-  fips2: Fips
-  updateFips1Callback: (fips: Fips) => void
-  updateFips2Callback: (fips: Fips) => void
-  isScrolledToTop: boolean
-  reportStepHashIds?: ScrollableHashId[]
-  setReportStepHashIds?: (reportStepHashIds: ScrollableHashId[]) => void
-  headerScrollMargin: number
+  key: string;
+  dropdownVarId1: DropdownVarId;
+  dropdownVarId2: DropdownVarId;
+  fips1: Fips;
+  fips2: Fips;
+  updateFips1Callback: (fips: Fips) => void;
+  updateFips2Callback: (fips: Fips) => void;
+  isScrolledToTop: boolean;
+  reportStepHashIds?: ScrollableHashId[];
+  setReportStepHashIds?: (reportStepHashIds: ScrollableHashId[]) => void;
+  headerScrollMargin: number;
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -525,23 +525,23 @@ function TwoVariableReport(props: {
 }
 
 function RowOfTwoOptionalMetrics(props: {
-  id: ScrollableHashId
-  variableConfig1: VariableConfig | undefined
-  variableConfig2: VariableConfig | undefined
-  fips1: Fips
-  fips2: Fips
-  updateFips1?: (fips: Fips) => void
-  updateFips2?: (fips: Fips) => void
+  id: ScrollableHashId;
+  variableConfig1: VariableConfig | undefined;
+  variableConfig2: VariableConfig | undefined;
+  fips1: Fips;
+  fips2: Fips;
+  updateFips1?: (fips: Fips) => void;
+  updateFips2?: (fips: Fips) => void;
   createCard: (
     variableConfig: VariableConfig,
     fips: Fips,
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
     isCompareCard?: boolean
-  ) => JSX.Element
-  dropdownVarId1?: DropdownVarId
-  dropdownVarId2?: DropdownVarId
-  headerScrollMargin: number
+  ) => JSX.Element;
+  dropdownVarId1?: DropdownVarId;
+  dropdownVarId2?: DropdownVarId;
+  headerScrollMargin: number;
 }) {
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>;

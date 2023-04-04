@@ -8,10 +8,10 @@ import {
 } from "../../data/query/Breakdowns";
 
 interface UnknownBubblesAlertProps {
-  breakdownVar: BreakdownVar
-  variableDisplayName: string
-  expanded: boolean
-  setExpanded: (expanded: boolean) => void
+  breakdownVar: BreakdownVar;
+  variableDisplayName: string;
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
 }
 
 export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
