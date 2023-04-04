@@ -25,7 +25,7 @@ export type CategoryId =
   | "Behavioral Health"
   | "Political Determinants of Health"
   | "Social Determinants of Health"
-  | "(TBD) Medication Adherence";
+  | "(TBD) Medication Data";
 
 export interface MadLib {
   readonly id: MadLibId;
@@ -124,7 +124,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   women_in_us_congress: "Women in U.S. Congress",
   jail: "Jail Incarceration",
   prison: "Prison Incarceration",
-  phrma: "Sample Phrma Topic",
+  pqa_sta: "Sample Pharmacy Data Topic",
 };
 
 export interface Category {
@@ -193,9 +193,9 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: "(TBD) Medication Adherence",
+    title: "(TBD) Medication Data",
     definition: "",
-    options: ["phrma"],
+    options: ["pqa_sta"],
   },
 ];
 

@@ -6,8 +6,10 @@ import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
 import VariableProvider from "./VariableProvider";
 
 export const PHRMA_DETERMINANTS: MetricId[] = [
-  "sample_pct_rate",
-  "sample_pct_share",
+  "pqa_sta_bene_per_100k",
+  "pqa_sta_bene_pct_share",
+  "pqa_sta_adherence_pct_rate",
+  "pqa_sta_adherence_pct_share",
   "phrma_population_pct",
 ];
 
