@@ -1821,13 +1821,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "statins_bene",
       variableDisplayName: "Statins beneficiaries",
-      variableFullDisplayName: "statin beneficiaries",
+      variableFullDisplayName: "Statin beneficiaries",
       surveyCollectedData: true,
       variableDefinition: `Sample definition from statins data`,
       metrics: {
         per100k: {
           metricId: "statins_bene_per_100k",
-          chartTitleLines: ["statins", "beneficiaries per 100k"],
+          chartTitleLines: ["Statin", "beneficiaries per 100k"],
           // trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "beneficiaries per 100k",
           type: "per100k",
@@ -1877,13 +1877,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       variableId: "statins_adherence",
       variableDisplayName: "Statin adherence",
-      variableFullDisplayName: "statin adherence",
+      variableFullDisplayName: "Statin adherence",
       surveyCollectedData: true,
       variableDefinition: `Sample definition from statin adherence data`,
       metrics: {
         per100k: {
           metricId: "statins_adherence_pct_rate",
-          chartTitleLines: ["statins", "percent adherence"],
+          chartTitleLines: ["Statins", "percent adherence"],
           // trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "% statins adherence",
           type: "pct_incidence",
