@@ -1,11 +1,11 @@
-import { DataFrame, type IDataFrame } from "data-forge";
-import LRU from "lru-cache";
-import { getDataFetcher, getDataManager, getLogger } from "../../utils/globals";
-import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { DatasetOrganizer } from "../sorting/DatasetOrganizer";
-import { Dataset, type MapOfDatasetMetadata } from "../utils/DatasetTypes";
-import { joinOnCols } from "../utils/datasetutils";
-import VariableProviderMap from "./VariableProviderMap";
+import { DataFrame, type IDataFrame } from 'data-forge'
+import LRU from 'lru-cache'
+import { getDataFetcher, getDataManager, getLogger } from '../../utils/globals'
+import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
+import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
+import { joinOnCols } from '../utils/datasetutils'
+import VariableProviderMap from './VariableProviderMap'
 
 // TODO test this out on the real website and tweak these numbers as needed.
 
@@ -17,26 +17,26 @@ import VariableProviderMap from "./VariableProviderMap";
 // 2. The total site memory usage is reasonable. This is a bit of a judgement
 //    call, but it should be comparable with other applications. This can be
 //    viewed in the browser task manager.
-const MAX_CACHE_SIZE_DATASETS = 100000;
-const MAX_CACHE_SIZE_QUERIES = 10000;
+const MAX_CACHE_SIZE_DATASETS = 100000
+const MAX_CACHE_SIZE_QUERIES = 10000
 
 // We only expect one metadata entry so we can set cache size to 1.
-const MAX_CACHE_SIZE_METADATA = 1;
+const MAX_CACHE_SIZE_METADATA = 1
 
 export abstract class ResourceCache<K, R> {
-  private readonly lruCache: LRU<string, R>;
-  private loadingResources: Record<string, Promise<R>>;
-  private failedResources: Set<string>;
+  private readonly lruCache: LRU<string, R>
+  private loadingResources: Record<string, Promise<R>>
+  private failedResources: Set<string>
 
   constructor(maxSize: number) {
-    this.lruCache = this.createLruCache(maxSize);
-    this.loadingResources = {};
-    this.failedResources = new Set();
+    this.lruCache = this.createLruCache(maxSize)
+    this.loadingResources = {}
+    this.failedResources = new Set()
   }
 
   private createLruCache(maxSize: number): LRU<string, R> {
     const onDispose = (key: string, resource: R) => {
-      getLogger().debugLog("Dropping " + key + " from cache.");
+      getLogger().debugLog('Dropping ' + key + ' from cache.')
       if (this.getResourceSize(resource, key) > maxSize) {
         // It is recommended that if a single entry is larger than cache size,
         // it get split up into smaller chunks to avoid poor performance when
@@ -44,12 +44,12 @@ export abstract class ResourceCache<K, R> {
         // eslint-disable-next-line @typescript-eslint/no-floating-promises
         getLogger().logError(
           new Error(
-            "Resource loaded that is larger than the maximum cache size: " + key
+            'Resource loaded that is larger than the maximum cache size: ' + key
           ),
-          "WARNING"
-        );
+          'WARNING'
+        )
       }
-    };
+    }
 
     const options = {
       max: maxSize,
@@ -60,20 +60,20 @@ export abstract class ResourceCache<K, R> {
       // stale. Note that max age is evaluated lazily, so this will not generate
       // additional QPS unless the user actually interacts with the page.
       maxAge: 1000 * 60 * 60 * 24,
-    };
-    return new LRU<string, R>(options);
+    }
+    return new LRU<string, R>(options)
   }
 
   resetCache() {
     // There's no way to cancel in-flight promises, so we don't clear the
     // loading resources.
-    this.lruCache.reset();
-    this.failedResources = new Set();
+    this.lruCache.reset()
+    this.failedResources = new Set()
   }
 
   addResourceToCache(key: K, resource: R) {
-    const resourceId = this.getResourceId(key);
-    this.lruCache.set(resourceId, resource);
+    const resourceId = this.getResourceId(key)
+    this.lruCache.set(resourceId, resource)
   }
 
   /**
@@ -84,7 +84,7 @@ export abstract class ResourceCache<K, R> {
    *     `getResourceId` to determine uniqueness.
    */
   async loadResource(key: K): Promise<R> {
-    const resourceId = this.getResourceId(key);
+    const resourceId = this.getResourceId(key)
 
     // Errors are considered permanent, so we don't retry on errors. Reloading
     // is required to retry. In the future we could consider a more robust retry
@@ -93,7 +93,7 @@ export abstract class ResourceCache<K, R> {
     // not retry because frequent retries can risk spamming the server or
     // freezing the page from too many expensive computations.
     if (this.failedResources.has(resourceId)) {
-      throw new Error("Resource already failed, not retrying");
+      throw new Error('Resource already failed, not retrying')
     }
 
     try {
@@ -101,62 +101,62 @@ export abstract class ResourceCache<K, R> {
       // TODO handle re-load periodically so long-lived tabs don't get stale.
       // Also need to reset the variable cache when datasets are reloaded.
 
-      const resource = this.lruCache.get(resourceId);
+      const resource = this.lruCache.get(resourceId)
       if (resource) {
-        return resource;
+        return resource
       }
-      const loadingResource = this.loadingResources[resourceId];
+      const loadingResource = this.loadingResources[resourceId]
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       if (loadingResource) {
-        return await loadingResource;
+        return await loadingResource
       }
 
-      getLogger().debugLog("Loading " + resourceId);
-      const loadPromise = this.loadResourceInternal(key);
-      this.loadingResources[resourceId] = loadPromise;
-      const result = await loadPromise;
+      getLogger().debugLog('Loading ' + resourceId)
+      const loadPromise = this.loadResourceInternal(key)
+      this.loadingResources[resourceId] = loadPromise
+      const result = await loadPromise
 
-      this.lruCache.set(resourceId, result);
+      this.lruCache.set(resourceId, result)
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete this.loadingResources[resourceId];
+      delete this.loadingResources[resourceId]
       getLogger().debugLog(
-        "Loaded " + resourceId + ". Cache size: " + this.lruCache.length
-      );
+        'Loaded ' + resourceId + '. Cache size: ' + this.lruCache.length
+      )
 
-      return result;
+      return result
     } catch (e) {
       // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-      delete this.loadingResources[resourceId];
-      this.failedResources.add(resourceId);
-      await getLogger().logError(e as Error, "WARNING", {
-        error_type: "resource_load_failure",
+      delete this.loadingResources[resourceId]
+      this.failedResources.add(resourceId)
+      await getLogger().logError(e as Error, 'WARNING', {
+        error_type: 'resource_load_failure',
         resource_id: resourceId,
-      });
-      throw e;
+      })
+      throw e
     }
   }
 
-  protected abstract loadResourceInternal(key: K): Promise<R>;
+  protected abstract loadResourceInternal(key: K): Promise<R>
 
-  protected abstract getResourceId(key: K): string;
+  protected abstract getResourceId(key: K): string
 
-  protected abstract getResourceSize(resource: R, id: string): number;
+  protected abstract getResourceSize(resource: R, id: string): number
 }
 
 export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
-  static METADATA_KEY = "all_metadata";
+  static METADATA_KEY = 'all_metadata'
 
   protected async loadResourceInternal(
     metadataId: string
   ): Promise<MapOfDatasetMetadata> {
     if (metadataId !== MetadataCache.METADATA_KEY) {
-      throw new Error("Invalid metadata id");
+      throw new Error('Invalid metadata id')
     }
-    return await getDataFetcher().getMetadata();
+    return await getDataFetcher().getMetadata()
   }
 
   getResourceId(metadataId: string): string {
-    return metadataId;
+    return metadataId
   }
 
   /**
@@ -164,24 +164,24 @@ export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
    * use a constant factor per entry.
    */
   getResourceSize(resource: MapOfDatasetMetadata, id: string): number {
-    return 1;
+    return 1
   }
 }
 
 class DatasetCache extends ResourceCache<string, Dataset> {
   protected async loadResourceInternal(datasetId: string): Promise<Dataset> {
-    const promise = getDataFetcher().loadDataset(datasetId);
-    const metadataPromise = getDataManager().loadMetadata();
-    const [data, metadata] = await Promise.all([promise, metadataPromise]);
+    const promise = getDataFetcher().loadDataset(datasetId)
+    const metadataPromise = getDataManager().loadMetadata()
+    const [data, metadata] = await Promise.all([promise, metadataPromise])
     // TODO throw specific error message if metadata is missing for this dataset
     // id.
     // TODO validate metadata against data, and also process variables out
     // of it?
-    return new Dataset(data, metadata[datasetId]);
+    return new Dataset(data, metadata[datasetId])
   }
 
   getResourceId(datasetId: string): string {
-    return datasetId;
+    return datasetId
   }
 
   /**
@@ -191,28 +191,28 @@ class DatasetCache extends ResourceCache<string, Dataset> {
    * to a small number of rows.
    */
   getResourceSize(resource: Dataset, key: string): number {
-    return resource.rows.length + 5;
+    return resource.rows.length + 5
   }
 }
 
 class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
-  private readonly providerMap: VariableProviderMap;
+  private readonly providerMap: VariableProviderMap
 
   constructor(providerMap: VariableProviderMap, maxSize: number) {
-    super(maxSize);
-    this.providerMap = providerMap;
+    super(maxSize)
+    this.providerMap = providerMap
   }
 
   protected async loadResourceInternal(
     query: MetricQuery
   ): Promise<MetricQueryResponse> {
-    const providers = this.providerMap.getUniqueProviders(query.metricIds);
+    const providers = this.providerMap.getUniqueProviders(query.metricIds)
 
     // Yield thread so the UI can respond. This prevents long calculations
     // from causing UI elements to look laggy.
     await new Promise((resolve) => {
-      setTimeout(resolve, 0);
-    });
+      setTimeout(resolve, 0)
+    })
     // TODO potentially improve caching by caching the individual results
     // before joining so those can be reused, or caching the results under
     // all of the variables provided under different keys. For example, if
@@ -221,42 +221,42 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     // when it's used from within another provider.
     const promises: Array<Promise<MetricQueryResponse>> = providers.map(
       async (provider) => await provider.getData(query)
-    );
+    )
 
-    const queryResponses: MetricQueryResponse[] = await Promise.all(promises);
+    const queryResponses: MetricQueryResponse[] = await Promise.all(promises)
 
     const potentialErrorResponse = queryResponses.find((metricQueryResponse) =>
       metricQueryResponse.dataIsMissing()
-    );
+    )
     if (potentialErrorResponse !== undefined) {
-      return potentialErrorResponse;
+      return potentialErrorResponse
     }
 
     const dataframes: IDataFrame[] = queryResponses.map(
       (response) => new DataFrame(response.data)
-    );
+    )
 
     const joined = dataframes.reduce((prev, next) => {
-      return joinOnCols(prev, next, query.breakdowns.getJoinColumns(), "outer");
-    });
+      return joinOnCols(prev, next, query.breakdowns.getJoinColumns(), 'outer')
+    })
 
     const consumedDatasetIds = queryResponses.reduce(
       (accumulator: string[], response: MetricQueryResponse) =>
         accumulator.concat(response.consumedDatasetIds),
       []
-    );
-    const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds));
+    )
+    const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
     const resp = new MetricQueryResponse(
       joined.toArray(),
       uniqueConsumedDatasetIds
-    );
+    )
 
-    new DatasetOrganizer(resp.data, query.breakdowns).organize();
-    return resp;
+    new DatasetOrganizer(resp.data, query.breakdowns).organize()
+    return resp
   }
 
   getResourceId(query: MetricQuery): string {
-    return query.getUniqueKey();
+    return query.getUniqueKey()
   }
 
   /**
@@ -266,7 +266,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
    * to a small number of rows.
    */
   getResourceSize(resource: MetricQueryResponse, key: string): number {
-    return resource.data.length + 5;
+    return resource.data.length + 5
   }
 }
 
@@ -277,38 +277,38 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
  * `useResources.tsx` and `WithLoadingOrErrorUI.tsx`
  */
 export default class DataManager {
-  private readonly datasetCache: DatasetCache;
-  private readonly metricQueryCache: MetricQueryCache;
-  private readonly metadataCache: MetadataCache;
+  private readonly datasetCache: DatasetCache
+  private readonly metricQueryCache: MetricQueryCache
+  private readonly metadataCache: MetadataCache
 
   constructor() {
-    this.datasetCache = new DatasetCache(MAX_CACHE_SIZE_DATASETS);
+    this.datasetCache = new DatasetCache(MAX_CACHE_SIZE_DATASETS)
     this.metricQueryCache = new MetricQueryCache(
       new VariableProviderMap(),
       MAX_CACHE_SIZE_QUERIES
-    );
-    this.metadataCache = new MetadataCache(MAX_CACHE_SIZE_METADATA);
+    )
+    this.metadataCache = new MetadataCache(MAX_CACHE_SIZE_METADATA)
   }
 
   async loadDataset(datasetId: string): Promise<Dataset> {
-    return await this.datasetCache.loadResource(datasetId);
+    return await this.datasetCache.loadResource(datasetId)
   }
 
   async loadMetrics(query: MetricQuery): Promise<MetricQueryResponse> {
-    return await this.metricQueryCache.loadResource(query);
+    return await this.metricQueryCache.loadResource(query)
   }
 
   async loadMetadata(): Promise<MapOfDatasetMetadata> {
-    return await this.metadataCache.loadResource(MetadataCache.METADATA_KEY);
+    return await this.metadataCache.loadResource(MetadataCache.METADATA_KEY)
   }
 
   addQueryToCache(query: MetricQuery, response: MetricQueryResponse) {
-    this.metricQueryCache.addResourceToCache(query, response);
+    this.metricQueryCache.addResourceToCache(query, response)
   }
 
   resetCache() {
-    this.datasetCache.resetCache();
-    this.metricQueryCache.resetCache();
-    this.metadataCache.resetCache();
+    this.datasetCache.resetCache()
+    this.metricQueryCache.resetCache()
+    this.metadataCache.resetCache()
   }
 }

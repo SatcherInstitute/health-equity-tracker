@@ -1,29 +1,28 @@
-import AppBar from "@material-ui/core/AppBar";
-import Button from "@material-ui/core/Button";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Drawer from "@material-ui/core/Drawer";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import MenuIcon from "@material-ui/icons/Menu";
-import { ThemeProvider } from "@material-ui/styles";
-import React, { Suspense, useEffect, useState } from "react";
+import AppBar from '@mui/material/AppBar'
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import Drawer from '@mui/material/Drawer'
+import IconButton from '@mui/material/IconButton'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import MenuIcon from '@mui/icons-material/Menu'
+import React, { Suspense, useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
   Redirect,
   Route,
   Switch,
   useLocation,
-} from "react-router-dom";
-import { CookiesProvider } from "react-cookie";
-import styles from "./App.module.scss";
-import MaterialTheme from "./styles/MaterialTheme";
-import { autoInitGlobals } from "./utils/globals";
-import { LinkWithStickyParams, ReactRouterLinkButton } from "./utils/urlutils";
+} from 'react-router-dom'
+import { CookiesProvider } from 'react-cookie'
+import styles from './App.module.scss'
+import MaterialTheme from './styles/MaterialTheme'
+import { autoInitGlobals } from './utils/globals'
+import { LinkWithStickyParams, ReactRouterLinkButton } from './utils/urlutils'
 import {
   ABOUT_US_PAGE_LINK,
   NEWS_TAB_LINK,
@@ -37,52 +36,53 @@ import {
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
-} from "./utils/internalRoutes";
-import AppBarLogo from "./assets/AppbarLogo.png";
-import { HelmetProvider } from "react-helmet-async";
-import { Box, CircularProgress } from "@material-ui/core";
+} from './utils/internalRoutes'
+import AppBarLogo from './assets/AppbarLogo.png'
+import { HelmetProvider } from 'react-helmet-async'
+import { Box, CircularProgress, StyledEngineProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
-import AboutUsPage from "./pages/AboutUs/AboutUsPage";
-import WhatIsHealthEquityPage from "./pages/WhatIsHealthEquity/WhatIsHealthEquityPage";
-import ErrorBoundaryDropParams from "./ErrorBoundaryDropParams";
-import ExploreDataFallback from "./pages/ExploreData/ExploreDataFallback";
+import AboutUsPage from './pages/AboutUs/AboutUsPage'
+import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquityPage'
+import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
+import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 
 const ExploreDataPage = React.lazy(
-  async () => await import("./pages/ExploreData/ExploreDataPage")
-);
-const Footer = React.lazy(async () => await import("./Footer"));
+  async () => await import('./pages/ExploreData/ExploreDataPage')
+)
+const Footer = React.lazy(async () => await import('./Footer'))
 const LandingPage = React.lazy(
-  async () => await import("./pages/Landing/LandingPage")
-);
+  async () => await import('./pages/Landing/LandingPage')
+)
 const NotFoundPage = React.lazy(
-  async () => await import("./pages/NotFoundPage")
-);
+  async () => await import('./pages/NotFoundPage')
+)
 const TermsOfUsePage = React.lazy(
-  async () => await import("./pages/TermsOfUsePage/TermsOfUsePage")
-);
+  async () => await import('./pages/TermsOfUsePage/TermsOfUsePage')
+)
 const DataCatalogTab = React.lazy(
-  async () => await import("./pages/DataCatalog/DataCatalogTab")
-);
+  async () => await import('./pages/DataCatalog/DataCatalogTab')
+)
 
-export const MOBILE_BREAKPOINT = 600;
+export const MOBILE_BREAKPOINT = 600
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
-  "/": "Home",
-  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: "What is Health Equity?",
-  [EXPLORE_DATA_PAGE_LINK]: "Explore the Data",
-  [DATA_CATALOG_PAGE_LINK]: "Downloads & Methodology",
-  [ABOUT_US_PAGE_LINK]: "About Us",
-};
+  '/': 'Home',
+  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
+  [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
+  [DATA_CATALOG_PAGE_LINK]: 'Downloads & Methodology',
+  [ABOUT_US_PAGE_LINK]: 'About Us',
+}
 
-autoInitGlobals();
+autoInitGlobals()
 
 function MobileAppToolbar() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
   function ListItemLink(props: any) {
-    return <ListItem button component="a" {...props} />;
+    return <ListItem button component="a" {...props} />
   }
 
   return (
@@ -92,9 +92,10 @@ function MobileAppToolbar() {
       </a>
       <IconButton
         onClick={() => {
-          setOpen(true);
+          setOpen(true)
         }}
         aria-label="Expand site navigation"
+        size="large"
       >
         <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
@@ -102,7 +103,7 @@ function MobileAppToolbar() {
         <Button
           aria-label="Collapse site navigation"
           onClick={() => {
-            setOpen(false);
+            setOpen(false)
           }}
         >
           <ChevronLeftIcon />
@@ -118,7 +119,7 @@ function MobileAppToolbar() {
         </nav>
       </Drawer>
     </Toolbar>
-  );
+  )
 }
 
 function AppToolbar() {
@@ -155,140 +156,142 @@ function AppToolbar() {
         ))}
       </nav>
     </Toolbar>
-  );
+  )
 }
 
 // TODO - this could be pulled into a hook
 // https://reactrouter.com/web/api/Hooks/uselocation
 // https://github.com/ReactTraining/react-router/issues/7015
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    window.scrollTo(0, 0)
+  }, [pathname])
 
-  return null;
+  return null
 }
 
 function App() {
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState(window.innerWidth)
   useEffect(() => {
     function handleResize() {
-      setWidth(window.innerWidth);
+      setWidth(window.innerWidth)
     }
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize)
     return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   return (
     <HelmetProvider>
-      <ThemeProvider theme={MaterialTheme}>
-        <CookiesProvider>
-          <CssBaseline />
-          <div className={styles.App}>
-            <div className={styles.Content}>
-              <Router>
-                <AppBar position="static" elevation={0}>
-                  {width > MOBILE_BREAKPOINT ? (
-                    <AppToolbar />
-                  ) : (
-                    <MobileAppToolbar />
-                  )}
-                </AppBar>
-                <ScrollToTop />
-                <Suspense
-                  fallback={
-                    <main className={styles.FallbackPage}>
-                      <Box mt={10}>
-                        <CircularProgress aria-label="loading" />
-                      </Box>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={MaterialTheme}>
+          <CookiesProvider>
+            <CssBaseline />
+            <div className={styles.App}>
+              <div className={styles.Content}>
+                <Router>
+                  <AppBar position="static" elevation={0}>
+                    {width > MOBILE_BREAKPOINT ? (
+                      <AppToolbar />
+                    ) : (
+                      <MobileAppToolbar />
+                    )}
+                  </AppBar>
+                  <ScrollToTop />
+                  <Suspense
+                    fallback={
+                      <main className={styles.FallbackPage}>
+                        <Box mt={10}>
+                          <CircularProgress aria-label="loading" />
+                        </Box>
+                      </main>
+                    }
+                  >
+                    <main>
+                      <Switch>
+                        <Route path={ABOUT_US_PAGE_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={OURTEAM_TAB_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={CONTACT_TAB_LINK}>
+                          <AboutUsPage />
+                        </Route>
+
+                        <Route path={DATA_CATALOG_PAGE_LINK}>
+                          <DataCatalogTab />
+                        </Route>
+
+                        <Route path={METHODOLOGY_TAB_LINK}>
+                          <DataCatalogTab />
+                        </Route>
+
+                        <Route path={AGE_ADJUSTMENT_TAB_LINK}>
+                          <DataCatalogTab />
+                        </Route>
+
+                        <Route path={EXPLORE_DATA_PAGE_LINK}>
+                          <ErrorBoundaryDropParams
+                            fallback={<ExploreDataFallback />}
+                          >
+                            <ExploreDataPage />
+                          </ErrorBoundaryDropParams>
+                        </Route>
+
+                        <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={FAQ_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={RESOURCES_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={NEWS_TAB_LINK}>
+                          <WhatIsHealthEquityPage />
+                        </Route>
+
+                        <Route path={TERMS_OF_USE_PAGE_LINK}>
+                          <TermsOfUsePage />
+                        </Route>
+
+                        {/* redirect the old URL for possible outside links */}
+                        <Route path={`/termsofservice`}>
+                          <Redirect to={TERMS_OF_USE_PAGE_LINK} />
+                        </Route>
+
+                        <Route path="/">
+                          <LandingPage />
+                        </Route>
+
+                        {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
+                        <Route>
+                          <NotFoundPage />
+                        </Route>
+                      </Switch>
                     </main>
-                  }
-                >
-                  <main>
-                    <Switch>
-                      <Route path={ABOUT_US_PAGE_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={OURTEAM_TAB_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={CONTACT_TAB_LINK}>
-                        <AboutUsPage />
-                      </Route>
-
-                      <Route path={DATA_CATALOG_PAGE_LINK}>
-                        <DataCatalogTab />
-                      </Route>
-
-                      <Route path={METHODOLOGY_TAB_LINK}>
-                        <DataCatalogTab />
-                      </Route>
-
-                      <Route path={AGE_ADJUSTMENT_TAB_LINK}>
-                        <DataCatalogTab />
-                      </Route>
-
-                      <Route path={EXPLORE_DATA_PAGE_LINK}>
-                        <ErrorBoundaryDropParams
-                          fallback={<ExploreDataFallback />}
-                        >
-                          <ExploreDataPage />
-                        </ErrorBoundaryDropParams>
-                      </Route>
-
-                      <Route path={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={FAQ_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={RESOURCES_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={NEWS_TAB_LINK}>
-                        <WhatIsHealthEquityPage />
-                      </Route>
-
-                      <Route path={TERMS_OF_USE_PAGE_LINK}>
-                        <TermsOfUsePage />
-                      </Route>
-
-                      {/* redirect the old URL for possible outside links */}
-                      <Route path={`/termsofservice`}>
-                        <Redirect to={TERMS_OF_USE_PAGE_LINK} />
-                      </Route>
-
-                      <Route path="/">
-                        <LandingPage />
-                      </Route>
-
-                      {/* CATCH ALL OTHER ROUTES AND SERVE NOT FOUND PAGE */}
-                      <Route>
-                        <NotFoundPage />
-                      </Route>
-                    </Switch>
-                  </main>
+                  </Suspense>
+                </Router>
+              </div>
+              <footer>
+                <Suspense fallback={<span></span>}>
+                  <Footer />
                 </Suspense>
-              </Router>
+              </footer>
             </div>
-            <footer>
-              <Suspense fallback={<span></span>}>
-                <Footer />
-              </Suspense>
-            </footer>
-          </div>
-        </CookiesProvider>
-      </ThemeProvider>
+          </CookiesProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </HelmetProvider>
-  );
+  )
 }
 
-export default App;
+export default App

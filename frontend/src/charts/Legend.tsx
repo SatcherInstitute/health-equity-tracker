@@ -1,85 +1,85 @@
-import React, { useState, useEffect } from "react";
-import { Vega } from "react-vega";
-import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
-import { type MetricConfig } from "../data/config/MetricConfig";
-import { type FieldRange } from "../data/utils/DatasetTypes";
-import sass from "../styles/variables.module.scss";
-import { ORDINAL } from "./utils";
-import { type ScaleType } from "./mapHelpers";
-import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
-const COLOR_SCALE = "color_scale";
-const DOT_SIZE_SCALE = "dot_size_scale";
-export const UNKNOWN_SCALE = "unknown_scale";
-export const GREY_DOT_SCALE = "grey_dot_scale";
-export const ZERO_DOT_SCALE = "zero_dot_scale";
-const RAW_VALUES = "raw_values";
-const DATASET_VALUES = "dataset_values";
-export const MISSING_PLACEHOLDER_VALUES = "missing_data";
-export const LEGEND_SYMBOL_TYPE = "square";
-export const LEGEND_TEXT_FONT = "inter";
-export const NO_DATA_MESSAGE = "insufficient or suppressed data";
-export const EQUAL_DOT_SIZE = 200;
-export const LEGEND_COLOR_COUNT = 7;
+import React, { useState, useEffect } from 'react'
+import { Vega } from 'react-vega'
+import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import { type MetricConfig } from '../data/config/MetricConfig'
+import { type FieldRange } from '../data/utils/DatasetTypes'
+import sass from '../styles/variables.module.scss'
+import { ORDINAL } from './utils'
+import { type ScaleType } from './mapHelpers'
+import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+const COLOR_SCALE = 'color_scale'
+const DOT_SIZE_SCALE = 'dot_size_scale'
+export const UNKNOWN_SCALE = 'unknown_scale'
+export const GREY_DOT_SCALE = 'grey_dot_scale'
+export const ZERO_DOT_SCALE = 'zero_dot_scale'
+const RAW_VALUES = 'raw_values'
+const DATASET_VALUES = 'dataset_values'
+export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
+export const LEGEND_SYMBOL_TYPE = 'square'
+export const LEGEND_TEXT_FONT = 'inter'
+export const NO_DATA_MESSAGE = 'insufficient or suppressed data'
+export const EQUAL_DOT_SIZE = 200
+export const LEGEND_COLOR_COUNT = 7
 
 /*
    Legend renders a vega chart that just contains a legend.
 */
 export interface LegendProps {
   // Data for which to create a legend.
-  legendData?: Array<Record<string, any>>; // Dataset for which to calculate legend.
+  legendData?: Array<Record<string, any>> // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
-  metric: MetricConfig;
-  legendTitle: string;
+  metric: MetricConfig
+  legendTitle: string
   // May be used if standardizing legends across charts
-  fieldRange?: FieldRange;
+  fieldRange?: FieldRange
   // Quantile or quantize scale.
-  scaleType: ScaleType;
+  scaleType: ScaleType
   // Whether the dots all be the same size or increase in size.
   // Size does not correlate to the range size.
-  sameDotSize?: boolean;
+  sameDotSize?: boolean
   // Alt text
-  description: string;
+  description: string
   // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: "horizontal" | "vertical";
+  direction: 'horizontal' | 'vertical'
 }
 
 export function Legend(props: LegendProps) {
-  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
-  );
+  )
 
   // Initial spec state is set in useEffect
-  const [spec, setSpec] = useState({});
+  const [spec, setSpec] = useState({})
 
   useEffect(() => {
     const colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: "yellowgreen", count: LEGEND_COLOR_COUNT },
-    };
+      range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+    }
     if (props.fieldRange) {
-      colorScale.domainMax = props.fieldRange.max;
-      colorScale.domainMin = props.fieldRange.min;
+      colorScale.domainMax = props.fieldRange.max
+      colorScale.domainMin = props.fieldRange.min
     }
 
     const dotRange = props.sameDotSize
       ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
-      : [70, 120, 170, 220, 270, 320, 370];
+      : [70, 120, 170, 220, 270, 320, 370]
 
     const legendList = [
       {
         fill: COLOR_SCALE,
-        labelOverlap: "greedy",
+        labelOverlap: 'greedy',
         symbolType: LEGEND_SYMBOL_TYPE,
         size: DOT_SIZE_SCALE,
-        format: "d",
+        format: 'd',
         font: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
         direction: props.direction,
-        orient: "left",
+        orient: 'left',
       },
       {
         fill: UNKNOWN_SCALE,
@@ -87,15 +87,15 @@ export function Legend(props: LegendProps) {
         size: GREY_DOT_SCALE,
         font: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
-        orient: props.direction === "vertical" ? "left" : "right",
+        orient: props.direction === 'vertical' ? 'left' : 'right',
       },
-    ];
+    ]
 
     // 0 should appear first, then numbers, then "insufficient"
-    if (isCawp) legendList.reverse();
+    if (isCawp) legendList.reverse()
 
     setSpec({
-      $schema: "https://vega.github.io/schema/vega/v5.json",
+      $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
       background: sass.white,
       padding: 5,
@@ -109,21 +109,21 @@ export function Legend(props: LegendProps) {
           source: RAW_VALUES,
           transform: [
             {
-              type: "filter",
+              type: 'filter',
               expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
             },
           ],
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: isCawp ? "0" : NO_DATA_MESSAGE }],
+          values: [{ missing: isCawp ? '0' : NO_DATA_MESSAGE }],
         },
       ],
-      layout: { padding: 20, bounds: "full", align: "each" },
+      layout: { padding: 20, bounds: 'full', align: 'each' },
       marks: [
         {
-          type: "group",
-          name: "mark_group",
+          type: 'group',
+          name: 'mark_group',
           legends: legendList,
         },
       ],
@@ -132,7 +132,7 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: "yellowgreen", count: LEGEND_COLOR_COUNT },
+          range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
         },
         {
           name: DOT_SIZE_SCALE,
@@ -143,17 +143,17 @@ export function Legend(props: LegendProps) {
         {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
-          domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
+          domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
           range: [isCawp ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
           type: ORDINAL,
-          domain: { data: "missing_data", field: "missing" },
+          domain: { data: 'missing_data', field: 'missing' },
           range: [EQUAL_DOT_SIZE],
         },
       ],
-    });
+    })
   }, [
     width,
     props.metric,
@@ -164,11 +164,11 @@ export function Legend(props: LegendProps) {
     props.sameDotSize,
     props,
     isCawp,
-  ]);
+  ])
 
   return (
     <div ref={ref}>
       <Vega renderer="svg" spec={spec} width={width} actions={false} />
     </div>
-  );
+  )
 }

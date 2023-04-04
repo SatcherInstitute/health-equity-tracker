@@ -26,7 +26,7 @@ const config: PlaywrightTestConfig = {
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   reporter: process.env.CI ? 'github' : 'line',
-  workers: process.env.CI  ? 8 : 20,
+  workers: 8,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',

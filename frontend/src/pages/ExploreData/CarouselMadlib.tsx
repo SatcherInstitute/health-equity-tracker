@@ -1,19 +1,19 @@
-import { Grid } from "@material-ui/core";
-import React from "react";
-import { useLocation } from "react-router-dom";
-import { Fips } from "../../data/utils/Fips";
+import { Grid } from '@mui/material'
+import React from 'react'
+import { useLocation } from 'react-router-dom'
+import { Fips } from '../../data/utils/Fips'
 import {
   getMadLibWithUpdatedValue,
   insertOptionalThe,
   type MadLib,
   type PhraseSegment,
-} from "../../utils/MadLibs";
-import OptionsSelector from "./OptionsSelector";
-import styles from "./ExploreDataPage.module.scss";
+} from '../../utils/MadLibs'
+import OptionsSelector from './OptionsSelector'
+import styles from './ExploreDataPage.module.scss'
 
 export default function CarouselMadLib(props: {
-  madLib: MadLib;
-  setMadLib: (updatedMadLib: MadLib) => void;
+  madLib: MadLib
+  setMadLib: (updatedMadLib: MadLib) => void
 }) {
   // TODO - this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegement(
@@ -25,14 +25,14 @@ export default function CarouselMadLib(props: {
       : Object.keys(phraseSegment)
           .sort((a: string, b: string) => {
             if (a.length === b.length) {
-              return a.localeCompare(b);
+              return a.localeCompare(b)
             }
-            return b.length > a.length ? -1 : 1;
+            return b.length > a.length ? -1 : 1
           })
-          .map((fipsCode) => new Fips(fipsCode));
+          .map((fipsCode) => new Fips(fipsCode))
   }
 
-  const location = useLocation();
+  const location = useLocation()
 
   return (
     <Grid container justifyContent="center" alignItems="center">
@@ -40,7 +40,7 @@ export default function CarouselMadLib(props: {
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (
             <React.Fragment key={index}>
-              {typeof phraseSegment === "string" ? (
+              {typeof phraseSegment === 'string' ? (
                 <span className={styles.NonClickableMadlibText}>
                   {phraseSegment}
                   {insertOptionalThe(props.madLib.activeSelections, index)}
@@ -52,9 +52,12 @@ export default function CarouselMadLib(props: {
                   onOptionUpdate={(fipsCode: string) => {
                     props.setMadLib(
                       getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
-                    );
-                    location.hash = "";
-                    window.scrollTo({ top: 0, behavior: "smooth" });
+                    )
+                    location.hash = ''
+                    window.scrollTo({
+                      top: 0,
+                      behavior: 'smooth',
+                    })
                   }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />
@@ -64,5 +67,5 @@ export default function CarouselMadLib(props: {
         )}
       </div>
     </Grid>
-  );
+  )
 }

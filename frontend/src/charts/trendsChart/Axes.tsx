@@ -14,38 +14,38 @@
  **/
 
 /* External Imports */
-import React, { useRef, useEffect } from "react";
-import { axisLeft, axisBottom, select } from "d3";
+import React, { useRef, useEffect } from 'react'
+import { axisLeft, axisBottom, select } from 'd3'
 
 /* Local Imports */
 
 /* Styles */
-import styles from "./Trends.module.scss";
+import styles from './Trends.module.scss'
 
 /* Constants */
-import { CONFIG, TYPES, FORMATTERS as F } from "./constants";
+import { CONFIG, TYPES, FORMATTERS as F } from './constants'
 import {
   type TrendsData,
   type XScale,
   type YScale,
   type AxisConfig,
-} from "./types";
+} from './types'
 
 /* Helpers */
-import { getMinNumber, getMaxNumber, getDates } from "./helpers";
-import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
+import { getMinNumber, getMaxNumber, getDates } from './helpers'
+import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 
 /* Define type interface */
 export interface AxesProps {
-  data: TrendsData;
-  xScale: XScale;
-  yScale: YScale;
-  width: number;
-  marginBottom: number;
-  marginLeft: number;
-  marginRight: number;
-  axisConfig: AxisConfig;
-  isSkinny: boolean;
+  data: TrendsData
+  xScale: XScale
+  yScale: YScale
+  width: number
+  marginBottom: number
+  marginLeft: number
+  marginRight: number
+  axisConfig: AxisConfig
+  isSkinny: boolean
 }
 
 /* Render component */
@@ -61,35 +61,35 @@ export function Axes({
   isSkinny,
 }: AxesProps) {
   /* Config */
-  const { HEIGHT, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG;
-  const { type, yAxisLabel = "" } = axisConfig || {};
+  const { HEIGHT, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG
+  const { type, yAxisLabel = '' } = axisConfig || {}
   const yAxisLabelPadding = isSkinny
     ? MOBILE.Y_AXIS_LABEL_PADDING
-    : Y_AXIS_LABEL_PADDING;
+    : Y_AXIS_LABEL_PADDING
   // handles difference between per100k and percent_share charts
   const Y_AXIS_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
-      bottomLabel: "",
+      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      bottomLabel: '',
       formatter: (d: string | number) => d, // per 100k could be interpolated here
     },
     [TYPES.PERCENT_SHARE]: {
-      topLabel: yAxisLabel + " →", // reference to shortLabel from metricConfig
-      bottomLabel: "",
+      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      bottomLabel: '',
       formatter: (d: number) => F.pct(d),
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       topLabel:
-        (getMaxNumber(data) ?? 0) <= 0 ? "" : "disproportionately high  →", // if there are positive numbers, append positive direction label
+        (getMaxNumber(data) ?? 0) <= 0 ? '' : 'disproportionately high  →', // if there are positive numbers, append positive direction label
       bottomLabel:
-        (getMinNumber(data) ?? 0) >= 0 ? "" : "← disproportionately low", // if there are negative numbers, append negative direction label
-      formatter: (d: number) => (d === 0 ? "" : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
+        (getMinNumber(data) ?? 0) >= 0 ? '' : '← disproportionately low', // if there are negative numbers, append negative direction label
+      formatter: (d: number) => (d === 0 ? '' : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
     },
-  };
+  }
 
   /* Refs */
-  const xAxisRef = useRef(null);
-  const yAxisRef = useRef(null);
+  const xAxisRef = useRef(null)
+  const yAxisRef = useRef(null)
 
   /* Axes */
   const xAxis = axisBottom(xScale)
@@ -97,14 +97,14 @@ export function Axes({
     .ticks(isSkinny ? 4 : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
     // @ts-expect-error
     .tickFormat(axisConfig.xAxisIsMonthly ? F.dateShort : F.dateYear)
-    .tickPadding(TICK_PADDING);
+    .tickPadding(TICK_PADDING)
 
   const yAxis = axisLeft(yScale)
     .tickSizeOuter(0)
     .tickSizeInner(-width + marginRight + marginLeft) // creates grid lines
     // @ts-expect-error
     .tickFormat(Y_AXIS_CONFIG[type]?.formatter)
-    .tickPadding(TICK_PADDING / 2);
+    .tickPadding(TICK_PADDING / 2)
 
   /* Effects */
 
@@ -114,7 +114,7 @@ export function Axes({
       select(xAxisRef.current)
         .transition()
         // @ts-expect-error
-        .call(xAxis);
+        .call(xAxis)
 
       select(yAxisRef.current)
         .transition()
@@ -123,18 +123,18 @@ export function Axes({
         // styles the y grid lines after render (we think)
         .call((g) =>
           g
-            .selectAll(".tick line")
-            .attr("opacity", 0.2)
-            .attr("stroke-dasharray", 5)
-        );
+            .selectAll('.tick line')
+            .attr('opacity', 0.2)
+            .attr('stroke-dasharray', 5)
+        )
     }
-  }, [data, xScale, yScale, xAxis, yAxis]);
+  }, [data, xScale, yScale, xAxis, yAxis])
 
-  const dates = getDates(data);
-  const startDate = getPrettyDate(dates[0]);
-  const endDate = getPrettyDate(dates[dates.length - 1]);
+  const dates = getDates(data)
+  const startDate = getPrettyDate(dates[0])
+  const endDate = getPrettyDate(dates[dates.length - 1])
 
-  const optionalPct = !yAxisLabel ? "%" : "";
+  const optionalPct = !yAxisLabel ? '%' : ''
 
   return (
     <g>
@@ -155,9 +155,9 @@ export function Axes({
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${
-            yAxisLabel || " percent disproportionately high or low"
-          } ranging from ${getMinNumber(data) ?? "lowest"}${optionalPct} to ${
-            getMaxNumber(data) ?? "highest"
+            yAxisLabel || ' percent disproportionately high or low'
+          } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${
+            getMaxNumber(data) ?? 'highest'
           }${optionalPct}`}
           role="group"
           tabIndex={0}
@@ -183,7 +183,7 @@ export function Axes({
         >
           {/* only display x-axis label on desktop */}
           <text textAnchor="end" dy="8px" aria-hidden={true}>
-            {isSkinny ? "" : "time →"}
+            {isSkinny ? '' : 'time →'}
           </text>
         </g>
         {/* Top Y-Axis Label */}
@@ -204,5 +204,5 @@ export function Axes({
         </g>
       </g>
     </g>
-  );
+  )
 }

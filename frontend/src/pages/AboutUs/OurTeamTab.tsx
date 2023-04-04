@@ -1,15 +1,14 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import styles from "./AboutUsPage.module.scss";
-import { Helmet } from "react-helmet-async";
-import LazyLoad from "react-lazyload";
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import styles from './AboutUsPage.module.scss'
+import { Helmet } from 'react-helmet-async'
+import LazyLoad from 'react-lazyload'
 import {
   GOOGLE_FELLOWS,
   HE_TASKFORCE,
   LEADERSHIP_TEAM,
   PARTNERS,
-} from "./OurTeamData";
+} from './OurTeamData'
 
 function OurTeamTab() {
   return (
@@ -41,7 +40,7 @@ function OurTeamTab() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow} component={"section"}>
+        <Grid container className={styles.GridRow} component={'section'}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Leadership Team
@@ -76,13 +75,13 @@ function OurTeamTab() {
                     <div className={styles.MemberName}>{leader.name}</div>
                     <div className={styles.MemberRole}>{leader.role}</div>
                   </Grid>
-                );
+                )
               })}
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow} component={"section"}>
+        <Grid container className={styles.GridRow} component={'section'}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Google.org Fellows
@@ -118,13 +117,13 @@ function OurTeamTab() {
 
                     <div className={styles.MemberRole}>{fellow.role}</div>
                   </Grid>
-                );
+                )
               })}
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow} component={"section"}>
+        <Grid container className={styles.GridRow} component={'section'}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Health Equity Task Force
@@ -152,7 +151,7 @@ function OurTeamTab() {
           </Grid>
         </Grid>
 
-        <Grid container className={styles.GridRow} component={"section"}>
+        <Grid container className={styles.GridRow} component={'section'}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Partners
@@ -192,6 +191,6 @@ function OurTeamTab() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
-export default OurTeamTab;
+export default OurTeamTab

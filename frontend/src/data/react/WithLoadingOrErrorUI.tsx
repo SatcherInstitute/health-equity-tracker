@@ -1,38 +1,36 @@
-import { Button } from "@material-ui/core";
-import React from "react";
-import { type Dataset, type MapOfDatasetMetadata } from "../utils/DatasetTypes";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { Button, CircularProgress } from '@mui/material'
+import { type Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import {
   type MetricQuery,
   type MetricQueryResponse,
-} from "../query/MetricQuery";
-import { getDataManager } from "../../utils/globals";
-import { MetadataCache } from "../loading/DataManager";
+} from '../query/MetricQuery'
+import { getDataManager } from '../../utils/globals'
+import { MetadataCache } from '../loading/DataManager'
 import {
   type IncompleteLoadStatus,
   useMetrics,
   useResources,
-} from "./useResources";
-import { GEOGRAPHIES_DATASET_ID } from "../config/MetadataMap";
+} from './useResources'
+import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
 
 /**
  * Provides a wrapper around a UI component that may be loading or have an async
  * error, and displays loading and error indicators.
  */
 export function WithLoadingOrErrorUI<R>(props: {
-  resources: R[] | IncompleteLoadStatus;
-  children: (resources: R[]) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  resources: R[] | IncompleteLoadStatus
+  children: (resources: R[]) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
-  if (props.resources === "loading") {
+  if (props.resources === 'loading') {
     return props.loadingComponent ? (
       props.loadingComponent
     ) : (
       <CircularProgress aria-label="loading" />
-    );
+    )
   }
 
-  if (props.resources === "error") {
+  if (props.resources === 'error') {
     return (
       <div data-testid="WithLoadingOrErrorUI-error">
         <p>
@@ -40,27 +38,27 @@ export function WithLoadingOrErrorUI<R>(props: {
         </p>
         <Button
           onClick={() => {
-            window.location.reload();
+            window.location.reload()
           }}
         >
           <b>Reload</b>
         </Button>
       </div>
-    );
+    )
   }
 
-  return props.children(props.resources);
+  return props.children(props.resources)
 }
 
 export function WithMetadata(props: {
-  children: (metadata: MapOfDatasetMetadata) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  children: (metadata: MapOfDatasetMetadata) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
   const metadatas = useResources<string, MapOfDatasetMetadata>(
     [MetadataCache.METADATA_KEY],
     async () => await getDataManager().loadMetadata(),
     (metadataId) => metadataId
-  );
+  )
 
   // useResources is generalized for multiple resources, but there is only one
   // metadata resource so we use metadata[0]
@@ -71,7 +69,7 @@ export function WithMetadata(props: {
     >
       {(metadata: MapOfDatasetMetadata[]) => props.children(metadata[0])}
     </WithLoadingOrErrorUI>
-  );
+  )
 }
 
 /**
@@ -79,11 +77,11 @@ export function WithMetadata(props: {
  * displays loading and error indicators.
  */
 export function WithMetrics(props: {
-  queries: MetricQuery[];
-  children: (responses: MetricQueryResponse[]) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  queries: MetricQuery[]
+  children: (responses: MetricQueryResponse[]) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
-  const queryResponses = useMetrics(props.queries);
+  const queryResponses = useMetrics(props.queries)
   return (
     <WithLoadingOrErrorUI<MetricQueryResponse>
       resources={queryResponses}
@@ -91,19 +89,19 @@ export function WithMetrics(props: {
     >
       {props.children}
     </WithLoadingOrErrorUI>
-  );
+  )
 }
 
 function WithDatasets(props: {
-  datasetIds: string[];
-  children: (datasets: Dataset[]) => JSX.Element;
-  loadingComponent?: JSX.Element;
+  datasetIds: string[]
+  children: (datasets: Dataset[]) => JSX.Element
+  loadingComponent?: JSX.Element
 }) {
   const datasets = useResources<string, Dataset>(
     props.datasetIds,
     async (id: string) => await getDataManager().loadDataset(id),
     (id: string) => id
-  );
+  )
   return (
     <WithLoadingOrErrorUI<Dataset>
       resources={datasets}
@@ -111,7 +109,7 @@ function WithDatasets(props: {
     >
       {props.children}
     </WithLoadingOrErrorUI>
-  );
+  )
 }
 
 /**
@@ -119,14 +117,14 @@ function WithDatasets(props: {
  * queries change so that the component's load screen is reset.
  */
 interface WithMetadataAndMetricsProps {
-  queries: MetricQuery[];
+  queries: MetricQuery[]
   children: (
     metadata: MapOfDatasetMetadata,
     queryResponses: MetricQueryResponse[],
     geoData?: Record<string, any>
-  ) => JSX.Element;
-  loadingComponent?: JSX.Element;
-  loadGeographies?: boolean;
+  ) => JSX.Element
+  loadingComponent?: JSX.Element
+  loadGeographies?: boolean
 }
 
 export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
@@ -134,9 +132,9 @@ export function WithMetadataAndMetrics(props: WithMetadataAndMetricsProps) {
     (accumulator: string, query: MetricQuery) =>
       (accumulator += query.getUniqueKey()),
     String(!!props.loadGeographies)
-  );
+  )
 
-  return <WithMetadataAndMetricsWithKey key={key} {...props} />;
+  return <WithMetadataAndMetricsWithKey key={key} {...props} />
 }
 
 export function WithMetadataAndMetricsWithKey(
@@ -156,7 +154,7 @@ export function WithMetadataAndMetricsWithKey(
         >
           {(queryResponses) => {
             if (!props.loadGeographies) {
-              return props.children(metadata, queryResponses);
+              return props.children(metadata, queryResponses)
             }
             return (
               <WithDatasets
@@ -169,18 +167,18 @@ export function WithMetadataAndMetricsWithKey(
                   // TODO: Consider changing WithLoadingOrErrorUI and similar
                   // components to return a map of {id: resource} instead of
                   // an array so it's less brittle.
-                  const [geographies] = datasets;
+                  const [geographies] = datasets
                   return props.children(
                     metadata,
                     queryResponses,
                     geographies.rows
-                  );
+                  )
                 }}
               </WithDatasets>
-            );
+            )
           }}
         </WithMetrics>
       )}
     </WithMetadata>
-  );
+  )
 }

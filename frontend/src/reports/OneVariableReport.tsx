@@ -1,20 +1,20 @@
-import { Grid } from "@material-ui/core";
-import React, { useEffect, useState, Fragment } from "react";
-import LazyLoad from "react-lazyload";
-import { DisparityBarChartCard } from "../cards/DisparityBarChartCard";
-import { MapCard } from "../cards/MapCard";
-import { PopulationCard } from "../cards/PopulationCard";
-import { SimpleBarChartCard } from "../cards/SimpleBarChartCard";
-import { AgeAdjustedTableCard } from "../cards/AgeAdjustedTableCard";
-import { UnknownsMapCard } from "../cards/UnknownsMapCard";
-import { TableCard } from "../cards/TableCard";
+import { Grid } from '@mui/material'
+import React, { useEffect, useState, Fragment } from 'react'
+import LazyLoad from 'react-lazyload'
+import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
+import { MapCard } from '../cards/MapCard'
+import { PopulationCard } from '../cards/PopulationCard'
+import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
+import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
+import { UnknownsMapCard } from '../cards/UnknownsMapCard'
+import { TableCard } from '../cards/TableCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
   type VariableConfig,
-} from "../data/config/MetricConfig";
-import { RACE } from "../data/utils/Constants";
-import { type Fips } from "../data/utils/Fips";
+} from '../data/config/MetricConfig'
+import { RACE } from '../data/utils/Constants'
+import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -24,58 +24,58 @@ import {
   setParameter,
   setParameters,
   swapOldDatatypeParams,
-} from "../utils/urlutils";
-import { SINGLE_COLUMN_WIDTH } from "./ReportProvider";
-import NoDataAlert from "./ui/NoDataAlert";
-import ReportToggleControls from "./ui/ReportToggleControls";
-import { RateTrendsChartCard } from "../cards/RateTrendsChartCard";
-import { ShareTrendsChartCard } from "../cards/ShareTrendsChartCard";
-import styles from "./Report.module.scss";
-import { TableOfContents } from "../pages/ui/TableOfContents";
-import { reportProviderSteps } from "./ReportProviderSteps";
-import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { Helmet } from "react-helmet-async";
+} from '../utils/urlutils'
+import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
+import NoDataAlert from './ui/NoDataAlert'
+import ReportToggleControls from './ui/ReportToggleControls'
+import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
+import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
+import styles from './Report.module.scss'
+import { TableOfContents } from '../pages/ui/TableOfContents'
+import { reportProviderSteps } from './ReportProviderSteps'
+import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { Helmet } from 'react-helmet-async'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
-} from "../data/query/Breakdowns";
+} from '../data/query/Breakdowns'
 
 export interface OneVariableReportProps {
-  key: string;
-  dropdownVarId: DropdownVarId;
-  fips: Fips;
-  updateFipsCallback: (fips: Fips) => void;
-  hidePopulationCard?: boolean;
-  isScrolledToTop: boolean;
-  reportStepHashIds?: ScrollableHashId[];
-  setReportStepHashIds?: (hashIdsOnScreen: any[]) => void;
-  headerScrollMargin: number;
+  key: string
+  dropdownVarId: DropdownVarId
+  fips: Fips
+  updateFipsCallback: (fips: Fips) => void
+  hidePopulationCard?: boolean
+  isScrolledToTop: boolean
+  reportStepHashIds?: ScrollableHashId[]
+  setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
+  headerScrollMargin: number
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
-  );
+  )
 
   const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
     Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
       ? METRIC_CONFIG[props.dropdownVarId][0]
       : null
-  );
+  )
 
   const setVariableConfigWithParam = (v: VariableConfig) => {
     setParameters([
       { name: DATA_TYPE_1_PARAM, value: v.variableId },
       { name: DATA_TYPE_2_PARAM, value: null },
-    ]);
-    setVariableConfig(v);
-  };
+    ])
+    setVariableConfig(v)
+  }
 
   const setDemoWithParam = (str: BreakdownVar) => {
-    setParameter(DEMOGRAPHIC_PARAM, str);
-    setCurrentBreakdown(str);
-  };
+    setParameter(DEMOGRAPHIC_PARAM, str)
+    setCurrentBreakdown(str)
+  }
 
   useEffect(() => {
     const readParams = () => {
@@ -83,43 +83,43 @@ export function OneVariableReport(props: OneVariableReportProps) {
         DATA_TYPE_1_PARAM,
         undefined,
         (val: string) => {
-          val = swapOldDatatypeParams(val);
+          val = swapOldDatatypeParams(val)
           return METRIC_CONFIG[props.dropdownVarId].find(
             (cfg) => cfg.variableId === val
-          );
+          )
         }
-      );
-      setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0]);
+      )
+      setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0])
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE);
-      setCurrentBreakdown(demo);
-    };
-    const psHandler = psSubscribe(readParams, "vardisp");
-    readParams();
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE)
+      setCurrentBreakdown(demo)
+    }
+    const psHandler = psSubscribe(readParams, 'vardisp')
+    readParams()
     return () => {
       if (psHandler) {
-        psHandler.unsubscribe();
+        psHandler.unsubscribe()
       }
-    };
-  }, [props.dropdownVarId]);
+    }
+  }, [props.dropdownVarId])
 
   // // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined
-    );
+    )
 
-    hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen);
-  }, [variableConfig]);
+    hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
+  }, [variableConfig])
 
   const breakdownIsShown = (breakdownVar: BreakdownVar) =>
-    currentBreakdown === breakdownVar;
+    currentBreakdown === breakdownVar
 
   const browserTitle = `${
-    variableConfig?.variableFullDisplayName ?? "Data"
+    variableConfig?.variableFullDisplayName ?? 'Data'
   } by ${
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
-  } in ${props.fips.getFullDisplayName()}`;
+  } in ${props.fips.getFullDisplayName()}`
 
   return (
     <>
@@ -176,13 +176,15 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
                   id="rate-map"
-                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                  style={{
+                    scrollMarginTop: props.headerScrollMargin,
+                  }}
                 >
                   <MapCard
                     variableConfig={variableConfig}
                     fips={props.fips}
                     updateFipsCallback={(fips: Fips) => {
-                      props.updateFipsCallback(fips);
+                      props.updateFipsCallback(fips)
                     }}
                     currentBreakdown={currentBreakdown}
                   />
@@ -196,7 +198,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   id={
                     variableConfig.timeSeriesData
-                      ? "rates-over-time"
+                      ? 'rates-over-time'
                       : undefined
                   }
                   className={styles.ScrollPastHeader}
@@ -224,7 +226,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
                   id="rate-chart"
-                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                  style={{
+                    scrollMarginTop: props.headerScrollMargin,
+                  }}
                 >
                   <LazyLoad offset={600} height={750} once>
                     {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -250,7 +254,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
                   id="unknown-demographic-map"
-                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                  style={{
+                    scrollMarginTop: props.headerScrollMargin,
+                  }}
                 >
                   <LazyLoad offset={800} height={750} once>
                     {variableConfig.metrics.pct_share && (
@@ -259,7 +265,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         variableConfig={variableConfig}
                         fips={props.fips}
                         updateFipsCallback={(fips: Fips) => {
-                          props.updateFipsCallback(fips);
+                          props.updateFipsCallback(fips)
                         }}
                         currentBreakdown={currentBreakdown}
                       />
@@ -275,7 +281,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   id={
                     variableConfig.timeSeriesData
-                      ? "inequities-over-time"
+                      ? 'inequities-over-time'
                       : undefined
                   }
                   className={styles.ScrollPastHeader}
@@ -305,7 +311,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
                   id="population-vs-distribution"
-                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                  style={{
+                    scrollMarginTop: props.headerScrollMargin,
+                  }}
                 >
                   <LazyLoad offset={800} height={750} once>
                     {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -330,7 +338,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
                   id="data-table"
-                  style={{ scrollMarginTop: props.headerScrollMargin }}
+                  style={{
+                    scrollMarginTop: props.headerScrollMargin,
+                  }}
                 >
                   <LazyLoad offset={800} height={750} once>
                     {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
@@ -355,7 +365,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     md={SINGLE_COLUMN_WIDTH}
                     tabIndex={-1}
                     id="age-adjusted-risk"
-                    style={{ scrollMarginTop: props.headerScrollMargin }}
+                    style={{
+                      scrollMarginTop: props.headerScrollMargin,
+                    }}
                   >
                     <LazyLoad offset={800} height={800} once>
                       <AgeAdjustedTableCard
@@ -396,5 +408,5 @@ export function OneVariableReport(props: OneVariableReportProps) {
         )}
       </Grid>
     </>
-  );
+  )
 }

@@ -1,48 +1,47 @@
-import React from "react";
-import styles from "./WhatIsHealthEquityPage.module.scss";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import FaqSection from "../ui/FaqSection";
+import styles from './WhatIsHealthEquityPage.module.scss'
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import TextField from '@mui/material/TextField'
+import Typography from '@mui/material/Typography'
+import FaqSection from '../ui/FaqSection'
 import {
   DYNAMIC_COPY_KEY,
   fetchCopyData,
   REACT_QUERY_OPTIONS,
-} from "../../utils/urlutils";
+} from '../../utils/urlutils'
 import {
   NEWS_TAB_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
-} from "../../utils/internalRoutes";
-import { Box } from "@material-ui/core";
-import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
-import { Helmet } from "react-helmet-async";
-import LazyLoad from "react-lazyload";
-import { useQuery } from "react-query";
-import sass from "../../styles/variables.module.scss";
-import { urlMap } from "../../utils/externalUrls";
-import { Link } from "react-router-dom";
+} from '../../utils/internalRoutes'
+import { Box } from '@mui/material'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import { Helmet } from 'react-helmet-async'
+import LazyLoad from 'react-lazyload'
+import { useQuery } from 'react-query'
+import sass from '../../styles/variables.module.scss'
+import { urlMap } from '../../utils/externalUrls'
+import { Link } from 'react-router-dom'
 
 interface WIHEWordpressCopy {
-  section2_headingLevel2: string;
-  section4_headingLevel2: string;
-  section4_heading2_text: string;
-  section4_a_headingLevel3: string;
-  section4_a_heading3_text: string;
+  section2_headingLevel2: string
+  section4_headingLevel2: string
+  section4_heading2_text: string
+  section4_a_headingLevel3: string
+  section4_a_heading3_text: string
   section4_a_heading3_link: {
-    title: string;
-    url: string;
-    target: string;
-  };
-  section4_b_headingLevel3: string;
-  section4_b_heading3_text: string;
+    title: string
+    url: string
+    target: string
+  }
+  section4_b_headingLevel3: string
+  section4_b_heading3_text: string
   section4_b_heading3_link: {
-    title: string;
-    url: string;
-    target: string;
-  };
-  section4_c_headingLevel3: string;
-  section4_c_heading3_text: string;
+    title: string
+    url: string
+    target: string
+  }
+  section4_c_headingLevel3: string
+  section4_c_heading3_text: string
 }
 
 /*
@@ -51,37 +50,37 @@ The object below provides fallback if that fetch fails
 */
 
 export const WIHEFallbackCopy: WIHEWordpressCopy = {
-  section2_headingLevel2: "Health equity learning",
-  section4_headingLevel2: "How do I join the movement?",
+  section2_headingLevel2: 'Health equity learning',
+  section4_headingLevel2: 'How do I join the movement?',
   section4_heading2_text:
-    "To advance health equity, we need smart, talented, passionate folks like you on board.",
-  section4_a_headingLevel3: "Learn to create actionable solutions",
+    'To advance health equity, we need smart, talented, passionate folks like you on board.',
+  section4_a_headingLevel3: 'Learn to create actionable solutions',
   section4_a_heading3_text:
-    "Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities.",
+    'Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities.',
   section4_a_heading3_link: {
-    title: "Learn More",
-    url: "https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/",
-    target: "_blank",
+    title: 'Learn More',
+    url: 'https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/',
+    target: '_blank',
   },
-  section4_b_headingLevel3: "Give back to your community",
+  section4_b_headingLevel3: 'Give back to your community',
   section4_b_heading3_text:
-    "Are you a community leader interested in expanding transportation access to vaccine sites within your community? Complete our inquiry form to receive information on our vaccine rideshare efforts and opportunities.",
+    'Are you a community leader interested in expanding transportation access to vaccine sites within your community? Complete our inquiry form to receive information on our vaccine rideshare efforts and opportunities.',
   section4_b_heading3_link: {
-    title: "Sign Up*",
-    url: "https://satcherinstitute.org/uberrideshare/",
-    target: "_blank",
+    title: 'Sign Up*',
+    url: 'https://satcherinstitute.org/uberrideshare/',
+    target: '_blank',
   },
-  section4_c_headingLevel3: "Sign up for our newsletter",
+  section4_c_headingLevel3: 'Sign up for our newsletter',
   section4_c_heading3_text:
-    "Want updates on the latest news in health equity? Sign up for our Satcher Health Leadership Institute newsletter.",
-};
+    'Want updates on the latest news in health equity? Sign up for our Satcher Health Leadership Institute newsletter.',
+}
 
 function JoinTheEffortContainer(props: {
-  imageUrl: string;
-  imageAlt: string;
-  imageBackground: string;
-  textTitle: string;
-  content: JSX.Element;
+  imageUrl: string
+  imageAlt: string
+  imageBackground: string
+  textTitle: string
+  content: JSX.Element
 }) {
   return (
     <Grid
@@ -115,19 +114,19 @@ function JoinTheEffortContainer(props: {
         {props.content}
       </Grid>
     </Grid>
-  );
+  )
 }
 
 function EquityTab() {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion()
 
-  let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy;
+  let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy
   const { data }: any = useQuery(
     DYNAMIC_COPY_KEY,
     async () => await fetchCopyData(),
     REACT_QUERY_OPTIONS
-  );
-  if (data) wordpressCopy = data.data?.acf;
+  )
+  if (data) wordpressCopy = data.data?.acf
 
   return (
     <>
@@ -304,7 +303,7 @@ function EquityTab() {
                     allowFullScreen
                   ></iframe>
                   <h4 className={styles.MainResourceTitleText}>
-                    Learn about the Political Determinants of Health through the{" "}
+                    Learn about the Political Determinants of Health through the{' '}
                     <b>Allegory of the Orchard</b>
                   </h4>
                   <p className={styles.MainResourceSubtitleText}>
@@ -382,10 +381,10 @@ function EquityTab() {
                 </Typography>
 
                 <span className={styles.NewsAndStoriesSubheaderText}>
-                  Read the{" "}
+                  Read the{' '}
                   <Link to={NEWS_TAB_LINK}>
                     latest news, posts, and stories
-                  </Link>{" "}
+                  </Link>{' '}
                   related to health equity, or learn more from the articles
                   below.
                 </span>
@@ -423,7 +422,7 @@ function EquityTab() {
                     <p className={styles.NewsAndStoriesSubtitleText}>
                       Why ongoing data on health and well-being metrics could be
                       used in targeting federal resources and programs to
-                      address inequities due to social and economic factors.{" "}
+                      address inequities due to social and economic factors.{' '}
                       <a
                         href="https://satcherinstitute.org/hetblog2/"
                         aria-label="Satcher Blog Post on Why Data Matters"
@@ -457,7 +456,7 @@ function EquityTab() {
                     <p className={styles.NewsAndStoriesSubtitleText}>
                       In public health, much of our work depends on having
                       accurate data, so we know what’s happening both on the
-                      ground and at a population level.{" "}
+                      ground and at a population level.{' '}
                       <a
                         href="https://satcherinstitute.org/hetblog3/"
                         aria-label="Satcher Blog Post on Health Equity Data"
@@ -581,8 +580,8 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/HET-lines-no-motion.gif"
-                : "img/animations/HET-lines.gif"
+                ? 'img/HET-lines-no-motion.gif'
+                : 'img/animations/HET-lines.gif'
             }
             imageBackground={sass.joinEffortBg1}
             imageAlt=""
@@ -608,8 +607,8 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/HET-fields-no-motion.gif"
-                : "img/animations/HET-fields.gif"
+                ? 'img/HET-fields-no-motion.gif'
+                : 'img/animations/HET-fields.gif'
             }
             imageBackground={sass.joinEffortBg2}
             imageAlt=""
@@ -638,8 +637,8 @@ function EquityTab() {
           <JoinTheEffortContainer
             imageUrl={
               prefersReducedMotion
-                ? "img/HET-dots-no-motion.gif"
-                : "img/animations/HET-dots.gif"
+                ? 'img/HET-dots-no-motion.gif'
+                : 'img/animations/HET-dots.gif'
             }
             imageBackground={sass.joinEffortBg3}
             imageAlt=""
@@ -679,6 +678,6 @@ function EquityTab() {
         </Grid>
       </div>
     </>
-  );
+  )
 }
-export default EquityTab;
+export default EquityTab

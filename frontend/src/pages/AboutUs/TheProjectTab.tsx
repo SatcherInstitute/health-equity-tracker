@@ -1,8 +1,7 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import styles from "./AboutUsPage.module.scss";
+import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+import styles from './AboutUsPage.module.scss'
 import {
   COPD_US_SETTING,
   COVID_HOSP_NY_COUNTY_SETTING,
@@ -13,23 +12,23 @@ import {
   OPIOID_US_SETTING,
   POVERTY_US_SETTING,
   UNINSURANCE_US_SETTING,
-} from "../../utils/internalRoutes";
-import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
-import { Helmet } from "react-helmet-async";
-import LazyLoad from "react-lazyload";
-import { DataSourceMetadataMap } from "../../data/config/MetadataMap";
+} from '../../utils/internalRoutes'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import { Helmet } from 'react-helmet-async'
+import LazyLoad from 'react-lazyload'
+import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-} from "../../data/config/MetricConfig";
-import { DEMOGRAPHIC_BREAKDOWNS } from "../../data/query/Breakdowns";
-import { LinkWithStickyParams } from "../../utils/urlutils";
+} from '../../data/config/MetricConfig'
+import { DEMOGRAPHIC_BREAKDOWNS } from '../../data/query/Breakdowns'
+import { LinkWithStickyParams } from '../../utils/urlutils'
 
 function GoalListItem(props: {
-  src?: string;
-  alt?: string;
-  title: string;
-  text: string;
+  src?: string
+  alt?: string
+  title: string
+  text: string
 }) {
   return (
     <Grid
@@ -59,19 +58,19 @@ function GoalListItem(props: {
         {props.text}
       </Typography>
     </Grid>
-  );
+  )
 }
 
 function TheProjectTab() {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const numDataSources = Object.keys(DataSourceMetadataMap).length;
+  const prefersReducedMotion = usePrefersReducedMotion()
+  const numDataSources = Object.keys(DataSourceMetadataMap).length
   // tally number of conditions (including sub-conditions like COVID) x # demographic options
   const numVariables =
     Object.keys(METRIC_CONFIG).reduce(
       (tally, conditionKey) =>
         (tally += METRIC_CONFIG[conditionKey as DropdownVarId].length),
       0
-    ) * DEMOGRAPHIC_BREAKDOWNS.length;
+    ) * DEMOGRAPHIC_BREAKDOWNS.length
 
   return (
     <>
@@ -190,7 +189,7 @@ function TheProjectTab() {
                     variant="body2"
                     paragraph={true}
                   >
-                    HET currently aggregates data from{" "}
+                    HET currently aggregates data from{' '}
                     <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
                       {`${numDataSources}`} key data sources
                     </LinkWithStickyParams>
@@ -213,43 +212,43 @@ function TheProjectTab() {
                     variant="body2"
                     paragraph={true}
                   >
-                    In addition to COVID-19{" "}
+                    In addition to COVID-19{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
                     >
                       vaccinations,
-                    </LinkWithStickyParams>{" "}
-                    cases, deaths, and{" "}
+                    </LinkWithStickyParams>{' '}
+                    cases, deaths, and{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_NY_COUNTY_SETTING}
                     >
                       hospitalizations by race to the county level
                     </LinkWithStickyParams>
-                    , the tracker also covers chronic disease conditions like{" "}
+                    , the tracker also covers chronic disease conditions like{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + COPD_US_SETTING}
                     >
                       COPD
-                    </LinkWithStickyParams>{" "}
-                    and{" "}
+                    </LinkWithStickyParams>{' '}
+                    and{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + DIABETES_US_SETTING}
                     >
                       diabetes
                     </LinkWithStickyParams>
-                    , behavioral health indicators such as{" "}
+                    , behavioral health indicators such as{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + OPIOID_US_SETTING}
                     >
                       opioid and other substance misuse
                     </LinkWithStickyParams>
-                    , and social and political determinants of health including{" "}
+                    , and social and political determinants of health including{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_US_SETTING}
                     >
                       uninsurance
-                    </LinkWithStickyParams>{" "}
-                    and{" "}
+                    </LinkWithStickyParams>{' '}
+                    and{' '}
                     <LinkWithStickyParams
                       to={EXPLORE_DATA_PAGE_LINK + POVERTY_US_SETTING}
                     >
@@ -300,8 +299,8 @@ function TheProjectTab() {
               <GoalListItem
                 src={
                   prefersReducedMotion
-                    ? "/img/animations/HET-lines-no-motion.gif"
-                    : "/img/animations/HET-lines.gif"
+                    ? '/img/animations/HET-lines-no-motion.gif'
+                    : '/img/animations/HET-lines.gif'
                 }
                 alt=""
                 title="Expand data"
@@ -312,8 +311,8 @@ function TheProjectTab() {
               <GoalListItem
                 src={
                   prefersReducedMotion
-                    ? "/img/animations/HET-fields-no-motion.gif"
-                    : "/img/animations/HET-fields.gif"
+                    ? '/img/animations/HET-fields-no-motion.gif'
+                    : '/img/animations/HET-fields.gif'
                 }
                 alt=""
                 title="Empower policy makers"
@@ -324,8 +323,8 @@ function TheProjectTab() {
               <GoalListItem
                 src={
                   prefersReducedMotion
-                    ? "/img/animations/HET-dots-no-motion.gif"
-                    : "/img/animations/HET-dots.gif"
+                    ? '/img/animations/HET-dots-no-motion.gif'
+                    : '/img/animations/HET-dots.gif'
                 }
                 alt=""
                 title="Measure progress"
@@ -381,7 +380,7 @@ function TheProjectTab() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default TheProjectTab;
+export default TheProjectTab

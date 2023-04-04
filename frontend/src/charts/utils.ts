@@ -2,58 +2,58 @@ import {
   formatFieldValue,
   type MetricConfig,
   type MetricId,
-} from "../data/config/MetricConfig";
-import { type BreakdownVar } from "../data/query/Breakdowns";
-import { type DemographicGroup } from "../data/utils/Constants";
-import { type Row } from "../data/utils/DatasetTypes";
+} from '../data/config/MetricConfig'
+import { type BreakdownVar } from '../data/query/Breakdowns'
+import { type DemographicGroup } from '../data/utils/Constants'
+import { type Row } from '../data/utils/DatasetTypes'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
-import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
+} from '../data/variables/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
-export type VisualizationType = "chart" | "map" | "table";
+export type VisualizationType = 'chart' | 'map' | 'table'
 
-export const PADDING_FOR_ACTIONS_MENU = 30;
+export const PADDING_FOR_ACTIONS_MENU = 30
 
-const MAX_LINE_LENGTH = 20;
+const MAX_LINE_LENGTH = 20
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
-export const DELIMITER = "  ";
+export const DELIMITER = '  '
 
-export const ORDINAL = "ordinal";
+export const ORDINAL = 'ordinal'
 
 // Returns a Vega Expression to create an array of the multiple lines in the label
-export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`;
+export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`
 
 // Returns a Vega Expression to create replace delimiter token with a normal space for displaying the label on single line label
 export function oneLineLabel(field: string) {
-  return `join(split(datum.${field}, '${DELIMITER}'), ' ')`;
+  return `join(split(datum.${field}, '${DELIMITER}'), ' ')`
 }
 
 // We use nested ternaries to determine the label's y axis delta based on the number of lines in the label to vertically align
-export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -20 : 5`;
+export const AXIS_LABEL_Y_DELTA = `length(${MULTILINE_LABEL}) == 2 ? -3 : length(${MULTILINE_LABEL}) > 2 ? -20 : 5`
 
-export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`;
+export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`
 
 export function addLineBreakDelimitersToField(
   rawData: Row[],
   field: BreakdownVar
 ): Row[] {
   return rawData.map((data) => {
-    const lines = [];
-    let currentLine = "";
-    for (const word of data[field].split(" ")) {
+    const lines = []
+    let currentLine = ''
+    for (const word of data[field].split(' ')) {
       if (word.length + currentLine.length >= MAX_LINE_LENGTH) {
-        lines.push(currentLine.trim());
-        currentLine = word + " ";
+        lines.push(currentLine.trim())
+        currentLine = word + ' '
       } else {
-        currentLine += word + " ";
+        currentLine += word + ' '
       }
     }
-    lines.push(currentLine.trim());
-    return { ...data, [field]: lines.join(DELIMITER) };
-  });
+    lines.push(currentLine.trim())
+    return { ...data, [field]: lines.join(DELIMITER) }
+  })
 }
 
 /**
@@ -75,7 +75,7 @@ export function addMetricDisplayColumn(
   data: Row[],
   omitPctSymbol: boolean = false
 ): [Row[], string] {
-  const displayColName = metric.metricId + "__DISPLAY_" + String(omitPctSymbol);
+  const displayColName = metric.metricId + '__DISPLAY_' + String(omitPctSymbol)
   const newData = data.map((row) => {
     return {
       ...row,
@@ -84,17 +84,17 @@ export function addMetricDisplayColumn(
         row[metric.metricId],
         omitPctSymbol
       ),
-    };
-  });
+    }
+  })
 
-  return [newData, displayColName];
+  return [newData, displayColName]
 }
 
 interface subtitleProps {
-  activeBreakdownFilter: DemographicGroup;
-  currentBreakdown: BreakdownVar;
-  isPopulationSubset?: boolean;
-  metricId: MetricId;
+  activeBreakdownFilter: DemographicGroup
+  currentBreakdown: BreakdownVar
+  isPopulationSubset?: boolean
+  metricId: MetricId
 }
 
 export function generateSubtitle({
@@ -103,26 +103,26 @@ export function generateSubtitle({
   isPopulationSubset,
   metricId,
 }: subtitleProps) {
-  let subtitle = "";
+  let subtitle = ''
 
-  if (activeBreakdownFilter === "All") {
-    subtitle = "";
-  } else if (currentBreakdown === "age") {
-    subtitle = `Ages ${activeBreakdownFilter}`;
+  if (activeBreakdownFilter === 'All') {
+    subtitle = ''
+  } else if (currentBreakdown === 'age') {
+    subtitle = `Ages ${activeBreakdownFilter}`
   } else {
-    subtitle = `${activeBreakdownFilter}`;
+    subtitle = `${activeBreakdownFilter}`
   }
 
   if (isPopulationSubset) {
-    const ageTitle = metricId === "hiv_prep_coverage" ? "Ages 16+" : "Ages 13+";
-    if (subtitle === "") {
-      subtitle = ageTitle;
-    } else if (currentBreakdown !== "age") {
-      subtitle += `, ${ageTitle}`;
+    const ageTitle = metricId === 'hiv_prep_coverage' ? 'Ages 16+' : 'Ages 13+'
+    if (subtitle === '') {
+      subtitle = ageTitle
+    } else if (currentBreakdown !== 'age') {
+      subtitle += `, ${ageTitle}`
     }
   }
 
-  return subtitle;
+  return subtitle
 }
 
 export function getAltGroupLabel(
@@ -131,14 +131,14 @@ export function getAltGroupLabel(
   breakdown: BreakdownVar
 ) {
   if (CAWP_DETERMINANTS.includes(metricId)) {
-    return getWomenRaceLabel(group);
+    return getWomenRaceLabel(group)
   }
   if (
     HIV_DETERMINANTS.includes(metricId) &&
-    group === "All" &&
-    breakdown === "age"
+    group === 'All' &&
+    breakdown === 'age'
   ) {
-    return `${group} (13+)`;
+    return `${group} (13+)`
   }
-  return group;
+  return group
 }

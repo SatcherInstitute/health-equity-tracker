@@ -1,5 +1,8 @@
-@import "../../styles/variables.module";
+@import '../../styles/variables.module';
 
+.SectionFilterBy {
+  display: flex;
+}
 .FilterBy {
   padding: 6px 8px;
   float: left;
@@ -8,5 +11,7 @@
 
 .GroupListMenuBox {
   max-width: 95vw;
+  width: auto;
   overflow-x: auto;
+  padding: 1rem;
 }

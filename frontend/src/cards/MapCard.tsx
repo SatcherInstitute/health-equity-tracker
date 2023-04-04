@@ -1,24 +1,21 @@
-import { CardContent, Grid } from "@material-ui/core";
-import Divider from "@material-ui/core/Divider";
-import Alert from "@material-ui/lab/Alert";
-import React, { useState } from "react";
-import { ChoroplethMap } from "../charts/ChoroplethMap";
-import {
-  type MetricId,
-  type VariableConfig,
-} from "../data/config/MetricConfig";
-import { exclude } from "../data/query/BreakdownFilter";
+import { CardContent, Grid } from '@mui/material'
+import Divider from '@mui/material/Divider'
+import Alert from '@mui/material/Alert'
+import React, { useState } from 'react'
+import { ChoroplethMap } from '../charts/ChoroplethMap'
+import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
   type BreakdownVarDisplayName,
-} from "../data/query/Breakdowns";
+} from '../data/query/Breakdowns'
 import {
   MetricQuery,
   type MetricQueryResponse,
-} from "../data/query/MetricQuery";
-import { AgeSorterStrategy } from "../data/sorting/AgeSorterStrategy";
+} from '../data/query/MetricQuery'
+import { AgeSorterStrategy } from '../data/sorting/AgeSorterStrategy'
 import {
   ALL,
   NON_HISPANIC,
@@ -27,49 +24,49 @@ import {
   UNKNOWN_ETHNICITY,
   type DemographicGroup,
   RACE,
-} from "../data/utils/Constants";
-import { type Row } from "../data/utils/DatasetTypes";
-import { getExtremeValues } from "../data/utils/datasetutils";
-import { Fips, TERRITORY_CODES } from "../data/utils/Fips";
+} from '../data/utils/Constants'
+import { type Row } from '../data/utils/DatasetTypes'
+import { getExtremeValues } from '../data/utils/datasetutils'
+import { Fips, TERRITORY_CODES } from '../data/utils/Fips'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
-} from "../data/variables/IncarcerationProvider";
+} from '../data/variables/IncarcerationProvider'
 import {
   CAWP_CONGRESS_COUNTS,
   CAWP_DETERMINANTS,
   CAWP_STLEG_COUNTS,
-} from "../data/variables/CawpProvider";
-import { useAutoFocusDialog } from "../utils/hooks/useAutoFocusDialog";
-import styles from "./Card.module.scss";
-import CardWrapper from "./CardWrapper";
-import DropDownMenu from "./ui/DropDownMenu";
-import { HighestLowestList } from "./ui/HighestLowestList";
-import MapBreadcrumbs from "./ui/MapBreadcrumbs";
-import MissingDataAlert from "./ui/MissingDataAlert";
-import { MultiMapDialog } from "./ui/MultiMapDialog";
-import { MultiMapLink } from "./ui/MultiMapLink";
-import { RateInfoAlert } from "./ui/RateInfoAlert";
-import { findVerboseRating } from "./ui/SviAlert";
-import { useGuessPreloadHeight } from "../utils/hooks/useGuessPreloadHeight";
-import { generateSubtitle } from "../charts/utils";
-import { useLocation } from "react-router-dom";
-import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
-import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
-import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
-import CountyUnavailableAlert from "./ui/CountyUnavailableAlert";
+} from '../data/variables/CawpProvider'
+import { useAutoFocusDialog } from '../utils/hooks/useAutoFocusDialog'
+import styles from './Card.module.scss'
+import CardWrapper from './CardWrapper'
+import DropDownMenu from './ui/DropDownMenu'
+import { HighestLowestList } from './ui/HighestLowestList'
+import MapBreadcrumbs from './ui/MapBreadcrumbs'
+import MissingDataAlert from './ui/MissingDataAlert'
+import { MultiMapDialog } from './ui/MultiMapDialog'
+import { MultiMapLink } from './ui/MultiMapLink'
+import { RateInfoAlert } from './ui/RateInfoAlert'
+import { findVerboseRating } from './ui/SviAlert'
+import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
+import { generateSubtitle } from '../charts/utils'
+import { useLocation } from 'react-router-dom'
+import { reportProviderSteps } from '../reports/ReportProviderSteps'
+import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+import PopulationSubsetAlert from './ui/PopulationSubsetAlert'
+import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 
-const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
+const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
 export interface MapCardProps {
-  key?: string;
-  fips: Fips;
-  variableConfig: VariableConfig;
-  updateFipsCallback: (fips: Fips) => void;
-  currentBreakdown: BreakdownVar;
+  key?: string
+  fips: Fips
+  variableConfig: VariableConfig
+  updateFipsCallback: (fips: Fips) => void
+  currentBreakdown: BreakdownVar
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -80,53 +77,53 @@ export function MapCard(props: MapCardProps) {
       key={props.currentBreakdown + props.variableConfig.variableId}
       {...props}
     />
-  );
+  )
 }
 
 function MapCardWithKey(props: MapCardProps) {
-  const preloadHeight = useGuessPreloadHeight([750, 1050]);
+  const preloadHeight = useGuessPreloadHeight([750, 1050])
 
-  const metricConfig = props.variableConfig.metrics.per100k;
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
-  const currentBreakdown = props.currentBreakdown;
+  const metricConfig = props.variableConfig.metrics.per100k
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
+  const currentBreakdown = props.currentBreakdown
 
-  const isPrison = props.variableConfig.variableId === "prison";
-  const isJail = props.variableConfig.variableId === "jail";
-  const isIncarceration = isJail || isPrison;
+  const isPrison = props.variableConfig.variableId === 'prison'
+  const isJail = props.variableConfig.variableId === 'jail'
+  const isIncarceration = isJail || isPrison
 
   const isCawpStateLeg =
-    props.variableConfig.variableId === "women_in_state_legislature";
+    props.variableConfig.variableId === 'women_in_state_legislature'
   const isCawpCongress =
-    props.variableConfig.variableId === "women_in_us_congress";
-  const isCawp = isCawpStateLeg || isCawpCongress;
+    props.variableConfig.variableId === 'women_in_us_congress'
+  const isCawp = isCawpStateLeg || isCawpCongress
 
-  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId);
+  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
 
-  const location = useLocation();
+  const location = useLocation()
 
   const signalListeners: any = {
     click: (...args: any) => {
-      const clickedData = args[1];
+      const clickedData = args[1]
       if (clickedData?.id) {
-        props.updateFipsCallback(new Fips(clickedData.id));
-        location.hash = `#${HASH_ID}`;
+        props.updateFipsCallback(new Fips(clickedData.id))
+        location.hash = `#${HASH_ID}`
       }
     },
-  };
+  }
 
-  const [listExpanded, setListExpanded] = useState(false);
+  const [listExpanded, setListExpanded] = useState(false)
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
-    useState<DemographicGroup>(ALL);
+    useState<DemographicGroup>(ALL)
 
   const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
-    useAutoFocusDialog();
+    useAutoFocusDialog()
 
   const metricQuery = (
     geographyBreakdown: Breakdowns,
     countColsToAdd?: MetricId[]
   ) => {
-    const metricIds: MetricId[] = [metricConfig.metricId];
-    if (countColsToAdd) metricIds.push(...countColsToAdd);
+    const metricIds: MetricId[] = [metricConfig.metricId]
+    if (countColsToAdd) metricIds.push(...countColsToAdd)
 
     return new MetricQuery(
       metricIds,
@@ -139,61 +136,61 @@ function MapCardWithKey(props: MapCardProps) {
             : exclude(UNKNOWN)
         ),
       /* variableId */ props.variableConfig.variableId,
-      /* timeView */ isCawp ? "cross_sectional" : undefined
-    );
-  };
+      /* timeView */ isCawp ? 'cross_sectional' : undefined
+    )
+  }
 
-  let countColsToAdd: MetricId[] = [];
-  if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS;
-  if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS;
+  let countColsToAdd: MetricId[] = []
+  if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS
+  if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS
 
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips), countColsToAdd),
     metricQuery(Breakdowns.forFips(props.fips)),
-  ];
+  ]
 
   // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
-    const sviBreakdowns = Breakdowns.byCounty();
-    sviBreakdowns.filterFips = props.fips;
+    const sviBreakdowns = Breakdowns.byCounty()
+    sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */ "svi",
+      /* MetricId(s) */ 'svi',
       /* Breakdowns */ sviBreakdowns
-    );
-    queries.push(sviQuery);
+    )
+    queries.push(sviQuery)
   }
 
-  let selectedRaceSuffix = "";
+  let selectedRaceSuffix = ''
   if (
     CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
-    activeBreakdownFilter !== "All"
+    activeBreakdownFilter !== 'All'
   ) {
-    selectedRaceSuffix = ` and also identifying as ${activeBreakdownFilter}`;
+    selectedRaceSuffix = ` and also identifying as ${activeBreakdownFilter}`
   }
 
-  let qualifierMessage = "";
-  if (isPrison) qualifierMessage = COMBINED_QUALIFIER;
-  if (isJail) qualifierMessage = PRIVATE_JAILS_QUALIFIER;
+  let qualifierMessage = ''
+  if (isPrison) qualifierMessage = COMBINED_QUALIFIER
+  if (isJail) qualifierMessage = PRIVATE_JAILS_QUALIFIER
 
-  let qualifierItems: string[] = [];
-  if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST;
+  let qualifierItems: string[] = []
+  if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   let { chartTitle, filename, dataName } = useCreateChartTitle(
     metricConfig,
     locationPhrase
-  );
+  )
 
-  const { metricId } = metricConfig;
+  const { metricId } = metricConfig
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
     currentBreakdown,
     isPopulationSubset,
     metricId,
-  });
+  })
 
-  filename = `${filename} ${subtitle ? `for ${subtitle}` : ""}`;
+  filename = `${filename} ${subtitle ? `for ${subtitle}` : ''}`
 
-  const HASH_ID: ScrollableHashId = "rate-map";
+  const HASH_ID: ScrollableHashId = 'rate-map'
 
   return (
     <CardWrapper
@@ -205,64 +202,64 @@ function MapCardWithKey(props: MapCardProps) {
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
-        const childGeoQueryResponse: MetricQueryResponse = queryResponses[0];
+        const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
-        const geoQueryResponse = queryResponses[1];
+        const geoQueryResponse = queryResponses[1]
         const hasSelfButNotChildGeoData =
           childGeoQueryResponse.data.length === 0 &&
-          geoQueryResponse.data.length > 0;
+          geoQueryResponse.data.length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? geoQueryResponse
-          : childGeoQueryResponse;
-        const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null;
+          : childGeoQueryResponse
+        const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null
 
         const sortArgs =
-          props.currentBreakdown === "age"
+          props.currentBreakdown === 'age'
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
-            : [];
+            : []
 
         const fieldValues = mapQueryResponse.getFieldValues(
           /* fieldName: BreakdownVar */ props.currentBreakdown,
           /* relevantMetric: MetricId */ metricConfig.metricId
-        );
+        )
 
         const breakdownValues = fieldValues.withData.sort.apply(
           fieldValues.withData,
           sortArgs
-        );
+        )
 
         let dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
-          );
+          )
 
         const dataForSvi: Row[] =
           sviQueryResponse
-            ?.getValidRowsForField("svi")
+            ?.getValidRowsForField('svi')
             ?.filter((row) =>
               dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
-            ) || [];
+            ) || []
 
         if (!props.fips.isUsa()) {
           dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
             (row) => {
               const thisCountySviRow = dataForSvi.find(
                 (sviRow) => sviRow.fips === row.fips
-              );
+              )
               return {
                 ...row,
                 rating: findVerboseRating(thisCountySviRow?.svi),
-              };
+              }
             }
-          );
+          )
         }
 
         const { highestValues, lowestValues } = getExtremeValues(
           dataForActiveBreakdownFilter,
           metricConfig.metricId,
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
-        );
+        )
 
         // Create and populate a map of breakdown display name to options
         const filterOptions: Record<
@@ -271,10 +268,10 @@ function MapCardWithKey(props: MapCardProps) {
         > = {
           [BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]]:
             breakdownValues,
-        };
+        }
 
         const hideGroupDropdown =
-          Object.values(filterOptions).toString() === ALL;
+          Object.values(filterOptions).toString() === ALL
 
         return (
           <>
@@ -290,7 +287,7 @@ function MapCardWithKey(props: MapCardProps) {
               )}
               breakdown={props.currentBreakdown}
               handleClose={() => {
-                setSmallMultiplesDialogOpen(false);
+                setSmallMultiplesDialogOpen(false)
               }}
               open={smallMultiplesDialogOpen}
               breakdownValues={breakdownValues}
@@ -333,7 +330,7 @@ function MapCardWithKey(props: MapCardProps) {
                           // This DropDownMenu instance only supports changing active breakdown filter
                           // It doesn't support changing breakdown type
                           if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection);
+                            setActiveBreakdownFilter(filterSelection)
                           }
                         }}
                       />
@@ -372,11 +369,11 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() &&
               dataForActiveBreakdownFilter.length === 0 &&
-              activeBreakdownFilter !== "All" && (
+              activeBreakdownFilter !== 'All' && (
                 <CardContent>
                   <Alert severity="warning" role="note">
-                    Insufficient data available for filter:{" "}
-                    <b>{activeBreakdownFilter}</b>.{" "}
+                    Insufficient data available for filter:{' '}
+                    <b>{activeBreakdownFilter}</b>.{' '}
                     <MultiMapLink
                       setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                       currentBreakdown={props.currentBreakdown}
@@ -422,12 +419,15 @@ function MapCardWithKey(props: MapCardProps) {
                   {props.fips.isUsa() && (
                     <div className={styles.TerritoryCirclesContainer}>
                       {TERRITORY_CODES.map((code) => {
-                        const fips = new Fips(code);
+                        const fips = new Fips(code)
                         return (
                           <div className={styles.TerritoryCircle} key={code}>
                             <ChoroplethMap
                               signalListeners={signalListeners}
-                              titles={{ chartTitle, subtitle }}
+                              titles={{
+                                chartTitle,
+                                subtitle,
+                              }}
                               metric={metricConfig}
                               data={
                                 listExpanded
@@ -446,7 +446,7 @@ function MapCardWithKey(props: MapCardProps) {
                               countColsToAdd={countColsToAdd}
                             />
                           </div>
-                        );
+                        )
                       })}
                     </div>
                   )}
@@ -482,8 +482,8 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
           </>
-        );
+        )
       }}
     </CardWrapper>
-  );
+  )
 }

@@ -1,8 +1,7 @@
-import { CardContent } from "@material-ui/core";
-import { Alert } from "@material-ui/lab";
+import { Alert, CardContent } from '@mui/material'
 
 interface CountyUnavailableAlertProps {
-  variableFullDisplayName: string;
+  variableFullDisplayName: string
 }
 
 export default function CountyUnavailableAlert(
@@ -11,9 +10,9 @@ export default function CountyUnavailableAlert(
   return (
     <CardContent>
       <Alert severity="warning" role="note">
-        Our data source for <b>{props.variableFullDisplayName.toLowerCase()}</b>{" "}
+        Our data source for <b>{props.variableFullDisplayName.toLowerCase()}</b>{' '}
         does not include county-level data.
       </Alert>
     </CardContent>
-  );
+  )
 }

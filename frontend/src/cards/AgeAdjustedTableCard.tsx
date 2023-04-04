@@ -1,14 +1,14 @@
-import React from "react";
-import { AgeAdjustedTableChart } from "../charts/AgeAdjustedTableChart";
-import CardWrapper from "./CardWrapper";
-import { MetricQuery } from "../data/query/MetricQuery";
-import { type Fips } from "../data/utils/Fips";
+import React from 'react'
+import { AgeAdjustedTableChart } from '../charts/AgeAdjustedTableChart'
+import CardWrapper from './CardWrapper'
+import { MetricQuery } from '../data/query/MetricQuery'
+import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
-} from "../data/query/Breakdowns";
-import { CardContent } from "@material-ui/core";
+} from '../data/query/Breakdowns'
+import { CardContent } from '@mui/material'
 import {
   type MetricConfig,
   type MetricId,
@@ -17,8 +17,8 @@ import {
   type DropdownVarId,
   METRIC_CONFIG,
   type AgeAdjustedVariableId,
-} from "../data/config/MetricConfig";
-import { exclude } from "../data/query/BreakdownFilter";
+} from '../data/config/MetricConfig'
+import { exclude } from '../data/query/BreakdownFilter'
 import {
   NON_HISPANIC,
   RACE,
@@ -28,32 +28,32 @@ import {
   AGE,
   SEX,
   type RaceAndEthnicityGroup,
-} from "../data/utils/Constants";
-import Alert from "@material-ui/lab/Alert";
-import Divider from "@material-ui/core/Divider";
-import styles from "./Card.module.scss";
-import MissingDataAlert from "./ui/MissingDataAlert";
+} from '../data/utils/Constants'
+import Alert from '@mui/material/Alert'
+import Divider from '@mui/material/Divider'
+import styles from './Card.module.scss'
+import MissingDataAlert from './ui/MissingDataAlert'
 import {
   AGE_ADJUSTMENT_TAB_LINK,
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
-} from "../utils/internalRoutes";
-import UnknownsAlert from "./ui/UnknownsAlert";
-import { Link } from "react-router-dom";
-import { splitIntoKnownsAndUnknowns } from "../data/utils/datasetutils";
-import { reportProviderSteps } from "../reports/ReportProviderSteps";
-import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
-import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
+} from '../utils/internalRoutes'
+import UnknownsAlert from './ui/UnknownsAlert'
+import { Link } from 'react-router-dom'
+import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
+import { reportProviderSteps } from '../reports/ReportProviderSteps'
+import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
 export const dataTypeLinkMap: Record<AgeAdjustedVariableId, string> = {
   covid_deaths: COVID_DEATHS_US_SETTING,
   covid_hospitalizations: COVID_HOSP_US_SETTING,
-};
+}
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 600;
+const PRELOAD_HEIGHT = 600
 
 // choose demographic groups to exclude from the table
 const exclusionList: RaceAndEthnicityGroup[] = [
@@ -61,59 +61,59 @@ const exclusionList: RaceAndEthnicityGroup[] = [
   NON_HISPANIC,
   WHITE_NH,
   MULTI_OR_OTHER_STANDARD_NH,
-];
+]
 
 export interface AgeAdjustedTableCardProps {
-  fips: Fips;
-  variableConfig: VariableConfig;
-  breakdownVar: BreakdownVar;
-  dropdownVarId?: DropdownVarId;
-  setVariableConfigWithParam?: (v: VariableConfig) => void;
+  fips: Fips
+  variableConfig: VariableConfig
+  breakdownVar: BreakdownVar
+  dropdownVarId?: DropdownVarId
+  setVariableConfigWithParam?: (v: VariableConfig) => void
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  const metrics = getAgeAdjustedRatioMetric(props.variableConfig);
-  const metricConfigPctShare = props.variableConfig.metrics.pct_share;
+  const metrics = getAgeAdjustedRatioMetric(props.variableConfig)
+  const metricConfigPctShare = props.variableConfig.metrics.pct_share
 
   const raceBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
     exclude(...exclusionList)
-  );
+  )
 
   const ageBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     AGE,
     exclude(...exclusionList)
-  );
+  )
 
-  const metricConfigs: Record<string, MetricConfig> = {};
+  const metricConfigs: Record<string, MetricConfig> = {}
   metrics.forEach((metricConfig) => {
-    metricConfigs[metricConfig.metricId] = metricConfig;
-  });
+    metricConfigs[metricConfig.metricId] = metricConfig
+  })
 
-  const metricIds = Object.keys(metricConfigs) as MetricId[];
-  const raceQuery = new MetricQuery(metricIds, raceBreakdowns);
-  const ageQuery = new MetricQuery(metricIds, ageBreakdowns);
-  const ratioId = metricIds[0];
+  const metricIds = Object.keys(metricConfigs) as MetricId[]
+  const raceQuery = new MetricQuery(metricIds, raceBreakdowns)
+  const ageQuery = new MetricQuery(metricIds, ageBreakdowns)
+  const ratioId = metricIds[0]
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
-    config.metricId.includes("ratio")
-  );
+    config.metricId.includes('ratio')
+  )
 
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`;
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
   const { filename, dataName } = useCreateChartTitle(
     metricConfigs[ratioId],
     locationPhrase
-  );
+  )
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
-  const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null;
+  const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
   const ageAdjustedDataTypes: VariableConfig[] = dropdownId
     ? METRIC_CONFIG[dropdownId].filter((dataType) => {
         // TODO: once every data type has a unique variableId across all topics, we can simply check if that id is in the dataTypeLinkMap
-        return dataType?.metrics.age_adjusted_ratio?.ageAdjusted;
+        return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
       })
-    : [];
+    : []
 
-  const HASH_ID: ScrollableHashId = "age-adjusted-risk";
+  const HASH_ID: ScrollableHashId = 'age-adjusted-risk'
 
   return (
     <CardWrapper
@@ -127,12 +127,12 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(
           raceQueryResponse.data,
           RACE
-        );
+        )
 
-        const isWrongBreakdownVar = props.breakdownVar === SEX;
+        const isWrongBreakdownVar = props.breakdownVar === SEX
         const noRatios = knownRaceData.every(
           (row) => row[ratioId] === undefined
-        );
+        )
 
         return (
           <>
@@ -145,7 +145,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 for fairer comparison between populations, where age is a large
                 risk factor. By computing rates that are normalized for age, we
                 can paint a more accurate picture of undue burden of disease and
-                death between populations. More details can be found in our{" "}
+                death between populations. More details can be found in our{' '}
                 <Link to={AGE_ADJUSTMENT_TAB_LINK}>
                   age-adjustment methodology
                 </Link>
@@ -200,8 +200,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 </div>
               )}
           </>
-        );
+        )
       }}
     </CardWrapper>
-  );
+  )
 }

@@ -1,2 +1,2 @@
-export { DisparityBarChart } from "./Chart";
-export type { DisparityBarChartProps } from "./types";
+export { DisparityBarChart } from './Chart'
+export type { DisparityBarChartProps } from './types'

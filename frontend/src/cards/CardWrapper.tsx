@@ -1,51 +1,53 @@
-import React from "react";
-import Card from "@material-ui/core/Card";
-import styles from "./Card.module.scss";
-import Button from "@material-ui/core/Button";
-import { CardContent, Grid } from "@material-ui/core";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import InfoIcon from "@material-ui/icons/Info";
-import Popover from "@material-ui/core/Popover";
-import { usePopover } from "../utils/hooks/usePopover";
+import styles from './Card.module.scss'
+import {
+  CardContent,
+  Grid,
+  Card,
+  Button,
+  Typography,
+  Divider,
+  CircularProgress,
+  Popover,
+} from '@mui/material'
+import { Info } from '@mui/icons-material'
+import { usePopover } from '../utils/hooks/usePopover'
 import {
   type MetricQuery,
   type MetricQueryResponse,
-} from "../data/query/MetricQuery";
-import { WithMetadataAndMetrics } from "../data/react/WithLoadingOrErrorUI";
-import { Sources } from "./ui/Sources";
-import { type MapOfDatasetMetadata } from "../data/utils/DatasetTypes";
-import CopyLinkButton from "./ui/CopyLinkButton";
-import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
+} from '../data/query/MetricQuery'
+import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
+import { Sources } from './ui/Sources'
+import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
+import CopyLinkButton from './ui/CopyLinkButton'
+import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
-  minHeight?: number;
-  title?: JSX.Element;
+  minHeight?: number
+  title?: JSX.Element
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
-  infoPopover?: JSX.Element;
-  hideFooter?: boolean;
-  hideNH?: boolean;
-  queries?: MetricQuery[];
+  infoPopover?: JSX.Element
+  hideFooter?: boolean
+  hideNH?: boolean
+  queries?: MetricQuery[]
   // Whether to load the geographies dataset for this card.
-  loadGeographies?: boolean;
+  loadGeographies?: boolean
   children: (
     queryResponses: MetricQueryResponse[],
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>
-  ) => JSX.Element;
-  isAgeAdjustedTable?: boolean;
-  scrollToHash: ScrollableHashId;
+  ) => JSX.Element
+  isAgeAdjustedTable?: boolean
+  scrollToHash: ScrollableHashId
 }) {
-  const popover = usePopover();
-  const queries = props.queries ? props.queries : [];
+  const popover = usePopover()
+  const queries = props.queries ? props.queries : []
 
   const optionalTitle = props.title ? (
     <>
-      <CardContent>
+      <CardContent className={styles.CardHeaderBox}>
         <Grid justifyContent="space-between" container>
-          <Grid item xs={11}>
+          <Grid item xs={10} container alignContent="center">
             <Typography component="h3" className={styles.CardHeader}>
               {props.title}
               {props.infoPopover && (
@@ -53,7 +55,7 @@ function CardWrapper(props: {
                   onClick={popover.open}
                   className={styles.InfoIconButton}
                 >
-                  <InfoIcon color="primary" />
+                  <Info color="primary" />
                 </Button>
               )}
             </Typography>
@@ -62,12 +64,12 @@ function CardWrapper(props: {
               anchorEl={popover.anchor}
               onClose={popover.close}
               anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
+                vertical: 'bottom',
+                horizontal: 'center',
               }}
               transformOrigin={{
-                vertical: "top",
-                horizontal: "center",
+                vertical: 'top',
+                horizontal: 'center',
               }}
             >
               <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
@@ -80,7 +82,7 @@ function CardWrapper(props: {
       </CardContent>
       <Divider />
     </>
-  ) : null;
+  ) : null
 
   const loadingComponent = (
     <Card
@@ -93,7 +95,7 @@ function CardWrapper(props: {
         <CircularProgress aria-label="loading" />
       </CardContent>
     </Card>
-  );
+  )
 
   return (
     <WithMetadataAndMetrics
@@ -106,12 +108,12 @@ function CardWrapper(props: {
           <Card
             raised={true}
             className={styles.ChartCard}
-            component={"article"}
+            component={'article'}
           >
             <header>{optionalTitle}</header>
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
-              <CardContent className={styles.CardFooter} component={"footer"}>
+              <CardContent className={styles.CardFooter} component={'footer'}>
                 <Sources
                   isAgeAdjustedTable={props.isAgeAdjustedTable}
                   queryResponses={queryResponses}
@@ -121,10 +123,10 @@ function CardWrapper(props: {
               </CardContent>
             )}
           </Card>
-        );
+        )
       }}
     </WithMetadataAndMetrics>
-  );
+  )
 }
 
-export default CardWrapper;
+export default CardWrapper

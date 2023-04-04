@@ -8,31 +8,25 @@
  */
 
 /* External Imports */
-import React, {
-  useState,
-  useMemo,
-  useRef,
-  useEffect,
-  useCallback,
-} from "react";
-import { scaleTime, scaleLinear, extent, min, max, bisector } from "d3";
+import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react'
+import { scaleTime, scaleLinear, extent, min, max, bisector } from 'd3'
 
 /* Local Imports */
 
 /* Components */
-import { FilterLegend } from "./FilterLegend";
-import { LineChart } from "./LineChart";
-import { Axes } from "./Axes";
-import { CircleChart } from "./CircleChart";
-import { TrendsTooltip } from "./TrendsTooltip";
-import { HoverCircles } from "./HoverCircles";
+import { FilterLegend } from './FilterLegend'
+import { LineChart } from './LineChart'
+import { Axes } from './Axes'
+import { CircleChart } from './CircleChart'
+import { TrendsTooltip } from './TrendsTooltip'
+import { HoverCircles } from './HoverCircles'
 
 /* Styles */
-import styles from "./Trends.module.scss";
+import styles from './Trends.module.scss'
 
 /* Constants */
-import { CONFIG } from "./constants";
-import { type UnknownData, type TrendsData, type AxisConfig } from "./types";
+import { CONFIG } from './constants'
+import { type UnknownData, type TrendsData, type AxisConfig } from './types'
 
 /* Helpers */
 import {
@@ -40,26 +34,26 @@ import {
   getAmounts,
   getDates,
   filterUnknownsByTimePeriod,
-} from "./helpers";
-import { MOBILE_BREAKPOINT } from "../../App";
-import { type BreakdownVar } from "../../data/query/Breakdowns";
-import useEscape from "../../utils/hooks/useEscape";
-import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
-import { useFontSize } from "../../utils/hooks/useFontSize";
-import { type DemographicGroup } from "../../data/utils/Constants";
+} from './helpers'
+import { MOBILE_BREAKPOINT } from '../../App'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
+import useEscape from '../../utils/hooks/useEscape'
+import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
+import { useFontSize } from '../../utils/hooks/useFontSize'
+import { type DemographicGroup } from '../../data/utils/Constants'
 
 /* Define type interface */
 export interface TrendsChartProps {
-  data: TrendsData;
-  unknown: UnknownData;
-  axisConfig: AxisConfig;
-  chartTitle: string | string[];
-  breakdownVar: BreakdownVar;
-  setSelectedTableGroups: (selectedTableGroups: any[]) => void;
-  isCompareCard: boolean;
-  expanded: boolean;
-  setExpanded: (expanded: boolean) => void;
-  hasUnknowns: boolean;
+  data: TrendsData
+  unknown: UnknownData
+  axisConfig: AxisConfig
+  chartTitle: string | string[]
+  breakdownVar: BreakdownVar
+  setSelectedTableGroups: (selectedTableGroups: any[]) => void
+  isCompareCard: boolean
+  expanded: boolean
+  setExpanded: (expanded: boolean) => void
+  hasUnknowns: boolean
 }
 
 /* Render component */
@@ -76,69 +70,72 @@ export function TrendsChart({
   hasUnknowns,
 }: TrendsChartProps) {
   /* Config */
-  const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG;
-  const { groupLabel } = axisConfig ?? {};
+  const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG
+  const { groupLabel } = axisConfig ?? {}
 
-  const fontSize = useFontSize();
+  const fontSize = useFontSize()
 
   /* Refs */
   // parent container ref - used for setting svg width
-  const containerRef = useRef(null);
+  const containerRef = useRef(null)
   // tooltip wrapper ref
-  const toolTipRef = useRef(null);
+  const toolTipRef = useRef(null)
 
   /* State Management */
-  const allPossibleGroups = data.map(([group]) => group);
+  const allPossibleGroups = data.map(([group]) => group)
   const isInequityWithManyGroups =
-    axisConfig.type === "pct_relative_inequity" && allPossibleGroups.length > 6;
+    axisConfig.type === 'pct_relative_inequity' && allPossibleGroups.length > 6
 
   // Manages which group filters user has applied
-  const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : [];
+  const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : []
   const [selectedTrendGroups, setSelectedTrendGroups] =
-    useState<DemographicGroup[]>(defaultGroups);
+    useState<DemographicGroup[]>(defaultGroups)
 
   // manages dynamic svg width
   const [[width, isMobile], setWidth] = useState<[number, boolean]>([
     STARTING_WIDTH,
     false,
-  ]);
+  ])
 
   // treat medium screen compare mode like mobile
-  const isSkinny = isMobile ?? width < MOBILE_BREAKPOINT;
+  const isSkinny = isMobile ?? width < MOBILE_BREAKPOINT
 
   // Stores date that user is currently hovering
-  const [hoveredDate, setHoveredDate] = useState<string | null>(null);
+  const [hoveredDate, setHoveredDate] = useState<string | null>(null)
 
   function handleEscapeKey() {
-    setHoveredDate(null);
+    setHoveredDate(null)
   }
 
-  useEscape(handleEscapeKey);
+  useEscape(handleEscapeKey)
 
   // Stores width of tooltip to allow dynamic tooltip positioning
-  const [tooltipWidth, setTooltipWidth] = useState<number>(0);
+  const [tooltipWidth, setTooltipWidth] = useState<number>(0)
 
   /* Effects */
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
   useEffect(() => {
     function setDimensions() {
-      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
-      // @ts-expect-error
-      setWidth([containerRef.current.getBoundingClientRect().width, isMobile]);
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT
+      setWidth([
+        // @ts-expect-error
+        containerRef.current?.getBoundingClientRect().width,
+        isMobile,
+      ])
     }
-    setDimensions();
-    window.addEventListener("resize", setDimensions);
+    setDimensions()
+    window.addEventListener('resize', setDimensions)
     return () => {
-      window.removeEventListener("resize", setDimensions);
-    };
-  }, []);
+      window.removeEventListener('resize', setDimensions)
+    }
+  }, [])
 
   // resets tooltip parent width on data, filter, or hover change
   // allows to dynamically position tooltip to left of hover line
   useEffect(() => {
     // @ts-expect-error
-    setTooltipWidth(toolTipRef?.current?.getBoundingClientRect()?.width);
-  }, [data, selectedTrendGroups, hoveredDate]);
+    setTooltipWidth(toolTipRef?.current?.getBoundingClientRect()?.width)
+  }, [data, selectedTrendGroups, hoveredDate])
 
   /* Memoized constants */
 
@@ -149,62 +146,62 @@ export function TrendsChart({
         ? filterDataByGroup(data, selectedTrendGroups)
         : data,
     [selectedTrendGroups, data]
-  );
+  )
 
   // Display unknowns or not - affects margin below line chart
   const showUnknowns = useMemo(
     () => expanded && hasUnknowns,
     [hasUnknowns, expanded]
-  );
+  )
 
   // Margin below line chart - create space for unknown circles
   const marginBottom = useMemo(
     () => (showUnknowns ? MARGIN.bottom_with_unknowns : MARGIN.bottom),
     [MARGIN.bottom_with_unknowns, MARGIN.bottom, showUnknowns]
-  );
+  )
 
   // Margin to left of line chart - different on mobile & desktop
   const marginLeft = useMemo(
     () => (isSkinny ? MOBILE.MARGIN.left : MARGIN.left),
     [isSkinny, MARGIN.left, MOBILE.MARGIN.left]
-  );
+  )
 
   // Margin to right of line chart - different on mobile & desktop
   const marginRight = useMemo(
     () => (isSkinny ? MOBILE.MARGIN.right : MARGIN.right),
     [isSkinny, MARGIN.right, MOBILE.MARGIN.right]
-  );
+  )
 
   // TODO: look into using useCallback instead
   // Array of just dates (x values)
-  const dates = getDates(filteredData);
+  const dates = getDates(filteredData)
   // Array of just amounts (y values)
-  const amounts = getAmounts(filteredData);
+  const amounts = getAmounts(filteredData)
 
   /* Scales */
 
   // define X and Y extents
   const xExtent: [Date, Date] | [undefined, undefined] = extent(
     dates.map((date) => new Date(date))
-  );
+  )
 
   // @ts-expect-error
-  const yMin = min(amounts) < 0 ? min(amounts) : 0; // if numbers are all positive, y domain min should be 0
-  const yMax = max(amounts) ? max(amounts) : 0;
-  const yExtent: [number, number] = [yMin as number, yMax as number];
+  const yMin = min(amounts) < 0 ? min(amounts) : 0 // if numbers are all positive, y domain min should be 0
+  const yMax = max(amounts) ? max(amounts) : 0
+  const yExtent: [number, number] = [yMin as number, yMax as number]
 
   // X-Scale
   const xScale = scaleTime(xExtent as [Date, Date], [
     marginLeft,
     width - marginRight,
-  ]);
-  axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length + 1 : null; // d3 was adding duplicate time period ticks to sets with very few time periods
+  ])
+  axisConfig.xAxisMaxTicks = dates.length < 12 ? dates.length + 1 : null // d3 was adding duplicate time period ticks to sets with very few time periods
 
   // Y-Scale
   const yScale = scaleLinear(yExtent as [number, number], [
     HEIGHT - marginBottom,
     MARGIN.top,
-  ]);
+  ])
 
   /* Event Handlers */
   function handleClick(selectedGroup: DemographicGroup | null) {
@@ -214,49 +211,49 @@ export function TrendsChart({
         ? [] // if selectedGroup has null value, clear selected group array to remove filter
         : selectedTrendGroups.includes(selectedGroup) // otherwise update the array with newly selected or removed group
         ? selectedTrendGroups.filter((group) => group !== selectedGroup)
-        : [...selectedTrendGroups, selectedGroup];
+        : [...selectedTrendGroups, selectedGroup]
     // Set new array of selected groups to state
 
     const allGroupsAreSelected =
-      allPossibleGroups.length === newSelectedGroups.length;
-    setSelectedTrendGroups(allGroupsAreSelected ? [] : newSelectedGroups);
+      allPossibleGroups.length === newSelectedGroups.length
+    setSelectedTrendGroups(allGroupsAreSelected ? [] : newSelectedGroups)
   }
 
   function handleMinMaxClick() {
-    const minMaxGroups = getMinMaxGroups(data);
+    const minMaxGroups = getMinMaxGroups(data)
 
     // Set new array of selected groups to state
-    setSelectedTrendGroups(minMaxGroups);
+    setSelectedTrendGroups(minMaxGroups)
   }
 
   useEffect(() => {
-    setSelectedTableGroups(selectedTrendGroups);
-  }, [selectedTrendGroups, setSelectedTableGroups]);
+    setSelectedTableGroups(selectedTrendGroups)
+  }, [selectedTrendGroups, setSelectedTableGroups])
 
   const handleMousemove = useCallback(
     (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-      const { clientX } = e;
+      const { clientX } = e
       // need to offset by how far the element is from edge of page
       const { x: parentX } =
-        e.currentTarget?.parentElement?.getBoundingClientRect() ?? {};
+        e.currentTarget?.parentElement?.getBoundingClientRect() ?? {}
       // using position, find date (using inverted xScale)
-      const invertedDate = xScale.invert(clientX - (parentX ?? 0));
+      const invertedDate = xScale.invert(clientX - (parentX ?? 0))
       // initialize bisector
-      const bisect = bisector((d) => d);
+      const bisect = bisector((d) => d)
       // get closest date index
       const closestIdx = bisect.left(
         dates.map((d) => new Date(d)),
         invertedDate
-      );
+      )
       // set state to story hovered date
-      setHoveredDate(dates[closestIdx]);
+      setHoveredDate(dates[closestIdx])
     },
     [dates, xScale]
-  );
+  )
 
   const chartTitleId = `chart-title-label-${axisConfig.type}-${
-    isCompareCard ? "2" : "1"
-  }`;
+    isCompareCard ? '2' : '1'
+  }`
 
   return (
     // Container
@@ -278,7 +275,7 @@ export function TrendsChart({
             chartWidth={width}
             breakdownVar={breakdownVar}
             legendId={`legend-filter-label-${axisConfig.type}-${
-              isCompareCard ? "2" : "1"
+              isCompareCard ? '2' : '1'
             }`}
           />
         )}
@@ -292,7 +289,7 @@ export function TrendsChart({
         className={styles.TooltipWrapper}
         // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
-          transform: `translate(${xScale(new Date(hoveredDate ?? ""))}px, ${
+          transform: `translate(${xScale(new Date(hoveredDate ?? ''))}px, ${
             MARGIN.top
           }px)`,
           opacity: hoveredDate ? 1 : 0,
@@ -302,7 +299,7 @@ export function TrendsChart({
           ref={toolTipRef}
           style={{
             transform: `translateX(${
-              xScale(new Date(hoveredDate ?? "")) > width / 2
+              xScale(new Date(hoveredDate ?? '')) > width / 2
                 ? -tooltipWidth - 10
                 : 10
             }px)`,
@@ -324,7 +321,7 @@ export function TrendsChart({
             width={width}
             onMouseMove={handleMousemove}
             onMouseLeave={() => {
-              setHoveredDate(null);
+              setHoveredDate(null)
             }}
             role="group"
             aria-labelledby={chartTitleId}
@@ -346,7 +343,7 @@ export function TrendsChart({
               data={filteredData}
               xScale={xScale}
               yScale={yScale}
-              valuesArePct={axisConfig.type === "pct_share"}
+              valuesArePct={axisConfig.type === 'pct_share'}
             />
             {/* Group for hover indicator line and circles */}
             <g
@@ -354,7 +351,7 @@ export function TrendsChart({
               // transform group to hovered x position
               style={{
                 transform: `translateX(${xScale(
-                  new Date(hoveredDate ?? "")
+                  new Date(hoveredDate ?? '')
                 )}px)`,
                 opacity: hoveredDate ? 1 : 0,
               }}
@@ -376,7 +373,7 @@ export function TrendsChart({
                   isSkinny={isSkinny}
                   groupLabel={groupLabel}
                   selectedDate={hoveredDate}
-                  circleId={`${axisConfig.type}-${isCompareCard ? "b" : "a"}`}
+                  circleId={`${axisConfig.type}-${isCompareCard ? 'b' : 'a'}`}
                 />
               </>
             )}
@@ -384,5 +381,5 @@ export function TrendsChart({
         </>
       )}
     </figure>
-  );
+  )
 }

@@ -1,19 +1,18 @@
-import React from "react";
-import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
-import styles from "./News.module.scss";
-import AppbarLogo from "../../../assets/AppbarLogo.png";
-import { getHtml, ReactRouterLinkButton } from "../../../utils/urlutils";
-import { type Article } from "../NewsTab";
-import { Box, Grid } from "@material-ui/core";
-import LazyLoad from "react-lazyload";
+import { NEWS_TAB_LINK } from '../../../utils/internalRoutes'
+import styles from './News.module.scss'
+import AppbarLogo from '../../../assets/AppbarLogo.png'
+import { getHtml, ReactRouterLinkButton } from '../../../utils/urlutils'
+import { type Article } from '../NewsTab'
+import { Box, Grid } from '@mui/material'
+import LazyLoad from 'react-lazyload'
 
 export interface NewsPreviewCardProps {
-  article: Article;
-  arrow?: "prev" | "next";
+  article: Article
+  arrow?: 'prev' | 'next'
 }
 
 export default function NewsPreviewCard(props: NewsPreviewCardProps) {
-  const { article } = props;
+  const { article } = props
 
   return (
     <ReactRouterLinkButton
@@ -30,10 +29,10 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           alignItems="center"
           justifyContent="center"
         >
-          {props.arrow === "prev" ? (
+          {props.arrow === 'prev' ? (
             <span className={styles.PrevNextArrow}>«</span>
           ) : (
-            " "
+            ' '
           )}
         </Grid>
 
@@ -49,11 +48,11 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
             <img
               height="100"
               src={
-                article?._embedded?.["wp:featuredmedia"]?.[0]?.media_details
+                article?._embedded?.['wp:featuredmedia']?.[0]?.media_details
                   ?.sizes?.medium?.source_url || AppbarLogo
               }
               className={
-                article._embedded["wp:featuredmedia"]
+                article._embedded['wp:featuredmedia']
                   ? styles.NewsPreviewThumbnail
                   : styles.LogoThumbnail
               }
@@ -77,13 +76,13 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           alignItems="center"
           justifyContent="center"
         >
-          {props.arrow === "next" ? (
+          {props.arrow === 'next' ? (
             <span className={styles.PrevNextArrow}>»</span>
           ) : (
-            " "
+            ' '
           )}
         </Grid>
       </Grid>
     </ReactRouterLinkButton>
-  );
+  )
 }

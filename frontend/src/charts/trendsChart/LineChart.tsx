@@ -8,13 +8,12 @@
  **/
 
 /* External Imports */
-import React from "react";
-import { line, curveMonotoneX } from "d3";
+import { line, curveMonotoneX } from 'd3'
 
 /* Local Imports */
 
 /* Styles */
-import styles from "./Trends.module.scss";
+import styles from './Trends.module.scss'
 
 /* Constants */
 import {
@@ -22,17 +21,17 @@ import {
   type TrendsData,
   type XScale,
   type YScale,
-} from "./types";
-import { COLORS as C } from "./constants";
-import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
-import { UNKNOWN_W } from "../../data/utils/Constants";
+} from './types'
+import { COLORS as C } from './constants'
+import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
+import { UNKNOWN_W } from '../../data/utils/Constants'
 
 /* Define type interface */
 export interface LineChartProps {
-  data: TrendsData;
-  xScale: XScale;
-  yScale: YScale;
-  valuesArePct: boolean;
+  data: TrendsData
+  xScale: XScale
+  yScale: YScale
+  valuesArePct: boolean
 }
 
 /* Render component */
@@ -57,34 +56,34 @@ export function LineChart({
     // assigns y-value
     .y(([_, amount]) => yScale(amount) ?? 0)
     // applies curve generator
-    .curve(curveMonotoneX);
+    .curve(curveMonotoneX)
 
   return (
     <g role="list" tabIndex={0} aria-label="Demographic group trendlines">
       {data?.map(([group, d]: GroupData) => {
-        const dCopy = [...d];
+        const dCopy = [...d]
 
-        const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1]);
-        const minValueForGroup = sortedDataForGroup[0]?.[1];
+        const sortedDataForGroup = dCopy.sort((a, b) => a[1] - b[1])
+        const minValueForGroup = sortedDataForGroup[0]?.[1]
         const maxValueForGroup =
-          sortedDataForGroup[sortedDataForGroup.length - 1]?.[1];
+          sortedDataForGroup[sortedDataForGroup.length - 1]?.[1]
 
         const lowestDatesForGroup = sortedDataForGroup
           .filter((row) => row[1] === minValueForGroup)
-          .map((row) => getPrettyDate(row[0]));
+          .map((row) => getPrettyDate(row[0]))
         const highestDatesForGroup = sortedDataForGroup
           .filter((row) => row[1] === maxValueForGroup)
-          .map((row) => getPrettyDate(row[0]));
+          .map((row) => getPrettyDate(row[0]))
 
-        const optionalPct = valuesArePct ? "%" : "";
+        const optionalPct = valuesArePct ? '%' : ''
 
         const groupA11yDescription = `${group}: lowest value ${minValueForGroup}${optionalPct} in ${lowestDatesForGroup.join(
-          ", "
+          ', '
         )} and highest value ${maxValueForGroup}${optionalPct} in ${highestDatesForGroup.join(
-          ", "
-        )}`;
+          ', '
+        )}`
 
-        const isUnknownLine = group === UNKNOWN_W;
+        const isUnknownLine = group === UNKNOWN_W
         return (
           <path
             role="listitem"
@@ -93,11 +92,11 @@ export function LineChart({
               isUnknownLine ? styles.TrendLineGradient : styles.TrendLine
             }
             key={`group-${group}`}
-            d={lineGen(d as any) ?? ""}
+            d={lineGen(d as any) ?? ''}
             stroke={C(group)}
           />
-        );
+        )
       })}
     </g>
-  );
+  )
 }

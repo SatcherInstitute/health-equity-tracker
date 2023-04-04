@@ -7,13 +7,13 @@
  * returns jsx of a div with a grid of names, bar chart viz, and amounts
 
 /* External Imports */
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react'
 
 /* Local Imports */
-import { raceNameToCodeMap } from "../../data/utils/Constants";
+import { raceNameToCodeMap } from '../../data/utils/Constants'
 
 /* Styles */
-import styles from "./Trends.module.scss";
+import styles from './Trends.module.scss'
 
 /* Components */
 
@@ -23,8 +23,8 @@ import {
   type GroupData,
   type TimeSeries,
   type AxisConfig,
-} from "./types";
-import { TYPES, FORMATTERS as F, COLORS as C } from "./constants";
+} from './types'
+import { TYPES, FORMATTERS as F, COLORS as C } from './constants'
 
 /* Helpers */
 import {
@@ -33,14 +33,14 @@ import {
   translateXPctShare,
   getWidthPctShare,
   getWidthHundredK,
-} from "./helpers";
+} from './helpers'
 
 /* Define type interface */
 export interface TrendsTooltipProps {
-  data: TrendsData;
-  selectedDate: string | null;
-  axisConfig: AxisConfig;
-  isSkinny: boolean;
+  data: TrendsData
+  selectedDate: string | null
+  axisConfig: AxisConfig
+  isSkinny: boolean
 }
 
 /* Render component */
@@ -50,33 +50,33 @@ export function TrendsTooltip({
   axisConfig,
   isSkinny,
 }: TrendsTooltipProps) {
-  const { type, yAxisLabel = "" } = axisConfig || {};
+  const { type, yAxisLabel = '' } = axisConfig || {}
 
   const TYPE_CONFIG = {
     [TYPES.HUNDRED_K]: {
-      UNIT: isSkinny ? "" : " per 100k",
+      UNIT: isSkinny ? '' : ' per 100k',
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
     },
     [TYPES.PERCENT_SHARE]: {
-      UNIT: "",
+      UNIT: '',
       width: getWidthPctShare,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.pct,
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
-      UNIT: " %",
+      UNIT: ' %',
       width: getWidthPctShare,
       translate_x: translateXPctShare,
       formatter: F.plusNum,
     },
-  };
+  }
 
-  const isMonthly = (selectedDate?.length ?? 0) > 4;
+  const isMonthly = (selectedDate?.length ?? 0) > 4
   const displayDate = isMonthly
-    ? F.dateFromString_MM_YYYY(selectedDate ?? "")
-    : F.dateFromString_YYYY(selectedDate ?? "");
+    ? F.dateFromString_MM_YYYY(selectedDate ?? '')
+    : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
     <div className={styles.Tooltip} role="tooltip">
@@ -90,14 +90,14 @@ export function TrendsTooltip({
       </div>
       <div className={styles.grid}>
         {data &&
-          sortDataDescending(data, selectedDate ?? "").map(
+          sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
               // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
 
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
-              );
-              if (value === "0" && axisConfig.type === "per100k") value = "<1";
+              )
+              if (value === '0' && axisConfig.type === 'per100k') value = '<1'
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>
@@ -123,10 +123,10 @@ export function TrendsTooltip({
                     <span>{TYPE_CONFIG[type]?.UNIT}</span>
                   </div>
                 </Fragment>
-              );
+              )
             }
           )}
       </div>
     </div>
-  );
+  )
 }

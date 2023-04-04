@@ -1,6 +1,6 @@
-import { urlMap } from "../../../utils/externalUrls";
-import { Link } from "react-router-dom";
-import { METHODOLOGY_TAB_LINK } from "../../../utils/internalRoutes";
+import { urlMap } from '../../../utils/externalUrls'
+import { Link } from 'react-router-dom'
+import { METHODOLOGY_TAB_LINK } from '../../../utils/internalRoutes'
 
 export function MissingCovidData() {
   return (
@@ -8,7 +8,7 @@ export function MissingCovidData() {
       <h4>Missing and suppressed COVID data</h4>
       <p>
         For COVID-19 related reports, this tracker uses disaggregated,
-        individual{" "}
+        individual{' '}
         <a href={urlMap.cdcCovidRestricted}>
           case level data reported by states, territories, and other
           jurisdictions to the CDC
@@ -20,18 +20,18 @@ export function MissingCovidData() {
         time and will use the Health Equity Tracker to record that progress.
       </p>
       <p>
-        In accordance with our{" "}
+        In accordance with our{' '}
         <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
         incomplete data and render some states grey for certain COVID-19 data
         types, as outlined below:
       </p>
       <ul>
         <li>
-          Cases, hospitalizations and deaths: <b>Northern Mariana Islands</b>,{" "}
+          Cases, hospitalizations and deaths: <b>Northern Mariana Islands</b>,{' '}
           <b>Mississippi</b>, <b>West Virginia</b>
         </li>
         <li>
-          Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{" "}
+          Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{' '}
           <b>South Dakota</b>
         </li>
         <li>
@@ -53,7 +53,7 @@ export function MissingCovidData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
 export function MissingCovidVaccinationData() {
@@ -66,11 +66,11 @@ export function MissingCovidVaccinationData() {
           do not always coincide with the categories reported by the census, we
           rely on the Kaiser Family Foundation population tabulations for
           state-reported population categories, which only include population
-          numbers for <b>Black,</b> <b>White</b>, <b>Asian</b>, and{" "}
-          <b>Hispanic</b>. ‘Percent of vaccinated’ metrics for{" "}
-          <b>Native Hawaiian and Pacific Islander</b>, and{" "}
+          numbers for <b>Black,</b> <b>White</b>, <b>Asian</b>, and{' '}
+          <b>Hispanic</b>. ‘Percent of vaccinated’ metrics for{' '}
+          <b>Native Hawaiian and Pacific Islander</b>, and{' '}
           <b>American Indian and Alaska Native</b> are shown with a population
-          comparison metric from the ACS 5-year estimates, while{" "}
+          comparison metric from the ACS 5-year estimates, while{' '}
           <b>Unrepresented race</b> is shown without any population comparison
           metric.
         </li>
@@ -81,7 +81,7 @@ export function MissingCovidVaccinationData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
 export function MissingCAWPData() {
@@ -92,9 +92,9 @@ export function MissingCAWPData() {
         <li>
           The Center for American Women in Politics (CAWP) dataset uses unique
           race/ethnicity groupings that do not correspond directly with the
-          categories used by the U.S. Census. For this reason,{" "}
-          <b>Middle Eastern & North African (Women)</b>,{" "}
-          <b>Asian American & Pacific Islander (Women)</b>, and{" "}
+          categories used by the U.S. Census. For this reason,{' '}
+          <b>Middle Eastern & North African (Women)</b>,{' '}
+          <b>Asian American & Pacific Islander (Women)</b>, and{' '}
           <b>Native American, Alaska Native, & Native Hawaiian (Women)</b> are
           presented without corresponding population comparison metrics.
         </li>
@@ -105,7 +105,7 @@ export function MissingCAWPData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
 export function MissingHIVData() {
@@ -133,7 +133,7 @@ export function MissingHIVData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
 export function MissingPrepData() {
@@ -158,7 +158,7 @@ export function MissingPrepData() {
         </li>
       </ul>
     </>
-  );
+  )
 }
 
 export function MissingAHRData() {
@@ -177,5 +177,5 @@ export function MissingAHRData() {
         </li>
       </ul>
     </>
-  );
+  )
 }

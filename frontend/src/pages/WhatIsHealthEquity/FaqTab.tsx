@@ -1,25 +1,24 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import styles from "./WhatIsHealthEquityPage.module.scss";
-import { Typography } from "@material-ui/core";
+import Grid from '@mui/material/Grid'
+import styles from './WhatIsHealthEquityPage.module.scss'
+import { Typography } from '@mui/material'
 import {
   AGE_ADJUSTMENT_TAB_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
-} from "../../utils/internalRoutes";
-import { Helmet } from "react-helmet-async";
-import { CITATION_APA } from "../DataCatalog/MethodologyTab";
-import { getHtml } from "../../utils/urlutils";
-import { urlMap } from "../../utils/externalUrls";
+} from '../../utils/internalRoutes'
+import { Helmet } from 'react-helmet-async'
+import { CITATION_APA } from '../DataCatalog/MethodologyTab'
+import { getHtml } from '../../utils/urlutils'
+import { urlMap } from '../../utils/externalUrls'
 
 export interface qAndA {
-  q: string;
-  a: string;
+  q: string
+  a: string
 }
 
 export const selectFaqs: qAndA[] = [
   {
-    q: "What is health equity? Why is it important?",
+    q: 'What is health equity? Why is it important?',
     a: `
   <p>The World Health Organization defines health equity “as the
   absence of unfair and avoidable or remediable differences in
@@ -39,14 +38,14 @@ export const selectFaqs: qAndA[] = [
   `,
   },
   {
-    q: "What are health disparities?",
+    q: 'What are health disparities?',
     a: `Health disparities are preventable differences in the burden
 of disease, injury, violence, or in opportunities to achieve
 optimal health experienced by socially disadvantaged racial,
 ethnic, and other population groups, and communities (CDC).`,
   },
   {
-    q: "What data sources did you use? Why?",
+    q: 'What data sources did you use? Why?',
     a: `
 <p>
 
@@ -123,7 +122,7 @@ Specific information on update frequencies by source can be found on our <a href
   </ul>
   `,
   },
-];
+]
 
 function FaqTab() {
   return (
@@ -197,7 +196,7 @@ function FaqTab() {
                     are done consistently in an ethical manner. One of the core
                     values of the Health Equity Task Force charged with
                     developing the Health Equity Tracker is the importance of
-                    working in a way that garners public trust.{" "}
+                    working in a way that garners public trust.{' '}
                   </p>
                   <h4 className={styles.FaqSubheaderText}>
                     These guiding questions help ensure the right standards are
@@ -345,7 +344,7 @@ function FaqTab() {
                       media
                     </li>
                     <li>
-                      Share your health equity story.{" "}
+                      Share your health equity story.{' '}
                       <a href={`${CONTACT_TAB_LINK}`}>
                         Click here to contact us
                       </a>
@@ -382,7 +381,7 @@ function FaqTab() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default FaqTab;
+export default FaqTab

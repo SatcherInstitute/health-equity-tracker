@@ -1,4 +1,3 @@
-import React from "react";
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -8,46 +7,46 @@ import {
   FacebookIcon,
   LinkedinIcon,
   TwitterIcon,
-} from "react-share";
-import { Grid } from "@material-ui/core";
-import { getMadLibPhraseText, type MadLib } from "../../utils/MadLibs";
-import styles from "./ShareButtons.module.scss";
-import sass from "../../styles/variables.module.scss";
-import { type Article } from "../../pages/WhatIsHealthEquity/NewsTab";
-import { getHtml } from "../../utils/urlutils";
+} from 'react-share'
+import { Grid } from '@mui/material'
+import { getMadLibPhraseText, type MadLib } from '../../utils/MadLibs'
+import styles from './ShareButtons.module.scss'
+import sass from '../../styles/variables.module.scss'
+import { type Article } from '../../pages/WhatIsHealthEquity/NewsTab'
+import { getHtml } from '../../utils/urlutils'
 
 export const ARTICLE_DESCRIPTION =
-  "Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.";
+  'Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.'
 
 export const shareIconAttributes = {
   iconFillColor: sass.altGreen,
-  bgStyle: { fill: "none" },
+  bgStyle: { fill: 'none' },
   size: 32,
-};
+}
 
 export interface ShareButtonProps {
-  madLib?: MadLib;
-  article?: Article;
+  madLib?: MadLib
+  article?: Article
 }
 
 function ShareButtons(props: ShareButtonProps) {
-  const sharedUrl: string = window.location.href;
-  let title: string = "Health Equity Tracker";
+  const sharedUrl: string = window.location.href
+  let title: string = 'Health Equity Tracker'
   if (props.madLib) {
-    title += ": " + getMadLibPhraseText(props.madLib);
+    title += ': ' + getMadLibPhraseText(props.madLib)
   }
   if (props.article) {
-    const htmlTitle = getHtml(props.article.title.rendered, true);
-    if (typeof htmlTitle === "string") {
-      title += ": “" + htmlTitle + "”";
+    const htmlTitle = getHtml(props.article.title.rendered, true)
+    if (typeof htmlTitle === 'string') {
+      title += ': “' + htmlTitle + '”'
     }
   }
 
   return (
     <Grid
       container
-      justifyContent={props.madLib ? "flex-end" : "flex-start"}
-      alignItems={"center"}
+      justifyContent={props.madLib ? 'flex-end' : 'flex-start'}
+      alignItems={'center'}
     >
       <Grid item>
         <p className={styles.ShareLabel}>Share:</p>
@@ -57,33 +56,33 @@ function ShareButtons(props: ShareButtonProps) {
         <TwitterShareButton
           url={sharedUrl}
           title={title}
-          hashtags={["healthequity"]}
-          related={["@SatcherHealth", "@MSMEDU"]}
-          aria-label={"Share to Twitter"}
+          hashtags={['healthequity']}
+          related={['@SatcherHealth', '@MSMEDU']}
+          aria-label={'Share to Twitter'}
         >
           <TwitterIcon {...shareIconAttributes} />
         </TwitterShareButton>
 
         <FacebookShareButton
           url={sharedUrl}
-          hashtag={"#healthequity"}
+          hashtag={'#healthequity'}
           quote={title}
-          aria-label={"Share to Facebook"}
+          aria-label={'Share to Facebook'}
         >
           <FacebookIcon {...shareIconAttributes} />
         </FacebookShareButton>
 
         <LinkedinShareButton
           title={title}
-          source={"Health Equity Tracker"}
+          source={'Health Equity Tracker'}
           url={sharedUrl}
-          aria-label={"Share to LinkedIn"}
+          aria-label={'Share to LinkedIn'}
         >
           <LinkedinIcon {...shareIconAttributes} />
         </LinkedinShareButton>
 
         <EmailShareButton
-          aria-label={"Share by email"}
+          aria-label={'Share by email'}
           subject={`Sharing from healthequitytracker.org`}
           body={`${title}
 
@@ -94,7 +93,7 @@ function ShareButtons(props: ShareButtonProps) {
         </EmailShareButton>
       </Grid>
     </Grid>
-  );
+  )
 }
 
-export default ShareButtons;
+export default ShareButtons

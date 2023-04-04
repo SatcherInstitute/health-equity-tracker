@@ -1,5 +1,5 @@
-@import "../../styles/globals.scss";
-@import "../../styles/variables.module";
+@import '../../styles/globals.scss';
+@import '../../styles/variables.module';
 
 .LearnMoreAboutHealthEquity {
   @include inter500();
@@ -178,7 +178,7 @@
 }
 
 .EmailTextField input {
-  padding: 9px;
+  padding: 8px !important;
 }
 
 .EmailAddressFormSubmit {

@@ -1,171 +1,170 @@
-import React from "react";
-import { getDataManager } from "../../utils/globals";
-import { type Breakdowns } from "../query/Breakdowns";
-import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { type MetricId, type VariableId } from "../config/MetricConfig";
-import VariableProvider from "./VariableProvider";
-import { GetAcsDatasetId } from "./AcsPopulationProvider";
-import { appendFipsIfNeeded } from "../utils/datasetutils";
+import { getDataManager } from '../../utils/globals'
+import { type Breakdowns } from '../query/Breakdowns'
+import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { type MetricId, type VariableId } from '../config/MetricConfig'
+import VariableProvider from './VariableProvider'
+import { GetAcsDatasetId } from './AcsPopulationProvider'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export function CombinedIncarcerationStateMessage() {
   return (
     <>
-      <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>, <b>Hawaii</b>,{" "}
+      <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>, <b>Hawaii</b>,{' '}
       <b>Rhode Island</b>, and <b>Vermont</b> each operate an integrated system
       that combines both prisons and jails; for our reports these are treated
       only as prison facilities.
     </>
-  );
+  )
 }
 
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
-  "Alaska",
-  "Connecticut",
-  "Delaware",
-  "Hawaii",
-  "Rhode Island",
-  "Vermont",
-];
+  'Alaska',
+  'Connecticut',
+  'Delaware',
+  'Hawaii',
+  'Rhode Island',
+  'Vermont',
+]
 
-export const COMBINED_QUALIFIER = "(combined prison and jail)";
-export const PRIVATE_JAILS_QUALIFIER = "(private jail system only)";
+export const COMBINED_QUALIFIER = '(combined prison and jail)'
+export const PRIVATE_JAILS_QUALIFIER = '(private jail system only)'
 export const ALASKA_PRIVATE_JAIL_CAVEAT =
-  "In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.";
+  'In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.'
 
-export const INCARCERATION_IDS: VariableId[] = ["prison", "jail"];
+export const INCARCERATION_IDS: VariableId[] = ['prison', 'jail']
 
 export const JAIL_METRICS: MetricId[] = [
-  "jail_pct_share",
-  "jail_per_100k",
-  "jail_ratio_age_adjusted",
-  "jail_pct_relative_inequity",
-];
+  'jail_pct_share',
+  'jail_per_100k',
+  'jail_ratio_age_adjusted',
+  'jail_pct_relative_inequity',
+]
 
 export const PRISON_METRICS: MetricId[] = [
-  "prison_pct_share",
-  "prison_per_100k",
-  "prison_ratio_age_adjusted",
-  "prison_pct_relative_inequity",
-];
+  'prison_pct_share',
+  'prison_per_100k',
+  'prison_ratio_age_adjusted',
+  'prison_pct_relative_inequity',
+]
 
 export const INCARCERATION_METRICS: MetricId[] = [
   ...JAIL_METRICS,
   ...PRISON_METRICS,
-  "total_confined_children",
-  "incarceration_population_pct",
-];
+  'total_confined_children',
+  'incarceration_population_pct',
+]
 
 class IncarcerationProvider extends VariableProvider {
   constructor() {
-    super("incarceration_provider", INCARCERATION_METRICS);
+    super('incarceration_provider', INCARCERATION_METRICS)
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.geography === "national") {
+    if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
-        return "bjs_incarceration_data-race_and_ethnicity_national";
+        return 'bjs_incarceration_data-race_and_ethnicity_national'
       }
-      if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_national";
-      if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_national";
+      if (breakdowns.hasOnlyAge()) return 'bjs_incarceration_data-age_national'
+      if (breakdowns.hasOnlySex()) return 'bjs_incarceration_data-sex_national'
     }
-    if (breakdowns.geography === "state") {
+    if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace()) {
-        return "bjs_incarceration_data-race_and_ethnicity_state";
+        return 'bjs_incarceration_data-race_and_ethnicity_state'
       }
-      if (breakdowns.hasOnlyAge()) return "bjs_incarceration_data-age_state";
-      if (breakdowns.hasOnlySex()) return "bjs_incarceration_data-sex_state";
+      if (breakdowns.hasOnlyAge()) return 'bjs_incarceration_data-age_state'
+      if (breakdowns.hasOnlySex()) return 'bjs_incarceration_data-sex_state'
     }
 
-    if (breakdowns.geography === "county") {
+    if (breakdowns.geography === 'county') {
       if (breakdowns.hasOnlyRace()) {
         return appendFipsIfNeeded(
-          "vera_incarceration_county-by_race_and_ethnicity_county_time_series",
+          'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
           breakdowns
-        );
+        )
       }
       if (breakdowns.hasOnlyAge()) {
         return appendFipsIfNeeded(
-          "vera_incarceration_county-by_age_county_time_series",
+          'vera_incarceration_county-by_age_county_time_series',
           breakdowns
-        );
+        )
       }
       if (breakdowns.hasOnlySex()) {
         return appendFipsIfNeeded(
-          "vera_incarceration_county-by_sex_county_time_series",
+          'vera_incarceration_county-by_sex_county_time_series',
           breakdowns
-        );
+        )
       }
     }
-    throw new Error("Not implemented");
+    throw new Error('Not implemented')
   }
 
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
-    const breakdowns = metricQuery.breakdowns;
-    const variableId: VariableId | undefined = metricQuery?.variableId;
-    const timeView = metricQuery.timeView;
-    const datasetId = this.getDatasetId(breakdowns);
-    const dataSource = await getDataManager().loadDataset(datasetId);
-    let df = dataSource.toDataFrame();
+    const breakdowns = metricQuery.breakdowns
+    const variableId: VariableId | undefined = metricQuery?.variableId
+    const timeView = metricQuery.timeView
+    const datasetId = this.getDatasetId(breakdowns)
+    const dataSource = await getDataManager().loadDataset(datasetId)
+    let df = dataSource.toDataFrame()
 
-    df = this.filterByGeo(df, breakdowns);
+    df = this.filterByGeo(df, breakdowns)
 
-    let mostRecentYear: string = "";
-    if (variableId === "prison") mostRecentYear = "2016";
-    if (variableId === "jail") mostRecentYear = "2018";
+    let mostRecentYear: string = ''
+    if (variableId === 'prison') mostRecentYear = '2016'
+    if (variableId === 'jail') mostRecentYear = '2018'
 
-    df = this.filterByTimeView(df, timeView, mostRecentYear);
-    df = this.renameGeoColumns(df, breakdowns);
+    df = this.filterByTimeView(df, timeView, mostRecentYear)
+    df = this.renameGeoColumns(df, breakdowns)
 
-    const consumedDatasetIds = [datasetId];
+    const consumedDatasetIds = [datasetId]
 
     // everything uses ACS except county-level reports and territory-reports
     if (
-      breakdowns.geography !== "county" &&
+      breakdowns.geography !== 'county' &&
       !breakdowns.filterFips?.isIslandArea()
     ) {
-      consumedDatasetIds.push(GetAcsDatasetId(breakdowns));
+      consumedDatasetIds.push(GetAcsDatasetId(breakdowns))
     }
 
     // National Level - Map of all states + territory bubbles
-    if (breakdowns.geography === "state" && !breakdowns.filterFips) {
+    if (breakdowns.geography === 'state' && !breakdowns.filterFips) {
       consumedDatasetIds.push(
-        "decia_2020_territory_population-by_sex_territory_state_level"
-      );
+        'decia_2020_territory_population-by_sex_territory_state_level'
+      )
     }
 
     // Territory Level (Island Areas) - All cards
     if (breakdowns.filterFips?.isIslandArea()) {
       consumedDatasetIds.push(
-        "decia_2020_territory_population-by_sex_territory_state_level"
-      );
+        'decia_2020_territory_population-by_sex_territory_state_level'
+      )
       // only time-series cards use decia 2010
-      if (timeView === "time_series") {
+      if (timeView === 'time_series') {
         consumedDatasetIds.push(
-          "decia_2010_territory_population-by_sex_territory_state_level"
-        );
+          'decia_2010_territory_population-by_sex_territory_state_level'
+        )
       }
     }
 
-    df = this.applyDemographicBreakdownFilters(df, breakdowns);
-    df = this.removeUnrequestedColumns(df, metricQuery);
+    df = this.applyDemographicBreakdownFilters(df, breakdowns)
+    df = this.removeUnrequestedColumns(df, metricQuery)
 
-    return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
+    return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic();
+      !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
     return (
-      (breakdowns.geography === "national" ||
-        breakdowns.geography === "state" ||
-        breakdowns.geography === "county") &&
+      (breakdowns.geography === 'national' ||
+        breakdowns.geography === 'state' ||
+        breakdowns.geography === 'county') &&
       validDemographicBreakdownRequest
-    );
+    )
   }
 }
 
-export default IncarcerationProvider;
+export default IncarcerationProvider

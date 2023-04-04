@@ -1,22 +1,24 @@
-import React from "react";
-import styles from "./FaqSection.module.scss";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import { Accordion, AccordionSummary } from "@material-ui/core";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import { FAQ_TAB_LINK } from "../../utils/internalRoutes";
-import { ReactRouterLinkButton, getHtml } from "../../utils/urlutils";
-import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
+import styles from './FaqSection.module.scss'
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Grid,
+  Typography,
+} from '@mui/material'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
+import { ReactRouterLinkButton, getHtml } from '../../utils/urlutils'
+import { selectFaqs } from '../WhatIsHealthEquity/FaqTab'
 
 function Question(props: {
-  questionText: string;
-  ariaControls: string;
-  id: string;
-  answer: JSX.Element;
+  questionText: string
+  ariaControls: string
+  id: string
+  answer: JSX.Element
 }) {
   return (
-    <Accordion component="li" className={styles.FaqListItem}>
+    <Accordion className={styles.FaqListItem}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={props.ariaControls}
@@ -30,7 +32,7 @@ function Question(props: {
         <div className={styles.FaqAnswer}>{props.answer}</div>
       </AccordionDetails>
     </Accordion>
-  );
+  )
 }
 
 function FaqSection() {
@@ -41,7 +43,7 @@ function FaqSection() {
           Frequently asked questions
         </Typography>
       </Grid>
-      <Grid item xs={12} className={styles.FaqQAItem} component="ul">
+      <Grid item xs={12} className={styles.FaqQAItem}>
         {selectFaqs.map((faq, index) => {
           return (
             <Question
@@ -51,7 +53,7 @@ function FaqSection() {
               id={`panel${index + 1}-header`}
               answer={<>{getHtml(faq.a)}</>}
             />
-          );
+          )
         })}
       </Grid>
       <Grid item>
@@ -62,7 +64,7 @@ function FaqSection() {
         />
       </Grid>
     </Grid>
-  );
+  )
 }
 
-export default FaqSection;
+export default FaqSection

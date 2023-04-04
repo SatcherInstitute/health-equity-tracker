@@ -1,26 +1,25 @@
-import React from "react";
-import CardWrapper from "./CardWrapper";
-import { Breakdowns } from "../data/query/Breakdowns";
-import { MetricQuery } from "../data/query/MetricQuery";
-import { type Fips } from "../data/utils/Fips";
-import { CardContent, Grid } from "@material-ui/core";
-import styles from "./Card.module.scss";
-import { type MetricId } from "../data/config/MetricConfig";
-import SviAlert from "./ui/SviAlert";
+import CardWrapper from './CardWrapper'
+import { Breakdowns } from '../data/query/Breakdowns'
+import { MetricQuery } from '../data/query/MetricQuery'
+import { type Fips } from '../data/utils/Fips'
+import { CardContent, Grid } from '@mui/material'
+import styles from './Card.module.scss'
+import { type MetricId } from '../data/config/MetricConfig'
+import SviAlert from './ui/SviAlert'
 
-/* minimize layout shift */
-const PRELOAD_HEIGHT = 139;
+/* minimize layout  shift */
+const PRELOAD_HEIGHT = 139
 
 export interface PopulationCardProps {
-  fips: Fips;
+  fips: Fips
 }
 
 export function PopulationCard(props: PopulationCardProps) {
-  const metricIds: MetricId[] = ["population"];
-  if (props.fips.isCounty()) metricIds.push("svi");
-  const breakdown = Breakdowns.forFips(props.fips);
-  const query = new MetricQuery(metricIds, breakdown);
-  const queries = [query];
+  const metricIds: MetricId[] = ['population']
+  if (props.fips.isCounty()) metricIds.push('svi')
+  const breakdown = Breakdowns.forFips(props.fips)
+  const query = new MetricQuery(metricIds, breakdown)
+  const queries = [query]
 
   return (
     <CardWrapper
@@ -30,9 +29,9 @@ export function PopulationCard(props: PopulationCardProps) {
       hideNH={true}
     >
       {([queryResponse]) => {
-        const { population, svi } = queryResponse?.data?.[0] ?? {};
+        const { population, svi } = queryResponse?.data?.[0] ?? {}
         const totalPopulationSize =
-          population?.toLocaleString("en") ?? "Data Missing";
+          population?.toLocaleString('en') ?? 'Data Missing'
 
         return (
           <CardContent className={styles.PopulationCardContent}>
@@ -80,8 +79,8 @@ export function PopulationCard(props: PopulationCardProps) {
               </Grid>
             </Grid>
           </CardContent>
-        );
+        )
       }}
     </CardWrapper>
-  );
+  )
 }

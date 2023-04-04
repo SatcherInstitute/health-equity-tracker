@@ -1,30 +1,30 @@
-import { ascending, descending, max, min } from "d3";
+import { ascending, descending, max, min } from 'd3'
 import {
   type TrendsData,
   type GroupData,
   type TimeSeries,
   type UnknownData,
-} from "./types";
-import { CONFIG } from "./constants";
+} from './types'
+import { CONFIG } from './constants'
 
-const { BAR_WIDTH } = CONFIG;
+const { BAR_WIDTH } = CONFIG
 
 /* Filters out data for groups that are not selected */
 function filterDataByGroup(data: TrendsData, groups: string[]) {
-  const filteredData = data?.filter(([group]) => groups.includes(group));
-  return filteredData;
+  const filteredData = data?.filter(([group]) => groups.includes(group))
+  return filteredData
 }
 
 /* Filters unknown data by time extent ( x extent ) of current filter */
 function filterUnknownsByTimePeriod(data: UnknownData, dates: string[]) {
-  return data?.filter(([date]: [string, number]) => dates.includes(date));
+  return data?.filter(([date]: [string, number]) => dates.includes(date))
 }
 
 /* Returns the amount (y value) for a specific date (x value) & group */
 function getAmountsByDate(d: TimeSeries, selectedDate: string | null) {
-  const [, amount] = d.find(([date]) => date === selectedDate) ?? [0, 0];
+  const [, amount] = d.find(([date]) => date === selectedDate) ?? [0, 0]
 
-  return amount;
+  return amount
 }
 
 /* Filter and sort data descending for specific date - used in tooltip */
@@ -45,7 +45,7 @@ function sortDataDescending(d: TrendsData, selectedDate: string) {
           getAmountsByDate(bData, selectedDate)
         )
       ) || d
-  );
+  )
 }
 
 /* Returns the highest absolute value amount (y value) at a given date (x value) */
@@ -56,19 +56,19 @@ function getMaxNumberForDate(data: TrendsData, selectedDate: string | null) {
       .filter(([date]) => date === selectedDate)
       // return the absolute value of the numbers for this date
       .map(([, number]) => Math.abs(number))
-  );
+  )
   // return the max number
-  return max(numbers);
+  return max(numbers)
 }
 
 /* Returns the minimum amount (y value) found in all the data */
 function getMinNumber(data: TrendsData) {
-  return min(getAmounts(data));
+  return min(getAmounts(data))
 }
 
 /* Returns the maximum amount (y value) found in all the data */
 function getMaxNumber(data: TrendsData) {
-  return max(getAmounts(data));
+  return max(getAmounts(data))
 }
 
 /* Returns an array of unique date strings in ascending order */
@@ -82,7 +82,7 @@ function getDates(data: TrendsData) {
           data.flatMap(([_, d]) => d.map(([date]: [string, number]) => date))
         )
       ).sort((a, b) => ascending(new Date(a), new Date(b)))
-    : [];
+    : []
 }
 
 /* Returns an array of all amounts (y values) */
@@ -91,7 +91,7 @@ function getAmounts(data: TrendsData) {
     ? data.flatMap(([_, d]) =>
         d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0]
       )
-    : [0];
+    : [0]
 }
 
 /* Returns the width of the tooltip bar for the percent share chart for a specific group and date */
@@ -103,8 +103,8 @@ function getWidthPctShare(
   const width =
     (Math.abs(getAmountsByDate(d, selectedDate)) /
       (getMaxNumberForDate(data, selectedDate) ?? 1)) *
-    (BAR_WIDTH / 4);
-  return width;
+    (BAR_WIDTH / 4)
+  return width
 }
 
 /* Returns the width of the tooltip bar for the hundred k chart for a specific group and date */
@@ -116,8 +116,8 @@ function getWidthHundredK(
   const width =
     (getAmountsByDate(d, selectedDate) /
       (getMaxNumberForDate(data, selectedDate) ?? 1)) *
-    (BAR_WIDTH / 2);
-  return width;
+    (BAR_WIDTH / 2)
+  return width
 }
 
 /* Returns the number of pixels to translate tooltip bar for the percent share chart for a specific group and date */
@@ -132,14 +132,14 @@ function translateXPctShare(
       : BAR_WIDTH / 4 +
         (getAmountsByDate(d, selectedDate) /
           (getMaxNumberForDate(data, selectedDate) ?? 1)) *
-          (BAR_WIDTH / 4);
+          (BAR_WIDTH / 4)
 
-  return translateX;
+  return translateX
 }
 
 /* Detect if at least one row in the time series data contains an unknown_pct value greater than 0 */
 function hasNonZeroUnknowns(data: TimeSeries | undefined) {
-  return data?.some(([, percent]) => percent > 0) ?? false;
+  return data?.some(([, percent]) => percent > 0) ?? false
 }
 
 export {
@@ -156,4 +156,4 @@ export {
   getMinNumber,
   getMaxNumber,
   filterUnknownsByTimePeriod,
-};
+}

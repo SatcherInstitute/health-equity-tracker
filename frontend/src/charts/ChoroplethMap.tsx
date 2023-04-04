@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import { Vega } from "react-vega";
-import { useResponsiveWidth } from "../utils/hooks/useResponsiveWidth";
-import { type Fips } from "../data/utils/Fips";
-import { type MetricConfig, type MetricId } from "../data/config/MetricConfig";
-import { type FieldRange } from "../data/utils/DatasetTypes";
-import { GEOGRAPHIES_DATASET_ID } from "../data/config/MetadataMap";
-import { useFontSize } from "../utils/hooks/useFontSize";
-import sass from "../styles/variables.module.scss";
+import React, { useState, useEffect } from 'react'
+import { Vega } from 'react-vega'
+import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+import { type Fips } from '../data/utils/Fips'
+import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
+import { type FieldRange } from '../data/utils/DatasetTypes'
+import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
+import { useFontSize } from '../utils/hooks/useFontSize'
+import sass from '../styles/variables.module.scss'
 import {
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-} from "./Legend";
-import { useMediaQuery } from "@material-ui/core";
-import { PADDING_FOR_ACTIONS_MENU } from "./utils";
+} from './Legend'
+import { useMediaQuery } from '@mui/material'
+import { PADDING_FOR_ACTIONS_MENU } from './utils'
 import {
   addCAWPTooltipInfo,
   buildTooltipTemplate,
@@ -38,181 +38,179 @@ import {
   ZERO_DOT_SCALE_SPEC,
   getHelperLegend,
   ZERO_YELLOW_SCALE,
-} from "./mapHelpers";
-import { CAWP_DETERMINANTS } from "../data/variables/CawpProvider";
+} from './mapHelpers'
+import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 
 const {
   unknownGrey: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
   darkBlue: DARK_BLUE,
-} = sass;
+} = sass
 
-const VALID_DATASET = "VALID_DATASET";
-const ZERO_DATASET = "ZERO_DATASET";
-const GEO_ID = "id";
+const VALID_DATASET = 'VALID_DATASET'
+const ZERO_DATASET = 'ZERO_DATASET'
+const GEO_ID = 'id'
 
 // TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
-const VAR_FIPS = "fips";
+const VAR_FIPS = 'fips'
 
 export interface ChoroplethMapProps {
   // Data used to create the map
-  data: Array<Record<string, any>>;
+  data: Array<Record<string, any>>
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
-  geoData?: Record<string, any>;
+  geoData?: Record<string, any>
   // Metric within the data that we are visualizing
-  metric: MetricConfig;
+  metric: MetricConfig
   // The geography that this map is showing
-  fips: Fips;
+  fips: Fips
   // Use different labels for legend and tooltip if it's the unknowns map
-  isUnknownsMap?: boolean;
+  isUnknownsMap?: boolean
   // If true, maps will render counties, otherwise it will render states/territories
-  showCounties: boolean;
+  showCounties: boolean
   // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
-  legendData?: Array<Record<string, any>>;
+  legendData?: Array<Record<string, any>>
   // Whether or not the legend is present
-  hideLegend?: boolean;
+  hideLegend?: boolean
   // If legend is present, what is the title
-  legendTitle?: string | string[];
+  legendTitle?: string | string[]
   // Max/min of the data range- if present it will set the color scale at these boundaries
-  fieldRange?: FieldRange;
+  fieldRange?: FieldRange
   // Hide the action bar in the corner of a vega chart
-  hideActions?: boolean;
+  hideActions?: boolean
   // How the color scale is computed mathematically
-  scaleType: ScaleType;
+  scaleType: ScaleType
   // Colors to use for the color scale. Default is yellowgreen
-  scaleColorScheme?: string;
+  scaleColorScheme?: string
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
-  overrideShapeWithCircle?: boolean;
+  overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
-  hideMissingDataTooltip?: boolean;
+  hideMissingDataTooltip?: boolean
   // Callbacks set up so map interactions can update the React UI
-  signalListeners: any;
+  signalListeners: any
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
-  filename?: string;
+  filename?: string
   titles?: {
-    chartTitle: string | string[];
-    subtitle?: string;
-  };
-  listExpanded?: boolean;
-  countColsToAdd: MetricId[];
+    chartTitle: string | string[]
+    subtitle?: string
+  }
+  listExpanded?: boolean
+  countColsToAdd: MetricId[]
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const nonZeroData = props.data.filter(
-    (row) => row[props.metric.metricId] > 0
-  );
+  const nonZeroData = props.data.filter((row) => row[props.metric.metricId] > 0)
 
   const numUniqueNonZeroValues = new Set(
     nonZeroData.map((row) => row[props.metric.metricId])
-  ).size;
+  ).size
 
-  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId);
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
   // render Vega map async as it can be slow
-  const [shouldRenderMap, setShouldRenderMap] = useState(false);
+  const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
   const [ref, width] = useResponsiveWidth(
     /* default width during initialization */ 90
-  );
+  )
 
   // calculate page size to determine if tiny mobile or not
-  const pageIsTiny = useMediaQuery("(max-width:400px)");
-  const fontSize = useFontSize();
+  const pageIsTiny = useMediaQuery('(max-width:400px)')
+  const fontSize = useFontSize()
 
-  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43;
-  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230;
-  const heightWidthRatio = pageIsTiny ? 1 : 0.5;
+  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
+  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
+  const heightWidthRatio = pageIsTiny ? 1 : 0.5
 
   // Initial spec state is set in useEffect
-  const [spec, setSpec] = useState({});
+  const [spec, setSpec] = useState({})
 
-  const LEGEND_WIDTH = props.hideLegend ? 0 : 100;
+  const LEGEND_WIDTH = props.hideLegend ? 0 : 100
 
   // Dataset to use for computing the legend
-  const legendData = props.legendData ?? props.data;
+  const legendData = props.legendData ?? props.data
 
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
-      : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` };
+      : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
 
     /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
     const geoTransformers: any[] = [
       {
-        type: "lookup",
+        type: 'lookup',
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
         values: [props.metric.metricId, ...props.countColsToAdd],
       },
-    ];
+    ]
     // Null SVI was showing
     if (!isCawp && !props.listExpanded) {
-      geoTransformers[0].values.push("rating");
+      geoTransformers[0].values.push('rating')
     }
     if (props.overrideShapeWithCircle) {
       geoTransformers.push({
-        type: "formula",
-        as: "centroid",
+        type: 'formula',
+        as: 'centroid',
         expr: `geoCentroid('${CIRCLE_PROJECTION}', datum.fips)`,
-      });
+      })
     }
     if (props.fips.isStateOrTerritory()) {
       // The first two characters of a county FIPS are the state FIPS
-      const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`;
+      const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`
       geoTransformers.push({
-        type: "filter",
+        type: 'filter',
         expr: stateFipsVar,
-      });
+      })
     }
     if (props.fips.isCounty()) {
       geoTransformers.push({
-        type: "filter",
+        type: 'filter',
         expr: `datum.id === "${props.fips.code}"`,
-      });
+      })
     }
 
     /* SET UP TOOLTIP */
     const tooltipDatum = formatPreventZero100k(
       /* type */ props.metric.type,
       /* metricId */ props.metric.metricId
-    );
+    )
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : props.metric.shortLabel;
+        : props.metric.shortLabel
 
-    const tooltipPairs = { [tooltipLabel]: tooltipDatum };
+    const tooltipPairs = { [tooltipLabel]: tooltipDatum }
 
     const geographyType = getCountyAddOn(
       /* fips */ props.fips,
       /* showCounties */ props.showCounties
-    );
+    )
 
     // Hover tooltip for states with expected 0 values, like CAWP Congress
     const zeroTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
       /* includeSvi */ false
-    );
+    )
 
     // Hover tooltip for unexpected missing data
     const missingDataTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
       /* title */ `datum.properties.name + " ${geographyType}"`,
       /* includeSvi */ false
-    );
+    )
 
     if (isCawp) {
       addCAWPTooltipInfo(
         /* tooltipPairs */ tooltipPairs,
-        /* subTitle */ props.titles?.subtitle ?? "",
+        /* subTitle */ props.titles?.subtitle ?? '',
         /* colsToAdd */ props.countColsToAdd
-      );
+      )
     }
 
     // Hover tooltip for non-zero data
@@ -220,26 +218,26 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
       /* includeSvi */ props.showCounties
-    );
+    )
 
     /* SET UP LEGEND */
-    const legendList = [];
+    const legendList = []
 
     const legend: any = {
       fill: COLOR_SCALE,
-      direction: "horizontal",
+      direction: 'horizontal',
       title: props.legendTitle,
       titleFontSize: pageIsTiny ? 9 : 11,
       titleLimit: 0,
       font: LEGEND_TEXT_FONT,
       labelFont: LEGEND_TEXT_FONT,
-      labelOverlap: "greedy",
+      labelOverlap: 'greedy',
       labelSeparation: 10,
-      orient: "bottom-left",
+      orient: 'bottom-left',
       offset: 15,
-      format: "d",
-    };
-    if (props.metric.type === "pct_share") {
+      format: 'd',
+    }
+    if (props.metric.type === 'pct_share') {
       legend.encode = {
         labels: {
           update: {
@@ -248,16 +246,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             },
           },
         },
-      };
+      }
     }
 
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
       /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
-    );
+    )
     if (!props.hideLegend) {
-      legendList.push(legend, helperLegend);
+      legendList.push(legend, helperLegend)
     }
 
     const colorScale = setupColorScale(
@@ -266,14 +264,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* scaleType */ props.scaleType,
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.scaleColorScheme
-    );
+    )
 
     const projection = getProjection(
       /* fips */ props.fips,
       /* width */ width,
       /* heightWidthRatio */ heightWidthRatio,
       /* overrideShapeWithCirce */ props.overrideShapeWithCircle
-    );
+    )
 
     const marks = [
       isCawp && !props.listExpanded
@@ -301,32 +299,32 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip
       ),
-    ];
+    ]
 
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
-      marks.push(createCircleTextMark(VALID_DATASET));
+      marks.push(createCircleTextMark(VALID_DATASET))
       isCawp && !props.listExpanded
         ? marks.push(createCircleTextMark(ZERO_DATASET))
-        : marks.push(createCircleTextMark(MISSING_DATASET));
+        : marks.push(createCircleTextMark(MISSING_DATASET))
     } else {
       marks.push(
         createInvisibleAltMarks(
           /* tooltipDatum */ tooltipDatum,
           /*  tooltipLabel */ tooltipLabel
         )
-      );
+      )
     }
 
     const altText = makeAltText(
       /* data */ props.data,
-      /* filename */ props.filename ?? "",
+      /* filename */ props.filename ?? '',
       /* fips */ props.fips,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle
-    );
+    )
 
     setSpec({
-      $schema: "https://vega.github.io/schema/vega/v5.json",
+      $schema: 'https://vega.github.io/schema/vega/v5.json',
       background: sass.white,
       description: props.overrideShapeWithCircle
         ? `Territory: ${props.fips.getDisplayName()}`
@@ -360,50 +358,50 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           transform: geoTransformers,
           ...geoData,
           format: {
-            type: "topojson",
-            feature: props.showCounties ? "counties" : "states",
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
         },
         {
           name: VALID_DATASET,
           transform: [
             {
-              type: "filter",
+              type: 'filter',
               expr: `isValid(datum.${props.metric.metricId})`,
             },
           ],
           source: GEO_DATASET,
           format: {
-            type: "topojson",
-            feature: props.showCounties ? "counties" : "states",
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
         },
         {
           name: ZERO_DATASET,
           transform: [
             {
-              type: "filter",
+              type: 'filter',
               expr: `!isValid(datum.${props.metric.metricId})`,
             },
           ],
           source: GEO_DATASET,
           format: {
-            type: "topojson",
-            feature: props.showCounties ? "counties" : "states",
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
         },
         {
           name: MISSING_DATASET,
           transform: [
             {
-              type: "filter",
+              type: 'filter',
               expr: `!isValid(datum.${props.metric.metricId})`,
             },
           ],
           source: GEO_DATASET,
           format: {
-            type: "topojson",
-            feature: props.showCounties ? "counties" : "states",
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
         },
       ],
@@ -426,12 +424,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               fontSize: {
                 value: fontSize,
               },
-              font: { value: "Inter, sans-serif" },
+              font: { value: 'Inter, sans-serif' },
             },
           },
           subtitle: {
             enter: {
-              fontStyle: { value: "italic" },
+              fontStyle: { value: 'italic' },
               fontSize: {
                 value: fontSize - 2,
               },
@@ -441,18 +439,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
       signals: [
         {
-          name: "click",
+          name: 'click',
           value: 0,
-          on: [{ events: "click", update: "datum" }],
+          on: [{ events: 'click', update: 'datum' }],
         },
       ],
-    });
+    })
 
     // Render the Vega map asynchronously, allowing the UI to respond to user interaction before Vega maps render.
     // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
     setTimeout(() => {
-      setShouldRenderMap(true);
-    }, 0);
+      setShouldRenderMap(true)
+    }, 0)
   }, [
     isCawp,
     width,
@@ -477,12 +475,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     heightWidthRatio,
     pageIsTiny,
     fontSize,
-  ]);
+  ])
 
   const mapStyle = {
-    width: "90%",
+    width: '90%',
     marginRight: PADDING_FOR_ACTIONS_MENU,
-  };
+  }
 
   return (
     <div ref={ref} style={mapStyle}>
@@ -500,10 +498,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
               editor: false,
             }
           }
-          downloadFileName={`${props.filename ?? ""} - Health Equity Tracker`}
+          downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
       )}
     </div>
-  );
+  )
 }

@@ -1,89 +1,91 @@
-import React, { useRef, useState } from "react";
-import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import TextField from "@material-ui/core/TextField";
-import Autocomplete from "@material-ui/lab/Autocomplete"; // can't lazy load due to typing issue
-import { Fips, USA_DISPLAY_NAME, USA_FIPS } from "../../data/utils/Fips";
-import Popover from "@material-ui/core/Popover";
-import Button from "@material-ui/core/Button";
-import styles from "./OptionsSelector.module.scss";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import { usePopover } from "../../utils/hooks/usePopover";
+import React, { useRef, useState } from 'react'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
+import { Fips, USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/Fips'
+import styles from './OptionsSelector.module.scss'
+import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
   DEFAULT,
   type DefaultDropdownVarId,
-} from "../../utils/MadLibs";
-import { Box, Grid } from "@material-ui/core";
+} from '../../utils/MadLibs'
+import {
+  Box,
+  Grid,
+  ListItemText,
+  ListItem,
+  List,
+  Button,
+  Popover,
+  Autocomplete,
+  TextField,
+} from '@mui/material'
 import {
   type DropdownVarId,
   type VariableId,
-} from "../../data/config/MetricConfig";
-import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
+} from '../../data/config/MetricConfig'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 
 function OptionsSelector(props: {
-  value: VariableId | string | DefaultDropdownVarId; // condition data type OR fips code string OR default setting with no topic selected
-  options: Fips[] | string[][];
-  onOptionUpdate: (option: string) => void;
+  value: VariableId | string | DefaultDropdownVarId // condition data type OR fips as string OR default setting with no topic selected
+  options: Fips[] | string[][]
+  onOptionUpdate: (option: string) => void
 }) {
-  const isFips = !!(props.options[0] && props.options[0] instanceof Fips);
-  let currentDisplayName;
+  const isFips = !!(props.options[0] && props.options[0] instanceof Fips)
+  let currentDisplayName
   if (isFips) {
-    currentDisplayName = new Fips(props.value).getFullDisplayName();
+    currentDisplayName = new Fips(props.value).getFullDisplayName()
   } else {
     const chosenOption = (props.options as string[][]).find(
       (i: string[]) => i[0] === props.value
-    );
-    currentDisplayName = chosenOption ? chosenOption[1] : "";
+    )
+    currentDisplayName = chosenOption ? chosenOption[1] : ''
   }
 
-  const popoverRef = useRef(null);
-  const popover = usePopover();
+  const popoverRef = useRef(null)
+  const popover = usePopover()
 
-  const [, setTextBoxValue] = useState("");
+  const [, setTextBoxValue] = useState('')
   const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextBoxValue(event.target.value);
-  };
+    setTextBoxValue(event.target.value)
+  }
 
-  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false);
+  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
   const openAutoComplete = () => {
-    setAutoCompleteOpen(true);
-  };
+    setAutoCompleteOpen(true)
+  }
 
   const closeAutoComplete = () => {
-    setAutoCompleteOpen(false);
-  };
+    setAutoCompleteOpen(false)
+  }
 
   function getGroupName(option: Fips): string {
-    if (option.isUsa()) return "National";
-    if (option.isState()) return "States";
-    if (option.isTerritory()) return "Territories";
+    if (option.isUsa()) return 'National'
+    if (option.isState()) return 'States'
+    if (option.isTerritory()) return 'Territories'
     return `${option.getParentFips().getDisplayName()} ${
-      option.getParentFips().isTerritory() ? " County Equivalents" : " Counties"
-    }`;
+      option.getParentFips().isTerritory() ? ' County Equivalents' : ' Counties'
+    }`
   }
 
-  const anchorO = "bottom";
-  const transformO = "top";
+  const anchorO = 'bottom'
+  const transformO = 'top'
 
-  const noTopic = props.value === DEFAULT;
+  const noTopic = props.value === DEFAULT
 
   // only pulse the condition button when no topic is selected and dropdown menu is closed (and user hasn't set their machine to prefer reduced motion)
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const doPulse =
-    !prefersReducedMotion && !isFips && noTopic && !popover.isOpen;
+  const prefersReducedMotion = usePrefersReducedMotion()
+  const doPulse = !prefersReducedMotion && !isFips && noTopic && !popover.isOpen
 
-  const dropdownId = `${props.value}-dropdown-${isFips ? "fips" : "topic"}`;
+  const dropdownId = `${props.value}-dropdown-${isFips ? 'fips' : 'topic'}`
 
   function handleUsaButton() {
-    props.onOptionUpdate(USA_FIPS);
-    popover.close();
+    props.onOptionUpdate(USA_FIPS)
+    popover.close()
   }
 
-  const isUsa = props.value === "00";
+  const isUsa = props.value === '00'
 
   return (
     <>
@@ -96,7 +98,7 @@ function OptionsSelector(props: {
           className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
           onClick={popover.open}
         >
-          {currentDisplayName}{" "}
+          {currentDisplayName}{' '}
           {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
         </Button>
 
@@ -109,11 +111,11 @@ function OptionsSelector(props: {
           onClose={popover.close}
           anchorOrigin={{
             vertical: anchorO,
-            horizontal: "center",
+            horizontal: 'center',
           }}
           transformOrigin={{
             vertical: transformO,
-            horizontal: "center",
+            horizontal: 'center',
           }}
         >
           {/* Location Dropdown */}
@@ -128,15 +130,17 @@ function OptionsSelector(props: {
                 groupBy={(option) => getGroupName(option)}
                 clearOnEscape={true}
                 getOptionLabel={(fips) => fips.getFullDisplayName()}
-                getOptionSelected={(fips) => fips.code === props.value}
-                renderOption={(fips) => <>{fips.getFullDisplayName()}</>}
+                isOptionEqualToValue={(fips) => fips.code === props.value}
+                renderOption={(props, fips: Fips) => {
+                  return <li {...props}>{fips.getFullDisplayName()}</li>
+                }}
                 open={autoCompleteOpen}
                 onOpen={openAutoComplete}
                 onClose={closeAutoComplete}
                 renderInput={(params) => (
                   <TextField
                     placeholder=""
-                    autoFocus
+                    autoFocus // eslint-disable-line jsx-a11y/no-autofocus
                     margin="dense"
                     variant="outlined"
                     onChange={updateTextBox}
@@ -144,13 +148,13 @@ function OptionsSelector(props: {
                   />
                 )}
                 onChange={(e, fips) => {
-                  props.onOptionUpdate(fips.code);
-                  setTextBoxValue("");
-                  popover.close();
+                  props.onOptionUpdate(fips.code)
+                  setTextBoxValue('')
+                  popover.close()
                 }}
               />
               <span className={styles.NoteText}>
-                County, state, territory, or{" "}
+                County, state, territory, or{' '}
                 {isUsa ? (
                   USA_DISPLAY_NAME
                 ) : (
@@ -182,14 +186,14 @@ function OptionsSelector(props: {
                       >
                         <h3
                           className={styles.CategoryTitleText}
-                          aria-label={category.title + " options"}
+                          aria-label={category.title + ' options'}
                         >
                           {category.title}
                         </h3>
                         <List dense={true} role="menu">
                           {(props.options as string[][]).map(
                             (item: string[]) => {
-                              const [optionId, optionDisplayName] = item;
+                              const [optionId, optionDisplayName] = item
                               return (
                                 // place variables in their respective categories
                                 category.options.includes(
@@ -202,8 +206,8 @@ function OptionsSelector(props: {
                                     button
                                     selected={optionId === props.value}
                                     onClick={() => {
-                                      popover.close();
-                                      props.onOptionUpdate(optionId);
+                                      popover.close()
+                                      props.onOptionUpdate(optionId)
                                     }}
                                   >
                                     <ListItemText
@@ -212,12 +216,12 @@ function OptionsSelector(props: {
                                     />
                                   </ListItem>
                                 )
-                              );
+                              )
                             }
                           )}
                         </List>
                       </Grid>
-                    );
+                    )
                   })}
                   <Grid
                     item
@@ -230,11 +234,15 @@ function OptionsSelector(props: {
                       <Button
                         className={styles.GoBackButton}
                         onClick={() => {
-                          popover.close();
-                          props.onOptionUpdate(DEFAULT);
+                          popover.close()
+                          props.onOptionUpdate(DEFAULT)
                         }}
                       >
-                        <KeyboardBackspaceIcon style={{ fontSize: "small" }} />{" "}
+                        <KeyboardBackspaceIcon
+                          style={{
+                            fontSize: 'small',
+                          }}
+                        />{' '}
                         <span className={styles.GoBackButtonText}>
                           Clear topic selection
                         </span>
@@ -248,7 +256,7 @@ function OptionsSelector(props: {
         </Popover>
       </span>
     </>
-  );
+  )
 }
 
-export default OptionsSelector;
+export default OptionsSelector

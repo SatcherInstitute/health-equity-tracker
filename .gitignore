@@ -26,6 +26,7 @@ node_modules/
 /frontend/npm-debug.log*
 /frontend/playwright-report/
 /frontend/test-results/
+/frontend/coverage/
 
 config/.terraform.lock.hcl
 config/.terraform/
@@ -37,4 +38,3 @@ python/datasources/build/
 python/ingestion/build/
 
 /scripts/.env.secrets
-python/tests/datasources/_test_cawp_time_local.py

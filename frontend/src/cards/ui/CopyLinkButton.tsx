@@ -1,34 +1,33 @@
-import React, { useState } from "react";
-import LinkIcon from "@material-ui/icons/Link";
-import styles from "./CopyLinkButton.module.scss";
-import { IconButton, Snackbar } from "@material-ui/core";
-import { type ScrollableHashId } from "../../utils/hooks/useStepObserver";
-import { Alert } from "@material-ui/lab";
+import { useState } from 'react'
+import LinkIcon from '@mui/icons-material/Link'
+import styles from './CopyLinkButton.module.scss'
+import { IconButton, Snackbar, Alert } from '@mui/material'
+import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface CopyLinkButtonProps {
-  scrollToHash: ScrollableHashId;
+  scrollToHash: ScrollableHashId
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false)
 
-  const urlWithoutHash = window.location.href.split("#")[0];
-  const cardHashLink = `${urlWithoutHash}#${props.scrollToHash}`;
+  const urlWithoutHash = window.location.href.split('#')[0]
+  const cardHashLink = `${urlWithoutHash}#${props.scrollToHash}`
 
   function handleClose() {
-    setOpen(false);
+    setOpen(false)
   }
 
   function handleClick() {
     async function asyncHandleClick() {
-      await navigator.clipboard.writeText(cardHashLink);
-      setOpen(true);
+      await navigator.clipboard.writeText(cardHashLink)
+      setOpen(true)
     }
-    asyncHandleClick().catch((error) => error);
+    asyncHandleClick().catch((error) => error)
   }
 
-  let cardName = props.scrollToHash.replaceAll("-", " ");
-  cardName = cardName[0].toUpperCase() + cardName.slice(1);
+  let cardName = props.scrollToHash.replaceAll('-', ' ')
+  cardName = cardName[0].toUpperCase() + cardName.slice(1)
 
   return (
     <>
@@ -45,5 +44,5 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
         </Alert>
       </Snackbar>
     </>
-  );
+  )
 }

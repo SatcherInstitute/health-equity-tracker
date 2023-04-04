@@ -1,47 +1,52 @@
-import styles from "./LandingPage.module.scss";
-import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import styles from './LandingPage.module.scss'
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
   ReactRouterLinkButton,
   REACT_QUERY_OPTIONS,
-} from "../../utils/urlutils";
+} from '../../utils/urlutils'
+import {
+  Button,
+  Grid,
+  Typography,
+  Box,
+  TextField,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_TAB_LINK,
-} from "../../utils/internalRoutes";
-import { Box, TextField, useMediaQuery, useTheme } from "@material-ui/core";
-import { Helmet } from "react-helmet-async";
-import LazyLoad from "react-lazyload";
-import NewsPreviewCard from "../WhatIsHealthEquity/News/NewsPreviewCard";
-import { useQuery } from "react-query";
-import type { Article } from "../WhatIsHealthEquity/NewsTab";
-import { ArticlesSkeleton } from "../WhatIsHealthEquity/News/AllPosts";
-import { usePrefersReducedMotion } from "../../utils/hooks/usePrefersReducedMotion";
-import { urlMap } from "../../utils/externalUrls";
-import { Link } from "react-router-dom";
+} from '../../utils/internalRoutes'
+import { Helmet } from 'react-helmet-async'
+import LazyLoad from 'react-lazyload'
+import NewsPreviewCard from '../WhatIsHealthEquity/News/NewsPreviewCard'
+import { useQuery } from 'react-query'
+import type { Article } from '../WhatIsHealthEquity/NewsTab'
+import { ArticlesSkeleton } from '../WhatIsHealthEquity/News/AllPosts'
+import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
+import { urlMap } from '../../utils/externalUrls'
+import { Link } from 'react-router-dom'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,
     fetchLandingPageNewsData,
     REACT_QUERY_OPTIONS
-  );
+  )
 
-  const theme = useTheme();
-  const pageIsSmall = useMediaQuery(theme.breakpoints.only("sm"));
-  const pageIsMedium = useMediaQuery(theme.breakpoints.only("md"));
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("lg"));
+  const theme = useTheme()
+  const pageIsSmall = useMediaQuery(theme.breakpoints.only('sm'))
+  const pageIsMedium = useMediaQuery(theme.breakpoints.only('md'))
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('lg'))
 
-  let numberOfArticlePreviews = 1;
-  if (pageIsSmall) numberOfArticlePreviews = 2;
-  if (pageIsMedium) numberOfArticlePreviews = 3;
-  if (pageIsWide) numberOfArticlePreviews = 4;
+  let numberOfArticlePreviews = 1
+  if (pageIsSmall) numberOfArticlePreviews = 2
+  if (pageIsMedium) numberOfArticlePreviews = 3
+  if (pageIsWide) numberOfArticlePreviews = 4
 
-  const recentArticles = data?.data.slice(0, numberOfArticlePreviews);
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
+  const prefersReducedMotion = usePrefersReducedMotion()
 
   return (
     <>
@@ -93,8 +98,8 @@ function LandingPage() {
             >
               Our goal for this tool is to support the work being done by
               policymakers, community leaders, researchers, and ultimately all
-              champions for health equity.{" "}
-              <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{" "}
+              champions for health equity.{' '}
+              <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{' '}
               and find data to help your community reach their best level of
               health.
             </Typography>
@@ -161,17 +166,15 @@ function LandingPage() {
               direction="row"
               justifyContent="space-around"
             >
-              {recentArticles && !isLoading
-? (
+              {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
                   return (
                     <Grid item xs={12} sm={6} md={4} lg={3} key={article.id}>
                       <NewsPreviewCard article={article} />
                     </Grid>
-                  );
+                  )
                 })
-              )
-: (
+              ) : (
                 <ArticlesSkeleton
                   doPulse={!error}
                   numberLoading={numberOfArticlePreviews}
@@ -370,7 +373,7 @@ function LandingPage() {
           container
           className={styles.NewsletterSignUpRow}
           justifyContent="center"
-          component={"aside"}
+          component={'aside'}
         >
           <section className={styles.NewsletterSignUpBox}>
             <h4 className={styles.NewsletterSignUpHeader}>
@@ -411,7 +414,7 @@ function LandingPage() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default LandingPage;
+export default LandingPage

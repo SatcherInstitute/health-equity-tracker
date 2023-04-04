@@ -1,76 +1,76 @@
-import Button from "@material-ui/core/Button";
-import axios from "axios";
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { type VariableId } from "../data/config/MetricConfig";
-import { getLogger } from "./globals";
-import { EXPLORE_DATA_PAGE_LINK } from "./internalRoutes";
-import { type MadLibId, type PhraseSelections } from "./MadLibs";
+import Button from '@mui/material/Button'
+import axios from 'axios'
+import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { type VariableId } from '../data/config/MetricConfig'
+import { getLogger } from './globals'
+import { EXPLORE_DATA_PAGE_LINK } from './internalRoutes'
+import { type MadLibId, type PhraseSelections } from './MadLibs'
 
-export const STICKY_VERSION_PARAM = "sv";
+export const STICKY_VERSION_PARAM = 'sv'
 
 // Value is a comma-separated list of dataset ids. Dataset ids cannot have
 // commas in them.
-export const DATA_SOURCE_PRE_FILTERS = "dpf";
+export const DATA_SOURCE_PRE_FILTERS = 'dpf'
 
 // Value is index of the phrase to jump to
-export const MADLIB_PHRASE_PARAM = "mlp";
+export const MADLIB_PHRASE_PARAM = 'mlp'
 
 // Value is a comma-separated list mapping indices to values with : delimiter
 // Values are applied on top of defaults so you only need to specify those that differ
 // mls=0:1,2:5
-export const MADLIB_SELECTIONS_PARAM = "mls";
+export const MADLIB_SELECTIONS_PARAM = 'mls'
 
 // Value is index of the tab to jump to
-export const TAB_PARAM = "tab";
+export const TAB_PARAM = 'tab'
 
 // 'true' or 'false' will override the cookie to show or hide the onboarding flow
-export const SHOW_ONBOARDING_PARAM = "onboard";
+export const SHOW_ONBOARDING_PARAM = 'onboard'
 
-export const DEMOGRAPHIC_PARAM = "demo";
-export const DATA_TYPE_1_PARAM = "dt1";
-export const DATA_TYPE_2_PARAM = "dt2";
+export const DEMOGRAPHIC_PARAM = 'demo'
+export const DATA_TYPE_1_PARAM = 'dt1'
+export const DATA_TYPE_2_PARAM = 'dt2'
 
 // Ensures backwards compatibility for external links to old VariableIds
 export function swapOldDatatypeParams(oldParam: string) {
   const swaps: Record<string, VariableId> = {
-    deaths: "covid_deaths",
-    cases: "covid_cases",
-    hospitalizations: "covid_hospitalizations",
-  };
-  return swaps[oldParam] || oldParam;
+    deaths: 'covid_deaths',
+    cases: 'covid_cases',
+    hospitalizations: 'covid_hospitalizations',
+  }
+  return swaps[oldParam] || oldParam
 }
 
 // WORDPRESS CONFIG
-export const NEWS_URL = "https://hetblog.dreamhosters.com/";
-export const WP_API = "wp-json/wp/v2/"; // "?rest_route=/wp/v2/"
-export const ALL_POSTS = "posts";
-export const ALL_MEDIA = "media";
-export const ALL_CATEGORIES = "categories";
-export const ALL_AUTHORS = "authors";
-export const ALL_PAGES = "pages"; // for dynamic copy
-export const WP_EMBED_PARAM = "_embed";
-export const WP_PER_PAGE_PARAM = "per_page=";
-export const MAX_FETCH = 100;
+export const NEWS_URL = 'https://hetblog.dreamhosters.com/'
+export const WP_API = 'wp-json/wp/v2/' // "?rest_route=/wp/v2/"
+export const ALL_POSTS = 'posts'
+export const ALL_MEDIA = 'media'
+export const ALL_CATEGORIES = 'categories'
+export const ALL_AUTHORS = 'authors'
+export const ALL_PAGES = 'pages' // for dynamic copy
+export const WP_EMBED_PARAM = '_embed'
+export const WP_PER_PAGE_PARAM = 'per_page='
+export const MAX_FETCH = 100
 
 // PAGE IDS FOR WORDPRESS DYNAMIC COPY
-export const WIHE_PAGE_ID = 37; // hard coded id where dynamic copy is stored
+export const WIHE_PAGE_ID = 37 // hard coded id where dynamic copy is stored
 
 // REACT QUERY
-export const ARTICLES_KEY = "cached_wp_articles";
-export const ARTICLES_KEY_4 = "cached_wp_articles_first_four";
-export const DYNAMIC_COPY_KEY = "cached_wp_dynamic_copy";
+export const ARTICLES_KEY = 'cached_wp_articles'
+export const ARTICLES_KEY_4 = 'cached_wp_articles_first_four'
+export const DYNAMIC_COPY_KEY = 'cached_wp_dynamic_copy'
 export const REACT_QUERY_OPTIONS = {
   cacheTime: 1000 * 60 * 5, // never garbage collect, always default to cache
   staleTime: 1000 * 30, // treat cache data as fresh and don't refetch
-};
+}
 
 export async function fetchNewsData() {
   return await axios.get(
     `${
       NEWS_URL + WP_API + ALL_POSTS
     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${MAX_FETCH}`
-  );
+  )
 }
 
 export async function fetchLandingPageNewsData() {
@@ -78,42 +78,41 @@ export async function fetchLandingPageNewsData() {
     `${
       NEWS_URL + WP_API + ALL_POSTS
     }?${WP_EMBED_PARAM}&${WP_PER_PAGE_PARAM}${4}`
-  );
+  )
 }
 
 export async function fetchCopyData() {
-  return await axios.get(`${NEWS_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`);
+  return await axios.get(`${NEWS_URL + WP_API + ALL_PAGES}/${WIHE_PAGE_ID}`)
 }
 
 export function useUrlSearchParams() {
-  return new URLSearchParams(useLocation().search);
+  return new URLSearchParams(useLocation().search)
 }
 
 export function LinkWithStickyParams(props: {
-  to: string;
-  target?: string;
-  className?: string;
-  children: React.ReactNode;
+  to: string
+  target?: string
+  className?: string
+  children: React.ReactNode
 }) {
-  const linkProps = { ...props };
-  const params = useSearchParams();
-  let newUrl = props.to;
+  const linkProps = { ...props }
+  const params = useSearchParams()
+  let newUrl = props.to
   if (params[STICKY_VERSION_PARAM]) {
     // Note: doesn't handle urls that already have params on them.
-    newUrl =
-      newUrl + `?${STICKY_VERSION_PARAM}=${params[STICKY_VERSION_PARAM]}`;
+    newUrl = newUrl + `?${STICKY_VERSION_PARAM}=${params[STICKY_VERSION_PARAM]}`
   }
-  linkProps.to = newUrl;
+  linkProps.to = newUrl
 
-  return <Link {...linkProps}>{props.children}</Link>;
+  return <Link {...linkProps}>{props.children}</Link>
 }
 
 export function ReactRouterLinkButton(props: {
-  url: string;
-  className?: string;
-  displayName?: string;
-  children?: React.ReactNode;
-  ariaLabel?: string;
+  url: string
+  className?: string
+  displayName?: string
+  children?: React.ReactNode
+  ariaLabel?: string
 }) {
   return (
     <Button
@@ -123,14 +122,14 @@ export function ReactRouterLinkButton(props: {
     >
       {props.displayName ?? props.children}
     </Button>
-  );
+  )
 }
 
 export function useSearchParams() {
   // Note: URLSearchParams doesn't support IE, if we keep this code and we want
   // to support IE we'll need to change it.
-  const params = new URLSearchParams(useLocation().search);
-  return Object.fromEntries(params.entries());
+  const params = new URLSearchParams(useLocation().search)
+  return Object.fromEntries(params.entries())
 }
 
 export function linkToMadLib(
@@ -139,68 +138,68 @@ export function linkToMadLib(
   absolute = false
 ) {
   const selectionOverrides = Object.keys(phraseSelections).map(
-    (key) => key + ":" + phraseSelections[Number(key)]
-  );
+    (key) => key + ':' + phraseSelections[Number(key)]
+  )
 
   const url = [
     EXPLORE_DATA_PAGE_LINK,
-    "?",
+    '?',
     MADLIB_PHRASE_PARAM,
-    "=",
+    '=',
     madLibId,
-    "&",
+    '&',
     MADLIB_SELECTIONS_PARAM,
-    "=",
-    selectionOverrides.join(","),
-  ].join("");
-  return absolute ? window.location.host + url : url;
+    '=',
+    selectionOverrides.join(','),
+  ].join('')
+  return absolute ? window.location.host + url : url
 }
 
 export function setParameter(
   paramName: string,
   paramValue: string | null = null
 ) {
-  setParameters([{ name: paramName, value: paramValue }]);
+  setParameters([{ name: paramName, value: paramValue }])
 }
 
 export interface ParamKeyValue {
-  name: string;
-  value: string | null;
+  name: string
+  value: string | null
 }
 
 export function setParameters(paramMap: ParamKeyValue[]) {
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(window.location.search)
 
   paramMap.forEach((kv) => {
-    const paramName = kv.name;
-    const paramValue = kv.value;
+    const paramName = kv.name
+    const paramValue = kv.value
 
     if (paramValue) {
-      searchParams.set(paramName, paramValue);
+      searchParams.set(paramName, paramValue)
     } else {
-      searchParams.delete(paramName);
+      searchParams.delete(paramName)
     }
-  });
+  })
 
   const base =
     window.location.protocol +
-    "//" +
+    '//' +
     window.location.host +
-    window.location.pathname;
+    window.location.pathname
 
-  window.history.pushState({}, "", base + "?" + searchParams.toString());
+  window.history.pushState({}, '', base + '?' + searchParams.toString())
 }
 
 const defaultHandler = <T,>(inp: string | null): T => {
-  return inp as unknown as T;
-};
+  return inp as unknown as T
+}
 
 export function removeParamAndReturnValue<T1>(
   paramName: string,
   defaultValue: T1
 ) {
-  setParameter(paramName, null);
-  return defaultValue;
+  setParameter(paramName, null)
+  return defaultValue
 }
 
 export function getParameter<T1>(
@@ -208,76 +207,76 @@ export function getParameter<T1>(
   defaultValue: T1,
   formatter: (x: any) => T1 = defaultHandler
 ): T1 {
-  const searchParams = new URLSearchParams(window.location.search);
+  const searchParams = new URLSearchParams(window.location.search)
   try {
     return searchParams.has(paramName)
       ? formatter(searchParams.get(paramName))
-      : defaultValue;
+      : defaultValue
   } catch (err) {
-    console.error(err);
-    return removeParamAndReturnValue(paramName, defaultValue);
+    console.error(err)
+    return removeParamAndReturnValue(paramName, defaultValue)
   }
 }
 
-const kvSeparator = ".";
-const partsSeparator = "-";
+const kvSeparator = '.'
+const partsSeparator = '-'
 
 export const parseMls = (param: string) => {
-  const parts = param.split(partsSeparator);
-  const selection: PhraseSelections = {};
+  const parts = param.split(partsSeparator)
+  const selection: PhraseSelections = {}
   parts.forEach((part) => {
-    const p = part.split(kvSeparator);
-    selection[Number(p[0])] = p[1];
-  });
+    const p = part.split(kvSeparator)
+    selection[Number(p[0])] = p[1]
+  })
 
-  return selection;
-};
+  return selection
+}
 
 export const stringifyMls = (selection: PhraseSelections): string => {
-  const kvPair: string[] = [];
+  const kvPair: string[] = []
 
   Object.keys(selection).forEach((key: any) => {
-    kvPair.push(key + kvSeparator + selection[key]);
-  });
+    kvPair.push(key + kvSeparator + selection[key])
+  })
 
-  return kvPair.join(partsSeparator);
-};
+  return kvPair.join(partsSeparator)
+}
 
-export type PSEventHandler = () => void;
+export type PSEventHandler = () => void
 
-const psSubscriptions: any = {};
-let psCount: number = 0;
+const psSubscriptions: any = {}
+let psCount: number = 0
 
 export const psSubscribe = (
   handler: PSEventHandler,
-  keyPrefix = "unk"
+  keyPrefix = 'unk'
 ): { unsubscribe: () => void } => {
-  const key = keyPrefix + "_" + psCount;
-  getLogger().debugLog("Adding PSHandler: " + key);
-  psSubscriptions[key] = handler;
-  psCount++;
+  const key = keyPrefix + '_' + psCount
+  getLogger().debugLog('Adding PSHandler: ' + key)
+  psSubscriptions[key] = handler
+  psCount++
   return {
     unsubscribe: () => {
-      psUnsubscribe(key);
+      psUnsubscribe(key)
     },
-  };
-};
+  }
+}
 
 export const psUnsubscribe = (k: string) => {
-  getLogger().debugLog("Removing PSHandler: " + k);
+  getLogger().debugLog('Removing PSHandler: ' + k)
   // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
-  delete psSubscriptions[k];
-};
+  delete psSubscriptions[k]
+}
 
 window.onpopstate = () => {
   Object.keys(psSubscriptions).forEach((key) => {
-    const handler = psSubscriptions[key];
+    const handler = psSubscriptions[key]
     if (handler) {
-      getLogger().debugLog("Firing PSHandler: " + key);
-      handler();
+      getLogger().debugLog('Firing PSHandler: ' + key)
+      handler()
     }
-  });
-};
+  })
+}
 
 /*
 Dumps a string of HTML into a div (or string with optional boolean)
@@ -285,11 +284,11 @@ Dumps a string of HTML into a div (or string with optional boolean)
 export function getHtml(item: any, asString?: boolean) {
   // if div is needed
   if (!asString) {
-    return <div dangerouslySetInnerHTML={{ __html: item || "" }}></div>;
+    return <div dangerouslySetInnerHTML={{ __html: item || '' }}></div>
   }
 
   // if only string is needed, create an HTML element and then extract the text
-  const span = document.createElement("span");
-  span.innerHTML = item;
-  return span.textContent ?? span.innerText;
+  const span = document.createElement('span')
+  span.innerHTML = item
+  return span.textContent ?? span.innerText
 }

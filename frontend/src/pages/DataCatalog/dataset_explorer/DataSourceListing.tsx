@@ -1,69 +1,69 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 import {
   type DataSourceMetadata,
   type MapOfDatasetMetadata,
   type DatasetMetadata,
-} from "../../../data/utils/DatasetTypes";
-import { getLogger } from "../../../utils/globals";
-import styles from "./DataSourceListing.module.scss";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
-import downloadDataset from "./downloadDataset";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import Dialog from "@material-ui/core/Dialog";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Alert from "@material-ui/lab/Alert";
-import ListItemText from "@material-ui/core/ListItemText";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import GetAppIcon from "@material-ui/icons/GetApp";
-import { Grid, IconButton } from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import Link from "@material-ui/core/Link";
+} from '../../../data/utils/DatasetTypes'
+import { getLogger } from '../../../utils/globals'
+import styles from './DataSourceListing.module.scss'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import Typography from '@mui/material/Typography'
+import downloadDataset from './downloadDataset'
+import DialogTitle from '@mui/material/DialogTitle'
+import Dialog from '@mui/material/Dialog'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import CircularProgress from '@mui/material/CircularProgress'
+import Alert from '@mui/material/Alert'
+import ListItemText from '@mui/material/ListItemText'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import GetAppIcon from '@mui/icons-material/GetApp'
+import { Grid, IconButton } from '@mui/material'
+import CloseIcon from '@mui/icons-material/Close'
+import Link from '@mui/material/Link'
 
-type LoadStatus = "loading" | "unloaded" | "error" | "loaded";
+type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
 function DownloadDatasetListItem(props: {
-  datasetId: string;
-  datasetMetadata: DatasetMetadata;
+  datasetId: string
+  datasetMetadata: DatasetMetadata
 }) {
-  const [downloadStatus, setDownloadStatus] = useState<LoadStatus>("unloaded");
+  const [downloadStatus, setDownloadStatus] = useState<LoadStatus>('unloaded')
 
   const download = async () => {
-    setDownloadStatus("loading");
-    const state = await downloadDataset(props.datasetId);
-    setDownloadStatus(state ? "loaded" : "error");
-  };
+    setDownloadStatus('loading')
+    const state = await downloadDataset(props.datasetId)
+    setDownloadStatus(state ? 'loaded' : 'error')
+  }
 
   const getIcon = () => {
     switch (downloadStatus) {
-      case "unloaded":
-        return <GetAppIcon />;
-      case "loading":
+      case 'unloaded':
+        return <GetAppIcon />
+      case 'loading':
         return (
           <CircularProgress
             className={styles.DownloadIcon}
             aria-label="loading"
           />
-        );
-      case "loaded":
-        return <CheckCircleIcon />;
-      case "error":
-        return "";
+        )
+      case 'loaded':
+        return <CheckCircleIcon />
+      case 'error':
+        return ''
     }
-  };
+  }
 
   if (props.datasetMetadata === undefined) {
     void getLogger().logError(
       new Error(
-        "Dataset metadata was missing for dataset with ID: " + props.datasetId
+        'Dataset metadata was missing for dataset with ID: ' + props.datasetId
       ),
-      "ERROR"
-    );
-    return <></>;
+      'ERROR'
+    )
+    return <></>
   }
 
   return (
@@ -72,17 +72,17 @@ function DownloadDatasetListItem(props: {
       button
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={async () => {
-        await download();
+        await download()
       }}
       key={props.datasetId}
     >
-      {downloadStatus !== "error" ? (
+      {downloadStatus !== 'error' ? (
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
             className={styles.DownloadListItemText}
-            primary={props.datasetMetadata.name + ".csv"}
-            secondary={"Last updated: " + props.datasetMetadata.update_time}
+            primary={props.datasetMetadata.name + '.csv'}
+            secondary={'Last updated: ' + props.datasetMetadata.update_time}
           />
         </>
       ) : (
@@ -91,15 +91,15 @@ function DownloadDatasetListItem(props: {
         </Alert>
       )}
     </ListItem>
-  );
+  )
 }
 export interface DataSourceListingProps {
-  source_metadata: DataSourceMetadata;
-  dataset_metadata: MapOfDatasetMetadata;
+  source_metadata: DataSourceMetadata
+  dataset_metadata: MapOfDatasetMetadata
 }
 
 export function DataSourceListing(props: DataSourceListingProps) {
-  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [dialogIsOpen, setDialogIsOpen] = useState(false)
 
   return (
     <Card
@@ -112,6 +112,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           href={props.source_metadata.data_source_link}
           target="_blank"
           rel="noopener noreferrer"
+          underline="hover"
         >
           {props.source_metadata.data_source_name}
         </Link>
@@ -154,6 +155,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 href={props.source_metadata.data_source_link}
                 target="_blank"
                 rel="noopener noreferrer"
+                underline="hover"
               >
                 {props.source_metadata.data_source_pretty_site_name}
               </Link>
@@ -167,10 +169,10 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <Button
             color="primary"
             onClick={() => {
-              setDialogIsOpen(true);
+              setDialogIsOpen(true)
             }}
             className={styles.DownloadListItem}
-            aria-label={"Download " + props.source_metadata.data_source_name}
+            aria-label={'Download ' + props.source_metadata.data_source_name}
           >
             View downloadable tables
           </Button>
@@ -179,7 +181,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
         {/* MODAL WITH DOWNLOADABLE FILES */}
         <Dialog
           onClose={() => {
-            setDialogIsOpen(false);
+            setDialogIsOpen(false)
           }}
           open={dialogIsOpen}
         >
@@ -197,7 +199,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
                   align="left"
                   component="h3"
                 >
-                  Available breakdowns for{" "}
+                  Available breakdowns for{' '}
                   {props.source_metadata.data_source_name}
                 </Typography>
               </Grid>
@@ -206,8 +208,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
                 <IconButton
                   aria-label="close dialogue"
                   onClick={() => {
-                    setDialogIsOpen(false);
+                    setDialogIsOpen(false)
                   }}
+                  size="large"
                 >
                   <CloseIcon />
                 </IconButton>
@@ -226,7 +229,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
         </Dialog>
       </footer>
     </Card>
-  );
+  )
 }
 
-export default DataSourceListing;
+export default DataSourceListing
