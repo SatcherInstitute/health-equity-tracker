@@ -155,7 +155,7 @@ function OptionsSelector(props: {
                                 renderInput={(params) => (
                                     <TextField
                                         placeholder=""
-                                        autoFocus
+                                        autoFocus // eslint-disable-line jsx-a11y/no-autofocus
                                         margin="dense"
                                         variant="outlined"
                                         onChange={updateTextBox}

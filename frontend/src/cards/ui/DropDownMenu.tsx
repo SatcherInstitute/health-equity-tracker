@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import ArrowRight from '@mui/icons-material/ArrowRight'
-import Button from '@mui/material/Button'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
+import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import { usePopover, type PopoverElements } from '../../utils/hooks/usePopover'
 import styles from './DropDownMenu.module.scss'
-import { useMediaQuery, useTheme } from '@mui/material'
+import {
+    useMediaQuery,
+    useTheme,
+    Button,
+    List,
+    ListItem,
+    ListItemText,
+} from '@mui/material'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type BreakdownVarDisplayName } from '../../data/query/Breakdowns'
 

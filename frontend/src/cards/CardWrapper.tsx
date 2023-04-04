@@ -1,13 +1,15 @@
-import React from 'react'
-import Card from '@mui/material/Card'
 import styles from './Card.module.scss'
-import Button from '@mui/material/Button'
-import { CardContent, Grid } from '@mui/material'
-import Typography from '@mui/material/Typography'
-import Divider from '@mui/material/Divider'
-import CircularProgress from '@mui/material/CircularProgress'
-import InfoIcon from '@mui/icons-material/Info'
-import Popover from '@mui/material/Popover'
+import {
+    CardContent,
+    Grid,
+    Card,
+    Button,
+    Typography,
+    Divider,
+    CircularProgress,
+    Popover,
+} from '@mui/material'
+import { Info } from '@mui/icons-material'
 import { usePopover } from '../utils/hooks/usePopover'
 import {
     type MetricQuery,
@@ -56,7 +58,7 @@ function CardWrapper(props: {
                                     onClick={popover.open}
                                     className={styles.InfoIconButton}
                                 >
-                                    <InfoIcon color="primary" />
+                                    <Info color="primary" />
                                 </Button>
                             )}
                         </Typography>

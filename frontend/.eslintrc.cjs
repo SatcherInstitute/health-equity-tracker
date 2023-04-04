@@ -6,7 +6,8 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     "plugin:jsx-a11y/recommended",
-    'standard-with-typescript'
+    'standard-with-typescript',
+    'prettier'
   ],
   overrides: [
   ],
