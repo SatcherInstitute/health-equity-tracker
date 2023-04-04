@@ -1,5 +1,4 @@
-import { CardContent } from '@material-ui/core'
-import { Alert } from '@material-ui/lab'
+import { Alert, CardContent } from '@mui/material'
 
 interface CountyUnavailableAlertProps {
   variableFullDisplayName: string
