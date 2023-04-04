@@ -8,6 +8,7 @@ import CawpProvider from "../variables/CawpProvider";
 import IncarcerationProvider from "../variables/IncarcerationProvider";
 import { type MetricId } from "../config/MetricConfig";
 import VaccineProvider from "../variables/VaccineProvider";
+import PhrmaProvider from "../variables/PhrmaProvider";
 import GeoContextProvider from "../variables/GeoContextProvider";
 
 export type ProviderId =
@@ -20,7 +21,8 @@ export type ProviderId =
   | "covid_provider"
   | "ahr_provider"
   | "cawp_provider"
-  | "incarceration_provider";
+  | "incarceration_provider"
+  | "phrma_provider";
 
 export default class VariableProviderMap {
   private readonly providers: VariableProvider[];
@@ -38,6 +40,7 @@ export default class VariableProviderMap {
       new CawpProvider(),
       new IncarcerationProvider(),
       new AhrProvider(),
+      new PhrmaProvider(),
       new VaccineProvider(acsProvider),
     ];
     this.providersById = this.getProvidersById();
