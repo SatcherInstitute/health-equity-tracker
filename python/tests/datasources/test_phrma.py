@@ -1,6 +1,6 @@
 from unittest import mock
 # from pandas._testing import assert_frame_equal
-from datasources.phrma import PhrmaData, PHRMA_DIR, DTYPE
+from datasources.phrma import PhrmaData, PHRMA_DIR
 import pandas as pd
 import os
 
@@ -17,8 +17,6 @@ GOLDEN_DATA = {
     'race_national': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_national_output.csv'),
     'race_state': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'sex_national_output.csv')}
-
-EXP_DTYPE = {'state_fips': str, 'time_period': str}
 
 
 def _load_xlsx_as_df_from_data_dir(*args, **kwargs):

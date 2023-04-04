@@ -1,13 +1,11 @@
-import numpy as np
 import pandas as pd
 from typing import List, Dict, Literal, cast
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
-                                 NATIONAL_LEVEL,
-                                 US_FIPS, US_NAME, ALL_VALUE, UNKNOWN)
+                                 ALL_VALUE, UNKNOWN)
 from ingestion.dataset_utils import (ensure_leading_zeros, generate_pct_share_col_with_unknowns,
-                                     generate_pct_rel_inequity_col)
+                                     )
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
