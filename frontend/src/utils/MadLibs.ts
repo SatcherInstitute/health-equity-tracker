@@ -24,13 +24,14 @@ export type CategoryId =
   | "Chronic Disease"
   | "Behavioral Health"
   | "Political Determinants of Health"
-  | "Social Determinants of Health";
+  | "Social Determinants of Health"
+  | "(TBD) Medication Adherence";
 
 export interface MadLib {
-  readonly id: MadLibId
-  readonly phrase: PhraseSegment[]
-  readonly defaultSelections: PhraseSelections
-  readonly activeSelections: PhraseSelections
+  readonly id: MadLibId;
+  readonly phrase: PhraseSegment[];
+  readonly defaultSelections: PhraseSelections;
+  readonly activeSelections: PhraseSelections;
 }
 
 function getMadLibPhraseText(madLib: MadLib): string {
@@ -123,12 +124,13 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   women_in_us_congress: "Women in U.S. Congress",
   jail: "Jail Incarceration",
   prison: "Prison Incarceration",
+  phrma: "Sample Phrma Topic",
 };
 
 export interface Category {
-  readonly title: CategoryId
-  readonly options: DropdownVarId[]
-  readonly definition?: string
+  readonly title: CategoryId;
+  readonly options: DropdownVarId[];
+  readonly definition?: string;
 }
 
 const CATEGORIES_LIST: Category[] = [
@@ -189,6 +191,11 @@ const CATEGORIES_LIST: Category[] = [
       "excessive_drinking",
       "frequent_mental_distress",
     ],
+  },
+  {
+    title: "(TBD) Medication Adherence",
+    definition: "",
+    options: ["phrma"],
   },
 ];
 

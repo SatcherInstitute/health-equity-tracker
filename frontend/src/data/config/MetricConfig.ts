@@ -30,7 +30,8 @@ export type DropdownVarId =
   | "women_in_us_congress"
   | "women_in_state_legislature"
   | "prison"
-  | "jail";
+  | "jail"
+  | "phrma";
 
 export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
 
@@ -45,7 +46,8 @@ export type VariableId =
   | "poverty"
   | "suicides"
   | "covid_vaccinations"
-  | "svi";
+  | "svi"
+  | "phrma_sample";
 
 export type MetricId =
   | "population"
@@ -191,7 +193,10 @@ export type MetricId =
   | "uninsured_pct_relative_inequity"
   | "sample_pct_rate"
   | "sample_pct_share"
-  | "sample_population_pct";
+  | "sample_population_pct"
+  | "phrma_population_pct"
+  | "sample_pct_relative_inequity"
+  | "sample_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1749,7 +1754,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-
   jail: [
     {
       variableId: "jail",
@@ -1803,6 +1807,64 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           chartTitleLines: ["Age-adjusted jailed ratio compared to White (NH)"],
           metricId: "jail_ratio_age_adjusted",
+          shortLabel: "",
+          type: "ratio",
+        },
+      },
+    },
+  ],
+  phrma: [
+    {
+      variableId: "phrma_sample",
+      variableDisplayName: "Phrma Sample",
+      variableFullDisplayName: "Phrma Sample",
+      surveyCollectedData: true,
+      variableDefinition: `Sample definition from Phrma data`,
+      metrics: {
+        per100k: {
+          metricId: "sample_pct_rate",
+          chartTitleLines: ["Phrma sample topic", "percent adherence"],
+          // trendsCardTitleName: "Rates of jail incarceration over time",
+          shortLabel: "Sample percent adherence",
+          type: "pct_incidence",
+        },
+        pct_share: {
+          chartTitleLines: ["Percent share of total sample adherence"],
+          metricId: "sample_pct_share",
+          // trendsCardTitleName:
+          //   "Inequitable share of jail incarceration over time",
+          columnTitleHeader: "Percent share of total sample adherence",
+          shortLabel: "% of total sample adherence",
+          type: "pct_share",
+          populationComparisonMetric: {
+            chartTitleLines: [
+              "Population vs. distribution of",
+              "total sample adherence",
+            ],
+            metricId: "phrma_population_pct",
+            columnTitleHeader: "Total population share",
+            shortLabel: populationPctShortLabel,
+            type: "pct_share",
+          },
+          knownBreakdownComparisonMetric: {
+            chartTitleLines: [],
+            metricId: "sample_pct_share",
+            columnTitleHeader: "Percent share of total sample adherence",
+            shortLabel: "% of total sample adherence",
+            type: "pct_share",
+          },
+        },
+        pct_relative_inequity: {
+          chartTitleLines: ["Relative inequity of sample adherence over time"],
+          metricId: "sample_pct_relative_inequity",
+          shortLabel: "% relative inequity",
+          type: "pct_relative_inequity",
+        },
+        age_adjusted_ratio: {
+          chartTitleLines: [
+            "Age-adjusted sample adherence ratio compared to White (NH)",
+          ],
+          metricId: "sample_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },

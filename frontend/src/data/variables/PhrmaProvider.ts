@@ -2,7 +2,7 @@ import { getDataManager } from "../../utils/globals";
 import { type MetricId } from "../config/MetricConfig";
 import { type Breakdowns } from "../query/Breakdowns";
 import { type MetricQuery, MetricQueryResponse } from "../query/MetricQuery";
-import { appendFipsIfNeeded } from "../utils/datasetutils";
+// import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from "./VariableProvider";
 
 export const PHRMA_DETERMINANTS: MetricId[] = [
@@ -38,16 +38,13 @@ class PhrmaProvider extends VariableProvider {
 
     if (breakdowns.geography === "county") {
       if (breakdowns.hasOnlyRace()) {
-        return appendFipsIfNeeded(
-          "phrma-race_and_ethnicity_county",
-          breakdowns
-        );
+        return "phrma-race_and_ethnicity_county";
       }
       if (breakdowns.hasOnlyAge()) {
-        return appendFipsIfNeeded("phrma-age_county", breakdowns);
+        return "phrma-age_county";
       }
       if (breakdowns.hasOnlySex()) {
-        return appendFipsIfNeeded("phrma-sex_county", breakdowns);
+        return "phrma-sex_county";
       }
     }
     throw new Error("Not implemented");
@@ -57,23 +54,16 @@ class PhrmaProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns;
-    const timeView = metricQuery.timeView;
     const datasetId = this.getDatasetId(breakdowns);
-    const hiv = await getDataManager().loadDataset(datasetId);
-    let df = hiv.toDataFrame();
+    const phrma = await getDataManager().loadDataset(datasetId);
+    let df = phrma.toDataFrame();
 
     df = this.filterByGeo(df, breakdowns);
-
-    const mostRecentYear = "2019";
-
-    df = this.filterByTimeView(df, timeView, mostRecentYear);
     df = this.renameGeoColumns(df, breakdowns);
-
     const consumedDatasetIds = [datasetId];
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns);
     df = this.removeUnrequestedColumns(df, metricQuery);
-
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds);
   }
 
