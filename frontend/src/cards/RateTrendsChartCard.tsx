@@ -179,10 +179,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {props.isCompareCard && (
                   <Box mb={2}>
                     <Alert severity="warning" role="note">
-                      Use care when making visual comparisons as the
-                      visualizations scale to fit the selected data set. Use
-                      care when making visual comparisons as the visualizations
-                      scale to fit the selected data set.
+                      Use care when making side-by-side comparisons as chart
+                      scales can differ.
                     </Alert>
                   </Box>
                 )}

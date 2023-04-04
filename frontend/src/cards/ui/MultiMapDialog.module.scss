@@ -34,10 +34,13 @@
 
 .FooterButtonContainer {
   float: right;
+  padding: 1rem !important;
 }
 
 .FooterSourcesContainer {
-  padding: 7px;
+  text-align: left;
+  padding: 1rem !important;
+  font-size: $small;
 }
 
 .TerritoryMap {
