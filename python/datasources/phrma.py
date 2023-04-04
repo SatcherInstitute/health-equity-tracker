@@ -16,7 +16,7 @@ PHRMA_DIR = 'phrma'
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
 PHRMA_FILE_MAP = {
-    "pqa_sta_topic": "PQA_STA Results_2023-02-09_draft.xlsx"
+    "statins": "PQA_STA Results_2023-02-09_draft.xlsx"
 }
 
 # CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
@@ -99,15 +99,15 @@ class PhrmaData(DataSource):
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
                 float_cols = [
-                    "pqa_sta_bene_per_100k",
-                    "pqa_sta_bene_pct_share"
-                    "pqa_sta_adherence_pct_rate",
-                    "pqa_sta_adherence_pct_share",
+                    "statins_bene_per_100k",
+                    "statins_bene_pct_share"
+                    "statins_adherence_pct_rate",
+                    "statins_adherence_pct_share",
                     "phrma_population_pct"
                 ]
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-                df.to_json(f'{table_name}.json', orient="records")
+                df.to_json(f'phrma-{table_name}.json', orient="records")
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
@@ -145,10 +145,10 @@ class PhrmaData(DataSource):
 
         # PQA_STA condition TOTAL_BENE rate
         df = generate_per_100k_col(
-            df, "TOTAL_BENE", std_col.POPULATION_COL, "pqa_sta_bene_per_100k")
+            df, "TOTAL_BENE", std_col.POPULATION_COL, "statins_bene_per_100k")
 
         # PQA_STA condition ADHERENCE rate
-        df["pqa_sta_adherence_pct_rate"] = df["AVG PDC RATE"].multiply(
+        df["statins_adherence_pct_rate"] = df["AVG PDC RATE"].multiply(
             100).round()
 
         unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
@@ -161,7 +161,7 @@ class PhrmaData(DataSource):
         # PQA_STA condition TOTAL_BENE pct_share
         # PQA_STA condition ADHERENCE pct_share
         df = generate_pct_share_col_with_unknowns(
-            df, {"TOTAL_BENE": "pqa_sta_bene_pct_share", "COUNT_YES": "pqa_sta_adherence_pct_share"}, demo_col, all_val, unknown_val)
+            df, {"TOTAL_BENE": "statins_bene_pct_share", "COUNT_YES": "statins_adherence_pct_share"}, demo_col, all_val, unknown_val)
 
         df = df.rename(
             columns={std_col.POPULATION_PCT_COL: "phrma_population_pct"})
