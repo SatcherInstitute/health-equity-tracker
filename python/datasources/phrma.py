@@ -5,17 +5,18 @@ from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  ALL_VALUE, UNKNOWN)
 from ingestion.dataset_utils import (ensure_leading_zeros,
+                                     generate_per_100k_col,
                                      generate_pct_share_col_with_unknowns)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_county_names
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
+from ingestion.merge_utils import merge_county_names, merge_pop_numbers
+from ingestion.types import SEX_RACE_ETH_AGE_TYPE, SEX_RACE_AGE_TYPE, GEO_TYPE
 
 # constants
 PHRMA_DIR = 'phrma'
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
 PHRMA_FILE_MAP = {
-    "sample_topic": "PQA_STA Results_2023-02-09_draft.xlsx"
+    "pqa_sta_topic": "PQA_STA Results_2023-02-09_draft.xlsx"
 }
 
 # CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
@@ -97,8 +98,13 @@ class PhrmaData(DataSource):
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
-                float_cols = ["sample_pct_rate",
-                              "sample_pct_share", "phrma_population_pct"]
+                float_cols = [
+                    "pqa_sta_bene_per_100k",
+                    "pqa_sta_bene_pct_share"
+                    "pqa_sta_adherence_pct_rate",
+                    "pqa_sta_adherence_pct_share",
+                    "phrma_population_pct"
+                ]
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
                 df.to_json(f'{table_name}.json', orient="records")
@@ -118,6 +124,7 @@ class PhrmaData(DataSource):
 
         # give the ALL df a demographic column with correct "All" or "ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
+        demo = std_col.RACE_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
         alls_df[demo_col] = all_val
 
@@ -128,23 +135,33 @@ class PhrmaData(DataSource):
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
-        df["sample_pct_rate"] = df["AVG PDC RATE"].multiply(100).round()
-
-        unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
-
         df = df.replace(
             to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
+
+        df = merge_pop_numbers(
+            df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
+
+        print(df.to_string())
+
+        # PQA_STA condition TOTAL_BENE rate
+        df = generate_per_100k_col(
+            df, "TOTAL_BENE", std_col.POPULATION_COL, "pqa_sta_bene_per_100k")
+
+        # PQA_STA condition ADHERENCE rate
+        df["pqa_sta_adherence_pct_rate"] = df["AVG PDC RATE"].multiply(
+            100).round()
+
+        unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0,
                                                                                2)
 
-        # if geo_level == NATIONAL_LEVEL:
-        #     df[std_col.STATE_FIPS_COL] = US_FIPS
-
+        # PQA_STA condition TOTAL_BENE pct_share
+        # PQA_STA condition ADHERENCE pct_share
         df = generate_pct_share_col_with_unknowns(
-            df, {"COUNT_YES": "sample_pct_share"}, demo_col, all_val, unknown_val)
+            df, {"TOTAL_BENE": "pqa_sta_bene_pct_share", "COUNT_YES": "pqa_sta_adherence_pct_share"}, demo_col, all_val, unknown_val)
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
@@ -257,7 +274,6 @@ def rename_cols(df: pd.DataFrame,
         rename_cols_map["STATE_CODE"] = std_col.STATE_NAME_COL
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        print(df["RACE"].unique())
         rename_cols_map["RACE"] = std_col.RACE_CATEGORY_ID_COL
 
     if breakdown == std_col.SEX_COL:

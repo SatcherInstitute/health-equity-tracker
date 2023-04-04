@@ -231,8 +231,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
                  std_col.POPULATION_PCT_COL: float}
 
     if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (
-            demo, list(on_col_map.keys())))
+        raise ValueError(
+            f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}')
 
     pop_table_name = f'by_{demo}_{loc}'
 
