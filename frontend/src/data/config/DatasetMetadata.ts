@@ -455,6 +455,60 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: "2019",
     contains_nh: true,
   },
+  {
+    id: "phrma-race_and_ethnicity_national",
+    name: "Phrma Dataset by race/ethnicity, nationally (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-race_and_ethnicity_state",
+    name: "Phrma Dataset by race/ethnicity, by state (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-race_and_ethnicity_county",
+    name: "Phrma Dataset by race/ethnicity, by county (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-age_national",
+    name: "Phrma Dataset by age, nationally (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-age_state",
+    name: "Phrma Dataset by age, by state (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-age_county",
+    name: "Phrma Dataset by age, by county (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-sex_national",
+    name: "Phrma Dataset by sex, nationally (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-sex_state",
+    name: "Phrma Dataset by sex, by state (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
+  {
+    id: "phrma-sex_county",
+    name: "Phrma Dataset by sex, by county (Naming TBD)",
+    update_time: "2023",
+    contains_nh: true,
+  },
 ];
 
 export const DatasetMetadataMap: Record<string, DatasetMetadata> =

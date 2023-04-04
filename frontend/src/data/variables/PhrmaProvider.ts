@@ -8,7 +8,7 @@ import VariableProvider from "./VariableProvider";
 export const PHRMA_DETERMINANTS: MetricId[] = [
   "sample_pct_rate",
   "sample_pct_share",
-  "sample_population_pct",
+  "phrma_population_pct",
 ];
 
 class PhrmaProvider extends VariableProvider {
