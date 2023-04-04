@@ -118,9 +118,9 @@ export function TrendsChart({
     useEffect(() => {
         function setDimensions() {
             const isMobile = window.innerWidth < MOBILE_BREAKPOINT
-            // @ts-expect-error
             setWidth([
-                containerRef.current.getBoundingClientRect().width,
+                // @ts-expect-error
+                containerRef.current?.getBoundingClientRect().width,
                 isMobile,
             ])
         }
