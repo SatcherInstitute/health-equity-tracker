@@ -4,8 +4,8 @@ from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  ALL_VALUE, UNKNOWN)
-from ingestion.dataset_utils import (ensure_leading_zeros, generate_pct_share_col_with_unknowns,
-                                     )
+from ingestion.dataset_utils import (ensure_leading_zeros,
+                                     generate_pct_share_col_with_unknowns)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE
@@ -97,8 +97,8 @@ class PhrmaData(DataSource):
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
-                float_cols = []
-
+                float_cols = ["sample_pct_rate",
+                              "sample_pct_share", "phrma_population_pct"]
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
                 df.to_json(f'{table_name}.json', orient="records")
@@ -123,17 +123,12 @@ class PhrmaData(DataSource):
 
         fips_to_use = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
 
-        cols_to_keep = [
-            fips_to_use,
-            demo_col,
-        ]
-
         breakdown_group_df = load_phrma_df_from_data_dir(
             geo_level, demo_breakdown)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
-        df["sample_pct_rate"] = df["AVG PDC RATE"] * 100
+        df["sample_pct_rate"] = df["AVG PDC RATE"].multiply(100).round()
 
         unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
 
@@ -148,9 +143,6 @@ class PhrmaData(DataSource):
         # if geo_level == NATIONAL_LEVEL:
         #     df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        print("unknown val:", unknown_val)
-        print("DF")
-        print(df.to_string())
         df = generate_pct_share_col_with_unknowns(
             df, {"COUNT_YES": "sample_pct_share"}, demo_col, all_val, unknown_val)
 
