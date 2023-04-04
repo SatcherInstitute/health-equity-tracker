@@ -4,112 +4,112 @@
 /** ------------------ METHODOLOGY -------------------- **/
 
 .MethodologySection {
-    padding: 50px 20px 50px 20px;
-    margin: auto;
-    max-width: $max-width;
+  padding: 50px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
 }
 
 .MethodologyQuestionAndAnswer {
-    padding-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .MethodologyQuestion {
-    @include tav300();
-    font-size: $smallestHeader;
-    text-align: left;
-    color: $alt-black;
+  @include tav300();
+  font-size: $smallestHeader;
+  text-align: left;
+  color: $alt-black;
 }
 
 .MethodologyAnswer {
-    @include inter400();
-    font-size: $small;
-    text-align: left;
-    color: $alt-black;
+  @include inter400();
+  font-size: $small;
+  text-align: left;
+  color: $alt-black;
 }
 
 .MethodologySubsubheaderText {
-    @include inter500();
-    font-size: $text;
-    margin-top: 5rem;
+  @include inter500();
+  font-size: $text;
+  margin-top: 5rem;
 }
 
 .MethodologyInfoBar {
-    background-color: $infobar-color;
-    padding: 2px 10px 2px 10px;
-    border-radius: 8px;
-    font-size: $small;
+  background-color: $infobar-color;
+  padding: 2px 10px 2px 10px;
+  border-radius: 8px;
+  font-size: $small;
 }
 
 p.CitationAPA {
-    padding-left: 3rem;
-    padding-right: 1rem;
-    margin: 1rem initial;
+  padding-left: 3rem;
+  padding-right: 1rem;
+  margin: 1rem initial;
 }
 
 p.CitationAPA:first-of-type {
-    text-indent: -2rem;
+  text-indent: -2rem;
 }
 
 .MissingDataBox {
-    padding: 1rem 2rem;
-    background-color: $standard-warning !important;
+  padding: 1rem 2rem;
+  background-color: $standard-warning !important;
 }
 
 .WhyBox {
-    padding: 1rem 2rem;
-    background-color: $standard-info !important;
+  padding: 1rem 2rem;
+  background-color: $standard-info !important;
 }
 
 /* AGE ADJUSTMENT */
 
 .AgeAdjustmentSection {
-    padding: 5px 20px 50px 20px;
-    margin: auto;
-    max-width: $max-width;
+  padding: 5px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
 }
 
 .AgeAdjustmentHeader {
-    @include tav300();
-    font-size: $smallHeader;
-    text-align: center;
-    color: $alt-black;
+  @include tav300();
+  font-size: $smallHeader;
+  text-align: center;
+  color: $alt-black;
 }
 
 .ExampleTable,
 .ExampleTable td {
-    border: 1px solid $bg-color;
-    border-collapse: collapse;
-    padding: 5px;
+  border: 1px solid $bg-color;
+  border-collapse: collapse;
+  padding: 5px;
 }
 
 .ExampleTable thead {
-    background-color: $join-effort-bg1;
-    font-weight: bold;
+  background-color: $join-effort-bg1;
+  font-weight: bold;
 }
 
 .ExampleTable tr:nth-child(even) {
-    background-color: $explore-bg-color;
+  background-color: $explore-bg-color;
 }
 
 .Highlighted {
-    background-color: $standard-warning;
-    font-weight: bold;
-    outline: 3px solid $alert-color;
+  background-color: $standard-warning;
+  font-weight: bold;
+  outline: 3px solid $alert-color;
 }
 
 .Calculation {
-    font-style: italic;
-    font-size: $smallest;
+  font-style: italic;
+  font-size: $smallest;
 }
 
 pre,
 code {
-    border: 1px solid $bg-color;
-    padding: 5px;
-    margin: 3px 3px 2rem 3px;
-    background-color: $explore-bg-color;
-    font-size: $smallest;
-    overflow-x: auto;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+  border: 1px solid $bg-color;
+  padding: 5px;
+  margin: 3px 3px 2rem 3px;
+  background-color: $explore-bg-color;
+  font-size: $smallest;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }

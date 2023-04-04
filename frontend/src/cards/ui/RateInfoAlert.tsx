@@ -1,19 +1,19 @@
-import { CardContent, Divider, Alert } from "@mui/material";
+import { CardContent, Divider, Alert } from '@mui/material'
 import {
   formatFieldValue,
   type MetricConfig,
   type VariableConfig,
-} from "../../data/config/MetricConfig";
+} from '../../data/config/MetricConfig'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-} from "../../data/query/Breakdowns";
-import { type MetricQueryResponse } from "../../data/query/MetricQuery";
-import { type DemographicGroup } from "../../data/utils/Constants";
-import { type Fips } from "../../data/utils/Fips";
-import { MultiMapLink } from "./MultiMapLink";
-import styles from "../Card.module.scss";
-import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
+} from '../../data/query/Breakdowns'
+import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import { type DemographicGroup } from '../../data/utils/Constants'
+import { type Fips } from '../../data/utils/Fips'
+import { MultiMapLink } from './MultiMapLink'
+import styles from '../Card.module.scss'
+import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
@@ -32,7 +32,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
   function generateDemographicTotalPhrase() {
     const options = props.overallQueryResponse.data.find(
       (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
-    );
+    )
 
     return options ? (
       <>
@@ -42,7 +42,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
             /* value: any, */ options[props.metricConfig.metricId],
             /* omitPctSymbol: boolean = false */ true
           )}
-        </b>{" "}
+        </b>{' '}
         {/* } HYPERLINKED TO BOTTOM DEFINITION {condition} cases per 100k  */}
         <a
           href={`#${WHAT_DATA_ARE_MISSING_ID}`}
@@ -51,25 +51,25 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {props.metricConfig.shortLabel}
         </a>
         {/* } for  */}
-        {props.activeBreakdownFilter !== "All" && " for"}
+        {props.activeBreakdownFilter !== 'All' && ' for'}
         {/* } [ ages 30-39] */}
         {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] ===
-          "age" &&
-          props.activeBreakdownFilter !== "All" &&
+          'age' &&
+          props.activeBreakdownFilter !== 'All' &&
           ` ages ${props.activeBreakdownFilter}`}
         {/* } [Asian (non Hispanic) individuals] */}
         {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] !==
-          "age" &&
-          props.activeBreakdownFilter !== "All" &&
+          'age' &&
+          props.activeBreakdownFilter !== 'All' &&
           ` ${props.activeBreakdownFilter} individuals`}
-        {" in  "}
+        {' in  '}
         {/* } Georgia */}
         {props.fips.getSentenceDisplayName()}
-        {". "}
+        {'. '}
       </>
     ) : (
-      ""
-    );
+      ''
+    )
   }
 
   return (
@@ -87,5 +87,5 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         </Alert>
       </CardContent>
     </>
-  );
+  )
 }

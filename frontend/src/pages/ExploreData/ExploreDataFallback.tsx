@@ -1,8 +1,8 @@
 export default function ExploreDataFallback() {
-    return (
-        <>
-            There was a problem understanding the current link settings; please
-            try again.
-        </>
-    )
+  return (
+    <>
+      There was a problem understanding the current link settings; please try
+      again.
+    </>
+  )
 }

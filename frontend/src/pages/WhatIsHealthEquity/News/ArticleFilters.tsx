@@ -7,45 +7,45 @@ type FilterType = 'author' | 'category'
 
 // pretty string for filter box heading
 const filterHeaderMap: Record<FilterType, string> = {
-    author: 'Authors',
-    category: 'Categories',
+  author: 'Authors',
+  category: 'Categories',
 }
 
 export interface ArticleFiltersProps {
-    filterType: FilterType
-    filterOptions: string[]
+  filterType: FilterType
+  filterOptions: string[]
 }
 
 export default function ArticleFilters(props: ArticleFiltersProps) {
-    return (
-        <div className={styles.FilterListBox}>
-            {/* FILTER BOX HEADING */}
-            <Typography className={styles.FilterListHeader} variant="h2">
-                {filterHeaderMap[props.filterType]}
-            </Typography>
+  return (
+    <div className={styles.FilterListBox}>
+      {/* FILTER BOX HEADING */}
+      <Typography className={styles.FilterListHeader} variant="h2">
+        {filterHeaderMap[props.filterType]}
+      </Typography>
 
-            {/* LIST OF LINKED FILTERS (IF ANY) */}
-            <ul className={styles.FilterList}>
-                {props.filterOptions.length > 0 &&
-                    props.filterOptions.map((filter) => {
-                        return (
-                            <li key={filter}>
-                                <Link
-                                    to={`${NEWS_TAB_LINK}?${props.filterType}=${filter}`}
-                                    className={styles.FilterListLink}
-                                >
-                                    {filter}
-                                </Link>
-                            </li>
-                        )
-                    })}
-                {/* ALWAYS DISPLAY ALL POSTS LINK */}
-                <li>
-                    <Link to={NEWS_TAB_LINK} className={styles.FilterListLink}>
-                        All Posts
-                    </Link>
-                </li>
-            </ul>
-        </div>
-    )
+      {/* LIST OF LINKED FILTERS (IF ANY) */}
+      <ul className={styles.FilterList}>
+        {props.filterOptions.length > 0 &&
+          props.filterOptions.map((filter) => {
+            return (
+              <li key={filter}>
+                <Link
+                  to={`${NEWS_TAB_LINK}?${props.filterType}=${filter}`}
+                  className={styles.FilterListLink}
+                >
+                  {filter}
+                </Link>
+              </li>
+            )
+          })}
+        {/* ALWAYS DISPLAY ALL POSTS LINK */}
+        <li>
+          <Link to={NEWS_TAB_LINK} className={styles.FilterListLink}>
+            All Posts
+          </Link>
+        </li>
+      </ul>
+    </div>
+  )
 }

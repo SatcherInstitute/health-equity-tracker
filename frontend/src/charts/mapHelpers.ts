@@ -1,9 +1,9 @@
-import { type MetricId, type MetricType } from "../data/config/MetricConfig";
-import { type Fips } from "../data/utils/Fips";
+import { type MetricId, type MetricType } from '../data/config/MetricConfig'
+import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_CONGRESS_COUNTS,
   getWomenRaceLabel,
-} from "../data/variables/CawpProvider";
+} from '../data/variables/CawpProvider'
 
 import {
   GREY_DOT_SCALE,
@@ -14,53 +14,53 @@ import {
   MISSING_PLACEHOLDER_VALUES,
   EQUAL_DOT_SIZE,
   ZERO_DOT_SCALE,
-} from "./Legend";
-import { type FieldRange, type Row } from "../data/utils/DatasetTypes";
-import { ORDINAL } from "./utils";
-import sass from "../styles/variables.module.scss";
-import { raceNameToCodeMap } from "../data/utils/Constants";
+} from './Legend'
+import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
+import { ORDINAL } from './utils'
+import sass from '../styles/variables.module.scss'
+import { raceNameToCodeMap } from '../data/utils/Constants'
 
-export const MISSING_DATASET = "MISSING_DATASET";
-export const US_PROJECTION = "US_PROJECTION";
-export const CIRCLE_PROJECTION = "CIRCLE_PROJECTION";
-export const GEO_DATASET = "GEO_DATASET";
-export const VAR_DATASET = "VAR_DATASET";
-export const ZERO_VAR_DATASET = "ZERO_VAR_DATASET";
+export const MISSING_DATASET = 'MISSING_DATASET'
+export const US_PROJECTION = 'US_PROJECTION'
+export const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
+export const GEO_DATASET = 'GEO_DATASET'
+export const VAR_DATASET = 'VAR_DATASET'
+export const ZERO_VAR_DATASET = 'ZERO_VAR_DATASET'
 
-export const COLOR_SCALE = "COLOR_SCALE";
-export const ZERO_SCALE = "ZERO_SCALE";
+export const COLOR_SCALE = 'COLOR_SCALE'
+export const ZERO_SCALE = 'ZERO_SCALE'
 
-export const LEGEND_DATASET = "LEGEND_DATASET";
+export const LEGEND_DATASET = 'LEGEND_DATASET'
 
-export type ScaleType = "quantize" | "quantile" | "symlog";
+export type ScaleType = 'quantize' | 'quantile' | 'symlog'
 
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
   type: ORDINAL,
-  domain: { data: MISSING_PLACEHOLDER_VALUES, field: "missing" },
+  domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
   range: [sass.unknownGrey],
-};
+}
 
 export const GREY_DOT_SCALE_SPEC: any = {
   name: GREY_DOT_SCALE,
   type: ORDINAL,
-  domain: { data: "missing_data", field: "missing" },
+  domain: { data: 'missing_data', field: 'missing' },
   range: [EQUAL_DOT_SIZE],
-};
+}
 
 export const ZERO_DOT_SCALE_SPEC: any = {
   name: ZERO_DOT_SCALE,
   type: ORDINAL,
   domain: [0, 0],
   range: [EQUAL_DOT_SIZE],
-};
+}
 
 export const ZERO_YELLOW_SCALE = {
   name: ZERO_SCALE,
-  type: "ordinal",
+  type: 'ordinal',
   domain: [0],
   range: [sass.mapMin],
-};
+}
 
 /*
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
@@ -71,28 +71,28 @@ export function buildTooltipTemplate(
   title?: string,
   includeSvi?: boolean
 ) {
-  let template = `{`;
-  if (title) template += `title: ${title},`;
+  let template = `{`
+  if (title) template += `title: ${title},`
   for (const [key, value] of Object.entries(tooltipPairs)) {
-    template += `"${key}": ${value},`;
+    template += `"${key}": ${value},`
   }
-  if (includeSvi) template += `"County SVI": datum.rating`;
-  return (template += "}");
+  if (includeSvi) template += `"County SVI": datum.rating`
+  return (template += '}')
 }
 
 export function getCountyAddOn(fips: Fips, showCounties: boolean) {
   if (showCounties) {
-    if (fips.code.startsWith("02")) {
+    if (fips.code.startsWith('02')) {
       // Alaska
-      return "(County Equivalent)";
-    } else if (fips.code.startsWith("22")) {
+      return '(County Equivalent)'
+    } else if (fips.code.startsWith('22')) {
       // Louisina
-      return "Parish (County Equivalent)";
+      return 'Parish (County Equivalent)'
     } else if (fips.isTerritory() || fips.getParentFips().isTerritory()) {
-      return "(County Equivalent)";
-    } else return "County";
+      return '(County Equivalent)'
+    } else return 'County'
   }
-  return "";
+  return ''
 }
 
 /*
@@ -103,28 +103,28 @@ export function addCAWPTooltipInfo(
   subTitle: string,
   countCols: MetricId[]
 ) {
-  const raceName = subTitle ? getWomenRaceLabel(subTitle) : "";
+  const raceName = subTitle ? getWomenRaceLabel(subTitle) : ''
   const members = CAWP_CONGRESS_COUNTS.includes(countCols[0])
-    ? "members"
-    : "legislators";
+    ? 'members'
+    : 'legislators'
 
   const raceCode: string | undefined = raceName
     ? raceNameToCodeMap?.[raceName]
-    : "";
+    : ''
 
-  const numLines = Object.keys(countCols).length;
+  const numLines = Object.keys(countCols).length
 
   if (numLines > 0) {
     tooltipPairs[
-      `# ${raceCode ?? ""} women ${members}`
-    ] = `datum.${countCols[0]}`;
+      `# ${raceCode ?? ''} women ${members}`
+    ] = `datum.${countCols[0]}`
   }
 
   if (numLines > 1) {
-    tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`;
+    tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`
   }
 
-  return tooltipPairs;
+  return tooltipPairs
 }
 
 /*
@@ -134,9 +134,9 @@ export function formatPreventZero100k(
   metricType: MetricType,
   metricId: MetricId
 ) {
-  return metricType === "per100k"
+  return metricType === 'per100k'
     ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '<1')`
-    : `format(datum.${metricId}, ',')`;
+    : `format(datum.${metricId}, ',')`
 }
 
 /*
@@ -144,7 +144,7 @@ Get either the normal "insufficient data" legend item with a grey box,
 or optionally the "0" item with a light yellow green box for CAWP congress or
 any other datatype where we expect and want to highlight zeros
 */
-export type HelperLegendType = "insufficient" | "zero";
+export type HelperLegendType = 'insufficient' | 'zero'
 export function getHelperLegend(
   yOffset: number,
   xOffset: number,
@@ -153,13 +153,13 @@ export function getHelperLegend(
   return {
     fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    orient: "none",
+    orient: 'none',
     font: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
     size: overrideGrayMissingWithZeroYellow ? ZERO_DOT_SCALE : GREY_DOT_SCALE,
-  };
+  }
 }
 
 /* DEFINE HOW TO CREATE A MARK ON THE UI */
@@ -178,66 +178,66 @@ export function createShapeMarks(
   overrideShapeWithCircle?: boolean,
   hideMissingDataTooltip?: boolean
 ) {
-  let encodeEnter: any = {};
+  let encodeEnter: any = {}
   if (overrideShapeWithCircle) {
     encodeEnter = {
-      size: { value: "1000" },
+      size: { value: '1000' },
       fill: fillColor,
-      stroke: { value: "white" },
+      stroke: { value: 'white' },
       strokeWidth: { value: 1.5 },
-      x: { field: "centroid[0]" },
-      y: { field: "centroid[1]" },
-    };
+      x: { field: 'centroid[0]' },
+      y: { field: 'centroid[1]' },
+    }
   }
   if (!hideMissingDataTooltip || datasetName !== MISSING_DATASET) {
     encodeEnter.tooltip = {
       signal: tooltipExpression,
-    };
+    }
   }
   const marks: any = {
-    name: datasetName + "_MARK",
+    name: datasetName + '_MARK',
     aria: false,
-    type: overrideShapeWithCircle ? "symbol" : "shape",
+    type: overrideShapeWithCircle ? 'symbol' : 'shape',
     from: { data: datasetName },
     encode: {
       enter: encodeEnter,
       update: {
         fill: fillColor,
         opacity: {
-          signal: "1",
+          signal: '1',
         },
       },
       hover: {
         fill: { value: hoverColor },
-        cursor: { value: "pointer" },
+        cursor: { value: 'pointer' },
       },
     },
-  };
-  if (!overrideShapeWithCircle) {
-    marks.transform = [{ type: "geoshape", projection: US_PROJECTION }];
   }
-  return marks;
+  if (!overrideShapeWithCircle) {
+    marks.transform = [{ type: 'geoshape', projection: US_PROJECTION }]
+  }
+  return marks
 }
 
 export function createCircleTextMark(datasetName: string) {
   return {
-    type: "text",
+    type: 'text',
     interactive: false,
     aria: false,
-    from: { data: datasetName + "_MARK" },
+    from: { data: datasetName + '_MARK' },
     encode: {
       enter: {
-        align: { value: "center" },
-        baseline: { value: "middle" },
+        align: { value: 'center' },
+        baseline: { value: 'middle' },
         fontSize: { value: 13 },
-        text: { field: "datum.properties.abbreviation" },
+        text: { field: 'datum.properties.abbreviation' },
       },
       update: {
-        x: { field: "x" },
-        y: { field: "y" },
+        x: { field: 'x' },
+        y: { field: 'y' },
       },
     },
-  };
+  }
 }
 
 /* ALT MARKS: verbose, invisible text for screen readers showing valid data (incl territories) */
@@ -246,15 +246,15 @@ export function createInvisibleAltMarks(
   tooltipLabel: string
 ) {
   return {
-    name: "alt_text_labels",
-    type: "text",
-    style: ["text"],
-    role: "list-item",
+    name: 'alt_text_labels',
+    type: 'text',
+    style: ['text'],
+    role: 'list-item',
     from: { data: VAR_DATASET },
     encode: {
       update: {
         opacity: {
-          signal: "0",
+          signal: '0',
         },
         fontSize: { value: 0 },
         text: {
@@ -262,7 +262,7 @@ export function createInvisibleAltMarks(
         },
       },
     },
-  };
+  }
 }
 
 /*
@@ -276,15 +276,15 @@ export function makeAltText(
 ) {
   let altText = overrideShapeWithCircle
     ? fips.getDisplayName()
-    : `Map showing ${filename}`;
+    : `Map showing ${filename}`
 
   if (!fips.isCounty() && !overrideShapeWithCircle) {
     altText += `: including data from ${
       data.length
-    } ${fips.getPluralChildFipsTypeDisplayName()}`;
+    } ${fips.getPluralChildFipsTypeDisplayName()}`
   }
 
-  return altText;
+  return altText
 }
 
 /* SET UP PROJECTION USED TO CREATE MARKS ON THE UI */
@@ -297,31 +297,31 @@ export function getProjection(
   return overrideShapeWithCircle
     ? {
         name: CIRCLE_PROJECTION,
-        type: "albersUsa",
+        type: 'albersUsa',
         scale: 1100,
-        translate: [{ signal: "width / 2" }, { signal: "height / 2" }],
+        translate: [{ signal: 'width / 2' }, { signal: 'height / 2' }],
       }
     : {
         name: US_PROJECTION,
         type:
           fips.isTerritory() || fips.getParentFips().isTerritory()
-            ? "albers"
-            : "albersUsa",
+            ? 'albers'
+            : 'albersUsa',
         fit: { signal: "data('" + GEO_DATASET + "')" },
         size: {
-          signal: "[" + width + ", " + width * heightWidthRatio + "]",
+          signal: '[' + width + ', ' + width * heightWidthRatio + ']',
         },
-      };
+      }
 }
 
 /*
 Calculate the min and max value for the given metricId
 */
 export function getLegendDataBounds(data: Row[], metricId: MetricId) {
-  const legendLowerBound = Math.min(...data.map((row) => row[metricId]));
-  const legendUpperBound = Math.max(...data.map((row) => row[metricId]));
+  const legendLowerBound = Math.min(...data.map((row) => row[metricId]))
+  const legendUpperBound = Math.max(...data.map((row) => row[metricId]))
 
-  return [legendLowerBound, legendUpperBound];
+  return [legendLowerBound, legendUpperBound]
 }
 
 /* SET UP COLOR SCALE */
@@ -337,27 +337,27 @@ export function setupColorScale(
     type: scaleType,
     domain: { data: VAR_DATASET, field: metricId },
     range: {
-      scheme: scaleColorScheme ?? "yellowgreen",
+      scheme: scaleColorScheme ?? 'yellowgreen',
       count: LEGEND_COLOR_COUNT,
     },
-  };
+  }
   if (fieldRange) {
-    colorScale.domainMax = fieldRange.max;
-    colorScale.domainMin = fieldRange.min;
+    colorScale.domainMax = fieldRange.max
+    colorScale.domainMin = fieldRange.min
   }
 
   const [legendLowerBound, legendUpperBound] = getLegendDataBounds(
     /* data */ legendData,
     /* metridId */ metricId
-  );
+  )
 
   if (legendLowerBound < legendUpperBound || isNaN(legendLowerBound)) {
     // if there is a range, adjust slope of the linear behavior of symlog around 0.
-    if (scaleType === "symlog") colorScale.constant = 0.01;
+    if (scaleType === 'symlog') colorScale.constant = 0.01
   } else {
     // if there is no range, use a dot instead of a gradient bar
-    colorScale.type = "ordinal";
+    colorScale.type = 'ordinal'
   }
 
-  return colorScale;
+  return colorScale
 }

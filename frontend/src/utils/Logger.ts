@@ -1,12 +1,12 @@
-export type Severity = "INFO" | "WARNING" | "ERROR";
+export type Severity = 'INFO' | 'WARNING' | 'ERROR'
 
 class Logger {
-  enableServerLogging: boolean;
-  enableConsoleLogging: boolean;
+  enableServerLogging: boolean
+  enableConsoleLogging: boolean
 
   constructor(enableServerLogging: boolean, enableConsoleLogging: boolean) {
-    this.enableServerLogging = enableServerLogging;
-    this.enableConsoleLogging = enableConsoleLogging;
+    this.enableServerLogging = enableServerLogging
+    this.enableConsoleLogging = enableConsoleLogging
   }
 
   /**
@@ -15,9 +15,9 @@ class Logger {
    */
   debugLog(message: string, context?: Record<string, string>) {
     if (this.enableConsoleLogging) {
-      const logInfo: any[] = [message];
+      const logInfo: any[] = [message]
       if (context) {
-        logInfo.push(context);
+        logInfo.push(context)
       }
       // console.log(...logInfo);
     }
@@ -29,27 +29,27 @@ class Logger {
     severity: Severity,
     context?: Record<string, string>
   ) {
-    const consoleFn = this.getConsoleFn(severity);
+    const consoleFn = this.getConsoleFn(severity)
     if (this.enableConsoleLogging) {
-      consoleFn("Error Reported", error, error.stack, severity, context);
+      consoleFn('Error Reported', error, error.stack, severity, context)
     }
 
     if (this.enableServerLogging) {
       // TODO: implement server logging
-      console.log("TODO: implement server logging");
+      console.log('TODO: implement server logging')
     }
   }
 
   private getConsoleFn(severity: Severity): (...args: any[]) => any {
     switch (severity) {
-      case "INFO":
-        return console.info.bind(console);
-      case "WARNING":
-        return console.warn.bind(console);
-      case "ERROR":
-        return console.error.bind(console);
+      case 'INFO':
+        return console.info.bind(console)
+      case 'WARNING':
+        return console.warn.bind(console)
+      case 'ERROR':
+        return console.error.bind(console)
     }
   }
 }
 
-export default Logger;
+export default Logger

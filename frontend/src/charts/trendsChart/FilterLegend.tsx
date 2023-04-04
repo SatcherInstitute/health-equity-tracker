@@ -20,139 +20,128 @@ import { COLORS as C } from './constants'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import {
-    AGE,
-    ALL,
-    type DemographicGroup,
-    UNKNOWN_W,
+  AGE,
+  ALL,
+  type DemographicGroup,
+  UNKNOWN_W,
 } from '../../data/utils/Constants'
 
 /* Define type interface */
 export interface FilterLegendProps {
-    data: TrendsData
-    selectedGroups: string[]
-    handleClick: (group: DemographicGroup | null) => void
-    handleMinMaxClick: (arg: any) => void
-    groupLabel: string
-    isSkinny: boolean
-    chartWidth: number
-    breakdownVar: BreakdownVar
-    legendId: string
+  data: TrendsData
+  selectedGroups: string[]
+  handleClick: (group: DemographicGroup | null) => void
+  handleMinMaxClick: (arg: any) => void
+  groupLabel: string
+  isSkinny: boolean
+  chartWidth: number
+  breakdownVar: BreakdownVar
+  legendId: string
 }
 
 /* Render component */
 export function FilterLegend({
-    data,
-    selectedGroups,
-    handleClick,
-    handleMinMaxClick,
-    groupLabel,
-    isSkinny,
-    chartWidth,
-    breakdownVar,
-    legendId,
+  data,
+  selectedGroups,
+  handleClick,
+  handleMinMaxClick,
+  groupLabel,
+  isSkinny,
+  chartWidth,
+  breakdownVar,
+  legendId,
 }: FilterLegendProps) {
-    const isComparing = window.location.href.includes('compare')
-    const getDataView = () => {
-        if (isComparing) {
-            if (chartWidth > 472 && chartWidth < 818) return 'compare-view'
-            if (chartWidth < 472) return 'compare-view-small'
-        }
-        return 'normal'
+  const isComparing = window.location.href.includes('compare')
+  const getDataView = () => {
+    if (isComparing) {
+      if (chartWidth > 472 && chartWidth < 818) return 'compare-view'
+      if (chartWidth < 472) return 'compare-view-small'
     }
+    return 'normal'
+  }
 
-    const groupsAreMinMax =
-        JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data))
+  const groupsAreMinMax =
+    JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data))
 
-    return (
-        // Legend Wrapper
-        <div className={styles.FilterLegend}>
-            {/* Legend Title & Clear Button */}
-            <div className={styles.LegendTitle}>
-                <p id={legendId}>Select groups:</p>
+  return (
+    // Legend Wrapper
+    <div className={styles.FilterLegend}>
+      {/* Legend Title & Clear Button */}
+      <div className={styles.LegendTitle}>
+        <p id={legendId}>Select groups:</p>
 
-                {/* Reset to Highest Lowest Averages */}
-                <button
-                    aria-disabled={!selectedGroups?.length}
-                    className={groupsAreMinMax ? styles.disabled : undefined} // disable button when min/max is showing
-                    aria-label={`Highlight groups with lowest and highest average values over time`}
-                    onClick={() => {
-                        handleMinMaxClick(null)
-                    }} // clear selected groups on click
-                >
-                    Show highest / lowest averages
-                </button>
+        {/* Reset to Highest Lowest Averages */}
+        <button
+          aria-disabled={!selectedGroups?.length}
+          className={groupsAreMinMax ? styles.disabled : undefined} // disable button when min/max is showing
+          aria-label={`Highlight groups with lowest and highest average values over time`}
+          onClick={() => {
+            handleMinMaxClick(null)
+          }} // clear selected groups on click
+        >
+          Show highest / lowest averages
+        </button>
 
-                {/* Remove Filters / Show All Button */}
-                <button
-                    aria-label={`Clear demographic filters`}
-                    aria-disabled={!selectedGroups?.length}
-                    className={
-                        !selectedGroups?.length ? styles.disabled : undefined
-                    } // disable button unless filters are applied
-                    onClick={() => {
-                        handleClick(null)
-                    }} // clear selected groups on click
-                >
-                    Show all groups
-                </button>
+        {/* Remove Filters / Show All Button */}
+        <button
+          aria-label={`Clear demographic filters`}
+          aria-disabled={!selectedGroups?.length}
+          className={!selectedGroups?.length ? styles.disabled : undefined} // disable button unless filters are applied
+          onClick={() => {
+            handleClick(null)
+          }} // clear selected groups on click
+        >
+          Show all groups
+        </button>
 
-                {/* Options for the "Close" x-character:  ✕×⨯✖× */}
-            </div>
-            {/* Legend Items Wrapper */}
-            <menu
-                aria-labelledby={legendId}
-                className={styles.LegendItems}
-                data-view={getDataView()}
+        {/* Options for the "Close" x-character:  ✕×⨯✖× */}
+      </div>
+      {/* Legend Items Wrapper */}
+      <menu
+        aria-labelledby={legendId}
+        className={styles.LegendItems}
+        data-view={getDataView()}
+      >
+        {/* Map over groups and create Legend Item for each */}
+        {data?.map(([group]) => {
+          const groupEnabled = selectedGroups.includes(group)
+
+          const isUnknown = group === UNKNOWN_W
+          const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`
+
+          // Legend Item Filter Button
+          return (
+            <button
+              key={`legendItem-${group}`}
+              aria-label={`Include ${group}`}
+              aria-pressed={groupEnabled}
+              className={styles.LegendItem}
+              onClick={() => {
+                handleClick(group)
+              }} // send group name to parent on click
+              // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
+              style={{
+                opacity: !selectedGroups?.length || groupEnabled ? 1 : 0.2, // failing a11y; need minimum opacity .55 ?
+              }}
             >
-                {/* Map over groups and create Legend Item for each */}
-                {data?.map(([group]) => {
-                    const groupEnabled = selectedGroups.includes(group)
-
-                    const isUnknown = group === UNKNOWN_W
-                    const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`
-
-                    // Legend Item Filter Button
-                    return (
-                        <button
-                            key={`legendItem-${group}`}
-                            aria-label={`Include ${group}`}
-                            aria-pressed={groupEnabled}
-                            className={styles.LegendItem}
-                            onClick={() => {
-                                handleClick(group)
-                            }} // send group name to parent on click
-                            // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
-                            style={{
-                                opacity:
-                                    !selectedGroups?.length || groupEnabled
-                                        ? 1
-                                        : 0.2, // failing a11y; need minimum opacity .55 ?
-                            }}
-                        >
-                            {/* Legend Item color swatch */}
-                            <div
-                                className={styles.swatch}
-                                aria-hidden={true}
-                                style={{
-                                    backgroundImage: isUnknown
-                                        ? gradient
-                                        : undefined,
-                                    backgroundColor: isUnknown
-                                        ? undefined
-                                        : C(group),
-                                }}
-                            />
-                            {/* Legend Item Label */}
-                            <div>
-                                {breakdownVar === AGE &&
-                                    group !== ALL &&
-                                    'Ages '}
-                                {group}
-                            </div>
-                        </button>
-                    )
-                })}
-            </menu>
-        </div>
-    )
+              {/* Legend Item color swatch */}
+              <div
+                className={styles.swatch}
+                aria-hidden={true}
+                style={{
+                  backgroundImage: isUnknown ? gradient : undefined,
+                  backgroundColor: isUnknown ? undefined : C(group),
+                }}
+              />
+              {/* Legend Item Label */}
+              <div>
+                {breakdownVar === AGE && group !== ALL && 'Ages '}
+                {group}
+              </div>
+            </button>
+          )
+        })}
+      </menu>
+    </div>
+  )
 }

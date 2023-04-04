@@ -1,7 +1,7 @@
-import styles from "./AboutUsPage.module.scss";
-import { Helmet } from "react-helmet-async";
-import { urlMap } from "../../utils/externalUrls";
-import { Button, TextField, Typography, Grid } from "@mui/material";
+import styles from './AboutUsPage.module.scss'
+import { Helmet } from 'react-helmet-async'
+import { urlMap } from '../../utils/externalUrls'
+import { Button, TextField, Typography, Grid } from '@mui/material'
 
 function ContactUsTab() {
   return (
@@ -96,7 +96,7 @@ function ContactUsTab() {
             <p className={styles.ContactUsP}>
               <b>For general requests and media inquiries:</b>
               <br />
-              Please contact the{" "}
+              Please contact the{' '}
               <a href={urlMap.shli}>
                 Satcher Health Leadership Institute
               </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
@@ -123,7 +123,7 @@ function ContactUsTab() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default ContactUsTab;
+export default ContactUsTab

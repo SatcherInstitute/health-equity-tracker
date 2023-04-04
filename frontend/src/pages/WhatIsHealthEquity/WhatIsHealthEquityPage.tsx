@@ -1,37 +1,37 @@
-import React, { useEffect } from "react";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import { useUrlSearchParams } from "../../utils/urlutils";
+import React, { useEffect } from 'react'
+import Tabs from '@mui/material/Tabs'
+import Tab from '@mui/material/Tab'
+import { useUrlSearchParams } from '../../utils/urlutils'
 import {
   NEWS_TAB_LINK,
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from "../../utils/internalRoutes";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { Link, Redirect, Route, Switch } from "react-router-dom";
+} from '../../utils/internalRoutes'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { Link, Redirect, Route, Switch } from 'react-router-dom'
 
 // can't lazy load (yet) due to scss loading issues
-import EquityTab from "./EquityTab";
-import FaqTab from "./FaqTab";
-import ResourcesTab from "./ResourcesTab";
-import NewsTab from "./NewsTab";
+import EquityTab from './EquityTab'
+import FaqTab from './FaqTab'
+import ResourcesTab from './ResourcesTab'
+import NewsTab from './NewsTab'
 
 export default function WhatIsHealthEquityPage() {
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("sm"));
-  const [tabLayout, setTabLayout] = React.useState({});
+  const theme = useTheme()
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+  const [tabLayout, setTabLayout] = React.useState({})
 
   // when screen width changes, update tab spacing material UI attribute
   useEffect(() => {
-    setTabLayout(pageIsWide ? { centered: true } : { variant: "fullWidth" });
-  }, [pageIsWide]);
+    setTabLayout(pageIsWide ? { centered: true } : { variant: 'fullWidth' })
+  }, [pageIsWide])
 
   return (
     <div>
       {/*  intercept old FAQ via query params for backwards compatible links */}
-      {useUrlSearchParams().get("tab") === "1" && (
+      {useUrlSearchParams().get('tab') === '1' && (
         <Redirect
           to={{
             pathname: FAQ_TAB_LINK,
@@ -45,7 +45,7 @@ export default function WhatIsHealthEquityPage() {
           textColor="primary"
           value={
             window.location.pathname.includes(NEWS_TAB_LINK) &&
-              window.location.pathname !== NEWS_TAB_LINK
+            window.location.pathname !== NEWS_TAB_LINK
               ? false
               : window.location.pathname
           }
@@ -92,5 +92,5 @@ export default function WhatIsHealthEquityPage() {
         </Route>
       </Switch>
     </div>
-  );
+  )
 }

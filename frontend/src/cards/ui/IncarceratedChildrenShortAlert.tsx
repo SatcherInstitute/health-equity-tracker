@@ -8,40 +8,39 @@ import { type BreakdownVar } from '../../data/query/Breakdowns'
 import { CardContent, Alert } from '@mui/material'
 
 interface IncarceratedChildrenShortAlertProps {
-    queryResponse: MetricQueryResponse
-    fips: Fips
-    breakdownVar: BreakdownVar
+  queryResponse: MetricQueryResponse
+  fips: Fips
+  breakdownVar: BreakdownVar
 }
 
 function IncarceratedChildrenShortAlert(
-    props: IncarceratedChildrenShortAlertProps
+  props: IncarceratedChildrenShortAlertProps
 ) {
-    let count = props.queryResponse.data.find(
-        (row: Row) => row[props.breakdownVar] === ALL
-    )?.total_confined_children
-    if (count) count = parseInt(count)
-    if (count == null) return <></>
+  let count = props.queryResponse.data.find(
+    (row: Row) => row[props.breakdownVar] === ALL
+  )?.total_confined_children
+  if (count) count = parseInt(count)
+  if (count == null) return <></>
 
-    const children = count === 1 ? 'child' : 'children'
-    const adultFacilities =
-        count === 1 ? 'an adult facility' : 'adult facilities'
+  const children = count === 1 ? 'child' : 'children'
+  const adultFacilities = count === 1 ? 'an adult facility' : 'adult facilities'
 
-    return (
-        <CardContent>
-            <Alert
-                severity={count === 0 ? 'info' : 'error'}
-                role="note"
-                icon={count !== 0 ? <FlagIcon /> : null}
-            >
-                <b>
-                    {count.toLocaleString()} {children}
-                </b>{' '}
-                confined in {adultFacilities} in{' '}
-                <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
-                <a href={urlMap.childrenInPrison}>Learn more.</a>
-            </Alert>
-        </CardContent>
-    )
+  return (
+    <CardContent>
+      <Alert
+        severity={count === 0 ? 'info' : 'error'}
+        role="note"
+        icon={count !== 0 ? <FlagIcon /> : null}
+      >
+        <b>
+          {count.toLocaleString()} {children}
+        </b>{' '}
+        confined in {adultFacilities} in{' '}
+        <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
+        <a href={urlMap.childrenInPrison}>Learn more.</a>
+      </Alert>
+    </CardContent>
+  )
 }
 
 export default IncarceratedChildrenShortAlert

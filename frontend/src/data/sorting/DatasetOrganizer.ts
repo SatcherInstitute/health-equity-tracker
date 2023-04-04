@@ -1,15 +1,15 @@
-import { type Breakdowns } from "../query/Breakdowns";
-import { ALL, UNKNOWN, UNKNOWN_HL } from "../utils/Constants";
-import { type Row } from "../utils/DatasetTypes";
-import { type AbstractSortStrategy } from "./AbstractDataSorter";
-import { AgeSorterStrategy } from "./AgeSorterStrategy";
-import { AlphabeticalSorterStrategy } from "./AlphabeticalSorterStrategy";
+import { type Breakdowns } from '../query/Breakdowns'
+import { ALL, UNKNOWN, UNKNOWN_HL } from '../utils/Constants'
+import { type Row } from '../utils/DatasetTypes'
+import { type AbstractSortStrategy } from './AbstractDataSorter'
+import { AgeSorterStrategy } from './AgeSorterStrategy'
+import { AlphabeticalSorterStrategy } from './AlphabeticalSorterStrategy'
 
 export class DatasetOrganizer {
-  reorderingColumn: string;
-  breakdowns: Breakdowns;
-  data: Row[] | string[];
-  sortStrategies: AbstractSortStrategy[];
+  reorderingColumn: string
+  breakdowns: Breakdowns
+  data: Row[] | string[]
+  sortStrategies: AbstractSortStrategy[]
 
   /*
     data : Data to be sorted (in place)
@@ -23,12 +23,12 @@ export class DatasetOrganizer {
     valuesToFront = [ALL],
     valuesToBack = [UNKNOWN, UNKNOWN_HL]
   ) {
-    this.breakdowns = breakdowns;
-    this.data = data;
+    this.breakdowns = breakdowns
+    this.data = data
     // if there isn't a demographic breakdown column to sort on (like in GeoContext), instead sort on the FIPS column
     this.reorderingColumn = breakdowns.hasNoDemographicBreakdown()
-      ? "fips"
-      : breakdowns.getSoleDemographicBreakdown().columnName;
+      ? 'fips'
+      : breakdowns.getSoleDemographicBreakdown().columnName
     this.sortStrategies = [
       new AlphabeticalSorterStrategy(
         this.reorderingColumn,
@@ -36,14 +36,14 @@ export class DatasetOrganizer {
         valuesToBack
       ),
       new AgeSorterStrategy(valuesToFront, valuesToBack),
-    ];
+    ]
   }
 
   organize() {
     for (const strategy of this.sortStrategies) {
       if (strategy.appliesToBreakdowns(this.breakdowns)) {
-        this.data.sort(strategy.compareFn);
-        return;
+        this.data.sort(strategy.compareFn)
+        return
       }
     }
   }

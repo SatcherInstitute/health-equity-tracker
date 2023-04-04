@@ -3,16 +3,16 @@ import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
 import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
-    Breakdowns,
-    type BreakdownVar,
-    BREAKDOWN_VAR_DISPLAY_NAMES,
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  Breakdowns,
+  type BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
-    isPctType,
-    type MetricId,
-    type VariableConfig,
+  isPctType,
+  type MetricId,
+  type VariableConfig,
 } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -31,122 +31,116 @@ import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 const PRELOAD_HEIGHT = 668
 
 export interface SimpleBarChartCardProps {
-    key?: string
-    breakdownVar: BreakdownVar
-    variableConfig: VariableConfig
-    fips: Fips
+  key?: string
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
+  fips: Fips
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
-    return (
-        <SimpleBarChartCardWithKey
-            key={props.variableConfig.variableId + props.breakdownVar}
-            {...props}
-        />
-    )
+  return (
+    <SimpleBarChartCardWithKey
+      key={props.variableConfig.variableId + props.breakdownVar}
+      {...props}
+    />
+  )
 }
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
-    const metricConfig = props.variableConfig.metrics.per100k
-    const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
+  const metricConfig = props.variableConfig.metrics.per100k
+  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
 
-    const isIncarceration = INCARCERATION_IDS.includes(
-        props.variableConfig.variableId
-    )
+  const isIncarceration = INCARCERATION_IDS.includes(
+    props.variableConfig.variableId
+  )
 
-    const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
 
-    const metricIdsToFetch: MetricId[] = []
-    metricIdsToFetch.push(metricConfig.metricId)
-    isIncarceration && metricIdsToFetch.push('total_confined_children')
+  const metricIdsToFetch: MetricId[] = []
+  metricIdsToFetch.push(metricConfig.metricId)
+  isIncarceration && metricIdsToFetch.push('total_confined_children')
 
-    const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-        props.breakdownVar,
-        exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE)
-    )
+  const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
+    props.breakdownVar,
+    exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE)
+  )
 
-    const query = new MetricQuery(
-        metricIdsToFetch,
-        breakdowns,
-        /* variableId */ props.variableConfig.variableId,
-        /* timeView */ isCawp ? 'cross_sectional' : undefined
-    )
+  const query = new MetricQuery(
+    metricIdsToFetch,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawp ? 'cross_sectional' : undefined
+  )
 
-    let { chartTitle, filename, dataName } = useCreateChartTitle(
-        metricConfig,
-        locationPhrase
-    )
-    filename = `${filename}, by ${
-        BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    }`
+  let { chartTitle, filename, dataName } = useCreateChartTitle(
+    metricConfig,
+    locationPhrase
+  )
+  filename = `${filename}, by ${
+    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+  }`
 
-    const HASH_ID: ScrollableHashId = 'rate-chart'
+  const HASH_ID: ScrollableHashId = 'rate-chart'
 
-    const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
+  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
 
-    return (
-        <CardWrapper
-            queries={[query]}
-            title={<>{reportProviderSteps[HASH_ID].label}</>}
-            minHeight={PRELOAD_HEIGHT}
-            scrollToHash={HASH_ID}
-        >
-            {([queryResponse]) => {
-                const data = queryResponse.getValidRowsForField(
-                    metricConfig.metricId
-                )
+  return (
+    <CardWrapper
+      queries={[query]}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      minHeight={PRELOAD_HEIGHT}
+      scrollToHash={HASH_ID}
+    >
+      {([queryResponse]) => {
+        const data = queryResponse.getValidRowsForField(metricConfig.metricId)
 
-                return (
-                    <>
-                        <CardContent>
-                            {queryResponse.shouldShowMissingDataMessage([
-                                metricConfig.metricId,
-                            ]) ? (
-                                <>
-                                    <MissingDataAlert
-                                        dataName={dataName}
-                                        breakdownString={
-                                            BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                                                props.breakdownVar
-                                            ]
-                                        }
-                                        fips={props.fips}
-                                    />
-                                </>
-                            ) : (
-                                <>
-                                    {isIncarceration && (
-                                        <IncarceratedChildrenShortAlert
-                                            fips={props.fips}
-                                            queryResponse={queryResponse}
-                                            breakdownVar={props.breakdownVar}
-                                        />
-                                    )}
+        return (
+          <>
+            <CardContent>
+              {queryResponse.shouldShowMissingDataMessage([
+                metricConfig.metricId,
+              ]) ? (
+                <>
+                  <MissingDataAlert
+                    dataName={dataName}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }
+                    fips={props.fips}
+                  />
+                </>
+              ) : (
+                <>
+                  {isIncarceration && (
+                    <IncarceratedChildrenShortAlert
+                      fips={props.fips}
+                      queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
+                    />
+                  )}
 
-                                    <SimpleHorizontalBarChart
-                                        chartTitle={chartTitle}
-                                        data={data}
-                                        breakdownVar={props.breakdownVar}
-                                        metric={metricConfig}
-                                        showLegend={false}
-                                        filename={filename}
-                                        usePercentSuffix={isPctType(
-                                            metricConfig.type
-                                        )}
-                                    />
-                                </>
-                            )}
-                        </CardContent>
-                        {isPopulationSubset && (
-                            <PopulationSubsetAlert
-                                variableId={props.variableConfig.variableId}
-                            />
-                        )}
-                    </>
-                )
-            }}
-        </CardWrapper>
-    )
+                  <SimpleHorizontalBarChart
+                    chartTitle={chartTitle}
+                    data={data}
+                    breakdownVar={props.breakdownVar}
+                    metric={metricConfig}
+                    showLegend={false}
+                    filename={filename}
+                    usePercentSuffix={isPctType(metricConfig.type)}
+                  />
+                </>
+              )}
+            </CardContent>
+            {isPopulationSubset && (
+              <PopulationSubsetAlert
+                variableId={props.variableConfig.variableId}
+              />
+            )}
+          </>
+        )
+      }}
+    </CardWrapper>
+  )
 }

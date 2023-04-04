@@ -1,5 +1,5 @@
-@use "../../styles/globals.scss";
-@import "../../styles/variables.module";
+@use '../../styles/globals.scss';
+@import '../../styles/variables.module';
 
 .NoTopicContent {
   background-color: $white;
@@ -107,7 +107,7 @@
   list-style: none;
 
   li::before {
-    content: "→ ";
+    content: '→ ';
     color: $alt-green;
   }
 

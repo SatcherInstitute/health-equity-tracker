@@ -1,12 +1,12 @@
 import {
-    IconButton,
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Tooltip,
+  IconButton,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Tooltip,
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
@@ -15,8 +15,8 @@ import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 import {
-    type DemographicGroup,
-    TIME_PERIOD_LABEL,
+  type DemographicGroup,
+  TIME_PERIOD_LABEL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
@@ -24,201 +24,180 @@ import { DATA_TAB_LINK } from '../../utils/internalRoutes'
 import styles from './AltTableView.module.scss'
 
 interface AltTableViewProps {
-    expanded: boolean
-    setExpanded: (expanded: boolean) => void
-    expandBoxLabel: string
-    tableCaption: string
-    knownsData: Row[]
-    unknownsData: Row[]
-    breakdownVar: BreakdownVar
-    knownMetricConfig: MetricConfig
-    unknownMetricConfig: MetricConfig
-    selectedGroups: DemographicGroup[]
-    hasUnknowns: boolean
+  expanded: boolean
+  setExpanded: (expanded: boolean) => void
+  expandBoxLabel: string
+  tableCaption: string
+  knownsData: Row[]
+  unknownsData: Row[]
+  breakdownVar: BreakdownVar
+  knownMetricConfig: MetricConfig
+  unknownMetricConfig: MetricConfig
+  selectedGroups: DemographicGroup[]
+  hasUnknowns: boolean
 }
 
 export default function AltTableView(props: AltTableViewProps) {
-    const tableRef = useRef(null)
-    const linkRef = useRef(null)
+  const tableRef = useRef(null)
+  const linkRef = useRef(null)
 
-    const optionalAgesPrefix = props.breakdownVar === 'age' ? 'Ages ' : ''
+  const optionalAgesPrefix = props.breakdownVar === 'age' ? 'Ages ' : ''
 
-    const accessibleData = makeA11yTableData(
-        props.knownsData,
-        props.unknownsData,
-        props.breakdownVar,
-        props.knownMetricConfig,
-        props.unknownMetricConfig,
-        props.selectedGroups,
-        props.hasUnknowns
-    )
+  const accessibleData = makeA11yTableData(
+    props.knownsData,
+    props.unknownsData,
+    props.breakdownVar,
+    props.knownMetricConfig,
+    props.unknownMetricConfig,
+    props.selectedGroups,
+    props.hasUnknowns
+  )
 
-    const firstTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
-    const lastTimePeriod: string =
-        accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
+  const firstTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
+  const lastTimePeriod: string =
+    accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
-    return (
-        <AnimateHeight
-            duration={500}
-            height={props.expanded ? 'auto' : 47}
-            onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-            className={styles.AltTableExpanderBox}
+  return (
+    <AnimateHeight
+      duration={500}
+      height={props.expanded ? 'auto' : 47}
+      onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
+      className={styles.AltTableExpanderBox}
+    >
+      <div className={styles.CollapseButton}>
+        <IconButton
+          aria-label={`${
+            !props.expanded ? 'Expand' : 'Collapse'
+          } data table view of ${props.expandBoxLabel}`}
+          aria-expanded={props.expanded}
+          onClick={() => {
+            props.setExpanded(!props.expanded)
+          }}
+          color="primary"
+          size="large"
         >
-            <div className={styles.CollapseButton}>
-                <IconButton
-                    aria-label={`${
-                        !props.expanded ? 'Expand' : 'Collapse'
-                    } data table view of ${props.expandBoxLabel}`}
-                    aria-expanded={props.expanded}
-                    onClick={() => {
-                        props.setExpanded(!props.expanded)
-                    }}
-                    color="primary"
-                    size="large"
-                >
-                    {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
-                </IconButton>
-            </div>
-            <div
-                onClick={() => {
-                    props.setExpanded(!props.expanded)
-                }}
-                aria-hidden={true}
-                className={
-                    props.expanded
-                        ? styles.AltTableTitleExpanded
-                        : styles.AltTableTitle
-                }
+          {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
+        </IconButton>
+      </div>
+      <div
+        onClick={() => {
+          props.setExpanded(!props.expanded)
+        }}
+        aria-hidden={true}
+        className={
+          props.expanded ? styles.AltTableTitleExpanded : styles.AltTableTitle
+        }
+      >
+        {!props.expanded ? 'Expand' : 'Collapse'} <b>{props.expandBoxLabel}</b>{' '}
+        table
+      </div>
+
+      {/* Don't render collapsed info, so keyboard nav will skip */}
+      {props.expanded && (
+        <>
+          <p>
+            Add or remove columns by toggling demographic groups above the
+            chart.
+          </p>
+          <TableContainer className={styles.AltTableContainer}>
+            <Table
+              tabIndex={0}
+              ref={tableRef}
+              className={styles.AltTable}
+              size="small"
+              stickyHeader
             >
-                {!props.expanded ? 'Expand' : 'Collapse'}{' '}
-                <b>{props.expandBoxLabel}</b> table
-            </div>
+              <caption>
+                <b>{props.tableCaption}</b>
+              </caption>
+              <TableHead>
+                <TableRow>
+                  {Object.keys(accessibleData[0]).map((key, i) => {
+                    const isTimeCol = key === TIME_PERIOD_LABEL
+                    const isUnknownPctCol = key.includes('with unknown ')
 
-            {/* Don't render collapsed info, so keyboard nav will skip */}
-            {props.expanded && (
-                <>
-                    <p>
-                        Add or remove columns by toggling demographic groups
-                        above the chart.
-                    </p>
-                    <TableContainer className={styles.AltTableContainer}>
-                        <Table
-                            tabIndex={0}
-                            ref={tableRef}
-                            className={styles.AltTable}
-                            size="small"
-                            stickyHeader
-                        >
-                            <caption>
-                                <b>{props.tableCaption}</b>
-                            </caption>
-                            <TableHead>
-                                <TableRow>
-                                    {Object.keys(accessibleData[0]).map(
-                                        (key, i) => {
-                                            const isTimeCol =
-                                                key === TIME_PERIOD_LABEL
-                                            const isUnknownPctCol =
-                                                key.includes('with unknown ')
+                    const dataColumnLabel = props.knownMetricConfig.shortLabel
 
-                                            const dataColumnLabel =
-                                                props.knownMetricConfig
-                                                    .shortLabel
+                    return (
+                      <TableCell
+                        key={key}
+                        style={{
+                          whiteSpace: 'normal',
+                          wordWrap: 'break-word',
+                        }}
+                      >
+                        {!isTimeCol &&
+                          key !== 'All' &&
+                          !isUnknownPctCol &&
+                          optionalAgesPrefix}
+                        {key.replaceAll('_', ' ')}
+                        {!isTimeCol &&
+                          !isUnknownPctCol &&
+                          ` ${dataColumnLabel}`}
+                        {isTimeCol &&
+                          ` (${firstTimePeriod} - ${lastTimePeriod})`}
+                      </TableCell>
+                    )
+                  })}
+                </TableRow>
+              </TableHead>
 
-                                            return (
-                                                <TableCell
-                                                    key={key}
-                                                    style={{
-                                                        whiteSpace: 'normal',
-                                                        wordWrap: 'break-word',
-                                                    }}
-                                                >
-                                                    {!isTimeCol &&
-                                                        key !== 'All' &&
-                                                        !isUnknownPctCol &&
-                                                        optionalAgesPrefix}
-                                                    {key.replaceAll('_', ' ')}
-                                                    {!isTimeCol &&
-                                                        !isUnknownPctCol &&
-                                                        ` ${dataColumnLabel}`}
-                                                    {isTimeCol &&
-                                                        ` (${firstTimePeriod} - ${lastTimePeriod})`}
-                                                </TableCell>
-                                            )
-                                        }
-                                    )}
-                                </TableRow>
-                            </TableHead>
-
-                            <TableBody>
-                                {accessibleData.map((row, i) => {
-                                    const keys = Object.keys(row)
-                                    return (
-                                        <TableRow key={row[TIME_PERIOD_LABEL]}>
-                                            {keys.map((key, j) => {
-                                                const isTimePeriod =
-                                                    key === TIME_PERIOD_LABEL
-                                                const appendPct =
-                                                    key.includes(
-                                                        'with unknown '
-                                                    ) ||
-                                                    [
-                                                        'pct_relative_inequity',
-                                                        'pct_share',
-                                                        'pct_incidence',
-                                                    ].includes(
-                                                        props.knownMetricConfig
-                                                            .type
-                                                    )
-                                                return (
-                                                    <TableCell
-                                                        key={key}
-                                                        style={{
-                                                            whiteSpace:
-                                                                'normal',
-                                                            wordWrap:
-                                                                'break-word',
-                                                        }}
-                                                    >
-                                                        {row[key] == null ? (
-                                                            <>
-                                                                <Tooltip title="Insufficient data">
-                                                                    <WarningRoundedIcon />
-                                                                </Tooltip>
-                                                                <span
-                                                                    className={
-                                                                        styles.ScreenreaderTitleHeader
-                                                                    }
-                                                                >
-                                                                    Insufficient
-                                                                    data
-                                                                </span>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                {row[key]}
-                                                                {!isTimePeriod &&
-                                                                    appendPct &&
-                                                                    '%'}
-                                                            </>
-                                                        )}
-                                                    </TableCell>
-                                                )
-                                            })}
-                                        </TableRow>
-                                    )
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                    <p>
-                        View and download full .csv files on the{' '}
-                        <a href={DATA_TAB_LINK} ref={linkRef}>
-                            Downloads page.
-                        </a>
-                    </p>
-                </>
-            )}
-        </AnimateHeight>
-    )
+              <TableBody>
+                {accessibleData.map((row, i) => {
+                  const keys = Object.keys(row)
+                  return (
+                    <TableRow key={row[TIME_PERIOD_LABEL]}>
+                      {keys.map((key, j) => {
+                        const isTimePeriod = key === TIME_PERIOD_LABEL
+                        const appendPct =
+                          key.includes('with unknown ') ||
+                          [
+                            'pct_relative_inequity',
+                            'pct_share',
+                            'pct_incidence',
+                          ].includes(props.knownMetricConfig.type)
+                        return (
+                          <TableCell
+                            key={key}
+                            style={{
+                              whiteSpace: 'normal',
+                              wordWrap: 'break-word',
+                            }}
+                          >
+                            {row[key] == null ? (
+                              <>
+                                <Tooltip title="Insufficient data">
+                                  <WarningRoundedIcon />
+                                </Tooltip>
+                                <span
+                                  className={styles.ScreenreaderTitleHeader}
+                                >
+                                  Insufficient data
+                                </span>
+                              </>
+                            ) : (
+                              <>
+                                {row[key]}
+                                {!isTimePeriod && appendPct && '%'}
+                              </>
+                            )}
+                          </TableCell>
+                        )
+                      })}
+                    </TableRow>
+                  )
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <p>
+            View and download full .csv files on the{' '}
+            <a href={DATA_TAB_LINK} ref={linkRef}>
+              Downloads page.
+            </a>
+          </p>
+        </>
+      )}
+    </AnimateHeight>
+  )
 }

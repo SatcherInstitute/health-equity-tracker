@@ -3,17 +3,17 @@ import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
 import {
-    Breakdowns,
-    type BreakdownVar,
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  Breakdowns,
+  type BreakdownVar,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { CardContent } from '@mui/material'
 import {
-    METRIC_CONFIG,
-    type MetricConfig,
-    type MetricId,
-    type VariableConfig,
-    getPer100kAndPctShareMetrics,
+  METRIC_CONFIG,
+  type MetricConfig,
+  type MetricId,
+  type VariableConfig,
+  getPer100kAndPctShareMetrics,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE } from '../data/utils/Constants'
@@ -22,8 +22,8 @@ import Alert from '@mui/material/Alert'
 import Divider from '@mui/material/Divider'
 import { urlMap } from '../utils/externalUrls'
 import {
-    getExclusionList,
-    shouldShowAltPopCompare,
+  getExclusionList,
+  shouldShowAltPopCompare,
 } from '../data/utils/datasetutils'
 import styles from './Card.module.scss'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
@@ -37,191 +37,168 @@ import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
 export const NEVER_SHOW_PROPERTIES = [
-    METRIC_CONFIG.covid_vaccinations[0]?.metrics?.pct_share
-        ?.secondaryPopulationComparisonMetric,
+  METRIC_CONFIG.covid_vaccinations[0]?.metrics?.pct_share
+    ?.secondaryPopulationComparisonMetric,
 ]
 
 export interface TableCardProps {
-    fips: Fips
-    breakdownVar: BreakdownVar
-    variableConfig: VariableConfig
+  fips: Fips
+  breakdownVar: BreakdownVar
+  variableConfig: VariableConfig
 }
 
 export function TableCard(props: TableCardProps) {
-    const preloadHeight = useGuessPreloadHeight(
-        [700, 1500],
-        props.breakdownVar === 'sex'
+  const preloadHeight = useGuessPreloadHeight(
+    [700, 1500],
+    props.breakdownVar === 'sex'
+  )
+
+  const metrics = getPer100kAndPctShareMetrics(props.variableConfig)
+
+  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
+
+  const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
+    props.breakdownVar,
+    exclude(
+      ...getExclusionList(props.variableConfig, props.breakdownVar, props.fips)
     )
+  )
 
-    const metrics = getPer100kAndPctShareMetrics(props.variableConfig)
+  const metricConfigs: Partial<Record<MetricId, MetricConfig>> = {}
+  metrics.forEach((metricConfig) => {
+    // We prefer known breakdown metric if available.
+    if (metricConfig.knownBreakdownComparisonMetric) {
+      metricConfigs[metricConfig.knownBreakdownComparisonMetric.metricId] =
+        metricConfig.knownBreakdownComparisonMetric
+    } else {
+      metricConfigs[metricConfig.metricId] = metricConfig
+    }
 
-    const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
+    if (metricConfig.populationComparisonMetric) {
+      metricConfigs[metricConfig.populationComparisonMetric.metricId] =
+        metricConfig.populationComparisonMetric
+    }
 
-    const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-        props.breakdownVar,
-        exclude(
-            ...getExclusionList(
-                props.variableConfig,
-                props.breakdownVar,
-                props.fips
-            )
+    if (metricConfig.secondaryPopulationComparisonMetric) {
+      metricConfigs[metricConfig.secondaryPopulationComparisonMetric.metricId] =
+        metricConfig.secondaryPopulationComparisonMetric
+    }
+  })
+  const isIncarceration = INCARCERATION_IDS.includes(
+    props.variableConfig.variableId
+  )
+
+  const metricIds = Object.keys(metricConfigs) as MetricId[]
+  isIncarceration && metricIds.push('total_confined_children')
+  const query = new MetricQuery(
+    metricIds,
+    breakdowns,
+    /* variableId */ props.variableConfig.variableId,
+    /* timeView */ isCawp ? 'cross_sectional' : undefined
+  )
+
+  const displayingCovidData = metrics
+    .map((config) => config.metricId)
+    .some((metricId) => metricId.includes('covid_'))
+
+  const HASH_ID: ScrollableHashId = 'data-table'
+
+  return (
+    <CardWrapper
+      minHeight={preloadHeight}
+      queries={[query]}
+      title={<>{reportProviderSteps[HASH_ID].label}</>}
+      scrollToHash={HASH_ID}
+    >
+      {([queryResponse]) => {
+        let data = queryResponse.data
+        if (shouldShowAltPopCompare(props)) data = fillInAltPops(data)
+        let normalMetricIds = metricIds
+
+        // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
+        if (isIncarceration) {
+          normalMetricIds = metricIds.filter(
+            (id) => id !== 'total_confined_children'
+          )
+          data = data.filter((row: Row) => row[props.breakdownVar] !== ALL)
+        }
+
+        const showMissingDataAlert =
+          queryResponse.shouldShowMissingDataMessage(normalMetricIds) ||
+          data.length <= 0
+
+        return (
+          <>
+            {isIncarceration && (
+              <IncarceratedChildrenShortAlert
+                fips={props.fips}
+                queryResponse={queryResponse}
+                breakdownVar={props.breakdownVar}
+              />
+            )}
+
+            {showMissingDataAlert && (
+              <CardContent>
+                <MissingDataAlert
+                  dataName={props.variableConfig.variableFullDisplayName + ' '}
+                  breakdownString={
+                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  }
+                  fips={props.fips}
+                />
+              </CardContent>
+            )}
+            {!queryResponse.dataIsMissing() &&
+              displayingCovidData &&
+              props.breakdownVar === RACE && (
+                <>
+                  <CardContent>
+                    <Alert severity="warning" role="note">
+                      Share of COVID-19 cases reported for American Indian,
+                      Alaska Native, Native Hawaiian and Pacific Islander are
+                      underrepresented at the national level and in many states
+                      because these racial categories are often not recorded.
+                      The Urban Indian Health Institute publishes{' '}
+                      <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={urlMap.uihiBestPractice}
+                      >
+                        guidelines for American Indian and Alaska Native Data
+                        Collection
+                      </a>
+                      .
+                    </Alert>
+                  </CardContent>
+                  <Divider />
+                </>
+              )}
+
+            {!queryResponse.dataIsMissing() && data.length > 0 && (
+              <div className={styles.TableChart}>
+                <TableChart
+                  data={data}
+                  breakdownVar={props.breakdownVar}
+                  metrics={Object.values(metricConfigs).filter(
+                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                  )}
+                />
+              </div>
+            )}
+          </>
         )
-    )
-
-    const metricConfigs: Partial<Record<MetricId, MetricConfig>> = {}
-    metrics.forEach((metricConfig) => {
-        // We prefer known breakdown metric if available.
-        if (metricConfig.knownBreakdownComparisonMetric) {
-            metricConfigs[
-                metricConfig.knownBreakdownComparisonMetric.metricId
-            ] = metricConfig.knownBreakdownComparisonMetric
-        } else {
-            metricConfigs[metricConfig.metricId] = metricConfig
-        }
-
-        if (metricConfig.populationComparisonMetric) {
-            metricConfigs[metricConfig.populationComparisonMetric.metricId] =
-                metricConfig.populationComparisonMetric
-        }
-
-        if (metricConfig.secondaryPopulationComparisonMetric) {
-            metricConfigs[
-                metricConfig.secondaryPopulationComparisonMetric.metricId
-            ] = metricConfig.secondaryPopulationComparisonMetric
-        }
-    })
-    const isIncarceration = INCARCERATION_IDS.includes(
-        props.variableConfig.variableId
-    )
-
-    const metricIds = Object.keys(metricConfigs) as MetricId[]
-    isIncarceration && metricIds.push('total_confined_children')
-    const query = new MetricQuery(
-        metricIds,
-        breakdowns,
-        /* variableId */ props.variableConfig.variableId,
-        /* timeView */ isCawp ? 'cross_sectional' : undefined
-    )
-
-    const displayingCovidData = metrics
-        .map((config) => config.metricId)
-        .some((metricId) => metricId.includes('covid_'))
-
-    const HASH_ID: ScrollableHashId = 'data-table'
-
-    return (
-        <CardWrapper
-            minHeight={preloadHeight}
-            queries={[query]}
-            title={<>{reportProviderSteps[HASH_ID].label}</>}
-            scrollToHash={HASH_ID}
-        >
-            {([queryResponse]) => {
-                let data = queryResponse.data
-                if (shouldShowAltPopCompare(props)) data = fillInAltPops(data)
-                let normalMetricIds = metricIds
-
-                // revert metric ids to normal data structure, and revert "displayed" rows to exclude ALLs
-                if (isIncarceration) {
-                    normalMetricIds = metricIds.filter(
-                        (id) => id !== 'total_confined_children'
-                    )
-                    data = data.filter(
-                        (row: Row) => row[props.breakdownVar] !== ALL
-                    )
-                }
-
-                const showMissingDataAlert =
-                    queryResponse.shouldShowMissingDataMessage(
-                        normalMetricIds
-                    ) || data.length <= 0
-
-                return (
-                    <>
-                        {isIncarceration && (
-                            <IncarceratedChildrenShortAlert
-                                fips={props.fips}
-                                queryResponse={queryResponse}
-                                breakdownVar={props.breakdownVar}
-                            />
-                        )}
-
-                        {showMissingDataAlert && (
-                            <CardContent>
-                                <MissingDataAlert
-                                    dataName={
-                                        props.variableConfig
-                                            .variableFullDisplayName + ' '
-                                    }
-                                    breakdownString={
-                                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                                            props.breakdownVar
-                                        ]
-                                    }
-                                    fips={props.fips}
-                                />
-                            </CardContent>
-                        )}
-                        {!queryResponse.dataIsMissing() &&
-                            displayingCovidData &&
-                            props.breakdownVar === RACE && (
-                                <>
-                                    <CardContent>
-                                        <Alert severity="warning" role="note">
-                                            Share of COVID-19 cases reported for
-                                            American Indian, Alaska Native,
-                                            Native Hawaiian and Pacific Islander
-                                            are underrepresented at the national
-                                            level and in many states because
-                                            these racial categories are often
-                                            not recorded. The Urban Indian
-                                            Health Institute publishes{' '}
-                                            <a
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                href={urlMap.uihiBestPractice}
-                                            >
-                                                guidelines for American Indian
-                                                and Alaska Native Data
-                                                Collection
-                                            </a>
-                                            .
-                                        </Alert>
-                                    </CardContent>
-                                    <Divider />
-                                </>
-                            )}
-
-                        {!queryResponse.dataIsMissing() && data.length > 0 && (
-                            <div className={styles.TableChart}>
-                                <TableChart
-                                    data={data}
-                                    breakdownVar={props.breakdownVar}
-                                    metrics={Object.values(
-                                        metricConfigs
-                                    ).filter(
-                                        (colName) =>
-                                            !NEVER_SHOW_PROPERTIES.includes(
-                                                colName
-                                            )
-                                    )}
-                                />
-                            </div>
-                        )}
-                    </>
-                )
-            }}
-        </CardWrapper>
-    )
+      }}
+    </CardWrapper>
+  )
 }
 
 function fillInAltPops(data: any[]) {
-    // This should only happen in the vaccine kff state case
-    return data.map((item) => {
-        const { vaccinatedPopPct, acsVaccinatedPopPct, ...restOfItem } = item
-        return {
-            vaccinated_pop_pct: vaccinatedPopPct || acsVaccinatedPopPct,
-            ...restOfItem,
-        }
-    })
+  // This should only happen in the vaccine kff state case
+  return data.map((item) => {
+    const { vaccinatedPopPct, acsVaccinatedPopPct, ...restOfItem } = item
+    return {
+      vaccinated_pop_pct: vaccinatedPopPct || acsVaccinatedPopPct,
+      ...restOfItem,
+    }
+  })
 }

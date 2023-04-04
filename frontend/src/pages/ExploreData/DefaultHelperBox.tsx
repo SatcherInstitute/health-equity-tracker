@@ -1,5 +1,5 @@
-import { Box, Grid, Alert } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Box, Grid, Alert } from '@mui/material'
+import { Link } from 'react-router-dom'
 import {
   COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   EXPLORE_DATA_PAGE_LINK,
@@ -8,8 +8,8 @@ import {
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
   WARM_WELCOME_DEMO_SETTING,
-} from "../../utils/internalRoutes";
-import styles from "./DefaultHelperBox.module.scss";
+} from '../../utils/internalRoutes'
+import styles from './DefaultHelperBox.module.scss'
 
 export default function DefaultHelperBox() {
   return (
@@ -102,7 +102,7 @@ export default function DefaultHelperBox() {
                 </a> or
               */}
               <i>
-                New to the tracker? Watch the video demo, or take a{" "}
+                New to the tracker? Watch the video demo, or take a{' '}
                 <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
                   guided tour of a COVID-19 report.
                 </a>
@@ -112,5 +112,5 @@ export default function DefaultHelperBox() {
         </Grid>
       </Alert>
     </Grid>
-  );
+  )
 }

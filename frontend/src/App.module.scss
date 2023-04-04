@@ -2,91 +2,91 @@
 @import 'styles/variables.module';
 
 .App {
-    text-align: center;
-    position: relative;
-    min-height: 100%;
-    background-color: $white;
+  text-align: center;
+  position: relative;
+  min-height: 100%;
+  background-color: $white;
 }
 
 .FallbackPage {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 // For the "Skip to Main Content" link for screenreader users
 .SkipMainLink {
-    left: -999px;
-    position: absolute;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    z-index: $z-bottom;
+  left: -999px;
+  position: absolute;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: $z-bottom;
 
-    &:focus,
-    &:active {
-        color: $white;
-        background-color: $black;
-        left: auto;
-        top: auto;
-        width: 30%;
-        height: auto;
-        overflow: auto;
-        margin: 10px 35%;
-        padding: 5px;
-        border-radius: 15px;
-        border: 4px solid $yellow;
-        text-align: center;
-        font-size: $smallestHeader;
-        z-index: $z-top;
-    }
+  &:focus,
+  &:active {
+    color: $white;
+    background-color: $black;
+    left: auto;
+    top: auto;
+    width: 30%;
+    height: auto;
+    overflow: auto;
+    margin: 10px 35%;
+    padding: 5px;
+    border-radius: 15px;
+    border: 4px solid $yellow;
+    text-align: center;
+    font-size: $smallestHeader;
+    z-index: $z-top;
+  }
 }
 
 .Content {
-    padding-bottom: $footer-size;
-    height: 100%;
+  padding-bottom: $footer-size;
+  height: 100%;
 }
 
 .AppToolbar {
-    background-color: $white;
-    border-bottom: 1px solid $black;
-    min-height: 65px;
+  background-color: $white;
+  border-bottom: 1px solid $black;
+  min-height: 65px;
 }
 
 .AppbarLogoImg {
-    width: 30px;
-    height: 30px;
+  width: 30px;
+  height: 30px;
 }
 
 .MenuIconForMobile {
-    color: $white;
+  color: $white;
 }
 
 .HomeLogo {
-    @include dmSans500();
-    font-size: $logo !important;
-    flex-grow: 1;
-    text-align: left;
-    color: $alt-green;
-    padding-left: 17px;
+  @include dmSans500();
+  font-size: $logo !important;
+  flex-grow: 1;
+  text-align: left;
+  color: $alt-green;
+  padding-left: 17px;
 
-    a:link,
-    a:visited {
-        color: $alt-green;
-        text-decoration: none;
-    }
+  a:link,
+  a:visited {
+    color: $alt-green;
+    text-decoration: none;
+  }
 }
 
 .NavLink {
-    @include dmSans500();
-    color: $navlink-color !important;
-    margin: 0 5px 0 5px !important;
-    padding: 6px 16px !important;
-    font-size: $small !important;
+  @include dmSans500();
+  color: $navlink-color !important;
+  margin: 0 5px 0 5px !important;
+  padding: 6px 16px !important;
+  font-size: $small !important;
 
-    a,
-    &:link,
-    &:visited {
-        color: $navlink-color !important;
-        text-decoration: none !important;
-    }
+  a,
+  &:link,
+  &:visited {
+    color: $navlink-color !important;
+    text-decoration: none !important;
+  }
 }
