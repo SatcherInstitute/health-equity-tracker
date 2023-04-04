@@ -204,7 +204,7 @@ function MapCardWithKey(props: MapCardProps) {
       scrollToHash={HASH_ID}
     >
       {(queryResponses, metadata, geoData) => {
-        // contains data rows for sub-geos (if viewing US, this data will be STATE level)
+        // contains rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
         const geoQueryResponse = queryResponses[1];
