@@ -8,60 +8,67 @@
  */
 
 /* External Imports */
-import React from "react";
 
 /* Styles */
-import styles from "./Trends.module.scss";
+import styles from './Trends.module.scss'
 
 /* Constants */
-import { getAmountsByDate } from "./helpers";
-import { type TrendsData, type YScale } from "./types";
+import { getAmountsByDate } from './helpers'
+import { type TrendsData, type YScale } from './types'
 
 /* Helpers */
-import { COLORS as C } from "./constants";
-import { type DemographicGroup } from "../../data/utils/Constants";
+import { COLORS as C } from './constants'
+import { type DemographicGroup } from '../../data/utils/Constants'
 
 /* Define type interface */
 export interface HoverCirclesProps {
-  data: TrendsData
-  yScale: YScale
-  selectedDate: string | null
+    data: TrendsData
+    yScale: YScale
+    selectedDate: string | null
 }
 
 /* Render component */
 export function HoverCircles({
-  data,
-  yScale,
-  selectedDate,
+    data,
+    yScale,
+    selectedDate,
 }: HoverCirclesProps) {
-  return (
-    <g>
-      {/* iterate over data and draw circle for each group */}
-      {data?.map(
-        ([group, d]: [DemographicGroup, Array<[string, number]>], i) => {
-          return (
-            <g key={`hoverCircleGroup-${i}`}>
-              {/* only append circle if data exists for this group & date */}
-              {(getAmountsByDate(d, selectedDate) ||
-                getAmountsByDate(d, selectedDate) === 0) && (
-                <>
-                  <circle
-                    // tabIndex={0}
-                    className={styles.HoverCircle}
-                    r={4}
-                    // use transform instead of cy to apply css transitions
-                    // note - x positioning is handled by parent
-                    transform={`translate(0,${
-                      yScale(getAmountsByDate(d, selectedDate)) ?? 0
-                    })`}
-                    fill={C(group)}
-                  />
-                </>
-              )}
-            </g>
-          );
-        }
-      )}
-    </g>
-  );
+    return (
+        <g>
+            {/* iterate over data and draw circle for each group */}
+            {data?.map(
+                (
+                    [group, d]: [DemographicGroup, Array<[string, number]>],
+                    i
+                ) => {
+                    return (
+                        <g key={`hoverCircleGroup-${i}`}>
+                            {/* only append circle if data exists for this group & date */}
+                            {(getAmountsByDate(d, selectedDate) ||
+                                getAmountsByDate(d, selectedDate) === 0) && (
+                                <>
+                                    <circle
+                                        // tabIndex={0}
+                                        className={styles.HoverCircle}
+                                        r={4}
+                                        // use transform instead of cy to apply css transitions
+                                        // note - x positioning is handled by parent
+                                        transform={`translate(0,${
+                                            yScale(
+                                                getAmountsByDate(
+                                                    d,
+                                                    selectedDate
+                                                )
+                                            ) ?? 0
+                                        })`}
+                                        fill={C(group)}
+                                    />
+                                </>
+                            )}
+                        </g>
+                    )
+                }
+            )}
+        </g>
+    )
 }
