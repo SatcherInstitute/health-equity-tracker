@@ -3,9 +3,9 @@ import { useLocation } from "react-router-dom";
 import { scrollIntoView } from "seamless-scroll-polyfill";
 
 export interface StepData {
-  label: string
-  hashId: ScrollableHashId
-  pluralOnCompare: boolean
+  label: string;
+  hashId: ScrollableHashId;
+  pluralOnCompare: boolean;
 }
 
 export type ScrollableHashId =

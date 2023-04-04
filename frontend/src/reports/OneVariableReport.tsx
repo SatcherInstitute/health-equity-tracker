@@ -42,15 +42,15 @@ import {
 } from "../data/query/Breakdowns";
 
 export interface OneVariableReportProps {
-  key: string
-  dropdownVarId: DropdownVarId
-  fips: Fips
-  updateFipsCallback: (fips: Fips) => void
-  hidePopulationCard?: boolean
-  isScrolledToTop: boolean
-  reportStepHashIds?: ScrollableHashId[]
-  setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
-  headerScrollMargin: number
+  key: string;
+  dropdownVarId: DropdownVarId;
+  fips: Fips;
+  updateFipsCallback: (fips: Fips) => void;
+  hidePopulationCard?: boolean;
+  isScrolledToTop: boolean;
+  reportStepHashIds?: ScrollableHashId[];
+  setReportStepHashIds?: (hashIdsOnScreen: any[]) => void;
+  headerScrollMargin: number;
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {

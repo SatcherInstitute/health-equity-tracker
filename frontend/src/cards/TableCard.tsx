@@ -43,9 +43,9 @@ export const NEVER_SHOW_PROPERTIES = [
 ];
 
 export interface TableCardProps {
-  fips: Fips
-  breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
+  fips: Fips;
+  breakdownVar: BreakdownVar;
+  variableConfig: VariableConfig;
 }
 
 export function TableCard(props: TableCardProps) {

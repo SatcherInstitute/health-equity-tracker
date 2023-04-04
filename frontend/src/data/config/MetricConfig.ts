@@ -202,34 +202,34 @@ export type MetricType =
   | "ratio";
 
 export interface MetricConfig {
-  metricId: MetricId
-  columnTitleHeader?: string
-  trendsCardTitleName?: string
-  chartTitleLines: string[]
-  shortLabel: string
-  unknownsVegaLabel?: string
-  type: MetricType
-  populationComparisonMetric?: MetricConfig
-  ageAdjusted?: boolean
-  isMonthly?: boolean
+  metricId: MetricId;
+  columnTitleHeader?: string;
+  trendsCardTitleName?: string;
+  chartTitleLines: string[];
+  shortLabel: string;
+  unknownsVegaLabel?: string;
+  type: MetricType;
+  populationComparisonMetric?: MetricConfig;
+  ageAdjusted?: boolean;
+  isMonthly?: boolean;
 
   // This metric is one where the denominator only includes records where
   // demographics are known. For example, for "share of covid cases" in the US
   // for the "Asian" demographic, this metric would be equal to
   // (# of Asian covid cases in the US) divided by
   // (# of covid cases in the US excluding those with unknown race/ethnicity).
-  knownBreakdownComparisonMetric?: MetricConfig
-  secondaryPopulationComparisonMetric?: MetricConfig
+  knownBreakdownComparisonMetric?: MetricConfig;
+  secondaryPopulationComparisonMetric?: MetricConfig;
 }
 
 export interface VariableConfig {
-  variableId: VariableId
-  variableDisplayName: string
-  variableFullDisplayName: string
-  variableDefinition?: string
-  metrics: Record<string, MetricConfig> // TODO - strongly type key
-  surveyCollectedData?: boolean
-  timeSeriesData?: boolean
+  variableId: VariableId;
+  variableDisplayName: string;
+  variableFullDisplayName: string;
+  variableDefinition?: string;
+  metrics: Record<string, MetricConfig>; // TODO - strongly type key
+  surveyCollectedData?: boolean;
+  timeSeriesData?: boolean;
 }
 
 const populationPctTitle = "Population share";

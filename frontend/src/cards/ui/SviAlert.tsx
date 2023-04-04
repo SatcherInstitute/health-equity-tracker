@@ -8,9 +8,9 @@ import { HashLink } from "react-router-hash-link";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 
 interface SviAlertProps {
-  svi: number
-  sviQueryResponse: MetricQueryResponse
-  fips: Fips
+  svi: number;
+  sviQueryResponse: MetricQueryResponse;
+  fips: Fips;
 }
 
 export const findRating = (svi: number) => {

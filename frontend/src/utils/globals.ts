@@ -5,11 +5,11 @@ import { createEnvironment, type Environment } from "./Environment";
 import Logger from "./Logger";
 
 interface Globals {
-  initialized: boolean
-  environment: Environment
-  logger: Logger
-  dataFetcher: DataFetcher
-  dataManager: DataManager
+  initialized: boolean;
+  environment: Environment;
+  logger: Logger;
+  dataFetcher: DataFetcher;
+  dataManager: DataManager;
 }
 
 // TODO consider using interfaces for the various globals so they can have

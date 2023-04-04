@@ -37,15 +37,15 @@ import { getPrettyDate } from "../../data/utils/DatasetTimeUtils";
 
 /* Define type interface */
 export interface AxesProps {
-  data: TrendsData
-  xScale: XScale
-  yScale: YScale
-  width: number
-  marginBottom: number
-  marginLeft: number
-  marginRight: number
-  axisConfig: AxisConfig
-  isSkinny: boolean
+  data: TrendsData;
+  xScale: XScale;
+  yScale: YScale;
+  width: number;
+  marginBottom: number;
+  marginLeft: number;
+  marginRight: number;
+  axisConfig: AxisConfig;
+  isSkinny: boolean;
 }
 
 /* Render component */

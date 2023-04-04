@@ -21,8 +21,8 @@ function insertPunctuation(idx: number, numSources: number) {
 }
 
 interface DataSourceInfo {
-  name: string
-  updateTimes: Set<string>
+  name: string;
+  updateTimes: Set<string>;
 }
 
 export function getDatasetIdsFromResponses(
@@ -75,10 +75,10 @@ export function getDataSourceMapFromDatasetIds(
 }
 
 interface SourcesProps {
-  queryResponses: MetricQueryResponse[]
-  metadata: MapOfDatasetMetadata
-  isAgeAdjustedTable?: boolean
-  hideNH?: boolean
+  queryResponses: MetricQueryResponse[];
+  metadata: MapOfDatasetMetadata;
+  isAgeAdjustedTable?: boolean;
+  hideNH?: boolean;
 }
 
 export function Sources(props: SourcesProps) {

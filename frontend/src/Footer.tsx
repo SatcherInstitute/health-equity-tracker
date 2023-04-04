@@ -166,9 +166,9 @@ function Logos() {
 }
 
 function LinkGridItem(props: {
-  text: string
-  link: string
-  ariaLabel: string
+  text: string;
+  link: string;
+  ariaLabel: string;
 }) {
   return (
     <Grid item className={styles.FooterLinkBox}>

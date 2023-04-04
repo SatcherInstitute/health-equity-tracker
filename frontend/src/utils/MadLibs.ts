@@ -27,10 +27,10 @@ export type CategoryId =
   | "Social Determinants of Health";
 
 export interface MadLib {
-  readonly id: MadLibId
-  readonly phrase: PhraseSegment[]
-  readonly defaultSelections: PhraseSelections
-  readonly activeSelections: PhraseSelections
+  readonly id: MadLibId;
+  readonly phrase: PhraseSegment[];
+  readonly defaultSelections: PhraseSelections;
+  readonly activeSelections: PhraseSelections;
 }
 
 function getMadLibPhraseText(madLib: MadLib): string {
@@ -126,9 +126,9 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
 };
 
 export interface Category {
-  readonly title: CategoryId
-  readonly options: DropdownVarId[]
-  readonly definition?: string
+  readonly title: CategoryId;
+  readonly options: DropdownVarId[];
+  readonly definition?: string;
 }
 
 const CATEGORIES_LIST: Category[] = [

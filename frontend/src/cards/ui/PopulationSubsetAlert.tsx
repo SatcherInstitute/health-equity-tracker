@@ -6,7 +6,7 @@ import { type VariableId } from "../../data/config/MetricConfig";
 import { METHODOLOGY_TAB_LINK } from "../../utils/internalRoutes";
 
 interface PopulationSubsetAlertProps {
-  variableId: VariableId
+  variableId: VariableId;
 }
 
 export default function PopulationSubsetAlert({

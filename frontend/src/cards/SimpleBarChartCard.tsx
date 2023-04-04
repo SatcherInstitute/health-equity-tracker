@@ -31,10 +31,10 @@ import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 const PRELOAD_HEIGHT = 668;
 
 export interface SimpleBarChartCardProps {
-  key?: string
-  breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
-  fips: Fips
+  key?: string;
+  breakdownVar: BreakdownVar;
+  variableConfig: VariableConfig;
+  fips: Fips;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

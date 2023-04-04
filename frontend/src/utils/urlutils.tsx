@@ -90,10 +90,10 @@ export function useUrlSearchParams() {
 }
 
 export function LinkWithStickyParams(props: {
-  to: string
-  target?: string
-  className?: string
-  children: React.ReactNode
+  to: string;
+  target?: string;
+  className?: string;
+  children: React.ReactNode;
 }) {
   const linkProps = { ...props };
   const params = useSearchParams();
@@ -109,11 +109,11 @@ export function LinkWithStickyParams(props: {
 }
 
 export function ReactRouterLinkButton(props: {
-  url: string
-  className?: string
-  displayName?: string
-  children?: React.ReactNode
-  ariaLabel?: string
+  url: string;
+  className?: string;
+  displayName?: string;
+  children?: React.ReactNode;
+  ariaLabel?: string;
 }) {
   return (
     <Button
@@ -164,8 +164,8 @@ export function setParameter(
 }
 
 export interface ParamKeyValue {
-  name: string
-  value: string | null
+  name: string;
+  value: string | null;
 }
 
 export function setParameters(paramMap: ParamKeyValue[]) {

@@ -9,9 +9,9 @@ import React from "react";
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 interface MultiMapLinkProps {
-  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
-  currentBreakdown: BreakdownVar
-  currentVariable: string
+  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void;
+  currentBreakdown: BreakdownVar;
+  currentVariable: string;
 }
 
 export function MultiMapLink(props: MultiMapLinkProps) {

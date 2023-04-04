@@ -34,13 +34,13 @@ function getToggleOptionStatus(
 }
 
 interface ReportToggleControlsProps {
-  dropdownVarId: DropdownVarId
-  variableConfig: VariableConfig
-  setVariableConfig: (variableConfig: VariableConfig) => void
-  currentBreakdown: BreakdownVar
-  setCurrentBreakdown: (breakdown: BreakdownVar) => void
-  fips: Fips
-  excludeId?: boolean
+  dropdownVarId: DropdownVarId;
+  variableConfig: VariableConfig;
+  setVariableConfig: (variableConfig: VariableConfig) => void;
+  currentBreakdown: BreakdownVar;
+  setCurrentBreakdown: (breakdown: BreakdownVar) => void;
+  fips: Fips;
+  excludeId?: boolean;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when

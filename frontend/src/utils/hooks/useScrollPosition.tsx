@@ -6,8 +6,8 @@ const INDICATORS = ".MuiIconButton-sizeSmall";
 
 const useScrollPosition = (
   effect: (arg0: {
-    pageYOffset: number
-    stickyBarOffsetFromTop: number
+    pageYOffset: number;
+    stickyBarOffsetFromTop: number;
   }) => void,
   sticking: boolean[],
   wait: number | undefined

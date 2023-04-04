@@ -14,23 +14,23 @@ import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
 
 export interface HighestLowestListProps {
   // MetricConfig for data
-  metricConfig: MetricConfig
+  metricConfig: MetricConfig;
   // VariableConfig for data
-  variableConfig: VariableConfig
+  variableConfig: VariableConfig;
   // Display name for geo type in as "see the ___ with the highest rates"
-  fipsTypePluralDisplayName: string
+  fipsTypePluralDisplayName: string;
   // Whether or not list is expanded
-  listExpanded: boolean
+  listExpanded: boolean;
   // Expand or collapse the list
-  setListExpanded: (listExpanded: boolean) => void
-  highestValues: Row[]
-  lowestValues: Row[]
+  setListExpanded: (listExpanded: boolean) => void;
+  highestValues: Row[];
+  lowestValues: Row[];
   // items in highest/lowest list that should receive qualifiers
-  qualifierItems?: string[]
+  qualifierItems?: string[];
   // message to display under a list with qualifiers
-  qualifierMessage?: string
+  qualifierMessage?: string;
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
-  selectedRaceSuffix?: string
+  selectedRaceSuffix?: string;
 }
 
 /*
@@ -118,11 +118,11 @@ export function HighestLowestList(props: HighestLowestListProps) {
 }
 
 export interface ExtremeListProps {
-  whichExtreme: "Highest" | "Lowest"
-  values: Row[]
-  metricConfig: MetricConfig
-  qualifierItems?: string[]
-  qualifierMessage?: string
+  whichExtreme: "Highest" | "Lowest";
+  values: Row[];
+  metricConfig: MetricConfig;
+  qualifierItems?: string[];
+  qualifierMessage?: string;
 }
 
 function ExtremeList(props: ExtremeListProps) {

@@ -10,9 +10,9 @@ import { type BreakdownVar } from "../../data/query/Breakdowns";
 import { CardContent } from "@material-ui/core";
 
 interface IncarceratedChildrenShortAlertProps {
-  queryResponse: MetricQueryResponse
-  fips: Fips
-  breakdownVar: BreakdownVar
+  queryResponse: MetricQueryResponse;
+  fips: Fips;
+  breakdownVar: BreakdownVar;
 }
 
 function IncarceratedChildrenShortAlert(

@@ -26,8 +26,8 @@ displays several loading indicator elements while blog content is fetched
 */
 
 export function ArticlesSkeleton(props: {
-  doPulse: boolean
-  numberLoading?: number
+  doPulse: boolean;
+  numberLoading?: number;
 }) {
   const numberLoadingSkeletons =
     props.numberLoading ?? NUM_OF_LOADING_SKELETONS;
@@ -74,7 +74,7 @@ export function ArticlesSkeleton(props: {
 }
 
 interface PinnedArticlesProps {
-  articles: Article[]
+  articles: Article[];
 }
 
 function PinnedArticles(props: PinnedArticlesProps) {

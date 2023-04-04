@@ -50,16 +50,16 @@ import { type DemographicGroup } from "../../data/utils/Constants";
 
 /* Define type interface */
 export interface TrendsChartProps {
-  data: TrendsData
-  unknown: UnknownData
-  axisConfig: AxisConfig
-  chartTitle: string | string[]
-  breakdownVar: BreakdownVar
-  setSelectedTableGroups: (selectedTableGroups: any[]) => void
-  isCompareCard: boolean
-  expanded: boolean
-  setExpanded: (expanded: boolean) => void
-  hasUnknowns: boolean
+  data: TrendsData;
+  unknown: UnknownData;
+  axisConfig: AxisConfig;
+  chartTitle: string | string[];
+  breakdownVar: BreakdownVar;
+  setSelectedTableGroups: (selectedTableGroups: any[]) => void;
+  isCompareCard: boolean;
+  expanded: boolean;
+  setExpanded: (expanded: boolean) => void;
+  hasUnknowns: boolean;
 }
 
 /* Render component */

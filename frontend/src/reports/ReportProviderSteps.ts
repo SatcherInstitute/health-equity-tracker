@@ -1,8 +1,8 @@
 import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 
 export interface StepLabelInfo {
-  pluralOnCompare: boolean
-  label: string
+  pluralOnCompare: boolean;
+  label: string;
 }
 
 export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {

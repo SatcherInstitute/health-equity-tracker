@@ -60,15 +60,16 @@ import { type ScrollableHashId } from "../utils/hooks/useStepObserver";
 import { useCreateChartTitle } from "../utils/hooks/useCreateChartTitle";
 import { HIV_DETERMINANTS } from "../data/variables/HivProvider";
 import PopulationSubsetAlert from "./ui/PopulationSubsetAlert";
+import CountyUnavailableAlert from "./ui/CountyUnavailableAlert";
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5;
 
 export interface MapCardProps {
-  key?: string
-  fips: Fips
-  variableConfig: VariableConfig
-  updateFipsCallback: (fips: Fips) => void
-  currentBreakdown: BreakdownVar
+  key?: string;
+  fips: Fips;
+  variableConfig: VariableConfig;
+  updateFipsCallback: (fips: Fips) => void;
+  currentBreakdown: BreakdownVar;
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -204,10 +205,15 @@ function MapCardWithKey(props: MapCardProps) {
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
-        const mapQueryResponse: MetricQueryResponse = queryResponses[0];
+        const childGeoQueryResponse: MetricQueryResponse = queryResponses[0];
         // contains data rows current level (if viewing US, this data will be US level)
-        const overallQueryResponse = queryResponses[1];
-
+        const geoQueryResponse = queryResponses[1];
+        const hasSelfButNotChildGeoData =
+          childGeoQueryResponse.data.length === 0 &&
+          geoQueryResponse.data.length > 0;
+        const mapQueryResponse = hasSelfButNotChildGeoData
+          ? geoQueryResponse
+          : childGeoQueryResponse;
         const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null;
 
         const sortArgs =
@@ -294,6 +300,7 @@ function MapCardWithKey(props: MapCardProps) {
               geoData={geoData}
               breakdownValuesNoData={fieldValues.noData}
               countColsToAdd={countColsToAdd}
+              hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
             />
 
             <CardContent className={styles.SmallMarginContent}>
@@ -339,7 +346,7 @@ function MapCardWithKey(props: MapCardProps) {
             {!mapQueryResponse.dataIsMissing() &&
               !!dataForActiveBreakdownFilter.length && (
                 <RateInfoAlert
-                  overallQueryResponse={overallQueryResponse}
+                  overallQueryResponse={geoQueryResponse}
                   currentBreakdown={props.currentBreakdown}
                   activeBreakdownFilter={activeBreakdownFilter}
                   metricConfig={metricConfig}
@@ -400,7 +407,9 @@ function MapCardWithKey(props: MapCardProps) {
                       mapQueryResponse.dataIsMissing() ||
                       dataForActiveBreakdownFilter.length <= 1
                     }
-                    showCounties={!props.fips.isUsa()}
+                    showCounties={
+                      !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                    }
                     fips={props.fips}
                     scaleType="quantize"
                     geoData={geoData}
@@ -429,7 +438,7 @@ function MapCardWithKey(props: MapCardProps) {
                               legendData={dataForActiveBreakdownFilter}
                               hideLegend={true}
                               hideActions={true}
-                              showCounties={!props.fips.isUsa()}
+                              showCounties={false}
                               fips={fips}
                               scaleType="quantize"
                               geoData={geoData}
@@ -458,6 +467,13 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
+                {hasSelfButNotChildGeoData && (
+                  <CountyUnavailableAlert
+                    variableFullDisplayName={
+                      props.variableConfig.variableFullDisplayName
+                    }
+                  />
+                )}
                 {isPopulationSubset && (
                   <PopulationSubsetAlert
                     variableId={props.variableConfig.variableId}

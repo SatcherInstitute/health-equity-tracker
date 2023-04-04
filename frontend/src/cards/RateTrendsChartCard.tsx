@@ -40,11 +40,11 @@ import styles from "../charts/trendsChart/Trends.module.scss";
 const PRELOAD_HEIGHT = 668;
 
 export interface RateTrendsChartCardProps {
-  key?: string
-  breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
-  fips: Fips
-  isCompareCard?: boolean
+  key?: string;
+  breakdownVar: BreakdownVar;
+  variableConfig: VariableConfig;
+  fips: Fips;
+  isCompareCard?: boolean;
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render

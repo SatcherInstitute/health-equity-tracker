@@ -110,7 +110,7 @@ export class MetricQueryResponse {
   getFieldValues(
     fieldName: BreakdownVar,
     targetMetric: MetricId
-  ): { withData: DemographicGroup[], noData: DemographicGroup[] } {
+  ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
     const withData: DemographicGroup[] = [];
     const noData: DemographicGroup[] = [];
 

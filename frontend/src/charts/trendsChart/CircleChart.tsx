@@ -27,13 +27,13 @@ import { type UnknownData, type XScale } from "./types";
 
 /* Define type interface */
 export interface CircleChartProps {
-  data: UnknownData
-  xScale: XScale
-  width: number
-  groupLabel: string
-  isSkinny: boolean
-  selectedDate: string | null
-  circleId: string
+  data: UnknownData;
+  xScale: XScale;
+  width: number;
+  groupLabel: string;
+  isSkinny: boolean;
+  selectedDate: string | null;
+  circleId: string;
 }
 
 /* Render component */

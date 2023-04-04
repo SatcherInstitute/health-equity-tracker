@@ -64,11 +64,11 @@ const exclusionList: RaceAndEthnicityGroup[] = [
 ];
 
 export interface AgeAdjustedTableCardProps {
-  fips: Fips
-  variableConfig: VariableConfig
-  breakdownVar: BreakdownVar
-  dropdownVarId?: DropdownVarId
-  setVariableConfigWithParam?: (v: VariableConfig) => void
+  fips: Fips;
+  variableConfig: VariableConfig;
+  breakdownVar: BreakdownVar;
+  dropdownVarId?: DropdownVarId;
+  setVariableConfigWithParam?: (v: VariableConfig) => void;
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {

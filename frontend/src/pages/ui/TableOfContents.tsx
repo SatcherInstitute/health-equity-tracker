@@ -22,9 +22,9 @@ const TABLE_OF_CONTENT_PADDING = 15;
 */
 
 interface TableOfContentsProps {
-  reportStepHashIds: ScrollableHashId[]
-  floatTopOffset?: number
-  isScrolledToTop?: boolean
+  reportStepHashIds: ScrollableHashId[];
+  floatTopOffset?: number;
+  isScrolledToTop?: boolean;
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
