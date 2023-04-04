@@ -31,7 +31,7 @@ export type DropdownVarId =
   | "women_in_state_legislature"
   | "prison"
   | "jail"
-  | "statin";
+  | "statins";
 
 export type AgeAdjustedVariableId = "covid_deaths" | "covid_hospitalizations";
 
@@ -47,8 +47,8 @@ export type VariableId =
   | "suicides"
   | "covid_vaccinations"
   | "svi"
-  | "statin_bene"
-  | "statin_adherence";
+  | "statins_bene"
+  | "statins_adherence";
 
 export type MetricId =
   | "population"
@@ -193,14 +193,14 @@ export type MetricId =
   | "uninsured_ratio_age_adjusted"
   | "uninsured_pct_relative_inequity"
   | "phrma_population_pct"
-  | "statin_bene_per_100k"
-  | "statin_bene_pct_share"
-  | "statin_bene_pct_relative_inequity"
-  | "statin_bene_ratio_age_adjusted"
-  | "statin_adherence_pct_rate"
-  | "statin_adherence_pct_share"
-  | "statin_adherence_pct_relative_inequity"
-  | "statin_adherence_ratio_age_adjusted";
+  | "statins_bene_per_100k"
+  | "statins_bene_pct_share"
+  | "statins_bene_pct_relative_inequity"
+  | "statins_bene_ratio_age_adjusted"
+  | "statins_adherence_pct_rate"
+  | "statins_adherence_pct_share"
+  | "statins_adherence_pct_relative_inequity"
+  | "statins_adherence_ratio_age_adjusted";
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1817,16 +1817,16 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  statin: [
+  statins: [
     {
-      variableId: "statin_bene",
-      variableDisplayName: "Statin beneficiaries",
+      variableId: "statins_bene",
+      variableDisplayName: "Statins beneficiaries",
       variableFullDisplayName: "statin beneficiaries",
       surveyCollectedData: true,
       variableDefinition: `Sample definition from statins data`,
       metrics: {
         per100k: {
-          metricId: "statin_bene_per_100k",
+          metricId: "statins_bene_per_100k",
           chartTitleLines: ["statins", "beneficiaries per 100k"],
           // trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "beneficiaries per 100k",
@@ -1834,7 +1834,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           chartTitleLines: ["Percent share of total statin beneficiaries"],
-          metricId: "statin_bene_pct_share",
+          metricId: "statins_bene_pct_share",
           // trendsCardTitleName:
           //   "Inequitable share of jail incarceration over time",
           columnTitleHeader: "Percent share of total statin beneficiaries",
@@ -1852,7 +1852,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             chartTitleLines: [],
-            metricId: "statin_bene_pct_share",
+            metricId: "statins_bene_pct_share",
             columnTitleHeader: "Percent share of total statin usage",
             shortLabel: "% of statin usage",
             type: "pct_share",
@@ -1860,7 +1860,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: ["Relative inequity of statins over time"],
-          metricId: "statin_bene_pct_relative_inequity",
+          metricId: "statins_bene_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
@@ -1868,21 +1868,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitleLines: [
             "Age-adjusted statins ratio compared to White (NH)",
           ],
-          metricId: "statin_bene_ratio_age_adjusted",
+          metricId: "statins_bene_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },
       },
     },
     {
-      variableId: "statin_adherence",
+      variableId: "statins_adherence",
       variableDisplayName: "Statin adherence",
       variableFullDisplayName: "statin adherence",
       surveyCollectedData: true,
       variableDefinition: `Sample definition from statin adherence data`,
       metrics: {
         per100k: {
-          metricId: "statin_adherence_pct_rate",
+          metricId: "statins_adherence_pct_rate",
           chartTitleLines: ["statins", "percent adherence"],
           // trendsCardTitleName: "Rates of jail incarceration over time",
           shortLabel: "% statins adherence",
@@ -1890,7 +1890,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_share: {
           chartTitleLines: ["Percent share of total statins adherence"],
-          metricId: "statin_adherence_pct_share",
+          metricId: "statins_adherence_pct_share",
           // trendsCardTitleName:
           //   "Inequitable share of jail incarceration over time",
           columnTitleHeader: "Percent share of total statins adherence",
@@ -1908,7 +1908,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
           knownBreakdownComparisonMetric: {
             chartTitleLines: [],
-            metricId: "statin_adherence_pct_share",
+            metricId: "statins_adherence_pct_share",
             columnTitleHeader: "Percent share of total statins adherence",
             shortLabel: "% of total statins adherence",
             type: "pct_share",
@@ -1916,7 +1916,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: ["Relative inequity of statins adherence over time"],
-          metricId: "statin_adherence_pct_relative_inequity",
+          metricId: "statins_adherence_pct_relative_inequity",
           shortLabel: "% relative inequity",
           type: "pct_relative_inequity",
         },
@@ -1924,7 +1924,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitleLines: [
             "Age-adjusted statins adherence ratio compared to White (NH)",
           ],
-          metricId: "statin_adherence_ratio_age_adjusted",
+          metricId: "statins_adherence_ratio_age_adjusted",
           shortLabel: "",
           type: "ratio",
         },

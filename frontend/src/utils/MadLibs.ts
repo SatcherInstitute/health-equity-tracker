@@ -124,7 +124,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   women_in_us_congress: "Women in U.S. Congress",
   jail: "Jail Incarceration",
   prison: "Prison Incarceration",
-  pqa_sta: "Sample Pharmacy Data Topic",
+  statins: "Statins",
 };
 
 export interface Category {
@@ -195,7 +195,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: "(TBD) Medication Data",
     definition: "",
-    options: ["pqa_sta"],
+    options: ["statins"],
   },
 ];
 
