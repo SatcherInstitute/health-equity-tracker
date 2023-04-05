@@ -144,8 +144,7 @@ class CDCHIVData(DataSource):
             std_col.TIME_PERIOD_COL,
             geo_to_use,
             fips_to_use,
-            breakdown,
-            std_col.HIV_POPULATION_PCT]
+            breakdown]
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
 
@@ -179,18 +178,30 @@ class CDCHIVData(DataSource):
                                                      cast(SEX_RACE_ETH_AGE_TYPE,
                                                           breakdown),
                                                      std_col.ALL_VALUE)
-        print('--')
-        print(PER_100K_MAP)
+
         cols_to_keep = cols_to_keep + list(HIV_DETERMINANTS.values())
         cols_to_keep = cols_to_keep + list(TEST_MAP.values())
         cols_to_keep = cols_to_keep + list(PER_100K_MAP.values())
         cols_to_keep = cols_to_keep + list(PCT_SHARE_MAP.values())
         cols_to_keep = cols_to_keep + list(PCT_RELATIVE_INEQUITY_MAP.values())
 
+        for col in HIV_DETERMINANTS.values():
+            pop_col = std_col.HIV_POPULATION_PCT
+            if col == std_col.PREP_PREFIX:
+                pop_col = std_col.HIV_PREP_POPULATION_PCT
+            if col == std_col.HIV_CARE_PREFIX:
+                pop_col = std_col.HIV_CARE_POPULATION_PCT
+
+            df = generate_pct_rel_inequity_col(df,
+                                               PCT_SHARE_MAP[col],
+                                               pop_col,
+                                               PCT_RELATIVE_INEQUITY_MAP[col])
+
         df = df[cols_to_keep]
         df = df.sort_values(
             [std_col.TIME_PERIOD_COL, breakdown]).reset_index(drop=True)
-        df.to_csv('testing.csv', index=False)
+
+        # df.to_csv('testing.csv', index=False)
 
         return df
 
