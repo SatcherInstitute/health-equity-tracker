@@ -1,5 +1,5 @@
-import { useMediaQuery, useTheme } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useMediaQuery, useTheme } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 /*
 
@@ -12,7 +12,7 @@ otherDependencies: any[] changes to and of the items in this array will trigger 
 */
 
 // when scrolled to the top, header is taller with 3-dot indicators and extra padding
-const EXTRA_HEIGHT_NON_STICKY_HEADER = 60;
+const EXTRA_HEIGHT_NON_STICKY_HEADER = 60
 
 export function useHeaderScrollMargin(
   elemId: string,
@@ -21,40 +21,40 @@ export function useHeaderScrollMargin(
 ) {
   // ensure header height is remeasured on changes to page width
   useEffect(() => {
-    window.addEventListener("resize", handlePageResize);
+    window.addEventListener('resize', handlePageResize)
     return () => {
-      window.removeEventListener("resize", handlePageResize);
-    };
-  }, []);
-  const [pageWidth, setPageWidth] = useState(window.innerWidth);
+      window.removeEventListener('resize', handlePageResize)
+    }
+  }, [])
+  const [pageWidth, setPageWidth] = useState(window.innerWidth)
   function handlePageResize() {
-    setPageWidth(window.innerWidth);
+    setPageWidth(window.innerWidth)
   }
 
   function measureHeight() {
-    const headerEl = document.querySelector(`#${elemId}`);
+    const headerEl = document.querySelector(`#${elemId}`)
 
-    let headerHeight = 0;
+    let headerHeight = 0
 
     if (headerEl) {
-      headerHeight = headerEl.clientHeight;
+      headerHeight = headerEl.clientHeight
 
       if (!sticking) {
-        headerHeight -= EXTRA_HEIGHT_NON_STICKY_HEADER;
+        headerHeight -= EXTRA_HEIGHT_NON_STICKY_HEADER
       }
     }
 
-    return headerHeight;
+    return headerHeight
   }
 
   // track and return the adjusted height of the element
-  const [headerScrollMargin, setHeaderScrollMargin] = useState(measureHeight());
-  const theme = useTheme();
-  const isWideEnoughForSticky = useMediaQuery(theme.breakpoints.up("md"));
+  const [headerScrollMargin, setHeaderScrollMargin] = useState(measureHeight())
+  const theme = useTheme()
+  const isWideEnoughForSticky = useMediaQuery(theme.breakpoints.up('md'))
 
   useEffect(() => {
-    setHeaderScrollMargin(isWideEnoughForSticky ? measureHeight() : 0);
-  }, [elemId, pageWidth, sticking, ...otherDependencies]);
+    setHeaderScrollMargin(isWideEnoughForSticky ? measureHeight() : 0)
+  }, [elemId, pageWidth, sticking, ...otherDependencies])
 
-  return headerScrollMargin;
+  return headerScrollMargin
 }

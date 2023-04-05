@@ -1,13 +1,13 @@
-import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA, LABEL_HEIGHT } from "../utils";
-import { BAR_HEIGHT, Z_MIDDLE } from "./constants";
-import { type Axis } from "vega";
-import { type AxesProps } from "./types";
+import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA, LABEL_HEIGHT } from '../utils'
+import { BAR_HEIGHT, Z_MIDDLE } from './constants'
+import { type Axis } from 'vega'
+import { type AxesProps } from './types'
 
 export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
   const verticalTickBars: Axis = {
-    scale: "x",
-    orient: "bottom",
-    gridScale: "y",
+    scale: 'x',
+    orient: 'bottom',
+    gridScale: 'y',
     grid: true,
     tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
     tickMinStep: chartDimensions.verticalTickMinStep,
@@ -18,11 +18,11 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
     minExtent: 0,
     ticks: false,
     zindex: Z_MIDDLE,
-  };
+  }
 
   const axisTicks: Axis = {
-    scale: "x",
-    orient: "bottom",
+    scale: 'x',
+    orient: 'bottom',
     grid: false,
     title: xAxisTitle,
     titleX: chartDimensions.axisTitleX,
@@ -32,17 +32,17 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
     tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
     tickMinStep: chartDimensions.axisTickMinStep,
     zindex: Z_MIDDLE,
-    titleLimit: { signal: "width - 10" },
-  };
+    titleLimit: { signal: 'width - 10' },
+  }
 
   const yScale: Axis = {
-    scale: "y",
-    orient: "left",
+    scale: 'y',
+    orient: 'left',
     grid: false,
     title: yAxisTitle,
     zindex: Z_MIDDLE,
     tickSize: 5,
-    labelBaseline: "bottom",
+    labelBaseline: 'bottom',
     labelLimit: 100,
     encode: {
       labels: {
@@ -53,7 +53,7 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
         },
       },
     },
-  };
+  }
 
-  return [verticalTickBars, axisTicks, yScale];
+  return [verticalTickBars, axisTicks, yScale]
 }

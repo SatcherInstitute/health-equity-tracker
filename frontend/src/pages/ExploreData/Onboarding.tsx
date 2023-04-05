@@ -1,7 +1,6 @@
-import React from "react";
-import Joyride from "react-joyride";
-import sass from "../../styles/variables.module.scss";
-import { ONBOARDING_STEPS } from "./OnboardingSteps";
+import Joyride from 'react-joyride'
+import sass from '../../styles/variables.module.scss'
+import { ONBOARDING_STEPS } from './OnboardingSteps'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
@@ -32,5 +31,5 @@ export default function Onboarding(props: {
         },
       }}
     />
-  );
+  )
 }

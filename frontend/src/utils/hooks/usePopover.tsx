@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from 'react'
 
 export interface PopoverElements {
   // Element to which the popover will be anchored
@@ -12,19 +12,19 @@ export interface PopoverElements {
 }
 
 export function usePopover(anchorElement?: any): PopoverElements {
-  const [anchor, setAnchor] = React.useState<HTMLElement | null>(
+  const [anchor, setAnchor] = useState<HTMLElement | null>(
     anchorElement || null
-  );
+  )
 
   const open = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchor(event.currentTarget);
-  };
+    setAnchor(event.currentTarget)
+  }
 
   const close = () => {
-    setAnchor(null);
-  };
+    setAnchor(null)
+  }
 
-  const isOpen = Boolean(anchor);
+  const isOpen = Boolean(anchor)
 
-  return { anchor, open, close, isOpen };
+  return { anchor, open, close, isOpen }
 }

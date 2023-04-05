@@ -8,18 +8,17 @@
  */
 
 /* External Imports */
-import React from "react";
 
 /* Styles */
-import styles from "./Trends.module.scss";
+import styles from './Trends.module.scss'
 
 /* Constants */
-import { getAmountsByDate } from "./helpers";
-import { type TrendsData, type YScale } from "./types";
+import { getAmountsByDate } from './helpers'
+import { type TrendsData, type YScale } from './types'
 
 /* Helpers */
-import { COLORS as C } from "./constants";
-import { type DemographicGroup } from "../../data/utils/Constants";
+import { COLORS as C } from './constants'
+import { type DemographicGroup } from '../../data/utils/Constants'
 
 /* Define type interface */
 export interface HoverCirclesProps {
@@ -59,9 +58,9 @@ export function HoverCircles({
                 </>
               )}
             </g>
-          );
+          )
         }
       )}
     </g>
-  );
+  )
 }

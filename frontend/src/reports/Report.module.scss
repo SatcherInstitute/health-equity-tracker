@@ -1,5 +1,5 @@
-@import "../styles/variables.module";
-@import "../styles/globals.scss";
+@import '../styles/variables.module';
+@import '../styles/globals.scss';
 
 .OneColumnReportWrapper {
   width: 100%;
@@ -14,19 +14,9 @@
 }
 
 .ToggleBlock {
-  padding-left: 15px;
+  margin-top: 1rem;
+  padding-left: 12px;
   text-align: left;
-
-  .ToggleLabel {
-    @include inter300;
-    display: block;
-    text-transform: uppercase;
-    color: $alt-black;
-    font-size: $small;
-    text-align: left;
-    padding-top: 10px;
-    padding-bottom: 10px;
-  }
 }
 
 .MissingDataContainer {

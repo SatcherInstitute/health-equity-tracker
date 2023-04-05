@@ -1,15 +1,15 @@
-import LazyLoad from "react-lazyload";
-import styles from "./ExploreDataPage.module.scss";
-import covidClick from "../../assets/screengrabs/covidClick.mp4";
-import changeModes from "../../assets/screengrabs/changeModes.mp4";
+import LazyLoad from 'react-lazyload'
+import styles from './ExploreDataPage.module.scss'
+import covidClick from '../../assets/screengrabs/covidClick.mp4'
+import changeModes from '../../assets/screengrabs/changeModes.mp4'
 
 export const ONBOARDING_STEPS = [
   onboardingStep(
-    "#covid_cases-dropdown-topic",
-    "Start Your Search",
+    '#covid_cases-dropdown-topic',
+    'Start Your Search',
     <>
       <p>
-        Select a topic (and region) to start your search, such as{" "}
+        Select a topic (and region) to start your search, such as{' '}
         <i>
           ‘Investigate rates of <b>COVID-19</b> in the <b>United States</b>’
         </i>
@@ -28,21 +28,21 @@ export const ONBOARDING_STEPS = [
       </LazyLoad>
     </>,
     /* hideCloseButton= */ true,
-    /* placement= */ "auto"
+    /* placement= */ 'auto'
   ),
   onboardingStep(
-    "#onboarding-madlib-arrow",
-    "Compare Locations and Topics",
+    '#onboarding-madlib-arrow',
+    'Compare Locations and Topics',
     <>
       <p>
-        Click the arrows for more ways to search, such as{" "}
+        Click the arrows for more ways to search, such as{' '}
         <i>
-          ‘Compare rates of <b>Poverty</b> between{" "}
+          ‘Compare rates of <b>Poverty</b> between{' '}
           <b>Los Angeles County, California</b> and the <b>United States</b>’
-        </i>{" "}
-        or{" "}
+        </i>{' '}
+        or{' '}
         <i>
-          ‘Explore relationships between <b>Poverty</b> and <b>COVID-19</b> in{" "}
+          ‘Explore relationships between <b>Poverty</b> and <b>COVID-19</b> in{' '}
           <b>Los Angeles County, California</b>’
         </i>
         .
@@ -62,11 +62,11 @@ export const ONBOARDING_STEPS = [
       </LazyLoad>
     </>,
     /* hideCloseButton= */ true,
-    /* placement= */ "auto"
+    /* placement= */ 'auto'
   ),
   onboardingStep(
-    "#onboarding-limits-in-the-data",
-    "Limits in the data",
+    '#onboarding-limits-in-the-data',
+    'Limits in the data',
     <>
       <p>
         The Tracker ingests and standardizes many data sets, but unfortunately
@@ -79,24 +79,24 @@ export const ONBOARDING_STEPS = [
       </p>
     </>,
     /* hideCloseButton= */ false,
-    /* placement= */ "auto"
+    /* placement= */ 'auto'
   ),
   onboardingStep(
-    "#onboarding-explore-trends",
-    "Explore further to see demographic trends",
+    '#onboarding-explore-trends',
+    'Explore further to see demographic trends',
     <>
       Where available, the tracker offers breakdowns by race and ethnicity, sex,
       and age. Some topics may also include selectors for different data types.
     </>,
     /* hideCloseButton= */ true,
-    /* placement= */ "auto"
+    /* placement= */ 'auto'
   ),
   onboardingStep(
-    "#madlib-carousel-container",
-    "Explore the data",
+    '#madlib-carousel-container',
+    'Explore the data',
     <>
       <p>
-        Close this window to explore the data yourself, starting with{" "}
+        Close this window to explore the data yourself, starting with{' '}
         <b>COVID-19</b> in the <b>United States</b>. Want to see more? Watch our
         demo video:
       </p>
@@ -111,9 +111,9 @@ export const ONBOARDING_STEPS = [
       </div>
     </>,
     /* hideCloseButton= */ false,
-    /* placement= */ "auto"
+    /* placement= */ 'auto'
   ),
-];
+]
 
 function onboardingStep(
   targetId: string,
@@ -121,20 +121,20 @@ function onboardingStep(
   content: JSX.Element,
   hideCloseButton: boolean,
   placement:
-    | "auto"
-    | "left-start"
-    | "top"
-    | "top-start"
-    | "top-end"
-    | "bottom"
-    | "bottom-start"
-    | "bottom-end"
-    | "left"
-    | "left-end"
-    | "right"
-    | "right-start"
-    | "right-end"
-    | "center"
+    | 'auto'
+    | 'left-start'
+    | 'top'
+    | 'top-start'
+    | 'top-end'
+    | 'bottom'
+    | 'bottom-start'
+    | 'bottom-end'
+    | 'left'
+    | 'left-end'
+    | 'right'
+    | 'right-start'
+    | 'right-end'
+    | 'center'
     | undefined
 ) {
   return {
@@ -142,11 +142,11 @@ function onboardingStep(
     target: targetId,
     placement,
     content: (
-      <div style={{ textAlign: "left" }}>
+      <div style={{ textAlign: 'left' }}>
         <h4>{title}</h4>
         {content}
       </div>
     ),
     disableBeacon: true,
-  };
+  }
 }

@@ -1,35 +1,39 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import Typography from "@material-ui/core/Typography";
-import { Box, Grid, useMediaQuery, useTheme } from "@material-ui/core";
-import { ChoroplethMap } from "../../charts/ChoroplethMap";
-import { Fips, TERRITORY_CODES } from "../../data/utils/Fips";
-import { Legend } from "../../charts/Legend";
+import {
+  Box,
+  Grid,
+  useMediaQuery,
+  useTheme,
+  Button,
+  Dialog,
+  DialogContent,
+  Typography,
+  Alert,
+} from '@mui/material'
+import { ChoroplethMap } from '../../charts/ChoroplethMap'
+import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
+import { Legend } from '../../charts/Legend'
 import {
   type MapOfDatasetMetadata,
   type Row,
   type FieldRange,
-} from "../../data/utils/DatasetTypes";
+} from '../../data/utils/DatasetTypes'
 import {
   type MetricConfig,
   type MetricId,
   SYMBOL_TYPE_LOOKUP,
-} from "../../data/config/MetricConfig";
-import { Sources } from "./Sources";
-import styles from "./MultiMapDialog.module.scss";
-import { type MetricQueryResponse } from "../../data/query/MetricQuery";
+} from '../../data/config/MetricConfig'
+import { Sources } from './Sources'
+import styles from './MultiMapDialog.module.scss'
+import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-} from "../../data/query/Breakdowns";
-import { Alert } from "@material-ui/lab";
-import { type DemographicGroup } from "../../data/utils/Constants";
+} from '../../data/query/Breakdowns'
+import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from "../../data/variables/CawpProvider";
+} from '../../data/variables/CawpProvider'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -59,6 +63,8 @@ export interface MultiMapDialogProps {
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>
+  // optional to show state data when county not available
+  hasSelfButNotChildGeoData?: boolean
 }
 
 /*
@@ -67,8 +73,8 @@ export interface MultiMapDialogProps {
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
   // calculate page size for responsive layout
-  const theme = useTheme();
-  const pageIsWide = useMediaQuery(theme.breakpoints.up("xl"));
+  const theme = useTheme()
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('xl'))
 
   return (
     <Dialog
@@ -86,10 +92,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             item
             xs={12}
             container
-            justifyContent={pageIsWide ? "flex-start" : "center"}
+            justifyContent={pageIsWide ? 'flex-start' : 'center'}
           >
             <Typography id="modalTitle" variant="h6" component="h2">
-              {props.metricConfig.chartTitleLines.join(" ")} across all{" "}
+              {props.metricConfig.chartTitleLines.join(' ')} across all{' '}
               {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
             </Typography>
           </Grid>
@@ -100,11 +106,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               props.metricConfig.metricId
             )
               ? getWomenRaceLabel(breakdownValue)
-              : breakdownValue;
+              : breakdownValue
 
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
-            );
+            )
 
             return (
               <Grid
@@ -121,19 +127,23 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={{ click: (...args: any) => {} }}
+                    signalListeners={{
+                      click: (...args: any) => {},
+                    }}
                     metric={props.metricConfig}
                     legendData={props.data}
                     data={dataForValue}
                     hideLegend={true}
-                    showCounties={!props.fips.isUsa()}
+                    showCounties={
+                      !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
+                    }
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
                     scaleType="quantize"
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.chartTitleLines.join(" ")}${
-                      breakdownValue === "All" ? "" : ` for ${breakdownValue}`
+                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${
+                      breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
                     } in ${props.fips.getSentenceDisplayName()}`}
                     countColsToAdd={props.countColsToAdd}
                   />
@@ -145,17 +155,19 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 dataForValue.length ? (
                   <Grid container>
                     {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code);
+                      const fips = new Fips(code)
                       return (
                         <Grid item xs={4} sm={2} key={code}>
                           <ChoroplethMap
-                            signalListeners={{ click: (...args: any) => {} }}
+                            signalListeners={{
+                              click: (...args: any) => {},
+                            }}
                             metric={props.metricConfig}
                             legendData={props.data}
                             data={dataForValue}
                             hideLegend={true}
                             hideActions={true}
-                            showCounties={!props.fips.isUsa()}
+                            showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}
                             scaleType="quantize"
@@ -164,14 +176,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             countColsToAdd={props.countColsToAdd}
                           />
                         </Grid>
-                      );
+                      )
                     })}
                   </Grid>
                 ) : (
                   <></>
                 )}
               </Grid>
-            );
+            )
           })}
 
           {/* Legend */}
@@ -193,12 +205,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
-                    legendTitle={props.metricConfig.chartTitleLines.join(" ")}
+                    legendTitle={props.metricConfig.chartTitleLines.join(' ')}
                     legendData={props.data}
                     scaleType="quantize"
                     sameDotSize={true}
-                    direction={pageIsWide ? "horizontal" : "vertical"}
-                    description={"Consistent legend for all displayed maps"}
+                    direction={pageIsWide ? 'horizontal' : 'vertical'}
+                    description={'Consistent legend for all displayed maps'}
                   />
                 </Grid>
               </Grid>
@@ -213,11 +225,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   <p className={styles.NoDataWarning}>
                     Insufficient {props.metricConfig.shortLabel} data reported
                     at the {props.fips.getChildFipsTypeDisplayName()} level for
-                    the following groups:{" "}
+                    the following groups:{' '}
                     {props.breakdownValuesNoData.map((group, i) => (
                       <span key={group}>
                         <b>{group}</b>
-                        {i < props.breakdownValuesNoData.length - 1 && "; "}
+                        {i < props.breakdownValuesNoData.length - 1 && '; '}
                       </span>
                     ))}
                   </p>
@@ -243,5 +255,5 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         </div>
       </div>
     </Dialog>
-  );
+  )
 }

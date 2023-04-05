@@ -1,6 +1,6 @@
-import { format, utcFormat, scaleOrdinal } from "d3";
-import { type MetricType } from "../../data/config/MetricConfig";
-import sass from "../../styles/variables.module.scss";
+import { format, utcFormat, scaleOrdinal } from 'd3'
+import { type MetricType } from '../../data/config/MetricConfig'
+import sass from '../../styles/variables.module.scss'
 import {
   AAPI_W,
   AIANNH_W,
@@ -24,7 +24,7 @@ import {
   WHITE_W,
   MULTI_NH,
   API_NH,
-} from "../../data/utils/Constants";
+} from '../../data/utils/Constants'
 
 // get colors from css variables
 const {
@@ -40,7 +40,7 @@ const {
   timeDarkRed,
   timeYellow,
   mapLight,
-} = sass;
+} = sass
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   // shared between breakdown types
@@ -76,32 +76,32 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   Male: timePurple,
   Other: timeYellow,
   // age
-  "0-9": timeCyanBlue,
-  "10-19": timePastelGreen,
-  "20-29": darkBlue,
-  "30-39": timePurple,
-  "40-49": timePink,
-  "50-59": timeDarkRed,
-  "60-69": redOrange,
-  "70-79": timeYellow,
-  "80+": mapLight,
+  '0-9': timeCyanBlue,
+  '10-19': timePastelGreen,
+  '20-29': darkBlue,
+  '30-39': timePurple,
+  '40-49': timePink,
+  '50-59': timeDarkRed,
+  '60-69': redOrange,
+  '70-79': timeYellow,
+  '80+': mapLight,
   // age for HIV
-  "13-24": timeCyanBlue,
-  "16-24": timePastelGreen,
-  "25-34": darkBlue,
-  "35-44": timePurple,
-  "45-54": timeDarkRed,
-  "55+": redOrange,
-};
+  '13-24': timeCyanBlue,
+  '16-24': timePastelGreen,
+  '25-34': darkBlue,
+  '35-44': timePurple,
+  '45-54': timeDarkRed,
+  '55+': redOrange,
+}
 
 // domain for color scale
-const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP);
+const COLOR_DOMAIN = Object.keys(GROUP_COLOR_MAP)
 // range of colors for groups
-const COLOR_RANGE = Object.values(GROUP_COLOR_MAP);
+const COLOR_RANGE = Object.values(GROUP_COLOR_MAP)
 // color scale
-const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE);
+const COLORS = scaleOrdinal(COLOR_DOMAIN, COLOR_RANGE)
 // color range for unknowns
-const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost];
+const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost]
 
 /* Config */
 const CONFIG = {
@@ -128,26 +128,26 @@ const CONFIG = {
   },
   // width of tooltip bars
   BAR_WIDTH: 100,
-};
+}
 
 // line chart type dictionary
 const TYPES: Record<string, MetricType> = {
-  HUNDRED_K: "per100k",
-  PERCENT_SHARE: "pct_share",
-  PERCENT_RELATIVE_INEQUITY: "pct_relative_inequity",
-};
+  HUNDRED_K: 'per100k',
+  PERCENT_SHARE: 'pct_share',
+  PERCENT_RELATIVE_INEQUITY: 'pct_relative_inequity',
+}
 
 const FORMATTERS = {
-  pct: (d: number) => `${format(".1~f")(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
-  dateShort: utcFormat("%m/%y"),
-  dateYear: utcFormat("%Y"),
-  dateFromString_YYYY: (str: string) => str && utcFormat("%Y")(new Date(str)),
+  pct: (d: number) => `${format('.1~f')(d)}%`, // have to treat percent as truncated number and then interpolate % b/c they are received as integers
+  dateShort: utcFormat('%m/%y'),
+  dateYear: utcFormat('%Y'),
+  dateFromString_YYYY: (str: string) => str && utcFormat('%Y')(new Date(str)),
   dateFromString_MM_YYYY: (str: string) =>
-    str && utcFormat("%B %Y")(new Date(str)),
-  num: format(".1~f"),
-  plusNum: (d: number) => `${d > 0 ? "+" : ""}${format(".1~f")(d)}`, // add "+" only to positive numbers (not 0)
-  capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ""),
-};
+    str && utcFormat('%B %Y')(new Date(str)),
+  num: format('.1~f'),
+  plusNum: (d: number) => `${d > 0 ? '+' : ''}${format('.1~f')(d)}`, // add "+" only to positive numbers (not 0)
+  capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
+}
 
 export {
   COLOR_RANGE,
@@ -156,4 +156,4 @@ export {
   TYPES,
   FORMATTERS,
   COLORS,
-};
+}

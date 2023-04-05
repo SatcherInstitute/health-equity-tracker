@@ -1,21 +1,21 @@
-import React from "react"
+import React from 'react'
 
 export default class ErrorBoundary extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = { hasError: false }
   }
 
-  static getDerivedStateFromError () {
+  static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI.
     return { hasError: true }
   }
 
-  componentDidCatch (error, info) {
+  componentDidCatch(error, info) {
     console.log(error, info.componentStack)
   }
 
-  render () {
+  render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       window.location = window.location.pathname

@@ -1,17 +1,17 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from 'react'
 
 export function useAutoFocusDialog(): [boolean, (open: boolean) => void] {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false)
 
-  const dialogElementRef = useRef<HTMLElement>(null);
+  const dialogElementRef = useRef<HTMLElement>(null)
   useEffect(() => {
     if (isOpen) {
-      const { current: dialogElement } = dialogElementRef;
+      const { current: dialogElement } = dialogElementRef
       if (dialogElement !== null) {
-        dialogElement.focus();
+        dialogElement.focus()
       }
     }
-  }, [isOpen]);
+  }, [isOpen])
 
-  return [isOpen, setIsOpen];
+  return [isOpen, setIsOpen]
 }

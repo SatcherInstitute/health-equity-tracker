@@ -1,5 +1,5 @@
-@use "../../styles/globals.scss";
-@import "../../styles/variables.module";
+@use '../../styles/globals.scss';
+@import '../../styles/variables.module';
 
 .ExploreData {
   background-color: $explore-bg-color;
@@ -25,6 +25,7 @@
 
 // when scrolled to top of page
 .CarouselItem {
+  text-align: center;
   line-height: $lhLoose;
   font-size: $title;
 
@@ -86,15 +87,15 @@
 }
 
 // override the joyride component to show back button
-button[data-action="back"] {
+button[data-action='back'] {
   color: $white !important;
 }
 
 //  custom focus styles for warm welcome buttons
-button[data-action="primary"]:focus,
-button[data-action="close"]:focus,
-button[data-action="skip"]:focus,
-button[data-action="back"]:focus {
+button[data-action='primary']:focus,
+button[data-action='close']:focus,
+button[data-action='skip']:focus,
+button[data-action='back']:focus {
   outline: 1px solid white;
 }
 

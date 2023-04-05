@@ -1,11 +1,11 @@
-import React from "react";
-import styles from "./WhatIsHealthEquityPage.module.scss";
-import Grid from "@material-ui/core/Grid";
-import { NEWS_TAB_LINK } from "../../utils/internalRoutes";
-import { Route, Switch } from "react-router-dom";
+import { lazy } from 'react'
+import styles from './WhatIsHealthEquityPage.module.scss'
+import Grid from '@mui/material/Grid'
+import { NEWS_TAB_LINK } from '../../utils/internalRoutes'
+import { Route, Switch } from 'react-router-dom'
 
-const AllPosts = React.lazy(async () => await import("./News/AllPosts"));
-const SinglePost = React.lazy(async () => await import("./News/SinglePost"));
+const AllPosts = lazy(async () => await import('./News/AllPosts'))
+const SinglePost = lazy(async () => await import('./News/SinglePost'))
 
 export interface Article {
   id: number
@@ -32,7 +32,7 @@ export interface Article {
     author: {
       id: number
     }
-    "wp:featuredmedia": Array<{
+    'wp:featuredmedia': Array<{
       id: number
       alt_text: string
       source_url: string
@@ -50,7 +50,7 @@ export interface Article {
         }
       }
     }>
-    "wp:term": { 0: Array<{ id: number, name: string, link: string }> }
+    'wp:term': { 0: Array<{ id: number; name: string; link: string }> }
   }
 }
 
@@ -75,5 +75,5 @@ export default function NewsTab() {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 }

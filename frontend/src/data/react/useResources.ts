@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 import {
   type MetricQuery,
   type MetricQueryResponse,
-} from "../query/MetricQuery";
-import { getDataManager } from "../../utils/globals";
+} from '../query/MetricQuery'
+import { getDataManager } from '../../utils/globals'
 
-export type IncompleteLoadStatus = "loading" | "error";
+export type IncompleteLoadStatus = 'loading' | 'error'
 
 /**
  * Loads the specified resources and returns the resources or
@@ -23,29 +23,27 @@ export function useResources<K, R>(
 ): R[] | IncompleteLoadStatus {
   const [resourceState, setResourceState] = useState<
     R[] | IncompleteLoadStatus
-  >("loading");
+  >('loading')
 
   async function loadResources() {
     try {
-      const promises = resources.map(
-        async (resource) => await loadFn(resource)
-      );
-      const results = await Promise.all(promises);
-      setResourceState(results);
+      const promises = resources.map(async (resource) => await loadFn(resource))
+      const results = await Promise.all(promises)
+      setResourceState(results)
     } catch (e) {
-      setResourceState("error");
+      setResourceState('error')
     }
   }
 
   useEffect(() => {
     async function asyncLoadResources() {
-      await loadResources();
+      await loadResources()
     }
 
-    asyncLoadResources().catch(console.error);
-  }, [...resources.map((resource) => depIdFn(resource))]);
+    asyncLoadResources().catch(console.error)
+  }, [...resources.map((resource) => depIdFn(resource))])
 
-  return resourceState;
+  return resourceState
 }
 
 /**
@@ -60,7 +58,7 @@ export function useMetrics(
     queries,
     async (query: MetricQuery) => await getDataManager().loadMetrics(query),
     (query) => query.getUniqueKey()
-  );
+  )
 
-  return queryResponses;
+  return queryResponses
 }

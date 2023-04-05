@@ -1,55 +1,53 @@
-import { Box, Button, Grid, Typography } from "@material-ui/core";
-
-import React, { useState, useEffect } from "react";
-import styles from "./News.module.scss";
-import { Link, Redirect, useParams } from "react-router-dom";
+import { Box, Button, Grid, Typography, Skeleton } from '@mui/material'
+import { useState, useEffect } from 'react'
+import styles from './News.module.scss'
+import { Link, Redirect, useParams } from 'react-router-dom'
 import {
   fetchNewsData,
   ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
   getHtml,
-} from "../../../utils/urlutils";
-import { NEWS_TAB_LINK } from "../../../utils/internalRoutes";
-import { Helmet } from "react-helmet-async";
-import NewsPreviewCard from "./NewsPreviewCard";
-import { useQuery } from "react-query";
-import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-import { type Article } from "../NewsTab";
-import hetLogo from "../../../assets/AppbarLogo.png";
-import { Skeleton } from "@material-ui/lab";
-import SignupSection from "../../ui/SignupSection";
+} from '../../../utils/urlutils'
+import { NEWS_TAB_LINK } from '../../../utils/internalRoutes'
+import { Helmet } from 'react-helmet-async'
+import NewsPreviewCard from './NewsPreviewCard'
+import { useQuery } from 'react-query'
+import OpenInNewIcon from '@mui/icons-material/OpenInNew'
+import { type Article } from '../NewsTab'
+import hetLogo from '../../../assets/AppbarLogo.png'
+import SignupSection from '../../ui/SignupSection'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
-} from "../../../reports/ui/ShareButtons";
-import LazyLoad from "react-lazyload";
+} from '../../../reports/ui/ShareButtons'
+import LazyLoad from 'react-lazyload'
 
 function prettyDate(dateString: string) {
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  return new Date(dateString).toLocaleDateString(undefined, options as any);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date(dateString).toLocaleDateString(undefined, options as any)
 }
 
 export default function SinglePost() {
-  const [fullArticle, setFullArticle] = useState<Article>();
-  const [prevArticle, setPrevArticle] = useState<Article>();
-  const [nextArticle, setNextArticle] = useState<Article>();
+  const [fullArticle, setFullArticle] = useState<Article>()
+  const [prevArticle, setPrevArticle] = useState<Article>()
+  const [nextArticle, setNextArticle] = useState<Article>()
 
-  const { slug }: { slug?: string } = useParams();
+  const { slug }: { slug?: string } = useParams()
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
     REACT_QUERY_OPTIONS
-  );
+  )
 
   // on page load, get prev,full, next article based on fullArticle URL slug
   useEffect(() => {
     if (data?.data) {
       const fullArticleIndex = data.data.findIndex(
         (article: Article) => article.slug === slug
-      );
-      setFullArticle(data.data[fullArticleIndex]);
+      )
+      setFullArticle(data.data[fullArticleIndex])
       // previous and next articles wrap around both ends of the array
       setPrevArticle(
         data.data[
@@ -57,36 +55,36 @@ export default function SinglePost() {
             ? fullArticleIndex - 1
             : data.data.length - 1
         ]
-      );
-      setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length]);
+      )
+      setNextArticle(data.data[(fullArticleIndex + 1) % data.data.length])
     }
-  }, [data?.data, slug]);
+  }, [data?.data, slug])
 
-  const articleCategories = fullArticle?._embedded?.["wp:term"]?.[0];
+  const articleCategories = fullArticle?._embedded?.['wp:term']?.[0]
 
   // get the large version of the image if available, if not try for the full version
   const articleImage =
-    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
+    fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes
       ?.large?.source_url ??
-    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.media_details?.sizes
-      ?.full?.source_url;
+    fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes
+      ?.full?.source_url
 
   const articleImageAltText =
-    fullArticle?._embedded?.["wp:featuredmedia"]?.[0]?.alt_text ?? "";
+    fullArticle?._embedded?.['wp:featuredmedia']?.[0]?.alt_text ?? ''
 
   return (
     <>
       {error && (
         <Redirect
           to={{
-            pathname: "/404",
+            pathname: '/404',
           }}
         />
       )}
       <Grid container className={styles.Grid}>
         <Helmet>
           <title>{`News${
-            fullArticle ? ` - ${fullArticle?.title?.rendered}` : ""
+            fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
           } - Health Equity Tracker`}</title>
           {/* if cross-posted from external site, should be input on WP as canonical_url */}
           {fullArticle && (
@@ -144,7 +142,7 @@ export default function SinglePost() {
               {isLoading ? (
                 <Skeleton></Skeleton>
               ) : (
-                getHtml(fullArticle?.title?.rendered ?? "")
+                getHtml(fullArticle?.title?.rendered ?? '')
               )}
             </Typography>
 
@@ -155,7 +153,7 @@ export default function SinglePost() {
             >
               {fullArticle?.acf?.contributing_author ? (
                 <>
-                  Authored by{" "}
+                  Authored by{' '}
                   <Link
                     className={styles.FilterLink}
                     to={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
@@ -172,7 +170,7 @@ export default function SinglePost() {
               {fullArticle?.acf?.contributing_author &&
               fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
-                : ""}
+                : ''}
             </Typography>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
@@ -193,7 +191,7 @@ export default function SinglePost() {
                 className={styles.SingleArticleDetailText}
                 variant="body1"
               >
-                Categorized under:{" "}
+                Categorized under:{' '}
                 {articleCategories.map((categoryChunk, i) => (
                   <span key={categoryChunk.id}>
                     <Link
@@ -202,7 +200,7 @@ export default function SinglePost() {
                     >
                       {categoryChunk.name}
                     </Link>
-                    {i < articleCategories.length - 1 ? ", " : ""}
+                    {i < articleCategories.length - 1 ? ', ' : ''}
                   </span>
                 ))}
               </Typography>
@@ -237,7 +235,7 @@ export default function SinglePost() {
                     Continue Reading
                     {fullArticle?.acf?.friendly_site_name
                       ? ` on ${fullArticle.acf.friendly_site_name}`
-                      : ""}{" "}
+                      : ''}{' '}
                     <OpenInNewIcon />
                   </Button>
                 </Box>
@@ -248,7 +246,7 @@ export default function SinglePost() {
                 <Typography className={styles.HeaderSubtext} variant="body1">
                   {fullArticle?.acf?.canonical_url && (
                     <span className={styles.ReprintNotice}>
-                      Note: this article was originally published on{" "}
+                      Note: this article was originally published on{' '}
                       <a href={fullArticle?.acf?.canonical_url}>another site</a>
                       , and is reprinted here with permission.
                     </span>
@@ -263,7 +261,7 @@ export default function SinglePost() {
             <Grid container className={styles.PrevNextSection}>
               <Grid item xs={12} md={4}>
                 {prevArticle && (
-                  <NewsPreviewCard article={prevArticle} arrow={"prev"} />
+                  <NewsPreviewCard article={prevArticle} arrow={'prev'} />
                 )}
               </Grid>
               <Grid item xs={12} md={4}>
@@ -276,7 +274,7 @@ export default function SinglePost() {
               <Grid item xs={12} md={4}>
                 {nextArticle && (
                   <>
-                    <NewsPreviewCard article={nextArticle} arrow={"next"} />
+                    <NewsPreviewCard article={nextArticle} arrow={'next'} />
                   </>
                 )}
               </Grid>
@@ -288,5 +286,5 @@ export default function SinglePost() {
         <SignupSection />
       </Grid>
     </>
-  );
+  )
 }

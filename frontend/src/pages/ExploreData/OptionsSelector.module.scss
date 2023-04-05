@@ -1,5 +1,5 @@
-@import "../../styles/variables.module.scss";
-@import "../../styles/globals.scss";
+@import '../../styles/variables.module.scss';
+@import '../../styles/globals.scss';
 
 // heading for expanded TOPIC menu
 .PopoverTitle {
@@ -31,10 +31,7 @@
 .CategoryTitleText {
   @include inter700();
   font-size: $text;
-}
-
-.CategoryTitleText {
-  margin: 0px 16px 0px 16px;
+  margin: 0px 16px 0px 0px;
 }
 
 .ListItem {
@@ -69,23 +66,23 @@
 .MadLibButton,
 .MadLibButtonPulse {
   @include inter500();
-  margin: 0.25rem;
+  margin: 0.25rem !important;
   padding: 0 5px 0 15px !important;
-  color: $alt-green;
-  font-size: $title;
-  min-width: 100px;
-  border: 1px solid $alt-green;
-  margin-inline: 1rem;
+  color: $alt-green !important;
+  font-size: $title !important;
+  min-width: 100px !important;
+  border: 1px solid $alt-green !important;
+  margin-inline: 1rem !important;
   // mui shadow to match home page  CTA button
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
 
   @media (min-width: $sm) {
-    font-size: $smallestHeader;
+    font-size: $smallestHeader !important;
   }
 
   @media (min-width: $lg) {
-    font-size: $smallerHeader;
+    font-size: $smallerHeader !important;
   }
 }
 

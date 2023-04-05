@@ -1,37 +1,37 @@
-import { type Signal, type Title } from "vega";
-import { type MetricId } from "../../data/config/MetricConfig";
-import { Y_STEP } from "./constants";
-import { type getTitleProps } from "./types";
+import { type Signal, type Title } from 'vega'
+import { type MetricId } from '../../data/config/MetricConfig'
+import { Y_STEP } from './constants'
+import { type getTitleProps } from './types'
 
 function getTitle(props: getTitleProps) {
   const title: Title = {
-    text: props.chartTitle ?? "",
-    subtitle: " ",
+    text: props.chartTitle ?? '',
+    subtitle: ' ',
     encode: {
       title: {
         enter: {
           fontSize: { value: props.fontSize },
-          font: { value: "Inter, sans-serif" },
+          font: { value: 'Inter, sans-serif' },
         },
       },
     },
-  };
-  return title;
+  }
+  return title
 }
 
 function getSignals() {
   const yStepSignal: Signal = {
-    name: "y_step",
+    name: 'y_step',
     value: Y_STEP,
-  };
+  }
   const heightSignal: Signal = {
-    name: "height",
+    name: 'height',
     update: "bandspace(domain('y').length, 0.1, 0.05) * y_step",
-  };
+  }
 
-  const signal = [yStepSignal, heightSignal];
+  const signal = [yStepSignal, heightSignal]
 
-  return signal;
+  return signal
 }
 
 function maxValueInField(
@@ -42,7 +42,7 @@ function maxValueInField(
     ...data
       .map((row) => row[field])
       .filter((value: number | undefined) => value !== undefined)
-  );
+  )
 }
 
 function getLargerMeasure(
@@ -50,12 +50,12 @@ function getLargerMeasure(
   lightMetricId: MetricId,
   darkMetricId: MetricId
 ) {
-  const lightValue = maxValueInField(data, lightMetricId);
-  const darkValue = maxValueInField(data, darkMetricId);
+  const lightValue = maxValueInField(data, lightMetricId)
+  const darkValue = maxValueInField(data, darkMetricId)
 
   if (lightValue > darkValue) {
-    return lightMetricId;
-  } else return darkMetricId;
+    return lightMetricId
+  } else return darkMetricId
 }
 
-export { getTitle, getSignals, maxValueInField, getLargerMeasure };
+export { getTitle, getSignals, maxValueInField, getLargerMeasure }
