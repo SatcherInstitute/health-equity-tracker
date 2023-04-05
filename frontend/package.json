@@ -4,7 +4,8 @@
   "type": "module",
   "private": true,
   "overrides": {
-    "chokidar": "3.5.3"
+    "chokidar": "3.5.3",
+    "react-floater": "0.8.2"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.18.6",
