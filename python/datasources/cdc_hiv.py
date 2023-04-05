@@ -38,25 +38,14 @@ PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
 PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
 PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
 
+PER_100K_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+                for prefix in HIV_DETERMINANTS.values()
+                if prefix not in [std_col.HIV_CARE_PREFIX, std_col.PREP_PREFIX]}
 
-# PCT_SHARE_MAP = {}
-# for prefix in HIV_DETERMINANTS.values():
-#     PCT_SHARE_MAP[prefix] = std_col.generate_column_name(
-#         prefix, std_col.PCT_SHARE_SUFFIX)
-# PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
-# PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
-# PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
-
-PER_100K_MAP = {}
-for prefix in HIV_DETERMINANTS.values():
-    if prefix not in [std_col.HIV_CARE_PREFIX, std_col.PREP_PREFIX]:
-        PER_100K_MAP[prefix] = std_col.generate_column_name(
-            prefix, std_col.PER_100K_SUFFIX)
-
-PCT_RELATIVE_INEQUITY_MAP = {}
-for prefix in HIV_DETERMINANTS.values():
-    PCT_RELATIVE_INEQUITY_MAP[prefix] = std_col.generate_column_name(
+PCT_RELATIVE_INEQUITY_MAP = {
+    prefix: std_col.generate_column_name(
         prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
+    for prefix in HIV_DETERMINANTS.values()}
 
 # a nested dictionary that contains values swaps per column name
 BREAKDOWN_TO_STANDARD_BY_COL = {
@@ -71,21 +60,19 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
         'White': std_col.Race.WHITE_NH.value},
-    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
-}
+    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}}
 
-TEST_MAP = {
+CARE_PREP_MAP = {
     std_col.HIV_CARE_PREFIX: std_col.HIV_CARE_LINKAGE,
-    std_col.PREP_PREFIX: std_col.HIV_PREP_COVERAGE,
-}
+    std_col.PREP_PREFIX: std_col.HIV_PREP_COVERAGE}
 
 POP_MAP = {
     std_col.HIV_CARE_PREFIX: std_col.HIV_CARE_POPULATION,
     std_col.PREP_PREFIX: std_col.HIV_PREP_POPULATION
 }
 
-# Define the dictionaries
-dicts = [HIV_DETERMINANTS, TEST_MAP, PER_100K_MAP,
+# HIV dictionaries
+dicts = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
          PCT_SHARE_MAP, PCT_RELATIVE_INEQUITY_MAP]
 
 
@@ -201,8 +188,6 @@ class CDCHIVData(DataSource):
         df = df.sort_values(
             [std_col.TIME_PERIOD_COL, breakdown]).reset_index(drop=True)
 
-        # df.to_csv('testing.csv', index=False)
-
         return df
 
 
@@ -236,7 +221,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             if determinant == std_col.HIV_CARE_PREFIX or determinant == std_col.PREP_PREFIX:
                 cols_to_standard = {
                     'Cases': determinant,
-                    'Percent': TEST_MAP[determinant],
+                    'Percent': CARE_PREP_MAP[determinant],
                     'Population': POP_MAP[determinant]}
             else:
                 cols_to_standard = {
