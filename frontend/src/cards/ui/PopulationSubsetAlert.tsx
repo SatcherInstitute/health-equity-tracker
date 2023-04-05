@@ -20,6 +20,14 @@ export default function PopulationSubsetAlert({
     variable = 'HIV diagnoses'
     ageGroup = ' ages 13 and older'
   }
+  if (variableId === 'hiv_care') {
+    variable = 'HIV care'
+    ageGroup = 'ages 13 and older'
+  }
+  if (variableId === 'hiv_prevalence') {
+    variable = 'HIV prevalence'
+    ageGroup = ' ages 13 and older'
+  }
   if (variableId === 'hiv_prep') {
     variable = 'PrEP coverage'
     ageGroup = 'eligible for PrEP, ages 16 and older'

@@ -5,6 +5,13 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
+export const CARE_METRICS: MetricId[] = [
+  'hiv_care_linkage',
+  'hiv_care_pct_share',
+  'hiv_care_pct_relative_inequity',
+  'hiv_care_ratio_age_adjusted',
+]
+
 export const DEATHS_METRICS: MetricId[] = [
   'hiv_deaths_per_100k',
   'hiv_deaths_pct_share',
@@ -27,11 +34,21 @@ export const PREP_METRICS: MetricId[] = [
   'hiv_prep_population_pct',
 ]
 
+export const PREVALENCE_METRICS: MetricId[] = [
+  'hiv_prevalence_per_100k',
+  'hiv_prevalence_pct_share',
+  'hiv_prevalence_pct_relative_inequity',
+  'hiv_prevalence_ratio_age_adjusted',
+]
+
 export const HIV_DETERMINANTS: MetricId[] = [
+  ...CARE_METRICS,
   ...DEATHS_METRICS,
   ...DIAGNOSES_METRICS,
   ...PREP_METRICS,
-  'hiv_population_pct', // population shares of 13+
+  ...PREVALENCE_METRICS,
+  'hiv_population_pct',
+  'hiv_care_population_pct', // population shares of 13+
 ]
 
 class HivProvider extends VariableProvider {

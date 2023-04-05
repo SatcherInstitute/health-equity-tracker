@@ -216,7 +216,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              thousands=',',
                                                              dtype=DTYPE)
 
-            if determinant in std_col.HIV_CARE_PREFIX or determinant in std_col.PREP_PREFIX:
+            if determinant in [std_col.HIV_CARE_PREFIX, std_col.PREP_PREFIX]:
                 cols_to_standard = {
                     'Cases': determinant,
                     'Percent': CARE_PREP_MAP[determinant],
