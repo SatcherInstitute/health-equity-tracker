@@ -512,7 +512,7 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  <b>HIV Deaths & Diagnosis</b>
+                  <b>HIV Deaths , Diagnosis, & Prevalence</b>
                 </p>
                 <p>
                   HIV diagnoses refer to the number of HIV infections confirmed
@@ -530,6 +530,15 @@ function MethodologyTab() {
                   For death data, age is based on the person’s age at the time
                   of death.
                 </p>
+                <p>
+                  HIV Prevalence refers to the number of people aged 13 years
+                  and older with HIV alive at a given time, regardless of when
+                  they were infected or whether they have received a diagnoses.
+                  The CDC estimates the number of people who have ever been
+                  infected (both diagnosed and undiagnosed), then subtracts the
+                  reported total number of people with diagnosed HIV who have
+                  died.
+                </p>
                 <ul>
                   <li>
                     All metrics sourced from the CDC are calculated based on the
@@ -538,10 +547,11 @@ function MethodologyTab() {
                     <ul>
                       <li>
                         <b>Percent share</b>: To calculate the percent share of
-                        HIV deaths or diagnoses, we divide the number of HIV
-                        deaths or diagnoses in a specific demographic group by
-                        the total number of HIV deaths or diagnoses and multiply
-                        the result by 100.
+                        HIV deaths,diagnoses, or prevalence, we divide the
+                        number of HIV deaths, diagnoses, or prevalence in a
+                        specific demographic group by the total number of HIV
+                        deaths, diagnoses, or prevalence and multiply the result
+                        by 100.
                       </li>
                       <li>
                         <b>Population percent</b>: The population data is
@@ -552,14 +562,14 @@ function MethodologyTab() {
                         result by 100.
                       </li>
                       <li>
-                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths
-                        and diagnoses is obtained directly from the CDC.
-                        Calculating the rate per 100k of HIV deaths and
-                        diagnoses involves dividing the number of deaths or
-                        diagnoses within a specific population by the total
-                        population of that group, multiplying the result by
-                        100,000, and then expressing it as a rate per 100,000
-                        people.
+                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths,
+                        diagnoses, and prevalence is obtained directly from the
+                        CDC. Calculating the rate per 100k of HIV deaths,
+                        diagnoses, and prevalence involves dividing the number
+                        of deaths or diagnoses within a specific population by
+                        the total population of that group, multiplying the
+                        result by 100,000, and then expressing it as a rate per
+                        100,000 people.
                       </li>
                     </ul>
                   </li>
