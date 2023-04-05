@@ -31,7 +31,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.emulateMedia({ reducedMotion: "reduce" });
 
         // choose VAXX from the no topic screen
-        const madLibTopic = page.locator('button:has-text("select a topic")')
+        const madLibTopic = page.locator('button:visible:has-text("select a topic")')
         madLibTopic.click();
         const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
         covidVaxOption.click();

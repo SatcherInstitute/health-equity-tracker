@@ -78,7 +78,7 @@ function OptionsSelector(props: {
   const prefersReducedMotion = usePrefersReducedMotion()
   const doPulse = !prefersReducedMotion && !isFips && noTopic && !popover.isOpen
 
-  const dropdownId = `${props.value}-dropdown-${isFips ? 'fips' : 'topic'}`
+  const dropdownTarget = `${props.value}-dropdown-${isFips ? 'fips' : 'topic'}`
 
   function handleUsaButton() {
     props.onOptionUpdate(USA_FIPS)
@@ -92,14 +92,15 @@ function OptionsSelector(props: {
       <span ref={popoverRef}>
         {/* Clickable Madlib Button with Dropdown Arrow */}
         <Button
-          id={dropdownId}
           variant="text"
           aria-haspopup="true"
           className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
           onClick={popover.open}
         >
-          {currentDisplayName}{' '}
-          {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+          <span className={dropdownTarget}>
+            {currentDisplayName}{' '}
+            {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
+          </span>
         </Button>
 
         <Popover
