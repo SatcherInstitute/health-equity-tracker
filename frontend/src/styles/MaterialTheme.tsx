@@ -2,7 +2,38 @@ import { createTheme } from '@mui/material/styles'
 import 'typeface-dm-sans'
 import sass from './variables.module.scss'
 
+declare module '@mui/material/styles' {
+  interface BreakpointOverrides {
+    // Normal Breakpoints
+    xs: true
+    sm: true
+    md: true
+    lg: true
+    xl: true
+    // Custom breakpoints for useChartTitle, useFont
+    titleXs: true
+    titleSm: true
+    titleMd: true
+    titleLg: true
+    titleXl: true
+  }
+}
+
 const MaterialTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 960,
+      lg: 1280,
+      xl: 1920,
+      titleXs: 0,
+      titleSm: 800,
+      titleMd: 900,
+      titleLg: 1500,
+      titleXl: 1850,
+    },
+  },
   palette: {
     primary: {
       light: sass.barChartLight,
@@ -70,16 +101,6 @@ const MaterialTheme = createTheme({
         },
       },
     },
-    // MuiPaper: {
-    //   styleOverrides: {
-    // root: {
-    //   "&.MuiPopover-paper": {
-    //     maxWidth: "unset",
-    //     minWidth: "unset",
-    //   },
-    // },
-    //   }
-    // },
     MuiStepConnector: {
       styleOverrides: {
         vertical: {
