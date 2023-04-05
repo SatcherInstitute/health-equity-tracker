@@ -30,14 +30,14 @@ test('Compare Mode Default Geos to Denver County and CO and back', async ({ page
     await page.goto(EXPLORE_DATA_PAGE_LINK + COMPARE_GEO_MODE);
 
     // Changing first location via madlib buttons
-    const location1MadlibButton = page.locator('#madlib-carousel-container button:has-text("United States")')
+    const location1MadlibButton = page.getByRole('button', { name: 'United States' }).nth(1)
     await location1MadlibButton.click();
 
     await page.fill('[placeholder=""]', 'denver');
     await page.keyboard.press('Enter');
 
     // Changing second location via madlib buttons
-    const location2MadlibButton = page.locator('#madlib-carousel-container button:has-text("Georgia")')
+    const location2MadlibButton = page.getByRole('button', { name: 'Georgia' }).nth(1)
     await location2MadlibButton.click();
 
     await page.fill('[placeholder=""]', 'Colorado');

@@ -1,5 +1,5 @@
 import NavigateNextIcon from '@mui/icons-material/NavigateNext'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState, lazy } from 'react'
 import { STATUS } from 'react-joyride'
 import Carousel from 'react-material-ui-carousel'
 import ReportProvider from '../../reports/ReportProvider'
@@ -37,7 +37,7 @@ import sass from '../../styles/variables.module.scss'
 import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 
-const Onboarding = React.lazy(async () => await import('./Onboarding'))
+const Onboarding = lazy(async () => await import('./Onboarding'))
 
 const EXPLORE_DATA_ID = 'main'
 
@@ -139,21 +139,22 @@ function ExploreDataPage() {
   }
 
   // Set up sticky madlib behavior
-  const [sticking, setSticking] = useState<boolean>(false)
+  const [isSticking, setIsSticking] = useState<boolean>(false)
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
       const topOfCarousel = pageYOffset > stickyBarOffsetFromTop
-      if (topOfCarousel) setSticking(true)
-      else setSticking(false)
+      if (topOfCarousel) setIsSticking(true)
+      else setIsSticking(false)
     },
-    [sticking],
+    [isSticking],
     300
   )
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = madLib.id === 'disparity'
+  const handleCarouselChange = (now?: number) => {
+    if (now == null) return
 
-  const handleCarouselChange = (carouselMode: number) => {
     // Extract values from the current madlib
     const var1 = madLib.activeSelections[1]
     const geo1 =
@@ -167,11 +168,11 @@ function ExploreDataPage() {
 
     // Construct UPDATED madlib based on the future carousel Madlib shape
     let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 } // disparity "Investigate Rates"
-    if (carouselMode === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
-    if (carouselMode === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
+    if (now === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
+    if (now === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
 
     setMadLib({
-      ...MADLIB_LIST[carouselMode],
+      ...MADLIB_LIST[now],
       activeSelections: updatedMadLib,
     })
     setParameters([
@@ -181,7 +182,7 @@ function ExploreDataPage() {
       },
       {
         name: MADLIB_PHRASE_PARAM,
-        value: MADLIB_LIST[carouselMode].id,
+        value: MADLIB_LIST[now].id,
       },
     ])
     location.hash = ''
@@ -209,7 +210,7 @@ function ExploreDataPage() {
 
   const headerScrollMargin = useHeaderScrollMargin(
     'madlib-carousel-container',
-    sticking,
+    isSticking,
     [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
   )
 
@@ -232,9 +233,8 @@ function ExploreDataPage() {
             className={`Carousel ${styles.Carousel}`}
             swipe={false}
             NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
-            timeout={200}
             autoPlay={false}
-            indicators={!noTopicChosen}
+            indicators={false}
             indicatorIconButtonProps={{
               'aria-label': 'Report Type',
               style: {
@@ -262,11 +262,12 @@ function ExploreDataPage() {
               },
             }}
             animation="slide"
+            duration={700}
             navButtonsAlwaysVisible={true}
             cycleNavigation={false}
             navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
-            onChange={handleCarouselChange}
+            onChange={(nowIndex) => { handleCarouselChange(nowIndex); }}
           >
             {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
             {MADLIB_LIST.map((madLibShape) => (
@@ -294,7 +295,7 @@ function ExploreDataPage() {
               showLifeLineAlert={showStickyLifeline}
               showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
               setMadLib={setMadLibWithParam}
-              isScrolledToTop={!sticking}
+              isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
             />
           )}

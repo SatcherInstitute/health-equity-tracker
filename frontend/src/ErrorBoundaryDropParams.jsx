@@ -17,8 +17,9 @@ export default class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
+      // strip the user's URL of all params in case they are malformed
       window.location = window.location.pathname
+      //  render fallback component
       return this.props.fallback
     }
 
