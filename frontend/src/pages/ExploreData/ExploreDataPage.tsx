@@ -152,8 +152,9 @@ function ExploreDataPage() {
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = madLib.id === 'disparity'
+  const handleCarouselChange = (now?: number) => {
+    if (now == null) return
 
-  const handleCarouselChange = (now: number) => {
     // Extract values from the current madlib
     const var1 = madLib.activeSelections[1]
     const geo1 =
@@ -266,10 +267,7 @@ function ExploreDataPage() {
             cycleNavigation={false}
             navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
-            // now is zero indexed; typescript doesn't accept ?? as typeguard
-            onChange={(now) => {
-              if (now != null) handleCarouselChange(now)
-            }}
+            onChange={(nowIndex) => { handleCarouselChange(nowIndex); }}
           >
             {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
             {MADLIB_LIST.map((madLibShape) => (
