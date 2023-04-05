@@ -241,7 +241,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       </DialogContent>
 
       {/* MODAL FOOTER */}
-      <div>
+      <footer>
         <div className={styles.FooterButtonContainer}>
           <Button onClick={props.handleClose} color="primary">
             Close
@@ -253,7 +253,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             metadata={props.metadata}
           />
         </div>
-      </div>
+      </footer>
     </Dialog>
   )
 }
