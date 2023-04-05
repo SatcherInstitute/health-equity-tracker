@@ -261,11 +261,15 @@ function ExploreDataPage() {
               },
             }}
             animation="slide"
+            duration={700}
             navButtonsAlwaysVisible={true}
             cycleNavigation={false}
             navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
-            onChange={(now) => { now && handleCarouselChange(now); }}
+            // now is zero indexed; typescript doesn't accept ?? as typeguard
+            onChange={(now) => {
+              if (now != null) handleCarouselChange(now)
+            }}
           >
             {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
             {MADLIB_LIST.map((madLibShape) => (
