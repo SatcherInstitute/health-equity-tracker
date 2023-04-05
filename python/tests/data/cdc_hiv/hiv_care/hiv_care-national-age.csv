@@ -1,0 +1,21 @@
+﻿"Date Printed: Monday, April 3, 2023 10:19:09 AM"
+Title: "Linkage to HIV care | 2017 | 2018 | 2019 | United States | All races/ethnicities | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+Linkage to care is based on cases diagnosed during the year queried.
+^ Jurisdiction with incomplete reporting of deaths for most recent year.
+The 'Sex' column is used for either sex at birth or gender identity.
+NA - Not applicable.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
+"Linkage to HIV care","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","2,930","83.4","3,514"
+"Linkage to HIV care","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,767","83.3","4,523"
+"Linkage to HIV care","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","5,405","82.4","6,560"
+"Linkage to HIV care","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","9,775","80.8","12,105"
+"Linkage to HIV care","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","5,602","79.0","7,093"
+"Linkage to HIV care","2017","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","2,742","81.1","3,380"
+"Linkage to HIV care","2017","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","4,002","81.0","4,939"
+"Linkage to HIV care","2017","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","5,116","79.3","6,455"
+"Linkage to HIV care","2017","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","9,143","76.7","11,916"
+"Linkage to HIV care","2017","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","5,514","74.6","7,388"

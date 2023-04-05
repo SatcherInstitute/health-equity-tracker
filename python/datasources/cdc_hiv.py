@@ -32,13 +32,20 @@ HIV_DETERMINANTS = {
     'prep': std_col.PREP_PREFIX,
     'prevalence': std_col.HIV_PREVALENCE_PREFIX}
 
-PCT_SHARE_MAP = {}
-for prefix in HIV_DETERMINANTS.values():
-    PCT_SHARE_MAP[prefix] = std_col.generate_column_name(
-        prefix, std_col.PCT_SHARE_SUFFIX)
+PCT_SHARE_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
+                 for prefix in HIV_DETERMINANTS.values()}
 PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
 PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
 PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
+
+
+# PCT_SHARE_MAP = {}
+# for prefix in HIV_DETERMINANTS.values():
+#     PCT_SHARE_MAP[prefix] = std_col.generate_column_name(
+#         prefix, std_col.PCT_SHARE_SUFFIX)
+# PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
+# PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
+# PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
 
 PER_100K_MAP = {}
 for prefix in HIV_DETERMINANTS.values():
@@ -77,6 +84,10 @@ POP_MAP = {
     std_col.PREP_PREFIX: std_col.HIV_PREP_POPULATION
 }
 
+# Define the dictionaries
+dicts = [HIV_DETERMINANTS, TEST_MAP, PER_100K_MAP,
+         PCT_SHARE_MAP, PCT_RELATIVE_INEQUITY_MAP]
+
 
 class CDCHIVData(DataSource):
 
@@ -101,17 +112,9 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}_time_series'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
-                float_cols = [std_col.HIV_PREP_COVERAGE,
-                              std_col.HIV_POPULATION_PCT]
-                for col in HIV_DETERMINANTS.values():
-                    float_cols.append(col)
-                    float_cols.append(std_col.generate_column_name(
-                        col, std_col.PCT_REL_INEQUITY_SUFFIX))
-                    float_cols.append(std_col.generate_column_name(
-                        col, std_col.PCT_SHARE_SUFFIX))
-                    if col != std_col.PREP_PREFIX:
-                        float_cols.append(std_col.generate_column_name(
-                            col, std_col.PER_100K_SUFFIX))
+                float_cols = []
+                for d in dicts:
+                    float_cols += list(d.values())
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -179,11 +182,8 @@ class CDCHIVData(DataSource):
                                                           breakdown),
                                                      std_col.ALL_VALUE)
 
-        cols_to_keep = cols_to_keep + list(HIV_DETERMINANTS.values())
-        cols_to_keep = cols_to_keep + list(TEST_MAP.values())
-        cols_to_keep = cols_to_keep + list(PER_100K_MAP.values())
-        cols_to_keep = cols_to_keep + list(PCT_SHARE_MAP.values())
-        cols_to_keep = cols_to_keep + list(PCT_RELATIVE_INEQUITY_MAP.values())
+        for d in dicts:
+            cols_to_keep += list(d.values())
 
         for col in HIV_DETERMINANTS.values():
             pop_col = std_col.HIV_POPULATION_PCT

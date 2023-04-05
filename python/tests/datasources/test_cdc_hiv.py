@@ -40,57 +40,58 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     return df
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-# def testGenerateAgeNational(mock_data_dir: mock.MagicMock):
-#     datasource = CDCHIVData()
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+def testGenerateAgeNational(mock_data_dir: mock.MagicMock):
+    datasource = CDCHIVData()
 
-#     alls_df = pd.read_csv(ALLS_DATA["all_national"],
-#                           dtype=DTYPE,
-#                           skiprows=8,
-#                           usecols=lambda x: x not in AGE_COLS_TO_EXCLUDE,
-#                           thousands=',')
+    alls_df = pd.read_csv(ALLS_DATA["all_national"],
+                          dtype=DTYPE,
+                          skiprows=8,
+                          usecols=lambda x: x not in AGE_COLS_TO_EXCLUDE,
+                          thousands=',')
 
-#     df = datasource.generate_breakdown_df('age', 'national', alls_df)
+    df = datasource.generate_breakdown_df('age', 'national', alls_df)
 
-#     expected_df = pd.read_csv(GOLDEN_DATA['age_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['age_national'], dtype=EXP_DTYPE)
 
-#     assert_frame_equal(df, expected_df, check_like=True)
-
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-# def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
-#     datasource = CDCHIVData()
-
-#     alls_df = pd.read_csv(ALLS_DATA["all_national"],
-#                           dtype=DTYPE,
-#                           skiprows=8,
-#                           na_values=NA_VALUES,
-#                           usecols=lambda x: x not in RACE_COLS_TO_EXCLUDE,
-#                           thousands=',')
-
-#     df = datasource.generate_breakdown_df('race_and_ethnicity',
-#                                           'national',
-#                                           alls_df)
-
-#     expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
-
-#     assert_frame_equal(df, expected_df, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
-# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-# def testGenerateSexNational(mock_data_dir: mock.MagicMock):
-#     datasource = CDCHIVData()
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
+    datasource = CDCHIVData()
 
-#     alls_df = pd.read_csv(ALLS_DATA["all_national"],
-#                           usecols=lambda x: x not in SEX_COLS_TO_EXCLUDE,
-#                           skiprows=8,
-#                           thousands=',',
-#                           dtype=DTYPE)
+    alls_df = pd.read_csv(ALLS_DATA["all_national"],
+                          dtype=DTYPE,
+                          skiprows=8,
+                          na_values=NA_VALUES,
+                          usecols=lambda x: x not in RACE_COLS_TO_EXCLUDE,
+                          thousands=',')
 
-#     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
+    df = datasource.generate_breakdown_df('race_and_ethnicity',
+                                          'national',
+                                          alls_df)
 
-#     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
 
-#     assert_frame_equal(df, expected_df, check_like=True)
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+def testGenerateSexNational(mock_data_dir: mock.MagicMock):
+    datasource = CDCHIVData()
+
+    alls_df = pd.read_csv(ALLS_DATA["all_national"],
+                          usecols=lambda x: x not in SEX_COLS_TO_EXCLUDE,
+                          skiprows=8,
+                          thousands=',',
+                          dtype=DTYPE)
+
+    df = datasource.generate_breakdown_df('sex', 'national', alls_df)
+
+    expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
+
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
