@@ -72,7 +72,7 @@ POP_MAP = {
 }
 
 # HIV dictionaries
-dicts = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
+DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
          PCT_SHARE_MAP, PCT_RELATIVE_INEQUITY_MAP]
 
 
@@ -99,9 +99,7 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}_time_series'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
-                float_cols = []
-                for d in dicts:
-                    float_cols += list(d.values())
+                float_cols = [col for dict in DICTS for col in dict.values()]
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -169,8 +167,8 @@ class CDCHIVData(DataSource):
                                                           breakdown),
                                                      std_col.ALL_VALUE)
 
-        for d in dicts:
-            cols_to_keep += list(d.values())
+        for dict in DICTS:
+            cols_to_keep += list(dict.values())
 
         for col in HIV_DETERMINANTS.values():
             pop_col = std_col.HIV_POPULATION_PCT
@@ -218,7 +216,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              thousands=',',
                                                              dtype=DTYPE)
 
-            if determinant == std_col.HIV_CARE_PREFIX or determinant == std_col.PREP_PREFIX:
+            if determinant in std_col.HIV_CARE_PREFIX or determinant in std_col.PREP_PREFIX:
                 cols_to_standard = {
                     'Cases': determinant,
                     'Percent': CARE_PREP_MAP[determinant],
