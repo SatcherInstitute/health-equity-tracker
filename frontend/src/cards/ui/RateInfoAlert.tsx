@@ -1,4 +1,4 @@
-import { CardContent, Divider, Alert } from '@mui/material'
+import { CardContent, Alert } from '@mui/material'
 import {
   formatFieldValue,
   type MetricConfig,
@@ -74,7 +74,6 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
 
   return (
     <>
-      <Divider />
       <CardContent>
         <Alert severity="info" role="note">
           {generateDemographicTotalPhrase()}

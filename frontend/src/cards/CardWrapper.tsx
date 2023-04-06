@@ -63,6 +63,7 @@ function CardWrapper(props: {
                   queryResponses={queryResponses}
                   metadata={metadata}
                   hideNH={props.hideNH}
+                  scrollToHash={props.scrollToHash}
                 />
               </CardContent>
             )}

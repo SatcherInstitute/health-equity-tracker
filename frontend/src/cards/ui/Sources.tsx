@@ -8,6 +8,8 @@ import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
+import CopyLinkButton from './CopyLinkButton'
+import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -79,6 +81,7 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
   hideNH?: boolean
+  scrollToHash: ScrollableHashId
 }
 
 export function Sources(props: SourcesProps) {
@@ -105,10 +108,6 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
 
-  const showOtherNhFootnote =
-    !props.hideNH &&
-    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_other_nh)
-
   return (
     <>
       {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
@@ -131,13 +130,11 @@ export function Sources(props: SourcesProps) {
           {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
         </Fragment>
       ))}
-      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
-      {showOtherNhFootnote && (
-        <p>
-          Unrepresented race (NH): Individuals who do not identify as part of
-          the Black, White, or Hispanic ethnic or racial groups.
-        </p>
-      )}
+
+      <div>
+        {showNhFootnote && <span>(NH) Non-Hispanic. </span>}
+        <CopyLinkButton scrollToHash={props.scrollToHash} />
+      </div>
     </>
   )
 }

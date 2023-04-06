@@ -43,7 +43,6 @@ import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestList } from './ui/HighestLowestList'
-import MapBreadcrumbs from './ui/MapBreadcrumbs'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
@@ -300,15 +299,6 @@ function MapCardWithKey(props: MapCardProps) {
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
             />
 
-            <CardContent className={styles.SmallMarginContent}>
-              <MapBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                ariaLabel={props.variableConfig.variableFullDisplayName}
-                scrollToHashId={HASH_ID}
-              />
-            </CardContent>
-
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
                 <Divider />
@@ -339,19 +329,6 @@ function MapCardWithKey(props: MapCardProps) {
                 </CardContent>
               </>
             )}
-
-            {!mapQueryResponse.dataIsMissing() &&
-              !!dataForActiveBreakdownFilter.length && (
-                <RateInfoAlert
-                  overallQueryResponse={geoQueryResponse}
-                  currentBreakdown={props.currentBreakdown}
-                  activeBreakdownFilter={activeBreakdownFilter}
-                  metricConfig={metricConfig}
-                  fips={props.fips}
-                  setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                  variableConfig={props.variableConfig}
-                />
-              )}
 
             {(mapQueryResponse.dataIsMissing() ||
               dataForActiveBreakdownFilter.length === 0) && (
@@ -450,6 +427,21 @@ function MapCardWithKey(props: MapCardProps) {
                       })}
                     </div>
                   )}
+
+                  {!mapQueryResponse.dataIsMissing() &&
+                    !!dataForActiveBreakdownFilter.length && (
+                      <RateInfoAlert
+                        overallQueryResponse={geoQueryResponse}
+                        currentBreakdown={props.currentBreakdown}
+                        activeBreakdownFilter={activeBreakdownFilter}
+                        metricConfig={metricConfig}
+                        fips={props.fips}
+                        setSmallMultiplesDialogOpen={
+                          setSmallMultiplesDialogOpen
+                        }
+                        variableConfig={props.variableConfig}
+                      />
+                    )}
 
                   {!mapQueryResponse.dataIsMissing() &&
                     dataForActiveBreakdownFilter.length > 1 && (
