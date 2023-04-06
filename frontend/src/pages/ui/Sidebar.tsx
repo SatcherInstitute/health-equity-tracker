@@ -57,7 +57,7 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
-      <Card raised={true} className={styles.Toc}>
+      <Card raised={true} className={styles.TableOfContents}>
         <Stepper
           component={'nav'}
           nonLinear
