@@ -108,33 +108,48 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
 
+  const sourcesInfo =
+    Object.keys(dataSourceMap).length > 0 ? (
+      <>
+        Sources:{' '}
+        {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
+          <React.Fragment key={dataSourceId}>
+            <LinkWithStickyParams
+              target="_blank"
+              to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+            >
+              {dataSourceMap[dataSourceId].name}
+            </LinkWithStickyParams>{' '}
+            {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
+              <>(last update unknown) </>
+            ) : (
+              <>
+                (updated{' '}
+                {Array.from(dataSourceMap[dataSourceId].updateTimes).join(', ')}
+                )
+              </>
+            )}
+            {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
+          </React.Fragment>
+        ))}{' '}
+      </>
+    ) : (
+      ''
+    )
+
   return (
     <>
-      {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
-      {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
-        <Fragment key={dataSourceId}>
-          <LinkWithStickyParams
-            target="_blank"
-            to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
-          >
-            {dataSourceMap[dataSourceId].name}
-          </LinkWithStickyParams>{' '}
-          {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
-            <>(last update unknown) </>
-          ) : (
-            <>
-              (updated{' '}
-              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(', ')})
-            </>
-          )}
-          {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
-        </Fragment>
-      ))}
-
-      <div>
-        {showNhFootnote && <span>(NH) Non-Hispanic. </span>}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          paddingRight: '15px',
+        }}
+      >
+        <span>{sourcesInfo}</span>
         <CopyLinkButton scrollToHash={props.scrollToHash} />
       </div>
+      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
     </>
   )
 }
