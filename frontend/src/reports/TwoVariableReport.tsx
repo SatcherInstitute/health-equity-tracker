@@ -23,7 +23,6 @@ import {
 } from '../data/query/Breakdowns'
 import { RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
-import { TableOfContents } from '../pages/ui/TableOfContents'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -39,6 +38,7 @@ import ReportToggleControls from './ui/ReportToggleControls'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
+import Sidebar from '../pages/ui/Sidebar'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -57,6 +57,7 @@ function TwoVariableReport(props: {
   setReportStepHashIds?: (reportStepHashIds: ScrollableHashId[]) => void
   headerScrollMargin: number
   reportTitle: string
+  isMobile: boolean
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -512,13 +513,14 @@ function TwoVariableReport(props: {
             spacing={0}
             direction="column"
             alignItems="center"
-            className={styles.FloatingTableOfContentsWrapper}
+            className={styles.FloatingSidebarWrapper}
           >
-            <TableOfContents
+            <Sidebar
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}
               floatTopOffset={props.headerScrollMargin}
               reportTitle={props.reportTitle}
+              isMobile={props.isMobile}
             />
           </Grid>
         )}

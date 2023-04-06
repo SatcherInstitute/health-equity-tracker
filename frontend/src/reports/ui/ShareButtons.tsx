@@ -17,13 +17,8 @@ import { getHtml } from '../../utils/urlutils'
 export const ARTICLE_DESCRIPTION =
   'Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.'
 
-export const shareIconAttributes = {
-  iconFillColor: sass.altDark,
-  bgStyle: { fill: 'none' },
-  size: 32,
-}
-
 export interface ShareButtonProps {
+  isMobile: boolean
   reportTitle?: string
   article?: Article
 }
@@ -41,6 +36,12 @@ function ShareButtons(props: ShareButtonProps) {
     }
   }
 
+  const shareIconAttributes = {
+    iconFillColor: sass.altDark,
+    bgStyle: { fill: 'none' },
+    size: props.isMobile ? 64 : 32,
+  }
+
   return (
     <Grid
       container
@@ -49,7 +50,7 @@ function ShareButtons(props: ShareButtonProps) {
       alignItems={'center'}
     >
       <Grid item>
-        <p className={styles.ShareLabel}>Share:</p>
+        <p className={styles.ShareLabel}>Share to social:</p>
       </Grid>
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}

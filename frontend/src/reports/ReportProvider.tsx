@@ -45,6 +45,7 @@ interface ReportProviderProps {
   showIncarceratedChildrenAlert: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
+  isMobile: boolean
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -103,6 +104,7 @@ function ReportProvider(props: ReportProviderProps) {
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
           />
         )
       }
@@ -132,6 +134,7 @@ function ReportProvider(props: ReportProviderProps) {
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
           />
         )
       }
@@ -158,6 +161,7 @@ function ReportProvider(props: ReportProviderProps) {
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
           />
         )
       }
@@ -170,7 +174,6 @@ function ReportProvider(props: ReportProviderProps) {
   return (
     <>
       <div className={reportWrapper}>
-        {/* <ShareButtons madLib={props.madLib} /> */}
         {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert />
         {props.showIncarceratedChildrenAlert && false && (
