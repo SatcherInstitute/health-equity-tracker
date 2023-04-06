@@ -82,7 +82,7 @@ export default function WhatIsHealthEquityPage() {
           <FaqTab />
         </Route>
         <Route path={`${NEWS_TAB_LINK}/`}>
-          <NewsTab />
+          <NewsTab isMobile={!pageIsWide} />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />

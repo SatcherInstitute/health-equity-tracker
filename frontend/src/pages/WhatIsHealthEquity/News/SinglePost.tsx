@@ -27,7 +27,11 @@ function prettyDate(dateString: string) {
   return new Date(dateString).toLocaleDateString(undefined, options as any)
 }
 
-export default function SinglePost() {
+interface SinglePostProps {
+  isMobile: boolean
+}
+
+export default function SinglePost(props: SinglePostProps) {
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
   const [nextArticle, setNextArticle] = useState<Article>()
@@ -207,7 +211,7 @@ export default function SinglePost() {
             )}
 
             {/* SOCIAL MEDIA ICONS */}
-            <ShareButtons article={fullArticle} />
+            <ShareButtons isMobile={props.isMobile} article={fullArticle} />
           </Grid>
         </Grid>
 

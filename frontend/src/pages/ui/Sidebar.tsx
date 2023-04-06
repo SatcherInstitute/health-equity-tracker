@@ -1,0 +1,106 @@
+import {
+  Card,
+  Step,
+  StepButton,
+  Stepper,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
+import { reportProviderSteps } from '../../reports/ReportProviderSteps'
+import {
+  type ScrollableHashId,
+  useStepObserver,
+} from '../../utils/hooks/useStepObserver'
+import styles from './Sidebar.module.scss'
+import { scrollIntoView } from 'seamless-scroll-polyfill'
+import ShareButtons from '../../reports/ui/ShareButtons'
+
+const TABLE_OF_CONTENT_PADDING = 15
+
+/*
+  reportStepHashIds: ScrollableHashId[]; Array of TOC "hashIds" used to map the hashId to the step display name
+  isScrolledToTop?: boolean; Optionally send in top scroll status; when true none of the steps will be highlighted
+*/
+
+interface SidebarProps {
+  reportStepHashIds: ScrollableHashId[]
+  floatTopOffset?: number
+  isScrolledToTop?: boolean
+  reportTitle: string
+  isMobile: boolean
+}
+
+export default function Sidebar(props: SidebarProps) {
+  const theme = useTheme()
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
+
+  const [activeId, setRecentlyClicked] = useStepObserver(
+    props.reportStepHashIds,
+    props.isScrolledToTop ?? false
+  )
+
+  function handleStepClick(stepId: ScrollableHashId) {
+    const clickedElem: HTMLElement | null = document.querySelector(`#${stepId}`)
+
+    if (clickedElem) {
+      scrollIntoView(clickedElem, { behavior: 'smooth' })
+      // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
+      clickedElem.focus({ preventScroll: true })
+      // manually set the browser url#hash for actual clicks
+      window.history.replaceState(undefined, '', `#${stepId}`)
+    }
+
+    setRecentlyClicked(stepId)
+  }
+
+  const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING
+
+  return (
+    <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
+      <Card raised={true} className={styles.TableOfContents}>
+        <Stepper
+          component={'nav'}
+          nonLinear
+          activeStep={props.reportStepHashIds?.findIndex(
+            (stepId) => stepId === activeId
+          )}
+          orientation="vertical"
+          aria-label="Available cards on this report"
+          className={styles.Stepper}
+        >
+          {props.reportStepHashIds?.map((stepId) => {
+            return (
+              <Step completed={false} key={stepId}>
+                <StepButton
+                  title={`Scroll to ${reportProviderSteps[stepId].label}`}
+                  className={styles.StepButton}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleStepClick(stepId)
+                  }}
+                >
+                  <span
+                    // hide labels visually but not from screen readers on small screens
+                    className={
+                      pageIsWide
+                        ? styles.StepButtonLabel
+                        : styles.ScreenreaderTitleHeader
+                    }
+                  >
+                    {reportProviderSteps[stepId].label}
+                  </span>
+                </StepButton>
+              </Step>
+            )
+          })}
+        </Stepper>
+      </Card>
+      <Card raised={true} className={styles.ShareBox}>
+        <ShareButtons
+          isMobile={props.isMobile}
+          reportTitle={props.reportTitle}
+        />
+      </Card>
+    </div>
+  )
+}

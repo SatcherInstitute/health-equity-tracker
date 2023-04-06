@@ -41,7 +41,11 @@ const Onboarding = lazy(async () => await import('./Onboarding'))
 
 const EXPLORE_DATA_ID = 'main'
 
-function ExploreDataPage() {
+export interface ExploreDataPageProps {
+  isMobile: boolean
+}
+
+function ExploreDataPage(props: ExploreDataPageProps) {
   const location: any = useLocation()
   const [showStickyLifeline, setShowStickyLifeline] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
@@ -267,7 +271,9 @@ function ExploreDataPage() {
             cycleNavigation={false}
             navButtonsAlwaysInvisible={noTopicChosen}
             index={initialIndex}
-            onChange={(nowIndex) => { handleCarouselChange(nowIndex); }}
+            onChange={(nowIndex) => {
+              handleCarouselChange(nowIndex)
+            }}
           >
             {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
             {MADLIB_LIST.map((madLibShape) => (
@@ -297,6 +303,7 @@ function ExploreDataPage() {
               setMadLib={setMadLibWithParam}
               isScrolledToTop={!isSticking}
               headerScrollMargin={headerScrollMargin}
+              isMobile={props.isMobile}
             />
           )}
         </div>

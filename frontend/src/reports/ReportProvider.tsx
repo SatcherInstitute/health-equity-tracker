@@ -1,17 +1,17 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { OneVariableReport } from './OneVariableReport'
 import TwoVariableReport from './TwoVariableReport'
 import {
   type MadLib,
   getMadLibWithUpdatedValue,
   getPhraseValue,
+  getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
 import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
 } from '../utils/internalRoutes'
-import Button from '@mui/material/Button'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import styles from './Report.module.scss'
 import DisclaimerAlert from './ui/DisclaimerAlert'
@@ -20,8 +20,7 @@ import {
   METRIC_CONFIG,
   type VariableConfig,
 } from '../data/config/MetricConfig'
-import ShareButtons from './ui/ShareButtons'
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import LazyLoad from 'react-lazyload'
@@ -46,6 +45,7 @@ interface ReportProviderProps {
   showIncarceratedChildrenAlert: boolean
   isScrolledToTop: boolean
   headerScrollMargin: number
+  isMobile: boolean
 }
 
 function ReportProvider(props: ReportProviderProps) {
@@ -103,6 +103,8 @@ function ReportProvider(props: ReportProviderProps) {
             reportStepHashIds={reportStepHashIds}
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
+            reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
           />
         )
       }
@@ -131,6 +133,8 @@ function ReportProvider(props: ReportProviderProps) {
             reportStepHashIds={reportStepHashIds}
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
+            reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
           />
         )
       }
@@ -156,6 +160,8 @@ function ReportProvider(props: ReportProviderProps) {
             reportStepHashIds={reportStepHashIds}
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
+            reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
           />
         )
       }
@@ -168,7 +174,6 @@ function ReportProvider(props: ReportProviderProps) {
   return (
     <>
       <div className={reportWrapper}>
-        <ShareButtons madLib={props.madLib} />
         {props.showLifeLineAlert && <LifelineAlert />}
         <DisclaimerAlert />
         {props.showIncarceratedChildrenAlert && false && (
