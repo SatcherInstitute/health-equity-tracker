@@ -9,7 +9,6 @@ import {
   TwitterIcon,
 } from 'react-share'
 import { Grid } from '@mui/material'
-import { getMadLibPhraseText, type MadLib } from '../../utils/MadLibs'
 import styles from './ShareButtons.module.scss'
 import sass from '../../styles/variables.module.scss'
 import { type Article } from '../../pages/WhatIsHealthEquity/NewsTab'
@@ -19,21 +18,21 @@ export const ARTICLE_DESCRIPTION =
   'Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.'
 
 export const shareIconAttributes = {
-  iconFillColor: sass.altGreen,
+  iconFillColor: sass.altDark,
   bgStyle: { fill: 'none' },
   size: 32,
 }
 
 export interface ShareButtonProps {
-  madLib?: MadLib
+  reportTitle?: string
   article?: Article
 }
 
 function ShareButtons(props: ShareButtonProps) {
   const sharedUrl: string = window.location.href
   let title: string = 'Health Equity Tracker'
-  if (props.madLib) {
-    title += ': ' + getMadLibPhraseText(props.madLib)
+  if (props.reportTitle) {
+    title += ': ' + props.reportTitle
   }
   if (props.article) {
     const htmlTitle = getHtml(props.article.title.rendered, true)
@@ -45,7 +44,8 @@ function ShareButtons(props: ShareButtonProps) {
   return (
     <Grid
       container
-      justifyContent={props.madLib ? 'flex-end' : 'flex-start'}
+      flexDirection={'column'}
+      justifyContent={props.reportTitle ? 'center' : 'flex-start'}
       alignItems={'center'}
     >
       <Grid item>

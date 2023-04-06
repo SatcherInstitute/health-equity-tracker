@@ -56,6 +56,7 @@ function TwoVariableReport(props: {
   reportStepHashIds?: ScrollableHashId[]
   setReportStepHashIds?: (reportStepHashIds: ScrollableHashId[]) => void
   headerScrollMargin: number
+  reportTitle: string
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -517,6 +518,7 @@ function TwoVariableReport(props: {
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}
               floatTopOffset={props.headerScrollMargin}
+              reportTitle={props.reportTitle}
             />
           </Grid>
         )}

@@ -51,6 +51,7 @@ export interface OneVariableReportProps {
   reportStepHashIds?: ScrollableHashId[]
   setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
   headerScrollMargin: number
+  reportTitle: string
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -103,7 +104,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     }
   }, [props.dropdownVarId])
 
-  // // when variable config changes (new data type), re-calc available card steps in TableOfContents
+  // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined
@@ -403,6 +404,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               floatTopOffset={props.headerScrollMargin}
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}
+              reportTitle={props.reportTitle}
             />
           </Grid>
         )}

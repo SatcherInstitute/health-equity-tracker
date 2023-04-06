@@ -13,6 +13,7 @@ import {
 } from '../../utils/hooks/useStepObserver'
 import styles from './TableOfContents.module.scss'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
+import ShareButtons from '../../reports/ui/ShareButtons'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -25,6 +26,7 @@ interface TableOfContentsProps {
   reportStepHashIds: ScrollableHashId[]
   floatTopOffset?: number
   isScrolledToTop?: boolean
+  reportTitle: string
 }
 
 export function TableOfContents(props: TableOfContentsProps) {
@@ -53,43 +55,48 @@ export function TableOfContents(props: TableOfContentsProps) {
   const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING
 
   return (
-    <Card raised={true} className={styles.Toc} style={{ top: tocOffset }}>
-      <Stepper
-        component={'nav'}
-        nonLinear
-        activeStep={props.reportStepHashIds?.findIndex(
-          (stepId) => stepId === activeId
-        )}
-        orientation="vertical"
-        aria-label="Available cards on this report"
-        className={styles.Stepper}
-      >
-        {props.reportStepHashIds?.map((stepId) => {
-          return (
-            <Step completed={false} key={stepId}>
-              <StepButton
-                title={`Scroll to ${reportProviderSteps[stepId].label}`}
-                className={styles.StepButton}
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleStepClick(stepId)
-                }}
-              >
-                <span
-                  // hide labels visually but not from screen readers on small screens
-                  className={
-                    pageIsWide
-                      ? styles.StepButtonLabel
-                      : styles.ScreenreaderTitleHeader
-                  }
+    <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
+      <Card raised={true} className={styles.Toc}>
+        <Stepper
+          component={'nav'}
+          nonLinear
+          activeStep={props.reportStepHashIds?.findIndex(
+            (stepId) => stepId === activeId
+          )}
+          orientation="vertical"
+          aria-label="Available cards on this report"
+          className={styles.Stepper}
+        >
+          {props.reportStepHashIds?.map((stepId) => {
+            return (
+              <Step completed={false} key={stepId}>
+                <StepButton
+                  title={`Scroll to ${reportProviderSteps[stepId].label}`}
+                  className={styles.StepButton}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    handleStepClick(stepId)
+                  }}
                 >
-                  {reportProviderSteps[stepId].label}
-                </span>
-              </StepButton>
-            </Step>
-          )
-        })}
-      </Stepper>
-    </Card>
+                  <span
+                    // hide labels visually but not from screen readers on small screens
+                    className={
+                      pageIsWide
+                        ? styles.StepButtonLabel
+                        : styles.ScreenreaderTitleHeader
+                    }
+                  >
+                    {reportProviderSteps[stepId].label}
+                  </span>
+                </StepButton>
+              </Step>
+            )
+          })}
+        </Stepper>
+      </Card>
+      <Card raised={true} className={styles.ShareBox}>
+        <ShareButtons reportTitle={props.reportTitle} />
+      </Card>
+    </div>
   )
 }
