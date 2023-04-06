@@ -100,7 +100,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   covid_cases: 'COVID-19 Cases',
   covid_hospitalizations: 'COVID-19 Hospitalizations',
   covid_deaths: 'COVID-19 Deaths',
-  hiv_care: 'HIV Care',
+  hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
   hiv_prevalence: 'HIV Prevalence',
   hiv_diagnoses: 'HIV Diagnoses',

@@ -21,7 +21,7 @@ export default function PopulationSubsetAlert({
     ageGroup = ' ages 13 and older'
   }
   if (variableId === 'hiv_care') {
-    variable = 'HIV care'
+    variable = 'Linkage to HIV care'
     ageGroup = 'ages 13 and older'
   }
   if (variableId === 'hiv_prevalence') {

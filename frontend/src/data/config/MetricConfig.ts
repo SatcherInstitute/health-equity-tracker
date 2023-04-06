@@ -607,8 +607,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   hiv_care: [
     {
       variableId: 'hiv_care',
-      variableDisplayName: 'HIV care',
-      variableFullDisplayName: 'HIV care',
+      variableDisplayName: 'Linkage to HIV care',
+      variableFullDisplayName: 'Linkage to HIV care',
       variableDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       metrics: {
@@ -622,12 +622,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitleLines: [
-              'Population vs. distribution of',
+              'Diagnosed population vs. distribution of',
               'linkage to HIV care',
             ],
             metricId: 'hiv_care_population_pct',
-            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
-            shortLabel: populationPctShortLabel,
+            columnTitleHeader: 'Diagnosed population share (ages 13+)', // populationPctTitle,
+            shortLabel: '% of diagnosed population',
             type: 'pct_share',
           },
         },
