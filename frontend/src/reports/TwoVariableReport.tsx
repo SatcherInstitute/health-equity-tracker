@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
@@ -39,6 +39,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
+import ShareButtons from './ui/ShareButtons'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -525,6 +526,15 @@ function TwoVariableReport(props: {
           </Grid>
         )}
       </Grid>
+      {props.isMobile && (
+        <Box mt={5}>
+          <p>Share to social:</p>
+          <ShareButtons
+            reportTitle={props.reportTitle}
+            isMobile={props.isMobile}
+          />{' '}
+        </Box>
+      )}
     </>
   )
 }

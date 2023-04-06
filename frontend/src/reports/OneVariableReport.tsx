@@ -388,7 +388,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   <Box mt={5}>
                     <p>Share to social:</p>
                     <ShareButtons
-                      reportTitle="test"
+                      reportTitle={props.reportTitle}
                       isMobile={props.isMobile}
                     />{' '}
                   </Box>
