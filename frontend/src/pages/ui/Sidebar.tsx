@@ -1,5 +1,4 @@
 import {
-  // Button,
   Card,
   Step,
   StepButton,
@@ -17,7 +16,6 @@ import { scrollIntoView } from 'seamless-scroll-polyfill'
 import ShareButtons from '../../reports/ui/ShareButtons'
 import ModeSelect from './ModeSelect'
 import { type MadLibId } from '../../utils/MadLibs'
-// import sass from '../../styles/variables.module.scss'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -64,12 +62,6 @@ export default function Sidebar(props: SidebarProps) {
   return (
     <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
       <Card raised={true} className={styles.ModeSelectorBox}>
-        {/* <TrackerModeButton>Compare Places</TrackerModeButton>
-        <TrackerModeButton>Compare Topics</TrackerModeButton>
-
-        {!props.reportTitle.includes("Investigate") && <TrackerModeButton>Default</TrackerModeButton>
-        } */}
-
         <ModeSelect
           trackerMode={props.trackerMode}
           setTrackerMode={props.setTrackerMode}

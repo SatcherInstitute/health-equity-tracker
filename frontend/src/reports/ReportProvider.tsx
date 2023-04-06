@@ -91,24 +91,26 @@ function ReportProvider(props: ReportProviderProps) {
       case 'disparity': {
         const dropdownOption = getPhraseValue(props.madLib, 1)
         return (
-          <OneVariableReport
-            key={dropdownOption}
-            dropdownVarId={dropdownOption as DropdownVarId}
-            fips={new Fips(getPhraseValue(props.madLib, 3))}
-            updateFipsCallback={(fips: Fips) => {
-              props.setMadLib(
-                getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-              )
-            }}
-            isScrolledToTop={props.isScrolledToTop}
-            reportStepHashIds={reportStepHashIds}
-            setReportStepHashIds={setReportStepHashIds}
-            headerScrollMargin={props.headerScrollMargin}
-            reportTitle={getMadLibPhraseText(props.madLib)}
-            isMobile={props.isMobile}
-            trackerMode={props.madLib.id}
-            setTrackerMode={props.handleModeChange}
-          />
+          <>
+            <OneVariableReport
+              key={dropdownOption}
+              dropdownVarId={dropdownOption as DropdownVarId}
+              fips={new Fips(getPhraseValue(props.madLib, 3))}
+              updateFipsCallback={(fips: Fips) => {
+                props.setMadLib(
+                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+                )
+              }}
+              isScrolledToTop={props.isScrolledToTop}
+              reportStepHashIds={reportStepHashIds}
+              setReportStepHashIds={setReportStepHashIds}
+              headerScrollMargin={props.headerScrollMargin}
+              reportTitle={getMadLibPhraseText(props.madLib)}
+              isMobile={props.isMobile}
+              trackerMode={props.madLib.id}
+              setTrackerMode={props.handleModeChange}
+            />
+          </>
         )
       }
       case 'comparegeos': {

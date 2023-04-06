@@ -125,6 +125,13 @@ const MaterialTheme = createTheme({
         },
       },
     },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          marginBottom: '-4px',
+        },
+      },
+    },
     MuiTab: {
       styleOverrides: {
         root: {

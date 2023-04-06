@@ -8,10 +8,14 @@
 }
 
 .ModeSelectorBox {
-  margin: 10px 10px 0 0;
-  padding: 10px 0 10px 0;
-  display: flex;
-  justify-content: center;
+  display: none;
+
+  @media only screen and (min-width: $md) {
+    margin: 10px 10px 0 0;
+    padding: 10px 0 10px 0;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .TableOfContents {
