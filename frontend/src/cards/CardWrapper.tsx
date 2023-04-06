@@ -1,16 +1,5 @@
 import styles from './Card.module.scss'
-import {
-  CardContent,
-  Grid,
-  Card,
-  Button,
-  Typography,
-  Divider,
-  CircularProgress,
-  Popover,
-} from '@mui/material'
-import { Info } from '@mui/icons-material'
-import { usePopover } from '../utils/hooks/usePopover'
+import { CardContent, Card, CircularProgress } from '@mui/material'
 import {
   type MetricQuery,
   type MetricQueryResponse,
@@ -18,7 +7,6 @@ import {
 import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import { Sources } from './ui/Sources'
 import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
-import CopyLinkButton from './ui/CopyLinkButton'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 
 function CardWrapper(props: {
@@ -40,49 +28,7 @@ function CardWrapper(props: {
   isAgeAdjustedTable?: boolean
   scrollToHash: ScrollableHashId
 }) {
-  const popover = usePopover()
   const queries = props.queries ? props.queries : []
-
-  const optionalTitle = props.title ? (
-    <>
-      <CardContent className={styles.CardHeaderBox}>
-        <Grid justifyContent="space-between" container>
-          <Grid item xs={10} container alignContent="center">
-            <Typography component="h3" className={styles.CardHeader}>
-              {props.title}
-              {props.infoPopover && (
-                <Button
-                  onClick={popover.open}
-                  className={styles.InfoIconButton}
-                >
-                  <Info color="primary" />
-                </Button>
-              )}
-            </Typography>
-            <Popover
-              open={popover.isOpen}
-              anchorEl={popover.anchor}
-              onClose={popover.close}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'center',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-              }}
-            >
-              <div className={styles.CardInfoPopover}>{props.infoPopover}</div>
-            </Popover>
-          </Grid>
-          <Grid item>
-            <CopyLinkButton scrollToHash={props.scrollToHash} />
-          </Grid>
-        </Grid>
-      </CardContent>
-      <Divider />
-    </>
-  ) : null
 
   const loadingComponent = (
     <Card
@@ -90,7 +36,6 @@ function CardWrapper(props: {
       className={styles.ChartCard}
       style={{ minHeight: props.minHeight }}
     >
-      {optionalTitle}
       <CardContent>
         <CircularProgress aria-label="loading" />
       </CardContent>
@@ -110,7 +55,6 @@ function CardWrapper(props: {
             className={styles.ChartCard}
             component={'article'}
           >
-            <header>{optionalTitle}</header>
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={'footer'}>
