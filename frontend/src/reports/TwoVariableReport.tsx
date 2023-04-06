@@ -40,6 +40,7 @@ import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons from './ui/ShareButtons'
+import { type MadLibId } from '../utils/MadLibs'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -59,6 +60,8 @@ function TwoVariableReport(props: {
   headerScrollMargin: number
   reportTitle: string
   isMobile: boolean
+  trackerMode: MadLibId
+  setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -131,7 +134,7 @@ function TwoVariableReport(props: {
     }
   }, [props.dropdownVarId1, props.dropdownVarId2])
 
-  // // when variable config changes (new data type), re-calc available card steps in TableOfContents
+  // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined
@@ -522,6 +525,8 @@ function TwoVariableReport(props: {
               floatTopOffset={props.headerScrollMargin}
               reportTitle={props.reportTitle}
               isMobile={props.isMobile}
+              trackerMode={props.trackerMode}
+              setTrackerMode={props.setTrackerMode}
             />
           </Grid>
         )}

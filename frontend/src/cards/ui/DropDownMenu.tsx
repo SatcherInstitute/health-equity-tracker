@@ -28,7 +28,7 @@ interface MenuPopoverProps {
   onClose?: () => void
 }
 
-function MenuPopover(props: MenuPopoverProps): JSX.Element {
+export function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
@@ -108,7 +108,7 @@ export interface DropDownMenuProps {
     category: DemographicGroup | undefined,
     filterSelection: DemographicGroup
   ) => void
-  idSuffix: string
+  idSuffix?: string
 }
 
 /*
@@ -131,7 +131,7 @@ function DropDownMenu(props: DropDownMenuProps) {
     <div className={styles.SectionFilterBy}>
       <label
         className={styles.FilterBy}
-        htmlFor={`groupMenu${props.idSuffix}`}
+        htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >
         Select demographic group:
@@ -140,14 +140,14 @@ function DropDownMenu(props: DropDownMenuProps) {
         variant="text"
         onClick={firstMenu.open}
         aria-haspopup="true"
-        id={`groupMenu${props.idSuffix}`}
+        id={`groupMenu${props?.idSuffix ?? ''}`}
       >
         <u>{props.value}</u>
         <ArrowDropDown />
       </Button>
 
       <MenuPopover
-        aria-labelledby={`#groupMenu${props.idSuffix}`}
+        aria-labelledby={`#groupMenu${props?.idSuffix ?? ''}`}
         popover={firstMenu}
         aria-expanded="true"
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}

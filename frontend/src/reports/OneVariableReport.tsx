@@ -42,6 +42,7 @@ import {
 } from '../data/query/Breakdowns'
 import ShareButtons from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
+import { type MadLibId } from '../utils/MadLibs'
 
 export interface OneVariableReportProps {
   key: string
@@ -55,6 +56,8 @@ export interface OneVariableReportProps {
   headerScrollMargin: number
   reportTitle: string
   isMobile: boolean
+  trackerMode: MadLibId
+  setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -418,6 +421,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               reportStepHashIds={props.reportStepHashIds}
               reportTitle={props.reportTitle}
               isMobile={props.isMobile}
+              trackerMode={props.trackerMode}
+              setTrackerMode={props.setTrackerMode}
             />
           </Grid>
         )}

@@ -1,4 +1,5 @@
 import {
+  // Button,
   Card,
   Step,
   StepButton,
@@ -14,6 +15,9 @@ import {
 import styles from './Sidebar.module.scss'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
 import ShareButtons from '../../reports/ui/ShareButtons'
+import ModeSelect from './ModeSelect'
+import { type MadLibId } from '../../utils/MadLibs'
+// import sass from '../../styles/variables.module.scss'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -28,6 +32,8 @@ interface SidebarProps {
   isScrolledToTop?: boolean
   reportTitle: string
   isMobile: boolean
+  trackerMode: MadLibId
+  setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }
 
 export default function Sidebar(props: SidebarProps) {
@@ -57,6 +63,19 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
+      <Card raised={true} className={styles.ModeSelectorBox}>
+        {/* <TrackerModeButton>Compare Places</TrackerModeButton>
+        <TrackerModeButton>Compare Topics</TrackerModeButton>
+
+        {!props.reportTitle.includes("Investigate") && <TrackerModeButton>Default</TrackerModeButton>
+        } */}
+
+        <ModeSelect
+          trackerMode={props.trackerMode}
+          setTrackerMode={props.setTrackerMode}
+        />
+      </Card>
+
       <Card raised={true} className={styles.TableOfContents}>
         <Stepper
           component={'nav'}
@@ -104,3 +123,17 @@ export default function Sidebar(props: SidebarProps) {
     </div>
   )
 }
+
+// interface TrackerModeButtonProps {
+//   children: string
+// }
+
+// function TrackerModeButton(props: TrackerModeButtonProps) {
+//   return <Button
+//     sx={{
+//       fontSize: sass.smallest,
+//       lineHeight: sass.lhTight
+//     }}
+//     size='small'
+//   >{props.children}</Button>
+// }

@@ -39,6 +39,7 @@ export const SINGLE_COLUMN_WIDTH = 12
 interface ReportProviderProps {
   isSingleColumn: boolean
   madLib: MadLib
+  handleModeChange: any
   selectedConditions: VariableConfig[]
   showLifeLineAlert: boolean
   setMadLib: (madLib: MadLib) => void
@@ -105,6 +106,8 @@ function ReportProvider(props: ReportProviderProps) {
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
             isMobile={props.isMobile}
+            trackerMode={props.madLib.id}
+            setTrackerMode={props.handleModeChange}
           />
         )
       }
@@ -135,6 +138,8 @@ function ReportProvider(props: ReportProviderProps) {
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
             isMobile={props.isMobile}
+            trackerMode={props.madLib.id}
+            setTrackerMode={props.handleModeChange}
           />
         )
       }
@@ -162,6 +167,8 @@ function ReportProvider(props: ReportProviderProps) {
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
             isMobile={props.isMobile}
+            trackerMode={props.madLib.id}
+            setTrackerMode={props.handleModeChange}
           />
         )
       }

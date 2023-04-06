@@ -101,6 +101,13 @@ const MaterialTheme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        inputSizeSmall: {
+          fontSize: '.75rem',
+        },
+      },
+    },
     MuiStepConnector: {
       styleOverrides: {
         vertical: {

@@ -1,7 +1,5 @@
-import NavigateNextIcon from '@mui/icons-material/NavigateNext'
 import { useEffect, useState, lazy } from 'react'
 import { STATUS } from 'react-joyride'
-import Carousel from 'react-material-ui-carousel'
 import ReportProvider from '../../reports/ReportProvider'
 import {
   getMadLibPhraseText,
@@ -10,6 +8,7 @@ import {
   MADLIB_LIST,
   type PhraseSegment,
   type PhraseSelections,
+  type MadLibId,
 } from '../../utils/MadLibs'
 import {
   DATA_TYPE_1_PARAM,
@@ -33,7 +32,6 @@ import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
 import CarouselMadLib from './CarouselMadlib'
-import sass from '../../styles/variables.module.scss'
 import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 
@@ -156,8 +154,15 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   // calculate page size to determine if mobile or not
   const isSingleColumn = madLib.id === 'disparity'
-  const handleCarouselChange = (now?: number) => {
-    if (now == null) return
+
+  function handleModeChange(mode: MadLibId) {
+    const modeIndexMap: Record<MadLibId, number> = {
+      disparity: 0,
+      comparegeos: 1,
+      comparevars: 2,
+    }
+
+    const modeIndex = modeIndexMap[mode]
 
     // Extract values from the current madlib
     const var1 = madLib.activeSelections[1]
@@ -172,11 +177,11 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
     // Construct UPDATED madlib based on the future carousel Madlib shape
     let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 } // disparity "Investigate Rates"
-    if (now === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
-    if (now === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
+    if (modeIndex === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
+    if (modeIndex === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
 
     setMadLib({
-      ...MADLIB_LIST[now],
+      ...MADLIB_LIST[modeIndex],
       activeSelections: updatedMadLib,
     })
     setParameters([
@@ -186,7 +191,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       },
       {
         name: MADLIB_PHRASE_PARAM,
-        value: MADLIB_LIST[now].id,
+        value: MADLIB_LIST[modeIndex].id,
       },
     ])
     location.hash = ''
@@ -233,57 +238,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
           className={styles.CarouselContainer}
           id="madlib-carousel-container"
         >
-          <Carousel
-            className={`Carousel ${styles.Carousel}`}
-            swipe={false}
-            NextIcon={<NavigateNextIcon id="onboarding-madlib-arrow" />}
-            autoPlay={false}
-            indicators={false}
-            indicatorIconButtonProps={{
-              'aria-label': 'Report Type',
-              style: {
-                padding: '4px',
-                color: sass.altGrey,
-              },
-            }}
-            activeIndicatorIconButtonProps={{
-              'aria-label': 'Current Selection: Report Type',
-              style: {
-                padding: '4px',
-                color: sass.altGreen,
-              },
-            }}
-            // ! TODO We really should be able to indicate Forward/Backward vs just "Change"
-            navButtonsProps={{
-              'aria-label': 'Change Report Type',
-              style: {
-                border: `1px solid ${sass.altGreen}`,
-                backgroundColor: sass.white,
-                color: sass.altGreen,
-                borderRadius: 100,
-                boxShadow:
-                  '0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12)',
-              },
-            }}
-            animation="slide"
-            duration={700}
-            navButtonsAlwaysVisible={true}
-            cycleNavigation={false}
-            navButtonsAlwaysInvisible={noTopicChosen}
-            index={initialIndex}
-            onChange={(nowIndex) => {
-              handleCarouselChange(nowIndex)
-            }}
-          >
-            {/* carousel settings same length as MADLIB_LIST, but fill each with madlib constructed earlier */}
-            {MADLIB_LIST.map((madLibShape) => (
-              <CarouselMadLib
-                madLib={madLib}
-                setMadLib={setMadLibWithParam}
-                key={madLibShape.id}
-              />
-            ))}
-          </Carousel>
+          <CarouselMadLib madLib={madLib} setMadLib={setMadLibWithParam} />
+
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>
               <a href={urlMap.lifeline}>988lifeline.org</a>
@@ -297,6 +253,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
             <ReportProvider
               isSingleColumn={isSingleColumn}
               madLib={madLib}
+              handleModeChange={handleModeChange}
               selectedConditions={getSelectedConditions(madLib)}
               showLifeLineAlert={showStickyLifeline}
               showIncarceratedChildrenAlert={showIncarceratedChildrenAlert}
