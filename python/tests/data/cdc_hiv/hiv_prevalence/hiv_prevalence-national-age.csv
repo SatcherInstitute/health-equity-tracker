@@ -1,0 +1,20 @@
+﻿"Date Printed: Monday, April 3, 2023 9:42:03 AM"
+Title: "HIV prevalence | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | United States | All races/ethnicities | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+Prevalence data for the year 2020 are preliminary and based on death data received by CDC as of December 2021. Prevalence data prior to 2010 are based on residence at diagnosis; prevalence data from 2010 to present are based on most recent known address. See Technical Notes for death reporting by jurisdiction.
+^ Jurisdiction with incomplete reporting of deaths for most recent year.
+NA - Not Applicable.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV prevalence","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","386,742","400.9","96,467,960"
+"HIV prevalence","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","267,208","654.0","40,860,323"
+"HIV prevalence","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","193,391","464.1","41,674,444"
+"HIV prevalence","2019","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","162,311","352.8","46,003,684"
+"HIV prevalence","2019","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","30,870","60.5","51,056,802"
+"HIV prevalence","2017","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","329,155","355.3","92,631,341"
+"HIV prevalence","2017","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","292,110","691.8","42,227,049"
+"HIV prevalence","2017","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","187,423","459.7","40,767,905"
+"HIV prevalence","2017","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","153,023","337.7","45,319,858"
+"HIV prevalence","2017","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","33,586","65.3","51,449,565"

@@ -26,27 +26,26 @@ DEM_COLS_STANDARD = {
     std_col.SEX_COL: 'Sex'}
 
 HIV_DETERMINANTS = {
+    'care': std_col.HIV_CARE_PREFIX,
     'diagnoses': std_col.HIV_DIAGNOSES_PREFIX,
     'deaths': std_col.HIV_DEATHS_PREFIX,
-    'prep': std_col.PREP_PREFIX}
+    'prep': std_col.PREP_PREFIX,
+    'prevalence': std_col.HIV_PREVALENCE_PREFIX}
 
-PCT_SHARE_MAP = {}
-for prefix in HIV_DETERMINANTS.values():
-    PCT_SHARE_MAP[prefix] = std_col.generate_column_name(
-        prefix, std_col.PCT_SHARE_SUFFIX)
+PCT_SHARE_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
+                 for prefix in HIV_DETERMINANTS.values()}
 PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
 PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
+PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
 
-PER_100K_MAP = {std_col.PREP_PREFIX: std_col.HIV_PREP_COVERAGE}
-for prefix in HIV_DETERMINANTS.values():
-    if prefix != std_col.PREP_PREFIX:
-        PER_100K_MAP[prefix] = std_col.generate_column_name(
-            prefix, std_col.PER_100K_SUFFIX)
+PER_100K_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
+                for prefix in HIV_DETERMINANTS.values()
+                if prefix not in [std_col.HIV_CARE_PREFIX, std_col.PREP_PREFIX]}
 
-PCT_RELATIVE_INEQUITY_MAP = {}
-for prefix in HIV_DETERMINANTS.values():
-    PCT_RELATIVE_INEQUITY_MAP[prefix] = std_col.generate_column_name(
+PCT_RELATIVE_INEQUITY_MAP = {
+    prefix: std_col.generate_column_name(
         prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
+    for prefix in HIV_DETERMINANTS.values()}
 
 # a nested dictionary that contains values swaps per column name
 BREAKDOWN_TO_STANDARD_BY_COL = {
@@ -61,8 +60,20 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
         'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
         'White': std_col.Race.WHITE_NH.value},
-    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}
+    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE}}
+
+CARE_PREP_MAP = {
+    std_col.HIV_CARE_PREFIX: std_col.HIV_CARE_LINKAGE,
+    std_col.PREP_PREFIX: std_col.HIV_PREP_COVERAGE}
+
+POP_MAP = {
+    std_col.HIV_CARE_PREFIX: std_col.HIV_CARE_POPULATION,
+    std_col.PREP_PREFIX: std_col.HIV_PREP_POPULATION
 }
+
+# HIV dictionaries
+DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
+         PCT_SHARE_MAP, PCT_RELATIVE_INEQUITY_MAP]
 
 
 class CDCHIVData(DataSource):
@@ -88,17 +99,7 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}_time_series'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
-                float_cols = [std_col.HIV_PREP_COVERAGE,
-                              std_col.HIV_POPULATION_PCT]
-                for col in HIV_DETERMINANTS.values():
-                    float_cols.append(col)
-                    float_cols.append(std_col.generate_column_name(
-                        col, std_col.PCT_REL_INEQUITY_SUFFIX))
-                    float_cols.append(std_col.generate_column_name(
-                        col, std_col.PCT_SHARE_SUFFIX))
-                    if col != std_col.PREP_PREFIX:
-                        float_cols.append(std_col.generate_column_name(
-                            col, std_col.PER_100K_SUFFIX))
+                float_cols = [col for dict in DICTS for col in dict.values()]
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -131,8 +132,7 @@ class CDCHIVData(DataSource):
             std_col.TIME_PERIOD_COL,
             geo_to_use,
             fips_to_use,
-            breakdown,
-            std_col.HIV_POPULATION_PCT]
+            breakdown]
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
 
@@ -167,20 +167,20 @@ class CDCHIVData(DataSource):
                                                           breakdown),
                                                      std_col.ALL_VALUE)
 
+        for dict in DICTS:
+            cols_to_keep += list(dict.values())
+
         for col in HIV_DETERMINANTS.values():
             pop_col = std_col.HIV_POPULATION_PCT
             if col == std_col.PREP_PREFIX:
                 pop_col = std_col.HIV_PREP_POPULATION_PCT
-                cols_to_keep.append(pop_col)
+            if col == std_col.HIV_CARE_PREFIX:
+                pop_col = std_col.HIV_CARE_POPULATION_PCT
 
             df = generate_pct_rel_inequity_col(df,
                                                PCT_SHARE_MAP[col],
                                                pop_col,
                                                PCT_RELATIVE_INEQUITY_MAP[col])
-            cols_to_keep.append(col)
-            cols_to_keep.append(PER_100K_MAP[col])
-            cols_to_keep.append(PCT_SHARE_MAP[col])
-            cols_to_keep.append(PCT_RELATIVE_INEQUITY_MAP[col])
 
         df = df[cols_to_keep]
         df = df.sort_values(
@@ -215,14 +215,24 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              usecols=lambda x: x not in cols_to_exclude,
                                                              thousands=',',
                                                              dtype=DTYPE)
-            cols_to_standard = {
-                'Cases': determinant,
-                'Rate per 100000': PER_100K_MAP[determinant],
-                'Percent': std_col.HIV_PREP_COVERAGE}
+
+            if determinant in std_col.HIV_CARE_PREFIX or determinant in std_col.PREP_PREFIX:
+                cols_to_standard = {
+                    'Cases': determinant,
+                    'Percent': CARE_PREP_MAP[determinant],
+                    'Population': POP_MAP[determinant]}
+            else:
+                cols_to_standard = {
+                    'Cases': determinant,
+                    'Rate per 100000': PER_100K_MAP[determinant]
+                }
 
             if determinant == std_col.PREP_PREFIX:
-                cols_to_standard['Population'] = std_col.HIV_PREP_POPULATION
                 df = df.replace({'13-24': '16-24'})
+
+            if determinant == std_col.HIV_PREVALENCE_PREFIX:
+                df['Geography'] = df['Geography'].str.replace(
+                    '^', '', regex=False)
 
             df = df.rename(columns=cols_to_standard)
 
