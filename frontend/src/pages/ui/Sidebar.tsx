@@ -16,6 +16,8 @@ import { scrollIntoView } from 'seamless-scroll-polyfill'
 import ShareButtons from '../../reports/ui/ShareButtons'
 import ModeSelect from './ModeSelect'
 import { type MadLibId } from '../../utils/MadLibs'
+import DemographicSelect from './BreakdownSelect'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -32,6 +34,8 @@ interface SidebarProps {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
+  trackerDemographic: BreakdownVar
+  setDemoWithParam: (demographic: BreakdownVar) => void
 }
 
 export default function Sidebar(props: SidebarProps) {
@@ -60,72 +64,66 @@ export default function Sidebar(props: SidebarProps) {
   const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING
 
   return (
-    <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
-      <Card raised={true} className={styles.ModeSelectorBox}>
-        <ModeSelect
-          trackerMode={props.trackerMode}
-          setTrackerMode={props.setTrackerMode}
-        />
-      </Card>
-
-      <Card raised={true} className={styles.TableOfContents}>
-        <Stepper
-          component={'nav'}
-          nonLinear
-          activeStep={props.reportStepHashIds?.findIndex(
-            (stepId) => stepId === activeId
-          )}
-          orientation="vertical"
-          aria-label="Available cards on this report"
-          className={styles.Stepper}
-        >
-          {props.reportStepHashIds?.map((stepId) => {
-            return (
-              <Step completed={false} key={stepId}>
-                <StepButton
-                  title={`Scroll to ${reportProviderSteps[stepId].label}`}
-                  className={styles.StepButton}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    handleStepClick(stepId)
-                  }}
-                >
-                  <span
-                    // hide labels visually but not from screen readers on small screens
-                    className={
-                      pageIsWide
-                        ? styles.StepButtonLabel
-                        : styles.ScreenreaderTitleHeader
-                    }
-                  >
-                    {reportProviderSteps[stepId].label}
-                  </span>
-                </StepButton>
-              </Step>
-            )
-          })}
-        </Stepper>
-      </Card>
+    <>
+      {/* <DisclaimerAlert /> */}
       <Card raised={true} className={styles.ShareBox}>
         <ShareButtons
           isMobile={props.isMobile}
           reportTitle={props.reportTitle}
         />
       </Card>
-    </div>
+
+      <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
+        <Card raised={true} className={styles.ModeSelectorBox}>
+          <DemographicSelect
+            trackerDemographic={props.trackerDemographic}
+            setDemoWithParam={props.setDemoWithParam}
+          />
+          <ModeSelect
+            trackerMode={props.trackerMode}
+            setTrackerMode={props.setTrackerMode}
+          />
+        </Card>
+
+        <Card raised={true} className={styles.TableOfContents}>
+          <Stepper
+            component={'nav'}
+            nonLinear
+            activeStep={props.reportStepHashIds?.findIndex(
+              (stepId) => stepId === activeId
+            )}
+            orientation="vertical"
+            aria-label="Available cards on this report"
+            className={styles.Stepper}
+          >
+            {props.reportStepHashIds?.map((stepId) => {
+              return (
+                <Step completed={false} key={stepId}>
+                  <StepButton
+                    title={`Scroll to ${reportProviderSteps[stepId].label}`}
+                    className={styles.StepButton}
+                    onClick={(e) => {
+                      e.preventDefault()
+                      handleStepClick(stepId)
+                    }}
+                  >
+                    <span
+                      // hide labels visually but not from screen readers on small screens
+                      className={
+                        pageIsWide
+                          ? styles.StepButtonLabel
+                          : styles.ScreenreaderTitleHeader
+                      }
+                    >
+                      {reportProviderSteps[stepId].label}
+                    </span>
+                  </StepButton>
+                </Step>
+              )
+            })}
+          </Stepper>
+        </Card>
+      </div>
+    </>
   )
 }
-
-// interface TrackerModeButtonProps {
-//   children: string
-// }
-
-// function TrackerModeButton(props: TrackerModeButtonProps) {
-//   return <Button
-//     sx={{
-//       fontSize: sass.smallest,
-//       lineHeight: sass.lhTight
-//     }}
-//     size='small'
-//   >{props.children}</Button>
-// }

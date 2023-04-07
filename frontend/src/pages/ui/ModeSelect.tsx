@@ -4,6 +4,7 @@ import FormControl from '@mui/material/FormControl'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import { useState } from 'react'
 import { type MadLibId } from '../../utils/MadLibs'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 interface ModeSelectProps {
   trackerMode: MadLibId
@@ -22,15 +23,18 @@ export default function ModeSelect(props: ModeSelectProps) {
     const newMode = trackerModes[+event.target.value]
     props.setTrackerMode(newMode)
   }
+  const theme = useTheme()
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('lg'))
+  const modeLabel = pageIsWide ? 'Compare mode' : 'Compare'
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-      <InputLabel id="demo-select-small">Compare</InputLabel>
+    <FormControl sx={{ m: 1, minWidth: 60 }} size="small">
+      <InputLabel id="mode-select-label">{modeLabel}</InputLabel>
       <Select
-        labelId="demo-select-small"
-        id="demo-select-small"
+        labelId="mode-select-label"
+        id="mode-select"
         value={modeIndex as unknown as string}
-        label="Compare"
+        label={modeLabel}
         onChange={handleChange}
       >
         <MenuItem value={0}>Off</MenuItem>

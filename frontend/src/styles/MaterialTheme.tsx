@@ -108,10 +108,18 @@ const MaterialTheme = createTheme({
         },
       },
     },
+    MuiStepButton: {
+      styleOverrides: {
+        vertical: {
+          margin: '0 auto',
+        },
+      },
+    },
     MuiStepConnector: {
       styleOverrides: {
         vertical: {
           paddingBlock: '0',
+          margin: '0 auto',
         },
         lineVertical: {
           minHeight: '8px',

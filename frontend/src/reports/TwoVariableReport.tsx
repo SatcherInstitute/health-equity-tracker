@@ -4,7 +4,7 @@ import LazyLoad from 'react-lazyload'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { PopulationCard } from '../cards/PopulationCard'
+// import { PopulationCard } from '../cards/PopulationCard'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
@@ -39,8 +39,9 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
-import ShareButtons from './ui/ShareButtons'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
+import DisclaimerAlert from './ui/DisclaimerAlert'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -78,19 +79,19 @@ function TwoVariableReport(props: {
       : null
   )
 
-  const setVariableConfigWithParam1 = (v: VariableConfig) => {
+  function setVariableConfigWithParam1(v: VariableConfig) {
     setParameter(DATA_TYPE_1_PARAM, v.variableId)
     setVariableConfig1(v)
   }
 
-  const setVariableConfigWithParam2 = (v: VariableConfig) => {
+  function setVariableConfigWithParam2(v: VariableConfig) {
     setParameter(DATA_TYPE_2_PARAM, v.variableId)
     setVariableConfig2(v)
   }
 
-  const setDemoWithParam = (str: BreakdownVar) => {
-    setParameter(DEMOGRAPHIC_PARAM, str)
-    setCurrentBreakdown(str)
+  function setDemoWithParam(demographic: BreakdownVar) {
+    setParameter(DEMOGRAPHIC_PARAM, demographic)
+    setCurrentBreakdown(demographic)
   }
 
   useEffect(() => {
@@ -186,6 +187,7 @@ function TwoVariableReport(props: {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} sm={11} md={10}>
+          <DisclaimerAlert />
           <Grid container spacing={1} alignItems="flex-start">
             {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
             {props.fips1.code === props.fips2.code ? (
@@ -199,7 +201,7 @@ function TwoVariableReport(props: {
                 }}
               >
                 {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-                <PopulationCard fips={props.fips1} />
+                {/* <PopulationCard fips={props.fips1} /> */}
 
                 {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
                 <Grid container>
@@ -240,7 +242,7 @@ function TwoVariableReport(props: {
                   }}
                 >
                   {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
-                  <PopulationCard fips={props.fips1} />
+                  {/* <PopulationCard fips={props.fips1} /> */}
 
                   {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
@@ -254,7 +256,7 @@ function TwoVariableReport(props: {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
-                  <PopulationCard fips={props.fips2} />
+                  {/* <PopulationCard fips={props.fips2} /> */}
 
                   {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
@@ -527,13 +529,15 @@ function TwoVariableReport(props: {
               isMobile={props.isMobile}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
+              trackerDemographic={currentBreakdown}
+              setDemoWithParam={setDemoWithParam}
             />
           </Grid>
         )}
       </Grid>
       {props.isMobile && (
         <Box mt={5}>
-          <p>Share to social:</p>
+          <p>{SHARE_LABEL}</p>
           <ShareButtons
             reportTitle={props.reportTitle}
             isMobile={props.isMobile}

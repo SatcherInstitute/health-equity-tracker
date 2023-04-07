@@ -14,6 +14,8 @@ import sass from '../../styles/variables.module.scss'
 import { type Article } from '../../pages/WhatIsHealthEquity/NewsTab'
 import { getHtml } from '../../utils/urlutils'
 
+export const SHARE_LABEL = 'Share to social:'
+
 export const ARTICLE_DESCRIPTION =
   'Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.'
 
@@ -50,7 +52,7 @@ function ShareButtons(props: ShareButtonProps) {
       alignItems={'center'}
     >
       <Grid item>
-        <p className={styles.ShareLabel}>Share to social:</p>
+        <p className={styles.ShareLabel}>{SHARE_LABEL}</p>
       </Grid>
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}

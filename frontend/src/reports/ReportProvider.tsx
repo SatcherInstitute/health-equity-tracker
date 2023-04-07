@@ -14,7 +14,6 @@ import {
 } from '../utils/internalRoutes'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import styles from './Report.module.scss'
-import DisclaimerAlert from './ui/DisclaimerAlert'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
@@ -184,7 +183,7 @@ function ReportProvider(props: ReportProviderProps) {
     <>
       <div className={reportWrapper}>
         {props.showLifeLineAlert && <LifelineAlert />}
-        <DisclaimerAlert />
+        {/* <DisclaimerAlert /> */}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}

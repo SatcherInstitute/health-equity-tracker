@@ -3,7 +3,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { PopulationCard } from '../cards/PopulationCard'
+// import { PopulationCard } from '../cards/PopulationCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
@@ -40,16 +40,16 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
 } from '../data/query/Breakdowns'
-import ShareButtons from './ui/ShareButtons'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
+import DisclaimerAlert from './ui/DisclaimerAlert'
 
 export interface OneVariableReportProps {
   key: string
   dropdownVarId: DropdownVarId
   fips: Fips
   updateFipsCallback: (fips: Fips) => void
-  hidePopulationCard?: boolean
   isScrolledToTop: boolean
   reportStepHashIds?: ScrollableHashId[]
   setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
@@ -136,6 +136,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} sm={11} md={10}>
+          <DisclaimerAlert />
           <Grid
             item
             container
@@ -144,19 +145,17 @@ export function OneVariableReport(props: OneVariableReportProps) {
             spacing={0}
             justifyContent="center"
           >
-            {!props.hidePopulationCard && (
-              // POPULATION CARD
-              <Grid
-                item
-                xs={12}
-                md={SINGLE_COLUMN_WIDTH}
-                tabIndex={-1}
-                id="location-info"
-                className={styles.ScrollPastHeader}
-              >
-                <PopulationCard fips={props.fips} />
-              </Grid>
-            )}
+            {/* // POPULATION CARD */}
+            {/* <Grid
+              item
+              xs={12}
+              md={SINGLE_COLUMN_WIDTH}
+              tabIndex={-1}
+              id="location-info"
+              className={styles.ScrollPastHeader}
+            >
+              <PopulationCard fips={props.fips} />
+            </Grid> */}
 
             {!variableConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
@@ -389,7 +388,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 )}
                 {props.isMobile && (
                   <Box mt={5}>
-                    <p>Share to social:</p>
+                    <p>{SHARE_LABEL}</p>
                     <ShareButtons
                       reportTitle={props.reportTitle}
                       isMobile={props.isMobile}
@@ -423,6 +422,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
               isMobile={props.isMobile}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
+              trackerDemographic={currentBreakdown}
+              setDemoWithParam={setDemoWithParam}
             />
           </Grid>
         )}
