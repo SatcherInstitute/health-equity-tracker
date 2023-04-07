@@ -3,6 +3,7 @@ import {
   Step,
   StepButton,
   Stepper,
+  Tooltip,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
@@ -101,25 +102,29 @@ export default function Sidebar(props: SidebarProps) {
             {props.reportStepHashIds?.map((stepId) => {
               return (
                 <Step completed={false} key={stepId}>
-                  <StepButton
+                  <Tooltip
                     title={`Scroll to ${reportProviderSteps[stepId].label}`}
-                    className={styles.StepButton}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleStepClick(stepId)
-                    }}
                   >
-                    <span
-                      // hide labels visually but not from screen readers on small screens
-                      className={
-                        pageIsWide
-                          ? styles.StepButtonLabel
-                          : styles.ScreenreaderTitleHeader
-                      }
+                    <StepButton
+                      // title=
+                      className={styles.StepButton}
+                      onClick={(e) => {
+                        e.preventDefault()
+                        handleStepClick(stepId)
+                      }}
                     >
-                      {reportProviderSteps[stepId].label}
-                    </span>
-                  </StepButton>
+                      <span
+                        // hide labels visually but not from screen readers on small screens
+                        className={
+                          pageIsWide
+                            ? styles.StepButtonLabel
+                            : styles.ScreenreaderTitleHeader
+                        }
+                      >
+                        {reportProviderSteps[stepId].label}
+                      </span>
+                    </StepButton>
+                  </Tooltip>
                 </Step>
               )
             })}
