@@ -10,7 +10,7 @@ module.exports = {
     'prettier',
   ],
   overrides: [],
-  ignorePatterns: ["**/*.test.tsx"],
+  ignorePatterns: ["**/*.spec.ts"],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
