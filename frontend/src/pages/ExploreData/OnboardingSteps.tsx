@@ -1,7 +1,7 @@
 import LazyLoad from 'react-lazyload'
 import styles from './ExploreDataPage.module.scss'
 import covidClick from '../../assets/screengrabs/covidClick.mp4'
-import changeModes from '../../assets/screengrabs/changeModes.mp4'
+// import changeModes from '../../assets/screengrabs/changeModes.mp4'
 
 export const ONBOARDING_STEPS = [
   onboardingStep(
@@ -31,36 +31,27 @@ export const ONBOARDING_STEPS = [
     /* placement= */ 'auto'
   ),
   onboardingStep(
-    '#onboarding-madlib-arrow',
-    'Compare Locations and Topics',
-    <>
-      <p>
-        Click the arrows for more ways to search, such as{' '}
+    '#mode-selector-box',
+    'Compare demographics, locations, and health topics',
+    <ul>
+      <li>
+        Where available, view by race and ethnicity, sex, and age breakdowns.
+      </li>
+      <li>
+        Compare mode offers even more ways to search, such as{' '}
         <i>
-          ‘Compare rates of <b>Poverty</b> between{' '}
-          <b>Los Angeles County, California</b> and the <b>United States</b>’
+          <b>’Compare rates of Poverty between Georgia and Florida’</b>
         </i>{' '}
         or{' '}
         <i>
-          ‘Explore relationships between <b>Poverty</b> and <b>COVID-19</b> in{' '}
-          <b>Los Angeles County, California</b>’
+          <b>
+            ‘Explore relationships between Poverty and COVID-19 in Los Angeles
+            County, California’
+          </b>
         </i>
         .
-      </p>
-
-      <LazyLoad offset={300} height={206} once>
-        <video
-          autoPlay={true}
-          loop
-          muted
-          playsInline
-          className={styles.HowToStepImg}
-          height={206}
-        >
-          <source src={changeModes} type="video/mp4" />
-        </video>
-      </LazyLoad>
-    </>,
+      </li>
+    </ul>,
     /* hideCloseButton= */ true,
     /* placement= */ 'auto'
   ),
@@ -82,17 +73,7 @@ export const ONBOARDING_STEPS = [
     /* placement= */ 'auto'
   ),
   onboardingStep(
-    '#onboarding-explore-trends',
-    'Explore further to see demographic trends',
-    <>
-      Where available, the tracker offers breakdowns by race and ethnicity, sex,
-      and age. Some topics may also include selectors for different data types.
-    </>,
-    /* hideCloseButton= */ true,
-    /* placement= */ 'auto'
-  ),
-  onboardingStep(
-    '#madlib-carousel-container',
+    '#madlib-box',
     'Explore the data',
     <>
       <p>

@@ -16,7 +16,7 @@ import { scrollIntoView } from 'seamless-scroll-polyfill'
 import ShareButtons from '../../reports/ui/ShareButtons'
 import ModeSelect from './ModeSelect'
 import { type MadLibId } from '../../utils/MadLibs'
-import DemographicSelect from './BreakdownSelect'
+import DemographicSelect from './DemographicSelect'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 
 const TABLE_OF_CONTENT_PADDING = 15
@@ -74,7 +74,11 @@ export default function Sidebar(props: SidebarProps) {
       </Card>
 
       <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
-        <Card raised={true} className={styles.ModeSelectorBox}>
+        <Card
+          raised={true}
+          className={styles.SidebarModeSelectorBox}
+          id="mode-selector-box"
+        >
           <DemographicSelect
             trackerDemographic={props.trackerDemographic}
             setDemoWithParam={props.setDemoWithParam}

@@ -218,7 +218,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   }, [madLib])
 
   const headerScrollMargin = useHeaderScrollMargin(
-    'madlib-carousel-container',
+    'madlib-container',
     isSticking,
     [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
   )
@@ -234,10 +234,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         {getMadLibPhraseText(madLib)}
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div
-          className={styles.CarouselContainer}
-          id="madlib-carousel-container"
-        >
+        <div className={styles.CarouselContainer} id="madlib-container">
           <CarouselMadLib madLib={madLib} setMadLib={setMadLibWithParam} />
 
           {showStickyLifeline && (

@@ -35,7 +35,7 @@ export default function CarouselMadLib(props: {
   const location = useLocation()
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
+    <Grid id="madlib-box" container justifyContent="center" alignItems="center">
       <div className={styles.CarouselItem}>
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (

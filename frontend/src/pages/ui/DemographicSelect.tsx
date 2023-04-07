@@ -31,7 +31,11 @@ export default function DemographicSelect(props: DemographicSelectProps) {
   const raceLabel = pageIsWide ? 'Race/ethnicity' : 'Race'
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 60 }} size="small">
+    <FormControl
+      sx={{ m: 1, minWidth: 60 }}
+      size="small"
+      id="mode-selector-box"
+    >
       <InputLabel id="demographic-select-label">Demographic</InputLabel>
       <Select
         labelId="demographic-select-label"

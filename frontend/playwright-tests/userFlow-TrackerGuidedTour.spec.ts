@@ -22,7 +22,7 @@ test.describe('Guided tour of COVID-19 from Tracker Default Helper Box', () => {
         await page.getByRole('button', { name: "Next" }).click();
 
         // Second panel displays correct heading
-        await expect(page.getByRole('heading', { name: 'Compare Locations and Topics', exact: true })).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'Compare demographics, locations, and health topics', exact: true })).toBeVisible();
 
 
 
