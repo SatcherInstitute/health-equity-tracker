@@ -42,6 +42,7 @@ import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import DisclaimerAlert from './ui/DisclaimerAlert'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -188,6 +189,15 @@ function TwoVariableReport(props: {
         {/* CARDS COLUMN */}
         <Grid item xs={12} sm={11} md={10}>
           <DisclaimerAlert />
+
+          {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
+          <ModeSelectorBoxMobile
+            trackerMode={props.trackerMode}
+            setTrackerMode={props.setTrackerMode}
+            trackerDemographic={currentBreakdown}
+            setDemoWithParam={setDemoWithParam}
+          />
+
           <Grid container spacing={1} alignItems="flex-start">
             {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
             {props.fips1.code === props.fips2.code ? (

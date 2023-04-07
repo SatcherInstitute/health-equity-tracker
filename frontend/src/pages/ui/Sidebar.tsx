@@ -74,20 +74,18 @@ export default function Sidebar(props: SidebarProps) {
       </Card>
 
       <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
-        <Card
-          raised={true}
-          className={styles.SidebarModeSelectorBox}
-          id="mode-selector-box"
-        >
-          <DemographicSelect
-            trackerDemographic={props.trackerDemographic}
-            setDemoWithParam={props.setDemoWithParam}
-          />
-          <ModeSelect
-            trackerMode={props.trackerMode}
-            setTrackerMode={props.setTrackerMode}
-          />
-        </Card>
+        <div className="mode-selector-box">
+          <Card raised={true} className={styles.SidebarModeSelectorBox}>
+            <DemographicSelect
+              trackerDemographic={props.trackerDemographic}
+              setDemoWithParam={props.setDemoWithParam}
+            />
+            <ModeSelect
+              trackerMode={props.trackerMode}
+              setTrackerMode={props.setTrackerMode}
+            />
+          </Card>
+        </div>
 
         <Card raised={true} className={styles.TableOfContents}>
           <Stepper

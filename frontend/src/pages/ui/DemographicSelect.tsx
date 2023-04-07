@@ -28,16 +28,14 @@ export default function DemographicSelect(props: DemographicSelectProps) {
 
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('lg'))
-  const raceLabel = pageIsWide ? 'Race/ethnicity' : 'Race'
+  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
+  const raceLabel = pageIsWide || pageIsTiny ? 'Race/ethnicity' : 'Race'
 
   return (
-    <FormControl
-      sx={{ m: 1, minWidth: 60 }}
-      size="small"
-      id="mode-selector-box"
-    >
+    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
       <InputLabel id="demographic-select-label">Demographic</InputLabel>
       <Select
+        autoWidth
         labelId="demographic-select-label"
         id="demographic-select"
         value={modeIndex as unknown as string}

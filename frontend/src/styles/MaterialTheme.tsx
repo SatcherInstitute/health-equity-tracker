@@ -110,6 +110,9 @@ const MaterialTheme = createTheme({
     },
     MuiStepButton: {
       styleOverrides: {
+        root: {
+          padding: '0',
+        },
         vertical: {
           margin: '0 auto',
         },

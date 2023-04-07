@@ -44,6 +44,7 @@ import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import DisclaimerAlert from './ui/DisclaimerAlert'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 
 export interface OneVariableReportProps {
   key: string
@@ -137,6 +138,15 @@ export function OneVariableReport(props: OneVariableReportProps) {
         {/* CARDS COLUMN */}
         <Grid item xs={12} sm={11} md={10}>
           <DisclaimerAlert />
+
+          {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
+          <ModeSelectorBoxMobile
+            trackerMode={props.trackerMode}
+            setTrackerMode={props.setTrackerMode}
+            trackerDemographic={currentBreakdown}
+            setDemoWithParam={setDemoWithParam}
+          />
+
           <Grid
             item
             container
@@ -420,6 +430,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               reportStepHashIds={props.reportStepHashIds}
               reportTitle={props.reportTitle}
               isMobile={props.isMobile}
+              // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={currentBreakdown}

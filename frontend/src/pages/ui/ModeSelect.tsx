@@ -25,12 +25,15 @@ export default function ModeSelect(props: ModeSelectProps) {
   }
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('lg'))
-  const modeLabel = pageIsWide ? 'Compare mode' : 'Compare'
+  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const modeLabel = pageIsWide || pageIsTiny ? 'Compare mode' : 'Compare'
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 60 }} size="small">
+    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
       <InputLabel id="mode-select-label">{modeLabel}</InputLabel>
       <Select
+        autoWidth
         labelId="mode-select-label"
         id="mode-select"
         value={modeIndex as unknown as string}
