@@ -31,9 +31,9 @@ import { INCARCERATION_IDS } from '../../data/variables/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
-import CarouselMadLib from './CarouselMadlib'
 import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
+import MadLibUI from './MadLibUI'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -144,8 +144,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const [isSticking, setIsSticking] = useState<boolean>(false)
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
-      const topOfCarousel = pageYOffset > stickyBarOffsetFromTop
-      if (topOfCarousel) setIsSticking(true)
+      const toOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
+      if (toOfMadLibContainer) setIsSticking(true)
       else setIsSticking(false)
     },
     [isSticking],
@@ -175,7 +175,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     const var2 = var1 === 'covid_cases' ? 'covid_vaccinations' : 'covid_cases'
     const geo2 = geo1 === '00' ? '13' : '00' // default to US or Georgia
 
-    // Construct UPDATED madlib based on the future carousel Madlib shape
+    // Construct UPDATED madlib based on the future mode's Madlib shape
     let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 } // disparity "Investigate Rates"
     if (modeIndex === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
     if (modeIndex === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
@@ -234,8 +234,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         {getMadLibPhraseText(madLib)}
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div className={styles.CarouselContainer} id="madlib-container">
-          <CarouselMadLib madLib={madLib} setMadLib={setMadLibWithParam} />
+        <div className={styles.MadLibUIContainer} id="madlib-container">
+          <MadLibUI madLib={madLib} setMadLib={setMadLibWithParam} />
 
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>

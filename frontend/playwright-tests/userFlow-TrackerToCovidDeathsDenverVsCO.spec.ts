@@ -19,7 +19,7 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
     const madlibBox = page.locator('id=madlib-container')
     await expect(madlibBox).toContainText('Compare rates of');
 
-    // back button works properly for carousel mode changes
+    // back button works properly for tracker mode changes
     await page.goBack()
     await expect(madlibBox).toContainText('Investigate');
 

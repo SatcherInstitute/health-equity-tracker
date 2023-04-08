@@ -25,9 +25,9 @@ const useScrollPosition = (
       const indicators =
         document.querySelectorAll(INDICATORS)?.[0]?.parentElement
       const stickyBarOffsetFromTop = header?.offsetTop ?? 1
-      const topOfCarousel = window.pageYOffset > stickyBarOffsetFromTop
+      const topOfMadLibContainer = window.pageYOffset > stickyBarOffsetFromTop
 
-      if (topOfCarousel) {
+      if (topOfMadLibContainer) {
         header?.classList.add(styles.Sticky)
         indicators?.classList.add(styles.RemoveIndicators)
       } else {

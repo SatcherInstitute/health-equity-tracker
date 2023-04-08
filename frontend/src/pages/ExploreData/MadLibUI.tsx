@@ -11,7 +11,7 @@ import {
 import OptionsSelector from './OptionsSelector'
 import styles from './ExploreDataPage.module.scss'
 
-export default function CarouselMadLib(props: {
+export default function MadLibUI(props: {
   madLib: MadLib
   setMadLib: (updatedMadLib: MadLib) => void
 }) {
@@ -36,7 +36,7 @@ export default function CarouselMadLib(props: {
 
   return (
     <Grid id="madlib-box" container justifyContent="center" alignItems="center">
-      <div className={styles.CarouselItem}>
+      <div className={styles.MadLibUI}>
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (
             <React.Fragment key={index}>
