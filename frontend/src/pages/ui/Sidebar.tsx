@@ -19,6 +19,7 @@ import ModeSelect from './ModeSelect'
 import { type MadLibId } from '../../utils/MadLibs'
 import DemographicSelect from './DemographicSelect'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
+import SimpleSelect from './SimpleSelect'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -84,6 +85,12 @@ export default function Sidebar(props: SidebarProps) {
             <ModeSelect
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
+            />
+            <SimpleSelect
+              label="Demographic"
+              optionsMap={{ 'Age Label': 'age', 'Sex Label': 'sex' }}
+              selected={props.trackerDemographic}
+              setSelected={props.setDemoWithParam}
             />
           </Card>
         </div>
