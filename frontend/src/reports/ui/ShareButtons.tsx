@@ -60,7 +60,6 @@ function ShareButtons(props: ShareButtonProps) {
         <Tooltip title="Tweet this report">
           <TwitterShareButton
             url={sharedUrl}
-            title={title}
             hashtags={['healthequity']}
             related={['@SatcherHealth', '@MSMEDU']}
             aria-label={'Share to Twitter'}
@@ -82,7 +81,6 @@ function ShareButtons(props: ShareButtonProps) {
 
         <Tooltip title="Post this report to LinkedIn">
           <LinkedinShareButton
-            title={title}
             source={'Health Equity Tracker'}
             url={sharedUrl}
             aria-label={'Share to LinkedIn'}

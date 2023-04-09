@@ -17,6 +17,13 @@ export type BreakdownVar =
   | 'date'
   | 'fips'
 
+export const DEMOGRAPHIC_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> =
+  {
+    'Race/ethnicity': 'race_and_ethnicity',
+    Sex: 'sex',
+    Age: 'age',
+  }
+
 export const DEMOGRAPHIC_BREAKDOWNS = [
   'race_and_ethnicity',
   'sex',

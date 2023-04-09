@@ -30,7 +30,7 @@ export default function SimpleSelect<T>(props: SimpleSelectProps<T>) {
 
   return (
     <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-      <InputLabel id={`${props.label}-select-label`}>Demographic</InputLabel>
+      <InputLabel id={`${props.label}-select-label`}>{props.label}</InputLabel>
       <Select
         autoWidth
         labelId={`${props.label}-select-label`}
@@ -40,7 +40,6 @@ export default function SimpleSelect<T>(props: SimpleSelectProps<T>) {
         onChange={handleChange}
       >
         {Object.entries(props.optionsMap).map(([label, id]) => {
-          console.log({ label }, { id })
           return (
             <MenuItem key={label} value={id as string}>
               {label}
