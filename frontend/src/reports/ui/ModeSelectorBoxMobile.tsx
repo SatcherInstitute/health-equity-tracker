@@ -1,9 +1,11 @@
 import { Card } from '@mui/material'
 import styles from './ModeSelectorBoxMobile.module.scss'
-import DemographicSelect from '../../pages/ui/DemographicSelect'
-import ModeSelect from '../../pages/ui/ModeSelect'
-import { type MadLibId } from '../../utils/MadLibs'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
+import {
+  DEMOGRAPHIC_BREAKDOWNS_MAP,
+  type BreakdownVar,
+} from '../../data/query/Breakdowns'
+import SimpleSelect from '../../pages/ui/SimpleSelect'
 
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
@@ -18,13 +20,17 @@ export default function ModeSelectorBoxMobile(
   return (
     <div className="mode-selector-box-mobile">
       <Card raised={true} className={styles.ModeSelectorBoxMobile}>
-        <DemographicSelect
-          trackerDemographic={props.trackerDemographic}
-          setDemoWithParam={props.setDemoWithParam}
+        <SimpleSelect<BreakdownVar>
+          label="Demographic"
+          optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}
+          selected={props.trackerDemographic}
+          setSelected={props.setDemoWithParam}
         />
-        <ModeSelect
-          trackerMode={props.trackerMode}
-          setTrackerMode={props.setTrackerMode}
+        <SimpleSelect<MadLibId>
+          label="Compare mode"
+          optionsMap={MADLIB_MODE_MAP}
+          selected={props.trackerMode}
+          setSelected={props.setTrackerMode}
         />
       </Card>
     </div>

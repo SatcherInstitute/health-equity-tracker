@@ -29,7 +29,7 @@ export default function SimpleSelect<T>(props: SimpleSelectProps<T>) {
   // const raceLabel = pageIsWide || pageIsTiny ? 'Race/ethnicity' : 'Race'
 
   return (
-    <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <FormControl sx={{ m: 1, minWidth: 110 }} size="small">
       <InputLabel id={`${props.label}-select-label`}>{props.label}</InputLabel>
       <Select
         autoWidth
