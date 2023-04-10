@@ -3,7 +3,7 @@ import React, { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-// import { PopulationCard } from '../cards/PopulationCard'
+import { PopulationCard } from '../cards/PopulationCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
@@ -136,9 +136,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       </Helmet>
       <Grid container>
         {/* CARDS COLUMN */}
-        <Grid item xs={12} sm={11} md={10}>
-          {/* <DisclaimerAlert /> */}
-
+        <Grid item xs={12} md={10}>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -156,7 +154,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             justifyContent="center"
           >
             {/* // POPULATION CARD */}
-            {/* <Grid
+            <Grid
               item
               xs={12}
               md={SINGLE_COLUMN_WIDTH}
@@ -165,7 +163,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               className={styles.ScrollPastHeader}
             >
               <PopulationCard fips={props.fips} />
-            </Grid> */}
+            </Grid>
 
             {!variableConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
@@ -413,8 +411,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             item
             // invisible
             xs={12}
-            // icons only
-            sm={1}
             // icons + text
             md={2}
             container

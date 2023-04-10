@@ -1,19 +1,6 @@
-import {
-  Card,
-  Step,
-  StepButton,
-  Stepper,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
-import { reportProviderSteps } from '../../reports/ReportProviderSteps'
-import {
-  type ScrollableHashId,
-  useStepObserver,
-} from '../../utils/hooks/useStepObserver'
+import { Card } from '@mui/material'
+import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import styles from './Sidebar.module.scss'
-import { scrollIntoView } from 'seamless-scroll-polyfill'
 import ShareButtons from '../../reports/ui/ShareButtons'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import {
@@ -21,6 +8,7 @@ import {
   type BreakdownVar,
 } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
+import TableOfContents from './TableOfContents'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -42,28 +30,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar(props: SidebarProps) {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
-
-  const [activeId, setRecentlyClicked] = useStepObserver(
-    props.reportStepHashIds,
-    props.isScrolledToTop ?? false
-  )
-
-  function handleStepClick(stepId: ScrollableHashId) {
-    const clickedElem: HTMLElement | null = document.querySelector(`#${stepId}`)
-
-    if (clickedElem) {
-      scrollIntoView(clickedElem, { behavior: 'smooth' })
-      // for a11y focus should shift to subsequent tab goes to next interactive element after the targeted card
-      clickedElem.focus({ preventScroll: true })
-      // manually set the browser url#hash for actual clicks
-      window.history.replaceState(undefined, '', `#${stepId}`)
-    }
-
-    setRecentlyClicked(stepId)
-  }
-
   const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING
 
   return (
@@ -93,47 +59,11 @@ export default function Sidebar(props: SidebarProps) {
           </Card>
         </div>
 
-        <Card raised={true} className={styles.TableOfContents}>
-          <Stepper
-            component={'nav'}
-            nonLinear
-            activeStep={props.reportStepHashIds?.findIndex(
-              (stepId) => stepId === activeId
-            )}
-            orientation="vertical"
-            aria-label="Available cards on this report"
-            className={styles.Stepper}
-          >
-            {props.reportStepHashIds?.map((stepId) => {
-              return (
-                <Step completed={false} key={stepId}>
-                  <Tooltip
-                    title={`Scroll to ${reportProviderSteps[stepId].label}`}
-                  >
-                    <StepButton
-                      // title=
-                      className={styles.StepButton}
-                      onClick={(e) => {
-                        e.preventDefault()
-                        handleStepClick(stepId)
-                      }}
-                    >
-                      <span
-                        // hide labels visually but not from screen readers on small screens
-                        className={
-                          pageIsWide
-                            ? styles.StepButtonLabel
-                            : styles.ScreenreaderTitleHeader
-                        }
-                      >
-                        {reportProviderSteps[stepId].label}
-                      </span>
-                    </StepButton>
-                  </Tooltip>
-                </Step>
-              )
-            })}
-          </Stepper>
+        <Card raised={true} className={styles.TableOfContentsBox}>
+          <TableOfContents
+            reportStepHashIds={props.reportStepHashIds}
+            isScrolledToTop={props.isScrolledToTop ?? false}
+          />
         </Card>
       </div>
     </>

@@ -4,7 +4,7 @@ import LazyLoad from 'react-lazyload'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-// import { PopulationCard } from '../cards/PopulationCard'
+import { PopulationCard } from '../cards/PopulationCard'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
@@ -41,7 +41,6 @@ import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
-// import DisclaimerAlert from './ui/DisclaimerAlert'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
@@ -187,9 +186,7 @@ function TwoVariableReport(props: {
       </Helmet>
       <Grid container>
         {/* CARDS COLUMN */}
-        <Grid item xs={12} sm={11} md={10}>
-          {/* <DisclaimerAlert /> */}
-
+        <Grid item xs={12} md={10}>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -211,7 +208,7 @@ function TwoVariableReport(props: {
                 }}
               >
                 {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-                {/* <PopulationCard fips={props.fips1} /> */}
+                <PopulationCard fips={props.fips1} />
 
                 {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
                 <Grid container>
@@ -252,7 +249,7 @@ function TwoVariableReport(props: {
                   }}
                 >
                   {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
-                  {/* <PopulationCard fips={props.fips1} /> */}
+                  <PopulationCard fips={props.fips1} />
 
                   {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
@@ -266,7 +263,7 @@ function TwoVariableReport(props: {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
-                  {/* <PopulationCard fips={props.fips2} /> */}
+                  <PopulationCard fips={props.fips2} />
 
                   {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
@@ -521,8 +518,6 @@ function TwoVariableReport(props: {
             item
             // invisible
             xs={12}
-            // icons only
-            sm={1}
             // icons + text
             md={2}
             container

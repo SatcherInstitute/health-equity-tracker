@@ -20,6 +20,7 @@ export default function SimpleSelect<ListItemType>(
   const [internalSelected, setInternalSelected] = useState(props.selected)
 
   const handleChange = (event: SelectChangeEvent) => {
+    // event.preventDefault()
     // TODO: Fix this correctly; shouldn't have internal state only hooked to parent (nested?) state
     setInternalSelected(event.target.value as ListItemType)
     props.setSelected(event.target.value as ListItemType)

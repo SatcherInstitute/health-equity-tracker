@@ -28,40 +28,11 @@
   }
 }
 
-.TableOfContents {
+.TableOfContentsBox {
   margin: $card-gutter;
 
   padding: 1rem 0 1rem 0;
   display: flex;
   justify-content: center;
   width: 90%;
-}
-
-.Stepper {
-  display: none;
-
-  // skinny icons on sm
-  @media only screen and (min-width: $sm) {
-    display: flex;
-    padding: 0px !important;
-    width: 90%;
-  }
-
-  // skinny icons on sm
-  @media only screen and (min-width: 775px) {
-    padding: 0 0 0 1vw !important;
-  }
-
-  // icons+labels md and up
-  @media only screen and (min-width: $md) {
-    padding: 0px 20px !important;
-  }
-}
-
-.StepButton {
-  text-align: left;
-}
-
-.StepButtonLabel {
-  font-size: $smallest;
 }

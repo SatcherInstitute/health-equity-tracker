@@ -6,12 +6,20 @@ import {
   type BreakdownVar,
 } from '../../data/query/Breakdowns'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
+import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { reportProviderSteps } from '../ReportProviderSteps'
+import JumpToSelect from '../../pages/ui/JumpToSelect'
 
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
   trackerDemographic: BreakdownVar
   setDemoWithParam: (demographic: BreakdownVar) => void
+}
+
+const scrollableHashIdMap: Record<string, ScrollableHashId> = {}
+for (const [key, value] of Object.entries(reportProviderSteps)) {
+  scrollableHashIdMap[value.label] = key as ScrollableHashId
 }
 
 export default function ModeSelectorBoxMobile(
@@ -32,6 +40,7 @@ export default function ModeSelectorBoxMobile(
           selected={props.trackerMode}
           setSelected={props.setTrackerMode}
         />
+        <JumpToSelect />
       </Card>
     </div>
   )
