@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import React, { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
@@ -31,7 +31,7 @@ import ReportToggleControls from './ui/ReportToggleControls'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import styles from './Report.module.scss'
-import { TableOfContents } from '../pages/ui/TableOfContents'
+
 import { reportProviderSteps } from './ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
@@ -40,6 +40,8 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
 } from '../data/query/Breakdowns'
+import ShareButtons from './ui/ShareButtons'
+import Sidebar from '../pages/ui/Sidebar'
 
 export interface OneVariableReportProps {
   key: string
@@ -51,6 +53,8 @@ export interface OneVariableReportProps {
   reportStepHashIds?: ScrollableHashId[]
   setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
   headerScrollMargin: number
+  reportTitle: string
+  isMobile: boolean
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -103,7 +107,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     }
   }, [props.dropdownVarId])
 
-  // // when variable config changes (new data type), re-calc available card steps in TableOfContents
+  // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined
@@ -380,6 +384,15 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     </LazyLoad>
                   </Grid>
                 )}
+                {props.isMobile && (
+                  <Box mt={5}>
+                    <p>Share to social:</p>
+                    <ShareButtons
+                      reportTitle={props.reportTitle}
+                      isMobile={props.isMobile}
+                    />{' '}
+                  </Box>
+                )}
               </Grid>
             )}
           </Grid>
@@ -397,12 +410,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
             container
             direction="column"
             alignItems="center"
-            className={styles.FloatingTableOfContentsWrapper}
+            className={styles.FloatingSidebarWrapper}
           >
-            <TableOfContents
+            <Sidebar
               floatTopOffset={props.headerScrollMargin}
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}
+              reportTitle={props.reportTitle}
+              isMobile={props.isMobile}
             />
           </Grid>
         )}

@@ -2,11 +2,15 @@
 @import '../../styles/variables.module';
 
 .ShareLabel {
-  @include inter500();
-  color: $alt-green;
-  font-size: $small;
-  box-sizing: border-box;
-  letter-spacing: 0.02857em;
-  padding-inline-end: 0.7rem;
-  padding-block-end: 4px; // to align with the icons
+  display: none;
+
+  @media only screen and (min-width: $md) {
+    display: block;
+    @include inter500();
+    color: $alt-dark;
+    font-size: $smallest;
+    box-sizing: border-box;
+    letter-spacing: 0.02857em;
+    margin-block: 0;
+  }
 }

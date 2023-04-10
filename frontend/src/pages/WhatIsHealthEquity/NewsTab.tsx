@@ -54,7 +54,11 @@ export interface Article {
   }
 }
 
-export default function NewsTab() {
+interface NewsTabProps {
+  isMobile: boolean
+}
+
+export default function NewsTab(props: NewsTabProps) {
   return (
     <div className={styles.WhatIsHealthEquityPage}>
       <Grid container className={styles.Grid}>
@@ -66,7 +70,7 @@ export default function NewsTab() {
         >
           <Switch>
             <Route path={`${NEWS_TAB_LINK}/:slug`}>
-              <SinglePost />
+              <SinglePost isMobile={props.isMobile} />
             </Route>
             <Route path={`${NEWS_TAB_LINK}/`}>
               <AllPosts />

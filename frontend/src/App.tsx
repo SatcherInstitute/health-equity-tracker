@@ -173,6 +173,7 @@ function ScrollToTop() {
 
 function App() {
   const [width, setWidth] = useState(window.innerWidth)
+  const isMobile = width < MOBILE_BREAKPOINT
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth)
@@ -193,11 +194,7 @@ function App() {
               <div className={styles.Content}>
                 <Router>
                   <AppBar position="static" elevation={0}>
-                    {width > MOBILE_BREAKPOINT ? (
-                      <AppToolbar />
-                    ) : (
-                      <MobileAppToolbar />
-                    )}
+                    {isMobile ? <MobileAppToolbar /> : <AppToolbar />}
                   </AppBar>
                   <ScrollToTop />
                   <Suspense
@@ -239,7 +236,7 @@ function App() {
                           <ErrorBoundaryDropParams
                             fallback={<ExploreDataFallback />}
                           >
-                            <ExploreDataPage />
+                            <ExploreDataPage isMobile={isMobile} />
                           </ErrorBoundaryDropParams>
                         </Route>
 
