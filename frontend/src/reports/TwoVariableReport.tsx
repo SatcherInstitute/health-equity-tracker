@@ -590,7 +590,7 @@ function RowOfTwoOptionalMetrics(props: {
       <Grid
         item
         xs={12}
-        sm={6}
+        md={6}
         id={props.id}
         tabIndex={-1}
         style={{ scrollMarginTop: props.headerScrollMargin }}
@@ -625,7 +625,7 @@ function RowOfTwoOptionalMetrics(props: {
       <Grid
         item
         xs={12}
-        sm={6}
+        md={6}
         tabIndex={-1}
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
