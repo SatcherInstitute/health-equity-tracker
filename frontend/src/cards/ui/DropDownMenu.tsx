@@ -120,12 +120,14 @@ export interface DropDownMenuProps {
 function DropDownMenu(props: DropDownMenuProps) {
   const firstMenu = usePopover()
   const secondMenu = usePopover()
-
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0]
   )
 
   const oneLevelMenu = Object.keys(props.options).length === 1
+
+  const demOption = firstMenuSelection.toLowerCase()
+  const article = firstMenuSelection === 'Age' ? 'an' : 'a'
 
   return (
     <div className={styles.SectionFilterBy}>
@@ -134,7 +136,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         htmlFor={`groupMenu${props.idSuffix}`}
         aria-hidden={true}
       >
-        Select demographic group:
+        {`Highlight ${article} ${demOption} group:`}
       </label>
       <Button
         variant="text"

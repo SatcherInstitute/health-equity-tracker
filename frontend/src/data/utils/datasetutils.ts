@@ -23,8 +23,11 @@ import {
   DECADE_PLUS_5_AGE_BUCKETS,
   VOTER_AGE_BUCKETS,
   AGE_BUCKETS,
+  AIAN_NH,
   ASIAN_NH,
   NHPI_NH,
+  MULTI_NH,
+  OTHER_NONSTANDARD_NH,
   API_NH,
   NON_STANDARD_RACES,
   MULTI_OR_OTHER_STANDARD,
@@ -217,6 +220,28 @@ export function getExclusionList(
 
   if (currentBreakdown === RACE) {
     exclusionList.push(NON_HISPANIC)
+  }
+
+  // HIV
+  if (currentVariableId === 'hiv_prep') {
+    if (currentBreakdown === RACE) {
+      exclusionList.push(
+        ...NON_STANDARD_AND_MULTI,
+        AIAN_NH,
+        ASIAN_NH,
+        NHPI_NH,
+        MULTI_NH
+      )
+    }
+    if (currentBreakdown === AGE) {
+      exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '13-24'))
+    }
+  }
+  if (
+    currentVariableId === 'hiv_deaths' ||
+    currentVariableId === 'hiv_diagnoses'
+  ) {
+    exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
   }
 
   // Incarceration
