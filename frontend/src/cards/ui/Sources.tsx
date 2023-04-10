@@ -83,7 +83,7 @@ interface SourcesProps {
   isAgeAdjustedTable?: boolean
   isPopulationCard?: boolean
   hideNH?: boolean
-  scrollToHash: ScrollableHashId
+  scrollToHash?: ScrollableHashId
 }
 
 export function Sources(props: SourcesProps) {
@@ -144,7 +144,7 @@ export function Sources(props: SourcesProps) {
       {sourcesInfo}
       <div className={styles.Footnote}>
         {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
-        {!props.isPopulationCard && (
+        {!props.isPopulationCard && props.scrollToHash && (
           <CopyLinkButton scrollToHash={props.scrollToHash} />
         )}
       </div>
