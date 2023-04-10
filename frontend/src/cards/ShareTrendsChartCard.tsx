@@ -96,7 +96,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   return (
     <CardWrapper
       queries={[inequityQuery, pctShareQuery]}
-      title={<>{cardHeaderTitle}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
     >
@@ -158,20 +157,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         return (
           <>
-            <CardContent>
-              <Alert severity="info" role="note">
-                This chart visualizes the disproportionate share of a condition
-                experienced by group, compared with that group's share of the
-                entire population (when many groups are present we default to
-                showing only the highest and lowest historical averages). Read
-                more about this calculation in our{' '}
-                <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
-                  methodology
-                </HashLink>
-                .
-              </Alert>
-            </CardContent>
-
             <CardContent>
               {queryResponseInequity.shouldShowMissingDataMessage([
                 metricConfigInequitable.metricId,
@@ -235,6 +220,19 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   />
                 </>
               )}
+            </CardContent>
+            <CardContent>
+              <Alert severity="info" role="note">
+                This chart visualizes the disproportionate share of a condition
+                experienced by group, compared with that group's share of the
+                entire population (when many groups are present we default to
+                showing only the highest and lowest historical averages). Read
+                more about this calculation in our{' '}
+                <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
+                  methodology
+                </HashLink>
+                .
+              </Alert>
             </CardContent>
           </>
         )

@@ -1,3 +1,4 @@
+import styles from './Sources.module.scss'
 import React, { Fragment } from 'react'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import {
@@ -80,6 +81,7 @@ interface SourcesProps {
   queryResponses: MetricQueryResponse[]
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
+  isPopulationCard?: boolean
   hideNH?: boolean
   scrollToHash: ScrollableHashId
 }
@@ -139,17 +141,13 @@ export function Sources(props: SourcesProps) {
 
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          paddingRight: '15px',
-        }}
-      >
-        <span>{sourcesInfo}</span>
-        <CopyLinkButton scrollToHash={props.scrollToHash} />
+      {sourcesInfo}
+      <div className={styles.Footnote}>
+        {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+        {!props.isPopulationCard && (
+          <CopyLinkButton scrollToHash={props.scrollToHash} />
+        )}
       </div>
-      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
     </>
   )
 }

@@ -23,7 +23,6 @@ import {
 } from '../data/utils/datasetutils'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
@@ -96,7 +95,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
     >

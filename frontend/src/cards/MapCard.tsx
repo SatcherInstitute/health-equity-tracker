@@ -51,7 +51,6 @@ import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
@@ -194,7 +193,6 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
@@ -324,6 +322,7 @@ function MapCardWithKey(props: MapCardProps) {
                           }
                         }}
                       />
+                      <Divider />
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -429,21 +428,6 @@ function MapCardWithKey(props: MapCardProps) {
                   )}
 
                   {!mapQueryResponse.dataIsMissing() &&
-                    !!dataForActiveBreakdownFilter.length && (
-                      <RateInfoAlert
-                        overallQueryResponse={geoQueryResponse}
-                        currentBreakdown={props.currentBreakdown}
-                        activeBreakdownFilter={activeBreakdownFilter}
-                        metricConfig={metricConfig}
-                        fips={props.fips}
-                        setSmallMultiplesDialogOpen={
-                          setSmallMultiplesDialogOpen
-                        }
-                        variableConfig={props.variableConfig}
-                      />
-                    )}
-
-                  {!mapQueryResponse.dataIsMissing() &&
                     dataForActiveBreakdownFilter.length > 1 && (
                       <HighestLowestList
                         variableConfig={props.variableConfig}
@@ -459,6 +443,20 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
+
+                {!mapQueryResponse.dataIsMissing() &&
+                  !!dataForActiveBreakdownFilter.length && (
+                    <RateInfoAlert
+                      overallQueryResponse={geoQueryResponse}
+                      currentBreakdown={props.currentBreakdown}
+                      activeBreakdownFilter={activeBreakdownFilter}
+                      metricConfig={metricConfig}
+                      fips={props.fips}
+                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                      variableConfig={props.variableConfig}
+                    />
+                  )}
+
                 {hasSelfButNotChildGeoData && (
                   <CountyUnavailableAlert
                     variableFullDisplayName={

@@ -30,7 +30,6 @@ import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type Row } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 
@@ -107,7 +106,6 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       minHeight={preloadHeight}
       queries={[query]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
     >
       {([queryResponse]) => {

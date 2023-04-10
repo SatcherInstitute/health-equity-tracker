@@ -12,7 +12,6 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 function CardWrapper(props: {
   // prevent layout shift as component loads
   minHeight?: number
-  title?: JSX.Element
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element
   hideFooter?: boolean
@@ -26,6 +25,7 @@ function CardWrapper(props: {
     geoData?: Record<string, any>
   ) => JSX.Element
   isAgeAdjustedTable?: boolean
+  isPopulationCard?: boolean
   scrollToHash: ScrollableHashId
 }) {
   const queries = props.queries ? props.queries : []
@@ -60,6 +60,7 @@ function CardWrapper(props: {
               <CardContent className={styles.CardFooter} component={'footer'}>
                 <Sources
                   isAgeAdjustedTable={props.isAgeAdjustedTable}
+                  isPopulationCard={props.isPopulationCard}
                   queryResponses={queryResponses}
                   metadata={metadata}
                   hideNH={props.hideNH}

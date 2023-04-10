@@ -31,6 +31,7 @@ import Table from '@mui/material/Table'
 import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { NO_DATA_MESSAGE } from './Legend'
+import { useFontSize } from '../utils/hooks/useFontSize'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -161,48 +162,61 @@ export function TableChart(props: TableChartProps) {
     )
   }
 
+  const fontSize = useFontSize()
+  const titleStyle = {
+    font: 'Inter, sans-serif',
+    fontSize,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    paddingBottom: 10,
+  }
+
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>Insufficient Data</h1>
       ) : (
-        <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
-          <Table {...getTableProps()}>
-            <TableHead>
-              {headerGroups.map((group, index) => (
-                <TableHeaderRow group={group} key={index} />
-              ))}
-            </TableHead>
-            <TableBody {...getTableBodyProps()}>
-              {page.map((row: Row<any>, index) => (
-                <TableDataRow row={row} key={index} />
-              ))}
-            </TableBody>
-            {/* If the number of rows is less than the smallest page size, we can hide pagination */}
-            {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
-              <TableFooter>
-                <TableRow>
-                  <TablePagination
-                    count={memoData.length}
-                    rowsPerPage={pageSize}
-                    page={pageIndex}
-                    onPageChange={(event, newPage) => {
-                      gotoPage(newPage)
-                    }}
-                    onRowsPerPageChange={(event) => {
-                      setPageSize(Number(event.target.value))
-                    }}
-                    rowsPerPageOptions={[
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION,
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                    ]} // If changed, update pagination condition above
-                  />
-                </TableRow>
-              </TableFooter>
-            )}
-          </Table>
-        </TableContainer>
+        <figure>
+          <figcaption style={titleStyle}>Data table</figcaption>
+
+          <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
+            <Table {...getTableProps()}>
+              <TableHead>
+                {headerGroups.map((group, index) => (
+                  <TableHeaderRow group={group} key={index} />
+                ))}
+              </TableHead>
+              <TableBody {...getTableBodyProps()}>
+                {page.map((row: Row<any>, index) => (
+                  <TableDataRow row={row} key={index} />
+                ))}
+              </TableBody>
+              {/* If the number of rows is less than the smallest page size, we can hide pagination */}
+              {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      count={memoData.length}
+                      rowsPerPage={pageSize}
+                      page={pageIndex}
+                      onPageChange={(event, newPage) => {
+                        gotoPage(newPage)
+                      }}
+                      onRowsPerPageChange={(event) => {
+                        setPageSize(Number(event.target.value))
+                      }}
+                      rowsPerPageOptions={[
+                        MAX_NUM_ROWS_WITHOUT_PAGINATION,
+                        MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
+                        MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
+                      ]} // If changed, update pagination condition above
+                    />
+                  </TableRow>
+                </TableFooter>
+              )}
+            </Table>
+          </TableContainer>
+        </figure>
       )}
     </>
   )

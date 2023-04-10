@@ -263,8 +263,12 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
+        {/* Chart Title
+        <figcaption style={{ fontSize }}>
+          <b id={chartTitleId}>{chartTitle}</b>
+        </figcaption>
         {/* Filter */}
-        {data && (
+        {/* {data && (
           <FilterLegend
             data={data}
             selectedGroups={selectedTrendGroups}
@@ -274,16 +278,58 @@ export function TrendsChart({
             isSkinny={isSkinny}
             chartWidth={width}
             breakdownVar={breakdownVar}
-            legendId={`legend-filter-label-${axisConfig.type}-${
-              isCompareCard ? '2' : '1'
-            }`}
+            legendId={`legend-filter-label-${axisConfig.type}-${isCompareCard ? '2' : '1'
+              }`}
           />
+        )}  */}
+        {isMobile ? (
+          <>
+            {/* Filter */}
+            {data && (
+              <FilterLegend
+                data={data}
+                selectedGroups={selectedTrendGroups}
+                handleClick={handleClick}
+                handleMinMaxClick={handleMinMaxClick}
+                groupLabel={groupLabel}
+                isSkinny={isSkinny}
+                chartWidth={width}
+                breakdownVar={breakdownVar}
+                legendId={`legend-filter-label-${axisConfig.type}-${
+                  isCompareCard ? '2' : '1'
+                }`}
+              />
+            )}
+            {/* Chart Title */}
+            <figcaption style={{ fontSize }}>
+              <b id={chartTitleId}>{chartTitle}</b>
+            </figcaption>
+          </>
+        ) : (
+          <>
+            {/* Chart Title */}
+            <figcaption style={{ fontSize }}>
+              <b id={chartTitleId}>{chartTitle}</b>
+            </figcaption>
+            {/* Filter */}
+            {data && (
+              <FilterLegend
+                data={data}
+                selectedGroups={selectedTrendGroups}
+                handleClick={handleClick}
+                handleMinMaxClick={handleMinMaxClick}
+                groupLabel={groupLabel}
+                isSkinny={isSkinny}
+                chartWidth={width}
+                breakdownVar={breakdownVar}
+                legendId={`legend-filter-label-${axisConfig.type}-${
+                  isCompareCard ? '2' : '1'
+                }`}
+              />
+            )}
+          </>
         )}
       </div>
-      {/* Chart Title */}
-      <figcaption style={{ fontSize }}>
-        <b id={chartTitleId}>{chartTitle}</b>
-      </figcaption>
       {/* Tooltip */}
       <div
         className={styles.TooltipWrapper}
