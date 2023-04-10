@@ -9,9 +9,9 @@ export function useFontSize() {
 
   useEffect(() => {
     if (isComparing && isSmall) {
-      setFontsize(10)
+      setFontsize(12)
     } else {
-      setFontsize(14)
+      setFontsize(16)
     }
   }, [isComparing, fontSize, isSmall])
 
