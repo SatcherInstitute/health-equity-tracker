@@ -68,7 +68,6 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <>
-      {/* <DisclaimerAlert /> */}
       <Card raised={true} className={styles.ShareBox}>
         <ShareButtons
           isMobile={props.isMobile}

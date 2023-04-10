@@ -34,6 +34,7 @@ import { useLocation } from 'react-router-dom'
 import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
+// import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -234,6 +235,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         {getMadLibPhraseText(madLib)}
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
+        {/* {noTopicChosen && <DisclaimerAlert />} */}
         <div className={styles.MadLibUIContainer} id="madlib-container">
           <MadLibUI madLib={madLib} setMadLib={setMadLibWithParam} />
 

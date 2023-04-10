@@ -183,7 +183,6 @@ function ReportProvider(props: ReportProviderProps) {
     <>
       <div className={reportWrapper}>
         {props.showLifeLineAlert && <LifelineAlert />}
-        {/* <DisclaimerAlert /> */}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}

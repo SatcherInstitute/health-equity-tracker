@@ -43,8 +43,8 @@ import {
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
-import DisclaimerAlert from './ui/DisclaimerAlert'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+// import DisclaimerAlert from './ui/DisclaimerAlert'
 
 export interface OneVariableReportProps {
   key: string
@@ -137,7 +137,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} sm={11} md={10}>
-          <DisclaimerAlert />
+          {/* <DisclaimerAlert /> */}
 
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
@@ -172,7 +172,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             )}
 
             {variableConfig && (
-              <Grid container spacing={1} justifyContent="center">
+              <Grid container justifyContent="center">
                 {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
                 <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
                   <ReportToggleControls
@@ -358,19 +358,17 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <LazyLoad offset={800} height={750} once>
-                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                      <Fragment key={breakdownVar}>
-                        {breakdownIsShown(breakdownVar) && (
-                          <TableCard
-                            fips={props.fips}
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                          />
-                        )}
-                      </Fragment>
-                    ))}
-                  </LazyLoad>
+                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                    <Fragment key={breakdownVar}>
+                      {breakdownIsShown(breakdownVar) && (
+                        <TableCard
+                          fips={props.fips}
+                          variableConfig={variableConfig}
+                          breakdownVar={breakdownVar}
+                        />
+                      )}
+                    </Fragment>
+                  ))}
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}

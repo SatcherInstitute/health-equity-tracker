@@ -56,7 +56,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
       /* placement= */ undefined
     ),
     onboardingStep(
-      '#onboarding-limits-in-the-data',
+      '#AIAN-alert',
       'Limits in the data',
       <>
         <p>

@@ -41,7 +41,7 @@ import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
-import DisclaimerAlert from './ui/DisclaimerAlert'
+// import DisclaimerAlert from './ui/DisclaimerAlert'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
@@ -188,7 +188,7 @@ function TwoVariableReport(props: {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} sm={11} md={10}>
-          <DisclaimerAlert />
+          {/* <DisclaimerAlert /> */}
 
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile

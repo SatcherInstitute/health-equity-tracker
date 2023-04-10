@@ -1,7 +1,7 @@
 @import '../../styles/variables.module.scss';
 
 .ModeSelectorBoxMobile {
-  margin: 10px 10px 0 10px;
+  margin: $card-gutter;
   padding: 4px;
 
   width: fit-content;
