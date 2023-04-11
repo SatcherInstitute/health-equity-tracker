@@ -333,38 +333,6 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
 
-            {(mapQueryResponse.dataIsMissing() ||
-              dataForActiveBreakdownFilter.length === 0) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                  }
-                  isMapCard={true}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
-
-            {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length === 0 &&
-              activeBreakdownFilter !== 'All' && (
-                <CardContent>
-                  <Alert severity="warning" role="note">
-                    Insufficient data available for filter:{' '}
-                    <b>{activeBreakdownFilter}</b>.{' '}
-                    <MultiMapLink
-                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                      currentBreakdown={props.currentBreakdown}
-                      currentVariable={
-                        props.variableConfig.variableFullDisplayName
-                      }
-                    />
-                  </Alert>
-                </CardContent>
-              )}
-
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <>
                 <CardContent>
@@ -447,6 +415,40 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
+
+                {(mapQueryResponse.dataIsMissing() ||
+                  dataForActiveBreakdownFilter.length === 0) && (
+                  <CardContent>
+                    <MissingDataAlert
+                      dataName={dataName}
+                      breakdownString={
+                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                      }
+                      isMapCard={true}
+                      fips={props.fips}
+                    />
+                  </CardContent>
+                )}
+
+                {!mapQueryResponse.dataIsMissing() &&
+                  dataForActiveBreakdownFilter.length === 0 &&
+                  activeBreakdownFilter !== 'All' && (
+                    <CardContent>
+                      <Alert severity="warning" role="note">
+                        Insufficient data available for filter:{' '}
+                        <b>{activeBreakdownFilter}</b>.{' '}
+                        <MultiMapLink
+                          setSmallMultiplesDialogOpen={
+                            setSmallMultiplesDialogOpen
+                          }
+                          currentBreakdown={props.currentBreakdown}
+                          currentVariable={
+                            props.variableConfig.variableFullDisplayName
+                          }
+                        />
+                      </Alert>
+                    </CardContent>
+                  )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   !!dataForActiveBreakdownFilter.length && (

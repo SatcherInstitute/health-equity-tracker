@@ -127,6 +127,19 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
+            {!queryResponse.dataIsMissing() && data.length > 0 && (
+              <div className={styles.TableChart}>
+                <TableChart
+                  data={data}
+                  breakdownVar={props.breakdownVar}
+                  metrics={Object.values(metricConfigs).filter(
+                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                  )}
+                  variable={props.variableConfig.variableFullDisplayName}
+                />
+              </div>
+            )}
+
             {isIncarceration && (
               <IncarceratedChildrenShortAlert
                 fips={props.fips}
@@ -171,19 +184,6 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
-
-            {!queryResponse.dataIsMissing() && data.length > 0 && (
-              <div className={styles.TableChart}>
-                <TableChart
-                  data={data}
-                  breakdownVar={props.breakdownVar}
-                  metrics={Object.values(metricConfigs).filter(
-                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                  )}
-                  variable={props.variableConfig.variableFullDisplayName}
-                />
-              </div>
-            )}
           </>
         )
       }}

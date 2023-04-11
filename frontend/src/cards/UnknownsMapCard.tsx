@@ -190,6 +190,54 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         return (
           <>
+            {showingVisualization && (
+              <CardContent>
+                <ChoroplethMap
+                  titles={{ chartTitle }}
+                  isUnknownsMap={true}
+                  signalListeners={signalListeners}
+                  metric={metricConfig}
+                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
+                  data={unknowns}
+                  showCounties={!props.fips.isUsa()}
+                  fips={props.fips}
+                  scaleType="symlog"
+                  scaleColorScheme="greenblue"
+                  hideLegend={
+                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
+                  }
+                  geoData={geoData}
+                  filename={filename}
+                  countColsToAdd={countColsToAdd}
+                />
+                {props.fips.isUsa() && unknowns.length > 0 && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code)
+                      return (
+                        <div key={code} className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            isUnknownsMap={true}
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            data={unknowns}
+                            showCounties={!props.fips.isUsa()}
+                            fips={fips}
+                            scaleType="symlog"
+                            scaleColorScheme="greenblue"
+                            hideLegend={true}
+                            hideActions={true}
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                            countColsToAdd={countColsToAdd}
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             {!unknownsAllZero && (
               <UnknownsAlert
@@ -241,54 +289,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 </Alert>
               )}
             </CardContent>
-            {showingVisualization && (
-              <CardContent>
-                <ChoroplethMap
-                  titles={{ chartTitle }}
-                  isUnknownsMap={true}
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
-                  data={unknowns}
-                  showCounties={!props.fips.isUsa()}
-                  fips={props.fips}
-                  scaleType="symlog"
-                  scaleColorScheme="greenblue"
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
-                  }
-                  geoData={geoData}
-                  filename={filename}
-                  countColsToAdd={countColsToAdd}
-                />
-                {props.fips.isUsa() && unknowns.length > 0 && (
-                  <div className={styles.TerritoryCirclesContainer}>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code)
-                      return (
-                        <div key={code} className={styles.TerritoryCircle}>
-                          <ChoroplethMap
-                            isUnknownsMap={true}
-                            signalListeners={signalListeners}
-                            metric={metricConfig}
-                            data={unknowns}
-                            showCounties={!props.fips.isUsa()}
-                            fips={fips}
-                            scaleType="symlog"
-                            scaleColorScheme="greenblue"
-                            hideLegend={true}
-                            hideActions={true}
-                            geoData={geoData}
-                            overrideShapeWithCircle={true}
-                            countColsToAdd={countColsToAdd}
-                          />
-                        </div>
-                      )
-                    })}
-                  </div>
-                )}
-              </CardContent>
-            )}
           </>
         )
       }}

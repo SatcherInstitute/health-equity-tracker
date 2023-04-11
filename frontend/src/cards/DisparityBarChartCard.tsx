@@ -129,6 +129,25 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
+            {dataAvailable && knownData.length !== 0 && (
+              <CardContent>
+                <DisparityBarChart
+                  chartTitle={chartTitle}
+                  data={knownData}
+                  lightMetric={
+                    metricConfig.populationComparisonMetric ?? metricConfig
+                  }
+                  darkMetric={
+                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
+                  }
+                  breakdownVar={props.breakdownVar}
+                  metricDisplayName={metricConfig.shortLabel}
+                  filename={filename}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
+                />
+              </CardContent>
+            )}
+
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (
               <UnknownsAlert
@@ -151,24 +170,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {dataAvailable && knownData.length !== 0 && (
-              <CardContent>
-                <DisparityBarChart
-                  chartTitle={chartTitle}
-                  data={knownData}
-                  lightMetric={
-                    metricConfig.populationComparisonMetric ?? metricConfig
-                  }
-                  darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
-                  }
-                  breakdownVar={props.breakdownVar}
-                  metricDisplayName={metricConfig.shortLabel}
-                  filename={filename}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
-                />
-              </CardContent>
-            )}
+
             {shouldShowDoesntAddUpMessage && (
               <CardContent>
                 <Alert severity="info" role="note">

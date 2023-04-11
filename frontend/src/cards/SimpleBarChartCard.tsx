@@ -111,14 +111,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 </>
               ) : (
                 <>
-                  {isIncarceration && (
-                    <IncarceratedChildrenShortAlert
-                      fips={props.fips}
-                      queryResponse={queryResponse}
-                      breakdownVar={props.breakdownVar}
-                    />
-                  )}
-
                   <SimpleHorizontalBarChart
                     chartTitle={chartTitle}
                     data={data}
@@ -128,6 +120,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
                   />
+                  {isIncarceration && (
+                    <IncarceratedChildrenShortAlert
+                      fips={props.fips}
+                      queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
+                    />
+                  )}
                 </>
               )}
             </CardContent>
