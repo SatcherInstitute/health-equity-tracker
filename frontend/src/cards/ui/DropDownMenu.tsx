@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import { AGE, type DemographicGroup } from '../../data/utils/Constants'
 import { type BreakdownVarDisplayName } from '../../data/query/Breakdowns'
 
 interface MenuPopoverProps {
@@ -129,6 +129,17 @@ function DropDownMenu(props: DropDownMenuProps) {
   const demOption = firstMenuSelection.toLowerCase()
   const article = firstMenuSelection === 'Age' ? 'an' : 'a'
 
+  function getDropdownValue() {
+    if (demOption === AGE && props.value === 'All') {
+      if (props.idSuffix.includes('prep')) {
+        return `${props.value} (16+)`
+      } else if (props.idSuffix.includes('hiv')) {
+        return `${props.value} (13+)`
+      }
+    }
+    return props.value
+  }
+
   return (
     <div className={styles.SectionFilterBy}>
       <label
@@ -144,7 +155,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         aria-haspopup="true"
         id={`groupMenu${props.idSuffix}`}
       >
-        <u>{props.value}</u>
+        <u>{getDropdownValue()}</u>
         <ArrowDropDown />
       </Button>
 
