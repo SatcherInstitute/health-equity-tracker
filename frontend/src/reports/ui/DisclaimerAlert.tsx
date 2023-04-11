@@ -11,7 +11,6 @@ function DisclaimerAlert() {
         className={styles.ReportAlert}
         icon={<FlagIcon />}
         role="note"
-        id="onboarding-limits-in-the-data"
       >
         <AlertTitle>Major gaps in the data</AlertTitle>
         Structural racism and oppression create health inequities, and lead to

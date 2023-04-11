@@ -13,7 +13,7 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US);
 
     // change  to "Compare Places mode"
-    await page.getByRole('button', { name: 'Compare mode Off' }).click();
+    await page.getByRole('button', { name: 'Off' }).click();
     await page.getByRole('option', { name: 'Places' }).click();
 
     const madlibBox = page.locator('id=madlib-container')
