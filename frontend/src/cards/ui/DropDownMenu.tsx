@@ -17,6 +17,7 @@ import {
   type BreakdownVarDisplayName,
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -114,6 +115,7 @@ export interface DropDownMenuProps {
   ) => void
   idSuffix: string
   breakdownVar: BreakdownVar
+  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
 }
 
 /*
@@ -161,6 +163,23 @@ function DropDownMenu(props: DropDownMenuProps) {
           {suffix}
         </u>
         <ArrowDropDown />
+      </Button>
+      <label
+        className={styles.FilterBy}
+        htmlFor={`groupMenu${props.idSuffix}`}
+        aria-hidden={true}
+      >
+        | {`Compare across groups:`}
+      </label>
+      <Button
+        className={styles.FilterBy}
+        variant="text"
+        onClick={() => {
+          props.setSmallMultiplesDialogOpen(true)
+        }}
+        aria-haspopup="true"
+      >
+        <GridViewOutlinedIcon />
       </Button>
 
       <MenuPopover

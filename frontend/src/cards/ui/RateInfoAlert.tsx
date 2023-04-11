@@ -11,7 +11,6 @@ import {
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Fips } from '../../data/utils/Fips'
-import { MultiMapLink } from './MultiMapLink'
 import styles from '../Card.module.scss'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 
@@ -78,11 +77,6 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         <Alert severity="info" role="note">
           {generateDemographicTotalPhrase()}
           {/* Compare across XYZ for all variables except vaccinated at county level */}
-          <MultiMapLink
-            setSmallMultiplesDialogOpen={props.setSmallMultiplesDialogOpen}
-            currentBreakdown={props.currentBreakdown}
-            currentVariable={props.variableConfig.variableFullDisplayName}
-          />
         </Alert>
       </CardContent>
     </>
