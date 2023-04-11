@@ -263,25 +263,6 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
-        {/* Chart Title
-        <figcaption style={{ fontSize }}>
-          <b id={chartTitleId}>{chartTitle}</b>
-        </figcaption>
-        {/* Filter */}
-        {/* {data && (
-          <FilterLegend
-            data={data}
-            selectedGroups={selectedTrendGroups}
-            handleClick={handleClick}
-            handleMinMaxClick={handleMinMaxClick}
-            groupLabel={groupLabel}
-            isSkinny={isSkinny}
-            chartWidth={width}
-            breakdownVar={breakdownVar}
-            legendId={`legend-filter-label-${axisConfig.type}-${isCompareCard ? '2' : '1'
-              }`}
-          />
-        )}  */}
         {isMobile ? (
           <>
             {/* Filter */}
