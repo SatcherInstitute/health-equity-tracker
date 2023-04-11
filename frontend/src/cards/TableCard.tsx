@@ -180,6 +180,7 @@ export function TableCard(props: TableCardProps) {
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
+                  variable={props.variableConfig.variableFullDisplayName}
                 />
               </div>
             )}

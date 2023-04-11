@@ -53,12 +53,14 @@ export interface TableChartProps {
   data: Array<Readonly<Record<string, any>>>
   breakdownVar: BreakdownVar
   metrics: MetricConfig[]
+  variable: string
 }
 
 export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
 
-  const { data, metrics, breakdownVar } = props
+  const { data, metrics, breakdownVar, variable } = props
+  const metricId = metrics[0].metricId
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
@@ -171,13 +173,21 @@ export function TableChart(props: TableChartProps) {
     paddingBottom: 10,
   }
 
+  const sentenceCaseName = ['hiv', 'covid', 'copd'].some((substring) =>
+    metricId.includes(substring)
+  )
+    ? variable
+    : variable.charAt(0).toLowerCase() + variable.slice(1)
+
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>Insufficient Data</h1>
       ) : (
         <figure>
-          <figcaption style={titleStyle}>Data table</figcaption>
+          <figcaption style={titleStyle}>
+            Data breakdown summary for {sentenceCaseName} in the United States
+          </figcaption>
 
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
             <Table {...getTableProps()}>
