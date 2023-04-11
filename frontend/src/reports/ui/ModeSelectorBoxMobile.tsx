@@ -15,6 +15,7 @@ interface ModeSelectorBoxMobileProps {
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
   trackerDemographic: BreakdownVar
   setDemoWithParam: (demographic: BreakdownVar) => void
+  offerJumpToAgeAdjustment: boolean
 }
 
 const scrollableHashIdMap: Record<string, ScrollableHashId> = {}
@@ -40,7 +41,9 @@ export default function ModeSelectorBoxMobile(
           selected={props.trackerMode}
           setSelected={props.setTrackerMode}
         />
-        <JumpToSelect />
+        <JumpToSelect
+          offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
+        />
       </Card>
     </div>
   )

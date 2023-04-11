@@ -129,6 +129,11 @@ export function OneVariableReport(props: OneVariableReportProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   } in ${props.fips.getFullDisplayName()}`
 
+  const offerJumpToAgeAdjustment = [
+    'covid_deaths',
+    'covid_hospitalizations',
+  ].includes(props.dropdownVarId)
+
   return (
     <>
       <Helmet>
@@ -143,6 +148,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
             setTrackerMode={props.setTrackerMode}
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
+            offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
           />
 
           <Grid

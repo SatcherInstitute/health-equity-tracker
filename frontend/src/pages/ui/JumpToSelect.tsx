@@ -4,15 +4,12 @@ import FormControl from '@mui/material/FormControl'
 import Select from '@mui/material/Select'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
 import styles from './JumpToSelect.module.scss'
-// import { useMediaQuery, useTheme, type Breakpoint } from '@mui/material'
 
-export default function JumpToSelect() {
-  // const theme = useTheme()
-  // const pageIsTiny = useMediaQuery(theme.breakpoints.down(props.firstBreakpoint))
-  // const pageIsWide = useMediaQuery(theme.breakpoints.up(props.secondBreakpoint))
+interface JumpToSelectProps {
+  offerJumpToAgeAdjustment: boolean
+}
 
-  // const raceLabel = pageIsWide || pageIsTiny ? 'Race/ethnicity' : 'Race'
-
+export default function JumpToSelect(props: JumpToSelectProps) {
   return (
     <FormControl sx={{ m: 1, minWidth: 110 }} size="small">
       <InputLabel id={`jump-to-select-label`}>Jump to</InputLabel>
@@ -20,15 +17,18 @@ export default function JumpToSelect() {
         autoWidth
         labelId={`jump-to-select-label`}
         id={`jump-to-select`}
-        value={'top'}
+        value={' '}
         label={'Jump to'}
       >
-        <MenuItem value={'top'}>
+        <MenuItem value={' '}>
           <a className={styles.JumpToLink} href="#top">
-            {'Top'}
+            Select a card
           </a>
         </MenuItem>
         {Object.entries(reportProviderSteps).map(([stepId, stepInfo]) => {
+          if (stepId === 'age-adjusted-risk' && !props.offerJumpToAgeAdjustment)
+            return null
+
           return (
             <MenuItem key={stepId} value={stepId}>
               <a className={styles.JumpToLink} href={`#${stepId}`}>

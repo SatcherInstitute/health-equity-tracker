@@ -179,6 +179,10 @@ function TwoVariableReport(props: {
   browserTitle += ` by ${demo} in ${loc1}`
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
+  const offerJumpToAgeAdjustment =
+    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
+    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId2)
+
   return (
     <>
       <Helmet>
@@ -193,6 +197,7 @@ function TwoVariableReport(props: {
             setTrackerMode={props.setTrackerMode}
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
+            offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
           />
 
           <Grid container spacing={1} alignItems="flex-start">
