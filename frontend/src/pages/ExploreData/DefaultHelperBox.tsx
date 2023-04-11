@@ -95,12 +95,7 @@ export default function DefaultHelperBox() {
             alignItems="center"
             justifyContent="center"
           >
-            <Box
-              mx={5}
-              mt={1}
-              mb={5}
-              sx={{ display: { xs: 'block', md: 'none' } }}
-            >
+            <Box mt={1} mb={5} sx={{ display: { xs: 'block', md: 'none' } }}>
               <DisclaimerAlert />
             </Box>
             <div className={styles.NoTopicHelperVideoBox}>
