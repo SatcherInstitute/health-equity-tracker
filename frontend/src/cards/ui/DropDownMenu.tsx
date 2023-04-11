@@ -12,7 +12,11 @@ import {
   ListItemText,
 } from '@mui/material'
 import { AGE, type DemographicGroup } from '../../data/utils/Constants'
-import { type BreakdownVarDisplayName } from '../../data/query/Breakdowns'
+import {
+  type BreakdownVar,
+  type BreakdownVarDisplayName,
+} from '../../data/query/Breakdowns'
+import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -109,6 +113,7 @@ export interface DropDownMenuProps {
     filterSelection: DemographicGroup
   ) => void
   idSuffix: string
+  breakdownVar: BreakdownVar
 }
 
 /*
@@ -118,27 +123,23 @@ export interface DropDownMenuProps {
      * Dropdown with one level to select race and a second level listing all race options
 */
 function DropDownMenu(props: DropDownMenuProps) {
-  const firstMenu = usePopover()
-  const secondMenu = usePopover()
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0]
   )
-
   const oneLevelMenu = Object.keys(props.options).length === 1
 
-  const demOption = firstMenuSelection.toLowerCase()
-  const article = firstMenuSelection === 'Age' ? 'an' : 'a'
+  const firstMenu = usePopover()
+  const secondMenu = usePopover()
 
-  function getDropdownValue() {
-    if (demOption === AGE && props.value === 'All') {
-      if (props.idSuffix.includes('prep')) {
-        return `${props.value} (16+)`
-      } else if (props.idSuffix.includes('hiv')) {
-        return `${props.value} (13+)`
-      }
-    }
-    return props.value
+  const demOption = firstMenuSelection.toLowerCase()
+  const article = props.breakdownVar === AGE ? 'an' : 'a'
+
+  const hivLabelSuffixProps = {
+    demographic: props.breakdownVar,
+    value: props.value,
+    metric: props.idSuffix,
   }
+  const suffix = useHIVLabelSuffix(hivLabelSuffixProps)
 
   return (
     <div className={styles.SectionFilterBy}>
@@ -155,7 +156,10 @@ function DropDownMenu(props: DropDownMenuProps) {
         aria-haspopup="true"
         id={`groupMenu${props.idSuffix}`}
       >
-        <u>{getDropdownValue()}</u>
+        <u>
+          {props.value}
+          {suffix}
+        </u>
         <ArrowDropDown />
       </Button>
 
