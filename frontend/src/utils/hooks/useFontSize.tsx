@@ -6,15 +6,15 @@ export function useFontSize() {
   const theme = useTheme()
   const isComparing = window.location.href.includes('compare')
   const isSmall = useMediaQuery(theme.breakpoints.only('sm'))
-  const [fontSize, setFontsize] = useState(sass.vegaLargeTitle)
+  const [fontSize, setFontsize] = useState(parseInt(sass.vegaLargeTitle))
 
   // we need to implement useEffect to rerender so that Vega will draw the title correctly
   useEffect(() => {
     console.log(sass.fontTitle)
     if (isComparing && isSmall) {
-      setFontsize(sass.vegaSmallTitle)
+      setFontsize(parseInt(sass.vegaSmallTitle))
     } else {
-      setFontsize(sass.vegaLargeTitle)
+      setFontsize(parseInt(sass.vegaLargeTitle))
     }
   }, [isComparing, fontSize, isSmall])
 
