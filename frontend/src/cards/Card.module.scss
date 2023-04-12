@@ -13,7 +13,7 @@
 }
 
 .ChartCard {
-  margin: 10px;
+  margin: $card-gutter;
 }
 
 .SmallMarginContent {
@@ -28,6 +28,7 @@
 
 .PopulationCard {
   $populationTitleHeight: 57px; // vertically align all population card header text
+  width: 100%;
 
   h1,
   span {
@@ -35,13 +36,13 @@
   }
 
   .TotalPopulationKey {
-    font-size: $smallestHeader;
+    font-size: $title;
     line-height: $populationTitleHeight;
     padding-right: 7px;
   }
 
   .TotalPopulationValue {
-    font-size: $smallestHeader;
+    font-size: $title;
     line-height: $populationTitleHeight;
     color: $alt-green;
   }
@@ -49,7 +50,7 @@
   .PopulationCardTitle {
     @include inter500();
     padding-right: 20px;
-    font-size: $header;
+    font-size: $smallHeader;
     line-height: $populationTitleHeight;
   }
 

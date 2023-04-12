@@ -12,14 +12,14 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
     // Landing Page Loads
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US);
 
-    // change carousel to "Compare Geo mode"
-    const advanceMadlibCarouselArrowButton = page.locator('id=onboarding-madlib-arrow')
-    await advanceMadlibCarouselArrowButton.click();
+    // change  to "Compare Places mode"
+    await page.getByRole('button', { name: 'Off' }).click();
+    await page.getByRole('option', { name: 'Places' }).click();
 
-    const madlibBox = page.locator('id=madlib-carousel-container')
+    const madlibBox = page.locator('id=madlib-container')
     await expect(madlibBox).toContainText('Compare rates of');
 
-    // back button works properly for carousel mode changes
+    // back button works properly for tracker mode changes
     await page.goBack()
     await expect(madlibBox).toContainText('Investigate');
 
@@ -30,17 +30,15 @@ test('Compare Mode Default Geos to Denver County and CO and back', async ({ page
     await page.goto(EXPLORE_DATA_PAGE_LINK + COMPARE_GEO_MODE);
 
     // Changing first location via madlib buttons
-    const location1MadlibButton = page.getByRole('button', { name: 'United States' }).nth(1)
-    await location1MadlibButton.click();
+    await page.locator('#madlib-box').getByRole('button', { name: 'United States' }).click();
 
     await page.fill('[placeholder=""]', 'denver');
     await page.keyboard.press('Enter');
 
     // Changing second location via madlib buttons
-    const location2MadlibButton = page.getByRole('button', { name: 'Georgia' }).nth(1)
-    await location2MadlibButton.click();
+    await page.locator('#madlib-box').getByRole('button', { name: 'Georgia' }).click();
 
-    await page.fill('[placeholder=""]', 'Colorado');
+    await page.fill('[placeholder=""]', 'colo');
     await page.keyboard.press('Enter');
 
     // Confirm correct URL params (Denver County vs Colorado)
@@ -60,18 +58,18 @@ test('Compare Mode Default Geos to Denver County and CO and back', async ({ page
 
 
 
-test('Use Table of Contents to Scroll Age Adjust Card Into View and Be Focused', async ({ page }) => {
+test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
 
-    // find Table of Contents link to Age-Adjustment Card
-    await page.getByText("Age-adjusted risk").click();
+    // find Table of Contents link to Unknown Map
+    await page.getByRole('button', { name: 'Scroll to Unknown demographic map', exact: true }).click();
 
-    // Find Age-Adjust Card
-    const ageAdjustCard = page.locator('#age-adjusted-risk')
+    // Find Unknown Map Card
+    const unknownMapCard = page.locator('#unknown-demographic-map')
 
     // Ensure focus and visibility
-    await expect(ageAdjustCard).toBeFocused();
-    await expect(ageAdjustCard).toBeVisible();
+    await expect(unknownMapCard).toBeFocused();
+    await expect(unknownMapCard).toBeVisible();
 
 });

@@ -1,14 +1,18 @@
 import Joyride from 'react-joyride'
 import sass from '../../styles/variables.module.scss'
-import { ONBOARDING_STEPS } from './OnboardingSteps'
+import { getOnboardingSteps } from './OnboardingSteps'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
   activelyOnboarding: boolean
 }) {
+  const theme = useTheme()
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
+
   return (
     <Joyride
-      steps={ONBOARDING_STEPS}
+      steps={getOnboardingSteps(pageIsWide)}
       callback={props.callback}
       disableScrolling={false}
       scrollOffset={200}

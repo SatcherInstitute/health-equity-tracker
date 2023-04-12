@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import LinkIcon from '@mui/icons-material/Link'
 import styles from './CopyLinkButton.module.scss'
-import { IconButton, Snackbar, Alert } from '@mui/material'
+import { IconButton, Snackbar, Alert, Tooltip } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface CopyLinkButtonProps {
@@ -29,15 +29,19 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
   let cardName = props.scrollToHash.replaceAll('-', ' ')
   cardName = cardName[0].toUpperCase() + cardName.slice(1)
 
+  const title = `Copy direct link to: ${cardName}`
+
   return (
     <>
-      <IconButton
-        className={styles.CopyLinkButton}
-        aria-label={`copy direct link to: ${cardName}`}
-        onClick={handleClick}
-      >
-        <LinkIcon />
-      </IconButton>
+      <Tooltip title={title}>
+        <IconButton
+          className={styles.CopyLinkButton}
+          aria-label={title}
+          onClick={handleClick}
+        >
+          <LinkIcon />
+        </IconButton>
+      </Tooltip>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} className={styles.SnackBarAlert}>
           Direct link to <b>{cardName}</b> copied to clipboard!

@@ -37,12 +37,11 @@ export function PopulationCard(props: PopulationCardProps) {
         return (
           <CardContent className={styles.PopulationCardContent}>
             <Grid
-              container
               className={styles.PopulationCard}
               justifyContent="space-between"
               alignItems="center"
             >
-              <Grid item xs={12} md={9} xl={10}>
+              <Grid item xs={12} xl={10}>
                 <Grid container justifyContent="flex-start" alignItems="center">
                   <Grid item>
                     <div className={styles.PopulationCardTitle}>

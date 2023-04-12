@@ -14,7 +14,6 @@ import {
 } from '../utils/internalRoutes'
 import ArrowForward from '@mui/icons-material/ArrowForward'
 import styles from './Report.module.scss'
-import DisclaimerAlert from './ui/DisclaimerAlert'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
@@ -39,6 +38,7 @@ export const SINGLE_COLUMN_WIDTH = 12
 interface ReportProviderProps {
   isSingleColumn: boolean
   madLib: MadLib
+  handleModeChange: any
   selectedConditions: VariableConfig[]
   showLifeLineAlert: boolean
   setMadLib: (madLib: MadLib) => void
@@ -90,22 +90,26 @@ function ReportProvider(props: ReportProviderProps) {
       case 'disparity': {
         const dropdownOption = getPhraseValue(props.madLib, 1)
         return (
-          <OneVariableReport
-            key={dropdownOption}
-            dropdownVarId={dropdownOption as DropdownVarId}
-            fips={new Fips(getPhraseValue(props.madLib, 3))}
-            updateFipsCallback={(fips: Fips) => {
-              props.setMadLib(
-                getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-              )
-            }}
-            isScrolledToTop={props.isScrolledToTop}
-            reportStepHashIds={reportStepHashIds}
-            setReportStepHashIds={setReportStepHashIds}
-            headerScrollMargin={props.headerScrollMargin}
-            reportTitle={getMadLibPhraseText(props.madLib)}
-            isMobile={props.isMobile}
-          />
+          <>
+            <OneVariableReport
+              key={dropdownOption}
+              dropdownVarId={dropdownOption as DropdownVarId}
+              fips={new Fips(getPhraseValue(props.madLib, 3))}
+              updateFipsCallback={(fips: Fips) => {
+                props.setMadLib(
+                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+                )
+              }}
+              isScrolledToTop={props.isScrolledToTop}
+              reportStepHashIds={reportStepHashIds}
+              setReportStepHashIds={setReportStepHashIds}
+              headerScrollMargin={props.headerScrollMargin}
+              reportTitle={getMadLibPhraseText(props.madLib)}
+              isMobile={props.isMobile}
+              trackerMode={props.madLib.id}
+              setTrackerMode={props.handleModeChange}
+            />
+          </>
         )
       }
       case 'comparegeos': {
@@ -135,6 +139,8 @@ function ReportProvider(props: ReportProviderProps) {
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
             isMobile={props.isMobile}
+            trackerMode={props.madLib.id}
+            setTrackerMode={props.handleModeChange}
           />
         )
       }
@@ -162,6 +168,8 @@ function ReportProvider(props: ReportProviderProps) {
             headerScrollMargin={props.headerScrollMargin}
             reportTitle={getMadLibPhraseText(props.madLib)}
             isMobile={props.isMobile}
+            trackerMode={props.madLib.id}
+            setTrackerMode={props.handleModeChange}
           />
         )
       }
@@ -175,7 +183,6 @@ function ReportProvider(props: ReportProviderProps) {
     <>
       <div className={reportWrapper}>
         {props.showLifeLineAlert && <LifelineAlert />}
-        <DisclaimerAlert />
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
         )}

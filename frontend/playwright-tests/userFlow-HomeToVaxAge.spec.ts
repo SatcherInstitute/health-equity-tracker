@@ -57,9 +57,9 @@ test.describe('Home to COVID Vax by Age', () => {
         // Starting with COVID VAX
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
 
-        // Changing to AGE demographic toggle should change URL
-        const ageToggleButton = page.locator('button:has-text("Age")')
-        await ageToggleButton.click();
+        // Changing demographic dropdown setting to AGE should change URL
+        await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
+        await page.getByRole('option', { name: 'Age' }).click();
         await expect(page).toHaveURL(/.*demo=age/);
 
         // back button works properly for demographic toggle changes

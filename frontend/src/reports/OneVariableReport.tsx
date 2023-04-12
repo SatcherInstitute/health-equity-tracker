@@ -40,21 +40,25 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
 } from '../data/query/Breakdowns'
-import ShareButtons from './ui/ShareButtons'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
+import { type MadLibId } from '../utils/MadLibs'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+// import DisclaimerAlert from './ui/DisclaimerAlert'
 
 export interface OneVariableReportProps {
   key: string
   dropdownVarId: DropdownVarId
   fips: Fips
   updateFipsCallback: (fips: Fips) => void
-  hidePopulationCard?: boolean
   isScrolledToTop: boolean
   reportStepHashIds?: ScrollableHashId[]
   setReportStepHashIds?: (hashIdsOnScreen: any[]) => void
   headerScrollMargin: number
   reportTitle: string
   isMobile: boolean
+  trackerMode: MadLibId
+  setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -105,7 +109,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId])
+  }, [props.dropdownVarId, currentBreakdown])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
@@ -125,6 +129,11 @@ export function OneVariableReport(props: OneVariableReportProps) {
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   } in ${props.fips.getFullDisplayName()}`
 
+  const offerJumpToAgeAdjustment = [
+    'covid_deaths',
+    'covid_hospitalizations',
+  ].includes(props.dropdownVarId)
+
   return (
     <>
       <Helmet>
@@ -132,7 +141,16 @@ export function OneVariableReport(props: OneVariableReportProps) {
       </Helmet>
       <Grid container>
         {/* CARDS COLUMN */}
-        <Grid item xs={12} sm={11} md={10}>
+        <Grid item xs={12} md={10}>
+          {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
+          <ModeSelectorBoxMobile
+            trackerMode={props.trackerMode}
+            setTrackerMode={props.setTrackerMode}
+            trackerDemographic={currentBreakdown}
+            setDemoWithParam={setDemoWithParam}
+            offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+          />
+
           <Grid
             item
             container
@@ -141,26 +159,24 @@ export function OneVariableReport(props: OneVariableReportProps) {
             spacing={0}
             justifyContent="center"
           >
-            {!props.hidePopulationCard && (
-              // POPULATION CARD
-              <Grid
-                item
-                xs={12}
-                md={SINGLE_COLUMN_WIDTH}
-                tabIndex={-1}
-                id="location-info"
-                className={styles.ScrollPastHeader}
-              >
-                <PopulationCard fips={props.fips} />
-              </Grid>
-            )}
+            {/* // POPULATION CARD */}
+            <Grid
+              item
+              xs={12}
+              md={SINGLE_COLUMN_WIDTH}
+              tabIndex={-1}
+              id="location-info"
+              className={styles.ScrollPastHeader}
+            >
+              <PopulationCard fips={props.fips} />
+            </Grid>
 
             {!variableConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
             )}
 
             {variableConfig && (
-              <Grid container spacing={1} justifyContent="center">
+              <Grid container justifyContent="center">
                 {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
                 <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
                   <ReportToggleControls
@@ -346,19 +362,17 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <LazyLoad offset={800} height={750} once>
-                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                      <Fragment key={breakdownVar}>
-                        {breakdownIsShown(breakdownVar) && (
-                          <TableCard
-                            fips={props.fips}
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                          />
-                        )}
-                      </Fragment>
-                    ))}
-                  </LazyLoad>
+                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
+                    <Fragment key={breakdownVar}>
+                      {breakdownIsShown(breakdownVar) && (
+                        <TableCard
+                          fips={props.fips}
+                          variableConfig={variableConfig}
+                          breakdownVar={breakdownVar}
+                        />
+                      )}
+                    </Fragment>
+                  ))}
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}
@@ -386,7 +400,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 )}
                 {props.isMobile && (
                   <Box mt={5}>
-                    <p>Share to social:</p>
+                    <p>{SHARE_LABEL}</p>
                     <ShareButtons
                       reportTitle={props.reportTitle}
                       isMobile={props.isMobile}
@@ -403,8 +417,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             item
             // invisible
             xs={12}
-            // icons only
-            sm={1}
             // icons + text
             md={2}
             container
@@ -418,6 +430,11 @@ export function OneVariableReport(props: OneVariableReportProps) {
               reportStepHashIds={props.reportStepHashIds}
               reportTitle={props.reportTitle}
               isMobile={props.isMobile}
+              // Mode selectors are in sidebar only on larger screens
+              trackerMode={props.trackerMode}
+              setTrackerMode={props.setTrackerMode}
+              trackerDemographic={currentBreakdown}
+              setDemoWithParam={setDemoWithParam}
             />
           </Grid>
         )}

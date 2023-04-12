@@ -1,4 +1,3 @@
-import React from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import { Grid } from '@mui/material'
@@ -6,32 +5,13 @@ import {
   type DropdownVarId,
   METRIC_CONFIG,
   type VariableConfig,
-  type VariableId,
 } from '../../data/config/MetricConfig'
 import styles from '../Report.module.scss'
-import {
-  type BreakdownVar,
-  DEMOGRAPHIC_BREAKDOWNS,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-  type GeographicBreakdown,
-} from '../../data/query/Breakdowns'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
-import { DATA_GAPS } from '../../data/utils/datasetutils'
 
 export const DATA_TYPE_LABEL = 'Data Type'
 export const DEMOGRAPHIC_LABEL = 'Demographic'
-
-/*
-Checks for data gaps at current Datatype/Demographic/GeoLevel and
-*/
-function getToggleOptionStatus(
-  breakdownVar: BreakdownVar,
-  variableId: VariableId,
-  fips: Fips
-) {
-  const geoLevel = fips.getFipsTypeDisplayName() as GeographicBreakdown
-  return DATA_GAPS[geoLevel]?.[breakdownVar]?.includes(variableId)
-}
 
 interface ReportToggleControlsProps {
   dropdownVarId: DropdownVarId
@@ -97,44 +77,6 @@ function ReportToggleControlsWithKey(props: ReportToggleControlsProps) {
           </ToggleButtonGroup>
         </Grid>
       )}
-      <Grid item className={styles.ToggleBlock}>
-        <div id={props.excludeId ? undefined : 'onboarding-explore-trends'}>
-          {/* DEMOGRAPHIC TOGGLE */}
-
-          <ToggleButtonGroup
-            exclusive
-            value={props.currentBreakdown}
-            onChange={(e, v) => {
-              if (v !== null) {
-                props.setCurrentBreakdown(v)
-              }
-            }}
-          >
-            {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => {
-              const disabled = getToggleOptionStatus(
-                breakdownVar,
-                props.variableConfig.variableId,
-                props.fips
-              )
-
-              return (
-                <ToggleButton
-                  disabled={disabled}
-                  value={breakdownVar}
-                  key={breakdownVar}
-                  aria-label={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar] +
-                    ' ' +
-                    DEMOGRAPHIC_LABEL
-                  }
-                >
-                  {BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar]}
-                </ToggleButton>
-              )
-            })}
-          </ToggleButtonGroup>
-        </div>
-      </Grid>
     </Grid>
   )
 }
