@@ -10,7 +10,6 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../data/variables/CawpProvider'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 
@@ -133,12 +132,14 @@ export function getAltGroupLabel(
   if (CAWP_DETERMINANTS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
-  if (
-    HIV_DETERMINANTS.includes(metricId) &&
-    group === 'All' &&
-    breakdown === 'age'
-  ) {
-    return `${group} (13+)`
+  if (group === 'All' && breakdown === 'age') {
+    if (metricId.includes('prep')) {
+      return `${group} (16+)`
+    }
+    if (metricId.includes('hiv')) {
+      return `${group} (13+)`
+    }
+    return group
   }
   return group
 }

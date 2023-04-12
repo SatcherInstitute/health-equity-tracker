@@ -1,3 +1,4 @@
+import styles from './Sources.module.scss'
 import React, { Fragment } from 'react'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import {
@@ -8,6 +9,8 @@ import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
+import CopyLinkButton from './CopyLinkButton'
+import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -78,7 +81,9 @@ interface SourcesProps {
   queryResponses: MetricQueryResponse[]
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
+  isPopulationCard?: boolean
   hideNH?: boolean
+  scrollToHash?: ScrollableHashId
 }
 
 export function Sources(props: SourcesProps) {
@@ -105,39 +110,44 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
 
-  const showOtherNhFootnote =
-    !props.hideNH &&
-    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_other_nh)
+  const sourcesInfo =
+    Object.keys(dataSourceMap).length > 0 ? (
+      <>
+        Sources:{' '}
+        {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
+          <React.Fragment key={dataSourceId}>
+            <LinkWithStickyParams
+              target="_blank"
+              to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
+            >
+              {dataSourceMap[dataSourceId].name}
+            </LinkWithStickyParams>{' '}
+            {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
+              <>(last update unknown) </>
+            ) : (
+              <>
+                (updated{' '}
+                {Array.from(dataSourceMap[dataSourceId].updateTimes).join(', ')}
+                )
+              </>
+            )}
+            {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
+          </React.Fragment>
+        ))}{' '}
+      </>
+    ) : (
+      ''
+    )
 
   return (
     <>
-      {Object.keys(dataSourceMap).length > 0 && <>Sources: </>}
-      {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
-        <Fragment key={dataSourceId}>
-          <LinkWithStickyParams
-            target="_blank"
-            to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
-          >
-            {dataSourceMap[dataSourceId].name}
-          </LinkWithStickyParams>{' '}
-          {dataSourceMap[dataSourceId].updateTimes.size === 0 ? (
-            <>(last update unknown) </>
-          ) : (
-            <>
-              (updated{' '}
-              {Array.from(dataSourceMap[dataSourceId].updateTimes).join(', ')})
-            </>
-          )}
-          {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
-        </Fragment>
-      ))}
-      {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
-      {showOtherNhFootnote && (
-        <p>
-          Unrepresented race (NH): Individuals who do not identify as part of
-          the Black, White, or Hispanic ethnic or racial groups.
-        </p>
-      )}
+      {sourcesInfo}
+      <div className={styles.Footnote}>
+        {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+        {!props.isPopulationCard && props.scrollToHash && (
+          <CopyLinkButton scrollToHash={props.scrollToHash} />
+        )}
+      </div>
     </>
   )
 }

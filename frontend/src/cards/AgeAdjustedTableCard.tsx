@@ -30,7 +30,6 @@ import {
   type RaceAndEthnicityGroup,
 } from '../data/utils/Constants'
 import Alert from '@mui/material/Alert'
-import Divider from '@mui/material/Divider'
 import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
 import {
@@ -41,7 +40,6 @@ import {
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 
@@ -120,7 +118,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
     >
       {([raceQueryResponse, ageQueryResponse]) => {
@@ -136,24 +133,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         return (
           <>
-            <CardContent>
-              {/* Always show info on what age-adj is */}
-              <Alert severity="info" role="note">
-                Age Adjustment is a statistical process applied to rates of
-                disease, death, or other health outcomes that occur more
-                frequently among different age groups. Adjusting for age allows
-                for fairer comparison between populations, where age is a large
-                risk factor. By computing rates that are normalized for age, we
-                can paint a more accurate picture of undue burden of disease and
-                death between populations. More details can be found in our{' '}
-                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
-                  age-adjustment methodology
-                </Link>
-                .
-              </Alert>
-            </CardContent>
-            <Divider />
-
             <UnknownsAlert
               metricConfig={metricConfigPctShare}
               queryResponse={raceQueryResponse}
@@ -199,6 +178,22 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   />
                 </div>
               )}
+            <CardContent>
+              {/* Always show info on what age-adj is */}
+              <Alert severity="info" role="note">
+                Age Adjustment is a statistical process applied to rates of
+                disease, death, or other health outcomes that occur more
+                frequently among different age groups. Adjusting for age allows
+                for fairer comparison between populations, where age is a large
+                risk factor. By computing rates that are normalized for age, we
+                can paint a more accurate picture of undue burden of disease and
+                death between populations. More details can be found in our{' '}
+                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
+                  age-adjustment methodology
+                </Link>
+                .
+              </Alert>
+            </CardContent>
           </>
         )
       }}

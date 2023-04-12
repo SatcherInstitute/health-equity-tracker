@@ -23,6 +23,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
   return (
     <CardWrapper
+      isPopulationCard={true}
       minHeight={PRELOAD_HEIGHT}
       queries={queries}
       scrollToHash="location-info"

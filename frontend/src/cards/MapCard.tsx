@@ -43,7 +43,6 @@ import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestList } from './ui/HighestLowestList'
-import MapBreadcrumbs from './ui/MapBreadcrumbs'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
@@ -52,7 +51,6 @@ import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
@@ -195,7 +193,6 @@ function MapCardWithKey(props: MapCardProps) {
   return (
     <CardWrapper
       queries={queries}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
@@ -300,15 +297,6 @@ function MapCardWithKey(props: MapCardProps) {
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
             />
 
-            <CardContent className={styles.SmallMarginContent}>
-              <MapBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                ariaLabel={props.variableConfig.variableFullDisplayName}
-                scrollToHashId={HASH_ID}
-              />
-            </CardContent>
-
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
                 <Divider />
@@ -321,6 +309,10 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item>
                       <DropDownMenu
                         idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
+                        breakdownVar={props.currentBreakdown}
+                        setSmallMultiplesDialogOpen={
+                          setSmallMultiplesDialogOpen
+                        }
                         value={activeBreakdownFilter}
                         options={filterOptions}
                         onOptionUpdate={(
@@ -334,56 +326,12 @@ function MapCardWithKey(props: MapCardProps) {
                           }
                         }}
                       />
+                      <Divider />
                     </Grid>
                   </Grid>
                 </CardContent>
               </>
             )}
-
-            {!mapQueryResponse.dataIsMissing() &&
-              !!dataForActiveBreakdownFilter.length && (
-                <RateInfoAlert
-                  overallQueryResponse={geoQueryResponse}
-                  currentBreakdown={props.currentBreakdown}
-                  activeBreakdownFilter={activeBreakdownFilter}
-                  metricConfig={metricConfig}
-                  fips={props.fips}
-                  setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                  variableConfig={props.variableConfig}
-                />
-              )}
-
-            {(mapQueryResponse.dataIsMissing() ||
-              dataForActiveBreakdownFilter.length === 0) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                  }
-                  isMapCard={true}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
-
-            {!mapQueryResponse.dataIsMissing() &&
-              dataForActiveBreakdownFilter.length === 0 &&
-              activeBreakdownFilter !== 'All' && (
-                <CardContent>
-                  <Alert severity="warning" role="note">
-                    Insufficient data available for filter:{' '}
-                    <b>{activeBreakdownFilter}</b>.{' '}
-                    <MultiMapLink
-                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                      currentBreakdown={props.currentBreakdown}
-                      currentVariable={
-                        props.variableConfig.variableFullDisplayName
-                      }
-                    />
-                  </Alert>
-                </CardContent>
-              )}
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <>
@@ -467,6 +415,54 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     )}
                 </CardContent>
+
+                {(mapQueryResponse.dataIsMissing() ||
+                  dataForActiveBreakdownFilter.length === 0) && (
+                  <CardContent>
+                    <MissingDataAlert
+                      dataName={dataName}
+                      breakdownString={
+                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                      }
+                      isMapCard={true}
+                      fips={props.fips}
+                    />
+                  </CardContent>
+                )}
+
+                {!mapQueryResponse.dataIsMissing() &&
+                  dataForActiveBreakdownFilter.length === 0 &&
+                  activeBreakdownFilter !== 'All' && (
+                    <CardContent>
+                      <Alert severity="warning" role="note">
+                        Insufficient data available for filter:{' '}
+                        <b>{activeBreakdownFilter}</b>.{' '}
+                        <MultiMapLink
+                          setSmallMultiplesDialogOpen={
+                            setSmallMultiplesDialogOpen
+                          }
+                          currentBreakdown={props.currentBreakdown}
+                          currentVariable={
+                            props.variableConfig.variableFullDisplayName
+                          }
+                        />
+                      </Alert>
+                    </CardContent>
+                  )}
+
+                {!mapQueryResponse.dataIsMissing() &&
+                  !!dataForActiveBreakdownFilter.length && (
+                    <RateInfoAlert
+                      overallQueryResponse={geoQueryResponse}
+                      currentBreakdown={props.currentBreakdown}
+                      activeBreakdownFilter={activeBreakdownFilter}
+                      metricConfig={metricConfig}
+                      fips={props.fips}
+                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
+                      variableConfig={props.variableConfig}
+                    />
+                  )}
+
                 {hasSelfButNotChildGeoData && (
                   <CountyUnavailableAlert
                     variableFullDisplayName={

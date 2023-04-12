@@ -93,7 +93,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   return (
     <CardWrapper
       queries={[ratesQuery, pctShareQuery]}
-      title={<>{cardHeaderTitle}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
     >
