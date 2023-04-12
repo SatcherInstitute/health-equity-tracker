@@ -79,23 +79,20 @@ test('HIV Deaths: Check demographic group selectors', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + HIV_DEATHS);
 
-    const ageDemButton = page.getByRole('button', { name: 'Age Demographic' })
-    await ageDemButton.click();
+    await page.getByRole('button', { name: 'Age Demographic' }).click();
 
     const rateMap = page.locator('#rate-map');
     await expect(rateMap).toContainText('Highlight an age group:');
     await expect(rateMap).toContainText('All (13+)');
     
     const ageDropdownButton = page.getByRole('button', { name: 'All (13+)' });
-    await ageDropdownButton.click();
-    const ageGroupButton = page.getByRole('button', { name: '13-24' });
-    await ageGroupButton.click();
+    await page.getByRole('button', { name: 'All (13+)' }).click();
+    await page.getByRole('button', { name: '13-24' }).click();
     await expect(rateMap).toContainText('ages 13-24');
 
 
     const trendsChart = page.locator('#rates-over-time');
-    const trendDemographicButton = page.getByRole('button', { name: 'Include Black or African American (NH)' });
-    await trendDemographicButton.click();
+    await page.getByRole('button', { name: 'Include Black or African American (NH)' }).click();
     await expect(trendsChart.getByRole('button', { name: 'Include All' })).toHaveAttribute('aria-pressed', 'false');
 })
 
