@@ -46,6 +46,7 @@ export interface AxesProps {
   marginRight: number
   axisConfig: AxisConfig
   isSkinny: boolean
+  yMin: number
 }
 
 /* Render component */
@@ -59,6 +60,7 @@ export function Axes({
   marginRight,
   axisConfig,
   isSkinny,
+  yMin,
 }: AxesProps) {
   /* Config */
   const { HEIGHT, TICK_PADDING, Y_AXIS_LABEL_PADDING, MOBILE } = CONFIG
@@ -72,11 +74,13 @@ export function Axes({
       topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
       bottomLabel: '',
       formatter: (d: string | number) => d, // per 100k could be interpolated here
+      yScaleMin: yMin,
     },
     [TYPES.PERCENT_SHARE]: {
       topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
       bottomLabel: '',
       formatter: (d: number) => F.pct(d),
+      yScaleMin: yMin,
     },
     [TYPES.PERCENT_RELATIVE_INEQUITY]: {
       topLabel:
@@ -84,6 +88,7 @@ export function Axes({
       bottomLabel:
         (getMinNumber(data) ?? 0) >= 0 ? '' : '← disproportionately low', // if there are negative numbers, append negative direction label
       formatter: (d: number) => (d === 0 ? '' : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
+      yScaleMin: 0,
     },
   }
 
@@ -167,9 +172,9 @@ export function Axes({
       <g>
         <line
           x1={marginLeft}
-          y1={yScale(0)}
+          y1={yScale(Y_AXIS_CONFIG[type].yScaleMin)}
           x2={width - marginRight}
-          y2={yScale(0)}
+          y2={yScale(Y_AXIS_CONFIG[type].yScaleMin)}
           stroke="black" // handle in CSS?
         />
       </g>

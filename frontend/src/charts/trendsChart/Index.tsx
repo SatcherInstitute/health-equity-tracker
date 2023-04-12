@@ -185,10 +185,18 @@ export function TrendsChart({
     dates.map((date) => new Date(date))
   )
 
-  // @ts-expect-error
-  const yMin = min(amounts) < 0 ? min(amounts) : 0 // if numbers are all positive, y domain min should be 0
-  const yMax = max(amounts) ? max(amounts) : 0
-  const yExtent: [number, number] = [yMin as number, yMax as number]
+  const minAmount = min(amounts)
+  const maxAmount = max(amounts)
+  // Ensure min/max are always a number
+  let yMin = minAmount !== undefined && minAmount < 0 ? minAmount : 0
+  const yMax = maxAmount !== undefined ? maxAmount : 0
+
+  // For charts where the lowest value is far from baseline 0
+  if (minAmount !== undefined && minAmount > 50) {
+    yMin = minAmount - 2
+  }
+
+  const yExtent: [number, number] = [yMin , yMax ]
 
   // X-Scale
   const xScale = scaleTime(xExtent as [Date, Date], [
@@ -364,6 +372,7 @@ export function TrendsChart({
               marginRight={marginRight}
               axisConfig={axisConfig}
               isSkinny={isSkinny}
+              yMin={yMin}
             />
             {/* Lines */}
             <LineChart
