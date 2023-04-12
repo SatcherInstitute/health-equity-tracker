@@ -79,7 +79,7 @@ test('HIV Deaths: Check demographic group selectors', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + HIV_DEATHS);
 
-    await page.getByRole('button', { name: 'Age Demographic' }).click();
+    await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
 
     const rateMap = page.locator('#rate-map');
     await expect(rateMap).toContainText('Highlight an age group:');
