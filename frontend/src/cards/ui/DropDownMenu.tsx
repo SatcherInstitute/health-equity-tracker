@@ -17,6 +17,7 @@ import {
   type BreakdownVarDisplayName,
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
+import { type VariableId } from '../../data/config/MetricConfig'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -114,6 +115,7 @@ export interface DropDownMenuProps {
   ) => void
   idSuffix?: string
   breakdownVar: BreakdownVar
+  variableId: VariableId
   setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
 }
 
@@ -135,12 +137,11 @@ function DropDownMenu(props: DropDownMenuProps) {
   const demOption = firstMenuSelection.toLowerCase()
   const article = props.breakdownVar === AGE ? 'an' : 'a'
 
-  const hivLabelSuffixProps = {
-    demographic: props.breakdownVar,
-    value: props.value,
-    metric: props.idSuffix,
-  }
-  const suffix = useHIVLabelSuffix(hivLabelSuffixProps)
+  const suffix = useHIVLabelSuffix(
+    props.breakdownVar,
+    props.value,
+    props.variableId
+  )
 
   return (
     <div className={styles.SectionFilterBy}>

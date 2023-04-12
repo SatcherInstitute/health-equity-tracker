@@ -91,6 +91,7 @@
     "test:coverage": "vitest run --coverage",
     "test:watch": "vitest watch",
     "test": "vitest run",
+    "tsc": "npx tsc --noEmit",
     "url": "npx playwright install chromium && npx playwright test --project=URL"
   },
   "engines": {
@@ -115,6 +116,7 @@
     }
   },
   "lint-staged": {
+    "**/*.ts?(x)": "bash -c tsc --noEmit",
     "src/**/*.{js,jsx,ts,tsx,json}": [
       "eslint --fix"
     ],

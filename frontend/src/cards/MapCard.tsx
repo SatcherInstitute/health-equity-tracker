@@ -310,6 +310,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <DropDownMenu
                         idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
                         breakdownVar={props.currentBreakdown}
+                        variableId={props.variableConfig.variableId}
                         setSmallMultiplesDialogOpen={
                           setSmallMultiplesDialogOpen
                         }
