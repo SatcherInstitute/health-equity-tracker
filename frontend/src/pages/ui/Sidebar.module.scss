@@ -2,48 +2,37 @@
 @import '../../styles/globals.scss';
 
 .StickySidebarBox {
-  width: 90%;
   position: -webkit-sticky;
   position: sticky;
 }
 
-.TableOfContents {
-  margin: 10px 10px 0 0;
-  padding: 10px 0 10px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.Stepper {
-  align-items: flex-start;
-  padding: 24px;
-  // hide on xs
-  display: none;
-
-  // skinny icons on sm
-  @media only screen and (min-width: $sm) {
-    display: flex;
-    padding: 0 0 0 6px !important;
-  }
-
-  // icons+labels md and up
-  @media only screen and (min-width: $md) {
-    display: flex;
-    padding: 24px !important;
-  }
-}
-
-.StepButton {
-  text-align: left;
-}
-
-.StepButtonLabel {
-  font-size: $smallest;
-}
-
 .ShareBox {
-  margin: 10px 10px 0 0;
+  margin: $card-gutter;
   padding: 10px 0 0px 0;
   display: flex;
   justify-content: center;
+  width: 90%;
+}
+
+.SidebarModeSelectorBox {
+  display: none;
+
+  @media only screen and (min-width: $md) {
+    margin: $card-gutter;
+
+    padding: 16px 8px 16px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+  }
+}
+
+.TableOfContentsBox {
+  margin: $card-gutter;
+
+  padding: 1rem 0 1rem 0;
+  display: flex;
+  justify-content: center;
+  width: 90%;
 }

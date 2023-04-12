@@ -101,12 +101,14 @@ $lhNormal: 1;
 $lhTight: 0.95;
 
 // default settings
+$card-gutter: 8px;
 $header-height: 600px;
 $sticky-madlib-height: 62px;
 $sticky-madlib-height-compare: 100px;
+$preload-article-height: 750px;
 $footer-size: 10rem;
 $max-width: 800px;
-$preload-article-height: 750px;
+$helper-box-max-width: 1200px;
 $explore-data-max-width: 1500px;
 
 // default material breakpoints

@@ -17,6 +17,7 @@ import {
   type BreakdownVarDisplayName,
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
+import { type VariableId } from '../../data/config/MetricConfig'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -32,7 +33,7 @@ interface MenuPopoverProps {
   onClose?: () => void
 }
 
-function MenuPopover(props: MenuPopoverProps): JSX.Element {
+export function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
@@ -112,8 +113,9 @@ export interface DropDownMenuProps {
     category: DemographicGroup | undefined,
     filterSelection: DemographicGroup
   ) => void
-  idSuffix: string
+  idSuffix?: string
   breakdownVar: BreakdownVar
+  variableId: VariableId
   setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
 }
 
@@ -135,18 +137,17 @@ function DropDownMenu(props: DropDownMenuProps) {
   const demOption = firstMenuSelection.toLowerCase()
   const article = props.breakdownVar === AGE ? 'an' : 'a'
 
-  const hivLabelSuffixProps = {
-    demographic: props.breakdownVar,
-    value: props.value,
-    metric: props.idSuffix,
-  }
-  const suffix = useHIVLabelSuffix(hivLabelSuffixProps)
+  const suffix = useHIVLabelSuffix(
+    props.breakdownVar,
+    props.value,
+    props.variableId
+  )
 
   return (
     <div className={styles.SectionFilterBy}>
       <label
         className={styles.FilterBy}
-        htmlFor={`groupMenu${props.idSuffix}`}
+        htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >
         {`Highlight ${article} ${demOption} group:`}
@@ -155,7 +156,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         variant="text"
         onClick={firstMenu.open}
         aria-haspopup="true"
-        id={`groupMenu${props.idSuffix}`}
+        id={`groupMenu${props?.idSuffix ?? ''}`}
       >
         <u>
           {props.value}
@@ -165,7 +166,7 @@ function DropDownMenu(props: DropDownMenuProps) {
       </Button>
 
       <MenuPopover
-        aria-labelledby={`#groupMenu${props.idSuffix}`}
+        aria-labelledby={`#groupMenu${props?.idSuffix ?? ''}`}
         popover={firstMenu}
         aria-expanded="true"
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}

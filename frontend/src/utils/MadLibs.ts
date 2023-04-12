@@ -17,6 +17,12 @@ export type PhraseSegment = string | PhraseSelector
 
 export type MadLibId = 'disparity' | 'comparegeos' | 'comparevars'
 
+export const MADLIB_MODE_MAP: Record<string, MadLibId> = {
+  Off: 'disparity',
+  Places: 'comparegeos',
+  Topics: 'comparevars',
+}
+
 // wording used for determinant categories in the selectable dropdown on /exploredata
 export type CategoryId =
   | 'HIV'

@@ -8,11 +8,13 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { Grid } from '@mui/material'
+import { Grid, Tooltip } from '@mui/material'
 import styles from './ShareButtons.module.scss'
 import sass from '../../styles/variables.module.scss'
 import { type Article } from '../../pages/WhatIsHealthEquity/NewsTab'
 import { getHtml } from '../../utils/urlutils'
+
+export const SHARE_LABEL = 'Share this report:'
 
 export const ARTICLE_DESCRIPTION =
   'Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.'
@@ -50,48 +52,55 @@ function ShareButtons(props: ShareButtonProps) {
       alignItems={'center'}
     >
       <Grid item>
-        <p className={styles.ShareLabel}>Share to social:</p>
+        <p className={styles.ShareLabel}>{SHARE_LABEL}</p>
       </Grid>
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}
-        <TwitterShareButton
-          url={sharedUrl}
-          title={title}
-          hashtags={['healthequity']}
-          related={['@SatcherHealth', '@MSMEDU']}
-          aria-label={'Share to Twitter'}
-        >
-          <TwitterIcon {...shareIconAttributes} />
-        </TwitterShareButton>
 
-        <FacebookShareButton
-          url={sharedUrl}
-          hashtag={'#healthequity'}
-          quote={title}
-          aria-label={'Share to Facebook'}
-        >
-          <FacebookIcon {...shareIconAttributes} />
-        </FacebookShareButton>
+        <Tooltip title="Tweet this report">
+          <TwitterShareButton
+            url={sharedUrl}
+            hashtags={['healthequity']}
+            related={['@SatcherHealth', '@MSMEDU']}
+            aria-label={'Share to Twitter'}
+          >
+            <TwitterIcon {...shareIconAttributes} />
+          </TwitterShareButton>
+        </Tooltip>
 
-        <LinkedinShareButton
-          title={title}
-          source={'Health Equity Tracker'}
-          url={sharedUrl}
-          aria-label={'Share to LinkedIn'}
-        >
-          <LinkedinIcon {...shareIconAttributes} />
-        </LinkedinShareButton>
+        <Tooltip title="Post this report to Facebook">
+          <FacebookShareButton
+            url={sharedUrl}
+            hashtag={'#healthequity'}
+            quote={title}
+            aria-label={'Post this report to Facebook'}
+          >
+            <FacebookIcon {...shareIconAttributes} />
+          </FacebookShareButton>
+        </Tooltip>
 
-        <EmailShareButton
-          aria-label={'Share by email'}
-          subject={`Sharing from healthequitytracker.org`}
-          body={`${title}
+        <Tooltip title="Post this report to LinkedIn">
+          <LinkedinShareButton
+            source={'Health Equity Tracker'}
+            url={sharedUrl}
+            aria-label={'Share to LinkedIn'}
+          >
+            <LinkedinIcon {...shareIconAttributes} />
+          </LinkedinShareButton>
+        </Tooltip>
+
+        <Tooltip title="Share this report by email">
+          <EmailShareButton
+            aria-label={'Share by email'}
+            subject={`Sharing from healthequitytracker.org`}
+            body={`${title}
 
 `} // KEEP THIS WEIRD SPACING FOR EMAIL LINE BREAKS!
-          url={sharedUrl}
-        >
-          <EmailIcon {...shareIconAttributes} />
-        </EmailShareButton>
+            url={sharedUrl}
+          >
+            <EmailIcon {...shareIconAttributes} />
+          </EmailShareButton>
+        </Tooltip>
       </Grid>
     </Grid>
   )

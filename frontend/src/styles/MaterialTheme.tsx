@@ -101,10 +101,28 @@ const MaterialTheme = createTheme({
         },
       },
     },
+    MuiInputBase: {
+      styleOverrides: {
+        inputSizeSmall: {
+          fontSize: '.75rem',
+        },
+      },
+    },
+    MuiStepButton: {
+      styleOverrides: {
+        root: {
+          padding: '0',
+        },
+        vertical: {
+          margin: '0 auto',
+        },
+      },
+    },
     MuiStepConnector: {
       styleOverrides: {
         vertical: {
           paddingBlock: '0',
+          margin: '0 auto',
         },
         lineVertical: {
           minHeight: '8px',
@@ -115,6 +133,13 @@ const MaterialTheme = createTheme({
       styleOverrides: {
         label: {
           lineHeight: sass.lhTight,
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          marginBottom: '-4px',
         },
       },
     },

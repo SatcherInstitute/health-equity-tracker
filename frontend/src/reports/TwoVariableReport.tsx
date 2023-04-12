@@ -39,7 +39,9 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
-import ShareButtons from './ui/ShareButtons'
+import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
+import { type MadLibId } from '../utils/MadLibs'
+import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -59,6 +61,8 @@ function TwoVariableReport(props: {
   headerScrollMargin: number
   reportTitle: string
   isMobile: boolean
+  trackerMode: MadLibId
+  setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
@@ -75,19 +79,19 @@ function TwoVariableReport(props: {
       : null
   )
 
-  const setVariableConfigWithParam1 = (v: VariableConfig) => {
+  function setVariableConfigWithParam1(v: VariableConfig) {
     setParameter(DATA_TYPE_1_PARAM, v.variableId)
     setVariableConfig1(v)
   }
 
-  const setVariableConfigWithParam2 = (v: VariableConfig) => {
+  function setVariableConfigWithParam2(v: VariableConfig) {
     setParameter(DATA_TYPE_2_PARAM, v.variableId)
     setVariableConfig2(v)
   }
 
-  const setDemoWithParam = (str: BreakdownVar) => {
-    setParameter(DEMOGRAPHIC_PARAM, str)
-    setCurrentBreakdown(str)
+  function setDemoWithParam(demographic: BreakdownVar) {
+    setParameter(DEMOGRAPHIC_PARAM, demographic)
+    setCurrentBreakdown(demographic)
   }
 
   useEffect(() => {
@@ -131,7 +135,7 @@ function TwoVariableReport(props: {
     }
   }, [props.dropdownVarId1, props.dropdownVarId2])
 
-  // // when variable config changes (new data type), re-calc available card steps in TableOfContents
+  // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined
@@ -175,6 +179,10 @@ function TwoVariableReport(props: {
   browserTitle += ` by ${demo} in ${loc1}`
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
+  const offerJumpToAgeAdjustment =
+    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
+    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId2)
+
   return (
     <>
       <Helmet>
@@ -182,7 +190,16 @@ function TwoVariableReport(props: {
       </Helmet>
       <Grid container>
         {/* CARDS COLUMN */}
-        <Grid item xs={12} sm={11} md={10}>
+        <Grid item xs={12} md={10}>
+          {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
+          <ModeSelectorBoxMobile
+            trackerMode={props.trackerMode}
+            setTrackerMode={props.setTrackerMode}
+            trackerDemographic={currentBreakdown}
+            setDemoWithParam={setDemoWithParam}
+            offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+          />
+
           <Grid container spacing={1} alignItems="flex-start">
             {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
             {props.fips1.code === props.fips2.code ? (
@@ -506,8 +523,6 @@ function TwoVariableReport(props: {
             item
             // invisible
             xs={12}
-            // icons only
-            sm={1}
             // icons + text
             md={2}
             container
@@ -522,13 +537,17 @@ function TwoVariableReport(props: {
               floatTopOffset={props.headerScrollMargin}
               reportTitle={props.reportTitle}
               isMobile={props.isMobile}
+              trackerMode={props.trackerMode}
+              setTrackerMode={props.setTrackerMode}
+              trackerDemographic={currentBreakdown}
+              setDemoWithParam={setDemoWithParam}
             />
           </Grid>
         )}
       </Grid>
       {props.isMobile && (
         <Box mt={5}>
-          <p>Share to social:</p>
+          <p>{SHARE_LABEL}</p>
           <ShareButtons
             reportTitle={props.reportTitle}
             isMobile={props.isMobile}
@@ -571,7 +590,7 @@ function RowOfTwoOptionalMetrics(props: {
       <Grid
         item
         xs={12}
-        sm={6}
+        md={6}
         id={props.id}
         tabIndex={-1}
         style={{ scrollMarginTop: props.headerScrollMargin }}
@@ -606,7 +625,7 @@ function RowOfTwoOptionalMetrics(props: {
       <Grid
         item
         xs={12}
-        sm={6}
+        md={6}
         tabIndex={-1}
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}

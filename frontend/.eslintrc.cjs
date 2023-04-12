@@ -10,6 +10,7 @@ module.exports = {
     'prettier',
   ],
   overrides: [],
+  ignorePatterns: ["**/*.spec.ts"],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

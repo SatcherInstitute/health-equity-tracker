@@ -85,7 +85,7 @@
 .FloatingSidebarWrapper {
   display: none;
 
-  @media only screen and (min-width: $sm) {
+  @media only screen and (min-width: $md) {
     display: block;
   }
 }
