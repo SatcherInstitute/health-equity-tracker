@@ -4,6 +4,7 @@ const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const COVID_DEATHS_US = "?mls=1.covid_deaths-3.00"
 const COMPARE_GEO_MODE = "?mls=1.covid_deaths-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid_deaths-3.08031-5.08&mlp=comparegeos"
+const HIV_DEATHS = "?mls=1.hiv_deaths-3.00"; 
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -73,3 +74,29 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
     await expect(unknownMapCard).toBeVisible();
 
 });
+
+test('HIV Deaths: Check demographic group selectors', async ({ page }) => {
+
+    await page.goto(EXPLORE_DATA_PAGE_LINK + HIV_DEATHS);
+
+    const ageDemButton = page.getByRole('button', { name: 'Age Demographic' })
+    await ageDemButton.click();
+
+    const rateMap = page.locator('#rate-map');
+    await expect(rateMap).toContainText('Highlight an age group:');
+    await expect(rateMap).toContainText('All (13+)');
+    
+    const ageDropdownButton = page.getByRole('button', { name: 'All (13+)' });
+    await ageDropdownButton.click();
+    const ageGroupButton = page.getByRole('button', { name: '13-24' });
+    await ageGroupButton.click();
+    await expect(rateMap).toContainText('ages 13-24');
+
+
+    const trendsChart = page.locator('#rates-over-time');
+    const trendDemographicButton = page.getByRole('button', { name: 'Include Black or African American (NH)' });
+    await trendDemographicButton.click();
+    await expect(trendsChart.getByRole('button', { name: 'Include All' })).toHaveAttribute('aria-pressed', 'false');
+})
+
+
