@@ -30,7 +30,6 @@ import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type Row } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 
@@ -107,7 +106,6 @@ export function TableCard(props: TableCardProps) {
     <CardWrapper
       minHeight={preloadHeight}
       queries={[query]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
     >
       {([queryResponse]) => {
@@ -129,6 +127,19 @@ export function TableCard(props: TableCardProps) {
 
         return (
           <>
+            {!queryResponse.dataIsMissing() && data.length > 0 && (
+              <div className={styles.TableChart}>
+                <TableChart
+                  data={data}
+                  breakdownVar={props.breakdownVar}
+                  metrics={Object.values(metricConfigs).filter(
+                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                  )}
+                  variable={props.variableConfig.variableFullDisplayName}
+                />
+              </div>
+            )}
+
             {isIncarceration && (
               <IncarceratedChildrenShortAlert
                 fips={props.fips}
@@ -173,18 +184,6 @@ export function TableCard(props: TableCardProps) {
                   <Divider />
                 </>
               )}
-
-            {!queryResponse.dataIsMissing() && data.length > 0 && (
-              <div className={styles.TableChart}>
-                <TableChart
-                  data={data}
-                  breakdownVar={props.breakdownVar}
-                  metrics={Object.values(metricConfigs).filter(
-                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                  )}
-                />
-              </div>
-            )}
           </>
         )
       }}

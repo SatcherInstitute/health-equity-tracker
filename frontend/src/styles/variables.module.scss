@@ -89,6 +89,10 @@ $bigHeader: 3rem;
 $biggerHeader: 3.125rem;
 $biggestHeader: 4rem;
 
+// vega fonts, vega won't take rem
+$largeVega: 18;
+$smallVega: 12;
+
 // line heights
 $lhSuperLoose: 2.45;
 $lhLoose: 1.6;
@@ -194,6 +198,9 @@ $z-top: 999;
   timePink: $time-pink;
   timeDarkRed: $time-dark-red;
   timeYellow: $time-yellow;
+
+  vegaLargeTitle: $largeVega;
+  vegaSmallTitle: $smallVega;
 
   footerSize: $footer-size;
   maxWidth: $max-width;

@@ -1,14 +1,15 @@
 @import '../../styles/variables.module';
 @import '../../styles/globals.scss';
 
-.Toc {
-  margin: 10px 10px 0 0;
-  padding: 10px 0 10px 0;
-  // margin-top: 14px;
-  // margin: 14px !important;
+.StickySidebarBox {
   width: 90%;
   position: -webkit-sticky;
   position: sticky;
+}
+
+.TableOfContents {
+  margin: 10px 10px 0 0;
+  padding: 10px 0 10px 0;
   display: flex;
   justify-content: center;
 }
@@ -38,4 +39,11 @@
 
 .StepButtonLabel {
   font-size: $smallest;
+}
+
+.ShareBox {
+  margin: 10px 10px 0 0;
+  padding: 10px 0 0px 0;
+  display: flex;
+  justify-content: center;
 }

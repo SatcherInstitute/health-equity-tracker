@@ -31,6 +31,7 @@ import Table from '@mui/material/Table'
 import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { NO_DATA_MESSAGE } from './Legend'
+import { useFontSize } from '../utils/hooks/useFontSize'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -52,12 +53,14 @@ export interface TableChartProps {
   data: Array<Readonly<Record<string, any>>>
   breakdownVar: BreakdownVar
   metrics: MetricConfig[]
+  variable: string
 }
 
 export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
 
-  const { data, metrics, breakdownVar } = props
+  const { data, metrics, breakdownVar, variable } = props
+  const metricId = metrics[0].metricId
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
@@ -161,48 +164,69 @@ export function TableChart(props: TableChartProps) {
     )
   }
 
+  const fontSize = useFontSize()
+  const titleStyle = {
+    font: 'Inter, sans-serif',
+    fontSize,
+    fontWeight: 'bold',
+    paddingTop: 10,
+    paddingBottom: 10,
+  }
+
+  const sentenceCaseName = ['hiv', 'covid', 'copd'].some((substring) =>
+    metricId.includes(substring)
+  )
+    ? variable
+    : variable.charAt(0).toLowerCase() + variable.slice(1)
+
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>Insufficient Data</h1>
       ) : (
-        <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
-          <Table {...getTableProps()}>
-            <TableHead>
-              {headerGroups.map((group, index) => (
-                <TableHeaderRow group={group} key={index} />
-              ))}
-            </TableHead>
-            <TableBody {...getTableBodyProps()}>
-              {page.map((row: Row<any>, index) => (
-                <TableDataRow row={row} key={index} />
-              ))}
-            </TableBody>
-            {/* If the number of rows is less than the smallest page size, we can hide pagination */}
-            {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
-              <TableFooter>
-                <TableRow>
-                  <TablePagination
-                    count={memoData.length}
-                    rowsPerPage={pageSize}
-                    page={pageIndex}
-                    onPageChange={(event, newPage) => {
-                      gotoPage(newPage)
-                    }}
-                    onRowsPerPageChange={(event) => {
-                      setPageSize(Number(event.target.value))
-                    }}
-                    rowsPerPageOptions={[
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION,
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
-                      MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
-                    ]} // If changed, update pagination condition above
-                  />
-                </TableRow>
-              </TableFooter>
-            )}
-          </Table>
-        </TableContainer>
+        <figure>
+          <figcaption style={titleStyle}>
+            Data breakdown summary for {sentenceCaseName} in the United States
+          </figcaption>
+
+          <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
+            <Table {...getTableProps()}>
+              <TableHead>
+                {headerGroups.map((group, index) => (
+                  <TableHeaderRow group={group} key={index} />
+                ))}
+              </TableHead>
+              <TableBody {...getTableBodyProps()}>
+                {page.map((row: Row<any>, index) => (
+                  <TableDataRow row={row} key={index} />
+                ))}
+              </TableBody>
+              {/* If the number of rows is less than the smallest page size, we can hide pagination */}
+              {props.data.length > MAX_NUM_ROWS_WITHOUT_PAGINATION && (
+                <TableFooter>
+                  <TableRow>
+                    <TablePagination
+                      count={memoData.length}
+                      rowsPerPage={pageSize}
+                      page={pageIndex}
+                      onPageChange={(event, newPage) => {
+                        gotoPage(newPage)
+                      }}
+                      onRowsPerPageChange={(event) => {
+                        setPageSize(Number(event.target.value))
+                      }}
+                      rowsPerPageOptions={[
+                        MAX_NUM_ROWS_WITHOUT_PAGINATION,
+                        MAX_NUM_ROWS_WITHOUT_PAGINATION * 2,
+                        MAX_NUM_ROWS_WITHOUT_PAGINATION * 5,
+                      ]} // If changed, update pagination condition above
+                    />
+                  </TableRow>
+                </TableFooter>
+              )}
+            </Table>
+          </TableContainer>
+        </figure>
       )}
     </>
   )

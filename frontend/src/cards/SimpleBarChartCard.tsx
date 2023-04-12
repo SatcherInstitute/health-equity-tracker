@@ -20,7 +20,6 @@ import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
@@ -89,7 +88,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
     >
@@ -113,14 +111,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 </>
               ) : (
                 <>
-                  {isIncarceration && (
-                    <IncarceratedChildrenShortAlert
-                      fips={props.fips}
-                      queryResponse={queryResponse}
-                      breakdownVar={props.breakdownVar}
-                    />
-                  )}
-
                   <SimpleHorizontalBarChart
                     chartTitle={chartTitle}
                     data={data}
@@ -130,6 +120,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
                   />
+                  {isIncarceration && (
+                    <IncarceratedChildrenShortAlert
+                      fips={props.fips}
+                      queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
+                    />
+                  )}
                 </>
               )}
             </CardContent>

@@ -11,8 +11,12 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material'
-import { type DemographicGroup } from '../../data/utils/Constants'
-import { type BreakdownVarDisplayName } from '../../data/query/Breakdowns'
+import { AGE, type DemographicGroup } from '../../data/utils/Constants'
+import {
+  type BreakdownVar,
+  type BreakdownVarDisplayName,
+} from '../../data/query/Breakdowns'
+import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -109,6 +113,8 @@ export interface DropDownMenuProps {
     filterSelection: DemographicGroup
   ) => void
   idSuffix: string
+  breakdownVar: BreakdownVar
+  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
 }
 
 /*
@@ -118,14 +124,23 @@ export interface DropDownMenuProps {
      * Dropdown with one level to select race and a second level listing all race options
 */
 function DropDownMenu(props: DropDownMenuProps) {
-  const firstMenu = usePopover()
-  const secondMenu = usePopover()
-
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0]
   )
-
   const oneLevelMenu = Object.keys(props.options).length === 1
+
+  const firstMenu = usePopover()
+  const secondMenu = usePopover()
+
+  const demOption = firstMenuSelection.toLowerCase()
+  const article = props.breakdownVar === AGE ? 'an' : 'a'
+
+  const hivLabelSuffixProps = {
+    demographic: props.breakdownVar,
+    value: props.value,
+    metric: props.idSuffix,
+  }
+  const suffix = useHIVLabelSuffix(hivLabelSuffixProps)
 
   return (
     <div className={styles.SectionFilterBy}>
@@ -134,7 +149,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         htmlFor={`groupMenu${props.idSuffix}`}
         aria-hidden={true}
       >
-        Select demographic group:
+        {`Highlight ${article} ${demOption} group:`}
       </label>
       <Button
         variant="text"
@@ -142,7 +157,10 @@ function DropDownMenu(props: DropDownMenuProps) {
         aria-haspopup="true"
         id={`groupMenu${props.idSuffix}`}
       >
-        <u>{props.value}</u>
+        <u>
+          {props.value}
+          {suffix}
+        </u>
         <ArrowDropDown />
       </Button>
 
