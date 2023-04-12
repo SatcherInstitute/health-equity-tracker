@@ -1189,7 +1189,9 @@ function MethodologyTab() {
                     to take transformative action towards achieving health
                     equity the Satcher Health Leadership Institute has decided
                     to rename this category to highlight it as a health equity
-                    issue.
+                    issue. For PrEP coverage, Unrepresented race (NH) is used to
+                    recognize individuals who do not identify as part of the
+                    Black, White, or Hispanic ethnic or racial groups.
                   </li>
                   <li>
                     <b>Two or more races (NH)</b>: Combinations of two or more
