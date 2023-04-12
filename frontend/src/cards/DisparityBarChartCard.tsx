@@ -23,7 +23,6 @@ import {
 } from '../data/utils/datasetutils'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
@@ -96,7 +95,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   return (
     <CardWrapper
       queries={[query]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
     >
@@ -131,6 +129,25 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
+            {dataAvailable && knownData.length !== 0 && (
+              <CardContent>
+                <DisparityBarChart
+                  chartTitle={chartTitle}
+                  data={knownData}
+                  lightMetric={
+                    metricConfig.populationComparisonMetric ?? metricConfig
+                  }
+                  darkMetric={
+                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
+                  }
+                  breakdownVar={props.breakdownVar}
+                  metricDisplayName={metricConfig.shortLabel}
+                  filename={filename}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
+                />
+              </CardContent>
+            )}
+
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (
               <UnknownsAlert
@@ -153,24 +170,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 />
               </CardContent>
             )}
-            {dataAvailable && knownData.length !== 0 && (
-              <CardContent>
-                <DisparityBarChart
-                  chartTitle={chartTitle}
-                  data={knownData}
-                  lightMetric={
-                    metricConfig.populationComparisonMetric ?? metricConfig
-                  }
-                  darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
-                  }
-                  breakdownVar={props.breakdownVar}
-                  metricDisplayName={metricConfig.shortLabel}
-                  filename={filename}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
-                />
-              </CardContent>
-            )}
+
             {shouldShowDoesntAddUpMessage && (
               <CardContent>
                 <Alert severity="info" role="note">

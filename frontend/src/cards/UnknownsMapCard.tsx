@@ -2,7 +2,6 @@ import { CardContent } from '@mui/material'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { Fips, TERRITORY_CODES } from '../data/utils/Fips'
 import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
-import MapBreadcrumbs from './ui/MapBreadcrumbs'
 import { type Row } from '../data/utils/DatasetTypes'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
@@ -20,12 +19,10 @@ import {
   RACE,
 } from '../data/utils/Constants'
 import styles from './Card.module.scss'
-import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
-import { reportProviderSteps } from '../reports/ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
@@ -114,7 +111,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   return (
     <CardWrapper
       queries={[mapQuery, alertQuery]}
-      title={<>{reportProviderSteps[HASH_ID].label}</>}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
@@ -194,15 +190,54 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         return (
           <>
-            <CardContent className={styles.SmallMarginContent}>
-              <MapBreadcrumbs
-                fips={props.fips}
-                updateFipsCallback={props.updateFipsCallback}
-                scrollToHashId="unknown-demographic-map"
-              />
-            </CardContent>
-            <Divider />
-
+            {showingVisualization && (
+              <CardContent>
+                <ChoroplethMap
+                  titles={{ chartTitle }}
+                  isUnknownsMap={true}
+                  signalListeners={signalListeners}
+                  metric={metricConfig}
+                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
+                  data={unknowns}
+                  showCounties={!props.fips.isUsa()}
+                  fips={props.fips}
+                  scaleType="symlog"
+                  scaleColorScheme="greenblue"
+                  hideLegend={
+                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
+                  }
+                  geoData={geoData}
+                  filename={filename}
+                  countColsToAdd={countColsToAdd}
+                />
+                {props.fips.isUsa() && unknowns.length > 0 && (
+                  <div className={styles.TerritoryCirclesContainer}>
+                    {TERRITORY_CODES.map((code) => {
+                      const fips = new Fips(code)
+                      return (
+                        <div key={code} className={styles.TerritoryCircle}>
+                          <ChoroplethMap
+                            isUnknownsMap={true}
+                            signalListeners={signalListeners}
+                            metric={metricConfig}
+                            data={unknowns}
+                            showCounties={!props.fips.isUsa()}
+                            fips={fips}
+                            scaleType="symlog"
+                            scaleColorScheme="greenblue"
+                            hideLegend={true}
+                            hideActions={true}
+                            geoData={geoData}
+                            overrideShapeWithCircle={true}
+                            countColsToAdd={countColsToAdd}
+                          />
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </CardContent>
+            )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             {!unknownsAllZero && (
               <UnknownsAlert
@@ -254,54 +289,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 </Alert>
               )}
             </CardContent>
-            {showingVisualization && (
-              <CardContent>
-                <ChoroplethMap
-                  titles={{ chartTitle }}
-                  isUnknownsMap={true}
-                  signalListeners={signalListeners}
-                  metric={metricConfig}
-                  legendTitle={metricConfig?.unknownsVegaLabel ?? ''}
-                  data={unknowns}
-                  showCounties={!props.fips.isUsa()}
-                  fips={props.fips}
-                  scaleType="symlog"
-                  scaleColorScheme="greenblue"
-                  hideLegend={
-                    mapQueryResponse.dataIsMissing() || unknowns.length <= 1
-                  }
-                  geoData={geoData}
-                  filename={filename}
-                  countColsToAdd={countColsToAdd}
-                />
-                {props.fips.isUsa() && unknowns.length > 0 && (
-                  <div className={styles.TerritoryCirclesContainer}>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code)
-                      return (
-                        <div key={code} className={styles.TerritoryCircle}>
-                          <ChoroplethMap
-                            isUnknownsMap={true}
-                            signalListeners={signalListeners}
-                            metric={metricConfig}
-                            data={unknowns}
-                            showCounties={!props.fips.isUsa()}
-                            fips={fips}
-                            scaleType="symlog"
-                            scaleColorScheme="greenblue"
-                            hideLegend={true}
-                            hideActions={true}
-                            geoData={geoData}
-                            overrideShapeWithCircle={true}
-                            countColsToAdd={countColsToAdd}
-                          />
-                        </div>
-                      )
-                    })}
-                  </div>
-                )}
-              </CardContent>
-            )}
           </>
         )
       }}
