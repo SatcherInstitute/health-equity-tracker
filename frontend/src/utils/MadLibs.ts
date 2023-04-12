@@ -103,7 +103,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
   hiv_prevalence: 'HIV Prevalence',
-  hiv_diagnoses: 'HIV Diagnoses',
+  hiv_diagnoses: 'New HIV Diagnoses',
   hiv_deaths: 'HIV Deaths',
   diabetes: 'Diabetes',
   copd: 'COPD',

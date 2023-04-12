@@ -10,23 +10,20 @@ interface PopulationSubsetAlertProps {
 export default function PopulationSubsetAlert({
   variableId,
 }: PopulationSubsetAlertProps) {
-  let variable, ageGroup
+  let variable
+  let ageGroup = 'ages 13 and older'
 
   if (variableId === 'hiv_deaths') {
     variable = 'HIV deaths'
-    ageGroup = 'ages 13 and older'
   }
   if (variableId === 'hiv_diagnoses') {
-    variable = 'HIV diagnoses'
-    ageGroup = ' ages 13 and older'
+    variable = 'new HIV diagnoses'
   }
   if (variableId === 'hiv_care') {
     variable = 'Linkage to HIV care'
-    ageGroup = 'ages 13 and older'
   }
   if (variableId === 'hiv_prevalence') {
     variable = 'HIV prevalence'
-    ageGroup = ' ages 13 and older'
   }
   if (variableId === 'hiv_prep') {
     variable = 'PrEP coverage'

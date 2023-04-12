@@ -659,22 +659,23 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   hiv_diagnoses: [
     {
       variableId: 'hiv_diagnoses',
-      variableDisplayName: 'HIV diagnoses',
-      variableFullDisplayName: 'HIV diagnoses',
+      variableDisplayName: 'new HIV diagnoses',
+      variableFullDisplayName: 'new HIV diagnoses',
       variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       metrics: {
         pct_share: {
-          chartTitleLines: ['Share of total HIV diagnoses'],
+          chartTitleLines: ['Share of total new HIV diagnoses'],
           metricId: 'hiv_diagnoses_pct_share',
-          columnTitleHeader: 'Share of total HIV diagnoses',
-          trendsCardTitleName: 'Inequitable share of HIV diagnoses over time',
-          shortLabel: '% of HIV diagnoses',
+          columnTitleHeader: 'Share of total new HIV diagnoses',
+          trendsCardTitleName:
+            'Inequitable share of new HIV diagnoses over time',
+          shortLabel: '% of new HIV diagnoses',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitleLines: [
               'Population vs. distribution of',
-              'total HIV diagnoses',
+              'total new HIV diagnoses',
             ],
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
@@ -684,21 +685,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: 'hiv_diagnoses_per_100k',
-          chartTitleLines: ['HIV diagnoses', 'per 100k'],
-          trendsCardTitleName: 'Rates of HIV diagnoses over time',
-          columnTitleHeader: 'HIV diagnoses per 100k',
-          shortLabel: 'HIV diagnoses per 100k',
+          chartTitleLines: ['New HIV diagnoses', 'per 100k'],
+          trendsCardTitleName: 'Rates of new HIV diagnoses over time',
+          columnTitleHeader: 'new HIV diagnoses per 100k',
+          shortLabel: 'new HIV diagnoses per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data for HIV diagnosis inequity'],
+          chartTitleLines: ['Historical data for new HIV diagnosis inequity'],
           metricId: 'hiv_diagnoses_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
         },
         age_adjusted_ratio: {
           chartTitleLines: [
-            'Age-adjusted risk of HIV diagnosis compared to White (NH)',
+            'Age-adjusted risk of new HIV diagnosis compared to White (NH)',
           ],
           metricId: 'hiv_diagnoses_ratio_age_adjusted',
           shortLabel: '',
