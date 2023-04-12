@@ -109,7 +109,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId])
+  }, [props.dropdownVarId, currentBreakdown])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
