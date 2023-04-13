@@ -73,32 +73,4 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
 
 });
 
-test('HIV Deaths: Check demographic group selectors', async ({ page }) => {
-
-    await page.goto(EXPLORE_DATA_PAGE_LINK + HIV_DEATHS);
-
-    // Select the 'Age' option from mode selector button 
-    await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
-    await page.getByRole('option', { name: 'Age' }).click();
-
-    // Confirm the rate map displays correct info
-    const rateMap = page.locator('#rate-map');
-    await expect(rateMap).toContainText('Highlight an age group:');
-    await expect(rateMap).toContainText('All (13+)');
-    
-    // Select a age group
-    await page.getByRole('button', { name: 'All (13+)' }).click();
-    await page.getByRole('button', { name: '13-24' }).click();
-    await expect(rateMap).toContainText('ages 13-24');
-
-    // Select the 'Race/ethnicity' option from mode selector button 
-    await page.getByRole('button', { name: 'Demographic Age' }).click();
-    await page.getByRole('option', { name: 'Race/ethnicity' }).click();
-
-    // Confirm the trends chart displays correct info
-    const trendsChart = page.locator('#rates-over-time');
-    await page.getByRole('button', { name: 'Include Black or African American (NH)' }).click();
-    await expect(trendsChart.getByRole('button', { name: 'Include All' })).toHaveAttribute('aria-pressed', 'false');
-    
-})
 
