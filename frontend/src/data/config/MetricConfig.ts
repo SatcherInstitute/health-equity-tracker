@@ -8,9 +8,11 @@ export type DropdownVarId =
   | 'covid_cases'
   | 'covid_deaths'
   | 'covid_hospitalizations'
+  | 'hiv_care'
   | 'hiv_diagnoses'
   | 'hiv_deaths'
   | 'hiv_prep'
+  | 'hiv_prevalence'
   | 'diabetes'
   | 'copd'
   | 'health_insurance'
@@ -79,6 +81,11 @@ export type MetricId =
   | 'covid_population_pct'
   | 'hosp_ratio_age_adjusted'
   | 'covid_hosp_pct_relative_inequity'
+  | 'hiv_care_linkage'
+  | 'hiv_care_pct_share'
+  | 'hiv_care_pct_relative_inequity'
+  | 'hiv_care_ratio_age_adjusted'
+  | 'hiv_care_population_pct'
   | 'hiv_diagnoses_per_100k'
   | 'hiv_diagnoses_pct_share'
   | 'hiv_diagnoses_pct_relative_inequity'
@@ -92,6 +99,10 @@ export type MetricId =
   | 'hiv_prep_pct_relative_inequity'
   | 'hiv_prep_ratio_age_adjusted'
   | 'hiv_prep_population_pct'
+  | 'hiv_prevalence_per_100k'
+  | 'hiv_prevalence_pct_share'
+  | 'hiv_prevalence_pct_relative_inequity'
+  | 'hiv_prevalence_ratio_age_adjusted'
   | 'hiv_population_pct'
   | 'poverty_count'
   | 'poverty_pct_share'
@@ -593,25 +604,78 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
+  hiv_care: [
+    {
+      variableId: 'hiv_care',
+      variableDisplayName: 'Linkage to HIV care',
+      variableFullDisplayName: 'Linkage to HIV care',
+      variableDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitleLines: ['Share of total linkage to HIV care'],
+          metricId: 'hiv_care_pct_share',
+          columnTitleHeader: 'Share of total linkage to HIV care',
+          trendsCardTitleName:
+            'Inequitable share of linkage to HIV care over time',
+          shortLabel: '% of linkage to HIV care',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitleLines: [
+              'Diagnosed population vs. distribution of',
+              'linkage to HIV care',
+            ],
+            metricId: 'hiv_care_population_pct',
+            columnTitleHeader: 'Diagnosed population share (ages 13+)', // populationPctTitle,
+            shortLabel: '% of diagnosed population',
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_care_linkage',
+          chartTitleLines: ['Rates of linkage to HIV care'],
+          trendsCardTitleName: 'Rates of HIV care over time',
+          columnTitleHeader: 'Linkage to HIV care',
+          shortLabel: '% Linkage to HIV care',
+          type: 'pct_share',
+        },
+        pct_relative_inequity: {
+          chartTitleLines: ['Historical data linkage to HIV care inequity'],
+          metricId: 'hiv_care_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitleLines: [
+            'Age-adjusted risk linkage to HIV care compared to White (NH)',
+          ],
+          metricId: 'hiv_care_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+  ],
   hiv_diagnoses: [
     {
       variableId: 'hiv_diagnoses',
-      variableDisplayName: 'HIV diagnoses',
-      variableFullDisplayName: 'HIV diagnoses',
+      variableDisplayName: 'new HIV diagnoses',
+      variableFullDisplayName: 'new HIV diagnoses',
       variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       metrics: {
         pct_share: {
-          chartTitleLines: ['Share of total HIV diagnoses'],
+          chartTitleLines: ['Share of total new HIV diagnoses'],
           metricId: 'hiv_diagnoses_pct_share',
-          columnTitleHeader: 'Share of total HIV diagnoses',
-          trendsCardTitleName: 'Inequitable share of HIV diagnoses over time',
-          shortLabel: '% of HIV diagnoses',
+          columnTitleHeader: 'Share of total new HIV diagnoses',
+          trendsCardTitleName:
+            'Inequitable share of new HIV diagnoses over time',
+          shortLabel: '% of new HIV diagnoses',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitleLines: [
               'Population vs. distribution of',
-              'total HIV diagnoses',
+              'total new HIV diagnoses',
             ],
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
@@ -621,21 +685,21 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: 'hiv_diagnoses_per_100k',
-          chartTitleLines: ['HIV diagnoses', 'per 100k'],
-          trendsCardTitleName: 'Rates of HIV diagnoses over time',
-          columnTitleHeader: 'HIV diagnoses per 100k',
-          shortLabel: 'HIV diagnoses per 100k',
+          chartTitleLines: ['New HIV diagnoses', 'per 100k'],
+          trendsCardTitleName: 'Rates of new HIV diagnoses over time',
+          columnTitleHeader: 'new HIV diagnoses per 100k',
+          shortLabel: 'new HIV diagnoses per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data for HIV diagnosis inequity'],
+          chartTitleLines: ['Historical data for new HIV diagnosis inequity'],
           metricId: 'hiv_diagnoses_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
         },
         age_adjusted_ratio: {
           chartTitleLines: [
-            'Age-adjusted risk of HIV diagnosis compared to White (NH)',
+            'Age-adjusted risk of new HIV diagnosis compared to White (NH)',
           ],
           metricId: 'hiv_diagnoses_ratio_age_adjusted',
           shortLabel: '',
@@ -741,6 +805,57 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             'Age-adjusted risk of PrEP coverage compared to White (NH)',
           ],
           metricId: 'hiv_prep_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+  ],
+  hiv_prevalence: [
+    {
+      variableId: 'hiv_prevalence',
+      variableDisplayName: 'HIV prevalence',
+      variableFullDisplayName: 'HIV prevalence',
+      variableDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitleLines: ['Share of total HIV prevalence'],
+          metricId: 'hiv_prevalence_pct_share',
+          columnTitleHeader: 'Share of total HIV prevalence',
+          trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
+          shortLabel: '% of HIV prevalence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitleLines: [
+              'Population vs. distribution of',
+              'total HIV prevalence',
+            ],
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_prevalence_per_100k',
+          chartTitleLines: ['HIV prevalence', 'per 100k'],
+          trendsCardTitleName: 'Rates of HIV prevalence over time',
+          columnTitleHeader: 'HIV prevalence per 100k',
+          shortLabel: 'HIV prevalence per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitleLines: ['Historical data for HIV prevalence inequity'],
+          metricId: 'hiv_prevalence_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitleLines: [
+            'Age-adjusted risk of HIV prevalence compared to White (NH)',
+          ],
+          metricId: 'hiv_prevalence_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
         },

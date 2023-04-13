@@ -512,7 +512,15 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  <b>HIV Deaths & Diagnosis</b>
+                  <b>HIV Deaths, Diagnosis, & Prevalence</b>
+                </p>
+                <p>
+                  Death data include deaths of persons aged 13 years and older
+                  with diagnosed HIV infection or AIDS classification,
+                  regardless of the cause of death. Death data are based on a
+                  12-month reporting delay to allow data to be reported to CDC.
+                  For death data, age is based on the person’s age at the time
+                  of death.
                 </p>
                 <p>
                   HIV diagnoses refer to the number of HIV infections confirmed
@@ -523,25 +531,30 @@ function MethodologyTab() {
                   estimates, age is based on the person’s age at infection.
                 </p>
                 <p>
-                  Death data include deaths of persons aged 13 years and older
-                  with diagnosed HIV infection or AIDS classification,
-                  regardless of the cause of death. Death data are based on a
-                  12-month reporting delay to allow data to be reported to CDC.
-                  For death data, age is based on the person’s age at the time
-                  of death.
+                  HIV prevalence refers to the estimated number of individuals
+                  aged 13 and older living with HIV at the end of the specified
+                  year, regardless of when they were infected or whether they
+                  received a diagnosis.This measure estimates the burden of HIV
+                  in a population.
                 </p>
                 <ul>
                   <li>
-                    All metrics sourced from the CDC are calculated based on the
-                    number of HIV deaths and diagnoses provided by the CDC’s
-                    AtlasPlus database.
+                    All metrics sourced from the CDC for HIV deaths and
+                    diagnoses are calculated directly from the raw count of
+                    those cases. In contrast, HIV prevalence is determined by
+                    estimating the total number of individuals who have ever
+                    been infected with HIV (diagnosed and undiagnosed cases) and
+                    then adjusting for the reported total number of people
+                    diagnosed with HIV and subsequently died provided by the
+                    CDC’s Atlas database.
                     <ul>
                       <li>
                         <b>Percent share</b>: To calculate the percent share of
-                        HIV deaths or diagnoses, we divide the number of HIV
-                        deaths or diagnoses in a specific demographic group by
-                        the total number of HIV deaths or diagnoses and multiply
-                        the result by 100.
+                        HIVdeaths, diagnoses, or prevalence, we divide the
+                        number of HIV deaths, diagnoses, or prevalence in a
+                        specific demographic group by the total number of HIV
+                        deaths, diagnoses, or prevalence and multiply the result
+                        by 100.
                       </li>
                       <li>
                         <b>Population percent</b>: The population data is
@@ -552,14 +565,14 @@ function MethodologyTab() {
                         result by 100.
                       </li>
                       <li>
-                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths
-                        and diagnoses is obtained directly from the CDC.
-                        Calculating the rate per 100k of HIV deaths and
-                        diagnoses involves dividing the number of deaths or
-                        diagnoses within a specific population by the total
-                        population of that group, multiplying the result by
-                        100,000, and then expressing it as a rate per 100,000
-                        people.
+                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths,
+                        diagnoses, and prevalence is obtained directly from the
+                        CDC. Calculating the rate per 100k of HIV deaths,
+                        diagnoses, or prevalence involves dividing the number of
+                        deaths, diagnoses, or prevalence within a specific
+                        population by the total population of that group,
+                        multiplying the result by 100,000, and then expressing
+                        it as a rate per 100,000 people.
                       </li>
                     </ul>
                   </li>
@@ -647,6 +660,76 @@ function MethodologyTab() {
                 <Card elevation={3} className={styles.MissingDataBox}>
                   <MissingPrepData />
                 </Card>
+
+                <p>
+                  <b>Linkage to Care</b>
+                </p>
+                <p>
+                  Linkage to HIV care, reported as a percentage, refers to the
+                  number of persons aged 13 years and older newly diagnosed with
+                  HIV, having at least one CD4 or viral load test performed
+                  within one month of diagnosis during the specified year and
+                  divided by the number of persons aged 13 years and older newly
+                  diagnosed with HIV during the specified year.
+                </p>
+                <p>
+                  Linkage to HIV care is a critical step in the HIV care
+                  continuum and can improve health outcomes for individuals with
+                  HIV. When a person living with HIV is linked to care soon
+                  after their diagnosis, they can receive the medical treatment
+                  and support they need to manage their HIV, reduce the amount
+                  of virus in their body, improve their health, and lower the
+                  risk of transmitting HIV to others. Delayed linkage to care
+                  can result in poorer health outcomes for individuals living
+                  with HIV and can increase the risk of transmitting HIV to
+                  others.
+                </p>
+
+                <ul>
+                  <li>
+                    All metrics sourced from the CDC are calculated based on the
+                    number of cases of HIV diagnosis where individuals have
+                    received at least 1 CD4 or viral load test performed less
+                    than one month after diagnosis.
+                    <ul>
+                      <li>
+                        <b>Percent share</b>: Calculating the percent share of
+                        individuals who received testing or treatment within a
+                        month involves dividing the number of people with access
+                        to HIV care by a specific population or demographic
+                        group by the total number of people with access to HIV
+                        care and multiplying the result by 100.
+                      </li>
+                      <li>
+                        <b>Diagnosed population percent</b>: Calculating the
+                        percent share of the population involves dividing the
+                        number of individuals within a specific population or
+                        demographic group with HIV diagnoses by the total number
+                        of individuals with HIV diagnoses and multiplying the
+                        result by 100.
+                      </li>
+                      <li>
+                        <b>Linkage to Care</b>: This percentage is obtained
+                        directly from the CDC. It involves dividing the number
+                        of individuals within a specific population or
+                        demographic group with access to care at a given time by
+                        the total number of individuals living with HIV in the
+                        same population or demographic group and multiplying the
+                        result by 100.
+                      </li>
+                      <li>
+                        <b>Relative Inequity</b>: Calculating the percentage of
+                        relative inequity involves subtracting the proportion of
+                        all individuals with access to care by a specific
+                        population or group from the proportion of a specific
+                        population or group in the diagnosed population. The
+                        value is divided by the proportion of a specific
+                        population or group in the diagnosed population
+                        multiplied by 100 to express it as a percentage.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
 
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index (SVI)
@@ -1106,7 +1189,9 @@ function MethodologyTab() {
                     to take transformative action towards achieving health
                     equity the Satcher Health Leadership Institute has decided
                     to rename this category to highlight it as a health equity
-                    issue.
+                    issue. For PrEP coverage, Unrepresented race (NH) is used to
+                    recognize individuals who do not identify as part of the
+                    Black, White, or Hispanic ethnic or racial groups.
                   </li>
                   <li>
                     <b>Two or more races (NH)</b>: Combinations of two or more

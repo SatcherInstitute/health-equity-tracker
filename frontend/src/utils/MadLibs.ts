@@ -106,8 +106,10 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   covid_cases: 'COVID-19 Cases',
   covid_hospitalizations: 'COVID-19 Hospitalizations',
   covid_deaths: 'COVID-19 Deaths',
+  hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
-  hiv_diagnoses: 'HIV Diagnoses',
+  hiv_prevalence: 'HIV Prevalence',
+  hiv_diagnoses: 'New HIV Diagnoses',
   hiv_deaths: 'HIV Deaths',
   diabetes: 'Diabetes',
   copd: 'COPD',
@@ -141,7 +143,13 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: ['hiv_diagnoses', 'hiv_deaths', 'hiv_prep'],
+    options: [
+      'hiv_care',
+      'hiv_diagnoses',
+      'hiv_deaths',
+      'hiv_prep',
+      'hiv_prevalence',
+    ],
   },
   {
     title: 'COVID-19',
