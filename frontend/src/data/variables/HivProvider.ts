@@ -1,9 +1,16 @@
 import { getDataManager } from '../../utils/globals'
-import { type MetricId } from '../config/MetricConfig'
+import { type VariableId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
+
+export const VARIABLES_NEEDING_13PLUS: VariableId[] = [
+  'hiv_deaths',
+  'hiv_diagnoses',
+  'hiv_care',
+  'hiv_prevalence',
+]
 
 export const CARE_METRICS: MetricId[] = [
   'hiv_care_linkage',
