@@ -97,8 +97,10 @@ export function TrendsChart({
     false,
   ])
 
+  const isCompareMode = window.location.href.includes('compare')
+
   // treat medium screen compare mode like mobile
-  const isSkinny = isMobile ?? width < MOBILE_BREAKPOINT
+  const isSkinny = isMobile || width < MOBILE_BREAKPOINT || isCompareMode
 
   // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null)
