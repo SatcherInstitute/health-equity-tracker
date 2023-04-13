@@ -149,6 +149,8 @@ const FORMATTERS = {
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }
 
+const BASELINE_THRESHOLD = 50
+
 export {
   COLOR_RANGE,
   UNKNOWN_GROUP_COLOR_EXTENT,
@@ -156,4 +158,5 @@ export {
   TYPES,
   FORMATTERS,
   COLORS,
+  BASELINE_THRESHOLD,
 }

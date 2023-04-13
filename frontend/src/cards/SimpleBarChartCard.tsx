@@ -23,8 +23,6 @@ import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
-import PopulationSubsetAlert from './ui/PopulationSubsetAlert'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -83,8 +81,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
-  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
-
   return (
     <CardWrapper
       queries={[query]}
@@ -130,11 +126,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 </>
               )}
             </CardContent>
-            {isPopulationSubset && (
-              <PopulationSubsetAlert
-                variableId={props.variableConfig.variableId}
-              />
-            )}
           </>
         )
       }}

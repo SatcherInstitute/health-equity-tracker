@@ -54,7 +54,6 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
-import PopulationSubsetAlert from './ui/PopulationSubsetAlert'
 import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
@@ -469,11 +468,6 @@ function MapCardWithKey(props: MapCardProps) {
                     variableFullDisplayName={
                       props.variableConfig.variableFullDisplayName
                     }
-                  />
-                )}
-                {isPopulationSubset && (
-                  <PopulationSubsetAlert
-                    variableId={props.variableConfig.variableId}
                   />
                 )}
               </>

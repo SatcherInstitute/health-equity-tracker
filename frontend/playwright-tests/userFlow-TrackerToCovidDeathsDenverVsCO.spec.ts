@@ -4,6 +4,7 @@ const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 const COVID_DEATHS_US = "?mls=1.covid_deaths-3.00"
 const COMPARE_GEO_MODE = "?mls=1.covid_deaths-3.00-5.13&mlp=comparegeos"
 const COVID_DEN_VS_CO = "?mls=1.covid_deaths-3.08031-5.08&mlp=comparegeos"
+const HIV_DEATHS = "?mls=1.hiv_deaths-3.00"; 
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -56,8 +57,6 @@ test('Compare Mode Default Geos to Denver County and CO and back', async ({ page
 
 })
 
-
-
 test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({ page }) => {
 
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
@@ -73,3 +72,5 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
     await expect(unknownMapCard).toBeVisible();
 
 });
+
+

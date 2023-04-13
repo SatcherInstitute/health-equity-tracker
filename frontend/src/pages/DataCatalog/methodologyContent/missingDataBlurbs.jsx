@@ -111,7 +111,7 @@ export function MissingCAWPData() {
 export function MissingHIVData() {
   return (
     <>
-      <h4>Missing data for HIV deaths and diagnoses</h4>
+      <h4>Missing data for HIV deaths, diagnoses, and prevalence</h4>
       <ul>
         <li>
           County-level data is suppressed when the population denominator is
@@ -130,6 +130,12 @@ export function MissingHIVData() {
           other than Puerto Rico). As a result, the analysis or report will not
           provide detailed information about these specific groups in those
           regions.
+        </li>
+        <li>
+          The Asian category includes cases previously classified as
+          "Asian/Pacific Islander" under the pre-1997 Office of Management and
+          Budget (OMB) race/ethnicity classification system when querying HIV
+          prevalence.
         </li>
       </ul>
     </>
