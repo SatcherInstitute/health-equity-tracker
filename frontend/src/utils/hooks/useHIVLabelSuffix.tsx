@@ -5,7 +5,12 @@ import { type VariableId } from '../../data/config/MetricConfig'
 
 const prepSuffix = ' (16+)'
 const hivSuffix = ' (13+)'
-const VARIABLES_NEEDING_13PLUS: VariableId[] = ['hiv_deaths', 'hiv_diagnoses']
+const VARIABLES_NEEDING_13PLUS: VariableId[] = [
+  'hiv_deaths',
+  'hiv_diagnoses',
+  'hiv_care',
+  'hiv_prevalence',
+]
 
 export function useHIVLabelSuffix(
   demographic: BreakdownVar,
