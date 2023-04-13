@@ -201,6 +201,13 @@ const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
   MULTI_OR_OTHER_STANDARD_NH,
 ]
 
+const VARIABLES_NEEDING_13PLUS: VariableId[] = [
+  'hiv_deaths',
+  'hiv_diagnoses',
+  'hiv_care',
+  'hiv_prevalence',
+]
+
 export function getExclusionList(
   currentVariable: VariableConfig,
   currentBreakdown: BreakdownVar,
@@ -237,11 +244,13 @@ export function getExclusionList(
       exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '13-24'))
     }
   }
-  if (
-    currentVariableId === 'hiv_deaths' ||
-    currentVariableId === 'hiv_diagnoses'
-  ) {
-    exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
+  if (VARIABLES_NEEDING_13PLUS.includes(currentVariableId)) {
+    if (currentBreakdown === RACE) {
+      exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
+    }
+    if (currentBreakdown === AGE) {
+      exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '16-24'))
+    }
   }
 
   // Incarceration
