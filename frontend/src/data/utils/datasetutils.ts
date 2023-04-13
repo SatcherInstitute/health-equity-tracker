@@ -16,6 +16,7 @@ import {
   AHR_VOTER_AGE_DETERMINANTS,
   ALL_AHR_DETERMINANTS,
 } from '../variables/AhrProvider'
+import { VARIABLES_NEEDING_13PLUS } from '../variables/HivProvider'
 import {
   RACE,
   ALL,
@@ -200,14 +201,6 @@ const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
   MULTI_OR_OTHER_STANDARD,
   MULTI_OR_OTHER_STANDARD_NH,
 ]
-
-const VARIABLES_NEEDING_13PLUS: VariableId[] = [
-  'hiv_deaths',
-  'hiv_diagnoses',
-  'hiv_care',
-  'hiv_prevalence',
-]
-
 export function getExclusionList(
   currentVariable: VariableConfig,
   currentBreakdown: BreakdownVar,
