@@ -16,6 +16,7 @@
     "@mui/material": "^5.11.15",
     "@mui/styles": "^5.11.13",
     "@playwright/test": "^1.31.0",
+    "@sentry/react": "^7.48.0",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "@types/d3": "^7.4.0",
