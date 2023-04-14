@@ -80,8 +80,10 @@ function LandingPage() {
             >
               Better Data for Equity
             </Typography>
-
-            <button onClick={() => methodDoesNotExist()}>Break the world</button>;
+            {/* @ts-expect-error */}
+            <button onClick={() => methodDoesNotExist()}>
+              Break the world
+            </button>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
