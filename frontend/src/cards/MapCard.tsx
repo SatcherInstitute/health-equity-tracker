@@ -1,7 +1,6 @@
 import { CardContent, Grid } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
-import React, { useState } from 'react'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -55,6 +54,9 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
+import { useState } from 'react'
+import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
+import SimpleBackdrop from '../pages/ui/SimpleBackdrop'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -107,6 +109,8 @@ function MapCardWithKey(props: MapCardProps) {
       }
     },
   }
+
+  const [preppingDownload, setPreppingDownload] = useState(false)
 
   const [listExpanded, setListExpanded] = useState(false)
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
@@ -197,6 +201,9 @@ function MapCardWithKey(props: MapCardProps) {
       scrollToHash={HASH_ID}
     >
       {(queryResponses, metadata, geoData) => {
+        const [screenshotTargetRef, downloadTargetScreenshot] =
+          useDownloadCardImage()
+
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
@@ -334,7 +341,16 @@ function MapCardWithKey(props: MapCardProps) {
             )}
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
-              <>
+              <div ref={screenshotTargetRef}>
+                <SimpleBackdrop
+                  open={preppingDownload}
+                  setOpen={setPreppingDownload}
+                />
+                {/* @ts-expect-error */}
+                <button onClick={downloadTargetScreenshot}>
+                  Download screenshot
+                </button>
+
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
@@ -470,7 +486,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                   />
                 )}
-              </>
+              </div>
             )}
           </>
         )
