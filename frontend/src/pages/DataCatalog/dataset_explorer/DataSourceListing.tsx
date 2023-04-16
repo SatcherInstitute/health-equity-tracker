@@ -24,7 +24,7 @@ import { Grid, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import Link from '@mui/material/Link'
 
-type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
+export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
 function DownloadDatasetListItem(props: {
   datasetId: string

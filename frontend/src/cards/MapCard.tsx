@@ -55,8 +55,6 @@ import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
-import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
-import SimpleBackdrop from '../pages/ui/SimpleBackdrop'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -109,8 +107,6 @@ function MapCardWithKey(props: MapCardProps) {
       }
     },
   }
-
-  const [preppingDownload, setPreppingDownload] = useState(false)
 
   const [listExpanded, setListExpanded] = useState(false)
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
@@ -195,15 +191,13 @@ function MapCardWithKey(props: MapCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={dataName}
       queries={queries}
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
     >
       {(queryResponses, metadata, geoData) => {
-        const [screenshotTargetRef, downloadTargetScreenshot] =
-          useDownloadCardImage()
-
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
@@ -341,16 +335,7 @@ function MapCardWithKey(props: MapCardProps) {
             )}
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
-              <div ref={screenshotTargetRef}>
-                <SimpleBackdrop
-                  open={preppingDownload}
-                  setOpen={setPreppingDownload}
-                />
-                {/* @ts-expect-error */}
-                <button onClick={downloadTargetScreenshot}>
-                  Download screenshot
-                </button>
-
+              <div>
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
@@ -364,6 +349,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                     hideMissingDataTooltip={listExpanded}
                     legendData={dataForActiveBreakdownFilter}
+                    hideActions={true}
                     hideLegend={
                       mapQueryResponse.dataIsMissing() ||
                       dataForActiveBreakdownFilter.length <= 1

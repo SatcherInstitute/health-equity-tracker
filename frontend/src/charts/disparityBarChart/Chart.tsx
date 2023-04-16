@@ -167,7 +167,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
-        actions={ACTIONS}
+        actions={!props.hideActions && ACTIONS}
         downloadFileName={downloadFileName}
         renderer="svg"
         spec={getSpec()}

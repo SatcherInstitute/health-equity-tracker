@@ -17,6 +17,7 @@ export interface DisparityBarChartProps {
   filename: string
   metricDisplayName: string
   showAltPopCompare?: boolean
+  hideActions: boolean
 }
 
 export interface AxesProps {

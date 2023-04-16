@@ -8,10 +8,13 @@ import { WithMetadataAndMetrics } from '../data/react/WithLoadingOrErrorUI'
 import { Sources } from './ui/Sources'
 import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
+import { DownloadCardImageButton } from './ui/DownloadCardImageButton'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
   minHeight?: number
+  downloadTitle: string
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
   infoPopover?: JSX.Element
   hideFooter?: boolean
@@ -42,6 +45,10 @@ function CardWrapper(props: {
     </Card>
   )
 
+  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
+    props.downloadTitle
+  )
+
   return (
     <WithMetadataAndMetrics
       queries={queries}
@@ -54,7 +61,11 @@ function CardWrapper(props: {
             raised={true}
             className={styles.ChartCard}
             component={'article'}
+            ref={screenshotTargetRef}
           >
+            <DownloadCardImageButton
+              downloadTargetScreenshot={downloadTargetScreenshot}
+            />
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={'footer'}>

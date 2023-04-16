@@ -1,15 +1,15 @@
 import { createRef } from 'react'
 import { useScreenshot, createFileName } from 'use-react-screenshot'
 
-export function useDownloadCardImage() {
+export function useDownloadCardImage(cardTitle: string) {
   const screenshotTargetRef = createRef<any>()
 
   const [, takeScreenShot] = useScreenshot({
-    type: 'image/jpeg',
+    type: 'image/png',
     quality: 1.0,
   })
 
-  function download(image: any, { name = 'img', extension = 'jpg' } = {}) {
+  function download(image: any, { name = cardTitle, extension = 'png' } = {}) {
     const a = document.createElement('a')
     a.href = image
     a.download = createFileName(extension, name)
@@ -25,5 +25,6 @@ export function useDownloadCardImage() {
     }
   }
 
-  return [screenshotTargetRef, downloadTargetScreenshot]
+  // use `as const` to have ts treat this as a Tuple with each item specifically typed, rather than an array with all types as options for all items
+  return [screenshotTargetRef, downloadTargetScreenshot] as const
 }
