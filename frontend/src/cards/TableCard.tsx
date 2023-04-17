@@ -136,6 +136,7 @@ export function TableCard(props: TableCardProps) {
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
                   variable={props.variableConfig.variableFullDisplayName}
+                  fips={props.fips}
                 />
               </div>
             )}

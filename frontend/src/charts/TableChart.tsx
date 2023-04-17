@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import {
   type Column,
   type HeaderGroup,
@@ -32,6 +32,7 @@ import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { NO_DATA_MESSAGE } from './Legend'
 import { useFontSize } from '../utils/hooks/useFontSize'
+import { type Fips } from '../data/utils/Fips'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -54,6 +55,7 @@ export interface TableChartProps {
   breakdownVar: BreakdownVar
   metrics: MetricConfig[]
   variable: string
+  fips: Fips
 }
 
 export function TableChart(props: TableChartProps) {
@@ -173,7 +175,16 @@ export function TableChart(props: TableChartProps) {
     paddingBottom: 10,
   }
 
-  const sentenceCaseName = ['hiv', 'covid', 'copd'].some((substring) =>
+  const metricSubstrings = [
+    'hiv_diagnoses',
+    'hiv_deaths',
+    'hiv_prep',
+    'hiv_prevalence',
+    'covid',
+    'copd',
+  ]
+
+  const sentenceCaseName = metricSubstrings.some((substring) =>
     metricId.includes(substring)
   )
     ? variable
@@ -186,7 +197,8 @@ export function TableChart(props: TableChartProps) {
       ) : (
         <figure>
           <figcaption style={titleStyle}>
-            Data breakdown summary for {sentenceCaseName} in the United States
+            Data breakdown summary for {sentenceCaseName} in{' '}
+            {props.fips.getSentenceDisplayName()}
           </figcaption>
 
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
