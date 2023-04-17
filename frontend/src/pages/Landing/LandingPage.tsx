@@ -80,8 +80,6 @@ function LandingPage() {
             >
               Better Data for Equity
             </Typography>
-            {/* @ts-expect-error */}
-            <button onClick={() => breakIT()}>break</button>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
