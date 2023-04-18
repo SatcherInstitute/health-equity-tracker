@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import {
   type Column,
   type HeaderGroup,
@@ -19,6 +19,7 @@ import {
   type MetricId,
   formatFieldValue,
   SYMBOL_TYPE_LOOKUP,
+  type VariableId,
 } from '../data/config/MetricConfig'
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
@@ -32,6 +33,7 @@ import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { NO_DATA_MESSAGE } from './Legend'
 import { useFontSize } from '../utils/hooks/useFontSize'
+import { type Fips } from '../data/utils/Fips'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -53,14 +55,15 @@ export interface TableChartProps {
   data: Array<Readonly<Record<string, any>>>
   breakdownVar: BreakdownVar
   metrics: MetricConfig[]
-  variable: string
+  variableId: VariableId
+  variableName: string
+  fips: Fips
 }
 
 export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
+  const { data, metrics, breakdownVar, variableId, variableName } = props
 
-  const { data, metrics, breakdownVar, variable } = props
-  const metricId = metrics[0].metricId
   let columns = metrics.map((metricConfig) => {
     return {
       Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
@@ -173,11 +176,21 @@ export function TableChart(props: TableChartProps) {
     paddingBottom: 10,
   }
 
-  const sentenceCaseName = ['hiv', 'covid', 'copd'].some((substring) =>
-    metricId.includes(substring)
-  )
-    ? variable
-    : variable.charAt(0).toLowerCase() + variable.slice(1)
+  const VARIABLE_IDS_NEEDING_UPPERCASE = [
+    'hiv_diagnoses',
+    'hiv_deaths',
+    'hiv_prevalence',
+    'hiv_prep',
+    'covid_cases',
+    'covid_deaths',
+    'covid_hospitalizations',
+    'covid_vaccinations',
+    'copd',
+  ]
+
+  const sentenceCaseName = VARIABLE_IDS_NEEDING_UPPERCASE.includes(variableId)
+    ? variableName
+    : variableName.charAt(0).toLowerCase() + variableName.slice(1)
 
   return (
     <>
@@ -186,7 +199,8 @@ export function TableChart(props: TableChartProps) {
       ) : (
         <figure>
           <figcaption style={titleStyle}>
-            Data breakdown summary for {sentenceCaseName} in the United States
+            Breakdown summary for {sentenceCaseName} in{' '}
+            {props.fips.getSentenceDisplayName()}
           </figcaption>
 
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
