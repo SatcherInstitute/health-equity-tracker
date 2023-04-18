@@ -115,7 +115,7 @@ export function Sources(props: SourcesProps) {
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
-      <>
+      <p>
         Sources:{' '}
         {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
           <React.Fragment key={dataSourceId}>
@@ -137,7 +137,7 @@ export function Sources(props: SourcesProps) {
             {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
           </React.Fragment>
         ))}{' '}
-      </>
+      </p>
     ) : (
       ''
     )
@@ -145,9 +145,11 @@ export function Sources(props: SourcesProps) {
   return (
     <>
       <Grid container className={styles.Footnote}>
-        <Grid item xs={9} xl={10}>
-          {sourcesInfo}
-          {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+        <Grid item xs={9} xl={10} container alignItems={'center'}>
+          <div>
+            {sourcesInfo}
+            {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+          </div>
         </Grid>
         <Grid item xs={3} xl={2} container justifyContent={'flex-end'}>
           {!props.isPopulationCard && props.scrollToHash && (

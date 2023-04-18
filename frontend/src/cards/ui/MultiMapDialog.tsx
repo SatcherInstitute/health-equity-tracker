@@ -254,7 +254,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             metadata={props.metadata}
             downloadTargetScreenshot={downloadTargetScreenshot}
           />
-          <Grid container xs={12} justifyContent={'flex-end'}>
+          <Grid container item xs={12} justifyContent={'flex-end'}>
             <Button onClick={props.handleClose} color="primary">
               Close
             </Button>
