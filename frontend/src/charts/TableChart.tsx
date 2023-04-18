@@ -177,7 +177,6 @@ export function TableChart(props: TableChartProps) {
   }
 
   const VARIABLE_IDS_NEEDING_UPPERCASE = [
-    'hiv_diagnoses',
     'hiv_deaths',
     'hiv_prevalence',
     'hiv_prep',
