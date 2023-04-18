@@ -135,7 +135,9 @@ export function TableCard(props: TableCardProps) {
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
-                  variable={props.variableConfig.variableFullDisplayName}
+                  variableId={props.variableConfig.variableId}
+                  variableName={props.variableConfig.variableFullDisplayName}
+                  fips={props.fips}
                 />
               </div>
             )}
