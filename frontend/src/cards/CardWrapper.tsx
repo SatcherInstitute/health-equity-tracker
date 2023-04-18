@@ -9,7 +9,6 @@ import { Sources } from './ui/Sources'
 import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
-import { DownloadCardImageButton } from './ui/DownloadCardImageButton'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -63,9 +62,6 @@ function CardWrapper(props: {
             component={'article'}
             ref={screenshotTargetRef}
           >
-            <DownloadCardImageButton
-              downloadTargetScreenshot={downloadTargetScreenshot}
-            />
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={'footer'}>
@@ -76,6 +72,7 @@ function CardWrapper(props: {
                   metadata={metadata}
                   hideNH={props.hideNH}
                   scrollToHash={props.scrollToHash}
+                  downloadTargetScreenshot={downloadTargetScreenshot}
                 />
               </CardContent>
             )}

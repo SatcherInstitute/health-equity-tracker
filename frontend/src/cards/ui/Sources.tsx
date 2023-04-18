@@ -11,6 +11,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import CopyLinkButton from './CopyLinkButton'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { Grid } from '@mui/material'
+import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -84,6 +86,7 @@ interface SourcesProps {
   isPopulationCard?: boolean
   hideNH?: boolean
   scrollToHash?: ScrollableHashId
+  downloadTargetScreenshot: () => Promise<boolean>
 }
 
 export function Sources(props: SourcesProps) {
@@ -141,13 +144,22 @@ export function Sources(props: SourcesProps) {
 
   return (
     <>
-      {sourcesInfo}
-      <div className={styles.Footnote}>
-        {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
-        {!props.isPopulationCard && props.scrollToHash && (
-          <CopyLinkButton scrollToHash={props.scrollToHash} />
-        )}
-      </div>
+      <Grid container className={styles.Footnote}>
+        <Grid item xs={9} xl={10}>
+          {sourcesInfo}
+          {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+        </Grid>
+        <Grid item xs={3} xl={2} container justifyContent={'flex-end'}>
+          {!props.isPopulationCard && props.scrollToHash && (
+            <CopyLinkButton scrollToHash={props.scrollToHash} />
+          )}
+          {!props.isPopulationCard && (
+            <DownloadCardImageButton
+              downloadTargetScreenshot={props.downloadTargetScreenshot}
+            />
+          )}
+        </Grid>
+      </Grid>
     </>
   )
 }
