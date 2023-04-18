@@ -5,11 +5,11 @@ test.describe('Tracker Card Downloads', () => {
     test('Download map card image', async ({ page }) => {
 
         // start at HIV in US
-        await page.goto('http://localhost:3000/exploredata?mls=1.hiv_diagnoses-3.00&mlp=disparity');
+        await page.goto('http://localhost:3000/exploredata?mls=1.hiv_diagnoses-3.00&mlp=disparity#rate-map');
 
 
         // click map card download button
-        const downloadButton = await page.locator('#rate-map')
+        const downloadButton = page.locator('#rate-map')
             .getByRole('button', { name: 'Save card image' })
 
         await downloadButton.scrollIntoViewIfNeeded()
