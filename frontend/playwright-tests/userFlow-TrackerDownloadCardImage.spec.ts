@@ -1,11 +1,7 @@
 import { test, expect } from '@playwright/test';
-const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-const VAX_USA_RACE = `mls=1.covid_vaccinations-3.00`
-
 test.describe.configure({ mode: 'parallel' });
 
 test.describe('Tracker Card Downloads', () => {
-
     test('Download map card image', async ({ page }) => {
 
         // start at HIV in US
@@ -18,8 +14,5 @@ test.describe('Tracker Card Downloads', () => {
 
         // expect no errors
         expect(await download.failure()).toBeNull()
-
     })
-
-
 });
