@@ -636,7 +636,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitleLines: ['Rates of linkage to HIV care'],
           trendsCardTitleName: 'Rates of HIV care over time',
           columnTitleHeader: 'Linkage to HIV care',
-          shortLabel: '% Linkage to HIV care',
+          shortLabel: '% linkage to HIV care',
           type: 'pct_share',
         },
         pct_relative_inequity: {
@@ -659,8 +659,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   hiv_diagnoses: [
     {
       variableId: 'hiv_diagnoses',
-      variableDisplayName: 'new HIV diagnoses',
-      variableFullDisplayName: 'new HIV diagnoses',
+      variableDisplayName: 'New HIV diagnoses',
+      variableFullDisplayName: 'New HIV diagnoses',
       variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       metrics: {
@@ -685,9 +685,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: 'hiv_diagnoses_per_100k',
-          chartTitleLines: ['New HIV diagnoses', 'per 100k'],
+          chartTitleLines: ['New HIV diagnoses', 'per 100k people'],
           trendsCardTitleName: 'Rates of new HIV diagnoses over time',
-          columnTitleHeader: 'new HIV diagnoses per 100k',
+          columnTitleHeader: 'New HIV diagnoses per 100k people',
           shortLabel: 'new HIV diagnoses per 100k',
           type: 'per100k',
         },
@@ -736,9 +736,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: 'hiv_deaths_per_100k',
-          chartTitleLines: ['HIV deaths', 'per 100k'],
+          chartTitleLines: ['HIV deaths', 'per 100k people'],
           trendsCardTitleName: 'Rates of HIV deaths over time',
-          columnTitleHeader: 'HIV deaths per 100k',
+          columnTitleHeader: 'HIV deaths per 100k people',
           shortLabel: 'HIV deaths per 100k',
           type: 'per100k',
         },
@@ -839,9 +839,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         per100k: {
           metricId: 'hiv_prevalence_per_100k',
-          chartTitleLines: ['HIV prevalence', 'per 100k'],
+          chartTitleLines: ['HIV prevalence', 'per 100k people'],
           trendsCardTitleName: 'Rates of HIV prevalence over time',
-          columnTitleHeader: 'HIV prevalence per 100k',
+          columnTitleHeader: 'HIV prevalence per 100k people',
           shortLabel: 'HIV prevalence per 100k',
           type: 'per100k',
         },
@@ -1875,7 +1875,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: 'jail_per_100k',
           chartTitleLines: ['Individuals in jail', 'per 100k people'],
           trendsCardTitleName: 'Rates of jail incarceration over time',
-          shortLabel: 'Individuals in jail per 100k',
+          columnTitleHeader: 'Individuals in jail per 100k people',
+          shortLabel: 'individuals in jail per 100k',
           type: 'per100k',
         },
         pct_share: {
