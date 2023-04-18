@@ -145,13 +145,21 @@ export function Sources(props: SourcesProps) {
   return (
     <>
       <Grid container className={styles.Footnote}>
-        <Grid item xs={9} xl={10} container alignItems={'center'}>
+        <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
           <div>
             {sourcesInfo}
             {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
           </div>
         </Grid>
-        <Grid item xs={3} xl={2} container justifyContent={'flex-end'}>
+        <Grid
+          item
+          xs={4}
+          sm={3}
+          md={2}
+          container
+          justifyContent={'flex-end'}
+          alignItems={'flex-end'}
+        >
           {!props.isPopulationCard && props.scrollToHash && (
             <CopyLinkButton scrollToHash={props.scrollToHash} />
           )}
