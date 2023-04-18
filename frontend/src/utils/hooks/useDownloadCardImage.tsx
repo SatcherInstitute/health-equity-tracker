@@ -12,7 +12,13 @@ export function useDownloadCardImage(cardTitle: string) {
   function download(image: any, { name = cardTitle, extension = 'png' } = {}) {
     const a = document.createElement('a')
     a.href = image
-    a.download = createFileName(extension, name)
+    a.download = createFileName(
+      extension,
+      `${name} from Health Equity Tracker ${new Date().toLocaleDateString(
+        undefined,
+        { month: 'short', year: 'numeric' }
+      )}`
+    )
     a.click()
   }
 

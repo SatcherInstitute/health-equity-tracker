@@ -110,7 +110,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={dataName}
+      downloadTitle={filename}
       queries={[mapQuery, alertQuery]}
       loadGeographies={true}
       minHeight={preloadHeight}

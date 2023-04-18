@@ -191,7 +191,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={dataName}
+      downloadTitle={filename}
       queries={queries}
       loadGeographies={true}
       minHeight={preloadHeight}

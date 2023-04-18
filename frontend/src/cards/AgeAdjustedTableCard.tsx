@@ -115,7 +115,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={dataName}
+      downloadTitle={filename}
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}

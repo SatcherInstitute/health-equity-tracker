@@ -83,7 +83,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={dataName}
+      downloadTitle={filename}
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}

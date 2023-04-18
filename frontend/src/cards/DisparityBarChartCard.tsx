@@ -82,7 +82,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const { chartTitle, filename, dataName } = useCreateChartTitle(
+  const { chartTitle, filename } = useCreateChartTitle(
     metricConfig.populationComparisonMetric as MetricConfig,
     locationPhrase
   )
@@ -91,7 +91,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={dataName}
+      downloadTitle={filename}
       queries={[query]}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
