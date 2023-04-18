@@ -26,7 +26,6 @@ import type { Article } from '../WhatIsHealthEquity/NewsTab'
 import { ArticlesSkeleton } from '../WhatIsHealthEquity/News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
-import { Link } from 'react-router-dom'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -78,30 +77,19 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Better Data for Equity
+              Advancing Health Equity
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              Our tracker puts Health Equity first. Envisioned by the Satcher
-              Health Leadership Institute, the Health Equity Tracker is designed
-              to boost inclusivity, highlight at-risk populations, alert users
-              to existing inequities in health data, and so much more.
-            </Typography>
-
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
-              Our goal for this tool is to support the work being done by
-              policymakers, community leaders, researchers, and ultimately all
-              champions for health equity.{' '}
-              <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{' '}
-              and find data to help your community reach their best level of
-              health.
+              The Health Equity Tracker from the Satcher Health Leadership
+              Institute aims to address health disparities by identifying
+              at-risk populations and highlighting data inequities. This
+              flexible, extensible tool supports policymakers, community
+              leaders, and researchers in their efforts to promote health equity
+              and create a more just and equitable society.
             </Typography>
 
             <Box mt={5}>

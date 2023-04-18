@@ -23,11 +23,11 @@
     @include tav300();
     text-align: left;
     color: $alt-green;
-    font-size: $bigHeader;
+    font-size: $header;
     line-height: $lhNormal;
 
     @media (min-width: $sm) {
-      font-size: $biggerHeader;
+      font-size: $bigHeader;
     }
 
     @media (min-width: $lg) {
