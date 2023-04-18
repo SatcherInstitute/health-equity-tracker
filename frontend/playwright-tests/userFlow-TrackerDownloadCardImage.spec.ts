@@ -7,9 +7,10 @@ test.describe('Tracker Card Downloads', () => {
         // start at HIV in US
         await page.goto('http://localhost:3000/exploredata?mls=1.hiv_diagnoses-3.00&mlp=disparity');
 
+        const downloadPromise = page.waitForEvent('download');
+
         // click map card download button
         await page.locator('#rate-map').getByRole('button', { name: 'Save card image' }).click();
-        const downloadPromise = page.waitForEvent('download');
         const download = await downloadPromise;
 
         // expect no errors
