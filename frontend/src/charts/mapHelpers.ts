@@ -34,6 +34,8 @@ export const LEGEND_DATASET = 'LEGEND_DATASET'
 
 export type ScaleType = 'quantize' | 'quantile' | 'symlog'
 
+export const RATE_MAP_SCALE: ScaleType = 'quantile'
+
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
   type: ORDINAL,

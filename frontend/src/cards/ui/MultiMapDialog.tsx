@@ -35,6 +35,7 @@ import {
   getWomenRaceLabel,
 } from '../../data/variables/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
+import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -146,7 +147,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
-                    scaleType="quantize"
+                    scaleType={RATE_MAP_SCALE}
                     geoData={props.geoData}
                     filename={`${props.metricConfig.chartTitleLines.join(' ')}${
                       breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
@@ -176,7 +177,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}
-                            scaleType="quantize"
+                            scaleType={RATE_MAP_SCALE}
                             geoData={props.geoData}
                             overrideShapeWithCircle={true}
                             countColsToAdd={props.countColsToAdd}
@@ -213,7 +214,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     metric={props.metricConfig}
                     legendTitle={props.metricConfig.chartTitleLines.join(' ')}
                     legendData={props.data}
-                    scaleType="quantize"
+                    scaleType={RATE_MAP_SCALE}
                     sameDotSize={true}
                     direction={pageIsWide ? 'horizontal' : 'vertical'}
                     description={'Consistent legend for all displayed maps'}

@@ -55,6 +55,7 @@ import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
+import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -358,7 +359,7 @@ function MapCardWithKey(props: MapCardProps) {
                       !props.fips.isUsa() && !hasSelfButNotChildGeoData
                     }
                     fips={props.fips}
-                    scaleType="quantize"
+                    scaleType={RATE_MAP_SCALE}
                     geoData={geoData}
                     // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                     filename={filename}
@@ -390,7 +391,7 @@ function MapCardWithKey(props: MapCardProps) {
                               hideActions={true}
                               showCounties={false}
                               fips={fips}
-                              scaleType="quantize"
+                              scaleType={RATE_MAP_SCALE}
                               geoData={geoData}
                               overrideShapeWithCircle={true}
                               countColsToAdd={countColsToAdd}
