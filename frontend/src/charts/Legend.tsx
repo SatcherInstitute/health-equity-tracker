@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type MetricConfig } from '../data/config/MetricConfig'
@@ -7,6 +7,8 @@ import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import styles from './Legend.module.scss'
+
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
 export const UNKNOWN_SCALE = 'unknown_scale'
@@ -17,9 +19,9 @@ const DATASET_VALUES = 'dataset_values'
 export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
-export const NO_DATA_MESSAGE = 'insufficient or suppressed data'
+export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
-export const LEGEND_COLOR_COUNT = 7
+export const LEGEND_COLOR_COUNT = 5
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -167,7 +169,8 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <div ref={ref}>
+    <div className={styles.Legend} ref={ref}>
+      <span className={styles.LegendTitle}>{props.legendTitle}</span>
       <Vega renderer="svg" spec={spec} width={width} actions={false} />
     </div>
   )

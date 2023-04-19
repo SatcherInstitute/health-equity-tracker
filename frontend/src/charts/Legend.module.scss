@@ -1,0 +1,11 @@
+@import '../styles/variables.module';
+@import '../styles/globals.scss';
+
+.Legend {
+  text-align: left;
+}
+
+.LegendTitle {
+  text-align: start;
+  font-size: $smallest;
+}
