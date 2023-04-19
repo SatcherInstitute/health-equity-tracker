@@ -3,6 +3,8 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { Fips } from '../../data/utils/Fips'
 import {
+  DEFAULT,
+  MADLIB_LIST,
   getMadLibWithUpdatedValue,
   insertOptionalThe,
   type MadLib,
@@ -10,10 +12,16 @@ import {
 } from '../../utils/MadLibs'
 import OptionsSelector from './OptionsSelector'
 import styles from './ExploreDataPage.module.scss'
+import {
+  MADLIB_PHRASE_PARAM,
+  MADLIB_SELECTIONS_PARAM,
+  setParameters,
+  stringifyMls,
+} from '../../utils/urlutils'
 
 export default function MadLibUI(props: {
   madLib: MadLib
-  setMadLib: (updatedMadLib: MadLib) => void
+  setMadLibWithParam: (updatedMadLib: MadLib) => void
 }) {
   // TODO - this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegement(
@@ -34,6 +42,32 @@ export default function MadLibUI(props: {
 
   const location = useLocation()
 
+  function handleOptionUpdate(newValue: string, index: number) {
+    // madlib with updated topic
+    props.setMadLibWithParam(
+      getMadLibWithUpdatedValue(props.madLib, index, newValue)
+    )
+
+    if (newValue === DEFAULT) {
+      props.setMadLibWithParam(MADLIB_LIST[0])
+      setParameters([
+        {
+          name: MADLIB_SELECTIONS_PARAM,
+          value: stringifyMls(MADLIB_LIST[0].defaultSelections),
+        },
+        {
+          name: MADLIB_PHRASE_PARAM,
+          value: MADLIB_LIST[0].id,
+        },
+      ])
+    }
+    location.hash = ''
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
   return (
     <Grid id="madlib-box" container justifyContent="center" alignItems="center">
       <div className={styles.MadLibUI}>
@@ -49,15 +83,8 @@ export default function MadLibUI(props: {
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) => {
-                    props.setMadLib(
-                      getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
-                    )
-                    location.hash = ''
-                    window.scrollTo({
-                      top: 0,
-                      behavior: 'smooth',
-                    })
+                  onOptionUpdate={(newValue) => {
+                    handleOptionUpdate(newValue, index)
                   }}
                   options={getOptionsFromPhraseSegement(phraseSegment)}
                 />

@@ -145,8 +145,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const [isSticking, setIsSticking] = useState<boolean>(false)
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
-      const toOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
-      if (toOfMadLibContainer) setIsSticking(true)
+      const topOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
+      if (topOfMadLibContainer) setIsSticking(true)
       else setIsSticking(false)
     },
     [isSticking],
@@ -236,7 +236,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div className={styles.MadLibUIContainer} id="madlib-container">
-          <MadLibUI madLib={madLib} setMadLib={setMadLibWithParam} />
+          <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && (
             <p className={styles.LifelineSticky}>
