@@ -179,6 +179,10 @@ function MapCardWithKey(props: MapCardProps) {
     locationPhrase
   )
 
+  // TODO: remove this once we move ALL chart titles to HTML instead of VEGA
+  // TODO: and no longer need multi-line titles sent as string[]
+  if (Array.isArray(chartTitle)) chartTitle = chartTitle.join(' ')
+
   const { metricId } = metricConfig
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
@@ -342,13 +346,13 @@ function MapCardWithKey(props: MapCardProps) {
                   <Grid container>
                     <Grid item xs={12}>
                       <figcaption>
-                        <b>{chartTitle}</b>
+                        <h3 className={styles.MapTitle}>{chartTitle}</h3>
+                        <h4 className={styles.MapSubtitle}>{subtitle}</h4>
                       </figcaption>
                     </Grid>
                     <Grid item xs={10}>
                       <ChoroplethMap
                         signalListeners={signalListeners}
-                        // titles={{ chartTitle, subtitle }}
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel.toLowerCase()}
                         data={
@@ -383,10 +387,6 @@ function MapCardWithKey(props: MapCardProps) {
                               >
                                 <ChoroplethMap
                                   signalListeners={signalListeners}
-                                  // titles={{
-                                  //   chartTitle,
-                                  //   subtitle,
-                                  // }}
                                   metric={metricConfig}
                                   data={
                                     listExpanded
