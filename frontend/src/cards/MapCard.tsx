@@ -1,4 +1,4 @@
-import { CardContent, Grid } from '@mui/material'
+import { CardContent, Grid, useMediaQuery, useTheme } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
@@ -195,6 +195,11 @@ function MapCardWithKey(props: MapCardProps) {
 
   const HASH_ID: ScrollableHashId = 'rate-map'
 
+  const theme = useTheme()
+  const pageIsSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isCompareMode = window.location.href.includes('compare')
+  const mapIsSkinny = pageIsSmall || isCompareMode
+
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -350,7 +355,7 @@ function MapCardWithKey(props: MapCardProps) {
                         <h4 className={styles.MapSubtitle}>{subtitle}</h4>
                       </figcaption>
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={12} lg={10}>
                       <ChoroplethMap
                         signalListeners={signalListeners}
                         metric={metricConfig}
@@ -411,7 +416,7 @@ function MapCardWithKey(props: MapCardProps) {
                       )}
                     </Grid>
                     {/* Legend & Location Info */}
-                    <Grid item xs={2}>
+                    <Grid item xs={12} lg={2}>
                       <Legend
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
@@ -422,7 +427,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
-                        direction={'vertical'}
+                        direction={mapIsSkinny ? 'horizontal' : 'vertical'}
                         description={'Legend for rate map'}
                       />
                     </Grid>
