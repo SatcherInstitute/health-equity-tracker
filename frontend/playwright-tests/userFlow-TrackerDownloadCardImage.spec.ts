@@ -9,8 +9,7 @@ test.describe('Tracker Card Downloads', () => {
 
 
         // click map card download button
-        page.locator('#rate-map')
-            .getByRole('button', { name: 'Save card image' }).click();
+        await page.locator('#rate-map').getByRole('button', { name: 'Save card image' }).click();
         const downloadPromise = page.waitForEvent('download');
         const download = await downloadPromise;
 
