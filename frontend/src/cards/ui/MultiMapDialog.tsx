@@ -34,6 +34,7 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../../data/variables/CawpProvider'
+import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -75,6 +76,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   // calculate page size for responsive layout
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('xl'))
+  const title = `${props.metricConfig.chartTitleLines.join(' ')} across all
+  ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
+
+  const [screenshotTargetRef, downloadTargetScreenshot] =
+    useDownloadCardImage(title)
 
   return (
     <Dialog
@@ -84,19 +90,19 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       maxWidth={false}
       scroll="paper"
       aria-labelledby="modalTitle"
+      ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
-        <Grid container justifyContent="center" component="ul">
+        <Grid container justifyContent="space-between" component="ul">
           {/* Modal Title */}
           <Grid
             item
             xs={12}
             container
-            justifyContent={pageIsWide ? 'flex-start' : 'center'}
+            justifyContent={pageIsWide ? 'flex-start' : 'space-between'}
           >
             <Typography id="modalTitle" variant="h6" component="h2">
-              {props.metricConfig.chartTitleLines.join(' ')} across all{' '}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
+              {title}
             </Typography>
           </Grid>
 
@@ -242,16 +248,17 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer>
-        <div className={styles.FooterButtonContainer}>
-          <Button onClick={props.handleClose} color="primary">
-            Close
-          </Button>
-        </div>
         <div className={styles.FooterSourcesContainer}>
           <Sources
             queryResponses={props.queryResponses}
             metadata={props.metadata}
+            downloadTargetScreenshot={downloadTargetScreenshot}
           />
+          <Grid container item xs={12} justifyContent={'flex-end'}>
+            <Button onClick={props.handleClose} color="primary">
+              Close
+            </Button>
+          </Grid>
         </div>
       </footer>
     </Dialog>

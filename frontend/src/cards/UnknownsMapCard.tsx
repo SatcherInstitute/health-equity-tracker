@@ -110,6 +110,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={filename}
       queries={[mapQuery, alertQuery]}
       loadGeographies={true}
       minHeight={preloadHeight}
@@ -206,6 +207,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   hideLegend={
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
+                  hideActions={true}
                   geoData={geoData}
                   filename={filename}
                   countColsToAdd={countColsToAdd}

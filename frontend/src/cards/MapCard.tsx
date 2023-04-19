@@ -1,7 +1,6 @@
 import { CardContent, Grid } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
-import React, { useState } from 'react'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -55,6 +54,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
+import { useState } from 'react'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -191,6 +191,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={filename}
       queries={queries}
       loadGeographies={true}
       minHeight={preloadHeight}
@@ -334,7 +335,7 @@ function MapCardWithKey(props: MapCardProps) {
             )}
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
-              <>
+              <div>
                 <CardContent>
                   <ChoroplethMap
                     signalListeners={signalListeners}
@@ -348,6 +349,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                     hideMissingDataTooltip={listExpanded}
                     legendData={dataForActiveBreakdownFilter}
+                    hideActions={true}
                     hideLegend={
                       mapQueryResponse.dataIsMissing() ||
                       dataForActiveBreakdownFilter.length <= 1
@@ -470,7 +472,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                   />
                 )}
-              </>
+              </div>
             )}
           </>
         )

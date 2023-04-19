@@ -95,6 +95,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={filename}
       queries={[inequityQuery, pctShareQuery]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}

@@ -23,6 +23,7 @@ export function PopulationCard(props: PopulationCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={`Location info for ${props.fips.getFullDisplayName()}`}
       isPopulationCard={true}
       minHeight={PRELOAD_HEIGHT}
       queries={queries}

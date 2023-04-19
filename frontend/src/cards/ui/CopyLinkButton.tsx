@@ -38,6 +38,7 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
           className={styles.CopyLinkButton}
           aria-label={title}
           onClick={handleClick}
+          sx={{ width: '3rem', height: '3rem' }}
         >
           <LinkIcon />
         </IconButton>

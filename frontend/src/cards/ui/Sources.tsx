@@ -11,6 +11,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import CopyLinkButton from './CopyLinkButton'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { Grid } from '@mui/material'
+import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -84,6 +86,7 @@ interface SourcesProps {
   isPopulationCard?: boolean
   hideNH?: boolean
   scrollToHash?: ScrollableHashId
+  downloadTargetScreenshot: () => Promise<boolean>
 }
 
 export function Sources(props: SourcesProps) {
@@ -112,7 +115,7 @@ export function Sources(props: SourcesProps) {
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
-      <>
+      <p>
         Sources:{' '}
         {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
           <React.Fragment key={dataSourceId}>
@@ -134,20 +137,39 @@ export function Sources(props: SourcesProps) {
             {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
           </React.Fragment>
         ))}{' '}
-      </>
+      </p>
     ) : (
       ''
     )
 
   return (
     <>
-      {sourcesInfo}
-      <div className={styles.Footnote}>
-        {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
-        {!props.isPopulationCard && props.scrollToHash && (
-          <CopyLinkButton scrollToHash={props.scrollToHash} />
-        )}
-      </div>
+      <Grid container className={styles.Footnote}>
+        <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
+          <div>
+            {sourcesInfo}
+            {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+          </div>
+        </Grid>
+        <Grid
+          item
+          xs={4}
+          sm={3}
+          md={2}
+          container
+          justifyContent={'flex-end'}
+          alignItems={'flex-end'}
+        >
+          {!props.isPopulationCard && props.scrollToHash && (
+            <CopyLinkButton scrollToHash={props.scrollToHash} />
+          )}
+          {!props.isPopulationCard && (
+            <DownloadCardImageButton
+              downloadTargetScreenshot={props.downloadTargetScreenshot}
+            />
+          )}
+        </Grid>
+      </Grid>
     </>
   )
 }

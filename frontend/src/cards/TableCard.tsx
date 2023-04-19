@@ -104,6 +104,9 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={`Table card for ${
+        props.variableConfig.variableFullDisplayName
+      } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}

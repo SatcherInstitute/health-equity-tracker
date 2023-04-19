@@ -83,6 +83,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={filename}
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
@@ -115,6 +116,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     showLegend={false}
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
+                    hideActions={true}
                   />
                   {isIncarceration && (
                     <IncarceratedChildrenShortAlert
