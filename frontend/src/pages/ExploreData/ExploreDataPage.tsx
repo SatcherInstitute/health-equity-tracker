@@ -145,8 +145,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const [isSticking, setIsSticking] = useState<boolean>(false)
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
-      const toOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
-      if (toOfMadLibContainer) setIsSticking(true)
+      const topOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
+      if (topOfMadLibContainer) setIsSticking(true)
       else setIsSticking(false)
     },
     [isSticking],

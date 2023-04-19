@@ -3,6 +3,8 @@ import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { Fips } from '../../data/utils/Fips'
 import {
+  DEFAULT,
+  MADLIB_LIST,
   getMadLibWithUpdatedValue,
   insertOptionalThe,
   type MadLib,
@@ -49,10 +51,14 @@ export default function MadLibUI(props: {
                 <OptionsSelector
                   key={index}
                   value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(fipsCode: string) => {
+                  onOptionUpdate={(newValue: string) => {
+                    // madlib with updated topic
                     props.setMadLib(
-                      getMadLibWithUpdatedValue(props.madLib, index, fipsCode)
+                      getMadLibWithUpdatedValue(props.madLib, index, newValue)
                     )
+
+                    if (newValue === DEFAULT) props.setMadLib(MADLIB_LIST[0])
+
                     location.hash = ''
                     window.scrollTo({
                       top: 0,
