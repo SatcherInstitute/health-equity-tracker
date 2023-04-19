@@ -72,4 +72,34 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
 
 });
 
+test('Clear topic button from Compare Locations mode returns tracker to default state', async ({ page }) => {
+    // start at tracker default page (implicit default params)
+    await page.goto('http://localhost:3000/exploredata');
+
+    // choose sample compare mode report
+    await page.getByRole('link', { name: 'Uninsurance in Florida & California, by sex' }).click();
+
+    // clear topic
+    await page.getByRole('button', { name: 'Uninsured Individuals', exact: true }).click();
+    await page.getByRole('button', { name: 'Clear topic selection' }).click();
+
+    // should return to default page (with explicit params)
+    await expect(page).toHaveURL('http://localhost:3000/exploredata?mls=1.default-3.00&mlp=disparity');
+});
+
+test('Clear topic button from Compare Topics mode returns tracker to default state', async ({ page }) => {
+    // start at tracker default page (implicit default params)
+    await page.goto('http://localhost:3000/exploredata');
+
+    // choose sample compare mode report
+    await page.getByRole('link', { name: 'Prison & poverty in Georgia, by race' }).click();
+
+    // clear topic
+    await page.getByRole('button', { name: 'Poverty', exact: true }).click();
+    await page.getByRole('button', { name: 'Clear topic selection' }).click();
+
+    // should return to default page (with explicit params)
+    await expect(page).toHaveURL('http://localhost:3000/exploredata?mls=1.default-3.00&mlp=disparity');
+
+});
 

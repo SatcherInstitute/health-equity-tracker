@@ -12,10 +12,16 @@ import {
 } from '../../utils/MadLibs'
 import OptionsSelector from './OptionsSelector'
 import styles from './ExploreDataPage.module.scss'
+import {
+  MADLIB_PHRASE_PARAM,
+  MADLIB_SELECTIONS_PARAM,
+  setParameters,
+  stringifyMls,
+} from '../../utils/urlutils'
 
 export default function MadLibUI(props: {
   madLib: MadLib
-  setMadLib: (updatedMadLib: MadLib) => void
+  setMadLibWithParam: (updatedMadLib: MadLib) => void
 }) {
   // TODO - this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegement(
@@ -53,11 +59,23 @@ export default function MadLibUI(props: {
                   value={props.madLib.activeSelections[index]}
                   onOptionUpdate={(newValue: string) => {
                     // madlib with updated topic
-                    props.setMadLib(
+                    props.setMadLibWithParam(
                       getMadLibWithUpdatedValue(props.madLib, index, newValue)
                     )
 
-                    if (newValue === DEFAULT) props.setMadLib(MADLIB_LIST[0])
+                    if (newValue === DEFAULT) {
+                      props.setMadLibWithParam(MADLIB_LIST[0])
+                      setParameters([
+                        {
+                          name: MADLIB_SELECTIONS_PARAM,
+                          value: stringifyMls(MADLIB_LIST[0].defaultSelections),
+                        },
+                        {
+                          name: MADLIB_PHRASE_PARAM,
+                          value: MADLIB_LIST[0].id,
+                        },
+                      ])
+                    }
 
                     location.hash = ''
                     window.scrollTo({
