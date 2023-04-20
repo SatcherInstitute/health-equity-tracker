@@ -148,7 +148,7 @@ export function Sources(props: SourcesProps) {
         <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
           <div>
             {sourcesInfo}
-            {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
+            {showNhFootnote && <p>Note. NH: Non-Hispanic. </p>}
           </div>
         </Grid>
         <Grid

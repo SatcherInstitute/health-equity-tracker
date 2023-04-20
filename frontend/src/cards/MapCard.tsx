@@ -281,6 +281,10 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
 
+        const legendData = listExpanded
+          ? highestValues.concat(lowestValues)
+          : dataForActiveBreakdownFilter
+
         return (
           <>
             <MultiMapDialog
@@ -417,19 +421,17 @@ function MapCardWithKey(props: MapCardProps) {
                     </Grid>
                     {/* Legend & Location Info */}
                     <Grid item xs={12} md={mapIsWide ? 2 : 12}>
-                      <Legend
-                        metric={metricConfig}
-                        legendTitle={metricConfig.shortLabel}
-                        legendData={
-                          listExpanded
-                            ? highestValues.concat(lowestValues)
-                            : dataForActiveBreakdownFilter
-                        }
-                        scaleType={RATE_MAP_SCALE}
-                        sameDotSize={true}
-                        direction={mapIsWide ? 'vertical' : 'horizontal'}
-                        description={'Legend for rate map'}
-                      />
+                      {legendData.length > 1 && highestValues.length > 1 ? (
+                        <Legend
+                          metric={metricConfig}
+                          legendTitle={metricConfig.shortLabel}
+                          legendData={legendData}
+                          scaleType={RATE_MAP_SCALE}
+                          sameDotSize={true}
+                          direction={mapIsWide ? 'vertical' : 'horizontal'}
+                          description={'Legend for rate map'}
+                        />
+                      ) : null}
                     </Grid>
                   </Grid>
 
