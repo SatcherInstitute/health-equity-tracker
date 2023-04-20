@@ -119,7 +119,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
-  const heightWidthRatio = 0.75
+  const heightWidthRatio = 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})

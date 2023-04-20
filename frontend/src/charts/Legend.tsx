@@ -21,7 +21,7 @@ export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
 export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
-export const LEGEND_COLOR_COUNT = 5
+export const LEGEND_COLOR_COUNT = 6
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -71,7 +71,7 @@ export function Legend(props: LegendProps) {
       ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
-    const legendList = [
+    const legendList: any[] = [
       {
         fill: COLOR_SCALE,
         labelOverlap: 'greedy',
@@ -82,7 +82,7 @@ export function Legend(props: LegendProps) {
         labelFont: LEGEND_TEXT_FONT,
         direction: props.direction,
         orient: 'left',
-        columns: props.direction === 'horizontal' ? 2 : 1,
+        columns: props.direction === 'horizontal' ? 3 : 1,
       },
       {
         fill: UNKNOWN_SCALE,
@@ -93,6 +93,18 @@ export function Legend(props: LegendProps) {
         orient: props.direction === 'vertical' ? 'left' : 'right',
       },
     ]
+
+    if (props.metric.type === 'pct_share') {
+      legendList[0].encode = {
+        labels: {
+          update: {
+            text: {
+              signal: `datum.label + '%'`,
+            },
+          },
+        },
+      }
+    }
 
     // 0 should appear first, then numbers, then "insufficient"
     if (isCawp) legendList.reverse()
