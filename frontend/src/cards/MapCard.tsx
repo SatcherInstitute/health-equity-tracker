@@ -1,4 +1,4 @@
-import { CardContent, Grid } from '@mui/material'
+import { CardContent, Grid, useMediaQuery, useTheme } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
@@ -55,6 +55,8 @@ import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
+import { RATE_MAP_SCALE } from '../charts/mapHelpers'
+import { Legend } from '../charts/Legend'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -177,6 +179,10 @@ function MapCardWithKey(props: MapCardProps) {
     locationPhrase
   )
 
+  // TODO: remove this once we move ALL chart titles to HTML instead of VEGA
+  // TODO: and no longer need multi-line titles sent as string[]
+  if (Array.isArray(chartTitle)) chartTitle = chartTitle.join(' ')
+
   const { metricId } = metricConfig
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
@@ -188,6 +194,11 @@ function MapCardWithKey(props: MapCardProps) {
   filename = `${filename} ${subtitle ? `for ${subtitle}` : ''}`
 
   const HASH_ID: ScrollableHashId = 'rate-map'
+
+  const theme = useTheme()
+  const pageIsSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const isCompareMode = window.location.href.includes('compare')
+  const mapIsWide = !pageIsSmall && !isCompareMode
 
   return (
     <CardWrapper
@@ -337,69 +348,90 @@ function MapCardWithKey(props: MapCardProps) {
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <div>
                 <CardContent>
-                  <ChoroplethMap
-                    signalListeners={signalListeners}
-                    titles={{ chartTitle, subtitle }}
-                    metric={metricConfig}
-                    legendTitle={metricConfig.shortLabel.toLowerCase()}
-                    data={
-                      listExpanded
-                        ? highestValues.concat(lowestValues)
-                        : dataForActiveBreakdownFilter
-                    }
-                    hideMissingDataTooltip={listExpanded}
-                    legendData={dataForActiveBreakdownFilter}
-                    hideActions={true}
-                    hideLegend={
-                      mapQueryResponse.dataIsMissing() ||
-                      dataForActiveBreakdownFilter.length <= 1
-                    }
-                    showCounties={
-                      !props.fips.isUsa() && !hasSelfButNotChildGeoData
-                    }
-                    fips={props.fips}
-                    scaleType="quantize"
-                    geoData={geoData}
-                    // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                    filename={filename}
-                    listExpanded={listExpanded}
-                    countColsToAdd={countColsToAdd}
-                  />
-                  {/* generate additional VEGA canvases for territories on national map */}
-                  {props.fips.isUsa() && (
-                    <div className={styles.TerritoryCirclesContainer}>
-                      {TERRITORY_CODES.map((code) => {
-                        const fips = new Fips(code)
-                        return (
-                          <div className={styles.TerritoryCircle} key={code}>
-                            <ChoroplethMap
-                              signalListeners={signalListeners}
-                              titles={{
-                                chartTitle,
-                                subtitle,
-                              }}
-                              metric={metricConfig}
-                              data={
-                                listExpanded
-                                  ? highestValues.concat(lowestValues)
-                                  : dataForActiveBreakdownFilter
-                              }
-                              hideMissingDataTooltip={listExpanded}
-                              legendData={dataForActiveBreakdownFilter}
-                              hideLegend={true}
-                              hideActions={true}
-                              showCounties={false}
-                              fips={fips}
-                              scaleType="quantize"
-                              geoData={geoData}
-                              overrideShapeWithCircle={true}
-                              countColsToAdd={countColsToAdd}
-                            />
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )}
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <figcaption>
+                        <h3 className={styles.MapTitle}>{chartTitle}</h3>
+                        <h4 className={styles.MapSubtitle}>{subtitle}</h4>
+                      </figcaption>
+                    </Grid>
+                    <Grid item xs={12} md={mapIsWide ? 10 : 12}>
+                      <ChoroplethMap
+                        signalListeners={signalListeners}
+                        metric={metricConfig}
+                        legendTitle={metricConfig.shortLabel.toLowerCase()}
+                        data={
+                          listExpanded
+                            ? highestValues.concat(lowestValues)
+                            : dataForActiveBreakdownFilter
+                        }
+                        hideMissingDataTooltip={listExpanded}
+                        legendData={dataForActiveBreakdownFilter}
+                        hideActions={true}
+                        hideLegend={true}
+                        showCounties={
+                          !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                        }
+                        fips={props.fips}
+                        scaleType={RATE_MAP_SCALE}
+                        geoData={geoData}
+                        // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
+                        filename={filename}
+                        listExpanded={listExpanded}
+                        countColsToAdd={countColsToAdd}
+                      />
+                      {/* generate additional VEGA canvases for territories on national map */}
+                      {props.fips.isUsa() && (
+                        <div className={styles.TerritoryCirclesContainer}>
+                          {TERRITORY_CODES.map((code) => {
+                            const fips = new Fips(code)
+                            return (
+                              <div
+                                className={styles.TerritoryCircle}
+                                key={code}
+                              >
+                                <ChoroplethMap
+                                  signalListeners={signalListeners}
+                                  metric={metricConfig}
+                                  data={
+                                    listExpanded
+                                      ? highestValues.concat(lowestValues)
+                                      : dataForActiveBreakdownFilter
+                                  }
+                                  hideMissingDataTooltip={listExpanded}
+                                  legendData={dataForActiveBreakdownFilter}
+                                  hideLegend={true}
+                                  hideActions={true}
+                                  showCounties={false}
+                                  fips={fips}
+                                  scaleType={RATE_MAP_SCALE}
+                                  geoData={geoData}
+                                  overrideShapeWithCircle={true}
+                                  countColsToAdd={countColsToAdd}
+                                />
+                              </div>
+                            )
+                          })}
+                        </div>
+                      )}
+                    </Grid>
+                    {/* Legend & Location Info */}
+                    <Grid item xs={12} md={mapIsWide ? 2 : 12}>
+                      <Legend
+                        metric={metricConfig}
+                        legendTitle={metricConfig.shortLabel}
+                        legendData={
+                          listExpanded
+                            ? highestValues.concat(lowestValues)
+                            : dataForActiveBreakdownFilter
+                        }
+                        scaleType={RATE_MAP_SCALE}
+                        sameDotSize={true}
+                        direction={mapIsWide ? 'vertical' : 'horizontal'}
+                        description={'Legend for rate map'}
+                      />
+                    </Grid>
+                  </Grid>
 
                   {!mapQueryResponse.dataIsMissing() &&
                     dataForActiveBreakdownFilter.length > 1 && (

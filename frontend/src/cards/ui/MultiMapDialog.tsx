@@ -20,7 +20,6 @@ import {
 import {
   type MetricConfig,
   type MetricId,
-  SYMBOL_TYPE_LOOKUP,
 } from '../../data/config/MetricConfig'
 import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
@@ -35,6 +34,7 @@ import {
   getWomenRaceLabel,
 } from '../../data/variables/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
+import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -146,7 +146,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
-                    scaleType="quantize"
+                    scaleType={RATE_MAP_SCALE}
                     geoData={props.geoData}
                     filename={`${props.metricConfig.chartTitleLines.join(' ')}${
                       breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
@@ -176,7 +176,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}
-                            scaleType="quantize"
+                            scaleType={RATE_MAP_SCALE}
                             geoData={props.geoData}
                             overrideShapeWithCircle={true}
                             countColsToAdd={props.countColsToAdd}
@@ -206,14 +206,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <Box mt={pageIsWide ? 10 : 0}>
               <Grid container item>
                 <Grid container justifyContent="center">
-                  <b>Legend ({SYMBOL_TYPE_LOOKUP[props.metricConfig.type]})</b>
+                  <b>Legend: {props.metricConfig.shortLabel}</b>
                 </Grid>
                 <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
-                    legendTitle={props.metricConfig.chartTitleLines.join(' ')}
+                    legendTitle={''}
                     legendData={props.data}
-                    scaleType="quantize"
+                    scaleType={RATE_MAP_SCALE}
                     sameDotSize={true}
                     direction={pageIsWide ? 'horizontal' : 'vertical'}
                     description={'Consistent legend for all displayed maps'}

@@ -13,7 +13,6 @@ import {
   NO_DATA_MESSAGE,
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
-import { PADDING_FOR_ACTIONS_MENU } from './utils'
 import {
   addCAWPTooltipInfo,
   buildTooltipTemplate,
@@ -120,7 +119,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
-  const heightWidthRatio = pageIsTiny ? 1 : 0.5
+  const heightWidthRatio = 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
@@ -477,13 +476,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     fontSize,
   ])
 
-  const mapStyle = {
-    width: '90%',
-    marginRight: PADDING_FOR_ACTIONS_MENU,
-  }
-
   return (
-    <div ref={ref} style={mapStyle}>
+    <div ref={ref}>
       {shouldRenderMap && (
         <Vega
           renderer="svg"
