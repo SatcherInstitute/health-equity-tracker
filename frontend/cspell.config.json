@@ -1,4 +1,5 @@
 {
+	"allowCompoundWords": true,
 	"minWordLength": 3,
 	"words": [
 		"AAMC",

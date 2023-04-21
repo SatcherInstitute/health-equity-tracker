@@ -23,7 +23,7 @@ export default function WhatIsHealthEquityPage() {
   const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
   const [tabLayout, setTabLayout] = React.useState({})
 
-  // when screen width changes, update tab spacing material UI attribute
+  // when screen width changes, update tab spacing MUI attribute
   useEffect(() => {
     setTabLayout(pageIsWide ? { centered: true } : { variant: 'fullWidth' })
   }, [pageIsWide])
