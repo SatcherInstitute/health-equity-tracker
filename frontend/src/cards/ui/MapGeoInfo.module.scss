@@ -1,0 +1,9 @@
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
+
+.MapGeoInfoBox {
+  text-align: left;
+  padding-block: 1rem;
+  padding-inline: 0px;
+  font-size: $small;
+}

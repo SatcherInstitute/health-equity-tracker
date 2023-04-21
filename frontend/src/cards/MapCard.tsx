@@ -45,7 +45,6 @@ import { HighestLowestList } from './ui/HighestLowestList'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
-import { RateInfoAlert } from './ui/RateInfoAlert'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateSubtitle } from '../charts/utils'
@@ -57,6 +56,7 @@ import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
+import MapGeoInfo from './ui/MapGeoInfo'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -219,6 +219,7 @@ function MapCardWithKey(props: MapCardProps) {
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? geoQueryResponse
           : childGeoQueryResponse
+
         const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null
 
         const sortArgs =
@@ -430,6 +431,15 @@ function MapCardWithKey(props: MapCardProps) {
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                       />
+
+                      <MapGeoInfo
+                        overallQueryResponse={geoQueryResponse}
+                        currentBreakdown={props.currentBreakdown}
+                        activeBreakdownFilter={activeBreakdownFilter}
+                        metricConfig={metricConfig}
+                        fips={props.fips}
+                        variableConfig={props.variableConfig}
+                      />
                     </Grid>
                   </Grid>
 
@@ -484,7 +494,7 @@ function MapCardWithKey(props: MapCardProps) {
                     </CardContent>
                   )}
 
-                {!mapQueryResponse.dataIsMissing() &&
+                {/* {!mapQueryResponse.dataIsMissing() &&
                   !!dataForActiveBreakdownFilter.length && (
                     <RateInfoAlert
                       overallQueryResponse={geoQueryResponse}
@@ -495,7 +505,7 @@ function MapCardWithKey(props: MapCardProps) {
                       setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
                       variableConfig={props.variableConfig}
                     />
-                  )}
+                  )} */}
 
                 {hasSelfButNotChildGeoData && (
                   <CountyUnavailableAlert
