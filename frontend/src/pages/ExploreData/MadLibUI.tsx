@@ -24,7 +24,7 @@ export default function MadLibUI(props: {
   setMadLibWithParam: (updatedMadLib: MadLib) => void
 }) {
   // TODO - this isn't efficient, these should be stored in an ordered way
-  function getOptionsFromPhraseSegement(
+  function getOptionsFromPhraseSegment(
     phraseSegment: PhraseSegment
   ): Fips[] | string[][] {
     // check first option to tell if phraseSegment is FIPS or CONDITIONS
@@ -86,7 +86,7 @@ export default function MadLibUI(props: {
                   onOptionUpdate={(newValue) => {
                     handleOptionUpdate(newValue, index)
                   }}
-                  options={getOptionsFromPhraseSegement(phraseSegment)}
+                  options={getOptionsFromPhraseSegment(phraseSegment)}
                 />
               )}
             </React.Fragment>

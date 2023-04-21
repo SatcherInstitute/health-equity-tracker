@@ -58,13 +58,13 @@ function getMadLibPhraseText(madLib: MadLib): string {
 /* Returns a copy of the MadLib with with an updated value in the given phrase segment index */
 export function getMadLibWithUpdatedValue(
   originalMadLib: MadLib,
-  phraseSegementIndex: number,
+  phraseSegmentIndex: number,
   newValue: DropdownVarId | string // condition or numeric-string FIPS code
 ) {
   const updatePhraseSelections: PhraseSelections = {
     ...originalMadLib.activeSelections,
   }
-  updatePhraseSelections[phraseSegementIndex] = newValue
+  updatePhraseSelections[phraseSegmentIndex] = newValue
   return {
     ...originalMadLib,
     activeSelections: updatePhraseSelections,
