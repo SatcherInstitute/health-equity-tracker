@@ -522,7 +522,7 @@ function EquityTab() {
                   >
                     <a
                       href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
-                      aria-label="Kennedy Satcher Article - The Mental Fitness of Our Children"
+                      aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
                     >
                       <img
                         className={styles.NewsAndStoriesSmallImg}
