@@ -132,7 +132,7 @@ function EquityTab() {
     <>
       <div>
         <Helmet>
-          <title>What is Health Equity - Health Equity Tracker</title>
+          <title>What is Health Equity? - Health Equity Tracker</title>
         </Helmet>
         <Grid container className={styles.Grid}>
           <Grid
