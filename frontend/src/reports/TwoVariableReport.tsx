@@ -584,7 +584,7 @@ function RowOfTwoOptionalMetrics(props: {
   // Needed for type safety, used when the card does not need to use the fips update callback
   const unusedFipsCallback = () => {}
 
-  const dontLazyLoadCard = NON_LAZYLOADED_CARDS.includes(props.id)
+  const doNotLazyLoadCard = NON_LAZYLOADED_CARDS.includes(props.id)
   return (
     <>
       <Grid
@@ -596,7 +596,7 @@ function RowOfTwoOptionalMetrics(props: {
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         {/* render with or without LazyLoad wrapped based on card id */}
-        {props.variableConfig1 && dontLazyLoadCard && (
+        {props.variableConfig1 && doNotLazyLoadCard && (
           <>
             {props.createCard(
               props.variableConfig1,
@@ -609,7 +609,7 @@ function RowOfTwoOptionalMetrics(props: {
         )}
 
         <LazyLoad offset={800} height={750}>
-          {props.variableConfig1 && !dontLazyLoadCard && (
+          {props.variableConfig1 && !doNotLazyLoadCard && (
             <>
               {props.createCard(
                 props.variableConfig1,
@@ -630,7 +630,7 @@ function RowOfTwoOptionalMetrics(props: {
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
-        {props.variableConfig2 && dontLazyLoadCard && (
+        {props.variableConfig2 && doNotLazyLoadCard && (
           <>
             {props.createCard(
               props.variableConfig2,
@@ -643,7 +643,7 @@ function RowOfTwoOptionalMetrics(props: {
         )}
 
         <LazyLoad offset={800} height={600} once>
-          {props.variableConfig2 && !dontLazyLoadCard && (
+          {props.variableConfig2 && !doNotLazyLoadCard && (
             <>
               {props.createCard(
                 props.variableConfig2,

@@ -190,8 +190,8 @@ export function setParameters(paramMap: ParamKeyValue[]) {
   window.history.pushState({}, '', base + '?' + searchParams.toString())
 }
 
-const defaultHandler = <T,>(inp: string | null): T => {
-  return inp as unknown as T
+const defaultHandler = <T,>(input: string | null): T => {
+  return input as unknown as T
 }
 
 export function removeParamAndReturnValue<T1>(

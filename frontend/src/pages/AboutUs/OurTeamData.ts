@@ -104,7 +104,7 @@ export const LEADERSHIP_TEAM = [
     imageUrl: Elias,
   },
 ]
-
+/* cSpell:disable */
 export const GOOGLE_FELLOWS = [
   {
     name: 'Chelsea Seabron',
