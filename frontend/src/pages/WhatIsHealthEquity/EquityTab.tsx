@@ -507,7 +507,7 @@ function EquityTab() {
                       />
                       <h4 className={styles.NewsAndStoriesTitleText}>
                         How complete are the CDC's COVID-19 case surveillance
-                        datasets for race/ethnicity at tte state and county
+                        datasets for race/ethnicity at the state and county
                         levels?
                       </h4>
                     </a>
