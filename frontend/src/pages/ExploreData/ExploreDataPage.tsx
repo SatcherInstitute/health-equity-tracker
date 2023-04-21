@@ -82,7 +82,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   useEffect(() => {
     const readParams = () => {
       const index = getParameter(MADLIB_PHRASE_PARAM, 0, (str) => {
-        return MADLIB_LIST.findIndex((ele) => ele.id === str)
+        return MADLIB_LIST.findIndex((element) => element.id === str)
       })
       const selection = getParameter(
         MADLIB_SELECTIONS_PARAM,

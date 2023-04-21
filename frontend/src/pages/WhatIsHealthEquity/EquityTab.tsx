@@ -132,7 +132,7 @@ function EquityTab() {
     <>
       <div>
         <Helmet>
-          <title>What is Health Equity - Health Equity Tracker</title>
+          <title>What is Health Equity? - Health Equity Tracker</title>
         </Helmet>
         <Grid container className={styles.Grid}>
           <Grid
@@ -507,7 +507,7 @@ function EquityTab() {
                       />
                       <h4 className={styles.NewsAndStoriesTitleText}>
                         How complete are the CDC's COVID-19 case surveillance
-                        datasets for race/ethnicity at Tte state and county
+                        datasets for race/ethnicity at the state and county
                         levels?
                       </h4>
                     </a>
