@@ -5,7 +5,11 @@
 }
 
 .CurrentCrumb {
-  @include inter700();
+  padding: 3px;
+  color: black !important;
+}
+
+.NoteCrumb {
   padding: 3px;
   color: black !important;
 }

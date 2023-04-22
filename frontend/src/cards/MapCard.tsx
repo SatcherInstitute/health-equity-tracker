@@ -26,7 +26,7 @@ import {
 } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
-import { Fips, TERRITORY_CODES } from '../data/utils/Fips'
+import { Fips } from '../data/utils/Fips'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
@@ -58,6 +58,7 @@ import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import MapGeoInfo from './ui/MapGeoInfo'
 import PopulationFootnote from './ui/PopulationFootnote'
+import TerritoryCircles from './ui/TerritoryCircles'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -149,12 +150,20 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ]
 
+  // Population count
+  const popBreakdown = Breakdowns.forFips(props.fips)
+  const popQuery = new MetricQuery(
+    /* MetricId(s) */ ['population'],
+    /* Breakdowns */ popBreakdown
+  )
+  queries.push(popQuery)
+
   // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */ 'svi',
+      /* MetricId(s) */ ['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)
@@ -221,7 +230,9 @@ function MapCardWithKey(props: MapCardProps) {
           ? geoQueryResponse
           : childGeoQueryResponse
 
-        const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null
+        const popQueryResponse: MetricQueryResponse = queryResponses[2] || null
+
+        const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
 
         const sortArgs =
           props.currentBreakdown === 'age'
@@ -382,40 +393,6 @@ function MapCardWithKey(props: MapCardProps) {
                         listExpanded={listExpanded}
                         countColsToAdd={countColsToAdd}
                       />
-                      {/* generate additional VEGA canvases for territories on national map */}
-                      {props.fips.isUsa() && (
-                        <div className={styles.TerritoryCirclesContainer}>
-                          {TERRITORY_CODES.map((code) => {
-                            const fips = new Fips(code)
-                            return (
-                              <div
-                                className={styles.TerritoryCircle}
-                                key={code}
-                              >
-                                <ChoroplethMap
-                                  signalListeners={signalListeners}
-                                  metric={metricConfig}
-                                  data={
-                                    listExpanded
-                                      ? highestValues.concat(lowestValues)
-                                      : dataForActiveBreakdownFilter
-                                  }
-                                  hideMissingDataTooltip={listExpanded}
-                                  legendData={dataForActiveBreakdownFilter}
-                                  hideLegend={true}
-                                  hideActions={true}
-                                  showCounties={false}
-                                  fips={fips}
-                                  scaleType={RATE_MAP_SCALE}
-                                  geoData={geoData}
-                                  overrideShapeWithCircle={true}
-                                  countColsToAdd={countColsToAdd}
-                                />
-                              </div>
-                            )
-                          })}
-                        </div>
-                      )}
                     </Grid>
                     {/* Legend & Location Info */}
                     <Grid item xs={12} md={mapIsWide ? 2 : 12}>
@@ -441,6 +418,44 @@ function MapCardWithKey(props: MapCardProps) {
                         fips={props.fips}
                         variableConfig={props.variableConfig}
                       />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      container
+                      justifyContent={'space-evenly'}
+                      alignItems={'center'}
+                    >
+                      <Grid item xs={props.fips.isUsa() ? 6 : 12}>
+                        <PopulationFootnote
+                          fips={props.fips}
+                          totalPopulation={
+                            popQueryResponse?.data?.[0].population?.toLocaleString() ??
+                            null
+                          }
+                          selectedPopulation={10}
+                          selectedGroup={activeBreakdownFilter}
+                          updateFipsCallback={props.updateFipsCallback}
+                          variableConfig={props.variableConfig}
+                        />
+                      </Grid>
+
+                      {props.fips.isUsa() && (
+                        <Grid item>
+                          <TerritoryCircles
+                            data={
+                              listExpanded
+                                ? highestValues.concat(lowestValues)
+                                : dataForActiveBreakdownFilter
+                            }
+                            countColsToAdd={countColsToAdd}
+                            listExpanded={listExpanded}
+                            metricConfig={metricConfig}
+                            signalListeners={signalListeners}
+                            geoData={geoData}
+                          />
+                        </Grid>
+                      )}
                     </Grid>
                   </Grid>
 
@@ -504,11 +519,6 @@ function MapCardWithKey(props: MapCardProps) {
                 )}
               </div>
             )}
-            <PopulationFootnote
-              totalPopulation={100}
-              selectedPopulation={10}
-              selectedGroup={activeBreakdownFilter}
-            />
           </>
         )
       }}
