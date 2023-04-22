@@ -57,6 +57,7 @@ import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import MapGeoInfo from './ui/MapGeoInfo'
+import PopulationFootnote from './ui/PopulationFootnote'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -494,19 +495,6 @@ function MapCardWithKey(props: MapCardProps) {
                     </CardContent>
                   )}
 
-                {/* {!mapQueryResponse.dataIsMissing() &&
-                  !!dataForActiveBreakdownFilter.length && (
-                    <RateInfoAlert
-                      overallQueryResponse={geoQueryResponse}
-                      currentBreakdown={props.currentBreakdown}
-                      activeBreakdownFilter={activeBreakdownFilter}
-                      metricConfig={metricConfig}
-                      fips={props.fips}
-                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                      variableConfig={props.variableConfig}
-                    />
-                  )} */}
-
                 {hasSelfButNotChildGeoData && (
                   <CountyUnavailableAlert
                     variableFullDisplayName={
@@ -516,6 +504,11 @@ function MapCardWithKey(props: MapCardProps) {
                 )}
               </div>
             )}
+            <PopulationFootnote
+              totalPopulation={100}
+              selectedPopulation={10}
+              selectedGroup={activeBreakdownFilter}
+            />
           </>
         )
       }}
