@@ -52,7 +52,7 @@ export default function MapGeoInfo(props: MapGeoInfoProps) {
           'age' &&
           props.activeBreakdownFilter !== 'All' &&
           ` ${props.activeBreakdownFilter} individuals`}
-        {' for  '}
+        {' in  '}
         {/* } Georgia */}
         {props.fips.getSentenceDisplayName()}
         {' overall'}

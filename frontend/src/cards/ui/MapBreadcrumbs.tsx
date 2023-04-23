@@ -18,6 +18,7 @@ function MapBreadcrumbs(props: {
   return (
     <>
       <Breadcrumbs
+        sx={{ m: 2 }}
         separator="›"
         aria-label={`Breadcrumb navigation for ${
           props.ariaLabel ?? 'data'

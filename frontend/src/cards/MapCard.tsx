@@ -1,4 +1,10 @@
-import { CardContent, Grid, useMediaQuery, useTheme } from '@mui/material'
+import {
+  Button,
+  CardContent,
+  Grid,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
@@ -56,9 +62,9 @@ import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
-import MapGeoInfo from './ui/MapGeoInfo'
 import PopulationFootnote from './ui/PopulationFootnote'
 import TerritoryCircles from './ui/TerritoryCircles'
+import { GridView } from '@mui/icons-material'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -206,7 +212,7 @@ function MapCardWithKey(props: MapCardProps) {
   const HASH_ID: ScrollableHashId = 'rate-map'
 
   const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.down('md'))
+  const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !pageIsSmall && !isCompareMode
 
@@ -352,6 +358,16 @@ function MapCardWithKey(props: MapCardProps) {
                         }}
                       />
                       <Divider />
+                      <Button
+                        onClick={() => {
+                          setSmallMultiplesDialogOpen(true)
+                        }}
+                      >
+                        <GridView />
+                        <span className={styles.CompareMultipleText}>
+                          Compare multiple races
+                        </span>
+                      </Button>
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -368,7 +384,8 @@ function MapCardWithKey(props: MapCardProps) {
                         <h4 className={styles.MapSubtitle}>{subtitle}</h4>
                       </figcaption>
                     </Grid>
-                    <Grid item xs={12} md={mapIsWide ? 10 : 12}>
+
+                    <Grid item xs={11} sm={mapIsWide ? 9 : 12}>
                       <ChoroplethMap
                         signalListeners={signalListeners}
                         metric={metricConfig}
@@ -393,9 +410,36 @@ function MapCardWithKey(props: MapCardProps) {
                         listExpanded={listExpanded}
                         countColsToAdd={countColsToAdd}
                       />
+                      {props.fips.isUsa() && (
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: { xs: 'block', sm: 'none' } }}
+                        >
+                          <TerritoryCircles
+                            layout={'horizontal'}
+                            data={
+                              listExpanded
+                                ? highestValues.concat(lowestValues)
+                                : dataForActiveBreakdownFilter
+                            }
+                            countColsToAdd={countColsToAdd}
+                            listExpanded={listExpanded}
+                            metricConfig={metricConfig}
+                            signalListeners={signalListeners}
+                            geoData={geoData}
+                          />
+                        </Grid>
+                      )}
                     </Grid>
                     {/* Legend & Location Info */}
-                    <Grid item xs={12} md={mapIsWide ? 2 : 12}>
+                    <Grid
+                      container
+                      justifyItems={'center'}
+                      item
+                      xs={12}
+                      sm={mapIsWide ? 2 : 12}
+                    >
                       <Legend
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
@@ -410,20 +454,21 @@ function MapCardWithKey(props: MapCardProps) {
                         description={'Legend for rate map'}
                       />
 
-                      <MapGeoInfo
+                      {/* <MapGeoInfo
                         overallQueryResponse={geoQueryResponse}
                         currentBreakdown={props.currentBreakdown}
                         activeBreakdownFilter={activeBreakdownFilter}
                         metricConfig={metricConfig}
                         fips={props.fips}
                         variableConfig={props.variableConfig}
-                      />
+                      /> */}
                     </Grid>
+
                     <Grid
                       item
                       xs={12}
                       container
-                      justifyContent={'space-evenly'}
+                      justifyContent={'space-between'}
                       alignItems={'center'}
                     >
                       <Grid item xs={props.fips.isUsa() ? 6 : 12}>
@@ -433,16 +478,19 @@ function MapCardWithKey(props: MapCardProps) {
                             popQueryResponse?.data?.[0].population?.toLocaleString() ??
                             null
                           }
-                          selectedPopulation={10}
-                          selectedGroup={activeBreakdownFilter}
                           updateFipsCallback={props.updateFipsCallback}
                           variableConfig={props.variableConfig}
+                          sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
-
                       {props.fips.isUsa() && (
-                        <Grid item>
+                        <Grid
+                          item
+                          sm={6}
+                          sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
                           <TerritoryCircles
+                            layout={'horizontal'}
                             data={
                               listExpanded
                                 ? highestValues.concat(lowestValues)

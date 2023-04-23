@@ -3,7 +3,6 @@ import React, { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { PopulationCard } from '../cards/PopulationCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
@@ -159,18 +158,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
             spacing={0}
             justifyContent="center"
           >
-            {/* // POPULATION CARD */}
-            <Grid
-              item
-              xs={12}
-              md={SINGLE_COLUMN_WIDTH}
-              tabIndex={-1}
-              id="location-info"
-              className={styles.ScrollPastHeader}
-            >
-              <PopulationCard fips={props.fips} />
-            </Grid>
-
             {!variableConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
             )}

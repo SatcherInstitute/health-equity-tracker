@@ -8,7 +8,7 @@ import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 
 interface SviAlertProps {
   svi: number
-  sviQueryResponse: MetricQueryResponse
+  sviQueryResponse: MetricQueryResponse | null
   fips: Fips
 }
 

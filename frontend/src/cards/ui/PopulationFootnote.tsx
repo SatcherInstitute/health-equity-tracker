@@ -1,21 +1,25 @@
+import { Grid } from '@mui/material'
 import { type VariableConfig } from '../../data/config/MetricConfig'
-import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import MapBreadcrumbs from './MapBreadcrumbs'
+import SviAlert from './SviAlert'
+import styles from './PopulationFootnote.module.scss'
+import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 
 interface PopulationFootnoteProps {
   fips: Fips
   totalPopulation: number
-  selectedPopulation: number
-  selectedGroup: DemographicGroup
   updateFipsCallback: (fips: Fips) => void
   variableConfig: VariableConfig
+  sviQueryResponse: MetricQueryResponse | null
 }
 
 const HASH_ID: ScrollableHashId = 'rate-map'
 
 export default function PopulationFootnote(props: PopulationFootnoteProps) {
+  const { svi } = props.sviQueryResponse?.data?.[0] ?? {}
+
   return (
     <>
       <MapBreadcrumbs
@@ -25,6 +29,17 @@ export default function PopulationFootnote(props: PopulationFootnoteProps) {
         scrollToHashId={HASH_ID}
         endNote={`Population ${props.totalPopulation}`}
       />
+      <Grid className={styles.SviContainer}>
+        <Grid>
+          {props.fips.isCounty() && (
+            <SviAlert
+              svi={svi}
+              sviQueryResponse={props.sviQueryResponse}
+              fips={props.fips}
+            />
+          )}
+        </Grid>
+      </Grid>
     </>
   )
 }

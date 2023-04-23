@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material'
-import { AGE, type DemographicGroup } from '../../data/utils/Constants'
+import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   type BreakdownVar,
   type BreakdownVarDisplayName,
@@ -126,6 +126,7 @@ export interface DropDownMenuProps {
      * Dropdown with one level to select race and a second level listing all race options
 */
 function DropDownMenu(props: DropDownMenuProps) {
+  console.log(props.options)
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0]
   )
@@ -134,8 +135,8 @@ function DropDownMenu(props: DropDownMenuProps) {
   const firstMenu = usePopover()
   const secondMenu = usePopover()
 
-  const demOption = firstMenuSelection.toLowerCase()
-  const article = props.breakdownVar === AGE ? 'an' : 'a'
+  const demOption = firstMenuSelection
+  // const article = props.breakdownVar === AGE ? 'an' : 'a'
 
   const suffix = useHIVLabelSuffix(
     props.breakdownVar,
@@ -150,7 +151,8 @@ function DropDownMenu(props: DropDownMenuProps) {
         htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >
-        {`Highlight ${article} ${demOption} group:`}
+        {/* {`Highlight ${article} ${demOption} group:`} */}
+        {demOption}:
       </label>
       <Button
         variant="text"
