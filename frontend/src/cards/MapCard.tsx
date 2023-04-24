@@ -62,7 +62,7 @@ import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
-import PopulationFootnote from './ui/PopulationFootnote'
+import GeoContext from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 
@@ -236,7 +236,8 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const popQueryResponse: MetricQueryResponse = queryResponses[2] || null
+        const populationQueryResponse: MetricQueryResponse =
+          queryResponses[2] || null
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
 
@@ -472,14 +473,11 @@ function MapCardWithKey(props: MapCardProps) {
                       alignItems={'center'}
                     >
                       <Grid item xs={props.fips.isUsa() ? 6 : 12}>
-                        <PopulationFootnote
+                        <GeoContext
                           fips={props.fips}
-                          totalPopulation={
-                            popQueryResponse?.data?.[0].population?.toLocaleString() ??
-                            null
-                          }
                           updateFipsCallback={props.updateFipsCallback}
                           variableConfig={props.variableConfig}
+                          populationQueryResponse={populationQueryResponse}
                           sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
