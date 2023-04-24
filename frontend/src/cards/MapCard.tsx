@@ -421,17 +421,15 @@ function MapCardWithKey(props: MapCardProps) {
                     </Grid>
                     {/* Legend & Location Info */}
                     <Grid item xs={12} md={mapIsWide ? 2 : 12}>
-                      {legendData.length > 1 && highestValues.length > 1 ? (
-                        <Legend
-                          metric={metricConfig}
-                          legendTitle={metricConfig.shortLabel}
-                          legendData={legendData}
-                          scaleType={RATE_MAP_SCALE}
-                          sameDotSize={true}
-                          direction={mapIsWide ? 'vertical' : 'horizontal'}
-                          description={'Legend for rate map'}
-                        />
-                      ) : null}
+                      <Legend
+                        metric={metricConfig}
+                        legendTitle={metricConfig.shortLabel}
+                        legendData={legendData}
+                        scaleType={RATE_MAP_SCALE}
+                        sameDotSize={true}
+                        direction={mapIsWide ? 'vertical' : 'horizontal'}
+                        description={'Legend for rate map'}
+                      />
                     </Grid>
                   </Grid>
 

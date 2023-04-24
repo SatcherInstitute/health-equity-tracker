@@ -64,6 +64,7 @@ class HivProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
+    console.log({ breakdowns })
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
         return 'cdc_hiv_data-race_and_ethnicity_national_time_series'
@@ -134,12 +135,14 @@ class HivProvider extends VariableProvider {
     const validDemographicBreakdownRequest =
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
-    return (
-      (breakdowns.geography === 'county' ||
-        breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
-    )
+    return this.providesMetrics.includes(DEATHS_METRICS[0])
+      ? (breakdowns.geography === 'state' ||
+          breakdowns.geography === 'national') &&
+          validDemographicBreakdownRequest
+      : (breakdowns.geography === 'county' ||
+          breakdowns.geography === 'state' ||
+          breakdowns.geography === 'national') &&
+          validDemographicBreakdownRequest
   }
 }
 

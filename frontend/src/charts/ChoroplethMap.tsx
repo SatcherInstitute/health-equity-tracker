@@ -39,6 +39,7 @@ import {
   ZERO_YELLOW_SCALE,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -105,6 +106,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ).size
 
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isHIV = HIV_DETERMINANTS.includes(props.metric.metricId)
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -146,7 +148,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ]
     // Null SVI was showing
-    if (!isCawp && !props.listExpanded) {
+    if ((!isCawp || !isHIV) && !props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
     if (props.overrideShapeWithCircle) {
@@ -251,7 +253,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+      /* overrideGrayMissingWithZeroYellow */ (isCawp || isHIV) &&
+        !props.listExpanded
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
@@ -273,7 +276,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const marks = [
-      isCawp && !props.listExpanded
+      (isCawp && !props.listExpanded) || (isHIV && !props.listExpanded)
         ? createShapeMarks(
             /* datasetName= */ ZERO_DATASET,
             /* fillColor= */ { value: sass.mapMin },
@@ -303,7 +306,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET))
-      isCawp && !props.listExpanded
+      ;(isCawp && !props.listExpanded) || (isHIV && !props.listExpanded)
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET))
     } else {
@@ -322,6 +325,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle
     )
 
+    console.log(props.data.filter((row) => row[props.metric.metricId] === 0))
+
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       background: sass.white,
@@ -339,7 +344,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             // only use the nonZero subset if viewing high low lists, viewing CAWP,
             // or viewing multimap with some groups having only one non-zero value
             props.listExpanded ??
-            !isCawp ??
+            (!isHIV || !isCawp) ??
             (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
@@ -452,6 +457,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }, 0)
   }, [
     isCawp,
+    isHIV,
     width,
     props.metric,
     props.legendTitle,
