@@ -49,9 +49,12 @@ export interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const legendColorCount =
+    props.legendData && props.legendData.length < 6
+      ? props.legendData.length
+      : LEGEND_COLOR_COUNT
+
   // const isHIV = HIV_DETERMINANTS.includes(props.metric.metricId)
-  // let LEGEND_COLOR_COUNT = 6
-  // if (props.hasSelfButNotChildGeoData) LEGEND_COLOR_COUNT = 1
 
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
@@ -61,11 +64,12 @@ export function Legend(props: LegendProps) {
   const [spec, setSpec] = useState<VisualizationSpec>({})
 
   useEffect(() => {
+    console.log({ legendColorCount })
     const colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+      range: { scheme: 'yellowgreen', count: legendColorCount },
     }
     if (props.fieldRange) {
       colorScale.domainMax = props.fieldRange.max
@@ -73,7 +77,7 @@ export function Legend(props: LegendProps) {
     }
 
     const dotRange = props.sameDotSize
-      ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
+      ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
     const legendList: any[] = [
@@ -117,8 +121,6 @@ export function Legend(props: LegendProps) {
     // 0 should appear first, then numbers, then "insufficient"
     if (isCawp) legendList.reverse()
 
-    console.log(props.legendData)
-
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
@@ -157,7 +159,7 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+          range: { scheme: 'yellowgreen', count: legendColorCount },
         },
         {
           name: DOT_SIZE_SCALE,
@@ -190,9 +192,7 @@ export function Legend(props: LegendProps) {
     props,
     isCawp,
   ])
-
-  console.log({ spec })
-
+  console.log(props.legendData?.length)
   return (
     <div className={styles.Legend} ref={ref}>
       <span className={styles.LegendTitle}>{props.legendTitle}</span>
