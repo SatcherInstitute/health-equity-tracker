@@ -8,6 +8,7 @@ import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
+import { Grid } from '@mui/material'
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -182,9 +183,11 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <div className={styles.Legend} ref={ref}>
-      <span className={styles.LegendTitle}>{props.legendTitle}</span>
-      <Vega renderer="svg" spec={spec} width={width} actions={false} />
-    </div>
+    <Grid component={'section'} className={styles.Legend} ref={ref}>
+      <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
+      <Grid>
+        <Vega renderer="svg" spec={spec} actions={false} />
+      </Grid>
+    </Grid>
   )
 }

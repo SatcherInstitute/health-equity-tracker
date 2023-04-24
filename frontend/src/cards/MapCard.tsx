@@ -261,6 +261,8 @@ function MapCardWithKey(props: MapCardProps) {
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           )
 
+        console.log({ dataForActiveBreakdownFilter })
+
         const dataForSvi: Row[] =
           sviQueryResponse
             ?.getValidRowsForField('svi')
@@ -336,7 +338,7 @@ function MapCardWithKey(props: MapCardProps) {
                     justifyContent="space-between"
                     align-items="flex-end"
                   >
-                    <Grid item>
+                    <Grid item container justifyContent={'space-between'}>
                       <DropDownMenu
                         idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
                         breakdownVar={props.currentBreakdown}
@@ -357,7 +359,6 @@ function MapCardWithKey(props: MapCardProps) {
                           }
                         }}
                       />
-                      <Divider />
                       <Button
                         onClick={() => {
                           setSmallMultiplesDialogOpen(true)
@@ -365,10 +366,11 @@ function MapCardWithKey(props: MapCardProps) {
                       >
                         <GridView />
                         <span className={styles.CompareMultipleText}>
-                          Compare multiple races
+                          Compare multiple maps
                         </span>
                       </Button>
                     </Grid>
+                    <Divider />
                   </Grid>
                 </CardContent>
               </>
@@ -385,7 +387,12 @@ function MapCardWithKey(props: MapCardProps) {
                       </figcaption>
                     </Grid>
 
-                    <Grid item xs={11} sm={mapIsWide ? 9 : 12}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={mapIsWide ? 9 : 12}
+                      lg={mapIsWide ? 10 : 12}
+                    >
                       <ChoroplethMap
                         signalListeners={signalListeners}
                         metric={metricConfig}
@@ -436,9 +443,11 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid
                       container
                       justifyItems={'center'}
+                      alignItems={'flex-start'}
                       item
                       xs={12}
-                      sm={mapIsWide ? 2 : 12}
+                      sm={mapIsWide ? 3 : 12}
+                      lg={mapIsWide ? 2 : 12}
                     >
                       <Legend
                         metric={metricConfig}
@@ -453,15 +462,6 @@ function MapCardWithKey(props: MapCardProps) {
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                       />
-
-                      {/* <MapGeoInfo
-                        overallQueryResponse={geoQueryResponse}
-                        currentBreakdown={props.currentBreakdown}
-                        activeBreakdownFilter={activeBreakdownFilter}
-                        metricConfig={metricConfig}
-                        fips={props.fips}
-                        variableConfig={props.variableConfig}
-                      /> */}
                     </Grid>
 
                     <Grid
