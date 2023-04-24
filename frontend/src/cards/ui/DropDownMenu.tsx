@@ -126,7 +126,6 @@ export interface DropDownMenuProps {
      * Dropdown with one level to select race and a second level listing all race options
 */
 function DropDownMenu(props: DropDownMenuProps) {
-  console.log(props.options)
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0]
   )
@@ -151,7 +150,6 @@ function DropDownMenu(props: DropDownMenuProps) {
         htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >
-        {/* {`Highlight ${article} ${demOption} group:`} */}
         {demOption}:
       </label>
       <Button
@@ -159,11 +157,10 @@ function DropDownMenu(props: DropDownMenuProps) {
         onClick={firstMenu.open}
         aria-haspopup="true"
         id={`groupMenu${props?.idSuffix ?? ''}`}
+        className={styles.GroupText}
       >
-        <u>
-          {props.value}
-          {suffix}
-        </u>
+        {props.value}
+        {suffix}
         <ArrowDropDown />
       </Button>
 

@@ -17,13 +17,14 @@ interface TerritoryCirclesProps {
   geoData?: Record<string, any>
   countColsToAdd: MetricId[]
   layout: 'horizontal' | 'vertical'
+  mapIsWide: boolean
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   return (
     <Grid
       container
-      spacing={2}
+      spacing={props.mapIsWide ? 2 : 0}
       flexWrap={'nowrap'}
       flexDirection={props.layout === 'vertical' ? 'column' : 'row'}
       className={styles.TerritoryCirclesContainer}

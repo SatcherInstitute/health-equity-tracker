@@ -228,12 +228,12 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
-        const geoQueryResponse = queryResponses[1]
+        const parentGeoQueryResponse = queryResponses[1]
         const hasSelfButNotChildGeoData =
           childGeoQueryResponse.data.length === 0 &&
-          geoQueryResponse.data.length > 0
+          parentGeoQueryResponse.data.length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
-          ? geoQueryResponse
+          ? parentGeoQueryResponse
           : childGeoQueryResponse
 
         const popQueryResponse: MetricQueryResponse = queryResponses[2] || null
@@ -260,8 +260,6 @@ function MapCardWithKey(props: MapCardProps) {
           .filter(
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           )
-
-        console.log({ dataForActiveBreakdownFilter })
 
         const dataForSvi: Row[] =
           sviQueryResponse
@@ -338,7 +336,7 @@ function MapCardWithKey(props: MapCardProps) {
                     justifyContent="space-between"
                     align-items="flex-end"
                   >
-                    <Grid item container justifyContent={'space-between'}>
+                    <Grid item>
                       <DropDownMenu
                         idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
                         breakdownVar={props.currentBreakdown}
@@ -359,6 +357,7 @@ function MapCardWithKey(props: MapCardProps) {
                           }
                         }}
                       />
+                      <Divider />
                       <Button
                         onClick={() => {
                           setSmallMultiplesDialogOpen(true)
@@ -424,6 +423,7 @@ function MapCardWithKey(props: MapCardProps) {
                           sx={{ display: { xs: 'block', sm: 'none' } }}
                         >
                           <TerritoryCircles
+                            mapIsWide={mapIsWide}
                             layout={'horizontal'}
                             data={
                               listExpanded
@@ -490,6 +490,7 @@ function MapCardWithKey(props: MapCardProps) {
                           sx={{ display: { xs: 'none', sm: 'block' } }}
                         >
                           <TerritoryCircles
+                            mapIsWide={mapIsWide}
                             layout={'horizontal'}
                             data={
                               listExpanded
@@ -517,9 +518,12 @@ function MapCardWithKey(props: MapCardProps) {
                         setListExpanded={setListExpanded}
                         highestValues={highestValues}
                         lowestValues={lowestValues}
-                        fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                        parentGeoQueryResponse={parentGeoQueryResponse}
+                        fips={props.fips}
                         qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}
+                        currentBreakdown={currentBreakdown}
+                        activeBreakdownFilter={activeBreakdownFilter}
                       />
                     )}
                 </CardContent>
