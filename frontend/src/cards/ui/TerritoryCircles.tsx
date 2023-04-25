@@ -6,7 +6,6 @@ import {
   type MetricConfig,
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
-import styles from './TerritoryCircles.module.scss'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -27,7 +26,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       spacing={props.mapIsWide ? 2 : 0}
       flexWrap={'nowrap'}
       flexDirection={props.layout === 'vertical' ? 'column' : 'row'}
-      className={styles.TerritoryCirclesContainer}
     >
       {TERRITORY_CODES.map((code) => {
         const fips = new Fips(code)
