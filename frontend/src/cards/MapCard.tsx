@@ -429,6 +429,7 @@ function MapCardWithKey(props: MapCardProps) {
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
+                        hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
                       />
                     </Grid>
                   </Grid>
@@ -452,17 +453,17 @@ function MapCardWithKey(props: MapCardProps) {
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                  <CardContent>
-                    <MissingDataAlert
-                      dataName={dataName}
-                      breakdownString={
-                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                      }
-                      isMapCard={true}
-                      fips={props.fips}
-                    />
-                  </CardContent>
-                )}
+                    <CardContent>
+                      <MissingDataAlert
+                        dataName={dataName}
+                        breakdownString={
+                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                        }
+                        isMapCard={true}
+                        fips={props.fips}
+                      />
+                    </CardContent>
+                  )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&

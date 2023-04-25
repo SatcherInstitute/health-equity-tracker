@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Vega, type VisualizationSpec } from 'react-vega'
+import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
@@ -8,6 +8,7 @@ import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
+import { Legend as LegendList } from 'vega'
 // import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 const COLOR_SCALE = 'color_scale'
@@ -15,8 +16,10 @@ const DOT_SIZE_SCALE = 'dot_size_scale'
 export const UNKNOWN_SCALE = 'unknown_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'
 export const ZERO_DOT_SCALE = 'zero_dot_scale'
+const STATE_SCALE = 'state_scale'
 const RAW_VALUES = 'raw_values'
 const DATASET_VALUES = 'dataset_values'
+const STATE_VALUES = 'state_values'
 export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
@@ -54,23 +57,21 @@ export function Legend(props: LegendProps) {
       ? props.legendData.length
       : LEGEND_COLOR_COUNT
 
-  // const isHIV = HIV_DETERMINANTS.includes(props.metric.metricId)
-
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
   )
 
   // Initial spec state is set in useEffect
-  const [spec, setSpec] = useState<VisualizationSpec>({})
+  const [spec, setSpec] = useState({})
 
   useEffect(() => {
-    console.log({ legendColorCount })
     const colorScale: any = {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
       range: { scheme: 'yellowgreen', count: legendColorCount },
     }
+
     if (props.fieldRange) {
       colorScale.domainMax = props.fieldRange.max
       colorScale.domainMin = props.fieldRange.min
@@ -80,42 +81,57 @@ export function Legend(props: LegendProps) {
       ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
-    const legendList: any[] = [
-      {
-        fill: COLOR_SCALE,
-        labelOverlap: 'greedy',
-        symbolType: LEGEND_SYMBOL_TYPE,
-        size: DOT_SIZE_SCALE,
-        format: 'd',
-        font: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
-        direction: props.direction,
-        orient: 'left',
-        columns: props.direction === 'horizontal' ? 3 : 1,
-      },
-    ]
+    const legendList: LegendList[] = []
 
-    if (props.legendData?.length !== 1) {
+    if (props.hasSelfButNotChildGeoData) {
       legendList.push({
-        fill: UNKNOWN_SCALE,
+        fill: COLOR_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
-        size: GREY_DOT_SCALE,
-        font: LEGEND_TEXT_FONT,
+        size: STATE_SCALE,
+        labelFontStyle: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
         orient: props.direction === 'vertical' ? 'left' : 'right',
       })
-    }
-
-    if (props.metric.type === 'pct_share') {
       legendList[0].encode = {
         labels: {
           update: {
             text: {
-              signal: `datum.label + '%'`,
+              signal: `datum.label + '${props.metric.type === "pct_share" ? "% (state overall)" : " (state overall)"}'`,
             },
           },
         },
-      }
+      };
+    } else {
+      legendList.push(
+        {
+          fill: COLOR_SCALE,
+          labelOverlap: 'greedy',
+          symbolType: LEGEND_SYMBOL_TYPE,
+          size: DOT_SIZE_SCALE,
+          format: 'd',
+          labelFontStyle: LEGEND_TEXT_FONT,
+          labelFont: LEGEND_TEXT_FONT,
+          direction: props.direction,
+          orient: 'left',
+          columns: props.direction === 'horizontal' ? 3 : 1,
+        },
+        {
+          fill: UNKNOWN_SCALE,
+          symbolType: LEGEND_SYMBOL_TYPE,
+          size: GREY_DOT_SCALE,
+          labelFontStyle: LEGEND_TEXT_FONT,
+          labelFont: LEGEND_TEXT_FONT,
+          orient: props.direction === 'vertical' ? 'left' : 'right',
+        })
+      legendList[0].encode = {
+        labels: {
+          update: {
+            text: {
+              signal: `datum.label + '${props.metric.type === "pct_share" ? "%" : ""}'`,
+            },
+          },
+        },
+      };
     }
 
     // 0 should appear first, then numbers, then "insufficient"
@@ -137,7 +153,7 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && !isNaN(+datum["${props.metric.metricId}"])`,
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
             },
           ],
         },
@@ -145,6 +161,10 @@ export function Legend(props: LegendProps) {
           name: MISSING_PLACEHOLDER_VALUES,
           values: [{ missing: isCawp ? '0' : NO_DATA_MESSAGE }],
         },
+        {
+          name: STATE_VALUES,
+          values: [{ state: `${props.legendData?.[0][props.metric.metricId]}` }]
+        }
       ],
       layout: { padding: 20, bounds: 'full', align: 'each' },
       marks: [
@@ -179,6 +199,12 @@ export function Legend(props: LegendProps) {
           domain: { data: 'missing_data', field: 'missing' },
           range: [EQUAL_DOT_SIZE],
         },
+        {
+          name: STATE_SCALE,
+          type: ORDINAL,
+          domain: { data: STATE_VALUES, field: 'state' },
+          range: [EQUAL_DOT_SIZE],
+        },
       ],
     })
   }, [
@@ -192,7 +218,7 @@ export function Legend(props: LegendProps) {
     props,
     isCawp,
   ])
-  console.log(props.legendData?.length)
+
   return (
     <div className={styles.Legend} ref={ref}>
       <span className={styles.LegendTitle}>{props.legendTitle}</span>

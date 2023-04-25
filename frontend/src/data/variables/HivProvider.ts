@@ -135,6 +135,8 @@ class HivProvider extends VariableProvider {
     const validDemographicBreakdownRequest =
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
+    console.log({breakdowns})
+
     return this.providesMetrics.includes(DEATHS_METRICS[0])
       ? (breakdowns.geography === 'state' ||
           breakdowns.geography === 'national') &&
