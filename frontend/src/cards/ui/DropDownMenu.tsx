@@ -161,7 +161,11 @@ function DropDownMenu(props: DropDownMenuProps) {
       >
         {props.value}
         {suffix}
-        <ArrowDropDown />
+        <ArrowDropDown
+          sx={{
+            mb: '2px',
+          }}
+        />
       </Button>
 
       <MenuPopover

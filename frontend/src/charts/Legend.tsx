@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
-import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
+// import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
@@ -49,9 +49,9 @@ export interface LegendProps {
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
-  const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
-  )
+  // const [ref, width] = useResponsiveWidth(
+  //   100 /* default width during initialization */
+  // )
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
@@ -171,7 +171,7 @@ export function Legend(props: LegendProps) {
       ],
     })
   }, [
-    width,
+    // width,
     props.metric,
     props.legendTitle,
     props.scaleType,
@@ -183,7 +183,11 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <Grid component={'section'} className={styles.Legend} ref={ref}>
+    <Grid
+      component={'section'}
+      className={styles.Legend}
+      // ref={ref}
+    >
       <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
       <Grid>
         <Vega renderer="svg" spec={spec} actions={false} />

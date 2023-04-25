@@ -477,12 +477,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ])
 
   return (
-    <div ref={ref}>
+    <div ref={props.overrideShapeWithCircle ? undefined : ref}>
       {shouldRenderMap && (
         <Vega
           renderer="svg"
           spec={spec}
-          width={width}
+          width={props.overrideShapeWithCircle ? undefined : width}
           // custom 3-dot options for states, hidden
           actions={
             !props.hideActions && {

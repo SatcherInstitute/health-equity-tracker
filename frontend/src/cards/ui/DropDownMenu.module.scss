@@ -6,8 +6,9 @@
 
 .FilterBy {
   padding: 6px 8px;
-  float: left;
-  font-size: $small;
+  font-size: $smallest;
+  display: flex;
+  align-items: center;
 }
 
 .GroupListMenuBox {
@@ -19,4 +20,5 @@
 
 .GroupText {
   text-decoration: underline;
+  font-size: $smallest;
 }

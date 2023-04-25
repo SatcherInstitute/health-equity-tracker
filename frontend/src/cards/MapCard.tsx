@@ -366,7 +366,7 @@ function MapCardWithKey(props: MapCardProps) {
                       >
                         <GridView />
                         <span className={styles.CompareMultipleText}>
-                          Compare multiple maps
+                          View multiple maps
                         </span>
                       </Button>
                     </Grid>
