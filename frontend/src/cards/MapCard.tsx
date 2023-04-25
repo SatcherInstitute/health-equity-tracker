@@ -429,7 +429,7 @@ function MapCardWithKey(props: MapCardProps) {
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
-                        hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
+                        hasSelfButNotChildGeoData={hasSelfButNotChildGeoData || props.fips.isCounty()}
                       />
                     </Grid>
                   </Grid>

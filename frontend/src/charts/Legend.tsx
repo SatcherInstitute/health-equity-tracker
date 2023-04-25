@@ -9,7 +9,8 @@ import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
 import { Legend as LegendList } from 'vega'
-// import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -52,6 +53,9 @@ export interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
+  const isCawpOrHiv = isCawp || isHiv
+
   const legendColorCount =
     props.legendData && props.legendData.length < 6
       ? props.legendData.length
@@ -122,7 +126,8 @@ export function Legend(props: LegendProps) {
           labelFontStyle: LEGEND_TEXT_FONT,
           labelFont: LEGEND_TEXT_FONT,
           orient: props.direction === 'vertical' ? 'left' : 'right',
-        })
+        }
+      )
       legendList[0].encode = {
         labels: {
           update: {
@@ -135,7 +140,7 @@ export function Legend(props: LegendProps) {
     }
 
     // 0 should appear first, then numbers, then "insufficient"
-    if (isCawp) legendList.reverse()
+    if (isCawpOrHiv) legendList.reverse()
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -153,13 +158,14 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) 
+              && (+datum["${props.metric.metricId}"]) !== 0`,
             },
           ],
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: isCawp ? '0' : NO_DATA_MESSAGE }],
+          values: [{ missing: (isCawpOrHiv) ? '0' : NO_DATA_MESSAGE }],
         },
         {
           name: STATE_VALUES,
@@ -191,7 +197,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [isCawp ? sass.mapMin : sass.unknownGrey],
+          range: [(isCawpOrHiv) ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -204,7 +210,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
           domain: { data: STATE_VALUES, field: 'state' },
           range: [EQUAL_DOT_SIZE],
-        },
+        }
       ],
     })
   }, [
@@ -216,7 +222,7 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
-    isCawp,
+    isCawpOrHiv
   ])
 
   return (
