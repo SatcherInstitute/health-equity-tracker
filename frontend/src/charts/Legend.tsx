@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
-// import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
@@ -49,9 +48,8 @@ export interface LegendProps {
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   // Initial spec state is set in useEffect
+  // TODO: Why??
   const [spec, setSpec] = useState({})
-
-  console.log(props.legendData)
 
   useEffect(() => {
     const colorScale: any = {

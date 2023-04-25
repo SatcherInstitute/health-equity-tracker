@@ -547,6 +547,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <Alert severity="warning" role="note">
                         Insufficient data available for filter:{' '}
                         <b>{activeBreakdownFilter}</b>.{' '}
+                        {/* Offer multimap link if current demo group is missing info */}
                         <MultiMapLink
                           setSmallMultiplesDialogOpen={
                             setSmallMultiplesDialogOpen

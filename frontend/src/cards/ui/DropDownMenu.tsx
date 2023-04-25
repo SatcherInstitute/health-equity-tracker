@@ -135,7 +135,6 @@ function DropDownMenu(props: DropDownMenuProps) {
   const secondMenu = usePopover()
 
   const demOption = firstMenuSelection
-  // const article = props.breakdownVar === AGE ? 'an' : 'a'
 
   const suffix = useHIVLabelSuffix(
     props.breakdownVar,
