@@ -20,7 +20,7 @@ abstract class VariableProvider {
   }
 
   async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
-    if (!this.allowsBreakdowns(metricQuery.breakdowns)) {
+    if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
       return createMissingDataResponse(
         'Breakdowns not supported for provider ' +
           this.providerId +
@@ -141,7 +141,10 @@ abstract class VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse>
 
-  abstract allowsBreakdowns(breakdowns: Breakdowns): boolean
+  abstract allowsBreakdowns(
+    breakdowns: Breakdowns,
+    metricIds?: MetricId[]
+  ): boolean
 
   abstract getDatasetId(
     breakdown: Breakdowns,

@@ -131,13 +131,11 @@ class HivProvider extends VariableProvider {
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
+  allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
     const validDemographicBreakdownRequest =
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
-    console.log({breakdowns})
-
-    return this.providesMetrics.includes(DEATHS_METRICS[0])
+    return metricIds.includes(DEATHS_METRICS[0])
       ? (breakdowns.geography === 'state' ||
           breakdowns.geography === 'national') &&
           validDemographicBreakdownRequest
