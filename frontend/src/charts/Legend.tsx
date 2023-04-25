@@ -48,13 +48,10 @@ export interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-
-  // const [ref, width] = useResponsiveWidth(
-  //   100 /* default width during initialization */
-  // )
-
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
+
+  console.log(props.legendData)
 
   useEffect(() => {
     const colorScale: any = {
@@ -171,7 +168,6 @@ export function Legend(props: LegendProps) {
       ],
     })
   }, [
-    // width,
     props.metric,
     props.legendTitle,
     props.scaleType,
@@ -183,11 +179,7 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <Grid
-      component={'section'}
-      className={styles.Legend}
-      // ref={ref}
-    >
+    <Grid component={'section'} className={styles.Legend}>
       <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
       <Grid>
         <Vega renderer="svg" spec={spec} actions={false} />
