@@ -230,9 +230,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <Alert severity="info" role="note">
                   This chart graph visualizes the disproportionate share of{' '}
                   {props.variableConfig.variableFullDisplayName} as experienced
-                  by different demographic group(s) compared to their relative
-                  share of the population. Read more about this calculation in
-                  our{' '}
+                  by different demographic groups compared to their relative
+                  shares. Read more about this calculation in our{' '}
                   <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                     methodology
                   </HashLink>

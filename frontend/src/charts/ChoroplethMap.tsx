@@ -149,7 +149,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ]
     // Null SVI was showing
-    if ((!containsDistinctZeros) && !props.listExpanded) {
+    if (!containsDistinctZeros && !props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
     if (props.overrideShapeWithCircle) {
@@ -254,8 +254,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */(containsDistinctZeros) &&
-      !props.listExpanded
+      /* overrideGrayMissingWithZeroYellow */ containsDistinctZeros &&
+        !props.listExpanded
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
@@ -277,7 +277,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const marks = [
-      ((containsDistinctZeros) && !props.listExpanded)
+      containsDistinctZeros && !props.listExpanded
         ? createShapeMarks(
             /* datasetName= */ ZERO_DATASET,
             /* fillColor= */ { value: sass.mapMin },
@@ -285,7 +285,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             /* tooltipExpression= */ zeroTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-        )
+          )
         : createShapeMarks(
             /* datasetName= */ MISSING_DATASET,
             /* fillColor= */ { value: UNKNOWN_GREY },
@@ -293,10 +293,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             /* tooltipExpression= */ missingDataTooltipValue,
             /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
             /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-        ),
+          ),
       createShapeMarks(
         /* datasetName= */ VALID_DATASET,
-        /* fillColor= */[{ scale: COLOR_SCALE, field: props.metric.metricId }],
+        /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
@@ -306,8 +306,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
-      marks.push(createCircleTextMark(VALID_DATASET));
-      (containsDistinctZeros && !props.listExpanded)
+      marks.push(createCircleTextMark(VALID_DATASET))
+      containsDistinctZeros && !props.listExpanded
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET))
     } else {
@@ -343,8 +343,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             // only use the nonZero subset if viewing high low lists, viewing CAWP,
             // or viewing multimap with some groups having only one non-zero value
             props.listExpanded ??
-              (!containsDistinctZeros) ??
-              (numUniqueNonZeroValues <= 1 && !props.hideLegend)
+            !containsDistinctZeros ??
+            (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
         },
