@@ -130,16 +130,18 @@ class HivProvider extends VariableProvider {
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 
-  allowsBreakdowns(breakdowns: Breakdowns): boolean {
+  allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
     const validDemographicBreakdownRequest =
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
-    return (
-      (breakdowns.geography === 'county' ||
-        breakdowns.geography === 'state' ||
-        breakdowns.geography === 'national') &&
-      validDemographicBreakdownRequest
-    )
+    return metricIds.includes('hiv_deaths_per_100k')
+      ? (breakdowns.geography === 'state' ||
+          breakdowns.geography === 'national') &&
+          validDemographicBreakdownRequest
+      : (breakdowns.geography === 'county' ||
+          breakdowns.geography === 'state' ||
+          breakdowns.geography === 'national') &&
+          validDemographicBreakdownRequest
   }
 }
 

@@ -156,12 +156,15 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknowns)
 
+        const shouldShowMissingData: boolean =
+          queryResponseInequity.shouldShowMissingDataMessage([
+            metricConfigInequitable.metricId,
+          ]) || nestedInequityData.length === 0
+
         return (
           <>
             <CardContent>
-              {queryResponseInequity.shouldShowMissingDataMessage([
-                metricConfigInequitable.metricId,
-              ]) || nestedInequityData.length === 0 ? (
+              {shouldShowMissingData ? (
                 <>
                   <MissingDataAlert
                     dataName={dataName}
@@ -222,19 +225,20 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 </>
               )}
             </CardContent>
-            <CardContent>
-              <Alert severity="info" role="note">
-                This chart visualizes the disproportionate share of a condition
-                experienced by group, compared with that group's share of the
-                entire population (when many groups are present we default to
-                showing only the highest and lowest historical averages). Read
-                more about this calculation in our{' '}
-                <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
-                  methodology
-                </HashLink>
-                .
-              </Alert>
-            </CardContent>
+            {!shouldShowMissingData && (
+              <CardContent>
+                <Alert severity="info" role="note">
+                  This chart graph visualizes the disproportionate share of{' '}
+                  {props.variableConfig.variableFullDisplayName} as experienced
+                  by different demographic groups compared to their relative
+                  shares. Read more about this calculation in our{' '}
+                  <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
+                    methodology
+                  </HashLink>
+                  .
+                </Alert>
+              </CardContent>
+            )}
           </>
         )
       }}

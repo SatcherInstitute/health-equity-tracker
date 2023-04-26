@@ -633,7 +633,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_share',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data linkage to HIV care inequity'],
+          chartTitleLines: ['Historical inequities in linkage to HIV care'],
           metricId: 'hiv_care_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',

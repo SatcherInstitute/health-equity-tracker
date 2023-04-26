@@ -1,3 +1,5 @@
+import { GeographicBreakdown } from "../query/Breakdowns"
+
 export const USA_DISPLAY_NAME = 'United States'
 // Fake FIPS code used to represent totals in USA for convenience
 export const USA_FIPS = '00'
@@ -70,7 +72,7 @@ class Fips {
     return this.code.length === 5
   }
 
-  getFipsTypeDisplayName() {
+  getFipsTypeDisplayName(): GeographicBreakdown | undefined {
     if (this.isUsa()) {
       return 'national'
     } else if (this.isState()) {
@@ -79,15 +81,20 @@ class Fips {
       return 'territory'
     } else if (this.isCounty()) {
       return 'county'
-    } else {
-      return ''
     }
+
   }
 
   getUppercaseFipsTypeDisplayName() {
-    const fipsType: string = this.getFipsTypeDisplayName()
-    if (fipsType.length < 2) return ''
-    return fipsType[0].toUpperCase() + fipsType.slice(1)
+    if (this.isUsa()) {
+      return 'National'
+    } else if (this.isState()) {
+      return 'State'
+    } else if (this.isTerritory()) {
+      return 'Territory'
+    } else if (this.isCounty()) {
+      return 'County'
+    }
   }
 
   getChildFipsTypeDisplayName() {

@@ -137,7 +137,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{
-                      click: (...args: any) => {},
+                      click: (...args: any) => { },
                     }}
                     metric={props.metricConfig}
                     legendData={props.data}
@@ -151,17 +151,16 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={true}
                     scaleType={RATE_MAP_SCALE}
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${
-                      breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
-                    } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
+                      } in ${props.fips.getSentenceDisplayName()}`}
                     countColsToAdd={props.countColsToAdd}
                   />
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
+                  props.fips.isUsa() &&
+                  dataForValue.length ? (
                   <Grid container>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code)
@@ -169,7 +168,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         <Grid item xs={4} sm={2} key={code}>
                           <ChoroplethMap
                             signalListeners={{
-                              click: (...args: any) => {},
+                              click: (...args: any) => { },
                             }}
                             metric={props.metricConfig}
                             legendData={props.data}

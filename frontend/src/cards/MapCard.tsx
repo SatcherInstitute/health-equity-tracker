@@ -58,7 +58,6 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
-import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
@@ -159,7 +158,7 @@ function MapCardWithKey(props: MapCardProps) {
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
   const popQuery = new MetricQuery(
-    /* MetricId(s) */ ['population'],
+    /* MetricId(s) */['population'],
     /* Breakdowns */ popBreakdown
   )
   queries.push(popQuery)
@@ -169,7 +168,7 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */ ['svi'],
+      /* MetricId(s) */['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)
@@ -215,6 +214,8 @@ function MapCardWithKey(props: MapCardProps) {
   const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !pageIsSmall && !isCompareMode
+
+  const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
   return (
     <CardWrapper
@@ -300,6 +301,10 @@ function MapCardWithKey(props: MapCardProps) {
 
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
+
+        const legendData = listExpanded
+          ? highestValues.concat(lowestValues)
+          : dataForActiveBreakdownFilter
 
         return (
           <>
@@ -453,15 +458,13 @@ function MapCardWithKey(props: MapCardProps) {
                       <Legend
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
-                        legendData={
-                          listExpanded
-                            ? highestValues.concat(lowestValues)
-                            : dataForActiveBreakdownFilter
-                        }
+                        legendData={legendData}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
+                        hasSelfButNotChildGeoData={hasSelfButNotChildGeoData || props.fips.isCounty()}
+                        fipsTypeDisplayName={fipsTypeDisplayName}
                       />
                     </Grid>
 
@@ -528,17 +531,17 @@ function MapCardWithKey(props: MapCardProps) {
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                  <CardContent>
-                    <MissingDataAlert
-                      dataName={dataName}
-                      breakdownString={
-                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                      }
-                      isMapCard={true}
-                      fips={props.fips}
-                    />
-                  </CardContent>
-                )}
+                    <CardContent>
+                      <MissingDataAlert
+                        dataName={dataName}
+                        breakdownString={
+                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                        }
+                        isMapCard={true}
+                        fips={props.fips}
+                      />
+                    </CardContent>
+                  )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&
@@ -560,14 +563,6 @@ function MapCardWithKey(props: MapCardProps) {
                       </Alert>
                     </CardContent>
                   )}
-
-                {hasSelfButNotChildGeoData && (
-                  <CountyUnavailableAlert
-                    variableFullDisplayName={
-                      props.variableConfig.variableFullDisplayName
-                    }
-                  />
-                )}
               </div>
             )}
           </>

@@ -7,15 +7,21 @@ import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
+import { Legend as LegendType } from 'vega'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { Grid } from '@mui/material'
+import { GeographicBreakdown } from '../data/query/Breakdowns'
+
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
-export const UNKNOWN_SCALE = 'unknown_scale'
+const SUMMARY_SCALE = 'summary_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'
+export const UNKNOWN_SCALE = 'unknown_scale'
 export const ZERO_DOT_SCALE = 'zero_dot_scale'
 const RAW_VALUES = 'raw_values'
 const DATASET_VALUES = 'dataset_values'
+const SUMMARY_VALUES = 'summary_values'
 export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
@@ -43,10 +49,15 @@ export interface LegendProps {
   description: string
   // Whether legend entries stack vertical or horizontal (allows responsive design)
   direction: 'horizontal' | 'vertical'
+  hasSelfButNotChildGeoData?: boolean
+  fipsTypeDisplayName?: GeographicBreakdown
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
+  const containsDistinctZeros = isCawp || isHiv
+
   // Initial spec state is set in useEffect
   // TODO: Why??
   const [spec, setSpec] = useState({})
@@ -58,6 +69,7 @@ export function Legend(props: LegendProps) {
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
       range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
     }
+
     if (props.fieldRange) {
       colorScale.domainMax = props.fieldRange.max
       colorScale.domainMin = props.fieldRange.min
@@ -67,43 +79,62 @@ export function Legend(props: LegendProps) {
       ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
-    const legendList: any[] = [
-      {
+    const legendList: LegendType[] = []
+
+    if (props.hasSelfButNotChildGeoData) {
+      legendList.push({
         fill: COLOR_SCALE,
-        labelOverlap: 'greedy',
         symbolType: LEGEND_SYMBOL_TYPE,
-        size: DOT_SIZE_SCALE,
-        format: 'd',
-        font: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
-        direction: props.direction,
-        orient: 'left',
-        columns: props.direction === 'horizontal' ? 3 : 1,
-      },
-      {
-        fill: UNKNOWN_SCALE,
-        symbolType: LEGEND_SYMBOL_TYPE,
-        size: GREY_DOT_SCALE,
-        font: LEGEND_TEXT_FONT,
+        size: SUMMARY_SCALE,
+        labelFontStyle: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
         orient: props.direction === 'vertical' ? 'left' : 'right',
-      },
-    ]
-
-    if (props.metric.type === 'pct_share') {
+      })
       legendList[0].encode = {
         labels: {
           update: {
             text: {
-              signal: `datum.label + '%'`,
+              signal: `datum.label + '${props.metric.type === "pct_share" ? `% (${props.fipsTypeDisplayName ?? ""} overall)` : ` (${props.fipsTypeDisplayName ?? ""} overall)`}'`,
             },
           },
         },
-      }
+      };
+    } else {
+      legendList.push(
+        {
+          fill: COLOR_SCALE,
+          labelOverlap: 'greedy',
+          symbolType: LEGEND_SYMBOL_TYPE,
+          size: DOT_SIZE_SCALE,
+          format: 'd',
+          labelFontStyle: LEGEND_TEXT_FONT,
+          labelFont: LEGEND_TEXT_FONT,
+          direction: props.direction,
+          orient: 'left',
+          columns: props.direction === 'horizontal' ? 3 : 1,
+        },
+        {
+          fill: UNKNOWN_SCALE,
+          symbolType: LEGEND_SYMBOL_TYPE,
+          size: GREY_DOT_SCALE,
+          labelFontStyle: LEGEND_TEXT_FONT,
+          labelFont: LEGEND_TEXT_FONT,
+          orient: props.direction === 'vertical' ? 'left' : 'right',
+        }
+      )
+      legendList[0].encode = {
+        labels: {
+          update: {
+            text: {
+              signal: `datum.label + '${props.metric.type === "pct_share" ? "%" : ""}'`,
+            },
+          },
+        },
+      };
     }
 
     // 0 should appear first, then numbers, then "insufficient"
-    if (isCawp) legendList.reverse()
+    if (containsDistinctZeros) legendList.reverse()
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -121,14 +152,19 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) 
+              && (+datum["${props.metric.metricId}"]) !== 0`,
             },
           ],
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: isCawp ? '0' : NO_DATA_MESSAGE }],
+          values: [{ missing: (containsDistinctZeros) ? '0' : NO_DATA_MESSAGE }],
         },
+        {
+          name: SUMMARY_VALUES,
+          values: [{ summary: `${props.legendData?.[0][props.metric.metricId]}` }]
+        }
       ],
       layout: { padding: 20, bounds: 'full', align: 'each' },
       marks: [
@@ -155,7 +191,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [isCawp ? sass.mapMin : sass.unknownGrey],
+          range: [(containsDistinctZeros) ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -163,6 +199,12 @@ export function Legend(props: LegendProps) {
           domain: { data: 'missing_data', field: 'missing' },
           range: [EQUAL_DOT_SIZE],
         },
+        {
+          name: SUMMARY_SCALE,
+          type: ORDINAL,
+          domain: { data: SUMMARY_VALUES, field: 'summary' },
+          range: [EQUAL_DOT_SIZE],
+        }
       ],
     })
   }, [
@@ -173,7 +215,7 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
-    isCawp,
+    containsDistinctZeros
   ])
 
   return (

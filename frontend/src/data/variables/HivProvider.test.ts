@@ -57,15 +57,7 @@ const testCases = [
     metricIds: ['hiv_diagnoses_per_100k'],
   },
   {
-    name: 'County and Age Breakdown for Deaths',
-    datasetId: 'cdc_hiv_data-age_county_time_series-06',
-    breakdowns: Breakdowns.forFips(new Fips('06037')),
-    breakdownVar: AGE,
-    metricName: 'hiv_deaths',
-    metricIds: ['hiv_deaths_per_100k'],
-  },
-  {
-    name: 'County and Sex Breakdown for Prep',
+    name: 'County and Sex Breakdown for PrEP',
     datasetId: 'cdc_hiv_data-sex_county_time_series-06',
     breakdowns: Breakdowns.forFips(new Fips('06037')),
     breakdownVar: SEX,
