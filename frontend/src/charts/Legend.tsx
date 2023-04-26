@@ -11,7 +11,6 @@ import { Legend as LegendList } from 'vega'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { Grid } from '@mui/material'
 
-
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
 const SUMMARY_SCALE = 'summary_scale'
@@ -56,10 +55,6 @@ export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
   const containsDistinctZeros = isCawp || isHiv
-
-  const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
-  )
 
   // Initial spec state is set in useEffect
   // TODO: Why??
