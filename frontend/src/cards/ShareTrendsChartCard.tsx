@@ -228,12 +228,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             {!shouldShowMissingData && (
               <CardContent>
                 <Alert severity="info" role="note">
-                  This chart graph visualizes the disproportionate share of
+                  This chart graph visualizes the disproportionate share of{' '}
                   {props.variableConfig.variableFullDisplayName} as experienced
-                  by different races and/or ethnic group(s) compared to their
-                  relative share of the population (when we default to showing
-                  only the highest and lowest historical averages). Read more
-                  about this calculation in our{' '}
+                  by different demographic group(s) compared to their relative
+                  share of the population. Read more about this calculation in
+                  our{' '}
                   <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                     methodology
                   </HashLink>
