@@ -11,38 +11,46 @@ function MapBreadcrumbs(props: {
   updateFipsCallback: (fips: Fips) => void
   ariaLabel?: string
   scrollToHashId: ScrollableHashId
+  endNote?: string
 }) {
   const location = useLocation()
 
   return (
-    <Breadcrumbs
-      separator="›"
-      aria-label={`Breadcrumb navigation for ${
-        props.ariaLabel ?? 'data'
-      } in ${props.fips.getDisplayName()} report`}
-    >
-      <Crumb
-        text={USA_DISPLAY_NAME}
-        isClickable={!props.fips.isUsa()}
-        onClick={() => {
-          props.updateFipsCallback(new Fips(USA_FIPS))
-          location.hash = `#${props.scrollToHashId}`
-        }}
-      />
-      {!props.fips.isUsa() && (
+    <>
+      <Breadcrumbs
+        sx={{ m: 2 }}
+        separator="›"
+        aria-label={`Breadcrumb navigation for ${
+          props.ariaLabel ?? 'data'
+        } in ${props.fips.getDisplayName()} report`}
+      >
         <Crumb
-          text={props.fips.getStateDisplayName()}
-          isClickable={!props.fips.isStateOrTerritory()}
+          text={USA_DISPLAY_NAME}
+          isClickable={!props.fips.isUsa()}
           onClick={() => {
-            props.updateFipsCallback(props.fips.getParentFips())
+            props.updateFipsCallback(new Fips(USA_FIPS))
             location.hash = `#${props.scrollToHashId}`
           }}
         />
-      )}
-      {props.fips.isCounty() && (
-        <Crumb text={props.fips.getDisplayName()} isClickable={false} />
-      )}
-    </Breadcrumbs>
+        {!props.fips.isUsa() && (
+          <Crumb
+            text={props.fips.getStateDisplayName()}
+            isClickable={!props.fips.isStateOrTerritory()}
+            onClick={() => {
+              props.updateFipsCallback(props.fips.getParentFips())
+              location.hash = `#${props.scrollToHashId}`
+            }}
+          />
+        )}
+        {props.fips.isCounty() && (
+          <Crumb text={props.fips.getDisplayName()} isClickable={false} />
+        )}
+
+        {props.endNote && (
+          <Crumb text={props.endNote} isClickable={false} isNote={true} />
+        )}
+      </Breadcrumbs>
+    </>
   )
 }
 
@@ -50,6 +58,7 @@ function Crumb(props: {
   text: string
   isClickable: boolean
   onClick?: () => void
+  isNote?: boolean
 }) {
   return (
     <>
@@ -65,7 +74,11 @@ function Crumb(props: {
         </Button>
       )}
       {!props.isClickable && (
-        <Button color="primary" className={styles.CurrentCrumb} disabled>
+        <Button
+          color="primary"
+          className={props.isNote ? styles.NoteCrumb : styles.CurrentCrumb}
+          disabled
+        >
           {props.text}
         </Button>
       )}

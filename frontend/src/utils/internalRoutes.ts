@@ -32,8 +32,8 @@ export const POVERTY_US_SETTING = '?mls=1.poverty-3.00'
 export const OPIOID_US_SETTING =
   '?dt1=non_medical_drug_use&mls=1.substance-3.00'
 
-export const HIV_DIAGNOSES_RACE_USA_SETTING =
-  '?mls=1.hiv_diagnoses-3.00&mlp=disparity'
+export const HIV_PREVALANCE_RACE_USA_SETTING =
+  '?mls=1.hiv_prevalence-3.00&mlp=disparity'
 export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
   '?mls=1.covid_deaths-3.13121&demo=age&mlp=disparity'
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =

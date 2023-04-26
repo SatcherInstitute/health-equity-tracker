@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
-import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
@@ -8,6 +7,7 @@ import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
+import { Grid } from '@mui/material'
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -47,12 +47,8 @@ export interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-
-  const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
-  )
-
   // Initial spec state is set in useEffect
+  // TODO: Why??
   const [spec, setSpec] = useState({})
 
   useEffect(() => {
@@ -170,7 +166,6 @@ export function Legend(props: LegendProps) {
       ],
     })
   }, [
-    width,
     props.metric,
     props.legendTitle,
     props.scaleType,
@@ -182,9 +177,11 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <div className={styles.Legend} ref={ref}>
-      <span className={styles.LegendTitle}>{props.legendTitle}</span>
-      <Vega renderer="svg" spec={spec} width={width} actions={false} />
-    </div>
+    <Grid component={'section'} className={styles.Legend}>
+      <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
+      <Grid>
+        <Vega renderer="svg" spec={spec} actions={false} />
+      </Grid>
+    </Grid>
   )
 }

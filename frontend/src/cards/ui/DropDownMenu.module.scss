@@ -3,10 +3,12 @@
 .SectionFilterBy {
   display: flex;
 }
+
 .FilterBy {
   padding: 6px 8px;
-  float: left;
-  font-size: $text;
+  font-size: $small;
+  display: flex;
+  align-items: center;
 }
 
 .GroupListMenuBox {
@@ -14,4 +16,9 @@
   width: auto;
   overflow-x: auto;
   padding: 1rem;
+}
+
+.GroupText {
+  text-decoration: underline;
+  font-size: $small;
 }

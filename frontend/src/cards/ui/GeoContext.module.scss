@@ -1,0 +1,9 @@
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
+
+.SviContainer {
+  @media only screen and (min-width: $md) {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -119,7 +119,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
-  const heightWidthRatio = 0.5
+  const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
@@ -477,13 +477,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ])
 
   return (
-    <div ref={ref}>
+    <div ref={props.overrideShapeWithCircle ? undefined : ref}>
       {shouldRenderMap && (
         <Vega
           renderer="svg"
           spec={spec}
-          width={width}
-          // custom 3-dot options for states, hidden on territories
+          width={props.overrideShapeWithCircle ? undefined : width}
+          // custom 3-dot options for states, hidden
           actions={
             !props.hideActions && {
               export: { png: true, svg: true },

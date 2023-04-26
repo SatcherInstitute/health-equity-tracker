@@ -84,6 +84,12 @@ class Fips {
     }
   }
 
+  getUppercaseFipsTypeDisplayName() {
+    const fipsType: string = this.getFipsTypeDisplayName()
+    if (fipsType.length < 2) return ''
+    return fipsType[0].toUpperCase() + fipsType.slice(1)
+  }
+
   getChildFipsTypeDisplayName() {
     if (this.isUsa()) {
       return 'state/territory'

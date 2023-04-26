@@ -4,7 +4,6 @@ import LazyLoad from 'react-lazyload'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { PopulationCard } from '../cards/PopulationCard'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
@@ -201,7 +200,7 @@ function TwoVariableReport(props: {
           />
 
           <Grid container spacing={1} alignItems="flex-start">
-            {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
+            {/*  2 SETS OF TOGGLE CONTROLS */}
             {props.fips1.code === props.fips2.code ? (
               <Grid
                 item
@@ -212,9 +211,6 @@ function TwoVariableReport(props: {
                   scrollMarginTop: props.headerScrollMargin,
                 }}
               >
-                {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-                <PopulationCard fips={props.fips1} />
-
                 {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
                 <Grid container>
                   <Grid item xs={12} sm={6}>
@@ -253,9 +249,6 @@ function TwoVariableReport(props: {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
-                  <PopulationCard fips={props.fips1} />
-
                   {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId1}
@@ -267,9 +260,6 @@ function TwoVariableReport(props: {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
-                  <PopulationCard fips={props.fips2} />
-
                   {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId2}
