@@ -49,17 +49,13 @@ export interface LegendProps {
   // Whether legend entries stack vertical or horizontal (allows responsive design)
   direction: 'horizontal' | 'vertical'
   hasSelfButNotChildGeoData?: boolean
+  fipsTypeDisplayName: 'national' | 'state' | 'territory' | 'county' | ''
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
-  const isCawpOrHiv = isCawp || isHiv
-
-  const legendColorCount =
-    props.legendData && props.legendData.length < 6
-      ? props.legendData.length
-      : LEGEND_COLOR_COUNT
+  const containsDistinctZeros = isCawp || isHiv
 
   const [ref, width] = useResponsiveWidth(
     100 /* default width during initialization */
@@ -73,7 +69,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: 'yellowgreen', count: legendColorCount },
+      range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
     }
 
     if (props.fieldRange) {
@@ -82,7 +78,7 @@ export function Legend(props: LegendProps) {
     }
 
     const dotRange = props.sameDotSize
-      ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
+      ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
     const legendList: LegendList[] = []
@@ -100,7 +96,7 @@ export function Legend(props: LegendProps) {
         labels: {
           update: {
             text: {
-              signal: `datum.label + '${props.metric.type === "pct_share" ? "% (state overall)" : " (state overall)"}'`,
+              signal: `datum.label + '${props.metric.type === "pct_share" ? `% (${props.fipsTypeDisplayName} overall)` : ` (${props.fipsTypeDisplayName} overall)`}'`,
             },
           },
         },
@@ -140,7 +136,7 @@ export function Legend(props: LegendProps) {
     }
 
     // 0 should appear first, then numbers, then "insufficient"
-    if (isCawpOrHiv) legendList.reverse()
+    if (containsDistinctZeros) legendList.reverse()
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -165,7 +161,7 @@ export function Legend(props: LegendProps) {
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: (isCawpOrHiv) ? '0' : NO_DATA_MESSAGE }],
+          values: [{ missing: (containsDistinctZeros) ? '0' : NO_DATA_MESSAGE }],
         },
         {
           name: STATE_VALUES,
@@ -185,7 +181,7 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: 'yellowgreen', count: legendColorCount },
+          range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
         },
         {
           name: DOT_SIZE_SCALE,
@@ -197,7 +193,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [(isCawpOrHiv) ? sass.mapMin : sass.unknownGrey],
+          range: [(containsDistinctZeros) ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -222,7 +218,7 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
-    isCawpOrHiv
+    containsDistinctZeros
   ])
 
   return (

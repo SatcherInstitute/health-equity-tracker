@@ -200,6 +200,8 @@ function MapCardWithKey(props: MapCardProps) {
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !pageIsSmall && !isCompareMode
 
+  const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
+
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -430,6 +432,7 @@ function MapCardWithKey(props: MapCardProps) {
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                         hasSelfButNotChildGeoData={hasSelfButNotChildGeoData || props.fips.isCounty()}
+                        fipsTypeDisplayName={fipsTypeDisplayName}
                       />
                     </Grid>
                   </Grid>
@@ -497,14 +500,6 @@ function MapCardWithKey(props: MapCardProps) {
                       variableConfig={props.variableConfig}
                     />
                   )}
-
-                {hasSelfButNotChildGeoData && (
-                  <CountyUnavailableAlert
-                    variableFullDisplayName={
-                      props.variableConfig.variableFullDisplayName
-                    }
-                  />
-                )}
               </div>
             )}
           </>

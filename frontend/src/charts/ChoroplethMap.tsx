@@ -107,7 +107,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
-  const isCawpOrHiv = isCawp || isHiv
+  const containsDistinctZeros = isCawp || isHiv
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -149,7 +149,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ]
     // Null SVI was showing
-    if ((!isCawpOrHiv) && !props.listExpanded) {
+    if ((!containsDistinctZeros) && !props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
     if (props.overrideShapeWithCircle) {
@@ -254,7 +254,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */(isCawpOrHiv) &&
+      /* overrideGrayMissingWithZeroYellow */(containsDistinctZeros) &&
       !props.listExpanded
     )
     if (!props.hideLegend) {
@@ -277,7 +277,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const marks = [
-      ((isCawpOrHiv) && !props.listExpanded)
+      ((containsDistinctZeros) && !props.listExpanded)
         ? createShapeMarks(
             /* datasetName= */ ZERO_DATASET,
             /* fillColor= */ { value: sass.mapMin },
@@ -307,7 +307,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET));
-      (isCawpOrHiv && !props.listExpanded)
+      (containsDistinctZeros && !props.listExpanded)
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET))
     } else {
@@ -343,7 +343,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             // only use the nonZero subset if viewing high low lists, viewing CAWP,
             // or viewing multimap with some groups having only one non-zero value
             props.listExpanded ??
-              (!isCawpOrHiv) ??
+              (!containsDistinctZeros) ??
               (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
