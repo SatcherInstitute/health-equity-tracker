@@ -58,7 +58,6 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
-import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
@@ -159,7 +158,7 @@ function MapCardWithKey(props: MapCardProps) {
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
   const popQuery = new MetricQuery(
-    /* MetricId(s) */ ['population'],
+    /* MetricId(s) */['population'],
     /* Breakdowns */ popBreakdown
   )
   queries.push(popQuery)
@@ -169,7 +168,7 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */ ['svi'],
+      /* MetricId(s) */['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)

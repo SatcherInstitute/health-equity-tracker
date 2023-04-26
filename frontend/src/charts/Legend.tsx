@@ -7,9 +7,11 @@ import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
-import { Legend as LegendList } from 'vega'
+import { Legend as LegendType } from 'vega'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { Grid } from '@mui/material'
+import { GeographicBreakdown } from '../data/query/Breakdowns'
+
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -48,7 +50,7 @@ export interface LegendProps {
   // Whether legend entries stack vertical or horizontal (allows responsive design)
   direction: 'horizontal' | 'vertical'
   hasSelfButNotChildGeoData?: boolean
-  fipsTypeDisplayName: 'national' | 'state' | 'territory' | 'county' | ''
+  fipsTypeDisplayName?: GeographicBreakdown
 }
 
 export function Legend(props: LegendProps) {
@@ -77,7 +79,7 @@ export function Legend(props: LegendProps) {
       ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
-    const legendList: LegendList[] = []
+    const legendList: LegendType[] = []
 
     if (props.hasSelfButNotChildGeoData) {
       legendList.push({
@@ -92,7 +94,7 @@ export function Legend(props: LegendProps) {
         labels: {
           update: {
             text: {
-              signal: `datum.label + '${props.metric.type === "pct_share" ? `% (${props.fipsTypeDisplayName} overall)` : ` (${props.fipsTypeDisplayName} overall)`}'`,
+              signal: `datum.label + '${props.metric.type === "pct_share" ? `% (${props.fipsTypeDisplayName ?? ""} overall)` : ` (${props.fipsTypeDisplayName ?? ""} overall)`}'`,
             },
           },
         },
