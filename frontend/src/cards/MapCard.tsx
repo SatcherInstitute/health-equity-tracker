@@ -564,14 +564,6 @@ function MapCardWithKey(props: MapCardProps) {
                       </Alert>
                     </CardContent>
                   )}
-
-                {hasSelfButNotChildGeoData && (
-                  <CountyUnavailableAlert
-                    variableFullDisplayName={
-                      props.variableConfig.variableFullDisplayName
-                    }
-                  />
-                )}
               </div>
             )}
           </>
