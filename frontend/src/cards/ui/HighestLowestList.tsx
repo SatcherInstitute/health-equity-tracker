@@ -10,14 +10,17 @@ import {
 } from '../../data/config/MetricConfig'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
+import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import { type Fips } from '../../data/utils/Fips'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicGroup } from '../../data/utils/Constants'
 
 export interface HighestLowestListProps {
   // MetricConfig for data
   metricConfig: MetricConfig
   // VariableConfig for data
   variableConfig: VariableConfig
-  // Display name for geo type in as "see the ___ with the highest rates"
-  fipsTypePluralDisplayName: string
+  fips: Fips
   // Whether or not list is expanded
   listExpanded: boolean
   // Expand or collapse the list
@@ -30,12 +33,27 @@ export interface HighestLowestListProps {
   qualifierMessage?: string
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
   selectedRaceSuffix?: string
+  parentGeoQueryResponse: MetricQueryResponse
+  currentBreakdown: BreakdownVar
+  activeBreakdownFilter: DemographicGroup
 }
 
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
+  const placesType = props.fips.getPluralChildFipsTypeDisplayName()
+
+  const overallRow = props.parentGeoQueryResponse.data.find(
+    (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
+  )
+
+  const overallRate = formatFieldValue(
+    /* metricType: MetricType, */ props.metricConfig.type,
+    /* value: any, */ overallRow?.[props.metricConfig.metricId],
+    /* omitPctSymbol: boolean = false */ true
+  )
+
   return (
     <AnimateHeight
       duration={500}
@@ -47,8 +65,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
         <IconButton
           aria-label={
             props.listExpanded
-              ? `hide lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates `
-              : `show lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates`
+              ? `hide lists of ${placesType} with highest and lowest rates `
+              : `show lists of ${placesType} with highest and lowest rates`
           }
           onClick={() => {
             props.setListExpanded(!props.listExpanded)
@@ -69,9 +87,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
         }
       >
         {!props.listExpanded ? 'See ' : 'Viewing '}
-        <span className={styles.HideOnMobile}>
-          the {props.fipsTypePluralDisplayName} with the{' '}
-        </span>
+        <span className={styles.HideOnMobile}>the {placesType} with the </span>
         <b>highest</b> and <b>lowest</b> rates.
       </div>
 
@@ -96,6 +112,16 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 qualifierItems={props.qualifierItems}
               />
             </Grid>
+
+            <h4>{props.fips.getUppercaseFipsTypeDisplayName()} overall:</h4>
+            <ul>
+              <li>
+                {props.fips.getDisplayName()}: {overallRate}
+                <span className={styles.Unit}>
+                  {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
+                </span>
+              </li>
+            </ul>
           </div>
 
           <p>
@@ -117,7 +143,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
   )
 }
 
-export interface ExtremeListProps {
+// TODO: This should be its own component file
+interface ExtremeListProps {
   whichExtreme: 'Highest' | 'Lowest'
   values: Row[]
   metricConfig: MetricConfig

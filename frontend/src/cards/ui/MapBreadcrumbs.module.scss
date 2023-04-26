@@ -1,11 +1,16 @@
 @import '../../styles/globals.scss';
+@import '../../styles/variables.module';
 
 .Crumb {
   padding: 3px;
 }
 
 .CurrentCrumb {
-  @include inter700();
   padding: 3px;
-  color: black !important;
+  color: $black !important;
+}
+
+.NoteCrumb {
+  padding: 3px;
+  color: $black !important;
 }

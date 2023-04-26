@@ -11,7 +11,7 @@ import {
   ListItem,
   ListItemText,
 } from '@mui/material'
-import { AGE, type DemographicGroup } from '../../data/utils/Constants'
+import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   type BreakdownVar,
   type BreakdownVarDisplayName,
@@ -134,8 +134,7 @@ function DropDownMenu(props: DropDownMenuProps) {
   const firstMenu = usePopover()
   const secondMenu = usePopover()
 
-  const demOption = firstMenuSelection.toLowerCase()
-  const article = props.breakdownVar === AGE ? 'an' : 'a'
+  const demOption = firstMenuSelection
 
   const suffix = useHIVLabelSuffix(
     props.breakdownVar,
@@ -150,19 +149,22 @@ function DropDownMenu(props: DropDownMenuProps) {
         htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >
-        {`Highlight ${article} ${demOption} group:`}
+        {demOption}:
       </label>
       <Button
         variant="text"
         onClick={firstMenu.open}
         aria-haspopup="true"
         id={`groupMenu${props?.idSuffix ?? ''}`}
+        className={styles.GroupText}
       >
-        <u>
-          {props.value}
-          {suffix}
-        </u>
-        <ArrowDropDown />
+        {props.value}
+        {suffix}
+        <ArrowDropDown
+          sx={{
+            mb: '2px',
+          }}
+        />
       </Button>
 
       <MenuPopover

@@ -76,7 +76,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   // calculate page size for responsive layout
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('xl'))
-  const title = `${props.metricConfig.chartTitleLines.join(' ')} across all
+
+  const title = `${props.metricConfig.chartTitleLines.join(
+    ' '
+  )} in ${props.fips.getSentenceDisplayName()} across all
   ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
