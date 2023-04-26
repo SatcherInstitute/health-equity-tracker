@@ -64,7 +64,6 @@ class HivProvider extends VariableProvider {
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
-    console.log({ breakdowns })
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
         return 'cdc_hiv_data-race_and_ethnicity_national_time_series'

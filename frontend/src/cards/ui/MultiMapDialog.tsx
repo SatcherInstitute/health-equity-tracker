@@ -217,6 +217,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     sameDotSize={true}
                     direction={pageIsWide ? 'horizontal' : 'vertical'}
                     description={'Consistent legend for all displayed maps'}
+                    fipsTypeDisplayName={""}
                   />
                 </Grid>
               </Grid>

@@ -14,13 +14,13 @@ import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
-export const UNKNOWN_SCALE = 'unknown_scale'
+const SUMMARY_SCALE = 'summary_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'
+export const UNKNOWN_SCALE = 'unknown_scale'
 export const ZERO_DOT_SCALE = 'zero_dot_scale'
-const STATE_SCALE = 'state_scale'
 const RAW_VALUES = 'raw_values'
 const DATASET_VALUES = 'dataset_values'
-const STATE_VALUES = 'state_values'
+const SUMMARY_VALUES = 'summary_values'
 export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
@@ -87,7 +87,7 @@ export function Legend(props: LegendProps) {
       legendList.push({
         fill: COLOR_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
-        size: STATE_SCALE,
+        size: SUMMARY_SCALE,
         labelFontStyle: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
         orient: props.direction === 'vertical' ? 'left' : 'right',
@@ -164,8 +164,8 @@ export function Legend(props: LegendProps) {
           values: [{ missing: (containsDistinctZeros) ? '0' : NO_DATA_MESSAGE }],
         },
         {
-          name: STATE_VALUES,
-          values: [{ state: `${props.legendData?.[0][props.metric.metricId]}` }]
+          name: SUMMARY_VALUES,
+          values: [{ summary: `${props.legendData?.[0][props.metric.metricId]}` }]
         }
       ],
       layout: { padding: 20, bounds: 'full', align: 'each' },
@@ -202,9 +202,9 @@ export function Legend(props: LegendProps) {
           range: [EQUAL_DOT_SIZE],
         },
         {
-          name: STATE_SCALE,
+          name: SUMMARY_SCALE,
           type: ORDINAL,
-          domain: { data: STATE_VALUES, field: 'state' },
+          domain: { data: SUMMARY_VALUES, field: 'summary' },
           range: [EQUAL_DOT_SIZE],
         }
       ],
