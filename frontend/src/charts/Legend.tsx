@@ -8,7 +8,6 @@ import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
 import { type Legend as LegendType } from 'vega'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 
@@ -54,8 +53,7 @@ export interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
-  const containsDistinctZeros = isCawp || isHiv
+  const containsDistinctZeros = isCawp
 
   // Initial spec state is set in useEffect
   // TODO: Why??

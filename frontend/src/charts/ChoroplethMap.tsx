@@ -39,7 +39,6 @@ import {
   ZERO_YELLOW_SCALE,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -106,8 +105,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ).size
 
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
-  const containsDistinctZeros = isCawp || isHiv
+  const containsDistinctZeros = isCawp
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -456,7 +454,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }, 0)
   }, [
     isCawp,
-    isHiv,
+    containsDistinctZeros,
     width,
     props.metric,
     props.legendTitle,
