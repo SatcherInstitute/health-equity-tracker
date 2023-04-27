@@ -7,11 +7,10 @@ import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
-import { Legend as LegendType } from 'vega'
+import { type Legend as LegendType } from 'vega'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { Grid } from '@mui/material'
-import { GeographicBreakdown } from '../data/query/Breakdowns'
-
+import { type GeographicBreakdown } from '../data/query/Breakdowns'
 
 const COLOR_SCALE = 'color_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -94,11 +93,15 @@ export function Legend(props: LegendProps) {
         labels: {
           update: {
             text: {
-              signal: `datum.label + '${props.metric.type === "pct_share" ? `% (${props.fipsTypeDisplayName ?? ""} overall)` : ` (${props.fipsTypeDisplayName ?? ""} overall)`}'`,
+              signal: `datum.label + '${
+                props.metric.type === 'pct_share'
+                  ? `% (${props.fipsTypeDisplayName ?? ''} overall)`
+                  : ` (${props.fipsTypeDisplayName ?? ''} overall)`
+              }'`,
             },
           },
         },
-      };
+      }
     } else {
       legendList.push(
         {
@@ -126,11 +129,13 @@ export function Legend(props: LegendProps) {
         labels: {
           update: {
             text: {
-              signal: `datum.label + '${props.metric.type === "pct_share" ? "%" : ""}'`,
+              signal: `datum.label + '${
+                props.metric.type === 'pct_share' ? '%' : ''
+              }'`,
             },
           },
         },
-      };
+      }
     }
 
     // 0 should appear first, then numbers, then "insufficient"
@@ -152,19 +157,25 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) 
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])
               && (+datum["${props.metric.metricId}"]) !== 0`,
             },
           ],
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: (containsDistinctZeros) ? '0' : NO_DATA_MESSAGE }],
+          values: [{ missing: containsDistinctZeros ? '0' : NO_DATA_MESSAGE }],
         },
         {
           name: SUMMARY_VALUES,
-          values: [{ summary: `${props.legendData?.[0][props.metric.metricId]}` }]
-        }
+          values: [
+            {
+              summary: `${
+                props.legendData?.[0][props.metric.metricId] as string
+              }`,
+            },
+          ],
+        },
       ],
       layout: { padding: 20, bounds: 'full', align: 'each' },
       marks: [
@@ -191,7 +202,7 @@ export function Legend(props: LegendProps) {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [(containsDistinctZeros) ? sass.mapMin : sass.unknownGrey],
+          range: [containsDistinctZeros ? sass.mapMin : sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -204,7 +215,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
           domain: { data: SUMMARY_VALUES, field: 'summary' },
           range: [EQUAL_DOT_SIZE],
-        }
+        },
       ],
     })
   }, [
@@ -215,7 +226,7 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
-    containsDistinctZeros
+    containsDistinctZeros,
   ])
 
   return (
