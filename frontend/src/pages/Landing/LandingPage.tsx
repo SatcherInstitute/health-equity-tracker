@@ -81,12 +81,12 @@ function LandingPage() {
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
               inequities. By providing policymakers, community leaders, and
-              researchers with the data they need to make informed decisions,
-              this scalable, feature-rich platform supports efforts to achieve
-              health equity and justice for all.
+              researchers the data they need to make informed decisions, this
+              scalable, feature-rich platform supports efforts to achieve health
+              equity and justice for all.
             </Typography>
 
-            <Box my={10}>
+            <Box my={5}>
               <Button
                 id="landingPageCTA"
                 variant="contained"

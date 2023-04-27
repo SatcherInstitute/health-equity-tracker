@@ -23,7 +23,7 @@
     @include tav300();
     text-align: left;
     color: $alt-green;
-    padding: 3rem 0 1rem 0;
+    padding: 3rem 1rem 1rem 1rem;
   }
 
   .HeaderSubtext {
@@ -74,10 +74,6 @@
     @include tav300();
     text-align: center;
     color: $alt-green;
-
-    @media (min-width: $lg) {
-      font-size: $biggerHeader;
-    }
   }
 
   .RecentNewsHeaderSubtext {
