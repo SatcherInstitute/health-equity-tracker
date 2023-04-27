@@ -158,7 +158,7 @@ function MapCardWithKey(props: MapCardProps) {
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
   const popQuery = new MetricQuery(
-    /* MetricId(s) */['population'],
+    /* MetricId(s) */ ['population'],
     /* Breakdowns */ popBreakdown
   )
   queries.push(popQuery)
@@ -168,7 +168,7 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */['svi'],
+      /* MetricId(s) */ ['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)
@@ -415,7 +415,6 @@ function MapCardWithKey(props: MapCardProps) {
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
                         fips={props.fips}
-                        scaleType={RATE_MAP_SCALE}
                         geoData={geoData}
                         // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
                         filename={filename}
@@ -430,7 +429,6 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
-                            layout={'horizontal'}
                             data={
                               listExpanded
                                 ? highestValues.concat(lowestValues)
@@ -463,7 +461,9 @@ function MapCardWithKey(props: MapCardProps) {
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
-                        hasSelfButNotChildGeoData={hasSelfButNotChildGeoData || props.fips.isCounty()}
+                        hasSelfButNotChildGeoData={
+                          hasSelfButNotChildGeoData || props.fips.isCounty()
+                        }
                         fipsTypeDisplayName={fipsTypeDisplayName}
                       />
                     </Grid>
@@ -492,7 +492,6 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
-                            layout={'horizontal'}
                             data={
                               listExpanded
                                 ? highestValues.concat(lowestValues)
@@ -531,17 +530,17 @@ function MapCardWithKey(props: MapCardProps) {
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                    <CardContent>
-                      <MissingDataAlert
-                        dataName={dataName}
-                        breakdownString={
-                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                        }
-                        isMapCard={true}
-                        fips={props.fips}
-                      />
-                    </CardContent>
-                  )}
+                  <CardContent>
+                    <MissingDataAlert
+                      dataName={dataName}
+                      breakdownString={
+                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                      }
+                      isMapCard={true}
+                      fips={props.fips}
+                    />
+                  </CardContent>
+                )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&

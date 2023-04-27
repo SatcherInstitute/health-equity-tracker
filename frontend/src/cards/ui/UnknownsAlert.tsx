@@ -1,9 +1,8 @@
-import React from 'react'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import styles from '../Card.module.scss'
-import { CardContent, Divider, Alert } from '@mui/material'
+import { CardContent, Alert } from '@mui/material'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
@@ -31,7 +30,7 @@ interface UnknownsAlertProps {
   jumpToData?: () => void
 }
 
-function UnknownsAlert(props: UnknownsAlertProps) {
+export default function UnknownsAlert(props: UnknownsAlertProps) {
   const validData = props.queryResponse.getValidRowsForField(
     props.metricConfig.metricId
   )
@@ -60,12 +59,12 @@ function UnknownsAlert(props: UnknownsAlertProps) {
       unknowns[1][props.metricConfig.metricId]
 
   const cardHelperText = props.known
-    ? `The ${
+    ? `This ${
         props.displayType
-      } below only displays data for cases where ${breakdownVarDisplayName} ${
+      } only displays data for cases where ${breakdownVarDisplayName} ${
         props.overrideAndWithOr ? 'were both' : 'was'
       } known.`
-    : `The ${props.displayType} below displays data for cases where ${
+    : `This ${props.displayType} displays data for cases where ${
         props.overrideAndWithOr
           ? ` either ${RACE_OR_ETHNICITY}`
           : breakdownVarDisplayName
@@ -107,44 +106,34 @@ function UnknownsAlert(props: UnknownsAlertProps) {
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
-    <>
-      <CardContent className={styles.SmallMarginContent}>
-        <Alert severity="warning" role="note">
-          {diffRaceEthnicityText}
-        </Alert>
-      </CardContent>
-      <Divider />
-    </>
+    <CardContent className={styles.SmallMarginContent}>
+      <Alert severity="warning" role="note">
+        {diffRaceEthnicityText}
+      </Alert>
+    </CardContent>
   ) : (
-    <>
-      <CardContent className={styles.SmallMarginContent}>
-        <Alert severity={showInfoSeverity ? 'info' : 'warning'} role="note">
-          {percentageUnknown}
-          {props.metricConfig.shortLabel}
-          {' reported an unknown '}
-          {props.overrideAndWithOr
-            ? RACE_OR_ETHNICITY
-            : breakdownVarDisplayName}
-          {/* Age Adjusted Card reports both unknown RACE + AGE */}
-          {secondaryAgePercentageUnknown
-            ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
-            : null}
-          {' in '}
-          {props.fips.getSentenceDisplayName()}.{' '}
-          {showCardHelperText && cardHelperText}
-          {props.raceEthDiffMap && raceEthDiffMapText}
-          {showDataGapsRisk && (
-            <>
-              Consider the possible impact of{' '}
-              <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{' '}
-              when interpreting age-adjusted risk.
-            </>
-          )}
-        </Alert>
-      </CardContent>
-      <Divider />
-    </>
+    <CardContent sx={{ m: 1 }} className={styles.SmallMarginContent}>
+      <Alert severity={showInfoSeverity ? 'info' : 'warning'} role="note">
+        {percentageUnknown}
+        {props.metricConfig.shortLabel}
+        {' reported an unknown '}
+        {props.overrideAndWithOr ? RACE_OR_ETHNICITY : breakdownVarDisplayName}
+        {/* Age Adjusted Card reports both unknown RACE + AGE */}
+        {secondaryAgePercentageUnknown
+          ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
+          : null}
+        {' in '}
+        {props.fips.getSentenceDisplayName()}.{' '}
+        {showCardHelperText && cardHelperText}
+        {props.raceEthDiffMap && raceEthDiffMapText}
+        {showDataGapsRisk && (
+          <>
+            Consider the possible impact of{' '}
+            <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{' '}
+            when interpreting age-adjusted risk.
+          </>
+        )}
+      </Alert>
+    </CardContent>
   )
 }
-
-export default UnknownsAlert

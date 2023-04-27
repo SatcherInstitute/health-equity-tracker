@@ -145,7 +145,7 @@ export function Legend(props: LegendProps) {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
       background: sass.white,
-      padding: 5,
+      padding: 8,
       data: [
         {
           name: RAW_VALUES,

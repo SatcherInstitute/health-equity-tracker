@@ -1,5 +1,5 @@
 import styles from './Sources.module.scss'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_SOURCE_PRE_FILTERS,
@@ -83,7 +83,6 @@ interface SourcesProps {
   queryResponses: MetricQueryResponse[]
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
-  isPopulationCard?: boolean
   hideNH?: boolean
   scrollToHash?: ScrollableHashId
   downloadTargetScreenshot: () => Promise<boolean>
@@ -115,7 +114,7 @@ export function Sources(props: SourcesProps) {
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
-      <p>
+      <p className={styles.FootnoteText}>
         Sources:{' '}
         {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
           <React.Fragment key={dataSourceId}>
@@ -143,33 +142,32 @@ export function Sources(props: SourcesProps) {
     )
 
   return (
-    <>
-      <Grid container className={styles.Footnote}>
-        <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
-          <div>
-            {sourcesInfo}
-            {showNhFootnote && <p>Note. NH: Non-Hispanic. </p>}
-          </div>
-        </Grid>
-        <Grid
-          item
-          xs={4}
-          sm={3}
-          md={2}
-          container
-          justifyContent={'flex-end'}
-          alignItems={'flex-end'}
-        >
-          {!props.isPopulationCard && props.scrollToHash && (
-            <CopyLinkButton scrollToHash={props.scrollToHash} />
-          )}
-          {!props.isPopulationCard && (
-            <DownloadCardImageButton
-              downloadTargetScreenshot={props.downloadTargetScreenshot}
-            />
-          )}
-        </Grid>
+    <Grid container className={styles.Footnote}>
+      {/* NH note (if needed) listed first, full-width */}
+      <Grid item xs={12} container alignItems={'center'}>
+        {showNhFootnote && (
+          <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
+        )}
       </Grid>
-    </>
+      {/* Sources inline with card action buttons */}
+      <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
+        {sourcesInfo}
+      </Grid>
+
+      <Grid
+        item
+        xs={4}
+        sm={3}
+        md={2}
+        container
+        justifyContent={'flex-end'}
+        alignItems={'flex-end'}
+      >
+        <CopyLinkButton scrollToHash={props.scrollToHash} />
+        <DownloadCardImageButton
+          downloadTargetScreenshot={props.downloadTargetScreenshot}
+        />
+      </Grid>
+    </Grid>
   )
 }
