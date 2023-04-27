@@ -176,7 +176,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
-                    scaleType={RATE_MAP_SCALE}
                     geoData={props.geoData}
                     filename={`${props.metricConfig.chartTitleLines.join(' ')}${
                       breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
@@ -206,7 +205,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}
-                            scaleType={RATE_MAP_SCALE}
                             geoData={props.geoData}
                             overrideShapeWithCircle={true}
                             countColsToAdd={props.countColsToAdd}
@@ -228,7 +226,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             <Box mt={pageIsTiny ? 0 : 3}>
               <Grid container item>
                 <Grid container justifyContent="center">
-                  <b>Legend: {props.metricConfig.shortLabel}</b>
+                  <b className={styles.LegendTitleText}>
+                    Legend: {props.metricConfig.shortLabel}
+                  </b>
                 </Grid>
                 <Grid container justifyContent="center">
                   <Legend

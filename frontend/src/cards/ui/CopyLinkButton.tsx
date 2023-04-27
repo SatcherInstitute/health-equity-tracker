@@ -5,14 +5,14 @@ import { IconButton, Snackbar, Alert, Tooltip } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 interface CopyLinkButtonProps {
-  scrollToHash: ScrollableHashId
+  scrollToHash?: ScrollableHashId
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
   const [open, setOpen] = useState(false)
 
   const urlWithoutHash = window.location.href.split('#')[0]
-  const cardHashLink = `${urlWithoutHash}#${props.scrollToHash}`
+  const cardHashLink = `${urlWithoutHash}#${props.scrollToHash ?? ''}`
 
   function handleClose() {
     setOpen(false)
@@ -26,7 +26,7 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
     asyncHandleClick().catch((error) => error)
   }
 
-  let cardName = props.scrollToHash.replaceAll('-', ' ')
+  let cardName = props.scrollToHash?.replaceAll('-', ' ') ?? 'Card'
   cardName = cardName[0].toUpperCase() + cardName.slice(1)
 
   const title = `Copy direct link to: ${cardName}`

@@ -28,7 +28,6 @@ import {
   LEGEND_DATASET,
   makeAltText,
   MISSING_DATASET,
-  type ScaleType,
   setupColorScale,
   VAR_DATASET,
   GREY_DOT_SCALE_SPEC,
@@ -37,6 +36,8 @@ import {
   ZERO_DOT_SCALE_SPEC,
   getHelperLegend,
   ZERO_YELLOW_SCALE,
+  UNKNOWNS_MAP_SCALE,
+  RATE_MAP_SCALE,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
@@ -78,10 +79,6 @@ export interface ChoroplethMapProps {
   fieldRange?: FieldRange
   // Hide the action bar in the corner of a vega chart
   hideActions?: boolean
-  // How the color scale is computed mathematically
-  scaleType: ScaleType
-  // Colors to use for the color scale. Default is yellowgreen
-  scaleColorScheme?: string
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
   overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
@@ -264,9 +261,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const colorScale = setupColorScale(
       /* legendData */ legendData,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ props.scaleType,
+      /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.scaleColorScheme
+      /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen'
     )
 
     const projection = getProjection(
@@ -465,8 +462,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.hideLegend,
     props.showCounties,
     props.fieldRange,
-    props.scaleType,
-    props.scaleColorScheme,
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,

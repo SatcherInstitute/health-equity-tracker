@@ -206,7 +206,6 @@ function TwoVariableReport(props: {
                 item
                 xs={12}
                 tabIndex={-1}
-                id="location-info"
                 style={{
                   scrollMarginTop: props.headerScrollMargin,
                 }}
@@ -244,7 +243,6 @@ function TwoVariableReport(props: {
                   xs={12}
                   sm={6}
                   tabIndex={-1}
-                  id="location-info"
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
