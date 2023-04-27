@@ -4,7 +4,6 @@ import LazyLoad from 'react-lazyload'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { PopulationCard } from '../cards/PopulationCard'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
@@ -201,20 +200,16 @@ function TwoVariableReport(props: {
           />
 
           <Grid container spacing={1} alignItems="flex-start">
-            {/* POPULATION CARD(S)  AND 2 SETS OF TOGGLE CONTROLS */}
+            {/*  2 SETS OF TOGGLE CONTROLS */}
             {props.fips1.code === props.fips2.code ? (
               <Grid
                 item
                 xs={12}
                 tabIndex={-1}
-                id="location-info"
                 style={{
                   scrollMarginTop: props.headerScrollMargin,
                 }}
               >
-                {/*  SINGLE POPULATION CARD FOR EXPLORE RELATIONSHIPS REPORT */}
-                <PopulationCard fips={props.fips1} />
-
                 {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
                 <Grid container>
                   <Grid item xs={12} sm={6}>
@@ -248,14 +243,10 @@ function TwoVariableReport(props: {
                   xs={12}
                   sm={6}
                   tabIndex={-1}
-                  id="location-info"
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  {/* FIRST POPULATION CARD FOR COMPARE RATES REPORT */}
-                  <PopulationCard fips={props.fips1} />
-
                   {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId1}
@@ -267,9 +258,6 @@ function TwoVariableReport(props: {
                   />
                 </Grid>
                 <Grid item xs={12} sm={6}>
-                  {/* SECOND POPULATION CARD FOR COMPARE RATES REPORT */}
-                  <PopulationCard fips={props.fips2} />
-
                   {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
                   <ReportToggleControls
                     dropdownVarId={props.dropdownVarId2}
@@ -584,7 +572,7 @@ function RowOfTwoOptionalMetrics(props: {
   // Needed for type safety, used when the card does not need to use the fips update callback
   const unusedFipsCallback = () => {}
 
-  const dontLazyLoadCard = NON_LAZYLOADED_CARDS.includes(props.id)
+  const doNotLazyLoadCard = NON_LAZYLOADED_CARDS.includes(props.id)
   return (
     <>
       <Grid
@@ -596,7 +584,7 @@ function RowOfTwoOptionalMetrics(props: {
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         {/* render with or without LazyLoad wrapped based on card id */}
-        {props.variableConfig1 && dontLazyLoadCard && (
+        {props.variableConfig1 && doNotLazyLoadCard && (
           <>
             {props.createCard(
               props.variableConfig1,
@@ -609,7 +597,7 @@ function RowOfTwoOptionalMetrics(props: {
         )}
 
         <LazyLoad offset={800} height={750}>
-          {props.variableConfig1 && !dontLazyLoadCard && (
+          {props.variableConfig1 && !doNotLazyLoadCard && (
             <>
               {props.createCard(
                 props.variableConfig1,
@@ -630,7 +618,7 @@ function RowOfTwoOptionalMetrics(props: {
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
-        {props.variableConfig2 && dontLazyLoadCard && (
+        {props.variableConfig2 && doNotLazyLoadCard && (
           <>
             {props.createCard(
               props.variableConfig2,
@@ -643,7 +631,7 @@ function RowOfTwoOptionalMetrics(props: {
         )}
 
         <LazyLoad offset={800} height={600} once>
-          {props.variableConfig2 && !dontLazyLoadCard && (
+          {props.variableConfig2 && !doNotLazyLoadCard && (
             <>
               {props.createCard(
                 props.variableConfig2,

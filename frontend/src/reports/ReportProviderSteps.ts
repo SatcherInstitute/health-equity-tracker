@@ -6,10 +6,6 @@ export interface StepLabelInfo {
 }
 
 export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
-  'location-info': {
-    label: 'Location info & filters',
-    pluralOnCompare: false,
-  },
   'rate-map': {
     label: 'Rate map',
     pluralOnCompare: true,

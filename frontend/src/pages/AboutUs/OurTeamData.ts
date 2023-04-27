@@ -104,7 +104,6 @@ export const LEADERSHIP_TEAM = [
     imageUrl: Elias,
   },
 ]
-
 export const GOOGLE_FELLOWS = [
   {
     name: 'Chelsea Seabron',

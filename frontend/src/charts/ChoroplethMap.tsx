@@ -13,7 +13,6 @@ import {
   NO_DATA_MESSAGE,
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
-import { PADDING_FOR_ACTIONS_MENU } from './utils'
 import {
   addCAWPTooltipInfo,
   buildTooltipTemplate,
@@ -29,7 +28,6 @@ import {
   LEGEND_DATASET,
   makeAltText,
   MISSING_DATASET,
-  type ScaleType,
   setupColorScale,
   VAR_DATASET,
   GREY_DOT_SCALE_SPEC,
@@ -38,8 +36,11 @@ import {
   ZERO_DOT_SCALE_SPEC,
   getHelperLegend,
   ZERO_YELLOW_SCALE,
+  UNKNOWNS_MAP_SCALE,
+  RATE_MAP_SCALE,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -78,10 +79,6 @@ export interface ChoroplethMapProps {
   fieldRange?: FieldRange
   // Hide the action bar in the corner of a vega chart
   hideActions?: boolean
-  // How the color scale is computed mathematically
-  scaleType: ScaleType
-  // Colors to use for the color scale. Default is yellowgreen
-  scaleColorScheme?: string
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
   overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
@@ -106,6 +103,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ).size
 
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
+  const containsDistinctZeros = isCawp || isHiv
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -120,7 +119,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
-  const heightWidthRatio = pageIsTiny ? 1 : 0.5
+  const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
@@ -147,7 +146,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ]
     // Null SVI was showing
-    if (!isCawp && !props.listExpanded) {
+    if (!containsDistinctZeros && !props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
     if (props.overrideShapeWithCircle) {
@@ -252,7 +251,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+      /* overrideGrayMissingWithZeroYellow */ containsDistinctZeros &&
+        !props.listExpanded
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
@@ -261,9 +261,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const colorScale = setupColorScale(
       /* legendData */ legendData,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ props.scaleType,
+      /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.scaleColorScheme
+      /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen'
     )
 
     const projection = getProjection(
@@ -274,7 +274,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const marks = [
-      isCawp && !props.listExpanded
+      containsDistinctZeros && !props.listExpanded
         ? createShapeMarks(
             /* datasetName= */ ZERO_DATASET,
             /* fillColor= */ { value: sass.mapMin },
@@ -304,7 +304,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET))
-      isCawp && !props.listExpanded
+      containsDistinctZeros && !props.listExpanded
         ? marks.push(createCircleTextMark(ZERO_DATASET))
         : marks.push(createCircleTextMark(MISSING_DATASET))
     } else {
@@ -340,7 +340,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
             // only use the nonZero subset if viewing high low lists, viewing CAWP,
             // or viewing multimap with some groups having only one non-zero value
             props.listExpanded ??
-            !isCawp ??
+            !containsDistinctZeros ??
             (numUniqueNonZeroValues <= 1 && !props.hideLegend)
               ? props.data
               : nonZeroData,
@@ -453,6 +453,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }, 0)
   }, [
     isCawp,
+    isHiv,
     width,
     props.metric,
     props.legendTitle,
@@ -461,8 +462,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.hideLegend,
     props.showCounties,
     props.fieldRange,
-    props.scaleType,
-    props.scaleColorScheme,
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,
@@ -477,19 +476,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     fontSize,
   ])
 
-  const mapStyle = {
-    width: '90%',
-    marginRight: PADDING_FOR_ACTIONS_MENU,
-  }
-
   return (
-    <div ref={ref} style={mapStyle}>
+    <div ref={props.overrideShapeWithCircle ? undefined : ref}>
       {shouldRenderMap && (
         <Vega
           renderer="svg"
           spec={spec}
-          width={width}
-          // custom 3-dot options for states, hidden on territories
+          width={props.overrideShapeWithCircle ? undefined : width}
+          // custom 3-dot options for states, hidden
           actions={
             !props.hideActions && {
               export: { png: true, svg: true },

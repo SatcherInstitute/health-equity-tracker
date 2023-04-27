@@ -1,5 +1,5 @@
 import styles from './Sources.module.scss'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_SOURCE_PRE_FILTERS,
@@ -11,6 +11,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import CopyLinkButton from './CopyLinkButton'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { Grid } from '@mui/material'
+import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -81,9 +83,9 @@ interface SourcesProps {
   queryResponses: MetricQueryResponse[]
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
-  isPopulationCard?: boolean
   hideNH?: boolean
   scrollToHash?: ScrollableHashId
+  downloadTargetScreenshot: () => Promise<boolean>
 }
 
 export function Sources(props: SourcesProps) {
@@ -112,7 +114,7 @@ export function Sources(props: SourcesProps) {
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
-      <>
+      <p className={styles.FootnoteText}>
         Sources:{' '}
         {Object.keys(dataSourceMap).map((dataSourceId, idx) => (
           <React.Fragment key={dataSourceId}>
@@ -134,20 +136,38 @@ export function Sources(props: SourcesProps) {
             {insertPunctuation(idx, Object.keys(dataSourceMap).length)}
           </React.Fragment>
         ))}{' '}
-      </>
+      </p>
     ) : (
       ''
     )
 
   return (
-    <>
-      {sourcesInfo}
-      <div className={styles.Footnote}>
-        {showNhFootnote && <p>(NH) Non-Hispanic. </p>}
-        {!props.isPopulationCard && props.scrollToHash && (
-          <CopyLinkButton scrollToHash={props.scrollToHash} />
+    <Grid container className={styles.Footnote}>
+      {/* NH note (if needed) listed first, full-width */}
+      <Grid item xs={12} container alignItems={'center'}>
+        {showNhFootnote && (
+          <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
         )}
-      </div>
-    </>
+      </Grid>
+      {/* Sources inline with card action buttons */}
+      <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
+        {sourcesInfo}
+      </Grid>
+
+      <Grid
+        item
+        xs={4}
+        sm={3}
+        md={2}
+        container
+        justifyContent={'flex-end'}
+        alignItems={'flex-end'}
+      >
+        <CopyLinkButton scrollToHash={props.scrollToHash} />
+        <DownloadCardImageButton
+          downloadTargetScreenshot={props.downloadTargetScreenshot}
+        />
+      </Grid>
+    </Grid>
   )
 }

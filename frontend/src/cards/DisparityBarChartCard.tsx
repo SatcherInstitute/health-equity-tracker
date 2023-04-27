@@ -91,6 +91,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   return (
     <CardWrapper
+      downloadTitle={filename}
       queries={[query]}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
@@ -141,6 +142,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   metricDisplayName={metricConfig.shortLabel}
                   filename={filename}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
+                  hideActions={true}
                 />
               </CardContent>
             )}

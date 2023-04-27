@@ -1,4 +1,4 @@
-import requests
+import requests  # type: ignore
 import json
 from ingestion.standardized_columns import (
     STATE_FIPS_COL,
@@ -142,7 +142,8 @@ def get_vars_for_group(group_concept, var_map, num_breakdowns):
             num_parts = 2 + num_breakdowns
             if len(parts) == num_parts:
                 attributes = parts[2:num_parts]
-                attributes = [a[:-1] if a.endswith(":") else a for a in attributes]
+                attributes = [
+                    a[:-1] if a.endswith(":") else a for a in attributes]
                 group_vars[group] = attributes
     return group_vars
 
@@ -226,7 +227,7 @@ def get_county_fips_mapping(base_url):
     json_formatted_response = resp.json()
     county_fips = {}
     for row in json_formatted_response[1::]:
-        county_name, state_fip, county_fip = row
-        county_fips[(state_fip, county_fip)] = county_name
+        county_name, state_fips_code, county_fip_code = row
+        county_fips[(state_fips_code, county_fip_code)] = county_name
 
     return county_fips

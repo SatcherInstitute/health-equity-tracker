@@ -22,53 +22,6 @@
   padding-top: 6px !important;
 }
 
-.PopulationCardContent {
-  padding: 16px 16px 0 16px !important;
-}
-
-.PopulationCard {
-  $populationTitleHeight: 57px; // vertically align all population card header text
-  width: 100%;
-
-  h1,
-  span {
-    text-align: left;
-  }
-
-  .TotalPopulationKey {
-    font-size: $title;
-    line-height: $populationTitleHeight;
-    padding-right: 7px;
-  }
-
-  .TotalPopulationValue {
-    font-size: $title;
-    line-height: $populationTitleHeight;
-    color: $alt-green;
-  }
-
-  .PopulationCardTitle {
-    @include inter500();
-    padding-right: 20px;
-    font-size: $smallHeader;
-    line-height: $populationTitleHeight;
-  }
-
-  .VerticalDivider {
-    height: $populationTitleHeight;
-    border-right: 1px solid grey;
-    margin-left: 20px;
-    float: right;
-
-    // divider should only show on screens wide enough to likely have name and pop info on 1 line
-    display: none;
-
-    @media only screen and (min-width: $md) {
-      display: block;
-    }
-  }
-}
-
 .CardFooter {
   text-align: left;
   padding-bottom: 10px !important;
@@ -86,30 +39,24 @@
   min-width: unset !important;
 }
 
-.TerritoryCirclesContainer {
-  width: 100%;
-  height: 55px;
+.MapTitle {
+  font-weight: bold;
+  padding-block: 0;
+  margin-block: 0;
+  font-size: $title;
 }
 
-.TerritoryCircle {
-  float: left;
-  width: 50px;
-  padding: 15px 0 0 30px;
+.MapSubtitle {
+  font-style: italic;
+  font-weight: lighter;
 
-  @media only screen and (min-width: $sm) {
-    width: 20px;
-    padding: 20px 20px 0 20px;
-  }
-
-  @media only screen and (min-width: $md) {
-    width: 50px;
-    padding: 15px 0 0 30px;
-  }
+  padding-block: 0;
+  margin-block: 0;
+  font-size: $small;
 }
 
-.SviContainer {
-  @media only screen and (min-width: $md) {
-    display: flex;
-    align-items: center;
-  }
+.CompareMultipleText {
+  margin-top: 4px;
+  padding-inline: 5px;
+  vertical-align: bottom;
 }

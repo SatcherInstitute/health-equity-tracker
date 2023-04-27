@@ -20,7 +20,6 @@ import {
 import {
   type MetricConfig,
   type MetricId,
-  SYMBOL_TYPE_LOOKUP,
 } from '../../data/config/MetricConfig'
 import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
@@ -34,6 +33,9 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../../data/variables/CawpProvider'
+import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
+import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
+import CloseIcon from '@mui/icons-material/Close'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -74,7 +76,15 @@ export interface MultiMapDialogProps {
 export function MultiMapDialog(props: MultiMapDialogProps) {
   // calculate page size for responsive layout
   const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('xl'))
+  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const title = `${props.metricConfig.chartTitleLines.join(
+    ' '
+  )} in ${props.fips.getSentenceDisplayName()} across all
+  ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
+
+  const [screenshotTargetRef, downloadTargetScreenshot] =
+    useDownloadCardImage(title)
 
   return (
     <Dialog
@@ -84,20 +94,46 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       maxWidth={false}
       scroll="paper"
       aria-labelledby="modalTitle"
+      ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
-        <Grid container justifyContent="center" component="ul">
-          {/* Modal Title */}
-          <Grid
-            item
-            xs={12}
-            container
-            justifyContent={pageIsWide ? 'flex-start' : 'center'}
-          >
-            <Typography id="modalTitle" variant="h6" component="h2">
-              {props.metricConfig.chartTitleLines.join(' ')} across all{' '}
-              {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups
-            </Typography>
+        <Grid container justifyContent="space-between" component="ul">
+          {/* card heading row */}
+          <Grid item xs={12} container justifyContent={'space-between'}>
+            {/* mobile-only close button */}
+            <Grid
+              item
+              xs={12}
+              sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
+              container
+              justifyContent={'flex-end'}
+            >
+              <Button onClick={props.handleClose} color="primary">
+                <CloseIcon />
+              </Button>
+            </Grid>
+            {/* Modal Title */}
+            <Grid xs={12} sm={9} md={10}>
+              <Typography id="modalTitle" variant="h6" component="h2">
+                {title}
+              </Typography>
+            </Grid>
+            {/* desktop-only close button */}
+            <Grid
+              item
+              sx={{
+                display: { xs: 'none', sm: 'flex' },
+                mr: { xs: 1, md: 0 },
+                mb: 3,
+              }}
+              sm={1}
+              container
+              justifyContent={'flex-end'}
+            >
+              <Button onClick={props.handleClose} color="primary">
+                <CloseIcon />
+              </Button>
+            </Grid>
           </Grid>
 
           {/* Multiples Maps */}
@@ -140,7 +176,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     fieldRange={props.fieldRange}
                     hideActions={true}
-                    scaleType="quantize"
                     geoData={props.geoData}
                     filename={`${props.metricConfig.chartTitleLines.join(' ')}${
                       breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
@@ -170,7 +205,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}
-                            scaleType="quantize"
                             geoData={props.geoData}
                             overrideShapeWithCircle={true}
                             countColsToAdd={props.countColsToAdd}
@@ -188,28 +222,22 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* Legend */}
 
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            xl={12}
-            className={styles.SmallMultipleLegendMap}
-          >
-            <Box mt={pageIsWide ? 10 : 0}>
+          <Grid item xs={12} className={styles.SmallMultipleLegendMap}>
+            <Box mt={pageIsTiny ? 0 : 3}>
               <Grid container item>
                 <Grid container justifyContent="center">
-                  <b>Legend ({SYMBOL_TYPE_LOOKUP[props.metricConfig.type]})</b>
+                  <b className={styles.LegendTitleText}>
+                    Legend: {props.metricConfig.shortLabel}
+                  </b>
                 </Grid>
                 <Grid container justifyContent="center">
                   <Legend
                     metric={props.metricConfig}
-                    legendTitle={props.metricConfig.chartTitleLines.join(' ')}
+                    legendTitle={''}
                     legendData={props.data}
-                    scaleType="quantize"
+                    scaleType={RATE_MAP_SCALE}
                     sameDotSize={true}
-                    direction={pageIsWide ? 'horizontal' : 'vertical'}
+                    direction={pageIsTiny ? 'vertical' : 'horizontal'}
                     description={'Consistent legend for all displayed maps'}
                   />
                 </Grid>
@@ -242,15 +270,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer>
-        <div className={styles.FooterButtonContainer}>
-          <Button onClick={props.handleClose} color="primary">
-            Close
-          </Button>
-        </div>
         <div className={styles.FooterSourcesContainer}>
           <Sources
             queryResponses={props.queryResponses}
             metadata={props.metadata}
+            downloadTargetScreenshot={downloadTargetScreenshot}
           />
         </div>
       </footer>

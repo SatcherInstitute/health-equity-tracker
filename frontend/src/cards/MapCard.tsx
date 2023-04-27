@@ -1,7 +1,12 @@
-import { CardContent, Grid } from '@mui/material'
+import {
+  Button,
+  CardContent,
+  Grid,
+  useMediaQuery,
+  useTheme,
+} from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
-import React, { useState } from 'react'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -27,7 +32,7 @@ import {
 } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
-import { Fips, TERRITORY_CODES } from '../data/utils/Fips'
+import { Fips } from '../data/utils/Fips'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
@@ -46,7 +51,6 @@ import { HighestLowestList } from './ui/HighestLowestList'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
-import { RateInfoAlert } from './ui/RateInfoAlert'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateSubtitle } from '../charts/utils'
@@ -54,7 +58,12 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
-import CountyUnavailableAlert from './ui/CountyUnavailableAlert'
+import { useState } from 'react'
+import { RATE_MAP_SCALE } from '../charts/mapHelpers'
+import { Legend } from '../charts/Legend'
+import GeoContext from './ui/GeoContext'
+import TerritoryCircles from './ui/TerritoryCircles'
+import { GridView } from '@mui/icons-material'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -146,12 +155,20 @@ function MapCardWithKey(props: MapCardProps) {
     metricQuery(Breakdowns.forFips(props.fips)),
   ]
 
+  // Population count
+  const popBreakdown = Breakdowns.forFips(props.fips)
+  const popQuery = new MetricQuery(
+    /* MetricId(s) */ ['population'],
+    /* Breakdowns */ popBreakdown
+  )
+  queries.push(popQuery)
+
   // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */ 'svi',
+      /* MetricId(s) */ ['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)
@@ -177,6 +194,10 @@ function MapCardWithKey(props: MapCardProps) {
     locationPhrase
   )
 
+  // TODO: remove this once we move ALL chart titles to HTML instead of VEGA
+  // TODO: and no longer need multi-line titles sent as string[]
+  if (Array.isArray(chartTitle)) chartTitle = chartTitle.join(' ')
+
   const { metricId } = metricConfig
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
@@ -189,8 +210,16 @@ function MapCardWithKey(props: MapCardProps) {
 
   const HASH_ID: ScrollableHashId = 'rate-map'
 
+  const theme = useTheme()
+  const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isCompareMode = window.location.href.includes('compare')
+  const mapIsWide = !pageIsSmall && !isCompareMode
+
+  const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
+
   return (
     <CardWrapper
+      downloadTitle={filename}
       queries={queries}
       loadGeographies={true}
       minHeight={preloadHeight}
@@ -200,14 +229,18 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
-        const geoQueryResponse = queryResponses[1]
+        const parentGeoQueryResponse = queryResponses[1]
         const hasSelfButNotChildGeoData =
           childGeoQueryResponse.data.length === 0 &&
-          geoQueryResponse.data.length > 0
+          parentGeoQueryResponse.data.length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
-          ? geoQueryResponse
+          ? parentGeoQueryResponse
           : childGeoQueryResponse
-        const sviQueryResponse: MetricQueryResponse = queryResponses[2] || null
+
+        const populationQueryResponse: MetricQueryResponse =
+          queryResponses[2] || null
+
+        const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
 
         const sortArgs =
           props.currentBreakdown === 'age'
@@ -269,6 +302,10 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
 
+        const legendData = listExpanded
+          ? highestValues.concat(lowestValues)
+          : dataForActiveBreakdownFilter
+
         return (
           <>
             <MultiMapDialog
@@ -327,77 +364,149 @@ function MapCardWithKey(props: MapCardProps) {
                         }}
                       />
                       <Divider />
+                      <Button
+                        onClick={() => {
+                          setSmallMultiplesDialogOpen(true)
+                        }}
+                      >
+                        <GridView />
+                        <span className={styles.CompareMultipleText}>
+                          View multiple maps
+                        </span>
+                      </Button>
                     </Grid>
+                    <Divider />
                   </Grid>
                 </CardContent>
               </>
             )}
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
-              <>
+              <div>
                 <CardContent>
-                  <ChoroplethMap
-                    signalListeners={signalListeners}
-                    titles={{ chartTitle, subtitle }}
-                    metric={metricConfig}
-                    legendTitle={metricConfig.shortLabel.toLowerCase()}
-                    data={
-                      listExpanded
-                        ? highestValues.concat(lowestValues)
-                        : dataForActiveBreakdownFilter
-                    }
-                    hideMissingDataTooltip={listExpanded}
-                    legendData={dataForActiveBreakdownFilter}
-                    hideLegend={
-                      mapQueryResponse.dataIsMissing() ||
-                      dataForActiveBreakdownFilter.length <= 1
-                    }
-                    showCounties={
-                      !props.fips.isUsa() && !hasSelfButNotChildGeoData
-                    }
-                    fips={props.fips}
-                    scaleType="quantize"
-                    geoData={geoData}
-                    // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                    filename={filename}
-                    listExpanded={listExpanded}
-                    countColsToAdd={countColsToAdd}
-                  />
-                  {/* generate additional VEGA canvases for territories on national map */}
-                  {props.fips.isUsa() && (
-                    <div className={styles.TerritoryCirclesContainer}>
-                      {TERRITORY_CODES.map((code) => {
-                        const fips = new Fips(code)
-                        return (
-                          <div className={styles.TerritoryCircle} key={code}>
-                            <ChoroplethMap
-                              signalListeners={signalListeners}
-                              titles={{
-                                chartTitle,
-                                subtitle,
-                              }}
-                              metric={metricConfig}
-                              data={
-                                listExpanded
-                                  ? highestValues.concat(lowestValues)
-                                  : dataForActiveBreakdownFilter
-                              }
-                              hideMissingDataTooltip={listExpanded}
-                              legendData={dataForActiveBreakdownFilter}
-                              hideLegend={true}
-                              hideActions={true}
-                              showCounties={false}
-                              fips={fips}
-                              scaleType="quantize"
-                              geoData={geoData}
-                              overrideShapeWithCircle={true}
-                              countColsToAdd={countColsToAdd}
-                            />
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )}
+                  <Grid container>
+                    <Grid item xs={12}>
+                      <figcaption>
+                        <h3 className={styles.MapTitle}>{chartTitle}</h3>
+                        <h4 className={styles.MapSubtitle}>{subtitle}</h4>
+                      </figcaption>
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={12}
+                      sm={mapIsWide ? 9 : 12}
+                      lg={mapIsWide ? 10 : 12}
+                    >
+                      <ChoroplethMap
+                        signalListeners={signalListeners}
+                        metric={metricConfig}
+                        legendTitle={metricConfig.shortLabel.toLowerCase()}
+                        data={
+                          listExpanded
+                            ? highestValues.concat(lowestValues)
+                            : dataForActiveBreakdownFilter
+                        }
+                        hideMissingDataTooltip={listExpanded}
+                        legendData={dataForActiveBreakdownFilter}
+                        hideActions={true}
+                        hideLegend={true}
+                        showCounties={
+                          !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                        }
+                        fips={props.fips}
+                        geoData={geoData}
+                        // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
+                        filename={filename}
+                        listExpanded={listExpanded}
+                        countColsToAdd={countColsToAdd}
+                      />
+                      {props.fips.isUsa() && (
+                        <Grid
+                          item
+                          xs={12}
+                          sx={{ display: { xs: 'block', sm: 'none' } }}
+                        >
+                          <TerritoryCircles
+                            mapIsWide={mapIsWide}
+                            data={
+                              listExpanded
+                                ? highestValues.concat(lowestValues)
+                                : dataForActiveBreakdownFilter
+                            }
+                            countColsToAdd={countColsToAdd}
+                            listExpanded={listExpanded}
+                            metricConfig={metricConfig}
+                            signalListeners={signalListeners}
+                            geoData={geoData}
+                          />
+                        </Grid>
+                      )}
+                    </Grid>
+                    {/* Legend & Location Info */}
+                    <Grid
+                      container
+                      justifyItems={'center'}
+                      alignItems={'flex-start'}
+                      item
+                      xs={12}
+                      sm={mapIsWide ? 3 : 12}
+                      lg={mapIsWide ? 2 : 12}
+                    >
+                      <Legend
+                        metric={metricConfig}
+                        legendTitle={metricConfig.shortLabel}
+                        legendData={legendData}
+                        scaleType={RATE_MAP_SCALE}
+                        sameDotSize={true}
+                        direction={mapIsWide ? 'vertical' : 'horizontal'}
+                        description={'Legend for rate map'}
+                        hasSelfButNotChildGeoData={
+                          hasSelfButNotChildGeoData || props.fips.isCounty()
+                        }
+                        fipsTypeDisplayName={fipsTypeDisplayName}
+                      />
+                    </Grid>
+
+                    <Grid
+                      item
+                      xs={12}
+                      container
+                      justifyContent={'space-between'}
+                      alignItems={'center'}
+                    >
+                      <Grid item xs={props.fips.isUsa() ? 6 : 12}>
+                        <GeoContext
+                          fips={props.fips}
+                          updateFipsCallback={props.updateFipsCallback}
+                          variableConfig={props.variableConfig}
+                          populationQueryResponse={populationQueryResponse}
+                          sviQueryResponse={sviQueryResponse}
+                        />
+                      </Grid>
+                      {props.fips.isUsa() && (
+                        <Grid
+                          item
+                          sm={6}
+                          sx={{ display: { xs: 'none', sm: 'block' } }}
+                        >
+                          <TerritoryCircles
+                            mapIsWide={mapIsWide}
+                            data={
+                              listExpanded
+                                ? highestValues.concat(lowestValues)
+                                : dataForActiveBreakdownFilter
+                            }
+                            countColsToAdd={countColsToAdd}
+                            listExpanded={listExpanded}
+                            metricConfig={metricConfig}
+                            signalListeners={signalListeners}
+                            geoData={geoData}
+                          />
+                        </Grid>
+                      )}
+                    </Grid>
+                  </Grid>
 
                   {!mapQueryResponse.dataIsMissing() &&
                     dataForActiveBreakdownFilter.length > 1 && (
@@ -409,9 +518,12 @@ function MapCardWithKey(props: MapCardProps) {
                         setListExpanded={setListExpanded}
                         highestValues={highestValues}
                         lowestValues={lowestValues}
-                        fipsTypePluralDisplayName={props.fips.getPluralChildFipsTypeDisplayName()}
+                        parentGeoQueryResponse={parentGeoQueryResponse}
+                        fips={props.fips}
                         qualifierItems={qualifierItems}
                         qualifierMessage={qualifierMessage}
+                        currentBreakdown={currentBreakdown}
+                        activeBreakdownFilter={activeBreakdownFilter}
                       />
                     )}
                 </CardContent>
@@ -437,6 +549,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <Alert severity="warning" role="note">
                         Insufficient data available for filter:{' '}
                         <b>{activeBreakdownFilter}</b>.{' '}
+                        {/* Offer multimap link if current demo group is missing info */}
                         <MultiMapLink
                           setSmallMultiplesDialogOpen={
                             setSmallMultiplesDialogOpen
@@ -449,28 +562,7 @@ function MapCardWithKey(props: MapCardProps) {
                       </Alert>
                     </CardContent>
                   )}
-
-                {!mapQueryResponse.dataIsMissing() &&
-                  !!dataForActiveBreakdownFilter.length && (
-                    <RateInfoAlert
-                      overallQueryResponse={geoQueryResponse}
-                      currentBreakdown={props.currentBreakdown}
-                      activeBreakdownFilter={activeBreakdownFilter}
-                      metricConfig={metricConfig}
-                      fips={props.fips}
-                      setSmallMultiplesDialogOpen={setSmallMultiplesDialogOpen}
-                      variableConfig={props.variableConfig}
-                    />
-                  )}
-
-                {hasSelfButNotChildGeoData && (
-                  <CountyUnavailableAlert
-                    variableFullDisplayName={
-                      props.variableConfig.variableFullDisplayName
-                    }
-                  />
-                )}
-              </>
+              </div>
             )}
           </>
         )

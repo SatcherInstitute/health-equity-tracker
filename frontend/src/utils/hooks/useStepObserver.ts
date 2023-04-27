@@ -9,7 +9,6 @@ export interface StepData {
 }
 
 export type ScrollableHashId =
-  | 'location-info'
   | 'rate-map'
   | 'rates-over-time'
   | 'rate-chart'
