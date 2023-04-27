@@ -35,6 +35,7 @@ import {
 } from '../../data/variables/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
+import CloseIcon from '@mui/icons-material/Close'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -75,7 +76,7 @@ export interface MultiMapDialogProps {
 export function MultiMapDialog(props: MultiMapDialogProps) {
   // calculate page size for responsive layout
   const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('xl'))
+  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
 
   const title = `${props.metricConfig.chartTitleLines.join(
     ' '
@@ -97,16 +98,42 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <Grid container justifyContent="space-between" component="ul">
-          {/* Modal Title */}
-          <Grid
-            item
-            xs={12}
-            container
-            justifyContent={pageIsWide ? 'flex-start' : 'space-between'}
-          >
-            <Typography id="modalTitle" variant="h6" component="h2">
-              {title}
-            </Typography>
+          {/* card heading row */}
+          <Grid item xs={12} container justifyContent={'space-between'}>
+            {/* mobile-only close button */}
+            <Grid
+              item
+              xs={12}
+              sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
+              container
+              justifyContent={'flex-end'}
+            >
+              <Button onClick={props.handleClose} color="primary">
+                <CloseIcon />
+              </Button>
+            </Grid>
+            {/* Modal Title */}
+            <Grid xs={12} sm={9} md={10}>
+              <Typography id="modalTitle" variant="h6" component="h2">
+                {title}
+              </Typography>
+            </Grid>
+            {/* desktop-only close button */}
+            <Grid
+              item
+              sx={{
+                display: { xs: 'none', sm: 'flex' },
+                mr: { xs: 1, md: 0 },
+                mb: 3,
+              }}
+              sm={1}
+              container
+              justifyContent={'flex-end'}
+            >
+              <Button onClick={props.handleClose} color="primary">
+                <CloseIcon />
+              </Button>
+            </Grid>
           </Grid>
 
           {/* Multiples Maps */}
@@ -137,7 +164,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   <ChoroplethMap
                     key={breakdownValue}
                     signalListeners={{
-                      click: (...args: any) => { },
+                      click: (...args: any) => {},
                     }}
                     metric={props.metricConfig}
                     legendData={props.data}
@@ -151,16 +178,17 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     hideActions={true}
                     scaleType={RATE_MAP_SCALE}
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
-                      } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${
+                      breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
+                    } in ${props.fips.getSentenceDisplayName()}`}
                     countColsToAdd={props.countColsToAdd}
                   />
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                  props.fips.isUsa() &&
-                  dataForValue.length ? (
+                props.fips.isUsa() &&
+                dataForValue.length ? (
                   <Grid container>
                     {TERRITORY_CODES.map((code) => {
                       const fips = new Fips(code)
@@ -168,7 +196,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         <Grid item xs={4} sm={2} key={code}>
                           <ChoroplethMap
                             signalListeners={{
-                              click: (...args: any) => { },
+                              click: (...args: any) => {},
                             }}
                             metric={props.metricConfig}
                             legendData={props.data}
@@ -196,16 +224,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
           {/* Legend */}
 
-          <Grid
-            item
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            xl={12}
-            className={styles.SmallMultipleLegendMap}
-          >
-            <Box mt={pageIsWide ? 10 : 0}>
+          <Grid item xs={12} className={styles.SmallMultipleLegendMap}>
+            <Box mt={pageIsTiny ? 0 : 3}>
               <Grid container item>
                 <Grid container justifyContent="center">
                   <b>Legend: {props.metricConfig.shortLabel}</b>
@@ -217,7 +237,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     legendData={props.data}
                     scaleType={RATE_MAP_SCALE}
                     sameDotSize={true}
-                    direction={pageIsWide ? 'horizontal' : 'vertical'}
+                    direction={pageIsTiny ? 'vertical' : 'horizontal'}
                     description={'Consistent legend for all displayed maps'}
                   />
                 </Grid>
@@ -256,11 +276,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             metadata={props.metadata}
             downloadTargetScreenshot={downloadTargetScreenshot}
           />
-          <Grid container item xs={12} justifyContent={'flex-end'}>
-            <Button onClick={props.handleClose} color="primary">
-              Close
-            </Button>
-          </Grid>
         </div>
       </footer>
     </Dialog>
