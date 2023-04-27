@@ -59,12 +59,12 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
       unknowns[1][props.metricConfig.metricId]
 
   const cardHelperText = props.known
-    ? `The ${
+    ? `This ${
         props.displayType
-      } below only displays data for cases where ${breakdownVarDisplayName} ${
+      } only displays data for cases where ${breakdownVarDisplayName} ${
         props.overrideAndWithOr ? 'were both' : 'was'
       } known.`
-    : `The ${props.displayType} below displays data for cases where ${
+    : `This ${props.displayType} displays data for cases where ${
         props.overrideAndWithOr
           ? ` either ${RACE_OR_ETHNICITY}`
           : breakdownVarDisplayName
