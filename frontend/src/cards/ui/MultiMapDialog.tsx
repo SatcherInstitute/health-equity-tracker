@@ -98,9 +98,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <Grid container justifyContent="space-between" component="ul">
-          {/* Modal Title */}
+          {/* card heading row */}
           <Grid item xs={12} container justifyContent={'space-between'}>
-            {/* mobile close button */}
+            {/* mobile-only close button */}
             <Grid
               item
               xs={12}
@@ -112,12 +112,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <CloseIcon />
               </Button>
             </Grid>
+            {/* Modal Title */}
             <Grid xs={12} sm={9} md={10}>
               <Typography id="modalTitle" variant="h6" component="h2">
                 {title}
               </Typography>
             </Grid>
-            {/* desktop close button */}
+            {/* desktop-only close button */}
             <Grid
               item
               sx={{
