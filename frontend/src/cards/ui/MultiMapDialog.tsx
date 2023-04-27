@@ -224,7 +224,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           {/* Legend */}
 
           <Grid item xs={12} className={styles.SmallMultipleLegendMap}>
-            <Box mt={pageIsTiny ? 0 : 5}>
+            <Box mt={pageIsTiny ? 0 : 3}>
               <Grid container item>
                 <Grid container justifyContent="center">
                   <b>Legend: {props.metricConfig.shortLabel}</b>
