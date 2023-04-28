@@ -26,7 +26,6 @@ import type { Article } from '../WhatIsHealthEquity/NewsTab'
 import { ArticlesSkeleton } from '../WhatIsHealthEquity/News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
-import { Link } from 'react-router-dom'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -63,48 +62,31 @@ function LandingPage() {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid
-            item
-            className={styles.HeaderTextItem}
-            xs={12}
-            sm={12}
-            md={6}
-            lg={7}
-          >
+          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={7}>
             <Typography
               id="main"
               className={styles.HeaderText}
-              variant="h2"
+              variant="h3"
               paragraph={true}
               component="h3"
             >
-              Better Data for Equity
+              Advancing Health Justice
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
               paragraph={true}
             >
-              Our tracker puts Health Equity first. Envisioned by the Satcher
-              Health Leadership Institute, the Health Equity Tracker is designed
-              to boost inclusivity, highlight at-risk populations, alert users
-              to existing inequities in health data, and so much more.
+              The Health Equity Tracker from the Satcher Health Leadership
+              Institute aims to address health disparities in the United States
+              by identifying at-risk populations and highlighting data
+              inequities. By providing policymakers, community leaders, and
+              researchers the data they need to make informed decisions, this
+              scalable, feature-rich platform supports efforts to achieve health
+              equity and justice for all.
             </Typography>
 
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="body1"
-              paragraph={true}
-            >
-              Our goal for this tool is to support the work being done by
-              policymakers, community leaders, researchers, and ultimately all
-              champions for health equity.{' '}
-              <Link to={EXPLORE_DATA_PAGE_LINK}>Explore our tracker today</Link>{' '}
-              and find data to help your community reach their best level of
-              health.
-            </Typography>
-
-            <Box mt={5}>
+            <Box my={5}>
               <Button
                 id="landingPageCTA"
                 variant="contained"
@@ -116,14 +98,7 @@ function LandingPage() {
               </Button>
             </Box>
           </Grid>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            lg={5}
-            className={styles.HeaderImgItem}
-          >
+          <Grid item xs={12} sm={12} md={5} className={styles.HeaderImgItem}>
             <img
               height="601"
               width="700"
@@ -143,7 +118,7 @@ function LandingPage() {
           <Grid item xs={12}>
             <Typography
               className={styles.RecentNewsHeaderText}
-              variant="h2"
+              variant="h4"
               component="h3"
             >
               Recent news
@@ -155,8 +130,7 @@ function LandingPage() {
               variant="subtitle1"
               component="p"
             >
-              News and stories from the Satcher Health Leadership Institute and
-              beyond
+              News and stories from Morehouse School of Medicine and beyond
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -207,7 +181,7 @@ function LandingPage() {
           <Grid item xs={12}>
             <Typography
               className={styles.HowToHeaderText}
-              variant="h2"
+              variant="h4"
               component="h3"
             >
               How do I use the Health Equity Tracker?
@@ -376,9 +350,15 @@ function LandingPage() {
           component={'aside'}
         >
           <section className={styles.NewsletterSignUpBox}>
-            <h4 className={styles.NewsletterSignUpHeader}>
-              Sign up for our newsletter:
-            </h4>
+            <Grid item xs={12}>
+              <Typography
+                className={styles.NewsletterSignUpHeader}
+                variant="h4"
+                component="h3"
+              >
+                Sign up for our newsletter:
+              </Typography>
+            </Grid>
 
             <form
               action={urlMap.newsletterSignup}

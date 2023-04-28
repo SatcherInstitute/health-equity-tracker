@@ -10,7 +10,7 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Landing Page Loads
         await page.goto('/', { waitUntil: "networkidle" });
-        await expect(page.locator('#main')).toContainText('Better Data for Equity');
+        await expect(page.locator('#main')).toContainText('Advancing Health Justice');
 
         // @ts-ignore
         await expect(page).toPassAxe()

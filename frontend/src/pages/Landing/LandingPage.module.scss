@@ -23,16 +23,7 @@
     @include tav300();
     text-align: left;
     color: $alt-green;
-    font-size: $bigHeader;
-    line-height: $lhNormal;
-
-    @media (min-width: $sm) {
-      font-size: $biggerHeader;
-    }
-
-    @media (min-width: $lg) {
-      padding-bottom: 20px;
-    }
+    padding: 3rem 1rem 1rem 1rem;
   }
 
   .HeaderSubtext {
@@ -81,13 +72,8 @@
 
   .RecentNewsHeaderText {
     @include tav300();
-    font-size: $header;
     text-align: center;
     color: $alt-green;
-
-    @media (min-width: $lg) {
-      font-size: $biggerHeader;
-    }
   }
 
   .RecentNewsHeaderSubtext {
@@ -115,7 +101,6 @@
 
   .HowToHeaderText {
     @include tav300();
-    font-size: $bigHeader;
     text-align: center;
     color: $alt-green;
     padding-bottom: 56px;
@@ -170,10 +155,8 @@
 
 .NewsletterSignUpHeader {
   @include tav300();
-
   color: $alt-green;
   margin-top: 2rem;
-  font-size: $header;
   margin-bottom: 1rem;
 }
 
