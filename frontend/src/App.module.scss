@@ -1,5 +1,5 @@
-@import "styles/globals.scss";
-@import "styles/variables.module";
+@import 'styles/globals.scss';
+@import 'styles/variables.module';
 
 .App {
   text-align: center;
@@ -55,7 +55,6 @@
 .AppbarLogoImg {
   width: 30px;
   height: 30px;
-  margin-top: 5px;
 }
 
 .MenuIconForMobile {

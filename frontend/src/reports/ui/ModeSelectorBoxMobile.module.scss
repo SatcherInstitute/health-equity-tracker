@@ -1,0 +1,12 @@
+@import '../../styles/variables.module.scss';
+
+.ModeSelectorBoxMobile {
+  margin: $card-gutter;
+  padding: 8px;
+
+  width: fit-content;
+
+  @media only screen and (min-width: $md) {
+    display: none;
+  }
+}

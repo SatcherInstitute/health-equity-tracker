@@ -1,0 +1,25 @@
+﻿"Date Printed: Monday, April 3, 2023 10:23:02 AM"
+Title: "Linkage to HIV care | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | Alabama | Alaska | American Samoa | Arizona | Arkansas | California | Colorado | Connecticut | Delaware | District of Columbia | Florida | Georgia | Guam | Hawaii | Idaho | Illinois | Indiana | Iowa | Kansas | Kentucky | Louisiana | Maine | Maryland | Massachusetts | Michigan | Minnesota | Mississippi | Missouri | Montana | Nebraska | Nevada | New Hampshire | New Jersey | New Mexico | New York | North Carolina | North Dakota | Northern Mariana Islands | Ohio | Oklahoma | Oregon | Pennsylvania | Puerto Rico | Rhode Island | South Carolina | South Dakota | Tennessee | Texas | U.S. Virgin Islands | Utah | Vermont | Virginia | Washington | West Virginia | Wisconsin | Wyoming | American Indian/Alaska Native | Asian | Black/African American | Hispanic/Latino | Multiracial | Native Hawaiian/Other Pacific Islander | White | Both sexes | Ages 13 years and older | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+Linkage to care is based on cases diagnosed during the year queried.
+^ Jurisdiction with incomplete reporting of deaths for most recent year.
+The 'Sex' column is used for either sex at birth or gender identity.
+NA - Not applicable.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","13","92.9","14"
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","White","Both sexes","All transmission categories","119","78.3","152"
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","0"
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","11","84.6","13"
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","361","79.0","457"
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","Asian","Both sexes","All transmission categories","0","0.0","1"
+"Linkage to HIV care","2019","Alabama","01","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","1","100.0","1"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","0","0.0","0"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","White","Both sexes","All transmission categories","9","100.0","9"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","0"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","3","100.0","3"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","3","75.0","4"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","Asian","Both sexes","All transmission categories","0","0.0","0"
+"Linkage to HIV care","2017","Alaska","02","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","13","100.0","13"

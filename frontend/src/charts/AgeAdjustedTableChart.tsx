@@ -1,54 +1,54 @@
-import { useMemo } from "react";
+import { useMemo } from 'react'
 import {
   type Column,
   type HeaderGroup,
   type Row,
   useSortBy,
   useTable,
-} from "react-table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableFooter from "@material-ui/core/TableFooter";
-import Paper from "@material-ui/core/Paper";
+} from 'react-table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import TableFooter from '@mui/material/TableFooter'
+import Paper from '@mui/material/Paper'
 import {
   type MetricConfig,
   type MetricId,
   formatFieldValue,
-} from "../data/config/MetricConfig";
-import { BREAKDOWN_VAR_DISPLAY_NAMES } from "../data/query/Breakdowns";
-import { Tooltip } from "@material-ui/core";
-import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import styles from "./Chart.module.scss";
-import sass from "../styles/variables.module.scss";
-import { RACE } from "../data/utils/Constants";
-import { useFontSize } from "../utils/hooks/useFontSize";
+} from '../data/config/MetricConfig'
+import { BREAKDOWN_VAR_DISPLAY_NAMES } from '../data/query/Breakdowns'
+import { Tooltip } from '@mui/material'
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import TableContainer from '@mui/material/TableContainer'
+import Table from '@mui/material/Table'
+import styles from './Chart.module.scss'
+import sass from '../styles/variables.module.scss'
+import { RACE } from '../data/utils/Constants'
+import { useFontSize } from '../utils/hooks/useFontSize'
 
 const headerCellStyle = {
-  width: "200px",
+  width: '200px',
   backgroundColor: sass.footerColor,
-};
+}
 
 const cellStyle = {
-  width: "200px",
-};
+  width: '200px',
+}
 
 const altCellStyle = {
   backgroundColor: sass.greyGridColor,
-  width: "200px",
-};
+  width: '200px',
+}
 
 export interface AgeAdjustedTableChartProps {
-  data: Array<Readonly<Record<string, any>>>;
-  metrics: MetricConfig[];
-  title?: string | string[];
+  data: Array<Readonly<Record<string, any>>>
+  metrics: MetricConfig[]
+  title?: string | string[]
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
-  const { data, metrics } = props;
+  const { data, metrics } = props
 
   let columns = metrics.map((metricConfig) => {
     return {
@@ -60,20 +60,20 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
           /*   omitPctSymbol: boolean = false */ true
         ),
       accessor: metricConfig.metricId,
-    };
-  });
+    }
+  })
   columns = [
     {
       Header: BREAKDOWN_VAR_DISPLAY_NAMES[RACE],
       Cell: (cell: any) => cell.value,
       accessor: RACE as MetricId,
     },
-  ].concat(columns);
+  ].concat(columns)
 
   // Changes deps array to columns on save, which triggers reload loop
   // eslint-disable-next-line
-  const memoCols = useMemo<Column<any>[]>(() => columns, [metrics]);
-  const memoData = useMemo(() => data, [data]);
+  const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
+  const memoData = useMemo(() => data, [data])
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable(
@@ -90,7 +90,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         },
       },
       useSortBy
-    );
+    )
 
   /** Component for the table's header row **/
   function TableHeaderRow({ group }: { group: HeaderGroup<any> }) {
@@ -98,16 +98,16 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       <TableRow {...group.getHeaderGroupProps()}>
         {group.headers.map((col, index) => (
           <TableCell key={col.id} style={headerCellStyle}>
-            {col.render("Header")}
+            {col.render('Header')}
           </TableCell>
         ))}
       </TableRow>
-    );
+    )
   }
 
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
-    prepareRow(row);
+    prepareRow(row)
     return (
       <TableRow {...row.getRowProps()}>
         {row.cells.map((cell, index) =>
@@ -130,23 +130,23 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
               key={`data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              {cell.render("Cell")}
+              {cell.render('Cell')}
             </TableCell>
           )
         )}
       </TableRow>
-    );
+    )
   }
 
-  const fontSize = useFontSize();
+  const fontSize = useFontSize()
 
   const titleStyle = {
-    font: "Inter, sans-serif",
+    font: 'Inter, sans-serif',
     fontSize,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     paddingTop: 10,
     paddingBottom: 10,
-  };
+  }
 
   return (
     <>
@@ -155,7 +155,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
       ) : (
         <figure>
           <figcaption style={titleStyle}>{props.title}</figcaption>
-          <TableContainer component={Paper} style={{ maxHeight: "100%" }}>
+          <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
             <Table {...getTableProps()}>
               <TableHead>
                 {headerGroups.map((group, index) => (
@@ -175,5 +175,5 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
         </figure>
       )}
     </>
-  );
+  )
 }

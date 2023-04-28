@@ -1,9 +1,9 @@
-import { Button, Grid, TextField } from "@material-ui/core";
-import { urlMap } from "../../utils/externalUrls";
-import { CONTACT_TAB_LINK } from "../../utils/internalRoutes";
-import { LinkWithStickyParams } from "../../utils/urlutils";
+import { Button, Grid, TextField } from '@mui/material'
+import { urlMap } from '../../utils/externalUrls'
+import { CONTACT_TAB_LINK } from '../../utils/internalRoutes'
+import { LinkWithStickyParams } from '../../utils/urlutils'
 
-import styles from "./SignupSection.module.scss";
+import styles from './SignupSection.module.scss'
 
 export default function SignupSection() {
   return (
@@ -15,10 +15,10 @@ export default function SignupSection() {
     >
       <Grid item>
         <p>
-          Please{" "}
+          Please{' '}
           <LinkWithStickyParams to={CONTACT_TAB_LINK}>
             contact us
-          </LinkWithStickyParams>{" "}
+          </LinkWithStickyParams>{' '}
           with any questions or concerns.
         </p>
         <p>
@@ -50,5 +50,5 @@ export default function SignupSection() {
         </form>
       </Grid>
     </Grid>
-  );
+  )
 }

@@ -1,0 +1,32 @@
+﻿"Date Printed: Monday, April 3, 2023 10:19:53 AM"
+Title: "Linkage to HIV care | 2017 | 2018 | 2019 | United States | American Indian/Alaska Native | Asian | Black/African American | Hispanic/Latino | Multiracial | Native Hawaiian/Other Pacific Islander | White | Both sexes | Ages 13 years and older | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+Linkage to care is based on cases diagnosed during the year queried.
+^ Jurisdiction with incomplete reporting of deaths for most recent year.
+The 'Sex' column is used for either sex at birth or gender identity.
+NA - Not applicable.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","684","81.3","841"
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","6,817","82.6","8,249"
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","53","80.3","66"
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","8,004","84.4","9,478"
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","11,179","78.4","14,268"
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","570","83.0","687"
+"Linkage to HIV care","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","172","83.5","206"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","705","82.0","860"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","6,876","82.6","8,323"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","50","87.7","57"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","7,230","82.4","8,776"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","11,226","77.1","14,558"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","662","84.2","786"
+"Linkage to HIV care","2018","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","109","77.9","140"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","823","80.0","1,029"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","6,864","81.0","8,478"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","33","80.5","41"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","6,803","78.4","8,677"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","11,180","75.3","14,854"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","684","81.1","843"
+"Linkage to HIV care","2017","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","130","83.3","156"

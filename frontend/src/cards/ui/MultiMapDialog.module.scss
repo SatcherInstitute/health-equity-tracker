@@ -1,4 +1,5 @@
-@import "../../styles/variables.module";
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
 
 .MultiMapBox {
   z-index: $z-top !important; // to get tooltips to render on top
@@ -33,11 +34,13 @@
 }
 
 .FooterButtonContainer {
-  float: right;
+  padding: 1rem !important;
 }
 
 .FooterSourcesContainer {
-  padding: 7px;
+  text-align: left;
+  padding-inline: 8px !important;
+  font-size: $small;
 }
 
 .TerritoryMap {

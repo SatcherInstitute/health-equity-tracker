@@ -1,30 +1,30 @@
-import React from "react";
+import { useState } from 'react'
 
 export interface PopoverElements {
   // Element to which the popover will be anchored
-  anchor: HTMLElement | null;
+  anchor: HTMLElement | null
   // Function called when popover should be opened
-  open: (event: React.MouseEvent<HTMLElement>) => void;
+  open: (event: React.MouseEvent<HTMLElement>) => void
   // Function called when popover should be closed
-  close: () => void;
+  close: () => void
   // Whether or not popover should be open
-  isOpen: boolean;
+  isOpen: boolean
 }
 
 export function usePopover(anchorElement?: any): PopoverElements {
-  const [anchor, setAnchor] = React.useState<HTMLElement | null>(
+  const [anchor, setAnchor] = useState<HTMLElement | null>(
     anchorElement || null
-  );
+  )
 
   const open = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchor(event.currentTarget);
-  };
+    setAnchor(event.currentTarget)
+  }
 
   const close = () => {
-    setAnchor(null);
-  };
+    setAnchor(null)
+  }
 
-  const isOpen = Boolean(anchor);
+  const isOpen = Boolean(anchor)
 
-  return { anchor, open, close, isOpen };
+  return { anchor, open, close, isOpen }
 }

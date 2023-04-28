@@ -1,9 +1,9 @@
-@use "../../styles/globals.scss";
-@import "../../styles/variables.module";
+@use '../../styles/globals.scss';
+@import '../../styles/variables.module';
 
 .ListBox {
   margin-top: 15px;
-  background: $listbox-color;
+  background: $highest-lowest-color;
   border-radius: 8px;
   text-align: left;
 

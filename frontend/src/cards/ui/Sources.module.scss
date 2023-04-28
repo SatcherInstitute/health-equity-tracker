@@ -1,0 +1,17 @@
+@import '../../styles/variables.module';
+
+.Footnote {
+  display: flex;
+  justify-content: space-between;
+}
+
+.FootnoteTextNH {
+  font-size: $smallest;
+  margin-top: 6px !important;
+  margin-bottom: 0px !important;
+}
+
+.FootnoteText {
+  font-size: $smallest;
+  margin-block: 6px !important;
+}

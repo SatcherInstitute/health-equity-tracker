@@ -1,8 +1,7 @@
-import Grid from "@material-ui/core/Grid";
-import styles from "./TermsOfUsePage.module.scss";
-import { Typography } from "@material-ui/core";
-import { HET_URL } from "../../utils/internalRoutes";
-import { Helmet } from "react-helmet-async";
+import styles from './TermsOfUsePage.module.scss'
+import { Typography, Grid } from '@mui/material'
+import { HET_URL } from '../../utils/internalRoutes'
+import { Helmet } from 'react-helmet-async'
 
 function TermsOfUsePage() {
   return (
@@ -11,7 +10,7 @@ function TermsOfUsePage() {
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
       <Grid container className={styles.TosSection} justifyContent="center">
-        <Grid item xs={12} md={3} xl={12} component={"header"}>
+        <Grid item xs={12} md={3} xl={12} component={'header'}>
           <Typography id="main" className={styles.TosHeaderText} variant="h2">
             Terms of Use
           </Typography>
@@ -157,7 +156,7 @@ function TermsOfUsePage() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default TermsOfUsePage;
+export default TermsOfUsePage

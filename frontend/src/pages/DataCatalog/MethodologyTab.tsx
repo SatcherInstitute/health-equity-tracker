@@ -1,24 +1,23 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import styles from "./DataCatalogPage.module.scss";
+import Grid from '@mui/material/Grid'
+import styles from './DataCatalogPage.module.scss'
 import {
   CONTACT_TAB_LINK,
   HET_URL,
   DATA_TAB_LINK,
-} from "../../utils/internalRoutes";
-import { Helmet } from "react-helmet-async";
-import { getHtml, LinkWithStickyParams } from "../../utils/urlutils";
-import { selectFaqs } from "../WhatIsHealthEquity/FaqTab";
-import { METRIC_CONFIG } from "../../data/config/MetricConfig";
-import { Card } from "@material-ui/core";
-import { urlMap } from "../../utils/externalUrls";
-import DefinitionsList from "../../reports/ui/DefinitionsList";
-import { currentYear } from "../../Footer";
+} from '../../utils/internalRoutes'
+import { Helmet } from 'react-helmet-async'
+import { getHtml, LinkWithStickyParams } from '../../utils/urlutils'
+import { selectFaqs } from '../WhatIsHealthEquity/FaqTab'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
+import { Card } from '@mui/material'
+import { urlMap } from '../../utils/externalUrls'
+import DefinitionsList from '../../reports/ui/DefinitionsList'
+import { currentYear } from '../../Footer'
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
-} from "../../data/variables/IncarcerationProvider";
-import { Link } from "react-router-dom";
+} from '../../data/variables/IncarcerationProvider'
+import { Link } from 'react-router-dom'
 import {
   MissingCAWPData,
   MissingCovidData,
@@ -26,9 +25,9 @@ import {
   MissingHIVData,
   MissingPrepData,
   MissingAHRData,
-} from "./methodologyContent/missingDataBlurbs";
+} from './methodologyContent/missingDataBlurbs'
 
-export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`;
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 function MethodologyTab() {
   return (
@@ -94,7 +93,7 @@ function MethodologyTab() {
                     cases, deaths, and hospitalizations, we only include the
                     population of states that do not have a suppressed case,
                     hospitalization, or death count as part of the total
-                    population for each respective measure. See the{" "}
+                    population for each respective measure. See the{' '}
                     <b>What data are missing</b> section for further details.
                   </li>
                   <li>
@@ -111,8 +110,8 @@ function MethodologyTab() {
                     state and territory health departments. Data for a state are
                     suppressed if the aggregate counts for that state are &lt;
                     5% of the source being used for comparison. These analyses
-                    are available for{" "}
-                    <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{" "}
+                    are available for{' '}
+                    <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{' '}
                     <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
                   </li>
                   <li>
@@ -127,7 +126,7 @@ function MethodologyTab() {
                 <h4>COVID-19 time-series data</h4>
                 <ul>
                   <li>
-                    The CDC Restricted dataset includes a field called{" "}
+                    The CDC Restricted dataset includes a field called{' '}
                     <b>cdc_case_earliest_dt</b>, which represents the earliest
                     of either the date of first symptoms onset, a positive COVID
                     test, or the date the case was first reported to the CDC. We
@@ -145,7 +144,7 @@ function MethodologyTab() {
                     occurred.
                   </li>
                   <li>
-                    We only count confirmed deaths and hospitalizations in the{" "}
+                    We only count confirmed deaths and hospitalizations in the{' '}
                     <b>per100k</b> and <b>inequitable distribution</b> metrics,
                     so when we show “zero” deaths or hospitalizations for a
                     demographic group in any month, it is possible that there
@@ -179,20 +178,20 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    For the national level numbers, we use the{" "}
+                    For the national level numbers, we use the{' '}
                     <a href={urlMap.cdcVaxTrends}>
                       CDC vaccine demographic dataset,
-                    </a>{" "}
+                    </a>{' '}
                     which provides data on the race/ethnicity, sex, and age
                     range of vaccine recipients, as well whether they have taken
-                    one or two shots.{" "}
+                    one or two shots.{' '}
                   </li>
 
                   <li>
-                    For the state level we use{" "}
+                    For the state level we use{' '}
                     <a href={urlMap.kffCovid}>
                       the Kaiser Family Foundation COVID-19 Indicators dataset,
-                    </a>{" "}
+                    </a>{' '}
                     which is a hand-curated dataset based on analysis from state
                     health department websites. It is the only state level
                     demographic vaccine dataset that publishes this data in a
@@ -200,15 +199,15 @@ function MethodologyTab() {
                     and ethnicity of vaccine recipients, and for the majority of
                     states counts individuals who have received at least one
                     shot as vaccinated. It does not include any data for US
-                    territories.{" "}
+                    territories.{' '}
                   </li>
                   <li>
                     For the county level, we could not identify a dataset that
                     provides vaccine demographics, so to show some context we
-                    use the{" "}
+                    use the{' '}
                     <a href={urlMap.cdcVaxCounty}>
                       COVID-19 Vaccinations in the United States, County dataset
-                    </a>{" "}
+                    </a>{' '}
                     which provides the total number of vaccinations per county.
                   </li>
                 </ul>
@@ -217,8 +216,8 @@ function MethodologyTab() {
                   <li>
                     For the national numbers we use the population numbers
                     provided by the CDC, we chose to do this because they
-                    include population estimates from <b>Palau</b>,{" "}
-                    <b>Micronesia</b>, and the <b>U.S. Marshall Islands,</b>{" "}
+                    include population estimates from <b>Palau</b>,{' '}
+                    <b>Micronesia</b>, and the <b>U.S. Marshall Islands,</b>{' '}
                     which are difficult to find estimations for. Furthermore the
                     CDC has estimations for age ranges that the ACS numbers do
                     not readily provide, as they use a per year population
@@ -232,7 +231,7 @@ function MethodologyTab() {
                     at the state level are provided by the Kaiser Family
                     Foundation, who researched exactly what the definition of
                     each demographic group in every state is. They provide
-                    population estimates for <b>Asian</b>, <b>Black</b>,{" "}
+                    population estimates for <b>Asian</b>, <b>Black</b>,{' '}
                     <b>White</b>, and <b>Hispanic</b>, so we fill in the ACS
                     2019 estimation for <b>American Indian and Alaska Native</b>
                     , and <b>Native Hawaiian and Pacific Islander</b>. These
@@ -265,7 +264,7 @@ function MethodologyTab() {
                   </li>
                   <li>
                     The Kaiser Family Foundation only collects population data
-                    for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{" "}
+                    for <b>Asian</b>, <b>Black</b>, <b>White</b>, and{' '}
                     <b>Hispanic</b> demographics, limiting their per 100k
                     metrics and what demographic breakdowns we are able to show
                     at the state level.
@@ -273,8 +272,8 @@ function MethodologyTab() {
                   <li>
                     As there is no standardized definition for “vaccinated”, we
                     display vaccination data as “at least one dose” which is
-                    used by most states. However, some states including{" "}
-                    <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{" "}
+                    used by most states. However, some states including{' '}
+                    <b>Arkansas</b>, <b>Illinois</b>, <b>Maine</b>,{' '}
                     <b>New Jersey</b>, and <b>Tennessee</b> report “Total
                     vaccine doses administered”, in which case those numbers are
                     reported.
@@ -290,14 +289,14 @@ function MethodologyTab() {
                 </h3>
                 <p>
                   Multiple chronic disease, behavioral health, and social
-                  determinants of health in the tracker are sourced from{" "}
+                  determinants of health in the tracker are sourced from{' '}
                   <a href={urlMap.amr}>America’s Health Rankings (AHR)</a>, who
-                  in turn source the majority of their data from the{" "}
+                  in turn source the majority of their data from the{' '}
                   <a href={urlMap.cdcBrfss}>
                     Behavioral Risk Factor Surveillance System (BRFSS)
                   </a>
-                  , a survey run by the CDC, along with supplemental data from{" "}
-                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{" "}
+                  , a survey run by the CDC, along with supplemental data from{' '}
+                  <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
                   <a href={urlMap.censusVoting}>US Census</a>.
                 </p>
                 <ul>
@@ -305,7 +304,7 @@ function MethodologyTab() {
                     Because BRFSS is a survey, there are not always enough
                     respondents to provide a statistically meaningful estimate
                     of disease prevalence, especially for smaller and typically
-                    marginalized racial groups. Please see the{" "}
+                    marginalized racial groups. Please see the{' '}
                     <a href={urlMap.amrMethodology}>methodology page</a> of
                     America’s Health Rankings for details on data suppression.
                   </li>
@@ -346,8 +345,8 @@ function MethodologyTab() {
                 <Card elevation={3} className={styles.WhyBox}>
                   <a href={urlMap.doi1}>A link has been established</a> between
                   having women in government and improvements in population
-                  health. <a href={urlMap.doi2}>Women in legislative office</a>{" "}
-                  have been shown to{" "}
+                  health. <a href={urlMap.doi2}>Women in legislative office</a>{' '}
+                  have been shown to{' '}
                   <a href={urlMap.doi3}>advocate for policies</a> that pertain
                   to some of the crucial social and political determinants of
                   health that impact the overall health of our nation such as
@@ -358,35 +357,35 @@ function MethodologyTab() {
                 </Card>
 
                 <p>
-                  By leveraging data from the{" "}
+                  By leveraging data from the{' '}
                   <a href={urlMap.cawp}>
                     Center for American Women in Politics (CAWP)
-                  </a>{" "}
+                  </a>{' '}
                   we are able to present two primary metrics on these reports:
                 </p>
                 <ul>
                   <li>
-                    The intersectional representation (e.g.{" "}
+                    The intersectional representation (e.g.{' '}
                     <i>
                       “What percent of all Georgia state legislators are black
                       women?”
                     </i>
-                    ).{" "}
+                    ).{' '}
                   </li>
                   <li>
                     The race/ethnicity distribution amongst women legislators
-                    (e.g.{" "}
+                    (e.g.{' '}
                     <i>
                       “What percent of the women in the Georgia State
                       Legislature are black?“
                     </i>
-                    ){" "}
+                    ){' '}
                   </li>
                 </ul>
 
                 <p>
-                  These metrics are calculated for two distinct data types:{" "}
-                  <b>Women in State Legislature</b> and{" "}
+                  These metrics are calculated for two distinct data types:{' '}
+                  <b>Women in State Legislature</b> and{' '}
                   <b>Women in U.S. Congress</b>, and both of these data types
                   are available at the state, territory, and national levels.
                   Our percentage calculations at the national level specifically
@@ -417,17 +416,17 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    Historical, intersectional representation (e.g.{" "}
+                    Historical, intersectional representation (e.g.{' '}
                     <i>
                       “In each year since 1915, what percent of all U.S.
                       Congress members identified as black women?”
                     </i>
                     ). We obtain the historical counts of U.S. Congress members,
-                    by year and by state/territory, from the open-source{" "}
+                    by year and by state/territory, from the open-source{' '}
                     <a href={urlMap.unitedStatesIo}>@unitedstates project</a>.
                   </li>
                   <li>
-                    Historical relative inequity (e.g.{" "}
+                    Historical relative inequity (e.g.{' '}
                     <i>
                       “In each year since 2019, what percent over- or
                       under-represented were black women when compared to their
@@ -435,7 +434,7 @@ function MethodologyTab() {
                     </i>
                     ) Note: we currently track this measure back only to 2019,
                     as we are utilizing the 2019 ACS 5-year estimates for the
-                    population comparison metric.{" "}
+                    population comparison metric.{' '}
                   </li>
                 </ul>
 
@@ -444,7 +443,7 @@ function MethodologyTab() {
                   race/ethnicity groupings, making direct comparisons and
                   calculations difficult or impossible in some cases. For
                   specific methodology on the race groups collected by CAWP,
-                  please <a href={urlMap.cawp}>visit their database directly</a>{" "}
+                  please <a href={urlMap.cawp}>visit their database directly</a>{' '}
                   . We have made several adjustments to our methods to
                   incorporate these non-standard race groupings when possible:
                 </p>
@@ -461,10 +460,10 @@ function MethodologyTab() {
                     into our <b>Women of two or more races</b> group.
                   </li>
                   <li>
-                    The composite race group{" "}
+                    The composite race group{' '}
                     <b>
                       American Indian, Alaska Native, Asian & Pacific Islander
-                    </b>{" "}
+                    </b>{' '}
                     is our best attempt to visualize the impact to these
                     under-represented groups; to accurately compare against
                     available population data from the U.S. Census we must
@@ -473,14 +472,14 @@ function MethodologyTab() {
                   <li>
                     There is currently no population data collected by the U.S.
                     Census for <b>Middle Eastern & North African</b>, although
-                    this data equity issue has seen{" "}
+                    this data equity issue has seen{' '}
                     <a
                       href={urlMap.senateMENA}
                       rel="noreferrer"
                       target="_blank"
                     >
                       some progress
-                    </a>{" "}
+                    </a>{' '}
                     in recent decades. Currently, <b>MENA</b> individuals are
                     counted by the ACS as <b>White</b>.
                   </li>
@@ -513,7 +512,15 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  <b>HIV Deaths & Diagnosis</b>
+                  <b>HIV Deaths, Diagnosis, & Prevalence</b>
+                </p>
+                <p>
+                  Death data include deaths of persons aged 13 years and older
+                  with diagnosed HIV infection or AIDS classification,
+                  regardless of the cause of death. Death data are based on a
+                  12-month reporting delay to allow data to be reported to CDC.
+                  For death data, age is based on the person’s age at the time
+                  of death.
                 </p>
                 <p>
                   HIV diagnoses refer to the number of HIV infections confirmed
@@ -524,25 +531,30 @@ function MethodologyTab() {
                   estimates, age is based on the person’s age at infection.
                 </p>
                 <p>
-                  Death data include deaths of persons aged 13 years and older
-                  with diagnosed HIV infection or AIDS classification,
-                  regardless of the cause of death. Death data are based on a
-                  12-month reporting delay to allow data to be reported to CDC.
-                  For death data, age is based on the person’s age at the time
-                  of death.
+                  HIV prevalence refers to the estimated number of individuals
+                  aged 13 and older living with HIV at the end of the specified
+                  year, regardless of when they were infected or whether they
+                  received a diagnosis.This measure estimates the burden of HIV
+                  in a population.
                 </p>
                 <ul>
                   <li>
-                    All metrics sourced from the CDC are calculated based on the
-                    number of HIV deaths and diagnoses provided by the CDC’s
-                    AtlasPlus database.
+                    All metrics sourced from the CDC for HIV deaths and
+                    diagnoses are calculated directly from the raw count of
+                    those cases. In contrast, HIV prevalence is determined by
+                    estimating the total number of individuals who have ever
+                    been infected with HIV (diagnosed and undiagnosed cases) and
+                    then adjusting for the reported total number of people
+                    diagnosed with HIV and subsequently died provided by the
+                    CDC’s Atlas database.
                     <ul>
                       <li>
                         <b>Percent share</b>: To calculate the percent share of
-                        HIV deaths or diagnoses, we divide the number of HIV
-                        deaths or diagnoses in a specific demographic group by
-                        the total number of HIV deaths or diagnoses and multiply
-                        the result by 100.
+                        HIVdeaths, diagnoses, or prevalence, we divide the
+                        number of HIV deaths, diagnoses, or prevalence in a
+                        specific demographic group by the total number of HIV
+                        deaths, diagnoses, or prevalence and multiply the result
+                        by 100.
                       </li>
                       <li>
                         <b>Population percent</b>: The population data is
@@ -553,14 +565,14 @@ function MethodologyTab() {
                         result by 100.
                       </li>
                       <li>
-                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths
-                        and diagnoses is obtained directly from the CDC.
-                        Calculating the rate per 100k of HIV deaths and
-                        diagnoses involves dividing the number of deaths or
-                        diagnoses within a specific population by the total
-                        population of that group, multiplying the result by
-                        100,000, and then expressing it as a rate per 100,000
-                        people.
+                        <b>Rate Per 100k</b>: The rate per 100k for HIV deaths,
+                        diagnoses, and prevalence is obtained directly from the
+                        CDC. Calculating the rate per 100k of HIV deaths,
+                        diagnoses, or prevalence involves dividing the number of
+                        deaths, diagnoses, or prevalence within a specific
+                        population by the total population of that group,
+                        multiplying the result by 100,000, and then expressing
+                        it as a rate per 100,000 people.
                       </li>
                     </ul>
                   </li>
@@ -649,6 +661,76 @@ function MethodologyTab() {
                   <MissingPrepData />
                 </Card>
 
+                <p>
+                  <b>Linkage to Care</b>
+                </p>
+                <p>
+                  Linkage to HIV care, reported as a percentage, refers to the
+                  number of persons aged 13 years and older newly diagnosed with
+                  HIV, having at least one CD4 or viral load test performed
+                  within one month of diagnosis during the specified year and
+                  divided by the number of persons aged 13 years and older newly
+                  diagnosed with HIV during the specified year.
+                </p>
+                <p>
+                  Linkage to HIV care is a critical step in the HIV care
+                  continuum and can improve health outcomes for individuals with
+                  HIV. When a person living with HIV is linked to care soon
+                  after their diagnosis, they can receive the medical treatment
+                  and support they need to manage their HIV, reduce the amount
+                  of virus in their body, improve their health, and lower the
+                  risk of transmitting HIV to others. Delayed linkage to care
+                  can result in poorer health outcomes for individuals living
+                  with HIV and can increase the risk of transmitting HIV to
+                  others.
+                </p>
+
+                <ul>
+                  <li>
+                    All metrics sourced from the CDC are calculated based on the
+                    number of cases of HIV diagnosis where individuals have
+                    received at least 1 CD4 or viral load test performed less
+                    than one month after diagnosis.
+                    <ul>
+                      <li>
+                        <b>Percent share</b>: Calculating the percent share of
+                        individuals who received testing or treatment within a
+                        month involves dividing the number of people with access
+                        to HIV care by a specific population or demographic
+                        group by the total number of people with access to HIV
+                        care and multiplying the result by 100.
+                      </li>
+                      <li>
+                        <b>Diagnosed population percent</b>: Calculating the
+                        percent share of the population involves dividing the
+                        number of individuals within a specific population or
+                        demographic group with HIV diagnoses by the total number
+                        of individuals with HIV diagnoses and multiplying the
+                        result by 100.
+                      </li>
+                      <li>
+                        <b>Linkage to Care</b>: This percentage is obtained
+                        directly from the CDC. It involves dividing the number
+                        of individuals within a specific population or
+                        demographic group with access to care at a given time by
+                        the total number of individuals living with HIV in the
+                        same population or demographic group and multiplying the
+                        result by 100.
+                      </li>
+                      <li>
+                        <b>Relative Inequity</b>: Calculating the percentage of
+                        relative inequity involves subtracting the proportion of
+                        all individuals with access to care by a specific
+                        population or group from the proportion of a specific
+                        population or group in the diagnosed population. The
+                        value is divided by the proportion of a specific
+                        population or group in the diagnosed population
+                        multiplied by 100 to express it as a percentage.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index (SVI)
                 </h3>
@@ -669,15 +751,15 @@ function MethodologyTab() {
                 </p>
                 <ul>
                   <li>
-                    Scores ranging from 0-0.33 are given a{" "}
+                    Scores ranging from 0-0.33 are given a{' '}
                     <b>low level of vulnerability.</b>
                   </li>
                   <li>
-                    Scores ranging from 0.34-0.66 are given a{" "}
+                    Scores ranging from 0.34-0.66 are given a{' '}
                     <b>medium level of vulnerability.</b>
                   </li>
                   <li>
-                    Scores ranging from 0.67-1 are given a{" "}
+                    Scores ranging from 0.67-1 are given a{' '}
                     <b>high level of vulnerability.</b>
                   </li>
                 </ul>
@@ -700,7 +782,7 @@ function MethodologyTab() {
                     in the justice-involved population.
                   </p>
                   <p>
-                    The ability to vote has been described as{" "}
+                    The ability to vote has been described as{' '}
                     <a href={urlMap.repJohnLewisTweet}>
                       the singular most powerful, non-violent tool in American
                       democracy
@@ -708,7 +790,7 @@ function MethodologyTab() {
                     . As of 2020, an estimated 5.17 million people were
                     disenfranchised because of a prior felony conviction with
                     minority populations of voting age being disproportionately
-                    represented.{" "}
+                    represented.{' '}
                     <a href={urlMap.deniedVoting}>(Sentencing Project)</a>
                   </p>
                   <p>
@@ -716,7 +798,7 @@ function MethodologyTab() {
                     incarceration increases the prevalence of chronic health
                     conditions, infectious diseases such as HIV/ AIDS, mental
                     illnesses and substance use disorders. Incarceration has
-                    also been{" "}
+                    also been{' '}
                     <a href={urlMap.rwjf}>
                       shown to cause a reduction in life expectancy
                     </a>
@@ -742,14 +824,14 @@ function MethodologyTab() {
                   The Bureau of Justice Statistic (BJS) releases a variety of
                   reports on people under correctional control; by combining
                   tables from two of these reports (
-                  <a href={urlMap.bjsPrisoners}>“Prisoners in 2020”</a> and{" "}
+                  <a href={urlMap.bjsPrisoners}>“Prisoners in 2020”</a> and{' '}
                   <a href={urlMap.bjsCensusOfJails}>
                     “Census of Jails 2005-2019”
                   </a>
                   ), we are able to generate reports on individuals (including
                   children) incarcerated in <b>Prison</b> and <b>Jail</b> in the
                   United States at a national, state, and territory level.
-                  Additionally, the{" "}
+                  Additionally, the{' '}
                   <a href={urlMap.veraGithub}>Vera Institute for Justice</a> has
                   done extensive research and analysis of the BJS and other data
                   sources to provide county level jail and prison incarceration
@@ -831,7 +913,7 @@ function MethodologyTab() {
                   of where they are held. Our ‘Sex’ and ‘Race’ reports present
                   this jurisdictional population, while our ‘Age’ reports (due
                   to the limitations in the data provided by BJS) only display
-                  the <b>sentenced</b> jurisdictional population.{" "}
+                  the <b>sentenced</b> jurisdictional population.{' '}
                 </p>
 
                 <p>
@@ -857,7 +939,7 @@ function MethodologyTab() {
                   </li>
                   <li>
                     Territory reports: All individuals under the jurisdiction of
-                    that territory’s adult prison facilities. Because{" "}
+                    that territory’s adult prison facilities. Because{' '}
                     <b>American Samoa</b> did not report a value for
                     jurisdictional population, we have used their value for
                     custodial population instead. This data is not disaggregated
@@ -873,9 +955,9 @@ function MethodologyTab() {
 
                 <p>
                   The race/ethnicity breakdowns provided match those used in the
-                  ACS population source, however we do combine the BJS’s{" "}
+                  ACS population source, however we do combine the BJS’s{' '}
                   <b>Did not report</b> race values into our <b>Unknown</b> race
-                  group.{" "}
+                  group.{' '}
                 </p>
 
                 <p>
@@ -896,8 +978,8 @@ function MethodologyTab() {
                     coupled with the variance in state-specific laws makes it
                     unfeasible to derive an accurate population base for
                     individuals that may be incarcerated in an adult prison or
-                    jail facility. Because of this, any rate calculations for{" "}
-                    <b>0-17</b> are comparing the{" "}
+                    jail facility. Because of this, any rate calculations for{' '}
+                    <b>0-17</b> are comparing the{' '}
                     <b>number of prisoners under 18</b> proportional to the
                     entire population of children down to newborns, resulting in
                     a diluted incidence rate. This can be seen on national and
@@ -910,7 +992,7 @@ function MethodologyTab() {
                     The prison numbers presented in the BJS Prisoners 2020
                     report for juveniles include <b>confined</b> population
                     (literally held within a specific facility), as opposed to
-                    the other prison reports which present the{" "}
+                    the other prison reports which present the{' '}
                     <b>jurisdictional</b> population (under the control of a
                     facility but potentially confined elsewhere).
                   </li>
@@ -921,7 +1003,7 @@ function MethodologyTab() {
                 </p>
 
                 <p>
-                  {CombinedIncarcerationStateMessage()}{" "}
+                  {CombinedIncarcerationStateMessage()}{' '}
                   {ALASKA_PRIVATE_JAIL_CAVEAT}
                 </p>
 
@@ -997,14 +1079,14 @@ function MethodologyTab() {
                     we have data, and displayed over time to show trends in
                     inequity.
                     <p>
-                      {" "}
+                      {' '}
                       As an example, if in a certain month White (Non-Hispanic)
                       people in Georgia had 65.7% share of COVID-19 deaths but
                       only 52.7% share of the population, their disproportionate
-                      percent share would be <b>+13%</b>:{" "}
+                      percent share would be <b>+13%</b>:{' '}
                       <code>65.7% - 52.7% = +13%</code>. This value is then
                       divided by the population percent share to give a
-                      proportional inequitable burden of <b>+24.7%</b>:{" "}
+                      proportional inequitable burden of <b>+24.7%</b>:{' '}
                       <code>+13% / 52.7% = +24.7%</code>. In plain language,
                       this would be interpreted as “Deaths of individuals
                       identifying as White, Non Hispanic in Georgia from
@@ -1029,7 +1111,7 @@ function MethodologyTab() {
                 />
                 <p>
                   Links to the original sources of data and their definitions
-                  can be found on our{" "}
+                  can be found on our{' '}
                   <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
                 </p>
               </div>
@@ -1107,7 +1189,9 @@ function MethodologyTab() {
                     to take transformative action towards achieving health
                     equity the Satcher Health Leadership Institute has decided
                     to rename this category to highlight it as a health equity
-                    issue.
+                    issue. For PrEP coverage, Unrepresented race (NH) is used to
+                    recognize individuals who do not identify as part of the
+                    Black, White, or Hispanic ethnic or racial groups.
                   </li>
                   <li>
                     <b>Two or more races (NH)</b>: Combinations of two or more
@@ -1151,7 +1235,7 @@ function MethodologyTab() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default MethodologyTab;
+export default MethodologyTab

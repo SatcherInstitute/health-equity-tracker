@@ -1,5 +1,5 @@
-import { type Mark, type RectMark, type TextMark } from "vega";
-import { oneLineLabel } from "../utils";
+import { type Mark, type RectMark, type TextMark } from 'vega'
+import { oneLineLabel } from '../utils'
 import {
   ALT_LIGHT_MEASURE_COLOR,
   ALT_LIGHT_MEASURE_OPACITY,
@@ -15,8 +15,8 @@ import {
   MIDDLE_OF_BAND,
   SIDE_BY_SIDE_OFFSET,
   SIDE_BY_SIDE_ONE_BAR_RATIO,
-} from "./constants";
-import { type MarkProps } from "./types";
+} from './constants'
+import { type MarkProps } from './types'
 
 export function Marks({
   barLabelBreakpoint,
@@ -37,14 +37,14 @@ export function Marks({
 }: MarkProps) {
   const altTextLabels: TextMark = {
     name: ALT_TEXT_LABELS,
-    type: "text",
-    style: ["text"],
+    type: 'text',
+    style: ['text'],
     from: { data: DATASET },
     description: `${data.length} items`,
     encode: {
       update: {
-        y: { scale: "y", field: breakdownVar, band: 0.5 },
-        opacity: { signal: "0" },
+        y: { scale: 'y', field: breakdownVar, band: 0.5 },
+        opacity: { signal: '0' },
         fontSize: { value: 0 },
         text: {
           signal: !hasAltPop
@@ -80,13 +80,13 @@ export function Marks({
         },
       },
     },
-  };
+  }
 
   const lightMeasureBars: RectMark = {
     name: LIGHT_MEASURE_BARS,
     aria: false,
-    type: "rect",
-    style: ["bar"],
+    type: 'rect',
+    style: ['bar'],
     from: { data: DATASET },
     encode: {
       enter: {
@@ -98,27 +98,27 @@ export function Marks({
       },
       update: {
         fill: { value: LIGHT_MEASURE_COLOR },
-        ariaRoleDescription: { value: "bar" },
-        x: { scale: "x", field: lightMeasure },
-        x2: { scale: "x", value: 0 },
-        y: { scale: "y", field: breakdownVar },
+        ariaRoleDescription: { value: 'bar' },
+        x: { scale: 'x', field: lightMeasure },
+        x2: { scale: 'x', value: 0 },
+        y: { scale: 'y', field: breakdownVar },
         yc: {
-          scale: "y",
+          scale: 'y',
           field: breakdownVar,
           offset: MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
         },
         height: {
-          scale: "y",
+          scale: 'y',
           band: SIDE_BY_SIDE_ONE_BAR_RATIO,
         },
       },
     },
-  };
+  }
 
   const darkMeasureBars: RectMark = {
     name: DARK_MEASURE_BARS,
-    type: "rect",
-    style: ["bar"],
+    type: 'rect',
+    style: ['bar'],
     aria: false,
     from: { data: DATASET },
     encode: {
@@ -131,27 +131,27 @@ export function Marks({
       },
       update: {
         fill: { value: DARK_MEASURE_COLOR },
-        ariaRoleDescription: { value: "bar" },
-        x: { scale: "x", field: darkMeasure },
-        x2: { scale: "x", value: 0 },
+        ariaRoleDescription: { value: 'bar' },
+        x: { scale: 'x', field: darkMeasure },
+        x2: { scale: 'x', value: 0 },
         yc: {
-          scale: "y",
+          scale: 'y',
           field: breakdownVar,
           offset: MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
         },
         height: {
-          scale: "y",
+          scale: 'y',
           band: SIDE_BY_SIDE_ONE_BAR_RATIO,
         },
       },
     },
-  };
+  }
 
   const darkMeasureTextLabels: TextMark = {
     name: DARK_MEASURE_TEXT_LABELS,
     aria: false, // this data accessible in alt_text_labels
-    type: "text",
-    style: ["text"],
+    type: 'text',
+    style: ['text'],
     from: { data: DATASET },
     encode: {
       enter: {
@@ -165,17 +165,17 @@ export function Marks({
         align: {
           signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "right", "left")`,
         },
-        baseline: { value: "middle" },
+        baseline: { value: 'middle' },
         dx: {
           signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, -3, 3)`,
         },
         fill: {
           signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
         },
-        x: { scale: "x", field: darkMeasure },
-        y: { scale: "y", field: breakdownVar, band: 0.5 },
+        x: { scale: 'x', field: darkMeasure },
+        y: { scale: 'y', field: breakdownVar, band: 0.5 },
         yc: {
-          scale: "y",
+          scale: 'y',
           field: breakdownVar,
           offset: MIDDLE_OF_BAND + BAR_HEIGHT,
         },
@@ -184,25 +184,25 @@ export function Marks({
         },
       },
     },
-  };
+  }
 
   const marks: Mark[] = [
     altTextLabels,
     lightMeasureBars,
     darkMeasureBars,
     darkMeasureTextLabels,
-  ];
+  ]
 
   if (hasAltPop) {
-    LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR);
-    LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`;
-    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName);
+    LEGEND_COLORS.splice(1, 0, ALT_LIGHT_MEASURE_COLOR)
+    LEGEND_DOMAINS[0] = `${lightMeasureDisplayName} (KFF)`
+    LEGEND_DOMAINS.splice(1, 0, altLightMeasureDisplayName)
     marks.push({
-      name: "altLightMeasure_bars",
+      name: 'altLightMeasure_bars',
       aria: false, // this data accessible in alt_text_labels
-      type: "rect",
-      style: ["bar"],
-      from: { data: "DATASET" },
+      type: 'rect',
+      style: ['bar'],
+      from: { data: 'DATASET' },
       encode: {
         enter: {
           tooltip: {
@@ -214,23 +214,23 @@ export function Marks({
         update: {
           fill: { value: ALT_LIGHT_MEASURE_COLOR },
           fillOpacity: { value: ALT_LIGHT_MEASURE_OPACITY },
-          ariaRoleDescription: { value: "bar" },
-          x: { scale: "x", field: altLightMeasure },
-          x2: { scale: "x", value: 0 },
-          y: { scale: "y", field: breakdownVar },
+          ariaRoleDescription: { value: 'bar' },
+          x: { scale: 'x', field: altLightMeasure },
+          x2: { scale: 'x', value: 0 },
+          y: { scale: 'y', field: breakdownVar },
           yc: {
-            scale: "y",
+            scale: 'y',
             field: breakdownVar,
             offset: MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
           },
           height: {
-            scale: "y",
+            scale: 'y',
             band: SIDE_BY_SIDE_ONE_BAR_RATIO,
           },
         },
       },
-    });
+    })
   }
 
-  return marks;
+  return marks
 }

@@ -3,29 +3,28 @@ Receives list of variable objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
-import React from "react";
 import {
   type DropdownVarId,
   type VariableConfig,
-} from "../../data/config/MetricConfig";
-import { CATEGORIES_LIST, type Category } from "../../utils/MadLibs";
+} from '../../data/config/MetricConfig'
+import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 
 export interface DefinitionsListProps {
-  variablesToDefine: Array<[string, VariableConfig[]]>;
+  variablesToDefine: Array<[string, VariableConfig[]]>
 }
 
 export default function DefinitionsList(
   props: DefinitionsListProps
 ): JSX.Element {
   // collect relevant categories
-  const relevantCategoriesSet = new Set<Category>();
+  const relevantCategoriesSet = new Set<Category>()
   props.variablesToDefine.forEach((variable) => {
     const matchingCategory = CATEGORIES_LIST.find((category) =>
       category.options.includes(variable[0] as DropdownVarId)
-    );
-    matchingCategory && relevantCategoriesSet.add(matchingCategory);
-  });
-  const relevantCategories: Category[] = Array.from(relevantCategoriesSet);
+    )
+    matchingCategory && relevantCategoriesSet.add(matchingCategory)
+  })
+  const relevantCategories: Category[] = Array.from(relevantCategoriesSet)
 
   return (
     <div id="definitionsList">
@@ -34,7 +33,7 @@ export default function DefinitionsList(
         // sort requested variables into their categories
         const variablesForThisCategory = props.variablesToDefine.filter(
           (variable: any) => category.options.includes(variable[0])
-        );
+        )
 
         return (
           <div key={category.title}>
@@ -51,17 +50,17 @@ export default function DefinitionsList(
                     return (
                       <li key={dataType.variableFullDisplayName}>
                         <b>{dataType.variableFullDisplayName}</b>
-                        {": "}
+                        {': '}
                         {dataType.variableDefinition}
                       </li>
-                    );
-                  });
+                    )
+                  })
                 })
               }
             </ul>
           </div>
-        );
+        )
       })}
     </div>
-  );
+  )
 }

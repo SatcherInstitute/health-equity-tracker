@@ -1,19 +1,19 @@
-import { type Legend } from "vega";
-import { LEGEND_TEXT_FONT } from "../Legend";
-import { type LegendsProps } from "./types";
+import { type Legend } from 'vega'
+import { LEGEND_TEXT_FONT } from '../Legend'
+import { type LegendsProps } from './types'
 
 export const Legends = ({ chartDimensions }: LegendsProps) => {
   const circleLegends: Legend = {
-    fill: "variables",
+    fill: 'variables',
     orient: chartDimensions.legendOrient,
     // legendX and legendY are ignored when orient isn't "none"
     legendX: -100,
     legendY: -35,
     labelFont: LEGEND_TEXT_FONT,
     labelLimit: 500,
-  };
+  }
 
-  const legends = [circleLegends];
+  const legends = [circleLegends]
 
-  return legends;
-};
+  return legends
+}

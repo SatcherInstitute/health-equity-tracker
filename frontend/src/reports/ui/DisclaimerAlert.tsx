@@ -1,33 +1,31 @@
-import React from "react";
-import Alert from "@material-ui/lab/Alert";
-import AlertTitle from "@material-ui/lab/AlertTitle";
-import styles from "./DisclaimerAlert.module.scss";
-import FlagIcon from "@material-ui/icons/Flag";
-import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
+import { Alert, AlertTitle, useMediaQuery, useTheme } from '@mui/material'
+import styles from './DisclaimerAlert.module.scss'
+import FlagIcon from '@mui/icons-material/Flag'
+import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
+import { HashLink } from 'react-router-hash-link'
 
 function DisclaimerAlert() {
+  const theme = useTheme()
+  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <div>
       <Alert
         severity="warning"
         className={styles.ReportAlert}
-        icon={<FlagIcon />}
+        icon={!pageIsTiny ? <FlagIcon /> : <></>}
         role="note"
-        id="onboarding-limits-in-the-data"
       >
         <AlertTitle>Major gaps in the data</AlertTitle>
         Structural racism and oppression create health inequities, and lead to
-        missing data. The maps and tables below reflect the best data we have,
-        but there are major known gaps in the data. We're working to close these
-        gaps which, in turn, will help us create more effective health policies
-        in the United States.{" "}
-        <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>
-          Read more about missing and misidentified people
-        </a>
-        <span aria-hidden>.</span>
+        missing data. Our reports reflect the best data we can source, but we're
+        working to close these known gaps which, in turn, will help create more
+        effective health policies in the United States. Read more about missing
+        and misidentified people on our{' '}
+        <HashLink to={`${METHODOLOGY_TAB_LINK}`}>methodology</HashLink>
       </Alert>
     </div>
-  );
+  )
 }
 
-export default DisclaimerAlert;
+export default DisclaimerAlert

@@ -9,35 +9,34 @@
  */
 
 /* External Imports */
-import React from "react";
 
 /* Styles */
-import styles from "./Trends.module.scss";
-import sass from "../../styles/variables.module.scss";
+import styles from './Trends.module.scss'
+import sass from '../../styles/variables.module.scss'
 
 /* Constants */
-import { type TrendsData } from "./types";
-import { COLORS as C } from "./constants";
-import { type BreakdownVar } from "../../data/query/Breakdowns";
-import { getMinMaxGroups } from "../../data/utils/DatasetTimeUtils";
+import { type TrendsData } from './types'
+import { COLORS as C } from './constants'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import {
   AGE,
   ALL,
   type DemographicGroup,
   UNKNOWN_W,
-} from "../../data/utils/Constants";
+} from '../../data/utils/Constants'
 
 /* Define type interface */
 export interface FilterLegendProps {
-  data: TrendsData;
-  selectedGroups: string[];
-  handleClick: (group: DemographicGroup | null) => void;
-  handleMinMaxClick: (arg: any) => void;
-  groupLabel: string;
-  isSkinny: boolean;
-  chartWidth: number;
-  breakdownVar: BreakdownVar;
-  legendId: string;
+  data: TrendsData
+  selectedGroups: string[]
+  handleClick: (group: DemographicGroup | null) => void
+  handleMinMaxClick: (arg: any) => void
+  groupLabel: string
+  isSkinny: boolean
+  chartWidth: number
+  breakdownVar: BreakdownVar
+  legendId: string
 }
 
 /* Render component */
@@ -52,24 +51,24 @@ export function FilterLegend({
   breakdownVar,
   legendId,
 }: FilterLegendProps) {
-  const isComparing = window.location.href.includes("compare");
+  const isComparing = window.location.href.includes('compare')
   const getDataView = () => {
     if (isComparing) {
-      if (chartWidth > 472 && chartWidth < 818) return "compare-view";
-      if (chartWidth < 472) return "compare-view-small";
+      if (chartWidth > 472 && chartWidth < 818) return 'compare-view'
+      if (chartWidth < 472) return 'compare-view-small'
     }
-    return "normal";
-  };
+    return 'normal'
+  }
 
   const groupsAreMinMax =
-    JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data));
+    JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data))
 
   return (
     // Legend Wrapper
     <div className={styles.FilterLegend}>
       {/* Legend Title & Clear Button */}
       <div className={styles.LegendTitle}>
-        <label id={legendId}>Select groups:</label>
+        <p id={legendId}>Select groups:</p>
 
         {/* Reset to Highest Lowest Averages */}
         <button
@@ -77,7 +76,7 @@ export function FilterLegend({
           className={groupsAreMinMax ? styles.disabled : undefined} // disable button when min/max is showing
           aria-label={`Highlight groups with lowest and highest average values over time`}
           onClick={() => {
-            handleMinMaxClick(null);
+            handleMinMaxClick(null)
           }} // clear selected groups on click
         >
           Show highest / lowest averages
@@ -89,7 +88,7 @@ export function FilterLegend({
           aria-disabled={!selectedGroups?.length}
           className={!selectedGroups?.length ? styles.disabled : undefined} // disable button unless filters are applied
           onClick={() => {
-            handleClick(null);
+            handleClick(null)
           }} // clear selected groups on click
         >
           Show all groups
@@ -105,10 +104,10 @@ export function FilterLegend({
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {
-          const groupEnabled = selectedGroups.includes(group);
+          const groupEnabled = selectedGroups.includes(group)
 
-          const isUnknown = group === UNKNOWN_W;
-          const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`;
+          const isUnknown = group === UNKNOWN_W
+          const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`
 
           // Legend Item Filter Button
           return (
@@ -118,7 +117,7 @@ export function FilterLegend({
               aria-pressed={groupEnabled}
               className={styles.LegendItem}
               onClick={() => {
-                handleClick(group);
+                handleClick(group)
               }} // send group name to parent on click
               // If there are selected groups, and the group is not selected, fade out, otherwise full opacity
               style={{
@@ -136,13 +135,13 @@ export function FilterLegend({
               />
               {/* Legend Item Label */}
               <div>
-                {breakdownVar === AGE && group !== ALL && "Ages "}
+                {breakdownVar === AGE && group !== ALL && 'Ages '}
                 {group}
               </div>
             </button>
-          );
+          )
         })}
       </menu>
     </div>
-  );
+  )
 }

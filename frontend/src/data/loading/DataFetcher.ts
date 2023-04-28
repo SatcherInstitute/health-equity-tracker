@@ -2,28 +2,28 @@
 // untyped for now, but we should define types for the API calls once we
 // establish the API types.
 
-import { type MapOfDatasetMetadata, type Row } from "../utils/DatasetTypes";
-import { DatasetMetadataMap } from "../config/DatasetMetadata";
-import { type Environment } from "../../utils/Environment";
+import { type MapOfDatasetMetadata, type Row } from '../utils/DatasetTypes'
+import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { type Environment } from '../../utils/Environment'
 
-type FileFormat = "json" | "csv";
+type FileFormat = 'json' | 'csv'
 
 export interface DataFetcher {
   /**
    * Fetches and returns the dataset associated with the provided ID.
    * @param datasetId The id of the dataset to load.
    */
-  loadDataset: (datasetId: string) => Promise<Row[]>;
+  loadDataset: (datasetId: string) => Promise<Row[]>
 
   /** Fetches and returns the MetadataMap for all datasets. */
-  getMetadata: () => Promise<MapOfDatasetMetadata>;
+  getMetadata: () => Promise<MapOfDatasetMetadata>
 }
 
 export class ApiDataFetcher implements DataFetcher {
-  environment: Environment;
+  environment: Environment
 
   constructor(environment: Environment) {
-    this.environment = environment;
+    this.environment = environment
   }
 
   /**
@@ -36,14 +36,14 @@ export class ApiDataFetcher implements DataFetcher {
    */
   private shouldFetchAsStaticFile(fileName: string) {
     return (
-      (this.environment.deployContext === "development" &&
+      (this.environment.deployContext === 'development' &&
         !this.environment.getBaseApiUrl()) ||
       this.environment.forceFetchDatasetAsStaticFile(fileName)
-    );
+    )
   }
 
   private getApiUrl() {
-    return this.environment.getBaseApiUrl() + "/api";
+    return this.environment.getBaseApiUrl() + '/api'
   }
 
   /**
@@ -52,40 +52,40 @@ export class ApiDataFetcher implements DataFetcher {
    */
   private getDatasetRequestPath(
     datasetName: string,
-    format: FileFormat = "json"
+    format: FileFormat = 'json'
   ) {
-    const fullDatasetName = datasetName + "." + format;
+    const fullDatasetName = datasetName + '.' + format
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
-      ? "/tmp/"
-      : this.getApiUrl() + "/dataset?name=";
-    return basePath + fullDatasetName;
+      ? '/tmp/'
+      : this.getApiUrl() + '/dataset?name='
+    return basePath + fullDatasetName
   }
 
   /**
    * @param datasetName The ID of the dataset to request
    * @param format FileFormat for the request.
    */
-  private async fetchDataset(datasetName: string, format: FileFormat = "json") {
-    const requestPath = this.getDatasetRequestPath(datasetName, format);
-    const resp = await fetch(requestPath);
+  private async fetchDataset(datasetName: string, format: FileFormat = 'json') {
+    const requestPath = this.getDatasetRequestPath(datasetName, format)
+    const resp = await fetch(requestPath)
     if (resp.status !== 200) {
-      throw new Error("Failed to fetch dataset. Status: " + resp.status);
+      throw new Error('Failed to fetch dataset. Status: ' + resp.status)
     }
-    return await resp.json();
+    return await resp.json()
   }
 
   // TODO build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
-    const result = await this.fetchDataset(datasetId);
+    const result = await this.fetchDataset(datasetId)
 
     // Note that treating geographies as a normal dataset is a bit weird
     // because it doesn't fit the normal dataset model, so the dataset "rows"
     // aren't really rows. But in practice there aren't issues with it.
-    return result;
+    return result
   }
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
     // TODO replace with real API call.
-    return DatasetMetadataMap;
+    return DatasetMetadataMap
   }
 }
