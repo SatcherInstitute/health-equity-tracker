@@ -21,15 +21,23 @@
 
   .HeaderText {
     @include tav300();
-    text-align: left;
+    text-align: center;
     color: $alt-green;
-    padding: 3rem 1rem 1rem 1rem;
+    padding: 3rem 0 1rem 0;
+
+    @media (min-width: $lg) {
+      text-align: left;
+    }
   }
 
   .HeaderSubtext {
     @include inter400();
     font-size: $text;
     text-align: left;
+
+    @media (min-width: $lg) {
+      font-size: $title;
+    }
   }
 
   .HeaderImgItem {
