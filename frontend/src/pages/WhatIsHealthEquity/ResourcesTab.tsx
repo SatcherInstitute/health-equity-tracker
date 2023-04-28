@@ -1,8 +1,6 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import styles from "./WhatIsHealthEquityPage.module.scss";
-import { Typography } from "@material-ui/core";
-import { Helmet } from "react-helmet-async";
+import styles from './WhatIsHealthEquityPage.module.scss'
+import { Typography, Grid } from '@mui/material'
+import { Helmet } from 'react-helmet-async'
 import {
   RESOURCES,
   PDOH_RESOURCES,
@@ -14,7 +12,7 @@ import {
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
   ECONOMIC_EQUITY_RESOURCES,
-} from "./ResourcesData";
+} from './ResourcesData'
 
 function ResourcesTab() {
   return (
@@ -43,7 +41,7 @@ function ResourcesTab() {
             COVID_VACCINATION_RESOURCES,
           ].map(({ heading, resources }) => {
             // first heading should get a "main" id for Playwright testing and our a11y setups
-            const id = heading === "Health Equity" ? "main" : heading;
+            const id = heading === 'Health Equity' ? 'main' : heading
             return (
               <Grid container className={styles.ResourcesGroup} key={heading}>
                 <Grid item xs={12} sm={12} md={3}>
@@ -72,12 +70,12 @@ function ResourcesTab() {
                   </Grid>
                 </Grid>
               </Grid>
-            );
+            )
           })}
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default ResourcesTab;
+export default ResourcesTab

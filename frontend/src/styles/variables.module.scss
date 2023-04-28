@@ -17,6 +17,7 @@ $secondary-dark: #167b6f;
 $alert-color: #d85c47;
 $alt-orange: #9d4d3f;
 $infobar-color: #f8e8b0;
+$highest-lowest-color: #f8f9fa;
 $why-box-color: #d8ebe5;
 $report-alert: #ff9800;
 $standard-info: #f8f9fa;
@@ -89,6 +90,10 @@ $bigHeader: 3rem;
 $biggerHeader: 3.125rem;
 $biggestHeader: 4rem;
 
+// vega fonts, vega won't take rem
+$largeVega: 18;
+$smallVega: 12;
+
 // line heights
 $lhSuperLoose: 2.45;
 $lhLoose: 1.6;
@@ -97,12 +102,14 @@ $lhNormal: 1;
 $lhTight: 0.95;
 
 // default settings
+$card-gutter: 8px;
 $header-height: 600px;
 $sticky-madlib-height: 62px;
 $sticky-madlib-height-compare: 100px;
+$preload-article-height: 750px;
 $footer-size: 10rem;
 $max-width: 800px;
-$preload-article-height: 750px;
+$helper-box-max-width: 1200px;
 $explore-data-max-width: 1500px;
 
 // default material breakpoints
@@ -195,8 +202,13 @@ $z-top: 999;
   timeDarkRed: $time-dark-red;
   timeYellow: $time-yellow;
 
+  vegaLargeTitle: $largeVega;
+  vegaSmallTitle: $smallVega;
+
   footerSize: $footer-size;
   maxWidth: $max-width;
+
+  lhTight: $lhTight;
 
   sm: $sm;
   md: $md;

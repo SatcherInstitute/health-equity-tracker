@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import { Helmet } from 'react-helmet-async'
 
 function NotFoundPage() {
   return (
@@ -8,7 +8,7 @@ function NotFoundPage() {
       </Helmet>
       <h1 id="main">Page Not Found - 404</h1>
     </>
-  );
+  )
 }
 
-export default NotFoundPage;
+export default NotFoundPage

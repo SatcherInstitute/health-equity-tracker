@@ -8,9 +8,9 @@ import {
   type UseSortByInstanceProps,
   type UseSortByOptions,
   type UseSortByState,
-} from "react-table";
+} from 'react-table'
 
-declare module "react-table" {
+declare module 'react-table' {
   export interface TableOptions<D extends object>
     extends UsePaginationOptions<D>,
       UseSortByOptions<D> {}

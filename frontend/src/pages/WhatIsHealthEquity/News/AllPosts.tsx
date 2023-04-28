@@ -1,36 +1,34 @@
-import { Box, Card, Grid, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import styles from "./News.module.scss";
+import { Box, Card, Grid, Typography, Skeleton } from '@mui/material'
+import { useEffect, useState } from 'react'
+import styles from './News.module.scss'
 import {
   fetchNewsData,
   useUrlSearchParams,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
   LinkWithStickyParams,
-} from "../../../utils/urlutils";
-import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from "../../../utils/internalRoutes";
-import { Helmet } from "react-helmet-async";
-import ArticleFilters from "./ArticleFilters";
-import NewsPreviewCard from "./NewsPreviewCard";
-import { useQuery } from "react-query";
-import { type Article } from "../NewsTab";
-import { Skeleton } from "@material-ui/lab";
-import SignupSection from "../../ui/SignupSection";
-import { Link } from "react-router-dom";
+} from '../../../utils/urlutils'
+import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from '../../../utils/internalRoutes'
+import { Helmet } from 'react-helmet-async'
+import ArticleFilters from './ArticleFilters'
+import NewsPreviewCard from './NewsPreviewCard'
+import { useQuery } from 'react-query'
+import { type Article } from '../NewsTab'
+import SignupSection from '../../ui/SignupSection'
+import { Link } from 'react-router-dom'
 
-export const ARTICLES_TERM = "Articles";
-const NUM_OF_LOADING_SKELETONS = 6;
+export const ARTICLES_TERM = 'Articles'
+const NUM_OF_LOADING_SKELETONS = 6
 
 /*
 displays several loading indicator elements while blog content is fetched
 */
 
 export function ArticlesSkeleton(props: {
-  doPulse: boolean;
-  numberLoading?: number;
+  doPulse: boolean
+  numberLoading?: number
 }) {
-  const numberLoadingSkeletons =
-    props.numberLoading ?? NUM_OF_LOADING_SKELETONS;
+  const numberLoadingSkeletons = props.numberLoading ?? NUM_OF_LOADING_SKELETONS
 
   return (
     <Grid spacing={1} justifyContent="space-between" container>
@@ -47,8 +45,8 @@ export function ArticlesSkeleton(props: {
             key={i}
           >
             <Skeleton
-              animation={props.doPulse && "wave"}
-              variant="rect"
+              animation={props.doPulse && 'wave'}
+              variant="rectangular"
               height={100}
               width={150}
             ></Skeleton>
@@ -60,25 +58,25 @@ export function ArticlesSkeleton(props: {
             ></Skeleton>
             <Box mb={5}>
               <Skeleton
-                animation={props.doPulse && "wave"}
+                animation={props.doPulse && 'wave'}
                 variant="text"
                 height={36}
                 width={175}
               ></Skeleton>
             </Box>
           </Grid>
-        );
+        )
       })}
     </Grid>
-  );
+  )
 }
 
 interface PinnedArticlesProps {
-  articles: Article[];
+  articles: Article[]
 }
 
 function PinnedArticles(props: PinnedArticlesProps) {
-  const { articles } = props;
+  const { articles } = props
 
   return articles?.length > 0 ? (
     <Card elevation={3}>
@@ -97,70 +95,70 @@ function PinnedArticles(props: PinnedArticlesProps) {
             >
               <NewsPreviewCard article={post} />
             </Grid>
-          );
+          )
         })}
       </Grid>
     </Card>
   ) : (
     <></>
-  );
+  )
 }
 
 function AllPosts() {
   // articles matching client applied filters (author, category, etc)
-  const [filteredArticles, setFilteredArticles] = useState<Article[]>([]);
-  const [authors, setAuthors] = useState<string[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [selectedAuthor, setSelectedAuthor] = useState<string>("");
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([])
+  const [authors, setAuthors] = useState<string[]>([])
+  const [categories, setCategories] = useState<string[]>([])
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [selectedAuthor, setSelectedAuthor] = useState<string>('')
 
-  const categoryParam: string | null = useUrlSearchParams().get("category");
-  const authorParam: string | null = useUrlSearchParams().get("author");
+  const categoryParam: string | null = useUrlSearchParams().get('category')
+  const authorParam: string | null = useUrlSearchParams().get('author')
 
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
     REACT_QUERY_OPTIONS
-  );
+  )
 
   useEffect(() => {
     // filter articles by category query param if present
     if (categoryParam) {
       setSelectedCategory(
         categories.find((category: string) => {
-          return category === categoryParam;
+          return category === categoryParam
         }) as string
-      );
-      setSelectedAuthor("");
+      )
+      setSelectedAuthor('')
 
       if (selectedCategory && data?.data) {
         setFilteredArticles(
           data.data.filter((article: Article) =>
-            article._embedded["wp:term"][0]?.some(
+            article._embedded['wp:term'][0]?.some(
               (term: { name: string }) => term.name === selectedCategory
             )
           )
-        );
+        )
       }
     } else {
       if (data?.data?.length > 0) {
         setFilteredArticles(
           data.data.filter((article: Article) => !article.sticky)
-        );
+        )
       }
-      setSelectedCategory("");
+      setSelectedCategory('')
     }
-  }, [data?.data, categories, categoryParam, selectedCategory]);
+  }, [data?.data, categories, categoryParam, selectedCategory])
 
   useEffect(() => {
     // filter articles by author query param if present
     if (authorParam) {
       setSelectedAuthor(
         authors.find((author: string) => {
-          return author === authorParam;
+          return author === authorParam
         }) as string
-      );
-      setSelectedCategory("");
+      )
+      setSelectedCategory('')
 
       if (selectedAuthor) {
         setFilteredArticles(
@@ -168,50 +166,50 @@ function AllPosts() {
             (article: Article) =>
               article.acf.contributing_author === selectedAuthor
           )
-        );
+        )
       }
     } else {
       if (data?.data?.length > 0) {
         setFilteredArticles(
           data.data.filter((article: Article) => !article.sticky)
-        );
+        )
       }
-      setSelectedAuthor("");
+      setSelectedAuthor('')
     }
-  }, [data?.data, authorParam, authors, selectedAuthor]);
+  }, [data?.data, authorParam, authors, selectedAuthor])
 
   // extract and populate list of authors (from ALL posts, not just filtered ones)
   useEffect(() => {
-    const allAuthorsSet = new Set();
+    const allAuthorsSet = new Set()
 
     data?.data.forEach(
       (article: Article) =>
         article.acf.contributing_author &&
         allAuthorsSet.add(article.acf.contributing_author)
-    );
+    )
 
-    setAuthors(Array.from(allAuthorsSet) as string[]);
-  }, [data?.data]);
+    setAuthors(Array.from(allAuthorsSet) as string[])
+  }, [data?.data])
 
   // extract and populate list of categories (from ALL posts, not just filtered ones)
   useEffect(() => {
-    const allCategoriesSet = new Set();
+    const allCategoriesSet = new Set()
 
     data?.data.forEach((article: Article) => {
-      if (article._embedded["wp:term"] !== undefined) {
-        article._embedded["wp:term"][0].forEach((term: { name: string }) =>
+      if (article._embedded['wp:term'] !== undefined) {
+        article._embedded['wp:term'][0].forEach((term: { name: string }) =>
           allCategoriesSet.add(term.name)
-        );
+        )
       }
-    });
+    })
 
-    setCategories(Array.from(allCategoriesSet) as string[]);
-  }, [data?.data]);
+    setCategories(Array.from(allCategoriesSet) as string[])
+  }, [data?.data])
 
   // featured "sticky" articles
-  const pinnedArticles = data?.data?.filter((post: Article) => post?.sticky);
+  const pinnedArticles = data?.data?.filter((post: Article) => post?.sticky)
 
-  if (data?.data.length === 0) return <></>;
+  if (data?.data.length === 0) return <></>
 
   return (
     <Grid container className={styles.Grid}>
@@ -227,8 +225,8 @@ function AllPosts() {
           alignItems="center"
           className={styles.FilterBoxSideBar}
         >
-          <ArticleFilters filterType={"category"} filterOptions={categories} />
-          <ArticleFilters filterType={"author"} filterOptions={authors} />
+          <ArticleFilters filterType={'category'} filterOptions={categories} />
+          <ArticleFilters filterType={'author'} filterOptions={authors} />
         </Grid>
 
         <Grid item xs={12} sm={12} md={9}>
@@ -257,7 +255,7 @@ function AllPosts() {
                 <p className={styles.AllArticlesHeaderSubtext}>
                   Health Equity is fundamentally about empowering voices to be
                   heard, and experiences to be seen and shared. To share your
-                  Health Equity news and stories, please{" "}
+                  Health Equity news and stories, please{' '}
                   <LinkWithStickyParams to={CONTACT_TAB_LINK}>
                     contact us
                   </LinkWithStickyParams>
@@ -314,7 +312,7 @@ function AllPosts() {
                       <NewsPreviewCard article={post} />
                     </Box>
                   </Grid>
-                );
+                )
               })}
             </Grid>
             <Grid container direction="column" justifyContent="center">
@@ -350,19 +348,19 @@ function AllPosts() {
           </Grid>
           <Grid item xs={12} sm={6} container justifyContent="center">
             <ArticleFilters
-              filterType={"category"}
+              filterType={'category'}
               filterOptions={categories}
             />
           </Grid>
 
           <Grid item xs={12} sm={6} container justifyContent="center">
-            <ArticleFilters filterType={"author"} filterOptions={authors} />
+            <ArticleFilters filterType={'author'} filterOptions={authors} />
           </Grid>
         </Grid>
       </Grid>
       <SignupSection />
     </Grid>
-  );
+  )
 }
 
-export default AllPosts;
+export default AllPosts

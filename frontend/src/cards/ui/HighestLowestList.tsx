@@ -1,76 +1,93 @@
-import styles from "./HighestLowestList.module.scss";
-import AnimateHeight from "react-animate-height";
-import { Grid, IconButton } from "@material-ui/core";
-import ArrowDropUp from "@material-ui/icons/ArrowDropUp";
-import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import styles from './HighestLowestList.module.scss'
+import AnimateHeight from 'react-animate-height'
+import { Grid, IconButton } from '@mui/material'
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import {
   type MetricConfig,
   type VariableConfig,
   formatFieldValue,
-} from "../../data/config/MetricConfig";
-import { type Row } from "../../data/utils/DatasetTypes";
-import { WHAT_DATA_ARE_MISSING_ID } from "../../utils/internalRoutes";
+} from '../../data/config/MetricConfig'
+import { type Row } from '../../data/utils/DatasetTypes'
+import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
+import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import { type Fips } from '../../data/utils/Fips'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicGroup } from '../../data/utils/Constants'
 
 export interface HighestLowestListProps {
   // MetricConfig for data
-  metricConfig: MetricConfig;
+  metricConfig: MetricConfig
   // VariableConfig for data
-  variableConfig: VariableConfig;
-  // Display name for geo type in as "see the ___ with the highest rates"
-  fipsTypePluralDisplayName: string;
+  variableConfig: VariableConfig
+  fips: Fips
   // Whether or not list is expanded
-  listExpanded: boolean;
+  listExpanded: boolean
   // Expand or collapse the list
-  setListExpanded: (listExpanded: boolean) => void;
-  highestValues: Row[];
-  lowestValues: Row[];
+  setListExpanded: (listExpanded: boolean) => void
+  highestValues: Row[]
+  lowestValues: Row[]
   // items in highest/lowest list that should receive qualifiers
-  qualifierItems?: string[];
+  qualifierItems?: string[]
   // message to display under a list with qualifiers
-  qualifierMessage?: string;
+  qualifierMessage?: string
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
-  selectedRaceSuffix?: string;
+  selectedRaceSuffix?: string
+  parentGeoQueryResponse: MetricQueryResponse
+  currentBreakdown: BreakdownVar
+  activeBreakdownFilter: DemographicGroup
 }
 
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
+  const placesType = props.fips.getPluralChildFipsTypeDisplayName()
+
+  const overallRow = props.parentGeoQueryResponse.data.find(
+    (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
+  )
+
+  const overallRate = formatFieldValue(
+    /* metricType: MetricType, */ props.metricConfig.type,
+    /* value: any, */ overallRow?.[props.metricConfig.metricId],
+    /* omitPctSymbol: boolean = false */ true
+  )
+
   return (
     <AnimateHeight
       duration={500}
-      height={props.listExpanded ? "auto" : 47}
-      onAnimationEnd={() => window.dispatchEvent(new Event("resize"))}
+      height={props.listExpanded ? 'auto' : 47}
+      onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className={styles.ListBox}
     >
       <div className={styles.CollapseButton}>
         <IconButton
           aria-label={
             props.listExpanded
-              ? `hide lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates `
-              : `show lists of ${props.fipsTypePluralDisplayName} with highest and lowest rates`
+              ? `hide lists of ${placesType} with highest and lowest rates `
+              : `show lists of ${placesType} with highest and lowest rates`
           }
           onClick={() => {
-            props.setListExpanded(!props.listExpanded);
+            props.setListExpanded(!props.listExpanded)
           }}
           color="primary"
+          size="large"
         >
           {props.listExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
       <div
         onClick={() => {
-          props.setListExpanded(!props.listExpanded);
+          props.setListExpanded(!props.listExpanded)
         }}
         aria-hidden={true}
         className={
           props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
       >
-        {!props.listExpanded ? "See " : "Viewing "}
-        <span className={styles.HideOnMobile}>
-          the {props.fipsTypePluralDisplayName} with the{" "}
-        </span>
+        {!props.listExpanded ? 'See ' : 'Viewing '}
+        <span className={styles.HideOnMobile}>the {placesType} with the </span>
         <b>highest</b> and <b>lowest</b> rates.
       </div>
 
@@ -95,45 +112,56 @@ export function HighestLowestList(props: HighestLowestListProps) {
                 qualifierItems={props.qualifierItems}
               />
             </Grid>
+
+            <h4>{props.fips.getUppercaseFipsTypeDisplayName()} overall:</h4>
+            <ul>
+              <li>
+                {props.fips.getDisplayName()}: {overallRate}
+                <span className={styles.Unit}>
+                  {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
+                </span>
+              </li>
+            </ul>
           </div>
 
           <p>
-            All rates are reported as:{" "}
+            All rates are reported as:{' '}
             <b>
-              {props.metricConfig.chartTitleLines.join(" ")}
+              {props.metricConfig.chartTitleLines.join(' ')}
               {props.selectedRaceSuffix}
             </b>
             .
           </p>
           <p>
-            Consider the possible impact of{" "}
-            <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{" "}
+            Consider the possible impact of{' '}
+            <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{' '}
             when interpreting the highest and lowest rates.
           </p>
         </>
       )}
     </AnimateHeight>
-  );
+  )
 }
 
-export interface ExtremeListProps {
-  whichExtreme: "Highest" | "Lowest";
-  values: Row[];
-  metricConfig: MetricConfig;
-  qualifierItems?: string[];
-  qualifierMessage?: string;
+// TODO: This should be its own component file
+interface ExtremeListProps {
+  whichExtreme: 'Highest' | 'Lowest'
+  values: Row[]
+  metricConfig: MetricConfig
+  qualifierItems?: string[]
+  qualifierMessage?: string
 }
 
 function ExtremeList(props: ExtremeListProps) {
-  const { type: metricType, metricId } = props.metricConfig;
+  const { type: metricType, metricId } = props.metricConfig
 
-  const extremeVal = props.values?.[0]?.[props.metricConfig.metricId];
+  const extremeVal = props.values?.[0]?.[props.metricConfig.metricId]
 
-  const isTie = extremeVal === props.values?.[1]?.[props.metricConfig.metricId];
+  const isTie = extremeVal === props.values?.[1]?.[props.metricConfig.metricId]
 
   const tieDisplayValue = isTie
     ? formatFieldValue(metricType, extremeVal)
-    : null;
+    : null
 
   return (
     <Grid item xs={12} sm={6}>
@@ -148,17 +176,17 @@ function ExtremeList(props: ExtremeListProps) {
           <li>
             <>
               {props.values.map((row, i) => {
-                let placeName = row.fips_name;
+                let placeName = row.fips_name
                 if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage ?? ""}`;
+                  placeName += ` ${props.qualifierMessage ?? ''}`
                 }
 
                 return (
                   <span key={row.fips_name}>
                     {placeName}
-                    {i < props.values.length - 1 ? ", " : ""}
+                    {i < props.values.length - 1 ? ', ' : ''}
                   </span>
-                );
+                )
               })}
             </>
           </li>
@@ -166,23 +194,23 @@ function ExtremeList(props: ExtremeListProps) {
           <>
             {!isTie &&
               props.values.map((row) => {
-                let placeName = row.fips_name;
+                let placeName = row.fips_name
                 if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage ?? ""}`;
+                  placeName += ` ${props.qualifierMessage ?? ''}`
                 }
 
                 return (
                   <li key={row.fips_name}>
-                    {placeName}: {formatFieldValue(metricType, row[metricId])}{" "}
+                    {placeName}: {formatFieldValue(metricType, row[metricId])}{' '}
                     <span className={styles.Unit}>
-                      {metricType === "per100k" ? "per 100k" : ""}
+                      {metricType === 'per100k' ? 'per 100k' : ''}
                     </span>
                   </li>
-                );
+                )
               })}
           </>
         )}
       </ul>
     </Grid>
-  );
+  )
 }

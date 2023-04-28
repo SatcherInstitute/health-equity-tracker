@@ -1,71 +1,71 @@
-import { useEffect, useState } from "react";
-import { type AlignValue, type LegendOrient } from "vega";
+import { useEffect, useState } from 'react'
+import { type AlignValue, type LegendOrient } from 'vega'
 
 export interface ChartDimensionProps {
-  axisTickMinStep?: number;
-  axisTitleAlign?: AlignValue;
-  axisTitleX?: number;
-  verticalTickMinStep?: number;
-  legendOrient?: LegendOrient;
+  axisTickMinStep?: number
+  axisTitleAlign?: AlignValue
+  axisTitleX?: number
+  verticalTickMinStep?: number
+  legendOrient?: LegendOrient
 }
 
 export function useChartDimensions(width: number) {
-  const chartIsTiny = width < 350;
-  const chartIsSmall = width > 350 && width < 500;
-  const chartIsMedium = width > 500 && width < 800;
-  const chartIsLarge = width >= 800;
+  const chartIsTiny = width < 350
+  const chartIsSmall = width > 350 && width < 500
+  const chartIsMedium = width > 500 && width < 800
+  const chartIsLarge = width >= 800
 
   const initialState: ChartDimensionProps = {
     axisTickMinStep: 5,
-    axisTitleAlign: "center",
+    axisTitleAlign: 'center',
     axisTitleX: undefined,
     verticalTickMinStep: 10,
-    legendOrient: "top",
-  };
+    legendOrient: 'top',
+  }
 
-  const [chartProperties, setProperties] = useState(initialState);
+  const [chartProperties, setProperties] = useState(initialState)
 
   useEffect(() => {
     const handlePropertyChange = () => {
       if (chartIsTiny) {
         setProperties({
           axisTickMinStep: 5,
-          axisTitleAlign: "left",
+          axisTitleAlign: 'left',
           axisTitleX: 0,
           verticalTickMinStep: 10,
-          legendOrient: "none",
-        });
+          legendOrient: 'none',
+        })
       }
       if (chartIsSmall) {
         setProperties({
           axisTickMinStep: 5,
-          axisTitleAlign: "center",
+          axisTitleAlign: 'center',
           axisTitleX: undefined,
           verticalTickMinStep: 10,
-          legendOrient: "top",
-        });
+          legendOrient: 'top',
+        })
       }
       if (chartIsMedium) {
         setProperties({
           axisTickMinStep: 5,
-          axisTitleAlign: "center",
+          axisTitleAlign: 'center',
           axisTitleX: undefined,
           verticalTickMinStep: 5,
-          legendOrient: "top",
-        });
+          legendOrient: 'top',
+        })
       }
       if (chartIsLarge) {
         setProperties({
           axisTickMinStep: 2,
-          axisTitleAlign: "center",
+          axisTitleAlign: 'center',
           axisTitleX: undefined,
           verticalTickMinStep: 2,
-          legendOrient: "top",
-        });
+          legendOrient: 'top',
+        })
       }
-    };
-    handlePropertyChange();
-  }, [chartIsTiny, chartIsSmall, chartIsLarge, chartIsMedium]);
+    }
+    handlePropertyChange()
+  }, [chartIsTiny, chartIsSmall, chartIsLarge, chartIsMedium])
 
-  return [chartProperties];
+  return [chartProperties]
 }

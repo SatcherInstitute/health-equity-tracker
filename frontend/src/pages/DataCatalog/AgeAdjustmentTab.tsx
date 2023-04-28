@@ -1,14 +1,13 @@
-import React from "react";
-import Grid from "@material-ui/core/Grid";
-import styles from "./DataCatalogPage.module.scss";
-import { Helmet } from "react-helmet-async";
+import Grid from '@mui/material/Grid'
+import styles from './DataCatalogPage.module.scss'
+import { Helmet } from 'react-helmet-async'
 import {
   COVID_DEATHS_US_SETTING,
   COVID_HOSP_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
-} from "../../utils/internalRoutes";
-import { Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
+} from '../../utils/internalRoutes'
+import { Button } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 function AgeAdjustmentTab() {
   return (
@@ -39,11 +38,11 @@ function AgeAdjustmentTab() {
                 We have decided to present age-adjusted ratios when possible in
                 order to show a more accurate and equitable view of the impact
                 on non-white communities in the United States. Currently, we are
-                able to calculate these age-adjusted ratios for{" "}
+                able to calculate these age-adjusted ratios for{' '}
                 <Link to={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}>
                   COVID-19 deaths
                 </Link>
-                {" and "}
+                {' and '}
                 <Link to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_US_SETTING}>
                   hospitalizations
                 </Link>
@@ -59,7 +58,7 @@ function AgeAdjustmentTab() {
               Thus, our age adjusted ratios can only be used to compare racial
               groups within each state, and <b>not</b> to compare racial groups
               between states. We source the standard population numbers from the
-              the 2019 population numbers from{" "}
+              the 2019 population numbers from{' '}
               <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
                 County Population by Characteristics
               </a>
@@ -79,13 +78,13 @@ function AgeAdjustmentTab() {
                   </b>
 
                   <p>
-                    We were able to use the{" "}
+                    We were able to use the{' '}
                     <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t">
                       CDC Case Surveillance Restricted Access Detailed Data
-                    </a>{" "}
+                    </a>{' '}
                     for this. It can break down by race and age to ten-year
-                    buckets. The age buckets are: <b>0-9</b>, <b>10-19</b>,{" "}
-                    <b>20-29</b>, <b>30-39</b>, <b>40-49</b>, <b>50-59</b>,{" "}
+                    buckets. The age buckets are: <b>0-9</b>, <b>10-19</b>,{' '}
+                    <b>20-29</b>, <b>30-39</b>, <b>40-49</b>, <b>50-59</b>,{' '}
                     <b>60-69</b>, <b>70-79</b>, <b>80+</b>
                   </p>
                 </li>
@@ -95,10 +94,10 @@ function AgeAdjustmentTab() {
 
                   <p>
                     The most reliable population source we could find with these
-                    numbers were the{" "}
+                    numbers were the{' '}
                     <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
                       County Population by Characteristics
-                    </a>{" "}
+                    </a>{' '}
                     numbers provided by the census. They break down to the
                     correct racial and age groupings that match the cdc
                     restricted dataset.
@@ -176,10 +175,10 @@ function AgeAdjustmentTab() {
                 Age-adjustment Example
               </h3>
               <p>
-                Here is an example of a single state with two races,{" "}
-                <b>Race A</b> and <b>Race B</b>, with three age breakdowns:{" "}
+                Here is an example of a single state with two races,{' '}
+                <b>Race A</b> and <b>Race B</b>, with three age breakdowns:{' '}
                 <b>0-29</b>, <b>30-59</b>, and <b>60+</b>. <b>Race A</b> will be
-                the standard race we are comparing against (like{" "}
+                the standard race we are comparing against (like{' '}
                 <b>White, Non-Hispanic</b>), and <b>Race B</b> is any other
                 racial group.
               </p>
@@ -447,7 +446,7 @@ function AgeAdjustmentTab() {
             href={
               EXPLORE_DATA_PAGE_LINK +
               COVID_DEATHS_US_SETTING +
-              "#age-adjusted-risk"
+              '#age-adjusted-risk'
             }
           >
             Explore age-adjusted ratios
@@ -455,7 +454,7 @@ function AgeAdjustmentTab() {
         </Grid>
       </Grid>
     </>
-  );
+  )
 }
 
-export default AgeAdjustmentTab;
+export default AgeAdjustmentTab

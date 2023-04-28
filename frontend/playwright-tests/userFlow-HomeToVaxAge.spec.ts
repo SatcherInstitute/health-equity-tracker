@@ -10,7 +10,7 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // Landing Page Loads
         await page.goto('/', { waitUntil: "networkidle" });
-        await expect(page.locator('#main')).toContainText('Better Data for Equity');
+        await expect(page.locator('#main')).toContainText('Advancing Health Justice');
 
         // @ts-ignore
         await expect(page).toPassAxe()
@@ -31,7 +31,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.emulateMedia({ reducedMotion: "reduce" });
 
         // choose VAXX from the no topic screen
-        const madLibTopic = page.locator('button:has-text("select a topic")')
+        const madLibTopic = page.locator('button:visible:has-text("select a topic")')
         madLibTopic.click();
         const covidVaxOption = page.locator('span:has-text("COVID-19 Vaccinations")')
         covidVaxOption.click();
@@ -57,9 +57,9 @@ test.describe('Home to COVID Vax by Age', () => {
         // Starting with COVID VAX
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
 
-        // Changing to AGE demographic toggle should change URL
-        const ageToggleButton = page.locator('button:has-text("Age")')
-        await ageToggleButton.click();
+        // Changing demographic dropdown setting to AGE should change URL
+        await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
+        await page.getByRole('option', { name: 'Age' }).click();
         await expect(page).toHaveURL(/.*demo=age/);
 
         // back button works properly for demographic toggle changes

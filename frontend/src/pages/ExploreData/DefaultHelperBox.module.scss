@@ -1,5 +1,5 @@
-@use "../../styles/globals.scss";
-@import "../../styles/variables.module";
+@use '../../styles/globals.scss';
+@import '../../styles/variables.module';
 
 .NoTopicContent {
   background-color: $white;
@@ -18,22 +18,21 @@
   align-content: center !important;
   justify-items: center !important;
   margin: 0 0 20rem 0;
-}
-
-.NoTopicBox {
-  width: 70vw;
+  max-width: $helper-box-max-width;
 }
 
 .BigHeadline {
   padding-right: 1rem;
+  margin-top: 0;
   font-size: $small;
 
   @media (min-width: $sm) {
     font-size: $smallestHeader;
+    margin-top: 2rem;
   }
 
   @media (min-width: $lg) {
-    font-size: $bigHeader;
+    font-size: $header;
   }
 }
 
@@ -46,12 +45,12 @@
   }
 
   @media (min-width: $lg) {
-    font-size: $smallestHeader;
+    font-size: $explore-button;
   }
 }
 
 .NoTopicHelperVideoBoxWithCaption {
-  margin-top: 1rem;
+  margin-top: 2rem;
 
   p {
     margin-inline: 3rem;
@@ -80,6 +79,10 @@
   }
 }
 
+.NoTopicHelperVideoBoxTourText {
+  padding-inline: 3rem;
+}
+
 .CategoryList {
   ul span,
   ul h2 {
@@ -99,25 +102,31 @@
 }
 
 .SuggestedReportsList {
-  margin-block: 5px;
+  a {
+    text-decoration: none;
+  }
 
+  a:hover {
+    text-decoration: underline;
+  }
+
+  margin-block: 0px;
   text-align: left;
   font-size: $text;
-
   list-style: none;
 
   li::before {
-    content: "→ ";
+    content: '→ ';
     color: $alt-green;
   }
 
   padding-left: 0px;
 
   @media only screen and (min-width: $sm) {
-    padding-left: 40px;
+    padding-left: 1rem;
   }
 }
 
 .SuggestedReportsListItem {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
 }

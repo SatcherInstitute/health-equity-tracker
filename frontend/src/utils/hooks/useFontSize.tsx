@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
-import { createTheme, useMediaQuery } from "@material-ui/core";
-
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 800,
-      lg: 1500,
-      xl: 1850,
-    },
-  },
-});
+import { useEffect, useState } from 'react'
+import { useTheme, useMediaQuery } from '@mui/material'
+import sass from '../../styles/variables.module.scss'
 
 export function useFontSize() {
-  const isComparing = window.location.href.includes("compare");
-  const isSmall = useMediaQuery(theme.breakpoints.only("sm"));
-  const [fontSize, setFontsize] = useState(14);
+  const theme = useTheme()
+  const isComparing = window.location.href.includes('compare')
+  const isSmall = useMediaQuery(theme.breakpoints.only('sm'))
+  const [fontSize, setFontsize] = useState(parseInt(sass.vegaLargeTitle))
 
+  // we need to implement useEffect to rerender so that Vega will draw the title correctly
   useEffect(() => {
+    console.log(sass.fontTitle)
     if (isComparing && isSmall) {
-      setFontsize(10);
+      setFontsize(parseInt(sass.vegaSmallTitle))
     } else {
-      setFontsize(14);
+      setFontsize(parseInt(sass.vegaLargeTitle))
     }
-  }, [isComparing, fontSize, isSmall]);
+  }, [isComparing, fontSize, isSmall])
 
-  return fontSize;
+  return fontSize
 }

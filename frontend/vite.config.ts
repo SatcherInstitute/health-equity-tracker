@@ -16,7 +16,9 @@ export default defineConfig({
 		port: 3000
 	},
 	plugins: [
-		react(), viteTsconfigPaths(), svgrPlugin(),
+		react({
+			include: "**/*.tsx",
+		}), viteTsconfigPaths(), svgrPlugin(),
 	],
 	test: {
 		exclude: [
@@ -27,8 +29,8 @@ export default defineConfig({
 		environment: 'jsdom',
 		setupFiles: './src/setupTests.ts',
 		deps: {
-      inline: ['vitest-canvas-mock'],
-    },
+			inline: ['vitest-canvas-mock'],
+		},
 		coverage: {
 			reporter: ['text', 'html'],
 		},

@@ -1,7 +1,7 @@
-time_period,state_name,state_fips,sex,hiv_population_pct,hiv_diagnoses,hiv_diagnoses_per_100k,hiv_diagnoses_pct_share,hiv_diagnoses_pct_relative_inequity,hiv_deaths,hiv_deaths_per_100k,hiv_deaths_pct_share,hiv_deaths_pct_relative_inequity,hiv_prep_population_pct,hiv_prep,hiv_prep_coverage,hiv_prep_pct_share,hiv_prep_pct_relative_inequity
-2017,United States,00,All,100.0,38316,14.1,100.0,0.0,16350,6.0,100.0,0.0,100.0,155062,12.7,100.0,0.0
-2017,United States,00,Female,51.1,7275,5.2,19.0,-62.8,3999,2.9,24.5,-52.1,18.6,11274,5.0,7.3,-60.8
-2017,United States,00,Male,48.9,31041,23.3,81.0,65.6,12351,9.3,75.5,54.4,81.4,143689,14.5,92.7,13.9
-2019,United States,00,All,100.0,36528,13.2,100.0,0.0,16230,5.9,100.0,0.0,100.0,275182,22.6,100.0,0.0
-2019,United States,00,Female,51.1,6939,4.9,19.0,-62.8,3835,2.7,23.6,-53.8,18.7,21065,9.3,7.7,-58.8
-2019,United States,00,Male,48.9,29589,21.9,81.0,65.6,12395,9.2,76.4,56.2,81.3,253974,25.7,92.3,13.5
+time_period,state_name,state_fips,sex,hiv_care,hiv_diagnoses,hiv_deaths,hiv_prep,hiv_prevalence,hiv_care_linkage,hiv_prep_coverage,hiv_diagnoses_per_100k,hiv_deaths_per_100k,hiv_prevalence_per_100k,hiv_care_pct_share,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_prep_pct_relative_inequity,hiv_prevalence_pct_relative_inequity
+2017,United States,00,All,,38316,16350,155062,,,12.7,14.1,6.0,,,100.0,100.0,100.0,,100.0,100.0,,,0.0,0.0,0.0,
+2017,United States,00,Female,5059.0,7275,3999,11274,234953.0,78.2,5.0,5.2,2.9,168.8,,19.0,24.5,7.3,,18.6,51.1,,,-62.8,-52.1,-60.8,
+2017,United States,00,Male,21458.0,31041,12351,143689,760344.0,77.7,14.5,23.3,9.3,570.9,,81.0,75.5,92.7,,81.4,48.9,,,65.6,54.4,13.9,
+2019,United States,00,All,,36528,16230,275182,,,22.6,13.2,5.9,,,100.0,100.0,100.0,,100.0,100.0,,,0.0,0.0,0.0,
+2019,United States,00,Female,5110.0,6939,3835,21065,242496.0,80.2,9.3,4.9,2.7,171.9,,19.0,23.6,7.7,,18.7,51.1,,,-62.8,-53.8,-58.8,
+2019,United States,00,Male,22369.0,29589,12395,253974,798026.0,81.6,25.7,21.9,9.2,591.2,,81.0,76.4,92.3,,81.3,48.9,,,65.6,56.2,13.5,

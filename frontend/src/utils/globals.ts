@@ -1,34 +1,34 @@
-import { ApiDataFetcher, type DataFetcher } from "../data/loading/DataFetcher";
-import DataManager from "../data/loading/DataManager";
-import FakeDataFetcher from "../testing/FakeDataFetcher";
-import { createEnvironment, type Environment } from "./Environment";
-import Logger from "./Logger";
+import { ApiDataFetcher, type DataFetcher } from '../data/loading/DataFetcher'
+import DataManager from '../data/loading/DataManager'
+import FakeDataFetcher from '../testing/FakeDataFetcher'
+import { createEnvironment, type Environment } from './Environment'
+import Logger from './Logger'
 
 interface Globals {
-  initialized: boolean;
-  environment: Environment;
-  logger: Logger;
-  dataFetcher: DataFetcher;
-  dataManager: DataManager;
+  initialized: boolean
+  environment: Environment
+  logger: Logger
+  dataFetcher: DataFetcher
+  dataManager: DataManager
 }
 
 // TODO consider using interfaces for the various globals so they can have
 // default Noop variants instead of relying on a typecast.
-const globals: Partial<Globals> = { initialized: false };
+const globals: Partial<Globals> = { initialized: false }
 
 function assertInitialized() {
   if (!globals.initialized) {
-    throw new Error("Cannot use globals before initialization");
+    throw new Error('Cannot use globals before initialization')
   }
 }
 
 export function resetCacheDebug() {
-  if (globals?.environment?.deployContext !== "test") {
+  if (globals?.environment?.deployContext !== 'test') {
     throw new Error(
-      "resetCacheDebug must only be called from the test environment"
-    );
+      'resetCacheDebug must only be called from the test environment'
+    )
   }
-  globals.dataManager = new DataManager();
+  globals.dataManager = new DataManager()
 }
 
 export function initGlobals(
@@ -38,17 +38,17 @@ export function initGlobals(
   dataManager: DataManager
 ) {
   if (globals.initialized) {
-    throw new Error("Cannot initialize globals multiple times");
+    throw new Error('Cannot initialize globals multiple times')
   }
 
-  globals.environment = environment;
-  globals.logger = logger;
-  globals.dataFetcher = dataFetcher;
-  globals.dataManager = dataManager;
-  globals.initialized = true;
+  globals.environment = environment
+  globals.logger = logger
+  globals.dataFetcher = dataFetcher
+  globals.dataManager = dataManager
+  globals.initialized = true
   logger.debugLog(
-    "Initialized globals for context: " + environment.deployContext
-  );
+    'Initialized globals for context: ' + environment.deployContext
+  )
 }
 
 /**
@@ -57,41 +57,41 @@ export function initGlobals(
  * the globals. In such cases, use initGlobals instead.
  */
 export function autoInitGlobals() {
-  const environment = createEnvironment();
+  const environment = createEnvironment()
   const logger = new Logger(
     environment.getEnableServerLogging(),
     environment.getEnableConsoleLogging()
-  );
+  )
   // Unit tests shouldn't do any real data fetches. All other deploy contexts
   // rely on real data fetches to function properly.
   const dataFetcher =
-    environment.deployContext === "test"
+    environment.deployContext === 'test'
       ? new FakeDataFetcher()
-      : new ApiDataFetcher(environment);
-  const cache = new DataManager();
-  initGlobals(environment, logger, dataFetcher, cache);
+      : new ApiDataFetcher(environment)
+  const cache = new DataManager()
+  initGlobals(environment, logger, dataFetcher, cache)
 }
 
 export function getEnvironment(): Environment {
-  assertInitialized();
+  assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return globals.environment!;
+  return globals.environment!
 }
 
 export function getLogger(): Logger {
-  assertInitialized();
+  assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return globals.logger!;
+  return globals.logger!
 }
 
 export function getDataFetcher(): DataFetcher {
-  assertInitialized();
+  assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return globals.dataFetcher!;
+  return globals.dataFetcher!
 }
 
 export function getDataManager(): DataManager {
-  assertInitialized();
+  assertInitialized()
   // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  return globals.dataManager!;
+  return globals.dataManager!
 }
