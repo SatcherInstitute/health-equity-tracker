@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
-import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
 import {
   type MetricId,
   type MetricConfig,
@@ -11,12 +10,12 @@ interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
   signalListeners: any
   metricConfig: MetricConfig
-  listExpanded: boolean
+  listExpanded?: boolean
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
   countColsToAdd: MetricId[]
-  layout: 'horizontal' | 'vertical'
   mapIsWide: boolean
+  isUnknownsMap?: boolean
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
@@ -25,7 +24,8 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       container
       spacing={props.mapIsWide ? 2 : 0}
       flexWrap={'nowrap'}
-      flexDirection={props.layout === 'vertical' ? 'column' : 'row'}
+      flexDirection={'row'}
+      justifyContent={props.isUnknownsMap ? 'flex-end' : undefined}
     >
       {TERRITORY_CODES.map((code) => {
         const fips = new Fips(code)
@@ -41,7 +41,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               hideActions={true}
               showCounties={false}
               fips={fips}
-              scaleType={RATE_MAP_SCALE}
+              isUnknownsMap={props.isUnknownsMap}
               geoData={props.geoData}
               overrideShapeWithCircle={true}
               countColsToAdd={props.countColsToAdd}

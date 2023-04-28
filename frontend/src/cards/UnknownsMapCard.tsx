@@ -1,6 +1,6 @@
-import { CardContent } from '@mui/material'
+import { CardContent, useMediaQuery, useTheme } from '@mui/material'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
-import { Fips, TERRITORY_CODES } from '../data/utils/Fips'
+import { Fips } from '../data/utils/Fips'
 import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
 import { type Row } from '../data/utils/DatasetTypes'
 import CardWrapper from './CardWrapper'
@@ -18,7 +18,6 @@ import {
   ALL,
   RACE,
 } from '../data/utils/Constants'
-import styles from './Card.module.scss'
 import Alert from '@mui/material/Alert'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
@@ -26,6 +25,7 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
+import TerritoryCircles from './ui/TerritoryCircles'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -69,6 +69,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       }
     },
   }
+
+  const theme = useTheme()
+  const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isCompareMode = window.location.href.includes('compare')
+  const mapIsWide = !pageIsSmall && !isCompareMode
 
   // TODO Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
@@ -202,8 +207,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   data={unknowns}
                   showCounties={!props.fips.isUsa()}
                   fips={props.fips}
-                  scaleType="symlog"
-                  scaleColorScheme="greenblue"
                   hideLegend={
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
@@ -213,30 +216,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   countColsToAdd={countColsToAdd}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
-                  <div className={styles.TerritoryCirclesContainer}>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code)
-                      return (
-                        <div key={code} className={styles.TerritoryCircle}>
-                          <ChoroplethMap
-                            isUnknownsMap={true}
-                            signalListeners={signalListeners}
-                            metric={metricConfig}
-                            data={unknowns}
-                            showCounties={!props.fips.isUsa()}
-                            fips={fips}
-                            scaleType="symlog"
-                            scaleColorScheme="greenblue"
-                            hideLegend={true}
-                            hideActions={true}
-                            geoData={geoData}
-                            overrideShapeWithCircle={true}
-                            countColsToAdd={countColsToAdd}
-                          />
-                        </div>
-                      )
-                    })}
-                  </div>
+                  <TerritoryCircles
+                    mapIsWide={mapIsWide}
+                    data={unknowns}
+                    countColsToAdd={countColsToAdd}
+                    metricConfig={metricConfig}
+                    signalListeners={signalListeners}
+                    geoData={geoData}
+                    isUnknownsMap={true}
+                  />
                 )}
               </CardContent>
             )}
@@ -262,9 +250,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               />
             )}
 
-            <CardContent>
-              {/* MISSING DATA ALERT */}
-              {showMissingDataAlert && (
+            {/* MISSING DATA ALERT */}
+            {showMissingDataAlert && (
+              <CardContent>
                 <MissingDataAlert
                   dataName={dataName}
                   breakdownString={
@@ -273,10 +261,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   isMapCard={true}
                   fips={props.fips}
                 />
-              )}
+              </CardContent>
+            )}
 
-              {/* NO UNKNOWNS INFO BOX */}
-              {(showNoUnknownsInfo || unknownsAllZero) && (
+            {/* NO UNKNOWNS INFO BOX */}
+            {(showNoUnknownsInfo || unknownsAllZero) && (
+              <CardContent>
                 <Alert severity="info" role="note">
                   No unknown values for{' '}
                   {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{' '}
@@ -289,8 +279,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   )}
                   {'.'}
                 </Alert>
-              )}
-            </CardContent>
+              </CardContent>
+            )}
           </>
         )
       }}

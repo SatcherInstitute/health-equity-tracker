@@ -442,7 +442,6 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
-                            layout={'horizontal'}
                             data={
                               listExpanded
                                 ? highestValues.concat(lowestValues)
@@ -507,7 +506,6 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
-                            layout={'horizontal'}
                             data={
                               listExpanded
                                 ? highestValues.concat(lowestValues)
