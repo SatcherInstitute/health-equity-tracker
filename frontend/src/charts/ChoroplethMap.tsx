@@ -130,6 +130,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
 
+  const useNonZeroData =
+    props.listExpanded ??
+    !containsDistinctZeros ??
+    (numUniqueNonZeroValues <= 1 && !props.hideLegend)
+
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
@@ -337,14 +342,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values:
-            // only use the nonZero subset if viewing high low lists, viewing CAWP,
-            // or viewing multimap with some groups having only one non-zero value
-            props.listExpanded ??
-            !containsDistinctZeros ??
-            (numUniqueNonZeroValues <= 1 && !props.hideLegend)
-              ? props.data
-              : nonZeroData,
+          // only use the nonZero subset if viewing high low lists, viewing CAWP,
+          // or viewing multimap with some groups having only one non-zero value
+          values: useNonZeroData ? nonZeroData : props.data,
         },
         {
           name: ZERO_VAR_DATASET,
