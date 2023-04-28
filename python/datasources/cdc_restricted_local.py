@@ -116,9 +116,9 @@ DEMOGRAPHIC_COL_MAPPING = {
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
 # See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
-ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
-HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
-DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
+ALL_DATA_SUPPRESSION_STATES = ("MP", "WV")
+HOSP_DATA_SUPPRESSION_STATES = DEATH_DATA_SUPPRESSION_STATES = (
+    "HI", "NE", "SD", "DE")
 
 
 def combine_race_eth(df):
@@ -328,7 +328,8 @@ def process_data(dir, files):
                 demog_col, demog_names_mapping = DEMOGRAPHIC_COL_MAPPING[demo]
 
                 # Slice the data and aggregate for the given dimension.
-                sliced_df = df[geo_cols + demog_col + OUTCOME_COLS + [CASE_DATE_COL]]
+                sliced_df = df[geo_cols + demog_col +
+                               OUTCOME_COLS + [CASE_DATE_COL]]
 
                 if demo == 'race':
                     demog_col = [RACE_ETH_COL]
