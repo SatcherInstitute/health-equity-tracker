@@ -473,6 +473,7 @@ function MapCardWithKey(props: MapCardProps) {
                         legendData={legendData}
                         scaleType={scaleType}
                         sameDotSize={true}
+                        // fieldRange={{ min: 0, max: 10 }}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                         hasSelfButNotChildGeoData={

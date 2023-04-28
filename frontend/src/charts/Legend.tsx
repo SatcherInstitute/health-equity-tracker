@@ -155,8 +155,7 @@ export function Legend(props: LegendProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])
-              && (+datum["${props.metric.metricId}"]) !== 0`,
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
             },
           ],
         },
@@ -188,7 +187,10 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+          range: {
+            scheme: 'yellowgreen',
+            count: props.hasSelfButNotChildGeoData ? 1 : LEGEND_COLOR_COUNT,
+          },
         },
         {
           name: DOT_SIZE_SCALE,
