@@ -63,6 +63,7 @@ import { Legend } from '../charts/Legend'
 import GeoContext from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
+import { type ScaleType } from '../charts/mapHelpers'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -305,18 +306,19 @@ function MapCardWithKey(props: MapCardProps) {
           ? highestValues.concat(lowestValues)
           : dataForActiveBreakdownFilter
 
-        function chooseScaleType(): 'quantize' | 'quantile' {
+        // Determines the appropriate scale type based on the data and metric
+        function getScaleType(): ScaleType {
           const dataPropValues = dataForActiveBreakdownFilter.map(
             (obj) => obj[metricId]
           )
           const distinctValues = new Set(dataPropValues).size
-          const ratio = distinctValues / dataPropValues.length
+          const ratio = distinctValues / dataForActiveBreakdownFilter.length
           const useQuantile = ratio >= 0.75
           if (useQuantile) return 'quantile'
           else return 'quantize'
         }
 
-        const scaleType = chooseScaleType()
+        const scaleType = getScaleType()
 
         return (
           <>
@@ -472,7 +474,6 @@ function MapCardWithKey(props: MapCardProps) {
                         legendData={legendData}
                         scaleType={scaleType}
                         sameDotSize={true}
-                        // fieldRange={{ min: 0, max: 10 }}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                         hasSelfButNotChildGeoData={
