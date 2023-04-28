@@ -1,8 +1,14 @@
 @import '../../styles/variables.module';
 
 .ReportAlert {
-  margin: 16px 10px 2px 10px;
-  border: 1px solid $report-alert;
   text-align: left;
-  font-size: $small;
+  border: 1px solid $report-alert;
+
+  margin: 8px 2px 2px 2px;
+  font-size: $smallest;
+
+  @media (min-width: $sm) {
+    font-size: $small;
+    margin: 16px 10px 2px 10px;
+  }
 }

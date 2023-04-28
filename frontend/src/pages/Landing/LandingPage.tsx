@@ -66,7 +66,7 @@ function LandingPage() {
             <Typography
               id="main"
               className={styles.HeaderText}
-              variant="h3"
+              variant={pageIsWide ? 'h3' : 'h4'}
               paragraph={true}
               component="h3"
             >
@@ -86,7 +86,7 @@ function LandingPage() {
               equity and justice for all.
             </Typography>
 
-            <Box my={5}>
+            <Box mt={pageIsWide ? 10 : 5} mb={5}>
               <Button
                 id="landingPageCTA"
                 variant="contained"
