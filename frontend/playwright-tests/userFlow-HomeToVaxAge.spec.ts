@@ -62,10 +62,33 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.getByRole('option', { name: 'Age' }).click();
         await expect(page).toHaveURL(/.*demo=age/);
 
+
         // back button works properly for demographic toggle changes
         await page.goBack()
         await expect(page).not.toHaveURL(/.*demo=age/);
 
+
+        // Changing selected group in map card should update map and URL param
+        await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
+        await page.getByRole('option', { name: 'Age' }).click();
+        await expect(page).toHaveURL(/.*demo=age/);
+    });
+
+    test('Covid Vax Select Map Group', async ({ page }) => {
+
+        // Starting with COVID VAX
+        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
+
+        // Changing selected group in map card should update map and URL param
+        await page.getByRole('button', { name: 'All' }).click();
+        await page.getByRole('button', { name: 'Hispanic or Latino' }).click();
+        await expect(page).toHaveURL(/.*group1=Hisp%7ELat/);
+
+        // Starting with COVID VAX - HISPANIC in URL PARAM
+        await page.goto(`http://localhost:3000/exploredata?mls=1.covid_vaccinations-3.00&group1=Hisp%7ELat&group2=All`, { waitUntil: "networkidle" });
+
+        // Map card should be on incoming group selection
+        await expect(page.getByRole('heading', { name: 'Hispanic or Latino' })).toBeVisible()
     });
 
 
