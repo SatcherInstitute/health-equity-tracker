@@ -389,7 +389,6 @@ function MapCardWithKey(props: MapCardProps) {
                           // It doesn't support changing breakdown type
                           if (filterSelection) {
                             setActiveBreakdownFilter(filterSelection)
-                            // TODO: demo type change needs to reset group to ALL
                             const groupCode =
                               getGroupParamFromDemographicGroup(filterSelection)
                             setParameter(MAP_GROUP_PARAM, groupCode)
