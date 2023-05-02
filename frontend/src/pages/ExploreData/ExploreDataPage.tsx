@@ -35,7 +35,6 @@ import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
-// import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
