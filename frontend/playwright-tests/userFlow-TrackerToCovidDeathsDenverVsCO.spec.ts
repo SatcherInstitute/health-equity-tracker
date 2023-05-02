@@ -84,7 +84,7 @@ test('Clear topic button from Compare Locations mode returns tracker to default 
     await page.getByRole('button', { name: 'Clear topic selection' }).click();
 
     // should return to default page (with explicit params)
-    await expect(page).toHaveURL('http://localhost:3000/exploredata?mls=1.default-3.00&mlp=disparity');
+    await expect(page).toHaveURL('http://localhost:3000/exploredata?mls=1.default-3.00&mlp=disparity&demo=sex&group1=All&group2=All');
 });
 
 test('Clear topic button from Compare Topics mode returns tracker to default state', async ({ page }) => {
@@ -99,7 +99,7 @@ test('Clear topic button from Compare Topics mode returns tracker to default sta
     await page.getByRole('button', { name: 'Clear topic selection' }).click();
 
     // should return to default page (with explicit params)
-    await expect(page).toHaveURL('http://localhost:3000/exploredata?mls=1.default-3.00&mlp=disparity');
+    await expect(page).toHaveURL('http://localhost:3000/exploredata?mls=1.default-3.00&mlp=disparity&group1=All&group2=All');
 
 });
 
