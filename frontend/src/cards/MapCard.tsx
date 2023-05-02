@@ -131,7 +131,6 @@ function MapCardWithKey(props: MapCardProps) {
     : MAP1_GROUP_PARAM
 
   const initialGroupParam: string = getParameter(MAP_GROUP_PARAM, ALL)
-
   const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
 
   const [listExpanded, setListExpanded] = useState(false)
