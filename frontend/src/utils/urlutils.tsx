@@ -6,6 +6,11 @@ import { type VariableId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
 import { EXPLORE_DATA_PAGE_LINK } from './internalRoutes'
 import { type MadLibId, type PhraseSelections } from './MadLibs'
+import {
+  raceNameToCodeMap,
+  type DemographicGroup,
+  ALL,
+} from '../data/utils/Constants'
 
 export const STICKY_VERSION_PARAM = 'sv'
 
@@ -21,15 +26,15 @@ export const MADLIB_PHRASE_PARAM = 'mlp'
 // mls=0:1,2:5
 export const MADLIB_SELECTIONS_PARAM = 'mls'
 
-// Value is index of the tab to jump to
-export const TAB_PARAM = 'tab'
-
 // 'true' or 'false' will override the cookie to show or hide the onboarding flow
 export const SHOW_ONBOARDING_PARAM = 'onboard'
 
 export const DEMOGRAPHIC_PARAM = 'demo'
 export const DATA_TYPE_1_PARAM = 'dt1'
 export const DATA_TYPE_2_PARAM = 'dt2'
+
+export const MAP1_GROUP_PARAM = 'group1'
+export const MAP2_GROUP_PARAM = 'group2'
 
 // Ensures backwards compatibility for external links to old VariableIds
 export function swapOldDatatypeParams(oldParam: string) {
@@ -291,4 +296,34 @@ export function getHtml(item: any, asString?: boolean) {
   const span = document.createElement('span')
   span.innerHTML = item
   return span.textContent ?? span.innerText
+}
+
+/* for converting selected group long name into URL safe param value */
+export function getGroupParamFromDemographicGroup(
+  groupLongName: DemographicGroup
+): string {
+  const groupCode = raceNameToCodeMap[groupLongName] ?? groupLongName
+
+  return groupCode
+    .replaceAll(' (NH)', '.NH')
+    .replaceAll(' ', '_')
+    .replaceAll('/', '~')
+    .replaceAll('+', 'PLUS')
+}
+
+/* for extracting selected group long name from URL safe param value */
+export function getDemographicGroupFromGroupParam(
+  groupParam: string
+): DemographicGroup {
+  const raceCodeFromParam = groupParam
+    ?.replaceAll('.NH', ' (NH)')
+    ?.replaceAll('_', ' ')
+    ?.replaceAll('~', '/')
+    ?.replaceAll('PLUS', '+')
+
+  return (
+    Object.entries(raceNameToCodeMap).find(
+      (entry) => entry[1] === raceCodeFromParam
+    )?.[0] ?? ALL
+  )
 }

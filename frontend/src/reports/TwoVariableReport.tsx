@@ -285,7 +285,9 @@ function TwoVariableReport(props: {
               createCard={(
                 variableConfig: VariableConfig,
                 fips: Fips,
-                updateFips: (fips: Fips) => void
+                updateFips: (fips: Fips) => void,
+                _dropdown: any,
+                isCompareCard?: boolean
               ) => (
                 <MapCard
                   variableConfig={variableConfig}
@@ -294,6 +296,7 @@ function TwoVariableReport(props: {
                     updateFips(fips)
                   }}
                   currentBreakdown={currentBreakdown}
+                  isCompareCard={isCompareCard}
                 />
               )}
             />
