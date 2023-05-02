@@ -66,12 +66,6 @@ test.describe('Home to COVID Vax by Age', () => {
         // back button works properly for demographic toggle changes
         await page.goBack()
         await expect(page).not.toHaveURL(/.*demo=age/);
-
-
-        // Changing selected group in map card should update map and URL param
-        await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
-        await page.getByRole('option', { name: 'Age' }).click();
-        await expect(page).toHaveURL(/.*demo=age/);
     });
 
     test('Covid Vax Select Map Group', async ({ page }) => {
