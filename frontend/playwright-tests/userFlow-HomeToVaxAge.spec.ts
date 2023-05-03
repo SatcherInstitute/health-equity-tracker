@@ -71,7 +71,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Covid Vax Select Map Group', async ({ page }) => {
 
         // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
+        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "domcontentloaded" });
 
         // Changing selected group in map card should update map and URL param
         await page.locator("#groupMenu-00-covid_vaccinations").click()
