@@ -311,6 +311,7 @@ function MapCardWithKey(props: MapCardProps) {
           const dataPropValues = dataForActiveBreakdownFilter.map(
             (obj) => obj[metricId]
           )
+
           const distinctValues = new Set(dataPropValues).size
           const ratio = distinctValues / dataForActiveBreakdownFilter.length
           const useQuantile = ratio >= 0.75
@@ -319,6 +320,24 @@ function MapCardWithKey(props: MapCardProps) {
         }
 
         const scaleType = getScaleType()
+
+        function getMinMax(): [number, number] {
+          const dataPropValues = dataForActiveBreakdownFilter.map(
+            (obj) => obj[metricId]
+          )
+          const nonZeroNumbers = dataPropValues.filter((data) => data !== 0)
+
+          if (!Array.isArray(nonZeroNumbers) || nonZeroNumbers.length === 0) {
+            return [NaN, NaN]
+          }
+
+          const min = Math.min(...nonZeroNumbers)
+          const max = Math.max(...nonZeroNumbers)
+
+          return [min, max]
+        }
+
+        const [min, max] = getMinMax()
 
         return (
           <>
@@ -472,8 +491,9 @@ function MapCardWithKey(props: MapCardProps) {
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
                         legendData={legendData}
-                        scaleType={scaleType}
+                        scaleType={'quantile'}
                         sameDotSize={true}
+                        fieldRange={{ min, max }}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                         hasSelfButNotChildGeoData={

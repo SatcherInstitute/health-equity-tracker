@@ -54,14 +54,14 @@ export const GREY_DOT_SCALE_SPEC: any = {
 export const ZERO_DOT_SCALE_SPEC: any = {
   name: ZERO_DOT_SCALE,
   type: ORDINAL,
-  domain: [0, 0],
+  domain: { data: ZERO_VAR_DATASET, field: 'hiv_diagnoses_per_100k' },
   range: [EQUAL_DOT_SIZE],
 }
 
 export const ZERO_YELLOW_SCALE = {
   name: ZERO_SCALE,
   type: 'ordinal',
-  domain: [0],
+  domain: { data: ZERO_VAR_DATASET, field: 'hiv_diagnoses_per_100k' },
   range: [sass.mapMin],
 }
 
