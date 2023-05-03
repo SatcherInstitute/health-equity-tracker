@@ -74,7 +74,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
 
         // Changing selected group in map card should update map and URL param
-        await page.getByRole('button', { name: 'All' }).click();
+        await page.locator("#groupMenu-00-covid_vaccinations").click()
         await page.getByRole('button', { name: 'Hispanic or Latino' }).click();
         await expect(page).toHaveURL(/.*group1=Hisp%7ELat/);
 
