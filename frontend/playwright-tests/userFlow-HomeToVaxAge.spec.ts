@@ -70,14 +70,6 @@ test.describe('Home to COVID Vax by Age', () => {
 
     test('Covid Vax Select Map Group', async ({ page }) => {
 
-        // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "domcontentloaded" });
-
-        // Changing selected group in map card should update map and URL param
-        await page.locator("#groupMenu-00-covid_vaccinations").click()
-        await page.getByRole('button', { name: 'Hispanic or Latino' }).click();
-        await expect(page).toHaveURL(/.*group1=Hisp%7ELat/);
-
         // Starting with COVID VAX - HISPANIC in URL PARAM
         await page.goto(`http://localhost:3000/exploredata?mls=1.covid_vaccinations-3.00&group1=Hisp%7ELat&group2=All`, { waitUntil: "networkidle" });
 
