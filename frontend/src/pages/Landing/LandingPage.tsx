@@ -1,10 +1,10 @@
 import styles from './LandingPage.module.scss'
+import { ReactRouterLinkButton } from '../../utils/urlutils'
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
-  ReactRouterLinkButton,
   REACT_QUERY_OPTIONS,
-} from '../../utils/urlutils'
+} from '../../utils/blogUtils'
 import {
   Button,
   Grid,

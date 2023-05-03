@@ -2,13 +2,12 @@ import { Box, Button, Grid, Typography, Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
 import styles from './News.module.scss'
 import { Link, Redirect, useParams } from 'react-router-dom'
+import { ReactRouterLinkButton, getHtml } from '../../../utils/urlutils'
 import {
   fetchNewsData,
-  ReactRouterLinkButton,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-  getHtml,
-} from '../../../utils/urlutils'
+} from '../../../utils/blogUtils'
 import { NEWS_TAB_LINK } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import NewsPreviewCard from './NewsPreviewCard'

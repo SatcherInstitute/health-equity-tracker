@@ -11,11 +11,11 @@ import {
   type MadLibId,
 } from '../../utils/MadLibs'
 import {
-  DATA_TYPE_1_PARAM,
-  DEMOGRAPHIC_PARAM,
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
+  MAP1_GROUP_PARAM,
+  MAP2_GROUP_PARAM,
   parseMls,
   psSubscribe,
   setParameter,
@@ -34,7 +34,7 @@ import { useLocation } from 'react-router-dom'
 import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
-// import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
+import { ALL } from '../../data/utils/Constants'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -107,14 +107,23 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   }, [])
 
   const setMadLibWithParam = (ml: MadLib) => {
+    const groupParam1 = getParameter(MAP1_GROUP_PARAM, ALL)
+    const groupParam2 = getParameter(MAP2_GROUP_PARAM, ALL)
     setParameters([
       {
         name: MADLIB_SELECTIONS_PARAM,
         value: stringifyMls(ml.activeSelections),
       },
-      { name: DATA_TYPE_1_PARAM, value: null },
-      { name: DEMOGRAPHIC_PARAM, value: null },
+      {
+        name: MAP1_GROUP_PARAM,
+        value: groupParam1,
+      },
+      {
+        name: MAP2_GROUP_PARAM,
+        value: groupParam2,
+      },
     ])
+
     setMadLib(ml)
   }
 

@@ -113,7 +113,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Button>
             </Grid>
             {/* Modal Title */}
-            <Grid xs={12} sm={9} md={10}>
+            <Grid item xs={12} sm={9} md={10}>
               <Typography id="modalTitle" variant="h6" component="h2">
                 {title}
               </Typography>
