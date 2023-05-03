@@ -10,7 +10,7 @@ import {
   Alert,
 } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
-import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
+import { type Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
 import {
   type MapOfDatasetMetadata,
@@ -36,6 +36,8 @@ import {
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
+import TerritoryCircles from './TerritoryCircles'
+import MapBreadcrumbs from './MapBreadcrumbs'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -67,6 +69,9 @@ export interface MultiMapDialogProps {
   geoData?: Record<string, any>
   // optional to show state data when county not available
   hasSelfButNotChildGeoData?: boolean
+  signalListeners: any
+  updateFipsCallback: (fips: Fips) => void
+  totalPopulationPhrase: string
 }
 
 /*
@@ -163,9 +168,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={{
-                      click: (...args: any) => {},
-                    }}
+                    signalListeners={props.signalListeners}
                     metric={props.metricConfig}
                     legendData={props.data}
                     data={dataForValue}
@@ -189,29 +192,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 props.fips.isUsa() &&
                 dataForValue.length ? (
                   <Grid container>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code)
-                      return (
-                        <Grid item xs={4} sm={2} key={code}>
-                          <ChoroplethMap
-                            signalListeners={{
-                              click: (...args: any) => {},
-                            }}
-                            metric={props.metricConfig}
-                            legendData={props.data}
-                            data={dataForValue}
-                            hideLegend={true}
-                            hideActions={true}
-                            showCounties={false}
-                            fips={fips}
-                            fieldRange={props.fieldRange}
-                            geoData={props.geoData}
-                            overrideShapeWithCircle={true}
-                            countColsToAdd={props.countColsToAdd}
-                          />
-                        </Grid>
-                      )
-                    })}
+                    <TerritoryCircles
+                      signalListeners={props.signalListeners}
+                      metricConfig={props.metricConfig}
+                      data={dataForValue}
+                      countColsToAdd={props.countColsToAdd}
+                      mapIsWide={false}
+                    />
                   </Grid>
                 ) : (
                   <></>
@@ -220,29 +207,45 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             )
           })}
 
-          {/* Legend */}
-
-          <Grid item xs={12} className={styles.SmallMultipleLegendMap}>
-            <Box mt={pageIsTiny ? 0 : 3}>
-              <Grid container item>
-                <Grid container justifyContent="center">
-                  <b className={styles.LegendTitleText}>
-                    Legend: {props.metricConfig.shortLabel}
-                  </b>
+          {/* Population Breadcrumbs + Legend */}
+          <Grid
+            container
+            justifyContent={'space-between'}
+            alignItems={'flex-end'}
+            item
+            xs={12}
+            className={styles.SmallMultipleLegendMap}
+          >
+            <Grid container item xs={6} justifyContent={'center'}>
+              <MapBreadcrumbs
+                fips={props.fips}
+                updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId={'rate-map'}
+                endNote={props.totalPopulationPhrase}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Box mt={pageIsTiny ? 0 : 3}>
+                <Grid container item>
+                  <Grid container justifyContent="center">
+                    <b className={styles.LegendTitleText}>
+                      Legend: {props.metricConfig.shortLabel}
+                    </b>
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <Legend
+                      metric={props.metricConfig}
+                      legendTitle={''}
+                      legendData={props.data}
+                      scaleType={RATE_MAP_SCALE}
+                      sameDotSize={true}
+                      direction={pageIsTiny ? 'vertical' : 'horizontal'}
+                      description={'Consistent legend for all displayed maps'}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid container justifyContent="center">
-                  <Legend
-                    metric={props.metricConfig}
-                    legendTitle={''}
-                    legendData={props.data}
-                    scaleType={RATE_MAP_SCALE}
-                    sameDotSize={true}
-                    direction={pageIsTiny ? 'vertical' : 'horizontal'}
-                    description={'Consistent legend for all displayed maps'}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
+              </Box>
+            </Grid>
           </Grid>
 
           {/* Missing Groups */}

@@ -256,6 +256,12 @@ function MapCardWithKey(props: MapCardProps) {
         const populationQueryResponse: MetricQueryResponse =
           queryResponses[2] || null
 
+        const totalPopulation: string =
+          populationQueryResponse.data?.[0].population?.toLocaleString() ??
+          'unknown'
+
+        const totalPopulationPhrase: string = `Total Population: ${totalPopulation}`
+
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
 
         const sortArgs =
@@ -360,6 +366,9 @@ function MapCardWithKey(props: MapCardProps) {
               breakdownValuesNoData={fieldValues.noData}
               countColsToAdd={countColsToAdd}
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
+              signalListeners={signalListeners}
+              updateFipsCallback={props.updateFipsCallback}
+              totalPopulationPhrase={totalPopulationPhrase}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -512,7 +521,7 @@ function MapCardWithKey(props: MapCardProps) {
                           fips={props.fips}
                           updateFipsCallback={props.updateFipsCallback}
                           variableConfig={props.variableConfig}
-                          populationQueryResponse={populationQueryResponse}
+                          totalPopulationPhrase={totalPopulationPhrase}
                           sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
