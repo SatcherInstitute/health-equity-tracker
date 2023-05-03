@@ -216,7 +216,15 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             xs={12}
             className={styles.SmallMultipleLegendMap}
           >
-            <Grid container item xs={6} justifyContent={'center'}>
+            {/* DESKTOP BREADCRUMBS */}
+            <Grid
+              sx={{ display: { xs: 'none', md: 'flex' } }}
+              container
+              item
+              xs={12}
+              md={6}
+              justifyContent={'center'}
+            >
               <MapBreadcrumbs
                 fips={props.fips}
                 updateFipsCallback={props.updateFipsCallback}
@@ -224,7 +232,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 endNote={props.totalPopulationPhrase}
               />
             </Grid>
-            <Grid item xs={6}>
+            {/* LEGEND */}
+            <Grid item xs={12} md={6}>
               <Box mt={pageIsTiny ? 0 : 3}>
                 <Grid container item>
                   <Grid container justifyContent="center">
@@ -245,6 +254,21 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   </Grid>
                 </Grid>
               </Box>
+            </Grid>
+            {/* MOBILE BREADCRUMBS */}
+            <Grid
+              sx={{ display: { xs: 'block', md: 'none' } }}
+              container
+              item
+              xs={12}
+              justifyContent={'center'}
+            >
+              <MapBreadcrumbs
+                fips={props.fips}
+                updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId={'rate-map'}
+                endNote={props.totalPopulationPhrase}
+              />
             </Grid>
           </Grid>
 
