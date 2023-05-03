@@ -61,7 +61,7 @@ import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
-import GeoContext from './ui/GeoContext'
+import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
@@ -253,14 +253,7 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const populationQueryResponse: MetricQueryResponse =
-          queryResponses[2] || null
-
-        const totalPopulation: string =
-          populationQueryResponse.data?.[0].population?.toLocaleString() ??
-          'unknown'
-
-        const totalPopulationPhrase: string = `Total Population: ${totalPopulation}`
+        const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
 
@@ -341,6 +334,12 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, ALL)
         }
 
+        function handleMapGroupClick(_: any, newGroup: DemographicGroup) {
+          setActiveBreakdownFilter(newGroup)
+          const groupCode = getGroupParamFromDemographicGroup(newGroup)
+          setParameter(MAP_GROUP_PARAM, groupCode)
+        }
+
         return (
           <>
             <MultiMapDialog
@@ -366,9 +365,9 @@ function MapCardWithKey(props: MapCardProps) {
               breakdownValuesNoData={fieldValues.noData}
               countColsToAdd={countColsToAdd}
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
-              signalListeners={signalListeners}
               updateFipsCallback={props.updateFipsCallback}
               totalPopulationPhrase={totalPopulationPhrase}
+              handleMapGroupClick={handleMapGroupClick}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -390,19 +389,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         value={dropdownValue}
                         options={filterOptions}
-                        onOptionUpdate={(
-                          newBreakdownDisplayName,
-                          filterSelection
-                        ) => {
-                          // This DropDownMenu instance only supports changing active breakdown filter
-                          // It doesn't support changing breakdown type
-                          if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection)
-                            const groupCode =
-                              getGroupParamFromDemographicGroup(filterSelection)
-                            setParameter(MAP_GROUP_PARAM, groupCode)
-                          }
-                        }}
+                        onOptionUpdate={handleMapGroupClick}
                       />
                       <Divider />
                       <Button

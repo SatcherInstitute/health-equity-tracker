@@ -10,7 +10,7 @@ import {
   Alert,
 } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
-import { type Fips } from '../../data/utils/Fips'
+import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
 import {
   type MapOfDatasetMetadata,
@@ -69,9 +69,9 @@ export interface MultiMapDialogProps {
   geoData?: Record<string, any>
   // optional to show state data when county not available
   hasSelfButNotChildGeoData?: boolean
-  signalListeners: any
   updateFipsCallback: (fips: Fips) => void
   totalPopulationPhrase: string
+  handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
 }
 
 /*
@@ -90,6 +90,16 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
     useDownloadCardImage(title)
+
+  /* handle clicks on sub-geos in multimap view */
+  const multimapSignalListeners: any = {
+    click: (...args: any) => {
+      const clickedData = args[1]
+      if (clickedData?.id) {
+        props.updateFipsCallback(new Fips(clickedData.id))
+      }
+    },
+  }
 
   return (
     <Dialog
@@ -148,11 +158,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             )
               ? getWomenRaceLabel(breakdownValue)
               : breakdownValue
-
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
             )
-
             return (
               <Grid
                 xs={12}
@@ -163,12 +171,15 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
                 component="li"
+                onClick={(e: any) => {
+                  props.handleMapGroupClick(null, breakdownValue)
+                }}
               >
                 <b>{mapLabel}</b>
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={props.signalListeners}
+                    signalListeners={multimapSignalListeners}
                     metric={props.metricConfig}
                     legendData={props.data}
                     data={dataForValue}
@@ -189,20 +200,18 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
-                  <Grid container>
-                    <TerritoryCircles
-                      signalListeners={props.signalListeners}
-                      metricConfig={props.metricConfig}
-                      data={dataForValue}
-                      countColsToAdd={props.countColsToAdd}
-                      mapIsWide={false}
-                    />
-                  </Grid>
-                ) : (
-                  <></>
-                )}
+                  props.fips.isUsa() &&
+                  dataForValue.length && (
+                    <Grid container>
+                      <TerritoryCircles
+                        signalListeners={multimapSignalListeners}
+                        metricConfig={props.metricConfig}
+                        data={dataForValue}
+                        countColsToAdd={props.countColsToAdd}
+                        mapIsWide={false}
+                      />
+                    </Grid>
+                  )}
               </Grid>
             )
           })}
@@ -257,7 +266,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             </Grid>
             {/* MOBILE BREADCRUMBS */}
             <Grid
-              sx={{ display: { xs: 'block', md: 'none' } }}
+              sx={{ mt: 3, display: { xs: 'flex', md: 'none' } }}
               container
               item
               xs={12}

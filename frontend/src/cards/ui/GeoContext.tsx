@@ -43,3 +43,12 @@ export default function GeoContext(props: GeoContextProps) {
     </>
   )
 }
+
+export function getPopulationPhrase(
+  populationQueryResponse: MetricQueryResponse
+): string {
+  const totalPopulation: string =
+    populationQueryResponse.data?.[0].population?.toLocaleString() ?? 'unknown'
+
+  return `Total Population: ${totalPopulation}`
+}
