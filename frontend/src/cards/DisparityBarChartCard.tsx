@@ -22,6 +22,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 export interface DisparityBarChartCardProps {
   key?: string
@@ -48,7 +49,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   )
 
   const metricConfig = props.variableConfig.metrics.pct_share
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -78,7 +78,10 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = `${metricConfig.chartTitle} ${locationPhrase}`
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfig.chartTitle,
+    fips: props.fips,
+  })
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 

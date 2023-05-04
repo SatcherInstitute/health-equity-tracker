@@ -23,6 +23,7 @@ import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import ChartTitle from './ChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -47,8 +48,6 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics.per100k
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
-
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
   )
@@ -71,8 +70,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = `${metricConfig.chartTitle} ${locationPhrase}`
-
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfig.chartTitle,
+    fips: props.fips,
+  })
   const filename = `${chartTitle}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`

@@ -41,6 +41,7 @@ import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+import { generateChartTitle } from '../charts/utils'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -95,8 +96,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes('ratio')
   )
 
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
-  const chartTitle = `${metricConfigs[ratioId].chartTitle} ${locationPhrase}`
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfigs[ratioId].chartTitle,
+    fips: props.fips,
+  })
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null

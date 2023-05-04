@@ -26,6 +26,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -55,10 +56,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000])
   const metricConfig = props.variableConfig.metrics.pct_share
   const currentBreakdown = props.currentBreakdown
-  const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
   const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
   const location = useLocation()
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -96,7 +95,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = `${metricConfig.chartTitle} ${breakdownString} ${locationPhrase}`
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfig.chartTitle,
+    currentBreakdown,
+    fips: props.fips,
+  })
 
   const isCawpStateLeg =
     props.variableConfig.variableId === 'women_in_state_legislature'

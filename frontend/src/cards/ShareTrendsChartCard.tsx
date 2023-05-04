@@ -36,6 +36,7 @@ import {
 } from '../data/variables/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
+import { generateChartTitle } from '../charts/utils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -81,9 +82,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   )
 
-  const chartTitle = `${
-    metricConfigInequitable.chartTitle
-  } in ${props.fips.getSentenceDisplayName()}`
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfigInequitable.chartTitle,
+    fips: props.fips,
+  })
 
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label

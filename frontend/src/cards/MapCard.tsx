@@ -53,7 +53,7 @@ import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { generateSubtitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
@@ -204,10 +204,11 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = []
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
-  const chartTitle = `${
-    metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()}`
-  const { metricId } = metricConfig
+  const { metricId, chartTitle } = metricConfig
+  const title = generateChartTitle({
+    chartTitle,
+    fips: props.fips,
+  })
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
     currentBreakdown,
@@ -215,7 +216,7 @@ function MapCardWithKey(props: MapCardProps) {
     metricId,
   })
 
-  const filename = `${chartTitle} ${subtitle ? `for ${subtitle}` : ''}`
+  const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   const HASH_ID: ScrollableHashId = 'rate-map'
 
@@ -414,7 +415,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <ChartTitle
                         mt={0}
                         mb={2}
-                        title={chartTitle}
+                        title={title}
                         subtitle={subtitle}
                       />
                     </Grid>
@@ -558,7 +559,7 @@ function MapCardWithKey(props: MapCardProps) {
                   dataForActiveBreakdownFilter.length === 0) && (
                   <CardContent>
                     <MissingDataAlert
-                      dataName={chartTitle}
+                      dataName={title}
                       breakdownString={
                         BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                       }
