@@ -440,7 +440,6 @@ function MapCardWithKey(props: MapCardProps) {
                             : dataForActiveBreakdownFilter
                         }
                         hideMissingDataTooltip={listExpanded}
-                        legendData={dataForActiveBreakdownFilter}
                         hideActions={true}
                         hideLegend={true}
                         showCounties={

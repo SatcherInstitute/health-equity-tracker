@@ -10,7 +10,7 @@ import {
   LEGEND_SYMBOL_TYPE,
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
-  LEGEND_COLOR_COUNT,
+  DEFAULT_LEGEND_COLOR_COUNT,
   MISSING_PLACEHOLDER_VALUES,
   EQUAL_DOT_SIZE,
   ZERO_DOT_SCALE,
@@ -26,6 +26,9 @@ export const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
 export const GEO_DATASET = 'GEO_DATASET'
 export const VAR_DATASET = 'VAR_DATASET'
 export const ZERO_VAR_DATASET = 'ZERO_VAR_DATASET'
+
+export const VALID_DATASET = 'VALID_DATASET'
+export const ZERO_DATASET = 'ZERO_DATASET'
 
 export const COLOR_SCALE = 'COLOR_SCALE'
 export const ZERO_SCALE = 'ZERO_SCALE'
@@ -335,13 +338,24 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string
 ) {
+  const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
+
+  const uniqueNonZeroValueCount = new Set(
+    nonZeroData?.map((row) => row[metricId])
+  ).size
+
+  const legendColorCount = Math.min(
+    DEFAULT_LEGEND_COLOR_COUNT,
+    uniqueNonZeroValueCount
+  )
+
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
-    domain: { data: VAR_DATASET, field: metricId },
+    domain: { data: VALID_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme ?? 'yellowgreen',
-      count: LEGEND_COLOR_COUNT,
+      count: legendColorCount,
     },
   }
   if (fieldRange) {

@@ -8,25 +8,29 @@ import { type ScaleType } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
 import { type Legend as LegendType } from 'vega'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 
 const COLOR_SCALE = 'color_scale'
+const ZERO_SCALE = 'zero_scale'
 const DOT_SIZE_SCALE = 'dot_size_scale'
 const SUMMARY_SCALE = 'summary_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'
 export const UNKNOWN_SCALE = 'unknown_scale'
 export const ZERO_DOT_SCALE = 'zero_dot_scale'
+
 const RAW_VALUES = 'raw_values'
 const DATASET_VALUES = 'dataset_values'
-const SUMMARY_VALUES = 'summary_values'
+const NON_ZERO_DATASET_VALUES = 'non_zero_dataset_values'
+const SUMMARY_VALUE = 'summary_value'
+const ZERO_VALUES = 'zero_values'
 export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
+
 export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
 export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
-export const LEGEND_COLOR_COUNT = 6
+export const DEFAULT_LEGEND_COLOR_COUNT = 5
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -53,42 +57,46 @@ export interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
-  const containsDistinctZeros = isCawp || isHiv
+  const { direction } = props
+  const orient = direction === 'vertical' ? 'left' : 'right'
+
+  const containsDistinctZeros = CAWP_DETERMINANTS.includes(
+    props.metric.metricId
+  )
+
+  const nonZeroData = props.legendData?.filter(
+    (row) => row[props.metric.metricId] > 0
+  )
+  const uniqueNonZeroValueCount = new Set(
+    nonZeroData?.map((row) => row[props.metric.metricId])
+  ).size
 
   // Initial spec state is set in useEffect
   // TODO: Why??
   const [spec, setSpec] = useState({})
 
   useEffect(() => {
-    const colorScale: any = {
-      name: COLOR_SCALE,
-      type: props.scaleType,
-      domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
-    }
-
-    if (props.fieldRange) {
-      colorScale.domainMax = props.fieldRange.max
-      colorScale.domainMin = props.fieldRange.min
-    }
+    const legendColorCount = Math.min(
+      DEFAULT_LEGEND_COLOR_COUNT,
+      uniqueNonZeroValueCount
+    )
 
     const dotRange = props.sameDotSize
-      ? Array(LEGEND_COLOR_COUNT).fill(EQUAL_DOT_SIZE)
+      ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
     const legendList: LegendType[] = []
 
+    legendList.push({
+      fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,
+      symbolType: LEGEND_SYMBOL_TYPE,
+      size: props.hasSelfButNotChildGeoData ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+      labelFontStyle: LEGEND_TEXT_FONT,
+      labelFont: LEGEND_TEXT_FONT,
+      orient,
+    })
+
     if (props.hasSelfButNotChildGeoData) {
-      legendList.push({
-        fill: COLOR_SCALE,
-        symbolType: LEGEND_SYMBOL_TYPE,
-        size: SUMMARY_SCALE,
-        labelFontStyle: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
-        orient: props.direction === 'vertical' ? 'left' : 'right',
-      })
       legendList[0].encode = {
         labels: {
           update: {
@@ -122,7 +130,7 @@ export function Legend(props: LegendProps) {
           size: GREY_DOT_SCALE,
           labelFontStyle: LEGEND_TEXT_FONT,
           labelFont: LEGEND_TEXT_FONT,
-          orient: props.direction === 'vertical' ? 'left' : 'right',
+          orient,
         }
       )
       legendList[0].encode = {
@@ -138,9 +146,6 @@ export function Legend(props: LegendProps) {
       }
     }
 
-    // 0 should appear first, then numbers, then "insufficient"
-    if (containsDistinctZeros) legendList.reverse()
-
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
@@ -152,22 +157,35 @@ export function Legend(props: LegendProps) {
           values: props.legendData,
         },
         {
+          name: ZERO_VALUES,
+          values: [{ zero: 'zero' }],
+        },
+        {
           name: DATASET_VALUES,
           source: RAW_VALUES,
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])
-              && (+datum["${props.metric.metricId}"]) !== 0`,
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"])`,
+            },
+          ],
+        },
+        {
+          name: NON_ZERO_DATASET_VALUES,
+          source: RAW_VALUES,
+          transform: [
+            {
+              type: 'filter',
+              expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) && datum["${props.metric.metricId}"] !== 0`,
             },
           ],
         },
         {
           name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: containsDistinctZeros ? '0' : NO_DATA_MESSAGE }],
+          values: [{ missing: NO_DATA_MESSAGE }],
         },
         {
-          name: SUMMARY_VALUES,
+          name: SUMMARY_VALUE,
           values: [
             {
               summary: `${
@@ -189,31 +207,56 @@ export function Legend(props: LegendProps) {
         {
           name: COLOR_SCALE,
           type: props.scaleType,
-          domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+          domain: {
+            data: props.hasSelfButNotChildGeoData
+              ? DATASET_VALUES
+              : NON_ZERO_DATASET_VALUES,
+            field: props.metric.metricId,
+          },
+          range: {
+            scheme: 'yellowgreen',
+            count: props.hasSelfButNotChildGeoData ? 1 : legendColorCount,
+          },
+        },
+        {
+          name: ZERO_SCALE,
+          type: ORDINAL,
+          domain: { data: ZERO_VALUES, field: 'zero' },
+          range: [sass.mapMin],
+        },
+        {
+          name: ZERO_DOT_SCALE,
+          type: ORDINAL,
+          domain: { data: ZERO_VALUES, field: 'zero' },
+          range: [EQUAL_DOT_SIZE],
+        },
+        {
+          name: SUMMARY_SCALE,
+          type: ORDINAL,
+          domain: { data: SUMMARY_VALUE, field: 'summary' },
+          range: [EQUAL_DOT_SIZE],
         },
         {
           name: DOT_SIZE_SCALE,
           type: props.scaleType,
-          domain: { data: DATASET_VALUES, field: props.metric.metricId },
+          domain: {
+            data: props.hasSelfButNotChildGeoData
+              ? DATASET_VALUES
+              : NON_ZERO_DATASET_VALUES,
+            field: props.metric.metricId,
+          },
           range: dotRange,
         },
         {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [containsDistinctZeros ? sass.mapMin : sass.unknownGrey],
+          range: [sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
           type: ORDINAL,
-          domain: { data: 'missing_data', field: 'missing' },
-          range: [EQUAL_DOT_SIZE],
-        },
-        {
-          name: SUMMARY_SCALE,
-          type: ORDINAL,
-          domain: { data: SUMMARY_VALUES, field: 'summary' },
+          domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
           range: [EQUAL_DOT_SIZE],
         },
       ],
