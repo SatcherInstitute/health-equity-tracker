@@ -192,7 +192,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         return (
           <CardContent>
-            <ChartTitle title={chartTitle} mb={0} />
+            <ChartTitle title={chartTitle} />
             {showingVisualization && (
               <>
                 <ChoroplethMap
