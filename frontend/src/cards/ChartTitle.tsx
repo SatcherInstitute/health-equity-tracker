@@ -4,6 +4,7 @@ import styles from './Card.module.scss'
 interface ChartTitleProps {
   title: string
   subtitle?: string
+  // optional overrides for margin-top and margin-bottom in MUI units
   mt?: number
   mb?: number
 }
