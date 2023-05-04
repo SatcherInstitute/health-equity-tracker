@@ -13,7 +13,7 @@ export default function ChartTitle(props: ChartTitleProps) {
     <Box mt={props.mt ?? 2} mb={props.mb ?? 2} mx={3}>
       <h3 className={styles.ChartTitle}>{props.title}</h3>
       {props.subtitle && (
-        <h4 className={styles.MapSubtitle}>{props.subtitle}</h4>
+        <h4 className={styles.ChartSubtitle}>{props.subtitle}</h4>
       )}
     </Box>
   )
