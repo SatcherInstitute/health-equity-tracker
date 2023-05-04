@@ -26,6 +26,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
+import ChartTitle from './ChartTitle'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -197,7 +198,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         return (
           <>
             <CardContent>
-              <h3>{chartTitle}</h3>
+              <ChartTitle title={chartTitle} />
             </CardContent>
             {showingVisualization && (
               <CardContent>

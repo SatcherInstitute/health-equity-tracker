@@ -26,6 +26,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
+import ChartTitle from './ChartTitle'
 
 export interface DisparityBarChartCardProps {
   key?: string
@@ -129,7 +130,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           <>
             {dataAvailable && knownData.length !== 0 && (
               <CardContent>
-                <h3>{chartTitle}</h3>
+                <ChartTitle title={chartTitle} />
                 <DisparityBarChart
                   data={knownData}
                   lightMetric={

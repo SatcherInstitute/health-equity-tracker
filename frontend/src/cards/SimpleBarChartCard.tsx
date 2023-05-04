@@ -23,6 +23,7 @@ import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
+import ChartTitle from './ChartTitle'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -94,7 +95,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
         return (
           <>
             <CardContent>
-              <h3>{chartTitle}</h3>
+              <ChartTitle title={chartTitle} />
               {queryResponse.shouldShowMissingDataMessage([
                 metricConfig.metricId,
               ]) ? (
