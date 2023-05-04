@@ -5,7 +5,6 @@ import { type Fips } from '../data/utils/Fips'
 import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
-import { useFontSize } from '../utils/hooks/useFontSize'
 import sass from '../styles/variables.module.scss'
 import {
   LEGEND_TEXT_FONT,
@@ -113,7 +112,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
-  const fontSize = useFontSize()
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
@@ -413,28 +411,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
       legends: legendList,
       marks,
-      title: !props.overrideShapeWithCircle && {
-        text: props.titles?.chartTitle,
-        subtitle: props.titles?.subtitle,
-        encode: {
-          title: {
-            enter: {
-              fontSize: {
-                value: fontSize,
-              },
-              font: { value: 'Inter, sans-serif' },
-            },
-          },
-          subtitle: {
-            enter: {
-              fontStyle: { value: 'italic' },
-              fontSize: {
-                value: fontSize - 2,
-              },
-            },
-          },
-        },
-      },
       signals: [
         {
           name: 'click',
@@ -471,7 +447,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props,
     heightWidthRatio,
     pageIsTiny,
-    fontSize,
   ])
 
   return (

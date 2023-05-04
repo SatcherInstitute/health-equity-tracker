@@ -196,12 +196,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
         return (
-          <>
-            <CardContent>
-              <ChartTitle title={chartTitle} />
-            </CardContent>
+          <CardContent>
+            <ChartTitle title={chartTitle} mb={0} />
             {showingVisualization && (
-              <CardContent>
+              <>
                 <ChoroplethMap
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
@@ -228,7 +226,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     isUnknownsMap={true}
                   />
                 )}
-              </CardContent>
+              </>
             )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             {!unknownsAllZero && (
@@ -254,36 +252,29 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
             {/* MISSING DATA ALERT */}
             {showMissingDataAlert && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
-                  }
-                  isMapCard={true}
-                  fips={props.fips}
-                />
-              </CardContent>
+              <MissingDataAlert
+                dataName={dataName}
+                breakdownString={
+                  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+                }
+                isMapCard={true}
+                fips={props.fips}
+              />
             )}
 
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
-              <CardContent>
-                <Alert severity="info" role="note">
-                  No unknown values for{' '}
-                  {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{' '}
-                  reported in this dataset
-                  {hasChildGeo && (
-                    <>
-                      {' '}
-                      at the {props.fips.getChildFipsTypeDisplayName()} level
-                    </>
-                  )}
-                  {'.'}
-                </Alert>
-              </CardContent>
+              <Alert severity="info" role="note">
+                No unknown values for{' '}
+                {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{' '}
+                reported in this dataset
+                {hasChildGeo && (
+                  <> at the {props.fips.getChildFipsTypeDisplayName()} level</>
+                )}
+                {'.'}
+              </Alert>
             )}
-          </>
+          </CardContent>
         )
       }}
     </CardWrapper>

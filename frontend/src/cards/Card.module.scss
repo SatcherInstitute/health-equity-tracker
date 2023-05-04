@@ -14,8 +14,16 @@
 
 .ChartTitle {
   font-size: $title;
-  margin-block: 1rem;
-  margin-inline: 3rem;
+  padding: 0;
+  margin: 0;
+}
+
+.MapSubtitle {
+  font-style: italic;
+  font-weight: lighter;
+  padding: 0;
+  margin: 0;
+  font-size: $small;
 }
 
 .ChartCard {
@@ -43,22 +51,6 @@
   padding: 3px !important;
   margin: 0px !important;
   min-width: unset !important;
-}
-
-.MapTitle {
-  font-weight: bold;
-  padding-block: 0;
-  margin-block: 0;
-  font-size: $explore-button;
-}
-
-.MapSubtitle {
-  font-style: italic;
-  font-weight: lighter;
-
-  padding-block: 0;
-  margin-block: 0;
-  font-size: $small;
 }
 
 .CompareMultipleText {

@@ -296,7 +296,7 @@ export function TrendsChart({
         ) : (
           <>
             {/* Chart Title DESKTOP ABOVE LEGEND */}
-            <ChartTitle title={chartTitle} />
+            <ChartTitle mt={0} title={chartTitle} />
             {/* Filter */}
             {data && (
               <FilterLegend

@@ -419,7 +419,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <ChartTitle title={chartTitle} />
+                      <ChartTitle mt={0} mb={0} title={chartTitle} />
                       <h4 className={styles.MapSubtitle}>{subtitle}</h4>
                     </Grid>
 
