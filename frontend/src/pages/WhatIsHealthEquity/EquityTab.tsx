@@ -8,7 +8,7 @@ import {
   DYNAMIC_COPY_KEY,
   fetchCopyData,
   REACT_QUERY_OPTIONS,
-} from '../../utils/urlutils'
+} from '../../utils/blogUtils'
 import {
   NEWS_TAB_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,

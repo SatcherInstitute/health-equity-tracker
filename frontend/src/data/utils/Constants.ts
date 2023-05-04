@@ -146,35 +146,43 @@ export const RACE_GROUPS = [
 // ENUMERATE THOSE PROPERTIES TO CREATE A RACE-GROUP TYPE
 export type RaceAndEthnicityGroup = (typeof RACE_GROUPS)[number]
 
-export const raceNameToCodeMap: Partial<Record<RaceAndEthnicityGroup, string>> =
-  {
-    // race and ethnicity NH CDC COVID
-    All: 'All',
-    [NHPI_NH]: 'NHPI (NH)',
-    [HISPANIC]: 'Hisp/Lat',
-    [AIAN_NH]: 'AI/AN (NH)',
-    [BLACK_NH]: 'Black (NH)',
-    [MULTI_OR_OTHER_STANDARD_NH]: '2/Unr (NH)',
-    [WHITE_NH]: 'White (NH)',
-    [ASIAN_NH]: 'Asian (NH)',
-    // CDC HIV
-    [MULTI_NH]: 'Two+ (NH)',
-    [OTHER_NONSTANDARD_NH]: 'OTHER (NH)',
-    // Incarceration
-    [API_NH]: 'A/NHPI (NH)',
-    //  race and ethnicity CAWP
-    [ALL_W]: 'All',
-    [AAPI_W]: 'AAPI',
-    [MENA_W]: 'MENA',
-    [AIANNH_W]: 'AI/AN/NH',
-    [AIAN_API_W]: 'AIAN_API',
-    [HISP_W]: 'Hisp/Lat',
-    [MULTI_W]: 'Two+',
-    [BLACK_W]: 'Black',
-    [WHITE_W]: 'White',
-    [UNKNOWN_W]: 'Unknown',
-    [OTHER_W]: 'Unrepr.',
-  }
+export const raceNameToCodeMap: Record<RaceAndEthnicityGroup, string> = {
+  // race and ethnicity NH CDC COVID
+  All: 'All',
+  [NHPI_NH]: 'NHPI (NH)',
+  [HISPANIC]: 'Hisp/Lat',
+  [AIAN_NH]: 'AI/AN (NH)',
+  [BLACK_NH]: 'Black (NH)',
+  [MULTI_OR_OTHER_STANDARD_NH]: '2/Unr (NH)',
+  [WHITE_NH]: 'White (NH)',
+  [ASIAN_NH]: 'Asian (NH)',
+  // CDC HIV
+  [MULTI_NH]: 'Two+ (NH)',
+  [OTHER_NONSTANDARD_NH]: 'OTHER (NH)',
+  // Incarceration
+  [API_NH]: 'A/NHPI (NH)',
+  //  race and ethnicity CAWP
+  [ALL_W]: 'All W',
+  [AAPI_W]: 'AAPI W',
+  [MENA_W]: 'MENA W',
+  [AIANNH_W]: 'AI/AN/NH W',
+  [AIAN_API_W]: 'AIAN_API W',
+  [HISP_W]: 'Hisp/Lat W',
+  [MULTI_W]: 'Two+ W',
+  [BLACK_W]: 'Black W',
+  [WHITE_W]: 'White W',
+  [UNKNOWN_W]: 'Unknown W',
+  [OTHER_W]: 'Unrepr. W',
+  // Hispanic-Inclusive Races (Poverty/Uninsurance)
+  [NHPI]: 'NHPI',
+  [AIAN]: 'AI/AN',
+  [BLACK]: 'Black',
+  [MULTI_OR_OTHER_STANDARD]: '2/Unr',
+  [MULTI]: 'Two+',
+  [OTHER_STANDARD]: 'Unrepr.',
+  [WHITE]: 'White',
+  [ASIAN]: 'Asian',
+}
 
 // AGE DEMOGRAPHIC  GROUP OPTIONS
 export const DECADE_AGE_BUCKETS = [

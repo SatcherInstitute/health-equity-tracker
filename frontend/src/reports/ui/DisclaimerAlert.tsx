@@ -1,16 +1,19 @@
-import { Alert, AlertTitle } from '@mui/material'
+import { Alert, AlertTitle, useMediaQuery, useTheme } from '@mui/material'
 import styles from './DisclaimerAlert.module.scss'
 import FlagIcon from '@mui/icons-material/Flag'
 import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 import { HashLink } from 'react-router-hash-link'
 
 function DisclaimerAlert() {
+  const theme = useTheme()
+  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <div>
       <Alert
         severity="warning"
         className={styles.ReportAlert}
-        icon={<FlagIcon />}
+        icon={!pageIsTiny ? <FlagIcon /> : <></>}
         role="note"
       >
         <AlertTitle>Major gaps in the data</AlertTitle>

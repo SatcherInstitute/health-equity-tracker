@@ -2,12 +2,14 @@ import { Box, Card, Grid, Typography, Skeleton } from '@mui/material'
 import { useEffect, useState } from 'react'
 import styles from './News.module.scss'
 import {
-  fetchNewsData,
   useUrlSearchParams,
-  ARTICLES_KEY,
-  REACT_QUERY_OPTIONS,
   LinkWithStickyParams,
 } from '../../../utils/urlutils'
+import {
+  fetchNewsData,
+  ARTICLES_KEY,
+  REACT_QUERY_OPTIONS,
+} from '../../../utils/blogUtils'
 import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import ArticleFilters from './ArticleFilters'

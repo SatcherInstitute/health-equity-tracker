@@ -10,7 +10,6 @@ export function useFontSize() {
 
   // we need to implement useEffect to rerender so that Vega will draw the title correctly
   useEffect(() => {
-    console.log(sass.fontTitle)
     if (isComparing && isSmall) {
       setFontsize(parseInt(sass.vegaSmallTitle))
     } else {

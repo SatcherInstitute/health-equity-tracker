@@ -63,6 +63,14 @@ import { Legend } from '../charts/Legend'
 import GeoContext from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
+import {
+  MAP1_GROUP_PARAM,
+  MAP2_GROUP_PARAM,
+  getDemographicGroupFromGroupParam,
+  getGroupParamFromDemographicGroup,
+  getParameter,
+  setParameter,
+} from '../utils/urlutils'
 import { type ScaleType } from '../charts/mapHelpers'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
@@ -73,6 +81,7 @@ export interface MapCardProps {
   variableConfig: VariableConfig
   updateFipsCallback: (fips: Fips) => void
   currentBreakdown: BreakdownVar
+  isCompareCard?: boolean
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -117,9 +126,16 @@ function MapCardWithKey(props: MapCardProps) {
     },
   }
 
+  const MAP_GROUP_PARAM = props.isCompareCard
+    ? MAP2_GROUP_PARAM
+    : MAP1_GROUP_PARAM
+
+  const initialGroupParam: string = getParameter(MAP_GROUP_PARAM, ALL)
+  const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
+
   const [listExpanded, setListExpanded] = useState(false)
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
-    useState<DemographicGroup>(ALL)
+    useState<DemographicGroup>(initialGroup)
 
   const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
     useAutoFocusDialog()
@@ -339,6 +355,19 @@ function MapCardWithKey(props: MapCardProps) {
 
         const [min, max] = getMinMax()
 
+        // if a previously selected group is no longer valid, reset to ALL
+        let dropdownValue = ALL
+        if (
+          filterOptions[
+            BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+          ].includes(activeBreakdownFilter)
+        ) {
+          dropdownValue = activeBreakdownFilter
+        } else {
+          setActiveBreakdownFilter(ALL)
+          setParameter(MAP_GROUP_PARAM, ALL)
+        }
+
         return (
           <>
             <MultiMapDialog
@@ -383,7 +412,7 @@ function MapCardWithKey(props: MapCardProps) {
                         setSmallMultiplesDialogOpen={
                           setSmallMultiplesDialogOpen
                         }
-                        value={activeBreakdownFilter}
+                        value={dropdownValue}
                         options={filterOptions}
                         onOptionUpdate={(
                           newBreakdownDisplayName,
@@ -393,6 +422,9 @@ function MapCardWithKey(props: MapCardProps) {
                           // It doesn't support changing breakdown type
                           if (filterSelection) {
                             setActiveBreakdownFilter(filterSelection)
+                            const groupCode =
+                              getGroupParamFromDemographicGroup(filterSelection)
+                            setParameter(MAP_GROUP_PARAM, groupCode)
                           }
                         }}
                       />
