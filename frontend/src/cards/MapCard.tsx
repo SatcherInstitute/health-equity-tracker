@@ -99,7 +99,6 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
   const metricConfig = props.variableConfig.metrics.per100k
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.variableConfig.variableId === 'prison'
@@ -205,12 +204,9 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = []
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
-  // let { chartTitle, filename, dataName } = useCreateChartTitle(
-  //   metricConfig,
-  //   locationPhrase
-  // )
-
-  const chartTitle = `${metricConfig.chartTitle} ${locationPhrase}`
+  const chartTitle = `${
+    metricConfig.chartTitle
+  } in ${props.fips.getSentenceDisplayName()}`
   const { metricId } = metricConfig
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
@@ -415,8 +411,12 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <ChartTitle mt={0} mb={2} title={chartTitle} />
-                      <h4 className={styles.MapSubtitle}>{subtitle}</h4>
+                      <ChartTitle
+                        mt={0}
+                        mb={2}
+                        title={chartTitle}
+                        subtitle={subtitle}
+                      />
                     </Grid>
 
                     <Grid

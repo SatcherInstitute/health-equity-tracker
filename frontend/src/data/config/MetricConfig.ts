@@ -812,7 +812,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         per100k: {
           metricId: 'hiv_prevalence_per_100k',
           chartTitle: 'HIV prevalence',
-          trendsCardTitleName: 'Rates of HIV prevalence over time',
+          trendsCardTitleName: 'HIV prevalence over time',
           columnTitleHeader: 'HIV prevalence per 100k people',
           shortLabel: 'HIV prevalence per 100k',
           type: 'per100k',
