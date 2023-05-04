@@ -75,7 +75,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !pageIsSmall && !isCompareMode
 
-  // TODO Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
+  // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
     currentBreakdown
   )

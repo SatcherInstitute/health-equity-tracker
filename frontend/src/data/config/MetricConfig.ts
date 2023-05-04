@@ -238,7 +238,7 @@ export interface VariableConfig {
   variableDisplayName: string
   variableFullDisplayName: string
   variableDefinition?: string
-  metrics: Record<string, MetricConfig> // TODO - strongly type key
+  metrics: Record<string, MetricConfig> // TODO: strongly type key
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
 }
@@ -352,7 +352,7 @@ export function getAgeAdjustedRatioMetric(
   return tableFields
 }
 
-// TODO - count and pct_share metric types should require populationComparisonMetric
+// TODO: count and pct_share metric types should require populationComparisonMetric
 
 // Note: metrics must be declared in a consistent order because the UI relies
 // on this to build toggles.
