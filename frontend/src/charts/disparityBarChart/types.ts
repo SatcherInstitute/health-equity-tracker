@@ -51,8 +51,3 @@ export interface ScalesProps {
   breakdownVar: BreakdownVar
   LEGEND_DOMAINS: string[]
 }
-
-export interface getTitleProps {
-  chartTitle?: string | string[]
-  fontSize: number
-}

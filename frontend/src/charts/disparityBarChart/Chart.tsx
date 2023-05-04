@@ -23,7 +23,7 @@ import { type MetricConfig } from '../../data/config/MetricConfig'
 import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
 
 export const altLightMetric: MetricConfig = {
-  chartTitleLines: ['Population Share (ACS)'],
+  chartTitle: 'Population Share (ACS)',
   metricId: 'acs_vaccinated_pop_pct',
   shortLabel: '% of population (ACS)',
   type: 'pct_share',

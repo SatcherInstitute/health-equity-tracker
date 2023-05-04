@@ -276,11 +276,9 @@ function getSpec(
 }
 
 export interface SimpleHorizontalBarChartProps {
-  chartTitle?: string | string[]
   data: Row[]
   metric: MetricConfig
   breakdownVar: BreakdownVar
-  showLegend: boolean
   filename?: string
   usePercentSuffix?: boolean
 }
@@ -346,7 +344,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* measureDisplayName  */ props.metric.shortLabel,
           /* barMetricDisplayColumnName  */ barMetricDisplayColumnName,
           /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
-          /* showLegend  */ props.showLegend,
+          /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
           /* usePercentSuffix  */ props.usePercentSuffix ?? false

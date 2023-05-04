@@ -56,7 +56,6 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
@@ -206,15 +205,12 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = []
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
-  let { chartTitle, filename, dataName } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase
-  )
+  // let { chartTitle, filename, dataName } = useCreateChartTitle(
+  //   metricConfig,
+  //   locationPhrase
+  // )
 
-  // TODO: remove this once we move ALL chart titles to HTML instead of VEGA
-  // TODO: and no longer need multi-line titles sent as string[]
-  if (Array.isArray(chartTitle)) chartTitle = chartTitle.join(' ')
-
+  const chartTitle = `${metricConfig.chartTitle} ${locationPhrase}`
   const { metricId } = metricConfig
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
@@ -223,7 +219,7 @@ function MapCardWithKey(props: MapCardProps) {
     metricId,
   })
 
-  filename = `${filename} ${subtitle ? `for ${subtitle}` : ''}`
+  const filename = `${chartTitle} ${subtitle ? `for ${subtitle}` : ''}`
 
   const HASH_ID: ScrollableHashId = 'rate-map'
 
@@ -419,7 +415,7 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <ChartTitle mt={0} mb={0} title={chartTitle} />
+                      <ChartTitle mt={0} mb={2} title={chartTitle} />
                       <h4 className={styles.MapSubtitle}>{subtitle}</h4>
                     </Grid>
 
@@ -562,7 +558,7 @@ function MapCardWithKey(props: MapCardProps) {
                   dataForActiveBreakdownFilter.length === 0) && (
                   <CardContent>
                     <MissingDataAlert
-                      dataName={dataName}
+                      dataName={chartTitle}
                       breakdownString={
                         BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                       }

@@ -23,7 +23,6 @@ import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
@@ -97,11 +96,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const { chartTitle, dataName, filename } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase,
-    breakdownString
-  )
+  const chartTitle = `${metricConfig.chartTitle} ${breakdownString} ${locationPhrase}`
 
   const isCawpStateLeg =
     props.variableConfig.variableId === 'women_in_state_legislature'
@@ -116,7 +111,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={filename}
+      downloadTitle={chartTitle}
       queries={[mapQuery, alertQuery]}
       loadGeographies={true}
       minHeight={preloadHeight}
@@ -212,7 +207,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
                   geoData={geoData}
-                  filename={filename}
+                  filename={chartTitle}
                   countColsToAdd={countColsToAdd}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
@@ -253,7 +248,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {/* MISSING DATA ALERT */}
             {showMissingDataAlert && (
               <MissingDataAlert
-                dataName={dataName}
+                dataName={chartTitle}
                 breakdownString={
                   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
                 }

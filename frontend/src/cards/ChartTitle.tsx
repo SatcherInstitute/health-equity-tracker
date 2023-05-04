@@ -2,7 +2,7 @@ import { Box } from '@mui/material'
 import styles from './Card.module.scss'
 
 interface ChartTitleProps {
-  title: string | string[]
+  title: string
   mt?: number
   mb?: number
 }

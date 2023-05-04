@@ -21,7 +21,6 @@ import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import ChartTitle from './ChartTitle'
 
@@ -72,11 +71,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  let { chartTitle, filename, dataName } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase
-  )
-  filename = `${filename}, by ${
+  const chartTitle = `${metricConfig.chartTitle} ${locationPhrase}`
+
+  const filename = `${chartTitle}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`
 
@@ -101,7 +98,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               ]) ? (
                 <>
                   <MissingDataAlert
-                    dataName={dataName}
+                    dataName={chartTitle}
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }
@@ -111,11 +108,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               ) : (
                 <>
                   <SimpleHorizontalBarChart
-                    chartTitle={chartTitle}
                     data={data}
                     breakdownVar={props.breakdownVar}
                     metric={metricConfig}
-                    showLegend={false}
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
                   />

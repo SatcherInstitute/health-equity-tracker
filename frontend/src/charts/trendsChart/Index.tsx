@@ -47,7 +47,7 @@ export interface TrendsChartProps {
   data: TrendsData
   unknown: UnknownData
   axisConfig: AxisConfig
-  chartTitle: string | string[]
+  chartTitle: string
   breakdownVar: BreakdownVar
   setSelectedTableGroups: (selectedTableGroups: any[]) => void
   isCompareCard: boolean

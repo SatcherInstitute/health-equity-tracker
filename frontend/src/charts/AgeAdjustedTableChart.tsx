@@ -44,7 +44,7 @@ const altCellStyle = {
 export interface AgeAdjustedTableChartProps {
   data: Array<Readonly<Record<string, any>>>
   metrics: MetricConfig[]
-  title: string | string[]
+  title: string
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
