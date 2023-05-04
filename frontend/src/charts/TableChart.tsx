@@ -32,8 +32,8 @@ import Table from '@mui/material/Table'
 import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { NO_DATA_MESSAGE } from './Legend'
-import { useFontSize } from '../utils/hooks/useFontSize'
 import { type Fips } from '../data/utils/Fips'
+import ChartTitle from '../cards/ChartTitle'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -167,15 +167,6 @@ export function TableChart(props: TableChartProps) {
     )
   }
 
-  const fontSize = useFontSize()
-  const titleStyle = {
-    font: 'Inter, sans-serif',
-    fontSize,
-    fontWeight: 'bold',
-    paddingTop: 10,
-    paddingBottom: 10,
-  }
-
   const VARIABLE_IDS_NEEDING_UPPERCASE = [
     'hiv_deaths',
     'hiv_prevalence',
@@ -197,9 +188,10 @@ export function TableChart(props: TableChartProps) {
         <h1>Insufficient Data</h1>
       ) : (
         <figure>
-          <figcaption style={titleStyle}>
-            Breakdown summary for {sentenceCaseName} in{' '}
-            {props.fips.getSentenceDisplayName()}
+          <figcaption>
+            <ChartTitle
+              title={`Breakdown summary for ${sentenceCaseName} in ${props.fips.getSentenceDisplayName()}`}
+            />
           </figcaption>
 
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>

@@ -175,7 +175,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     }
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={true}
                     geoData={props.geoData}
                     filename={`${props.metricConfig.chartTitleLines.join(' ')}${
                       breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
@@ -201,7 +200,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                             legendData={props.data}
                             data={dataForValue}
                             hideLegend={true}
-                            hideActions={true}
                             showCounties={false}
                             fips={fips}
                             fieldRange={props.fieldRange}

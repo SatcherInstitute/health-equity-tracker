@@ -118,7 +118,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     showLegend={false}
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
-                    hideActions={true}
                   />
                   {isIncarceration && (
                     <IncarceratedChildrenShortAlert

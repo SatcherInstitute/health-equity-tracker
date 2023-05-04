@@ -72,6 +72,7 @@ import {
   getParameter,
   setParameter,
 } from '../utils/urlutils'
+import ChartTitle from './ChartTitle'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -418,10 +419,8 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <figcaption>
-                        <h3 className={styles.MapTitle}>{chartTitle}</h3>
-                        <h4 className={styles.MapSubtitle}>{subtitle}</h4>
-                      </figcaption>
+                      <ChartTitle title={chartTitle} />
+                      <h4 className={styles.MapSubtitle}>{subtitle}</h4>
                     </Grid>
 
                     <Grid
@@ -441,7 +440,6 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         hideMissingDataTooltip={listExpanded}
                         legendData={dataForActiveBreakdownFilter}
-                        hideActions={true}
                         hideLegend={true}
                         showCounties={
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData

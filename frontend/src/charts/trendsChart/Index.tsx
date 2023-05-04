@@ -39,8 +39,8 @@ import { MOBILE_BREAKPOINT } from '../../App'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 import useEscape from '../../utils/hooks/useEscape'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
-import { useFontSize } from '../../utils/hooks/useFontSize'
 import { type DemographicGroup } from '../../data/utils/Constants'
+import ChartTitle from '../../cards/ChartTitle'
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -72,8 +72,6 @@ export function TrendsChart({
   /* Config */
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG
   const { groupLabel } = axisConfig ?? {}
-
-  const fontSize = useFontSize()
 
   /* Refs */
   // parent container ref - used for setting svg width
@@ -292,17 +290,13 @@ export function TrendsChart({
                 }`}
               />
             )}
-            {/* Chart Title */}
-            <figcaption style={{ fontSize }}>
-              <b id={chartTitleId}>{chartTitle}</b>
-            </figcaption>
+            {/* Chart Title MOBILE BELOW LEGEND */}
+            <ChartTitle title={chartTitle} />
           </>
         ) : (
           <>
-            {/* Chart Title */}
-            <figcaption style={{ fontSize }}>
-              <b id={chartTitleId}>{chartTitle}</b>
-            </figcaption>
+            {/* Chart Title DESKTOP ABOVE LEGEND */}
+            <ChartTitle title={chartTitle} />
             {/* Filter */}
             {data && (
               <FilterLegend

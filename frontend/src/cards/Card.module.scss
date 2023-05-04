@@ -13,7 +13,9 @@
 }
 
 .ChartTitle {
-  font-size: $explore-button;
+  font-size: $title;
+  margin-block: 1rem;
+  margin-inline: 3rem;
 }
 
 .ChartCard {

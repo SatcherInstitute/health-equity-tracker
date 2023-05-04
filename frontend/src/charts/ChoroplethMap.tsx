@@ -77,8 +77,6 @@ export interface ChoroplethMapProps {
   legendTitle?: string | string[]
   // Max/min of the data range- if present it will set the color scale at these boundaries
   fieldRange?: FieldRange
-  // Hide the action bar in the corner of a vega chart
-  hideActions?: boolean
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
   overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
@@ -483,15 +481,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           renderer="svg"
           spec={spec}
           width={props.overrideShapeWithCircle ? undefined : width}
-          // custom 3-dot options for states, hidden
-          actions={
-            !props.hideActions && {
-              export: { png: true, svg: true },
-              source: false,
-              compiled: false,
-              editor: false,
-            }
-          }
+          actions={false}
           downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />

@@ -284,7 +284,6 @@ export interface SimpleHorizontalBarChartProps {
   metric: MetricConfig
   breakdownVar: BreakdownVar
   showLegend: boolean
-  hideActions?: boolean
   filename?: string
   usePercentSuffix?: boolean
 }
