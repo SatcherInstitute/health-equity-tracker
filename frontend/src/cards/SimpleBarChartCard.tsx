@@ -94,6 +94,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
         return (
           <>
             <CardContent>
+              <h3>{chartTitle}</h3>
               {queryResponse.shouldShowMissingDataMessage([
                 metricConfig.metricId,
               ]) ? (

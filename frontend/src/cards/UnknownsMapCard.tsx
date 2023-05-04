@@ -196,10 +196,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         return (
           <>
+            <CardContent>
+              <h3>{chartTitle}</h3>
+            </CardContent>
             {showingVisualization && (
               <CardContent>
                 <ChoroplethMap
-                  titles={{ chartTitle }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
@@ -210,7 +212,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   hideLegend={
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
-                  hideActions={true}
                   geoData={geoData}
                   filename={filename}
                   countColsToAdd={countColsToAdd}

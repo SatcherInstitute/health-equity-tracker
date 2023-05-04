@@ -87,18 +87,6 @@ function getSpec(
 
   return {
     $schema: 'https://vega.github.io/schema/vega/v5.json',
-    title: {
-      text: chartTitle,
-      subtitle: ' ',
-      encode: {
-        title: {
-          enter: {
-            fontSize: { value: fontSize },
-            font: { value: 'Inter, sans-serif' },
-          },
-        },
-      },
-    },
     description: altText,
     background: sass.white,
     autosize: { resize: true, type: 'fit-x' },
@@ -370,17 +358,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* usePercentSuffix  */ props.usePercentSuffix ?? false,
           fontSize
         )}
-        // custom 3-dot options menu
-        actions={
-          props.hideActions
-            ? false
-            : {
-                export: { png: true, svg: true },
-                source: false,
-                compiled: false,
-                editor: false,
-              }
-        }
+        actions={false}
       />
     </div>
   )

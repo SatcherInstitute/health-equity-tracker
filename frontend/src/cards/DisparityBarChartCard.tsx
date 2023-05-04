@@ -129,8 +129,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           <>
             {dataAvailable && knownData.length !== 0 && (
               <CardContent>
+                <h3>{chartTitle}</h3>
                 <DisparityBarChart
-                  chartTitle={chartTitle}
                   data={knownData}
                   lightMetric={
                     metricConfig.populationComparisonMetric ?? metricConfig
@@ -142,7 +142,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   metricDisplayName={metricConfig.shortLabel}
                   filename={filename}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
-                  hideActions={true}
                 />
               </CardContent>
             )}

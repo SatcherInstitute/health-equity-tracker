@@ -554,7 +554,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequitable distribution of COVID-19 vaccinations',
+            'historical relative inequity in COVID-19 vaccine distribution',
           ],
           metricId: 'vaccinated_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -633,7 +633,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_share',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical inequities in linkage to HIV care'],
+          chartTitleLines: [
+            'Historical relative inequity in linkage to HIV care',
+          ],
           metricId: 'hiv_care_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -685,7 +687,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data for new HIV diagnosis inequity'],
+          chartTitleLines: [
+            'Historical relative inequity for new HIV diagnoses',
+          ],
           metricId: 'hiv_diagnoses_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -736,7 +740,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data for HIV deaths inequity'],
+          chartTitleLines: ['Historical relative inequity for HIV deaths'],
           metricId: 'hiv_deaths_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -788,7 +792,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_share',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data for PrEP coverage inequity'],
+          chartTitleLines: ['Historical relative inequity for PrEP coverage'],
           metricId: 'hiv_prep_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -839,7 +843,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['Historical data for HIV prevalence inequity'],
+          chartTitleLines: ['Historical relative inequity for HIV prevalence'],
           metricId: 'hiv_prevalence_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -891,7 +895,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for suicide inequity'],
+          chartTitleLines: ['Historical relative inequity for suicides'],
           metricId: 'suicide_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -943,7 +947,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for depression inequity'],
+          chartTitleLines: ['Historical relative inequity for depression'],
           metricId: 'depression_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -997,7 +1001,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequity in excessive drinking',
+            'Historical relative inequity in excessive drinking',
           ],
           metricId: 'excessive_drinking_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1053,7 +1057,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequity in non-medical drug use',
+            'Historical relative inequity in non-medical drug use',
           ],
           metricId: 'non_medical_drug_use_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1109,7 +1113,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for frequent mental distress inequity',
+            'Historical relative inequity for frequent mental distress',
           ],
           metricId: 'frequent_mental_distress_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1162,7 +1166,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for diabetes inequity'],
+          chartTitleLines: ['Historical relative inequity for diabetes'],
           metricId: 'diabetes_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -1214,7 +1218,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for COPD inequity'],
+          chartTitleLines: ['Historical relative inequity for COPD'],
           metricId: 'copd_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -1268,7 +1272,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for inequity in uninsurance'],
+          chartTitleLines: ['Historical relative inequity in uninsurance'],
           metricId: 'uninsured_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -1318,7 +1322,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for poverty inequity'],
+          chartTitleLines: ['Historical relative inequity for poverty'],
           metricId: 'poverty_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -1372,7 +1376,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequity in preventable hospitalizations',
+            'Historical relative inequity in preventable hospitalizations',
           ],
           metricId: 'preventable_hospitalizations_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1426,7 +1430,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequitable avoidance of care',
+            'Historical relative inequity for avoidance of care',
           ],
           metricId: 'avoided_care_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1479,7 +1483,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           },
         },
         pct_relative_inequity: {
-          chartTitleLines: ['historical data for asthma inequity'],
+          chartTitleLines: ['Historical relative inequity for asthma'],
           metricId: 'asthma_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
@@ -1533,7 +1537,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequity distribution of cardiovascular diseases',
+            'Historical relative inequity for distribution of cardiovascular diseases',
           ],
           metricId: 'cardiovascular_diseases_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1588,7 +1592,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequitable distribution of chronic kidney disease',
+            'Historical relative inequity for distribution of chronic kidney disease',
           ],
           metricId: 'chronic_kidney_disease_pct_relative_inequity',
           shortLabel: '% relative inequity',
@@ -1643,7 +1647,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
         pct_relative_inequity: {
           chartTitleLines: [
-            'historical data for inequitable voter participation',
+            'Historical relative inequity for voter participation',
           ],
           metricId: 'voter_participation_pct_relative_inequity',
           shortLabel: '% relative inequity',
