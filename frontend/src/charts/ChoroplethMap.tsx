@@ -94,7 +94,6 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  // const nonZeroData = props.data.filter((row) => row[props.metric.metricId] > 0)
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
@@ -262,8 +261,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         : MAP_SCHEME,
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
-
-    console.log(colorScale)
 
     const projection = getProjection(
       /* fips */ props.fips,
