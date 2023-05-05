@@ -14,6 +14,7 @@ import {
   MISSING_PLACEHOLDER_VALUES,
   EQUAL_DOT_SIZE,
   ZERO_DOT_SCALE,
+  MAP_SCHEME,
 } from './Legend'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { ORDINAL } from './utils'
@@ -362,7 +363,7 @@ export function setupColorScale(
       field: metricId,
     },
     range: {
-      scheme: scaleColorScheme ?? 'yellowgreen',
+      scheme: scaleColorScheme ?? MAP_SCHEME,
       count: legendColorCount,
     },
   }

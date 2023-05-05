@@ -34,6 +34,8 @@ export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
 const ZERO_BUCKET_LABEL = '0'
+export const MAP_SCHEME = 'yellowgreen'
+export const UNKNOWNS_MAP_SCHEME = 'bluegreen'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -233,7 +235,7 @@ export function Legend(props: LegendProps) {
             field: props.metric.metricId,
           },
           range: {
-            scheme: 'yellowgreen',
+            scheme: MAP_SCHEME,
             count: props.hasSelfButNotChildGeoData ? 1 : legendColorCount,
           },
         },
