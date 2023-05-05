@@ -354,10 +354,7 @@ export function setupColorScale(
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
-    // using VALID_ makes territories with non-zero data always the darkest color
-    // using VAR_ makes making map scale not match legend scale, so non-zero places were slightly wrong colors
-    //
-    // domain: { data: VAR_DATASET, field: metricId },
+    // CONDITIONALLY AVOID BUGS: VALID_ makes territories with non-zero data always the darkest color while VAR_ caused non-territory non-zero county colors to not match legend scale
     domain: {
       data: isTerritoryCircle ? VAR_DATASET : VALID_DATASET,
       field: metricId,
