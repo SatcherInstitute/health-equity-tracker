@@ -5,7 +5,6 @@ import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import styles from './Legend.module.scss'
 import { type Legend as LegendType } from 'vega'
 import { Grid } from '@mui/material'
@@ -60,8 +59,8 @@ export function Legend(props: LegendProps) {
   const { direction } = props
   const orient = direction === 'vertical' ? 'left' : 'right'
 
-  const containsDistinctZeros = CAWP_DETERMINANTS.includes(
-    props.metric.metricId
+  const zeroData = props.legendData?.filter(
+    (row) => row[props.metric.metricId] === 0
   )
 
   const nonZeroData = props.legendData?.filter(
@@ -70,6 +69,10 @@ export function Legend(props: LegendProps) {
   const uniqueNonZeroValueCount = new Set(
     nonZeroData?.map((row) => row[props.metric.metricId])
   ).size
+
+  const missingData = props.legendData?.filter(
+    (row) => row[props.metric.metricId] == null
+  )
 
   // Initial spec state is set in useEffect
   // TODO: Why??
@@ -85,17 +88,22 @@ export function Legend(props: LegendProps) {
       ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
+    if (uniqueNonZeroValueCount === 1) dotRange.unshift(0)
+
     const legendList: LegendType[] = []
 
-    legendList.push({
-      fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,
-      symbolType: LEGEND_SYMBOL_TYPE,
-      size: props.hasSelfButNotChildGeoData ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-      labelFontStyle: LEGEND_TEXT_FONT,
-      labelFont: LEGEND_TEXT_FONT,
-      orient,
-    })
+    // ADD ZERO LEGEND ITEM
+    if (zeroData && zeroData.length > 0)
+      legendList.push({
+        fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,
+        symbolType: LEGEND_SYMBOL_TYPE,
+        size: props.hasSelfButNotChildGeoData ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+        labelFontStyle: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
+        orient,
+      })
 
+    // ADD SUMMARY OVERALL FOR STATES W NO COUNTY INFO
     if (props.hasSelfButNotChildGeoData) {
       legendList[0].encode = {
         labels: {
@@ -111,8 +119,9 @@ export function Legend(props: LegendProps) {
         },
       }
     } else {
-      legendList.push(
-        {
+      // ADD NON-ZERO LEGEND ITEMS
+      if (uniqueNonZeroValueCount > 0) {
+        legendList.push({
           fill: COLOR_SCALE,
           labelOverlap: 'greedy',
           symbolType: LEGEND_SYMBOL_TYPE,
@@ -123,16 +132,20 @@ export function Legend(props: LegendProps) {
           direction: props.direction,
           orient: 'left',
           columns: props.direction === 'horizontal' ? 3 : 1,
-        },
-        {
+        })
+      }
+      // ADD UNKNOWN LEGEND ITEM
+      if (missingData && missingData.length > 0) {
+        legendList.push({
           fill: UNKNOWN_SCALE,
           symbolType: LEGEND_SYMBOL_TYPE,
           size: GREY_DOT_SCALE,
           labelFontStyle: LEGEND_TEXT_FONT,
           labelFont: LEGEND_TEXT_FONT,
           orient,
-        }
-      )
+        })
+      }
+
       legendList[0].encode = {
         labels: {
           update: {
@@ -269,7 +282,6 @@ export function Legend(props: LegendProps) {
     props.legendData,
     props.sameDotSize,
     props,
-    containsDistinctZeros,
   ])
 
   return (
