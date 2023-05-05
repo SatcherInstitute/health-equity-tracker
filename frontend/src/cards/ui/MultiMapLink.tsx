@@ -8,7 +8,7 @@ import styles from './MultiMapLink.module.scss'
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
 */
 interface MultiMapLinkProps {
-  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
+  setMultimapOpen: (multimapOpen: boolean) => void
   currentBreakdown: BreakdownVar
   currentVariable: string
 }
@@ -20,7 +20,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
     <>
       <button
         onClick={() => {
-          props.setSmallMultiplesDialogOpen(true)
+          props.setMultimapOpen(true)
         }}
         className={styles.CompareAcrossLink}
         aria-label={

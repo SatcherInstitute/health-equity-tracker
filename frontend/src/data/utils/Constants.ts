@@ -6,7 +6,7 @@ Converts to types for TS checking
 
 import { type TimeView } from '../query/Breakdowns'
 
-export const LESS_THAN_1 = '< 1'
+export const LESS_THAN_1 = '< 0.1'
 
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
 export const RACE = 'race_and_ethnicity'

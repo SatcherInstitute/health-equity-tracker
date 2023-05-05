@@ -56,7 +56,7 @@ export interface LegendProps {
   description: string
   // Whether legend entries stack vertical or horizontal (allows responsive design)
   direction: 'horizontal' | 'vertical'
-  hasSelfButNotChildGeoData?: boolean
+  isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
 }
 
@@ -97,7 +97,7 @@ export function Legend(props: LegendProps) {
     if (uniqueNonZeroValueCount === 1) dotRange.unshift(0)
 
     const isPct = isPctType(props.metric.type)
-    const overallPhrase = props.hasSelfButNotChildGeoData
+    const overallPhrase = props.isSummaryLegend
       ? ` (${props.fipsTypeDisplayName ?? 'area'} overall)`
       : ''
     const legendList: LegendType[] = []
@@ -106,9 +106,9 @@ export function Legend(props: LegendProps) {
 
     // MAKE ZERO LEGEND ITEM
     const zeroLegend: LegendType = {
-      fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,
+      fill: props.isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
       symbolType: LEGEND_SYMBOL_TYPE,
-      size: props.hasSelfButNotChildGeoData ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+      size: props.isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
       labelFontStyle: LEGEND_TEXT_FONT,
       labelFont: LEGEND_TEXT_FONT,
       orient,
@@ -228,14 +228,14 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: {
-            data: props.hasSelfButNotChildGeoData
+            data: props.isSummaryLegend
               ? DATASET_VALUES
               : NON_ZERO_DATASET_VALUES,
             field: props.metric.metricId,
           },
           range: {
             scheme: MAP_SCHEME,
-            count: props.hasSelfButNotChildGeoData ? 1 : legendColorCount,
+            count: props.isSummaryLegend ? 1 : legendColorCount,
           },
         },
         {
@@ -260,7 +260,7 @@ export function Legend(props: LegendProps) {
           name: DOT_SIZE_SCALE,
           type: props.scaleType,
           domain: {
-            data: props.hasSelfButNotChildGeoData
+            data: props.isSummaryLegend
               ? DATASET_VALUES
               : NON_ZERO_DATASET_VALUES,
             field: props.metric.metricId,

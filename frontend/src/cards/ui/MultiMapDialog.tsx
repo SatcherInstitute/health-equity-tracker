@@ -178,20 +178,20 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <b>{mapLabel}</b>
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
-                    key={breakdownValue}
-                    signalListeners={multimapSignalListeners}
-                    metric={props.metricConfig}
-                    legendData={props.data}
+                    countColsToAdd={props.countColsToAdd}
                     data={dataForValue}
+                    fieldRange={props.fieldRange}
+                    filename={title}
+                    fips={props.fips}
+                    geoData={props.geoData}
                     hideLegend={true}
+                    key={breakdownValue}
+                    legendData={props.data}
+                    metric={props.metricConfig}
                     showCounties={
                       !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
                     }
-                    fips={props.fips}
-                    fieldRange={props.fieldRange}
-                    geoData={props.geoData}
-                    filename={title}
-                    countColsToAdd={props.countColsToAdd}
+                    signalListeners={multimapSignalListeners}
                   />
                 )}
 

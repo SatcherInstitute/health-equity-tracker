@@ -333,6 +333,18 @@ export function getLegendDataBounds(data: Row[], metricId: MetricId) {
   return [legendLowerBound, legendUpperBound]
 }
 
+/* Figure out if a reduced number of legend color buckets is needed */
+export function calculateLegendColorCount(
+  legendData: Row[],
+  metricId: MetricId
+) {
+  const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
+  const uniqueNonZeroValueCount = new Set(
+    nonZeroData?.map((row) => row[metricId])
+  ).size
+  return Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
+}
+
 /* SET UP COLOR SCALE */
 export function setupColorScale(
   legendData: Row[],
@@ -342,16 +354,7 @@ export function setupColorScale(
   scaleColorScheme?: string,
   isTerritoryCircle?: boolean
 ) {
-  const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
-
-  const uniqueNonZeroValueCount = new Set(
-    nonZeroData?.map((row) => row[metricId])
-  ).size
-
-  const legendColorCount = Math.min(
-    DEFAULT_LEGEND_COLOR_COUNT,
-    uniqueNonZeroValueCount
-  )
+  const legendColorCount = calculateLegendColorCount(legendData, metricId)
 
   const colorScale: any = {
     name: COLOR_SCALE,
