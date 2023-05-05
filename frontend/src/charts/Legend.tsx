@@ -95,6 +95,7 @@ export function Legend(props: LegendProps) {
       ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
       : [70, 120, 170, 220, 270, 320, 370]
 
+    // prevent bugs when a single data point prevents Vega from calculating range for buckets
     if (uniqueNonZeroValueCount === 1) dotRange.unshift(0)
 
     const isPct = isPctType(props.metric.type)
