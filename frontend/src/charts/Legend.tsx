@@ -100,59 +100,56 @@ export function Legend(props: LegendProps) {
     const overallPhrase = props.isSummaryLegend
       ? ` (${props.fipsTypeDisplayName ?? 'area'} overall)`
       : ''
+    const legendBucketLabel = `datum.label + '${
+      isPct ? '%' : ''
+    }' + '${overallPhrase}'`
     const legendList: LegendType[] = []
 
-    // TODO: rather than build, edit, and conditionally push, we should conditionally build, edit and push each sub-legend for perf
-
-    // MAKE ZERO LEGEND ITEM
-    const zeroLegend: LegendType = {
-      fill: props.isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
-      symbolType: LEGEND_SYMBOL_TYPE,
-      size: props.isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-      labelFontStyle: LEGEND_TEXT_FONT,
-      labelFont: LEGEND_TEXT_FONT,
-      orient,
-    }
-    // ADD % AND/OR (OVERALL) IF NEEDED
-    zeroLegend.encode = {
-      labels: {
-        update: {
-          text: {
-            signal: `datum.label + '${isPct ? '%' : ''}' + '${overallPhrase}'`,
+    // INCLUDE ZERO LEGEND ITEM IF NEEDED
+    if (zeroData && zeroData.length > 0) {
+      // MAKE LEGEND
+      const zeroLegend: LegendType = {
+        fill: props.isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
+        symbolType: LEGEND_SYMBOL_TYPE,
+        size: props.isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+        labelFontStyle: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
+        orient,
+        encode: {
+          labels: {
+            update: {
+              text: {
+                signal: legendBucketLabel,
+              },
+            },
           },
         },
-      },
-    }
-    // INCLUDE IN LEGEND IF NEEDED
-    if (zeroData && zeroData.length > 0) {
+      }
       legendList.push(zeroLegend)
     }
 
-    // MAKE NON-ZERO LEGEND ITEMS
-    const nonZeroLegend: LegendType = {
-      fill: COLOR_SCALE,
-      labelOverlap: 'greedy',
-      symbolType: LEGEND_SYMBOL_TYPE,
-      size: DOT_SIZE_SCALE,
-      format: 'd',
-      labelFontStyle: LEGEND_TEXT_FONT,
-      labelFont: LEGEND_TEXT_FONT,
-      direction: props.direction,
-      orient: 'left',
-      columns: props.direction === 'horizontal' ? 3 : 1,
-    }
-    // ADD %/(OVERALL) IF NEEDED
-    nonZeroLegend.encode = {
-      labels: {
-        update: {
-          text: {
-            signal: `datum.label + '${isPct ? '%' : ''}' + '${overallPhrase}'`,
+    // MAKE NON-ZERO LEGEND ITEMS IF NEEDED
+    if (uniqueNonZeroValueCount > 0) {
+      const nonZeroLegend: LegendType = {
+        fill: COLOR_SCALE,
+        symbolType: LEGEND_SYMBOL_TYPE,
+        size: DOT_SIZE_SCALE,
+        format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
+        labelFontStyle: LEGEND_TEXT_FONT,
+        labelFont: LEGEND_TEXT_FONT,
+        direction: props.direction,
+        orient: 'left',
+        columns: props.direction === 'horizontal' ? 3 : 1,
+        encode: {
+          labels: {
+            update: {
+              text: {
+                signal: legendBucketLabel,
+              },
+            },
           },
         },
-      },
-    }
-    // INCLUDE IN LEGEND IF NEEDED
-    if (uniqueNonZeroValueCount > 0) {
+      }
       legendList.push(nonZeroLegend)
     }
 
