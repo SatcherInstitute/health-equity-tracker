@@ -279,6 +279,10 @@ function MapCardWithKey(props: MapCardProps) {
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           )
 
+        const allDataForActiveBreakdownFilter = mapQueryResponse.data.filter(
+          (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
+        )
+
         const dataForSvi: Row[] =
           sviQueryResponse
             ?.getValidRowsForField('svi')
@@ -317,10 +321,6 @@ function MapCardWithKey(props: MapCardProps) {
 
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
-
-        const legendData = listExpanded
-          ? highestValues.concat(lowestValues)
-          : dataForActiveBreakdownFilter
 
         // if a previously selected group is no longer valid, reset to ALL
         let dropdownValue = ALL
@@ -439,6 +439,7 @@ function MapCardWithKey(props: MapCardProps) {
                             ? highestValues.concat(lowestValues)
                             : dataForActiveBreakdownFilter
                         }
+                        legendData={dataForActiveBreakdownFilter}
                         hideMissingDataTooltip={listExpanded}
                         hideActions={true}
                         hideLegend={true}
@@ -465,6 +466,7 @@ function MapCardWithKey(props: MapCardProps) {
                                 ? highestValues.concat(lowestValues)
                                 : dataForActiveBreakdownFilter
                             }
+                            legendData={dataForActiveBreakdownFilter}
                             countColsToAdd={countColsToAdd}
                             listExpanded={listExpanded}
                             metricConfig={metricConfig}
@@ -487,7 +489,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <Legend
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
-                        legendData={legendData}
+                        data={allDataForActiveBreakdownFilter}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
@@ -528,6 +530,7 @@ function MapCardWithKey(props: MapCardProps) {
                                 ? highestValues.concat(lowestValues)
                                 : dataForActiveBreakdownFilter
                             }
+                            legendData={dataForActiveBreakdownFilter}
                             countColsToAdd={countColsToAdd}
                             listExpanded={listExpanded}
                             metricConfig={metricConfig}

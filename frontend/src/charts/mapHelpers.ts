@@ -18,7 +18,7 @@ import {
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { ORDINAL } from './utils'
 import sass from '../styles/variables.module.scss'
-import { raceNameToCodeMap } from '../data/utils/Constants'
+import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -141,7 +141,7 @@ export function formatPreventZero100k(
   metricId: MetricId
 ) {
   return metricType === 'per100k'
-    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '<1')`
+    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}')`
     : `format(datum.${metricId}, ',')`
 }
 

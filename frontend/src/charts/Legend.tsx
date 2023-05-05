@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
-import { type MetricConfig } from '../data/config/MetricConfig'
+import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
@@ -9,6 +9,8 @@ import styles from './Legend.module.scss'
 import { type Legend as LegendType } from 'vega'
 import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
+import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { LESS_THAN_1 } from '../data/utils/Constants'
 
 const COLOR_SCALE = 'color_scale'
 const ZERO_SCALE = 'zero_scale'
@@ -29,14 +31,16 @@ export const LEGEND_SYMBOL_TYPE = 'square'
 export const LEGEND_TEXT_FONT = 'inter'
 export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
-export const DEFAULT_LEGEND_COLOR_COUNT = 5
+export const DEFAULT_LEGEND_COLOR_COUNT = 6
+
+const ZERO_BUCKET_LABEL = '0'
 
 /*
    Legend renders a vega chart that just contains a legend.
 */
 export interface LegendProps {
   // Data for which to create a legend.
-  legendData?: Array<Record<string, any>> // Dataset for which to calculate legend.
+  data?: Array<Record<string, any>> // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
   metric: MetricConfig
   legendTitle: string
@@ -56,21 +60,22 @@ export interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
+  const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+
   const { direction } = props
   const orient = direction === 'vertical' ? 'left' : 'right'
 
-  const zeroData = props.legendData?.filter(
-    (row) => row[props.metric.metricId] === 0
-  )
+  const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
 
-  const nonZeroData = props.legendData?.filter(
+  const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
   )
+
   const uniqueNonZeroValueCount = new Set(
     nonZeroData?.map((row) => row[props.metric.metricId])
   ).size
 
-  const missingData = props.legendData?.filter(
+  const missingData = props.data?.filter(
     (row) => row[props.metric.metricId] == null
   )
 
@@ -90,73 +95,74 @@ export function Legend(props: LegendProps) {
 
     if (uniqueNonZeroValueCount === 1) dotRange.unshift(0)
 
+    const isPct = isPctType(props.metric.type)
+    const overallPhrase = props.hasSelfButNotChildGeoData
+      ? ` (${props.fipsTypeDisplayName ?? 'area'} overall)`
+      : ''
     const legendList: LegendType[] = []
 
-    // ADD ZERO LEGEND ITEM
-    if (zeroData && zeroData.length > 0)
+    // MAKE ZERO LEGEND ITEM
+    const zeroLegend: LegendType = {
+      fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,
+      symbolType: LEGEND_SYMBOL_TYPE,
+      size: props.hasSelfButNotChildGeoData ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+      labelFontStyle: LEGEND_TEXT_FONT,
+      labelFont: LEGEND_TEXT_FONT,
+      orient,
+    }
+    // ADD % AND/OR (OVERALL) IF NEEDED
+    zeroLegend.encode = {
+      labels: {
+        update: {
+          text: {
+            signal: `datum.label + '${isPct ? '%' : ''}' + '${overallPhrase}'`,
+          },
+        },
+      },
+    }
+    // INCLUDE IN LEGEND IF NEEDED
+    if (zeroData && zeroData.length > 0) {
+      legendList.push(zeroLegend)
+    }
+
+    // MAKE NON-ZERO LEGEND ITEMS
+    const nonZeroLegend: LegendType = {
+      fill: COLOR_SCALE,
+      labelOverlap: 'greedy',
+      symbolType: LEGEND_SYMBOL_TYPE,
+      size: DOT_SIZE_SCALE,
+      format: 'd',
+      labelFontStyle: LEGEND_TEXT_FONT,
+      labelFont: LEGEND_TEXT_FONT,
+      direction: props.direction,
+      orient: 'left',
+      columns: props.direction === 'horizontal' ? 3 : 1,
+    }
+    // ADD %/(OVERALL) IF NEEDED
+    nonZeroLegend.encode = {
+      labels: {
+        update: {
+          text: {
+            signal: `datum.label + '${isPct ? '%' : ''}' + '${overallPhrase}'`,
+          },
+        },
+      },
+    }
+    // INCLUDE IN LEGEND IF NEEDED
+    if (uniqueNonZeroValueCount > 0) {
+      legendList.push(nonZeroLegend)
+    }
+
+    // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
+    if (missingData && missingData.length > 0) {
       legendList.push({
-        fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,
+        fill: UNKNOWN_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
-        size: props.hasSelfButNotChildGeoData ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+        size: GREY_DOT_SCALE,
         labelFontStyle: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
         orient,
       })
-
-    // ADD SUMMARY OVERALL FOR STATES W NO COUNTY INFO
-    if (props.hasSelfButNotChildGeoData) {
-      legendList[0].encode = {
-        labels: {
-          update: {
-            text: {
-              signal: `datum.label + '${
-                props.metric.type === 'pct_share'
-                  ? `% (${props.fipsTypeDisplayName ?? ''} overall)`
-                  : ` (${props.fipsTypeDisplayName ?? ''} overall)`
-              }'`,
-            },
-          },
-        },
-      }
-    } else {
-      // ADD NON-ZERO LEGEND ITEMS
-      if (uniqueNonZeroValueCount > 0) {
-        legendList.push({
-          fill: COLOR_SCALE,
-          labelOverlap: 'greedy',
-          symbolType: LEGEND_SYMBOL_TYPE,
-          size: DOT_SIZE_SCALE,
-          format: 'd',
-          labelFontStyle: LEGEND_TEXT_FONT,
-          labelFont: LEGEND_TEXT_FONT,
-          direction: props.direction,
-          orient: 'left',
-          columns: props.direction === 'horizontal' ? 3 : 1,
-        })
-      }
-      // ADD UNKNOWN LEGEND ITEM
-      if (missingData && missingData.length > 0) {
-        legendList.push({
-          fill: UNKNOWN_SCALE,
-          symbolType: LEGEND_SYMBOL_TYPE,
-          size: GREY_DOT_SCALE,
-          labelFontStyle: LEGEND_TEXT_FONT,
-          labelFont: LEGEND_TEXT_FONT,
-          orient,
-        })
-      }
-
-      legendList[0].encode = {
-        labels: {
-          update: {
-            text: {
-              signal: `datum.label + '${
-                props.metric.type === 'pct_share' ? '%' : ''
-              }'`,
-            },
-          },
-        },
-      }
     }
 
     setSpec({
@@ -167,11 +173,11 @@ export function Legend(props: LegendProps) {
       data: [
         {
           name: RAW_VALUES,
-          values: props.legendData,
+          values: props.data,
         },
         {
           name: ZERO_VALUES,
-          values: [{ zero: 'zero' }],
+          values: [{ zero: isCawp ? ZERO_BUCKET_LABEL : LESS_THAN_1 }],
         },
         {
           name: DATASET_VALUES,
@@ -201,9 +207,7 @@ export function Legend(props: LegendProps) {
           name: SUMMARY_VALUE,
           values: [
             {
-              summary: `${
-                props.legendData?.[0][props.metric.metricId] as string
-              }`,
+              summary: `${props.data?.[0][props.metric.metricId] as string}`,
             },
           ],
         },
@@ -279,7 +283,7 @@ export function Legend(props: LegendProps) {
     props.legendTitle,
     props.scaleType,
     props.fieldRange,
-    props.legendData,
+    props.data,
     props.sameDotSize,
     props,
   ])

@@ -234,7 +234,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   <Legend
                     metric={props.metricConfig}
                     legendTitle={''}
-                    legendData={props.data}
+                    data={props.data}
                     scaleType={RATE_MAP_SCALE}
                     sameDotSize={true}
                     direction={pageIsTiny ? 'vertical' : 'horizontal'}

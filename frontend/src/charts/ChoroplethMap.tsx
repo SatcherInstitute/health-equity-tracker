@@ -68,7 +68,7 @@ export interface ChoroplethMapProps {
   isUnknownsMap?: boolean
   // If true, maps will render counties, otherwise it will render states/territories
   showCounties: boolean
-  // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
+  // full dataset used to get proper colors across maps/map circles
   legendData?: Array<Record<string, any>>
   // Whether or not the legend is present
   hideLegend?: boolean
@@ -97,7 +97,6 @@ export interface ChoroplethMapProps {
 export function ChoroplethMap(props: ChoroplethMapProps) {
   const nonZeroData = props.data.filter((row) => row[props.metric.metricId] > 0)
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
-
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
   // render Vega map async as it can be slow
