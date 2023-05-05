@@ -23,9 +23,10 @@ import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
+import ChartTitle from './ChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -55,10 +56,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000])
   const metricConfig = props.variableConfig.metrics.pct_share
   const currentBreakdown = props.currentBreakdown
-  const breakdownString = `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
   const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
   const location = useLocation()
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
 
   const signalListeners: any = {
     click: (...args: any) => {
@@ -75,7 +74,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !pageIsSmall && !isCompareMode
 
-  // TODO Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
+  // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
     currentBreakdown
   )
@@ -96,11 +95,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const { chartTitle, dataName, filename } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase,
-    breakdownString
-  )
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfig.chartTitle,
+    currentBreakdown,
+    fips: props.fips,
+  })
 
   const isCawpStateLeg =
     props.variableConfig.variableId === 'women_in_state_legislature'
@@ -115,7 +114,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={filename}
+      downloadTitle={chartTitle}
       queries={[mapQuery, alertQuery]}
       loadGeographies={true}
       minHeight={preloadHeight}
@@ -195,11 +194,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
         return (
-          <>
+          <CardContent>
+            <ChartTitle title={chartTitle} />
             {showingVisualization && (
-              <CardContent>
+              <>
                 <ChoroplethMap
-                  titles={{ chartTitle }}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
@@ -210,9 +209,8 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   hideLegend={
                     mapQueryResponse.dataIsMissing() || unknowns.length <= 1
                   }
-                  hideActions={true}
                   geoData={geoData}
-                  filename={filename}
+                  filename={chartTitle}
                   countColsToAdd={countColsToAdd}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
@@ -226,7 +224,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     isUnknownsMap={true}
                   />
                 )}
-              </CardContent>
+              </>
             )}
             {/* PERCENT REPORTING UNKNOWN ALERT - contains its own logic and divider/styling */}
             {!unknownsAllZero && (
@@ -252,36 +250,29 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
             {/* MISSING DATA ALERT */}
             {showMissingDataAlert && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={dataName}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
-                  }
-                  isMapCard={true}
-                  fips={props.fips}
-                />
-              </CardContent>
+              <MissingDataAlert
+                dataName={chartTitle}
+                breakdownString={
+                  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+                }
+                isMapCard={true}
+                fips={props.fips}
+              />
             )}
 
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
-              <CardContent>
-                <Alert severity="info" role="note">
-                  No unknown values for{' '}
-                  {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{' '}
-                  reported in this dataset
-                  {hasChildGeo && (
-                    <>
-                      {' '}
-                      at the {props.fips.getChildFipsTypeDisplayName()} level
-                    </>
-                  )}
-                  {'.'}
-                </Alert>
-              </CardContent>
+              <Alert sx={{ my: 2, mx: 5 }} severity="info" role="note">
+                No unknown values for{' '}
+                {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{' '}
+                reported in this dataset
+                {hasChildGeo && (
+                  <> at the {props.fips.getChildFipsTypeDisplayName()} level</>
+                )}
+                {'.'}
+              </Alert>
             )}
-          </>
+          </CardContent>
         )
       }}
     </CardWrapper>

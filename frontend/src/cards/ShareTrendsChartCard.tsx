@@ -36,7 +36,7 @@ import {
 } from '../data/variables/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -82,11 +82,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   )
 
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
-  const { filename, dataName } = useCreateChartTitle(
-    metricConfigInequitable,
-    locationPhrase
-  )
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfigInequitable.chartTitle,
+    fips: props.fips,
+  })
 
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
@@ -95,7 +94,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={filename}
+      downloadTitle={chartTitle}
       queries={[inequityQuery, pctShareQuery]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
@@ -167,7 +166,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               {shouldShowMissingData ? (
                 <>
                   <MissingDataAlert
-                    dataName={dataName}
+                    dataName={chartTitle}
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }
@@ -178,7 +177,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                 <>
                   <TrendsChart
                     data={nestedInequityData}
-                    chartTitle={filename}
+                    chartTitle={chartTitle}
                     unknown={nestedUnknowns}
                     axisConfig={{
                       type: metricConfigInequitable.type,
@@ -211,7 +210,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     expanded={a11yTableExpanded}
                     setExpanded={setA11yTableExpanded}
                     expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                    tableCaption={`${filename} by ${
+                    tableCaption={`${chartTitle} by ${
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }`}
                     knownsData={inequityData}

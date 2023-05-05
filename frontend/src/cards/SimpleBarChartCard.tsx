@@ -21,8 +21,9 @@ import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
+import ChartTitle from './ChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -47,8 +48,6 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig = props.variableConfig.metrics.per100k
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
-
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
   )
@@ -71,11 +70,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  let { chartTitle, filename, dataName } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase
-  )
-  filename = `${filename}, by ${
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfig.chartTitle,
+    fips: props.fips,
+  })
+  const filename = `${chartTitle}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`
 
@@ -94,12 +93,13 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
         return (
           <>
             <CardContent>
+              <ChartTitle title={chartTitle} />
               {queryResponse.shouldShowMissingDataMessage([
                 metricConfig.metricId,
               ]) ? (
                 <>
                   <MissingDataAlert
-                    dataName={dataName}
+                    dataName={chartTitle}
                     breakdownString={
                       BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                     }
@@ -109,14 +109,11 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               ) : (
                 <>
                   <SimpleHorizontalBarChart
-                    chartTitle={chartTitle}
                     data={data}
                     breakdownVar={props.breakdownVar}
                     metric={metricConfig}
-                    showLegend={false}
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
-                    hideActions={true}
                   />
                   {isIncarceration && (
                     <IncarceratedChildrenShortAlert

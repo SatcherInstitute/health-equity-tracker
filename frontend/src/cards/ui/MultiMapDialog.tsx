@@ -10,7 +10,7 @@ import {
   Alert,
 } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
-import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
+import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
 import {
   type MapOfDatasetMetadata,
@@ -36,6 +36,8 @@ import {
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
+import TerritoryCircles from './TerritoryCircles'
+import MapBreadcrumbs from './MapBreadcrumbs'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -67,6 +69,9 @@ export interface MultiMapDialogProps {
   geoData?: Record<string, any>
   // optional to show state data when county not available
   hasSelfButNotChildGeoData?: boolean
+  updateFipsCallback: (fips: Fips) => void
+  totalPopulationPhrase: string
+  handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
 }
 
 /*
@@ -78,13 +83,23 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const theme = useTheme()
   const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const title = `${props.metricConfig.chartTitleLines.join(
-    ' '
-  )} in ${props.fips.getSentenceDisplayName()} across all
+  const title = `${
+    props.metricConfig.chartTitle
+  } in ${props.fips.getSentenceDisplayName()} across all
   ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
     useDownloadCardImage(title)
+
+  /* handle clicks on sub-geos in multimap view */
+  const multimapSignalListeners: any = {
+    click: (...args: any) => {
+      const clickedData = args[1]
+      if (clickedData?.id) {
+        props.updateFipsCallback(new Fips(clickedData.id))
+      }
+    },
+  }
 
   return (
     <Dialog
@@ -143,11 +158,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             )
               ? getWomenRaceLabel(breakdownValue)
               : breakdownValue
-
             const dataForValue = props.data.filter(
               (row: Row) => row[props.breakdown] === breakdownValue
             )
-
             return (
               <Grid
                 xs={12}
@@ -158,14 +171,15 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 key={`${breakdownValue}-grid-item`}
                 className={styles.SmallMultipleMap}
                 component="li"
+                onClick={(e: any) => {
+                  props.handleMapGroupClick(null, breakdownValue)
+                }}
               >
                 <b>{mapLabel}</b>
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
                     key={breakdownValue}
-                    signalListeners={{
-                      click: (...args: any) => {},
-                    }}
+                    signalListeners={multimapSignalListeners}
                     metric={props.metricConfig}
                     legendData={props.data}
                     data={dataForValue}
@@ -175,74 +189,93 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     }
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={true}
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${
-                      breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
-                    } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={title}
                     countColsToAdd={props.countColsToAdd}
                   />
                 )}
 
                 {/* TERRITORIES (IF NATIONAL VIEW) */}
                 {props.metricConfig &&
-                props.fips.isUsa() &&
-                dataForValue.length ? (
-                  <Grid container>
-                    {TERRITORY_CODES.map((code) => {
-                      const fips = new Fips(code)
-                      return (
-                        <Grid item xs={4} sm={2} key={code}>
-                          <ChoroplethMap
-                            signalListeners={{
-                              click: (...args: any) => {},
-                            }}
-                            metric={props.metricConfig}
-                            legendData={props.data}
-                            data={dataForValue}
-                            hideLegend={true}
-                            hideActions={true}
-                            showCounties={false}
-                            fips={fips}
-                            fieldRange={props.fieldRange}
-                            geoData={props.geoData}
-                            overrideShapeWithCircle={true}
-                            countColsToAdd={props.countColsToAdd}
-                          />
-                        </Grid>
-                      )
-                    })}
-                  </Grid>
-                ) : (
-                  <></>
-                )}
+                  props.fips.isUsa() &&
+                  dataForValue.length && (
+                    <Grid container>
+                      <TerritoryCircles
+                        signalListeners={multimapSignalListeners}
+                        metricConfig={props.metricConfig}
+                        data={dataForValue}
+                        countColsToAdd={props.countColsToAdd}
+                        mapIsWide={false}
+                      />
+                    </Grid>
+                  )}
               </Grid>
             )
           })}
 
-          {/* Legend */}
-
-          <Grid item xs={12} className={styles.SmallMultipleLegendMap}>
-            <Box mt={pageIsTiny ? 0 : 3}>
-              <Grid container item>
-                <Grid container justifyContent="center">
-                  <b className={styles.LegendTitleText}>
-                    Legend: {props.metricConfig.shortLabel}
-                  </b>
+          {/* Population Breadcrumbs + Legend */}
+          <Grid
+            container
+            justifyContent={'space-between'}
+            alignItems={'flex-end'}
+            item
+            xs={12}
+            className={styles.SmallMultipleLegendMap}
+          >
+            {/* DESKTOP BREADCRUMBS */}
+            <Grid
+              sx={{ display: { xs: 'none', md: 'flex' } }}
+              container
+              item
+              xs={12}
+              md={6}
+              justifyContent={'center'}
+            >
+              <MapBreadcrumbs
+                fips={props.fips}
+                updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId={'rate-map'}
+                endNote={props.totalPopulationPhrase}
+              />
+            </Grid>
+            {/* LEGEND */}
+            <Grid item xs={12} md={6}>
+              <Box mt={pageIsTiny ? 0 : 3}>
+                <Grid container item>
+                  <Grid container justifyContent="center">
+                    <b className={styles.LegendTitleText}>
+                      Legend: {props.metricConfig.shortLabel}
+                    </b>
+                  </Grid>
+                  <Grid container justifyContent="center">
+                    <Legend
+                      metric={props.metricConfig}
+                      legendTitle={''}
+                      legendData={props.data}
+                      scaleType={RATE_MAP_SCALE}
+                      sameDotSize={true}
+                      direction={pageIsTiny ? 'vertical' : 'horizontal'}
+                      description={'Consistent legend for all displayed maps'}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid container justifyContent="center">
-                  <Legend
-                    metric={props.metricConfig}
-                    legendTitle={''}
-                    legendData={props.data}
-                    scaleType={RATE_MAP_SCALE}
-                    sameDotSize={true}
-                    direction={pageIsTiny ? 'vertical' : 'horizontal'}
-                    description={'Consistent legend for all displayed maps'}
-                  />
-                </Grid>
-              </Grid>
-            </Box>
+              </Box>
+            </Grid>
+            {/* MOBILE BREADCRUMBS */}
+            <Grid
+              sx={{ mt: 3, display: { xs: 'flex', md: 'none' } }}
+              container
+              item
+              xs={12}
+              justifyContent={'center'}
+            >
+              <MapBreadcrumbs
+                fips={props.fips}
+                updateFipsCallback={props.updateFipsCallback}
+                scrollToHashId={'rate-map'}
+                endNote={props.totalPopulationPhrase}
+              />
+            </Grid>
           </Grid>
 
           {/* Missing Groups */}

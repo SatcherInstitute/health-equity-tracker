@@ -10,14 +10,12 @@ type Text = string | string[]
 
 export interface DisparityBarChartProps {
   breakdownVar: BreakdownVar
-  chartTitle?: Text
   data: Data
   darkMetric: MetricConfig
   lightMetric: MetricConfig
   filename: string
   metricDisplayName: string
   showAltPopCompare?: boolean
-  hideActions: boolean
 }
 
 export interface AxesProps {
@@ -52,9 +50,4 @@ export interface ScalesProps {
   largerMeasure: MetricId
   breakdownVar: BreakdownVar
   LEGEND_DOMAINS: string[]
-}
-
-export interface getTitleProps {
-  chartTitle?: string | string[]
-  fontSize: number
 }

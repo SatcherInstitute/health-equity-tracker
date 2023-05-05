@@ -17,7 +17,6 @@ import {
   getAltGroupLabel,
   LABEL_HEIGHT,
 } from './utils'
-import { useFontSize } from '../utils/hooks/useFontSize'
 import sass from '../styles/variables.module.scss'
 import { useMediaQuery } from '@mui/material'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
@@ -33,7 +32,6 @@ const SINGLE_LINE_PERCENT = '%'
 function getSpec(
   altText: string,
   data: Row[],
-  chartTitle: string | string[],
   width: number,
   breakdownVar: BreakdownVar,
   breakdownVarDisplayName: BreakdownVarDisplayName,
@@ -46,8 +44,7 @@ function getSpec(
   showLegend: boolean,
   barLabelBreakpoint: number,
   pageIsTiny: boolean,
-  usePercentSuffix: boolean,
-  fontSize: number
+  usePercentSuffix: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen
   const BAR_HEIGHT = 60
@@ -87,18 +84,6 @@ function getSpec(
 
   return {
     $schema: 'https://vega.github.io/schema/vega/v5.json',
-    title: {
-      text: chartTitle,
-      subtitle: ' ',
-      encode: {
-        title: {
-          enter: {
-            fontSize: { value: fontSize },
-            font: { value: 'Inter, sans-serif' },
-          },
-        },
-      },
-    },
     description: altText,
     background: sass.white,
     autosize: { resize: true, type: 'fit-x' },
@@ -291,12 +276,9 @@ function getSpec(
 }
 
 export interface SimpleHorizontalBarChartProps {
-  chartTitle?: string | string[]
   data: Row[]
   metric: MetricConfig
   breakdownVar: BreakdownVar
-  showLegend: boolean
-  hideActions?: boolean
   filename?: string
   usePercentSuffix?: boolean
 }
@@ -308,7 +290,6 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
-  const fontSize = useFontSize()
 
   const altLabelDeterminants = [...CAWP_DETERMINANTS, ...HIV_DETERMINANTS]
 
@@ -354,7 +335,6 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
             props.filename ?? 'Data Download'
           }`,
           /* data  */ data,
-          /* filename  */ props?.chartTitle ?? '',
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
@@ -364,23 +344,12 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* measureDisplayName  */ props.metric.shortLabel,
           /* barMetricDisplayColumnName  */ barMetricDisplayColumnName,
           /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
-          /* showLegend  */ props.showLegend,
+          /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
           /* pageIsTiny  */ pageIsTiny,
-          /* usePercentSuffix  */ props.usePercentSuffix ?? false,
-          fontSize
+          /* usePercentSuffix  */ props.usePercentSuffix ?? false
         )}
-        // custom 3-dot options menu
-        actions={
-          props.hideActions
-            ? false
-            : {
-                export: { png: true, svg: true },
-                source: false,
-                compiled: false,
-                editor: false,
-              }
-        }
+        actions={false}
       />
     </div>
   )
