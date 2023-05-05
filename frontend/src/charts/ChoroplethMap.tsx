@@ -8,8 +8,10 @@ import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import {
   LEGEND_TEXT_FONT,
+  MAP_SCHEME,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
+  UNKNOWN_MAP_SCHEME,
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
 import {
@@ -258,7 +260,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId,
       /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen'
+      /* scaleColorScheme? */ props.isUnknownsMap
+        ? UNKNOWN_MAP_SCHEME
+        : MAP_SCHEME
     )
 
     const projection = getProjection(

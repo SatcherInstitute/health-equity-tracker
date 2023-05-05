@@ -28,6 +28,9 @@ export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const LEGEND_COLOR_COUNT = 6
 
+export const MAP_SCHEME = 'yellowgreen'
+export const UNKNOWN_MAP_SCHEME = 'greenblue'
+
 /*
    Legend renders a vega chart that just contains a legend.
 */
@@ -66,7 +69,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+      range: { scheme: MAP_SCHEME, count: LEGEND_COLOR_COUNT },
     }
 
     if (props.fieldRange) {
@@ -190,7 +193,7 @@ export function Legend(props: LegendProps) {
           name: COLOR_SCALE,
           type: props.scaleType,
           domain: { data: DATASET_VALUES, field: props.metric.metricId },
-          range: { scheme: 'yellowgreen', count: LEGEND_COLOR_COUNT },
+          range: { scheme: MAP_SCHEME, count: LEGEND_COLOR_COUNT },
         },
         {
           name: DOT_SIZE_SCALE,
