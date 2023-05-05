@@ -245,7 +245,7 @@ function OptionsSelector(props: {
                           }}
                         />{' '}
                         <span className={styles.ClearTopicButtonText}>
-                          Clear topic selection
+                          Clear selections
                         </span>
                       </Button>
                     )}

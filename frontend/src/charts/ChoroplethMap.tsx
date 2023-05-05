@@ -11,7 +11,6 @@ import {
   MAP_SCHEME,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  UNKNOWNS_MAP_SCHEME,
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
 import {
@@ -40,6 +39,8 @@ import {
   RATE_MAP_SCALE,
   ZERO_DATASET,
   VALID_DATASET,
+  getHelperLegend,
+  UNKNOWNS_MAP_SCHEME,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { type Legend } from 'vega'
@@ -243,6 +244,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
     }
 
+    const helperLegend = getHelperLegend(
+      /* yOffset */ yOffsetNoDataLegend,
+      /* xOffset */ xOffsetNoDataLegend,
+      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+    )
+    if (!props.hideLegend) {
+      legendList.push(legend, helperLegend)
+    }
     const colorScale = setupColorScale(
       /* legendData */ props.data,
       /* metricId */ props.metric.metricId,

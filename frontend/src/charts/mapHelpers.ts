@@ -41,6 +41,8 @@ export type ScaleType = 'quantize' | 'quantile' | 'symlog'
 export const RATE_MAP_SCALE: ScaleType = 'quantile'
 export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
+export const UNKNOWNS_MAP_SCHEME = 'greenblue'
+
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
   type: ORDINAL,
@@ -160,7 +162,7 @@ export function getHelperLegend(
   return {
     fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    orient: 'none',
+    // orient: 'none',
     font: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,

@@ -35,7 +35,6 @@ export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
 const ZERO_BUCKET_LABEL = '0'
 export const MAP_SCHEME = 'yellowgreen'
-export const UNKNOWNS_MAP_SCHEME = 'bluegreen'
 
 /*
    Legend renders a vega chart that just contains a legend.
