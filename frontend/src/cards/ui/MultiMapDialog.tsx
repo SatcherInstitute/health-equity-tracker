@@ -58,7 +58,7 @@ export interface MultiMapDialogProps {
   open: boolean
   // Closes the dialog in the parent component
   handleClose: () => void
-  // Dataset IDs required the source footer
+  // Dataset IDs required the source  footer
   queryResponses: MetricQueryResponse[]
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata
