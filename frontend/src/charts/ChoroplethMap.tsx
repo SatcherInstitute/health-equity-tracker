@@ -97,12 +97,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
-  if (props.fips.code === '60') {
-    console.log(props.fips.getDisplayName())
-    console.log(props)
-    console.log(props.data.find((row) => row.fips === props.fips.code))
-  }
-
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 

@@ -85,6 +85,7 @@ export function Legend(props: LegendProps) {
   const [spec, setSpec] = useState({})
 
   useEffect(() => {
+    // TODO: this should use the util in mapHelpers; been having issues with app breaking on this stuff, perhaps because Legend.tsx and mapHelpers.ts were each reading from one another? We should really have all utils centralized and then exported out to the consuming components
     const legendColorCount = Math.min(
       DEFAULT_LEGEND_COLOR_COUNT,
       uniqueNonZeroValueCount
