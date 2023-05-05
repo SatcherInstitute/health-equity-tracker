@@ -336,7 +336,8 @@ export function setupColorScale(
   metricId: MetricId,
   scaleType: ScaleType,
   fieldRange?: FieldRange,
-  scaleColorScheme?: string
+  scaleColorScheme?: string,
+  isTerritoryCircle?: boolean
 ) {
   const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
 
@@ -352,8 +353,14 @@ export function setupColorScale(
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
-    // switching VAR_ to VALID_ was making territories with non-zero data always the darkest color
-    domain: { data: VAR_DATASET, field: metricId },
+    // using VALID_ makes territories with non-zero data always the darkest color
+    // using VAR_ makes making map scale not match legend scale, so non-zero places were slightly wrong colors
+    //
+    // domain: { data: VAR_DATASET, field: metricId },
+    domain: {
+      data: isTerritoryCircle ? VAR_DATASET : VALID_DATASET,
+      field: metricId,
+    },
     range: {
       scheme: scaleColorScheme ?? 'yellowgreen',
       count: legendColorCount,

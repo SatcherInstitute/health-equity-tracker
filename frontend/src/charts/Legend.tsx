@@ -101,6 +101,8 @@ export function Legend(props: LegendProps) {
       : ''
     const legendList: LegendType[] = []
 
+    // TODO: rather than build, edit, and conditionally push, we should conditionally build, edit and push each sub-legend for perf
+
     // MAKE ZERO LEGEND ITEM
     const zeroLegend: LegendType = {
       fill: props.hasSelfButNotChildGeoData ? COLOR_SCALE : ZERO_SCALE,

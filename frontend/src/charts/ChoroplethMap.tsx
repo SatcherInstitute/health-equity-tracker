@@ -246,7 +246,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId,
       /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen'
+      /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen',
+      /* isTerritoryCircle? */ props.fips.isTerritory()
     )
 
     console.log(colorScale)
