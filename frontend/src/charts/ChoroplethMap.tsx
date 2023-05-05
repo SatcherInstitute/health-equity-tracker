@@ -95,9 +95,15 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const nonZeroData = props.data.filter((row) => row[props.metric.metricId] > 0)
+  // const nonZeroData = props.data.filter((row) => row[props.metric.metricId] > 0)
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+
+  if (props.fips.code === '60') {
+    console.log(props.fips.getDisplayName())
+    console.log(props)
+    console.log(props.data.find((row) => row.fips === props.fips.code))
+  }
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -212,7 +218,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* includeSvi */ props.showCounties
     )
 
-    /* SET UP LEGEND */
+    /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
     const legendList: Legend[] = []
 
     const legend: Legend = {
@@ -240,15 +246,15 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       }
     }
 
-    const mapScale = RATE_MAP_SCALE
-
     const colorScale = setupColorScale(
-      /* legendData */ nonZeroData,
+      /* legendData */ props.data,
       /* metricId */ props.metric.metricId,
-      /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : mapScale,
+      /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen'
     )
+
+    console.log(colorScale)
 
     const projection = getProjection(
       /* fips */ props.fips,
