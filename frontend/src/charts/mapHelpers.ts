@@ -352,7 +352,8 @@ export function setupColorScale(
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
-    domain: { data: VALID_DATASET, field: metricId },
+    // switching VAR_ to VALID_ was making territories with non-zero data always the darkest color
+    domain: { data: VAR_DATASET, field: metricId },
     range: {
       scheme: scaleColorScheme ?? 'yellowgreen',
       count: legendColorCount,

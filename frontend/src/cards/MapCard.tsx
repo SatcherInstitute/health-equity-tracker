@@ -431,6 +431,7 @@ function MapCardWithKey(props: MapCardProps) {
                             ? highestValues.concat(lowestValues)
                             : dataForActiveBreakdownFilter
                         }
+                        hideMissingDataTooltip={listExpanded}
                         legendData={dataForActiveBreakdownFilter}
                         hideLegend={true}
                         showCounties={
@@ -456,7 +457,6 @@ function MapCardWithKey(props: MapCardProps) {
                                 ? highestValues.concat(lowestValues)
                                 : dataForActiveBreakdownFilter
                             }
-                            legendData={dataForActiveBreakdownFilter}
                             countColsToAdd={countColsToAdd}
                             listExpanded={listExpanded}
                             metricConfig={metricConfig}
@@ -520,7 +520,7 @@ function MapCardWithKey(props: MapCardProps) {
                                 ? highestValues.concat(lowestValues)
                                 : dataForActiveBreakdownFilter
                             }
-                            legendData={dataForActiveBreakdownFilter}
+                            // legendData={dataForActiveBreakdownFilter}
                             countColsToAdd={countColsToAdd}
                             listExpanded={listExpanded}
                             metricConfig={metricConfig}
