@@ -49,7 +49,7 @@ import { type Fips } from './Fips'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 
-// TODO consider finding different library for joins, or write our own. This
+// TODO: consider finding different library for joins, or write our own. This
 // library doesn't support multi-col joins naturally, so this uses a workaround.
 // I've also seen occasional issues with the page hanging that have been
 // difficult to consistently reproduce.

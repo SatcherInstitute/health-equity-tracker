@@ -12,7 +12,7 @@ interface Globals {
   dataManager: DataManager
 }
 
-// TODO consider using interfaces for the various globals so they can have
+// TODO: consider using interfaces for the various globals so they can have
 // default Noop variants instead of relying on a typecast.
 const globals: Partial<Globals> = { initialized: false }
 

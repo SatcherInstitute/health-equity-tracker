@@ -83,9 +83,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const theme = useTheme()
   const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const title = `${props.metricConfig.chartTitleLines.join(
-    ' '
-  )} in ${props.fips.getSentenceDisplayName()} across all
+  const title = `${
+    props.metricConfig.chartTitle
+  } in ${props.fips.getSentenceDisplayName()} across all
   ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
@@ -189,11 +189,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     }
                     fips={props.fips}
                     fieldRange={props.fieldRange}
-                    hideActions={true}
                     geoData={props.geoData}
-                    filename={`${props.metricConfig.chartTitleLines.join(' ')}${
-                      breakdownValue === 'All' ? '' : ` for ${breakdownValue}`
-                    } in ${props.fips.getSentenceDisplayName()}`}
+                    filename={title}
                     countColsToAdd={props.countColsToAdd}
                   />
                 )}

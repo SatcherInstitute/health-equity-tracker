@@ -53,10 +53,9 @@ import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { generateSubtitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
@@ -72,6 +71,7 @@ import {
   getParameter,
   setParameter,
 } from '../utils/urlutils'
+import ChartTitle from './ChartTitle'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -99,7 +99,6 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
   const metricConfig = props.variableConfig.metrics.per100k
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.variableConfig.variableId === 'prison'
@@ -205,16 +204,11 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = []
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
-  let { chartTitle, filename, dataName } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase
-  )
-
-  // TODO: remove this once we move ALL chart titles to HTML instead of VEGA
-  // TODO: and no longer need multi-line titles sent as string[]
-  if (Array.isArray(chartTitle)) chartTitle = chartTitle.join(' ')
-
-  const { metricId } = metricConfig
+  const { metricId, chartTitle } = metricConfig
+  const title = generateChartTitle({
+    chartTitle,
+    fips: props.fips,
+  })
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
     currentBreakdown,
@@ -222,7 +216,7 @@ function MapCardWithKey(props: MapCardProps) {
     metricId,
   })
 
-  filename = `${filename} ${subtitle ? `for ${subtitle}` : ''}`
+  const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   const HASH_ID: ScrollableHashId = 'rate-map'
 
@@ -414,10 +408,12 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <figcaption>
-                        <h3 className={styles.MapTitle}>{chartTitle}</h3>
-                        <h4 className={styles.MapSubtitle}>{subtitle}</h4>
-                      </figcaption>
+                      <ChartTitle
+                        mt={0}
+                        mb={2}
+                        title={title}
+                        subtitle={subtitle}
+                      />
                     </Grid>
 
                     <Grid
@@ -437,7 +433,6 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         hideMissingDataTooltip={listExpanded}
                         legendData={dataForActiveBreakdownFilter}
-                        hideActions={true}
                         hideLegend={true}
                         showCounties={
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
@@ -560,7 +555,7 @@ function MapCardWithKey(props: MapCardProps) {
                   dataForActiveBreakdownFilter.length === 0) && (
                   <CardContent>
                     <MissingDataAlert
-                      dataName={dataName}
+                      dataName={title}
                       breakdownString={
                         BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                       }
