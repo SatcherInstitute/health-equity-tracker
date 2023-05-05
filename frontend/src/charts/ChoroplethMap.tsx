@@ -5,7 +5,6 @@ import { type Fips } from '../data/utils/Fips'
 import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
-import { useFontSize } from '../utils/hooks/useFontSize'
 import sass from '../styles/variables.module.scss'
 import {
   LEGEND_TEXT_FONT,
@@ -51,7 +50,7 @@ const {
 
 const GEO_ID = 'id'
 
-// TODO - consider moving standardized column names, like fips, to variables shared between here and VariableProvider
+// TODO: consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = 'fips'
 
 export interface ChoroplethMapProps {
@@ -76,8 +75,6 @@ export interface ChoroplethMapProps {
   legendTitle?: string | string[]
   // Max/min of the data range- if present it will set the color scale at these boundaries
   fieldRange?: FieldRange
-  // Hide the action bar in the corner of a vega chart
-  hideActions?: boolean
   // If true, the geography will be rendered as a circle. Used to display territories at national level.
   overrideShapeWithCircle?: boolean
   // Do not show a tooltip when there is no data.
@@ -87,7 +84,6 @@ export interface ChoroplethMapProps {
   // use the constructed string from the Card Wrapper Title in the export as PNG filename
   filename?: string
   titles?: {
-    chartTitle: string | string[]
     subtitle?: string
   }
   listExpanded?: boolean
@@ -114,7 +110,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
-  const fontSize = useFontSize()
 
   const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
   const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
@@ -399,28 +394,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ],
       legends: legendList,
       marks,
-      title: !props.overrideShapeWithCircle && {
-        text: props.titles?.chartTitle,
-        subtitle: props.titles?.subtitle,
-        encode: {
-          title: {
-            enter: {
-              fontSize: {
-                value: fontSize,
-              },
-              font: { value: 'Inter, sans-serif' },
-            },
-          },
-          subtitle: {
-            enter: {
-              fontStyle: { value: 'italic' },
-              fontSize: {
-                value: fontSize - 2,
-              },
-            },
-          },
-        },
-      },
       signals: [
         {
           name: 'click',
@@ -456,7 +429,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props,
     heightWidthRatio,
     pageIsTiny,
-    fontSize,
   ])
 
   return (

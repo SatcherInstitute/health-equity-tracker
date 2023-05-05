@@ -1,14 +1,12 @@
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
-import { useFontSize } from '../../utils/hooks/useFontSize'
 import { type DisparityBarChartProps } from './types'
 import {
-  ACTIONS,
   BACKGROUND_COLOR,
   LABEL_SWAP_CUTOFF_PERCENT,
   SCHEMA,
 } from './constants'
-import { getLargerMeasure, getTitle, getSignals } from './helpers'
+import { getLargerMeasure, getSignals } from './helpers'
 import { Axes } from './Axes'
 import { Legends } from './Legends'
 import { Marks } from './Marks'
@@ -25,7 +23,7 @@ import { type MetricConfig } from '../../data/config/MetricConfig'
 import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
 
 export const altLightMetric: MetricConfig = {
-  chartTitleLines: ['Population Share (ACS)'],
+  chartTitle: 'Population Share (ACS)',
   metricId: 'acs_vaccinated_pop_pct',
   shortLabel: '% of population (ACS)',
   type: 'pct_share',
@@ -34,7 +32,6 @@ export const altLightMetric: MetricConfig = {
 export function DisparityBarChart(props: DisparityBarChartProps) {
   /* default width during initialization */
   const [ref, width] = useResponsiveWidth(100)
-  const fontSize = useFontSize()
   // some states don't have any NHPI AIAN won't need alt light on vega even if they fit criteria
 
   const [chartDimensions] = useChartDimensions(width)
@@ -44,7 +41,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   // move AIAN and NHPI into their own properties for STATE/RACE/VACCINE (since KFF doesnt provide pop compare metrics)
   let dataFromProps = props.data
   const {
-    chartTitle,
     showAltPopCompare,
     metricDisplayName,
     lightMetric,
@@ -143,7 +139,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const legends = Legends({ chartDimensions })
   const scales = Scales({ largerMeasure, breakdownVar, LEGEND_DOMAINS })
   const signals = getSignals()
-  const title = getTitle({ chartTitle, fontSize })
   const marks = Marks(markProps)
 
   function getSpec() {
@@ -159,7 +154,6 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
       scales,
       signals,
       style: 'cell',
-      title,
       width: chartWidth,
     }
   }
@@ -167,7 +161,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
-        actions={!props.hideActions && ACTIONS}
+        actions={false}
         downloadFileName={downloadFileName}
         renderer="svg"
         spec={getSpec()}

@@ -101,7 +101,7 @@ describe('WithLoadingOrErrorUI', () => {
     expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
   })
 
-  // TODO - one successful dataset, one bad dataset
+  // TODO: one successful dataset, one bad dataset
 
   test('WithMetrics: Loaded metrics have no rows', async () => {
     const query = new MetricQuery(
