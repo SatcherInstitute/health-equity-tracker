@@ -280,7 +280,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
 def generate_atlas_cols_to_exclude(breakdown: str, determinant: str):
     """
-    Generates a list of columns exclude based on the breakdown. 
+    Generates a list of columns exclude based on the breakdown.
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
     return: a list of columns to exclude when reading csv file
     """
