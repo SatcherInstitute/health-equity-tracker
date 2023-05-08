@@ -27,13 +27,13 @@ DEM_COLS_STANDARD = {
 
 HIV_DETERMINANTS = {
     'care': std_col.HIV_CARE_PREFIX,
-    'diagnoses': std_col.HIV_DIAGNOSES_PREFIX,
     'deaths': std_col.HIV_DEATHS_PREFIX,
+    'diagnoses': std_col.HIV_DIAGNOSES_PREFIX,
     'prep': std_col.PREP_PREFIX,
     'prevalence': std_col.HIV_PREVALENCE_PREFIX,
-    'prevalence_in_black_women': std_col.HIV_PREVALENCE_BW_PREFIX,
+    'deaths_in_black_women': std_col.HIV_DEATHS_BW_PREFIX,
     'diagnoses_in_black_women': std_col.HIV_DIAGNOSES_BW_PREFIX,
-    'deaths_in_black_women': std_col.HIV_DEATHS_BW_PREFIX}
+    'prevalence_in_black_women': std_col.HIV_PREVALENCE_BW_PREFIX}
 
 PCT_SHARE_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
                  for prefix in HIV_DETERMINANTS.values()}
@@ -78,8 +78,7 @@ POP_MAP = {
     std_col.HIV_PREVALENCE_PREFIX: std_col.POPULATION_COL,
     std_col.HIV_PREVALENCE_BW_PREFIX: std_col.HIV_BW_POPULATION,
     std_col.HIV_DIAGNOSES_BW_PREFIX: std_col.HIV_BW_POPULATION,
-    std_col.HIV_DEATHS_BW_PREFIX: std_col.HIV_BW_POPULATION,
-}
+    std_col.HIV_DEATHS_BW_PREFIX: std_col.HIV_BW_POPULATION}
 
 # HIV dictionaries
 DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
@@ -227,16 +226,17 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     geo_level: string equal to `county`, `national`, or `state`
     return: a data frame of time-based HIV data by breakdown and
     geo_level with AtlasPlus columns"""
-    cols_to_exclude = generate_cols_to_exclude(breakdown)
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
 
     for determinant in HIV_DETERMINANTS.values():
+        cols_to_exclude = generate_cols_to_exclude(breakdown, determinant)
+
         is_deaths_and_county = determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL
         is_prep_race_and_not_nat = determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level != NATIONAL_LEVEL
         is_black_women_and_county = (
             'black_women' in determinant and geo_level == COUNTY_LEVEL)
         no_black_women_breakdown = 'black_women' in determinant and (
-            breakdown != 'age' and breakdown != 'all')
+            breakdown != std_col.AGE_COL and breakdown != 'all')
 
         if (is_deaths_and_county) or \
            (is_prep_race_and_not_nat) or (no_black_women_breakdown) or (is_black_women_and_county):
@@ -261,15 +261,12 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 cols_to_standard = {
                     'Cases': determinant,
                     'Rate per 100000': PER_100K_MAP[determinant],
-                    'Population': POP_MAP[determinant]
-                }
+                    'Population': POP_MAP[determinant]}
 
             if determinant == std_col.PREP_PREFIX:
                 df = df.replace({'13-24': '16-24'})
 
-            if determinant == std_col.HIV_PREVALENCE_PREFIX:
-                df['Geography'] = df['Geography'].str.replace(
-                    '^', '', regex=False)
+            df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
 
             df = df.rename(columns=cols_to_standard)
 
@@ -278,7 +275,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     return output_df
 
 
-def generate_cols_to_exclude(breakdown: str):
+def generate_cols_to_exclude(breakdown: str, determinant: str):
     """
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
     return: a list of columns to exclude when reading csv file
@@ -288,5 +285,9 @@ def generate_cols_to_exclude(breakdown: str):
     if breakdown != 'all':
         cols.extend(
             filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
+
+    if 'black_women' in determinant:
+        cols.extend(
+            filter(lambda x: x != DEM_COLS_STANDARD[std_col.AGE_COL], CDC_DEM_COLS))
 
     return cols
