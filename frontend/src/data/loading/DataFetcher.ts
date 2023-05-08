@@ -74,7 +74,7 @@ export class ApiDataFetcher implements DataFetcher {
     return await resp.json()
   }
 
-  // TODO build in retries, timeout before showing error to user.
+  // TODO: build in retries, timeout before showing error to user.
   async loadDataset(datasetId: string): Promise<Row[]> {
     const result = await this.fetchDataset(datasetId)
 
@@ -85,7 +85,7 @@ export class ApiDataFetcher implements DataFetcher {
   }
 
   async getMetadata(): Promise<MapOfDatasetMetadata> {
-    // TODO replace with real API call.
+    // TODO: replace with real API call.
     return DatasetMetadataMap
   }
 }

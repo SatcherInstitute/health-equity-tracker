@@ -53,15 +53,14 @@ import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
-import { generateSubtitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
 import { RATE_MAP_SCALE } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
-import GeoContext from './ui/GeoContext'
+import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
@@ -72,6 +71,7 @@ import {
   getParameter,
   setParameter,
 } from '../utils/urlutils'
+import ChartTitle from './ChartTitle'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -99,7 +99,6 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
   const metricConfig = props.variableConfig.metrics.per100k
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.variableConfig.variableId === 'prison'
@@ -205,16 +204,11 @@ function MapCardWithKey(props: MapCardProps) {
   let qualifierItems: string[] = []
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
-  let { chartTitle, filename, dataName } = useCreateChartTitle(
-    metricConfig,
-    locationPhrase
-  )
-
-  // TODO: remove this once we move ALL chart titles to HTML instead of VEGA
-  // TODO: and no longer need multi-line titles sent as string[]
-  if (Array.isArray(chartTitle)) chartTitle = chartTitle.join(' ')
-
-  const { metricId } = metricConfig
+  const { metricId, chartTitle } = metricConfig
+  const title = generateChartTitle({
+    chartTitle,
+    fips: props.fips,
+  })
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
     currentBreakdown,
@@ -222,7 +216,7 @@ function MapCardWithKey(props: MapCardProps) {
     metricId,
   })
 
-  filename = `${filename} ${subtitle ? `for ${subtitle}` : ''}`
+  const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
   const HASH_ID: ScrollableHashId = 'rate-map'
 
@@ -253,8 +247,7 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const populationQueryResponse: MetricQueryResponse =
-          queryResponses[2] || null
+        const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
 
@@ -335,6 +328,12 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, ALL)
         }
 
+        function handleMapGroupClick(_: any, newGroup: DemographicGroup) {
+          setActiveBreakdownFilter(newGroup)
+          const groupCode = getGroupParamFromDemographicGroup(newGroup)
+          setParameter(MAP_GROUP_PARAM, groupCode)
+        }
+
         return (
           <>
             <MultiMapDialog
@@ -360,6 +359,9 @@ function MapCardWithKey(props: MapCardProps) {
               breakdownValuesNoData={fieldValues.noData}
               countColsToAdd={countColsToAdd}
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
+              updateFipsCallback={props.updateFipsCallback}
+              totalPopulationPhrase={totalPopulationPhrase}
+              handleMapGroupClick={handleMapGroupClick}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -381,19 +383,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         value={dropdownValue}
                         options={filterOptions}
-                        onOptionUpdate={(
-                          newBreakdownDisplayName,
-                          filterSelection
-                        ) => {
-                          // This DropDownMenu instance only supports changing active breakdown filter
-                          // It doesn't support changing breakdown type
-                          if (filterSelection) {
-                            setActiveBreakdownFilter(filterSelection)
-                            const groupCode =
-                              getGroupParamFromDemographicGroup(filterSelection)
-                            setParameter(MAP_GROUP_PARAM, groupCode)
-                          }
-                        }}
+                        onOptionUpdate={handleMapGroupClick}
                       />
                       <Divider />
                       <Button
@@ -418,10 +408,12 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent>
                   <Grid container>
                     <Grid item xs={12}>
-                      <figcaption>
-                        <h3 className={styles.MapTitle}>{chartTitle}</h3>
-                        <h4 className={styles.MapSubtitle}>{subtitle}</h4>
-                      </figcaption>
+                      <ChartTitle
+                        mt={0}
+                        mb={2}
+                        title={title}
+                        subtitle={subtitle}
+                      />
                     </Grid>
 
                     <Grid
@@ -441,7 +433,6 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         hideMissingDataTooltip={listExpanded}
                         legendData={dataForActiveBreakdownFilter}
-                        hideActions={true}
                         hideLegend={true}
                         showCounties={
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
@@ -512,7 +503,7 @@ function MapCardWithKey(props: MapCardProps) {
                           fips={props.fips}
                           updateFipsCallback={props.updateFipsCallback}
                           variableConfig={props.variableConfig}
-                          populationQueryResponse={populationQueryResponse}
+                          totalPopulationPhrase={totalPopulationPhrase}
                           sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
@@ -564,7 +555,7 @@ function MapCardWithKey(props: MapCardProps) {
                   dataForActiveBreakdownFilter.length === 0) && (
                   <CardContent>
                     <MissingDataAlert
-                      dataName={dataName}
+                      dataName={title}
                       breakdownString={
                         BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
                       }

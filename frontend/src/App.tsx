@@ -159,7 +159,7 @@ function AppToolbar() {
   )
 }
 
-// TODO - this could be pulled into a hook
+// TODO: this could be pulled into a hook
 // https://reactrouter.com/web/api/Hooks/uselocation
 // https://github.com/ReactTraining/react-router/issues/7015
 function ScrollToTop() {

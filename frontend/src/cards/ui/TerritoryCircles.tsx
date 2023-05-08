@@ -38,7 +38,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               hideMissingDataTooltip={props.listExpanded}
               legendData={props.legendData}
               hideLegend={true}
-              hideActions={true}
               showCounties={false}
               fips={fips}
               isUnknownsMap={props.isUnknownsMap}
