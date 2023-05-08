@@ -6,6 +6,6 @@ NA - Not applicable.
 
 
 
-Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,hiv_care,hiv_care_linkage,hiv_care_population,hiv_diagnoses,hiv_diagnoses_per_100k,Population,hiv_deaths,hiv_deaths_per_100k,hiv_prep,hiv_prep_coverage,hiv_prep_population,hiv_prevalence,hiv_prevalence_per_100k
-"HIV diagnoses","2017","Alaska","02","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","28","96.6","29","30","5.0","604,084","7","1.2","125","5.3","2,370","713","118.0"
-"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","505","79.2","638","635","15.4","4,128,511","272","6.6","1,835","16.7","11,020","13,849","335.4"
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,hiv_care,hiv_care_linkage,hiv_care_population,hiv_diagnoses,hiv_diagnoses_per_100k,population,hiv_deaths,hiv_deaths_per_100k,hiv_prep,hiv_prep_coverage,hiv_prep_population,hiv_prevalence,hiv_prevalence_per_100k,hiv_prevalence_black_women,hiv_prevalence_black_women_per_100k,black_women_population,hiv_diagnoses_black_women,hiv_diagnoses_black_women_per_100k,hiv_deaths_black_women,hiv_deaths_black_women_per_100k
+"HIV diagnoses","2017","Alaska","02","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","28","96.6","29","30","5.0","604,084","7","1.2","125","5.3","2,370","713","118.0","137,345","779.6","17,616,853","4,279","24.3","2,289","13.0"
+"HIV diagnoses","2019","Alabama","01","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","505","79.2","638","635","15.4","4,128,511","272","6.6","1,835","16.7","11,020","13,849","335.4","141,598","789.4","17,938,238","3,867","21.6","2,201","12.3"
