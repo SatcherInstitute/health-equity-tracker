@@ -232,7 +232,8 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
         cols_to_exclude = generate_cols_to_exclude(breakdown, determinant)
 
         is_deaths_and_county = determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL
-        is_prep_race_and_not_nat = determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level != NATIONAL_LEVEL
+        is_prep_race_and_not_nat = determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL \
+            and geo_level != NATIONAL_LEVEL
         is_black_women_and_county = (
             'black_women' in determinant and geo_level == COUNTY_LEVEL)
         no_black_women_breakdown = 'black_women' in determinant and (
