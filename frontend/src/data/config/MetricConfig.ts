@@ -10,9 +10,12 @@ export type DropdownVarId =
   | 'covid_hospitalizations'
   | 'hiv_care'
   | 'hiv_diagnoses'
+  | 'hiv_diagnoses_black_women'
   | 'hiv_deaths'
+  | 'hiv_deaths_black_women'
   | 'hiv_prep'
   | 'hiv_prevalence'
+  | 'hiv_prevalence_black_women'
   | 'diabetes'
   | 'copd'
   | 'health_insurance'
@@ -90,10 +93,18 @@ export type MetricId =
   | 'hiv_diagnoses_pct_share'
   | 'hiv_diagnoses_pct_relative_inequity'
   | 'hiv_diagnoses_ratio_age_adjusted'
+  | 'hiv_diagnoses_black_women_per_100k'
+  | 'hiv_diagnoses_black_women_pct_share'
+  | 'hiv_diagnoses_black_women_pct_relative_inequity'
+  | 'hiv_diagnoses_black_women_ratio_age_adjusted'
   | 'hiv_deaths_per_100k'
   | 'hiv_deaths_pct_share'
   | 'hiv_deaths_pct_relative_inequity'
   | 'hiv_deaths_ratio_age_adjusted'
+  | 'hiv_deaths_black_women_per_100k'
+  | 'hiv_deaths_black_women_pct_share'
+  | 'hiv_deaths_black_women_pct_relative_inequity'
+  | 'hiv_deaths_black_women_ratio_age_adjusted'
   | 'hiv_prep_coverage'
   | 'hiv_prep_pct_share'
   | 'hiv_prep_pct_relative_inequity'
@@ -103,6 +114,10 @@ export type MetricId =
   | 'hiv_prevalence_pct_share'
   | 'hiv_prevalence_pct_relative_inequity'
   | 'hiv_prevalence_ratio_age_adjusted'
+  | 'hiv_prevalence_black_women_per_100k'
+  | 'hiv_prevalence_black_women_pct_share'
+  | 'hiv_prevalence_black_women_pct_relative_inequity'
+  | 'hiv_prevalence_black_women_ratio_age_adjusted'
   | 'hiv_population_pct'
   | 'poverty_count'
   | 'poverty_pct_share'
@@ -686,6 +701,57 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
+  hiv_diagnoses_black_women: [
+    {
+      variableId: 'hiv_diagnoses_black_women',
+      variableDisplayName: 'New HIV diagnoses - Black women',
+      variableFullDisplayName: 'New HIV diagnoses - Black women',
+      variableDefinition: `Black women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total new HIV diagnoses - Black women',
+          metricId: 'hiv_diagnoses_black_women_pct_share',
+          columnTitleHeader: 'Share of total new HIV diagnoses - Black women',
+          trendsCardTitleName:
+            'Inequitable share of new HIV diagnoses in Black women over time',
+          shortLabel: '% of new HIV diagnoses - Black women',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Population vs. distribution of total new HIV diagnoses in Black women',
+
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_diagnoses_black_women_per_100k',
+          chartTitle: 'New HIV diagnoses - Black women',
+          trendsCardTitleName:
+            'Rates of new HIV diagnoses in Black women over time',
+          columnTitleHeader: 'New HIV diagnoses per 100k',
+          shortLabel: 'diagnoses per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle:
+            'Historical relative inequity for new HIV diagnoses - Black women',
+          metricId: 'hiv_diagnoses_black_women_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle: 'Age-adjusted risk of HIV deaths compared to White (NH)',
+          metricId: 'hiv_diagnoses_black_women_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+  ],
   hiv_deaths: [
     {
       variableId: 'hiv_deaths',
@@ -715,6 +781,56 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitle: 'HIV deaths',
           trendsCardTitleName: 'Rates of HIV deaths over time',
           columnTitleHeader: 'HIV deaths per 100k people',
+          shortLabel: 'deaths per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Historical relative inequity for HIV deaths',
+          metricId: 'hiv_deaths_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle: 'Age-adjusted risk of HIV deaths compared to White (NH)',
+
+          metricId: 'hiv_deaths_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+  ],
+  hiv_deaths_black_women: [
+    {
+      variableId: 'hiv_deaths_black_women',
+      variableDisplayName: 'HIV deaths - Black women',
+      variableFullDisplayName: 'HIV deaths - Black women',
+      variableDefinition: `Black women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total HIV deaths in Black Women',
+          metricId: 'hiv_deaths_black_women_pct_share',
+          columnTitleHeader: 'Share of total HIV deaths in Black women',
+          trendsCardTitleName:
+            'Inequitable share of HIV deaths in Black women over time',
+          shortLabel: '% of HIV deaths',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Population vs. distribution of total HIV deaths in Black women',
+
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_deaths_black_women_per_100k',
+          chartTitle: 'HIV deaths - Black women',
+          trendsCardTitleName: 'Rates of HIV deaths in Black women over time',
+          columnTitleHeader: 'HIV deaths - Black women per 100k people',
           shortLabel: 'deaths per 100k',
           type: 'per100k',
         },
@@ -828,6 +944,57 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             'Age-adjusted risk of HIV prevalence compared to White (NH)',
 
           metricId: 'hiv_prevalence_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+  ],
+  hiv_prevalence_black_women: [
+    {
+      variableId: 'hiv_prevalence_black_women',
+      variableDisplayName: 'HIV prevalence - Black women',
+      variableFullDisplayName: 'HIV prevalence - Black women',
+      variableDefinition: `Black women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total HIV prevalence - Black women',
+          metricId: 'hiv_prevalence_pct_share',
+          columnTitleHeader: 'Share of total HIV prevalence - Black women',
+          trendsCardTitleName:
+            'Inequitable share of HIV prevalence in Black women over time',
+          shortLabel: '% of HIV prevalence - Black women',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Population vs. distribution of total HIV prevalence in Black women',
+
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_prevalence_black_women_per_100k',
+          chartTitle: 'HIV prevalence - Black women',
+          trendsCardTitleName: 'HIV prevalence in Black women over time',
+          columnTitleHeader: 'HIV prevalence - Black women per 100k people',
+          shortLabel: 'HIV prevalence - Black women per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Historical relative inequity for HIV prevalence',
+          metricId: 'hiv_prevalence_black_women_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle:
+            'Age-adjusted risk of HIV prevalence compared to White (NH)',
+
+          metricId: 'hiv_prevalence_black_women_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
         },
