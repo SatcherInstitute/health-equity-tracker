@@ -19,6 +19,7 @@ DTYPE = {'FIPS': str, 'Year': str}
 NA_VALUES = ['Data suppressed', 'Data not available']
 CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
 CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
+BLACK_WOMEN = 'black_women'
 
 DEM_COLS_STANDARD = {
     std_col.AGE_COL: 'Age Group',
@@ -219,8 +220,7 @@ class CDCHIVData(DataSource):
 
 
 def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
-    """load_atlas_from_data_dir generates HIV data (diagnoses, deaths & prep)
-    by breakdown and geo_level
+    """load_atlas_from_data_dir generates HIV data by breakdown and geo_level
 
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
     geo_level: string equal to `county`, `national`, or `state`
@@ -229,14 +229,16 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
 
     for determinant in HIV_DETERMINANTS.values():
-        cols_to_exclude = generate_cols_to_exclude(breakdown, determinant)
+        atlas_cols_to_exclude = generate_atlas_cols_to_exclude(
+            breakdown, determinant)
 
-        is_deaths_and_county = determinant == std_col.HIV_DEATHS_PREFIX and geo_level == COUNTY_LEVEL
-        is_prep_race_and_not_nat = determinant == std_col.PREP_PREFIX and breakdown == std_col.RACE_OR_HISPANIC_COL \
-            and geo_level != NATIONAL_LEVEL
+        is_deaths_and_county = (determinant == std_col.HIV_DEATHS_PREFIX) and (
+            geo_level == COUNTY_LEVEL)
+        is_prep_race_and_not_nat = (determinant == std_col.PREP_PREFIX) and (breakdown == std_col.RACE_OR_HISPANIC_COL
+                                                                             and geo_level != NATIONAL_LEVEL)
         is_black_women_and_county = (
-            'black_women' in determinant and geo_level == COUNTY_LEVEL)
-        no_black_women_breakdown = 'black_women' in determinant and (
+            BLACK_WOMEN in determinant and geo_level == COUNTY_LEVEL)
+        no_black_women_breakdown = BLACK_WOMEN in determinant and (
             breakdown != std_col.AGE_COL and breakdown != 'all')
 
         if (is_deaths_and_county) or \
@@ -249,7 +251,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              subdirectory=determinant,
                                                              skiprows=8,
                                                              na_values=NA_VALUES,
-                                                             usecols=lambda x: x not in cols_to_exclude,
+                                                             usecols=lambda x: x not in atlas_cols_to_exclude,
                                                              thousands=',',
                                                              dtype=DTYPE)
 
@@ -276,19 +278,20 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     return output_df
 
 
-def generate_cols_to_exclude(breakdown: str, determinant: str):
+def generate_atlas_cols_to_exclude(breakdown: str, determinant: str):
     """
+    Generates a list of columns exclude based on the breakdown. 
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
     return: a list of columns to exclude when reading csv file
     """
-    cols = ['Indicator', 'Transmission Category']
+    atlas_cols = ['Indicator', 'Transmission Category']
 
     if breakdown != 'all':
-        cols.extend(
+        atlas_cols.extend(
             filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
 
-    if 'black_women' in determinant:
-        cols.extend(
+    if BLACK_WOMEN in determinant:
+        atlas_cols.extend(
             filter(lambda x: x != DEM_COLS_STANDARD[std_col.AGE_COL], CDC_DEM_COLS))
 
-    return cols
+    return atlas_cols
