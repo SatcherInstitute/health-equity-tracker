@@ -97,7 +97,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: 'yellowgreen', count: legendColorCount },
+      range: { scheme: MAP_SCHEME, count: legendColorCount },
     }
 
     if (props.fieldRange) {
