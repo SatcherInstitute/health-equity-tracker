@@ -2,8 +2,8 @@
 	"version": "0.2",
 	"language": "en",
 	"ignorePaths": [
-		"**/frontend/node_modules/**",
-		"**/frontend/build/**"
+		"**/node_modules/**",
+		"**/build/**"
 	],
 	"allowCompoundWords": true,
 	"minWordLength": 3,
