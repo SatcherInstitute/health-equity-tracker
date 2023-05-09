@@ -7,9 +7,12 @@ import VariableProvider from './VariableProvider'
 
 export const VARIABLES_NEEDING_13PLUS: VariableId[] = [
   'hiv_deaths',
+  'hiv_deaths_black_women',
   'hiv_diagnoses',
+  'hiv_diagnoses_black_women',
   'hiv_care',
   'hiv_prevalence',
+  'hiv_prevalence_black_women',
 ]
 
 export const CARE_METRICS: MetricId[] = [
@@ -24,6 +27,10 @@ export const DEATHS_METRICS: MetricId[] = [
   'hiv_deaths_pct_share',
   'hiv_deaths_pct_relative_inequity',
   'hiv_deaths_ratio_age_adjusted',
+  'hiv_deaths_black_women_per_100k',
+  'hiv_deaths_black_women_pct_share',
+  'hiv_deaths_black_women_pct_relative_inequity',
+  'hiv_deaths_black_women_ratio_age_adjusted',
 ]
 
 export const DIAGNOSES_METRICS: MetricId[] = [
@@ -31,6 +38,10 @@ export const DIAGNOSES_METRICS: MetricId[] = [
   'hiv_diagnoses_pct_share',
   'hiv_diagnoses_pct_relative_inequity',
   'hiv_diagnoses_ratio_age_adjusted',
+  'hiv_diagnoses_black_women_per_100k',
+  'hiv_diagnoses_black_women_pct_share',
+  'hiv_diagnoses_black_women_pct_relative_inequity',
+  'hiv_diagnoses_black_women_ratio_age_adjusted',
 ]
 
 export const PREP_METRICS: MetricId[] = [
@@ -46,6 +57,10 @@ export const PREVALENCE_METRICS: MetricId[] = [
   'hiv_prevalence_pct_share',
   'hiv_prevalence_pct_relative_inequity',
   'hiv_prevalence_ratio_age_adjusted',
+  'hiv_prevalence_black_women_per_100k',
+  'hiv_prevalence_black_women_pct_share',
+  'hiv_prevalence_black_women_pct_relative_inequity',
+  'hiv_prevalence_black_women_ratio_age_adjusted',
 ]
 
 export const HIV_DETERMINANTS: MetricId[] = [
@@ -114,6 +129,7 @@ class HivProvider extends VariableProvider {
     const datasetId = this.getDatasetId(breakdowns)
     const hiv = await getDataManager().loadDataset(datasetId)
     let df = hiv.toDataFrame()
+    console.log(df)
 
     df = this.filterByGeo(df, breakdowns)
 
