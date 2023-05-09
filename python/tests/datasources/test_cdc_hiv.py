@@ -72,7 +72,8 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
                                           'national',
                                           alls_df)
 
-    expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(
+        GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
 
     assert_frame_equal(df, expected_df, check_like=True)
 
