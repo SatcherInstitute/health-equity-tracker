@@ -1,17 +1,17 @@
-time_period,state_name,state_fips,race_and_ethnicity,race_category_id,hiv_care,hiv_diagnoses,hiv_deaths,hiv_prep,hiv_prevalence,hiv_care_linkage,hiv_prep_coverage,hiv_diagnoses_per_100k,hiv_deaths_per_100k,hiv_prevalence_per_100k,hiv_care_pct_share,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_prep_pct_relative_inequity,hiv_prevalence_pct_relative_inequity
-2017,Alaska,02,All,ALL,28,30,7,125.0,713,96.6,5.3,5.0,1.2,118.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0
-2017,Alaska,02,American Indian and Alaska Native (NH),AIAN_NH,13,13,0,,186,100.0,,15.7,0.0,225.3,46.4,43.3,0.0,,26.1,,13.7,44.8,3.6,216.1,-100.0,,90.5
-2017,Alaska,02,Asian (NH),ASIAN_NH,0,0,0,,23,0.0,,0.0,0.0,57.9,0.0,0.0,0.0,,3.2,,6.6,0.0,,-100.0,-100.0,,-51.5
-2017,Alaska,02,Black or African American (NH),BLACK_NH,3,4,0,,100,75.0,,19.6,0.0,489.5,10.7,13.3,0.0,,14.0,,3.4,13.8,-22.5,291.2,-100.0,,311.8
-2017,Alaska,02,Hispanic or Latino,HISP,3,3,1,,77,100.0,,7.8,2.6,199.3,10.7,10.0,14.3,,10.8,,6.4,10.3,3.9,56.2,123.4,,68.8
-2017,Alaska,02,Native Hawaiian and Pacific Islander (NH),NHPI_NH,0,0,0,,3,0.0,,0.0,0.0,39.9,0.0,0.0,0.0,,0.4,,1.2,0.0,,-100.0,-100.0,,-66.7
-2017,Alaska,02,Two or more races (NH),MULTI_NH,0,0,1,,39,0.0,,0.0,3.1,121.5,0.0,0.0,14.3,,5.5,,5.3,0.0,,-100.0,169.8,,3.8
-2017,Alaska,02,White (NH),WHITE_NH,9,10,5,,285,100.0,,2.6,1.3,74.4,32.1,33.3,71.4,,40.0,,63.4,31.0,3.5,-47.5,12.6,,-36.9
-2019,Alabama,01,All,ALL,505,635,272,1835.0,13849,79.2,16.7,15.4,6.6,335.4,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0
-2019,Alabama,01,American Indian and Alaska Native (NH),AIAN_NH,1,1,1,,6,100.0,,4.1,4.1,24.4,0.2,0.2,0.4,,0.04,,0.6,0.2,0.0,-66.7,-33.3,,-93.3
-2019,Alabama,01,Asian (NH),ASIAN_NH,0,1,1,,36,0.0,,1.6,1.6,58.8,0.0,0.2,0.4,,0.3,,1.5,0.2,-100.0,-86.7,-73.3,,-80.0
-2019,Alabama,01,Black or African American (NH),BLACK_NH,361,453,170,,8731,79.0,,42.2,15.8,813.6,71.5,71.3,62.5,,63.0,,26.0,71.6,-0.1,174.2,140.4,,142.3
-2019,Alabama,01,Hispanic or Latino,HISP,11,15,5,,499,84.6,,9.7,3.2,321.9,2.2,2.4,1.8,,3.6,,3.8,2.0,10.0,-36.8,-52.6,,-5.3
-2019,Alabama,01,Native Hawaiian and Pacific Islander (NH),NHPI_NH,0,0,0,,3,0.0,,0.0,0.0,148.4,0.0,0.0,0.0,,0.02,,0.05,0.0,,-100.0,-100.0,,-60.0
-2019,Alabama,01,Two or more races (NH),MULTI_NH,13,14,23,,832,92.9,,28.0,46.0,1665.4,2.6,2.2,8.5,,6.0,,1.2,2.2,18.2,83.3,608.3,,400.0
-2019,Alabama,01,White (NH),WHITE_NH,119,151,69,,3700,78.3,,5.5,2.5,133.9,23.6,23.8,25.4,,26.7,,66.9,23.8,-0.8,-64.4,-62.0,,-60.1
+time_period,state_name,state_fips,race_and_ethnicity,race_category_id,hiv_care,hiv_diagnoses,hiv_deaths,hiv_prep,hiv_prevalence,hiv_prevalence_black_women,hiv_diagnoses_black_women,hiv_deaths_black_women,hiv_care_linkage,hiv_prep_coverage,hiv_diagnoses_per_100k,hiv_deaths_per_100k,hiv_prevalence_per_100k,hiv_prevalence_black_women_per_100k,hiv_diagnoses_black_women_per_100k,hiv_deaths_black_women_per_100k,hiv_care_pct_share,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prevalence_black_women_pct_share,hiv_diagnoses_black_women_pct_share,hiv_deaths_black_women_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,black_women_population_pct,hiv_care_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_prep_pct_relative_inequity,hiv_prevalence_pct_relative_inequity,hiv_prevalence_black_women_pct_relative_inequity,hiv_diagnoses_black_women_pct_relative_inequity,hiv_deaths_black_women_pct_relative_inequity
+2017,Alaska,02,All,ALL,28,30,7,125.0,713,137345.0,4279.0,2289.0,96.6,5.3,5.0,1.2,118.0,779.6,24.3,13.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+2017,Alaska,02,American Indian and Alaska Native (NH),AIAN_NH,13,13,0,,186,,,,100.0,,15.7,0.0,225.3,,,,46.4,43.3,0.0,,26.1,,,,,13.7,44.8,,3.6,216.1,-100.0,,90.5,,,
+2017,Alaska,02,Asian (NH),ASIAN_NH,0,0,0,,23,,,,0.0,,0.0,0.0,57.9,,,,0.0,0.0,0.0,,3.2,,,,,6.6,0.0,,,-100.0,-100.0,,-51.5,,,
+2017,Alaska,02,Black or African American (NH),BLACK_NH,3,4,0,,100,,,,75.0,,19.6,0.0,489.5,,,,10.7,13.3,0.0,,14.0,,,,,3.4,13.8,,-22.5,291.2,-100.0,,311.8,,,
+2017,Alaska,02,Hispanic or Latino,HISP,3,3,1,,77,,,,100.0,,7.8,2.6,199.3,,,,10.7,10.0,14.3,,10.8,,,,,6.4,10.3,,3.9,56.2,123.4,,68.8,,,
+2017,Alaska,02,Native Hawaiian and Pacific Islander (NH),NHPI_NH,0,0,0,,3,,,,0.0,,0.0,0.0,39.9,,,,0.0,0.0,0.0,,0.4,,,,,1.2,0.0,,,-100.0,-100.0,,-66.7,,,
+2017,Alaska,02,Two or more races (NH),MULTI_NH,0,0,1,,39,,,,0.0,,0.0,3.1,121.5,,,,0.0,0.0,14.3,,5.5,,,,,5.3,0.0,,,-100.0,169.8,,3.8,,,
+2017,Alaska,02,White (NH),WHITE_NH,9,10,5,,285,,,,100.0,,2.6,1.3,74.4,,,,32.1,33.3,71.4,,40.0,,,,,63.4,31.0,,3.5,-47.5,12.6,,-36.9,,,
+2019,Alabama,01,All,ALL,505,635,272,1835.0,13849,141598.0,3867.0,2201.0,79.2,16.7,15.4,6.6,335.4,789.4,21.6,12.3,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+2019,Alabama,01,American Indian and Alaska Native (NH),AIAN_NH,1,1,1,,6,,,,100.0,,4.1,4.1,24.4,,,,0.2,0.2,0.4,,0.04,,,,,0.6,0.2,,0.0,-66.7,-33.3,,-93.3,,,
+2019,Alabama,01,Asian (NH),ASIAN_NH,0,1,1,,36,,,,0.0,,1.6,1.6,58.8,,,,0.0,0.2,0.4,,0.3,,,,,1.5,0.2,,-100.0,-86.7,-73.3,,-80.0,,,
+2019,Alabama,01,Black or African American (NH),BLACK_NH,361,453,170,,8731,,,,79.0,,42.2,15.8,813.6,,,,71.5,71.3,62.5,,63.0,,,,,26.0,71.6,,-0.1,174.2,140.4,,142.3,,,
+2019,Alabama,01,Hispanic or Latino,HISP,11,15,5,,499,,,,84.6,,9.7,3.2,321.9,,,,2.2,2.4,1.8,,3.6,,,,,3.8,2.0,,10.0,-36.8,-52.6,,-5.3,,,
+2019,Alabama,01,Native Hawaiian and Pacific Islander (NH),NHPI_NH,0,0,0,,3,,,,0.0,,0.0,0.0,148.4,,,,0.0,0.0,0.0,,0.02,,,,,0.05,0.0,,,-100.0,-100.0,,-60.0,,,
+2019,Alabama,01,Two or more races (NH),MULTI_NH,13,14,23,,832,,,,92.9,,28.0,46.0,1665.4,,,,2.6,2.2,8.5,,6.0,,,,,1.2,2.2,,18.2,83.3,608.3,,400.0,,,
+2019,Alabama,01,White (NH),WHITE_NH,119,151,69,,3700,,,,78.3,,5.5,2.5,133.9,,,,23.6,23.8,25.4,,26.7,,,,,66.9,23.8,,-0.8,-64.4,-62.0,,-60.1,,,

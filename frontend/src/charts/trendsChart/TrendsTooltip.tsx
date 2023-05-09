@@ -10,7 +10,7 @@
 import React, { Fragment } from 'react'
 
 /* Local Imports */
-import { raceNameToCodeMap } from '../../data/utils/Constants'
+import { LESS_THAN_1, raceNameToCodeMap } from '../../data/utils/Constants'
 
 /* Styles */
 import styles from './Trends.module.scss'
@@ -97,7 +97,8 @@ export function TrendsTooltip({
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
               )
-              if (value === '0' && axisConfig.type === 'per100k') value = '<1'
+              if (value === '0' && axisConfig.type === 'per100k')
+                value = LESS_THAN_1
 
               return (
                 <Fragment key={`tooltipRow-${group}`}>

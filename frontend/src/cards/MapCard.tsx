@@ -136,8 +136,7 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
     useState<DemographicGroup>(initialGroup)
 
-  const [smallMultiplesDialogOpen, setSmallMultiplesDialogOpen] =
-    useAutoFocusDialog()
+  const [multimapOpen, setMultimapOpen] = useAutoFocusDialog()
 
   const metricQuery = (
     geographyBreakdown: Breakdowns,
@@ -272,6 +271,10 @@ function MapCardWithKey(props: MapCardProps) {
             (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
           )
 
+        const allDataForActiveBreakdownFilter = mapQueryResponse.data.filter(
+          (row: Row) => row[props.currentBreakdown] === activeBreakdownFilter
+        )
+
         const dataForSvi: Row[] =
           sviQueryResponse
             ?.getValidRowsForField('svi')
@@ -311,10 +314,6 @@ function MapCardWithKey(props: MapCardProps) {
         const hideGroupDropdown =
           Object.values(filterOptions).toString() === ALL
 
-        const legendData = listExpanded
-          ? highestValues.concat(lowestValues)
-          : dataForActiveBreakdownFilter
-
         // if a previously selected group is no longer valid, reset to ALL
         let dropdownValue = ALL
         if (
@@ -334,34 +333,36 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, groupCode)
         }
 
+        const displayData = listExpanded
+          ? highestValues.concat(lowestValues)
+          : dataForActiveBreakdownFilter
+
         return (
           <>
             <MultiMapDialog
+              breakdown={props.currentBreakdown}
+              breakdownValues={breakdownValues}
+              breakdownValuesNoData={fieldValues.noData}
+              countColsToAdd={countColsToAdd}
+              data={mapQueryResponse.data}
+              fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
               fips={props.fips}
+              geoData={geoData}
+              handleClose={() => {
+                setMultimapOpen(false)
+              }}
+              handleMapGroupClick={handleMapGroupClick}
+              hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
+              metadata={metadata}
               metricConfig={metricConfig}
+              open={multimapOpen}
+              queryResponses={queryResponses}
+              totalPopulationPhrase={totalPopulationPhrase}
+              updateFipsCallback={props.updateFipsCallback}
               useSmallSampleMessage={
                 !mapQueryResponse.dataIsMissing() &&
                 (props.variableConfig.surveyCollectedData ?? false)
               }
-              data={mapQueryResponse.getValidRowsForField(
-                metricConfig.metricId
-              )}
-              breakdown={props.currentBreakdown}
-              handleClose={() => {
-                setSmallMultiplesDialogOpen(false)
-              }}
-              open={smallMultiplesDialogOpen}
-              breakdownValues={breakdownValues}
-              fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
-              queryResponses={queryResponses}
-              metadata={metadata}
-              geoData={geoData}
-              breakdownValuesNoData={fieldValues.noData}
-              countColsToAdd={countColsToAdd}
-              hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
-              updateFipsCallback={props.updateFipsCallback}
-              totalPopulationPhrase={totalPopulationPhrase}
-              handleMapGroupClick={handleMapGroupClick}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -378,9 +379,7 @@ function MapCardWithKey(props: MapCardProps) {
                         idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
                         breakdownVar={props.currentBreakdown}
                         variableId={props.variableConfig.variableId}
-                        setSmallMultiplesDialogOpen={
-                          setSmallMultiplesDialogOpen
-                        }
+                        setMultimapOpen={setMultimapOpen}
                         value={dropdownValue}
                         options={filterOptions}
                         onOptionUpdate={handleMapGroupClick}
@@ -388,7 +387,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <Divider />
                       <Button
                         onClick={() => {
-                          setSmallMultiplesDialogOpen(true)
+                          setMultimapOpen(true)
                         }}
                       >
                         <GridView />
@@ -423,26 +422,21 @@ function MapCardWithKey(props: MapCardProps) {
                       lg={mapIsWide ? 10 : 12}
                     >
                       <ChoroplethMap
-                        signalListeners={signalListeners}
-                        metric={metricConfig}
-                        legendTitle={metricConfig.shortLabel.toLowerCase()}
-                        data={
-                          listExpanded
-                            ? highestValues.concat(lowestValues)
-                            : dataForActiveBreakdownFilter
-                        }
+                        countColsToAdd={countColsToAdd}
+                        data={displayData}
+                        filename={filename}
+                        fips={props.fips}
+                        geoData={geoData}
+                        hideLegend={true}
                         hideMissingDataTooltip={listExpanded}
                         legendData={dataForActiveBreakdownFilter}
-                        hideLegend={true}
+                        legendTitle={metricConfig.shortLabel.toLowerCase()}
+                        listExpanded={listExpanded}
+                        metric={metricConfig}
                         showCounties={
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
-                        fips={props.fips}
-                        geoData={geoData}
-                        // include card title, selected sub-group if any, and specific location in SAVE AS PNG filename
-                        filename={filename}
-                        listExpanded={listExpanded}
-                        countColsToAdd={countColsToAdd}
+                        signalListeners={signalListeners}
                       />
                       {props.fips.isUsa() && (
                         <Grid
@@ -452,11 +446,7 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
-                            data={
-                              listExpanded
-                                ? highestValues.concat(lowestValues)
-                                : dataForActiveBreakdownFilter
-                            }
+                            data={displayData}
                             countColsToAdd={countColsToAdd}
                             listExpanded={listExpanded}
                             metricConfig={metricConfig}
@@ -479,12 +469,12 @@ function MapCardWithKey(props: MapCardProps) {
                       <Legend
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
-                        legendData={legendData}
+                        data={allDataForActiveBreakdownFilter}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
-                        hasSelfButNotChildGeoData={
+                        isSummaryLegend={
                           hasSelfButNotChildGeoData || props.fips.isCounty()
                         }
                         fipsTypeDisplayName={fipsTypeDisplayName}
@@ -515,11 +505,7 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
-                            data={
-                              listExpanded
-                                ? highestValues.concat(lowestValues)
-                                : dataForActiveBreakdownFilter
-                            }
+                            data={displayData}
                             countColsToAdd={countColsToAdd}
                             listExpanded={listExpanded}
                             metricConfig={metricConfig}
@@ -574,9 +560,7 @@ function MapCardWithKey(props: MapCardProps) {
                         <b>{activeBreakdownFilter}</b>.{' '}
                         {/* Offer multimap link if current demo group is missing info */}
                         <MultiMapLink
-                          setSmallMultiplesDialogOpen={
-                            setSmallMultiplesDialogOpen
-                          }
+                          setMultimapOpen={setMultimapOpen}
                           currentBreakdown={props.currentBreakdown}
                           currentVariable={
                             props.variableConfig.variableFullDisplayName

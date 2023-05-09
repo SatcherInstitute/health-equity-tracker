@@ -116,7 +116,7 @@ export interface DropDownMenuProps {
   idSuffix?: string
   breakdownVar: BreakdownVar
   variableId: VariableId
-  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
+  setMultimapOpen: (multimapOpen: boolean) => void
 }
 
 /*

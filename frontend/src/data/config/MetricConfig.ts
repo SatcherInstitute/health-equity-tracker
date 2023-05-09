@@ -4,6 +4,8 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
+import { LESS_THAN_1 } from '../utils/Constants'
+
 export type DropdownVarId =
   | 'covid_cases'
   | 'covid_deaths'
@@ -302,7 +304,7 @@ export function formatFieldValue(
   }
 
   // if values are numeric but rounded down to 0, instead replace with "less than 1"
-  if (value === 0 && metricType === 'per100k') return '<1'
+  if (value === 0 && metricType === 'per100k') return LESS_THAN_1
 
   const isRatio = metricType.includes('ratio')
   const formatOptions = isPctType(metricType)
