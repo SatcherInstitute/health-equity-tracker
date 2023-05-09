@@ -119,6 +119,7 @@ export type MetricId =
   | 'hiv_prevalence_black_women_pct_relative_inequity'
   | 'hiv_prevalence_black_women_ratio_age_adjusted'
   | 'hiv_population_pct'
+  | 'black_women_population_pct'
   | 'poverty_count'
   | 'poverty_pct_share'
   | 'poverty_per_100k'
