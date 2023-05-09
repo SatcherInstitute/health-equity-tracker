@@ -33,8 +33,10 @@ export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
-const ZERO_BUCKET_LABEL = '0'
 export const MAP_SCHEME = 'yellowgreen'
+export const UNKNOWN_MAP_SCHEME = 'greenblue'
+
+const ZERO_BUCKET_LABEL = '0'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -90,6 +92,18 @@ export function Legend(props: LegendProps) {
       DEFAULT_LEGEND_COLOR_COUNT,
       uniqueNonZeroValueCount
     )
+
+    const colorScale: any = {
+      name: COLOR_SCALE,
+      type: props.scaleType,
+      domain: { data: DATASET_VALUES, field: props.metric.metricId },
+      range: { scheme: MAP_SCHEME, count: legendColorCount },
+    }
+
+    if (props.fieldRange) {
+      colorScale.domainMax = props.fieldRange.max
+      colorScale.domainMin = props.fieldRange.min
+    }
 
     const dotRange = props.sameDotSize
       ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
