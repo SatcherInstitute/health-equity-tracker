@@ -8,6 +8,7 @@ import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import {
   LEGEND_TEXT_FONT,
+  MAP_SCHEME,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
 } from './Legend'
@@ -33,13 +34,16 @@ import {
   UNKNOWN_SCALE_SPEC,
   ZERO_VAR_DATASET,
   ZERO_DOT_SCALE_SPEC,
-  getHelperLegend,
   ZERO_YELLOW_SCALE,
   UNKNOWNS_MAP_SCALE,
   RATE_MAP_SCALE,
+  ZERO_DATASET,
+  VALID_DATASET,
+  getHelperLegend,
+  UNKNOWNS_MAP_SCHEME,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+import { type Legend } from 'vega'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -47,8 +51,6 @@ const {
   darkBlue: DARK_BLUE,
 } = sass
 
-const VALID_DATASET = 'VALID_DATASET'
-const ZERO_DATASET = 'ZERO_DATASET'
 const GEO_ID = 'id'
 
 // TODO: consider moving standardized column names, like fips, to variables shared between here and VariableProvider
@@ -68,7 +70,7 @@ export interface ChoroplethMapProps {
   isUnknownsMap?: boolean
   // If true, maps will render counties, otherwise it will render states/territories
   showCounties: boolean
-  // legendData is the dataset for which to calculate legend. Used to have a common legend between two maps.
+  // full dataset used to get proper colors across maps/map circles
   legendData?: Array<Record<string, any>>
   // Whether or not the legend is present
   hideLegend?: boolean
@@ -92,15 +94,8 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const nonZeroData = props.data.filter((row) => row[props.metric.metricId] > 0)
-
-  const numUniqueNonZeroValues = new Set(
-    nonZeroData.map((row) => row[props.metric.metricId])
-  ).size
-
+  const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const isHiv = HIV_DETERMINANTS.includes(props.metric.metricId)
-  const containsDistinctZeros = isCawp || isHiv
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -141,7 +136,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ]
     // Null SVI was showing
-    if (!containsDistinctZeros && !props.listExpanded) {
+    if (!props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
     if (props.overrideShapeWithCircle) {
@@ -185,14 +180,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* showCounties */ props.showCounties
     )
 
-    // Hover tooltip for states with expected 0 values, like CAWP Congress
+    // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
     const zeroTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ tooltipPairs,
       /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ false
+      /* includeSvi */ true
     )
 
-    // Hover tooltip for unexpected missing data
+    // Hover tooltip for null/undefined/missing data
     const missingDataTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
       /* title */ `datum.properties.name + " ${geographyType}"`,
@@ -214,16 +209,15 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* includeSvi */ props.showCounties
     )
 
-    /* SET UP LEGEND */
-    const legendList = []
+    /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
+    const legendList: Legend[] = []
 
-    const legend: any = {
+    const legend: Legend = {
       fill: COLOR_SCALE,
       direction: 'horizontal',
       title: props.legendTitle,
       titleFontSize: pageIsTiny ? 9 : 11,
       titleLimit: 0,
-      font: LEGEND_TEXT_FONT,
       labelFont: LEGEND_TEXT_FONT,
       labelOverlap: 'greedy',
       labelSeparation: 10,
@@ -246,19 +240,20 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const helperLegend = getHelperLegend(
       /* yOffset */ yOffsetNoDataLegend,
       /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ containsDistinctZeros &&
-        !props.listExpanded
+      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
     }
-
     const colorScale = setupColorScale(
-      /* legendData */ legendData,
+      /* legendData */ props.data,
       /* metricId */ props.metric.metricId,
       /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.isUnknownsMap ? 'greenblue' : 'yellowgreen'
+      /* scaleColorScheme? */ props.isUnknownsMap
+        ? UNKNOWNS_MAP_SCHEME
+        : MAP_SCHEME,
+      /* isTerritoryCircle? */ props.fips.isTerritory()
     )
 
     const projection = getProjection(
@@ -269,23 +264,25 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const marks = [
-      containsDistinctZeros && !props.listExpanded
-        ? createShapeMarks(
-            /* datasetName= */ ZERO_DATASET,
-            /* fillColor= */ { value: sass.mapMin },
-            /* hoverColor= */ RED_ORANGE,
-            /* tooltipExpression= */ zeroTooltipValue,
-            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-          )
-        : createShapeMarks(
-            /* datasetName= */ MISSING_DATASET,
-            /* fillColor= */ { value: UNKNOWN_GREY },
-            /* hoverColor= */ RED_ORANGE,
-            /* tooltipExpression= */ missingDataTooltipValue,
-            /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-            /* hideMissingDataTooltip */ props.hideMissingDataTooltip
-          ),
+      // ZEROS
+      createShapeMarks(
+        /* datasetName= */ ZERO_DATASET,
+        /* fillColor= */ { value: sass.mapMin },
+        /* hoverColor= */ DARK_BLUE,
+        /* tooltipExpression= */ zeroTooltipValue,
+        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+      ),
+      // MISSING
+      createShapeMarks(
+        /* datasetName= */ MISSING_DATASET,
+        /* fillColor= */ { value: UNKNOWN_GREY },
+        /* hoverColor= */ RED_ORANGE,
+        /* tooltipExpression= */ missingDataTooltipValue,
+        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+      ),
+      // NON-ZERO
       createShapeMarks(
         /* datasetName= */ VALID_DATASET,
         /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
@@ -299,9 +296,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     if (props.overrideShapeWithCircle) {
       // Visible Territory Abbreviations
       marks.push(createCircleTextMark(VALID_DATASET))
-      containsDistinctZeros && !props.listExpanded
-        ? marks.push(createCircleTextMark(ZERO_DATASET))
-        : marks.push(createCircleTextMark(MISSING_DATASET))
+      marks.push(createCircleTextMark(ZERO_DATASET))
+      marks.push(createCircleTextMark(MISSING_DATASET))
     } else {
       marks.push(
         createInvisibleAltMarks(
@@ -331,18 +327,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values:
-            // only use the nonZero subset if viewing high low lists, viewing CAWP,
-            // or viewing multimap with some groups having only one non-zero value
-            props.listExpanded ??
-            !containsDistinctZeros ??
-            (numUniqueNonZeroValues <= 1 && !props.hideLegend)
-              ? props.data
-              : nonZeroData,
+          values: props.data,
         },
         {
           name: ZERO_VAR_DATASET,
-          values: props.data.filter((row) => row[props.metric.metricId] === 0),
+          values: zeroData,
         },
         {
           name: LEGEND_DATASET,
@@ -362,7 +351,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           transform: [
             {
               type: 'filter',
-              expr: `isValid(datum.${props.metric.metricId})`,
+              expr: `isValid(datum.${props.metric.metricId}) && datum.${props.metric.metricId} > 0`,
             },
           ],
           source: GEO_DATASET,
@@ -376,7 +365,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           transform: [
             {
               type: 'filter',
-              expr: `!isValid(datum.${props.metric.metricId})`,
+              expr: `datum.${props.metric.metricId} === 0`,
             },
           ],
           source: GEO_DATASET,
@@ -426,7 +415,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }, 0)
   }, [
     isCawp,
-    isHiv,
     width,
     props.metric,
     props.legendTitle,

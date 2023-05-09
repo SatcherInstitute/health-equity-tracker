@@ -21,7 +21,7 @@ interface RateInfoAlertProps {
   activeBreakdownFilter: DemographicGroup
   metricConfig: MetricConfig
   fips: Fips
-  setSmallMultiplesDialogOpen: (smallMultiplesDialogOpen: boolean) => void
+  setMultimapOpen: (smallMultiplesDialogOpen: boolean) => void
   variableConfig: VariableConfig
 }
 
@@ -80,7 +80,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {generateDemographicTotalPhrase()}
           {/* Compare across XYZ for all variables except vaccinated at county level */}
           <MultiMapLink
-            setSmallMultiplesDialogOpen={props.setSmallMultiplesDialogOpen}
+            setMultimapOpen={props.setMultimapOpen}
             currentBreakdown={props.currentBreakdown}
             currentVariable={props.variableConfig.variableFullDisplayName}
           />

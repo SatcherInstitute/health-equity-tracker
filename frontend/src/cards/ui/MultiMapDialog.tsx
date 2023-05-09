@@ -58,7 +58,7 @@ export interface MultiMapDialogProps {
   open: boolean
   // Closes the dialog in the parent component
   handleClose: () => void
-  // Dataset IDs required the source footer
+  // Dataset IDs required the source  footer
   queryResponses: MetricQueryResponse[]
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata
@@ -178,20 +178,20 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <b>{mapLabel}</b>
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
-                    key={breakdownValue}
-                    signalListeners={multimapSignalListeners}
-                    metric={props.metricConfig}
-                    legendData={props.data}
+                    countColsToAdd={props.countColsToAdd}
                     data={dataForValue}
+                    fieldRange={props.fieldRange}
+                    filename={title}
+                    fips={props.fips}
+                    geoData={props.geoData}
                     hideLegend={true}
+                    key={breakdownValue}
+                    legendData={props.data}
+                    metric={props.metricConfig}
                     showCounties={
                       !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
                     }
-                    fips={props.fips}
-                    fieldRange={props.fieldRange}
-                    geoData={props.geoData}
-                    filename={title}
-                    countColsToAdd={props.countColsToAdd}
+                    signalListeners={multimapSignalListeners}
                   />
                 )}
 
@@ -251,7 +251,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     <Legend
                       metric={props.metricConfig}
                       legendTitle={''}
-                      legendData={props.data}
+                      data={props.data}
                       scaleType={RATE_MAP_SCALE}
                       sameDotSize={true}
                       direction={pageIsTiny ? 'vertical' : 'horizontal'}
