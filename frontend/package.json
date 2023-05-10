@@ -119,7 +119,7 @@
   },
   "lint-staged": {
     "**/*.ts?(x)": "bash -c tsc --noEmit",
-    "**/*.*": "cspell",
+    "*": "cspell --cwd ../",
     "src/**/*.{js,jsx,ts,tsx,json}": [
       "eslint --fix"
     ],
