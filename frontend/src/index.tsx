@@ -9,16 +9,18 @@ import { persistQueryClient } from 'react-query/persistQueryClient-experimental'
 import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental'
 import * as Sentry from '@sentry/react'
 
-Sentry.init({
-  dsn: 'https://33c166fcaeaa40abbc398c9df5f76c1c@o4505014650863616.ingest.sentry.io/4505014690381824',
-  integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
-  // Performance Monitoring
-  tracesSampleRate: 0.2, // Capture rate (out of 1) of all transactions
-  // Session Replay
-  replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
-  replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
-  environment: import.meta.env.MODE,
-})
+if (import.meta.env.PROD) {
+  Sentry.init({
+    dsn: 'https://33c166fcaeaa40abbc398c9df5f76c1c@o4505014650863616.ingest.sentry.io/4505014690381824',
+    integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
+    // Performance Monitoring
+    tracesSampleRate: 0.2, // Capture rate (out of 1) of all transactions
+    // Session Replay
+    replaysSessionSampleRate: 0.1, // This sets the sample rate at 10%. You may want to change it to 100% while in development and then sample at a lower rate in production.
+    replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
+    environment: import.meta.env.MODE,
+  })
+}
 
 const queryClient = new QueryClient({
   defaultOptions: {
