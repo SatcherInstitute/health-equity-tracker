@@ -156,7 +156,12 @@ class HivProvider extends VariableProvider {
     const validDemographicBreakdownRequest =
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
-    return metricIds.includes('hiv_deaths_per_100k')
+    const noCountyData = [...BLACK_WOMEN_METRICS, ...DEATHS_METRICS]
+    const hasNoCountyData = metricIds.some((metricId) =>
+      noCountyData.includes(metricId)
+    )
+
+    return hasNoCountyData
       ? (breakdowns.geography === 'state' ||
           breakdowns.geography === 'national') &&
           validDemographicBreakdownRequest
