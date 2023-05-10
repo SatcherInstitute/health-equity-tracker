@@ -8,6 +8,8 @@ import ingestion.standardized_columns as std_col
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE, GEO_TYPE, SEX_RACE_AGE_TYPE
 from typing import cast
 
+print("SUMTHKOERG")
+
 AHR_RACE_GROUPS = [
     'American Indian/Alaska Native',
     'Asian',
