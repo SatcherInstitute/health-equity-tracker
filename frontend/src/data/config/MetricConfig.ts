@@ -747,7 +747,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           chartTitle:
             'Age-adjusted risk of new HIV diagnosis for Black women compared to White (NH)',
-          metricId: 'hiv_diagnoses_ratio_age_adjusted',
+          metricId: 'hiv_diagnoses_black_women_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
         },
