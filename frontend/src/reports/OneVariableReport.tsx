@@ -12,7 +12,7 @@ import {
   METRIC_CONFIG,
   type VariableConfig,
 } from '../data/config/MetricConfig'
-import { RACE } from '../data/utils/Constants'
+import { RACE, AGE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -43,6 +43,7 @@ import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import { BLACK_WOMEN } from '../data/variables/HivProvider'
 // import DisclaimerAlert from './ui/DisclaimerAlert'
 
 export interface OneVariableReportProps {
@@ -71,7 +72,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
       : null
   )
 
-  const setVariableConfigWithParam = (v: VariableConfig) => {
+  const isRaceBySex = variableConfig?.variableId.includes(BLACK_WOMEN)
+
+  function setVariableConfigWithParam(v: VariableConfig) {
     setParameters([
       { name: DATA_TYPE_1_PARAM, value: v.variableId },
       { name: DATA_TYPE_2_PARAM, value: null },
@@ -79,7 +82,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
     setVariableConfig(v)
   }
 
-  const setDemoWithParam = (str: BreakdownVar) => {
+  function setDemoWithParam(str: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, str)
     setCurrentBreakdown(str)
   }
@@ -98,7 +101,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
       )
       setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0])
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE)
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        isRaceBySex ? AGE : RACE
+      )
       setCurrentBreakdown(demo)
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
@@ -422,6 +428,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
+              isRaceBySex={isRaceBySex}
             />
           </Grid>
         )}

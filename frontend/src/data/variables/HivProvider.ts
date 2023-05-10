@@ -5,6 +5,8 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
+export const BLACK_WOMEN = 'black_women'
+
 export const VARIABLES_NEEDING_13PLUS: VariableId[] = [
   'hiv_care',
   'hiv_deaths',
@@ -134,7 +136,6 @@ class HivProvider extends VariableProvider {
     const datasetId = this.getDatasetId(breakdowns)
     const hiv = await getDataManager().loadDataset(datasetId)
     let df = hiv.toDataFrame()
-    console.log(df)
 
     df = this.filterByGeo(df, breakdowns)
 

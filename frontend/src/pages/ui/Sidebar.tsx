@@ -5,11 +5,11 @@ import ShareButtons from '../../reports/ui/ShareButtons'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import {
   DEMOGRAPHIC_BREAKDOWNS_MAP,
+  AGE_BREAKDOWN_MAP,
   type BreakdownVar,
 } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
 import TableOfContents from './TableOfContents'
-import { type VariableId } from '../../data/config/MetricConfig'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -28,7 +28,7 @@ interface SidebarProps {
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
   trackerDemographic: BreakdownVar
   setDemoWithParam: (demographic: BreakdownVar) => void
-  variableId?: VariableId
+  isRaceBySex?: boolean
 }
 
 export default function Sidebar(props: SidebarProps) {
@@ -48,10 +48,13 @@ export default function Sidebar(props: SidebarProps) {
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
             <SimpleSelect<BreakdownVar>
               label="Demographic"
-              optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}
+              optionsMap={
+                props.isRaceBySex
+                  ? AGE_BREAKDOWN_MAP
+                  : DEMOGRAPHIC_BREAKDOWNS_MAP
+              }
               selected={props.trackerDemographic}
               setSelected={props.setDemoWithParam}
-              variableId={props.variableId}
             />
             <SimpleSelect<MadLibId>
               label="Compare mode"
