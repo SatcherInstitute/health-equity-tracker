@@ -426,7 +426,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={currentBreakdown}
+              trackerDemographic={isRaceBySex ? AGE : currentBreakdown}
               setDemoWithParam={setDemoWithParam}
               isRaceBySex={isRaceBySex}
             />
