@@ -30,7 +30,13 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       {TERRITORY_CODES.map((code) => {
         const fips = new Fips(code)
         return (
-          <Grid item key={code} xs={4} md={2} lg={1}>
+          <Grid
+            item
+            key={code}
+            xs={4}
+            md={props.mapIsWide ? 2 : 4}
+            lg={props.mapIsWide ? 1 : 2}
+          >
             <ChoroplethMap
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
