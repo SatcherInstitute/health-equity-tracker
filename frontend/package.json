@@ -119,9 +119,9 @@
   },
   "lint-staged": {
     "**/*.ts?(x)": "bash -c tsc --noEmit",
+    "**/*.*": "cspell",
     "src/**/*.{js,jsx,ts,tsx,json}": [
-      "eslint --fix",
-      "cspell"
+      "eslint --fix"
     ],
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
