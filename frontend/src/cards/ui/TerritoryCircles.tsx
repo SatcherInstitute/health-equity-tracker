@@ -22,15 +22,15 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
   return (
     <Grid
       container
-      spacing={props.mapIsWide ? 2 : 0}
-      flexWrap={'nowrap'}
+      flexWrap={props.mapIsWide ? 'nowrap' : undefined}
       flexDirection={'row'}
       justifyContent={props.isUnknownsMap ? 'flex-end' : undefined}
+      // justifyContent={'flex-end'}
     >
       {TERRITORY_CODES.map((code) => {
         const fips = new Fips(code)
         return (
-          <Grid item key={code}>
+          <Grid item key={code} xs={4} md={2} lg={1}>
             <ChoroplethMap
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
