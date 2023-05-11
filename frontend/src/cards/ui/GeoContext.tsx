@@ -11,7 +11,7 @@ interface GeoContextProps {
   fips: Fips
   updateFipsCallback: (fips: Fips) => void
   variableConfig: VariableConfig
-  populationQueryResponse: MetricQueryResponse
+  totalPopulationPhrase: string
   sviQueryResponse: MetricQueryResponse | null
 }
 
@@ -19,9 +19,6 @@ const HASH_ID: ScrollableHashId = 'rate-map'
 
 export default function GeoContext(props: GeoContextProps) {
   const { svi } = props.sviQueryResponse?.data?.[0] ?? {}
-  const totalPopulation: string =
-    props.populationQueryResponse.data?.[0].population?.toLocaleString() ??
-    'unknown'
 
   return (
     <>
@@ -30,7 +27,7 @@ export default function GeoContext(props: GeoContextProps) {
         updateFipsCallback={props.updateFipsCallback}
         ariaLabel={props.variableConfig.variableFullDisplayName}
         scrollToHashId={HASH_ID}
-        endNote={`Population ${totalPopulation}`}
+        endNote={props.totalPopulationPhrase}
       />
       <Grid className={styles.SviContainer}>
         <Grid>
@@ -45,4 +42,13 @@ export default function GeoContext(props: GeoContextProps) {
       </Grid>
     </>
   )
+}
+
+export function getPopulationPhrase(
+  populationQueryResponse: MetricQueryResponse
+): string {
+  const totalPopulation: string =
+    populationQueryResponse.data?.[0].population?.toLocaleString() ?? 'unknown'
+
+  return `Total Population: ${totalPopulation}`
 }

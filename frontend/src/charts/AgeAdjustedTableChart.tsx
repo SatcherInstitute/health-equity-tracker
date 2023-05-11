@@ -25,7 +25,7 @@ import Table from '@mui/material/Table'
 import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { RACE } from '../data/utils/Constants'
-import { useFontSize } from '../utils/hooks/useFontSize'
+import ChartTitle from '../cards/ChartTitle'
 
 const headerCellStyle = {
   width: '200px',
@@ -44,7 +44,7 @@ const altCellStyle = {
 export interface AgeAdjustedTableChartProps {
   data: Array<Readonly<Record<string, any>>>
   metrics: MetricConfig[]
-  title?: string | string[]
+  title: string
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
@@ -138,23 +138,15 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
     )
   }
 
-  const fontSize = useFontSize()
-
-  const titleStyle = {
-    font: 'Inter, sans-serif',
-    fontSize,
-    fontWeight: 'bold',
-    paddingTop: 10,
-    paddingBottom: 10,
-  }
-
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
         <figure>
-          <figcaption style={titleStyle}>{props.title}</figcaption>
+          <figcaption>
+            <ChartTitle title={props.title} />
+          </figcaption>
           <TableContainer component={Paper} style={{ maxHeight: '100%' }}>
             <Table {...getTableProps()}>
               <TableHead>

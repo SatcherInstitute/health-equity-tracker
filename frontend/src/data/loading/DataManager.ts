@@ -7,7 +7,7 @@ import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
 
-// TODO test this out on the real website and tweak these numbers as needed.
+// TODO: test this out on the real website and tweak these numbers as needed.
 
 // Max size for the dataset and query cache is measured by number of rows in the
 // data plus a constant factor per entry.
@@ -97,8 +97,8 @@ export abstract class ResourceCache<K, R> {
     }
 
     try {
-      // TODO handle errors at the DataFetcher level
-      // TODO handle re-load periodically so long-lived tabs don't get stale.
+      // TODO: handle errors at the DataFetcher level
+      // TODO: handle re-load periodically so long-lived tabs don't get stale.
       // Also need to reset the variable cache when datasets are reloaded.
 
       const resource = this.lruCache.get(resourceId)
@@ -173,9 +173,9 @@ class DatasetCache extends ResourceCache<string, Dataset> {
     const promise = getDataFetcher().loadDataset(datasetId)
     const metadataPromise = getDataManager().loadMetadata()
     const [data, metadata] = await Promise.all([promise, metadataPromise])
-    // TODO throw specific error message if metadata is missing for this dataset
+    // TODO: throw specific error message if metadata is missing for this dataset
     // id.
-    // TODO validate metadata against data, and also process variables out
+    // TODO: validate metadata against data, and also process variables out
     // of it?
     return new Dataset(data, metadata[datasetId])
   }
@@ -213,7 +213,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     await new Promise((resolve) => {
       setTimeout(resolve, 0)
     })
-    // TODO potentially improve caching by caching the individual results
+    // TODO: potentially improve caching by caching the individual results
     // before joining so those can be reused, or caching the results under
     // all of the variables provided under different keys. For example, if
     // you request covid cases we could also cache it under covid deaths

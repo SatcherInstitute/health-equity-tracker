@@ -82,7 +82,7 @@
     "build:prod": "env-cmd -f .env.prod npm run build",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "build": "tsc && vite build",
-    "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-summary --no-progress --no-must-find-files",
+    "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-progress --no-must-find-files",
     "dev": "env-cmd -f .env.development npm run start -- --host",
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E",
     "playwright": "npx playwright install chromium && npx playwright test",
@@ -119,9 +119,9 @@
   },
   "lint-staged": {
     "**/*.ts?(x)": "bash -c tsc --noEmit",
+    "*": "npm run cspell",
     "src/**/*.{js,jsx,ts,tsx,json}": [
-      "eslint --fix",
-      "cspell"
+      "eslint --fix"
     ],
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"

@@ -10,15 +10,16 @@ import {
   LEGEND_SYMBOL_TYPE,
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
-  LEGEND_COLOR_COUNT,
+  DEFAULT_LEGEND_COLOR_COUNT,
   MISSING_PLACEHOLDER_VALUES,
   EQUAL_DOT_SIZE,
   ZERO_DOT_SCALE,
+  MAP_SCHEME,
 } from './Legend'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { ORDINAL } from './utils'
 import sass from '../styles/variables.module.scss'
-import { raceNameToCodeMap } from '../data/utils/Constants'
+import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -26,6 +27,9 @@ export const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
 export const GEO_DATASET = 'GEO_DATASET'
 export const VAR_DATASET = 'VAR_DATASET'
 export const ZERO_VAR_DATASET = 'ZERO_VAR_DATASET'
+
+export const VALID_DATASET = 'VALID_DATASET'
+export const ZERO_DATASET = 'ZERO_DATASET'
 
 export const COLOR_SCALE = 'COLOR_SCALE'
 export const ZERO_SCALE = 'ZERO_SCALE'
@@ -36,6 +40,8 @@ export type ScaleType = 'quantize' | 'quantile' | 'symlog'
 
 export const RATE_MAP_SCALE: ScaleType = 'quantile'
 export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
+
+export const UNKNOWNS_MAP_SCHEME = 'greenblue'
 
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
@@ -138,7 +144,7 @@ export function formatPreventZero100k(
   metricId: MetricId
 ) {
   return metricType === 'per100k'
-    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '<1')`
+    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}')`
     : `format(datum.${metricId}, ',')`
 }
 
@@ -156,7 +162,7 @@ export function getHelperLegend(
   return {
     fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    orient: 'none',
+    // orient: 'none',
     font: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
@@ -327,21 +333,40 @@ export function getLegendDataBounds(data: Row[], metricId: MetricId) {
   return [legendLowerBound, legendUpperBound]
 }
 
+/* Figure out if a reduced number of legend color buckets is needed */
+export function calculateLegendColorCount(
+  legendData: Row[],
+  metricId: MetricId
+) {
+  const nonZeroData = legendData?.filter((row) => row[metricId] > 0)
+  const uniqueNonZeroValueCount = new Set(
+    nonZeroData?.map((row) => row[metricId])
+  ).size
+  return Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
+}
+
 /* SET UP COLOR SCALE */
 export function setupColorScale(
   legendData: Row[],
   metricId: MetricId,
   scaleType: ScaleType,
   fieldRange?: FieldRange,
-  scaleColorScheme?: string
+  scaleColorScheme?: string,
+  isTerritoryCircle?: boolean
 ) {
+  const legendColorCount = calculateLegendColorCount(legendData, metricId)
+
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
-    domain: { data: VAR_DATASET, field: metricId },
+    // CONDITIONALLY AVOID BUGS: VALID_ makes territories with non-zero data always the darkest color while VAR_ caused non-territory non-zero county colors to not match legend scale
+    domain: {
+      data: isTerritoryCircle ? VAR_DATASET : VALID_DATASET,
+      field: metricId,
+    },
     range: {
-      scheme: scaleColorScheme ?? 'yellowgreen',
-      count: LEGEND_COLOR_COUNT,
+      scheme: scaleColorScheme ?? MAP_SCHEME,
+      count: legendColorCount,
     },
   }
   if (fieldRange) {

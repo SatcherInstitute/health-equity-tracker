@@ -23,7 +23,7 @@ export default function MadLibUI(props: {
   madLib: MadLib
   setMadLibWithParam: (updatedMadLib: MadLib) => void
 }) {
-  // TODO - this isn't efficient, these should be stored in an ordered way
+  // TODO: this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegment(
     phraseSegment: PhraseSegment
   ): Fips[] | string[][] {

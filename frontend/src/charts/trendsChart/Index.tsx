@@ -39,15 +39,15 @@ import { MOBILE_BREAKPOINT } from '../../App'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 import useEscape from '../../utils/hooks/useEscape'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
-import { useFontSize } from '../../utils/hooks/useFontSize'
 import { type DemographicGroup } from '../../data/utils/Constants'
+import ChartTitle from '../../cards/ChartTitle'
 
 /* Define type interface */
 export interface TrendsChartProps {
   data: TrendsData
   unknown: UnknownData
   axisConfig: AxisConfig
-  chartTitle: string | string[]
+  chartTitle: string
   breakdownVar: BreakdownVar
   setSelectedTableGroups: (selectedTableGroups: any[]) => void
   isCompareCard: boolean
@@ -73,8 +73,6 @@ export function TrendsChart({
   const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG
   const { groupLabel } = axisConfig ?? {}
 
-  const fontSize = useFontSize()
-
   /* Refs */
   // parent container ref - used for setting svg width
   const containerRef = useRef(null)
@@ -83,8 +81,10 @@ export function TrendsChart({
 
   /* State Management */
   const allPossibleGroups = data.map(([group]) => group)
+
+  const isRelativeInequity = axisConfig.type === 'pct_relative_inequity'
   const isInequityWithManyGroups =
-    axisConfig.type === 'pct_relative_inequity' && allPossibleGroups.length > 6
+    isRelativeInequity && allPossibleGroups.length > 6
 
   // Manages which group filters user has applied
   const defaultGroups = isInequityWithManyGroups ? getMinMaxGroups(data) : []
@@ -292,17 +292,13 @@ export function TrendsChart({
                 }`}
               />
             )}
-            {/* Chart Title */}
-            <figcaption style={{ fontSize }}>
-              <b id={chartTitleId}>{chartTitle}</b>
-            </figcaption>
+            {/* Chart Title MOBILE BELOW LEGEND */}
+            <ChartTitle title={chartTitle} />
           </>
         ) : (
           <>
-            {/* Chart Title */}
-            <figcaption style={{ fontSize }}>
-              <b id={chartTitleId}>{chartTitle}</b>
-            </figcaption>
+            {/* Chart Title DESKTOP ABOVE LEGEND */}
+            <ChartTitle mt={isRelativeInequity ? 2 : 0} title={chartTitle} />
             {/* Filter */}
             {data && (
               <FilterLegend

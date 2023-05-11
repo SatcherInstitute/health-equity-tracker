@@ -138,6 +138,9 @@ HIV_CARE_PREFIX = 'hiv_care'
 HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
 HIV_DEATHS_PREFIX = 'hiv_deaths'
 HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
+HIV_DIAGNOSES_BW_PREFIX = 'hiv_diagnoses_black_women'
+HIV_DEATHS_BW_PREFIX = 'hiv_deaths_black_women'
+HIV_PREVALENCE_BW_PREFIX = 'hiv_prevalence_black_women'
 PREP_PREFIX = 'hiv_prep'
 HIV_CARE_LINKAGE = 'hiv_care_linkage'
 HIV_CARE_POPULATION = 'hiv_care_population'
@@ -147,7 +150,8 @@ HIV_PREP_COVERAGE = 'hiv_prep_coverage'
 HIV_PREP_POPULATION = 'hiv_prep_population'
 HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
 HIV_POPULATION_PCT = 'hiv_population_pct'
-
+HIV_BW_POPULATION = 'black_women_population'
+HIV_BW_POPULATION_PCT = 'black_women_population_pct'
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

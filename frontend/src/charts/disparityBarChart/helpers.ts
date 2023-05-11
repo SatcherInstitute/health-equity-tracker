@@ -1,23 +1,6 @@
-import { type Signal, type Title } from 'vega'
+import { type Signal } from 'vega'
 import { type MetricId } from '../../data/config/MetricConfig'
 import { Y_STEP } from './constants'
-import { type getTitleProps } from './types'
-
-function getTitle(props: getTitleProps) {
-  const title: Title = {
-    text: props.chartTitle ?? '',
-    subtitle: ' ',
-    encode: {
-      title: {
-        enter: {
-          fontSize: { value: props.fontSize },
-          font: { value: 'Inter, sans-serif' },
-        },
-      },
-    },
-  }
-  return title
-}
 
 function getSignals() {
   const yStepSignal: Signal = {
@@ -58,4 +41,4 @@ function getLargerMeasure(
   } else return darkMetricId
 }
 
-export { getTitle, getSignals, maxValueInField, getLargerMeasure }
+export { getSignals, maxValueInField, getLargerMeasure }
