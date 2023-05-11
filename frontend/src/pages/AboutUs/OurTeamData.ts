@@ -7,6 +7,7 @@ import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Megan from '../../assets/team/DouglasMegan.png'
 import Donrie from '../../assets/team/PurcellDonrie.png'
 import Elias from '../../assets/team/BerhanuElias.jpg'
+import Jareese from '../../assets/team/StroudJareese.png'
 
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import PartnerGilead from '../../assets/partners/PartnerGilead.png'
@@ -63,6 +64,7 @@ export const LEADERSHIP_TEAM = [
   {
     name: 'Jareese Stroud, MPH',
     role: 'Researcher',
+    imageUrl: Jareese,
   },
   {
     name: 'Evan Martin, LMSW',
