@@ -23,6 +23,7 @@ export interface Article {
   acf: {
     contributing_author: string
     post_nominals: string
+    additional_contributors: string
     canonical_url: string
     full_article_url: string
     friendly_site_name: string

@@ -174,6 +174,17 @@ export default function SinglePost(props: SinglePostProps) {
               fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
+              {fullArticle?.acf?.additional_contributors ? (
+                <Typography
+                  className={styles.SingleArticleDetailText}
+                  variant="body1"
+                >
+                  Additional contributions:{' '}
+                  {fullArticle.acf.additional_contributors}
+                </Typography>
+              ) : (
+                ''
+              )}
             </Typography>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
