@@ -8,6 +8,7 @@ import Megan from '../../assets/team/DouglasMegan.png'
 import Donrie from '../../assets/team/PurcellDonrie.png'
 import Elias from '../../assets/team/BerhanuElias.jpg'
 import Jareese from '../../assets/team/StroudJareese.png'
+import Kim from '../../assets/team/CincoKim.jpg'
 
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import PartnerGilead from '../../assets/partners/PartnerGilead.png'
@@ -35,6 +36,7 @@ export const LEADERSHIP_TEAM = [
   {
     name: 'Kim Cinco, MPsy, USN Vet.',
     role: 'Product Manager',
+    imageUrl: Kim,
   },
   {
     name: 'Donrie Purcell, PhD, MPH',
