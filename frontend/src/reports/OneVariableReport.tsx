@@ -44,7 +44,6 @@ import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
-// import DisclaimerAlert from './ui/DisclaimerAlert'
 
 export interface OneVariableReportProps {
   key: string

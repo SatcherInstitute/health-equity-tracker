@@ -33,7 +33,7 @@ export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
-export const MAP_SCHEME = 'yellowgreen'
+export const MAP_SCHEME = 'darkgreen'
 export const UNKNOWN_MAP_SCHEME = 'greenblue'
 
 const ZERO_BUCKET_LABEL = '0'

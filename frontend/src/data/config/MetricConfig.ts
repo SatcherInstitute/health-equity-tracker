@@ -982,7 +982,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitle: 'HIV prevalence for Black women',
           trendsCardTitleName: 'HIV prevalence for Black women over time',
           columnTitleHeader: 'HIV prevalence for Black women per 100k people',
-          shortLabel: 'HIV prevalence for Black women per 100k',
+          shortLabel: 'prevalence per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
