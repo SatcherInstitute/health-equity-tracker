@@ -40,6 +40,7 @@ export type ScaleType = 'quantize' | 'quantile' | 'symlog'
 export const RATE_MAP_SCALE: ScaleType = 'quantile'
 export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
+export const MAP_SCHEME = 'darkgreen'
 export const UNKNOWNS_MAP_SCHEME = 'greenblue'
 
 export const UNKNOWN_SCALE_SPEC: any = {
