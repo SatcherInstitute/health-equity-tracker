@@ -210,7 +210,9 @@ export default function SinglePost(props: SinglePostProps) {
             )}
 
             {/* SOCIAL MEDIA ICONS */}
-            <ShareButtons isMobile={props.isMobile} article={fullArticle} />
+            <Grid item xs={12} md={3} sx={{ py: 3, textAlign: 'left' }}>
+              <ShareButtons isMobile={false} article={fullArticle} />
+            </Grid>
           </Grid>
         </Grid>
 
