@@ -1,18 +1,11 @@
-import Daniel from '../../assets/team/DawesDaniel.png'
-import Nelson from '../../assets/team/DunlapNelson.png'
 import Allyson from '../../assets/team/BeltonAllyson.png'
-import Mahia from '../../assets/team/ValleMahia.png'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
-import JC from '../../assets/team/GonzalezJC.png'
-import Josh from '../../assets/team/ZarrabiJosh.png'
 import Ben from '../../assets/team/HammondBen.jpg'
 import Eric from '../../assets/team/WarrenEric.png'
 import Maisha from '../../assets/team/StandiferMaisha.jpg'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Megan from '../../assets/team/DouglasMegan.png'
-import Christian from '../../assets/team/AmadorChristian.png'
 import Donrie from '../../assets/team/PurcellDonrie.png'
-import Arnelle from '../../assets/team/KondeArnelle.jpg'
 import Elias from '../../assets/team/BerhanuElias.jpg'
 
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
@@ -24,49 +17,28 @@ import PartnerAECF from '../../assets/partners/PartnerAECF.jpg'
 
 export const LEADERSHIP_TEAM = [
   {
-    name: 'Daniel Dawes, JD',
-    role: 'Principal Investigator',
-    imageUrl: Daniel,
-  },
-  {
-    name: 'Nelson Dunlap, JD',
-    role: 'Co-Principal Investigator',
-    imageUrl: Nelson,
-  },
-  {
     name: 'Allyson Belton, MPH',
     role: 'Coalition/Engagement',
     imageUrl: Allyson,
   },
   {
-    name: 'Mahia Valle, MBA',
-    role: 'Communications',
-    imageUrl: Mahia,
-  },
-  {
-    name: 'Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM',
-    role: 'Senior Advisor',
-    imageUrl: Shaneeta,
-  },
-  {
-    name: 'JC Gonzalez, MBA, PMP',
-    role: 'Product Manager',
-    imageUrl: JC,
-  },
-  {
-    name: 'Josh Zarrabi',
+    name: 'Ben Hammond, BMus',
     role: 'Senior Software Engineer',
-    imageUrl: Josh,
-  },
-  {
-    name: 'Ben Hammond',
-    role: 'Software Engineer',
     imageUrl: Ben,
   },
   {
-    name: 'Eric Warren',
+    name: 'Eric Warren, BA',
     role: 'Software Engineer',
     imageUrl: Eric,
+  },
+  {
+    name: 'Kim Cinco, MPsy, USN Vet.',
+    role: 'Product Manager',
+  },
+  {
+    name: 'Donrie Purcell, PhD, MPH',
+    role: 'Senior Health Systems Data Analyst',
+    imageUrl: Donrie,
   },
   {
     name: 'Maisha Standifer, PhD, MPH',
@@ -84,24 +56,65 @@ export const LEADERSHIP_TEAM = [
     imageUrl: Megan,
   },
   {
-    name: 'Christian Amador MBA, MSc',
-    role: 'Director of Health Equity Initiatives',
-    imageUrl: Christian,
+    name: 'Elias Berhanu, MPH',
+    role: 'Researcher',
+    imageUrl: Elias,
   },
   {
-    name: 'Donrie Purcell, PhD, MPH',
-    role: 'Senior Health Systems Data Analyst',
-    imageUrl: Donrie,
+    name: 'Jareese Stroud, MPH',
+    role: 'Researcher',
+  },
+  {
+    name: 'Evan Martin, LMSW',
+    role: 'Researcher',
+  },
+  {
+    name: 'Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM',
+    role: 'Senior Advisor',
+    imageUrl: Shaneeta,
+  },
+]
+
+export const HET_ALUMNI = [
+  {
+    name: 'Daniel Dawes, JD',
+    role: 'Principal Investigator',
+  },
+  {
+    name: 'Nelson Dunlap, JD',
+    role: 'Co-Principal Investigator',
+  },
+  {
+    name: 'Mahia Valle, MBA',
+    role: 'Communications',
+  },
+  {
+    name: 'JC Gonzalez, MBA, PMP',
+    role: 'Product Manager',
+  },
+  {
+    name: 'Josh Zarrabi',
+    role: 'Senior Software Engineer',
+  },
+  {
+    name: 'Christian Amador MBA, MSc',
+    role: 'Director of Health Equity Initiatives',
   },
   {
     name: 'Arnelle Konde, MPH, CHES',
     role: 'Researcher',
-    imageUrl: Arnelle,
   },
   {
-    name: 'Elias Berhanu, MPH',
-    role: 'Researcher',
-    imageUrl: Elias,
+    name: 'Madhuri Jha, MPH, LCSW',
+    role: 'Senior Advisor',
+  },
+  {
+    name: 'Ebony Respress',
+    role: 'Project Director',
+  },
+  {
+    name: 'Aye Obe, LLM',
+    role: 'Legal Fellow',
   },
 ]
 export const GOOGLE_FELLOWS = [
