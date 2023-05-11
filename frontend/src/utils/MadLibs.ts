@@ -26,6 +26,7 @@ export const MADLIB_MODE_MAP: Record<string, MadLibId> = {
 // wording used for determinant categories in the selectable dropdown on /exploredata
 export type CategoryId =
   | 'HIV'
+  | `Black Women's Health`
   | 'COVID-19'
   | 'Chronic Disease'
   | 'Behavioral Health'
@@ -110,8 +111,11 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
   hiv_prevalence: 'HIV Prevalence',
+  hiv_prevalence_black_women: 'HIV Prevalence (Black Women)',
   hiv_diagnoses: 'New HIV Diagnoses',
+  hiv_diagnoses_black_women: 'New HIV Diagnoses (Black Women)',
   hiv_deaths: 'HIV Deaths',
+  hiv_deaths_black_women: 'HIV Deaths (Black Women)',
   diabetes: 'Diabetes',
   copd: 'COPD',
   health_insurance: 'Uninsured Individuals',
@@ -152,6 +156,16 @@ const CATEGORIES_LIST: Category[] = [
       'hiv_prevalence',
     ],
   },
+  {
+    title: `Black Women's Health`,
+    definition: '',
+    options: [
+      'hiv_prevalence_black_women',
+      'hiv_diagnoses_black_women',
+      'hiv_deaths_black_women',
+    ],
+  },
+
   {
     title: 'COVID-19',
     definition: '',
