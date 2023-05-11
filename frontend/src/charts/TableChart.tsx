@@ -175,7 +175,7 @@ export function TableChart(props: TableChartProps) {
         <figure>
           <figcaption>
             <ChartTitle
-              title={props.dataTableTitle}
+              title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()}`}
             />
           </figcaption>
 
