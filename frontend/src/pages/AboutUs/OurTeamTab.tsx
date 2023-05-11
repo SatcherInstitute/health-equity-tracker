@@ -148,7 +148,6 @@ function OurTeamTab() {
                     )}
 
                     <div className={styles.MemberName}>{fellow.name}</div>
-
                     <div className={styles.MemberRole}>{fellow.role}</div>
                   </Grid>
                 )
