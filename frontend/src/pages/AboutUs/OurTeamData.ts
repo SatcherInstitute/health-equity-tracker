@@ -1,14 +1,15 @@
-import Allyson from '../../assets/team/BeltonAllyson.png'
+import Allyson from '../../assets/team/BeltonAllyson.jpg'
 import Shaneeta from '../../assets/team/ShaneetaJohnson.png'
 import Ben from '../../assets/team/HammondBen.jpg'
 import Eric from '../../assets/team/WarrenEric.png'
 import Maisha from '../../assets/team/StandiferMaisha.jpg'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
-import Megan from '../../assets/team/DouglasMegan.png'
+import Megan from '../../assets/team/DouglasMegan.jpg'
 import Donrie from '../../assets/team/PurcellDonrie.png'
 import Elias from '../../assets/team/BerhanuElias.jpg'
 import Jareese from '../../assets/team/StroudJareese.png'
 import Kim from '../../assets/team/CincoKim.jpg'
+import Evan from '../../assets/team/MartinEvan.jpg'
 
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import PartnerGilead from '../../assets/partners/PartnerGilead.png'
@@ -71,6 +72,7 @@ export const LEADERSHIP_TEAM = [
   {
     name: 'Evan Martin, LMSW',
     role: 'Researcher',
+    imageUrl: Evan,
   },
   {
     name: 'Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM',
