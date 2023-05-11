@@ -20,7 +20,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   DEMOGRAPHIC_BREAKDOWNS,
 } from '../data/query/Breakdowns'
-import { RACE } from '../data/utils/Constants'
+import { RACE, AGE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -41,6 +41,7 @@ import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import { BLACK_WOMEN } from '../data/variables/HivProvider'
 
 const NON_LAZYLOADED_CARDS: ScrollableHashId[] = ['rate-map', 'rates-over-time']
 
@@ -77,6 +78,10 @@ function TwoVariableReport(props: {
       ? METRIC_CONFIG[props.dropdownVarId2][0]
       : null
   )
+
+  const isRaceBySex =
+    variableConfig1?.variableId.includes(BLACK_WOMEN) ??
+    variableConfig2?.variableId.includes(BLACK_WOMEN)
 
   function setVariableConfigWithParam1(v: VariableConfig) {
     setParameter(DATA_TYPE_1_PARAM, v.variableId)
@@ -116,7 +121,10 @@ function TwoVariableReport(props: {
         }
       )
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE)
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        isRaceBySex ? AGE : RACE
+      )
       setVariableConfig1(
         demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
       )
@@ -532,6 +540,7 @@ function TwoVariableReport(props: {
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
+              isRaceBySex={isRaceBySex}
             />
           </Grid>
         )}
