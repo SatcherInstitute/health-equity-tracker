@@ -155,7 +155,7 @@ export function Legend(props: LegendProps) {
         labelFont: LEGEND_TEXT_FONT,
         direction: props.direction,
         orient: 'left',
-        columns: props.direction === 'horizontal' ? 3 : 1,
+        columns: props.direction === 'horizontal' ? 2 : 1,
         encode: {
           labels: {
             update: {
