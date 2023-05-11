@@ -1070,14 +1070,16 @@ function MethodologyTab() {
                     places are used.
                   </li>
                   <li>
-                    <b>Inequitable distribution of COVID-19 cases by month</b>:
-                    To demonstrate the often inequitable distribution of a
-                    condition or disease, we calculate each demographic group’s
-                    percent share of that condition and present it as a
-                    proportion to that group’s share of the entire population.
-                    This calculation is done for every point in time for which
-                    we have data, and displayed over time to show trends in
-                    inequity.
+                    <b>Relative inequity for COVID-19 cases</b>: To demonstrate
+                    the often inequitable distribution of a condition or
+                    disease, we calculate each demographic group’s relative
+                    inequity using the{' '}
+                    <code>(OBSERVED - EXPECTED) / EXPECTED</code>. In this case,{' '}
+                    <code>OBSERVED</code> is each group's percent share of the
+                    condition, and <code>EXPECTED</code> is that group's share
+                    of the total population. This calculation is done for every
+                    point in time for which we have data, allowing visualization
+                    of inequity relative to population, over time.
                     <p>
                       {' '}
                       As an example, if in a certain month White (Non-Hispanic)
@@ -1088,10 +1090,13 @@ function MethodologyTab() {
                       divided by the population percent share to give a
                       proportional inequitable burden of <b>+24.7%</b>:{' '}
                       <code>+13% / 52.7% = +24.7%</code>. In plain language,
-                      this would be interpreted as “Deaths of individuals
-                      identifying as White, Non Hispanic in Georgia from
-                      COVID-19 were almost 25% higher than expected, based on
-                      their share of Georgia’s overall population.”
+                      this would be interpreted as{' '}
+                      <i>
+                        “Deaths of individuals identifying as White, Non
+                        Hispanic in Georgia from COVID-19 were almost 25% higher
+                        than expected, based on their share of Georgia’s overall
+                        population.”
+                      </i>
                     </p>
                   </li>
                 </ul>

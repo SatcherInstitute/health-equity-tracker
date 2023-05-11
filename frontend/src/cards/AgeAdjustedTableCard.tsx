@@ -41,7 +41,7 @@ import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
@@ -96,11 +96,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes('ratio')
   )
 
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
-  const { filename, dataName } = useCreateChartTitle(
-    metricConfigs[ratioId],
-    locationPhrase
-  )
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfigs[ratioId].chartTitle,
+    fips: props.fips,
+  })
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
@@ -115,7 +114,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={filename}
+      downloadTitle={chartTitle}
       isAgeAdjustedTable={true}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
@@ -156,7 +155,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={dataName}
+                  dataName={chartTitle}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
                   }
@@ -175,7 +174,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   <AgeAdjustedTableChart
                     data={knownRaceData}
                     metrics={metricIdsForRatiosOnly}
-                    title={filename}
+                    title={chartTitle}
                   />
                 </div>
               )}

@@ -66,6 +66,7 @@ export function getMadLibWithUpdatedValue(
     ...originalMadLib.activeSelections,
   }
   updatePhraseSelections[phraseSegmentIndex] = newValue
+
   return {
     ...originalMadLib,
     activeSelections: updatePhraseSelections,

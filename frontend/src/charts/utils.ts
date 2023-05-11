@@ -3,9 +3,13 @@ import {
   type MetricConfig,
   type MetricId,
 } from '../data/config/MetricConfig'
-import { type BreakdownVar } from '../data/query/Breakdowns'
+import {
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type BreakdownVar,
+} from '../data/query/Breakdowns'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
+import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -87,6 +91,24 @@ export function addMetricDisplayColumn(
   })
 
   return [newData, displayColName]
+}
+
+interface chartTitleProps {
+  chartTitle: string
+  currentBreakdown?: BreakdownVar
+  fips: Fips
+}
+
+export function generateChartTitle({
+  chartTitle,
+  currentBreakdown,
+  fips,
+}: chartTitleProps): string {
+  return `${chartTitle} ${
+    currentBreakdown
+      ? `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
+      : ''
+  } in ${fips.getSentenceDisplayName()}`
 }
 
 interface subtitleProps {

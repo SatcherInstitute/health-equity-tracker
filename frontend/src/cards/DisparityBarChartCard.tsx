@@ -7,11 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import {
-  type MetricId,
-  type MetricConfig,
-  type VariableConfig,
-} from '../data/config/MetricConfig'
+import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -24,8 +20,9 @@ import {
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useCreateChartTitle } from '../utils/hooks/useCreateChartTitle'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
+import ChartTitle from './ChartTitle'
+import { generateChartTitle } from '../charts/utils'
 
 export interface DisparityBarChartCardProps {
   key?: string
@@ -52,7 +49,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   )
 
   const metricConfig = props.variableConfig.metrics.pct_share
-  const locationPhrase = `in ${props.fips.getSentenceDisplayName()}`
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -82,16 +78,16 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const { chartTitle, filename } = useCreateChartTitle(
-    metricConfig.populationComparisonMetric as MetricConfig,
-    locationPhrase
-  )
+  const chartTitle = generateChartTitle({
+    chartTitle: metricConfig.chartTitle,
+    fips: props.fips,
+  })
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 
   return (
     <CardWrapper
-      downloadTitle={filename}
+      downloadTitle={chartTitle}
       queries={[query]}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
@@ -129,8 +125,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           <>
             {dataAvailable && knownData.length !== 0 && (
               <CardContent>
+                <ChartTitle title={chartTitle} />
                 <DisparityBarChart
-                  chartTitle={chartTitle}
                   data={knownData}
                   lightMetric={
                     metricConfig.populationComparisonMetric ?? metricConfig
@@ -140,9 +136,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   }
                   breakdownVar={props.breakdownVar}
                   metricDisplayName={metricConfig.shortLabel}
-                  filename={filename}
+                  filename={chartTitle}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
-                  hideActions={true}
                 />
               </CardContent>
             )}
@@ -161,7 +156,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             ) : (
               <CardContent>
                 <MissingDataAlert
-                  dataName={metricConfig.chartTitleLines.join(' ')}
+                  dataName={chartTitle}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }
@@ -174,8 +169,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <CardContent>
                 <Alert severity="info" role="note">
                   Population percentages on this graph add up to over 100%
-                  because the racial categories reported for{' '}
-                  {metricConfig.chartTitleLines.join(' ')} in{' '}
+                  because the racial categories reported for {chartTitle} in{' '}
                   {props.fips.getSentenceDisplayName()} include Hispanic
                   individuals in each racial category. As a result, Hispanic
                   individuals are counted twice.
