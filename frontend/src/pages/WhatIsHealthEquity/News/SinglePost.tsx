@@ -179,8 +179,7 @@ export default function SinglePost(props: SinglePostProps) {
                   className={styles.SingleArticleDetailText}
                   variant="body1"
                 >
-                  Additional contributions:{' '}
-                  {fullArticle.acf.additional_contributors}
+                  Contributors: {fullArticle.acf.additional_contributors}
                 </Typography>
               ) : (
                 ''
