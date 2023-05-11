@@ -49,15 +49,12 @@ function ShareButtons(props: ShareButtonProps) {
       container
       flexDirection={'column'}
       justifyContent={props.reportTitle ? 'center' : 'flex-start'}
-      alignItems={'center'}
     >
-      <Grid item>
-        <p className={styles.ShareLabel}>{SHARE_LABEL}</p>
-      </Grid>
+      {props.reportTitle && <p className={styles.ShareLabel}>{SHARE_LABEL}</p>}
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}
 
-        <Tooltip title="Tweet this report">
+        <Tooltip title="Tweet this page">
           <TwitterShareButton
             url={sharedUrl}
             hashtags={['healthequity']}
@@ -68,18 +65,18 @@ function ShareButtons(props: ShareButtonProps) {
           </TwitterShareButton>
         </Tooltip>
 
-        <Tooltip title="Post this report to Facebook">
+        <Tooltip title="Post this page to Facebook">
           <FacebookShareButton
             url={sharedUrl}
             hashtag={'#healthequity'}
             quote={title}
-            aria-label={'Post this report to Facebook'}
+            aria-label={'Post this page to Facebook'}
           >
             <FacebookIcon {...shareIconAttributes} />
           </FacebookShareButton>
         </Tooltip>
 
-        <Tooltip title="Post this report to LinkedIn">
+        <Tooltip title="Post this page to LinkedIn">
           <LinkedinShareButton
             source={'Health Equity Tracker'}
             url={sharedUrl}
@@ -89,7 +86,7 @@ function ShareButtons(props: ShareButtonProps) {
           </LinkedinShareButton>
         </Tooltip>
 
-        <Tooltip title="Share this report by email">
+        <Tooltip title="Share this page by email">
           <EmailShareButton
             aria-label={'Share by email'}
             subject={`Sharing from healthequitytracker.org`}
