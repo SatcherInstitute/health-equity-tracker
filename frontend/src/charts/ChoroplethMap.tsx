@@ -8,9 +8,9 @@ import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import {
   LEGEND_TEXT_FONT,
-  MAP_SCHEME,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
+  getMapScheme
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
 import {
@@ -96,6 +96,7 @@ export interface ChoroplethMapProps {
 export function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -252,7 +253,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* fieldRange? */ props.fieldRange,
       /* scaleColorScheme? */ props.isUnknownsMap
         ? UNKNOWNS_MAP_SCHEME
-        : MAP_SCHEME,
+        : mapScheme,
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
 
@@ -267,7 +268,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       // ZEROS
       createShapeMarks(
         /* datasetName= */ ZERO_DATASET,
-        /* fillColor= */ { value: sass.mapMin },
+        /* fillColor= */ { value: mapMin },
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ zeroTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
