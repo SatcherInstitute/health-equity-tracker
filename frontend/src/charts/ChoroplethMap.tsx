@@ -96,7 +96,8 @@ export interface ChoroplethMapProps {
 export function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
+
+  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId, props.isUnknownsMap)
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)

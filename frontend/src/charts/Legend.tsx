@@ -35,8 +35,6 @@ export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
-export const UNKNOWN_MAP_SCHEME = 'greenblue'
-
 const ZERO_BUCKET_LABEL = '0'
 
 /*
@@ -63,20 +61,31 @@ export interface LegendProps {
   fipsTypeDisplayName?: GeographicBreakdown
 }
 
-export function getMapScheme(metricId: MetricId) {
-  let mapScheme = BLACK_WOMEN_METRICS.includes(metricId) ? 'plasma' : 'darkgreen'
-  let mapMin = BLACK_WOMEN_METRICS.includes(metricId) ? sass.mapBwMin : sass.mapMin
+const MAP_COLOR_SCHEME = 'darkgreen'
+const UNKNOWN_MAP_COLOR_SCHEME = 'greenblue'
+const MAP_BW_MAP_COLOR_SCHEME = 'plasma'
 
-  return [mapScheme, mapMin]
+export function getMapScheme(metricId: MetricId, isUnknownsMap?: boolean) {
+  let mapScheme = MAP_COLOR_SCHEME;
+  let mapMin = sass.mapMin;
 
+  if (isUnknownsMap) {
+    mapScheme = UNKNOWN_MAP_COLOR_SCHEME
+    mapMin = sass.unknownMapMin
+  } else if (BLACK_WOMEN_METRICS.includes(metricId)) {
+    mapScheme = MAP_BW_MAP_COLOR_SCHEME
+    mapMin = sass.mapBwMin
+  }
+
+  return [mapScheme, mapMin];
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+
   const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
 
-  const { direction } = props
-  const orient = direction === 'vertical' ? 'left' : 'right'
+  const orient = props.direction === 'vertical' ? 'left' : 'right'
 
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
 
