@@ -1,4 +1,4 @@
-name: Deploy Backend to InfraTest
+name: Deploy to Infra Test
 
 on:
   push:
@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -38,6 +40,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -61,6 +65,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -75,17 +81,70 @@ jobs:
           dockerfile: 'exporter/Dockerfile'
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
 
+  build-data-server:
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    name: Build and Push Data Server Image
+    runs-on: ubuntu-latest
+    outputs:
+      image-digest: ${{ steps.serving.outputs.image-digest }}
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v3
+        with:
+          ref: infra-test
+      - id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+      - id: serving
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'data_server/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
 
+  build-frontend:
+    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    name: Build and Push Frontend Image
+    runs-on: ubuntu-latest
+    outputs:
+      image-digest: ${{ steps.frontend.outputs.image-digest }}
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v3
+        with:
+          ref: infra-test
+      - id: auth
+        uses: google-github-actions/auth@v1
+        with:
+          credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
+      - name: Set Up gcloud
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.TEST_PROJECT_ID }}
+      - id: frontend
+        uses: ./.github/actions/buildAndPush
+        with:
+          dockerfile: 'frontend_server/Dockerfile'
+          image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/frontend'
+          deploy-context: 'staging'
+          basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
+          basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Deploy to InfraTest BigQuery and Buckets
+    name: Deploy to Test Environment
     runs-on: ubuntu-latest
-    needs: [build-ingestion, build-gcs-to-bq, build-exporter]
+    needs: [build-ingestion, build-gcs-to-bq, build-exporter, build-data-server, build-frontend]
 
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -121,13 +180,19 @@ jobs:
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
           -var 'ingestion_image_digest=${{ needs.build-ingestion.outputs.image-digest }}' \
           -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
+          -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
+          -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
+          data_server_url=$(terraform output data_server_url)
+          echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
           ingestion_url=$(terraform output ingestion_url)
           echo "ingestion_url=$ingestion_url" >> $GITHUB_OUTPUT
           gcs_to_bq_url=$(terraform output gcs_to_bq_url)
           echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
           exporter_url=$(terraform output exporter_url)
           echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
+          frontend_url=$(terraform output frontend_url)
+          echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
@@ -149,3 +214,4 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
+
