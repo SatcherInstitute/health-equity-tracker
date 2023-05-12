@@ -34,7 +34,7 @@ import {
   getWomenRaceLabel,
 } from '../../data/variables/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
-import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
+import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
@@ -100,6 +100,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       }
     },
   }
+
+  const [mapScheme, mapMin] = getMapScheme({ metricId: props.metricConfig.metricId })
 
   return (
     <Dialog
@@ -192,6 +194,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
                     }
                     signalListeners={multimapSignalListeners}
+                    mapConfig={{ mapScheme, mapMin }}
                   />
                 )}
 
@@ -256,6 +259,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       sameDotSize={true}
                       direction={pageIsTiny ? 'vertical' : 'horizontal'}
                       description={'Consistent legend for all displayed maps'}
+                      mapConfig={{ mapScheme, mapMin }}
                     />
                   </Grid>
                 </Grid>
