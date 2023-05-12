@@ -58,6 +58,9 @@ class CDCSviCounty(DataSource):
         gcs_to_bq_util.add_df_to_bq(
             df, dataset, "age", column_types=column_types)
 
+        gcs_to_bq_util.add_df_to_bq(
+            df, dataset, "age-test", column_types=column_types)
+
     def generate_for_bq(self, df):
 
         df = df.rename(columns=columns_to_standard)
