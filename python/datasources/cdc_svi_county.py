@@ -55,10 +55,6 @@ class CDCSviCounty(DataSource):
         column_types = gcs_to_bq_util.get_bq_column_types(
             df, float_cols=[std_col.SVI])
 
-        for letter in "ABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABCABC":
-            print(letter)
-            print("\n\n")
-
         gcs_to_bq_util.add_df_to_bq(
             df, dataset, "age", column_types=column_types)
 
