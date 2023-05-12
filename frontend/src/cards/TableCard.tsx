@@ -140,7 +140,7 @@ export function TableCard(props: TableCardProps) {
                   )}
                   variableId={props.variableConfig.variableId}
                   fips={props.fips}
-                  dataTableTitle={props.variableConfig.dataTableTitle ?? ""}
+                  dataTableTitle={props.variableConfig.dataTableTitle ?? 'Breakdown Summary'}
                 />
               </div>
             )}
