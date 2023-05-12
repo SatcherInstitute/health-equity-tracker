@@ -85,7 +85,6 @@ EXPECTED_DTYPE = {
     "frequent_mental_distress_per_100k": float,
     "depression_per_100k": float,
     "suicide_per_100k": float,
-    "non_medical_rx_opioid_use_per_100k": float,
     "non_medical_drug_use_per_100k": float,
     "excessive_drinking_per_100k": float,
     "preventable_hospitalizations_per_100k": float,
@@ -93,7 +92,8 @@ EXPECTED_DTYPE = {
     "chronic_kidney_disease_per_100k": float,
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
-    "voter_participation_per_100k": float,
+    "voter_participation_per_100k": float,  # TODO: rm this line
+    "voter_participation_pct_rate": float,
     'ahr_population_pct': float,
 }
 
