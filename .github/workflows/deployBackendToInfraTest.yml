@@ -15,6 +15,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -61,6 +63,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -86,6 +90,8 @@ jobs:
     steps:
       - name: Check Out Code
         uses: actions/checkout@v3
+        with:
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
