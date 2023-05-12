@@ -27,6 +27,7 @@ import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
+import { getMapScheme } from "../charts/mapHelpers"
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -193,6 +194,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
+        const isSummaryLegend = !hasChildGeo ?? props.fips.isCounty()
+
+        const [mapScheme, mapMin] = getMapScheme({
+          metricId: metricConfig.metricId,
+          isUnknownsMap: true,
+          isSummaryLegend,
+        })
+
         return (
           <CardContent>
             <ChartTitle title={chartTitle} />
@@ -212,6 +221,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoData={geoData}
                   filename={chartTitle}
                   countColsToAdd={countColsToAdd}
+                  mapConfig={{ mapScheme, mapMin }}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles

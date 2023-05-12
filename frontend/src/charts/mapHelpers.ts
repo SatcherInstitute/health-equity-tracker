@@ -19,6 +19,8 @@ import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { ORDINAL } from './utils'
 import sass from '../styles/variables.module.scss'
 import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
+import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
+
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -42,6 +44,7 @@ export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
 export const MAP_SCHEME = 'darkgreen'
 export const UNKNOWNS_MAP_SCHEME = 'greenblue'
+export const MAP_BW_SCHEME = 'plasma'
 
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
@@ -388,4 +391,30 @@ export function setupColorScale(
   }
 
   return colorScale
+}
+
+interface GetMapSchemeProps {
+  metricId: MetricId
+  isUnknownsMap?: boolean
+  isSummaryLegend?: boolean
+}
+
+export function getMapScheme({
+  metricId,
+  isSummaryLegend,
+  isUnknownsMap,
+}: GetMapSchemeProps) {
+  let mapScheme = MAP_SCHEME
+  let mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
+
+  if (isUnknownsMap) {
+    mapScheme = UNKNOWNS_MAP_SCHEME
+    mapMin = sass.unknownMapMin
+  }
+  if (BLACK_WOMEN_METRICS.includes(metricId)) {
+    mapScheme = MAP_BW_SCHEME
+    mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
+  }
+
+  return [mapScheme, mapMin]
 }

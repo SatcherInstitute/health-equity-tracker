@@ -5,6 +5,7 @@ import {
   type MetricConfig,
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
+import { getMapScheme } from '../../charts/mapHelpers'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -19,13 +20,17 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
+  const [mapScheme, mapMin] = getMapScheme({
+    metricId: props.metricConfig.metricId,
+    isUnknownsMap: props.isUnknownsMap
+  })
+
   return (
     <Grid
       container
       flexWrap={props.mapIsWide ? 'nowrap' : undefined}
       flexDirection={'row'}
       justifyContent={props.isUnknownsMap ? 'flex-end' : undefined}
-      // justifyContent={'flex-end'}
     >
       {TERRITORY_CODES.map((code) => {
         const fips = new Fips(code)
@@ -50,6 +55,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               geoData={props.geoData}
               overrideShapeWithCircle={true}
               countColsToAdd={props.countColsToAdd}
+              mapConfig={{ mapScheme, mapMin }}
             />
           </Grid>
         )

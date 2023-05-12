@@ -11,8 +11,6 @@ import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
-import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
-import { type MetricId } from '../data/config/MetricConfig'
 
 const COLOR_SCALE = 'color_scale'
 const ZERO_SCALE = 'zero_scale'
@@ -59,31 +57,11 @@ export interface LegendProps {
   direction: 'horizontal' | 'vertical'
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
-}
-
-const MAP_COLOR_SCHEME = 'darkgreen'
-const UNKNOWN_MAP_COLOR_SCHEME = 'greenblue'
-const MAP_BW_MAP_COLOR_SCHEME = 'plasma'
-
-export function getMapScheme(metricId: MetricId, isUnknownsMap?: boolean) {
-  let mapScheme = MAP_COLOR_SCHEME;
-  let mapMin = sass.mapMin;
-
-  if (isUnknownsMap) {
-    mapScheme = UNKNOWN_MAP_COLOR_SCHEME
-    mapMin = sass.unknownMapMin
-  } else if (BLACK_WOMEN_METRICS.includes(metricId)) {
-    mapScheme = MAP_BW_MAP_COLOR_SCHEME
-    mapMin = sass.mapBwMin
-  }
-
-  return [mapScheme, mapMin];
+  mapConfig: { mapScheme: string, mapMin: string }
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-
-  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
 
   const orient = props.direction === 'vertical' ? 'left' : 'right'
 
@@ -116,7 +94,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: mapScheme, count: legendColorCount },
+      range: { scheme: props.mapConfig.mapScheme, count: legendColorCount },
     }
 
     if (props.fieldRange) {
@@ -266,7 +244,7 @@ export function Legend(props: LegendProps) {
             field: props.metric.metricId,
           },
           range: {
-            scheme: mapScheme,
+            scheme: props.mapConfig.mapScheme,
             count: props.isSummaryLegend ? 1 : legendColorCount,
           },
         },
@@ -274,7 +252,7 @@ export function Legend(props: LegendProps) {
           name: ZERO_SCALE,
           type: ORDINAL,
           domain: { data: ZERO_VALUES, field: 'zero' },
-          range: [mapMin],
+          range: [props.mapConfig.mapMin],
         },
         {
           name: ZERO_DOT_SCALE,
@@ -320,7 +298,9 @@ export function Legend(props: LegendProps) {
     props.fieldRange,
     props.data,
     props.sameDotSize,
-    props,
+    props.mapConfig.mapMin,
+    props.mapConfig.mapScheme,
+    props
   ])
 
   return (
