@@ -89,6 +89,7 @@ EXPECTED_DTYPE = {
     "excessive_drinking_per_100k": float,
     "preventable_hospitalizations_per_100k": float,
     "avoided_care_per_100k": float,
+    "avoided_care_pct_rate": float,   # TODO: rm this line
     "chronic_kidney_disease_per_100k": float,
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
