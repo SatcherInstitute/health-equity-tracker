@@ -1,7 +1,7 @@
 name: Deploy to Infra Test
 
 # TODO: Currently this deploys ALL of the microservices including the frontend and data server
-# TODO: ideally we should reduce this to the minimum services needed
+# TODO: ideally we should reduce this to the minimum services needed for backend
 
 
 on:
@@ -20,7 +20,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -45,7 +45,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -70,7 +70,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -95,7 +95,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -120,7 +120,8 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          # don't update dev.healthequitytracker.org frontend with push to infra-test branch
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v1
         with:
