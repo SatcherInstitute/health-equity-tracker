@@ -1,8 +1,6 @@
 name: Deploy to Infra Test
 
 on:
-  push:
-      branches: [infra-test]
   workflow_dispatch:
 
 jobs:
@@ -16,7 +14,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          ref: ${{ github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -41,7 +39,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          ref: ${{ github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -66,7 +64,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          ref: ${{ github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -91,7 +89,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          ref: ${{ github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -116,7 +114,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          ref: ${{ github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -144,7 +142,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          ref: ${{ github.ref_name }}
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -171,7 +169,6 @@ jobs:
           -backend-config="credentials=creds.json"
       - name: Terraform Apply
         id: terraform
-        if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
@@ -195,7 +192,6 @@ jobs:
           echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
       - name: Airflow Environment Variables
         id: airflow-environment-variables
-        if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
         continue-on-error: true
         run: |
           gcloud composer environments update data-ingestion-environment \
@@ -206,7 +202,6 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
       - name: Upload Airflow DAGs and utility file
-        if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
