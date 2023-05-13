@@ -207,4 +207,7 @@ jobs:
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
-
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
