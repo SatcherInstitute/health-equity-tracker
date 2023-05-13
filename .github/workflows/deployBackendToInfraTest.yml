@@ -1,6 +1,8 @@
 name: Deploy Backend to Infra Test
 
-# TODO: only run services below that are required for backend deployment
+# TODO: Currently this deploys ALL of the microservices including the frontend and data server
+# TODO: ideally we should reduce this to the minimum services needed for backend
+
 
 on:
   push:
@@ -10,7 +12,7 @@ on:
 jobs:
   build-ingestion:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Test Deploy infra-test Data Ingestion Image
+    name: (infra-test) Data Ingestion Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.ingestion.outputs.image-digest }}
@@ -35,7 +37,7 @@ jobs:
 
   build-gcs-to-bq:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Test Deploy infra-test GCS-to-BQ Image
+    name: (infra-test) GCS-to-BQ Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.gcstobq.outputs.image-digest }}
@@ -60,7 +62,7 @@ jobs:
 
   build-exporter:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Test Deploy infra-test Exporter Image
+    name: (infra-test) Exporter Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.exporter.outputs.image-digest }}
@@ -85,7 +87,7 @@ jobs:
 
   build-data-server:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Test Deploy infra-test Data Server Image
+    name: (infra-test) Data Server Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
@@ -110,7 +112,7 @@ jobs:
 
   build-frontend:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Dev Deploy main Frontend Image
+    name: (main -> dev site) Frontend Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
@@ -139,7 +141,7 @@ jobs:
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Deploy Backend with Airflow/Terraform Configs to HET Infra TEST Environment
+    name: (infra-test) Terraform / Airflow Configs
     runs-on: ubuntu-latest
     needs: [build-ingestion, build-gcs-to-bq, build-exporter, build-data-server, build-frontend]
 
