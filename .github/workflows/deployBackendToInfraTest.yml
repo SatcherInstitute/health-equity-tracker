@@ -1,6 +1,8 @@
 name: Deploy to Infra Test
 
 on:
+  push:
+    branches: [infra-test]
   workflow_dispatch:
 
 jobs:
