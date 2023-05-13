@@ -181,7 +181,6 @@ jobs:
           -var 'gcs_to_bq_image_digest=${{ needs.build-gcs-to-bq.outputs.image-digest }}' \
           -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
-          -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
           data_server_url=$(terraform output data_server_url)
           echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
           ingestion_url=$(terraform output ingestion_url)
@@ -190,8 +189,6 @@ jobs:
           echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
           exporter_url=$(terraform output exporter_url)
           echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
-          frontend_url=$(terraform output frontend_url)
-          echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
       - name: Airflow Environment Variables
         id: airflow-environment-variables
         continue-on-error: true
@@ -207,8 +204,3 @@ jobs:
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.8
-
