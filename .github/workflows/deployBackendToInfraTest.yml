@@ -204,4 +204,3 @@ jobs:
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
-
