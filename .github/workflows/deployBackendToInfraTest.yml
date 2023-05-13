@@ -1,5 +1,7 @@
 name: Deploy to Infra Test
 
+# TODO: only run services below that are required for backend deployment
+
 on:
   push:
     branches: [infra-test]
@@ -16,7 +18,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -41,7 +43,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -66,7 +68,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -91,7 +93,7 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          ref: infra-test
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -116,7 +118,8 @@ jobs:
       - name: Check Out Code
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref_name }}
+          # don't update dev.healthequitytracker.org frontend with push to infra-test branch
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v1
         with:
