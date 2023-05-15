@@ -10,7 +10,7 @@ import {
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  getMapScheme
+  getMapScheme,
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
 import {
@@ -18,7 +18,6 @@ import {
   buildTooltipTemplate,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
-  createCircleTextMark,
   createInvisibleAltMarks,
   createShapeMarks,
   formatPreventZero100k,
@@ -294,19 +293,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ),
     ]
 
-    if (props.overrideShapeWithCircle) {
-      // Visible Territory Abbreviations
-      marks.push(createCircleTextMark(VALID_DATASET))
-      marks.push(createCircleTextMark(ZERO_DATASET))
-      marks.push(createCircleTextMark(MISSING_DATASET))
-    } else {
-      marks.push(
-        createInvisibleAltMarks(
-          /* tooltipDatum */ tooltipDatum,
-          /*  tooltipLabel */ tooltipLabel
-        )
+    marks.push(
+      createInvisibleAltMarks(
+        /* tooltipDatum */ tooltipDatum,
+        /*  tooltipLabel */ tooltipLabel
       )
-    }
+    )
 
     const altText = makeAltText(
       /* data */ props.data,

@@ -5,6 +5,7 @@ import {
   type MetricConfig,
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
+import styles from './TerritoryCircles.module.scss'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -25,17 +26,17 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       flexWrap={props.mapIsWide ? 'nowrap' : undefined}
       flexDirection={'row'}
       justifyContent={props.isUnknownsMap ? 'flex-end' : undefined}
-      // justifyContent={'flex-end'}
     >
-      {TERRITORY_CODES.map((code) => {
-        const fips = new Fips(code)
+      {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
+        const fips = new Fips(fipsCode)
         return (
           <Grid
             item
-            key={code}
+            key={fipsCode}
             xs={4}
-            md={props.mapIsWide ? 2 : 4}
-            lg={props.mapIsWide ? 1 : 2}
+            md={4}
+            lg={props.mapIsWide ? 2 : 4}
+            component={'figure'}
           >
             <ChoroplethMap
               signalListeners={props.signalListeners}
@@ -51,6 +52,9 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               overrideShapeWithCircle={true}
               countColsToAdd={props.countColsToAdd}
             />
+            <figcaption className={styles.TerritoryLabel}>
+              {postalCode}
+            </figcaption>
           </Grid>
         )
       })}

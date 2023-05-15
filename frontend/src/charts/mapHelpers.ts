@@ -228,27 +228,6 @@ export function createShapeMarks(
   return marks
 }
 
-export function createCircleTextMark(datasetName: string) {
-  return {
-    type: 'text',
-    interactive: false,
-    aria: false,
-    from: { data: datasetName + '_MARK' },
-    encode: {
-      enter: {
-        align: { value: 'center' },
-        baseline: { value: 'middle' },
-        fontSize: { value: 13 },
-        text: { field: 'datum.properties.abbreviation' },
-      },
-      update: {
-        x: { field: 'x' },
-        y: { field: 'y' },
-      },
-    },
-  }
-}
-
 /* ALT MARKS: verbose, invisible text for screen readers showing valid data (incl territories) */
 export function createInvisibleAltMarks(
   tooltipDatum: string,
