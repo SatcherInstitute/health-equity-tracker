@@ -14,6 +14,7 @@ To contribute to this project:
 1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
 2. On your development machine, clone your forked repo and add the official repo as a remote.
     - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `josh`, `ben`, or `eric`.
+    - To add a remote branch (replacing with your desired remote name and actual remote URL) `git remote add ben https://github.com/benhammondmusic/health-equity-tracker`
 
 When you're ready to make changes:
 
