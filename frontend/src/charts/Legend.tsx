@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
-import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import {
+  isPctType,
+  type MetricConfig,
+  type MetricId,
+} from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
@@ -12,7 +16,6 @@ import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
-import { type MetricId } from '../data/config/MetricConfig'
 
 const COLOR_SCALE = 'color_scale'
 const ZERO_SCALE = 'zero_scale'
@@ -64,11 +67,14 @@ export interface LegendProps {
 }
 
 export function getMapScheme(metricId: MetricId) {
-  let mapScheme = BLACK_WOMEN_METRICS.includes(metricId) ? 'plasma' : 'darkgreen'
-  let mapMin = BLACK_WOMEN_METRICS.includes(metricId) ? sass.mapBwMin : sass.mapMin
+  const mapScheme = BLACK_WOMEN_METRICS.includes(metricId)
+    ? 'plasma'
+    : 'darkgreen'
+  const mapMin = BLACK_WOMEN_METRICS.includes(metricId)
+    ? sass.mapBwMin
+    : sass.mapMin
 
   return [mapScheme, mapMin]
-
 }
 
 export function Legend(props: LegendProps) {

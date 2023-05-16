@@ -21,23 +21,11 @@ interface TerritoryCirclesProps {
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   return (
-    <Grid
-      container
-      flexWrap={props.mapIsWide ? 'nowrap' : undefined}
-      flexDirection={'row'}
-      justifyContent={props.isUnknownsMap ? 'flex-end' : undefined}
-    >
+    <Grid container flexDirection={'row'} justifyContent={'flex-end'}>
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
         const fips = new Fips(fipsCode)
         return (
-          <Grid
-            item
-            key={fipsCode}
-            xs={4}
-            md={4}
-            lg={props.mapIsWide ? 2 : 4}
-            component={'figure'}
-          >
+          <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
             <ChoroplethMap
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
