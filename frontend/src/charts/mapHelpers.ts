@@ -21,7 +21,6 @@ import sass from '../styles/variables.module.scss'
 import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
 
-
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
 export const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
@@ -229,27 +228,6 @@ export function createShapeMarks(
     marks.transform = [{ type: 'geoshape', projection: US_PROJECTION }]
   }
   return marks
-}
-
-export function createCircleTextMark(datasetName: string) {
-  return {
-    type: 'text',
-    interactive: false,
-    aria: false,
-    from: { data: datasetName + '_MARK' },
-    encode: {
-      enter: {
-        align: { value: 'center' },
-        baseline: { value: 'middle' },
-        fontSize: { value: 13 },
-        text: { field: 'datum.properties.abbreviation' },
-      },
-      update: {
-        x: { field: 'x' },
-        y: { field: 'y' },
-      },
-    },
-  }
 }
 
 /* ALT MARKS: verbose, invisible text for screen readers showing valid data (incl territories) */

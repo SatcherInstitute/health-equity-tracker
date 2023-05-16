@@ -101,7 +101,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     },
   }
 
-  const [mapScheme, mapMin] = getMapScheme({ metricId: props.metricConfig.metricId })
+  const [mapScheme, mapMin] = getMapScheme({
+    metricId: props.metricConfig.metricId,
+  })
 
   return (
     <Dialog

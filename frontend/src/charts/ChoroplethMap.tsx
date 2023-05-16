@@ -17,7 +17,6 @@ import {
   buildTooltipTemplate,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
-  createCircleTextMark,
   createInvisibleAltMarks,
   createShapeMarks,
   formatPreventZero100k,
@@ -89,7 +88,7 @@ export interface ChoroplethMapProps {
   }
   listExpanded?: boolean
   countColsToAdd: MetricId[]
-  mapConfig: { mapScheme: string, mapMin: string }
+  mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean
 }
 
@@ -291,19 +290,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ),
     ]
 
-    if (props.overrideShapeWithCircle) {
-      // Visible Territory Abbreviations
-      marks.push(createCircleTextMark(VALID_DATASET))
-      marks.push(createCircleTextMark(ZERO_DATASET))
-      marks.push(createCircleTextMark(MISSING_DATASET))
-    } else {
-      marks.push(
-        createInvisibleAltMarks(
-          /* tooltipDatum */ tooltipDatum,
-          /*  tooltipLabel */ tooltipLabel
-        )
+    marks.push(
+      createInvisibleAltMarks(
+        /* tooltipDatum */ tooltipDatum,
+        /*  tooltipLabel */ tooltipLabel
       )
-    }
+    )
 
     const altText = makeAltText(
       /* data */ props.data,
