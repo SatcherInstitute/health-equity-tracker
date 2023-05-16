@@ -436,6 +436,12 @@ You can then set the `ingestion_image_name` variable in your tfvars file to `<yo
 </details>
 
 
+
+# HET Microservice Architecture
+
+[!HET Microservice Architecture Diagram]('./HET Architecture.svg')
+
+
 # License
 
 [MIT](./LICENSE)
