@@ -10,7 +10,6 @@ import {
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  getMapScheme
 } from './Legend'
 import { useMediaQuery } from '@mui/material'
 import {
@@ -40,7 +39,6 @@ import {
   ZERO_DATASET,
   VALID_DATASET,
   getHelperLegend,
-  UNKNOWNS_MAP_SCHEME,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { type Legend } from 'vega'
@@ -91,12 +89,13 @@ export interface ChoroplethMapProps {
   }
   listExpanded?: boolean
   countColsToAdd: MetricId[]
+  mapConfig: { mapScheme: string, mapMin: string }
+  isSummaryLegend?: boolean
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -251,9 +250,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId,
       /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.isUnknownsMap
-        ? UNKNOWNS_MAP_SCHEME
-        : mapScheme,
+      /* scaleColorScheme? */ props.mapConfig.mapScheme,
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
 
@@ -268,7 +265,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       // ZEROS
       createShapeMarks(
         /* datasetName= */ ZERO_DATASET,
-        /* fillColor= */ { value: mapMin },
+        /* fillColor= */ { value: props.mapConfig.mapMin },
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ zeroTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
@@ -430,6 +427,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
+    props.mapConfig.mapScheme,
+    props.mapConfig.mapMin,
     yOffsetNoDataLegend,
     xOffsetNoDataLegend,
     props,

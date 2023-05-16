@@ -58,7 +58,7 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
-import { RATE_MAP_SCALE } from '../charts/mapHelpers'
+import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -337,6 +337,13 @@ function MapCardWithKey(props: MapCardProps) {
           ? highestValues.concat(lowestValues)
           : dataForActiveBreakdownFilter
 
+        const isSummaryLegend = hasSelfButNotChildGeoData ?? props.fips.isCounty()
+
+        const [mapScheme, mapMin] = getMapScheme({
+          metricId: metricConfig.metricId,
+          isSummaryLegend,
+        })
+
         return (
           <>
             <MultiMapDialog
@@ -437,6 +444,7 @@ function MapCardWithKey(props: MapCardProps) {
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
                         signalListeners={signalListeners}
+                        mapConfig={{ mapScheme, mapMin }}
                       />
                       {props.fips.isUsa() && (
                         <Grid
@@ -474,10 +482,9 @@ function MapCardWithKey(props: MapCardProps) {
                         sameDotSize={true}
                         direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
-                        isSummaryLegend={
-                          hasSelfButNotChildGeoData || props.fips.isCounty()
-                        }
+                        isSummaryLegend={isSummaryLegend}
                         fipsTypeDisplayName={fipsTypeDisplayName}
+                        mapConfig={{ mapScheme, mapMin }}
                       />
                     </Grid>
 
