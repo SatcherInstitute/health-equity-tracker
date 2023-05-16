@@ -38,8 +38,6 @@ export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
-export const UNKNOWN_MAP_SCHEME = 'greenblue'
-
 const ZERO_BUCKET_LABEL = '0'
 
 /*
@@ -64,6 +62,7 @@ export interface LegendProps {
   direction: 'horizontal' | 'vertical'
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
+  mapConfig: { mapScheme: string; mapMin: string }
 }
 
 export function getMapScheme(metricId: MetricId) {
@@ -79,10 +78,8 @@ export function getMapScheme(metricId: MetricId) {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
 
-  const { direction } = props
-  const orient = direction === 'vertical' ? 'left' : 'right'
+  const orient = props.direction === 'vertical' ? 'left' : 'right'
 
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
 
@@ -113,7 +110,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: mapScheme, count: legendColorCount },
+      range: { scheme: props.mapConfig.mapScheme, count: legendColorCount },
     }
 
     if (props.fieldRange) {
@@ -263,7 +260,7 @@ export function Legend(props: LegendProps) {
             field: props.metric.metricId,
           },
           range: {
-            scheme: mapScheme,
+            scheme: props.mapConfig.mapScheme,
             count: props.isSummaryLegend ? 1 : legendColorCount,
           },
         },
@@ -271,7 +268,7 @@ export function Legend(props: LegendProps) {
           name: ZERO_SCALE,
           type: ORDINAL,
           domain: { data: ZERO_VALUES, field: 'zero' },
-          range: [mapMin],
+          range: [props.mapConfig.mapMin],
         },
         {
           name: ZERO_DOT_SCALE,
@@ -317,6 +314,8 @@ export function Legend(props: LegendProps) {
     props.fieldRange,
     props.data,
     props.sameDotSize,
+    props.mapConfig.mapMin,
+    props.mapConfig.mapScheme,
     props,
   ])
 

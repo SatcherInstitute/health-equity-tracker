@@ -6,6 +6,7 @@ import {
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
+import { getMapScheme } from '../../charts/mapHelpers'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -20,6 +21,11 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
+  const [mapScheme, mapMin] = getMapScheme({
+    metricId: props.metricConfig.metricId,
+    isUnknownsMap: props.isUnknownsMap,
+  })
+
   return (
     <Grid container flexDirection={'row'} justifyContent={'flex-end'}>
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
@@ -39,6 +45,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               geoData={props.geoData}
               overrideShapeWithCircle={true}
               countColsToAdd={props.countColsToAdd}
+              mapConfig={{ mapScheme, mapMin }}
             />
             <figcaption className={styles.TerritoryLabel}>
               {postalCode}
