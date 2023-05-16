@@ -439,11 +439,7 @@ function MapCardWithKey(props: MapCardProps) {
                         signalListeners={signalListeners}
                       />
                       {props.fips.isUsa() && (
-                        <Grid
-                          item
-                          xs={12}
-                          sx={{ display: { xs: 'block', sm: 'none' } }}
-                        >
+                        <Grid item xs={12}>
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
                             data={displayData}
@@ -456,7 +452,7 @@ function MapCardWithKey(props: MapCardProps) {
                         </Grid>
                       )}
                     </Grid>
-                    {/* Legend & Location Info */}
+                    {/* Legend */}
                     <Grid
                       container
                       justifyItems={'center'}
@@ -488,7 +484,7 @@ function MapCardWithKey(props: MapCardProps) {
                       justifyContent={'space-between'}
                       alignItems={'center'}
                     >
-                      <Grid item xs={props.fips.isUsa() ? 6 : 12}>
+                      <Grid item>
                         <GeoContext
                           fips={props.fips}
                           updateFipsCallback={props.updateFipsCallback}
@@ -497,23 +493,6 @@ function MapCardWithKey(props: MapCardProps) {
                           sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
-                      {props.fips.isUsa() && (
-                        <Grid
-                          item
-                          sm={6}
-                          sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                          <TerritoryCircles
-                            mapIsWide={mapIsWide}
-                            data={displayData}
-                            countColsToAdd={countColsToAdd}
-                            listExpanded={listExpanded}
-                            metricConfig={metricConfig}
-                            signalListeners={signalListeners}
-                            geoData={geoData}
-                          />
-                        </Grid>
-                      )}
                     </Grid>
                   </Grid>
 
