@@ -57,7 +57,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)
 
-  const metricConfigRates = props.variableConfig.metrics.per100k
+  const metricConfigRates =
+    props.variableConfig.metrics?.per100k ??
+    props.variableConfig.metrics?.pct_rate
   const metricConfigPctShares = props.variableConfig.metrics.pct_share
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(

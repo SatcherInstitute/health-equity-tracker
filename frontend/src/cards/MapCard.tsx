@@ -98,7 +98,9 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
-  const metricConfig = props.variableConfig.metrics.per100k
+  const metricConfig =
+    props.variableConfig.metrics?.per100k ??
+    props.variableConfig.metrics.pct_rate
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.variableConfig.variableId === 'prison'

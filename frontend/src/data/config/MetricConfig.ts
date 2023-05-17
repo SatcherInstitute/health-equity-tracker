@@ -226,7 +226,7 @@ export type MetricType =
   | 'pct_share'
   | 'per100k'
   | 'pct_relative_inequity'
-  | 'pct_incidence'
+  | 'pct_rate'
   | 'index'
   | 'ratio'
 
@@ -294,13 +294,11 @@ export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   index: '',
   ratio: '×',
   pct_relative_inequity: '%',
-  pct_incidence: '%',
+  pct_rate: '%',
 }
 
 export function isPctType(metricType: MetricType) {
-  return ['pct_share', 'pct_relative_inequity', 'pct_incidence'].includes(
-    metricType
-  )
+  return ['pct_share', 'pct_relative_inequity', 'pct_rate'].includes(metricType)
 }
 
 /**
@@ -336,13 +334,16 @@ export function formatFieldValue(
   return `${formattedValue}${percentSuffix}${ratioSuffix}`
 }
 
-export function getPer100kAndPctShareMetrics(
+export function getRateAndPctShareMetrics(
   variableConfig: VariableConfig
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
   if (variableConfig) {
-    if (variableConfig.metrics.per100k) {
+    if (variableConfig.metrics?.per100k) {
       tableFields.push(variableConfig.metrics.per100k)
+    }
+    if (variableConfig.metrics?.pct_rate) {
+      tableFields.push(variableConfig.metrics.pct_rate)
     }
     if (variableConfig.metrics.pct_share) {
       tableFields.push(variableConfig.metrics.pct_share)
@@ -1539,20 +1540,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for care avoidance due to cost',
       metrics: {
-        per100k: {
+        pct_rate: {
           metricId: 'avoided_care_pct_rate',
           chartTitle: 'Care avoidance due to cost',
           trendsCardTitleName: 'Rates of care avoidance over time',
           columnTitleHeader: 'Care avoidance due to cost',
-          shortLabel: '% who avoided care',
-          type: 'per100k',
+          shortLabel: '% avoided care',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of all care avoidance due to cost',
           metricId: 'avoided_care_pct_share',
           trendsCardTitleName: 'Inequitable share of care avoidance over time',
           columnTitleHeader: 'Share of all care avoidance due to cost',
-          shortLabel: '% of total avoidances',
+          shortLabel: '% of avoidances',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -1752,7 +1753,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           chartTitle: 'Voter participation',
           trendsCardTitleName: 'Rates of voter participation over time',
           shortLabel: '% voter participation',
-          type: 'pct_incidence',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of all voter participation',
