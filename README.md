@@ -213,7 +213,7 @@ Much of the guidance in this readme is aimed towards ongoing development of the 
 
 The following section is not required for regular maintenance of the Health Equity Tracker, but can be extremely helpful for local development and cloud deployment of similar, forked projects.
 
-<details><summary>Advanced configuration</summary>
+<details><summary>Expand advanced configuration details</summary>
 
 
 ## Advanced Frontend Configuration
