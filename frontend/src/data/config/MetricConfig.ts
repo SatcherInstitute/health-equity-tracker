@@ -63,7 +63,7 @@ export type MetricId =
   | 'asthma_ratio_age_adjusted'
   | 'avoided_care_pct_relative_inequity'
   | 'avoided_care_pct_share'
-  | 'avoided_care_per_100k'
+  | 'avoided_care_pct_rate'
   | 'avoided_care_ratio_age_adjusted'
   | 'black_women_population_pct'
   | 'cardiovascular_diseases_pct_relative_inequity'
@@ -1540,11 +1540,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       dataTableTitle: 'Breakdown summary for care avoidance due to cost',
       metrics: {
         per100k: {
-          metricId: 'avoided_care_per_100k',
+          metricId: 'avoided_care_pct_rate',
           chartTitle: 'Care avoidance due to cost',
           trendsCardTitleName: 'Rates of care avoidance over time',
-          columnTitleHeader: 'Care avoidance due to cost per 100k adults',
-          shortLabel: 'avoidance per 100k adults',
+          columnTitleHeader: 'Care avoidance due to cost',
+          shortLabel: '% who avoided care',
           type: 'per100k',
         },
         pct_share: {
@@ -1552,12 +1552,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           metricId: 'avoided_care_pct_share',
           trendsCardTitleName: 'Inequitable share of care avoidance over time',
           columnTitleHeader: 'Share of all care avoidance due to cost',
-          shortLabel: '% of avoidance',
+          shortLabel: '% of total avoidances',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
               'Population vs. distribution of total care avoidance due to cost',
-
             metricId: 'ahr_population_pct',
             columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1574,7 +1573,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           chartTitle:
             'Age-adjusted risk of care avoidance due to cost compared to White (NH)',
-
           metricId: 'avoided_care_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',

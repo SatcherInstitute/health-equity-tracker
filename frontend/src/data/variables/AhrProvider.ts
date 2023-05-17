@@ -12,7 +12,7 @@ export const AHR_DETERMINANTS: MetricId[] = [
   'asthma_ratio_age_adjusted',
   'avoided_care_pct_relative_inequity',
   'avoided_care_pct_share',
-  'avoided_care_per_100k',
+  'avoided_care_pct_rate',
   'avoided_care_ratio_age_adjusted',
   'cardiovascular_diseases_pct_relative_inequity',
   'cardiovascular_diseases_pct_share',
