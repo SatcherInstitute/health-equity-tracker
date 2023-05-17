@@ -373,6 +373,7 @@ function MapCardWithKey(props: MapCardProps) {
                 !mapQueryResponse.dataIsMissing() &&
                 (props.variableConfig.surveyCollectedData ?? false)
               }
+              pageIsSmall={pageIsSmall}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -479,11 +480,12 @@ function MapCardWithKey(props: MapCardProps) {
                         data={allDataForActiveBreakdownFilter}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
-                        direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                         isSummaryLegend={isSummaryLegend}
                         fipsTypeDisplayName={fipsTypeDisplayName}
                         mapConfig={{ mapScheme, mapMin }}
+                        columns={mapIsWide ? 1 : 3}
+                        stackingDirection={'vertical'}
                       />
                     </Grid>
 

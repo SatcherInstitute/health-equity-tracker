@@ -58,11 +58,11 @@ export interface LegendProps {
   sameDotSize?: boolean
   // Alt text
   description: string
-  // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: 'horizontal' | 'vertical'
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
   mapConfig: { mapScheme: string; mapMin: string }
+  columns: number
+  stackingDirection: 'horizontal' | 'vertical'
 }
 
 export function getMapScheme(metricId: MetricId) {
@@ -78,19 +78,14 @@ export function getMapScheme(metricId: MetricId) {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-
-  const orient = props.direction === 'vertical' ? 'left' : 'right'
-
+  const orient = 'left'
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
-
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
   )
-
   const uniqueNonZeroValueCount = new Set(
     nonZeroData?.map((row) => row[props.metric.metricId])
   ).size
-
   const missingData = props.data?.filter(
     (row) => row[props.metric.metricId] == null
   )
@@ -166,9 +161,10 @@ export function Legend(props: LegendProps) {
         format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
         labelFontStyle: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
-        direction: props.direction,
+        direction: props.stackingDirection,
         orient: 'left',
-        columns: props.direction === 'horizontal' ? 2 : 1,
+        columns: props.columns,
+        columnPadding: 20,
         encode: {
           labels: {
             update: {
@@ -198,7 +194,7 @@ export function Legend(props: LegendProps) {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
       background: sass.white,
-      padding: 8,
+      padding: 0,
       data: [
         {
           name: RAW_VALUES,
@@ -241,7 +237,11 @@ export function Legend(props: LegendProps) {
           ],
         },
       ],
-      layout: { padding: 20, bounds: 'full', align: 'each' },
+      layout: {
+        padding: 20,
+        bounds: 'full',
+        align: 'each',
+      },
       marks: [
         {
           type: 'group',

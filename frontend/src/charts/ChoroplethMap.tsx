@@ -11,7 +11,7 @@ import {
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
 } from './Legend'
-import { useMediaQuery } from '@mui/material'
+import { Grid, useMediaQuery } from '@mui/material'
 import {
   addCAWPTooltipInfo,
   buildTooltipTemplate,
@@ -429,7 +429,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ])
 
   return (
-    <div ref={props.overrideShapeWithCircle ? undefined : ref}>
+    <Grid
+      container
+      justifyContent={'center'}
+      ref={props.overrideShapeWithCircle ? undefined : ref}
+    >
       {shouldRenderMap && (
         <Vega
           renderer="svg"
@@ -440,6 +444,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           signalListeners={props.signalListeners}
         />
       )}
-    </div>
+    </Grid>
   )
 }
