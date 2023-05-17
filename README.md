@@ -130,52 +130,15 @@ npm run url
 This will use Playwright test runner to launch the React app if needed, and then confirm all outgoing links are returning successful responses. This runs weekly on GitHub.
 
 
-### (OPTIONAL) Build
+### Build
 
-To create a "production" build do:
+Note: Building manually is not required for development, but helpful for debugging deployment issues as this step is run during CI. To create a "production" build do:
 
 ```bash
 npm run build:${DEPLOY_CONTEXT}
 ```
 
 This will use the `frontend/.env.${DEPLOY_CONTEXT}` file for environment variables and outputs bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
-
-
-### UNUSED: Running the Frontend Server locally
-
-<details>
-<summary>If you need to run the frontend server locally to test server-side changes:</summary>
-
-Copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
-
-To run the frontend server locally, navigate to the `frontend_server/` directory and run:
-```bash
-node -r dotenv/config server.js dotenv_config_path=.env.development
-```
-
-This will start the server at `http://localhost:8080`. However, since it mostly serves static files from the `build/` directory, you will either need to
-1. run the frontend server separately and set the `VITE_BASE_API_URL` url to `http://localhost:8080` (see above), or
-2. go to the `frontend/` directory and run `npm run build:development`. Then copy the `frontend/build/` directory to `frontend_server/build/`
-
-Similarly to the frontend React app, the frontend server can be configured for local development by changing environment variables in `frontend_server/.env.development`. Copy `frontend_server/.env.example` to get started.
-
-#### UNUSED: Running the Frontend Server with Docker locally
-
-If you need to test Dockerfile changes or run the frontend in a way that more closely mirrors the production environment, you can run it using Docker. This will build both the frontend React app and the frontend server.
-
-Run the following commands from the root project directory:
-1. Build the frontend Docker image:
-   `docker build -t <some-identifying-tag> -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"`
-2. Run the frontend Docker image:
-   `docker run -p 49160:8080 -d <some-identifying-tag>`
-3. Navigate to `http://localhost:49160`.
-
-When building with Docker, changes will not automatically be applied; you will need to rebuild the Docker image.
-
-#### UNUSED: Running the Frontend Server in your own GCP project
-
-Refer to [Deploying your own instance with terraform](#Deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
-</details>
 
 
 # Backend
@@ -240,18 +203,72 @@ pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.
 ```
 
 
-## UNUSED: Testing Pub/Sub triggers
-<details><summary>More</summary>
+# HET Microservice Architecture
+![HET Microservice Architecture Diagram](https://raw.githubusercontent.com/SatcherInstitute/health-equity-tracker/9325c032d8df110fc234f0ecd75c54129282418f/HET%20Architecture.svg)
+
+
+# Developing Your Own Tracker
+
+Much of the guidance in this readme is aimed towards ongoing development of the platform available at healthequitytracker.org, however we highly encourage interested parties to leverage this open-sourced code base and the data access it provides to advance health equity in their own research and communities.
+
+The following section is not required for regular maintenance of the Health Equity Tracker, but can be extremely helpful for local development and cloud deployment of similar, forked projects.
+
+<details><summary>Advanced configuration</summary>
+
+
+## Advanced Frontend Configuration
+
+
+### Running the Frontend Server locally
+
+
+#### If you need to run the frontend server locally to test server-side changes:
+
+Copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
+
+To run the frontend server locally, navigate to the `frontend_server/` directory and run:
+```bash
+node -r dotenv/config server.js dotenv_config_path=.env.development
+```
+
+This will start the server at `http://localhost:8080`. However, since it mostly serves static files from the `build/` directory, you will either need to
+1. run the frontend server separately and set the `VITE_BASE_API_URL` url to `http://localhost:8080` (see above), or
+2. go to the `frontend/` directory and run `npm run build:development`. Then copy the `frontend/build/` directory to `frontend_server/build/`
+
+Similarly to the frontend React app, the frontend server can be configured for local development by changing environment variables in `frontend_server/.env.development`. Copy `frontend_server/.env.example` to get started.
+
+#### Running the Frontend Server with Docker locally
+
+If you need to test Dockerfile changes or run the frontend in a way that more closely mirrors the production environment, you can run it using Docker. This will build both the frontend React app and the frontend server.
+
+Run the following commands from the root project directory:
+1. Build the frontend Docker image:
+   `docker build -t <some-identifying-tag> -f frontend_server/Dockerfile . --build-arg="DEPLOY_CONTEXT=development"`
+2. Run the frontend Docker image:
+   `docker run -p 49160:8080 -d <some-identifying-tag>`
+3. Navigate to `http://localhost:49160`.
+
+When building with Docker, changes will not automatically be applied; you will need to rebuild the Docker image.
+
+#### Running the Frontend Server in your own GCP project
+
+Refer to [Deploying your own instance with terraform](#Deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
+
+
+
+## Advanced Backend Configuration
+
+### Testing Pub/Sub triggers
+
 To test a Cloud Run service triggered by a Pub/Sub topic, run
 `gcloud pubsub topics publish projects/<project-id>/topics/<your_topic_name> --message "your_message" --attribute=KEY1=VAL1,KEY2=VAL2`
 
 See [Documentation](https://cloud.google.com/sdk/gcloud/reference/pubsub/topics/publish) for details.
-</details>
 
 
-## UNUSED: Updating Shared python code
+### Updating Shared python code
 
-<details><summary>More</summary>
+
 Most python code should go in the `/python` directory, which contains packages that can be installed into any service. Each sub-directory of `/python` is a package with an `__init__.py` file, a `setup.py` file, and a `requirements.in` file. Shared code should go in one of these packages. If a new sub-package is added:
 
 1. Create a folder `/python/<new_package>`. Inside, add:
@@ -266,15 +283,15 @@ To work with the code locally, run `pip install ./python/<package>` from the roo
 
 
 
-### UNUSED: Adding a new root-level python directory
+### Adding a new root-level python directory
 
 Note: generally this should only be done for a new service. Otherwise, please add python code to the `python/` directory.
 
 When adding a new python root-level python directory, be sure to update `.github/workflows/linter.yml` to ensure the directory is linted and type-checked.
 
-### UNUSED: Adding python dependencies
+### Adding python dependencies
 
-#### UNUSED: Adding an external dependency
+#### Adding an external dependency
 
 1. Add the dependency to the appropriate `requirements.in` file.
    - If the dependency is used by `/python/<package>`, add it to the `/python/<package>/requirements.in` file.
@@ -287,7 +304,7 @@ When adding a new python root-level python directory, be sure to update `.github
 1. Update the requirements.txt for unit tests
 `pip-compile python/tests/requirements.in -o python/tests/requirements.txt`
 
-#### UNUSED: Adding an internal dependency
+#### Adding an internal dependency
 
 If a service adds a dependency on `/python/<some_package>`:
 
@@ -295,15 +312,11 @@ If a service adds a dependency on `/python/<some_package>`:
 - Follow step 2 of [Adding an external dependency](#adding-an-external-dependency) to generate the relevant `requirements.txt` files.
 - Add the line `RUN pip install ./python/<some_package>` to `<service_directory>/Dockerfile`
 
-</details>
 
-## UNUSED: Building images locally and deploying to personal GCP projects for development
-
-This is no longer needed, please refer to the steps above for testing backend code changes using the `infra-test` branch and GitHub action. If you want to get complicated and spend more money, expand for the full details.
-<details><summary>More</summary>
+### Building images locally and deploying to personal GCP projects for development
 
 
-### UNUSED One-time development setup
+#### UNUSED One-time development setup
 
 Install Cloud SDK ([Quickstart](https://cloud.google.com/sdk/docs/quickstart))
 Install Terraform ([Getting started](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/gcp-get-started))
@@ -312,9 +325,9 @@ Install Docker Desktop ([Get Docker](https://docs.docker.com/get-docker/))
 `gcloud config set project <project-id>`
 
 
-## UNUSED: Launch the data ingestion pipeline on your local machine
+### Launch the data ingestion pipeline on your local machine
 
-### UNUSED: Set up
+#### Set up
 
 - Install [Docker](https://www.docker.com/)
 - Install [Docker Compose](https://docs.docker.com/compose/install/)
@@ -328,7 +341,7 @@ Install Docker Desktop ([Get Docker](https://docs.docker.com/get-docker/))
   - MANUAL_UPLOADS_PROJECT
   - EXPORT_BUCKET
 
-### UNUSED: Getting Started
+#### Getting Started
 
 From inside the `airflow/dev/` directory:
 
@@ -348,15 +361,15 @@ From inside the `airflow/dev/` directory:
 
 More info on [Apache Airflow](https://airflow.apache.org/docs/stable/) in general.
 
-### UNUSED: Airflow UI link
+#### Airflow UI link
 
 - [localhost:8080](http://localhost:8080/)
 
-## UNUSED: Developing locally with BigQuery
+### Developing locally with BigQuery
 
 To upload to BigQuery from your local development environment, use [these setup directions](https://cloud.google.com/bigquery/docs/quickstarts/quickstart-client-libraries) with an experimental Cloud project. This may be useful when iterating quickly if your Cloud Run ingestion job isn’t able to upload to BigQuery for some reason such as JSON parsing errors.
 
-## UNUSED: Deploying your own instance with terraform
+### Deploying your own instance with terraform
 
 Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [Set up](#Set-up) above.
 
@@ -397,7 +410,7 @@ pushd airflow
 popd
 ```
 
-## UNUSED: To test changes to python code:
+### To test changes to python code:
 
 * Build and push docker images
 
@@ -415,14 +428,14 @@ popd
 
 6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the docker commands from your base project dir and the terraform commands from the `config/` directory.
 
-### UNUSED: Terraform deployment notes
+#### Terraform deployment notes
 
 Terraform doesn't automatically diff the contents of cloud run services, so simply calling `terraform apply` after making code changes won't upload your new changes. This is why Steps 4 and 5 are needed above. Here is an alternative:
 
 Use [`terraform taint`](https://www.terraform.io/docs/commands/taint.html) to mark a resource as requiring redeploy. Eg `terraform taint google_cloud_run_service.ingestion_service`.
 You can then set the `ingestion_image_name` variable in your tfvars file to `<your-ingestion-image-name>` and `gcs_to_bq_image_name` to `<your-gcs-to-bq-image-name>`. Then replace Step 5 above with just `terraform apply`. Step 4 is still required.
 
-## UNUSED: Accessing the Terraform UI Deployed
+### Accessing the Terraform UI Deployed
 1. Go to [Cloud Console](console.cloud.google.com).
 
 2. Search for Composer
@@ -433,13 +446,11 @@ You can then set the `ingestion_image_name` variable in your tfvars file to `<yo
 
 5. One of the properties listed is Airflow web UI link.
 
+
+
+
 </details>
 
-
-
-# HET Microservice Architecture
-
-[!HET Microservice Architecture Diagram]('./HET Architecture.svg')
 
 
 # License
