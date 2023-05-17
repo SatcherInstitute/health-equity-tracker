@@ -1,19 +1,23 @@
-name: Deploy to Infra Test
+name: Deploy Backend to Infra Test
+
+# TODO: Currently this deploys ALL of the microservices including the frontend and data server
+# TODO: ideally we should reduce this to the minimum services needed for backend
+
 
 on:
   push:
-      branches: [infra-test]
+    branches: [infra-test]
   workflow_dispatch:
 
 jobs:
   build-ingestion:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Build and Push Data Ingestion Image
+    name: (infra-test) Data Ingestion Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.ingestion.outputs.image-digest }}
     steps:
-      - name: Check Out Code
+      - name: Check Out Code from infra-test
         uses: actions/checkout@v3
         with:
           ref: infra-test
@@ -33,12 +37,12 @@ jobs:
 
   build-gcs-to-bq:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Build and Push GCS-to-BQ Image
+    name: (infra-test) GCS-to-BQ Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.gcstobq.outputs.image-digest }}
     steps:
-      - name: Check Out Code
+      - name: Check Out Code from infra-test
         uses: actions/checkout@v3
         with:
           ref: infra-test
@@ -58,12 +62,12 @@ jobs:
 
   build-exporter:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Build and Push Exporter Image
+    name: (infra-test) Exporter Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.exporter.outputs.image-digest }}
     steps:
-      - name: Check Out Code
+      - name: Check Out Code from infra-test
         uses: actions/checkout@v3
         with:
           ref: infra-test
@@ -83,12 +87,12 @@ jobs:
 
   build-data-server:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Build and Push Data Server Image
+    name: (infra-test) Data Server Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
     steps:
-      - name: Check Out Code
+      - name: Check Out Code from infra-test
         uses: actions/checkout@v3
         with:
           ref: infra-test
@@ -108,15 +112,16 @@ jobs:
 
   build-frontend:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Build and Push Frontend Image
+    name: (main -> dev site) Frontend Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
     steps:
-      - name: Check Out Code
+      - name: Check Out Code from main
         uses: actions/checkout@v3
         with:
-          ref: infra-test
+          # don't update dev.healthequitytracker.org frontend with push to infra-test branch
+          ref: main
       - id: auth
         uses: google-github-actions/auth@v1
         with:
@@ -136,12 +141,12 @@ jobs:
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Deploy to Test Environment
+    name: (infra-test) Terraform / Airflow Configs
     runs-on: ubuntu-latest
     needs: [build-ingestion, build-gcs-to-bq, build-exporter, build-data-server, build-frontend]
 
     steps:
-      - name: Check Out Code
+      - name: Check Out Code from infra-test
         uses: actions/checkout@v3
         with:
           ref: infra-test
@@ -171,7 +176,6 @@ jobs:
           -backend-config="credentials=creds.json"
       - name: Terraform Apply
         id: terraform
-        if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
         working-directory: ./config
         run: |
           terraform apply -auto-approve -var-file=test/test.tfvars \
@@ -195,7 +199,6 @@ jobs:
           echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
       - name: Airflow Environment Variables
         id: airflow-environment-variables
-        if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
         continue-on-error: true
         run: |
           gcloud composer environments update data-ingestion-environment \
@@ -206,7 +209,6 @@ jobs:
           --update-env-variables=AIRFLOW_VAR_GCS_MANUAL_UPLOADS_BUCKET=msm-test-manual-data-bucket \
           --location=us-central1
       - name: Upload Airflow DAGs and utility file
-        if: github.ref == 'refs/heads/infra-test' && github.event_name == 'push'
         working-directory: ./airflow
         run: |
           ./upload-dags.sh
@@ -214,4 +216,3 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
-

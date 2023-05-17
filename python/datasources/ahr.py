@@ -100,7 +100,8 @@ PER100K_DETERMINANTS = {
 }
 
 PCT_RATE_DETERMINANTS = {
-    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX
 }
 
 PLUS_5_AGE_DETERMINANTS = {
@@ -161,8 +162,9 @@ class AHRData(DataSource):
                 ) for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]]
 
                 # TODO: once frontend expects PCT_RATE, we need to find a way to not include those 100k columns above
-                float_cols.append(std_col.generate_column_name(
-                    std_col.VOTER_PARTICIPATION_PREFIX, std_col.PCT_RATE_SUFFIX))
+                float_cols.extend(
+                    [std_col.generate_column_name(col, std_col.PCT_RATE_SUFFIX)
+                     for col in PCT_RATE_DETERMINANTS.values()])
 
                 float_cols.append(std_col.AHR_POPULATION_PCT)
 
