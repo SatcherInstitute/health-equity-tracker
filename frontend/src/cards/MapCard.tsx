@@ -367,7 +367,6 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
-                <Divider />
                 <CardContent className={styles.SmallMarginContent}>
                   <Grid
                     container

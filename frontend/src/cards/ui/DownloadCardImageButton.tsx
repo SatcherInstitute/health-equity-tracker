@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import styles from './DownloadCardImageButton.module.scss'
-import { Tooltip, IconButton } from '@mui/material'
+import { IconButton } from '@mui/material'
 import { SaveAlt } from '@mui/icons-material'
 
 interface DownloadCardImageButtonProps {
@@ -19,16 +19,14 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <Tooltip title={'Save card image'}>
-        <IconButton
-          className={styles.DownloadCardImageButton}
-          // eslint-disable-next-line @typescript-eslint/no-misused-promises
-          onClick={takeScreenshot}
-          sx={{ width: '3rem', height: '3rem' }}
-        >
-          <SaveAlt />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        className={styles.DownloadCardImageButton}
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        onClick={takeScreenshot}
+        sx={{ width: '3rem', height: '3rem' }}
+      >
+        <SaveAlt />
+      </IconButton>
     </>
   )
 }
