@@ -74,8 +74,6 @@ AHR_DETERMINANTS = {
     "Depression": std_col.DEPRESSION_PREFIX,
     "Excessive Drinking": std_col.EXCESSIVE_DRINKING_PREFIX,
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PREFIX,
-    # NOTE: both opioid conditions below are subsets of Non-medical Drug Use above
-    "Non-medical Use of Prescription Opioids": std_col.NON_MEDICAL_RX_OPIOID_USE_PREFIX,
     "Asthma": std_col.ASTHMA_PREFIX,
     "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PREFIX,
     "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PREFIX,
@@ -101,9 +99,15 @@ PER100K_DETERMINANTS = {
     "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX
 }
 
+PCT_RATE_DETERMINANTS = {
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX
+}
+
 PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
 }
+
 
 BREAKDOWN_MAP = {
     std_col.RACE_OR_HISPANIC_COL: AHR_RACE_GROUPS,
@@ -156,6 +160,12 @@ class AHRData(DataSource):
 
                 float_cols = [std_col.generate_column_name(col, suffix) for col in AHR_DETERMINANTS.values(
                 ) for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]]
+
+                # TODO: once frontend expects PCT_RATE, we need to find a way to not include those 100k columns above
+                float_cols.extend(
+                    [std_col.generate_column_name(col, std_col.PCT_RATE_SUFFIX)
+                     for col in PCT_RATE_DETERMINANTS.values()])
+
                 float_cols.append(std_col.AHR_POPULATION_PCT)
 
                 col_types = gcs_to_bq_util.get_bq_column_types(
@@ -195,6 +205,8 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
             for determinant, prefix in AHR_DETERMINANTS.items():
                 per_100k_col_name = std_col.generate_column_name(prefix,
                                                                  std_col.PER_100K_SUFFIX)
+                pct_rate_col_name = std_col.generate_column_name(prefix,
+                                                                 std_col.PCT_RATE_SUFFIX)
                 pct_share_col_name = std_col.generate_column_name(prefix,
                                                                   std_col.PCT_SHARE_SUFFIX)
 
@@ -213,7 +225,12 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
 
                     if determinant in PER100K_DETERMINANTS:
                         output_row[per_100k_col_name] = matched_row['Value'].values[0]
+                    elif determinant in PCT_RATE_DETERMINANTS:
+                        output_row[pct_rate_col_name] = matched_row['Value'].values[0]
+                        # TODO: remove next line once frontend is only expecting PCT_RATE for select topics
+                        output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
                     else:
+                        # convert AHR pct_rate to HET per100k
                         output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
 
             output.append(output_row)
