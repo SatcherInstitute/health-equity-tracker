@@ -1,8 +1,24 @@
 import { getDataManager } from '../../utils/globals'
-import { type MetricId } from '../config/MetricConfig'
+import { type DropdownVarId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
+
+export const AHR_CONDITIONS: DropdownVarId[] = [
+  'asthma',
+  'avoided_care',
+  'cardiovascular_diseases',
+  'chronic_kidney_disease',
+  'copd',
+  'depression',
+  'diabetes',
+  'excessive_drinking',
+  'frequent_mental_distress',
+  'preventable_hospitalizations',
+  'substance',
+  'suicide',
+  'voter_participation',
+]
 
 export const AHR_DETERMINANTS: MetricId[] = [
   'ahr_population_pct',
