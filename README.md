@@ -43,7 +43,7 @@ The frontend consists of
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
 
-## To test changes to `/frontend`:
+## To confirm and stage changes to `/frontend`:
 
 1. Complete all one-time configurations needed (instructions further down)
 2. Pull the latest changes from the official repo
@@ -102,8 +102,9 @@ The `VITE_BASE_API_URL` can be changed for different setups:
 </details>
 
 
-### Frontend Unit Tests
+### Frontend Automated Testing
 
+#### Unit Tests (Vitest)
 To run unit tests, switch to the `frontend/` directory and run:
 ```bash
 npm run test:watch
@@ -111,7 +112,7 @@ npm run test:watch
 
 This will run tests in watch mode, automatically running tests against changes to your code.
 
-### Frontend End to End Tests
+#### End To End (E22) Tests (Playwright)
 
 To run e2e tests, switch to the `frontend/` directory and run:
 ```bash
@@ -120,7 +121,7 @@ npm run e2e
 
 This will use Playwright test runner to launch the React app if needed, and then confirm routing/rendering is working as expected. These tests are run on GitHub pull request commits.
 
-### Outgoing Links Tests
+#### Outgoing Links Tests
 
 To run url tests, switch to the `frontend/` directory and run:
 ```bash
@@ -130,7 +131,7 @@ npm run url
 This will use Playwright test runner to launch the React app if needed, and then confirm all outgoing links are returning successful responses. This runs weekly on GitHub.
 
 
-### Build
+### Building / Bundling for Production
 
 Note: Building manually is not required for development, but helpful for debugging deployment issues as this step is run during CI. To create a "production" build do:
 
@@ -162,7 +163,7 @@ The backend consists of
 3. (One-time) Install pip-tools and other packages as needed: `pip install pip-tools`
 
 
-## To test changes to `/python`, `/airflow/dags`, or other backend code:
+## To confirm and stage changes to `/python`, `/airflow/dags`, or other backend code:
 
 1. Follow the rest of the instructions below these steps for one-time configurations needed.
 2. Pull the latest changes from the official repo.
