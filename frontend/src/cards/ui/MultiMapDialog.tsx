@@ -172,8 +172,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   sameDotSize={true}
                   description={'Consistent legend for all displayed maps'}
                   mapConfig={{ mapScheme, mapMin }}
-                  stackingDirection={'vertical'}
+                  stackingDirection={
+                    props.pageIsSmall ? 'vertical' : 'horizontal'
+                  }
                   columns={props.pageIsSmall ? 2 : 6}
+                  orient={'bottom-right'}
                 />
               </Grid>
             </Grid>

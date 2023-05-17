@@ -1745,7 +1745,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Voter participation',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for voter participation',
-      variableDefinition: `U.S. citizens ages 18 and older who voted in either the last presidential election, the last midterm national election, or the average of both where that data is available.`,
+      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
       metrics: {
         per100k: {
           metricId: 'voter_participation_pct_rate',

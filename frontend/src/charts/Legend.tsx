@@ -63,6 +63,7 @@ export interface LegendProps {
   mapConfig: { mapScheme: string; mapMin: string }
   columns: number
   stackingDirection: 'horizontal' | 'vertical'
+  orient?: 'bottom-right'
 }
 
 export function getMapScheme(metricId: MetricId) {
@@ -78,7 +79,9 @@ export function getMapScheme(metricId: MetricId) {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const orient = 'left'
+  const defaultOrient =
+    props.stackingDirection === 'vertical' ? 'left' : 'right'
+  const orient = props.orient ?? defaultOrient
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
@@ -194,7 +197,7 @@ export function Legend(props: LegendProps) {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
       background: sass.white,
-      padding: 0,
+      padding: 10,
       data: [
         {
           name: RAW_VALUES,
