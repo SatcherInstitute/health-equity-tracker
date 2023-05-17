@@ -1,0 +1,9 @@
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
+
+.TerritoryLabel {
+  font-size: $smallest;
+  line-height: $lhTight;
+  margin-top: -4px;
+  margin-bottom: 4px;
+}

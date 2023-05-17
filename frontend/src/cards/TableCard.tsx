@@ -139,8 +139,8 @@ export function TableCard(props: TableCardProps) {
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
                   variableId={props.variableConfig.variableId}
-                  variableName={props.variableConfig.variableFullDisplayName}
                   fips={props.fips}
+                  dataTableTitle={props.variableConfig.dataTableTitle ?? 'Breakdown Summary'}
                 />
               </div>
             )}
