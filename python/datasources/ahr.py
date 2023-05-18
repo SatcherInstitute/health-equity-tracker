@@ -66,8 +66,17 @@ RACE_GROUPS_TO_STANDARD = {
     'All': std_col.Race.ALL.value,
 }
 
+PER100K_DETERMINANTS = {
+    "Suicide": std_col.SUICIDE_PREFIX,
+    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX
+}
 
-AHR_DETERMINANTS = {
+PCT_RATE_DETERMINANTS = {
+    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
+    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX
+}
+
+CONVERT_PCT_TO_100K_DETERMINANTS = {
     "Chronic Obstructive Pulmonary Disease": std_col.COPD_PREFIX,
     "Diabetes": std_col.DIABETES_PREFIX,
     "Frequent Mental Distress": std_col.FREQUENT_MENTAL_DISTRESS_PREFIX,
@@ -76,11 +85,13 @@ AHR_DETERMINANTS = {
     "Non-medical Drug Use": std_col.NON_MEDICAL_DRUG_USE_PREFIX,
     "Asthma": std_col.ASTHMA_PREFIX,
     "Cardiovascular Diseases": std_col.CARDIOVASCULAR_PREFIX,
-    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PREFIX,
-    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX,
-    "Suicide": std_col.SUICIDE_PREFIX,
-    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX,
-    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
+    "Chronic Kidney Disease": std_col.CHRONIC_KIDNEY_PREFIX
+}
+
+AHR_DETERMINANTS = {
+    **PER100K_DETERMINANTS,
+    **PCT_RATE_DETERMINANTS,
+    **CONVERT_PCT_TO_100K_DETERMINANTS
 }
 
 # When parsing Measure Names from rows with a demographic breakdown
@@ -94,16 +105,6 @@ ALT_ROWS_WITH_DEMO = {
     "Voter Participation": "Voter Participation (Presidential)"
 }
 
-
-PER100K_DETERMINANTS = {
-    "Suicide": std_col.SUICIDE_PREFIX,
-    "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX
-}
-
-PCT_RATE_DETERMINANTS = {
-    "Voter Participation": std_col.VOTER_PARTICIPATION_PREFIX,
-    "Avoided Care Due to Cost": std_col.AVOIDED_CARE_PREFIX
-}
 
 PLUS_5_AGE_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
@@ -159,15 +160,20 @@ class AHRData(DataSource):
                 breakdown_df = parse_raw_data(breakdown_df, breakdown)
                 breakdown_df = post_process(breakdown_df, breakdown, geo)
 
-                float_cols = [std_col.generate_column_name(col, suffix) for col in AHR_DETERMINANTS.values(
-                ) for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]]
-
+                # get list of all columns expected to contain numbers
+                float_cols = [std_col.AHR_POPULATION_PCT]
                 float_cols.extend(
                     [std_col.generate_column_name(col, std_col.PCT_RATE_SUFFIX)
                      for col in PCT_RATE_DETERMINANTS.values()])
-
-                float_cols.append(std_col.AHR_POPULATION_PCT)
-
+                float_cols.extend(
+                    [std_col.generate_column_name(col, std_col.PER_100K_SUFFIX)
+                     for col in PER100K_DETERMINANTS.values()])
+                float_cols.extend(
+                    [std_col.generate_column_name(col, std_col.PER_100K_SUFFIX)
+                     for col in CONVERT_PCT_TO_100K_DETERMINANTS.values()])
+                float_cols.extend(
+                    [std_col.generate_column_name(col, std_col.PCT_SHARE_SUFFIX)
+                     for col in AHR_DETERMINANTS.values()])
                 col_types = gcs_to_bq_util.get_bq_column_types(
                     breakdown_df, float_cols)
 
