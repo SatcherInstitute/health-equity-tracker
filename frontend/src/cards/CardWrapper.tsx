@@ -19,7 +19,7 @@ function CardWrapper(props: {
   infoPopover?: JSX.Element
   hideFooter?: boolean
   hideNH?: boolean
-  queries?: MetricQuery[]
+  queries: MetricQuery[]
   // Whether to load the geographies dataset for this card.
   loadGeographies?: boolean
   children: (
@@ -30,12 +30,15 @@ function CardWrapper(props: {
   isAgeAdjustedTable?: boolean
   scrollToHash: ScrollableHashId
 }) {
-  const queries = props.queries ? props.queries : []
+
+  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
+    props.downloadTitle
+  )
 
   const loadingComponent = (
     <Card
-      raised={true}
       className={styles.ChartCard}
+      raised={true}
       style={{ minHeight: props.minHeight }}
     >
       <CardContent>
@@ -44,40 +47,32 @@ function CardWrapper(props: {
     </Card>
   )
 
-  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    props.downloadTitle
-  )
-
   return (
     <WithMetadataAndMetrics
-      queries={queries}
-      loadingComponent={loadingComponent}
       loadGeographies={props.loadGeographies}
+      loadingComponent={loadingComponent}
+      queries={props.queries ?? []}
     >
       {(metadata, queryResponses, geoData) => {
         return (
           <Card
-            raised={true}
             className={styles.ChartCard}
             component={'article'}
+            raised={true}
             ref={screenshotTargetRef}
           >
-            <div>
-              <CardOptionsMenu
-                downloadTargetScreenshot={downloadTargetScreenshot}
-                scrollToHash={props.scrollToHash}
-              />
-              {props.children(queryResponses, metadata, geoData)}
-            </div>
+            <CardOptionsMenu
+              downloadTargetScreenshot={downloadTargetScreenshot}
+              scrollToHash={props.scrollToHash}
+            />
+            {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={'footer'}>
                 <Sources
-                  isAgeAdjustedTable={props.isAgeAdjustedTable}
-                  queryResponses={queryResponses}
-                  metadata={metadata}
                   hideNH={props.hideNH}
-                  scrollToHash={props.scrollToHash}
-                  downloadTargetScreenshot={downloadTargetScreenshot}
+                  isAgeAdjustedTable={props.isAgeAdjustedTable}
+                  metadata={metadata}
+                  queryResponses={queryResponses}
                 />
               </CardContent>
             )}
