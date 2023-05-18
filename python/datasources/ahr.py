@@ -94,6 +94,7 @@ ALT_ROWS_WITH_DEMO = {
     "Voter Participation": "Voter Participation (Presidential)"
 }
 
+
 PER100K_DETERMINANTS = {
     "Suicide": std_col.SUICIDE_PREFIX,
     "Preventable Hospitalizations": std_col.PREVENTABLE_HOSP_PREFIX
@@ -161,7 +162,6 @@ class AHRData(DataSource):
                 float_cols = [std_col.generate_column_name(col, suffix) for col in AHR_DETERMINANTS.values(
                 ) for suffix in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX]]
 
-                # TODO: once frontend expects PCT_RATE, we need to find a way to not include those 100k columns above
                 float_cols.extend(
                     [std_col.generate_column_name(col, std_col.PCT_RATE_SUFFIX)
                      for col in PCT_RATE_DETERMINANTS.values()])
@@ -227,8 +227,6 @@ def parse_raw_data(df: pd.DataFrame, breakdown: SEX_RACE_ETH_AGE_TYPE):
                         output_row[per_100k_col_name] = matched_row['Value'].values[0]
                     elif determinant in PCT_RATE_DETERMINANTS:
                         output_row[pct_rate_col_name] = matched_row['Value'].values[0]
-                        # TODO: remove next line once frontend is only expecting PCT_RATE for select topics
-                        output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
                     else:
                         # convert AHR pct_rate to HET per100k
                         output_row[per_100k_col_name] = matched_row['Value'].values[0] * 1000
