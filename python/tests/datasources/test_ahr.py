@@ -93,10 +93,7 @@ EXPECTED_DTYPE = {
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
     "voter_participation_pct_rate": float,
-    'ahr_population_pct': float,
-    # TODO: rm these per 100ks that aren't needed once frontend changes are live
-    "avoided_care_per_100k": float,
-    "voter_participation_per_100k": float,
+    'ahr_population_pct': float
 }
 
 
