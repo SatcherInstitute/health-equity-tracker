@@ -9,10 +9,7 @@ import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
-import CopyLinkButton from './CopyLinkButton'
-import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Grid } from '@mui/material'
-import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -84,8 +81,6 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
   hideNH?: boolean
-  scrollToHash?: ScrollableHashId
-  downloadTargetScreenshot: () => Promise<boolean>
 }
 
 export function Sources(props: SourcesProps) {
@@ -152,21 +147,6 @@ export function Sources(props: SourcesProps) {
       {/* Sources inline with card action buttons */}
       <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
         {sourcesInfo}
-      </Grid>
-
-      <Grid
-        item
-        xs={4}
-        sm={3}
-        md={2}
-        container
-        justifyContent={'flex-end'}
-        alignItems={'flex-end'}
-      >
-        <CopyLinkButton scrollToHash={props.scrollToHash} />
-        <DownloadCardImageButton
-          downloadTargetScreenshot={props.downloadTargetScreenshot}
-        />
       </Grid>
     </Grid>
   )
