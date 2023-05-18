@@ -43,6 +43,7 @@ import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
+import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 
 export interface OneVariableReportProps {
   key: string
@@ -134,6 +135,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
 
+  // we only have time-series data for incarceration at the county-level
+  const hideNonCountyVeraTime =
+    !props.fips.isCounty() && INCARCERATION_IDS.includes(props.dropdownVarId)
+
   return (
     <>
       <Helmet>
@@ -211,7 +216,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }
                   className={styles.ScrollPastHeader}
                 >
-                  {variableConfig.timeSeriesData && (
+                  {variableConfig.timeSeriesData && !hideNonCountyVeraTime && (
                     <RateTrendsChartCard
                       variableConfig={variableConfig}
                       breakdownVar={currentBreakdown}
@@ -280,13 +285,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   className={styles.ScrollPastHeader}
                 >
                   <LazyLoad offset={600} height={750} once>
-                    {variableConfig.timeSeriesData && (
-                      <ShareTrendsChartCard
-                        variableConfig={variableConfig}
-                        breakdownVar={currentBreakdown}
-                        fips={props.fips}
-                      />
-                    )}
+                    {variableConfig.timeSeriesData &&
+                      !hideNonCountyVeraTime && (
+                        <ShareTrendsChartCard
+                          variableConfig={variableConfig}
+                          breakdownVar={currentBreakdown}
+                          fips={props.fips}
+                        />
+                      )}
                   </LazyLoad>
                 </Grid>
 

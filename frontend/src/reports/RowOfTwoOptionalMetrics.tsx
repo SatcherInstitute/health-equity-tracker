@@ -7,6 +7,8 @@ import {
 import { type Fips } from '../data/utils/Fips'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 
+// Needed for type safety, used when the card does not need to use the fips update callback
+const unusedFipsCallback = () => {}
 interface RowOfTwoOptionalMetricsProps {
   id: ScrollableHashId
   variableConfig1: VariableConfig | undefined
@@ -33,9 +35,6 @@ export default function RowOfTwoOptionalMetrics(
   if (!props.variableConfig1 && !props.variableConfig2) {
     return <></>
   }
-
-  // Needed for type safety, used when the card does not need to use the fips update callback
-  const unusedFipsCallback = () => {}
 
   const NON_LAZYLOADED_CARDS: ScrollableHashId[] = [
     'rate-map',
