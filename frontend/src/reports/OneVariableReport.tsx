@@ -136,7 +136,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
   ].includes(props.dropdownVarId)
 
   // we only have time-series data for incarceration at the county-level
-  const hideNonCountyVeraTime =
+  const hideNonCountyBJSTimeCards =
     !props.fips.isCounty() && INCARCERATION_IDS.includes(props.dropdownVarId)
 
   return (
@@ -216,13 +216,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }
                   className={styles.ScrollPastHeader}
                 >
-                  {variableConfig.timeSeriesData && !hideNonCountyVeraTime && (
-                    <RateTrendsChartCard
-                      variableConfig={variableConfig}
-                      breakdownVar={currentBreakdown}
-                      fips={props.fips}
-                    />
-                  )}
+                  {variableConfig.timeSeriesData &&
+                    !hideNonCountyBJSTimeCards && (
+                      <RateTrendsChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={currentBreakdown}
+                        fips={props.fips}
+                      />
+                    )}
                 </Grid>
 
                 {/* 100K BAR CHART CARD */}
@@ -286,7 +287,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 >
                   <LazyLoad offset={600} height={750} once>
                     {variableConfig.timeSeriesData &&
-                      !hideNonCountyVeraTime && (
+                      !hideNonCountyBJSTimeCards && (
                         <ShareTrendsChartCard
                           variableConfig={variableConfig}
                           breakdownVar={currentBreakdown}
