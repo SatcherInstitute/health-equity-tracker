@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { SaveAlt } from '@mui/icons-material'
+import ListItemText from '@mui/material/ListItemText'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import MenuItem from '@mui/material/MenuItem'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import styles from './DownloadCardImageButton.module.scss'
-import { IconButton } from '@mui/material'
-import { SaveAlt } from '@mui/icons-material'
 
 interface DownloadCardImageButtonProps {
   downloadTargetScreenshot: () => Promise<boolean>
@@ -19,14 +21,14 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <IconButton
-        className={styles.DownloadCardImageButton}
+      <MenuItem
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onClick={takeScreenshot}
-        sx={{ width: '3rem', height: '3rem' }}
-      >
-        <SaveAlt />
-      </IconButton>
+        onClick={takeScreenshot}>
+        <ListItemIcon className={styles.DownloadCardImageButton}>
+          <SaveAlt />
+        </ListItemIcon>
+        <ListItemText primary={'Save image'} />
+      </MenuItem>
     </>
   )
 }
