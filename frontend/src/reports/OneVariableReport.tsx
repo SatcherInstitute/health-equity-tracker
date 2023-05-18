@@ -37,13 +37,13 @@ import { Helmet } from 'react-helmet-async'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-  DEMOGRAPHIC_BREAKDOWNS,
 } from '../data/query/Breakdowns'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
+import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 
 export interface OneVariableReportProps {
   key: string
@@ -124,9 +124,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
   }, [variableConfig])
 
-  const breakdownIsShown = (breakdownVar: BreakdownVar) =>
-    currentBreakdown === breakdownVar
-
   const browserTitle = `${
     variableConfig?.variableFullDisplayName ?? 'Data'
   } by ${
@@ -137,6 +134,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
     'covid_deaths',
     'covid_hospitalizations',
   ].includes(props.dropdownVarId)
+
+  // we only have time-series data for incarceration at the county-level
+  const hideNonCountyBJSTimeCards =
+    !props.fips.isCounty() && INCARCERATION_IDS.includes(props.dropdownVarId)
 
   return (
     <>
@@ -215,19 +216,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }
                   className={styles.ScrollPastHeader}
                 >
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) &&
-                        // only show time series 100k chart if MetricConfig has flag turned on
-                        variableConfig.timeSeriesData && (
-                          <RateTrendsChartCard
-                            variableConfig={variableConfig}
-                            breakdownVar={breakdownVar}
-                            fips={props.fips}
-                          />
-                        )}
-                    </Fragment>
-                  ))}
+                  {variableConfig.timeSeriesData &&
+                    !hideNonCountyBJSTimeCards && (
+                      <RateTrendsChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={currentBreakdown}
+                        fips={props.fips}
+                      />
+                    )}
                 </Grid>
 
                 {/* 100K BAR CHART CARD */}
@@ -242,20 +238,11 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <LazyLoad offset={600} height={750} once>
-                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                      <Fragment key={breakdownVar}>
-                        {breakdownIsShown(breakdownVar) &&
-                          variableConfig.metrics.per100k && (
-                            <SimpleBarChartCard
-                              variableConfig={variableConfig}
-                              breakdownVar={breakdownVar}
-                              fips={props.fips}
-                            />
-                          )}
-                      </Fragment>
-                    ))}
-                  </LazyLoad>
+                  <SimpleBarChartCard
+                    variableConfig={variableConfig}
+                    breakdownVar={currentBreakdown}
+                    fips={props.fips}
+                  />
                 </Grid>
 
                 {/* UNKNOWNS MAP CARD */}
@@ -299,19 +286,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   className={styles.ScrollPastHeader}
                 >
                   <LazyLoad offset={600} height={750} once>
-                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                      <Fragment key={breakdownVar}>
-                        {breakdownIsShown(breakdownVar) &&
-                          // only show time series relative inequity chart if MetricConfig contains flag
-                          variableConfig.timeSeriesData && (
-                            <ShareTrendsChartCard
-                              variableConfig={variableConfig}
-                              breakdownVar={breakdownVar}
-                              fips={props.fips}
-                            />
-                          )}
-                      </Fragment>
-                    ))}
+                    {variableConfig.timeSeriesData &&
+                      !hideNonCountyBJSTimeCards && (
+                        <ShareTrendsChartCard
+                          variableConfig={variableConfig}
+                          breakdownVar={currentBreakdown}
+                          fips={props.fips}
+                        />
+                      )}
                   </LazyLoad>
                 </Grid>
 
@@ -328,18 +310,13 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                      <Fragment key={breakdownVar}>
-                        {breakdownIsShown(breakdownVar) &&
-                          variableConfig.metrics.pct_share && (
-                            <DisparityBarChartCard
-                              variableConfig={variableConfig}
-                              breakdownVar={breakdownVar}
-                              fips={props.fips}
-                            />
-                          )}
-                      </Fragment>
-                    ))}
+                    {variableConfig.metrics.pct_share && (
+                      <DisparityBarChartCard
+                        variableConfig={variableConfig}
+                        breakdownVar={currentBreakdown}
+                        fips={props.fips}
+                      />
+                    )}
                   </LazyLoad>
                 </Grid>
 
@@ -354,17 +331,11 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  {DEMOGRAPHIC_BREAKDOWNS.map((breakdownVar) => (
-                    <Fragment key={breakdownVar}>
-                      {breakdownIsShown(breakdownVar) && (
-                        <TableCard
-                          fips={props.fips}
-                          variableConfig={variableConfig}
-                          breakdownVar={breakdownVar}
-                        />
-                      )}
-                    </Fragment>
-                  ))}
+                  <TableCard
+                    fips={props.fips}
+                    variableConfig={variableConfig}
+                    breakdownVar={currentBreakdown}
+                  />
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}

@@ -126,10 +126,10 @@ export function MissingHIVData() {
         </li>
         <li>
           There isn't enough data to accurately calculate subpopulation rates by
-          age, sex, and race/ethnicity for the dependent areas(US territories
-          other than Puerto Rico). As a result, the analysis or report will not
-          provide detailed information about these specific groups in those
-          regions.
+          age, sex, and race/ethnicity for the Census Island Areas (US
+          territories other than Puerto Rico). As a result, the analysis or
+          report will not provide detailed information about these specific
+          groups in those regions.
         </li>
         <li>
           The Asian category includes cases previously classified as
@@ -173,13 +173,13 @@ export function MissingAHRData() {
       <h4>Missing America's Health Rankings data</h4>
       <ul>
         <li>
-          <b>Population data:</b> AHR does not have population data preventable
-          hospitalizations, voter participation, non-medical drug use, and
-          non-medical prescription drug use. We have chosen not to show any
-          percent share metrics for the measures without population data because
-          the source only provides the metrics as rates. Without population
-          data, it is difficult to accurately calculate percent share measures,
-          which could potentially result in misleading data.
+          <b>Population data:</b> AHR does not have population data available
+          for: preventable hospitalizations, voter participation, and
+          non-medical drug use. We have chosen not to show any percent share
+          metrics for the measures without population data because the source
+          only provides the metrics as rates. Without population data, it is
+          difficult to accurately calculate percent share measures, which could
+          potentially result in misleading data.
         </li>
       </ul>
     </>

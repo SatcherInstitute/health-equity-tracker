@@ -315,14 +315,18 @@ function MethodologyTab() {
                   </li>
                   <li>
                     All metrics sourced from America’s Health Rankings are
-                    calculated based on prevalance rates provided from their
-                    data API:
+                    calculated based on the rates provided from their
+                    downloadable data files:
                     <ul>
                       <li>
-                        To calculate the <b>per 100k</b> metrics seen on the
-                        tracker, we either multiply the rate by 1000 if it is
-                        presented as a percentage, or simply display the exact
-                        metric if it is presented as a per 100k in the data API.
+                        For most conditions, AHR provides these rates as a
+                        percentage, though in some cases they use cases per
+                        100,000. If we present the condition using the same
+                        units, we simply pass the data along directly. If we
+                        need to convert a rate they present as a <b>percent</b>{' '}
+                        into a <b>per 100k</b>, we multiply their percent amount
+                        by 1,000 to obtain the new per 100k rate.
+                        <code>5% (of 100) === 5,000 per 100,000</code>.
                       </li>
                       <li>
                         For COPD, diabetes, frequent mental distress,

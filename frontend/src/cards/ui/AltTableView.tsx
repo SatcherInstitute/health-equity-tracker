@@ -154,7 +154,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           [
                             'pct_relative_inequity',
                             'pct_share',
-                            'pct_incidence',
+                            'pct_rate',
                           ].includes(props.knownMetricConfig.type)
                         return (
                           <TableCell
