@@ -98,7 +98,9 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
-  const metricConfig = props.variableConfig.metrics.per100k
+  const metricConfig =
+    props.variableConfig.metrics?.per100k ??
+    props.variableConfig.metrics.pct_rate
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.variableConfig.variableId === 'prison'
@@ -371,6 +373,7 @@ function MapCardWithKey(props: MapCardProps) {
                 !mapQueryResponse.dataIsMissing() &&
                 (props.variableConfig.surveyCollectedData ?? false)
               }
+              pageIsSmall={pageIsSmall}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -477,11 +480,12 @@ function MapCardWithKey(props: MapCardProps) {
                         data={allDataForActiveBreakdownFilter}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
-                        direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
                         isSummaryLegend={isSummaryLegend}
                         fipsTypeDisplayName={fipsTypeDisplayName}
                         mapConfig={{ mapScheme, mapMin }}
+                        columns={mapIsWide ? 1 : 3}
+                        stackingDirection={'vertical'}
                       />
                     </Grid>
 

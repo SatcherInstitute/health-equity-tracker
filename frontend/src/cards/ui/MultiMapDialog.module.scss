@@ -3,6 +3,10 @@
 
 .MultiMapBox {
   z-index: $z-top !important; // to get tooltips to render on top
+
+  @media (max-width: $sm) {
+    padding: 0 !important;
+  }
 }
 
 :global(.vega-embed) {
@@ -11,8 +15,11 @@
 
 .SmallMultipleMap {
   width: 300px;
-  padding: 15px;
   list-style: none;
+
+  @media (min-width: $sm) {
+    padding: 1rem;
+  }
 }
 
 .NoDataWarning {
@@ -46,4 +53,9 @@
 .TerritoryMap {
   width: 20%;
   float: left;
+}
+
+.LegendTitleText {
+  font-size: $small;
+  margin-top: 1rem;
 }

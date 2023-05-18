@@ -1,8 +1,6 @@
 import {
   Box,
   Grid,
-  useMediaQuery,
-  useTheme,
   Button,
   Dialog,
   DialogContent,
@@ -72,6 +70,7 @@ export interface MultiMapDialogProps {
   updateFipsCallback: (fips: Fips) => void
   totalPopulationPhrase: string
   handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
+  pageIsSmall: boolean
 }
 
 /*
@@ -79,10 +78,6 @@ export interface MultiMapDialogProps {
     value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
-  // calculate page size for responsive layout
-  const theme = useTheme()
-  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
-
   const title = `${
     props.metricConfig.chartTitle
   } in ${props.fips.getSentenceDisplayName()} across all
@@ -116,7 +111,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
-        <Grid container justifyContent="space-between" component="ul">
+        <Grid
+          container
+          justifyContent="space-between"
+          component="ul"
+          sx={{ p: 0 }}
+        >
           {/* card heading row */}
           <Grid item xs={12} container justifyContent={'space-between'}>
             {/* mobile-only close button */}
@@ -152,6 +152,33 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               <Button onClick={props.handleClose} color="primary">
                 <CloseIcon />
               </Button>
+            </Grid>
+          </Grid>
+
+          {/* LEGEND */}
+          <Grid item xs={12} sm={6} md={12} lg={12}>
+            <Grid container item>
+              <Grid container justifyContent="center">
+                <span className={styles.LegendTitleText}>
+                  Legend: {props.metricConfig.shortLabel}
+                </span>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Legend
+                  metric={props.metricConfig}
+                  legendTitle={''}
+                  data={props.data}
+                  scaleType={RATE_MAP_SCALE}
+                  sameDotSize={true}
+                  description={'Consistent legend for all displayed maps'}
+                  mapConfig={{ mapScheme, mapMin }}
+                  stackingDirection={
+                    props.pageIsSmall ? 'vertical' : 'horizontal'
+                  }
+                  columns={props.pageIsSmall ? 2 : 6}
+                  orient={'bottom-right'}
+                />
+              </Grid>
             </Grid>
           </Grid>
 
@@ -243,30 +270,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 endNote={props.totalPopulationPhrase}
               />
             </Grid>
-            {/* LEGEND */}
-            <Grid item xs={12} md={6}>
-              <Box mt={pageIsTiny ? 0 : 3}>
-                <Grid container item>
-                  <Grid container justifyContent="center">
-                    <b className={styles.LegendTitleText}>
-                      Legend: {props.metricConfig.shortLabel}
-                    </b>
-                  </Grid>
-                  <Grid container justifyContent="center">
-                    <Legend
-                      metric={props.metricConfig}
-                      legendTitle={''}
-                      data={props.data}
-                      scaleType={RATE_MAP_SCALE}
-                      sameDotSize={true}
-                      direction={pageIsTiny ? 'vertical' : 'horizontal'}
-                      description={'Consistent legend for all displayed maps'}
-                      mapConfig={{ mapScheme, mapMin }}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
+
             {/* MOBILE BREADCRUMBS */}
             <Grid
               sx={{ mt: 3, display: { xs: 'flex', md: 'none' } }}

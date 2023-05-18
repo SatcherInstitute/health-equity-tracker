@@ -55,169 +55,169 @@ export type VariableId =
   | 'svi'
 
 export type MetricId =
-  | 'population'
-  | 'population_pct'
+  | 'acs_vaccinated_pop_pct'
+  | 'ahr_population_pct'
+  | 'asthma_pct_relative_inequity'
+  | 'asthma_pct_share'
+  | 'asthma_per_100k'
+  | 'asthma_ratio_age_adjusted'
+  | 'avoided_care_pct_relative_inequity'
+  | 'avoided_care_pct_share'
+  | 'avoided_care_pct_rate'
+  | 'avoided_care_ratio_age_adjusted'
+  | 'black_women_population_pct'
+  | 'cardiovascular_diseases_pct_relative_inequity'
+  | 'cardiovascular_diseases_pct_share'
+  | 'cardiovascular_diseases_per_100k'
+  | 'cardiovascular_diseases_ratio_age_adjusted'
+  | 'cases_ratio_age_adjusted'
+  | 'cawp_population_pct'
+  | 'chronic_kidney_disease_pct_relative_inequity'
+  | 'chronic_kidney_disease_pct_share'
+  | 'chronic_kidney_disease_per_100k'
+  | 'chronic_kidney_disease_ratio_age_adjusted'
+  | 'copd_pct_relative_inequity'
+  | 'copd_pct_share'
+  | 'copd_per_100k'
+  | 'copd_ratio_age_adjusted'
+  | 'covid_cases_pct_relative_inequity'
+  | 'covid_cases_per_100k'
+  | 'covid_cases_reporting_population_pct'
+  | 'covid_cases_reporting_population'
+  | 'covid_cases_share_of_known'
+  | 'covid_cases_share'
+  | 'covid_cases'
+  | 'covid_deaths_pct_relative_inequity'
+  | 'covid_deaths_per_100k'
+  | 'covid_deaths_reporting_population_pct'
+  | 'covid_deaths_reporting_population'
+  | 'covid_deaths_share_of_known'
+  | 'covid_deaths_share'
+  | 'covid_deaths'
+  | 'covid_hosp_pct_relative_inequity'
+  | 'covid_hosp_per_100k'
+  | 'covid_hosp_reporting_population_pct'
+  | 'covid_hosp_reporting_population'
+  | 'covid_hosp_share_of_known'
+  | 'covid_hosp_share'
+  | 'covid_hosp'
+  | 'covid_population_pct'
+  | 'death_ratio_age_adjusted'
+  | 'depression_pct_relative_inequity'
+  | 'depression_pct_share'
+  | 'depression_per_100k'
+  | 'depression_ratio_age_adjusted'
+  | 'diabetes_pct_relative_inequity'
+  | 'diabetes_pct_share'
+  | 'diabetes_per_100k'
+  | 'diabetes_ratio_age_adjusted'
+  | 'excessive_drinking_pct_relative_inequity'
+  | 'excessive_drinking_pct_share'
+  | 'excessive_drinking_per_100k'
+  | 'excessive_drinking_ratio_age_adjusted'
+  | 'frequent_mental_distress_pct_relative_inequity'
+  | 'frequent_mental_distress_pct_share'
+  | 'frequent_mental_distress_per_100k'
+  | 'frequent_mental_distress_ratio_age_adjusted'
+  | 'geo_context'
+  | 'hiv_care_linkage'
+  | 'hiv_care_pct_relative_inequity'
+  | 'hiv_care_pct_share'
+  | 'hiv_care_population_pct'
+  | 'hiv_care_ratio_age_adjusted'
+  | 'hiv_deaths_black_women_pct_relative_inequity'
+  | 'hiv_deaths_black_women_pct_share'
+  | 'hiv_deaths_black_women_per_100k'
+  | 'hiv_deaths_black_women_ratio_age_adjusted'
+  | 'hiv_deaths_pct_relative_inequity'
+  | 'hiv_deaths_pct_share'
+  | 'hiv_deaths_per_100k'
+  | 'hiv_deaths_ratio_age_adjusted'
+  | 'hiv_diagnoses_black_women_pct_relative_inequity'
+  | 'hiv_diagnoses_black_women_pct_share'
+  | 'hiv_diagnoses_black_women_per_100k'
+  | 'hiv_diagnoses_black_women_ratio_age_adjusted'
+  | 'hiv_diagnoses_pct_relative_inequity'
+  | 'hiv_diagnoses_pct_share'
+  | 'hiv_diagnoses_per_100k'
+  | 'hiv_diagnoses_ratio_age_adjusted'
+  | 'hiv_population_pct'
+  | 'hiv_prep_coverage'
+  | 'hiv_prep_pct_relative_inequity'
+  | 'hiv_prep_pct_share'
+  | 'hiv_prep_population_pct'
+  | 'hiv_prep_ratio_age_adjusted'
+  | 'hiv_prevalence_black_women_pct_relative_inequity'
+  | 'hiv_prevalence_black_women_pct_share'
+  | 'hiv_prevalence_black_women_per_100k'
+  | 'hiv_prevalence_black_women_ratio_age_adjusted'
+  | 'hiv_prevalence_pct_relative_inequity'
+  | 'hiv_prevalence_pct_share'
+  | 'hiv_prevalence_per_100k'
+  | 'hiv_prevalence_ratio_age_adjusted'
+  | 'hosp_ratio_age_adjusted'
+  | 'incarceration_population_pct'
+  | 'jail_pct_relative_inequity'
+  | 'jail_pct_share'
+  | 'jail_per_100k'
+  | 'jail_ratio_age_adjusted'
+  | 'non_medical_drug_use_pct_relative_inequity'
+  | 'non_medical_drug_use_pct_share'
+  | 'non_medical_drug_use_per_100k'
+  | 'non_medical_drug_use_ratio_age_adjusted'
+  | 'pct_share_of_state_leg'
+  | 'pct_share_of_us_congress'
+  | 'pct_share_of_women_state_leg'
+  | 'pct_share_of_women_us_congress'
   | 'population_decia'
   | 'population_pct_decia'
-  | 'svi'
-  | 'geo_context'
-  | 'covid_cases'
-  | 'covid_cases_per_100k'
-  | 'covid_cases_reporting_population'
-  | 'covid_cases_reporting_population_pct'
-  | 'covid_cases_share'
-  | 'covid_cases_share_of_known'
-  | 'cases_ratio_age_adjusted'
-  | 'covid_cases_pct_relative_inequity'
-  | 'covid_deaths'
-  | 'covid_deaths_per_100k'
-  | 'covid_deaths_reporting_population'
-  | 'covid_deaths_reporting_population_pct'
-  | 'covid_deaths_share'
-  | 'covid_deaths_share_of_known'
-  | 'covid_deaths_pct_relative_inequity'
-  | 'death_ratio_age_adjusted'
-  | 'covid_hosp'
-  | 'covid_hosp_per_100k'
-  | 'covid_hosp_reporting_population'
-  | 'covid_hosp_reporting_population_pct'
-  | 'covid_hosp_share'
-  | 'covid_hosp_share_of_known'
-  | 'covid_population_pct'
-  | 'hosp_ratio_age_adjusted'
-  | 'covid_hosp_pct_relative_inequity'
-  | 'hiv_care_linkage'
-  | 'hiv_care_pct_share'
-  | 'hiv_care_pct_relative_inequity'
-  | 'hiv_care_ratio_age_adjusted'
-  | 'hiv_care_population_pct'
-  | 'hiv_diagnoses_per_100k'
-  | 'hiv_diagnoses_pct_share'
-  | 'hiv_diagnoses_pct_relative_inequity'
-  | 'hiv_diagnoses_ratio_age_adjusted'
-  | 'hiv_diagnoses_black_women_per_100k'
-  | 'hiv_diagnoses_black_women_pct_share'
-  | 'hiv_diagnoses_black_women_pct_relative_inequity'
-  | 'hiv_diagnoses_black_women_ratio_age_adjusted'
-  | 'hiv_deaths_per_100k'
-  | 'hiv_deaths_pct_share'
-  | 'hiv_deaths_pct_relative_inequity'
-  | 'hiv_deaths_ratio_age_adjusted'
-  | 'hiv_deaths_black_women_per_100k'
-  | 'hiv_deaths_black_women_pct_share'
-  | 'hiv_deaths_black_women_pct_relative_inequity'
-  | 'hiv_deaths_black_women_ratio_age_adjusted'
-  | 'hiv_prep_coverage'
-  | 'hiv_prep_pct_share'
-  | 'hiv_prep_pct_relative_inequity'
-  | 'hiv_prep_ratio_age_adjusted'
-  | 'hiv_prep_population_pct'
-  | 'hiv_prevalence_per_100k'
-  | 'hiv_prevalence_pct_share'
-  | 'hiv_prevalence_pct_relative_inequity'
-  | 'hiv_prevalence_ratio_age_adjusted'
-  | 'hiv_prevalence_black_women_per_100k'
-  | 'hiv_prevalence_black_women_pct_share'
-  | 'hiv_prevalence_black_women_pct_relative_inequity'
-  | 'hiv_prevalence_black_women_ratio_age_adjusted'
-  | 'hiv_population_pct'
-  | 'black_women_population_pct'
+  | 'population_pct'
+  | 'population'
   | 'poverty_count'
+  | 'poverty_pct_relative_inequity'
   | 'poverty_pct_share'
   | 'poverty_per_100k'
   | 'poverty_population_pct'
   | 'poverty_ratio_age_adjusted'
-  | 'poverty_pct_relative_inequity'
-  | 'vaccinated_pct_share'
-  | 'vaccinated_share_of_known'
-  | 'vaccinated_per_100k'
-  | 'vaccinated_pop_pct'
-  | 'vaccinated_ratio_age_adjusted'
-  | 'vaccinated_pct_relative_inequity'
-  | 'acs_vaccinated_pop_pct'
-  | 'copd_pct_share'
-  | 'copd_per_100k'
-  | 'copd_ratio_age_adjusted'
-  | 'copd_pct_relative_inequity'
-  | 'frequent_mental_distress_pct_share'
-  | 'frequent_mental_distress_per_100k'
-  | 'frequent_mental_distress_ratio_age_adjusted'
-  | 'frequent_mental_distress_pct_relative_inequity'
-  | 'depression_pct_share'
-  | 'depression_per_100k'
-  | 'depression_ratio_age_adjusted'
-  | 'depression_pct_relative_inequity'
-  | 'suicide_pct_share'
-  | 'suicide_per_100k'
-  | 'suicide_ratio_age_adjusted'
-  | 'suicide_pct_relative_inequity'
-  | 'excessive_drinking_pct_share'
-  | 'excessive_drinking_per_100k'
-  | 'excessive_drinking_ratio_age_adjusted'
-  | 'excessive_drinking_pct_relative_inequity'
-  | 'non_medical_drug_use_pct_share'
-  | 'non_medical_drug_use_per_100k'
-  | 'non_medical_drug_use_ratio_age_adjusted'
-  | 'non_medical_drug_use_pct_relative_inequity'
+  | 'preventable_hospitalizations_pct_relative_inequity'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
   | 'preventable_hospitalizations_ratio_age_adjusted'
-  | 'preventable_hospitalizations_pct_relative_inequity'
-  | 'avoided_care_pct_share'
-  | 'avoided_care_per_100k'
-  | 'avoided_care_ratio_age_adjusted'
-  | 'avoided_care_pct_relative_inequity'
-  | 'chronic_kidney_disease_pct_share'
-  | 'chronic_kidney_disease_per_100k'
-  | 'chronic_kidney_disease_ratio_age_adjusted'
-  | 'chronic_kidney_disease_pct_relative_inequity'
-  | 'cardiovascular_diseases_pct_share'
-  | 'cardiovascular_diseases_per_100k'
-  | 'cardiovascular_diseases_ratio_age_adjusted'
-  | 'cardiovascular_diseases_pct_relative_inequity'
-  | 'asthma_pct_share'
-  | 'asthma_per_100k'
-  | 'asthma_ratio_age_adjusted'
-  | 'asthma_pct_relative_inequity'
-  | 'voter_participation_pct_share'
-  | 'voter_participation_per_100k'
-  | 'voter_participation_ratio_age_adjusted'
-  | 'voter_participation_pct_relative_inequity'
-  | 'diabetes_pct_share'
-  | 'diabetes_per_100k'
-  | 'diabetes_ratio_age_adjusted'
-  | 'diabetes_pct_relative_inequity'
-  | 'ahr_population_pct'
-  | 'women_state_leg_ratio_age_adjusted'
-  | 'women_state_leg_pct_relative_inequity'
-  | 'women_this_race_state_leg_count'
-  | 'total_state_leg_count'
-  | 'pct_share_of_us_congress'
-  | 'pct_share_of_women_us_congress'
-  | 'pct_share_of_state_leg'
-  | 'pct_share_of_women_state_leg'
-  | 'women_us_congress_ratio_age_adjusted'
-  | 'women_us_congress_pct_relative_inequity'
-  | 'women_this_race_us_congress_names'
-  | 'total_us_congress_names'
-  | 'women_this_race_us_congress_count'
-  | 'total_us_congress_count'
-  | 'cawp_population_pct'
+  | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
   | 'prison_ratio_age_adjusted'
-  | 'prison_pct_relative_inequity'
-  | 'jail_pct_share'
-  | 'jail_per_100k'
-  | 'jail_ratio_age_adjusted'
-  | 'jail_pct_relative_inequity'
+  | 'suicide_pct_relative_inequity'
+  | 'suicide_pct_share'
+  | 'suicide_per_100k'
+  | 'suicide_ratio_age_adjusted'
+  | 'svi'
   | 'total_confined_children'
-  | 'incarceration_population_pct'
+  | 'total_state_leg_count'
+  | 'total_us_congress_count'
+  | 'total_us_congress_names'
+  | 'uninsured_pct_relative_inequity'
   | 'uninsured_pct_share'
   | 'uninsured_per_100k'
   | 'uninsured_population_pct'
   | 'uninsured_ratio_age_adjusted'
-  | 'uninsured_pct_relative_inequity'
+  | 'vaccinated_pct_relative_inequity'
+  | 'vaccinated_pct_share'
+  | 'vaccinated_per_100k'
+  | 'vaccinated_pop_pct'
+  | 'vaccinated_ratio_age_adjusted'
+  | 'vaccinated_share_of_known'
+  | 'voter_participation_pct_relative_inequity'
+  | 'voter_participation_pct_share'
+  | 'voter_participation_pct_rate'
+  | 'voter_participation_ratio_age_adjusted'
+  | 'women_state_leg_pct_relative_inequity'
+  | 'women_state_leg_ratio_age_adjusted'
+  | 'women_this_race_state_leg_count'
+  | 'women_this_race_us_congress_count'
+  | 'women_this_race_us_congress_names'
+  | 'women_us_congress_pct_relative_inequity'
+  | 'women_us_congress_ratio_age_adjusted'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -226,7 +226,7 @@ export type MetricType =
   | 'pct_share'
   | 'per100k'
   | 'pct_relative_inequity'
-  | 'pct_incidence'
+  | 'pct_rate'
   | 'index'
   | 'ratio'
 
@@ -294,13 +294,11 @@ export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   index: '',
   ratio: '×',
   pct_relative_inequity: '%',
-  pct_incidence: '%',
+  pct_rate: '%',
 }
 
 export function isPctType(metricType: MetricType) {
-  return ['pct_share', 'pct_relative_inequity', 'pct_incidence'].includes(
-    metricType
-  )
+  return ['pct_share', 'pct_relative_inequity', 'pct_rate'].includes(metricType)
 }
 
 /**
@@ -336,13 +334,16 @@ export function formatFieldValue(
   return `${formattedValue}${percentSuffix}${ratioSuffix}`
 }
 
-export function getPer100kAndPctShareMetrics(
+export function getRateAndPctShareMetrics(
   variableConfig: VariableConfig
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
   if (variableConfig) {
-    if (variableConfig.metrics.per100k) {
+    if (variableConfig.metrics?.per100k) {
       tableFields.push(variableConfig.metrics.per100k)
+    }
+    if (variableConfig.metrics?.pct_rate) {
+      tableFields.push(variableConfig.metrics.pct_rate)
     }
     if (variableConfig.metrics.pct_share) {
       tableFields.push(variableConfig.metrics.pct_share)
@@ -663,7 +664,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'New HIV diagnoses',
       variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for new HIV diagnoses', 
+      dataTableTitle: 'Breakdown summary for new HIV diagnoses',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total new HIV diagnoses',
@@ -715,7 +716,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'New HIV diagnoses for Black women',
       variableDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for new HIV diagnoses for Black women', 
+      dataTableTitle: 'Breakdown summary for new HIV diagnoses for Black women',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total new HIV diagnoses for Black women',
@@ -767,7 +768,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'HIV deaths',
       variableDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV deaths', 
+      dataTableTitle: 'Breakdown summary for HIV deaths',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total HIV deaths',
@@ -816,7 +817,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'HIV deaths for Black women',
       variableDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV deaths for Black women', 
+      dataTableTitle: 'Breakdown summary for HIV deaths for Black women',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total HIV deaths for Black Women',
@@ -867,7 +868,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'PrEP coverage',
       variableDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for PrEP coverage', 
+      dataTableTitle: 'Breakdown summary for PrEP coverage',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total PrEP prescriptions',
@@ -919,7 +920,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'HIV prevalence',
       variableDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV prevalence', 
+      dataTableTitle: 'Breakdown summary for HIV prevalence',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total HIV prevalence',
@@ -969,7 +970,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'HIV prevalence for Black women',
       variableDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV prevalence for Black women', 
+      dataTableTitle: 'Breakdown summary for HIV prevalence for Black women',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total HIV prevalence for Black women',
@@ -1020,7 +1021,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Suicides',
       variableDefinition: `Deaths due to intentional self-harm.`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for suicides', 
+      dataTableTitle: 'Breakdown summary for suicides',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total suicides',
@@ -1069,7 +1070,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Depression cases',
       variableDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for depression cases', 
+      dataTableTitle: 'Breakdown summary for depression cases',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total depression cases',
@@ -1118,7 +1119,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Excessive drinking cases',
       variableDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for excessive drinking cases', 
+      dataTableTitle: 'Breakdown summary for excessive drinking cases',
       metrics: {
         pct_share: {
           chartTitle: 'Share of all excessive drinking cases',
@@ -1172,7 +1173,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Opioid and other non-medical drug use',
       variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for opioid and other non-medical drug use', 
+      dataTableTitle:
+        'Breakdown summary for opioid and other non-medical drug use',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total non-medical drug use',
@@ -1226,7 +1228,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Frequent mental distress cases',
       variableDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for frequent mental distress cases', 
+      dataTableTitle: 'Breakdown summary for frequent mental distress cases',
       metrics: {
         pct_share: {
           chartTitle: 'Share of all frequent mental distress cases',
@@ -1280,7 +1282,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Diabetes',
       variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for diabetes', 
+      dataTableTitle: 'Breakdown summary for diabetes',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total diabetes cases',
@@ -1329,7 +1331,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'COPD',
       variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for COPD', 
+      dataTableTitle: 'Breakdown summary for COPD',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total COPD cases',
@@ -1382,7 +1384,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         are not considered comprehensive health coverage. Likewise, other types of insurance like
         dental, vision, life, and disability insurance are not considered comprehensive health
         insurance coverage.`,
-      dataTableTitle: 'Breakdown summary for uninsured people', 
+      dataTableTitle: 'Breakdown summary for uninsured people',
       metrics: {
         per100k: {
           metricId: 'uninsured_per_100k',
@@ -1431,7 +1433,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: 'Poverty',
       variableFullDisplayName: 'People below the poverty line',
       variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
-      dataTableTitle: 'Breakdown summary for people below the poverty line', 
+      dataTableTitle: 'Breakdown summary for people below the poverty line',
       metrics: {
         per100k: {
           metricId: 'poverty_per_100k',
@@ -1480,7 +1482,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: 'Preventable hospitalizations',
       variableFullDisplayName: 'Preventable hospitalizations',
       variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
-      dataTableTitle: 'Breakdown summary for preventable hospitalizations', 
+      dataTableTitle: 'Breakdown summary for preventable hospitalizations',
       metrics: {
         per100k: {
           metricId: 'preventable_hospitalizations_per_100k',
@@ -1536,27 +1538,26 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableFullDisplayName: 'Care avoidance due to cost',
       variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for care avoidance due to cost', 
+      dataTableTitle: 'Breakdown summary for care avoidance due to cost',
       metrics: {
-        per100k: {
-          metricId: 'avoided_care_per_100k',
+        pct_rate: {
+          metricId: 'avoided_care_pct_rate',
           chartTitle: 'Care avoidance due to cost',
           trendsCardTitleName: 'Rates of care avoidance over time',
-          columnTitleHeader: 'Care avoidance due to cost per 100k adults',
-          shortLabel: 'avoidance per 100k adults',
-          type: 'per100k',
+          columnTitleHeader: 'Care avoidance due to cost',
+          shortLabel: '% avoided care',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of all care avoidance due to cost',
           metricId: 'avoided_care_pct_share',
           trendsCardTitleName: 'Inequitable share of care avoidance over time',
           columnTitleHeader: 'Share of all care avoidance due to cost',
-          shortLabel: '% of avoidance',
+          shortLabel: '% of avoidances',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
               'Population vs. distribution of total care avoidance due to cost',
-
             metricId: 'ahr_population_pct',
             columnTitleHeader: populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -1573,7 +1574,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         age_adjusted_ratio: {
           chartTitle:
             'Age-adjusted risk of care avoidance due to cost compared to White (NH)',
-
           metricId: 'avoided_care_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
@@ -1587,7 +1587,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: 'Asthma',
       variableFullDisplayName: 'Asthma cases',
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for asthma cases', 
+      dataTableTitle: 'Breakdown summary for asthma cases',
       variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
       metrics: {
         per100k: {
@@ -1636,7 +1636,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: 'Cardiovascular diseases',
       variableFullDisplayName: 'Cases of cardiovascular diseases',
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases', 
+      dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases',
       variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
       metrics: {
         per100k: {
@@ -1691,7 +1691,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       surveyCollectedData: true,
       variableFullDisplayName: 'Cases of chronic kidney disease',
       variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
-      dataTableTitle: 'Breakdown summary for cases of chronic kidney disease', 
+      dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
       metrics: {
         per100k: {
           metricId: 'chronic_kidney_disease_per_100k',
@@ -1744,16 +1744,16 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       variableDisplayName: 'Voter participation',
       variableFullDisplayName: 'Voter participation',
       surveyCollectedData: true,
-      dataTableTitle: 'Breakdown summary for voter participation', 
-      variableDefinition: `U.S. citizens ages 18 and older who voted in either the last presidential election, the last midterm national election, or the average of both where that data is available.`,
+      dataTableTitle: 'Breakdown summary for voter participation',
+      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
       metrics: {
         per100k: {
-          metricId: 'voter_participation_per_100k',
-          columnTitleHeader: 'Participating Voters per 100k U.S. citizens',
+          metricId: 'voter_participation_pct_rate',
+          columnTitleHeader: 'Voter Participation',
           chartTitle: 'Voter participation',
           trendsCardTitleName: 'Rates of voter participation over time',
-          shortLabel: 'voters per 100k citizens',
-          type: 'per100k',
+          shortLabel: '% voter participation',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of all voter participation',
@@ -1799,7 +1799,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       surveyCollectedData: true,
       timeSeriesData: true,
       variableDefinition: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
-      dataTableTitle: 'Breakdown summary for Women in US Congress', 
+      dataTableTitle: 'Breakdown summary for Women in US Congress',
       metrics: {
         per100k: {
           metricId: 'pct_share_of_us_congress',
@@ -1858,7 +1858,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       timeSeriesData: true,
       variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
-      dataTableTitle: 'Breakdown summary for Women in state legislatures', 
+      dataTableTitle: 'Breakdown summary for Women in state legislatures',
       metrics: {
         per100k: {
           metricId: 'pct_share_of_state_leg',
@@ -1917,7 +1917,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       timeSeriesData: true,
       variableDefinition: `Individuals of any age, including children, under the jurisdiction of an adult prison facility. ‘Age’ reports at the national level include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total U.S. prison population in 2020. For all national reports, this rate includes both state and federal prisons. For state and territory level reports, only the prisoners under the jurisdiction of that geography are included. For county level reports, Vera reports the
       number of people incarcerated under the jurisdiction of a state prison system on charges arising from a criminal case in that specific county, which are not available in every state. The county of court commitment is generally where a person was convicted; it is not necessarily the person’s county of residence, and may not even be the county where the crime was committed, but nevertheless is likely to be both.  AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Prisons are longer-term facilities run by the state or the federal government that typically hold felons and persons with sentences of more than one year. Definitions may vary by state.`,
-      dataTableTitle: 'Breakdown summary for people in prison', 
+      dataTableTitle: 'Breakdown summary for people in prison',
       metrics: {
         per100k: {
           metricId: 'prison_per_100k',
@@ -1977,7 +1977,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       surveyCollectedData: true,
       timeSeriesData: true,
       variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Jails are locally operated short-term facilities that hold inmates awaiting trial or sentencing or both, and inmates sentenced to a term of less than one year, typically misdemeanants. Definitions may vary by state.`,
-      dataTableTitle: 'Breakdown summary for people in jail', 
+      dataTableTitle: 'Breakdown summary for people in jail',
       metrics: {
         per100k: {
           metricId: 'jail_per_100k',
