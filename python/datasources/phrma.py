@@ -3,6 +3,7 @@ from typing import List, Dict, Literal, cast
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
+                                 NATIONAL_LEVEL,
                                  ALL_VALUE, UNKNOWN)
 from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_per_100k_col,
@@ -16,8 +17,14 @@ PHRMA_DIR = 'phrma'
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
 PHRMA_FILE_MAP = {
-    "statins": "PQA_STA Results_2023-02-09_draft.xlsx"
+    "statins": "statins.xlsx"
 }
+
+#  INPUT CONSTANTS
+COUNT_TOTAL = "TOTAL_BENE"
+COUNT_YES = "BENE_YES"
+COUNT_NO = "BENE_NO"
+ADHERENCE_RATE = "BENE_YES_PCT"
 
 # CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
 # CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
@@ -83,8 +90,8 @@ class PhrmaData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         for geo_level in [
-            COUNTY_LEVEL,
-            # STATE_LEVEL,
+            # COUNTY_LEVEL,
+            STATE_LEVEL,
             # NATIONAL_LEVEL
         ]:
             print("geo_level:", geo_level)
@@ -122,7 +129,7 @@ class PhrmaData(DataSource):
         alls_df: the data frame containing the all values for each demographic demo_breakdown.
         return: a breakdown df by demographic and geo_level"""
 
-        # give the ALL df a demographic column with correct "All" or "ALL" value
+        # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         demo = std_col.RACE_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
@@ -141,27 +148,22 @@ class PhrmaData(DataSource):
         df = merge_pop_numbers(
             df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
 
-        print(df.to_string())
-
-        # PQA_STA condition TOTAL_BENE rate
+        # statin TOTAL_BENE rate
         df = generate_per_100k_col(
-            df, "TOTAL_BENE", std_col.POPULATION_COL, "statins_bene_per_100k")
+            df, COUNT_TOTAL, std_col.POPULATION_COL, "statins_bene_per_100k")
 
-        # PQA_STA condition ADHERENCE rate
-        df["statins_adherence_pct_rate"] = df["AVG PDC RATE"].multiply(
+        # statin ADHERENCE rate
+        df["statins_adherence_pct_rate"] = df["BENE_YES_PCT"].multiply(
             100).round()
 
-        unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
+        # unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0,
                                                                                2)
-
-        # PQA_STA condition TOTAL_BENE pct_share
-        # PQA_STA condition ADHERENCE pct_share
         df = generate_pct_share_col_with_unknowns(
-            df, {"TOTAL_BENE": "statins_bene_pct_share", "COUNT_YES": "statins_adherence_pct_share"}, demo_col, all_val, unknown_val)
+            df, {COUNT_TOTAL: "statins_bene_pct_share", COUNT_YES: "statins_adherence_pct_share"}, demo_col, all_val, std_col.Race.UNKNOWN.value)
 
         df = df.rename(
             columns={std_col.POPULATION_PCT_COL: "phrma_population_pct"})
@@ -169,8 +171,8 @@ class PhrmaData(DataSource):
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
             std_col.add_race_columns_from_category_id(df)
 
-        df = df.drop(columns=["COUNT_YES", "COUNT_NO",
-                     "TOTAL_BENE", "AVG PDC RATE"])
+        df = df.drop(columns=[COUNT_YES, COUNT_NO,
+                     COUNT_TOTAL, ADHERENCE_RATE])
 
         df = df.sort_values(
             by=[fips_to_use, demo_col]).reset_index(drop=True)
@@ -214,11 +216,10 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
                             cast(SEX_RACE_ETH_AGE_TYPE, breakdown))
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level == COUNTY_LEVEL:
-        output_df = output_df.drop(columns=["RTI_RACE_CD"])
+        output_df = output_df.drop(columns=["RACE_NAME"])
 
     # drop rows that dont include FIPS and DEMO values
-    output_df = output_df[output_df[std_col.COUNTY_FIPS_COL].notna()]
-
+    output_df = output_df[output_df[fips_col].notna()]
     output_df = ensure_leading_zeros(output_df, fips_col, fips_length)
 
     return output_df
@@ -230,9 +231,9 @@ def get_sheet_name(geo_level: str, breakdown: str) -> str:
    return: a string sheet name based on the provided args  """
 
     sheet_map = {
-        ("all", "national"): "All US",
-        ("all", "state"): "All by State",
-        ("all", "county"): "All by County",
+        ("all", "national"): "US",
+        ("all", "state"): "State",
+        ("all", "county"): "County",
         ("race_and_ethnicity", "national"): "Race_US",
         ("race_and_ethnicity", "state"): "Race_State",
         ("race_and_ethnicity", "county"): "Race_County",
@@ -252,9 +253,9 @@ def get_scaffold_cols(geo_level: str) -> List[str]:
     needed sheets to merge """
 
     scaffold_cols_map = {
-        "national": ["STATE_FIPS", "STATE"],
-        "state": ["STATE_CODE", "STATE_CODE"],
-        "county": ["COUNTY_FIPS", "STATE_FIPS", "STATE", "COUNTY"]
+        # "national": ["STATE_FIPS", "STATE"],
+        "state": ["STATE_CODE", "STATE_NAME"],
+        "county": ["COUNTY_FIPS", "STATE_FIPS", "STATE_NAME", "COUNTY_NAME"]
     }
 
     return scaffold_cols_map[geo_level]
@@ -270,17 +271,18 @@ def rename_cols(df: pd.DataFrame,
     if geo_level == COUNTY_LEVEL:
         rename_cols_map["STATE_FIPS"] = std_col.STATE_FIPS_COL
         rename_cols_map["COUNTY_FIPS"] = std_col.COUNTY_FIPS_COL
-        rename_cols_map["STATE"] = std_col.STATE_NAME_COL
-        rename_cols_map["COUNTY"] = std_col.COUNTY_NAME_COL
+        rename_cols_map["STATE_NAME"] = std_col.STATE_NAME_COL
+        rename_cols_map["COUNTY_NAME"] = std_col.COUNTY_NAME_COL
 
     if geo_level == STATE_LEVEL:
-        rename_cols_map["STATE_CODE"] = std_col.STATE_NAME_COL
+        rename_cols_map["STATE_NAME"] = std_col.STATE_NAME_COL
+        rename_cols_map["STATE_CODE"] = std_col.STATE_FIPS_COL
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
-        rename_cols_map["RACE"] = std_col.RACE_CATEGORY_ID_COL
+        rename_cols_map["RACE_NAME"] = std_col.RACE_CATEGORY_ID_COL
 
     if breakdown == std_col.SEX_COL:
-        rename_cols_map["SEX"] = std_col.SEX_COL
+        rename_cols_map["SEX_NAME"] = std_col.SEX_COL
 
     if breakdown == std_col.AGE_COL:
         rename_cols_map["AGE_GROUP"] = std_col.AGE_COL

@@ -6,6 +6,7 @@ import os
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
+# DATA_DIR = os.path.join(THIS_DIR, os.pardir, "../../../data")
 GOLDEN_DIR = os.path.join(TEST_DIR, PHRMA_DIR, 'golden_data')
 
 ALLS_DATA = {
@@ -37,10 +38,37 @@ def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
     return sheet_df
 
 
+def _load_df_from_bigquery(*args, **kwargs):
+
+    datasource_name, table_name, dtypes = args
+
+    if "county" in table_name:
+        dtypes["county_fips"] = str
+
+    print("************")
+    print("MOCKING A CALL TO A HET BQ TABLE")
+    print(datasource_name, table_name)
+    print("************")
+
+    filename = f'{datasource_name}-{table_name}.json'
+    file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
+
+    print("reading ", file_path)
+    pop_df = pd.read_json(file_path, lines=True, dtype=dtypes)
+
+    print("loaded shared mock df")
+    print(pop_df)
+    print(pop_df.dtypes)
+
+    return pop_df
+
+
 @mock.patch('ingestion.gcs_to_bq_util.load_xlsx_as_df_from_data_dir', side_effect=_load_xlsx_as_df_from_data_dir)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testRunner(
     mock_bq: mock.MagicMock,
+    mock_pop: mock.MagicMock,
     mock_data_dir: mock.MagicMock
 ):
     datasource = PhrmaData()
