@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
-import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import {
+  isPctType,
+  type MetricConfig,
+  type MetricId,
+} from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
@@ -11,6 +15,7 @@ import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
+import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
 
 const COLOR_SCALE = 'color_scale'
 const ZERO_SCALE = 'zero_scale'
@@ -33,9 +38,6 @@ export const NO_DATA_MESSAGE = 'no data'
 export const EQUAL_DOT_SIZE = 200
 export const DEFAULT_LEGEND_COLOR_COUNT = 6
 
-export const MAP_SCHEME = 'yellowgreen'
-export const UNKNOWN_MAP_SCHEME = 'greenblue'
-
 const ZERO_BUCKET_LABEL = '0'
 
 /*
@@ -56,28 +58,37 @@ export interface LegendProps {
   sameDotSize?: boolean
   // Alt text
   description: string
-  // Whether legend entries stack vertical or horizontal (allows responsive design)
-  direction: 'horizontal' | 'vertical'
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
+  mapConfig: { mapScheme: string; mapMin: string }
+  columns: number
+  stackingDirection: 'horizontal' | 'vertical'
+  orient?: 'bottom-right'
+}
+
+export function getMapScheme(metricId: MetricId) {
+  const mapScheme = BLACK_WOMEN_METRICS.includes(metricId)
+    ? 'plasma'
+    : 'darkgreen'
+  const mapMin = BLACK_WOMEN_METRICS.includes(metricId)
+    ? sass.mapBwMin
+    : sass.mapMin
+
+  return [mapScheme, mapMin]
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-
-  const { direction } = props
-  const orient = direction === 'vertical' ? 'left' : 'right'
-
+  const defaultOrient =
+    props.stackingDirection === 'vertical' ? 'left' : 'right'
+  const orient = props.orient ?? defaultOrient
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
-
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
   )
-
   const uniqueNonZeroValueCount = new Set(
     nonZeroData?.map((row) => row[props.metric.metricId])
   ).size
-
   const missingData = props.data?.filter(
     (row) => row[props.metric.metricId] == null
   )
@@ -97,7 +108,7 @@ export function Legend(props: LegendProps) {
       name: COLOR_SCALE,
       type: props.scaleType,
       domain: { data: DATASET_VALUES, field: props.metric.metricId },
-      range: { scheme: MAP_SCHEME, count: legendColorCount },
+      range: { scheme: props.mapConfig.mapScheme, count: legendColorCount },
     }
 
     if (props.fieldRange) {
@@ -153,9 +164,10 @@ export function Legend(props: LegendProps) {
         format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
         labelFontStyle: LEGEND_TEXT_FONT,
         labelFont: LEGEND_TEXT_FONT,
-        direction: props.direction,
+        direction: props.stackingDirection,
         orient: 'left',
-        columns: props.direction === 'horizontal' ? 2 : 1,
+        columns: props.columns,
+        columnPadding: 20,
         encode: {
           labels: {
             update: {
@@ -185,7 +197,7 @@ export function Legend(props: LegendProps) {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
       background: sass.white,
-      padding: 8,
+      padding: 10,
       data: [
         {
           name: RAW_VALUES,
@@ -228,7 +240,11 @@ export function Legend(props: LegendProps) {
           ],
         },
       ],
-      layout: { padding: 20, bounds: 'full', align: 'each' },
+      layout: {
+        padding: 20,
+        bounds: 'full',
+        align: 'each',
+      },
       marks: [
         {
           type: 'group',
@@ -247,7 +263,7 @@ export function Legend(props: LegendProps) {
             field: props.metric.metricId,
           },
           range: {
-            scheme: MAP_SCHEME,
+            scheme: props.mapConfig.mapScheme,
             count: props.isSummaryLegend ? 1 : legendColorCount,
           },
         },
@@ -255,7 +271,7 @@ export function Legend(props: LegendProps) {
           name: ZERO_SCALE,
           type: ORDINAL,
           domain: { data: ZERO_VALUES, field: 'zero' },
-          range: [sass.mapMin],
+          range: [props.mapConfig.mapMin],
         },
         {
           name: ZERO_DOT_SCALE,
@@ -301,6 +317,8 @@ export function Legend(props: LegendProps) {
     props.fieldRange,
     props.data,
     props.sameDotSize,
+    props.mapConfig.mapMin,
+    props.mapConfig.mapScheme,
     props,
   ])
 

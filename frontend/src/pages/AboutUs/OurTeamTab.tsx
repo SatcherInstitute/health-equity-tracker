@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import {
   GOOGLE_FELLOWS,
+  HET_ALUMNI,
   HE_TASKFORCE,
   LEADERSHIP_TEAM,
   PARTNERS,
@@ -84,6 +85,39 @@ function OurTeamTab() {
         <Grid container className={styles.GridRow} component={'section'}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
+              Former SHLI Contributors
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Grid
+              container
+              justifyContent="space-around"
+              className={styles.GridSubRow}
+              component="ul"
+            >
+              {HET_ALUMNI.map((leader) => {
+                return (
+                  <Grid
+                    key={leader.name}
+                    item
+                    xs={12}
+                    sm={6}
+                    md={3}
+                    className={styles.TextProfile}
+                    component="li"
+                  >
+                    <div className={styles.MemberName}>{leader.name}</div>
+                    <div className={styles.MemberRole}>{leader.role}</div>
+                  </Grid>
+                )
+              })}
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Grid container className={styles.GridRow} component={'section'}>
+          <Grid item xs={12}>
+            <Typography variant="h3" align="left" className={styles.TeamHeader}>
               Google.org Fellows
             </Typography>
           </Grid>
@@ -114,7 +148,6 @@ function OurTeamTab() {
                     )}
 
                     <div className={styles.MemberName}>{fellow.name}</div>
-
                     <div className={styles.MemberRole}>{fellow.role}</div>
                   </Grid>
                 )

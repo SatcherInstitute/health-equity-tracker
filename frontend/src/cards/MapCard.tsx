@@ -58,7 +58,7 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
-import { RATE_MAP_SCALE } from '../charts/mapHelpers'
+import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -98,7 +98,9 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
-  const metricConfig = props.variableConfig.metrics.per100k
+  const metricConfig =
+    props.variableConfig.metrics?.per100k ??
+    props.variableConfig.metrics.pct_rate
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.variableConfig.variableId === 'prison'
@@ -337,6 +339,14 @@ function MapCardWithKey(props: MapCardProps) {
           ? highestValues.concat(lowestValues)
           : dataForActiveBreakdownFilter
 
+        const isSummaryLegend =
+          hasSelfButNotChildGeoData ?? props.fips.isCounty()
+
+        const [mapScheme, mapMin] = getMapScheme({
+          metricId: metricConfig.metricId,
+          isSummaryLegend,
+        })
+
         return (
           <>
             <MultiMapDialog
@@ -363,6 +373,7 @@ function MapCardWithKey(props: MapCardProps) {
                 !mapQueryResponse.dataIsMissing() &&
                 (props.variableConfig.surveyCollectedData ?? false)
               }
+              pageIsSmall={pageIsSmall}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
@@ -437,13 +448,10 @@ function MapCardWithKey(props: MapCardProps) {
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
                         signalListeners={signalListeners}
+                        mapConfig={{ mapScheme, mapMin }}
                       />
                       {props.fips.isUsa() && (
-                        <Grid
-                          item
-                          xs={12}
-                          sx={{ display: { xs: 'block', sm: 'none' } }}
-                        >
+                        <Grid item xs={12}>
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
                             data={displayData}
@@ -456,7 +464,7 @@ function MapCardWithKey(props: MapCardProps) {
                         </Grid>
                       )}
                     </Grid>
-                    {/* Legend & Location Info */}
+                    {/* Legend */}
                     <Grid
                       container
                       justifyItems={'center'}
@@ -472,12 +480,12 @@ function MapCardWithKey(props: MapCardProps) {
                         data={allDataForActiveBreakdownFilter}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
-                        direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
-                        isSummaryLegend={
-                          hasSelfButNotChildGeoData || props.fips.isCounty()
-                        }
+                        isSummaryLegend={isSummaryLegend}
                         fipsTypeDisplayName={fipsTypeDisplayName}
+                        mapConfig={{ mapScheme, mapMin }}
+                        columns={mapIsWide ? 1 : 3}
+                        stackingDirection={'vertical'}
                       />
                     </Grid>
 
@@ -488,7 +496,7 @@ function MapCardWithKey(props: MapCardProps) {
                       justifyContent={'space-between'}
                       alignItems={'center'}
                     >
-                      <Grid item xs={props.fips.isUsa() ? 6 : 12}>
+                      <Grid item>
                         <GeoContext
                           fips={props.fips}
                           updateFipsCallback={props.updateFipsCallback}
@@ -497,23 +505,6 @@ function MapCardWithKey(props: MapCardProps) {
                           sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
-                      {props.fips.isUsa() && (
-                        <Grid
-                          item
-                          sm={6}
-                          sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                          <TerritoryCircles
-                            mapIsWide={mapIsWide}
-                            data={displayData}
-                            countColsToAdd={countColsToAdd}
-                            listExpanded={listExpanded}
-                            metricConfig={metricConfig}
-                            signalListeners={signalListeners}
-                            geoData={geoData}
-                          />
-                        </Grid>
-                      )}
                     </Grid>
                   </Grid>
 

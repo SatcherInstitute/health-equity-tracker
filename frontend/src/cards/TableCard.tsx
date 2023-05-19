@@ -13,7 +13,7 @@ import {
   type MetricConfig,
   type MetricId,
   type VariableConfig,
-  getPer100kAndPctShareMetrics,
+  getRateAndPctShareMetrics,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE } from '../data/utils/Constants'
@@ -52,7 +52,7 @@ export function TableCard(props: TableCardProps) {
     props.breakdownVar === 'sex'
   )
 
-  const metrics = getPer100kAndPctShareMetrics(props.variableConfig)
+  const metrics = getRateAndPctShareMetrics(props.variableConfig)
 
   const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
 
@@ -139,8 +139,10 @@ export function TableCard(props: TableCardProps) {
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
                   variableId={props.variableConfig.variableId}
-                  variableName={props.variableConfig.variableFullDisplayName}
                   fips={props.fips}
+                  dataTableTitle={
+                    props.variableConfig.dataTableTitle ?? 'Breakdown Summary'
+                  }
                 />
               </div>
             )}

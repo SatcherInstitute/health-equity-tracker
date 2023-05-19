@@ -206,7 +206,9 @@ export function getExclusionList(
   currentBreakdown: BreakdownVar,
   currentFips: Fips
 ): DemographicGroup[] {
-  const current100k = currentVariable.metrics.per100k.metricId
+  const currentRate =
+    currentVariable.metrics?.per100k?.metricId ??
+    currentVariable.metrics?.pct_rate?.metricId
   const currentVariableId = currentVariable.variableId
   const exclusionList: DemographicGroup[] = [
     UNKNOWN,
@@ -287,20 +289,20 @@ export function getExclusionList(
   }
 
   // AHR
-  if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === RACE) {
-    AHR_API_NH_DETERMINANTS.includes(current100k)
+  if (ALL_AHR_DETERMINANTS.includes(currentRate) && currentBreakdown === RACE) {
+    AHR_API_NH_DETERMINANTS.includes(currentRate)
       ? exclusionList.push(ASIAN_NH, NHPI_NH)
       : exclusionList.push(API_NH)
   }
 
-  if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
+  if (ALL_AHR_DETERMINANTS.includes(currentRate) && currentBreakdown === AGE) {
     // get correct age buckets for this determinant
     const determinantBuckets: any[] = []
-    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k)) {
+    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(currentRate)) {
       determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS)
-    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k)) {
+    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(currentRate)) {
       determinantBuckets.push(...VOTER_AGE_BUCKETS)
-    } else if (AHR_DETERMINANTS.includes(current100k)) {
+    } else if (AHR_DETERMINANTS.includes(currentRate)) {
       determinantBuckets.push(...BROAD_AGE_BUCKETS)
     }
 

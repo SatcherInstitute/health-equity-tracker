@@ -44,10 +44,13 @@ COVID_DEATH_UNKNOWN = "death_unknown"
 COVID_POPULATION_PCT = "covid_population_pct"
 
 PER_100K_SUFFIX = "per_100k"
+PCT_RATE_SUFFIX = "pct_rate"
 PCT_SHARE_SUFFIX = "pct_share"
 SHARE_SUFFIX = "share"
 SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 PCT_REL_INEQUITY_SUFFIX = "pct_relative_inequity"
+RAW_SUFFIX = "estimated_total"
+POP_PCT_SUFFIX = 'population_pct'
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"
@@ -66,10 +69,6 @@ POVERTY_PREFIX = 'poverty'
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
-PER_100K_SUFFIX = "per_100k"
-PCT_SHARE_SUFFIX = "pct_share"
-RAW_SUFFIX = "estimated_total"
-POP_PCT_SUFFIX = 'population_pct'
 
 # prefixes for AHR columns
 DEPRESSION_PREFIX = "depression"
