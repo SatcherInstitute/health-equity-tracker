@@ -79,7 +79,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   )
 
   const chartTitle = generateChartTitle({
-    chartTitle: metricConfig.chartTitle,
+    chartTitle:
+      metricConfig?.populationComparisonMetric?.chartTitle ??
+      metricConfig.chartTitle,
     fips: props.fips,
   })
 
@@ -123,9 +125,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            {dataAvailable && knownData.length !== 0 && (
-              <CardContent>
-                <ChartTitle title={chartTitle} />
+            <CardContent>
+              <ChartTitle title={chartTitle} />
+              {dataAvailable && knownData.length !== 0 && (
                 <DisparityBarChart
                   data={knownData}
                   lightMetric={
@@ -139,8 +141,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   filename={chartTitle}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
                 />
-              </CardContent>
-            )}
+              )}
+            </CardContent>
 
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (

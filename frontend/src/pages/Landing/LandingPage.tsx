@@ -130,7 +130,7 @@ function LandingPage() {
               variant="subtitle1"
               component="p"
             >
-              News and stories from Morehouse School of Medicine and beyond
+              Stories and updates from Morehouse School of Medicine and beyond
             </Typography>
           </Grid>
           <Grid item xs={12}>

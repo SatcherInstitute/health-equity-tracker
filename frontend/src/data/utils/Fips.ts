@@ -15,14 +15,14 @@ export const NORTHERN_MARIANA_ISLANDS = '69'
 export const PUERTO_RICO = '72'
 export const VIRGIN_ISLANDS = '78'
 
-export const TERRITORY_CODES = [
-  AMERICAN_SAMOA,
-  GUAM,
-  NORTHERN_MARIANA_ISLANDS,
-  PUERTO_RICO,
-  VIRGIN_ISLANDS,
-  DC,
-]
+export const TERRITORY_CODES = {
+  [AMERICAN_SAMOA]: 'AS',
+  [GUAM]: 'GU',
+  [NORTHERN_MARIANA_ISLANDS]: 'MP',
+  [PUERTO_RICO]: 'PR',
+  [VIRGIN_ISLANDS]: 'VI',
+  [DC]: 'DC',
+}
 
 export const ISLAND_AREAS_FIPS = [
   GUAM,
@@ -57,11 +57,17 @@ class Fips {
   }
 
   isState() {
-    return this.isStateOrTerritory() && !TERRITORY_CODES.includes(this.code)
+    return (
+      this.isStateOrTerritory() &&
+      !Object.keys(TERRITORY_CODES).includes(this.code)
+    )
   }
 
   isTerritory() {
-    return this.isStateOrTerritory() && TERRITORY_CODES.includes(this.code)
+    return (
+      this.isStateOrTerritory() &&
+      Object.keys(TERRITORY_CODES).includes(this.code)
+    )
   }
 
   isIslandArea() {

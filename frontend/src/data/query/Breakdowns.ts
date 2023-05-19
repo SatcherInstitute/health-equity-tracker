@@ -24,6 +24,10 @@ export const DEMOGRAPHIC_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> =
     Age: 'age',
   }
 
+export const AGE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
+  Age: 'age',
+}
+
 export const DEMOGRAPHIC_BREAKDOWNS = [
   'race_and_ethnicity',
   'sex',

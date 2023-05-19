@@ -47,7 +47,9 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 }
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
-  const metricConfig = props.variableConfig.metrics.per100k
+  const metricConfig =
+    props.variableConfig.metrics?.per100k ??
+    props.variableConfig.metrics?.pct_rate
   const isIncarceration = INCARCERATION_IDS.includes(
     props.variableConfig.variableId
   )
