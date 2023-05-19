@@ -90,7 +90,7 @@ class PhrmaData(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
         for geo_level in [
-            # COUNTY_LEVEL,
+            COUNTY_LEVEL,
             STATE_LEVEL,
             # NATIONAL_LEVEL
         ]:
@@ -128,6 +128,8 @@ class PhrmaData(DataSource):
         geo_level: string equal to `county`, `national`, or `state`
         alls_df: the data frame containing the all values for each demographic demo_breakdown.
         return: a breakdown df by demographic and geo_level"""
+
+        print("-----", demo_breakdown, geo_level)
 
         # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
@@ -215,8 +217,10 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
                             cast(GEO_TYPE, geo_level),
                             cast(SEX_RACE_ETH_AGE_TYPE, breakdown))
 
-    if breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level == COUNTY_LEVEL:
-        output_df = output_df.drop(columns=["RACE_NAME"])
+    # print("-->", output_df.columns)
+
+    # if breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level == COUNTY_LEVEL:
+    #     output_df = output_df.drop(columns=["RACE_NAME"])
 
     # drop rows that dont include FIPS and DEMO values
     output_df = output_df[output_df[fips_col].notna()]
