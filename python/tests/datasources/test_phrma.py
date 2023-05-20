@@ -25,8 +25,8 @@ def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
     dtype = kwargs['dtype']
     na_values = kwargs['na_values']
 
-    print(
-        f'mocking read xlsx from /data/{directory}/{filename}, sheet: {sheet_name}')
+    # print(
+    #     f'mocking read xlsx from /data/{directory}/{filename}, sheet: {sheet_name}')
 
     file_path = os.path.join(TEST_DIR, directory, filename)
 
@@ -45,20 +45,15 @@ def _load_df_from_bigquery(*args, **kwargs):
     if "county" in table_name:
         dtypes["county_fips"] = str
 
-    print("************")
-    print("MOCKING A CALL TO A HET BQ TABLE")
-    print(datasource_name, table_name)
-    print("************")
+    # print("************")
+    # print("MOCKING A CALL TO A HET BQ TABLE")
+    # print(datasource_name, table_name)
+    # print("************")
 
     filename = f'{datasource_name}-{table_name}.json'
     file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
 
-    print("reading ", file_path)
     pop_df = pd.read_json(file_path, lines=True, dtype=dtypes)
-
-    print("loaded shared mock df")
-    print(pop_df)
-    print(pop_df.dtypes)
 
     return pop_df
 

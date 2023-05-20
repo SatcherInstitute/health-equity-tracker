@@ -4,7 +4,9 @@ from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
-                                 ALL_VALUE, UNKNOWN)
+                                 ALL_VALUE,
+                                 US_FIPS,
+                                 US_NAME)
 from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_per_100k_col,
                                      generate_pct_share_col_with_unknowns)
@@ -25,33 +27,6 @@ COUNT_TOTAL = "TOTAL_BENE"
 COUNT_YES = "BENE_YES"
 COUNT_NO = "BENE_NO"
 ADHERENCE_RATE = "BENE_YES_PCT"
-
-# CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
-# CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
-
-# DEM_COLS_STANDARD = {
-#     std_col.AGE_COL: 'Age Group',
-#     std_col.RACE_OR_HISPANIC_COL: 'Race/Ethnicity',
-#     std_col.SEX_COL: 'Sex'}
-
-
-# PCT_SHARE_MAP = {}
-# for prefix in HIV_DETERMINANTS.values():
-#     PCT_SHARE_MAP[prefix] = std_col.generate_column_name(
-#         prefix, std_col.PCT_SHARE_SUFFIX)
-# PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
-# PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
-
-# PER_100K_MAP = {std_col.PREP_PREFIX: std_col.HIV_PREP_COVERAGE}
-# for prefix in HIV_DETERMINANTS.values():
-#     if prefix != std_col.PREP_PREFIX:
-#         PER_100K_MAP[prefix] = std_col.generate_column_name(
-#             prefix, std_col.PER_100K_SUFFIX)
-
-# PCT_RELATIVE_INEQUITY_MAP = {}
-# for prefix in HIV_DETERMINANTS.values():
-#     PCT_RELATIVE_INEQUITY_MAP[prefix] = std_col.generate_column_name(
-#         prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
 
 # a nested dictionary that contains values swaps per column name
 BREAKDOWN_TO_STANDARD_BY_COL = {
@@ -92,9 +67,8 @@ class PhrmaData(DataSource):
         for geo_level in [
             COUNTY_LEVEL,
             STATE_LEVEL,
-            # NATIONAL_LEVEL
+            NATIONAL_LEVEL
         ]:
-            print("geo_level:", geo_level)
             alls_df = load_phrma_df_from_data_dir(geo_level, 'all')
 
             for breakdown in [
@@ -129,8 +103,6 @@ class PhrmaData(DataSource):
         alls_df: the data frame containing the all values for each demographic demo_breakdown.
         return: a breakdown df by demographic and geo_level"""
 
-        print("-----", demo_breakdown, geo_level)
-
         # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         demo = std_col.RACE_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
@@ -157,8 +129,6 @@ class PhrmaData(DataSource):
         # statin ADHERENCE rate
         df["statins_adherence_pct_rate"] = df["BENE_YES_PCT"].multiply(
             100).round()
-
-        # unknown_val = std_col.Race.UNKNOWN.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else UNKNOWN
 
         if geo_level == COUNTY_LEVEL:
             df = merge_county_names(df)
@@ -194,14 +164,10 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
     fips_col = std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col. STATE_FIPS_COL
     fips_length = 5 if geo_level == COUNTY_LEVEL else 2
 
-    demo_col = std_col.RACE_CATEGORY_ID_COL if breakdown == std_col.RACE_OR_HISPANIC_COL else breakdown
-
     # Starter cols to merge each loaded table on to
     output_df = pd.DataFrame(columns=scaffold_cols)
 
     for determinant, filename in PHRMA_FILE_MAP.items():
-
-        print(determinant, filename, sheet_name)
 
         topic_df = gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
             PHRMA_DIR,
@@ -211,16 +177,15 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
             na_values=["."],
         )
 
+        if geo_level == NATIONAL_LEVEL:
+            topic_df["STATE_CODE"] = US_FIPS
+            topic_df["STATE_NAME"] = US_NAME
+
         output_df = output_df.merge(topic_df, how='outer')
 
     output_df = rename_cols(output_df,
                             cast(GEO_TYPE, geo_level),
                             cast(SEX_RACE_ETH_AGE_TYPE, breakdown))
-
-    # print("-->", output_df.columns)
-
-    # if breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level == COUNTY_LEVEL:
-    #     output_df = output_df.drop(columns=["RACE_NAME"])
 
     # drop rows that dont include FIPS and DEMO values
     output_df = output_df[output_df[fips_col].notna()]
@@ -235,18 +200,18 @@ def get_sheet_name(geo_level: str, breakdown: str) -> str:
    return: a string sheet name based on the provided args  """
 
     sheet_map = {
-        ("all", "national"): "US",
-        ("all", "state"): "State",
-        ("all", "county"): "County",
-        ("race_and_ethnicity", "national"): "Race_US",
-        ("race_and_ethnicity", "state"): "Race_State",
-        ("race_and_ethnicity", "county"): "Race_County",
-        ("sex", "national"): "Sex_US",
-        ("sex", "state"): "Sex_State",
-        ("sex", "county"): "Sex_County",
-        ("age", "national"): "Age_US",
-        ("age", "state"): "Age_State",
-        ("age", "county"): "Age_County",
+        ("all", NATIONAL_LEVEL): "US",
+        ("all", STATE_LEVEL): "State",
+        ("all", COUNTY_LEVEL): "County",
+        (std_col.RACE_OR_HISPANIC_COL, NATIONAL_LEVEL): "Race_US",
+        (std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL): "Race_State",
+        (std_col.RACE_OR_HISPANIC_COL, COUNTY_LEVEL): "Race_County",
+        (std_col.SEX_COL, NATIONAL_LEVEL): "Sex_US",
+        (std_col.SEX_COL, STATE_LEVEL): "Sex_State",
+        (std_col.SEX_COL, COUNTY_LEVEL): "Sex_County",
+        (std_col.AGE_COL, NATIONAL_LEVEL): "Age_US",
+        (std_col.AGE_COL, STATE_LEVEL): "Age_State",
+        (std_col.AGE_COL, COUNTY_LEVEL): "Age_County",
     }
 
     return sheet_map[(breakdown, geo_level)]
@@ -257,9 +222,10 @@ def get_scaffold_cols(geo_level: str) -> List[str]:
     needed sheets to merge """
 
     scaffold_cols_map = {
-        # "national": ["STATE_FIPS", "STATE"],
-        "state": ["STATE_CODE", "STATE_NAME"],
-        "county": ["COUNTY_FIPS", "STATE_FIPS", "STATE_NAME", "COUNTY_NAME"]
+        NATIONAL_LEVEL: ["STATE_CODE", "STATE_NAME"],
+        STATE_LEVEL: ["STATE_CODE", "STATE_NAME"],
+        COUNTY_LEVEL: ["COUNTY_FIPS", "STATE_FIPS",
+                       "STATE_NAME", "COUNTY_NAME"]
     }
 
     return scaffold_cols_map[geo_level]
@@ -278,7 +244,7 @@ def rename_cols(df: pd.DataFrame,
         rename_cols_map["STATE_NAME"] = std_col.STATE_NAME_COL
         rename_cols_map["COUNTY_NAME"] = std_col.COUNTY_NAME_COL
 
-    if geo_level == STATE_LEVEL:
+    if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
         rename_cols_map["STATE_NAME"] = std_col.STATE_NAME_COL
         rename_cols_map["STATE_CODE"] = std_col.STATE_FIPS_COL
 
