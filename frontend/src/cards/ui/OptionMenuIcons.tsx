@@ -19,8 +19,13 @@ const shareIconAttributes = {
     size: 39,
 }
 
-export default function OptionMenuIcons() {
-    const emailShareBody = `${'\n'}${'\n'}` // Add line breaks here if needed
+interface OptionMenuIconsProps {
+    reportTitle: string;
+}
+
+export default function OptionMenuIcons(props: OptionMenuIconsProps) {
+    let title = `Health Equity Tracker - ${props.reportTitle}`
+    const emailShareBody = `${title}${'\n'}${'\n'}` // Add line breaks here if needed
     const sharedUrl = window.location.href
 
     return (
@@ -66,9 +71,9 @@ export default function OptionMenuIcons() {
                 <ListItemIcon className={styles.ListItemShareIcon}>
                     <LinkedinShareButton
                         aria-label={'Share to LinkedIn'}
+                        className={styles.FacebookShareButton}
                         source={'Health Equity Tracker'}
                         url={sharedUrl}
-                        className={styles.FacebookShareButton}
                     >
                         <LinkedinIcon {...shareIconAttributes} className={styles.LinkedInIcon} />
                         <div className={styles.ShareIconLinkText}>Share on LinkedIn</div>
@@ -84,9 +89,9 @@ export default function OptionMenuIcons() {
                     <EmailShareButton
                         aria-label={'Share by email'}
                         body={emailShareBody}
-                        subject={`Sharing from healthequitytracker.org`}
-                        url={'Email card link'}
                         className={styles.TwitterShareButton}
+                        subject={`Sharing from healthequitytracker.org`}
+                        url={sharedUrl}
                     >
                         <EmailIcon {...shareIconAttributes} className={styles.TwitterIcon} />
                         <div className={styles.ShareIconLinkText}>Email card link</div>

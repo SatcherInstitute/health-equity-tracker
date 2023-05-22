@@ -13,6 +13,7 @@ import styles from './CardOptionsMenu.module.scss'
 
 interface CardOptionsMenuProps {
     downloadTargetScreenshot: () => Promise<boolean>
+    reportTitle: string
     scrollToHash: ScrollableHashId
 }
 
@@ -49,7 +50,7 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
                     <DownloadCardImageButton
                         downloadTargetScreenshot={props.downloadTargetScreenshot}
                     />
-                    <OptionMenuIcons />
+                    <OptionMenuIcons reportTitle={props.reportTitle} />
                 </MenuList>
             </Popover>
         </Grid>

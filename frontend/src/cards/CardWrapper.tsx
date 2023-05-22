@@ -29,6 +29,7 @@ function CardWrapper(props: {
   ) => JSX.Element
   isAgeAdjustedTable?: boolean
   scrollToHash: ScrollableHashId
+  reportTitle: string
 }) {
 
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
@@ -63,6 +64,7 @@ function CardWrapper(props: {
           >
             <CardOptionsMenu
               downloadTargetScreenshot={downloadTargetScreenshot}
+              reportTitle={props.reportTitle}
               scrollToHash={props.scrollToHash}
             />
             {props.children(queryResponses, metadata, geoData)}
