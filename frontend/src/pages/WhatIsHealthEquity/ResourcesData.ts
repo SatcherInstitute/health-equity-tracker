@@ -307,3 +307,33 @@ export const COVID_VACCINATION_RESOURCES: ResourceGroup = {
     },
   ],
 }
+
+export const HIV_RESOURCES: ResourceGroup = {
+  heading: 'HIV',
+  resources: [
+    {
+      name: 'CDC - HIV Risk and Prevention',
+      url: 'https://www.cdc.gov/hiv/risk/index.html'
+    },
+    {
+      name: 'CDC - HIV Surveillance Reports',
+      url: 'https://www.cdc.gov/hiv/library/reports/hiv-surveillance.html',
+    },
+    {
+      name: 'CDC - Resource Library',
+      url: 'https://www.cdc.gov/hiv/library/index.html',
+    },
+    {
+      name: 'HIV Care Continuum',
+      url: 'https://www.hiv.gov/federal-response/policies-issues/hiv-aids-care-continuum/',
+    },
+    {
+      name: 'HIV Treatment as Prevention',
+      url: 'https://www.hiv.gov/tasp/',
+    },
+    {
+      name: 'The HIV/AIDS Epidemic in the United States: The Basics',
+      url: 'https://www.kff.org/hivaids/fact-sheet/the-hivaids-epidemic-in-the-united-states-the-basics/',
+    },
+  ]
+}
