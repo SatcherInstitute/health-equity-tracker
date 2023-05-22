@@ -1,4 +1,4 @@
-import { Grid, useTheme, useMediaQuery } from '@mui/material'
+import { Grid, useTheme, useMediaQuery, Tooltip } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuList from '@mui/material/MenuList'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
@@ -34,9 +34,11 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
 
     return (
         <Grid className={styles.ShareMenu}>
-            <IconButton onClick={shareMenu.open}>
-                <MoreHorizIcon />
-            </IconButton>
+            <Tooltip title="Card export options">
+                <IconButton onClick={shareMenu.open}>
+                    <MoreHorizIcon />
+                </IconButton>
+            </Tooltip>
 
             <Popover
                 anchorEl={shareMenu.anchor}

@@ -147,24 +147,32 @@ export function Sources(props: SourcesProps) {
           <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
         )}
       </Grid>
-      {/* Sources inline with card action buttons */}
-      <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
-        {sourcesInfo}
-      </Grid>
-      {props.isMulti && <Grid
-        item
-        xs={4}
-        sm={3}
-        md={2}
-        container
-        justifyContent={'flex-end'}
-        alignItems={'flex-end'}
-      >
-        {props.isMulti && props.downloadTargetScreenshot && <DownloadCardImageButton
-          downloadTargetScreenshot={props.downloadTargetScreenshot}
-          isMulti={props.isMulti}
-        />}
-      </Grid>}
+      {props.isMulti ?
+        <>
+          <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
+            {sourcesInfo}
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            sm={3}
+            md={2}
+            container
+            justifyContent={'flex-end'}
+            alignItems={'flex-end'}
+          >
+            {props.downloadTargetScreenshot &&
+              <DownloadCardImageButton
+                downloadTargetScreenshot={props.downloadTargetScreenshot}
+                isMulti={props.isMulti}
+              />
+            }
+          </Grid>
+        </> :
+        <>{sourcesInfo}</>
+      }
+
+
     </Grid>
   )
 }
