@@ -4,10 +4,12 @@ import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import LinkIcon from '@mui/icons-material/Link'
 import MenuItem from '@mui/material/MenuItem'
+import { type PopoverElements } from '../../utils/hooks/usePopover'
 import styles from './CopyLinkButton.module.scss'
 
 interface CopyLinkButtonProps {
-  scrollToHash: ScrollableHashId
+  popover: PopoverElements;
+  scrollToHash: ScrollableHashId;
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
@@ -21,16 +23,17 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
 
   const title = `Copy direct link to: ${cardName}`
 
-  function handleClose() {
-    setOpen(false)
-  }
-
   function handleClick() {
     async function asyncHandleClick() {
       await navigator.clipboard.writeText(cardHashLink)
       setOpen(true)
     }
     asyncHandleClick().catch((error) => error)
+  }
+
+  function handleClose() {
+    setOpen(false)
+    props.popover.close()
   }
 
   return (
@@ -45,13 +48,15 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
           <div className={styles.CopyCardLinkText}>Copy card link</div>
         </ListItemIcon>
       </MenuItem>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+      <Snackbar
+        open={open}
+        autoHideDuration={1000}
+        onClose={handleClose}
+      >
         <Alert onClose={handleClose} className={styles.SnackBarAlert}>
           Direct link to <b>{cardName}</b> copied to clipboard!
         </Alert>
       </Snackbar>
     </>
-  )
+  );
 }
-
-

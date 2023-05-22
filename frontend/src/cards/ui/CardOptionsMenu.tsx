@@ -48,11 +48,12 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
                 onClose={() => { shareMenu.close(); }}
             >
                 <MenuList className={styles.MenuList}>
-                    <CopyLinkButton scrollToHash={props.scrollToHash} />
+                    <CopyLinkButton scrollToHash={props.scrollToHash} popover={shareMenu} />
                     <DownloadCardImageButton
                         downloadTargetScreenshot={props.downloadTargetScreenshot}
+                        popover={shareMenu}
                     />
-                    <OptionMenuIcons reportTitle={props.reportTitle} />
+                    <OptionMenuIcons reportTitle={props.reportTitle} popover={shareMenu} />
                 </MenuList>
             </Popover>
         </Grid>

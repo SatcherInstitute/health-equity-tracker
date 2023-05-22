@@ -11,6 +11,7 @@ import {
     TwitterIcon,
 } from 'react-share'
 import sass from '../../styles/variables.module.scss'
+import { PopoverElements } from '../../utils/hooks/usePopover'
 import styles from './OptionMenuIcons.module.scss'
 
 const shareIconAttributes = {
@@ -20,6 +21,7 @@ const shareIconAttributes = {
 }
 
 interface OptionMenuIconsProps {
+    popover: PopoverElements
     reportTitle: string;
 }
 
@@ -28,10 +30,15 @@ export default function OptionMenuIcons(props: OptionMenuIconsProps) {
     const emailShareBody = `${title}${'\n'}${'\n'}` // Add line breaks here if needed
     const sharedUrl = window.location.href
 
+    function handleClose() {
+        props.popover.close()
+    }
+
     return (
         <>
             <MenuItem
                 aria-label={'Share to Twitter'}
+                onClick={handleClose}
             >
                 <ListItemIcon className={styles.ListItemShareIcon}>
                     <TwitterShareButton
@@ -49,6 +56,7 @@ export default function OptionMenuIcons(props: OptionMenuIconsProps) {
             <MenuItem
                 aria-label={'Share on Facebook'}
                 className={styles.FacebookMenuItem}
+                onClick={handleClose}
             >
                 <ListItemIcon className={styles.ListItemShareIcon}>
                     <FacebookShareButton
@@ -67,6 +75,7 @@ export default function OptionMenuIcons(props: OptionMenuIconsProps) {
             <MenuItem
                 aria-label={'Share on LinkedIn'}
                 className={styles.FacebookMenuItem}
+                onClick={handleClose}
             >
                 <ListItemIcon className={styles.ListItemShareIcon}>
                     <LinkedinShareButton
@@ -84,6 +93,7 @@ export default function OptionMenuIcons(props: OptionMenuIconsProps) {
             <MenuItem
                 aria-label={'Email card link'}
                 className={styles.EmailMenuItem}
+                onClick={handleClose}
             >
                 <ListItemIcon className={styles.ListItemShareIcon}>
                     <EmailShareButton
