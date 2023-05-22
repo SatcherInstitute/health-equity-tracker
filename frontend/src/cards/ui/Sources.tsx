@@ -160,10 +160,10 @@ export function Sources(props: SourcesProps) {
         justifyContent={'flex-end'}
         alignItems={'flex-end'}
       >
-        <DownloadCardImageButton
+        {props.isMulti && <DownloadCardImageButton
           downloadTargetScreenshot={props.downloadTargetScreenshot}
           isMulti={props.isMulti}
-        />
+        />}
       </Grid>}
     </Grid>
   )
