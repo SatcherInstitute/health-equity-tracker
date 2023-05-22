@@ -7,6 +7,7 @@ import styles from './DownloadCardImageButton.module.scss'
 
 interface DownloadCardImageButtonProps {
   downloadTargetScreenshot: () => Promise<boolean>
+  isMulti?: boolean
 }
 
 export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
@@ -25,7 +26,7 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
         onClick={takeScreenshot}>
         <ListItemIcon className={styles.DownloadCardLinkIcon}>
           <SaveAlt className={styles.DownloadCardImageIcon} />
-          <div className={styles.DownloadCardLinkText}>Save Image</div>
+          {!props.isMulti && <div className={styles.DownloadCardLinkText}>Save Image</div>}
         </ListItemIcon>
       </MenuItem>
     </>

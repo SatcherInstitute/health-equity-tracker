@@ -10,6 +10,7 @@ import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
+import { DownloadCardImageButton } from './DownloadCardImageButton'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -81,6 +82,8 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
   hideNH?: boolean
+  downloadTargetScreenshot: () => Promise<boolean>
+  isMulti?: boolean
 }
 
 export function Sources(props: SourcesProps) {
@@ -148,6 +151,20 @@ export function Sources(props: SourcesProps) {
       <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
         {sourcesInfo}
       </Grid>
+      {props.isMulti && <Grid
+        item
+        xs={4}
+        sm={3}
+        md={2}
+        container
+        justifyContent={'flex-end'}
+        alignItems={'flex-end'}
+      >
+        <DownloadCardImageButton
+          downloadTargetScreenshot={props.downloadTargetScreenshot}
+          isMulti={props.isMulti}
+        />
+      </Grid>}
     </Grid>
   )
 }
