@@ -1,0 +1,10 @@
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
+
+.MenuStyle {
+    display: flex;
+    flex-direction: row-reverse;
+    position: absolute; 
+    right: 16px;
+    top: 5px;
+}
