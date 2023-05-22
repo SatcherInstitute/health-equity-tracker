@@ -82,7 +82,7 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
   hideNH?: boolean
-  downloadTargetScreenshot: () => Promise<boolean>
+  downloadTargetScreenshot?: () => Promise<boolean>
   isMulti?: boolean
 }
 
@@ -160,7 +160,7 @@ export function Sources(props: SourcesProps) {
         justifyContent={'flex-end'}
         alignItems={'flex-end'}
       >
-        {props.isMulti && <DownloadCardImageButton
+        {props.isMulti && props.downloadTargetScreenshot && <DownloadCardImageButton
           downloadTargetScreenshot={props.downloadTargetScreenshot}
           isMulti={props.isMulti}
         />}
