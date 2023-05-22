@@ -11,7 +11,6 @@ import { usePopover } from '../../utils/hooks/usePopover'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import styles from './CardOptionsMenu.module.scss'
 
-
 interface CardOptionsMenuProps {
     downloadTargetScreenshot: () => Promise<boolean>
     scrollToHash: ScrollableHashId
@@ -33,7 +32,7 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
     }
 
     return (
-        <Grid className={styles.MenuStyle}>
+        <Grid className={styles.ShareMenu}>
             <IconButton onClick={shareMenu.open}>
                 <MoreHorizIcon />
             </IconButton>
@@ -43,8 +42,9 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
                 anchorOrigin={anchorOrigin}
                 open={shareMenu.isOpen}
                 transformOrigin={transformOrigin}
+                onClose={() => { shareMenu.close(); }}
             >
-                <MenuList style={{ paddingRight: '5px' }}>
+                <MenuList className={styles.MenuList}>
                     <CopyLinkButton scrollToHash={props.scrollToHash} />
                     <DownloadCardImageButton
                         downloadTargetScreenshot={props.downloadTargetScreenshot}
