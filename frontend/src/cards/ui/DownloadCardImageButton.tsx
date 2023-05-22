@@ -8,7 +8,7 @@ import { PopoverElements } from '../../utils/hooks/usePopover'
 
 interface DownloadCardImageButtonProps {
   downloadTargetScreenshot: () => Promise<boolean>
-  popover: PopoverElements
+  popover?: PopoverElements
   isMulti?: boolean
 }
 
@@ -18,7 +18,7 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
   async function handleClick() {
     setIsThinking(true)
     setIsThinking(!(await props.downloadTargetScreenshot()))
-    props.popover.close()
+    props.popover?.close()
   }
 
   return (
