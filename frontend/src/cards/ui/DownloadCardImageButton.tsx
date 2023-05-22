@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { SaveAlt } from '@mui/icons-material'
-import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import MenuItem from '@mui/material/MenuItem'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
@@ -21,13 +20,13 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <MenuItem
+      <MenuItem className={styles.DownloadCardButton}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onClick={takeScreenshot}>
-        <ListItemIcon className={styles.DownloadCardImageButton}>
-          <SaveAlt />
+        <ListItemIcon className={styles.DownloadCardLinkIcon}>
+          <SaveAlt className={styles.DownloadCardImageIcon} />
+          <div className={styles.DownloadCardLinkText}>Save Image</div>
         </ListItemIcon>
-        <ListItemText primary={'Save image'} />
       </MenuItem>
     </>
   )

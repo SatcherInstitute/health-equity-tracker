@@ -536,15 +536,13 @@ function TwoVariableReport(props: {
           </Grid>
         )}
       </Grid>
-      {props.isMobile && (
-        <Box mt={5}>
-          <p>{SHARE_LABEL}</p>
-          <ShareButtons
-            reportTitle={props.reportTitle}
-            isMobile={props.isMobile}
-          />{' '}
-        </Box>
-      )}
+      <Box mt={5}>
+        <p>{SHARE_LABEL}</p>
+        <ShareButtons
+          reportTitle={props.reportTitle}
+          isMobile={props.isMobile}
+        />{' '}
+      </Box>
     </>
   )
 }

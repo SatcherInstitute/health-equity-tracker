@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Snackbar, Alert } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import ListItemText from '@mui/material/ListItemText'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import LinkIcon from '@mui/icons-material/Link'
 import MenuItem from '@mui/material/MenuItem'
@@ -36,16 +35,15 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
 
   return (
     <>
-      <MenuItem 
-      aria-label={title}
-      onClick={handleClick}
+      <MenuItem
+        aria-label={title}
+        onClick={handleClick}
+        className={styles.CopyLinkButton}
       >
-        <ListItemIcon
-          className={styles.CopyLinkButton}
-          >
-          <LinkIcon />
+        <ListItemIcon className={styles.CopyLinkIcon}>
+          <LinkIcon className={styles.LinkIcon} />
+          <div className={styles.CopyCardLinkText}>Copy card link</div>
         </ListItemIcon>
-        <ListItemText primary={'Copy card link'} />
       </MenuItem>
       <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
         <Alert onClose={handleClose} className={styles.SnackBarAlert}>
@@ -55,3 +53,5 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
     </>
   )
 }
+
+
