@@ -47,17 +47,28 @@ $alt-dark: #5f6368;
 $alt-grey: #bdbdbd;
 $alt-red: #d32f2f;
 
-// colors from VEGA map
-$map-min: #eceecc;
-$map-lightest: #cbea9d;
-$map-lighter: #acdc8e;
-$map-light: #87cc7f;
-$map-mid: #63bb6e;
-$map-dark: #42a55b;
-$map-darker: #2a8d4a;
-$map-darkest: #14763d;
+// colors from VEGA map (yellowgreen)
+$map-min: #134b3a;
+$map-lightest: #f2e62f;
+$map-lighter: #b9ce3a;
+$map-light: #7db640;
+$map-mid: #3e9b42;
+$map-dark: #027e47;
+$map-darker: #185e49;
+$map-darkest: #134b3a;
 
-// roughly spaced out 7 colors from VEGA unknowns map
+// colors from VEGA map (Black women - plasma)
+$map-bw-min: #320161;
+$map-bw-lightest: #febc2b;
+$map-bw-lighter: #f48849;
+$map-bw-light: #db5b68;
+$map-bw-mid: #b93389;
+$map-bw-dark: #8b0aa5;
+$map-bw-darker: #5402a3;
+$map-bw-darkest: #320161;
+
+// roughly spaced out 7 colors from VEGA map (unknown - greenblue)
+$unknown-map-min: #eceecc;
 $unknown-map-least: #d3eece;
 $unknown-map-lesser: #b8e3be;
 $unknown-map-less: #92d4be;
@@ -187,6 +198,16 @@ $z-top: 999;
   mapDarker: $map-darker;
   mapDarkest: $map-darkest;
 
+  mapBwMin: $map-bw-min;
+  mapBwLightest: $map-bw-lightest;
+  mapBwLighter: $map-bw-lighter;
+  mapBwLight: $map-bw-light;
+  mapBwMid: $map-bw-mid;
+  mapBwDark: $map-bw-dark;
+  mapBwDarker: $map-bw-darker;
+  mapBwDarkest: $map-bw-darkest;
+
+  unknownMapMin: $unknown-map-min;
   unknownMapLeast: $unknown-map-least;
   unknownMapLesser: $unknown-map-lesser;
   unknownMapLess: $unknown-map-less;

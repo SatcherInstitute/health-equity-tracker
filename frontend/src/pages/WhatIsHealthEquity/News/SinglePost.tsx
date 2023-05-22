@@ -174,6 +174,16 @@ export default function SinglePost(props: SinglePostProps) {
               fullArticle?.acf?.post_nominals
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
+              {fullArticle?.acf?.additional_contributors ? (
+                <Typography
+                  className={styles.SingleArticleDetailText}
+                  variant="body1"
+                >
+                  Contributors: {fullArticle.acf.additional_contributors}
+                </Typography>
+              ) : (
+                ''
+              )}
             </Typography>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
@@ -210,7 +220,9 @@ export default function SinglePost(props: SinglePostProps) {
             )}
 
             {/* SOCIAL MEDIA ICONS */}
-            <ShareButtons isMobile={props.isMobile} article={fullArticle} />
+            <Grid item xs={12} md={3} sx={{ py: 3, textAlign: 'left' }}>
+              <ShareButtons isMobile={false} article={fullArticle} />
+            </Grid>
           </Grid>
         </Grid>
 

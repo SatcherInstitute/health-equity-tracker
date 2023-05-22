@@ -56,13 +56,13 @@ export interface TableChartProps {
   breakdownVar: BreakdownVar
   metrics: MetricConfig[]
   variableId: VariableId
-  variableName: string
   fips: Fips
+  dataTableTitle: string
 }
 
 export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
-  const { data, metrics, breakdownVar, variableId, variableName } = props
+  const { data, metrics, breakdownVar } = props
 
   let columns = metrics.map((metricConfig) => {
     return {
@@ -167,21 +167,6 @@ export function TableChart(props: TableChartProps) {
     )
   }
 
-  const VARIABLE_IDS_NEEDING_UPPERCASE = [
-    'hiv_deaths',
-    'hiv_prevalence',
-    'hiv_prep',
-    'covid_cases',
-    'covid_deaths',
-    'covid_hospitalizations',
-    'covid_vaccinations',
-    'copd',
-  ]
-
-  const sentenceCaseName = VARIABLE_IDS_NEEDING_UPPERCASE.includes(variableId)
-    ? variableName
-    : variableName.charAt(0).toLowerCase() + variableName.slice(1)
-
   return (
     <>
       {props.data.length <= 0 || props.metrics.length <= 0 ? (
@@ -190,7 +175,7 @@ export function TableChart(props: TableChartProps) {
         <figure>
           <figcaption>
             <ChartTitle
-              title={`Breakdown summary for ${sentenceCaseName} in ${props.fips.getSentenceDisplayName()}`}
+              title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()}`}
             />
           </figcaption>
 

@@ -31,7 +31,10 @@ import {
   MissingCovidVaccinationData,
   MissingCAWPData,
   MissingHIVData,
+  MissingAHRData,
+  MissingPrepData,
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
+import { AHR_CONDITIONS } from '../data/variables/AhrProvider'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -77,7 +80,18 @@ function ReportProvider(props: ReportProviderProps) {
   const isCAWP =
     currentDropDownIds.includes('women_in_us_congress') ||
     currentDropDownIds.includes('women_in_state_legislature')
-  const isHIV = currentDropDownIds.includes('hiv_diagnoses')
+
+  // includes standard and black women topics
+  const isHIV = currentDropDownIds.some(
+    (condition) =>
+      condition.includes('hiv_deaths') ||
+      condition.includes('hiv_diagnoses') ||
+      condition.includes('hiv_prevalance')
+  )
+  const isPrep = currentDropDownIds.includes('hiv_prep')
+  const isAHR = currentDropDownIds.some((condition) =>
+    AHR_CONDITIONS.includes(condition)
+  )
 
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
@@ -259,6 +273,8 @@ function ReportProvider(props: ReportProviderProps) {
           {isCovidVax && <MissingCovidVaccinationData />}
           {isCAWP && <MissingCAWPData />}
           {isHIV && <MissingHIVData />}
+          {isPrep && <MissingPrepData />}
+          {isAHR && <MissingAHRData />}
 
           <Button
             className={styles.SeeOurDataSourcesButton}
