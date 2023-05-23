@@ -9,7 +9,8 @@ from ingestion.constants import (COUNTY_LEVEL,
                                  US_NAME)
 from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_per_100k_col,
-                                     generate_pct_share_col_with_unknowns)
+                                     generate_pct_share_col_with_unknowns,
+                                     generate_pct_share_col_without_unknowns)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names, merge_pop_numbers
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE, SEX_RACE_AGE_TYPE, GEO_TYPE
@@ -74,7 +75,7 @@ class PhrmaData(DataSource):
             for breakdown in [
                 # std_col.AGE_COL,
                 std_col.RACE_OR_HISPANIC_COL,
-                # std_col.SEX_COL
+                std_col.SEX_COL
             ]:
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
@@ -95,7 +96,12 @@ class PhrmaData(DataSource):
                                             table_name,
                                             column_types=col_types)
 
-    def generate_breakdown_df(self, demo_breakdown: str, geo_level: str, alls_df: pd.DataFrame):
+    def generate_breakdown_df(
+            self,
+            demo_breakdown: Literal['age', 'race_and_ethnicity', 'sex'],
+            geo_level: str,
+            alls_df: pd.DataFrame
+    ):
         """ Generates HET-stye dataframe by demo_breakdown and geo_level
 
         demo_breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
@@ -134,8 +140,18 @@ class PhrmaData(DataSource):
             df = merge_county_names(df)
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0,
                                                                                2)
-        df = generate_pct_share_col_with_unknowns(
-            df, {COUNT_TOTAL: "statins_bene_pct_share", COUNT_YES: "statins_adherence_pct_share"}, demo_col, all_val, std_col.Race.UNKNOWN.value)
+
+        if demo_breakdown == "race_and_ethnicity":
+            df = generate_pct_share_col_with_unknowns(
+                df, {COUNT_TOTAL: "statins_bene_pct_share", COUNT_YES: "statins_adherence_pct_share"}, demo_col, all_val, std_col.Race.UNKNOWN.value)
+        else:
+            df = generate_pct_share_col_without_unknowns(
+                df,
+                {COUNT_TOTAL: "statins_bene_pct_share",
+                    COUNT_YES: "statins_adherence_pct_share"},
+                cast(SEX_RACE_ETH_AGE_TYPE, demo_col),
+                all_val
+            )
 
         df = df.rename(
             columns={std_col.POPULATION_PCT_COL: "phrma_population_pct"})
