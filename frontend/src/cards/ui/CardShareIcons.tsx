@@ -12,7 +12,7 @@ import {
 } from 'react-share'
 import sass from '../../styles/variables.module.scss'
 import { PopoverElements } from '../../utils/hooks/usePopover'
-import styles from './OptionMenuIcons.module.scss'
+import styles from './CardShareIcons.module.scss'
 
 const shareIconAttributes = {
     iconFillColor: sass.altDark,
@@ -20,15 +20,16 @@ const shareIconAttributes = {
     size: 39,
 }
 
-interface OptionMenuIconsProps {
+interface CardShareIconsProps {
     popover: PopoverElements
-    reportTitle: string;
+    reportTitle: string
+    urlWithHash: string
 }
 
-export default function OptionMenuIcons(props: OptionMenuIconsProps) {
+export default function CardShareIcons(props: CardShareIconsProps) {
     let title = `Health Equity Tracker - ${props.reportTitle}`
     const emailShareBody = `${title}${'\n'}${'\n'}` // Add line breaks here if needed
-    const sharedUrl = window.location.href
+    const sharedUrl = props.urlWithHash
 
     function handleClose() {
         props.popover.close()

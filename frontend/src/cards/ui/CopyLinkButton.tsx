@@ -10,13 +10,11 @@ import styles from './CopyLinkButton.module.scss'
 interface CopyLinkButtonProps {
   popover: PopoverElements;
   scrollToHash: ScrollableHashId;
+  urlWithHash: string
 }
 
 export default function CopyLinkButton(props: CopyLinkButtonProps) {
   const [open, setOpen] = useState(false)
-
-  const urlWithoutHash = window.location.href.split('#')[0]
-  const cardHashLink = `${urlWithoutHash}#${props.scrollToHash}`
 
   let cardName = props.scrollToHash.replaceAll('-', ' ') ?? 'Card'
   cardName = cardName[0].toUpperCase() + cardName.slice(1)
@@ -25,7 +23,7 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
 
   function handleClick() {
     async function asyncHandleClick() {
-      await navigator.clipboard.writeText(cardHashLink)
+      await navigator.clipboard.writeText(props.urlWithHash)
       setOpen(true)
     }
     asyncHandleClick().catch((error) => error)
