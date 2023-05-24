@@ -29,6 +29,7 @@ export interface DisparityBarChartCardProps {
   breakdownVar: BreakdownVar
   variableConfig: VariableConfig
   fips: Fips
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -93,6 +94,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       queries={[query]}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
+      reportTitle={props.reportTitle}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

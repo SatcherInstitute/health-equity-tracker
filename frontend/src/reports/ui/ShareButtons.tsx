@@ -9,7 +9,6 @@ import {
   TwitterIcon,
 } from 'react-share'
 import { Grid, Tooltip } from '@mui/material'
-import styles from './ShareButtons.module.scss'
 import sass from '../../styles/variables.module.scss'
 import { type Article } from '../../pages/WhatIsHealthEquity/NewsTab'
 import { getHtml } from '../../utils/urlutils'
@@ -50,7 +49,6 @@ function ShareButtons(props: ShareButtonProps) {
       flexDirection={'column'}
       justifyContent={props.reportTitle ? 'center' : 'flex-start'}
     >
-      {props.reportTitle && <p className={styles.ShareLabel}>{SHARE_LABEL}</p>}
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}
 

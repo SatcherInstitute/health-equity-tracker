@@ -44,6 +44,7 @@ export interface TableCardProps {
   fips: Fips
   breakdownVar: BreakdownVar
   variableConfig: VariableConfig
+  reportTitle: string
 }
 
 export function TableCard(props: TableCardProps) {
@@ -104,12 +105,12 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${
-        props.variableConfig.variableFullDisplayName
-      } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${props.variableConfig.variableFullDisplayName
+        } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponse]) => {
         let data = queryResponse.data

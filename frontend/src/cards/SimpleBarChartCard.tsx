@@ -33,6 +33,7 @@ export interface SimpleBarChartCardProps {
   breakdownVar: BreakdownVar
   variableConfig: VariableConfig
   fips: Fips
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -88,6 +89,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
