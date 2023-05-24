@@ -17,6 +17,15 @@ from ingestion.merge_utils import merge_county_names, merge_pop_numbers
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE, SEX_RACE_AGE_TYPE, GEO_TYPE
 
 
+"""
+NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
+We need to first convert these to csv files as pandas is VERY slow on excel files
+
+Ensure Gnumeric is installed with Homebrew or similar, and run this for each excel source file:
+ssconvert --export-type=Gnumeric_stf:stf_csv -S beta_blockers.xlsx beta_blockers-%s.csv
+"""
+
+
 # constants
 PHRMA_DIR = 'phrma'
 ELIGIBILITY = "eligibility"
