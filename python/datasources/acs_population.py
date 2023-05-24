@@ -223,15 +223,6 @@ def get_jail_age_bucket(age_range):
     elif age_range == std_col.ALL_VALUE:
         return std_col.ALL_VALUE
 
-        # "age": "18-39",
-        # "age": "40-64",
-        # "age": "65-69",
-        # "age": "70-74",
-        # "age": "75-79",
-        # "age": "80-84",
-        # "age": "85+",
-        # "age": "All",
-
 
 def get_phrma_age_bucket(age_range):
     if age_range in {'18-19', '20-20', '21-21', '22-24',
