@@ -10,8 +10,10 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data')
 GOLDEN_DIR = os.path.join(TEST_DIR, PHRMA_DIR, 'golden_data')
 
 ALLS_DATA = {
-    'all_national': os.path.join(TEST_DIR, PHRMA_DIR, 'national-all.csv'),
-    'all_state': os.path.join(TEST_DIR, PHRMA_DIR, 'state-all.csv')}
+    "national": os.path.join(TEST_DIR, PHRMA_DIR, "mocked_alls", 'national-alls.csv'),
+    "state": os.path.join(TEST_DIR, PHRMA_DIR, "mocked_alls", 'state-alls.csv'),
+    "county": os.path.join(TEST_DIR, PHRMA_DIR, "mocked_alls", 'county-alls.csv'),
+}
 
 GOLDEN_DATA = {
     'age_national': os.path.join(GOLDEN_DIR, 'age_national_output.csv'),
@@ -24,10 +26,6 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
     dtype = kwargs['dtype']
     na_values = kwargs['na_values']
-
-    # print(
-    #     f'mocking read xlsx from /data/{directory}/{filename}, sheet: {sheet_name}')
-
     file_path = os.path.join(TEST_DIR, directory, filename)
 
     df = pd.read_csv(file_path,
@@ -37,6 +35,9 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     return df
 
 
+# TODO: move this to a util and refactor other sources
+# TODO: to use this instead of duplicated
+# TODO: fake population data, etc
 def _load_df_from_bigquery(*args, **kwargs):
     datasource_name, table_name, dtypes = args
     if "county" in table_name:
@@ -49,125 +50,78 @@ def _load_df_from_bigquery(*args, **kwargs):
     return pop_df
 
 
+def _generate_breakdown_df(*args):
+    print("mocking _generate_breakdown_df()")
+    return pd.DataFrame({
+        "state_fips": ["01", "02", "03"],
+        "state_name": ["SomeState01", "SomeState02", "SomeState03"],
+        "race_category_id": ["BLACK", "BLACK", "BLACK"],
+        "race_and_ethnicity": ["Black", "Black", "Black"],
+        "fake_col1": [0, 1, 2],
+        "fake_col2": ["a", "b", "c"]
+    })
+
+# TODO: DELETE - THIS IS ONLY FOR DEVELOPMENT
+
+
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 def testRunner(
-    mock_bq: mock.MagicMock,
     mock_pop: mock.MagicMock,
-    mock_data_dir: mock.MagicMock
+    mock_bq: mock.MagicMock,
+    mock_data_dir: mock.MagicMock,
 ):
     datasource = PhrmaData()
-
     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
 
-    # def _load_csv_as_df_from_data_dir(*args, **kwargs):
-    #     directory, filename = args
-    #     subdirectory = kwargs['subdirectory']
 
-    #     df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename))
+# OVERALL BQ
 
-    #     return df
+# @mock.patch('datasources.phrma.PhrmaData.generate_breakdown_df', side_effect=_generate_breakdown_df)
+# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+# def testOverallBigQueryInteractions(
+#         mock_bq: mock.MagicMock,
+#         mock_data_dir: mock.MagicMock,
+#         mock_breakdown: mock.MagicMock):
+#     datasource = PhrmaData()
+#     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
 
-    # @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-    # def testGenerateAgeNational(mock_data_dir: mock.MagicMock):
-    #     datasource = PhrmaData()
+#     # 3 geographic, 3 demographics that have an "all". LIS/Elig. use SEX's alls and don't require another load
+#     assert mock_data_dir.call_count == 3 * 3
 
-    #     alls_df = pd.read_csv(ALLS_DATA["all_national"])
+#     # 3 geographic levels, 5 demographic types age/sex/race/LIS/Elig.
+#     assert mock_bq.call_count == 3 * 5
+#     assert mock_breakdown.call_count == 3 * 5
 
-    #     df = datasource.generate_breakdown_df('age', 'national', alls_df)
+#     generated_table_names = [
+#         call[0][2] for call in mock_bq.call_args_list
+#     ]
+#     assert generated_table_names == [
+#         'LIS_national', 'eligibility_national', 'sex_national', 'age_national', 'race_and_ethnicity_national', 'LIS_state', 'eligibility_state', 'sex_state', 'age_state', 'race_and_ethnicity_state', 'LIS_county', 'eligibility_county', 'sex_county', 'age_county', 'race_and_ethnicity_county'
+#     ]
 
-    #     expected_df = pd.read_csv(GOLDEN_DATA['age_national'], dtype=EXP_DTYPE)
 
-    #     # assert_frame_equal(df, expected_df, check_like=True)
+# # BREAKDOWN TESTS
 
-    # @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-    # def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
-    #     datasource = PhrmaData()
+# @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+# @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
+# def testBreakdownSexNational(
+#         mock_pop: mock.MagicMock,
+#         mock_data_dir: mock.MagicMock
+# ):
+#     datasource = PhrmaData()
 
-    #     alls_df = pd.read_csv(ALLS_DATA["all_national"])
+#     alls_df = pd.read_csv(ALLS_DATA["national"], dtype={"state_fips": str})
+#     print(alls_df.to_string())
+#     breakdown_df = datasource.generate_breakdown_df(
+#         'sex', 'national', alls_df)
 
-    #     df = datasource.generate_breakdown_df('race_and_ethnicity',
-    #                                           'national',
-    #                                           alls_df)
+#     # one data_dir call per topic
+#     assert mock_data_dir.call_count == 3
 
-    #     expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
+#     # call to acs_population national
+#     assert mock_pop.call_count == 1
 
-    #     # assert_frame_equal(df, expected_df, check_like=True)
-
-    # @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-    # def testGenerateSexNational(mock_data_dir: mock.MagicMock):
-    #     datasource = PhrmaData()
-
-    #     alls_df = pd.read_csv(ALLS_DATA["all_national"],
-    #                           dtype=DTYPE)
-
-    #     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
-
-    #     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
-
-    # assert_frame_equal(df, expected_df, check_like=True)
-
-    # @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-    # def testGenerateRaceState(mock_data_dir: mock.MagicMock):
-    #     datasource = PhrmaData()
-
-    #     alls_df = pd.read_csv(ALLS_DATA['all_state'],
-    #                           dtype=DTYPE,)
-
-    #     df = datasource.generate_breakdown_df('race_and_ethnicity',
-    #                                           'state',
-    #                                           alls_df)
-
-    #     expected_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
-
-    #     # assert_frame_equal(df, expected_df, check_like=True)
-
-    # def _generate_breakdown_df(*args):
-    #     print("mocking the breakdown calc function")
-    #     return pd.DataFrame({
-    #         "state_fips": ["01", "02", "03"],
-    #         "state_name": ["SomeState01", "SomeState02", "SomeState03"],
-    #         "race_category_id": ["Black", "Black", "Black"],
-    #         "race_and_ethnicity": ["Black", "Black", "Black"],
-    #         "fake_col1": [0, 1, 2],
-    #         "fake_col2": ["a", "b", "c"]
-    #     })
-
-    # def _load_df_from_data_dir(*args):
-    #     print("mocking the generate alls function")
-    #     return pd.DataFrame({
-    #         "state_fips": ["01", "02", "03"],
-    #         "state_name": ["SomeState01", "SomeState02", "SomeState03"],
-    #         "race_category_id": ["ALL", "ALL", "ALL"],
-    #         "race_and_ethnicity": ["All", "All", "All"],
-    #         "fake_col1": [0, 1, 2],
-    #         "fake_col2": ["a", "b", "c"]
-    #     })
-
-    # @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-    # @mock.patch('datasources.phrma.PhrmaData.generate_breakdown_df', side_effect=_generate_breakdown_df)
-    # @mock.patch('datasources.phrma.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
-    # def testWriteToBqCalls(
-    #     mock_data_dir_df: mock.MagicMock,
-    #     mock_breakdown_df: mock.MagicMock,
-    #     mock_bq: mock.MagicMock,
-    # ):
-    #     datasource = PhrmaData()
-    #     datasource.write_to_bq('dataset', 'gcs_bucket')
-
-    #     assert mock_bq.call_count == 9
-
-    #     expected_table_names = [
-    #         call[0][2] for call in mock_bq.call_args_list
-    #     ]
-
-    #     assert expected_table_names == ["age_county",
-    #                                     "race_and_ethnicity_county",
-    #                                     "sex_county",
-    #                                     "age_national",
-    #                                     "race_and_ethnicity_national",
-    #                                     "sex_national",
-    #                                     "age_state",
-    #                                     "race_and_ethnicity_state",
-    #                                     "sex_state"]
+#     breakdown_df.to_csv(f'expected_sex_national.csv', index=False)

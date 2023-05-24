@@ -1,7 +1,6 @@
 from functools import reduce
 import pandas as pd
 from typing import Dict, Literal, cast
-import time
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
@@ -117,6 +116,8 @@ class PhrmaData(DataSource):
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
 
+            alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
+
             for breakdown in [
                 LIS,
                 ELIGIBILITY,
@@ -126,12 +127,7 @@ class PhrmaData(DataSource):
             ]:
                 table_name = f'{breakdown}_{geo_level}'
 
-                start = time.time()
-                print(f"making {table_name}")
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
-                end = time.time()
-                print(table_name, "took", round(end - start), "s")
-
                 float_cols = [std_col.PHRMA_POPULATION_PCT]
 
                 for condition in PHRMA_CONDITIONS:
@@ -140,7 +136,7 @@ class PhrmaData(DataSource):
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-                df.to_json(f'{PHRMA_DIR}-{table_name}.json', orient="records")
+                # df.to_json(f'{PHRMA_DIR}-{table_name}.json', orient="records")
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
