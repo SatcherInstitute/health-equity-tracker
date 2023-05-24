@@ -213,7 +213,7 @@ def load_json_as_df(gcs_bucket, filename, dtype=None):
     return frame
 
 
-def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None):
+def load_csv_as_df_from_web(url, dtype=None, params=None, encoding=None) -> pd.DataFrame:
     """Loads csv data from the provided url to a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -229,7 +229,7 @@ def load_xlsx_as_df_from_data_dir(directory: str,
                                   sheet_name: str,
                                   dtype=None,
                                   na_values=None
-                                  ):
+                                  ) -> pd.DataFrame:
     """ Loads a single sheet of a .xlsx file within target
      directory and outputs as a pandas dataframe
 
@@ -249,7 +249,7 @@ def load_xlsx_as_df_from_data_dir(directory: str,
 
 def load_csv_as_df_from_data_dir(directory, filename,
                                  subdirectory='', dtype=None,
-                                 skiprows=None, na_values=None, thousands=None, usecols=None):
+                                 skiprows=None, na_values=None, thousands=None, usecols=None) -> pd.DataFrame:
     """Loads csv data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in csv format, with the first row as the column
        names.
@@ -271,7 +271,7 @@ def load_csv_as_df_from_data_dir(directory, filename,
                        usecols=usecols, thousands=thousands)
 
 
-def load_json_as_df_from_data_dir(directory, filename, dtype=None):
+def load_json_as_df_from_data_dir(directory, filename, dtype=None) -> pd.DataFrame:
     """Loads json data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in json format, with the first row as the column
        names.
@@ -283,7 +283,7 @@ def load_json_as_df_from_data_dir(directory, filename, dtype=None):
     return pd.read_json(file_path, dtype=dtype)
 
 
-def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_list):
+def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_list) -> pd.DataFrame:
     """Loads json data from /data/{directory}/{filename} into a DataFrame.
        Expects the data to be in json format, stored under the given list of nested keys
 
@@ -316,7 +316,7 @@ def load_json_as_df_from_data_dir_based_on_key_list(directory, filename, key_lis
     return df
 
 
-def load_json_as_df_from_web(url, dtype=None, params=None):
+def load_json_as_df_from_web(url, dtype=None, params=None) -> pd.DataFrame:
     """Loads json data from the web underneath a given key into a dataframe
 
     url: url to download the json from
@@ -325,7 +325,7 @@ def load_json_as_df_from_web(url, dtype=None, params=None):
     return pd.read_json(url, dtype=dtype)
 
 
-def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
+def load_json_as_df_from_web_based_on_key(url, key, dtype=None) -> pd.DataFrame:
     """Loads json data from the web underneath a given key into a dataframe
 
     url: url to download the json from
@@ -335,7 +335,7 @@ def load_json_as_df_from_web_based_on_key(url, key, dtype=None):
     return pd.DataFrame(jsn[key], dtype=dtype)
 
 
-def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
+def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None) -> pd.DataFrame:
     """Loads data from a public big query table into a dataframe.
        Need this as a separate function because of the need for a
        different way to generate the table_id.
@@ -348,7 +348,7 @@ def load_public_dataset_from_bigquery_as_df(dataset, table_name, dtype=None):
     return client.list_rows(table_id).to_dataframe(dtypes=dtype)
 
 
-def load_df_from_bigquery(dataset, table_name, dtype=None):
+def load_df_from_bigquery(dataset, table_name, dtype=None) -> pd.DataFrame:
     """Loads data from a big query table into a dataframe.
 
        dataset: The BigQuery dataset to write to.

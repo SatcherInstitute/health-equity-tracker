@@ -39,17 +39,9 @@ def _load_xlsx_as_df_from_data_dir(*args, **kwargs):
 
 
 def _load_df_from_bigquery(*args, **kwargs):
-
     datasource_name, table_name, dtypes = args
-
     if "county" in table_name:
         dtypes["county_fips"] = str
-
-    print("************")
-    print("MOCKING A CALL TO A HET BQ TABLE")
-    print(datasource_name, table_name)
-    print("************")
-
     filename = f'{datasource_name}-{table_name}.ndjson'
     file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
 

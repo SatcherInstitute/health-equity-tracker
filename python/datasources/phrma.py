@@ -1,6 +1,7 @@
 from functools import reduce
 import pandas as pd
 from typing import Dict, Literal, cast
+import time
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
@@ -14,6 +15,7 @@ from ingestion.dataset_utils import (ensure_leading_zeros,
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names, merge_pop_numbers
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE, SEX_RACE_AGE_TYPE, GEO_TYPE
+
 
 # constants
 PHRMA_DIR = 'phrma'
@@ -114,7 +116,12 @@ class PhrmaData(DataSource):
                 std_col.RACE_OR_HISPANIC_COL
             ]:
                 table_name = f'{breakdown}_{geo_level}'
+
+                start = time.time()
+                print(f"making {table_name}")
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
+                end = time.time()
+                print(table_name, "took", round(end - start), "s")
 
                 float_cols = [std_col.PHRMA_POPULATION_PCT]
 
@@ -244,7 +251,9 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
 
     topic_dfs = []
 
-    for determinant, filename in PHRMA_FILE_MAP.items():
+    for condition, filename in PHRMA_FILE_MAP.items():
+
+        print("\t\t", geo_level, breakdown, condition)
 
         topic_df = gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
             PHRMA_DIR,
@@ -261,7 +270,7 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
         topic_df = rename_cols(topic_df,
                                cast(GEO_TYPE, geo_level),
                                cast(SEX_RACE_ETH_AGE_TYPE, breakdown),
-                               determinant)
+                               condition)
 
         topic_dfs.append(topic_df)
 
@@ -307,14 +316,14 @@ def get_sheet_name(geo_level: str, breakdown: str) -> str:
 def rename_cols(df: pd.DataFrame,
                 geo_level: Literal['national', 'state', 'county'],
                 breakdown:  Literal['age', 'sex', 'race_and_ethnicity'],
-                determinant: str) -> pd.DataFrame:
+                condition: str) -> pd.DataFrame:
     """ Renames columns based on the demo/geo breakdown """
 
     rename_cols_map: Dict[str, str] = {
-        COUNT_NO: f'{determinant}_{COUNT_NO}',
-        COUNT_YES: f'{determinant}_{COUNT_YES}',
-        COUNT_TOTAL: f'{determinant}_{COUNT_TOTAL}',
-        ADHERENCE_RATE: f'{determinant}_{ADHERENCE_RATE}',
+        COUNT_NO: f'{condition}_{COUNT_NO}',
+        COUNT_YES: f'{condition}_{COUNT_YES}',
+        COUNT_TOTAL: f'{condition}_{COUNT_TOTAL}',
+        ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
     }
 
     if geo_level == COUNTY_LEVEL:

@@ -13,6 +13,7 @@ venv
 airflow-logs
 *.iml
 .idea/
+~$*
 
 node_modules/
 /frontend_server/build/
