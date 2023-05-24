@@ -50,7 +50,7 @@ def _load_df_from_bigquery(*args, **kwargs):
     print(datasource_name, table_name)
     print("************")
 
-    filename = f'{datasource_name}-{table_name}.json'
+    filename = f'{datasource_name}-{table_name}.ndjson'
     file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
 
     pop_df = pd.read_json(file_path, lines=True, dtype=dtypes)
