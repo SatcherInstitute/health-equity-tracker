@@ -1,7 +1,21 @@
 @import '../../styles/variables.module';
 @import '../../styles/globals.scss';
 
-.DownloadCardImageButton {
-  vertical-align: top;
-  padding-bottom: 14px !important;
+.DownloadCardButton {
+  padding-left: 14px
+}
+
+.DownloadCardLinkIcon {
+  align-items: center;
+  display: flex;
+  padding: 8px 8px 8px 8px;
+}
+
+.DownloadCardImageIcon {
+  margin-right: 10px
+}
+
+.DownloadCardLinkText{
+  padding-left: 2px; 
+  color: #000000DE;
 }

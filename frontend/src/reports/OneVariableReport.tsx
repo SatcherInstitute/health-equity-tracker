@@ -200,6 +200,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                       props.updateFipsCallback(fips)
                     }}
                     currentBreakdown={currentBreakdown}
+                    reportTitle={props.reportTitle}
                   />
                 </Grid>
 
@@ -222,6 +223,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         variableConfig={variableConfig}
                         breakdownVar={currentBreakdown}
                         fips={props.fips}
+                        reportTitle={props.reportTitle}
                       />
                     )}
                 </Grid>
@@ -242,6 +244,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     variableConfig={variableConfig}
                     breakdownVar={currentBreakdown}
                     fips={props.fips}
+                    reportTitle={props.reportTitle}
                   />
                 </Grid>
 
@@ -267,6 +270,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                           props.updateFipsCallback(fips)
                         }}
                         currentBreakdown={currentBreakdown}
+                        reportTitle={props.reportTitle}
                       />
                     )}
                   </LazyLoad>
@@ -292,6 +296,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                           variableConfig={variableConfig}
                           breakdownVar={currentBreakdown}
                           fips={props.fips}
+                          reportTitle={props.reportTitle}
                         />
                       )}
                   </LazyLoad>
@@ -315,6 +320,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         variableConfig={variableConfig}
                         breakdownVar={currentBreakdown}
                         fips={props.fips}
+                        reportTitle={props.reportTitle}
                       />
                     )}
                   </LazyLoad>
@@ -335,6 +341,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     fips={props.fips}
                     variableConfig={variableConfig}
                     breakdownVar={currentBreakdown}
+                    reportTitle={props.reportTitle}
                   />
                 </Grid>
 
@@ -357,19 +364,18 @@ export function OneVariableReport(props: OneVariableReportProps) {
                         dropdownVarId={props.dropdownVarId}
                         breakdownVar={currentBreakdown}
                         setVariableConfigWithParam={setVariableConfigWithParam}
+                        reportTitle={props.reportTitle}
                       />
                     </LazyLoad>
                   </Grid>
                 )}
-                {props.isMobile && (
-                  <Box mt={5}>
-                    <p>{SHARE_LABEL}</p>
-                    <ShareButtons
-                      reportTitle={props.reportTitle}
-                      isMobile={props.isMobile}
-                    />{' '}
-                  </Box>
-                )}
+                <Box mt={5}>
+                  <p>{SHARE_LABEL}</p>
+                  <ShareButtons
+                    reportTitle={props.reportTitle}
+                    isMobile={props.isMobile}
+                  />{' '}
+                </Box>
               </Grid>
             )}
           </Grid>

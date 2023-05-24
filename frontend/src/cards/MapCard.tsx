@@ -82,6 +82,7 @@ export interface MapCardProps {
   updateFipsCallback: (fips: Fips) => void
   currentBreakdown: BreakdownVar
   isCompareCard?: boolean
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -235,6 +236,7 @@ function MapCardWithKey(props: MapCardProps) {
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
@@ -378,7 +380,6 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
-                <Divider />
                 <CardContent className={styles.SmallMarginContent}>
                   <Grid
                     container

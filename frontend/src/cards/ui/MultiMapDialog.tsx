@@ -318,6 +318,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             queryResponses={props.queryResponses}
             metadata={props.metadata}
             downloadTargetScreenshot={downloadTargetScreenshot}
+            isMulti={true}
           />
         </div>
       </footer>

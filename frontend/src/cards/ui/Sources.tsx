@@ -9,8 +9,6 @@ import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
-import CopyLinkButton from './CopyLinkButton'
-import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Grid } from '@mui/material'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
 
@@ -84,8 +82,8 @@ interface SourcesProps {
   metadata: MapOfDatasetMetadata
   isAgeAdjustedTable?: boolean
   hideNH?: boolean
-  scrollToHash?: ScrollableHashId
-  downloadTargetScreenshot: () => Promise<boolean>
+  downloadTargetScreenshot?: () => Promise<boolean>
+  isMulti?: boolean
 }
 
 export function Sources(props: SourcesProps) {
@@ -149,25 +147,32 @@ export function Sources(props: SourcesProps) {
           <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
         )}
       </Grid>
-      {/* Sources inline with card action buttons */}
-      <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
-        {sourcesInfo}
-      </Grid>
+      {props.isMulti ?
+        <>
+          <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
+            {sourcesInfo}
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            sm={3}
+            md={2}
+            container
+            justifyContent={'flex-end'}
+            alignItems={'flex-end'}
+          >
+            {props.downloadTargetScreenshot &&
+              <DownloadCardImageButton
+                downloadTargetScreenshot={props.downloadTargetScreenshot}
+                isMulti={props.isMulti}
+              />
+            }
+          </Grid>
+        </> :
+        <>{sourcesInfo}</>
+      }
 
-      <Grid
-        item
-        xs={4}
-        sm={3}
-        md={2}
-        container
-        justifyContent={'flex-end'}
-        alignItems={'flex-end'}
-      >
-        <CopyLinkButton scrollToHash={props.scrollToHash} />
-        <DownloadCardImageButton
-          downloadTargetScreenshot={props.downloadTargetScreenshot}
-        />
-      </Grid>
+
     </Grid>
   )
 }

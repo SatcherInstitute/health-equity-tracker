@@ -299,6 +299,7 @@ function TwoVariableReport(props: {
                   }}
                   currentBreakdown={currentBreakdown}
                   isCompareCard={isCompareCard}
+                  reportTitle={props.reportTitle}
                 />
               )}
             />
@@ -324,6 +325,7 @@ function TwoVariableReport(props: {
                     breakdownVar={currentBreakdown}
                     fips={fips}
                     isCompareCard={isCompareCard}
+                    reportTitle={props.reportTitle}
                   />
                 )}
               />
@@ -347,6 +349,7 @@ function TwoVariableReport(props: {
                   variableConfig={variableConfig}
                   breakdownVar={currentBreakdown}
                   fips={fips}
+                  reportTitle={props.reportTitle}
                 />
               )}
             />
@@ -374,6 +377,7 @@ function TwoVariableReport(props: {
                     updateFips(fips)
                   }}
                   currentBreakdown={currentBreakdown}
+                  reportTitle={props.reportTitle}
                 />
               )}
             />
@@ -400,6 +404,7 @@ function TwoVariableReport(props: {
                     breakdownVar={currentBreakdown}
                     fips={fips}
                     isCompareCard={isCompareCard}
+                    reportTitle={props.reportTitle}
                   />
                 )}
               />
@@ -422,6 +427,7 @@ function TwoVariableReport(props: {
                   variableConfig={variableConfig}
                   breakdownVar={currentBreakdown}
                   fips={fips}
+                  reportTitle={props.reportTitle}
                 />
               )}
             />
@@ -445,6 +451,7 @@ function TwoVariableReport(props: {
                   fips={fips}
                   variableConfig={variableConfig}
                   breakdownVar={currentBreakdown}
+                  reportTitle={props.reportTitle}
                 />
               )}
             />
@@ -477,6 +484,7 @@ function TwoVariableReport(props: {
                     variableConfig={variableConfig}
                     breakdownVar={currentBreakdown}
                     dropdownVarId={dropdownVarId}
+                    reportTitle={props.reportTitle}
                   />
                 )}
               />
@@ -509,15 +517,13 @@ function TwoVariableReport(props: {
           </Grid>
         )}
       </Grid>
-      {props.isMobile && (
-        <Box mt={5}>
-          <p>{SHARE_LABEL}</p>
-          <ShareButtons
-            reportTitle={props.reportTitle}
-            isMobile={props.isMobile}
-          />{' '}
-        </Box>
-      )}
+      <Box mt={5}>
+        <p>{SHARE_LABEL}</p>
+        <ShareButtons
+          reportTitle={props.reportTitle}
+          isMobile={props.isMobile}
+        />{' '}
+      </Box>
     </>
   )
 }

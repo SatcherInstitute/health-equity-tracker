@@ -40,6 +40,7 @@ export interface UnknownsMapCardProps {
   updateFipsCallback: (fips: Fips) => void
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
   overrideAndWithOr?: boolean
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -120,6 +121,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
