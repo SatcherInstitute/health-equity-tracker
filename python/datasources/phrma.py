@@ -26,11 +26,11 @@ TMP_ALL = 'all'
 
 DTYPE = {'COUNTY_FIPS': str, 'STATE_FIPS': str}
 
-PHRMA_FILE_MAP = {
-    std_col.STATINS_PREFIX: "statins.xlsx",
-    std_col.BETA_BLOCKERS_PREFIX: "beta_blockers.xlsx",
-    std_col.RASA_PREFIX: "rasa.xlsx"
-}
+PHRMA_CONDITIONS = [
+    std_col.STATINS_PREFIX,
+    std_col.BETA_BLOCKERS_PREFIX,
+    std_col.RASA_PREFIX
+]
 
 # CONSTANTS USED BY DATA SOURCE
 COUNT_TOTAL = "TOTAL_BENE"
@@ -125,7 +125,7 @@ class PhrmaData(DataSource):
 
                 float_cols = [std_col.PHRMA_POPULATION_PCT]
 
-                for condition in PHRMA_FILE_MAP.keys():
+                for condition in PHRMA_CONDITIONS:
                     for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
 
@@ -173,7 +173,7 @@ class PhrmaData(DataSource):
                 df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
 
         # ADHERENCE rate
-        for condition in PHRMA_FILE_MAP.keys():
+        for condition in PHRMA_CONDITIONS:
             source_col_name = f'{condition}_{ADHERENCE_RATE}'
             het_col_name = f'{condition}_{ADHERENCE}_{std_col.PCT_RATE_SUFFIX}'
             df[het_col_name] = df[source_col_name].multiply(
@@ -186,7 +186,7 @@ class PhrmaData(DataSource):
 
         count_to_share_map = {
             f'{condition}_{COUNT_YES}':
-            f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_FILE_MAP.keys()
+            f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_CONDITIONS
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
@@ -206,7 +206,7 @@ class PhrmaData(DataSource):
 
         rename_col_map = {
             std_col.POPULATION_PCT_COL: std_col.PHRMA_POPULATION_PCT}
-        for condition in PHRMA_FILE_MAP.keys():
+        for condition in PHRMA_CONDITIONS:
             rename_col_map[f'{condition}_{COUNT_YES}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
             rename_col_map[f'{condition}_{COUNT_TOTAL}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
         df = df.rename(columns=rename_col_map)
@@ -251,14 +251,11 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
 
     topic_dfs = []
 
-    for condition, filename in PHRMA_FILE_MAP.items():
+    for condition in PHRMA_CONDITIONS:
 
-        print("\t\t", geo_level, breakdown, condition)
-
-        topic_df = gcs_to_bq_util.load_xlsx_as_df_from_data_dir(
+        topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             PHRMA_DIR,
-            filename,
-            sheet_name,
+            f'{condition}-{sheet_name}.csv',
             dtype=DTYPE,
             na_values=["."],
         )
