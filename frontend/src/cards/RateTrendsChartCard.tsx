@@ -44,6 +44,7 @@ export interface RateTrendsChartCardProps {
   variableConfig: VariableConfig
   fips: Fips
   isCompareCard?: boolean
+  reportTitle: string
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -98,6 +99,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       queries={[ratesQuery, pctShareQuery]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(

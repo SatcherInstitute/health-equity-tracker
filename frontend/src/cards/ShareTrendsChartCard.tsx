@@ -47,6 +47,7 @@ export interface ShareTrendsChartCardProps {
   variableConfig: VariableConfig
   fips: Fips
   isCompareCard?: boolean
+  reportTitle: string
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -98,6 +99,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       queries={[inequityQuery, pctShareQuery]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
