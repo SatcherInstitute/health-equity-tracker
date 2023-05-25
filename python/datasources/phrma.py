@@ -1,4 +1,5 @@
 from functools import reduce
+import numpy as np
 import pandas as pd
 from typing import Dict, Literal, cast
 from datasources.data_source import DataSource
@@ -124,14 +125,22 @@ class PhrmaData(DataSource):
             ]:
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
-                float_cols = [std_col.PHRMA_POPULATION_PCT]
+                float_cols = [std_col.PHRMA_POPULATION_PCT,
+                              std_col.PHRMA_POPULATION]
                 for condition in PHRMA_CONDITIONS:
                     for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX, std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
                     float_cols.append(
                         f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+                print("********* col_types")
                 print(col_types)
+
+                if table_name == "sex_national":
+                    print("sex_national table")
+                    print(df.dtypes)
+                    print(df.to_string())
+
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
@@ -169,6 +178,8 @@ class PhrmaData(DataSource):
         if demo != ELIGIBILITY and demo != LIS:
             df = merge_pop_numbers(
                 df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
+        else:
+            df[[std_col.PHRMA_POPULATION, std_col.PHRMA_POPULATION_PCT]] = np.nan
 
         # ADHERENCE rate
         for condition in PHRMA_CONDITIONS:
@@ -203,7 +214,9 @@ class PhrmaData(DataSource):
             )
 
         rename_col_map = {
-            std_col.POPULATION_PCT_COL: std_col.PHRMA_POPULATION_PCT}
+            std_col.POPULATION_PCT_COL: std_col.PHRMA_POPULATION_PCT,
+            std_col.POPULATION_COL: std_col.PHRMA_POPULATION,
+        }
         for condition in PHRMA_CONDITIONS:
             rename_col_map[f'{condition}_{COUNT_YES}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
             rename_col_map[f'{condition}_{COUNT_TOTAL}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
