@@ -14,7 +14,7 @@ from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_pct_share_col_without_unknowns)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names, merge_pop_numbers
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE, SEX_RACE_AGE_TYPE, GEO_TYPE
+from ingestion.types import GEO_TYPE, SEX_RACE_ETH_AGE_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL, PHRMA_BREAKDOWN_TYPE
 
 
 """
@@ -140,10 +140,10 @@ class PhrmaData(DataSource):
 
     def generate_breakdown_df(
             self,
-            demo_breakdown: Literal['age', 'race_and_ethnicity', 'sex', 'eligibility', 'LIS'],
-            geo_level: str,
+            demo_breakdown: PHRMA_BREAKDOWN_TYPE,
+            geo_level: GEO_TYPE,
             alls_df: pd.DataFrame
-    ):
+    ) -> pd.DataFrame:
         """ Generates HET-stye dataframe by demo_breakdown and geo_level
         demo_breakdown: string equal to `lis`, `eligibility`, `age`, `race_and_ethnicity`, or `sex`
         geo_level: string equal to `county`, `national`, or `state`
@@ -169,7 +169,7 @@ class PhrmaData(DataSource):
 
         if demo != ELIGIBILITY and demo != LIS:
             df = merge_pop_numbers(
-                df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
+                df, cast(SEX_RACE_ETH_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
         else:
             df[[std_col.PHRMA_POPULATION, std_col.PHRMA_POPULATION_PCT]] = np.nan
 
@@ -232,10 +232,13 @@ class PhrmaData(DataSource):
         return df
 
 
-def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
+def load_phrma_df_from_data_dir(
+        geo_level: GEO_TYPE,
+        breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL
+) -> pd.DataFrame:
     """ Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `all`
+    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `LIS`, `eligibility`, or `all`
     return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables """
 
@@ -285,9 +288,12 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
     return df_merged
 
 
-def get_sheet_name(geo_level: str, breakdown: str) -> str:
+def get_sheet_name(
+    geo_level: GEO_TYPE,
+    breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL
+) -> str:
     """ geo_level: string equal to `county`, `national`, or `state`
-   breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `all`
+   breakdown: string demographic breakdown type
    return: a string sheet name based on the provided args  """
 
     sheet_map = {
@@ -315,8 +321,8 @@ def get_sheet_name(geo_level: str, breakdown: str) -> str:
 
 
 def rename_cols(df: pd.DataFrame,
-                geo_level: Literal['national', 'state', 'county'],
-                breakdown: Literal['age', 'sex', 'race_and_ethnicity'],
+                geo_level: GEO_TYPE,
+                breakdown: PHRMA_BREAKDOWN_TYPE_OR_ALL,
                 condition: str) -> pd.DataFrame:
     """ Renames columns based on the demo/geo breakdown """
 
