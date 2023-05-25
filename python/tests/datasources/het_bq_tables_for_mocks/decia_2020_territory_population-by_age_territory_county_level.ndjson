@@ -1,0 +1,546 @@
+{"county_fips":"60010","age":"0-4","population":1444,"population_pct":8.5,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"0-9","population":3021,"population_pct":17.7,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"10-14","population":1832,"population_pct":10.7,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"10-19","population":3540,"population_pct":20.7,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"15-19","population":1708,"population_pct":10,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"15-24","population":2773,"population_pct":16.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"16+","population":11847,"population_pct":69.4,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"18+","population":11069,"population_pct":64.9,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"20-24","population":1065,"population_pct":6.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"20-29","population":2154,"population_pct":12.6,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"21+","population":10260,"population_pct":60.1,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"25-29","population":1089,"population_pct":6.4,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"25-34","population":2145,"population_pct":12.6,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"30-34","population":1056,"population_pct":6.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"30-39","population":2093,"population_pct":12.3,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"35-39","population":1037,"population_pct":6.1,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"35-44","population":2209,"population_pct":13,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"40-44","population":1172,"population_pct":6.9,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"40-49","population":2322,"population_pct":13.6,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"40-64","population":5145,"population_pct":30.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"45-49","population":1150,"population_pct":6.7,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"45-54","population":2304,"population_pct":13.5,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"45-64","population":3973,"population_pct":23.3,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"5-9","population":1577,"population_pct":9.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"50-54","population":1154,"population_pct":6.8,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"50-59","population":2108,"population_pct":12.4,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"55-59","population":954,"population_pct":5.6,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"55-64","population":1669,"population_pct":9.8,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"60-64","population":715,"population_pct":4.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"60-69","population":1169,"population_pct":6.9,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"62+","population":1485,"population_pct":8.7,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"65+","population":1106,"population_pct":6.5,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"65-69","population":454,"population_pct":2.7,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"65-74","population":759,"population_pct":4.5,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"70-74","population":305,"population_pct":1.8,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"70-79","population":508,"population_pct":3,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"75-79","population":203,"population_pct":1.2,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"75-84","population":304,"population_pct":1.8,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"80+","population":144,"population_pct":0.9,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"80-84","population":101,"population_pct":0.6,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"85+","population":43,"population_pct":0.3,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60010","age":"All","population":17059,"population_pct":100,"county_name":"Eastern District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"0-4","population":89,"population_pct":10.7,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"0-9","population":184,"population_pct":22.1,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"10-14","population":79,"population_pct":9.5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"10-19","population":150,"population_pct":18,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"15-19","population":71,"population_pct":8.5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"15-24","population":139,"population_pct":16.7,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"16+","population":556,"population_pct":66.8,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"18+","population":520,"population_pct":62.5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"20-24","population":68,"population_pct":8.2,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"20-29","population":125,"population_pct":15.1,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"21+","population":488,"population_pct":58.7,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"25-29","population":57,"population_pct":6.9,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"25-34","population":113,"population_pct":13.6,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"30-34","population":56,"population_pct":6.7,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"30-39","population":95,"population_pct":11.4,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"35-39","population":39,"population_pct":4.7,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"35-44","population":74,"population_pct":8.9,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"40-44","population":35,"population_pct":4.2,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"40-49","population":78,"population_pct":9.4,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"40-64","population":220,"population_pct":26.5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"45-49","population":43,"population_pct":5.2,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"45-54","population":91,"population_pct":11,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"45-64","population":185,"population_pct":22.3,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"5-9","population":95,"population_pct":11.4,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"50-54","population":48,"population_pct":5.8,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"50-59","population":107,"population_pct":12.9,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"55-59","population":59,"population_pct":7.1,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"55-64","population":94,"population_pct":11.3,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"60-64","population":35,"population_pct":4.2,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"60-69","population":62,"population_pct":7.4,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"62+","population":73,"population_pct":8.8,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"65+","population":58,"population_pct":7,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"65-69","population":27,"population_pct":3.2,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"65-74","population":42,"population_pct":5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"70-74","population":15,"population_pct":1.8,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"70-79","population":24,"population_pct":2.9,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"75-79","population":9,"population_pct":1.1,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"75-84","population":12,"population_pct":1.5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"80+","population":7,"population_pct":0.9,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"80-84","population":3,"population_pct":0.4,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"85+","population":4,"population_pct":0.5,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60020","age":"All","population":832,"population_pct":100,"county_name":"Manu'a District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"0-4","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"0-9","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"10-14","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"10-19","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"15-19","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"15-24","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"16+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"18+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"20-24","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"20-29","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"21+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"25-29","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"25-34","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"30-34","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"30-39","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"35-39","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"35-44","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"40-44","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"40-49","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"40-64","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"45-49","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"45-54","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"45-64","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"5-9","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"50-54","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"50-59","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"55-59","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"55-64","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"60-64","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"60-69","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"62+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"65+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"65-69","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"65-74","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"70-74","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"70-79","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"75-79","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"75-84","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"80+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"80-84","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"85+","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60030","age":"All","population":0,"county_name":"Rose Atoll (Rose Island)","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"0-4","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"0-9","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"10-14","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"10-19","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"15-19","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"15-24","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"16+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"18+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"20-24","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"20-29","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"21+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"25-29","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"25-34","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"30-34","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"30-39","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"35-39","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"35-44","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"40-44","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"40-49","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"40-64","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"45-49","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"45-54","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"45-64","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"5-9","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"50-54","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"50-59","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"55-59","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"55-64","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"60-64","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"60-69","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"62+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"65+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"65-69","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"65-74","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"70-74","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"70-79","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"75-79","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"75-84","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"80+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"80-84","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"85+","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60040","age":"All","population":0,"county_name":"Swain's Island","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"0-4","population":3036,"population_pct":9.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"0-9","population":6354,"population_pct":19.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"10-14","population":3439,"population_pct":10.8,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"10-19","population":6683,"population_pct":21,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"15-19","population":3244,"population_pct":10.2,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"15-24","population":5320,"population_pct":16.7,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"16+","population":21287,"population_pct":66.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"18+","population":19897,"population_pct":62.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"20-24","population":2076,"population_pct":6.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"20-29","population":4109,"population_pct":12.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"21+","population":18301,"population_pct":57.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"25-29","population":2033,"population_pct":6.4,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"25-34","population":3929,"population_pct":12.4,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"30-34","population":1896,"population_pct":6,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"30-39","population":3788,"population_pct":11.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"35-39","population":1892,"population_pct":5.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"35-44","population":3926,"population_pct":12.3,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"40-44","population":2034,"population_pct":6.4,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"40-49","population":4049,"population_pct":12.7,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"40-64","population":8902,"population_pct":27.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"45-49","population":2015,"population_pct":6.3,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"45-54","population":3977,"population_pct":12.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"45-64","population":6868,"population_pct":21.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"5-9","population":3318,"population_pct":10.4,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"50-54","population":1962,"population_pct":6.2,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"50-59","population":3599,"population_pct":11.3,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"55-59","population":1637,"population_pct":5.1,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"55-64","population":2891,"population_pct":9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"60-64","population":1254,"population_pct":3.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"60-69","population":2118,"population_pct":6.6,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"62+","population":2691,"population_pct":8.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"65+","population":1983,"population_pct":6.2,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"65-69","population":864,"population_pct":2.7,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"65-74","population":1437,"population_pct":4.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"70-74","population":573,"population_pct":1.8,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"70-79","population":847,"population_pct":2.7,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"75-79","population":274,"population_pct":0.9,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"75-84","population":448,"population_pct":1.4,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"80+","population":272,"population_pct":0.8,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"80-84","population":174,"population_pct":0.5,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"85+","population":98,"population_pct":0.3,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"60050","age":"All","population":31819,"population_pct":100,"county_name":"Western District","state_fips":"60","state_name":"American Samoa"}
+{"county_fips":"66010","age":"0-4","population":10626,"population_pct":6.9,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"0-9","population":22065,"population_pct":14.3,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"10-14","population":12232,"population_pct":8,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"10-19","population":24014,"population_pct":15.7,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"15-19","population":11782,"population_pct":7.7,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"15-24","population":23671,"population_pct":15.4,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"16+","population":117126,"population_pct":76.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"18+","population":112349,"population_pct":73,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"20-24","population":11889,"population_pct":7.7,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"20-29","population":23352,"population_pct":15.2,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"21+","population":105364,"population_pct":68.5,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"25-29","population":11463,"population_pct":7.5,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"25-34","population":21491,"population_pct":14,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"30-34","population":10028,"population_pct":6.5,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"30-39","population":19484,"population_pct":12.6,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"35-39","population":9456,"population_pct":6.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"35-44","population":18656,"population_pct":12.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"40-44","population":9200,"population_pct":6,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"40-49","population":19345,"population_pct":12.6,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"40-64","population":47731,"population_pct":31.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"45-49","population":10145,"population_pct":6.6,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"45-54","population":20382,"population_pct":13.3,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"45-64","population":38531,"population_pct":25.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"5-9","population":11439,"population_pct":7.4,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"50-54","population":10237,"population_pct":6.7,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"50-59","population":20102,"population_pct":13.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"55-59","population":9865,"population_pct":6.4,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"55-64","population":18149,"population_pct":11.8,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"60-64","population":8284,"population_pct":5.4,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"60-69","population":14970,"population_pct":9.7,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"62+","population":21945,"population_pct":14.3,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"65+","population":17190,"population_pct":11.2,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"65-69","population":6686,"population_pct":4.3,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"65-74","population":11571,"population_pct":7.5,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"70-74","population":4885,"population_pct":3.2,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"70-79","population":7522,"population_pct":4.9,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"75-79","population":2637,"population_pct":1.7,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"75-84","population":4402,"population_pct":2.8,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"80+","population":2982,"population_pct":1.9,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"80-84","population":1765,"population_pct":1.1,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"85+","population":1217,"population_pct":0.8,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"66010","age":"All","population":153836,"population_pct":100,"county_name":"Guam","state_fips":"66","state_name":"Guam"}
+{"county_fips":"69085","age":"0-4","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"0-9","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"10-14","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"10-19","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"15-19","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"15-24","population":2,"population_pct":28.6,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"16+","population":7,"population_pct":100,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"18+","population":7,"population_pct":100,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"20-24","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"20-29","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"21+","population":6,"population_pct":85.7,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"25-29","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"25-34","population":2,"population_pct":28.6,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"30-34","population":2,"population_pct":28.6,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"30-39","population":3,"population_pct":42.9,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"35-39","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"35-44","population":2,"population_pct":28.6,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"40-44","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"40-49","population":2,"population_pct":28.6,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"40-64","population":2,"population_pct":28.6,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"45-49","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"45-54","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"45-64","population":1,"population_pct":14.3,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"5-9","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"50-54","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"50-59","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"55-59","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"55-64","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"60-64","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"60-69","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"62+","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"65+","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"65-69","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"65-74","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"70-74","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"70-79","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"75-79","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"75-84","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"80+","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"80-84","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"85+","population":0,"population_pct":0,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69085","age":"All","population":7,"population_pct":100,"county_name":"Northern Islands Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"0-4","population":144,"population_pct":7.6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"0-9","population":296,"population_pct":15.6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"10-14","population":164,"population_pct":8.7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"10-19","population":315,"population_pct":16.7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"15-19","population":151,"population_pct":8,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"15-24","population":267,"population_pct":14.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"16+","population":1394,"population_pct":73.6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"18+","population":1334,"population_pct":70.5,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"20-24","population":116,"population_pct":6.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"20-29","population":220,"population_pct":11.6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"21+","population":1251,"population_pct":66.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"25-29","population":104,"population_pct":5.5,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"25-34","population":209,"population_pct":11,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"30-34","population":105,"population_pct":5.5,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"30-39","population":225,"population_pct":11.8,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"35-39","population":120,"population_pct":6.3,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"35-44","population":246,"population_pct":13,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"40-44","population":126,"population_pct":6.7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"40-49","population":304,"population_pct":16.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"40-64","population":715,"population_pct":37.8,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"45-49","population":178,"population_pct":9.4,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"45-54","population":343,"population_pct":18.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"45-64","population":589,"population_pct":31.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"5-9","population":152,"population_pct":8,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"50-54","population":165,"population_pct":8.7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"50-59","population":297,"population_pct":15.7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"55-59","population":132,"population_pct":7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"55-64","population":246,"population_pct":13,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"60-64","population":114,"population_pct":6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"60-69","population":176,"population_pct":9.3,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"62+","population":187,"population_pct":9.9,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"65+","population":122,"population_pct":6.4,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"65-69","population":62,"population_pct":3.3,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"65-74","population":105,"population_pct":5.6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"70-74","population":43,"population_pct":2.3,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"70-79","population":55,"population_pct":2.9,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"75-79","population":12,"population_pct":0.6,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"75-84","population":14,"population_pct":0.7,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"80+","population":5,"population_pct":0.3,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"80-84","population":2,"population_pct":0.1,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"85+","population":3,"population_pct":0.2,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69100","age":"All","population":1893,"population_pct":100,"county_name":"Rota Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"0-4","population":2934,"population_pct":6.8,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"0-9","population":6308,"population_pct":14.6,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"10-14","population":3870,"population_pct":8.9,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"10-19","population":7386,"population_pct":17,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"15-19","population":3516,"population_pct":8.1,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"15-24","population":6228,"population_pct":14.4,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"16+","population":32491,"population_pct":74.9,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"18+","population":30930,"population_pct":71.3,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"20-24","population":2712,"population_pct":6.3,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"20-29","population":5614,"population_pct":13,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"21+","population":29127,"population_pct":67.1,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"25-29","population":2902,"population_pct":6.7,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"25-34","population":5690,"population_pct":13.1,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"30-34","population":2788,"population_pct":6.4,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"30-39","population":5620,"population_pct":12.9,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"35-39","population":2832,"population_pct":6.5,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"35-44","population":6047,"population_pct":13.9,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"40-44","population":3215,"population_pct":7.4,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"40-49","population":6812,"population_pct":15.7,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"40-64","population":15909,"population_pct":36.7,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"45-49","population":3597,"population_pct":8.3,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"45-54","population":7356,"population_pct":17,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"45-64","population":12694,"population_pct":29.3,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"5-9","population":3374,"population_pct":7.8,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"50-54","population":3759,"population_pct":8.7,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"50-59","population":6833,"population_pct":15.8,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"55-59","population":3074,"population_pct":7.1,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"55-64","population":5338,"population_pct":12.3,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"60-64","population":2264,"population_pct":5.2,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"60-69","population":3562,"population_pct":8.2,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"62+","population":3763,"population_pct":8.7,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"65+","population":2548,"population_pct":5.9,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"65-69","population":1298,"population_pct":3,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"65-74","population":1992,"population_pct":4.6,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"70-74","population":694,"population_pct":1.6,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"70-79","population":974,"population_pct":2.2,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"75-79","population":280,"population_pct":0.6,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"75-84","population":449,"population_pct":1,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"80+","population":276,"population_pct":0.6,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"80-84","population":169,"population_pct":0.4,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"85+","population":107,"population_pct":0.2,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69110","age":"All","population":43385,"population_pct":100,"county_name":"Saipan Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"0-4","population":140,"population_pct":6.8,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"0-9","population":312,"population_pct":15.2,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"10-14","population":188,"population_pct":9.2,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"10-19","population":354,"population_pct":17.3,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"15-19","population":166,"population_pct":8.1,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"15-24","population":245,"population_pct":12,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"16+","population":1504,"population_pct":73.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"18+","population":1438,"population_pct":70.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"20-24","population":79,"population_pct":3.9,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"20-29","population":189,"population_pct":9.3,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"21+","population":1360,"population_pct":66.5,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"25-29","population":110,"population_pct":5.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"25-34","population":237,"population_pct":11.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"30-34","population":127,"population_pct":6.2,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"30-39","population":277,"population_pct":13.5,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"35-39","population":150,"population_pct":7.3,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"35-44","population":301,"population_pct":14.7,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"40-44","population":151,"population_pct":7.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"40-49","population":319,"population_pct":15.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"40-64","population":790,"population_pct":38.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"45-49","population":168,"population_pct":8.2,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"45-54","population":360,"population_pct":17.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"45-64","population":639,"population_pct":31.2,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"5-9","population":172,"population_pct":8.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"50-54","population":192,"population_pct":9.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"50-59","population":360,"population_pct":17.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"55-59","population":168,"population_pct":8.2,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"55-64","population":279,"population_pct":13.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"60-64","population":111,"population_pct":5.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"60-69","population":185,"population_pct":9,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"62+","population":191,"population_pct":9.3,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"65+","population":122,"population_pct":6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"65-69","population":74,"population_pct":3.6,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"65-74","population":104,"population_pct":5.1,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"70-74","population":30,"population_pct":1.5,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"70-79","population":37,"population_pct":1.8,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"75-79","population":7,"population_pct":0.3,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"75-84","population":16,"population_pct":0.7,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"80+","population":11,"population_pct":0.5,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"80-84","population":9,"population_pct":0.4,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"85+","population":2,"population_pct":0.1,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"69120","age":"All","population":2044,"population_pct":100,"county_name":"Tinian Municipality","state_fips":"69","state_name":"Northern Mariana Islands"}
+{"county_fips":"78010","age":"0-4","population":2165,"population_pct":5.3,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"0-9","population":4566,"population_pct":11.2,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"10-14","population":2559,"population_pct":6.2,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"10-19","population":4932,"population_pct":12,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"15-19","population":2373,"population_pct":5.8,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"15-24","population":4327,"population_pct":10.6,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"16+","population":33416,"population_pct":81.5,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"18+","population":32422,"population_pct":79.1,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"20-24","population":1954,"population_pct":4.8,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"20-29","population":4140,"population_pct":10.1,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"21+","population":31091,"population_pct":75.8,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"25-29","population":2186,"population_pct":5.3,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"25-34","population":4338,"population_pct":10.5,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"30-34","population":2152,"population_pct":5.2,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"30-39","population":4440,"population_pct":10.8,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"35-39","population":2288,"population_pct":5.6,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"35-44","population":4609,"population_pct":11.3,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"40-44","population":2321,"population_pct":5.7,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"40-49","population":4938,"population_pct":12.1,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"40-64","population":13948,"population_pct":34.1,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"45-49","population":2617,"population_pct":6.4,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"45-54","population":5562,"population_pct":13.6,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"45-64","population":11627,"population_pct":28.4,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"5-9","population":2401,"population_pct":5.9,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"50-54","population":2945,"population_pct":7.2,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"50-59","population":5995,"population_pct":14.6,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"55-59","population":3050,"population_pct":7.4,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"55-64","population":6065,"population_pct":14.8,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"60-64","population":3015,"population_pct":7.4,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"60-69","population":5699,"population_pct":13.9,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"62+","population":10718,"population_pct":26.1,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"65+","population":8978,"population_pct":21.9,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"65-69","population":2684,"population_pct":6.5,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"65-74","population":5273,"population_pct":12.8,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"70-74","population":2589,"population_pct":6.3,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"70-79","population":4528,"population_pct":11,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"75-79","population":1939,"population_pct":4.7,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"75-84","population":2990,"population_pct":7.3,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"80+","population":1766,"population_pct":4.3,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"80-84","population":1051,"population_pct":2.6,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"85+","population":715,"population_pct":1.7,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78010","age":"All","population":41004,"population_pct":100,"county_name":"St. Croix","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"0-4","population":156,"population_pct":4,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"0-9","population":318,"population_pct":8.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"10-14","population":174,"population_pct":4.5,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"10-19","population":326,"population_pct":8.4,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"15-19","population":152,"population_pct":3.9,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"15-24","population":295,"population_pct":7.6,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"16+","population":3361,"population_pct":86.6,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"18+","population":3300,"population_pct":85,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"20-24","population":143,"population_pct":3.7,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"20-29","population":331,"population_pct":8.5,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"21+","population":3211,"population_pct":82.7,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"25-29","population":188,"population_pct":4.8,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"25-34","population":432,"population_pct":11.1,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"30-34","population":244,"population_pct":6.3,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"30-39","population":518,"population_pct":13.4,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"35-39","population":274,"population_pct":7.1,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"35-44","population":557,"population_pct":14.4,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"40-44","population":283,"population_pct":7.3,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"40-49","population":603,"population_pct":15.5,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"40-64","population":1637,"population_pct":42.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"45-49","population":320,"population_pct":8.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"45-54","population":657,"population_pct":16.9,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"45-64","population":1354,"population_pct":34.9,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"5-9","population":162,"population_pct":4.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"50-54","population":337,"population_pct":8.7,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"50-59","population":717,"population_pct":18.5,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"55-59","population":380,"population_pct":9.8,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"55-64","population":697,"population_pct":18,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"60-64","population":317,"population_pct":8.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"60-69","population":570,"population_pct":14.7,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"62+","population":927,"population_pct":23.9,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"65+","population":751,"population_pct":19.4,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"65-69","population":253,"population_pct":6.5,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"65-74","population":493,"population_pct":12.7,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"70-74","population":240,"population_pct":6.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"70-79","population":382,"population_pct":9.9,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"75-79","population":142,"population_pct":3.7,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"75-84","population":226,"population_pct":5.9,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"80+","population":116,"population_pct":3,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"80-84","population":84,"population_pct":2.2,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"85+","population":32,"population_pct":0.8,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78020","age":"All","population":3881,"population_pct":100,"county_name":"St. John","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"0-4","population":2147,"population_pct":5.1,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"0-9","population":4184,"population_pct":9.9,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"10-14","population":2364,"population_pct":5.6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"10-19","population":4711,"population_pct":11.2,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"15-19","population":2347,"population_pct":5.6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"15-24","population":4403,"population_pct":10.5,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"16+","population":35272,"population_pct":83.5,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"18+","population":34338,"population_pct":81.3,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"20-24","population":2056,"population_pct":4.9,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"20-29","population":4252,"population_pct":10.1,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"21+","population":32912,"population_pct":77.9,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"25-29","population":2196,"population_pct":5.2,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"25-34","population":4489,"population_pct":10.6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"30-34","population":2293,"population_pct":5.4,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"30-39","population":4793,"population_pct":11.3,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"35-39","population":2500,"population_pct":5.9,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"35-44","population":5043,"population_pct":11.9,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"40-44","population":2543,"population_pct":6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"40-49","population":5309,"population_pct":12.5,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"40-64","population":15509,"population_pct":36.6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"45-49","population":2766,"population_pct":6.5,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"45-54","population":6135,"population_pct":14.5,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"45-64","population":12966,"population_pct":30.6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"5-9","population":2037,"population_pct":4.8,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"50-54","population":3369,"population_pct":8,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"50-59","population":6935,"population_pct":16.4,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"55-59","population":3566,"population_pct":8.4,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"55-64","population":6831,"population_pct":16.1,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"60-64","population":3265,"population_pct":7.7,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"60-69","population":6081,"population_pct":14.4,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"62+","population":10704,"population_pct":25.3,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"65+","population":8812,"population_pct":20.9,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"65-69","population":2816,"population_pct":6.7,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"65-74","population":5239,"population_pct":12.4,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"70-74","population":2423,"population_pct":5.7,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"70-79","population":4235,"population_pct":10,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"75-79","population":1812,"population_pct":4.3,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"75-84","population":2792,"population_pct":6.6,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"80+","population":1761,"population_pct":4.1,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"80-84","population":980,"population_pct":2.3,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"85+","population":781,"population_pct":1.8,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}
+{"county_fips":"78030","age":"All","population":42261,"population_pct":100,"county_name":"St. Thomas","state_fips":"78","state_name":"U.S. Virgin Islands"}

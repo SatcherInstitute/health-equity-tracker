@@ -1,0 +1,12 @@
+{"state_fips":"60","sex":"All","population":49710,"population_pct":100,"state_name":"American Samoa","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"60","sex":"Female","population":24456,"population_pct":49.2,"state_name":"American Samoa","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"60","sex":"Male","population":25254,"population_pct":50.8,"state_name":"American Samoa","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"66","sex":"All","population":153836,"population_pct":100,"state_name":"Guam","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"66","sex":"Female","population":75565,"population_pct":49.1,"state_name":"Guam","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"66","sex":"Male","population":78271,"population_pct":50.9,"state_name":"Guam","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"69","sex":"All","population":47329,"population_pct":100,"state_name":"Northern Mariana Islands","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"69","sex":"Female","population":22437,"population_pct":47.4,"state_name":"Northern Mariana Islands","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"69","sex":"Male","population":24892,"population_pct":52.6,"state_name":"Northern Mariana Islands","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"78","sex":"All","population":87146,"population_pct":100,"state_name":"U.S. Virgin Islands","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"78","sex":"Female","population":44803,"population_pct":51.4,"state_name":"U.S. Virgin Islands","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}
+{"state_fips":"78","sex":"Male","population":42343,"population_pct":48.6,"state_name":"U.S. Virgin Islands","ingestion_ts":"2023-03-23 19:05:42.727639 UTC"}

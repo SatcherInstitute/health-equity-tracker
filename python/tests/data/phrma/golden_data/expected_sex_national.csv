@@ -1,0 +1,4 @@
+sex,statins_adherence_estimated_total,statins_beneficiaries_estimated_total,state_fips,state_name,beta_blockers_adherence_estimated_total,beta_blockers_beneficiaries_estimated_total,rasa_adherence_estimated_total,rasa_beneficiaries_estimated_total,phrma_population,phrma_population_pct,statins_adherence_pct_rate,beta_blockers_adherence_pct_rate,rasa_adherence_pct_rate,statins_adherence_pct_share,beta_blockers_adherence_pct_share,rasa_adherence_pct_share
+All,11941945,14315816,00,United States,7523595,9350817,10532272,12532420,328016242.0,100.0,83.0,80.0,84.0,100.0,100.0,100.0
+Female,6348228,7679041,00,United States,4166756,5170689,5790528,6892479,166551005.0,50.8,83.0,81.0,84.0,53.2,55.4,55.0
+Male,5593717,6636775,00,United States,3356839,4180128,4741744,5639941,161465237.0,49.2,84.0,80.0,84.0,46.8,44.6,45.0
