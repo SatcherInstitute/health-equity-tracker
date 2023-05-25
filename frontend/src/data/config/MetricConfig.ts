@@ -38,7 +38,7 @@ export type DropdownVarId =
   | 'women_in_state_legislature'
   | 'prison'
   | 'jail'
-  | 'statins'
+  | 'cardiovascular_medications_adherence'
 
 export type AgeAdjustedVariableId = 'covid_deaths' | 'covid_hospitalizations'
 
@@ -54,8 +54,9 @@ export type VariableId =
   | 'suicides'
   | 'covid_vaccinations'
   | 'svi'
-  | 'statins_bene'
+  | 'beta_blockers_adherence'
   | 'statins_adherence'
+  | 'rasa_adherence'
 
 export type MetricId =
   | 'acs_vaccinated_pop_pct'
@@ -216,14 +217,18 @@ export type MetricId =
   | 'voter_participation_ratio_age_adjusted'
   | 'women_state_leg_pct_relative_inequity'
   | 'phrma_population_pct'
-  | 'statins_bene_per_100k'
-  | 'statins_bene_pct_share'
-  | 'statins_bene_pct_relative_inequity'
-  | 'statins_bene_ratio_age_adjusted'
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
   | 'statins_adherence_pct_relative_inequity'
   | 'statins_adherence_ratio_age_adjusted'
+  | 'beta_blockers_adherence_pct_rate'
+  | 'beta_blockers_adherence_pct_share'
+  | 'beta_blockers_adherence_pct_relative_inequity'
+  | 'beta_blockers_adherence_ratio_age_adjusted'
+  | 'rasa_adherence_pct_rate'
+  | 'rasa_adherence_pct_share'
+  | 'rasa_adherence_pct_relative_inequity'
+  | 'rasa_adherence_ratio_age_adjusted'
   | 'women_state_leg_ratio_age_adjusted'
   | 'women_this_race_state_leg_count'
   | 'women_this_race_us_congress_count'
@@ -2044,80 +2049,23 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  statins: [
-    {
-      variableId: 'statins_bene',
-      variableDisplayName: 'Statins beneficiaries',
-      variableFullDisplayName: 'Statin beneficiaries',
-      surveyCollectedData: true,
-      variableDefinition: `Sample definition from statins data`,
-      metrics: {
-        per100k: {
-          metricId: 'statins_bene_per_100k',
-          chartTitle: 'Stati beneficiaries per 100k',
-          // trendsCardTitleName: "Rates of jail incarceration over time",
-          shortLabel: 'beneficiaries per 100k',
-          type: 'per100k',
-        },
-        pct_share: {
-          chartTitle: 'Percent share of total statin beneficiaries',
-          metricId: 'statins_bene_pct_share',
-          // trendsCardTitleName:
-          //   "Inequitable share of jail incarceration over time",
-          columnTitleHeader: 'Percent share of total statin beneficiaries',
-          shortLabel: '% of total statin usage',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle:
-              'Population vs. distribution of total statin beneficiaries',
-
-            metricId: 'phrma_population_pct',
-            columnTitleHeader: 'Total population share',
-            shortLabel: populationPctShortLabel,
-            type: 'pct_share',
-          },
-          knownBreakdownComparisonMetric: {
-            chartTitle: '',
-            metricId: 'statins_bene_pct_share',
-            columnTitleHeader: 'Percent share of total statin usage',
-            shortLabel: '% of statin usage',
-            type: 'pct_share',
-          },
-        },
-        pct_relative_inequity: {
-          chartTitle: 'Relative inequity of statins over time',
-          metricId: 'statins_bene_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle: 'Age-adjusted statins ratio compared to White (NH)',
-
-          metricId: 'statins_bene_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
-        },
-      },
-    },
+  cardiovascular_medications_adherence: [
     {
       variableId: 'statins_adherence',
-      variableDisplayName: 'Statin adherence',
-      variableFullDisplayName: 'Statin adherence',
+      variableDisplayName: 'Statins adherence',
+      variableFullDisplayName: 'Statins adherence',
       surveyCollectedData: true,
-      variableDefinition: `Sample definition from statin adherence data`,
+      variableDefinition: `Sample definition from statins adherence data`,
       metrics: {
-        per100k: {
+        pct_rate: {
           metricId: 'statins_adherence_pct_rate',
-          chartTitle: 'Statin percent adherence',
-          // trendsCardTitleName: "Rates of jail incarceration over time",
+          chartTitle: 'Statins percent adherence',
           shortLabel: '% statins adherence',
           type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Percent share of total statins adherence',
           metricId: 'statins_adherence_pct_share',
-          // trendsCardTitleName:
-          //   "Inequitable share of jail incarceration over time",
           columnTitleHeader: 'Percent share of total statins adherence',
           shortLabel: '% of total statins adherence',
           type: 'pct_share',
@@ -2149,6 +2097,108 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
             'Age-adjusted statins adherence ratio compared to White (NH)',
 
           metricId: 'statins_adherence_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+    {
+      variableId: 'beta_blockers_adherence',
+      variableDisplayName: 'Beta-blockers adherence',
+      variableFullDisplayName: 'Beta-blockers adherence',
+      surveyCollectedData: true,
+      variableDefinition: `Sample definition from beta-blockers adherence data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'beta_blockers_adherence_pct_rate',
+          chartTitle: 'Beta-blockers percent adherence',
+          shortLabel: '% beta-blockers adherence',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total beta-blockers adherence',
+          metricId: 'beta_blockers_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total beta-blockers adherence',
+          shortLabel: '% of total beta-blockers adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Population vs. distribution of total beta-blockers adherence',
+
+            metricId: 'phrma_population_pct',
+            columnTitleHeader: 'Total population share',
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+          knownBreakdownComparisonMetric: {
+            chartTitle: '',
+            metricId: 'beta_blockers_adherence_pct_share',
+            columnTitleHeader: 'Percent share of total beta-blockers adherence',
+            shortLabel: '% of total beta-blockers adherence',
+            type: 'pct_share',
+          },
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Relative inequity of beta-blockers adherence over time',
+          metricId: 'beta_blockers_adherence_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle:
+            'Age-adjusted beta-blockers adherence ratio compared to White (NH)',
+
+          metricId: 'beta_blockers_adherence_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+    {
+      variableId: 'rasa_adherence',
+      variableDisplayName: 'RASA adherence',
+      variableFullDisplayName: 'RASA adherence',
+      surveyCollectedData: true,
+      variableDefinition: `Sample definition from rasa adherence data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'rasa_adherence_pct_rate',
+          chartTitle: 'RASA percent adherence',
+          shortLabel: '% rasa adherence',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total rasa adherence',
+          metricId: 'rasa_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total rasa adherence',
+          shortLabel: '% of total rasa adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle: 'Population vs. distribution of total rasa adherence',
+
+            metricId: 'phrma_population_pct',
+            columnTitleHeader: 'Total population share',
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+          knownBreakdownComparisonMetric: {
+            chartTitle: '',
+            metricId: 'rasa_adherence_pct_share',
+            columnTitleHeader: 'Percent share of total rasa adherence',
+            shortLabel: '% of total rasa adherence',
+            type: 'pct_share',
+          },
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Relative inequity of rasa adherence over time',
+          metricId: 'rasa_adherence_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle:
+            'Age-adjusted rasa adherence ratio compared to White (NH)',
+          metricId: 'rasa_adherence_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
         },

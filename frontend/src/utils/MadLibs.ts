@@ -32,7 +32,7 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
-  | '(TBD) Medication Data'
+  | 'Medicare Beneficiaries'
 
 export interface MadLib {
   readonly id: MadLibId
@@ -137,7 +137,8 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   women_in_us_congress: 'Women in U.S. Congress',
   jail: 'Jail Incarceration',
   prison: 'Prison Incarceration',
-  statins: 'Statins',
+  cardiovascular_medications_adherence:
+    'Adherence to Cardiovascular Medications',
 }
 
 export interface Category {
@@ -222,9 +223,9 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: '(TBD) Medication Data',
+    title: 'Medicare Beneficiaries',
     definition: '',
-    options: ['statins'],
+    options: ['cardiovascular_medications_adherence'],
   },
 ]
 
