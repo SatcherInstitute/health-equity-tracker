@@ -116,8 +116,6 @@ class PhrmaData(DataSource):
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
 
-            # alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
-
             for breakdown in [
                 LIS,
                 ELIGIBILITY,
@@ -135,8 +133,6 @@ class PhrmaData(DataSource):
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-
-                # df.to_json(f'{PHRMA_DIR}-{table_name}.json', orient="records")
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,

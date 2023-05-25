@@ -88,14 +88,12 @@ def testOverallBigQueryInteractions(
         mock_breakdown: mock.MagicMock):
     datasource = PhrmaData()
     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
-
-    # 3 geographic, 3 demographics that have an "all". LIS/Elig. use SEX's alls and don't require another load
+    # 3 geographic, 3 demographics that have an "all".
+    # LIS/Elig. use SEX's alls and don't require another load
     assert mock_data_dir.call_count == 3 * 3
-
     # 3 geographic levels, 5 demographic types age/sex/race/LIS/Elig.
     assert mock_bq.call_count == 3 * 5
     assert mock_breakdown.call_count == 3 * 5
-
     generated_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
@@ -105,7 +103,6 @@ def testOverallBigQueryInteractions(
 
 
 # # BREAKDOWN TESTS
-
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
