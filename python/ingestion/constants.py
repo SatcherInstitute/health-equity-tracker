@@ -102,6 +102,7 @@ STATE_LEVEL = "state"
 COUNTY_LEVEL = "county"
 
 UNKNOWN = "Unknown"
+ALL_VALUE = "All"
 
 RACE = 'race'
 SEX = 'sex'

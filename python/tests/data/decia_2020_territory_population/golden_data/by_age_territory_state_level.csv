@@ -18,6 +18,7 @@ state_fips,age,population,population_pct,state_name
 60,35-44,6209.0,12.5,American Samoa
 60,40-44,3241.0,6.5,American Samoa
 60,40-49,6449.0,13.0,American Samoa
+60,40-64,14267.0,28.7,American Samoa
 60,45-49,3208.0,6.5,American Samoa
 60,45-54,6372.0,12.9,American Samoa
 60,45-64,11026.0,22.2,American Samoa
@@ -59,6 +60,7 @@ state_fips,age,population,population_pct,state_name
 66,35-44,18656.0,12.1,Guam
 66,40-44,9200.0,6.0,Guam
 66,40-49,19345.0,12.6,Guam
+66,40-64,47731.0,31.1,Guam
 66,45-49,10145.0,6.6,Guam
 66,45-54,20382.0,13.3,Guam
 66,45-64,38531.0,25.1,Guam
@@ -100,6 +102,7 @@ state_fips,age,population,population_pct,state_name
 69,35-44,6596.0,14.0,Northern Mariana Islands
 69,40-44,3493.0,7.4,Northern Mariana Islands
 69,40-49,7437.0,15.700000000000001,Northern Mariana Islands
+69,40-64,17416.0,36.8,Northern Mariana Islands
 69,45-49,3944.0,8.3,Northern Mariana Islands
 69,45-54,8060.0,17.0,Northern Mariana Islands
 69,45-64,13923.0,29.400000000000002,Northern Mariana Islands
@@ -141,6 +144,7 @@ state_fips,age,population,population_pct,state_name
 78,35-44,10209.0,11.7,U.S. Virgin Islands
 78,40-44,5147.0,5.9,U.S. Virgin Islands
 78,40-49,10850.0,12.4,U.S. Virgin Islands
+78,40-64,31094.0,35.6,U.S. Virgin Islands
 78,45-49,5703.0,6.5,U.S. Virgin Islands
 78,45-54,12354.0,14.1,U.S. Virgin Islands
 78,45-64,25947.0,29.700000000000003,U.S. Virgin Islands
