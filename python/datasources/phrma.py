@@ -1,7 +1,7 @@
 from functools import reduce
 import numpy as np
 import pandas as pd
-from typing import Dict, Literal, cast
+from typing import Dict, cast
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
