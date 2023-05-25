@@ -133,14 +133,6 @@ class PhrmaData(DataSource):
                     float_cols.append(
                         f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-                print("********* col_types")
-                print(col_types)
-
-                if table_name == "sex_national":
-                    print("sex_national table")
-                    print(df.dtypes)
-                    print(df.to_string())
-
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
@@ -267,6 +259,7 @@ def load_phrma_df_from_data_dir(geo_level: str, breakdown: str) -> pd.DataFrame:
         topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             PHRMA_DIR,
             f'{condition}-{sheet_name}.csv',
+            subdirectory=condition,
             dtype=DTYPE,
             na_values=["."],
         )

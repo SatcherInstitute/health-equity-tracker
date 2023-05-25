@@ -1,6 +1,10 @@
 from unittest import mock
 from pandas._testing import assert_frame_equal
 from datasources.phrma import PhrmaData, PHRMA_DIR
+from test_utils import (
+    _load_df_from_bigquery,
+    _load_public_dataset_from_bigquery_as_df
+)
 import pandas as pd
 import os
 
@@ -28,42 +32,15 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
     dtype = kwargs['dtype']
     na_values = kwargs['na_values']
-    file_path = os.path.join(TEST_DIR, directory, filename)
+    subdirectory = kwargs['subdirectory']
+    file_path = os.path.join(
+        TEST_DIR, directory, f'test_input_{subdirectory}', filename)
 
     df = pd.read_csv(file_path,
                      na_values=na_values,
                      dtype=dtype)
 
     return df
-
-
-# TODO: move this to a util and refactor other sources
-# TODO: to use this instead of duplicated
-# TODO: fake population data, etc
-def _load_df_from_bigquery(*args, **kwargs):
-    print("MOCKING CALL TO HET BQ")
-    datasource_name, table_name, dtypes = args
-    if "county" in table_name:
-        dtypes["county_fips"] = str
-    filename = f'{datasource_name}-{table_name}.ndjson'
-    file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
-
-    pop_df = pd.read_json(file_path, lines=True, dtype=dtypes)
-
-    return pop_df
-
-
-def _load_public_dataset_from_bigquery_as_df(*args, **kwargs):
-    print("MOCKING CALL TO PUBLIC BQ")
-    public_dataset_name, table_name = args
-
-    filename = f'{public_dataset_name}-{table_name}.csv'
-    file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
-
-    county_names_df = pd.read_csv(
-        file_path, dtype={"state_fips_code": str, "county_fips_code": str})
-
-    return county_names_df
 
 
 def _generate_breakdown_df(*args):
