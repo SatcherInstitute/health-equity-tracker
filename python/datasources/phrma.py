@@ -131,6 +131,7 @@ class PhrmaData(DataSource):
                     float_cols.append(
                         f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+                print(col_types)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
