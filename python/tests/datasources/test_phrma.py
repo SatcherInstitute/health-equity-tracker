@@ -18,7 +18,8 @@ GOLDEN_DATA = {
     'LIS_national': os.path.join(GOLDEN_DIR, 'expected_LIS_national.csv'),
     'eligibility_national': os.path.join(GOLDEN_DIR, 'expected_eligibility_national.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'expected_sex_national.csv'),
-    'race_and_ethnicity_state': os.path.join(GOLDEN_DIR, 'expected_race_and_ethnicity_state.csv'),
+    'race_and_ethnicity_state': os.path.join(GOLDEN_DIR,
+                                             'expected_race_and_ethnicity_state.csv'),
     'age_county': os.path.join(GOLDEN_DIR, 'expected_age_county.csv')
 }
 
@@ -103,8 +104,10 @@ def _generate_breakdown_df(*args):
 
 # # OVERALL BQ
 
-@mock.patch('datasources.phrma.PhrmaData.generate_breakdown_df', side_effect=_generate_breakdown_df)
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch('datasources.phrma.PhrmaData.generate_breakdown_df',
+            side_effect=_generate_breakdown_df)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            side_effect=_load_csv_as_df_from_data_dir)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testOverallBigQueryInteractions(
         mock_bq: mock.MagicMock,
@@ -133,8 +136,10 @@ def testOverallBigQueryInteractions(
 
 # # BREAKDOWN TESTS
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_load_df_from_bigquery)
 def testBreakdownLISNational(
         mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
@@ -153,8 +158,10 @@ def testBreakdownLISNational(
                        check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_load_df_from_bigquery)
 def testBreakdownEligibilityNational(
         mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
@@ -173,8 +180,10 @@ def testBreakdownEligibilityNational(
                        check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_load_df_from_bigquery)
 def testBreakdownSexNational(
         mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
@@ -193,8 +202,10 @@ def testBreakdownSexNational(
                        check_dtype=False, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+            side_effect=_load_csv_as_df_from_data_dir)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
+            side_effect=_load_df_from_bigquery)
 def testBreakdownRaceState(
         mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
@@ -218,13 +229,16 @@ def testBreakdownRaceState(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', side_effect=_load_public_dataset_from_bigquery_as_df
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df
 )
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    side_effect=_load_csv_as_df_from_data_dir
 )
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery',
+    side_effect=_load_df_from_bigquery
 )
 def testBreakdownAgeCounty(
         mock_pop: mock.MagicMock,
