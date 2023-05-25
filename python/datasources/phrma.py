@@ -157,7 +157,6 @@ class PhrmaData(DataSource):
 
         # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
-        demo = std_col.RACE_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
 
         alls_df = alls_df.copy()
