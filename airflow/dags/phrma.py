@@ -44,11 +44,28 @@ payload_sex = {
 phrma_exporter_operator_sex = util.create_exporter_operator(
     'phrma_exporter_sex', payload_sex, data_ingestion_dag)
 
+
+payload_LIS = {
+    'dataset_name': _PHRMA_DATASET_NAME,
+    'demographic': "LIS"
+}
+phrma_exporter_operator_LIS = util.create_exporter_operator(
+    'phrma_exporter_LIS', payload_LIS, data_ingestion_dag)
+
+
+payload_eligibility = {
+    'dataset_name': _PHRMA_DATASET_NAME,
+    'demographic': "eligibility"
+}
+phrma_exporter_operator_eligibility = util.create_exporter_operator(
+    'phrma_exporter_eligibility', payload_eligibility, data_ingestion_dag)
 # Ingestion DAG
 (
     phrma_bq_operator >> [
         phrma_exporter_operator_race,
         phrma_exporter_operator_age,
         phrma_exporter_operator_sex,
+        phrma_exporter_operator_LIS,
+        phrma_exporter_operator_eligibility,
     ]
 )
