@@ -109,8 +109,8 @@ def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.Da
 
 def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
                                             raw_count_to_pct_share: dict,
-                                            breakdown_col: Literal["sex", "age", "race", "race_and_ethnicity"],
-                                            all_val: str):
+                                            breakdown_col: str,
+                                            all_val: str) -> pd.DataFrame:
     """Returns a DataFrame with a percent share column based on the raw_count_cols
        Each row must have a corresponding 'ALL' row.
        This function is meant to be used on datasets without any rows where the
@@ -120,7 +120,8 @@ def generate_pct_share_col_without_unknowns(df: pd.DataFrame,
        raw_count_to_pct_share: A dictionary with the mapping of raw_count
                                columns to the pct_share columns they should
                                be used to generate. eg: ({'population': 'population_pct'})
-       breakdown_col: The name of column to calculate the percent across.
+       breakdown_col: The name of column to calculate the percent across, usually a demographic
+            breakdown string like 'age' or 'sex'.
        all_val: The value representing 'ALL'"""
 
     all_demo_values = set(df[breakdown_col].to_list())

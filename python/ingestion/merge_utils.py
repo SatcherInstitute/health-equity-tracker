@@ -10,7 +10,7 @@ ACS_LATEST_YEAR = '2021'
 DECIA_CUTOFF_YEAR = '2016'
 
 
-def merge_county_names(df):
+def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
     """Merges standardized county names by county FIPS code found in the `census_utility`
      big query public dataset into an existing county level dataframe. Any existing
     'county_name' data in the incoming df will be overwritten.

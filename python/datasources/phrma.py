@@ -14,7 +14,13 @@ from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_pct_share_col_without_unknowns)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names, merge_pop_numbers
-from ingestion.types import GEO_TYPE, SEX_RACE_ETH_AGE_TYPE, PHRMA_BREAKDOWN_TYPE_OR_ALL, PHRMA_BREAKDOWN_TYPE
+from ingestion.types import (
+    GEO_TYPE,
+    SEX_RACE_AGE_TYPE,
+    SEX_RACE_ETH_AGE_TYPE,
+    PHRMA_BREAKDOWN_TYPE_OR_ALL,
+    PHRMA_BREAKDOWN_TYPE,
+)
 
 
 """
@@ -169,7 +175,7 @@ class PhrmaData(DataSource):
 
         if demo != ELIGIBILITY and demo != LIS:
             df = merge_pop_numbers(
-                df, cast(SEX_RACE_ETH_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
+                df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
         else:
             df[[std_col.PHRMA_POPULATION, std_col.PHRMA_POPULATION_PCT]] = np.nan
 
@@ -201,7 +207,7 @@ class PhrmaData(DataSource):
             df = generate_pct_share_col_without_unknowns(
                 df,
                 count_to_share_map,
-                cast(SEX_RACE_ETH_AGE_TYPE, demo_col),
+                cast(PHRMA_BREAKDOWN_TYPE, demo_col),
                 all_val
             )
 
