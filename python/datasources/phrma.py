@@ -115,7 +115,6 @@ class PhrmaData(DataSource):
             COUNTY_LEVEL
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
-
             for breakdown in [
                 LIS,
                 ELIGIBILITY,
@@ -124,16 +123,14 @@ class PhrmaData(DataSource):
                 std_col.RACE_OR_HISPANIC_COL
             ]:
                 table_name = f'{breakdown}_{geo_level}'
-
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
                 float_cols = [std_col.PHRMA_POPULATION_PCT]
-
                 for condition in PHRMA_CONDITIONS:
-                    for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
+                    for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX, std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
-
+                    float_cols.append(
+                        f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
@@ -165,7 +162,6 @@ class PhrmaData(DataSource):
             geo_level, demo_breakdown)
 
         df = pd.concat([breakdown_group_df, alls_df], axis=0)
-
         df = df.replace(
             to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
@@ -313,7 +309,7 @@ def get_sheet_name(geo_level: str, breakdown: str) -> str:
 
 def rename_cols(df: pd.DataFrame,
                 geo_level: Literal['national', 'state', 'county'],
-                breakdown:  Literal['age', 'sex', 'race_and_ethnicity'],
+                breakdown: Literal['age', 'sex', 'race_and_ethnicity'],
                 condition: str) -> pd.DataFrame:
     """ Renames columns based on the demo/geo breakdown """
 
