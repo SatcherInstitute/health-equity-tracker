@@ -116,7 +116,7 @@ class PhrmaData(DataSource):
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
 
-            alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
+            # alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
 
             for breakdown in [
                 LIS,
