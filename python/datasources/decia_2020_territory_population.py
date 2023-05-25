@@ -106,13 +106,14 @@ STD_AGES_SUM_MAP = {
     ("75-79", "80-84"): "75-84",
     # EXTRA AHR STANDARD AGE BUCKETS
     ("45-49", "50-54", "55-59", "60-64"): "45-64",
+    # EXTRA PHRMA AGE BUCKETS
+    ("40-44", "45-49", "50-54", "55-59", "60-64"): "40-64",
     # UNAVAILABLE AGE BUCKETS
-    # "18-24", "18-44"
+    # "18-24", "18-39", "18-44"
 }
 
-
 COMBO_RACES_SUM_MAP = {
-    # note each territry only has other_standard or other_nonstandard but not both,
+    # note each territory only has other_standard or other_nonstandard but not both,
     # so we can include both in the sum
     (std_col.Race.MULTI.value,
      std_col.Race.OTHER_STANDARD.value,

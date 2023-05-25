@@ -67,6 +67,7 @@ export interface AgeAdjustedTableCardProps {
   breakdownVar: BreakdownVar
   dropdownVarId?: DropdownVarId
   setVariableConfigWithParam?: (v: VariableConfig) => void
+  reportTitle: string
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
@@ -119,6 +120,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([raceQueryResponse, ageQueryResponse]) => {
         const [knownRaceData] = splitIntoKnownsAndUnknowns(

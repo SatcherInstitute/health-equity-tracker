@@ -1,0 +1,1066 @@
+RACE_NAME,ENTLMT_RSN_CURR,STATE_NAME,STATE_CODE,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,Aged,Alabama,1,1431,212,1643,0.8709677419
+Unknown,Aged,Alaska,2,393,78,471,0.8343949045
+Unknown,Aged,Arizona,3,4123,654,4777,0.863093992
+Unknown,Aged,Arkansas,4,923,156,1079,0.8554216867
+Unknown,Aged,California,5,19127,2981,22108,0.8651619323
+Unknown,Aged,Colorado,6,3475,570,4045,0.8590852905
+Unknown,Aged,Connecticut,7,4391,628,5019,0.8748754732
+Unknown,Aged,Delaware,8,1366,175,1541,0.8864373783
+Unknown,Aged,"District of Columbia",9,332,62,394,0.8426395939
+Unknown,Aged,Florida,10,15414,2767,18181,0.8478081514
+Unknown,Aged,Georgia,11,4136,716,4852,0.8524319868
+Unknown,Aged,Hawaii,12,406,63,469,0.8656716418
+Unknown,Aged,Idaho,13,842,130,972,0.866255144
+Unknown,Aged,Illinois,14,9491,1277,10768,0.8814078752
+Unknown,Aged,Indiana,15,5476,733,6209,0.8819455629
+Unknown,Aged,Iowa,16,2977,323,3300,0.9021212121
+Unknown,Aged,Kansas,17,2203,275,2478,0.889023406
+Unknown,Aged,Kentucky,18,2109,324,2433,0.8668310727
+Unknown,Aged,Louisiana,19,1969,372,2341,0.8410935498
+Unknown,Aged,Maine,20,1277,184,1461,0.8740588638
+Unknown,Aged,Maryland,21,5258,918,6176,0.8513601036
+Unknown,Aged,Massachusetts,22,8796,1331,10127,0.8685691715
+Unknown,Aged,Michigan,23,8021,1196,9217,0.8702397743
+Unknown,Aged,Minnesota,24,3149,414,3563,0.8838057816
+Unknown,Aged,Mississippi,25,825,145,970,0.8505154639
+Unknown,Aged,Missouri,26,3178,463,3641,0.8728371327
+Unknown,Aged,Montana,27,859,123,982,0.8747454175
+Unknown,Aged,Nebraska,28,1844,243,2087,0.8835649257
+Unknown,Aged,Nevada,29,1353,257,1610,0.8403726708
+Unknown,Aged,"New Hampshire",30,1892,213,2105,0.8988123515
+Unknown,Aged,"New Jersey",31,8094,1464,9558,0.8468298807
+Unknown,Aged,"New Mexico",32,836,130,966,0.8654244306
+Unknown,Aged,"New York",33,18245,3667,21912,0.8326487769
+Unknown,Aged,"North Carolina",34,5797,978,6775,0.8556457565
+Unknown,Aged,"North Dakota",35,461,57,518,0.88996139
+Unknown,Aged,Ohio,36,11832,1818,13650,0.8668131868
+Unknown,Aged,Oklahoma,37,1317,198,1515,0.8693069307
+Unknown,Aged,Oregon,38,2193,352,2545,0.8616895874
+Unknown,Aged,Pennsylvania,39,10310,1360,11670,0.883461868
+Unknown,Aged,"Rhode Island",41,1021,165,1186,0.8608768971
+Unknown,Aged,"South Carolina",42,3815,573,4388,0.8694165907
+Unknown,Aged,"South Dakota",43,658,76,734,0.8964577657
+Unknown,Aged,Tennessee,44,3340,530,3870,0.8630490956
+Unknown,Aged,Texas,45,8652,1511,10163,0.8513234281
+Unknown,Aged,Utah,46,940,153,1093,0.8600182983
+Unknown,Aged,Vermont,47,1227,141,1368,0.8969298246
+Unknown,Aged,Virginia,49,5983,860,6843,0.8743241268
+Unknown,Aged,Washington,50,4614,824,5438,0.8484737036
+Unknown,Aged,"West Virginia",51,581,84,665,0.8736842105
+Unknown,Aged,Wisconsin,52,5748,652,6400,0.898125
+Unknown,Aged,Wyoming,53,470,84,554,0.8483754513
+Unknown,Disabled,Alabama,1,98,36,134,0.7313432836
+Unknown,Disabled,Alaska,2,.,.,.,0.7777777778
+Unknown,Disabled,Arizona,3,71,24,95,0.7473684211
+Unknown,Disabled,Arkansas,4,46,21,67,0.6865671642
+Unknown,Disabled,California,5,491,121,612,0.8022875817
+Unknown,Disabled,Colorado,6,78,20,98,0.7959183673
+Unknown,Disabled,Connecticut,7,152,40,192,0.7916666667
+Unknown,Disabled,Delaware,8,.,.,.,0.8
+Unknown,Disabled,"District of Columbia",9,.,.,.,0.7142857143
+Unknown,Disabled,Florida,10,427,143,570,0.749122807
+Unknown,Disabled,Georgia,11,168,46,214,0.785046729
+Unknown,Disabled,Hawaii,12,.,.,.,0.8888888889
+Unknown,Disabled,Idaho,13,.,.,.,0.7777777778
+Unknown,Disabled,Illinois,14,322,80,402,0.8009950249
+Unknown,Disabled,Indiana,15,194,59,253,0.766798419
+Unknown,Disabled,Iowa,16,112,24,136,0.8235294118
+Unknown,Disabled,Kansas,17,60,16,76,0.7894736842
+Unknown,Disabled,Kentucky,18,123,41,164,0.75
+Unknown,Disabled,Louisiana,19,102,35,137,0.7445255474
+Unknown,Disabled,Maine,20,75,14,89,0.8426966292
+Unknown,Disabled,Maryland,21,125,33,158,0.7911392405
+Unknown,Disabled,Massachusetts,22,481,139,620,0.7758064516
+Unknown,Disabled,Michigan,23,497,135,632,0.7863924051
+Unknown,Disabled,Minnesota,24,179,34,213,0.8403755869
+Unknown,Disabled,Mississippi,25,46,25,71,0.6478873239
+Unknown,Disabled,Missouri,26,211,46,257,0.8210116732
+Unknown,Disabled,Montana,27,.,.,.,0.8260869565
+Unknown,Disabled,Nebraska,28,46,15,61,0.7540983607
+Unknown,Disabled,Nevada,29,40,12,52,0.7692307692
+Unknown,Disabled,"New Hampshire",30,.,.,.,0.8985507246
+Unknown,Disabled,"New Jersey",31,283,72,355,0.7971830986
+Unknown,Disabled,"New Mexico",32,.,.,.,0.84375
+Unknown,Disabled,"New York",33,800,249,1049,0.7626310772
+Unknown,Disabled,"North Carolina",34,216,70,286,0.7552447552
+Unknown,Disabled,"North Dakota",35,.,.,.,0.8695652174
+Unknown,Disabled,Ohio,36,365,124,489,0.7464212679
+Unknown,Disabled,Oklahoma,37,50,17,67,0.7462686567
+Unknown,Disabled,Oregon,38,72,19,91,0.7912087912
+Unknown,Disabled,Pennsylvania,39,375,100,475,0.7894736842
+Unknown,Disabled,"Rhode Island",41,68,21,89,0.7640449438
+Unknown,Disabled,"South Carolina",42,100,31,131,0.7633587786
+Unknown,Disabled,"South Dakota",43,.,.,.,0.8571428571
+Unknown,Disabled,Tennessee,44,129,45,174,0.7413793103
+Unknown,Disabled,Texas,45,192,59,251,0.764940239
+Unknown,Disabled,Utah,46,.,.,.,0.8837209302
+Unknown,Disabled,Vermont,47,.,.,.,0.8541666667
+Unknown,Disabled,Virginia,49,139,43,182,0.7637362637
+Unknown,Disabled,Washington,50,141,39,180,0.7833333333
+Unknown,Disabled,"West Virginia",51,64,21,85,0.7529411765
+Unknown,Disabled,Wisconsin,52,163,37,200,0.815
+Unknown,Disabled,Wyoming,53,.,.,.,0.9375
+Unknown,ESRD,California,5,.,.,.,0.7777777778
+Unknown,ESRD,Colorado,6,.,0,.,1
+Unknown,ESRD,Connecticut,7,.,0,.,1
+Unknown,ESRD,Florida,10,.,.,.,0.5
+Unknown,ESRD,Hawaii,12,.,.,.,0.5
+Unknown,ESRD,Illinois,14,.,.,.,0.3333333333
+Unknown,ESRD,Indiana,15,.,0,.,1
+Unknown,ESRD,Iowa,16,.,.,.,0.5
+Unknown,ESRD,Maryland,21,.,0,.,1
+Unknown,ESRD,Massachusetts,22,.,0,.,1
+Unknown,ESRD,Michigan,23,.,0,.,1
+Unknown,ESRD,Minnesota,24,.,.,.,0.5
+Unknown,ESRD,"New Hampshire",30,.,0,.,1
+Unknown,ESRD,"New Jersey",31,.,.,.,0.6666666667
+Unknown,ESRD,"New York",33,.,.,.,0.75
+Unknown,ESRD,"North Carolina",34,.,0,.,1
+Unknown,ESRD,Ohio,36,.,0,.,1
+Unknown,ESRD,Oklahoma,37,0,.,.,0
+Unknown,ESRD,Pennsylvania,39,.,.,.,0.6
+Unknown,ESRD,"South Carolina",42,.,0,.,1
+Unknown,ESRD,Tennessee,44,.,.,.,0.6666666667
+Unknown,ESRD,Texas,45,.,.,.,0.5
+Unknown,ESRD,Utah,46,.,0,.,1
+Unknown,"Disabled and ESRD",Florida,10,0,.,.,0
+Unknown,"Disabled and ESRD",Kentucky,18,.,0,.,1
+Unknown,"Disabled and ESRD",Louisiana,19,.,0,.,1
+Unknown,"Disabled and ESRD","New York",33,.,0,.,1
+Unknown,"Disabled and ESRD","North Carolina",34,.,0,.,1
+"Non-Hispanic White",Aged,Alabama,1,136414,24409,160823,0.8482244455
+"Non-Hispanic White",Aged,Alaska,2,14358,2607,16965,0.8463306808
+"Non-Hispanic White",Aged,Arizona,3,170545,29054,199599,0.8544381485
+"Non-Hispanic White",Aged,Arkansas,4,97378,18502,115880,0.8403348291
+"Non-Hispanic White",Aged,California,5,538842,95103,633945,0.849982254
+"Non-Hispanic White",Aged,Colorado,6,105758,17486,123244,0.8581188537
+"Non-Hispanic White",Aged,Connecticut,7,119571,18254,137825,0.8675566842
+"Non-Hispanic White",Aged,Delaware,8,49133,7327,56460,0.8702267092
+"Non-Hispanic White",Aged,"District of Columbia",9,4322,827,5149,0.8393862886
+"Non-Hispanic White",Aged,Florida,10,597717,111964,709681,0.8422333415
+"Non-Hispanic White",Aged,Georgia,11,206482,40072,246554,0.8374717101
+"Non-Hispanic White",Aged,Hawaii,12,8055,1464,9519,0.8462023322
+"Non-Hispanic White",Aged,Idaho,13,44617,7387,52004,0.8579532344
+"Non-Hispanic White",Aged,Illinois,14,417088,64328,481416,0.8663775197
+"Non-Hispanic White",Aged,Indiana,15,248267,39835,288102,0.8617329973
+"Non-Hispanic White",Aged,Iowa,16,156134,19517,175651,0.8888876238
+"Non-Hispanic White",Aged,Kansas,17,112605,16151,128756,0.8745611855
+"Non-Hispanic White",Aged,Kentucky,18,161738,31748,193486,0.8359157769
+"Non-Hispanic White",Aged,Louisiana,19,108953,21348,130301,0.8361639588
+"Non-Hispanic White",Aged,Maine,20,57657,7651,65308,0.8828474306
+"Non-Hispanic White",Aged,Maryland,21,148403,24141,172544,0.8600878616
+"Non-Hispanic White",Aged,Massachusetts,22,258199,37418,295617,0.8734240588
+"Non-Hispanic White",Aged,Michigan,23,313393,53701,367094,0.8537132179
+"Non-Hispanic White",Aged,Minnesota,24,147412,18066,165478,0.8908253665
+"Non-Hispanic White",Aged,Mississippi,25,85247,18892,104139,0.8185886171
+"Non-Hispanic White",Aged,Missouri,26,204136,32347,236483,0.8632163834
+"Non-Hispanic White",Aged,Montana,27,38580,6013,44593,0.8651582087
+"Non-Hispanic White",Aged,Nebraska,28,78926,11024,89950,0.8774430239
+"Non-Hispanic White",Aged,Nevada,29,57524,10878,68402,0.8409695623
+"Non-Hispanic White",Aged,"New Hampshire",30,63244,8624,71868,0.8800022263
+"Non-Hispanic White",Aged,"New Jersey",31,284559,51256,335815,0.8473683427
+"Non-Hispanic White",Aged,"New Mexico",32,31563,5967,37530,0.8410071942
+"Non-Hispanic White",Aged,"New York",33,445603,84182,529785,0.8411015789
+"Non-Hispanic White",Aged,"North Carolina",34,300155,53317,353472,0.849162027
+"Non-Hispanic White",Aged,"North Dakota",35,31388,4173,35561,0.8826523439
+"Non-Hispanic White",Aged,Ohio,36,369572,61546,431118,0.857240941
+"Non-Hispanic White",Aged,Oklahoma,37,114386,20770,135156,0.8463257273
+"Non-Hispanic White",Aged,Oregon,38,98310,15694,114004,0.8623381636
+"Non-Hispanic White",Aged,Pennsylvania,39,410669,62887,473556,0.8672026117
+"Non-Hispanic White",Aged,"Rhode Island",41,31314,4710,36024,0.8692538308
+"Non-Hispanic White",Aged,"South Carolina",42,176075,32917,208992,0.8424963635
+"Non-Hispanic White",Aged,"South Dakota",43,36897,5154,42051,0.8774345438
+"Non-Hispanic White",Aged,Tennessee,44,204303,36561,240864,0.8482089478
+"Non-Hispanic White",Aged,Texas,45,503961,95342,599303,0.8409118593
+"Non-Hispanic White",Aged,Utah,46,51928,9366,61294,0.8471954841
+"Non-Hispanic White",Aged,Vermont,47,31474,4101,35575,0.8847224174
+"Non-Hispanic White",Aged,Virginia,49,224746,37357,262103,0.8574720625
+"Non-Hispanic White",Aged,Washington,50,167826,27641,195467,0.858589941
+"Non-Hispanic White",Aged,"West Virginia",51,70150,12942,83092,0.8442449333
+"Non-Hispanic White",Aged,Wisconsin,52,188396,23038,211434,0.8910392841
+"Non-Hispanic White",Aged,Wyoming,53,19281,3250,22531,0.8557542941
+"Non-Hispanic White",Disabled,Alabama,1,17939,5241,23180,0.7738999137
+"Non-Hispanic White",Disabled,Alaska,2,946,231,1177,0.8037383178
+"Non-Hispanic White",Disabled,Arizona,3,8083,2263,10346,0.7812681229
+"Non-Hispanic White",Disabled,Arkansas,4,14392,4372,18764,0.7670006395
+"Non-Hispanic White",Disabled,California,5,38360,9238,47598,0.805916215
+"Non-Hispanic White",Disabled,Colorado,6,7703,1688,9391,0.8202534341
+"Non-Hispanic White",Disabled,Connecticut,7,8830,1745,10575,0.8349881797
+"Non-Hispanic White",Disabled,Delaware,8,2941,665,3606,0.8155851359
+"Non-Hispanic White",Disabled,"District of Columbia",9,115,25,140,0.8214285714
+"Non-Hispanic White",Disabled,Florida,10,39384,9827,49211,0.800308874
+"Non-Hispanic White",Disabled,Georgia,11,20231,5912,26143,0.7738591592
+"Non-Hispanic White",Disabled,Hawaii,12,553,167,720,0.7680555556
+"Non-Hispanic White",Disabled,Idaho,13,4566,1114,5680,0.8038732394
+"Non-Hispanic White",Disabled,Illinois,14,30233,7108,37341,0.8096462334
+"Non-Hispanic White",Disabled,Indiana,15,27511,6792,34303,0.8019998251
+"Non-Hispanic White",Disabled,Iowa,16,12896,2572,15468,0.8337212309
+"Non-Hispanic White",Disabled,Kansas,17,10116,2104,12220,0.8278232406
+"Non-Hispanic White",Disabled,Kentucky,18,30366,9614,39980,0.7595297649
+"Non-Hispanic White",Disabled,Louisiana,19,12664,3836,16500,0.7675151515
+"Non-Hispanic White",Disabled,Maine,20,9694,1742,11436,0.8476740119
+"Non-Hispanic White",Disabled,Maryland,21,10509,2719,13228,0.7944511642
+"Non-Hispanic White",Disabled,Massachusetts,22,24944,5237,30181,0.8264802359
+"Non-Hispanic White",Disabled,Michigan,23,37605,9365,46970,0.8006174154
+"Non-Hispanic White",Disabled,Minnesota,24,15305,2678,17983,0.851081577
+"Non-Hispanic White",Disabled,Mississippi,25,10896,3529,14425,0.755355286
+"Non-Hispanic White",Disabled,Missouri,26,27977,6805,34782,0.8043528262
+"Non-Hispanic White",Disabled,Montana,27,2882,646,3528,0.816893424
+"Non-Hispanic White",Disabled,Nebraska,28,5440,1042,6482,0.8392471459
+"Non-Hispanic White",Disabled,Nevada,29,3880,1180,5060,0.766798419
+"Non-Hispanic White",Disabled,"New Hampshire",30,5980,1207,7187,0.8320578823
+"Non-Hispanic White",Disabled,"New Jersey",31,15959,3860,19819,0.8052373985
+"Non-Hispanic White",Disabled,"New Mexico",32,2673,768,3441,0.7768090671
+"Non-Hispanic White",Disabled,"New York",33,43344,9993,53337,0.8126441307
+"Non-Hispanic White",Disabled,"North Carolina",34,30407,7459,37866,0.8030158982
+"Non-Hispanic White",Disabled,"North Dakota",35,2000,375,2375,0.8421052632
+"Non-Hispanic White",Disabled,Ohio,36,42528,10734,53262,0.7984679509
+"Non-Hispanic White",Disabled,Oklahoma,37,12326,3667,15993,0.7707121866
+"Non-Hispanic White",Disabled,Oregon,38,10072,2509,12581,0.8005722916
+"Non-Hispanic White",Disabled,Pennsylvania,39,42124,9080,51204,0.8226701039
+"Non-Hispanic White",Disabled,"Rhode Island",41,3786,753,4539,0.8341044283
+"Non-Hispanic White",Disabled,"South Carolina",42,14704,4035,18739,0.7846736752
+"Non-Hispanic White",Disabled,"South Dakota",43,2406,442,2848,0.8448033708
+"Non-Hispanic White",Disabled,Tennessee,44,25921,7244,33165,0.7815769637
+"Non-Hispanic White",Disabled,Texas,45,30939,8787,39726,0.7788098475
+"Non-Hispanic White",Disabled,Utah,46,3860,919,4779,0.8077003557
+"Non-Hispanic White",Disabled,Vermont,47,3306,635,3941,0.8388733824
+"Non-Hispanic White",Disabled,Virginia,49,18294,4591,22885,0.7993882456
+"Non-Hispanic White",Disabled,Washington,50,15887,3694,19581,0.811347735
+"Non-Hispanic White",Disabled,"West Virginia",51,14465,4196,18661,0.7751460265
+"Non-Hispanic White",Disabled,Wisconsin,52,19644,3308,22952,0.8558731265
+"Non-Hispanic White",Disabled,Wyoming,53,1449,343,1792,0.80859375
+"Non-Hispanic White",ESRD,Alabama,1,.,0,.,1
+"Non-Hispanic White",ESRD,Alaska,2,.,.,.,0.5
+"Non-Hispanic White",ESRD,Arizona,3,.,.,.,0.8181818182
+"Non-Hispanic White",ESRD,Arkansas,4,.,.,.,0.8
+"Non-Hispanic White",ESRD,California,5,.,.,.,0.8461538462
+"Non-Hispanic White",ESRD,Colorado,6,.,.,.,0.7777777778
+"Non-Hispanic White",ESRD,Connecticut,7,.,0,.,1
+"Non-Hispanic White",ESRD,Delaware,8,.,0,.,1
+"Non-Hispanic White",ESRD,"District of Columbia",9,.,0,.,1
+"Non-Hispanic White",ESRD,Florida,10,.,.,.,0.9142857143
+"Non-Hispanic White",ESRD,Georgia,11,.,0,.,1
+"Non-Hispanic White",ESRD,Hawaii,12,.,0,.,1
+"Non-Hispanic White",ESRD,Idaho,13,.,.,.,0.6
+"Non-Hispanic White",ESRD,Illinois,14,.,.,.,0.8974358974
+"Non-Hispanic White",ESRD,Indiana,15,.,.,.,0.8571428571
+"Non-Hispanic White",ESRD,Iowa,16,.,.,.,0.7647058824
+"Non-Hispanic White",ESRD,Kansas,17,.,0,.,1
+"Non-Hispanic White",ESRD,Kentucky,18,.,.,.,0.8
+"Non-Hispanic White",ESRD,Louisiana,19,.,.,.,0.5
+"Non-Hispanic White",ESRD,Maine,20,.,0,.,1
+"Non-Hispanic White",ESRD,Maryland,21,.,.,.,0.8
+"Non-Hispanic White",ESRD,Massachusetts,22,.,.,.,0.7368421053
+"Non-Hispanic White",ESRD,Michigan,23,.,.,.,0.7727272727
+"Non-Hispanic White",ESRD,Minnesota,24,.,.,.,0.8181818182
+"Non-Hispanic White",ESRD,Mississippi,25,.,.,.,0.6
+"Non-Hispanic White",ESRD,Missouri,26,.,.,.,0.7619047619
+"Non-Hispanic White",ESRD,Nebraska,28,.,0,.,1
+"Non-Hispanic White",ESRD,Nevada,29,.,.,.,0.5
+"Non-Hispanic White",ESRD,"New Hampshire",30,.,0,.,1
+"Non-Hispanic White",ESRD,"New Jersey",31,.,.,.,0.9285714286
+"Non-Hispanic White",ESRD,"New Mexico",32,.,0,.,1
+"Non-Hispanic White",ESRD,"New York",33,.,.,.,0.8444444444
+"Non-Hispanic White",ESRD,"North Carolina",34,.,.,.,0.875
+"Non-Hispanic White",ESRD,"North Dakota",35,.,0,.,1
+"Non-Hispanic White",ESRD,Ohio,36,41,11,52,0.7884615385
+"Non-Hispanic White",ESRD,Oklahoma,37,12,0,12,1
+"Non-Hispanic White",ESRD,Oregon,38,.,.,.,0.5454545455
+"Non-Hispanic White",ESRD,Pennsylvania,39,.,.,.,0.7954545455
+"Non-Hispanic White",ESRD,"Rhode Island",41,.,.,.,0.8333333333
+"Non-Hispanic White",ESRD,"South Carolina",42,.,.,.,0.9090909091
+"Non-Hispanic White",ESRD,"South Dakota",43,.,0,.,1
+"Non-Hispanic White",ESRD,Tennessee,44,.,.,.,0.7647058824
+"Non-Hispanic White",ESRD,Texas,45,53,14,67,0.7910447761
+"Non-Hispanic White",ESRD,Utah,46,.,.,.,0.7777777778
+"Non-Hispanic White",ESRD,Vermont,47,.,0,.,1
+"Non-Hispanic White",ESRD,Virginia,49,.,.,.,0.5833333333
+"Non-Hispanic White",ESRD,Washington,50,.,.,.,0.875
+"Non-Hispanic White",ESRD,"West Virginia",51,.,0,.,1
+"Non-Hispanic White",ESRD,Wisconsin,52,.,.,.,0.7307692308
+"Non-Hispanic White",ESRD,Wyoming,53,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Alabama,1,.,.,.,0.652173913
+"Non-Hispanic White","Disabled and ESRD",Arizona,3,.,.,.,0.75
+"Non-Hispanic White","Disabled and ESRD",Arkansas,4,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",California,5,.,.,.,0.7777777778
+"Non-Hispanic White","Disabled and ESRD",Colorado,6,0,.,.,0
+"Non-Hispanic White","Disabled and ESRD",Connecticut,7,.,.,.,0.8333333333
+"Non-Hispanic White","Disabled and ESRD",Florida,10,.,.,.,0.7857142857
+"Non-Hispanic White","Disabled and ESRD",Georgia,11,.,.,.,0.7419354839
+"Non-Hispanic White","Disabled and ESRD",Idaho,13,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Illinois,14,.,.,.,0.7931034483
+"Non-Hispanic White","Disabled and ESRD",Indiana,15,.,.,.,0.8518518519
+"Non-Hispanic White","Disabled and ESRD",Iowa,16,.,.,.,0.9411764706
+"Non-Hispanic White","Disabled and ESRD",Kansas,17,.,.,.,0.8888888889
+"Non-Hispanic White","Disabled and ESRD",Kentucky,18,19,12,31,0.6129032258
+"Non-Hispanic White","Disabled and ESRD",Louisiana,19,.,.,.,0.7142857143
+"Non-Hispanic White","Disabled and ESRD",Maine,20,.,.,.,0.6666666667
+"Non-Hispanic White","Disabled and ESRD",Maryland,21,.,.,.,0.3333333333
+"Non-Hispanic White","Disabled and ESRD",Massachusetts,22,.,.,.,0.6363636364
+"Non-Hispanic White","Disabled and ESRD",Michigan,23,.,.,.,0.84
+"Non-Hispanic White","Disabled and ESRD",Minnesota,24,.,.,.,0.9333333333
+"Non-Hispanic White","Disabled and ESRD",Mississippi,25,.,.,.,0.7333333333
+"Non-Hispanic White","Disabled and ESRD",Missouri,26,31,15,46,0.6739130435
+"Non-Hispanic White","Disabled and ESRD",Montana,27,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Nebraska,28,.,.,.,0.7142857143
+"Non-Hispanic White","Disabled and ESRD","New Jersey",31,.,.,.,0.8571428571
+"Non-Hispanic White","Disabled and ESRD","New Mexico",32,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD","New York",33,.,.,.,0.6666666667
+"Non-Hispanic White","Disabled and ESRD","North Carolina",34,.,.,.,0.724137931
+"Non-Hispanic White","Disabled and ESRD","North Dakota",35,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Ohio,36,42,12,54,0.7777777778
+"Non-Hispanic White","Disabled and ESRD",Oklahoma,37,.,.,.,0.8888888889
+"Non-Hispanic White","Disabled and ESRD",Oregon,38,.,.,.,0.625
+"Non-Hispanic White","Disabled and ESRD",Pennsylvania,39,46,11,57,0.8070175439
+"Non-Hispanic White","Disabled and ESRD","Rhode Island",41,.,.,.,0.6666666667
+"Non-Hispanic White","Disabled and ESRD","South Carolina",42,.,.,.,0.8421052632
+"Non-Hispanic White","Disabled and ESRD",Tennessee,44,35,15,50,0.7
+"Non-Hispanic White","Disabled and ESRD",Texas,45,20,14,34,0.5882352941
+"Non-Hispanic White","Disabled and ESRD",Utah,46,.,.,.,0.75
+"Non-Hispanic White","Disabled and ESRD",Vermont,47,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Virginia,49,.,.,.,0.7391304348
+"Non-Hispanic White","Disabled and ESRD",Washington,50,.,.,.,0.9333333333
+"Non-Hispanic White","Disabled and ESRD","West Virginia",51,.,.,.,0.8666666667
+"Non-Hispanic White","Disabled and ESRD",Wisconsin,52,.,.,.,0.7368421053
+"Black or African-American",Aged,Alabama,1,30046,8426,38472,0.7809835725
+"Black or African-American",Aged,Alaska,2,302,88,390,0.7743589744
+"Black or African-American",Aged,Arizona,3,3756,972,4728,0.7944162437
+"Black or African-American",Aged,Arkansas,4,10012,3323,13335,0.7508061492
+"Black or African-American",Aged,California,5,33366,9661,43027,0.7754665675
+"Black or African-American",Aged,Colorado,6,2108,542,2650,0.7954716981
+"Black or African-American",Aged,Connecticut,7,8356,2048,10404,0.8031526336
+"Black or African-American",Aged,Delaware,8,6996,1817,8813,0.7938273006
+"Black or African-American",Aged,"District of Columbia",9,7300,2280,9580,0.7620041754
+"Black or African-American",Aged,Florida,10,46221,14656,60877,0.7592522628
+"Black or African-American",Aged,Georgia,11,50971,15634,66605,0.7652728774
+"Black or African-American",Aged,Hawaii,12,189,45,234,0.8076923077
+"Black or African-American",Aged,Idaho,13,95,19,114,0.8333333333
+"Black or African-American",Aged,Illinois,14,44499,13990,58489,0.7608097249
+"Black or African-American",Aged,Indiana,15,13553,3912,17465,0.7760091612
+"Black or African-American",Aged,Iowa,16,1655,426,2081,0.7952907256
+"Black or African-American",Aged,Kansas,17,3406,834,4240,0.8033018868
+"Black or African-American",Aged,Kentucky,18,7400,2148,9548,0.7750314202
+"Black or African-American",Aged,Louisiana,19,33228,11366,44594,0.7451226622
+"Black or African-American",Aged,Maine,20,161,36,197,0.8172588832
+"Black or African-American",Aged,Maryland,21,40407,11767,52174,0.7744662092
+"Black or African-American",Aged,Massachusetts,22,11309,2953,14262,0.7929462908
+"Black or African-American",Aged,Michigan,23,33997,11569,45566,0.7461045516
+"Black or African-American",Aged,Minnesota,24,3007,979,3986,0.7543903663
+"Black or African-American",Aged,Mississippi,25,31123,10788,41911,0.7425974088
+"Black or African-American",Aged,Missouri,26,13270,3837,17107,0.7757058514
+"Black or African-American",Aged,Montana,27,55,14,69,0.7971014493
+"Black or African-American",Aged,Nebraska,28,1377,322,1699,0.810476751
+"Black or African-American",Aged,Nevada,29,4225,1349,5574,0.7579834948
+"Black or African-American",Aged,"New Hampshire",30,281,78,359,0.782729805
+"Black or African-American",Aged,"New Jersey",31,26787,8692,35479,0.7550100059
+"Black or African-American",Aged,"New Mexico",32,589,155,744,0.7916666667
+"Black or African-American",Aged,"New York",33,47087,16786,63873,0.7371972508
+"Black or African-American",Aged,"North Carolina",34,60482,17388,77870,0.7767047644
+"Black or African-American",Aged,"North Dakota",35,58,16,74,0.7837837838
+"Black or African-American",Aged,Ohio,36,29830,8553,38383,0.777166975
+"Black or African-American",Aged,Oklahoma,37,5093,1538,6631,0.7680591163
+"Black or African-American",Aged,Oregon,38,894,259,1153,0.7753686036
+"Black or African-American",Aged,Pennsylvania,39,24532,7139,31671,0.7745887405
+"Black or African-American",Aged,"Rhode Island",41,1011,245,1256,0.8049363057
+"Black or African-American",Aged,"South Carolina",42,37406,12256,49662,0.7532117112
+"Black or African-American",Aged,"South Dakota",43,73,32,105,0.6952380952
+"Black or African-American",Aged,Tennessee,44,21140,6416,27556,0.7671650457
+"Black or African-American",Aged,Texas,45,53541,16818,70359,0.760968746
+"Black or African-American",Aged,Utah,46,190,56,246,0.7723577236
+"Black or African-American",Aged,Vermont,47,78,23,101,0.7722772277
+"Black or African-American",Aged,Virginia,49,40094,10802,50896,0.787763282
+"Black or African-American",Aged,Washington,50,3395,942,4337,0.7827991699
+"Black or African-American",Aged,"West Virginia",51,1555,461,2016,0.7713293651
+"Black or African-American",Aged,Wisconsin,52,6276,1547,7823,0.8022497763
+"Black or African-American",Aged,Wyoming,53,67,15,82,0.8170731707
+"Black or African-American",Disabled,Alabama,1,10226,4024,14250,0.7176140351
+"Black or African-American",Disabled,Alaska,2,72,36,108,0.6666666667
+"Black or African-American",Disabled,Arizona,3,890,407,1297,0.6861989206
+"Black or African-American",Disabled,Arkansas,4,3771,1835,5606,0.672672137
+"Black or African-American",Disabled,California,5,10033,3705,13738,0.7303100888
+"Black or African-American",Disabled,Colorado,6,755,263,1018,0.7416502947
+"Black or African-American",Disabled,Connecticut,7,1999,606,2605,0.7673704415
+"Black or African-American",Disabled,Delaware,8,1482,477,1959,0.7565084227
+"Black or African-American",Disabled,"District of Columbia",9,2026,835,2861,0.7081440056
+"Black or African-American",Disabled,Florida,10,12588,4598,17186,0.7324566508
+"Black or African-American",Disabled,Georgia,11,14124,5810,19934,0.708538176
+"Black or African-American",Disabled,Hawaii,12,.,.,.,0.756097561
+"Black or African-American",Disabled,Idaho,13,31,14,45,0.6888888889
+"Black or African-American",Disabled,Illinois,14,10389,4500,14889,0.6977634495
+"Black or African-American",Disabled,Indiana,15,4428,1703,6131,0.7222312836
+"Black or African-American",Disabled,Iowa,16,722,288,1010,0.7148514851
+"Black or African-American",Disabled,Kansas,17,1220,390,1610,0.7577639752
+"Black or African-American",Disabled,Kentucky,18,2671,1191,3862,0.6916105645
+"Black or African-American",Disabled,Louisiana,19,10207,4603,14810,0.6891964889
+"Black or African-American",Disabled,Maine,20,88,25,113,0.7787610619
+"Black or African-American",Disabled,Maryland,21,7874,3158,11032,0.7137418419
+"Black or African-American",Disabled,Massachusetts,22,2927,1099,4026,0.7270243418
+"Black or African-American",Disabled,Michigan,23,10816,4751,15567,0.6948031091
+"Black or African-American",Disabled,Minnesota,24,1875,723,2598,0.7217090069
+"Black or African-American",Disabled,Mississippi,25,9409,4439,13848,0.6794482958
+"Black or African-American",Disabled,Missouri,26,5077,1890,6967,0.7287211138
+"Black or African-American",Disabled,Montana,27,.,.,.,0.7407407407
+"Black or African-American",Disabled,Nebraska,28,563,209,772,0.7292746114
+"Black or African-American",Disabled,Nevada,29,1161,592,1753,0.6622932116
+"Black or African-American",Disabled,"New Hampshire",30,74,35,109,0.6788990826
+"Black or African-American",Disabled,"New Jersey",31,5806,2080,7886,0.7362414405
+"Black or African-American",Disabled,"New Mexico",32,189,79,268,0.7052238806
+"Black or African-American",Disabled,"New York",33,11227,4583,15810,0.7101201771
+"Black or African-American",Disabled,"North Carolina",34,16448,6521,22969,0.7160956071
+"Black or African-American",Disabled,"North Dakota",35,45,23,68,0.6617647059
+"Black or African-American",Disabled,Ohio,36,9130,3676,12806,0.7129470561
+"Black or African-American",Disabled,Oklahoma,37,1904,804,2708,0.7031019202
+"Black or African-American",Disabled,Oregon,38,350,139,489,0.7157464213
+"Black or African-American",Disabled,Pennsylvania,39,8414,3086,11500,0.7316521739
+"Black or African-American",Disabled,"Rhode Island",41,373,108,481,0.7754677755
+"Black or African-American",Disabled,"South Carolina",42,9305,3737,13042,0.7134641926
+"Black or African-American",Disabled,"South Dakota",43,45,18,63,0.7142857143
+"Black or African-American",Disabled,Tennessee,44,5642,2363,8005,0.7048094941
+"Black or African-American",Disabled,Texas,45,14687,6145,20832,0.7050211214
+"Black or African-American",Disabled,Utah,46,76,39,115,0.6608695652
+"Black or African-American",Disabled,Vermont,47,.,.,.,0.9111111111
+"Black or African-American",Disabled,Virginia,49,8873,3192,12065,0.7354330709
+"Black or African-American",Disabled,Washington,50,1279,450,1729,0.7397339503
+"Black or African-American",Disabled,"West Virginia",51,510,201,711,0.7172995781
+"Black or African-American",Disabled,Wisconsin,52,2607,874,3481,0.7489227234
+"Black or African-American",Disabled,Wyoming,53,25,11,36,0.6944444444
+"Black or African-American",ESRD,Alabama,1,.,0,.,1
+"Black or African-American",ESRD,Arizona,3,.,.,.,0.6666666667
+"Black or African-American",ESRD,Arkansas,4,.,.,.,0.75
+"Black or African-American",ESRD,California,5,.,.,.,0.71875
+"Black or African-American",ESRD,Colorado,6,.,.,.,0.5
+"Black or African-American",ESRD,Connecticut,7,.,0,.,1
+"Black or African-American",ESRD,Delaware,8,.,.,.,0.6666666667
+"Black or African-American",ESRD,"District of Columbia",9,.,.,.,0.3333333333
+"Black or African-American",ESRD,Florida,10,32,13,45,0.7111111111
+"Black or African-American",ESRD,Georgia,11,.,.,.,0.75
+"Black or African-American",ESRD,Illinois,14,.,.,.,0.7352941176
+"Black or African-American",ESRD,Indiana,15,.,.,.,0.5
+"Black or African-American",ESRD,Kansas,17,.,0,.,1
+"Black or African-American",ESRD,Kentucky,18,.,.,.,0.5
+"Black or African-American",ESRD,Louisiana,19,.,.,.,0.8
+"Black or African-American",ESRD,Maryland,21,19,0,19,1
+"Black or African-American",ESRD,Massachusetts,22,.,0,.,1
+"Black or African-American",ESRD,Michigan,23,30,12,42,0.7142857143
+"Black or African-American",ESRD,Minnesota,24,.,.,.,0.3333333333
+"Black or African-American",ESRD,Mississippi,25,.,.,.,0.875
+"Black or African-American",ESRD,Missouri,26,.,.,.,0.8333333333
+"Black or African-American",ESRD,Nebraska,28,.,.,.,0.6666666667
+"Black or African-American",ESRD,Nevada,29,.,0,.,1
+"Black or African-American",ESRD,"New Jersey",31,.,.,.,0.7857142857
+"Black or African-American",ESRD,"New York",33,.,.,.,0.8888888889
+"Black or African-American",ESRD,"North Carolina",34,.,.,.,0.8125
+"Black or African-American",ESRD,Ohio,36,50,25,75,0.6666666667
+"Black or African-American",ESRD,Oklahoma,37,.,.,.,0.875
+"Black or African-American",ESRD,Pennsylvania,39,.,.,.,0.68
+"Black or African-American",ESRD,"Rhode Island",41,.,.,.,0.6666666667
+"Black or African-American",ESRD,"South Carolina",42,.,0,.,1
+"Black or African-American",ESRD,Tennessee,44,.,.,.,0.72
+"Black or African-American",ESRD,Texas,45,47,22,69,0.6811594203
+"Black or African-American",ESRD,Virginia,49,.,.,.,0.9130434783
+"Black or African-American",ESRD,Washington,50,.,.,.,0.5
+"Black or African-American",ESRD,"West Virginia",51,.,0,.,1
+"Black or African-American",ESRD,Wisconsin,52,.,.,.,0.8571428571
+"Black or African-American","Disabled and ESRD",Alabama,1,32,20,52,0.6153846154
+"Black or African-American","Disabled and ESRD",Arizona,3,.,.,.,0.6666666667
+"Black or African-American","Disabled and ESRD",Arkansas,4,.,.,.,0.8421052632
+"Black or African-American","Disabled and ESRD",California,5,.,.,.,0.8461538462
+"Black or African-American","Disabled and ESRD",Colorado,6,0,.,.,0
+"Black or African-American","Disabled and ESRD",Connecticut,7,.,.,.,0.625
+"Black or African-American","Disabled and ESRD",Delaware,8,0,.,.,0
+"Black or African-American","Disabled and ESRD",Florida,10,26,12,38,0.6842105263
+"Black or African-American","Disabled and ESRD",Georgia,11,38,20,58,0.6551724138
+"Black or African-American","Disabled and ESRD",Idaho,13,.,0,.,1
+"Black or African-American","Disabled and ESRD",Illinois,14,.,.,.,0.9230769231
+"Black or African-American","Disabled and ESRD",Indiana,15,.,.,.,0.5555555556
+"Black or African-American","Disabled and ESRD",Iowa,16,.,0,.,1
+"Black or African-American","Disabled and ESRD",Kansas,17,.,.,.,0.6666666667
+"Black or African-American","Disabled and ESRD",Kentucky,18,.,.,.,0.375
+"Black or African-American","Disabled and ESRD",Louisiana,19,.,.,.,0.7272727273
+"Black or African-American","Disabled and ESRD",Maryland,21,.,0,.,1
+"Black or African-American","Disabled and ESRD",Massachusetts,22,.,.,.,0.8571428571
+"Black or African-American","Disabled and ESRD",Michigan,23,.,.,.,0.7826086957
+"Black or African-American","Disabled and ESRD",Minnesota,24,.,0,.,1
+"Black or African-American","Disabled and ESRD",Mississippi,25,.,.,.,0.7916666667
+"Black or African-American","Disabled and ESRD",Missouri,26,.,.,.,0.5
+"Black or African-American","Disabled and ESRD",Nebraska,28,.,.,.,0.75
+"Black or African-American","Disabled and ESRD",Nevada,29,0,.,.,0
+"Black or African-American","Disabled and ESRD","New Jersey",31,.,.,.,0.8125
+"Black or African-American","Disabled and ESRD","New York",33,.,.,.,0.9166666667
+"Black or African-American","Disabled and ESRD","North Carolina",34,40,15,55,0.7272727273
+"Black or African-American","Disabled and ESRD",Ohio,36,52,25,77,0.6753246753
+"Black or African-American","Disabled and ESRD",Oklahoma,37,.,.,.,0.5
+"Black or African-American","Disabled and ESRD",Pennsylvania,39,.,.,.,0.5652173913
+"Black or African-American","Disabled and ESRD","Rhode Island",41,.,0,.,1
+"Black or African-American","Disabled and ESRD","South Carolina",42,36,18,54,0.6666666667
+"Black or African-American","Disabled and ESRD",Tennessee,44,16,14,30,0.5333333333
+"Black or African-American","Disabled and ESRD",Texas,45,29,17,46,0.6304347826
+"Black or African-American","Disabled and ESRD",Virginia,49,.,.,.,0.7272727273
+"Black or African-American","Disabled and ESRD","West Virginia",51,0,.,.,0
+"Black or African-American","Disabled and ESRD",Wisconsin,52,.,0,.,1
+Other,Aged,Alabama,1,437,91,528,0.8276515152
+Other,Aged,Alaska,2,251,59,310,0.8096774194
+Other,Aged,Arizona,3,1419,312,1731,0.8197573657
+Other,Aged,Arkansas,4,278,64,342,0.8128654971
+Other,Aged,California,5,17694,3229,20923,0.8456722267
+Other,Aged,Colorado,6,781,127,908,0.8601321586
+Other,Aged,Connecticut,7,1170,215,1385,0.844765343
+Other,Aged,Delaware,8,403,48,451,0.8935698448
+Other,Aged,"District of Columbia",9,135,22,157,0.8598726115
+Other,Aged,Florida,10,5187,1101,6288,0.8249045802
+Other,Aged,Georgia,11,1369,297,1666,0.8217286915
+Other,Aged,Hawaii,12,4729,732,5461,0.8659586156
+Other,Aged,Idaho,13,275,58,333,0.8258258258
+Other,Aged,Illinois,14,4421,929,5350,0.8263551402
+Other,Aged,Indiana,15,1006,195,1201,0.8376353039
+Other,Aged,Iowa,16,518,78,596,0.8691275168
+Other,Aged,Kansas,17,510,73,583,0.8747855918
+Other,Aged,Kentucky,18,497,89,586,0.8481228669
+Other,Aged,Louisiana,19,573,140,713,0.8036465638
+Other,Aged,Maine,20,282,39,321,0.8785046729
+Other,Aged,Maryland,21,1950,452,2402,0.8118234804
+Other,Aged,Massachusetts,22,3107,534,3641,0.8533369953
+Other,Aged,Michigan,23,2857,602,3459,0.8259612605
+Other,Aged,Minnesota,24,959,158,1117,0.8585496867
+Other,Aged,Mississippi,25,231,42,273,0.8461538462
+Other,Aged,Missouri,26,809,125,934,0.8661670236
+Other,Aged,Montana,27,178,35,213,0.8356807512
+Other,Aged,Nebraska,28,286,47,333,0.8588588589
+Other,Aged,Nevada,29,1379,286,1665,0.8282282282
+Other,Aged,"New Hampshire",30,327,51,378,0.8650793651
+Other,Aged,"New Jersey",31,4088,944,5032,0.8124006359
+Other,Aged,"New Mexico",32,297,69,366,0.8114754098
+Other,Aged,"New York",33,8212,2066,10278,0.79898813
+Other,Aged,"North Carolina",34,2557,527,3084,0.8291180285
+Other,Aged,"North Dakota",35,127,23,150,0.8466666667
+Other,Aged,Ohio,36,2070,442,2512,0.824044586
+Other,Aged,Oklahoma,37,539,112,651,0.8279569892
+Other,Aged,Oregon,38,846,141,987,0.8571428571
+Other,Aged,Pennsylvania,39,2262,418,2680,0.8440298507
+Other,Aged,"Rhode Island",41,395,68,463,0.8531317495
+Other,Aged,"South Carolina",42,761,131,892,0.8531390135
+Other,Aged,"South Dakota",43,115,25,140,0.8214285714
+Other,Aged,Tennessee,44,733,159,892,0.8217488789
+Other,Aged,Texas,45,4297,947,5244,0.8194126621
+Other,Aged,Utah,46,393,79,472,0.8326271186
+Other,Aged,Vermont,47,186,34,220,0.8454545455
+Other,Aged,Virginia,49,2202,438,2640,0.8340909091
+Other,Aged,Washington,50,2167,425,2592,0.8360339506
+Other,Aged,"West Virginia",51,237,44,281,0.8434163701
+Other,Aged,Wisconsin,52,869,118,987,0.8804457953
+Other,Aged,Wyoming,53,79,14,93,0.8494623656
+Other,Disabled,Alabama,1,58,15,73,0.7945205479
+Other,Disabled,Alaska,2,.,.,.,0.7647058824
+Other,Disabled,Arizona,3,79,22,101,0.7821782178
+Other,Disabled,Arkansas,4,.,.,.,0.8823529412
+Other,Disabled,California,5,768,167,935,0.8213903743
+Other,Disabled,Colorado,6,.,.,.,0.8591549296
+Other,Disabled,Connecticut,7,122,19,141,0.865248227
+Other,Disabled,Delaware,8,.,.,.,0.7586206897
+Other,Disabled,"District of Columbia",9,.,.,.,0.75
+Other,Disabled,Florida,10,345,81,426,0.8098591549
+Other,Disabled,Georgia,11,87,30,117,0.7435897436
+Other,Disabled,Hawaii,12,176,44,220,0.8
+Other,Disabled,Idaho,13,.,.,.,0.7142857143
+Other,Disabled,Illinois,14,231,45,276,0.8369565217
+Other,Disabled,Indiana,15,107,21,128,0.8359375
+Other,Disabled,Iowa,16,.,.,.,0.9166666667
+Other,Disabled,Kansas,17,.,.,.,0.8333333333
+Other,Disabled,Kentucky,18,61,14,75,0.8133333333
+Other,Disabled,Louisiana,19,66,12,78,0.8461538462
+Other,Disabled,Maine,20,52,15,67,0.776119403
+Other,Disabled,Maryland,21,77,22,99,0.7777777778
+Other,Disabled,Massachusetts,22,367,89,456,0.8048245614
+Other,Disabled,Michigan,23,274,58,332,0.8253012048
+Other,Disabled,Minnesota,24,154,27,181,0.8508287293
+Other,Disabled,Mississippi,25,.,.,.,0.84375
+Other,Disabled,Missouri,26,101,17,118,0.8559322034
+Other,Disabled,Montana,27,.,.,.,0.8387096774
+Other,Disabled,Nebraska,28,.,.,.,0.8571428571
+Other,Disabled,Nevada,29,53,11,64,0.828125
+Other,Disabled,"New Hampshire",30,.,.,.,0.9318181818
+Other,Disabled,"New Jersey",31,161,57,218,0.7385321101
+Other,Disabled,"New Mexico",32,.,.,.,0.8139534884
+Other,Disabled,"New York",33,639,174,813,0.7859778598
+Other,Disabled,"North Carolina",34,282,73,355,0.7943661972
+Other,Disabled,"North Dakota",35,.,.,.,0.9230769231
+Other,Disabled,Ohio,36,222,59,281,0.7900355872
+Other,Disabled,Oklahoma,37,64,13,77,0.8311688312
+Other,Disabled,Oregon,38,75,19,94,0.7978723404
+Other,Disabled,Pennsylvania,39,214,57,271,0.7896678967
+Other,Disabled,"Rhode Island",41,67,20,87,0.7701149425
+Other,Disabled,"South Carolina",42,47,17,64,0.734375
+Other,Disabled,"South Dakota",43,.,.,.,0.8461538462
+Other,Disabled,Tennessee,44,94,30,124,0.7580645161
+Other,Disabled,Texas,45,205,52,257,0.7976653696
+Other,Disabled,Utah,46,.,.,.,0.75
+Other,Disabled,Vermont,47,.,.,.,0.8846153846
+Other,Disabled,Virginia,49,107,24,131,0.8167938931
+Other,Disabled,Washington,50,134,33,167,0.8023952096
+Other,Disabled,"West Virginia",51,.,.,.,0.8260869565
+Other,Disabled,Wisconsin,52,103,14,117,0.8803418803
+Other,Disabled,Wyoming,53,.,0,.,1
+Other,ESRD,Arizona,3,.,0,.,1
+Other,ESRD,California,5,.,.,.,0.5
+Other,ESRD,Hawaii,12,.,0,.,1
+Other,ESRD,Illinois,14,.,0,.,1
+Other,ESRD,Indiana,15,.,0,.,1
+Other,ESRD,"New Jersey",31,0,.,.,0
+Other,ESRD,"New York",33,.,0,.,1
+Other,ESRD,Pennsylvania,39,.,0,.,1
+Other,ESRD,Texas,45,.,0,.,1
+Other,ESRD,Virginia,49,.,0,.,1
+Other,"Disabled and ESRD",Arizona,3,.,0,.,1
+Other,"Disabled and ESRD",California,5,.,0,.,1
+Other,"Disabled and ESRD",Hawaii,12,.,0,.,1
+Other,"Disabled and ESRD",Illinois,14,.,0,.,1
+Other,"Disabled and ESRD",Indiana,15,0,.,.,0
+Other,"Disabled and ESRD",Iowa,16,.,0,.,1
+Other,"Disabled and ESRD",Kansas,17,.,0,.,1
+Other,"Disabled and ESRD",Montana,27,.,0,.,1
+"Asian/Pacific Islander",Aged,Alabama,1,864,193,1057,0.8174077578
+"Asian/Pacific Islander",Aged,Alaska,2,961,244,1205,0.7975103734
+"Asian/Pacific Islander",Aged,Arizona,3,3344,709,4053,0.825067851
+"Asian/Pacific Islander",Aged,Arkansas,4,615,167,782,0.7864450128
+"Asian/Pacific Islander",Aged,California,5,147589,28401,175990,0.8386215126
+"Asian/Pacific Islander",Aged,Colorado,6,2027,406,2433,0.8331278257
+"Asian/Pacific Islander",Aged,Connecticut,7,2681,528,3209,0.835462761
+"Asian/Pacific Islander",Aged,Delaware,8,972,170,1142,0.8511383538
+"Asian/Pacific Islander",Aged,"District of Columbia",9,364,58,422,0.8625592417
+"Asian/Pacific Islander",Aged,Florida,10,10795,2515,13310,0.8110443276
+"Asian/Pacific Islander",Aged,Georgia,11,6066,1288,7354,0.8248572206
+"Asian/Pacific Islander",Aged,Hawaii,12,19952,3290,23242,0.8584459169
+"Asian/Pacific Islander",Aged,Idaho,13,418,69,487,0.8583162218
+"Asian/Pacific Islander",Aged,Illinois,14,16198,3105,19303,0.8391441745
+"Asian/Pacific Islander",Aged,Indiana,15,1783,398,2181,0.8175149014
+"Asian/Pacific Islander",Aged,Iowa,16,1061,194,1255,0.8454183267
+"Asian/Pacific Islander",Aged,Kansas,17,1293,252,1545,0.8368932039
+"Asian/Pacific Islander",Aged,Kentucky,18,755,210,965,0.7823834197
+"Asian/Pacific Islander",Aged,Louisiana,19,1693,403,2096,0.8077290076
+"Asian/Pacific Islander",Aged,Maine,20,297,54,351,0.8461538462
+"Asian/Pacific Islander",Aged,Maryland,21,10131,2123,12254,0.8267504488
+"Asian/Pacific Islander",Aged,Massachusetts,22,9126,1484,10610,0.860131951
+"Asian/Pacific Islander",Aged,Michigan,23,5530,1301,6831,0.8095447226
+"Asian/Pacific Islander",Aged,Minnesota,24,2501,581,3082,0.811486048
+"Asian/Pacific Islander",Aged,Mississippi,25,600,165,765,0.7843137255
+"Asian/Pacific Islander",Aged,Missouri,26,1703,372,2075,0.8207228916
+"Asian/Pacific Islander",Aged,Montana,27,142,19,161,0.8819875776
+"Asian/Pacific Islander",Aged,Nebraska,28,555,80,635,0.874015748
+"Asian/Pacific Islander",Aged,Nevada,29,5413,1186,6599,0.8202757994
+"Asian/Pacific Islander",Aged,"New Hampshire",30,410,76,486,0.8436213992
+"Asian/Pacific Islander",Aged,"New Jersey",31,18198,3864,22062,0.8248572206
+"Asian/Pacific Islander",Aged,"New Mexico",32,470,85,555,0.8468468468
+"Asian/Pacific Islander",Aged,"New York",33,32961,6732,39693,0.830398307
+"Asian/Pacific Islander",Aged,"North Carolina",34,4258,909,5167,0.8240758661
+"Asian/Pacific Islander",Aged,"North Dakota",35,92,20,112,0.8214285714
+"Asian/Pacific Islander",Aged,Ohio,36,4037,875,4912,0.8218648208
+"Asian/Pacific Islander",Aged,Oklahoma,37,1321,304,1625,0.8129230769
+"Asian/Pacific Islander",Aged,Oregon,38,2804,515,3319,0.844832781
+"Asian/Pacific Islander",Aged,Pennsylvania,39,8628,1648,10276,0.8396263137
+"Asian/Pacific Islander",Aged,"Rhode Island",41,592,109,701,0.8445078459
+"Asian/Pacific Islander",Aged,"South Carolina",42,1447,320,1767,0.8189020939
+"Asian/Pacific Islander",Aged,"South Dakota",43,147,28,175,0.84
+"Asian/Pacific Islander",Aged,Tennessee,44,1743,374,2117,0.8233349079
+"Asian/Pacific Islander",Aged,Texas,45,24620,5414,30034,0.8197376307
+"Asian/Pacific Islander",Aged,Utah,46,1006,257,1263,0.7965162312
+"Asian/Pacific Islander",Aged,Vermont,47,185,31,216,0.8564814815
+"Asian/Pacific Islander",Aged,Virginia,49,10654,2173,12827,0.8305917206
+"Asian/Pacific Islander",Aged,Washington,50,13370,2300,15670,0.8532227186
+"Asian/Pacific Islander",Aged,"West Virginia",51,259,55,314,0.8248407643
+"Asian/Pacific Islander",Aged,Wisconsin,52,1875,454,2329,0.8050665522
+"Asian/Pacific Islander",Aged,Wyoming,53,69,17,86,0.8023255814
+"Asian/Pacific Islander",Disabled,Alabama,1,62,27,89,0.6966292135
+"Asian/Pacific Islander",Disabled,Alaska,2,107,28,135,0.7925925926
+"Asian/Pacific Islander",Disabled,Arizona,3,220,40,260,0.8461538462
+"Asian/Pacific Islander",Disabled,Arkansas,4,86,37,123,0.6991869919
+"Asian/Pacific Islander",Disabled,California,5,7156,1798,8954,0.7991958901
+"Asian/Pacific Islander",Disabled,Colorado,6,169,45,214,0.7897196262
+"Asian/Pacific Islander",Disabled,Connecticut,7,203,34,237,0.8565400844
+"Asian/Pacific Islander",Disabled,Delaware,8,.,.,.,0.8524590164
+"Asian/Pacific Islander",Disabled,"District of Columbia",9,.,.,.,0.6666666667
+"Asian/Pacific Islander",Disabled,Florida,10,700,191,891,0.785634119
+"Asian/Pacific Islander",Disabled,Georgia,11,308,87,395,0.7797468354
+"Asian/Pacific Islander",Disabled,Hawaii,12,1116,278,1394,0.8005738881
+"Asian/Pacific Islander",Disabled,Idaho,13,57,13,70,0.8142857143
+"Asian/Pacific Islander",Disabled,Illinois,14,788,197,985,0.8
+"Asian/Pacific Islander",Disabled,Indiana,15,147,42,189,0.7777777778
+"Asian/Pacific Islander",Disabled,Iowa,16,107,25,132,0.8106060606
+"Asian/Pacific Islander",Disabled,Kansas,17,102,20,122,0.8360655738
+"Asian/Pacific Islander",Disabled,Kentucky,18,69,24,93,0.7419354839
+"Asian/Pacific Islander",Disabled,Louisiana,19,150,52,202,0.7425742574
+"Asian/Pacific Islander",Disabled,Maine,20,.,.,.,0.8769230769
+"Asian/Pacific Islander",Disabled,Maryland,21,329,78,407,0.8083538084
+"Asian/Pacific Islander",Disabled,Massachusetts,22,808,208,1016,0.7952755906
+"Asian/Pacific Islander",Disabled,Michigan,23,539,149,688,0.7834302326
+"Asian/Pacific Islander",Disabled,Minnesota,24,732,210,942,0.7770700637
+"Asian/Pacific Islander",Disabled,Mississippi,25,46,17,63,0.7301587302
+"Asian/Pacific Islander",Disabled,Missouri,26,163,42,205,0.7951219512
+"Asian/Pacific Islander",Disabled,Montana,27,.,.,.,0.7857142857
+"Asian/Pacific Islander",Disabled,Nebraska,28,73,17,90,0.8111111111
+"Asian/Pacific Islander",Disabled,Nevada,29,320,109,429,0.7459207459
+"Asian/Pacific Islander",Disabled,"New Hampshire",30,.,.,.,0.8636363636
+"Asian/Pacific Islander",Disabled,"New Jersey",31,742,177,919,0.8073993471
+"Asian/Pacific Islander",Disabled,"New Mexico",32,40,12,52,0.7692307692
+"Asian/Pacific Islander",Disabled,"New York",33,1605,415,2020,0.7945544554
+"Asian/Pacific Islander",Disabled,"North Carolina",34,323,98,421,0.7672209026
+"Asian/Pacific Islander",Disabled,"North Dakota",35,21,0,21,1
+"Asian/Pacific Islander",Disabled,Ohio,36,263,68,331,0.7945619335
+"Asian/Pacific Islander",Disabled,Oklahoma,37,117,36,153,0.7647058824
+"Asian/Pacific Islander",Disabled,Oregon,38,252,67,319,0.789968652
+"Asian/Pacific Islander",Disabled,Pennsylvania,39,651,144,795,0.8188679245
+"Asian/Pacific Islander",Disabled,"Rhode Island",41,97,22,119,0.8151260504
+"Asian/Pacific Islander",Disabled,"South Carolina",42,99,33,132,0.75
+"Asian/Pacific Islander",Disabled,"South Dakota",43,.,.,.,0.8666666667
+"Asian/Pacific Islander",Disabled,Tennessee,44,134,41,175,0.7657142857
+"Asian/Pacific Islander",Disabled,Texas,45,976,269,1245,0.783935743
+"Asian/Pacific Islander",Disabled,Utah,46,99,32,131,0.7557251908
+"Asian/Pacific Islander",Disabled,Vermont,47,.,.,.,0.8947368421
+"Asian/Pacific Islander",Disabled,Virginia,49,425,128,553,0.7685352622
+"Asian/Pacific Islander",Disabled,Washington,50,853,217,1070,0.7971962617
+"Asian/Pacific Islander",Disabled,"West Virginia",51,.,.,.,0.7586206897
+"Asian/Pacific Islander",Disabled,Wisconsin,52,415,123,538,0.7713754647
+"Asian/Pacific Islander",Disabled,Wyoming,53,.,.,.,0.6666666667
+"Asian/Pacific Islander",ESRD,Arizona,3,.,.,.,0.6666666667
+"Asian/Pacific Islander",ESRD,California,5,.,.,.,0.8787878788
+"Asian/Pacific Islander",ESRD,Colorado,6,.,0,.,1
+"Asian/Pacific Islander",ESRD,"District of Columbia",9,.,0,.,1
+"Asian/Pacific Islander",ESRD,Florida,10,.,.,.,0.6666666667
+"Asian/Pacific Islander",ESRD,Georgia,11,.,.,.,0.75
+"Asian/Pacific Islander",ESRD,Hawaii,12,.,.,.,0.8571428571
+"Asian/Pacific Islander",ESRD,Illinois,14,.,0,.,1
+"Asian/Pacific Islander",ESRD,Indiana,15,0,.,.,0
+"Asian/Pacific Islander",ESRD,Kentucky,18,.,0,.,1
+"Asian/Pacific Islander",ESRD,Louisiana,19,0,.,.,0
+"Asian/Pacific Islander",ESRD,Maine,20,.,0,.,1
+"Asian/Pacific Islander",ESRD,Maryland,21,.,.,.,0.8
+"Asian/Pacific Islander",ESRD,Massachusetts,22,.,0,.,1
+"Asian/Pacific Islander",ESRD,Michigan,23,.,0,.,1
+"Asian/Pacific Islander",ESRD,Minnesota,24,.,.,.,0.6
+"Asian/Pacific Islander",ESRD,Mississippi,25,.,0,.,1
+"Asian/Pacific Islander",ESRD,Nebraska,28,.,0,.,1
+"Asian/Pacific Islander",ESRD,Nevada,29,.,.,.,0.6666666667
+"Asian/Pacific Islander",ESRD,"New Jersey",31,.,.,.,0.8571428571
+"Asian/Pacific Islander",ESRD,"New York",33,.,.,.,0.8529411765
+"Asian/Pacific Islander",ESRD,"North Carolina",34,.,0,.,1
+"Asian/Pacific Islander",ESRD,Ohio,36,.,.,.,0.6666666667
+"Asian/Pacific Islander",ESRD,Oklahoma,37,.,0,.,1
+"Asian/Pacific Islander",ESRD,Oregon,38,.,.,.,0.3333333333
+"Asian/Pacific Islander",ESRD,Pennsylvania,39,.,.,.,0.6666666667
+"Asian/Pacific Islander",ESRD,"Rhode Island",41,.,0,.,1
+"Asian/Pacific Islander",ESRD,Texas,45,.,.,.,0.8333333333
+"Asian/Pacific Islander",ESRD,Utah,46,.,0,.,1
+"Asian/Pacific Islander",ESRD,Virginia,49,.,0,.,1
+"Asian/Pacific Islander",ESRD,Washington,50,.,.,.,0.8181818182
+"Asian/Pacific Islander",ESRD,Wisconsin,52,.,.,.,0.8333333333
+"Asian/Pacific Islander","Disabled and ESRD",Alabama,1,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",California,5,.,.,.,0.8333333333
+"Asian/Pacific Islander","Disabled and ESRD",Colorado,6,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Florida,10,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Hawaii,12,.,.,.,0.8
+"Asian/Pacific Islander","Disabled and ESRD",Illinois,14,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Kansas,17,0,.,.,0
+"Asian/Pacific Islander","Disabled and ESRD",Massachusetts,22,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Minnesota,24,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Nebraska,28,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Ohio,36,0,.,.,0
+"Asian/Pacific Islander","Disabled and ESRD",Oregon,38,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD","Rhode Island",41,0,.,.,0
+"Asian/Pacific Islander","Disabled and ESRD",Tennessee,44,.,0,.,1
+"Asian/Pacific Islander","Disabled and ESRD",Texas,45,.,.,.,0.6666666667
+"Asian/Pacific Islander","Disabled and ESRD",Washington,50,.,.,.,0.5
+"Asian/Pacific Islander","Disabled and ESRD",Wisconsin,52,0,.,.,0
+Hispanic,Aged,Alabama,1,873,240,1113,0.7843665768
+Hispanic,Aged,Alaska,2,500,129,629,0.7949125596
+Hispanic,Aged,Arizona,3,17627,5163,22790,0.773453269
+Hispanic,Aged,Arkansas,4,1261,418,1679,0.7510422871
+Hispanic,Aged,California,5,168980,47773,216753,0.7795970529
+Hispanic,Aged,Colorado,6,10499,2537,13036,0.8053850875
+Hispanic,Aged,Connecticut,7,8027,2052,10079,0.7964083738
+Hispanic,Aged,Delaware,8,1148,345,1493,0.7689216343
+Hispanic,Aged,"District of Columbia",9,743,248,991,0.7497477296
+Hispanic,Aged,Florida,10,80229,20412,100641,0.7971800757
+Hispanic,Aged,Georgia,11,4598,1458,6056,0.7592470277
+Hispanic,Aged,Hawaii,12,2246,453,2699,0.8321600593
+Hispanic,Aged,Idaho,13,1746,462,2208,0.7907608696
+Hispanic,Aged,Illinois,14,29508,8571,38079,0.7749153076
+Hispanic,Aged,Indiana,15,4391,1129,5520,0.7954710145
+Hispanic,Aged,Iowa,16,1481,376,1857,0.7975228864
+Hispanic,Aged,Kansas,17,3365,757,4122,0.8163512858
+Hispanic,Aged,Kentucky,18,760,235,995,0.7638190955
+Hispanic,Aged,Louisiana,19,2938,725,3663,0.8020748021
+Hispanic,Aged,Maine,20,251,41,292,0.8595890411
+Hispanic,Aged,Maryland,21,5380,1499,6879,0.7820904201
+Hispanic,Aged,Massachusetts,22,16613,4080,20693,0.8028318755
+Hispanic,Aged,Michigan,23,6232,1533,7765,0.80257566
+Hispanic,Aged,Minnesota,24,1593,401,1994,0.7988966901
+Hispanic,Aged,Mississippi,25,586,186,772,0.7590673575
+Hispanic,Aged,Missouri,26,1958,488,2446,0.8004905969
+Hispanic,Aged,Montana,27,383,70,453,0.8454746137
+Hispanic,Aged,Nebraska,28,1470,442,1912,0.7688284519
+Hispanic,Aged,Nevada,29,7623,2482,10105,0.7543790203
+Hispanic,Aged,"New Hampshire",30,586,136,722,0.811634349
+Hispanic,Aged,"New Jersey",31,28815,8865,37680,0.7647292994
+Hispanic,Aged,"New Mexico",32,15589,4159,19748,0.7893963946
+Hispanic,Aged,"New York",33,47021,14476,61497,0.7646064036
+Hispanic,Aged,"North Carolina",34,5087,1545,6632,0.7670386007
+Hispanic,Aged,"North Dakota",35,147,39,186,0.7903225806
+Hispanic,Aged,Ohio,36,4967,1159,6126,0.810806399
+Hispanic,Aged,Oklahoma,37,2649,768,3417,0.7752414399
+Hispanic,Aged,Oregon,38,3563,1032,4595,0.7754080522
+Hispanic,Aged,Pennsylvania,39,10385,2751,13136,0.7905755177
+Hispanic,Aged,"Rhode Island",41,2807,727,3534,0.7942840973
+Hispanic,Aged,"South Carolina",42,1930,556,2486,0.7763475463
+Hispanic,Aged,"South Dakota",43,167,57,224,0.7455357143
+Hispanic,Aged,Tennessee,44,1656,455,2111,0.7844623401
+Hispanic,Aged,Texas,45,134308,38812,173120,0.7758086876
+Hispanic,Aged,Utah,46,2226,629,2855,0.7796847636
+Hispanic,Aged,Vermont,47,178,25,203,0.8768472906
+Hispanic,Aged,Virginia,49,5029,1418,6447,0.7800527377
+Hispanic,Aged,Washington,50,7222,1825,9047,0.7982756715
+Hispanic,Aged,"West Virginia",51,277,76,353,0.7847025496
+Hispanic,Aged,Wisconsin,52,3445,733,4178,0.8245572044
+Hispanic,Aged,Wyoming,53,755,173,928,0.8135775862
+Hispanic,Disabled,Alabama,1,252,91,343,0.7346938776
+Hispanic,Disabled,Alaska,2,69,21,90,0.7666666667
+Hispanic,Disabled,Arizona,3,2718,1015,3733,0.7281007233
+Hispanic,Disabled,Arkansas,4,421,163,584,0.720890411
+Hispanic,Disabled,California,5,27073,8582,35655,0.7593044454
+Hispanic,Disabled,Colorado,6,2524,761,3285,0.7683409437
+Hispanic,Disabled,Connecticut,7,2572,793,3365,0.7643387816
+Hispanic,Disabled,Delaware,8,260,101,361,0.7202216066
+Hispanic,Disabled,"District of Columbia",9,80,38,118,0.6779661017
+Hispanic,Disabled,Florida,10,11599,3453,15052,0.7705952697
+Hispanic,Disabled,Georgia,11,866,354,1220,0.7098360656
+Hispanic,Disabled,Hawaii,12,266,75,341,0.780058651
+Hispanic,Disabled,Idaho,13,426,122,548,0.7773722628
+Hispanic,Disabled,Illinois,14,4853,1579,6432,0.7545087065
+Hispanic,Disabled,Indiana,15,962,318,1280,0.7515625
+Hispanic,Disabled,Iowa,16,353,114,467,0.755888651
+Hispanic,Disabled,Kansas,17,675,191,866,0.7794457275
+Hispanic,Disabled,Kentucky,18,302,126,428,0.7056074766
+Hispanic,Disabled,Louisiana,19,530,160,690,0.768115942
+Hispanic,Disabled,Maine,20,85,23,108,0.787037037
+Hispanic,Disabled,Maryland,21,551,192,743,0.7415881561
+Hispanic,Disabled,Massachusetts,22,5753,1839,7592,0.7577713383
+Hispanic,Disabled,Michigan,23,1539,539,2078,0.7406159769
+Hispanic,Disabled,Minnesota,24,519,142,661,0.7851739788
+Hispanic,Disabled,Mississippi,25,150,53,203,0.7389162562
+Hispanic,Disabled,Missouri,26,543,162,705,0.770212766
+Hispanic,Disabled,Montana,27,82,31,113,0.7256637168
+Hispanic,Disabled,Nebraska,28,326,130,456,0.7149122807
+Hispanic,Disabled,Nevada,29,1041,429,1470,0.7081632653
+Hispanic,Disabled,"New Hampshire",30,169,63,232,0.7284482759
+Hispanic,Disabled,"New Jersey",31,4921,1762,6683,0.7363459524
+Hispanic,Disabled,"New Mexico",32,3515,1096,4611,0.7623075255
+Hispanic,Disabled,"New York",33,8517,3099,11616,0.7332128099
+Hispanic,Disabled,"North Carolina",34,1141,397,1538,0.7418725618
+Hispanic,Disabled,"North Dakota",35,56,17,73,0.7671232877
+Hispanic,Disabled,Ohio,36,1402,462,1864,0.7521459227
+Hispanic,Disabled,Oklahoma,37,628,239,867,0.7243367935
+Hispanic,Disabled,Oregon,38,741,231,972,0.762345679
+Hispanic,Disabled,Pennsylvania,39,3720,1281,5001,0.7438512298
+Hispanic,Disabled,"Rhode Island",41,817,251,1068,0.7649812734
+Hispanic,Disabled,"South Carolina",42,400,145,545,0.7339449541
+Hispanic,Disabled,"South Dakota",43,57,17,74,0.7702702703
+Hispanic,Disabled,Tennessee,44,421,138,559,0.7531305903
+Hispanic,Disabled,Texas,45,20829,7268,28097,0.7413246966
+Hispanic,Disabled,Utah,46,400,146,546,0.7326007326
+Hispanic,Disabled,Vermont,47,.,.,.,0.8235294118
+Hispanic,Disabled,Virginia,49,680,200,880,0.7727272727
+Hispanic,Disabled,Washington,50,1471,479,1950,0.7543589744
+Hispanic,Disabled,"West Virginia",51,82,25,107,0.7663551402
+Hispanic,Disabled,Wisconsin,52,1132,303,1435,0.7888501742
+Hispanic,Disabled,Wyoming,53,139,39,178,0.7808988764
+Hispanic,ESRD,Alabama,1,.,.,.,0.5
+Hispanic,ESRD,Arizona,3,.,.,.,0.6666666667
+Hispanic,ESRD,Arkansas,4,.,0,.,1
+Hispanic,ESRD,California,5,130,48,178,0.7303370787
+Hispanic,ESRD,Colorado,6,.,.,.,0.6666666667
+Hispanic,ESRD,Connecticut,7,.,.,.,0.6
+Hispanic,ESRD,Florida,10,.,.,.,0.8292682927
+Hispanic,ESRD,Georgia,11,.,.,.,0.625
+Hispanic,ESRD,Hawaii,12,.,.,.,0.75
+Hispanic,ESRD,Idaho,13,.,0,.,1
+Hispanic,ESRD,Illinois,14,.,.,.,0.9090909091
+Hispanic,ESRD,Indiana,15,.,0,.,1
+Hispanic,ESRD,Iowa,16,.,0,.,1
+Hispanic,ESRD,Kansas,17,.,0,.,1
+Hispanic,ESRD,Kentucky,18,.,.,.,0.5
+Hispanic,ESRD,Louisiana,19,.,0,.,1
+Hispanic,ESRD,Maryland,21,.,.,.,0.6666666667
+Hispanic,ESRD,Massachusetts,22,.,.,.,0.8235294118
+Hispanic,ESRD,Michigan,23,.,.,.,0.5
+Hispanic,ESRD,Missouri,26,.,0,.,1
+Hispanic,ESRD,Nebraska,28,0,.,.,0
+Hispanic,ESRD,Nevada,29,.,0,.,1
+Hispanic,ESRD,"New Jersey",31,.,.,.,0.7
+Hispanic,ESRD,"New Mexico",32,.,.,.,0.4
+Hispanic,ESRD,"New York",33,.,.,.,0.7931034483
+Hispanic,ESRD,"North Carolina",34,.,0,.,1
+Hispanic,ESRD,Ohio,36,.,.,.,0.8571428571
+Hispanic,ESRD,Oklahoma,37,.,0,.,1
+Hispanic,ESRD,Pennsylvania,39,.,0,.,1
+Hispanic,ESRD,"Rhode Island",41,.,0,.,1
+Hispanic,ESRD,Tennessee,44,.,.,.,0.5
+Hispanic,ESRD,Texas,45,128,45,173,0.7398843931
+Hispanic,ESRD,Utah,46,.,.,.,0.3333333333
+Hispanic,ESRD,Virginia,49,.,0,.,1
+Hispanic,ESRD,Washington,50,.,0,.,1
+Hispanic,ESRD,Wisconsin,52,.,.,.,0.6666666667
+Hispanic,"Disabled and ESRD",Alaska,2,.,0,.,1
+Hispanic,"Disabled and ESRD",Arizona,3,.,.,.,0.7
+Hispanic,"Disabled and ESRD",Arkansas,4,.,0,.,1
+Hispanic,"Disabled and ESRD",California,5,39,13,52,0.75
+Hispanic,"Disabled and ESRD",Colorado,6,.,0,.,1
+Hispanic,"Disabled and ESRD",Connecticut,7,.,0,.,1
+Hispanic,"Disabled and ESRD",Delaware,8,.,0,.,1
+Hispanic,"Disabled and ESRD",Florida,10,.,.,.,0.7368421053
+Hispanic,"Disabled and ESRD",Georgia,11,.,0,.,1
+Hispanic,"Disabled and ESRD",Idaho,13,.,0,.,1
+Hispanic,"Disabled and ESRD",Illinois,14,.,.,.,0.75
+Hispanic,"Disabled and ESRD",Indiana,15,.,.,.,0.6666666667
+Hispanic,"Disabled and ESRD",Iowa,16,.,0,.,1
+Hispanic,"Disabled and ESRD",Kansas,17,.,.,.,0.5
+Hispanic,"Disabled and ESRD",Massachusetts,22,.,.,.,0.9166666667
+Hispanic,"Disabled and ESRD",Michigan,23,.,0,.,1
+Hispanic,"Disabled and ESRD",Missouri,26,.,.,.,0.5
+Hispanic,"Disabled and ESRD",Montana,27,.,0,.,1
+Hispanic,"Disabled and ESRD","New Jersey",31,.,.,.,0.8
+Hispanic,"Disabled and ESRD","New Mexico",32,.,.,.,0.7142857143
+Hispanic,"Disabled and ESRD","New York",33,.,.,.,0.7142857143
+Hispanic,"Disabled and ESRD","North Carolina",34,0,.,.,0
+Hispanic,"Disabled and ESRD",Ohio,36,.,0,.,1
+Hispanic,"Disabled and ESRD",Oregon,38,.,0,.,1
+Hispanic,"Disabled and ESRD",Pennsylvania,39,.,.,.,0.8181818182
+Hispanic,"Disabled and ESRD","Rhode Island",41,.,0,.,1
+Hispanic,"Disabled and ESRD","South Carolina",42,.,0,.,1
+Hispanic,"Disabled and ESRD","South Dakota",43,.,0,.,1
+Hispanic,"Disabled and ESRD",Tennessee,44,.,0,.,1
+Hispanic,"Disabled and ESRD",Texas,45,36,25,61,0.5901639344
+Hispanic,"Disabled and ESRD",Washington,50,.,.,.,0.5
+Hispanic,"Disabled and ESRD",Wisconsin,52,.,0,.,1
+"American Indian / Alaska Native",Aged,Alabama,1,135,52,187,0.7219251337
+"American Indian / Alaska Native",Aged,Alaska,2,1638,580,2218,0.738503156
+"American Indian / Alaska Native",Aged,Arizona,3,2391,2009,4400,0.5434090909
+"American Indian / Alaska Native",Aged,Arkansas,4,252,76,328,0.7682926829
+"American Indian / Alaska Native",Aged,California,5,2329,712,3041,0.7658664913
+"American Indian / Alaska Native",Aged,Colorado,6,213,60,273,0.7802197802
+"American Indian / Alaska Native",Aged,Connecticut,7,38,16,54,0.7037037037
+"American Indian / Alaska Native",Aged,Delaware,8,.,.,.,0.9090909091
+"American Indian / Alaska Native",Aged,"District of Columbia",9,.,.,.,0.6666666667
+"American Indian / Alaska Native",Aged,Florida,10,358,90,448,0.7991071429
+"American Indian / Alaska Native",Aged,Georgia,11,94,30,124,0.7580645161
+"American Indian / Alaska Native",Aged,Hawaii,12,.,.,.,0.8484848485
+"American Indian / Alaska Native",Aged,Idaho,13,176,82,258,0.6821705426
+"American Indian / Alaska Native",Aged,Illinois,14,141,36,177,0.7966101695
+"American Indian / Alaska Native",Aged,Indiana,15,75,16,91,0.8241758242
+"American Indian / Alaska Native",Aged,Iowa,16,99,55,154,0.6428571429
+"American Indian / Alaska Native",Aged,Kansas,17,334,111,445,0.7505617978
+"American Indian / Alaska Native",Aged,Kentucky,18,.,.,.,0.8181818182
+"American Indian / Alaska Native",Aged,Louisiana,19,98,25,123,0.7967479675
+"American Indian / Alaska Native",Aged,Maine,20,105,19,124,0.8467741935
+"American Indian / Alaska Native",Aged,Maryland,21,83,21,104,0.7980769231
+"American Indian / Alaska Native",Aged,Massachusetts,22,113,24,137,0.8248175182
+"American Indian / Alaska Native",Aged,Michigan,23,907,203,1110,0.8171171171
+"American Indian / Alaska Native",Aged,Minnesota,24,841,252,1093,0.769441903
+"American Indian / Alaska Native",Aged,Mississippi,25,59,33,92,0.6413043478
+"American Indian / Alaska Native",Aged,Missouri,26,200,52,252,0.7936507937
+"American Indian / Alaska Native",Aged,Montana,27,754,365,1119,0.6738159071
+"American Indian / Alaska Native",Aged,Nebraska,28,169,80,249,0.6787148594
+"American Indian / Alaska Native",Aged,Nevada,29,228,123,351,0.6495726496
+"American Indian / Alaska Native",Aged,"New Hampshire",30,.,.,.,0.6666666667
+"American Indian / Alaska Native",Aged,"New Jersey",31,102,33,135,0.7555555556
+"American Indian / Alaska Native",Aged,"New Mexico",32,1439,1015,2454,0.5863895681
+"American Indian / Alaska Native",Aged,"New York",33,712,188,900,0.7911111111
+"American Indian / Alaska Native",Aged,"North Carolina",34,1505,527,2032,0.7406496063
+"American Indian / Alaska Native",Aged,"North Dakota",35,444,151,595,0.7462184874
+"American Indian / Alaska Native",Aged,Ohio,36,87,25,112,0.7767857143
+"American Indian / Alaska Native",Aged,Oklahoma,37,5913,2462,8375,0.7060298507
+"American Indian / Alaska Native",Aged,Oregon,38,563,180,743,0.7577388964
+"American Indian / Alaska Native",Aged,Pennsylvania,39,77,17,94,0.8191489362
+"American Indian / Alaska Native",Aged,"Rhode Island",41,.,.,.,0.8181818182
+"American Indian / Alaska Native",Aged,"South Carolina",42,91,38,129,0.7054263566
+"American Indian / Alaska Native",Aged,"South Dakota",43,485,293,778,0.6233933162
+"American Indian / Alaska Native",Aged,Tennessee,44,89,26,115,0.7739130435
+"American Indian / Alaska Native",Aged,Texas,45,893,233,1126,0.7930728242
+"American Indian / Alaska Native",Aged,Utah,46,198,100,298,0.6644295302
+"American Indian / Alaska Native",Aged,Vermont,47,.,.,.,0.7777777778
+"American Indian / Alaska Native",Aged,Virginia,49,85,22,107,0.7943925234
+"American Indian / Alaska Native",Aged,Washington,50,1423,504,1927,0.7384535547
+"American Indian / Alaska Native",Aged,"West Virginia",51,.,.,.,0.9230769231
+"American Indian / Alaska Native",Aged,Wisconsin,52,814,200,1014,0.8027613412
+"American Indian / Alaska Native",Aged,Wyoming,53,153,48,201,0.7611940299
+"American Indian / Alaska Native",Disabled,Alabama,1,40,18,58,0.6896551724
+"American Indian / Alaska Native",Disabled,Alaska,2,257,112,369,0.6964769648
+"American Indian / Alaska Native",Disabled,Arizona,3,598,491,1089,0.54912764
+"American Indian / Alaska Native",Disabled,Arkansas,4,119,41,160,0.74375
+"American Indian / Alaska Native",Disabled,California,5,602,238,840,0.7166666667
+"American Indian / Alaska Native",Disabled,Colorado,6,77,27,104,0.7403846154
+"American Indian / Alaska Native",Disabled,Connecticut,7,.,.,.,0.7096774194
+"American Indian / Alaska Native",Disabled,Delaware,8,.,.,.,0.7142857143
+"American Indian / Alaska Native",Disabled,"District of Columbia",9,.,0,.,1
+"American Indian / Alaska Native",Disabled,Florida,10,119,29,148,0.8040540541
+"American Indian / Alaska Native",Disabled,Georgia,11,28,17,45,0.6222222222
+"American Indian / Alaska Native",Disabled,Hawaii,12,.,0,.,1
+"American Indian / Alaska Native",Disabled,Idaho,13,78,41,119,0.6554621849
+"American Indian / Alaska Native",Disabled,Illinois,14,52,23,75,0.6933333333
+"American Indian / Alaska Native",Disabled,Indiana,15,40,15,55,0.7272727273
+"American Indian / Alaska Native",Disabled,Iowa,16,53,19,72,0.7361111111
+"American Indian / Alaska Native",Disabled,Kansas,17,133,61,194,0.6855670103
+"American Indian / Alaska Native",Disabled,Kentucky,18,.,.,.,0.8333333333
+"American Indian / Alaska Native",Disabled,Louisiana,19,53,16,69,0.768115942
+"American Indian / Alaska Native",Disabled,Maine,20,72,17,89,0.808988764
+"American Indian / Alaska Native",Disabled,Maryland,21,26,13,39,0.6666666667
+"American Indian / Alaska Native",Disabled,Massachusetts,22,38,23,61,0.6229508197
+"American Indian / Alaska Native",Disabled,Michigan,23,281,90,371,0.7574123989
+"American Indian / Alaska Native",Disabled,Minnesota,24,363,166,529,0.6862003781
+"American Indian / Alaska Native",Disabled,Mississippi,25,30,19,49,0.612244898
+"American Indian / Alaska Native",Disabled,Missouri,26,100,43,143,0.6993006993
+"American Indian / Alaska Native",Disabled,Montana,27,255,115,370,0.6891891892
+"American Indian / Alaska Native",Disabled,Nebraska,28,85,33,118,0.7203389831
+"American Indian / Alaska Native",Disabled,Nevada,29,48,36,84,0.5714285714
+"American Indian / Alaska Native",Disabled,"New Hampshire",30,.,.,.,0.75
+"American Indian / Alaska Native",Disabled,"New Jersey",31,28,12,40,0.7
+"American Indian / Alaska Native",Disabled,"New Mexico",32,412,300,712,0.5786516854
+"American Indian / Alaska Native",Disabled,"New York",33,218,79,297,0.734006734
+"American Indian / Alaska Native",Disabled,"North Carolina",34,634,237,871,0.7278989667
+"American Indian / Alaska Native",Disabled,"North Dakota",35,195,64,259,0.7528957529
+"American Indian / Alaska Native",Disabled,Ohio,36,60,15,75,0.8
+"American Indian / Alaska Native",Disabled,Oklahoma,37,1650,918,2568,0.6425233645
+"American Indian / Alaska Native",Disabled,Oregon,38,187,75,262,0.713740458
+"American Indian / Alaska Native",Disabled,Pennsylvania,39,40,11,51,0.7843137255
+"American Indian / Alaska Native",Disabled,"Rhode Island",41,.,.,.,0.8148148148
+"American Indian / Alaska Native",Disabled,"South Carolina",42,49,15,64,0.765625
+"American Indian / Alaska Native",Disabled,"South Dakota",43,211,133,344,0.613372093
+"American Indian / Alaska Native",Disabled,Tennessee,44,37,11,48,0.7708333333
+"American Indian / Alaska Native",Disabled,Texas,45,211,78,289,0.7301038062
+"American Indian / Alaska Native",Disabled,Utah,46,69,21,90,0.7666666667
+"American Indian / Alaska Native",Disabled,Vermont,47,.,.,.,0.8888888889
+"American Indian / Alaska Native",Disabled,Virginia,49,32,11,43,0.7441860465
+"American Indian / Alaska Native",Disabled,Washington,50,403,147,550,0.7327272727
+"American Indian / Alaska Native",Disabled,"West Virginia",51,.,.,.,0.5714285714
+"American Indian / Alaska Native",Disabled,Wisconsin,52,384,138,522,0.7356321839
+"American Indian / Alaska Native",Disabled,Wyoming,53,43,19,62,0.6935483871
+"American Indian / Alaska Native",ESRD,Alaska,2,.,0,.,1
+"American Indian / Alaska Native",ESRD,Arizona,3,.,.,.,0.6666666667
+"American Indian / Alaska Native",ESRD,Idaho,13,.,0,.,1
+"American Indian / Alaska Native",ESRD,Iowa,16,.,0,.,1
+"American Indian / Alaska Native",ESRD,Michigan,23,.,0,.,1
+"American Indian / Alaska Native",ESRD,Minnesota,24,.,0,.,1
+"American Indian / Alaska Native",ESRD,"New Mexico",32,0,.,.,0
+"American Indian / Alaska Native",ESRD,"New York",33,.,0,.,1
+"American Indian / Alaska Native",ESRD,"North Carolina",34,.,0,.,1
+"American Indian / Alaska Native",ESRD,Oklahoma,37,.,.,.,0.3333333333
+"American Indian / Alaska Native",ESRD,Pennsylvania,39,.,0,.,1
+"American Indian / Alaska Native",ESRD,Utah,46,.,0,.,1
+"American Indian / Alaska Native","Disabled and ESRD",Kansas,17,0,.,.,0
+"American Indian / Alaska Native","Disabled and ESRD",Michigan,23,.,.,.,0.5
+"American Indian / Alaska Native","Disabled and ESRD",Montana,27,.,0,.,1
+"American Indian / Alaska Native","Disabled and ESRD",Nebraska,28,0,.,.,0
+"American Indian / Alaska Native","Disabled and ESRD","New Mexico",32,0,.,.,0
+"American Indian / Alaska Native","Disabled and ESRD","North Carolina",34,.,0,.,1
+"American Indian / Alaska Native","Disabled and ESRD",Oklahoma,37,.,.,.,0.5
+"American Indian / Alaska Native","Disabled and ESRD","South Dakota",43,0,.,.,0
+"American Indian / Alaska Native","Disabled and ESRD",Wisconsin,52,0,.,.,0

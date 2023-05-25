@@ -44,6 +44,7 @@ export interface TableCardProps {
   fips: Fips
   breakdownVar: BreakdownVar
   variableConfig: VariableConfig
+  reportTitle: string
 }
 
 export function TableCard(props: TableCardProps) {
@@ -110,6 +111,7 @@ export function TableCard(props: TableCardProps) {
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponse]) => {
         let data = queryResponse.data

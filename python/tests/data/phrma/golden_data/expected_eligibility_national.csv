@@ -1,0 +1,6 @@
+eligibility,statins_adherence_estimated_total,statins_beneficiaries_estimated_total,state_fips,state_name,beta_blockers_adherence_estimated_total,beta_blockers_beneficiaries_estimated_total,rasa_adherence_estimated_total,rasa_beneficiaries_estimated_total,statins_adherence_pct_rate,beta_blockers_adherence_pct_rate,rasa_adherence_pct_rate,statins_adherence_pct_share,beta_blockers_adherence_pct_share,rasa_adherence_pct_share,phrma_population,phrma_population_pct
+All,11941945,14315816,00,United States,7523595,9350817,10532272,12532420,83.0,80.0,84.0,100.0,100.0,100.0,,
+Eligible due to age,10748607,12778838,00,United States,6734691,8237534,9509758,11197044,84.0,82.0,85.0,90.0,89.5,90.3,,
+Eligible due to disability,1190193,1532832,00,United States,769844,1079178,1020804,1332835,78.0,71.0,77.0,10.0,10.2,9.7,,
+Eligible due to disability and end-stage renal disease (ESRD),1301,1798,00,United States,5617,9950,634,1045,72.0,56.0,61.0,0.01,0.1,0.01,,
+Eligible due to end-stage renal disease (ESRD),1844,2348,00,United States,13443,24155,1076,1496,79.0,56.0,72.0,0.02,0.2,0.01,,

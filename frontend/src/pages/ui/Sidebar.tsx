@@ -1,7 +1,6 @@
 import { Card } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import styles from './Sidebar.module.scss'
-import ShareButtons from '../../reports/ui/ShareButtons'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import {
   DEMOGRAPHIC_BREAKDOWNS_MAP,
@@ -36,13 +35,6 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <>
-      <Card raised={true} className={styles.ShareBox}>
-        <ShareButtons
-          isMobile={props.isMobile}
-          reportTitle={props.reportTitle}
-        />
-      </Card>
-
       <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
         <div className="mode-selector-box">
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
