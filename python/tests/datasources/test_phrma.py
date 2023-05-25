@@ -98,7 +98,12 @@ def testOverallBigQueryInteractions(
         call[0][2] for call in mock_bq.call_args_list
     ]
     assert generated_table_names == [
-        'LIS_national', 'eligibility_national', 'sex_national', 'age_national', 'race_and_ethnicity_national', 'LIS_state', 'eligibility_state', 'sex_state', 'age_state', 'race_and_ethnicity_state', 'LIS_county', 'eligibility_county', 'sex_county', 'age_county', 'race_and_ethnicity_county'
+        'LIS_national', 'eligibility_national',
+        'sex_national', 'age_national', 'race_and_ethnicity_national',
+        'LIS_state', 'eligibility_state',
+        'sex_state', 'age_state', 'race_and_ethnicity_state',
+        'LIS_county', 'eligibility_county',
+        'sex_county', 'age_county', 'race_and_ethnicity_county'
     ]
 
 
