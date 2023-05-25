@@ -2,7 +2,6 @@ from unittest import mock
 from pandas._testing import assert_frame_equal
 from datasources.phrma import PhrmaData, PHRMA_DIR
 from test_utils import (
-    _load_df_from_bigquery,
     _load_public_dataset_from_bigquery_as_df
 )
 import pandas as pd
@@ -66,11 +65,7 @@ def _generate_breakdown_df(*args):
 #     side_effect=_load_csv_as_df_from_data_dir)
 # @mock.patch(
 #     'ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_df_from_bigquery',
-#     side_effect=_load_df_from_bigquery)
 # def testRunner(
-#     mock_pop: mock.MagicMock,
 #     mock_bq: mock.MagicMock,
 #     mock_data_dir: mock.MagicMock,
 #     mock_public_dataset: mock.MagicMock,
@@ -115,10 +110,7 @@ def testOverallBigQueryInteractions(
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
             side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_load_df_from_bigquery)
 def testBreakdownLISNational(
-        mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
 ):
     datasource = PhrmaData()
@@ -127,8 +119,6 @@ def testBreakdownLISNational(
         'LIS', 'national', alls_df)
     # one data_dir call per topic
     assert mock_data_dir.call_count == 3
-    # no LIS population
-    assert mock_pop.call_count == 0
     expected_df = pd.read_csv(
         GOLDEN_DATA['LIS_national'], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df,
@@ -137,10 +127,7 @@ def testBreakdownLISNational(
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
             side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_load_df_from_bigquery)
 def testBreakdownEligibilityNational(
-        mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
 ):
     datasource = PhrmaData()
@@ -149,8 +136,6 @@ def testBreakdownEligibilityNational(
         'eligibility', 'national', alls_df)
     # one data_dir call per topic
     assert mock_data_dir.call_count == 3
-    # no eligibility population
-    assert mock_pop.call_count == 0
     expected_df = pd.read_csv(
         GOLDEN_DATA['eligibility_national'], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df,
@@ -159,10 +144,7 @@ def testBreakdownEligibilityNational(
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
             side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_load_df_from_bigquery)
 def testBreakdownSexNational(
-        mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
 ):
     datasource = PhrmaData()
@@ -171,8 +153,6 @@ def testBreakdownSexNational(
         'sex', 'national', alls_df)
     # one data_dir call per topic
     assert mock_data_dir.call_count == 3
-    # call to acs_population national
-    assert mock_pop.call_count == 1
     expected_df = pd.read_csv(
         GOLDEN_DATA['sex_national'], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df,
@@ -181,10 +161,7 @@ def testBreakdownSexNational(
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
             side_effect=_load_csv_as_df_from_data_dir)
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_load_df_from_bigquery)
 def testBreakdownRaceState(
-        mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock
 ):
     datasource = PhrmaData()
@@ -193,8 +170,6 @@ def testBreakdownRaceState(
         'race_and_ethnicity', 'state', alls_df)
     # one data_dir call per topic
     assert mock_data_dir.call_count == 3
-    # call to acs_population state + territory
-    assert mock_pop.call_count == 2
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_and_ethnicity_state'], dtype={"state_fips": str})
     assert_frame_equal(
@@ -213,12 +188,7 @@ def testBreakdownRaceState(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     side_effect=_load_csv_as_df_from_data_dir
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery',
-    side_effect=_load_df_from_bigquery
-)
 def testBreakdownAgeCounty(
-        mock_pop: mock.MagicMock,
         mock_data_dir: mock.MagicMock,
         mock_county_names: mock.MagicMock
 ):
@@ -229,8 +199,6 @@ def testBreakdownAgeCounty(
         'age', 'county', alls_df)
     # one data_dir call per topic
     assert mock_data_dir.call_count == 3
-    # call to acs_population county + territory county equivalent
-    assert mock_pop.call_count == 2
     # call to public BQ for county names
     assert mock_county_names.call_count == 1
     expected_df = pd.read_csv(
