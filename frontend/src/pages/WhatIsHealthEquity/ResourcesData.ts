@@ -307,3 +307,45 @@ export const COVID_VACCINATION_RESOURCES: ResourceGroup = {
     },
   ],
 }
+
+export const HIV_RESOURCES: ResourceGroup = {
+  heading: 'HIV',
+  resources: [
+    {
+      name: 'CDC - HIV Risk and Prevention',
+      url: 'https://www.cdc.gov/hiv/risk/index.html'
+    },
+    {
+      name: 'CDC - HIV Surveillance Reports',
+      url: 'https://www.cdc.gov/hiv/library/reports/hiv-surveillance.html',
+    },
+    {
+      name: 'CDC - Resource Library',
+      url: 'https://www.cdc.gov/hiv/library/index.html',
+    },
+    {
+      name: 'HIV Care Continuum',
+      url: 'https://www.hiv.gov/federal-response/policies-issues/hiv-aids-care-continuum/',
+    },
+    {
+      name: 'HIV Treatment as Prevention',
+      url: 'https://www.hiv.gov/tasp/',
+    },
+    {
+      name: 'PrEP vs. PEP',
+      url: 'https://hivinfo.nih.gov/understanding-hiv/infographics/prep-vs-pep',
+    },
+    {
+      name: 'State of the epidemic - substantial progress and the challenges that remain',
+      url: 'https://www.gileadhiv.com/landscape/state-of-epidemic/?gclid=CjwKCAjwpayjBhAnEiwA-7enayp3t_H2vxCFiD3RyOj8BCnw08eN_TlIO1TH86kJaZfvuBxBlpB3RxoCuL4QAvD_BwE&gclsrc=aw.ds'
+    },
+    {
+      name: 'The HIV/AIDS Epidemic in the United States: The Basics',
+      url: 'https://www.kff.org/hivaids/fact-sheet/the-hivaids-epidemic-in-the-united-states-the-basics/',
+    },
+    {
+      name: 'e-Health Literacy Scale, Patient Attitudes, Medication Adherence, and Internal Locus of Control',
+      url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10169461/',
+    },
+  ]
+}
