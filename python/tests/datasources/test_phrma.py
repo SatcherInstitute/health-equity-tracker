@@ -40,6 +40,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 # TODO: to use this instead of duplicated
 # TODO: fake population data, etc
 def _load_df_from_bigquery(*args, **kwargs):
+    print("MOCKING CALL TO HET BQ")
     datasource_name, table_name, dtypes = args
     if "county" in table_name:
         dtypes["county_fips"] = str
@@ -49,6 +50,19 @@ def _load_df_from_bigquery(*args, **kwargs):
     pop_df = pd.read_json(file_path, lines=True, dtype=dtypes)
 
     return pop_df
+
+
+def _load_public_dataset_from_bigquery_as_df(*args, **kwargs):
+    print("MOCKING CALL TO PUBLIC BQ")
+    public_dataset_name, table_name = args
+
+    filename = f'{public_dataset_name}-{table_name}.csv'
+    file_path = os.path.join(THIS_DIR, "het_bq_tables_for_mocks", filename)
+
+    county_names_df = pd.read_csv(
+        file_path, dtype={"state_fips_code": str, "county_fips_code": str})
+
+    return county_names_df
 
 
 def _generate_breakdown_df(*args):
@@ -65,6 +79,7 @@ def _generate_breakdown_df(*args):
 # TODO: DELETE - THIS IS ONLY FOR DEVELOPMENT
 
 
+# @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', side_effect=_load_public_dataset_from_bigquery_as_df)
 # @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 # @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 # @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
@@ -72,12 +87,13 @@ def _generate_breakdown_df(*args):
 #     mock_pop: mock.MagicMock,
 #     mock_bq: mock.MagicMock,
 #     mock_data_dir: mock.MagicMock,
+#     mock_public_dataset: mock.MagicMock,
 # ):
 #     datasource = PhrmaData()
 #     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
 
 
-# OVERALL BQ
+# # OVERALL BQ
 
 @mock.patch('datasources.phrma.PhrmaData.generate_breakdown_df', side_effect=_generate_breakdown_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
@@ -189,11 +205,13 @@ def testBreakdownRaceState(
                        check_dtype=False, check_like=True)
 
 
+@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df', side_effect=_load_public_dataset_from_bigquery_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 def testBreakdownAgeCounty(
         mock_pop: mock.MagicMock,
-        mock_data_dir: mock.MagicMock
+        mock_data_dir: mock.MagicMock,
+        mock_county_names: mock.MagicMock
 ):
     datasource = PhrmaData()
     alls_df = pd.read_csv(ALLS_DATA["county"], dtype={
@@ -204,6 +222,8 @@ def testBreakdownAgeCounty(
     assert mock_data_dir.call_count == 3
     # call to acs_population county + territory county equivalent
     assert mock_pop.call_count == 2
+    # call to public BQ for county names
+    assert mock_county_names.call_count == 1
     expected_df = pd.read_csv(
         GOLDEN_DATA['age_county'], dtype={"state_fips": str, "county_fips": str})
     assert_frame_equal(breakdown_df, expected_df,
