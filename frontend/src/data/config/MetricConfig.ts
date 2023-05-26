@@ -2056,17 +2056,17 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_rate',
         },
         pct_share: {
-          chartTitle: 'Percent share of total adherence',
+          chartTitle: 'Percent share of total statins adherence',
           metricId: 'statins_adherence_pct_share',
-          columnTitleHeader: 'Percent share of total adherence',
+          columnTitleHeader: 'Percent share of total statins adherence',
           shortLabel: '% of total adherence',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Share of statins beneficiaries vs. share of total adherence',
+              'Share of statins beneficiary population vs. share of total adherence',
             metricId: 'statins_beneficiaries_pct_share',
             columnTitleHeader: 'Share of all Medicare statins beneficiaries',
-            shortLabel: populationPctShortLabel,
+            shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
         },
@@ -2105,11 +2105,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Share of beta-blockers beneficiaries vs. share of total adherence',
+              'Share of beta-blockers beneficiary population vs. share of total adherence',
             metricId: 'beta_blockers_beneficiaries_pct_share',
             columnTitleHeader:
               'Share of all Medicare beta-blockers beneficiaries',
-            shortLabel: populationPctShortLabel,
+            shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
         },
@@ -2132,7 +2132,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       dataTypeName: 'RASA',
       variableFullDisplayName: 'Adherence to RASA',
       surveyCollectedData: true,
-      variableDefinition: `Sample definition from rasa adherence data`,
+      variableDefinition: `Sample definition from RASA adherence data`,
       metrics: {
         pct_rate: {
           metricId: 'rasa_adherence_pct_rate',
@@ -2141,17 +2141,17 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
           type: 'pct_rate',
         },
         pct_share: {
-          chartTitle: 'Percent share of total rasa adherence',
+          chartTitle: 'Percent share of total RASA adherence',
           metricId: 'rasa_adherence_pct_share',
-          columnTitleHeader: 'Percent share of total rasa adherence',
+          columnTitleHeader: 'Percent share of total RASA adherence',
           shortLabel: '% of total adherence',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Share of RASA beneficiaries vs. share of total adherence',
+              'Share of RASA beneficiary population vs. share of total adherence',
             metricId: 'rasa_beneficiaries_pct_share',
             columnTitleHeader: 'Share of all Medicare RASA beneficiaries',
-            shortLabel: populationPctShortLabel,
+            shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
         },
