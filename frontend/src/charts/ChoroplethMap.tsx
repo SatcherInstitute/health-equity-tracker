@@ -106,14 +106,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
 
-  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
-  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
+  // const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
+  // const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
-
-  const LEGEND_WIDTH = props.hideLegend ? 0 : 100
 
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
@@ -220,8 +218,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       labelFont: LEGEND_TEXT_FONT,
       labelOverlap: 'greedy',
       labelSeparation: 10,
-      orient: 'bottom-left',
-      offset: 15,
+      orient: 'none',
+      legendY: -50,
+      legendX: 50,
+      gradientLength: width * 0.35,
       format: 'd',
     }
     if (props.metric.type === 'pct_share') {
@@ -237,9 +237,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     const helperLegend = getHelperLegend(
-      /* yOffset */ yOffsetNoDataLegend,
-      /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+      /* yOffset */ -35,
+      /* xOffset */ width * 0.35 + 75,
+      /* overrideGrayMissingWithZeroYellow */ false
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
@@ -416,13 +416,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,
-    LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
     props.mapConfig.mapScheme,
     props.mapConfig.mapMin,
-    yOffsetNoDataLegend,
-    xOffsetNoDataLegend,
     props,
     heightWidthRatio,
     pageIsTiny,
@@ -433,6 +430,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       container
       justifyContent={'center'}
       ref={props.overrideShapeWithCircle ? undefined : ref}
+      sx={{ mt: 5 }}
     >
       {shouldRenderMap && (
         <Vega
