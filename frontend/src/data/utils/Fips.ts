@@ -153,7 +153,7 @@ class Fips {
   }
 
   getSentenceDisplayName() {
-    return `${this.isUsa() ? ' the ' : ''}${this.getFullDisplayName()}`
+    return `${this.isUsa() ? 'the ' : ''}${this.getFullDisplayName()}`
   }
 
   getStateFipsCode() {

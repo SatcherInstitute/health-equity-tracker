@@ -97,11 +97,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = generateChartTitle({
-    chartTitle: metricConfig.chartTitle,
-    currentBreakdown,
-    fips: props.fips,
-  })
+  const chartTitle = generateChartTitle(
+    /* chartTitle:  */ metricConfig.chartTitle,
+    /* fips: */ props.fips,
+    currentBreakdown
+  )
 
   const isCawpStateLeg =
     props.variableConfig.variableId === 'women_in_state_legislature'

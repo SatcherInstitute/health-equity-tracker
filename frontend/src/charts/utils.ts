@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   type BreakdownVar,
 } from '../data/query/Breakdowns'
-import { type DemographicGroup } from '../data/utils/Constants'
+import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { type Fips } from '../data/utils/Fips'
 import {
@@ -95,41 +95,28 @@ export function addMetricDisplayColumn(
   return [newData, displayColName]
 }
 
-interface chartTitleProps {
-  chartTitle: string
+export function generateChartTitle(
+  chartTitle: string,
+  fips: Fips,
   currentBreakdown?: BreakdownVar
-  fips: Fips
-}
-
-export function generateChartTitle({
-  chartTitle,
-  currentBreakdown,
-  fips,
-}: chartTitleProps): string {
-  return `${chartTitle} ${
+): string {
+  return `${chartTitle}${
     currentBreakdown
-      ? `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
+      ? ` with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
       : ''
   } in ${fips.getSentenceDisplayName()}`
 }
 
-interface subtitleProps {
-  activeBreakdownFilter: DemographicGroup
-  currentBreakdown: BreakdownVar
-  isPopulationSubset?: boolean
+export function generateSubtitle(
+  activeBreakdownFilter: DemographicGroup,
+  currentBreakdown: BreakdownVar,
   metricId: MetricId
-}
-
-export function generateSubtitle({
-  activeBreakdownFilter,
-  currentBreakdown,
-  metricId,
-}: subtitleProps) {
+) {
   let subtitle = ''
 
-  if (activeBreakdownFilter === 'All') {
+  if (activeBreakdownFilter === ALL) {
     subtitle = ''
-  } else if (currentBreakdown === 'age') {
+  } else if (currentBreakdown === AGE) {
     subtitle = `Ages ${activeBreakdownFilter}`
   } else {
     subtitle = `${activeBreakdownFilter}`
@@ -139,7 +126,7 @@ export function generateSubtitle({
     const ageTitle = metricId === 'hiv_prep_coverage' ? 'Ages 16+' : 'Ages 13+'
     if (subtitle === '') {
       subtitle = ageTitle
-    } else if (currentBreakdown !== 'age') {
+    } else if (currentBreakdown !== AGE) {
       subtitle += `, ${ageTitle}`
     }
   }
@@ -164,14 +151,13 @@ export function getAltGroupLabel(
   if (CAWP_DETERMINANTS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
-  if (group === 'All' && breakdown === 'age') {
+  if (group === ALL && breakdown === AGE) {
     if (metricId.includes('prep')) {
       return `${group} (16+)`
     }
     if (metricId.includes('hiv')) {
       return `${group} (13+)`
     }
-    return group
   }
   return group
 }

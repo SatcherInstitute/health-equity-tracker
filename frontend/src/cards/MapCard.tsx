@@ -204,15 +204,12 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   const { metricId, chartTitle } = metricConfig
-  const title = generateChartTitle({
-    chartTitle,
-    fips: props.fips,
-  })
-  const subtitle = generateSubtitle({
+  const title = generateChartTitle(chartTitle, props.fips)
+  const subtitle = generateSubtitle(
     activeBreakdownFilter,
     currentBreakdown,
-    metricId,
-  })
+    metricId
+  )
 
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
