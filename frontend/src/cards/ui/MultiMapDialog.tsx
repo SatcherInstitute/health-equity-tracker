@@ -156,7 +156,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
 
           {/* LEGEND */}
-          <Grid item xs={12} sm={6} md={12} lg={12}>
+          <Grid item xs={12}>
             <Grid container item>
               <Grid container justifyContent="center">
                 <span className={styles.LegendTitleText}>

@@ -395,6 +395,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
               trackerDemographic={isRaceBySex ? AGE : currentBreakdown}
               setDemoWithParam={setDemoWithParam}
               isRaceBySex={isRaceBySex}
+              dropdownVarId={props.dropdownVarId}
+              variableConfig={variableConfig}
+              setVariableConfig={setVariableConfigWithParam}
             />
           </Grid>
         )}

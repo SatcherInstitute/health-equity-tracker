@@ -111,7 +111,7 @@ function TwoVariableReport(props: {
         undefined,
         (val: VariableId) => {
           val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId2].find(
+          return METRIC_CONFIG[props.dropdownVarId2]?.find(
             (cfg) => cfg.variableId === val
           )
         }
@@ -168,8 +168,8 @@ function TwoVariableReport(props: {
     variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ??
     variableConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted
 
-  const dt1 = variableConfig1.variableFullDisplayName
-  const dt2 = variableConfig2.variableFullDisplayName
+  const dt1 = variableConfig1?.variableFullDisplayName
+  const dt2 = variableConfig2?.variableFullDisplayName
   const demo = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   const loc1 = props.fips1.getSentenceDisplayName()
   const loc2 = props.fips2.getSentenceDisplayName()
@@ -180,8 +180,8 @@ function TwoVariableReport(props: {
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
   const offerJumpToAgeAdjustment =
-    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
-    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId2)
+    ['covid', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
+    ['covid', 'covid_hospitalizations'].includes(props.dropdownVarId2)
 
   return (
     <>
@@ -201,6 +201,7 @@ function TwoVariableReport(props: {
             dropdownVarId={props.dropdownVarId1}
             variableConfig={variableConfig1}
             setVariableConfig={setVariableConfigWithParam1}
+            dropdownVarId2={props.dropdownVarId2}
             variableConfig2={variableConfig2}
             setVariableConfig2={setVariableConfigWithParam2}
           />
@@ -445,6 +446,12 @@ function TwoVariableReport(props: {
               trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
               isRaceBySex={isRaceBySex}
+              dropdownVarId={props.dropdownVarId1}
+              variableConfig={variableConfig1}
+              setVariableConfig={setVariableConfigWithParam1}
+              dropdownVarId2={props.dropdownVarId2}
+              variableConfig2={variableConfig2}
+              setVariableConfig2={setVariableConfigWithParam2}
             />
           </Grid>
         )}
