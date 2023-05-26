@@ -56,7 +56,6 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
 import { useState } from 'react'
 import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
@@ -113,8 +112,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isCawpCongress =
     props.variableConfig.variableId === 'women_in_us_congress'
   const isCawp = isCawpStateLeg || isCawpCongress
-
-  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
 
   const location = useLocation()
 
@@ -214,7 +211,6 @@ function MapCardWithKey(props: MapCardProps) {
   const subtitle = generateSubtitle({
     activeBreakdownFilter,
     currentBreakdown,
-    isPopulationSubset,
     metricId,
   })
 

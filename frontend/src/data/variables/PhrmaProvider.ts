@@ -8,11 +8,13 @@ import VariableProvider from './VariableProvider'
 export const PHRMA_DETERMINANTS: MetricId[] = [
   'statins_adherence_pct_rate',
   'statins_adherence_pct_share',
+  'statins_beneficiaries_pct_share',
   'beta_blockers_adherence_pct_rate',
   'beta_blockers_adherence_pct_share',
+  'beta_blockers_beneficiaries_pct_share',
   'rasa_adherence_pct_rate',
   'rasa_adherence_pct_share',
-  'phrma_population_pct',
+  'rasa_beneficiaries_pct_share',
 ]
 
 class PhrmaProvider extends VariableProvider {

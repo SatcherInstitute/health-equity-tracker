@@ -14,6 +14,8 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../data/variables/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+import { PHRMA_DETERMINANTS } from '../data/variables/PhrmaProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 
@@ -121,7 +123,6 @@ interface subtitleProps {
 export function generateSubtitle({
   activeBreakdownFilter,
   currentBreakdown,
-  isPopulationSubset,
   metricId,
 }: subtitleProps) {
   let subtitle = ''
@@ -134,12 +135,21 @@ export function generateSubtitle({
     subtitle = `${activeBreakdownFilter}`
   }
 
-  if (isPopulationSubset) {
+  if (HIV_DETERMINANTS.includes(metricId)) {
     const ageTitle = metricId === 'hiv_prep_coverage' ? 'Ages 16+' : 'Ages 13+'
     if (subtitle === '') {
       subtitle = ageTitle
     } else if (currentBreakdown !== 'age') {
       subtitle += `, ${ageTitle}`
+    }
+  }
+
+  if (PHRMA_DETERMINANTS.includes(metricId)) {
+    const beneficiariesTitle = 'Medicare beneficiaries'
+    if (subtitle === '') {
+      subtitle = beneficiariesTitle
+    } else {
+      subtitle += `, ${beneficiariesTitle}`
     }
   }
 

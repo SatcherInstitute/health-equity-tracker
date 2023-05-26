@@ -216,17 +216,19 @@ export type MetricId =
   | 'voter_participation_pct_rate'
   | 'voter_participation_ratio_age_adjusted'
   | 'women_state_leg_pct_relative_inequity'
-  | 'phrma_population_pct'
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
+  | 'statins_beneficiaries_pct_share'
   | 'statins_adherence_pct_relative_inequity'
   | 'statins_adherence_ratio_age_adjusted'
   | 'beta_blockers_adherence_pct_rate'
   | 'beta_blockers_adherence_pct_share'
+  | 'beta_blockers_beneficiaries_pct_share'
   | 'beta_blockers_adherence_pct_relative_inequity'
   | 'beta_blockers_adherence_ratio_age_adjusted'
   | 'rasa_adherence_pct_rate'
   | 'rasa_adherence_pct_share'
+  | 'rasa_beneficiaries_pct_share'
   | 'rasa_adherence_pct_relative_inequity'
   | 'rasa_adherence_ratio_age_adjusted'
   | 'women_state_leg_ratio_age_adjusted'
@@ -2052,50 +2054,40 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   cardiovascular_medications_adherence: [
     {
       variableId: 'statins_adherence',
-      variableDisplayName: 'Statins adherence',
-      variableFullDisplayName: 'Statins adherence',
+      variableDisplayName: 'Adherence to statins',
+      variableFullDisplayName: 'Adherence to statins',
       surveyCollectedData: true,
       variableDefinition: `Sample definition from statins adherence data`,
       metrics: {
         pct_rate: {
           metricId: 'statins_adherence_pct_rate',
-          chartTitle: 'Statins percent adherence',
-          shortLabel: '% statins adherence',
+          chartTitle: 'Adherence to statins',
+          shortLabel: '% adherent',
           type: 'pct_rate',
         },
         pct_share: {
-          chartTitle: 'Percent share of total statins adherence',
+          chartTitle: 'Percent share of total adherence',
           metricId: 'statins_adherence_pct_share',
-          columnTitleHeader: 'Percent share of total statins adherence',
-          shortLabel: '% of total statins adherence',
+          columnTitleHeader: 'Percent share of total adherence',
+          shortLabel: '% of total adherence',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Population vs. distribution of total statins adherence',
-
-            metricId: 'phrma_population_pct',
-            columnTitleHeader: 'Total population share',
+              'Share of statins beneficiaries vs. share of total adherence',
+            metricId: 'statins_beneficiaries_pct_share',
+            columnTitleHeader: 'Share of all Medicare statins beneficiaries',
             shortLabel: populationPctShortLabel,
-            type: 'pct_share',
-          },
-          knownBreakdownComparisonMetric: {
-            chartTitle: '',
-            metricId: 'statins_adherence_pct_share',
-            columnTitleHeader: 'Percent share of total statins adherence',
-            shortLabel: '% of total statins adherence',
             type: 'pct_share',
           },
         },
         pct_relative_inequity: {
-          chartTitle: 'Relative inequity of statins adherence over time',
+          chartTitle: '',
           metricId: 'statins_adherence_pct_relative_inequity',
-          shortLabel: '% relative inequity',
+          shortLabel: '',
           type: 'pct_relative_inequity',
         },
         age_adjusted_ratio: {
-          chartTitle:
-            'Age-adjusted statins adherence ratio compared to White (NH)',
-
+          chartTitle: '',
           metricId: 'statins_adherence_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
@@ -2104,50 +2096,41 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: 'beta_blockers_adherence',
-      variableDisplayName: 'Beta-blockers adherence',
-      variableFullDisplayName: 'Beta-blockers adherence',
+      variableDisplayName: 'Adherence to beta-blockers',
+      variableFullDisplayName: 'Adherence to beta-blockers',
       surveyCollectedData: true,
       variableDefinition: `Sample definition from beta-blockers adherence data`,
       metrics: {
         pct_rate: {
           metricId: 'beta_blockers_adherence_pct_rate',
-          chartTitle: 'Beta-blockers percent adherence',
-          shortLabel: '% beta-blockers adherence',
+          chartTitle: 'Adherence to beta-blockers',
+          shortLabel: '% adherent',
           type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Percent share of total beta-blockers adherence',
           metricId: 'beta_blockers_adherence_pct_share',
           columnTitleHeader: 'Percent share of total beta-blockers adherence',
-          shortLabel: '% of total beta-blockers adherence',
+          shortLabel: '% of total adherence',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Population vs. distribution of total beta-blockers adherence',
-
-            metricId: 'phrma_population_pct',
-            columnTitleHeader: 'Total population share',
+              'Share of beta-blockers beneficiaries vs. share of total adherence',
+            metricId: 'beta_blockers_beneficiaries_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare beta-blockers beneficiaries',
             shortLabel: populationPctShortLabel,
-            type: 'pct_share',
-          },
-          knownBreakdownComparisonMetric: {
-            chartTitle: '',
-            metricId: 'beta_blockers_adherence_pct_share',
-            columnTitleHeader: 'Percent share of total beta-blockers adherence',
-            shortLabel: '% of total beta-blockers adherence',
             type: 'pct_share',
           },
         },
         pct_relative_inequity: {
-          chartTitle: 'Relative inequity of beta-blockers adherence over time',
+          chartTitle: '',
           metricId: 'beta_blockers_adherence_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
         },
         age_adjusted_ratio: {
-          chartTitle:
-            'Age-adjusted beta-blockers adherence ratio compared to White (NH)',
-
+          chartTitle: '',
           metricId: 'beta_blockers_adherence_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
@@ -2156,48 +2139,40 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: 'rasa_adherence',
-      variableDisplayName: 'RASA adherence',
-      variableFullDisplayName: 'RASA adherence',
+      variableDisplayName: 'RASA',
+      variableFullDisplayName: 'Adherence to RASA',
       surveyCollectedData: true,
       variableDefinition: `Sample definition from rasa adherence data`,
       metrics: {
         pct_rate: {
           metricId: 'rasa_adherence_pct_rate',
-          chartTitle: 'RASA percent adherence',
-          shortLabel: '% rasa adherence',
+          chartTitle: 'Adherence to RASA',
+          shortLabel: '% adherent',
           type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Percent share of total rasa adherence',
           metricId: 'rasa_adherence_pct_share',
           columnTitleHeader: 'Percent share of total rasa adherence',
-          shortLabel: '% of total rasa adherence',
+          shortLabel: '% of total adherence',
           type: 'pct_share',
           populationComparisonMetric: {
-            chartTitle: 'Population vs. distribution of total rasa adherence',
-
-            metricId: 'phrma_population_pct',
-            columnTitleHeader: 'Total population share',
+            chartTitle:
+              'Share of RASA beneficiaries vs. share of total adherence',
+            metricId: 'rasa_beneficiaries_pct_share',
+            columnTitleHeader: 'Share of all Medicare RASA beneficiaries',
             shortLabel: populationPctShortLabel,
-            type: 'pct_share',
-          },
-          knownBreakdownComparisonMetric: {
-            chartTitle: '',
-            metricId: 'rasa_adherence_pct_share',
-            columnTitleHeader: 'Percent share of total rasa adherence',
-            shortLabel: '% of total rasa adherence',
             type: 'pct_share',
           },
         },
         pct_relative_inequity: {
-          chartTitle: 'Relative inequity of rasa adherence over time',
+          chartTitle: '',
           metricId: 'rasa_adherence_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
         },
         age_adjusted_ratio: {
-          chartTitle:
-            'Age-adjusted rasa adherence ratio compared to White (NH)',
+          chartTitle: '',
           metricId: 'rasa_adherence_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
