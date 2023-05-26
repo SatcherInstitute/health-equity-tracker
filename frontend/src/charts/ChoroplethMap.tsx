@@ -207,8 +207,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
     const legendList: Legend[] = []
 
-    console.log(props.legendTitle)
-
     const legend: Legend = {
       fill: COLOR_SCALE,
       direction: 'horizontal',

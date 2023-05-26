@@ -139,6 +139,8 @@ export function Sources(props: SourcesProps) {
       ''
     )
 
+  console.log(props.queryResponses)
+
   return (
     <Grid container className={styles.Footnote}>
       {/* NH note (if needed) listed first, full-width */}
@@ -147,6 +149,7 @@ export function Sources(props: SourcesProps) {
           <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
         )}
       </Grid>
+
       {props.isMulti ? (
         <>
           <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>

@@ -119,6 +119,7 @@ function ReportProvider(props: ReportProviderProps) {
               isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
+              variablesToDefine={metricConfigSubset}
             />
           </>
         )

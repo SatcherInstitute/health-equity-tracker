@@ -6,7 +6,7 @@ import {
 
 export function getDataTypesMap(dropdownVarId: DropdownVarId) {
   const dataTypesMap: Record<string, VariableConfig> = {}
-  METRIC_CONFIG[dropdownVarId].forEach((variableConfig: VariableConfig) => {
+  METRIC_CONFIG[dropdownVarId]?.forEach((variableConfig: VariableConfig) => {
     dataTypesMap[variableConfig.dataTypeName] = variableConfig
   })
   return dataTypesMap

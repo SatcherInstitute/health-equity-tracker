@@ -176,6 +176,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
     // Extract values from the current madlib
     const var1 = madLib.activeSelections[1]
+
     const geo1 =
       madLib.id === 'comparevars'
         ? madLib.activeSelections[5]

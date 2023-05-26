@@ -13,7 +13,6 @@ import { MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
 const dropdownIdSwaps: Record<string, VariableId> = {
   vaccinations: 'covid_vaccinations',
   incarceration: 'prison',
-  covid: 'covid_cases',
   women_in_legislative_office: 'women_in_us_congress',
 }
 

@@ -2086,7 +2086,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: 'beta_blockers_adherence',
-      dataTypeName: 'Beta-blockers',
+      dataTypeName: 'Beta-Blockers',
       variableFullDisplayName: 'Adherence to beta-blockers',
       surveyCollectedData: true,
       variableDefinition: `Sample definition from beta-blockers adherence data`,
@@ -2129,28 +2129,29 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: 'rasa_adherence',
-      dataTypeName: 'RASA',
-      variableFullDisplayName: 'Adherence to RASA',
+      dataTypeName: 'RAS-Antagonists',
+      variableFullDisplayName: 'Adherence to RAS antagonists',
       surveyCollectedData: true,
-      variableDefinition: `Sample definition from RASA adherence data`,
+      variableDefinition: `Sample definition from RAS antagonists adherence data`,
       metrics: {
         pct_rate: {
           metricId: 'rasa_adherence_pct_rate',
-          chartTitle: 'Adherence to RASA',
+          chartTitle: 'Adherence to RAS antagonists',
           shortLabel: '% adherent',
           type: 'pct_rate',
         },
         pct_share: {
-          chartTitle: 'Percent share of total RASA adherence',
+          chartTitle: 'Percent share of total RAS antagonists adherence',
           metricId: 'rasa_adherence_pct_share',
-          columnTitleHeader: 'Percent share of total RASA adherence',
+          columnTitleHeader: 'Percent share of total RAS antagonists adherence',
           shortLabel: '% of total adherence',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
               'Share of RASA beneficiary population vs. share of total adherence',
             metricId: 'rasa_beneficiaries_pct_share',
-            columnTitleHeader: 'Share of all Medicare RASA beneficiaries',
+            columnTitleHeader:
+              'Share of all Medicare RAS antagonists beneficiaries',
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },

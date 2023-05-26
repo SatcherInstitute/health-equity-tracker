@@ -18,6 +18,7 @@ import {
   setParameters,
   stringifyMls,
 } from '../../utils/urlutils'
+// import { type DropdownVarId, METRIC_CONFIG } from '../../data/config/MetricConfig'
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -68,8 +69,19 @@ export default function MadLibUI(props: {
     })
   }
 
+  // const def = props.madLib.activeSelections[1] !== "default" ?
+  //   METRIC_CONFIG[props.madLib.activeSelections[1] as DropdownVarId][0].variableDefinition :
+  //   ""
+
   return (
-    <Grid id="madlib-box" container justifyContent="center" alignItems="center">
+    <Grid
+      item
+      xs={12}
+      id="madlib-box"
+      container
+      justifyContent="center"
+      alignItems="center"
+    >
       <div className={styles.MadLibUI}>
         {props.madLib.phrase.map(
           (phraseSegment: PhraseSegment, index: number) => (
@@ -93,6 +105,10 @@ export default function MadLibUI(props: {
           )
         )}
       </div>
+      {/* <Grid item xs={12}>
+        <small>{def}</small>
+
+      </Grid> */}
     </Grid>
   )
 }

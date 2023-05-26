@@ -43,6 +43,7 @@ import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
+// import TopicDetailsCard from './ui/TopicDetailsCard'
 
 export interface OneVariableReportProps {
   key: string
@@ -57,6 +58,7 @@ export interface OneVariableReportProps {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
+  variablesToDefine: Array<[string, VariableConfig[]]>
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -92,12 +94,12 @@ export function OneVariableReport(props: OneVariableReportProps) {
         undefined,
         (val: string) => {
           val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId].find(
+          return METRIC_CONFIG[props.dropdownVarId]?.find(
             (cfg) => cfg.variableId === val
           )
         }
       )
-      setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0])
+      setVariableConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
       const demo: BreakdownVar = getParameter(
         DEMOGRAPHIC_PARAM,
@@ -146,6 +148,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} md={10}>
+          {/* <TopicDetailsCard
+            variablesToDefine={props.variablesToDefine}
+
+          /> */}
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
