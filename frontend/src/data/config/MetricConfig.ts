@@ -7,9 +7,7 @@
 import { LESS_THAN_1 } from '../utils/Constants'
 
 export type DropdownVarId =
-  | 'covid_cases'
-  | 'covid_deaths'
-  | 'covid_hospitalizations'
+  | 'covid'
   | 'hiv_care'
   | 'hiv_diagnoses'
   | 'hiv_diagnoses_black_women'
@@ -46,6 +44,9 @@ export type AgeAdjustedVariableId = 'covid_deaths' | 'covid_hospitalizations'
 export type VariableId =
   | DropdownVarId
   | AgeAdjustedVariableId
+  | 'covid_cases'
+  | 'covid_deaths'
+  | 'covid_hospitalizations'
   | 'population'
   | 'population_decia'
   | 'non_medical_drug_use'
@@ -397,7 +398,7 @@ export function getAgeAdjustedRatioMetric(
 // on this to build toggles.
 // TODO: make the UI consistent regardless of metric config order.
 export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
-  covid_cases: [
+  covid: [
     {
       variableId: 'covid_cases',
       variableDisplayName: 'Cases',
@@ -447,8 +448,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  covid_deaths: [
     {
       variableId: 'covid_deaths',
       variableDisplayName: 'Deaths',
@@ -499,8 +498,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  covid_hospitalizations: [
     {
       variableId: 'covid_hospitalizations',
       variableDisplayName: 'Hospitalizations',
@@ -554,7 +551,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-
   covid_vaccinations: [
     {
       variableId: 'covid_vaccinations',

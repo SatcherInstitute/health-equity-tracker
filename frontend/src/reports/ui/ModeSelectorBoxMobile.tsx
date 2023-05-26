@@ -63,7 +63,7 @@ export default function ModeSelectorBoxMobile(
           <SimpleSelect<VariableConfig>
             label="Data type"
             optionsMap={dataTypesMap}
-            selected={props?.variableConfig ?? METRIC_CONFIG.covid_cases[0]}
+            selected={props?.variableConfig ?? METRIC_CONFIG.covid[0]}
             setSelected={props.setVariableConfig}
           />
         )}
@@ -71,7 +71,7 @@ export default function ModeSelectorBoxMobile(
           <SimpleSelect<VariableConfig>
             label="Comparison Data type"
             optionsMap={secondDataTypesMap}
-            selected={props?.variableConfig2 ?? METRIC_CONFIG.covid_deaths[0]}
+            selected={props?.variableConfig2 ?? METRIC_CONFIG.covid[1]}
             setSelected={props.setVariableConfig2}
           />
         )}

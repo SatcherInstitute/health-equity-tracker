@@ -72,10 +72,7 @@ function ReportProvider(props: ReportProviderProps) {
     (id) => id?.[0] as DropdownVarId
   )
 
-  const isCovid =
-    currentDropDownIds.includes('covid_cases') ||
-    currentDropDownIds.includes('covid_hospitalizations') ||
-    currentDropDownIds.includes('covid_deaths')
+  const isCovid = currentDropDownIds.includes('covid')
   const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
   const isCAWP =
     currentDropDownIds.includes('women_in_us_congress') ||
