@@ -20,6 +20,7 @@ import { ORDINAL } from './utils'
 import sass from '../styles/variables.module.scss'
 import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
+import { type Legend } from 'vega'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -160,12 +161,12 @@ export function getHelperLegend(
   yOffset: number,
   xOffset: number,
   overrideGrayMissingWithZeroYellow?: boolean
-) {
+): Legend {
   return {
     fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    // orient: 'none',
-    font: LEGEND_TEXT_FONT,
+    orient: overrideGrayMissingWithZeroYellow ? undefined : 'none',
+    titleFont: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
