@@ -2054,7 +2054,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   cardiovascular_medications_adherence: [
     {
       variableId: 'statins_adherence',
-      variableDisplayName: 'Adherence to statins',
+      variableDisplayName: 'Statins',
       variableFullDisplayName: 'Adherence to statins',
       surveyCollectedData: true,
       variableDefinition: `Sample definition from statins adherence data`,
@@ -2096,7 +2096,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     },
     {
       variableId: 'beta_blockers_adherence',
-      variableDisplayName: 'Adherence to beta-blockers',
+      variableDisplayName: 'Beta-blockers',
       variableFullDisplayName: 'Adherence to beta-blockers',
       surveyCollectedData: true,
       variableDefinition: `Sample definition from beta-blockers adherence data`,

@@ -31,7 +31,6 @@ import {
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import NoDataAlert from './ui/NoDataAlert'
-import ReportToggleControls from './ui/ReportToggleControls'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
@@ -199,81 +198,14 @@ function TwoVariableReport(props: {
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            dropdownVarId={props.dropdownVarId1}
+            variableConfig={variableConfig1}
+            setVariableConfig={setVariableConfigWithParam1}
+            variableConfig2={variableConfig2}
+            setVariableConfig2={setVariableConfigWithParam2}
           />
 
           <Grid container spacing={1} alignItems="flex-start">
-            {/*  2 SETS OF TOGGLE CONTROLS */}
-            {props.fips1.code === props.fips2.code ? (
-              <Grid
-                item
-                xs={12}
-                tabIndex={-1}
-                style={{
-                  scrollMarginTop: props.headerScrollMargin,
-                }}
-              >
-                {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
-                <Grid container>
-                  <Grid item xs={12} sm={6}>
-                    <ReportToggleControls
-                      dropdownVarId={props.dropdownVarId1}
-                      variableConfig={variableConfig1}
-                      setVariableConfig={setVariableConfigWithParam1}
-                      currentBreakdown={currentBreakdown}
-                      setCurrentBreakdown={setDemoWithParam}
-                      fips={props.fips1}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <ReportToggleControls
-                      dropdownVarId={props.dropdownVarId2}
-                      variableConfig={variableConfig2}
-                      setVariableConfig={setVariableConfigWithParam2}
-                      currentBreakdown={currentBreakdown}
-                      setCurrentBreakdown={setDemoWithParam}
-                      fips={props.fips2}
-                      excludeId={true}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-            ) : (
-              <>
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  tabIndex={-1}
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId1}
-                    variableConfig={variableConfig1}
-                    setVariableConfig={setVariableConfigWithParam1}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips1}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId2}
-                    variableConfig={variableConfig2}
-                    setVariableConfig={setVariableConfigWithParam2}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips2}
-                    excludeId={true}
-                  />
-                </Grid>
-              </>
-            )}
-
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               id="rate-map"

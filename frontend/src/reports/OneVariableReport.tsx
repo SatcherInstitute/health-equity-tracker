@@ -26,7 +26,6 @@ import {
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
-import ReportToggleControls from './ui/ReportToggleControls'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import styles from './Report.module.scss'
@@ -154,6 +153,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            dropdownVarId={props.dropdownVarId}
+            variableConfig={variableConfig}
+            setVariableConfig={setVariableConfigWithParam}
           />
 
           <Grid
@@ -170,18 +172,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
             {variableConfig && (
               <Grid container justifyContent="center">
-                {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-                <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId}
-                    variableConfig={variableConfig}
-                    setVariableConfig={setVariableConfigWithParam}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips}
-                  />
-                </Grid>
-
                 {/* 100k MAP CARD */}
                 <Grid
                   item
