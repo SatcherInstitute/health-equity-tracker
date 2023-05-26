@@ -237,7 +237,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   <CardContent>
                     <UnknownBubblesAlert
                       breakdownVar={props.breakdownVar}
-                      variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                      variableDisplayName={props.variableConfig.variableFullDisplayName.toLowerCase()}
                       expanded={unknownsExpanded}
                       setExpanded={setUnknownsExpanded}
                     />

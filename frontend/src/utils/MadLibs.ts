@@ -109,12 +109,8 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   covid: 'COVID-19',
   hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
-  hiv_prevalence: 'HIV Prevalence',
-  hiv_prevalence_black_women: 'HIV Prevalence (Black Women)',
-  hiv_diagnoses: 'New HIV Diagnoses',
-  hiv_diagnoses_black_women: 'New HIV Diagnoses (Black Women)',
-  hiv_deaths: 'HIV Deaths',
-  hiv_deaths_black_women: 'HIV Deaths (Black Women)',
+  hiv: 'HIV',
+  hiv_black_women: 'HIV (Black Women)',
   diabetes: 'Diabetes',
   copd: 'COPD',
   health_insurance: 'Uninsured Individuals',
@@ -149,22 +145,12 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: [
-      'hiv_care',
-      'hiv_diagnoses',
-      'hiv_deaths',
-      'hiv_prep',
-      'hiv_prevalence',
-    ],
+    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
   },
   {
     title: `Black Women's Health`,
     definition: '',
-    options: [
-      'hiv_prevalence_black_women',
-      'hiv_diagnoses_black_women',
-      'hiv_deaths_black_women',
-    ],
+    options: ['hiv_black_women'],
   },
 
   {

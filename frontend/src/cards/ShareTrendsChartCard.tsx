@@ -201,7 +201,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     <CardContent>
                       <UnknownBubblesAlert
                         breakdownVar={props.breakdownVar}
-                        variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                        variableDisplayName={props.variableConfig.variableFullDisplayName.toLowerCase()}
                         expanded={unknownsExpanded}
                         setExpanded={setUnknownsExpanded}
                       />

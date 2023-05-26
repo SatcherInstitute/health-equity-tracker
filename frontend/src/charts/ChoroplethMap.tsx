@@ -207,13 +207,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
     const legendList: Legend[] = []
 
+    console.log(props.legendTitle)
+
     const legend: Legend = {
       fill: COLOR_SCALE,
       direction: 'horizontal',
-      title: props.legendTitle,
+      title: '% unknown',
       titleFontSize: pageIsTiny ? 9 : 11,
       titleLimit: 0,
       labelFont: LEGEND_TEXT_FONT,
+      titleFont: LEGEND_TEXT_FONT,
       labelOverlap: 'greedy',
       labelSeparation: 10,
       orient: 'none',
