@@ -106,8 +106,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
 
-  // const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
-  // const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
 
   // Initial spec state is set in useEffect
