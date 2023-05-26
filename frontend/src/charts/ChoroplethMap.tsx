@@ -428,7 +428,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       container
       justifyContent={'center'}
       ref={props.overrideShapeWithCircle ? undefined : ref}
-      sx={{ mt: 5 }}
+      sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
       {shouldRenderMap && (
         <Vega
