@@ -152,13 +152,10 @@ HIV_POPULATION_PCT = 'hiv_population_pct'
 HIV_BW_POPULATION = 'black_women_population'
 HIV_BW_POPULATION_PCT = 'black_women_population_pct'
 
-
 # PHRMA
 STATINS_PREFIX = "statins"
 BETA_BLOCKERS_PREFIX = "beta_blockers"
 RASA_PREFIX = "rasa"
-PHRMA_POPULATION = "phrma_population"
-PHRMA_POPULATION_PCT = "phrma_population_pct"
 
 
 RaceTuple = namedtuple("RaceTuple", [

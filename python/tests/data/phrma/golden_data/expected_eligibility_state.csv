@@ -1,0 +1,256 @@
+eligibility,state_name,state_fips,statins_adherence_estimated_total,statins_beneficiaries_estimated_total,beta_blockers_adherence_estimated_total,beta_blockers_beneficiaries_estimated_total,rasa_adherence_estimated_total,rasa_beneficiaries_estimated_total,statins_adherence_pct_rate,beta_blockers_adherence_pct_rate,rasa_adherence_pct_rate,statins_adherence_pct_share,beta_blockers_adherence_pct_share,rasa_adherence_pct_share,statins_beneficiaries_pct_share,beta_blockers_beneficiaries_pct_share,rasa_beneficiaries_pct_share
+All,Alabama,01,198937.0,242041.0,134625.0,172174.0,190347.0,229528.0,82.0,78.0,83.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Alabama,01,170200.0,203823.0,114894.0,143239.0,162498.0,192381.0,84.0,80.0,84.0,85.6,85.3,85.4,84.2,83.2,83.8
+Eligible due to disability,Alabama,01,28675.0,38127.0,19325.0,28177.0,27809.0,37086.0,75.0,69.0,75.0,14.4,14.4,14.6,15.8,16.4,16.2
+Eligible due to disability and end-stage renal disease (ESRD),Alabama,01,48.0,76.0,189.0,328.0,24.0,43.0,63.0,58.0,56.0,0.02,0.1,0.01,0.03,0.2,0.02
+Eligible due to end-stage renal disease (ESRD),Alabama,01,,,217.0,430.0,,,93.0,50.0,89.0,,0.2,,,0.2,
+All,Alaska,02,19884.0,24106.0,12214.0,15270.0,20191.0,24676.0,82.0,80.0,82.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Alaska,02,18403.0,22188.0,11171.0,13777.0,18716.0,22730.0,83.0,81.0,82.0,92.6,91.5,92.7,92.0,90.2,92.1
+Eligible due to disability,Alaska,02,1478.0,1914.0,1003.0,1410.0,1473.0,1944.0,77.0,71.0,76.0,7.4,8.2,7.3,7.9,9.2,7.9
+Eligible due to disability and end-stage renal disease (ESRD),Alaska,02,,,,,,,100.0,53.0,,,,,,,
+Eligible due to end-stage renal disease (ESRD),Alaska,02,,,32.0,68.0,,,67.0,47.0,100.0,,0.3,,,0.4,
+All,Arizona,03,215907.0,259059.0,124699.0,156834.0,194837.0,234113.0,83.0,80.0,83.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Arizona,03,203205.0,242078.0,116192.0,143854.0,183235.0,218037.0,84.0,81.0,84.0,94.1,93.2,94.0,93.4,91.7,93.1
+Eligible due to disability,Arizona,03,12659.0,16921.0,8266.0,12479.0,11573.0,16035.0,75.0,66.0,72.0,5.9,6.6,5.9,6.5,8.0,6.8
+Eligible due to disability and end-stage renal disease (ESRD),Arizona,03,,,53.0,98.0,,,72.0,54.0,62.0,,0.04,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Arizona,03,30.0,42.0,188.0,403.0,,,71.0,47.0,75.0,0.01,0.2,,0.02,0.3,
+All,Arkansas,04,129637.0,158824.0,92719.0,120706.0,125933.0,154553.0,82.0,77.0,81.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Arkansas,04,110719.0,133425.0,78848.0,100063.0,108042.0,130070.0,83.0,79.0,83.0,85.4,85.0,85.8,84.0,82.9,84.2
+Eligible due to disability,Arkansas,04,18880.0,25355.0,13664.0,20203.0,17880.0,24466.0,74.0,68.0,73.0,14.6,14.7,14.2,16.0,16.7,15.8
+Eligible due to disability and end-stage renal disease (ESRD),Arkansas,04,,,97.0,198.0,,,90.0,49.0,50.0,,0.1,,,0.2,
+Eligible due to end-stage renal disease (ESRD),Arkansas,04,,,110.0,242.0,,,80.0,45.0,86.0,,0.1,,,0.2,
+All,California,05,1012755.0,1224563.0,551897.0,698195.0,896138.0,1075914.0,83.0,79.0,83.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,California,05,927927.0,1115787.0,498066.0,621892.0,822222.0,980445.0,83.0,80.0,84.0,91.6,90.2,91.8,91.1,89.1,91.1
+Eligible due to disability,California,05,84483.0,108332.0,51564.0,72638.0,73724.0,95186.0,78.0,71.0,77.0,8.3,9.3,8.2,8.8,10.4,8.8
+Eligible due to disability and end-stage renal disease (ESRD),California,05,70.0,90.0,377.0,583.0,35.0,57.0,78.0,65.0,61.0,0.01,0.1,0.0,0.01,0.1,0.01
+Eligible due to end-stage renal disease (ESRD),California,05,275.0,354.0,1890.0,3082.0,157.0,226.0,78.0,61.0,69.0,0.03,0.3,0.02,0.03,0.4,0.02
+All,Colorado,06,136250.0,160802.0,68608.0,86216.0,118102.0,140426.0,85.0,80.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Colorado,06,124861.0,146589.0,61987.0,76788.0,108192.0,127785.0,85.0,81.0,85.0,91.6,90.3,91.6,91.2,89.1,91.0
+Eligible due to disability,Colorado,06,11367.0,14181.0,6457.0,9151.0,9890.0,12619.0,80.0,71.0,78.0,8.3,9.4,8.4,8.8,10.6,9.0
+Eligible due to disability and end-stage renal disease (ESRD),Colorado,06,,,34.0,50.0,,,43.0,68.0,100.0,,0.05,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Colorado,06,,,130.0,227.0,,,76.0,57.0,89.0,,0.2,,,0.3,
+All,Connecticut,07,158166.0,185159.0,98434.0,117600.0,126194.0,145953.0,85.0,84.0,86.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Connecticut,07,144234.0,167975.0,89889.0,106245.0,116007.0,133312.0,86.0,85.0,87.0,91.2,91.3,91.9,90.7,90.3,91.3
+Eligible due to disability,Connecticut,07,13900.0,17146.0,8347.0,11048.0,10170.0,12619.0,81.0,76.0,81.0,8.8,8.5,8.1,9.3,9.4,8.6
+Eligible due to disability and end-stage renal disease (ESRD),Connecticut,07,,,59.0,87.0,,,80.0,68.0,73.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Connecticut,07,,,139.0,220.0,,,89.0,63.0,82.0,,0.1,,,0.2,
+All,Delaware,08,64835.0,75989.0,37492.0,45222.0,51943.0,60282.0,85.0,83.0,86.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Delaware,08,60038.0,69922.0,34610.0,41206.0,48080.0,55335.0,86.0,84.0,87.0,92.6,92.3,92.6,92.0,91.1,91.8
+Eligible due to disability,Delaware,08,4790.0,6058.0,2834.0,3932.0,3860.0,4943.0,79.0,72.0,78.0,7.4,7.6,7.4,8.0,8.7,8.2
+Eligible due to disability and end-stage renal disease (ESRD),Delaware,08,,,,,,,50.0,63.0,100.0,,,,,,
+Eligible due to end-stage renal disease (ESRD),Delaware,08,,,36.0,65.0,,,86.0,55.0,67.0,,0.1,,,0.1,
+All,District of Columbia,09,15456.0,19868.0,7653.0,10477.0,13216.0,16768.0,78.0,73.0,79.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,District of Columbia,09,13198.0,16696.0,6509.0,8596.0,11245.0,13976.0,79.0,76.0,80.0,85.4,85.1,85.1,84.0,82.0,83.3
+Eligible due to disability,District of Columbia,09,2254.0,3166.0,1096.0,1786.0,1970.0,2791.0,71.0,61.0,71.0,14.6,14.3,14.9,15.9,17.0,16.6
+Eligible due to disability and end-stage renal disease (ESRD),District of Columbia,09,,,,,,,,33.0,,,,,,,
+Eligible due to end-stage renal disease (ESRD),District of Columbia,09,,,44.0,83.0,,,67.0,53.0,100.0,,0.6,,,0.8,
+All,Florida,10,821252.0,993131.0,498432.0,623576.0,702925.0,837782.0,83.0,80.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Florida,10,755921.0,909426.0,456356.0,564197.0,647988.0,766977.0,83.0,81.0,84.0,92.0,91.6,92.2,91.6,90.5,91.5
+Eligible due to disability,Florida,10,65162.0,83484.0,40889.0,57227.0,54837.0,70663.0,78.0,71.0,78.0,7.9,8.2,7.8,8.4,9.2,8.4
+Eligible due to disability and end-stage renal disease (ESRD),Florida,10,63.0,87.0,276.0,488.0,34.0,48.0,72.0,57.0,71.0,0.01,0.1,0.0,0.01,0.1,0.01
+Eligible due to end-stage renal disease (ESRD),Florida,10,106.0,134.0,911.0,1664.0,66.0,94.0,79.0,55.0,70.0,0.01,0.2,0.01,0.01,0.3,0.01
+All,Georgia,11,309627.0,381416.0,201702.0,262120.0,281557.0,343909.0,81.0,77.0,82.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Georgia,11,273716.0,333211.0,175436.0,222557.0,248449.0,298753.0,82.0,79.0,83.0,88.4,87.0,88.2,87.4,84.9,86.9
+Eligible due to disability,Georgia,11,35812.0,48068.0,25304.0,37704.0,33048.0,45066.0,75.0,67.0,73.0,11.6,12.5,11.7,12.6,14.4,13.1
+Eligible due to disability and end-stage renal disease (ESRD),Georgia,11,63.0,91.0,297.0,571.0,35.0,55.0,69.0,52.0,64.0,0.02,0.1,0.01,0.02,0.2,0.02
+Eligible due to end-stage renal disease (ESRD),Georgia,11,,,665.0,1288.0,,,78.0,52.0,71.0,,0.3,,,0.5,
+All,Hawaii,12,37797.0,44431.0,17913.0,22031.0,33588.0,39392.0,85.0,81.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Hawaii,12,35605.0,41657.0,16430.0,19895.0,31539.0,36747.0,85.0,83.0,86.0,94.2,91.7,93.9,93.8,90.3,93.3
+Eligible due to disability,Hawaii,12,2162.0,2738.0,1348.0,1927.0,2026.0,2615.0,79.0,70.0,77.0,5.7,7.5,6.0,6.2,8.7,6.6
+Eligible due to disability and end-stage renal disease (ESRD),Hawaii,12,,,25.0,43.0,,,83.0,58.0,80.0,,0.1,,,0.2,
+Eligible due to end-stage renal disease (ESRD),Hawaii,12,,,110.0,166.0,,,83.0,66.0,76.0,,0.6,,,0.8,
+All,Idaho,13,53404.0,62937.0,31462.0,39154.0,54118.0,64107.0,85.0,80.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Idaho,13,48169.0,56376.0,28049.0,34440.0,49060.0,57572.0,85.0,81.0,85.0,90.2,89.2,90.7,89.6,88.0,89.8
+Eligible due to disability,Idaho,13,5218.0,6542.0,3331.0,4590.0,5045.0,6519.0,80.0,73.0,77.0,9.8,10.6,9.3,10.4,11.7,10.2
+Eligible due to disability and end-stage renal disease (ESRD),Idaho,13,12.0,12.0,28.0,41.0,,,100.0,68.0,75.0,0.02,0.1,,0.02,0.1,
+Eligible due to end-stage renal disease (ESRD),Idaho,13,,,54.0,83.0,,,71.0,65.0,100.0,,0.2,,,0.2,
+All,Illinois,14,568358.0,674153.0,376625.0,458107.0,490577.0,575916.0,84.0,82.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Illinois,14,521346.0,613582.0,345007.0,414592.0,451289.0,525069.0,85.0,83.0,86.0,91.7,91.6,92.0,91.0,90.5,91.2
+Eligible due to disability,Illinois,14,46868.0,60400.0,30915.0,42304.0,39208.0,50727.0,78.0,73.0,77.0,8.2,8.2,8.0,9.0,9.2,8.8
+Eligible due to disability and end-stage renal disease (ESRD),Illinois,14,,,200.0,340.0,25.0,37.0,85.0,59.0,68.0,,0.1,0.01,,0.1,0.01
+Eligible due to end-stage renal disease (ESRD),Illinois,14,88.0,105.0,503.0,871.0,55.0,83.0,84.0,58.0,66.0,0.02,0.1,0.01,0.02,0.2,0.01
+All,Indiana,15,307986.0,363168.0,208912.0,253949.0,271514.0,318622.0,85.0,82.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Indiana,15,274551.0,320769.0,185783.0,222514.0,244316.0,283454.0,86.0,83.0,86.0,89.1,88.9,90.0,88.3,87.6,89.0
+Eligible due to disability,Indiana,15,33389.0,42339.0,22790.0,30853.0,27171.0,35133.0,79.0,74.0,77.0,10.8,10.9,10.0,11.7,12.1,11.0
+Eligible due to disability and end-stage renal disease (ESRD),Indiana,15,,,136.0,223.0,,,75.0,61.0,68.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Indiana,15,,,203.0,359.0,,,80.0,57.0,92.0,,0.1,,,0.1,
+All,Iowa,16,178262.0,202284.0,116568.0,135453.0,150084.0,169894.0,88.0,86.0,88.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Iowa,16,163925.0,184894.0,107471.0,123559.0,139222.0,156455.0,89.0,87.0,89.0,92.0,92.2,92.8,91.4,91.2,92.1
+Eligible due to disability,Iowa,16,14298.0,17345.0,8959.0,11666.0,10843.0,13409.0,82.0,77.0,81.0,8.0,7.7,7.2,8.6,8.6,7.9
+Eligible due to disability and end-stage renal disease (ESRD),Iowa,16,,,58.0,100.0,,,96.0,58.0,57.0,,0.05,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Iowa,16,,,80.0,128.0,,,76.0,62.0,69.0,,0.1,,,0.1,
+All,Kansas,17,136086.0,157336.0,81901.0,99600.0,121785.0,141004.0,86.0,82.0,86.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Kansas,17,123716.0,142169.0,74153.0,89091.0,111345.0,127924.0,87.0,83.0,87.0,90.9,90.5,91.4,90.4,89.4,90.7
+Eligible due to disability,Kansas,17,12346.0,15136.0,7599.0,10258.0,10423.0,13054.0,82.0,74.0,80.0,9.1,9.3,8.6,9.6,10.3,9.3
+Eligible due to disability and end-stage renal disease (ESRD),Kansas,17,,,73.0,113.0,,,67.0,65.0,62.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Kansas,17,,,76.0,138.0,,,100.0,55.0,70.0,,0.1,,,0.1,
+All,Kentucky,18,206955.0,252756.0,149684.0,190332.0,191772.0,232398.0,82.0,79.0,83.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Kentucky,18,173295.0,208057.0,125639.0,155993.0,161607.0,191892.0,83.0,81.0,84.0,83.7,83.9,84.3,82.3,82.0,82.6
+Eligible due to disability,Kentucky,18,33617.0,44632.0,23809.0,33914.0,30146.0,40477.0,75.0,70.0,74.0,16.2,15.9,15.7,17.7,17.8,17.4
+Eligible due to disability and end-stage renal disease (ESRD),Kentucky,18,23.0,40.0,101.0,192.0,,,57.0,53.0,50.0,0.01,0.1,,0.02,0.1,
+Eligible due to end-stage renal disease (ESRD),Kentucky,18,,,135.0,233.0,,,74.0,58.0,85.0,,0.1,,,0.1,
+All,Louisiana,19,173276.0,216390.0,113990.0,150533.0,159629.0,197190.0,80.0,76.0,81.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Louisiana,19,149452.0,183831.0,97347.0,125322.0,137388.0,166515.0,81.0,78.0,83.0,86.3,85.4,86.1,85.0,83.3,84.4
+Eligible due to disability,Louisiana,19,23772.0,32486.0,16185.0,24257.0,22206.0,30625.0,73.0,67.0,73.0,13.7,14.2,13.9,15.0,16.1,15.5
+Eligible due to disability and end-stage renal disease (ESRD),Louisiana,19,35.0,48.0,194.0,378.0,,,73.0,51.0,74.0,0.02,0.2,,0.02,0.3,
+Eligible due to end-stage renal disease (ESRD),Louisiana,19,,,264.0,576.0,,,68.0,46.0,65.0,,0.2,,,0.4,
+All,Maine,20,70167.0,80040.0,46084.0,54222.0,57122.0,65042.0,88.0,85.0,88.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Maine,20,60030.0,68054.0,39552.0,45875.0,49137.0,55452.0,88.0,86.0,89.0,85.6,85.8,86.0,85.0,84.6,85.3
+Eligible due to disability,Maine,20,10123.0,11967.0,6451.0,8213.0,7984.0,9588.0,85.0,79.0,83.0,14.4,14.0,14.0,15.0,15.1,14.7
+Eligible due to disability and end-stage renal disease (ESRD),Maine,20,,,41.0,68.0,0.0,,67.0,60.0,0.0,,0.1,0.0,,0.1,
+Eligible due to end-stage renal disease (ESRD),Maine,20,,,40.0,66.0,,,100.0,61.0,100.0,,0.1,,,0.1,
+All,Maryland,21,231138.0,278279.0,142215.0,175909.0,201068.0,239493.0,83.0,81.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Maryland,21,211612.0,252533.0,129060.0,157181.0,184214.0,217080.0,84.0,82.0,85.0,91.6,90.7,91.6,90.7,89.4,90.6
+Eligible due to disability,Maryland,21,19491.0,25706.0,12889.0,18248.0,16842.0,22397.0,76.0,71.0,75.0,8.4,9.1,8.4,9.2,10.4,9.4
+Eligible due to disability and end-stage renal disease (ESRD),Maryland,21,,,49.0,88.0,,,71.0,56.0,50.0,,0.03,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Maryland,21,,,217.0,392.0,,,91.0,55.0,83.0,,0.2,,,0.2,
+All,Massachusetts,22,342650.0,399122.0,208496.0,247443.0,262558.0,303769.0,86.0,84.0,86.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Massachusetts,22,307263.0,355087.0,186937.0,219011.0,236026.0,270466.0,87.0,85.0,87.0,89.7,89.7,89.9,89.0,88.5,89.0
+Eligible due to disability,Massachusetts,22,35318.0,43952.0,21322.0,28056.0,26502.0,33258.0,80.0,76.0,80.0,10.3,10.2,10.1,11.0,11.3,10.9
+Eligible due to disability and end-stage renal disease (ESRD),Massachusetts,22,,,72.0,105.0,,,81.0,69.0,56.0,,0.03,,,0.04,
+Eligible due to end-stage renal disease (ESRD),Massachusetts,22,,,165.0,271.0,,,84.0,61.0,74.0,,0.1,,,0.1,
+All,Michigan,23,422600.0,507825.0,290767.0,357569.0,372875.0,443884.0,83.0,81.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Michigan,23,370937.0,441042.0,255826.0,309429.0,329340.0,387005.0,84.0,83.0,85.0,87.8,88.0,88.3,86.8,86.5,87.2
+Eligible due to disability,Michigan,23,51551.0,66638.0,34332.0,47123.0,43468.0,56778.0,77.0,73.0,77.0,12.2,11.8,11.7,13.1,13.2,12.8
+Eligible due to disability and end-stage renal disease (ESRD),Michigan,23,,,165.0,274.0,20.0,32.0,80.0,60.0,62.0,,0.1,0.01,,0.1,0.01
+Eligible due to end-stage renal disease (ESRD),Michigan,23,71.0,94.0,444.0,743.0,47.0,69.0,76.0,60.0,68.0,0.02,0.2,0.01,0.02,0.2,0.02
+All,Minnesota,24,178629.0,203470.0,118095.0,137929.0,145693.0,166495.0,88.0,86.0,88.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Minnesota,24,159462.0,180313.0,105198.0,121003.0,131176.0,148376.0,88.0,87.0,88.0,89.3,89.1,90.0,88.6,87.7,89.1
+Eligible due to disability,Minnesota,24,19127.0,23107.0,12679.0,16588.0,14495.0,18091.0,83.0,76.0,80.0,10.7,10.7,9.9,11.4,12.0,10.9
+Eligible due to disability and end-stage renal disease (ESRD),Minnesota,24,,,77.0,106.0,,,94.0,73.0,56.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Minnesota,24,,,141.0,232.0,,,73.0,61.0,89.0,,0.1,,,0.2,
+All,Mississippi,25,139316.0,177666.0,96128.0,128150.0,135673.0,170550.0,78.0,75.0,80.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Mississippi,25,118671.0,148922.0,80869.0,104750.0,115385.0,142074.0,80.0,77.0,81.0,85.2,84.1,85.0,83.8,81.7,83.3
+Eligible due to disability,Mississippi,25,20604.0,28691.0,14847.0,22536.0,20268.0,28437.0,72.0,66.0,71.0,14.8,15.4,14.9,16.1,17.6,16.7
+Eligible due to disability and end-stage renal disease (ESRD),Mississippi,25,,,181.0,379.0,13.0,27.0,77.0,48.0,48.0,,0.2,0.01,,0.3,0.02
+Eligible due to end-stage renal disease (ESRD),Mississippi,25,,,231.0,485.0,,,79.0,48.0,58.0,,0.2,,,0.4,
+All,Missouri,26,259492.0,306211.0,173292.0,213870.0,234210.0,276111.0,85.0,81.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Missouri,26,225254.0,262938.0,149934.0,181561.0,205128.0,238558.0,86.0,83.0,86.0,86.8,86.5,87.6,85.9,84.9,86.4
+Eligible due to disability,Missouri,26,34172.0,43177.0,22918.0,31527.0,29046.0,37497.0,79.0,73.0,77.0,13.2,13.2,12.4,14.1,14.7,13.6
+Eligible due to disability and end-stage renal disease (ESRD),Missouri,26,39.0,62.0,176.0,321.0,18.0,37.0,63.0,55.0,49.0,0.02,0.1,0.01,0.02,0.2,0.01
+Eligible due to end-stage renal disease (ESRD),Missouri,26,,,264.0,461.0,,,79.0,57.0,95.0,,0.2,,,0.2,
+All,Montana,27,44262.0,51715.0,27505.0,33415.0,43683.0,50949.0,86.0,82.0,86.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Montana,27,40951.0,47590.0,25237.0,30265.0,40581.0,46930.0,86.0,83.0,86.0,92.5,91.8,92.9,92.0,90.6,92.1
+Eligible due to disability,Montana,27,3306.0,4120.0,2215.0,3061.0,3097.0,4012.0,80.0,72.0,77.0,7.5,8.1,7.1,8.0,9.2,7.9
+Eligible due to disability and end-stage renal disease (ESRD),Montana,27,,,19.0,34.0,,,100.0,56.0,60.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Montana,27,,,34.0,55.0,,,,62.0,100.0,,0.1,,,0.2,
+All,Nebraska,28,91204.0,104899.0,62438.0,74289.0,80426.0,92498.0,87.0,84.0,87.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Nebraska,28,84627.0,96865.0,58108.0,68413.0,75377.0,86084.0,87.0,85.0,88.0,92.8,93.1,93.7,92.3,92.1,93.1
+Eligible due to disability,Nebraska,28,6557.0,8007.0,4253.0,5735.0,5037.0,6399.0,82.0,74.0,79.0,7.2,6.8,6.3,7.6,7.7,6.9
+Eligible due to disability and end-stage renal disease (ESRD),Nebraska,28,,,27.0,43.0,,,64.0,63.0,75.0,,0.04,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Nebraska,28,,,50.0,98.0,,,85.0,51.0,86.0,,0.1,,,0.1,
+All,Nevada,29,84297.0,103232.0,45197.0,58672.0,76529.0,92948.0,82.0,77.0,82.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Nevada,29,77745.0,94306.0,41261.0,52469.0,70632.0,84899.0,82.0,79.0,83.0,92.2,91.3,92.3,91.4,89.4,91.3
+Eligible due to disability,Nevada,29,6543.0,8912.0,3812.0,5965.0,5893.0,8036.0,73.0,64.0,73.0,7.8,8.4,7.7,8.6,10.2,8.6
+Eligible due to disability and end-stage renal disease (ESRD),Nevada,29,0.0,,,,,,0.0,37.0,25.0,0.0,,,,,
+Eligible due to end-stage renal disease (ESRD),Nevada,29,,,114.0,211.0,,,82.0,54.0,33.0,,0.3,,,0.4,
+All,New Hampshire,30,73127.0,83634.0,45577.0,53760.0,58754.0,66935.0,87.0,85.0,88.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,New Hampshire,30,66750.0,75933.0,41535.0,48390.0,53902.0,60967.0,88.0,86.0,88.0,91.3,91.1,91.7,90.8,90.0,91.1
+Eligible due to disability,New Hampshire,30,6373.0,7697.0,4018.0,5328.0,4851.0,5967.0,83.0,75.0,81.0,8.7,8.8,8.3,9.2,9.9,8.9
+Eligible due to disability and end-stage renal disease (ESRD),New Hampshire,30,,,,,,,,45.0,,,,,,,
+Eligible due to end-stage renal disease (ESRD),New Hampshire,30,,,19.0,31.0,,,100.0,61.0,100.0,,0.04,,,0.1,
+All,New Jersey,31,398642.0,481803.0,258444.0,316759.0,338148.0,399283.0,83.0,82.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,New Jersey,31,370643.0,445761.0,240036.0,291711.0,315562.0,370369.0,83.0,82.0,85.0,93.0,92.9,93.3,92.5,92.1,92.8
+Eligible due to disability,New Jersey,31,27900.0,35920.0,17985.0,24365.0,22537.0,28851.0,78.0,74.0,78.0,7.0,7.0,6.7,7.5,7.7,7.2
+Eligible due to disability and end-stage renal disease (ESRD),New Jersey,31,,,106.0,181.0,,,83.0,59.0,83.0,,0.04,,,0.1,
+Eligible due to end-stage renal disease (ESRD),New Jersey,31,70.0,87.0,317.0,502.0,,,80.0,63.0,75.0,0.02,0.1,,0.02,0.2,
+All,New Mexico,32,57684.0,71543.0,33294.0,43537.0,59854.0,74167.0,81.0,76.0,81.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,New Mexico,32,50783.0,62363.0,29069.0,37190.0,52649.0,64443.0,81.0,78.0,82.0,88.0,87.3,88.0,87.2,85.4,86.9
+Eligible due to disability,New Mexico,32,6891.0,9159.0,4063.0,6032.0,7193.0,9703.0,75.0,67.0,74.0,11.9,12.2,12.0,12.8,13.9,13.1
+Eligible due to disability and end-stage renal disease (ESRD),New Mexico,32,,,38.0,85.0,,,64.0,45.0,50.0,,0.1,,,0.2,
+Eligible due to end-stage renal disease (ESRD),New Mexico,32,,,124.0,230.0,,,30.0,54.0,62.0,,0.4,,,0.5,
+All,New York,33,666359.0,813084.0,441041.0,544457.0,556450.0,664976.0,82.0,81.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,New York,33,599841.0,727938.0,399260.0,487373.0,504375.0,598313.0,82.0,82.0,84.0,90.0,90.5,90.6,89.5,89.5,90.0
+Eligible due to disability,New York,33,66350.0,84942.0,40693.0,55310.0,51991.0,66554.0,78.0,74.0,78.0,10.0,9.2,9.3,10.4,10.2,10.0
+Eligible due to disability and end-stage renal disease (ESRD),New York,33,37.0,49.0,241.0,383.0,,,76.0,63.0,65.0,0.01,0.1,,0.01,0.1,
+Eligible due to end-stage renal disease (ESRD),New York,33,131.0,155.0,847.0,1391.0,69.0,86.0,85.0,61.0,80.0,0.02,0.2,0.01,0.02,0.3,0.01
+All,North Carolina,34,429402.0,519481.0,268234.0,337909.0,387434.0,463461.0,83.0,79.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,North Carolina,34,379841.0,455032.0,236096.0,291869.0,344417.0,406920.0,83.0,81.0,85.0,88.5,88.0,88.9,87.6,86.4,87.8
+Eligible due to disability,North Carolina,34,49451.0,64306.0,31345.0,44493.0,42967.0,56461.0,77.0,70.0,76.0,11.5,11.7,11.1,12.4,13.2,12.2
+Eligible due to disability and end-stage renal disease (ESRD),North Carolina,34,63.0,88.0,302.0,589.0,26.0,48.0,72.0,51.0,54.0,0.01,0.1,0.01,0.02,0.2,0.01
+Eligible due to end-stage renal disease (ESRD),North Carolina,34,,,491.0,958.0,,,85.0,51.0,75.0,,0.2,,,0.3,
+All,North Dakota,35,35069.0,40031.0,24226.0,27862.0,31024.0,35077.0,88.0,87.0,88.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,North Dakota,35,32717.0,37196.0,22743.0,25892.0,29138.0,32726.0,88.0,88.0,89.0,93.3,93.9,93.9,92.9,92.9,93.3
+Eligible due to disability,North Dakota,35,2349.0,2832.0,1452.0,1920.0,1884.0,2349.0,83.0,76.0,80.0,6.7,6.0,6.1,7.1,6.9,6.7
+Eligible due to disability and end-stage renal disease (ESRD),North Dakota,35,,,,,,,100.0,61.0,100.0,,,,,,
+Eligible due to end-stage renal disease (ESRD),North Dakota,35,,,20.0,32.0,,,100.0,62.0,100.0,,0.1,,,0.1,
+All,Ohio,36,476563.0,566195.0,324862.0,398371.0,408877.0,482493.0,84.0,82.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Ohio,36,422395.0,496813.0,287681.0,347034.0,365339.0,425530.0,85.0,83.0,86.0,88.6,88.6,89.4,87.7,87.1,88.2
+Eligible due to disability,Ohio,36,53970.0,69108.0,36556.0,50272.0,43428.0,56795.0,78.0,73.0,76.0,11.3,11.3,10.6,12.2,12.6,11.8
+Eligible due to disability and end-stage renal disease (ESRD),Ohio,36,96.0,134.0,226.0,383.0,50.0,78.0,72.0,59.0,64.0,0.02,0.1,0.01,0.02,0.1,0.02
+Eligible due to end-stage renal disease (ESRD),Ohio,36,102.0,140.0,399.0,682.0,60.0,90.0,73.0,59.0,67.0,0.02,0.1,0.01,0.02,0.2,0.02
+All,Oklahoma,37,147990.0,179843.0,102529.0,133066.0,143666.0,175862.0,82.0,77.0,82.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Oklahoma,37,131218.0,157370.0,90082.0,114360.0,127467.0,153581.0,83.0,79.0,83.0,88.7,87.9,88.7,87.5,85.9,87.3
+Eligible due to disability,Oklahoma,37,16739.0,22433.0,12204.0,18221.0,16189.0,22265.0,75.0,67.0,73.0,11.3,11.9,11.3,12.5,13.7,12.7
+Eligible due to disability and end-stage renal disease (ESRD),Oklahoma,37,,,76.0,164.0,,,77.0,46.0,43.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Oklahoma,37,,,167.0,321.0,,,85.0,52.0,78.0,,0.2,,,0.2,
+All,Oregon,38,120936.0,142178.0,73552.0,91220.0,109373.0,129809.0,85.0,81.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Oregon,38,109173.0,127346.0,65318.0,79565.0,98818.0,115998.0,86.0,82.0,85.0,90.3,88.8,90.3,89.6,87.2,89.4
+Eligible due to disability,Oregon,38,11749.0,14808.0,8063.0,11350.0,10545.0,13796.0,79.0,71.0,76.0,9.7,11.0,9.6,10.4,12.4,10.6
+Eligible due to disability and end-stage renal disease (ESRD),Oregon,38,,,33.0,66.0,,,70.0,50.0,100.0,,0.04,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Oregon,38,,,138.0,239.0,,,50.0,58.0,55.0,,0.2,,,0.3,
+All,Pennsylvania,39,522535.0,612557.0,333814.0,401078.0,438397.0,508161.0,85.0,83.0,86.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Pennsylvania,39,466863.0,543083.0,299008.0,354103.0,393509.0,451807.0,86.0,84.0,87.0,89.3,89.6,89.8,88.7,88.3,88.9
+Eligible due to disability,Pennsylvania,39,55538.0,69297.0,34180.0,45929.0,44826.0,56262.0,80.0,74.0,80.0,10.6,10.2,10.2,11.3,11.5,11.1
+Eligible due to disability and end-stage renal disease (ESRD),Pennsylvania,39,68.0,91.0,223.0,381.0,31.0,52.0,75.0,59.0,60.0,0.01,0.1,0.01,0.01,0.1,0.01
+Eligible due to end-stage renal disease (ESRD),Pennsylvania,39,66.0,86.0,403.0,665.0,,,77.0,61.0,78.0,0.01,0.1,,0.01,0.2,
+All,Rhode Island,41,42426.0,49644.0,25853.0,30806.0,36727.0,42204.0,85.0,84.0,87.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Rhode Island,41,37176.0,43208.0,22846.0,26866.0,32393.0,36871.0,86.0,85.0,88.0,87.6,88.4,88.2,87.0,87.2,87.4
+Eligible due to disability,Rhode Island,41,5230.0,6410.0,2954.0,3868.0,4323.0,5319.0,82.0,76.0,81.0,12.3,11.4,11.8,12.9,12.6,12.6
+Eligible due to disability and end-stage renal disease (ESRD),Rhode Island,41,,,,,,,71.0,78.0,67.0,,,,,,
+Eligible due to end-stage renal disease (ESRD),Rhode Island,41,,,25.0,36.0,,,83.0,69.0,100.0,,0.1,,,0.1,
+All,South Carolina,42,246299.0,301125.0,144244.0,183472.0,221047.0,266736.0,82.0,79.0,83.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,South Carolina,42,221525.0,268316.0,128359.0,160167.0,199033.0,237223.0,83.0,80.0,84.0,89.9,89.0,90.0,89.1,87.3,88.9
+Eligible due to disability,South Carolina,42,24704.0,32717.0,15417.0,22409.0,21986.0,29459.0,76.0,69.0,75.0,10.0,10.7,9.9,10.9,12.2,11.0
+Eligible due to disability and end-stage renal disease (ESRD),South Carolina,42,54.0,75.0,183.0,355.0,24.0,44.0,72.0,52.0,55.0,0.02,0.1,0.01,0.02,0.2,0.02
+Eligible due to end-stage renal disease (ESRD),South Carolina,42,,,285.0,541.0,,,94.0,53.0,40.0,,0.2,,,0.3,
+All,South Dakota,43,41315.0,47599.0,28964.0,33990.0,38245.0,43994.0,87.0,85.0,87.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,South Dakota,43,38542.0,44207.0,27116.0,31517.0,35954.0,41046.0,87.0,86.0,88.0,93.3,93.6,94.0,92.9,92.7,93.3
+Eligible due to disability,South Dakota,43,2767.0,3385.0,1809.0,2383.0,2289.0,2944.0,82.0,76.0,78.0,6.7,6.2,6.0,7.1,7.0,6.7
+Eligible due to disability and end-stage renal disease (ESRD),South Dakota,43,,,14.0,29.0,,,50.0,48.0,33.0,,0.05,,,0.1,
+Eligible due to end-stage renal disease (ESRD),South Dakota,43,,,25.0,61.0,,,100.0,41.0,100.0,,0.1,,,0.2,
+All,Tennessee,44,265471.0,319906.0,174341.0,220178.0,256495.0,306176.0,83.0,79.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Tennessee,44,233004.0,277525.0,152299.0,188392.0,225891.0,265840.0,84.0,81.0,85.0,87.8,87.4,88.1,86.8,85.6,86.8
+Eligible due to disability,Tennessee,44,32378.0,42250.0,21573.0,30920.0,30554.0,40249.0,77.0,70.0,76.0,12.2,12.4,11.9,13.2,14.0,13.1
+Eligible due to disability and end-stage renal disease (ESRD),Tennessee,44,55.0,84.0,197.0,364.0,28.0,53.0,65.0,54.0,53.0,0.02,0.1,0.01,0.03,0.2,0.02
+Eligible due to end-stage renal disease (ESRD),Tennessee,44,34.0,47.0,272.0,502.0,22.0,34.0,72.0,54.0,65.0,0.01,0.2,0.01,0.01,0.2,0.01
+All,Texas,45,798645.0,980522.0,489392.0,637808.0,748951.0,915003.0,81.0,77.0,82.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Texas,45,730272.0,889349.0,443780.0,568032.0,686440.0,830677.0,82.0,78.0,83.0,91.4,90.7,91.7,90.7,89.1,90.8
+Eligible due to disability,Texas,45,68039.0,90697.0,43525.0,65712.0,62306.0,84008.0,75.0,66.0,74.0,8.5,8.9,8.3,9.2,10.3,9.2
+Eligible due to disability and end-stage renal disease (ESRD),Texas,45,87.0,144.0,446.0,848.0,55.0,93.0,60.0,53.0,59.0,0.01,0.1,0.01,0.01,0.1,0.01
+Eligible due to end-stage renal disease (ESRD),Texas,45,247.0,332.0,1641.0,3216.0,150.0,225.0,74.0,51.0,67.0,0.03,0.3,0.02,0.03,0.5,0.02
+All,Utah,46,61461.0,73276.0,29235.0,37387.0,56739.0,68601.0,84.0,78.0,83.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Utah,46,56881.0,67521.0,26697.0,33637.0,52601.0,63086.0,84.0,79.0,83.0,92.5,91.3,92.7,92.1,90.0,92.0
+Eligible due to disability,Utah,46,4566.0,5736.0,2481.0,3631.0,4131.0,5507.0,80.0,68.0,75.0,7.4,8.5,7.3,7.8,9.7,8.0
+Eligible due to disability and end-stage renal disease (ESRD),Utah,46,,,,,,,75.0,62.0,,,,,,,
+Eligible due to end-stage renal disease (ESRD),Utah,46,,,44.0,98.0,,,73.0,45.0,88.0,,0.2,,,0.3,
+All,Vermont,47,36801.0,41816.0,22469.0,26480.0,31852.0,36486.0,88.0,85.0,87.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Vermont,47,33335.0,37692.0,20204.0,23580.0,28935.0,32914.0,88.0,86.0,88.0,90.6,89.9,90.8,90.1,89.0,90.2
+Eligible due to disability,Vermont,47,3464.0,4122.0,2254.0,2884.0,2916.0,3571.0,84.0,78.0,82.0,9.4,10.0,9.2,9.9,10.9,9.8
+Eligible due to disability and end-stage renal disease (ESRD),Vermont,47,,,,,,,100.0,50.0,,,,,,,
+Eligible due to end-stage renal disease (ESRD),Vermont,47,,,,,,,100.0,88.0,100.0,,,,,,
+All,Virginia,49,317412.0,378690.0,193652.0,239902.0,278147.0,328553.0,84.0,81.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Virginia,49,288793.0,341863.0,174578.0,212925.0,253609.0,296681.0,84.0,82.0,85.0,91.0,90.2,91.2,90.3,88.8,90.3
+Eligible due to disability,Virginia,49,28550.0,36739.0,18659.0,26214.0,24502.0,31823.0,78.0,71.0,77.0,9.0,9.6,8.8,9.7,10.9,9.7
+Eligible due to disability and end-stage renal disease (ESRD),Virginia,49,33.0,45.0,173.0,289.0,,,73.0,60.0,68.0,0.01,0.1,,0.01,0.1,
+Eligible due to end-stage renal disease (ESRD),Virginia,49,,,242.0,474.0,,,84.0,51.0,79.0,,0.1,,,0.2,
+All,Washington,50,220232.0,259761.0,128183.0,158308.0,195105.0,230873.0,85.0,81.0,85.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Washington,50,200017.0,234478.0,115483.0,140478.0,177355.0,208018.0,85.0,82.0,85.0,90.8,90.1,90.9,90.3,88.7,90.1
+Eligible due to disability,Washington,50,20168.0,25227.0,12405.0,17331.0,17723.0,22820.0,80.0,72.0,78.0,9.2,9.7,9.1,9.7,10.9,9.9
+Eligible due to disability and end-stage renal disease (ESRD),Washington,50,,,75.0,117.0,,,81.0,64.0,78.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Washington,50,,,220.0,382.0,,,86.0,58.0,77.0,,0.2,,,0.2,
+All,West Virginia,51,88282.0,106412.0,65956.0,81660.0,82652.0,98251.0,83.0,81.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,West Virginia,51,73071.0,86734.0,55111.0,67010.0,69184.0,80863.0,84.0,82.0,86.0,82.8,83.6,83.7,81.5,82.1,82.3
+Eligible due to disability,West Virginia,51,15189.0,19653.0,10728.0,14460.0,13462.0,17374.0,77.0,74.0,77.0,17.2,16.3,16.3,18.5,17.7,17.7
+Eligible due to disability and end-stage renal disease (ESRD),West Virginia,51,,,62.0,91.0,,,81.0,68.0,40.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),West Virginia,51,,,55.0,99.0,,,100.0,56.0,50.0,,0.1,,,0.1,
+All,Wisconsin,52,231921.0,263478.0,147733.0,172086.0,189901.0,215612.0,88.0,86.0,88.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Wisconsin,52,207423.0,234165.0,132161.0,151980.0,171045.0,192488.0,89.0,87.0,89.0,89.4,89.5,90.1,88.9,88.3,89.3
+Eligible due to disability,Wisconsin,52,24448.0,29245.0,15275.0,19628.0,18833.0,23090.0,84.0,78.0,82.0,10.5,10.3,9.9,11.1,11.4,10.7
+Eligible due to disability and end-stage renal disease (ESRD),Wisconsin,52,,,109.0,183.0,,,69.0,60.0,44.0,,0.1,,,0.1,
+Eligible due to end-stage renal disease (ESRD),Wisconsin,52,,,188.0,295.0,,,76.0,64.0,76.0,,0.1,,,0.2,
+All,Wyoming,53,22562.0,26579.0,14152.0,17482.0,22802.0,27150.0,85.0,81.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
+Eligible due to age,Wyoming,53,20874.0,24475.0,13042.0,15914.0,21282.0,25168.0,85.0,82.0,85.0,92.5,92.2,93.3,92.1,91.0,92.7
+Eligible due to disability,Wyoming,53,1684.0,2100.0,1097.0,1545.0,1519.0,1981.0,80.0,71.0,77.0,7.5,7.8,6.7,7.9,8.8,7.3
+Eligible due to disability and end-stage renal disease (ESRD),Wyoming,53,,,,,,,,50.0,,,,,,,
+Eligible due to end-stage renal disease (ESRD),Wyoming,53,,,,,,,100.0,59.0,100.0,,,,,,
