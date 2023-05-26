@@ -1,5 +1,4 @@
 from functools import reduce
-import numpy as np
 import pandas as pd
 from typing import Dict, cast
 from datasources.data_source import DataSource
@@ -13,15 +12,13 @@ from ingestion.dataset_utils import (ensure_leading_zeros,
                                      generate_pct_share_col_with_unknowns,
                                      generate_pct_share_col_without_unknowns)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_county_names, merge_pop_numbers
+from ingestion.merge_utils import merge_county_names
 from ingestion.types import (
     GEO_TYPE,
-    SEX_RACE_AGE_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
     PHRMA_BREAKDOWN_TYPE_OR_ALL,
     PHRMA_BREAKDOWN_TYPE,
 )
-
 
 """
 NOTE: Phrma data comes in .xlsx files, with breakdowns by sheet.
@@ -30,7 +27,6 @@ We need to first convert these to csv files as pandas is VERY slow on excel file
 Ensure Gnumeric is installed with Homebrew or similar, and run this for each excel source file:
 ssconvert --export-type=Gnumeric_stf:stf_csv -S beta_blockers.xlsx beta_blockers-%s.csv
 """
-
 
 # constants
 PHRMA_DIR = 'phrma'
@@ -131,14 +127,17 @@ class PhrmaData(DataSource):
             ]:
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
-                float_cols = [std_col.PHRMA_POPULATION_PCT,
-                              std_col.PHRMA_POPULATION]
+                float_cols = []
                 for condition in PHRMA_CONDITIONS:
+                    # rate, pct_share, count cols
                     for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX, std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
-                    float_cols.append(
-                        f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
+                    # valid-population comparison pct_share and count cols
+                    for metric in [std_col.RAW_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
+                        float_cols.append(
+                            f'{condition}_{BENEFICIARIES}_{metric}')
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+                # df.to_csv(f'expected_{table_name}.csv', index=False)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
@@ -158,7 +157,6 @@ class PhrmaData(DataSource):
 
         # give the ALL df a demographic column with correctly capitalized "All"/"ALL" value
         demo_col = std_col.RACE_CATEGORY_ID_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
-        demo = std_col.RACE_COL if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else demo_breakdown
         all_val = std_col.Race.ALL.value if demo_breakdown == std_col.RACE_OR_HISPANIC_COL else ALL_VALUE
 
         alls_df = alls_df.copy()
@@ -173,12 +171,6 @@ class PhrmaData(DataSource):
         df = df.replace(
             to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
 
-        if demo != ELIGIBILITY and demo != LIS:
-            df = merge_pop_numbers(
-                df, cast(SEX_RACE_AGE_TYPE, demo), cast(GEO_TYPE, geo_level))
-        else:
-            df[[std_col.PHRMA_POPULATION, std_col.PHRMA_POPULATION_PCT]] = np.nan
-
         # ADHERENCE rate
         for condition in PHRMA_CONDITIONS:
             source_col_name = f'{condition}_{ADHERENCE_RATE}'
@@ -192,8 +184,14 @@ class PhrmaData(DataSource):
                                                                                2)
 
         count_to_share_map = {
-            f'{condition}_{COUNT_YES}':
-            f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_CONDITIONS
+            **{
+                f'{condition}_{COUNT_YES}':
+                f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_CONDITIONS
+            },
+            ** {
+                f'{condition}_{COUNT_TOTAL}':
+                f'{condition}_{BENEFICIARIES}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_CONDITIONS
+            }
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
@@ -211,10 +209,7 @@ class PhrmaData(DataSource):
                 all_val
             )
 
-        rename_col_map = {
-            std_col.POPULATION_PCT_COL: std_col.PHRMA_POPULATION_PCT,
-            std_col.POPULATION_COL: std_col.PHRMA_POPULATION,
-        }
+        rename_col_map = {}
         for condition in PHRMA_CONDITIONS:
             rename_col_map[f'{condition}_{COUNT_YES}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
             rename_col_map[f'{condition}_{COUNT_TOTAL}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
