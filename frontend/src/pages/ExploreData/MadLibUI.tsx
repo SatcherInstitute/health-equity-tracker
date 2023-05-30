@@ -18,6 +18,13 @@ import {
   setParameters,
   stringifyMls,
 } from '../../utils/urlutils'
+import DataTypeOptionsSelector from './DataTypeOptionsSelector'
+import {
+  type DropdownVarId,
+  isDropdownVarId,
+  METRIC_CONFIG,
+  type VariableConfig,
+} from '../../data/config/MetricConfig'
 // import { type DropdownVarId, METRIC_CONFIG } from '../../data/config/MetricConfig'
 
 export default function MadLibUI(props: {
@@ -84,25 +91,53 @@ export default function MadLibUI(props: {
     >
       <div className={styles.MadLibUI}>
         {props.madLib.phrase.map(
-          (phraseSegment: PhraseSegment, index: number) => (
-            <React.Fragment key={index}>
-              {typeof phraseSegment === 'string' ? (
-                <span className={styles.NonClickableMadlibText}>
-                  {phraseSegment}
-                  {insertOptionalThe(props.madLib.activeSelections, index)}
-                </span>
-              ) : (
-                <OptionsSelector
-                  key={index}
-                  value={props.madLib.activeSelections[index]}
-                  onOptionUpdate={(newValue) => {
-                    handleOptionUpdate(newValue, index)
-                  }}
-                  options={getOptionsFromPhraseSegment(phraseSegment)}
-                />
-              )}
-            </React.Fragment>
-          )
+          (phraseSegment: PhraseSegment, index: number) => {
+            let dataTypes: any[][] = []
+
+            const segmentVariableId: DropdownVarId | string =
+              props.madLib.activeSelections[index]
+            if (isDropdownVarId(segmentVariableId)) {
+              dataTypes = METRIC_CONFIG[segmentVariableId].map(
+                (variableConfig: VariableConfig) => {
+                  const { variableId, dataTypeName } = variableConfig
+                  return [variableId, dataTypeName]
+                }
+              )
+            }
+
+            return (
+              <React.Fragment key={index}>
+                {typeof phraseSegment === 'string' ? (
+                  <span className={styles.NonClickableMadlibText}>
+                    {phraseSegment}
+                    {insertOptionalThe(props.madLib.activeSelections, index)}
+                  </span>
+                ) : (
+                  <>
+                    <OptionsSelector
+                      key={index}
+                      value={props.madLib.activeSelections[index]}
+                      onOptionUpdate={(newValue) => {
+                        handleOptionUpdate(newValue, index)
+                      }}
+                      options={getOptionsFromPhraseSegment(phraseSegment)}
+                    />
+
+                    {dataTypes.length > 1 && (
+                      <DataTypeOptionsSelector
+                        key={`${index}-datatype`}
+                        value={'covid_deaths'}
+                        onOptionUpdate={(newValue) => {
+                          handleOptionUpdate(newValue, index)
+                        }}
+                        options={dataTypes}
+                      />
+                    )}
+                  </>
+                )}
+              </React.Fragment>
+            )
+          }
         )}
       </div>
       {/* <Grid item xs={12}>

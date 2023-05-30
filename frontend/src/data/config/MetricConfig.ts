@@ -6,33 +6,40 @@
 
 import { LESS_THAN_1 } from '../utils/Constants'
 
-export type DropdownVarId =
-  | 'covid'
-  | 'hiv_care'
-  | 'hiv_prep'
-  | 'hiv'
-  | 'hiv_black_women'
-  | 'diabetes'
-  | 'copd'
-  | 'health_insurance'
-  | 'poverty'
-  | 'covid_vaccinations'
-  | 'depression'
-  | 'suicide'
-  | 'substance'
-  | 'frequent_mental_distress'
-  | 'excessive_drinking'
-  | 'preventable_hospitalizations'
-  | 'avoided_care'
-  | 'chronic_kidney_disease'
-  | 'cardiovascular_diseases'
-  | 'asthma'
-  | 'voter_participation'
-  | 'women_in_us_congress'
-  | 'women_in_state_legislature'
-  | 'prison'
-  | 'jail'
-  | 'cardiovascular_medications_adherence'
+const dropdownVarIds = [
+  'covid',
+  'hiv_care',
+  'hiv_prep',
+  'hiv',
+  'hiv_black_women',
+  'diabetes',
+  'copd',
+  'health_insurance',
+  'poverty',
+  'covid_vaccinations',
+  'depression',
+  'suicide',
+  'substance',
+  'frequent_mental_distress',
+  'excessive_drinking',
+  'preventable_hospitalizations',
+  'avoided_care',
+  'chronic_kidney_disease',
+  'cardiovascular_diseases',
+  'asthma',
+  'voter_participation',
+  'women_in_us_congress',
+  'women_in_state_legislature',
+  'prison',
+  'jail',
+  'cardiovascular_medications_adherence',
+] as const
+
+export type DropdownVarId = (typeof dropdownVarIds)[number]
+
+export function isDropdownVarId(str: string): str is DropdownVarId {
+  return !!dropdownVarIds.find((dropdown) => str === dropdown)
+}
 
 export type AgeAdjustedVariableId = 'covid_deaths' | 'covid_hospitalizations'
 
