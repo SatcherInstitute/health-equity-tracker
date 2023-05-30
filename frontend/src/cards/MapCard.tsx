@@ -361,6 +361,7 @@ function MapCardWithKey(props: MapCardProps) {
               metadata={metadata}
               metricConfig={metricConfig}
               open={multimapOpen}
+              queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}
               updateFipsCallback={props.updateFipsCallback}

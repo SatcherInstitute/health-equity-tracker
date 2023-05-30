@@ -21,7 +21,10 @@ import {
 } from '../../data/config/MetricConfig'
 import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from '../../data/query/MetricQuery'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
@@ -36,6 +39,7 @@ import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
+import { getConsumedIds } from '../../data/config/MetricConfigUtils'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -56,6 +60,7 @@ export interface MultiMapDialogProps {
   open: boolean
   // Closes the dialog in the parent component
   handleClose: () => void
+  queries: MetricQuery[]
   // Dataset IDs required the source  footer
   queryResponses: MetricQueryResponse[]
   // Metadata required for the source footer
@@ -99,6 +104,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const [mapScheme, mapMin] = getMapScheme({
     metricId: props.metricConfig.metricId,
   })
+
+  const consumedIds = getConsumedIds(props.queries)
 
   return (
     <Dialog
@@ -319,6 +326,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             metadata={props.metadata}
             downloadTargetScreenshot={downloadTargetScreenshot}
             isMulti={true}
+            consumedIds={consumedIds}
           />
         </div>
       </footer>

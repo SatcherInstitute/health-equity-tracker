@@ -10,6 +10,7 @@ import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
+import { getConsumedIds } from '../data/config/MetricConfigUtils'
 
 function CardWrapper(props: {
   // prevent layout shift as component loads
@@ -54,6 +55,8 @@ function CardWrapper(props: {
       queries={props.queries ?? []}
     >
       {(metadata, queryResponses, geoData) => {
+        const consumedIds = getConsumedIds(props.queries)
+
         return (
           <Card
             className={styles.ChartCard}
@@ -70,6 +73,7 @@ function CardWrapper(props: {
             {!props.hideFooter && props.queries && (
               <CardContent className={styles.CardFooter} component={'footer'}>
                 <Sources
+                  consumedIds={consumedIds}
                   hideNH={props.hideNH}
                   isAgeAdjustedTable={props.isAgeAdjustedTable}
                   metadata={metadata}
