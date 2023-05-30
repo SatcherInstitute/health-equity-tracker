@@ -31,7 +31,6 @@ import {
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import NoDataAlert from './ui/NoDataAlert'
-import ReportToggleControls from './ui/ReportToggleControls'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
@@ -41,6 +40,11 @@ import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
+import { useAtom } from 'jotai'
+import {
+  selectedVariableConfig1Atom,
+  selectedVariableConfig2Atom,
+} from '../utils/sharedSettingsState'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -65,30 +69,17 @@ function TwoVariableReport(props: {
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   )
 
-  const [variableConfig1, setVariableConfig1] = useState<VariableConfig | null>(
-    Object.keys(METRIC_CONFIG).includes(props.dropdownVarId1)
-      ? METRIC_CONFIG[props.dropdownVarId1][0]
-      : null
+  const [variableConfig1, setVariableConfig1] = useAtom(
+    selectedVariableConfig1Atom
   )
-  const [variableConfig2, setVariableConfig2] = useState<VariableConfig | null>(
-    Object.keys(METRIC_CONFIG).includes(props.dropdownVarId2)
-      ? METRIC_CONFIG[props.dropdownVarId2][0]
-      : null
+
+  const [variableConfig2, setVariableConfig2] = useAtom(
+    selectedVariableConfig2Atom
   )
 
   const isRaceBySex =
     variableConfig1?.variableId.includes(BLACK_WOMEN) ??
     variableConfig2?.variableId.includes(BLACK_WOMEN)
-
-  function setVariableConfigWithParam1(v: VariableConfig) {
-    setParameter(DATA_TYPE_1_PARAM, v.variableId)
-    setVariableConfig1(v)
-  }
-
-  function setVariableConfigWithParam2(v: VariableConfig) {
-    setParameter(DATA_TYPE_2_PARAM, v.variableId)
-    setVariableConfig2(v)
-  }
 
   function setDemoWithParam(demographic: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
@@ -112,7 +103,7 @@ function TwoVariableReport(props: {
         undefined,
         (val: VariableId) => {
           val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId2].find(
+          return METRIC_CONFIG[props.dropdownVarId2]?.find(
             (cfg) => cfg.variableId === val
           )
         }
@@ -169,8 +160,8 @@ function TwoVariableReport(props: {
     variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ??
     variableConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted
 
-  const dt1 = variableConfig1.variableFullDisplayName
-  const dt2 = variableConfig2.variableFullDisplayName
+  const dt1 = variableConfig1?.variableFullDisplayName
+  const dt2 = variableConfig2?.variableFullDisplayName
   const demo = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   const loc1 = props.fips1.getSentenceDisplayName()
   const loc2 = props.fips2.getSentenceDisplayName()
@@ -181,8 +172,8 @@ function TwoVariableReport(props: {
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
   const offerJumpToAgeAdjustment =
-    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
-    ['covid_deaths', 'covid_hospitalizations'].includes(props.dropdownVarId2)
+    ['covid', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
+    ['covid', 'covid_hospitalizations'].includes(props.dropdownVarId2)
 
   return (
     <>
@@ -202,78 +193,6 @@ function TwoVariableReport(props: {
           />
 
           <Grid container spacing={1} alignItems="flex-start">
-            {/*  2 SETS OF TOGGLE CONTROLS */}
-            {props.fips1.code === props.fips2.code ? (
-              <Grid
-                item
-                xs={12}
-                tabIndex={-1}
-                style={{
-                  scrollMarginTop: props.headerScrollMargin,
-                }}
-              >
-                {/* 2 SETS OF DEMOGRAPHIC AND DATA TYPE TOGGLES */}
-                <Grid container>
-                  <Grid item xs={12} sm={6}>
-                    <ReportToggleControls
-                      dropdownVarId={props.dropdownVarId1}
-                      variableConfig={variableConfig1}
-                      setVariableConfig={setVariableConfigWithParam1}
-                      currentBreakdown={currentBreakdown}
-                      setCurrentBreakdown={setDemoWithParam}
-                      fips={props.fips1}
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <ReportToggleControls
-                      dropdownVarId={props.dropdownVarId2}
-                      variableConfig={variableConfig2}
-                      setVariableConfig={setVariableConfigWithParam2}
-                      currentBreakdown={currentBreakdown}
-                      setCurrentBreakdown={setDemoWithParam}
-                      fips={props.fips2}
-                      excludeId={true}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-            ) : (
-              <>
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  tabIndex={-1}
-                  style={{
-                    scrollMarginTop: props.headerScrollMargin,
-                  }}
-                >
-                  {/*  FIRST TOGGLE(S) FOR COMPARE RATES REPORT */}
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId1}
-                    variableConfig={variableConfig1}
-                    setVariableConfig={setVariableConfigWithParam1}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips1}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  {/*  SECOND TOGGLE(S) FOR COMPARE RATES REPORT */}
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId2}
-                    variableConfig={variableConfig2}
-                    setVariableConfig={setVariableConfigWithParam2}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips2}
-                    excludeId={true}
-                  />
-                </Grid>
-              </>
-            )}
-
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               id="rate-map"

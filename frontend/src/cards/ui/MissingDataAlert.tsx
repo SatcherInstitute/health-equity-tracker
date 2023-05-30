@@ -80,7 +80,7 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
       are available for these alternate data types:{' '}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
         return (
-          <span key={dataType.variableDisplayName}>
+          <span key={dataType.variableFullDisplayName}>
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
                 dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]

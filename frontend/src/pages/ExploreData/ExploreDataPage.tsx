@@ -176,13 +176,14 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
     // Extract values from the current madlib
     const var1 = madLib.activeSelections[1]
+
     const geo1 =
       madLib.id === 'comparevars'
         ? madLib.activeSelections[5]
         : madLib.activeSelections[3]
 
     // default non-duplicate settings for compare modes
-    const var2 = var1 === 'covid_cases' ? 'covid_vaccinations' : 'covid_cases'
+    const var2 = var1 === 'covid' ? 'covid_vaccinations' : 'covid'
     const geo2 = geo1 === '00' ? '13' : '00' // default to US or Georgia
 
     // Construct UPDATED madlib based on the future mode's Madlib shape

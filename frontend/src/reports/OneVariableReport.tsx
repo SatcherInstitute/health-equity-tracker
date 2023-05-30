@@ -26,7 +26,6 @@ import {
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
-import ReportToggleControls from './ui/ReportToggleControls'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import styles from './Report.module.scss'
@@ -44,6 +43,8 @@ import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
+import { useAtom } from 'jotai'
+import { selectedVariableConfig1Atom } from '../utils/sharedSettingsState'
 
 export interface OneVariableReportProps {
   key: string
@@ -58,6 +59,7 @@ export interface OneVariableReportProps {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
+  variablesToDefine: Array<[string, VariableConfig[]]>
 }
 
 export function OneVariableReport(props: OneVariableReportProps) {
@@ -65,10 +67,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   )
 
-  const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
-    Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
-      ? METRIC_CONFIG[props.dropdownVarId][0]
-      : null
+  const [variableConfig, setVariableConfig] = useAtom(
+    selectedVariableConfig1Atom
   )
 
   const isRaceBySex = variableConfig?.variableId.includes(BLACK_WOMEN)
@@ -93,12 +93,12 @@ export function OneVariableReport(props: OneVariableReportProps) {
         undefined,
         (val: string) => {
           val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId].find(
+          return METRIC_CONFIG[props.dropdownVarId]?.find(
             (cfg) => cfg.variableId === val
           )
         }
       )
-      setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0])
+      setVariableConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
       const demo: BreakdownVar = getParameter(
         DEMOGRAPHIC_PARAM,
@@ -125,7 +125,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
   }, [variableConfig])
 
   const browserTitle = `${
-    variableConfig?.variableFullDisplayName ?? 'Data'
+    (variableConfig?.variableFullDisplayName as string) ?? 'Data'
   } by ${
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   } in ${props.fips.getFullDisplayName()}`
@@ -147,6 +147,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} md={10}>
+          {/* <TopicDetailsCard
+            variablesToDefine={props.variablesToDefine}
+
+          /> */}
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -170,18 +174,6 @@ export function OneVariableReport(props: OneVariableReportProps) {
 
             {variableConfig && (
               <Grid container justifyContent="center">
-                {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-                <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId}
-                    variableConfig={variableConfig}
-                    setVariableConfig={setVariableConfigWithParam}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips}
-                  />
-                </Grid>
-
                 {/* 100k MAP CARD */}
                 <Grid
                   item

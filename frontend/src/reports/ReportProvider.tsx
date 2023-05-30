@@ -72,14 +72,9 @@ function ReportProvider(props: ReportProviderProps) {
     (id) => id?.[0] as DropdownVarId
   )
 
-  const isCovid =
-    currentDropDownIds.includes('covid_cases') ||
-    currentDropDownIds.includes('covid_hospitalizations') ||
-    currentDropDownIds.includes('covid_deaths')
+  const isCovid = currentDropDownIds.includes('covid')
   const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
-  const isCAWP =
-    currentDropDownIds.includes('women_in_us_congress') ||
-    currentDropDownIds.includes('women_in_state_legislature')
+  const isCAWP = currentDropDownIds.includes('women_in_gov')
 
   // includes standard and black women topics
   const isHIV = currentDropDownIds.some(
@@ -122,6 +117,7 @@ function ReportProvider(props: ReportProviderProps) {
               isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
+              variablesToDefine={metricConfigSubset}
             />
           </>
         )

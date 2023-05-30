@@ -48,8 +48,8 @@ export default function DefinitionsList(
                   // list their data types and definitions
                   return variable[1].map((dataType: VariableConfig) => {
                     return (
-                      <li key={dataType.variableFullDisplayName}>
-                        <b>{dataType.variableFullDisplayName}</b>
+                      <li key={dataType?.variableFullDisplayName}>
+                        <b>{dataType?.variableFullDisplayName ?? 'Variable'}</b>
                         {': '}
                         {dataType.variableDefinition}
                       </li>

@@ -32,6 +32,7 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
+  | 'Medicare Beneficiaries'
 
 export interface MadLib {
   readonly id: MadLibId
@@ -105,17 +106,11 @@ export const DEFAULT: DefaultDropdownVarId = 'default'
 
 const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: 'select a topic',
-  covid_cases: 'COVID-19 Cases',
-  covid_hospitalizations: 'COVID-19 Hospitalizations',
-  covid_deaths: 'COVID-19 Deaths',
+  covid: 'COVID-19',
   hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
-  hiv_prevalence: 'HIV Prevalence',
-  hiv_prevalence_black_women: 'HIV Prevalence (Black Women)',
-  hiv_diagnoses: 'New HIV Diagnoses',
-  hiv_diagnoses_black_women: 'New HIV Diagnoses (Black Women)',
-  hiv_deaths: 'HIV Deaths',
-  hiv_deaths_black_women: 'HIV Deaths (Black Women)',
+  hiv: 'HIV',
+  hiv_black_women: 'HIV (Black Women)',
   diabetes: 'Diabetes',
   copd: 'COPD',
   health_insurance: 'Uninsured Individuals',
@@ -132,8 +127,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   cardiovascular_diseases: 'Cardiovascular Diseases',
   asthma: 'Asthma',
   voter_participation: 'Voter Participation',
-  women_in_state_legislature: 'Women in State Legislatures',
-  women_in_us_congress: 'Women in U.S. Congress',
+  women_in_gov: 'Women in Government',
   jail: 'Jail Incarceration',
   prison: 'Prison Incarceration',
 }
@@ -148,44 +142,23 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: [
-      'hiv_care',
-      'hiv_diagnoses',
-      'hiv_deaths',
-      'hiv_prep',
-      'hiv_prevalence',
-    ],
+    options: ['hiv', 'hiv_care', 'hiv_prep'],
   },
   {
     title: `Black Women's Health`,
     definition: '',
-    options: [
-      'hiv_prevalence_black_women',
-      'hiv_diagnoses_black_women',
-      'hiv_deaths_black_women',
-    ],
+    options: ['hiv_black_women'],
   },
 
   {
     title: 'COVID-19',
     definition: '',
-    options: [
-      'covid_cases',
-      'covid_hospitalizations',
-      'covid_deaths',
-      'covid_vaccinations',
-    ],
+    options: ['covid', 'covid_vaccinations'],
   },
   {
     title: 'Political Determinants of Health',
     definition: '',
-    options: [
-      'voter_participation',
-      'women_in_us_congress',
-      'women_in_state_legislature',
-      'prison',
-      'jail',
-    ],
+    options: ['voter_participation', 'women_in_gov', 'prison', 'jail'],
   },
   {
     title: 'Social Determinants of Health',
@@ -238,8 +211,8 @@ const MADLIB_LIST: MadLib[] = [
       'and',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'covid_cases', 3: GEORGIA_FIPS, 5: USA_FIPS },
-    activeSelections: { 1: 'covid_cases', 3: GEORGIA_FIPS, 5: USA_FIPS },
+    defaultSelections: { 1: 'covid', 3: GEORGIA_FIPS, 5: USA_FIPS },
+    activeSelections: { 1: 'covid', 3: GEORGIA_FIPS, 5: USA_FIPS },
   },
   {
     id: 'comparevars',
@@ -251,8 +224,8 @@ const MADLIB_LIST: MadLib[] = [
       'in',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'diabetes', 3: 'covid_cases', 5: USA_FIPS },
-    activeSelections: { 1: 'diabetes', 3: 'covid_cases', 5: USA_FIPS },
+    defaultSelections: { 1: 'diabetes', 3: 'covid', 5: USA_FIPS },
+    activeSelections: { 1: 'diabetes', 3: 'covid', 5: USA_FIPS },
   },
 ]
 

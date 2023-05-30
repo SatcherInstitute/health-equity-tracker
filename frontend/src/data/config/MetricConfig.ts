@@ -6,38 +6,38 @@
 
 import { LESS_THAN_1 } from '../utils/Constants'
 
-export type DropdownVarId =
-  | 'covid_cases'
-  | 'covid_deaths'
-  | 'covid_hospitalizations'
-  | 'hiv_care'
-  | 'hiv_diagnoses'
-  | 'hiv_diagnoses_black_women'
-  | 'hiv_deaths'
-  | 'hiv_deaths_black_women'
-  | 'hiv_prep'
-  | 'hiv_prevalence'
-  | 'hiv_prevalence_black_women'
-  | 'diabetes'
-  | 'copd'
-  | 'health_insurance'
-  | 'poverty'
-  | 'covid_vaccinations'
-  | 'depression'
-  | 'suicide'
-  | 'substance'
-  | 'frequent_mental_distress'
-  | 'excessive_drinking'
-  | 'preventable_hospitalizations'
-  | 'avoided_care'
-  | 'chronic_kidney_disease'
-  | 'cardiovascular_diseases'
-  | 'asthma'
-  | 'voter_participation'
-  | 'women_in_us_congress'
-  | 'women_in_state_legislature'
-  | 'prison'
-  | 'jail'
+const dropdownVarIds = [
+  'asthma',
+  'avoided_care',
+  'cardiovascular_diseases',
+  'chronic_kidney_disease',
+  'copd',
+  'covid_vaccinations',
+  'covid',
+  'depression',
+  'diabetes',
+  'excessive_drinking',
+  'frequent_mental_distress',
+  'health_insurance',
+  'hiv_black_women',
+  'hiv_care',
+  'hiv_prep',
+  'hiv',
+  'jail',
+  'poverty',
+  'preventable_hospitalizations',
+  'prison',
+  'substance',
+  'suicide',
+  'voter_participation',
+  'women_in_gov',
+] as const
+
+export type DropdownVarId = (typeof dropdownVarIds)[number]
+
+export function isDropdownVarId(str: string): str is DropdownVarId {
+  return !!dropdownVarIds.find((dropdown) => str === dropdown)
+}
 
 export type AgeAdjustedVariableId = 'covid_deaths' | 'covid_hospitalizations'
 
@@ -45,14 +45,28 @@ export type AgeAdjustedVariableId = 'covid_deaths' | 'covid_hospitalizations'
 export type VariableId =
   | DropdownVarId
   | AgeAdjustedVariableId
-  | 'population'
-  | 'population_decia'
-  | 'non_medical_drug_use'
-  | 'health_coverage'
-  | 'poverty'
-  | 'suicides'
+  | 'beta_blockers_adherence'
+  | 'covid_cases'
+  | 'covid_deaths'
+  | 'covid_hospitalizations'
   | 'covid_vaccinations'
+  | 'health_coverage'
+  | 'hiv_deaths_black_women'
+  | 'hiv_deaths'
+  | 'hiv_diagnoses_black_women'
+  | 'hiv_diagnoses'
+  | 'hiv_prevalence_black_women'
+  | 'hiv_prevalence'
+  | 'non_medical_drug_use'
+  | 'population_decia'
+  | 'population'
+  | 'poverty'
+  | 'rasa_adherence'
+  | 'statins_adherence'
+  | 'suicides'
   | 'svi'
+  | 'women_in_state_legislature'
+  | 'women_in_us_congress'
 
 export type MetricId =
   | 'acs_vaccinated_pop_pct'
@@ -253,7 +267,7 @@ export interface MetricConfig {
 
 export interface VariableConfig {
   variableId: VariableId
-  variableDisplayName: string
+  dataTypeName: string
   variableFullDisplayName: string
   variableDefinition?: string
   metrics: Record<string, MetricConfig> // TODO: strongly type key
@@ -267,7 +281,7 @@ const populationPctShortLabel = '% of population'
 
 export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
   variableId: 'population',
-  variableDisplayName: 'Population',
+  dataTypeName: 'Population',
   variableFullDisplayName: 'Population',
   metrics: {
     count: {
@@ -378,10 +392,10 @@ export function getAgeAdjustedRatioMetric(
 // on this to build toggles.
 // TODO: make the UI consistent regardless of metric config order.
 export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
-  covid_cases: [
+  covid: [
     {
       variableId: 'covid_cases',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'COVID-19 cases',
       variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       timeSeriesData: true,
@@ -428,11 +442,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  covid_deaths: [
     {
       variableId: 'covid_deaths',
-      variableDisplayName: 'Deaths',
+      dataTypeName: 'Deaths',
       variableFullDisplayName: 'COVID-19 deaths',
       variableDefinition: `The number of people who died due to COVID-19.`,
       timeSeriesData: true,
@@ -480,11 +492,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  covid_hospitalizations: [
     {
       variableId: 'covid_hospitalizations',
-      variableDisplayName: 'Hospitalizations',
+      dataTypeName: 'Hospitalizations',
       variableFullDisplayName: 'COVID-19 hospitalizations',
       variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       timeSeriesData: true,
@@ -535,11 +545,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-
   covid_vaccinations: [
     {
       variableId: 'covid_vaccinations',
-      variableDisplayName: 'Vaccinations',
+      dataTypeName: 'Vaccinations',
       variableFullDisplayName: 'COVID-19 vaccinations',
       variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
@@ -607,7 +616,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   hiv_care: [
     {
       variableId: 'hiv_care',
-      variableDisplayName: 'Linkage to HIV care',
+      dataTypeName: 'Linkage to HIV care',
       variableFullDisplayName: 'Linkage to HIV care',
       variableDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -657,10 +666,58 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  hiv_diagnoses: [
+  hiv: [
+    {
+      variableId: 'hiv_prevalence',
+      dataTypeName: 'Prevalence',
+      variableFullDisplayName: 'HIV prevalence',
+      variableDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      dataTableTitle: 'Breakdown summary for HIV prevalence',
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total HIV prevalence',
+          metricId: 'hiv_prevalence_pct_share',
+          columnTitleHeader: 'Share of total HIV prevalence',
+          trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
+          shortLabel: '% of HIV prevalence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle: 'Population vs. distribution of total HIV prevalence',
+
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_prevalence_per_100k',
+          chartTitle: 'HIV prevalence',
+          trendsCardTitleName: 'HIV prevalence over time',
+          columnTitleHeader: 'HIV prevalence per 100k people',
+          shortLabel: 'HIV prevalence per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Historical relative inequity for HIV prevalence',
+          metricId: 'hiv_prevalence_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle:
+            'Age-adjusted risk of HIV prevalence compared to White (NH)',
+
+          metricId: 'hiv_prevalence_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
     {
       variableId: 'hiv_diagnoses',
-      variableDisplayName: 'New HIV diagnoses',
+      dataTypeName: 'New diagnoses',
       variableFullDisplayName: 'New HIV diagnoses',
       variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -708,11 +765,58 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
+    {
+      variableId: 'hiv_deaths',
+      dataTypeName: 'Deaths',
+      variableFullDisplayName: 'HIV deaths',
+      variableDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      dataTableTitle: 'Breakdown summary for HIV deaths',
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total HIV deaths',
+          metricId: 'hiv_deaths_pct_share',
+          columnTitleHeader: 'Share of total HIV deaths',
+          trendsCardTitleName: 'Inequitable share of HIV deaths over time',
+          shortLabel: '% of HIV deaths',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle: 'Population vs. distribution of total HIV deaths',
+
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_deaths_per_100k',
+          chartTitle: 'HIV deaths',
+          trendsCardTitleName: 'Rates of HIV deaths over time',
+          columnTitleHeader: 'HIV deaths per 100k people',
+          shortLabel: 'deaths per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Historical relative inequity for HIV deaths',
+          metricId: 'hiv_deaths_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle: 'Age-adjusted risk of HIV deaths compared to White (NH)',
+
+          metricId: 'hiv_deaths_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
   ],
-  hiv_diagnoses_black_women: [
+  hiv_black_women: [
     {
       variableId: 'hiv_diagnoses_black_women',
-      variableDisplayName: 'New HIV diagnoses for Black women',
+      dataTypeName: 'New diagnoses',
       variableFullDisplayName: 'New HIV diagnoses for Black women',
       variableDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -762,60 +866,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  hiv_deaths: [
-    {
-      variableId: 'hiv_deaths',
-      variableDisplayName: 'HIV deaths',
-      variableFullDisplayName: 'HIV deaths',
-      variableDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
-      timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV deaths',
-      metrics: {
-        pct_share: {
-          chartTitle: 'Share of total HIV deaths',
-          metricId: 'hiv_deaths_pct_share',
-          columnTitleHeader: 'Share of total HIV deaths',
-          trendsCardTitleName: 'Inequitable share of HIV deaths over time',
-          shortLabel: '% of HIV deaths',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle: 'Population vs. distribution of total HIV deaths',
-
-            metricId: 'hiv_population_pct',
-            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
-            shortLabel: populationPctShortLabel,
-            type: 'pct_share',
-          },
-        },
-        per100k: {
-          metricId: 'hiv_deaths_per_100k',
-          chartTitle: 'HIV deaths',
-          trendsCardTitleName: 'Rates of HIV deaths over time',
-          columnTitleHeader: 'HIV deaths per 100k people',
-          shortLabel: 'deaths per 100k',
-          type: 'per100k',
-        },
-        pct_relative_inequity: {
-          chartTitle: 'Historical relative inequity for HIV deaths',
-          metricId: 'hiv_deaths_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle: 'Age-adjusted risk of HIV deaths compared to White (NH)',
-
-          metricId: 'hiv_deaths_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
-        },
-      },
-    },
-  ],
-  hiv_deaths_black_women: [
     {
       variableId: 'hiv_deaths_black_women',
-      variableDisplayName: 'HIV deaths for Black women',
+      dataTypeName: 'Deaths',
       variableFullDisplayName: 'HIV deaths for Black women',
       variableDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -863,113 +916,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  hiv_prep: [
-    {
-      variableId: 'hiv_prep',
-      variableDisplayName: 'PrEP coverage',
-      variableFullDisplayName: 'PrEP coverage',
-      variableDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
-      timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for PrEP coverage',
-      metrics: {
-        pct_share: {
-          chartTitle: 'Share of total PrEP prescriptions',
-          metricId: 'hiv_prep_pct_share',
-          columnTitleHeader: 'Share of total PrEP prescriptions',
-          trendsCardTitleName:
-            'Inequitable share of PrEP prescriptions over time',
-          shortLabel: '% of PrEP prescriptions',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle:
-              'PrEP-eligible population vs. distribution of total PrEP prescriptions',
-
-            metricId: 'hiv_prep_population_pct',
-            columnTitleHeader: 'PrEP-eligible population share (ages 16+)', // populationPctTitle,
-            shortLabel: '% of PrEP-eligible population',
-            type: 'pct_share',
-          },
-        },
-        per100k: {
-          metricId: 'hiv_prep_coverage',
-          chartTitle: 'PrEP coverage',
-          trendsCardTitleName: 'Rates of PrEP coverage over time',
-          columnTitleHeader: 'PrEP coverage',
-          shortLabel: '% PrEP coverage',
-          type: 'pct_share',
-        },
-        pct_relative_inequity: {
-          chartTitle: 'Historical relative inequity for PrEP coverage',
-          metricId: 'hiv_prep_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle:
-            'Age-adjusted risk of PrEP coverage compared to White (NH)',
-
-          metricId: 'hiv_prep_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
-        },
-      },
-    },
-  ],
-  hiv_prevalence: [
-    {
-      variableId: 'hiv_prevalence',
-      variableDisplayName: 'HIV prevalence',
-      variableFullDisplayName: 'HIV prevalence',
-      variableDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
-      timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV prevalence',
-      metrics: {
-        pct_share: {
-          chartTitle: 'Share of total HIV prevalence',
-          metricId: 'hiv_prevalence_pct_share',
-          columnTitleHeader: 'Share of total HIV prevalence',
-          trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
-          shortLabel: '% of HIV prevalence',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle: 'Population vs. distribution of total HIV prevalence',
-
-            metricId: 'hiv_population_pct',
-            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
-            shortLabel: populationPctShortLabel,
-            type: 'pct_share',
-          },
-        },
-        per100k: {
-          metricId: 'hiv_prevalence_per_100k',
-          chartTitle: 'HIV prevalence',
-          trendsCardTitleName: 'HIV prevalence over time',
-          columnTitleHeader: 'HIV prevalence per 100k people',
-          shortLabel: 'HIV prevalence per 100k',
-          type: 'per100k',
-        },
-        pct_relative_inequity: {
-          chartTitle: 'Historical relative inequity for HIV prevalence',
-          metricId: 'hiv_prevalence_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle:
-            'Age-adjusted risk of HIV prevalence compared to White (NH)',
-
-          metricId: 'hiv_prevalence_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
-        },
-      },
-    },
-  ],
-  hiv_prevalence_black_women: [
     {
       variableId: 'hiv_prevalence_black_women',
-      variableDisplayName: 'HIV prevalence for Black women',
+      dataTypeName: 'Prevalence',
       variableFullDisplayName: 'HIV prevalence for Black women',
       variableDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -1020,10 +969,62 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
+  hiv_prep: [
+    {
+      variableId: 'hiv_prep',
+      dataTypeName: 'PrEP coverage',
+      variableFullDisplayName: 'PrEP coverage',
+      variableDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      dataTableTitle: 'Breakdown summary for PrEP coverage',
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total PrEP prescriptions',
+          metricId: 'hiv_prep_pct_share',
+          columnTitleHeader: 'Share of total PrEP prescriptions',
+          trendsCardTitleName:
+            'Inequitable share of PrEP prescriptions over time',
+          shortLabel: '% of PrEP prescriptions',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'PrEP-eligible population vs. distribution of total PrEP prescriptions',
+
+            metricId: 'hiv_prep_population_pct',
+            columnTitleHeader: 'PrEP-eligible population share (ages 16+)', // populationPctTitle,
+            shortLabel: '% of PrEP-eligible population',
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_prep_coverage',
+          chartTitle: 'PrEP coverage',
+          trendsCardTitleName: 'Rates of PrEP coverage over time',
+          columnTitleHeader: 'PrEP coverage',
+          shortLabel: '% PrEP coverage',
+          type: 'pct_share',
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Historical relative inequity for PrEP coverage',
+          metricId: 'hiv_prep_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle:
+            'Age-adjusted risk of PrEP coverage compared to White (NH)',
+
+          metricId: 'hiv_prep_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+  ],
   suicide: [
     {
       variableId: 'suicide',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'Suicides',
       variableDefinition: `Deaths due to intentional self-harm.`,
       surveyCollectedData: true,
@@ -1072,7 +1073,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   depression: [
     {
       variableId: 'depression',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'Depression cases',
       variableDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
       surveyCollectedData: true,
@@ -1121,7 +1122,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   excessive_drinking: [
     {
       variableId: 'excessive_drinking',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'Excessive drinking cases',
       variableDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
       surveyCollectedData: true,
@@ -1175,7 +1176,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
     {
       // parent data type
       variableId: 'non_medical_drug_use',
-      variableDisplayName: 'Opioid and other non-medical drug use',
+      dataTypeName: 'Opioid and other non-medical drug use',
       variableFullDisplayName: 'Opioid and other non-medical drug use',
       variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
       surveyCollectedData: true,
@@ -1230,7 +1231,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   frequent_mental_distress: [
     {
       variableId: 'frequent_mental_distress',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'Frequent mental distress cases',
       variableDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
       surveyCollectedData: true,
@@ -1284,7 +1285,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   diabetes: [
     {
       variableId: 'diabetes',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'Diabetes',
       variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
@@ -1333,7 +1334,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   copd: [
     {
       variableId: 'copd',
-      variableDisplayName: 'Cases',
+      dataTypeName: 'Cases',
       variableFullDisplayName: 'COPD',
       variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
@@ -1382,7 +1383,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   health_insurance: [
     {
       variableId: 'health_insurance',
-      variableDisplayName: 'Uninsured people',
+      dataTypeName: 'Uninsured people',
       variableFullDisplayName: 'Uninsured people',
       variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
         include plans and programs that provide comprehensive health coverage. Plans that provide
@@ -1436,7 +1437,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   poverty: [
     {
       variableId: 'poverty',
-      variableDisplayName: 'Poverty',
+      dataTypeName: 'Poverty',
       variableFullDisplayName: 'People below the poverty line',
       variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       dataTableTitle: 'Breakdown summary for people below the poverty line',
@@ -1485,7 +1486,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   preventable_hospitalizations: [
     {
       variableId: 'preventable_hospitalizations',
-      variableDisplayName: 'Preventable hospitalizations',
+      dataTypeName: 'Preventable hospitalizations',
       variableFullDisplayName: 'Preventable hospitalizations',
       variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
       dataTableTitle: 'Breakdown summary for preventable hospitalizations',
@@ -1540,7 +1541,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   avoided_care: [
     {
       variableId: 'avoided_care',
-      variableDisplayName: 'Avoided Care',
+      dataTypeName: 'Avoided Care',
       variableFullDisplayName: 'Care avoidance due to cost',
       variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       surveyCollectedData: true,
@@ -1590,7 +1591,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   asthma: [
     {
       variableId: 'asthma',
-      variableDisplayName: 'Asthma',
+      dataTypeName: 'Asthma',
       variableFullDisplayName: 'Asthma cases',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for asthma cases',
@@ -1639,7 +1640,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   cardiovascular_diseases: [
     {
       variableId: 'cardiovascular_diseases',
-      variableDisplayName: 'Cardiovascular diseases',
+      dataTypeName: 'Cardiovascular diseases',
       variableFullDisplayName: 'Cases of cardiovascular diseases',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases',
@@ -1693,7 +1694,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   chronic_kidney_disease: [
     {
       variableId: 'chronic_kidney_disease',
-      variableDisplayName: 'Chronic kidney disease',
+      dataTypeName: 'Chronic kidney disease',
       surveyCollectedData: true,
       variableFullDisplayName: 'Cases of chronic kidney disease',
       variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
@@ -1747,7 +1748,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   voter_participation: [
     {
       variableId: 'voter_participation',
-      variableDisplayName: 'Voter participation',
+      dataTypeName: 'Voter participation',
       variableFullDisplayName: 'Voter participation',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for voter participation',
@@ -1797,10 +1798,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-  women_in_us_congress: [
+  women_in_gov: [
     {
       variableId: 'women_in_us_congress',
-      variableDisplayName: 'Women in US Congress',
+      dataTypeName: 'US Congress',
       variableFullDisplayName: 'Women in US Congress',
       surveyCollectedData: true,
       timeSeriesData: true,
@@ -1854,11 +1855,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
         },
       },
     },
-  ],
-  women_in_state_legislature: [
     {
       variableId: 'women_in_state_legislature',
-      variableDisplayName: 'Women in state legislatures', // DATA TOGGLE
+      dataTypeName: 'State legislatures', // DATA TOGGLE
       variableFullDisplayName: 'Women in state legislatures', // TABLE TITLE,
       surveyCollectedData: true,
       timeSeriesData: true,
@@ -1917,7 +1916,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   prison: [
     {
       variableId: 'prison',
-      variableDisplayName: 'Prison',
+      dataTypeName: 'Prison',
       variableFullDisplayName: 'People in prison',
       surveyCollectedData: true,
       timeSeriesData: true,
@@ -1974,11 +1973,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
   ],
-
   jail: [
     {
       variableId: 'jail',
-      variableDisplayName: 'Jail',
+      dataTypeName: 'Jail',
       variableFullDisplayName: 'People in jail',
       surveyCollectedData: true,
       timeSeriesData: true,
