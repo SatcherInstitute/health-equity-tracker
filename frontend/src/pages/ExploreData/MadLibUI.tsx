@@ -25,11 +25,11 @@ import {
   type DropdownVarId,
   isDropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
-  type VariableId,
+  type DataTypeConfig,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { useAtom } from 'jotai'
-import { selectedVariableConfig1Atom } from '../../utils/sharedSettingsState'
+import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
 
 import { atomWithLocation } from 'jotai-location'
 const locationAtom = atomWithLocation()
@@ -84,8 +84,8 @@ export default function MadLibUI(props: {
     })
   }
 
-  const [selectedVariableConfig1, setSelectedVariableConfig1] = useAtom(
-    selectedVariableConfig1Atom
+  const [selectedDataTypeConfig1, setSelectedDataTypeConfig1] = useAtom(
+    selectedDataTypeConfig1Atom
   )
   const [, setLocation] = useAtom(locationAtom)
 
@@ -103,13 +103,13 @@ export default function MadLibUI(props: {
           (phraseSegment: PhraseSegment, index: number) => {
             let dataTypes: any[][] = []
 
-            const segmentVariableId: DropdownVarId | string =
+            const segmentDataTypeId: DropdownVarId | string =
               props.madLib.activeSelections[index]
-            if (isDropdownVarId(segmentVariableId)) {
-              dataTypes = METRIC_CONFIG[segmentVariableId].map(
-                (variableConfig: VariableConfig) => {
-                  const { variableId, dataTypeName } = variableConfig
-                  return [variableId, dataTypeName]
+            if (isDropdownVarId(segmentDataTypeId)) {
+              dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
+                (dataTypeConfig: DataTypeConfig) => {
+                  const { dataTypeId, dataTypeName } = dataTypeConfig
+                  return [dataTypeId, dataTypeName]
                 }
               )
             }
@@ -136,13 +136,13 @@ export default function MadLibUI(props: {
                       <DataTypeOptionsSelector
                         key={`${index}-datatype`}
                         value={
-                          selectedVariableConfig1?.variableId ?? dataTypes[0][0]
+                          selectedDataTypeConfig1?.dataTypeId ?? dataTypes[0][0]
                         }
                         onOptionUpdate={(newValue) => {
-                          const newConfig = getConfigFromVariableId(
-                            newValue as VariableId
+                          const newConfig = getConfigFromDataTypeId(
+                            newValue as DataTypeId
                           )
-                          newConfig && setSelectedVariableConfig1(newConfig)
+                          newConfig && setSelectedDataTypeConfig1(newConfig)
                           const params = new URLSearchParams(location.search)
                           params.set(DATA_TYPE_1_PARAM, newValue)
                           setLocation((prev: any) => ({
@@ -168,8 +168,8 @@ export default function MadLibUI(props: {
   )
 }
 
-function getConfigFromVariableId(id: VariableId): VariableConfig | undefined {
+function getConfigFromDataTypeId(id: DataTypeId): DataTypeConfig | undefined {
   return Object.values(METRIC_CONFIG)
     .flat()
-    .find((config) => config.variableId === id)
+    .find((config) => config.dataTypeId === id)
 }

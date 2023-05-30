@@ -7,7 +7,7 @@ import { Alert } from '@mui/material'
 
 interface UnknownBubblesAlertProps {
   breakdownVar: BreakdownVar
-  variableFullDisplayName: string
+  fullDisplayName: string
   expanded: boolean
   setExpanded: (expanded: boolean) => void
 }
@@ -23,12 +23,12 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
   return (
     <Alert severity="info" role="note">
       Missing and unknown data impacts Health Equity. Please consider the impact
-      of {props.variableFullDisplayName} with an unknown {groupTerm}.{' '}
+      of {props.fullDisplayName} with an unknown {groupTerm}.{' '}
       {props.expanded && (
         <>
           The <b>unknown percentage</b> along the bottom of this chart expresses
-          the share of total {props.variableFullDisplayName} per month that did
-          not include {groupTerm} information.
+          the share of total {props.fullDisplayName} per month that did not
+          include {groupTerm} information.
         </>
       )}{' '}
       <button
@@ -36,7 +36,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
         className={styles.UnknownBubblesLink}
         aria-label={
           'View the share of ' +
-          props.variableFullDisplayName +
+          props.fullDisplayName +
           ' with an unknown ' +
           groupTerm
         }

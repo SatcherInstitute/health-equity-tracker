@@ -15,10 +15,10 @@ import {
   Button,
   Popover,
 } from '@mui/material'
-import { type VariableId } from '../../data/config/MetricConfig'
+import { type DataTypeId } from '../../data/config/MetricConfig'
 
 interface DataTypeOptionsSelectorProps {
-  value: VariableId // VariableId OR fips as string OR default setting with no topic selected
+  value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
   options: string[][]
   onOptionUpdate: (option: string) => void
 }

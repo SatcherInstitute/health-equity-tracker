@@ -1,7 +1,7 @@
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
@@ -87,10 +87,10 @@ treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
   if (madLib.activeSelections[1] === DEFAULT) return []
 
-  const condition1array: VariableConfig[] =
+  const condition1array: DataTypeConfig[] =
     METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId]
   // get 2nd condition if in compare var mode
-  const condition2array: VariableConfig[] =
+  const condition2array: DataTypeConfig[] =
     madLib.id === 'comparevars'
       ? METRIC_CONFIG[getPhraseValue(madLib, 3) as DropdownVarId]
       : []

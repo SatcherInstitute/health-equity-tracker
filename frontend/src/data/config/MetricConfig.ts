@@ -39,12 +39,12 @@ export function isDropdownVarId(str: string): str is DropdownVarId {
   return !!dropdownVarIds.find((dropdown) => str === dropdown)
 }
 
-export type AgeAdjustedVariableId = 'covid_deaths' | 'covid_hospitalizations'
+export type AgeAdjustedDataTypeId = 'covid_deaths' | 'covid_hospitalizations'
 
 // IDs for the sub-data types (if any) for theDropDownId
-export type VariableId =
+export type DataTypeId =
   | DropdownVarId
-  | AgeAdjustedVariableId
+  | AgeAdjustedDataTypeId
   | 'beta_blockers_adherence'
   | 'covid_cases'
   | 'covid_deaths'
@@ -265,11 +265,11 @@ export interface MetricConfig {
   secondaryPopulationComparisonMetric?: MetricConfig
 }
 
-export interface VariableConfig {
-  variableId: VariableId
+export interface DataTypeConfig {
+  dataTypeId: DataTypeId
   dataTypeName: string
-  variableFullDisplayName: string
-  variableDefinition?: string
+  fullDisplayName: string
+  dataTypeDefinition?: string
   metrics: Record<string, MetricConfig> // TODO: strongly type key
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
@@ -279,10 +279,10 @@ export interface VariableConfig {
 const populationPctTitle = 'Population share'
 const populationPctShortLabel = '% of population'
 
-export const POPULATION_VARIABLE_CONFIG: VariableConfig = {
-  variableId: 'population',
+export const POPULATION_DATATYPE_CONFIG: DataTypeConfig = {
+  dataTypeId: 'population',
   dataTypeName: 'Population',
-  variableFullDisplayName: 'Population',
+  fullDisplayName: 'Population',
   metrics: {
     count: {
       chartTitle: '',
@@ -349,21 +349,21 @@ export function formatFieldValue(
 }
 
 export function getRateAndPctShareMetrics(
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
-  if (variableConfig) {
-    if (variableConfig.metrics?.per100k) {
-      tableFields.push(variableConfig.metrics.per100k)
+  if (dataTypeConfig) {
+    if (dataTypeConfig.metrics?.per100k) {
+      tableFields.push(dataTypeConfig.metrics.per100k)
     }
-    if (variableConfig.metrics?.pct_rate) {
-      tableFields.push(variableConfig.metrics.pct_rate)
+    if (dataTypeConfig.metrics?.pct_rate) {
+      tableFields.push(dataTypeConfig.metrics.pct_rate)
     }
-    if (variableConfig.metrics.pct_share) {
-      tableFields.push(variableConfig.metrics.pct_share)
-      if (variableConfig.metrics.pct_share.populationComparisonMetric) {
+    if (dataTypeConfig.metrics.pct_share) {
+      tableFields.push(dataTypeConfig.metrics.pct_share)
+      if (dataTypeConfig.metrics.pct_share.populationComparisonMetric) {
         tableFields.push(
-          variableConfig.metrics.pct_share.populationComparisonMetric
+          dataTypeConfig.metrics.pct_share.populationComparisonMetric
         )
       }
     }
@@ -372,15 +372,15 @@ export function getRateAndPctShareMetrics(
 }
 
 export function getAgeAdjustedRatioMetric(
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
 ): MetricConfig[] {
   const tableFields: MetricConfig[] = []
-  if (variableConfig) {
-    if (variableConfig.metrics.age_adjusted_ratio) {
+  if (dataTypeConfig) {
+    if (dataTypeConfig.metrics.age_adjusted_ratio) {
       // Ratios for Table
-      tableFields.push(variableConfig.metrics.age_adjusted_ratio)
+      tableFields.push(dataTypeConfig.metrics.age_adjusted_ratio)
       // pct_share for Unknowns Alert
-      tableFields.push(variableConfig.metrics.pct_share)
+      tableFields.push(dataTypeConfig.metrics.pct_share)
     }
   }
   return tableFields
@@ -391,13 +391,13 @@ export function getAgeAdjustedRatioMetric(
 // Note: metrics must be declared in a consistent order because the UI relies
 // on this to build toggles.
 // TODO: make the UI consistent regardless of metric config order.
-export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
+export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   covid: [
     {
-      variableId: 'covid_cases',
+      dataTypeId: 'covid_cases',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'COVID-19 cases',
-      variableDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+      fullDisplayName: 'COVID-19 cases',
+      dataTypeDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for COVID-19 cases',
       metrics: {
@@ -443,10 +443,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'covid_deaths',
+      dataTypeId: 'covid_deaths',
       dataTypeName: 'Deaths',
-      variableFullDisplayName: 'COVID-19 deaths',
-      variableDefinition: `The number of people who died due to COVID-19.`,
+      fullDisplayName: 'COVID-19 deaths',
+      dataTypeDefinition: `The number of people who died due to COVID-19.`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for COVID-19 deaths',
       metrics: {
@@ -493,10 +493,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'covid_hospitalizations',
+      dataTypeId: 'covid_hospitalizations',
       dataTypeName: 'Hospitalizations',
-      variableFullDisplayName: 'COVID-19 hospitalizations',
-      variableDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
+      fullDisplayName: 'COVID-19 hospitalizations',
+      dataTypeDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for COVID-19 hospitalizations',
       metrics: {
@@ -547,10 +547,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   covid_vaccinations: [
     {
-      variableId: 'covid_vaccinations',
+      dataTypeId: 'covid_vaccinations',
       dataTypeName: 'Vaccinations',
-      variableFullDisplayName: 'COVID-19 vaccinations',
-      variableDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+      fullDisplayName: 'COVID-19 vaccinations',
+      dataTypeDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
       metrics: {
         per100k: {
@@ -615,10 +615,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   hiv_care: [
     {
-      variableId: 'hiv_care',
+      dataTypeId: 'hiv_care',
       dataTypeName: 'Linkage to HIV care',
-      variableFullDisplayName: 'Linkage to HIV care',
-      variableDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'Linkage to HIV care',
+      dataTypeDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for linkage to HIV care',
       metrics: {
@@ -668,10 +668,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   hiv: [
     {
-      variableId: 'hiv_prevalence',
+      dataTypeId: 'hiv_prevalence',
       dataTypeName: 'Prevalence',
-      variableFullDisplayName: 'HIV prevalence',
-      variableDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'HIV prevalence',
+      dataTypeDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for HIV prevalence',
       metrics: {
@@ -716,10 +716,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'hiv_diagnoses',
+      dataTypeId: 'hiv_diagnoses',
       dataTypeName: 'New diagnoses',
-      variableFullDisplayName: 'New HIV diagnoses',
-      variableDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'New HIV diagnoses',
+      dataTypeDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for new HIV diagnoses',
       metrics: {
@@ -766,10 +766,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'hiv_deaths',
+      dataTypeId: 'hiv_deaths',
       dataTypeName: 'Deaths',
-      variableFullDisplayName: 'HIV deaths',
-      variableDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'HIV deaths',
+      dataTypeDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for HIV deaths',
       metrics: {
@@ -815,10 +815,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   hiv_black_women: [
     {
-      variableId: 'hiv_diagnoses_black_women',
+      dataTypeId: 'hiv_diagnoses_black_women',
       dataTypeName: 'New diagnoses',
-      variableFullDisplayName: 'New HIV diagnoses for Black women',
-      variableDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'New HIV diagnoses for Black women',
+      dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle:
         'Breakdown summary for new HIV diagnoses for Black (NH) women',
@@ -867,10 +867,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'hiv_deaths_black_women',
+      dataTypeId: 'hiv_deaths_black_women',
       dataTypeName: 'Deaths',
-      variableFullDisplayName: 'HIV deaths for Black women',
-      variableDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'HIV deaths for Black women',
+      dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
       metrics: {
@@ -917,10 +917,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'hiv_prevalence_black_women',
+      dataTypeId: 'hiv_prevalence_black_women',
       dataTypeName: 'Prevalence',
-      variableFullDisplayName: 'HIV prevalence for Black women',
-      variableDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'HIV prevalence for Black women',
+      dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle:
         'Breakdown summary for HIV prevalence for Black (NH) women',
@@ -971,10 +971,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   hiv_prep: [
     {
-      variableId: 'hiv_prep',
+      dataTypeId: 'hiv_prep',
       dataTypeName: 'PrEP coverage',
-      variableFullDisplayName: 'PrEP coverage',
-      variableDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
+      fullDisplayName: 'PrEP coverage',
+      dataTypeDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for PrEP coverage',
       metrics: {
@@ -1023,10 +1023,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   suicide: [
     {
-      variableId: 'suicide',
+      dataTypeId: 'suicide',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'Suicides',
-      variableDefinition: `Deaths due to intentional self-harm.`,
+      fullDisplayName: 'Suicides',
+      dataTypeDefinition: `Deaths due to intentional self-harm.`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for suicides',
       metrics: {
@@ -1072,10 +1072,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   depression: [
     {
-      variableId: 'depression',
+      dataTypeId: 'depression',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'Depression cases',
-      variableDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
+      fullDisplayName: 'Depression cases',
+      dataTypeDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for depression cases',
       metrics: {
@@ -1121,10 +1121,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   excessive_drinking: [
     {
-      variableId: 'excessive_drinking',
+      dataTypeId: 'excessive_drinking',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'Excessive drinking cases',
-      variableDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
+      fullDisplayName: 'Excessive drinking cases',
+      dataTypeDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for excessive drinking cases',
       metrics: {
@@ -1175,10 +1175,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   substance: [
     {
       // parent data type
-      variableId: 'non_medical_drug_use',
+      dataTypeId: 'non_medical_drug_use',
       dataTypeName: 'Opioid and other non-medical drug use',
-      variableFullDisplayName: 'Opioid and other non-medical drug use',
-      variableDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
+      fullDisplayName: 'Opioid and other non-medical drug use',
+      dataTypeDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
       surveyCollectedData: true,
       dataTableTitle:
         'Breakdown summary for opioid and other non-medical drug use',
@@ -1230,10 +1230,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
 
   frequent_mental_distress: [
     {
-      variableId: 'frequent_mental_distress',
+      dataTypeId: 'frequent_mental_distress',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'Frequent mental distress cases',
-      variableDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
+      fullDisplayName: 'Frequent mental distress cases',
+      dataTypeDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for frequent mental distress cases',
       metrics: {
@@ -1284,10 +1284,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   diabetes: [
     {
-      variableId: 'diabetes',
+      dataTypeId: 'diabetes',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'Diabetes',
-      variableDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+      fullDisplayName: 'Diabetes',
+      dataTypeDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for diabetes',
       metrics: {
@@ -1333,10 +1333,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   copd: [
     {
-      variableId: 'copd',
+      dataTypeId: 'copd',
       dataTypeName: 'Cases',
-      variableFullDisplayName: 'COPD',
-      variableDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+      fullDisplayName: 'COPD',
+      dataTypeDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for COPD',
       metrics: {
@@ -1382,10 +1382,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
 
   health_insurance: [
     {
-      variableId: 'health_insurance',
+      dataTypeId: 'health_insurance',
       dataTypeName: 'Uninsured people',
-      variableFullDisplayName: 'Uninsured people',
-      variableDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
+      fullDisplayName: 'Uninsured people',
+      dataTypeDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
         include plans and programs that provide comprehensive health coverage. Plans that provide
         insurance only for specific conditions or situations such as cancer and long-term care policies
         are not considered comprehensive health coverage. Likewise, other types of insurance like
@@ -1436,10 +1436,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   poverty: [
     {
-      variableId: 'poverty',
+      dataTypeId: 'poverty',
       dataTypeName: 'Poverty',
-      variableFullDisplayName: 'People below the poverty line',
-      variableDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
+      fullDisplayName: 'People below the poverty line',
+      dataTypeDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       dataTableTitle: 'Breakdown summary for people below the poverty line',
       metrics: {
         per100k: {
@@ -1485,10 +1485,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   preventable_hospitalizations: [
     {
-      variableId: 'preventable_hospitalizations',
+      dataTypeId: 'preventable_hospitalizations',
       dataTypeName: 'Preventable hospitalizations',
-      variableFullDisplayName: 'Preventable hospitalizations',
-      variableDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
+      fullDisplayName: 'Preventable hospitalizations',
+      dataTypeDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
       dataTableTitle: 'Breakdown summary for preventable hospitalizations',
       metrics: {
         per100k: {
@@ -1540,10 +1540,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   avoided_care: [
     {
-      variableId: 'avoided_care',
+      dataTypeId: 'avoided_care',
       dataTypeName: 'Avoided Care',
-      variableFullDisplayName: 'Care avoidance due to cost',
-      variableDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
+      fullDisplayName: 'Care avoidance due to cost',
+      dataTypeDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for care avoidance due to cost',
       metrics: {
@@ -1590,12 +1590,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   asthma: [
     {
-      variableId: 'asthma',
+      dataTypeId: 'asthma',
       dataTypeName: 'Asthma',
-      variableFullDisplayName: 'Asthma cases',
+      fullDisplayName: 'Asthma cases',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for asthma cases',
-      variableDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
+      dataTypeDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
       metrics: {
         per100k: {
           metricId: 'asthma_per_100k',
@@ -1639,12 +1639,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   cardiovascular_diseases: [
     {
-      variableId: 'cardiovascular_diseases',
+      dataTypeId: 'cardiovascular_diseases',
       dataTypeName: 'Cardiovascular diseases',
-      variableFullDisplayName: 'Cases of cardiovascular diseases',
+      fullDisplayName: 'Cases of cardiovascular diseases',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases',
-      variableDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
+      dataTypeDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
       metrics: {
         per100k: {
           metricId: 'cardiovascular_diseases_per_100k',
@@ -1693,11 +1693,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   chronic_kidney_disease: [
     {
-      variableId: 'chronic_kidney_disease',
+      dataTypeId: 'chronic_kidney_disease',
       dataTypeName: 'Chronic kidney disease',
       surveyCollectedData: true,
-      variableFullDisplayName: 'Cases of chronic kidney disease',
-      variableDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+      fullDisplayName: 'Cases of chronic kidney disease',
+      dataTypeDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
       dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
       metrics: {
         per100k: {
@@ -1747,12 +1747,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   voter_participation: [
     {
-      variableId: 'voter_participation',
+      dataTypeId: 'voter_participation',
       dataTypeName: 'Voter participation',
-      variableFullDisplayName: 'Voter participation',
+      fullDisplayName: 'Voter participation',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for voter participation',
-      variableDefinition: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
+      dataTypeDefinition: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
       metrics: {
         per100k: {
           metricId: 'voter_participation_pct_rate',
@@ -1800,12 +1800,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   women_in_gov: [
     {
-      variableId: 'women_in_us_congress',
+      dataTypeId: 'women_in_us_congress',
       dataTypeName: 'US Congress',
-      variableFullDisplayName: 'Women in US Congress',
+      fullDisplayName: 'Women in US Congress',
       surveyCollectedData: true,
       timeSeriesData: true,
-      variableDefinition: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
+      dataTypeDefinition: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
       dataTableTitle: 'Breakdown summary for Women in US Congress',
       metrics: {
         per100k: {
@@ -1856,12 +1856,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
       },
     },
     {
-      variableId: 'women_in_state_legislature',
+      dataTypeId: 'women_in_state_legislature',
       dataTypeName: 'State legislatures', // DATA TOGGLE
-      variableFullDisplayName: 'Women in state legislatures', // TABLE TITLE,
+      fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
       surveyCollectedData: true,
       timeSeriesData: true,
-      variableDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
+      dataTypeDefinition: `Individuals identifying as women currently serving in their state or territory’s legislature. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.
       `,
       dataTableTitle: 'Breakdown summary for Women in state legislatures',
       metrics: {
@@ -1915,12 +1915,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
 
   prison: [
     {
-      variableId: 'prison',
+      dataTypeId: 'prison',
       dataTypeName: 'Prison',
-      variableFullDisplayName: 'People in prison',
+      fullDisplayName: 'People in prison',
       surveyCollectedData: true,
       timeSeriesData: true,
-      variableDefinition: `Individuals of any age, including children, under the jurisdiction of an adult prison facility. ‘Age’ reports at the national level include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total U.S. prison population in 2020. For all national reports, this rate includes both state and federal prisons. For state and territory level reports, only the prisoners under the jurisdiction of that geography are included. For county level reports, Vera reports the
+      dataTypeDefinition: `Individuals of any age, including children, under the jurisdiction of an adult prison facility. ‘Age’ reports at the national level include only the subset of this jurisdictional population who have been sentenced to one year or more, which accounted for 97% of the total U.S. prison population in 2020. For all national reports, this rate includes both state and federal prisons. For state and territory level reports, only the prisoners under the jurisdiction of that geography are included. For county level reports, Vera reports the
       number of people incarcerated under the jurisdiction of a state prison system on charges arising from a criminal case in that specific county, which are not available in every state. The county of court commitment is generally where a person was convicted; it is not necessarily the person’s county of residence, and may not even be the county where the crime was committed, but nevertheless is likely to be both.  AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Prisons are longer-term facilities run by the state or the federal government that typically hold felons and persons with sentences of more than one year. Definitions may vary by state.`,
       dataTableTitle: 'Breakdown summary for people in prison',
       metrics: {
@@ -1975,12 +1975,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, VariableConfig[]> = {
   ],
   jail: [
     {
-      variableId: 'jail',
+      dataTypeId: 'jail',
       dataTypeName: 'Jail',
-      variableFullDisplayName: 'People in jail',
+      fullDisplayName: 'People in jail',
       surveyCollectedData: true,
       timeSeriesData: true,
-      variableDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Jails are locally operated short-term facilities that hold inmates awaiting trial or sentencing or both, and inmates sentenced to a term of less than one year, typically misdemeanants. Definitions may vary by state.`,
+      dataTypeDefinition: `Individuals of any age, including children, confined in a local, adult jail facility. AK, CT, DE, HI, RI, and VT each operate an integrated system that combines prisons and jails; in accordance with the data sources we include those facilities as adult prisons but not as local jails. Jails are locally operated short-term facilities that hold inmates awaiting trial or sentencing or both, and inmates sentenced to a term of less than one year, typically misdemeanants. Definitions may vary by state.`,
       dataTableTitle: 'Breakdown summary for people in jail',
       metrics: {
         per100k: {

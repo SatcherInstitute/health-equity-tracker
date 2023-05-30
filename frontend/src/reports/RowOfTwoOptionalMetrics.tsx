@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import LazyLoad from 'react-lazyload'
 import {
-  type VariableConfig,
+  type DataTypeConfig,
   type DropdownVarId,
 } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
@@ -11,14 +11,14 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 const unusedFipsCallback = () => {}
 interface RowOfTwoOptionalMetricsProps {
   id: ScrollableHashId
-  variableConfig1: VariableConfig | undefined
-  variableConfig2: VariableConfig | undefined
+  dataTypeConfig1: DataTypeConfig | undefined
+  dataTypeConfig2: DataTypeConfig | undefined
   fips1: Fips
   fips2: Fips
   updateFips1?: (fips: Fips) => void
   updateFips2?: (fips: Fips) => void
   createCard: (
-    variableConfig: VariableConfig,
+    dataTypeConfig: DataTypeConfig,
     fips: Fips,
     updateFips: (fips: Fips) => void,
     dropdownVarId?: DropdownVarId,
@@ -32,7 +32,7 @@ interface RowOfTwoOptionalMetricsProps {
 export default function RowOfTwoOptionalMetrics(
   props: RowOfTwoOptionalMetricsProps
 ) {
-  if (!props.variableConfig1 && !props.variableConfig2) {
+  if (!props.dataTypeConfig1 && !props.dataTypeConfig2) {
     return <></>
   }
 
@@ -53,10 +53,10 @@ export default function RowOfTwoOptionalMetrics(
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         {/* render with or without LazyLoad wrapped based on card id */}
-        {props.variableConfig1 && doNotLazyLoadCard && (
+        {props.dataTypeConfig1 && doNotLazyLoadCard && (
           <>
             {props.createCard(
-              props.variableConfig1,
+              props.dataTypeConfig1,
               props.fips1,
               props.updateFips1 ?? unusedFipsCallback,
               props.dropdownVarId1,
@@ -66,10 +66,10 @@ export default function RowOfTwoOptionalMetrics(
         )}
 
         <LazyLoad offset={800} height={750}>
-          {props.variableConfig1 && !doNotLazyLoadCard && (
+          {props.dataTypeConfig1 && !doNotLazyLoadCard && (
             <>
               {props.createCard(
-                props.variableConfig1,
+                props.dataTypeConfig1,
                 props.fips1,
                 props.updateFips1 ?? unusedFipsCallback,
                 props.dropdownVarId1,
@@ -87,10 +87,10 @@ export default function RowOfTwoOptionalMetrics(
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
-        {props.variableConfig2 && doNotLazyLoadCard && (
+        {props.dataTypeConfig2 && doNotLazyLoadCard && (
           <>
             {props.createCard(
-              props.variableConfig2,
+              props.dataTypeConfig2,
               props.fips2,
               props.updateFips2 ?? unusedFipsCallback,
               props.dropdownVarId2,
@@ -100,10 +100,10 @@ export default function RowOfTwoOptionalMetrics(
         )}
 
         <LazyLoad offset={800} height={600} once>
-          {props.variableConfig2 && !doNotLazyLoadCard && (
+          {props.dataTypeConfig2 && !doNotLazyLoadCard && (
             <>
               {props.createCard(
-                props.variableConfig2,
+                props.dataTypeConfig2,
                 props.fips2,
                 props.updateFips2 ?? unusedFipsCallback,
                 props.dropdownVarId2,

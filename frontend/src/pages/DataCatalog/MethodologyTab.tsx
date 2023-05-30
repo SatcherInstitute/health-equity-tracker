@@ -16,7 +16,7 @@ import { currentYear } from '../../Footer'
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
-} from '../../data/variables/IncarcerationProvider'
+} from '../../data/providers/IncarcerationProvider'
 import { Link } from 'react-router-dom'
 import {
   MissingCAWPData,
@@ -1116,7 +1116,7 @@ function MethodologyTab() {
               </h2>
               <div className={styles.MethodologyAnswer}>
                 <DefinitionsList
-                  variablesToDefine={Object.entries(METRIC_CONFIG)}
+                  dataTypesToDefine={Object.entries(METRIC_CONFIG)}
                 />
                 <p>
                   Links to the original sources of data and their definitions

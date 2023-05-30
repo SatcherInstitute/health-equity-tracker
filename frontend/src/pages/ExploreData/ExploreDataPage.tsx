@@ -26,8 +26,8 @@ import {
 import styles from './ExploreDataPage.module.scss'
 import { srSpeak } from '../../utils/a11yutils'
 import { urlMap } from '../../utils/externalUrls'
-import { type VariableConfig } from '../../data/config/MetricConfig'
-import { INCARCERATION_IDS } from '../../data/variables/IncarcerationProvider'
+import { type DataTypeConfig } from '../../data/config/MetricConfig'
+import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
@@ -217,13 +217,13 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     // hide/display the sticky suicide lifeline link based on selected condition
     setShowStickyLifeline(
       getSelectedConditions(madLib)?.some(
-        (condition: VariableConfig) => condition?.variableId === 'suicide'
+        (condition: DataTypeConfig) => condition?.dataTypeId === 'suicide'
       )
     )
 
     setShowIncarceratedChildrenAlert(
-      getSelectedConditions(madLib)?.some((condition: VariableConfig) =>
-        INCARCERATION_IDS.includes(condition?.variableId)
+      getSelectedConditions(madLib)?.some((condition: DataTypeConfig) =>
+        INCARCERATION_IDS.includes(condition?.dataTypeId)
       )
     )
   }, [madLib])

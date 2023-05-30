@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { type VariableConfig } from '../data/config/MetricConfig'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -33,7 +33,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../data/variables/CawpProvider'
+} from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle } from '../charts/utils'
@@ -44,7 +44,7 @@ const PRELOAD_HEIGHT = 668
 export interface ShareTrendsChartCardProps {
   key?: string
   breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   fips: Fips
   isCompareCard?: boolean
   reportTitle: string
@@ -62,8 +62,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)
 
   const metricConfigInequitable =
-    props.variableConfig.metrics.pct_relative_inequity
-  const metricConfigPctShares = props.variableConfig.metrics.pct_share
+    props.dataTypeConfig.metrics.pct_relative_inequity
+  const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -73,13 +73,13 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const inequityQuery = new MetricQuery(
     metricConfigInequitable.metricId,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
 
@@ -201,7 +201,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     <CardContent>
                       <UnknownBubblesAlert
                         breakdownVar={props.breakdownVar}
-                        variableFullDisplayName={props.variableConfig.variableFullDisplayName.toLowerCase()}
+                        fullDisplayName={props.dataTypeConfig.fullDisplayName.toLowerCase()}
                         expanded={unknownsExpanded}
                         setExpanded={setUnknownsExpanded}
                       />
@@ -230,10 +230,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               <CardContent>
                 <Alert severity="info" role="note">
                   This graph visualizes the disproportionate share of{' '}
-                  {props.variableConfig.variableFullDisplayName} as experienced
-                  by different demographic groups compared to their relative
-                  shares of the total population. Read more about this
-                  calculation in our{' '}
+                  {props.dataTypeConfig.fullDisplayName} as experienced by
+                  different demographic groups compared to their relative shares
+                  of the total population. Read more about this calculation in
+                  our{' '}
                   <HashLink to={`${METHODOLOGY_TAB_LINK}#metrics`}>
                     methodology
                   </HashLink>

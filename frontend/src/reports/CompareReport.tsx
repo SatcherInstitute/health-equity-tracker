@@ -11,8 +11,8 @@ import { UnknownsMapCard } from '../cards/UnknownsMapCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
-  type VariableId,
+  type DataTypeConfig,
+  type DataTypeId,
 } from '../data/config/MetricConfig'
 import {
   type BreakdownVar,
@@ -38,17 +38,17 @@ import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { BLACK_WOMEN } from '../data/variables/HivProvider'
+import { BLACK_WOMEN } from '../data/providers/HivProvider'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { useAtom } from 'jotai'
 import {
-  selectedVariableConfig1Atom,
-  selectedVariableConfig2Atom,
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
 } from '../utils/sharedSettingsState'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
-function TwoVariableReport(props: {
+function CompareReport(props: {
   key: string
   dropdownVarId1: DropdownVarId
   dropdownVarId2: DropdownVarId
@@ -69,17 +69,17 @@ function TwoVariableReport(props: {
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   )
 
-  const [variableConfig1, setVariableConfig1] = useAtom(
-    selectedVariableConfig1Atom
+  const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
+    selectedDataTypeConfig1Atom
   )
 
-  const [variableConfig2, setVariableConfig2] = useAtom(
-    selectedVariableConfig2Atom
+  const [dataTypeConfig2, setDataTypeConfig2] = useAtom(
+    selectedDataTypeConfig2Atom
   )
 
   const isRaceBySex =
-    variableConfig1?.variableId.includes(BLACK_WOMEN) ??
-    variableConfig2?.variableId.includes(BLACK_WOMEN)
+    dataTypeConfig1?.dataTypeId.includes(BLACK_WOMEN) ??
+    dataTypeConfig2?.dataTypeId.includes(BLACK_WOMEN)
 
   function setDemoWithParam(demographic: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
@@ -91,20 +91,20 @@ function TwoVariableReport(props: {
       const demoParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
-        (val: VariableId) => {
+        (val: DataTypeId) => {
           val = swapOldDatatypeParams(val)
           return METRIC_CONFIG[props.dropdownVarId1].find(
-            (cfg) => cfg.variableId === val
+            (cfg) => cfg.dataTypeId === val
           )
         }
       )
       const demoParam2 = getParameter(
         DATA_TYPE_2_PARAM,
         undefined,
-        (val: VariableId) => {
+        (val: DataTypeId) => {
           val = swapOldDatatypeParams(val)
           return METRIC_CONFIG[props.dropdownVarId2]?.find(
-            (cfg) => cfg.variableId === val
+            (cfg) => cfg.dataTypeId === val
           )
         }
       )
@@ -113,10 +113,10 @@ function TwoVariableReport(props: {
         DEMOGRAPHIC_PARAM,
         isRaceBySex ? AGE : RACE
       )
-      setVariableConfig1(
+      setDataTypeConfig1(
         demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
       )
-      setVariableConfig2(
+      setDataTypeConfig2(
         demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
       )
       setCurrentBreakdown(demo)
@@ -137,16 +137,16 @@ function TwoVariableReport(props: {
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
-  }, [variableConfig1, variableConfig2])
+  }, [dataTypeConfig1, dataTypeConfig2])
 
-  if (variableConfig1 === null) {
+  if (dataTypeConfig1 === null) {
     return (
       <Grid container spacing={1} alignItems="center" justifyContent="center">
         <NoDataAlert dropdownVarId={props.dropdownVarId1} />
       </Grid>
     )
   }
-  if (variableConfig2 === null) {
+  if (dataTypeConfig2 === null) {
     return (
       <Grid container spacing={1} alignItems="center" justifyContent="center">
         <NoDataAlert dropdownVarId={props.dropdownVarId2} />
@@ -155,13 +155,13 @@ function TwoVariableReport(props: {
   }
 
   const showTrendCardRow =
-    variableConfig1?.timeSeriesData ?? variableConfig2?.timeSeriesData
+    dataTypeConfig1?.timeSeriesData ?? dataTypeConfig2?.timeSeriesData
   const showAgeAdjustCardRow =
-    variableConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ??
-    variableConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted
+    dataTypeConfig1?.metrics?.age_adjusted_ratio?.ageAdjusted ??
+    dataTypeConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted
 
-  const dt1 = variableConfig1?.variableFullDisplayName
-  const dt2 = variableConfig2?.variableFullDisplayName
+  const dt1 = dataTypeConfig1?.fullDisplayName
+  const dt2 = dataTypeConfig2?.fullDisplayName
   const demo = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   const loc1 = props.fips1.getSentenceDisplayName()
   const loc2 = props.fips2.getSentenceDisplayName()
@@ -196,22 +196,22 @@ function TwoVariableReport(props: {
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               id="rate-map"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
+              dataTypeConfig1={dataTypeConfig1}
+              dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
               updateFips2={props.updateFips2Callback}
               headerScrollMargin={props.headerScrollMargin}
               createCard={(
-                variableConfig: VariableConfig,
+                dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 updateFips: (fips: Fips) => void,
                 _dropdown: any,
                 isCompareCard?: boolean
               ) => (
                 <MapCard
-                  variableConfig={variableConfig}
+                  dataTypeConfig={dataTypeConfig}
                   fips={fips}
                   updateFipsCallback={(fips: Fips) => {
                     updateFips(fips)
@@ -227,20 +227,20 @@ function TwoVariableReport(props: {
             {showTrendCardRow && (
               <RowOfTwoOptionalMetrics
                 id="rates-over-time"
-                variableConfig1={variableConfig1}
-                variableConfig2={variableConfig2}
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
                 fips1={props.fips1}
                 fips2={props.fips2}
                 headerScrollMargin={props.headerScrollMargin}
                 createCard={(
-                  variableConfig: VariableConfig,
+                  dataTypeConfig: DataTypeConfig,
                   fips: Fips,
                   unusedUpdateFips: (fips: Fips) => void,
                   unusedDropdown: any,
                   isCompareCard: boolean | undefined
                 ) => (
                   <RateTrendsChartCard
-                    variableConfig={variableConfig}
+                    dataTypeConfig={dataTypeConfig}
                     breakdownVar={currentBreakdown}
                     fips={fips}
                     isCompareCard={isCompareCard}
@@ -254,18 +254,18 @@ function TwoVariableReport(props: {
 
             <RowOfTwoOptionalMetrics
               id="rate-chart"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
+              dataTypeConfig1={dataTypeConfig1}
+              dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               headerScrollMargin={props.headerScrollMargin}
               createCard={(
-                variableConfig: VariableConfig,
+                dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void
               ) => (
                 <SimpleBarChartCard
-                  variableConfig={variableConfig}
+                  dataTypeConfig={dataTypeConfig}
                   breakdownVar={currentBreakdown}
                   fips={fips}
                   reportTitle={props.reportTitle}
@@ -276,21 +276,21 @@ function TwoVariableReport(props: {
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
             <RowOfTwoOptionalMetrics
               id="unknown-demographic-map"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
+              dataTypeConfig1={dataTypeConfig1}
+              dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               headerScrollMargin={props.headerScrollMargin}
               updateFips1={props.updateFips1Callback}
               updateFips2={props.updateFips2Callback}
               createCard={(
-                variableConfig: VariableConfig,
+                dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 updateFips: (fips: Fips) => void
               ) => (
                 <UnknownsMapCard
                   overrideAndWithOr={currentBreakdown === RACE}
-                  variableConfig={variableConfig}
+                  dataTypeConfig={dataTypeConfig}
                   fips={fips}
                   updateFipsCallback={(fips: Fips) => {
                     updateFips(fips)
@@ -306,20 +306,20 @@ function TwoVariableReport(props: {
             {showTrendCardRow && (
               <RowOfTwoOptionalMetrics
                 id="inequities-over-time"
-                variableConfig1={variableConfig1}
-                variableConfig2={variableConfig2}
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
                 fips1={props.fips1}
                 fips2={props.fips2}
                 headerScrollMargin={props.headerScrollMargin}
                 createCard={(
-                  variableConfig: VariableConfig,
+                  dataTypeConfig: DataTypeConfig,
                   fips: Fips,
                   unusedUpdateFips: (fips: Fips) => void,
                   unusedDropdown: any,
                   isCompareCard: boolean | undefined
                 ) => (
                   <ShareTrendsChartCard
-                    variableConfig={variableConfig}
+                    dataTypeConfig={dataTypeConfig}
                     breakdownVar={currentBreakdown}
                     fips={fips}
                     isCompareCard={isCompareCard}
@@ -332,18 +332,18 @@ function TwoVariableReport(props: {
             {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
             <RowOfTwoOptionalMetrics
               id="population-vs-distribution"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
+              dataTypeConfig1={dataTypeConfig1}
+              dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               headerScrollMargin={props.headerScrollMargin}
               createCard={(
-                variableConfig: VariableConfig,
+                dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 unusedUpdateFips: (fips: Fips) => void
               ) => (
                 <DisparityBarChartCard
-                  variableConfig={variableConfig}
+                  dataTypeConfig={dataTypeConfig}
                   breakdownVar={currentBreakdown}
                   fips={fips}
                   reportTitle={props.reportTitle}
@@ -354,21 +354,21 @@ function TwoVariableReport(props: {
             {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <RowOfTwoOptionalMetrics
               id="data-table"
-              variableConfig1={variableConfig1}
-              variableConfig2={variableConfig2}
+              dataTypeConfig1={dataTypeConfig1}
+              dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
               fips2={props.fips2}
               updateFips1={props.updateFips1Callback}
               updateFips2={props.updateFips2Callback}
               headerScrollMargin={props.headerScrollMargin}
               createCard={(
-                variableConfig: VariableConfig,
+                dataTypeConfig: DataTypeConfig,
                 fips: Fips,
                 updateFips: (fips: Fips) => void
               ) => (
                 <TableCard
                   fips={fips}
-                  variableConfig={variableConfig}
+                  dataTypeConfig={dataTypeConfig}
                   breakdownVar={currentBreakdown}
                   reportTitle={props.reportTitle}
                 />
@@ -381,8 +381,8 @@ function TwoVariableReport(props: {
               <RowOfTwoOptionalMetrics
                 id="age-adjusted-risk"
                 // specific data type
-                variableConfig1={variableConfig1}
-                variableConfig2={variableConfig2}
+                dataTypeConfig1={dataTypeConfig1}
+                dataTypeConfig2={dataTypeConfig2}
                 // parent variable
                 dropdownVarId1={props.dropdownVarId1}
                 dropdownVarId2={props.dropdownVarId2}
@@ -392,7 +392,7 @@ function TwoVariableReport(props: {
                 updateFips2={props.updateFips2Callback}
                 headerScrollMargin={props.headerScrollMargin}
                 createCard={(
-                  variableConfig: VariableConfig,
+                  dataTypeConfig: DataTypeConfig,
                   fips: Fips,
                   updateFips: (fips: Fips) => void,
                   dropdownVarId?: DropdownVarId,
@@ -400,7 +400,7 @@ function TwoVariableReport(props: {
                 ) => (
                   <AgeAdjustedTableCard
                     fips={fips}
-                    variableConfig={variableConfig}
+                    dataTypeConfig={dataTypeConfig}
                     breakdownVar={currentBreakdown}
                     dropdownVarId={dropdownVarId}
                     reportTitle={props.reportTitle}
@@ -447,4 +447,4 @@ function TwoVariableReport(props: {
   )
 }
 
-export default TwoVariableReport
+export default CompareReport

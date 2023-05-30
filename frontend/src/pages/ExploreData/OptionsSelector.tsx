@@ -22,13 +22,13 @@ import {
 } from '@mui/material'
 import {
   type DropdownVarId,
-  type VariableId,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 
 function OptionsSelector(props: {
-  value: VariableId | string | DefaultDropdownVarId // VariableId OR fips as string OR default setting with no topic selected
+  value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
   options: Fips[] | string[][]
   onOptionUpdate: (option: string) => void
 }) {

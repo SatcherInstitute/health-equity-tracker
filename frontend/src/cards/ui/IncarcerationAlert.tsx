@@ -4,13 +4,13 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type Fips, USA_DISPLAY_NAME } from '../../data/utils/Fips'
-import { type VariableId } from '../../data/config/MetricConfig'
+import { type DataTypeId } from '../../data/config/MetricConfig'
 import { AGE } from '../../data/utils/Constants'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
-} from '../../data/variables/IncarcerationProvider'
+} from '../../data/providers/IncarcerationProvider'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -18,7 +18,7 @@ const combinedAlertFipsList = [
 ]
 
 interface IncarcerationAlertProps {
-  dataType: VariableId
+  dataType: DataTypeId
   breakdown: BreakdownVar
   fips: Fips
 }
@@ -57,7 +57,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
 export default IncarcerationAlert
 
 interface IncarcerationDetailsTextProps {
-  dataType: VariableId
+  dataType: DataTypeId
   breakdown: BreakdownVar
 }
 
