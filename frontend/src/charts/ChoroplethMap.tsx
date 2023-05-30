@@ -253,9 +253,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
 
-    if (props.isMulti || props.listExpanded) {
-      colorScale.domain = props.scaleConfig.domain
-      colorScale.range = props.scaleConfig.range
+    if (props.isMulti ?? props.listExpanded) {
+      colorScale.domain = props.scaleConfig?.domain
+      colorScale.range = props.scaleConfig?.range
     }
 
     const projection = getProjection(
