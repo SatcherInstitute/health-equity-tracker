@@ -13,3 +13,7 @@ INCARCERATION_TYPE = Literal["jail", "prison"]
 VERA_PROPERTY_TYPE = Literal["raw", "rate",
                              "population", "total_confined_children"]
 GEO_TYPE = Literal["county", "state", "national"]
+PHRMA_BREAKDOWN_TYPE = Literal[
+    'age', 'sex', 'race_and_ethnicity', 'LIS', 'eligibility']
+PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal[
+    'age', 'sex', 'race_and_ethnicity', 'LIS', 'eligibility', 'all']

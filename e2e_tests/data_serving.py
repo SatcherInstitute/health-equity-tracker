@@ -39,7 +39,7 @@ def testDataServingThroughFrontend():
 
     frame = pandas.read_json(frontend_url, orient='values')
     assert len(frame.index) == 156
-    assert frame.columns.size == 6
+    assert frame.columns.size == 5
     assert frame.columns[0] == 'state_fips'
     assert frame.columns[1] == 'state_name'
     assert frame.columns[2] == 'sex'
