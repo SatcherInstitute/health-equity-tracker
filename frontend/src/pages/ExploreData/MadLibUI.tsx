@@ -13,6 +13,8 @@ import {
 import OptionsSelector from './OptionsSelector'
 import styles from './ExploreDataPage.module.scss'
 import {
+  DATA_TYPE_1_PARAM,
+  // DATA_TYPE_1_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   setParameters,
@@ -24,8 +26,14 @@ import {
   isDropdownVarId,
   METRIC_CONFIG,
   type VariableConfig,
+  type VariableId,
 } from '../../data/config/MetricConfig'
 // import { type DropdownVarId, METRIC_CONFIG } from '../../data/config/MetricConfig'
+import { useAtom } from 'jotai'
+import { selectedVariableConfig1Atom } from '../../utils/sharedSettingsState'
+
+import { atomWithLocation } from 'jotai-location'
+const locationAtom = atomWithLocation()
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -69,6 +77,7 @@ export default function MadLibUI(props: {
         },
       ])
     }
+    // drop card hash from url and scroll to top
     location.hash = ''
     window.scrollTo({
       top: 0,
@@ -76,9 +85,10 @@ export default function MadLibUI(props: {
     })
   }
 
-  // const def = props.madLib.activeSelections[1] !== "default" ?
-  //   METRIC_CONFIG[props.madLib.activeSelections[1] as DropdownVarId][0].variableDefinition :
-  //   ""
+  const [selectedVariableConfig1, setSelectedVariableConfig1] = useAtom(
+    selectedVariableConfig1Atom
+  )
+  const [, setLocation] = useAtom(locationAtom)
 
   return (
     <Grid
@@ -126,9 +136,20 @@ export default function MadLibUI(props: {
                     {dataTypes.length > 1 && (
                       <DataTypeOptionsSelector
                         key={`${index}-datatype`}
-                        value={'covid_deaths'}
+                        value={
+                          selectedVariableConfig1?.variableId ?? dataTypes[0][0]
+                        }
                         onOptionUpdate={(newValue) => {
-                          handleOptionUpdate(newValue, index)
+                          const newConfig = getConfigFromVariableId(
+                            newValue as VariableId
+                          )
+                          newConfig && setSelectedVariableConfig1(newConfig)
+                          const params = new URLSearchParams(location.search)
+                          params.set(DATA_TYPE_1_PARAM, newValue)
+                          setLocation((prev) => ({
+                            ...prev,
+                            searchParams: params,
+                          }))
                         }}
                         options={dataTypes}
                       />
@@ -146,4 +167,10 @@ export default function MadLibUI(props: {
       </Grid> */}
     </Grid>
   )
+}
+
+function getConfigFromVariableId(id: VariableId): VariableConfig | undefined {
+  return Object.values(METRIC_CONFIG)
+    .flat()
+    .find((config) => config.variableId === id)
 }

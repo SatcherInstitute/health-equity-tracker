@@ -10,7 +10,7 @@ import {
   Box,
   Grid,
   ListItemText,
-  ListItem,
+  ListItemButton,
   List,
   Button,
   Popover,
@@ -69,29 +69,28 @@ export default function DataTypeOptionsSelector(
           <>
             <Box my={3} mx={3}>
               <Grid container>
-                <Grid item xs={6} sm={4} className={styles.CategoryList}>
-                  <List dense={true} role="menu">
-                    {props.options.map((item: string[]) => {
-                      const [optionId, optionDisplayName] = item
-                      return (
-                        <ListItem
-                          role="menuitem"
-                          className={styles.ListItem}
-                          key={optionId}
-                          onClick={() => {
-                            popover.close()
-                            props.onOptionUpdate(optionId)
-                          }}
-                        >
-                          <ListItemText
-                            className={styles.ListItemText}
-                            primary={optionDisplayName}
-                          />
-                        </ListItem>
-                      )
-                    })}
-                  </List>
-                </Grid>
+                <List dense={true} role="menu">
+                  {props.options.map((item: string[]) => {
+                    const [optionId, optionDisplayName] = item
+                    return (
+                      <ListItemButton
+                        role="menuitem"
+                        className={styles.ListItem}
+                        key={optionId}
+                        selected={optionId === props.value}
+                        onClick={() => {
+                          popover.close()
+                          props.onOptionUpdate(optionId)
+                        }}
+                      >
+                        <ListItemText
+                          className={styles.ListItemText}
+                          primary={optionDisplayName}
+                        />
+                      </ListItemButton>
+                    )
+                  })}
+                </List>
               </Grid>
             </Box>
           </>

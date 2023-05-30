@@ -44,6 +44,8 @@ import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { BLACK_WOMEN } from '../data/variables/HivProvider'
 import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
 // import TopicDetailsCard from './ui/TopicDetailsCard'
+import { useAtom } from 'jotai'
+import { selectedVariableConfig1Atom } from '../utils/sharedSettingsState'
 
 export interface OneVariableReportProps {
   key: string
@@ -66,10 +68,8 @@ export function OneVariableReport(props: OneVariableReportProps) {
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   )
 
-  const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
-    Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
-      ? METRIC_CONFIG[props.dropdownVarId][0]
-      : null
+  const [variableConfig, setVariableConfig] = useAtom(
+    selectedVariableConfig1Atom
   )
 
   const isRaceBySex = variableConfig?.variableId.includes(BLACK_WOMEN)

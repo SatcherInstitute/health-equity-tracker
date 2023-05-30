@@ -13,12 +13,12 @@ import {
   Box,
   Grid,
   ListItemText,
-  ListItem,
   List,
   Button,
   Popover,
   Autocomplete,
   TextField,
+  ListItemButton,
 } from '@mui/material'
 import {
   type DropdownVarId,
@@ -200,11 +200,9 @@ function OptionsSelector(props: {
                                 category.options.includes(
                                   optionId as DropdownVarId
                                 ) && (
-                                  <ListItem
-                                    role="menuitem"
+                                  <ListItemButton
                                     className={styles.ListItem}
                                     key={optionId}
-                                    button
                                     selected={optionId === props.value}
                                     onClick={() => {
                                       popover.close()
@@ -215,7 +213,7 @@ function OptionsSelector(props: {
                                       className={styles.ListItemText}
                                       primary={optionDisplayName}
                                     />
-                                  </ListItem>
+                                  </ListItemButton>
                                 )
                               )
                             }
