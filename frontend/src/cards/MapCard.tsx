@@ -229,6 +229,13 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
+  const [scale, setScale] = useState<{ domain: number[], range: number[] }>({ domain: [], range: [] });
+
+  function handleScaleChange(domain: number[], range: number[]) {
+    // Update the scale state when the domain or range changes
+    setScale({ domain: domain, range: range });
+  }
+
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -450,6 +457,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }
                         signalListeners={signalListeners}
                         mapConfig={{ mapScheme, mapMin }}
+                        scaleConfig={scale}
                       />
                       {props.fips.isUsa() && (
                         <Grid item xs={12}>
@@ -487,6 +495,7 @@ function MapCardWithKey(props: MapCardProps) {
                         mapConfig={{ mapScheme, mapMin }}
                         columns={mapIsWide ? 1 : 3}
                         stackingDirection={'vertical'}
+                        handleScaleChange={handleScaleChange}
                       />
                     </Grid>
 

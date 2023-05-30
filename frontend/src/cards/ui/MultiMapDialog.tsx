@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Box,
   Grid,
@@ -100,6 +101,13 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     metricId: props.metricConfig.metricId,
   })
 
+  const [scale, setScale] = useState<{ domain: number[], range: number[] }>({ domain: [], range: [] });
+
+  function handleScaleChange(domain: number[], range: number[]) {
+    // Update the scale state when the domain or range changes
+    setScale({ domain, range });
+  }
+
   return (
     <Dialog
       className={styles.MultiMapBox}
@@ -177,6 +185,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   }
                   columns={props.pageIsSmall ? 2 : 6}
                   orient={'bottom-right'}
+                  handleScaleChange={handleScaleChange}
                 />
               </Grid>
             </Grid>
@@ -224,6 +233,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     }
                     signalListeners={multimapSignalListeners}
                     mapConfig={{ mapScheme, mapMin }}
+                    isMulti={true}
+                    scaleConfig={scale}
                   />
                 )}
 
