@@ -32,7 +32,6 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
-  | 'Medicare Beneficiaries'
 
 export interface MadLib {
   readonly id: MadLibId

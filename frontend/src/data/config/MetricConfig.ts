@@ -267,7 +267,7 @@ export interface MetricConfig {
 
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
-  dataTypeName: string
+  dataTypeShortLabel: string
   fullDisplayName: string
   dataTypeDefinition?: string
   metrics: Record<string, MetricConfig> // TODO: strongly type key
@@ -281,7 +281,7 @@ const populationPctShortLabel = '% of population'
 
 export const POPULATION_DATATYPE_CONFIG: DataTypeConfig = {
   dataTypeId: 'population',
-  dataTypeName: 'Population',
+  dataTypeShortLabel: 'Population',
   fullDisplayName: 'Population',
   metrics: {
     count: {
@@ -395,7 +395,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   covid: [
     {
       dataTypeId: 'covid_cases',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'COVID-19 cases',
       dataTypeDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       timeSeriesData: true,
@@ -444,7 +444,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'covid_deaths',
-      dataTypeName: 'Deaths',
+      dataTypeShortLabel: 'Deaths',
       fullDisplayName: 'COVID-19 deaths',
       dataTypeDefinition: `The number of people who died due to COVID-19.`,
       timeSeriesData: true,
@@ -494,7 +494,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'covid_hospitalizations',
-      dataTypeName: 'Hospitalizations',
+      dataTypeShortLabel: 'Hospitalizations',
       fullDisplayName: 'COVID-19 hospitalizations',
       dataTypeDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
       timeSeriesData: true,
@@ -548,7 +548,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   covid_vaccinations: [
     {
       dataTypeId: 'covid_vaccinations',
-      dataTypeName: 'Vaccinations',
+      dataTypeShortLabel: 'Vaccinations',
       fullDisplayName: 'COVID-19 vaccinations',
       dataTypeDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
       dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
@@ -616,7 +616,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   hiv_care: [
     {
       dataTypeId: 'hiv_care',
-      dataTypeName: 'Linkage to HIV care',
+      dataTypeShortLabel: 'Linkage to HIV care',
       fullDisplayName: 'Linkage to HIV care',
       dataTypeDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -669,7 +669,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   hiv: [
     {
       dataTypeId: 'hiv_prevalence',
-      dataTypeName: 'Prevalence',
+      dataTypeShortLabel: 'Prevalence',
       fullDisplayName: 'HIV prevalence',
       dataTypeDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -717,7 +717,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_diagnoses',
-      dataTypeName: 'New diagnoses',
+      dataTypeShortLabel: 'New diagnoses',
       fullDisplayName: 'New HIV diagnoses',
       dataTypeDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -767,7 +767,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_deaths',
-      dataTypeName: 'Deaths',
+      dataTypeShortLabel: 'Deaths',
       fullDisplayName: 'HIV deaths',
       dataTypeDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -816,7 +816,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   hiv_black_women: [
     {
       dataTypeId: 'hiv_diagnoses_black_women',
-      dataTypeName: 'New diagnoses',
+      dataTypeShortLabel: 'New diagnoses',
       fullDisplayName: 'New HIV diagnoses for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -868,7 +868,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_deaths_black_women',
-      dataTypeName: 'Deaths',
+      dataTypeShortLabel: 'Deaths',
       fullDisplayName: 'HIV deaths for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -918,7 +918,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_prevalence_black_women',
-      dataTypeName: 'Prevalence',
+      dataTypeShortLabel: 'Prevalence',
       fullDisplayName: 'HIV prevalence for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -972,7 +972,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   hiv_prep: [
     {
       dataTypeId: 'hiv_prep',
-      dataTypeName: 'PrEP coverage',
+      dataTypeShortLabel: 'PrEP coverage',
       fullDisplayName: 'PrEP coverage',
       dataTypeDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -1024,7 +1024,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   suicide: [
     {
       dataTypeId: 'suicide',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'Suicides',
       dataTypeDefinition: `Deaths due to intentional self-harm.`,
       surveyCollectedData: true,
@@ -1073,7 +1073,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   depression: [
     {
       dataTypeId: 'depression',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'Depression cases',
       dataTypeDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
       surveyCollectedData: true,
@@ -1122,7 +1122,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   excessive_drinking: [
     {
       dataTypeId: 'excessive_drinking',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'Excessive drinking cases',
       dataTypeDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
       surveyCollectedData: true,
@@ -1176,7 +1176,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     {
       // parent data type
       dataTypeId: 'non_medical_drug_use',
-      dataTypeName: 'Opioid and other non-medical drug use',
+      dataTypeShortLabel: 'Opioid and other non-medical drug use',
       fullDisplayName: 'Opioid and other non-medical drug use',
       dataTypeDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
       surveyCollectedData: true,
@@ -1231,7 +1231,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   frequent_mental_distress: [
     {
       dataTypeId: 'frequent_mental_distress',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'Frequent mental distress cases',
       dataTypeDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
       surveyCollectedData: true,
@@ -1285,7 +1285,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   diabetes: [
     {
       dataTypeId: 'diabetes',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'Diabetes',
       dataTypeDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
       surveyCollectedData: true,
@@ -1334,7 +1334,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   copd: [
     {
       dataTypeId: 'copd',
-      dataTypeName: 'Cases',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'COPD',
       dataTypeDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
       surveyCollectedData: true,
@@ -1383,7 +1383,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   health_insurance: [
     {
       dataTypeId: 'health_insurance',
-      dataTypeName: 'Uninsured people',
+      dataTypeShortLabel: 'Uninsured people',
       fullDisplayName: 'Uninsured people',
       dataTypeDefinition: `Health insurance coverage in the ACS and other Census Bureau surveys define coverage to
         include plans and programs that provide comprehensive health coverage. Plans that provide
@@ -1437,7 +1437,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   poverty: [
     {
       dataTypeId: 'poverty',
-      dataTypeName: 'Poverty',
+      dataTypeShortLabel: 'Poverty',
       fullDisplayName: 'People below the poverty line',
       dataTypeDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       dataTableTitle: 'Breakdown summary for people below the poverty line',
@@ -1486,7 +1486,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   preventable_hospitalizations: [
     {
       dataTypeId: 'preventable_hospitalizations',
-      dataTypeName: 'Preventable hospitalizations',
+      dataTypeShortLabel: 'Preventable hospitalizations',
       fullDisplayName: 'Preventable hospitalizations',
       dataTypeDefinition: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
       dataTableTitle: 'Breakdown summary for preventable hospitalizations',
@@ -1541,7 +1541,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   avoided_care: [
     {
       dataTypeId: 'avoided_care',
-      dataTypeName: 'Avoided Care',
+      dataTypeShortLabel: 'Avoided Care',
       fullDisplayName: 'Care avoidance due to cost',
       dataTypeDefinition: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
       surveyCollectedData: true,
@@ -1591,7 +1591,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   asthma: [
     {
       dataTypeId: 'asthma',
-      dataTypeName: 'Asthma',
+      dataTypeShortLabel: 'Asthma',
       fullDisplayName: 'Asthma cases',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for asthma cases',
@@ -1640,7 +1640,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   cardiovascular_diseases: [
     {
       dataTypeId: 'cardiovascular_diseases',
-      dataTypeName: 'Cardiovascular diseases',
+      dataTypeShortLabel: 'Cardiovascular diseases',
       fullDisplayName: 'Cases of cardiovascular diseases',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases',
@@ -1694,7 +1694,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   chronic_kidney_disease: [
     {
       dataTypeId: 'chronic_kidney_disease',
-      dataTypeName: 'Chronic kidney disease',
+      dataTypeShortLabel: 'Chronic kidney disease',
       surveyCollectedData: true,
       fullDisplayName: 'Cases of chronic kidney disease',
       dataTypeDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
@@ -1748,7 +1748,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   voter_participation: [
     {
       dataTypeId: 'voter_participation',
-      dataTypeName: 'Voter participation',
+      dataTypeShortLabel: 'Voter participation',
       fullDisplayName: 'Voter participation',
       surveyCollectedData: true,
       dataTableTitle: 'Breakdown summary for voter participation',
@@ -1801,7 +1801,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   women_in_gov: [
     {
       dataTypeId: 'women_in_us_congress',
-      dataTypeName: 'US Congress',
+      dataTypeShortLabel: 'US Congress',
       fullDisplayName: 'Women in US Congress',
       surveyCollectedData: true,
       timeSeriesData: true,
@@ -1857,7 +1857,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'women_in_state_legislature',
-      dataTypeName: 'State legislatures', // DATA TOGGLE
+      dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
       fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
       surveyCollectedData: true,
       timeSeriesData: true,
@@ -1916,7 +1916,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   prison: [
     {
       dataTypeId: 'prison',
-      dataTypeName: 'Prison',
+      dataTypeShortLabel: 'Prison',
       fullDisplayName: 'People in prison',
       surveyCollectedData: true,
       timeSeriesData: true,
@@ -1976,7 +1976,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   jail: [
     {
       dataTypeId: 'jail',
-      dataTypeName: 'Jail',
+      dataTypeShortLabel: 'Jail',
       fullDisplayName: 'People in jail',
       surveyCollectedData: true,
       timeSeriesData: true,

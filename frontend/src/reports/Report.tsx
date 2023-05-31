@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import React, { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -147,10 +147,6 @@ export function Report(props: ReportProps) {
       <Grid container>
         {/* CARDS COLUMN */}
         <Grid item xs={12} md={10}>
-          {/* <TopicDetailsCard
-            dataTypesToDefine={props.dataTypesToDefine}
-
-          /> */}
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}

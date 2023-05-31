@@ -108,8 +108,8 @@ export default function MadLibUI(props: {
             if (isDropdownVarId(segmentDataTypeId)) {
               dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
                 (dataTypeConfig: DataTypeConfig) => {
-                  const { dataTypeId, dataTypeName } = dataTypeConfig
-                  return [dataTypeId, dataTypeName]
+                  const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
+                  return [dataTypeId, dataTypeShortLabel]
                 }
               )
             }
