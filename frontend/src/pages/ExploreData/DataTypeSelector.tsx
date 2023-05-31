@@ -1,10 +1,7 @@
-import {
-  useRef,
-  // useState
-} from 'react'
+import { useRef } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import styles from './OptionsSelector.module.scss'
+import styles from './TopicOrLocationSelector.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   Box,
@@ -17,15 +14,13 @@ import {
 } from '@mui/material'
 import { type DataTypeId } from '../../data/config/MetricConfig'
 
-interface DataTypeOptionsSelectorProps {
+interface DataTypeSelectorProps {
   value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
   options: string[][]
   onOptionUpdate: (option: string) => void
 }
 
-export default function DataTypeOptionsSelector(
-  props: DataTypeOptionsSelectorProps
-) {
+export default function DataTypeSelector(props: DataTypeSelectorProps) {
   const chosenOption = props.options.find((i: string[]) => i[0] === props.value)
   const currentDisplayName = chosenOption ? chosenOption[1] : ''
   const popoverRef = useRef(null)
@@ -73,7 +68,6 @@ export default function DataTypeOptionsSelector(
                     const [optionId, optionDisplayName] = item
                     return (
                       <ListItemButton
-                        role="menuitem"
                         className={styles.ListItem}
                         key={optionId}
                         selected={optionId === props.value}

@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import { Fips, USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/Fips'
-import styles from './OptionsSelector.module.scss'
+import styles from './TopicOrLocationSelector.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
@@ -27,7 +27,7 @@ import {
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 
-function OptionsSelector(props: {
+function TopicOrLocationSelector(props: {
   value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
   options: Fips[] | string[][]
   onOptionUpdate: (option: string) => void
@@ -121,7 +121,7 @@ function OptionsSelector(props: {
         >
           {/* Location Dropdown */}
           {isFips && (
-            <div className={styles.OptionsSelectorPopover}>
+            <div className={styles.TopicOrLocationSelectorPopover}>
               <h3 className={styles.SearchForText}>Search for location</h3>
 
               <Autocomplete
@@ -258,4 +258,4 @@ function OptionsSelector(props: {
   )
 }
 
-export default OptionsSelector
+export default TopicOrLocationSelector

@@ -10,7 +10,7 @@ import {
   type MadLib,
   type PhraseSegment,
 } from '../../utils/MadLibs'
-import OptionsSelector from './OptionsSelector'
+import TopicOrLocationSelector from './TopicOrLocationSelector'
 import styles from './ExploreDataPage.module.scss'
 import {
   DATA_TYPE_1_PARAM,
@@ -19,7 +19,7 @@ import {
   setParameters,
   stringifyMls,
 } from '../../utils/urlutils'
-import DataTypeOptionsSelector from './DataTypeOptionsSelector'
+import DataTypeSelector from './DataTypeSelector'
 import {
   type DropdownVarId,
   isDropdownVarId,
@@ -135,7 +135,7 @@ export default function MadLibUI(props: {
                   </span>
                 ) : (
                   <>
-                    <OptionsSelector
+                    <TopicOrLocationSelector
                       value={props.madLib.activeSelections[index]}
                       onOptionUpdate={(newValue) => {
                         handleOptionUpdate(newValue, index)
@@ -144,7 +144,7 @@ export default function MadLibUI(props: {
                     />
 
                     {dataTypes.length > 1 && (
-                      <DataTypeOptionsSelector
+                      <DataTypeSelector
                         key={`${index}-datatype`}
                         value={config?.dataTypeId ?? dataTypes[0][0]}
                         onOptionUpdate={(newValue) => {
