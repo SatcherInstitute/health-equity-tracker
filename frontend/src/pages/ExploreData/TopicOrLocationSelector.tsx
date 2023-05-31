@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import { Fips, USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/Fips'
-import styles from './TopicOrLocationSelector.module.scss'
+import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
@@ -104,7 +104,6 @@ function TopicOrLocationSelector(props: {
         </Button>
 
         <Popover
-          id="popoverBox"
           className={styles.PopoverOverride}
           aria-expanded="true"
           open={popover.isOpen}

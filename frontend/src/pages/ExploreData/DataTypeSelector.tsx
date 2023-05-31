@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import styles from './TopicOrLocationSelector.module.scss'
+import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   Box,
@@ -45,7 +45,6 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
         </Button>
 
         <Popover
-          id="popoverBox"
           className={styles.PopoverOverride}
           aria-expanded="true"
           open={popover.isOpen}
@@ -77,7 +76,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                         }}
                       >
                         <ListItemText
-                          className={styles.ListItemText}
+                          className={styles.ListItemDataTypeText}
                           primary={optionDisplayName}
                         />
                       </ListItemButton>
