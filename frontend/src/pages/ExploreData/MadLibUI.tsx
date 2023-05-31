@@ -14,7 +14,6 @@ import OptionsSelector from './OptionsSelector'
 import styles from './ExploreDataPage.module.scss'
 import {
   DATA_TYPE_1_PARAM,
-  // DATA_TYPE_1_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   setParameters,
@@ -29,7 +28,10 @@ import {
   type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { useAtom } from 'jotai'
-import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 
 import { atomWithLocation } from 'jotai-location'
 const locationAtom = atomWithLocation()
@@ -87,6 +89,9 @@ export default function MadLibUI(props: {
   const [selectedDataTypeConfig1, setSelectedDataTypeConfig1] = useAtom(
     selectedDataTypeConfig1Atom
   )
+  const [selectedDataTypeConfig2, setSelectedDataTypeConfig2] = useAtom(
+    selectedDataTypeConfig2Atom
+  )
   const [, setLocation] = useAtom(locationAtom)
 
   return (
@@ -114,6 +119,13 @@ export default function MadLibUI(props: {
               )
             }
 
+            const config =
+              index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
+            const setConfig =
+              index === 1
+                ? setSelectedDataTypeConfig1
+                : setSelectedDataTypeConfig2
+
             return (
               <React.Fragment key={index}>
                 {typeof phraseSegment === 'string' ? (
@@ -124,7 +136,6 @@ export default function MadLibUI(props: {
                 ) : (
                   <>
                     <OptionsSelector
-                      key={index}
                       value={props.madLib.activeSelections[index]}
                       onOptionUpdate={(newValue) => {
                         handleOptionUpdate(newValue, index)
@@ -135,14 +146,12 @@ export default function MadLibUI(props: {
                     {dataTypes.length > 1 && (
                       <DataTypeOptionsSelector
                         key={`${index}-datatype`}
-                        value={
-                          selectedDataTypeConfig1?.dataTypeId ?? dataTypes[0][0]
-                        }
+                        value={config?.dataTypeId ?? dataTypes[0][0]}
                         onOptionUpdate={(newValue) => {
                           const newConfig = getConfigFromDataTypeId(
                             newValue as DataTypeId
                           )
-                          newConfig && setSelectedDataTypeConfig1(newConfig)
+                          newConfig && setConfig(newConfig)
                           const params = new URLSearchParams(location.search)
                           params.set(DATA_TYPE_1_PARAM, newValue)
                           setLocation((prev: any) => ({
@@ -160,10 +169,6 @@ export default function MadLibUI(props: {
           }
         )}
       </div>
-      {/* <Grid item xs={12}>
-        <small>{def}</small>
-
-      </Grid> */}
     </Grid>
   )
 }

@@ -103,8 +103,10 @@ function CompareReport(props: {
         undefined,
         (val: DataTypeId) => {
           val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId2]?.find(
-            (cfg) => cfg.dataTypeId === val
+          return (
+            METRIC_CONFIG[props.dropdownVarId2]?.find(
+              (cfg) => cfg.dataTypeId === val
+            ) ?? METRIC_CONFIG[props.dropdownVarId2][0]
           )
         }
       )

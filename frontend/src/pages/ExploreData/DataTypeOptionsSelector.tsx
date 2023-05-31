@@ -32,7 +32,6 @@ export default function DataTypeOptionsSelector(
   const popover = usePopover()
   const anchorO = 'bottom'
   const transformO = 'top'
-  const dropdownTarget = `${props.value}-dropdown-datatype`
 
   return (
     <>
@@ -44,7 +43,7 @@ export default function DataTypeOptionsSelector(
           className={styles.MadLibButton}
           onClick={popover.open}
         >
-          <span className={dropdownTarget}>
+          <span>
             {currentDisplayName}{' '}
             {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
           </span>
