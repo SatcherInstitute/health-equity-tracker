@@ -815,6 +815,58 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   ],
   hiv_black_women: [
     {
+      dataTypeId: 'hiv_prevalence_black_women',
+      dataTypeShortLabel: 'Prevalence',
+      fullDisplayName: 'HIV prevalence for Black women',
+      dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      dataTableTitle:
+        'Breakdown summary for HIV prevalence for Black (NH) women',
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total HIV prevalence for Black (NH) women',
+          metricId: 'hiv_prevalence_black_women_pct_share',
+          columnTitleHeader:
+            'Share of total HIV prevalence for Black (NH) women',
+          trendsCardTitleName:
+            'Inequitable share of HIV prevalence for Black (NH) women over time',
+          shortLabel: '% of HIV prevalence (Black women)',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Population vs. distribution of total HIV prevalence for Black (NH) women',
+            metricId: 'black_women_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: '% of population (Black women)',
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_prevalence_black_women_per_100k',
+          chartTitle: 'HIV prevalence for Black (NH) women',
+          trendsCardTitleName: 'HIV prevalence for Black (NH) women over time',
+          columnTitleHeader:
+            'HIV prevalence for Black (NH) women per 100k people',
+          shortLabel: 'prevalence per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle:
+            'Historical relative inequity of HIV prevalence for Black (NH) women',
+          metricId: 'hiv_prevalence_black_women_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          chartTitle:
+            'Age-adjusted risk of HIV prevalence for Black (NH) women compared to White (NH)',
+          metricId: 'hiv_prevalence_black_women_ratio_age_adjusted',
+          shortLabel: '',
+          type: 'ratio',
+        },
+      },
+    },
+    {
       dataTypeId: 'hiv_diagnoses_black_women',
       dataTypeShortLabel: 'New diagnoses',
       fullDisplayName: 'New HIV diagnoses for Black women',
@@ -911,58 +963,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           chartTitle:
             'Age-adjusted risk of HIV deaths for Black women compared to White (NH)',
           metricId: 'hiv_deaths_black_women_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
-        },
-      },
-    },
-    {
-      dataTypeId: 'hiv_prevalence_black_women',
-      dataTypeShortLabel: 'Prevalence',
-      fullDisplayName: 'HIV prevalence for Black women',
-      dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
-      timeSeriesData: true,
-      dataTableTitle:
-        'Breakdown summary for HIV prevalence for Black (NH) women',
-      metrics: {
-        pct_share: {
-          chartTitle: 'Share of total HIV prevalence for Black (NH) women',
-          metricId: 'hiv_prevalence_black_women_pct_share',
-          columnTitleHeader:
-            'Share of total HIV prevalence for Black (NH) women',
-          trendsCardTitleName:
-            'Inequitable share of HIV prevalence for Black (NH) women over time',
-          shortLabel: '% of HIV prevalence (Black women)',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle:
-              'Population vs. distribution of total HIV prevalence for Black (NH) women',
-            metricId: 'black_women_population_pct',
-            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
-            shortLabel: '% of population (Black women)',
-            type: 'pct_share',
-          },
-        },
-        per100k: {
-          metricId: 'hiv_prevalence_black_women_per_100k',
-          chartTitle: 'HIV prevalence for Black (NH) women',
-          trendsCardTitleName: 'HIV prevalence for Black (NH) women over time',
-          columnTitleHeader:
-            'HIV prevalence for Black (NH) women per 100k people',
-          shortLabel: 'prevalence per 100k',
-          type: 'per100k',
-        },
-        pct_relative_inequity: {
-          chartTitle:
-            'Historical relative inequity of HIV prevalence for Black (NH) women',
-          metricId: 'hiv_prevalence_black_women_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle:
-            'Age-adjusted risk of HIV prevalence for Black (NH) women compared to White (NH)',
-          metricId: 'hiv_prevalence_black_women_ratio_age_adjusted',
           shortLabel: '',
           type: 'ratio',
         },

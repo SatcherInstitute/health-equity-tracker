@@ -141,14 +141,8 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: ['hiv', 'hiv_care', 'hiv_prep'],
+    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
   },
-  {
-    title: `Black Women's Health`,
-    definition: '',
-    options: ['hiv_black_women'],
-  },
-
   {
     title: 'COVID-19',
     definition: '',
