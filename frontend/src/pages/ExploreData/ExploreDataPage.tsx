@@ -113,21 +113,28 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   }, [])
 
   const setMadLibWithParam = (ml: MadLib) => {
-    // const params = new URLSearchParams(window.location.search)
-    // console.log(params.toString());
-    // params.delete(DATA_TYPE_1_PARAM)
-    // params.delete(DATA_TYPE_2_PARAM)
-    // console.log(params.toString());
-    // history.replaceState(null, '', '?' + params + window.location.hash)
-
+    // ONLY SOME TOPICS HAVE SUB DATA TYPES
     const var1HasDataTypes =
       METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId].length > 1
+    const var2HasDataTypes =
+      ml.id === 'comparevars' &&
+      METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId].length > 1
 
+    // DELETE DATA TYPE PARAM FROM URL IF NEW TOPIC(S) HAVE NO SUB DATA TYPES
+    if (!var1HasDataTypes || !var2HasDataTypes) {
+      const params = new URLSearchParams(window.location.search)
+      !var1HasDataTypes && params.delete(DATA_TYPE_1_PARAM)
+      !var2HasDataTypes && params.delete(DATA_TYPE_2_PARAM)
+      history.replaceState(null, '', '?' + params + window.location.hash)
+    }
+
+    //  GET REMAINING PARAMS FROM URL
     const groupParam1 = getParameter(MAP1_GROUP_PARAM, ALL)
     const groupParam2 = getParameter(MAP2_GROUP_PARAM, ALL)
     const dtParam1 = getParameter(DATA_TYPE_1_PARAM, '')
     const dtParam2 = getParameter(DATA_TYPE_2_PARAM, '')
 
+    // BUILD REPLACEMENT PARAMS
     const newParams = [
       {
         name: MADLIB_SELECTIONS_PARAM,
@@ -137,26 +144,31 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         name: MAP1_GROUP_PARAM,
         value: groupParam1,
       },
-      {
-        name: MAP2_GROUP_PARAM,
-        value: groupParam2,
-      },
-      {
-        name: DATA_TYPE_2_PARAM,
-        value: dtParam2,
-      },
     ]
 
-    console.log({ var1HasDataTypes }, { dtParam1 })
+    // EITHER COMPARE MODE SHOULD STORE MAP2 GROUP IN URL
+    ml.id !== 'disparity' &&
+      newParams.push({
+        name: MAP2_GROUP_PARAM,
+        value: groupParam2,
+      })
 
+    // ONLY STORE DATA TYPES IN URL WHEN NEEDED
     var1HasDataTypes &&
       newParams.push({
         name: DATA_TYPE_1_PARAM,
         value: dtParam1,
       })
+    var2HasDataTypes &&
+      newParams.push({
+        name: DATA_TYPE_2_PARAM,
+        value: dtParam2,
+      })
 
+    // UPDATE URL
     setParameters(newParams)
 
+    // UPDATE GEO/TOPIC IN MADLIB
     setMadLib(ml)
   }
 

@@ -1,0 +1,30 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+	await page.goto('http://localhost:3000/');
+	await page.locator('#landingPageCTA').click();
+	await page.getByRole('link', { name: 'HIV by race' }).click();
+	await page.getByRole('button', { name: 'Prevalence' }).click();
+	await page.getByRole('button', { name: 'Deaths' }).click();
+	await page.goto('http://localhost:3000/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_deaths&group1=All');
+	await page.getByRole('button', { name: 'HIV' }).click();
+	await page.getByRole('button', { name: 'COVID-19', exact: true }).click();
+	await page.goto('http://localhost:3000/exploredata?mls=1.covid-3.00&mlp=disparity&dt1=hiv_deaths&group1=All');
+	await page.getByRole('button', { name: 'Cases', exact: true }).click();
+	await page.getByRole('button', { name: 'Hospitalizations' }).click();
+	await page.getByRole('button', { name: 'COVID-19', exact: true }).click();
+	await page.getByRole('button', { name: 'COVID-19 Vaccinations' }).click();
+	await page.getByRole('button', { name: 'Off' }).click();
+	await page.getByRole('option', { name: 'Topics' }).click();
+	await page.locator('#groupMenu-00-covid_vaccinations').click();
+	await page.getByRole('button', { name: 'White', exact: true }).click();
+	await page.locator('#groupMenu-00-covid_cases').click();
+	await page.getByRole('button', { name: 'Black or African American (NH)' }).click();
+	await page.getByRole('button', { name: 'Cases', exact: true }).click();
+	await page.getByRole('button', { name: 'Deaths' }).click();
+	await page.getByRole('button', { name: 'COVID-19 Vaccinations' }).click();
+	await page.getByRole('button', { name: 'HIV (Black Women)' }).click();
+	await page.getByRole('button', { name: 'Prevalence' }).click();
+	await page.getByRole('button', { name: 'Deaths' }).click();
+	await page.goto('http://localhost:3000/exploredata?mls=1.hiv_black_women-3.covid-5.00&mlp=comparevars&group1=All&group2=Black.NH&dt2=covid_deaths&dt1=hiv_deaths_black_women');
+});
