@@ -64,7 +64,7 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
     await page.getByRole('button', { name: 'Scroll to Unknown demographic map', exact: true }).click();
 
     // Find Unknown Map Card
-    const unknownMapCard = page.locator('#unknown-demographic-map')
+    const unknownMapCard = await page.locator('#unknown-demographic-map')
 
     // Ensure focus and visibility
     await expect(unknownMapCard).toBeFocused();
