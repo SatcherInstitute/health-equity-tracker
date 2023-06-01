@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -83,7 +83,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfigRates.trendsCardTitleName ?? 'Data'
+      metricConfigRates?.trendsCardTitleName ?? 'Data'
     } in ${props.fips.getSentenceDisplayName()}`
   }
 
@@ -178,14 +178,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               </>
             ) : (
               <>
-                {props.isCompareCard && (
-                  <Box mb={2}>
-                    <Alert severity="warning" role="note">
-                      Use care when making side-by-side comparisons as chart
-                      scales can differ.
-                    </Alert>
-                  </Box>
-                )}
                 {/* ensure we don't render two of these in compare mode */}
                 {!props.isCompareCard && (
                   <svg
