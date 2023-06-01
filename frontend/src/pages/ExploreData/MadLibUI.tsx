@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 import { Fips } from '../../data/utils/Fips'
 import {
   DEFAULT,
@@ -55,14 +54,7 @@ export default function MadLibUI(props: {
           .map((fipsCode) => new Fips(fipsCode))
   }
 
-  const location = useLocation()
-
   function handleOptionUpdate(newValue: string, index: number) {
-    // madlib with updated topic
-    props.setMadLibWithParam(
-      getMadLibWithUpdatedValue(props.madLib, index, newValue)
-    )
-
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
       setParameters([
@@ -75,9 +67,13 @@ export default function MadLibUI(props: {
           value: MADLIB_LIST[0].id,
         },
       ])
+    } else {
+      props.setMadLibWithParam(
+        getMadLibWithUpdatedValue(props.madLib, index, newValue)
+      )
     }
     // drop card hash from url and scroll to top
-    location.hash = ''
+    window.location.hash = ''
     window.scrollTo({
       top: 0,
       behavior: 'smooth',

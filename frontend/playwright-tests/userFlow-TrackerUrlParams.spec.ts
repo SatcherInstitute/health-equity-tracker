@@ -1,6 +1,6 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('Various report settings via URL Params', async ({ page }) => {
 	await page.goto('http://localhost:3000/');
 	await page.locator('#landingPageCTA').click();
 	await page.getByRole('link', { name: 'HIV by race' }).click();

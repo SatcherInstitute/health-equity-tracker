@@ -116,7 +116,15 @@
   }
 }
 
-.ClearTopicButtonText {
+.ClearSelectionsLink {
+  text-decoration: none;
+
+  :hover {
+    background-color: $standard-info !important;
+  }
+}
+
+.ClearSelectionsLinkText {
   font-size: $smallest;
   padding: 5px;
 }

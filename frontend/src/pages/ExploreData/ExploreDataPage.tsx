@@ -115,10 +115,10 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const setMadLibWithParam = (ml: MadLib) => {
     // ONLY SOME TOPICS HAVE SUB DATA TYPES
     const var1HasDataTypes =
-      METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId].length > 1
+      METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId]?.length > 1
     const var2HasDataTypes =
       ml.id === 'comparevars' &&
-      METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId].length > 1
+      METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId]?.length > 1
 
     // DELETE DATA TYPE PARAM FROM URL IF NEW TOPIC(S) HAVE NO SUB DATA TYPES
     if (!var1HasDataTypes || !var2HasDataTypes) {

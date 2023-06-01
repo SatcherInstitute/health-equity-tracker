@@ -26,6 +26,7 @@ import {
 } from '../../data/config/MetricConfig'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
 function TopicOrLocationSelector(props: {
   value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
@@ -229,22 +230,20 @@ function TopicOrLocationSelector(props: {
                     justifyContent="flex-end"
                   >
                     {!noTopic && (
-                      <Button
-                        className={styles.ClearTopicButton}
-                        onClick={() => {
-                          popover.close()
-                          props.onOptionUpdate(DEFAULT)
-                        }}
+                      <a
+                        className={styles.ClearSelectionsLink}
+                        href={EXPLORE_DATA_PAGE_LINK}
                       >
                         <KeyboardBackspaceIcon
                           style={{
                             fontSize: 'small',
+                            paddingBottom: '3px',
                           }}
                         />{' '}
-                        <span className={styles.ClearTopicButtonText}>
+                        <span className={styles.ClearSelectionsLinkText}>
                           Clear selections
                         </span>
-                      </Button>
+                      </a>
                     )}
                   </Grid>
                 </Grid>
