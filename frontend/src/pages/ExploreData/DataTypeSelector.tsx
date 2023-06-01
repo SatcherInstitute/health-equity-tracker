@@ -35,7 +35,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
         <Button
           variant="text"
           aria-haspopup="true"
-          className={styles.MadLibButton}
+          className={styles.DataTypeMadLibButton}
           onClick={popover.open}
         >
           <span>

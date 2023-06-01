@@ -69,7 +69,8 @@
 }
 
 .MadLibButton,
-.MadLibButtonPulse {
+.MadLibButtonPulse,
+.DataTypeMadLibButton {
   @include inter500();
   margin: 0.25rem !important;
   padding: 0 5px 0 15px !important;
@@ -94,6 +95,10 @@
 .MadLibButtonPulse:not(:hover) {
   transform: scale(1);
   animation: pulse 2s infinite;
+}
+
+.DataTypeMadLibButton {
+  margin-left: 0 !important;
 }
 
 @keyframes pulse {
