@@ -135,20 +135,22 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         return (
           <>
-            <UnknownsAlert
-              metricConfig={metricConfigPctShare}
-              queryResponse={raceQueryResponse}
-              breakdownVar={
-                props.breakdownVar === AGE || props.breakdownVar === RACE
-                  ? RACE
-                  : props.breakdownVar
-              }
-              ageQueryResponse={ageQueryResponse}
-              displayType="table"
-              known={true}
-              overrideAndWithOr={props.breakdownVar === RACE}
-              fips={props.fips}
-            />
+            {metricConfigPctShare && (
+              <UnknownsAlert
+                metricConfig={metricConfigPctShare}
+                queryResponse={raceQueryResponse}
+                breakdownVar={
+                  props.breakdownVar === AGE || props.breakdownVar === RACE
+                    ? RACE
+                    : props.breakdownVar
+                }
+                ageQueryResponse={ageQueryResponse}
+                displayType="table"
+                known={true}
+                overrideAndWithOr={props.breakdownVar === RACE}
+                fips={props.fips}
+              />
+            )}
 
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
             {(noRatios ||

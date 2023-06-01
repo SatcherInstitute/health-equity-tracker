@@ -209,6 +209,9 @@ export function getExclusionList(
   const currentRate =
     currentDataType.metrics?.per100k?.metricId ??
     currentDataType.metrics?.pct_rate?.metricId
+
+  if (!currentRate) return []
+
   const currentDataTypeId = currentDataType.dataTypeId
   const exclusionList: DemographicGroup[] = [
     UNKNOWN,

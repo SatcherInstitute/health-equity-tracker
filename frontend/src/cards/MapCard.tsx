@@ -102,6 +102,9 @@ function MapCardWithKey(props: MapCardProps) {
   const metricConfig =
     props.dataTypeConfig.metrics?.per100k ??
     props.dataTypeConfig.metrics.pct_rate
+
+  if (!metricConfig) return <></>
+
   const currentBreakdown = props.currentBreakdown
 
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'

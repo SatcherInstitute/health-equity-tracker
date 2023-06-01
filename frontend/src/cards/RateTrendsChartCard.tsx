@@ -61,6 +61,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const metricConfigRates =
     props.dataTypeConfig.metrics?.per100k ??
     props.dataTypeConfig.metrics?.pct_rate
+
+  if (!metricConfigRates) return <></>
+
   const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
@@ -83,7 +86,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   function getTitleText() {
     return `${
-      metricConfigRates.trendsCardTitleName ?? 'Data'
+      metricConfigRates?.trendsCardTitleName ?? 'Data'
     } in ${props.fips.getSentenceDisplayName()}`
   }
 

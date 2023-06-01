@@ -14,6 +14,7 @@ import TopicOrLocationSelector from './TopicOrLocationSelector'
 import styles from './ExploreDataPage.module.scss'
 import {
   DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   setParameters,
@@ -32,9 +33,6 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
-
-import { atomWithLocation } from 'jotai-location'
-const locationAtom = atomWithLocation()
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -86,13 +84,33 @@ export default function MadLibUI(props: {
     })
   }
 
+  function handleDataTypeUpdate(
+    newDataType: string,
+    index: number,
+    setConfig: any
+  ) {
+    const dtPosition = index === 1 ? DATA_TYPE_1_PARAM : DATA_TYPE_2_PARAM
+    const newConfig = getConfigFromDataTypeId(newDataType)
+    newConfig && setConfig(newConfig)
+    setParameters([
+      {
+        name: dtPosition,
+        value: newDataType,
+      },
+    ])
+    const dropdownId: DropdownVarId = getParentDropdownFromDataType(newDataType)
+    // madlib with updated topic
+    props.setMadLibWithParam(
+      getMadLibWithUpdatedValue(props.madLib, index, dropdownId)
+    )
+  }
+
   const [selectedDataTypeConfig1, setSelectedDataTypeConfig1] = useAtom(
     selectedDataTypeConfig1Atom
   )
   const [selectedDataTypeConfig2, setSelectedDataTypeConfig2] = useAtom(
     selectedDataTypeConfig2Atom
   )
-  const [, setLocation] = useAtom(locationAtom)
 
   return (
     <Grid
@@ -148,16 +166,7 @@ export default function MadLibUI(props: {
                         key={`${index}-datatype`}
                         value={config?.dataTypeId ?? dataTypes[0][0]}
                         onOptionUpdate={(newValue) => {
-                          const newConfig = getConfigFromDataTypeId(
-                            newValue as DataTypeId
-                          )
-                          newConfig && setConfig(newConfig)
-                          const params = new URLSearchParams(location.search)
-                          params.set(DATA_TYPE_1_PARAM, newValue)
-                          setLocation((prev: any) => ({
-                            ...prev,
-                            searchParams: params,
-                          }))
+                          handleDataTypeUpdate(newValue, index, setConfig)
                         }}
                         options={dataTypes}
                       />
@@ -173,8 +182,28 @@ export default function MadLibUI(props: {
   )
 }
 
-function getConfigFromDataTypeId(id: DataTypeId): DataTypeConfig | undefined {
-  return Object.values(METRIC_CONFIG)
+export function getConfigFromDataTypeId(
+  id: DataTypeId | string
+): DataTypeConfig {
+  const config = Object.values(METRIC_CONFIG)
     .flat()
     .find((config) => config.dataTypeId === id)
+  // fallback to covid cases
+  return config ?? METRIC_CONFIG.covid[0]
+}
+
+export function getParentDropdownFromDataType(
+  dataType: DataTypeId | string
+): DropdownVarId {
+  for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
+    if (
+      configArray
+        .map((config) => config.dataTypeId)
+        .includes(dataType as DataTypeId)
+    ) {
+      return dropdownId as DropdownVarId
+    }
+  }
+  // fallback to covid
+  return 'covid'
 }

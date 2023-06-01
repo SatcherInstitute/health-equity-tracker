@@ -11,6 +11,8 @@ import {
   type MadLibId,
 } from '../../utils/MadLibs'
 import {
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
   getParameter,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
@@ -26,7 +28,11 @@ import {
 import styles from './ExploreDataPage.module.scss'
 import { srSpeak } from '../../utils/a11yutils'
 import { urlMap } from '../../utils/externalUrls'
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  METRIC_CONFIG,
+  type DropdownVarId,
+} from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
@@ -107,9 +113,22 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   }, [])
 
   const setMadLibWithParam = (ml: MadLib) => {
+    // const params = new URLSearchParams(window.location.search)
+    // console.log(params.toString());
+    // params.delete(DATA_TYPE_1_PARAM)
+    // params.delete(DATA_TYPE_2_PARAM)
+    // console.log(params.toString());
+    // history.replaceState(null, '', '?' + params + window.location.hash)
+
+    const var1HasDataTypes =
+      METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId].length > 1
+
     const groupParam1 = getParameter(MAP1_GROUP_PARAM, ALL)
     const groupParam2 = getParameter(MAP2_GROUP_PARAM, ALL)
-    setParameters([
+    const dtParam1 = getParameter(DATA_TYPE_1_PARAM, '')
+    const dtParam2 = getParameter(DATA_TYPE_2_PARAM, '')
+
+    const newParams = [
       {
         name: MADLIB_SELECTIONS_PARAM,
         value: stringifyMls(ml.activeSelections),
@@ -122,7 +141,21 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         name: MAP2_GROUP_PARAM,
         value: groupParam2,
       },
-    ])
+      {
+        name: DATA_TYPE_2_PARAM,
+        value: dtParam2,
+      },
+    ]
+
+    console.log({ var1HasDataTypes }, { dtParam1 })
+
+    var1HasDataTypes &&
+      newParams.push({
+        name: DATA_TYPE_1_PARAM,
+        value: dtParam1,
+      })
+
+    setParameters(newParams)
 
     setMadLib(ml)
   }

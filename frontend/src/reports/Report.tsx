@@ -334,7 +334,7 @@ export function Report(props: ReportProps) {
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {dataTypeConfig.metrics.age_adjusted_ratio.ageAdjusted && (
+                {dataTypeConfig.metrics.age_adjusted_ratio?.ageAdjusted && (
                   <Grid
                     item
                     xs={12}

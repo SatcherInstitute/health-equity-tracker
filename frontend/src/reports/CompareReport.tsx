@@ -173,9 +173,10 @@ function CompareReport(props: {
   browserTitle += ` by ${demo} in ${loc1}`
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
-  const offerJumpToAgeAdjustment =
-    ['covid', 'covid_hospitalizations'].includes(props.dropdownVarId1) ||
-    ['covid', 'covid_hospitalizations'].includes(props.dropdownVarId2)
+  const offerJumpToAgeAdjustment = [
+    props.dropdownVarId1,
+    props.dropdownVarId2,
+  ].includes('covid')
 
   return (
     <>

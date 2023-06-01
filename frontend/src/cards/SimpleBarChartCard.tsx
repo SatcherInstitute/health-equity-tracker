@@ -51,6 +51,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig =
     props.dataTypeConfig.metrics?.per100k ??
     props.dataTypeConfig.metrics?.pct_rate
+
+  if (!metricConfig) return <></>
+
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId
   )
