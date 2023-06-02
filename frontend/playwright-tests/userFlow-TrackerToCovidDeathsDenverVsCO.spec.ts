@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
 const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-const COVID_DEATHS_US = "?mls=1.covid_deaths-3.00"
-const COMPARE_GEO_MODE = "?mls=1.covid_deaths-3.00-5.13&mlp=comparegeos"
-const COVID_DEN_VS_CO = "?mls=1.covid_deaths-3.08031-5.08&mlp=comparegeos"
+const COVID_DEATHS_US = "?mls=1.covid-3.00&dt1=covid_deaths"
+const COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths"
+const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths"
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -42,17 +42,17 @@ test('Compare Mode Default Geos to Denver County and CO and back', async ({ page
     await page.keyboard.press('Enter');
 
     // Confirm correct URL params (Denver County vs Colorado)
-    await expect(page).toHaveURL(/.*mls=1.covid_deaths-3.08031-5.08&mlp=comparegeos/);
+    await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths/);
 
     // back button works properly for madlib location changes
 
     //  back one step to denver county vs Georgia (default compare location)
     await page.goBack({ waitUntil: "networkidle" })
-    await expect(page).toHaveURL(/.*mls=1.covid_deaths-3.08031-5.13&mlp=comparegeos/);
+    await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.13&mlp=comparegeos&dt1=covid_deaths/);
 
     //  back another step to USA vs Georgia (default 1st and 2nd compare locations)
     await page.goBack()
-    await expect(page).toHaveURL(/.*mls=1.covid_deaths-3.00-5.13&mlp=comparegeos/);
+    await expect(page).toHaveURL(/.*mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths/);
 
 })
 

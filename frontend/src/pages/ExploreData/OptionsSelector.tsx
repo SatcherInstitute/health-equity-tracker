@@ -78,7 +78,9 @@ function OptionsSelector(props: {
   const prefersReducedMotion = usePrefersReducedMotion()
   const doPulse = !prefersReducedMotion && !isFips && noTopic && !popover.isOpen
 
-  const dropdownTarget = `${props.value}-dropdown-${isFips ? 'fips' : 'topic'}`
+  const dropdownTarget = `${props.value }-dropdown-${
+    isFips ? 'fips' : 'topic'
+  }`
 
   function handleUsaButton() {
     props.onOptionUpdate(USA_FIPS)
