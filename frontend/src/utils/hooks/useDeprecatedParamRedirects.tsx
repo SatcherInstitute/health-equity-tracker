@@ -12,8 +12,6 @@ import { MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
 
 const dropdownIdSwaps: Record<string, DataTypeId> = {
   vaccinations: 'covid_vaccinations',
-  incarceration: 'prison',
-  women_in_legislative_office: 'women_in_us_congress',
 }
 
 export default function useDeprecatedParamRedirects() {
