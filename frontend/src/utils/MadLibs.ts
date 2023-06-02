@@ -104,34 +104,43 @@ export function getSelectedConditions(madLib: MadLib) {
 export type DefaultDropdownVarId = 'default'
 export const DEFAULT: DefaultDropdownVarId = 'default'
 
-const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
-  default: 'select a topic',
-  covid: 'COVID-19',
-  hiv_care: 'Linkage to HIV Care',
-  hiv_prep: 'PrEP Coverage',
-  hiv: 'HIV',
-  hiv_black_women: 'HIV (Black Women)',
-  diabetes: 'Diabetes',
-  copd: 'COPD',
-  health_insurance: 'Uninsured Individuals',
-  poverty: 'Poverty',
-  covid_vaccinations: 'COVID-19 Vaccinations',
-  depression: 'Depression',
-  suicide: 'Suicide',
-  substance: 'Opioid and Other Substance Misuse',
-  excessive_drinking: 'Excessive Drinking',
-  frequent_mental_distress: 'Frequent Mental Distress',
-  preventable_hospitalizations: 'Preventable Hospitalization',
-  avoided_care: 'Care Avoidance Due to Cost',
-  chronic_kidney_disease: 'Chronic Kidney Disease',
-  cardiovascular_diseases: 'Cardiovascular Diseases',
-  asthma: 'Asthma',
-  voter_participation: 'Voter Participation',
-  women_in_gov: 'Women in Government',
-  jail: 'Jail Incarceration',
-  prison: 'Prison Incarceration',
-  cardiovascular_medications_adherence:
-    'Adherence to Cardiovascular Medications',
+const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
+  {
+    default: 'select a topic',
+    covid: 'COVID-19',
+    hiv_care: 'Linkage to HIV Care',
+    hiv_prep: 'PrEP Coverage',
+    hiv: 'HIV',
+    hiv_black_women: 'HIV (Black Women)',
+    diabetes: 'Diabetes',
+    copd: 'COPD',
+    health_insurance: 'Uninsured Individuals',
+    poverty: 'Poverty',
+    covid_vaccinations: 'COVID-19 Vaccinations',
+    depression: 'Depression',
+    suicide: 'Suicide',
+    substance: 'Opioid and Other Substance Misuse',
+    excessive_drinking: 'Excessive Drinking',
+    frequent_mental_distress: 'Frequent Mental Distress',
+    preventable_hospitalizations: 'Preventable Hospitalization',
+    avoided_care: 'Care Avoidance Due to Cost',
+    chronic_kidney_disease: 'Chronic Kidney Disease',
+    cardiovascular_diseases: 'Cardiovascular Diseases',
+    asthma: 'Asthma',
+    voter_participation: 'Voter Participation',
+    women_in_gov: 'Women in Government',
+    jail: 'Jail Incarceration',
+    prison: 'Prison Incarceration',
+    cardiovascular_medications_adherence:
+      'Adherence to Cardiovascular Medications',
+  }
+
+export const SELECTED_DROPDOWN_OVERRIDES: Partial<
+  Record<DropdownVarId, string>
+> = {
+  cardiovascular_medications_adherence: 'Adherence to',
+  women_in_gov: 'Women in',
+  hiv_black_women: 'HIV',
 }
 
 export interface Category {
@@ -198,7 +207,7 @@ const CATEGORIES_LIST: Category[] = [
 const MADLIB_LIST: MadLib[] = [
   {
     id: 'disparity',
-    phrase: ['Investigate rates of', DROPDOWN_VAR, 'in', FIPS_MAP],
+    phrase: ['Investigate rates of', DROPDOWN_TOPIC_MAP, 'in', FIPS_MAP],
     defaultSelections: { 1: DEFAULT, 3: USA_FIPS },
     activeSelections: { 1: DEFAULT, 3: USA_FIPS },
   },
@@ -206,7 +215,7 @@ const MADLIB_LIST: MadLib[] = [
     id: 'comparegeos',
     phrase: [
       'Compare rates of',
-      DROPDOWN_VAR,
+      DROPDOWN_TOPIC_MAP,
       'between',
       FIPS_MAP,
       'and',
@@ -219,9 +228,9 @@ const MADLIB_LIST: MadLib[] = [
     id: 'comparevars',
     phrase: [
       'Explore relationships between',
-      DROPDOWN_VAR,
+      DROPDOWN_TOPIC_MAP,
       'and',
-      DROPDOWN_VAR,
+      DROPDOWN_TOPIC_MAP,
       'in',
       FIPS_MAP,
     ],
