@@ -23,10 +23,9 @@ const dropdownVarIds = [
   'hiv_care',
   'hiv_prep',
   'hiv',
-  'jail',
+  'incarceration',
   'poverty',
   'preventable_hospitalizations',
-  'prison',
   'substance',
   'suicide',
   'voter_participation',
@@ -56,8 +55,10 @@ export type DataTypeId =
   | 'hiv_diagnoses'
   | 'hiv_prevalence_black_women'
   | 'hiv_prevalence'
+  | 'jail'
   | 'non_medical_drug_use'
   | 'poverty'
+  | 'prison'
   | 'suicides'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
@@ -739,7 +740,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   hiv_black_women: [
     {
       dataTypeId: 'hiv_prevalence_black_women',
-      dataTypeShortLabel: 'Prevalence',
+      dataTypeShortLabel: 'Prevalence for Black Women',
       fullDisplayName: 'HIV prevalence for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -784,7 +785,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_diagnoses_black_women',
-      dataTypeShortLabel: 'New diagnoses',
+      dataTypeShortLabel: 'New Diagnoses for Black Women',
       fullDisplayName: 'New HIV diagnoses for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -830,7 +831,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     {
       dataTypeId: 'hiv_deaths_black_women',
       dataTypeShortLabel: 'Deaths',
-      fullDisplayName: 'HIV deaths for Black women',
+      fullDisplayName: 'Deaths for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
@@ -1518,7 +1519,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       },
     },
   ],
-  prison: [
+  incarceration: [
     {
       dataTypeId: 'prison',
       dataTypeShortLabel: 'Prison',
@@ -1568,8 +1569,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
-  ],
-  jail: [
     {
       dataTypeId: 'jail',
       dataTypeShortLabel: 'Jail',

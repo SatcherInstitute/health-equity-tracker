@@ -105,30 +105,37 @@ export const DEFAULT: DefaultDropdownVarId = 'default'
 
 const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: 'select a topic',
+  asthma: 'Asthma',
+  avoided_care: 'Care Avoidance Due to Cost',
+  cardiovascular_diseases: 'Cardiovascular Diseases',
+  chronic_kidney_disease: 'Chronic Kidney Disease',
+  copd: 'COPD',
+  covid_vaccinations: 'COVID-19 Vaccinations',
   covid: 'COVID-19',
+  depression: 'Depression',
+  diabetes: 'Diabetes',
+  excessive_drinking: 'Excessive Drinking',
+  frequent_mental_distress: 'Frequent Mental Distress',
+  health_insurance: 'Uninsured Individuals',
+  hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
   hiv: 'HIV',
-  hiv_black_women: 'HIV (Black Women)',
-  diabetes: 'Diabetes',
-  copd: 'COPD',
-  health_insurance: 'Uninsured Individuals',
+  incarceration: 'Incarceration',
   poverty: 'Poverty',
-  covid_vaccinations: 'COVID-19 Vaccinations',
-  depression: 'Depression',
-  suicide: 'Suicide',
-  substance: 'Opioid and Other Substance Misuse',
-  excessive_drinking: 'Excessive Drinking',
-  frequent_mental_distress: 'Frequent Mental Distress',
   preventable_hospitalizations: 'Preventable Hospitalization',
-  avoided_care: 'Care Avoidance Due to Cost',
-  chronic_kidney_disease: 'Chronic Kidney Disease',
-  cardiovascular_diseases: 'Cardiovascular Diseases',
-  asthma: 'Asthma',
+  substance: 'Opioid and Other Substance Misuse',
+  suicide: 'Suicide',
   voter_participation: 'Voter Participation',
   women_in_gov: 'Women in Government',
-  jail: 'Jail Incarceration',
-  prison: 'Prison Incarceration',
+}
+
+export const SELECTED_DROPDOWN_OVERRIDES: Partial<
+  Record<DropdownVarId, string>
+> = {
+  hiv_black_women: 'HIV',
+  incarceration: 'Incarceration in',
+  women_in_gov: 'Women in',
 }
 
 export interface Category {
@@ -151,7 +158,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Political Determinants of Health',
     definition: '',
-    options: ['voter_participation', 'women_in_gov', 'prison', 'jail'],
+    options: ['voter_participation', 'women_in_gov', 'incarceration'],
   },
   {
     title: 'Social Determinants of Health',

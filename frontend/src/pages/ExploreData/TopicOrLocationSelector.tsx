@@ -7,6 +7,7 @@ import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
   DEFAULT,
+  SELECTED_DROPDOWN_OVERRIDES,
   type DefaultDropdownVarId,
 } from '../../utils/MadLibs'
 import {
@@ -41,7 +42,11 @@ function TopicOrLocationSelector(props: {
     const chosenOption = (props.options as string[][]).find(
       (i: string[]) => i[0] === props.value
     )
-    currentDisplayName = chosenOption ? chosenOption[1] : ''
+    // prefer the overrides, use normal name otherwise. fallback to empty string
+    currentDisplayName =
+      SELECTED_DROPDOWN_OVERRIDES?.[chosenOption?.[0] as DropdownVarId] ??
+      chosenOption?.[1] ??
+      ''
   }
 
   const popoverRef = useRef(null)
