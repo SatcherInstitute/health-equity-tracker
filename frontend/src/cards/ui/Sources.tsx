@@ -85,7 +85,6 @@ interface SourcesProps {
   hideNH?: boolean
   downloadTargetScreenshot?: () => Promise<boolean>
   isMulti?: boolean
-  consumedIds: MetricId[]
 }
 
 export function Sources(props: SourcesProps) {

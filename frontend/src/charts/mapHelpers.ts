@@ -3,7 +3,7 @@ import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_CONGRESS_COUNTS,
   getWomenRaceLabel,
-} from '../data/variables/CawpProvider'
+} from '../data/providers/CawpProvider'
 
 import {
   GREY_DOT_SCALE,
@@ -19,7 +19,7 @@ import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { ORDINAL } from './utils'
 import sass from '../styles/variables.module.scss'
 import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
-import { BLACK_WOMEN_METRICS } from '../data/variables/HivProvider'
+import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
 
 export const MISSING_DATASET = 'MISSING_DATASET'

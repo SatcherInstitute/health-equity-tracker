@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { useLocation } from 'react-router-dom'
 import { Fips } from '../../data/utils/Fips'
 import {
   DEFAULT,
@@ -10,30 +9,29 @@ import {
   type MadLib,
   type PhraseSegment,
 } from '../../utils/MadLibs'
-import OptionsSelector from './OptionsSelector'
+import TopicOrLocationSelector from './TopicOrLocationSelector'
 import styles from './ExploreDataPage.module.scss'
 import {
   DATA_TYPE_1_PARAM,
-  // DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
   MADLIB_PHRASE_PARAM,
   MADLIB_SELECTIONS_PARAM,
   setParameters,
   stringifyMls,
 } from '../../utils/urlutils'
-import DataTypeOptionsSelector from './DataTypeOptionsSelector'
+import DataTypeSelector from './DataTypeSelector'
 import {
   type DropdownVarId,
   isDropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
-  type VariableId,
+  type DataTypeConfig,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
-// import { type DropdownVarId, METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { useAtom } from 'jotai'
-import { selectedVariableConfig1Atom } from '../../utils/sharedSettingsState'
-
-import { atomWithLocation } from 'jotai-location'
-const locationAtom = atomWithLocation()
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -56,14 +54,7 @@ export default function MadLibUI(props: {
           .map((fipsCode) => new Fips(fipsCode))
   }
 
-  const location = useLocation()
-
   function handleOptionUpdate(newValue: string, index: number) {
-    // madlib with updated topic
-    props.setMadLibWithParam(
-      getMadLibWithUpdatedValue(props.madLib, index, newValue)
-    )
-
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
       setParameters([
@@ -76,19 +67,46 @@ export default function MadLibUI(props: {
           value: MADLIB_LIST[0].id,
         },
       ])
+    } else {
+      props.setMadLibWithParam(
+        getMadLibWithUpdatedValue(props.madLib, index, newValue)
+      )
     }
     // drop card hash from url and scroll to top
-    location.hash = ''
+    window.location.hash = ''
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     })
   }
 
-  const [selectedVariableConfig1, setSelectedVariableConfig1] = useAtom(
-    selectedVariableConfig1Atom
+  function handleDataTypeUpdate(
+    newDataType: string,
+    index: number,
+    setConfig: any
+  ) {
+    const dtPosition = index === 1 ? DATA_TYPE_1_PARAM : DATA_TYPE_2_PARAM
+    const newConfig = getConfigFromDataTypeId(newDataType)
+    newConfig && setConfig(newConfig)
+    setParameters([
+      {
+        name: dtPosition,
+        value: newDataType,
+      },
+    ])
+    const dropdownId: DropdownVarId = getParentDropdownFromDataType(newDataType)
+    // madlib with updated topic
+    props.setMadLibWithParam(
+      getMadLibWithUpdatedValue(props.madLib, index, dropdownId)
+    )
+  }
+
+  const [selectedDataTypeConfig1, setSelectedDataTypeConfig1] = useAtom(
+    selectedDataTypeConfig1Atom
   )
-  const [, setLocation] = useAtom(locationAtom)
+  const [selectedDataTypeConfig2, setSelectedDataTypeConfig2] = useAtom(
+    selectedDataTypeConfig2Atom
+  )
 
   return (
     <Grid
@@ -104,16 +122,23 @@ export default function MadLibUI(props: {
           (phraseSegment: PhraseSegment, index: number) => {
             let dataTypes: any[][] = []
 
-            const segmentVariableId: DropdownVarId | string =
+            const segmentDataTypeId: DropdownVarId | string =
               props.madLib.activeSelections[index]
-            if (isDropdownVarId(segmentVariableId)) {
-              dataTypes = METRIC_CONFIG[segmentVariableId].map(
-                (variableConfig: VariableConfig) => {
-                  const { variableId, dataTypeName } = variableConfig
-                  return [variableId, dataTypeName]
+            if (isDropdownVarId(segmentDataTypeId)) {
+              dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
+                (dataTypeConfig: DataTypeConfig) => {
+                  const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
+                  return [dataTypeId, dataTypeShortLabel]
                 }
               )
             }
+
+            const config =
+              index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
+            const setConfig =
+              index === 1
+                ? setSelectedDataTypeConfig1
+                : setSelectedDataTypeConfig2
 
             return (
               <React.Fragment key={index}>
@@ -124,8 +149,7 @@ export default function MadLibUI(props: {
                   </span>
                 ) : (
                   <>
-                    <OptionsSelector
-                      key={index}
+                    <TopicOrLocationSelector
                       value={props.madLib.activeSelections[index]}
                       onOptionUpdate={(newValue) => {
                         handleOptionUpdate(newValue, index)
@@ -134,22 +158,11 @@ export default function MadLibUI(props: {
                     />
 
                     {dataTypes.length > 1 && (
-                      <DataTypeOptionsSelector
+                      <DataTypeSelector
                         key={`${index}-datatype`}
-                        value={
-                          selectedVariableConfig1?.variableId ?? dataTypes[0][0]
-                        }
+                        value={config?.dataTypeId ?? dataTypes[0][0]}
                         onOptionUpdate={(newValue) => {
-                          const newConfig = getConfigFromVariableId(
-                            newValue as VariableId
-                          )
-                          newConfig && setSelectedVariableConfig1(newConfig)
-                          const params = new URLSearchParams(location.search)
-                          params.set(DATA_TYPE_1_PARAM, newValue)
-                          setLocation((prev) => ({
-                            ...prev,
-                            searchParams: params,
-                          }))
+                          handleDataTypeUpdate(newValue, index, setConfig)
                         }}
                         options={dataTypes}
                       />
@@ -169,8 +182,28 @@ export default function MadLibUI(props: {
   )
 }
 
-function getConfigFromVariableId(id: VariableId): VariableConfig | undefined {
-  return Object.values(METRIC_CONFIG)
+export function getConfigFromDataTypeId(
+  id: DataTypeId | string
+): DataTypeConfig {
+  const config = Object.values(METRIC_CONFIG)
     .flat()
-    .find((config) => config.variableId === id)
+    .find((config) => config.dataTypeId === id)
+  // fallback to covid cases
+  return config ?? METRIC_CONFIG.covid[0]
+}
+
+export function getParentDropdownFromDataType(
+  dataType: DataTypeId | string
+): DropdownVarId {
+  for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
+    if (
+      configArray
+        .map((config) => config.dataTypeId)
+        .includes(dataType as DataTypeId)
+    ) {
+      return dropdownId as DropdownVarId
+    }
+  }
+  // fallback to covid
+  return 'covid'
 }

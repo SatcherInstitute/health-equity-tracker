@@ -9,11 +9,6 @@ import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
-import {
-  type DropdownVarId,
-  type VariableConfig,
-} from '../../data/config/MetricConfig'
-import { getDataTypesMap } from '../../data/config/MetricConfigUtils'
 
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
@@ -21,12 +16,6 @@ interface ModeSelectorBoxMobileProps {
   trackerDemographic: BreakdownVar
   setDemoWithParam: (demographic: BreakdownVar) => void
   offerJumpToAgeAdjustment: boolean
-  dropdownVarId: DropdownVarId
-  variableConfig: VariableConfig | null
-  setVariableConfig: (v: VariableConfig) => void
-  dropdownVarId2?: DropdownVarId
-  variableConfig2?: VariableConfig | null
-  setVariableConfig2?: (v: VariableConfig) => void
 }
 
 const scrollableHashIdMap: Record<string, ScrollableHashId> = {}
@@ -37,30 +26,9 @@ for (const [key, value] of Object.entries(reportProviderSteps)) {
 export default function ModeSelectorBoxMobile(
   props: ModeSelectorBoxMobileProps
 ) {
-  const dataTypesMap = getDataTypesMap(props.dropdownVarId)
-  const dataTypesMap2 = props.dropdownVarId2
-    ? getDataTypesMap(props.dropdownVarId2)
-    : undefined
-
   return (
     <div className="mode-selector-box-mobile">
       <Card raised={true} className={styles.ModeSelectorBoxMobile}>
-        {dataTypesMap && props.variableConfig && props.setVariableConfig && (
-          <SimpleSelect<VariableConfig>
-            label="Type"
-            optionsMap={dataTypesMap}
-            selected={props.variableConfig}
-            setSelected={props.setVariableConfig}
-          />
-        )}
-        {dataTypesMap2 && props.variableConfig2 && props.setVariableConfig2 && (
-          <SimpleSelect<VariableConfig>
-            label="Comparison Data type"
-            optionsMap={dataTypesMap2}
-            selected={props.variableConfig2}
-            setSelected={props.setVariableConfig2}
-          />
-        )}
         <SimpleSelect<BreakdownVar>
           label="Demographic"
           optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}

@@ -1,4 +1,6 @@
 import { atom } from 'jotai'
-import { type VariableConfig } from '../data/config/MetricConfig'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 
-export const selectedVariableConfig1Atom = atom<VariableConfig | null>(null)
+export const selectedDataTypeConfig1Atom = atom<DataTypeConfig | null>(null)
+
+export const selectedDataTypeConfig2Atom = atom<DataTypeConfig | null>(null)

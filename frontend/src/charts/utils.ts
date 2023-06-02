@@ -13,9 +13,9 @@ import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../data/variables/CawpProvider'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
-import { PHRMA_DETERMINANTS } from '../data/variables/PhrmaProvider'
+} from '../data/providers/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import { PHRMA_DETERMINANTS } from '../data/providers/PhrmaProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 

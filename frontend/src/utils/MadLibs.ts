@@ -1,7 +1,7 @@
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
@@ -87,10 +87,10 @@ treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
   if (madLib.activeSelections[1] === DEFAULT) return []
 
-  const condition1array: VariableConfig[] =
+  const condition1array: DataTypeConfig[] =
     METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId]
   // get 2nd condition if in compare var mode
-  const condition2array: VariableConfig[] =
+  const condition2array: DataTypeConfig[] =
     madLib.id === 'comparevars'
       ? METRIC_CONFIG[getPhraseValue(madLib, 3) as DropdownVarId]
       : []
@@ -127,8 +127,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   cardiovascular_diseases: 'Cardiovascular Diseases',
   asthma: 'Asthma',
   voter_participation: 'Voter Participation',
-  women_in_state_legislature: 'Women in State Legislatures',
-  women_in_us_congress: 'Women in U.S. Congress',
+  women_in_gov: 'Women in Government',
   jail: 'Jail Incarceration',
   prison: 'Prison Incarceration',
   cardiovascular_medications_adherence:
@@ -148,12 +147,6 @@ const CATEGORIES_LIST: Category[] = [
     options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
   },
   {
-    title: `Black Women's Health`,
-    definition: '',
-    options: ['hiv_black_women'],
-  },
-
-  {
     title: 'COVID-19',
     definition: '',
     options: ['covid', 'covid_vaccinations'],
@@ -161,13 +154,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Political Determinants of Health',
     definition: '',
-    options: [
-      'voter_participation',
-      'women_in_us_congress',
-      'women_in_state_legislature',
-      'prison',
-      'jail',
-    ],
+    options: ['voter_participation', 'women_in_gov', 'prison', 'jail'],
   },
   {
     title: 'Social Determinants of Health',

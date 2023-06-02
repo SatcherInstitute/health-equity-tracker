@@ -33,13 +33,12 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../../data/variables/CawpProvider'
+} from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
-import { getConsumedIds } from '../../data/config/MetricConfigUtils'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -104,8 +103,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const [mapScheme, mapMin] = getMapScheme({
     metricId: props.metricConfig.metricId,
   })
-
-  const consumedIds = getConsumedIds(props.queries)
 
   return (
     <Dialog
@@ -326,7 +323,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             metadata={props.metadata}
             downloadTargetScreenshot={downloadTargetScreenshot}
             isMulti={true}
-            consumedIds={consumedIds}
           />
         </div>
       </footer>

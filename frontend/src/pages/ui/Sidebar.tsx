@@ -9,11 +9,6 @@ import {
 } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
 import TableOfContents from './TableOfContents'
-import {
-  type DropdownVarId,
-  type VariableConfig,
-} from '../../data/config/MetricConfig'
-import { getDataTypesMap } from '../../data/config/MetricConfigUtils'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -33,47 +28,16 @@ interface SidebarProps {
   trackerDemographic: BreakdownVar
   setDemoWithParam: (demographic: BreakdownVar) => void
   isRaceBySex?: boolean
-  dropdownVarId: DropdownVarId
-  variableConfig: VariableConfig | null
-  setVariableConfig: (v: VariableConfig) => void
-  dropdownVarId2?: DropdownVarId
-  variableConfig2?: VariableConfig | null
-  setVariableConfig2?: (v: VariableConfig) => void
 }
 
 export default function Sidebar(props: SidebarProps) {
   const tocOffset = (props.floatTopOffset ?? 0) + TABLE_OF_CONTENT_PADDING
-
-  const dataTypesMap = getDataTypesMap(props.dropdownVarId)
-  const dataTypesMap2 = props.dropdownVarId2
-    ? getDataTypesMap(props.dropdownVarId2)
-    : undefined
 
   return (
     <>
       <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
         <div className="mode-selector-box">
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
-            {dataTypesMap &&
-              props.variableConfig &&
-              props.setVariableConfig && (
-                <SimpleSelect<VariableConfig>
-                  label="Type"
-                  optionsMap={dataTypesMap}
-                  selected={props.variableConfig}
-                  setSelected={props.setVariableConfig}
-                />
-              )}
-            {dataTypesMap2 &&
-              props.variableConfig2 &&
-              props.setVariableConfig2 && (
-                <SimpleSelect<VariableConfig>
-                  label="Compare Type"
-                  optionsMap={dataTypesMap2}
-                  selected={props.variableConfig2}
-                  setSelected={props.setVariableConfig2}
-                />
-              )}
             <SimpleSelect<BreakdownVar>
               label="Demographic"
               optionsMap={

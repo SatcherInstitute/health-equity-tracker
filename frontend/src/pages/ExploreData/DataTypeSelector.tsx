@@ -1,10 +1,7 @@
-import {
-  useRef,
-  // useState
-} from 'react'
+import { useRef } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import styles from './OptionsSelector.module.scss'
+import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   Box,
@@ -17,22 +14,19 @@ import {
 } from '@mui/material'
 import { type DataTypeId } from '../../data/config/MetricConfig'
 
-interface DataTypeOptionsSelectorProps {
+interface DataTypeSelectorProps {
   value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
   options: string[][]
   onOptionUpdate: (option: string) => void
 }
 
-export default function DataTypeOptionsSelector(
-  props: DataTypeOptionsSelectorProps
-) {
+export default function DataTypeSelector(props: DataTypeSelectorProps) {
   const chosenOption = props.options.find((i: string[]) => i[0] === props.value)
   const currentDisplayName = chosenOption ? chosenOption[1] : ''
   const popoverRef = useRef(null)
   const popover = usePopover()
   const anchorO = 'bottom'
   const transformO = 'top'
-  const dropdownTarget = `${props.value}-dropdown-datatype`
 
   return (
     <>
@@ -41,17 +35,16 @@ export default function DataTypeOptionsSelector(
         <Button
           variant="text"
           aria-haspopup="true"
-          className={styles.MadLibButton}
+          className={styles.DataTypeMadLibButton}
           onClick={popover.open}
         >
-          <span className={dropdownTarget}>
+          <span>
             {currentDisplayName}{' '}
             {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
           </span>
         </Button>
 
         <Popover
-          id="popoverBox"
           className={styles.PopoverOverride}
           aria-expanded="true"
           open={popover.isOpen}
@@ -74,7 +67,6 @@ export default function DataTypeOptionsSelector(
                     const [optionId, optionDisplayName] = item
                     return (
                       <ListItemButton
-                        role="menuitem"
                         className={styles.ListItem}
                         key={optionId}
                         selected={optionId === props.value}
@@ -84,7 +76,7 @@ export default function DataTypeOptionsSelector(
                         }}
                       >
                         <ListItemText
-                          className={styles.ListItemText}
+                          className={styles.ListItemDataTypeText}
                           primary={optionDisplayName}
                         />
                       </ListItemButton>
