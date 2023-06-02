@@ -24,10 +24,9 @@ const dropdownVarIds = [
   'hiv_care',
   'hiv_prep',
   'hiv',
-  'jail',
+  'incarceration',
   'poverty',
   'preventable_hospitalizations',
-  'prison',
   'substance',
   'suicide',
   'voter_participation',
@@ -58,8 +57,10 @@ export type DataTypeId =
   | 'hiv_diagnoses'
   | 'hiv_prevalence_black_women'
   | 'hiv_prevalence'
+  | 'jail'
   | 'non_medical_drug_use'
   | 'poverty'
+  | 'prison'
   | 'rasa_adherence'
   | 'statins_adherence'
   | 'women_in_state_legislature'
@@ -68,29 +69,19 @@ export type DataTypeId =
 export type MetricId =
   | 'acs_vaccinated_pop_pct'
   | 'ahr_population_pct'
-  | 'asthma_pct_relative_inequity'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
-  | 'asthma_ratio_age_adjusted'
-  | 'avoided_care_pct_relative_inequity'
   | 'avoided_care_pct_share'
   | 'avoided_care_pct_rate'
-  | 'avoided_care_ratio_age_adjusted'
   | 'black_women_population_pct'
-  | 'cardiovascular_diseases_pct_relative_inequity'
   | 'cardiovascular_diseases_pct_share'
   | 'cardiovascular_diseases_per_100k'
-  | 'cardiovascular_diseases_ratio_age_adjusted'
   | 'cases_ratio_age_adjusted'
   | 'cawp_population_pct'
-  | 'chronic_kidney_disease_pct_relative_inequity'
   | 'chronic_kidney_disease_pct_share'
   | 'chronic_kidney_disease_per_100k'
-  | 'chronic_kidney_disease_ratio_age_adjusted'
-  | 'copd_pct_relative_inequity'
   | 'copd_pct_share'
   | 'copd_per_100k'
-  | 'copd_ratio_age_adjusted'
   | 'covid_cases_pct_relative_inequity'
   | 'covid_cases_per_100k'
   | 'covid_cases_reporting_population_pct'
@@ -114,68 +105,49 @@ export type MetricId =
   | 'covid_hosp'
   | 'covid_population_pct'
   | 'death_ratio_age_adjusted'
-  | 'depression_pct_relative_inequity'
   | 'depression_pct_share'
   | 'depression_per_100k'
-  | 'depression_ratio_age_adjusted'
-  | 'diabetes_pct_relative_inequity'
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
-  | 'diabetes_ratio_age_adjusted'
-  | 'excessive_drinking_pct_relative_inequity'
   | 'excessive_drinking_pct_share'
   | 'excessive_drinking_per_100k'
-  | 'excessive_drinking_ratio_age_adjusted'
-  | 'frequent_mental_distress_pct_relative_inequity'
   | 'frequent_mental_distress_pct_share'
   | 'frequent_mental_distress_per_100k'
-  | 'frequent_mental_distress_ratio_age_adjusted'
   | 'geo_context'
   | 'hiv_care_linkage'
   | 'hiv_care_pct_relative_inequity'
   | 'hiv_care_pct_share'
   | 'hiv_care_population_pct'
-  | 'hiv_care_ratio_age_adjusted'
   | 'hiv_deaths_black_women_pct_relative_inequity'
   | 'hiv_deaths_black_women_pct_share'
   | 'hiv_deaths_black_women_per_100k'
-  | 'hiv_deaths_black_women_ratio_age_adjusted'
   | 'hiv_deaths_pct_relative_inequity'
   | 'hiv_deaths_pct_share'
   | 'hiv_deaths_per_100k'
-  | 'hiv_deaths_ratio_age_adjusted'
   | 'hiv_diagnoses_black_women_pct_relative_inequity'
   | 'hiv_diagnoses_black_women_pct_share'
   | 'hiv_diagnoses_black_women_per_100k'
-  | 'hiv_diagnoses_black_women_ratio_age_adjusted'
   | 'hiv_diagnoses_pct_relative_inequity'
   | 'hiv_diagnoses_pct_share'
   | 'hiv_diagnoses_per_100k'
-  | 'hiv_diagnoses_ratio_age_adjusted'
   | 'hiv_population_pct'
   | 'hiv_prep_coverage'
   | 'hiv_prep_pct_relative_inequity'
   | 'hiv_prep_pct_share'
   | 'hiv_prep_population_pct'
-  | 'hiv_prep_ratio_age_adjusted'
   | 'hiv_prevalence_black_women_pct_relative_inequity'
   | 'hiv_prevalence_black_women_pct_share'
   | 'hiv_prevalence_black_women_per_100k'
-  | 'hiv_prevalence_black_women_ratio_age_adjusted'
   | 'hiv_prevalence_pct_relative_inequity'
   | 'hiv_prevalence_pct_share'
   | 'hiv_prevalence_per_100k'
-  | 'hiv_prevalence_ratio_age_adjusted'
   | 'hosp_ratio_age_adjusted'
   | 'incarceration_population_pct'
   | 'jail_pct_relative_inequity'
   | 'jail_pct_share'
   | 'jail_per_100k'
-  | 'jail_ratio_age_adjusted'
-  | 'non_medical_drug_use_pct_relative_inequity'
   | 'non_medical_drug_use_pct_share'
   | 'non_medical_drug_use_per_100k'
-  | 'non_medical_drug_use_ratio_age_adjusted'
   | 'pct_share_of_state_leg'
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_state_leg'
@@ -185,65 +157,44 @@ export type MetricId =
   | 'population_pct'
   | 'population'
   | 'poverty_count'
-  | 'poverty_pct_relative_inequity'
   | 'poverty_pct_share'
   | 'poverty_per_100k'
   | 'poverty_population_pct'
-  | 'poverty_ratio_age_adjusted'
-  | 'preventable_hospitalizations_pct_relative_inequity'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
-  | 'preventable_hospitalizations_ratio_age_adjusted'
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
-  | 'prison_ratio_age_adjusted'
-  | 'suicide_pct_relative_inequity'
   | 'suicide_pct_share'
   | 'suicide_per_100k'
-  | 'suicide_ratio_age_adjusted'
   | 'svi'
   | 'total_confined_children'
   | 'total_state_leg_count'
   | 'total_us_congress_count'
   | 'total_us_congress_names'
-  | 'uninsured_pct_relative_inequity'
   | 'uninsured_pct_share'
   | 'uninsured_per_100k'
   | 'uninsured_population_pct'
-  | 'uninsured_ratio_age_adjusted'
-  | 'vaccinated_pct_relative_inequity'
   | 'vaccinated_pct_share'
   | 'vaccinated_per_100k'
   | 'vaccinated_pop_pct'
-  | 'vaccinated_ratio_age_adjusted'
   | 'vaccinated_share_of_known'
-  | 'voter_participation_pct_relative_inequity'
   | 'voter_participation_pct_share'
   | 'voter_participation_pct_rate'
-  | 'voter_participation_ratio_age_adjusted'
   | 'women_state_leg_pct_relative_inequity'
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
   | 'statins_beneficiaries_pct_share'
-  | 'statins_adherence_pct_relative_inequity'
-  | 'statins_adherence_ratio_age_adjusted'
   | 'beta_blockers_adherence_pct_rate'
   | 'beta_blockers_adherence_pct_share'
   | 'beta_blockers_beneficiaries_pct_share'
-  | 'beta_blockers_adherence_pct_relative_inequity'
-  | 'beta_blockers_adherence_ratio_age_adjusted'
   | 'rasa_adherence_pct_rate'
   | 'rasa_adherence_pct_share'
   | 'rasa_beneficiaries_pct_share'
-  | 'rasa_adherence_pct_relative_inequity'
-  | 'rasa_adherence_ratio_age_adjusted'
-  | 'women_state_leg_ratio_age_adjusted'
   | 'women_this_race_state_leg_count'
   | 'women_this_race_us_congress_count'
   | 'women_this_race_us_congress_names'
   | 'women_us_congress_pct_relative_inequity'
-  | 'women_us_congress_ratio_age_adjusted'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -847,7 +798,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_deaths_black_women',
-      dataTypeShortLabel: 'HIV deaths for Black women',
+      dataTypeShortLabel: 'Deaths for Black women',
       fullDisplayName: 'HIV deaths for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -1540,7 +1491,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       },
     },
   ],
-  prison: [
+  incarceration: [
     {
       dataTypeId: 'prison',
       dataTypeShortLabel: 'Prison',
@@ -1590,8 +1541,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
-  ],
-  jail: [
     {
       dataTypeId: 'jail',
       dataTypeShortLabel: 'Jail',
@@ -1641,6 +1590,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       },
     },
   ],
+
   cardiovascular_medications_adherence: [
     {
       dataTypeId: 'statins_adherence',
@@ -1669,18 +1619,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
-        },
-        pct_relative_inequity: {
-          chartTitle: '',
-          metricId: 'statins_adherence_pct_relative_inequity',
-          shortLabel: '',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle: '',
-          metricId: 'statins_adherence_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
         },
       },
     },
@@ -1713,18 +1651,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             type: 'pct_share',
           },
         },
-        pct_relative_inequity: {
-          chartTitle: '',
-          metricId: 'beta_blockers_adherence_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle: '',
-          metricId: 'beta_blockers_adherence_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
-        },
       },
     },
     {
@@ -1755,18 +1681,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
-        },
-        pct_relative_inequity: {
-          chartTitle: '',
-          metricId: 'rasa_adherence_pct_relative_inequity',
-          shortLabel: '% relative inequity',
-          type: 'pct_relative_inequity',
-        },
-        age_adjusted_ratio: {
-          chartTitle: '',
-          metricId: 'rasa_adherence_ratio_age_adjusted',
-          shortLabel: '',
-          type: 'ratio',
         },
       },
     },
