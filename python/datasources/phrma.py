@@ -157,7 +157,7 @@ class PhrmaData(DataSource):
                         float_cols.append(f'{condition}_{metric}')
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-                df.to_csv(f'expected_{table_name}.csv', index=False)
+                # df.to_csv(f'expected_{table_name}.csv', index=False)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
