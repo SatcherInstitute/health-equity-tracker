@@ -146,9 +146,7 @@ class PhrmaData(DataSource):
                     for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX, std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
                     # valid-population comparison pct_share and count cols
-                    for metric in [std_col.RAW_SUFFIX, std_col.PCT_SHARE_SUFFIX]:
-                        float_cols.append(
-                            f'{condition}_{BENEFICIARIES}_{metric}')
+                    float_cols.append(f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
 
                 # PER_100K CONDITIONS
                 for condition in PHRMA_100K_CONDITIONS:
@@ -157,6 +155,12 @@ class PhrmaData(DataSource):
                         float_cols.append(f'{condition}_{metric}')
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+
+                print("col_types")
+                print(col_types)
+
+                print("df.dtypes")
+                print(df.dtypes)
                 # df.to_csv(f'expected_{table_name}.csv', index=False)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
