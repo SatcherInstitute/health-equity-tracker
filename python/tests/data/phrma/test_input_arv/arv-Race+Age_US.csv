@@ -1,0 +1,47 @@
+RACE_NAME,AGE_GROUP,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,_18-39,29,11,40,0.725
+Unknown,_40-64,.,.,.,0.8965517241
+Unknown,_65-69,.,.,.,0.9259259259
+Unknown,_70-74,.,.,.,0.95
+Unknown,_75-79,.,.,.,0
+Unknown,_80-84,.,.,.,0
+"Non-Hispanic White",_18-39,146,36,182,0.8021978022
+"Non-Hispanic White",_40-64,4701,576,5277,0.8908470722
+"Non-Hispanic White",_65-69,1556,114,1670,0.9317365269
+"Non-Hispanic White",_70-74,988,51,1039,0.9509143407
+"Non-Hispanic White",_75-79,402,34,436,0.9220183486
+"Non-Hispanic White",_80-84,.,.,.,0.9473684211
+"Non-Hispanic White",_85+,.,.,.,0
+"Black or African-American",_18-39,452,236,688,0.6569767442
+"Black or African-American",_40-64,4894,1283,6177,0.7922939938
+"Black or African-American",_65-69,1260,238,1498,0.8411214953
+"Black or African-American",_70-74,743,137,880,0.8443181818
+"Black or African-American",_75-79,311,58,369,0.8428184282
+"Black or African-American",_80-84,132,17,149,0.8859060403
+"Black or African-American",_85+,.,.,.,0.88
+Other,_18-39,.,.,.,0
+Other,_40-64,.,.,.,0.8888888889
+Other,_65-69,.,.,.,0.9268292683
+Other,_70-74,.,.,.,0.9333333333
+Other,_75-79,.,.,.,0
+Other,_80-84,.,.,.,0
+Other,_85+,.,.,.,0
+"Asian/Pacific Islander",_18-39,.,.,.,0
+"Asian/Pacific Islander",_40-64,105,20,125,0.84
+"Asian/Pacific Islander",_65-69,.,.,.,0.9782608696
+"Asian/Pacific Islander",_70-74,.,.,.,0.8717948718
+"Asian/Pacific Islander",_75-79,.,.,.,0
+"Asian/Pacific Islander",_80-84,.,.,.,0
+"Asian/Pacific Islander",_85+,.,.,.,0
+Hispanic,_18-39,101,25,126,0.8015873016
+Hispanic,_40-64,1474,224,1698,0.8680800942
+Hispanic,_65-69,395,40,435,0.908045977
+Hispanic,_70-74,236,33,269,0.8773234201
+Hispanic,_75-79,137,14,151,0.9072847682
+Hispanic,_80-84,.,.,.,0.8823529412
+Hispanic,_85+,.,.,.,0.9565217391
+"American Indian / Alaska Native",_18-39,.,.,.,0.25
+"American Indian / Alaska Native",_40-64,.,.,.,0.8873239437
+"American Indian / Alaska Native",_65-69,.,.,.,0
+"American Indian / Alaska Native",_70-74,.,.,.,0.75
+"American Indian / Alaska Native",_75-79,.,.,.,0

@@ -153,9 +153,15 @@ HIV_BW_POPULATION = 'black_women_population'
 HIV_BW_POPULATION_PCT = 'black_women_population_pct'
 
 # PHRMA
-STATINS_PREFIX = "statins"
+AMI_PREFIX = "ami"
+ARV_PREFIX = "arv"
 BETA_BLOCKERS_PREFIX = "beta_blockers"
+CCB_PREFIX = "ccb"
+DOAC_PREFIX = "DOAC"
+NQF_PREFIX = "nqf"
+PHRMA_HIV_PREFIX = "phrma_hiv"
 RASA_PREFIX = "rasa"
+STATINS_PREFIX = "statins"
 
 
 RaceTuple = namedtuple("RaceTuple", [

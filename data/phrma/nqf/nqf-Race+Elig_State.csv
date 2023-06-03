@@ -1,0 +1,1066 @@
+RACE_NAME,ENTLMT_RSN_CURR,STATE_NAME,STATE_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,Aged,Alabama,1,.,0,.,1
+Unknown,Aged,Alaska,2,.,0,.,1
+Unknown,Aged,Arizona,4,.,0,.,1
+Unknown,Aged,Arkansas,5,.,0,.,1
+Unknown,Aged,California,6,.,.,.,0.7941176471
+Unknown,Aged,Colorado,8,.,0,.,1
+Unknown,Aged,Connecticut,9,.,0,.,1
+Unknown,Aged,"District of Columbia",11,0,.,.,0
+Unknown,Aged,Florida,12,.,.,.,0.8857142857
+Unknown,Aged,Georgia,13,.,.,.,0.7142857143
+Unknown,Aged,Illinois,17,.,.,.,0.7777777778
+Unknown,Aged,Indiana,18,.,.,.,0.9230769231
+Unknown,Aged,Iowa,19,.,0,.,1
+Unknown,Aged,Kansas,20,.,0,.,1
+Unknown,Aged,Kentucky,21,.,0,.,1
+Unknown,Aged,Louisiana,22,.,0,.,1
+Unknown,Aged,Maine,23,.,0,.,1
+Unknown,Aged,Maryland,24,.,0,.,1
+Unknown,Aged,Massachusetts,25,.,.,.,0.8
+Unknown,Aged,Michigan,26,.,.,.,0.7272727273
+Unknown,Aged,Minnesota,27,.,.,.,0.75
+Unknown,Aged,Mississippi,28,.,0,.,1
+Unknown,Aged,Missouri,29,.,0,.,1
+Unknown,Aged,Nebraska,31,.,0,.,1
+Unknown,Aged,Nevada,32,.,.,.,0.3333333333
+Unknown,Aged,"New Hampshire",33,.,0,.,1
+Unknown,Aged,"New Jersey",34,.,.,.,0.9090909091
+Unknown,Aged,"New Mexico",35,.,.,.,0.3333333333
+Unknown,Aged,"New York",36,.,.,.,0.8636363636
+Unknown,Aged,"North Carolina",37,.,.,.,0.7692307692
+Unknown,Aged,"North Dakota",38,.,0,.,1
+Unknown,Aged,Ohio,39,.,.,.,0.8620689655
+Unknown,Aged,Oklahoma,40,.,0,.,1
+Unknown,Aged,Oregon,41,.,0,.,1
+Unknown,Aged,Pennsylvania,42,.,.,.,0.7894736842
+Unknown,Aged,"South Carolina",45,.,.,.,0.8333333333
+Unknown,Aged,"South Dakota",46,.,0,.,1
+Unknown,Aged,Tennessee,47,.,.,.,0.75
+Unknown,Aged,Texas,48,.,.,.,0.9411764706
+Unknown,Aged,Vermont,50,.,0,.,1
+Unknown,Aged,Virginia,51,.,.,.,0.7777777778
+Unknown,Aged,Washington,53,11,0,11,1
+Unknown,Aged,"West Virginia",54,.,0,.,1
+Unknown,Aged,Wisconsin,55,.,0,.,1
+Unknown,Disabled,California,6,.,0,.,1
+Unknown,Disabled,Florida,12,.,.,.,0.3333333333
+Unknown,Disabled,Idaho,16,.,0,.,1
+Unknown,Disabled,Illinois,17,.,0,.,1
+Unknown,Disabled,Michigan,26,.,0,.,1
+Unknown,Disabled,Minnesota,27,.,0,.,1
+Unknown,Disabled,Mississippi,28,0,.,.,0
+Unknown,Disabled,"New Jersey",34,.,0,.,1
+Unknown,Disabled,"New York",36,.,0,.,1
+Unknown,Disabled,Ohio,39,.,0,.,1
+Unknown,Disabled,Virginia,51,.,0,.,1
+Unknown,Disabled,Washington,53,.,0,.,1
+Unknown,Disabled,Wisconsin,55,0,.,.,0
+"Non-Hispanic White",Aged,Alabama,1,191,54,245,0.7795918367
+"Non-Hispanic White",Aged,Alaska,2,.,.,.,0.862745098
+"Non-Hispanic White",Aged,Arizona,4,255,62,317,0.8044164038
+"Non-Hispanic White",Aged,Arkansas,5,174,62,236,0.7372881356
+"Non-Hispanic White",Aged,California,6,588,167,755,0.778807947
+"Non-Hispanic White",Aged,Colorado,8,106,26,132,0.803030303
+"Non-Hispanic White",Aged,Connecticut,9,117,13,130,0.9
+"Non-Hispanic White",Aged,Delaware,10,78,13,91,0.8571428571
+"Non-Hispanic White",Aged,"District of Columbia",11,.,0,.,1
+"Non-Hispanic White",Aged,Florida,12,686,187,873,0.7857961054
+"Non-Hispanic White",Aged,Georgia,13,304,86,390,0.7794871795
+"Non-Hispanic White",Aged,Hawaii,15,.,.,.,0.7692307692
+"Non-Hispanic White",Aged,Idaho,16,64,13,77,0.8311688312
+"Non-Hispanic White",Aged,Illinois,17,613,93,706,0.8682719547
+"Non-Hispanic White",Aged,Indiana,18,375,62,437,0.8581235698
+"Non-Hispanic White",Aged,Iowa,19,281,45,326,0.8619631902
+"Non-Hispanic White",Aged,Kansas,20,157,22,179,0.8770949721
+"Non-Hispanic White",Aged,Kentucky,21,215,49,264,0.8143939394
+"Non-Hispanic White",Aged,Louisiana,22,150,42,192,0.78125
+"Non-Hispanic White",Aged,Maine,23,84,12,96,0.875
+"Non-Hispanic White",Aged,Maryland,24,186,24,210,0.8857142857
+"Non-Hispanic White",Aged,Massachusetts,25,361,62,423,0.853427896
+"Non-Hispanic White",Aged,Michigan,26,363,68,431,0.8422273782
+"Non-Hispanic White",Aged,Minnesota,27,212,32,244,0.868852459
+"Non-Hispanic White",Aged,Mississippi,28,135,33,168,0.8035714286
+"Non-Hispanic White",Aged,Missouri,29,268,51,319,0.8401253918
+"Non-Hispanic White",Aged,Montana,30,.,.,.,0.9047619048
+"Non-Hispanic White",Aged,Nebraska,31,141,19,160,0.88125
+"Non-Hispanic White",Aged,Nevada,32,77,18,95,0.8105263158
+"Non-Hispanic White",Aged,"New Hampshire",33,112,16,128,0.875
+"Non-Hispanic White",Aged,"New Jersey",34,342,71,413,0.8280871671
+"Non-Hispanic White",Aged,"New Mexico",35,.,.,.,0.875
+"Non-Hispanic White",Aged,"New York",36,569,97,666,0.8543543544
+"Non-Hispanic White",Aged,"North Carolina",37,405,83,488,0.8299180328
+"Non-Hispanic White",Aged,"North Dakota",38,.,.,.,0.8461538462
+"Non-Hispanic White",Aged,Ohio,39,561,111,672,0.8348214286
+"Non-Hispanic White",Aged,Oklahoma,40,200,49,249,0.8032128514
+"Non-Hispanic White",Aged,Oregon,41,146,28,174,0.8390804598
+"Non-Hispanic White",Aged,Pennsylvania,42,595,96,691,0.8610709117
+"Non-Hispanic White",Aged,"Rhode Island",44,.,.,.,0.7954545455
+"Non-Hispanic White",Aged,"South Carolina",45,259,76,335,0.7731343284
+"Non-Hispanic White",Aged,"South Dakota",46,.,.,.,0.9468085106
+"Non-Hispanic White",Aged,Tennessee,47,318,69,387,0.8217054264
+"Non-Hispanic White",Aged,Texas,48,693,141,834,0.8309352518
+"Non-Hispanic White",Aged,Utah,49,102,24,126,0.8095238095
+"Non-Hispanic White",Aged,Vermont,50,.,.,.,0.8656716418
+"Non-Hispanic White",Aged,Virginia,51,366,68,434,0.8433179724
+"Non-Hispanic White",Aged,Washington,53,236,41,277,0.8519855596
+"Non-Hispanic White",Aged,"West Virginia",54,104,25,129,0.8062015504
+"Non-Hispanic White",Aged,Wisconsin,55,213,21,234,0.9102564103
+"Non-Hispanic White",Aged,Wyoming,56,.,.,.,0.8305084746
+"Non-Hispanic White",Disabled,Alabama,1,.,.,.,0.8181818182
+"Non-Hispanic White",Disabled,Alaska,2,.,0,.,1
+"Non-Hispanic White",Disabled,Arizona,4,.,.,.,0.5333333333
+"Non-Hispanic White",Disabled,Arkansas,5,.,.,.,0.7352941176
+"Non-Hispanic White",Disabled,California,6,42,13,55,0.7636363636
+"Non-Hispanic White",Disabled,Colorado,8,.,.,.,0.7647058824
+"Non-Hispanic White",Disabled,Connecticut,9,.,0,.,1
+"Non-Hispanic White",Disabled,Delaware,10,.,.,.,0.6
+"Non-Hispanic White",Disabled,Florida,12,.,.,.,0.8545454545
+"Non-Hispanic White",Disabled,Georgia,13,.,.,.,0.8055555556
+"Non-Hispanic White",Disabled,Idaho,16,.,.,.,0.7142857143
+"Non-Hispanic White",Disabled,Illinois,17,39,12,51,0.7647058824
+"Non-Hispanic White",Disabled,Indiana,18,29,11,40,0.725
+"Non-Hispanic White",Disabled,Iowa,19,.,.,.,0.7619047619
+"Non-Hispanic White",Disabled,Kansas,20,.,.,.,0.8461538462
+"Non-Hispanic White",Disabled,Kentucky,21,.,.,.,0.82
+"Non-Hispanic White",Disabled,Louisiana,22,.,.,.,0.9047619048
+"Non-Hispanic White",Disabled,Maine,23,.,.,.,0.6
+"Non-Hispanic White",Disabled,Maryland,24,.,.,.,0.7647058824
+"Non-Hispanic White",Disabled,Massachusetts,25,.,.,.,0.8787878788
+"Non-Hispanic White",Disabled,Michigan,26,.,.,.,0.8275862069
+"Non-Hispanic White",Disabled,Minnesota,27,.,.,.,0.8260869565
+"Non-Hispanic White",Disabled,Mississippi,28,.,.,.,0.5833333333
+"Non-Hispanic White",Disabled,Missouri,29,25,11,36,0.6944444444
+"Non-Hispanic White",Disabled,Montana,30,.,.,.,0.625
+"Non-Hispanic White",Disabled,Nebraska,31,.,.,.,0.9
+"Non-Hispanic White",Disabled,Nevada,32,.,0,.,1
+"Non-Hispanic White",Disabled,"New Hampshire",33,.,.,.,0.9166666667
+"Non-Hispanic White",Disabled,"New Jersey",34,.,.,.,0.8260869565
+"Non-Hispanic White",Disabled,"New Mexico",35,.,.,.,0.5714285714
+"Non-Hispanic White",Disabled,"New York",36,62,15,77,0.8051948052
+"Non-Hispanic White",Disabled,"North Carolina",37,.,.,.,0.8181818182
+"Non-Hispanic White",Disabled,"North Dakota",38,.,0,.,1
+"Non-Hispanic White",Disabled,Ohio,39,36,26,62,0.5806451613
+"Non-Hispanic White",Disabled,Oklahoma,40,.,.,.,0.8333333333
+"Non-Hispanic White",Disabled,Oregon,41,.,.,.,0.7222222222
+"Non-Hispanic White",Disabled,Pennsylvania,42,.,.,.,0.8701298701
+"Non-Hispanic White",Disabled,"Rhode Island",44,.,0,.,1
+"Non-Hispanic White",Disabled,"South Carolina",45,.,.,.,0.6875
+"Non-Hispanic White",Disabled,"South Dakota",46,.,.,.,0.7142857143
+"Non-Hispanic White",Disabled,Tennessee,47,.,.,.,0.875
+"Non-Hispanic White",Disabled,Texas,48,37,18,55,0.6727272727
+"Non-Hispanic White",Disabled,Utah,49,.,.,.,0.6666666667
+"Non-Hispanic White",Disabled,Vermont,50,.,.,.,0.875
+"Non-Hispanic White",Disabled,Virginia,51,.,.,.,0.7674418605
+"Non-Hispanic White",Disabled,Washington,53,.,.,.,0.64
+"Non-Hispanic White",Disabled,"West Virginia",54,.,.,.,0.6428571429
+"Non-Hispanic White",Disabled,Wisconsin,55,.,.,.,0.75
+"Non-Hispanic White",Disabled,Wyoming,56,.,.,.,0.5
+"Non-Hispanic White",ESRD,California,6,.,0,.,1
+"Non-Hispanic White",ESRD,Florida,12,.,0,.,1
+"Non-Hispanic White",ESRD,Illinois,17,.,0,.,1
+"Non-Hispanic White",ESRD,Indiana,18,.,0,.,1
+"Non-Hispanic White",ESRD,Massachusetts,25,.,0,.,1
+"Non-Hispanic White",ESRD,"New York",36,.,0,.,1
+"Non-Hispanic White",ESRD,Ohio,39,0,.,.,0
+"Non-Hispanic White",ESRD,Oklahoma,40,0,.,.,0
+"Non-Hispanic White",ESRD,Texas,48,.,0,.,1
+"Non-Hispanic White",ESRD,Utah,49,.,0,.,1
+"Non-Hispanic White",ESRD,"West Virginia",54,0,.,.,0
+"Non-Hispanic White",ESRD,Wisconsin,55,0,.,.,0
+"Non-Hispanic White","Disabled and ESRD",California,6,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Indiana,18,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Iowa,19,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Michigan,26,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Pennsylvania,42,.,.,.,0.6666666667
+"Non-Hispanic White","Disabled and ESRD","South Carolina",45,0,.,.,0
+"Non-Hispanic White","Disabled and ESRD",Tennessee,47,.,0,.,1
+"Non-Hispanic White","Disabled and ESRD",Washington,53,0,.,.,0
+"Black or African-American",Aged,Alabama,1,.,.,.,0.8636363636
+"Black or African-American",Aged,Alaska,2,.,.,.,0.5
+"Black or African-American",Aged,Arizona,4,.,0,.,1
+"Black or African-American",Aged,Arkansas,5,.,.,.,0.7619047619
+"Black or African-American",Aged,California,6,26,12,38,0.6842105263
+"Black or African-American",Aged,Colorado,8,.,0,.,1
+"Black or African-American",Aged,Connecticut,9,.,.,.,0.75
+"Black or African-American",Aged,Delaware,10,.,.,.,0.8
+"Black or African-American",Aged,"District of Columbia",11,.,.,.,0.6666666667
+"Black or African-American",Aged,Florida,12,29,16,45,0.6444444444
+"Black or African-American",Aged,Georgia,13,41,18,59,0.6949152542
+"Black or African-American",Aged,Hawaii,15,.,0,.,1
+"Black or African-American",Aged,Illinois,17,37,14,51,0.7254901961
+"Black or African-American",Aged,Indiana,18,.,.,.,0.9375
+"Black or African-American",Aged,Iowa,19,.,.,.,0.5
+"Black or African-American",Aged,Kansas,20,.,0,.,1
+"Black or African-American",Aged,Kentucky,21,.,.,.,0.4285714286
+"Black or African-American",Aged,Louisiana,22,.,.,.,0.7906976744
+"Black or African-American",Aged,Maryland,24,49,15,64,0.765625
+"Black or African-American",Aged,Massachusetts,25,.,.,.,0.9090909091
+"Black or African-American",Aged,Michigan,26,.,.,.,0.8857142857
+"Black or African-American",Aged,Minnesota,27,.,.,.,0.6666666667
+"Black or African-American",Aged,Mississippi,28,35,18,53,0.6603773585
+"Black or African-American",Aged,Missouri,29,.,.,.,0.8888888889
+"Black or African-American",Aged,Nebraska,31,.,0,.,1
+"Black or African-American",Aged,Nevada,32,.,.,.,0.6666666667
+"Black or African-American",Aged,"New Jersey",34,.,.,.,0.8333333333
+"Black or African-American",Aged,"New Mexico",35,.,0,.,1
+"Black or African-American",Aged,"New York",36,46,13,59,0.7796610169
+"Black or African-American",Aged,"North Carolina",37,53,15,68,0.7794117647
+"Black or African-American",Aged,Ohio,39,.,.,.,0.7692307692
+"Black or African-American",Aged,Oklahoma,40,.,.,.,0.8181818182
+"Black or African-American",Aged,Oregon,41,.,.,.,0.6666666667
+"Black or African-American",Aged,Pennsylvania,42,.,.,.,0.8275862069
+"Black or African-American",Aged,"South Carolina",45,40,12,52,0.7692307692
+"Black or African-American",Aged,Tennessee,47,27,11,38,0.7105263158
+"Black or African-American",Aged,Texas,48,52,19,71,0.7323943662
+"Black or African-American",Aged,Utah,49,.,0,.,1
+"Black or African-American",Aged,Virginia,51,.,.,.,0.8444444444
+"Black or African-American",Aged,Washington,53,.,0,.,1
+"Black or African-American",Aged,"West Virginia",54,.,.,.,0.5
+"Black or African-American",Aged,Wisconsin,55,.,.,.,0.7142857143
+"Black or African-American",Disabled,Alabama,1,.,.,.,0.6111111111
+"Black or African-American",Disabled,Alaska,2,0,.,.,0
+"Black or African-American",Disabled,Arizona,4,.,.,.,0.6666666667
+"Black or African-American",Disabled,Arkansas,5,.,.,.,0.7
+"Black or African-American",Disabled,California,6,.,.,.,0.6956521739
+"Black or African-American",Disabled,Connecticut,9,.,0,.,1
+"Black or African-American",Disabled,Delaware,10,.,.,.,0.5
+"Black or African-American",Disabled,"District of Columbia",11,.,.,.,0.8333333333
+"Black or African-American",Disabled,Florida,12,.,.,.,0.3888888889
+"Black or African-American",Disabled,Georgia,13,.,.,.,0.6666666667
+"Black or African-American",Disabled,Illinois,17,.,.,.,0.625
+"Black or African-American",Disabled,Indiana,18,.,.,.,0.5
+"Black or African-American",Disabled,Kansas,20,.,0,.,1
+"Black or African-American",Disabled,Kentucky,21,.,0,.,1
+"Black or African-American",Disabled,Louisiana,22,.,.,.,0.5833333333
+"Black or African-American",Disabled,Maryland,24,16,13,29,0.5517241379
+"Black or African-American",Disabled,Massachusetts,25,.,.,.,0.25
+"Black or African-American",Disabled,Michigan,26,.,.,.,0.5238095238
+"Black or African-American",Disabled,Minnesota,27,.,.,.,0.5
+"Black or African-American",Disabled,Mississippi,28,13,11,24,0.5416666667
+"Black or African-American",Disabled,Missouri,29,.,0,.,1
+"Black or African-American",Disabled,Nevada,32,.,.,.,0.5
+"Black or African-American",Disabled,"New Jersey",34,.,.,.,0.8888888889
+"Black or African-American",Disabled,"New York",36,.,.,.,0.7058823529
+"Black or African-American",Disabled,"North Carolina",37,16,14,30,0.5333333333
+"Black or African-American",Disabled,Ohio,39,.,.,.,0.5
+"Black or African-American",Disabled,Oklahoma,40,.,.,.,0.5
+"Black or African-American",Disabled,Pennsylvania,42,.,.,.,0.6666666667
+"Black or African-American",Disabled,"Rhode Island",44,0,.,.,0
+"Black or African-American",Disabled,"South Carolina",45,.,.,.,0.7647058824
+"Black or African-American",Disabled,Tennessee,47,.,.,.,0.3333333333
+"Black or African-American",Disabled,Texas,48,16,13,29,0.5517241379
+"Black or African-American",Disabled,Virginia,51,.,.,.,0.7368421053
+"Black or African-American",Disabled,Washington,53,.,.,.,0.6666666667
+"Black or African-American",Disabled,"West Virginia",54,0,.,.,0
+"Black or African-American",Disabled,Wisconsin,55,.,.,.,0.5
+"Black or African-American",ESRD,Alabama,1,.,0,.,1
+"Black or African-American",ESRD,Arkansas,5,0,.,.,0
+"Black or African-American",ESRD,California,6,.,0,.,1
+"Black or African-American",ESRD,"District of Columbia",11,.,0,.,1
+"Black or African-American",ESRD,Florida,12,.,0,.,1
+"Black or African-American",ESRD,Georgia,13,.,0,.,1
+"Black or African-American",ESRD,Illinois,17,.,0,.,1
+"Black or African-American",ESRD,Louisiana,22,.,.,.,0.5
+"Black or African-American",ESRD,Massachusetts,25,.,0,.,1
+"Black or African-American",ESRD,Michigan,26,0,.,.,0
+"Black or African-American",ESRD,Minnesota,27,.,0,.,1
+"Black or African-American",ESRD,Mississippi,28,.,.,.,0.3333333333
+"Black or African-American",ESRD,Missouri,29,.,0,.,1
+"Black or African-American",ESRD,"New York",36,.,0,.,1
+"Black or African-American",ESRD,"North Carolina",37,.,.,.,0.5
+"Black or African-American",ESRD,"South Carolina",45,0,.,.,0
+"Black or African-American",ESRD,Tennessee,47,0,.,.,0
+"Black or African-American",ESRD,Texas,48,.,.,.,0.5
+"Black or African-American",ESRD,Virginia,51,0,.,.,0
+"Black or African-American","Disabled and ESRD",Alabama,1,0,.,.,0
+"Black or African-American","Disabled and ESRD",Arkansas,5,0,.,.,0
+"Black or African-American","Disabled and ESRD",Georgia,13,0,.,.,0
+"Black or African-American","Disabled and ESRD",Indiana,18,0,.,.,0
+"Black or African-American","Disabled and ESRD","New York",36,0,.,.,0
+Other,Aged,Alabama,1,.,0,.,1
+Other,Aged,Alaska,2,.,.,.,0.5
+Other,Aged,Arizona,4,.,0,.,1
+Other,Aged,Arkansas,5,.,0,.,1
+Other,Aged,California,6,.,.,.,0.8709677419
+Other,Aged,Colorado,8,.,0,.,1
+Other,Aged,Connecticut,9,.,0,.,1
+Other,Aged,Delaware,10,.,0,.,1
+Other,Aged,Florida,12,.,.,.,0.6666666667
+Other,Aged,Georgia,13,.,0,.,1
+Other,Aged,Hawaii,15,.,.,.,0.875
+Other,Aged,Illinois,17,.,.,.,0.875
+Other,Aged,Indiana,18,.,0,.,1
+Other,Aged,Kansas,20,.,0,.,1
+Other,Aged,Kentucky,21,.,0,.,1
+Other,Aged,Maryland,24,.,0,.,1
+Other,Aged,Massachusetts,25,.,.,.,0.8
+Other,Aged,Minnesota,27,.,.,.,0.5
+Other,Aged,Missouri,29,.,0,.,1
+Other,Aged,Nebraska,31,0,.,.,0
+Other,Aged,Nevada,32,.,0,.,1
+Other,Aged,"New Hampshire",33,.,0,.,1
+Other,Aged,"New Jersey",34,.,.,.,0.75
+Other,Aged,"New York",36,.,0,.,1
+Other,Aged,"North Carolina",37,.,.,.,0.6666666667
+Other,Aged,Ohio,39,.,0,.,1
+Other,Aged,Oklahoma,40,0,.,.,0
+Other,Aged,Oregon,41,.,0,.,1
+Other,Aged,Pennsylvania,42,.,0,.,1
+Other,Aged,"South Carolina",45,.,0,.,1
+Other,Aged,Tennessee,47,.,0,.,1
+Other,Aged,Texas,48,.,0,.,1
+Other,Aged,Utah,49,.,.,.,0.5
+Other,Aged,Virginia,51,.,.,.,0.8333333333
+Other,Aged,Washington,53,.,0,.,1
+Other,Aged,"West Virginia",54,.,0,.,1
+Other,Aged,Wisconsin,55,.,0,.,1
+Other,Disabled,Arkansas,5,.,0,.,1
+Other,Disabled,California,6,.,0,.,1
+Other,Disabled,Indiana,18,.,0,.,1
+Other,Disabled,Michigan,26,.,0,.,1
+Other,Disabled,"New Jersey",34,.,0,.,1
+Other,Disabled,"New York",36,.,0,.,1
+Other,Disabled,"North Carolina",37,.,0,.,1
+Other,Disabled,Ohio,39,.,.,.,0.5
+Other,Disabled,Pennsylvania,42,.,0,.,1
+Other,Disabled,"South Carolina",45,.,0,.,1
+"Asian/Pacific Islander",Aged,Alabama,1,.,.,.,0.6666666667
+"Asian/Pacific Islander",Aged,Alaska,2,.,0,.,1
+"Asian/Pacific Islander",Aged,Arizona,4,.,.,.,0.75
+"Asian/Pacific Islander",Aged,Arkansas,5,.,.,.,0.75
+"Asian/Pacific Islander",Aged,California,6,109,30,139,0.7841726619
+"Asian/Pacific Islander",Aged,Colorado,8,.,0,.,1
+"Asian/Pacific Islander",Aged,Connecticut,9,.,.,.,0.8
+"Asian/Pacific Islander",Aged,Delaware,10,.,0,.,1
+"Asian/Pacific Islander",Aged,Florida,12,.,.,.,0.875
+"Asian/Pacific Islander",Aged,Georgia,13,.,.,.,0.5
+"Asian/Pacific Islander",Aged,Hawaii,15,.,.,.,0.8260869565
+"Asian/Pacific Islander",Aged,Idaho,16,.,0,.,1
+"Asian/Pacific Islander",Aged,Illinois,17,.,.,.,0.75
+"Asian/Pacific Islander",Aged,Indiana,18,.,0,.,1
+"Asian/Pacific Islander",Aged,Iowa,19,.,0,.,1
+"Asian/Pacific Islander",Aged,Kansas,20,.,0,.,1
+"Asian/Pacific Islander",Aged,Kentucky,21,0,.,.,0
+"Asian/Pacific Islander",Aged,Louisiana,22,.,.,.,0.6666666667
+"Asian/Pacific Islander",Aged,Maryland,24,.,.,.,0.8571428571
+"Asian/Pacific Islander",Aged,Massachusetts,25,.,.,.,0.7142857143
+"Asian/Pacific Islander",Aged,Michigan,26,.,.,.,0.75
+"Asian/Pacific Islander",Aged,Minnesota,27,.,.,.,0.6666666667
+"Asian/Pacific Islander",Aged,Missouri,29,.,0,.,1
+"Asian/Pacific Islander",Aged,Nevada,32,.,0,.,1
+"Asian/Pacific Islander",Aged,"New Hampshire",33,0,.,.,0
+"Asian/Pacific Islander",Aged,"New Jersey",34,.,.,.,0.8333333333
+"Asian/Pacific Islander",Aged,"New York",36,.,.,.,0.7083333333
+"Asian/Pacific Islander",Aged,"North Carolina",37,.,.,.,0.5555555556
+"Asian/Pacific Islander",Aged,Ohio,39,.,.,.,0.8571428571
+"Asian/Pacific Islander",Aged,Oklahoma,40,.,0,.,1
+"Asian/Pacific Islander",Aged,Oregon,41,.,0,.,1
+"Asian/Pacific Islander",Aged,Pennsylvania,42,.,.,.,0.9333333333
+"Asian/Pacific Islander",Aged,"Rhode Island",44,.,0,.,1
+"Asian/Pacific Islander",Aged,Texas,48,.,.,.,0.7567567568
+"Asian/Pacific Islander",Aged,Utah,49,.,0,.,1
+"Asian/Pacific Islander",Aged,Vermont,50,.,0,.,1
+"Asian/Pacific Islander",Aged,Virginia,51,.,.,.,0.6363636364
+"Asian/Pacific Islander",Aged,Washington,53,.,.,.,0.8666666667
+"Asian/Pacific Islander",Aged,"West Virginia",54,.,0,.,1
+"Asian/Pacific Islander",Aged,Wisconsin,55,.,.,.,0.8
+"Asian/Pacific Islander",Disabled,California,6,.,.,.,0.7857142857
+"Asian/Pacific Islander",Disabled,Florida,12,.,0,.,1
+"Asian/Pacific Islander",Disabled,Georgia,13,.,0,.,1
+"Asian/Pacific Islander",Disabled,Hawaii,15,.,.,.,0.25
+"Asian/Pacific Islander",Disabled,Illinois,17,.,0,.,1
+"Asian/Pacific Islander",Disabled,Maryland,24,.,0,.,1
+"Asian/Pacific Islander",Disabled,Massachusetts,25,0,.,.,0
+"Asian/Pacific Islander",Disabled,Michigan,26,.,.,.,0.6666666667
+"Asian/Pacific Islander",Disabled,Minnesota,27,.,0,.,1
+"Asian/Pacific Islander",Disabled,Nevada,32,.,0,.,1
+"Asian/Pacific Islander",Disabled,"New York",36,.,.,.,0.75
+"Asian/Pacific Islander",Disabled,"North Carolina",37,.,0,.,1
+"Asian/Pacific Islander",Disabled,Oklahoma,40,.,0,.,1
+"Asian/Pacific Islander",Disabled,Pennsylvania,42,0,.,.,0
+"Asian/Pacific Islander",Disabled,Texas,48,.,.,.,0.75
+"Asian/Pacific Islander",Disabled,Virginia,51,.,0,.,1
+"Asian/Pacific Islander",Disabled,Wisconsin,55,0,.,.,0
+"Asian/Pacific Islander",Disabled,Wyoming,56,0,.,.,0
+"Asian/Pacific Islander",ESRD,Alaska,2,.,0,.,1
+"Asian/Pacific Islander",ESRD,California,6,.,.,.,0.5
+"Asian/Pacific Islander",ESRD,Illinois,17,.,0,.,1
+"Asian/Pacific Islander",ESRD,Texas,48,0,.,.,0
+"Asian/Pacific Islander",ESRD,Washington,53,.,0,.,1
+Hispanic,Aged,Alabama,1,.,0,.,1
+Hispanic,Aged,Alaska,2,.,0,.,1
+Hispanic,Aged,Arizona,4,.,.,.,0.7096774194
+Hispanic,Aged,Arkansas,5,.,0,.,1
+Hispanic,Aged,California,6,170,50,220,0.7727272727
+Hispanic,Aged,Colorado,8,.,.,.,0.5384615385
+Hispanic,Aged,Connecticut,9,.,.,.,0.9
+Hispanic,Aged,Delaware,10,.,.,.,0.5
+Hispanic,Aged,"District of Columbia",11,0,.,.,0
+Hispanic,Aged,Florida,12,76,23,99,0.7676767677
+Hispanic,Aged,Georgia,13,.,.,.,0.6153846154
+Hispanic,Aged,Idaho,16,.,0,.,1
+Hispanic,Aged,Illinois,17,.,.,.,0.875
+Hispanic,Aged,Indiana,18,.,0,.,1
+Hispanic,Aged,Iowa,19,.,0,.,1
+Hispanic,Aged,Kansas,20,.,.,.,0.6
+Hispanic,Aged,Kentucky,21,.,0,.,1
+Hispanic,Aged,Louisiana,22,.,.,.,0.8
+Hispanic,Aged,Maryland,24,.,.,.,0.8
+Hispanic,Aged,Massachusetts,25,.,.,.,0.8823529412
+Hispanic,Aged,Michigan,26,.,.,.,0.7142857143
+Hispanic,Aged,Minnesota,27,.,.,.,0.8
+Hispanic,Aged,Missouri,29,.,0,.,1
+Hispanic,Aged,Nebraska,31,.,0,.,1
+Hispanic,Aged,Nevada,32,.,.,.,0.6923076923
+Hispanic,Aged,"New Jersey",34,.,.,.,0.7857142857
+Hispanic,Aged,"New Mexico",35,.,.,.,0.84375
+Hispanic,Aged,"New York",36,.,.,.,0.8076923077
+Hispanic,Aged,"North Carolina",37,.,.,.,0.5555555556
+Hispanic,Aged,Ohio,39,.,.,.,0.6
+Hispanic,Aged,Oklahoma,40,.,0,.,1
+Hispanic,Aged,Oregon,41,.,.,.,0.6666666667
+Hispanic,Aged,Pennsylvania,42,.,.,.,0.75
+Hispanic,Aged,"Rhode Island",44,.,.,.,0.75
+Hispanic,Aged,"South Carolina",45,.,.,.,0.8333333333
+Hispanic,Aged,"South Dakota",46,.,0,.,1
+Hispanic,Aged,Tennessee,47,.,.,.,0.6
+Hispanic,Aged,Texas,48,129,40,169,0.7633136095
+Hispanic,Aged,Utah,49,.,.,.,0.6
+Hispanic,Aged,Virginia,51,.,.,.,0.6
+Hispanic,Aged,Washington,53,.,.,.,0.75
+Hispanic,Aged,Wisconsin,55,.,.,.,0.6666666667
+Hispanic,Disabled,Alabama,1,.,0,.,1
+Hispanic,Disabled,Arizona,4,.,0,.,1
+Hispanic,Disabled,California,6,44,17,61,0.7213114754
+Hispanic,Disabled,Colorado,8,.,.,.,0.6
+Hispanic,Disabled,Connecticut,9,.,.,.,0.6666666667
+Hispanic,Disabled,Florida,12,.,.,.,0.6666666667
+Hispanic,Disabled,Hawaii,15,.,0,.,1
+Hispanic,Disabled,Idaho,16,0,.,.,0
+Hispanic,Disabled,Illinois,17,.,.,.,0.8333333333
+Hispanic,Disabled,Indiana,18,.,0,.,1
+Hispanic,Disabled,Iowa,19,.,0,.,1
+Hispanic,Disabled,Louisiana,22,.,0,.,1
+Hispanic,Disabled,Massachusetts,25,.,.,.,0.7857142857
+Hispanic,Disabled,Michigan,26,0,.,.,0
+Hispanic,Disabled,Minnesota,27,.,0,.,1
+Hispanic,Disabled,Missouri,29,.,0,.,1
+Hispanic,Disabled,"New Hampshire",33,0,.,.,0
+Hispanic,Disabled,"New Jersey",34,.,.,.,0.3
+Hispanic,Disabled,"New Mexico",35,.,.,.,0.8
+Hispanic,Disabled,"New York",36,.,.,.,0.8181818182
+Hispanic,Disabled,"North Carolina",37,.,0,.,1
+Hispanic,Disabled,Ohio,39,.,0,.,1
+Hispanic,Disabled,Oklahoma,40,0,.,.,0
+Hispanic,Disabled,Oregon,41,.,0,.,1
+Hispanic,Disabled,Pennsylvania,42,.,.,.,0.7142857143
+Hispanic,Disabled,"Rhode Island",44,.,.,.,0.3333333333
+Hispanic,Disabled,"South Carolina",45,.,0,.,1
+Hispanic,Disabled,Texas,48,26,27,53,0.4905660377
+Hispanic,Disabled,Utah,49,0,.,.,0
+Hispanic,Disabled,Washington,53,.,0,.,1
+Hispanic,Disabled,"West Virginia",54,0,.,.,0
+Hispanic,Disabled,Wisconsin,55,0,.,.,0
+Hispanic,ESRD,California,6,.,0,.,1
+Hispanic,ESRD,Colorado,8,0,.,.,0
+Hispanic,ESRD,Florida,12,.,.,.,0.5
+Hispanic,ESRD,Illinois,17,.,0,.,1
+Hispanic,ESRD,"New York",36,0,.,.,0
+Hispanic,ESRD,Texas,48,.,.,.,0.5555555556
+Hispanic,"Disabled and ESRD",Arizona,4,.,0,.,1
+Hispanic,"Disabled and ESRD",Connecticut,9,.,0,.,1
+Hispanic,"Disabled and ESRD",Texas,48,.,.,.,0.5
+"American Indian / Alaska Native",Aged,Alaska,2,.,.,.,0.5714285714
+"American Indian / Alaska Native",Aged,Arizona,4,.,.,.,0.5833333333
+"American Indian / Alaska Native",Aged,California,6,.,0,.,1
+"American Indian / Alaska Native",Aged,Idaho,16,0,.,.,0
+"American Indian / Alaska Native",Aged,Michigan,26,0,.,.,0
+"American Indian / Alaska Native",Aged,Minnesota,27,.,0,.,1
+"American Indian / Alaska Native",Aged,Montana,30,.,0,.,1
+"American Indian / Alaska Native",Aged,"New Mexico",35,.,.,.,0.5714285714
+"American Indian / Alaska Native",Aged,"New York",36,.,0,.,1
+"American Indian / Alaska Native",Aged,"North Carolina",37,.,.,.,0.6666666667
+"American Indian / Alaska Native",Aged,"North Dakota",38,0,.,.,0
+"American Indian / Alaska Native",Aged,Oklahoma,40,.,.,.,0.5333333333
+"American Indian / Alaska Native",Aged,"South Dakota",46,.,.,.,0.3333333333
+"American Indian / Alaska Native",Aged,Texas,48,0,.,.,0
+"American Indian / Alaska Native",Aged,Utah,49,0,.,.,0
+"American Indian / Alaska Native",Aged,Washington,53,.,0,.,1
+"American Indian / Alaska Native",Aged,Wisconsin,55,.,0,.,1
+"American Indian / Alaska Native",Disabled,Arizona,4,0,.,.,0
+"American Indian / Alaska Native",Disabled,California,6,0,.,.,0
+"American Indian / Alaska Native",Disabled,Minnesota,27,.,0,.,1
+"American Indian / Alaska Native",Disabled,Nevada,32,.,0,.,1
+"American Indian / Alaska Native",Disabled,"New Mexico",35,.,0,.,1
+"American Indian / Alaska Native",Disabled,"North Carolina",37,.,0,.,1
+"American Indian / Alaska Native",Disabled,"North Dakota",38,.,0,.,1
+"American Indian / Alaska Native",Disabled,Oklahoma,40,.,.,.,0.8
+"American Indian / Alaska Native",Disabled,Oregon,41,0,.,.,0
+"American Indian / Alaska Native",Disabled,"South Dakota",46,0,.,.,0
+"American Indian / Alaska Native",Disabled,Texas,48,.,0,.,1
+"American Indian / Alaska Native",Disabled,Wisconsin,55,.,0,.,1
+"American Indian / Alaska Native",ESRD,Arizona,4,0,.,.,0
+"American Indian / Alaska Native",ESRD,Arkansas,5,.,0,.,1
+"American Indian / Alaska Native",ESRD,"South Dakota",46,0,.,.,0
+"American Indian / Alaska Native","Disabled and ESRD","New Mexico",35,.,0,.,1
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
+Unknown,Aged,#N/A,0,0,0,0,0
