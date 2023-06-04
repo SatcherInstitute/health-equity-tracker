@@ -128,6 +128,7 @@ class PhrmaData(DataSource):
             COUNTY_LEVEL
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
+            # alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
 
             for breakdown in [
                 LIS,
@@ -143,16 +144,22 @@ class PhrmaData(DataSource):
                 # PCT_RATE CONDITIONS
                 for condition in PHRMA_PCT_CONDITIONS:
                     # rate, pct_share, count cols
-                    for metric in [std_col.PCT_RATE_SUFFIX, std_col.PCT_SHARE_SUFFIX, std_col.RAW_SUFFIX]:
+                    for metric in [std_col.PCT_RATE_SUFFIX,
+                                   std_col.PCT_SHARE_SUFFIX,
+                                   std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
                     # valid-population comparison pct_share and count cols
                     float_cols.append(f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
+                    float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
 
                 # PER_100K CONDITIONS
                 for condition in PHRMA_100K_CONDITIONS:
                     # rate, pct_share, count_cols
-                    for metric in [std_col.PER_100K_SUFFIX, std_col.PCT_SHARE_SUFFIX, std_col.RAW_SUFFIX]:
+                    for metric in [std_col.PER_100K_SUFFIX,
+                                   std_col.PCT_SHARE_SUFFIX,
+                                   std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{metric}')
+                    float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -213,15 +220,28 @@ class PhrmaData(DataSource):
                                                                                2)
 
         count_to_share_map = {
+            # Pct share of adherence
             **{
                 f'{condition}_{COUNT_YES}':
                 f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_PCT_CONDITIONS
             },
+            # comparison population shares for adherence
+            **{
+                f'{condition}_{COUNT_TOTAL}':
+                (f'{condition}_{std_col.POPULATION_COL}' +
+                    f'_{std_col.PCT_SHARE_SUFFIX}') for condition in PHRMA_PCT_CONDITIONS
+            },
+            # Pct Share for disease
             ** {
                 f'{condition}_{MEDICARE_DISEASE_COUNT}':
                 f'{condition}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_100K_CONDITIONS
+            },
+            # comparison population shares for disease
+            ** {
+                f'{condition}_{MEDICARE_POP_COUNT}':
+                (f'{condition}_{std_col.POPULATION_COL}' +
+                    f'_{std_col.PCT_SHARE_SUFFIX}') for condition in PHRMA_100K_CONDITIONS
             }
-
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:

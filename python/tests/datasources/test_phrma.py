@@ -105,7 +105,7 @@ def testOverallBigQueryInteractions(
     ]
 
 
-# # # BREAKDOWN TESTS
+# # # # BREAKDOWN TESTS
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
             side_effect=_load_csv_as_df_from_data_dir)
@@ -121,8 +121,6 @@ def testBreakdownLISNational(
     expected_df = pd.read_csv(
         GOLDEN_DATA['LIS_national'], dtype={"state_fips": str})
 
-    # print(breakdown_df)
-    # print(expected_df)
     assert_frame_equal(breakdown_df, expected_df,
                        check_dtype=False, check_like=True)
 
