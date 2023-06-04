@@ -7,14 +7,18 @@ import VariableProvider from './VariableProvider'
 
 export const BLACK_WOMEN = 'black_women'
 
+export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
+  'hiv_deaths_black_women',
+  'hiv_diagnoses_black_women',
+  'hiv_prevalence_black_women',
+]
+
 export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
   'hiv_care',
   'hiv_deaths',
   'hiv_diagnoses',
   'hiv_prevalence',
-  'hiv_deaths_black_women',
-  'hiv_diagnoses_black_women',
-  'hiv_prevalence_black_women',
+  ...BLACK_WOMEN_DATATYPES,
 ]
 
 export const BLACK_WOMEN_METRICS: MetricId[] = [
@@ -70,6 +74,12 @@ export const HIV_DETERMINANTS: MetricId[] = [
   ...PREP_METRICS,
   ...PREVALENCE_METRICS,
   'hiv_population_pct', // population shares of 13+
+]
+
+const reason = 'unavailable for intersectional Black women topics'
+export const BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Race/Ethnicity', reason],
+  ['Sex', reason],
 ]
 
 class HivProvider extends VariableProvider {

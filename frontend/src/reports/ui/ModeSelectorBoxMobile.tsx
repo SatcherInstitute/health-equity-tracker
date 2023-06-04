@@ -1,10 +1,7 @@
 import { Card } from '@mui/material'
 import styles from './ModeSelectorBoxMobile.module.scss'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
-import {
-  DEMOGRAPHIC_BREAKDOWNS_MAP,
-  type BreakdownVar,
-} from '../../data/query/Breakdowns'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
@@ -16,6 +13,8 @@ interface ModeSelectorBoxMobileProps {
   trackerDemographic: BreakdownVar
   setDemoWithParam: (demographic: BreakdownVar) => void
   offerJumpToAgeAdjustment: boolean
+  demographicOptionsMap: any
+  disabledDemographicOptions?: string[][]
 }
 
 const scrollableHashIdMap: Record<string, ScrollableHashId> = {}
@@ -31,7 +30,8 @@ export default function ModeSelectorBoxMobile(
       <Card raised={true} className={styles.ModeSelectorBoxMobile}>
         <SimpleSelect<BreakdownVar>
           label="Demographic"
-          optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}
+          optionsMap={props.demographicOptionsMap}
+          disabledOptions={props.disabledDemographicOptions}
           selected={props.trackerDemographic}
           setSelected={props.setDemoWithParam}
         />

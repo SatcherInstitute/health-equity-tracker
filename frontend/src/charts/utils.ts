@@ -15,7 +15,7 @@ import {
   getWomenRaceLabel,
 } from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
-import { PHRMA_DETERMINANTS } from '../data/providers/PhrmaProvider'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 
@@ -131,7 +131,7 @@ export function generateSubtitle(
     }
   }
 
-  if (PHRMA_DETERMINANTS.includes(metricId)) {
+  if (PHRMA_METRICS.includes(metricId)) {
     const beneficiariesTitle = 'Medicare beneficiaries'
     if (subtitle === '') {
       subtitle = beneficiariesTitle

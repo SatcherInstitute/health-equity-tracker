@@ -134,7 +134,7 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     substance: 'Opioid and Other Substance Misuse',
     suicide: 'Suicide',
     voter_participation: 'Voter Participation',
-    women_in_gov: 'Women in Government',
+    women_in_gov: 'Women Serving in Legislative Office',
   }
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
@@ -143,7 +143,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   cardiovascular_medications_adherence: 'Adherence to',
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
-  women_in_gov: 'Women in',
+  women_in_gov: 'Women Serving in',
 }
 
 export interface Category {

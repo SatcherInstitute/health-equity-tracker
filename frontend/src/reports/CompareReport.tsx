@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -18,7 +18,7 @@ import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { RACE, AGE } from '../data/utils/Constants'
+import { RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -38,13 +38,16 @@ import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { BLACK_WOMEN } from '../data/providers/HivProvider'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { useAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../utils/sharedSettingsState'
+import {
+  getDemographicOptionsMap,
+  getDisabledDemographicOptions,
+} from './reportUtils'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -77,9 +80,14 @@ function CompareReport(props: {
     selectedDataTypeConfig2Atom
   )
 
-  const isRaceBySex =
-    dataTypeConfig1?.dataTypeId.includes(BLACK_WOMEN) ??
-    dataTypeConfig2?.dataTypeId.includes(BLACK_WOMEN)
+  const demographicOptionsMap = getDemographicOptionsMap(
+    dataTypeConfig1,
+    dataTypeConfig2
+  )
+
+  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
+    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  }
 
   function setDemoWithParam(demographic: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
@@ -111,10 +119,7 @@ function CompareReport(props: {
         }
       )
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        isRaceBySex ? AGE : RACE
-      )
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE)
       setDataTypeConfig1(
         demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
       )
@@ -178,6 +183,11 @@ function CompareReport(props: {
     props.dropdownVarId2,
   ].includes('covid')
 
+  const disabledDemographicOptions = getDisabledDemographicOptions(
+    dataTypeConfig1,
+    dataTypeConfig2
+  )
+
   return (
     <>
       <Helmet>
@@ -193,6 +203,8 @@ function CompareReport(props: {
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            demographicOptionsMap={demographicOptionsMap}
+            disabledDemographicOptions={disabledDemographicOptions}
           />
 
           <Grid container spacing={1} alignItems="flex-start">
@@ -434,7 +446,8 @@ function CompareReport(props: {
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
-              isRaceBySex={isRaceBySex}
+              demographicOptionsMap={demographicOptionsMap}
+              disabledDemographicOptions={disabledDemographicOptions}
             />
           </Grid>
         )}

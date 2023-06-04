@@ -62,6 +62,12 @@ export function getWomenRaceLabel(
   return `${raceLabel} women`
 }
 
+const reason = 'unavailable for Women in elective office topics'
+export const CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', reason],
+  ['Sex', reason],
+]
+
 class CawpProvider extends VariableProvider {
   constructor() {
     super('cawp_provider', CAWP_DETERMINANTS)

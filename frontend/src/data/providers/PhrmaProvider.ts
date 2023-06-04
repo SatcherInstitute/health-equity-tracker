@@ -1,23 +1,32 @@
 import { getDataManager } from '../../utils/globals'
-import { type MetricId } from '../config/MetricConfig'
+import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 // import { appendFipsIfNeeded } from "../utils/datasetutils";
 import VariableProvider from './VariableProvider'
 
-export const PHRMA_DETERMINANTS: MetricId[] = [
-  'statins_adherence_pct_rate',
-  'statins_adherence_pct_share',
-  'statins_population_pct_share',
-  'beta_blockers_adherence_pct_rate',
-  'beta_blockers_adherence_pct_share',
-  'beta_blockers_population_pct_share',
-  'rasa_adherence_pct_rate',
-  'rasa_adherence_pct_share',
-  'rasa_population_pct_share',
+export const PHRMA_DATATYPES: DataTypeId[] = [
+  'ami',
+  'arv_adherence',
+  'beta_blockers_adherence',
+  'ccb_adherence',
+  'doac_adherence',
+  'nqf_adherence',
+  'phrma_hiv',
+  'rasa_adherence',
+  'statins_adherence',
+]
+
+export const PHRMA_METRICS: MetricId[] = [
+  'ami_pct_share',
+  'ami_per_100k',
+  'ami_population_pct_share',
   'arv_adherence_pct_rate',
   'arv_adherence_pct_share',
   'arv_population_pct_share',
+  'beta_blockers_adherence_pct_rate',
+  'beta_blockers_adherence_pct_share',
+  'beta_blockers_population_pct_share',
   'ccb_adherence_pct_rate',
   'ccb_adherence_pct_share',
   'ccb_population_pct_share',
@@ -27,17 +36,27 @@ export const PHRMA_DETERMINANTS: MetricId[] = [
   'nqf_adherence_pct_rate',
   'nqf_adherence_pct_share',
   'nqf_population_pct_share',
-  'phrma_hiv_per_100k',
   'phrma_hiv_pct_share',
+  'phrma_hiv_per_100k',
   'phrma_hiv_population_pct_share',
-  'ami_per_100k',
-  'ami_pct_share',
-  'ami_population_pct_share',
+  'rasa_adherence_pct_rate',
+  'rasa_adherence_pct_share',
+  'rasa_population_pct_share',
+  'statins_adherence_pct_rate',
+  'statins_adherence_pct_share',
+  'statins_population_pct_share',
+]
+
+const phrmaReason = 'only available when comparing two Medicare topics'
+
+export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['LIS', phrmaReason],
+  ['Eligibility', phrmaReason],
 ]
 
 class PhrmaProvider extends VariableProvider {
   constructor() {
-    super('phrma_provider', PHRMA_DETERMINANTS)
+    super('phrma_provider', PHRMA_METRICS)
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -51,6 +70,12 @@ class PhrmaProvider extends VariableProvider {
       if (breakdowns.hasOnlySex()) {
         return 'phrma_data-sex_national'
       }
+      if (breakdowns.hasOnlyLIS()) {
+        return 'phrma_data-LIS_national'
+      }
+      if (breakdowns.hasOnlyEligibility()) {
+        return 'phrma_data-eligibility_national'
+      }
     }
     if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace()) {
@@ -58,6 +83,12 @@ class PhrmaProvider extends VariableProvider {
       }
       if (breakdowns.hasOnlyAge()) return 'phrma_data-age_state'
       if (breakdowns.hasOnlySex()) return 'phrma_data-sex_state'
+      if (breakdowns.hasOnlyLIS()) {
+        return 'phrma_data-LIS_state'
+      }
+      if (breakdowns.hasOnlyEligibility()) {
+        return 'phrma_data-eligibility_state'
+      }
     }
 
     if (breakdowns.geography === 'county') {
@@ -69,6 +100,12 @@ class PhrmaProvider extends VariableProvider {
       }
       if (breakdowns.hasOnlySex()) {
         return 'phrma_data-sex_county'
+      }
+      if (breakdowns.hasOnlyLIS()) {
+        return 'phrma_data-LIS_county'
+      }
+      if (breakdowns.hasOnlyEligibility()) {
+        return 'phrma_data-eligibility_county'
       }
     }
     throw new Error('Not implemented')

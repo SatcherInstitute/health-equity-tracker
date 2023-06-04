@@ -16,22 +16,15 @@ export type BreakdownVar =
   | 'sex'
   | 'date'
   | 'fips'
-
-export const DEMOGRAPHIC_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> =
-  {
-    'Race/ethnicity': 'race_and_ethnicity',
-    Sex: 'sex',
-    Age: 'age',
-  }
-
-export const AGE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
-  Age: 'age',
-}
+  | 'LIS'
+  | 'eligibility'
 
 export const DEMOGRAPHIC_BREAKDOWNS = [
   'race_and_ethnicity',
   'sex',
   'age',
+  'LIS',
+  'eligibility',
 ] as const
 
 // union type of array
@@ -43,6 +36,8 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   sex: 'Sex',
   date: 'Date',
   fips: 'FIPS Code',
+  LIS: 'Low-income subsidy',
+  eligibility: 'Medicare eligibility',
 } as const
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
@@ -58,6 +53,8 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   sex: 'sex',
   date: 'date',
   fips: 'FIPs codes',
+  LIS: 'Low-income subsidy',
+  eligibility: 'eligibility',
 }
 
 interface DemographicBreakdown {
@@ -121,6 +118,8 @@ export class Breakdowns {
           race_and_ethnicity: createDemographicBreakdown('race_and_ethnicity'),
           age: createDemographicBreakdown('age'),
           sex: createDemographicBreakdown('sex'),
+          LIS: createDemographicBreakdown('LIS'),
+          eligibility: createDemographicBreakdown('eligibility'),
         }
     this.time = time
     this.filterFips = filterFips
@@ -207,6 +206,8 @@ export class Breakdowns {
       case 'race_and_ethnicity':
       case 'age':
       case 'sex':
+      case 'LIS':
+      case 'eligibility':
         // Column name is the same as key
         this.demographicBreakdowns[breakdownVar] = createDemographicBreakdown(
           breakdownVar,
@@ -281,6 +282,19 @@ export class Breakdowns {
   hasOnlySex() {
     return (
       this.hasExactlyOneDemographic() && this.demographicBreakdowns.sex.enabled
+    )
+  }
+
+  hasOnlyLIS() {
+    return (
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.LIS.enabled
+    )
+  }
+
+  hasOnlyEligibility() {
+    return (
+      this.hasExactlyOneDemographic() &&
+      this.demographicBreakdowns.eligibility.enabled
     )
   }
 

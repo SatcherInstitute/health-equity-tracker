@@ -1819,7 +1819,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         per100k: {
           metricId: 'ami_per_100k',
           chartTitle: 'Rates of heart attacks',
-          shortLabel: 'cases per 100k',
+          shortLabel: 'heart attacks per 100k',
           type: 'per100k',
         },
         pct_share: {

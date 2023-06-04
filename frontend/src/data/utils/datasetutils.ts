@@ -185,9 +185,7 @@ export const DATA_GAPS: Partial<
 }
 
 /*
-
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
-
 */
 const includeAllsGroupsIds: DataTypeId[] = [
   'women_in_state_legislature',
