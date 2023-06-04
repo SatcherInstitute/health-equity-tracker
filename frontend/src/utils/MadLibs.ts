@@ -107,6 +107,8 @@ export const DEFAULT: DefaultDropdownVarId = 'default'
 const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
   {
     default: 'select a topic',
+    ami: 'Heart Attacks',
+    arv_adherence: 'Anti-Retroviral Adherence',
     asthma: 'Asthma',
     avoided_care: 'Care Avoidance Due to Cost',
     cardiovascular_diseases: 'Cardiovascular Diseases',
@@ -127,6 +129,7 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     hiv: 'HIV',
     incarceration: 'Incarceration',
     poverty: 'Poverty',
+    phrma_hiv: 'HIV (Medicare Beneficiaries)',
     preventable_hospitalizations: 'Preventable Hospitalization',
     substance: 'Opioid and Other Substance Misuse',
     suicide: 'Suicide',
@@ -153,7 +156,14 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
+    options: [
+      'hiv',
+      'hiv_care',
+      'hiv_prep',
+      'hiv_black_women',
+      'phrma_hiv',
+      'arv_adherence',
+    ],
   },
   {
     title: 'COVID-19',
@@ -200,7 +210,12 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Medicare Beneficiaries',
     definition: '',
-    options: ['cardiovascular_medications_adherence'],
+    options: [
+      'cardiovascular_medications_adherence',
+      'ami',
+      'phrma_hiv',
+      'arv_adherence',
+    ],
   },
 ]
 

@@ -7,6 +7,9 @@
 import { LESS_THAN_1 } from '../utils/Constants'
 
 const dropdownVarIds = [
+  'ami',
+  'arv_adherence',
+
   'asthma',
   'avoided_care',
   'cardiovascular_diseases',
@@ -25,6 +28,7 @@ const dropdownVarIds = [
   'hiv_prep',
   'hiv',
   'incarceration',
+  'phrma_hiv',
   'poverty',
   'preventable_hospitalizations',
   'substance',
@@ -63,6 +67,9 @@ export type DataTypeId =
   | 'prison'
   | 'rasa_adherence'
   | 'statins_adherence'
+  | 'ccb_adherence'
+  | 'doac_adherence'
+  | 'nqf_adherence'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
 
@@ -184,17 +191,35 @@ export type MetricId =
   | 'women_state_leg_pct_relative_inequity'
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
-  | 'statins_beneficiaries_pct_share'
+  | 'statins_population_pct_share'
   | 'beta_blockers_adherence_pct_rate'
   | 'beta_blockers_adherence_pct_share'
-  | 'beta_blockers_beneficiaries_pct_share'
+  | 'beta_blockers_population_pct_share'
   | 'rasa_adherence_pct_rate'
   | 'rasa_adherence_pct_share'
-  | 'rasa_beneficiaries_pct_share'
+  | 'rasa_population_pct_share'
   | 'women_this_race_state_leg_count'
   | 'women_this_race_us_congress_count'
   | 'women_this_race_us_congress_names'
   | 'women_us_congress_pct_relative_inequity'
+  | 'arv_adherence_pct_rate'
+  | 'arv_adherence_pct_share'
+  | 'arv_population_pct_share'
+  | 'ccb_adherence_pct_rate'
+  | 'ccb_adherence_pct_share'
+  | 'ccb_population_pct_share'
+  | 'doac_adherence_pct_rate'
+  | 'doac_adherence_pct_share'
+  | 'doac_population_pct_share'
+  | 'nqf_adherence_pct_rate'
+  | 'nqf_adherence_pct_share'
+  | 'nqf_population_pct_share'
+  | 'phrma_hiv_per_100k'
+  | 'phrma_hiv_pct_share'
+  | 'phrma_hiv_population_pct_share'
+  | 'ami_per_100k'
+  | 'ami_pct_share'
+  | 'ami_population_pct_share'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1614,7 +1639,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           populationComparisonMetric: {
             chartTitle:
               'Share of statins beneficiary population vs. share of total adherence',
-            metricId: 'statins_beneficiaries_pct_share',
+            metricId: 'statins_population_pct_share',
             columnTitleHeader: 'Share of all Medicare statins beneficiaries',
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
@@ -1644,7 +1669,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           populationComparisonMetric: {
             chartTitle:
               'Share of beta-blockers beneficiary population vs. share of total adherence',
-            metricId: 'beta_blockers_beneficiaries_pct_share',
+            metricId: 'beta_blockers_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare beta-blockers beneficiaries',
             shortLabel: '% of beneficiary pop.',
@@ -1675,9 +1700,205 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           populationComparisonMetric: {
             chartTitle:
               'Share of RASA beneficiary population vs. share of total adherence',
-            metricId: 'rasa_beneficiaries_pct_share',
+            metricId: 'rasa_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare RAS antagonists beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'ccb_adherence',
+      dataTypeShortLabel: 'Calcium Channel Blockers',
+      fullDisplayName: 'Adherence to calcium channel blockers',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from CCB adherence data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'ccb_adherence_pct_rate',
+          chartTitle: 'Adherence to calcium channel blockers',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle:
+            'Percent share of total calcium channel blockers adherence',
+          metricId: 'ccb_adherence_pct_share',
+          columnTitleHeader:
+            'Percent share of total calcium channel blockers adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of calcium channel blockers beneficiary population vs. share of total adherence',
+            metricId: 'ccb_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare calcium channel blockers beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'doac_adherence',
+      dataTypeShortLabel: 'Direct Oral Anticoagulants',
+      fullDisplayName: 'Direct Oral Anticoagulants',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from DOAC adherence data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'doac_adherence_pct_rate',
+          chartTitle: 'Direct Oral Anticoagulants Adherence',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle:
+            'Percent share of total Direct Oral Anticoagulants adherence',
+          metricId: 'doac_adherence_pct_share',
+          columnTitleHeader:
+            'Percent share of total Direct Oral Anticoagulants adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of Direct Oral Anticoagulants beneficiary population vs. share of total adherence',
+            metricId: 'doac_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare Direct Oral Anticoagulants beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'nqf_adherence',
+      dataTypeShortLabel: 'Beta-Blocker Treatment After a Heart Attack',
+      fullDisplayName:
+        'Persistence of Beta-Blocker Treatment After a Heart Attack',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from Persistence of Beta-Blocker Treatment After a Heart Attack data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'nqf_adherence_pct_rate',
+          chartTitle:
+            'Persistence of Beta-Blocker Treatment After a Heart Attack',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total adherence',
+          metricId: 'nqf_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total adherence',
+            metricId: 'nqf_population_pct_share',
+            columnTitleHeader: 'Share of all Medicare beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+  ],
+  ami: [
+    {
+      dataTypeId: 'ami',
+      dataTypeShortLabel: 'Heart Attacks',
+      fullDisplayName: 'Heart Attacks',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from AMI data`,
+      metrics: {
+        per100k: {
+          metricId: 'ami_per_100k',
+          chartTitle: 'Rates of heart attacks',
+          shortLabel: 'cases per 100k',
+          type: 'per100k',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total heart attacks',
+          metricId: 'ami_pct_share',
+          columnTitleHeader: 'Percent share of total heart attacks',
+          shortLabel: '% of total heart attacks',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total heart attacks',
+            metricId: 'ami_population_pct_share',
+            columnTitleHeader: 'Share of all beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+  ],
+  phrma_hiv: [
+    {
+      dataTypeId: 'phrma_hiv',
+      dataTypeShortLabel: 'HIV cases',
+      fullDisplayName: 'HIV cases',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from PHRMA HIV data`,
+      metrics: {
+        per100k: {
+          metricId: 'phrma_hiv_per_100k',
+          chartTitle: 'Rates of HIV cases (Medicare Beneficiaries)',
+          shortLabel: 'cases per 100k',
+          type: 'per100k',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total HIV cases',
+          metricId: 'phrma_hiv_pct_share',
+          columnTitleHeader: 'Percent share of total HIV cases',
+          shortLabel: '% of total HIV cases',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total HIV cases',
+            metricId: 'phrma_hiv_population_pct_share',
+            columnTitleHeader: 'Share of all beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+  ],
+  arv_adherence: [
+    {
+      dataTypeId: 'arv_adherence',
+      dataTypeShortLabel: 'ARV',
+      fullDisplayName: 'Adherence to anti-retrovirals',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from ARV adherence data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'arv_adherence_pct_rate',
+          chartTitle: 'Adherence to anti-retrovirals',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total anti-retrovirals adherence',
+          metricId: 'arv_adherence_pct_share',
+          columnTitleHeader:
+            'Percent share of total anti-retrovirals adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of anti-retrovirals beneficiary population vs. share of total adherence',
+            metricId: 'arv_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare anti-retrovirals beneficiaries',
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
