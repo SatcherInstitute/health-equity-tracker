@@ -2,7 +2,6 @@ import {
   Step,
   StepButton,
   Stepper,
-  Tooltip,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
@@ -56,27 +55,25 @@ export default function TableOfContents(props: TableOfContentsProps) {
       {props.reportStepHashIds?.map((stepId) => {
         return (
           <Step completed={false} key={stepId}>
-            <Tooltip title={`Scroll to ${reportProviderSteps[stepId].label}`}>
-              <StepButton
-                // title=
-                className={styles.StepButton}
-                onClick={(e) => {
-                  e.preventDefault()
-                  handleStepClick(stepId)
-                }}
+            <StepButton
+              // title=
+              className={styles.StepButton}
+              onClick={(e) => {
+                e.preventDefault()
+                handleStepClick(stepId)
+              }}
+            >
+              <span
+                // hide labels visually but not from screen readers on small screens
+                className={
+                  pageIsWide
+                    ? styles.StepButtonLabel
+                    : styles.ScreenreaderTitleHeader
+                }
               >
-                <span
-                  // hide labels visually but not from screen readers on small screens
-                  className={
-                    pageIsWide
-                      ? styles.StepButtonLabel
-                      : styles.ScreenreaderTitleHeader
-                  }
-                >
-                  {reportProviderSteps[stepId].label}
-                </span>
-              </StepButton>
-            </Tooltip>
+                {reportProviderSteps[stepId].label}
+              </span>
+            </StepButton>
           </Step>
         )
       })}

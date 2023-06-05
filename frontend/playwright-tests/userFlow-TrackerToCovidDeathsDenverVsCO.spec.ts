@@ -61,7 +61,7 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
     await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
 
     // find Table of Contents link to Unknown Map
-    await page.getByRole('button', { name: 'Scroll to Unknown demographic map', exact: true }).click();
+    await page.getByRole('button', { name: 'Unknown demographic map', exact: true }).click();
 
     // TODO: Fix this test breaking on CI
     // const unknownMapCard = page.locator('#unknown-demographic-map')

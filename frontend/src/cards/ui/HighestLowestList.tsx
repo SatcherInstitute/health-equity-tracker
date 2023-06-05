@@ -117,7 +117,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <h4>{props.fips.getUppercaseFipsTypeDisplayName()} overall:</h4>
             <ul>
               <li>
-                {props.fips.getDisplayName()}: {formatFieldValue(metricType, overallRate)}{' '}
+                {props.fips.getDisplayName()}:{' '}
+                {formatFieldValue(metricType, overallRate)}{' '}
                 <span className={styles.Unit}>
                   {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
                 </span>

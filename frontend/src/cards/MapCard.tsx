@@ -232,11 +232,14 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
-  const [scale, setScale] = useState<{ domain: number[], range: number[] }>({ domain: [], range: [] });
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
 
   function handleScaleChange(domain: number[], range: number[]) {
     // Update the scale state when the domain or range changes
-    setScale({ domain: domain, range: range });
+    setScale({ domain, range })
   }
 
   return (

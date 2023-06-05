@@ -52,8 +52,10 @@
 .NoTopicHelperVideoBoxWithCaption {
   margin-top: 2rem;
 
-  p {
-    margin-inline: 3rem;
+  @media only screen and (min-width: $md) {
+    p {
+      margin-inline: 3rem;
+    }
   }
 }
 
@@ -80,7 +82,11 @@
 }
 
 .NoTopicHelperVideoBoxTourText {
-  padding-inline: 3rem;
+  padding-inline: 1rem;
+
+  @media only screen and (min-width: $md) {
+    padding-inline: 3rem;
+  }
 }
 
 .CategoryList {
