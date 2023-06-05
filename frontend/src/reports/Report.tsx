@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import React, { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState, Fragment } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -10,7 +10,7 @@ import { TableCard } from '../cards/TableCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import { RACE, AGE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
@@ -26,7 +26,6 @@ import {
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
-import ReportToggleControls from './ui/ReportToggleControls'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import styles from './Report.module.scss'
@@ -42,10 +41,12 @@ import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { BLACK_WOMEN } from '../data/variables/HivProvider'
-import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
+import { BLACK_WOMEN } from '../data/providers/HivProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+import { useAtom } from 'jotai'
+import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 
-export interface OneVariableReportProps {
+export interface ReportProps {
   key: string
   dropdownVarId: DropdownVarId
   fips: Fips
@@ -58,27 +59,26 @@ export interface OneVariableReportProps {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
+  dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }
 
-export function OneVariableReport(props: OneVariableReportProps) {
+export function Report(props: ReportProps) {
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
     getParameter(DEMOGRAPHIC_PARAM, RACE)
   )
 
-  const [variableConfig, setVariableConfig] = useState<VariableConfig | null>(
-    Object.keys(METRIC_CONFIG).includes(props.dropdownVarId)
-      ? METRIC_CONFIG[props.dropdownVarId][0]
-      : null
+  const [dataTypeConfig, setDataTypeConfig] = useAtom(
+    selectedDataTypeConfig1Atom
   )
 
-  const isRaceBySex = variableConfig?.variableId.includes(BLACK_WOMEN)
+  const isRaceBySex = dataTypeConfig?.dataTypeId.includes(BLACK_WOMEN)
 
-  function setVariableConfigWithParam(v: VariableConfig) {
+  function setDataTypeConfigWithParam(v: DataTypeConfig) {
     setParameters([
-      { name: DATA_TYPE_1_PARAM, value: v.variableId },
+      { name: DATA_TYPE_1_PARAM, value: v.dataTypeId },
       { name: DATA_TYPE_2_PARAM, value: null },
     ])
-    setVariableConfig(v)
+    setDataTypeConfig(v)
   }
 
   function setDemoWithParam(str: BreakdownVar) {
@@ -93,12 +93,12 @@ export function OneVariableReport(props: OneVariableReportProps) {
         undefined,
         (val: string) => {
           val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId].find(
-            (cfg) => cfg.variableId === val
+          return METRIC_CONFIG[props.dropdownVarId]?.find(
+            (cfg) => cfg.dataTypeId === val
           )
         }
       )
-      setVariableConfig(demoParam1 ?? METRIC_CONFIG[props.dropdownVarId][0])
+      setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
       const demo: BreakdownVar = getParameter(
         DEMOGRAPHIC_PARAM,
@@ -122,10 +122,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
     )
 
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
-  }, [variableConfig])
+  }, [dataTypeConfig])
 
   const browserTitle = `${
-    variableConfig?.variableFullDisplayName ?? 'Data'
+    (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
   } by ${
     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
   } in ${props.fips.getFullDisplayName()}`
@@ -164,24 +164,12 @@ export function OneVariableReport(props: OneVariableReportProps) {
             spacing={0}
             justifyContent="center"
           >
-            {!variableConfig && (
+            {!dataTypeConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
             )}
 
-            {variableConfig && (
+            {dataTypeConfig && (
               <Grid container justifyContent="center">
-                {/* DEMOGRAPHIC / DATA TYPE TOGGLE(S) */}
-                <Grid item container xs={12} md={SINGLE_COLUMN_WIDTH}>
-                  <ReportToggleControls
-                    dropdownVarId={props.dropdownVarId}
-                    variableConfig={variableConfig}
-                    setVariableConfig={setVariableConfigWithParam}
-                    currentBreakdown={currentBreakdown}
-                    setCurrentBreakdown={setDemoWithParam}
-                    fips={props.fips}
-                  />
-                </Grid>
-
                 {/* 100k MAP CARD */}
                 <Grid
                   item
@@ -194,7 +182,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }}
                 >
                   <MapCard
-                    variableConfig={variableConfig}
+                    dataTypeConfig={dataTypeConfig}
                     fips={props.fips}
                     updateFipsCallback={(fips: Fips) => {
                       props.updateFipsCallback(fips)
@@ -211,16 +199,16 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
                   id={
-                    variableConfig.timeSeriesData
+                    dataTypeConfig.timeSeriesData
                       ? 'rates-over-time'
                       : undefined
                   }
                   className={styles.ScrollPastHeader}
                 >
-                  {variableConfig.timeSeriesData &&
+                  {dataTypeConfig.timeSeriesData &&
                     !hideNonCountyBJSTimeCards && (
                       <RateTrendsChartCard
-                        variableConfig={variableConfig}
+                        dataTypeConfig={dataTypeConfig}
                         breakdownVar={currentBreakdown}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
@@ -241,7 +229,7 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }}
                 >
                   <SimpleBarChartCard
-                    variableConfig={variableConfig}
+                    dataTypeConfig={dataTypeConfig}
                     breakdownVar={currentBreakdown}
                     fips={props.fips}
                     reportTitle={props.reportTitle}
@@ -261,10 +249,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {variableConfig.metrics.pct_share && (
+                    {dataTypeConfig.metrics.pct_share && (
                       <UnknownsMapCard
                         overrideAndWithOr={currentBreakdown === RACE}
-                        variableConfig={variableConfig}
+                        dataTypeConfig={dataTypeConfig}
                         fips={props.fips}
                         updateFipsCallback={(fips: Fips) => {
                           props.updateFipsCallback(fips)
@@ -283,17 +271,17 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
                   id={
-                    variableConfig.timeSeriesData
+                    dataTypeConfig.timeSeriesData
                       ? 'inequities-over-time'
                       : undefined
                   }
                   className={styles.ScrollPastHeader}
                 >
                   <LazyLoad offset={600} height={750} once>
-                    {variableConfig.timeSeriesData &&
+                    {dataTypeConfig.timeSeriesData &&
                       !hideNonCountyBJSTimeCards && (
                         <ShareTrendsChartCard
-                          variableConfig={variableConfig}
+                          dataTypeConfig={dataTypeConfig}
                           breakdownVar={currentBreakdown}
                           fips={props.fips}
                           reportTitle={props.reportTitle}
@@ -315,9 +303,9 @@ export function OneVariableReport(props: OneVariableReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {variableConfig.metrics.pct_share && (
+                    {dataTypeConfig.metrics.pct_share && (
                       <DisparityBarChartCard
-                        variableConfig={variableConfig}
+                        dataTypeConfig={dataTypeConfig}
                         breakdownVar={currentBreakdown}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
@@ -339,14 +327,14 @@ export function OneVariableReport(props: OneVariableReportProps) {
                 >
                   <TableCard
                     fips={props.fips}
-                    variableConfig={variableConfig}
+                    dataTypeConfig={dataTypeConfig}
                     breakdownVar={currentBreakdown}
                     reportTitle={props.reportTitle}
                   />
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {variableConfig.metrics.age_adjusted_ratio.ageAdjusted && (
+                {dataTypeConfig.metrics.age_adjusted_ratio?.ageAdjusted && (
                   <Grid
                     item
                     xs={12}
@@ -360,10 +348,10 @@ export function OneVariableReport(props: OneVariableReportProps) {
                     <LazyLoad offset={800} height={800} once>
                       <AgeAdjustedTableCard
                         fips={props.fips}
-                        variableConfig={variableConfig}
+                        dataTypeConfig={dataTypeConfig}
                         dropdownVarId={props.dropdownVarId}
                         breakdownVar={currentBreakdown}
-                        setVariableConfigWithParam={setVariableConfigWithParam}
+                        setDataTypeConfigWithParam={setDataTypeConfigWithParam}
                         reportTitle={props.reportTitle}
                       />
                     </LazyLoad>

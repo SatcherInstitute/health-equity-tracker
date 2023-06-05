@@ -39,7 +39,7 @@ import {
   VALID_DATASET,
   getHelperLegend,
 } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 
 const {
@@ -90,6 +90,8 @@ export interface ChoroplethMapProps {
   countColsToAdd: MetricId[]
   mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean
+  isMulti?: boolean
+  scaleConfig?: { domain: number[], range: number[] }
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -250,6 +252,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* scaleColorScheme? */ props.mapConfig.mapScheme,
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
+
+    if (props.isMulti ?? props.listExpanded) {
+      colorScale.domain = props.scaleConfig?.domain
+      colorScale.range = props.scaleConfig?.range
+    }
 
     const projection = getProjection(
       /* fips */ props.fips,
