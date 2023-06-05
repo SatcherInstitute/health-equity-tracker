@@ -475,37 +475,61 @@ export const datasetMetadataList: DatasetMetadata[] = [
     id: 'phrma_data-age_national',
     name: 'Phrma Dataset by age, nationally (Naming TBD)',
     update_time: '2023',
-    contains_nh: true,
   },
   {
     id: 'phrma_data-age_state',
     name: 'Phrma Dataset by age, by state (Naming TBD)',
     update_time: '2023',
-    contains_nh: true,
   },
   {
     id: 'phrma_data-age_county',
     name: 'Phrma Dataset by age, by county (Naming TBD)',
     update_time: '2023',
-    contains_nh: true,
   },
   {
     id: 'phrma_data-sex_national',
     name: 'Phrma Dataset by sex, nationally (Naming TBD)',
     update_time: '2023',
-    contains_nh: true,
   },
   {
     id: 'phrma_data-sex_state',
     name: 'Phrma Dataset by sex, by state (Naming TBD)',
     update_time: '2023',
-    contains_nh: true,
   },
   {
     id: 'phrma_data-sex_county',
     name: 'Phrma Dataset by sex, by county (Naming TBD)',
     update_time: '2023',
-    contains_nh: true,
+  },
+  {
+    id: 'phrma_data-LIS_national',
+    name: 'Phrma Dataset by low income subsidy status (LIS), nationally (Naming TBD)',
+    update_time: '2023',
+  },
+  {
+    id: 'phrma_data-LIS_state',
+    name: 'Phrma Dataset by low income subsidy (LIS), by state (Naming TBD)',
+    update_time: '2023',
+  },
+  {
+    id: 'phrma_data-LIS_county',
+    name: 'Phrma Dataset by low income subsidy (LIS), by county (Naming TBD)',
+    update_time: '2023',
+  },
+  {
+    id: 'phrma_data-eligibility_national',
+    name: 'Phrma Dataset by Medicare/Medicaid eligibility reason, nationally (Naming TBD)',
+    update_time: '2023',
+  },
+  {
+    id: 'phrma_data-eligibility_state',
+    name: 'Phrma Dataset by Medicare/Medicaid eligibility reason, by state (Naming TBD)',
+    update_time: '2023',
+  },
+  {
+    id: 'phrma_data-eligibility_county',
+    name: 'Phrma Dataset by Medicare/Medicaid eligibility reason, by county (Naming TBD)',
+    update_time: '2023',
   },
 ]
 

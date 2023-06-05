@@ -149,10 +149,6 @@ export function Sources(props: SourcesProps) {
         )}
       </Grid>
 
-      {/* <Grid>
-        <MetricDetails consumedIds={props.consumedIds} />
-      </Grid> */}
-
       <>
         <Grid
           item

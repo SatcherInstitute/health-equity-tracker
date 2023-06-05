@@ -89,9 +89,11 @@ export function Report(props: ReportProps) {
 
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
-  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
-  }
+  // if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
+  //   console.log(JSON.stringify(demographicOptionsMap), "doesn't include", currentBreakdown);
+
+  //   setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  // }
 
   const disabledDemographicOptions =
     getDisabledDemographicOptions(dataTypeConfig)
@@ -115,6 +117,7 @@ export function Report(props: ReportProps) {
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
+
     return () => {
       if (psHandler) {
         psHandler.unsubscribe()

@@ -326,7 +326,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_link: 'https://pharmacydata.com',
     geographic_level: 'National, State, County',
     demographic_granularity:
-      'Race/ethnicity, sex, age, low income subsidy, Medicare eligibility',
+      'Race/ethnicity, sex, age, low income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
     description:
       'NEED THIS COPY Sample medication adherence description of data source.',
@@ -340,6 +340,12 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'phrma_data-sex_national',
       'phrma_data-sex_state',
       'phrma_data-sex_county',
+      'phrma_data-LIS_national',
+      'phrma_data-LIS_state',
+      'phrma_data-LIS_county',
+      'phrma_data-eligibility_national',
+      'phrma_data-eligibility_state',
+      'phrma_data-eligibility_county',
     ],
     downloadable: true,
   },
