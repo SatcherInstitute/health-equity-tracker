@@ -1,7 +1,7 @@
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
@@ -86,10 +86,10 @@ treated as individual items  */
 export function getSelectedConditions(madLib: MadLib) {
   if (madLib.activeSelections[1] === DEFAULT) return []
 
-  const condition1array: VariableConfig[] =
+  const condition1array: DataTypeConfig[] =
     METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId]
   // get 2nd condition if in compare var mode
-  const condition2array: VariableConfig[] =
+  const condition2array: DataTypeConfig[] =
     madLib.id === 'comparevars'
       ? METRIC_CONFIG[getPhraseValue(madLib, 3) as DropdownVarId]
       : []
@@ -105,37 +105,37 @@ export const DEFAULT: DefaultDropdownVarId = 'default'
 
 const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   default: 'select a topic',
-  covid_cases: 'COVID-19 Cases',
-  covid_hospitalizations: 'COVID-19 Hospitalizations',
-  covid_deaths: 'COVID-19 Deaths',
-  hiv_care: 'Linkage to HIV Care',
-  hiv_prep: 'PrEP Coverage',
-  hiv_prevalence: 'HIV Prevalence',
-  hiv_prevalence_black_women: 'HIV Prevalence (Black Women)',
-  hiv_diagnoses: 'New HIV Diagnoses',
-  hiv_diagnoses_black_women: 'New HIV Diagnoses (Black Women)',
-  hiv_deaths: 'HIV Deaths',
-  hiv_deaths_black_women: 'HIV Deaths (Black Women)',
-  diabetes: 'Diabetes',
+  asthma: 'Asthma',
+  avoided_care: 'Care Avoidance Due to Cost',
+  cardiovascular_diseases: 'Cardiovascular Diseases',
+  chronic_kidney_disease: 'Chronic Kidney Disease',
   copd: 'COPD',
-  health_insurance: 'Uninsured Individuals',
-  poverty: 'Poverty',
   covid_vaccinations: 'COVID-19 Vaccinations',
+  covid: 'COVID-19',
   depression: 'Depression',
-  suicide: 'Suicide',
-  substance: 'Opioid and Other Substance Misuse',
+  diabetes: 'Diabetes',
   excessive_drinking: 'Excessive Drinking',
   frequent_mental_distress: 'Frequent Mental Distress',
+  health_insurance: 'Uninsured Individuals',
+  hiv_black_women: 'HIV (Black Women)',
+  hiv_care: 'Linkage to HIV Care',
+  hiv_prep: 'PrEP Coverage',
+  hiv: 'HIV',
+  incarceration: 'Incarceration',
+  poverty: 'Poverty',
   preventable_hospitalizations: 'Preventable Hospitalization',
-  avoided_care: 'Care Avoidance Due to Cost',
-  chronic_kidney_disease: 'Chronic Kidney Disease',
-  cardiovascular_diseases: 'Cardiovascular Diseases',
-  asthma: 'Asthma',
+  substance: 'Opioid and Other Substance Misuse',
+  suicide: 'Suicide',
   voter_participation: 'Voter Participation',
-  women_in_state_legislature: 'Women in State Legislatures',
-  women_in_us_congress: 'Women in U.S. Congress',
-  jail: 'Jail Incarceration',
-  prison: 'Prison Incarceration',
+  women_in_gov: 'Women in Government',
+}
+
+export const SELECTED_DROPDOWN_OVERRIDES: Partial<
+  Record<DropdownVarId, string>
+> = {
+  hiv_black_women: 'HIV',
+  incarceration: 'Incarceration in',
+  women_in_gov: 'Women in',
 }
 
 export interface Category {
@@ -148,44 +148,17 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: [
-      'hiv_care',
-      'hiv_diagnoses',
-      'hiv_deaths',
-      'hiv_prep',
-      'hiv_prevalence',
-    ],
+    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
   },
-  {
-    title: `Black Women's Health`,
-    definition: '',
-    options: [
-      'hiv_prevalence_black_women',
-      'hiv_diagnoses_black_women',
-      'hiv_deaths_black_women',
-    ],
-  },
-
   {
     title: 'COVID-19',
     definition: '',
-    options: [
-      'covid_cases',
-      'covid_hospitalizations',
-      'covid_deaths',
-      'covid_vaccinations',
-    ],
+    options: ['covid', 'covid_vaccinations'],
   },
   {
     title: 'Political Determinants of Health',
     definition: '',
-    options: [
-      'voter_participation',
-      'women_in_us_congress',
-      'women_in_state_legislature',
-      'prison',
-      'jail',
-    ],
+    options: ['voter_participation', 'women_in_gov', 'incarceration'],
   },
   {
     title: 'Social Determinants of Health',
@@ -238,8 +211,8 @@ const MADLIB_LIST: MadLib[] = [
       'and',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'covid_cases', 3: GEORGIA_FIPS, 5: USA_FIPS },
-    activeSelections: { 1: 'covid_cases', 3: GEORGIA_FIPS, 5: USA_FIPS },
+    defaultSelections: { 1: 'covid', 3: GEORGIA_FIPS, 5: USA_FIPS },
+    activeSelections: { 1: 'covid', 3: GEORGIA_FIPS, 5: USA_FIPS },
   },
   {
     id: 'comparevars',
@@ -251,8 +224,8 @@ const MADLIB_LIST: MadLib[] = [
       'in',
       FIPS_MAP,
     ],
-    defaultSelections: { 1: 'diabetes', 3: 'covid_cases', 5: USA_FIPS },
-    activeSelections: { 1: 'diabetes', 3: 'covid_cases', 5: USA_FIPS },
+    defaultSelections: { 1: 'diabetes', 3: 'covid', 5: USA_FIPS },
+    activeSelections: { 1: 'diabetes', 3: 'covid', 5: USA_FIPS },
   },
 ]
 

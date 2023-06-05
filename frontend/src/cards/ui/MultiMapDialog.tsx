@@ -31,7 +31,7 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../../data/variables/CawpProvider'
+} from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'

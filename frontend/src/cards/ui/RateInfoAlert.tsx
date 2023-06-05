@@ -2,7 +2,7 @@ import { CardContent, Divider, Alert } from '@mui/material'
 import {
   formatFieldValue,
   type MetricConfig,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import {
   type BreakdownVar,
@@ -22,7 +22,7 @@ interface RateInfoAlertProps {
   metricConfig: MetricConfig
   fips: Fips
   setMultimapOpen: (smallMultiplesDialogOpen: boolean) => void
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
 }
 
 export function RateInfoAlert(props: RateInfoAlertProps) {
@@ -82,7 +82,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           <MultiMapLink
             setMultimapOpen={props.setMultimapOpen}
             currentBreakdown={props.currentBreakdown}
-            currentVariable={props.variableConfig.variableFullDisplayName}
+            currentDataType={props.dataTypeConfig.fullDisplayName}
           />
         </Alert>
       </CardContent>

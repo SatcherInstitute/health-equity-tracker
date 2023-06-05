@@ -1,7 +1,7 @@
 import { getDataManager } from '../../utils/globals'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { type MetricId, type VariableId } from '../config/MetricConfig'
+import { type MetricId, type DataTypeId } from '../config/MetricConfig'
 import VariableProvider from './VariableProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
@@ -32,7 +32,7 @@ export const PRIVATE_JAILS_QUALIFIER = '(private jail system only)'
 export const ALASKA_PRIVATE_JAIL_CAVEAT =
   'In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.'
 
-export const INCARCERATION_IDS: VariableId[] = ['prison', 'jail']
+export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
 
 export const JAIL_METRICS: MetricId[] = [
   'jail_pct_share',
@@ -103,7 +103,7 @@ class IncarcerationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
-    const variableId: VariableId | undefined = metricQuery?.variableId
+    const dataTypeId: DataTypeId | undefined = metricQuery?.dataTypeId
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
     const dataSource = await getDataManager().loadDataset(datasetId)
@@ -112,8 +112,8 @@ class IncarcerationProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns)
 
     let mostRecentYear: string = ''
-    if (variableId === 'prison') mostRecentYear = '2016'
-    if (variableId === 'jail') mostRecentYear = '2018'
+    if (dataTypeId === 'prison') mostRecentYear = '2016'
+    if (dataTypeId === 'jail') mostRecentYear = '2018'
 
     df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)

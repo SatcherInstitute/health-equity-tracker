@@ -1,5 +1,5 @@
 import { type IDataFrame } from 'data-forge'
-import { type MetricId, type VariableId } from '../config/MetricConfig'
+import { type MetricId, type DataTypeId } from '../config/MetricConfig'
 import { type ProviderId } from '../loading/VariableProviderMap'
 import { type Breakdowns, type TimeView } from '../query/Breakdowns'
 import {
@@ -150,7 +150,7 @@ abstract class VariableProvider {
     breakdown: Breakdowns,
     dataType?: string,
     timeView?: TimeView,
-    variableId?: VariableId
+    dataTypeId?: DataTypeId
   ): string
 }
 

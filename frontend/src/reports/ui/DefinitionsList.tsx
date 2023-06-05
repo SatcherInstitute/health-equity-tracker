@@ -1,16 +1,16 @@
 /*
-Receives list of variable objects for which definitions should be displayed;
+Receives list of dataType objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
 import {
   type DropdownVarId,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 
 export interface DefinitionsListProps {
-  variablesToDefine: Array<[string, VariableConfig[]]>
+  dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }
 
 export default function DefinitionsList(
@@ -18,9 +18,9 @@ export default function DefinitionsList(
 ): JSX.Element {
   // collect relevant categories
   const relevantCategoriesSet = new Set<Category>()
-  props.variablesToDefine.forEach((variable) => {
+  props.dataTypesToDefine.forEach((dataType) => {
     const matchingCategory = CATEGORIES_LIST.find((category) =>
-      category.options.includes(variable[0] as DropdownVarId)
+      category.options.includes(dataType[0] as DropdownVarId)
     )
     matchingCategory && relevantCategoriesSet.add(matchingCategory)
   })
@@ -30,9 +30,9 @@ export default function DefinitionsList(
     <div id="definitionsList">
       {/* for each category */}
       {relevantCategories.map((category: Category) => {
-        // sort requested variables into their categories
-        const variablesForThisCategory = props.variablesToDefine.filter(
-          (variable: any) => category.options.includes(variable[0])
+        // sort requested dataTypes into their categories
+        const dataTypesForThisCategory = props.dataTypesToDefine.filter(
+          (dataType: any) => category.options.includes(dataType[0])
         )
 
         return (
@@ -44,14 +44,14 @@ export default function DefinitionsList(
             <ul>
               {
                 // for all matching conditions
-                variablesForThisCategory.map((variable) => {
+                dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
-                  return variable[1].map((dataType: VariableConfig) => {
+                  return dataType[1].map((dataType: DataTypeConfig) => {
                     return (
-                      <li key={dataType.variableFullDisplayName}>
-                        <b>{dataType.variableFullDisplayName}</b>
+                      <li key={dataType?.fullDisplayName}>
+                        <b>{dataType?.fullDisplayName ?? 'dataType'}</b>
                         {': '}
-                        {dataType.variableDefinition}
+                        {dataType.dataTypeDefinition}
                       </li>
                     )
                   })

@@ -39,7 +39,7 @@ import {
   VALID_DATASET,
   getHelperLegend,
 } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 
 const {

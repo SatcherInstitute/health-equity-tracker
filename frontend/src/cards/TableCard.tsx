@@ -12,7 +12,7 @@ import {
   METRIC_CONFIG,
   type MetricConfig,
   type MetricId,
-  type VariableConfig,
+  type DataTypeConfig,
   getRateAndPctShareMetrics,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -26,12 +26,12 @@ import {
   shouldShowAltPopCompare,
 } from '../data/utils/datasetutils'
 import styles from './Card.module.scss'
-import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type Row } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
+import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -43,7 +43,7 @@ export const NEVER_SHOW_PROPERTIES = [
 export interface TableCardProps {
   fips: Fips
   breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   reportTitle: string
 }
 
@@ -53,14 +53,14 @@ export function TableCard(props: TableCardProps) {
     props.breakdownVar === 'sex'
   )
 
-  const metrics = getRateAndPctShareMetrics(props.variableConfig)
+  const metrics = getRateAndPctShareMetrics(props.dataTypeConfig)
 
-  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
+  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(
-      ...getExclusionList(props.variableConfig, props.breakdownVar, props.fips)
+      ...getExclusionList(props.dataTypeConfig, props.breakdownVar, props.fips)
     )
   )
 
@@ -85,7 +85,7 @@ export function TableCard(props: TableCardProps) {
     }
   })
   const isIncarceration = INCARCERATION_IDS.includes(
-    props.variableConfig.variableId
+    props.dataTypeConfig.dataTypeId
   )
 
   const metricIds = Object.keys(metricConfigs) as MetricId[]
@@ -93,7 +93,7 @@ export function TableCard(props: TableCardProps) {
   const query = new MetricQuery(
     metricIds,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
@@ -105,8 +105,9 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${props.variableConfig.variableFullDisplayName
-        } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${
+        props.dataTypeConfig.fullDisplayName
+      } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
@@ -139,10 +140,10 @@ export function TableCard(props: TableCardProps) {
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
-                  variableId={props.variableConfig.variableId}
+                  dataTypeId={props.dataTypeConfig.dataTypeId}
                   fips={props.fips}
                   dataTableTitle={
-                    props.variableConfig.dataTableTitle ?? 'Breakdown Summary'
+                    props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
                   }
                 />
               </div>
@@ -159,7 +160,7 @@ export function TableCard(props: TableCardProps) {
             {showMissingDataAlert && (
               <CardContent>
                 <MissingDataAlert
-                  dataName={props.variableConfig.variableFullDisplayName + ' '}
+                  dataName={props.dataTypeConfig.fullDisplayName + ' '}
                   breakdownString={
                     BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
                   }

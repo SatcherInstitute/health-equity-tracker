@@ -1,4 +1,4 @@
-import { MetricId, METRIC_CONFIG, VariableConfig } from '../config/MetricConfig'
+import { MetricId, METRIC_CONFIG, DataTypeConfig } from '../config/MetricConfig'
 import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
 import {
   appendFipsIfNeeded,
@@ -111,8 +111,8 @@ describe('DatasetUtils.appendFipsIfNeeded() Unit Tests', () => {
 
 describe('DatasetUtils.getExclusionList() Tests', () => {
   test('Prison by Race in USA Exclusions', async () => {
-    const sampleVariableConfigPrisonRaceUSA: VariableConfig =
-      METRIC_CONFIG.prison[0]
+    const sampleDataTypeConfigPrisonRaceUSA: DataTypeConfig =
+      METRIC_CONFIG.incarceration[0]
     const sampleBreakdownPrisonRaceUSA: BreakdownVar = 'race_and_ethnicity'
     const sampleFipsPrisonRaceUSA: Fips = new Fips('00')
     const expectedExclusionListPrisonRaceUSA = [
@@ -132,7 +132,7 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
       'Asian, Native Hawaiian, and Pacific Islander (NH)',
     ]
     const sampleExclusionListPrisonRaceUSA = getExclusionList(
-      sampleVariableConfigPrisonRaceUSA,
+      sampleDataTypeConfigPrisonRaceUSA,
       sampleBreakdownPrisonRaceUSA,
       sampleFipsPrisonRaceUSA
     )
@@ -141,7 +141,7 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
     )
   })
   test('Diabetes by Sex in AL Exclusions', async () => {
-    const sampleVariableConfigDiabetesSexAlabama: VariableConfig =
+    const sampleDataTypeConfigDiabetesSexAlabama: DataTypeConfig =
       METRIC_CONFIG.diabetes[0]
     const sampleBreakdownDiabetesSexAlabama: BreakdownVar = 'sex'
     const sampleFipsDiabetesSexAlabama: Fips = new Fips('01')
@@ -152,7 +152,7 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
       'All',
     ]
     const sampleExclusionListDiabetesSexAlabama = getExclusionList(
-      sampleVariableConfigDiabetesSexAlabama,
+      sampleDataTypeConfigDiabetesSexAlabama,
       sampleBreakdownDiabetesSexAlabama,
       sampleFipsDiabetesSexAlabama
     )

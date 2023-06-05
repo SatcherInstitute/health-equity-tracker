@@ -19,7 +19,7 @@ import {
   type MetricId,
   formatFieldValue,
   SYMBOL_TYPE_LOOKUP,
-  type VariableId,
+  type DataTypeId,
 } from '../data/config/MetricConfig'
 import {
   BREAKDOWN_VAR_DISPLAY_NAMES,
@@ -55,7 +55,7 @@ export interface TableChartProps {
   data: Array<Readonly<Record<string, any>>>
   breakdownVar: BreakdownVar
   metrics: MetricConfig[]
-  variableId: VariableId
+  dataTypeId: DataTypeId
   fips: Fips
   dataTableTitle: string
 }
@@ -175,7 +175,9 @@ export function TableChart(props: TableChartProps) {
         <figure>
           <figcaption>
             <ChartTitle
-              title={`${props.dataTableTitle} in ${props.fips.getSentenceDisplayName()}`}
+              title={`${
+                props.dataTableTitle
+              } in ${props.fips.getSentenceDisplayName()}`}
             />
           </figcaption>
 

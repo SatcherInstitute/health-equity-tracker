@@ -2,19 +2,16 @@ import { useHistory } from 'react-router-dom'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableId,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { EXPLORE_DATA_PAGE_LINK } from '../internalRoutes'
 import { MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
 
-// Ensures backwards compatibility for external links to old VariableIds
+// Ensures backwards compatibility for external links to old DataTypeIds
 // NOTE: these redirects will lose any incoming demographic, data type, and card hash settings
 
-const dropdownIdSwaps: Record<string, VariableId> = {
+const dropdownIdSwaps: Record<string, DataTypeId> = {
   vaccinations: 'covid_vaccinations',
-  incarceration: 'prison',
-  covid: 'covid_cases',
-  women_in_legislative_office: 'women_in_us_congress',
 }
 
 export default function useDeprecatedParamRedirects() {

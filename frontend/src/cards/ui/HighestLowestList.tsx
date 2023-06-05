@@ -5,7 +5,7 @@ import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import {
   type MetricConfig,
-  type VariableConfig,
+  type DataTypeConfig,
   formatFieldValue,
 } from '../../data/config/MetricConfig'
 import { type Row } from '../../data/utils/DatasetTypes'
@@ -18,8 +18,8 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 export interface HighestLowestListProps {
   // MetricConfig for data
   metricConfig: MetricConfig
-  // VariableConfig for data
-  variableConfig: VariableConfig
+  // DataTypeConfig for data
+  dataTypeConfig: DataTypeConfig
   fips: Fips
   // Whether or not list is expanded
   listExpanded: boolean

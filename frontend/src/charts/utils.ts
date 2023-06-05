@@ -13,7 +13,7 @@ import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../data/variables/CawpProvider'
+} from '../data/providers/CawpProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 

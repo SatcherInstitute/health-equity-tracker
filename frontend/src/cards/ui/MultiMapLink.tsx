@@ -10,7 +10,7 @@ Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples mo
 interface MultiMapLinkProps {
   setMultimapOpen: (multimapOpen: boolean) => void
   currentBreakdown: BreakdownVar
-  currentVariable: string
+  currentDataType: string
 }
 
 export function MultiMapLink(props: MultiMapLinkProps) {
@@ -25,7 +25,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
         className={styles.CompareAcrossLink}
         aria-label={
           'Open modal to Compare ' +
-          props.currentVariable +
+          props.currentDataType +
           ' across ' +
           groupTerm +
           ' groups'

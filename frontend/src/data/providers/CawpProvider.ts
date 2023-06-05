@@ -1,5 +1,5 @@
 import { getDataManager } from '../../utils/globals'
-import { type MetricId, type VariableId } from '../config/MetricConfig'
+import { type MetricId, type DataTypeId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
@@ -41,7 +41,7 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   ...CAWP_STLEG_COUNTS,
 ]
 
-export const CAWP_DATA_TYPES: VariableId[] = [
+export const CAWP_DATA_TYPES: DataTypeId[] = [
   'women_in_state_legislature',
   'women_in_us_congress',
 ]
