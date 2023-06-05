@@ -10,7 +10,7 @@ import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import styles from './Legend.module.scss'
-import { View, type Legend as LegendType } from 'vega'
+import { type View, type Legend as LegendType } from 'vega'
 import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
@@ -94,12 +94,11 @@ export function Legend(props: LegendProps) {
     (row) => row[props.metric.metricId] == null
   )
 
-
   // Initial spec state is set in useEffect
   // TODO: Why??
   const [spec, setSpec] = useState({})
 
-  const vegaViewRef = useRef<View | null>(null);
+  const vegaViewRef = useRef<View | null>(null)
 
   function handleNewView(view: View) {
     vegaViewRef.current = view
@@ -108,7 +107,7 @@ export function Legend(props: LegendProps) {
       const scale = view.scale(COLOR_SCALE)
       const domain = scale.domain()
       const range = scale.range()
-      props.handleScaleChange(domain, range);
+      props.handleScaleChange(domain, range)
     }
   }
 
@@ -345,8 +344,12 @@ export function Legend(props: LegendProps) {
     <Grid component={'section'} className={styles.Legend}>
       <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
       <Grid>
-        <Vega renderer="svg" spec={spec} actions={false}
-          onNewView={(view) => handleNewView(view)} />
+        <Vega
+          renderer="svg"
+          spec={spec}
+          actions={false}
+          onNewView={(view) => { handleNewView(view); }}
+        />
       </Grid>
     </Grid>
   )

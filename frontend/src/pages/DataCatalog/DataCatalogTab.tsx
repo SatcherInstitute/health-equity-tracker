@@ -13,8 +13,12 @@ import { Link, Route, Switch } from 'react-router-dom'
 import DatasetExplorer from './dataset_explorer/DatasetExplorer'
 import MethodologyTab from './MethodologyTab'
 import AgeAdjustmentTab from './AgeAdjustmentTab'
+import { useMediaQuery, useTheme } from '@mui/material'
 
 function DataCatalogTab() {
+  const theme = useTheme()
+  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+
   const params = useSearchParams()
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
@@ -23,10 +27,12 @@ function DataCatalogTab() {
     <div className={styles.AboutUsPage}>
       <Route path="/">
         <Tabs
-          centered
+          centered={pageIsWide}
           indicatorColor="primary"
           textColor="primary"
           value={window.location.pathname}
+          variant={pageIsWide ? 'standard' : 'fullWidth'}
+          scrollButtons={pageIsWide ? 'auto' : undefined}
         >
           <Tab
             value={DATA_CATALOG_PAGE_LINK}
