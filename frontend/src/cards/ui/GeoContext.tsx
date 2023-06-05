@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import { type VariableConfig } from '../../data/config/MetricConfig'
+import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import MapBreadcrumbs from './MapBreadcrumbs'
@@ -10,7 +10,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 interface GeoContextProps {
   fips: Fips
   updateFipsCallback: (fips: Fips) => void
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   totalPopulationPhrase: string
   sviQueryResponse: MetricQueryResponse | null
 }
@@ -25,7 +25,7 @@ export default function GeoContext(props: GeoContextProps) {
       <MapBreadcrumbs
         fips={props.fips}
         updateFipsCallback={props.updateFipsCallback}
-        ariaLabel={props.variableConfig.variableFullDisplayName}
+        ariaLabel={props.dataTypeConfig.fullDisplayName}
         scrollToHashId={HASH_ID}
         endNote={props.totalPopulationPhrase}
       />

@@ -12,11 +12,11 @@ import { CardContent } from '@mui/material'
 import {
   type MetricConfig,
   type MetricId,
-  type VariableConfig,
+  type DataTypeConfig,
   getAgeAdjustedRatioMetric,
   type DropdownVarId,
   METRIC_CONFIG,
-  type AgeAdjustedVariableId,
+  type AgeAdjustedDataTypeId,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
@@ -45,7 +45,7 @@ import { generateChartTitle } from '../charts/utils'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 
-export const dataTypeLinkMap: Record<AgeAdjustedVariableId, string> = {
+export const dataTypeLinkMap: Record<AgeAdjustedDataTypeId, string> = {
   covid_deaths: COVID_DEATHS_US_SETTING,
   covid_hospitalizations: COVID_HOSP_US_SETTING,
 }
@@ -63,16 +63,16 @@ const exclusionList: RaceAndEthnicityGroup[] = [
 
 export interface AgeAdjustedTableCardProps {
   fips: Fips
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   breakdownVar: BreakdownVar
   dropdownVarId?: DropdownVarId
-  setVariableConfigWithParam?: (v: VariableConfig) => void
+  setDataTypeConfigWithParam?: (v: DataTypeConfig) => void
   reportTitle: string
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  const metrics = getAgeAdjustedRatioMetric(props.variableConfig)
-  const metricConfigPctShare = props.variableConfig.metrics.pct_share
+  const metrics = getAgeAdjustedRatioMetric(props.dataTypeConfig)
+  const metricConfigPctShare = props.dataTypeConfig.metrics.pct_share
 
   const raceBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
@@ -104,9 +104,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
-  const ageAdjustedDataTypes: VariableConfig[] = dropdownId
+  const ageAdjustedDataTypes: DataTypeConfig[] = dropdownId
     ? METRIC_CONFIG[dropdownId].filter((dataType) => {
-        // TODO: once every data type has a unique variableId across all topics, we can simply check if that id is in the dataTypeLinkMap
+        // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
         return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
       })
     : []
@@ -135,20 +135,22 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
         return (
           <>
-            <UnknownsAlert
-              metricConfig={metricConfigPctShare}
-              queryResponse={raceQueryResponse}
-              breakdownVar={
-                props.breakdownVar === AGE || props.breakdownVar === RACE
-                  ? RACE
-                  : props.breakdownVar
-              }
-              ageQueryResponse={ageQueryResponse}
-              displayType="table"
-              known={true}
-              overrideAndWithOr={props.breakdownVar === RACE}
-              fips={props.fips}
-            />
+            {metricConfigPctShare && (
+              <UnknownsAlert
+                metricConfig={metricConfigPctShare}
+                queryResponse={raceQueryResponse}
+                breakdownVar={
+                  props.breakdownVar === AGE || props.breakdownVar === RACE
+                    ? RACE
+                    : props.breakdownVar
+                }
+                ageQueryResponse={ageQueryResponse}
+                displayType="table"
+                known={true}
+                overrideAndWithOr={props.breakdownVar === RACE}
+                fips={props.fips}
+              />
+            )}
 
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
             {(noRatios ||

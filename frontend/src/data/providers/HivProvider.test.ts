@@ -10,13 +10,13 @@ import {
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import { MetricId, VariableId } from '../config/MetricConfig'
+import { MetricId, DataTypeId } from '../config/MetricConfig'
 
 export async function ensureCorrectDatasetsDownloaded(
   hivDatasetId: string,
   baseBreakdown: Breakdowns,
   breakdownVar: BreakdownVar,
-  variableId: VariableId,
+  dataTypeId: DataTypeId,
   metricIds?: MetricId[]
 ) {
   // if these aren't sent as args, default to []
@@ -31,7 +31,7 @@ export async function ensureCorrectDatasetsDownloaded(
     new MetricQuery(
       metricIds,
       baseBreakdown.addBreakdown(breakdownVar),
-      variableId
+      dataTypeId
     )
   )
 
@@ -127,7 +127,7 @@ describe('HivProvider', () => {
         testCase.datasetId,
         testCase.breakdowns,
         testCase.breakdownVar as BreakdownVar,
-        testCase.metricName as VariableId,
+        testCase.metricName as DataTypeId,
         testCase.metricIds as MetricId[]
       )
     })

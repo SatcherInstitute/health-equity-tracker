@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Box,
   Grid,
@@ -30,7 +31,7 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../../data/variables/CawpProvider'
+} from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
@@ -99,6 +100,16 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const [mapScheme, mapMin] = getMapScheme({
     metricId: props.metricConfig.metricId,
   })
+
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
+
+  function handleScaleChange(domain: number[], range: number[]) {
+    // Update the scale state when the domain or range changes
+    setScale({ domain, range })
+  }
 
   return (
     <Dialog
@@ -177,6 +188,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   }
                   columns={props.pageIsSmall ? 2 : 6}
                   orient={'bottom-right'}
+                  handleScaleChange={handleScaleChange}
                 />
               </Grid>
             </Grid>
@@ -224,6 +236,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     }
                     signalListeners={multimapSignalListeners}
                     mapConfig={{ mapScheme, mapMin }}
+                    isMulti={true}
+                    scaleConfig={scale}
                   />
                 )}
 

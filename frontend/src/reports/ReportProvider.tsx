@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { OneVariableReport } from './OneVariableReport'
-import TwoVariableReport from './TwoVariableReport'
+import { Report } from './Report'
+import CompareReport from './CompareReport'
 import {
   type MadLib,
   getMadLibWithUpdatedValue,
@@ -17,7 +17,7 @@ import styles from './Report.module.scss'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import { Box, Button } from '@mui/material'
 import DefinitionsList from './ui/DefinitionsList'
@@ -34,7 +34,7 @@ import {
   MissingAHRData,
   MissingPrepData,
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
-import { AHR_CONDITIONS } from '../data/variables/AhrProvider'
+import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -42,7 +42,7 @@ interface ReportProviderProps {
   isSingleColumn: boolean
   madLib: MadLib
   handleModeChange: any
-  selectedConditions: VariableConfig[]
+  selectedConditions: DataTypeConfig[]
   showLifeLineAlert: boolean
   setMadLib: (madLib: MadLib) => void
   showIncarceratedChildrenAlert: boolean
@@ -58,7 +58,7 @@ function ReportProvider(props: ReportProviderProps) {
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions?.filter(
-    (condition) => condition?.variableDefinition
+    (condition) => condition?.dataTypeDefinition
   )
 
   // create a subset of MetricConfig (with top level string + datatype array)
@@ -72,14 +72,9 @@ function ReportProvider(props: ReportProviderProps) {
     (id) => id?.[0] as DropdownVarId
   )
 
-  const isCovid =
-    currentDropDownIds.includes('covid_cases') ||
-    currentDropDownIds.includes('covid_hospitalizations') ||
-    currentDropDownIds.includes('covid_deaths')
+  const isCovid = currentDropDownIds.includes('covid')
   const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
-  const isCAWP =
-    currentDropDownIds.includes('women_in_us_congress') ||
-    currentDropDownIds.includes('women_in_state_legislature')
+  const isCAWP = currentDropDownIds.includes('women_in_gov')
 
   // includes standard and black women topics
   const isHIV = currentDropDownIds.some(
@@ -105,7 +100,7 @@ function ReportProvider(props: ReportProviderProps) {
         const dropdownOption = getPhraseValue(props.madLib, 1)
         return (
           <>
-            <OneVariableReport
+            <Report
               key={dropdownOption}
               dropdownVarId={dropdownOption as DropdownVarId}
               fips={new Fips(getPhraseValue(props.madLib, 3))}
@@ -122,19 +117,20 @@ function ReportProvider(props: ReportProviderProps) {
               isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
+              dataTypesToDefine={metricConfigSubset}
             />
           </>
         )
       }
       case 'comparegeos': {
-        const compareDisparityVariable = getPhraseValue(props.madLib, 1)
+        const dropdownOption = getPhraseValue(props.madLib, 1)
         const fipsCode1 = getPhraseValue(props.madLib, 3)
         const fipsCode2 = getPhraseValue(props.madLib, 5)
         return (
-          <TwoVariableReport
-            key={compareDisparityVariable + fipsCode1 + fipsCode2}
-            dropdownVarId1={compareDisparityVariable as DropdownVarId}
-            dropdownVarId2={compareDisparityVariable as DropdownVarId}
+          <CompareReport
+            key={dropdownOption + fipsCode1 + fipsCode2}
+            dropdownVarId1={dropdownOption as DropdownVarId}
+            dropdownVarId2={dropdownOption as DropdownVarId}
             fips1={new Fips(fipsCode1)}
             fips2={new Fips(fipsCode2)}
             updateFips1Callback={(fips: Fips) => {
@@ -159,19 +155,17 @@ function ReportProvider(props: ReportProviderProps) {
         )
       }
       case 'comparevars': {
-        const compareDisparityVariable1 = getPhraseValue(props.madLib, 1)
-        const compareDisparityVariable2 = getPhraseValue(props.madLib, 3)
+        const dropdownOption1 = getPhraseValue(props.madLib, 1)
+        const dropdownOption2 = getPhraseValue(props.madLib, 3)
         const fipsCode = getPhraseValue(props.madLib, 5)
         const updateFips = (fips: Fips) => {
           props.setMadLib(getMadLibWithUpdatedValue(props.madLib, 5, fips.code))
         }
         return (
-          <TwoVariableReport
-            key={
-              compareDisparityVariable1 + compareDisparityVariable2 + fipsCode
-            }
-            dropdownVarId1={compareDisparityVariable1 as DropdownVarId}
-            dropdownVarId2={compareDisparityVariable2 as DropdownVarId}
+          <CompareReport
+            key={dropdownOption1 + dropdownOption2 + fipsCode}
+            dropdownVarId1={dropdownOption1 as DropdownVarId}
+            dropdownVarId2={dropdownOption2 as DropdownVarId}
             fips1={new Fips(fipsCode)}
             fips2={new Fips(fipsCode)}
             updateFips1Callback={updateFips}
@@ -216,7 +210,7 @@ function ReportProvider(props: ReportProviderProps) {
                   Definitions:
                 </h3>
                 <LazyLoad offset={300} height={181} once>
-                  <DefinitionsList variablesToDefine={metricConfigSubset} />
+                  <DefinitionsList dataTypesToDefine={metricConfigSubset} />
                 </LazyLoad>
               </Box>
             )}
