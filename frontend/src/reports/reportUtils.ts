@@ -1,5 +1,9 @@
 import { type DataTypeConfig } from '../data/config/MetricConfig'
 import {
+  AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
+  AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
+} from '../data/providers/AhrProvider'
+import {
   CAWP_DATA_TYPES,
   CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/CawpProvider'
@@ -13,23 +17,26 @@ import {
 } from '../data/providers/PhrmaProvider'
 import { type BreakdownVar } from '../data/query/Breakdowns'
 
-export const DEMOGRAPHIC_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> =
-  {
-    'Race/ethnicity': 'race_and_ethnicity',
-    Sex: 'sex',
-    Age: 'age',
-  }
+const DEMOGRAPHIC_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
+  'Race/ethnicity': 'race_and_ethnicity',
+  Sex: 'sex',
+  Age: 'age',
+}
 
-export const BLACK_WOMEN_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> =
-  {
-    Age: 'age',
-  }
+const ONLY_AGE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
+  Age: 'age',
+}
 
-export const CAWP_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
+const ONLY_RACE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
   'Race/ethnicity': 'race_and_ethnicity',
 }
 
-export const PHRMA_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
+const ONLY_SEX_RACE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
+  'Race/ethnicity': 'race_and_ethnicity',
+  Sex: 'sex',
+}
+
+const PHRMA_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
   'Race/ethnicity': 'race_and_ethnicity',
   Sex: 'sex',
   Age: 'age',
@@ -41,6 +48,13 @@ function getIsBlackWomen(dataTypeConfig: DataTypeConfig | null) {
   return (
     dataTypeConfig?.dataTypeId &&
     BLACK_WOMEN_DATATYPES.includes(dataTypeConfig.dataTypeId)
+  )
+}
+
+function getIsAHRWithMissingDemos(dataTypeConfig: DataTypeConfig | null) {
+  return (
+    dataTypeConfig?.dataTypeId &&
+    AHR_DATATYPES_WITH_MISSING_AGE_DEMO.includes(dataTypeConfig.dataTypeId)
   )
 }
 
@@ -67,14 +81,21 @@ export function getDemographicOptionsMap(
     getIsBlackWomen(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsBlackWomen(dataTypeConfig2))
   ) {
-    return BLACK_WOMEN_BREAKDOWNS_MAP
+    return ONLY_AGE_BREAKDOWN_MAP
+  }
+
+  if (
+    getIsAHRWithMissingDemos(dataTypeConfig1) ??
+    (dataTypeConfig2 && getIsAHRWithMissingDemos(dataTypeConfig2))
+  ) {
+    return ONLY_SEX_RACE_BREAKDOWN_MAP
   }
 
   if (
     getIsCAWP(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsCAWP(dataTypeConfig2))
   ) {
-    return CAWP_BREAKDOWNS_MAP
+    return ONLY_RACE_BREAKDOWN_MAP
   }
 
   // compare mode needs BOTH to be PHRMA
@@ -104,6 +125,10 @@ export function getDisabledDemographicOptions(
     getIsCAWP(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsCAWP(dataTypeConfig2))
 
+  const isAHRWithMissingDemos =
+    getIsAHRWithMissingDemos(dataTypeConfig1) ??
+    (dataTypeConfig2 && getIsAHRWithMissingDemos(dataTypeConfig2))
+
   const exactlyOneReportIsPhrma =
     dataTypeConfig1?.dataTypeId &&
     dataTypeConfig2?.dataTypeId &&
@@ -118,6 +143,10 @@ export function getDisabledDemographicOptions(
     disabledDemographicOptions.push(...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS)
   if (exactlyOneReportIsPhrma)
     disabledDemographicOptions.push(...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS)
+  if (isAHRWithMissingDemos)
+    disabledDemographicOptions.push(
+      ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
 
   return Array.from(new Set(disabledDemographicOptions))
 }

@@ -87,6 +87,15 @@ export function Report(props: ReportProps) {
     setCurrentBreakdown(str)
   }
 
+  const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
+
+  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
+    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  }
+
+  const disabledDemographicOptions =
+    getDisabledDemographicOptions(dataTypeConfig)
+
   useEffect(() => {
     const readParams = () => {
       const demoParam1 = getParameter(
@@ -136,15 +145,6 @@ export function Report(props: ReportProps) {
   // we only have time-series data for incarceration at the county-level
   const hideNonCountyBJSTimeCards =
     !props.fips.isCounty() && INCARCERATION_IDS.includes(props.dropdownVarId)
-
-  const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
-
-  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
-  }
-
-  const disabledDemographicOptions =
-    getDisabledDemographicOptions(dataTypeConfig)
 
   return (
     <>

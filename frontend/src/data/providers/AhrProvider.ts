@@ -1,5 +1,9 @@
 import { getDataManager } from '../../utils/globals'
-import { type DropdownVarId, type MetricId } from '../config/MetricConfig'
+import {
+  type DataTypeId,
+  type DropdownVarId,
+  type MetricId,
+} from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
@@ -65,6 +69,15 @@ export const ALL_AHR_DETERMINANTS = [
   ...AHR_VOTER_AGE_DETERMINANTS,
   ...AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
   ...AHR_DETERMINANTS,
+]
+
+export const AHR_DATATYPES_WITH_MISSING_AGE_DEMO: DataTypeId[] = [
+  'non_medical_drug_use',
+  'preventable_hospitalizations',
+]
+
+export const AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', 'unavailable for Substance Misuse and Preventable Hospitalizations'],
 ]
 
 class AhrProvider extends VariableProvider {

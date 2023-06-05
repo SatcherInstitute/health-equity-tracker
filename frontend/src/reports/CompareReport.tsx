@@ -80,6 +80,11 @@ function CompareReport(props: {
     selectedDataTypeConfig2Atom
   )
 
+  function setDemoWithParam(demographic: BreakdownVar) {
+    setParameter(DEMOGRAPHIC_PARAM, demographic)
+    setCurrentBreakdown(demographic)
+  }
+
   const demographicOptionsMap = getDemographicOptionsMap(
     dataTypeConfig1,
     dataTypeConfig2
@@ -89,10 +94,10 @@ function CompareReport(props: {
     setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
   }
 
-  function setDemoWithParam(demographic: BreakdownVar) {
-    setParameter(DEMOGRAPHIC_PARAM, demographic)
-    setCurrentBreakdown(demographic)
-  }
+  const disabledDemographicOptions = getDisabledDemographicOptions(
+    dataTypeConfig1,
+    dataTypeConfig2
+  )
 
   useEffect(() => {
     const readParams = () => {
@@ -182,11 +187,6 @@ function CompareReport(props: {
     props.dropdownVarId1,
     props.dropdownVarId2,
   ].includes('covid')
-
-  const disabledDemographicOptions = getDisabledDemographicOptions(
-    dataTypeConfig1,
-    dataTypeConfig2
-  )
 
   return (
     <>
