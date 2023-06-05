@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Vega } from 'react-vega'
 import {
   isPctType,
@@ -10,7 +10,7 @@ import sass from '../styles/variables.module.scss'
 import { ORDINAL } from './utils'
 import { type ScaleType } from './mapHelpers'
 import styles from './Legend.module.scss'
-import { type Legend as LegendType } from 'vega'
+import { View, type Legend as LegendType } from 'vega'
 import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
@@ -64,6 +64,7 @@ export interface LegendProps {
   columns: number
   stackingDirection: 'horizontal' | 'vertical'
   orient?: 'bottom-right'
+  handleScaleChange?: (domain: number[], range: number[]) => void
 }
 
 export function getMapScheme(metricId: MetricId) {
@@ -93,9 +94,23 @@ export function Legend(props: LegendProps) {
     (row) => row[props.metric.metricId] == null
   )
 
+
   // Initial spec state is set in useEffect
   // TODO: Why??
   const [spec, setSpec] = useState({})
+
+  const vegaViewRef = useRef<View | null>(null);
+
+  function handleNewView(view: View) {
+    vegaViewRef.current = view
+
+    if (props.handleScaleChange) {
+      const scale = view.scale(COLOR_SCALE)
+      const domain = scale.domain()
+      const range = scale.range()
+      props.handleScaleChange(domain, range);
+    }
+  }
 
   useEffect(() => {
     // TODO: this should use the util in mapHelpers; been having issues with app breaking on this stuff, perhaps because Legend.tsx and mapHelpers.ts were each reading from one another? We should really have all utils centralized and then exported out to the consuming components
@@ -311,22 +326,27 @@ export function Legend(props: LegendProps) {
       ],
     })
   }, [
-    props.metric,
-    props.legendTitle,
-    props.scaleType,
-    props.fieldRange,
+    props.columns,
     props.data,
-    props.sameDotSize,
+    props.fieldRange,
+    props.fipsTypeDisplayName,
+    props.isSummaryLegend,
+    props.legendTitle,
     props.mapConfig.mapMin,
     props.mapConfig.mapScheme,
-    props,
+    props.metric,
+    props.orient,
+    props.sameDotSize,
+    props.scaleType,
+    props.stackingDirection,
   ])
 
   return (
     <Grid component={'section'} className={styles.Legend}>
       <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
       <Grid>
-        <Vega renderer="svg" spec={spec} actions={false} />
+        <Vega renderer="svg" spec={spec} actions={false}
+          onNewView={(view) => handleNewView(view)} />
       </Grid>
     </Grid>
   )
