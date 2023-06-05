@@ -43,6 +43,7 @@ export interface HighestLowestListProps {
 */
 export function HighestLowestList(props: HighestLowestListProps) {
   const placesType = props.fips.getPluralChildFipsTypeDisplayName()
+  const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
     (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
@@ -116,7 +117,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <h4>{props.fips.getUppercaseFipsTypeDisplayName()} overall:</h4>
             <ul>
               <li>
-                {props.fips.getDisplayName()}: {overallRate}
+                {props.fips.getDisplayName()}: {formatFieldValue(metricType, overallRate)}{' '}
                 <span className={styles.Unit}>
                   {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
                 </span>
