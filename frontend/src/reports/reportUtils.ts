@@ -104,28 +104,20 @@ export function getDisabledDemographicOptions(
     getIsCAWP(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsCAWP(dataTypeConfig2))
 
-  let showDisabledPhrmaDemographics = false
-  if (dataTypeConfig1?.dataTypeId && dataTypeConfig2?.dataTypeId) {
-    let numOfPhrmaTopicsSelected = 0
-    if (PHRMA_DATATYPES.includes(dataTypeConfig1.dataTypeId)) {
-      numOfPhrmaTopicsSelected++
-    }
-    if (PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId)) {
-      numOfPhrmaTopicsSelected++
-    }
-    if (numOfPhrmaTopicsSelected === 1) {
-      showDisabledPhrmaDemographics = true
-    }
+  const exactlyOneReportIsPhrma =
+    dataTypeConfig1?.dataTypeId &&
+    dataTypeConfig2?.dataTypeId &&
+    Boolean(PHRMA_DATATYPES.includes(dataTypeConfig1.dataTypeId)) !==
+      Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
 
-    if (isBlackWomen)
-      disabledDemographicOptions.push(
-        ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS
-      )
-    if (isCAWP)
-      disabledDemographicOptions.push(...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS)
-    if (showDisabledPhrmaDemographics)
-      disabledDemographicOptions.push(...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS)
-  }
+  if (isBlackWomen)
+    disabledDemographicOptions.push(
+      ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  if (isCAWP)
+    disabledDemographicOptions.push(...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS)
+  if (exactlyOneReportIsPhrma)
+    disabledDemographicOptions.push(...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS)
 
   return Array.from(new Set(disabledDemographicOptions))
 }
