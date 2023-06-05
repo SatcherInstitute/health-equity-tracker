@@ -109,13 +109,13 @@ function MapCardWithKey(props: MapCardProps) {
 
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
-  const isIncarceration = isJail || isPrison
+  const isIncarceration = isJail ?? isPrison
 
   const isCawpStateLeg =
     props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
   const isCawpCongress =
     props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
-  const isCawp = isCawpStateLeg || isCawpCongress
+  const isCawp = isCawpStateLeg ?? isCawpCongress
 
   const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
 

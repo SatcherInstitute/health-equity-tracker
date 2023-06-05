@@ -830,7 +830,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_deaths_black_women',
-      dataTypeShortLabel: 'Deaths',
+      dataTypeShortLabel: 'Deaths for Black women',
       fullDisplayName: 'Deaths for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
