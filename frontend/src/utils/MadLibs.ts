@@ -32,7 +32,7 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
-  | 'Medicare Beneficiaries'
+  | 'Medicare/Medicaid'
 
 export interface MadLib {
   readonly id: MadLibId
@@ -108,12 +108,11 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
   {
     default: 'select a topic',
     ami: 'Heart Attacks',
-    arv_adherence: 'Anti-Retroviral Adherence',
+    arv_adherence: 'HIV Medication Adherence',
     asthma: 'Asthma',
     avoided_care: 'Care Avoidance Due to Cost',
     cardiovascular_diseases: 'Cardiovascular Diseases',
-    cardiovascular_medications_adherence:
-      'Adherence to Cardiovascular Medications',
+    cardiovascular_medications_adherence: 'Cardiovascular Medication Adherence',
     chronic_kidney_disease: 'Chronic Kidney Disease',
     copd: 'COPD',
     covid_vaccinations: 'COVID-19 Vaccinations',
@@ -129,7 +128,7 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     hiv: 'HIV',
     incarceration: 'Incarceration',
     poverty: 'Poverty',
-    phrma_hiv: 'HIV (Medicare Beneficiaries)',
+    phrma_hiv: 'HIV Cases',
     preventable_hospitalizations: 'Preventable Hospitalization',
     substance: 'Opioid and Other Substance Misuse',
     suicide: 'Suicide',
@@ -141,6 +140,9 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
 > = {
   cardiovascular_medications_adherence: 'Adherence to',
+  arv_adherence: 'Adherence to HIV Medications (Medicare/Medicaid)',
+  ami: 'Heart Attacks (Medicare/Medicaid)',
+  phrma_hiv: 'HIV Cases (Medicare/Medicaid)',
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
@@ -161,28 +163,8 @@ const CATEGORIES_LIST: Category[] = [
       'hiv_care',
       'hiv_prep',
       'hiv_black_women',
-      'phrma_hiv',
-      'arv_adherence',
-    ],
-  },
-  {
-    title: 'COVID-19',
-    definition: '',
-    options: ['covid', 'covid_vaccinations'],
-  },
-  {
-    title: 'Political Determinants of Health',
-    definition: '',
-    options: ['voter_participation', 'women_in_gov', 'incarceration'],
-  },
-  {
-    title: 'Social Determinants of Health',
-    definition: '',
-    options: [
-      'health_insurance',
-      'poverty',
-      'preventable_hospitalizations',
-      'avoided_care',
+      // 'phrma_hiv',
+      // 'arv_adherence',
     ],
   },
   {
@@ -208,7 +190,22 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: 'Medicare Beneficiaries',
+    title: 'Political Determinants of Health',
+    definition: '',
+    options: ['voter_participation', 'women_in_gov', 'incarceration'],
+  },
+  {
+    title: 'Social Determinants of Health',
+    definition: '',
+    options: [
+      'health_insurance',
+      'poverty',
+      'preventable_hospitalizations',
+      'avoided_care',
+    ],
+  },
+  {
+    title: 'Medicare/Medicaid',
     definition: '',
     options: [
       'cardiovascular_medications_adherence',
@@ -216,6 +213,11 @@ const CATEGORIES_LIST: Category[] = [
       'phrma_hiv',
       'arv_adherence',
     ],
+  },
+  {
+    title: 'COVID-19',
+    definition: '',
+    options: ['covid', 'covid_vaccinations'],
   },
 ]
 

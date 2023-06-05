@@ -1619,7 +1619,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   cardiovascular_medications_adherence: [
     {
       dataTypeId: 'statins_adherence',
-      dataTypeShortLabel: 'Statins',
+      dataTypeShortLabel: 'Statins (Medicare/Medicaid)',
       fullDisplayName: 'Adherence to statins',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from statins adherence data`,
@@ -1649,7 +1649,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'beta_blockers_adherence',
-      dataTypeShortLabel: 'Beta-Blockers',
+      dataTypeShortLabel: 'Beta-Blockers (Medicare/Medicaid)',
       fullDisplayName: 'Adherence to beta-blockers',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from beta-blockers adherence data`,
@@ -1679,8 +1679,40 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       },
     },
     {
+      dataTypeId: 'nqf_adherence',
+      dataTypeShortLabel: 'Beta-Blockers Post-Heart Attack (Medicare/Medicaid)',
+      fullDisplayName:
+        'Persistence of Beta-Blocker Treatment After a Heart Attack',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from Persistence of Beta-Blocker Treatment After a Heart Attack data`,
+      metrics: {
+        pct_rate: {
+          metricId: 'nqf_adherence_pct_rate',
+          chartTitle:
+            'Persistence of Beta-Blocker Treatment After a Heart Attack',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total adherence',
+          metricId: 'nqf_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total adherence',
+            metricId: 'nqf_population_pct_share',
+            columnTitleHeader: 'Share of all Medicare beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
       dataTypeId: 'rasa_adherence',
-      dataTypeShortLabel: 'RAS-Antagonists',
+      dataTypeShortLabel: 'RAS-Antagonists (Medicare/Medicaid)',
       fullDisplayName: 'Adherence to RAS antagonists',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from RAS antagonists adherence data`,
@@ -1711,7 +1743,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'ccb_adherence',
-      dataTypeShortLabel: 'Calcium Channel Blockers',
+      dataTypeShortLabel: 'Calcium Channel Blockers (Medicare/Medicaid)',
       fullDisplayName: 'Adherence to calcium channel blockers',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from CCB adherence data`,
@@ -1744,7 +1776,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'doac_adherence',
-      dataTypeShortLabel: 'Direct Oral Anticoagulants',
+      dataTypeShortLabel: 'Direct Oral Anticoagulants (Medicare/Medicaid)',
       fullDisplayName: 'Direct Oral Anticoagulants',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from DOAC adherence data`,
@@ -1775,43 +1807,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
-    {
-      dataTypeId: 'nqf_adherence',
-      dataTypeShortLabel: 'Beta-Blocker Treatment After a Heart Attack',
-      fullDisplayName:
-        'Persistence of Beta-Blocker Treatment After a Heart Attack',
-      surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from Persistence of Beta-Blocker Treatment After a Heart Attack data`,
-      metrics: {
-        pct_rate: {
-          metricId: 'nqf_adherence_pct_rate',
-          chartTitle:
-            'Persistence of Beta-Blocker Treatment After a Heart Attack',
-          shortLabel: '% adherent',
-          type: 'pct_rate',
-        },
-        pct_share: {
-          chartTitle: 'Percent share of total adherence',
-          metricId: 'nqf_adherence_pct_share',
-          columnTitleHeader: 'Percent share of total adherence',
-          shortLabel: '% of total adherence',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle:
-              'Share of beneficiary population vs. share of total adherence',
-            metricId: 'nqf_population_pct_share',
-            columnTitleHeader: 'Share of all Medicare beneficiaries',
-            shortLabel: '% of beneficiary pop.',
-            type: 'pct_share',
-          },
-        },
-      },
-    },
   ],
   ami: [
     {
       dataTypeId: 'ami',
-      dataTypeShortLabel: 'Heart Attacks',
+      dataTypeShortLabel: 'Heart Attacks (Medicare/Medicaid)',
       fullDisplayName: 'Heart Attacks',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from AMI data`,
@@ -1843,7 +1843,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   phrma_hiv: [
     {
       dataTypeId: 'phrma_hiv',
-      dataTypeShortLabel: 'HIV cases',
+      dataTypeShortLabel: 'HIV cases (Medicare/Medicaid)',
       fullDisplayName: 'HIV cases',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from PHRMA HIV data`,
@@ -1876,7 +1876,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     {
       dataTypeId: 'arv_adherence',
       dataTypeShortLabel: 'ARV',
-      fullDisplayName: 'Adherence to anti-retrovirals',
+      fullDisplayName: 'Adherence to anti-retrovirals (Medicare/Medicaid)',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from ARV adherence data`,
       metrics: {
