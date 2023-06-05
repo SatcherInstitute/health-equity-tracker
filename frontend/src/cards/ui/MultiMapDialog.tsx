@@ -81,8 +81,9 @@ export interface MultiMapDialogProps {
 export function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all
-  ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
+  } in ${props.fips.getSentenceDisplayName()} across all ${
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]
+  } groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
     useDownloadCardImage(title)

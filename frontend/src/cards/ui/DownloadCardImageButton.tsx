@@ -4,7 +4,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import MenuItem from '@mui/material/MenuItem'
 import SimpleBackdrop from '../../pages/ui/SimpleBackdrop'
 import styles from './DownloadCardImageButton.module.scss'
-import { PopoverElements } from '../../utils/hooks/usePopover'
+import { type PopoverElements } from '../../utils/hooks/usePopover'
 
 interface DownloadCardImageButtonProps {
   downloadTargetScreenshot: () => Promise<boolean>
@@ -24,12 +24,16 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
   return (
     <>
       <SimpleBackdrop open={isThinking} setOpen={setIsThinking} />
-      <MenuItem className={styles.DownloadCardButton}
+      <MenuItem
+        className={styles.DownloadCardButton}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        onClick={handleClick}>
+        onClick={handleClick}
+      >
         <ListItemIcon className={styles.DownloadCardLinkIcon}>
           <SaveAlt className={styles.DownloadCardImageIcon} />
-          {!props.isMulti && <div className={styles.DownloadCardLinkText}>Save Image</div>}
+          {!props.isMulti && (
+            <div className={styles.DownloadCardLinkText}>Save Image</div>
+          )}
         </ListItemIcon>
       </MenuItem>
     </>
