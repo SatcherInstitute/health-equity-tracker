@@ -38,7 +38,6 @@ import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { BLACK_WOMEN } from '../data/providers/HivProvider'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { useAtom } from 'jotai'
 import {
@@ -65,8 +64,13 @@ function CompareReport(props: {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
 }) {
+  const isRaceBySex =
+    props.dropdownVarId1 === 'hiv_black_women' ||
+    props.dropdownVarId2 === 'hiv_black_women'
+  const defaultDemo = isRaceBySex ? AGE : RACE
+
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, RACE)
+    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
   )
 
   const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
@@ -76,10 +80,6 @@ function CompareReport(props: {
   const [dataTypeConfig2, setDataTypeConfig2] = useAtom(
     selectedDataTypeConfig2Atom
   )
-
-  const isRaceBySex =
-    dataTypeConfig1?.dataTypeId.includes(BLACK_WOMEN) ??
-    dataTypeConfig2?.dataTypeId.includes(BLACK_WOMEN)
 
   function setDemoWithParam(demographic: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
@@ -111,10 +111,7 @@ function CompareReport(props: {
         }
       )
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        isRaceBySex ? AGE : RACE
-      )
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
 
       const newDemoParam1 =
         demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
