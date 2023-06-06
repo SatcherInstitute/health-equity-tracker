@@ -153,13 +153,13 @@ class PhrmaData(DataSource):
                     float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
 
                 # PER_100K CONDITIONS
+                float_cols.append(f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
                 for condition in PHRMA_100K_CONDITIONS:
                     # rate, pct_share, count_cols
                     for metric in [std_col.PER_100K_SUFFIX,
                                    std_col.PCT_SHARE_SUFFIX,
                                    std_col.RAW_SUFFIX]:
                         float_cols.append(f'{condition}_{metric}')
-                    float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
@@ -236,12 +236,8 @@ class PhrmaData(DataSource):
                 f'{condition}_{MEDICARE_DISEASE_COUNT}':
                 f'{condition}_{std_col.PCT_SHARE_SUFFIX}' for condition in PHRMA_100K_CONDITIONS
             },
-            # comparison population shares for disease
-            ** {
-                f'{condition}_{MEDICARE_POP_COUNT}':
-                (f'{condition}_{std_col.POPULATION_COL}' +
-                    f'_{std_col.PCT_SHARE_SUFFIX}') for condition in PHRMA_100K_CONDITIONS
-            }
+            # Shared comparison population share col for all 100ks
+            MEDICARE_POP_COUNT: f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
@@ -271,7 +267,6 @@ class PhrmaData(DataSource):
         df = df.rename(columns=rename_col_map)
 
         df = df.drop(columns=[
-            # TODO: drop all unneeded condition cols
             *[f'{condition}_{COUNT_NO}' for condition in PHRMA_PCT_CONDITIONS],
             *[f'{condition}_{ADHERENCE_RATE}' for condition in PHRMA_PCT_CONDITIONS],
             *[f'{condition}_{PER_100K}' for condition in PHRMA_100K_CONDITIONS]
@@ -386,7 +381,7 @@ def rename_cols(df: pd.DataFrame,
         ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
     } if condition in PHRMA_PCT_CONDITIONS else {
         MEDICARE_DISEASE_COUNT: f'{condition}_{MEDICARE_DISEASE_COUNT}',
-        MEDICARE_POP_COUNT: f'{condition}_{MEDICARE_POP_COUNT}',
+        # MEDICARE_POP_COUNT: f'{condition}_{MEDICARE_POP_COUNT}',
         PER_100K: f'{condition}_{PER_100K}',
     }
 
@@ -413,5 +408,9 @@ def rename_cols(df: pd.DataFrame,
         rename_cols_map[ENTLMT_RSN_CURR] = ELIGIBILITY
 
     df = df.rename(columns=rename_cols_map)
+
+    # only keep the medicare/medicaid raw population for one of the 100k conditions
+    if condition != std_col.AMI_PREFIX:
+        df = df.drop(columns=[MEDICARE_POP_COUNT])
 
     return df
