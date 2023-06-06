@@ -12,7 +12,7 @@ import {
   METRIC_CONFIG,
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
-import { RACE } from '../data/utils/Constants'
+import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -66,8 +66,10 @@ export interface ReportProps {
 }
 
 export function Report(props: ReportProps) {
+  const defaultDemo = props.dropdownVarId === 'hiv_black_women' ? AGE : RACE
+
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, RACE)
+    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
@@ -89,12 +91,6 @@ export function Report(props: ReportProps) {
 
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
-  // if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
-  //   console.log(JSON.stringify(demographicOptionsMap), "doesn't include", currentBreakdown);
-
-  //   setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
-  // }
-
   const disabledDemographicOptions =
     getDisabledDemographicOptions(dataTypeConfig)
 
@@ -112,7 +108,7 @@ export function Report(props: ReportProps) {
       )
       setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE)
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
       setCurrentBreakdown(demo)
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
