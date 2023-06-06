@@ -2,33 +2,35 @@ import React, { useRef, useState } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import { Fips, USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/Fips'
-import styles from './OptionsSelector.module.scss'
+import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
   DEFAULT,
+  SELECTED_DROPDOWN_OVERRIDES,
   type DefaultDropdownVarId,
 } from '../../utils/MadLibs'
 import {
   Box,
   Grid,
   ListItemText,
-  ListItem,
   List,
   Button,
   Popover,
   Autocomplete,
   TextField,
+  ListItemButton,
 } from '@mui/material'
 import {
   type DropdownVarId,
-  type VariableId,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
+import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
-function OptionsSelector(props: {
-  value: VariableId | string | DefaultDropdownVarId // VariableId OR fips as string OR default setting with no topic selected
+function TopicOrLocationSelector(props: {
+  value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
   options: Fips[] | string[][]
   onOptionUpdate: (option: string) => void
 }) {
@@ -40,7 +42,11 @@ function OptionsSelector(props: {
     const chosenOption = (props.options as string[][]).find(
       (i: string[]) => i[0] === props.value
     )
-    currentDisplayName = chosenOption ? chosenOption[1] : ''
+    // prefer the overrides, use normal name otherwise. fallback to empty string
+    currentDisplayName =
+      SELECTED_DROPDOWN_OVERRIDES?.[chosenOption?.[0] as DropdownVarId] ??
+      chosenOption?.[1] ??
+      ''
   }
 
   const popoverRef = useRef(null)
@@ -104,7 +110,6 @@ function OptionsSelector(props: {
         </Button>
 
         <Popover
-          id="popoverBox"
           className={styles.PopoverOverride}
           aria-expanded="true"
           open={popover.isOpen}
@@ -121,7 +126,7 @@ function OptionsSelector(props: {
         >
           {/* Location Dropdown */}
           {isFips && (
-            <div className={styles.OptionsSelectorPopover}>
+            <div className={styles.TopicOrLocationSelectorPopover}>
               <h3 className={styles.SearchForText}>Search for location</h3>
 
               <Autocomplete
@@ -200,11 +205,9 @@ function OptionsSelector(props: {
                                 category.options.includes(
                                   optionId as DropdownVarId
                                 ) && (
-                                  <ListItem
-                                    role="menuitem"
+                                  <ListItemButton
                                     className={styles.ListItem}
                                     key={optionId}
-                                    button
                                     selected={optionId === props.value}
                                     onClick={() => {
                                       popover.close()
@@ -215,7 +218,7 @@ function OptionsSelector(props: {
                                       className={styles.ListItemText}
                                       primary={optionDisplayName}
                                     />
-                                  </ListItem>
+                                  </ListItemButton>
                                 )
                               )
                             }
@@ -232,22 +235,20 @@ function OptionsSelector(props: {
                     justifyContent="flex-end"
                   >
                     {!noTopic && (
-                      <Button
-                        className={styles.ClearTopicButton}
-                        onClick={() => {
-                          popover.close()
-                          props.onOptionUpdate(DEFAULT)
-                        }}
+                      <a
+                        className={styles.ClearSelectionsLink}
+                        href={EXPLORE_DATA_PAGE_LINK}
                       >
                         <KeyboardBackspaceIcon
                           style={{
                             fontSize: 'small',
+                            paddingBottom: '3px',
                           }}
                         />{' '}
-                        <span className={styles.ClearTopicButtonText}>
+                        <span className={styles.ClearSelectionsLinkText}>
                           Clear selections
                         </span>
-                      </Button>
+                      </a>
                     )}
                   </Grid>
                 </Grid>
@@ -260,4 +261,4 @@ function OptionsSelector(props: {
   )
 }
 
-export default OptionsSelector
+export default TopicOrLocationSelector

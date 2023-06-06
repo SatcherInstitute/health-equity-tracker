@@ -19,8 +19,8 @@ import {
 } from './utils'
 import sass from '../styles/variables.module.scss'
 import { useMediaQuery } from '@mui/material'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
@@ -61,10 +61,10 @@ function getSpec(
   // create bar label as array or string
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
   "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`
-  const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
+  const multiLine100kLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
   const createBarLabel = () => {
-    if (chartIsSmall) {
-      return multiLineLabel
+    if (chartIsSmall && !usePercentSuffix) {
+      return multiLine100kLabel
     } else return singleLineLabel
   }
 

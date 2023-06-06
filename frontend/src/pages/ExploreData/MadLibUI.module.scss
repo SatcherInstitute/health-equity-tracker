@@ -38,9 +38,14 @@
   padding: 0px !important;
 }
 
-.ListItemText {
+.ListItemText,
+.ListItemDataTypeText {
   margin-top: 2px !important;
   margin-bottom: 2px !important;
+}
+
+.ListItemDataTypeText {
+  margin-right: 3rem;
 }
 
 .NoteText {
@@ -54,7 +59,7 @@
   font-style: italic;
 }
 
-.OptionsSelectorPopover {
+.TopicOrLocationSelectorPopover {
   padding: 20px;
 }
 
@@ -64,7 +69,8 @@
 }
 
 .MadLibButton,
-.MadLibButtonPulse {
+.MadLibButtonPulse,
+.DataTypeMadLibButton {
   @include inter500();
   margin: 0.25rem !important;
   padding: 0 5px 0 15px !important;
@@ -91,6 +97,10 @@
   animation: pulse 2s infinite;
 }
 
+.DataTypeMadLibButton {
+  margin-left: 0 !important;
+}
+
 @keyframes pulse {
   0% {
     transform: scale(0.98);
@@ -111,7 +121,15 @@
   }
 }
 
-.ClearTopicButtonText {
+.ClearSelectionsLink {
+  text-decoration: none;
+
+  :hover {
+    background-color: $standard-info !important;
+  }
+}
+
+.ClearSelectionsLinkText {
   font-size: $smallest;
   padding: 5px;
 }

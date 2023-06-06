@@ -1,5 +1,5 @@
 import { getDataManager } from '../../utils/globals'
-import { type VariableId, type MetricId } from '../config/MetricConfig'
+import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
@@ -7,7 +7,7 @@ import VariableProvider from './VariableProvider'
 
 export const BLACK_WOMEN = 'black_women'
 
-export const VARIABLES_NEEDING_13PLUS: VariableId[] = [
+export const DATATYPES_NEEDING_13PLUS: DataTypeId[] = [
   'hiv_care',
   'hiv_deaths',
   'hiv_diagnoses',

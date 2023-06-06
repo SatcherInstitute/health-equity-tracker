@@ -31,7 +31,6 @@ function CardWrapper(props: {
   scrollToHash: ScrollableHashId
   reportTitle: string
 }) {
-
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle
   )

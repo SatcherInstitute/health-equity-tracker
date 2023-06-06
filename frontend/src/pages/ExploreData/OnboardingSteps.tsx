@@ -5,7 +5,7 @@ import covidClick from '../../assets/screengrabs/covidClick.mp4'
 export function getOnboardingSteps(pageIsWide: boolean) {
   const steps = [
     onboardingStep(
-      '.covid_cases-dropdown-topic',
+      '.covid-dropdown-topic',
       'Start Your Search',
       <>
         <p>

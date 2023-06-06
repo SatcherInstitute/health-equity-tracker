@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { type VariableId } from '../data/config/MetricConfig'
+import { type DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
 import { EXPLORE_DATA_PAGE_LINK } from './internalRoutes'
 import { type MadLibId, type PhraseSelections } from './MadLibs'
@@ -34,9 +34,9 @@ export const DATA_TYPE_2_PARAM = 'dt2'
 export const MAP1_GROUP_PARAM = 'group1'
 export const MAP2_GROUP_PARAM = 'group2'
 
-// Ensures backwards compatibility for external links to old VariableIds
+// Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
-  const swaps: Record<string, VariableId> = {
+  const swaps: Record<string, DataTypeId> = {
     deaths: 'covid_deaths',
     cases: 'covid_cases',
     hospitalizations: 'covid_hospitalizations',

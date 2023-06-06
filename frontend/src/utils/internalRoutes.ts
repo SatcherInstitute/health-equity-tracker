@@ -33,17 +33,17 @@ export const OPIOID_US_SETTING =
   '?dt1=non_medical_drug_use&mls=1.substance-3.00'
 
 export const HIV_PREVALANCE_RACE_USA_SETTING =
-  '?mls=1.hiv_prevalence-3.00&mlp=disparity'
+  '?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence'
 export const COVID_DEATHS_AGE_FULTON_COUNTY_SETTING =
-  '?mls=1.covid_deaths-3.13121&demo=age&mlp=disparity'
+  '?mls=1.covid-3.13121&group1=All&group2=All&dt1=covid_deaths&demo=age'
 export const PRISON_VS_POVERTY_RACE_GA_SETTING =
-  '?mls=1.prison-3.poverty-5.13&mlp=comparevars'
+  '?mls=1.incarceration-3.poverty-5.13&group1=All&dt1=prison&mlp=comparevars&group2=All'
 export const UNINSURANCE_SEX_FL_VS_CA_SETTING =
   '?mls=1.health_insurance-3.12-5.06&mlp=comparegeos&demo=sex'
 
 // warm welcome demo setting
 export const WARM_WELCOME_DEMO_SETTING =
-  '?mls=1.covid_cases-3.00&mlp=disparity&onboard=true'
+  '?mls=1.covid-3.00&mlp=disparity&dt1=covid_cases&onboard=true'
 
 // SECTION IDS
 export const WHAT_DATA_ARE_MISSING_ID = 'definitions-missing-data'
