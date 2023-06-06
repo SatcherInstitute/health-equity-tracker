@@ -61,10 +61,10 @@ function getSpec(
   // create bar label as array or string
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
   "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`
-  const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
+  const multiLine100kLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
   const createBarLabel = () => {
-    if (chartIsSmall) {
-      return multiLineLabel
+    if (chartIsSmall && !usePercentSuffix) {
+      return multiLine100kLabel
     } else return singleLineLabel
   }
 

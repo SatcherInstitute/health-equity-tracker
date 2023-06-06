@@ -91,7 +91,7 @@ export interface ChoroplethMapProps {
   mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean
   isMulti?: boolean
-  scaleConfig?: { domain: number[], range: number[] }
+  scaleConfig?: { domain: number[]; range: number[] }
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {

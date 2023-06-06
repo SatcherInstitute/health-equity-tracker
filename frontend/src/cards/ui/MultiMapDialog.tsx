@@ -85,8 +85,9 @@ export interface MultiMapDialogProps {
 export function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all
-  ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
+  } in ${props.fips.getSentenceDisplayName()} across all ${
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]
+  } groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
     useDownloadCardImage(title)
@@ -105,11 +106,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     metricId: props.metricConfig.metricId,
   })
 
-  const [scale, setScale] = useState<{ domain: number[], range: number[] }>({ domain: [], range: [] });
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
 
   function handleScaleChange(domain: number[], range: number[]) {
     // Update the scale state when the domain or range changes
-    setScale({ domain, range });
+    setScale({ domain, range })
   }
 
   return (

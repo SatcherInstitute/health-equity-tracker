@@ -18,7 +18,7 @@ import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { RACE } from '../data/utils/Constants'
+import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -38,6 +38,7 @@ import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
+import { BLACK_WOMEN } from '../data/providers/HivProvider'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { useAtom } from 'jotai'
 import {
@@ -79,6 +80,10 @@ function CompareReport(props: {
   const [dataTypeConfig2, setDataTypeConfig2] = useAtom(
     selectedDataTypeConfig2Atom
   )
+
+  const isRaceBySex =
+    dataTypeConfig1?.dataTypeId.includes(BLACK_WOMEN) ??
+    dataTypeConfig2?.dataTypeId.includes(BLACK_WOMEN)
 
   function setDemoWithParam(demographic: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
@@ -124,13 +129,21 @@ function CompareReport(props: {
         }
       )
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, RACE)
-      setDataTypeConfig1(
+      const demo: BreakdownVar = getParameter(
+        DEMOGRAPHIC_PARAM,
+        isRaceBySex ? AGE : RACE
+      )
+
+      const newDemoParam1 =
         demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      )
-      setDataTypeConfig2(
-        demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
-      )
+      setDataTypeConfig1(newDemoParam1)
+
+      const newDemoParam2 =
+        props.trackerMode === 'comparegeos'
+          ? newDemoParam1
+          : demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
+      setDataTypeConfig2(newDemoParam2)
+
       setCurrentBreakdown(demo)
     }
     const psSub = psSubscribe(readParams, 'twovar')
@@ -210,6 +223,7 @@ function CompareReport(props: {
           <Grid container spacing={1} alignItems="flex-start">
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
+              trackerMode={props.trackerMode}
               id="rate-map"
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -241,6 +255,7 @@ function CompareReport(props: {
             {/* SIDE-BY-SIDE RATE TREND CARDS */}
             {showTrendCardRow && (
               <RowOfTwoOptionalMetrics
+                trackerMode={props.trackerMode}
                 id="rates-over-time"
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
@@ -268,6 +283,7 @@ function CompareReport(props: {
             {/* SIDE-BY-SIDE 100K BAR GRAPH CARDS */}
 
             <RowOfTwoOptionalMetrics
+              trackerMode={props.trackerMode}
               id="rate-chart"
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -290,6 +306,7 @@ function CompareReport(props: {
 
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
             <RowOfTwoOptionalMetrics
+              trackerMode={props.trackerMode}
               id="unknown-demographic-map"
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -320,6 +337,7 @@ function CompareReport(props: {
 
             {showTrendCardRow && (
               <RowOfTwoOptionalMetrics
+                trackerMode={props.trackerMode}
                 id="inequities-over-time"
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
@@ -346,6 +364,7 @@ function CompareReport(props: {
 
             {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
             <RowOfTwoOptionalMetrics
+              trackerMode={props.trackerMode}
               id="population-vs-distribution"
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -368,6 +387,7 @@ function CompareReport(props: {
 
             {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <RowOfTwoOptionalMetrics
+              trackerMode={props.trackerMode}
               id="data-table"
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
@@ -394,6 +414,7 @@ function CompareReport(props: {
 
             {showAgeAdjustCardRow && (
               <RowOfTwoOptionalMetrics
+                trackerMode={props.trackerMode}
                 id="age-adjusted-risk"
                 // specific data type
                 dataTypeConfig1={dataTypeConfig1}

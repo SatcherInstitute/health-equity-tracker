@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet-async'
 import { CITATION_APA } from '../DataCatalog/MethodologyTab'
 import { getHtml } from '../../utils/urlutils'
 import { urlMap } from '../../utils/externalUrls'
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 
 export interface qAndA {
   q: string
@@ -359,12 +360,29 @@ function FaqTab() {
                 </h3>
                 <div className={styles.FaqAnswer}>
                   <p>
-                    Next to each visualization, there is a circle-shaped button
-                    with three dots in it. Click on this button and save as PNG
-                    or SVG (SVG provides a higher-quality, scalable image). Due
-                    to technical limitations, territories are not currently
-                    exported on the national map.
+                    In the top-right of each card, there is an icon button with
+                    three horizontal dots like this: <MoreHorizIcon />. Clicking
+                    on this button within each card gives you some options for
+                    exporting the content of the card. You can:
                   </p>
+                  <ul>
+                    <li>
+                      Copy a link that will navigate back to this exact card on
+                      this exact report
+                    </li>
+                    <li>
+                      Save an image of the entire card as a PNG file to your
+                      device
+                    </li>
+                    <li>
+                      Share the direct card link to multiple social media
+                      platforms as a post
+                    </li>
+                    <li>
+                      Compose a new email on your device with a direct link back
+                      to this card on this report
+                    </li>
+                  </ul>
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>

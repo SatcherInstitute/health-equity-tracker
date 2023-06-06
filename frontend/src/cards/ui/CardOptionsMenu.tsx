@@ -20,7 +20,6 @@ interface CardOptionsMenuProps {
 function CardOptionsMenu(props: CardOptionsMenuProps) {
   const shareMenu = usePopover()
   const theme = useTheme()
-
   const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
 
   const urlWithoutHash = window.location.href.split('#')[0]

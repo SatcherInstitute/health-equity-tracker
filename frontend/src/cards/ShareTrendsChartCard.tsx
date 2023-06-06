@@ -65,6 +65,18 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     )
   }
 
+  if (!props.dataTypeConfig.metrics.pct_relative_inequity) {
+    return (
+      <MissingDataAlert
+        dataName={'this condition'}
+        breakdownString={
+          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+        }
+        fips={props.fips}
+      />
+    )
+  }
+
   // Manages which group filters user has applied
   const [selectedTableGroups, setSelectedTableGroups] = useState<
     DemographicGroup[]

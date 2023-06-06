@@ -9,7 +9,6 @@ import { LESS_THAN_1 } from '../utils/Constants'
 const dropdownVarIds = [
   'ami',
   'arv_adherence',
-
   'asthma',
   'avoided_care',
   'cardiovascular_diseases',
@@ -70,6 +69,10 @@ export type DataTypeId =
   | 'ccb_adherence'
   | 'doac_adherence'
   | 'nqf_adherence'
+  | 'women_in_state_legislature'
+  | 'women_in_us_congress'
+  | 'prison'
+  | 'suicides'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
 
@@ -653,20 +656,17 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayName: 'New HIV diagnoses',
       dataTypeDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for new HIV diagnoses',
+      dataTableTitle: 'Breakdown summary for HIV prevalence',
       metrics: {
         pct_share: {
-          chartTitle: 'Share of total new HIV diagnoses',
-          metricId: 'hiv_diagnoses_pct_share',
-          columnTitleHeader: 'Share of total new HIV diagnoses',
-          trendsCardTitleName:
-            'Inequitable share of new HIV diagnoses over time',
-          shortLabel: '% of new HIV diagnoses',
+          chartTitle: 'Share of total HIV prevalence',
+          metricId: 'hiv_prevalence_pct_share',
+          columnTitleHeader: 'Share of total HIV prevalence',
+          trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
+          shortLabel: '% of HIV prevalence',
           type: 'pct_share',
           populationComparisonMetric: {
-            chartTitle:
-              'Population vs. distribution of total new HIV diagnoses',
-
+            chartTitle: 'Population vs. distribution of total HIV prevalence',
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -674,11 +674,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           },
         },
         per100k: {
-          metricId: 'hiv_diagnoses_per_100k',
-          chartTitle: 'New HIV diagnoses',
-          trendsCardTitleName: 'Rates of new HIV diagnoses over time',
-          columnTitleHeader: 'New HIV diagnoses per 100k',
-          shortLabel: 'diagnoses per 100k',
+          metricId: 'hiv_prevalence_per_100k',
+          chartTitle: 'HIV prevalence',
+          trendsCardTitleName: 'HIV prevalence over time',
+          columnTitleHeader: 'HIV prevalence per 100k people',
+          shortLabel: 'HIV prevalence per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
@@ -733,7 +733,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   hiv_black_women: [
     {
       dataTypeId: 'hiv_prevalence_black_women',
-      dataTypeShortLabel: 'Prevalence for Black women',
+      dataTypeShortLabel: 'Prevalence for Black Women',
       fullDisplayName: 'HIV prevalence for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -754,7 +754,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
               'Population vs. distribution of total HIV prevalence for Black (NH) women',
             metricId: 'black_women_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
-            shortLabel: '% of population (Black women)',
+            shortLabel: populationPctShortLabel,
             type: 'pct_share',
           },
         },
@@ -778,7 +778,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'hiv_diagnoses_black_women',
-      dataTypeShortLabel: 'New diagnoses for Black women',
+      dataTypeShortLabel: 'New Diagnoses for Black Women',
       fullDisplayName: 'New HIV diagnoses for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
@@ -824,22 +824,24 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     {
       dataTypeId: 'hiv_deaths_black_women',
       dataTypeShortLabel: 'Deaths for Black women',
-      fullDisplayName: 'HIV deaths for Black women',
+      fullDisplayName: 'Deaths for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
+      dataTableTitle:
+        'Breakdown summary for HIV prevalence for Black (NH) women',
       metrics: {
         pct_share: {
-          chartTitle: 'Share of total HIV deaths for Black (NH) Women',
-          metricId: 'hiv_deaths_black_women_pct_share',
-          columnTitleHeader: 'Share of total HIV deaths for Black women',
+          chartTitle: 'Share of total HIV prevalence for Black (NH) women',
+          metricId: 'hiv_prevalence_black_women_pct_share',
+          columnTitleHeader:
+            'Share of total HIV prevalence for Black (NH) women',
           trendsCardTitleName:
-            'Inequitable share of HIV deaths for Black women over time',
-          shortLabel: '% of HIV deaths (Black women)',
+            'Inequitable share of HIV prevalence for Black (NH) women over time',
+          shortLabel: '% of HIV prevalence (Black women)',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Population vs. distribution of total HIV deaths for Black (NH) women',
+              'Population vs. distribution of total HIV prevalence for Black (NH) women',
             metricId: 'black_women_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
             shortLabel: '% of population (Black women)',
@@ -847,18 +849,18 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           },
         },
         per100k: {
-          metricId: 'hiv_deaths_black_women_per_100k',
-          chartTitle: 'HIV deaths for Black (NH) women',
-          trendsCardTitleName:
-            'Rates of HIV deaths for Black (NH) women over time',
-          columnTitleHeader: 'HIV deaths for Black (NH) women per 100k people',
-          shortLabel: 'deaths per 100k',
+          metricId: 'hiv_prevalence_black_women_per_100k',
+          chartTitle: 'HIV prevalence for Black (NH) women',
+          trendsCardTitleName: 'HIV prevalence for Black (NH) women over time',
+          columnTitleHeader:
+            'HIV prevalence for Black (NH) women per 100k people',
+          shortLabel: 'prevalence per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
           chartTitle:
-            'Historical relative inequity of HIV deaths for Black (NH) women',
-          metricId: 'hiv_deaths_black_women_pct_relative_inequity',
+            'Historical relative inequity of HIV prevalence for Black (NH) women',
+          metricId: 'hiv_prevalence_black_women_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
         },

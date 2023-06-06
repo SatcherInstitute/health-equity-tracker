@@ -108,13 +108,13 @@ function MapCardWithKey(props: MapCardProps) {
 
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
-  const isIncarceration = isJail || isPrison
+  const isIncarceration = isJail ?? isPrison
 
   const isCawpStateLeg =
     props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
   const isCawpCongress =
     props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
-  const isCawp = isCawpStateLeg || isCawpCongress
+  const isCawp = isCawpStateLeg ?? isCawpCongress
 
   const location = useLocation()
 
@@ -225,11 +225,14 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
-  const [scale, setScale] = useState<{ domain: number[], range: number[] }>({ domain: [], range: [] });
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
 
   function handleScaleChange(domain: number[], range: number[]) {
     // Update the scale state when the domain or range changes
-    setScale({ domain: domain, range: range });
+    setScale({ domain, range })
   }
 
   return (
