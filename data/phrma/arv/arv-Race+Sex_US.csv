@@ -1,0 +1,15 @@
+RACE_NAME,SEX_NAME,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,Male,159,17,176,0.9034090909
+Unknown,Female,.,.,.,0.8292682927
+"Non-Hispanic White",Male,6878,691,7569,0.9087065663
+"Non-Hispanic White",Female,1097,128,1225,0.8955102041
+"Black or African-American",Male,5011,1316,6327,0.7920025288
+"Black or African-American",Female,2825,659,3484,0.8108495982
+Other,Male,.,.,.,0.9248120301
+Other,Female,.,.,.,0.8823529412
+"Asian/Pacific Islander",Male,169,21,190,0.8894736842
+"Asian/Pacific Islander",Female,.,.,.,0.9
+Hispanic,Male,1851,257,2108,0.8780834915
+Hispanic,Female,574,88,662,0.8670694864
+"American Indian / Alaska Native",Male,.,.,.,0.8676470588
+"American Indian / Alaska Native",Female,.,.,.,0.8571428571

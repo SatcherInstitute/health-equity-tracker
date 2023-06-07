@@ -1,4 +1,0 @@
-LIS,statins_adherence_estimated_total,statins_beneficiaries_estimated_total,state_fips,state_name,beta_blockers_adherence_estimated_total,beta_blockers_beneficiaries_estimated_total,rasa_adherence_estimated_total,rasa_beneficiaries_estimated_total,statins_adherence_pct_rate,beta_blockers_adherence_pct_rate,rasa_adherence_pct_rate,statins_adherence_pct_share,beta_blockers_adherence_pct_share,rasa_adherence_pct_share,statins_beneficiaries_pct_share,beta_blockers_beneficiaries_pct_share,rasa_beneficiaries_pct_share
-All,11941945,14315816,00,United States,7523595,9350817,10532272,12532420,83.0,80.0,84.0,100.0,100.0,100.0,100.0,100.0,100.0
-Not receiving low income subsidy (LIS),8933024,10510528,00,United States,5517085,6682187,7879726,9179930,85.0,83.0,86.0,74.8,73.3,74.8,73.4,71.5,73.2
-Receiving low income subsidy (LIS),3008921,3805288,00,United States,2006510,2668630,2652546,3352490,79.0,75.0,79.0,25.2,26.7,25.2,26.6,28.5,26.8
