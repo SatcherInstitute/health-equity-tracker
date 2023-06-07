@@ -1,0 +1,346 @@
+RACE_NAME,STATE_NAME,STATE_FIPS,BENE_N,TOTAL_N,PER_100K
+Unknown,Alabama,1,14,6024,232.40371845949537
+Unknown,Alaska,2,.,.,51.89413596263622
+Unknown,Arizona,4,21,14908,140.8639656560236
+Unknown,Arkansas,5,.,.,118.42728564661299
+Unknown,California,6,189,58276,324.31875900885444
+Unknown,Colorado,8,17,13958,121.79395328843674
+Unknown,Connecticut,9,18,13156,136.81970203709335
+Unknown,Delaware,10,13,3847,337.92565635560175
+Unknown,"District of Columbia",11,16,1521,1051.939513477975
+Unknown,Florida,12,177,51485,343.7894532388074
+Unknown,Georgia,13,60,15847,378.62055909635893
+Unknown,Hawaii,15,.,.,158.39493136219642
+Unknown,Idaho,16,.,.,97.70395701025892
+Unknown,Illinois,17,39,29596,131.77456413028787
+Unknown,Indiana,18,22,17150,128.27988338192418
+Unknown,Iowa,19,11,9256,118.84183232497838
+Unknown,Kansas,20,.,.,84.87763474324517
+Unknown,Kentucky,21,14,7646,183.10227569971227
+Unknown,Louisiana,22,40,7459,536.2649148679448
+Unknown,Maine,23,.,.,97.5800156128025
+Unknown,Maryland,24,56,19150,292.42819843342033
+Unknown,Massachusetts,25,79,28777,274.5247941064044
+Unknown,Michigan,26,34,25976,130.89005235602096
+Unknown,Minnesota,27,23,11982,191.95459856451345
+Unknown,Mississippi,28,.,.,176.93895606015923
+Unknown,Missouri,29,25,11737,213.001618812303
+Unknown,Montana,30,.,.,24.94387627837366
+Unknown,Nebraska,31,.,.,66.55574043261231
+Unknown,Nevada,32,.,.,134.3054489639294
+Unknown,"New Hampshire",33,.,.,41.93458205199888
+Unknown,"New Jersey",34,41,25188,162.7759250436716
+Unknown,"New Mexico",35,.,.,196.078431372549
+Unknown,"New York",36,190,60501,314.04439596039737
+Unknown,"North Carolina",37,34,21215,160.26396417629036
+Unknown,"North Dakota",38,.,.,117.92452830188678
+Unknown,Ohio,39,31,37740,82.14096449390567
+Unknown,Oklahoma,40,.,.,117.096018735363
+Unknown,Oregon,41,.,.,91.84610674558628
+Unknown,Pennsylvania,42,48,32868,146.03870025556773
+Unknown,"Rhode Island",44,.,.,144.55044810638913
+Unknown,"South Carolina",45,27,12351,218.60578090842847
+Unknown,"South Dakota",46,.,.,86.244070720138
+Unknown,Tennessee,47,17,11621,146.2868944152827
+Unknown,Texas,48,89,31159,285.6317596842004
+Unknown,Utah,49,.,.,23.57934449422306
+Unknown,Vermont,50,.,.,145.4092230992937
+Unknown,Virginia,51,27,22782,118.514616802739
+Unknown,Washington,53,30,19707,152.2301720200944
+Unknown,Wisconsin,55,17,19844,85.66821205402137
+"Non-Hispanic White",Alabama,1,640,566440,112.98637101899583
+"Non-Hispanic White",Alaska,2,66,67452,97.84735812133071
+"Non-Hispanic White",Arizona,4,875,704278,124.2407117643885
+"Non-Hispanic White",Arkansas,5,415,435009,95.40032505074608
+"Non-Hispanic White",California,6,7805,2096487,372.2894537385636
+"Non-Hispanic White",Colorado,8,632,471502,134.0397283574619
+"Non-Hispanic White",Connecticut,9,562,370749,151.58503461910888
+"Non-Hispanic White",Delaware,10,266,143003,186.01008370453766
+"Non-Hispanic White","District of Columbia",11,245,19364,1265.234455690973
+"Non-Hispanic White",Florida,12,5250,2222725,236.1965605281805
+"Non-Hispanic White",Georgia,13,1407,824285,170.69338881576155
+"Non-Hispanic White",Hawaii,15,129,45933,280.8438377636993
+"Non-Hispanic White",Idaho,16,162,220335,73.52440601810879
+"Non-Hispanic White",Illinois,17,1671,1358788,122.97724148285089
+"Non-Hispanic White",Indiana,18,939,848238,110.70006295402942
+"Non-Hispanic White",Iowa,19,334,486411,68.66621026251462
+"Non-Hispanic White",Kansas,20,366,395394,92.56589629584667
+"Non-Hispanic White",Kentucky,21,707,636374,111.09819068660882
+"Non-Hispanic White",Louisiana,22,857,407424,210.34597863650643
+"Non-Hispanic White",Maine,23,342,231528,147.71431533119105
+"Non-Hispanic White",Maryland,24,950,549790,172.793248331181
+"Non-Hispanic White",Massachusetts,25,1889,817292,231.12914356190933
+"Non-Hispanic White",Michigan,26,1096,1195535,91.67443864044131
+"Non-Hispanic White",Minnesota,27,499,533555,93.52362924159645
+"Non-Hispanic White",Mississippi,28,437,348379,125.43810045955698
+"Non-Hispanic White",Missouri,29,1064,778281,136.71154762868423
+"Non-Hispanic White",Montana,30,126,177915,70.82033555349464
+"Non-Hispanic White",Nebraska,31,161,266027,60.52017276441865
+"Non-Hispanic White",Nevada,32,523,254051,205.864176877871
+"Non-Hispanic White","New Hampshire",33,236,237955,99.17841608707528
+"Non-Hispanic White","New Jersey",34,1308,902038,145.00497761735093
+"Non-Hispanic White","New Mexico",35,303,169858,178.384297472006
+"Non-Hispanic White","New York",36,4168,1558427,267.4491650876172
+"Non-Hispanic White","North Carolina",37,1389,1119923,124.02638395675417
+"Non-Hispanic White","North Dakota",38,45,104036,43.25425814141259
+"Non-Hispanic White",Ohio,39,1414,1300240,108.74915400233803
+"Non-Hispanic White",Oklahoma,40,593,486419,121.91135625869879
+"Non-Hispanic White",Oregon,41,641,451203,142.06465825803463
+"Non-Hispanic White",Pennsylvania,42,1810,1421023,127.3730263338454
+"Non-Hispanic White","Rhode Island",44,182,109141,166.75676418577802
+"Non-Hispanic White","South Carolina",45,699,645509,108.28663891595625
+"Non-Hispanic White","South Dakota",46,56,136423,41.048796757145055
+"Non-Hispanic White",Tennessee,47,955,801026,119.22209765975137
+"Non-Hispanic White",Texas,48,3336,1909176,174.73506895121247
+"Non-Hispanic White",Utah,49,201,232192,86.56628996692393
+"Non-Hispanic White",Vermont,50,172,121477,141.59058916502713
+"Non-Hispanic White",Virginia,51,1030,900741,114.35029603404308
+"Non-Hispanic White",Washington,53,1152,786820,146.4121400066089
+"Non-Hispanic White","West Virginia",54,334,308023,108.43346113764231
+"Non-Hispanic White",Wisconsin,55,502,682630,73.53910610433176
+"Non-Hispanic White",Wyoming,56,62,93032,66.64373548886405
+"Black or African-American",Alabama,1,1095,165179,662.9171989175379
+"Black or African-American",Alaska,2,14,2371,590.4681568958246
+"Black or African-American",Arizona,4,139,25793,538.9059047028263
+"Black or African-American",Arkansas,5,299,62392,479.2281061674573
+"Black or African-American",California,6,2630,209882,1253.0850668470855
+"Black or African-American",Colorado,8,138,17977,767.6475496467708
+"Black or African-American",Connecticut,9,477,34570,1379.8090830199596
+"Black or African-American",Delaware,10,410,29621,1384.1531346004524
+"Black or African-American","District of Columbia",11,1368,43881,3117.5223901004993
+"Black or African-American",Florida,12,4916,252638,1945.8672092084325
+"Black or African-American",Georgia,13,3295,294672,1118.1924309062279
+"Black or African-American",Hawaii,15,14,1819,769.6536558548653
+"Black or African-American",Idaho,16,.,.,1170.3511053315995
+"Black or African-American",Illinois,17,1917,216531,885.3235795336465
+"Black or African-American",Indiana,18,492,71143,691.5648763757503
+"Black or African-American",Iowa,19,66,9423,700.4138809296403
+"Black or African-American",Kansas,20,109,19692,553.5242738167784
+"Black or African-American",Kentucky,21,247,41252,598.7588480558519
+"Black or African-American",Louisiana,22,1603,172777,927.7855270088033
+"Black or African-American",Maine,23,19,1203,1579.3848711554447
+"Black or African-American",Maryland,24,3897,219253,1777.3987129024458
+"Black or African-American",Massachusetts,25,823,50122,1641.9935357727147
+"Black or African-American",Michigan,26,1237,184117,671.8553962969198
+"Black or African-American",Minnesota,27,305,21704,1405.2709178031698
+"Black or African-American",Mississippi,28,980,156629,625.6823449042004
+"Black or African-American",Missouri,29,661,75206,878.9192351674068
+"Black or African-American",Montana,30,.,.,849.2569002123142
+"Black or African-American",Nebraska,31,50,8449,591.7860101787194
+"Black or African-American",Nevada,32,281,28331,991.8463873495464
+"Black or African-American","New Hampshire",33,19,1811,1049.1441192711209
+"Black or African-American","New Jersey",34,1815,131551,1379.693046803141
+"Black or African-American","New Mexico",35,21,5065,414.61006910167816
+"Black or African-American","New York",36,4794,251659,1904.958694105913
+"Black or African-American","North Carolina",37,2738,292087,937.3919414421046
+"Black or African-American","North Dakota",38,12,659,1820.9408194233688
+"Black or African-American",Ohio,39,665,153855,432.22514705404444
+"Black or African-American",Oklahoma,40,165,36052,457.6722511927216
+"Black or African-American",Oregon,41,53,6307,840.3361344537815
+"Black or African-American",Pennsylvania,42,1934,135187,1430.6109315244807
+"Black or African-American","Rhode Island",44,42,5378,780.9594644849386
+"Black or African-American","South Carolina",45,1498,182846,819.2686741848332
+"Black or African-American","South Dakota",46,.,.,790.5138339920948
+"Black or African-American",Tennessee,47,802,112515,712.7938497089277
+"Black or African-American",Texas,48,2870,302947,947.3604293820371
+"Black or African-American",Utah,49,14,1762,794.5516458569807
+"Black or African-American",Vermont,50,15,622,2411.5755627009644
+"Black or African-American",Virginia,51,1594,204126,780.8902344630277
+"Black or African-American",Washington,53,216,26262,822.481151473612
+"Black or African-American","West Virginia",54,59,9236,638.804677349502
+"Black or African-American",Wisconsin,55,233,33694,691.5177776458717
+"Black or African-American",Wyoming,56,.,.,850.3401360544218
+Other,Alabama,1,.,.,330.812854442344
+Other,Alaska,2,.,.,77.51937984496124
+Other,Arizona,4,.,.,121.24886329190664
+Other,Arkansas,5,.,.,66.53359946773121
+Other,California,6,155,63712,243.28227021597186
+Other,Colorado,8,.,.,105.54089709762533
+Other,Connecticut,9,11,3729,294.9852507374631
+Other,Delaware,10,.,.,234.92560689115115
+Other,"District of Columbia",11,.,.,1168.6143572621036
+Other,Florida,12,68,20321,334.62920131883277
+Other,Georgia,13,24,5744,417.8272980501393
+Other,Hawaii,15,.,.,36.957191253464735
+Other,Idaho,16,.,.,74.29420505200594
+Other,Illinois,17,28,13817,202.64891076210463
+Other,Indiana,18,.,.,221.72949002217294
+Other,Iowa,19,.,.,56.81818181818181
+Other,Kansas,20,.,.,207.68431983385253
+Other,Kentucky,21,.,.,155.68240788790868
+Other,Louisiana,22,.,.,261.437908496732
+Other,Maine,23,.,.,173.61111111111111
+Other,Maryland,24,17,7771,218.7620640844164
+Other,Massachusetts,25,39,9885,394.5371775417299
+Other,Michigan,26,15,9545,157.1503404924044
+Other,Minnesota,27,.,.,241.61073825503354
+Other,Mississippi,28,.,.,178.57142857142856
+Other,Missouri,29,.,.,129.24071082390955
+Other,Nebraska,31,.,.,254.4529262086514
+Other,Nevada,32,.,.,86.17718028266115
+Other,"New Hampshire",33,.,.,373.13432835820896
+Other,"New Jersey",34,27,13109,205.96536730490504
+Other,"New Mexico",35,.,.,362.3188405797101
+Other,"New York",36,144,27794,518.0974311002375
+Other,"North Carolina",37,28,9606,291.48448886112845
+Other,Ohio,39,14,7379,189.72760536658083
+Other,Oklahoma,40,.,.,145.71948998178507
+Other,Oregon,41,.,.,192.8374655647383
+Other,Pennsylvania,42,24,8118,295.6393200295639
+Other,"Rhode Island",44,.,.,365.2300949598247
+Other,"South Carolina",45,.,.,224.14345180915788
+Other,"South Dakota",46,.,.,161.0305958132045
+Other,Tennessee,47,.,.,291.5451895043732
+Other,Texas,48,34,17021,199.75324599024736
+Other,Utah,49,.,.,107.8167115902965
+Other,Vermont,50,.,.,416.0887656033287
+Other,Virginia,51,16,9696,165.01650165016503
+Other,Washington,53,17,11146,152.5210837968778
+Other,"West Virginia",54,.,.,303.6437246963563
+Other,Wisconsin,55,.,.,213.87106630003055
+"Asian/Pacific Islander",Alabama,1,.,.,222.22222222222223
+"Asian/Pacific Islander",Alaska,2,.,.,104.43864229765013
+"Asian/Pacific Islander",Arizona,4,.,.,76.02828252109785
+"Asian/Pacific Islander",Arkansas,5,.,.,66.05019815059445
+"Asian/Pacific Islander",California,6,530,417925,126.81701262188191
+"Asian/Pacific Islander",Colorado,8,.,.,81.28193218764515
+"Asian/Pacific Islander",Connecticut,9,.,.,107.79734099892202
+"Asian/Pacific Islander",Delaware,10,.,.,34.50655624568668
+"Asian/Pacific Islander","District of Columbia",11,.,.,481.15477145148355
+"Asian/Pacific Islander",Florida,12,79,39597,199.51006389372932
+"Asian/Pacific Islander",Georgia,13,23,19783,116.26143658696861
+"Asian/Pacific Islander",Hawaii,15,43,68274,62.98151565749773
+"Asian/Pacific Islander",Illinois,17,39,46181,84.45031506463698
+"Asian/Pacific Islander",Indiana,18,.,.,125.7071024512885
+"Asian/Pacific Islander",Iowa,19,.,.,54.86968449931413
+"Asian/Pacific Islander",Kansas,20,.,.,112.46063877642825
+"Asian/Pacific Islander",Kentucky,21,.,.,63.55258976803305
+"Asian/Pacific Islander",Louisiana,22,.,.,108.45986984815619
+"Asian/Pacific Islander",Maine,23,.,.,79.87220447284345
+"Asian/Pacific Islander",Maryland,24,34,32091,105.94870836059954
+"Asian/Pacific Islander",Massachusetts,25,30,26336,113.91251518833535
+"Asian/Pacific Islander",Michigan,26,15,18755,79.97867235403892
+"Asian/Pacific Islander",Minnesota,27,.,.,82.1317758715094
+"Asian/Pacific Islander",Mississippi,28,.,.,39.8406374501992
+"Asian/Pacific Islander",Missouri,29,.,.,108.89856876166772
+"Asian/Pacific Islander",Montana,30,.,.,130.20833333333331
+"Asian/Pacific Islander",Nebraska,31,.,.,143.1980906921241
+"Asian/Pacific Islander",Nevada,32,26,20364,127.67629149479474
+"Asian/Pacific Islander","New Hampshire",33,.,.,176.47058823529412
+"Asian/Pacific Islander","New Jersey",34,44,54020,81.45131432802665
+"Asian/Pacific Islander","New Mexico",35,.,.,173.08524448290783
+"Asian/Pacific Islander","New York",36,155,90698,170.8968224216631
+"Asian/Pacific Islander","North Carolina",37,11,15694,70.09048043838409
+"Asian/Pacific Islander","North Dakota",38,.,.,245.09803921568627
+"Asian/Pacific Islander",Ohio,39,.,.,29.192818566632607
+"Asian/Pacific Islander",Oklahoma,40,.,.,93.58038555118847
+"Asian/Pacific Islander",Oregon,41,.,.,67.4373795761079
+"Asian/Pacific Islander",Pennsylvania,42,26,24854,104.61092781845981
+"Asian/Pacific Islander","Rhode Island",44,.,.,151.59171298635675
+"Asian/Pacific Islander","South Carolina",45,.,.,87.98169980644026
+"Asian/Pacific Islander","South Dakota",46,.,.,151.9756838905775
+"Asian/Pacific Islander",Tennessee,47,.,.,117.68167107972933
+"Asian/Pacific Islander",Texas,48,66,73665,89.59478721238038
+"Asian/Pacific Islander",Utah,49,.,.,66.77053193857111
+"Asian/Pacific Islander",Vermont,50,.,.,131.06159895150722
+"Asian/Pacific Islander",Virginia,51,24,35002,68.56751042797555
+"Asian/Pacific Islander",Washington,53,43,45334,94.85154630078969
+"Asian/Pacific Islander",Wisconsin,55,.,.,58.52059925093633
+Hispanic,Alabama,1,27,5920,456.0810810810811
+Hispanic,Alaska,2,.,.,277.11797307996835
+Hispanic,Arizona,4,165,88642,186.14200943119513
+Hispanic,Arkansas,5,24,7717,311.0016845924582
+Hispanic,California,6,2959,721670,410.02120082586225
+Hispanic,Colorado,8,172,57644,298.3831795156478
+Hispanic,Connecticut,9,340,32256,1054.0674603174605
+Hispanic,Delaware,10,36,4699,766.1204511598212
+Hispanic,"District of Columbia",11,54,3149,1714.8301047951732
+Hispanic,Florida,12,1985,285330,695.6856972628185
+Hispanic,Georgia,13,118,25769,457.91454848849395
+Hispanic,Hawaii,15,15,9686,154.86268841627088
+Hispanic,Idaho,16,15,9762,153.65703749231713
+Hispanic,Illinois,17,420,119053,352.7840541607519
+Hispanic,Indiana,18,55,19283,285.2253280091272
+Hispanic,Iowa,19,14,7072,197.96380090497738
+Hispanic,Kansas,20,35,15303,228.71332418480037
+Hispanic,Kentucky,21,19,4752,399.8316498316498
+Hispanic,Louisiana,22,49,12795,382.9620945681907
+Hispanic,Maine,23,21,1483,1416.0485502360082
+Hispanic,Maryland,24,101,23734,425.54984410550264
+Hispanic,Massachusetts,25,760,67881,1119.6063699709787
+Hispanic,Michigan,26,85,29083,292.2669600797717
+Hispanic,Minnesota,27,33,8517,387.46037337090524
+Hispanic,Mississippi,28,11,3606,305.04714364947307
+Hispanic,Missouri,29,41,10441,392.68269322861795
+Hispanic,Montana,30,.,.,252.3128679562658
+Hispanic,Nebraska,31,16,7752,206.39834881320948
+Hispanic,Nevada,32,119,36925,322.2748815165877
+Hispanic,"New Hampshire",33,29,3235,896.4451313755795
+Hispanic,"New Jersey",34,621,111677,556.0679459512702
+Hispanic,"New Mexico",35,184,89478,205.63713985560696
+Hispanic,"New York",36,2662,192298,1384.3097692123683
+Hispanic,"North Carolina",37,122,26174,466.11140826774664
+Hispanic,"North Dakota",38,.,.,118.34319526627219
+Hispanic,Ohio,39,76,22093,344.00036210564434
+Hispanic,Oklahoma,40,48,14903,322.08280212037846
+Hispanic,Oregon,41,51,19862,256.7717249018226
+Hispanic,Pennsylvania,42,422,48124,876.9013382096251
+Hispanic,"Rhode Island",44,46,11003,418.06779969099335
+Hispanic,"South Carolina",45,44,10161,433.02824525145166
+Hispanic,"South Dakota",46,.,.,519.0311418685121
+Hispanic,Tennessee,47,33,9608,343.4637801831807
+Hispanic,Texas,48,1547,563795,274.3905142826737
+Hispanic,Utah,49,20,13469,148.48912317172767
+Hispanic,Vermont,50,.,.,1022.7272727272727
+Hispanic,Virginia,51,93,26820,346.75615212527964
+Hispanic,Washington,53,113,38597,292.7688680467394
+Hispanic,"West Virginia",54,.,.,241.10910186859553
+Hispanic,Wisconsin,55,82,16043,511.12634793991145
+Hispanic,Wyoming,56,.,.,232.34200743494424
+"American Indian / Alaska Native",Alabama,1,.,.,416.6666666666667
+"American Indian / Alaska Native",Alaska,2,45,11700,384.61538461538464
+"American Indian / Alaska Native",Arizona,4,71,25807,275.1191537179835
+"American Indian / Alaska Native",Arkansas,5,.,.,151.5151515151515
+"American Indian / Alaska Native",California,6,95,15181,625.7822277847309
+"American Indian / Alaska Native",Colorado,8,.,.,312.3373243102551
+"American Indian / Alaska Native",Delaware,10,.,.,1265.8227848101264
+"American Indian / Alaska Native",Florida,12,15,2195,683.371298405467
+"American Indian / Alaska Native",Georgia,13,.,.,1049.4752623688157
+"American Indian / Alaska Native",Hawaii,15,.,.,515.4639175257732
+"American Indian / Alaska Native",Idaho,16,.,.,95.4653937947494
+"American Indian / Alaska Native",Illinois,17,.,.,667.5567423230975
+"American Indian / Alaska Native",Indiana,18,.,.,604.8387096774194
+"American Indian / Alaska Native",Iowa,19,.,.,279.72027972027973
+"American Indian / Alaska Native",Kansas,20,.,.,198.6491855383393
+"American Indian / Alaska Native",Kentucky,21,.,.,352.11267605633805
+"American Indian / Alaska Native",Louisiana,22,.,.,470.95761381475666
+"American Indian / Alaska Native",Maine,23,.,.,382.1656050955414
+"American Indian / Alaska Native",Maryland,24,.,.,1769.9115044247787
+"American Indian / Alaska Native",Massachusetts,25,.,.,1197.6047904191616
+"American Indian / Alaska Native",Michigan,26,.,.,126.46793134598012
+"American Indian / Alaska Native",Minnesota,27,18,5622,320.17075773745995
+"American Indian / Alaska Native",Mississippi,28,.,.,245.09803921568627
+"American Indian / Alaska Native",Missouri,29,.,.,380.71065989847716
+"American Indian / Alaska Native",Montana,30,.,.,101.62601626016261
+"American Indian / Alaska Native",Nebraska,31,.,.,345.0655624568668
+"American Indian / Alaska Native",Nevada,32,.,.,256.9750367107195
+"American Indian / Alaska Native","New Hampshire",33,.,.,1492.5373134328358
+"American Indian / Alaska Native","New Jersey",34,.,.,650.759219088937
+"American Indian / Alaska Native","New Mexico",35,32,18960,168.77637130801688
+"American Indian / Alaska Native","New York",36,27,3898,692.6629040533606
+"American Indian / Alaska Native","North Carolina",37,34,7714,440.75706507648437
+"American Indian / Alaska Native","North Dakota",38,.,.,225.1618350689558
+"American Indian / Alaska Native",Ohio,39,.,.,306.7484662576687
+"American Indian / Alaska Native",Oklahoma,40,91,47398,191.99122325836532
+"American Indian / Alaska Native",Oregon,41,17,5045,336.96729435084245
+"American Indian / Alaska Native",Pennsylvania,42,.,.,569.2599620493359
+"American Indian / Alaska Native","Rhode Island",44,.,.,432.9004329004329
+"American Indian / Alaska Native","South Carolina",45,.,.,783.6990595611285
+"American Indian / Alaska Native","South Dakota",46,.,.,135.5217587712694
+"American Indian / Alaska Native",Tennessee,47,.,.,1240.3100775193798
+"American Indian / Alaska Native",Texas,48,17,5058,336.1012257809411
+"American Indian / Alaska Native",Utah,49,.,.,102.82776349614394
+"American Indian / Alaska Native",Virginia,51,.,.,988.4678747940691
+"American Indian / Alaska Native",Washington,53,28,10638,263.20736980635456
+"American Indian / Alaska Native",Wisconsin,55,13,5599,232.18431862832648
+"American Indian / Alaska Native",Wyoming,56,.,.,311.28404669260703

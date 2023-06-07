@@ -1,29 +1,29 @@
 RACE_NAME,ENTLMT_RSN_CURR,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
-Unknown,Aged,213235,33687,246922,0.8635723022
-Unknown,Disabled,7654,2169,9823,0.779191693
+Unknown,Aged,219046,27876,246922,0.8871060497
+Unknown,Disabled,7934,1889,9823,0.8076962231
 Unknown,ESRD,44,17,61,0.7213114754
-Unknown,"Disabled and ESRD",.,.,.,0.8333333333
-"Non-Hispanic White",Aged,8544501,1448756,9993257,0.8550266445
-"Non-Hispanic White",Disabled,799091,198085,997176,0.8013540238
-"Non-Hispanic White",ESRD,662,142,804,0.8233830846
-"Non-Hispanic White","Disabled and ESRD",589,190,779,0.756097561
-"Black or African-American",Aged,804337,247151,1051488,0.764951193
-"Black or African-American",Disabled,224558,90380,314938,0.7130228807
-"Black or African-American",ESRD,472,151,623,0.7576243981
-"Black or African-American","Disabled and ESRD",487,219,706,0.6898016997
-Other,Aged,87636,17562,105198,0.8330576627
-Other,Disabled,6133,1454,7587,0.8083563991
+Unknown,"Disabled and ESRD",.,.,.,0
+"Non-Hispanic White",Aged,8794603,1198654,9993257,0.8800537202
+"Non-Hispanic White",Disabled,827269,169907,997176,0.8296118238
+"Non-Hispanic White",ESRD,683,121,804,0.8495024876
+"Non-Hispanic White","Disabled and ESRD",619,160,779,0.7946084724
+"Black or African-American",Aged,840172,211316,1051488,0.7990314678
+"Black or African-American",Disabled,236595,78343,314938,0.7512431018
+"Black or African-American",ESRD,485,138,623,0.7784911717
+"Black or African-American","Disabled and ESRD",505,201,706,0.7152974504
+Other,Aged,90580,14618,105198,0.8610429856
+Other,Disabled,6366,1221,7587,0.8390668248
 Other,ESRD,.,.,.,0.8235294118
-Other,"Disabled and ESRD",.,.,.,0.8888888889
-"Asian/Pacific Islander",Aged,385165,76858,462023,0.8336489742
-"Asian/Pacific Islander",Disabled,21941,5732,27673,0.7928666932
-"Asian/Pacific Islander",ESRD,191,39,230,0.8304347826
-"Asian/Pacific Islander","Disabled and ESRD",.,.,.,0.7333333333
-Hispanic,Aged,686673,194994,881667,0.7788348662
-Hispanic,Disabled,122302,40801,163103,0.7498451898
-Hispanic,ESRD,449,145,594,0.7558922559
-Hispanic,"Disabled and ESRD",186,67,253,0.7351778656
-"American Indian / Alaska Native",Aged,27060,11223,38283,0.7068411566
-"American Indian / Alaska Native",Disabled,8514,4018,12532,0.6793807852
+Other,"Disabled and ESRD",.,.,.,0
+"Asian/Pacific Islander",Aged,397407,64616,462023,0.8601454906
+"Asian/Pacific Islander",Disabled,22784,4889,27673,0.8233295992
+"Asian/Pacific Islander",ESRD,197,33,230,0.8565217391
+"Asian/Pacific Islander","Disabled and ESRD",.,.,.,0.8333333333
+Hispanic,Aged,716946,164721,881667,0.8131709591
+Hispanic,Disabled,128305,34798,163103,0.7866501536
+Hispanic,ESRD,466,128,594,0.7845117845
+Hispanic,"Disabled and ESRD",197,56,253,0.7786561265
+"American Indian / Alaska Native",Aged,28292,9991,38283,0.7390225426
+"American Indian / Alaska Native",Disabled,8920,3612,12532,0.7117778487
 "American Indian / Alaska Native",ESRD,.,.,.,0.6315789474
 "American Indian / Alaska Native","Disabled and ESRD",.,.,.,0.2666666667

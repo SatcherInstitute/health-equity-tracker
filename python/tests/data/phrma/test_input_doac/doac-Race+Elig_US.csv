@@ -1,0 +1,27 @@
+RACE_NAME,ENTLMT_RSN_CURR,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,Aged,14844,1430,16274,0.9121297776
+Unknown,Disabled,389,85,474,0.8206751055
+Unknown,ESRD,.,.,.,0.4
+"Non-Hispanic White",Aged,763228,86760,849988,0.8979279707
+"Non-Hispanic White",Disabled,32737,5952,38689,0.8461578226
+"Non-Hispanic White",ESRD,104,36,140,0.7428571429
+"Non-Hispanic White","Disabled and ESRD",81,27,108,0.75
+"Black or African-American",Aged,42230,8809,51039,0.8274064931
+"Black or African-American",Disabled,9747,3032,12779,0.7627357383
+"Black or African-American",ESRD,97,56,153,0.6339869281
+"Black or African-American","Disabled and ESRD",81,45,126,0.6428571429
+Other,Aged,5669,731,6400,0.88578125
+Other,Disabled,188,33,221,0.850678733
+Other,ESRD,.,.,.,0.6666666667
+"Asian/Pacific Islander",Aged,18742,2279,21021,0.8915846059
+"Asian/Pacific Islander",Disabled,528,109,637,0.8288854003
+"Asian/Pacific Islander",ESRD,.,.,.,0.7586206897
+"Asian/Pacific Islander","Disabled and ESRD",.,.,.,0.8181818182
+Hispanic,Aged,37149,6545,43694,0.8502082666
+Hispanic,Disabled,3646,869,4515,0.807530454
+Hispanic,ESRD,71,27,98,0.7244897959
+Hispanic,"Disabled and ESRD",.,.,.,0.7619047619
+"American Indian / Alaska Native",Aged,1603,281,1884,0.8508492569
+"American Indian / Alaska Native",Disabled,262,71,333,0.7867867868
+"American Indian / Alaska Native",ESRD,.,.,.,0.5
+"American Indian / Alaska Native","Disabled and ESRD",.,.,.,0.6666666667
