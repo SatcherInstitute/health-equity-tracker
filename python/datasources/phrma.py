@@ -167,11 +167,6 @@ class PhrmaData(DataSource):
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-                # print("col_types")
-                # print(col_types)
-
-                # print("df.dtypes")
-                # print(df.dtypes)
                 # df.to_csv(f'expected_{table_name}.csv', index=False)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,

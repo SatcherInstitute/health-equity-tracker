@@ -53,25 +53,6 @@ def _generate_breakdown_df(*args):
         "fake_col2": ["a", "b", "c"]
     })
 
-# TODO: DELETE - THIS IS ONLY FOR DEVELOPMENT
-
-
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#     side_effect=_load_public_dataset_from_bigquery_as_df)
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#     side_effect=_load_csv_as_df_from_data_dir)
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testRunner(
-#     mock_bq: mock.MagicMock,
-#     mock_data_dir: mock.MagicMock,
-#     mock_public_dataset: mock.MagicMock,
-# ):
-#     datasource = PhrmaData()
-#     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
-
 
 # # # OVERALL BQ
 
