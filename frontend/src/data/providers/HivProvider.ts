@@ -5,8 +5,6 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const BLACK_WOMEN = 'black_women'
-
 export const BLACK_WOMEN_DATATYPES: DataTypeId[] = [
   'hiv_deaths_black_women',
   'hiv_diagnoses_black_women',
