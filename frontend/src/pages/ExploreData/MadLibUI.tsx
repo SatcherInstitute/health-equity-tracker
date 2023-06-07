@@ -1,4 +1,4 @@
-import { Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import React from 'react'
 import { Fips } from '../../data/utils/Fips'
 import {
@@ -27,14 +27,14 @@ import {
   type DataTypeConfig,
   type DataTypeId,
 } from '../../data/config/MetricConfig'
-import { useAtom, useSetAtom } from 'jotai'
+import { useAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
-  topicInfoModalIsOpenAtom,
+  // topicInfoModalIsOpenAtom,
 } from '../../utils/sharedSettingsState'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import TopicInfoModal from './TopicInfoModal'
+// import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+// import TopicInfoModal from './TopicInfoModal'
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -111,18 +111,18 @@ export default function MadLibUI(props: {
     selectedDataTypeConfig2Atom
   )
 
-  const configArray: DataTypeConfig[] = []
-  if (selectedDataTypeConfig1) {
-    configArray.push(selectedDataTypeConfig1)
-  }
-  if (
-    selectedDataTypeConfig2 &&
-    selectedDataTypeConfig2 !== selectedDataTypeConfig1
-  ) {
-    configArray.push(selectedDataTypeConfig2)
-  }
+  // const configArray: DataTypeConfig[] = []
+  // if (selectedDataTypeConfig1) {
+  //   configArray.push(selectedDataTypeConfig1)
+  // }
+  // if (
+  //   selectedDataTypeConfig2 &&
+  //   selectedDataTypeConfig2 !== selectedDataTypeConfig1
+  // ) {
+  //   configArray.push(selectedDataTypeConfig2)
+  // }
 
-  const setTopicInfoModalIsOpen = useSetAtom(topicInfoModalIsOpenAtom)
+  // const setTopicInfoModalIsOpen = useSetAtom(topicInfoModalIsOpenAtom)
 
   return (
     <>
@@ -191,7 +191,7 @@ export default function MadLibUI(props: {
             }
           )}
         </div>
-        <Grid container justifyContent={'flex-end'}>
+        {/* <Grid container justifyContent={'flex-end'}>
           {configArray.length > 0 && (
             <Button
               onClick={() => {
@@ -205,9 +205,9 @@ export default function MadLibUI(props: {
               info
             </Button>
           )}
-        </Grid>
+        </Grid> */}
       </Grid>
-      <TopicInfoModal />
+      {/* <TopicInfoModal /> */}
     </>
   )
 }
