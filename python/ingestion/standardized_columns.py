@@ -19,6 +19,11 @@ RACE_COL = "race"
 
 AGE_COL = "age"
 SEX_COL = "sex"
+
+LIS_COL = "lis"
+ELIGIBILITY_COL = "eligibility"
+
+
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
 STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abbreviation.

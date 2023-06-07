@@ -73,11 +73,11 @@ SEX_NAME = "SEX_NAME"
 
 # a nested dictionary that contains values swaps per column name
 BREAKDOWN_TO_STANDARD_BY_COL = {
-    LIS: {
+    std_col.LIS_COL: {
         "Yes": "Receiving low income subsidy (LIS)",
         "No": "Not receiving low income subsidy (LIS)",
     },
-    ELIGIBILITY: {
+    std_col.ELIGIBILITY_COL: {
         "Aged": "Eligible due to age",
         "Disabled": "Eligible due to disability",
         "ESRD": "Eligible due to end-stage renal disease (ESRD)",
@@ -128,18 +128,23 @@ class PhrmaData(DataSource):
             COUNTY_LEVEL
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
-            # alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
+            alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
 
             for breakdown in [
-                LIS,
-                ELIGIBILITY,
+                std_col.LIS_COL,
+                std_col.ELIGIBILITY_COL,
                 std_col.SEX_COL,
                 std_col.AGE_COL,
                 std_col.RACE_OR_HISPANIC_COL
             ]:
                 table_name = f'{breakdown}_{geo_level}'
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
-                float_cols = []
+
+                # POP COMPARE FOR 100K
+                float_cols = [
+                    f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+                    f'{PHRMA_DIR}_{std_col.POPULATION_COL}'
+                ]
 
                 # PCT_RATE CONDITIONS
                 for condition in PHRMA_PCT_CONDITIONS:
@@ -153,7 +158,6 @@ class PhrmaData(DataSource):
                     float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
 
                 # PER_100K CONDITIONS
-                float_cols.append(f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
                 for condition in PHRMA_100K_CONDITIONS:
                     # rate, pct_share, count_cols
                     for metric in [std_col.PER_100K_SUFFIX,
@@ -163,12 +167,12 @@ class PhrmaData(DataSource):
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-                print("col_types")
-                print(col_types)
+                # print("col_types")
+                # print(col_types)
 
-                print("df.dtypes")
-                print(df.dtypes)
-                # df.to_csv(f'expected_{table_name}.csv', index=False)
+                # print("df.dtypes")
+                # print(df.dtypes)
+                df.to_csv(f'expected_{table_name}.csv', index=False)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
@@ -255,15 +259,14 @@ class PhrmaData(DataSource):
                 all_val
             )
 
-        rename_col_map = {}
+        rename_col_map = {MEDICARE_POP_COUNT: f'{PHRMA_DIR}_{std_col.POPULATION_COL}'}
         for condition in PHRMA_PCT_CONDITIONS:
             rename_col_map[f'{condition}_{COUNT_YES}'] = f'{condition}_{ADHERENCE}_{std_col.RAW_SUFFIX}'
             rename_col_map[f'{condition}_{COUNT_TOTAL}'] = f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
         for condition in PHRMA_100K_CONDITIONS:
             rename_col_map[
                 f'{condition}_{MEDICARE_DISEASE_COUNT}'] = f'{condition}_{std_col.RAW_SUFFIX}'
-            rename_col_map[
-                f'{condition}_{MEDICARE_POP_COUNT}'] = f'{condition}_{std_col.POPULATION_COL}_{std_col.RAW_SUFFIX}'
+
         df = df.rename(columns=rename_col_map)
 
         df = df.drop(columns=[
@@ -287,7 +290,7 @@ def load_phrma_df_from_data_dir(
 ) -> pd.DataFrame:
     """ Generates Phrma data by breakdown and geo_level
     geo_level: string equal to `county`, `national`, or `state`
-    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `LIS`, `eligibility`, or `all`
+    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, `lis`, `eligibility`, or `all`
     return: a single data frame of data by demographic breakdown and
         geo_level with data columns loaded from multiple Phrma source tables """
 
@@ -348,12 +351,12 @@ def get_sheet_name(
         (TMP_ALL, NATIONAL_LEVEL): "US",
         (TMP_ALL, STATE_LEVEL): "State",
         (TMP_ALL, COUNTY_LEVEL): "County",
-        (LIS, NATIONAL_LEVEL): "LIS_US",
-        (LIS, STATE_LEVEL): "LIS_State",
-        (LIS, COUNTY_LEVEL): "LIS_County",
-        (ELIGIBILITY, NATIONAL_LEVEL): "Elig_US",
-        (ELIGIBILITY, STATE_LEVEL): "Elig_State",
-        (ELIGIBILITY, COUNTY_LEVEL): "Elig_County",
+        (std_col.LIS_COL, NATIONAL_LEVEL): "LIS_US",
+        (std_col.LIS_COL, STATE_LEVEL): "LIS_State",
+        (std_col.LIS_COL, COUNTY_LEVEL): "LIS_County",
+        (std_col.ELIGIBILITY_COL, NATIONAL_LEVEL): "Elig_US",
+        (std_col.ELIGIBILITY_COL, STATE_LEVEL): "Elig_State",
+        (std_col.ELIGIBILITY_COL, COUNTY_LEVEL): "Elig_County",
         (std_col.RACE_OR_HISPANIC_COL, NATIONAL_LEVEL): "Race_US",
         (std_col.RACE_OR_HISPANIC_COL, STATE_LEVEL): "Race_State",
         (std_col.RACE_OR_HISPANIC_COL, COUNTY_LEVEL): "Race_County",
@@ -404,13 +407,16 @@ def rename_cols(df: pd.DataFrame,
     if breakdown == std_col.AGE_COL:
         rename_cols_map[AGE_GROUP] = std_col.AGE_COL
 
-    if breakdown == ELIGIBILITY:
-        rename_cols_map[ENTLMT_RSN_CURR] = ELIGIBILITY
+    if breakdown == std_col.ELIGIBILITY_COL:
+        rename_cols_map[ENTLMT_RSN_CURR] = std_col.ELIGIBILITY_COL
+
+    if breakdown == std_col.LIS_COL:
+        rename_cols_map[LIS] = std_col.LIS_COL
 
     df = df.rename(columns=rename_cols_map)
 
     # only keep the medicare/medicaid raw population for one of the 100k conditions
-    if condition != std_col.AMI_PREFIX:
+    if condition == std_col.AMI_PREFIX:
         df = df.drop(columns=[MEDICARE_POP_COUNT])
 
     return df
