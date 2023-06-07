@@ -41,7 +41,6 @@ import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
-import { BLACK_WOMEN } from '../data/providers/HivProvider'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
@@ -63,15 +62,16 @@ export interface ReportProps {
 }
 
 export function Report(props: ReportProps) {
+  const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
+  const defaultDemo = isRaceBySex ? AGE : RACE
+
   const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, RACE)
+    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom
   )
-
-  const isRaceBySex = dataTypeConfig?.dataTypeId.includes(BLACK_WOMEN)
 
   function setDataTypeConfigWithParam(v: DataTypeConfig) {
     setParameters([
@@ -100,10 +100,7 @@ export function Report(props: ReportProps) {
       )
       setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
-      const demo: BreakdownVar = getParameter(
-        DEMOGRAPHIC_PARAM,
-        isRaceBySex ? AGE : RACE
-      )
+      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
       setCurrentBreakdown(demo)
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
@@ -390,7 +387,7 @@ export function Report(props: ReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={isRaceBySex ? AGE : currentBreakdown}
+              trackerDemographic={defaultDemo}
               setDemoWithParam={setDemoWithParam}
               isRaceBySex={isRaceBySex}
             />
