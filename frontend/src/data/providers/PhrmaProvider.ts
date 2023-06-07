@@ -2,7 +2,7 @@ import { getDataManager } from '../../utils/globals'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-// import { appendFipsIfNeeded } from "../utils/datasetutils";
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 export const PHRMA_DATATYPES: DataTypeId[] = [
@@ -20,7 +20,6 @@ export const PHRMA_DATATYPES: DataTypeId[] = [
 export const PHRMA_METRICS: MetricId[] = [
   'ami_pct_share',
   'ami_per_100k',
-  'ami_population_pct_share',
   'arv_adherence_pct_rate',
   'arv_adherence_pct_share',
   'arv_population_pct_share',
@@ -38,7 +37,7 @@ export const PHRMA_METRICS: MetricId[] = [
   'nqf_population_pct_share',
   'phrma_hiv_pct_share',
   'phrma_hiv_per_100k',
-  'phrma_hiv_population_pct_share',
+  'phrma_population_pct_share',
   'rasa_adherence_pct_rate',
   'rasa_adherence_pct_share',
   'rasa_population_pct_share',
@@ -50,7 +49,7 @@ export const PHRMA_METRICS: MetricId[] = [
 const phrmaReason = 'only available when comparing two Medicare topics'
 
 export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
-  ['LIS', phrmaReason],
+  ['lis', phrmaReason],
   ['Eligibility', phrmaReason],
 ]
 
@@ -70,8 +69,8 @@ class PhrmaProvider extends VariableProvider {
       if (breakdowns.hasOnlySex()) {
         return 'phrma_data-sex_national'
       }
-      if (breakdowns.hasOnlyLIS()) {
-        return 'phrma_data-LIS_national'
+      if (breakdowns.hasOnlyLis()) {
+        return 'phrma_data-lis_national'
       }
       if (breakdowns.hasOnlyEligibility()) {
         return 'phrma_data-eligibility_national'
@@ -83,8 +82,8 @@ class PhrmaProvider extends VariableProvider {
       }
       if (breakdowns.hasOnlyAge()) return 'phrma_data-age_state'
       if (breakdowns.hasOnlySex()) return 'phrma_data-sex_state'
-      if (breakdowns.hasOnlyLIS()) {
-        return 'phrma_data-LIS_state'
+      if (breakdowns.hasOnlyLis()) {
+        return 'phrma_data-lis_state'
       }
       if (breakdowns.hasOnlyEligibility()) {
         return 'phrma_data-eligibility_state'
@@ -93,19 +92,22 @@ class PhrmaProvider extends VariableProvider {
 
     if (breakdowns.geography === 'county') {
       if (breakdowns.hasOnlyRace()) {
-        return 'phrma_data-race_and_ethnicity_county'
+        return appendFipsIfNeeded(
+          'phrma_data-race_and_ethnicity_county',
+          breakdowns
+        )
       }
       if (breakdowns.hasOnlyAge()) {
-        return 'phrma_data-age_county'
+        return appendFipsIfNeeded('phrma_data-age_county', breakdowns)
       }
       if (breakdowns.hasOnlySex()) {
-        return 'phrma_data-sex_county'
+        return appendFipsIfNeeded('phrma_data-sex_county', breakdowns)
       }
-      if (breakdowns.hasOnlyLIS()) {
-        return 'phrma_data-LIS_county'
+      if (breakdowns.hasOnlyLis()) {
+        return appendFipsIfNeeded('phrma_data-lis_county', breakdowns)
       }
       if (breakdowns.hasOnlyEligibility()) {
-        return 'phrma_data-eligibility_county'
+        return appendFipsIfNeeded('phrma_data-eligibility_county', breakdowns)
       }
     }
     throw new Error('Not implemented')

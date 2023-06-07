@@ -40,7 +40,7 @@ const PHRMA_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
   'Race/ethnicity': 'race_and_ethnicity',
   Sex: 'sex',
   Age: 'age',
-  Subsidy: 'LIS',
+  Subsidy: 'lis',
   Eligibility: 'eligibility',
 }
 

@@ -16,14 +16,14 @@ export type BreakdownVar =
   | 'sex'
   | 'date'
   | 'fips'
-  | 'LIS'
+  | 'lis'
   | 'eligibility'
 
 export const DEMOGRAPHIC_BREAKDOWNS = [
   'race_and_ethnicity',
   'sex',
   'age',
-  'LIS',
+  'lis',
   'eligibility',
 ] as const
 
@@ -36,7 +36,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
   sex: 'Sex',
   date: 'Date',
   fips: 'FIPS Code',
-  LIS: 'Low-income subsidy',
+  lis: 'Low income subsidy',
   eligibility: 'Medicare eligibility',
 } as const
 
@@ -53,7 +53,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
   sex: 'sex',
   date: 'date',
   fips: 'FIPs codes',
-  LIS: 'Low-income subsidy',
+  lis: 'Low income subsidy',
   eligibility: 'eligibility',
 }
 
@@ -118,7 +118,7 @@ export class Breakdowns {
           race_and_ethnicity: createDemographicBreakdown('race_and_ethnicity'),
           age: createDemographicBreakdown('age'),
           sex: createDemographicBreakdown('sex'),
-          LIS: createDemographicBreakdown('LIS'),
+          lis: createDemographicBreakdown('lis'),
           eligibility: createDemographicBreakdown('eligibility'),
         }
     this.time = time
@@ -206,7 +206,7 @@ export class Breakdowns {
       case 'race_and_ethnicity':
       case 'age':
       case 'sex':
-      case 'LIS':
+      case 'lis':
       case 'eligibility':
         // Column name is the same as key
         this.demographicBreakdowns[breakdownVar] = createDemographicBreakdown(
@@ -285,9 +285,9 @@ export class Breakdowns {
     )
   }
 
-  hasOnlyLIS() {
+  hasOnlyLis() {
     return (
-      this.hasExactlyOneDemographic() && this.demographicBreakdowns.LIS.enabled
+      this.hasExactlyOneDemographic() && this.demographicBreakdowns.lis.enabled
     )
   }
 

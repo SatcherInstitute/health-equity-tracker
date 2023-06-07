@@ -502,17 +502,17 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: '2023',
   },
   {
-    id: 'phrma_data-LIS_national',
+    id: 'phrma_data-lis_national',
     name: 'Phrma Dataset by low income subsidy status (LIS), nationally (Naming TBD)',
     update_time: '2023',
   },
   {
-    id: 'phrma_data-LIS_state',
+    id: 'phrma_data-lis_state',
     name: 'Phrma Dataset by low income subsidy (LIS), by state (Naming TBD)',
     update_time: '2023',
   },
   {
-    id: 'phrma_data-LIS_county',
+    id: 'phrma_data-lis_county',
     name: 'Phrma Dataset by low income subsidy (LIS), by county (Naming TBD)',
     update_time: '2023',
   },

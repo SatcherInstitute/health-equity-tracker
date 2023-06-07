@@ -79,15 +79,26 @@ export type DataTypeId =
 export type MetricId =
   | 'acs_vaccinated_pop_pct'
   | 'ahr_population_pct'
+  | 'ami_pct_share'
+  | 'ami_per_100k'
+  | 'arv_adherence_pct_rate'
+  | 'arv_adherence_pct_share'
+  | 'arv_population_pct_share'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
-  | 'avoided_care_pct_share'
   | 'avoided_care_pct_rate'
+  | 'avoided_care_pct_share'
+  | 'beta_blockers_adherence_pct_rate'
+  | 'beta_blockers_adherence_pct_share'
+  | 'beta_blockers_population_pct_share'
   | 'black_women_population_pct'
   | 'cardiovascular_diseases_pct_share'
   | 'cardiovascular_diseases_per_100k'
   | 'cases_ratio_age_adjusted'
   | 'cawp_population_pct'
+  | 'ccb_adherence_pct_rate'
+  | 'ccb_adherence_pct_share'
+  | 'ccb_population_pct_share'
   | 'chronic_kidney_disease_pct_share'
   | 'chronic_kidney_disease_per_100k'
   | 'copd_pct_share'
@@ -119,6 +130,9 @@ export type MetricId =
   | 'depression_per_100k'
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
+  | 'doac_adherence_pct_rate'
+  | 'doac_adherence_pct_share'
+  | 'doac_population_pct_share'
   | 'excessive_drinking_pct_share'
   | 'excessive_drinking_per_100k'
   | 'frequent_mental_distress_pct_share'
@@ -158,10 +172,16 @@ export type MetricId =
   | 'jail_per_100k'
   | 'non_medical_drug_use_pct_share'
   | 'non_medical_drug_use_per_100k'
+  | 'nqf_adherence_pct_rate'
+  | 'nqf_adherence_pct_share'
+  | 'nqf_population_pct_share'
   | 'pct_share_of_state_leg'
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
+  | 'phrma_hiv_pct_share'
+  | 'phrma_hiv_per_100k'
+  | 'phrma_population_pct_share'
   | 'population_decia'
   | 'population_pct_decia'
   | 'population_pct'
@@ -175,6 +195,12 @@ export type MetricId =
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
+  | 'rasa_adherence_pct_rate'
+  | 'rasa_adherence_pct_share'
+  | 'rasa_population_pct_share'
+  | 'statins_adherence_pct_rate'
+  | 'statins_adherence_pct_share'
+  | 'statins_population_pct_share'
   | 'suicide_pct_share'
   | 'suicide_per_100k'
   | 'svi'
@@ -189,40 +215,13 @@ export type MetricId =
   | 'vaccinated_per_100k'
   | 'vaccinated_pop_pct'
   | 'vaccinated_share_of_known'
-  | 'voter_participation_pct_share'
   | 'voter_participation_pct_rate'
+  | 'voter_participation_pct_share'
   | 'women_state_leg_pct_relative_inequity'
-  | 'statins_adherence_pct_rate'
-  | 'statins_adherence_pct_share'
-  | 'statins_population_pct_share'
-  | 'beta_blockers_adherence_pct_rate'
-  | 'beta_blockers_adherence_pct_share'
-  | 'beta_blockers_population_pct_share'
-  | 'rasa_adherence_pct_rate'
-  | 'rasa_adherence_pct_share'
-  | 'rasa_population_pct_share'
   | 'women_this_race_state_leg_count'
   | 'women_this_race_us_congress_count'
   | 'women_this_race_us_congress_names'
   | 'women_us_congress_pct_relative_inequity'
-  | 'arv_adherence_pct_rate'
-  | 'arv_adherence_pct_share'
-  | 'arv_population_pct_share'
-  | 'ccb_adherence_pct_rate'
-  | 'ccb_adherence_pct_share'
-  | 'ccb_population_pct_share'
-  | 'doac_adherence_pct_rate'
-  | 'doac_adherence_pct_share'
-  | 'doac_population_pct_share'
-  | 'nqf_adherence_pct_rate'
-  | 'nqf_adherence_pct_share'
-  | 'nqf_population_pct_share'
-  | 'phrma_hiv_per_100k'
-  | 'phrma_hiv_pct_share'
-  | 'phrma_hiv_population_pct_share'
-  | 'ami_per_100k'
-  | 'ami_pct_share'
-  | 'ami_population_pct_share'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -1833,7 +1832,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           populationComparisonMetric: {
             chartTitle:
               'Share of beneficiary population vs. share of total heart attacks',
-            metricId: 'ami_population_pct_share',
+            metricId: 'phrma_population_pct_share',
             columnTitleHeader: 'Share of all beneficiaries',
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
@@ -1852,7 +1851,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       metrics: {
         per100k: {
           metricId: 'phrma_hiv_per_100k',
-          chartTitle: 'Rates of HIV cases (Medicare Beneficiaries)',
+          chartTitle: 'Rates of HIV cases',
           shortLabel: 'cases per 100k',
           type: 'per100k',
         },
@@ -1865,7 +1864,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           populationComparisonMetric: {
             chartTitle:
               'Share of beneficiary population vs. share of total HIV cases',
-            metricId: 'phrma_hiv_population_pct_share',
+            metricId: 'phrma_population_pct_share',
             columnTitleHeader: 'Share of all beneficiaries',
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
