@@ -128,7 +128,7 @@ class PhrmaData(DataSource):
             COUNTY_LEVEL
         ]:
             alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
-            alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
+            # alls_df.to_csv(f'{geo_level}-alls.csv', index=False)
 
             for breakdown in [
                 std_col.LIS_COL,
@@ -172,7 +172,7 @@ class PhrmaData(DataSource):
 
                 # print("df.dtypes")
                 # print(df.dtypes)
-                df.to_csv(f'expected_{table_name}.csv', index=False)
+                # df.to_csv(f'expected_{table_name}.csv', index=False)
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
                                             table_name,
