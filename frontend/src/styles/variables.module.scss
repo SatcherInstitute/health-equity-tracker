@@ -145,6 +145,8 @@ $z-top: 999;
 
 // EXPORT FOR USE OUTSIDE OF CSS/SCSS (like REACT / VEGA)
 :export {
+  smallest: $smallest;
+
   greyDark: $grey-dark;
   white: $white;
   yellow: $yellow;

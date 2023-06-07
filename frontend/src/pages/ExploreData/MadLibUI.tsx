@@ -27,11 +27,14 @@ import {
   type DataTypeConfig,
   type DataTypeId,
 } from '../../data/config/MetricConfig'
-import { useAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
+  topicInfoModalIsOpenAtom,
 } from '../../utils/sharedSettingsState'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import TopicInfoModal from './TopicInfoModal'
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -108,93 +111,104 @@ export default function MadLibUI(props: {
     selectedDataTypeConfig2Atom
   )
 
-  return (
-    <Grid
-      item
-      xs={12}
-      id="madlib-box"
-      container
-      justifyContent="center"
-      alignItems="center"
-    >
-      <div className={styles.MadLibUI}>
-        {props.madLib.phrase.map(
-          (phraseSegment: PhraseSegment, index: number) => {
-            let dataTypes: any[][] = []
+  const configArray: DataTypeConfig[] = []
+  if (selectedDataTypeConfig1) {
+    configArray.push(selectedDataTypeConfig1)
+  }
+  if (
+    selectedDataTypeConfig2 &&
+    selectedDataTypeConfig2 !== selectedDataTypeConfig1
+  ) {
+    configArray.push(selectedDataTypeConfig2)
+  }
 
-            const segmentDataTypeId: DropdownVarId | string =
-              props.madLib.activeSelections[index]
-            if (isDropdownVarId(segmentDataTypeId)) {
-              dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
-                (dataTypeConfig: DataTypeConfig) => {
-                  const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
-                  return [dataTypeId, dataTypeShortLabel]
-                }
+  const setTopicInfoModalIsOpen = useSetAtom(topicInfoModalIsOpenAtom)
+
+  return (
+    <>
+      <Grid
+        item
+        xs={12}
+        id="madlib-box"
+        container
+        justifyContent="center"
+        alignItems="center"
+      >
+        <div className={styles.MadLibUI}>
+          {props.madLib.phrase.map(
+            (phraseSegment: PhraseSegment, index: number) => {
+              let dataTypes: any[][] = []
+
+              const segmentDataTypeId: DropdownVarId | string =
+                props.madLib.activeSelections[index]
+              if (isDropdownVarId(segmentDataTypeId)) {
+                dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
+                  (dataTypeConfig: DataTypeConfig) => {
+                    const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
+                    return [dataTypeId, dataTypeShortLabel]
+                  }
+                )
+              }
+
+              const config =
+                index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
+              const setConfig =
+                index === 1
+                  ? setSelectedDataTypeConfig1
+                  : setSelectedDataTypeConfig2
+
+              return (
+                <React.Fragment key={index}>
+                  {typeof phraseSegment === 'string' ? (
+                    <span className={styles.NonClickableMadlibText}>
+                      {phraseSegment}
+                      {insertOptionalThe(props.madLib.activeSelections, index)}
+                    </span>
+                  ) : (
+                    <>
+                      <TopicOrLocationSelector
+                        value={props.madLib.activeSelections[index]}
+                        onOptionUpdate={(newValue) => {
+                          handleOptionUpdate(newValue, index)
+                        }}
+                        options={getOptionsFromPhraseSegment(phraseSegment)}
+                      />
+
+                      {dataTypes.length > 1 && (
+                        <DataTypeSelector
+                          key={`${index}-datatype`}
+                          value={config?.dataTypeId ?? dataTypes[0][0]}
+                          onOptionUpdate={(newValue) => {
+                            handleDataTypeUpdate(newValue, index, setConfig)
+                          }}
+                          options={dataTypes}
+                        />
+                      )}
+                    </>
+                  )}
+                </React.Fragment>
               )
             }
-
-            const config =
-              index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
-            const setConfig =
-              index === 1
-                ? setSelectedDataTypeConfig1
-                : setSelectedDataTypeConfig2
-
-            return (
-              <React.Fragment key={index}>
-                {typeof phraseSegment === 'string' ? (
-                  <span className={styles.NonClickableMadlibText}>
-                    {phraseSegment}
-                    {insertOptionalThe(props.madLib.activeSelections, index)}
-                  </span>
-                ) : (
-                  <>
-                    <TopicOrLocationSelector
-                      value={props.madLib.activeSelections[index]}
-                      onOptionUpdate={(newValue) => {
-                        handleOptionUpdate(newValue, index)
-                      }}
-                      options={getOptionsFromPhraseSegment(phraseSegment)}
-                    />
-
-                    {dataTypes.length > 1 && (
-                      <DataTypeSelector
-                        key={`${index}-datatype`}
-                        value={config?.dataTypeId ?? dataTypes[0][0]}
-                        onOptionUpdate={(newValue) => {
-                          handleDataTypeUpdate(newValue, index, setConfig)
-                        }}
-                        options={dataTypes}
-                      />
-                    )}
-                  </>
-                )}
-              </React.Fragment>
-            )
-          }
-        )}
-      </div>
-      <Grid container justifyContent={'flex-end'}>
-        {selectedDataTypeConfig1 && (
-          <Button
-            onClick={(e) => {
-              handleInfoClick(selectedDataTypeConfig1.dataTypeId)
-            }}
-          >
-            {selectedDataTypeConfig1.dataTypeShortLabel} info
-          </Button>
-        )}
-        {selectedDataTypeConfig2 && (
-          <Button
-            onClick={(e) => {
-              handleInfoClick(selectedDataTypeConfig2.dataTypeId)
-            }}
-          >
-            {selectedDataTypeConfig2.dataTypeShortLabel} info
-          </Button>
-        )}
+          )}
+        </div>
+        <Grid container justifyContent={'flex-end'}>
+          {configArray.length > 0 && (
+            <Button
+              onClick={() => {
+                setTopicInfoModalIsOpen(true)
+              }}
+            >
+              <InfoOutlinedIcon fontSize="small" sx={{ m: '6px' }} />
+              {configArray
+                .map((config) => config.dataTypeShortLabel)
+                .join(' & ')}{' '}
+              info
+            </Button>
+          )}
+        </Grid>
       </Grid>
-    </Grid>
+      <TopicInfoModal />
+    </>
   )
 }
 
@@ -222,8 +236,4 @@ export function getParentDropdownFromDataType(
   }
   // fallback to covid
   return 'covid'
-}
-
-function handleInfoClick(dataType: DataTypeId) {
-  console.log('clicked', dataType)
 }
