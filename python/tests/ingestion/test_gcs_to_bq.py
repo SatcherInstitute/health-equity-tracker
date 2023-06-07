@@ -151,7 +151,7 @@ class GcsToBqTest(TestCase):
         # they are written as strings with commas. Numeric cols with null values
         # are inferred as floats.
         expected_types = {'col1': np.dtype('datetime64[ns]'), 'col2': np.int64,
-                          'col3': np.object, 'col4': np.float64}
+                          'col3': object, 'col4': np.float64}
         for col in df.columns:
             self.assertEqual(df[col].dtype, expected_types[col])
 
@@ -160,8 +160,8 @@ class GcsToBqTest(TestCase):
             f.write(test_data)
         df = gcs_to_bq_util.load_csv_as_df('gcs_bucket', 'test_file.csv')
         # Without the additional read_csv args, the data are inferred to the
-        # default np.object type.
-        expected_types = {'col1': np.int64, 'col2': np.object,
-                          'col3': np.object, 'col4': np.object}
+        # default object type.
+        expected_types = {'col1': np.int64, 'col2': object,
+                          'col3': object, 'col4': object}
         for col in df.columns:
             self.assertEqual(df[col].dtype, expected_types[col])

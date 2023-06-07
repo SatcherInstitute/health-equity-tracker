@@ -626,7 +626,7 @@ def get_state_leg_totals_df():
 
         # extract totals
         state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]
-                 ] = state_df['TotalWomenTotalLegislature'].str.split('/', 1, expand=True)
+                 ] = state_df['TotalWomenTotalLegislature'].str.split('/', n=1, expand=True)
 
         # keep only needed cols
         state_df = state_df[[std_col.TIME_PERIOD_COL,
@@ -667,14 +667,14 @@ def combine_states_to_national(df):
         std_col.RACE_OR_HISPANIC_COL
     ]
     df_counts = df.copy().drop(state_cols, axis=1)
-    df_counts = df_counts.groupby(groupby_cols, as_index=False)[
+    df_counts = df_counts.groupby(groupby_cols, as_index=False)[[
         std_col.CONGRESS_COUNT,
         std_col.W_ALL_RACES_CONGRESS_COUNT,
         std_col.W_THIS_RACE_CONGRESS_COUNT,
         std_col.STLEG_COUNT,
         std_col.W_ALL_RACES_STLEG_COUNT,
         std_col.W_THIS_RACE_STLEG_COUNT
-    ].agg("sum", min_count=1)
+    ]].agg("sum", min_count=1)
 
     df_counts[std_col.STATE_FIPS_COL] = US_FIPS
     df_counts[std_col.STATE_NAME_COL] = US_NAME
