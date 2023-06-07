@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Button, Grid } from '@mui/material'
 import React from 'react'
 import { Fips } from '../../data/utils/Fips'
 import {
@@ -174,6 +174,26 @@ export default function MadLibUI(props: {
           }
         )}
       </div>
+      <Grid container justifyContent={'flex-end'}>
+        {selectedDataTypeConfig1 && (
+          <Button
+            onClick={(e) => {
+              handleInfoClick(selectedDataTypeConfig1.dataTypeId)
+            }}
+          >
+            {selectedDataTypeConfig1.dataTypeShortLabel} info
+          </Button>
+        )}
+        {selectedDataTypeConfig2 && (
+          <Button
+            onClick={(e) => {
+              handleInfoClick(selectedDataTypeConfig2.dataTypeId)
+            }}
+          >
+            {selectedDataTypeConfig2.dataTypeShortLabel} info
+          </Button>
+        )}
+      </Grid>
     </Grid>
   )
 }
@@ -202,4 +222,8 @@ export function getParentDropdownFromDataType(
   }
   // fallback to covid
   return 'covid'
+}
+
+function handleInfoClick(dataType: DataTypeId) {
+  console.log('clicked', dataType)
 }
