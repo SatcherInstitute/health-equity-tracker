@@ -45,7 +45,7 @@ PCT_SHARE_MAP[std_col.HIV_BW_POPULATION] = std_col.HIV_BW_POPULATION_PCT
 
 PER_100K_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
                 for prefix in HIV_DETERMINANTS.values()
-                if prefix not in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]}
+                if prefix not in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX, std_col.HIV_STIGMA_PREFIX]}
 
 PCT_RELATIVE_INEQUITY_MAP = {
     prefix: std_col.generate_column_name(
@@ -244,9 +244,14 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             BLACK_WOMEN in determinant and geo_level == COUNTY_LEVEL)
         no_black_women_breakdown = BLACK_WOMEN in determinant and (
             breakdown != std_col.AGE_COL and breakdown != 'all')
+        is_stigma_and_county = (determinant == std_col.HIV_STIGMA_PREFIX) and (
+            geo_level == COUNTY_LEVEL)
+        no_stigma_breakdown = (determinant == std_col.HIV_STIGMA_PREFIX) and (
+            geo_level == STATE_LEVEL and breakdown != 'all')
 
-        if (is_deaths_and_county) or \
-           (is_prep_race_and_not_nat) or (no_black_women_breakdown) or (is_black_women_and_county):
+        if (is_deaths_and_county) or (is_prep_race_and_not_nat) \
+            or (no_black_women_breakdown) or (is_black_women_and_county)\
+           or (is_stigma_and_county) or (no_stigma_breakdown):
             continue
 
         else:
