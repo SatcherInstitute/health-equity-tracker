@@ -31,10 +31,7 @@ import { useAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
-  // topicInfoModalIsOpenAtom,
 } from '../../utils/sharedSettingsState'
-// import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-// import TopicInfoModal from './TopicInfoModal'
 
 export default function MadLibUI(props: {
   madLib: MadLib
@@ -111,19 +108,6 @@ export default function MadLibUI(props: {
     selectedDataTypeConfig2Atom
   )
 
-  // const configArray: DataTypeConfig[] = []
-  // if (selectedDataTypeConfig1) {
-  //   configArray.push(selectedDataTypeConfig1)
-  // }
-  // if (
-  //   selectedDataTypeConfig2 &&
-  //   selectedDataTypeConfig2 !== selectedDataTypeConfig1
-  // ) {
-  //   configArray.push(selectedDataTypeConfig2)
-  // }
-
-  // const setTopicInfoModalIsOpen = useSetAtom(topicInfoModalIsOpenAtom)
-
   return (
     <>
       <Grid
@@ -191,23 +175,7 @@ export default function MadLibUI(props: {
             }
           )}
         </div>
-        {/* <Grid container justifyContent={'flex-end'}>
-          {configArray.length > 0 && (
-            <Button
-              onClick={() => {
-                setTopicInfoModalIsOpen(true)
-              }}
-            >
-              <InfoOutlinedIcon fontSize="small" sx={{ m: '6px' }} />
-              {configArray
-                .map((config) => config.dataTypeShortLabel)
-                .join(' & ')}{' '}
-              info
-            </Button>
-          )}
-        </Grid> */}
       </Grid>
-      {/* <TopicInfoModal /> */}
     </>
   )
 }
