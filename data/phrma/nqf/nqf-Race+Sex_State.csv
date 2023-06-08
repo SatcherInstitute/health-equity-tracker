@@ -1,0 +1,716 @@
+RACE_NAME,SEX_NAME,STATE_NAME,STATE_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,Male,Alabama,1,.,0,.,1
+Unknown,Male,Alaska,2,.,0,.,1
+Unknown,Male,Arizona,4,.,0,.,1
+Unknown,Male,Arkansas,5,.,0,.,1
+Unknown,Male,California,6,.,.,.,0.8518518519
+Unknown,Male,Colorado,8,.,0,.,1
+Unknown,Male,Connecticut,9,.,0,.,1
+Unknown,Male,"District of Columbia",11,0,.,.,0
+Unknown,Male,Florida,12,.,.,.,0.8333333333
+Unknown,Male,Georgia,13,.,.,.,0.7142857143
+Unknown,Male,Idaho,16,.,0,.,1
+Unknown,Male,Illinois,17,.,.,.,0.7692307692
+Unknown,Male,Indiana,18,.,.,.,0.9090909091
+Unknown,Male,Iowa,19,.,0,.,1
+Unknown,Male,Kansas,20,.,0,.,1
+Unknown,Male,Kentucky,21,.,0,.,1
+Unknown,Male,Louisiana,22,.,0,.,1
+Unknown,Male,Maryland,24,.,0,.,1
+Unknown,Male,Massachusetts,25,.,.,.,0.7777777778
+Unknown,Male,Michigan,26,.,.,.,0.8181818182
+Unknown,Male,Minnesota,27,.,.,.,0.8
+Unknown,Male,Mississippi,28,.,.,.,0.6666666667
+Unknown,Male,Missouri,29,.,0,.,1
+Unknown,Male,Nebraska,31,.,0,.,1
+Unknown,Male,Nevada,32,.,.,.,0.5
+Unknown,Male,"New Hampshire",33,.,0,.,1
+Unknown,Male,"New Jersey",34,.,.,.,0.8888888889
+Unknown,Male,"New Mexico",35,.,.,.,0.3333333333
+Unknown,Male,"New York",36,.,.,.,0.9375
+Unknown,Male,"North Carolina",37,.,.,.,0.75
+Unknown,Male,"North Dakota",38,.,0,.,1
+Unknown,Male,Ohio,39,.,.,.,0.8965517241
+Unknown,Male,Oklahoma,40,.,0,.,1
+Unknown,Male,Oregon,41,.,0,.,1
+Unknown,Male,Pennsylvania,42,.,.,.,0.7333333333
+Unknown,Male,"South Carolina",45,.,.,.,0.8333333333
+Unknown,Male,"South Dakota",46,.,0,.,1
+Unknown,Male,Tennessee,47,.,.,.,0.75
+Unknown,Male,Texas,48,.,.,.,0.9333333333
+Unknown,Male,Vermont,50,.,0,.,1
+Unknown,Male,Virginia,51,.,.,.,0.75
+Unknown,Male,Washington,53,.,0,.,1
+Unknown,Male,"West Virginia",54,.,0,.,1
+Unknown,Male,Wisconsin,55,.,.,.,0.8
+Unknown,Female,Alabama,1,.,0,.,1
+Unknown,Female,California,6,.,.,.,0.625
+Unknown,Female,Florida,12,.,.,.,0.875
+Unknown,Female,Illinois,17,.,.,.,0.8333333333
+Unknown,Female,Indiana,18,.,0,.,1
+Unknown,Female,Iowa,19,.,0,.,1
+Unknown,Female,Kentucky,21,.,0,.,1
+Unknown,Female,Maine,23,.,0,.,1
+Unknown,Female,Maryland,24,.,0,.,1
+Unknown,Female,Massachusetts,25,.,0,.,1
+Unknown,Female,Michigan,26,0,.,.,0
+Unknown,Female,Missouri,29,.,0,.,1
+Unknown,Female,Nevada,32,0,.,.,0
+Unknown,Female,"New Hampshire",33,.,0,.,1
+Unknown,Female,"New Jersey",34,.,0,.,1
+Unknown,Female,"New York",36,.,.,.,0.7777777778
+Unknown,Female,"North Carolina",37,.,0,.,1
+Unknown,Female,Ohio,39,.,.,.,0.5
+Unknown,Female,Pennsylvania,42,.,0,.,1
+Unknown,Female,Texas,48,.,0,.,1
+Unknown,Female,Virginia,51,.,0,.,1
+Unknown,Female,Washington,53,.,0,.,1
+Unknown,Female,Wisconsin,55,.,0,.,1
+"Non-Hispanic White",Male,Alabama,1,135,36,171,0.7894736842
+"Non-Hispanic White",Male,Alaska,2,.,.,.,0.8285714286
+"Non-Hispanic White",Male,Arizona,4,160,47,207,0.7729468599
+"Non-Hispanic White",Male,Arkansas,5,122,43,165,0.7393939394
+"Non-Hispanic White",Male,California,6,367,121,488,0.7520491803
+"Non-Hispanic White",Male,Colorado,8,81,24,105,0.7714285714
+"Non-Hispanic White",Male,Connecticut,9,.,.,.,0.9333333333
+"Non-Hispanic White",Male,Delaware,10,.,.,.,0.8793103448
+"Non-Hispanic White",Male,"District of Columbia",11,.,0,.,1
+"Non-Hispanic White",Male,Florida,12,447,115,562,0.7953736655
+"Non-Hispanic White",Male,Georgia,13,197,60,257,0.766536965
+"Non-Hispanic White",Male,Hawaii,15,.,.,.,0.8
+"Non-Hispanic White",Male,Idaho,16,.,.,.,0.8653846154
+"Non-Hispanic White",Male,Illinois,17,368,58,426,0.8638497653
+"Non-Hispanic White",Male,Indiana,18,233,42,275,0.8472727273
+"Non-Hispanic White",Male,Iowa,19,180,31,211,0.8530805687
+"Non-Hispanic White",Male,Kansas,20,100,14,114,0.8771929825
+"Non-Hispanic White",Male,Kentucky,21,147,37,184,0.7989130435
+"Non-Hispanic White",Male,Louisiana,22,109,31,140,0.7785714286
+"Non-Hispanic White",Male,Maine,23,51,12,63,0.8095238095
+"Non-Hispanic White",Male,Maryland,24,127,14,141,0.9007092199
+"Non-Hispanic White",Male,Massachusetts,25,211,38,249,0.8473895582
+"Non-Hispanic White",Male,Michigan,26,235,44,279,0.8422939068
+"Non-Hispanic White",Male,Minnesota,27,137,20,157,0.872611465
+"Non-Hispanic White",Male,Mississippi,28,81,25,106,0.7641509434
+"Non-Hispanic White",Male,Missouri,29,167,42,209,0.7990430622
+"Non-Hispanic White",Male,Montana,30,45,11,56,0.8035714286
+"Non-Hispanic White",Male,Nebraska,31,.,.,.,0.90625
+"Non-Hispanic White",Male,Nevada,32,59,11,70,0.8428571429
+"Non-Hispanic White",Male,"New Hampshire",33,.,.,.,0.9024390244
+"Non-Hispanic White",Male,"New Jersey",34,213,45,258,0.8255813953
+"Non-Hispanic White",Male,"New Mexico",35,.,.,.,0.8936170213
+"Non-Hispanic White",Male,"New York",36,382,65,447,0.8545861298
+"Non-Hispanic White",Male,"North Carolina",37,274,61,335,0.8179104478
+"Non-Hispanic White",Male,"North Dakota",38,.,.,.,0.962962963
+"Non-Hispanic White",Male,Ohio,39,352,79,431,0.8167053364
+"Non-Hispanic White",Male,Oklahoma,40,115,35,150,0.7666666667
+"Non-Hispanic White",Male,Oregon,41,92,22,114,0.8070175439
+"Non-Hispanic White",Male,Pennsylvania,42,409,53,462,0.8852813853
+"Non-Hispanic White",Male,"Rhode Island",44,.,.,.,0.7857142857
+"Non-Hispanic White",Male,"South Carolina",45,162,49,211,0.7677725118
+"Non-Hispanic White",Male,"South Dakota",46,.,.,.,0.9016393443
+"Non-Hispanic White",Male,Tennessee,47,205,45,250,0.82
+"Non-Hispanic White",Male,Texas,48,451,100,551,0.8185117967
+"Non-Hispanic White",Male,Utah,49,66,18,84,0.7857142857
+"Non-Hispanic White",Male,Vermont,50,.,.,.,0.8409090909
+"Non-Hispanic White",Male,Virginia,51,233,40,273,0.8534798535
+"Non-Hispanic White",Male,Washington,53,141,31,172,0.8197674419
+"Non-Hispanic White",Male,"West Virginia",54,56,26,82,0.6829268293
+"Non-Hispanic White",Male,Wisconsin,55,131,16,147,0.8911564626
+"Non-Hispanic White",Male,Wyoming,56,.,.,.,0.8108108108
+"Non-Hispanic White",Female,Alabama,1,83,24,107,0.7757009346
+"Non-Hispanic White",Female,Alaska,2,.,.,.,0.9411764706
+"Non-Hispanic White",Female,Arizona,4,103,22,125,0.824
+"Non-Hispanic White",Female,Arkansas,5,77,28,105,0.7333333333
+"Non-Hispanic White",Female,California,6,266,59,325,0.8184615385
+"Non-Hispanic White",Female,Colorado,8,.,.,.,0.8636363636
+"Non-Hispanic White",Female,Connecticut,9,.,.,.,0.875
+"Non-Hispanic White",Female,Delaware,10,.,.,.,0.7894736842
+"Non-Hispanic White",Female,"District of Columbia",11,.,0,.,1
+"Non-Hispanic White",Female,Florida,12,287,80,367,0.7820163488
+"Non-Hispanic White",Female,Georgia,13,136,33,169,0.8047337278
+"Non-Hispanic White",Female,Hawaii,15,.,.,.,0.6666666667
+"Non-Hispanic White",Female,Idaho,16,.,.,.,0.75
+"Non-Hispanic White",Female,Illinois,17,286,47,333,0.8588588589
+"Non-Hispanic White",Female,Indiana,18,173,31,204,0.8480392157
+"Non-Hispanic White",Female,Iowa,19,118,19,137,0.8613138686
+"Non-Hispanic White",Female,Kansas,20,.,.,.,0.8717948718
+"Non-Hispanic White",Female,Kentucky,21,109,21,130,0.8384615385
+"Non-Hispanic White",Female,Louisiana,22,60,13,73,0.8219178082
+"Non-Hispanic White",Female,Maine,23,.,.,.,0.875
+"Non-Hispanic White",Female,Maryland,24,72,14,86,0.8372093023
+"Non-Hispanic White",Female,Massachusetts,25,180,28,208,0.8653846154
+"Non-Hispanic White",Female,Michigan,26,177,34,211,0.8388625592
+"Non-Hispanic White",Female,Minnesota,27,94,16,110,0.8545454545
+"Non-Hispanic White",Female,Mississippi,28,68,18,86,0.7906976744
+"Non-Hispanic White",Female,Missouri,29,126,20,146,0.8630136986
+"Non-Hispanic White",Female,Montana,30,36,0,36,1
+"Non-Hispanic White",Female,Nebraska,31,63,11,74,0.8513513514
+"Non-Hispanic White",Female,Nevada,32,.,.,.,0.7666666667
+"Non-Hispanic White",Female,"New Hampshire",33,.,.,.,0.8448275862
+"Non-Hispanic White",Female,"New Jersey",34,148,30,178,0.8314606742
+"Non-Hispanic White",Female,"New Mexico",35,.,.,.,0.75
+"Non-Hispanic White",Female,"New York",36,251,47,298,0.8422818792
+"Non-Hispanic White",Female,"North Carolina",37,167,30,197,0.847715736
+"Non-Hispanic White",Female,"North Dakota",38,.,.,.,0.7307692308
+"Non-Hispanic White",Female,Ohio,39,245,59,304,0.8059210526
+"Non-Hispanic White",Female,Oklahoma,40,100,18,118,0.8474576271
+"Non-Hispanic White",Female,Oregon,41,67,11,78,0.858974359
+"Non-Hispanic White",Female,Pennsylvania,42,255,54,309,0.8252427184
+"Non-Hispanic White",Female,"Rhode Island",44,.,.,.,0.8636363636
+"Non-Hispanic White",Female,"South Carolina",45,108,33,141,0.7659574468
+"Non-Hispanic White",Female,"South Dakota",46,.,.,.,0.975
+"Non-Hispanic White",Female,Tennessee,47,149,29,178,0.8370786517
+"Non-Hispanic White",Female,Texas,48,280,59,339,0.8259587021
+"Non-Hispanic White",Female,Utah,49,.,.,.,0.8367346939
+"Non-Hispanic White",Female,Vermont,50,.,.,.,0.9032258065
+"Non-Hispanic White",Female,Virginia,51,166,38,204,0.8137254902
+"Non-Hispanic White",Female,Washington,53,111,20,131,0.8473282443
+"Non-Hispanic White",Female,"West Virginia",54,.,.,.,0.8684210526
+"Non-Hispanic White",Female,Wisconsin,55,103,13,116,0.8879310345
+"Non-Hispanic White",Female,Wyoming,56,.,.,.,0.8333333333
+"Black or African-American",Male,Alabama,1,.,.,.,0.7
+"Black or African-American",Male,Alaska,2,.,.,.,0.3333333333
+"Black or African-American",Male,Arizona,4,.,.,.,0.6666666667
+"Black or African-American",Male,Arkansas,5,.,.,.,0.6
+"Black or African-American",Male,California,6,.,.,.,0.6896551724
+"Black or African-American",Male,Colorado,8,.,0,.,1
+"Black or African-American",Male,Connecticut,9,.,0,.,1
+"Black or African-American",Male,Delaware,10,.,.,.,0.8
+"Black or African-American",Male,"District of Columbia",11,.,.,.,0.8
+"Black or African-American",Male,Florida,12,23,12,35,0.6571428571
+"Black or African-American",Male,Georgia,13,.,.,.,0.7352941176
+"Black or African-American",Male,Illinois,17,.,.,.,0.71875
+"Black or African-American",Male,Indiana,18,.,.,.,0.625
+"Black or African-American",Male,Iowa,19,.,0,.,1
+"Black or African-American",Male,Kansas,20,.,0,.,1
+"Black or African-American",Male,Kentucky,21,.,.,.,0.5
+"Black or African-American",Male,Louisiana,22,19,13,32,0.59375
+"Black or African-American",Male,Maryland,24,37,15,52,0.7115384615
+"Black or African-American",Male,Massachusetts,25,.,.,.,0.8571428571
+"Black or African-American",Male,Michigan,26,.,.,.,0.6428571429
+"Black or African-American",Male,Minnesota,27,.,.,.,0.5
+"Black or African-American",Male,Mississippi,28,18,17,35,0.5142857143
+"Black or African-American",Male,Missouri,29,.,0,.,1
+"Black or African-American",Male,Nevada,32,.,.,.,0.6666666667
+"Black or African-American",Male,"New Jersey",34,.,.,.,0.8125
+"Black or African-American",Male,"New Mexico",35,.,0,.,1
+"Black or African-American",Male,"New York",36,30,13,43,0.6976744186
+"Black or African-American",Male,"North Carolina",37,37,15,52,0.7115384615
+"Black or African-American",Male,Ohio,39,.,.,.,0.6470588235
+"Black or African-American",Male,Oklahoma,40,.,.,.,0.5555555556
+"Black or African-American",Male,Oregon,41,.,.,.,0.5
+"Black or African-American",Male,Pennsylvania,42,.,.,.,0.7391304348
+"Black or African-American",Male,"Rhode Island",44,0,.,.,0
+"Black or African-American",Male,"South Carolina",45,.,.,.,0.7714285714
+"Black or African-American",Male,Tennessee,47,17,12,29,0.5862068966
+"Black or African-American",Male,Texas,48,31,24,55,0.5636363636
+"Black or African-American",Male,Virginia,51,.,.,.,0.8333333333
+"Black or African-American",Male,Washington,53,.,.,.,0.8
+"Black or African-American",Male,"West Virginia",54,.,.,.,0.5
+"Black or African-American",Male,Wisconsin,55,.,.,.,0.4
+"Black or African-American",Female,Alabama,1,.,.,.,0.7391304348
+"Black or African-American",Female,Arizona,4,.,0,.,1
+"Black or African-American",Female,Arkansas,5,.,.,.,0.7777777778
+"Black or African-American",Female,California,6,.,.,.,0.696969697
+"Black or African-American",Female,Colorado,8,.,0,.,1
+"Black or African-American",Female,Connecticut,9,.,.,.,0.75
+"Black or African-American",Female,Delaware,10,.,.,.,0.7142857143
+"Black or African-American",Female,"District of Columbia",11,.,.,.,0.6666666667
+"Black or African-American",Female,Florida,12,16,15,31,0.5161290323
+"Black or African-American",Female,Georgia,13,31,17,48,0.6458333333
+"Black or African-American",Female,Hawaii,15,.,0,.,1
+"Black or African-American",Female,Illinois,17,25,11,36,0.6944444444
+"Black or African-American",Female,Indiana,18,.,0,.,1
+"Black or African-American",Female,Iowa,19,0,.,.,0
+"Black or African-American",Female,Kansas,20,.,0,.,1
+"Black or African-American",Female,Kentucky,21,.,.,.,0.5
+"Black or African-American",Female,Louisiana,22,.,.,.,0.8108108108
+"Black or African-American",Female,Maryland,24,28,13,41,0.6829268293
+"Black or African-American",Female,Massachusetts,25,.,.,.,0.6666666667
+"Black or African-American",Female,Michigan,26,.,.,.,0.8
+"Black or African-American",Female,Minnesota,27,.,.,.,0.8
+"Black or African-American",Female,Mississippi,28,31,14,45,0.6888888889
+"Black or African-American",Female,Missouri,29,.,.,.,0.9
+"Black or African-American",Female,Nebraska,31,.,0,.,1
+"Black or African-American",Female,Nevada,32,.,.,.,0.5714285714
+"Black or African-American",Female,"New Jersey",34,.,.,.,0.8823529412
+"Black or African-American",Female,"New Mexico",35,.,0,.,1
+"Black or African-American",Female,"New York",36,.,.,.,0.8157894737
+"Black or African-American",Female,"North Carolina",37,33,15,48,0.6875
+"Black or African-American",Female,Ohio,39,.,.,.,0.7647058824
+"Black or African-American",Female,Oklahoma,40,.,.,.,0.875
+"Black or African-American",Female,Oregon,41,.,0,.,1
+"Black or African-American",Female,Pennsylvania,42,.,.,.,0.8666666667
+"Black or African-American",Female,"South Carolina",45,.,.,.,0.7428571429
+"Black or African-American",Female,Tennessee,47,.,.,.,0.6842105263
+"Black or African-American",Female,Texas,48,.,.,.,0.8085106383
+"Black or African-American",Female,Utah,49,.,0,.,1
+"Black or African-American",Female,Virginia,51,.,.,.,0.7714285714
+"Black or African-American",Female,Washington,53,.,0,.,1
+"Black or African-American",Female,"West Virginia",54,0,.,.,0
+"Black or African-American",Female,Wisconsin,55,.,.,.,0.8333333333
+Other,Male,Alabama,1,.,0,.,1
+Other,Male,Alaska,2,.,.,.,0.5
+Other,Male,Arizona,4,.,0,.,1
+Other,Male,Arkansas,5,.,0,.,1
+Other,Male,California,6,.,.,.,0.9047619048
+Other,Male,Colorado,8,.,0,.,1
+Other,Male,Connecticut,9,.,0,.,1
+Other,Male,Florida,12,.,.,.,0.5
+Other,Male,Georgia,13,.,0,.,1
+Other,Male,Hawaii,15,.,.,.,0.8333333333
+Other,Male,Illinois,17,.,.,.,0.8571428571
+Other,Male,Indiana,18,.,0,.,1
+Other,Male,Kansas,20,.,0,.,1
+Other,Male,Kentucky,21,.,0,.,1
+Other,Male,Maryland,24,.,0,.,1
+Other,Male,Massachusetts,25,.,.,.,0.6666666667
+Other,Male,Michigan,26,.,0,.,1
+Other,Male,Minnesota,27,0,.,.,0
+Other,Male,"New Hampshire",33,.,0,.,1
+Other,Male,"New Jersey",34,.,.,.,0.8333333333
+Other,Male,"New York",36,.,0,.,1
+Other,Male,"North Carolina",37,.,0,.,1
+Other,Male,Ohio,39,.,.,.,0.75
+Other,Male,Oklahoma,40,0,.,.,0
+Other,Male,Pennsylvania,42,.,0,.,1
+Other,Male,"South Carolina",45,.,0,.,1
+Other,Male,Tennessee,47,.,0,.,1
+Other,Male,Texas,48,.,0,.,1
+Other,Male,Virginia,51,.,.,.,0.5
+Other,Male,Washington,53,.,0,.,1
+Other,Male,"West Virginia",54,.,0,.,1
+Other,Female,Arizona,4,.,0,.,1
+Other,Female,Arkansas,5,.,0,.,1
+Other,Female,California,6,.,.,.,0.8181818182
+Other,Female,Delaware,10,.,0,.,1
+Other,Female,Florida,12,.,0,.,1
+Other,Female,Hawaii,15,.,0,.,1
+Other,Female,Illinois,17,.,0,.,1
+Other,Female,Kansas,20,.,0,.,1
+Other,Female,Maryland,24,.,0,.,1
+Other,Female,Massachusetts,25,.,0,.,1
+Other,Female,Minnesota,27,.,0,.,1
+Other,Female,Missouri,29,.,0,.,1
+Other,Female,Nebraska,31,0,.,.,0
+Other,Female,Nevada,32,.,0,.,1
+Other,Female,"New Jersey",34,.,.,.,0.6666666667
+Other,Female,"New York",36,.,0,.,1
+Other,Female,"North Carolina",37,0,.,.,0
+Other,Female,Oregon,41,.,0,.,1
+Other,Female,"South Carolina",45,.,0,.,1
+Other,Female,Utah,49,.,.,.,0.5
+Other,Female,Virginia,51,.,0,.,1
+Other,Female,Washington,53,.,0,.,1
+Other,Female,Wisconsin,55,.,0,.,1
+"Asian/Pacific Islander",Male,Alabama,1,.,0,.,1
+"Asian/Pacific Islander",Male,Alaska,2,.,0,.,1
+"Asian/Pacific Islander",Male,Arizona,4,.,.,.,0.6666666667
+"Asian/Pacific Islander",Male,Arkansas,5,0,.,.,0
+"Asian/Pacific Islander",Male,California,6,71,23,94,0.7553191489
+"Asian/Pacific Islander",Male,Connecticut,9,.,.,.,0.75
+"Asian/Pacific Islander",Male,Florida,12,.,.,.,0.8571428571
+"Asian/Pacific Islander",Male,Georgia,13,.,.,.,0.5714285714
+"Asian/Pacific Islander",Male,Hawaii,15,.,.,.,0.6666666667
+"Asian/Pacific Islander",Male,Idaho,16,.,0,.,1
+"Asian/Pacific Islander",Male,Illinois,17,.,.,.,0.8125
+"Asian/Pacific Islander",Male,Indiana,18,.,0,.,1
+"Asian/Pacific Islander",Male,Iowa,19,.,0,.,1
+"Asian/Pacific Islander",Male,Kansas,20,.,0,.,1
+"Asian/Pacific Islander",Male,Louisiana,22,.,.,.,0.6666666667
+"Asian/Pacific Islander",Male,Maryland,24,.,.,.,0.8571428571
+"Asian/Pacific Islander",Male,Massachusetts,25,.,.,.,0.6
+"Asian/Pacific Islander",Male,Michigan,26,.,.,.,0.4
+"Asian/Pacific Islander",Male,Minnesota,27,.,.,.,0.5
+"Asian/Pacific Islander",Male,Missouri,29,.,0,.,1
+"Asian/Pacific Islander",Male,Nevada,32,.,0,.,1
+"Asian/Pacific Islander",Male,"New Hampshire",33,0,.,.,0
+"Asian/Pacific Islander",Male,"New Jersey",34,.,.,.,0.8181818182
+"Asian/Pacific Islander",Male,"New York",36,.,.,.,0.7619047619
+"Asian/Pacific Islander",Male,"North Carolina",37,.,.,.,0.6
+"Asian/Pacific Islander",Male,Ohio,39,.,.,.,0.8
+"Asian/Pacific Islander",Male,Oklahoma,40,.,0,.,1
+"Asian/Pacific Islander",Male,Oregon,41,.,0,.,1
+"Asian/Pacific Islander",Male,Pennsylvania,42,.,.,.,0.9
+"Asian/Pacific Islander",Male,Texas,48,.,.,.,0.7391304348
+"Asian/Pacific Islander",Male,Utah,49,.,0,.,1
+"Asian/Pacific Islander",Male,Vermont,50,.,0,.,1
+"Asian/Pacific Islander",Male,Virginia,51,.,.,.,0.5
+"Asian/Pacific Islander",Male,Washington,53,.,.,.,0.8
+"Asian/Pacific Islander",Male,Wisconsin,55,.,0,.,1
+"Asian/Pacific Islander",Male,Wyoming,56,0,.,.,0
+"Asian/Pacific Islander",Female,Alabama,1,.,.,.,0.5
+"Asian/Pacific Islander",Female,Alaska,2,.,0,.,1
+"Asian/Pacific Islander",Female,Arizona,4,.,0,.,1
+"Asian/Pacific Islander",Female,Arkansas,5,.,0,.,1
+"Asian/Pacific Islander",Female,California,6,50,11,61,0.8196721311
+"Asian/Pacific Islander",Female,Colorado,8,.,0,.,1
+"Asian/Pacific Islander",Female,Connecticut,9,.,0,.,1
+"Asian/Pacific Islander",Female,Delaware,10,.,0,.,1
+"Asian/Pacific Islander",Female,Florida,12,.,.,.,0.9090909091
+"Asian/Pacific Islander",Female,Georgia,13,.,.,.,0.5
+"Asian/Pacific Islander",Female,Hawaii,15,.,.,.,0.8333333333
+"Asian/Pacific Islander",Female,Illinois,17,.,.,.,0.7
+"Asian/Pacific Islander",Female,Indiana,18,.,0,.,1
+"Asian/Pacific Islander",Female,Iowa,19,.,0,.,1
+"Asian/Pacific Islander",Female,Kansas,20,.,0,.,1
+"Asian/Pacific Islander",Female,Kentucky,21,0,.,.,0
+"Asian/Pacific Islander",Female,Louisiana,22,.,.,.,0.6666666667
+"Asian/Pacific Islander",Female,Maryland,24,.,.,.,0.875
+"Asian/Pacific Islander",Female,Massachusetts,25,.,.,.,0.5
+"Asian/Pacific Islander",Female,Michigan,26,.,0,.,1
+"Asian/Pacific Islander",Female,Minnesota,27,.,.,.,0.8
+"Asian/Pacific Islander",Female,Nevada,32,.,0,.,1
+"Asian/Pacific Islander",Female,"New Jersey",34,.,.,.,0.8571428571
+"Asian/Pacific Islander",Female,"New York",36,.,.,.,0.5714285714
+"Asian/Pacific Islander",Female,"North Carolina",37,.,.,.,0.6
+"Asian/Pacific Islander",Female,Ohio,39,.,0,.,1
+"Asian/Pacific Islander",Female,Oklahoma,40,.,0,.,1
+"Asian/Pacific Islander",Female,Oregon,41,.,0,.,1
+"Asian/Pacific Islander",Female,Pennsylvania,42,.,.,.,0.8333333333
+"Asian/Pacific Islander",Female,"Rhode Island",44,.,0,.,1
+"Asian/Pacific Islander",Female,Texas,48,.,.,.,0.7368421053
+"Asian/Pacific Islander",Female,Virginia,51,.,.,.,0.8333333333
+"Asian/Pacific Islander",Female,Washington,53,.,.,.,0.9090909091
+"Asian/Pacific Islander",Female,"West Virginia",54,.,0,.,1
+"Asian/Pacific Islander",Female,Wisconsin,55,.,.,.,0.3333333333
+Hispanic,Male,Alabama,1,.,0,.,1
+Hispanic,Male,Alaska,2,.,0,.,1
+Hispanic,Male,Arizona,4,.,.,.,0.7368421053
+Hispanic,Male,Arkansas,5,.,0,.,1
+Hispanic,Male,California,6,130,41,171,0.7602339181
+Hispanic,Male,Colorado,8,.,.,.,0.625
+Hispanic,Male,Connecticut,9,.,.,.,0.8
+Hispanic,Male,Delaware,10,.,.,.,0.5
+Hispanic,Male,Florida,12,50,12,62,0.8064516129
+Hispanic,Male,Georgia,13,.,.,.,0.625
+Hispanic,Male,Hawaii,15,.,0,.,1
+Hispanic,Male,Idaho,16,.,.,.,0.5
+Hispanic,Male,Illinois,17,.,.,.,0.8484848485
+Hispanic,Male,Indiana,18,.,0,.,1
+Hispanic,Male,Iowa,19,.,0,.,1
+Hispanic,Male,Kansas,20,.,.,.,0.5
+Hispanic,Male,Kentucky,21,.,0,.,1
+Hispanic,Male,Louisiana,22,.,.,.,0.5
+Hispanic,Male,Maryland,24,.,.,.,0.875
+Hispanic,Male,Massachusetts,25,.,.,.,0.7777777778
+Hispanic,Male,Michigan,26,.,.,.,0.75
+Hispanic,Male,Minnesota,27,.,.,.,0.6666666667
+Hispanic,Male,Missouri,29,.,0,.,1
+Hispanic,Male,Nebraska,31,.,0,.,1
+Hispanic,Male,Nevada,32,.,.,.,0.6
+Hispanic,Male,"New Hampshire",33,0,.,.,0
+Hispanic,Male,"New Jersey",34,.,.,.,0.625
+Hispanic,Male,"New Mexico",35,.,.,.,0.8181818182
+Hispanic,Male,"New York",36,.,.,.,0.7906976744
+Hispanic,Male,"North Carolina",37,.,.,.,0.6666666667
+Hispanic,Male,Ohio,39,.,.,.,0.6666666667
+Hispanic,Male,Oklahoma,40,.,0,.,1
+Hispanic,Male,Oregon,41,.,.,.,0.7142857143
+Hispanic,Male,Pennsylvania,42,.,.,.,0.8333333333
+Hispanic,Male,"Rhode Island",44,.,.,.,0.4
+Hispanic,Male,"South Carolina",45,.,.,.,0.8
+Hispanic,Male,"South Dakota",46,.,0,.,1
+Hispanic,Male,Tennessee,47,.,0,.,1
+Hispanic,Male,Texas,48,92,45,137,0.6715328467
+Hispanic,Male,Utah,49,.,.,.,0.6666666667
+Hispanic,Male,Virginia,51,.,.,.,0.5
+Hispanic,Male,Washington,53,.,.,.,0.8
+Hispanic,Male,Wisconsin,55,.,.,.,0.6666666667
+Hispanic,Female,Alabama,1,.,0,.,1
+Hispanic,Female,Alaska,2,.,0,.,1
+Hispanic,Female,Arizona,4,.,.,.,0.8
+Hispanic,Female,Arkansas,5,.,0,.,1
+Hispanic,Female,California,6,87,26,113,0.7699115044
+Hispanic,Female,Colorado,8,.,.,.,0.4545454545
+Hispanic,Female,Connecticut,9,.,.,.,0.8571428571
+Hispanic,Female,Delaware,10,.,.,.,0.5
+Hispanic,Female,"District of Columbia",11,0,.,.,0
+Hispanic,Female,Florida,12,35,16,51,0.6862745098
+Hispanic,Female,Georgia,13,.,.,.,0.6
+Hispanic,Female,Illinois,17,.,.,.,0.9090909091
+Hispanic,Female,Indiana,18,.,0,.,1
+Hispanic,Female,Iowa,19,.,0,.,1
+Hispanic,Female,Kansas,20,.,0,.,1
+Hispanic,Female,Louisiana,22,.,0,.,1
+Hispanic,Female,Maryland,24,.,.,.,0.5
+Hispanic,Female,Massachusetts,25,.,.,.,0.9230769231
+Hispanic,Female,Michigan,26,.,.,.,0.5
+Hispanic,Female,Minnesota,27,.,0,.,1
+Hispanic,Female,Nebraska,31,.,0,.,1
+Hispanic,Female,Nevada,32,.,.,.,0.75
+Hispanic,Female,"New Jersey",34,.,.,.,0.6818181818
+Hispanic,Female,"New Mexico",35,.,.,.,0.8666666667
+Hispanic,Female,"New York",36,.,.,.,0.8125
+Hispanic,Female,"North Carolina",37,.,.,.,0.6
+Hispanic,Female,Ohio,39,.,.,.,0.75
+Hispanic,Female,Oklahoma,40,.,.,.,0.6
+Hispanic,Female,Oregon,41,.,.,.,0.75
+Hispanic,Female,Pennsylvania,42,.,.,.,0.5714285714
+Hispanic,Female,"Rhode Island",44,.,0,.,1
+Hispanic,Female,"South Carolina",45,.,0,.,1
+Hispanic,Female,Tennessee,47,0,.,.,0
+Hispanic,Female,Texas,48,69,27,96,0.71875
+Hispanic,Female,Utah,49,.,.,.,0.3333333333
+Hispanic,Female,Virginia,51,.,0,.,1
+Hispanic,Female,Washington,53,.,.,.,0.8
+Hispanic,Female,"West Virginia",54,0,.,.,0
+Hispanic,Female,Wisconsin,55,0,.,.,0
+"American Indian / Alaska Native",Male,Alaska,2,.,.,.,0.25
+"American Indian / Alaska Native",Male,Arizona,4,.,.,.,0.4285714286
+"American Indian / Alaska Native",Male,Arkansas,5,.,0,.,1
+"American Indian / Alaska Native",Male,Michigan,26,0,.,.,0
+"American Indian / Alaska Native",Male,Nevada,32,.,0,.,1
+"American Indian / Alaska Native",Male,"New Mexico",35,.,.,.,0.625
+"American Indian / Alaska Native",Male,"New York",36,.,0,.,1
+"American Indian / Alaska Native",Male,"North Carolina",37,.,0,.,1
+"American Indian / Alaska Native",Male,"North Dakota",38,.,0,.,1
+"American Indian / Alaska Native",Male,Oklahoma,40,.,.,.,0.5454545455
+"American Indian / Alaska Native",Male,"South Dakota",46,0,.,.,0
+"American Indian / Alaska Native",Male,Texas,48,.,.,.,0.5
+"American Indian / Alaska Native",Male,Wisconsin,55,.,0,.,1
+"American Indian / Alaska Native",Female,Alaska,2,.,0,.,1
+"American Indian / Alaska Native",Female,Arizona,4,.,.,.,0.5714285714
+"American Indian / Alaska Native",Female,California,6,.,.,.,0.6666666667
+"American Indian / Alaska Native",Female,Idaho,16,0,.,.,0
+"American Indian / Alaska Native",Female,Minnesota,27,.,0,.,1
+"American Indian / Alaska Native",Female,Montana,30,.,0,.,1
+"American Indian / Alaska Native",Female,"New Mexico",35,.,.,.,0.625
+"American Indian / Alaska Native",Female,"North Carolina",37,.,.,.,0.75
+"American Indian / Alaska Native",Female,"North Dakota",38,0,.,.,0
+"American Indian / Alaska Native",Female,Oklahoma,40,.,.,.,0.6666666667
+"American Indian / Alaska Native",Female,Oregon,41,0,.,.,0
+"American Indian / Alaska Native",Female,"South Dakota",46,.,.,.,0.3333333333
+"American Indian / Alaska Native",Female,Texas,48,0,.,.,0
+"American Indian / Alaska Native",Female,Utah,49,0,.,.,0
+"American Indian / Alaska Native",Female,Washington,53,.,0,.,1
+"American Indian / Alaska Native",Female,Wisconsin,55,.,0,.,1
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,0,0,0,0

@@ -18,7 +18,7 @@ ALLS_DATA = {
 }
 
 GOLDEN_DATA = {
-    'LIS_national': os.path.join(GOLDEN_DIR, 'expected_LIS_national.csv'),
+    'lis_national': os.path.join(GOLDEN_DIR, 'expected_lis_national.csv'),
     'eligibility_national': os.path.join(GOLDEN_DIR, 'expected_eligibility_national.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'expected_sex_national.csv'),
     'race_and_ethnicity_state': os.path.join(GOLDEN_DIR,
@@ -53,28 +53,8 @@ def _generate_breakdown_df(*args):
         "fake_col2": ["a", "b", "c"]
     })
 
-# TODO: DELETE - THIS IS ONLY FOR DEVELOPMENT
 
-
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#     side_effect=_load_public_dataset_from_bigquery_as_df
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#     side_effect=_load_csv_as_df_from_data_dir)
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testRunner(
-#     mock_bq: mock.MagicMock,
-#     mock_data_dir: mock.MagicMock,
-#     mock_public_dataset: mock.MagicMock,
-# ):
-#     datasource = PhrmaData()
-#     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
-
-
-# # OVERALL BQ
+# # # OVERALL BQ
 
 @mock.patch('datasources.phrma.PhrmaData.generate_breakdown_df',
             side_effect=_generate_breakdown_df)
@@ -87,40 +67,40 @@ def testOverallBigQueryInteractions(
         mock_breakdown: mock.MagicMock):
     datasource = PhrmaData()
     datasource.write_to_bq(dataset="mock_dataset", gcs_bucket="mock_bucket")
-    # 3 geographic, 3 demographics that have an "all".
-    # LIS/Elig. use SEX's alls and don't require another load
-    assert mock_data_dir.call_count == 3 * 3
-    # 3 geographic levels, 5 demographic types age/sex/race/LIS/Elig.
+    # 3 geographic, 9 condition sheets
+    assert mock_data_dir.call_count == 9 * 3
+    # 3 geographic levels, 5 demographic types age/sex/race/list/elig.
     assert mock_bq.call_count == 3 * 5
     assert mock_breakdown.call_count == 3 * 5
     generated_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
     assert generated_table_names == [
-        'LIS_national', 'eligibility_national',
+        'lis_national', 'eligibility_national',
         'sex_national', 'age_national', 'race_and_ethnicity_national',
-        'LIS_state', 'eligibility_state',
+        'lis_state', 'eligibility_state',
         'sex_state', 'age_state', 'race_and_ethnicity_state',
-        'LIS_county', 'eligibility_county',
+        'lis_county', 'eligibility_county',
         'sex_county', 'age_county', 'race_and_ethnicity_county'
     ]
 
 
-# # BREAKDOWN TESTS
+# # # # BREAKDOWN TESTS
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
             side_effect=_load_csv_as_df_from_data_dir)
-def testBreakdownLISNational(
+def testBreakdownLisNational(
         mock_data_dir: mock.MagicMock
 ):
     datasource = PhrmaData()
     alls_df = pd.read_csv(ALLS_DATA["national"], dtype={"state_fips": str})
     breakdown_df = datasource.generate_breakdown_df(
-        'LIS', 'national', alls_df)
+        'lis', 'national', alls_df)
     # one data_dir call per topic
-    assert mock_data_dir.call_count == 3
+    assert mock_data_dir.call_count == 9
     expected_df = pd.read_csv(
-        GOLDEN_DATA['LIS_national'], dtype={"state_fips": str})
+        GOLDEN_DATA['lis_national'], dtype={"state_fips": str})
+
     assert_frame_equal(breakdown_df, expected_df,
                        check_dtype=False, check_like=True)
 
@@ -135,7 +115,7 @@ def testBreakdownEligibilityNational(
     breakdown_df = datasource.generate_breakdown_df(
         'eligibility', 'national', alls_df)
     # one data_dir call per topic
-    assert mock_data_dir.call_count == 3
+    assert mock_data_dir.call_count == 9
     expected_df = pd.read_csv(
         GOLDEN_DATA['eligibility_national'], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df,
@@ -152,7 +132,7 @@ def testBreakdownSexNational(
     breakdown_df = datasource.generate_breakdown_df(
         'sex', 'national', alls_df)
     # one data_dir call per topic
-    assert mock_data_dir.call_count == 3
+    assert mock_data_dir.call_count == 9
     expected_df = pd.read_csv(
         GOLDEN_DATA['sex_national'], dtype={"state_fips": str})
     assert_frame_equal(breakdown_df, expected_df,
@@ -169,7 +149,7 @@ def testBreakdownRaceState(
     breakdown_df = datasource.generate_breakdown_df(
         'race_and_ethnicity', 'state', alls_df)
     # one data_dir call per topic
-    assert mock_data_dir.call_count == 3
+    assert mock_data_dir.call_count == 9
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_and_ethnicity_state'], dtype={"state_fips": str})
     assert_frame_equal(
@@ -198,7 +178,7 @@ def testBreakdownAgeCounty(
     breakdown_df = datasource.generate_breakdown_df(
         'age', 'county', alls_df)
     # one data_dir call per topic
-    assert mock_data_dir.call_count == 3
+    assert mock_data_dir.call_count == 9
     # call to public BQ for county names
     assert mock_county_names.call_count == 1
     expected_df = pd.read_csv(
