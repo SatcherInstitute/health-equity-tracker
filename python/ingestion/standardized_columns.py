@@ -152,7 +152,7 @@ HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
 HIV_PREP_PREFIX = 'hiv_prep'
 HIV_PREVALENCE_BW_PREFIX = 'hiv_prevalence_black_women'
 HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
-HIV_STIGMA_PREFIX = 'hiv_stigma'
+HIV_STIGMA_INDEX = 'hiv_stigma_index'
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

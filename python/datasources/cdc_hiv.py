@@ -34,10 +34,10 @@ HIV_DETERMINANTS = {
     'diagnoses': std_col.HIV_DIAGNOSES_PREFIX,
     'prep': std_col.HIV_PREP_PREFIX,
     'prevalence': std_col.HIV_PREVALENCE_PREFIX,
-    'stigma': std_col.HIV_STIGMA_PREFIX}
+    'stigma': std_col.HIV_STIGMA_INDEX}
 
 PCT_SHARE_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PCT_SHARE_SUFFIX)
-                 for prefix in HIV_DETERMINANTS.values()}
+                 for prefix in HIV_DETERMINANTS.values() if prefix != std_col.HIV_STIGMA_INDEX}
 PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
 PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
 PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
@@ -45,12 +45,12 @@ PCT_SHARE_MAP[std_col.HIV_BW_POPULATION] = std_col.HIV_BW_POPULATION_PCT
 
 PER_100K_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
                 for prefix in HIV_DETERMINANTS.values()
-                if prefix not in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX, std_col.HIV_STIGMA_PREFIX]}
+                if prefix not in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX, std_col.HIV_STIGMA_INDEX]}
 
 PCT_RELATIVE_INEQUITY_MAP = {
     prefix: std_col.generate_column_name(
         prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
-    for prefix in HIV_DETERMINANTS.values()}
+    for prefix in HIV_DETERMINANTS.values() if prefix != std_col.HIV_STIGMA_INDEX}
 
 # a nested dictionary that contains values swaps per column name
 BREAKDOWN_TO_STANDARD_BY_COL = {
@@ -80,7 +80,7 @@ POP_MAP = {
     std_col.HIV_PREVALENCE_BW_PREFIX: std_col.HIV_BW_POPULATION,
     std_col.HIV_DIAGNOSES_BW_PREFIX: std_col.HIV_BW_POPULATION,
     std_col.HIV_DEATHS_BW_PREFIX: std_col.HIV_BW_POPULATION,
-    std_col.HIV_STIGMA_PREFIX: std_col.POPULATION_COL}
+    std_col.HIV_STIGMA_INDEX: std_col.POPULATION_COL}
 
 # HIV dictionaries
 DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
@@ -188,8 +188,8 @@ class CDCHIVData(DataSource):
         if std_col.HIV_BW_POPULATION not in df.columns:
             df[[std_col.HIV_BW_POPULATION]] = np.nan
 
-        if std_col.HIV_STIGMA_PREFIX not in df.columns:
-            df[[std_col.HIV_STIGMA_PREFIX]] = np.nan
+        if std_col.HIV_STIGMA_INDEX not in df.columns:
+            df[[std_col.HIV_STIGMA_INDEX]] = np.nan
 
         df = generate_pct_share_col_without_unknowns(df,
                                                      PCT_SHARE_MAP,
@@ -211,10 +211,11 @@ class CDCHIVData(DataSource):
                        std_col.HIV_PREVALENCE_BW_PREFIX]:
                 pop_col = std_col.HIV_BW_POPULATION_PCT
 
-            df = generate_pct_rel_inequity_col(df,
-                                               PCT_SHARE_MAP[col],
-                                               pop_col,
-                                               PCT_RELATIVE_INEQUITY_MAP[col])
+            if col != std_col.HIV_STIGMA_INDEX:
+                df = generate_pct_rel_inequity_col(df,
+                                                   PCT_SHARE_MAP[col],
+                                                   pop_col,
+                                                   PCT_RELATIVE_INEQUITY_MAP[col])
 
         df = df[cols_to_keep]
         df = df.sort_values(
@@ -233,6 +234,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
 
     for determinant in HIV_DETERMINANTS.values():
+        cols_to_standard = {'Population': POP_MAP[determinant]}
         atlas_cols_to_exclude = generate_atlas_cols_to_exclude(
             breakdown, determinant)
 
@@ -244,9 +246,9 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             BLACK_WOMEN in determinant and geo_level == COUNTY_LEVEL)
         no_black_women_breakdown = BLACK_WOMEN in determinant and (
             breakdown != std_col.AGE_COL and breakdown != 'all')
-        is_stigma_and_county = (determinant == std_col.HIV_STIGMA_PREFIX) and (
+        is_stigma_and_county = (determinant == std_col.HIV_STIGMA_INDEX) and (
             geo_level == COUNTY_LEVEL)
-        no_stigma_breakdown = (determinant == std_col.HIV_STIGMA_PREFIX) and (
+        no_stigma_breakdown = (determinant == std_col.HIV_STIGMA_INDEX) and (
             geo_level == STATE_LEVEL and breakdown != 'all')
 
         if (is_deaths_and_county) or (is_prep_race_and_not_nat) \
@@ -264,16 +266,14 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              thousands=',',
                                                              dtype=DTYPE)
 
-            if determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
-                cols_to_standard = {
-                    'Cases': determinant,
-                    'Percent': CARE_PREP_MAP[determinant],
-                    'Population': POP_MAP[determinant]}
+            if determinant == std_col.HIV_STIGMA_INDEX:
+                cols_to_standard['Rate per 100000'] = std_col.HIV_STIGMA_INDEX
+            elif determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
+                cols_to_standard['Percent'] = CARE_PREP_MAP[determinant]
+                cols_to_standard['Cases'] = determinant
             else:
-                cols_to_standard = {
-                    'Cases': determinant,
-                    'Rate per 100000': PER_100K_MAP[determinant],
-                    'Population': POP_MAP[determinant]}
+                cols_to_standard['Rate per 100000'] = PER_100K_MAP[determinant]
+                cols_to_standard['Cases'] = determinant
 
             if determinant == std_col.HIV_PREP_PREFIX:
                 df = df.replace({'13-24': '16-24'})
@@ -282,7 +282,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
             df = df.rename(columns=cols_to_standard)
 
-            if determinant == std_col.HIV_STIGMA_PREFIX:
+            if determinant == std_col.HIV_STIGMA_INDEX:
                 df = df.drop('population', axis=1)
 
             output_df = output_df.merge(df, how='outer')
