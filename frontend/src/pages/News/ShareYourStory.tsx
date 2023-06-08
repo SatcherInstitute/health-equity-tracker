@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@mui/material'
+import { Button, Divider, Grid, Typography } from '@mui/material'
 import styles from './NewsPage.module.scss'
 
 export default function ShareYourStory() {
@@ -39,7 +39,14 @@ export default function ShareYourStory() {
           you to follow the guidelines outlined below.
         </p>
 
-        <h3>Submission guidelines:</h3>
+        <Divider sx={{ mt: 5 }}>
+          <Typography
+            className={styles.GuidelinesHeaderText}
+            variant="subtitle1"
+          >
+            Submission guidelines
+          </Typography>
+        </Divider>
 
         <ul className={styles.GuidelinesList}>
           <li>
@@ -52,11 +59,10 @@ export default function ShareYourStory() {
           </li>
 
           <li>
-            <b>Personal Stories:</b> We value personal narratives that provide a
-            unique perspective and resonate with readers. Share your own
-            experiences related to HIV, health equity, or any related aspect you
-            feel is relevant. Feel free to express yourself authentically, but
-            ensure confidentiality and anonymity, if desired.
+            <b>Personal Stories:</b> We value personal narratives that
+            authentically express a unique perspective and resonate with
+            readers. Share your own experiences related to HIV, health equity,
+            or any related aspect you feel is relevant.
           </li>
 
           <li>
@@ -92,9 +98,12 @@ export default function ShareYourStory() {
 
           <li>
             <b>Submitting Your Story:</b> To contribute, please send your story
-            as a Word document or Google Doc to shli@msm.edu. Include a brief
-            bio (2-3 sentences) introducing yourself and any relevant
-            affiliations or experiences you would like to share.
+            as a Word document or Google Doc to{' '}
+            <a href="mailto:info@healthequitytracker.org">
+              info@healthequitytracker.org
+            </a>
+            . Include a brief bio (2-3 sentences) introducing yourself and any
+            relevant affiliations or experiences you would like to share.
           </li>
 
           <li>
@@ -105,12 +114,12 @@ export default function ShareYourStory() {
             is selected for publication.
           </li>
 
-          <li>
+          {/* <li>
             <b>Anonymity and Privacy:</b> If you prefer to remain anonymous or
             use a pseudonym, please let us know in your submission email. We
             respect your privacy and will handle your personal information with
             utmost confidentiality.
-          </li>
+          </li> */}
 
           <li>
             <b>Publication and Promotion:</b> While we cannot guarantee that all
@@ -120,14 +129,25 @@ export default function ShareYourStory() {
             amplifying their reach and impact.
           </li>
         </ul>
-        <hr />
+
+        <Divider sx={{ m: 5 }} />
 
         <p>
           Thank you for considering sharing your story with us. Your voice can
-          make a difference in advancing health equity and ending the HIV
-          epidemic. We look forward to hearing from you and appreciate your
-          support in creating a more inclusive and informed community.
+          make a difference in advancing health equity for all people. We look
+          forward to hearing from you and appreciate your support in creating a
+          more inclusive and informed community.
         </p>
+        <Grid container justifyContent={'center'} mt={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={styles.ShareYourStoryButton}
+            href="mailto:info@healthequitytracker.org"
+          >
+            Share your story
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   )

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Vega, VisualizationSpec } from 'react-vega'
+import { Vega, type VisualizationSpec } from 'react-vega'
 import {
   isPctType,
   type MetricConfig,
@@ -344,12 +344,16 @@ export function Legend(props: LegendProps) {
     <Grid component={'section'} className={styles.Legend}>
       <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
       <Grid>
-        {spec && <Vega
-          renderer="svg"
-          spec={spec}
-          actions={false}
-          onNewView={(view) => handleNewView(view)}
-        />}
+        {spec && (
+          <Vega
+            renderer="svg"
+            spec={spec}
+            actions={false}
+            onNewView={(view) => {
+              handleNewView(view)
+            }}
+          />
+        )}
       </Grid>
     </Grid>
   )
