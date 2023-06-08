@@ -25,7 +25,6 @@ import { autoInitGlobals } from './utils/globals'
 import { LinkWithStickyParams, ReactRouterLinkButton } from './utils/urlutils'
 import {
   ABOUT_US_PAGE_LINK,
-  NEWS_TAB_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
@@ -36,6 +35,8 @@ import {
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
+  NEWS_PAGE_LINK,
+  SHARE_YOUR_STORY_TAB_LINK,
 } from './utils/internalRoutes'
 import AppBarLogo from './assets/AppbarLogo.png'
 import { HelmetProvider } from 'react-helmet-async'
@@ -48,6 +49,7 @@ import AboutUsPage from './pages/AboutUs/AboutUsPage'
 import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquityPage'
 import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
+import NewsPage from './pages/News/NewsPage'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -73,6 +75,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [DATA_CATALOG_PAGE_LINK]: 'Downloads & Methodology',
+  [NEWS_PAGE_LINK]: 'News',
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
@@ -82,7 +85,7 @@ function MobileAppToolbar() {
   const [open, setOpen] = useState(false)
 
   function ListItemLink(props: any) {
-    return <ListItem button component="a" {...props} />
+    return <ListItem component="a" {...props} />
   }
 
   return (
@@ -144,6 +147,7 @@ function AppToolbar() {
         {[
           WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
           EXPLORE_DATA_PAGE_LINK,
+          NEWS_PAGE_LINK,
           DATA_CATALOG_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl) => (
@@ -252,8 +256,12 @@ function App() {
                           <WhatIsHealthEquityPage />
                         </Route>
 
-                        <Route path={NEWS_TAB_LINK}>
-                          <WhatIsHealthEquityPage />
+                        <Route path={NEWS_PAGE_LINK}>
+                          <NewsPage isMobile={isMobile} />
+                        </Route>
+
+                        <Route path={SHARE_YOUR_STORY_TAB_LINK}>
+                          <NewsPage isMobile={isMobile} />
                         </Route>
 
                         <Route path={TERMS_OF_USE_PAGE_LINK}>

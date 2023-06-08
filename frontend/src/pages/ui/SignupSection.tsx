@@ -1,6 +1,9 @@
 import { Button, Grid, TextField } from '@mui/material'
 import { urlMap } from '../../utils/externalUrls'
-import { CONTACT_TAB_LINK } from '../../utils/internalRoutes'
+import {
+  CONTACT_TAB_LINK,
+  SHARE_YOUR_STORY_TAB_LINK,
+} from '../../utils/internalRoutes'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 
 import styles from './SignupSection.module.scss'
@@ -19,7 +22,11 @@ export default function SignupSection() {
           <LinkWithStickyParams to={CONTACT_TAB_LINK}>
             contact us
           </LinkWithStickyParams>{' '}
-          with any questions or concerns.
+          with any questions or concerns, and{' '}
+          <LinkWithStickyParams to={SHARE_YOUR_STORY_TAB_LINK}>
+            consider sharing your own story
+          </LinkWithStickyParams>
+          .
         </p>
         <p>
           For more information about health equity, please sign up for our
