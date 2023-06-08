@@ -3,7 +3,6 @@ import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { useUrlSearchParams } from '../../utils/urlutils'
 import {
-  NEWS_TAB_LINK,
   FAQ_TAB_LINK,
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
@@ -16,7 +15,6 @@ import { Link, Redirect, Route, Switch } from 'react-router-dom'
 import EquityTab from './EquityTab'
 import FaqTab from './FaqTab'
 import ResourcesTab from './ResourcesTab'
-import NewsTab from './NewsTab'
 
 export default function WhatIsHealthEquityPage() {
   const theme = useTheme()
@@ -43,12 +41,7 @@ export default function WhatIsHealthEquityPage() {
           {...tabLayout}
           indicatorColor="primary"
           textColor="primary"
-          value={
-            window.location.pathname.includes(NEWS_TAB_LINK) &&
-            window.location.pathname !== NEWS_TAB_LINK
-              ? false
-              : window.location.pathname
-          }
+          value={window.location.pathname}
         >
           <Tab
             value={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}
@@ -63,12 +56,6 @@ export default function WhatIsHealthEquityPage() {
             to={FAQ_TAB_LINK}
           />
           <Tab
-            value={NEWS_TAB_LINK}
-            label="News"
-            component={Link}
-            to={NEWS_TAB_LINK}
-          />
-          <Tab
             value={RESOURCES_TAB_LINK}
             label="Resources"
             component={Link}
@@ -80,9 +67,6 @@ export default function WhatIsHealthEquityPage() {
       <Switch>
         <Route path={`${FAQ_TAB_LINK}/`}>
           <FaqTab />
-        </Route>
-        <Route path={`${NEWS_TAB_LINK}/`}>
-          <NewsTab isMobile={!pageIsWide} />
         </Route>
         <Route path={`${RESOURCES_TAB_LINK}/`}>
           <ResourcesTab />

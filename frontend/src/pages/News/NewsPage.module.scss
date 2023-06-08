@@ -1,5 +1,5 @@
-@import '../../../styles/variables.module.scss';
-@import '../../../styles/globals.scss';
+@import '../../styles/variables.module.scss';
+@import '../../styles/globals.scss';
 
 /** ------------- HEADER ROW ------------- **/
 .HeaderRow {
@@ -78,10 +78,30 @@
 }
 
 .AllArticlesHeaderText,
-.FeaturedArticlesHeaderText {
+.FeaturedArticlesHeaderText,
+.ShareYourStoryHeaderText {
   @include tav300();
   text-align: center;
   color: $alt-green;
+}
+
+.GuidelinesHeaderText {
+  @include tav300();
+  text-align: center;
+  color: $alt-green;
+  font-size: $smallestHeader !important;
+  padding-inline: 1rem;
+}
+
+.ShareYourStoryHeaderText {
+  font-size: $bigHeader !important;
+}
+
+.ShareYourStoryHeaderSubtext {
+  @include inter400();
+  text-align: center;
+  padding-bottom: 1rem;
+  font-size: $smallestHeader !important;
 }
 
 .AllArticlesHeaderText {
@@ -334,4 +354,98 @@
     text-decoration: none;
     color: $alt-black;
   }
+}
+
+/** ------------- NEWS AND STORIES SECTION  ------------- **/
+
+.NewsAndStoriesRow {
+  padding: 20px 0 20px 0;
+
+  .NewsAndStoriesHeaderText {
+    @include tav300();
+    font-size: $biggerHeader;
+    text-align: center;
+    line-height: $lhLoose;
+    color: $alt-green;
+  }
+
+  .NewsAndStoriesSubheaderText {
+    @include inter300();
+    font-size: $title;
+    text-align: left;
+    color: $black !important;
+  }
+
+  .NewsAndStoriesItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+
+  .NewsAndStoriesBigImg {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+  }
+
+  .NewsAndStoriesSmallImg {
+    width: 100%;
+    border-radius: 30px;
+  }
+
+  .NewsAndStoriesTitleLink {
+    text-decoration: none;
+  }
+
+  .NewsAndStoriesTitleText {
+    @include tav300();
+    text-align: center;
+    line-height: 130%;
+    color: $alt-green;
+    font-size: $smallestHeader;
+    margin: 15px 0 15px 0;
+  }
+
+  .NewsAndStoriesItem > a {
+    text-decoration: none !important;
+
+    :hover {
+      text-decoration: underline;
+    }
+  }
+
+  .NewsAndStoriesSubtitleText {
+    font-size: $text;
+    margin: 0px;
+
+    a {
+      text-decoration: underline;
+      color: $black;
+    }
+  }
+}
+
+.MoreArticlesLink {
+  font-size: $header !important;
+}
+
+.GuidelinesList {
+  list-style: none;
+
+  li {
+    padding: 12px;
+  }
+}
+
+.ShareYourStoryButton {
+  @include dmSans500();
+  background-color: $alt-green;
+  color: white !important;
+  border-radius: 40px !important;
+  font-size: $explore-button !important;
+  padding: 18px 30px !important;
+  text-align: center;
+  min-width: 200px !important;
 }

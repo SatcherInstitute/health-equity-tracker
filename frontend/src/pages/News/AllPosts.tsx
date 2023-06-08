@@ -1,22 +1,22 @@
 import { Box, Card, Grid, Typography, Skeleton } from '@mui/material'
 import { useEffect, useState } from 'react'
-import styles from './News.module.scss'
-import {
-  useUrlSearchParams,
-  LinkWithStickyParams,
-} from '../../../utils/urlutils'
+import styles from './NewsPage.module.scss'
+import { useUrlSearchParams, LinkWithStickyParams } from '../../utils/urlutils'
 import {
   fetchNewsData,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-} from '../../../utils/blogUtils'
-import { NEWS_TAB_LINK, CONTACT_TAB_LINK } from '../../../utils/internalRoutes'
+} from '../../utils/blogUtils'
+import {
+  NEWS_PAGE_LINK,
+  SHARE_YOUR_STORY_TAB_LINK,
+} from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import ArticleFilters from './ArticleFilters'
 import NewsPreviewCard from './NewsPreviewCard'
 import { useQuery } from 'react-query'
-import { type Article } from '../NewsTab'
-import SignupSection from '../../ui/SignupSection'
+import { type Article } from './NewsPage'
+import SignupSection from '../ui/SignupSection'
 import { Link } from 'react-router-dom'
 
 export const ARTICLES_TERM = 'Articles'
@@ -255,11 +255,11 @@ function AllPosts() {
                 </p>
 
                 <p className={styles.AllArticlesHeaderSubtext}>
-                  Health Equity is fundamentally about empowering voices to be
-                  heard, and experiences to be seen and shared. To share your
-                  Health Equity news and stories, please{' '}
-                  <LinkWithStickyParams to={CONTACT_TAB_LINK}>
-                    contact us
+                  Health Equity is a transformative pursuit that empowers all
+                  people: giving their voices the platform to be heard and their
+                  experiences the visibility they deserve. We encourage your to{' '}
+                  <LinkWithStickyParams to={SHARE_YOUR_STORY_TAB_LINK}>
+                    share your story
                   </LinkWithStickyParams>
                   .
                 </p>
@@ -280,7 +280,7 @@ function AllPosts() {
                 <>
                   <Link
                     className={styles.AllArticlesBreadCrumbs}
-                    to={NEWS_TAB_LINK}
+                    to={NEWS_PAGE_LINK}
                   >
                     {ARTICLES_TERM}
                   </Link>
@@ -360,6 +360,7 @@ function AllPosts() {
           </Grid>
         </Grid>
       </Grid>
+
       <SignupSection />
     </Grid>
   )

@@ -41,6 +41,7 @@ import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
+import TopicInfoModal from './TopicInfoModal'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 
@@ -281,6 +282,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   return (
     <>
+      <TopicInfoModal />
       <Onboarding
         callback={onboardingCallback}
         activelyOnboarding={activelyOnboarding}
