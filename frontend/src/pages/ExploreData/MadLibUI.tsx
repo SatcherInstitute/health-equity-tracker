@@ -109,72 +109,74 @@ export default function MadLibUI(props: {
   )
 
   return (
-    <Grid
-      item
-      xs={12}
-      id="madlib-box"
-      container
-      justifyContent="center"
-      alignItems="center"
-    >
-      <div className={styles.MadLibUI}>
-        {props.madLib.phrase.map(
-          (phraseSegment: PhraseSegment, index: number) => {
-            let dataTypes: any[][] = []
+    <>
+      <Grid
+        item
+        xs={12}
+        id="madlib-box"
+        container
+        justifyContent="center"
+        alignItems="center"
+      >
+        <div className={styles.MadLibUI}>
+          {props.madLib.phrase.map(
+            (phraseSegment: PhraseSegment, index: number) => {
+              let dataTypes: any[][] = []
 
-            const segmentDataTypeId: DropdownVarId | string =
-              props.madLib.activeSelections[index]
-            if (isDropdownVarId(segmentDataTypeId)) {
-              dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
-                (dataTypeConfig: DataTypeConfig) => {
-                  const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
-                  return [dataTypeId, dataTypeShortLabel]
-                }
+              const segmentDataTypeId: DropdownVarId | string =
+                props.madLib.activeSelections[index]
+              if (isDropdownVarId(segmentDataTypeId)) {
+                dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
+                  (dataTypeConfig: DataTypeConfig) => {
+                    const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
+                    return [dataTypeId, dataTypeShortLabel]
+                  }
+                )
+              }
+
+              const config =
+                index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
+              const setConfig =
+                index === 1
+                  ? setSelectedDataTypeConfig1
+                  : setSelectedDataTypeConfig2
+
+              return (
+                <React.Fragment key={index}>
+                  {typeof phraseSegment === 'string' ? (
+                    <span className={styles.NonClickableMadlibText}>
+                      {phraseSegment}
+                      {insertOptionalThe(props.madLib.activeSelections, index)}
+                    </span>
+                  ) : (
+                    <>
+                      <TopicOrLocationSelector
+                        value={props.madLib.activeSelections[index]}
+                        onOptionUpdate={(newValue) => {
+                          handleOptionUpdate(newValue, index)
+                        }}
+                        options={getOptionsFromPhraseSegment(phraseSegment)}
+                      />
+
+                      {dataTypes.length > 1 && (
+                        <DataTypeSelector
+                          key={`${index}-datatype`}
+                          value={config?.dataTypeId ?? dataTypes[0][0]}
+                          onOptionUpdate={(newValue) => {
+                            handleDataTypeUpdate(newValue, index, setConfig)
+                          }}
+                          options={dataTypes}
+                        />
+                      )}
+                    </>
+                  )}
+                </React.Fragment>
               )
             }
-
-            const config =
-              index === 1 ? selectedDataTypeConfig1 : selectedDataTypeConfig2
-            const setConfig =
-              index === 1
-                ? setSelectedDataTypeConfig1
-                : setSelectedDataTypeConfig2
-
-            return (
-              <React.Fragment key={index}>
-                {typeof phraseSegment === 'string' ? (
-                  <span className={styles.NonClickableMadlibText}>
-                    {phraseSegment}
-                    {insertOptionalThe(props.madLib.activeSelections, index)}
-                  </span>
-                ) : (
-                  <>
-                    <TopicOrLocationSelector
-                      value={props.madLib.activeSelections[index]}
-                      onOptionUpdate={(newValue) => {
-                        handleOptionUpdate(newValue, index)
-                      }}
-                      options={getOptionsFromPhraseSegment(phraseSegment)}
-                    />
-
-                    {dataTypes.length > 1 && (
-                      <DataTypeSelector
-                        key={`${index}-datatype`}
-                        value={config?.dataTypeId ?? dataTypes[0][0]}
-                        onOptionUpdate={(newValue) => {
-                          handleDataTypeUpdate(newValue, index, setConfig)
-                        }}
-                        options={dataTypes}
-                      />
-                    )}
-                  </>
-                )}
-              </React.Fragment>
-            )
-          }
-        )}
-      </div>
-    </Grid>
+          )}
+        </div>
+      </Grid>
+    </>
   )
 }
 
