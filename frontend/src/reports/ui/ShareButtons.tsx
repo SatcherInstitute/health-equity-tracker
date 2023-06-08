@@ -10,7 +10,7 @@ import {
 } from 'react-share'
 import { Grid, Tooltip } from '@mui/material'
 import sass from '../../styles/variables.module.scss'
-import { type Article } from '../../pages/WhatIsHealthEquity/NewsTab'
+import { type Article } from '../../pages/News/NewsPage'
 import { getHtml } from '../../utils/urlutils'
 
 export const SHARE_LABEL = 'Share this report:'

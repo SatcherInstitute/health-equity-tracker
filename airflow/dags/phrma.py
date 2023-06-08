@@ -45,12 +45,12 @@ phrma_exporter_operator_sex = util.create_exporter_operator(
     'phrma_exporter_sex', payload_sex, data_ingestion_dag)
 
 
-payload_LIS = {
+payload_lis = {
     'dataset_name': _PHRMA_DATASET_NAME,
-    'demographic': "LIS"
+    'demographic': "lis"
 }
-phrma_exporter_operator_LIS = util.create_exporter_operator(
-    'phrma_exporter_LIS', payload_LIS, data_ingestion_dag)
+phrma_exporter_operator_lis = util.create_exporter_operator(
+    'phrma_exporter_lis', payload_lis, data_ingestion_dag)
 
 
 payload_eligibility = {
@@ -65,7 +65,7 @@ phrma_exporter_operator_eligibility = util.create_exporter_operator(
         phrma_exporter_operator_race,
         phrma_exporter_operator_age,
         phrma_exporter_operator_sex,
-        phrma_exporter_operator_LIS,
+        phrma_exporter_operator_lis,
         phrma_exporter_operator_eligibility,
     ]
 )
