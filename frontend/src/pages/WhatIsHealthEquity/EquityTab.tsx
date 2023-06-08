@@ -10,7 +10,7 @@ import {
   REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
 import {
-  NEWS_TAB_LINK,
+  NEWS_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from '../../utils/internalRoutes'
 import { Box } from '@mui/material'
@@ -382,7 +382,7 @@ function EquityTab() {
 
                 <span className={styles.NewsAndStoriesSubheaderText}>
                   Read the{' '}
-                  <Link to={NEWS_TAB_LINK}>
+                  <Link to={NEWS_PAGE_LINK}>
                     latest news, posts, and stories
                   </Link>{' '}
                   related to health equity, or learn more from the articles

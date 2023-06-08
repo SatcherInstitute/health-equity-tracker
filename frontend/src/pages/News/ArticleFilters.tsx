@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { NEWS_TAB_LINK } from '../../../utils/internalRoutes'
-import styles from './News.module.scss'
+import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
+import styles from './NewsPage.module.scss'
 
 type FilterType = 'author' | 'category'
 
@@ -31,7 +31,7 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
             return (
               <li key={filter}>
                 <Link
-                  to={`${NEWS_TAB_LINK}?${props.filterType}=${filter}`}
+                  to={`${NEWS_PAGE_LINK}?${props.filterType}=${filter}`}
                   className={styles.FilterListLink}
                 >
                   {filter}
@@ -41,7 +41,7 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
           })}
         {/* ALWAYS DISPLAY ALL POSTS LINK */}
         <li>
-          <Link to={NEWS_TAB_LINK} className={styles.FilterListLink}>
+          <Link to={NEWS_PAGE_LINK} className={styles.FilterListLink}>
             All Posts
           </Link>
         </li>

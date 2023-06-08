@@ -1,8 +1,8 @@
-import { NEWS_TAB_LINK } from '../../../utils/internalRoutes'
-import styles from './News.module.scss'
-import AppbarLogo from '../../../assets/AppbarLogo.png'
-import { getHtml, ReactRouterLinkButton } from '../../../utils/urlutils'
-import { type Article } from '../NewsTab'
+import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
+import styles from './NewsPage.module.scss'
+import AppbarLogo from '../../assets/AppbarLogo.png'
+import { getHtml, ReactRouterLinkButton } from '../../utils/urlutils'
+import { type Article } from './NewsPage'
 import { Box, Grid } from '@mui/material'
 import LazyLoad from 'react-lazyload'
 
@@ -16,7 +16,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
 
   return (
     <ReactRouterLinkButton
-      url={`${NEWS_TAB_LINK}/${article.slug}`}
+      url={`${NEWS_PAGE_LINK}/${article.slug}`}
       className={styles.NewsPreviewHeaderText}
     >
       <Grid container wrap="nowrap" justifyContent="space-evenly">

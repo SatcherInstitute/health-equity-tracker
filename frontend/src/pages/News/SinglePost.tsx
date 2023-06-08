@@ -1,24 +1,24 @@
 import { Box, Button, Grid, Typography, Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
-import styles from './News.module.scss'
+import styles from './NewsPage.module.scss'
 import { Link, Redirect, useParams } from 'react-router-dom'
-import { ReactRouterLinkButton, getHtml } from '../../../utils/urlutils'
+import { ReactRouterLinkButton, getHtml } from '../../utils/urlutils'
 import {
   fetchNewsData,
   ARTICLES_KEY,
   REACT_QUERY_OPTIONS,
-} from '../../../utils/blogUtils'
-import { NEWS_TAB_LINK } from '../../../utils/internalRoutes'
+} from '../../utils/blogUtils'
+import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import NewsPreviewCard from './NewsPreviewCard'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import { type Article } from '../NewsTab'
-import hetLogo from '../../../assets/AppbarLogo.png'
-import SignupSection from '../../ui/SignupSection'
+import { type Article } from './NewsPage'
+import hetLogo from '../../assets/AppbarLogo.png'
+import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
-} from '../../../reports/ui/ShareButtons'
+} from '../../reports/ui/ShareButtons'
 import LazyLoad from 'react-lazyload'
 
 function prettyDate(dateString: string) {
@@ -159,7 +159,7 @@ export default function SinglePost(props: SinglePostProps) {
                   Authored by{' '}
                   <Link
                     className={styles.FilterLink}
-                    to={`${NEWS_TAB_LINK}?author=${fullArticle.acf.contributing_author}`}
+                    to={`${NEWS_PAGE_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
                   </Link>
@@ -209,7 +209,7 @@ export default function SinglePost(props: SinglePostProps) {
                   <span key={categoryChunk.id}>
                     <Link
                       className={styles.CategoryTag}
-                      to={`${NEWS_TAB_LINK}?category=${categoryChunk.name}`}
+                      to={`${NEWS_PAGE_LINK}?category=${categoryChunk.name}`}
                     >
                       {categoryChunk.name}
                     </Link>
@@ -281,7 +281,7 @@ export default function SinglePost(props: SinglePostProps) {
               </Grid>
               <Grid item xs={12} md={4}>
                 <ReactRouterLinkButton
-                  url={NEWS_TAB_LINK}
+                  url={NEWS_PAGE_LINK}
                   className={styles.PrevNextHeaderText}
                   displayName="All Posts"
                 />
