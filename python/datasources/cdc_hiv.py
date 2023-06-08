@@ -283,7 +283,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             df = df.rename(columns=cols_to_standard)
 
             if determinant == std_col.HIV_STIGMA_INDEX:
-                df = df.drop('population', axis=1)
+                df = df.drop(['population', 'Cases'], axis=1)
 
             output_df = output_df.merge(df, how='outer')
 
