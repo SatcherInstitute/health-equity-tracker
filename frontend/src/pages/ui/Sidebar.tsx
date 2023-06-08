@@ -9,6 +9,7 @@ import {
 } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
 import TableOfContents from './TableOfContents'
+import TopicInfoModalButton from './TopicInfoModalButton'
 
 const TABLE_OF_CONTENT_PADDING = 15
 
@@ -36,6 +37,9 @@ export default function Sidebar(props: SidebarProps) {
   return (
     <>
       <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
+        <Card className={styles.SidebarTopicInfoButtonBox} raised={true}>
+          <TopicInfoModalButton />
+        </Card>
         <div className="mode-selector-box">
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
             <SimpleSelect<BreakdownVar>
