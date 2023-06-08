@@ -74,7 +74,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
 
         // OPEN MODAL
-        await page.getByRole('button', { name: 'Topic info' }).click();
+        await page.getByRole('button', { name: 'open the topic info modal' }).click();
         // CLOSE IT
         await page.getByRole('button', { name: 'close topic info modal' }).click();
 

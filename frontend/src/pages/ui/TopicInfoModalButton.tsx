@@ -34,13 +34,10 @@ export default function TopicInfoModalButton() {
         setTopicInfoModalIsOpen(true)
       }}
       className={styles.TopicInfoModalButton}
+      aria-label="open the topic info modal"
     >
       <InfoOutlinedIcon sx={{ mr: '4px', mb: '0px' }} fontSize="small" />
       Topic info
-      {/* {configArray
-                .map((config) => config.dataTypeShortLabel)
-                .join(' & ')}{' '}
-              info */}
     </Button>
   )
 }
