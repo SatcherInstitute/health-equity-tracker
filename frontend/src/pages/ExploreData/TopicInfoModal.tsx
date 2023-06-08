@@ -1,5 +1,4 @@
 import { Button, Dialog, DialogContent } from '@mui/material'
-import styles from './TopicInfoModal.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { useAtom, useAtomValue } from 'jotai'
@@ -32,7 +31,6 @@ export default function TopicInfoModal() {
 
   return (
     <Dialog
-      className={styles.TopicInfoBox}
       open={topicInfoModalIsOpen}
       onClose={() => {
         setTopicInfoModalIsOpen(false)
