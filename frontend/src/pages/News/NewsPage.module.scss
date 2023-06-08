@@ -89,7 +89,8 @@
   @include tav300();
   text-align: center;
   color: $alt-green;
-  font-size: $header !important;
+  font-size: $smallestHeader !important;
+  padding-inline: 1rem;
 }
 
 .ShareYourStoryHeaderText {
@@ -434,6 +435,17 @@
   list-style: none;
 
   li {
-    padding: 8px;
+    padding: 12px;
   }
+}
+
+.ShareYourStoryButton {
+  @include dmSans500();
+  background-color: $alt-green;
+  color: white !important;
+  border-radius: 40px !important;
+  font-size: $explore-button !important;
+  padding: 18px 30px !important;
+  text-align: center;
+  min-width: 200px !important;
 }
