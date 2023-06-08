@@ -7,6 +7,8 @@ import {
   selectedDataTypeConfig2Atom,
   topicInfoModalIsOpenAtom,
 } from '../../utils/sharedSettingsState'
+import styles from './Sidebar.module.scss'
+
 export default function TopicInfoModalButton() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
@@ -28,19 +30,13 @@ export default function TopicInfoModalButton() {
 
   return (
     <Button
-      sx={{
-        color: 'black',
-        fontWeight: '400',
-        fontSize: '13px',
-        textAlign: 'left',
-        lineHeight: '1.3',
-      }}
       onClick={() => {
         setTopicInfoModalIsOpen(true)
       }}
+      className={styles.TopicInfoModalButton}
     >
-      <InfoOutlinedIcon sx={{ m: '12px' }} fontSize="small" color="primary" />
-      Learn more about selected topics
+      <InfoOutlinedIcon sx={{ mr: '4px', mb: '0px' }} fontSize="small" />
+      Topic info
       {/* {configArray
                 .map((config) => config.dataTypeShortLabel)
                 .join(' & ')}{' '}

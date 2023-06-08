@@ -30,7 +30,10 @@ export default function ModeSelectorBoxMobile(
   return (
     <div className="mode-selector-box-mobile">
       <Card raised={true} className={styles.ModeSelectorBoxMobile}>
-        <Grid container justifyContent={'space-between'}>
+        <Grid
+          container
+          justifyContent={{ xs: 'flex-end', sm: 'space-between' }}
+        >
           <div>
             <SimpleSelect<BreakdownVar>
               label="Demographic"

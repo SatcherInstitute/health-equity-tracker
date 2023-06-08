@@ -37,16 +37,10 @@ export default function Sidebar(props: SidebarProps) {
   return (
     <>
       <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
+        <Card className={styles.SidebarTopicInfoButtonBox} raised={true}>
+          <TopicInfoModalButton />
+        </Card>
         <div className="mode-selector-box">
-          <Card
-            raised={true}
-            sx={{
-              margin: '8px 18px 0 8px',
-              padding: '.5rem',
-            }}
-          >
-            <TopicInfoModalButton />
-          </Card>
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
             <SimpleSelect<BreakdownVar>
               label="Demographic"
