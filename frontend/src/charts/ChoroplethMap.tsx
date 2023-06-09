@@ -10,15 +10,13 @@ import {
   LEGEND_TEXT_FONT,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
-  getMapScheme
 } from './Legend'
-import { useMediaQuery } from '@mui/material'
+import { Grid, useMediaQuery } from '@mui/material'
 import {
   addCAWPTooltipInfo,
   buildTooltipTemplate,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
-  createCircleTextMark,
   createInvisibleAltMarks,
   createShapeMarks,
   formatPreventZero100k,
@@ -40,9 +38,8 @@ import {
   ZERO_DATASET,
   VALID_DATASET,
   getHelperLegend,
-  UNKNOWNS_MAP_SCHEME,
 } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 
 const {
@@ -91,12 +88,15 @@ export interface ChoroplethMapProps {
   }
   listExpanded?: boolean
   countColsToAdd: MetricId[]
+  mapConfig: { mapScheme: string; mapMin: string }
+  isSummaryLegend?: boolean
+  isMulti?: boolean
+  scaleConfig?: { domain: number[]; range: number[] }
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const [mapScheme, mapMin] = getMapScheme(props.metric.metricId)
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -108,14 +108,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
 
-  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
-  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
-
-  const LEGEND_WIDTH = props.hideLegend ? 0 : 100
 
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
@@ -222,8 +218,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       labelFont: LEGEND_TEXT_FONT,
       labelOverlap: 'greedy',
       labelSeparation: 10,
-      orient: 'bottom-left',
-      offset: 15,
+      orient: 'none',
+      legendY: -50,
+      legendX: 50,
+      gradientLength: width * 0.35,
       format: 'd',
     }
     if (props.metric.type === 'pct_share') {
@@ -239,9 +237,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     const helperLegend = getHelperLegend(
-      /* yOffset */ yOffsetNoDataLegend,
-      /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+      /* yOffset */ -35,
+      /* xOffset */ width * 0.35 + 75,
+      /* overrideGrayMissingWithZeroYellow */ false
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
@@ -251,11 +249,14 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId,
       /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
       /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.isUnknownsMap
-        ? UNKNOWNS_MAP_SCHEME
-        : mapScheme,
+      /* scaleColorScheme? */ props.mapConfig.mapScheme,
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
+
+    if (props.isMulti ?? props.listExpanded) {
+      colorScale.domain = props.scaleConfig?.domain
+      colorScale.range = props.scaleConfig?.range
+    }
 
     const projection = getProjection(
       /* fips */ props.fips,
@@ -268,7 +269,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       // ZEROS
       createShapeMarks(
         /* datasetName= */ ZERO_DATASET,
-        /* fillColor= */ { value: mapMin },
+        /* fillColor= */ { value: props.mapConfig.mapMin },
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ zeroTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
@@ -294,19 +295,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ),
     ]
 
-    if (props.overrideShapeWithCircle) {
-      // Visible Territory Abbreviations
-      marks.push(createCircleTextMark(VALID_DATASET))
-      marks.push(createCircleTextMark(ZERO_DATASET))
-      marks.push(createCircleTextMark(MISSING_DATASET))
-    } else {
-      marks.push(
-        createInvisibleAltMarks(
-          /* tooltipDatum */ tooltipDatum,
-          /*  tooltipLabel */ tooltipLabel
-        )
+    marks.push(
+      createInvisibleAltMarks(
+        /* tooltipDatum */ tooltipDatum,
+        /*  tooltipLabel */ tooltipLabel
       )
-    }
+    )
 
     const altText = makeAltText(
       /* data */ props.data,
@@ -427,18 +421,22 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,
-    LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
-    yOffsetNoDataLegend,
-    xOffsetNoDataLegend,
+    props.mapConfig.mapScheme,
+    props.mapConfig.mapMin,
     props,
     heightWidthRatio,
     pageIsTiny,
   ])
 
   return (
-    <div ref={props.overrideShapeWithCircle ? undefined : ref}>
+    <Grid
+      container
+      justifyContent={'center'}
+      ref={props.overrideShapeWithCircle ? undefined : ref}
+      sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
+    >
       {shouldRenderMap && (
         <Vega
           renderer="svg"
@@ -449,6 +447,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           signalListeners={props.signalListeners}
         />
       )}
-    </div>
+    </Grid>
   )
 }

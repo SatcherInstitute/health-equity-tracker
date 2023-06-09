@@ -10,7 +10,7 @@ ACS_LATEST_YEAR = '2021'
 DECIA_CUTOFF_YEAR = '2016'
 
 
-def merge_county_names(df):
+def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
     """Merges standardized county names by county FIPS code found in the `census_utility`
      big query public dataset into an existing county level dataframe. Any existing
     'county_name' data in the incoming df will be overwritten.
@@ -231,8 +231,8 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
                  std_col.POPULATION_PCT_COL: float}
 
     if demo not in on_col_map:
-        raise ValueError('%s not a demographic option, must be one of: %s' % (
-            demo, list(on_col_map.keys())))
+        raise ValueError(
+            f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}')
 
     pop_table_name = f'by_{demo}_{loc}'
 

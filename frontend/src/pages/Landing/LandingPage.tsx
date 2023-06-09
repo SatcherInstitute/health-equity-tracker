@@ -16,14 +16,14 @@ import {
 } from '@mui/material'
 import {
   EXPLORE_DATA_PAGE_LINK,
-  NEWS_TAB_LINK,
+  NEWS_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
-import NewsPreviewCard from '../WhatIsHealthEquity/News/NewsPreviewCard'
+import NewsPreviewCard from '../News/NewsPreviewCard'
 import { useQuery } from 'react-query'
-import type { Article } from '../WhatIsHealthEquity/NewsTab'
-import { ArticlesSkeleton } from '../WhatIsHealthEquity/News/AllPosts'
+import type { Article } from '../News/NewsPage'
+import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
 
@@ -130,7 +130,7 @@ function LandingPage() {
               variant="subtitle1"
               component="p"
             >
-              News and stories from Morehouse School of Medicine and beyond
+              Stories and updates from Morehouse School of Medicine and beyond
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -163,7 +163,7 @@ function LandingPage() {
                 paragraph={true}
               >
                 <ReactRouterLinkButton
-                  url={NEWS_TAB_LINK}
+                  url={NEWS_PAGE_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
                   displayName="View all articles"
                 />

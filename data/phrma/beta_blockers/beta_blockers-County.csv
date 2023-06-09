@@ -1,0 +1,3217 @@
+STATE_NAME,STATE_FIPS,COUNTY_NAME,COUNTY_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Alabama,1,"Autauga County",1001,1148,241,1389,0.8264938805
+Alabama,1,"Baldwin County",1003,5471,984,6455,0.847560031
+Alabama,1,"Barbour County",1005,854,252,1106,0.7721518987
+Alabama,1,"Bibb County",1007,531,171,702,0.7564102564
+Alabama,1,"Blount County",1009,1648,326,1974,0.8348530902
+Alabama,1,"Bullock County",1011,342,98,440,0.7772727273
+Alabama,1,"Butler County",1013,870,228,1098,0.7923497268
+Alabama,1,"Calhoun County",1015,3486,783,4269,0.8165846803
+Alabama,1,"Chambers County",1017,1349,351,1700,0.7935294118
+Alabama,1,"Cherokee County",1019,1156,267,1423,0.8123682361
+Alabama,1,"Chilton County",1021,1073,255,1328,0.8079819277
+Alabama,1,"Choctaw County",1023,807,155,962,0.8388773389
+Alabama,1,"Clarke County",1025,1021,260,1281,0.7970335675
+Alabama,1,"Clay County",1027,628,134,762,0.8241469816
+Alabama,1,"Cleburne County",1029,540,120,660,0.8181818182
+Alabama,1,"Coffee County",1031,1219,309,1528,0.7977748691
+Alabama,1,"Colbert County",1033,2234,567,2801,0.7975722956
+Alabama,1,"Conecuh County",1035,604,168,772,0.7823834197
+Alabama,1,"Coosa County",1037,486,163,649,0.748844376
+Alabama,1,"Covington County",1039,1584,466,2050,0.7726829268
+Alabama,1,"Crenshaw County",1041,503,120,623,0.8073836276
+Alabama,1,"Cullman County",1043,3269,541,3810,0.8580052493
+Alabama,1,"Dale County",1045,1202,297,1499,0.8018679119
+Alabama,1,"Dallas County",1047,1547,545,2092,0.7394837476
+Alabama,1,"DeKalb County",1049,2475,546,3021,0.819265144
+Alabama,1,"Elmore County",1051,1751,412,2163,0.8095238095
+Alabama,1,"Escambia County",1053,1412,368,1780,0.793258427
+Alabama,1,"Etowah County",1055,4077,946,5023,0.8116663349
+Alabama,1,"Fayette County",1057,741,194,935,0.792513369
+Alabama,1,"Franklin County",1059,1267,256,1523,0.8319107026
+Alabama,1,"Geneva County",1061,920,263,1183,0.7776838546
+Alabama,1,"Greene County",1063,326,111,437,0.7459954233
+Alabama,1,"Hale County",1065,652,199,851,0.7661574618
+Alabama,1,"Henry County",1067,694,163,857,0.8098016336
+Alabama,1,"Houston County",1069,3534,838,4372,0.8083257091
+Alabama,1,"Jackson County",1071,2339,500,2839,0.8238816485
+Alabama,1,"Jefferson County",1073,13973,3177,17150,0.8147521866
+Alabama,1,"Lamar County",1075,713,179,892,0.7993273543
+Alabama,1,"Lauderdale County",1077,3591,729,4320,0.83125
+Alabama,1,"Lawrence County",1079,1464,304,1768,0.8280542986
+Alabama,1,"Lee County",1081,3174,790,3964,0.8007063572
+Alabama,1,"Limestone County",1083,2837,572,3409,0.8322088589
+Alabama,1,"Lowndes County",1085,355,92,447,0.7941834452
+Alabama,1,"Macon County",1087,453,127,580,0.7810344828
+Alabama,1,"Madison County",1089,7208,1511,8719,0.8267003097
+Alabama,1,"Marengo County",1091,943,292,1235,0.763562753
+Alabama,1,"Marion County",1093,1356,326,1682,0.8061831153
+Alabama,1,"Marshall County",1095,3499,685,4184,0.8362810707
+Alabama,1,"Mobile County",1097,8726,2092,10818,0.8066185986
+Alabama,1,"Monroe County",1099,835,259,1094,0.7632541133
+Alabama,1,"Montgomery County",1101,4448,1215,5663,0.7854494084
+Alabama,1,"Morgan County",1103,4500,878,5378,0.8367422834
+Alabama,1,"Perry County",1105,449,158,607,0.7397034596
+Alabama,1,"Pickens County",1107,810,210,1020,0.7941176471
+Alabama,1,"Pike County",1109,824,213,1037,0.7945998071
+Alabama,1,"Randolph County",1111,938,243,1181,0.7942421677
+Alabama,1,"Russell County",1113,1352,372,1724,0.7842227378
+Alabama,1,"St. Clair County",1115,2224,433,2657,0.8370342492
+Alabama,1,"Shelby County",1117,4656,847,5503,0.8460839542
+Alabama,1,"Sumter County",1119,530,162,692,0.7658959538
+Alabama,1,"Talladega County",1121,2976,722,3698,0.8047593294
+Alabama,1,"Tallapoosa County",1123,1794,502,2296,0.781358885
+Alabama,1,"Tuscaloosa County",1125,5369,1187,6556,0.8189444783
+Alabama,1,"Walker County",1127,2133,496,2629,0.8113351084
+Alabama,1,"Washington County",1129,692,185,877,0.7890535918
+Alabama,1,"Wilcox County",1131,531,148,679,0.7820324006
+Alabama,1,"Winston County",1133,1130,210,1340,0.8432835821
+Alabama,1,,1212,.,.,.,0.8571428571
+Alabama,1,,1313,0,.,.,0
+Alabama,1,,1616,.,0,.,1
+Alabama,1,,1818,.,0,.,1
+Alabama,1,,1919,.,0,.,1
+Alabama,1,,1999,78,29,107,0.7289719626
+Alaska,2,"Aleutians East Borough",2013,.,.,.,0.8947368421
+Alaska,2,"Aleutians West Census Area",2016,.,.,.,0.8125
+Alaska,2,"Anchorage Borough",2020,4753,873,5626,0.8448275862
+Alaska,2,"Bethel Census Area",2050,151,51,202,0.7475247525
+Alaska,2,"Bristol Bay Borough",2060,.,.,.,0.7368421053
+Alaska,2,"Denali Borough (created after 1990)",2068,.,.,.,0.9375
+Alaska,2,"Dillingham Census Area",2070,44,19,63,0.6984126984
+Alaska,2,"Fairbanks North Star Borough",2090,1391,238,1629,0.853898097
+Alaska,2,"Haines Borough",2100,.,.,.,0.8815789474
+Alaska,2,,2105,.,.,.,0.859375
+Alaska,2,"Juneau Borough",2110,782,140,922,0.8481561822
+Alaska,2,"Kenai Peninsula Borough",2122,1613,280,1893,0.852086635
+Alaska,2,"Ketchikan Gateway Borough",2130,380,59,439,0.8656036446
+Alaska,2,"Kodiak Island Borough",2150,162,34,196,0.8265306122
+Alaska,2,,2158,66,24,90,0.7333333333
+Alaska,2,"Lake and Peninsula Borough",2164,.,.,.,0.6363636364
+Alaska,2,"Matanuska-Susitna Borough",2170,2003,369,2372,0.8444350759
+Alaska,2,"Nome Census Area",2180,47,16,63,0.746031746
+Alaska,2,"North Slope Borough",2185,56,13,69,0.8115942029
+Alaska,2,"Northwest Arctic Borough",2188,71,40,111,0.6396396396
+Alaska,2,,2195,95,16,111,0.8558558559
+Alaska,2,,2198,108,38,146,0.7397260274
+Alaska,2,"Prince of Wales-Outer Ketchikan Census Area",2201,.,0,.,1
+Alaska,2,"Sitka Borough",2220,188,46,234,0.8034188034
+Alaska,2,,2230,.,.,.,0.8387096774
+Alaska,2,"Southeast Fairbanks Census Area",2240,125,31,156,0.8012820513
+Alaska,2,"Valdez-Cordova Census Area",2261,181,29,210,0.8619047619
+Alaska,2,,2275,95,11,106,0.8962264151
+Alaska,2,"Wrangell-Petersburg Census Area",2280,.,0,.,1
+Alaska,2,"Yakutat Borough (created after 1990)",2282,.,.,.,0.8571428571
+Alaska,2,"Yukon-Koyukuk Census Area",2290,62,31,93,0.6666666667
+Alaska,2,,2525,.,0,.,1
+Alaska,2,,2626,0,.,.,0
+Alaska,2,,2727,.,.,.,0.6666666667
+Alaska,2,,2828,.,0,.,1
+Alaska,2,,2999,.,.,.,0.7777777778
+Arizona,4,"Apache County",4001,757,389,1146,0.6605584642
+Arizona,4,"Cochise County",4003,2585,608,3193,0.8095834638
+Arizona,4,"Coconino County",4005,1782,475,2257,0.789543642
+Arizona,4,"Gila County",4007,2208,485,2693,0.8199034534
+Arizona,4,"Graham County",4009,657,153,810,0.8111111111
+Arizona,4,"Greenlee County",4011,174,28,202,0.8613861386
+Arizona,4,"La Paz County",4012,567,130,697,0.8134863702
+Arizona,4,"Maricopa County",4013,68217,12844,81061,0.8415514242
+Arizona,4,"Mohave County",4015,8507,1662,10169,0.8365621005
+Arizona,4,"Navajo County",4017,2162,680,2842,0.760731879
+Arizona,4,"Pima County",4019,17231,3456,20687,0.8329385604
+Arizona,4,"Pinal County",4021,8368,1707,10075,0.8305707196
+Arizona,4,"Santa Cruz County",4023,691,158,849,0.8138987044
+Arizona,4,"Yavapai County",4025,8337,1523,9860,0.8455375254
+Arizona,4,"Yuma County",4027,4261,1055,5316,0.8015425132
+Arizona,4,,4040,.,0,.,1
+Arizona,4,,4141,.,0,.,1
+Arizona,4,,4242,.,0,.,1
+Arizona,4,,4545,.,0,.,1
+Arizona,4,,4747,.,.,.,0.5
+Arizona,4,,4848,.,.,.,0.8333333333
+Arizona,4,,4999,142,30,172,0.8255813953
+Arkansas,5,"Arkansas County",5001,727,208,935,0.777540107
+Arkansas,5,"Ashley County",5003,1030,296,1326,0.7767722474
+Arkansas,5,"Baxter County",5005,2313,446,2759,0.8383472273
+Arkansas,5,"Benton County",5007,5546,1072,6618,0.838017528
+Arkansas,5,"Boone County",5009,1411,324,1735,0.8132564841
+Arkansas,5,"Bradley County",5011,472,190,662,0.7129909366
+Arkansas,5,"Calhoun County",5013,199,80,279,0.7132616487
+Arkansas,5,"Carroll County",5015,897,220,1117,0.8030438675
+Arkansas,5,"Chicot County",5017,504,148,652,0.773006135
+Arkansas,5,"Clark County",5019,659,135,794,0.8299748111
+Arkansas,5,"Clay County",5021,593,198,791,0.7496839444
+Arkansas,5,"Cleburne County",5023,1381,289,1670,0.8269461078
+Arkansas,5,"Cleveland County",5025,349,84,433,0.8060046189
+Arkansas,5,"Columbia County",5027,850,274,1124,0.756227758
+Arkansas,5,"Conway County",5029,839,189,1028,0.8161478599
+Arkansas,5,"Craighead County",5031,2817,685,3502,0.8043974872
+Arkansas,5,"Crawford County",5033,1833,431,2264,0.8096289753
+Arkansas,5,"Crittenden County",5035,1439,502,1941,0.7413704276
+Arkansas,5,"Cross County",5037,589,183,772,0.7629533679
+Arkansas,5,"Dallas County",5039,301,88,389,0.7737789203
+Arkansas,5,"Desha County",5041,548,227,775,0.7070967742000001
+Arkansas,5,"Drew County",5043,691,251,942,0.7335456476
+Arkansas,5,"Faulkner County",5045,3025,657,3682,0.8215643672
+Arkansas,5,"Franklin County",5047,640,147,787,0.8132147395
+Arkansas,5,"Fulton County",5049,595,155,750,0.7933333333
+Arkansas,5,"Garland County",5051,3810,966,4776,0.7977386935
+Arkansas,5,"Grant County",5053,624,136,760,0.8210526316
+Arkansas,5,"Greene County",5055,1470,343,1813,0.8108108108
+Arkansas,5,"Hempstead County",5057,763,218,981,0.7777777778
+Arkansas,5,"Hot Spring County",5059,1236,279,1515,0.8158415842
+Arkansas,5,"Howard County",5061,545,160,705,0.7730496454
+Arkansas,5,"Independence County",5063,1632,388,2020,0.8079207921
+Arkansas,5,"Izard County",5065,663,178,841,0.7883472057
+Arkansas,5,"Jackson County",5067,782,190,972,0.804526749
+Arkansas,5,"Jefferson County",5069,2044,715,2759,0.7408481334
+Arkansas,5,"Johnson County",5071,894,233,1127,0.793256433
+Arkansas,5,"Lafayette County",5073,288,109,397,0.725440806
+Arkansas,5,"Lawrence County",5075,674,190,864,0.7800925926
+Arkansas,5,"Lee County",5077,354,113,467,0.7580299786
+Arkansas,5,"Lincoln County",5079,416,152,568,0.7323943662
+Arkansas,5,"Little River County",5081,488,153,641,0.7613104524
+Arkansas,5,"Logan County",5083,910,177,1087,0.8371665133
+Arkansas,5,"Lonoke County",5085,1962,429,2391,0.8205771644
+Arkansas,5,"Madison County",5087,525,106,631,0.8320126783
+Arkansas,5,"Marion County",5089,699,153,852,0.8204225352
+Arkansas,5,"Miller County",5091,1356,363,1719,0.7888307155
+Arkansas,5,"Mississippi County",5093,1302,387,1689,0.7708703375
+Arkansas,5,"Monroe County",5095,373,114,487,0.7659137577
+Arkansas,5,"Montgomery County",5097,364,70,434,0.8387096774
+Arkansas,5,"Nevada County",5099,372,91,463,0.8034557235
+Arkansas,5,"Newton County",5101,286,59,345,0.8289855072
+Arkansas,5,"Ouachita County",5103,945,292,1237,0.7639450283
+Arkansas,5,"Perry County",5105,398,91,489,0.8139059305
+Arkansas,5,"Phillips County",5107,683,192,875,0.7805714286
+Arkansas,5,"Pike County",5109,445,135,580,0.7672413793
+Arkansas,5,"Poinsett County",5111,956,265,1221,0.782964783
+Arkansas,5,"Polk County",5113,816,190,1006,0.8111332008
+Arkansas,5,"Pope County",5115,2127,435,2562,0.8302107728
+Arkansas,5,"Prairie County",5117,480,118,598,0.8026755853
+Arkansas,5,"Pulaski County",5119,9865,2697,12562,0.7853048878
+Arkansas,5,"Randolph County",5121,690,226,916,0.7532751092
+Arkansas,5,"St. Francis County",5123,861,258,1119,0.7694369973
+Arkansas,5,"Saline County",5125,3855,896,4751,0.8114081246
+Arkansas,5,"Scott County",5127,382,79,461,0.8286334056
+Arkansas,5,"Searcy County",5129,370,71,441,0.8390022676
+Arkansas,5,"Sebastian County",5131,3739,874,4613,0.8105354433
+Arkansas,5,"Sevier County",5133,485,151,636,0.7625786164
+Arkansas,5,"Sharp County",5135,945,218,1163,0.8125537403
+Arkansas,5,"Stone County",5137,754,190,944,0.7987288136
+Arkansas,5,"Union County",5139,1612,524,2136,0.7546816479
+Arkansas,5,"Van Buren County",5141,773,150,923,0.8374864572
+Arkansas,5,"Washington County",5143,4598,872,5470,0.8405850091
+Arkansas,5,"White County",5145,3460,700,4160,0.8317307692
+Arkansas,5,"Woodruff County",5147,400,112,512,0.78125
+Arkansas,5,"Yell County",5149,730,203,933,0.7824222937
+Arkansas,5,,5353,.,0,.,1
+Arkansas,5,,5555,.,0,.,1
+Arkansas,5,,5999,74,22,96,0.7708333333
+California,6,California,6000,0,.,.,0
+California,6,"Alameda County",6001,19243,3922,23165,0.8306928556
+California,6,"Alpine County",6003,.,.,.,0.9333333333
+California,6,"Amador County",6005,1649,284,1933,0.8530781169
+California,6,"Butte County",6007,6543,1575,8118,0.8059866962
+California,6,"Calaveras County",6009,1941,325,2266,0.8565754634
+California,6,"Colusa County",6011,565,121,686,0.8236151603
+California,6,"Contra Costa County",6013,15297,3076,18373,0.8325804169
+California,6,"Del Norte County",6015,1063,201,1264,0.8409810127
+California,6,"El Dorado County",6017,4405,733,5138,0.8573374854
+California,6,"Fresno County",6019,17606,4157,21763,0.8089877315
+California,6,"Glenn County",6021,902,200,1102,0.8185117967
+California,6,"Humboldt County",6023,3636,731,4367,0.8326081978
+California,6,"Imperial County",6025,4764,1364,6128,0.7774151436
+California,6,"Inyo County",6027,580,142,722,0.8033240997
+California,6,"Kern County",6029,11868,3165,15033,0.789463181
+California,6,"Kings County",6031,2457,600,3057,0.8037291462
+California,6,"Lake County",6033,2427,690,3117,0.7786333013
+California,6,"Lassen County",6035,645,148,793,0.8133669609
+California,6,"Los Angeles County",6037,134970,29884,164854,0.8187244471
+California,6,"Madera County",6039,3063,678,3741,0.8187650361
+California,6,"Marin County",6041,4310,858,5168,0.8339783282
+California,6,"Mariposa County",6043,644,156,800,0.805
+California,6,"Mendocino County",6045,2533,587,3120,0.8118589744
+California,6,"Merced County",6047,5350,1410,6760,0.7914201183
+California,6,"Modoc County",6049,332,65,397,0.8362720403
+California,6,"Mono County",6051,156,40,196,0.7959183673
+California,6,"Monterey County",6053,8212,1798,10010,0.8203796204
+California,6,"Napa County",6055,2797,560,3357,0.8331843908
+California,6,"Nevada County",6057,3039,662,3701,0.8211294245
+California,6,"Orange County",6059,45704,8425,54129,0.8443533041
+California,6,"Placer County",6061,7137,1222,8359,0.8538102644
+California,6,"Plumas County",6063,769,159,928,0.8286637931
+California,6,"Riverside County",6065,27787,5951,33738,0.8236113581
+California,6,"Sacramento County",6067,20512,4538,25050,0.8188423154
+California,6,"San Benito County",6069,1153,266,1419,0.8125440451
+California,6,"San Bernardino County",6071,20291,5061,25352,0.8003707794
+California,6,"San Diego County",6073,36705,7940,44645,0.8221525367
+California,6,"San Francisco County",6075,13027,2449,15476,0.8417549754
+California,6,"San Joaquin County",6077,12513,2777,15290,0.8183780249
+California,6,"San Luis Obispo County",6079,8457,1384,9841,0.8593638858
+California,6,"San Mateo County",6081,9898,1770,11668,0.8483030511
+California,6,"Santa Barbara County",6083,8351,1670,10021,0.8333499651
+California,6,"Santa Clara County",6085,26275,4707,30982,0.8480730747
+California,6,"Santa Cruz County",6087,5796,1177,6973,0.8312060806
+California,6,"Shasta County",6089,6084,1252,7336,0.8293347874
+California,6,"Sierra County",6091,96,20,116,0.8275862069
+California,6,"Siskiyou County",6093,1744,341,2085,0.8364508393
+California,6,"Solano County",6095,5871,1232,7103,0.8265521611
+California,6,"Sonoma County",6097,7600,1663,9263,0.8204685307
+California,6,"Stanislaus County",6099,9091,2180,11271,0.8065832668
+California,6,"Sutter County",6101,2721,620,3341,0.8144268183
+California,6,"Tehama County",6103,2183,478,2661,0.8203682826
+California,6,"Trinity County",6105,425,67,492,0.8638211382
+California,6,"Tulare County",6107,9368,2194,11562,0.8102404428
+California,6,"Tuolumne County",6109,2033,457,2490,0.8164658635
+California,6,"Ventura County",6111,15618,3236,18854,0.8283653336
+California,6,"Yolo County",6113,3093,566,3659,0.845312927
+California,6,"Yuba County",6115,1581,432,2013,0.7853949329
+California,6,,6999,262,81,343,0.7638483965
+Colorado,8,"Adams County",8001,3796,816,4612,0.8230702515
+Colorado,8,"Alamosa County",8003,263,71,334,0.7874251497
+Colorado,8,"Arapahoe County",8005,6181,1302,7483,0.8260056127
+Colorado,8,"Archuleta County",8007,322,65,387,0.8320413437
+Colorado,8,"Baca County",8009,176,38,214,0.8224299065
+Colorado,8,"Bent County",8011,111,23,134,0.828358209
+Colorado,8,"Boulder County",8013,3760,751,4511,0.8335180669
+Colorado,8,,8014,733,127,860,0.8523255814
+Colorado,8,"Chaffee County",8015,528,106,634,0.832807571
+Colorado,8,"Cheyenne County",8017,60,12,72,0.8333333333
+Colorado,8,"Clear Creek County",8019,110,24,134,0.8208955224
+Colorado,8,"Conejos County",8021,171,52,223,0.7668161435
+Colorado,8,"Costilla County",8023,74,27,101,0.7326732673
+Colorado,8,"Crowley County",8025,102,27,129,0.7906976744
+Colorado,8,"Custer County",8027,134,25,159,0.8427672956
+Colorado,8,"Delta County",8029,916,165,1081,0.8473635523
+Colorado,8,"Denver County",8031,5386,1361,6747,0.7982807174
+Colorado,8,"Dolores County",8033,52,14,66,0.7878787879
+Colorado,8,"Douglas County",8035,3744,716,4460,0.8394618834
+Colorado,8,"Eagle County",8037,439,86,525,0.8361904762
+Colorado,8,"Elbert County",8039,422,85,507,0.83234714
+Colorado,8,"El Paso County",8041,7651,1400,9051,0.845320959
+Colorado,8,"Fremont County",8043,1135,221,1356,0.837020649
+Colorado,8,"Garfield County",8045,797,173,970,0.8216494845
+Colorado,8,"Gilpin County",8047,.,.,.,0.8656716418
+Colorado,8,"Grand County",8049,193,41,234,0.8247863248
+Colorado,8,"Gunnison County",8051,202,44,246,0.8211382114
+Colorado,8,"Hinsdale County",8053,.,.,.,0.8684210526
+Colorado,8,"Huerfano County",8055,226,59,285,0.7929824561
+Colorado,8,"Jackson County",8057,.,.,.,0.7435897436
+Colorado,8,"Jefferson County",8059,6149,1166,7315,0.8406015038
+Colorado,8,"Kiowa County",8061,53,13,66,0.803030303
+Colorado,8,"Kit Carson County",8063,208,44,252,0.8253968254
+Colorado,8,"Lake County",8065,77,11,88,0.875
+Colorado,8,"La Plata County",8067,1031,192,1223,0.8430089943
+Colorado,8,"Larimer County",8069,6058,999,7057,0.8584384299
+Colorado,8,"Las Animas County",8071,335,104,439,0.7630979499
+Colorado,8,"Lincoln County",8073,139,33,172,0.8081395349
+Colorado,8,"Logan County",8075,587,121,708,0.8290960452
+Colorado,8,"Mesa County",8077,2976,532,3508,0.8483466363
+Colorado,8,"Mineral County",8079,.,.,.,0.7567567568
+Colorado,8,"Moffat County",8081,242,49,291,0.8316151203
+Colorado,8,"Montezuma County",8083,726,129,855,0.849122807
+Colorado,8,"Montrose County",8085,1160,219,1379,0.8411892676
+Colorado,8,"Morgan County",8087,815,159,974,0.8367556468
+Colorado,8,"Otero County",8089,535,131,666,0.8033033033
+Colorado,8,"Ouray County",8091,102,18,120,0.85
+Colorado,8,"Park County",8093,270,56,326,0.8282208589
+Colorado,8,"Phillips County",8095,183,37,220,0.8318181818
+Colorado,8,"Pitkin County",8097,187,51,238,0.7857142857
+Colorado,8,"Prowers County",8099,380,81,461,0.8242950108
+Colorado,8,"Pueblo County",8101,3621,718,4339,0.8345240839
+Colorado,8,"Rio Blanco County",8103,140,36,176,0.7954545455
+Colorado,8,"Rio Grande County",8105,331,71,402,0.8233830846
+Colorado,8,"Routt County",8107,349,62,411,0.8491484185
+Colorado,8,"Saguache County",8109,107,32,139,0.7697841727
+Colorado,8,"San Juan County",8111,.,.,.,0.95
+Colorado,8,"San Miguel County",8113,58,14,72,0.8055555556
+Colorado,8,"Sedgwick County",8115,101,28,129,0.7829457364
+Colorado,8,"Summit County",8117,250,40,290,0.8620689655
+Colorado,8,"Teller County",8119,475,81,556,0.8543165468
+Colorado,8,"Washington County",8121,161,40,201,0.8009950249
+Colorado,8,"Weld County",8123,4954,867,5821,0.8510565195
+Colorado,8,"Yuma County",8125,369,60,429,0.8601398601
+Colorado,8,,8999,44,13,57,0.7719298246
+Connecticut,9,"Fairfield County",9001,23036,3865,26901,0.8563250437
+Connecticut,9,"Hartford County",9003,24787,3704,28491,0.8699940332
+Connecticut,9,"Litchfield County",9005,6370,937,7307,0.871766799
+Connecticut,9,"Middlesex County",9007,5514,694,6208,0.8882087629
+Connecticut,9,"New Haven County",9009,24046,3871,27917,0.8613389691
+Connecticut,9,"New London County",9011,8918,1239,10157,0.878015162
+Connecticut,9,"Tolland County",9013,4327,516,4843,0.8934544704
+Connecticut,9,"Windham County",9015,4052,495,4547,0.8911370134
+Connecticut,9,,9999,.,.,.,0.8421052632
+Delaware,10,"Kent County",10001,7084,1183,8267,0.8569009314
+Delaware,10,"New Castle County",10003,16877,2898,19775,0.8534513274
+Delaware,10,"Sussex County",10005,14160,2134,16294,0.8690315454
+Delaware,10,,10011,.,0,.,1
+Delaware,10,,10019,.,0,.,1
+Delaware,10,,10999,.,.,.,0.8
+"District of Columbia",11,"District of Columbia",11001,7927,2330,10257,0.7728380618
+"District of Columbia",11,,11999,.,.,.,0.5714285714
+Florida,12,"Alachua County",12001,4354,936,5290,0.8230623819
+Florida,12,"Baker County",12003,620,145,765,0.8104575163
+Florida,12,"Bay County",12005,4888,1081,5969,0.8188976378
+Florida,12,"Bradford County",12007,734,188,922,0.7960954447
+Florida,12,"Brevard County",12009,16020,3144,19164,0.835942392
+Florida,12,"Broward County",12011,27805,6061,33866,0.8210299415
+Florida,12,"Calhoun County",12013,455,97,552,0.8242753623
+Florida,12,"Charlotte County",12015,10043,1639,11682,0.8596986817
+Florida,12,"Citrus County",12017,7868,1421,9289,0.847023361
+Florida,12,"Clay County",12019,4355,936,5291,0.8230958231
+Florida,12,"Collier County",12021,15068,2467,17535,0.8593099515
+Florida,12,"Columbia County",12023,1771,435,2206,0.8028105168
+Florida,12,"DeSoto County",12027,1146,232,1378,0.8316400581
+Florida,12,"Dixie County",12029,464,127,591,0.7851099831
+Florida,12,"Duval County",12031,18063,4613,22676,0.7965690598
+Florida,12,"Escambia County",12033,6762,1617,8379,0.8070175439
+Florida,12,"Flagler County",12035,3947,717,4664,0.8462692967
+Florida,12,"Franklin County",12037,396,79,475,0.8336842105
+Florida,12,"Gadsden County",12039,844,256,1100,0.7672727273
+Florida,12,"Gilchrist County",12041,471,87,558,0.8440860215
+Florida,12,"Glades County",12043,396,91,487,0.8131416838
+Florida,12,"Gulf County",12045,638,166,804,0.7935323383
+Florida,12,"Hamilton County",12047,438,97,535,0.8186915888
+Florida,12,"Hardee County",12049,703,172,875,0.8034285714
+Florida,12,"Hendry County",12051,873,211,1084,0.8053505535
+Florida,12,"Hernando County",12053,6681,1193,7874,0.848488697
+Florida,12,"Highlands County",12055,5022,1020,6042,0.8311817279
+Florida,12,"Hillsborough County",12057,22446,4631,27077,0.8289692359
+Florida,12,"Holmes County",12059,626,175,801,0.7815230961
+Florida,12,"Indian River County",12061,7452,1344,8796,0.8472032742
+Florida,12,"Jackson County",12063,1492,332,1824,0.8179824561
+Florida,12,"Jefferson County",12065,342,86,428,0.7990654206
+Florida,12,"Lafayette County",12067,191,50,241,0.7925311203
+Florida,12,"Lake County",12069,13890,2497,16387,0.8476231159
+Florida,12,"Lee County",12071,28502,4701,33203,0.8584164082
+Florida,12,"Leon County",12073,3108,776,3884,0.8002059732
+Florida,12,"Levy County",12075,1422,339,1761,0.8074957411
+Florida,12,"Liberty County",12077,187,38,225,0.8311111111
+Florida,12,"Madison County",12079,604,169,773,0.7813712807
+Florida,12,"Manatee County",12081,12694,2196,14890,0.8525184688
+Florida,12,"Marion County",12083,14966,2789,17755,0.842917488
+Florida,12,"Martin County",12085,5906,958,6864,0.8604312354
+Florida,12,,12086,41680,8561,50241,0.8296013216
+Florida,12,"Monroe County",12087,2261,408,2669,0.847133758
+Florida,12,"Nassau County",12089,2671,535,3206,0.8331253899
+Florida,12,"Okaloosa County",12091,3380,840,4220,0.8009478673
+Florida,12,"Okeechobee County",12093,1260,348,1608,0.7835820896
+Florida,12,"Orange County",12095,17803,4197,22000,0.8092272727
+Florida,12,"Osceola County",12097,5107,1200,6307,0.8097352148
+Florida,12,"Palm Beach County",12099,40280,7718,47998,0.8392016334
+Florida,12,"Pasco County",12101,13531,2384,15915,0.8502042099
+Florida,12,"Pinellas County",12103,24484,4674,29158,0.8397009397
+Florida,12,"Polk County",12105,17409,3536,20945,0.8311768919
+Florida,12,"Putnam County",12107,2560,596,3156,0.8111533587
+Florida,12,"St. Johns County",12109,7559,1274,8833,0.8557681422
+Florida,12,"St. Lucie County",12111,9811,1911,11722,0.8369732128
+Florida,12,"Santa Rosa County",12113,3559,774,4333,0.8213708747
+Florida,12,"Sarasota County",12115,21542,3362,24904,0.8650016062
+Florida,12,"Seminole County",12117,8896,1835,10731,0.8290000932
+Florida,12,"Sumter County",12119,10525,1600,12125,0.8680412371
+Florida,12,"Suwannee County",12121,1459,354,1813,0.804743519
+Florida,12,"Taylor County",12123,736,170,906,0.8123620309
+Florida,12,"Union County",12125,233,52,285,0.8175438596
+Florida,12,"Volusia County",12127,14492,2782,17274,0.838948709
+Florida,12,"Wakulla County",12129,464,105,569,0.8154657293
+Florida,12,"Walton County",12131,2030,446,2476,0.8198707593
+Florida,12,"Washington County",12133,904,191,1095,0.8255707763
+Florida,12,,12999,408,100,508,0.8031496063
+Georgia,13,"Appling County",13001,544,161,705,0.7716312057
+Georgia,13,"Atkinson County",13003,243,72,315,0.7714285714
+Georgia,13,"Bacon County",13005,388,100,488,0.7950819672
+Georgia,13,"Baker County",13007,90,21,111,0.8108108108
+Georgia,13,"Baldwin County",13009,971,262,1233,0.7875101379
+Georgia,13,"Banks County",13011,564,110,674,0.8367952522
+Georgia,13,"Barrow County",13013,1775,338,2113,0.8400378609
+Georgia,13,"Bartow County",13015,2767,662,3429,0.8069407991
+Georgia,13,"Ben Hill County",13017,585,152,737,0.7937584803
+Georgia,13,"Berrien County",13019,500,153,653,0.7656967841
+Georgia,13,"Bibb County",13021,3720,1107,4827,0.7706650093
+Georgia,13,"Bleckley County",13023,333,91,424,0.7853773585
+Georgia,13,"Brantley County",13025,497,157,654,0.7599388379
+Georgia,13,"Brooks County",13027,560,190,750,0.7466666667
+Georgia,13,"Bryan County",13029,570,128,698,0.8166189112
+Georgia,13,"Bulloch County",13031,1559,445,2004,0.7779441118
+Georgia,13,"Burke County",13033,637,173,810,0.7864197531
+Georgia,13,"Butts County",13035,587,153,740,0.7932432432
+Georgia,13,"Calhoun County",13037,150,43,193,0.7772020725
+Georgia,13,"Camden County",13039,940,209,1149,0.818102698
+Georgia,13,"Candler County",13043,333,73,406,0.8201970443
+Georgia,13,"Carroll County",13045,2920,642,3562,0.8197641774
+Georgia,13,"Catoosa County",13047,2033,398,2431,0.8362813657
+Georgia,13,"Charlton County",13049,334,80,414,0.806763285
+Georgia,13,"Chatham County",13051,4764,1205,5969,0.7981236388
+Georgia,13,"Chattahoochee County",13053,57,17,74,0.7702702703
+Georgia,13,"Chattooga County",13055,909,220,1129,0.8051372896
+Georgia,13,"Cherokee County",13057,5040,937,5977,0.8432323908
+Georgia,13,"Clarke County",13059,2073,465,2538,0.81678487
+Georgia,13,"Clay County",13061,91,31,122,0.7459016393
+Georgia,13,"Clayton County",13063,2996,1001,3997,0.7495621716
+Georgia,13,"Clinch County",13065,251,83,334,0.751497006
+Georgia,13,"Cobb County",13067,11728,2398,14126,0.8302421068
+Georgia,13,"Coffee County",13069,1355,386,1741,0.77828834
+Georgia,13,"Colquitt County",13071,1429,408,1837,0.777898748
+Georgia,13,"Columbia County",13073,2218,458,2676,0.8288490284
+Georgia,13,"Cook County",13075,537,136,673,0.7979197623
+Georgia,13,"Coweta County",13077,2776,562,3338,0.83163571
+Georgia,13,"Crawford County",13079,349,70,419,0.8329355609
+Georgia,13,"Crisp County",13081,587,179,766,0.7663185379
+Georgia,13,"Dade County",13083,513,109,622,0.8247588424
+Georgia,13,"Dawson County",13085,755,159,914,0.8260393873
+Georgia,13,"Decatur County",13087,918,252,1170,0.7846153846
+Georgia,13,"DeKalb County",13089,9147,2341,11488,0.7962221448
+Georgia,13,"Dodge County",13091,653,174,827,0.7896009674
+Georgia,13,"Dooly County",13093,293,78,371,0.7897574124
+Georgia,13,"Dougherty County",13095,1962,586,2548,0.7700156986
+Georgia,13,"Douglas County",13097,2497,603,3100,0.805483871
+Georgia,13,"Early County",13099,406,65,471,0.8619957537
+Georgia,13,"Echols County",13101,123,13,136,0.9044117647
+Georgia,13,"Effingham County",13103,1145,246,1391,0.8231488138
+Georgia,13,"Elbert County",13105,699,163,862,0.8109048724
+Georgia,13,"Emanuel County",13107,670,196,866,0.7736720554
+Georgia,13,"Evans County",13109,313,66,379,0.8258575198
+Georgia,13,"Fannin County",13111,1188,229,1417,0.8383909668
+Georgia,13,"Fayette County",13113,2438,491,2929,0.8323659952
+Georgia,13,"Floyd County",13115,3258,856,4114,0.7919299951
+Georgia,13,"Forsyth County",13117,4019,749,4768,0.8429110738
+Georgia,13,"Franklin County",13119,836,202,1038,0.8053949904
+Georgia,13,"Fulton County",13121,13518,3514,17032,0.79368248
+Georgia,13,"Gilmer County",13123,1271,260,1531,0.8301763553
+Georgia,13,"Glascock County",13125,78,34,112,0.6964285714
+Georgia,13,"Glynn County",13127,2301,550,2851,0.8070852333
+Georgia,13,"Gordon County",13129,1804,447,2251,0.8014215904
+Georgia,13,"Grady County",13131,738,225,963,0.7663551402
+Georgia,13,"Greene County",13133,792,176,968,0.8181818182
+Georgia,13,"Gwinnett County",13135,10905,2316,13221,0.8248241434
+Georgia,13,"Habersham County",13137,1469,296,1765,0.8322946176
+Georgia,13,"Hall County",13139,5204,1133,6337,0.8212087739
+Georgia,13,"Hancock County",13141,279,101,380,0.7342105263
+Georgia,13,"Haralson County",13143,977,260,1237,0.7898140663
+Georgia,13,"Harris County",13145,756,191,947,0.7983104541
+Georgia,13,"Hart County",13147,993,249,1242,0.7995169082
+Georgia,13,"Heard County",13149,307,85,392,0.7831632653
+Georgia,13,"Henry County",13151,3698,929,4627,0.7992219581
+Georgia,13,"Houston County",13153,2250,600,2850,0.7894736842
+Georgia,13,"Irwin County",13155,311,81,392,0.7933673469
+Georgia,13,"Jackson County",13157,2004,382,2386,0.8398994132
+Georgia,13,"Jasper County",13159,393,93,486,0.8086419753
+Georgia,13,"Jeff Davis County",13161,484,138,622,0.7781350482
+Georgia,13,"Jefferson County",13163,552,193,745,0.7409395973
+Georgia,13,"Jenkins County",13165,254,93,347,0.7319884726
+Georgia,13,"Johnson County",13167,329,84,413,0.7966101695
+Georgia,13,"Jones County",13169,754,195,949,0.7945205479
+Georgia,13,"Lamar County",13171,441,108,549,0.8032786885
+Georgia,13,"Lanier County",13173,318,61,379,0.8390501319
+Georgia,13,"Laurens County",13175,1502,457,1959,0.7667177131
+Georgia,13,"Lee County",13177,545,123,668,0.8158682635
+Georgia,13,"Liberty County",13179,528,169,697,0.7575322812
+Georgia,13,"Lincoln County",13181,266,52,318,0.8364779874
+Georgia,13,"Long County",13183,168,58,226,0.7433628319
+Georgia,13,"Lowndes County",13185,2549,675,3224,0.7906327543
+Georgia,13,"Lumpkin County",13187,1020,216,1236,0.8252427184
+Georgia,13,"McDuffie County",13189,587,138,725,0.8096551724
+Georgia,13,"McIntosh County",13191,416,96,512,0.8125
+Georgia,13,"Macon County",13193,346,104,450,0.7688888889
+Georgia,13,"Madison County",13195,923,202,1125,0.8204444444
+Georgia,13,"Marion County",13197,209,56,265,0.7886792453
+Georgia,13,"Meriwether County",13199,724,147,871,0.831228473
+Georgia,13,"Miller County",13201,199,57,256,0.77734375
+Georgia,13,"Mitchell County",13205,631,181,812,0.7770935961
+Georgia,13,"Monroe County",13207,753,193,946,0.7959830867
+Georgia,13,"Montgomery County",13209,262,65,327,0.8012232416
+Georgia,13,"Morgan County",13211,620,147,767,0.8083441982
+Georgia,13,"Murray County",13213,1377,345,1722,0.7996515679
+Georgia,13,"Muscogee County",13215,3362,937,4299,0.7820423354
+Georgia,13,"Newton County",13217,2319,558,2877,0.8060479666
+Georgia,13,"Oconee County",13219,897,147,1044,0.8591954023
+Georgia,13,"Oglethorpe County",13221,485,80,565,0.8584070796
+Georgia,13,"Paulding County",13223,2944,618,3562,0.8265019652
+Georgia,13,"Peach County",13225,701,189,890,0.7876404494
+Georgia,13,"Pickens County",13227,1423,294,1717,0.8287711124
+Georgia,13,"Pierce County",13229,732,197,929,0.7879440258
+Georgia,13,"Pike County",13231,372,90,462,0.8051948052
+Georgia,13,"Polk County",13233,1364,426,1790,0.7620111732
+Georgia,13,"Pulaski County",13235,284,84,368,0.7717391304
+Georgia,13,"Putnam County",13237,819,170,989,0.8281092012
+Georgia,13,"Quitman County",13239,94,31,125,0.752
+Georgia,13,"Rabun County",13241,899,194,1093,0.8225068618
+Georgia,13,"Randolph County",13243,196,51,247,0.7935222672
+Georgia,13,"Richmond County",13245,3421,973,4394,0.778561675
+Georgia,13,"Rockdale County",13247,1779,443,2222,0.800630063
+Georgia,13,"Schley County",13249,109,30,139,0.7841726619
+Georgia,13,"Screven County",13251,485,117,602,0.8056478405
+Georgia,13,"Seminole County",13253,353,92,445,0.793258427
+Georgia,13,"Spalding County",13255,1759,518,2277,0.7725076856
+Georgia,13,"Stephens County",13257,1077,309,1386,0.7770562771
+Georgia,13,"Stewart County",13259,160,40,200,0.8
+Georgia,13,"Sumter County",13261,876,196,1072,0.8171641791
+Georgia,13,"Talbot County",13263,209,58,267,0.7827715356
+Georgia,13,"Taliaferro County",13265,54,14,68,0.7941176471
+Georgia,13,"Tattnall County",13267,462,127,589,0.7843803056
+Georgia,13,"Taylor County",13269,253,73,326,0.7760736196
+Georgia,13,"Telfair County",13271,391,123,514,0.7607003891
+Georgia,13,"Terrell County",13273,258,69,327,0.7889908257
+Georgia,13,"Thomas County",13275,1389,388,1777,0.7816544738
+Georgia,13,"Tift County",13277,953,300,1253,0.7605746209
+Georgia,13,"Toombs County",13279,780,206,986,0.7910750507
+Georgia,13,"Towns County",13281,708,120,828,0.8550724638
+Georgia,13,"Treutlen County",13283,228,66,294,0.7755102041
+Georgia,13,"Troup County",13285,1867,481,2348,0.7951448041
+Georgia,13,"Turner County",13287,233,70,303,0.7689768977
+Georgia,13,"Twiggs County",13289,285,105,390,0.7307692308
+Georgia,13,"Union County",13291,1254,243,1497,0.8376753507
+Georgia,13,"Upson County",13293,814,240,1054,0.7722960152
+Georgia,13,"Walker County",13295,2227,498,2725,0.8172477064
+Georgia,13,"Walton County",13297,2502,521,3023,0.8276546477
+Georgia,13,"Ware County",13299,1353,426,1779,0.760539629
+Georgia,13,"Warren County",13301,207,54,261,0.7931034483
+Georgia,13,"Washington County",13303,645,150,795,0.8113207547
+Georgia,13,"Wayne County",13305,849,237,1086,0.7817679558
+Georgia,13,"Webster County",13307,81,18,99,0.8181818182
+Georgia,13,"Wheeler County",13309,169,50,219,0.7716894977
+Georgia,13,"White County",13311,1177,252,1429,0.8236529041
+Georgia,13,"Whitfield County",13313,2593,688,3281,0.790307833
+Georgia,13,"Wilcox County",13315,240,68,308,0.7792207792
+Georgia,13,"Wilkes County",13317,415,99,514,0.8073929961
+Georgia,13,"Wilkinson County",13319,350,88,438,0.799086758
+Georgia,13,"Worth County",13321,589,141,730,0.8068493151
+Georgia,13,,13999,134,33,167,0.8023952096
+Hawaii,15,"Hawaii County",15001,4335,807,5142,0.8430571762
+Hawaii,15,"Honolulu County",15003,10865,2002,12867,0.844408176
+Hawaii,15,"Kauai County",15007,1269,249,1518,0.8359683794
+Hawaii,15,"Maui County",15009,1992,443,2435,0.8180698152
+Hawaii,15,,15999,.,.,.,0.75
+Idaho,16,"Ada County",16001,6068,967,7035,0.8625444208
+Idaho,16,"Adams County",16003,128,30,158,0.8101265823
+Idaho,16,"Bannock County",16005,1420,331,1751,0.8109651628
+Idaho,16,"Bear Lake County",16007,197,38,235,0.8382978723
+Idaho,16,"Benewah County",16009,296,55,351,0.8433048433
+Idaho,16,"Bingham County",16011,805,218,1023,0.7869012708
+Idaho,16,"Blaine County",16013,389,105,494,0.7874493927
+Idaho,16,"Boise County",16015,151,25,176,0.8579545455
+Idaho,16,"Bonner County",16017,1144,247,1391,0.8224299065
+Idaho,16,"Bonneville County",16019,2111,460,2571,0.8210812913
+Idaho,16,"Boundary County",16021,293,61,354,0.8276836158
+Idaho,16,"Butte County",16023,86,17,103,0.8349514563
+Idaho,16,"Camas County",16025,.,.,.,0.75
+Idaho,16,"Canyon County",16027,3216,632,3848,0.8357588358
+Idaho,16,"Caribou County",16029,227,39,266,0.8533834586
+Idaho,16,"Cassia County",16031,451,113,564,0.7996453901
+Idaho,16,"Clark County",16033,.,.,.,0.875
+Idaho,16,"Clearwater County",16035,351,69,420,0.8357142857
+Idaho,16,"Custer County",16037,151,26,177,0.8531073446
+Idaho,16,"Elmore County",16039,428,81,509,0.8408644401
+Idaho,16,"Franklin County",16041,311,74,385,0.8077922078
+Idaho,16,"Fremont County",16043,293,64,357,0.8207282913
+Idaho,16,"Gem County",16045,381,62,443,0.8600451467
+Idaho,16,"Gooding County",16047,368,82,450,0.8177777778
+Idaho,16,"Idaho County",16049,581,116,697,0.8335724534
+Idaho,16,"Jefferson County",16051,441,115,556,0.7931654676
+Idaho,16,"Jerome County",16053,382,82,464,0.8232758621
+Idaho,16,"Kootenai County",16055,3930,729,4659,0.8435286542
+Idaho,16,"Latah County",16057,686,127,813,0.8437884379
+Idaho,16,"Lemhi County",16059,301,52,353,0.8526912181
+Idaho,16,"Lewis County",16061,169,43,212,0.7971698113
+Idaho,16,"Lincoln County",16063,87,17,104,0.8365384615
+Idaho,16,"Madison County",16065,426,80,506,0.8418972332
+Idaho,16,"Minidoka County",16067,432,94,526,0.8212927757
+Idaho,16,"Nez Perce County",16069,1236,267,1503,0.8223552894
+Idaho,16,"Oneida County",16071,116,27,143,0.8111888112
+Idaho,16,"Owyhee County",16073,182,41,223,0.8161434978
+Idaho,16,"Payette County",16075,674,116,790,0.853164557
+Idaho,16,"Power County",16077,186,37,223,0.8340807175
+Idaho,16,"Shoshone County",16079,604,123,727,0.8308115543
+Idaho,16,"Teton County",16081,130,19,149,0.8724832215
+Idaho,16,"Twin Falls County",16083,1920,318,2238,0.8579088472
+Idaho,16,"Valley County",16085,236,46,282,0.8368794326
+Idaho,16,"Washington County",16087,344,82,426,0.8075117371
+Idaho,16,,16999,.,.,.,0.7058823529
+Illinois,17,"Adams County",17001,3198,478,3676,0.8699673558
+Illinois,17,"Alexander County",17003,281,70,351,0.8005698006
+Illinois,17,"Bond County",17005,856,122,978,0.8752556237
+Illinois,17,"Boone County",17007,1694,256,1950,0.8687179487
+Illinois,17,"Brown County",17009,243,40,283,0.8586572438
+Illinois,17,"Bureau County",17011,1661,229,1890,0.8788359788
+Illinois,17,"Calhoun County",17013,296,55,351,0.8433048433
+Illinois,17,"Carroll County",17015,840,114,954,0.8805031447
+Illinois,17,"Cass County",17017,596,105,701,0.85021398
+Illinois,17,"Champaign County",17019,4365,714,5079,0.8594211459
+Illinois,17,"Christian County",17021,1664,272,1936,0.8595041322
+Illinois,17,"Clark County",17023,844,161,1005,0.839800995
+Illinois,17,"Clay County",17025,836,92,928,0.900862069
+Illinois,17,"Clinton County",17027,1530,233,1763,0.8678389109
+Illinois,17,"Coles County",17029,2300,331,2631,0.8741923223
+Illinois,17,"Cook County",17031,126357,25770,152127,0.8306020628
+Illinois,17,"Crawford County",17033,1097,169,1266,0.8665086888
+Illinois,17,"Cumberland County",17035,615,77,692,0.8887283237
+Illinois,17,"DeKalb County",17037,3118,466,3584,0.8699776786
+Illinois,17,"De Witt County",17039,760,78,838,0.9069212411
+Illinois,17,"Douglas County",17041,798,122,920,0.8673913043
+Illinois,17,"DuPage County",17043,26918,4031,30949,0.8697534654
+Illinois,17,"Edgar County",17045,1089,197,1286,0.8468118196
+Illinois,17,"Edwards County",17047,316,50,366,0.8633879781
+Illinois,17,"Effingham County",17049,1838,274,2112,0.8702651515
+Illinois,17,"Fayette County",17051,1027,175,1202,0.8544093178
+Illinois,17,"Ford County",17053,565,111,676,0.8357988166
+Illinois,17,"Franklin County",17055,1969,338,2307,0.8534893801
+Illinois,17,"Fulton County",17057,1275,183,1458,0.8744855967
+Illinois,17,"Gallatin County",17059,283,62,345,0.8202898551
+Illinois,17,"Greene County",17061,731,135,866,0.8441108545
+Illinois,17,"Grundy County",17063,1565,237,1802,0.8684794673
+Illinois,17,"Hamilton County",17065,443,49,492,0.9004065041
+Illinois,17,"Hancock County",17067,1001,134,1135,0.881938326
+Illinois,17,"Hardin County",17069,225,38,263,0.855513308
+Illinois,17,"Henderson County",17071,360,57,417,0.8633093525
+Illinois,17,"Henry County",17073,2356,256,2612,0.9019908116
+Illinois,17,"Iroquois County",17075,1551,222,1773,0.8747884941
+Illinois,17,"Jackson County",17077,1889,385,2274,0.8306948109
+Illinois,17,"Jasper County",17079,562,76,638,0.8808777429
+Illinois,17,"Jefferson County",17081,1845,308,2153,0.8569437993
+Illinois,17,"Jersey County",17083,1181,232,1413,0.8358103326
+Illinois,17,"Jo Daviess County",17085,806,118,924,0.8722943723
+Illinois,17,"Johnson County",17087,591,99,690,0.8565217391
+Illinois,17,"Kane County",17089,14656,2189,16845,0.8700504601
+Illinois,17,"Kankakee County",17091,4338,770,5108,0.8492560689
+Illinois,17,"Kendall County",17093,2847,408,3255,0.8746543779
+Illinois,17,"Knox County",17095,2208,318,2526,0.8741092637
+Illinois,17,"Lake County",17097,19263,3125,22388,0.8604162944
+Illinois,17,"La Salle County",17099,4775,662,5437,0.8782416774
+Illinois,17,"Lawrence County",17101,721,123,844,0.8542654028
+Illinois,17,"Lee County",17103,1703,269,1972,0.8635902637
+Illinois,17,"Livingston County",17105,1649,226,1875,0.8794666667
+Illinois,17,"Logan County",17107,1343,179,1522,0.88239159
+Illinois,17,"McDonough County",17109,1225,173,1398,0.8762517883
+Illinois,17,"McHenry County",17111,11023,1642,12665,0.870351362
+Illinois,17,"McLean County",17113,4981,651,5632,0.8844105114
+Illinois,17,"Macon County",17115,5642,963,6605,0.8542013626
+Illinois,17,"Macoupin County",17117,2457,394,2851,0.8618028762
+Illinois,17,"Madison County",17119,9131,1567,10698,0.8535240232
+Illinois,17,"Marion County",17121,2139,454,2593,0.8249132279
+Illinois,17,"Marshall County",17123,538,69,607,0.8863261944
+Illinois,17,"Mason County",17125,638,97,735,0.8680272109
+Illinois,17,"Massac County",17127,762,133,895,0.851396648
+Illinois,17,"Menard County",17129,592,102,694,0.8530259366
+Illinois,17,"Mercer County",17131,719,103,822,0.8746958637
+Illinois,17,"Monroe County",17133,1162,182,1344,0.8645833333
+Illinois,17,"Montgomery County",17135,1575,244,1819,0.8658603628
+Illinois,17,"Morgan County",17137,1727,267,1994,0.8660982949
+Illinois,17,"Moultrie County",17139,754,122,876,0.8607305936
+Illinois,17,"Ogle County",17141,2110,279,2389,0.8832147342
+Illinois,17,"Peoria County",17143,5366,850,6216,0.8632561133
+Illinois,17,"Perry County",17145,875,167,1042,0.839731286
+Illinois,17,"Piatt County",17147,660,81,741,0.8906882591
+Illinois,17,"Pike County",17149,870,149,1019,0.8537782139
+Illinois,17,"Pope County",17151,209,32,241,0.867219917
+Illinois,17,"Pulaski County",17153,264,76,340,0.7764705882
+Illinois,17,"Putnam County",17155,274,36,310,0.8838709677
+Illinois,17,"Randolph County",17157,1530,259,1789,0.8552263835
+Illinois,17,"Richland County",17159,873,144,1017,0.8584070796
+Illinois,17,"Rock Island County",17161,5516,769,6285,0.877645187
+Illinois,17,"St. Clair County",17163,7114,1478,8592,0.8279795158
+Illinois,17,"Saline County",17165,1225,243,1468,0.8344686649
+Illinois,17,"Sangamon County",17167,8333,1437,9770,0.8529170931
+Illinois,17,"Schuyler County",17169,406,73,479,0.8475991649
+Illinois,17,"Scott County",17171,253,37,290,0.8724137931
+Illinois,17,"Shelby County",17173,1291,194,1485,0.8693602694
+Illinois,17,"Stark County",17175,223,36,259,0.861003861
+Illinois,17,"Stephenson County",17177,2024,295,2319,0.8727899957
+Illinois,17,"Tazewell County",17179,4607,597,5204,0.8852805534
+Illinois,17,"Union County",17181,930,155,1085,0.8571428571
+Illinois,17,"Vermilion County",17183,3089,535,3624,0.8523730684
+Illinois,17,"Wabash County",17185,624,98,722,0.864265928
+Illinois,17,"Warren County",17187,812,103,915,0.887431694
+Illinois,17,"Washington County",17189,740,128,868,0.8525345622
+Illinois,17,"Wayne County",17191,829,156,985,0.8416243655
+Illinois,17,"White County",17193,755,142,897,0.8416945373
+Illinois,17,"Whiteside County",17195,3165,438,3603,0.8784346378
+Illinois,17,"Will County",17197,18168,2970,21138,0.8594947488
+Illinois,17,"Williamson County",17199,3042,632,3674,0.8279804028
+Illinois,17,"Winnebago County",17201,10057,1563,11620,0.8654905336
+Illinois,17,"Woodford County",17203,1464,182,1646,0.8894289186
+Illinois,17,,17999,159,34,193,0.8238341969
+Indiana,18,"Adams County",18001,1083,120,1203,0.9002493766
+Indiana,18,"Allen County",18003,8205,1467,9672,0.848325062
+Indiana,18,"Bartholomew County",18005,2883,454,3337,0.8639496554
+Indiana,18,"Benton County",18007,358,69,427,0.8384074941
+Indiana,18,"Blackford County",18009,643,75,718,0.8955431755
+Indiana,18,"Boone County",18011,2007,326,2333,0.8602657523
+Indiana,18,"Brown County",18013,593,92,685,0.8656934307
+Indiana,18,"Carroll County",18015,811,131,942,0.8609341826
+Indiana,18,"Cass County",18017,1603,240,1843,0.8697775366
+Indiana,18,"Clark County",18019,3664,774,4438,0.8255971158
+Indiana,18,"Clay County",18021,1264,250,1514,0.8348745046
+Indiana,18,"Clinton County",18023,1287,181,1468,0.8767029973
+Indiana,18,"Crawford County",18025,441,72,513,0.8596491228
+Indiana,18,"Daviess County",18027,952,186,1138,0.8365553603
+Indiana,18,"Dearborn County",18029,1663,284,1947,0.854134566
+Indiana,18,"Decatur County",18031,1072,156,1228,0.8729641694
+Indiana,18,"De Kalb County",18033,1118,211,1329,0.8412340105
+Indiana,18,"Delaware County",18035,4592,824,5416,0.8478581979
+Indiana,18,"Dubois County",18037,1843,196,2039,0.9038744483
+Indiana,18,"Elkhart County",18039,5048,853,5901,0.8554482291
+Indiana,18,"Fayette County",18041,1442,236,1678,0.8593563766
+Indiana,18,"Floyd County",18043,2691,557,3248,0.8285098522
+Indiana,18,"Fountain County",18045,850,145,995,0.8542713568
+Indiana,18,"Franklin County",18047,807,130,937,0.8612593383
+Indiana,18,"Fulton County",18049,788,121,909,0.8668866887
+Indiana,18,"Gibson County",18051,1208,203,1411,0.856130404
+Indiana,18,"Grant County",18053,3152,515,3667,0.859558222
+Indiana,18,"Greene County",18055,1281,215,1496,0.8562834225
+Indiana,18,"Hamilton County",18057,7209,967,8176,0.8817270059
+Indiana,18,"Hancock County",18059,2583,339,2922,0.8839835729
+Indiana,18,"Harrison County",18061,1471,275,1746,0.8424971363
+Indiana,18,"Hendricks County",18063,4507,702,5209,0.8652332501
+Indiana,18,"Henry County",18065,2395,385,2780,0.8615107914
+Indiana,18,"Howard County",18067,3825,648,4473,0.8551307847
+Indiana,18,"Huntington County",18069,1118,177,1295,0.8633204633
+Indiana,18,"Jackson County",18071,1772,250,2022,0.8763600396
+Indiana,18,"Jasper County",18073,1418,220,1638,0.8656898657
+Indiana,18,"Jay County",18075,846,141,987,0.8571428571
+Indiana,18,"Jefferson County",18077,1347,251,1598,0.8429286608
+Indiana,18,"Jennings County",18079,1145,202,1347,0.8500371195
+Indiana,18,"Johnson County",18081,4997,688,5685,0.8789797713
+Indiana,18,"Knox County",18083,1597,265,1862,0.8576799141
+Indiana,18,"Kosciusko County",18085,2260,360,2620,0.8625954198
+Indiana,18,"Lagrange County",18087,772,123,895,0.8625698324
+Indiana,18,"Lake County",18089,17654,3532,21186,0.8332861324
+Indiana,18,"La Porte County",18091,4474,839,5313,0.8420854508
+Indiana,18,"Lawrence County",18093,1953,339,2292,0.8520942408
+Indiana,18,"Madison County",18095,5706,881,6587,0.8662517079
+Indiana,18,"Marion County",18097,21757,4368,26125,0.8328038278
+Indiana,18,"Marshall County",18099,1550,220,1770,0.8757062147
+Indiana,18,"Martin County",18101,375,44,419,0.8949880668
+Indiana,18,"Miami County",18103,1398,213,1611,0.8677839851
+Indiana,18,"Monroe County",18105,3328,551,3879,0.8579530807
+Indiana,18,"Montgomery County",18107,1476,232,1708,0.8641686183
+Indiana,18,"Morgan County",18109,2709,449,3158,0.857821406
+Indiana,18,"Newton County",18111,611,90,701,0.8716119829
+Indiana,18,"Noble County",18113,1322,179,1501,0.8807461692
+Indiana,18,"Ohio County",18115,227,50,277,0.8194945848
+Indiana,18,"Orange County",18117,883,125,1008,0.8759920635
+Indiana,18,"Owen County",18119,830,162,992,0.8366935484
+Indiana,18,"Parke County",18121,827,131,958,0.863256785
+Indiana,18,"Perry County",18123,825,144,969,0.8513931889
+Indiana,18,"Pike County",18125,551,68,619,0.8901453958
+Indiana,18,"Porter County",18127,6294,1055,7349,0.8564430535
+Indiana,18,"Posey County",18129,1098,157,1255,0.8749003984
+Indiana,18,"Pulaski County",18131,643,95,738,0.8712737127
+Indiana,18,"Putnam County",18133,1443,271,1714,0.8418903151
+Indiana,18,"Randolph County",18135,1228,203,1431,0.85814116
+Indiana,18,"Ripley County",18137,1125,186,1311,0.8581235698
+Indiana,18,"Rush County",18139,801,122,923,0.8678223185
+Indiana,18,"St. Joseph County",18141,6945,1098,8043,0.8634837747
+Indiana,18,"Scott County",18143,1097,265,1362,0.8054331865
+Indiana,18,"Shelby County",18145,1738,313,2051,0.8473915163
+Indiana,18,"Spencer County",18147,809,141,950,0.8515789474
+Indiana,18,"Starke County",18149,1168,152,1320,0.8848484848
+Indiana,18,"Steuben County",18151,1216,178,1394,0.8723098996
+Indiana,18,"Sullivan County",18153,1009,180,1189,0.8486122792
+Indiana,18,"Switzerland County",18155,379,53,432,0.8773148148
+Indiana,18,"Tippecanoe County",18157,4347,679,5026,0.864902507
+Indiana,18,"Tipton County",18159,804,110,914,0.8796498906
+Indiana,18,"Union County",18161,360,40,400,0.9
+Indiana,18,"Vanderburgh County",18163,6011,1079,7090,0.8478138223
+Indiana,18,"Vermillion County",18165,914,168,1082,0.8447319778
+Indiana,18,"Vigo County",18167,4893,1051,5944,0.8231830417
+Indiana,18,"Wabash County",18169,1223,191,1414,0.8649222065
+Indiana,18,"Warren County",18171,390,76,466,0.8369098712
+Indiana,18,"Warrick County",18173,2113,343,2456,0.8603420195
+Indiana,18,"Washington County",18175,1104,195,1299,0.8498845266
+Indiana,18,"Wayne County",18177,3273,660,3933,0.8321891686
+Indiana,18,"Wells County",18179,904,117,1021,0.8854064643
+Indiana,18,"White County",18181,1195,189,1384,0.8634393064
+Indiana,18,"Whitley County",18183,868,129,997,0.8706118355
+Indiana,18,,18999,124,26,150,0.8266666667
+Iowa,19,"Adair County",19001,368,53,421,0.8741092637
+Iowa,19,"Adams County",19003,.,.,.,0.9547511312
+Iowa,19,"Allamakee County",19005,740,86,826,0.8958837772
+Iowa,19,"Appanoose County",19007,653,118,771,0.8469520104
+Iowa,19,"Audubon County",19009,409,43,452,0.9048672566
+Iowa,19,"Benton County",19011,1127,135,1262,0.8930269414
+Iowa,19,"Black Hawk County",19013,5345,703,6048,0.8837632275
+Iowa,19,"Boone County",19015,1110,139,1249,0.8887109688
+Iowa,19,"Bremer County",19017,1277,152,1429,0.8936319104
+Iowa,19,"Buchanan County",19019,1024,121,1145,0.8943231441
+Iowa,19,"Buena Vista County",19021,671,88,759,0.884057971
+Iowa,19,"Butler County",19023,902,113,1015,0.8886699507
+Iowa,19,"Calhoun County",19025,558,73,631,0.8843106181
+Iowa,19,"Carroll County",19027,1143,120,1263,0.9049881235
+Iowa,19,"Cass County",19029,860,81,941,0.9139213603
+Iowa,19,"Cedar County",19031,672,106,778,0.8637532134
+Iowa,19,"Cerro Gordo County",19033,2362,339,2701,0.8744909293
+Iowa,19,"Cherokee County",19035,582,59,641,0.9079563183
+Iowa,19,"Chickasaw County",19037,606,71,677,0.8951255539
+Iowa,19,"Clarke County",19039,432,66,498,0.8674698795
+Iowa,19,"Clay County",19041,917,88,1005,0.9124378109
+Iowa,19,"Clayton County",19043,877,103,980,0.8948979592
+Iowa,19,"Clinton County",19045,2308,314,2622,0.8802440885
+Iowa,19,"Crawford County",19047,748,86,834,0.896882494
+Iowa,19,"Dallas County",19049,2081,270,2351,0.8851552531
+Iowa,19,"Davis County",19051,376,59,435,0.8643678161
+Iowa,19,"Decatur County",19053,358,45,403,0.888337469
+Iowa,19,"Delaware County",19055,759,117,876,0.8664383562
+Iowa,19,"Des Moines County",19057,2027,263,2290,0.8851528384
+Iowa,19,"Dickinson County",19059,1125,110,1235,0.9109311741
+Iowa,19,"Dubuque County",19061,2692,342,3034,0.8872775214
+Iowa,19,"Emmet County",19063,574,69,643,0.8926905132
+Iowa,19,"Fayette County",19065,1115,123,1238,0.9006462036
+Iowa,19,"Floyd County",19067,862,102,964,0.8941908714
+Iowa,19,"Franklin County",19069,546,80,626,0.8722044728
+Iowa,19,"Fremont County",19071,407,70,477,0.8532494759
+Iowa,19,"Greene County",19073,493,56,549,0.897996357
+Iowa,19,"Grundy County",19075,658,83,741,0.8879892038
+Iowa,19,"Guthrie County",19077,521,59,580,0.8982758621
+Iowa,19,"Hamilton County",19079,794,99,893,0.889137738
+Iowa,19,"Hancock County",19081,632,64,696,0.908045977
+Iowa,19,"Hardin County",19083,924,101,1025,0.9014634146
+Iowa,19,"Harrison County",19085,657,98,755,0.8701986755
+Iowa,19,"Henry County",19087,975,134,1109,0.8791704238
+Iowa,19,"Howard County",19089,539,58,597,0.9028475712
+Iowa,19,"Humboldt County",19091,477,57,534,0.893258427
+Iowa,19,"Ida County",19093,308,45,353,0.8725212465
+Iowa,19,"Iowa County",19095,739,69,808,0.9146039604
+Iowa,19,"Jackson County",19097,854,110,964,0.8858921162
+Iowa,19,"Jasper County",19099,1515,220,1735,0.8731988473
+Iowa,19,"Jefferson County",19101,704,97,801,0.8789013733
+Iowa,19,"Johnson County",19103,2908,367,3275,0.8879389313
+Iowa,19,"Jones County",19105,985,115,1100,0.8954545455
+Iowa,19,"Keokuk County",19107,475,70,545,0.871559633
+Iowa,19,"Kossuth County",19109,861,75,936,0.9198717949
+Iowa,19,"Lee County",19111,1867,257,2124,0.8790018832
+Iowa,19,"Linn County",19113,7703,922,8625,0.8931014493
+Iowa,19,"Louisa County",19115,473,66,539,0.8775510204
+Iowa,19,"Lucas County",19117,430,50,480,0.8958333333
+Iowa,19,"Lyon County",19119,490,58,548,0.8941605839
+Iowa,19,"Madison County",19121,501,75,576,0.8697916667
+Iowa,19,"Mahaska County",19123,857,124,981,0.873598369
+Iowa,19,"Marion County",19125,1294,186,1480,0.8743243243
+Iowa,19,"Marshall County",19127,1713,200,1913,0.8954521694
+Iowa,19,"Mills County",19129,589,82,671,0.8777943368
+Iowa,19,"Mitchell County",19131,552,77,629,0.8775834658
+Iowa,19,"Monona County",19133,513,65,578,0.8875432526
+Iowa,19,"Monroe County",19135,386,55,441,0.8752834467
+Iowa,19,"Montgomery County",19137,625,100,725,0.8620689655
+Iowa,19,"Muscatine County",19139,1633,219,1852,0.88174946
+Iowa,19,O,19141,757,82,839,0.9022646007
+Iowa,19,"Osceola County",19143,306,44,350,0.8742857143
+Iowa,19,"Page County",19145,931,142,1073,0.8676607642
+Iowa,19,"Palo Alto County",19147,575,50,625,0.92
+Iowa,19,"Plymouth County",19149,1038,120,1158,0.896373057
+Iowa,19,"Pocahontas County",19151,433,52,485,0.8927835052
+Iowa,19,"Polk County",19153,12020,1751,13771,0.8728487401
+Iowa,19,"Pottawattamie County",19155,3383,513,3896,0.8683264887
+Iowa,19,"Poweshiek County",19157,918,89,1007,0.9116186693
+Iowa,19,"Ringgold County",19159,289,26,315,0.9174603175
+Iowa,19,"Sac County",19161,554,81,635,0.8724409449
+Iowa,19,"Scott County",19163,5176,761,5937,0.8718207849
+Iowa,19,"Shelby County",19165,704,92,796,0.8844221106
+Iowa,19,"Sioux County",19167,1386,129,1515,0.9148514851
+Iowa,19,"Story County",19169,2463,286,2749,0.8959621681
+Iowa,19,"Tama County",19171,800,105,905,0.8839779006
+Iowa,19,"Taylor County",19173,336,55,391,0.8593350384
+Iowa,19,"Union County",19175,598,105,703,0.8506401138
+Iowa,19,"Van Buren County",19177,341,68,409,0.8337408313
+Iowa,19,"Wapello County",19179,1609,288,1897,0.848181339
+Iowa,19,"Warren County",19181,1613,229,1842,0.8756786102
+Iowa,19,"Washington County",19183,987,148,1135,0.8696035242
+Iowa,19,"Wayne County",19185,317,44,361,0.8781163435
+Iowa,19,"Webster County",19187,1698,225,1923,0.8829953198
+Iowa,19,"Winnebago County",19189,586,46,632,0.9272151899
+Iowa,19,"Winneshiek County",19191,941,115,1056,0.8910984848
+Iowa,19,"Woodbury County",19193,3101,517,3618,0.857103372
+Iowa,19,"Worth County",19195,384,64,448,0.8571428571
+Iowa,19,"Wright County",19197,685,72,757,0.9048877147
+Iowa,19,,19999,.,.,.,0.8717948718
+Kansas,20,"Allen County",20001,570,119,689,0.8272859216
+Kansas,20,"Anderson County",20003,349,69,418,0.8349282297
+Kansas,20,"Atchison County",20005,644,100,744,0.8655913978
+Kansas,20,"Barber County",20007,224,44,268,0.8358208955
+Kansas,20,"Barton County",20009,1105,201,1306,0.8460949464
+Kansas,20,"Bourbon County",20011,562,111,673,0.8350668648
+Kansas,20,"Brown County",20013,459,74,533,0.861163227
+Kansas,20,"Butler County",20015,1900,295,2195,0.8656036446
+Kansas,20,"Chase County",20017,128,15,143,0.8951048951
+Kansas,20,"Chautauqua County",20019,180,29,209,0.8612440191
+Kansas,20,"Cherokee County",20021,803,179,982,0.8177189409
+Kansas,20,"Cheyenne County",20023,146,40,186,0.7849462366
+Kansas,20,"Clark County",20025,117,19,136,0.8602941176
+Kansas,20,"Clay County",20027,363,49,412,0.8810679612
+Kansas,20,"Cloud County",20029,472,82,554,0.8519855596
+Kansas,20,"Coffey County",20031,375,88,463,0.8099352052
+Kansas,20,"Comanche County",20033,100,14,114,0.8771929825
+Kansas,20,"Cowley County",20035,1239,286,1525,0.8124590164
+Kansas,20,"Crawford County",20037,1468,288,1756,0.8359908884
+Kansas,20,"Decatur County",20039,150,29,179,0.8379888268
+Kansas,20,"Dickinson County",20041,781,124,905,0.8629834254
+Kansas,20,"Doniphan County",20043,310,54,364,0.8516483516
+Kansas,20,"Douglas County",20045,2468,374,2842,0.8684025334
+Kansas,20,"Edwards County",20047,144,41,185,0.7783783784
+Kansas,20,"Elk County",20049,138,26,164,0.8414634146
+Kansas,20,"Ellis County",20051,1081,134,1215,0.8897119342
+Kansas,20,"Ellsworth County",20053,274,68,342,0.8011695906
+Kansas,20,"Finney County",20055,701,156,857,0.8179696616
+Kansas,20,"Ford County",20057,809,122,931,0.8689581096
+Kansas,20,"Franklin County",20059,834,152,986,0.845841785
+Kansas,20,"Geary County",20061,377,76,453,0.8322295806
+Kansas,20,"Gove County",20063,129,38,167,0.7724550898
+Kansas,20,"Graham County",20065,129,27,156,0.8269230769
+Kansas,20,"Grant County",20067,207,45,252,0.8214285714
+Kansas,20,"Gray County",20069,227,36,263,0.8631178707
+Kansas,20,"Greeley County",20071,.,.,.,0.9666666667
+Kansas,20,"Greenwood County",20073,337,77,414,0.8140096618
+Kansas,20,"Hamilton County",20075,66,13,79,0.835443038
+Kansas,20,"Harper County",20077,280,49,329,0.8510638298
+Kansas,20,"Harvey County",20079,1377,252,1629,0.8453038674
+Kansas,20,"Haskell County",20081,116,20,136,0.8529411765
+Kansas,20,"Hodgeman County",20083,95,18,113,0.8407079646
+Kansas,20,"Jackson County",20085,470,91,561,0.8377896613
+Kansas,20,"Jefferson County",20087,671,101,772,0.8691709845
+Kansas,20,"Jewell County",20089,192,31,223,0.8609865471
+Kansas,20,"Johnson County",20091,11730,1856,13586,0.8633887826
+Kansas,20,"Kearny County",20093,118,16,134,0.8805970149
+Kansas,20,"Kingman County",20095,352,62,414,0.8502415459
+Kansas,20,"Kiowa County",20097,96,20,116,0.8275862069
+Kansas,20,"Labette County",20099,739,151,890,0.8303370787
+Kansas,20,"Lane County",20101,90,20,110,0.8181818182
+Kansas,20,"Leavenworth County",20103,1598,281,1879,0.8504523683
+Kansas,20,"Lincoln County",20105,215,33,248,0.8669354839
+Kansas,20,"Linn County",20107,362,74,436,0.8302752294
+Kansas,20,"Logan County",20109,150,26,176,0.8522727273
+Kansas,20,"Lyon County",20111,1185,178,1363,0.8694057227
+Kansas,20,"McPherson County",20113,1181,203,1384,0.8533236994
+Kansas,20,"Marion County",20115,635,96,731,0.8686730506
+Kansas,20,"Marshall County",20117,495,86,581,0.851979346
+Kansas,20,"Meade County",20119,131,23,154,0.8506493506
+Kansas,20,"Miami County",20121,1067,170,1237,0.8625707357
+Kansas,20,"Mitchell County",20123,414,55,469,0.8827292111
+Kansas,20,"Montgomery County",20125,1363,274,1637,0.8326206475
+Kansas,20,"Morris County",20127,262,42,304,0.8618421053
+Kansas,20,"Morton County",20129,134,29,163,0.8220858896
+Kansas,20,"Nemaha County",20131,450,62,512,0.87890625
+Kansas,20,"Neosho County",20133,687,131,818,0.8398533007
+Kansas,20,"Ness County",20135,168,33,201,0.8358208955
+Kansas,20,"Norton County",20137,226,46,272,0.8308823529
+Kansas,20,"Osage County",20139,686,112,798,0.8596491228
+Kansas,20,"Osborne County",20141,240,41,281,0.8540925267
+Kansas,20,"Ottawa County",20143,272,39,311,0.8745980707
+Kansas,20,"Pawnee County",20145,266,61,327,0.8134556575
+Kansas,20,"Phillips County",20147,328,50,378,0.8677248677
+Kansas,20,"Pottawatomie County",20149,644,126,770,0.8363636364
+Kansas,20,"Pratt County",20151,400,71,471,0.8492569002
+Kansas,20,"Rawlins County",20153,134,31,165,0.8121212121
+Kansas,20,"Reno County",20155,2542,441,2983,0.8521622528
+Kansas,20,"Republic County",20157,335,30,365,0.9178082192
+Kansas,20,"Rice County",20159,392,77,469,0.8358208955
+Kansas,20,"Riley County",20161,1152,147,1299,0.8868360277
+Kansas,20,"Rooks County",20163,269,39,308,0.8733766234
+Kansas,20,"Rush County",20165,208,32,240,0.8666666667
+Kansas,20,"Russell County",20167,394,60,454,0.8678414097
+Kansas,20,"Saline County",20169,2229,380,2609,0.8543503258
+Kansas,20,"Scott County",20171,202,24,226,0.8938053097
+Kansas,20,"Sedgwick County",20173,12442,2548,14990,0.8300200133
+Kansas,20,"Seward County",20175,354,95,449,0.7884187082
+Kansas,20,"Shawnee County",20177,6317,1047,7364,0.857821836
+Kansas,20,"Sheridan County",20179,152,26,178,0.8539325843
+Kansas,20,"Sherman County",20181,224,61,285,0.7859649123
+Kansas,20,"Smith County",20183,237,46,283,0.8374558304
+Kansas,20,"Stafford County",20185,175,36,211,0.8293838863
+Kansas,20,"Stanton County",20187,61,14,75,0.8133333333
+Kansas,20,"Stevens County",20189,174,26,200,0.87
+Kansas,20,"Sumner County",20191,815,171,986,0.8265720081
+Kansas,20,"Thomas County",20193,315,54,369,0.8536585366
+Kansas,20,"Trego County",20195,185,28,213,0.8685446009
+Kansas,20,"Wabaunsee County",20197,284,45,329,0.8632218845
+Kansas,20,"Wallace County",20199,83,14,97,0.8556701031
+Kansas,20,"Washington County",20201,307,41,348,0.882183908
+Kansas,20,"Wichita County",20203,77,16,93,0.8279569892
+Kansas,20,"Wilson County",20205,436,101,537,0.8119180633
+Kansas,20,"Woodson County",20207,166,28,194,0.8556701031
+Kansas,20,"Wyandotte County",20209,3001,680,3681,0.8152675903
+Kansas,20,,20999,.,.,.,0.7777777778
+Kentucky,21,"Adair County",21001,884,157,1041,0.8491834774
+Kentucky,21,"Allen County",21003,874,228,1102,0.7931034483
+Kentucky,21,"Anderson County",21005,664,135,799,0.8310387985
+Kentucky,21,"Ballard County",21007,435,84,519,0.838150289
+Kentucky,21,"Barren County",21009,2092,456,2548,0.8210361068
+Kentucky,21,"Bath County",21011,513,115,628,0.8168789809
+Kentucky,21,"Bell County",21013,1425,359,1784,0.7987668161
+Kentucky,21,"Boone County",21015,2560,446,3006,0.8516300732
+Kentucky,21,"Bourbon County",21017,783,160,943,0.8303287381
+Kentucky,21,"Boyd County",21019,2200,537,2737,0.8037997808
+Kentucky,21,"Boyle County",21021,1139,236,1375,0.8283636364
+Kentucky,21,"Bracken County",21023,305,59,364,0.8379120879
+Kentucky,21,"Breathitt County",21025,656,126,782,0.8388746803
+Kentucky,21,"Breckinridge County",21027,891,168,1059,0.8413597734
+Kentucky,21,"Bullitt County",21029,2578,476,3054,0.8441388343
+Kentucky,21,"Butler County",21031,510,139,649,0.7858243451
+Kentucky,21,"Caldwell County",21033,570,112,682,0.8357771261
+Kentucky,21,"Calloway County",21035,1471,283,1754,0.838654504
+Kentucky,21,"Campbell County",21037,2189,392,2581,0.8481208834
+Kentucky,21,"Carlisle County",21039,245,61,306,0.8006535948
+Kentucky,21,"Carroll County",21041,368,114,482,0.7634854772
+Kentucky,21,"Carter County",21043,1301,347,1648,0.7894417476
+Kentucky,21,"Casey County",21045,783,143,926,0.8455723542
+Kentucky,21,"Christian County",21047,1693,521,2214,0.7646793135
+Kentucky,21,"Clark County",21049,1134,242,1376,0.824127907
+Kentucky,21,"Clay County",21051,1100,239,1339,0.8215085885
+Kentucky,21,"Clinton County",21053,512,145,657,0.7792998478
+Kentucky,21,"Crittenden County",21055,424,68,492,0.8617886179
+Kentucky,21,"Cumberland County",21057,360,94,454,0.7929515419
+Kentucky,21,"Daviess County",21059,3905,805,4710,0.8290870488
+Kentucky,21,"Edmonson County",21061,602,108,710,0.8478873239
+Kentucky,21,"Elliott County",21063,250,52,302,0.8278145695
+Kentucky,21,"Estill County",21065,642,160,802,0.8004987531
+Kentucky,21,"Fayette County",21067,6335,1378,7713,0.8213405938
+Kentucky,21,"Fleming County",21069,615,138,753,0.8167330677
+Kentucky,21,"Floyd County",21071,2034,490,2524,0.8058637084
+Kentucky,21,"Franklin County",21073,2191,417,2608,0.840107362
+Kentucky,21,"Fulton County",21075,347,83,430,0.8069767442
+Kentucky,21,"Gallatin County",21077,235,55,290,0.8103448276
+Kentucky,21,"Garrard County",21079,698,156,854,0.8173302108
+Kentucky,21,"Grant County",21081,709,168,877,0.8084378563
+Kentucky,21,"Graves County",21083,1641,357,1998,0.8213213213
+Kentucky,21,"Grayson County",21085,1207,228,1435,0.8411149826
+Kentucky,21,"Green County",21087,643,112,755,0.8516556291
+Kentucky,21,"Greenup County",21089,1865,419,2284,0.8165499124
+Kentucky,21,"Hancock County",21091,358,62,420,0.8523809524
+Kentucky,21,"Hardin County",21093,2727,592,3319,0.821633022
+Kentucky,21,"Harlan County",21095,1407,381,1788,0.7869127517
+Kentucky,21,"Harrison County",21097,756,167,923,0.8190682557
+Kentucky,21,"Hart County",21099,927,221,1148,0.8074912892
+Kentucky,21,"Henderson County",21101,1711,328,2039,0.8391368318
+Kentucky,21,"Henry County",21103,548,96,644,0.850931677
+Kentucky,21,"Hickman County",21105,293,53,346,0.8468208092
+Kentucky,21,"Hopkins County",21107,1823,363,2186,0.8339432754
+Kentucky,21,"Jackson County",21109,609,164,773,0.787839586
+Kentucky,21,"Jefferson County",21111,21986,4902,26888,0.817688188
+Kentucky,21,"Jessamine County",21113,1346,241,1587,0.8481411468
+Kentucky,21,"Johnson County",21115,1175,325,1500,0.7833333333
+Kentucky,21,"Kenton County",21117,3784,764,4548,0.8320140721
+Kentucky,21,"Knott County",21119,845,190,1035,0.8164251208
+Kentucky,21,"Knox County",21121,1611,451,2062,0.7812803104
+Kentucky,21,"Larue County",21123,669,139,808,0.827970297
+Kentucky,21,"Laurel County",21125,2759,712,3471,0.7948717949
+Kentucky,21,"Lawrence County",21127,765,206,971,0.7878475798
+Kentucky,21,"Lee County",21129,330,99,429,0.7692307692
+Kentucky,21,"Leslie County",21131,654,162,816,0.8014705882
+Kentucky,21,"Letcher County",21133,1144,285,1429,0.8005598321
+Kentucky,21,"Lewis County",21135,635,141,776,0.8182989691
+Kentucky,21,"Lincoln County",21137,1101,228,1329,0.8284424379
+Kentucky,21,"Livingston County",21139,482,91,573,0.8411867365
+Kentucky,21,"Logan County",21141,1254,303,1557,0.8053949904
+Kentucky,21,"Lyon County",21143,404,76,480,0.8416666667
+Kentucky,21,"McCracken County",21145,2839,631,3470,0.8181556196
+Kentucky,21,"McCreary County",21147,759,170,929,0.817007535
+Kentucky,21,"McLean County",21149,384,66,450,0.8533333333
+Kentucky,21,"Madison County",21151,2595,604,3199,0.8111909972
+Kentucky,21,"Magoffin County",21153,666,150,816,0.8161764706
+Kentucky,21,"Marion County",21155,775,159,934,0.829764454
+Kentucky,21,"Marshall County",21157,1590,298,1888,0.8421610169
+Kentucky,21,"Martin County",21159,524,119,643,0.8149300156
+Kentucky,21,"Mason County",21161,726,121,847,0.8571428571
+Kentucky,21,"Meade County",21163,791,200,991,0.7981836529
+Kentucky,21,"Menifee County",21165,305,62,367,0.8310626703
+Kentucky,21,"Mercer County",21167,856,172,1028,0.8326848249
+Kentucky,21,"Metcalfe County",21169,515,92,607,0.8484349259
+Kentucky,21,"Monroe County",21171,527,110,637,0.8273155416
+Kentucky,21,"Montgomery County",21173,971,205,1176,0.8256802721
+Kentucky,21,"Morgan County",21175,568,120,688,0.8255813953
+Kentucky,21,"Muhlenberg County",21177,1528,343,1871,0.8166755746
+Kentucky,21,"Nelson County",21179,1915,383,2298,0.8333333333
+Kentucky,21,"Nicholas County",21181,391,71,462,0.8463203463
+Kentucky,21,"Ohio County",21183,885,238,1123,0.7880676759
+Kentucky,21,"Oldham County",21185,1453,264,1717,0.8462434479
+Kentucky,21,"Owen County",21187,401,90,491,0.816700611
+Kentucky,21,"Owsley County",21189,193,52,245,0.787755102
+Kentucky,21,"Pendleton County",21191,503,85,588,0.8554421769
+Kentucky,21,"Perry County",21193,1453,390,1843,0.788388497
+Kentucky,21,"Pike County",21195,2864,820,3684,0.7774158523
+Kentucky,21,"Powell County",21197,517,132,649,0.7966101695
+Kentucky,21,"Pulaski County",21199,2984,634,3618,0.8247650636
+Kentucky,21,"Robertson County",21201,104,18,122,0.8524590164
+Kentucky,21,"Rockcastle County",21203,835,200,1035,0.806763285
+Kentucky,21,"Rowan County",21205,880,235,1115,0.7892376682
+Kentucky,21,"Russell County",21207,816,212,1028,0.7937743191
+Kentucky,21,"Scott County",21209,1243,273,1516,0.8199208443
+Kentucky,21,"Shelby County",21211,1398,285,1683,0.8306595365
+Kentucky,21,"Simpson County",21213,721,179,900,0.8011111111
+Kentucky,21,"Spencer County",21215,496,118,614,0.8078175896
+Kentucky,21,"Taylor County",21217,1249,262,1511,0.8266048974
+Kentucky,21,"Todd County",21219,455,107,562,0.8096085409
+Kentucky,21,"Trigg County",21221,638,124,762,0.8372703412
+Kentucky,21,"Trimble County",21223,317,76,393,0.8066157761
+Kentucky,21,"Union County",21225,604,135,739,0.8173207037
+Kentucky,21,"Warren County",21227,3577,814,4391,0.8146208153
+Kentucky,21,"Washington County",21229,541,90,631,0.8573692552
+Kentucky,21,"Wayne County",21231,976,238,1214,0.8039538715
+Kentucky,21,"Webster County",21233,482,103,585,0.8239316239
+Kentucky,21,"Whitley County",21235,1766,525,2291,0.7708424269
+Kentucky,21,"Wolfe County",21237,371,84,455,0.8153846154
+Kentucky,21,"Woodford County",21239,779,161,940,0.8287234043
+Kentucky,21,,21999,108,29,137,0.7883211679
+Louisiana,22,"Acadia Parish",22001,2288,522,2810,0.8142348754
+Louisiana,22,"Allen Parish",22003,761,230,991,0.7679112008
+Louisiana,22,"Ascension Parish",22005,1737,387,2124,0.8177966102
+Louisiana,22,"Assumption Parish",22007,917,216,1133,0.8093556929
+Louisiana,22,"Avoyelles Parish",22009,1690,413,2103,0.8036138849
+Louisiana,22,"Beauregard Parish",22011,1070,334,1404,0.7621082621
+Louisiana,22,"Bienville Parish",22013,532,172,704,0.7556818182
+Louisiana,22,"Bossier Parish",22015,2331,632,2963,0.7867026662
+Louisiana,22,"Caddo Parish",22017,6404,2030,8434,0.7593075646
+Louisiana,22,"Calcasieu Parish",22019,5229,1562,6791,0.7699896922
+Louisiana,22,"Caldwell Parish",22021,395,119,514,0.7684824903
+Louisiana,22,"Cameron Parish",22023,204,51,255,0.8
+Louisiana,22,"Catahoula Parish",22025,411,119,530,0.7754716981
+Louisiana,22,"Claiborne Parish",22027,597,196,793,0.7528373266
+Louisiana,22,"Concordia Parish",22029,746,254,1000,0.746
+Louisiana,22,"De Soto Parish",22031,915,341,1256,0.7285031847
+Louisiana,22,"East Baton Rouge Parish",22033,8620,2216,10836,0.7954964932
+Louisiana,22,"East Carroll Parish",22035,283,80,363,0.7796143251
+Louisiana,22,"East Feliciana Parish",22037,685,211,896,0.7645089286
+Louisiana,22,"Evangeline Parish",22039,1414,431,1845,0.766395664
+Louisiana,22,"Franklin Parish",22041,748,251,999,0.7487487487
+Louisiana,22,"Grant Parish",22043,627,198,825,0.76
+Louisiana,22,"Iberia Parish",22045,2486,626,3112,0.7988431877
+Louisiana,22,"Iberville Parish",22047,737,213,950,0.7757894737
+Louisiana,22,"Jackson Parish",22049,613,184,797,0.7691342535
+Louisiana,22,"Jefferson Parish",22051,6862,1634,8496,0.8076741996
+Louisiana,22,"Jefferson Davis Parish",22053,1187,323,1510,0.7860927152
+Louisiana,22,"Lafayette Parish",22055,6247,1335,7582,0.8239250857
+Louisiana,22,"Lafourche Parish",22057,4160,741,4901,0.848806366
+Louisiana,22,"La Salle Parish",22059,599,171,770,0.7779220779
+Louisiana,22,"Lincoln Parish",22061,1200,315,1515,0.7920792079
+Louisiana,22,"Livingston Parish",22063,2404,509,2913,0.8252660487
+Louisiana,22,"Madison Parish",22065,303,112,415,0.7301204819
+Louisiana,22,"Morehouse Parish",22067,963,249,1212,0.7945544554
+Louisiana,22,"Natchitoches Parish",22069,1298,394,1692,0.7671394799
+Louisiana,22,"Orleans Parish",22071,5453,1683,7136,0.7641535874
+Louisiana,22,"Ouachita Parish",22073,4765,1327,6092,0.7821733421
+Louisiana,22,"Plaquemines Parish",22075,297,81,378,0.7857142857
+Louisiana,22,"Pointe Coupee Parish",22077,673,195,868,0.7753456221
+Louisiana,22,"Rapides Parish",22079,4454,1208,5662,0.7866478276
+Louisiana,22,"Red River Parish",22081,322,132,454,0.7092511013
+Louisiana,22,"Richland Parish",22083,834,257,1091,0.764436297
+Louisiana,22,"Sabine Parish",22085,1061,253,1314,0.8074581431
+Louisiana,22,"St. Bernard Parish",22087,637,176,813,0.7835178352
+Louisiana,22,"St. Charles Parish",22089,819,226,1045,0.7837320574
+Louisiana,22,"St. Helena Parish",22091,434,143,577,0.7521663778
+Louisiana,22,"St. James Parish",22093,675,169,844,0.7997630332
+Louisiana,22,"St. John the Baptist Parish",22095,847,258,1105,0.7665158371
+Louisiana,22,"St. Landry Parish",22097,3508,976,4484,0.7823371989
+Louisiana,22,"St. Martin Parish",22099,1659,428,2087,0.7949209391
+Louisiana,22,"St. Mary Parish",22101,1843,556,2399,0.7682367653
+Louisiana,22,"St. Tammany Parish",22103,5128,1122,6250,0.82048
+Louisiana,22,"Tangipahoa Parish",22105,3485,854,4339,0.8031804563
+Louisiana,22,"Tensas Parish",22107,211,84,295,0.7152542373
+Louisiana,22,"Terrebonne Parish",22109,4367,859,5226,0.8356295446
+Louisiana,22,"Union Parish",22111,935,265,1200,0.7791666667
+Louisiana,22,"Vermilion Parish",22113,1963,424,2387,0.8223711772
+Louisiana,22,"Vernon Parish",22115,1025,333,1358,0.7547864507
+Louisiana,22,"Washington Parish",22117,2017,529,2546,0.7922230951
+Louisiana,22,"Webster Parish",22119,1699,405,2104,0.8075095057
+Louisiana,22,"West Baton Rouge Parish",22121,541,123,664,0.8147590361
+Louisiana,22,"West Carroll Parish",22123,564,122,686,0.8221574344
+Louisiana,22,"West Feliciana Parish",22125,298,103,401,0.7431421446
+Louisiana,22,"Winn Parish",22127,617,185,802,0.7693266833
+Louisiana,22,,22999,61,16,77,0.7922077922
+Maine,23,"Androscoggin County",23001,3106,435,3541,0.8771533465
+Maine,23,"Aroostook County",23003,4388,540,4928,0.8904220779
+Maine,23,"Cumberland County",23005,7653,1063,8716,0.8780403855
+Maine,23,"Franklin County",23007,1079,166,1245,0.8666666667
+Maine,23,"Hancock County",23009,2165,318,2483,0.871929118
+Maine,23,"Kennebec County",23011,3642,551,4193,0.868590508
+Maine,23,"Knox County",23013,1537,260,1797,0.8553144129
+Maine,23,"Lincoln County",23015,1281,171,1452,0.882231405
+Maine,23,"Oxford County",23017,2229,287,2516,0.8859300477
+Maine,23,"Penobscot County",23019,5657,886,6543,0.8645881094
+Maine,23,"Piscataquis County",23021,812,122,934,0.869379015
+Maine,23,"Sagadahoc County",23023,1076,162,1238,0.8691437803
+Maine,23,"Somerset County",23025,2292,351,2643,0.8671963678
+Maine,23,"Waldo County",23027,1482,211,1693,0.8753691672
+Maine,23,"Washington County",23029,1792,266,2058,0.8707482993
+Maine,23,"York County",23031,7079,957,8036,0.8809109009
+Maine,23,,23999,.,.,.,0.8518518519
+Maryland,24,"Allegany County",24001,3726,733,4459,0.8356133662
+Maryland,24,"Anne Arundel County",24003,13546,2152,15698,0.8629124729
+Maryland,24,"Baltimore County",24005,26631,4738,31369,0.8489591635
+Maryland,24,"Calvert County",24009,2052,366,2418,0.8486352357
+Maryland,24,"Caroline County",24011,1355,273,1628,0.8323095823
+Maryland,24,"Carroll County",24013,5873,820,6693,0.8774839384
+Maryland,24,"Cecil County",24015,3417,658,4075,0.8385276074
+Maryland,24,"Charles County",24017,2529,558,3087,0.8192419825
+Maryland,24,"Dorchester County",24019,1796,336,2132,0.8424015009
+Maryland,24,"Frederick County",24021,6649,997,7646,0.8696050222
+Maryland,24,"Garrett County",24023,1666,240,1906,0.8740818468
+Maryland,24,"Harford County",24025,7658,1258,8916,0.8589053387
+Maryland,24,"Howard County",24027,5907,894,6801,0.8685487428
+Maryland,24,"Kent County",24029,1069,181,1250,0.8552
+Maryland,24,"Montgomery County",24031,18377,3231,21608,0.8504720474
+Maryland,24,"Prince George",24033,11649,3036,14685,0.793258427
+Maryland,24,"Queen Anne",24035,1928,230,2158,0.8934198332
+Maryland,24,"St. Mary",24037,1974,372,2346,0.8414322251
+Maryland,24,"Somerset County",24039,1084,244,1328,0.8162650602
+Maryland,24,"Talbot County",24041,2221,316,2537,0.8754434371
+Maryland,24,"Washington County",24043,5133,870,6003,0.8550724638
+Maryland,24,"Wicomico County",24045,3828,702,4530,0.8450331126
+Maryland,24,"Worcester County",24047,2743,465,3208,0.8550498753
+Maryland,24,"Baltimore city",24510,14817,4337,19154,0.7735720998
+Maryland,24,,24999,76,20,96,0.7916666667
+Massachusetts,25,"Barnstable County",25001,12914,1751,14665,0.8806000682
+Massachusetts,25,"Berkshire County",25003,6235,956,7191,0.8670560423
+Massachusetts,25,"Bristol County",25005,23232,3488,26720,0.8694610778
+Massachusetts,25,"Dukes County",25007,756,117,873,0.8659793814
+Massachusetts,25,"Essex County",25009,26865,3629,30494,0.8809929822
+Massachusetts,25,"Franklin County",25011,2491,387,2878,0.8655316192
+Massachusetts,25,"Hampden County",25013,15480,2358,17838,0.8678102926
+Massachusetts,25,"Hampshire County",25015,4672,618,5290,0.8831758034
+Massachusetts,25,"Middlesex County",25017,41212,5777,46989,0.8770563323
+Massachusetts,25,"Nantucket County",25019,373,69,442,0.8438914027
+Massachusetts,25,"Norfolk County",25021,21548,2988,24536,0.8782197587
+Massachusetts,25,"Plymouth County",25023,20312,2940,23252,0.8735592637
+Massachusetts,25,"Suffolk County",25025,17189,3042,20231,0.8496366962
+Massachusetts,25,"Worcester County",25027,22903,3363,26266,0.8719637554
+Massachusetts,25,,25999,56,14,70,0.8
+Michigan,26,"Alcona County",26001,754,117,871,0.8656716418
+Michigan,26,"Alger County",26003,338,61,399,0.8471177945
+Michigan,26,"Allegan County",26005,2448,408,2856,0.8571428571
+Michigan,26,"Alpena County",26007,1600,250,1850,0.8648648649
+Michigan,26,"Antrim County",26009,1056,167,1223,0.8634505315
+Michigan,26,"Arenac County",26011,849,122,971,0.8743563337
+Michigan,26,"Baraga County",26013,336,33,369,0.9105691057
+Michigan,26,"Barry County",26015,1641,266,1907,0.8605138962
+Michigan,26,"Bay County",26017,4722,782,5504,0.8579215116
+Michigan,26,"Benzie County",26019,668,98,766,0.8720626632
+Michigan,26,"Berrien County",26021,5282,991,6273,0.8420213614
+Michigan,26,"Branch County",26023,1735,263,1998,0.8683683684
+Michigan,26,"Calhoun County",26025,4444,797,5241,0.8479297844
+Michigan,26,"Cass County",26027,1885,329,2214,0.8514001807
+Michigan,26,"Charlevoix County",26029,1045,167,1212,0.8622112211
+Michigan,26,"Cheboygan County",26031,1207,202,1409,0.856635912
+Michigan,26,"Chippewa County",26033,1186,170,1356,0.8746312684
+Michigan,26,"Clare County",26035,1623,260,1883,0.8619224642
+Michigan,26,"Clinton County",26037,2068,309,2377,0.870004207
+Michigan,26,"Crawford County",26039,626,105,731,0.8563611491
+Michigan,26,"Delta County",26041,1685,228,1913,0.8808154731
+Michigan,26,"Dickinson County",26043,980,126,1106,0.8860759494
+Michigan,26,"Eaton County",26045,3313,564,3877,0.8545266959
+Michigan,26,"Emmet County",26047,1126,188,1314,0.8569254186
+Michigan,26,"Genesee County",26049,14575,3176,17751,0.8210805025
+Michigan,26,"Gladwin County",26051,1537,244,1781,0.8629983156
+Michigan,26,"Gogebic County",26053,767,86,853,0.8991793669
+Michigan,26,"Grand Traverse County",26055,2588,355,2943,0.8793747876
+Michigan,26,"Gratiot County",26057,1626,247,1873,0.8681260011
+Michigan,26,"Hillsdale County",26059,1808,313,2121,0.8524281
+Michigan,26,"Houghton County",26061,1075,169,1244,0.86414791
+Michigan,26,"Huron County",26063,1958,345,2303,0.8501953973
+Michigan,26,"Ingham County",26065,6317,1190,7507,0.8414812841
+Michigan,26,"Ionia County",26067,1722,265,1987,0.8666331152
+Michigan,26,"Iosco County",26069,1485,237,1722,0.862369338
+Michigan,26,"Iron County",26071,656,115,771,0.850843061
+Michigan,26,"Isabella County",26073,1711,274,1985,0.8619647355
+Michigan,26,"Jackson County",26075,6074,1054,7128,0.8521324355
+Michigan,26,"Kalamazoo County",26077,6412,1155,7567,0.8473635523
+Michigan,26,"Kalkaska County",26079,725,102,827,0.876662636
+Michigan,26,"Kent County",26081,11188,1872,13060,0.856661562
+Michigan,26,"Keweenaw County",26083,103,14,117,0.8803418803
+Michigan,26,"Lake County",26085,595,108,703,0.8463726885
+Michigan,26,"Lapeer County",26087,3366,523,3889,0.8655181281
+Michigan,26,"Leelanau County",26089,806,124,930,0.8666666667
+Michigan,26,"Lenawee County",26091,3683,562,4245,0.8676089517
+Michigan,26,"Livingston County",26093,4723,699,5422,0.871080782
+Michigan,26,"Luce County",26095,281,45,326,0.8619631902
+Michigan,26,"Mackinac County",26097,555,85,640,0.8671875
+Michigan,26,"Macomb County",26099,30199,4911,35110,0.8601253204
+Michigan,26,"Manistee County",26101,1023,167,1190,0.8596638655
+Michigan,26,"Marquette County",26103,1809,262,2071,0.8734910671
+Michigan,26,"Mason County",26105,1348,190,1538,0.8764629389
+Michigan,26,"Mecosta County",26107,1367,228,1595,0.8570532915
+Michigan,26,"Menominee County",26109,1017,111,1128,0.9015957447
+Michigan,26,"Midland County",26111,3600,431,4031,0.8930786405
+Michigan,26,"Missaukee County",26113,612,77,689,0.8882438316
+Michigan,26,"Monroe County",26115,5673,1012,6685,0.8486163052
+Michigan,26,"Montcalm County",26117,1927,355,2282,0.8444347064
+Michigan,26,"Montmorency County",26119,618,111,729,0.8477366255
+Michigan,26,"Muskegon County",26121,4692,915,5607,0.8368111289
+Michigan,26,"Newaygo County",26123,1441,229,1670,0.8628742515
+Michigan,26,"Oakland County",26125,34432,6257,40689,0.8462237951
+Michigan,26,"Oceana County",26127,873,153,1026,0.850877193
+Michigan,26,"Ogemaw County",26129,1250,220,1470,0.8503401361
+Michigan,26,"Ontonagon County",26131,362,73,435,0.832183908
+Michigan,26,"Osceola County",26133,924,151,1075,0.8595348837
+Michigan,26,"Oscoda County",26135,472,92,564,0.8368794326
+Michigan,26,"Otsego County",26137,1048,145,1193,0.8784576697
+Michigan,26,"Ottawa County",26139,4565,693,5258,0.8682008368
+Michigan,26,"Presque Isle County",26141,851,124,975,0.8728205128
+Michigan,26,"Roscommon County",26143,1700,255,1955,0.8695652174
+Michigan,26,"Saginaw County",26145,7538,1413,8951,0.842140543
+Michigan,26,"St. Clair County",26147,6115,1020,7135,0.857042747
+Michigan,26,"St. Joseph County",26149,2160,352,2512,0.8598726115
+Michigan,26,"Sanilac County",26151,1823,332,2155,0.8459396752
+Michigan,26,"Schoolcraft County",26153,473,65,538,0.8791821561
+Michigan,26,"Shiawassee County",26155,2496,447,2943,0.8481141692
+Michigan,26,"Tuscola County",26157,2651,443,3094,0.8568196509
+Michigan,26,"Van Buren County",26159,2475,417,2892,0.8558091286
+Michigan,26,"Washtenaw County",26161,5935,1063,6998,0.848099457
+Michigan,26,"Wayne County",26163,49407,11718,61125,0.8082944785
+Michigan,26,"Wexford County",26165,1282,189,1471,0.8715159755
+Michigan,26,,26999,128,30,158,0.8101265823
+Minnesota,27,"Aitkin County",27001,495,57,552,0.8967391304
+Minnesota,27,"Anoka County",27003,6095,818,6913,0.8816722118
+Minnesota,27,"Becker County",27005,1124,140,1264,0.8892405063
+Minnesota,27,"Beltrami County",27007,1324,197,1521,0.8704799474
+Minnesota,27,"Benton County",27009,878,112,990,0.8868686869
+Minnesota,27,"Big Stone County",27011,228,23,251,0.9083665339
+Minnesota,27,"Blue Earth County",27013,1766,192,1958,0.9019407559
+Minnesota,27,"Brown County",27015,1205,134,1339,0.8999253174
+Minnesota,27,"Carlton County",27017,840,99,939,0.8945686901
+Minnesota,27,"Carver County",27019,1378,168,1546,0.8913324709
+Minnesota,27,"Cass County",27021,1039,157,1196,0.868729097
+Minnesota,27,"Chippewa County",27023,478,52,530,0.9018867925
+Minnesota,27,"Chisago County",27025,1144,144,1288,0.8881987578
+Minnesota,27,"Clay County",27027,1436,173,1609,0.8924798011
+Minnesota,27,"Clearwater County",27029,306,43,349,0.8767908309
+Minnesota,27,"Cook County",27031,136,19,155,0.8774193548
+Minnesota,27,"Cottonwood County",27033,466,61,527,0.8842504744
+Minnesota,27,"Crow Wing County",27035,2141,288,2429,0.8814326883
+Minnesota,27,"Dakota County",27037,7516,966,8482,0.8861117661
+Minnesota,27,"Dodge County",27039,409,50,459,0.8910675381
+Minnesota,27,"Douglas County",27041,1393,168,1561,0.8923766816
+Minnesota,27,"Faribault County",27043,604,78,682,0.8856304985
+Minnesota,27,"Fillmore County",27045,703,82,785,0.8955414013
+Minnesota,27,"Freeborn County",27047,1037,132,1169,0.8870829769
+Minnesota,27,"Goodhue County",27049,939,124,1063,0.8833490122
+Minnesota,27,"Grant County",27051,253,32,285,0.8877192982
+Minnesota,27,"Hennepin County",27053,20149,3011,23160,0.8699913644
+Minnesota,27,"Houston County",27055,715,63,778,0.9190231362
+Minnesota,27,"Hubbard County",27057,922,123,1045,0.8822966507
+Minnesota,27,"Isanti County",27059,931,134,1065,0.8741784038
+Minnesota,27,"Itasca County",27061,1364,169,1533,0.8897586432
+Minnesota,27,"Jackson County",27063,507,47,554,0.9151624549
+Minnesota,27,"Kanabec County",27065,407,58,465,0.8752688172
+Minnesota,27,"Kandiyohi County",27067,1282,142,1424,0.9002808989
+Minnesota,27,"Kittson County",27069,196,25,221,0.8868778281
+Minnesota,27,"Koochiching County",27071,488,71,559,0.8729874776
+Minnesota,27,"Lac qui Parle County",27073,317,39,356,0.8904494382
+Minnesota,27,"Lake County",27075,357,41,398,0.8969849246
+Minnesota,27,"Lake of the Woods County",27077,157,23,180,0.8722222222
+Minnesota,27,"Le Sueur County",27079,528,80,608,0.8684210526
+Minnesota,27,"Lincoln County",27081,257,36,293,0.8771331058
+Minnesota,27,"Lyon County",27083,875,110,985,0.8883248731
+Minnesota,27,"McLeod County",27085,858,95,953,0.9003147954
+Minnesota,27,"Mahnomen County",27087,175,31,206,0.8495145631
+Minnesota,27,"Marshall County",27089,378,55,433,0.8729792148
+Minnesota,27,"Martin County",27091,1002,130,1132,0.8851590106
+Minnesota,27,"Meeker County",27093,429,67,496,0.8649193548
+Minnesota,27,"Mille Lacs County",27095,529,99,628,0.8423566879
+Minnesota,27,"Morrison County",27097,975,126,1101,0.8855585831
+Minnesota,27,"Mower County",27099,1201,141,1342,0.8949329359
+Minnesota,27,"Murray County",27101,441,52,493,0.8945233266
+Minnesota,27,"Nicollet County",27103,1010,104,1114,0.9066427289
+Minnesota,27,"Nobles County",27105,779,78,857,0.9089848308
+Minnesota,27,"Norman County",27107,286,25,311,0.9196141479
+Minnesota,27,"Olmsted County",27109,3042,419,3461,0.8789367235
+Minnesota,27,"Otter Tail County",27111,2296,264,2560,0.896875
+Minnesota,27,"Pennington County",27113,439,53,492,0.8922764228
+Minnesota,27,"Pine County",27115,704,90,794,0.8866498741
+Minnesota,27,"Pipestone County",27117,391,54,445,0.8786516854
+Minnesota,27,"Polk County",27119,1138,150,1288,0.8835403727
+Minnesota,27,"Pope County",27121,488,64,552,0.884057971
+Minnesota,27,"Ramsey County",27123,9925,1624,11549,0.8593817647
+Minnesota,27,"Red Lake County",27125,118,19,137,0.8613138686
+Minnesota,27,"Redwood County",27127,610,81,691,0.8827785818
+Minnesota,27,"Renville County",27129,650,68,718,0.9052924791
+Minnesota,27,"Rice County",27131,1149,134,1283,0.8955572876
+Minnesota,27,"Rock County",27133,325,43,368,0.8831521739
+Minnesota,27,"Roseau County",27135,505,71,576,0.8767361111
+Minnesota,27,"St. Louis County",27137,4767,662,5429,0.8780622582
+Minnesota,27,"Scott County",27139,2146,314,2460,0.8723577236
+Minnesota,27,"Sherburne County",27141,1566,170,1736,0.9020737327
+Minnesota,27,"Sibley County",27143,300,46,346,0.8670520231
+Minnesota,27,"Stearns County",27145,3334,385,3719,0.8964775477
+Minnesota,27,"Steele County",27147,1271,120,1391,0.9137311287
+Minnesota,27,"Stevens County",27149,296,41,337,0.8783382789
+Minnesota,27,"Swift County",27151,425,35,460,0.9239130435
+Minnesota,27,"Todd County",27153,708,95,803,0.8816936488
+Minnesota,27,"Traverse County",27155,147,20,167,0.880239521
+Minnesota,27,"Wabasha County",27157,669,75,744,0.8991935484
+Minnesota,27,"Wadena County",27159,530,66,596,0.889261745
+Minnesota,27,"Waseca County",27161,644,73,717,0.8981868898
+Minnesota,27,"Washington County",27163,5144,700,5844,0.8802190281
+Minnesota,27,"Watonwan County",27165,402,54,456,0.8815789474
+Minnesota,27,"Wilkin County",27167,266,35,301,0.8837209302
+Minnesota,27,"Winona County",27169,1584,193,1777,0.8913899831
+Minnesota,27,"Wright County",27171,2532,312,2844,0.8902953586
+Minnesota,27,"Yellow Medicine County",27173,295,32,327,0.9021406728
+Minnesota,27,,27999,70,12,82,0.8536585366
+Mississippi,28,"Adams County",28001,1228,380,1608,0.763681592
+Mississippi,28,"Alcorn County",28003,1860,458,2318,0.8024158758
+Mississippi,28,"Amite County",28005,481,170,651,0.7388632873
+Mississippi,28,"Attala County",28007,780,242,1022,0.7632093933
+Mississippi,28,"Benton County",28009,354,104,458,0.7729257642
+Mississippi,28,"Bolivar County",28011,1360,526,1886,0.7211028632
+Mississippi,28,"Calhoun County",28013,699,194,893,0.7827547592
+Mississippi,28,"Carroll County",28015,535,147,682,0.784457478
+Mississippi,28,"Chickasaw County",28017,819,259,1078,0.7597402597
+Mississippi,28,"Choctaw County",28019,439,105,544,0.8069852941
+Mississippi,28,"Claiborne County",28021,214,102,316,0.6772151899
+Mississippi,28,"Clarke County",28023,723,202,925,0.7816216216
+Mississippi,28,"Clay County",28025,882,232,1114,0.7917414722
+Mississippi,28,"Coahoma County",28027,1095,353,1448,0.7562154696
+Mississippi,28,"Copiah County",28029,785,251,1036,0.7577220077
+Mississippi,28,"Covington County",28031,691,228,919,0.7519042437
+Mississippi,28,"DeSoto County",28033,4724,1092,5816,0.8122420908
+Mississippi,28,"Forrest County",28035,2169,517,2686,0.8075204765
+Mississippi,28,"Franklin County",28037,383,94,477,0.8029350105
+Mississippi,28,"George County",28039,792,226,1018,0.7779960707
+Mississippi,28,"Greene County",28041,431,135,566,0.7614840989
+Mississippi,28,"Grenada County",28043,1025,281,1306,0.7848392037
+Mississippi,28,"Hancock County",28045,1434,313,1747,0.8208357184
+Mississippi,28,"Harrison County",28047,4505,1274,5779,0.7795466344
+Mississippi,28,"Hinds County",28049,5157,1649,6806,0.757713782
+Mississippi,28,"Holmes County",28051,705,289,994,0.7092555332
+Mississippi,28,"Humphreys County",28053,393,132,525,0.7485714286
+Mississippi,28,"Issaquena County",28055,.,.,.,0.7804878049
+Mississippi,28,"Itawamba County",28057,1208,251,1459,0.8279643592
+Mississippi,28,"Jackson County",28059,3920,1017,4937,0.7940044561
+Mississippi,28,"Jasper County",28061,767,234,1001,0.7662337662
+Mississippi,28,"Jefferson County",28063,311,125,436,0.7133027523
+Mississippi,28,"Jefferson Davis County",28065,498,195,693,0.7186147186
+Mississippi,28,"Jones County",28067,2696,710,3406,0.7915443335
+Mississippi,28,"Kemper County",28069,378,107,485,0.7793814433
+Mississippi,28,"Lafayette County",28071,1484,417,1901,0.7806417675
+Mississippi,28,"Lamar County",28073,1552,363,1915,0.8104438642
+Mississippi,28,"Lauderdale County",28075,2519,708,3227,0.7806011776
+Mississippi,28,"Lawrence County",28077,577,178,755,0.7642384106
+Mississippi,28,"Leake County",28079,711,180,891,0.797979798
+Mississippi,28,"Lee County",28081,3449,853,4302,0.8017201302
+Mississippi,28,"Leflore County",28083,1399,451,1850,0.7562162162
+Mississippi,28,"Lincoln County",28085,1372,367,1739,0.7889591719
+Mississippi,28,"Lowndes County",28087,2110,570,2680,0.7873134328
+Mississippi,28,"Madison County",28089,2585,648,3233,0.7995669657
+Mississippi,28,"Marion County",28091,1171,344,1515,0.7729372937
+Mississippi,28,"Marshall County",28093,1284,360,1644,0.7810218978
+Mississippi,28,"Monroe County",28095,1755,445,2200,0.7977272727
+Mississippi,28,"Montgomery County",28097,570,165,735,0.7755102041
+Mississippi,28,"Neshoba County",28099,931,281,1212,0.7681518152
+Mississippi,28,"Newton County",28101,835,205,1040,0.8028846154
+Mississippi,28,"Noxubee County",28103,471,169,640,0.7359375
+Mississippi,28,"Oktibbeha County",28105,1235,360,1595,0.7742946708
+Mississippi,28,"Panola County",28107,1401,460,1861,0.7528210639
+Mississippi,28,"Pearl River County",28109,1934,506,2440,0.7926229508
+Mississippi,28,"Perry County",28111,513,143,656,0.7820121951
+Mississippi,28,"Pike County",28113,1424,427,1851,0.7693138844
+Mississippi,28,"Pontotoc County",28115,1384,331,1715,0.8069970845
+Mississippi,28,"Prentiss County",28117,1366,340,1706,0.8007033998
+Mississippi,28,"Quitman County",28119,375,122,497,0.754527163
+Mississippi,28,"Rankin County",28121,3850,936,4786,0.8044295863
+Mississippi,28,"Scott County",28123,853,280,1133,0.7528684907
+Mississippi,28,"Sharkey County",28125,206,56,262,0.786259542
+Mississippi,28,"Simpson County",28127,1008,294,1302,0.7741935484
+Mississippi,28,"Smith County",28129,633,147,780,0.8115384615
+Mississippi,28,"Stone County",28131,585,162,747,0.7831325301
+Mississippi,28,"Sunflower County",28133,997,389,1386,0.7193362193
+Mississippi,28,"Tallahatchie County",28135,563,185,748,0.7526737968
+Mississippi,28,"Tate County",28137,1112,294,1406,0.7908961593
+Mississippi,28,"Tippah County",28139,1156,252,1408,0.8210227273
+Mississippi,28,"Tishomingo County",28141,1166,239,1405,0.8298932384
+Mississippi,28,"Tunica County",28143,326,89,415,0.7855421687
+Mississippi,28,"Union County",28145,1264,342,1606,0.7870485679
+Mississippi,28,"Walthall County",28147,698,185,883,0.7904869762
+Mississippi,28,"Warren County",28149,1128,405,1533,0.7358121331
+Mississippi,28,"Washington County",28151,1807,587,2394,0.7548036759
+Mississippi,28,"Wayne County",28153,898,205,1103,0.8141432457
+Mississippi,28,"Webster County",28155,552,137,689,0.801161103
+Mississippi,28,"Wilkinson County",28157,319,120,439,0.7266514806
+Mississippi,28,"Winston County",28159,756,210,966,0.7826086957
+Mississippi,28,"Yalobusha County",28161,692,216,908,0.7621145374
+Mississippi,28,"Yazoo County",28163,849,250,1099,0.7725204732
+Mississippi,28,,28999,58,26,84,0.6904761905
+Missouri,29,"Adair County",29001,1017,164,1181,0.8611346317
+Missouri,29,"Andrew County",29003,710,118,828,0.8574879227
+Missouri,29,"Atchison County",29005,368,45,413,0.8910411622
+Missouri,29,"Audrain County",29007,1126,215,1341,0.8396718867
+Missouri,29,"Barry County",29009,1126,222,1348,0.8353115727
+Missouri,29,"Barton County",29011,496,65,561,0.8841354724
+Missouri,29,"Bates County",29013,633,125,758,0.8350923483
+Missouri,29,"Benton County",29015,1028,224,1252,0.821086262
+Missouri,29,"Bollinger County",29017,480,90,570,0.8421052632
+Missouri,29,"Boone County",29019,3763,669,4432,0.8490523466
+Missouri,29,"Buchanan County",29021,3391,646,4037,0.8399801833
+Missouri,29,"Butler County",29023,1870,459,2329,0.802919708
+Missouri,29,"Caldwell County",29025,356,79,435,0.8183908046
+Missouri,29,"Callaway County",29027,1474,266,1740,0.8471264368
+Missouri,29,"Camden County",29029,2070,309,2379,0.8701134931
+Missouri,29,"Cape Girardeau County",29031,2903,537,3440,0.8438953488
+Missouri,29,"Carroll County",29033,414,55,469,0.8827292111
+Missouri,29,"Carter County",29035,295,63,358,0.8240223464
+Missouri,29,"Cass County",29037,2355,459,2814,0.8368869936
+Missouri,29,"Cedar County",29039,561,101,662,0.8474320242
+Missouri,29,"Chariton County",29041,409,59,468,0.8739316239
+Missouri,29,"Christian County",29043,2019,324,2343,0.861715749
+Missouri,29,"Clark County",29045,353,60,413,0.8547215496
+Missouri,29,"Clay County",29047,6144,1054,7198,0.8535704362
+Missouri,29,"Clinton County",29049,767,123,890,0.8617977528
+Missouri,29,"Cole County",29051,2413,425,2838,0.8502466526
+Missouri,29,"Cooper County",29053,607,134,741,0.8191632928
+Missouri,29,"Crawford County",29055,975,194,1169,0.8340461933
+Missouri,29,"Dade County",29057,273,54,327,0.8348623853
+Missouri,29,"Dallas County",29059,503,113,616,0.8165584416
+Missouri,29,"Daviess County",29061,391,60,451,0.866962306
+Missouri,29,"DeKalb County",29063,441,85,526,0.8384030418
+Missouri,29,"Dent County",29065,818,163,981,0.8338430173
+Missouri,29,"Douglas County",29067,354,52,406,0.8719211823
+Missouri,29,"Dunklin County",29069,1495,310,1805,0.8282548476
+Missouri,29,"Franklin County",29071,3013,492,3505,0.8596291013
+Missouri,29,"Gasconade County",29073,684,138,822,0.8321167883
+Missouri,29,"Gentry County",29075,367,49,416,0.8822115385
+Missouri,29,"Greene County",29077,6846,1249,8095,0.8457072267
+Missouri,29,"Grundy County",29079,569,90,659,0.8634294385
+Missouri,29,"Harrison County",29081,525,82,607,0.8649093904
+Missouri,29,"Henry County",29083,973,191,1164,0.8359106529
+Missouri,29,"Hickory County",29085,373,62,435,0.8574712644
+Missouri,29,"Holt County",29087,237,53,290,0.8172413793
+Missouri,29,"Howard County",29089,326,70,396,0.8232323232
+Missouri,29,"Howell County",29091,1816,343,2159,0.8411301528
+Missouri,29,"Iron County",29093,663,103,766,0.865535248
+Missouri,29,"Jackson County",29095,14337,2923,17260,0.8306488992
+Missouri,29,"Jasper County",29097,3640,772,4412,0.8250226655
+Missouri,29,"Jefferson County",29099,5637,1087,6724,0.8383402736
+Missouri,29,"Johnson County",29101,1120,219,1339,0.8364451083
+Missouri,29,"Knox County",29103,214,42,256,0.8359375
+Missouri,29,"Laclede County",29105,977,190,1167,0.8371893745
+Missouri,29,"Lafayette County",29107,1077,193,1270,0.8480314961
+Missouri,29,"Lawrence County",29109,1031,208,1239,0.8321226796
+Missouri,29,"Lewis County",29111,490,80,570,0.8596491228
+Missouri,29,"Lincoln County",29113,1610,324,1934,0.8324715615
+Missouri,29,"Linn County",29115,639,106,745,0.8577181208
+Missouri,29,"Livingston County",29117,715,92,807,0.8859975217
+Missouri,29,"McDonald County",29119,536,140,676,0.7928994083
+Missouri,29,"Macon County",29121,785,146,931,0.843179377
+Missouri,29,"Madison County",29123,628,120,748,0.8395721925
+Missouri,29,"Maries County",29125,365,52,417,0.8752997602
+Missouri,29,"Marion County",29127,1430,240,1670,0.8562874251
+Missouri,29,"Mercer County",29129,166,28,194,0.8556701031
+Missouri,29,"Miller County",29131,920,176,1096,0.8394160584
+Missouri,29,"Mississippi County",29133,660,153,813,0.8118081181
+Missouri,29,"Moniteau County",29135,514,89,603,0.8524046434
+Missouri,29,"Monroe County",29137,449,78,527,0.8519924099
+Missouri,29,"Montgomery County",29139,562,98,660,0.8515151515
+Missouri,29,"Morgan County",29141,894,163,1057,0.8457899716
+Missouri,29,"New Madrid County",29143,865,202,1067,0.8106841612
+Missouri,29,"Newton County",29145,1905,397,2302,0.8275412685
+Missouri,29,"Nodaway County",29147,878,149,1027,0.8549172347
+Missouri,29,"Oregon County",29149,513,114,627,0.8181818182
+Missouri,29,"Osage County",29151,546,57,603,0.9054726368
+Missouri,29,"Ozark County",29153,402,81,483,0.8322981366
+Missouri,29,"Pemiscot County",29155,766,240,1006,0.7614314115
+Missouri,29,"Perry County",29157,821,153,974,0.8429158111
+Missouri,29,"Pettis County",29159,1584,271,1855,0.8539083558
+Missouri,29,"Phelps County",29161,1509,281,1790,0.8430167598
+Missouri,29,"Pike County",29163,750,152,902,0.8314855876
+Missouri,29,"Platte County",29165,2531,422,2953,0.8570944802
+Missouri,29,"Polk County",29167,889,178,1067,0.8331771321
+Missouri,29,"Pulaski County",29169,669,173,842,0.7945368171
+Missouri,29,"Putnam County",29171,300,50,350,0.8571428571
+Missouri,29,"Ralls County",29173,604,75,679,0.8895434462
+Missouri,29,"Randolph County",29175,1032,198,1230,0.8390243902
+Missouri,29,"Ray County",29177,994,157,1151,0.8635968723
+Missouri,29,"Reynolds County",29179,343,64,407,0.8427518428
+Missouri,29,"Ripley County",29181,681,172,853,0.7983587339
+Missouri,29,"St. Charles County",29183,9695,1484,11179,0.8672510958
+Missouri,29,"St. Clair County",29185,437,70,507,0.8619329389
+Missouri,29,"Ste. Genevieve County",29186,828,148,976,0.8483606557
+Missouri,29,"St. Francois County",29187,3147,553,3700,0.8505405405
+Missouri,29,"St. Louis County",29189,26071,5048,31119,0.8377839905
+Missouri,29,"Saline County",29195,912,152,1064,0.8571428571
+Missouri,29,"Schuyler County",29197,231,36,267,0.8651685393
+Missouri,29,"Scotland County",29199,193,49,242,0.7975206612
+Missouri,29,"Scott County",29201,1931,363,2294,0.841761116
+Missouri,29,"Shannon County",29203,314,60,374,0.8395721925
+Missouri,29,"Shelby County",29205,352,56,408,0.862745098
+Missouri,29,"Stoddard County",29207,1435,286,1721,0.8338175479
+Missouri,29,"Stone County",29209,1356,247,1603,0.8459139114
+Missouri,29,"Sullivan County",29211,331,48,379,0.8733509235
+Missouri,29,"Taney County",29213,2019,379,2398,0.8419516264
+Missouri,29,"Texas County",29215,983,188,1171,0.8394534586
+Missouri,29,"Vernon County",29217,820,175,995,0.824120603
+Missouri,29,"Warren County",29219,1049,200,1249,0.8398718975
+Missouri,29,"Washington County",29221,1118,270,1388,0.8054755043
+Missouri,29,"Wayne County",29223,629,117,746,0.8431635389
+Missouri,29,"Webster County",29225,846,175,1021,0.8285994123
+Missouri,29,"Worth County",29227,107,23,130,0.8230769231
+Missouri,29,"Wright County",29229,639,128,767,0.8331160365
+Missouri,29,"St. Louis city",29510,5966,1706,7672,0.777632951
+Missouri,29,,29999,119,31,150,0.7933333333
+Montana,30,"Beaverhead County",30001,358,38,396,0.904040404
+Montana,30,"Big Horn County",30003,165,55,220,0.75
+Montana,30,"Blaine County",30005,151,42,193,0.7823834197
+Montana,30,"Broadwater County",30007,218,33,251,0.8685258964
+Montana,30,"Carbon County",30009,274,58,332,0.8253012048
+Montana,30,"Carter County",30011,45,12,57,0.7894736842
+Montana,30,"Cascade County",30013,2070,358,2428,0.852553542
+Montana,30,"Chouteau County",30015,212,44,256,0.828125
+Montana,30,"Custer County",30017,392,59,451,0.8691796009
+Montana,30,"Daniels County",30019,.,.,.,0.9375
+Montana,30,"Dawson County",30021,366,60,426,0.8591549296
+Montana,30,"Deer Lodge County",30023,405,73,478,0.8472803347
+Montana,30,"Fallon County",30025,111,16,127,0.874015748
+Montana,30,"Fergus County",30027,370,75,445,0.8314606742
+Montana,30,"Flathead County",30029,2713,480,3193,0.8496711557
+Montana,30,"Gallatin County",30031,1507,240,1747,0.8626216371
+Montana,30,"Garfield County",30033,.,.,.,0.8214285714
+Montana,30,"Glacier County",30035,154,79,233,0.660944206
+Montana,30,"Golden Valley County",30037,.,.,.,0.7941176471
+Montana,30,"Granite County",30039,105,17,122,0.8606557377
+Montana,30,"Hill County",30041,512,85,597,0.8576214405
+Montana,30,"Jefferson County",30043,299,55,354,0.8446327684
+Montana,30,"Judith Basin County",30045,65,13,78,0.8333333333
+Montana,30,"Lake County",30047,858,179,1037,0.8273866924
+Montana,30,"Lewis and Clark County",30049,1954,264,2218,0.8809738503
+Montana,30,"Liberty County",30051,89,11,100,0.89
+Montana,30,"Lincoln County",30053,723,154,877,0.8244013683
+Montana,30,"McCone County",30055,78,16,94,0.829787234
+Montana,30,"Madison County",30057,322,48,370,0.8702702703
+Montana,30,"Meagher County",30059,81,12,93,0.8709677419
+Montana,30,"Mineral County",30061,203,37,240,0.8458333333
+Montana,30,"Missoula County",30063,2933,442,3375,0.869037037
+Montana,30,"Musselshell County",30065,200,30,230,0.8695652174
+Montana,30,"Park County",30067,486,104,590,0.8237288136
+Montana,30,"Petroleum County",30069,.,.,.,0.8947368421
+Montana,30,"Phillips County",30071,134,24,158,0.8481012658
+Montana,30,"Pondera County",30073,212,43,255,0.831372549
+Montana,30,"Powder River County",30075,.,.,.,0.890625
+Montana,30,"Powell County",30077,191,51,242,0.7892561983
+Montana,30,"Prairie County",30079,59,11,70,0.8428571429
+Montana,30,"Ravalli County",30081,1431,238,1669,0.8573996405
+Montana,30,"Richland County",30083,474,87,561,0.8449197861
+Montana,30,"Roosevelt County",30085,209,64,273,0.7655677656
+Montana,30,"Rosebud County",30087,199,46,245,0.812244898
+Montana,30,"Sanders County",30089,526,100,626,0.8402555911
+Montana,30,"Sheridan County",30091,171,30,201,0.8507462687
+Montana,30,"Silver Bow County",30093,945,183,1128,0.8377659574
+Montana,30,"Stillwater County",30095,283,40,323,0.8761609907
+Montana,30,"Sweet Grass County",30097,140,20,160,0.875
+Montana,30,"Teton County",30099,191,21,212,0.9009433962
+Montana,30,"Toole County",30101,127,34,161,0.7888198758
+Montana,30,"Treasure County",30103,.,.,.,0.8571428571
+Montana,30,"Valley County",30105,257,51,308,0.8344155844
+Montana,30,"Wheatland County",30107,69,11,80,0.8625
+Montana,30,"Wibaux County",30109,62,15,77,0.8051948052
+Montana,30,"Yellowstone County",30111,4030,654,4684,0.8603757472
+Montana,30,,30999,.,.,.,0.85
+Nebraska,31,"Adams County",31001,1463,225,1688,0.8667061611
+Nebraska,31,"Antelope County",31003,496,68,564,0.8794326241
+Nebraska,31,"Arthur County",31005,.,.,.,0.9166666667
+Nebraska,31,"Banner County",31007,.,.,.,0.9285714286
+Nebraska,31,"Blaine County",31009,.,.,.,0.96
+Nebraska,31,"Boone County",31011,351,52,403,0.8709677419
+Nebraska,31,"Box Butte County",31013,437,84,521,0.8387715931
+Nebraska,31,"Boyd County",31015,136,14,150,0.9066666667
+Nebraska,31,"Brown County",31017,176,29,205,0.8585365854
+Nebraska,31,"Buffalo County",31019,1666,266,1932,0.8623188406
+Nebraska,31,"Burt County",31021,377,63,440,0.8568181818
+Nebraska,31,"Butler County",31023,399,55,454,0.8788546256
+Nebraska,31,"Cass County",31025,860,125,985,0.8730964467
+Nebraska,31,"Cedar County",31027,401,47,448,0.8950892857
+Nebraska,31,"Chase County",31029,172,26,198,0.8686868687
+Nebraska,31,"Cherry County",31031,279,40,319,0.8746081505
+Nebraska,31,"Cheyenne County",31033,349,89,438,0.796803653
+Nebraska,31,"Clay County",31035,355,46,401,0.885286783
+Nebraska,31,"Colfax County",31037,343,53,396,0.8661616162
+Nebraska,31,"Cuming County",31039,467,47,514,0.9085603113
+Nebraska,31,"Custer County",31041,591,113,704,0.8394886364
+Nebraska,31,"Dakota County",31043,507,79,586,0.8651877133
+Nebraska,31,"Dawes County",31045,257,40,297,0.8653198653
+Nebraska,31,"Dawson County",31047,851,127,978,0.8701431493
+Nebraska,31,"Deuel County",31049,94,17,111,0.8468468468
+Nebraska,31,"Dixon County",31051,231,23,254,0.9094488189
+Nebraska,31,"Dodge County",31053,1545,253,1798,0.8592880979
+Nebraska,31,"Douglas County",31055,13415,2079,15494,0.8658190267
+Nebraska,31,"Dundy County",31057,101,20,121,0.8347107438
+Nebraska,31,"Fillmore County",31059,327,59,386,0.8471502591
+Nebraska,31,"Franklin County",31061,186,33,219,0.8493150685
+Nebraska,31,"Frontier County",31063,120,13,133,0.9022556391
+Nebraska,31,"Furnas County",31065,312,46,358,0.8715083799
+Nebraska,31,"Gage County",31067,1137,170,1307,0.86993114
+Nebraska,31,"Garden County",31069,107,29,136,0.7867647059
+Nebraska,31,"Garfield County",31071,102,24,126,0.8095238095
+Nebraska,31,"Gosper County",31073,110,17,127,0.8661417323
+Nebraska,31,"Grant County",31075,.,.,.,0.84375
+Nebraska,31,"Greeley County",31077,129,20,149,0.8657718121
+Nebraska,31,"Hall County",31079,2041,359,2400,0.8504166667
+Nebraska,31,"Hamilton County",31081,470,83,553,0.8499095841
+Nebraska,31,"Harlan County",31083,178,32,210,0.8476190476
+Nebraska,31,"Hayes County",31085,.,.,.,0.86
+Nebraska,31,"Hitchcock County",31087,153,32,185,0.827027027
+Nebraska,31,"Holt County",31089,689,101,790,0.8721518987
+Nebraska,31,"Hooker County",31091,.,.,.,0.8113207547
+Nebraska,31,"Howard County",31093,298,39,337,0.884272997
+Nebraska,31,"Jefferson County",31095,415,76,491,0.8452138493
+Nebraska,31,"Johnson County",31097,233,33,266,0.8759398496
+Nebraska,31,"Kearney County",31099,297,37,334,0.8892215569
+Nebraska,31,"Keith County",31101,453,57,510,0.8882352941
+Nebraska,31,"Keya Paha County",31103,42,12,54,0.7777777778
+Nebraska,31,"Kimball County",31105,183,40,223,0.8206278027
+Nebraska,31,"Knox County",31107,495,56,551,0.8983666062
+Nebraska,31,"Lancaster County",31109,9466,1336,10802,0.8763192001
+Nebraska,31,"Lincoln County",31111,1497,373,1870,0.8005347594
+Nebraska,31,"Logan County",31113,29,11,40,0.725
+Nebraska,31,"Loup County",31115,.,.,.,0.9230769231
+Nebraska,31,"McPherson County",31117,.,.,.,0.8947368421
+Nebraska,31,"Madison County",31119,1432,209,1641,0.872638635
+Nebraska,31,"Merrick County",31121,369,54,423,0.8723404255
+Nebraska,31,"Morrill County",31123,125,24,149,0.8389261745
+Nebraska,31,"Nance County",31125,199,33,232,0.8577586207
+Nebraska,31,"Nemaha County",31127,370,52,422,0.8767772512
+Nebraska,31,"Nuckolls County",31129,282,41,323,0.8730650155
+Nebraska,31,"Otoe County",31131,721,103,824,0.875
+Nebraska,31,"Pawnee County",31133,166,22,188,0.8829787234
+Nebraska,31,"Perkins County",31135,172,27,199,0.864321608
+Nebraska,31,"Phelps County",31137,514,95,609,0.8440065681
+Nebraska,31,"Pierce County",31139,367,56,423,0.8676122931
+Nebraska,31,"Platte County",31141,1742,188,1930,0.9025906736
+Nebraska,31,"Polk County",31143,340,43,383,0.8877284595
+Nebraska,31,"Red Willow County",31145,537,74,611,0.8788870704
+Nebraska,31,"Richardson County",31147,568,98,666,0.8528528529
+Nebraska,31,"Rock County",31149,97,11,108,0.8981481481
+Nebraska,31,"Saline County",31151,533,94,627,0.8500797448
+Nebraska,31,"Sarpy County",31153,3550,519,4069,0.8724502335
+Nebraska,31,"Saunders County",31155,842,122,964,0.8734439834
+Nebraska,31,"Scotts Bluff County",31157,1422,247,1669,0.8520071899
+Nebraska,31,"Seward County",31159,730,106,836,0.8732057416
+Nebraska,31,"Sheridan County",31161,232,43,275,0.8436363636
+Nebraska,31,"Sherman County",31163,158,25,183,0.8633879781
+Nebraska,31,"Sioux County",31165,.,.,.,0.8301886792
+Nebraska,31,"Stanton County",31167,236,33,269,0.8773234201
+Nebraska,31,"Thayer County",31169,343,52,395,0.8683544304
+Nebraska,31,"Thomas County",31171,42,11,53,0.7924528302
+Nebraska,31,"Thurston County",31173,153,42,195,0.7846153846
+Nebraska,31,"Valley County",31175,244,44,288,0.8472222222
+Nebraska,31,"Washington County",31177,806,102,908,0.8876651982
+Nebraska,31,"Wayne County",31179,322,37,359,0.8969359331
+Nebraska,31,"Webster County",31181,232,43,275,0.8436363636
+Nebraska,31,"Wheeler County",31183,46,12,58,0.7931034483
+Nebraska,31,"York County",31185,735,102,837,0.8781362007
+Nebraska,31,,31999,.,.,.,0.8421052632
+Nevada,32,"Churchill County",32001,644,158,802,0.8029925187
+Nevada,32,"Clark County",32003,31513,7898,39411,0.7995990967
+Nevada,32,"Douglas County",32005,1839,334,2173,0.8462954441
+Nevada,32,"Elko County",32007,561,171,732,0.7663934426
+Nevada,32,"Esmeralda County",32009,.,.,.,0.7857142857
+Nevada,32,"Eureka County",32011,.,.,.,0.75
+Nevada,32,"Humboldt County",32013,345,84,429,0.8041958042
+Nevada,32,"Lander County",32015,81,25,106,0.7641509434
+Nevada,32,"Lincoln County",32017,164,23,187,0.8770053476
+Nevada,32,"Lyon County",32019,1493,303,1796,0.8312917595
+Nevada,32,"Mineral County",32021,150,32,182,0.8241758242
+Nevada,32,"Nye County",32023,1195,281,1476,0.8096205962
+Nevada,32,"Pershing County",32027,122,30,152,0.8026315789
+Nevada,32,"Storey County",32029,106,19,125,0.848
+Nevada,32,"Washoe County",32031,7719,1668,9387,0.8223074465
+Nevada,32,"White Pine County",32033,239,49,288,0.8298611111
+Nevada,32,"Carson City",32510,1616,317,1933,0.836006208
+Nevada,32,,32999,.,.,.,0.8095238095
+"New Hampshire",33,"Belknap County",33001,2893,426,3319,0.8716480868
+"New Hampshire",33,"Carroll County",33003,2615,374,2989,0.87487454
+"New Hampshire",33,"Cheshire County",33005,2737,332,3069,0.8918214402
+"New Hampshire",33,"Coos County",33007,1725,258,1983,0.8698940998
+"New Hampshire",33,"Grafton County",33009,3205,460,3665,0.8744884038
+"New Hampshire",33,"Hillsborough County",33011,12358,1751,14109,0.8758948189
+"New Hampshire",33,"Merrimack County",33013,5807,777,6584,0.8819866343
+"New Hampshire",33,"Rockingham County",33015,10571,1419,11990,0.8816513761
+"New Hampshire",33,"Strafford County",33017,3528,612,4140,0.852173913
+"New Hampshire",33,"Sullivan County",33019,1914,289,2203,0.8688152519
+"New Hampshire",33,,33999,.,.,.,0.7619047619
+"New Jersey",34,"Atlantic County",34001,11021,2018,13039,0.8452335302
+"New Jersey",34,"Bergen County",34003,27684,4573,32257,0.8582323217
+"New Jersey",34,"Burlington County",34005,14521,2239,16760,0.8664081146
+"New Jersey",34,"Camden County",34007,15357,2768,18125,0.8472827586
+"New Jersey",34,"Cape May County",34009,5689,812,6501,0.8750961391
+"New Jersey",34,"Cumberland County",34011,5214,945,6159,0.846566001
+"New Jersey",34,"Essex County",34013,15864,3817,19681,0.8060566028
+"New Jersey",34,"Gloucester County",34015,9669,1464,11133,0.8684990569
+"New Jersey",34,"Hudson County",34017,11675,2754,14429,0.8091343821
+"New Jersey",34,"Hunterdon County",34019,4447,623,5070,0.8771203156
+"New Jersey",34,"Mercer County",34021,11152,2054,13206,0.8444646373
+"New Jersey",34,"Middlesex County",34023,22821,4008,26829,0.8506094152
+"New Jersey",34,"Monmouth County",34025,21279,3675,24954,0.8527290214
+"New Jersey",34,"Morris County",34027,15179,2340,17519,0.8664307323
+"New Jersey",34,"Ocean County",34029,29170,4377,33547,0.8695263362
+"New Jersey",34,"Passaic County",34031,13643,2679,16322,0.8358657027
+"New Jersey",34,"Salem County",34033,2766,484,3250,0.8510769231
+"New Jersey",34,"Somerset County",34035,9767,1524,11291,0.8650252413
+"New Jersey",34,"Sussex County",34037,5325,806,6131,0.8685369434
+"New Jersey",34,"Union County",34039,13322,2671,15993,0.8329894329
+"New Jersey",34,"Warren County",34041,4474,744,5218,0.8574166347
+"New Jersey",34,,34999,120,26,146,0.8219178082
+"New Mexico",35,"Bernalillo County",35001,7686,1745,9431,0.8149719012
+"New Mexico",35,"Catron County",35003,121,26,147,0.8231292517
+"New Mexico",35,"Chaves County",35005,1957,465,2422,0.8080099092
+"New Mexico",35,"Cibola County",35006,382,98,480,0.7958333333
+"New Mexico",35,"Colfax County",35007,315,83,398,0.7914572864
+"New Mexico",35,"Curry County",35009,1208,259,1467,0.8234492161
+"New Mexico",35,"DeBaca County",35011,87,17,104,0.8365384615
+"New Mexico",35,"Dona Ana County",35013,3942,844,4786,0.8236523193
+"New Mexico",35,"Eddy County",35015,1574,430,2004,0.7854291417
+"New Mexico",35,"Grant County",35017,741,168,909,0.8151815182
+"New Mexico",35,"Guadalupe County",35019,135,28,163,0.8282208589
+"New Mexico",35,"Harding County",35021,.,.,.,0.8333333333
+"New Mexico",35,"Hidalgo County",35023,129,24,153,0.8431372549
+"New Mexico",35,"Lea County",35025,1608,410,2018,0.7968285431
+"New Mexico",35,"Lincoln County",35027,640,147,787,0.8132147395
+"New Mexico",35,"Los Alamos County",35028,109,23,132,0.8257575758
+"New Mexico",35,"Luna County",35029,752,186,938,0.8017057569
+"New Mexico",35,"McKinley County",35031,554,235,789,0.7021546261
+"New Mexico",35,"Mora County",35033,118,30,148,0.7972972973
+"New Mexico",35,"Otero County",35035,1121,292,1413,0.7933474876
+"New Mexico",35,"Quay County",35037,375,93,468,0.8012820513
+"New Mexico",35,"Rio Arriba County",35039,580,155,735,0.7891156463
+"New Mexico",35,"Roosevelt County",35041,562,157,719,0.7816411683
+"New Mexico",35,"Sandoval County",35043,1866,438,2304,0.8098958333
+"New Mexico",35,"San Juan County",35045,2386,692,3078,0.7751786875
+"New Mexico",35,"San Miguel County",35047,619,181,800,0.77375
+"New Mexico",35,"Santa Fe County",35049,2548,653,3201,0.7960012496
+"New Mexico",35,"Sierra County",35051,419,98,517,0.8104448743
+"New Mexico",35,"Socorro County",35053,316,101,417,0.757793765
+"New Mexico",35,"Taos County",35055,673,173,846,0.7955082742
+"New Mexico",35,"Torrance County",35057,230,79,309,0.7443365696
+"New Mexico",35,"Union County",35059,149,44,193,0.7720207254
+"New Mexico",35,"Valencia County",35061,979,231,1210,0.8090909091
+"New Mexico",35,,35999,.,.,.,0.8139534884
+"New York",36,"Albany County",36001,6873,1014,7887,0.8714340053
+"New York",36,"Allegany County",36003,1455,244,1699,0.8563861095
+"New York",36,"Bronx County",36005,17421,4253,21674,0.8037741072
+"New York",36,"Broome County",36007,6708,1001,7709,0.8701517707
+"New York",36,"Cattaraugus County",36009,2110,380,2490,0.8473895582
+"New York",36,"Cayuga County",36011,2185,330,2515,0.8687872763
+"New York",36,"Chautauqua County",36013,4264,666,4930,0.8649087221
+"New York",36,"Chemung County",36015,2905,421,3326,0.8734215274
+"New York",36,"Chenango County",36017,1620,265,1885,0.8594164456
+"New York",36,"Clinton County",36019,2931,532,3463,0.8463759746
+"New York",36,"Columbia County",36021,2067,313,2380,0.868487395
+"New York",36,"Cortland County",36023,1078,172,1250,0.8624
+"New York",36,"Delaware County",36025,2117,314,2431,0.8708350473
+"New York",36,"Dutchess County",36027,9709,1530,11239,0.8638668921
+"New York",36,"Erie County",36029,16162,2922,19084,0.846887445
+"New York",36,"Essex County",36031,1408,209,1617,0.8707482993
+"New York",36,"Franklin County",36033,1944,253,2197,0.8848429677
+"New York",36,"Fulton County",36035,1704,279,1983,0.8593040847
+"New York",36,"Genesee County",36037,1347,207,1554,0.8667953668
+"New York",36,"Greene County",36039,1727,277,2004,0.8617764471
+"New York",36,"Hamilton County",36041,234,34,268,0.8731343284
+"New York",36,"Herkimer County",36043,1962,279,2241,0.875502008
+"New York",36,"Jefferson County",36045,2881,431,3312,0.8698671498
+"New York",36,"Kings County",36047,50690,11383,62073,0.816619142
+"New York",36,"Lewis County",36049,932,115,1047,0.8901623687
+"New York",36,"Livingston County",36051,1210,189,1399,0.8649035025
+"New York",36,"Madison County",36053,1664,231,1895,0.8781002639
+"New York",36,"Monroe County",36055,11192,2185,13377,0.8366599387
+"New York",36,"Montgomery County",36057,1657,267,1924,0.8612266112
+"New York",36,"Nassau County",36059,42486,7560,50046,0.8489389761
+"New York",36,"New York County",36061,28375,6218,34593,0.8202526523
+"New York",36,"Niagara County",36063,4929,753,5682,0.8674762408
+"New York",36,"Oneida County",36065,6548,1129,7677,0.8529373453
+"New York",36,"Onondaga County",36067,11503,1806,13309,0.8643023518
+"New York",36,"Ontario County",36069,2137,317,2454,0.8708231459
+"New York",36,"Orange County",36071,10840,2076,12916,0.8392691236
+"New York",36,"Orleans County",36073,1083,226,1309,0.8273491215
+"New York",36,"Oswego County",36075,3360,536,3896,0.8624229979
+"New York",36,"Otsego County",36077,2357,334,2691,0.8758825715
+"New York",36,"Putnam County",36079,3113,501,3614,0.8613724405
+"New York",36,"Queens County",36081,40901,8571,49472,0.8267504851
+"New York",36,"Rensselaer County",36083,3600,581,4181,0.8610380292
+"New York",36,"Richmond County",36085,11129,1953,13082,0.8507109005
+"New York",36,"Rockland County",36087,9319,1536,10855,0.8584983878
+"New York",36,"St. Lawrence County",36089,4064,615,4679,0.8685616585
+"New York",36,"Saratoga County",36091,5646,778,6424,0.8788916563
+"New York",36,"Schenectady County",36093,3446,601,4047,0.8514949345
+"New York",36,"Schoharie County",36095,1150,159,1309,0.8785332315
+"New York",36,"Schuyler County",36097,715,100,815,0.8773006135
+"New York",36,"Seneca County",36099,1015,160,1175,0.8638297872
+"New York",36,"Steuben County",36101,3462,516,3978,0.8702865762
+"New York",36,"Suffolk County",36103,55280,9372,64652,0.8550392873
+"New York",36,"Sullivan County",36105,3006,582,3588,0.8377926421
+"New York",36,"Tioga County",36107,1735,246,1981,0.8758202928
+"New York",36,"Tompkins County",36109,1882,330,2212,0.8508137432
+"New York",36,"Ulster County",36111,6259,1073,7332,0.85365521
+"New York",36,"Warren County",36113,1921,325,2246,0.8552983081
+"New York",36,"Washington County",36115,1698,247,1945,0.8730077121
+"New York",36,"Wayne County",36117,1892,357,2249,0.8412627835
+"New York",36,"Westchester County",36119,26468,4655,31123,0.8504321563
+"New York",36,"Wyoming County",36121,940,159,1099,0.8553230209
+"New York",36,"Yates County",36123,587,96,683,0.859443631
+"New York",36,,36999,200,37,237,0.8438818565
+"North Carolina",37,"Alamance County",37001,3757,731,4488,0.8371212121
+"North Carolina",37,"Alexander County",37003,1270,297,1567,0.8104658583
+"North Carolina",37,"Alleghany County",37005,490,98,588,0.8333333333
+"North Carolina",37,"Anson County",37007,1011,226,1237,0.8172999192
+"North Carolina",37,"Ashe County",37009,1318,261,1579,0.8347055098
+"North Carolina",37,"Avery County",37011,684,120,804,0.8507462687
+"North Carolina",37,"Beaufort County",37013,2325,461,2786,0.8345297918
+"North Carolina",37,"Bertie County",37015,1043,291,1334,0.7818590705
+"North Carolina",37,"Bladen County",37017,1447,380,1827,0.7920087575
+"North Carolina",37,"Brunswick County",37019,7524,1149,8673,0.8675198893
+"North Carolina",37,"Buncombe County",37021,7627,1332,8959,0.8513226923
+"North Carolina",37,"Burke County",37023,2982,568,3550,0.84
+"North Carolina",37,"Cabarrus County",37025,4536,871,5407,0.8389125208
+"North Carolina",37,"Caldwell County",37027,2766,600,3366,0.8217468806
+"North Carolina",37,"Camden County",37029,275,63,338,0.8136094675
+"North Carolina",37,"Carteret County",37031,2600,455,3055,0.8510638298
+"North Carolina",37,"Caswell County",37033,784,152,936,0.8376068376
+"North Carolina",37,"Catawba County",37035,4685,882,5567,0.8415663733
+"North Carolina",37,"Chatham County",37037,2493,391,2884,0.8644244105
+"North Carolina",37,"Cherokee County",37039,1480,294,1774,0.8342728298
+"North Carolina",37,"Chowan County",37041,674,154,828,0.8140096618
+"North Carolina",37,"Clay County",37043,540,99,639,0.8450704225
+"North Carolina",37,"Cleveland County",37045,4077,813,4890,0.8337423313
+"North Carolina",37,"Columbus County",37047,2526,715,3241,0.7793890774
+"North Carolina",37,"Craven County",37049,3323,745,4068,0.8168633235
+"North Carolina",37,"Cumberland County",37051,5598,1544,7142,0.7838140577
+"North Carolina",37,"Currituck County",37053,754,139,893,0.8443449048
+"North Carolina",37,"Dare County",37055,1435,195,1630,0.8803680982
+"North Carolina",37,"Davidson County",37057,4295,856,5151,0.833818676
+"North Carolina",37,"Davie County",37059,1180,236,1416,0.8333333333
+"North Carolina",37,"Duplin County",37061,2046,474,2520,0.8119047619
+"North Carolina",37,"Durham County",37063,5981,1250,7231,0.8271331766
+"North Carolina",37,"Edgecombe County",37065,2346,622,2968,0.7904312668
+"North Carolina",37,"Forsyth County",37067,7280,1426,8706,0.8362049161
+"North Carolina",37,"Franklin County",37069,1888,455,2343,0.8058045241
+"North Carolina",37,"Gaston County",37071,6143,1330,7473,0.8220259601
+"North Carolina",37,"Gates County",37073,391,91,482,0.8112033195
+"North Carolina",37,"Graham County",37075,358,80,438,0.8173515982
+"North Carolina",37,"Granville County",37077,2012,377,2389,0.8421933864
+"North Carolina",37,"Greene County",37079,687,173,860,0.7988372093
+"North Carolina",37,"Guilford County",37081,10190,2079,12269,0.830548537
+"North Carolina",37,"Halifax County",37083,2495,682,3177,0.7853320743
+"North Carolina",37,"Harnett County",37085,3287,838,4125,0.7968484848
+"North Carolina",37,"Haywood County",37087,2636,473,3109,0.8478610486
+"North Carolina",37,"Henderson County",37089,4463,773,5236,0.85236822
+"North Carolina",37,"Hertford County",37091,928,271,1199,0.7739783153
+"North Carolina",37,"Hoke County",37093,858,259,1117,0.7681289167
+"North Carolina",37,"Hyde County",37095,206,36,242,0.8512396694
+"North Carolina",37,"Iredell County",37097,4780,986,5766,0.828997572
+"North Carolina",37,"Jackson County",37099,1212,254,1466,0.826739427
+"North Carolina",37,"Johnston County",37101,5873,1346,7219,0.8135475828
+"North Carolina",37,"Jones County",37103,450,94,544,0.8272058824
+"North Carolina",37,"Lee County",37105,2093,423,2516,0.8318759936
+"North Carolina",37,"Lenoir County",37107,2573,803,3376,0.7621445498
+"North Carolina",37,"Lincoln County",37109,2981,545,3526,0.8454339195
+"North Carolina",37,"McDowell County",37111,1811,378,2189,0.8273184102
+"North Carolina",37,"Macon County",37113,1853,358,2211,0.8380823157
+"North Carolina",37,"Madison County",37115,843,132,975,0.8646153846
+"North Carolina",37,"Martin County",37117,1231,359,1590,0.7742138365
+"North Carolina",37,"Mecklenburg County",37119,17168,3507,20675,0.8303748489
+"North Carolina",37,"Mitchell County",37121,673,109,782,0.8606138107
+"North Carolina",37,"Montgomery County",37123,1014,196,1210,0.8380165289
+"North Carolina",37,"Moore County",37125,3650,726,4376,0.834095064
+"North Carolina",37,"Nash County",37127,3864,867,4731,0.8167406468
+"North Carolina",37,"New Hanover County",37129,7087,1312,8399,0.8437909275
+"North Carolina",37,"Northampton County",37131,1012,273,1285,0.7875486381
+"North Carolina",37,"Onslow County",37133,3119,671,3790,0.8229551451
+"North Carolina",37,"Orange County",37135,2663,449,3112,0.8557197943
+"North Carolina",37,"Pamlico County",37137,682,121,803,0.8493150685
+"North Carolina",37,"Pasquotank County",37139,1319,323,1642,0.8032886724
+"North Carolina",37,"Pender County",37141,2109,440,2549,0.8273832876
+"North Carolina",37,"Perquimans County",37143,616,150,766,0.8041775457
+"North Carolina",37,"Person County",37145,1485,314,1799,0.8254585881
+"North Carolina",37,"Pitt County",37147,4855,1241,6096,0.7964238845
+"North Carolina",37,"Polk County",37149,910,161,1071,0.8496732026
+"North Carolina",37,"Randolph County",37151,3686,736,4422,0.8335594754
+"North Carolina",37,"Richmond County",37153,1811,458,2269,0.7981489643
+"North Carolina",37,"Robeson County",37155,4463,1259,5722,0.7799720377
+"North Carolina",37,"Rockingham County",37157,2718,572,3290,0.8261398176
+"North Carolina",37,"Rowan County",37159,3826,807,4633,0.8258148068
+"North Carolina",37,"Rutherford County",37161,2768,614,3382,0.8184506209
+"North Carolina",37,"Sampson County",37163,2470,555,3025,0.8165289256
+"North Carolina",37,"Scotland County",37165,1495,370,1865,0.8016085791
+"North Carolina",37,"Stanly County",37167,2431,500,2931,0.8294097578
+"North Carolina",37,"Stokes County",37169,1213,198,1411,0.8596739901
+"North Carolina",37,"Surry County",37171,2497,450,2947,0.8473023414
+"North Carolina",37,"Swain County",37173,509,166,675,0.7540740741
+"North Carolina",37,"Transylvania County",37175,1485,223,1708,0.8694379391
+"North Carolina",37,"Tyrrell County",37177,156,20,176,0.8863636364
+"North Carolina",37,"Union County",37179,4976,928,5904,0.8428184282
+"North Carolina",37,"Vance County",37181,1542,395,1937,0.7960764068
+"North Carolina",37,"Wake County",37183,19406,3737,23143,0.8385256881
+"North Carolina",37,"Warren County",37185,779,201,980,0.7948979592
+"North Carolina",37,"Washington County",37187,593,172,765,0.7751633987
+"North Carolina",37,"Watauga County",37189,1343,251,1594,0.8425345044
+"North Carolina",37,"Wayne County",37191,3736,1031,4767,0.7837214181
+"North Carolina",37,"Wilkes County",37193,2814,506,3320,0.8475903614
+"North Carolina",37,"Wilson County",37195,3093,769,3862,0.8008803729
+"North Carolina",37,"Yadkin County",37197,1081,191,1272,0.8498427673
+"North Carolina",37,"Yancey County",37199,739,123,862,0.8573085847
+"North Carolina",37,,37999,189,44,233,0.8111587983
+"North Dakota",38,"Adams County",38001,146,22,168,0.869047619
+"North Dakota",38,"Barnes County",38003,489,47,536,0.9123134328
+"North Dakota",38,"Benson County",38005,203,57,260,0.7807692308
+"North Dakota",38,"Billings County",38007,.,.,.,0.9210526316
+"North Dakota",38,"Bottineau County",38009,324,40,364,0.8901098901
+"North Dakota",38,"Bowman County",38011,160,19,179,0.8938547486
+"North Dakota",38,"Burke County",38013,92,19,111,0.8288288288
+"North Dakota",38,"Burleigh County",38015,3182,374,3556,0.8948256468
+"North Dakota",38,"Cass County",38017,3827,442,4269,0.8964628719
+"North Dakota",38,"Cavalier County",38019,278,22,300,0.9266666667
+"North Dakota",38,"Dickey County",38021,243,28,271,0.8966789668
+"North Dakota",38,"Divide County",38023,121,11,132,0.9166666667
+"North Dakota",38,"Dunn County",38025,161,19,180,0.8944444444
+"North Dakota",38,"Eddy County",38027,133,24,157,0.847133758
+"North Dakota",38,"Emmons County",38029,193,18,211,0.9146919431
+"North Dakota",38,"Foster County",38031,190,26,216,0.8796296296
+"North Dakota",38,"Golden Valley County",38033,88,14,102,0.862745098
+"North Dakota",38,"Grand Forks County",38035,1844,223,2067,0.8921141751
+"North Dakota",38,"Grant County",38037,163,21,184,0.8858695652
+"North Dakota",38,"Griggs County",38039,150,29,179,0.8379888268
+"North Dakota",38,"Hettinger County",38041,129,13,142,0.9084507042
+"North Dakota",38,"Kidder County",38043,148,17,165,0.896969697
+"North Dakota",38,"LaMoure County",38045,234,23,257,0.9105058366
+"North Dakota",38,"Logan County",38047,.,.,.,0.900990099
+"North Dakota",38,"McHenry County",38049,240,35,275,0.8727272727
+"North Dakota",38,"McIntosh County",38051,230,20,250,0.92
+"North Dakota",38,"McKenzie County",38053,243,25,268,0.9067164179
+"North Dakota",38,"McLean County",38055,505,69,574,0.8797909408
+"North Dakota",38,"Mercer County",38057,323,54,377,0.8567639257
+"North Dakota",38,"Morton County",38059,1210,140,1350,0.8962962963
+"North Dakota",38,"Mountrail County",38061,234,54,288,0.8125
+"North Dakota",38,"Nelson County",38063,186,30,216,0.8611111111
+"North Dakota",38,"Oliver County",38065,.,.,.,0.8924731183
+"North Dakota",38,"Pembina County",38067,426,42,468,0.9102564103
+"North Dakota",38,"Pierce County",38069,268,29,297,0.9023569024
+"North Dakota",38,"Ramsey County",38071,622,79,701,0.8873038516
+"North Dakota",38,"Ransom County",38073,276,39,315,0.8761904762
+"North Dakota",38,"Renville County",38075,115,16,131,0.8778625954
+"North Dakota",38,"Richland County",38077,607,56,663,0.9155354449
+"North Dakota",38,"Rolette County",38079,297,62,359,0.8272980501
+"North Dakota",38,"Sargent County",38081,212,26,238,0.8907563025
+"North Dakota",38,"Sheridan County",38083,.,.,.,0.92
+"North Dakota",38,"Sioux County",38085,33,12,45,0.7333333333
+"North Dakota",38,"Slope County",38087,.,.,.,0.9210526316
+"North Dakota",38,"Stark County",38089,1102,122,1224,0.9003267974
+"North Dakota",38,"Steele County",38091,.,.,.,0.9174311927
+"North Dakota",38,"Stutsman County",38093,824,99,923,0.8927410618
+"North Dakota",38,"Towner County",38095,137,13,150,0.9133333333
+"North Dakota",38,"Traill County",38097,355,37,392,0.9056122449
+"North Dakota",38,"Walsh County",38099,575,70,645,0.8914728682
+"North Dakota",38,"Ward County",38101,1849,276,2125,0.8701176471
+"North Dakota",38,"Wells County",38103,296,43,339,0.8731563422
+"North Dakota",38,"Williams County",38105,693,128,821,0.84409257
+"North Dakota",38,,38999,.,.,.,0.75
+Ohio,39,"Adams County",39001,995,278,1273,0.7816182247
+Ohio,39,"Allen County",39003,4678,773,5451,0.8581911576
+Ohio,39,"Ashland County",39005,1797,239,2036,0.8826129666
+Ohio,39,"Ashtabula County",39007,4173,712,4885,0.854247697
+Ohio,39,"Athens County",39009,1576,316,1892,0.8329809725
+Ohio,39,"Auglaize County",39011,2201,320,2521,0.8730662436
+Ohio,39,"Belmont County",39013,2021,368,2389,0.845960653
+Ohio,39,"Brown County",39015,1285,279,1564,0.8216112532
+Ohio,39,"Butler County",39017,8952,1754,10706,0.8361666355
+Ohio,39,"Carroll County",39019,841,117,958,0.8778705637
+Ohio,39,"Champaign County",39021,1203,193,1396,0.861747851
+Ohio,39,"Clark County",39023,3574,764,4338,0.8238819733
+Ohio,39,"Clermont County",39025,4620,834,5454,0.8470847085
+Ohio,39,"Clinton County",39027,1218,216,1434,0.8493723849
+Ohio,39,"Columbiana County",39029,3484,624,4108,0.8481012658
+Ohio,39,"Coshocton County",39031,1733,248,1981,0.8748107017
+Ohio,39,"Crawford County",39033,2123,338,2461,0.8626574563
+Ohio,39,"Cuyahoga County",39035,35481,6555,42036,0.8440622324
+Ohio,39,"Darke County",39037,1923,313,2236,0.8600178891
+Ohio,39,"Defiance County",39039,1928,301,2229,0.8649618663
+Ohio,39,"Delaware County",39041,4264,646,4910,0.8684317719
+Ohio,39,"Erie County",39043,3321,570,3891,0.8535080956
+Ohio,39,"Fairfield County",39045,3697,673,4370,0.8459954233
+Ohio,39,"Fayette County",39047,884,185,1069,0.8269410664
+Ohio,39,"Franklin County",39049,21808,4427,26235,0.8312559558
+Ohio,39,"Fulton County",39051,1756,301,2057,0.8536703938
+Ohio,39,"Gallia County",39053,1305,281,1586,0.8228247163
+Ohio,39,"Geauga County",39055,3015,422,3437,0.8772185045
+Ohio,39,"Greene County",39057,3376,631,4007,0.8425255802
+Ohio,39,"Guernsey County",39059,1794,307,2101,0.8538791052
+Ohio,39,"Hamilton County",39061,16958,3598,20556,0.8249659467
+Ohio,39,"Hancock County",39063,2554,425,2979,0.8573346761
+Ohio,39,"Hardin County",39065,1298,236,1534,0.8461538462
+Ohio,39,"Harrison County",39067,638,127,765,0.8339869281
+Ohio,39,"Henry County",39069,1348,208,1556,0.8663239075
+Ohio,39,"Highland County",39071,1515,315,1830,0.8278688525
+Ohio,39,"Hocking County",39073,1142,210,1352,0.8446745562
+Ohio,39,"Holmes County",39075,710,100,810,0.8765432099
+Ohio,39,"Huron County",39077,2481,374,2855,0.8690017513
+Ohio,39,"Jackson County",39079,1338,283,1621,0.8254164096
+Ohio,39,"Jefferson County",39081,2897,619,3516,0.8239476678
+Ohio,39,"Knox County",39083,2064,381,2445,0.8441717791
+Ohio,39,"Lake County",39085,7991,1250,9241,0.864733254
+Ohio,39,"Lawrence County",39087,2747,598,3345,0.82122571
+Ohio,39,"Licking County",39089,4606,739,5345,0.8617399439
+Ohio,39,"Logan County",39091,1928,301,2229,0.8649618663
+Ohio,39,"Lorain County",39093,11572,2002,13574,0.8525121556
+Ohio,39,"Lucas County",39095,13548,2851,16399,0.8261479358
+Ohio,39,"Madison County",39097,1094,229,1323,0.8269085412
+Ohio,39,"Mahoning County",39099,7543,1305,8848,0.8525090416
+Ohio,39,"Marion County",39101,2431,471,2902,0.8376981392
+Ohio,39,"Medina County",39103,5292,756,6048,0.875
+Ohio,39,"Meigs County",39105,1009,188,1197,0.842940685
+Ohio,39,"Mercer County",39107,1957,264,2221,0.881134624
+Ohio,39,"Miami County",39109,3266,574,3840,0.8505208333
+Ohio,39,"Monroe County",39111,563,81,644,0.8742236025
+Ohio,39,"Montgomery County",39113,12435,2713,15148,0.8209004489
+Ohio,39,"Morgan County",39115,569,110,679,0.8379970545
+Ohio,39,"Morrow County",39117,1209,201,1410,0.8574468085
+Ohio,39,"Muskingum County",39119,3953,713,4666,0.8471924561
+Ohio,39,"Noble County",39121,553,85,638,0.8667711599
+Ohio,39,"Ottawa County",39123,2071,353,2424,0.8543729373
+Ohio,39,"Paulding County",39125,926,119,1045,0.8861244019
+Ohio,39,"Perry County",39127,1321,248,1569,0.8419375398
+Ohio,39,"Pickaway County",39129,1488,281,1769,0.8411531939
+Ohio,39,"Pike County",39131,1099,235,1334,0.823838081
+Ohio,39,"Portage County",39133,4216,638,4854,0.8685620107
+Ohio,39,"Preble County",39135,1476,218,1694,0.8713105077
+Ohio,39,"Putnam County",39137,1672,255,1927,0.8676699533
+Ohio,39,"Richland County",39139,5185,884,6069,0.8543417367
+Ohio,39,"Ross County",39141,2483,482,2965,0.8374367622
+Ohio,39,"Sandusky County",39143,2623,447,3070,0.8543973941
+Ohio,39,"Scioto County",39145,3609,918,4527,0.7972166998
+Ohio,39,"Seneca County",39147,2554,392,2946,0.8669382213
+Ohio,39,"Shelby County",39149,1781,294,2075,0.858313253
+Ohio,39,"Stark County",39151,10163,1660,11823,0.8595957033
+Ohio,39,"Summit County",39153,13628,2249,15877,0.8583485545
+Ohio,39,"Trumbull County",39155,7640,1346,8986,0.85021144
+Ohio,39,"Tuscarawas County",39157,2917,462,3379,0.8632731577
+Ohio,39,"Union County",39159,1450,202,1652,0.8777239709
+Ohio,39,"Van Wert County",39161,1369,188,1557,0.8792549775
+Ohio,39,"Vinton County",39163,511,101,612,0.8349673203
+Ohio,39,"Warren County",39165,4872,919,5791,0.841305474
+Ohio,39,"Washington County",39167,2853,459,3312,0.8614130435
+Ohio,39,"Wayne County",39169,3692,504,4196,0.8798856053
+Ohio,39,"Williams County",39171,1611,258,1869,0.8619582665
+Ohio,39,"Wood County",39173,3973,627,4600,0.8636956522
+Ohio,39,"Wyandot County",39175,978,156,1134,0.8624338624
+Ohio,39,,39999,173,35,208,0.8317307692
+Oklahoma,40,"Adair County",40001,543,141,684,0.7938596491
+Oklahoma,40,"Alfalfa County",40003,209,59,268,0.7798507463
+Oklahoma,40,"Atoka County",40005,532,152,684,0.7777777778
+Oklahoma,40,"Beaver County",40007,154,45,199,0.7738693467
+Oklahoma,40,"Beckham County",40009,648,151,799,0.8110137672
+Oklahoma,40,"Blaine County",40011,390,101,491,0.7942973523
+Oklahoma,40,"Bryan County",40013,1530,466,1996,0.7665330661
+Oklahoma,40,"Caddo County",40015,845,241,1086,0.7780847145
+Oklahoma,40,"Canadian County",40017,2819,566,3385,0.8327917282
+Oklahoma,40,"Carter County",40019,1924,497,2421,0.7947129285
+Oklahoma,40,"Cherokee County",40021,1204,337,1541,0.7813108371
+Oklahoma,40,"Choctaw County",40023,641,224,865,0.7410404624
+Oklahoma,40,"Cimarron County",40025,103,23,126,0.8174603175
+Oklahoma,40,"Cleveland County",40027,5939,1217,7156,0.8299329234
+Oklahoma,40,"Coal County",40029,213,51,264,0.8068181818
+Oklahoma,40,"Comanche County",40031,2040,576,2616,0.7798165138
+Oklahoma,40,"Cotton County",40033,194,51,245,0.7918367347
+Oklahoma,40,"Craig County",40035,501,133,634,0.7902208202
+Oklahoma,40,"Creek County",40037,2077,520,2597,0.7997689642
+Oklahoma,40,"Custer County",40039,776,188,964,0.8049792531
+Oklahoma,40,"Delaware County",40041,1683,429,2112,0.796875
+Oklahoma,40,"Dewey County",40043,195,56,251,0.7768924303
+Oklahoma,40,"Ellis County",40045,183,48,231,0.7922077922
+Oklahoma,40,"Garfield County",40047,2150,542,2692,0.7986627043
+Oklahoma,40,"Garvin County",40049,1038,251,1289,0.8052754073
+Oklahoma,40,"Grady County",40051,1659,330,1989,0.8340874811
+Oklahoma,40,"Grant County",40053,217,52,269,0.8066914498
+Oklahoma,40,"Greer County",40055,217,54,271,0.8007380074
+Oklahoma,40,"Harmon County",40057,158,39,197,0.8020304569
+Oklahoma,40,"Harper County",40059,181,30,211,0.8578199052
+Oklahoma,40,"Haskell County",40061,510,123,633,0.8056872038
+Oklahoma,40,"Hughes County",40063,437,119,556,0.785971223
+Oklahoma,40,"Jackson County",40065,616,140,756,0.8148148148
+Oklahoma,40,"Jefferson County",40067,275,61,336,0.818452381
+Oklahoma,40,"Johnston County",40069,389,118,507,0.7672583826
+Oklahoma,40,"Kay County",40071,1823,432,2255,0.8084257206
+Oklahoma,40,"Kingfisher County",40073,547,118,665,0.822556391
+Oklahoma,40,"Kiowa County",40075,388,109,497,0.7806841046
+Oklahoma,40,"Latimer County",40077,456,127,583,0.782161235
+Oklahoma,40,"Le Flore County",40079,1998,520,2518,0.7934868944
+Oklahoma,40,"Lincoln County",40081,985,225,1210,0.8140495868
+Oklahoma,40,"Logan County",40083,1121,234,1355,0.8273062731
+Oklahoma,40,"Love County",40085,424,109,533,0.7954971857
+Oklahoma,40,"McClain County",40087,1156,280,1436,0.8050139276
+Oklahoma,40,"McCurtain County",40089,1293,487,1780,0.7264044944
+Oklahoma,40,"McIntosh County",40091,848,208,1056,0.803030303
+Oklahoma,40,"Major County",40093,341,72,413,0.8256658596
+Oklahoma,40,"Marshall County",40095,625,188,813,0.7687576876
+Oklahoma,40,"Mayes County",40097,1365,348,1713,0.7968476357
+Oklahoma,40,"Murray County",40099,545,134,679,0.8026509573
+Oklahoma,40,"Muskogee County",40101,2334,654,2988,0.781124498
+Oklahoma,40,"Noble County",40103,508,100,608,0.8355263158
+Oklahoma,40,"Nowata County",40105,336,90,426,0.7887323944
+Oklahoma,40,"Okfuskee County",40107,425,111,536,0.7929104478
+Oklahoma,40,"Oklahoma County",40109,15671,3808,19479,0.8045074182
+Oklahoma,40,"Okmulgee County",40111,1336,385,1721,0.776292853
+Oklahoma,40,"Osage County",40113,1474,365,1839,0.8015225666
+Oklahoma,40,"Ottawa County",40115,1199,312,1511,0.793514229
+Oklahoma,40,"Pawnee County",40117,584,138,722,0.8088642659
+Oklahoma,40,"Payne County",40119,2366,537,2903,0.8150189459
+Oklahoma,40,"Pittsburg County",40121,1598,444,2042,0.7825661117
+Oklahoma,40,"Pontotoc County",40123,1382,321,1703,0.8115091016
+Oklahoma,40,"Pottawatomie County",40125,1966,478,2444,0.8044189853
+Oklahoma,40,"Pushmataha County",40127,476,170,646,0.7368421053
+Oklahoma,40,"Roger Mills County",40129,117,34,151,0.7748344371
+Oklahoma,40,"Rogers County",40131,2661,628,3289,0.8090605047
+Oklahoma,40,"Seminole County",40133,821,257,1078,0.7615955473
+Oklahoma,40,"Sequoyah County",40135,1460,446,1906,0.7660020986
+Oklahoma,40,"Stephens County",40137,1783,433,2216,0.8046028881
+Oklahoma,40,"Texas County",40139,453,134,587,0.7717206133
+Oklahoma,40,"Tillman County",40141,302,88,390,0.7743589744
+Oklahoma,40,"Tulsa County",40143,14645,3563,18208,0.8043167838
+Oklahoma,40,"Wagoner County",40145,1993,502,2495,0.7987975952
+Oklahoma,40,"Washington County",40147,2292,429,2721,0.842337376
+Oklahoma,40,"Washita County",40149,385,93,478,0.8054393305
+Oklahoma,40,"Woods County",40151,389,85,474,0.8206751055
+Oklahoma,40,"Woodward County",40153,726,163,889,0.816647919
+Oklahoma,40,,40999,77,20,97,0.793814433
+Oregon,41,"Baker County",41001,573,104,677,0.8463810931
+Oregon,41,"Benton County",41003,1410,240,1650,0.8545454545
+Oregon,41,"Clackamas County",41005,5113,857,5970,0.8564489112
+Oregon,41,"Clatsop County",41007,1413,234,1647,0.8579234973
+Oregon,41,"Columbia County",41009,1004,182,1186,0.8465430017
+Oregon,41,"Coos County",41011,3205,650,3855,0.831387808
+Oregon,41,"Crook County",41013,739,136,875,0.8445714286
+Oregon,41,"Curry County",41015,1233,268,1501,0.8214523651
+Oregon,41,"Deschutes County",41017,4129,805,4934,0.8368463721
+Oregon,41,"Douglas County",41019,3856,846,4702,0.8200765632
+Oregon,41,"Gilliam County",41021,66,15,81,0.8148148148
+Oregon,41,"Grant County",41023,237,40,277,0.8555956679
+Oregon,41,"Harney County",41025,250,45,295,0.8474576271
+Oregon,41,"Hood River County",41027,413,50,463,0.8920086393
+Oregon,41,"Jackson County",41029,6098,1206,7304,0.8348849945
+Oregon,41,"Jefferson County",41031,511,105,616,0.8295454545
+Oregon,41,"Josephine County",41033,2936,605,3541,0.8291443095
+Oregon,41,"Klamath County",41035,1995,390,2385,0.8364779874
+Oregon,41,"Lake County",41037,296,65,361,0.8199445983
+Oregon,41,"Lane County",41039,7876,1530,9406,0.8373378694
+Oregon,41,"Lincoln County",41041,2228,398,2626,0.84843869
+Oregon,41,"Linn County",41043,2807,506,3313,0.8472683369
+Oregon,41,"Malheur County",41045,970,184,1154,0.8405545927
+Oregon,41,"Marion County",41047,4770,951,5721,0.8337703199
+Oregon,41,"Morrow County",41049,319,74,393,0.8117048346
+Oregon,41,"Multnomah County",41051,7796,1642,9438,0.8260224624
+Oregon,41,"Polk County",41053,1289,263,1552,0.8305412371
+Oregon,41,"Sherman County",41055,.,.,.,0.9146341463
+Oregon,41,"Tillamook County",41057,1001,211,1212,0.8259075908
+Oregon,41,"Umatilla County",41059,2253,466,2719,0.8286134608
+Oregon,41,"Union County",41061,951,174,1125,0.8453333333
+Oregon,41,"Wallowa County",41063,326,51,377,0.8647214854
+Oregon,41,"Wasco County",41065,867,148,1015,0.8541871921
+Oregon,41,"Washington County",41067,5938,1023,6961,0.8530383566
+Oregon,41,"Wheeler County",41069,.,.,.,0.88
+Oregon,41,"Yamhill County",41071,1847,346,2193,0.8422252622
+Oregon,41,,41999,39,12,51,0.7647058824
+Pennsylvania,42,"Adams County",42001,3478,572,4050,0.8587654321
+Pennsylvania,42,"Allegheny County",42003,18298,3361,21659,0.8448220139
+Pennsylvania,42,"Armstrong County",42005,1294,221,1515,0.8541254125
+Pennsylvania,42,"Beaver County",42007,3049,573,3622,0.8418001104
+Pennsylvania,42,"Bedford County",42009,1481,251,1732,0.8550808314
+Pennsylvania,42,"Berks County",42011,13799,1889,15688,0.8795894952
+Pennsylvania,42,"Blair County",42013,3359,625,3984,0.84312249
+Pennsylvania,42,"Bradford County",42015,2505,406,2911,0.8605290278
+Pennsylvania,42,"Bucks County",42017,19835,2732,22567,0.8789382727
+Pennsylvania,42,"Butler County",42019,3580,597,4177,0.8570744554
+Pennsylvania,42,"Cambria County",42021,3033,485,3518,0.8621375782
+Pennsylvania,42,"Cameron County",42023,267,50,317,0.8422712934
+Pennsylvania,42,"Carbon County",42025,2741,432,3173,0.8638512449
+Pennsylvania,42,"Centre County",42027,2820,379,3199,0.8815254767
+Pennsylvania,42,"Chester County",42029,14369,2141,16510,0.8703210176
+Pennsylvania,42,"Clarion County",42031,1368,201,1569,0.8718929254
+Pennsylvania,42,"Clearfield County",42033,2869,485,3354,0.8553965414
+Pennsylvania,42,"Clinton County",42035,1366,173,1539,0.8875893437
+Pennsylvania,42,"Columbia County",42037,2099,272,2371,0.8852804724
+Pennsylvania,42,"Crawford County",42039,3380,555,3935,0.8589580686
+Pennsylvania,42,"Cumberland County",42041,5978,841,6819,0.8766681332
+Pennsylvania,42,"Dauphin County",42043,5267,982,6249,0.8428548568
+Pennsylvania,42,"Delaware County",42045,14912,2473,17385,0.8577509347
+Pennsylvania,42,"Elk County",42047,1618,232,1850,0.8745945946
+Pennsylvania,42,"Erie County",42049,7169,1206,8375,0.856
+Pennsylvania,42,"Fayette County",42051,3684,693,4377,0.8416723783
+Pennsylvania,42,"Forest County",42053,253,32,285,0.8877192982
+Pennsylvania,42,"Franklin County",42055,5563,773,6336,0.8779987374
+Pennsylvania,42,"Fulton County",42057,608,94,702,0.8660968661
+Pennsylvania,42,"Greene County",42059,914,139,1053,0.8679962013
+Pennsylvania,42,"Huntingdon County",42061,1666,255,1921,0.8672566372
+Pennsylvania,42,"Indiana County",42063,1515,280,1795,0.8440111421
+Pennsylvania,42,"Jefferson County",42065,1613,243,1856,0.8690732759
+Pennsylvania,42,"Juniata County",42067,787,125,912,0.8629385965
+Pennsylvania,42,"Lackawanna County",42069,7938,1229,9167,0.8659321479
+Pennsylvania,42,"Lancaster County",42071,15677,2182,17859,0.8778207066
+Pennsylvania,42,"Lawrence County",42073,2047,391,2438,0.8396226415
+Pennsylvania,42,"Lebanon County",42075,4161,648,4809,0.8652526513
+Pennsylvania,42,"Lehigh County",42077,11543,1627,13170,0.8764616553
+Pennsylvania,42,"Luzerne County",42079,12738,2153,14891,0.8554160231
+Pennsylvania,42,"Lycoming County",42081,4359,721,5080,0.8580708661
+Pennsylvania,42,"Mc Kean County",42083,1825,300,2125,0.8588235294
+Pennsylvania,42,"Mercer County",42085,3504,560,4064,0.8622047244
+Pennsylvania,42,"Mifflin County",42087,1849,293,2142,0.8632119514
+Pennsylvania,42,"Monroe County",42089,5414,878,6292,0.8604577241
+Pennsylvania,42,"Montgomery County",42091,23691,3471,27162,0.8722111774
+Pennsylvania,42,"Montour County",42093,546,71,617,0.8849270665
+Pennsylvania,42,"Northampton County",42095,11859,1632,13491,0.8790304648
+Pennsylvania,42,"Northumberland County",42097,3827,574,4401,0.8695750966
+Pennsylvania,42,"Perry County",42099,1172,189,1361,0.8611315209
+Pennsylvania,42,"Philadelphia County",42101,29147,6750,35897,0.8119620024
+Pennsylvania,42,"Pike County",42103,2658,429,3087,0.8610301263
+Pennsylvania,42,"Potter County",42105,741,119,860,0.861627907
+Pennsylvania,42,"Schuylkill County",42107,6045,994,7039,0.8587867595
+Pennsylvania,42,"Snyder County",42109,1311,192,1503,0.872255489
+Pennsylvania,42,"Somerset County",42111,2011,340,2351,0.8553806891
+Pennsylvania,42,"Sullivan County",42113,289,52,341,0.8475073314
+Pennsylvania,42,"Susquehanna County",42115,1900,281,2181,0.8711600183
+Pennsylvania,42,"Tioga County",42117,1732,284,2016,0.8591269841
+Pennsylvania,42,"Union County",42119,1316,196,1512,0.8703703704
+Pennsylvania,42,"Venango County",42121,1875,318,2193,0.8549931601
+Pennsylvania,42,"Warren County",42123,1833,273,2106,0.8703703704
+Pennsylvania,42,"Washington County",42125,3851,645,4496,0.8565391459
+Pennsylvania,42,"Wayne County",42127,2622,391,3013,0.8702290076
+Pennsylvania,42,"Westmoreland County",42129,7140,1168,8308,0.8594126143
+Pennsylvania,42,"Wyoming County",42131,1030,153,1183,0.8706677937
+Pennsylvania,42,"York County",42133,12942,1890,14832,0.8725728155
+Pennsylvania,42,,42999,149,32,181,0.8232044199
+"Rhode Island",44,"Bristol County",44001,1264,161,1425,0.8870175439
+"Rhode Island",44,"Kent County",44003,4653,694,5347,0.870207593
+"Rhode Island",44,"Newport County",44005,2487,345,2832,0.8781779661
+"Rhode Island",44,"Providence County",44007,14561,2363,16924,0.8603757977
+"Rhode Island",44,"Washington County",44009,4065,578,4643,0.8755115227
+"Rhode Island",44,,44999,.,0,.,1
+"South Carolina",45,"Abbeville County",45001,905,197,1102,0.8212341198
+"South Carolina",45,"Aiken County",45003,5368,1199,6567,0.8174204355
+"South Carolina",45,"Allendale County",45005,287,100,387,0.7416020672
+"South Carolina",45,"Anderson County",45007,6087,1292,7379,0.8249085242
+"South Carolina",45,"Bamberg County",45009,523,146,669,0.7817638266
+"South Carolina",45,"Barnwell County",45011,748,199,947,0.7898627244
+"South Carolina",45,"Beaufort County",45013,6759,1219,7978,0.8472048132
+"South Carolina",45,"Berkeley County",45015,3749,820,4569,0.8205296564
+"South Carolina",45,"Calhoun County",45017,467,139,606,0.7706270627
+"South Carolina",45,"Charleston County",45019,7959,1715,9674,0.8227206946
+"South Carolina",45,"Cherokee County",45021,1836,418,2254,0.8145519077
+"South Carolina",45,"Chester County",45023,1193,328,1521,0.7843523997
+"South Carolina",45,"Chesterfield County",45025,1709,407,2116,0.8076559546
+"South Carolina",45,"Clarendon County",45027,1306,354,1660,0.786746988
+"South Carolina",45,"Colleton County",45029,1249,359,1608,0.7767412935
+"South Carolina",45,"Darlington County",45031,2739,683,3422,0.8004091175
+"South Carolina",45,"Dillon County",45033,1209,360,1569,0.7705544933
+"South Carolina",45,"Dorchester County",45035,3061,715,3776,0.8106461864
+"South Carolina",45,"Edgefield County",45037,809,181,990,0.8171717172
+"South Carolina",45,"Fairfield County",45039,731,215,946,0.7727272727
+"South Carolina",45,"Florence County",45041,5372,1510,6882,0.7805870387
+"South Carolina",45,"Georgetown County",45043,3231,674,3905,0.8274007682
+"South Carolina",45,"Greenville County",45045,13036,2609,15645,0.8332374561
+"South Carolina",45,"Greenwood County",45047,2451,580,3031,0.8086440119
+"South Carolina",45,"Hampton County",45049,634,194,828,0.7657004831
+"South Carolina",45,"Horry County",45051,15794,2869,18663,0.8462733751
+"South Carolina",45,"Jasper County",45053,890,205,1095,0.8127853881
+"South Carolina",45,"Kershaw County",45055,2272,512,2784,0.816091954
+"South Carolina",45,"Lancaster County",45057,3792,799,4591,0.8259638423
+"South Carolina",45,"Laurens County",45059,2533,574,3107,0.8152558738
+"South Carolina",45,"Lee County",45061,750,218,968,0.7747933884
+"South Carolina",45,"Lexington County",45063,7998,1619,9617,0.8316522824
+"South Carolina",45,"McCormick County",45065,506,109,615,0.8227642276
+"South Carolina",45,"Marion County",45067,1390,432,1822,0.7628979144
+"South Carolina",45,"Marlboro County",45069,1121,327,1448,0.7741712707
+"South Carolina",45,"Newberry County",45071,1425,319,1744,0.817087156
+"South Carolina",45,"Oconee County",45073,3213,623,3836,0.8375912409
+"South Carolina",45,"Orangeburg County",45075,2663,701,3364,0.7916171225
+"South Carolina",45,"Pickens County",45077,3438,677,4115,0.8354799514
+"South Carolina",45,"Richland County",45079,8106,1972,10078,0.8043262552
+"South Carolina",45,"Saluda County",45081,775,159,934,0.829764454
+"South Carolina",45,"Spartanburg County",45083,9013,2004,11017,0.8180993011
+"South Carolina",45,"Sumter County",45085,2978,844,3822,0.7791732077
+"South Carolina",45,"Union County",45087,1116,235,1351,0.8260547742
+"South Carolina",45,"Williamsburg County",45089,1328,395,1723,0.7707486941
+"South Carolina",45,"York County",45091,7010,1352,8362,0.8383161923
+"South Carolina",45,,45999,69,19,88,0.7840909091
+"South Dakota",46,"Aurora County",46003,131,12,143,0.9160839161
+"South Dakota",46,"Beadle County",46005,798,141,939,0.8498402556
+"South Dakota",46,"Bennett County",46007,.,.,.,0.8780487805
+"South Dakota",46,"Bon Homme County",46009,293,28,321,0.9127725857
+"South Dakota",46,"Brookings County",46011,905,104,1009,0.8969276511
+"South Dakota",46,"Brown County",46013,1763,237,2000,0.8815
+"South Dakota",46,"Brule County",46015,200,23,223,0.8968609865
+"South Dakota",46,"Buffalo County",46017,11,20,31,0.3548387097
+"South Dakota",46,"Butte County",46019,369,48,417,0.8848920863
+"South Dakota",46,"Campbell County",46021,.,.,.,0.9134615385
+"South Dakota",46,"Charles Mix County",46023,374,63,437,0.8558352403
+"South Dakota",46,"Clark County",46025,167,14,181,0.9226519337
+"South Dakota",46,"Clay County",46027,441,55,496,0.8891129032
+"South Dakota",46,"Codington County",46029,975,124,1099,0.8871701547
+"South Dakota",46,"Corson County",46031,59,34,93,0.6344086022
+"South Dakota",46,"Custer County",46033,339,53,392,0.8647959184
+"South Dakota",46,"Davison County",46035,954,118,1072,0.8899253731
+"South Dakota",46,"Day County",46037,325,50,375,0.8666666667
+"South Dakota",46,"Deuel County",46039,176,23,199,0.8844221106
+"South Dakota",46,"Dewey County",46041,89,28,117,0.7606837607
+"South Dakota",46,"Douglas County",46043,172,29,201,0.855721393
+"South Dakota",46,"Edmunds County",46045,240,31,271,0.8856088561
+"South Dakota",46,"Fall River County",46047,255,45,300,0.85
+"South Dakota",46,"Faulk County",46049,154,19,173,0.8901734104
+"South Dakota",46,"Grant County",46051,349,44,393,0.8880407125
+"South Dakota",46,"Gregory County",46053,222,35,257,0.8638132296
+"South Dakota",46,"Haakon County",46055,132,18,150,0.88
+"South Dakota",46,"Hamlin County",46057,211,17,228,0.9254385965
+"South Dakota",46,"Hand County",46059,215,24,239,0.89958159
+"South Dakota",46,"Hanson County",46061,235,39,274,0.8576642336
+"South Dakota",46,"Harding County",46063,.,.,.,0.9574468085
+"South Dakota",46,"Hughes County",46065,611,77,688,0.8880813953
+"South Dakota",46,"Hutchinson County",46067,435,58,493,0.8823529412
+"South Dakota",46,"Hyde County",46069,70,13,83,0.843373494
+"South Dakota",46,"Jackson County",46071,80,14,94,0.8510638298
+"South Dakota",46,"Jerauld County",46073,103,13,116,0.8879310345
+"South Dakota",46,"Jones County",46075,.,.,.,0.8863636364
+"South Dakota",46,"Kingsbury County",46077,288,41,329,0.8753799392
+"South Dakota",46,"Lake County",46079,450,53,503,0.8946322068
+"South Dakota",46,"Lawrence County",46081,871,119,990,0.8797979798
+"South Dakota",46,"Lincoln County",46083,1488,157,1645,0.9045592705
+"South Dakota",46,"Lyman County",46085,107,12,119,0.8991596639
+"South Dakota",46,"McCook County",46087,244,19,263,0.927756654
+"South Dakota",46,"McPherson County",46089,211,23,234,0.9017094017
+"South Dakota",46,"Marshall County",46091,211,29,240,0.8791666667
+"South Dakota",46,"Meade County",46093,629,84,713,0.8821879383
+"South Dakota",46,"Mellette County",46095,.,.,.,0.8444444444
+"South Dakota",46,"Miner County",46097,109,22,131,0.8320610687
+"South Dakota",46,"Minnehaha County",46099,5742,785,6527,0.8797303509
+"South Dakota",46,"Moody County",46101,244,28,272,0.8970588235
+"South Dakota",46,,46102,47,93,140,0.3357142857
+"South Dakota",46,"Pennington County",46103,3236,561,3797,0.8522517777
+"South Dakota",46,"Perkins County",46105,149,29,178,0.8370786517
+"South Dakota",46,"Potter County",46107,137,19,156,0.8782051282
+"South Dakota",46,"Roberts County",46109,391,53,444,0.8806306306
+"South Dakota",46,"Sanborn County",46111,103,17,120,0.8583333333
+"South Dakota",46,"Spink County",46115,428,47,475,0.9010526316
+"South Dakota",46,"Stanley County",46117,128,17,145,0.8827586207
+"South Dakota",46,"Sully County",46119,63,11,74,0.8513513514
+"South Dakota",46,"Todd County",46121,60,52,112,0.5357142857
+"South Dakota",46,"Tripp County",46123,293,38,331,0.8851963746
+"South Dakota",46,"Turner County",46125,385,59,444,0.8671171171
+"South Dakota",46,"Union County",46127,656,69,725,0.9048275862
+"South Dakota",46,"Walworth County",46129,290,41,331,0.8761329305
+"South Dakota",46,"Yankton County",46135,910,121,1031,0.8826382153
+"South Dakota",46,"Ziebach County",46137,.,.,.,0.7777777778
+"South Dakota",46,,46999,.,.,.,0.9333333333
+Tennessee,47,"Anderson County",47001,2235,437,2672,0.8364520958
+Tennessee,47,"Bedford County",47003,1251,232,1483,0.8435603506
+Tennessee,47,"Benton County",47005,794,180,974,0.8151950719
+Tennessee,47,"Bledsoe County",47007,517,113,630,0.8206349206
+Tennessee,47,"Blount County",47009,3418,652,4070,0.8398034398
+Tennessee,47,"Bradley County",47011,3127,557,3684,0.848805646
+Tennessee,47,"Campbell County",47013,1245,309,1554,0.8011583012
+Tennessee,47,"Cannon County",47015,413,113,526,0.7851711027
+Tennessee,47,"Carroll County",47017,1458,304,1762,0.8274687855
+Tennessee,47,"Carter County",47019,1613,356,1969,0.8191975622
+Tennessee,47,"Cheatham County",47021,815,157,972,0.8384773663
+Tennessee,47,"Chester County",47023,625,138,763,0.8191349934
+Tennessee,47,"Claiborne County",47025,1205,277,1482,0.8130904184
+Tennessee,47,"Clay County",47027,439,79,518,0.8474903475
+Tennessee,47,"Cocke County",47029,1350,311,1661,0.8127633955
+Tennessee,47,"Coffee County",47031,1926,438,2364,0.8147208122
+Tennessee,47,"Crockett County",47033,595,168,763,0.7798165138
+Tennessee,47,"Cumberland County",47035,4100,741,4841,0.846932452
+Tennessee,47,"Davidson County",47037,9989,2234,12223,0.8172298126
+Tennessee,47,"Decatur County",47039,551,125,676,0.8150887574
+Tennessee,47,"DeKalb County",47041,639,135,774,0.8255813953
+Tennessee,47,"Dickson County",47043,1318,290,1608,0.8196517413
+Tennessee,47,"Dyer County",47045,1642,408,2050,0.8009756098
+Tennessee,47,"Fayette County",47047,1559,369,1928,0.8086099585
+Tennessee,47,"Fentress County",47049,1124,212,1336,0.8413173653
+Tennessee,47,"Franklin County",47051,1567,349,1916,0.8178496868
+Tennessee,47,"Gibson County",47053,2152,517,2669,0.8062944923
+Tennessee,47,"Giles County",47055,1260,265,1525,0.8262295082
+Tennessee,47,"Grainger County",47057,720,161,881,0.8172531215
+Tennessee,47,"Greene County",47059,2427,452,2879,0.843001042
+Tennessee,47,"Grundy County",47061,672,117,789,0.8517110266
+Tennessee,47,"Hamblen County",47063,2063,413,2476,0.8331987076
+Tennessee,47,"Hamilton County",47065,9653,1976,11629,0.8300799725
+Tennessee,47,"Hancock County",47067,281,59,340,0.8264705882
+Tennessee,47,"Hardeman County",47069,1019,276,1295,0.7868725869
+Tennessee,47,"Hardin County",47071,1308,277,1585,0.8252365931
+Tennessee,47,"Hawkins County",47073,1700,318,2018,0.8424182359
+Tennessee,47,"Haywood County",47075,678,187,865,0.7838150289
+Tennessee,47,"Henderson County",47077,1145,258,1403,0.8161083393
+Tennessee,47,"Henry County",47079,1630,310,1940,0.8402061856
+Tennessee,47,"Hickman County",47081,641,122,763,0.8401048493
+Tennessee,47,"Houston County",47083,288,76,364,0.7912087912
+Tennessee,47,"Humphreys County",47085,758,159,917,0.826608506
+Tennessee,47,"Jackson County",47087,598,122,720,0.8305555556
+Tennessee,47,"Jefferson County",47089,1667,337,2004,0.8318363273
+Tennessee,47,"Johnson County",47091,652,129,781,0.8348271447
+Tennessee,47,"Knox County",47093,9774,1987,11761,0.8310517813
+Tennessee,47,"Lake County",47095,303,83,386,0.7849740933
+Tennessee,47,"Lauderdale County",47097,886,292,1178,0.7521222411
+Tennessee,47,"Lawrence County",47099,1781,371,2152,0.8276022305
+Tennessee,47,"Lewis County",47101,421,83,504,0.8353174603
+Tennessee,47,"Lincoln County",47103,1256,231,1487,0.8446536651
+Tennessee,47,"Loudon County",47105,2012,359,2371,0.8485870941
+Tennessee,47,"McMinn County",47107,1963,388,2351,0.8349638452
+Tennessee,47,"McNairy County",47109,1264,299,1563,0.8087012156
+Tennessee,47,"Macon County",47111,881,227,1108,0.7951263538
+Tennessee,47,"Madison County",47113,3422,940,4362,0.7845025218
+Tennessee,47,"Marion County",47115,1011,241,1252,0.8075079872
+Tennessee,47,"Marshall County",47117,953,203,1156,0.8243944637
+Tennessee,47,"Maury County",47119,2799,544,3343,0.8372719115
+Tennessee,47,"Meigs County",47121,466,110,576,0.8090277778
+Tennessee,47,"Monroe County",47123,1597,321,1918,0.8326381648
+Tennessee,47,"Montgomery County",47125,2822,599,3421,0.8249049985
+Tennessee,47,"Moore County",47127,255,57,312,0.8173076923
+Tennessee,47,"Morgan County",47129,627,132,759,0.8260869565
+Tennessee,47,"Obion County",47131,1691,369,2060,0.8208737864
+Tennessee,47,"Overton County",47133,1057,223,1280,0.82578125
+Tennessee,47,"Perry County",47135,309,61,370,0.8351351351
+Tennessee,47,"Pickett County",47137,343,71,414,0.8285024155
+Tennessee,47,"Polk County",47139,787,165,952,0.8266806723
+Tennessee,47,"Putnam County",47141,2800,611,3411,0.8208736441
+Tennessee,47,"Rhea County",47143,1254,264,1518,0.8260869565
+Tennessee,47,"Roane County",47145,1931,393,2324,0.8308950086
+Tennessee,47,"Robertson County",47147,1719,344,2063,0.8332525448
+Tennessee,47,"Rutherford County",47149,4938,1007,5945,0.8306139613
+Tennessee,47,"Scott County",47151,887,204,1091,0.813015582
+Tennessee,47,"Sequatchie County",47153,630,128,758,0.8311345646
+Tennessee,47,"Sevier County",47155,2776,506,3282,0.845825716
+Tennessee,47,"Shelby County",47157,20275,5466,25741,0.7876539373
+Tennessee,47,"Smith County",47159,651,148,799,0.8147684606
+Tennessee,47,"Stewart County",47161,495,118,613,0.8075040783
+Tennessee,47,"Sullivan County",47163,4452,737,5189,0.8579687801
+Tennessee,47,"Sumner County",47165,4531,956,5487,0.8257700018
+Tennessee,47,"Tipton County",47167,1749,449,2198,0.7957233849
+Tennessee,47,"Trousdale County",47169,321,62,383,0.8381201044
+Tennessee,47,"Unicoi County",47171,603,131,734,0.8215258856
+Tennessee,47,"Union County",47173,480,127,607,0.7907742998
+Tennessee,47,"Van Buren County",47175,296,74,370,0.8
+Tennessee,47,"Warren County",47177,1631,353,1984,0.8220766129
+Tennessee,47,"Washington County",47179,3285,688,3973,0.82683111
+Tennessee,47,"Wayne County",47181,681,135,816,0.8345588235
+Tennessee,47,"Weakley County",47183,1627,276,1903,0.8549658434
+Tennessee,47,"White County",47185,1262,274,1536,0.8216145833
+Tennessee,47,"Williamson County",47187,4145,681,4826,0.8588893494
+Tennessee,47,"Wilson County",47189,3449,660,4109,0.8393769774
+Tennessee,47,,47999,85,23,108,0.787037037
+Texas,48,"Anderson County",48001,1668,383,2051,0.8132618235
+Texas,48,"Andrews County",48003,340,103,443,0.7674943567
+Texas,48,"Angelina County",48005,3139,742,3881,0.8088121618
+Texas,48,"Aransas County",48007,769,160,929,0.8277717976
+Texas,48,"Archer County",48009,334,62,396,0.8434343434
+Texas,48,"Armstrong County",48011,80,14,94,0.8510638298
+Texas,48,"Atascosa County",48013,855,249,1104,0.7744565217
+Texas,48,"Austin County",48015,1058,247,1305,0.8107279693
+Texas,48,"Bailey County",48017,191,45,236,0.8093220339
+Texas,48,"Bandera County",48019,725,159,884,0.8201357466
+Texas,48,"Bastrop County",48021,1656,425,2081,0.7957712638
+Texas,48,"Baylor County",48023,180,51,231,0.7792207792
+Texas,48,"Bee County",48025,523,161,684,0.764619883
+Texas,48,"Bell County",48027,3900,1017,4917,0.793166565
+Texas,48,"Bexar County",48029,22079,5771,27850,0.7927827648
+Texas,48,"Blanco County",48031,446,71,517,0.8626692456
+Texas,48,"Borden County",48033,.,.,.,0.8048780488
+Texas,48,"Bosque County",48035,652,150,802,0.812967581
+Texas,48,"Bowie County",48037,2456,689,3145,0.7809220986
+Texas,48,"Brazoria County",48039,7115,1627,8742,0.8138869824
+Texas,48,"Brazos County",48041,3604,767,4371,0.8245252803
+Texas,48,"Brewster County",48043,210,71,281,0.7473309609
+Texas,48,"Briscoe County",48045,68,11,79,0.8607594937
+Texas,48,"Brooks County",48047,232,88,320,0.725
+Texas,48,"Brown County",48049,1529,369,1898,0.8055848261
+Texas,48,"Burleson County",48051,626,152,778,0.8046272494
+Texas,48,"Burnet County",48053,1702,332,2034,0.8367748279
+Texas,48,"Caldwell County",48055,898,259,1157,0.7761452031
+Texas,48,"Calhoun County",48057,621,151,772,0.8044041451
+Texas,48,"Callahan County",48059,487,109,596,0.817114094
+Texas,48,"Cameron County",48061,7441,1984,9425,0.7894960212
+Texas,48,"Camp County",48063,397,87,484,0.8202479339
+Texas,48,"Carson County",48065,209,42,251,0.8326693227
+Texas,48,"Cass County",48067,1241,313,1554,0.7985842986
+Texas,48,"Castro County",48069,206,53,259,0.7953667954
+Texas,48,"Chambers County",48071,883,229,1112,0.7940647482
+Texas,48,"Cherokee County",48073,1747,474,2221,0.7865826204
+Texas,48,"Childress County",48075,217,51,268,0.8097014925
+Texas,48,"Clay County",48077,396,92,488,0.8114754098
+Texas,48,"Cochran County",48079,79,28,107,0.738317757
+Texas,48,"Coke County",48081,156,40,196,0.7959183673
+Texas,48,"Coleman County",48083,393,79,472,0.8326271186
+Texas,48,"Collin County",48085,16131,3152,19283,0.8365399575
+Texas,48,"Collingsworth County",48087,130,38,168,0.7738095238
+Texas,48,"Colorado County",48089,1036,213,1249,0.8294635709
+Texas,48,"Comal County",48091,3870,717,4587,0.8436886854
+Texas,48,"Comanche County",48093,566,137,703,0.8051209104
+Texas,48,"Concho County",48095,124,27,151,0.821192053
+Texas,48,"Cooke County",48097,1408,339,1747,0.8059530624
+Texas,48,"Coryell County",48099,812,203,1015,0.8
+Texas,48,"Cottle County",48101,59,16,75,0.7866666667
+Texas,48,"Crane County",48103,112,26,138,0.8115942029
+Texas,48,"Crockett County",48105,123,28,151,0.8145695364
+Texas,48,"Crosby County",48107,189,57,246,0.7682926829
+Texas,48,"Culberson County",48109,75,23,98,0.7653061224
+Texas,48,"Dallam County",48111,146,42,188,0.7765957447
+Texas,48,"Dallas County",48113,37039,9996,47035,0.7874774104
+Texas,48,"Dawson County",48115,404,92,496,0.814516129
+Texas,48,"Deaf Smith County",48117,433,113,546,0.793040293
+Texas,48,"Delta County",48119,257,47,304,0.8453947368
+Texas,48,"Denton County",48121,13264,2788,16052,0.8263144779
+Texas,48,"DeWitt County",48123,790,196,986,0.8012170385
+Texas,48,"Dickens County",48125,94,17,111,0.8468468468
+Texas,48,"Dimmit County",48127,261,95,356,0.7331460674
+Texas,48,"Donley County",48129,177,39,216,0.8194444444
+Texas,48,"Duval County",48131,338,78,416,0.8125
+Texas,48,"Eastland County",48133,730,174,904,0.8075221239
+Texas,48,"Ector County",48135,2710,802,3512,0.7716400911
+Texas,48,"Edwards County",48137,74,13,87,0.8505747126
+Texas,48,"Ellis County",48139,3787,861,4648,0.8147590361
+Texas,48,"El Paso County",48141,9697,2707,12404,0.7817639471
+Texas,48,"Erath County",48143,1073,198,1271,0.8442171518
+Texas,48,"Falls County",48145,365,112,477,0.7651991614
+Texas,48,"Fannin County",48147,1240,289,1529,0.8109875736
+Texas,48,"Fayette County",48149,1209,286,1495,0.8086956522
+Texas,48,"Fisher County",48151,172,38,210,0.819047619
+Texas,48,"Floyd County",48153,217,61,278,0.7805755396
+Texas,48,"Foard County",48155,61,15,76,0.8026315789
+Texas,48,"Fort Bend County",48157,11720,2631,14351,0.816667828
+Texas,48,"Franklin County",48159,408,77,485,0.8412371134
+Texas,48,"Freestone County",48161,747,184,931,0.8023630505
+Texas,48,"Frio County",48163,374,138,512,0.73046875
+Texas,48,"Gaines County",48165,327,87,414,0.7898550725
+Texas,48,"Galveston County",48167,7940,2018,9958,0.7973488652
+Texas,48,"Garza County",48169,117,41,158,0.7405063291
+Texas,48,"Gillespie County",48171,1202,230,1432,0.8393854749
+Texas,48,"Glasscock County",48173,.,.,.,0.7692307692
+Texas,48,"Goliad County",48175,275,55,330,0.8333333333
+Texas,48,"Gonzales County",48177,716,201,917,0.7808069793
+Texas,48,"Gray County",48179,831,203,1034,0.8036750484
+Texas,48,"Grayson County",48181,4758,1178,5936,0.8015498652
+Texas,48,"Gregg County",48183,3997,941,4938,0.809437019
+Texas,48,"Grimes County",48185,857,238,1095,0.7826484018
+Texas,48,"Guadalupe County",48187,2895,597,3492,0.8290378007
+Texas,48,"Hale County",48189,866,232,1098,0.7887067395
+Texas,48,"Hall County",48191,160,39,199,0.8040201005
+Texas,48,"Hamilton County",48193,341,80,421,0.809976247
+Texas,48,"Hansford County",48195,181,42,223,0.8116591928
+Texas,48,"Hardeman County",48197,193,30,223,0.865470852
+Texas,48,"Hardin County",48199,1674,374,2048,0.8173828125
+Texas,48,"Harris County",48201,60059,15110,75169,0.7989862842
+Texas,48,"Harrison County",48203,2075,513,2588,0.8017774343
+Texas,48,"Hartley County",48205,120,25,145,0.8275862069
+Texas,48,"Haskell County",48207,284,64,348,0.816091954
+Texas,48,"Hays County",48209,3219,650,3869,0.8319979323
+Texas,48,"Hemphill County",48211,123,25,148,0.8310810811
+Texas,48,"Henderson County",48213,3127,757,3884,0.8050978373
+Texas,48,"Hidalgo County",48215,14903,3685,18588,0.8017538197
+Texas,48,"Hill County",48217,1258,313,1571,0.8007638447
+Texas,48,"Hockley County",48219,630,159,789,0.7984790875
+Texas,48,"Hood County",48221,2577,520,3097,0.8320955764
+Texas,48,"Hopkins County",48223,1505,345,1850,0.8135135135
+Texas,48,"Houston County",48225,938,219,1157,0.8107173725
+Texas,48,"Howard County",48227,748,190,938,0.7974413646
+Texas,48,"Hudspeth County",48229,83,29,112,0.7410714286
+Texas,48,"Hunt County",48231,2636,719,3355,0.7856929955
+Texas,48,"Hutchinson County",48233,770,186,956,0.8054393305
+Texas,48,"Irion County",48235,49,14,63,0.7777777778
+Texas,48,"Jack County",48237,324,74,398,0.8140703518
+Texas,48,"Jackson County",48239,497,113,610,0.8147540984
+Texas,48,"Jasper County",48241,1414,397,1811,0.7807840972
+Texas,48,"Jeff Davis County",48243,76,19,95,0.8
+Texas,48,"Jefferson County",48245,6147,1609,7756,0.792547705
+Texas,48,"Jim Hogg County",48247,137,47,184,0.7445652174
+Texas,48,"Jim Wells County",48249,940,285,1225,0.7673469388
+Texas,48,"Johnson County",48251,3738,880,4618,0.8094413166
+Texas,48,"Jones County",48253,586,154,740,0.7918918919
+Texas,48,"Karnes County",48255,472,141,613,0.7699836868
+Texas,48,"Kaufman County",48257,2744,667,3411,0.8044561712
+Texas,48,"Kendall County",48259,1223,247,1470,0.8319727891
+Texas,48,"Kenedy County",48261,.,.,.,0.75
+Texas,48,"Kent County",48263,34,12,46,0.7391304348
+Texas,48,"Kerr County",48265,2116,408,2524,0.8383518225
+Texas,48,"Kimble County",48267,197,46,243,0.8106995885
+Texas,48,"King County",48269,.,.,.,0.625
+Texas,48,"Kinney County",48271,110,23,133,0.8270676692
+Texas,48,"Kleberg County",48273,399,120,519,0.7687861272
+Texas,48,"Knox County",48275,184,47,231,0.7965367965
+Texas,48,"Lamar County",48277,2159,556,2715,0.7952117864
+Texas,48,"Lamb County",48279,418,104,522,0.8007662835
+Texas,48,"Lampasas County",48281,530,115,645,0.8217054264
+Texas,48,"La Salle County",48283,162,62,224,0.7232142857
+Texas,48,"Lavaca County",48285,1062,234,1296,0.8194444444
+Texas,48,"Lee County",48287,509,129,638,0.7978056426
+Texas,48,"Leon County",48289,766,197,963,0.795430945
+Texas,48,"Liberty County",48291,1938,517,2455,0.7894093686
+Texas,48,"Limestone County",48293,752,232,984,0.7642276423
+Texas,48,"Lipscomb County",48295,104,24,128,0.8125
+Texas,48,"Live Oak County",48297,343,94,437,0.7848970252
+Texas,48,"Llano County",48299,1087,216,1303,0.834228703
+Texas,48,"Loving County",48301,.,0,.,1
+Texas,48,"Lubbock County",48303,6496,1480,7976,0.81444333
+Texas,48,"Lynn County",48305,155,41,196,0.7908163265
+Texas,48,"McCulloch County",48307,396,105,501,0.7904191617
+Texas,48,"McLennan County",48309,5261,1399,6660,0.7899399399
+Texas,48,"McMullen County",48311,.,.,.,0.7894736842
+Texas,48,"Madison County",48313,368,96,464,0.7931034483
+Texas,48,"Marion County",48315,462,114,576,0.8020833333
+Texas,48,"Martin County",48317,108,35,143,0.7552447552
+Texas,48,"Mason County",48319,237,39,276,0.8586956522
+Texas,48,"Matagorda County",48321,1120,328,1448,0.773480663
+Texas,48,"Maverick County",48323,1387,421,1808,0.7671460177
+Texas,48,"Medina County",48325,980,269,1249,0.7846277022
+Texas,48,"Menard County",48327,101,24,125,0.808
+Texas,48,"Midland County",48329,2678,628,3306,0.8100423472
+Texas,48,"Milam County",48331,722,173,895,0.8067039106
+Texas,48,"Mills County",48333,203,40,243,0.8353909465
+Texas,48,"Mitchell County",48335,247,53,300,0.8233333333
+Texas,48,"Montague County",48337,882,189,1071,0.8235294118
+Texas,48,"Montgomery County",48339,11610,2594,14204,0.8173753872
+Texas,48,"Moore County",48341,438,87,525,0.8342857143
+Texas,48,"Morris County",48343,522,147,669,0.7802690583
+Texas,48,"Motley County",48345,.,.,.,0.9142857143
+Texas,48,"Nacogdoches County",48347,1842,504,2346,0.7851662404
+Texas,48,"Navarro County",48349,1578,419,1997,0.7901852779
+Texas,48,"Newton County",48351,497,149,646,0.7693498452
+Texas,48,"Nolan County",48353,520,140,660,0.7878787879
+Texas,48,"Nueces County",48355,4322,1217,5539,0.78028525
+Texas,48,"Ochiltree County",48357,235,51,286,0.8216783217
+Texas,48,"Oldham County",48359,.,.,.,0.8965517241
+Texas,48,"Orange County",48361,2458,602,3060,0.8032679739
+Texas,48,"Palo Pinto County",48363,1046,239,1285,0.8140077821
+Texas,48,"Panola County",48365,907,202,1109,0.8178539225
+Texas,48,"Parker County",48367,3923,829,4752,0.825547138
+Texas,48,"Parmer County",48369,309,58,367,0.8419618529
+Texas,48,"Pecos County",48371,302,105,407,0.742014742
+Texas,48,"Polk County",48373,2673,628,3301,0.8097546198
+Texas,48,"Potter County",48375,2782,706,3488,0.7975917431
+Texas,48,"Presidio County",48377,172,58,230,0.747826087
+Texas,48,"Rains County",48379,484,126,610,0.793442623
+Texas,48,"Randall County",48381,4066,816,4882,0.8328553871
+Texas,48,"Reagan County",48383,73,12,85,0.8588235294
+Texas,48,"Real County",48385,166,36,202,0.8217821782
+Texas,48,"Red River County",48387,646,159,805,0.802484472
+Texas,48,"Reeves County",48389,318,122,440,0.7227272727
+Texas,48,"Refugio County",48391,244,72,316,0.7721518987
+Texas,48,"Roberts County",48393,.,.,.,0.8888888889
+Texas,48,"Robertson County",48395,570,126,696,0.8189655172
+Texas,48,"Rockwall County",48397,2065,457,2522,0.8187946075
+Texas,48,"Runnels County",48399,526,123,649,0.8104776579
+Texas,48,"Rusk County",48401,1649,410,2059,0.8008742108
+Texas,48,"Sabine County",48403,600,152,752,0.7978723404
+Texas,48,"San Augustine County",48405,438,95,533,0.8217636023
+Texas,48,"San Jacinto County",48407,893,232,1125,0.7937777778
+Texas,48,"San Patricio County",48409,1161,295,1456,0.7973901099
+Texas,48,"San Saba County",48411,260,47,307,0.8469055375
+Texas,48,"Schleicher County",48413,106,26,132,0.803030303
+Texas,48,"Scurry County",48415,571,125,696,0.8204022989
+Texas,48,"Shackelford County",48417,154,30,184,0.8369565217
+Texas,48,"Shelby County",48419,797,204,1001,0.7962037962
+Texas,48,"Sherman County",48421,72,14,86,0.8372093023
+Texas,48,"Smith County",48423,7390,1831,9221,0.801431515
+Texas,48,"Somervell County",48425,271,66,337,0.8041543027
+Texas,48,"Starr County",48427,1868,475,2343,0.7972684592
+Texas,48,"Stephens County",48429,349,80,429,0.8135198135
+Texas,48,"Sterling County",48431,35,11,46,0.7608695652
+Texas,48,"Stonewall County",48433,.,.,.,0.898989899
+Texas,48,"Sutton County",48435,133,39,172,0.773255814
+Texas,48,"Swisher County",48437,274,74,348,0.7873563218
+Texas,48,"Tarrant County",48439,29816,7252,37068,0.8043595554
+Texas,48,"Taylor County",48441,3769,869,4638,0.8126347564
+Texas,48,"Terrell County",48443,.,.,.,0.8095238095
+Texas,48,"Terry County",48445,262,89,351,0.7464387464
+Texas,48,"Throckmorton County",48447,93,22,115,0.8086956522
+Texas,48,"Titus County",48449,907,228,1135,0.7991189427
+Texas,48,"Tom Green County",48451,3451,824,4275,0.807251462
+Texas,48,"Travis County",48453,14468,3171,17639,0.8202279041
+Texas,48,"Trinity County",48455,706,193,899,0.7853170189
+Texas,48,"Tyler County",48457,829,237,1066,0.777673546
+Texas,48,"Upshur County",48459,1412,314,1726,0.8180764774
+Texas,48,"Upton County",48461,87,23,110,0.7909090909
+Texas,48,"Uvalde County",48463,765,200,965,0.792746114
+Texas,48,"Val Verde County",48465,1043,310,1353,0.770879527
+Texas,48,"Van Zandt County",48467,2064,454,2518,0.8196981732
+Texas,48,"Victoria County",48469,2846,684,3530,0.8062322946
+Texas,48,"Walker County",48471,1480,423,1903,0.7777193904
+Texas,48,"Waller County",48473,1028,278,1306,0.787136294
+Texas,48,"Ward County",48475,333,93,426,0.7816901408
+Texas,48,"Washington County",48477,1496,302,1798,0.8320355951
+Texas,48,"Webb County",48479,3497,1162,4659,0.7505902554
+Texas,48,"Wharton County",48481,1523,403,1926,0.7907580478
+Texas,48,"Wheeler County",48483,223,41,264,0.8446969697
+Texas,48,"Wichita County",48485,3866,869,4735,0.8164730729
+Texas,48,"Wilbarger County",48487,409,136,545,0.7504587156
+Texas,48,"Willacy County",48489,461,155,616,0.7483766234
+Texas,48,"Williamson County",48491,9889,1851,11740,0.8423339012
+Texas,48,"Wilson County",48493,962,239,1201,0.8009991674
+Texas,48,"Winkler County",48495,156,59,215,0.7255813953
+Texas,48,"Wise County",48497,1882,463,2345,0.8025586354
+Texas,48,"Wood County",48499,2481,548,3029,0.8190822053
+Texas,48,"Yoakum County",48501,190,55,245,0.7755102041
+Texas,48,"Young County",48503,822,221,1043,0.7881112176
+Texas,48,"Zapata County",48505,315,61,376,0.8377659574
+Texas,48,"Zavala County",48507,278,88,366,0.7595628415
+Texas,48,,48999,395,137,532,0.742481203
+Utah,49,"Beaver County",49001,169,30,199,0.8492462312
+Utah,49,"Box Elder County",49003,630,135,765,0.8235294118
+Utah,49,"Cache County",49005,994,226,1220,0.8147540984
+Utah,49,"Carbon County",49007,572,166,738,0.7750677507
+Utah,49,"Daggett County",49009,.,.,.,0.625
+Utah,49,"Davis County",49011,2303,524,2827,0.8146444995
+Utah,49,"Duchesne County",49013,298,88,386,0.7720207254
+Utah,49,"Emery County",49015,246,61,307,0.8013029316
+Utah,49,"Garfield County",49017,131,24,155,0.8451612903
+Utah,49,"Grand County",49019,220,47,267,0.8239700375
+Utah,49,"Iron County",49021,1025,179,1204,0.8513289037
+Utah,49,"Juab County",49023,237,52,289,0.8200692042
+Utah,49,"Kane County",49025,233,49,282,0.8262411348
+Utah,49,"Millard County",49027,307,69,376,0.8164893617
+Utah,49,"Morgan County",49029,100,20,120,0.8333333333
+Utah,49,"Piute County",49031,74,11,85,0.8705882353
+Utah,49,"Rich County",49033,32,12,44,0.7272727273
+Utah,49,"Salt Lake County",49035,9418,2147,11565,0.8143536533
+Utah,49,"San Juan County",49037,194,63,257,0.7548638132
+Utah,49,"Sanpete County",49039,509,136,645,0.7891472868
+Utah,49,"Sevier County",49041,564,109,673,0.838038633
+Utah,49,"Summit County",49043,392,91,483,0.8115942029
+Utah,49,"Tooele County",49045,535,149,684,0.7821637427
+Utah,49,"Uintah County",49047,460,99,559,0.8228980322
+Utah,49,"Utah County",49049,4391,1016,5407,0.8120954318
+Utah,49,"Wasatch County",49051,330,60,390,0.8461538462
+Utah,49,"Washington County",49053,4353,859,5212,0.8351880276
+Utah,49,"Wayne County",49055,69,14,83,0.8313253012
+Utah,49,"Weber County",49057,2026,500,2526,0.8020585907
+Utah,49,,49999,.,.,.,0.8695652174
+Vermont,50,"Addison County",50001,1302,166,1468,0.8869209809
+Vermont,50,"Bennington County",50003,1615,262,1877,0.8604155567
+Vermont,50,"Caledonia County",50005,1184,170,1354,0.8744460857
+Vermont,50,"Chittenden County",50007,4070,591,4661,0.8732031753
+Vermont,50,"Essex County",50009,328,37,365,0.898630137
+Vermont,50,"Franklin County",50011,1673,222,1895,0.8828496042
+Vermont,50,"Grand Isle County",50013,259,43,302,0.857615894
+Vermont,50,"Lamoille County",50015,731,104,835,0.8754491018
+Vermont,50,"Orange County",50017,1208,167,1375,0.8785454545
+Vermont,50,"Orleans County",50019,1555,211,1766,0.8805209513
+Vermont,50,"Rutland County",50021,2831,393,3224,0.878101737
+Vermont,50,"Washington County",50023,2181,316,2497,0.8734481378
+Vermont,50,"Windham County",50025,1962,293,2255,0.8700665188
+Vermont,50,"Windsor County",50027,2562,405,2967,0.8634984833
+Vermont,50,,50999,12,0,12,1
+Virginia,51,"Accomack County",51001,1621,329,1950,0.8312820513
+Virginia,51,"Albemarle County",51003,2837,444,3281,0.8646754038
+Virginia,51,"Alleghany County",51005,833,177,1010,0.8247524752
+Virginia,51,"Amelia County",51007,446,84,530,0.841509434
+Virginia,51,"Amherst County",51009,1392,242,1634,0.8518971848
+Virginia,51,"Appomattox County",51011,687,143,830,0.8277108434
+Virginia,51,"Arlington County",51013,1923,365,2288,0.840472028
+Virginia,51,"Augusta County",51015,3176,510,3686,0.8616386327
+Virginia,51,"Bath County",51017,252,52,304,0.8289473684
+Virginia,51,"Bedford County",51019,3120,588,3708,0.8414239482
+Virginia,51,"Bland County",51021,344,66,410,0.8390243902
+Virginia,51,"Botetourt County",51023,1256,253,1509,0.8323392975
+Virginia,51,"Brunswick County",51025,745,145,890,0.8370786517
+Virginia,51,"Buchanan County",51027,1262,317,1579,0.7992400253
+Virginia,51,"Buckingham County",51029,626,126,752,0.8324468085
+Virginia,51,"Campbell County",51031,2344,439,2783,0.8422565577
+Virginia,51,"Caroline County",51033,903,172,1075,0.84
+Virginia,51,"Carroll County",51035,1575,311,1886,0.8351007423
+Virginia,51,"Charles City County",51036,308,38,346,0.8901734104
+Virginia,51,"Charlotte County",51037,631,128,759,0.8313570487
+Virginia,51,"Chesterfield County",51041,8073,1340,9413,0.8576436843
+Virginia,51,"Clarke County",51043,509,89,598,0.8511705686
+Virginia,51,"Craig County",51045,208,37,245,0.8489795918
+Virginia,51,"Culpeper County",51047,1392,238,1630,0.8539877301
+Virginia,51,"Cumberland County",51049,376,67,443,0.848758465
+Virginia,51,"Dickenson County",51051,898,188,1086,0.8268876611
+Virginia,51,"Dinwiddie County",51053,981,216,1197,0.8195488722
+Virginia,51,"Essex County",51057,501,104,605,0.8280991736
+Virginia,51,"Fairfax County",51059,12348,2053,14401,0.8574404555
+Virginia,51,"Fauquier County",51061,1680,309,1989,0.8446455505
+Virginia,51,"Floyd County",51063,716,111,827,0.8657799274
+Virginia,51,"Fluvanna County",51065,949,154,1103,0.8603807797
+Virginia,51,"Franklin County",51067,2109,440,2549,0.8273832876
+Virginia,51,"Frederick County",51069,2744,384,3128,0.8772378517
+Virginia,51,"Giles County",51071,870,173,1043,0.8341323106
+Virginia,51,"Gloucester County",51073,1240,231,1471,0.8429639701
+Virginia,51,"Goochland County",51075,812,149,961,0.8449531738
+Virginia,51,"Grayson County",51077,878,160,1038,0.8458574181
+Virginia,51,"Greene County",51079,602,94,696,0.8649425287
+Virginia,51,"Greensville County",51081,375,94,469,0.7995735608
+Virginia,51,"Halifax County",51083,1995,430,2425,0.8226804124
+Virginia,51,"Hanover County",51085,3227,513,3740,0.8628342246
+Virginia,51,"Henrico County",51087,7910,1423,9333,0.8475302689
+Virginia,51,"Henry County",51089,2706,434,3140,0.8617834395
+Virginia,51,"Highland County",51091,119,24,143,0.8321678322
+Virginia,51,"Isle of Wight County",51093,1126,186,1312,0.8582317073
+Virginia,51,"James City County",51095,2734,400,3134,0.8723675814
+Virginia,51,"King and Queen County",51097,302,51,353,0.8555240793
+Virginia,51,"King George County",51099,488,83,571,0.8546409807
+Virginia,51,"King William County",51101,685,110,795,0.8616352201
+Virginia,51,"Lancaster County",51103,678,130,808,0.8391089109
+Virginia,51,"Lee County",51105,1074,209,1283,0.8371005456
+Virginia,51,"Loudoun County",51107,4349,726,5075,0.8569458128
+Virginia,51,"Louisa County",51109,1282,192,1474,0.8697421981
+Virginia,51,"Lunenburg County",51111,566,128,694,0.8155619597
+Virginia,51,"Madison County",51113,498,74,572,0.8706293706
+Virginia,51,"Mathews County",51115,457,82,539,0.8478664193
+Virginia,51,"Mecklenburg County",51117,1783,389,2172,0.8209023941
+Virginia,51,"Middlesex County",51119,592,100,692,0.8554913295
+Virginia,51,"Montgomery County",51121,2234,457,2691,0.8301746563
+Virginia,51,"Nelson County",51125,703,100,803,0.8754669988
+Virginia,51,"New Kent County",51127,684,115,799,0.8560700876
+Virginia,51,"Northampton County",51131,662,164,826,0.8014527845
+Virginia,51,"Northumberland County",51133,653,118,771,0.8469520104
+Virginia,51,"Nottoway County",51135,615,150,765,0.8039215686
+Virginia,51,"Orange County",51137,1345,226,1571,0.8561425843
+Virginia,51,"Page County",51139,1110,175,1285,0.8638132296
+Virginia,51,"Patrick County",51141,981,193,1174,0.83560477
+Virginia,51,"Pittsylvania County",51143,2898,553,3451,0.8397565923
+Virginia,51,"Powhatan County",51145,908,155,1063,0.8541862653
+Virginia,51,"Prince Edward County",51147,746,170,916,0.8144104803
+Virginia,51,"Prince George County",51149,837,172,1009,0.8295341923
+Virginia,51,"Prince William County",51153,4986,908,5894,0.8459450288
+Virginia,51,"Pulaski County",51155,1750,361,2111,0.8289909995
+Virginia,51,"Rappahannock County",51157,284,47,331,0.8580060423
+Virginia,51,"Richmond County",51159,338,49,387,0.8733850129
+Virginia,51,"Roanoke County",51161,3665,680,4345,0.8434982739
+Virginia,51,"Rockbridge County",51163,1023,191,1214,0.8426688633
+Virginia,51,"Rockingham County",51165,3265,513,3778,0.8642138698
+Virginia,51,"Russell County",51167,1447,268,1715,0.8437317784
+Virginia,51,"Scott County",51169,890,141,1031,0.8632395732
+Virginia,51,"Shenandoah County",51171,1895,287,2182,0.8684692942
+Virginia,51,"Smyth County",51173,1630,303,1933,0.843248836
+Virginia,51,"Southampton County",51175,725,149,874,0.8295194508
+Virginia,51,"Spotsylvania County",51177,3004,530,3534,0.8500282965
+Virginia,51,"Stafford County",51179,2059,462,2521,0.8167393891
+Virginia,51,"Surry County",51181,223,49,272,0.8198529412
+Virginia,51,"Sussex County",51183,424,111,535,0.7925233645
+Virginia,51,"Tazewell County",51185,2164,475,2639,0.8200075786
+Virginia,51,"Warren County",51187,1267,229,1496,0.8469251337
+Virginia,51,"Washington County",51191,2371,506,2877,0.8241223497
+Virginia,51,"Westmoreland County",51193,765,157,922,0.8297180043
+Virginia,51,"Wise County",51195,1712,345,2057,0.8322800194
+Virginia,51,"Wythe County",51197,1460,315,1775,0.8225352113
+Virginia,51,"York County",51199,1354,224,1578,0.8580481622
+Virginia,51,"Alexandria city",51510,1604,279,1883,0.8518321827
+Virginia,51,"Bedford city",51515,.,0,.,1
+Virginia,51,"Bristol city",51520,641,158,799,0.802252816
+Virginia,51,"Buena Vista city",51530,337,48,385,0.8753246753
+Virginia,51,"Charlottesville city",51540,920,175,1095,0.8401826484
+Virginia,51,"Chesapeake city",51550,4274,950,5224,0.8181470138
+Virginia,51,"Colonial Heights city",51570,645,107,752,0.857712766
+Virginia,51,"Covington city",51580,288,73,361,0.7977839335
+Virginia,51,"Danville city",51590,1911,545,2456,0.7780944625
+Virginia,51,"Emporia city",51595,244,66,310,0.7870967742
+Virginia,51,"Fairfax city",51600,342,55,397,0.8614609572
+Virginia,51,"Falls Church city",51610,181,37,218,0.8302752294
+Virginia,51,"Franklin city",51620,388,115,503,0.7713717694
+Virginia,51,"Fredericksburg city",51630,615,163,778,0.7904884319
+Virginia,51,"Galax city",51640,369,93,462,0.7987012987
+Virginia,51,"Hampton city",51650,2625,634,3259,0.8054617981
+Virginia,51,"Harrisonburg city",51660,910,153,1063,0.8560677328
+Virginia,51,"Hopewell city",51670,599,166,765,0.7830065359
+Virginia,51,"Lexington city",51678,203,40,243,0.8353909465
+Virginia,51,"Lynchburg city",51680,2362,531,2893,0.8164535085
+Virginia,51,"Manassas city",51683,594,94,688,0.863372093
+Virginia,51,"Manassas Park city",51685,171,28,199,0.8592964824
+Virginia,51,"Martinsville city",51690,703,162,865,0.812716763
+Virginia,51,"Newport News city",51700,3316,741,4057,0.8173527237
+Virginia,51,"Norfolk city",51710,3477,881,4358,0.7978430473
+Virginia,51,"Norton city",51720,233,31,264,0.8825757576
+Virginia,51,"Petersburg city",51730,993,339,1332,0.7454954955
+Virginia,51,"Poquoson city",51735,299,35,334,0.8952095808
+Virginia,51,"Portsmouth city",51740,1982,494,2476,0.8004846527
+Virginia,51,"Radford city",51750,363,86,449,0.8084632517
+Virginia,51,"Richmond city",51760,4347,1067,5414,0.8029183598
+Virginia,51,"Roanoke city",51770,2888,690,3578,0.8071548351
+Virginia,51,"Salem city",51775,948,203,1151,0.8236316247
+Virginia,51,"Staunton city",51790,1103,213,1316,0.8381458967
+Virginia,51,"Suffolk city",51800,2216,478,2694,0.8225686711
+Virginia,51,"Virginia Beach city",51810,7755,1477,9232,0.8400129983
+Virginia,51,"Waynesboro city",51820,894,175,1069,0.8362956034
+Virginia,51,"Williamsburg city",51830,361,65,426,0.8474178404
+Virginia,51,"Winchester city",51840,924,180,1104,0.8369565217
+Virginia,51,,51867,.,.,.,0.6
+Virginia,51,,51999,99,44,143,0.6923076923
+Washington,53,"Adams County",53001,311,89,400,0.7775
+Washington,53,"Asotin County",53003,828,170,998,0.8296593186
+Washington,53,"Benton County",53005,5547,978,6525,0.8501149425
+Washington,53,"Chelan County",53007,1829,312,2141,0.8542737039
+Washington,53,"Clallam County",53009,3713,591,4304,0.8626858736
+Washington,53,"Clark County",53011,6400,1086,7486,0.8549292012
+Washington,53,"Columbia County",53013,162,36,198,0.8181818182
+Washington,53,"Cowlitz County",53015,2577,463,3040,0.8476973684
+Washington,53,"Douglas County",53017,959,165,1124,0.853202847
+Washington,53,"Ferry County",53019,218,56,274,0.795620438
+Washington,53,"Franklin County",53021,1565,314,1879,0.832889835
+Washington,53,"Garfield County",53023,90,23,113,0.796460177
+Washington,53,"Grant County",53025,2193,429,2622,0.8363844394
+Washington,53,"Grays Harbor County",53027,2978,609,3587,0.8302202398
+Washington,53,"Island County",53029,2170,332,2502,0.8673061551
+Washington,53,"Jefferson County",53031,1604,265,1869,0.8582129481
+Washington,53,"King County",53033,29755,5072,34827,0.8543658656
+Washington,53,"Kitsap County",53035,4689,810,5499,0.852700491
+Washington,53,"Kittitas County",53037,1052,161,1213,0.8672712284
+Washington,53,"Klickitat County",53039,819,136,955,0.857591623
+Washington,53,"Lewis County",53041,2233,445,2678,0.8338312173
+Washington,53,"Lincoln County",53043,416,72,488,0.8524590164
+Washington,53,"Mason County",53045,1840,348,2188,0.8409506399
+Washington,53,"Okanogan County",53047,1088,220,1308,0.8318042813
+Washington,53,"Pacific County",53049,1420,244,1664,0.8533653846
+Washington,53,"Pend Oreille County",53051,475,76,551,0.8620689655
+Washington,53,"Pierce County",53053,14593,2829,17422,0.8376191023
+Washington,53,"San Juan County",53055,638,103,741,0.8609986505
+Washington,53,"Skagit County",53057,3782,646,4428,0.8541102078
+Washington,53,"Skamania County",53059,325,58,383,0.8485639687
+Washington,53,"Snohomish County",53061,11790,2027,13817,0.8532966635
+Washington,53,"Spokane County",53063,8755,1843,10598,0.826099264
+Washington,53,"Stevens County",53065,1439,295,1734,0.8298731257
+Washington,53,"Thurston County",53067,4349,825,5174,0.8405488983
+Washington,53,"Wahkiakum County",53069,188,39,227,0.8281938326
+Washington,53,"Walla Walla County",53071,1678,285,1963,0.8548140601
+Washington,53,"Whatcom County",53073,5089,951,6040,0.8425496689
+Washington,53,"Whitman County",53075,682,145,827,0.8246674728
+Washington,53,"Yakima County",53077,5552,1150,6702,0.82840943
+Washington,53,,53999,90,23,113,0.796460177
+"West Virginia",54,"Barbour County",54001,739,113,852,0.867370892
+"West Virginia",54,"Berkeley County",54003,3068,588,3656,0.8391684902
+"West Virginia",54,"Boone County",54005,822,206,1028,0.7996108949
+"West Virginia",54,"Braxton County",54007,559,91,650,0.86
+"West Virginia",54,"Brooke County",54009,975,197,1172,0.8319112628
+"West Virginia",54,"Cabell County",54011,2960,679,3639,0.8134102775
+"West Virginia",54,"Calhoun County",54013,378,56,434,0.8709677419
+"West Virginia",54,"Clay County",54015,399,72,471,0.847133758
+"West Virginia",54,"Doddridge County",54017,237,41,278,0.8525179856
+"West Virginia",54,"Fayette County",54019,1679,344,2023,0.8299555116
+"West Virginia",54,"Gilmer County",54021,241,44,285,0.8456140351
+"West Virginia",54,"Grant County",54023,578,93,671,0.8614008942
+"West Virginia",54,"Greenbrier County",54025,1523,302,1825,0.8345205479
+"West Virginia",54,"Hampshire County",54027,993,143,1136,0.8741197183
+"West Virginia",54,"Hancock County",54029,1449,297,1746,0.8298969072
+"West Virginia",54,"Hardy County",54031,609,93,702,0.8675213675
+"West Virginia",54,"Harrison County",54033,2314,438,2752,0.8408430233
+"West Virginia",54,"Jackson County",54035,1126,217,1343,0.8384214445
+"West Virginia",54,"Jefferson County",54037,1459,245,1704,0.8562206573
+"West Virginia",54,"Kanawha County",54039,7009,1525,8534,0.8213030232
+"West Virginia",54,"Lewis County",54041,647,108,755,0.8569536424
+"West Virginia",54,"Lincoln County",54043,866,200,1066,0.8123827392
+"West Virginia",54,"Logan County",54045,1484,380,1864,0.7961373391
+"West Virginia",54,"McDowell County",54047,984,256,1240,0.7935483871
+"West Virginia",54,"Marion County",54049,1983,318,2301,0.8617992177
+"West Virginia",54,"Marshall County",54051,1133,176,1309,0.8655462185
+"West Virginia",54,"Mason County",54053,1183,242,1425,0.8301754386
+"West Virginia",54,"Mercer County",54055,2604,622,3226,0.8071915685
+"West Virginia",54,"Mineral County",54057,1538,215,1753,0.877353109
+"West Virginia",54,"Mingo County",54059,1198,294,1492,0.8029490617
+"West Virginia",54,"Monongalia County",54061,1921,289,2210,0.8692307692
+"West Virginia",54,"Monroe County",54063,611,98,709,0.8617771509
+"West Virginia",54,"Morgan County",54065,687,128,815,0.8429447853
+"West Virginia",54,"Nicholas County",54067,1222,194,1416,0.8629943503
+"West Virginia",54,"Ohio County",54069,1288,222,1510,0.8529801325
+"West Virginia",54,"Pendleton County",54071,359,52,411,0.8734793187
+"West Virginia",54,"Pleasants County",54073,318,65,383,0.8302872063
+"West Virginia",54,"Pocahontas County",54075,351,72,423,0.829787234
+"West Virginia",54,"Preston County",54077,1369,228,1597,0.8572323106
+"West Virginia",54,"Putnam County",54079,2011,409,2420,0.8309917355
+"West Virginia",54,"Raleigh County",54081,2883,633,3516,0.8199658703
+"West Virginia",54,"Randolph County",54083,1308,235,1543,0.8476992871
+"West Virginia",54,"Ritchie County",54085,461,76,537,0.8584729981
+"West Virginia",54,"Roane County",54087,659,129,788,0.8362944162
+"West Virginia",54,"Summers County",54089,569,148,717,0.7935843794
+"West Virginia",54,"Taylor County",54091,639,112,751,0.8508655126
+"West Virginia",54,"Tucker County",54093,346,65,411,0.8418491484
+"West Virginia",54,"Tyler County",54095,395,41,436,0.9059633028
+"West Virginia",54,"Upshur County",54097,958,147,1105,0.8669683258
+"West Virginia",54,"Wayne County",54099,1597,388,1985,0.804534005
+"West Virginia",54,"Webster County",54101,440,107,547,0.8043875686
+"West Virginia",54,"Wetzel County",54103,675,110,785,0.8598726115
+"West Virginia",54,"Wirt County",54105,275,60,335,0.8208955224
+"West Virginia",54,"Wood County",54107,3865,704,4569,0.845918144
+"West Virginia",54,"Wyoming County",54109,940,231,1171,0.8027327071
+"West Virginia",54,,54999,.,.,.,0.8548387097
+Wisconsin,55,"Adams County",55001,1116,127,1243,0.8978278359
+Wisconsin,55,"Ashland County",55003,571,84,655,0.8717557252
+Wisconsin,55,"Barron County",55005,1595,214,1809,0.8817025981
+Wisconsin,55,"Bayfield County",55007,582,86,668,0.871257485
+Wisconsin,55,"Brown County",55009,5131,573,5704,0.8995441795
+Wisconsin,55,"Buffalo County",55011,604,74,678,0.8908554572
+Wisconsin,55,"Burnett County",55013,693,114,807,0.8587360595
+Wisconsin,55,"Calumet County",55015,824,91,915,0.9005464481
+Wisconsin,55,"Chippewa County",55017,2032,240,2272,0.8943661972
+Wisconsin,55,"Clark County",55019,682,90,772,0.8834196891
+Wisconsin,55,"Columbia County",55021,1754,210,1964,0.8930753564
+Wisconsin,55,"Crawford County",55023,674,80,754,0.8938992042
+Wisconsin,55,"Dane County",55025,10452,1245,11697,0.8935624519
+Wisconsin,55,"Dodge County",55027,2696,286,2982,0.904091214
+Wisconsin,55,"Door County",55029,1651,150,1801,0.9167129373
+Wisconsin,55,"Douglas County",55031,1207,169,1376,0.8771802326
+Wisconsin,55,"Dunn County",55033,1419,151,1570,0.9038216561
+Wisconsin,55,"Eau Claire County",55035,3023,367,3390,0.891740413
+Wisconsin,55,"Florence County",55037,188,46,234,0.8034188034
+Wisconsin,55,"Fond du Lac County",55039,2616,342,2958,0.8843813387
+Wisconsin,55,"Forest County",55041,331,58,389,0.8508997429
+Wisconsin,55,"Grant County",55043,1454,168,1622,0.8964241677
+Wisconsin,55,"Green County",55045,1318,160,1478,0.8917456022
+Wisconsin,55,"Green Lake County",55047,532,74,606,0.8778877888
+Wisconsin,55,"Iowa County",55049,672,95,767,0.8761408083
+Wisconsin,55,"Iron County",55051,248,34,282,0.8794326241
+Wisconsin,55,"Jackson County",55053,632,76,708,0.8926553672
+Wisconsin,55,"Jefferson County",55055,2604,306,2910,0.8948453608
+Wisconsin,55,"Juneau County",55057,1100,140,1240,0.8870967742
+Wisconsin,55,"Kenosha County",55059,4159,605,4764,0.8730058774
+Wisconsin,55,"Kewaunee County",55061,557,59,616,0.9042207792
+Wisconsin,55,"La Crosse County",55063,3059,319,3378,0.9055654233
+Wisconsin,55,"Lafayette County",55065,554,59,613,0.9037520392
+Wisconsin,55,"Langlade County",55067,754,93,847,0.8902007084
+Wisconsin,55,"Lincoln County",55069,978,129,1107,0.8834688347
+Wisconsin,55,"Manitowoc County",55071,2855,310,3165,0.9020537125
+Wisconsin,55,"Marathon County",55073,3274,421,3695,0.8860622463
+Wisconsin,55,"Marinette County",55075,1709,266,1975,0.8653164557
+Wisconsin,55,"Marquette County",55077,607,77,684,0.8874269006
+Wisconsin,55,"Menominee County",55078,89,27,116,0.7672413793
+Wisconsin,55,"Milwaukee County",55079,19487,3366,22853,0.8527108038
+Wisconsin,55,"Monroe County",55081,1131,116,1247,0.9069767442
+Wisconsin,55,"Oconto County",55083,1096,165,1261,0.8691514671
+Wisconsin,55,"Oneida County",55085,1725,202,1927,0.8951738454
+Wisconsin,55,"Outagamie County",55087,3050,359,3409,0.8946905251
+Wisconsin,55,"Ozaukee County",55089,2548,297,2845,0.8956063269
+Wisconsin,55,"Pepin County",55091,384,42,426,0.9014084507
+Wisconsin,55,"Pierce County",55093,830,113,943,0.8801696713
+Wisconsin,55,"Polk County",55095,1424,206,1630,0.8736196319
+Wisconsin,55,"Portage County",55097,1849,235,2084,0.8872360845
+Wisconsin,55,"Price County",55099,564,79,643,0.8771384137
+Wisconsin,55,"Racine County",55101,5394,830,6224,0.8666452442
+Wisconsin,55,"Richland County",55103,694,89,783,0.8863346105
+Wisconsin,55,"Rock County",55105,5564,729,6293,0.8841569998
+Wisconsin,55,"Rusk County",55107,515,69,584,0.8818493151
+Wisconsin,55,"St. Croix County",55109,1954,242,2196,0.8897996357
+Wisconsin,55,"Sauk County",55111,1934,230,2164,0.893715342
+Wisconsin,55,"Sawyer County",55113,740,96,836,0.8851674641
+Wisconsin,55,"Shawano County",55115,1020,146,1166,0.8747855918
+Wisconsin,55,"Sheboygan County",55117,3239,374,3613,0.8964849156
+Wisconsin,55,"Taylor County",55119,522,73,595,0.8773109244
+Wisconsin,55,"Trempealeau County",55121,970,94,1064,0.9116541353
+Wisconsin,55,"Vernon County",55123,853,87,940,0.9074468085
+Wisconsin,55,"Vilas County",55125,1367,181,1548,0.8830749354
+Wisconsin,55,"Walworth County",55127,3290,481,3771,0.8724476266
+Wisconsin,55,"Washburn County",55129,671,110,781,0.8591549296
+Wisconsin,55,"Washington County",55131,4120,434,4554,0.9046991656
+Wisconsin,55,"Waukesha County",55133,12102,1424,13526,0.8947212775
+Wisconsin,55,"Waupaca County",55135,1371,154,1525,0.8990163934
+Wisconsin,55,"Waushara County",55137,685,94,779,0.8793324775
+Wisconsin,55,"Winnebago County",55139,3341,429,3770,0.8862068966
+Wisconsin,55,"Wood County",55141,2078,240,2318,0.8964624676
+Wisconsin,55,,55999,108,21,129,0.8372093023
+Wyoming,56,"Albany County",56001,605,133,738,0.8197831978
+Wyoming,56,"Big Horn County",56003,403,83,486,0.829218107
+Wyoming,56,"Campbell County",56005,961,166,1127,0.8527062999
+Wyoming,56,"Carbon County",56007,378,77,455,0.8307692308
+Wyoming,56,"Converse County",56009,435,77,512,0.849609375
+Wyoming,56,"Crook County",56011,252,35,287,0.8780487805
+Wyoming,56,"Fremont County",56013,1074,217,1291,0.8319132455
+Wyoming,56,"Goshen County",56015,541,102,643,0.8413685848
+Wyoming,56,"Hot Springs County",56017,238,38,276,0.8623188406
+Wyoming,56,"Johnson County",56019,310,56,366,0.8469945355
+Wyoming,56,"Laramie County",56021,2466,475,2941,0.8384903094
+Wyoming,56,"Lincoln County",56023,426,83,509,0.836935167
+Wyoming,56,"Natrona County",56025,2132,410,2542,0.8387096774
+Wyoming,56,"Niobrara County",56027,87,18,105,0.8285714286
+Wyoming,56,"Park County",56029,1158,189,1347,0.859688196
+Wyoming,56,"Platte County",56031,393,102,495,0.7939393939
+Wyoming,56,"Sheridan County",56033,834,148,982,0.849287169
+Wyoming,56,"Sublette County",56035,160,29,189,0.8465608466
+Wyoming,56,"Sweetwater County",56037,832,197,1029,0.8085519922
+Wyoming,56,"Teton County",56039,264,73,337,0.7833827893
+Wyoming,56,"Uinta County",56041,460,79,539,0.853432282
+Wyoming,56,"Washakie County",56043,323,67,390,0.8282051282
+Wyoming,56,"Weston County",56045,198,52,250,0.792
+Wyoming,56,,56999,18,0,18,1

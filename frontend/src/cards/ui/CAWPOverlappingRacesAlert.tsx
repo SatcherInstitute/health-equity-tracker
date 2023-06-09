@@ -1,8 +1,8 @@
 import { CardContent, Alert } from '@mui/material'
-import { type VariableConfig } from '../../data/config/MetricConfig'
+import { type DataTypeConfig } from '../../data/config/MetricConfig'
 
 interface CAWPOverlappingRacesAlertProps {
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
 }
 
 export default function CAWPOverlappingRacesAlert(
@@ -11,11 +11,10 @@ export default function CAWPOverlappingRacesAlert(
   return (
     <CardContent>
       <Alert severity="info" role="note">
-        Percentages reported for{' '}
-        <b>{props.variableConfig.variableDisplayName}</b> cannot be summed, as
-        these race/ethnicity groupings are not mutually exclusive. Individuals
-        who identify with more than one group (e.g. both "White" and "Latina")
-        are represented in each corresponding category.
+        Percentages reported for <b>{props.dataTypeConfig.fullDisplayName}</b>{' '}
+        cannot be summed, as these race/ethnicity groupings are not mutually
+        exclusive. Individuals who identify with more than one group (e.g. both
+        "White" and "Latina") are represented in each corresponding category.
       </Alert>
     </CardContent>
   )

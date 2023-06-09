@@ -84,7 +84,6 @@ def test18PlusBySexState():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "sex", "state")
 
-    # df.to_csv('test18PlusBySex.csv', index=False)
     expected_sex_df = pd.read_csv(STATE_POP_SEX_DATA, dtype={
         'state_fips': str,
         'time_period': str
@@ -100,7 +99,6 @@ def test18PlusByRaceNational():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "race_category_id", "national")
 
-    # df.to_csv('test18PlusByRaceNational.csv', index=False)
     expected_race_df = pd.read_csv(NATIONAL_POP_RACE_DATA, dtype={
         'state_fips': str,
         'time_period': str
@@ -116,7 +114,6 @@ def test18PlusBySexNational():
     df = generate_pop_data_18plus(
         mock_csv_as_df, "sex", "national")
 
-    # df.to_csv('test18PlusBySexNational.csv', index=False)
     expected_sex_df = pd.read_csv(NATIONAL_POP_SEX_DATA, dtype={
         'state_fips': str,
         'time_period': str

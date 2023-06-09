@@ -8,7 +8,7 @@ import {
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
-import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -37,12 +37,12 @@ import {
   COMBINED_INCARCERATION_STATES_LIST,
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
-} from '../data/variables/IncarcerationProvider'
+} from '../data/providers/IncarcerationProvider'
 import {
   CAWP_CONGRESS_COUNTS,
   CAWP_DETERMINANTS,
   CAWP_STLEG_COUNTS,
-} from '../data/variables/CawpProvider'
+} from '../data/providers/CawpProvider'
 import { useAutoFocusDialog } from '../utils/hooks/useAutoFocusDialog'
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
@@ -56,9 +56,9 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { HIV_DETERMINANTS } from '../data/variables/HivProvider'
+import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { useState } from 'react'
-import { RATE_MAP_SCALE } from '../charts/mapHelpers'
+import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -78,10 +78,11 @@ const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 export interface MapCardProps {
   key?: string
   fips: Fips
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   updateFipsCallback: (fips: Fips) => void
   currentBreakdown: BreakdownVar
   isCompareCard?: boolean
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -89,7 +90,7 @@ export interface MapCardProps {
 export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
-      key={props.currentBreakdown + props.variableConfig.variableId}
+      key={props.currentBreakdown + props.dataTypeConfig.dataTypeId}
       {...props}
     />
   )
@@ -98,18 +99,23 @@ export function MapCard(props: MapCardProps) {
 function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
-  const metricConfig = props.variableConfig.metrics.per100k
+  const metricConfig =
+    props.dataTypeConfig.metrics?.per100k ??
+    props.dataTypeConfig.metrics.pct_rate
+
+  if (!metricConfig) return <></>
+
   const currentBreakdown = props.currentBreakdown
 
-  const isPrison = props.variableConfig.variableId === 'prison'
-  const isJail = props.variableConfig.variableId === 'jail'
-  const isIncarceration = isJail || isPrison
+  const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
+  const isJail = props.dataTypeConfig.dataTypeId === 'jail'
+  const isIncarceration = isJail ?? isPrison
 
   const isCawpStateLeg =
-    props.variableConfig.variableId === 'women_in_state_legislature'
+    props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
   const isCawpCongress =
-    props.variableConfig.variableId === 'women_in_us_congress'
-  const isCawp = isCawpStateLeg || isCawpCongress
+    props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
+  const isCawp = isCawpStateLeg ?? isCawpCongress
 
   const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
 
@@ -155,7 +161,7 @@ function MapCardWithKey(props: MapCardProps) {
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         ),
-      /* variableId */ props.variableConfig.variableId,
+      /* dataTypeId */ props.dataTypeConfig.dataTypeId,
       /* timeView */ isCawp ? 'cross_sectional' : undefined
     )
   }
@@ -226,6 +232,16 @@ function MapCardWithKey(props: MapCardProps) {
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
+
+  function handleScaleChange(domain: number[], range: number[]) {
+    // Update the scale state when the domain or range changes
+    setScale({ domain, range })
+  }
+
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -233,6 +249,7 @@ function MapCardWithKey(props: MapCardProps) {
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
@@ -337,6 +354,14 @@ function MapCardWithKey(props: MapCardProps) {
           ? highestValues.concat(lowestValues)
           : dataForActiveBreakdownFilter
 
+        const isSummaryLegend =
+          hasSelfButNotChildGeoData ?? props.fips.isCounty()
+
+        const [mapScheme, mapMin] = getMapScheme({
+          metricId: metricConfig.metricId,
+          isSummaryLegend,
+        })
+
         return (
           <>
             <MultiMapDialog
@@ -361,13 +386,13 @@ function MapCardWithKey(props: MapCardProps) {
               updateFipsCallback={props.updateFipsCallback}
               useSmallSampleMessage={
                 !mapQueryResponse.dataIsMissing() &&
-                (props.variableConfig.surveyCollectedData ?? false)
+                (props.dataTypeConfig.surveyCollectedData ?? false)
               }
+              pageIsSmall={pageIsSmall}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
-                <Divider />
                 <CardContent className={styles.SmallMarginContent}>
                   <Grid
                     container
@@ -376,9 +401,9 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     <Grid item>
                       <DropDownMenu
-                        idSuffix={`-${props.fips.code}-${props.variableConfig.variableId}`}
+                        idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                         breakdownVar={props.currentBreakdown}
-                        variableId={props.variableConfig.variableId}
+                        dataTypeId={props.dataTypeConfig.dataTypeId}
                         setMultimapOpen={setMultimapOpen}
                         value={dropdownValue}
                         options={filterOptions}
@@ -437,13 +462,11 @@ function MapCardWithKey(props: MapCardProps) {
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
                         signalListeners={signalListeners}
+                        mapConfig={{ mapScheme, mapMin }}
+                        scaleConfig={scale}
                       />
                       {props.fips.isUsa() && (
-                        <Grid
-                          item
-                          xs={12}
-                          sx={{ display: { xs: 'block', sm: 'none' } }}
-                        >
+                        <Grid item xs={12}>
                           <TerritoryCircles
                             mapIsWide={mapIsWide}
                             data={displayData}
@@ -456,7 +479,7 @@ function MapCardWithKey(props: MapCardProps) {
                         </Grid>
                       )}
                     </Grid>
-                    {/* Legend & Location Info */}
+                    {/* Legend */}
                     <Grid
                       container
                       justifyItems={'center'}
@@ -472,12 +495,13 @@ function MapCardWithKey(props: MapCardProps) {
                         data={allDataForActiveBreakdownFilter}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
-                        direction={mapIsWide ? 'vertical' : 'horizontal'}
                         description={'Legend for rate map'}
-                        isSummaryLegend={
-                          hasSelfButNotChildGeoData || props.fips.isCounty()
-                        }
+                        isSummaryLegend={isSummaryLegend}
                         fipsTypeDisplayName={fipsTypeDisplayName}
+                        mapConfig={{ mapScheme, mapMin }}
+                        columns={mapIsWide ? 1 : 3}
+                        stackingDirection={'vertical'}
+                        handleScaleChange={handleScaleChange}
                       />
                     </Grid>
 
@@ -488,39 +512,22 @@ function MapCardWithKey(props: MapCardProps) {
                       justifyContent={'space-between'}
                       alignItems={'center'}
                     >
-                      <Grid item xs={props.fips.isUsa() ? 6 : 12}>
+                      <Grid item>
                         <GeoContext
                           fips={props.fips}
                           updateFipsCallback={props.updateFipsCallback}
-                          variableConfig={props.variableConfig}
+                          dataTypeConfig={props.dataTypeConfig}
                           totalPopulationPhrase={totalPopulationPhrase}
                           sviQueryResponse={sviQueryResponse}
                         />
                       </Grid>
-                      {props.fips.isUsa() && (
-                        <Grid
-                          item
-                          sm={6}
-                          sx={{ display: { xs: 'none', sm: 'block' } }}
-                        >
-                          <TerritoryCircles
-                            mapIsWide={mapIsWide}
-                            data={displayData}
-                            countColsToAdd={countColsToAdd}
-                            listExpanded={listExpanded}
-                            metricConfig={metricConfig}
-                            signalListeners={signalListeners}
-                            geoData={geoData}
-                          />
-                        </Grid>
-                      )}
                     </Grid>
                   </Grid>
 
                   {!mapQueryResponse.dataIsMissing() &&
                     dataForActiveBreakdownFilter.length > 1 && (
                       <HighestLowestList
-                        variableConfig={props.variableConfig}
+                        dataTypeConfig={props.dataTypeConfig}
                         selectedRaceSuffix={selectedRaceSuffix}
                         metricConfig={metricConfig}
                         listExpanded={listExpanded}
@@ -562,9 +569,7 @@ function MapCardWithKey(props: MapCardProps) {
                         <MultiMapLink
                           setMultimapOpen={setMultimapOpen}
                           currentBreakdown={props.currentBreakdown}
-                          currentVariable={
-                            props.variableConfig.variableFullDisplayName
-                          }
+                          currentDataType={props.dataTypeConfig.fullDisplayName}
                         />
                       </Alert>
                     </CardContent>

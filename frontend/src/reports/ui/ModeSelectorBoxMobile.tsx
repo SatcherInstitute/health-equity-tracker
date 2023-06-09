@@ -1,4 +1,4 @@
-import { Card } from '@mui/material'
+import { Card, Grid } from '@mui/material'
 import styles from './ModeSelectorBoxMobile.module.scss'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import {
@@ -9,6 +9,7 @@ import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
+import TopicInfoModalButton from '../../pages/ui/TopicInfoModalButton'
 
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
@@ -29,21 +30,30 @@ export default function ModeSelectorBoxMobile(
   return (
     <div className="mode-selector-box-mobile">
       <Card raised={true} className={styles.ModeSelectorBoxMobile}>
-        <SimpleSelect<BreakdownVar>
-          label="Demographic"
-          optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}
-          selected={props.trackerDemographic}
-          setSelected={props.setDemoWithParam}
-        />
-        <SimpleSelect<MadLibId>
-          label="Compare mode"
-          optionsMap={MADLIB_MODE_MAP}
-          selected={props.trackerMode}
-          setSelected={props.setTrackerMode}
-        />
-        <JumpToSelect
-          offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
-        />
+        <Grid
+          container
+          justifyContent={{ xs: 'flex-end', sm: 'space-between' }}
+        >
+          <div>
+            <SimpleSelect<BreakdownVar>
+              label="Demographic"
+              optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}
+              selected={props.trackerDemographic}
+              setSelected={props.setDemoWithParam}
+            />
+            <SimpleSelect<MadLibId>
+              label="Compare mode"
+              optionsMap={MADLIB_MODE_MAP}
+              selected={props.trackerMode}
+              setSelected={props.setTrackerMode}
+            />
+            <JumpToSelect
+              offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
+            />
+          </div>
+
+          <TopicInfoModalButton />
+        </Grid>
       </Card>
     </div>
   )

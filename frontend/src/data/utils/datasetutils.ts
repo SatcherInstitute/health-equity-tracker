@@ -1,8 +1,8 @@
 import { type IDataFrame } from 'data-forge'
 import {
   type MetricId,
-  type VariableConfig,
-  type VariableId,
+  type DataTypeConfig,
+  type DataTypeId,
 } from '../config/MetricConfig'
 import {
   type Breakdowns,
@@ -15,8 +15,8 @@ import {
   AHR_DETERMINANTS,
   AHR_VOTER_AGE_DETERMINANTS,
   ALL_AHR_DETERMINANTS,
-} from '../variables/AhrProvider'
-import { VARIABLES_NEEDING_13PLUS } from '../variables/HivProvider'
+} from '../providers/AhrProvider'
+import { DATATYPES_NEEDING_13PLUS } from '../providers/HivProvider'
 import {
   RACE,
   ALL,
@@ -135,14 +135,14 @@ Analyzes state and determines if the 2nd population source should be used
 export interface ShouldShowAltPopCompareI {
   fips: { isState: () => boolean }
   breakdownVar: BreakdownVar
-  variableConfig: { variableId: VariableId }
+  dataTypeConfig: { dataTypeId: DataTypeId }
 }
 
 export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
   return (
     fromProps.fips.isState() &&
     fromProps.breakdownVar === RACE &&
-    fromProps.variableConfig.variableId === 'covid_vaccinations'
+    fromProps.dataTypeConfig.dataTypeId === 'covid_vaccinations'
   )
 }
 
@@ -150,20 +150,20 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
 There are many gaps in the data, and not every variable contains info at each demographic breakdown by each geographic level.
 This nested dictionary keeps track of known gaps, and is utilized by the UI (e.g. disable demographic toggle options)
 */
-const missingAgeAllGeos: VariableId[] = [
+const missingAgeAllGeos: DataTypeId[] = [
   'non_medical_drug_use',
   'preventable_hospitalizations',
   'women_in_state_legislature',
   'women_in_us_congress',
 ]
 
-const missingSexAllGeos: VariableId[] = [
+const missingSexAllGeos: DataTypeId[] = [
   'women_in_state_legislature',
   'women_in_us_congress',
 ]
 
 export const DATA_GAPS: Partial<
-  Record<GeographicBreakdown, Partial<Record<BreakdownVar, VariableId[]>>>
+  Record<GeographicBreakdown, Partial<Record<BreakdownVar, DataTypeId[]>>>
 > = {
   national: {
     age: [...missingAgeAllGeos],
@@ -189,7 +189,7 @@ export const DATA_GAPS: Partial<
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
 
 */
-const includeAllsGroupsIds: VariableId[] = [
+const includeAllsGroupsIds: DataTypeId[] = [
   'women_in_state_legislature',
   'women_in_us_congress',
   'prison',
@@ -202,19 +202,24 @@ const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
   MULTI_OR_OTHER_STANDARD_NH,
 ]
 export function getExclusionList(
-  currentVariable: VariableConfig,
+  currentDataType: DataTypeConfig,
   currentBreakdown: BreakdownVar,
   currentFips: Fips
 ): DemographicGroup[] {
-  const current100k = currentVariable.metrics.per100k.metricId
-  const currentVariableId = currentVariable.variableId
+  const currentRate =
+    currentDataType.metrics?.per100k?.metricId ??
+    currentDataType.metrics?.pct_rate?.metricId
+
+  if (!currentRate) return []
+
+  const currentDataTypeId = currentDataType.dataTypeId
   const exclusionList: DemographicGroup[] = [
     UNKNOWN,
     UNKNOWN_ETHNICITY,
     UNKNOWN_RACE,
   ]
 
-  if (!includeAllsGroupsIds.includes(currentVariableId)) {
+  if (!includeAllsGroupsIds.includes(currentDataTypeId)) {
     exclusionList.push(ALL)
   }
 
@@ -223,7 +228,7 @@ export function getExclusionList(
   }
 
   // HIV
-  if (currentVariableId === 'hiv_prep') {
+  if (currentDataTypeId === 'hiv_prep') {
     if (currentBreakdown === RACE) {
       exclusionList.push(
         ...NON_STANDARD_AND_MULTI,
@@ -237,7 +242,7 @@ export function getExclusionList(
       exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '13-24'))
     }
   }
-  if (VARIABLES_NEEDING_13PLUS.includes(currentVariableId)) {
+  if (DATATYPES_NEEDING_13PLUS.includes(currentDataTypeId)) {
     if (currentBreakdown === RACE) {
       exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
     }
@@ -247,7 +252,7 @@ export function getExclusionList(
   }
 
   // Incarceration
-  if (currentVariableId === 'prison') {
+  if (currentDataTypeId === 'prison') {
     if (currentBreakdown === RACE) {
       currentFips.isCounty()
         ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
@@ -270,7 +275,7 @@ export function getExclusionList(
         )
     }
   }
-  if (currentVariableId === 'jail') {
+  if (currentDataTypeId === 'jail') {
     if (currentBreakdown === RACE) {
       currentFips.isCounty()
         ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
@@ -287,20 +292,20 @@ export function getExclusionList(
   }
 
   // AHR
-  if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === RACE) {
-    AHR_API_NH_DETERMINANTS.includes(current100k)
+  if (ALL_AHR_DETERMINANTS.includes(currentRate) && currentBreakdown === RACE) {
+    AHR_API_NH_DETERMINANTS.includes(currentRate)
       ? exclusionList.push(ASIAN_NH, NHPI_NH)
       : exclusionList.push(API_NH)
   }
 
-  if (ALL_AHR_DETERMINANTS.includes(current100k) && currentBreakdown === AGE) {
+  if (ALL_AHR_DETERMINANTS.includes(currentRate) && currentBreakdown === AGE) {
     // get correct age buckets for this determinant
     const determinantBuckets: any[] = []
-    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(current100k)) {
+    if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(currentRate)) {
       determinantBuckets.push(...DECADE_PLUS_5_AGE_BUCKETS)
-    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(current100k)) {
+    } else if (AHR_VOTER_AGE_DETERMINANTS.includes(currentRate)) {
       determinantBuckets.push(...VOTER_AGE_BUCKETS)
-    } else if (AHR_DETERMINANTS.includes(current100k)) {
+    } else if (AHR_DETERMINANTS.includes(currentRate)) {
       determinantBuckets.push(...BROAD_AGE_BUCKETS)
     }
 

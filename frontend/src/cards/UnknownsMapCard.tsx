@@ -1,7 +1,7 @@
 import { CardContent, useMediaQuery, useTheme } from '@mui/material'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
-import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { type Row } from '../data/utils/DatasetTypes'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
@@ -23,14 +23,15 @@ import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
+import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
+import { getMapScheme } from '../charts/mapHelpers'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   // Breakdown value to evaluate for unknowns
   currentBreakdown: BreakdownVar
   // Geographic region of maps
@@ -39,6 +40,7 @@ export interface UnknownsMapCardProps {
   updateFipsCallback: (fips: Fips) => void
   // replaces race AND ethnicity with race OR ethnicity on unknowns map title and alerts
   overrideAndWithOr?: boolean
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -46,7 +48,7 @@ export interface UnknownsMapCardProps {
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
   return (
     <UnknownsMapCardWithKey
-      key={props.currentBreakdown + props.variableConfig.variableId}
+      key={props.currentBreakdown + props.dataTypeConfig.dataTypeId}
       {...props}
     />
   )
@@ -54,9 +56,9 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000])
-  const metricConfig = props.variableConfig.metrics.pct_share
+  const metricConfig = props.dataTypeConfig.metrics.pct_share
   const currentBreakdown = props.currentBreakdown
-  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
+  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
   const location = useLocation()
 
   const signalListeners: any = {
@@ -85,13 +87,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const mapQuery = new MetricQuery(
     [metricConfig.metricId],
     mapGeoBreakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
@@ -102,9 +104,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   })
 
   const isCawpStateLeg =
-    props.variableConfig.variableId === 'women_in_state_legislature'
+    props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
   const isCawpCongress =
-    props.variableConfig.variableId === 'women_in_us_congress'
+    props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
 
   let countColsToAdd: MetricId[] = []
   if (isCawpCongress) countColsToAdd = ['women_this_race_us_congress_count']
@@ -119,6 +121,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
       loadGeographies={true}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([mapQueryResponse, alertQueryResponse], metadata, geoData) => {
         // MOST of the items rendered in the card refer to the unknowns at the CHILD geo level,
@@ -193,6 +196,14 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
+        const isSummaryLegend = !hasChildGeo ?? props.fips.isCounty()
+
+        const [mapScheme, mapMin] = getMapScheme({
+          metricId: metricConfig.metricId,
+          isUnknownsMap: true,
+          isSummaryLegend,
+        })
+
         return (
           <CardContent>
             <ChartTitle title={chartTitle} />
@@ -212,6 +223,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   geoData={geoData}
                   filename={chartTitle}
                   countColsToAdd={countColsToAdd}
+                  mapConfig={{ mapScheme, mapMin }}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles

@@ -19,6 +19,11 @@ RACE_COL = "race"
 
 AGE_COL = "age"
 SEX_COL = "sex"
+
+LIS_COL = "lis"
+ELIGIBILITY_COL = "eligibility"
+
+
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
 STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abbreviation.
@@ -44,10 +49,13 @@ COVID_DEATH_UNKNOWN = "death_unknown"
 COVID_POPULATION_PCT = "covid_population_pct"
 
 PER_100K_SUFFIX = "per_100k"
+PCT_RATE_SUFFIX = "pct_rate"
 PCT_SHARE_SUFFIX = "pct_share"
 SHARE_SUFFIX = "share"
 SHARE_OF_KNOWN_SUFFIX = "share_of_known"
 PCT_REL_INEQUITY_SUFFIX = "pct_relative_inequity"
+RAW_SUFFIX = "estimated_total"
+POP_PCT_SUFFIX = 'population_pct'
 
 COVID_CASES_PREFIX = "covid_cases"
 COVID_HOSP_PREFIX = "covid_hosp"
@@ -66,10 +74,6 @@ POVERTY_PREFIX = 'poverty'
 ABOVE_POVERTY_COL = "above_poverty_line"
 BELOW_POVERTY_COL = "below_poverty_line"
 
-PER_100K_SUFFIX = "per_100k"
-PCT_SHARE_SUFFIX = "pct_share"
-RAW_SUFFIX = "estimated_total"
-POP_PCT_SUFFIX = 'population_pct'
 
 # prefixes for AHR columns
 DEPRESSION_PREFIX = "depression"
@@ -130,7 +134,7 @@ JAIL_RATE = "jail_per_100k"
 PRISON_RATE = "prison_per_100k"
 JAIL_PCT_SHARE = "jail_pct_share"
 PRISON_PCT_SHARE = "prison_pct_share"
-POP_PCT_SHARE = "incarceration_population_pct"
+INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 # HIV
@@ -152,6 +156,18 @@ HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
 HIV_POPULATION_PCT = 'hiv_population_pct'
 HIV_BW_POPULATION = 'black_women_population'
 HIV_BW_POPULATION_PCT = 'black_women_population_pct'
+
+# PHRMA
+AMI_PREFIX = "ami"
+ARV_PREFIX = "arv"
+BETA_BLOCKERS_PREFIX = "beta_blockers"
+CCB_PREFIX = "ccb"
+DOAC_PREFIX = "doac"
+NQF_PREFIX = "nqf"
+PHRMA_HIV_PREFIX = "phrma_hiv"
+RASA_PREFIX = "rasa"
+STATINS_PREFIX = "statins"
+
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

@@ -3,7 +3,7 @@ import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_CONGRESS_COUNTS,
   getWomenRaceLabel,
-} from '../data/variables/CawpProvider'
+} from '../data/providers/CawpProvider'
 
 import {
   GREY_DOT_SCALE,
@@ -19,6 +19,8 @@ import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { ORDINAL } from './utils'
 import sass from '../styles/variables.module.scss'
 import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
+import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
+import { type Legend } from 'vega'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -42,6 +44,7 @@ export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
 export const MAP_SCHEME = 'darkgreen'
 export const UNKNOWNS_MAP_SCHEME = 'greenblue'
+export const MAP_BW_SCHEME = 'plasma'
 
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
@@ -158,12 +161,12 @@ export function getHelperLegend(
   yOffset: number,
   xOffset: number,
   overrideGrayMissingWithZeroYellow?: boolean
-) {
+): Legend {
   return {
     fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    // orient: 'none',
-    font: LEGEND_TEXT_FONT,
+    orient: overrideGrayMissingWithZeroYellow ? undefined : 'none',
+    titleFont: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
@@ -226,27 +229,6 @@ export function createShapeMarks(
     marks.transform = [{ type: 'geoshape', projection: US_PROJECTION }]
   }
   return marks
-}
-
-export function createCircleTextMark(datasetName: string) {
-  return {
-    type: 'text',
-    interactive: false,
-    aria: false,
-    from: { data: datasetName + '_MARK' },
-    encode: {
-      enter: {
-        align: { value: 'center' },
-        baseline: { value: 'middle' },
-        fontSize: { value: 13 },
-        text: { field: 'datum.properties.abbreviation' },
-      },
-      update: {
-        x: { field: 'x' },
-        y: { field: 'y' },
-      },
-    },
-  }
 }
 
 /* ALT MARKS: verbose, invisible text for screen readers showing valid data (incl territories) */
@@ -388,4 +370,30 @@ export function setupColorScale(
   }
 
   return colorScale
+}
+
+interface GetMapSchemeProps {
+  metricId: MetricId
+  isUnknownsMap?: boolean
+  isSummaryLegend?: boolean
+}
+
+export function getMapScheme({
+  metricId,
+  isSummaryLegend,
+  isUnknownsMap,
+}: GetMapSchemeProps) {
+  let mapScheme = MAP_SCHEME
+  let mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
+
+  if (isUnknownsMap) {
+    mapScheme = UNKNOWNS_MAP_SCHEME
+    mapMin = sass.unknownMapMin
+  }
+  if (BLACK_WOMEN_METRICS.includes(metricId)) {
+    mapScheme = MAP_BW_SCHEME
+    mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
+  }
+
+  return [mapScheme, mapMin]
 }

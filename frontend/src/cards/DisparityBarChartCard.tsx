@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { type MetricId, type VariableConfig } from '../data/config/MetricConfig'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -17,7 +17,7 @@ import {
   shouldShowAltPopCompare,
   splitIntoKnownsAndUnknowns,
 } from '../data/utils/datasetutils'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
@@ -27,8 +27,9 @@ import { generateChartTitle } from '../charts/utils'
 export interface DisparityBarChartCardProps {
   key?: string
   breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   fips: Fips
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -36,7 +37,7 @@ export interface DisparityBarChartCardProps {
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
   return (
     <DisparityBarChartCardWithKey
-      key={props.variableConfig.variableId + props.breakdownVar}
+      key={props.dataTypeConfig.dataTypeId + props.breakdownVar}
       {...props}
     />
   )
@@ -48,7 +49,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     props.breakdownVar === 'sex'
   )
 
-  const metricConfig = props.variableConfig.metrics.pct_share
+  const metricConfig = props.dataTypeConfig.metrics.pct_share
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(ALL, NON_HISPANIC)
@@ -74,12 +75,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const query = new MetricQuery(
     metricIds,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
   const chartTitle = generateChartTitle({
-    chartTitle: metricConfig.chartTitle,
+    chartTitle:
+      metricConfig?.populationComparisonMetric?.chartTitle ??
+      metricConfig.chartTitle,
     fips: props.fips,
   })
 
@@ -91,6 +94,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       queries={[query]}
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
+      reportTitle={props.reportTitle}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(
@@ -123,9 +127,9 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            {dataAvailable && knownData.length !== 0 && (
-              <CardContent>
-                <ChartTitle title={chartTitle} />
+            <CardContent>
+              <ChartTitle title={chartTitle} />
+              {dataAvailable && knownData.length !== 0 && (
                 <DisparityBarChart
                   data={knownData}
                   lightMetric={
@@ -139,8 +143,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   filename={chartTitle}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
                 />
-              </CardContent>
-            )}
+              )}
+            </CardContent>
 
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (
@@ -178,7 +182,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             )}
             {isCawp && (
               <CAWPOverlappingRacesAlert
-                variableConfig={props.variableConfig}
+                dataTypeConfig={props.dataTypeConfig}
               />
             )}
           </>

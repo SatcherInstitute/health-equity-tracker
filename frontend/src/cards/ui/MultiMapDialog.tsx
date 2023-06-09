@@ -1,8 +1,7 @@
+import { useState } from 'react'
 import {
   Box,
   Grid,
-  useMediaQuery,
-  useTheme,
   Button,
   Dialog,
   DialogContent,
@@ -32,9 +31,9 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../../data/variables/CawpProvider'
+} from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
-import { RATE_MAP_SCALE } from '../../charts/mapHelpers'
+import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
@@ -72,6 +71,7 @@ export interface MultiMapDialogProps {
   updateFipsCallback: (fips: Fips) => void
   totalPopulationPhrase: string
   handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
+  pageIsSmall: boolean
 }
 
 /*
@@ -79,14 +79,11 @@ export interface MultiMapDialogProps {
     value in a given breakdown for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
-  // calculate page size for responsive layout
-  const theme = useTheme()
-  const pageIsTiny = useMediaQuery(theme.breakpoints.down('sm'))
-
   const title = `${
     props.metricConfig.chartTitle
-  } in ${props.fips.getSentenceDisplayName()} across all
-  ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]} groups`
+  } in ${props.fips.getSentenceDisplayName()} across all ${
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]
+  } groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
     useDownloadCardImage(title)
@@ -101,6 +98,20 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     },
   }
 
+  const [mapScheme, mapMin] = getMapScheme({
+    metricId: props.metricConfig.metricId,
+  })
+
+  const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
+    domain: [],
+    range: [],
+  })
+
+  function handleScaleChange(domain: number[], range: number[]) {
+    // Update the scale state when the domain or range changes
+    setScale({ domain, range })
+  }
+
   return (
     <Dialog
       className={styles.MultiMapBox}
@@ -112,7 +123,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
-        <Grid container justifyContent="space-between" component="ul">
+        <Grid
+          container
+          justifyContent="space-between"
+          component="ul"
+          sx={{ p: 0 }}
+        >
           {/* card heading row */}
           <Grid item xs={12} container justifyContent={'space-between'}>
             {/* mobile-only close button */}
@@ -148,6 +164,34 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               <Button onClick={props.handleClose} color="primary">
                 <CloseIcon />
               </Button>
+            </Grid>
+          </Grid>
+
+          {/* LEGEND */}
+          <Grid item xs={12} sm={6} md={12} lg={12}>
+            <Grid container item>
+              <Grid container justifyContent="center">
+                <span className={styles.LegendTitleText}>
+                  Legend: {props.metricConfig.shortLabel}
+                </span>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Legend
+                  metric={props.metricConfig}
+                  legendTitle={''}
+                  data={props.data}
+                  scaleType={RATE_MAP_SCALE}
+                  sameDotSize={true}
+                  description={'Consistent legend for all displayed maps'}
+                  mapConfig={{ mapScheme, mapMin }}
+                  stackingDirection={
+                    props.pageIsSmall ? 'vertical' : 'horizontal'
+                  }
+                  columns={props.pageIsSmall ? 2 : 6}
+                  orient={'bottom-right'}
+                  handleScaleChange={handleScaleChange}
+                />
+              </Grid>
             </Grid>
           </Grid>
 
@@ -192,6 +236,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                       !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
                     }
                     signalListeners={multimapSignalListeners}
+                    mapConfig={{ mapScheme, mapMin }}
+                    isMulti={true}
+                    scaleConfig={scale}
                   />
                 )}
 
@@ -238,29 +285,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 endNote={props.totalPopulationPhrase}
               />
             </Grid>
-            {/* LEGEND */}
-            <Grid item xs={12} md={6}>
-              <Box mt={pageIsTiny ? 0 : 3}>
-                <Grid container item>
-                  <Grid container justifyContent="center">
-                    <b className={styles.LegendTitleText}>
-                      Legend: {props.metricConfig.shortLabel}
-                    </b>
-                  </Grid>
-                  <Grid container justifyContent="center">
-                    <Legend
-                      metric={props.metricConfig}
-                      legendTitle={''}
-                      data={props.data}
-                      scaleType={RATE_MAP_SCALE}
-                      sameDotSize={true}
-                      direction={pageIsTiny ? 'vertical' : 'horizontal'}
-                      description={'Consistent legend for all displayed maps'}
-                    />
-                  </Grid>
-                </Grid>
-              </Box>
-            </Grid>
+
             {/* MOBILE BREADCRUMBS */}
             <Grid
               sx={{ mt: 3, display: { xs: 'flex', md: 'none' } }}
@@ -308,6 +333,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             queryResponses={props.queryResponses}
             metadata={props.metadata}
             downloadTargetScreenshot={downloadTargetScreenshot}
+            isMulti={true}
           />
         </div>
       </footer>

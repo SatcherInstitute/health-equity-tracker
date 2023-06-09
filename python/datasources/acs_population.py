@@ -224,6 +224,20 @@ def get_jail_age_bucket(age_range):
         return std_col.ALL_VALUE
 
 
+def get_phrma_age_bucket(age_range):
+    if age_range in {'18-19', '20-20', '21-21', '22-24',
+                     '25-29', '30-34', '35-39'}:
+        return '18-39'
+    elif age_range in {'40-44', '45-49', '50-54',
+                       '55-59', '60-61', '62-64'}:
+        return '40-64'
+    elif age_range in {'65-66', '67-69'}:
+        return '65-69'
+    elif age_range in {'70-74', '75-79', '80-84',
+                       '85+', std_col.ALL_VALUE}:
+        return age_range
+
+
 def update_col_types(frame):
     """Returns a new DataFrame with the column types replaced with int64 for
        population columns and string for other columns.
@@ -369,6 +383,7 @@ class ACSPopulationIngester():
         by_sex_voter_age_ahr = None
         by_sex_bjs_prison_age = None
         by_sex_bjs_jail_age = None
+        by_sex_phrma_age = None
 
         if not self.county_level:
             by_sex_standard_age_ahr = self.get_by_sex_age(
@@ -381,11 +396,13 @@ class ACSPopulationIngester():
                 frames[self.get_table_name_by_sex_age_race()], get_prison_age_bucket)
             by_sex_bjs_jail_age = self.get_by_sex_age(
                 frames[self.get_table_name_by_sex_age_race()], get_jail_age_bucket)
+            by_sex_phrma_age = self.get_by_sex_age(
+                frames[self.get_table_name_by_sex_age_race()], get_phrma_age_bucket)
 
         frames['by_age_%s' % self.get_geo_name()] = self.get_by_age(
             frames['by_sex_age_%s' % self.get_geo_name()],
             by_sex_standard_age_ahr, by_sex_decade_plus_5_age_ahr,
-            by_sex_voter_age_ahr, by_sex_bjs_prison_age, by_sex_bjs_jail_age)
+            by_sex_voter_age_ahr, by_sex_bjs_prison_age, by_sex_bjs_jail_age, by_sex_phrma_age)
 
         frames['by_sex_%s' % self.get_geo_name()] = self.get_by_sex(
             frames[self.get_table_name_by_sex_age_race()])
@@ -597,7 +614,8 @@ class ACSPopulationIngester():
                    by_sex_decade_plus_5_age_ahr=None,
                    by_sex_voter_age_ahr=None,
                    by_sex_bjs_prison_age=None,
-                   by_sex_bjs_jail_age=None
+                   by_sex_bjs_jail_age=None,
+                   by_sex_phrma_age=None
                    ):
         by_age = by_sex_age.loc[by_sex_age[std_col.SEX_COL]
                                 == std_col.ALL_VALUE]
@@ -628,13 +646,17 @@ class ACSPopulationIngester():
             by_bjs_jail_age = by_sex_bjs_jail_age.loc[
                 by_sex_bjs_jail_age[std_col.SEX_COL] == std_col.ALL_VALUE]
             by_bjs_jail_age = by_bjs_jail_age[cols[1:]]
+            by_phrma_age = by_sex_phrma_age.loc[
+                by_sex_phrma_age[std_col.SEX_COL] == std_col.ALL_VALUE]
+            by_phrma_age = by_phrma_age[cols[1:]]
 
             by_age = pd.concat([by_age,
                                 by_standard_age_ahr,
                                 by_decade_plus_5_age_ahr,
                                 by_voter_age_ahr,
                                 by_bjs_prison_age,
-                                by_bjs_jail_age
+                                by_bjs_jail_age,
+                                by_phrma_age
                                 ]).drop_duplicates().reset_index(drop=True)
 
         by_age = generate_pct_share_col_without_unknowns(

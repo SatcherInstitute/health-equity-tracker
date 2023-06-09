@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Box, CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -7,7 +7,7 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
-import { type VariableConfig } from '../data/config/MetricConfig'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -30,7 +30,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
-} from '../data/variables/CawpProvider'
+} from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import styles from '../charts/trendsChart/Trends.module.scss'
@@ -41,9 +41,10 @@ const PRELOAD_HEIGHT = 668
 export interface RateTrendsChartCardProps {
   key?: string
   breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   fips: Fips
   isCompareCard?: boolean
+  reportTitle: string
 }
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
@@ -57,8 +58,13 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const [a11yTableExpanded, setA11yTableExpanded] = useState(false)
   const [unknownsExpanded, setUnknownsExpanded] = useState(false)
 
-  const metricConfigRates = props.variableConfig.metrics.per100k
-  const metricConfigPctShares = props.variableConfig.metrics.pct_share
+  const metricConfigRates =
+    props.dataTypeConfig.metrics?.per100k ??
+    props.dataTypeConfig.metrics?.pct_rate
+
+  if (!metricConfigRates) return <></>
+
+  const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -68,19 +74,19 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const ratesQuery = new MetricQuery(
     metricConfigRates.metricId,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
 
   function getTitleText() {
     return `${
-      metricConfigRates.trendsCardTitleName ?? 'Data'
+      metricConfigRates?.trendsCardTitleName ?? 'Data'
     } in ${props.fips.getSentenceDisplayName()}`
   }
 
@@ -96,6 +102,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       queries={[ratesQuery, pctShareQuery]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -174,14 +181,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               </>
             ) : (
               <>
-                {props.isCompareCard && (
-                  <Box mb={2}>
-                    <Alert severity="warning" role="note">
-                      Use care when making side-by-side comparisons as chart
-                      scales can differ.
-                    </Alert>
-                  </Box>
-                )}
                 {/* ensure we don't render two of these in compare mode */}
                 {!props.isCompareCard && (
                   <svg
@@ -233,7 +232,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   <CardContent>
                     <UnknownBubblesAlert
                       breakdownVar={props.breakdownVar}
-                      variableDisplayName={props.variableConfig.variableDisplayName.toLowerCase()}
+                      fullDisplayName={props.dataTypeConfig.fullDisplayName.toLowerCase()}
                       expanded={unknownsExpanded}
                       setExpanded={setUnknownsExpanded}
                     />

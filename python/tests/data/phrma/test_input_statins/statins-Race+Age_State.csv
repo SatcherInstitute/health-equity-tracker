@@ -1,0 +1,2480 @@
+RACE_NAME,AGE_GROUP,STATE_NAME,STATE_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,_18-39,Alabama,1,.,.,.,0.75
+Unknown,_18-39,Alaska,2,.,0,.,1
+Unknown,_18-39,Arizona,4,.,.,.,0.6111111111
+Unknown,_18-39,Arkansas,5,.,.,.,0.5714285714
+Unknown,_18-39,California,6,42,13,55,0.7636363636
+Unknown,_18-39,Colorado,8,.,.,.,0.7
+Unknown,_18-39,Connecticut,9,.,.,.,0.8823529412
+Unknown,_18-39,Delaware,10,.,0,.,1
+Unknown,_18-39,"District of Columbia",11,.,0,.,1
+Unknown,_18-39,Florida,12,66,30,96,0.6875
+Unknown,_18-39,Georgia,13,19,11,30,0.6333333333
+Unknown,_18-39,Hawaii,15,.,0,.,1
+Unknown,_18-39,Idaho,16,11,0,11,1
+Unknown,_18-39,Illinois,17,39,14,53,0.7358490566
+Unknown,_18-39,Indiana,18,53,15,68,0.7794117647
+Unknown,_18-39,Iowa,19,.,.,.,0.8979591837
+Unknown,_18-39,Kansas,20,.,.,.,0.8333333333
+Unknown,_18-39,Kentucky,21,.,.,.,0.72
+Unknown,_18-39,Louisiana,22,.,.,.,0.7297297297
+Unknown,_18-39,Maine,23,.,.,.,0.8235294118
+Unknown,_18-39,Maryland,24,.,.,.,0.8
+Unknown,_18-39,Massachusetts,25,61,18,79,0.7721518987
+Unknown,_18-39,Michigan,26,40,15,55,0.7272727273
+Unknown,_18-39,Minnesota,27,42,16,58,0.724137931
+Unknown,_18-39,Mississippi,28,.,.,.,0.619047619
+Unknown,_18-39,Missouri,29,52,14,66,0.7878787879
+Unknown,_18-39,Montana,30,.,0,.,1
+Unknown,_18-39,Nebraska,31,.,.,.,0.8
+Unknown,_18-39,Nevada,32,.,.,.,0.875
+Unknown,_18-39,"New Hampshire",33,.,.,.,0.875
+Unknown,_18-39,"New Jersey",34,.,.,.,0.75
+Unknown,_18-39,"New Mexico",35,.,0,.,1
+Unknown,_18-39,"New York",36,77,31,108,0.712962963
+Unknown,_18-39,"North Carolina",37,35,13,48,0.7291666667
+Unknown,_18-39,"North Dakota",38,.,0,.,1
+Unknown,_18-39,Ohio,39,71,28,99,0.7171717172
+Unknown,_18-39,Oklahoma,40,.,.,.,0.8
+Unknown,_18-39,Oregon,41,.,.,.,0.6923076923
+Unknown,_18-39,Pennsylvania,42,75,15,90,0.8333333333
+Unknown,_18-39,"Rhode Island",44,.,.,.,0.3333333333
+Unknown,_18-39,"South Carolina",45,.,.,.,0.7916666667
+Unknown,_18-39,"South Dakota",46,.,.,.,0.875
+Unknown,_18-39,Tennessee,47,.,.,.,0.7692307692
+Unknown,_18-39,Texas,48,48,17,65,0.7384615385
+Unknown,_18-39,Utah,49,.,.,.,0.9090909091
+Unknown,_18-39,Vermont,50,.,.,.,0.7142857143
+Unknown,_18-39,Virginia,51,.,.,.,0.8
+Unknown,_18-39,Washington,53,.,.,.,0.7647058824
+Unknown,_18-39,"West Virginia",54,.,.,.,0.7058823529
+Unknown,_18-39,Wisconsin,55,.,.,.,0.8301886792
+Unknown,_18-39,Wyoming,56,.,0,.,1
+Unknown,_40-64,Alabama,1,77,25,102,0.7549019608
+Unknown,_40-64,Alaska,2,.,.,.,0.875
+Unknown,_40-64,Arizona,4,63,14,77,0.8181818182
+Unknown,_40-64,Arkansas,5,35,11,46,0.7608695652
+Unknown,_40-64,California,6,470,94,564,0.8333333333
+Unknown,_40-64,Colorado,8,68,12,80,0.85
+Unknown,_40-64,Connecticut,9,143,33,176,0.8125
+Unknown,_40-64,Delaware,10,.,.,.,0.8125
+Unknown,_40-64,"District of Columbia",11,.,.,.,0.7142857143
+Unknown,_40-64,Florida,12,382,97,479,0.7974947808
+Unknown,_40-64,Georgia,13,156,28,184,0.847826087
+Unknown,_40-64,Hawaii,15,.,.,.,0.8235294118
+Unknown,_40-64,Idaho,16,.,.,.,0.7941176471
+Unknown,_40-64,Illinois,17,294,59,353,0.8328611898
+Unknown,_40-64,Indiana,18,148,39,187,0.7914438503
+Unknown,_40-64,Iowa,19,73,16,89,0.8202247191
+Unknown,_40-64,Kansas,20,.,.,.,0.8461538462
+Unknown,_40-64,Kentucky,21,112,28,140,0.8
+Unknown,_40-64,Louisiana,22,79,22,101,0.7821782178
+Unknown,_40-64,Maine,23,.,.,.,0.8611111111
+Unknown,_40-64,Maryland,24,105,20,125,0.84
+Unknown,_40-64,Massachusetts,25,440,104,544,0.8088235294
+Unknown,_40-64,Michigan,26,477,104,581,0.8209982788
+Unknown,_40-64,Minnesota,27,143,14,157,0.9108280255
+Unknown,_40-64,Mississippi,28,35,15,50,0.7
+Unknown,_40-64,Missouri,29,162,29,191,0.8481675393
+Unknown,_40-64,Montana,30,.,.,.,0.8947368421
+Unknown,_40-64,Nebraska,31,.,.,.,0.847826087
+Unknown,_40-64,Nevada,32,.,.,.,0.8181818182
+Unknown,_40-64,"New Hampshire",33,.,.,.,0.9444444444
+Unknown,_40-64,"New Jersey",34,274,50,324,0.8456790123
+Unknown,_40-64,"New Mexico",35,.,.,.,0.875
+Unknown,_40-64,"New York",36,754,197,951,0.792849632
+Unknown,_40-64,"North Carolina",37,192,48,240,0.8
+Unknown,_40-64,"North Dakota",38,.,.,.,0.8333333333
+Unknown,_40-64,Ohio,39,315,78,393,0.8015267176
+Unknown,_40-64,Oklahoma,40,43,15,58,0.7413793103
+Unknown,_40-64,Oregon,41,65,14,79,0.8227848101
+Unknown,_40-64,Pennsylvania,42,316,73,389,0.8123393316
+Unknown,_40-64,"Rhode Island",44,69,17,86,0.8023255814
+Unknown,_40-64,"South Carolina",45,88,20,108,0.8148148148
+Unknown,_40-64,"South Dakota",46,.,.,.,0.9166666667
+Unknown,_40-64,Tennessee,47,114,37,151,0.7549668874
+Unknown,_40-64,Texas,48,155,32,187,0.8288770053
+Unknown,_40-64,Utah,49,.,.,.,0.8787878788
+Unknown,_40-64,Vermont,50,.,.,.,0.8780487805
+Unknown,_40-64,Virginia,51,122,30,152,0.8026315789
+Unknown,_40-64,Washington,53,120,26,146,0.8219178082
+Unknown,_40-64,"West Virginia",54,56,12,68,0.8235294118
+Unknown,_40-64,Wisconsin,55,123,24,147,0.8367346939
+Unknown,_40-64,Wyoming,56,.,.,.,0.9090909091
+Unknown,_65-69,Alabama,1,407,63,470,0.8659574468
+Unknown,_65-69,Alaska,2,148,23,171,0.865497076
+Unknown,_65-69,Arizona,4,1357,187,1544,0.8788860104
+Unknown,_65-69,Arkansas,5,349,52,401,0.8703241895
+Unknown,_65-69,California,6,5616,705,6321,0.8884670147
+Unknown,_65-69,Colorado,8,1247,161,1408,0.8856534091
+Unknown,_65-69,Connecticut,9,1337,168,1505,0.888372093
+Unknown,_65-69,Delaware,10,455,56,511,0.8904109589
+Unknown,_65-69,"District of Columbia",11,116,18,134,0.8656716418
+Unknown,_65-69,Florida,12,4843,710,5553,0.8721411849
+Unknown,_65-69,Georgia,13,1512,221,1733,0.8724754761
+Unknown,_65-69,Hawaii,15,110,20,130,0.8461538462
+Unknown,_65-69,Idaho,16,287,50,337,0.8516320475
+Unknown,_65-69,Illinois,17,3479,399,3878,0.8971119134
+Unknown,_65-69,Indiana,18,2024,233,2257,0.8967656181
+Unknown,_65-69,Iowa,19,1053,110,1163,0.9054170249
+Unknown,_65-69,Kansas,20,854,100,954,0.8951781971
+Unknown,_65-69,Kentucky,21,811,105,916,0.885371179
+Unknown,_65-69,Louisiana,22,789,129,918,0.8594771242
+Unknown,_65-69,Maine,23,365,46,411,0.8880778589
+Unknown,_65-69,Maryland,24,1707,225,1932,0.8835403727
+Unknown,_65-69,Massachusetts,25,2740,352,3092,0.8861578266
+Unknown,_65-69,Michigan,26,2641,319,2960,0.8922297297
+Unknown,_65-69,Minnesota,27,1082,124,1206,0.8971807629
+Unknown,_65-69,Mississippi,28,308,52,360,0.8555555556
+Unknown,_65-69,Missouri,29,1141,153,1294,0.8817619784
+Unknown,_65-69,Montana,30,341,38,379,0.8997361478
+Unknown,_65-69,Nebraska,31,780,91,871,0.8955223881
+Unknown,_65-69,Nevada,32,416,61,477,0.8721174004
+Unknown,_65-69,"New Hampshire",33,614,62,676,0.9082840237
+Unknown,_65-69,"New Jersey",34,2343,357,2700,0.8677777778
+Unknown,_65-69,"New Mexico",35,290,37,327,0.8868501529
+Unknown,_65-69,"New York",36,5415,928,6343,0.8536969888
+Unknown,_65-69,"North Carolina",37,2030,315,2345,0.8656716418
+Unknown,_65-69,"North Dakota",38,184,23,207,0.8888888889
+Unknown,_65-69,Ohio,39,4618,565,5183,0.8909897743
+Unknown,_65-69,Oklahoma,40,466,64,530,0.879245283
+Unknown,_65-69,Oregon,41,729,104,833,0.87515006
+Unknown,_65-69,Pennsylvania,42,3529,386,3915,0.9014048531
+Unknown,_65-69,"Rhode Island",44,339,45,384,0.8828125
+Unknown,_65-69,"South Carolina",45,1403,188,1591,0.8818353237
+Unknown,_65-69,"South Dakota",46,257,26,283,0.9081272085
+Unknown,_65-69,Tennessee,47,1225,171,1396,0.8775071633
+Unknown,_65-69,Texas,48,3129,445,3574,0.8754896475
+Unknown,_65-69,Utah,49,313,55,368,0.8505434783
+Unknown,_65-69,Vermont,50,437,39,476,0.9180672269
+Unknown,_65-69,Virginia,51,2079,250,2329,0.892657793
+Unknown,_65-69,Washington,53,1389,189,1578,0.8802281369
+Unknown,_65-69,"West Virginia",54,198,33,231,0.8571428571
+Unknown,_65-69,Wisconsin,55,2314,203,2517,0.9193484307
+Unknown,_65-69,Wyoming,56,182,43,225,0.8088888889
+Unknown,_70-74,Alabama,1,922,109,1031,0.8942774006
+Unknown,_70-74,Alaska,2,230,24,254,0.905511811
+Unknown,_70-74,Arizona,4,2645,296,2941,0.8993539612
+Unknown,_70-74,Arkansas,5,528,73,601,0.8785357737
+Unknown,_70-74,California,6,10081,1281,11362,0.8872557648
+Unknown,_70-74,Colorado,8,2143,268,2411,0.8888428038
+Unknown,_70-74,Connecticut,9,2827,314,3141,0.900031837
+Unknown,_70-74,Delaware,10,859,79,938,0.9157782516
+Unknown,_70-74,"District of Columbia",11,199,22,221,0.9004524887
+Unknown,_70-74,Florida,12,9641,1259,10900,0.8844954128
+Unknown,_70-74,Georgia,13,2433,331,2764,0.8802460203
+Unknown,_70-74,Hawaii,15,230,23,253,0.9090909091
+Unknown,_70-74,Idaho,16,512,51,563,0.9094138544
+Unknown,_70-74,Illinois,17,5671,586,6257,0.9063448937
+Unknown,_70-74,Indiana,18,3250,356,3606,0.9012756517
+Unknown,_70-74,Iowa,19,1763,147,1910,0.9230366492
+Unknown,_70-74,Kansas,20,1256,119,1375,0.9134545455
+Unknown,_70-74,Kentucky,21,1217,141,1358,0.8961708395
+Unknown,_70-74,Louisiana,22,1089,152,1241,0.8775181305
+Unknown,_70-74,Maine,23,839,97,936,0.8963675214
+Unknown,_70-74,Maryland,24,3043,408,3451,0.881773399
+Unknown,_70-74,Massachusetts,25,5054,576,5630,0.8976909414
+Unknown,_70-74,Michigan,26,4248,477,4725,0.899047619
+Unknown,_70-74,Minnesota,27,1806,169,1975,0.9144303797
+Unknown,_70-74,Mississippi,28,471,68,539,0.8738404453
+Unknown,_70-74,Missouri,29,1889,203,2092,0.9029636711
+Unknown,_70-74,Montana,30,481,58,539,0.892393321
+Unknown,_70-74,Nebraska,31,995,93,1088,0.9145220588
+Unknown,_70-74,Nevada,32,785,114,899,0.873192436
+Unknown,_70-74,"New Hampshire",33,1235,99,1334,0.9257871064
+Unknown,_70-74,"New Jersey",34,5130,707,5837,0.878876135
+Unknown,_70-74,"New Mexico",35,504,73,577,0.8734835355
+Unknown,_70-74,"New York",36,10590,1623,12213,0.8671088185
+Unknown,_70-74,"North Carolina",37,3484,438,3922,0.8883222845
+Unknown,_70-74,"North Dakota",38,239,27,266,0.8984962406
+Unknown,_70-74,Ohio,39,6932,816,7748,0.8946824987
+Unknown,_70-74,Oklahoma,40,783,94,877,0.8928164196
+Unknown,_70-74,Oregon,41,1356,141,1497,0.9058116232
+Unknown,_70-74,Pennsylvania,42,6292,653,6945,0.905975522
+Unknown,_70-74,"Rhode Island",44,617,89,706,0.8739376771
+Unknown,_70-74,"South Carolina",45,2298,266,2564,0.8962558502
+Unknown,_70-74,"South Dakota",46,350,34,384,0.9114583333
+Unknown,_70-74,Tennessee,47,1971,253,2224,0.8862410072
+Unknown,_70-74,Texas,48,4947,651,5598,0.8837084673
+Unknown,_70-74,Utah,49,585,65,650,0.9
+Unknown,_70-74,Vermont,50,733,66,799,0.9173967459
+Unknown,_70-74,Virginia,51,3607,399,4006,0.9003994009
+Unknown,_70-74,Washington,53,2520,312,2832,0.8898305085
+Unknown,_70-74,"West Virginia",54,357,33,390,0.9153846154
+Unknown,_70-74,Wisconsin,55,3301,277,3578,0.9225824483
+Unknown,_70-74,Wyoming,56,272,35,307,0.8859934853
+Unknown,_75-79,Alabama,1,112,18,130,0.8615384615
+Unknown,_75-79,Alaska,2,.,.,.,0.8529411765
+Unknown,_75-79,Arizona,4,232,31,263,0.8821292776
+Unknown,_75-79,Arkansas,5,.,.,.,0.8630136986
+Unknown,_75-79,California,6,2371,267,2638,0.8987869598
+Unknown,_75-79,Colorado,8,183,27,210,0.8714285714
+Unknown,_75-79,Connecticut,9,288,36,324,0.8888888889
+Unknown,_75-79,Delaware,10,.,.,.,0.8953488372
+Unknown,_75-79,"District of Columbia",11,.,.,.,0.71875
+Unknown,_75-79,Florida,12,1134,185,1319,0.859742229
+Unknown,_75-79,Georgia,13,274,42,316,0.8670886076
+Unknown,_75-79,Hawaii,15,.,.,.,0.8484848485
+Unknown,_75-79,Idaho,16,56,11,67,0.8358208955
+Unknown,_75-79,Illinois,17,497,65,562,0.884341637
+Unknown,_75-79,Indiana,18,298,23,321,0.9283489097
+Unknown,_75-79,Iowa,19,186,14,200,0.93
+Unknown,_75-79,Kansas,20,.,.,.,0.92
+Unknown,_75-79,Kentucky,21,122,20,142,0.8591549296
+Unknown,_75-79,Louisiana,22,134,23,157,0.8535031847
+Unknown,_75-79,Maine,23,93,14,107,0.8691588785
+Unknown,_75-79,Maryland,24,434,62,496,0.875
+Unknown,_75-79,Massachusetts,25,752,116,868,0.866359447
+Unknown,_75-79,Michigan,26,905,120,1025,0.8829268293
+Unknown,_75-79,Minnesota,27,242,42,284,0.8521126761
+Unknown,_75-79,Mississippi,28,.,.,.,0.8769230769
+Unknown,_75-79,Missouri,29,179,29,208,0.8605769231
+Unknown,_75-79,Montana,30,.,.,.,0.9473684211
+Unknown,_75-79,Nebraska,31,.,.,.,0.9217391304
+Unknown,_75-79,Nevada,32,137,22,159,0.8616352201
+Unknown,_75-79,"New Hampshire",33,.,.,.,0.8913043478
+Unknown,_75-79,"New Jersey",34,634,126,760,0.8342105263
+Unknown,_75-79,"New Mexico",35,.,.,.,0.9310344828
+Unknown,_75-79,"New York",36,1864,337,2201,0.8468877783
+Unknown,_75-79,"North Carolina",37,374,58,432,0.8657407407
+Unknown,_75-79,"North Dakota",38,.,.,.,0.9487179487
+Unknown,_75-79,Ohio,39,517,81,598,0.864548495
+Unknown,_75-79,Oklahoma,40,.,.,.,0.9310344828
+Unknown,_75-79,Oregon,41,134,17,151,0.8874172185
+Unknown,_75-79,Pennsylvania,42,584,71,655,0.8916030534
+Unknown,_75-79,"Rhode Island",44,.,.,.,0.9014084507
+Unknown,_75-79,"South Carolina",45,194,26,220,0.8818181818
+Unknown,_75-79,"South Dakota",46,.,.,.,0.9166666667
+Unknown,_75-79,Tennessee,47,189,27,216,0.875
+Unknown,_75-79,Texas,48,669,101,770,0.8688311688
+Unknown,_75-79,Utah,49,.,.,.,0.8615384615
+Unknown,_75-79,Vermont,50,.,.,.,0.8941176471
+Unknown,_75-79,Virginia,51,364,48,412,0.8834951456
+Unknown,_75-79,Washington,53,508,79,587,0.8654173765
+Unknown,_75-79,"West Virginia",54,.,.,.,0.8285714286
+Unknown,_75-79,Wisconsin,55,236,32,268,0.8805970149
+Unknown,_75-79,Wyoming,56,.,.,.,0.8888888889
+Unknown,_80-84,Alabama,1,.,0,.,1
+Unknown,_80-84,Alaska,2,.,.,.,0.875
+Unknown,_80-84,Arizona,4,.,.,.,0.8235294118
+Unknown,_80-84,Arkansas,5,.,0,.,1
+Unknown,_80-84,California,6,963,133,1096,0.878649635
+Unknown,_80-84,Colorado,8,.,.,.,0.75
+Unknown,_80-84,Connecticut,9,.,.,.,0.9583333333
+Unknown,_80-84,Delaware,10,.,.,.,0.8
+Unknown,_80-84,"District of Columbia",11,.,0,.,1
+Unknown,_80-84,Florida,12,179,40,219,0.8173515982
+Unknown,_80-84,Georgia,13,.,.,.,0.7619047619
+Unknown,_80-84,Hawaii,15,.,.,.,0.9
+Unknown,_80-84,Idaho,16,.,0,.,1
+Unknown,_80-84,Illinois,17,.,.,.,0.9534883721
+Unknown,_80-84,Indiana,18,14,0,14,1
+Unknown,_80-84,Iowa,19,.,.,.,0.8571428571
+Unknown,_80-84,Kansas,20,.,.,.,0.9411764706
+Unknown,_80-84,Kentucky,21,.,.,.,0.8333333333
+Unknown,_80-84,Louisiana,22,.,.,.,0.7692307692
+Unknown,_80-84,Maryland,24,151,37,188,0.8031914894
+Unknown,_80-84,Massachusetts,25,258,45,303,0.8514851485
+Unknown,_80-84,Michigan,26,279,31,310,0.9
+Unknown,_80-84,Minnesota,27,47,11,58,0.8103448276
+Unknown,_80-84,Mississippi,28,.,.,.,0.8
+Unknown,_80-84,Missouri,29,.,.,.,0.8846153846
+Unknown,_80-84,Montana,30,.,0,.,1
+Unknown,_80-84,Nebraska,31,.,0,.,1
+Unknown,_80-84,Nevada,32,36,14,50,0.72
+Unknown,_80-84,"New Jersey",34,129,26,155,0.8322580645
+Unknown,_80-84,"New Mexico",35,.,0,.,1
+Unknown,_80-84,"New York",36,572,101,673,0.8499257058
+Unknown,_80-84,"North Carolina",37,.,.,.,0.7727272727
+Unknown,_80-84,"North Dakota",38,.,.,.,0.5
+Unknown,_80-84,Ohio,39,54,17,71,0.7605633803
+Unknown,_80-84,Oklahoma,40,.,.,.,0.8
+Unknown,_80-84,Oregon,41,.,.,.,0.9024390244
+Unknown,_80-84,Pennsylvania,42,.,.,.,0.976744186
+Unknown,_80-84,"Rhode Island",44,.,.,.,0.6363636364
+Unknown,_80-84,"South Carolina",45,.,.,.,0.7142857143
+Unknown,_80-84,"South Dakota",46,.,0,.,1
+Unknown,_80-84,Tennessee,47,.,.,.,0.8333333333
+Unknown,_80-84,Texas,48,122,15,137,0.8905109489
+Unknown,_80-84,Utah,49,.,.,.,0.875
+Unknown,_80-84,Vermont,50,.,.,.,0.75
+Unknown,_80-84,Virginia,51,.,.,.,0.8813559322
+Unknown,_80-84,Washington,53,223,46,269,0.8289962825
+Unknown,_80-84,"West Virginia",54,.,0,.,1
+Unknown,_80-84,Wisconsin,55,.,.,.,0.8571428571
+Unknown,_80-84,Wyoming,56,.,0,.,1
+Unknown,_85+,Alabama,1,.,.,.,0.8333333333
+Unknown,_85+,Alaska,2,.,.,.,0.75
+Unknown,_85+,Arizona,4,12,0,12,1
+Unknown,_85+,Arkansas,5,.,0,.,1
+Unknown,_85+,California,6,609,84,693,0.8787878788
+Unknown,_85+,Colorado,8,.,.,.,0.5714285714
+Unknown,_85+,Connecticut,9,.,.,.,0.92
+Unknown,_85+,Delaware,10,.,0,.,1
+Unknown,_85+,"District of Columbia",11,.,0,.,1
+Unknown,_85+,Florida,12,158,32,190,0.8315789474
+Unknown,_85+,Georgia,13,.,.,.,0.7777777778
+Unknown,_85+,Hawaii,15,.,0,.,1
+Unknown,_85+,Idaho,16,.,0,.,1
+Unknown,_85+,Illinois,17,.,.,.,0.8518518519
+Unknown,_85+,Indiana,18,.,.,.,0.8
+Unknown,_85+,Iowa,19,.,.,.,0.7692307692
+Unknown,_85+,Kansas,20,.,.,.,0.8571428571
+Unknown,_85+,Kentucky,21,.,.,.,0.9090909091
+Unknown,_85+,Louisiana,22,.,.,.,0.75
+Unknown,_85+,Maine,23,.,.,.,0.8571428571
+Unknown,_85+,Maryland,24,81,27,108,0.75
+Unknown,_85+,Massachusetts,25,197,36,233,0.8454935622
+Unknown,_85+,Michigan,26,171,26,197,0.8680203046
+Unknown,_85+,Minnesota,27,.,.,.,0.775
+Unknown,_85+,Mississippi,28,.,0,.,1
+Unknown,_85+,Missouri,29,21,0,21,1
+Unknown,_85+,Montana,30,.,.,.,0.8
+Unknown,_85+,Nebraska,31,.,0,.,1
+Unknown,_85+,Nevada,32,.,.,.,0.88
+Unknown,_85+,"New Hampshire",33,.,0,.,1
+Unknown,_85+,"New Jersey",34,91,13,104,0.875
+Unknown,_85+,"New Mexico",35,.,.,.,0.6666666667
+Unknown,_85+,"New York",36,402,80,482,0.8340248963
+Unknown,_85+,"North Carolina",37,.,.,.,0.75
+Unknown,_85+,"North Dakota",38,.,.,.,0.75
+Unknown,_85+,Ohio,39,.,.,.,0.82
+Unknown,_85+,Oklahoma,40,.,.,.,0.7272727273
+Unknown,_85+,Oregon,41,.,.,.,0.8181818182
+Unknown,_85+,Pennsylvania,42,.,.,.,0.9
+Unknown,_85+,"Rhode Island",44,.,.,.,0.9285714286
+Unknown,_85+,"South Carolina",45,.,0,.,1
+Unknown,_85+,"South Dakota",46,.,0,.,1
+Unknown,_85+,Tennessee,47,.,.,.,0.9090909091
+Unknown,_85+,Texas,48,66,19,85,0.7764705882
+Unknown,_85+,Utah,49,.,0,.,1
+Unknown,_85+,Vermont,50,.,0,.,1
+Unknown,_85+,Virginia,51,.,.,.,0.8918918919
+Unknown,_85+,Washington,53,147,25,172,0.8546511628
+Unknown,_85+,"West Virginia",54,.,0,.,1
+Unknown,_85+,Wisconsin,55,.,.,.,0.8125
+Unknown,_85+,Wyoming,56,.,.,.,0.5
+"Non-Hispanic White",_18-39,Alabama,1,579,154,733,0.789904502
+"Non-Hispanic White",_18-39,Alaska,2,.,.,.,0.8888888889
+"Non-Hispanic White",_18-39,Arizona,4,295,69,364,0.8104395604
+"Non-Hispanic White",_18-39,Arkansas,5,502,163,665,0.754887218
+"Non-Hispanic White",_18-39,California,6,1156,258,1414,0.8175388967
+"Non-Hispanic White",_18-39,Colorado,8,278,50,328,0.8475609756
+"Non-Hispanic White",_18-39,Connecticut,9,291,37,328,0.887195122
+"Non-Hispanic White",_18-39,Delaware,10,74,14,88,0.8409090909
+"Non-Hispanic White",_18-39,"District of Columbia",11,.,.,.,0.3333333333
+"Non-Hispanic White",_18-39,Florida,12,1322,290,1612,0.8200992556
+"Non-Hispanic White",_18-39,Georgia,13,615,192,807,0.7620817844
+"Non-Hispanic White",_18-39,Hawaii,15,.,.,.,0.7368421053
+"Non-Hispanic White",_18-39,Idaho,16,205,41,246,0.8333333333
+"Non-Hispanic White",_18-39,Illinois,17,1039,212,1251,0.8305355715
+"Non-Hispanic White",_18-39,Indiana,18,992,239,1231,0.8058489033
+"Non-Hispanic White",_18-39,Iowa,19,548,94,642,0.8535825545
+"Non-Hispanic White",_18-39,Kansas,20,467,70,537,0.8696461825
+"Non-Hispanic White",_18-39,Kentucky,21,953,321,1274,0.7480376766
+"Non-Hispanic White",_18-39,Louisiana,22,472,148,620,0.7612903226
+"Non-Hispanic White",_18-39,Maine,23,290,49,339,0.8554572271
+"Non-Hispanic White",_18-39,Maryland,24,422,83,505,0.8356435644
+"Non-Hispanic White",_18-39,Massachusetts,25,688,155,843,0.8161328588
+"Non-Hispanic White",_18-39,Michigan,26,1238,328,1566,0.7905491699
+"Non-Hispanic White",_18-39,Minnesota,27,591,100,691,0.8552821997
+"Non-Hispanic White",_18-39,Mississippi,28,327,89,416,0.7860576923
+"Non-Hispanic White",_18-39,Missouri,29,1132,248,1380,0.8202898551
+"Non-Hispanic White",_18-39,Montana,30,121,13,134,0.9029850746
+"Non-Hispanic White",_18-39,Nebraska,31,293,47,340,0.8617647059
+"Non-Hispanic White",_18-39,Nevada,32,111,31,142,0.7816901408
+"Non-Hispanic White",_18-39,"New Hampshire",33,204,41,245,0.8326530612
+"Non-Hispanic White",_18-39,"New Jersey",34,459,97,556,0.8255395683
+"Non-Hispanic White",_18-39,"New Mexico",35,80,26,106,0.7547169811
+"Non-Hispanic White",_18-39,"New York",36,1471,327,1798,0.818131257
+"Non-Hispanic White",_18-39,"North Carolina",37,923,234,1157,0.797752809
+"Non-Hispanic White",_18-39,"North Dakota",38,93,13,106,0.8773584906
+"Non-Hispanic White",_18-39,Ohio,39,1586,407,1993,0.7957852484
+"Non-Hispanic White",_18-39,Oklahoma,40,432,116,548,0.7883211679
+"Non-Hispanic White",_18-39,Oregon,41,304,63,367,0.8283378747
+"Non-Hispanic White",_18-39,Pennsylvania,42,1363,278,1641,0.830591103
+"Non-Hispanic White",_18-39,"Rhode Island",44,113,20,133,0.8496240602
+"Non-Hispanic White",_18-39,"South Carolina",45,437,106,543,0.8047882136
+"Non-Hispanic White",_18-39,"South Dakota",46,120,16,136,0.8823529412
+"Non-Hispanic White",_18-39,Tennessee,47,844,197,1041,0.8107588857
+"Non-Hispanic White",_18-39,Texas,48,1271,332,1603,0.7928883344
+"Non-Hispanic White",_18-39,Utah,49,203,46,249,0.8152610442
+"Non-Hispanic White",_18-39,Vermont,50,107,24,131,0.8167938931
+"Non-Hispanic White",_18-39,Virginia,51,678,165,843,0.8042704626
+"Non-Hispanic White",_18-39,Washington,53,535,101,636,0.8411949686
+"Non-Hispanic White",_18-39,"West Virginia",54,462,140,602,0.7674418605
+"Non-Hispanic White",_18-39,Wisconsin,55,756,138,894,0.8456375839
+"Non-Hispanic White",_18-39,Wyoming,56,.,.,.,0.8695652174
+"Non-Hispanic White",_40-64,Alabama,1,18043,4441,22484,0.8024817648
+"Non-Hispanic White",_40-64,Alaska,2,947,187,1134,0.8350970018
+"Non-Hispanic White",_40-64,Arizona,4,8201,1798,9999,0.8201820182
+"Non-Hispanic White",_40-64,Arkansas,5,14530,3596,18126,0.8016109456
+"Non-Hispanic White",_40-64,California,6,38569,7695,46264,0.8336719696
+"Non-Hispanic White",_40-64,Colorado,8,7740,1341,9081,0.8523290387
+"Non-Hispanic White",_40-64,Connecticut,9,8852,1412,10264,0.8624318005
+"Non-Hispanic White",_40-64,Delaware,10,2952,571,3523,0.8379222254
+"Non-Hispanic White",_40-64,"District of Columbia",11,115,22,137,0.8394160584
+"Non-Hispanic White",_40-64,Florida,12,39674,7998,47672,0.8322285618
+"Non-Hispanic White",_40-64,Georgia,13,20472,4912,25384,0.8064922786
+"Non-Hispanic White",_40-64,Hawaii,15,565,136,701,0.8059914408
+"Non-Hispanic White",_40-64,Idaho,16,4504,941,5445,0.8271808999
+"Non-Hispanic White",_40-64,Illinois,17,30222,5939,36161,0.8357622853
+"Non-Hispanic White",_40-64,Indiana,18,27514,5605,33119,0.8307617984
+"Non-Hispanic White",_40-64,Iowa,19,12757,2108,14865,0.8581903801
+"Non-Hispanic White",_40-64,Kansas,20,9970,1728,11698,0.8522824414
+"Non-Hispanic White",_40-64,Kentucky,21,30659,8102,38761,0.790975465
+"Non-Hispanic White",_40-64,Louisiana,22,12765,3144,15909,0.8023760136
+"Non-Hispanic White",_40-64,Maine,23,9675,1443,11118,0.8702104695
+"Non-Hispanic White",_40-64,Maryland,24,10487,2249,12736,0.8234139447
+"Non-Hispanic White",_40-64,Massachusetts,25,25078,4305,29383,0.85348671
+"Non-Hispanic White",_40-64,Michigan,26,37713,7772,45485,0.8291304826
+"Non-Hispanic White",_40-64,Minnesota,27,15138,2191,17329,0.873564545
+"Non-Hispanic White",_40-64,Mississippi,28,11019,3012,14031,0.7853324781
+"Non-Hispanic White",_40-64,Missouri,29,27906,5582,33488,0.8333134257
+"Non-Hispanic White",_40-64,Montana,30,2851,545,3396,0.8395170789
+"Non-Hispanic White",_40-64,Nebraska,31,5314,842,6156,0.863222872
+"Non-Hispanic White",_40-64,Nevada,32,3974,947,4921,0.8075594391
+"Non-Hispanic White",_40-64,"New Hampshire",33,5951,997,6948,0.8565054692
+"Non-Hispanic White",_40-64,"New Jersey",34,16186,3124,19310,0.8382185396
+"Non-Hispanic White",_40-64,"New Mexico",35,2710,628,3338,0.8118633913
+"Non-Hispanic White",_40-64,"New York",36,43423,8194,51617,0.8412538505
+"Non-Hispanic White",_40-64,"North Carolina",37,30552,6212,36764,0.8310303558
+"Non-Hispanic White",_40-64,"North Dakota",38,1952,320,2272,0.8591549296
+"Non-Hispanic White",_40-64,Ohio,39,42530,8845,51375,0.8278345499
+"Non-Hispanic White",_40-64,Oklahoma,40,12402,3067,15469,0.8017324973
+"Non-Hispanic White",_40-64,Oregon,41,10101,2131,12232,0.8257848267
+"Non-Hispanic White",_40-64,Pennsylvania,42,42071,7611,49682,0.8468056842
+"Non-Hispanic White",_40-64,"Rhode Island",44,3789,632,4421,0.8570459172
+"Non-Hispanic White",_40-64,"South Carolina",45,14906,3324,18230,0.8176631925
+"Non-Hispanic White",_40-64,"South Dakota",46,2340,377,2717,0.8612440191
+"Non-Hispanic White",_40-64,Tennessee,47,26153,6048,32201,0.812179746
+"Non-Hispanic White",_40-64,Texas,48,31052,7186,38238,0.8120717611
+"Non-Hispanic White",_40-64,Utah,49,3818,725,4543,0.8404138235
+"Non-Hispanic White",_40-64,Vermont,50,3294,519,3813,0.8638867034
+"Non-Hispanic White",_40-64,Virginia,51,18293,3788,22081,0.8284497985
+"Non-Hispanic White",_40-64,Washington,53,15973,3007,18980,0.8415700738
+"Non-Hispanic White",_40-64,"West Virginia",54,14600,3484,18084,0.8073435081
+"Non-Hispanic White",_40-64,Wisconsin,55,19385,2724,22109,0.8767922565
+"Non-Hispanic White",_40-64,Wyoming,56,1442,286,1728,0.8344907407
+"Non-Hispanic White",_65-69,Alabama,1,25142,4372,29514,0.8518669106
+"Non-Hispanic White",_65-69,Alaska,2,3686,565,4251,0.8670900964
+"Non-Hispanic White",_65-69,Arizona,4,34243,4812,39055,0.8767891435
+"Non-Hispanic White",_65-69,Arkansas,5,21692,3981,25673,0.8449343668
+"Non-Hispanic White",_65-69,California,6,102194,15935,118129,0.865105097
+"Non-Hispanic White",_65-69,Colorado,8,23663,3246,26909,0.8793712141
+"Non-Hispanic White",_65-69,Connecticut,9,16675,2193,18868,0.8837714649
+"Non-Hispanic White",_65-69,Delaware,10,10294,1266,11560,0.8904844291
+"Non-Hispanic White",_65-69,"District of Columbia",11,687,112,799,0.859824781
+"Non-Hispanic White",_65-69,Florida,12,106604,16230,122834,0.8678704593
+"Non-Hispanic White",_65-69,Georgia,13,41833,7397,49230,0.8497460898
+"Non-Hispanic White",_65-69,Hawaii,15,1725,291,2016,0.8556547619
+"Non-Hispanic White",_65-69,Idaho,16,10405,1526,11931,0.8720978962
+"Non-Hispanic White",_65-69,Illinois,17,80768,10655,91423,0.8834538355
+"Non-Hispanic White",_65-69,Indiana,18,55129,7430,62559,0.8812321169
+"Non-Hispanic White",_65-69,Iowa,19,35322,3949,39271,0.8994423366
+"Non-Hispanic White",_65-69,Kansas,20,26266,3422,29688,0.8847345729
+"Non-Hispanic White",_65-69,Kentucky,21,38804,6828,45632,0.8503681627
+"Non-Hispanic White",_65-69,Louisiana,22,25139,4397,29536,0.8511308234
+"Non-Hispanic White",_65-69,Maine,23,10494,1232,11726,0.894934334
+"Non-Hispanic White",_65-69,Maryland,24,29406,3945,33351,0.8817126923
+"Non-Hispanic White",_65-69,Massachusetts,25,48727,6103,54830,0.8886923217
+"Non-Hispanic White",_65-69,Michigan,26,64332,9881,74213,0.8668562112
+"Non-Hispanic White",_65-69,Minnesota,27,30745,3213,33958,0.9053831203
+"Non-Hispanic White",_65-69,Mississippi,28,19852,4117,23969,0.8282364721
+"Non-Hispanic White",_65-69,Missouri,29,44906,6214,51120,0.8784428795
+"Non-Hispanic White",_65-69,Montana,30,9386,1298,10684,0.8785099214
+"Non-Hispanic White",_65-69,Nebraska,31,17751,2156,19907,0.8916963882
+"Non-Hispanic White",_65-69,Nevada,32,11746,1860,13606,0.8632956049
+"Non-Hispanic White",_65-69,"New Hampshire",33,12364,1507,13871,0.8913560666
+"Non-Hispanic White",_65-69,"New Jersey",34,47770,7023,54793,0.8718266932
+"Non-Hispanic White",_65-69,"New Mexico",35,6840,1120,7960,0.8592964824
+"Non-Hispanic White",_65-69,"New York",36,78752,12381,91133,0.8641436143
+"Non-Hispanic White",_65-69,"North Carolina",37,60606,9385,69991,0.8659113315
+"Non-Hispanic White",_65-69,"North Dakota",38,7252,880,8132,0.8917855386
+"Non-Hispanic White",_65-69,Ohio,39,82578,11886,94464,0.8741742886
+"Non-Hispanic White",_65-69,Oklahoma,40,26253,4338,30591,0.8581935863
+"Non-Hispanic White",_65-69,Oregon,41,22300,3314,25614,0.870617631
+"Non-Hispanic White",_65-69,Pennsylvania,42,93213,11731,104944,0.8882165726
+"Non-Hispanic White",_65-69,"Rhode Island",44,6310,832,7142,0.8835060207
+"Non-Hispanic White",_65-69,"South Carolina",45,38539,6224,44763,0.8609565936
+"Non-Hispanic White",_65-69,"South Dakota",46,9037,1095,10132,0.8919265693
+"Non-Hispanic White",_65-69,Tennessee,47,45858,7393,53251,0.8611669264
+"Non-Hispanic White",_65-69,Texas,48,99429,16088,115517,0.8607304553
+"Non-Hispanic White",_65-69,Utah,49,11207,1650,12857,0.8716652407
+"Non-Hispanic White",_65-69,Vermont,50,6595,804,7399,0.8913366671
+"Non-Hispanic White",_65-69,Virginia,51,47653,6832,54485,0.8746076902
+"Non-Hispanic White",_65-69,Washington,53,34690,4884,39574,0.876585637
+"Non-Hispanic White",_65-69,"West Virginia",54,17981,2914,20895,0.8605407992
+"Non-Hispanic White",_65-69,Wisconsin,55,43190,4310,47500,0.9092631579
+"Non-Hispanic White",_65-69,Wyoming,56,4883,679,5562,0.8779216109
+"Non-Hispanic White",_70-74,Alabama,1,44414,6395,50809,0.8741364719
+"Non-Hispanic White",_70-74,Alaska,2,4750,570,5320,0.8928571429
+"Non-Hispanic White",_70-74,Arizona,4,55173,7181,62354,0.8848349745
+"Non-Hispanic White",_70-74,Arkansas,5,28920,4513,33433,0.8650136093
+"Non-Hispanic White",_70-74,California,6,153668,21015,174683,0.8796963643
+"Non-Hispanic White",_70-74,Colorado,8,34571,4146,38717,0.8929152569
+"Non-Hispanic White",_70-74,Connecticut,9,31100,3447,34547,0.9002228848
+"Non-Hispanic White",_70-74,Delaware,10,14809,1722,16531,0.8958320731
+"Non-Hispanic White",_70-74,"District of Columbia",11,1247,174,1421,0.8775510204
+"Non-Hispanic White",_70-74,Florida,12,173453,24077,197530,0.8781096542
+"Non-Hispanic White",_70-74,Georgia,13,62373,9663,72036,0.8658587373
+"Non-Hispanic White",_70-74,Hawaii,15,2633,346,2979,0.8838536422
+"Non-Hispanic White",_70-74,Idaho,16,13385,1729,15114,0.8856027524
+"Non-Hispanic White",_70-74,Illinois,17,118280,13873,132153,0.8950231928
+"Non-Hispanic White",_70-74,Indiana,18,73590,9162,82752,0.8892836427
+"Non-Hispanic White",_70-74,Iowa,19,45330,4393,49723,0.911650544
+"Non-Hispanic White",_70-74,Kansas,20,33132,3807,36939,0.8969381954
+"Non-Hispanic White",_70-74,Kentucky,21,47056,7407,54463,0.8639994124
+"Non-Hispanic White",_70-74,Louisiana,22,32924,5155,38079,0.8646235458
+"Non-Hispanic White",_70-74,Maine,23,15702,1622,17324,0.9063726622
+"Non-Hispanic White",_70-74,Maryland,24,42544,5350,47894,0.8882949848
+"Non-Hispanic White",_70-74,Massachusetts,25,74502,8078,82580,0.9021797045
+"Non-Hispanic White",_70-74,Michigan,26,85576,11305,96881,0.883310453
+"Non-Hispanic White",_70-74,Minnesota,27,38752,3649,42401,0.9139407089
+"Non-Hispanic White",_70-74,Mississippi,28,26057,4807,30864,0.8442522032
+"Non-Hispanic White",_70-74,Missouri,29,59812,7267,67079,0.8916650517
+"Non-Hispanic White",_70-74,Montana,30,11599,1363,12962,0.8948464743
+"Non-Hispanic White",_70-74,Nebraska,31,23406,2562,25968,0.9013401109
+"Non-Hispanic White",_70-74,Nevada,32,18580,2698,21278,0.8732023686
+"Non-Hispanic White",_70-74,"New Hampshire",33,19247,1893,21140,0.9104541154
+"Non-Hispanic White",_70-74,"New Jersey",34,80974,11028,92002,0.8801330406
+"Non-Hispanic White",_70-74,"New Mexico",35,9792,1394,11186,0.8753799392
+"Non-Hispanic White",_70-74,"New York",36,122279,17632,139911,0.8739770283
+"Non-Hispanic White",_70-74,"North Carolina",37,89999,12449,102448,0.8784846947
+"Non-Hispanic White",_70-74,"North Dakota",38,8370,877,9247,0.9051584298
+"Non-Hispanic White",_70-74,Ohio,39,109631,14546,124177,0.8828607552
+"Non-Hispanic White",_70-74,Oklahoma,40,33908,4906,38814,0.8736023084
+"Non-Hispanic White",_70-74,Oregon,41,30237,3736,33973,0.8900303182
+"Non-Hispanic White",_70-74,Pennsylvania,42,123786,14494,138280,0.8951836853
+"Non-Hispanic White",_70-74,"Rhode Island",44,9450,1104,10554,0.8953951109
+"Non-Hispanic White",_70-74,"South Carolina",45,56975,8285,65260,0.8730462764
+"Non-Hispanic White",_70-74,"South Dakota",46,10430,1178,11608,0.8985182633
+"Non-Hispanic White",_70-74,Tennessee,47,62438,8934,71372,0.8748248613
+"Non-Hispanic White",_70-74,Texas,48,149965,21852,171817,0.8728181728
+"Non-Hispanic White",_70-74,Utah,49,16038,2289,18327,0.8751023081
+"Non-Hispanic White",_70-74,Vermont,50,9150,964,10114,0.9046865731
+"Non-Hispanic White",_70-74,Virginia,51,68030,8874,76904,0.8846093831
+"Non-Hispanic White",_70-74,Washington,53,49009,6039,55048,0.8902957419
+"Non-Hispanic White",_70-74,"West Virginia",54,21545,3168,24713,0.87180836
+"Non-Hispanic White",_70-74,Wisconsin,55,54853,5089,59942,0.9151012646
+"Non-Hispanic White",_70-74,Wyoming,56,5737,807,6544,0.8766809291
+"Non-Hispanic White",_75-79,Alabama,1,33793,4843,38636,0.8746505849
+"Non-Hispanic White",_75-79,Alaska,2,3474,428,3902,0.8903126602
+"Non-Hispanic White",_75-79,Arizona,4,44908,5777,50685,0.8860215054
+"Non-Hispanic White",_75-79,Arkansas,5,23824,3514,27338,0.8714609701
+"Non-Hispanic White",_75-79,California,6,135370,18068,153438,0.8822455976
+"Non-Hispanic White",_75-79,Colorado,8,26372,3124,29496,0.8940873339
+"Non-Hispanic White",_75-79,Connecticut,9,30840,3565,34405,0.8963813399
+"Non-Hispanic White",_75-79,Delaware,10,12246,1411,13657,0.8966830197
+"Non-Hispanic White",_75-79,"District of Columbia",11,1282,172,1454,0.8817056396
+"Non-Hispanic White",_75-79,Florida,12,160397,22222,182619,0.8783149618
+"Non-Hispanic White",_75-79,Georgia,13,53001,8032,61033,0.8683990628
+"Non-Hispanic White",_75-79,Hawaii,15,2155,302,2457,0.8770858771
+"Non-Hispanic White",_75-79,Idaho,16,10880,1422,12302,0.8844090392
+"Non-Hispanic White",_75-79,Illinois,17,102298,12114,114412,0.894119498
+"Non-Hispanic White",_75-79,Indiana,18,58454,7235,65689,0.8898597939
+"Non-Hispanic White",_75-79,Iowa,19,34989,3273,38262,0.9144582092
+"Non-Hispanic White",_75-79,Kansas,20,25539,2743,28282,0.9030125168
+"Non-Hispanic White",_75-79,Kentucky,21,38410,5963,44373,0.8656164785
+"Non-Hispanic White",_75-79,Louisiana,22,25513,3834,29347,0.8693563226
+"Non-Hispanic White",_75-79,Maine,23,14776,1505,16281,0.9075609606
+"Non-Hispanic White",_75-79,Maryland,24,36596,4543,41139,0.8895695083
+"Non-Hispanic White",_75-79,Massachusetts,25,63244,6945,70189,0.9010528715
+"Non-Hispanic White",_75-79,Michigan,26,77075,9950,87025,0.8856650388
+"Non-Hispanic White",_75-79,Minnesota,27,35001,3226,38227,0.915609386
+"Non-Hispanic White",_75-79,Mississippi,28,20344,3599,23943,0.8496846678
+"Non-Hispanic White",_75-79,Missouri,29,49803,6185,55988,0.8895298993
+"Non-Hispanic White",_75-79,Montana,30,8926,1031,9957,0.8964547554
+"Non-Hispanic White",_75-79,Nebraska,31,17739,1866,19605,0.9048201989
+"Non-Hispanic White",_75-79,Nevada,32,15702,2193,17895,0.8774518022
+"Non-Hispanic White",_75-79,"New Hampshire",33,16055,1620,17675,0.9083451202
+"Non-Hispanic White",_75-79,"New Jersey",34,71426,9683,81109,0.8806174407
+"Non-Hispanic White",_75-79,"New Mexico",35,7924,1109,9033,0.877227942
+"Non-Hispanic White",_75-79,"New York",36,106315,14976,121291,0.8765283492
+"Non-Hispanic White",_75-79,"North Carolina",37,79028,10841,89869,0.8793688591
+"Non-Hispanic White",_75-79,"North Dakota",38,6959,766,7725,0.9008414239
+"Non-Hispanic White",_75-79,Ohio,39,86309,11000,97309,0.8869580409
+"Non-Hispanic White",_75-79,Oklahoma,40,27324,3914,31238,0.8747038863
+"Non-Hispanic White",_75-79,Oregon,41,24341,2801,27142,0.8968020043
+"Non-Hispanic White",_75-79,Pennsylvania,42,91004,10872,101876,0.8932820291
+"Non-Hispanic White",_75-79,"Rhode Island",44,7951,875,8826,0.9008610922
+"Non-Hispanic White",_75-79,"South Carolina",45,44309,6492,50801,0.87220724
+"Non-Hispanic White",_75-79,"South Dakota",46,8241,910,9151,0.9005573161
+"Non-Hispanic White",_75-79,Tennessee,47,50383,7119,57502,0.8761956106
+"Non-Hispanic White",_75-79,Texas,48,130284,18808,149092,0.8738497035
+"Non-Hispanic White",_75-79,Utah,49,12741,1775,14516,0.8777211353
+"Non-Hispanic White",_75-79,Vermont,50,7807,729,8536,0.9145970009
+"Non-Hispanic White",_75-79,Virginia,51,55027,6939,61966,0.8880192364
+"Non-Hispanic White",_75-79,Washington,53,41640,4956,46596,0.893638939
+"Non-Hispanic White",_75-79,"West Virginia",54,15374,2211,17585,0.8742678419
+"Non-Hispanic White",_75-79,Wisconsin,55,44794,3984,48778,0.9183238345
+"Non-Hispanic White",_75-79,Wyoming,56,4538,545,5083,0.8927798544
+"Non-Hispanic White",_80-84,Alabama,1,21390,3103,24493,0.8733107418
+"Non-Hispanic White",_80-84,Alaska,2,1867,256,2123,0.8794159209
+"Non-Hispanic White",_80-84,Arizona,4,25389,3396,28785,0.8820218864
+"Non-Hispanic White",_80-84,Arkansas,5,14892,2209,17101,0.8708262675
+"Non-Hispanic White",_80-84,California,6,87372,12339,99711,0.8762523693
+"Non-Hispanic White",_80-84,Colorado,8,14447,1908,16355,0.8833384286
+"Non-Hispanic White",_80-84,Connecticut,9,21418,2644,24062,0.8901171972
+"Non-Hispanic White",_80-84,Delaware,10,7352,881,8233,0.8929916191
+"Non-Hispanic White",_80-84,"District of Columbia",11,732,113,845,0.8662721893
+"Non-Hispanic White",_80-84,Florida,12,99717,14727,114444,0.871316976
+"Non-Hispanic White",_80-84,Georgia,13,32280,4960,37240,0.8668098818
+"Non-Hispanic White",_80-84,Hawaii,15,1035,158,1193,0.8675607712
+"Non-Hispanic White",_80-84,Idaho,16,6628,864,7492,0.8846769888
+"Non-Hispanic White",_80-84,Illinois,17,67735,8315,76050,0.8906640368
+"Non-Hispanic White",_80-84,Indiana,18,37877,4983,42860,0.8837377508
+"Non-Hispanic White",_80-84,Iowa,19,24027,2492,26519,0.9060296391
+"Non-Hispanic White",_80-84,Kansas,20,16338,1960,18298,0.8928844682
+"Non-Hispanic White",_80-84,Kentucky,21,24539,3773,28312,0.8667349534
+"Non-Hispanic White",_80-84,Louisiana,22,16294,2636,18930,0.8607501321
+"Non-Hispanic White",_80-84,Maine,23,9772,1004,10776,0.9068299926
+"Non-Hispanic White",_80-84,Maryland,24,23323,3143,26466,0.88124386
+"Non-Hispanic White",_80-84,Massachusetts,25,40457,4572,45029,0.8984654334
+"Non-Hispanic White",_80-84,Michigan,26,52088,6857,58945,0.8836712189
+"Non-Hispanic White",_80-84,Minnesota,27,24899,2413,27312,0.9116505565
+"Non-Hispanic White",_80-84,Mississippi,28,12858,2217,15075,0.8529353234
+"Non-Hispanic White",_80-84,Missouri,29,31521,3998,35519,0.8874405248
+"Non-Hispanic White",_80-84,Montana,30,5615,691,6306,0.8904218205
+"Non-Hispanic White",_80-84,Nebraska,31,11827,1322,13149,0.899460035
+"Non-Hispanic White",_80-84,Nevada,32,8377,1245,9622,0.870609021
+"Non-Hispanic White",_80-84,"New Hampshire",33,9459,986,10445,0.9056007659
+"Non-Hispanic White",_80-84,"New Jersey",34,46997,6882,53879,0.8722693443
+"Non-Hispanic White",_80-84,"New Mexico",35,4595,731,5326,0.8627487796
+"Non-Hispanic White",_80-84,"New York",36,74805,11467,86272,0.8670831788
+"Non-Hispanic White",_80-84,"North Carolina",37,45514,6467,51981,0.8755891576
+"Non-Hispanic White",_80-84,"North Dakota",38,4816,531,5347,0.9006919768
+"Non-Hispanic White",_80-84,Ohio,39,56051,7507,63558,0.8818874099
+"Non-Hispanic White",_80-84,Oklahoma,40,17071,2553,19624,0.8699041989
+"Non-Hispanic White",_80-84,Oregon,41,14317,1667,15984,0.8957082082
+"Non-Hispanic White",_80-84,Pennsylvania,42,59048,7334,66382,0.8895182429
+"Non-Hispanic White",_80-84,"Rhode Island",44,4383,575,4958,0.8840258169
+"Non-Hispanic White",_80-84,"South Carolina",45,24758,3779,28537,0.8675754284
+"Non-Hispanic White",_80-84,"South Dakota",46,5476,594,6070,0.9021416804
+"Non-Hispanic White",_80-84,Tennessee,47,29592,4212,33804,0.875399361
+"Non-Hispanic White",_80-84,Texas,48,80251,12163,92414,0.8683857424
+"Non-Hispanic White",_80-84,Utah,49,7971,1118,9089,0.8769941688
+"Non-Hispanic White",_80-84,Vermont,50,4761,456,5217,0.9125934445
+"Non-Hispanic White",_80-84,Virginia,51,34010,4409,38419,0.8852390744
+"Non-Hispanic White",_80-84,Washington,53,27059,3253,30312,0.8926827659
+"Non-Hispanic White",_80-84,"West Virginia",54,9921,1498,11419,0.8688151327
+"Non-Hispanic White",_80-84,Wisconsin,55,27501,2643,30144,0.9123208599
+"Non-Hispanic White",_80-84,Wyoming,56,2816,392,3208,0.8778054863
+"Non-Hispanic White",_85+,Alabama,1,15231,2130,17361,0.8773112148
+"Non-Hispanic White",_85+,Alaska,2,1200,169,1369,0.8765522279
+"Non-Hispanic White",_85+,Arizona,4,16455,2263,18718,0.8791003312
+"Non-Hispanic White",_85+,Arkansas,5,10658,1668,12326,0.864676294
+"Non-Hispanic White",_85+,California,6,76727,11260,87987,0.8720265494
+"Non-Hispanic White",_85+,Colorado,8,10205,1565,11770,0.8670348343
+"Non-Hispanic White",_85+,Connecticut,9,22807,3135,25942,0.8791534963
+"Non-Hispanic White",_85+,Delaware,10,5747,731,6478,0.8871565298
+"Non-Hispanic White",_85+,"District of Columbia",11,545,86,631,0.8637083994
+"Non-Hispanic White",_85+,Florida,12,79330,12914,92244,0.8600017345
+"Non-Hispanic White",_85+,Georgia,13,23368,3640,27008,0.8652251185
+"Non-Hispanic White",_85+,Hawaii,15,749,126,875,0.856
+"Non-Hispanic White",_85+,Idaho,16,4524,642,5166,0.8757259001
+"Non-Hispanic White",_85+,Illinois,17,58999,8376,67375,0.8756808905
+"Non-Hispanic White",_85+,Indiana,18,29970,4266,34236,0.8753943218
+"Non-Hispanic White",_85+,Iowa,19,19566,2305,21871,0.8946093
+"Non-Hispanic White",_85+,Kansas,20,13685,1865,15550,0.8800643087
+"Non-Hispanic White",_85+,Kentucky,21,17730,2972,20702,0.8564389914
+"Non-Hispanic White",_85+,Louisiana,22,12403,1999,14402,0.8611998334
+"Non-Hispanic White",_85+,Maine,23,8254,944,9198,0.8973689933
+"Non-Hispanic White",_85+,Maryland,24,20699,2990,23689,0.8737810798
+"Non-Hispanic White",_85+,Massachusetts,25,38025,4949,42974,0.8848373435
+"Non-Hispanic White",_85+,Michigan,26,43838,6180,50018,0.87644448
+"Non-Hispanic White",_85+,Minnesota,27,21165,2415,23580,0.8975826972
+"Non-Hispanic White",_85+,Mississippi,28,8733,1553,10286,0.8490180828
+"Non-Hispanic White",_85+,Missouri,29,23455,3303,26758,0.876560281
+"Non-Hispanic White",_85+,Montana,30,4096,588,4684,0.8744662681
+"Non-Hispanic White",_85+,Nebraska,31,10004,1318,11322,0.8835894718
+"Non-Hispanic White",_85+,Nevada,32,5157,843,6000,0.8595
+"Non-Hispanic White",_85+,"New Hampshire",33,7789,945,8734,0.8918021525
+"Non-Hispanic White",_85+,"New Jersey",34,46638,7389,54027,0.8632350491
+"Non-Hispanic White",_85+,"New Mexico",35,3456,569,4025,0.8586335404
+"Non-Hispanic White",_85+,"New York",36,78168,12998,91166,0.8574249172
+"Non-Hispanic White",_85+,"North Carolina",37,33935,5238,39173,0.8662854517
+"Non-Hispanic White",_85+,"North Dakota",38,4557,553,5110,0.8917808219
+"Non-Hispanic White",_85+,Ohio,39,45303,6307,51610,0.877795001
+"Non-Hispanic White",_85+,Oklahoma,40,12770,2116,14886,0.8578530163
+"Non-Hispanic White",_85+,Oregon,41,10038,1254,11292,0.8889479277
+"Non-Hispanic White",_85+,Pennsylvania,42,54578,7478,62056,0.8794959392
+"Non-Hispanic White",_85+,"Rhode Island",44,4013,531,4544,0.8831426056
+"Non-Hispanic White",_85+,"South Carolina",45,16928,2699,19627,0.8624853518
+"Non-Hispanic White",_85+,"South Dakota",46,4530,560,5090,0.8899803536
+"Non-Hispanic White",_85+,Tennessee,47,21707,3218,24925,0.870892678
+"Non-Hispanic White",_85+,Texas,48,60420,10029,70449,0.8576416982
+"Non-Hispanic White",_85+,Utah,49,5629,876,6505,0.8653343582
+"Non-Hispanic White",_85+,Vermont,50,3872,436,4308,0.8987929434
+"Non-Hispanic White",_85+,Virginia,51,26441,3884,30325,0.8719208574
+"Non-Hispanic White",_85+,Washington,53,21153,2780,23933,0.8838423933
+"Non-Hispanic White",_85+,"West Virginia",54,7346,1131,8477,0.8665801581
+"Non-Hispanic White",_85+,Wisconsin,55,22601,2463,25064,0.9017315672
+"Non-Hispanic White",_85+,Wyoming,56,1857,276,2133,0.870604782
+"Black or African-American",_18-39,Alabama,1,345,144,489,0.7055214724
+"Black or African-American",_18-39,Alaska,2,.,.,.,0.6
+"Black or African-American",_18-39,Arizona,4,28,20,48,0.5833333333
+"Black or African-American",_18-39,Arkansas,5,138,76,214,0.6448598131
+"Black or African-American",_18-39,California,6,304,127,431,0.7053364269
+"Black or African-American",_18-39,Colorado,8,.,.,.,0.7222222222
+"Black or African-American",_18-39,Connecticut,9,75,21,96,0.78125
+"Black or African-American",_18-39,Delaware,10,43,17,60,0.7166666667
+"Black or African-American",_18-39,"District of Columbia",11,52,18,70,0.7428571429
+"Black or African-American",_18-39,Florida,12,540,201,741,0.7287449393
+"Black or African-American",_18-39,Georgia,13,446,180,626,0.7124600639
+"Black or African-American",_18-39,Idaho,16,.,.,.,0.5
+"Black or African-American",_18-39,Illinois,17,330,152,482,0.6846473029
+"Black or African-American",_18-39,Indiana,18,140,56,196,0.7142857143
+"Black or African-American",_18-39,Iowa,19,.,.,.,0.696969697
+"Black or African-American",_18-39,Kansas,20,.,.,.,0.8148148148
+"Black or African-American",_18-39,Kentucky,21,99,39,138,0.7173913043
+"Black or African-American",_18-39,Louisiana,22,371,189,560,0.6625
+"Black or African-American",_18-39,Maine,23,.,.,.,0.7777777778
+"Black or African-American",_18-39,Maryland,24,297,105,402,0.7388059701
+"Black or African-American",_18-39,Massachusetts,25,86,25,111,0.7747747748
+"Black or African-American",_18-39,Michigan,26,306,170,476,0.6428571429
+"Black or African-American",_18-39,Minnesota,27,74,15,89,0.8314606742
+"Black or African-American",_18-39,Mississippi,28,285,114,399,0.7142857143
+"Black or African-American",_18-39,Missouri,29,207,69,276,0.75
+"Black or African-American",_18-39,Montana,30,.,0,.,1
+"Black or African-American",_18-39,Nebraska,31,.,.,.,0.8064516129
+"Black or African-American",_18-39,Nevada,32,37,15,52,0.7115384615
+"Black or African-American",_18-39,"New Hampshire",33,.,.,.,0.75
+"Black or African-American",_18-39,"New Jersey",34,195,67,262,0.7442748092
+"Black or African-American",_18-39,"New Mexico",35,.,0,.,1
+"Black or African-American",_18-39,"New York",36,347,145,492,0.7052845528
+"Black or African-American",_18-39,"North Carolina",37,526,219,745,0.7060402685
+"Black or African-American",_18-39,"North Dakota",38,.,.,.,0.6666666667
+"Black or African-American",_18-39,Ohio,39,324,130,454,0.7136563877
+"Black or African-American",_18-39,Oklahoma,40,59,25,84,0.7023809524
+"Black or African-American",_18-39,Oregon,41,.,.,.,0.75
+"Black or African-American",_18-39,Pennsylvania,42,236,100,336,0.7023809524
+"Black or African-American",_18-39,"Rhode Island",44,.,.,.,0.8461538462
+"Black or African-American",_18-39,"South Carolina",45,262,123,385,0.6805194805
+"Black or African-American",_18-39,"South Dakota",46,.,.,.,0.6666666667
+"Black or African-American",_18-39,Tennessee,47,201,63,264,0.7613636364
+"Black or African-American",_18-39,Texas,48,545,239,784,0.6951530612
+"Black or African-American",_18-39,Utah,49,.,.,.,0.8181818182
+"Black or African-American",_18-39,Vermont,50,.,0,.,1
+"Black or African-American",_18-39,Virginia,51,322,114,436,0.7385321101
+"Black or African-American",_18-39,Washington,53,38,13,51,0.7450980392
+"Black or African-American",_18-39,"West Virginia",54,.,.,.,0.8095238095
+"Black or African-American",_18-39,Wisconsin,55,88,30,118,0.7457627119
+"Black or African-American",_18-39,Wyoming,56,.,0,.,1
+"Black or African-American",_40-64,Alabama,1,10423,3402,13825,0.7539240506
+"Black or African-American",_40-64,Alaska,2,75,28,103,0.7281553398
+"Black or African-American",_40-64,Arizona,4,916,339,1255,0.7298804781
+"Black or African-American",_40-64,Arkansas,5,3882,1539,5421,0.7161040398
+"Black or African-American",_40-64,California,6,10175,3178,13353,0.7620010485
+"Black or African-American",_40-64,Colorado,8,775,210,985,0.7868020305
+"Black or African-American",_40-64,Connecticut,9,2015,504,2519,0.7999206034
+"Black or African-American",_40-64,Delaware,10,1514,390,1904,0.7951680672
+"Black or African-American",_40-64,"District of Columbia",11,2123,671,2794,0.7598425197
+"Black or African-American",_40-64,Florida,12,12791,3737,16528,0.7738988383
+"Black or African-American",_40-64,Georgia,13,14537,4862,19399,0.7493685242
+"Black or African-American",_40-64,Hawaii,15,.,.,.,0.8048780488
+"Black or African-American",_40-64,Idaho,16,31,13,44,0.7045454545
+"Black or African-American",_40-64,Illinois,17,10664,3806,14470,0.7369730477
+"Black or African-American",_40-64,Indiana,18,4526,1421,5947,0.7610559946
+"Black or African-American",_40-64,Iowa,19,735,247,982,0.7484725051
+"Black or African-American",_40-64,Kansas,20,1244,320,1564,0.7953964194
+"Black or African-American",_40-64,Kentucky,21,2719,1017,3736,0.7277837259
+"Black or African-American",_40-64,Louisiana,22,10453,3846,14299,0.731030142
+"Black or African-American",_40-64,Maine,23,82,22,104,0.7884615385
+"Black or African-American",_40-64,Maryland,24,8007,2648,10655,0.7514781793
+"Black or African-American",_40-64,Massachusetts,25,3016,922,3938,0.7658710005
+"Black or African-American",_40-64,Michigan,26,11222,3937,15159,0.7402862986
+"Black or African-American",_40-64,Minnesota,27,1908,607,2515,0.7586481113
+"Black or African-American",_40-64,Mississippi,28,9660,3825,13485,0.7163515017
+"Black or African-American",_40-64,Missouri,29,5134,1587,6721,0.7638744234
+"Black or African-American",_40-64,Montana,30,.,.,.,0.7307692308
+"Black or African-American",_40-64,Nebraska,31,567,182,749,0.7570093458
+"Black or African-American",_40-64,Nevada,32,1237,472,1709,0.7238150965
+"Black or African-American",_40-64,"New Hampshire",33,76,29,105,0.7238095238
+"Black or African-American",_40-64,"New Jersey",34,5993,1676,7669,0.7814578172
+"Black or African-American",_40-64,"New Mexico",35,192,70,262,0.7328244275
+"Black or African-American",_40-64,"New York",36,11587,3777,15364,0.7541655819
+"Black or African-American",_40-64,"North Carolina",37,16826,5489,22315,0.7540219583
+"Black or African-American",_40-64,"North Dakota",38,44,21,65,0.6769230769
+"Black or African-American",_40-64,Ohio,39,9396,3105,12501,0.7516198704
+"Black or African-American",_40-64,Oklahoma,40,1958,676,2634,0.7433561124
+"Black or African-American",_40-64,Oregon,41,353,120,473,0.7463002114
+"Black or African-American",_40-64,Pennsylvania,42,8653,2561,11214,0.7716247548
+"Black or African-American",_40-64,"Rhode Island",44,378,94,472,0.8008474576
+"Black or African-American",_40-64,"South Carolina",45,9562,3158,12720,0.7517295597
+"Black or African-American",_40-64,"South Dakota",46,45,12,57,0.7894736842
+"Black or African-American",_40-64,Tennessee,47,5802,1994,7796,0.7442278091
+"Black or African-American",_40-64,Texas,48,15078,5078,20156,0.7480650923
+"Black or African-American",_40-64,Utah,49,71,33,104,0.6826923077
+"Black or African-American",_40-64,Vermont,50,.,.,.,0.9069767442
+"Black or African-American",_40-64,Virginia,51,9015,2663,11678,0.7719643775
+"Black or African-American",_40-64,Washington,53,1319,363,1682,0.7841854935
+"Black or African-American",_40-64,"West Virginia",54,517,176,693,0.746031746
+"Black or African-American",_40-64,Wisconsin,55,2625,749,3374,0.7780082988
+"Black or African-American",_40-64,Wyoming,56,.,.,.,0.7142857143
+"Black or African-American",_65-69,Alabama,1,7748,2078,9826,0.7885202524
+"Black or African-American",_65-69,Alaska,2,112,21,133,0.8421052632
+"Black or African-American",_65-69,Arizona,4,970,228,1198,0.8096828047
+"Black or African-American",_65-69,Arkansas,5,3125,955,4080,0.7659313725
+"Black or African-American",_65-69,California,6,9222,2349,11571,0.7969924812
+"Black or African-American",_65-69,Colorado,8,628,159,787,0.7979669632
+"Black or African-American",_65-69,Connecticut,9,1692,360,2052,0.8245614035
+"Black or African-American",_65-69,Delaware,10,1679,373,2052,0.8182261209
+"Black or African-American",_65-69,"District of Columbia",11,1919,532,2451,0.7829457364
+"Black or African-American",_65-69,Florida,12,10783,2953,13736,0.7850174723
+"Black or African-American",_65-69,Georgia,13,12812,3621,16433,0.7796507029
+"Black or African-American",_65-69,Hawaii,15,51,15,66,0.7727272727
+"Black or African-American",_65-69,Idaho,16,.,.,.,0.8378378378
+"Black or African-American",_65-69,Illinois,17,10368,3052,13420,0.7725782414
+"Black or African-American",_65-69,Indiana,18,3507,879,4386,0.7995896033
+"Black or African-American",_65-69,Iowa,19,521,125,646,0.806501548
+"Black or African-American",_65-69,Kansas,20,983,208,1191,0.825356843
+"Black or African-American",_65-69,Kentucky,21,2102,590,2692,0.7808320951
+"Black or African-American",_65-69,Louisiana,22,9483,3005,12488,0.7593689942
+"Black or African-American",_65-69,Maine,23,.,.,.,0.8620689655
+"Black or African-American",_65-69,Maryland,24,9679,2664,12343,0.7841691647
+"Black or African-American",_65-69,Massachusetts,25,2775,652,3427,0.8097461336
+"Black or African-American",_65-69,Michigan,26,8532,2705,11237,0.7592773872
+"Black or African-American",_65-69,Minnesota,27,1068,314,1382,0.7727930535
+"Black or African-American",_65-69,Mississippi,28,9435,2998,12433,0.75886753
+"Black or African-American",_65-69,Missouri,29,3554,944,4498,0.7901289462
+"Black or African-American",_65-69,Montana,30,.,.,.,0.7857142857
+"Black or African-American",_65-69,Nebraska,31,382,87,469,0.8144989339
+"Black or African-American",_65-69,Nevada,32,1105,319,1424,0.7759831461
+"Black or African-American",_65-69,"New Hampshire",33,61,12,73,0.8356164384
+"Black or African-American",_65-69,"New Jersey",34,5094,1413,6507,0.7828492393
+"Black or African-American",_65-69,"New Mexico",35,156,33,189,0.8253968254
+"Black or African-American",_65-69,"New York",36,9892,3090,12982,0.7619781236
+"Black or African-American",_65-69,"North Carolina",37,15325,3960,19285,0.7946590614
+"Black or African-American",_65-69,"North Dakota",38,.,.,.,0.8333333333
+"Black or African-American",_65-69,Ohio,39,7859,2089,9948,0.7900080418
+"Black or African-American",_65-69,Oklahoma,40,1509,436,1945,0.7758354756
+"Black or African-American",_65-69,Oregon,41,270,81,351,0.7692307692
+"Black or African-American",_65-69,Pennsylvania,42,6797,1811,8608,0.7896143123
+"Black or African-American",_65-69,"Rhode Island",44,292,68,360,0.8111111111
+"Black or African-American",_65-69,"South Carolina",45,9814,2925,12739,0.7703901405
+"Black or African-American",_65-69,"South Dakota",46,28,14,42,0.6666666667
+"Black or African-American",_65-69,Tennessee,47,5785,1587,7372,0.7847259902
+"Black or African-American",_65-69,Texas,48,13534,3849,17383,0.7785767704
+"Black or African-American",_65-69,Utah,49,62,14,76,0.8157894737
+"Black or African-American",_65-69,Vermont,50,.,.,.,0.8235294118
+"Black or African-American",_65-69,Virginia,51,10243,2481,12724,0.8050141465
+"Black or African-American",_65-69,Washington,53,1001,279,1280,0.78203125
+"Black or African-American",_65-69,"West Virginia",54,498,134,632,0.7879746835
+"Black or African-American",_65-69,Wisconsin,55,1886,433,2319,0.8132815869
+"Black or African-American",_65-69,Wyoming,56,.,.,.,0.875
+"Black or African-American",_70-74,Alabama,1,10130,2317,12447,0.8138507271
+"Black or African-American",_70-74,Alaska,2,92,20,112,0.8214285714
+"Black or African-American",_70-74,Arizona,4,1321,248,1569,0.8419375398
+"Black or African-American",_70-74,Arkansas,5,3111,820,3931,0.791401679
+"Black or African-American",_70-74,California,6,10098,2360,12458,0.8105634933
+"Black or African-American",_70-74,Colorado,8,674,145,819,0.822954823
+"Black or African-American",_70-74,Connecticut,9,2428,500,2928,0.8292349727
+"Black or African-American",_70-74,Delaware,10,2167,493,2660,0.8146616541
+"Black or African-American",_70-74,"District of Columbia",11,2268,548,2816,0.8053977273
+"Black or African-American",_70-74,Florida,12,14094,3528,17622,0.7997957099
+"Black or African-American",_70-74,Georgia,13,16306,4084,20390,0.7997057381
+"Black or African-American",_70-74,Hawaii,15,55,16,71,0.7746478873
+"Black or African-American",_70-74,Idaho,16,.,.,.,0.972972973
+"Black or African-American",_70-74,Illinois,17,13207,3366,16573,0.79689857
+"Black or African-American",_70-74,Indiana,18,4088,983,5071,0.8061526326
+"Black or African-American",_70-74,Iowa,19,547,110,657,0.8325722983
+"Black or African-American",_70-74,Kansas,20,1084,209,1293,0.8383604022
+"Black or African-American",_70-74,Kentucky,21,2293,544,2837,0.8082481495
+"Black or African-American",_70-74,Louisiana,22,10625,2895,13520,0.7858727811
+"Black or African-American",_70-74,Maine,23,.,.,.,0.8548387097
+"Black or African-American",_70-74,Maryland,24,12592,3081,15673,0.8034198941
+"Black or African-American",_70-74,Massachusetts,25,3441,760,4201,0.8190906927
+"Black or African-American",_70-74,Michigan,26,10612,2861,13473,0.7876493728
+"Black or African-American",_70-74,Minnesota,27,1018,272,1290,0.7891472868
+"Black or African-American",_70-74,Mississippi,28,9832,2820,12652,0.7771103383
+"Black or African-American",_70-74,Missouri,29,4177,982,5159,0.8096530335
+"Black or African-American",_70-74,Montana,30,.,.,.,0.85
+"Black or African-American",_70-74,Nebraska,31,449,93,542,0.8284132841
+"Black or African-American",_70-74,Nevada,32,1387,296,1683,0.8241235888
+"Black or African-American",_70-74,"New Hampshire",33,91,16,107,0.8504672897
+"Black or African-American",_70-74,"New Jersey",34,7902,2069,9971,0.7924982449
+"Black or African-American",_70-74,"New Mexico",35,168,48,216,0.7777777778
+"Black or African-American",_70-74,"New York",36,13558,3942,17500,0.7747428571
+"Black or African-American",_70-74,"North Carolina",37,18810,4376,23186,0.8112654188
+"Black or African-American",_70-74,"North Dakota",38,.,.,.,0.8148148148
+"Black or African-American",_70-74,Ohio,39,9436,2174,11610,0.8127476314
+"Black or African-American",_70-74,Oklahoma,40,1614,395,2009,0.8033847685
+"Black or African-American",_70-74,Oregon,41,306,67,373,0.8203753351
+"Black or African-American",_70-74,Pennsylvania,42,8038,1921,9959,0.8071091475
+"Black or African-American",_70-74,"Rhode Island",44,307,58,365,0.8410958904
+"Black or African-American",_70-74,"South Carolina",45,12066,3292,15358,0.7856491731
+"Black or African-American",_70-74,"South Dakota",46,.,.,.,0.6153846154
+"Black or African-American",_70-74,Tennessee,47,6600,1695,8295,0.7956600362
+"Black or African-American",_70-74,Texas,48,17099,4194,21293,0.8030338609
+"Black or African-American",_70-74,Utah,49,67,16,83,0.8072289157
+"Black or African-American",_70-74,Vermont,50,.,.,.,0.7307692308
+"Black or African-American",_70-74,Virginia,51,12316,2844,15160,0.8124010554
+"Black or African-American",_70-74,Washington,53,1119,231,1350,0.8288888889
+"Black or African-American",_70-74,"West Virginia",54,518,113,631,0.8209191759
+"Black or African-American",_70-74,Wisconsin,55,2038,391,2429,0.8390284068
+"Black or African-American",_70-74,Wyoming,56,.,.,.,0.8095238095
+"Black or African-American",_75-79,Alabama,1,6445,1372,7817,0.8244850966
+"Black or African-American",_75-79,Alaska,2,55,14,69,0.7971014493
+"Black or African-American",_75-79,Arizona,4,896,174,1070,0.8373831776
+"Black or African-American",_75-79,Arkansas,5,2049,531,2580,0.7941860465
+"Black or African-American",_75-79,California,6,7424,1634,9058,0.8196069773
+"Black or African-American",_75-79,Colorado,8,498,83,581,0.8571428571
+"Black or African-American",_75-79,Connecticut,9,2069,394,2463,0.8400324807
+"Black or African-American",_75-79,Delaware,10,1698,360,2058,0.8250728863
+"Black or African-American",_75-79,"District of Columbia",11,1590,375,1965,0.8091603053
+"Black or African-American",_75-79,Florida,12,11340,2825,14165,0.8005647723
+"Black or African-American",_75-79,Georgia,13,12180,2925,15105,0.8063555114
+"Black or African-American",_75-79,Hawaii,15,.,.,.,0.9344262295
+"Black or African-American",_75-79,Idaho,16,.,.,.,0.8636363636
+"Black or African-American",_75-79,Illinois,17,10730,2562,13292,0.8072524827
+"Black or African-American",_75-79,Indiana,18,3094,693,3787,0.8170055453
+"Black or African-American",_75-79,Iowa,19,328,63,391,0.8388746803
+"Black or African-American",_75-79,Kansas,20,721,143,864,0.8344907407
+"Black or African-American",_75-79,Kentucky,21,1593,328,1921,0.829255596
+"Black or African-American",_75-79,Louisiana,22,7195,1882,9077,0.792662774
+"Black or African-American",_75-79,Maine,23,.,.,.,0.8285714286
+"Black or African-American",_75-79,Maryland,24,9238,2094,11332,0.8152135545
+"Black or African-American",_75-79,Massachusetts,25,2690,490,3180,0.8459119497
+"Black or African-American",_75-79,Michigan,26,7593,2012,9605,0.7905257678
+"Black or African-American",_75-79,Minnesota,27,569,126,695,0.818705036
+"Black or African-American",_75-79,Mississippi,28,6389,1776,8165,0.7824862217
+"Black or African-American",_75-79,Missouri,29,3079,692,3771,0.8164942986
+"Black or African-American",_75-79,Montana,30,.,.,.,0.625
+"Black or African-American",_75-79,Nebraska,31,307,54,361,0.8504155125
+"Black or African-American",_75-79,Nevada,32,1054,245,1299,0.8113933795
+"Black or African-American",_75-79,"New Hampshire",33,65,11,76,0.8552631579
+"Black or African-American",_75-79,"New Jersey",34,6755,1658,8413,0.8029240461
+"Black or African-American",_75-79,"New Mexico",35,127,19,146,0.8698630137
+"Black or African-American",_75-79,"New York",36,11713,3341,15054,0.7780656304
+"Black or African-American",_75-79,"North Carolina",37,14189,3225,17414,0.8148041805
+"Black or African-American",_75-79,"North Dakota",38,.,.,.,0.875
+"Black or African-American",_75-79,Ohio,39,6479,1454,7933,0.816714988
+"Black or African-American",_75-79,Oklahoma,40,1074,257,1331,0.8069120962
+"Black or African-American",_75-79,Oregon,41,192,43,235,0.8170212766
+"Black or African-American",_75-79,Pennsylvania,42,5485,1182,6667,0.8227088646
+"Black or African-American",_75-79,"Rhode Island",44,218,48,266,0.8195488722
+"Black or African-American",_75-79,"South Carolina",45,8551,2275,10826,0.7898577499
+"Black or African-American",_75-79,"South Dakota",46,.,.,.,0.7916666667
+"Black or African-American",_75-79,Tennessee,47,4654,1083,5737,0.8112253791
+"Black or African-American",_75-79,Texas,48,12463,3001,15464,0.8059363683
+"Black or African-American",_75-79,Utah,49,.,.,.,0.7777777778
+"Black or African-American",_75-79,Vermont,50,.,.,.,0.95
+"Black or African-American",_75-79,Virginia,51,8895,1852,10747,0.8276728389
+"Black or African-American",_75-79,Washington,53,707,140,847,0.8347107438
+"Black or African-American",_75-79,"West Virginia",54,303,61,364,0.8324175824
+"Black or African-American",_75-79,Wisconsin,55,1312,240,1552,0.8453608247
+"Black or African-American",_75-79,Wyoming,56,.,.,.,0.7142857143
+"Black or African-American",_80-84,Alabama,1,3855,847,4702,0.8198638877
+"Black or African-American",_80-84,Alaska,2,.,.,.,0.8947368421
+"Black or African-American",_80-84,Arizona,4,465,108,573,0.8115183246
+"Black or African-American",_80-84,Arkansas,5,1244,291,1535,0.8104234528
+"Black or African-American",_80-84,California,6,4581,966,5547,0.8258518118
+"Black or African-American",_80-84,Colorado,8,246,45,291,0.8453608247
+"Black or African-American",_80-84,Connecticut,9,1417,258,1675,0.8459701493
+"Black or African-American",_80-84,Delaware,10,1001,184,1185,0.8447257384
+"Black or African-American",_80-84,"District of Columbia",11,1023,215,1238,0.8263327948
+"Black or African-American",_80-84,Florida,12,6834,1717,8551,0.7992047714
+"Black or African-American",_80-84,Georgia,13,6932,1557,8489,0.8165861703
+"Black or African-American",_80-84,Hawaii,15,.,.,.,0.8095238095
+"Black or African-American",_80-84,Idaho,16,.,.,.,0.75
+"Black or African-American",_80-84,Illinois,17,6864,1669,8533,0.8044064221
+"Black or African-American",_80-84,Indiana,18,1894,424,2318,0.8170836928
+"Black or African-American",_80-84,Iowa,19,190,38,228,0.8333333333
+"Black or African-American",_80-84,Kansas,20,437,82,519,0.8420038536
+"Black or African-American",_80-84,Kentucky,21,1007,204,1211,0.8315441784
+"Black or African-American",_80-84,Louisiana,22,4272,1199,5471,0.7808444526
+"Black or African-American",_80-84,Maine,23,.,.,.,0.7741935484
+"Black or African-American",_80-84,Maryland,24,5909,1296,7205,0.8201249133
+"Black or African-American",_80-84,Massachusetts,25,1603,301,1904,0.8419117647
+"Black or African-American",_80-84,Michigan,26,4701,1204,5905,0.7961049958
+"Black or African-American",_80-84,Minnesota,27,302,73,375,0.8053333333
+"Black or African-American",_80-84,Mississippi,28,3836,1086,4922,0.7793579846
+"Black or African-American",_80-84,Missouri,29,1721,385,2106,0.8171889839
+"Black or African-American",_80-84,Montana,30,.,0,.,1
+"Black or African-American",_80-84,Nebraska,31,177,29,206,0.859223301
+"Black or African-American",_80-84,Nevada,32,578,144,722,0.8005540166
+"Black or African-American",_80-84,"New Hampshire",33,54,13,67,0.8059701493
+"Black or African-American",_80-84,"New Jersey",34,4674,1198,5872,0.7959809264
+"Black or African-American",_80-84,"New Mexico",35,98,17,115,0.852173913
+"Black or African-American",_80-84,"New York",36,7598,2166,9764,0.7781646866
+"Black or African-American",_80-84,"North Carolina",37,8219,1783,10002,0.8217356529
+"Black or African-American",_80-84,"North Dakota",38,.,.,.,0.8333333333
+"Black or African-American",_80-84,Ohio,39,4117,903,5020,0.8201195219
+"Black or African-American",_80-84,Oklahoma,40,609,136,745,0.8174496644
+"Black or African-American",_80-84,Oregon,41,96,20,116,0.8275862069
+"Black or African-American",_80-84,Pennsylvania,42,2915,658,3573,0.8158410299
+"Black or African-American",_80-84,"Rhode Island",44,126,23,149,0.8456375839
+"Black or African-American",_80-84,"South Carolina",45,4794,1184,5978,0.8019404483
+"Black or African-American",_80-84,"South Dakota",46,.,.,.,0.875
+"Black or African-American",_80-84,Tennessee,47,2830,656,3486,0.8118187034
+"Black or African-American",_80-84,Texas,48,7352,1783,9135,0.8048166393
+"Black or African-American",_80-84,Utah,49,.,.,.,0.8214285714
+"Black or African-American",_80-84,Vermont,50,.,0,.,1
+"Black or African-American",_80-84,Virginia,51,5633,1109,6742,0.8355087511
+"Black or African-American",_80-84,Washington,53,443,81,524,0.8454198473
+"Black or African-American",_80-84,"West Virginia",54,174,45,219,0.7945205479
+"Black or African-American",_80-84,Wisconsin,55,741,124,865,0.8566473988
+"Black or African-American",_80-84,Wyoming,56,.,.,.,0.875
+"Black or African-American",_85+,Alabama,1,3029,648,3677,0.8237693772
+"Black or African-American",_85+,Alaska,2,.,.,.,0.8684210526
+"Black or African-American",_85+,Arizona,4,272,46,318,0.8553459119
+"Black or African-American",_85+,Arkansas,5,973,230,1203,0.8088113051
+"Black or African-American",_85+,California,6,3494,898,4392,0.7955373406
+"Black or African-American",_85+,Colorado,8,153,19,172,0.8895348837
+"Black or African-American",_85+,Connecticut,9,1077,209,1286,0.8374805599
+"Black or African-American",_85+,Delaware,10,715,142,857,0.8343057176
+"Black or African-American",_85+,"District of Columbia",11,886,224,1110,0.7981981982
+"Black or African-American",_85+,Florida,12,5415,1388,6803,0.7959723651
+"Black or African-American",_85+,Georgia,13,5010,1169,6179,0.8108108108
+"Black or African-American",_85+,Hawaii,15,.,.,.,0.9333333333
+"Black or African-American",_85+,Idaho,16,.,.,.,0.8333333333
+"Black or African-American",_85+,Illinois,17,5322,1346,6668,0.7981403719
+"Black or African-American",_85+,Indiana,18,1545,357,1902,0.8123028391
+"Black or African-American",_85+,Iowa,19,133,26,159,0.8364779874
+"Black or African-American",_85+,Kansas,20,298,75,373,0.7989276139
+"Black or African-American",_85+,Kentucky,21,706,181,887,0.7959413754
+"Black or African-American",_85+,Louisiana,22,3212,825,4037,0.795640327
+"Black or African-American",_85+,Maine,23,.,.,.,0.8181818182
+"Black or African-American",_85+,Maryland,24,4584,1035,5619,0.8158035238
+"Black or African-American",_85+,Massachusetts,25,1274,270,1544,0.8251295337
+"Black or African-American",_85+,Michigan,26,4251,1092,5343,0.795620438
+"Black or African-American",_85+,Minnesota,27,200,42,242,0.826446281
+"Black or African-American",_85+,Mississippi,28,2921,814,3735,0.7820615797
+"Black or African-American",_85+,Missouri,29,1261,308,1569,0.8036966221
+"Black or African-American",_85+,Montana,30,.,0,.,1
+"Black or African-American",_85+,Nebraska,31,102,18,120,0.85
+"Black or African-American",_85+,Nevada,32,357,86,443,0.8058690745
+"Black or African-American",_85+,"New Hampshire",33,.,.,.,0.75
+"Black or African-American",_85+,"New Jersey",34,3749,966,4715,0.7951219512
+"Black or African-American",_85+,"New Mexico",35,65,13,78,0.8333333333
+"Black or African-American",_85+,"New York",36,6659,1916,8575,0.7765597668
+"Black or African-American",_85+,"North Carolina",37,6568,1411,7979,0.8231607971
+"Black or African-American",_85+,"North Dakota",38,.,0,.,1
+"Black or African-American",_85+,Ohio,39,3193,682,3875,0.824
+"Black or African-American",_85+,Oklahoma,40,485,116,601,0.8069883527
+"Black or African-American",_85+,Oregon,41,64,14,78,0.8205128205
+"Black or African-American",_85+,Pennsylvania,42,2317,545,2862,0.8095737247
+"Black or African-American",_85+,"Rhode Island",44,103,14,117,0.8803418803
+"Black or African-American",_85+,"South Carolina",45,3866,891,4757,0.812697078
+"Black or African-American",_85+,"South Dakota",46,.,0,.,1
+"Black or African-American",_85+,Tennessee,47,2164,502,2666,0.8117029257
+"Black or African-American",_85+,Texas,48,5674,1417,7091,0.8001692286
+"Black or African-American",_85+,Utah,49,.,.,.,0.8571428571
+"Black or African-American",_85+,Vermont,50,.,.,.,0.6428571429
+"Black or African-American",_85+,Virginia,51,4574,945,5519,0.8287733285
+"Black or African-American",_85+,Washington,53,289,45,334,0.8652694611
+"Black or African-American",_85+,"West Virginia",54,133,37,170,0.7823529412
+"Black or African-American",_85+,Wisconsin,55,561,96,657,0.8538812785
+"Black or African-American",_85+,Wyoming,56,.,.,.,0.8571428571
+Other,_18-39,Alabama,1,.,.,.,0.5
+Other,_18-39,Arizona,4,0,.,.,0
+Other,_18-39,Arkansas,5,.,0,.,1
+Other,_18-39,California,6,.,.,.,0.9166666667
+Other,_18-39,Colorado,8,.,.,.,0.8
+Other,_18-39,Connecticut,9,.,0,.,1
+Other,_18-39,Delaware,10,.,0,.,1
+Other,_18-39,Florida,12,.,.,.,0.8888888889
+Other,_18-39,Georgia,13,.,0,.,1
+Other,_18-39,Hawaii,15,.,0,.,1
+Other,_18-39,Idaho,16,.,0,.,1
+Other,_18-39,Illinois,17,16,0,16,1
+Other,_18-39,Indiana,18,.,.,.,0.7647058824
+Other,_18-39,Iowa,19,.,0,.,1
+Other,_18-39,Kansas,20,.,.,.,0.6
+Other,_18-39,Kentucky,21,.,0,.,1
+Other,_18-39,Louisiana,22,.,0,.,1
+Other,_18-39,Maine,23,.,.,.,0.75
+Other,_18-39,Maryland,24,.,0,.,1
+Other,_18-39,Massachusetts,25,.,.,.,0.6875
+Other,_18-39,Michigan,26,.,.,.,0.6363636364
+Other,_18-39,Minnesota,27,.,.,.,0.8571428571
+Other,_18-39,Missouri,29,.,.,.,0.8888888889
+Other,_18-39,Montana,30,.,0,.,1
+Other,_18-39,Nebraska,31,.,.,.,0.5
+Other,_18-39,Nevada,32,.,.,.,0.6666666667
+Other,_18-39,"New Hampshire",33,.,0,.,1
+Other,_18-39,"New Jersey",34,.,.,.,0.7
+Other,_18-39,"New York",36,.,.,.,0.8611111111
+Other,_18-39,"North Carolina",37,.,.,.,0.5
+Other,_18-39,Ohio,39,.,.,.,0.8461538462
+Other,_18-39,Oklahoma,40,.,0,.,1
+Other,_18-39,Oregon,41,.,0,.,1
+Other,_18-39,Pennsylvania,42,.,.,.,0.9166666667
+Other,_18-39,"Rhode Island",44,.,0,.,1
+Other,_18-39,"South Carolina",45,.,0,.,1
+Other,_18-39,"South Dakota",46,.,0,.,1
+Other,_18-39,Tennessee,47,.,.,.,0.6
+Other,_18-39,Texas,48,.,.,.,0.8
+Other,_18-39,Utah,49,.,0,.,1
+Other,_18-39,Vermont,50,0,.,.,0
+Other,_18-39,Virginia,51,.,.,.,0.6666666667
+Other,_18-39,Washington,53,.,.,.,0.8333333333
+Other,_18-39,"West Virginia",54,.,0,.,1
+Other,_18-39,Wisconsin,55,.,0,.,1
+Other,_40-64,Alabama,1,59,12,71,0.8309859155
+Other,_40-64,Alaska,2,.,.,.,0.8235294118
+Other,_40-64,Arizona,4,88,15,103,0.854368932
+Other,_40-64,Arkansas,5,.,.,.,0.8958333333
+Other,_40-64,California,6,769,136,905,0.8497237569
+Other,_40-64,Colorado,8,.,.,.,0.9242424242
+Other,_40-64,Connecticut,9,121,14,135,0.8962962963
+Other,_40-64,Delaware,10,.,.,.,0.7857142857
+Other,_40-64,"District of Columbia",11,.,.,.,0.75
+Other,_40-64,Florida,12,339,69,408,0.8308823529
+Other,_40-64,Georgia,13,88,24,112,0.7857142857
+Other,_40-64,Hawaii,15,179,40,219,0.8173515982
+Other,_40-64,Idaho,16,.,.,.,0.8181818182
+Other,_40-64,Illinois,17,226,37,263,0.8593155894
+Other,_40-64,Indiana,18,97,16,113,0.8584070796
+Other,_40-64,Iowa,19,.,.,.,0.9285714286
+Other,_40-64,Kansas,20,.,.,.,0.8863636364
+Other,_40-64,Kentucky,21,58,12,70,0.8285714286
+Other,_40-64,Louisiana,22,.,.,.,0.8648648649
+Other,_40-64,Maine,23,50,13,63,0.7936507937
+Other,_40-64,Maryland,24,76,18,94,0.8085106383
+Other,_40-64,Massachusetts,25,364,76,440,0.8272727273
+Other,_40-64,Michigan,26,275,46,321,0.8566978193
+Other,_40-64,Minnesota,27,151,23,174,0.867816092
+Other,_40-64,Mississippi,28,.,.,.,0.84375
+Other,_40-64,Missouri,29,97,12,109,0.8899082569
+Other,_40-64,Montana,30,.,.,.,0.8709677419
+Other,_40-64,Nebraska,31,.,.,.,0.9166666667
+Other,_40-64,Nevada,32,.,.,.,0.8524590164
+Other,_40-64,"New Hampshire",33,.,.,.,0.925
+Other,_40-64,"New Jersey",34,162,47,209,0.7751196172
+Other,_40-64,"New Mexico",35,.,.,.,0.8604651163
+Other,_40-64,"New York",36,647,131,778,0.8316195373
+Other,_40-64,"North Carolina",37,290,58,348,0.8333333333
+Other,_40-64,"North Dakota",38,.,.,.,0.9230769231
+Other,_40-64,Ohio,39,221,47,268,0.8246268657
+Other,_40-64,Oklahoma,40,61,13,74,0.8243243243
+Other,_40-64,Oregon,41,75,16,91,0.8241758242
+Other,_40-64,Pennsylvania,42,215,44,259,0.8301158301
+Other,_40-64,"Rhode Island",44,67,18,85,0.7882352941
+Other,_40-64,"South Carolina",45,45,15,60,0.75
+Other,_40-64,"South Dakota",46,.,.,.,0.9166666667
+Other,_40-64,Tennessee,47,92,27,119,0.7731092437
+Other,_40-64,Texas,48,197,43,240,0.8208333333
+Other,_40-64,Utah,49,.,.,.,0.8
+Other,_40-64,Vermont,50,.,.,.,0.92
+Other,_40-64,Virginia,51,110,18,128,0.859375
+Other,_40-64,Washington,53,137,25,162,0.8456790123
+Other,_40-64,"West Virginia",54,.,.,.,0.8604651163
+Other,_40-64,Wisconsin,55,98,12,110,0.8909090909
+Other,_40-64,Wyoming,56,.,0,.,1
+Other,_65-69,Alabama,1,66,11,77,0.8571428571
+Other,_65-69,Alaska,2,73,18,91,0.8021978022
+Other,_65-69,Arizona,4,305,85,390,0.7820512821
+Other,_65-69,Arkansas,5,.,.,.,0.8909090909
+Other,_65-69,California,6,3217,491,3708,0.867583603
+Other,_65-69,Colorado,8,175,18,193,0.9067357513
+Other,_65-69,Connecticut,9,168,22,190,0.8842105263
+Other,_65-69,Delaware,10,.,.,.,0.8571428571
+Other,_65-69,"District of Columbia",11,.,.,.,0.9090909091
+Other,_65-69,Florida,12,690,120,810,0.8518518519
+Other,_65-69,Georgia,13,238,48,286,0.8321678322
+Other,_65-69,Hawaii,15,890,114,1004,0.8864541833
+Other,_65-69,Idaho,16,58,12,70,0.8285714286
+Other,_65-69,Illinois,17,667,116,783,0.8518518519
+Other,_65-69,Indiana,18,157,29,186,0.8440860215
+Other,_65-69,Iowa,19,.,.,.,0.8974358974
+Other,_65-69,Kansas,20,.,.,.,0.9603960396
+Other,_65-69,Kentucky,21,72,11,83,0.8674698795
+Other,_65-69,Louisiana,22,93,24,117,0.7948717949
+Other,_65-69,Maine,23,.,.,.,0.8771929825
+Other,_65-69,Maryland,24,261,50,311,0.8392282958
+Other,_65-69,Massachusetts,25,469,69,538,0.8717472119
+Other,_65-69,Michigan,26,470,88,558,0.8422939068
+Other,_65-69,Minnesota,27,178,28,206,0.8640776699
+Other,_65-69,Mississippi,28,.,.,.,0.9130434783
+Other,_65-69,Missouri,29,101,22,123,0.8211382114
+Other,_65-69,Montana,30,39,11,50,0.78
+Other,_65-69,Nebraska,31,.,.,.,0.88
+Other,_65-69,Nevada,32,230,46,276,0.8333333333
+Other,_65-69,"New Hampshire",33,.,.,.,0.8
+Other,_65-69,"New Jersey",34,502,92,594,0.8451178451
+Other,_65-69,"New Mexico",35,93,23,116,0.8017241379
+Other,_65-69,"New York",36,988,216,1204,0.8205980066
+Other,_65-69,"North Carolina",37,491,88,579,0.8480138169
+Other,_65-69,"North Dakota",38,.,.,.,0.8235294118
+Other,_65-69,Ohio,39,327,46,373,0.8766756032
+Other,_65-69,Oklahoma,40,108,27,135,0.8
+Other,_65-69,Oregon,41,159,26,185,0.8594594595
+Other,_65-69,Pennsylvania,42,355,62,417,0.8513189448
+Other,_65-69,"Rhode Island",44,73,11,84,0.869047619
+Other,_65-69,"South Carolina",45,136,18,154,0.8831168831
+Other,_65-69,"South Dakota",46,.,.,.,0.72
+Other,_65-69,Tennessee,47,127,23,150,0.8466666667
+Other,_65-69,Texas,48,813,153,966,0.8416149068
+Other,_65-69,Utah,49,85,15,100,0.85
+Other,_65-69,Vermont,50,.,.,.,0.8484848485
+Other,_65-69,Virginia,51,338,56,394,0.8578680203
+Other,_65-69,Washington,53,398,70,468,0.8504273504
+Other,_65-69,"West Virginia",54,.,.,.,0.8604651163
+Other,_65-69,Wisconsin,55,179,18,197,0.9086294416
+Other,_65-69,Wyoming,56,.,.,.,0.75
+Other,_70-74,Alabama,1,142,27,169,0.8402366864
+Other,_70-74,Alaska,2,72,16,88,0.8181818182
+Other,_70-74,Arizona,4,462,74,536,0.8619402985
+Other,_70-74,Arkansas,5,85,13,98,0.8673469388
+Other,_70-74,California,6,5030,736,5766,0.8723551856
+Other,_70-74,Colorado,8,280,21,301,0.9302325581
+Other,_70-74,Connecticut,9,273,47,320,0.853125
+Other,_70-74,Delaware,10,143,12,155,0.9225806452
+Other,_70-74,"District of Columbia",11,.,.,.,0.8787878788
+Other,_70-74,Florida,12,1523,243,1766,0.862400906
+Other,_70-74,Georgia,13,391,76,467,0.8372591006
+Other,_70-74,Hawaii,15,1345,149,1494,0.9002677376
+Other,_70-74,Idaho,16,86,13,99,0.8686868687
+Other,_70-74,Illinois,17,1324,220,1544,0.8575129534
+Other,_70-74,Indiana,18,300,46,346,0.8670520231
+Other,_70-74,Iowa,19,149,25,174,0.8563218391
+Other,_70-74,Kansas,20,136,18,154,0.8831168831
+Other,_70-74,Kentucky,21,162,19,181,0.8950276243
+Other,_70-74,Louisiana,22,173,30,203,0.8522167488
+Other,_70-74,Maine,23,.,.,.,0.9117647059
+Other,_70-74,Maryland,24,534,101,635,0.8409448819
+Other,_70-74,Massachusetts,25,712,100,812,0.8768472906
+Other,_70-74,Michigan,26,804,146,950,0.8463157895
+Other,_70-74,Minnesota,27,260,34,294,0.8843537415
+Other,_70-74,Mississippi,28,.,.,.,0.875
+Other,_70-74,Missouri,29,236,30,266,0.8872180451
+Other,_70-74,Montana,30,.,.,.,0.9
+Other,_70-74,Nebraska,31,73,15,88,0.8295454545
+Other,_70-74,Nevada,32,446,70,516,0.8643410853
+Other,_70-74,"New Hampshire",33,.,.,.,0.9357798165
+Other,_70-74,"New Jersey",34,1208,203,1411,0.856130404
+Other,_70-74,"New Mexico",35,90,14,104,0.8653846154
+Other,_70-74,"New York",36,2089,383,2472,0.8450647249
+Other,_70-74,"North Carolina",37,745,144,889,0.8380202475
+Other,_70-74,"North Dakota",38,.,.,.,0.8260869565
+Other,_70-74,Ohio,39,631,107,738,0.8550135501
+Other,_70-74,Oklahoma,40,168,24,192,0.875
+Other,_70-74,Oregon,41,278,29,307,0.9055374593
+Other,_70-74,Pennsylvania,42,677,89,766,0.8838120104
+Other,_70-74,"Rhode Island",44,89,18,107,0.8317757009
+Other,_70-74,"South Carolina",45,224,31,255,0.8784313725
+Other,_70-74,"South Dakota",46,.,.,.,0.7419354839
+Other,_70-74,Tennessee,47,229,45,274,0.8357664234
+Other,_70-74,Texas,48,1437,256,1693,0.8487891317
+Other,_70-74,Utah,49,132,18,150,0.88
+Other,_70-74,Vermont,50,.,.,.,0.8873239437
+Other,_70-74,Virginia,51,645,107,752,0.857712766
+Other,_70-74,Washington,53,656,93,749,0.8758344459
+Other,_70-74,"West Virginia",54,68,15,83,0.8192771084
+Other,_70-74,Wisconsin,55,312,25,337,0.9258160237
+Other,_70-74,Wyoming,56,.,.,.,0.8076923077
+Other,_75-79,Alabama,1,150,20,170,0.8823529412
+Other,_75-79,Alaska,2,62,12,74,0.8378378378
+Other,_75-79,Arizona,4,421,56,477,0.8825995807
+Other,_75-79,Arkansas,5,88,18,106,0.8301886792
+Other,_75-79,California,6,4547,660,5207,0.8732475514
+Other,_75-79,Colorado,8,217,32,249,0.8714859438
+Other,_75-79,Connecticut,9,367,48,415,0.8843373494
+Other,_75-79,Delaware,10,.,.,.,0.9357798165
+Other,_75-79,"District of Columbia",11,.,.,.,0.875
+Other,_75-79,Florida,12,1645,284,1929,0.8527734578
+Other,_75-79,Georgia,13,405,67,472,0.8580508475
+Other,_75-79,Hawaii,15,1266,176,1442,0.8779472954
+Other,_75-79,Idaho,16,.,.,.,0.8888888889
+Other,_75-79,Illinois,17,1397,207,1604,0.8709476309
+Other,_75-79,Indiana,18,337,49,386,0.8730569948
+Other,_75-79,Iowa,19,198,16,214,0.9252336449
+Other,_75-79,Kansas,20,159,25,184,0.8641304348
+Other,_75-79,Kentucky,21,167,24,191,0.8743455497
+Other,_75-79,Louisiana,22,166,35,201,0.8258706468
+Other,_75-79,Maine,23,.,.,.,0.956043956
+Other,_75-79,Maryland,24,595,115,710,0.838028169
+Other,_75-79,Massachusetts,25,870,103,973,0.8941418294
+Other,_75-79,Michigan,26,854,112,966,0.884057971
+Other,_75-79,Minnesota,27,305,34,339,0.8997050147
+Other,_75-79,Mississippi,28,.,.,.,0.8769230769
+Other,_75-79,Missouri,29,269,25,294,0.9149659864
+Other,_75-79,Montana,30,.,.,.,0.9104477612
+Other,_75-79,Nebraska,31,107,12,119,0.8991596639
+Other,_75-79,Nevada,32,427,62,489,0.8732106339
+Other,_75-79,"New Hampshire",33,107,12,119,0.8991596639
+Other,_75-79,"New Jersey",34,1256,235,1491,0.8423876593
+Other,_75-79,"New Mexico",35,.,.,.,0.9102564103
+Other,_75-79,"New York",36,2192,439,2631,0.8331432915
+Other,_75-79,"North Carolina",37,777,113,890,0.8730337079
+Other,_75-79,"North Dakota",38,.,.,.,0.8245614035
+Other,_75-79,Ohio,39,645,111,756,0.8531746032
+Other,_75-79,Oklahoma,40,141,24,165,0.8545454545
+Other,_75-79,Oregon,41,231,31,262,0.8816793893
+Other,_75-79,Pennsylvania,42,665,101,766,0.8681462141
+Other,_75-79,"Rhode Island",44,106,14,120,0.8833333333
+Other,_75-79,"South Carolina",45,244,35,279,0.8745519713
+Other,_75-79,"South Dakota",46,.,.,.,0.9318181818
+Other,_75-79,Tennessee,47,232,36,268,0.8656716418
+Other,_75-79,Texas,48,1244,223,1467,0.8479890934
+Other,_75-79,Utah,49,105,15,120,0.875
+Other,_75-79,Vermont,50,.,.,.,0.8955223881
+Other,_75-79,Virginia,51,675,102,777,0.8687258687
+Other,_75-79,Washington,53,547,86,633,0.8641390205
+Other,_75-79,"West Virginia",54,.,.,.,0.9069767442
+Other,_75-79,Wisconsin,55,254,29,283,0.8975265018
+Other,_75-79,Wyoming,56,.,.,.,0.96875
+Other,_80-84,Alabama,1,63,13,76,0.8289473684
+Other,_80-84,Alaska,2,.,.,.,0.8648648649
+Other,_80-84,Arizona,4,184,32,216,0.8518518519
+Other,_80-84,Arkansas,5,.,.,.,0.8214285714
+Other,_80-84,California,6,3096,442,3538,0.8750706614
+Other,_80-84,Colorado,8,92,14,106,0.8679245283
+Other,_80-84,Connecticut,9,245,35,280,0.875
+Other,_80-84,Delaware,10,.,.,.,0.9156626506
+Other,_80-84,"District of Columbia",11,.,.,.,0.9512195122
+Other,_80-84,Florida,12,939,181,1120,0.8383928571
+Other,_80-84,Georgia,13,258,46,304,0.8486842105
+Other,_80-84,Hawaii,15,727,104,831,0.8748495788
+Other,_80-84,Idaho,16,39,12,51,0.7647058824
+Other,_80-84,Illinois,17,802,148,950,0.8442105263
+Other,_80-84,Indiana,18,149,27,176,0.8465909091
+Other,_80-84,Iowa,19,.,.,.,0.9012345679
+Other,_80-84,Kansas,20,92,13,105,0.8761904762
+Other,_80-84,Kentucky,21,87,14,101,0.8613861386
+Other,_80-84,Louisiana,22,101,23,124,0.814516129
+Other,_80-84,Maine,23,.,.,.,0.875
+Other,_80-84,Maryland,24,384,74,458,0.8384279476
+Other,_80-84,Massachusetts,25,679,95,774,0.8772609819
+Other,_80-84,Michigan,26,565,97,662,0.8534743202
+Other,_80-84,Minnesota,27,167,22,189,0.8835978836
+Other,_80-84,Mississippi,28,.,.,.,0.8305084746
+Other,_80-84,Missouri,29,159,21,180,0.8833333333
+Other,_80-84,Montana,30,.,.,.,0.9142857143
+Other,_80-84,Nebraska,31,.,.,.,0.9166666667
+Other,_80-84,Nevada,32,233,27,260,0.8961538462
+Other,_80-84,"New Hampshire",33,70,11,81,0.8641975309
+Other,_80-84,"New Jersey",34,815,151,966,0.8436853002
+Other,_80-84,"New Mexico",35,.,.,.,0.8125
+Other,_80-84,"New York",36,1905,380,2285,0.8336980306
+Other,_80-84,"North Carolina",37,436,54,490,0.8897959184
+Other,_80-84,"North Dakota",38,.,.,.,0.9032258065
+Other,_80-84,Ohio,39,349,63,412,0.8470873786
+Other,_80-84,Oklahoma,40,100,13,113,0.8849557522
+Other,_80-84,Oregon,41,142,20,162,0.8765432099
+Other,_80-84,Pennsylvania,42,385,69,454,0.8480176211
+Other,_80-84,"Rhode Island",44,.,.,.,0.8837209302
+Other,_80-84,"South Carolina",45,124,15,139,0.8920863309
+Other,_80-84,"South Dakota",46,.,.,.,0.9285714286
+Other,_80-84,Tennessee,47,117,23,140,0.8357142857
+Other,_80-84,Texas,48,663,103,766,0.865535248
+Other,_80-84,Utah,49,.,.,.,0.8780487805
+Other,_80-84,Vermont,50,.,.,.,0.9166666667
+Other,_80-84,Virginia,51,408,76,484,0.8429752066
+Other,_80-84,Washington,53,409,57,466,0.8776824034
+Other,_80-84,"West Virginia",54,.,.,.,0.8703703704
+Other,_80-84,Wisconsin,55,91,14,105,0.8666666667
+Other,_80-84,Wyoming,56,.,.,.,0.9285714286
+Other,_85+,Alabama,1,.,.,.,0.8611111111
+Other,_85+,Alaska,2,.,.,.,0.9
+Other,_85+,Arizona,4,94,17,111,0.8468468468
+Other,_85+,Arkansas,5,.,.,.,0.7037037037
+Other,_85+,California,6,2338,365,2703,0.8649648539
+Other,_85+,Colorado,8,.,.,.,0.8305084746
+Other,_85+,Connecticut,9,157,23,180,0.8722222222
+Other,_85+,Delaware,10,.,.,.,0.9411764706
+Other,_85+,"District of Columbia",11,.,.,.,0.9230769231
+Other,_85+,Florida,12,567,96,663,0.8552036199
+Other,_85+,Georgia,13,122,15,137,0.8905109489
+Other,_85+,Hawaii,15,603,88,691,0.8726483357
+Other,_85+,Idaho,16,.,.,.,0.9565217391
+Other,_85+,Illinois,17,384,85,469,0.8187633262
+Other,_85+,Indiana,18,95,12,107,0.8878504673
+Other,_85+,Iowa,19,.,.,.,0.8775510204
+Other,_85+,Kansas,20,.,.,.,0.8717948718
+Other,_85+,Kentucky,21,.,.,.,0.7333333333
+Other,_85+,Louisiana,22,.,.,.,0.8970588235
+Other,_85+,Maine,23,.,.,.,0.8709677419
+Other,_85+,Maryland,24,241,47,288,0.8368055556
+Other,_85+,Massachusetts,25,466,78,544,0.8566176471
+Other,_85+,Michigan,26,273,50,323,0.8452012384
+Other,_85+,Minnesota,27,78,11,89,0.8764044944
+Other,_85+,Mississippi,28,.,.,.,0.9565217391
+Other,_85+,Missouri,29,.,.,.,0.9154929577
+Other,_85+,Montana,30,.,.,.,0.9090909091
+Other,_85+,Nebraska,31,.,.,.,0.9285714286
+Other,_85+,Nevada,32,106,18,124,0.8548387097
+Other,_85+,"New Hampshire",33,.,.,.,0.8965517241
+Other,_85+,"New Jersey",34,466,104,570,0.8175438596
+Other,_85+,"New Mexico",35,.,.,.,0.85
+Other,_85+,"New York",36,1396,291,1687,0.8275044458
+Other,_85+,"North Carolina",37,201,34,235,0.8553191489
+Other,_85+,"North Dakota",38,.,.,.,0.9090909091
+Other,_85+,Ohio,39,197,36,233,0.8454935622
+Other,_85+,Oklahoma,40,.,.,.,0.8260869565
+Other,_85+,Oregon,41,.,.,.,0.8591549296
+Other,_85+,Pennsylvania,42,233,45,278,0.8381294964
+Other,_85+,"Rhode Island",44,.,.,.,0.8615384615
+Other,_85+,"South Carolina",45,.,.,.,0.8923076923
+Other,_85+,"South Dakota",46,.,.,.,0.75
+Other,_85+,Tennessee,47,.,.,.,0.8666666667
+Other,_85+,Texas,48,302,50,352,0.8579545455
+Other,_85+,Utah,49,.,.,.,0.75
+Other,_85+,Vermont,50,.,.,.,0.8461538462
+Other,_85+,Virginia,51,213,21,234,0.9102564103
+Other,_85+,Washington,53,240,35,275,0.8727272727
+Other,_85+,"West Virginia",54,.,.,.,0.8
+Other,_85+,Wisconsin,55,.,.,.,0.9076923077
+Other,_85+,Wyoming,56,.,0,.,1
+"Asian/Pacific Islander",_18-39,Alabama,1,.,.,.,0.8
+"Asian/Pacific Islander",_18-39,Alaska,2,.,.,.,0.7142857143
+"Asian/Pacific Islander",_18-39,Arizona,4,.,.,.,0.8181818182
+"Asian/Pacific Islander",_18-39,Arkansas,5,.,.,.,0.6363636364
+"Asian/Pacific Islander",_18-39,California,6,332,74,406,0.8177339901
+"Asian/Pacific Islander",_18-39,Colorado,8,.,.,.,0.9166666667
+"Asian/Pacific Islander",_18-39,Connecticut,9,.,.,.,0.7777777778
+"Asian/Pacific Islander",_18-39,Delaware,10,.,.,.,0.8
+"Asian/Pacific Islander",_18-39,Florida,12,50,11,61,0.8196721311
+"Asian/Pacific Islander",_18-39,Georgia,13,.,.,.,0.9333333333
+"Asian/Pacific Islander",_18-39,Hawaii,15,48,15,63,0.7619047619
+"Asian/Pacific Islander",_18-39,Idaho,16,.,0,.,1
+"Asian/Pacific Islander",_18-39,Illinois,17,.,.,.,0.9523809524
+"Asian/Pacific Islander",_18-39,Indiana,18,.,.,.,0.625
+"Asian/Pacific Islander",_18-39,Iowa,19,.,.,.,0.8
+"Asian/Pacific Islander",_18-39,Kansas,20,.,0,.,1
+"Asian/Pacific Islander",_18-39,Kentucky,21,.,.,.,0.6666666667
+"Asian/Pacific Islander",_18-39,Louisiana,22,.,.,.,0.6
+"Asian/Pacific Islander",_18-39,Maine,23,.,.,.,0.8333333333
+"Asian/Pacific Islander",_18-39,Maryland,24,.,.,.,0.75
+"Asian/Pacific Islander",_18-39,Massachusetts,25,.,.,.,0.8611111111
+"Asian/Pacific Islander",_18-39,Michigan,26,.,.,.,0.7872340426
+"Asian/Pacific Islander",_18-39,Minnesota,27,52,13,65,0.8
+"Asian/Pacific Islander",_18-39,Mississippi,28,.,.,.,0.5
+"Asian/Pacific Islander",_18-39,Missouri,29,.,.,.,0.7692307692
+"Asian/Pacific Islander",_18-39,Montana,30,.,.,.,0.5
+"Asian/Pacific Islander",_18-39,Nebraska,31,.,.,.,0.8
+"Asian/Pacific Islander",_18-39,Nevada,32,.,.,.,0.7741935484
+"Asian/Pacific Islander",_18-39,"New Hampshire",33,.,0,.,1
+"Asian/Pacific Islander",_18-39,"New Jersey",34,44,12,56,0.7857142857
+"Asian/Pacific Islander",_18-39,"New Mexico",35,.,0,.,1
+"Asian/Pacific Islander",_18-39,"New York",36,88,21,109,0.8073394495
+"Asian/Pacific Islander",_18-39,"North Carolina",37,.,.,.,0.9090909091
+"Asian/Pacific Islander",_18-39,"North Dakota",38,.,0,.,1
+"Asian/Pacific Islander",_18-39,Ohio,39,.,.,.,0.9130434783
+"Asian/Pacific Islander",_18-39,Oklahoma,40,.,0,.,1
+"Asian/Pacific Islander",_18-39,Oregon,41,.,.,.,0.7692307692
+"Asian/Pacific Islander",_18-39,Pennsylvania,42,.,.,.,0.8139534884
+"Asian/Pacific Islander",_18-39,"Rhode Island",44,.,0,.,1
+"Asian/Pacific Islander",_18-39,"South Carolina",45,.,.,.,0.75
+"Asian/Pacific Islander",_18-39,Tennessee,47,.,.,.,0.6666666667
+"Asian/Pacific Islander",_18-39,Texas,48,59,21,80,0.7375
+"Asian/Pacific Islander",_18-39,Utah,49,.,0,.,1
+"Asian/Pacific Islander",_18-39,Vermont,50,.,.,.,0.6666666667
+"Asian/Pacific Islander",_18-39,Virginia,51,.,.,.,0.8048780488
+"Asian/Pacific Islander",_18-39,Washington,53,.,.,.,0.8653846154
+"Asian/Pacific Islander",_18-39,Wisconsin,55,.,.,.,0.8421052632
+"Asian/Pacific Islander",_18-39,Wyoming,56,.,0,.,1
+"Asian/Pacific Islander",_40-64,Alabama,1,65,20,85,0.7647058824
+"Asian/Pacific Islander",_40-64,Alaska,2,106,22,128,0.828125
+"Asian/Pacific Islander",_40-64,Arizona,4,223,29,252,0.8849206349
+"Asian/Pacific Islander",_40-64,Arkansas,5,84,29,113,0.7433628319
+"Asian/Pacific Islander",_40-64,California,6,7126,1486,8612,0.8274500697
+"Asian/Pacific Islander",_40-64,Colorado,8,167,37,204,0.818627451
+"Asian/Pacific Islander",_40-64,Connecticut,9,203,28,231,0.8787878788
+"Asian/Pacific Islander",_40-64,Delaware,10,.,.,.,0.8571428571
+"Asian/Pacific Islander",_40-64,"District of Columbia",11,.,.,.,0.68
+"Asian/Pacific Islander",_40-64,Florida,12,676,164,840,0.8047619048
+"Asian/Pacific Islander",_40-64,Georgia,13,310,74,384,0.8072916667
+"Asian/Pacific Islander",_40-64,Hawaii,15,1134,220,1354,0.8375184638
+"Asian/Pacific Islander",_40-64,Idaho,16,54,13,67,0.8059701493
+"Asian/Pacific Islander",_40-64,Illinois,17,797,151,948,0.8407172996
+"Asian/Pacific Islander",_40-64,Indiana,18,150,32,182,0.8241758242
+"Asian/Pacific Islander",_40-64,Iowa,19,102,20,122,0.8360655738
+"Asian/Pacific Islander",_40-64,Kansas,20,94,20,114,0.8245614035
+"Asian/Pacific Islander",_40-64,Kentucky,21,70,22,92,0.7608695652
+"Asian/Pacific Islander",_40-64,Louisiana,22,154,44,198,0.7777777778
+"Asian/Pacific Islander",_40-64,Maine,23,.,.,.,0.8833333333
+"Asian/Pacific Islander",_40-64,Maryland,24,318,58,376,0.8457446809
+"Asian/Pacific Islander",_40-64,Massachusetts,25,822,167,989,0.8311425683
+"Asian/Pacific Islander",_40-64,Michigan,26,526,117,643,0.8180404355
+"Asian/Pacific Islander",_40-64,Minnesota,27,707,176,883,0.8006795017
+"Asian/Pacific Islander",_40-64,Mississippi,28,49,11,60,0.8166666667
+"Asian/Pacific Islander",_40-64,Missouri,29,160,32,192,0.8333333333
+"Asian/Pacific Islander",_40-64,Montana,30,.,.,.,0.8333333333
+"Asian/Pacific Islander",_40-64,Nebraska,31,73,14,87,0.8390804598
+"Asian/Pacific Islander",_40-64,Nevada,32,319,81,400,0.7975
+"Asian/Pacific Islander",_40-64,"New Hampshire",33,.,.,.,0.8372093023
+"Asian/Pacific Islander",_40-64,"New Jersey",34,738,135,873,0.8453608247
+"Asian/Pacific Islander",_40-64,"New Mexico",35,.,.,.,0.8125
+"Asian/Pacific Islander",_40-64,"New York",36,1618,330,1948,0.8305954825
+"Asian/Pacific Islander",_40-64,"North Carolina",37,324,88,412,0.786407767
+"Asian/Pacific Islander",_40-64,"North Dakota",38,18,0,18,1
+"Asian/Pacific Islander",_40-64,Ohio,39,249,62,311,0.8006430868
+"Asian/Pacific Islander",_40-64,Oklahoma,40,117,34,151,0.7748344371
+"Asian/Pacific Islander",_40-64,Oregon,41,246,52,298,0.8255033557
+"Asian/Pacific Islander",_40-64,Pennsylvania,42,646,110,756,0.8544973545
+"Asian/Pacific Islander",_40-64,"Rhode Island",44,99,20,119,0.8319327731
+"Asian/Pacific Islander",_40-64,"South Carolina",45,93,27,120,0.775
+"Asian/Pacific Islander",_40-64,"South Dakota",46,.,.,.,0.8666666667
+"Asian/Pacific Islander",_40-64,Tennessee,47,133,35,168,0.7916666667
+"Asian/Pacific Islander",_40-64,Texas,48,970,215,1185,0.8185654008
+"Asian/Pacific Islander",_40-64,Utah,49,102,25,127,0.8031496063
+"Asian/Pacific Islander",_40-64,Vermont,50,.,.,.,0.9375
+"Asian/Pacific Islander",_40-64,Virginia,51,434,89,523,0.8298279159
+"Asian/Pacific Islander",_40-64,Washington,53,850,181,1031,0.824442289
+"Asian/Pacific Islander",_40-64,"West Virginia",54,.,.,.,0.7586206897
+"Asian/Pacific Islander",_40-64,Wisconsin,55,401,105,506,0.7924901186
+"Asian/Pacific Islander",_40-64,Wyoming,56,.,.,.,0.7142857143
+"Asian/Pacific Islander",_65-69,Alabama,1,186,37,223,0.8340807175
+"Asian/Pacific Islander",_65-69,Alaska,2,243,70,313,0.7763578275
+"Asian/Pacific Islander",_65-69,Arizona,4,798,152,950,0.84
+"Asian/Pacific Islander",_65-69,Arkansas,5,159,38,197,0.807106599
+"Asian/Pacific Islander",_65-69,California,6,25144,4537,29681,0.8471412688
+"Asian/Pacific Islander",_65-69,Colorado,8,488,68,556,0.8776978417
+"Asian/Pacific Islander",_65-69,Connecticut,9,549,99,648,0.8472222222
+"Asian/Pacific Islander",_65-69,Delaware,10,220,38,258,0.8527131783
+"Asian/Pacific Islander",_65-69,"District of Columbia",11,75,12,87,0.8620689655
+"Asian/Pacific Islander",_65-69,Florida,12,1936,387,2323,0.8334050796
+"Asian/Pacific Islander",_65-69,Georgia,13,1149,244,1393,0.8248384781
+"Asian/Pacific Islander",_65-69,Hawaii,15,3467,546,4013,0.8639421879
+"Asian/Pacific Islander",_65-69,Idaho,16,107,17,124,0.8629032258
+"Asian/Pacific Islander",_65-69,Illinois,17,3224,547,3771,0.8549456378
+"Asian/Pacific Islander",_65-69,Indiana,18,393,71,464,0.8469827586
+"Asian/Pacific Islander",_65-69,Iowa,19,256,37,293,0.8737201365
+"Asian/Pacific Islander",_65-69,Kansas,20,267,51,318,0.8396226415
+"Asian/Pacific Islander",_65-69,Kentucky,21,186,44,230,0.8086956522
+"Asian/Pacific Islander",_65-69,Louisiana,22,444,81,525,0.8457142857
+"Asian/Pacific Islander",_65-69,Maine,23,66,11,77,0.8571428571
+"Asian/Pacific Islander",_65-69,Maryland,24,1879,381,2260,0.8314159292
+"Asian/Pacific Islander",_65-69,Massachusetts,25,1808,295,2103,0.8597242035
+"Asian/Pacific Islander",_65-69,Michigan,26,1183,244,1427,0.8290119131
+"Asian/Pacific Islander",_65-69,Minnesota,27,672,143,815,0.8245398773
+"Asian/Pacific Islander",_65-69,Mississippi,28,149,42,191,0.780104712
+"Asian/Pacific Islander",_65-69,Missouri,29,329,70,399,0.8245614035
+"Asian/Pacific Islander",_65-69,Montana,30,.,.,.,0.8510638298
+"Asian/Pacific Islander",_65-69,Nebraska,31,133,20,153,0.8692810458
+"Asian/Pacific Islander",_65-69,Nevada,32,1045,213,1258,0.8306836248
+"Asian/Pacific Islander",_65-69,"New Hampshire",33,96,18,114,0.8421052632
+"Asian/Pacific Islander",_65-69,"New Jersey",34,3135,609,3744,0.8373397436
+"Asian/Pacific Islander",_65-69,"New Mexico",35,132,18,150,0.88
+"Asian/Pacific Islander",_65-69,"New York",36,4505,875,5380,0.8373605948
+"Asian/Pacific Islander",_65-69,"North Carolina",37,921,151,1072,0.859141791
+"Asian/Pacific Islander",_65-69,"North Dakota",38,.,.,.,0.9032258065
+"Asian/Pacific Islander",_65-69,Ohio,39,801,151,952,0.8413865546
+"Asian/Pacific Islander",_65-69,Oklahoma,40,323,68,391,0.8260869565
+"Asian/Pacific Islander",_65-69,Oregon,41,575,99,674,0.853115727
+"Asian/Pacific Islander",_65-69,Pennsylvania,42,1802,286,2088,0.8630268199
+"Asian/Pacific Islander",_65-69,"Rhode Island",44,140,27,167,0.8383233533
+"Asian/Pacific Islander",_65-69,"South Carolina",45,346,65,411,0.8418491484
+"Asian/Pacific Islander",_65-69,"South Dakota",46,.,.,.,0.8444444444
+"Asian/Pacific Islander",_65-69,Tennessee,47,368,70,438,0.8401826484
+"Asian/Pacific Islander",_65-69,Texas,48,4378,879,5257,0.8327943694
+"Asian/Pacific Islander",_65-69,Utah,49,251,48,299,0.8394648829
+"Asian/Pacific Islander",_65-69,Vermont,50,.,.,.,0.8387096774
+"Asian/Pacific Islander",_65-69,Virginia,51,1859,373,2232,0.8328853047
+"Asian/Pacific Islander",_65-69,Washington,53,2077,366,2443,0.8501841998
+"Asian/Pacific Islander",_65-69,"West Virginia",54,.,.,.,0.9178082192
+"Asian/Pacific Islander",_65-69,Wisconsin,55,482,102,584,0.8253424658
+"Asian/Pacific Islander",_65-69,Wyoming,56,.,.,.,0.7878787879
+"Asian/Pacific Islander",_70-74,Alabama,1,306,60,366,0.8360655738
+"Asian/Pacific Islander",_70-74,Alaska,2,278,51,329,0.8449848024
+"Asian/Pacific Islander",_70-74,Arizona,4,1172,165,1337,0.8765893792
+"Asian/Pacific Islander",_70-74,Arkansas,5,225,58,283,0.7950530035
+"Asian/Pacific Islander",_70-74,California,6,39243,6342,45585,0.8608752879
+"Asian/Pacific Islander",_70-74,Colorado,8,729,89,818,0.891198044
+"Asian/Pacific Islander",_70-74,Connecticut,9,911,138,1049,0.8684461392
+"Asian/Pacific Islander",_70-74,Delaware,10,327,43,370,0.8837837838
+"Asian/Pacific Islander",_70-74,"District of Columbia",11,115,16,131,0.8778625954
+"Asian/Pacific Islander",_70-74,Florida,12,3411,650,4061,0.8399409013
+"Asian/Pacific Islander",_70-74,Georgia,13,2064,360,2424,0.8514851485
+"Asian/Pacific Islander",_70-74,Hawaii,15,5309,734,6043,0.8785371504
+"Asian/Pacific Islander",_70-74,Idaho,16,127,17,144,0.8819444444
+"Asian/Pacific Islander",_70-74,Illinois,17,5394,848,6242,0.864146107
+"Asian/Pacific Islander",_70-74,Indiana,18,587,114,701,0.8373751783
+"Asian/Pacific Islander",_70-74,Iowa,19,318,52,370,0.8594594595
+"Asian/Pacific Islander",_70-74,Kansas,20,454,70,524,0.8664122137
+"Asian/Pacific Islander",_70-74,Kentucky,21,262,60,322,0.8136645963
+"Asian/Pacific Islander",_70-74,Louisiana,22,538,112,650,0.8276923077
+"Asian/Pacific Islander",_70-74,Maine,23,104,20,124,0.8387096774
+"Asian/Pacific Islander",_70-74,Maryland,24,2810,486,3296,0.8525485437
+"Asian/Pacific Islander",_70-74,Massachusetts,25,2769,383,3152,0.8784898477
+"Asian/Pacific Islander",_70-74,Michigan,26,1663,336,1999,0.831915958
+"Asian/Pacific Islander",_70-74,Minnesota,27,875,177,1052,0.8317490494
+"Asian/Pacific Islander",_70-74,Mississippi,28,202,41,243,0.8312757202
+"Asian/Pacific Islander",_70-74,Missouri,29,555,102,657,0.8447488584
+"Asian/Pacific Islander",_70-74,Montana,30,.,.,.,0.8888888889
+"Asian/Pacific Islander",_70-74,Nebraska,31,194,19,213,0.9107981221
+"Asian/Pacific Islander",_70-74,Nevada,32,1792,290,2082,0.8607108549
+"Asian/Pacific Islander",_70-74,"New Hampshire",33,116,23,139,0.8345323741
+"Asian/Pacific Islander",_70-74,"New Jersey",34,5521,914,6435,0.857964258
+"Asian/Pacific Islander",_70-74,"New Mexico",35,166,26,192,0.8645833333
+"Asian/Pacific Islander",_70-74,"New York",36,8462,1550,10012,0.8451857771
+"Asian/Pacific Islander",_70-74,"North Carolina",37,1316,245,1561,0.8430493274
+"Asian/Pacific Islander",_70-74,"North Dakota",38,.,.,.,0.8285714286
+"Asian/Pacific Islander",_70-74,Ohio,39,1354,236,1590,0.851572327
+"Asian/Pacific Islander",_70-74,Oklahoma,40,427,69,496,0.8608870968
+"Asian/Pacific Islander",_70-74,Oregon,41,912,142,1054,0.8652751423
+"Asian/Pacific Islander",_70-74,Pennsylvania,42,2740,438,3178,0.8621774701
+"Asian/Pacific Islander",_70-74,"Rhode Island",44,202,34,236,0.8559322034
+"Asian/Pacific Islander",_70-74,"South Carolina",45,532,93,625,0.8512
+"Asian/Pacific Islander",_70-74,"South Dakota",46,.,.,.,0.8909090909
+"Asian/Pacific Islander",_70-74,Tennessee,47,579,111,690,0.8391304348
+"Asian/Pacific Islander",_70-74,Texas,48,7623,1318,8941,0.8525891958
+"Asian/Pacific Islander",_70-74,Utah,49,347,74,421,0.8242280285
+"Asian/Pacific Islander",_70-74,Vermont,50,.,.,.,0.8823529412
+"Asian/Pacific Islander",_70-74,Virginia,51,3235,540,3775,0.8569536424
+"Asian/Pacific Islander",_70-74,Washington,53,3893,533,4426,0.8795752372
+"Asian/Pacific Islander",_70-74,"West Virginia",54,79,20,99,0.797979798
+"Asian/Pacific Islander",_70-74,Wisconsin,55,583,117,700,0.8328571429
+"Asian/Pacific Islander",_70-74,Wyoming,56,.,.,.,0.8333333333
+"Asian/Pacific Islander",_75-79,Alabama,1,202,33,235,0.8595744681
+"Asian/Pacific Islander",_75-79,Alaska,2,225,30,255,0.8823529412
+"Asian/Pacific Islander",_75-79,Arizona,4,799,127,926,0.8628509719
+"Asian/Pacific Islander",_75-79,Arkansas,5,134,28,162,0.8271604938
+"Asian/Pacific Islander",_75-79,California,6,34102,5107,39209,0.8697492923
+"Asian/Pacific Islander",_75-79,Colorado,8,503,82,585,0.8598290598
+"Asian/Pacific Islander",_75-79,Connecticut,9,536,91,627,0.8548644338
+"Asian/Pacific Islander",_75-79,Delaware,10,203,23,226,0.8982300885
+"Asian/Pacific Islander",_75-79,"District of Columbia",11,.,.,.,0.9512195122
+"Asian/Pacific Islander",_75-79,Florida,12,2809,488,3297,0.8519866545
+"Asian/Pacific Islander",_75-79,Georgia,13,1568,281,1849,0.84802596
+"Asian/Pacific Islander",_75-79,Hawaii,15,4907,623,5530,0.8873417722
+"Asian/Pacific Islander",_75-79,Idaho,16,97,13,110,0.8818181818
+"Asian/Pacific Islander",_75-79,Illinois,17,4027,630,4657,0.8647197767
+"Asian/Pacific Islander",_75-79,Indiana,18,436,80,516,0.8449612403
+"Asian/Pacific Islander",_75-79,Iowa,19,248,37,285,0.8701754386
+"Asian/Pacific Islander",_75-79,Kansas,20,306,65,371,0.8247978437
+"Asian/Pacific Islander",_75-79,Kentucky,21,188,36,224,0.8392857143
+"Asian/Pacific Islander",_75-79,Louisiana,22,368,75,443,0.8306997743
+"Asian/Pacific Islander",_75-79,Maine,23,.,.,.,0.8765432099
+"Asian/Pacific Islander",_75-79,Maryland,24,2458,418,2876,0.854659249
+"Asian/Pacific Islander",_75-79,Massachusetts,25,2123,248,2371,0.8954027836
+"Asian/Pacific Islander",_75-79,Michigan,26,1331,254,1585,0.8397476341
+"Asian/Pacific Islander",_75-79,Minnesota,27,546,104,650,0.84
+"Asian/Pacific Islander",_75-79,Mississippi,28,123,34,157,0.7834394904
+"Asian/Pacific Islander",_75-79,Missouri,29,420,72,492,0.8536585366
+"Asian/Pacific Islander",_75-79,Montana,30,.,.,.,0.9166666667
+"Asian/Pacific Islander",_75-79,Nebraska,31,122,14,136,0.8970588235
+"Asian/Pacific Islander",_75-79,Nevada,32,1411,231,1642,0.859317905
+"Asian/Pacific Islander",_75-79,"New Hampshire",33,111,12,123,0.9024390244
+"Asian/Pacific Islander",_75-79,"New Jersey",34,4583,799,5382,0.8515421776
+"Asian/Pacific Islander",_75-79,"New Mexico",35,109,15,124,0.8790322581
+"Asian/Pacific Islander",_75-79,"New York",36,7937,1196,9133,0.8690463156
+"Asian/Pacific Islander",_75-79,"North Carolina",37,1040,212,1252,0.8306709265
+"Asian/Pacific Islander",_75-79,"North Dakota",38,.,.,.,0.7777777778
+"Asian/Pacific Islander",_75-79,Ohio,39,951,180,1131,0.8408488064
+"Asian/Pacific Islander",_75-79,Oklahoma,40,308,56,364,0.8461538462
+"Asian/Pacific Islander",_75-79,Oregon,41,653,77,730,0.8945205479
+"Asian/Pacific Islander",_75-79,Pennsylvania,42,2061,312,2373,0.8685208597
+"Asian/Pacific Islander",_75-79,"Rhode Island",44,127,18,145,0.875862069
+"Asian/Pacific Islander",_75-79,"South Carolina",45,340,54,394,0.8629441624
+"Asian/Pacific Islander",_75-79,"South Dakota",46,.,.,.,0.8421052632
+"Asian/Pacific Islander",_75-79,Tennessee,47,426,76,502,0.8486055777
+"Asian/Pacific Islander",_75-79,Texas,48,6234,1095,7329,0.8505935325
+"Asian/Pacific Islander",_75-79,Utah,49,241,46,287,0.8397212544
+"Asian/Pacific Islander",_75-79,Vermont,50,49,11,60,0.8166666667
+"Asian/Pacific Islander",_75-79,Virginia,51,2642,396,3038,0.8696510862
+"Asian/Pacific Islander",_75-79,Washington,53,3330,414,3744,0.8894230769
+"Asian/Pacific Islander",_75-79,"West Virginia",54,.,.,.,0.8529411765
+"Asian/Pacific Islander",_75-79,Wisconsin,55,411,74,485,0.8474226804
+"Asian/Pacific Islander",_75-79,Wyoming,56,.,.,.,0.7272727273
+"Asian/Pacific Islander",_80-84,Alabama,1,133,20,153,0.8692810458
+"Asian/Pacific Islander",_80-84,Alaska,2,156,28,184,0.847826087
+"Asian/Pacific Islander",_80-84,Arizona,4,463,77,540,0.8574074074
+"Asian/Pacific Islander",_80-84,Arkansas,5,71,16,87,0.816091954
+"Asian/Pacific Islander",_80-84,California,6,26546,3989,30535,0.869363026
+"Asian/Pacific Islander",_80-84,Colorado,8,249,47,296,0.8412162162
+"Asian/Pacific Islander",_80-84,Connecticut,9,435,62,497,0.8752515091
+"Asian/Pacific Islander",_80-84,Delaware,10,139,21,160,0.86875
+"Asian/Pacific Islander",_80-84,"District of Columbia",11,.,.,.,0.9076923077
+"Asian/Pacific Islander",_80-84,Florida,12,1831,320,2151,0.8512319851
+"Asian/Pacific Islander",_80-84,Georgia,13,971,136,1107,0.8771454381
+"Asian/Pacific Islander",_80-84,Hawaii,15,3125,455,3580,0.8729050279
+"Asian/Pacific Islander",_80-84,Idaho,16,.,.,.,0.8490566038
+"Asian/Pacific Islander",_80-84,Illinois,17,2438,362,2800,0.8707142857
+"Asian/Pacific Islander",_80-84,Indiana,18,258,44,302,0.8543046358
+"Asian/Pacific Islander",_80-84,Iowa,19,155,25,180,0.8611111111
+"Asian/Pacific Islander",_80-84,Kansas,20,169,27,196,0.862244898
+"Asian/Pacific Islander",_80-84,Kentucky,21,93,21,114,0.8157894737
+"Asian/Pacific Islander",_80-84,Louisiana,22,224,39,263,0.8517110266
+"Asian/Pacific Islander",_80-84,Maine,23,.,.,.,0.9130434783
+"Asian/Pacific Islander",_80-84,Maryland,24,1820,273,2093,0.8695652174
+"Asian/Pacific Islander",_80-84,Massachusetts,25,1465,175,1640,0.8932926829
+"Asian/Pacific Islander",_80-84,Michigan,26,922,145,1067,0.8641049672
+"Asian/Pacific Islander",_80-84,Minnesota,27,311,53,364,0.8543956044
+"Asian/Pacific Islander",_80-84,Mississippi,28,91,19,110,0.8272727273
+"Asian/Pacific Islander",_80-84,Missouri,29,291,40,331,0.8791540785
+"Asian/Pacific Islander",_80-84,Montana,30,.,.,.,0.8888888889
+"Asian/Pacific Islander",_80-84,Nebraska,31,.,.,.,0.9047619048
+"Asian/Pacific Islander",_80-84,Nevada,32,856,127,983,0.8708036623
+"Asian/Pacific Islander",_80-84,"New Hampshire",33,.,.,.,0.9552238806
+"Asian/Pacific Islander",_80-84,"New Jersey",34,3296,532,3828,0.8610240334
+"Asian/Pacific Islander",_80-84,"New Mexico",35,.,.,.,0.8723404255
+"Asian/Pacific Islander",_80-84,"New York",36,6396,931,7327,0.8729357172
+"Asian/Pacific Islander",_80-84,"North Carolina",37,680,101,781,0.8706786172
+"Asian/Pacific Islander",_80-84,"North Dakota",38,.,.,.,0.7692307692
+"Asian/Pacific Islander",_80-84,Ohio,39,652,98,750,0.8693333333
+"Asian/Pacific Islander",_80-84,Oklahoma,40,179,40,219,0.8173515982
+"Asian/Pacific Islander",_80-84,Oregon,41,418,57,475,0.88
+"Asian/Pacific Islander",_80-84,Pennsylvania,42,1323,190,1513,0.8744216788
+"Asian/Pacific Islander",_80-84,"Rhode Island",44,.,.,.,0.8965517241
+"Asian/Pacific Islander",_80-84,"South Carolina",45,195,34,229,0.8515283843
+"Asian/Pacific Islander",_80-84,"South Dakota",46,16,0,16,1
+"Asian/Pacific Islander",_80-84,Tennessee,47,252,36,288,0.875
+"Asian/Pacific Islander",_80-84,Texas,48,4159,689,4848,0.857879538
+"Asian/Pacific Islander",_80-84,Utah,49,107,23,130,0.8230769231
+"Asian/Pacific Islander",_80-84,Vermont,50,.,.,.,0.9130434783
+"Asian/Pacific Islander",_80-84,Virginia,51,1874,281,2155,0.8696055684
+"Asian/Pacific Islander",_80-84,Washington,53,2512,301,2813,0.8929968006
+"Asian/Pacific Islander",_80-84,"West Virginia",54,.,.,.,0.8666666667
+"Asian/Pacific Islander",_80-84,Wisconsin,55,272,56,328,0.8292682927
+"Asian/Pacific Islander",_80-84,Wyoming,56,.,.,.,0.9090909091
+"Asian/Pacific Islander",_85+,Alabama,1,66,14,80,0.825
+"Asian/Pacific Islander",_85+,Alaska,2,102,22,124,0.8225806452
+"Asian/Pacific Islander",_85+,Arizona,4,248,52,300,0.8266666667
+"Asian/Pacific Islander",_85+,Arkansas,5,.,.,.,0.8653846154
+"Asian/Pacific Islander",_85+,California,6,26775,4213,30988,0.8640441461
+"Asian/Pacific Islander",_85+,Colorado,8,138,40,178,0.7752808989
+"Asian/Pacific Islander",_85+,Connecticut,9,329,56,385,0.8545454545
+"Asian/Pacific Islander",_85+,Delaware,10,.,.,.,0.9296875
+"Asian/Pacific Islander",_85+,"District of Columbia",11,.,.,.,0.9137931034
+"Asian/Pacific Islander",_85+,Florida,12,1240,238,1478,0.8389715832
+"Asian/Pacific Islander",_85+,Georgia,13,497,84,581,0.8554216867
+"Asian/Pacific Islander",_85+,Hawaii,15,3591,488,4079,0.880362834
+"Asian/Pacific Islander",_85+,Idaho,16,.,.,.,0.8571428571
+"Asian/Pacific Islander",_85+,Illinois,17,1593,242,1835,0.868119891
+"Asian/Pacific Islander",_85+,Indiana,18,163,35,198,0.8232323232
+"Asian/Pacific Islander",_85+,Iowa,19,112,15,127,0.8818897638
+"Asian/Pacific Islander",_85+,Kansas,20,122,14,136,0.8970588235
+"Asian/Pacific Islander",_85+,Kentucky,21,58,16,74,0.7837837838
+"Asian/Pacific Islander",_85+,Louisiana,22,176,39,215,0.8186046512
+"Asian/Pacific Islander",_85+,Maine,23,.,.,.,0.9565217391
+"Asian/Pacific Islander",_85+,Maryland,24,1498,231,1729,0.8663967611
+"Asian/Pacific Islander",_85+,Massachusetts,25,1219,121,1340,0.9097014925
+"Asian/Pacific Islander",_85+,Michigan,26,634,118,752,0.8430851064
+"Asian/Pacific Islander",_85+,Minnesota,27,172,29,201,0.855721393
+"Asian/Pacific Islander",_85+,Mississippi,28,49,15,64,0.765625
+"Asian/Pacific Islander",_85+,Missouri,29,161,35,196,0.8214285714
+"Asian/Pacific Islander",_85+,Montana,30,.,.,.,0.8666666667
+"Asian/Pacific Islander",_85+,Nebraska,31,.,.,.,0.8571428571
+"Asian/Pacific Islander",_85+,Nevada,32,539,96,635,0.8488188976
+"Asian/Pacific Islander",_85+,"New Hampshire",33,.,.,.,0.9047619048
+"Asian/Pacific Islander",_85+,"New Jersey",34,2333,337,2670,0.8737827715
+"Asian/Pacific Islander",_85+,"New Mexico",35,.,.,.,0.8333333333
+"Asian/Pacific Islander",_85+,"New York",36,6917,921,7838,0.8824955346
+"Asian/Pacific Islander",_85+,"North Carolina",37,436,64,500,0.872
+"Asian/Pacific Islander",_85+,"North Dakota",38,.,.,.,0.9333333333
+"Asian/Pacific Islander",_85+,Ohio,39,420,70,490,0.8571428571
+"Asian/Pacific Islander",_85+,Oklahoma,40,130,25,155,0.8387096774
+"Asian/Pacific Islander",_85+,Oregon,41,339,46,385,0.8805194805
+"Asian/Pacific Islander",_85+,Pennsylvania,42,973,150,1123,0.8664292075
+"Asian/Pacific Islander",_85+,"Rhode Island",44,.,.,.,0.8636363636
+"Asian/Pacific Islander",_85+,"South Carolina",45,91,17,108,0.8425925926
+"Asian/Pacific Islander",_85+,"South Dakota",46,.,.,.,0.7619047619
+"Asian/Pacific Islander",_85+,Tennessee,47,176,22,198,0.8888888889
+"Asian/Pacific Islander",_85+,Texas,48,3146,514,3660,0.8595628415
+"Asian/Pacific Islander",_85+,Utah,49,104,22,126,0.8253968254
+"Asian/Pacific Islander",_85+,Vermont,50,.,.,.,0.9411764706
+"Asian/Pacific Islander",_85+,Virginia,51,1417,204,1621,0.8741517582
+"Asian/Pacific Islander",_85+,Washington,53,1991,253,2244,0.887254902
+"Asian/Pacific Islander",_85+,"West Virginia",54,.,.,.,0.8620689655
+"Asian/Pacific Islander",_85+,Wisconsin,55,186,47,233,0.7982832618
+"Asian/Pacific Islander",_85+,Wyoming,56,.,0,.,1
+Hispanic,_18-39,Alabama,1,.,.,.,0.5333333333
+Hispanic,_18-39,Alaska,2,.,.,.,0.8571428571
+Hispanic,_18-39,Arizona,4,135,40,175,0.7714285714
+Hispanic,_18-39,Arkansas,5,.,.,.,0.7272727273
+Hispanic,_18-39,California,6,1196,312,1508,0.7931034483
+Hispanic,_18-39,Colorado,8,89,29,118,0.7542372881
+Hispanic,_18-39,Connecticut,9,110,17,127,0.8661417323
+Hispanic,_18-39,Delaware,10,.,.,.,0.3333333333
+Hispanic,_18-39,"District of Columbia",11,.,0,.,1
+Hispanic,_18-39,Florida,12,468,150,618,0.7572815534
+Hispanic,_18-39,Georgia,13,22,13,35,0.6285714286
+Hispanic,_18-39,Hawaii,15,.,.,.,0.8571428571
+Hispanic,_18-39,Idaho,16,.,.,.,0.75
+Hispanic,_18-39,Illinois,17,200,67,267,0.7490636704
+Hispanic,_18-39,Indiana,18,45,21,66,0.6818181818
+Hispanic,_18-39,Iowa,19,.,.,.,0.8571428571
+Hispanic,_18-39,Kansas,20,.,.,.,0.7959183673
+Hispanic,_18-39,Kentucky,21,13,11,24,0.5416666667
+Hispanic,_18-39,Louisiana,22,.,.,.,0.7777777778
+Hispanic,_18-39,Maine,23,.,0,.,1
+Hispanic,_18-39,Maryland,24,27,14,41,0.6585365854
+Hispanic,_18-39,Massachusetts,25,193,50,243,0.7942386831
+Hispanic,_18-39,Michigan,26,59,16,75,0.7866666667
+Hispanic,_18-39,Minnesota,27,.,.,.,0.8378378378
+Hispanic,_18-39,Mississippi,28,.,0,.,1
+Hispanic,_18-39,Missouri,29,.,.,.,0.8064516129
+Hispanic,_18-39,Montana,30,.,0,.,1
+Hispanic,_18-39,Nebraska,31,14,13,27,0.5185185185
+Hispanic,_18-39,Nevada,32,52,22,74,0.7027027027
+Hispanic,_18-39,"New Hampshire",33,.,.,.,0.4285714286
+Hispanic,_18-39,"New Jersey",34,164,69,233,0.7038626609
+Hispanic,_18-39,"New Mexico",35,146,49,195,0.7487179487
+Hispanic,_18-39,"New York",36,311,120,431,0.7215777262
+Hispanic,_18-39,"North Carolina",37,55,21,76,0.7236842105
+Hispanic,_18-39,"North Dakota",38,.,.,.,0.8571428571
+Hispanic,_18-39,Ohio,39,57,21,78,0.7307692308
+Hispanic,_18-39,Oklahoma,40,.,.,.,0.7272727273
+Hispanic,_18-39,Oregon,41,.,.,.,0.7954545455
+Hispanic,_18-39,Pennsylvania,42,148,60,208,0.7115384615
+Hispanic,_18-39,"Rhode Island",44,.,.,.,0.7906976744
+Hispanic,_18-39,"South Carolina",45,.,.,.,0.55
+Hispanic,_18-39,"South Dakota",46,.,0,.,1
+Hispanic,_18-39,Tennessee,47,25,12,37,0.6756756757
+Hispanic,_18-39,Texas,48,1076,380,1456,0.739010989
+Hispanic,_18-39,Utah,49,.,.,.,0.7727272727
+Hispanic,_18-39,Vermont,50,.,0,.,1
+Hispanic,_18-39,Virginia,51,42,17,59,0.7118644068
+Hispanic,_18-39,Washington,53,69,14,83,0.8313253012
+Hispanic,_18-39,"West Virginia",54,.,.,.,0.6666666667
+Hispanic,_18-39,Wisconsin,55,48,15,63,0.7619047619
+Hispanic,_18-39,Wyoming,56,13,0,13,1
+Hispanic,_40-64,Alabama,1,262,68,330,0.7939393939
+Hispanic,_40-64,Alaska,2,70,14,84,0.8333333333
+Hispanic,_40-64,Arizona,4,2772,816,3588,0.7725752508
+Hispanic,_40-64,Arkansas,5,441,125,566,0.7791519435
+Hispanic,_40-64,California,6,27185,7186,34371,0.7909283989
+Hispanic,_40-64,Colorado,8,2573,602,3175,0.8103937008
+Hispanic,_40-64,Connecticut,9,2589,662,3251,0.7963703476
+Hispanic,_40-64,Delaware,10,274,85,359,0.7632311978
+Hispanic,_40-64,"District of Columbia",11,83,32,115,0.7217391304
+Hispanic,_40-64,Florida,12,11765,2729,14494,0.8117151925
+Hispanic,_40-64,Georgia,13,899,293,1192,0.7541946309
+Hispanic,_40-64,Hawaii,15,270,68,338,0.798816568
+Hispanic,_40-64,Idaho,16,418,103,521,0.802303263
+Hispanic,_40-64,Illinois,17,4897,1297,6194,0.7906038101
+Hispanic,_40-64,Indiana,18,957,261,1218,0.7857142857
+Hispanic,_40-64,Iowa,19,355,93,448,0.7924107143
+Hispanic,_40-64,Kansas,20,665,154,819,0.811965812
+Hispanic,_40-64,Kentucky,21,307,99,406,0.7561576355
+Hispanic,_40-64,Louisiana,22,525,129,654,0.8027522936
+Hispanic,_40-64,Maine,23,82,20,102,0.8039215686
+Hispanic,_40-64,Maryland,24,548,156,704,0.7784090909
+Hispanic,_40-64,Massachusetts,25,5862,1518,7380,0.7943089431
+Hispanic,_40-64,Michigan,26,1555,451,2006,0.7751744766
+Hispanic,_40-64,Minnesota,27,510,115,625,0.816
+Hispanic,_40-64,Mississippi,28,151,46,197,0.7664974619
+Hispanic,_40-64,Missouri,29,553,124,677,0.8168389956
+Hispanic,_40-64,Montana,30,86,24,110,0.7818181818
+Hispanic,_40-64,Nebraska,31,328,102,430,0.7627906977
+Hispanic,_40-64,Nevada,32,1046,353,1399,0.7476769121
+Hispanic,_40-64,"New Hampshire",33,177,48,225,0.7866666667
+Hispanic,_40-64,"New Jersey",34,5099,1377,6476,0.7873687461
+Hispanic,_40-64,"New Mexico",35,3551,878,4429,0.8017611199
+Hispanic,_40-64,"New York",36,8727,2500,11227,0.7773225261
+Hispanic,_40-64,"North Carolina",37,1143,325,1468,0.7786103542
+Hispanic,_40-64,"North Dakota",38,50,16,66,0.7575757576
+Hispanic,_40-64,Ohio,39,1411,382,1793,0.7869492471
+Hispanic,_40-64,Oklahoma,40,629,207,836,0.7523923445
+Hispanic,_40-64,Oregon,41,734,195,929,0.7900968784
+Hispanic,_40-64,Pennsylvania,42,3776,1034,4810,0.785031185
+Hispanic,_40-64,"Rhode Island",44,821,208,1029,0.7978620019
+Hispanic,_40-64,"South Carolina",45,408,120,528,0.7727272727
+Hispanic,_40-64,"South Dakota",46,57,15,72,0.7916666667
+Hispanic,_40-64,Tennessee,47,418,109,527,0.7931688805
+Hispanic,_40-64,Texas,48,20969,5902,26871,0.7803580068
+Hispanic,_40-64,Utah,49,404,124,528,0.7651515152
+Hispanic,_40-64,Vermont,50,.,.,.,0.8125
+Hispanic,_40-64,Virginia,51,671,152,823,0.815309842
+Hispanic,_40-64,Washington,53,1494,382,1876,0.7963752665
+Hispanic,_40-64,"West Virginia",54,86,18,104,0.8269230769
+Hispanic,_40-64,Wisconsin,55,1140,237,1377,0.8278867102
+Hispanic,_40-64,Wyoming,56,129,36,165,0.7818181818
+Hispanic,_65-69,Alabama,1,229,58,287,0.7979094077
+Hispanic,_65-69,Alaska,2,152,36,188,0.8085106383
+Hispanic,_65-69,Arizona,4,4457,1119,5576,0.7993185079
+Hispanic,_65-69,Arkansas,5,400,119,519,0.7707129094
+Hispanic,_65-69,California,6,39740,10365,50105,0.7931344177
+Hispanic,_65-69,Colorado,8,2826,628,3454,0.8181818182
+Hispanic,_65-69,Connecticut,9,1827,421,2248,0.8127224199
+Hispanic,_65-69,Delaware,10,300,81,381,0.7874015748
+Hispanic,_65-69,"District of Columbia",11,191,62,253,0.7549407115
+Hispanic,_65-69,Florida,12,12300,2836,15136,0.8126321353
+Hispanic,_65-69,Georgia,13,1102,291,1393,0.7910983489
+Hispanic,_65-69,Hawaii,15,470,75,545,0.8623853211
+Hispanic,_65-69,Idaho,16,512,110,622,0.8231511254
+Hispanic,_65-69,Illinois,17,6943,1678,8621,0.8053590071
+Hispanic,_65-69,Indiana,18,1068,216,1284,0.8317757009
+Hispanic,_65-69,Iowa,19,406,96,502,0.8087649402
+Hispanic,_65-69,Kansas,20,922,188,1110,0.8306306306
+Hispanic,_65-69,Kentucky,21,237,69,306,0.7745098039
+Hispanic,_65-69,Louisiana,22,695,164,859,0.809080326
+Hispanic,_65-69,Maine,23,60,12,72,0.8333333333
+Hispanic,_65-69,Maryland,24,1230,300,1530,0.8039215686
+Hispanic,_65-69,Massachusetts,25,4600,1061,5661,0.8125772832
+Hispanic,_65-69,Michigan,26,1489,361,1850,0.8048648649
+Hispanic,_65-69,Minnesota,27,483,115,598,0.8076923077
+Hispanic,_65-69,Mississippi,28,156,54,210,0.7428571429
+Hispanic,_65-69,Missouri,29,459,116,575,0.7982608696
+Hispanic,_65-69,Montana,30,111,20,131,0.8473282443
+Hispanic,_65-69,Nebraska,31,448,119,567,0.7901234568
+Hispanic,_65-69,Nevada,32,1671,511,2182,0.7658111824
+Hispanic,_65-69,"New Hampshire",33,152,30,182,0.8351648352
+Hispanic,_65-69,"New Jersey",34,5435,1429,6864,0.7918123543
+Hispanic,_65-69,"New Mexico",35,4009,940,4949,0.8100626389
+Hispanic,_65-69,"New York",36,8582,2296,10878,0.7889317889
+Hispanic,_65-69,"North Carolina",37,1324,350,1674,0.7909199522
+Hispanic,_65-69,"North Dakota",38,45,17,62,0.7258064516
+Hispanic,_65-69,Ohio,39,1230,262,1492,0.8243967828
+Hispanic,_65-69,Oklahoma,40,772,208,980,0.787755102
+Hispanic,_65-69,Oregon,41,1076,265,1341,0.8023862789
+Hispanic,_65-69,Pennsylvania,42,2797,629,3426,0.8164039696
+Hispanic,_65-69,"Rhode Island",44,728,171,899,0.8097886541
+Hispanic,_65-69,"South Carolina",45,474,111,585,0.8102564103
+Hispanic,_65-69,"South Dakota",46,54,15,69,0.7826086957
+Hispanic,_65-69,Tennessee,47,421,105,526,0.8003802281
+Hispanic,_65-69,Texas,48,26447,6607,33054,0.8001149634
+Hispanic,_65-69,Utah,49,568,138,706,0.8045325779
+Hispanic,_65-69,Vermont,50,.,.,.,0.8913043478
+Hispanic,_65-69,Virginia,51,1112,289,1401,0.7937187723
+Hispanic,_65-69,Washington,53,1764,410,2174,0.8114075437
+Hispanic,_65-69,"West Virginia",54,68,25,93,0.7311827957
+Hispanic,_65-69,Wisconsin,55,1039,185,1224,0.8488562092
+Hispanic,_65-69,Wyoming,56,199,50,249,0.7991967871
+Hispanic,_70-74,Alabama,1,296,69,365,0.8109589041
+Hispanic,_70-74,Alaska,2,177,28,205,0.8634146341
+Hispanic,_70-74,Arizona,4,6207,1437,7644,0.8120094192
+Hispanic,_70-74,Arkansas,5,430,121,551,0.780399274
+Hispanic,_70-74,California,6,51027,11864,62891,0.8113561559
+Hispanic,_70-74,Colorado,8,3464,668,4132,0.8383349468
+Hispanic,_70-74,Connecticut,9,2483,508,2991,0.8301571381
+Hispanic,_70-74,Delaware,10,395,95,490,0.806122449
+Hispanic,_70-74,"District of Columbia",11,247,57,304,0.8125
+Hispanic,_70-74,Florida,12,20838,4227,25065,0.831358468
+Hispanic,_70-74,Georgia,13,1520,414,1934,0.7859358842
+Hispanic,_70-74,Hawaii,15,681,103,784,0.868622449
+Hispanic,_70-74,Idaho,16,538,126,664,0.8102409639
+Hispanic,_70-74,Illinois,17,9349,2282,11631,0.8038001891
+Hispanic,_70-74,Indiana,18,1442,308,1750,0.824
+Hispanic,_70-74,Iowa,19,532,117,649,0.8197226502
+Hispanic,_70-74,Kansas,20,1069,210,1279,0.835809226
+Hispanic,_70-74,Kentucky,21,240,54,294,0.8163265306
+Hispanic,_70-74,Louisiana,22,900,186,1086,0.8287292818
+Hispanic,_70-74,Maine,23,.,.,.,0.9529411765
+Hispanic,_70-74,Maryland,24,1647,370,2017,0.8165592464
+Hispanic,_70-74,Massachusetts,25,5404,1118,6522,0.8285801901
+Hispanic,_70-74,Michigan,26,1876,386,2262,0.8293545535
+Hispanic,_70-74,Minnesota,27,528,101,629,0.839427663
+Hispanic,_70-74,Mississippi,28,191,44,235,0.8127659574
+Hispanic,_70-74,Missouri,29,661,127,788,0.8388324873
+Hispanic,_70-74,Montana,30,130,22,152,0.8552631579
+Hispanic,_70-74,Nebraska,31,499,137,636,0.784591195
+Hispanic,_70-74,Nevada,32,2547,611,3158,0.8065231159
+Hispanic,_70-74,"New Hampshire",33,194,42,236,0.8220338983
+Hispanic,_70-74,"New Jersey",34,8621,2063,10684,0.8069075253
+Hispanic,_70-74,"New Mexico",35,4871,1035,5906,0.824754487
+Hispanic,_70-74,"New York",36,13011,3367,16378,0.794419343
+Hispanic,_70-74,"North Carolina",37,1602,416,2018,0.7938553023
+Hispanic,_70-74,"North Dakota",38,.,.,.,0.8412698413
+Hispanic,_70-74,Ohio,39,1502,264,1766,0.8505096263
+Hispanic,_70-74,Oklahoma,40,840,194,1034,0.8123791103
+Hispanic,_70-74,Oregon,41,1177,272,1449,0.812284334
+Hispanic,_70-74,Pennsylvania,42,3464,771,4235,0.8179456907
+Hispanic,_70-74,"Rhode Island",44,915,181,1096,0.8348540146
+Hispanic,_70-74,"South Carolina",45,658,152,810,0.812345679
+Hispanic,_70-74,"South Dakota",46,64,13,77,0.8311688312
+Hispanic,_70-74,Tennessee,47,559,129,688,0.8125
+Hispanic,_70-74,Texas,48,41874,9808,51682,0.8102240625
+Hispanic,_70-74,Utah,49,751,185,936,0.8023504274
+Hispanic,_70-74,Vermont,50,.,.,.,0.8461538462
+Hispanic,_70-74,Virginia,51,1716,385,2101,0.8167539267
+Hispanic,_70-74,Washington,53,2266,468,2734,0.8288222385
+Hispanic,_70-74,"West Virginia",54,104,17,121,0.8595041322
+Hispanic,_70-74,Wisconsin,55,1104,183,1287,0.8578088578
+Hispanic,_70-74,Wyoming,56,241,43,284,0.8485915493
+Hispanic,_75-79,Alabama,1,183,48,231,0.7922077922
+Hispanic,_75-79,Alaska,2,107,24,131,0.8167938931
+Hispanic,_75-79,Arizona,4,4303,1041,5344,0.8052020958
+Hispanic,_75-79,Arkansas,5,259,67,326,0.7944785276
+Hispanic,_75-79,California,6,40454,8911,49365,0.8194874911
+Hispanic,_75-79,Colorado,8,2447,429,2876,0.8508344924
+Hispanic,_75-79,Connecticut,9,1975,352,2327,0.8487322733
+Hispanic,_75-79,Delaware,10,262,65,327,0.8012232416
+Hispanic,_75-79,"District of Columbia",11,172,39,211,0.8151658768
+Hispanic,_75-79,Florida,12,20986,4038,25024,0.8386349105
+Hispanic,_75-79,Georgia,13,1130,294,1424,0.7935393258
+Hispanic,_75-79,Hawaii,15,594,108,702,0.8461538462
+Hispanic,_75-79,Idaho,16,417,77,494,0.8441295547
+Hispanic,_75-79,Illinois,17,7171,1642,8813,0.81368433
+Hispanic,_75-79,Indiana,18,977,219,1196,0.8168896321
+Hispanic,_75-79,Iowa,19,322,52,374,0.8609625668
+Hispanic,_75-79,Kansas,20,759,134,893,0.849944009
+Hispanic,_75-79,Kentucky,21,160,44,204,0.7843137255
+Hispanic,_75-79,Louisiana,22,692,127,819,0.8449328449
+Hispanic,_75-79,Maine,23,.,.,.,0.9193548387
+Hispanic,_75-79,Maryland,24,1188,239,1427,0.8325157673
+Hispanic,_75-79,Massachusetts,25,3757,653,4410,0.8519274376
+Hispanic,_75-79,Michigan,26,1475,273,1748,0.8438215103
+Hispanic,_75-79,Minnesota,27,338,52,390,0.8666666667
+Hispanic,_75-79,Mississippi,28,140,32,172,0.8139534884
+Hispanic,_75-79,Missouri,29,444,89,533,0.8330206379
+Hispanic,_75-79,Montana,30,.,.,.,0.8988764045
+Hispanic,_75-79,Nebraska,31,292,79,371,0.7870619946
+Hispanic,_75-79,Nevada,32,2025,471,2496,0.8112980769
+Hispanic,_75-79,"New Hampshire",33,131,21,152,0.8618421053
+Hispanic,_75-79,"New Jersey",34,7224,1716,8940,0.8080536913
+Hispanic,_75-79,"New Mexico",35,3671,737,4408,0.8328039927
+Hispanic,_75-79,"New York",36,11856,2801,14657,0.8088967729
+Hispanic,_75-79,"North Carolina",37,1269,277,1546,0.8208279431
+Hispanic,_75-79,"North Dakota",38,.,.,.,0.8421052632
+Hispanic,_75-79,Ohio,39,1215,213,1428,0.8508403361
+Hispanic,_75-79,Oklahoma,40,595,143,738,0.8062330623
+Hispanic,_75-79,Oregon,41,803,185,988,0.8127530364
+Hispanic,_75-79,Pennsylvania,42,2450,466,2916,0.8401920439
+Hispanic,_75-79,"Rhode Island",44,594,135,729,0.8148148148
+Hispanic,_75-79,"South Carolina",45,476,107,583,0.8164665523
+Hispanic,_75-79,"South Dakota",46,36,16,52,0.6923076923
+Hispanic,_75-79,Tennessee,47,419,83,502,0.8346613546
+Hispanic,_75-79,Texas,48,34395,7739,42134,0.8163241088
+Hispanic,_75-79,Utah,49,557,117,674,0.8264094955
+Hispanic,_75-79,Vermont,50,.,.,.,0.9565217391
+Hispanic,_75-79,Virginia,51,1173,240,1413,0.83014862
+Hispanic,_75-79,Washington,53,1674,344,2018,0.8295341923
+Hispanic,_75-79,"West Virginia",54,.,.,.,0.8656716418
+Hispanic,_75-79,Wisconsin,55,736,117,853,0.8628370457
+Hispanic,_75-79,Wyoming,56,150,23,173,0.8670520231
+Hispanic,_80-84,Alabama,1,108,20,128,0.84375
+Hispanic,_80-84,Alaska,2,51,13,64,0.796875
+Hispanic,_80-84,Arizona,4,2234,478,2712,0.8237463127
+Hispanic,_80-84,Arkansas,5,158,32,190,0.8315789474
+Hispanic,_80-84,California,6,24465,5373,29838,0.8199276091
+Hispanic,_80-84,Colorado,8,1317,256,1573,0.8372536554
+Hispanic,_80-84,Connecticut,9,1163,243,1406,0.8271692745
+Hispanic,_80-84,Delaware,10,141,26,167,0.8443113772
+Hispanic,_80-84,"District of Columbia",11,107,25,132,0.8106060606
+Hispanic,_80-84,Florida,12,15652,2976,18628,0.8402404982
+Hispanic,_80-84,Georgia,13,655,136,791,0.8280657396
+Hispanic,_80-84,Hawaii,15,334,62,396,0.8434343434
+Hispanic,_80-84,Idaho,16,215,59,274,0.7846715328
+Hispanic,_80-84,Illinois,17,4225,1069,5294,0.7980732905
+Hispanic,_80-84,Indiana,18,580,114,694,0.8357348703
+Hispanic,_80-84,Iowa,19,176,33,209,0.8421052632
+Hispanic,_80-84,Kansas,20,408,76,484,0.8429752066
+Hispanic,_80-84,Kentucky,21,98,24,122,0.8032786885
+Hispanic,_80-84,Louisiana,22,386,91,477,0.8092243187
+Hispanic,_80-84,Maine,23,.,.,.,0.8648648649
+Hispanic,_80-84,Maryland,24,870,187,1057,0.8230842006
+Hispanic,_80-84,Massachusetts,25,2063,364,2427,0.8500206016
+Hispanic,_80-84,Michigan,26,888,166,1054,0.8425047438
+Hispanic,_80-84,Minnesota,27,177,40,217,0.8156682028
+Hispanic,_80-84,Mississippi,28,68,24,92,0.7391304348
+Hispanic,_80-84,Missouri,29,280,57,337,0.8308605341
+Hispanic,_80-84,Montana,30,.,.,.,0.9069767442
+Hispanic,_80-84,Nebraska,31,171,23,194,0.881443299
+Hispanic,_80-84,Nevada,32,1117,289,1406,0.7944523471
+Hispanic,_80-84,"New Hampshire",33,72,15,87,0.8275862069
+Hispanic,_80-84,"New Jersey",34,5143,1203,6346,0.810431768
+Hispanic,_80-84,"New Mexico",35,2147,476,2623,0.8185284026
+Hispanic,_80-84,"New York",36,8269,1965,10234,0.8079929646
+Hispanic,_80-84,"North Carolina",37,660,175,835,0.7904191617
+Hispanic,_80-84,"North Dakota",38,.,.,.,0.9565217391
+Hispanic,_80-84,Ohio,39,711,122,833,0.8535414166
+Hispanic,_80-84,Oklahoma,40,318,71,389,0.8174807198
+Hispanic,_80-84,Oregon,41,409,109,518,0.7895752896
+Hispanic,_80-84,Pennsylvania,42,1290,259,1549,0.8327953518
+Hispanic,_80-84,"Rhode Island",44,408,77,485,0.8412371134
+Hispanic,_80-84,"South Carolina",45,257,56,313,0.821086262
+Hispanic,_80-84,"South Dakota",46,.,.,.,0.6666666667
+Hispanic,_80-84,Tennessee,47,187,48,235,0.7957446809
+Hispanic,_80-84,Texas,48,20880,4742,25622,0.8149246741
+Hispanic,_80-84,Utah,49,274,66,340,0.8058823529
+Hispanic,_80-84,Vermont,50,.,.,.,0.92
+Hispanic,_80-84,Virginia,51,746,145,891,0.8372615039
+Hispanic,_80-84,Washington,53,1070,180,1250,0.856
+Hispanic,_80-84,"West Virginia",54,.,.,.,0.8
+Hispanic,_80-84,Wisconsin,55,399,69,468,0.8525641026
+Hispanic,_80-84,Wyoming,56,115,21,136,0.8455882353
+Hispanic,_85+,Alabama,1,84,18,102,0.8235294118
+Hispanic,_85+,Alaska,2,.,.,.,0.9268292683
+Hispanic,_85+,Arizona,4,1279,236,1515,0.8442244224
+Hispanic,_85+,Arkansas,5,69,23,92,0.75
+Hispanic,_85+,California,6,20220,4340,24560,0.8232899023
+Hispanic,_85+,Colorado,8,848,150,998,0.8496993988
+Hispanic,_85+,Connecticut,9,932,173,1105,0.843438914
+Hispanic,_85+,Delaware,10,111,17,128,0.8671875
+Hispanic,_85+,"District of Columbia",11,74,17,91,0.8131868132
+Hispanic,_85+,Florida,12,13975,2813,16788,0.832439838
+Hispanic,_85+,Georgia,13,421,96,517,0.8143133462
+Hispanic,_85+,Hawaii,15,226,46,272,0.8308823529
+Hispanic,_85+,Idaho,16,129,25,154,0.8376623377
+Hispanic,_85+,Illinois,17,3043,678,3721,0.8177909164
+Hispanic,_85+,Indiana,18,492,104,596,0.8255033557
+Hispanic,_85+,Iowa,19,105,18,123,0.8536585366
+Hispanic,_85+,Kansas,20,299,58,357,0.837535014
+Hispanic,_85+,Kentucky,21,56,13,69,0.8115942029
+Hispanic,_85+,Louisiana,22,363,60,423,0.8581560284
+Hispanic,_85+,Maine,23,.,.,.,0.8055555556
+Hispanic,_85+,Maryland,24,678,171,849,0.7985865724
+Hispanic,_85+,Massachusetts,25,1431,240,1671,0.8563734291
+Hispanic,_85+,Michigan,26,723,128,851,0.8495887192
+Hispanic,_85+,Minnesota,27,128,31,159,0.8050314465
+Hispanic,_85+,Mississippi,28,50,13,63,0.7936507937
+Hispanic,_85+,Missouri,29,186,27,213,0.8732394366
+Hispanic,_85+,Montana,30,.,.,.,0.9473684211
+Hispanic,_85+,Nebraska,31,120,24,144,0.8333333333
+Hispanic,_85+,Nevada,32,697,167,864,0.806712963
+Hispanic,_85+,"New Hampshire",33,54,11,65,0.8307692308
+Hispanic,_85+,"New Jersey",34,3949,896,4845,0.8150670795
+Hispanic,_85+,"New Mexico",35,1562,299,1861,0.8393336916
+Hispanic,_85+,"New York",36,7624,1727,9351,0.8153138702
+Hispanic,_85+,"North Carolina",37,445,114,559,0.7960644007
+Hispanic,_85+,"North Dakota",38,.,.,.,0.7894736842
+Hispanic,_85+,Ohio,39,503,106,609,0.8259441708
+Hispanic,_85+,Oklahoma,40,229,47,276,0.8297101449
+Hispanic,_85+,Oregon,41,251,48,299,0.8394648829
+Hispanic,_85+,Pennsylvania,42,832,179,1011,0.8229475767
+Hispanic,_85+,"Rhode Island",44,264,61,325,0.8123076923
+Hispanic,_85+,"South Carolina",45,155,39,194,0.7989690722
+Hispanic,_85+,"South Dakota",46,.,.,.,0.75
+Hispanic,_85+,Tennessee,47,136,24,160,0.85
+Hispanic,_85+,Texas,48,16707,3925,20632,0.8097615355
+Hispanic,_85+,Utah,49,161,37,198,0.8131313131
+Hispanic,_85+,Vermont,50,.,.,.,0.8529411765
+Hispanic,_85+,Virginia,51,533,108,641,0.8315132605
+Hispanic,_85+,Washington,53,728,144,872,0.8348623853
+Hispanic,_85+,"West Virginia",54,.,.,.,0.8518518519
+Hispanic,_85+,Wisconsin,55,281,64,345,0.8144927536
+Hispanic,_85+,Wyoming,56,.,.,.,0.8837209302
+"American Indian / Alaska Native",_18-39,Alabama,1,.,.,.,0.3333333333
+"American Indian / Alaska Native",_18-39,Alaska,2,.,.,.,0.8095238095
+"American Indian / Alaska Native",_18-39,Arizona,4,19,23,42,0.4523809524
+"American Indian / Alaska Native",_18-39,Arkansas,5,.,.,.,0.8
+"American Indian / Alaska Native",_18-39,California,6,.,.,.,0.7297297297
+"American Indian / Alaska Native",_18-39,Colorado,8,.,0,.,1
+"American Indian / Alaska Native",_18-39,Connecticut,9,.,.,.,0.7142857143
+"American Indian / Alaska Native",_18-39,Delaware,10,0,.,.,0
+"American Indian / Alaska Native",_18-39,Florida,12,.,.,.,0.75
+"American Indian / Alaska Native",_18-39,Georgia,13,.,.,.,0.5
+"American Indian / Alaska Native",_18-39,Idaho,16,.,.,.,0.8333333333
+"American Indian / Alaska Native",_18-39,Illinois,17,.,.,.,0.4
+"American Indian / Alaska Native",_18-39,Indiana,18,.,0,.,1
+"American Indian / Alaska Native",_18-39,Iowa,19,.,.,.,0.8571428571
+"American Indian / Alaska Native",_18-39,Kansas,20,.,.,.,0.625
+"American Indian / Alaska Native",_18-39,Kentucky,21,.,0,.,1
+"American Indian / Alaska Native",_18-39,Louisiana,22,.,.,.,0.6666666667
+"American Indian / Alaska Native",_18-39,Maine,23,.,0,.,1
+"American Indian / Alaska Native",_18-39,Maryland,24,.,0,.,1
+"American Indian / Alaska Native",_18-39,Massachusetts,25,0,.,.,0
+"American Indian / Alaska Native",_18-39,Michigan,26,.,.,.,0.7692307692
+"American Indian / Alaska Native",_18-39,Minnesota,27,.,.,.,0.8571428571
+"American Indian / Alaska Native",_18-39,Mississippi,28,.,.,.,0.5
+"American Indian / Alaska Native",_18-39,Missouri,29,.,.,.,0.7692307692
+"American Indian / Alaska Native",_18-39,Montana,30,.,.,.,0.6666666667
+"American Indian / Alaska Native",_18-39,Nebraska,31,.,0,.,1
+"American Indian / Alaska Native",_18-39,Nevada,32,.,.,.,0.75
+"American Indian / Alaska Native",_18-39,"New Jersey",34,.,.,.,0.8
+"American Indian / Alaska Native",_18-39,"New Mexico",35,14,13,27,0.5185185185
+"American Indian / Alaska Native",_18-39,"New York",36,.,.,.,0.8888888889
+"American Indian / Alaska Native",_18-39,"North Carolina",37,.,.,.,0.724137931
+"American Indian / Alaska Native",_18-39,"North Dakota",38,17,0,17,1
+"American Indian / Alaska Native",_18-39,Ohio,39,.,.,.,0.75
+"American Indian / Alaska Native",_18-39,Oklahoma,40,109,32,141,0.7730496454
+"American Indian / Alaska Native",_18-39,Oregon,41,.,.,.,0.6923076923
+"American Indian / Alaska Native",_18-39,Pennsylvania,42,.,.,.,0.6666666667
+"American Indian / Alaska Native",_18-39,"Rhode Island",44,.,.,.,0.5
+"American Indian / Alaska Native",_18-39,"South Carolina",45,.,.,.,0.5
+"American Indian / Alaska Native",_18-39,"South Dakota",46,.,.,.,0.6818181818
+"American Indian / Alaska Native",_18-39,Tennessee,47,.,.,.,0.6666666667
+"American Indian / Alaska Native",_18-39,Texas,48,.,.,.,0.8181818182
+"American Indian / Alaska Native",_18-39,Utah,49,.,.,.,0.5
+"American Indian / Alaska Native",_18-39,Vermont,50,.,0,.,1
+"American Indian / Alaska Native",_18-39,Virginia,51,.,0,.,1
+"American Indian / Alaska Native",_18-39,Washington,53,.,.,.,0.8571428571
+"American Indian / Alaska Native",_18-39,"West Virginia",54,.,.,.,0.3333333333
+"American Indian / Alaska Native",_18-39,Wisconsin,55,.,.,.,0.7837837838
+"American Indian / Alaska Native",_18-39,Wyoming,56,.,.,.,0.5
+"American Indian / Alaska Native",_40-64,Alabama,1,41,14,55,0.7454545455
+"American Indian / Alaska Native",_40-64,Alaska,2,248,101,349,0.7106017192
+"American Indian / Alaska Native",_40-64,Arizona,4,612,437,1049,0.5834127741
+"American Indian / Alaska Native",_40-64,Arkansas,5,115,40,155,0.7419354839
+"American Indian / Alaska Native",_40-64,California,6,605,199,804,0.7524875622
+"American Indian / Alaska Native",_40-64,Colorado,8,78,21,99,0.7878787879
+"American Indian / Alaska Native",_40-64,Connecticut,9,.,.,.,0.75
+"American Indian / Alaska Native",_40-64,Delaware,10,.,.,.,0.8333333333
+"American Indian / Alaska Native",_40-64,"District of Columbia",11,.,0,.,1
+"American Indian / Alaska Native",_40-64,Florida,12,116,24,140,0.8285714286
+"American Indian / Alaska Native",_40-64,Georgia,13,29,14,43,0.6744186047
+"American Indian / Alaska Native",_40-64,Hawaii,15,.,0,.,1
+"American Indian / Alaska Native",_40-64,Idaho,16,76,38,114,0.6666666667
+"American Indian / Alaska Native",_40-64,Illinois,17,52,18,70,0.7428571429
+"American Indian / Alaska Native",_40-64,Indiana,18,37,15,52,0.7115384615
+"American Indian / Alaska Native",_40-64,Iowa,19,49,17,66,0.7424242424
+"American Indian / Alaska Native",_40-64,Kansas,20,133,55,188,0.7074468085
+"American Indian / Alaska Native",_40-64,Kentucky,21,.,.,.,0.8518518519
+"American Indian / Alaska Native",_40-64,Louisiana,22,54,12,66,0.8181818182
+"American Indian / Alaska Native",_40-64,Maine,23,71,16,87,0.816091954
+"American Indian / Alaska Native",_40-64,Maryland,24,.,.,.,0.7894736842
+"American Indian / Alaska Native",_40-64,Massachusetts,25,43,17,60,0.7166666667
+"American Indian / Alaska Native",_40-64,Michigan,26,284,77,361,0.7867036011
+"American Indian / Alaska Native",_40-64,Minnesota,27,374,135,509,0.7347740668
+"American Indian / Alaska Native",_40-64,Mississippi,28,30,15,45,0.6666666667
+"American Indian / Alaska Native",_40-64,Missouri,29,94,36,130,0.7230769231
+"American Indian / Alaska Native",_40-64,Montana,30,254,99,353,0.7195467422
+"American Indian / Alaska Native",_40-64,Nebraska,31,81,32,113,0.7168141593
+"American Indian / Alaska Native",_40-64,Nevada,32,49,31,80,0.6125
+"American Indian / Alaska Native",_40-64,"New Hampshire",33,.,.,.,0.75
+"American Indian / Alaska Native",_40-64,"New Jersey",34,.,.,.,0.7142857143
+"American Indian / Alaska Native",_40-64,"New Mexico",35,419,272,691,0.6063675832
+"American Indian / Alaska Native",_40-64,"New York",36,214,66,280,0.7642857143
+"American Indian / Alaska Native",_40-64,"North Carolina",37,656,190,846,0.7754137116
+"American Indian / Alaska Native",_40-64,"North Dakota",38,182,60,242,0.7520661157
+"American Indian / Alaska Native",_40-64,Ohio,39,55,12,67,0.8208955224
+"American Indian / Alaska Native",_40-64,Oklahoma,40,1627,804,2431,0.6692719046
+"American Indian / Alaska Native",_40-64,Oregon,41,185,64,249,0.7429718876
+"American Indian / Alaska Native",_40-64,Pennsylvania,42,.,.,.,0.8367346939
+"American Indian / Alaska Native",_40-64,"Rhode Island",44,.,.,.,0.84
+"American Indian / Alaska Native",_40-64,"South Carolina",45,.,.,.,0.8387096774
+"American Indian / Alaska Native",_40-64,"South Dakota",46,200,123,323,0.6191950464
+"American Indian / Alaska Native",_40-64,Tennessee,47,.,.,.,0.8222222222
+"American Indian / Alaska Native",_40-64,Texas,48,214,64,278,0.7697841727
+"American Indian / Alaska Native",_40-64,Utah,49,72,15,87,0.8275862069
+"American Indian / Alaska Native",_40-64,Vermont,50,.,0,.,1
+"American Indian / Alaska Native",_40-64,Virginia,51,.,.,.,0.7619047619
+"American Indian / Alaska Native",_40-64,Washington,53,397,125,522,0.7605363985
+"American Indian / Alaska Native",_40-64,"West Virginia",54,.,.,.,0.7272727273
+"American Indian / Alaska Native",_40-64,Wisconsin,55,370,117,487,0.7597535934
+"American Indian / Alaska Native",_40-64,Wyoming,56,44,14,58,0.7586206897
+"American Indian / Alaska Native",_65-69,Alabama,1,28,11,39,0.7179487179
+"American Indian / Alaska Native",_65-69,Alaska,2,394,133,527,0.7476280835
+"American Indian / Alaska Native",_65-69,Arizona,4,618,471,1089,0.5674931129
+"American Indian / Alaska Native",_65-69,Arkansas,5,61,20,81,0.7530864198
+"American Indian / Alaska Native",_65-69,California,6,511,140,651,0.7849462366
+"American Indian / Alaska Native",_65-69,Colorado,8,43,12,55,0.7818181818
+"American Indian / Alaska Native",_65-69,Connecticut,9,.,.,.,0.6666666667
+"American Indian / Alaska Native",_65-69,Delaware,10,.,.,.,0.8333333333
+"American Indian / Alaska Native",_65-69,"District of Columbia",11,.,0,.,1
+"American Indian / Alaska Native",_65-69,Florida,12,83,19,102,0.8137254902
+"American Indian / Alaska Native",_65-69,Georgia,13,.,.,.,0.7954545455
+"American Indian / Alaska Native",_65-69,Hawaii,15,.,.,.,0.8571428571
+"American Indian / Alaska Native",_65-69,Idaho,16,53,21,74,0.7162162162
+"American Indian / Alaska Native",_65-69,Illinois,17,.,.,.,0.8372093023
+"American Indian / Alaska Native",_65-69,Indiana,18,.,.,.,0.7777777778
+"American Indian / Alaska Native",_65-69,Iowa,19,26,12,38,0.6842105263
+"American Indian / Alaska Native",_65-69,Kansas,20,86,23,109,0.7889908257
+"American Indian / Alaska Native",_65-69,Kentucky,21,.,.,.,0.7777777778
+"American Indian / Alaska Native",_65-69,Louisiana,22,.,.,.,0.8
+"American Indian / Alaska Native",_65-69,Maine,23,.,.,.,0.8787878788
+"American Indian / Alaska Native",_65-69,Maryland,24,.,.,.,0.8076923077
+"American Indian / Alaska Native",_65-69,Massachusetts,25,.,.,.,0.6785714286
+"American Indian / Alaska Native",_65-69,Michigan,26,233,53,286,0.8146853147
+"American Indian / Alaska Native",_65-69,Minnesota,27,233,75,308,0.7564935065
+"American Indian / Alaska Native",_65-69,Mississippi,28,.,.,.,0.6666666667
+"American Indian / Alaska Native",_65-69,Missouri,29,46,13,59,0.7796610169
+"American Indian / Alaska Native",_65-69,Montana,30,198,86,284,0.6971830986
+"American Indian / Alaska Native",_65-69,Nebraska,31,44,15,59,0.7457627119
+"American Indian / Alaska Native",_65-69,Nevada,32,53,24,77,0.6883116883
+"American Indian / Alaska Native",_65-69,"New Hampshire",33,.,.,.,0.8333333333
+"American Indian / Alaska Native",_65-69,"New Jersey",34,.,.,.,0.8666666667
+"American Indian / Alaska Native",_65-69,"New Mexico",35,411,250,661,0.621785174
+"American Indian / Alaska Native",_65-69,"New York",36,150,47,197,0.7614213198
+"American Indian / Alaska Native",_65-69,"North Carolina",37,448,140,588,0.7619047619
+"American Indian / Alaska Native",_65-69,"North Dakota",38,141,46,187,0.7540106952
+"American Indian / Alaska Native",_65-69,Ohio,39,.,.,.,0.8333333333
+"American Indian / Alaska Native",_65-69,Oklahoma,40,1311,561,1872,0.7003205128
+"American Indian / Alaska Native",_65-69,Oregon,41,151,50,201,0.7512437811
+"American Indian / Alaska Native",_65-69,Pennsylvania,42,.,.,.,0.7826086957
+"American Indian / Alaska Native",_65-69,"Rhode Island",44,.,.,.,0.6923076923
+"American Indian / Alaska Native",_65-69,"South Carolina",45,.,.,.,0.7647058824
+"American Indian / Alaska Native",_65-69,"South Dakota",46,152,81,233,0.652360515
+"American Indian / Alaska Native",_65-69,Tennessee,47,.,.,.,0.7878787879
+"American Indian / Alaska Native",_65-69,Texas,48,177,46,223,0.7937219731
+"American Indian / Alaska Native",_65-69,Utah,49,41,20,61,0.6721311475
+"American Indian / Alaska Native",_65-69,Vermont,50,.,0,.,1
+"American Indian / Alaska Native",_65-69,Virginia,51,.,.,.,0.7916666667
+"American Indian / Alaska Native",_65-69,Washington,53,333,137,470,0.7085106383
+"American Indian / Alaska Native",_65-69,"West Virginia",54,.,0,.,1
+"American Indian / Alaska Native",_65-69,Wisconsin,55,216,51,267,0.808988764
+"American Indian / Alaska Native",_65-69,Wyoming,56,.,.,.,0.8222222222
+"American Indian / Alaska Native",_70-74,Alabama,1,.,.,.,0.8571428571
+"American Indian / Alaska Native",_70-74,Alaska,2,524,181,705,0.7432624113
+"American Indian / Alaska Native",_70-74,Arizona,4,761,553,1314,0.5791476408
+"American Indian / Alaska Native",_70-74,Arkansas,5,86,21,107,0.8037383178
+"American Indian / Alaska Native",_70-74,California,6,710,173,883,0.8040770102
+"American Indian / Alaska Native",_70-74,Colorado,8,73,23,96,0.7604166667
+"American Indian / Alaska Native",_70-74,Connecticut,9,.,.,.,0.6666666667
+"American Indian / Alaska Native",_70-74,Delaware,10,.,.,.,0.8333333333
+"American Indian / Alaska Native",_70-74,"District of Columbia",11,0,.,.,0
+"American Indian / Alaska Native",_70-74,Florida,12,122,22,144,0.8472222222
+"American Indian / Alaska Native",_70-74,Georgia,13,.,.,.,0.8235294118
+"American Indian / Alaska Native",_70-74,Hawaii,15,.,.,.,0.9166666667
+"American Indian / Alaska Native",_70-74,Idaho,16,55,18,73,0.7534246575
+"American Indian / Alaska Native",_70-74,Illinois,17,42,13,55,0.7636363636
+"American Indian / Alaska Native",_70-74,Indiana,18,.,.,.,0.8529411765
+"American Indian / Alaska Native",_70-74,Iowa,19,28,17,45,0.6222222222
+"American Indian / Alaska Native",_70-74,Kansas,20,85,29,114,0.7456140351
+"American Indian / Alaska Native",_70-74,Kentucky,21,.,.,.,0.8823529412
+"American Indian / Alaska Native",_70-74,Louisiana,22,.,.,.,0.8048780488
+"American Indian / Alaska Native",_70-74,Maine,23,.,.,.,0.9310344828
+"American Indian / Alaska Native",_70-74,Maryland,24,.,.,.,0.8461538462
+"American Indian / Alaska Native",_70-74,Massachusetts,25,.,.,.,0.9534883721
+"American Indian / Alaska Native",_70-74,Michigan,26,308,55,363,0.8484848485
+"American Indian / Alaska Native",_70-74,Minnesota,27,287,72,359,0.7994428969
+"American Indian / Alaska Native",_70-74,Mississippi,28,.,.,.,0.6153846154
+"American Indian / Alaska Native",_70-74,Missouri,29,.,.,.,0.8611111111
+"American Indian / Alaska Native",_70-74,Montana,30,235,100,335,0.7014925373
+"American Indian / Alaska Native",_70-74,Nebraska,31,59,26,85,0.6941176471
+"American Indian / Alaska Native",_70-74,Nevada,32,73,37,110,0.6636363636
+"American Indian / Alaska Native",_70-74,"New Hampshire",33,.,.,.,0.3333333333
+"American Indian / Alaska Native",_70-74,"New Jersey",34,.,.,.,0.825
+"American Indian / Alaska Native",_70-74,"New Mexico",35,432,270,702,0.6153846154
+"American Indian / Alaska Native",_70-74,"New York",36,210,44,254,0.8267716535
+"American Indian / Alaska Native",_70-74,"North Carolina",37,509,134,643,0.7916018663
+"American Indian / Alaska Native",_70-74,"North Dakota",38,131,38,169,0.775147929
+"American Indian / Alaska Native",_70-74,Ohio,39,.,.,.,0.7777777778
+"American Indian / Alaska Native",_70-74,Oklahoma,40,1874,712,2586,0.724671307
+"American Indian / Alaska Native",_70-74,Oregon,41,166,46,212,0.7830188679
+"American Indian / Alaska Native",_70-74,Pennsylvania,42,.,.,.,0.8214285714
+"American Indian / Alaska Native",_70-74,"Rhode Island",44,.,.,.,0.9166666667
+"American Indian / Alaska Native",_70-74,"South Carolina",45,.,.,.,0.7948717949
+"American Indian / Alaska Native",_70-74,"South Dakota",46,136,66,202,0.6732673267
+"American Indian / Alaska Native",_70-74,Tennessee,47,.,.,.,0.7931034483
+"American Indian / Alaska Native",_70-74,Texas,48,273,70,343,0.7959183673
+"American Indian / Alaska Native",_70-74,Utah,49,76,27,103,0.7378640777
+"American Indian / Alaska Native",_70-74,Vermont,50,.,0,.,1
+"American Indian / Alaska Native",_70-74,Virginia,51,.,.,.,0.8666666667
+"American Indian / Alaska Native",_70-74,Washington,53,437,136,573,0.7626527051
+"American Indian / Alaska Native",_70-74,"West Virginia",54,.,.,.,0.8333333333
+"American Indian / Alaska Native",_70-74,Wisconsin,55,245,47,292,0.8390410959
+"American Indian / Alaska Native",_70-74,Wyoming,56,54,19,73,0.7397260274
+"American Indian / Alaska Native",_75-79,Alabama,1,34,13,47,0.7234042553
+"American Indian / Alaska Native",_75-79,Alaska,2,399,109,508,0.7854330709
+"American Indian / Alaska Native",_75-79,Arizona,4,543,392,935,0.5807486631
+"American Indian / Alaska Native",_75-79,Arkansas,5,56,12,68,0.8235294118
+"American Indian / Alaska Native",_75-79,California,6,559,131,690,0.8101449275
+"American Indian / Alaska Native",_75-79,Colorado,8,.,.,.,0.84375
+"American Indian / Alaska Native",_75-79,Connecticut,9,.,0,.,1
+"American Indian / Alaska Native",_75-79,Delaware,10,.,0,.,1
+"American Indian / Alaska Native",_75-79,Florida,12,.,.,.,0.9157894737
+"American Indian / Alaska Native",_75-79,Georgia,13,.,.,.,0.9166666667
+"American Indian / Alaska Native",_75-79,Hawaii,15,.,.,.,0.9
+"American Indian / Alaska Native",_75-79,Idaho,16,39,19,58,0.6724137931
+"American Indian / Alaska Native",_75-79,Illinois,17,.,.,.,0.8666666667
+"American Indian / Alaska Native",_75-79,Indiana,18,.,.,.,0.8947368421
+"American Indian / Alaska Native",_75-79,Iowa,19,19,14,33,0.5757575758
+"American Indian / Alaska Native",_75-79,Kansas,20,88,29,117,0.7521367521
+"American Indian / Alaska Native",_75-79,Kentucky,21,.,0,.,1
+"American Indian / Alaska Native",_75-79,Louisiana,22,.,.,.,0.8333333333
+"American Indian / Alaska Native",_75-79,Maine,23,.,.,.,0.8529411765
+"American Indian / Alaska Native",_75-79,Maryland,24,.,.,.,0.9230769231
+"American Indian / Alaska Native",_75-79,Massachusetts,25,.,.,.,0.8620689655
+"American Indian / Alaska Native",_75-79,Michigan,26,173,36,209,0.8277511962
+"American Indian / Alaska Native",_75-79,Minnesota,27,191,45,236,0.8093220339
+"American Indian / Alaska Native",_75-79,Mississippi,28,.,.,.,0.5833333333
+"American Indian / Alaska Native",_75-79,Missouri,29,.,.,.,0.8620689655
+"American Indian / Alaska Native",_75-79,Montana,30,180,64,244,0.737704918
+"American Indian / Alaska Native",_75-79,Nebraska,31,33,15,48,0.6875
+"American Indian / Alaska Native",_75-79,Nevada,32,67,21,88,0.7613636364
+"American Indian / Alaska Native",_75-79,"New Hampshire",33,.,.,.,0.6666666667
+"American Indian / Alaska Native",_75-79,"New Jersey",34,.,.,.,0.8484848485
+"American Indian / Alaska Native",_75-79,"New Mexico",35,336,198,534,0.6292134831
+"American Indian / Alaska Native",_75-79,"New York",36,189,34,223,0.8475336323
+"American Indian / Alaska Native",_75-79,"North Carolina",37,357,90,447,0.7986577181
+"American Indian / Alaska Native",_75-79,"North Dakota",38,78,32,110,0.7090909091
+"American Indian / Alaska Native",_75-79,Ohio,39,.,.,.,0.7777777778
+"American Indian / Alaska Native",_75-79,Oklahoma,40,1409,452,1861,0.757119828
+"American Indian / Alaska Native",_75-79,Oregon,41,148,34,182,0.8131868132
+"American Indian / Alaska Native",_75-79,Pennsylvania,42,.,.,.,0.7727272727
+"American Indian / Alaska Native",_75-79,"Rhode Island",44,.,0,.,1
+"American Indian / Alaska Native",_75-79,"South Carolina",45,.,.,.,0.8846153846
+"American Indian / Alaska Native",_75-79,"South Dakota",46,104,70,174,0.5977011494
+"American Indian / Alaska Native",_75-79,Tennessee,47,.,.,.,0.8333333333
+"American Indian / Alaska Native",_75-79,Texas,48,223,38,261,0.8544061303
+"American Indian / Alaska Native",_75-79,Utah,49,43,18,61,0.7049180328
+"American Indian / Alaska Native",_75-79,Vermont,50,.,0,.,1
+"American Indian / Alaska Native",_75-79,Virginia,51,.,.,.,0.8888888889
+"American Indian / Alaska Native",_75-79,Washington,53,347,87,434,0.7995391705
+"American Indian / Alaska Native",_75-79,"West Virginia",54,.,0,.,1
+"American Indian / Alaska Native",_75-79,Wisconsin,55,188,39,227,0.8281938326
+"American Indian / Alaska Native",_75-79,Wyoming,56,.,.,.,0.8181818182
+"American Indian / Alaska Native",_80-84,Alabama,1,.,.,.,0.8076923077
+"American Indian / Alaska Native",_80-84,Alaska,2,242,65,307,0.7882736156
+"American Indian / Alaska Native",_80-84,Arizona,4,366,262,628,0.5828025478
+"American Indian / Alaska Native",_80-84,Arkansas,5,.,.,.,0.8936170213
+"American Indian / Alaska Native",_80-84,California,6,370,77,447,0.8277404922
+"American Indian / Alaska Native",_80-84,Colorado,8,.,.,.,0.8888888889
+"American Indian / Alaska Native",_80-84,Connecticut,9,.,0,.,1
+"American Indian / Alaska Native",_80-84,Delaware,10,.,0,.,1
+"American Indian / Alaska Native",_80-84,Florida,12,38,11,49,0.7755102041
+"American Indian / Alaska Native",_80-84,Georgia,13,.,.,.,0.6363636364
+"American Indian / Alaska Native",_80-84,Hawaii,15,.,.,.,0.6666666667
+"American Indian / Alaska Native",_80-84,Idaho,16,.,.,.,0.7222222222
+"American Indian / Alaska Native",_80-84,Illinois,17,.,.,.,0.8571428571
+"American Indian / Alaska Native",_80-84,Indiana,18,.,.,.,0.8461538462
+"American Indian / Alaska Native",_80-84,Iowa,19,.,.,.,0.72
+"American Indian / Alaska Native",_80-84,Kansas,20,43,15,58,0.7413793103
+"American Indian / Alaska Native",_80-84,Kentucky,21,.,.,.,0.7142857143
+"American Indian / Alaska Native",_80-84,Louisiana,22,.,.,.,0.8571428571
+"American Indian / Alaska Native",_80-84,Maine,23,.,.,.,0.8636363636
+"American Indian / Alaska Native",_80-84,Maryland,24,.,.,.,0.8461538462
+"American Indian / Alaska Native",_80-84,Massachusetts,25,.,.,.,0.8421052632
+"American Indian / Alaska Native",_80-84,Michigan,26,123,20,143,0.8601398601
+"American Indian / Alaska Native",_80-84,Minnesota,27,103,12,115,0.8956521739
+"American Indian / Alaska Native",_80-84,Mississippi,28,.,.,.,0.75
+"American Indian / Alaska Native",_80-84,Missouri,29,.,.,.,0.7368421053
+"American Indian / Alaska Native",_80-84,Montana,30,121,39,160,0.75625
+"American Indian / Alaska Native",_80-84,Nebraska,31,.,.,.,0.8
+"American Indian / Alaska Native",_80-84,Nevada,32,35,14,49,0.7142857143
+"American Indian / Alaska Native",_80-84,"New Hampshire",33,.,0,.,1
+"American Indian / Alaska Native",_80-84,"New Jersey",34,.,.,.,0.7222222222
+"American Indian / Alaska Native",_80-84,"New Mexico",35,216,135,351,0.6153846154
+"American Indian / Alaska Native",_80-84,"New York",36,111,18,129,0.8604651163
+"American Indian / Alaska Native",_80-84,"North Carolina",37,165,48,213,0.7746478873
+"American Indian / Alaska Native",_80-84,"North Dakota",38,63,23,86,0.7325581395
+"American Indian / Alaska Native",_80-84,Ohio,39,.,.,.,0.6363636364
+"American Indian / Alaska Native",_80-84,Oklahoma,40,922,279,1201,0.7676935887
+"American Indian / Alaska Native",_80-84,Oregon,41,68,22,90,0.7555555556
+"American Indian / Alaska Native",_80-84,Pennsylvania,42,.,0,.,1
+"American Indian / Alaska Native",_80-84,"Rhode Island",44,.,0,.,1
+"American Indian / Alaska Native",_80-84,"South Carolina",45,.,.,.,0.4666666667
+"American Indian / Alaska Native",_80-84,"South Dakota",46,74,24,98,0.7551020408
+"American Indian / Alaska Native",_80-84,Tennessee,47,.,.,.,0.7894736842
+"American Indian / Alaska Native",_80-84,Texas,48,138,24,162,0.8518518519
+"American Indian / Alaska Native",_80-84,Utah,49,29,15,44,0.6590909091
+"American Indian / Alaska Native",_80-84,Vermont,50,0,.,.,0
+"American Indian / Alaska Native",_80-84,Virginia,51,.,.,.,0.875
+"American Indian / Alaska Native",_80-84,Washington,53,230,37,267,0.861423221
+"American Indian / Alaska Native",_80-84,Wisconsin,55,108,22,130,0.8307692308
+"American Indian / Alaska Native",_80-84,Wyoming,56,.,.,.,0.7142857143
+"American Indian / Alaska Native",_85+,Alabama,1,.,.,.,0.8947368421
+"American Indian / Alaska Native",_85+,Alaska,2,139,32,171,0.8128654971
+"American Indian / Alaska Native",_85+,Arizona,4,257,178,435,0.5908045977
+"American Indian / Alaska Native",_85+,Arkansas,5,.,.,.,0.84
+"American Indian / Alaska Native",_85+,California,6,293,76,369,0.7940379404
+"American Indian / Alaska Native",_85+,Colorado,8,.,.,.,0.8064516129
+"American Indian / Alaska Native",_85+,Connecticut,9,.,0,.,1
+"American Indian / Alaska Native",_85+,Delaware,10,.,0,.,1
+"American Indian / Alaska Native",_85+,"District of Columbia",11,.,0,.,1
+"American Indian / Alaska Native",_85+,Florida,12,47,11,58,0.8103448276
+"American Indian / Alaska Native",_85+,Georgia,13,.,.,.,0.7272727273
+"American Indian / Alaska Native",_85+,Hawaii,15,.,0,.,1
+"American Indian / Alaska Native",_85+,Idaho,16,.,.,.,0.5294117647
+"American Indian / Alaska Native",_85+,Illinois,17,.,.,.,0.9523809524
+"American Indian / Alaska Native",_85+,Indiana,18,.,.,.,0.7142857143
+"American Indian / Alaska Native",_85+,Iowa,19,.,.,.,0.7692307692
+"American Indian / Alaska Native",_85+,Kansas,20,.,.,.,0.8723404255
+"American Indian / Alaska Native",_85+,Kentucky,21,.,0,.,1
+"American Indian / Alaska Native",_85+,Louisiana,22,.,.,.,0.9285714286
+"American Indian / Alaska Native",_85+,Maine,23,.,0,.,1
+"American Indian / Alaska Native",_85+,Maryland,24,.,.,.,0.8461538462
+"American Indian / Alaska Native",_85+,Massachusetts,25,.,.,.,0.8333333333
+"American Indian / Alaska Native",_85+,Michigan,26,92,17,109,0.8440366972
+"American Indian / Alaska Native",_85+,Minnesota,27,.,.,.,0.8933333333
+"American Indian / Alaska Native",_85+,Mississippi,28,.,.,.,0.7777777778
+"American Indian / Alaska Native",_85+,Missouri,29,.,.,.,0.8
+"American Indian / Alaska Native",_85+,Montana,30,68,28,96,0.7083333333
+"American Indian / Alaska Native",_85+,Nebraska,31,.,.,.,0.7272727273
+"American Indian / Alaska Native",_85+,Nevada,32,.,.,.,0.7037037037
+"American Indian / Alaska Native",_85+,"New Jersey",34,.,.,.,0.5
+"American Indian / Alaska Native",_85+,"New Mexico",35,116,90,206,0.5631067961
+"American Indian / Alaska Native",_85+,"New York",36,80,17,97,0.824742268
+"American Indian / Alaska Native",_85+,"North Carolina",37,113,26,139,0.8129496403
+"American Indian / Alaska Native",_85+,"North Dakota",38,.,.,.,0.8372093023
+"American Indian / Alaska Native",_85+,Ohio,39,11,0,11,1
+"American Indian / Alaska Native",_85+,Oklahoma,40,634,222,856,0.7406542056
+"American Indian / Alaska Native",_85+,Oregon,41,46,12,58,0.7931034483
+"American Indian / Alaska Native",_85+,Pennsylvania,42,.,.,.,0.9166666667
+"American Indian / Alaska Native",_85+,"Rhode Island",44,.,0,.,1
+"American Indian / Alaska Native",_85+,"South Carolina",45,.,.,.,0.5333333333
+"American Indian / Alaska Native",_85+,"South Dakota",46,49,22,71,0.6901408451
+"American Indian / Alaska Native",_85+,Tennessee,47,.,0,.,1
+"American Indian / Alaska Native",_85+,Texas,48,117,20,137,0.8540145985
+"American Indian / Alaska Native",_85+,Utah,49,.,.,.,0.724137931
+"American Indian / Alaska Native",_85+,Vermont,50,.,0,.,1
+"American Indian / Alaska Native",_85+,Virginia,51,.,.,.,0.8
+"American Indian / Alaska Native",_85+,Washington,53,142,41,183,0.7759562842
+"American Indian / Alaska Native",_85+,Wisconsin,55,85,13,98,0.8673469388
+"American Indian / Alaska Native",_85+,Wyoming,56,.,.,.,0.9090909091
