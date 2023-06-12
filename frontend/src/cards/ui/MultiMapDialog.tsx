@@ -254,7 +254,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         mapIsWide={false}
                         metricConfig={props.metricConfig}
                         signalListeners={multimapSignalListeners}
-                        fieldRange={props.fieldRange}
                       />
                     </Grid>
                   )}
