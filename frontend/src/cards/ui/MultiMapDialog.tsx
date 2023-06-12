@@ -253,6 +253,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         data={dataForValue}
                         countColsToAdd={props.countColsToAdd}
                         mapIsWide={false}
+                        geoData={props.geoData}
                       />
                     </Grid>
                   )}
