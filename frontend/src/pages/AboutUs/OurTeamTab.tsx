@@ -5,6 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import {
   GOOGLE_FELLOWS,
+  GRANTORS,
   HET_ALUMNI,
   HE_TASKFORCE,
   LEADERSHIP_TEAM,
@@ -187,7 +188,7 @@ function OurTeamTab() {
         <Grid container className={styles.GridRow} component={'section'}>
           <Grid item xs={12}>
             <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Partners
+              Founding Partners
             </Typography>
           </Grid>
           <LazyLoad offset={300} height={200} once>
@@ -221,6 +222,43 @@ function OurTeamTab() {
               ))}
             </Grid>
           </LazyLoad>
+        </Grid>
+
+        <Grid container className={styles.GridRow} component={'section'}>
+          <Grid item xs={12}>
+            <Typography variant="h3" align="left" className={styles.TeamHeader}>
+              Grantors
+            </Typography>
+          </Grid>
+          <Grid
+            item
+            container
+            xs={12}
+            className={styles.GridSubRow}
+            component="ul"
+          >
+            {GRANTORS.map((grantor) => (
+              <Grid
+                item
+                xs={12}
+                sm={6}
+                md={4}
+                xl={2}
+                container
+                justifyContent="space-around"
+                key={grantor.url}
+                component="li"
+              >
+                <a href={grantor.url}>
+                  <img
+                    src={grantor.imageUrl}
+                    alt={grantor.alt}
+                    className={styles.GrantorImg}
+                  />
+                </a>
+              </Grid>
+            ))}
+          </Grid>
         </Grid>
       </Grid>
     </>

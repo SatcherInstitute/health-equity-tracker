@@ -7,12 +7,9 @@
 import { LESS_THAN_1 } from '../utils/Constants'
 
 const dropdownVarIds = [
-  'ami',
-  'arv_adherence',
   'asthma',
   'avoided_care',
   'cardiovascular_diseases',
-  'cardiovascular_medications_adherence',
   'chronic_kidney_disease',
   'copd',
   'covid_vaccinations',
@@ -27,6 +24,7 @@ const dropdownVarIds = [
   'hiv_prep',
   'hiv',
   'incarceration',
+  'phrma_cardiovascular',
   'phrma_hiv',
   'poverty',
   'preventable_hospitalizations',
@@ -48,6 +46,8 @@ export type AgeAdjustedDataTypeId = 'covid_deaths' | 'covid_hospitalizations'
 export type DataTypeId =
   | DropdownVarId
   | AgeAdjustedDataTypeId
+  | 'ami'
+  | 'arv_adherence'
   | 'beta_blockers_adherence'
   | 'covid_cases'
   | 'covid_deaths'
@@ -1617,10 +1617,40 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
   ],
 
-  cardiovascular_medications_adherence: [
+  phrma_cardiovascular: [
+    {
+      dataTypeId: 'ami',
+      dataTypeShortLabel: 'Heart Attacks (Acute MI)',
+      fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Sample definition from AMI data`,
+      metrics: {
+        per100k: {
+          metricId: 'ami_per_100k',
+          chartTitle: 'Rates of Acute MI',
+          shortLabel: 'Acute MI per 100k',
+          type: 'per100k',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total Acute MI',
+          metricId: 'ami_pct_share',
+          columnTitleHeader: 'Percent share of total Acute MI',
+          shortLabel: '% of total Acute MI',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total Acute MI',
+            metricId: 'phrma_population_pct_share',
+            columnTitleHeader: 'Share of all beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
     {
       dataTypeId: 'statins_adherence',
-      dataTypeShortLabel: 'Statins (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Adherence to Statins',
       fullDisplayName: 'Adherence to statins',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from statins adherence data`,
@@ -1650,7 +1680,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'beta_blockers_adherence',
-      dataTypeShortLabel: 'Beta-Blockers (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Adherence to Beta-Blockers',
       fullDisplayName: 'Adherence to beta-blockers',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from beta-blockers adherence data`,
@@ -1681,7 +1711,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'nqf_adherence',
-      dataTypeShortLabel: 'Beta-Blockers Post-Heart Attack (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Adherence to Beta-Blockers Post-Heart Attack',
       fullDisplayName:
         'Persistence of Beta-Blocker Treatment After a Heart Attack',
       surveyCollectedData: true,
@@ -1713,7 +1743,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'rasa_adherence',
-      dataTypeShortLabel: 'RAS-Antagonists (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Adherence to RAS-Antagonists',
       fullDisplayName: 'Adherence to RAS antagonists',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from RAS antagonists adherence data`,
@@ -1744,7 +1774,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'ccb_adherence',
-      dataTypeShortLabel: 'Calcium Channel Blockers (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
       fullDisplayName: 'Adherence to calcium channel blockers',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from CCB adherence data`,
@@ -1777,7 +1807,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
     },
     {
       dataTypeId: 'doac_adherence',
-      dataTypeShortLabel: 'Direct Oral Anticoagulants (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants',
       fullDisplayName: 'Direct Oral Anticoagulants',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from DOAC adherence data`,
@@ -1809,42 +1839,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       },
     },
   ],
-  ami: [
-    {
-      dataTypeId: 'ami',
-      dataTypeShortLabel: 'Heart Attacks (Medicare/Medicaid)',
-      fullDisplayName: 'Heart Attacks',
-      surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from AMI data`,
-      metrics: {
-        per100k: {
-          metricId: 'ami_per_100k',
-          chartTitle: 'Rates of heart attacks',
-          shortLabel: 'heart attacks per 100k',
-          type: 'per100k',
-        },
-        pct_share: {
-          chartTitle: 'Percent share of total heart attacks',
-          metricId: 'ami_pct_share',
-          columnTitleHeader: 'Percent share of total heart attacks',
-          shortLabel: '% of total heart attacks',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle:
-              'Share of beneficiary population vs. share of total heart attacks',
-            metricId: 'phrma_population_pct_share',
-            columnTitleHeader: 'Share of all beneficiaries',
-            shortLabel: '% of beneficiary pop.',
-            type: 'pct_share',
-          },
-        },
-      },
-    },
-  ],
   phrma_hiv: [
     {
       dataTypeId: 'phrma_hiv',
-      dataTypeShortLabel: 'HIV cases (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Cases',
       fullDisplayName: 'HIV cases',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from PHRMA HIV data`,
@@ -1872,12 +1870,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
-  ],
-  arv_adherence: [
     {
       dataTypeId: 'arv_adherence',
-      dataTypeShortLabel: 'ARV',
-      fullDisplayName: 'Adherence to anti-retrovirals (Medicare/Medicaid)',
+      dataTypeShortLabel: 'Medication Adherence (Antiretrovirals)',
+      fullDisplayName: 'Adherence to anti-retrovirals',
       surveyCollectedData: true,
       dataTypeDefinition: `Sample definition from ARV adherence data`,
       metrics: {

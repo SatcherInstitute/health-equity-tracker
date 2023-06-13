@@ -32,7 +32,7 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
-  | 'Medicare/Medicaid'
+  | 'Medicare Beneficiaries'
 
 export interface MadLib {
   readonly id: MadLibId
@@ -107,12 +107,9 @@ export const DEFAULT: DefaultDropdownVarId = 'default'
 const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
   {
     default: 'select a topic',
-    ami: 'Heart Attacks',
-    arv_adherence: 'HIV Medication Adherence',
     asthma: 'Asthma',
     avoided_care: 'Care Avoidance Due to Cost',
     cardiovascular_diseases: 'Cardiovascular Diseases',
-    cardiovascular_medications_adherence: 'Cardiovascular Medication Adherence',
     chronic_kidney_disease: 'Chronic Kidney Disease',
     copd: 'COPD',
     covid_vaccinations: 'COVID-19 Vaccinations',
@@ -128,7 +125,8 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     hiv: 'HIV',
     incarceration: 'Incarceration',
     poverty: 'Poverty',
-    phrma_hiv: 'HIV Cases',
+    phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
+    phrma_hiv: 'HIV Conditions and Medication Adherence',
     preventable_hospitalizations: 'Preventable Hospitalization',
     substance: 'Opioid and Other Substance Misuse',
     suicide: 'Suicide',
@@ -139,10 +137,8 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
 > = {
-  cardiovascular_medications_adherence: 'Adherence to',
-  arv_adherence: 'Adherence to HIV Medications (Medicare/Medicaid)',
-  ami: 'Heart Attacks (Medicare/Medicaid)',
-  phrma_hiv: 'HIV Cases (Medicare/Medicaid)',
+  phrma_cardiovascular: 'Medicare Beneficiary',
+  phrma_hiv: 'Medicare Beneficiary HIV',
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',
@@ -158,14 +154,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: [
-      'hiv',
-      'hiv_care',
-      'hiv_prep',
-      'hiv_black_women',
-      // 'phrma_hiv',
-      // 'arv_adherence',
-    ],
+    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
   },
   {
     title: 'Chronic Disease',
@@ -205,14 +194,9 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: 'Medicare/Medicaid',
+    title: 'Medicare Beneficiaries',
     definition: '',
-    options: [
-      'cardiovascular_medications_adherence',
-      'ami',
-      'phrma_hiv',
-      'arv_adherence',
-    ],
+    options: ['phrma_cardiovascular', 'phrma_hiv'],
   },
   {
     title: 'COVID-19',

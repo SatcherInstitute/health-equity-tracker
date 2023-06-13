@@ -267,8 +267,10 @@
 }
 
 // For partner images at the bottom of the page
-.PartnerImg {
+.PartnerImg,
+.GrantorImg {
   padding: 10px;
+  max-width: 250px;
 }
 
 /** ------------- CONTACT US ------------- **/
