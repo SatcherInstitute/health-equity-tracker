@@ -468,13 +468,13 @@ function MapCardWithKey(props: MapCardProps) {
                       {props.fips.isUsa() && (
                         <Grid item xs={12}>
                           <TerritoryCircles
-                            mapIsWide={mapIsWide}
-                            data={displayData}
                             countColsToAdd={countColsToAdd}
+                            data={displayData}
+                            geoData={geoData}
                             listExpanded={listExpanded}
+                            mapIsWide={mapIsWide}
                             metricConfig={metricConfig}
                             signalListeners={signalListeners}
-                            geoData={geoData}
                           />
                         </Grid>
                       )}
