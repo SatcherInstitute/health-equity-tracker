@@ -9,7 +9,7 @@
     "types": [
       "vitest/globals",
       "vite-plugin-svgr/client",
-      "vite/client",
+      "vite/client"
     ],
     "allowJs": true,
     "skipLibCheck": true,
