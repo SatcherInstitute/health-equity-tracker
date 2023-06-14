@@ -79,6 +79,9 @@ describe('Test getHighestLowestGroupsByFips()', () => {
     { fips: '03', sex: 'Other', condition_per_100k: 1 },
     { fips: '03', sex: 'All', condition_per_100k: 2 },
     { fips: '03', sex: 'Male', condition_per_100k: undefined },
+    { fips: '04', sex: 'Other', condition_per_100k: 999 },
+    { fips: '04', sex: 'Male', condition_per_100k: 1000 },
+    { fips: '04', sex: 'Female', condition_per_100k: 1000 },
   ]
   test('Normal data gives a high and a low', () => {
     const highLowSex = getHighestLowestGroupsByFips(
@@ -97,6 +100,10 @@ describe('Test getHighestLowestGroupsByFips()', () => {
         lowest: 'Male',
       },
       // 03 is undefined intentionally
+      '04': {
+        highest: 'Multiple groups',
+        lowest: 'Other',
+      },
     })
   })
 })
