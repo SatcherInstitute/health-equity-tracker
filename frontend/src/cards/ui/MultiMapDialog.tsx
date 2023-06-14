@@ -248,11 +248,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   dataForValue.length && (
                     <Grid container>
                       <TerritoryCircles
-                        signalListeners={multimapSignalListeners}
-                        metricConfig={props.metricConfig}
-                        data={dataForValue}
                         countColsToAdd={props.countColsToAdd}
+                        data={dataForValue}
+                        geoData={props.geoData}
                         mapIsWide={false}
+                        metricConfig={props.metricConfig}
+                        signalListeners={multimapSignalListeners}
                       />
                     </Grid>
                   )}
