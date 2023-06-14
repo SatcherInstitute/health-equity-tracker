@@ -191,8 +191,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     const tooltipPairs = {
       [tooltipLabel]: tooltipDatum,
-      'Highest rate': `datum.highestGroup`,
-      'Lowest rate': `datum.lowestGroup`,
+      'Highest rate group': `datum.highestGroup`,
+      'Lowest rate group': `datum.lowestGroup`,
     }
 
     const geographyType = getCountyAddOn(

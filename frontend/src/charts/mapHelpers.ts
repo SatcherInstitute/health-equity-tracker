@@ -405,8 +405,8 @@ export function getMapScheme({
 }
 
 export interface HighestLowest {
-  highest: DemographicGroup
-  lowest: DemographicGroup
+  highest?: DemographicGroup
+  lowest?: DemographicGroup
 }
 
 export function getHighestLowestGroupsByFips(
@@ -453,12 +453,12 @@ export function getHighestLowestGroupsByFips(
       }
       // TIE OVERRIDES
       if (ascendingRows[0][metricId] === ascendingRows[1][metricId])
-        fipsToGroup[fips].lowest = 'Multiple groups'
+        delete fipsToGroup[fips].lowest
       const size = ascendingRows.length
       if (
         ascendingRows[size - 1][metricId] === ascendingRows[size - 2][metricId]
       )
-        fipsToGroup[fips].highest = 'Multiple groups'
+        delete fipsToGroup[fips].highest
     }
   }
 

@@ -101,7 +101,6 @@ describe('Test getHighestLowestGroupsByFips()', () => {
       },
       // 03 is undefined intentionally
       '04': {
-        highest: 'Multiple groups',
         lowest: 'Other',
       },
     })
