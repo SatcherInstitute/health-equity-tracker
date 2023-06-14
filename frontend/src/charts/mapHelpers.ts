@@ -23,6 +23,7 @@ import {
   LESS_THAN_1,
   raceNameToCodeMap,
   ALL,
+  ALL_W,
 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
@@ -146,7 +147,7 @@ export function addCAWPTooltipInfo(
 }
 
 /*
- formatted tooltip hover 100k values above zero should display as less than 1, otherwise should get pretty commas
+ formatted tooltip hover 100k values that round to zero should display as <1, otherwise should get pretty commas
 */
 export function formatPreventZero100k(
   metricType: MetricType,
@@ -419,13 +420,19 @@ export function getHighestLowestGroupsByFips(
   if (!fullData || !breakdown || !metricId) return fipsToGroup
 
   const fipsInData = new Set(fullData.map((row) => row.fips))
-
   for (const fips of fipsInData) {
     const dataForFips = fullData.filter(
       (row) =>
-        row.fips === fips && row[breakdown] !== ALL && row[metricId] != null
+        row.fips === fips &&
+        [ALL, ALL_W].includes(row[breakdown]) &&
+        row[metricId] != null
     )
-    if (dataForFips.length <= 1) continue
+
+    // handle places with limited groups / lots of zeros
+    const validUniqueRates = Array.from(
+      new Set(dataForFips.map((row) => row[metricId]))
+    )
+    if (validUniqueRates.length <= 1) continue
 
     const sortedGroupsLowToHigh: DemographicGroup[] = dataForFips
       .sort((a, b) => a[metricId] - b[metricId])
