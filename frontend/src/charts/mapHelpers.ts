@@ -421,7 +421,10 @@ export function getHighestLowestGroupsByFips(
   const fipsInData = new Set(fullData.map((row) => row.fips))
 
   for (const fips of fipsInData) {
-    const dataForFips = fullData.filter((row) => row.fips === fips)
+    const dataForFips = fullData.filter(
+      (row) =>
+        row.fips === fips && row[breakdown] !== ALL && row[metricId] != null
+    )
     if (dataForFips.length <= 1) continue
 
     const sortedGroupsLowToHigh: DemographicGroup[] = dataForFips
@@ -429,21 +432,19 @@ export function getHighestLowestGroupsByFips(
       .map((row) => row[breakdown])
 
     fipsToGroup[fips] = {
-      highest:
-        generateSubtitle({
-          currentBreakdown: breakdown,
-          activeBreakdownFilter:
-            sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
-          isPopulationSubset: false,
-          metricId,
-        }) || 'All',
-      lowest:
-        generateSubtitle({
-          currentBreakdown: breakdown,
-          activeBreakdownFilter: sortedGroupsLowToHigh[0],
-          isPopulationSubset: false,
-          metricId,
-        }) || 'All',
+      highest: generateSubtitle({
+        currentBreakdown: breakdown,
+        activeBreakdownFilter:
+          sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
+        isPopulationSubset: false,
+        metricId,
+      }),
+      lowest: generateSubtitle({
+        currentBreakdown: breakdown,
+        activeBreakdownFilter: sortedGroupsLowToHigh[0],
+        isPopulationSubset: false,
+        metricId,
+      }),
     }
   }
 
