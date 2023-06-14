@@ -187,7 +187,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : `${props.metric.shortLabel}${mapGroupLabel}`
+        : mapGroupLabel
 
     const tooltipPairs = {
       [tooltipLabel]: tooltipDatum,

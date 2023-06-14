@@ -153,8 +153,8 @@ export function formatPreventZero100k(
   metricId: MetricId
 ) {
   return metricType === 'per100k'
-    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}')`
-    : `format(datum.${metricId}, ',')`
+    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
+    : `format(datum.${metricId}, ',') + '%'`
 }
 
 /*
@@ -468,6 +468,6 @@ export function getMapGroupLabel(activeBreakdownFilter?: DemographicGroup) {
     : activeBreakdownFilter ?? ''
 
   return activeBreakdownFilter === ALL
-    ? ' overall'
-    : ` for ${selectedGroup ?? 'selected group'}`
+    ? 'Rate overall'
+    : `Rate for ${selectedGroup ?? 'selected group'}`
 }
