@@ -7,6 +7,10 @@ import {
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
 import { getMapScheme } from '../../charts/mapHelpers'
+import { type DemographicGroup } from '../../data/utils/Constants'
+import { getHighestLowestGroupsByFips } from '../MapCard'
+import { type Row } from '../../data/utils/DatasetTypes'
+import { type BreakdownVar } from '../../data/query/Breakdowns'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -18,6 +22,9 @@ interface TerritoryCirclesProps {
   countColsToAdd: MetricId[]
   mapIsWide: boolean
   isUnknownsMap?: boolean
+  breakdown?: BreakdownVar
+  activeBreakdownFilter?: DemographicGroup
+  fullData?: Row[]
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
@@ -26,6 +33,12 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     isUnknownsMap: props.isUnknownsMap,
   })
 
+  const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
+    props.fullData,
+    props.breakdown,
+    props.metricConfig.metricId
+  )
+
   return (
     <Grid container flexDirection={'row'} justifyContent={'flex-end'}>
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
@@ -33,6 +46,8 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
         return (
           <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
             <ChoroplethMap
+              highestLowestGroupsByFips={highestLowestGroupsByFips}
+              activeBreakdownFilter={props.activeBreakdownFilter}
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
               data={props.data}
