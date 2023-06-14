@@ -430,39 +430,33 @@ export function getHighestLowestGroupsByFips(
       new Set(dataForFips.map((row) => row[metricId]))
     )
     if (validUniqueRates.length > 1) {
-      console.log(validUniqueRates)
-
-      const sortedRowsLowsToHigh: Row[] = dataForFips.sort(
+      const ascendingRows: Row[] = dataForFips.sort(
         (a, b) => a[metricId] - b[metricId]
       )
-
-      const sortedGroupsLowToHigh: DemographicGroup[] =
-        sortedRowsLowsToHigh.map((row) => row[breakdown])
+      const ascendingGroups: DemographicGroup[] = ascendingRows.map(
+        (row) => row[breakdown]
+      )
 
       fipsToGroup[fips] = {
         highest: generateSubtitle({
           currentBreakdown: breakdown,
-          activeBreakdownFilter:
-            sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
+          activeBreakdownFilter: ascendingGroups[ascendingGroups.length - 1],
           isPopulationSubset: false,
           metricId,
         }),
         lowest: generateSubtitle({
           currentBreakdown: breakdown,
-          activeBreakdownFilter: sortedGroupsLowToHigh[0],
+          activeBreakdownFilter: ascendingGroups[0],
           isPopulationSubset: false,
           metricId,
         }),
       }
       // TIE OVERRIDES
-      if (
-        sortedRowsLowsToHigh[0][metricId] === sortedRowsLowsToHigh[1][metricId]
-      )
+      if (ascendingRows[0][metricId] === ascendingRows[1][metricId])
         fipsToGroup[fips].lowest = 'Multiple groups'
-      const size = sortedRowsLowsToHigh.length
+      const size = ascendingRows.length
       if (
-        sortedRowsLowsToHigh[size - 1][metricId] ===
-        sortedRowsLowsToHigh[size - 2][metricId]
+        ascendingRows[size - 1][metricId] === ascendingRows[size - 2][metricId]
       )
         fipsToGroup[fips].highest = 'Multiple groups'
     }
