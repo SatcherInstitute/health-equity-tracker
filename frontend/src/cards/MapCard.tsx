@@ -57,7 +57,11 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useState } from 'react'
-import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
+import {
+  RATE_MAP_SCALE,
+  getHighestLowestGroupsByFips,
+  getMapScheme,
+} from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -441,6 +445,12 @@ function MapCardWithKey(props: MapCardProps) {
                       lg={mapIsWide ? 10 : 12}
                     >
                       <ChoroplethMap
+                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                          mapQueryResponse.data,
+                          props.currentBreakdown,
+                          metricId
+                        )}
+                        activeBreakdownFilter={activeBreakdownFilter}
                         countColsToAdd={countColsToAdd}
                         data={displayData}
                         filename={filename}
@@ -462,8 +472,11 @@ function MapCardWithKey(props: MapCardProps) {
                       {props.fips.isUsa() && (
                         <Grid item xs={12}>
                           <TerritoryCircles
+                            breakdown={props.currentBreakdown}
+                            activeBreakdownFilter={activeBreakdownFilter}
                             countColsToAdd={countColsToAdd}
                             data={displayData}
+                            fullData={mapQueryResponse.data}
                             geoData={geoData}
                             listExpanded={listExpanded}
                             mapIsWide={mapIsWide}

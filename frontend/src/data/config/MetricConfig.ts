@@ -53,7 +53,6 @@ export type DataTypeId =
   | 'covid_deaths'
   | 'covid_hospitalizations'
   | 'covid_vaccinations'
-  | 'health_coverage'
   | 'hiv_deaths_black_women'
   | 'hiv_deaths'
   | 'hiv_diagnoses_black_women'
@@ -72,7 +71,6 @@ export type DataTypeId =
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
   | 'prison'
-  | 'suicides'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
 
