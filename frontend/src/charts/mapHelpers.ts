@@ -16,11 +16,17 @@ import {
   ZERO_DOT_SCALE,
 } from './Legend'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
-import { ORDINAL } from './utils'
+import { ORDINAL, generateSubtitle } from './utils'
 import sass from '../styles/variables.module.scss'
-import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
+import {
+  type DemographicGroup,
+  LESS_THAN_1,
+  raceNameToCodeMap,
+  ALL,
+} from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
+import { type BreakdownVar } from '../data/query/Breakdowns'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -396,4 +402,71 @@ export function getMapScheme({
   }
 
   return [mapScheme, mapMin]
+}
+
+export interface HighestLowest {
+  highest: DemographicGroup
+  lowest: DemographicGroup
+}
+
+export function getHighestLowestGroupsByFips(
+  fullData?: Row[],
+  breakdown?: BreakdownVar,
+  metricId?: MetricId
+) {
+  const fipsToGroup: Record<string, HighestLowest> = {}
+
+  if (!fullData || !breakdown || !metricId) return fipsToGroup
+
+  const fipsInData = new Set(fullData.map((row) => row.fips))
+
+  for (const fips of fipsInData) {
+    const dataForFips = fullData.filter((row) => row.fips === fips)
+    if (dataForFips.length <= 1) continue
+
+    const sortedGroupsLowToHigh: DemographicGroup[] = dataForFips
+      .sort((a, b) => a[metricId] - b[metricId])
+      .map((row) => row[breakdown])
+
+    fipsToGroup[fips] = {
+      highest:
+        generateSubtitle({
+          currentBreakdown: breakdown,
+          activeBreakdownFilter:
+            sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
+          isPopulationSubset: false,
+          metricId,
+        }) || 'All',
+      lowest:
+        generateSubtitle({
+          currentBreakdown: breakdown,
+          activeBreakdownFilter: sortedGroupsLowToHigh[0],
+          isPopulationSubset: false,
+          metricId,
+        }) || 'All',
+    }
+  }
+
+  return fipsToGroup
+}
+
+export function embedHighestLowestGroups(
+  data: any[],
+  highestLowestGroupsByFips?: Record<string, HighestLowest>
+) {
+  return data.map((row) => {
+    row.highestGroup = highestLowestGroupsByFips?.[row.fips]?.highest
+    row.lowestGroup = highestLowestGroupsByFips?.[row.fips]?.lowest
+    return row
+  })
+}
+
+export function getMapGroupLabel(activeBreakdownFilter?: DemographicGroup) {
+  const selectedGroup = activeBreakdownFilter
+    ? raceNameToCodeMap[activeBreakdownFilter]
+    : activeBreakdownFilter ?? ''
+
+  return activeBreakdownFilter === ALL
+    ? ' overall'
+    : ` for ${selectedGroup ?? 'selected group'}`
 }

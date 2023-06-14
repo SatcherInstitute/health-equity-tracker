@@ -38,15 +38,13 @@ import {
   ZERO_DATASET,
   VALID_DATASET,
   getHelperLegend,
+  type HighestLowest,
+  embedHighestLowestGroups,
+  getMapGroupLabel,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
-import {
-  ALL,
-  raceNameToCodeMap,
-  type DemographicGroup,
-} from '../data/utils/Constants'
-import { type HighestLowest } from '../cards/MapCard'
+import { type DemographicGroup } from '../data/utils/Constants'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -103,11 +101,10 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const dataWithHighestLowest = props.data.map((row) => {
-    row.highestGroup = props?.highestLowestGroupsByFips?.[row.fips].highest
-    row.lowestGroup = props?.highestLowestGroupsByFips?.[row.fips].lowest
-    return row
-  })
+  const dataWithHighestLowest = embedHighestLowestGroups(
+    props.data,
+    props.highestLowestGroupsByFips
+  )
 
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
@@ -184,17 +181,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId
     )
 
-    const mapGroupLabel =
-      props.activeBreakdownFilter === ALL
-        ? 'overall'
-        : raceNameToCodeMap?.[props?.activeBreakdownFilter ?? 0] ??
-          props.activeBreakdownFilter
+    const mapGroupLabel = getMapGroupLabel(props.activeBreakdownFilter)
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : `${props.metric.shortLabel} ${mapGroupLabel}`
+        : `${props.metric.shortLabel}${mapGroupLabel}`
 
     const tooltipPairs = {
       [tooltipLabel]: tooltipDatum,

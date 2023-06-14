@@ -1,5 +1,10 @@
+import { MetricId } from '../data/config/MetricConfig'
 import { Fips } from '../data/utils/Fips'
-import { buildTooltipTemplate, getCountyAddOn } from './mapHelpers'
+import {
+  buildTooltipTemplate,
+  getCountyAddOn,
+  getHighestLowestGroupsByFips,
+} from './mapHelpers'
 
 describe('Test buildTooltipTemplate()', () => {
   test('generates vega template string with a title, no SVI', () => {
@@ -60,5 +65,36 @@ describe('Test getCountyAddOn()', () => {
       /* showCounties */ false
     )
     expect(alabamaAddOn).toEqual('')
+  })
+})
+
+describe('Test getHighestLowestGroupsByFips()', () => {
+  const testData = [
+    { fips: '01', sex: 'All', condition_per_100k: 2000 },
+    { fips: '01', sex: 'Male', condition_per_100k: 1000 },
+    { fips: '01', sex: 'Female', condition_per_100k: 3000 },
+    { fips: '02', sex: 'All', condition_per_100k: 2000 },
+    { fips: '02', sex: 'Male', condition_per_100k: 10 },
+    { fips: '02', sex: 'Female', condition_per_100k: 30 },
+    { fips: '03', sex: 'Other', condition_per_100k: 1 },
+  ]
+  test('Normal data gives a high and a low', () => {
+    const highLowSex = getHighestLowestGroupsByFips(
+      /* fullData */ testData,
+      /* breakdown */ 'sex',
+      /* metricId */ 'condition_per_100k' as MetricId
+    )
+
+    expect(highLowSex).toEqual({
+      '01': {
+        highest: 'Female',
+        lowest: 'Male',
+      },
+      '02': {
+        highest: 'All',
+        lowest: 'Male',
+      },
+      // "03" fips remains undefined
+    })
   })
 })

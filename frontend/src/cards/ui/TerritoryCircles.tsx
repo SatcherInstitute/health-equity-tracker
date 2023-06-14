@@ -6,9 +6,11 @@ import {
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
-import { getMapScheme } from '../../charts/mapHelpers'
+import {
+  getHighestLowestGroupsByFips,
+  getMapScheme,
+} from '../../charts/mapHelpers'
 import { type DemographicGroup } from '../../data/utils/Constants'
-import { getHighestLowestGroupsByFips } from '../MapCard'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 

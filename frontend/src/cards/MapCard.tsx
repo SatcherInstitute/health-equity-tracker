@@ -58,7 +58,11 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { useState } from 'react'
-import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
+import {
+  RATE_MAP_SCALE,
+  getHighestLowestGroupsByFips,
+  getMapScheme,
+} from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -590,36 +594,4 @@ function MapCardWithKey(props: MapCardProps) {
       }}
     </CardWrapper>
   )
-}
-
-export interface HighestLowest {
-  highest: DemographicGroup
-  lowest: DemographicGroup
-}
-
-export function getHighestLowestGroupsByFips(
-  fullData?: Row[],
-  breakdown?: BreakdownVar,
-  metricId?: MetricId
-) {
-  const fipsToGroup: Record<string, HighestLowest> = {}
-
-  if (!fullData || !breakdown || !metricId) return fipsToGroup
-
-  const fipsInData = new Set(fullData.map((row) => row.fips))
-
-  for (const fips of fipsInData) {
-    const dataForFips = fullData.filter((row) => row.fips === fips)
-
-    const sortedGroupsLowToHigh: DemographicGroup[] = dataForFips
-      .sort((a, b) => a[metricId] - b[metricId])
-      .map((row) => row[breakdown])
-
-    fipsToGroup[fips] = {
-      highest: sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
-      lowest: sortedGroupsLowToHigh[0],
-    }
-  }
-
-  return fipsToGroup
 }
