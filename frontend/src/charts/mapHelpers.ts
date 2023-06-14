@@ -23,7 +23,6 @@ import {
   LESS_THAN_1,
   raceNameToCodeMap,
   ALL,
-  ALL_W,
 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
@@ -423,35 +422,49 @@ export function getHighestLowestGroupsByFips(
   for (const fips of fipsInData) {
     const dataForFips = fullData.filter(
       (row) =>
-        row.fips === fips &&
-        [ALL, ALL_W].includes(row[breakdown]) &&
-        row[metricId] != null
+        row.fips === fips && row[breakdown] !== ALL && row[metricId] != null
     )
 
     // handle places with limited groups / lots of zeros
     const validUniqueRates = Array.from(
       new Set(dataForFips.map((row) => row[metricId]))
     )
-    if (validUniqueRates.length <= 1) continue
+    if (validUniqueRates.length > 1) {
+      console.log(validUniqueRates)
 
-    const sortedGroupsLowToHigh: DemographicGroup[] = dataForFips
-      .sort((a, b) => a[metricId] - b[metricId])
-      .map((row) => row[breakdown])
+      const sortedRowsLowsToHigh: Row[] = dataForFips.sort(
+        (a, b) => a[metricId] - b[metricId]
+      )
 
-    fipsToGroup[fips] = {
-      highest: generateSubtitle({
-        currentBreakdown: breakdown,
-        activeBreakdownFilter:
-          sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
-        isPopulationSubset: false,
-        metricId,
-      }),
-      lowest: generateSubtitle({
-        currentBreakdown: breakdown,
-        activeBreakdownFilter: sortedGroupsLowToHigh[0],
-        isPopulationSubset: false,
-        metricId,
-      }),
+      const sortedGroupsLowToHigh: DemographicGroup[] =
+        sortedRowsLowsToHigh.map((row) => row[breakdown])
+
+      fipsToGroup[fips] = {
+        highest: generateSubtitle({
+          currentBreakdown: breakdown,
+          activeBreakdownFilter:
+            sortedGroupsLowToHigh[sortedGroupsLowToHigh.length - 1],
+          isPopulationSubset: false,
+          metricId,
+        }),
+        lowest: generateSubtitle({
+          currentBreakdown: breakdown,
+          activeBreakdownFilter: sortedGroupsLowToHigh[0],
+          isPopulationSubset: false,
+          metricId,
+        }),
+      }
+      // TIE OVERRIDES
+      if (
+        sortedRowsLowsToHigh[0][metricId] === sortedRowsLowsToHigh[1][metricId]
+      )
+        fipsToGroup[fips].lowest = 'Multiple groups'
+      const size = sortedRowsLowsToHigh.length
+      if (
+        sortedRowsLowsToHigh[size - 1][metricId] ===
+        sortedRowsLowsToHigh[size - 2][metricId]
+      )
+        fipsToGroup[fips].highest = 'Multiple groups'
     }
   }
 
