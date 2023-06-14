@@ -16,11 +16,17 @@ import {
   ZERO_DOT_SCALE,
 } from './Legend'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
-import { ORDINAL } from './utils'
+import { ORDINAL, generateSubtitle } from './utils'
 import sass from '../styles/variables.module.scss'
-import { LESS_THAN_1, raceNameToCodeMap } from '../data/utils/Constants'
+import {
+  type DemographicGroup,
+  LESS_THAN_1,
+  raceNameToCodeMap,
+  ALL,
+} from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
+import { type BreakdownVar } from '../data/query/Breakdowns'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -140,15 +146,15 @@ export function addCAWPTooltipInfo(
 }
 
 /*
- formatted tooltip hover 100k values above zero should display as less than 1, otherwise should get pretty commas
+ formatted tooltip hover 100k values that round to zero should display as <1, otherwise should get pretty commas
 */
 export function formatPreventZero100k(
   metricType: MetricType,
   metricId: MetricId
 ) {
   return metricType === 'per100k'
-    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}')`
-    : `format(datum.${metricId}, ',')`
+    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
+    : `format(datum.${metricId}, ',') + '%'`
 }
 
 /*
@@ -396,4 +402,86 @@ export function getMapScheme({
   }
 
   return [mapScheme, mapMin]
+}
+
+export interface HighestLowest {
+  highest?: DemographicGroup
+  lowest?: DemographicGroup
+}
+
+export function getHighestLowestGroupsByFips(
+  fullData?: Row[],
+  breakdown?: BreakdownVar,
+  metricId?: MetricId
+) {
+  const fipsToGroup: Record<string, HighestLowest> = {}
+
+  if (!fullData || !breakdown || !metricId) return fipsToGroup
+
+  const fipsInData = new Set(fullData.map((row) => row.fips))
+  for (const fips of fipsInData) {
+    const dataForFips = fullData.filter(
+      (row) =>
+        row.fips === fips && row[breakdown] !== ALL && row[metricId] != null
+    )
+
+    // handle places with limited groups / lots of zeros
+    const validUniqueRates = Array.from(
+      new Set(dataForFips.map((row) => row[metricId]))
+    )
+    if (validUniqueRates.length > 1) {
+      const ascendingRows: Row[] = dataForFips.sort(
+        (a, b) => a[metricId] - b[metricId]
+      )
+      const ascendingGroups: DemographicGroup[] = ascendingRows.map(
+        (row) => row[breakdown]
+      )
+
+      fipsToGroup[fips] = {
+        highest: generateSubtitle({
+          currentBreakdown: breakdown,
+          activeBreakdownFilter: ascendingGroups[ascendingGroups.length - 1],
+          isPopulationSubset: false,
+          metricId,
+        }),
+        lowest: generateSubtitle({
+          currentBreakdown: breakdown,
+          activeBreakdownFilter: ascendingGroups[0],
+          isPopulationSubset: false,
+          metricId,
+        }),
+      }
+      // TIE OVERRIDES
+      if (ascendingRows[0][metricId] === ascendingRows[1][metricId])
+        delete fipsToGroup[fips].lowest
+      const size = ascendingRows.length
+      if (
+        ascendingRows[size - 1][metricId] === ascendingRows[size - 2][metricId]
+      )
+        delete fipsToGroup[fips].highest
+    }
+  }
+
+  return fipsToGroup
+}
+
+export function embedHighestLowestGroups(
+  data: any[],
+  highestLowestGroupsByFips?: Record<string, HighestLowest>
+) {
+  return data.map((row) => {
+    row.highestGroup = highestLowestGroupsByFips?.[row.fips]?.highest
+    row.lowestGroup = highestLowestGroupsByFips?.[row.fips]?.lowest
+    return row
+  })
+}
+
+export function getMapGroupLabel(activeBreakdownFilter?: DemographicGroup) {
+  const selectedGroup = activeBreakdownFilter
+    ? raceNameToCodeMap[activeBreakdownFilter]
+    : activeBreakdownFilter ?? ''
+
+  return activeBreakdownFilter === ALL
+    ? 'Rate overall'
+    : `Rate for ${selectedGroup ?? 'selected group'}`
 }
