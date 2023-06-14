@@ -38,9 +38,13 @@ import {
   ZERO_DATASET,
   VALID_DATASET,
   getHelperLegend,
+  type HighestLowest,
+  embedHighestLowestGroups,
+  getMapGroupLabel,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
+import { type DemographicGroup } from '../data/utils/Constants'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -92,9 +96,16 @@ export interface ChoroplethMapProps {
   isSummaryLegend?: boolean
   isMulti?: boolean
   scaleConfig?: { domain: number[]; range: number[] }
+  highestLowestGroupsByFips?: Record<string, HighestLowest>
+  activeBreakdownFilter?: DemographicGroup
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const dataWithHighestLowest = embedHighestLowestGroups(
+    props.data,
+    props.highestLowestGroupsByFips
+  )
+
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
@@ -129,13 +140,19 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId, ...props.countColsToAdd],
+        values: [
+          props.metric.metricId,
+          ...props.countColsToAdd,
+          'highestGroup',
+          'lowestGroup',
+        ],
       },
     ]
     // Null SVI was showing
     if (!props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
+
     if (props.overrideShapeWithCircle) {
       geoTransformers.push({
         type: 'formula',
@@ -164,13 +181,19 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId
     )
 
+    const mapGroupLabel = getMapGroupLabel(props.activeBreakdownFilter)
+
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
     const tooltipLabel =
       props.isUnknownsMap && props.metric.unknownsVegaLabel
         ? props.metric.unknownsVegaLabel
-        : props.metric.shortLabel
+        : mapGroupLabel
 
-    const tooltipPairs = { [tooltipLabel]: tooltipDatum }
+    const tooltipPairs = {
+      [tooltipLabel]: tooltipDatum,
+      'Highest rate group': `datum.highestGroup`,
+      'Lowest rate group': `datum.lowestGroup`,
+    }
 
     const geographyType = getCountyAddOn(
       /* fips */ props.fips,
@@ -322,7 +345,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.data,
+          values: dataWithHighestLowest,
         },
         {
           name: ZERO_VAR_DATASET,

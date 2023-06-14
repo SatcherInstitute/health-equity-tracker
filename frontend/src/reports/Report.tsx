@@ -387,7 +387,7 @@ export function Report(props: ReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={defaultDemo}
+              trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
               isRaceBySex={isRaceBySex}
             />
