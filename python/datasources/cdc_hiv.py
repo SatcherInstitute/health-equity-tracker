@@ -194,11 +194,11 @@ class CDCHIVData(DataSource):
         if std_col.HIV_STIGMA_INDEX not in df.columns:
             df[[std_col.HIV_STIGMA_INDEX]] = np.nan
 
-        df = generate_pct_share_col_without_unknowns(df,
-                                                     PCT_SHARE_MAP,
-                                                     cast(SEX_RACE_ETH_AGE_TYPE,
-                                                          breakdown),
-                                                     std_col.ALL_VALUE)
+            df = generate_pct_share_col_without_unknowns(df,
+                                                         PCT_SHARE_MAP,
+                                                         cast(SEX_RACE_ETH_AGE_TYPE,
+                                                              breakdown),
+                                                         std_col.ALL_VALUE)
 
         for dict in DICTS:
             cols_to_keep += list(dict.values())
