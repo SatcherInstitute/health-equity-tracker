@@ -19,6 +19,9 @@ CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
 DTYPE = {'FIPS': str, 'Year': str}
 HIV_DIR = 'cdc_hiv'
 NA_VALUES = ['Data suppressed', 'Data not available']
+TOTAL_TRANS_WOMEN_COL = 'total_trans_women'
+TOTAL_TRANS_MAN_COL = 'total_trans_man'
+TOTAL_AGI_COL = 'total_additional_gender_identity'
 
 DEM_COLS_STANDARD = {
     std_col.AGE_COL: 'Age Group',
@@ -238,56 +241,37 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
         atlas_cols_to_exclude = generate_atlas_cols_to_exclude(
             breakdown, determinant)
 
-        is_deaths_and_county = (determinant == std_col.HIV_DEATHS_PREFIX) and (
-            geo_level == COUNTY_LEVEL)
-        is_prep_race_and_not_nat = (determinant == std_col.HIV_PREP_PREFIX) and (breakdown == std_col.RACE_OR_HISPANIC_COL
-                                                                                 and geo_level != NATIONAL_LEVEL)
-        is_black_women_and_county = (
-            BLACK_WOMEN in determinant and geo_level == COUNTY_LEVEL)
-        no_black_women_breakdown = BLACK_WOMEN in determinant and (
-            breakdown != std_col.AGE_COL and breakdown != 'all')
-        is_stigma_and_county = (determinant == std_col.HIV_STIGMA_INDEX) and (
-            geo_level == COUNTY_LEVEL)
-        no_stigma_breakdown = (determinant == std_col.HIV_STIGMA_INDEX) and (
-            geo_level == STATE_LEVEL and breakdown != 'all')
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
+                                                         f'{determinant}-{geo_level}-{breakdown}.csv',
+                                                         subdirectory=determinant,
+                                                         skiprows=8,
+                                                         na_values=NA_VALUES,
+                                                         usecols=lambda x: x not in atlas_cols_to_exclude,
+                                                         thousands=',',
+                                                         dtype=DTYPE)
 
-        if (is_deaths_and_county) or (is_prep_race_and_not_nat) \
-            or (no_black_women_breakdown) or (is_black_women_and_county)\
-           or (is_stigma_and_county) or (no_stigma_breakdown):
-            continue
-
+        if determinant == std_col.HIV_STIGMA_INDEX:
+            cols_to_standard['Rate per 100000'] = std_col.HIV_STIGMA_INDEX
+        elif determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
+            cols_to_standard['Percent'] = CARE_PREP_MAP[determinant]
+            cols_to_standard['Cases'] = determinant
         else:
-            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
-                                                             f'{determinant}-{geo_level}-{breakdown}.csv',
-                                                             subdirectory=determinant,
-                                                             skiprows=8,
-                                                             na_values=NA_VALUES,
-                                                             usecols=lambda x: x not in atlas_cols_to_exclude,
-                                                             thousands=',',
-                                                             dtype=DTYPE)
+            cols_to_standard['Rate per 100000'] = PER_100K_MAP[determinant]
+            cols_to_standard['Cases'] = determinant
 
-            if determinant == std_col.HIV_STIGMA_INDEX:
-                cols_to_standard['Rate per 100000'] = std_col.HIV_STIGMA_INDEX
-            elif determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
-                cols_to_standard['Percent'] = CARE_PREP_MAP[determinant]
-                cols_to_standard['Cases'] = determinant
-            else:
-                cols_to_standard['Rate per 100000'] = PER_100K_MAP[determinant]
-                cols_to_standard['Cases'] = determinant
+        if determinant == std_col.HIV_PREP_PREFIX:
+            df = df.replace({'13-24': '16-24'})
+        if determinant == std_col.HIV_STIGMA_INDEX:
+            df = df.replace({'13-24': '18-24'})
 
-            if determinant == std_col.HIV_PREP_PREFIX:
-                df = df.replace({'13-24': '16-24'})
-            if determinant == std_col.HIV_STIGMA_INDEX:
-                df = df.replace({'13-24': '18-24'})
+        df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
 
-            df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
+        df = df.rename(columns=cols_to_standard)
 
-            df = df.rename(columns=cols_to_standard)
+        if determinant == std_col.HIV_STIGMA_INDEX:
+            df = df.drop(['population', 'Cases'], axis=1)
 
-            if determinant == std_col.HIV_STIGMA_INDEX:
-                df = df.drop(['population', 'Cases'], axis=1)
-
-            output_df = output_df.merge(df, how='outer')
+        output_df = output_df.merge(df, how='outer')
 
     return output_df
 

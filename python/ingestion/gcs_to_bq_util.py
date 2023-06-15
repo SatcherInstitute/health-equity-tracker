@@ -241,11 +241,16 @@ def load_csv_as_df_from_data_dir(directory, filename,
     (using this lambda results in much faster parsing time and lower memory usage)
     """
 
-    file_path = os.path.join(DATA_DIR, directory, subdirectory, filename)
+    file_path = os.path.join(DATA_DIR, directory, subdirectory)
+    file_names = file_names = [f for f in os.listdir(
+        file_path) if os.path.isfile(os.path.join(file_path, f))]
 
-    return pd.read_csv(file_path, dtype=dtype,
-                       skiprows=skiprows, na_values=na_values,
-                       usecols=usecols, thousands=thousands)
+    if filename in file_names:
+        return pd.read_csv(os.path.join(file_path, filename), dtype=dtype,
+                           skiprows=skiprows, na_values=na_values,
+                           usecols=usecols, thousands=thousands)
+    else:
+        df = pd.DataFrame()
 
 
 def load_json_as_df_from_data_dir(directory, filename, dtype=None):
