@@ -15,6 +15,7 @@
     "@mui/material": "^5.11.15",
     "@mui/styles": "^5.11.13",
     "@playwright/test": "^1.31.0",
+    "@sentry/node": "^7.55.2",
     "@sentry/react": "^7.48.0",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
@@ -131,6 +132,7 @@
     ]
   },
   "devDependencies": {
+    "@sentry/vite-plugin": "^2.2.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@vitest/coverage-c8": "^0.29.8",
