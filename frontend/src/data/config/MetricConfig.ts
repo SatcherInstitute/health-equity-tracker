@@ -1621,7 +1621,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Heart Attacks (Acute MI)',
       fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from AMI data`,
+      dataTypeDefinition: `Acute myocardial infarctions, commonly known as heart attacks, occur when the blood flow to the heart muscle is severely blocked, leading to damage or death of the heart tissue. The rate is measured as the number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) per 100K during the measurement period.`,
       metrics: {
         per100k: {
           metricId: 'ami_per_100k',
@@ -1651,7 +1651,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Adherence to Statins',
       fullDisplayName: 'Adherence to statins',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from statins adherence data`,
+      dataTypeDefinition: `Statins are medications that help lower cholesterol levels in the blood to reduce the risk of heart disease and stroke. Adherence is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for statins during the measurement year.`,
       metrics: {
         pct_rate: {
           metricId: 'statins_adherence_pct_rate',
@@ -1681,7 +1681,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Adherence to Beta-Blockers',
       fullDisplayName: 'Adherence to beta-blockers',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from beta-blockers adherence data`,
+      dataTypeDefinition: `Beta-blockers are medications that block the effects of adrenaline and help lower blood pressure, reduce heart rate, and manage conditions like hypertension and heart-related issues. Adherence is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta-blockers during the measurement year.`,
       metrics: {
         pct_rate: {
           metricId: 'beta_blockers_adherence_pct_rate',
@@ -1713,7 +1713,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayName:
         'Persistence of Beta-Blocker Treatment After a Heart Attack',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from Persistence of Beta-Blocker Treatment After a Heart Attack data`,
+      dataTypeDefinition: `Beta-blockers are medications that are used after an acute myocardial infarction (heart attack) to reduce the workload on the heart, lower blood pressure, and improve heart function by blocking the effects of adrenaline and stress hormones. Adherence is measured as the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
       metrics: {
         pct_rate: {
           metricId: 'nqf_adherence_pct_rate',
@@ -1744,7 +1744,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Adherence to RAS-Antagonists',
       fullDisplayName: 'Adherence to RAS antagonists',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from RAS antagonists adherence data`,
+      dataTypeDefinition: `
+      Renin angiotensin system antagonists are medications that block the actions of certain hormones to regulate blood pressure and fluid balance in the body. Adherence is measured as percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASA) during the measurement year.`,
       metrics: {
         pct_rate: {
           metricId: 'rasa_adherence_pct_rate',
@@ -1775,7 +1776,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
       fullDisplayName: 'Adherence to calcium channel blockers',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from CCB adherence data`,
+      dataTypeDefinition: `Calcium channel blockers are medications that relax and widen blood vessels, making it easier for the heart to pump blood and reducing blood pressure. Adherence is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for calcium channel blockers during the measurement year.`,
       metrics: {
         pct_rate: {
           metricId: 'ccb_adherence_pct_rate',
@@ -1808,7 +1809,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants',
       fullDisplayName: 'Direct Oral Anticoagulants',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from DOAC adherence data`,
+      dataTypeDefinition: `Direct oral anticoagulants are medications that help prevent blood clot formation by inhibiting specific clotting factors, reducing the risk of stroke and blood clots in conditions such as atrial fibrillation and deep vein thrombosis. Adherence is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% during the measurement period for direct-acting oral anticoagulants.`,
       metrics: {
         pct_rate: {
           metricId: 'doac_adherence_pct_rate',
@@ -1843,7 +1844,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Cases',
       fullDisplayName: 'HIV cases',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from PHRMA HIV data`,
+      dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of HIV during the measurement period.`,
       metrics: {
         per100k: {
           metricId: 'phrma_hiv_per_100k',
@@ -1873,7 +1874,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeShortLabel: 'Medication Adherence (Antiretrovirals)',
       fullDisplayName: 'Adherence to anti-retrovirals',
       surveyCollectedData: true,
-      dataTypeDefinition: `Sample definition from ARV adherence data`,
+      dataTypeDefinition: `HIV antiretrovirals are medications that help control the HIV virus by interfering with its replication process, reducing viral load, and improving the immune system's ability to fight the infection. Adherence is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
       metrics: {
         pct_rate: {
           metricId: 'arv_adherence_pct_rate',
