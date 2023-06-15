@@ -264,14 +264,20 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
         if determinant == std_col.HIV_STIGMA_INDEX:
             df = df.replace({'13-24': '18-24'})
 
+        print('--')
+        print(df)
+
         df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
 
         df = df.rename(columns=cols_to_standard)
+
+        print('--')
 
         if determinant == std_col.HIV_STIGMA_INDEX:
             df = df.drop(['population', 'Cases'], axis=1)
 
         output_df = output_df.merge(df, how='outer')
+        print(output_df)
 
     return output_df
 

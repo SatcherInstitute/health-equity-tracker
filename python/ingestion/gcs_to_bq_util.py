@@ -249,8 +249,6 @@ def load_csv_as_df_from_data_dir(directory, filename,
         return pd.read_csv(os.path.join(file_path, filename), dtype=dtype,
                            skiprows=skiprows, na_values=na_values,
                            usecols=usecols, thousands=thousands)
-    else:
-        df = pd.DataFrame()
 
 
 def load_json_as_df_from_data_dir(directory, filename, dtype=None):
