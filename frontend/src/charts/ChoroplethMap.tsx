@@ -182,12 +182,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const mapGroupLabel = getMapGroupLabel(props.activeBreakdownFilter)
+    const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
-    const tooltipLabel =
-      props.isUnknownsMap && props.metric.unknownsVegaLabel
-        ? props.metric.unknownsVegaLabel
-        : mapGroupLabel
+    const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
 
     const tooltipPairs = {
       [tooltipLabel]: tooltipDatum,
