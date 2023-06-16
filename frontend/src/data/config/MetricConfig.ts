@@ -585,7 +585,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName:
             'Inequitable share of linkage to HIV care over time',
           shortLabel: '% linkage',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -628,7 +627,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           columnTitleHeader: 'Share of total HIV prevalence',
           trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
           shortLabel: '% of HIV prevalence',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle: 'Population vs. distribution of total HIV prevalence',
@@ -669,7 +667,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName:
             'Inequitable share of new HIV diagnoses over time',
           shortLabel: '% of new HIV diagnoses',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -711,10 +708,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           columnTitleHeader: 'Share of total HIV deaths',
           trendsCardTitleName: 'Inequitable share of HIV deaths over time',
           shortLabel: '% of HIV deaths',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle: 'Population vs. distribution of total HIV deaths',
+
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -756,7 +753,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName:
             'Inequitable share of HIV prevalence for Black (NH) women over time',
           shortLabel: '% of HIV prevalence (Black women)',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -802,7 +798,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName:
             'Inequitable share of new HIV diagnoses for Black (NH) women over time',
           shortLabel: '% of new HIV diagnoses (Black women)',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -846,7 +841,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName:
             'Inequitable share of HIV deaths for Black women over time',
           shortLabel: '% of HIV deaths (Black women)',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -892,7 +886,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName:
             'Inequitable share of PrEP prescriptions over time',
           shortLabel: '% of PrEP prescriptions',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -1458,7 +1451,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             'Inequitable share of women in U.S. Congress over time',
           columnTitleHeader: 'Percent share of women US Congress members',
           shortLabel: '% of women members',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -1495,7 +1487,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName: 'Rates of women in state legislatures over time',
           columnTitleHeader: 'Percentage of women state legislators',
           shortLabel: '% women in state legislature', // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
         },
         pct_share: {
@@ -1552,7 +1543,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             'Inequitable share of prison incarceration over time',
           columnTitleHeader: 'Percent share of total prison population',
           shortLabel: '% of prison pop.',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle: 'Population vs. distribution of total people in prison',
@@ -1601,7 +1591,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             'Inequitable share of jail incarceration over time',
           columnTitleHeader: 'Percent share of total jail population',
           shortLabel: '% of total jail population',
-          unknownsVegaLabel: '% unknown',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle: 'Population vs. distribution of total people in jail',
