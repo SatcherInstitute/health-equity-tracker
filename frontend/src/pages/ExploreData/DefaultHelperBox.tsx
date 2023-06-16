@@ -35,6 +35,19 @@ export default function DefaultHelperBox() {
               </h3>
 
               <ul className={styles.SuggestedReportsList}>
+                {/*  */}
+
+                <li className={styles.SuggestedReportsListItem}>
+                  <a
+                    href={
+                      EXPLORE_DATA_PAGE_LINK +
+                      '/exploredata?mls=1.phrma_cardiovascular-3.phrma_cardiovascular-5.00&group1=AI~AN.NH&mlp=comparevars&group2=AI~AN.NH&dt2=ami&dt1=beta_blockers_adherence'
+                    }
+                  >
+                    Beta-blocker adherence & Acute MI for Native Americans
+                  </a>
+                </li>
+
                 <li className={styles.SuggestedReportsListItem}>
                   <a
                     href={
