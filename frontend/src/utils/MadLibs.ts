@@ -196,7 +196,10 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'Medicare Beneficiaries',
     definition: '',
-    options: ['phrma_cardiovascular', 'phrma_hiv'],
+    options: [
+      'phrma_cardiovascular',
+      // 'phrma_hiv'
+    ],
   },
   {
     title: 'COVID-19',

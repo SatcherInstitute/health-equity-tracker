@@ -1,9 +1,18 @@
 import { getDataManager } from '../../utils/globals'
-import { type DataTypeId, type MetricId } from '../config/MetricConfig'
+import {
+  type DropdownVarId,
+  type DataTypeId,
+  type MetricId,
+} from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
+
+export const PHRMA_CONDITIONS: DropdownVarId[] = [
+  'phrma_cardiovascular',
+  'phrma_hiv',
+]
 
 export const PHRMA_DATATYPES: DataTypeId[] = [
   'ami',

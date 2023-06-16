@@ -33,8 +33,10 @@ import {
   MissingHIVData,
   MissingAHRData,
   MissingPrepData,
+  MissingPhrmaData,
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
+import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -88,6 +90,9 @@ function ReportProvider(props: ReportProviderProps) {
     AHR_CONDITIONS.includes(condition)
   )
 
+  const isPhrma = currentDropDownIds.some((condition) =>
+    PHRMA_CONDITIONS.includes(condition)
+  )
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper
@@ -267,6 +272,7 @@ function ReportProvider(props: ReportProviderProps) {
           {isCovidVax && <MissingCovidVaccinationData />}
           {isCAWP && <MissingCAWPData />}
           {isHIV && <MissingHIVData />}
+          {isPhrma && <MissingPhrmaData />}
           {isPrep && <MissingPrepData />}
           {isAHR && <MissingAHRData />}
 
