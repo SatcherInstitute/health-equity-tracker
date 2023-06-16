@@ -167,6 +167,17 @@ export function MissingPrepData() {
   )
 }
 
+export function MissingPhrmaData() {
+  return (
+    <>
+      <h4>PHRMA</h4>
+      <ul>
+        <li>list items</li>
+      </ul>
+    </>
+  )
+}
+
 export function MissingAHRData() {
   return (
     <>

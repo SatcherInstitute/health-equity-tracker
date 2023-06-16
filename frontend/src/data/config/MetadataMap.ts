@@ -321,15 +321,16 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   },
   {
     id: 'phrma',
-    data_source_name: 'Phrma Dataset (Naming TBD)',
-    data_source_pretty_site_name: 'pharmacydata.com',
-    data_source_link: 'https://pharmacydata.com',
+    data_source_name: 'Medicare Administrative Data',
+    data_source_pretty_site_name: 'cms.gov',
+    data_source_link:
+      'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
     geographic_level: 'National, State, County',
     demographic_granularity:
-      'Race/ethnicity, sex, age, low income subsidy (LIS), Medicare eligibility',
+      'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
     description:
-      'NEED THIS COPY Sample medication adherence description of data source.',
+      'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',
