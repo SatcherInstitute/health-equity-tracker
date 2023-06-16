@@ -172,7 +172,10 @@ export function MissingPhrmaData() {
     <>
       <h4>PHRMA</h4>
       <ul>
-        <li>list items</li>
+        <li>
+          this area is for calling out gaps in the data, problems with the
+          analysis, assumptions, etc.
+        </li>
       </ul>
     </>
   )
