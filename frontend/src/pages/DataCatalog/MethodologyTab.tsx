@@ -863,13 +863,11 @@ function MethodologyTab() {
                     <b>Metrics</b>
                     <ul>
                       <li>
-                        <li>
-                          <b>Adherence Rate</b>: this rate measures the
-                          percentage of Medicare fee-for-service beneficiaries
-                          18 years and older who met the Proportion of Days
-                          Covered (PDC) threshold of 80% for the indicated
-                          medication during the measurement year.
-                        </li>
+                        <b>Adherence Rate</b>: this rate measures the percentage
+                        of Medicare fee-for-service beneficiaries 18 years and
+                        older who met the Proportion of Days Covered (PDC)
+                        threshold of 80% for the indicated medication during the
+                        measurement year.
                       </li>
                       <li>
                         <b>Percent share</b>: this figure measures a particular
