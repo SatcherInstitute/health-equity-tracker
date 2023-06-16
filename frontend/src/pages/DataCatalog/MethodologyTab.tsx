@@ -737,7 +737,8 @@ function MethodologyTab() {
                 </ul>
 
                 <h3 className={styles.MethodologySubsubheaderText}>
-                  Medicare Beneficiaries
+                  Medicare Beneficiaries - Disease Rates and Medication
+                  Adherence
                 </h3>
 
                 <p>
@@ -813,96 +814,164 @@ function MethodologyTab() {
                   </tbody>
                 </table>
 
-                <p>
-                  <b>PQA Adherence Measures:</b> Renin Angiotensin System
-                  Antagonists (PQA PDC-RASA ), Statins (PQA PDC-STA ),
-                  Beta-blockers (PQA PDC-BB), Calcium Channel Blockers (PQA
-                  PDC-CCB), Adherence to Direct-Acting Oral Anticoagulants (PQA
-                  PDC-DOAC), Antiretrovirals Medications (PQA PDC-ARV)
-                </p>
-
+                <h4>Medicare PQA Adherence</h4>
                 <ul>
                   <li>
-                    <li>
-                      <b>Adherence Rate</b>: this rate measures the percentage
-                      of Medicare fee-for-service beneficiaries 18 years and
-                      older who met the Proportion of Days Covered (PDC)
-                      threshold of 80% for the indicated medication during the
-                      measurement year.
-                    </li>
+                    <b>Conditions</b>
+                    <ul>
+                      <li>
+                        <b>Renin Angiotensin System Antagonists</b>{' '}
+                        <a href="https://www.pqaalliance.org/measures-overview#pdc-rasa">
+                          (PQA PDC-RASA)
+                        </a>
+                      </li>
+                      <li>
+                        <b>Statins</b>{' '}
+                        <a href="https://www.pqaalliance.org/measures-overview#pdc-sta">
+                          (PQA PDC-STA)
+                        </a>
+                      </li>
+
+                      <li>
+                        <b>Beta-blockers</b>{' '}
+                        <a href="https://www.pqaalliance.org/measures-overview#pdc-bb">
+                          (PQA PDC-BB)
+                        </a>
+                      </li>
+                      <li>
+                        <b>Calcium Channel Blockers</b>{' '}
+                        <a href="https://www.pqaalliance.org/measures-overview#pdc-ccb">
+                          (PQA PDC-CCB)
+                        </a>
+                      </li>
+                      <li>
+                        <b>Adherence to Direct-Acting Oral Anticoagulants</b>{' '}
+                        <a href="https://www.pqaalliance.org/measures-overview#pdc-doac">
+                          (PQA PDC-DOAC)
+                        </a>
+                      </li>
+                      <li>
+                        <b>Antiretrovirals Medications</b>{' '}
+                        <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
+                          (PQA PDC-ARV
+                        </a>
+                        )
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    <b>Percent share</b>: this figure measures a particular
-                    group's percent share of the total number of adherent
-                    individuals
-                  </li>
-                  <li>
-                    <b>Population percent</b>: this figure measures a particular
-                    group's percent share of the measured population: Medicare
-                    fee-for-service beneficiaries 18 years and older with
-                    indications for the given medication.
+                    <b>Metrics</b>
+                    <ul>
+                      <li>
+                        <li>
+                          <b>Adherence Rate</b>: this rate measures the
+                          percentage of Medicare fee-for-service beneficiaries
+                          18 years and older who met the Proportion of Days
+                          Covered (PDC) threshold of 80% for the indicated
+                          medication during the measurement year.
+                        </li>
+                      </li>
+                      <li>
+                        <b>Percent share</b>: this figure measures a particular
+                        group's percent share of the total number of adherent
+                        individuals
+                      </li>
+                      <li>
+                        <b>Population percent</b>: this figure measures a
+                        particular group's percent share of the measured
+                        population: Medicare fee-for-service beneficiaries 18
+                        years and older with indications for the given
+                        medication.
+                      </li>
+                    </ul>
                   </li>
                 </ul>
 
-                <p>
-                  <b>NQF Adherence Measures:</b> Persistence of Beta-Blocker
-                  Treatment After a Heart Attack (NQF 0071)
-                </p>
-
+                <h4>Medicare NQF Adherence</h4>
                 <ul>
                   <li>
-                    <li>
-                      <b>Adherence Rate</b>: this rate measures the percentage
-                      of Medicare fee-for-service beneficiaries 18 years and
-                      older during the measurement year who were hospitalized
-                      and discharged with a diagnosis of acute myocardial
-                      infarction (AMI) and who received persistent beta-blocker
-                      treatment for six months after discharge.
-                    </li>
+                    <b>Conditions</b>
+                    <ul>
+                      <li>
+                        <b>
+                          Persistence of Beta-Blocker Treatment After a Heart
+                          Attack
+                        </b>{' '}
+                        <a href="https://www.qualityforum.org/QPS/0071">
+                          (NQF 0071)
+                        </a>
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    <b>Percent share</b>: this figure measures a particular
-                    group's percent share of the total number of adherent
-                    individuals
-                  </li>
-                  <li>
-                    <b>Population percent</b>: this figure measures a particular
-                    group's percent share of the measured population: Medicare
-                    fee-for-service beneficiaries 18 years and older with
-                    indications for the given medication.
+                    <b>Metrics</b>
+                    <ul>
+                      <li>
+                        <b>Adherence Rate</b>: this rate measures the percentage
+                        of Medicare fee-for-service beneficiaries 18 years and
+                        older during the measurement year who were hospitalized
+                        and discharged with a diagnosis of acute myocardial
+                        infarction (AMI) and who received persistent
+                        beta-blocker treatment for six months after discharge.
+                      </li>
+                      <li>
+                        <b>Percent share</b>: this figure measures a particular
+                        group's percent share of the total number of adherent
+                        individuals
+                      </li>
+                      <li>
+                        <b>Population percent</b>: this figure measures a
+                        particular group's percent share of the measured
+                        population: Medicare fee-for-service beneficiaries 18
+                        years and older with indications for the given
+                        medication.
+                      </li>
+                    </ul>
                   </li>
                 </ul>
 
-                <p>
-                  <b>Disease Measures:</b> HIV cases, Acute Myocardial
-                  Infarction cases
-                </p>
-
+                <h4>Medicare Disease Measures</h4>
                 <ul>
                   <li>
-                    <li>
-                      <b>Cases per 100k</b>: Rate of beneficiaries with the
-                      specified disease per 100,000 beneficiaries.
-                      <ul>
-                        <li>
-                          AMI defined as beneficiaries having 1+ medical claims
-                          with ICD-10-CM of I21
-                        </li>
-                        <li>
-                          HIV defined as beneficiaries having 1+ medical claims
-                          with ICD-10-CM of B20.
-                        </li>
-                      </ul>
-                    </li>
+                    <b>Conditions</b>
+                    <ul>
+                      <li>
+                        <b>HIV cases</b>
+                      </li>
+                      <li>
+                        <b>Acute Myocardial Infarction (AMI) cases</b>
+                      </li>
+                    </ul>
                   </li>
                   <li>
-                    <b>Percent share</b>: this figure measures a particular
-                    group's percent share of the total number of disease cases.
-                  </li>
-                  <li>
-                    <b>Population percent</b>: this figure measures a particular
-                    group's percent share of the measured population: Medicare
-                    fee-for-service beneficiaries 18 years and older.
+                    <b>Metrics</b>
+                    <ul>
+                      <li>
+                        <b>Cases per 100k</b>: Rate of beneficiaries with the
+                        specified disease per 100,000 beneficiaries.
+                        <ul>
+                          <li>
+                            AMI defined as beneficiaries having 1+ medical
+                            claims with ICD-10-CM of I21
+                          </li>
+                          <li>
+                            HIV defined as beneficiaries having 1+ medical
+                            claims with ICD-10-CM of B20.
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <b>Percent share</b>: this figure measures a particular
+                        group's percent share of the total number of disease
+                        cases.
+                      </li>
+                      <li>
+                        <b>Population percent</b>: this figure measures a
+                        particular group's percent share of the measured
+                        population: Medicare fee-for-service beneficiaries 18
+                        years and older.
+                      </li>
+                    </ul>
                   </li>
                 </ul>
 
