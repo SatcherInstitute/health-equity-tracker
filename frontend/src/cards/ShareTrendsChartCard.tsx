@@ -211,7 +211,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     <CardContent>
                       <UnknownBubblesAlert
                         breakdownVar={props.breakdownVar}
-                        fullDisplayName={props.dataTypeConfig.fullDisplayName.toLowerCase()}
+                        fullDisplayName={
+                          props.dataTypeConfig.fullDisplayNameInline ??
+                          props.dataTypeConfig.fullDisplayName
+                        }
                         expanded={unknownsExpanded}
                         setExpanded={setUnknownsExpanded}
                       />
