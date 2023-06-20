@@ -1617,36 +1617,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
 
   phrma_cardiovascular: [
     {
-      dataTypeId: 'ami',
-      dataTypeShortLabel: 'Heart Attacks (Acute MI)',
-      fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
-      surveyCollectedData: true,
-      dataTypeDefinition: `Acute myocardial infarctions, commonly known as heart attacks, occur when the blood flow to the heart muscle is severely blocked, leading to damage or death of the heart tissue. “Acute MI per 100k” is measured as the number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) per 100K during the measurement period.`,
-      metrics: {
-        per100k: {
-          metricId: 'ami_per_100k',
-          chartTitle: 'Rates of Acute MI',
-          shortLabel: 'Acute MI per 100k',
-          type: 'per100k',
-        },
-        pct_share: {
-          chartTitle: 'Percent share of total Acute MI',
-          metricId: 'ami_pct_share',
-          columnTitleHeader: 'Percent share of total Acute MI',
-          shortLabel: '% of total Acute MI',
-          type: 'pct_share',
-          populationComparisonMetric: {
-            chartTitle:
-              'Share of beneficiary population vs. share of total Acute MI',
-            metricId: 'phrma_population_pct_share',
-            columnTitleHeader: 'Share of all beneficiaries',
-            shortLabel: '% of beneficiary pop.',
-            type: 'pct_share',
-          },
-        },
-      },
-    },
-    {
       dataTypeId: 'statins_adherence',
       dataTypeShortLabel: 'Adherence to Statins',
       fullDisplayName: 'Adherence to statins',
@@ -1837,30 +1807,28 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
-  ],
-  phrma_hiv: [
     {
-      dataTypeId: 'phrma_hiv',
-      dataTypeShortLabel: 'Cases',
-      fullDisplayName: 'HIV cases',
+      dataTypeId: 'ami',
+      dataTypeShortLabel: 'Heart Attacks (Acute MI)',
+      fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
       surveyCollectedData: true,
-      dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of HIV during the measurement period.`,
+      dataTypeDefinition: `Acute myocardial infarctions, commonly known as heart attacks, occur when the blood flow to the heart muscle is severely blocked, leading to damage or death of the heart tissue. “Acute MI per 100k” is measured as the number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) per 100K during the measurement period.`,
       metrics: {
         per100k: {
-          metricId: 'phrma_hiv_per_100k',
-          chartTitle: 'Rates of HIV cases',
-          shortLabel: 'cases per 100k',
+          metricId: 'ami_per_100k',
+          chartTitle: 'Rates of Acute MI',
+          shortLabel: 'Acute MI per 100k',
           type: 'per100k',
         },
         pct_share: {
-          chartTitle: 'Percent share of total HIV cases',
-          metricId: 'phrma_hiv_pct_share',
-          columnTitleHeader: 'Percent share of total HIV cases',
-          shortLabel: '% of total HIV cases',
+          chartTitle: 'Percent share of total Acute MI',
+          metricId: 'ami_pct_share',
+          columnTitleHeader: 'Percent share of total Acute MI',
+          shortLabel: '% of total Acute MI',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
-              'Share of beneficiary population vs. share of total HIV cases',
+              'Share of beneficiary population vs. share of total Acute MI',
             metricId: 'phrma_population_pct_share',
             columnTitleHeader: 'Share of all beneficiaries',
             shortLabel: '% of beneficiary pop.',
@@ -1869,6 +1837,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
+  ],
+  phrma_hiv: [
     {
       dataTypeId: 'arv_adherence',
       dataTypeShortLabel: 'Medication Adherence (Antiretrovirals)',
@@ -1894,6 +1864,36 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             metricId: 'arv_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare antiretrovirals beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'phrma_hiv',
+      dataTypeShortLabel: 'Cases',
+      fullDisplayName: 'HIV cases',
+      surveyCollectedData: true,
+      dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of HIV during the measurement period.`,
+      metrics: {
+        per100k: {
+          metricId: 'phrma_hiv_per_100k',
+          chartTitle: 'Rates of HIV cases',
+          shortLabel: 'cases per 100k',
+          type: 'per100k',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total HIV cases',
+          metricId: 'phrma_hiv_pct_share',
+          columnTitleHeader: 'Percent share of total HIV cases',
+          shortLabel: '% of total HIV cases',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total HIV cases',
+            metricId: 'phrma_population_pct_share',
+            columnTitleHeader: 'Share of all beneficiaries',
             shortLabel: '% of beneficiary pop.',
             type: 'pct_share',
           },
