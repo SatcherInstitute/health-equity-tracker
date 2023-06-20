@@ -38,6 +38,8 @@ import {
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 
+import { Widget } from '@typeform/embed-react'
+
 export const SINGLE_COLUMN_WIDTH = 12
 
 interface ReportProviderProps {
@@ -202,10 +204,17 @@ function ReportProvider(props: ReportProviderProps) {
 
         {getReport()}
       </div>
+
       <div className={styles.MissingDataContainer}>
         <aside className={styles.MissingDataInfo}>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           <div>
+            <Widget
+              id="gTBAtJee"
+              style={{ width: '100%', height: '700px' }}
+              className="my-form"
+            />
+
             {definedConditions?.length > 0 && (
               <Box mb={5}>
                 <h3
