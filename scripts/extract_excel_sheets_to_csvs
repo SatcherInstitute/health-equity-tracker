@@ -1,0 +1,65 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+# Set default directory
+directory=""
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+        --help|-h)
+        shift 1
+        usage
+        exit 0
+        ;;
+
+        -d|--directory)
+        directory="$2"
+        shift # past argument
+        shift # past value
+        ;;
+        *) # unknown option
+        echo "Unknown option: $1"
+        exit 1
+        ;;
+    esac
+done
+
+function usage() {
+  cat <<-USAGE
+extract_excel_sheets_to_csvs [OPTIONS]
+For every .xlsx file in the given directory, this script will create a new sub-directory with the file prefix, and then generate one .csv file per sheet
+
+OPTIONS
+  --help            -h  prints the command usage
+  --directory       -d  relative directory path
+USAGE
+}
+
+# Check if directory is provided
+if [ -z "$directory" ]; then
+    echo "Directory not provided. Please use the -d or --directory flag to specify the directory where we should find the .xlsx files whose sheets should be extracted into folders of .csv files. Example: ./extract_excel_sheets_to_csvs --directory ../data/phrma"
+    exit 1
+fi
+
+# Check if directory exists
+if [ ! -d "$directory" ]; then
+    echo "Directory '$directory' does not exist."
+    exit 1
+fi
+
+# Iterate over each .xlsx file in the directory
+for file in "$directory"/*.xlsx; do
+    # Get the base name of the file without the extension
+    base_name=$(basename "$file" .xlsx)
+
+    # Create a new subdirectory with the file prefix
+    subdirectory="${directory}/${base_name}"
+    mkdir -p "$subdirectory"
+
+    # Run the ssconvert command on the file
+    ssconvert --export-type=Gnumeric_stf:stf_csv -S "$file" "${subdirectory}/${base_name}-%s.csv"
+done
