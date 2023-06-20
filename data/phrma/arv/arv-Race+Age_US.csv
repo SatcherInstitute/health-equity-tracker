@@ -1,47 +1,47 @@
 RACE_NAME,AGE_GROUP,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
-Unknown,_18-39,29,11,40,0.725
-Unknown,_40-64,.,.,.,0.8965517241
-Unknown,_65-69,.,.,.,0.9259259259
-Unknown,_70-74,.,.,.,0.95
+Unknown,_18-39,22,18,40,0.55
+Unknown,_40-64,44,14,58,0.7586206897
+Unknown,_65-69,.,.,.,0.8518518519
+Unknown,_70-74,.,.,.,0.8666666667
 Unknown,_75-79,.,.,.,0
 Unknown,_80-84,.,.,.,0
-"Non-Hispanic White",_18-39,146,36,182,0.8021978022
-"Non-Hispanic White",_40-64,4701,576,5277,0.8908470722
-"Non-Hispanic White",_65-69,1556,114,1670,0.9317365269
-"Non-Hispanic White",_70-74,988,51,1039,0.9509143407
-"Non-Hispanic White",_75-79,402,34,436,0.9220183486
-"Non-Hispanic White",_80-84,.,.,.,0.9473684211
-"Non-Hispanic White",_85+,.,.,.,0
-"Black or African-American",_18-39,452,236,688,0.6569767442
-"Black or African-American",_40-64,4894,1283,6177,0.7922939938
-"Black or African-American",_65-69,1260,238,1498,0.8411214953
-"Black or African-American",_70-74,743,137,880,0.8443181818
-"Black or African-American",_75-79,311,58,369,0.8428184282
-"Black or African-American",_80-84,132,17,149,0.8859060403
-"Black or African-American",_85+,.,.,.,0.88
+"Non-Hispanic White",_18-39,120,62,182,0.6593406593
+"Non-Hispanic White",_40-64,4125,1152,5277,0.7816941444
+"Non-Hispanic White",_65-69,1396,274,1670,0.8359281437
+"Non-Hispanic White",_70-74,896,143,1039,0.8623676612
+"Non-Hispanic White",_75-79,365,71,436,0.8371559633
+"Non-Hispanic White",_80-84,133,19,152,0.875
+"Non-Hispanic White",_85+,.,.,.,0.9210526316
+"Black or African-American",_18-39,355,333,688,0.5159883721
+"Black or African-American",_40-64,3978,2199,6177,0.6440019427
+"Black or African-American",_65-69,1069,429,1498,0.7136181575
+"Black or African-American",_70-74,619,261,880,0.7034090909
+"Black or African-American",_75-79,255,114,369,0.6910569106
+"Black or African-American",_80-84,113,36,149,0.7583892617
+"Black or African-American",_85+,38,12,50,0.76
 Other,_18-39,.,.,.,0
-Other,_40-64,.,.,.,0.8888888889
-Other,_65-69,.,.,.,0.9268292683
-Other,_70-74,.,.,.,0.9333333333
-Other,_75-79,.,.,.,0
-Other,_80-84,.,.,.,0
+Other,_40-64,59,22,81,0.7283950617
+Other,_65-69,.,.,.,0.8536585366
+Other,_70-74,.,.,.,0.8666666667
+Other,_75-79,.,.,.,0.7142857143
+Other,_80-84,.,.,.,0.8333333333
 Other,_85+,.,.,.,0
-"Asian/Pacific Islander",_18-39,.,.,.,0
-"Asian/Pacific Islander",_40-64,105,20,125,0.84
-"Asian/Pacific Islander",_65-69,.,.,.,0.9782608696
-"Asian/Pacific Islander",_70-74,.,.,.,0.8717948718
+"Asian/Pacific Islander",_18-39,.,.,.,0.8888888889
+"Asian/Pacific Islander",_40-64,94,31,125,0.752
+"Asian/Pacific Islander",_65-69,.,.,.,0.9130434783
+"Asian/Pacific Islander",_70-74,.,.,.,0.8205128205
 "Asian/Pacific Islander",_75-79,.,.,.,0
-"Asian/Pacific Islander",_80-84,.,.,.,0
+"Asian/Pacific Islander",_80-84,.,.,.,0.7777777778
 "Asian/Pacific Islander",_85+,.,.,.,0
-Hispanic,_18-39,101,25,126,0.8015873016
-Hispanic,_40-64,1474,224,1698,0.8680800942
-Hispanic,_65-69,395,40,435,0.908045977
-Hispanic,_70-74,236,33,269,0.8773234201
-Hispanic,_75-79,137,14,151,0.9072847682
-Hispanic,_80-84,.,.,.,0.8823529412
-Hispanic,_85+,.,.,.,0.9565217391
+Hispanic,_18-39,80,46,126,0.6349206349
+Hispanic,_40-64,1268,430,1698,0.7467608952
+Hispanic,_65-69,347,88,435,0.7977011494
+Hispanic,_70-74,214,55,269,0.7955390335
+Hispanic,_75-79,120,31,151,0.7947019868
+Hispanic,_80-84,46,22,68,0.6764705882
+Hispanic,_85+,.,.,.,0.6956521739
 "American Indian / Alaska Native",_18-39,.,.,.,0.25
-"American Indian / Alaska Native",_40-64,.,.,.,0.8873239437
+"American Indian / Alaska Native",_40-64,55,16,71,0.7746478873
 "American Indian / Alaska Native",_65-69,.,.,.,0
-"American Indian / Alaska Native",_70-74,.,.,.,0.75
+"American Indian / Alaska Native",_70-74,.,.,.,0.5
 "American Indian / Alaska Native",_75-79,.,.,.,0
