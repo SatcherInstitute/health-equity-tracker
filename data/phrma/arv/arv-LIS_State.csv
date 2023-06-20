@@ -1,103 +1,103 @@
 LIS,STATE_NAME,STATE_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
-No,Alabama,1,52,11,63,0.8253968254
+No,Alabama,1,42,21,63,0.6666666667
 No,Alaska,2,.,0,.,1
-No,Arizona,4,.,.,.,0.8611111111
-No,Arkansas,5,.,.,.,0.9166666667
-No,California,6,748,47,795,0.9408805031
-No,Colorado,8,.,.,.,0.9701492537
-No,Connecticut,9,.,.,.,0.9210526316
-No,Delaware,10,.,.,.,0.8181818182
+No,Arizona,4,53,19,72,0.7361111111
+No,Arkansas,5,.,.,.,0.625
+No,California,6,687,108,795,0.8641509434
+No,Colorado,8,.,.,.,0.8507462687
+No,Connecticut,9,26,12,38,0.6842105263
+No,Delaware,10,.,.,.,0.6818181818
 No,"District of Columbia",11,.,.,.,0.6923076923
-No,Florida,12,432,39,471,0.9171974522
-No,Georgia,13,199,35,234,0.8504273504
-No,Hawaii,15,.,.,.,0.9565217391
-No,Idaho,16,.,0,.,1
-No,Illinois,17,163,35,198,0.8232323232
-No,Indiana,18,.,.,.,0.9066666667
-No,Iowa,19,28,0,28,1
-No,Kansas,20,.,.,.,0.84
-No,Kentucky,21,.,.,.,0.9180327869
-No,Louisiana,22,80,22,102,0.7843137255
-No,Maine,23,.,0,.,1
-No,Maryland,24,157,18,175,0.8971428571
-No,Massachusetts,25,.,.,.,0.9223300971
-No,Michigan,26,81,19,100,0.81
-No,Minnesota,27,.,.,.,0.9642857143
-No,Mississippi,28,.,.,.,0.8541666667
-No,Missouri,29,.,.,.,0.9047619048
-No,Montana,30,.,.,.,0.625
-No,Nebraska,31,.,.,.,0.9545454545
-No,Nevada,32,.,.,.,0.9210526316
+No,Florida,12,382,89,471,0.8110403397
+No,Georgia,13,162,72,234,0.6923076923
+No,Hawaii,15,.,.,.,0.8260869565
+No,Idaho,16,.,.,.,0.9
+No,Illinois,17,137,61,198,0.6919191919
+No,Indiana,18,60,15,75,0.8
+No,Iowa,19,.,.,.,0.9285714286
+No,Kansas,20,.,.,.,0.72
+No,Kentucky,21,48,13,61,0.7868852459
+No,Louisiana,22,71,31,102,0.6960784314
+No,Maine,23,.,.,.,0.8571428571
+No,Maryland,24,131,44,175,0.7485714286
+No,Massachusetts,25,91,12,103,0.8834951456
+No,Michigan,26,68,32,100,0.68
+No,Minnesota,27,.,.,.,0.8928571429
+No,Mississippi,28,34,14,48,0.7083333333
+No,Missouri,29,45,18,63,0.7142857143
+No,Montana,30,.,.,.,0.5
+No,Nebraska,31,.,.,.,0.8636363636
+No,Nevada,32,.,.,.,0.7894736842
 No,"New Hampshire",33,.,.,.,0.8125
-No,"New Jersey",34,237,25,262,0.9045801527
-No,"New Mexico",35,.,.,.,0.88
-No,"New York",36,527,61,588,0.8962585034
-No,"North Carolina",37,141,16,157,0.898089172
+No,"New Jersey",34,211,51,262,0.8053435115
+No,"New Mexico",35,.,.,.,0.84
+No,"New York",36,469,119,588,0.7976190476
+No,"North Carolina",37,124,33,157,0.7898089172
 No,"North Dakota",38,.,0,.,1
-No,Ohio,39,102,19,121,0.8429752066
-No,Oklahoma,40,.,.,.,0.8958333333
-No,Oregon,41,.,.,.,0.9298245614
-No,Pennsylvania,42,142,14,156,0.9102564103
+No,Ohio,39,86,35,121,0.7107438017
+No,Oklahoma,40,34,14,48,0.7083333333
+No,Oregon,41,.,.,.,0.8421052632
+No,Pennsylvania,42,121,35,156,0.7756410256
 No,"Rhode Island",44,.,.,.,0.9090909091
-No,"South Carolina",45,.,.,.,0.8765432099
+No,"South Carolina",45,61,20,81,0.7530864198
 No,"South Dakota",46,.,0,.,1
-No,Tennessee,47,111,13,124,0.8951612903
-No,Texas,48,406,54,460,0.8826086957
-No,Utah,49,.,.,.,0.8181818182
-No,Vermont,50,.,.,.,0.875
-No,Virginia,51,117,17,134,0.8731343284
-No,Washington,53,.,.,.,0.9292929293
-No,"West Virginia",54,.,.,.,0.8947368421
-No,Wisconsin,55,.,.,.,0.9111111111
-No,Wyoming,56,.,0,.,1
-Yes,Alabama,1,249,66,315,0.7904761905
-Yes,Alaska,2,12,0,12,1
-Yes,Arizona,4,131,21,152,0.8618421053
-Yes,Arkansas,5,80,22,102,0.7843137255
-Yes,California,6,1454,220,1674,0.8685782557
-Yes,Colorado,8,129,19,148,0.8716216216
-Yes,Connecticut,9,262,31,293,0.8941979522
-Yes,Delaware,10,.,.,.,0.8392857143
-Yes,"District of Columbia",11,164,50,214,0.7663551402
-Yes,Florida,12,1754,285,2039,0.8602256008
-Yes,Georgia,13,683,194,877,0.7787913341
-Yes,Hawaii,15,.,.,.,0.8108108108
-Yes,Idaho,16,.,0,.,1
-Yes,Illinois,17,422,99,521,0.8099808061
-Yes,Indiana,18,187,34,221,0.8461538462
-Yes,Iowa,19,.,.,.,0.9117647059
-Yes,Kansas,20,37,11,48,0.7708333333
-Yes,Kentucky,21,98,17,115,0.852173913
-Yes,Louisiana,22,360,112,472,0.7627118644
-Yes,Maine,23,.,.,.,0.9122807018
-Yes,Maryland,24,381,105,486,0.7839506173
-Yes,Massachusetts,25,454,48,502,0.9043824701
-Yes,Michigan,26,217,46,263,0.825095057
-Yes,Minnesota,27,104,20,124,0.8387096774
-Yes,Mississippi,28,164,51,215,0.7627906977
-Yes,Missouri,29,230,47,277,0.8303249097
-Yes,Montana,30,.,.,.,0.8235294118
-Yes,Nebraska,31,.,.,.,0.7272727273
-Yes,Nevada,32,69,16,85,0.8117647059
-Yes,"New Hampshire",33,.,.,.,0.8
-Yes,"New Jersey",34,487,78,565,0.8619469027
-Yes,"New Mexico",35,.,.,.,0.921875
-Yes,"New York",36,1909,280,2189,0.8720877113
-Yes,"North Carolina",37,472,87,559,0.8443649374
+No,Tennessee,47,95,29,124,0.7661290323
+No,Texas,48,350,110,460,0.7608695652
+No,Utah,49,.,.,.,0.7272727273
+No,Vermont,50,.,.,.,0.75
+No,Virginia,51,107,27,134,0.7985074627
+No,Washington,53,80,19,99,0.8080808081
+No,"West Virginia",54,.,.,.,0.7368421053
+No,Wisconsin,55,.,.,.,0.7777777778
+No,Wyoming,56,.,.,.,0.5
+Yes,Alabama,1,204,111,315,0.6476190476
+Yes,Alaska,2,.,.,.,0.5
+Yes,Arizona,4,104,48,152,0.6842105263
+Yes,Arkansas,5,69,33,102,0.6764705882
+Yes,California,6,1276,398,1674,0.7622461171
+Yes,Colorado,8,111,37,148,0.75
+Yes,Connecticut,9,224,69,293,0.7645051195
+Yes,Delaware,10,40,16,56,0.7142857143
+Yes,"District of Columbia",11,128,86,214,0.5981308411
+Yes,Florida,12,1513,526,2039,0.7420304071
+Yes,Georgia,13,527,350,877,0.6009122007
+Yes,Hawaii,15,25,12,37,0.6756756757
+Yes,Idaho,16,.,.,.,0.7
+Yes,Illinois,17,347,174,521,0.6660268714
+Yes,Indiana,18,169,52,221,0.7647058824
+Yes,Iowa,19,50,18,68,0.7352941176
+Yes,Kansas,20,35,13,48,0.7291666667
+Yes,Kentucky,21,73,42,115,0.6347826087
+Yes,Louisiana,22,289,183,472,0.6122881356
+Yes,Maine,23,.,.,.,0.8245614035
+Yes,Maryland,24,305,181,486,0.6275720165
+Yes,Massachusetts,25,400,102,502,0.796812749
+Yes,Michigan,26,189,74,263,0.7186311787
+Yes,Minnesota,27,92,32,124,0.7419354839
+Yes,Mississippi,28,126,89,215,0.5860465116
+Yes,Missouri,29,201,76,277,0.725631769
+Yes,Montana,30,.,.,.,0.7647058824
+Yes,Nebraska,31,20,13,33,0.6060606061
+Yes,Nevada,32,59,26,85,0.6941176471
+Yes,"New Hampshire",33,.,.,.,0.7
+Yes,"New Jersey",34,420,145,565,0.7433628319
+Yes,"New Mexico",35,.,.,.,0.84375
+Yes,"New York",36,1691,498,2189,0.7724988579
+Yes,"North Carolina",37,397,162,559,0.71019678
 Yes,"North Dakota",38,.,.,.,0.8333333333
-Yes,Ohio,39,331,59,390,0.8487179487
-Yes,Oklahoma,40,93,21,114,0.8157894737
-Yes,Oregon,41,94,15,109,0.8623853211
-Yes,Pennsylvania,42,390,68,458,0.8515283843
-Yes,"Rhode Island",44,.,.,.,0.9615384615
-Yes,"South Carolina",45,294,74,368,0.7989130435
+Yes,Ohio,39,278,112,390,0.7128205128
+Yes,Oklahoma,40,81,33,114,0.7105263158
+Yes,Oregon,41,86,23,109,0.7889908257
+Yes,Pennsylvania,42,332,126,458,0.7248908297
+Yes,"Rhode Island",44,.,.,.,0.8461538462
+Yes,"South Carolina",45,244,124,368,0.6630434783
 Yes,"South Dakota",46,.,.,.,0.7857142857
-Yes,Tennessee,47,298,65,363,0.8209366391
-Yes,Texas,48,931,184,1115,0.8349775785
-Yes,Utah,49,.,.,.,0.8510638298
-Yes,Vermont,50,.,.,.,0.7368421053
-Yes,Virginia,51,293,61,354,0.8276836158
-Yes,Washington,53,205,36,241,0.8506224066
-Yes,"West Virginia",54,.,.,.,0.8305084746
-Yes,Wisconsin,55,90,19,109,0.8256880734
+Yes,Tennessee,47,246,117,363,0.6776859504
+Yes,Texas,48,758,357,1115,0.6798206278
+Yes,Utah,49,35,12,47,0.7446808511
+Yes,Vermont,50,.,.,.,0.6315789474
+Yes,Virginia,51,245,109,354,0.6920903955
+Yes,Washington,53,178,63,241,0.7385892116
+Yes,"West Virginia",54,40,19,59,0.6779661017
+Yes,Wisconsin,55,79,30,109,0.7247706422
 Yes,Wyoming,56,.,0,.,1
