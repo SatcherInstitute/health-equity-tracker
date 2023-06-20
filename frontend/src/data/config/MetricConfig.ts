@@ -382,7 +382,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTypeId: 'covid_cases',
       dataTypeShortLabel: 'Cases',
       fullDisplayName: 'COVID-19 cases',
-      dataTypeDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a case definition. cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+      dataTypeDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a “case definition”. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for COVID-19 cases',
       metrics: {
