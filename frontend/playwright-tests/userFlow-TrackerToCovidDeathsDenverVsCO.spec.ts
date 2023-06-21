@@ -70,19 +70,20 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
 
 });
 
-test('Clear selections button from Compare Topics mode returns tracker to default state', async ({ page }) => {
-    // start at tracker default page (implicit default params)
-    await page.goto('http://localhost:3000/exploredata');
+// TODO re-enable this for production, only disabled for PHRMA PREVIEW
+// test('Clear selections button from Compare Topics mode returns tracker to default state', async ({ page }) => {
+//     // start at tracker default page (implicit default params)
+//     await page.goto('http://localhost:3000/exploredata');
 
-    // choose sample compare mode report
-    await page.getByRole('link', { name: 'Prison & poverty in Georgia, by race' }).click();
+//     // choose sample compare mode report
+//     await page.getByRole('link', { name: 'Prison & poverty in Georgia, by race' }).click();
 
-    // clear topic
-    await page.getByRole('button', { name: 'Poverty', exact: true }).click();
-    await page.getByRole('link', { name: 'Clear selections' }).click();
+//     // clear topic
+//     await page.getByRole('button', { name: 'Poverty', exact: true }).click();
+//     await page.getByRole('link', { name: 'Clear selections' }).click();
 
-    // should return to default page (with explicit params)
-    await expect(page).toHaveURL('http://localhost:3000/exploredata');
+//     // should return to default page (with explicit params)
+//     await expect(page).toHaveURL('http://localhost:3000/exploredata');
 
-});
+// });
 
