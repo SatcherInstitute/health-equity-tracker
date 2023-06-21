@@ -13,7 +13,9 @@ export default defineConfig(({ mode }) => {
 	return {
 		// load non-VITE_ env variables
 		define: {
-			__APP_ENV__: JSON.stringify(env.APP_ENV),
+			SENTRY_AUTH_TOKEN: JSON.stringify(env.SENTRY_AUTH_TOKEN),
+			SENTRY_ORG: JSON.stringify(env.SENTRY_ORG),
+			SENTRY_PROJECT: JSON.stringify(env.SENTRY_PROJECT),
 		},
 		build: {
 			outDir: 'build',
