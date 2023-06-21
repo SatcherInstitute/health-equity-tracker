@@ -11,6 +11,9 @@ export default defineConfig(({ mode }) => {
 	// Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
 	const env = loadEnv(mode, process.cwd(), '')
 	return {
+		define: {
+			__APP_ENV__: JSON.stringify(env.APP_ENV),
+		},
 		build: {
 			outDir: 'build',
 			sourcemap: true
@@ -26,11 +29,11 @@ export default defineConfig(({ mode }) => {
 			viteTsconfigPaths(),
 			svgrPlugin(),
 			sentryVitePlugin({
-				org: JSON.stringify(env.SENTRY_ORG),
-				project: JSON.stringify(env.SENTRY_PROJECT),
+				org: process.env.SENTRY_ORG,
+				project: process.env.SENTRY_PROJECT,
 				// Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
 				// and need `project:releases` and `org:read` scopes
-				authToken: JSON.stringify(env.SENTRY_AUTH_TOKEN),
+				authToken: process.env.SENTRY_AUTH_TOKEN,
 			}),
 		],
 		test: {
