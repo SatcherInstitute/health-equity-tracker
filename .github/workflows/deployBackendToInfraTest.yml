@@ -138,9 +138,7 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
-          sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          sentry-org: ${{ secrets.SENTRY_ORG }}
-          sentry-project: ${{ secrets.SENTRY_PROJECT }}
+
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
     name: (infra-test) Terraform / Airflow Configs
