@@ -9,11 +9,13 @@ import { sentryVitePlugin } from "@sentry/vite-plugin";
 export default defineConfig(({ mode }) => {
 	// Load env file based on `mode` in the current working directory.
 	// Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
+
 	const env = loadEnv(mode, process.cwd(), '')
+
+
+	console.log(env);
+
 	return {
-		define: {
-			__APP_ENV__: JSON.stringify(env.APP_ENV),
-		},
 		build: {
 			outDir: 'build',
 			sourcemap: true
@@ -29,11 +31,11 @@ export default defineConfig(({ mode }) => {
 			viteTsconfigPaths(),
 			svgrPlugin(),
 			sentryVitePlugin({
-				org: process.env.SENTRY_ORG,
-				project: process.env.SENTRY_PROJECT,
+				org: env.SENTRY_ORG,
+				project: env.SENTRY_PROJECT,
 				// Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
 				// and need `project:releases` and `org:read` scopes
-				authToken: process.env.SENTRY_AUTH_TOKEN,
+				authToken: env.SENTRY_AUTH_TOKEN,
 			}),
 		],
 		test: {
