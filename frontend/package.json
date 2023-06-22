@@ -131,7 +131,6 @@
     ]
   },
   "devDependencies": {
-    "@sentry/vite-plugin": "^2.3.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@vitest/coverage-c8": "^0.29.8",
