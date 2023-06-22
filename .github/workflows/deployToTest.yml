@@ -202,7 +202,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
-      - name: Run E2E Tests
+      - name: Run Python E2E Tests
         run: |
           pip install -r e2e_tests/requirements.txt
           pytest e2e_tests/data_serving.py
