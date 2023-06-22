@@ -1,13 +1,13 @@
 name: Deploy to Test
 
 on:
-  push:
-      branches: [main]
-  workflow_dispatch:
+  pull_request:
+    types:
+      - closed
 
 jobs:
   build-ingestion:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    if: github.event.pull_request.merged == true && github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push Data Ingestion Image
     runs-on: ubuntu-latest
     outputs:
@@ -30,12 +30,12 @@ jobs:
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-ingestion'
 
   build-gcs-to-bq:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    if: github.event.pull_request.merged == true && github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push GCS-to-BQ Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.gcstobq.outputs.image-digest }}
-    steps: 
+    steps:
       - name: Check Out Code
         uses: actions/checkout@v3
       - id: auth
@@ -53,12 +53,12 @@ jobs:
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/gcs-to-bq'
 
   build-exporter:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    if: github.event.pull_request.merged == true && github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push Exporter Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.exporter.outputs.image-digest }}
-    steps: 
+    steps:
       - name: Check Out Code
         uses: actions/checkout@v3
       - id: auth
@@ -76,12 +76,12 @@ jobs:
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/exporter'
 
   build-data-server:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    if: github.event.pull_request.merged == true && github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push Data Server Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
-    steps: 
+    steps:
       - name: Check Out Code
         uses: actions/checkout@v3
       - id: auth
@@ -99,12 +99,12 @@ jobs:
           image-path: 'gcr.io/${{ secrets.TEST_PROJECT_ID }}/data-server'
 
   build-frontend:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    if: github.event.pull_request.merged == true && github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Build and Push Frontend Image
     runs-on: ubuntu-latest
     outputs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
-    steps: 
+    steps:
       - name: Check Out Code
         uses: actions/checkout@v3
       - id: auth
@@ -123,14 +123,17 @@ jobs:
           deploy-context: 'staging'
           basic-auth-username: ${{ secrets.BASIC_AUTH_USERNAME }}
           basic-auth-password: ${{ secrets.BASIC_AUTH_PASSWORD }}
+          sentry-auth-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          sentry-org: ${{ secrets.SENTRY_ORG }}
+          sentry-project: ${{ secrets.SENTRY_PROJECT }}
 
   deploy:
-    if: github.repository == 'SatcherInstitute/health-equity-tracker'
+    if: github.event.pull_request.merged == true && github.repository == 'SatcherInstitute/health-equity-tracker'
     name: Deploy to Test Environment
     runs-on: ubuntu-latest
     needs: [build-ingestion, build-gcs-to-bq, build-exporter, build-data-server, build-frontend]
 
-    steps: 
+    steps:
       - name: Check Out Code
         uses: actions/checkout@v3
       - id: auth
@@ -149,12 +152,12 @@ jobs:
       - name: Save credentials
         working-directory: ./config
         run: |
-          cat > creds.json << EOF 
+          cat > creds.json << EOF
           ${{ secrets.TEST_DEPLOYER_SA_KEY }}
           EOF
       - name: Terraform Init
         working-directory: ./config
-        run: | 
+        run: |
           terraform init -backend-config="bucket=${{ secrets.TEST_TF_STATE_BUCKET }}" \
           -backend-config="credentials=creds.json"
       - name: Terraform Apply
