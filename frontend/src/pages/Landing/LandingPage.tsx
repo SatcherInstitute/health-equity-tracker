@@ -72,6 +72,15 @@ function LandingPage() {
             >
               Advancing Health Justice
             </Typography>
+            <button
+              onClick={() => {
+                /* @ts-expect-error */
+                a = 1
+              }}
+            >
+              break
+            </button>
+
             <Typography
               className={styles.HeaderSubtext}
               variant="body1"
