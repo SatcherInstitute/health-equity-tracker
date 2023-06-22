@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
 	// we only want the source maps created from npm build to upload to Sentry when Netlify builds from the `main` branch
 	// this avoids pushing sourcemaps for local development / deploy previews, and also bypasses dealing with passing
 	// secrets into docker images for dev / prod builds
-	const isMainBranch = env.BRANCH === 'main'
+	const sentryAuthToken = env.BRANCH === 'main' ? env.SENTRY_AUTH_TOKEN : ""
 
 	return {
 		build: {
@@ -35,7 +35,7 @@ export default defineConfig(({ mode }) => {
 				project: env.SENTRY_PROJECT,
 				// Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
 				// and need `project:releases` and `org:read` scopes
-				authToken: isMainBranch ? env.SENTRY_AUTH_TOKEN : "",
+				authToken: sentryAuthToken,
 			}),
 		],
 		test: {
