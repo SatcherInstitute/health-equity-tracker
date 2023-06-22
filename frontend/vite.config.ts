@@ -10,14 +10,10 @@ export default defineConfig(({ mode }) => {
 	// Load env file based on `mode` in the current working directory; local builds are `production`.
 	// Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
 	const env = loadEnv(mode, process.cwd(), '')
-
-	console.log("***** loaded env:", env);
-
+	// we only want the source maps created from npm build to upload to Sentry when Netlify builds from the `main` branch
+	// this avoids pushing sourcemaps for local development / deploy previews, and also bypasses dealing with passing
+	// secrets into docker images for dev / prod builds
 	const isMainBranch = env.BRANCH === 'main'
-
-	console.log({ isMainBranch });
-
-
 
 	return {
 		build: {
