@@ -14,15 +14,6 @@ inputs:
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "staging". Only used for the frontend'
     required: false
-  sentry-auth-token:
-    description: "Secret string value for Sentry error tracking. Only used for the frontend"
-    required: false
-  sentry-org:
-    description: "String value for Sentry error tracking. Only used for the frontend"
-    required: false
-  sentry-project:
-    description: "String value for Sentry error tracking. Only used for the frontend"
-    required: false
   basic-auth-username:
     description: "Username for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
     required: false
@@ -47,9 +38,6 @@ runs:
     - run: |
         docker build -t ${{ inputs.image-path }} -f ${{ inputs.dockerfile }} ${{ inputs.build-directory }} \
         --build-arg="DEPLOY_CONTEXT=${{ inputs.deploy-context }}" \
-        --build-arg="SENTRY_AUTH_TOKEN=${{ inputs.sentry-auth-token }}" \
-        --build-arg="SENTRY_ORG=${{ inputs.sentry-org }}" \
-        --build-arg="SENTRY_PROJECT=${{ inputs.sentry-project }}" \
         --build-arg="BASIC_AUTH_USERNAME=${{ inputs.basic-auth-username }}" \
         --build-arg="BASIC_AUTH_PASSWORD=${{ inputs.basic-auth-password }}"
       shell: bash
