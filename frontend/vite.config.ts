@@ -13,6 +13,12 @@ export default defineConfig(({ mode }) => {
 
 	console.log("***** loaded env:", env);
 
+	const isMainBranch = env.BRANCH === 'main'
+
+	console.log({ isMainBranch });
+
+
+
 	return {
 		build: {
 			outDir: 'build',
@@ -33,7 +39,7 @@ export default defineConfig(({ mode }) => {
 				project: env.SENTRY_PROJECT,
 				// Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
 				// and need `project:releases` and `org:read` scopes
-				authToken: env.SENTRY_AUTH_TOKEN,
+				authToken: isMainBranch ? env.SENTRY_AUTH_TOKEN : "",
 			}),
 		],
 		test: {
