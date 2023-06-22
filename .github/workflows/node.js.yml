@@ -43,8 +43,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build React frontend
-        env:
-          NODE_OPTIONS: "--max_old_space_size=4096"
         run: npm run build
 
   jest_unit_tests_cspell:
