@@ -37,7 +37,6 @@ import {
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
-
 import { Widget } from '@typeform/embed-react'
 
 export const SINGLE_COLUMN_WIDTH = 12

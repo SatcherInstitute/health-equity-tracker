@@ -1660,7 +1660,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
               'Share of statins beneficiary population vs. share of total adherence',
             metricId: 'statins_population_pct_share',
             columnTitleHeader: 'Share of all Medicare statins beneficiaries',
-            shortLabel: '% of beneficiary pop.',
+            shortLabel: '% of prescribed pop.',
             type: 'pct_share',
           },
         },
@@ -1691,7 +1691,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             metricId: 'beta_blockers_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare beta-blockers beneficiaries',
-            shortLabel: '% of beneficiary pop.',
+            shortLabel: '% of prescribed pop.',
             type: 'pct_share',
           },
         },
@@ -1723,7 +1723,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
               'Share of beneficiary population vs. share of total adherence',
             metricId: 'nqf_population_pct_share',
             columnTitleHeader: 'Share of all Medicare beneficiaries',
-            shortLabel: '% of beneficiary pop.',
+            shortLabel: '% of prescribed pop.',
             type: 'pct_share',
           },
         },
@@ -1755,7 +1755,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             metricId: 'rasa_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare RAS antagonists beneficiaries',
-            shortLabel: '% of beneficiary pop.',
+            shortLabel: '% of prescribed pop.',
             type: 'pct_share',
           },
         },
@@ -1788,7 +1788,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             metricId: 'ccb_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare calcium channel blockers beneficiaries',
-            shortLabel: '% of beneficiary pop.',
+            shortLabel: '% of prescribed pop.',
             type: 'pct_share',
           },
         },
@@ -1821,7 +1821,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             metricId: 'doac_population_pct_share',
             columnTitleHeader:
               'Share of all Medicare Direct Oral Anticoagulants beneficiaries',
-            shortLabel: '% of beneficiary pop.',
+            shortLabel: '% of prescribed pop.',
             type: 'pct_share',
           },
         },
