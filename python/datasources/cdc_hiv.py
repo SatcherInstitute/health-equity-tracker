@@ -13,15 +13,12 @@ from ingestion.merge_utils import merge_county_names
 from ingestion.types import SEX_RACE_ETH_AGE_TYPE
 
 # constants
-BLACK_WOMEN = 'black_women'
+DTYPE = {'FIPS': str, 'Year': str}
+ATLAS_COLS = ['Indicator', 'Transmission Category', 'Rate LCI', 'Rate UCI']
+NA_VALUES = ['Data suppressed', 'Data not available']
 CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
 CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
-DTYPE = {'FIPS': str, 'Year': str}
-HIV_DIR = 'cdc_hiv'
-NA_VALUES = ['Data suppressed', 'Data not available']
-TOTAL_TRANS_WOMEN_COL = 'total_trans_women'
-TOTAL_TRANS_MAN_COL = 'total_trans_man'
-TOTAL_AGI_COL = 'total_additional_gender_identity'
+BLACK_WOMEN = 'black_women'
 
 DEM_COLS_STANDARD = {
     std_col.AGE_COL: 'Age Group',
@@ -29,9 +26,6 @@ DEM_COLS_STANDARD = {
     std_col.SEX_COL: 'Sex'}
 
 HIV_DETERMINANTS = {
-    'black_women_deaths': std_col.HIV_DEATHS_BW_PREFIX,
-    'black_women_diagnoses': std_col.HIV_DIAGNOSES_BW_PREFIX,
-    'black_women_prevalence': std_col.HIV_PREVALENCE_BW_PREFIX,
     'care': std_col.HIV_CARE_PREFIX,
     'deaths': std_col.HIV_DEATHS_PREFIX,
     'diagnoses': std_col.HIV_DIAGNOSES_PREFIX,
@@ -44,7 +38,20 @@ PCT_SHARE_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PCT_SHARE_
 PCT_SHARE_MAP[std_col.HIV_PREP_POPULATION] = std_col.HIV_PREP_POPULATION_PCT
 PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
 PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
-PCT_SHARE_MAP[std_col.HIV_BW_POPULATION] = std_col.HIV_BW_POPULATION_PCT
+
+TEST_PCT_SHARE_MAP = {
+    std_col.HIV_DIAGNOSES_PREFIX: 'hiv_diagnoses_pct_share',
+    std_col.HIV_DEATHS_PREFIX: 'hiv_deaths_pct_share',
+    std_col.HIV_PREVALENCE_PREFIX: 'hiv_prevalence_pct_share',
+    std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT
+}
+
+TEST_PCT_RELATIVE_INEQUITY_MAP = {
+    std_col.HIV_DIAGNOSES_PREFIX: 'hiv_diagnoses_relative_inequity',
+    std_col.HIV_DEATHS_PREFIX: 'hiv_deaths_relative_inequity',
+    std_col.HIV_PREVALENCE_PREFIX: 'hiv_prevalence_relative_inequity'
+}
+
 
 PER_100K_MAP = {prefix: std_col.generate_column_name(prefix, std_col.PER_100K_SUFFIX)
                 for prefix in HIV_DETERMINANTS.values()
@@ -80,14 +87,23 @@ POP_MAP = {
     std_col.HIV_DEATHS_PREFIX: std_col.POPULATION_COL,
     std_col.HIV_DIAGNOSES_PREFIX: std_col.POPULATION_COL,
     std_col.HIV_PREVALENCE_PREFIX: std_col.POPULATION_COL,
-    std_col.HIV_PREVALENCE_BW_PREFIX: std_col.HIV_BW_POPULATION,
-    std_col.HIV_DIAGNOSES_BW_PREFIX: std_col.HIV_BW_POPULATION,
-    std_col.HIV_DEATHS_BW_PREFIX: std_col.HIV_BW_POPULATION,
     std_col.HIV_STIGMA_INDEX: std_col.POPULATION_COL}
+
+prefixes = ['hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence']
+suffixes = ['total_additional_gender',
+            'total_transgendered_men', 'total_transgendered_women']
+result_list = [
+    f"{prefix}_{suffix}" for prefix in prefixes for suffix in suffixes]
+
 
 # HIV dictionaries
 DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
          PCT_SHARE_MAP, PCT_RELATIVE_INEQUITY_MAP]
+
+HIV_GENDER_MEASURES = [std_col.HIV_CARE_PREFIX, std_col.HIV_DEATHS_PREFIX,
+                       std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
+BLACK_WOMEN_MEASURES = [std_col.HIV_DEATHS_PREFIX,
+                        std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
 
 
 class CDCHIVData(DataSource):
@@ -106,10 +122,14 @@ class CDCHIVData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
 
-        for geo_level in [COUNTY_LEVEL, NATIONAL_LEVEL, STATE_LEVEL]:
-            alls_df = load_atlas_df_from_data_dir(geo_level, 'all')
+        for geo_level in [NATIONAL_LEVEL]:
+            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL, std_col.BLACK_WOMEN]:
+                if breakdown == std_col.BLACK_WOMEN:
+                    all = 'black_women_all'
+                else:
+                    all = 'all'
 
-            for breakdown in [std_col.AGE_COL, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
+                alls_df = load_atlas_df_from_data_dir(geo_level, all)
                 table_name = f'{breakdown}_{geo_level}_time_series'
 
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
@@ -126,7 +146,7 @@ class CDCHIVData(DataSource):
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
 
-        breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
+        breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `black_women`
         geo_level: string equal to `county`, `national`, or `state`
         alls_df: the data frame containing the all values for each demographic breakdown.
         return: a data frame of time-based HIV data by breakdown and geo_level"""
@@ -142,12 +162,6 @@ class CDCHIVData(DataSource):
             'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
             'Sex': std_col.SEX_COL,
             'Year': std_col.TIME_PERIOD_COL}
-
-        cols_to_keep = [
-            std_col.TIME_PERIOD_COL,
-            geo_to_use,
-            fips_to_use,
-            breakdown]
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
 
@@ -165,64 +179,91 @@ class CDCHIVData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+        if breakdown in [std_col.RACE_OR_HISPANIC_COL, std_col.BLACK_WOMEN]:
             std_col.add_race_columns_from_category_id(df)
-            cols_to_keep.append(std_col.RACE_CATEGORY_ID_COL)
 
-        if std_col.HIV_DEATHS_PREFIX not in df.columns:
-            df[[std_col.HIV_DEATHS_PREFIX,
-                PER_100K_MAP[std_col.HIV_DEATHS_PREFIX]]] = np.nan
+        if breakdown != std_col.BLACK_WOMEN:
+            if std_col.HIV_DEATHS_PREFIX not in df.columns:
+                df[[std_col.HIV_DEATHS_PREFIX,
+                    PER_100K_MAP[std_col.HIV_DEATHS_PREFIX]]] = np.nan
 
-        if std_col.HIV_PREP_PREFIX not in df.columns:
-            df[[std_col.HIV_PREP_PREFIX, std_col.HIV_PREP_COVERAGE]] = np.nan
+            if std_col.HIV_PREP_PREFIX not in df.columns:
+                df[[std_col.HIV_PREP_PREFIX, std_col.HIV_PREP_COVERAGE]] = np.nan
 
-        if std_col.HIV_DIAGNOSES_BW_PREFIX not in df.columns:
-            df[[std_col.HIV_DIAGNOSES_BW_PREFIX,
-                PER_100K_MAP[std_col.HIV_DIAGNOSES_BW_PREFIX]]] = np.nan
+            if std_col.HIV_STIGMA_INDEX not in df.columns:
+                df[[std_col.HIV_STIGMA_INDEX]] = np.nan
 
-        if std_col.HIV_DEATHS_BW_PREFIX not in df.columns:
-            df[[std_col.HIV_DEATHS_BW_PREFIX,
-                PER_100K_MAP[std_col.HIV_DEATHS_BW_PREFIX]]] = np.nan
-
-        if std_col.HIV_PREVALENCE_BW_PREFIX not in df.columns:
-            df[[std_col.HIV_PREVALENCE_BW_PREFIX,
-                PER_100K_MAP[std_col.HIV_PREVALENCE_BW_PREFIX]]] = np.nan
-
-        if std_col.HIV_BW_POPULATION not in df.columns:
-            df[[std_col.HIV_BW_POPULATION]] = np.nan
-
-        if std_col.HIV_STIGMA_INDEX not in df.columns:
-            df[[std_col.HIV_STIGMA_INDEX]] = np.nan
-
+        if breakdown == std_col.BLACK_WOMEN:
             df = generate_pct_share_col_without_unknowns(df,
-                                                         PCT_SHARE_MAP,
-                                                         cast(SEX_RACE_ETH_AGE_TYPE,
-                                                              breakdown),
+                                                         TEST_PCT_SHARE_MAP,
+                                                         std_col.AGE_COL,
                                                          std_col.ALL_VALUE)
 
+        else:
+            df = generate_pct_share_col_without_unknowns(df,
+                                                         PCT_SHARE_MAP,
+                                                         breakdown,
+                                                         std_col.ALL_VALUE)
+
+        addtl_cols_to_keep = []
         for dict in DICTS:
-            cols_to_keep += list(dict.values())
+            addtl_cols_to_keep += list(dict.values())
 
-        for col in HIV_DETERMINANTS.values():
-            pop_col = std_col.HIV_POPULATION_PCT
-            if col == std_col.HIV_PREP_PREFIX:
-                pop_col = std_col.HIV_PREP_POPULATION_PCT
-            if col == std_col.HIV_CARE_PREFIX:
-                pop_col = std_col.HIV_CARE_POPULATION_PCT
-            if col in [std_col.HIV_DIAGNOSES_BW_PREFIX,
-                       std_col.HIV_DEATHS_BW_PREFIX,
-                       std_col.HIV_PREVALENCE_BW_PREFIX]:
-                pop_col = std_col.HIV_BW_POPULATION_PCT
+            if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
+                addtl_cols_to_keep.extend(result_list)
 
-            if col != std_col.HIV_STIGMA_INDEX:
-                df = generate_pct_rel_inequity_col(df,
-                                                   PCT_SHARE_MAP[col],
-                                                   pop_col,
-                                                   PCT_RELATIVE_INEQUITY_MAP[col])
+            for col in HIV_DETERMINANTS.values():
+                pop_col = std_col.HIV_POPULATION_PCT
+                if col == std_col.HIV_PREP_PREFIX:
+                    pop_col = std_col.HIV_PREP_POPULATION_PCT
+                if col == std_col.HIV_CARE_PREFIX:
+                    pop_col = std_col.HIV_CARE_POPULATION_PCT
+
+                if (breakdown == std_col.BLACK_WOMEN) and (col in BLACK_WOMEN_MEASURES):
+                    df = generate_pct_rel_inequity_col(df,
+                                                       PCT_SHARE_MAP[col],
+                                                       pop_col,
+                                                       PCT_RELATIVE_INEQUITY_MAP[col])
+
+                elif breakdown != std_col.BLACK_WOMEN:
+                    if col != std_col.HIV_STIGMA_INDEX:
+                        df = generate_pct_rel_inequity_col(df,
+                                                           PCT_SHARE_MAP[col],
+                                                           pop_col,
+                                                           PCT_RELATIVE_INEQUITY_MAP[col])
+
+        cols_to_keep = [
+            std_col.TIME_PERIOD_COL,
+            geo_to_use,
+            fips_to_use,
+        ]
+
+        if breakdown == 'black_women':
+            cols_to_keep.extend(
+                ['age', 'race_and_ethnicity', 'race_category_id'])
+            cols_to_keep.extend(BLACK_WOMEN_MEASURES)
+            cols_to_keep.extend(PER_100K_MAP.values())
+            cols_to_keep.extend(TEST_PCT_SHARE_MAP.values())
+            cols_to_keep.extend(['hiv_deaths_pct_relative_inequity',
+                                'hiv_diagnoses_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity'])
+        elif breakdown == std_col.RACE_OR_HISPANIC_COL:
+            cols_to_keep.extend([breakdown, std_col.RACE_CATEGORY_ID_COL])
+            cols_to_keep.extend(addtl_cols_to_keep)
+
+        else:
+            cols_to_keep.append(breakdown)
+            cols_to_keep.extend(addtl_cols_to_keep)
 
         df = df[cols_to_keep]
-        df = df.sort_values(
-            [std_col.TIME_PERIOD_COL, breakdown]).reset_index(drop=True)
+        if breakdown == 'sex':
+            df.to_csv('sex_breakdown.csv', index=False)
+
+        df.to_csv('black_women.csv', index=False)
+
+        # df = df.sort_values(
+        #     [std_col.TIME_PERIOD_COL, breakdown]).reset_index(drop=True)
+
+        # df.to_csv('help1.output.csv', index=False)
 
         return df
 
@@ -230,36 +271,32 @@ class CDCHIVData(DataSource):
 def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     """load_atlas_from_data_dir generates HIV data by breakdown and geo_level
 
-    breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
+    breakdown: string equal to `age`, `race_and_ethnicity`, `sex`, or `black_women`
     geo_level: string equal to `county`, `national`, or `state`
     return: a data frame of time-based HIV data by breakdown and
     geo_level with AtlasPlus columns"""
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
+    hiv_directory = 'cdc_hiv_black_women' if std_col.BLACK_WOMEN in breakdown else 'cdc_hiv'
 
     for determinant in HIV_DETERMINANTS.values():
-        cols_to_standard = {'Population': POP_MAP[determinant]}
-        atlas_cols_to_exclude = generate_atlas_cols_to_exclude(
-            breakdown, determinant)
+        atlas_cols_to_exclude = generate_atlas_cols_to_exclude(breakdown)
 
-        is_deaths_and_county = (determinant == std_col.HIV_DEATHS_PREFIX) and (
+        no_black_women_data = (std_col.BLACK_WOMEN in breakdown) and (
+            determinant not in BLACK_WOMEN_MEASURES)
+        no_deaths_data = (determinant == std_col.HIV_DEATHS_PREFIX) and (
             geo_level == COUNTY_LEVEL)
-        is_prep_race_and_not_nat = (determinant == std_col.HIV_PREP_PREFIX) and (
+        no_prep_data = (determinant == std_col.HIV_PREP_PREFIX) and (
             breakdown == std_col.RACE_OR_HISPANIC_COL and geo_level != NATIONAL_LEVEL)
-        is_black_women_and_county = (
-            BLACK_WOMEN in determinant and geo_level == COUNTY_LEVEL)
-        no_black_women_breakdown = BLACK_WOMEN in determinant and (
-            breakdown != std_col.AGE_COL and breakdown != 'all')
-        no_stigma_data = (geo_level == COUNTY_LEVEL) or (
-            geo_level == STATE_LEVEL and breakdown != 'all')
+        no_stigma_data = (determinant == std_col.HIV_STIGMA_INDEX) and (
+            (geo_level == COUNTY_LEVEL) or (geo_level == STATE_LEVEL and breakdown != 'all'))
 
-        if (is_deaths_and_county) or (is_prep_race_and_not_nat)\
-                or (no_black_women_breakdown) or (is_black_women_and_county)\
-            or (no_stigma_data):
+        if no_black_women_data or no_deaths_data or no_prep_data or no_stigma_data:
             continue
 
         else:
-            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(HIV_DIR,
-                                                             f'{determinant}-{geo_level}-{breakdown}.csv',
+            filename = f'{determinant}-{geo_level}-{breakdown}.csv'
+            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(hiv_directory,
+                                                             filename,
                                                              subdirectory=determinant,
                                                              skiprows=8,
                                                              na_values=NA_VALUES,
@@ -267,39 +304,59 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              thousands=',',
                                                              dtype=DTYPE)
 
-            if determinant == std_col.HIV_STIGMA_INDEX:
-                cols_to_standard['Rate per 100000'] = std_col.HIV_STIGMA_INDEX
-            elif determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
-                cols_to_standard['Percent'] = CARE_PREP_MAP[determinant]
-                cols_to_standard['Cases'] = determinant
+            if (determinant in HIV_GENDER_MEASURES) and (breakdown == 'all') and (geo_level == NATIONAL_LEVEL):
+                filename = f'{determinant}-{geo_level}-gender.csv'
+                all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(hiv_directory,
+                                                                                     filename,
+                                                                                     subdirectory=determinant,
+                                                                                     skiprows=8,
+                                                                                     na_values=NA_VALUES,
+                                                                                     usecols=lambda x: x not in atlas_cols_to_exclude,
+                                                                                     thousands=',',
+                                                                                     dtype=DTYPE)
+
+                national_gender_cases_pivot = all_national_gender_df.pivot_table(
+                    index='Year', columns='Sex', values='Cases', aggfunc='sum').reset_index()
+
+                national_gender_cases_pivot.columns = [
+                    'Year', f'{determinant}_{std_col.ADDITIONAL_GENDER_TOTAL}', f'{determinant}_{std_col.TRANS_MEN_TOTAL}', f'{determinant}_{std_col.TRANS_WOMEN_TOTAL}']
+
+                df = pd.merge(df, national_gender_cases_pivot, on='Year')
+
+            if determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
+                cols_to_standard = {
+                    'Cases': determinant,
+                    'Percent': CARE_PREP_MAP[determinant],
+                    'Population': POP_MAP[determinant]}
+            elif determinant == std_col.HIV_STIGMA_INDEX:
+                cols_to_standard = {
+                    'Rate per 100000': std_col.HIV_STIGMA_INDEX,
+                    'Population': POP_MAP[determinant]
+                }
             else:
-                cols_to_standard['Rate per 100000'] = PER_100K_MAP[determinant]
-                cols_to_standard['Cases'] = determinant
+                cols_to_standard = {
+                    'Cases': determinant,
+                    'Rate per 100000': PER_100K_MAP[determinant],
+                    'Population': POP_MAP[determinant]}
 
             if determinant == std_col.HIV_PREP_PREFIX:
                 df = df.replace({'13-24': '16-24'})
-            if determinant == std_col.HIV_STIGMA_INDEX:
-                df = df.replace({'13-24': '18-24'})
-
-            print('--')
-            print(df)
+            elif determinant == std_col.HIV_STIGMA_INDEX:
+                df = df.replace({'13-24': '18:24'})
 
             df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
 
             df = df.rename(columns=cols_to_standard)
 
-            print('--')
-
             if determinant == std_col.HIV_STIGMA_INDEX:
-                df = df.drop(['population', 'Cases'], axis=1)
+                df = df.drop(columns=['Cases', 'population'])
 
             output_df = output_df.merge(df, how='outer')
-            print(output_df)
 
     return output_df
 
 
-def generate_atlas_cols_to_exclude(breakdown: str, determinant: str):
+def generate_atlas_cols_to_exclude(breakdown: str):
     """
     Generates a list of columns exclude based on the breakdown.
     breakdown: string equal to `age`, `race_and_ethnicity`, or `sex`
@@ -307,12 +364,8 @@ def generate_atlas_cols_to_exclude(breakdown: str, determinant: str):
     """
     atlas_cols = ['Indicator', 'Transmission Category', 'Rate LCI', 'Rate UCI']
 
-    if breakdown != 'all':
+    if breakdown not in ['all', std_col.BLACK_WOMEN, 'black_women_all']:
         atlas_cols.extend(
             filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
-
-    if BLACK_WOMEN in determinant:
-        atlas_cols.extend(
-            filter(lambda x: x != DEM_COLS_STANDARD[std_col.AGE_COL], CDC_DEM_COLS))
 
     return atlas_cols
