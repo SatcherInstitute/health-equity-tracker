@@ -4,10 +4,9 @@ Footnote(s): Data for 2022 are considered preliminary (subject to a 12-month rep
 Prevalence data for the year 2021 are preliminary and based on death data received by CDC as of December 2022. Prevalence data prior to 2010 are based on residence at diagnosis; prevalence data from 2010 to present are based on most recent known address. See Technical Notes for death reporting by jurisdiction.,,,
 ^ Jurisdiction with incomplete reporting of deaths for most recent year.,,,
 The 'Sex' column is used for either sex at birth or gender identity.,,,
-NA - Not applicable.,,,
-,,,
-,,,
-,,,
+NA - Not applicable.
+
+
 Indicator,Year,Sex,Cases
 HIV prevalence,2008,Additional gender identity (AGI),118
 HIV prevalence,2008,Transgender man,221

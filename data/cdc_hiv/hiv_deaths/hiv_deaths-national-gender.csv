@@ -4,10 +4,9 @@ Footnote(s): Data for 2022 are considered preliminary (subject to a 12-month rep
 Death data for the year 2021 are preliminary and based on death data received by CDC as of December 2022. Death data for years 2020 and 2021 should be interpreted with caution due to excess deaths in the United States population attributed to the COVID-19 pandemic. For additional information, see https://www.cdc.gov/nchs/nvss/vsrr/covid19/excess_deaths.htm. Death data based on residence at death. See Technical Notes for death reporting by jurisdiction.,,
 ^ Jurisdiction with incomplete reporting of deaths for most recent year.,,,
 The 'Sex' column is used for either sex at birth or gender identity.,,,
-NA - Not applicable.,,,
-,,,
-,,,
-,,,
+NA - Not applicable.
+
+
 Indicator,Year,Sex,Cases
 HIV deaths,2008,Additional gender identity (AGI),2
 HIV deaths,2008,Transgender man,1

@@ -318,6 +318,14 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 national_gender_cases_pivot = all_national_gender_df.pivot_table(
                     index='Year', columns='Sex', values='Cases', aggfunc='sum').reset_index()
 
+                # Display the first few rows of the DataFrame
+                print(all_national_gender_df.head())
+                # Display all column names in the DataFrame
+                print(all_national_gender_df.columns)
+
+                # print('--')
+                # print(all_national_gender_df)
+
                 national_gender_cases_pivot.columns = [
                     'Year', f'{determinant}_{std_col.ADDITIONAL_GENDER_TOTAL}', f'{determinant}_{std_col.TRANS_MEN_TOTAL}', f'{determinant}_{std_col.TRANS_WOMEN_TOTAL}']
 
