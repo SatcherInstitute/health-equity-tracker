@@ -134,12 +134,6 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}_time_series'
 
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
-                print('--')
-                print(table_name)
-                print('--')
-                print(df.columns.to_list())
-
-                print()
 
                 if breakdown == std_col.BLACK_WOMEN:
                     float_cols = ['hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_diagnoses_pct_share', 'hiv_deaths_pct_share',
@@ -160,9 +154,9 @@ class CDCHIVData(DataSource):
                                   ]
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-
                 print('--')
-                print(df.columns.to_list())
+                print(col_types)
+
                 # print(df)
 
                 gcs_to_bq_util.add_df_to_bq(df,
@@ -236,9 +230,6 @@ class CDCHIVData(DataSource):
         for dict in DICTS:
             addtl_cols_to_keep += list(dict.values())
 
-            if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
-                addtl_cols_to_keep.extend(result_list)
-
             for col in HIV_DETERMINANTS.values():
                 pop_col = std_col.HIV_POPULATION_PCT
                 if col == std_col.HIV_PREP_PREFIX:
@@ -258,6 +249,9 @@ class CDCHIVData(DataSource):
                                                            PCT_SHARE_MAP[col],
                                                            pop_col,
                                                            PCT_RELATIVE_INEQUITY_MAP[col])
+
+        if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
+            addtl_cols_to_keep.extend(result_list)
 
         cols_to_keep = [
             std_col.TIME_PERIOD_COL,
@@ -344,9 +338,6 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
                 national_gender_cases_pivot = all_national_gender_df.pivot_table(
                     index='Year', columns='Sex', values='Cases', aggfunc='sum').reset_index()
-
-                # print('--')
-                # print(all_national_gender_df)
 
                 national_gender_cases_pivot.columns = [
                     'Year', f'{determinant}_{std_col.ADDITIONAL_GENDER_TOTAL}', f'{determinant}_{std_col.TRANS_MEN_TOTAL}', f'{determinant}_{std_col.TRANS_WOMEN_TOTAL}']
