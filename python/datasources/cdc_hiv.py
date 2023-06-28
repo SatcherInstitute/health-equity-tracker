@@ -146,8 +146,18 @@ class CDCHIVData(DataSource):
                                   'hiv_prevalence_pct_share', 'hiv_population_pct', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity']
 
                 else:
-                    float_cols = [
-                        col for dict in DICTS for col in dict.values()]
+                    float_cols = ['hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence',
+                                  'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k',
+                                  'hiv_deaths_pct_share', 'hiv_diagnoses_pct_share', 'hiv_prevalence_pct_share',
+                                  'hiv_deaths_pct_relative_inequity',
+                                  'hiv_diagnoses_pct_relative_inequity',
+                                  'hiv_prevalence_pct_relative_inequity',
+                                  'hiv_care', 'hiv_care_linkage',
+                                  'hiv_prep', 'hiv_prep_coverage',
+                                  'hiv_care_pct_share', 'hiv_prep_pct_share',
+                                  'hiv_population_pct', 'hiv_care_population_pct', 'hiv_prep_population_pct',
+                                  'hiv_care_total_additional_gender', 'hiv_care_total_transgendered_men', 'hiv_care_total_transgendered_women', 'hiv_deaths_total_additional_gender', 'hiv_deaths_total_transgendered_men', 'hiv_deaths_total_transgendered_women', 'hiv_diagnoses_total_additional_gender', 'hiv_diagnoses_total_transgendered_men', 'hiv_diagnoses_total_transgendered_women', 'hiv_prevalence_total_additional_gender', 'hiv_prevalence_total_transgendered_men', 'hiv_prevalence_total_transgendered_women'
+                                  ]
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
