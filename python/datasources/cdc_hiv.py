@@ -102,6 +102,7 @@ DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
 
 HIV_GENDER_MEASURES = [std_col.HIV_CARE_PREFIX, std_col.HIV_DEATHS_PREFIX,
                        std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
+
 BLACK_WOMEN_MEASURES = [std_col.HIV_DEATHS_PREFIX,
                         std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
 
@@ -133,10 +134,26 @@ class CDCHIVData(DataSource):
                 table_name = f'{breakdown}_{geo_level}_time_series'
 
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
+                print('--')
+                print(table_name)
+                print('--')
+                print(df.columns.to_list())
 
-                float_cols = [col for dict in DICTS for col in dict.values()]
+                print()
+
+                if breakdown == std_col.BLACK_WOMEN:
+                    float_cols = ['hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_diagnoses_pct_share', 'hiv_deaths_pct_share',
+                                  'hiv_prevalence_pct_share', 'hiv_population_pct', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity']
+
+                else:
+                    float_cols = [
+                        col for dict in DICTS for col in dict.values()]
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+
+                print('--')
+                print(df.columns.to_list())
+                # print(df)
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
@@ -317,11 +334,6 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
                 national_gender_cases_pivot = all_national_gender_df.pivot_table(
                     index='Year', columns='Sex', values='Cases', aggfunc='sum').reset_index()
-
-                # Display the first few rows of the DataFrame
-                print(all_national_gender_df.head())
-                # Display all column names in the DataFrame
-                print(all_national_gender_df.columns)
 
                 # print('--')
                 # print(all_national_gender_df)
