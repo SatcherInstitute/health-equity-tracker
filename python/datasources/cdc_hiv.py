@@ -125,27 +125,23 @@ class CDCHIVData(DataSource):
 
         for geo_level in [NATIONAL_LEVEL]:
             for breakdown in [std_col.AGE_COL, std_col.BLACK_WOMEN, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-                if breakdown == std_col.BLACK_WOMEN:
-                    all = 'black_women_all'
-                else:
-                    all = 'all'
-
-                alls_df = load_atlas_df_from_data_dir(geo_level, all)
+                all = 'black_women_all' if breakdown == std_col.BLACK_WOMEN else 'all'
                 table_name = f'{breakdown}_{geo_level}_time_series'
 
+                alls_df = load_atlas_df_from_data_dir(geo_level, all)
                 df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
 
                 if breakdown == std_col.AGE_COL:
-                    float_cols = ['time_period', 'state_name', 'state_fips', 'age', 'hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prep', 'hiv_prevalence', 'hiv_stigma_index', 'hiv_care_linkage', 'hiv_prep_coverage', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_care_pct_share', 'hiv_deaths_pct_share',
+                    float_cols = ['hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prep', 'hiv_prevalence', 'hiv_stigma_index', 'hiv_care_linkage', 'hiv_prep_coverage', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_care_pct_share', 'hiv_deaths_pct_share',
                                   'hiv_diagnoses_pct_share', 'hiv_prep_pct_share', 'hiv_prevalence_pct_share', 'hiv_prep_population_pct', 'hiv_population_pct', 'hiv_care_population_pct', 'hiv_care_pct_relative_inequity', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity', 'hiv_prep_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity']
                 elif breakdown == std_col.BLACK_WOMEN:
-                    float_cols = ['time_period', 'state_name', 'state_fips', 'age', 'race_and_ethnicity', 'race_category_id', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k',
+                    float_cols = ['hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k',
                                   'hiv_diagnoses_pct_share', 'hiv_deaths_pct_share', 'hiv_prevalence_pct_share', 'hiv_population_pct', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity']
                 elif breakdown == std_col.RACE_OR_HISPANIC_COL:
-                    float_cols = ['time_period', 'state_name', 'state_fips', 'race_and_ethnicity', 'race_category_id', 'hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prep', 'hiv_prevalence', 'hiv_stigma_index', 'hiv_care_linkage', 'hiv_prep_coverage', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_care_pct_share', 'hiv_deaths_pct_share',
+                    float_cols = ['hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prep', 'hiv_prevalence', 'hiv_stigma_index', 'hiv_care_linkage', 'hiv_prep_coverage', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_care_pct_share', 'hiv_deaths_pct_share',
                                   'hiv_diagnoses_pct_share', 'hiv_prep_pct_share', 'hiv_prevalence_pct_share', 'hiv_prep_population_pct', 'hiv_population_pct', 'hiv_care_population_pct', 'hiv_care_pct_relative_inequity', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity', 'hiv_prep_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity']
                 elif breakdown == std_col.SEX_COL:
-                    float_cols = ['time_period', 'state_name', 'state_fips', 'sex', 'hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prep', 'hiv_prevalence', 'hiv_stigma_index', 'hiv_care_linkage', 'hiv_prep_coverage', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_care_pct_share', 'hiv_deaths_pct_share', 'hiv_diagnoses_pct_share', 'hiv_prep_pct_share', 'hiv_prevalence_pct_share', 'hiv_prep_population_pct', 'hiv_population_pct', 'hiv_care_population_pct', 'hiv_care_pct_relative_inequity', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity',
+                    float_cols = ['hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prep', 'hiv_prevalence', 'hiv_stigma_index', 'hiv_care_linkage', 'hiv_prep_coverage', 'hiv_deaths_per_100k', 'hiv_diagnoses_per_100k', 'hiv_prevalence_per_100k', 'hiv_care_pct_share', 'hiv_deaths_pct_share', 'hiv_diagnoses_pct_share', 'hiv_prep_pct_share', 'hiv_prevalence_pct_share', 'hiv_prep_population_pct', 'hiv_population_pct', 'hiv_care_population_pct', 'hiv_care_pct_relative_inequity', 'hiv_deaths_pct_relative_inequity', 'hiv_diagnoses_pct_relative_inequity',
                                   'hiv_prep_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity', 'hiv_care_total_additional_gender', 'hiv_care_total_transgendered_men', 'hiv_care_total_transgendered_women', 'hiv_deaths_total_additional_gender', 'hiv_deaths_total_transgendered_men', 'hiv_deaths_total_transgendered_women', 'hiv_diagnoses_total_additional_gender', 'hiv_diagnoses_total_transgendered_men', 'hiv_diagnoses_total_transgendered_women', 'hiv_prevalence_total_additional_gender', 'hiv_prevalence_total_transgendered_men', 'hiv_prevalence_total_transgendered_women']
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
@@ -155,6 +151,8 @@ class CDCHIVData(DataSource):
                 print(df.columns.to_list())
 
                 # print(df)
+
+                df.to_csv('im_confused.csv', index=False)
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,

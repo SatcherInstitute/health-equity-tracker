@@ -166,12 +166,12 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 #                                     "race_and_ethnicity_state_time_series",
 #                                     "sex_state_time_series"]
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testWriteToBqCalls(
     mock_data_dir_df: mock.MagicMock,
     # mock_breakdown_df: mock.MagicMock,
-    mock_bq: mock.MagicMock,
+    # mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
     datasource.write_to_bq('dataset', 'gcs_bucket')
