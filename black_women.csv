@@ -1,73 +1,37 @@
-time_period,state_name,state_fips,age,race_and_ethnicity,race_category_id,hiv_deaths,hiv_diagnoses,hiv_prevalence,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prevalence_pct_share,hiv_population_pct,hiv_deaths_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_prevalence_pct_relative_inequity
-2019,United States,00,55+,Black or African American (NH),BLACK_NH,1202,705,51300,21.3,12.5,908.2,18.2,54.6,36.2,31.5,73.3,-42.2,14.9
-2019,United States,00,45-54,Black or African American (NH),BLACK_NH,570,720,40735,21.0,26.5,1499.5,18.6,25.9,28.8,15.1,71.5,23.2,90.7
-2019,United States,00,35-44,Black or African American (NH),BLACK_NH,299,892,29692,10.7,31.9,1062.8,23.1,13.6,21.0,15.6,-12.8,48.1,34.6
-2019,United States,00,25-34,Black or African American (NH),BLACK_NH,113,1014,15965,3.4,30.9,487.1,26.2,5.1,11.3,18.3,-72.1,43.2,-38.3
-2019,United States,00,13-24,Black or African American (NH),BLACK_NH,17,536,3906,0.5,15.3,111.6,13.9,0.8,2.8,19.5,-95.9,-28.7,-85.6
-2018,United States,00,55+,Black or African American (NH),BLACK_NH,1157,685,47230,21.1,12.5,859.3,17.0,50.9,33.8,30.9,64.7,-45.0,9.4
-2018,United States,00,45-54,Black or African American (NH),BLACK_NH,646,767,41305,23.4,27.8,1499.3,19.1,28.4,29.6,15.5,83.2,23.2,91.0
-2018,United States,00,35-44,Black or African American (NH),BLACK_NH,331,952,30562,12.0,34.4,1105.6,23.7,14.5,21.9,15.6,-7.1,51.9,40.4
-2018,United States,00,25-34,Black or African American (NH),BLACK_NH,123,1035,16251,3.8,32.1,504.3,25.8,5.4,11.6,18.1,-70.2,42.5,-35.9
-2018,United States,00,13-24,Black or African American (NH),BLACK_NH,18,579,4186,0.5,16.4,118.3,14.4,0.8,3.0,19.9,-96.0,-27.6,-84.9
-2017,United States,00,55+,Black or African American (NH),BLACK_NH,1116,737,43286,20.9,13.8,810.1,17.2,48.8,31.5,30.3,61.1,-43.2,4.0
-2017,United States,00,45-54,Black or African American (NH),BLACK_NH,678,823,41962,24.4,29.6,1508.1,19.2,29.6,30.6,15.8,87.3,21.5,93.7
-2017,United States,00,35-44,Black or African American (NH),BLACK_NH,329,966,30988,12.0,35.3,1130.9,22.6,14.4,22.6,15.6,-7.7,44.9,44.9
-2017,United States,00,25-34,Black or African American (NH),BLACK_NH,150,1141,16646,4.7,36.1,526.4,26.7,6.6,12.1,18.0,-63.3,48.3,-32.8
-2017,United States,00,13-24,Black or African American (NH),BLACK_NH,16,612,4463,0.4,17.1,124.4,14.3,0.7,3.2,20.4,-96.6,-29.9,-84.3
-2016,United States,00,55+,Black or African American (NH),BLACK_NH,1103,703,39305,21.3,13.6,757.9,16.1,46.4,29.1,29.7,56.2,-45.8,-2.0
-2016,United States,00,45-54,Black or African American (NH),BLACK_NH,685,887,42150,24.5,31.7,1505.8,20.3,28.8,31.2,16.0,80.0,26.9,95.0
-2016,United States,00,35-44,Black or African American (NH),BLACK_NH,395,1026,31788,14.5,37.7,1167.4,23.4,16.6,23.6,15.6,6.4,50.0,51.3
-2016,United States,00,25-34,Black or African American (NH),BLACK_NH,167,1164,16958,5.4,37.6,548.5,26.6,7.0,12.6,17.7,-60.5,50.3,-28.8
-2016,United States,00,13-24,Black or African American (NH),BLACK_NH,27,598,4732,0.7,16.4,129.8,13.7,1.1,3.5,20.9,-94.7,-34.4,-83.3
-2015,United States,00,55+,Black or African American (NH),BLACK_NH,1025,664,35771,20.4,13.2,712.5,15.3,43.3,27.0,29.1,48.8,-47.4,-7.2
-2015,United States,00,45-54,Black or African American (NH),BLACK_NH,719,862,42039,25.6,30.7,1498.4,19.8,30.4,31.7,16.2,87.7,22.2,95.7
-2015,United States,00,35-44,Black or African American (NH),BLACK_NH,425,1034,32327,15.6,38.0,1187.9,23.8,18.0,24.4,15.8,13.9,50.6,54.4
-2015,United States,00,25-34,Black or African American (NH),BLACK_NH,162,1127,17338,5.4,37.4,575.6,25.9,6.8,13.1,17.4,-60.9,48.9,-24.7
-2015,United States,00,13-24,Black or African American (NH),BLACK_NH,36,661,5058,1.0,17.8,136.5,15.2,1.5,3.8,21.5,-93.0,-29.3,-82.3
-2014,United States,00,55+,Black or African American (NH),BLACK_NH,1052,685,32288,21.7,14.1,666.4,15.2,42.0,24.8,28.4,47.9,-46.5,-12.7
-2014,United States,00,45-54,Black or African American (NH),BLACK_NH,785,879,41486,27.8,31.2,1470.3,19.6,31.4,31.9,16.5,90.3,18.8,93.3
-2014,United States,00,35-44,Black or African American (NH),BLACK_NH,457,1084,33136,16.9,40.0,1223.8,24.1,18.3,25.4,15.9,15.1,51.6,59.7
-2014,United States,00,25-34,Black or African American (NH),BLACK_NH,166,1151,17888,5.6,39.0,606.9,25.6,6.6,13.7,17.3,-61.8,48.0,-20.8
-2014,United States,00,13-24,Black or African American (NH),BLACK_NH,43,693,5435,1.1,18.4,144.5,15.4,1.7,4.2,22.0,-92.3,-30.0,-80.9
-2013,United States,00,55+,Black or African American (NH),BLACK_NH,965,667,29050,20.6,14.3,621.3,14.5,39.0,22.7,27.7,40.8,-47.7,-18.1
-2013,United States,00,45-54,Black or African American (NH),BLACK_NH,835,1000,41010,29.3,35.1,1440.0,21.8,33.7,32.0,16.9,99.4,29.0,89.3
-2013,United States,00,35-44,Black or African American (NH),BLACK_NH,449,1055,33777,16.7,39.2,1253.8,23.0,18.1,26.4,16.0,13.1,43.8,65.0
-2013,United States,00,25-34,Black or African American (NH),BLACK_NH,191,1176,18349,6.6,40.7,635.4,25.6,7.7,14.3,17.1,-55.0,49.7,-16.4
-2013,United States,00,13-24,Black or African American (NH),BLACK_NH,35,695,5808,0.9,18.4,153.5,15.1,1.4,4.5,22.4,-93.8,-32.6,-79.9
-2012,United States,00,55+,Black or African American (NH),BLACK_NH,844,665,25894,18.7,14.7,573.7,13.2,33.0,20.6,27.0,22.2,-51.1,-23.7
-2012,United States,00,45-54,Black or African American (NH),BLACK_NH,872,1124,40250,30.4,39.2,1404.9,22.3,34.1,32.0,17.2,98.3,29.7,86.0
-2012,United States,00,35-44,Black or African American (NH),BLACK_NH,582,1182,34407,21.6,43.9,1277.5,23.4,22.8,27.4,16.1,41.6,45.3,70.2
-2012,United States,00,25-34,Black or African American (NH),BLACK_NH,224,1304,18988,7.9,45.9,668.5,25.8,8.8,15.1,17.0,-48.2,51.8,-11.2
-2012,United States,00,13-24,Black or African American (NH),BLACK_NH,35,775,6134,0.9,20.5,162.3,15.3,1.4,4.9,22.6,-93.8,-32.3,-78.3
-2011,United States,00,55+,Black or African American (NH),BLACK_NH,833,689,22823,19.2,15.9,525.4,12.8,32.1,18.6,26.3,22.1,-51.3,-29.3
-2011,United States,00,45-54,Black or African American (NH),BLACK_NH,867,1200,39266,30.1,41.6,1362.2,22.3,33.4,31.9,17.5,90.9,27.4,82.3
-2011,United States,00,35-44,Black or African American (NH),BLACK_NH,593,1272,34974,22.0,47.2,1297.2,23.6,22.9,28.4,16.3,40.5,44.8,74.2
-2011,United States,00,25-34,Black or African American (NH),BLACK_NH,254,1287,19488,9.1,45.9,695.4,23.9,9.8,15.8,17.0,-42.4,40.6,-7.1
-2011,United States,00,13-24,Black or African American (NH),BLACK_NH,47,938,6436,1.2,24.9,170.8,17.4,1.8,5.2,22.9,-92.1,-24.0,-77.3
-2010,United States,00,55+,Black or African American (NH),BLACK_NH,806,695,20043,19.3,16.6,479.0,11.9,29.3,16.7,25.7,14.0,-53.7,-35.0
-2010,United States,00,45-54,Black or African American (NH),BLACK_NH,969,1302,37768,33.6,45.2,1311.1,22.3,35.2,31.5,17.7,98.9,26.0,78.0
-2010,United States,00,35-44,Black or African American (NH),BLACK_NH,660,1494,35636,24.2,54.9,1309.1,25.6,24.0,29.7,16.7,43.7,53.3,77.8
-2010,United States,00,25-34,Black or African American (NH),BLACK_NH,265,1454,20046,9.6,52.7,726.4,24.9,9.6,16.7,16.9,-43.2,47.3,-1.2
-2010,United States,00,13-24,Black or African American (NH),BLACK_NH,54,902,6476,1.4,24.0,172.5,15.4,2.0,5.4,23.0,-91.3,-33.0,-76.5
-2009,United States,00,55+,Black or African American (NH),BLACK_NH,793,646,17409,19.9,16.2,437.4,10.2,25.9,15.0,24.8,4.4,-58.9,-39.5
-2009,United States,00,45-54,Black or African American (NH),BLACK_NH,1100,1431,35798,39.2,51.0,1275.3,22.6,35.9,30.8,17.5,105.1,29.1,76.0
-2009,United States,00,35-44,Black or African American (NH),BLACK_NH,765,1683,36161,27.9,61.4,1319.1,26.6,25.0,31.1,17.1,46.2,55.6,81.9
-2009,United States,00,25-34,Black or African American (NH),BLACK_NH,339,1530,20426,12.0,54.3,725.3,24.2,11.1,17.6,17.5,-36.6,38.3,0.6
-2009,United States,00,13-24,Black or African American (NH),BLACK_NH,65,1042,6565,1.7,27.9,175.9,16.5,2.1,5.6,23.2,-90.9,-28.9,-75.9
-2008,United States,00,55+,Black or African American (NH),BLACK_NH,716,771,15123,18.6,20.0,392.9,10.9,22.8,13.4,24.2,-5.8,-55.0,-44.6
-2008,United States,00,45-54,Black or African American (NH),BLACK_NH,1124,1549,33649,40.6,56.0,1216.2,21.8,35.9,29.8,17.4,106.3,25.3,71.3
-2008,United States,00,35-44,Black or African American (NH),BLACK_NH,911,1874,36467,32.7,67.2,1308.2,26.4,29.1,32.3,17.5,66.3,50.9,84.6
-2008,United States,00,25-34,Black or African American (NH),BLACK_NH,327,1785,21117,11.8,64.3,761.0,25.1,10.4,18.7,17.4,-40.2,44.3,7.5
-2008,United States,00,13-24,Black or African American (NH),BLACK_NH,56,1123,6544,1.5,30.1,175.5,15.8,1.8,5.8,23.4,-92.3,-32.5,-75.2
-2019,United States,00,All,Black or African American (NH),BLACK_NH,2201,3867,141598,12.3,21.6,789.4,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2018,United States,00,All,Black or African American (NH),BLACK_NH,2275,4018,139534,12.8,22.6,784.9,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2017,United States,00,All,Black or African American (NH),BLACK_NH,2289,4279,137345,13.0,24.3,779.6,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2016,United States,00,All,Black or African American (NH),BLACK_NH,2377,4378,134933,13.6,25.1,773.5,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2015,United States,00,All,Black or African American (NH),BLACK_NH,2367,4348,132533,13.7,25.2,767.6,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2014,United States,00,All,Black or African American (NH),BLACK_NH,2503,4492,130233,14.7,26.3,762.4,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2013,United States,00,All,Black or African American (NH),BLACK_NH,2475,4593,127994,14.7,27.2,757.9,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2012,United States,00,All,Black or African American (NH),BLACK_NH,2557,5050,125673,15.3,30.3,752.9,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2011,United States,00,All,Black or African American (NH),BLACK_NH,2594,5386,122987,15.7,32.7,745.7,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2010,United States,00,All,Black or African American (NH),BLACK_NH,2754,5847,119969,16.9,35.9,736.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2009,United States,00,All,Black or African American (NH),BLACK_NH,3062,6332,116359,19.0,39.4,723.7,100.0,100.0,100.0,100.0,0.0,0.0,0.0
-2008,United States,00,All,Black or African American (NH),BLACK_NH,3134,7102,112900,19.7,44.6,709.7,100.0,100.0,100.0,100.0,0.0,0.0,0.0
+time_period,state_name,state_fips,sex,hiv_care,hiv_deaths,hiv_diagnoses,hiv_prep,hiv_prevalence,hiv_stigma_index,hiv_care_linkage,hiv_prep_coverage,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_pct_share,hiv_deaths_pct_share,hiv_diagnoses_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_prep_pct_relative_inequity,hiv_prevalence_pct_relative_inequity,hiv_care_total_additional_gender,hiv_care_total_transgendered_men,hiv_care_total_transgendered_women,hiv_deaths_total_additional_gender,hiv_deaths_total_transgendered_men,hiv_deaths_total_transgendered_women,hiv_diagnoses_total_additional_gender,hiv_diagnoses_total_transgendered_men,hiv_diagnoses_total_transgendered_women,hiv_prevalence_total_additional_gender,hiv_prevalence_total_transgendered_men,hiv_prevalence_total_transgendered_women
+2019,United States,00,Female,5110.0,3835,6939,21065.0,242496,37.3,80.2,9.3,2.7,4.9,171.9,18.6,23.6,19.0,7.7,23.3,18.7,51.1,18.9,-1.6,-53.8,-62.8,-58.8,-54.4,,,,,,,,,,,,
+2019,United States,00,Male,22369.0,12395,29589,253974.0,798026,29.0,81.6,25.7,9.2,21.9,591.2,81.4,76.4,81.0,92.3,76.7,81.3,48.9,81.1,0.4,56.2,65.6,13.5,56.9,,,,,,,,,,,,
+2018,United States,00,Female,5061.0,3989,7086,15806.0,238747,36.5,79.8,7.0,2.8,5.1,170.3,18.8,24.6,18.9,7.2,23.4,18.7,51.1,18.9,-0.5,-51.9,-63.0,-61.5,-54.2,,,,,,,,,,,,
+2018,United States,00,Male,21797.0,12220,30331,204105.0,779554,29.7,80.3,20.6,9.1,22.6,581.3,81.2,75.4,81.1,92.8,76.6,81.3,48.9,81.1,0.1,54.2,65.8,14.1,56.6,,,,,,,,,,,,
+2017,United States,00,Female,5059.0,3999,7275,11274.0,234953,,78.2,5.0,2.9,5.2,168.8,19.1,24.5,19.0,7.3,23.6,18.6,51.1,19.0,0.5,-52.1,-62.8,-60.8,-53.8,,,,,,,,,,,,
+2017,United States,00,Male,21458.0,12351,31041,143689.0,760344,,77.7,14.5,9.3,23.3,570.9,80.9,75.5,81.0,92.7,76.4,81.4,48.9,81.0,-0.1,54.4,65.6,13.9,56.2,,,,,,,,,,,,
+2016,United States,00,Female,,4027,7470,,230894,,,,2.9,5.4,167.1,,24.6,18.9,,23.8,,51.1,,,-51.9,-63.0,,-53.4,,,,,,,,,,,,
+2016,United States,00,Male,,12344,31952,,740486,,,,9.3,24.2,560.5,,75.4,81.1,,76.2,,48.9,,,54.2,65.8,,55.8,,,,,,,,,,,,
+2015,United States,00,Female,,3887,7362,,226800,,,,2.8,5.4,165.5,,24.6,18.5,,24.0,,51.1,,,-51.9,-63.8,,-53.0,,,,,,,,,,,,
+2015,United States,00,Male,,11931,32356,,719969,,,,9.1,24.7,549.8,,75.4,81.5,,76.0,,48.9,,,54.2,66.7,,55.4,,,,,,,,,,,,
+2014,United States,00,Female,,4180,7534,,222809,,,,3.1,5.5,163.9,,25.9,18.9,,24.2,,51.2,,,-49.4,-63.1,,-52.7,,,,,,,,,,,,
+2014,United States,00,Male,,11948,32310,,698875,,,,9.2,24.9,538.4,,74.1,81.1,,75.8,,48.8,,,51.8,66.2,,55.3,,,,,,,,,,,,
+2013,United States,00,Female,,4068,7586,,219003,,,,3.0,5.6,162.5,,25.6,19.4,,24.4,,51.2,,,-50.0,-62.1,,-52.3,,,,,,,,,,,,
+2013,United States,00,Male,,11812,31510,,678016,,,,9.2,24.5,527.3,,74.4,80.6,,75.6,,48.8,,,52.5,65.2,,54.9,,,,,,,,,,,,
+2012,United States,00,Female,,4202,8077,,215098,,,,3.1,6.0,161.0,,26.3,20.0,,24.6,,51.2,,,-48.6,-60.9,,-52.0,,,,,,,,,,,,
+2012,United States,00,Male,,11778,32320,,657935,,,,9.2,25.4,516.4,,73.7,80.0,,75.4,,48.8,,,51.0,63.9,,54.5,,,,,,,,,,,,
+2011,United States,00,Female,,4228,8672,,210834,,,,3.2,6.5,159.1,,26.0,21.1,,24.9,,51.2,,,-49.2,-58.8,,-51.4,,,,,,,,,,,,
+2011,United States,00,Male,,12023,32436,,636944,,,,9.5,25.7,504.8,,74.0,78.9,,75.1,,48.8,,,51.6,61.7,,53.9,,,,,,,,,,,,
+2010,United States,00,Female,,4366,9400,,205970,,,,3.3,7.2,156.8,,26.1,21.9,,25.1,,51.2,,,-49.0,-57.2,,-51.0,,,,,,,,,,,,
+2010,United States,00,Male,,12335,33477,,616099,,,,9.9,26.8,492.7,,73.9,78.1,,74.9,,48.8,,,51.4,60.0,,53.5,,,,,,,,,,,,
+2009,United States,00,Female,,4769,10123,,199683,,,,3.7,7.8,154.5,,26.6,22.7,,25.2,,51.0,,,-47.8,-55.5,,-50.6,,,,,,,,,,,,
+2009,United States,00,Male,,13186,34412,,593409,,,,10.6,27.8,478.7,,73.4,77.3,,74.8,,49.0,,,49.8,57.8,,52.7,,,,,,,,,,,,
+2008,United States,00,Female,,4953,11306,,193998,,,,3.9,8.8,151.3,,26.8,24.0,,25.3,,51.1,,,-47.6,-53.0,,-50.5,,,,,,,,,,,,
+2008,United States,00,Male,,13512,35712,,571906,,,,11.0,29.1,465.8,,73.2,76.0,,74.7,,48.9,,,49.7,55.4,,52.8,,,,,,,,,,,,
+2019,United States,00,All,27479.0,16230,36528,275182.0,1040522,30.7,81.3,22.6,5.9,13.2,376.9,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0,15.0,40.0,484.0,2.0,5.0,145.0,32.0,45.0,692.0,292.0,489.0,11935.0
+2018,United States,00,All,26858.0,16209,37417,220030.0,1018301,31.2,80.2,18.1,5.9,13.6,371.3,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0,9.0,32.0,396.0,1.0,5.0,118.0,19.0,48.0,661.0,260.0,447.0,11345.0
+2017,United States,00,All,26517.0,16350,38316,155062.0,995297,,77.8,12.7,6.0,14.1,365.4,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0,0.0,0.0,0.0,0.0,12.0,27.0,375.0,3.0,5.0,108.0,18.0,32.0,651.0,239.0,400.0,10773.0
+2016,United States,00,All,,16371,39422,,971380,,,,6.1,14.6,359.4,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,1.0,2.0,120.0,21.0,23.0,702.0,218.0,374.0,10213.0
+2015,United States,00,All,,15818,39718,,946769,,,,5.9,14.8,353.3,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,1.0,5.0,107.0,18.0,34.0,635.0,196.0,351.0,9612.0
+2014,United States,00,All,,16128,39844,,921684,,,,6.1,15.0,346.9,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,0.0,3.0,88.0,13.0,30.0,594.0,179.0,320.0,9074.0
+2013,United States,00,All,,15880,39096,,897019,,,,6.0,14.8,340.6,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,0.0,3.0,85.0,7.0,17.0,605.0,164.0,291.0,8564.0
+2012,United States,00,All,,15980,40397,,873033,,,,6.1,15.5,334.5,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,1.0,2.0,80.0,15.0,14.0,612.0,157.0,278.0,8042.0
+2011,United States,00,All,,16251,41108,,847778,,,,6.3,15.9,327.8,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,2.0,1.0,75.0,9.0,18.0,593.0,144.0,265.0,7505.0
+2010,United States,00,All,,16701,42877,,822069,,,,6.5,16.7,320.6,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,4.0,0.0,45.0,12.0,11.0,571.0,136.0,247.0,6983.0
+2009,United States,00,All,,17955,44535,,793092,,,,7.1,17.6,313.2,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,2.0,3.0,58.0,10.0,15.0,549.0,127.0,234.0,6429.0
+2008,United States,00,All,,18465,47018,,765904,,,,7.4,18.7,305.1,,100.0,100.0,,100.0,,100.0,,,0.0,0.0,,0.0,,,,2.0,1.0,56.0,11.0,24.0,534.0,118.0,221.0,5938.0
