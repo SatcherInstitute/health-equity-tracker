@@ -83,12 +83,14 @@ class HivProvider extends VariableProvider {
     super('hiv_provider', HIV_DETERMINANTS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId): string {
+    const isBlackWomenData = dataTypeId?.includes('black_women')
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
         return 'cdc_hiv_data-race_and_ethnicity_national_time_series'
       }
       if (breakdowns.hasOnlyAge()) {
+        if (isBlackWomenData) return 'cdc_hiv_data-black_women_national_time_series'
         return 'cdc_hiv_data-age_national_time_series'
       }
       if (breakdowns.hasOnlySex()) {
@@ -99,7 +101,10 @@ class HivProvider extends VariableProvider {
       if (breakdowns.hasOnlyRace()) {
         return 'cdc_hiv_data-race_and_ethnicity_state_time_series'
       }
-      if (breakdowns.hasOnlyAge()) return 'cdc_hiv_data-age_state_time_series'
+      if (breakdowns.hasOnlyAge()) {
+        if (isBlackWomenData) return 'cdc_hiv_data-black_women_state_time_series'
+        return 'cdc_hiv_data-age_state_time_series'
+      }
       if (breakdowns.hasOnlySex()) return 'cdc_hiv_data-sex_state_time_series'
     }
 
@@ -130,8 +135,9 @@ class HivProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
+    console.log(metricQuery)
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns)
+    const datasetId = this.getDatasetId(breakdowns, metricQuery.dataTypeId)
     const hiv = await getDataManager().loadDataset(datasetId)
     let df = hiv.toDataFrame()
 
