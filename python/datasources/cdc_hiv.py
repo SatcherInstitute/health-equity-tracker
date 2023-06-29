@@ -145,14 +145,6 @@ class CDCHIVData(DataSource):
                                   'hiv_prep_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity', 'hiv_care_total_additional_gender', 'hiv_care_total_transgendered_men', 'hiv_care_total_transgendered_women', 'hiv_deaths_total_additional_gender', 'hiv_deaths_total_transgendered_men', 'hiv_deaths_total_transgendered_women', 'hiv_diagnoses_total_additional_gender', 'hiv_diagnoses_total_transgendered_men', 'hiv_diagnoses_total_transgendered_women', 'hiv_prevalence_total_additional_gender', 'hiv_prevalence_total_transgendered_men', 'hiv_prevalence_total_transgendered_women']
 
                 col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-                print('-- column types')
-                print(list(col_types.keys()))
-                print('-- df columns')
-                print(df.columns.to_list())
-
-                # print(df)
-
-                df.to_csv('im_confused.csv', index=False)
 
                 gcs_to_bq_util.add_df_to_bq(df,
                                             dataset,
