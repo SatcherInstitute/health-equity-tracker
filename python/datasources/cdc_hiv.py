@@ -377,7 +377,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             if determinant == std_col.HIV_PREP_PREFIX:
                 df = df.replace({'13-24': '16-24'})
             elif determinant == std_col.HIV_STIGMA_INDEX:
-                df = df.replace({'13-24': '18:24'})
+                df = df.replace({'13-24': '18-24'})
 
             df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
 
