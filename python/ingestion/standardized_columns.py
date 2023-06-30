@@ -134,6 +134,7 @@ JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 
 # HIV
+BLACK_WOMEN = 'black_women'
 HIV_CARE_LINKAGE = 'hiv_care_linkage'
 HIV_CARE_POPULATION = 'hiv_care_population'
 HIV_CARE_POPULATION_PCT = 'hiv_care_population_pct'
@@ -148,10 +149,9 @@ HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
 HIV_PREP_PREFIX = 'hiv_prep'
 HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
 HIV_STIGMA_INDEX = 'hiv_stigma_index'
-TRANS_MEN_TOTAL = "total_transgendered_men"
-TRANS_WOMEN_TOTAL = 'total_transgendered_women'
-ADDITIONAL_GENDER_TOTAL = 'total_additional_gender'
-BLACK_WOMEN = 'black_women'
+TOTAL_TRANS_MEN = 'total_trans_men'
+TOTAL_TRANS_WOMEN = 'total_trans_women'
+TOTAL_ADDL_GENDER = 'total_additional_gender'
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

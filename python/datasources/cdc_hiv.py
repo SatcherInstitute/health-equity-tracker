@@ -95,8 +95,7 @@ POP_MAP = {
     std_col.HIV_STIGMA_INDEX: std_col.POPULATION_COL}
 
 prefixes = ['hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence']
-suffixes = ['total_additional_gender',
-            'total_transgendered_men', 'total_transgendered_women']
+suffixes = ['total_additional_gender', 'total_trans_men', 'total_trans_women']
 result_list = [
     f"{prefix}_{suffix}" for prefix in prefixes for suffix in suffixes]
 
@@ -136,7 +135,7 @@ BW_PCT_REL_INQ_COLS = [
 COMMON_COLS = [std_col.HIV_STIGMA_INDEX, std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_COVERAGE,
                std_col.HIV_PREP_POPULATION_PCT, std_col.HIV_POPULATION_PCT, std_col.HIV_CARE_POPULATION_PCT]
 GENDER_COLS = [f'{col}_{gender}' for col in BASE_COLS_NO_PREP for gender in [
-    std_col.ADDITIONAL_GENDER_TOTAL, std_col.TRANS_MEN_TOTAL, std_col.TRANS_WOMEN_TOTAL]]
+    std_col.TOTAL_ADDL_GENDER, std_col.TOTAL_TRANS_MEN, std_col.TOTAL_TRANS_WOMEN]]
 
 
 class CDCHIVData(DataSource):
@@ -355,7 +354,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                     index='Year', columns='Sex', values='Cases', aggfunc='sum').reset_index()
 
                 national_gender_cases_pivot.columns = [
-                    'Year', f'{determinant}_{std_col.ADDITIONAL_GENDER_TOTAL}', f'{determinant}_{std_col.TRANS_MEN_TOTAL}', f'{determinant}_{std_col.TRANS_WOMEN_TOTAL}']
+                    'Year', f'{determinant}_{std_col.TOTAL_ADDL_GENDER}', f'{determinant}_{std_col.TOTAL_TRANS_MEN}', f'{determinant}_{std_col.TOTAL_TRANS_WOMEN}']
 
                 df = pd.merge(df, national_gender_cases_pivot, on='Year')
 
