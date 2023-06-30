@@ -19,11 +19,14 @@ import { exclude } from '../data/query/BreakdownFilter'
 import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
+
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
+import GenderDataShortAlert from './ui/GenderDataShortAlert'
+import { DATATYPES_NEEDING_13PLUS, GENDER_METRICS } from '../data/providers/HivProvider'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -57,12 +60,20 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId
   )
-
+  const isHIV = DATATYPES_NEEDING_13PLUS.includes(props.dataTypeConfig.dataTypeId)
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
-  const metricIdsToFetch: MetricId[] = []
+  let metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
   isIncarceration && metricIdsToFetch.push('total_confined_children')
+
+  if (isHIV) {
+    metricIdsToFetch = [...metricIdsToFetch, ...GENDER_METRICS]
+  }
+
+  console.log(isHIV)
+  console.log({ metricIdsToFetch })
+  console.log(GENDER_METRICS)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
@@ -80,9 +91,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     chartTitle: metricConfig.chartTitle,
     fips: props.fips,
   })
-  const filename = `${chartTitle}, by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-  }`
+  const filename = `${chartTitle}, by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    }`
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
@@ -96,6 +106,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
+
+        console.log(metricConfig.metricId)
 
         return (
           <>
@@ -127,6 +139,14 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                       fips={props.fips}
                       queryResponse={queryResponse}
                       breakdownVar={props.breakdownVar}
+                    />
+                  )}
+                  {isHIV && (
+                    <GenderDataShortAlert
+                      fips={props.fips}
+                      queryResponse={queryResponse}
+                      breakdownVar={props.breakdownVar}
+                      dataTypeId={props.dataTypeConfig.dataTypeId}
                     />
                   )}
                 </>

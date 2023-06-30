@@ -54,6 +54,7 @@ export type DataTypeId =
   | 'hiv_diagnoses'
   | 'hiv_prevalence_black_women'
   | 'hiv_prevalence'
+  | 'hiv_stigma_index'
   | 'jail'
   | 'non_medical_drug_use'
   | 'poverty'
@@ -162,6 +163,7 @@ export type MetricId =
   | 'hiv_prevalence_pct_share'
   | 'hiv_prevalence_per_100k'
   | 'hiv_prevalence_ratio_age_adjusted'
+  | 'hiv_stigma_index'
   | 'hosp_ratio_age_adjusted'
   | 'incarceration_population_pct'
   | 'jail_pct_relative_inequity'
@@ -225,6 +227,18 @@ export type MetricId =
   | 'women_this_race_us_congress_names'
   | 'women_us_congress_pct_relative_inequity'
   | 'women_us_congress_ratio_age_adjusted'
+  | 'hiv_care_total_additional_gender'
+  | 'hiv_care_total_trans_men'
+  | 'hiv_care_total_trans_women'
+  | 'hiv_deaths_total_additional_gender'
+  | 'hiv_deaths_total_trans_men'
+  | 'hiv_deaths_total_trans_women'
+  | 'hiv_diagnoses_total_additional_gender'
+  | 'hiv_diagnoses_total_trans_men'
+  | 'hiv_diagnoses_total_trans_women'
+  | 'hiv_prevalence_total_additional_gender'
+  | 'hiv_prevalence_total_trans_men'
+  | 'hiv_prevalence_total_trans_women'
 
 // The type of metric indicates where and how this a MetricConfig is represented in the frontend:
 // What chart types are applicable, what metrics are shown together, display names, etc.
@@ -727,6 +741,45 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           trendsCardTitleName: 'Rates of HIV deaths over time',
           columnTitleHeader: 'HIV deaths per 100k people',
           shortLabel: 'deaths per 100k',
+          type: 'per100k',
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Historical relative inequity for HIV deaths',
+          metricId: 'hiv_deaths_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
+      },
+    },
+    {
+      dataTypeId: 'hiv_stigma_index',
+      dataTypeShortLabel: 'Stigma',
+      fullDisplayName: 'HIV stigma',
+      dataTypeDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
+      timeSeriesData: true,
+      dataTableTitle: 'Breakdown summary for HIV stigma',
+      metrics: {
+        pct_share: {
+          chartTitle: 'Share of total HIV stigma',
+          metricId: 'hiv_deaths_pct_share',
+          columnTitleHeader: 'Share of total HIV stigma',
+          trendsCardTitleName: 'Inequitable share of HIV stigma over time',
+          shortLabel: '% of HIV deaths',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle: 'Population vs. distribution of total HIV stigma',
+            metricId: 'hiv_population_pct',
+            columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
+            shortLabel: populationPctShortLabel,
+            type: 'pct_share',
+          },
+        },
+        per100k: {
+          metricId: 'hiv_stigma_index',
+          chartTitle: 'HIV stigma',
+          trendsCardTitleName: 'Rates of HIV stigma over time',
+          columnTitleHeader: 'HIV stigma per 100k people',
+          shortLabel: 'stigma scores',
           type: 'per100k',
         },
         pct_relative_inequity: {

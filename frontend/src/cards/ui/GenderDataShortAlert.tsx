@@ -6,36 +6,56 @@ import { ALL } from '../../data/utils/Constants'
 import FlagIcon from '@mui/icons-material/Flag'
 import { type BreakdownVar } from '../../data/query/Breakdowns'
 import { CardContent, Alert } from '@mui/material'
+import { DataTypeId } from '../../data/config/MetricConfig'
 
-interface IncarceratedChildrenShortAlertProps {
+interface GenderDataShortAlertProps {
     queryResponse: MetricQueryResponse
     fips: Fips
     breakdownVar: BreakdownVar
+    dataTypeId?: DataTypeId
 }
 
-function IncarceratedChildrenShortAlert(
-    props: IncarceratedChildrenShortAlertProps
+function GenderDataShortAlert(
+    props: GenderDataShortAlertProps
 ) {
-    let count = props.queryResponse.data.find(
-        (row: Row) => row[props.breakdownVar] === ALL
-    )?.total_confined_children
-    if (count) count = parseInt(count)
-    if (count == null) return <></>
+    let totalAddlGender
+    let totalTransMen
+    let totalTransWomen
 
-    const children = count === 1 ? 'child' : 'children'
-    const adultFacilities = count === 1 ? 'an adult facility' : 'adult facilities'
+    const genderCount = props.queryResponse.data.find(
+        (row: Row) => row[props.breakdownVar] === ALL
+    )
+
+    if (genderCount) {
+        totalAddlGender = genderCount[`${props.dataTypeId}_total_additional_gender`]
+        totalTransMen = genderCount[`${props.dataTypeId}_total_transgendered_men`]
+        totalTransWomen = genderCount[`${props.dataTypeId}_total_transgendered_women`]
+    }
+
+    if (genderCount) totalAddlGender = parseInt(totalAddlGender)
+    if (genderCount) totalTransMen = parseInt(totalTransMen)
+    if (genderCount) totalTransWomen = parseInt(totalTransWomen)
+    if (genderCount == null) return <></>
 
     return (
         <CardContent>
             <Alert
-                severity={count === 0 ? 'info' : 'error'}
+                severity={totalAddlGender === 0 ? 'info' : 'error'}
                 role="note"
-                icon={count !== 0 ? <FlagIcon /> : null}
+                icon={totalAddlGender !== 0 ? <FlagIcon /> : null}
             >
                 <b>
-                    {count.toLocaleString()} {children}
+                    {totalTransMen.toLocaleString()} trans men
                 </b>{' '}
-                confined in {adultFacilities} in{' '}
+                in{' '}
+                <b>
+                    {totalTransWomen.toLocaleString()} trans women
+                </b>{' '}
+                in{' '}
+                <b>
+                    {totalAddlGender.toLocaleString()} people
+                </b>{' '}
+                (AGI) in{' '}
                 <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
                 <a href={urlMap.childrenInPrison}>Learn more.</a>
             </Alert>
@@ -43,4 +63,4 @@ function IncarceratedChildrenShortAlert(
     )
 }
 
-export default IncarceratedChildrenShortAlert
+export default GenderDataShortAlert
