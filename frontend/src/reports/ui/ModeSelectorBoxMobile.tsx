@@ -38,7 +38,7 @@ export default function ModeSelectorBoxMobile(
             <SimpleSelect<BreakdownVar>
               label="Demographic"
               optionsMap={DEMOGRAPHIC_BREAKDOWNS_MAP}
-              selected={'black_women'}
+              selected={props.trackerDemographic}
               setSelected={props.setDemoWithParam}
             />
             <SimpleSelect<MadLibId>
