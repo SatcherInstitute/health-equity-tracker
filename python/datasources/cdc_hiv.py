@@ -295,10 +295,6 @@ class CDCHIVData(DataSource):
             cols_to_keep.extend(addtl_cols_to_keep)
 
         df = df[cols_to_keep]
-        if breakdown == 'sex':
-            df.to_csv('sex_breakdown.csv', index=False)
-
-        df.to_csv('black_women.csv', index=False)
 
         return df
 
