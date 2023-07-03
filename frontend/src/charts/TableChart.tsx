@@ -64,25 +64,36 @@ export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
   const { data, metrics, breakdownVar } = props
 
-  let columns = metrics.map((metricConfig) => {
-    return {
-      Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
+  let columns: { Header: string; Cell: (a: any) => string; accessor: MetricId }[] | Column<any>[] = []
+
+  if (metrics.length > 0 && metrics[0].metricId === 'hiv_stigma_index') {
+    const firstMetricConfig = metrics[0]
+    columns.push({
+      Header: firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
       Cell: (a: any) =>
-        formatFieldValue(
-          /* metricType: MetricType, */ metricConfig.type,
-          /*   value: any, */ a.value,
-          /*   omitPctSymbol: boolean = false */ true
-        ),
-      accessor: metricConfig.metricId,
-    }
-  })
+        formatFieldValue(firstMetricConfig.type, a.value, true),
+      accessor: firstMetricConfig.metricId,
+    })
+  } else {
+    columns = metrics.map((metricConfig) => {
+      return {
+        Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
+        Cell: (a: any) =>
+          formatFieldValue(metricConfig.type, a.value, true),
+        accessor: metricConfig.metricId,
+      }
+    })
+  }
+
   columns = [
     {
       Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
       Cell: (cell: any) => cell.value,
       accessor: breakdownVar as MetricId,
     },
-  ].concat(columns)
+    ...columns
+  ]
+
 
   // Changes deps array to columns on save, which triggers reload loop
   // eslint-disable-next-line
@@ -175,9 +186,8 @@ export function TableChart(props: TableChartProps) {
         <figure>
           <figcaption>
             <ChartTitle
-              title={`${
-                props.dataTableTitle
-              } in ${props.fips.getSentenceDisplayName()}`}
+              title={`${props.dataTableTitle
+                } in ${props.fips.getSentenceDisplayName()}`}
             />
           </figcaption>
 

@@ -153,7 +153,6 @@ class HivProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
-    console.log(metricQuery)
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, metricQuery.dataTypeId)
     const hiv = await getDataManager().loadDataset(datasetId)

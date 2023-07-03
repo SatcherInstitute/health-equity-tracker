@@ -71,10 +71,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     metricIdsToFetch = [...metricIdsToFetch, ...GENDER_METRICS]
   }
 
-  console.log(isHIV)
-  console.log({ metricIdsToFetch })
-  console.log(GENDER_METRICS)
-
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.breakdownVar,
     exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE)
@@ -106,8 +102,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
-
-        console.log(metricConfig.metricId)
 
         return (
           <>

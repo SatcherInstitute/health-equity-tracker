@@ -182,7 +182,7 @@ function MapCardWithKey(props: MapCardProps) {
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
   const popQuery = new MetricQuery(
-    /* MetricId(s) */ ['population'],
+    /* MetricId(s) */['population'],
     /* Breakdowns */ popBreakdown
   )
   queries.push(popQuery)
@@ -192,7 +192,7 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */ ['svi'],
+      /* MetricId(s) */['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)
@@ -559,17 +559,17 @@ function MapCardWithKey(props: MapCardProps) {
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                  <CardContent>
-                    <MissingDataAlert
-                      dataName={title}
-                      breakdownString={
-                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                      }
-                      isMapCard={true}
-                      fips={props.fips}
-                    />
-                  </CardContent>
-                )}
+                    <CardContent>
+                      <MissingDataAlert
+                        dataName={title}
+                        breakdownString={
+                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                        }
+                        isMapCard={true}
+                        fips={props.fips}
+                      />
+                    </CardContent>
+                  )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&

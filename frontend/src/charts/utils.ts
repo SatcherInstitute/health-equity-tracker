@@ -135,13 +135,20 @@ export function generateSubtitle({
   }
 
   if (isPopulationSubset) {
-    const ageTitle = metricId === 'hiv_prep_coverage' ? 'Ages 16+' : 'Ages 13+'
+    let ageTitle = ''
+    if (metricId === 'hiv_prep_coverage') {
+      ageTitle = 'Ages 16+'
+    } else if (metricId === 'hiv_stigma_index') {
+      ageTitle = 'Ages 18+'
+    }
+  
     if (subtitle === '') {
       subtitle = ageTitle
     } else if (currentBreakdown !== 'age') {
       subtitle += `, ${ageTitle}`
     }
   }
+  
 
   return subtitle
 }
@@ -157,6 +164,9 @@ export function getAltGroupLabel(
   if (group === 'All' && breakdown === 'age') {
     if (metricId.includes('prep')) {
       return `${group} (16+)`
+    }
+    if (metricId.includes('stigma')) {
+      return `${group} (18+)`
     }
     if (metricId.includes('hiv')) {
       return `${group} (13+)`

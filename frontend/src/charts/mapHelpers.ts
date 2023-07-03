@@ -152,9 +152,15 @@ export function formatPreventZero100k(
   metricType: MetricType,
   metricId: MetricId
 ) {
-  return metricType === 'per100k'
-    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
-    : `format(datum.${metricId}, ',') + '%'`
+  if (metricType === 'per100k') {
+    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
+  }
+  else if (metricType === 'index') {
+    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ''`
+  }
+  else {
+    return `format(datum.${metricId}, ',') + '%'`
+  }
 }
 
 /*

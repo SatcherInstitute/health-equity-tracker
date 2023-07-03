@@ -6,6 +6,7 @@ import { DATATYPES_NEEDING_13PLUS } from '../../data/providers/HivProvider'
 
 const prepSuffix = ' (16+)'
 const hivSuffix = ' (13+)'
+const stigmaSuffix = ' (18+)'
 
 export function useHIVLabelSuffix(
   demographic: BreakdownVar,
@@ -16,7 +17,11 @@ export function useHIVLabelSuffix(
     if (demographic === AGE && value === ALL) {
       if (dataTypeId === 'hiv_prep') {
         return prepSuffix
-      } else if (DATATYPES_NEEDING_13PLUS.includes(dataTypeId)) {
+      }
+      else if (dataTypeId === 'hiv_stigma_index') {
+        return stigmaSuffix
+      }
+      else if (DATATYPES_NEEDING_13PLUS.includes(dataTypeId)) {
         return hivSuffix
       }
     }

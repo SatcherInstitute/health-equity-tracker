@@ -90,6 +90,12 @@ export function Axes({
       formatter: (d: number) => (d === 0 ? '' : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
       yScaleMin: 0,
     },
+    [TYPES.INDEX]: {
+      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      bottomLabel: '',
+      formatter: (d: string | number) => d, // per 100k could be interpolated here
+      yScaleMin: yMin,
+    },
   }
 
   /* Refs */
@@ -159,11 +165,9 @@ export function Axes({
           className={styles.yAxis}
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
-          aria-label={`y axis as ${
-            yAxisLabel || ' percent disproportionately high or low'
-          } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${
-            getMaxNumber(data) ?? 'highest'
-          }${optionalPct}`}
+          aria-label={`y axis as ${yAxisLabel || ' percent disproportionately high or low'
+            } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${getMaxNumber(data) ?? 'highest'
+            }${optionalPct}`}
           role="group"
           tabIndex={0}
         />
@@ -182,9 +186,8 @@ export function Axes({
       <g className={styles.AxesLabels}>
         {/* X-Axis Label */}
         <g
-          transform={`translate(${width}, ${
-            HEIGHT - marginBottom + TICK_PADDING
-          })`}
+          transform={`translate(${width}, ${HEIGHT - marginBottom + TICK_PADDING
+            })`}
         >
           {/* only display x-axis label on desktop */}
           <text textAnchor="end" dy="8px" aria-hidden={true}>
@@ -201,9 +204,8 @@ export function Axes({
         {/* Bottom Y-Axis Label */}
         <g
           aria-hidden={true}
-          transform={`translate(${yAxisLabelPadding}, ${
-            HEIGHT - marginBottom
-          })rotate(-90)`}
+          transform={`translate(${yAxisLabelPadding}, ${HEIGHT - marginBottom
+            })rotate(-90)`}
         >
           <text textAnchor="start">{Y_AXIS_CONFIG[type]?.bottomLabel}</text>
         </g>

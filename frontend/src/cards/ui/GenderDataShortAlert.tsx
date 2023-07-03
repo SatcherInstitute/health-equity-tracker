@@ -1,41 +1,53 @@
-import { type Fips } from '../../data/utils/Fips'
-import { urlMap } from '../../utils/externalUrls'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type Row } from '../../data/utils/DatasetTypes'
-import { ALL } from '../../data/utils/Constants'
-import FlagIcon from '@mui/icons-material/Flag'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
-import { CardContent, Alert } from '@mui/material'
-import { DataTypeId } from '../../data/config/MetricConfig'
+import { useState, useEffect } from 'react';
+import { CardContent, Alert } from '@mui/material';
+import FlagIcon from '@mui/icons-material/Flag';
+import { urlMap } from '../../utils/externalUrls';
+import { DataTypeId } from '../../data/config/MetricConfig';
+import { type Fips } from '../../data/utils/Fips';
+import { type MetricQueryResponse } from '../../data/query/MetricQuery';
+import { type Row } from '../../data/utils/DatasetTypes';
+import { ALL } from '../../data/utils/Constants';
+import { type BreakdownVar } from '../../data/query/Breakdowns';
 
 interface GenderDataShortAlertProps {
-    queryResponse: MetricQueryResponse
-    fips: Fips
-    breakdownVar: BreakdownVar
-    dataTypeId?: DataTypeId
+    queryResponse: MetricQueryResponse;
+    fips: Fips;
+    breakdownVar: BreakdownVar;
+    dataTypeId?: DataTypeId;
 }
 
-function GenderDataShortAlert(
-    props: GenderDataShortAlertProps
-) {
-    let totalAddlGender
-    let totalTransMen
-    let totalTransWomen
+function GenderDataShortAlert(props: GenderDataShortAlertProps) {
+    let hivPhrase
+    const [totalAddlGender, setTotalAddlGender] = useState<number | null>(null)
+    const [totalTransMen, setTotalTransMen] = useState<number | null>(null)
+    const [totalTransWomen, setTotalTransWomen] = useState<number | null>(null)
 
-    const genderCount = props.queryResponse.data.find(
-        (row: Row) => row[props.breakdownVar] === ALL
-    )
-
-    if (genderCount) {
-        totalAddlGender = genderCount[`${props.dataTypeId}_total_additional_gender`]
-        totalTransMen = genderCount[`${props.dataTypeId}_total_transgendered_men`]
-        totalTransWomen = genderCount[`${props.dataTypeId}_total_transgendered_women`]
+    if (props.dataTypeId === 'hiv_deaths') {
+        hivPhrase = 'who died from HIV or AIDS'
+    } else if (props.dataTypeId === 'hiv_prevalence') {
+        hivPhrase = 'living with HIV'
+    } else if (props.dataTypeId === 'hiv_care') {
+        hivPhrase = 'with linkage to HIV care'
+    } else if (props.dataTypeId === 'hiv_diagnoses') {
+        hivPhrase = 'diagnosed with HIV'
     }
 
-    if (genderCount) totalAddlGender = parseInt(totalAddlGender)
-    if (genderCount) totalTransMen = parseInt(totalTransMen)
-    if (genderCount) totalTransWomen = parseInt(totalTransWomen)
-    if (genderCount == null) return <></>
+    useEffect(() => {
+        const genderCount = props.queryResponse.data.find(
+            (row: Row) => row[props.breakdownVar] === ALL
+        )
+
+        if (genderCount) {
+            setTotalAddlGender(parseInt(genderCount[`${props.dataTypeId ?? ""}_total_additional_gender`]))
+            setTotalTransMen(parseInt(genderCount[`${props.dataTypeId ?? ""}_total_trans_men`]))
+            setTotalTransWomen(parseInt(genderCount[`${props.dataTypeId ?? ""}_total_trans_women`]))
+        }
+
+    }, [props.queryResponse, props.breakdownVar, props.dataTypeId, hivPhrase])
+
+    if (totalAddlGender === null || totalTransMen === null || totalTransWomen === null) {
+        return null
+    }
 
     return (
         <CardContent>
@@ -44,19 +56,12 @@ function GenderDataShortAlert(
                 role="note"
                 icon={totalAddlGender !== 0 ? <FlagIcon /> : null}
             >
-                <b>
-                    {totalTransMen.toLocaleString()} trans men
-                </b>{' '}
-                in{' '}
-                <b>
-                    {totalTransWomen.toLocaleString()} trans women
-                </b>{' '}
-                in{' '}
-                <b>
-                    {totalAddlGender.toLocaleString()} people
-                </b>{' '}
-                (AGI) in{' '}
-                <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
+                There are{' '}
+                <b>{totalTransMen.toLocaleString()} individuals identified as trans men,</b>{' '}
+                <b>{totalTransWomen.toLocaleString()} individuals identified as trans women,</b>{' '}
+                and{' '}
+                <b>{totalAddlGender.toLocaleString()} individuals with additional gender identities (AGI)</b>{' '}
+                {hivPhrase} in <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
                 <a href={urlMap.childrenInPrison}>Learn more.</a>
             </Alert>
         </CardContent>
