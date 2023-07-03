@@ -135,7 +135,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                       breakdownVar={props.breakdownVar}
                     />
                   )}
-                  {isHIV && (
+                  {isHIV && (breakdowns.demographicBreakdowns.sex.enabled) && (
                     <GenderDataShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}
