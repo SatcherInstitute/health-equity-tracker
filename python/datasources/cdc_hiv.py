@@ -18,15 +18,12 @@ ATLAS_COLS = ['Indicator', 'Transmission Category', 'Rate LCI', 'Rate UCI']
 NA_VALUES = ['Data suppressed', 'Data not available']
 CDC_ATLAS_COLS = ['Year', 'Geography', 'FIPS']
 CDC_DEM_COLS = ['Age Group', 'Race/Ethnicity', 'Sex']
-BLACK_WOMEN = 'black_women'
 
 DEM_COLS_STANDARD = {
     std_col.AGE_COL: 'Age Group',
     std_col.RACE_OR_HISPANIC_COL: 'Race/Ethnicity',
     std_col.SEX_COL: 'Sex'}
 
-
-#
 HIV_DETERMINANTS = {
     'care': std_col.HIV_CARE_PREFIX,
     'deaths': std_col.HIV_DEATHS_PREFIX,
@@ -104,12 +101,6 @@ result_list = [
 DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
          PCT_SHARE_MAP, PCT_RELATIVE_INEQUITY_MAP]
 
-HIV_GENDER_MEASURES = [std_col.HIV_CARE_PREFIX, std_col.HIV_DEATHS_PREFIX,
-                       std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
-
-BLACK_WOMEN_MEASURES = [std_col.HIV_DEATHS_PREFIX,
-                        std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
-
 # Define base categories
 BASE_COLS = [std_col.HIV_CARE_PREFIX, std_col.HIV_DEATHS_PREFIX,
              std_col.HIV_DIAGNOSES_PREFIX, std_col.HIV_PREP_PREFIX, std_col.HIV_PREVALENCE_PREFIX]
@@ -159,16 +150,20 @@ class CDCHIVData(DataSource):
                 if geo_level == COUNTY_LEVEL and breakdown == std_col.BLACK_WOMEN:
                     pass
                 else:
-                    all = 'black_women_all' if breakdown == std_col.BLACK_WOMEN else 'all'
-                    table_name = f'{breakdown}_{geo_level}_time_series'
+                    if breakdown == std_col.BLACK_WOMEN:
+                        all = 'black_women_all'
+                        table_name = f'{breakdown}_{geo_level}_age_time_series'
+                    else:
+                        all = 'all'
+                        table_name = f'{breakdown}_{geo_level}_time_series'
 
                     alls_df = load_atlas_df_from_data_dir(geo_level, all)
                     df = self.generate_breakdown_df(
                         breakdown, geo_level, alls_df)
 
                     if breakdown == std_col.BLACK_WOMEN:
-                        float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + [
-                            'hiv_population_pct'] + BW_PCT_REL_INQ_COLS
+                        float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + \
+                            [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INQ_COLS
                     else:
                         float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
                             PCT_REL_INQ_COLS
@@ -204,6 +199,9 @@ class CDCHIVData(DataSource):
             'Year': std_col.TIME_PERIOD_COL}
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
+
+        print('--')
+        alls_df.to_csv('help.output.csv', index=False)
 
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
@@ -256,7 +254,7 @@ class CDCHIVData(DataSource):
                 if col == std_col.HIV_CARE_PREFIX:
                     pop_col = std_col.HIV_CARE_POPULATION_PCT
 
-                if (breakdown == std_col.BLACK_WOMEN) and (col in BLACK_WOMEN_MEASURES):
+                if (breakdown == std_col.BLACK_WOMEN) and (col in BASE_COLS_PER_100K):
                     df = generate_pct_rel_inequity_col(df,
                                                        PCT_SHARE_MAP[col],
                                                        pop_col,
@@ -281,7 +279,7 @@ class CDCHIVData(DataSource):
         if breakdown == 'black_women':
             cols_to_keep.extend(
                 ['age', 'race_and_ethnicity', 'race_category_id'])
-            cols_to_keep.extend(BLACK_WOMEN_MEASURES)
+            cols_to_keep.extend(BASE_COLS_PER_100K)
             cols_to_keep.extend(PER_100K_MAP.values())
             cols_to_keep.extend(TEST_PCT_SHARE_MAP.values())
             cols_to_keep.extend(['hiv_deaths_pct_relative_inequity',
@@ -313,7 +311,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
         atlas_cols_to_exclude = generate_atlas_cols_to_exclude(breakdown)
 
         no_black_women_data = (std_col.BLACK_WOMEN in breakdown) and (
-            (determinant not in BLACK_WOMEN_MEASURES))
+            (determinant not in BASE_COLS_PER_100K))
         no_deaths_data = (determinant == std_col.HIV_DEATHS_PREFIX) and (
             geo_level == COUNTY_LEVEL)
         no_prep_data = (determinant == std_col.HIV_PREP_PREFIX) and (
@@ -325,7 +323,11 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             continue
 
         else:
-            filename = f'{determinant}-{geo_level}-{breakdown}.csv'
+
+            if breakdown == std_col.BLACK_WOMEN:
+                filename = f'{determinant}-{geo_level}-{breakdown}-age.csv'
+            else:
+                filename = f'{determinant}-{geo_level}-{breakdown}.csv'
             df = gcs_to_bq_util.load_csv_as_df_from_data_dir(hiv_directory,
                                                              filename,
                                                              subdirectory=determinant,
@@ -335,7 +337,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                                                              thousands=',',
                                                              dtype=DTYPE)
 
-            if (determinant in HIV_GENDER_MEASURES) and (breakdown == 'all') and (geo_level == NATIONAL_LEVEL):
+            if (determinant in BASE_COLS_NO_PREP) and (breakdown == 'all') and (geo_level == NATIONAL_LEVEL):
                 filename = f'{determinant}-{geo_level}-gender.csv'
                 all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(hiv_directory,
                                                                                      filename,
@@ -383,6 +385,8 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 df = df.drop(columns=['Cases', 'population'])
 
             output_df = output_df.merge(df, how='outer')
+            print('--')
+            print(output_df)
 
     return output_df
 

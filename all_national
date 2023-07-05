@@ -1,4 +1,0 @@
-state_fips,state_name,race_category_id,race_and_ethnicity,fake_col1,fake_col2
-01,SomeState01,ALL,All,0,a
-02,SomeState02,ALL,All,1,b
-03,SomeState03,ALL,All,2,c
