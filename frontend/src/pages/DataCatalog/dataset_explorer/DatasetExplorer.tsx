@@ -7,7 +7,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from '../../../utils/internalRoutes'
 import { WithMetadata } from '../../../data/react/WithLoadingOrErrorUI'
-import { Box, Grid, Typography, Button } from '@mui/material'
+import { Grid, Typography, Button } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
@@ -95,15 +95,13 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
                     </li>
                   ))}
                   {viewingSubsetOfSources && (
-                    <Box mt={5}>
-                      <Button
-                        href={DATA_CATALOG_PAGE_LINK}
-                        color="primary"
-                        variant="contained"
-                      >
-                        View All Datasets
-                      </Button>
-                    </Box>
+                    <Button
+                      sx={{ mt: 5, color: 'white !important' }}
+                      href={DATA_CATALOG_PAGE_LINK}
+                      variant="contained"
+                    >
+                      View All Datasets
+                    </Button>
                   )}
                 </>
               )

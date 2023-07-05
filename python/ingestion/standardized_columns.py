@@ -19,6 +19,11 @@ RACE_COL = "race"
 
 AGE_COL = "age"
 SEX_COL = "sex"
+
+LIS_COL = "lis"
+ELIGIBILITY_COL = "eligibility"
+
+
 STATE_FIPS_COL = "state_fips"
 STATE_NAME_COL = "state_name"
 STATE_POSTAL_COL = "state_postal"  # State 2-letter postal abbreviation.
@@ -129,7 +134,7 @@ JAIL_RATE = "jail_per_100k"
 PRISON_RATE = "prison_per_100k"
 JAIL_PCT_SHARE = "jail_pct_share"
 PRISON_PCT_SHARE = "prison_pct_share"
-POP_PCT_SHARE = "incarceration_population_pct"
+INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
 
@@ -152,6 +157,18 @@ HIV_STIGMA_INDEX = 'hiv_stigma_index'
 TOTAL_TRANS_MEN = 'total_trans_men'
 TOTAL_TRANS_WOMEN = 'total_trans_women'
 TOTAL_ADDL_GENDER = 'total_additional_gender'
+
+# PHRMA
+AMI_PREFIX = "ami"
+ARV_PREFIX = "arv"
+BETA_BLOCKERS_PREFIX = "beta_blockers"
+CCB_PREFIX = "ccb"
+DOAC_PREFIX = "doac"
+NQF_PREFIX = "nqf"
+PHRMA_HIV_PREFIX = "phrma_hiv"
+RASA_PREFIX = "rasa"
+STATINS_PREFIX = "statins"
+
 
 RaceTuple = namedtuple("RaceTuple", [
     "race_category_id",

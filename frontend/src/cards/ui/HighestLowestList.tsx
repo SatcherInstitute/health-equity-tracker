@@ -5,7 +5,7 @@ import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import {
   type MetricConfig,
-  type VariableConfig,
+  type DataTypeConfig,
   formatFieldValue,
 } from '../../data/config/MetricConfig'
 import { type Row } from '../../data/utils/DatasetTypes'
@@ -18,8 +18,8 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 export interface HighestLowestListProps {
   // MetricConfig for data
   metricConfig: MetricConfig
-  // VariableConfig for data
-  variableConfig: VariableConfig
+  // DataTypeConfig for data
+  dataTypeConfig: DataTypeConfig
   fips: Fips
   // Whether or not list is expanded
   listExpanded: boolean
@@ -43,6 +43,7 @@ export interface HighestLowestListProps {
 */
 export function HighestLowestList(props: HighestLowestListProps) {
   const placesType = props.fips.getPluralChildFipsTypeDisplayName()
+  const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
     (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
@@ -116,7 +117,8 @@ export function HighestLowestList(props: HighestLowestListProps) {
             <h4>{props.fips.getUppercaseFipsTypeDisplayName()} overall:</h4>
             <ul>
               <li>
-                {props.fips.getDisplayName()}: {overallRate}
+                {props.fips.getDisplayName()}:{' '}
+                {formatFieldValue(metricType, overallRate)}{' '}
                 <span className={styles.Unit}>
                   {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
                 </span>

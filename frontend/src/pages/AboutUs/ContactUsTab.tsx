@@ -2,6 +2,11 @@ import styles from './AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import { urlMap } from '../../utils/externalUrls'
 import { Button, TextField, Typography, Grid } from '@mui/material'
+import {
+  NEWS_PAGE_LINK,
+  SHARE_YOUR_STORY_TAB_LINK,
+} from '../../utils/internalRoutes'
+import { Link } from 'react-router-dom'
 
 function ContactUsTab() {
   return (
@@ -10,7 +15,7 @@ function ContactUsTab() {
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className={styles.ScreenreaderTitleHeader}>Contact Us</h2>
-      <Grid container className={styles.Grid}>
+      <Grid container className={styles.Grid} maxWidth={'md'}>
         <Grid
           container
           className={styles.GridOutlinedImgRow}
@@ -99,7 +104,10 @@ function ContactUsTab() {
               Please contact the{' '}
               <a href={urlMap.shli}>
                 Satcher Health Leadership Institute
-              </a> at <a href="mailto:shli@msm.edu">shli@msm.edu</a>
+              </a> at{' '}
+              <a href="mailto:info@healthequitytracker.org">
+                info@healthequitytracker.org
+              </a>
             </p>
 
             <p className={styles.ContactUsP}>
@@ -118,6 +126,18 @@ function ContactUsTab() {
               720 Westview Drive SW
               <br />
               Atlanta, Georgia 30310
+            </p>
+
+            <p className={styles.ContactUsP}>
+              <b>Share your story:</b>
+              <br />
+              Read our{' '}
+              <Link to={SHARE_YOUR_STORY_TAB_LINK}>
+                article submission guidelines
+              </Link>{' '}
+              for potential inclusion on our{' '}
+              <Link to={NEWS_PAGE_LINK}>News and Stories page</Link>, and email
+              the address above with any specific questions.
             </p>
           </Grid>
         </Grid>

@@ -1,0 +1,43 @@
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
+
+.ListItemShareIcon {
+  padding: 0px 4px 0px 0px;
+}
+
+.EmailMenuItem {
+padding-right: 16px
+}
+
+.FacebookIcon {
+margin-right: 5px
+}
+
+.FacebookMenuItem { 
+padding-left: 14px
+}
+
+.FacebookShareButton {
+display: flex; 
+align-items: center;
+padding-left: 0;
+}
+
+.LinkedInIcon {
+margin-right: 6px
+}
+
+.TwitterShareButton {
+  display: flex; 
+  align-items: center;
+}
+
+.TwitterIcon {
+margin-right: 4px
+}
+
+.ShareIconLinkText{
+padding-left: 0px; 
+color: #000000DE;
+}
+

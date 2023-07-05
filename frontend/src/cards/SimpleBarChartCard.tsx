@@ -12,16 +12,16 @@ import { MetricQuery } from '../data/query/MetricQuery'
 import {
   isPctType,
   type MetricId,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { exclude } from '../data/query/BreakdownFilter'
 import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
-import { INCARCERATION_IDS } from '../data/variables/IncarcerationProvider'
+import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_DATA_TYPES } from '../data/variables/CawpProvider'
+import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 
@@ -31,8 +31,9 @@ const PRELOAD_HEIGHT = 668
 export interface SimpleBarChartCardProps {
   key?: string
   breakdownVar: BreakdownVar
-  variableConfig: VariableConfig
+  dataTypeConfig: DataTypeConfig
   fips: Fips
+  reportTitle: string
 }
 
 // This wrapper ensures the proper key is set to create a new instance when
@@ -40,7 +41,7 @@ export interface SimpleBarChartCardProps {
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
-      key={props.variableConfig.variableId + props.breakdownVar}
+      key={props.dataTypeConfig.dataTypeId + props.breakdownVar}
       {...props}
     />
   )
@@ -48,13 +49,16 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig =
-    props.variableConfig.metrics?.per100k ??
-    props.variableConfig.metrics?.pct_rate
+    props.dataTypeConfig.metrics?.per100k ??
+    props.dataTypeConfig.metrics?.pct_rate
+
+  if (!metricConfig) return <></>
+
   const isIncarceration = INCARCERATION_IDS.includes(
-    props.variableConfig.variableId
+    props.dataTypeConfig.dataTypeId
   )
 
-  const isCawp = CAWP_DATA_TYPES.includes(props.variableConfig.variableId)
+  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
@@ -68,7 +72,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const query = new MetricQuery(
     metricIdsToFetch,
     breakdowns,
-    /* variableId */ props.variableConfig.variableId,
+    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
@@ -88,6 +92,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       queries={[query]}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
+      reportTitle={props.reportTitle}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)

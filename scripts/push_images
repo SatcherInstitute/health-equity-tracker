@@ -22,7 +22,7 @@ function main() {
           exit 0
           ;;
 
-        --build-frontned|-b)
+        --build-frontnend|-b)
           build_frontend="true"
           shift 1
           ;;
@@ -47,7 +47,7 @@ function main() {
 
   if [[ -n "${build_m1}" ]]; then
     images::build_m1 "${project_id}" "${build_frontend}"
-  else 
+  else
     images::build "${project_id}" "${build_frontend}"
     images::push "${project_id}" "${build_frontend}"
   fi

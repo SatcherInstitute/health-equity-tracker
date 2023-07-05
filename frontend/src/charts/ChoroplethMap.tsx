@@ -38,9 +38,13 @@ import {
   ZERO_DATASET,
   VALID_DATASET,
   getHelperLegend,
+  type HighestLowest,
+  embedHighestLowestGroups,
+  getMapGroupLabel,
 } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/variables/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
+import { type DemographicGroup } from '../data/utils/Constants'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -90,9 +94,18 @@ export interface ChoroplethMapProps {
   countColsToAdd: MetricId[]
   mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean
+  isMulti?: boolean
+  scaleConfig?: { domain: number[]; range: number[] }
+  highestLowestGroupsByFips?: Record<string, HighestLowest>
+  activeBreakdownFilter?: DemographicGroup
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const dataWithHighestLowest = embedHighestLowestGroups(
+    props.data,
+    props.highestLowestGroupsByFips
+  )
+
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
 
@@ -106,14 +119,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
 
-  const yOffsetNoDataLegend = pageIsTiny ? -15 : -43
-  const xOffsetNoDataLegend = pageIsTiny ? 15 : 230
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
-
-  const LEGEND_WIDTH = props.hideLegend ? 0 : 100
 
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
@@ -131,13 +140,19 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [props.metric.metricId, ...props.countColsToAdd],
+        values: [
+          props.metric.metricId,
+          ...props.countColsToAdd,
+          'highestGroup',
+          'lowestGroup',
+        ],
       },
     ]
     // Null SVI was showing
     if (!props.listExpanded) {
       geoTransformers[0].values.push('rating')
     }
+
     if (props.overrideShapeWithCircle) {
       geoTransformers.push({
         type: 'formula',
@@ -166,13 +181,17 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId
     )
 
-    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
-    const tooltipLabel =
-      props.isUnknownsMap && props.metric.unknownsVegaLabel
-        ? props.metric.unknownsVegaLabel
-        : props.metric.shortLabel
+    const mapGroupLabel = getMapGroupLabel(props.activeBreakdownFilter)
+    const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
-    const tooltipPairs = { [tooltipLabel]: tooltipDatum }
+    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
+    const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
+
+    const tooltipPairs = {
+      [tooltipLabel]: tooltipDatum,
+      'Highest rate group': `datum.highestGroup`,
+      'Lowest rate group': `datum.lowestGroup`,
+    }
 
     const geographyType = getCountyAddOn(
       /* fips */ props.fips,
@@ -220,8 +239,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       labelFont: LEGEND_TEXT_FONT,
       labelOverlap: 'greedy',
       labelSeparation: 10,
-      orient: 'bottom-left',
-      offset: 15,
+      orient: 'none',
+      legendY: -50,
+      legendX: 50,
+      gradientLength: width * 0.35,
       format: 'd',
     }
     if (props.metric.type === 'pct_share') {
@@ -237,9 +258,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     }
 
     const helperLegend = getHelperLegend(
-      /* yOffset */ yOffsetNoDataLegend,
-      /* xOffset */ xOffsetNoDataLegend,
-      /* overrideGrayMissingWithZeroYellow */ isCawp && !props.listExpanded
+      /* yOffset */ -35,
+      /* xOffset */ width * 0.35 + 75,
+      /* overrideGrayMissingWithZeroYellow */ false
     )
     if (!props.hideLegend) {
       legendList.push(legend, helperLegend)
@@ -252,6 +273,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* scaleColorScheme? */ props.mapConfig.mapScheme,
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
+
+    if (props.isMulti ?? props.listExpanded) {
+      colorScale.domain = props.scaleConfig?.domain
+      colorScale.range = props.scaleConfig?.range
+    }
 
     const projection = getProjection(
       /* fips */ props.fips,
@@ -317,7 +343,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         },
         {
           name: VAR_DATASET,
-          values: props.data,
+          values: dataWithHighestLowest,
         },
         {
           name: ZERO_VAR_DATASET,
@@ -416,13 +442,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.hideMissingDataTooltip,
     props.overrideShapeWithCircle,
     props.geoData,
-    LEGEND_WIDTH,
     legendData,
     props.isUnknownsMap,
     props.mapConfig.mapScheme,
     props.mapConfig.mapMin,
-    yOffsetNoDataLegend,
-    xOffsetNoDataLegend,
     props,
     heightWidthRatio,
     pageIsTiny,
@@ -433,6 +456,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       container
       justifyContent={'center'}
       ref={props.overrideShapeWithCircle ? undefined : ref}
+      sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
       {shouldRenderMap && (
         <Vega

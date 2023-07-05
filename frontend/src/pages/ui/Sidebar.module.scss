@@ -6,14 +6,6 @@
   position: sticky;
 }
 
-.ShareBox {
-  margin: $card-gutter;
-  padding: 10px 0 0px 0;
-  display: flex;
-  justify-content: center;
-  width: 90%;
-}
-
 .SidebarModeSelectorBox {
   display: none;
 
@@ -26,6 +18,22 @@
     justify-content: center;
     width: 90%;
   }
+}
+
+.SidebarTopicInfoButtonBox {
+  @media only screen and (min-width: $md) {
+    margin: $card-gutter;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+  }
+}
+
+.TopicInfoModalButton {
+  font-size: $smallest;
+  color: $alt-black;
 }
 
 .TableOfContentsBox {

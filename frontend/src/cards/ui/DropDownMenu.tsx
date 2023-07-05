@@ -17,7 +17,7 @@ import {
   type BreakdownVarDisplayName,
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
-import { type VariableId } from '../../data/config/MetricConfig'
+import { type DataTypeId } from '../../data/config/MetricConfig'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -115,7 +115,7 @@ export interface DropDownMenuProps {
   ) => void
   idSuffix?: string
   breakdownVar: BreakdownVar
-  variableId: VariableId
+  dataTypeId: DataTypeId
   setMultimapOpen: (multimapOpen: boolean) => void
 }
 
@@ -139,7 +139,7 @@ function DropDownMenu(props: DropDownMenuProps) {
   const suffix = useHIVLabelSuffix(
     props.breakdownVar,
     props.value,
-    props.variableId
+    props.dataTypeId
   )
 
   return (

@@ -5,9 +5,9 @@ import {
 import { type BreakdownVarDisplayName } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import {
-  type AgeAdjustedVariableId,
+  type AgeAdjustedDataTypeId,
   type DropdownVarId,
-  type VariableConfig,
+  type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { dataTypeLinkMap } from '../AgeAdjustedTableCard'
 import { LinkWithStickyParams } from '../../utils/urlutils'
@@ -20,7 +20,7 @@ interface MissingDataAlertProps {
   isMapCard?: boolean
   fips: Fips
   dropdownVarId?: DropdownVarId
-  ageAdjustedDataTypes?: VariableConfig[]
+  ageAdjustedDataTypes?: DataTypeConfig[]
 }
 
 function MissingDataAlert(props: MissingDataAlertProps) {
@@ -68,8 +68,8 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 export default MissingDataAlert
 
 interface AltDataTypesMessageProps {
-  ageAdjustedDataTypes: VariableConfig[]
-  setVariableConfigWithParam?: any
+  ageAdjustedDataTypes: DataTypeConfig[]
+  setDataTypeConfigWithParam?: any
 }
 function AltDataTypesMessage(props: AltDataTypesMessageProps) {
   if (!props.ageAdjustedDataTypes) return <></>
@@ -80,13 +80,13 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
       are available for these alternate data types:{' '}
       {props.ageAdjustedDataTypes.map((dataType, i) => {
         return (
-          <span key={dataType.variableDisplayName}>
+          <span key={dataType.fullDisplayName}>
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
-                dataTypeLinkMap[dataType.variableId as AgeAdjustedVariableId]
+                dataTypeLinkMap[dataType.dataTypeId as AgeAdjustedDataTypeId]
               }#age-adjusted-risk`}
             >
-              {dataType.variableFullDisplayName}
+              {dataType.fullDisplayName}
             </a>
             {i < props.ageAdjustedDataTypes.length - 1 && ', '}
             {i === props.ageAdjustedDataTypes.length - 1 && '.'}

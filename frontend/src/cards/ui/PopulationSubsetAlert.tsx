@@ -1,31 +1,31 @@
 import { CardContent, Alert } from '@mui/material'
 import { HashLink } from 'react-router-hash-link'
-import { type VariableId } from '../../data/config/MetricConfig'
+import { type DataTypeId } from '../../data/config/MetricConfig'
 import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 
 interface PopulationSubsetAlertProps {
-  variableId: VariableId
+  dataTypeId: DataTypeId
 }
 
 export default function PopulationSubsetAlert({
-  variableId,
+  dataTypeId,
 }: PopulationSubsetAlertProps) {
   let variable
   let ageGroup = 'ages 13 and older'
 
-  if (variableId === 'hiv_deaths') {
+  if (dataTypeId === 'hiv_deaths') {
     variable = 'HIV deaths'
   }
-  if (variableId === 'hiv_diagnoses') {
+  if (dataTypeId === 'hiv_diagnoses') {
     variable = 'new HIV diagnoses'
   }
-  if (variableId === 'hiv_care') {
+  if (dataTypeId === 'hiv_care') {
     variable = 'Linkage to HIV care'
   }
-  if (variableId === 'hiv_prevalence') {
+  if (dataTypeId === 'hiv_prevalence') {
     variable = 'HIV prevalence'
   }
-  if (variableId === 'hiv_prep') {
+  if (dataTypeId === 'hiv_prep') {
     variable = 'PrEP coverage'
     ageGroup = 'eligible for PrEP, ages 16 and older'
   }
