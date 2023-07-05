@@ -261,10 +261,14 @@ class CDCHIVData(DataSource):
             fips_to_use,
         ]
 
-        if breakdown == 'black_women':
+        if breakdown == std_col.BLACK_WOMEN:
             cols_to_keep.extend(
-                ['age', 'race_and_ethnicity', 'race_category_id'])
-
+                [
+                    std_col.AGE_COL,
+                    std_col.RACE_OR_HISPANIC_COL,
+                    std_col.RACE_CATEGORY_ID_COL,
+                    std_col.SEX_COL
+                ])
             cols_to_keep.extend(BASE_COLS_PER_100K)
             cols_to_keep.extend(PER_100K_COLS)
             cols_to_keep.extend(BW_PCT_SHARE_COLS)
