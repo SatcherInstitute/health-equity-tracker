@@ -27,6 +27,7 @@ interface TerritoryCirclesProps {
   breakdown?: BreakdownVar
   activeBreakdownFilter?: DemographicGroup
   fullData?: Row[]
+  scaleConfig?: { domain: number[]; range: number[] }
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
@@ -63,6 +64,8 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               overrideShapeWithCircle={true}
               countColsToAdd={props.countColsToAdd}
               mapConfig={{ mapScheme, mapMin }}
+              scaleConfig={props.scaleConfig}
+              isMulti={true}
             />
             <figcaption className={styles.TerritoryLabel}>
               {postalCode}
