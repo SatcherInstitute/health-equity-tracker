@@ -44,19 +44,11 @@ payload_sex = {
 cdc_hiv_exporter_operator_sex = util.create_exporter_operator(
     'cdc_hiv_exporter_sex', payload_sex, data_ingestion_dag)
 
-payload_black_women = {
-    'dataset_name': _CDC_HIV_DATASET_NAME,
-    'demographic': "black_women"
-}
-cdc_hiv_exporter_operator_black_women = util.create_exporter_operator(
-    'cdc_hiv_exporter_black_women', payload_black_women, data_ingestion_dag)
-
 # Ingestion DAG
 (
     cdc_hiv_bq_operator >> [
         cdc_hiv_exporter_operator_race,
         cdc_hiv_exporter_operator_age,
         cdc_hiv_exporter_operator_sex,
-        cdc_hiv_exporter_operator_black_women,
     ]
 )
