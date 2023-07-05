@@ -52,13 +52,6 @@ TEST_PCT_SHARE_MAP = {
     std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT
 }
 
-TEST_PCT_RELATIVE_INEQUITY_MAP = {
-    std_col.HIV_DIAGNOSES_PREFIX: 'hiv_diagnoses_relative_inequity',
-    std_col.HIV_DEATHS_PREFIX: 'hiv_deaths_relative_inequity',
-    std_col.HIV_PREVALENCE_PREFIX: 'hiv_prevalence_relative_inequity'
-}
-
-
 PCT_RELATIVE_INEQUITY_MAP = {
     prefix: std_col.generate_column_name(
         prefix, std_col.PCT_REL_INEQUITY_SUFFIX)
@@ -90,12 +83,6 @@ POP_MAP = {
     std_col.HIV_DIAGNOSES_PREFIX: std_col.POPULATION_COL,
     std_col.HIV_PREVALENCE_PREFIX: std_col.POPULATION_COL,
     std_col.HIV_STIGMA_INDEX: std_col.POPULATION_COL}
-
-prefixes = ['hiv_care', 'hiv_deaths', 'hiv_diagnoses', 'hiv_prevalence']
-suffixes = ['total_additional_gender', 'total_trans_men', 'total_trans_women']
-result_list = [
-    f"{prefix}_{suffix}" for prefix in prefixes for suffix in suffixes]
-
 
 # HIV dictionaries
 DICTS = [HIV_DETERMINANTS, CARE_PREP_MAP, PER_100K_MAP,
@@ -265,7 +252,7 @@ class CDCHIVData(DataSource):
                                                            PCT_RELATIVE_INEQUITY_MAP[col])
 
         if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
-            addtl_cols_to_keep.extend(result_list)
+            addtl_cols_to_keep.extend(GENDER_COLS)
 
         cols_to_keep = [
             std_col.TIME_PERIOD_COL,
@@ -276,11 +263,12 @@ class CDCHIVData(DataSource):
         if breakdown == 'black_women':
             cols_to_keep.extend(
                 ['age', 'race_and_ethnicity', 'race_category_id'])
+
             cols_to_keep.extend(BASE_COLS_PER_100K)
-            cols_to_keep.extend(PER_100K_MAP.values())
-            cols_to_keep.extend(TEST_PCT_SHARE_MAP.values())
-            cols_to_keep.extend(['hiv_deaths_pct_relative_inequity',
-                                'hiv_diagnoses_pct_relative_inequity', 'hiv_prevalence_pct_relative_inequity'])
+            cols_to_keep.extend(PER_100K_COLS)
+            cols_to_keep.extend(BW_PCT_SHARE_COLS)
+            cols_to_keep.append(std_col.HIV_POPULATION_PCT)
+            cols_to_keep.extend(BW_PCT_REL_INQ_COLS)
         elif breakdown == std_col.RACE_OR_HISPANIC_COL:
             cols_to_keep.extend([breakdown, std_col.RACE_CATEGORY_ID_COL])
             cols_to_keep.extend(addtl_cols_to_keep)
