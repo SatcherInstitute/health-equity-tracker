@@ -168,63 +168,13 @@ def _load_df_from_data_dir(*args):
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
 @mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
-def testWriteToBqCalls_national(
+def testWriteToBqCallsRace(
     mock_data_dir_df: mock.MagicMock,
     mock_breakdown_df: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', geographic="national")
-
-    assert mock_bq.call_count == 4
-
-    expected_table_names = [
-        call[0][2] for call in mock_bq.call_args_list
-    ]
-
-    assert expected_table_names == [
-        'age_national_time_series',
-        'black_women_national_age_time_series',
-        'race_and_ethnicity_national_time_series',
-        'sex_national_time_series'
-    ]
-
-
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
-@mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
-def testWriteToBqCalls_state(
-    mock_data_dir_df: mock.MagicMock,
-    mock_breakdown_df: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', geographic="state")
-
-    assert mock_bq.call_count == 4
-
-    expected_table_names = [
-        call[0][2] for call in mock_bq.call_args_list
-    ]
-
-    assert expected_table_names == [
-        'age_state_time_series',
-        'black_women_state_age_time_series',
-        'race_and_ethnicity_state_time_series',
-        'sex_state_time_series'
-    ]
-
-
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
-@mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
-def testWriteToBqCalls_county(
-    mock_data_dir_df: mock.MagicMock,
-    mock_breakdown_df: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', geographic="county")
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="race")
 
     assert mock_bq.call_count == 3
 
@@ -233,7 +183,77 @@ def testWriteToBqCalls_county(
     ]
 
     assert expected_table_names == [
+        'race_and_ethnicity_national_time_series',
+        'race_and_ethnicity_state_time_series',
+        'race_and_ethnicity_county_time_series'
+    ]
+
+
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
+@mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
+def testWriteToBqCallsAge(
+    mock_data_dir_df: mock.MagicMock,
+    mock_breakdown_df: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+):
+    datasource = CDCHIVData()
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="age")
+
+    assert mock_bq.call_count == 3
+
+    expected_table_names = [
+        call[0][2] for call in mock_bq.call_args_list
+    ]
+
+    assert expected_table_names == [
+        'age_national_time_series',
+        'age_state_time_series',
         'age_county_time_series',
-        'race_and_ethnicity_county_time_series',
+    ]
+
+
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
+@mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
+def testWriteToBqCallsSex(
+    mock_data_dir_df: mock.MagicMock,
+    mock_breakdown_df: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+):
+    datasource = CDCHIVData()
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="sex")
+
+    assert mock_bq.call_count == 3
+
+    expected_table_names = [
+        call[0][2] for call in mock_bq.call_args_list
+    ]
+
+    assert expected_table_names == [
+        'sex_national_time_series',
+        'sex_state_time_series',
         'sex_county_time_series'
+    ]
+
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
+@mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
+def testWriteToBqCallsBlackWomen(
+    mock_data_dir_df: mock.MagicMock,
+    mock_breakdown_df: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+):
+    datasource = CDCHIVData()
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="black_women")
+
+    assert mock_bq.call_count == 2
+
+    expected_table_names = [
+        call[0][2] for call in mock_bq.call_args_list
+    ]
+
+    assert expected_table_names == [
+        'black_women_national_age_time_series',
+        'black_women_state_age_time_series'
     ]

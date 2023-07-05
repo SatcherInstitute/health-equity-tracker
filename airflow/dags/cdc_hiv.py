@@ -18,29 +18,39 @@ data_ingestion_dag = DAG(
     schedule_interval=None,
     description='Ingestion configuration for HIV')
 
-cdc_hiv_bq_payload_national = util.generate_bq_payload(
+cdc_hiv_bq_payload_race = util.generate_bq_payload(
     _CDC_HIV_WORKFLOW_ID,
     _CDC_HIV_DATASET_NAME,
-    geographic='national'
+    demographic='race'
 )
-cdc_hiv_bq_operator_national = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_national', cdc_hiv_bq_payload_national, data_ingestion_dag)
+cdc_hiv_bq_operator_race = util.create_bq_ingest_operator(
+    'cdc_hiv_to_bq_race', cdc_hiv_bq_payload_race, data_ingestion_dag)
 
-cdc_hiv_bq_payload_state = util.generate_bq_payload(
+cdc_hiv_bq_payload_age = util.generate_bq_payload(
     _CDC_HIV_WORKFLOW_ID,
     _CDC_HIV_DATASET_NAME,
-    geographic='state'
+    demographic='age'
 )
-cdc_hiv_bq_operator_state = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_state', cdc_hiv_bq_payload_state, data_ingestion_dag)
+cdc_hiv_bq_operator_age = util.create_bq_ingest_operator(
+    'cdc_hiv_to_bq_age', cdc_hiv_bq_payload_age, data_ingestion_dag)
 
-cdc_hiv_bq_payload_county = util.generate_bq_payload(
+cdc_hiv_bq_payload_sex = util.generate_bq_payload(
     _CDC_HIV_WORKFLOW_ID,
     _CDC_HIV_DATASET_NAME,
-    geographic='county'
+    demographic='sex'
 )
-cdc_hiv_bq_operator_county = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_county', cdc_hiv_bq_payload_county, data_ingestion_dag)
+
+cdc_hiv_bq_operator_sex = util.create_bq_ingest_operator(
+    'cdc_hiv_to_bq_sex', cdc_hiv_bq_payload_sex, data_ingestion_dag)
+
+cdc_hiv_bq_payload_black_women = util.generate_bq_payload(
+    _CDC_HIV_WORKFLOW_ID,
+    _CDC_HIV_DATASET_NAME,
+    demographic='black_women'
+)
+cdc_hiv_bq_operator_black_women = util.create_bq_ingest_operator(
+    'cdc_hiv_to_bq_black_women', cdc_hiv_bq_payload_black_women, data_ingestion_dag)
+
 
 payload_race = {
     'dataset_name': _CDC_HIV_DATASET_NAME,
@@ -81,9 +91,10 @@ connector = DummyOperator(
 # Ingestion DAG
 (
     [
-        cdc_hiv_bq_operator_national,
-        cdc_hiv_bq_operator_state,
-        cdc_hiv_bq_operator_county
+        cdc_hiv_bq_operator_race,
+        cdc_hiv_bq_operator_age,
+        cdc_hiv_bq_operator_sex,
+        cdc_hiv_bq_operator_black_women
     ] >> connector >> [
         cdc_hiv_exporter_operator_race,
         cdc_hiv_exporter_operator_age,

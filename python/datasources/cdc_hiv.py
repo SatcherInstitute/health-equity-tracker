@@ -132,30 +132,32 @@ class CDCHIVData(DataSource):
             'upload_to_gcs should not be called for CDCHIVData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        geo_level = self.get_attr(attrs, 'geographic')
+        demographic = self.get_attr(attrs, 'demographic')
+        if demographic == std_col.RACE_COL:
+            demographic = std_col.RACE_OR_HISPANIC_COL
 
-        for breakdown in [std_col.AGE_COL, std_col.BLACK_WOMEN, std_col.RACE_OR_HISPANIC_COL, std_col.SEX_COL]:
-            if geo_level == COUNTY_LEVEL and breakdown == std_col.BLACK_WOMEN:
+        for geo_level in ["national", "state", "county"]:
+            if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
                 pass
             else:
-                if breakdown == std_col.BLACK_WOMEN:
+                if demographic == std_col.BLACK_WOMEN:
                     all = 'black_women_all'
-                    table_name = f'{breakdown}_{geo_level}_age_time_series'
+                    table_name = f'{demographic}_{geo_level}_age_time_series'
                 else:
                     all = 'all'
-                    table_name = f'{breakdown}_{geo_level}_time_series'
+                    table_name = f'{demographic}_{geo_level}_time_series'
 
                 alls_df = load_atlas_df_from_data_dir(geo_level, all)
                 df = self.generate_breakdown_df(
-                    breakdown, geo_level, alls_df)
+                    demographic, geo_level, alls_df)
 
-                if breakdown == std_col.BLACK_WOMEN:
+                if demographic == std_col.BLACK_WOMEN:
                     float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + \
                         [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INEQUITY_COLS
                 else:
                     float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
                         PCT_REL_INEQUITY_COLS
-                    if geo_level == NATIONAL_LEVEL and breakdown == std_col.SEX_COL:
+                    if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
                         float_cols += GENDER_COLS
 
                 col_types = gcs_to_bq_util.get_bq_column_types(
