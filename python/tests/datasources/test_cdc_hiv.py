@@ -182,8 +182,6 @@ def testWriteToBqCalls_national(
         call[0][2] for call in mock_bq.call_args_list
     ]
 
-    print(expected_table_names)
-
     assert expected_table_names == [
         'age_national_time_series',
         'black_women_national_age_time_series',
@@ -209,8 +207,6 @@ def testWriteToBqCalls_state(
         call[0][2] for call in mock_bq.call_args_list
     ]
 
-    print(expected_table_names)
-
     assert expected_table_names == [
         'age_state_time_series',
         'black_women_state_age_time_series',
@@ -235,8 +231,6 @@ def testWriteToBqCalls_county(
     expected_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
-
-    print(expected_table_names)
 
     assert expected_table_names == [
         'age_county_time_series',
