@@ -156,7 +156,7 @@ HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
 HIV_STIGMA_INDEX = 'hiv_stigma_index'
 TOTAL_TRANS_MEN = 'total_trans_men'
 TOTAL_TRANS_WOMEN = 'total_trans_women'
-TOTAL_ADDL_GENDER = 'total_additional_gender'
+TOTAL_ADDITIONAL_GENDER = 'total_additional_gender'
 
 # PHRMA
 AMI_PREFIX = "ami"

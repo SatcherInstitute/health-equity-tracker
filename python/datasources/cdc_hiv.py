@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from typing import cast
 from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
@@ -10,7 +9,9 @@ from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
-from ingestion.types import SEX_RACE_ETH_AGE_TYPE
+from ingestion.types import HIV_BREAKDOWN_TYPE
+from typing import cast
+
 
 # constants
 DTYPE = {'FIPS': str, 'Year': str}
@@ -104,16 +105,16 @@ PER_100K_COLS = [
 PCT_SHARE_COLS = [f'{col}_{std_col.PCT_SHARE_SUFFIX}' for col in BASE_COLS]
 BW_PCT_SHARE_COLS = [
     f'{col}_{std_col.PCT_SHARE_SUFFIX}' for col in BASE_COLS_PER_100K]
-PCT_REL_INQ_COLS = [
+PCT_REL_INEQUITY_COLS = [
     f'{col}_{std_col.PCT_REL_INEQUITY_SUFFIX}' for col in BASE_COLS]
-BW_PCT_REL_INQ_COLS = [
+BW_PCT_REL_INEQUITY_COLS = [
     f'{col}_{std_col.PCT_REL_INEQUITY_SUFFIX}' for col in BASE_COLS_PER_100K]
 
 # Define other common and unique columns
 COMMON_COLS = [std_col.HIV_STIGMA_INDEX, std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_COVERAGE,
                std_col.HIV_PREP_POPULATION_PCT, std_col.HIV_POPULATION_PCT, std_col.HIV_CARE_POPULATION_PCT]
 GENDER_COLS = [f'{col}_{gender}' for col in BASE_COLS_NO_PREP for gender in [
-    std_col.TOTAL_ADDL_GENDER, std_col.TOTAL_TRANS_MEN, std_col.TOTAL_TRANS_WOMEN]]
+    std_col.TOTAL_ADDITIONAL_GENDER, std_col.TOTAL_TRANS_MEN, std_col.TOTAL_TRANS_WOMEN]]
 
 
 class CDCHIVData(DataSource):
@@ -150,10 +151,10 @@ class CDCHIVData(DataSource):
 
                     if breakdown == std_col.BLACK_WOMEN:
                         float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + \
-                            [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INQ_COLS
+                            [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INEQUITY_COLS
                     else:
                         float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
-                            PCT_REL_INQ_COLS
+                            PCT_REL_INEQUITY_COLS
                         if geo_level == NATIONAL_LEVEL and breakdown == std_col.SEX_COL:
                             float_cols += GENDER_COLS
 
@@ -168,7 +169,7 @@ class CDCHIVData(DataSource):
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
 
-        breakdown: string equal to `age`, `black_women`, `race_and_ethnicity`, or `sex` 
+        breakdown: string equal to `age`, `black_women`, `race_and_ethnicity`, or `sex`
         geo_level: string equal to `county`, `national`, or `state`
         alls_df: the data frame containing the all values for each demographic breakdown
         return: a data frame of time-based HIV data by breakdown and geo_level"""
@@ -218,18 +219,18 @@ class CDCHIVData(DataSource):
         if breakdown == std_col.BLACK_WOMEN:
             df = generate_pct_share_col_without_unknowns(df,
                                                          TEST_PCT_SHARE_MAP,
-                                                         std_col.AGE_COL,
+                                                         cast(HIV_BREAKDOWN_TYPE, std_col.AGE_COL),
                                                          std_col.ALL_VALUE)
 
         else:
             df = generate_pct_share_col_without_unknowns(df,
                                                          PCT_SHARE_MAP,
-                                                         breakdown,
+                                                         cast(HIV_BREAKDOWN_TYPE, breakdown),
                                                          std_col.ALL_VALUE)
 
-        addtl_cols_to_keep = []
+        additional_cols_to_keep = []
         for dict in DICTS:
-            addtl_cols_to_keep += list(dict.values())
+            additional_cols_to_keep += list(dict.values())
 
             for col in HIV_DETERMINANTS.values():
                 pop_col = std_col.HIV_POPULATION_PCT
@@ -252,7 +253,7 @@ class CDCHIVData(DataSource):
                                                            PCT_RELATIVE_INEQUITY_MAP[col])
 
         if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
-            addtl_cols_to_keep.extend(GENDER_COLS)
+            additional_cols_to_keep.extend(GENDER_COLS)
 
         cols_to_keep = [
             std_col.TIME_PERIOD_COL,
@@ -268,14 +269,14 @@ class CDCHIVData(DataSource):
             cols_to_keep.extend(PER_100K_COLS)
             cols_to_keep.extend(BW_PCT_SHARE_COLS)
             cols_to_keep.append(std_col.HIV_POPULATION_PCT)
-            cols_to_keep.extend(BW_PCT_REL_INQ_COLS)
+            cols_to_keep.extend(BW_PCT_REL_INEQUITY_COLS)
         elif breakdown == std_col.RACE_OR_HISPANIC_COL:
             cols_to_keep.extend([breakdown, std_col.RACE_CATEGORY_ID_COL])
-            cols_to_keep.extend(addtl_cols_to_keep)
+            cols_to_keep.extend(additional_cols_to_keep)
 
         else:
             cols_to_keep.append(breakdown)
-            cols_to_keep.extend(addtl_cols_to_keep)
+            cols_to_keep.extend(additional_cols_to_keep)
 
         df = df[cols_to_keep]
 
@@ -324,20 +325,26 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
 
             if (determinant in BASE_COLS_NO_PREP) and (breakdown == 'all') and (geo_level == NATIONAL_LEVEL):
                 filename = f'{determinant}-{geo_level}-gender.csv'
-                all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(hiv_directory,
-                                                                                     filename,
-                                                                                     subdirectory=determinant,
-                                                                                     skiprows=8,
-                                                                                     na_values=NA_VALUES,
-                                                                                     usecols=lambda x: x not in atlas_cols_to_exclude,
-                                                                                     thousands=',',
-                                                                                     dtype=DTYPE)
+                all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+                    hiv_directory,
+                    filename,
+                    subdirectory=determinant,
+                    skiprows=8,
+                    na_values=NA_VALUES,
+                    usecols=lambda x: x not in atlas_cols_to_exclude,
+                    thousands=',',
+                    dtype=DTYPE
+                )
 
                 national_gender_cases_pivot = all_national_gender_df.pivot_table(
                     index='Year', columns='Sex', values='Cases', aggfunc='sum').reset_index()
 
                 national_gender_cases_pivot.columns = [
-                    'Year', f'{determinant}_{std_col.TOTAL_ADDL_GENDER}', f'{determinant}_{std_col.TOTAL_TRANS_MEN}', f'{determinant}_{std_col.TOTAL_TRANS_WOMEN}']
+                    'Year',
+                    f'{determinant}_{std_col.TOTAL_ADDITIONAL_GENDER}',
+                    f'{determinant}_{std_col.TOTAL_TRANS_MEN}',
+                    f'{determinant}_{std_col.TOTAL_TRANS_WOMEN}'
+                ]
 
                 df = pd.merge(df, national_gender_cases_pivot, on='Year')
 
