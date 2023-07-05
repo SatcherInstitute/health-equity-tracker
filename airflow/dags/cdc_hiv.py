@@ -24,7 +24,7 @@ cdc_hiv_bq_payload_national = util.generate_bq_payload(
     geographic='national'
 )
 cdc_hiv_bq_operator_national = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq', cdc_hiv_bq_payload_national, data_ingestion_dag)
+    'cdc_hiv_to_bq_national', cdc_hiv_bq_payload_national, data_ingestion_dag)
 
 cdc_hiv_bq_payload_state = util.generate_bq_payload(
     _CDC_HIV_WORKFLOW_ID,
@@ -32,7 +32,7 @@ cdc_hiv_bq_payload_state = util.generate_bq_payload(
     geographic='state'
 )
 cdc_hiv_bq_operator_state = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq', cdc_hiv_bq_payload_state, data_ingestion_dag)
+    'cdc_hiv_to_bq_state', cdc_hiv_bq_payload_state, data_ingestion_dag)
 
 cdc_hiv_bq_payload_county = util.generate_bq_payload(
     _CDC_HIV_WORKFLOW_ID,
@@ -40,7 +40,7 @@ cdc_hiv_bq_payload_county = util.generate_bq_payload(
     geographic='county'
 )
 cdc_hiv_bq_operator_county = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq', cdc_hiv_bq_payload_county, data_ingestion_dag)
+    'cdc_hiv_to_bq_county', cdc_hiv_bq_payload_county, data_ingestion_dag)
 
 payload_race = {
     'dataset_name': _CDC_HIV_DATASET_NAME,
