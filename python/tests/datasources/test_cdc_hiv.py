@@ -122,7 +122,7 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-def testGenerateRaceState(mock_data_dir: mock.MagicMock):
+def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
 
     alls_df = pd.read_csv(ALLS_DATA['all_black_women_national'],

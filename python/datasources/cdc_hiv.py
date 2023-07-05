@@ -200,9 +200,6 @@ class CDCHIVData(DataSource):
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
 
-        print('--')
-        alls_df.to_csv('help.output.csv', index=False)
-
         combined_group_df = pd.concat([breakdown_group_df, alls_df], axis=0)
 
         df = combined_group_df.rename(columns=cols_to_standard)
@@ -385,8 +382,6 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 df = df.drop(columns=['Cases', 'population'])
 
             output_df = output_df.merge(df, how='outer')
-            print('--')
-            print(output_df)
 
     return output_df
 
