@@ -236,6 +236,7 @@ def testWriteToBqCallsSex(
         'sex_county_time_series'
     ]
 
+
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('datasources.cdc_hiv.CDCHIVData.generate_breakdown_df', side_effect=_generate_breakdown_df)
 @mock.patch('datasources.cdc_hiv.load_atlas_df_from_data_dir', side_effect=_load_df_from_data_dir)
