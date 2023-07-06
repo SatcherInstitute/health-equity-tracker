@@ -140,13 +140,9 @@ class CDCHIVData(DataSource):
             if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
                 pass
             else:
-                if demographic == std_col.BLACK_WOMEN:
-                    all = 'black_women_all'
-                    table_name = f'{demographic}_{geo_level}_age_time_series'
-                else:
-                    all = 'all'
-                    table_name = f'{demographic}_{geo_level}_time_series'
+                all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
 
+                table_name = f'{demographic}_{geo_level}_time_series'
                 alls_df = load_atlas_df_from_data_dir(geo_level, all)
                 df = self.generate_breakdown_df(
                     demographic, geo_level, alls_df)

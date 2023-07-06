@@ -255,6 +255,6 @@ def testWriteToBqCallsBlackWomen(
     ]
 
     assert expected_table_names == [
-        'black_women_national_age_time_series',
-        'black_women_state_age_time_series'
+        'black_women_national_time_series',
+        'black_women_state_time_series'
     ]
