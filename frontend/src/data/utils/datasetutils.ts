@@ -208,7 +208,8 @@ export function getExclusionList(
 ): DemographicGroup[] {
   const currentRate =
     currentDataType.metrics?.per100k?.metricId ??
-    currentDataType.metrics?.pct_rate?.metricId
+    currentDataType.metrics?.pct_rate?.metricId ??
+    currentDataType.metrics?.index?.metricId
 
   if (!currentRate) return []
 
@@ -239,7 +240,11 @@ export function getExclusionList(
       )
     }
     if (currentBreakdown === AGE) {
-      exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '13-24' || bucket === '18-24'))
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket) => bucket === '13-24' || bucket === '18-24'
+        )
+      )
     }
   }
   if (DATATYPES_NEEDING_13PLUS.includes(currentDataTypeId)) {
@@ -247,16 +252,24 @@ export function getExclusionList(
       exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
     }
     if (currentBreakdown === AGE) {
-      exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '16-24' || bucket === '18-24'))
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket) => bucket === '16-24' || bucket === '18-24'
+        )
+      )
     }
   }
 
-  if (currentDataTypeId === 'hiv_stigma_index') {
-    if (currentBreakdown === RACE){
+  if (currentDataTypeId === 'hiv_stigma') {
+    if (currentBreakdown === RACE) {
       exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
     }
     if (currentBreakdown === AGE) {
-      exclusionList.push(...AGE_BUCKETS.filter((bucket) => bucket === '13-24' || bucket === '16-24'))
+      exclusionList.push(
+        ...AGE_BUCKETS.filter(
+          (bucket) => bucket === '13-24' || bucket === '16-24'
+        )
+      )
     }
   }
 

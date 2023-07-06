@@ -22,6 +22,7 @@ const dropdownVarIds = [
   'hiv_black_women',
   'hiv_care',
   'hiv_prep',
+  'hiv_stigma',
   'hiv',
   'incarceration',
   'poverty',
@@ -54,7 +55,6 @@ export type DataTypeId =
   | 'hiv_diagnoses'
   | 'hiv_prevalence_black_women'
   | 'hiv_prevalence'
-  | 'hiv_stigma_index'
   | 'jail'
   | 'non_medical_drug_use'
   | 'poverty'
@@ -164,6 +164,7 @@ export type MetricId =
   | 'hiv_prevalence_per_100k'
   | 'hiv_prevalence_ratio_age_adjusted'
   | 'hiv_stigma_index'
+  | 'hiv_stigma_pct_share'
   | 'hosp_ratio_age_adjusted'
   | 'incarceration_population_pct'
   | 'jail_pct_relative_inequity'
@@ -355,6 +356,9 @@ export function getRateAndPctShareMetrics(
     }
     if (dataTypeConfig.metrics?.pct_rate) {
       tableFields.push(dataTypeConfig.metrics.pct_rate)
+    }
+    if (dataTypeConfig.metrics?.index) {
+      tableFields.push(dataTypeConfig.metrics.index)
     }
     if (dataTypeConfig.metrics.pct_share) {
       tableFields.push(dataTypeConfig.metrics.pct_share)
@@ -751,20 +755,28 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
       },
     },
+  ],
+  hiv_stigma: [
     {
-      dataTypeId: 'hiv_stigma_index',
+      dataTypeId: 'hiv_stigma',
       dataTypeShortLabel: 'Stigma',
       fullDisplayName: 'HIV stigma',
-      dataTypeDefinition: `HIV-diagnosed inviduals ages 18+, self-reporting stigma on a 0-100 scale in a particular year (single-year charts use data from 2019).`,
+      dataTypeDefinition: `Self-reported stigma scores ranging from 0 (no stigma) to 100 (high stigma) for HIV-diagnosed individuals ages 18+ in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
       dataTableTitle: 'Breakdown summary for HIV stigma',
       metrics: {
+        index: {
+          metricId: 'hiv_stigma_index',
+          chartTitle: 'HIV stigma',
+          trendsCardTitleName: 'Rates of HIV stigma over time',
+          columnTitleHeader: 'HIV stigma',
+          shortLabel: 'stigma score out of 100',
+          type: 'index',
+        },
         pct_share: {
-          chartTitle: 'Share of total HIV stigma',
-          metricId: 'hiv_deaths_pct_share',
-          columnTitleHeader: 'Share of total HIV stigma',
-          trendsCardTitleName: 'Inequitable share of HIV stigma over time',
-          shortLabel: '% of HIV deaths',
+          chartTitle: 'Stigma scores', // needed for Unknowns Map Card Title
+          metricId: 'hiv_stigma_pct_share',
+          shortLabel: '% of HIV stigma',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle: 'Population vs. distribution of total HIV stigma',
@@ -773,14 +785,6 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: 'pct_share',
           },
-        },
-        per100k: {
-          metricId: 'hiv_stigma_index',
-          chartTitle: 'HIV stigma',
-          trendsCardTitleName: 'Rates of HIV stigma over time',
-          columnTitleHeader: 'HIV stigma',
-          shortLabel: 'stigma score',
-          type: 'index',
         },
       },
     },

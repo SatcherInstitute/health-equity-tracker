@@ -308,7 +308,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       // NON-ZERO
       createShapeMarks(
         /* datasetName= */ VALID_DATASET,
-        /* fillColor= */[{ scale: COLOR_SCALE, field: props.metric.metricId }],
+        /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,

@@ -69,18 +69,18 @@ export const PREVALENCE_METRICS: MetricId[] = [
 ]
 
 export const GENDER_METRICS: MetricId[] = [
-  'hiv_care_total_additional_gender', 
+  'hiv_care_total_additional_gender',
   'hiv_care_total_trans_men',
   'hiv_care_total_trans_women',
-  'hiv_deaths_total_additional_gender', 
+  'hiv_deaths_total_additional_gender',
   'hiv_deaths_total_trans_men',
   'hiv_deaths_total_trans_women',
-  'hiv_diagnoses_total_additional_gender', 
+  'hiv_diagnoses_total_additional_gender',
   'hiv_diagnoses_total_trans_men',
   'hiv_diagnoses_total_trans_women',
-  'hiv_prevalence_total_additional_gender', 
+  'hiv_prevalence_total_additional_gender',
   'hiv_prevalence_total_trans_men',
-  'hiv_prevalence_total_trans_women'
+  'hiv_prevalence_total_trans_women',
 ]
 
 export const HIV_DETERMINANTS: MetricId[] = [
@@ -92,6 +92,7 @@ export const HIV_DETERMINANTS: MetricId[] = [
   ...PREVALENCE_METRICS,
   ...GENDER_METRICS,
   'hiv_stigma_index',
+  'hiv_stigma_pct_share',
   'hiv_population_pct', // population shares of 13+
 ]
 
@@ -107,8 +108,9 @@ class HivProvider extends VariableProvider {
         return 'cdc_hiv_data-race_and_ethnicity_national_time_series'
       }
       if (breakdowns.hasOnlyAge()) {
-        if (isBlackWomenData) return 'cdc_hiv_data-black_women_national_time_series'
-        
+        if (isBlackWomenData)
+          return 'cdc_hiv_data-black_women_national_time_series'
+
         return 'cdc_hiv_data-age_national_time_series'
       }
       if (breakdowns.hasOnlySex()) {
@@ -120,7 +122,8 @@ class HivProvider extends VariableProvider {
         return 'cdc_hiv_data-race_and_ethnicity_state_time_series'
       }
       if (breakdowns.hasOnlyAge()) {
-        if (isBlackWomenData) return 'cdc_hiv_data-black_women_state_time_series'
+        if (isBlackWomenData)
+          return 'cdc_hiv_data-black_women_state_time_series'
         return 'cdc_hiv_data-age_state_time_series'
       }
       if (breakdowns.hasOnlySex()) return 'cdc_hiv_data-sex_state_time_series'

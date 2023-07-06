@@ -53,18 +53,6 @@ export interface ShareTrendsChartCardProps {
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
 export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
-  if (!props.dataTypeConfig.metrics.pct_relative_inequity) {
-    return (
-      <MissingDataAlert
-        dataName={'this condition'}
-        breakdownString={
-          BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-        }
-        fips={props.fips}
-      />
-    )
-  }
-
   // Manages which group filters user has applied
   const [selectedTableGroups, setSelectedTableGroups] = useState<
     DemographicGroup[]
@@ -82,12 +70,15 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     exclude(NON_HISPANIC, ALL)
   )
 
-  const inequityQuery = new MetricQuery(
-    metricConfigInequitable.metricId,
-    breakdowns,
-    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ TIME_SERIES
-  )
+  const inequityQuery = metricConfigInequitable?.metricId
+    ? new MetricQuery(
+        metricConfigInequitable.metricId,
+        breakdowns,
+        /* dataTypeId */ props.dataTypeConfig.dataTypeId,
+        /* timeView */ TIME_SERIES
+      )
+    : null
+
   const pctShareQuery = new MetricQuery(
     metricConfigPctShares.metricId,
     breakdowns,
@@ -96,14 +87,18 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   )
 
   const chartTitle = generateChartTitle({
-    chartTitle: metricConfigInequitable.chartTitle,
+    chartTitle: metricConfigInequitable?.chartTitle ?? '',
     fips: props.fips,
   })
 
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
-  const isCawp = CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId)
+  const isCawp =
+    metricConfigInequitable?.metricId &&
+    CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId)
+
+  if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 
   return (
     <CardWrapper

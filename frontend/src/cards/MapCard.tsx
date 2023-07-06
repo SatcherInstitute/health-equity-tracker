@@ -105,7 +105,8 @@ function MapCardWithKey(props: MapCardProps) {
 
   const metricConfig =
     props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics.pct_rate
+    props.dataTypeConfig.metrics.pct_rate ??
+    props.dataTypeConfig.metrics.index
 
   if (!metricConfig) return <></>
 
@@ -182,7 +183,7 @@ function MapCardWithKey(props: MapCardProps) {
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
   const popQuery = new MetricQuery(
-    /* MetricId(s) */['population'],
+    /* MetricId(s) */ ['population'],
     /* Breakdowns */ popBreakdown
   )
   queries.push(popQuery)
@@ -192,7 +193,7 @@ function MapCardWithKey(props: MapCardProps) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
     const sviQuery = new MetricQuery(
-      /* MetricId(s) */['svi'],
+      /* MetricId(s) */ ['svi'],
       /* Breakdowns */ sviBreakdowns
     )
     queries.push(sviQuery)
@@ -261,16 +262,17 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
         const hasSelfButNotChildGeoData =
-          childGeoQueryResponse.data.length === 0 &&
-          parentGeoQueryResponse.data.length > 0
+          childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
+            .length === 0 &&
+          parentGeoQueryResponse.data.filter(
+            (row) => row[metricConfig.metricId]
+          ).length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
         const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
-
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
-
         const sortArgs =
           props.currentBreakdown === 'age'
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
@@ -559,17 +561,17 @@ function MapCardWithKey(props: MapCardProps) {
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                    <CardContent>
-                      <MissingDataAlert
-                        dataName={title}
-                        breakdownString={
-                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                        }
-                        isMapCard={true}
-                        fips={props.fips}
-                      />
-                    </CardContent>
-                  )}
+                  <CardContent>
+                    <MissingDataAlert
+                      dataName={title}
+                      breakdownString={
+                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                      }
+                      isMapCard={true}
+                      fips={props.fips}
+                    />
+                  </CardContent>
+                )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&

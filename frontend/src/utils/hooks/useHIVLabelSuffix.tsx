@@ -17,11 +17,9 @@ export function useHIVLabelSuffix(
     if (demographic === AGE && value === ALL) {
       if (dataTypeId === 'hiv_prep') {
         return prepSuffix
-      }
-      else if (dataTypeId === 'hiv_stigma_index') {
+      } else if (dataTypeId === 'hiv_stigma') {
         return stigmaSuffix
-      }
-      else if (DATATYPES_NEEDING_13PLUS.includes(dataTypeId)) {
+      } else if (DATATYPES_NEEDING_13PLUS.includes(dataTypeId)) {
         return hivSuffix
       }
     }

@@ -64,22 +64,23 @@ export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
   const { data, metrics, breakdownVar } = props
 
-  let columns: { Header: string; Cell: (a: any) => string; accessor: MetricId }[] | Column<any>[] = []
+  let columns:
+    | Array<{ Header: string; Cell: (a: any) => string; accessor: MetricId }>
+    | Array<Column<any>> = []
 
   if (metrics.length > 0 && metrics[0].metricId === 'hiv_stigma_index') {
     const firstMetricConfig = metrics[0]
     columns.push({
-      Header: firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
-      Cell: (a: any) =>
-        formatFieldValue(firstMetricConfig.type, a.value, true),
+      Header:
+        firstMetricConfig.columnTitleHeader ?? firstMetricConfig.shortLabel,
+      Cell: (a: any) => formatFieldValue(firstMetricConfig.type, a.value, true),
       accessor: firstMetricConfig.metricId,
     })
   } else {
     columns = metrics.map((metricConfig) => {
       return {
         Header: metricConfig.columnTitleHeader ?? metricConfig.shortLabel,
-        Cell: (a: any) =>
-          formatFieldValue(metricConfig.type, a.value, true),
+        Cell: (a: any) => formatFieldValue(metricConfig.type, a.value, true),
         accessor: metricConfig.metricId,
       }
     })
@@ -91,9 +92,8 @@ export function TableChart(props: TableChartProps) {
       Cell: (cell: any) => cell.value,
       accessor: breakdownVar as MetricId,
     },
-    ...columns
+    ...columns,
   ]
-
 
   // Changes deps array to columns on save, which triggers reload loop
   // eslint-disable-next-line
@@ -186,8 +186,9 @@ export function TableChart(props: TableChartProps) {
         <figure>
           <figcaption>
             <ChartTitle
-              title={`${props.dataTableTitle
-                } in ${props.fips.getSentenceDisplayName()}`}
+              title={`${
+                props.dataTableTitle
+              } in ${props.fips.getSentenceDisplayName()}`}
             />
           </figcaption>
 

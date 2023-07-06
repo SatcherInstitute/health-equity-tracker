@@ -25,7 +25,7 @@ import { HoverCircles } from './HoverCircles'
 import styles from './Trends.module.scss'
 
 /* Constants */
-import { CONFIG, BASELINE_THRESHOLD } from './constants'
+import { CONFIG, BASELINE_THRESHOLD_Y_AXIS_ZERO } from './constants'
 import { type UnknownData, type TrendsData, type AxisConfig } from './types'
 
 /* Helpers */
@@ -194,7 +194,7 @@ export function TrendsChart({
   const yMax = maxAmount !== undefined ? maxAmount : 0
 
   // For charts where the lowest value is far from baseline 0
-  if (minAmount !== undefined && minAmount > BASELINE_THRESHOLD) {
+  if (minAmount !== undefined && minAmount > BASELINE_THRESHOLD_Y_AXIS_ZERO) {
     const Y_MIN_BUFFER = 2
     yMin = minAmount - Y_MIN_BUFFER
   }

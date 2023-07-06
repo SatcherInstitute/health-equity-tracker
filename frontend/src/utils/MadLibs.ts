@@ -120,6 +120,7 @@ const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
   hiv_black_women: 'HIV (Black Women)',
   hiv_care: 'Linkage to HIV Care',
   hiv_prep: 'PrEP Coverage',
+  hiv_stigma: 'HIV Stigma',
   hiv: 'HIV',
   incarceration: 'Incarceration',
   poverty: 'Poverty',
@@ -148,7 +149,7 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women'],
+    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women', 'hiv_stigma'],
   },
   {
     title: 'COVID-19',

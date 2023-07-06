@@ -26,7 +26,10 @@ import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import { DATATYPES_NEEDING_13PLUS, GENDER_METRICS } from '../data/providers/HivProvider'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/providers/HivProvider'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -53,14 +56,17 @@ export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
 function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const metricConfig =
     props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics?.pct_rate
+    props.dataTypeConfig.metrics?.pct_rate ??
+    props.dataTypeConfig.metrics?.index
 
   if (!metricConfig) return <></>
 
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId
   )
-  const isHIV = DATATYPES_NEEDING_13PLUS.includes(props.dataTypeConfig.dataTypeId)
+  const isHIV = DATATYPES_NEEDING_13PLUS.includes(
+    props.dataTypeConfig.dataTypeId
+  )
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   let metricIdsToFetch: MetricId[] = []
@@ -87,8 +93,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     chartTitle: metricConfig.chartTitle,
     fips: props.fips,
   })
-  const filename = `${chartTitle}, by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    }`
+  const filename = `${chartTitle}, by ${
+    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+  }`
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
@@ -135,7 +142,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                       breakdownVar={props.breakdownVar}
                     />
                   )}
-                  {isHIV && (breakdowns.demographicBreakdowns.sex.enabled) && (
+                  {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
                     <GenderDataShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}

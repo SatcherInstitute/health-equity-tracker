@@ -61,7 +61,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: 'cdc_hiv_data-race_and_ethnicity_national_time_series',
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity nationally',
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
     update_time: '2019',
     contains_nh: true,
   },
@@ -79,7 +79,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: 'cdc_hiv_data-age_national_time_series',
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age nationally',
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
     update_time: '2019',
     contains_nh: true,
   },
@@ -97,7 +97,7 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: 'cdc_hiv_data-sex_national_time_series',
-    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex nationally',
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
     update_time: '2019',
     contains_nh: true,
   },
