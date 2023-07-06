@@ -69,12 +69,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   )
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
-  let metricIdsToFetch: MetricId[] = []
+  const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
   isIncarceration && metricIdsToFetch.push('total_confined_children')
 
   if (isHIV) {
-    metricIdsToFetch = [...metricIdsToFetch, ...GENDER_METRICS]
+    metricIdsToFetch.push(...GENDER_METRICS)
   }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(

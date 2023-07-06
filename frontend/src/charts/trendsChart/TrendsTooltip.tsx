@@ -72,7 +72,7 @@ export function TrendsTooltip({
       formatter: F.plusNum,
     },
     [TYPES.INDEX]: {
-      UNIT: isSkinny ? '' : '',
+      UNIT: '',
       width: getWidthHundredK,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,

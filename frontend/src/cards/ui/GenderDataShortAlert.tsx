@@ -63,17 +63,22 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
   return (
     <CardContent>
       <Alert
-        severity={totalAddlGender === 0 ? 'info' : 'error'}
+        severity={'warning'}
         role="note"
         icon={totalAddlGender !== 0 ? <FlagIcon /> : null}
       >
-        There are{' '}
+        The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
+        <b>gender identity</b>. Due to lack of reliable population data for
+        gender-expansive people, it is impossible to calculate rates{' '}
+        <b>per 100k</b>, however our data sources do provide the following case
+        counts:{' '}
         <b>
-          {totalTransMen.toLocaleString()} individuals identified as trans men,
+          {totalTransMen.toLocaleString()} individuals identified as transgender
+          men,
         </b>{' '}
         <b>
-          {totalTransWomen.toLocaleString()} individuals identified as trans
-          women,
+          {totalTransWomen.toLocaleString()} individuals identified as
+          transgender women,
         </b>{' '}
         and{' '}
         <b>
@@ -81,7 +86,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
           identities (AGI)
         </b>{' '}
         {hivPhrase} in <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
-        <a href={urlMap.childrenInPrison}>Learn more.</a>
+        <a href={urlMap.cdcTrans}>Learn more.</a>
       </Alert>
     </CardContent>
   )
