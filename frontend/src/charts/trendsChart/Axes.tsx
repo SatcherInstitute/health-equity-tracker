@@ -103,9 +103,11 @@ export function Axes({
   const yAxisRef = useRef(null)
 
   /* Axes */
+  const numTicksIfSkinny = Math.min(4, axisConfig.xAxisMaxTicks as number)
+
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isSkinny ? 4 : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
+    .ticks(isSkinny ? numTicksIfSkinny : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
     // @ts-expect-error
     .tickFormat(axisConfig.xAxisIsMonthly ? F.dateShort : F.dateYear)
     .tickPadding(TICK_PADDING)
@@ -165,9 +167,11 @@ export function Axes({
           className={styles.yAxis}
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
-          aria-label={`y axis as ${yAxisLabel || ' percent disproportionately high or low'
-            } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${getMaxNumber(data) ?? 'highest'
-            }${optionalPct}`}
+          aria-label={`y axis as ${
+            yAxisLabel || ' percent disproportionately high or low'
+          } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${
+            getMaxNumber(data) ?? 'highest'
+          }${optionalPct}`}
           role="group"
           tabIndex={0}
         />
@@ -186,8 +190,9 @@ export function Axes({
       <g className={styles.AxesLabels}>
         {/* X-Axis Label */}
         <g
-          transform={`translate(${width}, ${HEIGHT - marginBottom + TICK_PADDING
-            })`}
+          transform={`translate(${width}, ${
+            HEIGHT - marginBottom + TICK_PADDING
+          })`}
         >
           {/* only display x-axis label on desktop */}
           <text textAnchor="end" dy="8px" aria-hidden={true}>
@@ -204,8 +209,9 @@ export function Axes({
         {/* Bottom Y-Axis Label */}
         <g
           aria-hidden={true}
-          transform={`translate(${yAxisLabelPadding}, ${HEIGHT - marginBottom
-            })rotate(-90)`}
+          transform={`translate(${yAxisLabelPadding}, ${
+            HEIGHT - marginBottom
+          })rotate(-90)`}
         >
           <text textAnchor="start">{Y_AXIS_CONFIG[type]?.bottomLabel}</text>
         </g>
