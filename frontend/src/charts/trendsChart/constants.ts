@@ -88,10 +88,11 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   // age for HIV
   '13-24': timeCyanBlue,
   '16-24': timePastelGreen,
-  '25-34': darkBlue,
-  '35-44': timePurple,
-  '45-54': timeDarkRed,
-  '55+': redOrange,
+  '18-24': darkBlue,
+  '25-34': timePurple,
+  '35-44': timeDarkRed,
+  '45-54': redOrange,
+  '55+': timeYellow,
 }
 
 // domain for color scale
@@ -135,6 +136,7 @@ const TYPES: Record<string, MetricType> = {
   HUNDRED_K: 'per100k',
   PERCENT_SHARE: 'pct_share',
   PERCENT_RELATIVE_INEQUITY: 'pct_relative_inequity',
+  INDEX: 'index',
 }
 
 const FORMATTERS = {
@@ -149,7 +151,7 @@ const FORMATTERS = {
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }
 
-const BASELINE_THRESHOLD = 50
+const BASELINE_THRESHOLD_Y_AXIS_ZERO = 25
 
 export {
   COLOR_RANGE,
@@ -158,5 +160,5 @@ export {
   TYPES,
   FORMATTERS,
   COLORS,
-  BASELINE_THRESHOLD,
+  BASELINE_THRESHOLD_Y_AXIS_ZERO,
 }
