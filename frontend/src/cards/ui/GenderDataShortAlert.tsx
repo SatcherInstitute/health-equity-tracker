@@ -77,24 +77,39 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
       <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
         The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
         <b>gender identity</b>. Due to lack of reliable population data for
-        gender-expansive people, we are unable to present rates <b>per 100k</b>,
-        however our data sources do provide the following case counts:{' '}
+        gender-expansive people, we are unable to present <b>rates per 100k</b>,
+        however our data sources do provide the following{' '}
         <b>
-          {transMenCount.toLocaleString()} individuals identified as transgender
-          men,
-        </b>{' '}
-        <b>
-          {transWomenCount.toLocaleString()} individuals identified as
-          transgender women,
-        </b>{' '}
-        and{' '}
-        <b>
-          {agiCount.toLocaleString()} individuals with additional gender
-          identities (AGI)
-        </b>{' '}
-        {hivPhraseMap?.[props?.dataTypeId]} in{' '}
-        {props.fips.getSentenceDisplayName()}.{' '}
-        <a href={urlMap.cdcTrans}>Learn more.</a>
+          case counts for people {hivPhraseMap?.[props?.dataTypeId]} in{' '}
+          {props.fips.getSentenceDisplayName()}
+        </b>
+        :
+        <ul>
+          <li>
+            <b>
+              {transMenCount.toLocaleString()} individuals identified as
+              transgender men
+            </b>
+          </li>
+
+          <li>
+            <b>
+              {transWomenCount.toLocaleString()} individuals identified as
+              transgender women
+            </b>
+          </li>
+          <li>
+            <b>
+              {agiCount.toLocaleString()} individuals with additional gender
+              identities (AGI)
+            </b>
+          </li>
+        </ul>
+        Visit the{' '}
+        <a href={urlMap.cdcTrans}>
+          CDC's HIV Prevention and Care for Transgender People
+        </a>{' '}
+        to learn more.
       </Alert>
     </CardContent>
   )
