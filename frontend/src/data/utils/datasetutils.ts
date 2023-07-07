@@ -194,6 +194,10 @@ const includeAllsGroupsIds: DataTypeId[] = [
   'women_in_us_congress',
   'prison',
   'jail',
+  'hiv_deaths',
+  'hiv_care',
+  'hiv_diagnoses',
+  'hiv_prevalence',
 ]
 
 const NON_STANDARD_AND_MULTI: DemographicGroup[] = [

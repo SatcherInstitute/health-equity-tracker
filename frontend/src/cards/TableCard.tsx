@@ -32,7 +32,10 @@ import { type Row } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
-import { DATATYPES_NEEDING_13PLUS } from '../data/providers/HivProvider'
+import {
+  DATATYPES_NEEDING_13PLUS,
+  GENDER_METRICS,
+} from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 
 // We need to get this property, but we want to show it as
@@ -89,9 +92,16 @@ export function TableCard(props: TableCardProps) {
   const isIncarceration = INCARCERATION_IDS.includes(
     props.dataTypeConfig.dataTypeId
   )
-
+  const isHIV = DATATYPES_NEEDING_13PLUS.includes(
+    props.dataTypeConfig.dataTypeId
+  )
   const metricIds = Object.keys(metricConfigs) as MetricId[]
   isIncarceration && metricIds.push('total_confined_children')
+
+  if (isHIV) {
+    metricIds.push(...GENDER_METRICS)
+  }
+
   const query = new MetricQuery(
     metricIds,
     breakdowns,
@@ -105,12 +115,11 @@ export function TableCard(props: TableCardProps) {
 
   const HASH_ID: ScrollableHashId = 'data-table'
 
-  const isHIV = DATATYPES_NEEDING_13PLUS.includes(props.dataTypeConfig.dataTypeId)
-
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${props.dataTypeConfig.fullDisplayName
-        } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${
+        props.dataTypeConfig.fullDisplayName
+      } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
@@ -160,10 +169,11 @@ export function TableCard(props: TableCardProps) {
               />
             )}
             {isHIV && (
-              < GenderDataShortAlert
+              <GenderDataShortAlert
                 fips={props.fips}
                 queryResponse={queryResponse}
                 breakdownVar={props.breakdownVar}
+                dataTypeId={props.dataTypeConfig.dataTypeId}
               />
             )}
             {showMissingDataAlert && (
