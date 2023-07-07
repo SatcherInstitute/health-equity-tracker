@@ -17,3 +17,4 @@ PHRMA_BREAKDOWN_TYPE = Literal[
     'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility']
 PHRMA_BREAKDOWN_TYPE_OR_ALL = Literal[
     'age', 'sex', 'race_and_ethnicity', 'lis', 'eligibility', 'all']
+HIV_BREAKDOWN_TYPE = Literal['age', 'sex', 'race', 'race_and_ethnicity', 'black_women']

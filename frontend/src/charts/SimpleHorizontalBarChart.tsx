@@ -60,22 +60,24 @@ function getSpec(
 
   // create bar label as array or string
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
-  "${usePercentSuffix ? SINGLE_LINE_PERCENT : PER_100K}"`
+  "${usePercentSuffix ? SINGLE_LINE_PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K}"`
+
   const multiLine100kLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
+
   const createBarLabel = () => {
-    if (chartIsSmall && !usePercentSuffix) {
+    if (chartIsSmall) {
       return multiLine100kLabel
     } else return singleLineLabel
   }
 
   const legends = showLegend
     ? [
-        {
-          fill: 'variables',
-          orient: 'top',
-          padding: 4,
-        },
-      ]
+      {
+        fill: 'variables',
+        orient: 'top',
+        padding: 4,
+      },
+    ]
     : []
 
   const onlyZeros = data.every((row) => {
@@ -171,9 +173,8 @@ function getSpec(
             },
             baseline: { value: 'middle' },
             dx: {
-              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${
-                width > 250 ? '5' : '1'
-              })`,
+              signal: `if(datum.${measure} > ${barLabelBreakpoint}, -5,${width > 250 ? '5' : '1'
+                })`,
             },
             dy: {
               signal: chartIsSmall ? -15 : 0,
@@ -296,14 +297,14 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   // swap race labels if applicable
   const dataLabelled = altLabelDeterminants.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
-        const altRow = { ...row }
-        altRow[props.breakdownVar] = getAltGroupLabel(
-          row[props.breakdownVar],
-          props.metric.metricId,
-          props.breakdownVar
-        )
-        return altRow
-      })
+      const altRow = { ...row }
+      altRow[props.breakdownVar] = getAltGroupLabel(
+        row[props.breakdownVar],
+        props.metric.metricId,
+        props.breakdownVar
+      )
+      return altRow
+    })
     : props.data
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
@@ -327,18 +328,16 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
     <div ref={ref}>
       <Vega
         renderer="svg"
-        downloadFileName={`${
-          props.filename ?? 'Data Download'
-        } - Health Equity Tracker`}
+        downloadFileName={`${props.filename ?? 'Data Download'
+          } - Health Equity Tracker`}
         spec={getSpec(
-          /* altText  */ `Bar Chart showing ${
-            props.filename ?? 'Data Download'
+          /* altText  */ `Bar Chart showing ${props.filename ?? 'Data Download'
           }`,
           /* data  */ data,
           /* width  */ width,
           /* breakdownVar  */ props.breakdownVar,
           /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-            props.breakdownVar
+          props.breakdownVar
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,

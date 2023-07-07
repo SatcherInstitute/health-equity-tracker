@@ -68,6 +68,21 @@ export const PREVALENCE_METRICS: MetricId[] = [
   'hiv_prevalence_ratio_age_adjusted',
 ]
 
+export const GENDER_METRICS: MetricId[] = [
+  'hiv_care_total_additional_gender',
+  'hiv_care_total_trans_men',
+  'hiv_care_total_trans_women',
+  'hiv_deaths_total_additional_gender',
+  'hiv_deaths_total_trans_men',
+  'hiv_deaths_total_trans_women',
+  'hiv_diagnoses_total_additional_gender',
+  'hiv_diagnoses_total_trans_men',
+  'hiv_diagnoses_total_trans_women',
+  'hiv_prevalence_total_additional_gender',
+  'hiv_prevalence_total_trans_men',
+  'hiv_prevalence_total_trans_women',
+]
+
 export const HIV_DETERMINANTS: MetricId[] = [
   ...BLACK_WOMEN_METRICS,
   ...CARE_METRICS,
@@ -75,6 +90,9 @@ export const HIV_DETERMINANTS: MetricId[] = [
   ...DIAGNOSES_METRICS,
   ...PREP_METRICS,
   ...PREVALENCE_METRICS,
+  ...GENDER_METRICS,
+  'hiv_stigma_index',
+  'hiv_stigma_pct_share',
   'hiv_population_pct', // population shares of 13+
 ]
 
@@ -83,12 +101,16 @@ class HivProvider extends VariableProvider {
     super('hiv_provider', HIV_DETERMINANTS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId): string {
+    const isBlackWomenData = dataTypeId?.includes('black_women')
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
         return 'cdc_hiv_data-race_and_ethnicity_national_time_series'
       }
       if (breakdowns.hasOnlyAge()) {
+        if (isBlackWomenData)
+          return 'cdc_hiv_data-black_women_national_time_series'
+
         return 'cdc_hiv_data-age_national_time_series'
       }
       if (breakdowns.hasOnlySex()) {
@@ -99,7 +121,11 @@ class HivProvider extends VariableProvider {
       if (breakdowns.hasOnlyRace()) {
         return 'cdc_hiv_data-race_and_ethnicity_state_time_series'
       }
-      if (breakdowns.hasOnlyAge()) return 'cdc_hiv_data-age_state_time_series'
+      if (breakdowns.hasOnlyAge()) {
+        if (isBlackWomenData)
+          return 'cdc_hiv_data-black_women_state_time_series'
+        return 'cdc_hiv_data-age_state_time_series'
+      }
       if (breakdowns.hasOnlySex()) return 'cdc_hiv_data-sex_state_time_series'
     }
 
@@ -131,7 +157,7 @@ class HivProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns)
+    const datasetId = this.getDatasetId(breakdowns, metricQuery.dataTypeId)
     const hiv = await getDataManager().loadDataset(datasetId)
     let df = hiv.toDataFrame()
 

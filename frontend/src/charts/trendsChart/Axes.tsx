@@ -90,6 +90,12 @@ export function Axes({
       formatter: (d: number) => (d === 0 ? '' : F.pct(d)), // if tick is 0, hide it, otherwise format as percent
       yScaleMin: 0,
     },
+    [TYPES.INDEX]: {
+      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      bottomLabel: '',
+      formatter: (d: string | number) => d, // per 100k could be interpolated here
+      yScaleMin: yMin,
+    },
   }
 
   /* Refs */
@@ -97,9 +103,11 @@ export function Axes({
   const yAxisRef = useRef(null)
 
   /* Axes */
+  const numTicksIfSkinny = Math.min(4, axisConfig.xAxisMaxTicks as number)
+
   const xAxis = axisBottom(xScale)
     .tickSize(0)
-    .ticks(isSkinny ? 4 : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
+    .ticks(isSkinny ? numTicksIfSkinny : axisConfig.xAxisMaxTicks) // limits number of ticks on mobile
     // @ts-expect-error
     .tickFormat(axisConfig.xAxisIsMonthly ? F.dateShort : F.dateYear)
     .tickPadding(TICK_PADDING)
