@@ -41,8 +41,10 @@ export type LinkName =
   | 'prisonPolicy'
   | 'senateMENA'
   | 'unitedStatesIo'
+  | 'cdcTrans'
 
 export const urlMap: Record<LinkName, string> = {
+  cdcTrans: 'https://www.cdc.gov/hiv/clinicians/transforming-health/index.html',
   veraGithub: 'https://github.com/vera-institute/incarceration-trends',
   bjsPrisoners:
     'https://bjs.ojp.gov/library/publications/prisoners-2020-statistical-tables',

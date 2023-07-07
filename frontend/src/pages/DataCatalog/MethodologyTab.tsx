@@ -735,6 +735,27 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
+                <p>
+                  <b>HIV Stigma</b>
+                </p>
+                <p>
+                  HIV stigma, reported as a score, refers to the weighted median score on a 10-item scale ranging from 0 (no stigma) to 100 (high stigma) among the number of persons aged 18 years and older diagnosed with HIV. This measurement captures four dimensions of HIV stigma: personalized stigma experienced during the past 12 months, current concerns about disclosure, negative self-image, and perceived public attitudes towards people living with HIV.
+                </p>
+                <p>
+                  HIV stigma is crucial in understanding and addressing the challenges faced by individuals living with HIV. By examining stigma, we gain insights into the experiences of people with HIV about personalized stigma, concerns about disclosure, self-image, and societal attitudes. This information helps inform strategies and interventions to reduce stigma, promote social support, and improve the well-being of individuals living with HIV.
+                </p>
+
+                <ul>
+                  <li>
+                    All metrics related to HIV stigma, sourced from the CDC, are calculated based on a national probability sample of individuals diagnosed with HIV.
+                    <ul>
+                      <li>
+                        <b>Stigma score</b>: Calculating HIV stigma involves determining the weighted median score on a 10-item scale among a national probability sample of people with diagnosed HIV. The scores obtained from self-reported data are then analyzed to assess the prevalence and impact of HIV stigma. This method allows for the quantification and comparison of stigma levels across different populations and geographic areas, providing insights into the experiences of individuals living with HIV.
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index (SVI)
                 </h3>

@@ -37,8 +37,9 @@ export function initGlobals(
   dataFetcher: DataFetcher,
   dataManager: DataManager
 ) {
-  if (globals.initialized) {
-    throw new Error('Cannot initialize globals multiple times')
+  if (globals.initialized && !import.meta.env.PROD) {
+    // throw new Error('Cannot initialize globals multiple times')
+    console.log('Cannot initialize globals multiple times')
   }
 
   globals.environment = environment
@@ -69,6 +70,7 @@ export function autoInitGlobals() {
       ? new FakeDataFetcher()
       : new ApiDataFetcher(environment)
   const cache = new DataManager()
+
   initGlobals(environment, logger, dataFetcher, cache)
 }
 

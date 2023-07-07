@@ -152,9 +152,13 @@ export function formatPreventZero100k(
   metricType: MetricType,
   metricId: MetricId
 ) {
-  return metricType === 'per100k'
-    ? `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
-    : `format(datum.${metricId}, ',') + '%'`
+  if (metricType === 'per100k') {
+    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ' per 100k'`
+  } else if (metricType === 'index') {
+    return `if (datum.${metricId} > 0, format(datum.${metricId}, ','), '${LESS_THAN_1}') + ''`
+  } else {
+    return `format(datum.${metricId}, ',') + '%'`
+  }
 }
 
 /*
@@ -476,12 +480,17 @@ export function embedHighestLowestGroups(
   })
 }
 
-export function getMapGroupLabel(activeBreakdownFilter?: DemographicGroup) {
+export function getMapGroupLabel(
+  activeBreakdownFilter?: DemographicGroup,
+  measureTypeOverride?: string
+) {
   const selectedGroup = activeBreakdownFilter
     ? raceNameToCodeMap[activeBreakdownFilter]
     : activeBreakdownFilter ?? ''
 
+  const measureType = measureTypeOverride ?? 'Rate'
+
   return activeBreakdownFilter === ALL
-    ? 'Rate overall'
+    ? `${measureType} overall`
     : `Rate for ${selectedGroup ?? 'selected group'}`
 }

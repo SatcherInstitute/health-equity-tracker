@@ -105,7 +105,8 @@ function MapCardWithKey(props: MapCardProps) {
 
   const metricConfig =
     props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics.pct_rate
+    props.dataTypeConfig.metrics.pct_rate ??
+    props.dataTypeConfig.metrics.index
 
   if (!metricConfig) return <></>
 
@@ -261,16 +262,17 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
         const hasSelfButNotChildGeoData =
-          childGeoQueryResponse.data.length === 0 &&
-          parentGeoQueryResponse.data.length > 0
+          childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
+            .length === 0 &&
+          parentGeoQueryResponse.data.filter(
+            (row) => row[metricConfig.metricId]
+          ).length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
         const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
-
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
-
         const sortArgs =
           props.currentBreakdown === 'age'
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
