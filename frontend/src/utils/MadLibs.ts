@@ -152,26 +152,6 @@ const CATEGORIES_LIST: Category[] = [
     options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women', 'hiv_stigma'],
   },
   {
-    title: 'COVID-19',
-    definition: '',
-    options: ['covid', 'covid_vaccinations'],
-  },
-  {
-    title: 'Political Determinants of Health',
-    definition: '',
-    options: ['voter_participation', 'women_in_gov', 'incarceration'],
-  },
-  {
-    title: 'Social Determinants of Health',
-    definition: '',
-    options: [
-      'health_insurance',
-      'poverty',
-      'preventable_hospitalizations',
-      'avoided_care',
-    ],
-  },
-  {
     title: 'Chronic Disease',
     definition: '',
     options: [
@@ -192,6 +172,26 @@ const CATEGORIES_LIST: Category[] = [
       'excessive_drinking',
       'frequent_mental_distress',
     ],
+  },
+  {
+    title: 'COVID-19',
+    definition: '',
+    options: ['covid', 'covid_vaccinations'],
+  },
+  {
+    title: 'Social Determinants of Health',
+    definition: '',
+    options: [
+      'health_insurance',
+      'poverty',
+      'preventable_hospitalizations',
+      'avoided_care',
+    ],
+  },
+  {
+    title: 'Political Determinants of Health',
+    definition: '',
+    options: ['voter_participation', 'women_in_gov', 'incarceration'],
   },
 ]
 
