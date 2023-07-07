@@ -400,7 +400,7 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
                               geo: Literal["national", "state", "county"],
                               demographic: Literal["sex", "age", "race"],
                               rate_to_inequity_col_map: dict,
-                              pop_pct_col: str = None):
+                              pop_pct_col: str = ""):
     """Sets inequitable share of targeted conditions to zero if every known
     demographic group in a particular place/time reports rates of `0` or null.
     The justification for this is that such a small number of case counts can

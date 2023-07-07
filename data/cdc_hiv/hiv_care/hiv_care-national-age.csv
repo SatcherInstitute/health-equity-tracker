@@ -7,7 +7,6 @@ The 'Sex' column is used for either sex at birth or gender identity.
 NA - Not applicable.
 
 
-
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
 "Linkage to HIV care","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","2,930","83.4","3,514"
 "Linkage to HIV care","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","3,767","83.3","4,523"

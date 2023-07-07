@@ -1,0 +1,20 @@
+﻿"Date Printed: Thursday, May 4, 2023 5:20:28 PM"
+Title: "HIV diagnoses | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | Alabama | Alaska | Arizona | Arkansas | California | Colorado | Connecticut | Delaware | District of Columbia | Florida | Georgia | Hawaii | Idaho | Illinois | Indiana | Iowa | Kansas | Kentucky | Louisiana | Maine | Maryland | Massachusetts | Michigan | Minnesota | Mississippi | Missouri | Montana | Nebraska | Nevada | New Hampshire | New Jersey | New Mexico | New York | North Carolina | North Dakota | Ohio | Oklahoma | Oregon | Pennsylvania | Rhode Island | South Carolina | South Dakota | Tennessee | Texas | Utah | Vermont | Virginia | Washington | West Virginia | Wisconsin | Wyoming | Black/African American | Female | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+The 'Sex' column is used for either sex at birth or gender identity.
+NA - Not applicable.
+
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV diagnoses","2019","Alabama","01","55+","Black/African American","Female","All transmission categories","18","9.4","190,911"
+"HIV diagnoses","2019","Alabama","01","45-54","Black/African American","Female","All transmission categories","8","9.3","86,322"
+"HIV diagnoses","2019","Alabama","01","35-44","Black/African American","Female","All transmission categories","20","22.1","90,672"
+"HIV diagnoses","2019","Alabama","01","25-34","Black/African American","Female","All transmission categories","33","32.4","101,931"
+"HIV diagnoses","2019","Alabama","01","13-24","Black/African American","Female","All transmission categories","20","17.4","115,121"
+"HIV diagnoses","2017","Alaska","02","55+","Black/African American","Female","All transmission categories","0","0.0","2,016"
+"HIV diagnoses","2017","Alaska","02","45-54","Black/African American","Female","All transmission categories","0","0.0","1,173"
+"HIV diagnoses","2017","Alaska","02","35-44","Black/African American","Female","All transmission categories","1","70.3","1,423"
+"HIV diagnoses","2017","Alaska","02","25-34","Black/African American","Female","All transmission categories","0","0.0","1,857"
+"HIV diagnoses","2017","Alaska","02","13-24","Black/African American","Female","All transmission categories","0","0.0","2,048"
