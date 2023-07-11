@@ -246,16 +246,19 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
     )
 
     const nonNullGroupValues = nonNullGroupData.map((dataPoint) => dataPoint[1])
+
     const sumOfGroupValues = nonNullGroupValues.reduce((a, b) => a + b, 0)
     const numberOfGroupValues = nonNullGroupValues.length
     const groupAverage =
       Math.round((sumOfGroupValues / numberOfGroupValues) * 10) / 10
+
     return [groupData[0], groupAverage]
   })
 
+
   const values: number[] = groupAveragesOverTime.map(
     (row: any) => row[1] as number
-  )
+  ).filter((value) => value != null)
 
   const minValue = Math.min(...values)
   const maxValue = Math.max(...values)

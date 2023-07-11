@@ -71,6 +71,12 @@ export function TrendsTooltip({
       translate_x: translateXPctShare,
       formatter: F.plusNum,
     },
+    [TYPES.INDEX]: {
+      UNIT: '',
+      width: getWidthHundredK,
+      translate_x: (d: TimeSeries) => 0,
+      formatter: F.num,
+    },
   }
 
   const isMonthly = (selectedDate?.length ?? 0) > 4

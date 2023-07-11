@@ -1,120 +1,120 @@
 ENTLMT_RSN_CURR,STATE_NAME,STATE_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
-Aged,Alabama,1,12873,1854,14727,0.8741087798
-Aged,Alaska,2,2422,274,2696,0.8983679525
-Aged,Arizona,4,17996,2344,20340,0.8847590954
-Aged,Arkansas,5,6345,958,7303,0.8688210325
-Aged,California,6,75400,9426,84826,0.8888784099
-Aged,Colorado,8,11221,1241,12462,0.9004172685
-Aged,Connecticut,9,16808,1568,18376,0.9146713104
-Aged,Delaware,10,6062,632,6694,0.9055870929
-Aged,"District of Columbia",11,1146,160,1306,0.8774885145
-Aged,Florida,12,70687,9756,80443,0.8787215793
-Aged,Georgia,13,22188,3303,25491,0.8704248558
-Aged,Hawaii,15,2951,321,3272,0.9018948655
-Aged,Idaho,16,4204,556,4760,0.8831932773
-Aged,Illinois,17,40224,4729,44953,0.8948012368
-Aged,Indiana,18,21576,2676,24252,0.8896585849
-Aged,Iowa,19,9277,782,10059,0.9222586738
-Aged,Kansas,20,6529,810,7339,0.8896307399
-Aged,Kentucky,21,13022,1747,14769,0.8817116934
-Aged,Louisiana,22,9074,1443,10517,0.8627935723
-Aged,Maine,23,6147,549,6696,0.9180107527
-Aged,Maryland,24,19467,2287,21754,0.894869909
-Aged,Massachusetts,25,27007,2229,29236,0.9237583801
-Aged,Michigan,26,37520,4331,41851,0.8965138228
-Aged,Minnesota,27,11449,828,12277,0.9325568136
-Aged,Mississippi,28,6642,1109,7751,0.8569216875
-Aged,Missouri,29,15817,1946,17763,0.8904464336
-Aged,Montana,30,2977,289,3266,0.9115125536
-Aged,Nebraska,31,5379,595,5974,0.9004017409
-Aged,Nevada,32,6476,957,7433,0.8712498318
-Aged,"New Hampshire",33,5460,464,5924,0.9216745442
-Aged,"New Jersey",34,35769,4343,40112,0.8917281611
-Aged,"New Mexico",35,3804,477,4281,0.8885774352
-Aged,"New York",36,60394,6428,66822,0.9038041364
-Aged,"North Carolina",37,30532,3470,34002,0.8979471796
-Aged,"North Dakota",38,1763,161,1924,0.9163201663
-Aged,Ohio,39,32593,3912,36505,0.8928365977
-Aged,Oklahoma,40,10280,1475,11755,0.8745214802
-Aged,Oregon,41,9946,1038,10984,0.9054989075
-Aged,Pennsylvania,42,36186,3904,40090,0.902619107
-Aged,"Rhode Island",44,2421,236,2657,0.9111780203
-Aged,"South Carolina",45,17763,2441,20204,0.8791823401
-Aged,"South Dakota",46,2464,220,2684,0.9180327869
-Aged,Tennessee,47,18259,2702,20961,0.8710939364
-Aged,Texas,48,54958,8233,63191,0.8697124591
-Aged,Utah,49,4928,702,5630,0.8753108348
-Aged,Vermont,50,3393,281,3674,0.9235166032
-Aged,Virginia,51,23450,2653,26103,0.8983641727
-Aged,Washington,53,17115,1615,18730,0.913774693
-Aged,"West Virginia",54,6017,809,6826,0.8814825667
-Aged,Wisconsin,55,14160,1115,15275,0.92700491
-Aged,Wyoming,56,1768,183,1951,0.9062019477
-Disabled,Alabama,1,1050,290,1340,0.7835820896
+Aged,Alabama,1,12479,2248,14727,0.8473551979
+Aged,Alaska,2,2338,358,2696,0.8672106825
+Aged,Arizona,4,17356,2984,20340,0.853294002
+Aged,Arkansas,5,6142,1161,7303,0.8410242366
+Aged,California,6,72970,11856,84826,0.8602315328
+Aged,Colorado,8,10866,1596,12462,0.8719306692
+Aged,Connecticut,9,16356,2020,18376,0.8900740096
+Aged,Delaware,10,5902,792,6694,0.8816850911
+Aged,"District of Columbia",11,1098,208,1306,0.8407350689
+Aged,Florida,12,68101,12342,80443,0.8465745932
+Aged,Georgia,13,21421,4070,25491,0.8403358048
+Aged,Hawaii,15,2889,383,3272,0.8829462103
+Aged,Idaho,16,4099,661,4760,0.8611344538
+Aged,Illinois,17,39107,5846,44953,0.8699530621
+Aged,Indiana,18,20882,3370,24252,0.8610423883
+Aged,Iowa,19,9077,982,10059,0.9023759817
+Aged,Kansas,20,6360,979,7339,0.8666030794
+Aged,Kentucky,21,12622,2147,14769,0.8546279369
+Aged,Louisiana,22,8744,1773,10517,0.831415803
+Aged,Maine,23,6011,685,6696,0.8977001195
+Aged,Maryland,24,18905,2849,21754,0.8690355797
+Aged,Massachusetts,25,26300,2936,29236,0.8995758654
+Aged,Michigan,26,36388,5463,41851,0.8694654847
+Aged,Minnesota,27,11200,1077,12277,0.9122749857
+Aged,Mississippi,28,6408,1343,7751,0.8267320346
+Aged,Missouri,29,15311,2452,17763,0.8619602545
+Aged,Montana,30,2885,381,3266,0.8833435395
+Aged,Nebraska,31,5221,753,5974,0.8739537998
+Aged,Nevada,32,6218,1215,7433,0.8365397551
+Aged,"New Hampshire",33,5303,621,5924,0.895172181
+Aged,"New Jersey",34,34650,5462,40112,0.8638312724
+Aged,"New Mexico",35,3667,614,4281,0.8565755665
+Aged,"New York",36,58695,8127,66822,0.8783783784
+Aged,"North Carolina",37,29638,4364,34002,0.8716546086
+Aged,"North Dakota",38,1723,201,1924,0.8955301455
+Aged,Ohio,39,31618,4887,36505,0.8661279277
+Aged,Oklahoma,40,9989,1766,11755,0.849766057
+Aged,Oregon,41,9660,1324,10984,0.8794610342
+Aged,Pennsylvania,42,35102,4988,40090,0.8755799451
+Aged,"Rhode Island",44,2354,303,2657,0.8859616108
+Aged,"South Carolina",45,17199,3005,20204,0.8512670758
+Aged,"South Dakota",46,2410,274,2684,0.8979135618
+Aged,Tennessee,47,17682,3279,20961,0.8435666237
+Aged,Texas,48,52991,10200,63191,0.8385846086
+Aged,Utah,49,4745,885,5630,0.8428063943
+Aged,Vermont,50,3315,359,3674,0.9022863364
+Aged,Virginia,51,22736,3367,26103,0.8710109949
+Aged,Washington,53,16578,2152,18730,0.8851041111
+Aged,"West Virginia",54,5848,978,6826,0.8567242895
+Aged,Wisconsin,55,13814,1461,15275,0.9043535188
+Aged,Wyoming,56,1728,223,1951,0.8856996412
+Disabled,Alabama,1,1010,330,1340,0.7537313433
 Disabled,Alaska,2,76,20,96,0.7916666667
-Disabled,Arizona,4,630,134,764,0.8246073298
-Disabled,Arkansas,5,618,167,785,0.7872611465
-Disabled,California,6,2966,633,3599,0.8241178105
-Disabled,Colorado,8,645,88,733,0.8799454297
-Disabled,Connecticut,9,698,133,831,0.8399518652
-Disabled,Delaware,10,215,47,262,0.820610687
-Disabled,"District of Columbia",11,116,34,150,0.7733333333
-Disabled,Florida,12,2859,741,3600,0.7941666667
-Disabled,Georgia,13,1632,412,2044,0.7984344423
-Disabled,Hawaii,15,111,24,135,0.8222222222
-Disabled,Idaho,16,243,52,295,0.8237288136
-Disabled,Illinois,17,1760,372,2132,0.8255159475
-Disabled,Indiana,18,1527,294,1821,0.8385502471
-Disabled,Iowa,19,508,79,587,0.8654173765
-Disabled,Kansas,20,427,96,523,0.8164435946
-Disabled,Kentucky,21,1240,253,1493,0.8305425318
-Disabled,Louisiana,22,857,243,1100,0.7790909091
-Disabled,Maine,23,510,68,578,0.8823529412
-Disabled,Maryland,24,926,228,1154,0.8024263432
-Disabled,Massachusetts,25,1374,201,1575,0.8723809524
-Disabled,Michigan,26,2263,440,2703,0.837217906
-Disabled,Minnesota,27,590,96,686,0.860058309
-Disabled,Mississippi,28,749,214,963,0.7777777778
-Disabled,Missouri,29,1161,228,1389,0.8358531317
-Disabled,Montana,30,133,18,151,0.880794702
-Disabled,Nebraska,31,222,49,271,0.8191881919
-Disabled,Nevada,32,322,90,412,0.7815533981
-Disabled,"New Hampshire",33,204,33,237,0.8607594937
-Disabled,"New Jersey",34,1210,230,1440,0.8402777778
-Disabled,"New Mexico",35,255,50,305,0.8360655738
-Disabled,"New York",36,2619,491,3110,0.8421221865
-Disabled,"North Carolina",37,2014,470,2484,0.8107890499
-Disabled,"North Dakota",38,59,23,82,0.7195121951
-Disabled,Ohio,39,2167,397,2564,0.8451638066
-Disabled,Oklahoma,40,687,193,880,0.7806818182
-Disabled,Oregon,41,545,87,632,0.8623417722
-Disabled,Pennsylvania,42,2087,379,2466,0.8463098135
-Disabled,"Rhode Island",44,133,19,152,0.875
-Disabled,"South Carolina",45,1080,267,1347,0.8017817372
-Disabled,"South Dakota",46,101,16,117,0.8632478632
-Disabled,Tennessee,47,1430,351,1781,0.802919708
-Disabled,Texas,48,2437,643,3080,0.7912337662
-Disabled,Utah,49,219,44,263,0.8326996198
-Disabled,Vermont,50,180,23,203,0.8866995074
-Disabled,Virginia,51,1269,259,1528,0.8304973822
-Disabled,Washington,53,724,109,833,0.8691476591
-Disabled,"West Virginia",54,667,135,802,0.8316708229
-Disabled,Wisconsin,55,841,162,1003,0.8384845464
-Disabled,Wyoming,56,80,11,91,0.8791208791
+Disabled,Arizona,4,595,169,764,0.7787958115
+Disabled,Arkansas,5,596,189,785,0.7592356688
+Disabled,California,6,2855,744,3599,0.79327591
+Disabled,Colorado,8,621,112,733,0.8472032742
+Disabled,Connecticut,9,674,157,831,0.8110709988
+Disabled,Delaware,10,211,51,262,0.8053435115
+Disabled,"District of Columbia",11,105,45,150,0.7
+Disabled,Florida,12,2754,846,3600,0.765
+Disabled,Georgia,13,1556,488,2044,0.7612524462
+Disabled,Hawaii,15,108,27,135,0.8
+Disabled,Idaho,16,238,57,295,0.806779661
+Disabled,Illinois,17,1697,435,2132,0.7959662289
+Disabled,Indiana,18,1467,354,1821,0.805601318
+Disabled,Iowa,19,490,97,587,0.8347529813
+Disabled,Kansas,20,414,109,523,0.7915869981
+Disabled,Kentucky,21,1188,305,1493,0.7957133289
+Disabled,Louisiana,22,812,288,1100,0.7381818182
+Disabled,Maine,23,499,79,578,0.8633217993
+Disabled,Maryland,24,889,265,1154,0.7703639515
+Disabled,Massachusetts,25,1334,241,1575,0.846984127
+Disabled,Michigan,26,2170,533,2703,0.8028116907
+Disabled,Minnesota,27,578,108,686,0.8425655977
+Disabled,Mississippi,28,716,247,963,0.743509865
+Disabled,Missouri,29,1114,275,1389,0.8020158387
+Disabled,Montana,30,127,24,151,0.8410596026
+Disabled,Nebraska,31,213,58,271,0.7859778598
+Disabled,Nevada,32,310,102,412,0.7524271845
+Disabled,"New Hampshire",33,200,37,237,0.8438818565
+Disabled,"New Jersey",34,1166,274,1440,0.8097222222
+Disabled,"New Mexico",35,240,65,305,0.7868852459
+Disabled,"New York",36,2534,576,3110,0.8147909968
+Disabled,"North Carolina",37,1940,544,2484,0.7809983897
+Disabled,"North Dakota",38,58,24,82,0.7073170732
+Disabled,Ohio,39,2096,468,2564,0.8174726989
+Disabled,Oklahoma,40,662,218,880,0.7522727273
+Disabled,Oregon,41,524,108,632,0.8291139241
+Disabled,Pennsylvania,42,2019,447,2466,0.8187347932
+Disabled,"Rhode Island",44,128,24,152,0.8421052632
+Disabled,"South Carolina",45,1037,310,1347,0.7698589458
+Disabled,"South Dakota",46,97,20,117,0.8290598291
+Disabled,Tennessee,47,1384,397,1781,0.7770915216
+Disabled,Texas,48,2300,780,3080,0.7467532468
+Disabled,Utah,49,213,50,263,0.8098859316
+Disabled,Vermont,50,174,29,203,0.8571428571
+Disabled,Virginia,51,1214,314,1528,0.7945026178
+Disabled,Washington,53,703,130,833,0.843937575
+Disabled,"West Virginia",54,646,156,802,0.8054862843
+Disabled,Wisconsin,55,820,183,1003,0.8175473579
+Disabled,Wyoming,56,77,14,91,0.8461538462
 ESRD,Alabama,1,.,.,.,0.6666666667
 ESRD,Alaska,2,.,0,.,1
 ESRD,Arizona,4,.,.,.,0.5
 ESRD,Arkansas,5,.,.,.,0.5
-ESRD,California,6,46,21,67,0.6865671642
+ESRD,California,6,45,22,67,0.671641791
 ESRD,Colorado,8,.,.,.,0.8571428571
-ESRD,Connecticut,9,.,0,.,1
+ESRD,Connecticut,9,.,.,.,0.5
 ESRD,"District of Columbia",11,.,.,.,0.6666666667
-ESRD,Florida,12,23,11,34,0.6764705882
+ESRD,Florida,12,22,12,34,0.6470588235
 ESRD,Georgia,13,12,12,24,0.5
 ESRD,Hawaii,15,.,0,.,1
 ESRD,Idaho,16,.,.,.,0.5
 ESRD,Illinois,17,.,.,.,0.8
-ESRD,Indiana,18,.,0,.,1
+ESRD,Indiana,18,.,.,.,0.5
 ESRD,Iowa,19,.,.,.,0.5
 ESRD,Kansas,20,.,0,.,1
 ESRD,Kentucky,21,.,.,.,0.75
@@ -122,7 +122,7 @@ ESRD,Louisiana,22,.,.,.,0.5
 ESRD,Maine,23,.,0,.,1
 ESRD,Maryland,24,.,.,.,0.8
 ESRD,Massachusetts,25,.,0,.,1
-ESRD,Michigan,26,.,.,.,0.5625
+ESRD,Michigan,26,.,.,.,0.5
 ESRD,Minnesota,27,0,.,.,0
 ESRD,Mississippi,28,.,0,.,1
 ESRD,Missouri,29,.,.,.,0.4
@@ -132,21 +132,21 @@ ESRD,Nevada,32,.,.,.,0.7
 ESRD,"New Jersey",34,.,.,.,0.7777777778
 ESRD,"New Mexico",35,.,0,.,1
 ESRD,"New York",36,22,11,33,0.6666666667
-ESRD,"North Carolina",37,.,.,.,0.8
+ESRD,"North Carolina",37,.,.,.,0.7
 ESRD,Ohio,39,.,.,.,0.7142857143
 ESRD,Oklahoma,40,.,.,.,0.8333333333
 ESRD,Oregon,41,.,.,.,0.5
 ESRD,Pennsylvania,42,.,.,.,0.7
 ESRD,"South Carolina",45,.,.,.,0.5
-ESRD,Tennessee,47,.,.,.,0.8571428571
-ESRD,Texas,48,37,15,52,0.7115384615
-ESRD,Utah,49,.,.,.,0.3333333333
-ESRD,Virginia,51,.,.,.,0.8888888889
+ESRD,Tennessee,47,.,.,.,0.7142857143
+ESRD,Texas,48,34,18,52,0.6538461538
+ESRD,Utah,49,0,.,.,0
+ESRD,Virginia,51,.,.,.,0.6666666667
 ESRD,Washington,53,.,.,.,0.5
 ESRD,"West Virginia",54,.,.,.,0.75
-ESRD,Wisconsin,55,.,.,.,0.75
+ESRD,Wisconsin,55,.,.,.,0.5
 ESRD,Wyoming,56,.,0,.,1
-"Disabled and ESRD",Alabama,1,.,.,.,0.6666666667
+"Disabled and ESRD",Alabama,1,.,.,.,0.5833333333
 "Disabled and ESRD",Alaska,2,0,.,.,0
 "Disabled and ESRD",Arizona,4,.,.,.,0.75
 "Disabled and ESRD",Arkansas,5,.,0,.,1
@@ -155,7 +155,7 @@ ESRD,Wyoming,56,.,0,.,1
 "Disabled and ESRD",Connecticut,9,.,0,.,1
 "Disabled and ESRD",Delaware,10,.,.,.,0.5
 "Disabled and ESRD",Florida,12,.,.,.,0.6666666667
-"Disabled and ESRD",Georgia,13,.,.,.,0.6666666667
+"Disabled and ESRD",Georgia,13,.,.,.,0.619047619
 "Disabled and ESRD",Hawaii,15,.,0,.,1
 "Disabled and ESRD",Idaho,16,.,0,.,1
 "Disabled and ESRD",Illinois,17,.,.,.,0.6
@@ -167,14 +167,14 @@ ESRD,Wyoming,56,.,0,.,1
 "Disabled and ESRD",Maine,23,.,.,.,0.75
 "Disabled and ESRD",Maryland,24,.,.,.,0.5
 "Disabled and ESRD",Massachusetts,25,.,.,.,0.5
-"Disabled and ESRD",Michigan,26,.,.,.,0.7272727273
+"Disabled and ESRD",Michigan,26,.,.,.,0.4545454545
 "Disabled and ESRD",Minnesota,27,0,.,.,0
-"Disabled and ESRD",Mississippi,28,.,.,.,0.5555555556
+"Disabled and ESRD",Mississippi,28,.,.,.,0.4444444444
 "Disabled and ESRD",Missouri,29,.,.,.,0.8
 "Disabled and ESRD",Montana,30,0,.,.,0
 "Disabled and ESRD",Nevada,32,.,0,.,1
-"Disabled and ESRD","New Jersey",34,.,0,.,1
-"Disabled and ESRD","New Mexico",35,.,0,.,1
+"Disabled and ESRD","New Jersey",34,.,.,.,0.8
+"Disabled and ESRD","New Mexico",35,.,.,.,0.5
 "Disabled and ESRD","New York",36,.,.,.,0.5714285714
 "Disabled and ESRD","North Carolina",37,.,.,.,0.7142857143
 "Disabled and ESRD",Ohio,39,.,.,.,0.8571428571
@@ -182,8 +182,8 @@ ESRD,Wyoming,56,.,0,.,1
 "Disabled and ESRD",Oregon,41,.,.,.,0.5
 "Disabled and ESRD",Pennsylvania,42,.,.,.,0.6666666667
 "Disabled and ESRD","South Carolina",45,.,.,.,0.5833333333
-"Disabled and ESRD",Tennessee,47,.,.,.,0.6875
-"Disabled and ESRD",Texas,48,.,.,.,0.7
+"Disabled and ESRD",Tennessee,47,.,.,.,0.625
+"Disabled and ESRD",Texas,48,.,.,.,0.6
 "Disabled and ESRD",Utah,49,.,0,.,1
 "Disabled and ESRD",Virginia,51,.,.,.,0.7692307692
 "Disabled and ESRD","West Virginia",54,.,0,.,1

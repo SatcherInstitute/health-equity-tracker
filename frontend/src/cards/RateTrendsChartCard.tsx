@@ -60,7 +60,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const metricConfigRates =
     props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics?.pct_rate
+    props.dataTypeConfig.metrics?.pct_rate ??
+    props.dataTypeConfig.metrics?.index
 
   if (!metricConfigRates) return <></>
 
@@ -232,7 +233,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   <CardContent>
                     <UnknownBubblesAlert
                       breakdownVar={props.breakdownVar}
-                      fullDisplayName={props.dataTypeConfig.fullDisplayName.toLowerCase()}
+                      fullDisplayName={
+                        props.dataTypeConfig.fullDisplayNameInline ??
+                        props.dataTypeConfig.fullDisplayName
+                      }
                       expanded={unknownsExpanded}
                       setExpanded={setUnknownsExpanded}
                     />

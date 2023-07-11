@@ -1,29 +1,29 @@
-name: 'Build and Push'
-description: 'Build a docker image and push the image to GCR'
+name: "Build and Push"
+description: "Build a docker image and push the image to GCR"
 inputs:
   dockerfile:
-    description: 'Relative path to dockerfile'
+    description: "Relative path to dockerfile"
     required: true
   image-path:
-    description: 'Location to where image should be pushed'
+    description: "Location to where image should be pushed"
     required: true
   build-directory:
-    description: 'Directory from where docker build should be run'
+    description: "Directory from where docker build should be run"
     required: false
-    default: '.'
+    default: "."
   deploy-context:
     description: 'String value for deploy context. Should be "prod" or "staging". Only used for the frontend'
     required: false
   basic-auth-username:
-    description: 'Username for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false'
+    description: "Username for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
     required: false
   basic-auth-password:
-    description: 'Password for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false'
+    description: "Password for basic authentication. Only used for the frontend. Required if DISABLE_BASIC_AUTH environment variable is false"
     required: false
-outputs:	
-    image-digest:	
-      description: 'Digest of image pushed to GCR'	
-      value: ${{ steps.get-image-digest.outputs.image-digest }}
+outputs:
+  image-digest:
+    description: "Digest of image pushed to GCR"
+    value: ${{ steps.get-image-digest.outputs.image-digest }}
 runs:
   using: "composite"
   steps:
@@ -43,6 +43,6 @@ runs:
       shell: bash
     - run: docker push ${{ inputs.image-path }}
       shell: bash
-    - id: get-image-digest	
+    - id: get-image-digest
       run: echo "image-digest=$(gcloud container images describe ${{ inputs.image-path }} --format='value(image_summary.digest)')" >> $GITHUB_OUTPUT
       shell: bash

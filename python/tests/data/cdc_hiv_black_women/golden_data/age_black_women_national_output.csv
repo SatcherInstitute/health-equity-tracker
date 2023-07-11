@@ -1,0 +1,13 @@
+time_period,state_name,state_fips,age,race_and_ethnicity,race_category_id,sex,hiv_deaths,hiv_diagnoses,hiv_prevalence,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_diagnoses_pct_share,hiv_deaths_pct_share,hiv_prevalence_pct_share,hiv_population_pct,hiv_deaths_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_prevalence_pct_relative_inequity
+2019,United States,00,55+,Black or African American (NH),BLACK_NH,Female,1202,705,51300,21.3,12.5,908.2,1.9,7.4,4.9,2.0,270.0,-5.0,145.0
+2019,United States,00,45-54,Black or African American (NH),BLACK_NH,Female,570,720,40735,21.0,26.5,1499.5,2.0,3.5,3.9,1.0,250.0,100.0,290.0
+2019,United States,00,35-44,Black or African American (NH),BLACK_NH,Female,299,892,29692,10.7,31.9,1062.8,2.4,1.8,2.9,1.0,80.0,140.0,190.0
+2019,United States,00,25-34,Black or African American (NH),BLACK_NH,Female,113,1014,15965,3.4,30.9,487.1,2.8,0.7,1.5,1.2,-41.7,133.3,25.0
+2019,United States,00,13-24,Black or African American (NH),BLACK_NH,Female,17,536,3906,0.5,15.3,111.6,1.5,0.1,0.4,1.3,-92.3,15.4,-69.2
+2017,United States,00,55+,Black or African American (NH),BLACK_NH,Female,1116,737,43286,20.9,13.8,810.1,1.9,6.8,4.3,2.0,240.0,-5.0,115.0
+2017,United States,00,45-54,Black or African American (NH),BLACK_NH,Female,678,823,41962,24.4,29.6,1508.1,2.1,4.1,4.2,1.0,310.0,110.0,320.0
+2017,United States,00,35-44,Black or African American (NH),BLACK_NH,Female,329,966,30988,12.0,35.3,1130.9,2.5,2.0,3.1,1.0,100.0,150.0,210.0
+2017,United States,00,25-34,Black or African American (NH),BLACK_NH,Female,150,1141,16646,4.7,36.1,526.4,3.0,0.9,1.7,1.2,-25.0,150.0,41.7
+2017,United States,00,13-24,Black or African American (NH),BLACK_NH,Female,16,612,4463,0.4,17.1,124.4,1.6,0.1,0.4,1.3,-92.3,23.1,-69.2
+2017,United States,00,All,Black or African American (NH),BLACK_NH,Female,16350,38316,995297,6.0,14.1,365.4,100.0,100.0,100.0,100.0,0.0,0.0,0.0
+2019,United States,00,All,Black or African American (NH),BLACK_NH,Female,16230,36528,1040522,5.9,13.2,376.9,100.0,100.0,100.0,100.0,0.0,0.0,0.0

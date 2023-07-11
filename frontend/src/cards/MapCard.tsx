@@ -58,7 +58,11 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { useState } from 'react'
-import { RATE_MAP_SCALE, getMapScheme } from '../charts/mapHelpers'
+import {
+  RATE_MAP_SCALE,
+  getHighestLowestGroupsByFips,
+  getMapScheme,
+} from '../charts/mapHelpers'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -101,7 +105,8 @@ function MapCardWithKey(props: MapCardProps) {
 
   const metricConfig =
     props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics.pct_rate
+    props.dataTypeConfig.metrics.pct_rate ??
+    props.dataTypeConfig.metrics.index
 
   if (!metricConfig) return <></>
 
@@ -257,16 +262,17 @@ function MapCardWithKey(props: MapCardProps) {
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
         const hasSelfButNotChildGeoData =
-          childGeoQueryResponse.data.length === 0 &&
-          parentGeoQueryResponse.data.length > 0
+          childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
+            .length === 0 &&
+          parentGeoQueryResponse.data.filter(
+            (row) => row[metricConfig.metricId]
+          ).length > 0
         const mapQueryResponse = hasSelfButNotChildGeoData
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
         const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
-
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
-
         const sortArgs =
           props.currentBreakdown === 'age'
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
@@ -447,6 +453,12 @@ function MapCardWithKey(props: MapCardProps) {
                       lg={mapIsWide ? 10 : 12}
                     >
                       <ChoroplethMap
+                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                          mapQueryResponse.data,
+                          props.currentBreakdown,
+                          metricId
+                        )}
+                        activeBreakdownFilter={activeBreakdownFilter}
                         countColsToAdd={countColsToAdd}
                         data={displayData}
                         filename={filename}
@@ -468,13 +480,16 @@ function MapCardWithKey(props: MapCardProps) {
                       {props.fips.isUsa() && (
                         <Grid item xs={12}>
                           <TerritoryCircles
-                            mapIsWide={mapIsWide}
-                            data={displayData}
+                            breakdown={props.currentBreakdown}
+                            activeBreakdownFilter={activeBreakdownFilter}
                             countColsToAdd={countColsToAdd}
+                            data={displayData}
+                            fullData={mapQueryResponse.data}
+                            geoData={geoData}
                             listExpanded={listExpanded}
+                            mapIsWide={mapIsWide}
                             metricConfig={metricConfig}
                             signalListeners={signalListeners}
-                            geoData={geoData}
                           />
                         </Grid>
                       )}

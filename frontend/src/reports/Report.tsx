@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -387,7 +387,7 @@ export function Report(props: ReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={defaultDemo}
+              trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
               isRaceBySex={isRaceBySex}
             />

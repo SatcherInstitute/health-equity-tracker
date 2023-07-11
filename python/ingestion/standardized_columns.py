@@ -137,25 +137,26 @@ PRISON_PCT_SHARE = "prison_pct_share"
 INCARCERATION_POP_PCT_SHARE = "incarceration_population_pct"
 JAIL_PCT_INEQUITY = "jail_pct_relative_inequity"
 PRISON_PCT_INEQUITY = "prison_relative_inequity"
+
 # HIV
-HIV_CARE_PREFIX = 'hiv_care'
-HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
-HIV_DEATHS_PREFIX = 'hiv_deaths'
-HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
-HIV_DIAGNOSES_BW_PREFIX = 'hiv_diagnoses_black_women'
-HIV_DEATHS_BW_PREFIX = 'hiv_deaths_black_women'
-HIV_PREVALENCE_BW_PREFIX = 'hiv_prevalence_black_women'
-PREP_PREFIX = 'hiv_prep'
+BLACK_WOMEN = 'black_women'
 HIV_CARE_LINKAGE = 'hiv_care_linkage'
 HIV_CARE_POPULATION = 'hiv_care_population'
 HIV_CARE_POPULATION_PCT = 'hiv_care_population_pct'
+HIV_CARE_PREFIX = 'hiv_care'
+HIV_DEATHS_PREFIX = 'hiv_deaths'
+HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
+HIV_POPULATION_PCT = 'hiv_population_pct'
 HIV_PREP_COVERAGE = 'hiv_prep_coverage'
 # population of individuals with PrEP indicators
 HIV_PREP_POPULATION = 'hiv_prep_population'
 HIV_PREP_POPULATION_PCT = 'hiv_prep_population_pct'
-HIV_POPULATION_PCT = 'hiv_population_pct'
-HIV_BW_POPULATION = 'black_women_population'
-HIV_BW_POPULATION_PCT = 'black_women_population_pct'
+HIV_PREP_PREFIX = 'hiv_prep'
+HIV_PREVALENCE_PREFIX = 'hiv_prevalence'
+HIV_STIGMA_INDEX = 'hiv_stigma_index'
+TOTAL_TRANS_MEN = 'total_trans_men'
+TOTAL_TRANS_WOMEN = 'total_trans_women'
+TOTAL_ADDITIONAL_GENDER = 'total_additional_gender'
 
 # PHRMA
 AMI_PREFIX = "ami"

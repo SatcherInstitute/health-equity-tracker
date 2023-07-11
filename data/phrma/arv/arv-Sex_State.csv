@@ -1,103 +1,103 @@
 SEX_NAME,STATE_NAME,STATE_FIPS,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
-Male,Alabama,1,216,50,266,0.8120300752
-Male,Alaska,2,.,0,.,1
-Male,Arizona,4,158,27,185,0.8540540541
-Male,Arkansas,5,76,16,92,0.8260869565
-Male,California,6,1975,237,2212,0.8928571429
-Male,Colorado,8,168,18,186,0.9032258065
-Male,Connecticut,9,198,21,219,0.904109589
-Male,Delaware,10,52,11,63,0.8253968254
-Male,"District of Columbia",11,129,40,169,0.7633136095
-Male,Florida,12,1548,212,1760,0.8795454545
-Male,Georgia,13,603,164,767,0.7861799218
-Male,Hawaii,15,.,.,.,0.875
-Male,Idaho,16,19,0,19,1
-Male,Illinois,17,466,84,550,0.8472727273
-Male,Indiana,18,216,32,248,0.8709677419
-Male,Iowa,19,.,.,.,0.9459459459
-Male,Kansas,20,49,12,61,0.8032786885
-Male,Kentucky,21,125,21,146,0.8561643836
-Male,Louisiana,22,335,91,426,0.7863849765
-Male,Maine,23,.,.,.,0.9122807018
-Male,Maryland,24,340,83,423,0.8037825059
-Male,Massachusetts,25,402,40,442,0.9095022624
-Male,Michigan,26,231,55,286,0.8076923077
-Male,Minnesota,27,101,19,120,0.8416666667
-Male,Mississippi,28,140,41,181,0.773480663
-Male,Missouri,29,249,42,291,0.8556701031
-Male,Montana,30,.,.,.,0.7142857143
-Male,Nebraska,31,.,.,.,0.8125
-Male,Nevada,32,82,15,97,0.8453608247
+Male,Alabama,1,177,89,266,0.6654135338
+Male,Alaska,2,.,.,.,0.5555555556
+Male,Arizona,4,131,54,185,0.7081081081
+Male,Arkansas,5,62,30,92,0.6739130435
+Male,California,6,1767,445,2212,0.7988245931
+Male,Colorado,8,147,39,186,0.7903225806
+Male,Connecticut,9,170,49,219,0.7762557078
+Male,Delaware,10,44,19,63,0.6984126984
+Male,"District of Columbia",11,102,67,169,0.6035502959
+Male,Florida,12,1360,400,1760,0.7727272727
+Male,Georgia,13,467,300,767,0.6088657106
+Male,Hawaii,15,41,15,56,0.7321428571
+Male,Idaho,16,.,.,.,0.7894736842
+Male,Illinois,17,381,169,550,0.6927272727
+Male,Indiana,18,195,53,248,0.7862903226
+Male,Iowa,19,60,14,74,0.8108108108
+Male,Kansas,20,44,17,61,0.7213114754
+Male,Kentucky,21,98,48,146,0.6712328767
+Male,Louisiana,22,271,155,426,0.6361502347
+Male,Maine,23,.,.,.,0.8421052632
+Male,Maryland,24,274,149,423,0.6477541371
+Male,Massachusetts,25,366,76,442,0.8280542986
+Male,Michigan,26,195,91,286,0.6818181818
+Male,Minnesota,27,91,29,120,0.7583333333
+Male,Mississippi,28,111,70,181,0.6132596685
+Male,Missouri,29,216,75,291,0.7422680412
+Male,Montana,30,.,.,.,0.619047619
+Male,Nebraska,31,35,13,48,0.7291666667
+Male,Nevada,32,69,28,97,0.7113402062
 Male,"New Hampshire",33,.,.,.,0.8148148148
-Male,"New Jersey",34,447,62,509,0.8781925344
-Male,"New Mexico",35,.,.,.,0.9078947368
-Male,"New York",36,1727,221,1948,0.886550308
-Male,"North Carolina",37,430,68,498,0.8634538153
+Male,"New Jersey",34,388,121,509,0.7622789784
+Male,"New Mexico",35,63,13,76,0.8289473684
+Male,"New York",36,1538,410,1948,0.7895277207
+Male,"North Carolina",37,370,128,498,0.7429718876
 Male,"North Dakota",38,.,.,.,0.9285714286
-Male,Ohio,39,367,63,430,0.8534883721
-Male,Oklahoma,40,114,19,133,0.8571428571
-Male,Oregon,41,126,16,142,0.8873239437
-Male,Pennsylvania,42,385,56,441,0.873015873
-Male,"Rhode Island",44,.,.,.,0.9310344828
-Male,"South Carolina",45,226,54,280,0.8071428571
+Male,Ohio,39,306,124,430,0.711627907
+Male,Oklahoma,40,95,38,133,0.7142857143
+Male,Oregon,41,114,28,142,0.8028169014
+Male,Pennsylvania,42,332,109,441,0.7528344671
+Male,"Rhode Island",44,.,.,.,0.8620689655
+Male,"South Carolina",45,197,83,280,0.7035714286
 Male,"South Dakota",46,.,.,.,0.9230769231
-Male,Tennessee,47,319,59,378,0.8439153439
-Male,Texas,48,1025,191,1216,0.8429276316
-Male,Utah,49,.,.,.,0.84375
-Male,Vermont,50,.,.,.,0.8571428571
-Male,Virginia,51,285,47,332,0.8584337349
-Male,Washington,53,256,34,290,0.8827586207
-Male,"West Virginia",54,.,.,.,0.8461538462
-Male,Wisconsin,55,106,18,124,0.8548387097
-Male,Wyoming,56,.,0,.,1
-Female,Alabama,1,85,27,112,0.7589285714
-Female,Alaska,2,.,0,.,1
-Female,Arizona,4,.,.,.,0.8974358974
-Female,Arkansas,5,.,.,.,0.7647058824
-Female,California,6,227,30,257,0.8832684825
-Female,Colorado,8,.,.,.,0.8965517241
-Female,Connecticut,9,99,13,112,0.8839285714
-Female,Delaware,10,.,.,.,0.8666666667
-Female,"District of Columbia",11,53,18,71,0.7464788732
-Female,Florida,12,638,112,750,0.8506666667
-Female,Georgia,13,279,65,344,0.8110465116
+Male,Tennessee,47,267,111,378,0.7063492063
+Male,Texas,48,842,374,1216,0.6924342105
+Male,Utah,49,47,17,64,0.734375
+Male,Vermont,50,.,.,.,0.75
+Male,Virginia,51,252,80,332,0.7590361446
+Male,Washington,53,221,69,290,0.7620689655
+Male,"West Virginia",54,44,21,65,0.6769230769
+Male,Wisconsin,55,94,30,124,0.7580645161
+Male,Wyoming,56,.,.,.,0.8
+Female,Alabama,1,69,43,112,0.6160714286
+Female,Alaska,2,.,.,.,0.5
+Female,Arizona,4,26,13,39,0.6666666667
+Female,Arkansas,5,22,12,34,0.6470588235
+Female,California,6,196,61,257,0.7626459144
+Female,Colorado,8,.,.,.,0.724137931
+Female,Connecticut,9,80,32,112,0.7142857143
+Female,Delaware,10,.,.,.,0.7333333333
+Female,"District of Columbia",11,44,27,71,0.6197183099
+Female,Florida,12,535,215,750,0.7133333333
+Female,Georgia,13,222,122,344,0.6453488372
 Female,Hawaii,15,.,.,.,0.75
 Female,Idaho,16,.,0,.,1
-Female,Illinois,17,119,50,169,0.7041420118
-Female,Indiana,18,.,.,.,0.8125
-Female,Iowa,19,.,.,.,0.9090909091
+Female,Illinois,17,103,66,169,0.6094674556
+Female,Indiana,18,34,14,48,0.7083333333
+Female,Iowa,19,.,.,.,0.7272727273
 Female,Kansas,20,.,.,.,0.75
-Female,Kentucky,21,.,.,.,0.9666666667
-Female,Louisiana,22,105,43,148,0.7094594595
-Female,Maine,23,.,0,.,1
-Female,Maryland,24,198,40,238,0.8319327731
-Female,Massachusetts,25,147,16,163,0.9018404908
-Female,Michigan,26,.,.,.,0.8701298701
-Female,Minnesota,27,.,.,.,0.9375
-Female,Mississippi,28,65,17,82,0.7926829268
-Female,Missouri,29,38,11,49,0.7755102041
+Female,Kentucky,21,.,.,.,0.7666666667
+Female,Louisiana,22,89,59,148,0.6013513514
+Female,Maine,23,.,.,.,0.7142857143
+Female,Maryland,24,162,76,238,0.6806722689
+Female,Massachusetts,25,125,38,163,0.7668711656
+Female,Michigan,26,62,15,77,0.8051948052
+Female,Minnesota,27,.,.,.,0.8125
+Female,Mississippi,28,49,33,82,0.5975609756
+Female,Missouri,29,30,19,49,0.612244898
 Female,Montana,30,.,0,.,1
-Female,Nebraska,31,.,.,.,0.8571428571
-Female,Nevada,32,.,.,.,0.8461538462
-Female,"New Hampshire",33,.,.,.,0.7777777778
-Female,"New Jersey",34,277,41,318,0.8710691824
+Female,Nebraska,31,.,.,.,0.5714285714
+Female,Nevada,32,.,.,.,0.7692307692
+Female,"New Hampshire",33,.,.,.,0.5555555556
+Female,"New Jersey",34,243,75,318,0.7641509434
 Female,"New Mexico",35,.,.,.,0.9230769231
-Female,"New York",36,709,120,829,0.8552472859
-Female,"North Carolina",37,183,35,218,0.8394495413
+Female,"New York",36,622,207,829,0.7503015682
+Female,"North Carolina",37,151,67,218,0.6926605505
 Female,"North Dakota",38,.,.,.,0.6666666667
-Female,Ohio,39,66,15,81,0.8148148148
-Female,Oklahoma,40,.,.,.,0.7586206897
-Female,Oregon,41,.,.,.,0.875
-Female,Pennsylvania,42,147,26,173,0.8497109827
-Female,"Rhode Island",44,.,0,.,1
-Female,"South Carolina",45,139,30,169,0.8224852071
+Female,Ohio,39,58,23,81,0.7160493827
+Female,Oklahoma,40,.,.,.,0.6896551724
+Female,Oregon,41,.,.,.,0.8333333333
+Female,Pennsylvania,42,121,52,173,0.6994219653
+Female,"Rhode Island",44,.,.,.,0.875
+Female,"South Carolina",45,108,61,169,0.6390532544
 Female,"South Dakota",46,.,.,.,0.6666666667
-Female,Tennessee,47,90,19,109,0.8256880734
-Female,Texas,48,312,47,359,0.8690807799
+Female,Tennessee,47,74,35,109,0.6788990826
+Female,Texas,48,266,93,359,0.7409470752
 Female,Utah,49,.,.,.,0.8
-Female,Vermont,50,.,.,.,0.5714285714
-Female,Virginia,51,125,31,156,0.8012820513
-Female,Washington,53,.,.,.,0.82
-Female,"West Virginia",54,.,.,.,0.8461538462
-Female,Wisconsin,55,.,.,.,0.8333333333
+Female,Vermont,50,.,.,.,0.4285714286
+Female,Virginia,51,100,56,156,0.641025641
+Female,Washington,53,37,13,50,0.74
+Female,"West Virginia",54,.,.,.,0.7692307692
+Female,Wisconsin,55,.,.,.,0.6666666667
 Female,Wyoming,56,.,0,.,1
