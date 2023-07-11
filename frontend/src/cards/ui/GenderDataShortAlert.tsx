@@ -55,8 +55,6 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
     (row) => row[props.breakdownVar] === ALL
   )
 
-  console.log(props.queryResponse)
-
   const transMenCountId: MetricId | undefined =
     hivGenderCountsMap[props.dataTypeId]?.men
   const transWomenCountId: MetricId | undefined =
