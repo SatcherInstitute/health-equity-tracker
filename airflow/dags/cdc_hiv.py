@@ -82,6 +82,14 @@ cdc_hiv_exporter_operator_black_women = util.create_exporter_operator(
     'cdc_hiv_exporter_black_women', payload_black_women, data_ingestion_dag)
 
 
+payload_multi = {
+    'dataset_name': _CDC_HIV_DATASET_NAME,
+    'demographic': "multi"
+}
+cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
+    'cdc_hiv_exporter_multi', payload_multi, data_ingestion_dag)
+
+
 connector = DummyOperator(
     default_args=default_args,
     dag=data_ingestion_dag,
@@ -100,5 +108,6 @@ connector = DummyOperator(
         cdc_hiv_exporter_operator_age,
         cdc_hiv_exporter_operator_sex,
         cdc_hiv_exporter_operator_black_women,
+        cdc_hiv_exporter_operator_multi
     ]
 )
