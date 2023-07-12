@@ -156,6 +156,7 @@ def _generate_breakdown_df(*args):
         "fake_col2": ["a", "b", "c"]
     })
 
+
 def _generate_race_age_deaths_df(*args):
     print("mocking the race-age breakdown step")
     return pd.DataFrame({
@@ -167,6 +168,8 @@ def _generate_race_age_deaths_df(*args):
         "fake_col1": [0, 1, 2],
         "fake_col2": ["a", "b", "c"]
     })
+
+
 def _load_df_from_data_dir(*args):
     print("mocking the generate alls function")
     return pd.DataFrame({
