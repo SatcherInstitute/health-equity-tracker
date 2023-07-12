@@ -12,7 +12,6 @@ from ingestion.merge_utils import merge_county_names
 from ingestion.types import HIV_BREAKDOWN_TYPE
 from typing import cast
 
-
 # constants
 DTYPE = {'FIPS': str, 'Year': str}
 ATLAS_COLS = ['Indicator', 'Transmission Category', 'Rate LCI', 'Rate UCI']
@@ -139,7 +138,6 @@ class CDCHIVData(DataSource):
 
             # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
             for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
-                print("make race-age", geo_level)
                 table_name = f'by_race_age_{geo_level}'
                 race_age_df = self.generate_race_age_deaths_df(geo_level)
                 float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
@@ -309,7 +307,7 @@ class CDCHIVData(DataSource):
             subdirectory="hiv_deaths",
             skiprows=8,
             na_values=NA_VALUES,
-            usecols=['Geography', 'FIPS', 'Age Group', 'Race/Ethnicity', 'Cases', 'Population'],
+            usecols=['Year', 'Geography', 'FIPS', 'Age Group', 'Race/Ethnicity', 'Cases', 'Population'],
             thousands=',',
             dtype=DTYPE
         )
@@ -319,6 +317,7 @@ class CDCHIVData(DataSource):
 
         # rename columns
         df = df.rename(columns={
+            'Year': std_col.TIME_PERIOD_COL,
             'Geography': std_col.STATE_NAME_COL,
             'FIPS': std_col.STATE_FIPS_COL,
             'Age Group': std_col.AGE_COL,

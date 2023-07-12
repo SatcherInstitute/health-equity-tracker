@@ -25,6 +25,7 @@ ALLS_DATA = {
 GOLDEN_DATA = {
     'age_national': os.path.join(GOLDEN_DIR, 'age_national_output.csv'),
     'race_age_national': os.path.join(GOLDEN_DIR, 'race_age_national_output.csv'),
+    'race_age_state': os.path.join(GOLDEN_DIR, 'race_age_state_output.csv'),
     'race_national': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_national_output.csv'),
     'race_state': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'sex_national_output.csv'),
@@ -51,7 +52,16 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
     df = datasource.generate_race_age_deaths_df('national')
+    # df.to_csv('by_race_age_national.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE)
+    assert_frame_equal(df, expected_df, check_like=True)
+
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+def testGenerateRaceAgeState(mock_data_dir: mock.MagicMock):
+    datasource = CDCHIVData()
+    df = datasource.generate_race_age_deaths_df('state')
+    # df.to_csv('by_race_age_state.csv', index=False)
+    expected_df = pd.read_csv(GOLDEN_DATA['race_age_state'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
