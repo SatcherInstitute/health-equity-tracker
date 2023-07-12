@@ -117,6 +117,8 @@ GENDER_COLS = [f'{col}_{gender}' for col in BASE_COLS_NO_PREP for gender in [
     std_col.TOTAL_ADDITIONAL_GENDER, std_col.TOTAL_TRANS_MEN, std_col.TOTAL_TRANS_WOMEN]]
 
 
+TOTAL_DEATHS = f'{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}'
+
 class CDCHIVData(DataSource):
 
     @ staticmethod
@@ -137,11 +139,11 @@ class CDCHIVData(DataSource):
             demographic = std_col.RACE_OR_HISPANIC_COL
 
             # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
-            for geo_level in ["national", "state"]:
+            for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
                 print("make race-age", geo_level)
                 table_name = f'by_race_age_{geo_level}'
                 race_age_df = self.generate_race_age_deaths_df(geo_level)
-                float_cols = []
+                float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
                 col_types = gcs_to_bq_util.get_bq_column_types(
                     race_age_df, float_cols)
                 gcs_to_bq_util.add_df_to_bq(race_age_df,
@@ -150,7 +152,7 @@ class CDCHIVData(DataSource):
                                             column_types=col_types)
 
         # MAKE SINGLE BREAKDOWN AND BLACK WOMEN TABLES
-        for geo_level in ["national", "state", "county"]:
+        for geo_level in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
                 pass
             else:
@@ -322,13 +324,13 @@ class CDCHIVData(DataSource):
             'FIPS': std_col.STATE_FIPS_COL,
             'Age Group': std_col.AGE_COL,
             'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
-            'Cases': f'{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}',
+            'Cases': TOTAL_DEATHS,
             'Population': std_col.POPULATION_COL
         })
 
         # rename data items
         df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
-        if geo_level == 'national':
+        if geo_level == NATIONAL_LEVEL:
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
         std_col.add_race_columns_from_category_id(df)
