@@ -319,7 +319,7 @@ def generate_summed_age_cols(df: pd.DataFrame) -> pd.DataFrame:
     df: pre-melted, wide/short decennial df that contains
         unique columns for each age group
     returns same df with additional columns. Temp added column names
-        will be the the newgroup plus the tmp_metric_suffix; the added
+        will be the new group plus the tmp_metric_suffix; the added
         column values will be the mathematical sum (both COUNT and PCT_SHARE can sum)
      """
 

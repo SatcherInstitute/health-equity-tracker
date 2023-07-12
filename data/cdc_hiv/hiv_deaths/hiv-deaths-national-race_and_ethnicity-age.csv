@@ -1,0 +1,45 @@
+﻿"Date Printed: Thursday, May 11, 2023 5:31:01 PM"
+Title: "HIV deaths | 2019 | United States | American Indian/Alaska Native | Asian | Black/African American | Hispanic/Latino | Multiracial | Native Hawaiian/Other Pacific Islander | White | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+Death data for the year 2020 are preliminary and based on death data received by CDC as of December 2021. Death data based on residence at death. See Technical Notes for death reporting by jurisdiction.
+^ Jurisdiction with incomplete reporting of deaths for most recent year.
+NA - Not Applicable.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV deaths","2019","United States","NA","55+","Multiracial","Both sexes","All transmission categories","642","73.9","868,877"
+"HIV deaths","2019","United States","NA","45-54","Multiracial","Both sexes","All transmission categories","244","47.5","513,659"
+"HIV deaths","2019","United States","NA","35-44","Multiracial","Both sexes","All transmission categories","134","19.5","686,276"
+"HIV deaths","2019","United States","NA","25-34","Multiracial","Both sexes","All transmission categories","58","5.6","1,028,364"
+"HIV deaths","2019","United States","NA","13-24","Multiracial","Both sexes","All transmission categories","9","0.5","1,765,873"
+"HIV deaths","2019","United States","NA","55+","White","Both sexes","All transmission categories","3,367","4.8","70,674,145"
+"HIV deaths","2019","United States","NA","45-54","White","Both sexes","All transmission categories","1,152","4.6","25,174,229"
+"HIV deaths","2019","United States","NA","35-44","White","Both sexes","All transmission categories","444","1.9","23,591,659"
+"HIV deaths","2019","United States","NA","25-34","White","Both sexes","All transmission categories","248","1.0","25,208,812"
+"HIV deaths","2019","United States","NA","13-24","White","Both sexes","All transmission categories","23","0.1","26,892,995"
+"HIV deaths","2019","United States","NA","55+","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","6","4.9","123,381"
+"HIV deaths","2019","United States","NA","45-54","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","5","6.9","72,655"
+"HIV deaths","2019","United States","NA","35-44","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","2","2.2","90,190"
+"HIV deaths","2019","United States","NA","25-34","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","1","1.0","103,499"
+"HIV deaths","2019","United States","NA","13-24","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","0","0.0","101,594"
+"HIV deaths","2019","United States","NA","55+","Hispanic/Latino","Both sexes","All transmission categories","1,483","15.3","9,673,321"
+"HIV deaths","2019","United States","NA","45-54","Hispanic/Latino","Both sexes","All transmission categories","664","9.4","7,101,099"
+"HIV deaths","2019","United States","NA","35-44","Hispanic/Latino","Both sexes","All transmission categories","360","4.2","8,641,425"
+"HIV deaths","2019","United States","NA","25-34","Hispanic/Latino","Both sexes","All transmission categories","207","2.2","9,538,109"
+"HIV deaths","2019","United States","NA","13-24","Hispanic/Latino","Both sexes","All transmission categories","26","0.2","12,000,359"
+"HIV deaths","2019","United States","NA","55+","Black/African American","Both sexes","All transmission categories","4,019","40.5","9,930,422"
+"HIV deaths","2019","United States","NA","45-54","Black/African American","Both sexes","All transmission categories","1,516","29.7","5,106,130"
+"HIV deaths","2019","United States","NA","35-44","Black/African American","Both sexes","All transmission categories","818","15.4","5,323,598"
+"HIV deaths","2019","United States","NA","25-34","Black/African American","Both sexes","All transmission categories","566","8.7","6,529,276"
+"HIV deaths","2019","United States","NA","13-24","Black/African American","Both sexes","All transmission categories","73","1.0","7,092,338"
+"HIV deaths","2019","United States","NA","55+","Asian","Both sexes","All transmission categories","45","1.0","4,597,606"
+"HIV deaths","2019","United States","NA","45-54","Asian","Both sexes","All transmission categories","27","1.0","2,604,640"
+"HIV deaths","2019","United States","NA","35-44","Asian","Both sexes","All transmission categories","19","0.6","3,039,508"
+"HIV deaths","2019","United States","NA","25-34","Asian","Both sexes","All transmission categories","8","0.2","3,219,268"
+"HIV deaths","2019","United States","NA","13-24","Asian","Both sexes","All transmission categories","2","0.1","2,773,291"
+"HIV deaths","2019","United States","NA","55+","American Indian/Alaska Native","Both sexes","All transmission categories","24","4.0","600,208"
+"HIV deaths","2019","United States","NA","45-54","American Indian/Alaska Native","Both sexes","All transmission categories","17","5.9","287,911"
+"HIV deaths","2019","United States","NA","35-44","American Indian/Alaska Native","Both sexes","All transmission categories","10","3.3","301,788"
+"HIV deaths","2019","United States","NA","25-34","American Indian/Alaska Native","Both sexes","All transmission categories","7","1.9","376,356"
+"HIV deaths","2019","United States","NA","13-24","American Indian/Alaska Native","Both sexes","All transmission categories","0","0.0","430,352"
