@@ -21,13 +21,10 @@ import sass from '../styles/variables.module.scss'
 import { useMediaQuery } from '@mui/material'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import { createBarLabel } from './mapHelpers'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
-
-// nested quotation mark format needed for Vega
-const PER_100K = ' per 100k'
-const SINGLE_LINE_PERCENT = '%'
 
 function getSpec(
   altText: string,
@@ -59,16 +56,7 @@ function getSpec(
   }
 
   // create bar label as array or string
-  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
-  "${usePercentSuffix ? SINGLE_LINE_PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K}"`
-
-  const multiLine100kLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
-
-  const createBarLabel = () => {
-    if (chartIsSmall) {
-      return multiLine100kLabel
-    } else return singleLineLabel
-  }
+  const barLabel = createBarLabel(chartIsSmall, measure, tooltipMetricDisplayColumnName, usePercentSuffix)
 
   const legends = showLegend
     ? [
@@ -186,7 +174,7 @@ function getSpec(
             y: { scale: 'y', field: breakdownVar, band: 0.8 },
             limit: { signal: 'width / 3' },
             text: {
-              signal: createBarLabel(),
+              signal: barLabel,
             },
           },
         },
