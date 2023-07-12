@@ -59,10 +59,9 @@ function getSpec(
   }
 
   // create bar label as array or string
-  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} +
-  "${usePercentSuffix ? SINGLE_LINE_PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K}"`
-
-  const multiLine100kLabel = `[datum.${tooltipMetricDisplayColumnName}, "${PER_100K}"]`
+  const symbol = usePercentSuffix ? SINGLE_LINE_PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K
+  const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${symbol}"`
+  const multiLine100kLabel = `[datum.${tooltipMetricDisplayColumnName}, "${symbol}"]`
 
   const createBarLabel = () => {
     if (chartIsSmall) {
