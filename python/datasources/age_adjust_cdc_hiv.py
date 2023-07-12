@@ -179,11 +179,11 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     ref_pop_df = population_df.loc[population_df[std_col.RACE_CATEGORY_ID_COL] ==
                                    REFERENCE_POPULATION].reset_index(drop=True)
 
-    print("\n\n\n****\n\t*******\n\t\t***************")
-    print(ref_pop_df)
-
     merge_cols = [std_col.AGE_COL, std_col.STATE_FIPS_COL]
     ref_pop_df = ref_pop_df[merge_cols + [std_col.POPULATION_COL]]
+
+    print("\n\n\n****\n\t*******\n\t\t***************")
+    print(ref_pop_df)
 
     # Then, we merge the population data to get the reference population
     # for each age group, which we put in a column called `ref_pop_size`
