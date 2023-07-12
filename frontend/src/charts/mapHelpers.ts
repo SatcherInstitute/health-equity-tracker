@@ -502,9 +502,9 @@ export function createBarLabel(
   usePercentSuffix: boolean,
 ) {
   const PER_100K = ' per 100k'
-  const SINGLE_LINE_PERCENT = '%'
+  const PERCENT = '%'
 
-  const symbol = usePercentSuffix ? SINGLE_LINE_PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K
+  const symbol = usePercentSuffix ? PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${symbol}"`
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${symbol}"]`
   
