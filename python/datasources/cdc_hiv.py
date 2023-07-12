@@ -115,9 +115,8 @@ COMMON_COLS = [std_col.HIV_STIGMA_INDEX, std_col.HIV_CARE_PREFIX, std_col.HIV_PR
                std_col.HIV_PREP_POPULATION_PCT, std_col.HIV_POPULATION_PCT, std_col.HIV_CARE_POPULATION_PCT]
 GENDER_COLS = [f'{col}_{gender}' for col in BASE_COLS_NO_PREP for gender in [
     std_col.TOTAL_ADDITIONAL_GENDER, std_col.TOTAL_TRANS_MEN, std_col.TOTAL_TRANS_WOMEN]]
-
-
 TOTAL_DEATHS = f'{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}'
+
 
 class CDCHIVData(DataSource):
 
