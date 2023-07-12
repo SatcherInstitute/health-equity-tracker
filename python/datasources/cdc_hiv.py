@@ -335,43 +335,6 @@ class CDCHIVData(DataSource):
 
         return df
 
-    def generate_race_age_deaths_df(self, geo_level):
-        """ load in CDC Atlas table from /data for by race by age by geo_level,
-        and keep the counts needed for age-adjustment """
-
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-            'cdc_hiv',
-            f'hiv-deaths-{geo_level}-race_and_ethnicity-age.csv',
-            subdirectory="hiv_deaths",
-            skiprows=8,
-            na_values=NA_VALUES,
-            usecols=['Geography', 'FIPS', 'Age Group', 'Race/Ethnicity', 'Cases', 'Population'],
-            thousands=',',
-            dtype=DTYPE
-        )
-
-        # fix poorly formatted state names
-        df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
-
-        # rename columns
-        df = df.rename(columns={
-            'Geography': std_col.STATE_NAME_COL,
-            'FIPS': std_col.STATE_FIPS_COL,
-            'Age Group': std_col.AGE_COL,
-            'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
-            'Cases': TOTAL_DEATHS,
-            'Population': std_col.POPULATION_COL
-        })
-
-        # rename data items
-        df = df.replace(to_replace=BREAKDOWN_TO_STANDARD_BY_COL)
-        if geo_level == NATIONAL_LEVEL:
-            df[std_col.STATE_FIPS_COL] = US_FIPS
-
-        std_col.add_race_columns_from_category_id(df)
-
-        return df
-
 
 def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     """load_atlas_from_data_dir generates HIV data by breakdown and geo_level
