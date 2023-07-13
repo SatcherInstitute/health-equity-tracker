@@ -2,7 +2,6 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-import datasources.age_adjust_cdc_hiv as age_adjust
 from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 
 # Current working directory.
