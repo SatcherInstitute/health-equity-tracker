@@ -1,4 +1,5 @@
 time_period,state_name,state_fips,age,race_category_id,hiv_deaths_estimated_total,population,race_and_ethnicity
+"2019",United States,00,All,ALL,16230,276063213,All
 "2019",United States,00,55+,MULTI_NH,642,868877,Two or more races (NH)
 "2019",United States,00,45-54,MULTI_NH,244,513659,Two or more races (NH)
 "2019",United States,00,35-44,MULTI_NH,134,686276,Two or more races (NH)
