@@ -30,9 +30,10 @@ function CardWrapper(props: {
   isAgeAdjustedTable?: boolean
   scrollToHash: ScrollableHashId
   reportTitle: string
+  elementsToHide?: string[]
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    props.downloadTitle
+    props.downloadTitle, props.elementsToHide
   )
 
   const loadingComponent = (
