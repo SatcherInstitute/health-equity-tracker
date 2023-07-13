@@ -52,7 +52,10 @@ class AgeAdjustCDCHiv(DataSource):
             'upload_to_gcs should not be called for AgeAdjustCDCHiv')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for geo in [STATE_LEVEL, NATIONAL_LEVEL]:
+        for geo in [
+            NATIONAL_LEVEL,
+            # STATE_LEVEL
+        ]:
 
             age_adjusted_df = self.generate_age_adjustment(geo)
 
@@ -176,6 +179,10 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     df = pd.merge(race_and_age_df, population_df, on=merge_cols)
     df = df.rename(columns={std_col.POPULATION_COL: this_pop_size})
 
+    print("\n\n\n****\n\t*******\n\t\t***************")
+    print("df")
+    print(df)
+
     ref_pop_df = population_df.loc[population_df[std_col.RACE_CATEGORY_ID_COL] ==
                                    REFERENCE_POPULATION].reset_index(drop=True)
 
@@ -183,7 +190,12 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
     ref_pop_df = ref_pop_df[merge_cols + [std_col.POPULATION_COL]]
 
     print("\n\n\n****\n\t*******\n\t\t***************")
+    print("ref_pop_df")
     print(ref_pop_df)
+
+    print("\n\n\n****\n\t*******\n\t\t***************")
+    print("merge_cols")
+    print(merge_cols)
 
     # Then, we merge the population data to get the reference population
     # for each age group, which we put in a column called `ref_pop_size`

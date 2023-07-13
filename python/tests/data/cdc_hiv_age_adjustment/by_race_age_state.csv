@@ -1,4 +1,60 @@
 time_period,state_name,state_fips,age,race_category_id,hiv_deaths_estimated_total,population,race_and_ethnicity
+2019,Alabama,01,All,ALL,272.0,4128511.0,All
+2019,Alaska,02,All,ALL,12.0,600561.0,All
+2019,Arizona,04,All,ALL,234.0,6121860.0,All
+2019,Arkansas,05,All,ALL,107.0,2518616.0,All
+2019,California,06,All,ALL,1764.0,33070892.0,All
+2019,Colorado,08,All,ALL,130.0,4864999.0,All
+2019,Connecticut,09,All,ALL,204.0,3063295.0,All
+2019,Delaware,10,All,ALL,77.0,830589.0,All
+2019,District of Columbia,11,All,ALL,201.0,606484.0,All
+2019,Florida,12,All,ALL,1989.0,18463032.0,All
+2019,Georgia,13,All,ALL,837.0,8850817.0,All
+2019,Hawaii,15,All,ALL,44.0,1193210.0,All
+2019,Idaho,16,All,ALL,11.0,1471081.0,All
+2019,Illinois,17,All,ALL,548.0,10671639.0,All
+2019,Indiana,18,All,ALL,164.0,5611676.0,All
+2019,Iowa,19,All,ALL,61.0,2637942.0,All
+2019,Kansas,20,All,ALL,38.0,2409745.0,All
+2019,Kentucky,21,All,ALL,110.0,3752213.0,All
+2019,Louisiana,22,All,ALL,379.0,3868185.0,All
+2019,Maine,23,All,ALL,41.0,1171155.0,All
+2019,Maryland,24,All,ALL,608.0,5092825.0,All
+2019,Massachusetts,25,All,ALL,299.0,5941888.0,All
+2019,Michigan,26,All,ALL,278.0,8469397.0,All
+2019,Minnesota,27,All,ALL,83.0,4704092.0,All
+2019,Mississippi,28,All,ALL,190.0,2479498.0,All
+2019,Missouri,29,All,ALL,230.0,5156303.0,All
+2019,Montana,30,All,ALL,13.0,905520.0,All
+2019,Nebraska,31,All,ALL,33.0,1588602.0,All
+2019,Nevada,32,All,ALL,155.0,2590525.0,All
+2019,New Hampshire,33,All,ALL,17.0,1184113.0,All
+2019,New Jersey,34,All,ALL,624.0,7511106.0,All
+2019,New Mexico,35,All,ALL,56.0,1761350.0,All
+2019,New York,36,All,ALL,1795.0,16557527.0,All
+2019,North Carolina,37,All,ALL,509.0,8861496.0,All
+2019,North Dakota,38,All,ALL,5.0,628810.0,All
+2019,Ohio,39,All,ALL,399.0,9858082.0,All
+2019,Oklahoma,40,All,ALL,142.0,3272310.0,All
+2019,Oregon,41,All,ALL,127.0,3597502.0,All
+2019,Pennsylvania,42,All,ALL,602.0,10926551.0,All
+2019,Rhode Island,44,All,ALL,40.0,914729.0,All
+2019,South Carolina,45,All,ALL,314.0,4360421.0,All
+2019,South Dakota,46,All,ALL,11.0,727796.0,All
+2019,Tennessee,47,All,ALL,314.0,5748728.0,All
+2019,Texas,48,All,ALL,1467.0,23663168.0,All
+2019,Utah,49,All,ALL,37.0,2536760.0,All
+2019,Vermont,50,All,ALL,10.0,544186.0,All
+2019,Virginia,51,All,ALL,330.0,7215840.0,All
+2019,Washington,53,All,ALL,179.0,6407007.0,All
+2019,West Virginia,54,All,ALL,47.0,1539410.0,All
+2019,Wisconsin,55,All,ALL,88.0,4926880.0,All
+2019,Wyoming,56,All,ALL,5.0,484289.0,All
+2019,American Samoa,60,All,ALL,2.0,36667.0,All
+2019,Guam,66,All,ALL,4.0,127737.0,All
+2019,Northern Mariana Islands,69,All,ALL,0.0,40868.0,All
+2019,Puerto Rico,72,All,ALL,353.0,2811456.0,All
+2019,U.S. Virgin Islands,78,All,ALL,0.0,87918.0,All
 2019,Alabama,01,55+,MULTI_NH,9.0,12031.0,Two or more races (NH)
 2019,Alabama,01,45-54,MULTI_NH,5.0,5360.0,Two or more races (NH)
 2019,Alabama,01,35-44,MULTI_NH,7.0,6154.0,Two or more races (NH)
