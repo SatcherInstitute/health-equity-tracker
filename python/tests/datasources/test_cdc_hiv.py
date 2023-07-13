@@ -60,6 +60,7 @@ def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
+
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateRaceAgeState(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
