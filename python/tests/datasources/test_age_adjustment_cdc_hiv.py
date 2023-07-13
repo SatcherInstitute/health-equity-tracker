@@ -1,9 +1,9 @@
 from unittest import mock
 import os
 import pandas as pd
-from pandas._testing import assert_frame_equal
+# from pandas._testing import assert_frame_equal
 
-import datasources.age_adjust_cdc_hiv as age_adjust
+# import datasources.age_adjust_cdc_hiv as age_adjust
 
 from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 
@@ -16,7 +16,7 @@ def _load_df_from_bigquery(*args, **kwargs):
     dataset, table_name = args
     # print("mocking read from BQ table:", f'{dataset}-{table_name}')
 
-    dtype = kwargs["dtype"]
+    # dtype = kwargs["dtype"]
     # print("dtype", dtype)
 
     race_age_df = pd.read_csv(os.path.join(TEST_DIR, f'{table_name}.csv'))
@@ -25,6 +25,7 @@ def _load_df_from_bigquery(*args, **kwargs):
     # print(race_age_df)
 
     return race_age_df
+
 
 # Integration tests
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
