@@ -64,7 +64,7 @@ def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
 def testGenerateRaceAgeState(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
     df = datasource.generate_race_age_deaths_df('state')
-    df.to_csv('by_race_age_state_output.csv', index=False)
+    # df.to_csv('by_race_age_state_output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_state'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
