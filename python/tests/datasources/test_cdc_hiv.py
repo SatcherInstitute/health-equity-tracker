@@ -37,9 +37,9 @@ EXP_DTYPE = {'state_fips': str, 'time_period': str}
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     directory, filename = args
 
-    print("mocking")
+    # print("mocking")
     subdirectory = kwargs['subdirectory']
-    print(directory, subdirectory, filename)
+    # print(directory, subdirectory, filename)
 
     usecols = kwargs['usecols']
     df = pd.read_csv(os.path.join(TEST_DIR, directory, subdirectory, filename),
@@ -56,7 +56,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
     df = datasource.generate_race_age_deaths_df('national')
-    # df.to_csv('by_race_age_national.csv', index=False)
+    df.to_csv('by_race_age_national_output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -65,7 +65,7 @@ def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
 def testGenerateRaceAgeState(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
     df = datasource.generate_race_age_deaths_df('state')
-    # df.to_csv('by_race_age_state_output.csv', index=False)
+    df.to_csv('by_race_age_state_output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_state'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 

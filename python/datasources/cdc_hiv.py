@@ -301,11 +301,13 @@ class CDCHIVData(DataSource):
         return df
 
     def generate_race_age_deaths_df(self, geo_level):
-        """ load in CDC Atlas table from /data for by race by age by geo_level,
-        and keep the counts needed for age-adjustment """
+        """ load in CDC Atlas HIV Deaths tables from /data
+        for "ALL" and for "by race by age" by geo_level,
+        merge and keep the counts needed for age-adjustment """
 
         use_cols = ['Year', 'Geography', 'FIPS', 'Age Group', 'Race/Ethnicity', 'Cases', 'Population']
 
+        # ALL RACE x ALL AGE
         alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cdc_hiv',
             f'hiv_deaths-{geo_level}-all.csv',
@@ -316,12 +318,42 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-
         alls_df = alls_df[alls_df['Year'] == '2019']
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
 
+        # RACE GROUPS x ALL AGE
+        race_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv',
+            f'hiv_deaths-{geo_level}-race_and_ethnicity.csv',
+            subdirectory="hiv_deaths",
+            skiprows=8,
+            na_values=NA_VALUES,
+            usecols=use_cols,
+            thousands=',',
+            dtype=DTYPE
+        )
+        race_df = race_df[race_df['Year'] == '2019']
+        race_df[std_col.AGE_COL] = ALL_VALUE
+        race_df = race_df[use_cols]
+
+        # ALL RACE x AGE GROUPS
+        age_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv',
+            f'hiv_deaths-{geo_level}-age.csv',
+            subdirectory="hiv_deaths",
+            skiprows=8,
+            na_values=NA_VALUES,
+            usecols=use_cols,
+            thousands=',',
+            dtype=DTYPE
+        )
+        age_df = age_df[age_df['Year'] == '2019']
+        age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
+        age_df = age_df[use_cols]
+
+        # RACE GROUPS x AGE GROUPS
         race_age_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cdc_hiv',
             f'hiv_deaths-{geo_level}-race_and_ethnicity-age.csv',
@@ -336,7 +368,7 @@ class CDCHIVData(DataSource):
         # fix poorly formatted state names
         race_age_df['Geography'] = race_age_df['Geography'].str.replace('^', '', regex=False)
 
-        df = pd.concat([alls_df, race_age_df], ignore_index=True)
+        df = pd.concat([alls_df, race_df, age_df, race_age_df], ignore_index=True)
 
         # rename columns
         df = df.rename(columns={
@@ -355,10 +387,6 @@ class CDCHIVData(DataSource):
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
         std_col.add_race_columns_from_category_id(df)
-
-        print("!!!! df from race/age")
-        print(df)
-
         return df
 
 
