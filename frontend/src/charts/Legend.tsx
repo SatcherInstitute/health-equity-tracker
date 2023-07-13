@@ -153,8 +153,6 @@ export function Legend(props: LegendProps) {
         fill: props.isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
         size: props.isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-        labelFontStyle: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
         orient,
         encode: {
           labels: {
@@ -176,8 +174,6 @@ export function Legend(props: LegendProps) {
         symbolType: LEGEND_SYMBOL_TYPE,
         size: DOT_SIZE_SCALE,
         format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
-        labelFontStyle: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
         direction: props.stackingDirection,
         orient: 'left',
         columns: props.columns,
@@ -201,8 +197,6 @@ export function Legend(props: LegendProps) {
         fill: UNKNOWN_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
         size: GREY_DOT_SCALE,
-        labelFontStyle: LEGEND_TEXT_FONT,
-        labelFont: LEGEND_TEXT_FONT,
         orient,
       })
     }

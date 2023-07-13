@@ -72,7 +72,7 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
     try {
       // Hide specified elements for the screenshot
       hiddenElements.forEach((element) => {
-        const elementToHide = screenshotTargetRef.current?.querySelector(element) as HTMLElement
+        const elementToHide = document.getElementById(element)
         if (elementToHide) elementToHide.style.visibility = 'hidden'
       })
 
@@ -83,7 +83,7 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
 
       // Restore visibility of hidden elements
       hiddenElements.forEach((element) => {
-        const elementToHide = screenshotTargetRef.current?.querySelector(element) as HTMLElement
+        const elementToHide = document.getElementById(element)
         if (elementToHide) elementToHide.style.visibility = 'visible'
       })
 

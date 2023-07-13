@@ -247,6 +247,8 @@ function MapCardWithKey(props: MapCardProps) {
     setScale({ domain, range })
   }
 
+  const elementsToHide = ['map-group-dropdown', 'highest-lowest-list', 'card-options-menu']
+
   return (
     <CardWrapper
       downloadTitle={filename}
@@ -255,6 +257,7 @@ function MapCardWithKey(props: MapCardProps) {
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)
@@ -404,6 +407,7 @@ function MapCardWithKey(props: MapCardProps) {
                     container
                     justifyContent="space-between"
                     align-items="flex-end"
+                    id={'map-group-dropdown'}
                   >
                     <Grid item>
                       <DropDownMenu
@@ -538,40 +542,42 @@ function MapCardWithKey(props: MapCardProps) {
                       </Grid>
                     </Grid>
                   </Grid>
+                  <Grid id={'highest-lowest-list'}>
+                    {!mapQueryResponse.dataIsMissing() &&
+                      dataForActiveBreakdownFilter.length > 1 && (
+                        <HighestLowestList
+                          dataTypeConfig={props.dataTypeConfig}
+                          selectedRaceSuffix={selectedRaceSuffix}
+                          metricConfig={metricConfig}
+                          listExpanded={listExpanded}
+                          setListExpanded={setListExpanded}
+                          highestValues={highestValues}
+                          lowestValues={lowestValues}
+                          parentGeoQueryResponse={parentGeoQueryResponse}
+                          fips={props.fips}
+                          qualifierItems={qualifierItems}
+                          qualifierMessage={qualifierMessage}
+                          currentBreakdown={currentBreakdown}
+                          activeBreakdownFilter={activeBreakdownFilter}
+                        />
+                      )}
+                  </Grid>
 
-                  {!mapQueryResponse.dataIsMissing() &&
-                    dataForActiveBreakdownFilter.length > 1 && (
-                      <HighestLowestList
-                        dataTypeConfig={props.dataTypeConfig}
-                        selectedRaceSuffix={selectedRaceSuffix}
-                        metricConfig={metricConfig}
-                        listExpanded={listExpanded}
-                        setListExpanded={setListExpanded}
-                        highestValues={highestValues}
-                        lowestValues={lowestValues}
-                        parentGeoQueryResponse={parentGeoQueryResponse}
-                        fips={props.fips}
-                        qualifierItems={qualifierItems}
-                        qualifierMessage={qualifierMessage}
-                        currentBreakdown={currentBreakdown}
-                        activeBreakdownFilter={activeBreakdownFilter}
-                      />
-                    )}
                 </CardContent>
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                  <CardContent>
-                    <MissingDataAlert
-                      dataName={title}
-                      breakdownString={
-                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                      }
-                      isMapCard={true}
-                      fips={props.fips}
-                    />
-                  </CardContent>
-                )}
+                    <CardContent>
+                      <MissingDataAlert
+                        dataName={title}
+                        breakdownString={
+                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                        }
+                        isMapCard={true}
+                        fips={props.fips}
+                      />
+                    </CardContent>
+                  )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&
