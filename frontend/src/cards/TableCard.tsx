@@ -115,15 +115,17 @@ export function TableCard(props: TableCardProps) {
 
   const HASH_ID: ScrollableHashId = 'data-table'
 
+  const elementsToHide = ['#card-options-menu']
+
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${
-        props.dataTypeConfig.fullDisplayName
-      } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${props.dataTypeConfig.fullDisplayName
+        } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
     >
       {([queryResponse]) => {
         let data = queryResponse.data

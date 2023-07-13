@@ -6,19 +6,20 @@ import sass from '../../styles/variables.module.scss'
 
 const WATERMARK_X = 10
 const WATERMARK_Y = 10
-const WATERMARK_WIDTH = 50
-const WATERMARK_HEIGHT = 50
+const WATERMARK_WIDTH = 40
+const WATERMARK_HEIGHT = 40
 
 const LOGO_TEXT = 'Health Equity Tracker'
 const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
 const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
 const LOGO_FONT_COLOR = sass.altGreen
-const LOGO_FONT_SIZE = 16
+const LOGO_FONT_SIZE = 14
 const LOGO_FONT_STYLE = 'DM Sans, sans-serif'
 
 const CITATION_TEXT = 'Citation: Health Equity Tracker. (2023). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.'
-const CITATION_X = 10
-const CITATION_FONT_SIZE = 10
+const CITATION_X = 16
+const CITATION_FONT_SIZE = 12
+const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
 export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = []) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
@@ -42,8 +43,8 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
       context.textBaseline = 'middle'
       context.fillText(LOGO_TEXT, LOGO_TEXT_X, LOGO_TEXT_Y)
 
-      const CITATION_Y = canvas.height - 20
-      context.font = `${CITATION_FONT_SIZE}px ${LOGO_FONT_STYLE}`
+      const CITATION_Y = canvas.height
+      context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
       context.fillText(CITATION_TEXT, CITATION_X, CITATION_Y)
@@ -72,7 +73,7 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
     try {
       // Hide specified elements for the screenshot
       hiddenElements.forEach((element) => {
-        const elementToHide = document.getElementById(element)
+        const elementToHide = screenshotTargetRef.current?.querySelector(element) as HTMLElement
         if (elementToHide) elementToHide.style.visibility = 'hidden'
       })
 
@@ -83,7 +84,7 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
 
       // Restore visibility of hidden elements
       hiddenElements.forEach((element) => {
-        const elementToHide = document.getElementById(element)
+        const elementToHide = screenshotTargetRef.current?.querySelector(element) as HTMLElement
         if (elementToHide) elementToHide.style.visibility = 'visible'
       })
 

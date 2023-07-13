@@ -88,6 +88,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 
+  const elementsToHide = ['#card-options-menu']
+
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -95,6 +97,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
       scrollToHash={HASH_ID}
       minHeight={preloadHeight}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(

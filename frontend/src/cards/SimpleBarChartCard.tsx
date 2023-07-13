@@ -93,11 +93,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     chartTitle: metricConfig.chartTitle,
     fips: props.fips,
   })
-  const filename = `${chartTitle}, by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-  }`
+  const filename = `${chartTitle}, by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    }`
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
+
+  const elementsToHide = ['#card-options-menu']
 
   return (
     <CardWrapper
@@ -106,6 +107,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
     >
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
