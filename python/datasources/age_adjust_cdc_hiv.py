@@ -65,7 +65,7 @@ class AgeAdjustCDCHiv(DataSource):
             only_race_df = only_race_df[only_race_df[std_col.TIME_PERIOD_COL] == SINGLE_YEAR]
 
             df = merge_age_adjusted(
-                only_race_df, age_adjusted_df, True)
+                only_race_df, age_adjusted_df)
 
             float_cols = [
                 *BASE_COLS,
