@@ -1,8 +1,6 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-# from airflow.operators.dummy_operator import DummyOperator  # type: ignore
-
 import util
 
 _CDC_HIV_WORKFLOW_ID = 'CDC_HIV_DATA'
@@ -97,13 +95,6 @@ payload_multi = {
 }
 cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
     'cdc_hiv_exporter_multi', payload_multi, data_ingestion_dag)
-
-
-# connector = DummyOperator(
-#     default_args=default_args,
-#     dag=data_ingestion_dag,
-#     task_id='connector'
-# )
 
 # Ingestion DAG
 (
