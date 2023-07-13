@@ -9,6 +9,11 @@ from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, 'data', 'cdc_hiv_age_adjustment')
 
+GOLDEN_INTEGRATION_DATA_NATIONAL = os.path.join(
+    TEST_DIR, 'golden_data', 'race_and_ethnicity_national_time_series-with_age_adjust.csv')
+GOLDEN_INTEGRATION_DATA_STATE = os.path.join(
+    TEST_DIR, 'golden_data', 'race_and_ethnicity_state_time_series-with_age_adjust.csv')
+
 
 def _load_df_from_bigquery(*args, **kwargs):
     dataset, table_name = args
@@ -36,12 +41,28 @@ def testWriteToBq(
               'table_name': 'output_table'}
 
     adjust.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-    # assert mock_bq.call_count == 4
 
-    # expected_df = pd.read_json(GOLDEN_INTEGRATION_DATA_STATE, dtype={
-    #     'state_fips': str,
-    #     'death_ratio_age_adjusted': float,
-    # })
+    print("call count", mock_bq.call_count)
 
-    # assert_frame_equal(
-    #     mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    # NATIONAL + STATE
+    assert mock_bq.call_count == 2
+
+    dtype = {
+        'state_fips': str,
+        'time_period': str,
+        'death_ratio_age_adjusted': float,
+    }
+
+    national_df, _national_dataset, national_table_name = mock_bq.call_args_list[0][0]
+    assert national_table_name == "race_and_ethnicity_national_time_series-with_age_adjust"
+    # national_df.to_csv(f'{national_table_name}.csv', index=False)
+    expected_national_df = pd.read_csv(GOLDEN_INTEGRATION_DATA_NATIONAL, dtype=dtype, index_col=False)
+    assert_frame_equal(
+        national_df, expected_national_df, check_like=True)
+
+    state_df, _state_dataset, state_table_name = mock_bq.call_args_list[1][0]
+    assert state_table_name == "race_and_ethnicity_state_time_series-with_age_adjust"
+    # state_df.to_csv(f'{state_table_name}.csv', index=False)
+    expected_state_df = pd.read_csv(GOLDEN_INTEGRATION_DATA_STATE, dtype=dtype, index_col=False)
+    assert_frame_equal(
+        state_df, expected_state_df, check_like=True)
