@@ -32,16 +32,22 @@ def testWriteToBq(
     mock_race_age: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
-    print("testWriteToBq")
     adjust = AgeAdjustCDCHiv()
-
     kwargs = {'filename': 'test_file.csv',
               'metadata_table_id': 'test_metadata',
               'table_name': 'output_table'}
 
     adjust.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
-    print("call count", mock_bq.call_count)
+    # (RACE/AGE + RACE) X (STATE + NATIONAL)
+    assert mock_race_age.call_count == 4
+    called_bq_tables = [call[0][1] for call in mock_race_age.call_args_list]
+    assert called_bq_tables == [
+        'by_race_age_national',
+        'race_and_ethnicity_national_time_series',
+        'by_race_age_state',
+        'race_and_ethnicity_state_time_series'
+    ]
 
     # NATIONAL + STATE
     assert mock_bq.call_count == 2

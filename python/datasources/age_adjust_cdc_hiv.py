@@ -31,7 +31,6 @@ AGE_ADJUST_RACES = {
     Race.NHPI_NH.value,
     Race.ASIAN_NH.value,
     Race.MULTI_NH.value,
-    Race.OTHER_NONSTANDARD_NH.value,
 }
 
 EXPECTED_DEATHS = 'expected_deaths'
@@ -189,7 +188,6 @@ def get_expected_col(race_and_age_df, population_df, expected_col, raw_number_co
 
     # Finally, we calculate the expected value of the raw count
     # using the function `get_expected`
-
     df[expected_col] = df.apply(get_expected, axis=1)
     df = df.drop(columns=[this_pop_size, ref_pop_size])
 
@@ -204,6 +202,10 @@ def age_adjust_from_expected(df):
        df: dataframe with an 'expected_deaths' field
        """
 
+    # DROP THE `All` AGE ROWS TO AVOID DOUBLE COUNTING
+    df = df.loc[
+        df[std_col.AGE_COL] != std_col.ALL_VALUE].reset_index(drop=True)
+
     def get_age_adjusted_ratios(row):
         row[std_col.HIV_DEATH_RATIO_AGE_ADJUSTED] = None if \
             not row[base_pop_expected_deaths] else \
@@ -215,9 +217,8 @@ def age_adjust_from_expected(df):
     groupby_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL,
                     std_col.RACE_CATEGORY_ID_COL, std_col.TIME_PERIOD_COL]
 
-    # First, sum up expected deaths across age groups
+    # Sum all of a race group's age rows into a single row
     df = df.groupby(groupby_cols).sum().reset_index()
-
     base_pop_df = df.loc[df[std_col.RACE_CATEGORY_ID_COL] ==
                          BASE_POPULATION].reset_index(drop=True)
 
@@ -234,7 +235,6 @@ def age_adjust_from_expected(df):
     # expected deaths compared
     # to the base race.
     df = df.apply(get_age_adjusted_ratios, axis=1)
-
     needed_cols = groupby_cols
     needed_cols.append(std_col.HIV_DEATH_RATIO_AGE_ADJUSTED)
 
