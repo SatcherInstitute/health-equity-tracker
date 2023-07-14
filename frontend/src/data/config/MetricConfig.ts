@@ -39,7 +39,10 @@ export function isDropdownVarId(str: string): str is DropdownVarId {
   return !!dropdownVarIds.find((dropdown) => str === dropdown)
 }
 
-export type AgeAdjustedDataTypeId = 'covid_deaths' | 'covid_hospitalizations'
+export type AgeAdjustedDataTypeId =
+  | 'covid_deaths'
+  | 'covid_hospitalizations'
+  | 'hiv_deaths'
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
@@ -752,6 +755,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           metricId: 'hiv_deaths_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          metricId: 'death_ratio_age_adjusted',
+          chartTitle: 'Age-adjusted risk of HIV deaths compared to White (NH)',
+          shortLabel: 'Risk of HIV Death',
+          type: 'age_adjusted_ratio',
+          ageAdjusted: true,
         },
       },
     },

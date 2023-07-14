@@ -1,4 +1,3 @@
-import React from 'react'
 import { AgeAdjustedTableChart } from '../charts/AgeAdjustedTableChart'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
@@ -44,8 +43,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
-
-export const dataTypeLinkMap: Record<AgeAdjustedDataTypeId, string> = {
+export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {
   covid_deaths: COVID_DEATHS_US_SETTING,
   covid_hospitalizations: COVID_HOSP_US_SETTING,
 }
