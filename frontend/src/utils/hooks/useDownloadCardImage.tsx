@@ -6,14 +6,14 @@ import sass from '../../styles/variables.module.scss'
 
 const WATERMARK_X = 10
 const WATERMARK_Y = 10
-const WATERMARK_WIDTH = 40
-const WATERMARK_HEIGHT = 40
+const WATERMARK_WIDTH = 100
+const WATERMARK_HEIGHT = 100
 
 const LOGO_TEXT = 'Health Equity Tracker'
 const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
 const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
 const LOGO_FONT_COLOR = sass.altGreen
-const LOGO_FONT_SIZE = 12
+const LOGO_FONT_SIZE = 20
 const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 
 const CITATION_TEXT =
