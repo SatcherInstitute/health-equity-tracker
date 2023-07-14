@@ -214,7 +214,7 @@ function AgeAdjustmentTab() {
               </ol>
 
               <h3 className={styles.MethodologyQuestion}>
-                Age-adjustment Example: COVID-19 Deaths
+                Age-Adjustment Example: COVID-19 Deaths
               </h3>
               <p>
                 Here is an example of a single state with two races,{' '}
