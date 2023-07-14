@@ -63,12 +63,12 @@ export default function AltTableView(props: AltTableViewProps) {
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className={styles.AltTableExpanderBox}
+      id={'rates-over-time-table'}
     >
       <div className={styles.CollapseButton}>
         <IconButton
-          aria-label={`${
-            !props.expanded ? 'Expand' : 'Collapse'
-          } data table view of ${props.expandBoxLabel}`}
+          aria-label={`${!props.expanded ? 'Expand' : 'Collapse'
+            } data table view of ${props.expandBoxLabel}`}
           aria-expanded={props.expanded}
           onClick={() => {
             props.setExpanded(!props.expanded)

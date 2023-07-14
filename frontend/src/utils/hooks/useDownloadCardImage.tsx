@@ -13,10 +13,11 @@ const LOGO_TEXT = 'Health Equity Tracker'
 const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
 const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
 const LOGO_FONT_COLOR = sass.altGreen
-const LOGO_FONT_SIZE = 14
-const LOGO_FONT_STYLE = 'DM Sans, sans-serif'
+const LOGO_FONT_SIZE = 12
+const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 
-const CITATION_TEXT = 'Citation: Health Equity Tracker. (2023). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.'
+const CITATION_TEXT =
+  'Citation: Health Equity Tracker. (2023). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.'
 const CITATION_X = 16
 const CITATION_FONT_SIZE = 12
 const CITATION_FONT_STYLE = '"Inter",sans-serif'
@@ -25,48 +26,59 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
   const screenshotTargetRef = createRef<HTMLDivElement>()
 
   function download(canvas: HTMLCanvasElement, { name = cardTitle, extension = 'png' } = {}) {
-    // Canvas for watermark, logo text, & citation
     const combinedCanvas = document.createElement('canvas')
     combinedCanvas.width = canvas.width
-    combinedCanvas.height = canvas.height
+    combinedCanvas.height = canvas.height + CITATION_FONT_SIZE + 10 // Adjust the height to include the citation
     const context = combinedCanvas.getContext('2d')
 
-    context?.drawImage(canvas, 0, 0)
-
-    // Load the logo image
     const logoImage = new Image()
     logoImage.src = AppBarLogo
 
     if (context) {
+      // Draw the screenshot onto the combined canvas
+      context.drawImage(canvas, 0, 0)
+
+      // Save the original globalAlpha value
+      const originalAlpha = context.globalAlpha
+
+      // Set opacity for watermark and logo
+      context.globalAlpha = 0.7
+
+      // Draw the watermark and logo
+      context.drawImage(logoImage, WATERMARK_X, WATERMARK_Y, WATERMARK_WIDTH, WATERMARK_HEIGHT)
       context.font = `${LOGO_FONT_SIZE}px ${LOGO_FONT_STYLE}`
       context.fillStyle = LOGO_FONT_COLOR
       context.textBaseline = 'middle'
       context.fillText(LOGO_TEXT, LOGO_TEXT_X, LOGO_TEXT_Y)
 
-      const CITATION_Y = canvas.height
+      // Reset the globalAlpha to the original value
+      context.globalAlpha = originalAlpha
+
+      // Draw the citation background
+      const citationBackgroundHeight = CITATION_FONT_SIZE + 10
+      context.fillStyle = 'white' // Set the background color with opacity
+      context.fillRect(0, combinedCanvas.height - citationBackgroundHeight, combinedCanvas.width, citationBackgroundHeight)
+
+      // Draw the citation
+      const citationY = combinedCanvas.height - CITATION_FONT_SIZE - 5 // Position the citation at the bottom
       context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
-      context.fillText(CITATION_TEXT, CITATION_X, CITATION_Y)
-
+      context.fillText(CITATION_TEXT, CITATION_X, citationY)
     }
 
-    // Position the logo as a watermark on the combined canvas
-    logoImage.onload = () => {
-      context?.drawImage(logoImage, WATERMARK_X, WATERMARK_Y, WATERMARK_WIDTH, WATERMARK_HEIGHT)
-      const image = combinedCanvas.toDataURL('image/png')
+    const image = combinedCanvas.toDataURL('image/png')
 
-      const a = document.createElement('a')
-      a.href = image
-      a.download = createFileName(
-        extension,
-        `${name} from Health Equity Tracker ${new Date().toLocaleDateString(undefined, {
-          month: 'short',
-          year: 'numeric',
-        })}`
-      )
-      a.click()
-    }
+    const a = document.createElement('a')
+    a.href = image
+    a.download = createFileName(
+      extension,
+      `${name} from Health Equity Tracker ${new Date().toLocaleDateString(undefined, {
+        month: 'short',
+        year: 'numeric',
+      })}`
+    )
+    a.click()
   }
 
   async function downloadTargetScreenshot() {
@@ -81,8 +93,7 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
         logging: true,
         useCORS: true,
       })
-
-      // Restore visibility of hidden elements
+      // Restore specified elements for the screenshot
       hiddenElements.forEach((element) => {
         const elementToHide = screenshotTargetRef.current?.querySelector(element) as HTMLElement
         if (elementToHide) elementToHide.style.visibility = 'visible'

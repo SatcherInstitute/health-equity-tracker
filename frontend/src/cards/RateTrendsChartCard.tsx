@@ -97,7 +97,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
-  const elementsToHide = ['#card-options-menu']
+  const elementsToHide = ['#rates-over-time-table', '#card-options-menu']
 
   return (
     <CardWrapper
