@@ -55,14 +55,13 @@ class AgeAdjustCDCHiv(DataSource):
             NATIONAL_LEVEL,
             STATE_LEVEL
         ]:
+            # only merges single year for now
             age_adjusted_df = self.generate_age_adjustment(geo)
             only_race_source = f'race_and_ethnicity_{geo}_time_series'
             table_name = f'{only_race_source}-with_age_adjust'
 
             only_race_df = gcs_to_bq_util.load_df_from_bigquery(
                 'cdc_hiv_data', only_race_source, dtype={std_col.TIME_PERIOD_COL: str, std_col.STATE_FIPS_COL: str})
-
-            only_race_df = only_race_df[only_race_df[std_col.TIME_PERIOD_COL] == SINGLE_YEAR]
 
             df = merge_age_adjusted(
                 only_race_df, age_adjusted_df)
@@ -130,6 +129,7 @@ def merge_age_adjusted(df, age_adjusted_df):
 
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
+
     return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
 
 
