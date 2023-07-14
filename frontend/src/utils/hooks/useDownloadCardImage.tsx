@@ -18,8 +18,8 @@ const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 
 const CITATION_TEXT =
   'Citation: Health Equity Tracker. (2023). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.'
-const CITATION_X = 50
-const CITATION_FONT_SIZE = 30
+const CITATION_X = 45
+const CITATION_FONT_SIZE = 20
 const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
 export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = []) {
