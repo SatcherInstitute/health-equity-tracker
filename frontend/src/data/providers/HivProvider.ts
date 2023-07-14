@@ -1,6 +1,6 @@
 import { getDataManager } from '../../utils/globals'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
-import { type TimeView, type Breakdowns } from '../query/Breakdowns'
+import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
@@ -101,17 +101,11 @@ class HivProvider extends VariableProvider {
     super('hiv_provider', HIV_DETERMINANTS)
   }
 
-  getDatasetId(
-    breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId,
-    timeView?: TimeView
-  ): string {
+  getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId): string {
     const isBlackWomenData = dataTypeId?.includes('black_women')
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
-        return timeView === 'cross_sectional'
-          ? 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
-          : 'cdc_hiv_data-race_and_ethnicity_national_time_series'
+        return 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
       }
       if (breakdowns.hasOnlyAge()) {
         if (isBlackWomenData)
@@ -124,9 +118,7 @@ class HivProvider extends VariableProvider {
     }
     if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace()) {
-        return timeView === 'cross_sectional'
-          ? 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
-          : 'cdc_hiv_data-race_and_ethnicity_state_time_series'
+        return 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
       }
       if (breakdowns.hasOnlyAge()) {
         if (isBlackWomenData)
@@ -164,11 +156,7 @@ class HivProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(
-      breakdowns,
-      metricQuery.dataTypeId,
-      timeView
-    )
+    const datasetId = this.getDatasetId(breakdowns, metricQuery.dataTypeId)
     const hiv = await getDataManager().loadDataset(datasetId)
     let df = hiv.toDataFrame()
 

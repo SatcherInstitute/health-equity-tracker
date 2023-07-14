@@ -2,8 +2,9 @@ import Grid from '@mui/material/Grid'
 import styles from './DataCatalogPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import {
-  COVID_DEATHS_US_SETTING,
-  COVID_HOSP_US_SETTING,
+  AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  AGE_ADJUST_COVID_HOSP_US_SETTING,
+  AGE_ADJUST_HIV_DEATHS_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Button } from '@mui/material'
@@ -13,9 +14,9 @@ function AgeAdjustmentTab() {
   return (
     <>
       <Helmet>
-        <title>Age Adjustment - Health Equity Tracker</title>
+        <title>Age-Adjustment - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Age Adjustment</h2>
+      <h2 className={styles.ScreenreaderTitleHeader}>Age-Adjustment</h2>
       <Grid
         container
         direction="column"
@@ -35,144 +36,185 @@ function AgeAdjustmentTab() {
 
             <div className={styles.MethodologyAnswer}>
               <p>
-                We have decided to present age-adjusted ratios when possible in
-                order to show a more accurate and equitable view of the impact
-                on non-white communities in the United States. Currently, we are
-                able to calculate these age-adjusted ratios for{' '}
-                <Link to={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}>
+                We have decided to present <b>age-adjusted ratios</b> when
+                possible in order to show a more accurate and equitable view of
+                the impact on non-white communities in the United States.
+              </p>
+              <p>
+                Currently, we are able to calculate these age-adjusted ratios
+                for{' '}
+                <Link
+                  to={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
+                >
+                  HIV deaths
+                </Link>
+                {', '}
+                <Link
+                  to={
+                    EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_COVID_DEATHS_US_SETTING
+                  }
+                >
                   COVID-19 deaths
                 </Link>
                 {' and '}
-                <Link to={EXPLORE_DATA_PAGE_LINK + COVID_HOSP_US_SETTING}>
-                  hospitalizations
+                <Link
+                  to={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_COVID_HOSP_US_SETTING}
+                >
+                  COVID-19 hospitalizations
                 </Link>
                 , and we present the findings in a distinct, age-adjusted table.
                 All of the other data shown on the tracker, including
-                visualizations across all topics, are not age-adjusted. Showing
-                non-adjusted data can mask disparities, and we are working to
-                expand our analysis to provide a more equitable view of the
-                impact to racial and ethnic minorities.
+                visualizations across all topics, are not age-adjusted, or
+                ‘crude rates’. Showing non-adjusted data can mask disparities,
+                and we are working to expand our analysis to provide a more
+                equitable view of the impact to racial and ethnic minorities.
               </p>
-              We use an internal standardization method, with the standard
-              population for each state being that state's total population.
-              Thus, our age adjusted ratios can only be used to compare racial
-              groups within each state, and <b>not</b> to compare racial groups
-              between states. We source the standard population numbers from the
-              2019 population numbers from{' '}
-              <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
-                County Population by Characteristics
-              </a>
-              .
+              <p>
+                We use an internal standardization method, with the standard
+                population for each state being that state's total population.
+                Thus, our age-adjusted ratios can only be used to compare racial
+                groups within each state, and <b>not</b> to compare racial
+                groups between states. We source the standard population numbers
+                from the 2019 population numbers from{' '}
+                <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+                  County Population by Characteristics
+                </a>
+                .
+              </p>
               <h4 className={styles.MethodologySubsubheaderText}>
                 Data Sourcing
               </h4>
               <p>
-                In order to do an age adjustment, we needed the following pieces
+                In order to do an age-adjustment, we needed the following pieces
                 of information:
               </p>
               <ol>
                 <li>
                   <b>
-                    COVID-19 deaths and COVID-19 hospitalizations broken down by
-                    age and race:
+                    Condition counts (not rates) broken down by both age and
+                    race:
                   </b>
 
-                  <p>
-                    We were able to use the{' '}
-                    <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t">
-                      CDC Case Surveillance Restricted Access Detailed Data
-                    </a>{' '}
-                    for this. It can break down by race and age to ten-year
-                    buckets. The age buckets are: <b>0-9</b>, <b>10-19</b>,{' '}
-                    <b>20-29</b>, <b>30-39</b>, <b>40-49</b>, <b>50-59</b>,{' '}
-                    <b>60-69</b>, <b>70-79</b>, <b>80+</b>
-                  </p>
+                  <ul>
+                    <li>
+                      For COVID-19, we use the{' '}
+                      <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t">
+                        CDC Case Surveillance Restricted Access Detailed Data
+                      </a>{' '}
+                      for this. It can break down by race and age to ten-year
+                      buckets. The age buckets are: <b>0-9</b>, <b>10-19</b>,{' '}
+                      <b>20-29</b>, <b>30-39</b>, <b>40-49</b>, <b>50-59</b>,{' '}
+                      <b>60-69</b>, <b>70-79</b>, <b>80+</b>
+                    </li>
+
+                    <li>
+                      For HIV, we use the{' '}
+                      <a href="https://gis.cdc.gov/grasp/nchhstpatlas/tables.html">
+                        CDC Atlas data tables
+                      </a>
+                    </li>
+                  </ul>
                 </li>
 
                 <li>
-                  <b>Population numbers broken down by race and age:</b>
+                  <b>
+                    Population counts (not rates) broken down by both race and
+                    age:
+                  </b>
 
-                  <p>
-                    The most reliable population source we could find with these
-                    numbers were the{' '}
-                    <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
-                      County Population by Characteristics
-                    </a>{' '}
-                    numbers provided by the census. They break down to the
-                    correct racial and age groupings that match the cdc
-                    restricted dataset.
-                  </p>
+                  <ul>
+                    <li>
+                      For COVID-19, the most reliable population source we could
+                      find with these particular age and race groupings were the{' '}
+                      <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+                        County Population by Characteristics
+                      </a>{' '}
+                      numbers provided by the census
+                    </li>
+                    <li>
+                      For HIV, the CDC Atlas provides population counts in the
+                      same tables as the condition counts
+                    </li>
+                  </ul>
                 </li>
               </ol>
               <h4 className={styles.MethodologySubsubheaderText}>Algorithm</h4>
               <p>
-                In order to generate the age adjusted deaths and hospitalization
-                ratios, we do the following
+                In order to generate the age-adjusted ratios, we do the
+                following
               </p>
               <ol>
                 <li>
                   <p>
                     <b>
-                      For each race and age block, calculate the true death
-                      rate:
+                      For each race/age combination, calculate the true
+                      condition rate:
                     </b>
                   </p>
                   <pre>
-                    true_death_rate = (COVID Deaths for race A, age group 1) /
-                    (Population of race A, age group 1)
+                    true_condition_rate = (Condition count for race A, age group
+                    1) / (Population count of race A, age group 1)
                   </pre>
                 </li>
 
                 <li>
                   <p>
                     <b>
-                      Calculate the expected deaths for each race/age group:
+                      Calculate the expected count for each race/age
+                      combination:
                     </b>
                   </p>
                   <p>
-                    To do this we multiply the true death rate by the states's
-                    total population for that age group. The expected deaths are
-                    the number of people of the racial group who would have been
-                    expected to die if the racial group had the same age
-                    breakdown as the population as a whole.
+                    To do this we multiply the true condition rate by the
+                    state's total population for that age group. The expected
+                    condition counts are the number of people of the racial
+                    group who would have been expected to have this condition if
+                    the racial group had the same age breakdown as the
+                    population as a whole.
                   </p>
                   <pre>
-                    expected_deaths = true_death_rate * (Total Population for
-                    age group)
+                    expected_condition_count = true_condition_rate * (Total
+                    Population for age group)
                   </pre>
                 </li>
 
                 <li>
                   <p>
                     <b>
-                      Calculate the total expected deaths for each racial group:
+                      Calculate the total expected condition count for each
+                      racial group:
                     </b>
                   </p>
                   <p>
-                    For each racial group, sum together the expected deaths for
-                    each age group.
+                    For each racial group, sum together the expected condition
+                    counts for each age group.
                   </p>
                 </li>
 
                 <li>
                   <p>
-                    <b>Calculate the age-adjusted death ratios:</b>
+                    <b>Calculate the age-adjusted condition ratios:</b>
                   </p>
                   <p>
-                    Divide the total expected deaths of each race by the
-                    expected White (NH) deaths.
+                    For each non-White NH race, divide the total expected
+                    condition counts for that race by the expected White (NH)
+                    condition counts.
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    <b>Edge cases:</b>
+                  </p>
+                  <p>
+                    If a ratio ends up being less than <b>0.1</b>, we report it
+                    on the tracker as <b>Insufficient Data</b> to prevent
+                    sharing potentially unreliable data.
                   </p>
                 </li>
               </ol>
-              <h4 className={styles.MethodologySubsubheaderText}>Edge cases</h4>
-              <ul>
-                <li>
-                  If a ratio ends up being less than <b>0.1</b>, we report it on
-                  the tracker as <b>Insufficient Data</b>.
-                </li>
-              </ul>
+
               <h3 className={styles.MethodologyQuestion}>
-                Age-adjustment Example
+                Age-adjustment Example: COVID-19 Deaths
               </h3>
               <p>
                 Here is an example of a single state with two races,{' '}
@@ -445,7 +487,7 @@ function AgeAdjustmentTab() {
             className={styles.PrimaryButton}
             href={
               EXPLORE_DATA_PAGE_LINK +
-              COVID_DEATHS_US_SETTING +
+              AGE_ADJUST_COVID_DEATHS_US_SETTING +
               '#age-adjusted-risk'
             }
           >
