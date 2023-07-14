@@ -3,6 +3,7 @@ import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import sass from '../../styles/variables.module.scss'
+import { CITATION_APA } from '../../pages/DataCatalog/MethodologyTab'
 
 const WATERMARK_X = 10
 const WATERMARK_Y = 10
@@ -16,10 +17,8 @@ const LOGO_FONT_COLOR = sass.altGreen
 const LOGO_FONT_SIZE = 30
 const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 
-const CITATION_TEXT =
-  'Citation: Health Equity Tracker. (2023). Satcher Health Leadership Institute. Morehouse School of Medicine. https://healthequitytracker.org.'
-const CITATION_X = 45
-const CITATION_FONT_SIZE = 20
+const CITATION_X = 40
+const CITATION_FONT_SIZE = 22
 const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
 export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = []) {
@@ -64,7 +63,7 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
       context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
-      context.fillText(CITATION_TEXT, CITATION_X, citationY)
+      context.fillText(`Citation: ${CITATION_APA}`, CITATION_X, citationY)
     }
 
     const image = combinedCanvas.toDataURL('image/png')
