@@ -27,6 +27,7 @@ import {
   AGE,
   SEX,
   type RaceAndEthnicityGroup,
+  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
@@ -88,8 +89,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   })
 
   const metricIds = Object.keys(metricConfigs) as MetricId[]
-  const raceQuery = new MetricQuery(metricIds, raceBreakdowns)
-  const ageQuery = new MetricQuery(metricIds, ageBreakdowns)
+  const raceQuery = new MetricQuery(
+    /* metricIds */ metricIds,
+    /* breakdowns */ raceBreakdowns,
+    /* dataTypeId */ undefined,
+    /* timeView */ CROSS_SECTIONAL
+  )
+  const ageQuery = new MetricQuery(
+    /* metricIds */ metricIds,
+    /* breakdowns */ ageBreakdowns,
+    /* dataTypeId */ undefined,
+    /* timeView */ CROSS_SECTIONAL
+  )
   const ratioId = metricIds[0]
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
     config.metricId.includes('ratio')
@@ -116,7 +127,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   return (
     <CardWrapper
       downloadTitle={chartTitle}
-      isAgeAdjustedTable={true}
+      isCensusNotAcs={props.dropdownVarId === 'covid'}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
       scrollToHash={HASH_ID}

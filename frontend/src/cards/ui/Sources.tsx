@@ -80,7 +80,7 @@ export function getDataSourceMapFromDatasetIds(
 interface SourcesProps {
   queryResponses: MetricQueryResponse[]
   metadata: MapOfDatasetMetadata
-  isAgeAdjustedTable?: boolean
+  isCensusNotAcs?: boolean
   hideNH?: boolean
   downloadTargetScreenshot?: () => Promise<boolean>
   isMulti?: boolean
@@ -96,7 +96,7 @@ export function Sources(props: SourcesProps) {
   let datasetIds = stripCountyFips(unstrippedDatasetIds)
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
-  if (props.isAgeAdjustedTable) {
+  if (props.isCensusNotAcs) {
     datasetIds = datasetIds.filter((datasetId) => !datasetId.includes('acs'))
     datasetIds.push('census_pop_estimates-race_and_ethnicity')
   }
@@ -147,7 +147,7 @@ export function Sources(props: SourcesProps) {
           <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
         )}
       </Grid>
-      {props.isMulti ?
+      {props.isMulti ? (
         <>
           <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
             {sourcesInfo}
@@ -161,18 +161,17 @@ export function Sources(props: SourcesProps) {
             justifyContent={'flex-end'}
             alignItems={'flex-end'}
           >
-            {props.downloadTargetScreenshot &&
+            {props.downloadTargetScreenshot && (
               <DownloadCardImageButton
                 downloadTargetScreenshot={props.downloadTargetScreenshot}
                 isMulti={props.isMulti}
               />
-            }
+            )}
           </Grid>
-        </> :
+        </>
+      ) : (
         <>{sourcesInfo}</>
-      }
-
-
+      )}
     </Grid>
   )
 }
