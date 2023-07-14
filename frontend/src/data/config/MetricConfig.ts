@@ -757,7 +757,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           type: 'pct_relative_inequity',
         },
         age_adjusted_ratio: {
-          metricId: 'death_ratio_age_adjusted',
+          metricId: 'hiv_deaths_ratio_age_adjusted',
           chartTitle: 'Age-adjusted risk of HIV deaths compared to White (NH)',
           shortLabel: 'Risk of HIV Death',
           type: 'age_adjusted_ratio',
