@@ -72,10 +72,10 @@ function AgeAdjustmentTab() {
               <p>
                 We use an internal standardization method, with the standard
                 population for each state being that state's total population.
-                Thus, our age-adjusted ratios can only be used to compare racial
-                groups within each state, and <b>not</b> to compare racial
-                groups between states. We source the standard population numbers
-                from the 2019 population numbers from{' '}
+                Thus, our age-adjusted ratios can only be used to compare race
+                groups within each state, and <b>not</b> to compare race groups
+                between states. We source the standard population numbers from
+                the 2019 population numbers from{' '}
                 <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
                   County Population by Characteristics
                 </a>
@@ -167,10 +167,10 @@ function AgeAdjustmentTab() {
                   <p>
                     To do this we multiply the true condition rate by the
                     state's total population for that age group. The expected
-                    condition counts are the number of people of the racial
-                    group who would have been expected to have this condition if
-                    the racial group had the same age breakdown as the
-                    population as a whole.
+                    condition counts are the number of people of the race group
+                    who would have been expected to have this condition if the
+                    race group had the same age breakdown as the population as a
+                    whole.
                   </p>
                   <pre>
                     expected_condition_count = true_condition_rate * (Total
@@ -181,12 +181,12 @@ function AgeAdjustmentTab() {
                 <li>
                   <p>
                     <b>
-                      Calculate the total expected condition count for each
-                      racial group:
+                      Calculate the total expected condition count for each race
+                      group:
                     </b>
                   </p>
                   <p>
-                    For each racial group, sum together the expected condition
+                    For each race group, sum together the expected condition
                     counts for each age group.
                   </p>
                 </li>
@@ -221,8 +221,8 @@ function AgeAdjustmentTab() {
                 <b>Race A</b> and <b>Race B</b>, with three age breakdowns:{' '}
                 <b>0-29</b>, <b>30-59</b>, and <b>60+</b>. <b>Race A</b> will be
                 the standard race we are comparing against (like{' '}
-                <b>White, Non-Hispanic</b>), and <b>Race B</b> is any other
-                racial group.
+                <b>White, Non-Hispanic</b>), and <b>Race B</b> is any other race
+                group.
               </p>
               <table className={styles.ExampleTable}>
                 <thead>

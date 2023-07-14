@@ -1,6 +1,7 @@
 from datasources.acs_condition import AcsCondition
 from datasources.acs_population import ACSPopulation
 from datasources.age_adjust_cdc_restricted import AgeAdjustCDCRestricted
+from datasources.age_adjust_cdc_hiv import AgeAdjustCDCHiv
 from datasources.ahr import AHRData
 from datasources.bjs_incarceration import BJSIncarcerationData
 from datasources.cawp_time import CAWPTimeData
@@ -24,6 +25,7 @@ DATA_SOURCES_DICT = {
     AcsCondition.get_id(): AcsCondition(),
     ACSPopulation.get_id(): ACSPopulation(),
     AgeAdjustCDCRestricted.get_id(): AgeAdjustCDCRestricted(),
+    AgeAdjustCDCHiv.get_id(): AgeAdjustCDCHiv(),
     AHRData.get_id(): AHRData(),
     BJSIncarcerationData.get_id(): BJSIncarcerationData(),
     CAWPTimeData.get_id(): CAWPTimeData(),
