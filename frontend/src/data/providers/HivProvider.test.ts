@@ -66,7 +66,8 @@ const testCases = [
   },
   {
     name: 'State and Race Breakdown Deaths',
-    datasetId: 'cdc_hiv_data-race_and_ethnicity_state_time_series',
+    datasetId:
+      'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     breakdownVar: RACE,
     metricName: 'hiv_deaths',
@@ -90,7 +91,8 @@ const testCases = [
   },
   {
     name: 'National and Race Breakdown PrEP',
-    datasetId: 'cdc_hiv_data-race_and_ethnicity_national_time_series',
+    datasetId:
+      'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('00')),
     breakdownVar: RACE,
     metricName: 'hiv_prep',
@@ -98,7 +100,8 @@ const testCases = [
   },
   {
     name: 'National and Age Breakdown Diagnoses',
-    datasetId: 'cdc_hiv_data-race_and_ethnicity_national_time_series',
+    datasetId:
+      'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('00')),
     breakdownVar: RACE,
     metricName: 'hiv_diagnoses',
@@ -106,7 +109,8 @@ const testCases = [
   },
   {
     name: 'National and Race Breakdown Deaths',
-    datasetId: 'cdc_hiv_data-race_and_ethnicity_national_time_series',
+    datasetId:
+      'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('00')),
     breakdownVar: RACE,
     metricName: 'hiv_deaths',
