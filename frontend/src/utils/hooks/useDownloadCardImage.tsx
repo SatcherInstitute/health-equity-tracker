@@ -17,7 +17,7 @@ const LOGO_FONT_COLOR = sass.altGreen
 const LOGO_FONT_SIZE = 30
 const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 
-const CITATION_X = 30
+const CITATION_X = 31
 const CITATION_FONT_SIZE = 22
 const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
