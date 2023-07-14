@@ -21,13 +21,15 @@ const CITATION_X = 31
 const CITATION_FONT_SIZE = 22
 const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
+const TOP_PADDING = 50
+
 export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = []) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
 
   function download(canvas: HTMLCanvasElement, { name = cardTitle, extension = 'png' } = {}) {
     const combinedCanvas = document.createElement('canvas')
     combinedCanvas.width = canvas.width
-    combinedCanvas.height = canvas.height + CITATION_FONT_SIZE + 10 // Adjust the height to include the citation
+    combinedCanvas.height = canvas.height + CITATION_FONT_SIZE + 10 + TOP_PADDING
     const context = combinedCanvas.getContext('2d')
 
     const logoImage = new Image()
@@ -35,7 +37,15 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
 
     if (context) {
       // Draw the screenshot onto the combined canvas
-      context.drawImage(canvas, 0, 0)
+      context.fillStyle = 'white'
+      context.fillRect(0, 0, combinedCanvas.width, TOP_PADDING)
+
+      context.drawImage(canvas, 0, TOP_PADDING)
+
+      // Draw the citation background
+      const citationBackgroundHeight = CITATION_FONT_SIZE + 10
+      context.fillStyle = 'white'
+      context.fillRect(0, combinedCanvas.height - citationBackgroundHeight, combinedCanvas.width, citationBackgroundHeight)
 
       // Save the original globalAlpha value
       const originalAlpha = context.globalAlpha
@@ -53,13 +63,8 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
       // Reset the globalAlpha to the original value
       context.globalAlpha = originalAlpha
 
-      // Draw the citation background
-      const citationBackgroundHeight = CITATION_FONT_SIZE + 10
-      context.fillStyle = 'white' // Set the background color with opacity
-      context.fillRect(0, combinedCanvas.height - citationBackgroundHeight, combinedCanvas.width, citationBackgroundHeight)
-
       // Draw the citation
-      const citationY = combinedCanvas.height - CITATION_FONT_SIZE - 5 // Position the citation at the bottom
+      const citationY = combinedCanvas.height - CITATION_FONT_SIZE - 5
       context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'

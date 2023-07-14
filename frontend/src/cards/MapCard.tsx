@@ -247,7 +247,7 @@ function MapCardWithKey(props: MapCardProps) {
     setScale({ domain, range })
   }
 
-  const elementsToHide = ['#map-group-dropdown', '#highest-lowest-list', '#card-options-menu']
+  const elementsToHide = ['#map-group-dropdown', '#highest-lowest-list', '#download-card-image-button', '#card-options-menu']
 
   return (
     <CardWrapper
