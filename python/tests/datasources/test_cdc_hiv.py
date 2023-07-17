@@ -25,6 +25,7 @@ ALLS_DATA = {
 GOLDEN_DATA = {
     'age_national': os.path.join(GOLDEN_DIR, 'age_national_output.csv'),
     'race_age_national': os.path.join(GOLDEN_DIR, 'race_age_national_output.csv'),
+    'race_age_state': os.path.join(GOLDEN_DIR, 'race_age_state_output.csv'),
     'race_national': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_national_output.csv'),
     'race_state': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'sex_national_output.csv'),
@@ -43,7 +44,6 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
                      na_values=NA_VALUES,
                      usecols=usecols,
                      thousands=',')
-
     return df
 
 
@@ -52,6 +52,14 @@ def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
     df = datasource.generate_race_age_deaths_df('national')
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE)
+    assert_frame_equal(df, expected_df, check_like=True)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
+def testGenerateRaceAgeState(mock_data_dir: mock.MagicMock):
+    datasource = CDCHIVData()
+    df = datasource.generate_race_age_deaths_df('state')
+    expected_df = pd.read_csv(GOLDEN_DATA['race_age_state'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -71,7 +79,6 @@ def testGenerateAgeNational(mock_data_dir: mock.MagicMock):
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
-
     alls_df = pd.read_csv(ALLS_DATA["all_national"],
                           dtype=DTYPE,
                           skiprows=8,
@@ -82,17 +89,14 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'national',
                                           alls_df)
-
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
-
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateSexNational(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
-
     alls_df = pd.read_csv(ALLS_DATA["all_national"],
                           usecols=lambda x: x not in SEX_COLS_TO_EXCLUDE,
                           skiprows=8,
@@ -100,16 +104,13 @@ def testGenerateSexNational(mock_data_dir: mock.MagicMock):
                           dtype=DTYPE)
 
     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
-
     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
-
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateRaceState(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
-
     alls_df = pd.read_csv(ALLS_DATA['all_state'],
                           usecols=lambda x: x not in RACE_COLS_TO_EXCLUDE,
                           skiprows=8,
@@ -119,16 +120,13 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'state',
                                           alls_df)
-
     expected_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
-
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 @ mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
-
     alls_df = pd.read_csv(ALLS_DATA['all_black_women_national'],
                           usecols=lambda x: x not in COLS_TO_EXCLUDE,
                           skiprows=8,
@@ -138,10 +136,8 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('black_women',
                                           'national',
                                           alls_df)
-
     expected_df = pd.read_csv(
         GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
-
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -203,8 +199,8 @@ def testWriteToBqCallsRace(
 
     assert expected_table_names == [
         'by_race_age_national',
-        'by_race_age_state',
         'race_and_ethnicity_national_time_series',
+        'by_race_age_state',
         'race_and_ethnicity_state_time_series',
         'race_and_ethnicity_county_time_series'
     ]

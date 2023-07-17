@@ -499,15 +499,19 @@ export function createBarLabel(
   chartIsSmall: boolean,
   measure: MetricId,
   tooltipMetricDisplayColumnName: string,
-  usePercentSuffix: boolean,
+  usePercentSuffix: boolean
 ) {
   const PER_100K = ' per 100k'
   const PERCENT = '%'
 
-  const symbol = usePercentSuffix ? PERCENT : measure === 'hiv_stigma_index' ? '' : PER_100K
+  const symbol = usePercentSuffix
+    ? PERCENT
+    : measure === 'hiv_stigma_index'
+    ? ''
+    : PER_100K
   const singleLineLabel = `datum.${tooltipMetricDisplayColumnName} + "${symbol}"`
   const multiLineLabel = `[datum.${tooltipMetricDisplayColumnName}, "${symbol}"]`
-  
+
   if (chartIsSmall && !usePercentSuffix) {
     return multiLineLabel
   } else {

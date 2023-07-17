@@ -130,7 +130,7 @@ function AgeAdjustmentTab() {
                     </b>
                   </p>
                   <p>
-                    To do this we multiply the true death rate by the states's
+                    To do this we multiply the true death rate by the state's
                     total population for that age group. The expected deaths are
                     the number of people of the racial group who would have been
                     expected to die if the racial group had the same age
