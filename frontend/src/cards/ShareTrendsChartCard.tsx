@@ -110,6 +110,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
+      expanded={a11yTableExpanded}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(

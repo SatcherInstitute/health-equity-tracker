@@ -31,9 +31,10 @@ function CardWrapper(props: {
   scrollToHash: ScrollableHashId
   reportTitle: string
   elementsToHide?: string[]
+  expanded?: boolean
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    props.downloadTitle, props.elementsToHide
+    props.downloadTitle, props.elementsToHide, props.expanded
   )
 
   const loadingComponent = (

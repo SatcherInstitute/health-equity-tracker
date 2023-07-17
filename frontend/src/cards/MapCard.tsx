@@ -247,7 +247,7 @@ function MapCardWithKey(props: MapCardProps) {
     setScale({ domain, range })
   }
 
-  const elementsToHide = ['#map-group-dropdown', '#highest-lowest-list', '#download-card-image-button', '#card-options-menu']
+  const elementsToHide = ['#map-group-dropdown', '#download-card-image-button', '#card-options-menu']
 
   return (
     <CardWrapper
@@ -258,6 +258,7 @@ function MapCardWithKey(props: MapCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
+      expanded={listExpanded}
     >
       {(queryResponses, metadata, geoData) => {
         // contains data rows for sub-geos (if viewing US, this data will be STATE level)

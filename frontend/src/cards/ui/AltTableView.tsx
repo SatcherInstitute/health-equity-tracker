@@ -63,7 +63,7 @@ export default function AltTableView(props: AltTableViewProps) {
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className={styles.AltTableExpanderBox}
-      id={'rates-over-time-table'}
+      id={'alt-table-view'}
     >
       <div className={styles.CollapseButton}>
         <IconButton

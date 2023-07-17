@@ -1,4 +1,4 @@
-import { createRef } from 'react'
+import { createRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
 import AppBarLogo from '../../assets/AppbarLogo.png'
@@ -23,8 +23,18 @@ const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
 const TOP_PADDING = 50
 
-export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = []) {
+export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = [], dropdownOpen?: boolean) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
+  const [dropdownElement, setDropdownElement] = useState<HTMLElement | null>(null)
+  const dropdownElementIds = ['#alt-table-view', '#highest-lowest-list']
+
+  useEffect(() => {
+    const element = dropdownElementIds
+      .map((dropdownId) => screenshotTargetRef.current?.querySelector(dropdownId))
+      .find((element) => element !== null) as HTMLElement
+
+    setDropdownElement(element)
+  }, [screenshotTargetRef])
 
   function download(canvas: HTMLCanvasElement, { name = cardTitle, extension = 'png' } = {}) {
     const combinedCanvas = document.createElement('canvas')
@@ -36,15 +46,16 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
     logoImage.src = AppBarLogo
 
     if (context) {
-      // Draw the screenshot onto the combined canvas
-      context.fillStyle = 'white'
+      // Fill the top area with white
+      context.fillStyle = sass.white
       context.fillRect(0, 0, combinedCanvas.width, TOP_PADDING)
 
+      // Draw the screenshot onto the combined canvas
       context.drawImage(canvas, 0, TOP_PADDING)
 
       // Draw the citation background
       const citationBackgroundHeight = CITATION_FONT_SIZE + 10
-      context.fillStyle = 'white'
+      context.fillStyle = sass.white
       context.fillRect(0, combinedCanvas.height - citationBackgroundHeight, combinedCanvas.width, citationBackgroundHeight)
 
       // Save the original globalAlpha value
@@ -93,10 +104,19 @@ export function useDownloadCardImage(cardTitle: string, hiddenElements: string[]
         if (elementToHide) elementToHide.style.visibility = 'hidden'
       })
 
+      if (dropdownElement) {
+        dropdownElement.style.visibility = dropdownOpen ? 'visible' : 'hidden'
+      }
+
       const canvas = await html2canvas(screenshotTargetRef.current as HTMLElement, {
         logging: true,
         useCORS: true,
       })
+
+      if (dropdownElement) {
+        dropdownElement.style.visibility = 'visible'
+      }
+
       // Restore specified elements for the screenshot
       hiddenElements.forEach((element) => {
         const elementToHide = screenshotTargetRef.current?.querySelector(element) as HTMLElement
