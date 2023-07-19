@@ -180,21 +180,6 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: 'COVID-19',
-    definition: '',
-    options: ['covid', 'covid_vaccinations'],
-  },
-  {
-    title: 'Social Determinants of Health',
-    definition: '',
-    options: [
-      'health_insurance',
-      'poverty',
-      'preventable_hospitalizations',
-      'avoided_care',
-    ],
-  },
-  {
     title: 'Political Determinants of Health',
     definition: '',
     options: ['voter_participation', 'women_in_gov', 'incarceration'],
