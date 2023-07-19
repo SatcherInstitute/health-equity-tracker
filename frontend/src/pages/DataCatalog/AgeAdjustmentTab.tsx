@@ -58,7 +58,7 @@ function AgeAdjustmentTab() {
               Thus, our age adjusted ratios can only be used to compare racial
               groups within each state, and <b>not</b> to compare racial groups
               between states. We source the standard population numbers from the
-              the 2019 population numbers from{' '}
+              2019 population numbers from{' '}
               <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
                 County Population by Characteristics
               </a>
@@ -130,7 +130,7 @@ function AgeAdjustmentTab() {
                     </b>
                   </p>
                   <p>
-                    To do this we multiply the true death rate by the states's
+                    To do this we multiply the true death rate by the state's
                     total population for that age group. The expected deaths are
                     the number of people of the racial group who would have been
                     expected to die if the racial group had the same age

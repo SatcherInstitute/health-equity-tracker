@@ -11,6 +11,7 @@ RUN npm install
 
 COPY ./frontend .
 
+ENV NODE_OPTIONS="--max_old_space_size=4096"
 RUN npm run build:$DEPLOY_CONTEXT
 
 # Second stage: copy frontend build files from the first stage, build the server

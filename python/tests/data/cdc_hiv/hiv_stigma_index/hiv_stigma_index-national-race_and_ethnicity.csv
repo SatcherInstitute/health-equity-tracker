@@ -1,0 +1,24 @@
+﻿"Date Printed: Friday, May 19, 2023 3:28:06 PM"
+Title: "HIV Stigma | 2018 | 2019 | United States | American Indian/Alaska Native | Asian | Black/African American | Hispanic/Latino | Multiracial | Native Hawaiian/Other Pacific Islander | White | Both sexes | Ages 13 years and older | All transmission categories"
+Footnote(s): 
+Weighted percentages for unstable housing or homelessness and median HIV stigma scores are reported in the ‘Rate per 100,000’ column with corresponding 95% confidence intervals reported in the ‘Rate LCI’ and ‘Rate UCI’ columns within the Charts and Maps tools or in parentheses within the ‘Rate per 100,000’ column within the Tables tool.
+To allow for comparison with other HIV indicators, data are presented for persons aged &ge;13 years and aged 13-24 years. However, these estimates are representative of persons with diagnosed HIV aged &ge;18 years and 18-24 years, respectively. 
+For unstable housing or homelessness, estimates with a coefficient of variation &ge;0.30 or those based on a denominator sample size less than 30 were suppressed. For HIV stigma, estimates based on a denominator sample size less than 30 were suppressed.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","35.3","26.1","44.4","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","Data not available","29.0","27.1","31.0","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","Data not available","32.7","30.2","35.2","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","Data not available","30.8","29.5","32.2","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","32.4","21.8","43.1","NA"
+"HIV Stigma","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","35.7","30.1","41.2","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","Data not available","28.2","26.3","30.0","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","Data not available","32.2","30.1","34.3","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","Data not available","33.3","31.4","35.3","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","26.1","14.3","37.8","NA"
+"HIV Stigma","2017","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"

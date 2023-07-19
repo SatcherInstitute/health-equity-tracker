@@ -181,7 +181,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId
     )
 
-    const mapGroupLabel = getMapGroupLabel(props.activeBreakdownFilter)
+    const mapGroupLabel = getMapGroupLabel(
+      props.activeBreakdownFilter,
+      props.metric.type === 'index' ? 'Score' : ''
+    )
     const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.

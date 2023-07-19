@@ -34,7 +34,7 @@ class Logger {
       consoleFn('Error Reported', error, error.stack, severity, context)
     }
 
-    if (this.enableServerLogging) {
+    if (this.enableServerLogging && !import.meta.env.PROD) {
       // TODO: implement server logging
       console.log('TODO: implement server logging')
     }
