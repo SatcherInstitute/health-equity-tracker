@@ -73,13 +73,13 @@ function AgeAdjustmentTab() {
                 We use a <b>direct standardization method</b>, with the{' '}
                 <b>internal standard population</b> for each state being that
                 state's total population. Finally, the ratios we present for
-                each race group is that race's age-adjusted rate, divided by the
-                age-adjusted rate for White, non-Hispanic individuals in the
-                same location. Thus, our age-adjusted ratios can only be used to
-                compare race groups within each state, and <b>not</b> to compare
-                race groups between states. for COVID-19 reports, we source the
-                standard population numbers from the 2019 population numbers
-                from{' '}
+                each race group is that race's age-adjusted count, divided by
+                the age-adjusted count for White, non-Hispanic individuals in
+                the same location. Thus, our age-adjusted ratios can only be
+                used to compare race groups within each state, and <b>not</b> to
+                compare race groups between states. For COVID-19 reports, we
+                source the standard population numbers from the 2019 population
+                numbers from{' '}
                 <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
                   County Population by Characteristics
                 </a>
