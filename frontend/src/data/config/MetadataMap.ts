@@ -366,5 +366,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   },
 ]
 
+// SHOW_PHRMA
+console.log('need to uncomment above once feature flag removed')
+
 export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
   Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))
