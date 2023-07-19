@@ -111,7 +111,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
         chartTitle: metricConfigs[ratioId].chartTitle,
         fips: props.fips,
       })
-    : 'Age-adjusted Risk Ratios'
+    : 'Age-adjusted Ratios'
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
@@ -122,7 +122,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       })
     : []
 
-  const HASH_ID: ScrollableHashId = 'age-adjusted-risk'
+  const HASH_ID: ScrollableHashId = 'age-adjusted-ratios'
 
   return (
     <CardWrapper
@@ -196,13 +196,14 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             <CardContent>
               {/* Always show info on what age-adj is */}
               <Alert severity="info" role="note">
-                Age Adjustment is a statistical process applied to rates of
-                disease, death, or other health outcomes that occur more
-                frequently among different age groups. Adjusting for age allows
-                for fairer comparison between populations, where age is a large
-                risk factor. By computing rates that are normalized for age, we
-                can paint a more accurate picture of undue burden of disease and
-                death between populations. More details can be found in our{' '}
+                Age-adjustment is a statistical process applied to rates of
+                disease, death, or other health outcomes that correlate with an
+                individual's age. Adjusting for age allows for fairer comparison
+                between populations, where age might be a confounding risk
+                factor and the studied groups have different distributions of
+                individuals per age group. By normalizing for age, we can paint
+                a more accurate picture of undue burden of disease and death
+                between populations. More details can be found in our{' '}
                 <Link to={AGE_ADJUSTMENT_TAB_LINK}>
                   age-adjustment methodology
                 </Link>

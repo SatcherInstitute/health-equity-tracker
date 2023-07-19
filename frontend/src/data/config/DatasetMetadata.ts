@@ -66,40 +66,46 @@ export const datasetMetadataList: DatasetMetadata[] = [
     contains_nh: true,
   },
   {
+    id: 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
+    name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
+    update_time: '2019',
+    contains_nh: true,
+  },
+  {
+    id: 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
+    name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
+    update_time: '2019',
+    contains_nh: true,
+  },
+  {
     id: 'cdc_hiv_data-age_county_time_series',
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and county',
     update_time: '2019',
-    contains_nh: true,
   },
   {
     id: 'cdc_hiv_data-age_state_time_series',
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and state',
     update_time: '2019',
-    contains_nh: true,
   },
   {
     id: 'cdc_hiv_data-age_national_time_series',
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
     update_time: '2019',
-    contains_nh: true,
   },
   {
     id: 'cdc_hiv_data-sex_county_time_series',
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and county',
     update_time: '2019',
-    contains_nh: true,
   },
   {
     id: 'cdc_hiv_data-sex_state_time_series',
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and state',
     update_time: '2019',
-    contains_nh: true,
   },
   {
     id: 'cdc_hiv_data-sex_national_time_series',
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
     update_time: '2019',
-    contains_nh: true,
   },
   {
     id: 'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level',
@@ -267,13 +273,13 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: 'cdc_restricted_data-by_race_state_processed-with_age_adjust',
-    name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted risk ratios since January 2020 by race/ethnicity and state',
+    name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
     update_time: 'June 2023',
     contains_nh: true,
   },
   {
     id: 'cdc_restricted_data-by_race_national_processed-with_age_adjust',
-    name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted risk ratios since January 2020 by race/ethnicity, nationally',
+    name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
     update_time: 'June 2023',
     contains_nh: true,
   },

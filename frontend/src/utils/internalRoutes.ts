@@ -20,11 +20,11 @@ export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
 
 // TRACKER SETTINGS
 export const AGE_ADJUST_HIV_DEATHS_US_SETTING =
-  '?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-risk'
+  '?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios'
 export const AGE_ADJUST_COVID_DEATHS_US_SETTING =
-  '?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-risk'
+  '?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios'
 export const AGE_ADJUST_COVID_HOSP_US_SETTING =
-  '?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-risk'
+  '?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios'
 export const COVID_HOSP_NY_COUNTY_SETTING =
   '?mls=1.covid_hospitalizations-3.36061'
 export const COVID_VAX_US_SETTING = '?mls=1.covid_vaccinations-3.00'

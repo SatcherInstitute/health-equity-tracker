@@ -26,7 +26,10 @@ export default function JumpToSelect(props: JumpToSelectProps) {
           </a>
         </MenuItem>
         {Object.entries(reportProviderSteps).map(([stepId, stepInfo]) => {
-          if (stepId === 'age-adjusted-risk' && !props.offerJumpToAgeAdjustment)
+          if (
+            stepId === 'age-adjusted-ratios' &&
+            !props.offerJumpToAgeAdjustment
+          )
             return null
 
           return (

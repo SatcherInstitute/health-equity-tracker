@@ -142,9 +142,16 @@ export function Sources(props: SourcesProps) {
   return (
     <Grid container className={styles.Footnote}>
       {/* NH note (if needed) listed first, full-width */}
-      <Grid item xs={12} container alignItems={'center'}>
+      <Grid item xs={12} alignItems={'center'}>
         {showNhFootnote && (
-          <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
+          <>
+            <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
+            <p className={styles.FootnoteTextNH}>
+              Note. To promote inclusive language, we replace the source data
+              labels <i>Multiracial</i> with <em>Two or more races</em>, and{' '}
+              <i>Some other race</i> with <i>Unrepresented race</i>.{' '}
+            </p>
+          </>
         )}
       </Grid>
       {props.isMulti ? (

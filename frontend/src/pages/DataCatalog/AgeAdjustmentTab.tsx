@@ -70,14 +70,23 @@ function AgeAdjustmentTab() {
                 equitable view of the impact to racial and ethnic minorities.
               </p>
               <p>
-                We use an internal standardization method, with the standard
-                population for each state being that state's total population.
-                Thus, our age-adjusted ratios can only be used to compare race
-                groups within each state, and <b>not</b> to compare race groups
-                between states. We source the standard population numbers from
-                the 2019 population numbers from{' '}
+                We use a <b>direct standardization method</b>, with the{' '}
+                <b>internal standard population</b> for each state being that
+                state's total population. Finally, the ratios we present for
+                each race group is that race's age-adjusted rate, divided by the
+                age-adjusted rate for White, non-Hispanic individuals in the
+                same location. Thus, our age-adjusted ratios can only be used to
+                compare race groups within each state, and <b>not</b> to compare
+                race groups between states. for COVID-19 reports, we source the
+                standard population numbers from the 2019 population numbers
+                from{' '}
                 <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
                   County Population by Characteristics
+                </a>
+                . For HIV reports, the population data is provided along with
+                the condition rates from the same{' '}
+                <a href="https://gis.cdc.gov/grasp/nchhstpatlas/tables.html">
+                  CDC Atlas data tables
                 </a>
                 .
               </p>
@@ -90,10 +99,7 @@ function AgeAdjustmentTab() {
               </p>
               <ol>
                 <li>
-                  <b>
-                    Condition counts (not rates) broken down by both age and
-                    race:
-                  </b>
+                  <b>Condition counts broken down by both age and race:</b>
 
                   <ul>
                     <li>
@@ -117,10 +123,7 @@ function AgeAdjustmentTab() {
                 </li>
 
                 <li>
-                  <b>
-                    Population counts (not rates) broken down by both race and
-                    age:
-                  </b>
+                  <b>Population counts broken down by both race and age:</b>
 
                   <ul>
                     <li>
@@ -166,7 +169,7 @@ function AgeAdjustmentTab() {
                   </p>
                   <p>
                     To do this we multiply the true condition rate by the
-                    state's total population for that age group. The expected
+                    location's total population for that age group. The expected
                     condition counts are the number of people of the race group
                     who would have been expected to have this condition if the
                     race group had the same age breakdown as the population as a
@@ -187,7 +190,7 @@ function AgeAdjustmentTab() {
                   </p>
                   <p>
                     For each race group, sum together the expected condition
-                    counts for each age group.
+                    counts for each of that race's age groups.
                   </p>
                 </li>
 
@@ -220,15 +223,15 @@ function AgeAdjustmentTab() {
                 Here is an example of a single state with two races,{' '}
                 <b>Race A</b> and <b>Race B</b>, with three age breakdowns:{' '}
                 <b>0-29</b>, <b>30-59</b>, and <b>60+</b>. <b>Race A</b> will be
-                the standard race we are comparing against (like{' '}
+                the race we divide against to obtain our ratios (like{' '}
                 <b>White, Non-Hispanic</b>), and <b>Race B</b> is any other race
                 group.
               </p>
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
-                    <td>Race</td>
-                    <td>Age-group</td>
+                    <td>Race Group</td>
+                    <td>Age Group</td>
                     <td>Deaths</td>
                     <td>Population</td>
                   </tr>
@@ -276,7 +279,27 @@ function AgeAdjustmentTab() {
                     <td>800</td>
                     <td>60,000</td>
                   </tr>
+                </tbody>
+              </table>
 
+              <p>
+                The <b>internal standard population</b> will be the total
+                population of this example state: (Population of Race A + Race
+                B).
+              </p>
+
+              {/* A + B TABLE */}
+              <table className={styles.ExampleTable}>
+                <thead>
+                  <tr>
+                    <td>Race Group</td>
+                    <td>Age Group</td>
+                    <td>Deaths</td>
+                    <td>Internal Standard Population</td>
+                  </tr>
+                </thead>
+
+                <tbody>
                   <tr>
                     <td>Total (A & B)</td>
                     <td>0-29</td>
@@ -317,14 +340,14 @@ function AgeAdjustmentTab() {
               </h4>
               <p>As noted above, the formula for each row is:</p>
               <pre>
-                (Deaths / Population) * Total Population for Corresponding Age
-                Group
+                (Deaths / Population) * Internal Standard Population for
+                Corresponding Age Group
               </pre>
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
-                    <td>Race</td>
-                    <td>Age-group</td>
+                    <td>Race Group</td>
+                    <td>Age Group</td>
                     <td>Deaths</td>
                     <td>Population</td>
                     <td>Expected deaths</td>
@@ -418,7 +441,7 @@ function AgeAdjustmentTab() {
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
-                    <td>Race</td>
+                    <td>Race Group</td>
                     <td>Total expected deaths</td>
                   </tr>
                 </thead>
@@ -450,7 +473,7 @@ function AgeAdjustmentTab() {
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
-                    <td>Race</td>
+                    <td>Race Group</td>
                     <td>Total expected deaths</td>
                     <td>Age-adjusted death ratio</td>
                   </tr>
@@ -485,11 +508,7 @@ function AgeAdjustmentTab() {
             variant="contained"
             color="primary"
             className={styles.PrimaryButton}
-            href={
-              EXPLORE_DATA_PAGE_LINK +
-              AGE_ADJUST_COVID_DEATHS_US_SETTING +
-              '#age-adjusted-risk'
-            }
+            href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
           >
             Explore age-adjusted ratios
           </Button>
