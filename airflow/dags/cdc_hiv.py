@@ -1,12 +1,11 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-from airflow.operators.dummy_operator import DummyOperator  # type: ignore
-
 import util
 
 _CDC_HIV_WORKFLOW_ID = 'CDC_HIV_DATA'
 _CDC_HIV_DATASET_NAME = 'cdc_hiv_data'
+_HIV_AGE_ADJUST_WORKFLOW_ID = 'AGE_ADJUST_CDC_HIV'
 
 default_args = {
     'start_date': days_ago(0),
@@ -51,6 +50,14 @@ cdc_hiv_bq_payload_black_women = util.generate_bq_payload(
 cdc_hiv_bq_operator_black_women = util.create_bq_ingest_operator(
     'cdc_hiv_to_bq_black_women', cdc_hiv_bq_payload_black_women, data_ingestion_dag)
 
+cdc_hiv_age_adjust_payload = util.generate_bq_payload(
+    _HIV_AGE_ADJUST_WORKFLOW_ID,
+    _CDC_HIV_DATASET_NAME,
+)
+
+cdc_hiv_age_adjust_op = util.create_bq_ingest_operator(
+    'cdc_hiv_age_adjust', cdc_hiv_age_adjust_payload, data_ingestion_dag)
+
 
 payload_race = {
     'dataset_name': _CDC_HIV_DATASET_NAME,
@@ -89,13 +96,6 @@ payload_multi = {
 cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
     'cdc_hiv_exporter_multi', payload_multi, data_ingestion_dag)
 
-
-connector = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector'
-)
-
 # Ingestion DAG
 (
     [
@@ -103,7 +103,9 @@ connector = DummyOperator(
         cdc_hiv_bq_operator_age,
         cdc_hiv_bq_operator_sex,
         cdc_hiv_bq_operator_black_women
-    ] >> connector >> [
+    ]
+    >> cdc_hiv_age_adjust_op >>
+    [
         cdc_hiv_exporter_operator_race,
         cdc_hiv_exporter_operator_age,
         cdc_hiv_exporter_operator_sex,

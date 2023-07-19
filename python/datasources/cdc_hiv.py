@@ -4,14 +4,14 @@ from datasources.data_source import DataSource
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
-                                 US_FIPS)
+                                 US_FIPS,
+                                 ALL_VALUE)
 from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.merge_utils import merge_county_names
 from ingestion.types import HIV_BREAKDOWN_TYPE
 from typing import cast
-
 
 # constants
 DTYPE = {'FIPS': str, 'Year': str}
@@ -137,9 +137,12 @@ class CDCHIVData(DataSource):
         if demographic == std_col.RACE_COL:
             demographic = std_col.RACE_OR_HISPANIC_COL
 
+        for geo_level in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
+
             # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
-            for geo_level in [NATIONAL_LEVEL, STATE_LEVEL]:
+            if geo_level != COUNTY_LEVEL and demographic == std_col.RACE_OR_HISPANIC_COL:
                 print("make race-age", geo_level)
+
                 table_name = f'by_race_age_{geo_level}'
                 race_age_df = self.generate_race_age_deaths_df(geo_level)
                 float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
@@ -149,35 +152,33 @@ class CDCHIVData(DataSource):
                                             dataset,
                                             table_name,
                                             column_types=col_types)
-
-        # MAKE SINGLE BREAKDOWN AND BLACK WOMEN TABLES
-        for geo_level in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
-                pass
+                continue
+
+            all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
+            alls_df = load_atlas_df_from_data_dir(geo_level, all)
+
+            df = self.generate_breakdown_df(
+                demographic, geo_level, alls_df)
+
+            if demographic == std_col.BLACK_WOMEN:
+                float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + \
+                    [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INEQUITY_COLS
             else:
-                all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
+                float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
+                    PCT_REL_INEQUITY_COLS
+                if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
+                    float_cols += GENDER_COLS
 
-                table_name = f'{demographic}_{geo_level}_time_series'
-                alls_df = load_atlas_df_from_data_dir(geo_level, all)
-                df = self.generate_breakdown_df(
-                    demographic, geo_level, alls_df)
+            col_types = gcs_to_bq_util.get_bq_column_types(
+                df, float_cols)
 
-                if demographic == std_col.BLACK_WOMEN:
-                    float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + \
-                        [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INEQUITY_COLS
-                else:
-                    float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
-                        PCT_REL_INEQUITY_COLS
-                    if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
-                        float_cols += GENDER_COLS
+            table_name = f'{demographic}_{geo_level}_time_series'
 
-                col_types = gcs_to_bq_util.get_bq_column_types(
-                    df, float_cols)
-
-                gcs_to_bq_util.add_df_to_bq(df,
-                                            dataset,
-                                            table_name,
-                                            column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df,
+                                        dataset,
+                                        table_name,
+                                        column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
@@ -300,25 +301,78 @@ class CDCHIVData(DataSource):
         return df
 
     def generate_race_age_deaths_df(self, geo_level):
-        """ load in CDC Atlas table from /data for by race by age by geo_level,
-        and keep the counts needed for age-adjustment """
+        """ load in CDC Atlas HIV Deaths tables from /data
+        for "ALL" and for "by race by age" by geo_level,
+        merge and keep the counts needed for age-adjustment """
 
-        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+        use_cols = ['Year', 'Geography', 'FIPS', 'Age Group', 'Race/Ethnicity', 'Cases', 'Population']
+
+        # ALL RACE x ALL AGE
+        alls_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             'cdc_hiv',
-            f'hiv-deaths-{geo_level}-race_and_ethnicity-age.csv',
+            f'hiv_deaths-{geo_level}-all.csv',
             subdirectory="hiv_deaths",
             skiprows=8,
             na_values=NA_VALUES,
-            usecols=['Geography', 'FIPS', 'Age Group', 'Race/Ethnicity', 'Cases', 'Population'],
+            usecols=use_cols,
+            thousands=',',
+            dtype=DTYPE
+        )
+        alls_df = alls_df[alls_df['Year'] == '2019']
+        alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
+        alls_df[std_col.AGE_COL] = ALL_VALUE
+        alls_df = alls_df[use_cols]
+
+        # RACE GROUPS x ALL AGE
+        race_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv',
+            f'hiv_deaths-{geo_level}-race_and_ethnicity.csv',
+            subdirectory="hiv_deaths",
+            skiprows=8,
+            na_values=NA_VALUES,
+            usecols=use_cols,
+            thousands=',',
+            dtype=DTYPE
+        )
+        race_df = race_df[race_df['Year'] == '2019']
+        race_df[std_col.AGE_COL] = ALL_VALUE
+        race_df = race_df[use_cols]
+
+        # ALL RACE x AGE GROUPS
+        age_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv',
+            f'hiv_deaths-{geo_level}-age.csv',
+            subdirectory="hiv_deaths",
+            skiprows=8,
+            na_values=NA_VALUES,
+            usecols=use_cols,
+            thousands=',',
+            dtype=DTYPE
+        )
+        age_df = age_df[age_df['Year'] == '2019']
+        age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
+        age_df = age_df[use_cols]
+
+        # RACE GROUPS x AGE GROUPS
+        race_age_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            'cdc_hiv',
+            f'hiv_deaths-{geo_level}-race_and_ethnicity-age.csv',
+            subdirectory="hiv_deaths",
+            skiprows=8,
+            na_values=NA_VALUES,
+            usecols=use_cols,
             thousands=',',
             dtype=DTYPE
         )
 
         # fix poorly formatted state names
-        df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
+        race_age_df['Geography'] = race_age_df['Geography'].str.replace('^', '', regex=False)
+
+        df = pd.concat([alls_df, race_df, age_df, race_age_df], ignore_index=True)
 
         # rename columns
         df = df.rename(columns={
+            'Year': std_col.TIME_PERIOD_COL,
             'Geography': std_col.STATE_NAME_COL,
             'FIPS': std_col.STATE_FIPS_COL,
             'Age Group': std_col.AGE_COL,
@@ -333,7 +387,6 @@ class CDCHIVData(DataSource):
             df[std_col.STATE_FIPS_COL] = US_FIPS
 
         std_col.add_race_columns_from_category_id(df)
-
         return df
 
 
@@ -363,7 +416,6 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             continue
 
         else:
-
             if breakdown == std_col.BLACK_WOMEN:
                 filename = f'{determinant}-{geo_level}-{breakdown}-age.csv'
             else:

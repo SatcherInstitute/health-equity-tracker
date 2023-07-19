@@ -108,26 +108,39 @@ describe('Test getHighestLowestGroupsByFips()', () => {
   })
 })
 
-
 describe('Test createBarLabel()', () => {
   test('If chartIsSmall is true and usePercentSuffix is false, it should return multiLineLabel', () => {
     const chartIsSmall = true
     const usePercentSuffix = false
     const measure = 'hiv_prevalence_per_100k'
-    const tooltipMetricDisplayColumnName = 'hiv_prevalence_per_100k__DISPLAY_true'
+    const tooltipMetricDisplayColumnName =
+      'hiv_prevalence_per_100k__DISPLAY_true'
 
-    const result = createBarLabel(chartIsSmall, measure, tooltipMetricDisplayColumnName, usePercentSuffix)
+    const result = createBarLabel(
+      chartIsSmall,
+      measure,
+      tooltipMetricDisplayColumnName,
+      usePercentSuffix
+    )
 
-    expect(result).toEqual('[datum.hiv_prevalence_per_100k__DISPLAY_true, " per 100k"]')
+    expect(result).toEqual(
+      '[datum.hiv_prevalence_per_100k__DISPLAY_true, " per 100k"]'
+    )
   })
 
   test('If chartIsSmall and usePercentSuffix are true, it should return singleLineLabel', () => {
     const chartIsSmall = true
     const usePercentSuffix = true
     const measure = 'pct_share_of_us_congress'
-    const tooltipMetricDisplayColumnName = 'pct_share_of_us_congress__DISPLAY_true'
+    const tooltipMetricDisplayColumnName =
+      'pct_share_of_us_congress__DISPLAY_true'
 
-    const result = createBarLabel(chartIsSmall, measure, tooltipMetricDisplayColumnName, usePercentSuffix)
+    const result = createBarLabel(
+      chartIsSmall,
+      measure,
+      tooltipMetricDisplayColumnName,
+      usePercentSuffix
+    )
 
     expect(result).toEqual('datum.pct_share_of_us_congress__DISPLAY_true + "%"')
   })
@@ -138,7 +151,12 @@ describe('Test createBarLabel()', () => {
     const measure = 'hiv_stigma_index'
     const tooltipMetricDisplayColumnName = 'hiv_stigma_index__DISPLAY_true'
 
-    const result = createBarLabel(chartIsSmall, measure, tooltipMetricDisplayColumnName, usePercentSuffix)
+    const result = createBarLabel(
+      chartIsSmall,
+      measure,
+      tooltipMetricDisplayColumnName,
+      usePercentSuffix
+    )
 
     expect(result).toEqual('datum.hiv_stigma_index__DISPLAY_true + ""')
   })
@@ -149,7 +167,12 @@ describe('Test createBarLabel()', () => {
     const measure = 'asthma_per_100k'
     const tooltipMetricDisplayColumnName = 'asthma_per_100k__DISPLAY_true'
 
-    const result = createBarLabel(chartIsSmall, measure, tooltipMetricDisplayColumnName, usePercentSuffix)
+    const result = createBarLabel(
+      chartIsSmall,
+      measure,
+      tooltipMetricDisplayColumnName,
+      usePercentSuffix
+    )
 
     expect(result).toEqual('datum.asthma_per_100k__DISPLAY_true + " per 100k"')
   })

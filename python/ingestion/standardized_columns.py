@@ -157,6 +157,8 @@ HIV_STIGMA_INDEX = 'hiv_stigma_index'
 TOTAL_TRANS_MEN = 'total_trans_men'
 TOTAL_TRANS_WOMEN = 'total_trans_women'
 TOTAL_ADDITIONAL_GENDER = 'total_additional_gender'
+HIV_DEATH_RATIO_AGE_ADJUSTED = "hiv_deaths_ratio_age_adjusted"
+
 
 # PHRMA
 AMI_PREFIX = "ami"
