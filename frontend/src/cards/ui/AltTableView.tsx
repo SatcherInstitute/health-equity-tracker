@@ -35,6 +35,7 @@ interface AltTableViewProps {
   unknownMetricConfig: MetricConfig
   selectedGroups: DemographicGroup[]
   hasUnknowns: boolean
+  isCompareCard?: boolean
 }
 
 export default function AltTableView(props: AltTableViewProps) {
@@ -63,7 +64,7 @@ export default function AltTableView(props: AltTableViewProps) {
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className={styles.AltTableExpanderBox}
-      id={'alt-table-view'}
+      id={props.isCompareCard ? 'alt-table-view-2' : 'alt-table-view'}
     >
       <div className={styles.CollapseButton}>
         <IconButton

@@ -543,7 +543,7 @@ function MapCardWithKey(props: MapCardProps) {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid id={'highest-lowest-list'}>
+                  <Grid id={props.isCompareCard ? 'highest-lowest-list-2' : 'highest-lowest-list'}>
                     {!mapQueryResponse.dataIsMissing() &&
                       dataForActiveBreakdownFilter.length > 1 && (
                         <HighestLowestList

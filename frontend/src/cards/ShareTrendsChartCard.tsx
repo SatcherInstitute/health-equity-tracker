@@ -234,6 +234,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
                     hasUnknowns={hasUnknowns}
+                    isCompareCard={props.isCompareCard}
                   />
                 </>
               )}

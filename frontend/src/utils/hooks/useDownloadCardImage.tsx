@@ -26,7 +26,7 @@ const TOP_PADDING = 50
 export function useDownloadCardImage(cardTitle: string, hiddenElements: string[] = [], dropdownOpen?: boolean) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
   const [dropdownElement, setDropdownElement] = useState<HTMLElement | null>(null)
-  const dropdownElementIds = ['#alt-table-view', '#highest-lowest-list']
+  const dropdownElementIds = ['#alt-table-view', '#alt-table-view-2', '#highest-lowest-list', '#highest-lowest-list-2']
 
   useEffect(() => {
     const element = dropdownElementIds
