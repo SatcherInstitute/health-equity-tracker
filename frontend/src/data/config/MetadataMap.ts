@@ -1,3 +1,4 @@
+import { SHOW_PHRMA } from '../providers/PhrmaProvider'
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -313,7 +314,31 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
   },
+
   {
+    id: 'covid_tracking_project',
+    data_source_name: 'Covid Tracking Project’s Racial Data Tracker',
+    data_source_pretty_site_name: 'covidtracking.com',
+    data_source_link: 'https://covidtracking.com/race',
+    geographic_level: 'State',
+    demographic_granularity: 'Race/ethnicity',
+    update_frequency: 'Final update was March 7 2021',
+    description:
+      'The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. ' +
+      'Please note that Covid Tracking Project data is not used for any visualizations on the tracker, ' +
+      'it is only available for download.',
+    dataset_ids: [
+      'covid_tracking_project-cases_by_race_state',
+      'covid_tracking_project-deaths_by_race_state',
+      'covid_tracking_project-hospitalizations_by_race_state',
+      'covid_tracking_project-tests_by_race_state',
+    ],
+    downloadable: true,
+  },
+]
+
+SHOW_PHRMA &&
+  dataSourceMetadataList.push({
     id: 'phrma',
     data_source_name: 'Medicare Administrative Data',
     data_source_pretty_site_name: 'cms.gov',
@@ -343,28 +368,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'phrma_data-eligibility_county',
     ],
     downloadable: true,
-  },
-  {
-    id: 'covid_tracking_project',
-    data_source_name: 'Covid Tracking Project’s Racial Data Tracker',
-    data_source_pretty_site_name: 'covidtracking.com',
-    data_source_link: 'https://covidtracking.com/race',
-    geographic_level: 'State',
-    demographic_granularity: 'Race/ethnicity',
-    update_frequency: 'Final update was March 7 2021',
-    description:
-      'The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. ' +
-      'Please note that Covid Tracking Project data is not used for any visualizations on the tracker, ' +
-      'it is only available for download.',
-    dataset_ids: [
-      'covid_tracking_project-cases_by_race_state',
-      'covid_tracking_project-deaths_by_race_state',
-      'covid_tracking_project-hospitalizations_by_race_state',
-      'covid_tracking_project-tests_by_race_state',
-    ],
-    downloadable: true,
-  },
-]
+  })
 
 export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
   Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))

@@ -11,6 +11,7 @@ import styles from './DefaultHelperBox.module.scss'
 import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
 
 import { Sidetab } from '@typeform/embed-react'
+import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
 
 export default function DefaultHelperBox() {
   return (
@@ -115,7 +116,9 @@ export default function DefaultHelperBox() {
         </Box>
       </Alert>
 
-      <Sidetab id="gTBAtJee" buttonText="give us your feedback!" />
+      {SHOW_PHRMA && (
+        <Sidetab id="gTBAtJee" buttonText="give us your feedback!" />
+      )}
     </Grid>
   )
 }
