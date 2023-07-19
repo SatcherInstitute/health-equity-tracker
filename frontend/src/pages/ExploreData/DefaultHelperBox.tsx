@@ -1,10 +1,10 @@
 import { Box, Grid, Alert } from '@mui/material'
 import {
-  // COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
+  COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   EXPLORE_DATA_PAGE_LINK,
-  // HIV_PREVALANCE_RACE_USA_SETTING,
-  // PRISON_VS_POVERTY_RACE_GA_SETTING,
-  // UNINSURANCE_SEX_FL_VS_CA_SETTING,
+  HIV_PREVALANCE_RACE_USA_SETTING,
+  PRISON_VS_POVERTY_RACE_GA_SETTING,
+  UNINSURANCE_SEX_FL_VS_CA_SETTING,
   WARM_WELCOME_DEMO_SETTING,
 } from '../../utils/internalRoutes'
 import styles from './DefaultHelperBox.module.scss'
@@ -37,44 +37,7 @@ export default function DefaultHelperBox() {
               </h3>
 
               <ul className={styles.SuggestedReportsList}>
-                {/*  */}
-
                 <li className={styles.SuggestedReportsListItem}>
-                  <a
-                    href={
-                      EXPLORE_DATA_PAGE_LINK +
-                      '/exploredata?mls=1.phrma_cardiovascular-3.00&group1=All&dt1=nqf_adherence&demo=eligibility#rate-chart'
-                    }
-                  >
-                    Medicare beta-blocker treatment post-heart attack by
-                    eligibility
-                  </a>
-                </li>
-
-                <li className={styles.SuggestedReportsListItem}>
-                  <a
-                    href={
-                      EXPLORE_DATA_PAGE_LINK +
-                      '/exploredata?mls=1.phrma_cardiovascular-3.53033&group1=All&dt1=ccb_adherence&demo=age&mlp=disparity#population-vs-distribution'
-                    }
-                  >
-                    Medicare adherence to calcium channel blockers by age in
-                    King County
-                  </a>
-                </li>
-
-                <li className={styles.SuggestedReportsListItem}>
-                  <a
-                    href={
-                      EXPLORE_DATA_PAGE_LINK +
-                      '/exploredata?mls=1.phrma_cardiovascular-3.phrma_cardiovascular-5.00&mlp=comparevars&dt2=ami&dt1=beta_blockers_adherence'
-                    }
-                  >
-                    Medicare beta-blocker adherence & acute MI
-                  </a>
-                </li>
-
-                {/* <li className={styles.SuggestedReportsListItem}>
                   <a
                     href={
                       EXPLORE_DATA_PAGE_LINK + HIV_PREVALANCE_RACE_USA_SETTING
@@ -110,18 +73,9 @@ export default function DefaultHelperBox() {
                   >
                     Uninsurance in Florida & California, by sex
                   </a>
-                </li> */}
+                </li>
               </ul>
             </div>
-
-            {/* <Box mt={5}>
-
-
-              <p>
-                To learn more about these topics, and why they were chosen,
-                visit our <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>.
-              </p>
-            </Box> */}
           </Grid>
 
           <Grid
