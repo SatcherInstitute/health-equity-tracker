@@ -128,6 +128,8 @@ export function generateSubtitle(
       ageTitle = 'Ages 16+'
     } else if (metricId === 'hiv_stigma_index') {
       ageTitle = 'Ages 18+'
+    } else {
+      ageTitle = 'Ages 13+'
     }
 
     if (subtitle === '') {
@@ -149,6 +151,18 @@ export function generateSubtitle(
   return subtitle
 }
 
+/*
+
+  if (PHRMA_METRICS.includes(metricId)) {
+    const beneficiariesTitle = 'Medicare beneficiaries'
+    if (subtitle === '') {
+      subtitle = beneficiariesTitle
+    } else {
+      subtitle += `, ${beneficiariesTitle}`
+    }
+  }
+
+*/
 export function getAltGroupLabel(
   group: DemographicGroup,
   metricId: MetricId,
