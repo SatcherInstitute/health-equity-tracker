@@ -1,4 +1,3 @@
-import { SHOW_PHRMA } from '../providers/PhrmaProvider'
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -314,7 +313,37 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
   },
-
+  // {
+  //   id: 'phrma',
+  //   data_source_name: 'Medicare Administrative Data',
+  //   data_source_pretty_site_name: 'cms.gov',
+  //   data_source_link:
+  //     'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
+  //   geographic_level: 'National, State, County',
+  //   demographic_granularity:
+  //     'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
+  //   update_frequency: 'None',
+  //   description:
+  //     'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
+  //   dataset_ids: [
+  //     'phrma_data-race_and_ethnicity_national',
+  //     'phrma_data-race_and_ethnicity_state',
+  //     'phrma_data-race_and_ethnicity_county',
+  //     'phrma_data-age_national',
+  //     'phrma_data-age_state',
+  //     'phrma_data-age_county',
+  //     'phrma_data-sex_national',
+  //     'phrma_data-sex_state',
+  //     'phrma_data-sex_county',
+  //     'phrma_data-lis_national',
+  //     'phrma_data-lis_state',
+  //     'phrma_data-lis_county',
+  //     'phrma_data-eligibility_national',
+  //     'phrma_data-eligibility_state',
+  //     'phrma_data-eligibility_county',
+  //   ],
+  //   downloadable: true,
+  // },
   {
     id: 'covid_tracking_project',
     data_source_name: 'Covid Tracking Project’s Racial Data Tracker',
@@ -336,39 +365,6 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
 ]
-
-SHOW_PHRMA &&
-  dataSourceMetadataList.push({
-    id: 'phrma',
-    data_source_name: 'Medicare Administrative Data',
-    data_source_pretty_site_name: 'cms.gov',
-    data_source_link:
-      'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
-    geographic_level: 'National, State, County',
-    demographic_granularity:
-      'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
-    update_frequency: 'None',
-    description:
-      'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
-    dataset_ids: [
-      'phrma_data-race_and_ethnicity_national',
-      'phrma_data-race_and_ethnicity_state',
-      'phrma_data-race_and_ethnicity_county',
-      'phrma_data-age_national',
-      'phrma_data-age_state',
-      'phrma_data-age_county',
-      'phrma_data-sex_national',
-      'phrma_data-sex_state',
-      'phrma_data-sex_county',
-      'phrma_data-lis_national',
-      'phrma_data-lis_state',
-      'phrma_data-lis_county',
-      'phrma_data-eligibility_national',
-      'phrma_data-eligibility_state',
-      'phrma_data-eligibility_county',
-    ],
-    downloadable: true,
-  })
 
 export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
   Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))
