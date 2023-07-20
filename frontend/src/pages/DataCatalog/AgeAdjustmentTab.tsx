@@ -405,7 +405,7 @@ function AgeAdjustmentTab() {
                       <div className={styles.Calculation}>
                         800,000 + 300,000
                       </div>
-                      <b>= 1,200,000</b>
+                      <b>= 1,100,000</b>
                     </td>
                   </tr>
 
@@ -467,7 +467,7 @@ function AgeAdjustmentTab() {
 
                     <td>
                       <div className={styles.Calculation}>
-                        0.000625 * 1,200,000
+                        0.000625 * 1,100,000
                       </div>
                       <b> = 687.5</b>
                     </td>
@@ -548,7 +548,7 @@ function AgeAdjustmentTab() {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td>1,200,000</td>
+                    <td>1,100,000</td>
                     <td></td>
                   </tr>
                   <tr>
