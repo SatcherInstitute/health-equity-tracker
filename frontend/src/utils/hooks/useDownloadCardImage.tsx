@@ -3,16 +3,23 @@ import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
 import sass from '../../styles/variables.module.scss'
 
-const URL_X = 32
-const URL_FONT_SIZE = 22
-const URL_FONT_STYLE = '"Inter",sans-serif'
+const DROPDOWN_ELEMENT_IDS = [
+  '#alt-table-view',
+  '#alt-table-view-2',
+  '#highest-lowest-list',
+  '#highest-lowest-list-2',
+]
 
-const LOGO_TEXT = 'Health Equity Tracker'
 const LOGO_FONT_COLOR = sass.altGreen
 const LOGO_FONT_SIZE = 30
 const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
+const LOGO_TEXT = 'Health Equity Tracker'
 
 const TOP_PADDING = 50
+
+const URL_FONT_SIZE = 22
+const URL_FONT_STYLE = '"Inter",sans-serif'
+const URL_X = 32
 
 export function useDownloadCardImage(
   cardTitle: string,
@@ -21,24 +28,15 @@ export function useDownloadCardImage(
   scrollToHash: string = ''
 ) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
-  const [dropdownElement, setDropdownElement] = useState<HTMLElement | null>(
-    null
-  )
-  const dropdownElementIds = [
-    '#alt-table-view',
-    '#alt-table-view-2',
-    '#highest-lowest-list',
-    '#highest-lowest-list-2',
-  ]
+  const [dropdownElement, setDropdownElement] = useState<HTMLElement>()
+
   const urlWithoutHash = window.location.href.split('#')[0]
   const urlWithHash = `${urlWithoutHash}#${scrollToHash}`
 
   useEffect(() => {
-    const element = dropdownElementIds
-      .map((dropdownId) =>
-        screenshotTargetRef.current?.querySelector(dropdownId)
-      )
-      .find((element) => element !== null) as HTMLElement
+    const element = DROPDOWN_ELEMENT_IDS.map((dropdownId) =>
+      screenshotTargetRef.current?.querySelector(dropdownId)
+    ).find((element) => element !== null) as HTMLElement
 
     setDropdownElement(element)
   }, [screenshotTargetRef])
@@ -50,10 +48,12 @@ export function useDownloadCardImage(
     const combinedCanvas = document.createElement('canvas')
     combinedCanvas.width = canvas.width
     combinedCanvas.height = canvas.height + URL_FONT_SIZE + 10 + TOP_PADDING
+
     const context = combinedCanvas.getContext('2d')
 
-    const LOGO_TEXT_X = canvas.width - 310
-    const LOGO_TEXT_Y = canvas.height + 40
+    const logoTextX = canvas.width - 310
+
+    const urlLogoBaseline = combinedCanvas.height - URL_FONT_SIZE
 
     if (context) {
       // Fill the top area with white
@@ -80,18 +80,17 @@ export function useDownloadCardImage(
 
       context.font = `${LOGO_FONT_SIZE}px ${LOGO_FONT_STYLE}`
       context.fillStyle = LOGO_FONT_COLOR
-      context.textBaseline = 'middle'
-      context.fillText(LOGO_TEXT, LOGO_TEXT_X, LOGO_TEXT_Y)
+      context.textBaseline = 'bottom'
+      context.fillText(LOGO_TEXT, logoTextX, urlLogoBaseline)
 
       // Reset the globalAlpha to the original value
       context.globalAlpha = originalAlpha
 
       // Draw the url
-      const urlY = combinedCanvas.height - URL_FONT_SIZE
       context.font = `${URL_FONT_SIZE}px ${URL_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
-      context.fillText(`${urlWithHash}`, URL_X, urlY)
+      context.fillText(`${urlWithHash}`, URL_X, urlLogoBaseline)
     }
 
     const image = combinedCanvas.toDataURL('image/png')
