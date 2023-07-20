@@ -77,7 +77,7 @@ export function useDownloadCardImage(
       context.drawImage(canvas, 0, TOP_PADDING)
 
       // Draw the citation background
-      const citationBackgroundHeight = CITATION_FONT_SIZE + 10
+      const citationBackgroundHeight = CITATION_FONT_SIZE + 50
       context.fillStyle = sass.white
       context.fillRect(
         0,
