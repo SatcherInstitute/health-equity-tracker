@@ -60,7 +60,7 @@ export function useDownloadCardImage(
     const context = combinedCanvas.getContext('2d')
 
     const WATERMARK_X = canvas.width - WATERMARK_WIDTH - 320
-    const WATERMARK_Y = canvas.height - 10
+    const WATERMARK_Y = canvas.height
 
     const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
     const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
@@ -77,13 +77,17 @@ export function useDownloadCardImage(
       context.drawImage(canvas, 0, TOP_PADDING)
 
       // Draw the citation background
-      const citationBackgroundHeight = CITATION_FONT_SIZE + 50
+      // const citationBackgroundHeight = CITATION_FONT_SIZE + 10
+      // context.fillStyle = sass.white
+      // context.fillRect(0, combinedCanvas.height - citationBackgroundHeight, combinedCanvas.width, citationBackgroundHeight)
+
+      const citationPaddingHeight = CITATION_FONT_SIZE + 10
       context.fillStyle = sass.white
       context.fillRect(
         0,
-        combinedCanvas.height - citationBackgroundHeight,
+        combinedCanvas.height - citationPaddingHeight,
         combinedCanvas.width,
-        citationBackgroundHeight
+        citationPaddingHeight
       )
 
       // Save the original globalAlpha value
@@ -109,7 +113,7 @@ export function useDownloadCardImage(
       context.globalAlpha = originalAlpha
 
       // Draw the citation
-      const citationY = combinedCanvas.height - CITATION_FONT_SIZE - 5
+      const citationY = combinedCanvas.height - CITATION_FONT_SIZE
       context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
