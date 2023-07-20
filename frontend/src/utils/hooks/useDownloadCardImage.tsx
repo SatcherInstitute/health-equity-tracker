@@ -4,14 +4,14 @@ import { createFileName } from 'use-react-screenshot'
 import AppBarLogo from '../../assets/AppbarLogo.png'
 import sass from '../../styles/variables.module.scss'
 
-const CITATION_X = 31
+const CITATION_X = 32
 const CITATION_FONT_SIZE = 22
 const CITATION_FONT_STYLE = '"Inter",sans-serif'
 
 // const WATERMARK_X = 10
 // const WATERMARK_Y = 10
-const WATERMARK_WIDTH = 75
-const WATERMARK_HEIGHT = 75
+const WATERMARK_WIDTH = 70
+const WATERMARK_HEIGHT = 70
 
 const LOGO_TEXT = 'Health Equity Tracker'
 const LOGO_FONT_COLOR = sass.altGreen
@@ -65,6 +65,8 @@ export function useDownloadCardImage(
     const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
     const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
 
+    console.log({ WATERMARK_Y })
+
     const logoImage = new Image()
     logoImage.src = AppBarLogo
 
@@ -114,6 +116,7 @@ export function useDownloadCardImage(
 
       // Draw the citation
       const citationY = combinedCanvas.height - CITATION_FONT_SIZE
+      console.log({ citationY })
       context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
