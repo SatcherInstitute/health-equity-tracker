@@ -59,13 +59,14 @@ export function useDownloadCardImage(
       canvas.height + CITATION_FONT_SIZE + 10 + TOP_PADDING
     const context = combinedCanvas.getContext('2d')
 
-    const WATERMARK_X = canvas.width - WATERMARK_WIDTH - 320
-    const WATERMARK_Y = canvas.height
+    // const WATERMARK_X = canvas.width - WATERMARK_WIDTH - 320
+    // const WATERMARK_Y = canvas.height
 
-    const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
-    const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
+    const LOGO_TEXT_X =
+      canvas.width - WATERMARK_WIDTH - 320 + WATERMARK_WIDTH + 10
+    const LOGO_TEXT_Y = canvas.height + WATERMARK_HEIGHT / 2
 
-    console.log({ WATERMARK_Y })
+    // console.log({ WATERMARK_Y })
 
     const logoImage = new Image()
     logoImage.src = AppBarLogo
@@ -97,6 +98,13 @@ export function useDownloadCardImage(
 
       // Set opacity for watermark and logo
       context.globalAlpha = 0.4
+
+      // const logoTextWidth = context.measureText(LOGO_TEXT).width
+      // const logoCenterX = LOGO_TEXT_X + logoTextWidth / 2
+      const logoCenterX = canvas.width - 170
+
+      const WATERMARK_X = logoCenterX - WATERMARK_WIDTH / 2
+      const WATERMARK_Y = LOGO_TEXT_Y - WATERMARK_HEIGHT - 10
 
       // Draw the watermark and logo
       context.drawImage(
