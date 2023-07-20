@@ -8,8 +8,8 @@ import { type PopoverElements } from '../../utils/hooks/usePopover'
 import styles from './CopyLinkButton.module.scss'
 
 interface CopyLinkButtonProps {
-  popover: PopoverElements;
-  scrollToHash: ScrollableHashId;
+  popover: PopoverElements
+  scrollToHash: ScrollableHashId
   urlWithHash: string
 }
 
@@ -46,15 +46,11 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
           <div className={styles.CopyCardLinkText}>Copy card link</div>
         </ListItemIcon>
       </MenuItem>
-      <Snackbar
-        open={open}
-        autoHideDuration={1000}
-        onClose={handleClose}
-      >
+      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
         <Alert onClose={handleClose} className={styles.SnackBarAlert}>
           Direct link to <b>{cardName}</b> copied to clipboard!
         </Alert>
       </Snackbar>
     </>
-  );
+  )
 }

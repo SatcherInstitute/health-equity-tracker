@@ -3,6 +3,7 @@ import {
   METRIC_CONFIG,
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
+import { SHOW_PHRMA } from '../data/providers/PhrmaProvider'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
 // Map of phrase segment index to its selected value
@@ -32,6 +33,7 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
+  | 'Medicare Beneficiaries'
 
 export interface MadLib {
   readonly id: MadLibId
@@ -103,40 +105,45 @@ export function getSelectedConditions(madLib: MadLib) {
 export type DefaultDropdownVarId = 'default'
 export const DEFAULT: DefaultDropdownVarId = 'default'
 
-const DROPDOWN_VAR: Record<DropdownVarId | DefaultDropdownVarId, string> = {
-  default: 'select a topic',
-  asthma: 'Asthma',
-  avoided_care: 'Care Avoidance Due to Cost',
-  cardiovascular_diseases: 'Cardiovascular Diseases',
-  chronic_kidney_disease: 'Chronic Kidney Disease',
-  copd: 'COPD',
-  covid_vaccinations: 'COVID-19 Vaccinations',
-  covid: 'COVID-19',
-  depression: 'Depression',
-  diabetes: 'Diabetes',
-  excessive_drinking: 'Excessive Drinking',
-  frequent_mental_distress: 'Frequent Mental Distress',
-  health_insurance: 'Uninsured Individuals',
-  hiv_black_women: 'HIV (Black Women)',
-  hiv_care: 'Linkage to HIV Care',
-  hiv_prep: 'PrEP Coverage',
-  hiv_stigma: 'HIV Stigma',
-  hiv: 'HIV',
-  incarceration: 'Incarceration',
-  poverty: 'Poverty',
-  preventable_hospitalizations: 'Preventable Hospitalization',
-  substance: 'Opioid and Other Substance Misuse',
-  suicide: 'Suicide',
-  voter_participation: 'Voter Participation',
-  women_in_gov: 'Women in Government',
-}
+const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
+  {
+    default: 'select a topic',
+    asthma: 'Asthma',
+    avoided_care: 'Care Avoidance Due to Cost',
+    cardiovascular_diseases: 'Cardiovascular Diseases',
+    chronic_kidney_disease: 'Chronic Kidney Disease',
+    copd: 'COPD',
+    covid_vaccinations: 'COVID-19 Vaccinations',
+    covid: 'COVID-19',
+    depression: 'Depression',
+    diabetes: 'Diabetes',
+    excessive_drinking: 'Excessive Drinking',
+    frequent_mental_distress: 'Frequent Mental Distress',
+    health_insurance: 'Uninsured Individuals',
+    hiv_black_women: 'HIV (Black Women)',
+    hiv_care: 'Linkage to HIV Care',
+    hiv_prep: 'PrEP Coverage',
+    hiv_stigma: 'HIV Stigma',
+    hiv: 'HIV',
+    incarceration: 'Incarceration',
+    poverty: 'Poverty',
+    phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
+    phrma_hiv: 'HIV Conditions and Medication Adherence',
+    preventable_hospitalizations: 'Preventable Hospitalization',
+    substance: 'Opioid and Other Substance Misuse',
+    suicide: 'Suicide',
+    voter_participation: 'Voter Participation',
+    women_in_gov: 'Women Serving in Legislative Office',
+  }
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
 > = {
+  phrma_cardiovascular: 'Medicare Beneficiary',
+  phrma_hiv: 'Medicare Beneficiary HIV',
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
-  women_in_gov: 'Women in',
+  women_in_gov: 'Women Serving in',
 }
 
 export interface Category {
@@ -174,9 +181,9 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: 'COVID-19',
+    title: 'Political Determinants of Health',
     definition: '',
-    options: ['covid', 'covid_vaccinations'],
+    options: ['voter_participation', 'women_in_gov', 'incarceration'],
   },
   {
     title: 'Social Determinants of Health',
@@ -189,16 +196,23 @@ const CATEGORIES_LIST: Category[] = [
     ],
   },
   {
-    title: 'Political Determinants of Health',
+    title: 'COVID-19',
     definition: '',
-    options: ['voter_participation', 'women_in_gov', 'incarceration'],
+    options: ['covid', 'covid_vaccinations'],
   },
 ]
+
+SHOW_PHRMA &&
+  CATEGORIES_LIST.push({
+    title: 'Medicare Beneficiaries',
+    definition: '',
+    options: ['phrma_cardiovascular'],
+  })
 
 const MADLIB_LIST: MadLib[] = [
   {
     id: 'disparity',
-    phrase: ['Investigate rates of', DROPDOWN_VAR, 'in', FIPS_MAP],
+    phrase: ['Investigate rates of', DROPDOWN_TOPIC_MAP, 'in', FIPS_MAP],
     defaultSelections: { 1: DEFAULT, 3: USA_FIPS },
     activeSelections: { 1: DEFAULT, 3: USA_FIPS },
   },
@@ -206,7 +220,7 @@ const MADLIB_LIST: MadLib[] = [
     id: 'comparegeos',
     phrase: [
       'Compare rates of',
-      DROPDOWN_VAR,
+      DROPDOWN_TOPIC_MAP,
       'between',
       FIPS_MAP,
       'and',
@@ -219,9 +233,9 @@ const MADLIB_LIST: MadLib[] = [
     id: 'comparevars',
     phrase: [
       'Explore relationships between',
-      DROPDOWN_VAR,
+      DROPDOWN_TOPIC_MAP,
       'and',
-      DROPDOWN_VAR,
+      DROPDOWN_TOPIC_MAP,
       'in',
       FIPS_MAP,
     ],

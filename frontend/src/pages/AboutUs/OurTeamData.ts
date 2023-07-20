@@ -11,6 +11,8 @@ import Jareese from '../../assets/team/StroudJareese.png'
 import Kim from '../../assets/team/CincoKim.jpg'
 import Evan from '../../assets/team/MartinEvan.jpg'
 
+import GrantorPhrma from '../../assets/grantors/GrantorPhrma.png'
+
 import PartnerSatcher from '../../assets/partners/PartnerSatcher.png'
 import PartnerGilead from '../../assets/partners/PartnerGilead.png'
 import PartnerCdc from '../../assets/partners/PartnerCdc.png'
@@ -276,6 +278,14 @@ export const HE_TASKFORCE = [
   'Darrell LaRoche',
   'Shavon Arline-Bradley, MPH, MDiv',
   'Melicia Whitt-Glover, PhD, FACSM',
+]
+
+export const GRANTORS = [
+  {
+    imageUrl: GrantorPhrma,
+    alt: 'Phrma Foundation',
+    url: 'https://phrma.org',
+  },
 ]
 
 export const PARTNERS = [

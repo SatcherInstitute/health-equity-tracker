@@ -31,11 +31,9 @@ export const CAWP_DETERMINANTS: MetricId[] = [
   'cawp_population_pct',
   'pct_share_of_state_leg',
   'pct_share_of_women_state_leg',
-  'women_state_leg_ratio_age_adjusted',
   'women_state_leg_pct_relative_inequity',
   'pct_share_of_us_congress',
   'pct_share_of_women_us_congress',
-  'women_us_congress_ratio_age_adjusted',
   'women_us_congress_pct_relative_inequity',
   ...CAWP_CONGRESS_COUNTS,
   ...CAWP_STLEG_COUNTS,
@@ -63,6 +61,12 @@ export function getWomenRaceLabel(
   }
   return `${raceLabel} women`
 }
+
+const reason = 'unavailable for Women in elective office topics'
+export const CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', reason],
+  ['Sex', reason],
+]
 
 class CawpProvider extends VariableProvider {
   constructor() {

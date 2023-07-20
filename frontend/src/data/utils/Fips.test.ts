@@ -19,9 +19,7 @@ describe('Test getDisplayName()', () => {
 
 describe('Test getSentenceDisplayName()', () => {
   test('The US', async () => {
-    expect(new Fips('00').getSentenceDisplayName()).toEqual(
-      ' the United States'
-    )
+    expect(new Fips('00').getSentenceDisplayName()).toEqual('the United States')
   })
 })
 

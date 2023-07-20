@@ -4,11 +4,7 @@ import {
   type DataTypeConfig,
   type DataTypeId,
 } from '../config/MetricConfig'
-import {
-  type Breakdowns,
-  type BreakdownVar,
-  type GeographicBreakdown,
-} from '../query/Breakdowns'
+import { type Breakdowns, type BreakdownVar } from '../query/Breakdowns'
 import {
   AHR_API_NH_DETERMINANTS,
   AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
@@ -147,47 +143,7 @@ export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
 }
 
 /*
-There are many gaps in the data, and not every variable contains info at each demographic breakdown by each geographic level.
-This nested dictionary keeps track of known gaps, and is utilized by the UI (e.g. disable demographic toggle options)
-*/
-const missingAgeAllGeos: DataTypeId[] = [
-  'non_medical_drug_use',
-  'preventable_hospitalizations',
-  'women_in_state_legislature',
-  'women_in_us_congress',
-]
-
-const missingSexAllGeos: DataTypeId[] = [
-  'women_in_state_legislature',
-  'women_in_us_congress',
-]
-
-export const DATA_GAPS: Partial<
-  Record<GeographicBreakdown, Partial<Record<BreakdownVar, DataTypeId[]>>>
-> = {
-  national: {
-    age: [...missingAgeAllGeos],
-    sex: [...missingSexAllGeos],
-  },
-  state: {
-    age: [...missingAgeAllGeos, 'covid_vaccinations', 'prison'],
-    sex: [...missingSexAllGeos, 'covid_vaccinations'],
-  },
-  territory: {
-    age: [...missingAgeAllGeos, 'covid_vaccinations'],
-    sex: [...missingSexAllGeos, 'covid_vaccinations'],
-  },
-  county: {
-    age: [...missingAgeAllGeos, 'covid_vaccinations', 'prison', 'jail'],
-    sex: [...missingSexAllGeos, 'covid_vaccinations'],
-    race_and_ethnicity: ['covid_vaccinations'],
-  },
-}
-
-/*
-
 Conditionally hide some of the extra buckets from the table card, which generally should be showing only 1 complete set of buckets that show the entire population's comparison values.
-
 */
 const includeAllsGroupsIds: DataTypeId[] = [
   'women_in_state_legislature',

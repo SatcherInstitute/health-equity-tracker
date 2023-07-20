@@ -97,11 +97,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     config.metricId.includes('ratio')
   )
 
-  const chartTitle = metricConfigs[ratioId]?.chartTitle
-    ? generateChartTitle({
-        chartTitle: metricConfigs[ratioId].chartTitle,
-        fips: props.fips,
-      })
+  const chartTitle = metricConfigs?.[ratioId]?.chartTitle
+    ? generateChartTitle(metricConfigs[ratioId].chartTitle, props.fips)
     : 'Age-adjusted Risk Ratios'
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
