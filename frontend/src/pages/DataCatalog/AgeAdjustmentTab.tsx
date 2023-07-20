@@ -283,9 +283,97 @@ function AgeAdjustmentTab() {
               </table>
 
               <p>
+                The <b>age-specific death rates</b> will be each race/age
+                group's death count divided by its population.
+              </p>
+
+              {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
+              <table className={styles.ExampleTable}>
+                <thead>
+                  <tr>
+                    <td>Race Group</td>
+                    <td>Age Group</td>
+                    <td>Deaths</td>
+                    <td>Population</td>
+                    <td>Age-Specific Death Rate</td>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Race A</td>
+                    <td>0-29</td>
+                    <td>50</td>
+                    <td>600,000</td>
+                    <td>
+                      <div className={styles.Calculation}>(50 / 600,000)</div>
+                      <b> = 0.00008333</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Race A</td>
+                    <td>30-59</td>
+                    <td>500</td>
+                    <td>800,000</td>
+                    <td>
+                      <div className={styles.Calculation}>(500 / 800,000)</div>
+                      <b> = 0.000625</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Race A</td>
+                    <td>60+</td>
+                    <td>5,000</td>
+                    <td>200,000</td>
+                    <td>
+                      <div className={styles.Calculation}>
+                        (5,000 / 200,000)
+                      </div>
+                      <b> = 0.025</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Race B</td>
+                    <td>0-29</td>
+                    <td>20</td>
+                    <td>200,000</td>
+                    <td>
+                      <div className={styles.Calculation}>(20 / 200,000)</div>
+                      <b> = 0.0001</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Race B</td>
+                    <td>30-59</td>
+                    <td>200</td>
+                    <td>300,000</td>
+                    <td>
+                      <div className={styles.Calculation}>(200 / 300,000)</div>
+                      <b> = 0.00066667</b>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td>Race B</td>
+                    <td>60+</td>
+                    <td>800</td>
+                    <td>60,000</td>
+                    <td>
+                      <div className={styles.Calculation}>(800 / 60,000)</div>
+                      <b> = 0.01333333</b>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <p>
                 The <b>internal standard population</b> will be the total
-                population of this example state: (Population of Race A + Race
-                B).
+                population of this example state per age group: (Population of
+                Race A + Race B).
               </p>
 
               {/* A + B TABLE */}
@@ -294,7 +382,6 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race Group</td>
                     <td>Age Group</td>
-                    <td>Deaths</td>
                     <td>Internal Standard Population</td>
                   </tr>
                 </thead>
@@ -303,7 +390,6 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Total (A & B)</td>
                     <td>0-29</td>
-                    <td>70</td>
                     <td>
                       <div className={styles.Calculation}>
                         600,000 + 200,000
@@ -315,7 +401,6 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Total (A & B)</td>
                     <td>30-59</td>
-                    <td>700</td>
                     <td>
                       <div className={styles.Calculation}>
                         800,000 + 300,000
@@ -327,7 +412,6 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Total (A & B)</td>
                     <td>60+</td>
-                    <td>5,800</td>
                     <td>
                       <div className={styles.Calculation}>200,000 + 60,000</div>
                       <b>= 260,000</b>
@@ -335,6 +419,7 @@ function AgeAdjustmentTab() {
                   </tr>
                 </tbody>
               </table>
+
               <h4 className={styles.MethodologySubsubheaderText}>
                 First, we calculate the expected deaths for each age/race group:
               </h4>
@@ -350,7 +435,9 @@ function AgeAdjustmentTab() {
                     <td>Age Group</td>
                     <td>Deaths</td>
                     <td>Population</td>
-                    <td>Expected deaths</td>
+                    <td>Age-Specific Death Rate</td>
+                    <td>Internal Standard Population</td>
+                    <td>Expected Deaths</td>
                   </tr>
                 </thead>
 
@@ -360,9 +447,11 @@ function AgeAdjustmentTab() {
                     <td>0-29</td>
                     <td>50</td>
                     <td>600,000</td>
+                    <td>0.00008333</td>
+                    <td></td>
                     <td>
                       <div className={styles.Calculation}>
-                        (50 / 600,000) * 800,000
+                        0.00008333 * 800,000
                       </div>
                       <b> = 66.67</b>
                     </td>
@@ -373,9 +462,12 @@ function AgeAdjustmentTab() {
                     <td>30-59</td>
                     <td>500</td>
                     <td>800,000</td>
+                    <td>0.000625</td>
+                    <td></td>
+
                     <td>
                       <div className={styles.Calculation}>
-                        (500 / 800,000) * 1,200,000
+                        0.000625 * 1,200,000
                       </div>
                       <b> = 687.5</b>
                     </td>
@@ -386,10 +478,11 @@ function AgeAdjustmentTab() {
                     <td>60+</td>
                     <td>5,000</td>
                     <td>200,000</td>
+                    <td>0.025</td>
+                    <td></td>
+
                     <td>
-                      <div className={styles.Calculation}>
-                        (5,000 / 200,000) * 260,000
-                      </div>
+                      <div className={styles.Calculation}>0.025 * 260,000</div>
                       <b> = 6,500</b>
                     </td>
                   </tr>
@@ -399,10 +492,11 @@ function AgeAdjustmentTab() {
                     <td>0-29</td>
                     <td>20</td>
                     <td>200,000</td>
+                    <td>0.0001</td>
+                    <td></td>
+
                     <td>
-                      <div className={styles.Calculation}>
-                        (20 / 200,000) * 800,000
-                      </div>
+                      <div className={styles.Calculation}>0.0001 * 800,000</div>
                       <b> = 80</b>
                     </td>
                   </tr>
@@ -412,9 +506,12 @@ function AgeAdjustmentTab() {
                     <td>30-59</td>
                     <td>200</td>
                     <td>300,000</td>
+                    <td>0.00066667</td>
+                    <td></td>
+
                     <td>
                       <div className={styles.Calculation}>
-                        (200 / 300,000) * 1,200,000
+                        0.00066667 * 1,200,000
                       </div>
                       <b> = 733.33</b>
                     </td>
@@ -425,12 +522,43 @@ function AgeAdjustmentTab() {
                     <td>60+</td>
                     <td>800</td>
                     <td>60,000</td>
+                    <td>0.01333333</td>
+                    <td></td>
+
                     <td>
                       <div className={styles.Calculation}>
-                        (800 / 60,000) * 260,000
+                        0.01333333 * 260,000
                       </div>
                       <b> = 3466.67</b>
                     </td>
+                  </tr>
+
+                  <tr>
+                    <td>Total (A & B)</td>
+                    <td>0-29</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>800,000</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Total (A & B)</td>
+                    <td>30-59</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>1,200,000</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>Total (A & B)</td>
+                    <td>60+</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>260,000</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>
@@ -442,7 +570,7 @@ function AgeAdjustmentTab() {
                 <thead>
                   <tr>
                     <td>Race Group</td>
-                    <td>Total expected deaths</td>
+                    <td>Total Expected Deaths</td>
                   </tr>
                 </thead>
 
@@ -474,7 +602,7 @@ function AgeAdjustmentTab() {
                 <thead>
                   <tr>
                     <td>Race Group</td>
-                    <td>Total expected deaths</td>
+                    <td>Total Expected Deaths</td>
                     <td>Age-adjusted death ratio</td>
                   </tr>
                 </thead>

@@ -483,8 +483,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: 'death_ratio_age_adjusted',
-          chartTitle:
-            'Ratio of age-adjusted COVID-19 deaths compared to White (NH)',
+          chartTitle: 'Age-adjusted COVID-19 deaths compared to White (NH)',
           shortLabel: 'Ratio compared to White (NH)', // table header-row label
           type: 'age_adjusted_ratio',
           ageAdjusted: true,
@@ -535,7 +534,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         age_adjusted_ratio: {
           metricId: 'hosp_ratio_age_adjusted',
           chartTitle:
-            'Ratio of age-adjusted COVID-19 hospitalizations compared to White (NH)',
+            'Age-adjusted COVID-19 hospitalizations compared to White (NH)',
           shortLabel: 'age-adjusted', // Table header-row label
           type: 'age_adjusted_ratio',
           ageAdjusted: true,
@@ -758,7 +757,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: 'hiv_deaths_ratio_age_adjusted',
-          chartTitle: 'Ratio of age-adjusted HIV deaths compared to White (NH)',
+          chartTitle: 'Age-adjusted HIV deaths compared to White (NH)',
           shortLabel: 'Ratio compared to White (NH)',
           type: 'age_adjusted_ratio',
           ageAdjusted: true,
