@@ -1,17 +1,11 @@
 import { createRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
-import AppBarLogo from '../../assets/AppbarLogo.png'
 import sass from '../../styles/variables.module.scss'
 
-const CITATION_X = 32
-const CITATION_FONT_SIZE = 22
-const CITATION_FONT_STYLE = '"Inter",sans-serif'
-
-// const WATERMARK_X = 10
-// const WATERMARK_Y = 10
-const WATERMARK_WIDTH = 70
-const WATERMARK_HEIGHT = 70
+const URL_X = 32
+const URL_FONT_SIZE = 22
+const URL_FONT_STYLE = '"Inter",sans-serif'
 
 const LOGO_TEXT = 'Health Equity Tracker'
 const LOGO_FONT_COLOR = sass.altGreen
@@ -55,20 +49,11 @@ export function useDownloadCardImage(
   ) {
     const combinedCanvas = document.createElement('canvas')
     combinedCanvas.width = canvas.width
-    combinedCanvas.height =
-      canvas.height + CITATION_FONT_SIZE + 10 + TOP_PADDING
+    combinedCanvas.height = canvas.height + URL_FONT_SIZE + 10 + TOP_PADDING
     const context = combinedCanvas.getContext('2d')
 
-    const WATERMARK_X = canvas.width - WATERMARK_WIDTH - 320
-    const WATERMARK_Y = canvas.height + 5
-
-    const LOGO_TEXT_X = WATERMARK_X + WATERMARK_WIDTH + 10
-    const LOGO_TEXT_Y = WATERMARK_Y + WATERMARK_HEIGHT / 2
-
-    console.log({ WATERMARK_Y })
-
-    const logoImage = new Image()
-    logoImage.src = AppBarLogo
+    const LOGO_TEXT_X = canvas.width - 310
+    const LOGO_TEXT_Y = canvas.height + 40
 
     if (context) {
       // Fill the top area with white
@@ -78,34 +63,21 @@ export function useDownloadCardImage(
       // Draw the screenshot onto the combined canvas
       context.drawImage(canvas, 0, TOP_PADDING)
 
-      // Draw the citation background
-      // const citationBackgroundHeight = CITATION_FONT_SIZE + 10
-      // context.fillStyle = sass.white
-      // context.fillRect(0, combinedCanvas.height - citationBackgroundHeight, combinedCanvas.width, citationBackgroundHeight)
-
-      const citationPaddingHeight = CITATION_FONT_SIZE + 10
+      const urlPaddingHeight = URL_FONT_SIZE + 10
       context.fillStyle = sass.white
       context.fillRect(
         0,
-        combinedCanvas.height - citationPaddingHeight,
+        combinedCanvas.height - urlPaddingHeight,
         combinedCanvas.width,
-        citationPaddingHeight
+        urlPaddingHeight
       )
 
       // Save the original globalAlpha value
       const originalAlpha = context.globalAlpha
 
-      // Set opacity for watermark and logo
+      // Set opacity for logo text
       context.globalAlpha = 0.4
 
-      // Draw the watermark and logo
-      context.drawImage(
-        logoImage,
-        WATERMARK_X,
-        WATERMARK_Y,
-        WATERMARK_WIDTH,
-        WATERMARK_HEIGHT
-      )
       context.font = `${LOGO_FONT_SIZE}px ${LOGO_FONT_STYLE}`
       context.fillStyle = LOGO_FONT_COLOR
       context.textBaseline = 'middle'
@@ -114,13 +86,12 @@ export function useDownloadCardImage(
       // Reset the globalAlpha to the original value
       context.globalAlpha = originalAlpha
 
-      // Draw the citation
-      const citationY = combinedCanvas.height - CITATION_FONT_SIZE
-      console.log({ citationY })
-      context.font = `${CITATION_FONT_SIZE}px ${CITATION_FONT_STYLE}`
+      // Draw the url
+      const urlY = combinedCanvas.height - URL_FONT_SIZE
+      context.font = `${URL_FONT_SIZE}px ${URL_FONT_STYLE}`
       context.fillStyle = 'black'
       context.textBaseline = 'bottom'
-      context.fillText(`${urlWithHash}`, CITATION_X, citationY)
+      context.fillText(`${urlWithHash}`, URL_X, urlY)
     }
 
     const image = combinedCanvas.toDataURL('image/png')
