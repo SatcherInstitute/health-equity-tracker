@@ -3,7 +3,6 @@ import {
   METRIC_CONFIG,
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
-import { SHOW_PHRMA } from '../data/providers/PhrmaProvider'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
 // Map of phrase segment index to its selected value
@@ -200,14 +199,12 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: ['covid', 'covid_vaccinations'],
   },
-]
-
-SHOW_PHRMA &&
-  CATEGORIES_LIST.push({
+  {
     title: 'Medicare Beneficiaries',
     definition: '',
     options: ['phrma_cardiovascular'],
-  })
+  },
+]
 
 const MADLIB_LIST: MadLib[] = [
   {

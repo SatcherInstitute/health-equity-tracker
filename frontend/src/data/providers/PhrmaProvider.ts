@@ -9,9 +9,6 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const SHOW_PHRMA = false
-console.log('showing phrma?', SHOW_PHRMA)
-
 export const PHRMA_CONDITIONS: DropdownVarId[] = [
   'phrma_cardiovascular',
   'phrma_hiv',

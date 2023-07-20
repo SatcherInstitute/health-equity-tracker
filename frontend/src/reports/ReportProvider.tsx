@@ -36,8 +36,7 @@ import {
   MissingPhrmaData,
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
-import { PHRMA_CONDITIONS, SHOW_PHRMA } from '../data/providers/PhrmaProvider'
-import { Widget } from '@typeform/embed-react'
+import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -208,14 +207,6 @@ function ReportProvider(props: ReportProviderProps) {
         <aside className={styles.MissingDataInfo}>
           {/* Display condition definition(s) based on the tracker madlib settings */}
           <div>
-            {SHOW_PHRMA && (
-              <Widget
-                id="gTBAtJee"
-                style={{ width: '100%', height: '700px' }}
-                className="my-form"
-              />
-            )}
-
             {definedConditions?.length > 0 && (
               <Box mb={5}>
                 <h3
