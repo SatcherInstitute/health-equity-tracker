@@ -12,7 +12,7 @@ import {
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
   ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES
+  HIV_RESOURCES,
 } from './ResourcesData'
 
 function ResourcesTab() {
@@ -40,7 +40,7 @@ function ResourcesTab() {
             MENTAL_HEALTH_RESOURCES,
             COVID_RESOURCES,
             COVID_VACCINATION_RESOURCES,
-            HIV_RESOURCES
+            HIV_RESOURCES,
           ].map(({ heading, resources }) => {
             // first heading should get a "main" id for Playwright testing and our a11y setups
             const id = heading === 'Health Equity' ? 'main' : heading

@@ -56,7 +56,6 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { useState } from 'react'
 import {
   RATE_MAP_SCALE,
@@ -121,8 +120,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isCawpCongress =
     props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
   const isCawp = isCawpStateLeg ?? isCawpCongress
-
-  const isPopulationSubset = HIV_DETERMINANTS.includes(metricConfig.metricId)
 
   const location = useLocation()
 
@@ -215,16 +212,12 @@ function MapCardWithKey(props: MapCardProps) {
   if (isIncarceration) qualifierItems = COMBINED_INCARCERATION_STATES_LIST
 
   const { metricId, chartTitle } = metricConfig
-  const title = generateChartTitle({
-    chartTitle,
-    fips: props.fips,
-  })
-  const subtitle = generateSubtitle({
+  const title = generateChartTitle(chartTitle, props.fips)
+  const subtitle = generateSubtitle(
     activeBreakdownFilter,
     currentBreakdown,
-    isPopulationSubset,
-    metricId,
-  })
+    metricId
+  )
 
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
@@ -257,7 +250,7 @@ function MapCardWithKey(props: MapCardProps) {
       reportTitle={props.reportTitle}
     >
       {(queryResponses, metadata, geoData) => {
-        // contains data rows for sub-geos (if viewing US, this data will be STATE level)
+        // contains rows for sub-geos (if viewing US, this data will be STATE level)
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
@@ -387,6 +380,7 @@ function MapCardWithKey(props: MapCardProps) {
               metadata={metadata}
               metricConfig={metricConfig}
               open={multimapOpen}
+              queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}
               updateFipsCallback={props.updateFipsCallback}

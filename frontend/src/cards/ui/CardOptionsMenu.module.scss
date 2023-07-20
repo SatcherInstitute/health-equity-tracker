@@ -2,13 +2,13 @@
 @import '../../styles/globals.scss';
 
 .ShareMenu {
-    display: flex;
-    flex-direction: row-reverse;
-    position: absolute; 
-    right: 16px;
-    top: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  right: 16px;
+  top: 5px;
 }
 
-.MenuList{
-    padding-right: 5px
+.MenuList {
+  padding-right: 5px;
 }

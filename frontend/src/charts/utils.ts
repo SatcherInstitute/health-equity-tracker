@@ -7,13 +7,15 @@ import {
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
   type BreakdownVar,
 } from '../data/query/Breakdowns'
-import { type DemographicGroup } from '../data/utils/Constants'
+import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { type Fips } from '../data/utils/Fips'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../data/providers/CawpProvider'
+import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
 
@@ -93,62 +95,58 @@ export function addMetricDisplayColumn(
   return [newData, displayColName]
 }
 
-interface chartTitleProps {
-  chartTitle: string
+export function generateChartTitle(
+  chartTitle: string,
+  fips: Fips,
   currentBreakdown?: BreakdownVar
-  fips: Fips
-}
-
-export function generateChartTitle({
-  chartTitle,
-  currentBreakdown,
-  fips,
-}: chartTitleProps): string {
-  return `${chartTitle} ${
+): string {
+  return `${chartTitle}${
     currentBreakdown
-      ? `with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
+      ? ` with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
       : ''
   } in ${fips.getSentenceDisplayName()}`
 }
 
-interface subtitleProps {
-  activeBreakdownFilter: DemographicGroup
-  currentBreakdown: BreakdownVar
-  isPopulationSubset?: boolean
+export function generateSubtitle(
+  activeBreakdownFilter: DemographicGroup,
+  currentBreakdown: BreakdownVar,
   metricId: MetricId
-}
-
-export function generateSubtitle({
-  activeBreakdownFilter,
-  currentBreakdown,
-  isPopulationSubset,
-  metricId,
-}: subtitleProps) {
+) {
   let subtitle = ''
 
-  if (activeBreakdownFilter === 'All') {
+  if (activeBreakdownFilter === ALL) {
     subtitle = ''
-  } else if (currentBreakdown === 'age') {
+  } else if (currentBreakdown === AGE) {
     subtitle = `Ages ${activeBreakdownFilter}`
   } else {
     subtitle = `${activeBreakdownFilter}`
   }
 
-  if (isPopulationSubset) {
+  if (HIV_DETERMINANTS.includes(metricId)) {
     let ageTitle = ''
     if (metricId === 'hiv_prep_coverage') {
       ageTitle = 'Ages 16+'
     } else if (metricId === 'hiv_stigma_index') {
       ageTitle = 'Ages 18+'
+    } else {
+      ageTitle = 'Ages 13+'
     }
-  
+
     if (subtitle === '') {
       subtitle = ageTitle
-    } else if (currentBreakdown !== 'age') {
+    } else if (currentBreakdown !== AGE) {
       subtitle += `, ${ageTitle}`
     }
   }
-  
+
+  if (PHRMA_METRICS.includes(metricId)) {
+    const beneficiariesTitle = 'Medicare beneficiaries'
+    if (subtitle === '') {
+      subtitle = beneficiariesTitle
+    } else {
+      subtitle += `, ${beneficiariesTitle}`
+    }
+  }
 
   return subtitle
 }
@@ -161,7 +159,7 @@ export function getAltGroupLabel(
   if (CAWP_DETERMINANTS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
-  if (group === 'All' && breakdown === 'age') {
+  if (group === ALL && breakdown === AGE) {
     if (metricId.includes('prep')) {
       return `${group} (16+)`
     }
@@ -171,7 +169,6 @@ export function getAltGroupLabel(
     if (metricId.includes('hiv')) {
       return `${group} (13+)`
     }
-    return group
   }
   return group
 }

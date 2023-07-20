@@ -11,6 +11,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
+import { type MetricId } from '../../data/config/MetricConfig'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -147,11 +148,19 @@ export function Sources(props: SourcesProps) {
           <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
         )}
       </Grid>
-      {props.isMulti ?
-        <>
-          <Grid item xs={8} sm={9} md={10} container alignItems={'center'}>
-            {sourcesInfo}
-          </Grid>
+
+      <>
+        <Grid
+          item
+          xs={props.isMulti ? 8 : 12}
+          sm={props.isMulti ? 9 : 12}
+          md={props.isMulti ? 10 : 12}
+          container
+          alignItems={'center'}
+        >
+          {sourcesInfo}
+        </Grid>
+        {props.isMulti && (
           <Grid
             item
             xs={4}
@@ -161,18 +170,28 @@ export function Sources(props: SourcesProps) {
             justifyContent={'flex-end'}
             alignItems={'flex-end'}
           >
-            {props.downloadTargetScreenshot &&
+            {props.downloadTargetScreenshot && (
               <DownloadCardImageButton
                 downloadTargetScreenshot={props.downloadTargetScreenshot}
                 isMulti={props.isMulti}
               />
-            }
+            )}
           </Grid>
-        </> :
-        <>{sourcesInfo}</>
-      }
-
-
+        )}
+      </>
     </Grid>
+  )
+}
+
+interface MetricDetailsProps {
+  consumedIds: MetricId[]
+}
+
+export function MetricDetails(props: MetricDetailsProps) {
+  return (
+    <>
+      Metrics:
+      {props.consumedIds.map((metricId: MetricId) => metricId)}
+    </>
   )
 }

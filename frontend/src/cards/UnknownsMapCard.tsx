@@ -97,11 +97,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = generateChartTitle({
-    chartTitle: metricConfig.chartTitle,
-    currentBreakdown,
-    fips: props.fips,
-  })
+  const chartTitle = generateChartTitle(
+    /* chartTitle:  */ metricConfig.chartTitle,
+    /* fips: */ props.fips,
+    currentBreakdown
+  )
 
   const isCawpStateLeg =
     props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
@@ -174,7 +174,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // for data sets where some geos might contain `0` for every unknown pct_share, like CAWP US Congress National
         const unknownsAllZero =
           unknowns.length > 0 &&
-          unknowns.every((unknown: Row) => unknown[metricConfig.metricId] === 0)
+          unknowns.every(
+            (unknown: Row) =>
+              unknown[metricConfig.metricId] === 0 ||
+              unknown[metricConfig.metricId] == null
+          )
 
         // show MISSING DATA ALERT if we expect the unknowns array to be empty (breakdowns/data unavailable),
         // or if the unknowns are undefined (eg COVID suppressed states)

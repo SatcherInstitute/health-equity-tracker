@@ -10,6 +10,9 @@ import {
 import styles from './DefaultHelperBox.module.scss'
 import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
 
+import { Sidetab } from '@typeform/embed-react'
+import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
+
 export default function DefaultHelperBox() {
   return (
     <Grid
@@ -74,15 +77,6 @@ export default function DefaultHelperBox() {
                 </li>
               </ul>
             </div>
-
-            {/* <Box mt={5}>
-
-
-              <p>
-                To learn more about these topics, and why they were chosen,
-                visit our <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>.
-              </p>
-            </Box> */}
           </Grid>
 
           <Grid
@@ -121,6 +115,10 @@ export default function DefaultHelperBox() {
           <DisclaimerAlert />
         </Box>
       </Alert>
+
+      {SHOW_PHRMA && (
+        <Sidetab id="gTBAtJee" buttonText="give us your feedback!" />
+      )}
     </Grid>
   )
 }
