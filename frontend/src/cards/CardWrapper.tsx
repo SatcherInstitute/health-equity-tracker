@@ -34,7 +34,10 @@ function CardWrapper(props: {
   expanded?: boolean
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
-    props.downloadTitle, props.elementsToHide, props.expanded
+    props.downloadTitle,
+    props.elementsToHide,
+    props.expanded,
+    props.scrollToHash
   )
 
   const loadingComponent = (
