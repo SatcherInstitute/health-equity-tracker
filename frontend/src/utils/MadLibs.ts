@@ -186,11 +186,6 @@ const CATEGORIES_LIST: Category[] = [
     options: ['voter_participation', 'women_in_gov', 'incarceration'],
   },
   {
-    title: 'Political Determinants of Health',
-    definition: '',
-    options: ['voter_participation', 'women_in_gov', 'incarceration'],
-  },
-  {
     title: 'Social Determinants of Health',
     definition: '',
     options: [
