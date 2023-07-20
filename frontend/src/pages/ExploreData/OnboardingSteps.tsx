@@ -56,7 +56,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
       /* placement= */ undefined
     ),
     onboardingStep(
-      '#AIAN-alert',
+      '#unknown-bubbles-alert',
       'Limits in the data',
       <>
         <p>
@@ -73,13 +73,13 @@ export function getOnboardingSteps(pageIsWide: boolean) {
       /* placement= */ undefined
     ),
     onboardingStep(
-      '#madlib-box',
+      '#root',
       'Explore the data',
       <>
         <p>
-          Close this window to explore the data yourself, starting with{' '}
-          <b>COVID-19</b> in the <b>United States</b>. Want to see more? Watch
-          our demo video:
+          Hit "Last" to close this window and explore the data yourself,
+          starting with <b>COVID-19 Cases</b> in the <b>United States</b>. Want
+          to learn more? Watch our demo video:
         </p>
         <div className={styles.StepVideoBox}>
           <iframe

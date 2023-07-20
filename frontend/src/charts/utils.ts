@@ -151,18 +151,6 @@ export function generateSubtitle(
   return subtitle
 }
 
-/*
-
-  if (PHRMA_METRICS.includes(metricId)) {
-    const beneficiariesTitle = 'Medicare beneficiaries'
-    if (subtitle === '') {
-      subtitle = beneficiariesTitle
-    } else {
-      subtitle += `, ${beneficiariesTitle}`
-    }
-  }
-
-*/
 export function getAltGroupLabel(
   group: DemographicGroup,
   metricId: MetricId,
