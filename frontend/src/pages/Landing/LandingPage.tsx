@@ -27,8 +27,6 @@ import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
 
-import { Sidetab } from '@typeform/embed-react'
-
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,
@@ -395,8 +393,6 @@ function LandingPage() {
           </section>
         </Grid>
       </Grid>
-
-      <Sidetab id="gTBAtJee" buttonText="give us your feedback!" />
     </>
   )
 }

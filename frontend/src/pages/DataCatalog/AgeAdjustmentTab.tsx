@@ -37,8 +37,12 @@ function AgeAdjustmentTab() {
               <p>
                 We have decided to present age-adjusted ratios when possible in
                 order to show a more accurate and equitable view of the impact
-                on non-white communities in the United States. Currently, we are
-                able to calculate these age-adjusted ratios for{' '}
+                on non-White communities in the United States. As of{' '}
+                {new Date().toLocaleString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+                {', '}we are able to calculate these age-adjusted ratios for{' '}
                 <Link to={EXPLORE_DATA_PAGE_LINK + COVID_DEATHS_US_SETTING}>
                   COVID-19 deaths
                 </Link>
