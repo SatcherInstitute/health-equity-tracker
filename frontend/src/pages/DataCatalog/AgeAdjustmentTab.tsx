@@ -150,12 +150,12 @@ function AgeAdjustmentTab() {
                 <li>
                   <p>
                     <b>
-                      For each race/age combination, calculate the true
-                      condition rate:
+                      For each race/age combination, calculate the ‘age-specific
+                      rate’
                     </b>
                   </p>
                   <pre>
-                    true_condition_rate = (Condition count for race A, age group
+                    age_specific_rate = (Condition count for race A, age group
                     1) / (Population count of race A, age group 1)
                   </pre>
                 </li>
@@ -168,7 +168,7 @@ function AgeAdjustmentTab() {
                     </b>
                   </p>
                   <p>
-                    To do this we multiply the true condition rate by the
+                    To do this we multiply the age-specific rate by the
                     location's total population for that age group. The expected
                     condition counts are the number of people of the race group
                     who would have been expected to have this condition if the
@@ -176,7 +176,7 @@ function AgeAdjustmentTab() {
                     whole.
                   </p>
                   <pre>
-                    expected_condition_count = true_condition_rate * (Total
+                    expected_condition_count = age_specific_rate * (Total
                     Population for age group)
                   </pre>
                 </li>
@@ -371,9 +371,9 @@ function AgeAdjustmentTab() {
               </table>
 
               <p>
-                The <b>internal standard population</b> will be the total
-                population of this example state per age group: (Population of
-                Race A + Race B).
+                The <b>standard population</b> will be the total population of
+                this example state per age group: (Population of Race A + Race
+                B).
               </p>
 
               {/* A + B TABLE */}
@@ -382,7 +382,7 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race Group</td>
                     <td>Age Group</td>
-                    <td>Internal Standard Population</td>
+                    <td>Standard Population</td>
                   </tr>
                 </thead>
 
@@ -425,18 +425,16 @@ function AgeAdjustmentTab() {
               </h4>
               <p>As noted above, the formula for each row is:</p>
               <pre>
-                (Deaths / Population) * Internal Standard Population for
-                Corresponding Age Group
+                (Deaths / Population) X Standard Population for Corresponding
+                Age Group
               </pre>
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
                     <td>Race Group</td>
                     <td>Age Group</td>
-                    <td>Deaths</td>
-                    <td>Population</td>
                     <td>Age-Specific Death Rate</td>
-                    <td>Internal Standard Population</td>
+                    <td>Standard Population</td>
                     <td>Expected Deaths</td>
                   </tr>
                 </thead>
@@ -445,10 +443,11 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race A</td>
                     <td>0-29</td>
-                    <td>50</td>
-                    <td>600,000</td>
                     <td>0.00008333</td>
-                    <td></td>
+                    <td>
+                      <div className={styles.Calculation}>for Ages 0-29:</div>
+                      800,000
+                    </td>
                     <td>
                       <div className={styles.Calculation}>
                         0.00008333 * 800,000
@@ -460,10 +459,12 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race A</td>
                     <td>30-59</td>
-                    <td>500</td>
-                    <td>800,000</td>
+
                     <td>0.000625</td>
-                    <td></td>
+                    <td>
+                      <div className={styles.Calculation}>for Ages 30-59:</div>
+                      1,100,000
+                    </td>
 
                     <td>
                       <div className={styles.Calculation}>
@@ -476,10 +477,11 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race A</td>
                     <td>60+</td>
-                    <td>5,000</td>
-                    <td>200,000</td>
                     <td>0.025</td>
-                    <td></td>
+                    <td>
+                      <div className={styles.Calculation}>for Ages 60+:</div>
+                      260,000
+                    </td>
 
                     <td>
                       <div className={styles.Calculation}>0.025 * 260,000</div>
@@ -490,10 +492,12 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race B</td>
                     <td>0-29</td>
-                    <td>20</td>
-                    <td>200,000</td>
+
                     <td>0.0001</td>
-                    <td></td>
+                    <td>
+                      <div className={styles.Calculation}>for Ages 0-29:</div>
+                      800,000
+                    </td>
 
                     <td>
                       <div className={styles.Calculation}>0.0001 * 800,000</div>
@@ -504,14 +508,14 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race B</td>
                     <td>30-59</td>
-                    <td>200</td>
-                    <td>300,000</td>
                     <td>0.00066667</td>
-                    <td></td>
-
+                    <td>
+                      <div className={styles.Calculation}>for Ages 30-59:</div>
+                      1,100,000
+                    </td>
                     <td>
                       <div className={styles.Calculation}>
-                        0.00066667 * 1,200,000
+                        0.00066667 * 1,100,000
                       </div>
                       <b> = 733.33</b>
                     </td>
@@ -520,11 +524,11 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race B</td>
                     <td>60+</td>
-                    <td>800</td>
-                    <td>60,000</td>
                     <td>0.01333333</td>
-                    <td></td>
-
+                    <td>
+                      <div className={styles.Calculation}>for Ages 60+:</div>
+                      260,000
+                    </td>
                     <td>
                       <div className={styles.Calculation}>
                         0.01333333 * 260,000
@@ -532,39 +536,12 @@ function AgeAdjustmentTab() {
                       <b> = 3466.67</b>
                     </td>
                   </tr>
-
-                  <tr>
-                    <td>Total (A & B)</td>
-                    <td>0-29</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>800,000</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Total (A & B)</td>
-                    <td>30-59</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>1,100,000</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>Total (A & B)</td>
-                    <td>60+</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>260,000</td>
-                    <td></td>
-                  </tr>
                 </tbody>
               </table>
               <h4 className={styles.MethodologySubsubheaderText}>
-                Second, we sum together the expected deaths for each race to
-                calculate the total expected deaths:
+                Second, for each race we sum together the expected deaths from
+                each of its age groups to calculate the total expected deaths
+                for that race:
               </h4>
               <table className={styles.ExampleTable}>
                 <thead>
