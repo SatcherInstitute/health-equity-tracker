@@ -89,10 +89,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = generateChartTitle({
-    chartTitle: metricConfig.chartTitle,
-    fips: props.fips,
-  })
+  const chartTitle = generateChartTitle(
+    /* chartTitle: */ metricConfig.chartTitle,
+    /* fips: */ props.fips
+  )
   const filename = `${chartTitle}, by ${
     BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
   }`

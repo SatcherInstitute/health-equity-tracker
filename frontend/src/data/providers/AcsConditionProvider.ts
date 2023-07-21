@@ -10,13 +10,9 @@ class AcsConditionProvider extends VariableProvider {
       'uninsured_population_pct',
       'uninsured_per_100k',
       'uninsured_pct_share',
-      'uninsured_ratio_age_adjusted',
-      'uninsured_pct_relative_inequity',
       'poverty_population_pct',
       'poverty_per_100k',
       'poverty_pct_share',
-      'poverty_ratio_age_adjusted',
-      'poverty_pct_relative_inequity',
     ])
   }
 

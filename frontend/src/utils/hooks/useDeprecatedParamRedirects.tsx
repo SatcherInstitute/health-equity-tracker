@@ -11,7 +11,18 @@ import { MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
 // NOTE: these redirects will lose any incoming demographic, data type, and card hash settings
 
 const dropdownIdSwaps: Record<string, DataTypeId> = {
+  hiv_prevalence: 'hiv',
+  hiv_deaths: 'hiv',
+  hiv_diagnoses: 'hiv',
+  hiv_prevalence_black_women: 'hiv_black_women',
+  hiv_deaths_black_women: 'hiv_black_women',
+  hiv_diagnoses_black_women: 'hiv_black_women',
+  jail: 'incarceration',
+  prison: 'incarceration',
   vaccinations: 'covid_vaccinations',
+  women_in_legislative_office: 'women_in_gov',
+  women_in_state_legislature: 'women_in_gov',
+  women_in_us_congress: 'women_in_gov',
 }
 
 export default function useDeprecatedParamRedirects() {

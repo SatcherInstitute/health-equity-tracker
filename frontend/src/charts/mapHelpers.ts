@@ -442,18 +442,18 @@ export function getHighestLowestGroupsByFips(
       )
 
       fipsToGroup[fips] = {
-        highest: generateSubtitle({
-          currentBreakdown: breakdown,
-          activeBreakdownFilter: ascendingGroups[ascendingGroups.length - 1],
-          isPopulationSubset: false,
-          metricId,
-        }),
-        lowest: generateSubtitle({
-          currentBreakdown: breakdown,
-          activeBreakdownFilter: ascendingGroups[0],
-          isPopulationSubset: false,
-          metricId,
-        }),
+        highest: generateSubtitle(
+          /* activeBreakdownFilter: */ ascendingGroups[
+            ascendingGroups.length - 1
+          ],
+          /* currentBreakdown:  */ breakdown,
+          metricId
+        ),
+        lowest: generateSubtitle(
+          /* activeBreakdownFilter: */ ascendingGroups[0],
+          /* currentBreakdown:  */ breakdown,
+          metricId
+        ),
       }
       // TIE OVERRIDES
       if (ascendingRows[0][metricId] === ascendingRows[1][metricId])

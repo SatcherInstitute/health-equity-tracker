@@ -49,7 +49,7 @@ export default function DefinitionsList(
                   return dataType[1].map((dataType: DataTypeConfig) => {
                     return (
                       <li key={dataType?.fullDisplayName}>
-                        <b>{dataType?.fullDisplayName ?? 'dataType'}</b>
+                        <b>{dataType?.fullDisplayName ?? 'Data Type'}</b>
                         {': '}
                         {dataType.dataTypeDefinition}
                       </li>

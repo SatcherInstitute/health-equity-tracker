@@ -255,10 +255,9 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
     return [groupData[0], groupAverage]
   })
 
-
-  const values: number[] = groupAveragesOverTime.map(
-    (row: any) => row[1] as number
-  ).filter((value) => value != null)
+  const values: number[] = groupAveragesOverTime
+    .map((row: any) => row[1] as number)
+    .filter((value) => value != null)
 
   const minValue = Math.min(...values)
   const maxValue = Math.max(...values)

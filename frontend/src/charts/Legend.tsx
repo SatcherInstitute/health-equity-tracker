@@ -104,6 +104,7 @@ export function Legend(props: LegendProps) {
     vegaViewRef.current = view
 
     if (props.handleScaleChange) {
+      // TODO: causes warning Unrecognized scale or projection: color_scale
       const scale = view.scale(COLOR_SCALE)
       const domain = scale.domain()
       const range = scale.range()

@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState, Fragment } from 'react'
+import { useEffect, useState } from 'react'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -18,7 +18,7 @@ import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { RACE, AGE } from '../data/utils/Constants'
+import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -44,6 +44,10 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../utils/sharedSettingsState'
+import {
+  getDemographicOptionsMap,
+  getDisabledDemographicOptions,
+} from './reportUtils'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -85,6 +89,20 @@ function CompareReport(props: {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
     setCurrentBreakdown(demographic)
   }
+
+  const demographicOptionsMap = getDemographicOptionsMap(
+    dataTypeConfig1,
+    dataTypeConfig2
+  )
+
+  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
+    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  }
+
+  const disabledDemographicOptions = getDisabledDemographicOptions(
+    dataTypeConfig1,
+    dataTypeConfig2
+  )
 
   useEffect(() => {
     const readParams = () => {
@@ -171,7 +189,7 @@ function CompareReport(props: {
   const loc2 = props.fips2.getSentenceDisplayName()
 
   let browserTitle = dt1
-  if (dt1 !== dt2) browserTitle += ` and ${dt2}`
+  if (dt2 && dt1 !== dt2) browserTitle += ` and ${dt2}`
   browserTitle += ` by ${demo} in ${loc1}`
   if (loc1 !== loc2) browserTitle += ` and ${loc2}`
 
@@ -195,6 +213,8 @@ function CompareReport(props: {
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            demographicOptionsMap={demographicOptionsMap}
+            disabledDemographicOptions={disabledDemographicOptions}
           />
 
           <Grid container spacing={1} alignItems="flex-start">
@@ -444,7 +464,8 @@ function CompareReport(props: {
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
-              isRaceBySex={isRaceBySex}
+              demographicOptionsMap={demographicOptionsMap}
+              disabledDemographicOptions={disabledDemographicOptions}
             />
           </Grid>
         )}

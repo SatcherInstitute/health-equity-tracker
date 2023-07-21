@@ -8,8 +8,8 @@
     ],
     "types": [
       "vitest/globals",
-      "vite/client",
-      "vite-plugin-svgr/client"
+      "vite-plugin-svgr/client",
+      "vite/client"
     ],
     "allowJs": true,
     "skipLibCheck": true,

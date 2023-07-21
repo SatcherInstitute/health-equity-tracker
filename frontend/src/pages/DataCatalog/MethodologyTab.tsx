@@ -25,7 +25,9 @@ import {
   MissingHIVData,
   MissingPrepData,
   MissingAHRData,
+  MissingPhrmaData,
 } from './methodologyContent/missingDataBlurbs'
+import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
@@ -734,28 +736,300 @@ function MethodologyTab() {
                     </ul>
                   </li>
                 </ul>
-
                 <p>
                   <b>HIV Stigma</b>
                 </p>
                 <p>
-                  HIV stigma, reported as a score, refers to the weighted median score on a 10-item scale ranging from 0 (no stigma) to 100 (high stigma) among the number of persons aged 18 years and older diagnosed with HIV. This measurement captures four dimensions of HIV stigma: personalized stigma experienced during the past 12 months, current concerns about disclosure, negative self-image, and perceived public attitudes towards people living with HIV.
+                  HIV stigma, reported as a score, refers to the weighted median
+                  score on a 10-item scale ranging from 0 (no stigma) to 100
+                  (high stigma) among the number of persons aged 18 years and
+                  older diagnosed with HIV. This measurement captures four
+                  dimensions of HIV stigma: personalized stigma experienced
+                  during the past 12 months, current concerns about disclosure,
+                  negative self-image, and perceived public attitudes towards
+                  people living with HIV.
                 </p>
                 <p>
-                  HIV stigma is crucial in understanding and addressing the challenges faced by individuals living with HIV. By examining stigma, we gain insights into the experiences of people with HIV about personalized stigma, concerns about disclosure, self-image, and societal attitudes. This information helps inform strategies and interventions to reduce stigma, promote social support, and improve the well-being of individuals living with HIV.
+                  HIV stigma is crucial in understanding and addressing the
+                  challenges faced by individuals living with HIV. By examining
+                  stigma, we gain insights into the experiences of people with
+                  HIV about personalized stigma, concerns about disclosure,
+                  self-image, and societal attitudes. This information helps
+                  inform strategies and interventions to reduce stigma, promote
+                  social support, and improve the well-being of individuals
+                  living with HIV.
                 </p>
 
                 <ul>
                   <li>
-                    All metrics related to HIV stigma, sourced from the CDC, are calculated based on a national probability sample of individuals diagnosed with HIV.
+                    All metrics related to HIV stigma, sourced from the CDC, are
+                    calculated based on a national probability sample of
+                    individuals diagnosed with HIV.
                     <ul>
                       <li>
-                        <b>Stigma score</b>: Calculating HIV stigma involves determining the weighted median score on a 10-item scale among a national probability sample of people with diagnosed HIV. The scores obtained from self-reported data are then analyzed to assess the prevalence and impact of HIV stigma. This method allows for the quantification and comparison of stigma levels across different populations and geographic areas, providing insights into the experiences of individuals living with HIV.
+                        <b>Stigma score</b>: Calculating HIV stigma involves
+                        determining the weighted median score on a 10-item scale
+                        among a national probability sample of people with
+                        diagnosed HIV. The scores obtained from self-reported
+                        data are then analyzed to assess the prevalence and
+                        impact of HIV stigma. This method allows for the
+                        quantification and comparison of stigma levels across
+                        different populations and geographic areas, providing
+                        insights into the experiences of individuals living with
+                        HIV.
                       </li>
                     </ul>
                   </li>
                 </ul>
 
+                {SHOW_PHRMA && (
+                  <>
+                    <h3 className={styles.MethodologySubsubheaderText}>
+                      Medicare Beneficiaries - Disease Rates and Medication
+                      Adherence
+                    </h3>
+
+                    <p>
+                      Data presented is from 2020 and is sourced directly from
+                      the Medicare Administrative Data and encoded based on the
+                      fields below. For these reports, the study population
+                      consists of Medicare fee-for-service beneficiaries ages
+                      18+, continuously enrolled, and treated with a medication
+                      of interest during the measurement period. For more
+                      information refer directly to the{' '}
+                      <a href="https://www2.ccwdata.org/documents/10280/19022436/codebook-mbsf-abcd.pdf">
+                        data dictionary
+                      </a>
+                      .
+                    </p>
+
+                    <table className={styles.ExampleTable}>
+                      <thead>
+                        <tr>
+                          <th>Field from data dictionary</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <b>RTI_RACE_CD</b>
+                          </td>
+                          <td>
+                            Beneficiary race code (modified using RTI
+                            algorithm). The race of the beneficiary and enhanced
+                            based on first and last name algorithms.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>SEX_IDENT_CD</b>
+                          </td>
+                          <td>
+                            This variable indicates the sex of the beneficiary.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>AGE_AT_END_REF_YR</b>
+                          </td>
+                          <td>
+                            This is the beneficiary’s age, expressed in years
+                            and calculated as of the end of the calendar year,
+                            or, for beneficiaries that died during the year, age
+                            as of the date of death.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>CST_SHR_GRP_CD</b>
+                          </td>
+                          <td>
+                            Monthly cost sharing group under Part D low-income
+                            subsidy. Beneficiaries receiving the subsidy at any
+                            time during the year were classified as LIS.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>ENTLMT_RSN_CURR</b>
+                          </td>
+                          <td>
+                            Current reason for Medicare entitlement. This
+                            variable indicates how the beneficiary currently
+                            qualifies for Medicare.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                    <h4>Medicare PQA Adherence</h4>
+                    <ul>
+                      <li>
+                        <b>Conditions</b>
+                        <ul>
+                          <li>
+                            <b>Renin Angiotensin System Antagonists</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-rasa">
+                              (PQA PDC-RASA)
+                            </a>
+                          </li>
+                          <li>
+                            <b>Statins</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-sta">
+                              (PQA PDC-STA)
+                            </a>
+                          </li>
+
+                          <li>
+                            <b>Beta-blockers</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-bb">
+                              (PQA PDC-BB)
+                            </a>
+                          </li>
+                          <li>
+                            <b>Calcium Channel Blockers</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-ccb">
+                              (PQA PDC-CCB)
+                            </a>
+                          </li>
+                          <li>
+                            <b>
+                              Adherence to Direct-Acting Oral Anticoagulants
+                            </b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-doac">
+                              (PQA PDC-DOAC)
+                            </a>
+                          </li>
+                          <li>
+                            <b>Antiretrovirals Medications</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
+                              (PQA PDC-ARV
+                            </a>
+                            )
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <b>Metrics</b>
+                        <ul>
+                          <li>
+                            <b>Adherence Rate</b>: this rate measures the
+                            percentage of Medicare fee-for-service beneficiaries
+                            18 years and older who met the Proportion of Days
+                            Covered (PDC) threshold of 80% for the indicated
+                            medication during the measurement year.
+                          </li>
+                          <li>
+                            <b>Percent share</b>: this figure measures a
+                            particular group's percent share of the total number
+                            of adherent individuals
+                          </li>
+                          <li>
+                            <b>Population percent</b>: this figure measures a
+                            particular group's percent share of the measured
+                            population: Medicare fee-for-service beneficiaries
+                            18 years and older with indications for the given
+                            medication.
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <h4>Medicare NQF Adherence</h4>
+                    <ul>
+                      <li>
+                        <b>Conditions</b>
+                        <ul>
+                          <li>
+                            <b>
+                              Persistence of Beta-Blocker Treatment After a
+                              Heart Attack
+                            </b>{' '}
+                            <a href="https://www.qualityforum.org/QPS/0071">
+                              (NQF 0071)
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <b>Metrics</b>
+                        <ul>
+                          <li>
+                            <b>Adherence Rate</b>: this rate measures the
+                            percentage of Medicare fee-for-service beneficiaries
+                            18 years and older during the measurement year who
+                            were hospitalized and discharged with a diagnosis of
+                            acute myocardial infarction (AMI) and who received
+                            persistent beta-blocker treatment for six months
+                            after discharge.
+                          </li>
+                          <li>
+                            <b>Percent share</b>: this figure measures a
+                            particular group's percent share of the total number
+                            of adherent individuals
+                          </li>
+                          <li>
+                            <b>Population percent</b>: this figure measures a
+                            particular group's percent share of the measured
+                            population: Medicare fee-for-service beneficiaries
+                            18 years and older with indications for the given
+                            medication.
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <h4>Medicare Disease Measures</h4>
+                    <ul>
+                      <li>
+                        <b>Conditions</b>
+                        <ul>
+                          <li>
+                            <b>HIV cases</b>
+                          </li>
+                          <li>
+                            <b>Acute Myocardial Infarction (AMI) cases</b>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <b>Metrics</b>
+                        <ul>
+                          <li>
+                            <b>Cases per 100k</b>: Rate of beneficiaries with
+                            the specified disease per 100,000 beneficiaries.
+                            <ul>
+                              <li>
+                                AMI defined as beneficiaries having 1+ medical
+                                claims with ICD-10-CM of I21
+                              </li>
+                              <li>
+                                HIV defined as beneficiaries having 1+ medical
+                                claims with ICD-10-CM of B20.
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <b>Percent share</b>: this figure measures a
+                            particular group's percent share of the total number
+                            of disease cases.
+                          </li>
+                          <li>
+                            <b>Population percent</b>: this figure measures a
+                            particular group's percent share of the measured
+                            population: Medicare fee-for-service beneficiaries
+                            18 years and older.
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <Card elevation={3} className={styles.MissingDataBox}>
+                      <MissingPhrmaData />
+                    </Card>
+                  </>
+                )}
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index (SVI)
                 </h3>

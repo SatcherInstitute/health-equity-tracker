@@ -12,7 +12,7 @@ import {
   METRIC_CONFIG,
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
-import { RACE, AGE } from '../data/utils/Constants'
+import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
@@ -44,6 +44,10 @@ import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
+import {
+  getDemographicOptionsMap,
+  getDisabledDemographicOptions,
+} from './reportUtils'
 
 export interface ReportProps {
   key: string
@@ -86,6 +90,15 @@ export function Report(props: ReportProps) {
     setCurrentBreakdown(str)
   }
 
+  const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
+
+  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
+    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  }
+
+  const disabledDemographicOptions =
+    getDisabledDemographicOptions(dataTypeConfig)
+
   useEffect(() => {
     const readParams = () => {
       const demoParam1 = getParameter(
@@ -105,6 +118,7 @@ export function Report(props: ReportProps) {
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
+
     return () => {
       if (psHandler) {
         psHandler.unsubscribe()
@@ -151,6 +165,8 @@ export function Report(props: ReportProps) {
             trackerDemographic={currentBreakdown}
             setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
+            demographicOptionsMap={demographicOptionsMap}
+            disabledDemographicOptions={disabledDemographicOptions}
           />
 
           <Grid
@@ -389,7 +405,8 @@ export function Report(props: ReportProps) {
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={currentBreakdown}
               setDemoWithParam={setDemoWithParam}
-              isRaceBySex={isRaceBySex}
+              demographicOptionsMap={demographicOptionsMap}
+              disabledDemographicOptions={disabledDemographicOptions}
             />
           </Grid>
         )}
