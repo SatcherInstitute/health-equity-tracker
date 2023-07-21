@@ -43,6 +43,7 @@ export const DEATHS_METRICS: MetricId[] = [
   'hiv_deaths_pct_relative_inequity',
   'hiv_deaths_pct_share',
   'hiv_deaths_per_100k',
+  'hiv_deaths_ratio_age_adjusted',
 ]
 
 export const DIAGNOSES_METRICS: MetricId[] = [
