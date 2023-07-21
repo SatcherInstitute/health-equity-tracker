@@ -88,13 +88,14 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
-
-  const chartTitle = generateChartTitle({
-    chartTitle: metricConfig.chartTitle,
-    fips: props.fips,
-  })
-  const filename = `${chartTitle}, by ${BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
-    }`
+  
+  const chartTitle = generateChartTitle(
+    /* chartTitle: */ metricConfig.chartTitle,
+    /* fips: */ props.fips
+  )
+  const filename = `${chartTitle}, by ${
+    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+  }`
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 

@@ -167,6 +167,42 @@ export function MissingPrepData() {
   )
 }
 
+export function MissingPhrmaData() {
+  return (
+    <>
+      <h4>Medicare Adminstration Data</h4>
+
+      <p>
+        When examining Medicare claims data, it is important to consider the
+        potential equity issues faced by marginalized groups. Low-income
+        individuals, racial and ethnic minorities, immigrants, and those with
+        limited English proficiency may be underrepresented in the data due to
+        disparities in healthcare access and utilization. Factors such as
+        socioeconomic status, education, employment, housing, and community
+        resources, which significantly influence health outcomes, are often not
+        consistently captured in claims data. This incomplete representation can
+        hinder a comprehensive understanding of health disparities, particularly
+        from a pharmaceutical perspective, where medication-related issues faced
+        by marginalized groups may not be fully accounted for. Factors such as
+        access to affordable prescriptions and the impact of implicit biases on
+        prescribing patterns might be insufficiently captured in claims data.
+      </p>
+
+      <p>Specifically, please note the following limitations:</p>
+
+      <ul>
+        <li>
+          To protect patient privacy, any case counts below 10 must be
+          suppressed. We are still able to calculate and publish the rates in
+          most cases, however the suppression of the case counts prevents us
+          from calculating our <b>percent share</b> metrics in some situations,
+          particularly for the lowest-population groups at the county level.
+        </li>
+      </ul>
+    </>
+  )
+}
+
 export function MissingAHRData() {
   return (
     <>

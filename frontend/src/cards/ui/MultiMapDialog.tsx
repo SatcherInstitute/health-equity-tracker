@@ -22,7 +22,10 @@ import {
 } from '../../data/config/MetricConfig'
 import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
-import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import {
+  type MetricQuery,
+  type MetricQueryResponse,
+} from '../../data/query/MetricQuery'
 import {
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
@@ -57,6 +60,7 @@ export interface MultiMapDialogProps {
   open: boolean
   // Closes the dialog in the parent component
   handleClose: () => void
+  queries: MetricQuery[]
   // Dataset IDs required the source  footer
   queryResponses: MetricQueryResponse[]
   // Metadata required for the source footer
@@ -168,7 +172,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
 
           {/* LEGEND */}
-          <Grid item xs={12} sm={6} md={12} lg={12}>
+          <Grid item xs={12}>
             <Grid container item>
               <Grid container justifyContent="center">
                 <span className={styles.LegendTitleText}>

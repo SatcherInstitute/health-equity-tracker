@@ -86,10 +86,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   )
 
-  const chartTitle = generateChartTitle({
-    chartTitle: metricConfigInequitable?.chartTitle ?? '',
-    fips: props.fips,
-  })
+  const chartTitle = generateChartTitle(
+    /* chartTitle: */ metricConfigInequitable?.chartTitle ?? '',
+    /* fips: */ props.fips
+  )
 
   const HASH_ID: ScrollableHashId = 'inequities-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label

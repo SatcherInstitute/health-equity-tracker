@@ -313,7 +313,7 @@ export const HIV_RESOURCES: ResourceGroup = {
   resources: [
     {
       name: 'CDC - HIV Risk and Prevention',
-      url: 'https://www.cdc.gov/hiv/risk/index.html'
+      url: 'https://www.cdc.gov/hiv/risk/index.html',
     },
     {
       name: 'CDC - HIV Surveillance Reports',
@@ -337,7 +337,7 @@ export const HIV_RESOURCES: ResourceGroup = {
     },
     {
       name: 'State of the epidemic - substantial progress and the challenges that remain',
-      url: 'https://www.gileadhiv.com/landscape/state-of-epidemic/?gclid=CjwKCAjwpayjBhAnEiwA-7enayp3t_H2vxCFiD3RyOj8BCnw08eN_TlIO1TH86kJaZfvuBxBlpB3RxoCuL4QAvD_BwE&gclsrc=aw.ds'
+      url: 'https://www.gileadhiv.com/landscape/state-of-epidemic/?gclid=CjwKCAjwpayjBhAnEiwA-7enayp3t_H2vxCFiD3RyOj8BCnw08eN_TlIO1TH86kJaZfvuBxBlpB3RxoCuL4QAvD_BwE&gclsrc=aw.ds',
     },
     {
       name: 'The HIV/AIDS Epidemic in the United States: The Basics',
@@ -347,5 +347,5 @@ export const HIV_RESOURCES: ResourceGroup = {
       name: 'e-Health Literacy Scale, Patient Attitudes, Medication Adherence, and Internal Locus of Control',
       url: 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC10169461/',
     },
-  ]
+  ],
 }

@@ -79,12 +79,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
 
-  const chartTitle = generateChartTitle({
-    chartTitle:
-      metricConfig?.populationComparisonMetric?.chartTitle ??
+  const chartTitle = generateChartTitle(
+    /* chartTitle: */
+    metricConfig?.populationComparisonMetric?.chartTitle ??
       metricConfig.chartTitle,
-    fips: props.fips,
-  })
+    /* fips:  */ props.fips
+  )
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 

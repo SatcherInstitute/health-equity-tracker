@@ -453,6 +453,84 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: '2019',
     contains_nh: true,
   },
+  {
+    id: 'phrma_data-race_and_ethnicity_national',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by race/ethnicity, nationally',
+    update_time: '2020',
+    contains_nh: true,
+  },
+  {
+    id: 'phrma_data-race_and_ethnicity_state',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by race/ethnicity, by state',
+    update_time: '2020',
+    contains_nh: true,
+  },
+  {
+    id: 'phrma_data-race_and_ethnicity_county',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by race/ethnicity, by county',
+    update_time: '2020',
+    contains_nh: true,
+  },
+  {
+    id: 'phrma_data-age_national',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by age, nationally',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-age_state',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by age, by state',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-age_county',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by age, by county',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-sex_national',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by sex, nationally',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-sex_state',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by sex, by state',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-sex_county',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by sex, by county',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-lis_national',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by low income subsidy status (LIS), nationally',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-lis_state',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by low income subsidy (LIS), by state',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-lis_county',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by low income subsidy (LIS), by county',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-eligibility_national',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by Medicare eligibility reason, nationally',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-eligibility_state',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by Medicare eligibility reason, by state',
+    update_time: '2020',
+  },
+  {
+    id: 'phrma_data-eligibility_county',
+    name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by Medicare eligibility reason, by county',
+    update_time: '2020',
+  },
 ]
 
 export const DatasetMetadataMap: Record<string, DatasetMetadata> =

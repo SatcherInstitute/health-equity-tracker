@@ -21,7 +21,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
   const groupTerm = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
 
   return (
-    <Alert severity="info" role="note">
+    <Alert severity="info" role="note" id="unknown-bubbles-alert">
       Missing and unknown data impacts Health Equity. Please consider the impact
       of {props.fullDisplayName} with an unknown {groupTerm}.{' '}
       {props.expanded && (

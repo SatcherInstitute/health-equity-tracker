@@ -25,6 +25,8 @@ const dropdownVarIds = [
   'hiv_stigma',
   'hiv',
   'incarceration',
+  'phrma_cardiovascular',
+  'phrma_hiv',
   'poverty',
   'preventable_hospitalizations',
   'substance',
@@ -45,6 +47,9 @@ export type AgeAdjustedDataTypeId = 'covid_deaths' | 'covid_hospitalizations'
 export type DataTypeId =
   | DropdownVarId
   | AgeAdjustedDataTypeId
+  | 'ami'
+  | 'arv_adherence'
+  | 'beta_blockers_adherence'
   | 'covid_cases'
   | 'covid_deaths'
   | 'covid_hospitalizations'
@@ -59,35 +64,44 @@ export type DataTypeId =
   | 'non_medical_drug_use'
   | 'poverty'
   | 'prison'
+  | 'rasa_adherence'
+  | 'statins_adherence'
+  | 'ccb_adherence'
+  | 'doac_adherence'
+  | 'nqf_adherence'
+  | 'women_in_state_legislature'
+  | 'women_in_us_congress'
+  | 'prison'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
 
 export type MetricId =
   | 'acs_vaccinated_pop_pct'
   | 'ahr_population_pct'
-  | 'asthma_pct_relative_inequity'
+  | 'ami_pct_share'
+  | 'ami_per_100k'
+  | 'arv_adherence_pct_rate'
+  | 'arv_adherence_pct_share'
+  | 'arv_population_pct_share'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
-  | 'asthma_ratio_age_adjusted'
-  | 'avoided_care_pct_relative_inequity'
-  | 'avoided_care_pct_share'
   | 'avoided_care_pct_rate'
-  | 'avoided_care_ratio_age_adjusted'
+  | 'avoided_care_pct_share'
+  | 'beta_blockers_adherence_pct_rate'
+  | 'beta_blockers_adherence_pct_share'
+  | 'beta_blockers_population_pct_share'
   | 'black_women_population_pct'
-  | 'cardiovascular_diseases_pct_relative_inequity'
   | 'cardiovascular_diseases_pct_share'
   | 'cardiovascular_diseases_per_100k'
-  | 'cardiovascular_diseases_ratio_age_adjusted'
   | 'cases_ratio_age_adjusted'
   | 'cawp_population_pct'
-  | 'chronic_kidney_disease_pct_relative_inequity'
+  | 'ccb_adherence_pct_rate'
+  | 'ccb_adherence_pct_share'
+  | 'ccb_population_pct_share'
   | 'chronic_kidney_disease_pct_share'
   | 'chronic_kidney_disease_per_100k'
-  | 'chronic_kidney_disease_ratio_age_adjusted'
-  | 'copd_pct_relative_inequity'
   | 'copd_pct_share'
   | 'copd_per_100k'
-  | 'copd_ratio_age_adjusted'
   | 'covid_cases_pct_relative_inequity'
   | 'covid_cases_per_100k'
   | 'covid_cases_reporting_population_pct'
@@ -111,54 +125,42 @@ export type MetricId =
   | 'covid_hosp'
   | 'covid_population_pct'
   | 'death_ratio_age_adjusted'
-  | 'depression_pct_relative_inequity'
   | 'depression_pct_share'
   | 'depression_per_100k'
-  | 'depression_ratio_age_adjusted'
-  | 'diabetes_pct_relative_inequity'
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
-  | 'diabetes_ratio_age_adjusted'
-  | 'excessive_drinking_pct_relative_inequity'
+  | 'doac_adherence_pct_rate'
+  | 'doac_adherence_pct_share'
+  | 'doac_population_pct_share'
   | 'excessive_drinking_pct_share'
   | 'excessive_drinking_per_100k'
-  | 'excessive_drinking_ratio_age_adjusted'
-  | 'frequent_mental_distress_pct_relative_inequity'
   | 'frequent_mental_distress_pct_share'
   | 'frequent_mental_distress_per_100k'
-  | 'frequent_mental_distress_ratio_age_adjusted'
   | 'geo_context'
   | 'hiv_care_linkage'
   | 'hiv_care_pct_relative_inequity'
   | 'hiv_care_pct_share'
   | 'hiv_care_population_pct'
-  | 'hiv_care_ratio_age_adjusted'
   | 'hiv_deaths_black_women_pct_relative_inequity'
   | 'hiv_deaths_black_women_pct_share'
   | 'hiv_deaths_black_women_per_100k'
-  | 'hiv_deaths_black_women_ratio_age_adjusted'
   | 'hiv_deaths_pct_relative_inequity'
   | 'hiv_deaths_pct_share'
   | 'hiv_deaths_per_100k'
-  | 'hiv_deaths_ratio_age_adjusted'
   | 'hiv_diagnoses_black_women_pct_relative_inequity'
   | 'hiv_diagnoses_black_women_pct_share'
   | 'hiv_diagnoses_black_women_per_100k'
-  | 'hiv_diagnoses_black_women_ratio_age_adjusted'
   | 'hiv_diagnoses_pct_relative_inequity'
   | 'hiv_diagnoses_pct_share'
   | 'hiv_diagnoses_per_100k'
-  | 'hiv_diagnoses_ratio_age_adjusted'
   | 'hiv_population_pct'
   | 'hiv_prep_coverage'
   | 'hiv_prep_pct_relative_inequity'
   | 'hiv_prep_pct_share'
   | 'hiv_prep_population_pct'
-  | 'hiv_prep_ratio_age_adjusted'
   | 'hiv_prevalence_black_women_pct_relative_inequity'
   | 'hiv_prevalence_black_women_pct_share'
   | 'hiv_prevalence_black_women_per_100k'
-  | 'hiv_prevalence_black_women_ratio_age_adjusted'
   | 'hiv_prevalence_pct_relative_inequity'
   | 'hiv_prevalence_pct_share'
   | 'hiv_prevalence_per_100k'
@@ -170,59 +172,54 @@ export type MetricId =
   | 'jail_pct_relative_inequity'
   | 'jail_pct_share'
   | 'jail_per_100k'
-  | 'jail_ratio_age_adjusted'
-  | 'non_medical_drug_use_pct_relative_inequity'
   | 'non_medical_drug_use_pct_share'
   | 'non_medical_drug_use_per_100k'
-  | 'non_medical_drug_use_ratio_age_adjusted'
+  | 'nqf_adherence_pct_rate'
+  | 'nqf_adherence_pct_share'
+  | 'nqf_population_pct_share'
   | 'pct_share_of_state_leg'
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
+  | 'phrma_hiv_pct_share'
+  | 'phrma_hiv_per_100k'
+  | 'phrma_population_pct_share'
   | 'population_decia'
   | 'population_pct_decia'
   | 'population_pct'
   | 'population'
   | 'poverty_count'
-  | 'poverty_pct_relative_inequity'
   | 'poverty_pct_share'
   | 'poverty_per_100k'
   | 'poverty_population_pct'
-  | 'poverty_ratio_age_adjusted'
-  | 'preventable_hospitalizations_pct_relative_inequity'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
-  | 'preventable_hospitalizations_ratio_age_adjusted'
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
-  | 'prison_ratio_age_adjusted'
-  | 'suicide_pct_relative_inequity'
+  | 'rasa_adherence_pct_rate'
+  | 'rasa_adherence_pct_share'
+  | 'rasa_population_pct_share'
+  | 'statins_adherence_pct_rate'
+  | 'statins_adherence_pct_share'
+  | 'statins_population_pct_share'
   | 'suicide_pct_share'
   | 'suicide_per_100k'
-  | 'suicide_ratio_age_adjusted'
   | 'svi'
   | 'total_confined_children'
   | 'total_state_leg_count'
   | 'total_us_congress_count'
   | 'total_us_congress_names'
-  | 'uninsured_pct_relative_inequity'
   | 'uninsured_pct_share'
   | 'uninsured_per_100k'
   | 'uninsured_population_pct'
-  | 'uninsured_ratio_age_adjusted'
-  | 'vaccinated_pct_relative_inequity'
   | 'vaccinated_pct_share'
   | 'vaccinated_per_100k'
   | 'vaccinated_pop_pct'
-  | 'vaccinated_ratio_age_adjusted'
   | 'vaccinated_share_of_known'
-  | 'voter_participation_pct_relative_inequity'
-  | 'voter_participation_pct_share'
   | 'voter_participation_pct_rate'
-  | 'voter_participation_ratio_age_adjusted'
+  | 'voter_participation_pct_share'
   | 'women_state_leg_pct_relative_inequity'
-  | 'women_state_leg_ratio_age_adjusted'
   | 'women_this_race_state_leg_count'
   | 'women_this_race_us_congress_count'
   | 'women_this_race_us_congress_names'
@@ -679,20 +676,17 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayNameInline: 'new HIV diagnoses',
       dataTypeDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for new HIV diagnoses',
+      dataTableTitle: 'Breakdown summary for HIV prevalence',
       metrics: {
         pct_share: {
-          chartTitle: 'Share of total new HIV diagnoses',
-          metricId: 'hiv_diagnoses_pct_share',
-          columnTitleHeader: 'Share of total new HIV diagnoses',
-          trendsCardTitleName:
-            'Inequitable share of new HIV diagnoses over time',
-          shortLabel: '% of new HIV diagnoses',
+          chartTitle: 'Share of total HIV prevalence',
+          metricId: 'hiv_prevalence_pct_share',
+          columnTitleHeader: 'Share of total HIV prevalence',
+          trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
+          shortLabel: '% of HIV prevalence',
           type: 'pct_share',
           populationComparisonMetric: {
-            chartTitle:
-              'Population vs. distribution of total new HIV diagnoses',
-
+            chartTitle: 'Population vs. distribution of total HIV prevalence',
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -700,11 +694,11 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           },
         },
         per100k: {
-          metricId: 'hiv_diagnoses_per_100k',
-          chartTitle: 'New HIV diagnoses',
-          trendsCardTitleName: 'Rates of new HIV diagnoses over time',
-          columnTitleHeader: 'New HIV diagnoses per 100k',
-          shortLabel: 'diagnoses per 100k',
+          metricId: 'hiv_prevalence_per_100k',
+          chartTitle: 'HIV prevalence',
+          trendsCardTitleName: 'HIV prevalence over time',
+          columnTitleHeader: 'HIV prevalence per 100k people',
+          shortLabel: 'HIV prevalence per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
@@ -813,7 +807,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
               'Population vs. distribution of total HIV prevalence for Black (NH) women',
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
-            shortLabel: '% of population (Black women)',
+            shortLabel: populationPctShortLabel,
             type: 'pct_share',
           },
         },
@@ -887,15 +881,16 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayName: 'HIV deaths for Black women',
       dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
+      dataTableTitle:
+        'Breakdown summary for HIV prevalence for Black (NH) women',
       metrics: {
         pct_share: {
           chartTitle: 'Share of total HIV deaths for Black (NH) Women',
           metricId: 'hiv_deaths_pct_share',
           columnTitleHeader: 'Share of total HIV deaths for Black women',
           trendsCardTitleName:
-            'Inequitable share of HIV deaths for Black women over time',
-          shortLabel: '% of HIV deaths (Black women)',
+            'Inequitable share of HIV prevalence for Black (NH) women over time',
+          shortLabel: '% of HIV prevalence (Black women)',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -932,15 +927,17 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayName: 'PrEP coverage',
       dataTypeDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year (single-year charts use data from 2019).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for PrEP coverage',
+      dataTableTitle:
+        'Breakdown summary for new HIV diagnoses for Black (NH) women',
       metrics: {
         pct_share: {
-          chartTitle: 'Share of total PrEP prescriptions',
-          metricId: 'hiv_prep_pct_share',
-          columnTitleHeader: 'Share of total PrEP prescriptions',
+          chartTitle: 'Share of total new HIV diagnoses for Black (NH) women',
+          metricId: 'hiv_diagnoses_black_women_pct_share',
+          columnTitleHeader:
+            'Share of total new HIV diagnoses for Black (NH) women',
           trendsCardTitleName:
-            'Inequitable share of PrEP prescriptions over time',
-          shortLabel: '% of PrEP prescriptions',
+            'Inequitable share of new HIV diagnoses for Black (NH) women over time',
+          shortLabel: '% of new HIV diagnoses (Black women)',
           type: 'pct_share',
           populationComparisonMetric: {
             chartTitle:
@@ -952,16 +949,18 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           },
         },
         per100k: {
-          metricId: 'hiv_prep_coverage',
-          chartTitle: 'PrEP coverage',
-          trendsCardTitleName: 'Rates of PrEP coverage over time',
-          columnTitleHeader: 'PrEP coverage',
-          shortLabel: '% PrEP coverage',
-          type: 'pct_share',
+          metricId: 'hiv_diagnoses_black_women_per_100k',
+          chartTitle: 'New HIV diagnoses for Black (NH) women',
+          trendsCardTitleName:
+            'Rates of new HIV diagnoses for Black (NH) women over time',
+          columnTitleHeader: 'New HIV diagnoses for Black (NH) women per 100k',
+          shortLabel: 'diagnoses per 100k',
+          type: 'per100k',
         },
         pct_relative_inequity: {
-          chartTitle: 'Historical relative inequity for PrEP coverage',
-          metricId: 'hiv_prep_pct_relative_inequity',
+          chartTitle:
+            'Historical relative inequity of new HIV diagnoses for Black (NH) women',
+          metricId: 'hiv_diagnoses_black_women_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
         },
@@ -1683,6 +1682,293 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           metricId: 'jail_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
+        },
+      },
+    },
+  ],
+
+  phrma_cardiovascular: [
+    {
+      dataTypeId: 'statins_adherence',
+      dataTypeShortLabel: 'Adherence to Statins',
+      fullDisplayName: 'Adherence to statins',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Statins are medications that help lower cholesterol levels in the blood to reduce the risk of heart disease and stroke. “Adherence to statins” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for statins during the measurement year.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'statins_adherence_pct_rate',
+          chartTitle: 'Adherence to statins',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total statins adherence',
+          metricId: 'statins_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total statins adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of statins beneficiary population vs. share of total adherence',
+            metricId: 'statins_population_pct_share',
+            columnTitleHeader: 'Share of all Medicare statins beneficiaries',
+            shortLabel: '% of prescribed pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'beta_blockers_adherence',
+      dataTypeShortLabel: 'Adherence to Beta-Blockers',
+      fullDisplayName: 'Adherence to beta-blockers',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Beta-blockers are medications that block the effects of adrenaline and help lower blood pressure, reduce heart rate, and manage conditions like hypertension and heart-related issues. “Adherence to beta-blockers” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta-blockers during the measurement year.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'beta_blockers_adherence_pct_rate',
+          chartTitle: 'Adherence to beta-blockers',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total beta-blockers adherence',
+          metricId: 'beta_blockers_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total beta-blockers adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beta-blockers beneficiary population vs. share of total adherence',
+            metricId: 'beta_blockers_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare beta-blockers beneficiaries',
+            shortLabel: '% of prescribed pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'nqf_adherence',
+      dataTypeShortLabel: 'Adherence to Beta-Blockers Post-Heart Attack',
+      fullDisplayName:
+        'Persistence of Beta-Blocker Treatment After a Heart Attack',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Beta-blockers are medications that are used after an acute myocardial infarction (heart attack) to reduce the workload on the heart, lower blood pressure, and improve heart function by blocking the effects of adrenaline and stress hormones. Adherence on this report is measured as the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'nqf_adherence_pct_rate',
+          chartTitle:
+            'Persistence of Beta-Blocker Treatment After a Heart Attack',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total adherence',
+          metricId: 'nqf_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total adherence',
+            metricId: 'nqf_population_pct_share',
+            columnTitleHeader: 'Share of all Medicare beneficiaries',
+            shortLabel: '% of prescribed pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'rasa_adherence',
+      dataTypeShortLabel: 'Adherence to RAS-Antagonists',
+      fullDisplayName: 'Adherence to RAS antagonists',
+      surveyCollectedData: true,
+      dataTypeDefinition: `
+      Renin angiotensin system antagonists are medications that block the actions of certain hormones to regulate blood pressure and fluid balance in the body. “Adherence to RAS antagonists” is measured as percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASA) during the measurement year.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'rasa_adherence_pct_rate',
+          chartTitle: 'Adherence to RAS antagonists',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total RAS antagonists adherence',
+          metricId: 'rasa_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total RAS antagonists adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of RASA beneficiary population vs. share of total adherence',
+            metricId: 'rasa_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare RAS antagonists beneficiaries',
+            shortLabel: '% of prescribed pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'ccb_adherence',
+      dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
+      fullDisplayName: 'Adherence to calcium channel blockers',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Calcium channel blockers are medications that relax and widen blood vessels, making it easier for the heart to pump blood and reducing blood pressure. “Adherence to calcium channel blockers” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for calcium channel blockers during the measurement year.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'ccb_adherence_pct_rate',
+          chartTitle: 'Adherence to calcium channel blockers',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle:
+            'Percent share of total calcium channel blockers adherence',
+          metricId: 'ccb_adherence_pct_share',
+          columnTitleHeader:
+            'Percent share of total calcium channel blockers adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of calcium channel blockers beneficiary population vs. share of total adherence',
+            metricId: 'ccb_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare calcium channel blockers beneficiaries',
+            shortLabel: '% of prescribed pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'doac_adherence',
+      dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants',
+      fullDisplayName: 'Direct Oral Anticoagulants',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Direct oral anticoagulants are medications that help prevent blood clot formation by inhibiting specific clotting factors, reducing the risk of stroke and blood clots in conditions such as atrial fibrillation and deep vein thrombosis. “Adherence to direct oral anticoagulants” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% during the measurement period for direct-acting oral anticoagulants.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'doac_adherence_pct_rate',
+          chartTitle: 'Direct Oral Anticoagulants Adherence',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle:
+            'Percent share of total Direct Oral Anticoagulants adherence',
+          metricId: 'doac_adherence_pct_share',
+          columnTitleHeader:
+            'Percent share of total Direct Oral Anticoagulants adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of Direct Oral Anticoagulants beneficiary population vs. share of total adherence',
+            metricId: 'doac_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare Direct Oral Anticoagulants beneficiaries',
+            shortLabel: '% of prescribed pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'ami',
+      dataTypeShortLabel: 'Heart Attacks (Acute MI)',
+      fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
+      surveyCollectedData: true,
+      dataTypeDefinition: `Acute myocardial infarctions, commonly known as heart attacks, occur when the blood flow to the heart muscle is severely blocked, leading to damage or death of the heart tissue. “Acute MI per 100k” is measured as the number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) per 100K during the measurement period.`,
+      metrics: {
+        per100k: {
+          metricId: 'ami_per_100k',
+          chartTitle: 'Rates of Acute MI',
+          shortLabel: 'Acute MI per 100k',
+          type: 'per100k',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total Acute MI',
+          metricId: 'ami_pct_share',
+          columnTitleHeader: 'Percent share of total Acute MI',
+          shortLabel: '% of total Acute MI',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total Acute MI',
+            metricId: 'phrma_population_pct_share',
+            columnTitleHeader: 'Share of all beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+  ],
+  phrma_hiv: [
+    {
+      dataTypeId: 'arv_adherence',
+      dataTypeShortLabel: 'Medication Adherence (Antiretrovirals)',
+      fullDisplayName: 'Adherence to antiretrovirals',
+      surveyCollectedData: true,
+      dataTypeDefinition: `HIV antiretrovirals are medications that help control the HIV virus by interfering with its replication process, reducing viral load, and improving the immune system's ability to fight the infection. “Adherence to antiretrovirals” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
+      metrics: {
+        pct_rate: {
+          metricId: 'arv_adherence_pct_rate',
+          chartTitle: 'Adherence to antiretrovirals',
+          shortLabel: '% adherent',
+          type: 'pct_rate',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total antiretrovirals adherence',
+          metricId: 'arv_adherence_pct_share',
+          columnTitleHeader: 'Percent share of total antiretrovirals adherence',
+          shortLabel: '% of total adherence',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of antiretrovirals beneficiary population vs. share of total adherence',
+            metricId: 'arv_population_pct_share',
+            columnTitleHeader:
+              'Share of all Medicare antiretrovirals beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
+        },
+      },
+    },
+    {
+      dataTypeId: 'phrma_hiv',
+      dataTypeShortLabel: 'Cases',
+      fullDisplayName: 'HIV cases',
+      surveyCollectedData: true,
+      dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of HIV during the measurement period.`,
+      metrics: {
+        per100k: {
+          metricId: 'phrma_hiv_per_100k',
+          chartTitle: 'Rates of HIV cases',
+          shortLabel: 'cases per 100k',
+          type: 'per100k',
+        },
+        pct_share: {
+          chartTitle: 'Percent share of total HIV cases',
+          metricId: 'phrma_hiv_pct_share',
+          columnTitleHeader: 'Percent share of total HIV cases',
+          shortLabel: '% of total HIV cases',
+          type: 'pct_share',
+          populationComparisonMetric: {
+            chartTitle:
+              'Share of beneficiary population vs. share of total HIV cases',
+            metricId: 'phrma_population_pct_share',
+            columnTitleHeader: 'Share of all beneficiaries',
+            shortLabel: '% of beneficiary pop.',
+            type: 'pct_share',
+          },
         },
       },
     },

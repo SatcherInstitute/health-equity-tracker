@@ -170,7 +170,7 @@
     color: $alt-black;
   }
 
-  blockquote>p {
+  blockquote > p {
     font-style: italic;
   }
 
@@ -259,7 +259,7 @@
 }
 
 // fill iframe to above container
-:global(.wp-block-embed-youtube .wp-block-embed__wrapper)>iframe {
+:global(.wp-block-embed-youtube .wp-block-embed__wrapper) > iframe {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -294,7 +294,7 @@
   margin: 0;
 }
 
-.NewsPreviewHeaderText>span {
+.NewsPreviewHeaderText > span {
   display: block;
 }
 
@@ -408,7 +408,7 @@
     margin: 15px 0 15px 0;
   }
 
-  .NewsAndStoriesItem>a {
+  .NewsAndStoriesItem > a {
     text-decoration: none !important;
 
     :hover {
