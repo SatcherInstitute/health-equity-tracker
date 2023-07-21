@@ -163,6 +163,18 @@ function AgeAdjustmentTab() {
                 <li>
                   <p>
                     <b>
+                      For each age group, calculate the ‘standard population’
+                    </b>
+                  </p>
+                  <pre>
+                    standard_population_age_group_1 = Population count Race A,
+                    Age group 1 + Population count Race B, Age group 1
+                  </pre>
+                </li>
+
+                <li>
+                  <p>
+                    <b>
                       Calculate the expected count for each race/age
                       combination:
                     </b>
@@ -176,8 +188,8 @@ function AgeAdjustmentTab() {
                     whole.
                   </p>
                   <pre>
-                    expected_condition_count = age_specific_rate * (Total
-                    Population for age group)
+                    expected_condition_count = age_specific_rate *
+                    standard_population (for corresponding age group)
                   </pre>
                 </li>
 
@@ -282,10 +294,10 @@ function AgeAdjustmentTab() {
                 </tbody>
               </table>
 
-              <p>
-                The <b>age-specific death rates</b> will be each race/age
-                group's death count divided by its population.
-              </p>
+              <h4 className={styles.MethodologySubsubheaderText}>
+                1) Calculate the <b>age-specific death rates</b> which will be
+                each race/age group's death count divided by its population.
+              </h4>
 
               {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
               <table className={styles.ExampleTable}>
@@ -370,11 +382,11 @@ function AgeAdjustmentTab() {
                 </tbody>
               </table>
 
-              <p>
-                The <b>standard population</b> will be the total population of
-                this example state per age group: (Population of Race A + Race
-                B).
-              </p>
+              <h4 className={styles.MethodologySubsubheaderText}>
+                2) Get the <b>standard population</b> per age group, which will
+                be the summed population of all race/age groups within that age
+                group.
+              </h4>
 
               {/* A + B TABLE */}
               <table className={styles.ExampleTable}>
@@ -421,7 +433,7 @@ function AgeAdjustmentTab() {
               </table>
 
               <h4 className={styles.MethodologySubsubheaderText}>
-                First, we calculate the expected deaths for each age/race group:
+                3) Calculate the expected deaths for each age/race group:
               </h4>
               <p>As noted above, the formula for each row is:</p>
               <pre>
@@ -539,9 +551,9 @@ function AgeAdjustmentTab() {
                 </tbody>
               </table>
               <h4 className={styles.MethodologySubsubheaderText}>
-                Second, for each race we sum together the expected deaths from
-                each of its age groups to calculate the total expected deaths
-                for that race:
+                4) For each race, we sum together the expected deaths from each
+                of its age groups to calculate the total expected deaths for
+                that race:
               </h4>
               <table className={styles.ExampleTable}>
                 <thead>
@@ -573,7 +585,7 @@ function AgeAdjustmentTab() {
                 </tbody>
               </table>
               <h4 className={styles.MethodologySubsubheaderText}>
-                Finally, we calculate the age-adjusted death ratio:
+                5) Calculate the age-adjusted death ratio:
               </h4>
               <table className={styles.ExampleTable}>
                 <thead>
