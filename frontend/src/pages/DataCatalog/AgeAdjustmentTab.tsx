@@ -229,7 +229,7 @@ function AgeAdjustmentTab() {
               </ol>
 
               <h3 className={styles.MethodologyQuestion}>
-                Age-Adjustment Example: Deaths
+                Age-Adjustment Example: HIV Deaths
               </h3>
               <p>
                 Here is an example of a single state with two races,{' '}
@@ -244,7 +244,7 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race Group</td>
                     <td>Age Group</td>
-                    <td>Deaths</td>
+                    <td>HIV Deaths</td>
                     <td>Population</td>
                   </tr>
                 </thead>
@@ -295,8 +295,8 @@ function AgeAdjustmentTab() {
               </table>
 
               <h4 className={styles.MethodologySubsubheaderText}>
-                1) Calculate the <b>age-specific death rates</b> which will be
-                each race/age group's death count divided by its population.
+                1) Calculate the <b>age-specific HIV death rates</b> which will
+                be each race/age group's death count divided by its population.
               </h4>
 
               {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
@@ -305,9 +305,9 @@ function AgeAdjustmentTab() {
                   <tr>
                     <td>Race Group</td>
                     <td>Age Group</td>
-                    <td>Deaths</td>
+                    <td>HIV Deaths</td>
                     <td>Population</td>
-                    <td>Age-Specific Death Rate</td>
+                    <td>Age-Specific HIV Death Rate</td>
                   </tr>
                 </thead>
 
@@ -437,17 +437,17 @@ function AgeAdjustmentTab() {
               </h4>
               <p>As noted above, the formula for each row is:</p>
               <pre>
-                (Deaths / Population) X Standard Population for Corresponding
-                Age Group
+                (HIV Deaths / Population) X Standard Population for
+                Corresponding Age Group
               </pre>
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
                     <td>Race Group</td>
                     <td>Age Group</td>
-                    <td>Age-Specific Death Rate</td>
+                    <td>Age-Specific HIV Death Rate</td>
                     <td>Standard Population</td>
-                    <td>Expected Deaths</td>
+                    <td>Expected HIV Deaths</td>
                   </tr>
                 </thead>
 
@@ -551,15 +551,15 @@ function AgeAdjustmentTab() {
                 </tbody>
               </table>
               <h4 className={styles.MethodologySubsubheaderText}>
-                4) For each race, we sum together the expected deaths from each
-                of its age groups to calculate the total expected deaths for
-                that race:
+                4) For each race, we sum together the expected HIV deaths from
+                each of its age groups to calculate the total expected HIV
+                deaths for that race:
               </h4>
               <table className={styles.ExampleTable}>
                 <thead>
                   <tr>
                     <td>Race Group</td>
-                    <td>Total Expected Deaths</td>
+                    <td>Total Expected HIV Deaths</td>
                   </tr>
                 </thead>
 
@@ -591,7 +591,7 @@ function AgeAdjustmentTab() {
                 <thead>
                   <tr>
                     <td>Race Group</td>
-                    <td>Total Expected Deaths</td>
+                    <td>Total Expected HIV Deaths</td>
                     <td>Age-Adjusted Death Ratio</td>
                   </tr>
                 </thead>
