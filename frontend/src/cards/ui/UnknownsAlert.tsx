@@ -130,7 +130,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
           <>
             Consider the possible impact of{' '}
             <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{' '}
-            when interpreting age-adjusted risk.
+            when interpreting age-adjusted ratios.
           </>
         )}
       </Alert>

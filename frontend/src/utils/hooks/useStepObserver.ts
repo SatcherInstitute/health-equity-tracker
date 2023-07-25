@@ -16,7 +16,7 @@ export type ScrollableHashId =
   | 'inequities-over-time'
   | 'population-vs-distribution'
   | 'data-table'
-  | 'age-adjusted-risk'
+  | 'age-adjusted-ratios'
   | 'definitions-missing-data'
 
 export function useStepObserver(
