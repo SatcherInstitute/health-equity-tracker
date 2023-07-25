@@ -38,11 +38,15 @@ function AgeAdjustmentTab() {
               <p>
                 We have decided to present <b>age-adjusted ratios</b> when
                 possible in order to show a more accurate and equitable view of
-                the impact on non-white communities in the United States.
+                the impact on non-White communities in the United States.
               </p>
               <p>
-                Currently, we are able to calculate these age-adjusted ratios
-                for{' '}
+                As of{' '}
+                {new Date().toLocaleString('default', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
+                {', '}we are able to calculate these age-adjusted ratios for{' '}
                 <Link
                   to={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
                 >
