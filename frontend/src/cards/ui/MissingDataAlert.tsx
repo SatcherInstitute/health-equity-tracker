@@ -83,8 +83,9 @@ function AltDataTypesMessage(props: AltDataTypesMessageProps) {
           <span key={dataType.fullDisplayName}>
             <a
               href={`${EXPLORE_DATA_PAGE_LINK}${
-                dataTypeLinkMap[dataType.dataTypeId as AgeAdjustedDataTypeId]
-              }#age-adjusted-risk`}
+                dataTypeLinkMap[dataType.dataTypeId as AgeAdjustedDataTypeId] ??
+                ''
+              }#age-adjusted-ratios`}
             >
               {dataType.fullDisplayName}
             </a>

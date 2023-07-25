@@ -43,6 +43,7 @@ export const DEATHS_METRICS: MetricId[] = [
   'hiv_deaths_pct_relative_inequity',
   'hiv_deaths_pct_share',
   'hiv_deaths_per_100k',
+  'hiv_deaths_ratio_age_adjusted',
 ]
 
 export const DIAGNOSES_METRICS: MetricId[] = [
@@ -107,12 +108,11 @@ class HivProvider extends VariableProvider {
     const isBlackWomenData = dataTypeId?.includes('black_women')
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace()) {
-        return 'cdc_hiv_data-race_and_ethnicity_national_time_series'
+        return 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
       }
       if (breakdowns.hasOnlyAge()) {
         if (isBlackWomenData)
           return 'cdc_hiv_data-black_women_national_time_series'
-
         return 'cdc_hiv_data-age_national_time_series'
       }
       if (breakdowns.hasOnlySex()) {
@@ -121,7 +121,7 @@ class HivProvider extends VariableProvider {
     }
     if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace()) {
-        return 'cdc_hiv_data-race_and_ethnicity_state_time_series'
+        return 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
       }
       if (breakdowns.hasOnlyAge()) {
         if (isBlackWomenData)

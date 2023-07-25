@@ -353,7 +353,7 @@ export function Report(props: ReportProps) {
                     xs={12}
                     md={SINGLE_COLUMN_WIDTH}
                     tabIndex={-1}
-                    id="age-adjusted-risk"
+                    id="age-adjusted-ratios"
                     style={{
                       scrollMarginTop: props.headerScrollMargin,
                     }}

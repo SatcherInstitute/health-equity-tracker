@@ -81,7 +81,7 @@ export function getDataSourceMapFromDatasetIds(
 interface SourcesProps {
   queryResponses: MetricQueryResponse[]
   metadata: MapOfDatasetMetadata
-  isAgeAdjustedTable?: boolean
+  isCensusNotAcs?: boolean
   hideNH?: boolean
   downloadTargetScreenshot?: () => Promise<boolean>
   isMulti?: boolean
@@ -97,7 +97,7 @@ export function Sources(props: SourcesProps) {
   let datasetIds = stripCountyFips(unstrippedDatasetIds)
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
-  if (props.isAgeAdjustedTable) {
+  if (props.isCensusNotAcs) {
     datasetIds = datasetIds.filter((datasetId) => !datasetId.includes('acs'))
     datasetIds.push('census_pop_estimates-race_and_ethnicity')
   }
@@ -143,9 +143,16 @@ export function Sources(props: SourcesProps) {
   return (
     <Grid container className={styles.Footnote}>
       {/* NH note (if needed) listed first, full-width */}
-      <Grid item xs={12} container alignItems={'center'}>
+      <Grid item xs={12} alignItems={'center'}>
         {showNhFootnote && (
-          <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
+          <>
+            <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
+            <p className={styles.FootnoteTextNH}>
+              Note. To promote inclusive language, we replace the source data
+              labels <i>Multiracial</i> with <em>Two or more races</em>, and{' '}
+              <i>Some other race</i> with <i>Unrepresented race</i>.{' '}
+            </p>
+          </>
         )}
       </Grid>
 
