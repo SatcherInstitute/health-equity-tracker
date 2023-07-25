@@ -34,8 +34,8 @@ export const reportProviderSteps: Record<ScrollableHashId, StepLabelInfo> = {
     label: 'Data table',
     pluralOnCompare: true,
   },
-  'age-adjusted-risk': {
-    label: 'Age-adjusted risk',
+  'age-adjusted-ratios': {
+    label: 'Age-adjusted ratios',
     pluralOnCompare: true,
   },
   'definitions-missing-data': {

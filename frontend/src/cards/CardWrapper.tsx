@@ -27,7 +27,7 @@ function CardWrapper(props: {
     metadata: MapOfDatasetMetadata,
     geoData?: Record<string, any>
   ) => JSX.Element
-  isAgeAdjustedTable?: boolean
+  isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
   reportTitle: string
   elementsToHide?: string[]
@@ -76,7 +76,7 @@ function CardWrapper(props: {
               <CardContent className={styles.CardFooter} component={'footer'}>
                 <Sources
                   hideNH={props.hideNH}
-                  isAgeAdjustedTable={props.isAgeAdjustedTable}
+                  isCensusNotAcs={props.isCensusNotAcs}
                   metadata={metadata}
                   queryResponses={queryResponses}
                 />

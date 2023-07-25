@@ -41,7 +41,10 @@ export function isDropdownVarId(str: string): str is DropdownVarId {
   return !!dropdownVarIds.find((dropdown) => str === dropdown)
 }
 
-export type AgeAdjustedDataTypeId = 'covid_deaths' | 'covid_hospitalizations'
+export type AgeAdjustedDataTypeId =
+  | 'covid_deaths'
+  | 'covid_hospitalizations'
+  | 'hiv_deaths'
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
@@ -147,6 +150,7 @@ export type MetricId =
   | 'hiv_deaths_pct_relative_inequity'
   | 'hiv_deaths_pct_share'
   | 'hiv_deaths_per_100k'
+  | 'hiv_deaths_ratio_age_adjusted'
   | 'hiv_diagnoses_black_women_pct_relative_inequity'
   | 'hiv_diagnoses_black_women_pct_share'
   | 'hiv_diagnoses_black_women_per_100k'
@@ -477,9 +481,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: 'death_ratio_age_adjusted',
-          chartTitle:
-            'Age-adjusted risk of COVID-19 death compared to White (NH)',
-          shortLabel: 'Risk of COVID-19 Death', // table header-row label
+          chartTitle: 'Age-adjusted COVID-19 deaths compared to White (NH)',
+          shortLabel: 'Ratio compared to White (NH)', // table header-row label
           type: 'age_adjusted_ratio',
           ageAdjusted: true,
         },
@@ -528,9 +531,9 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
         age_adjusted_ratio: {
           metricId: 'hosp_ratio_age_adjusted',
-          shortLabel: 'Risk of COVID-19 hospitalization', // Table header-row label
           chartTitle:
-            'Age-adjusted risk of COVID-19 hospitalization compared to White (NH)',
+            'Age-adjusted COVID-19 hospitalizations compared to White (NH)',
+          shortLabel: 'age-adjusted', // Table header-row label
           type: 'age_adjusted_ratio',
           ageAdjusted: true,
         },
@@ -746,6 +749,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
           metricId: 'hiv_deaths_pct_relative_inequity',
           shortLabel: '% relative inequity',
           type: 'pct_relative_inequity',
+        },
+        age_adjusted_ratio: {
+          metricId: 'hiv_deaths_ratio_age_adjusted',
+          chartTitle: 'Age-adjusted HIV deaths compared to White (NH)',
+          shortLabel: 'Ratio compared to White (NH)',
+          type: 'age_adjusted_ratio',
+          ageAdjusted: true,
         },
       },
     },

@@ -1,4 +1,3 @@
-import React from 'react'
 import { AgeAdjustedTableChart } from '../charts/AgeAdjustedTableChart'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
@@ -28,14 +27,15 @@ import {
   AGE,
   SEX,
   type RaceAndEthnicityGroup,
+  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
 import {
   AGE_ADJUSTMENT_TAB_LINK,
-  COVID_DEATHS_US_SETTING,
-  COVID_HOSP_US_SETTING,
+  AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  AGE_ADJUST_COVID_HOSP_US_SETTING,
 } from '../utils/internalRoutes'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
@@ -44,10 +44,9 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
-
-export const dataTypeLinkMap: Record<AgeAdjustedDataTypeId, string> = {
-  covid_deaths: COVID_DEATHS_US_SETTING,
-  covid_hospitalizations: COVID_HOSP_US_SETTING,
+export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {
+  covid_deaths: AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  covid_hospitalizations: AGE_ADJUST_COVID_HOSP_US_SETTING,
 }
 
 /* minimize layout shift */
@@ -90,8 +89,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   })
 
   const metricIds = Object.keys(metricConfigs) as MetricId[]
-  const raceQuery = new MetricQuery(metricIds, raceBreakdowns)
-  const ageQuery = new MetricQuery(metricIds, ageBreakdowns)
+  const raceQuery = new MetricQuery(
+    /* metricIds */ metricIds,
+    /* breakdowns */ raceBreakdowns,
+    /* dataTypeId */ undefined,
+    /* timeView */ CROSS_SECTIONAL
+  )
+  const ageQuery = new MetricQuery(
+    /* metricIds */ metricIds,
+    /* breakdowns */ ageBreakdowns,
+    /* dataTypeId */ undefined,
+    /* timeView */ CROSS_SECTIONAL
+  )
   const ratioId = metricIds[0]
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
     config.metricId.includes('ratio')
@@ -99,7 +108,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   const chartTitle = metricConfigs?.[ratioId]?.chartTitle
     ? generateChartTitle(metricConfigs[ratioId].chartTitle, props.fips)
-    : 'Age-adjusted Risk Ratios'
+    : 'Age-adjusted Ratios'
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
@@ -110,12 +119,12 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       })
     : []
 
-  const HASH_ID: ScrollableHashId = 'age-adjusted-risk'
+  const HASH_ID: ScrollableHashId = 'age-adjusted-ratios'
 
   return (
     <CardWrapper
       downloadTitle={chartTitle}
-      isAgeAdjustedTable={true}
+      isCensusNotAcs={props.dropdownVarId === 'covid'}
       minHeight={PRELOAD_HEIGHT}
       queries={[raceQuery, ageQuery]}
       scrollToHash={HASH_ID}
@@ -184,13 +193,14 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             <CardContent>
               {/* Always show info on what age-adj is */}
               <Alert severity="info" role="note">
-                Age Adjustment is a statistical process applied to rates of
-                disease, death, or other health outcomes that occur more
-                frequently among different age groups. Adjusting for age allows
-                for fairer comparison between populations, where age is a large
-                risk factor. By computing rates that are normalized for age, we
-                can paint a more accurate picture of undue burden of disease and
-                death between populations. More details can be found in our{' '}
+                Age-adjustment is a statistical process applied to rates of
+                disease, death, or other health outcomes that correlate with an
+                individual's age. Adjusting for age allows for fairer comparison
+                between populations, where age might be a confounding risk
+                factor and the studied groups have different distributions of
+                individuals per age group. By normalizing for age, we can paint
+                a more accurate picture of undue burden of disease and death
+                between populations. More details can be found in our{' '}
                 <Link to={AGE_ADJUSTMENT_TAB_LINK}>
                   age-adjustment methodology
                 </Link>
