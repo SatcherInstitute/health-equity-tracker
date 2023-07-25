@@ -412,7 +412,7 @@ function CompareReport(props: {
             {showAgeAdjustCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                id="age-adjusted-risk"
+                id="age-adjusted-ratios"
                 // specific data type
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}

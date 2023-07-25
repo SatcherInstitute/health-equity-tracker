@@ -75,6 +75,10 @@ p.CitationAPA:first-of-type {
   color: $alt-black;
 }
 
+.ExampleTable {
+  margin: 1rem;
+}
+
 .ExampleTable,
 .ExampleTable td {
   border: 1px solid $bg-color;
