@@ -100,6 +100,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 
+  const elementsToHide = ['#card-options-menu']
+
   return (
     <CardWrapper
       downloadTitle={chartTitle}
@@ -107,6 +109,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
+      expanded={a11yTableExpanded}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
@@ -230,6 +234,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
                     hasUnknowns={hasUnknowns}
+                    isCompareCard={props.isCompareCard}
                   />
                 </>
               )}
