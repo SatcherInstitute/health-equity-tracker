@@ -11,15 +11,14 @@ const DROPDOWN_ELEMENT_IDS = [
 ]
 
 const LOGO_FONT_COLOR = sass.altGreen
-const LOGO_FONT_SIZE = 30
+const LOGO_FONT_SIZE = 24
 const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 const LOGO_TEXT = 'Health Equity Tracker'
+const TOP_PADDING = 10
+const BOTTOM_PADDING = 120
 
-const TOP_PADDING = 50
-
-const URL_FONT_SIZE = 22
+const URL_FONT_SIZE = 14
 const URL_FONT_STYLE = '"Inter",sans-serif'
-const URL_X = 32
 
 export function useDownloadCardImage(
   cardTitle: string,
@@ -47,18 +46,28 @@ export function useDownloadCardImage(
   ) {
     const combinedCanvas = document.createElement('canvas')
     combinedCanvas.width = canvas.width
-    combinedCanvas.height = canvas.height + URL_FONT_SIZE + 10 + TOP_PADDING
+    combinedCanvas.height =
+      TOP_PADDING + canvas.height + URL_FONT_SIZE + BOTTOM_PADDING
 
     const context = combinedCanvas.getContext('2d')
-
-    const logoTextX = canvas.width - 310
-
-    const urlLogoBaseline = combinedCanvas.height - URL_FONT_SIZE
+    const urlBaseline = combinedCanvas.height - 2 * URL_FONT_SIZE
+    const logoBaseline = combinedCanvas.height - 4 * URL_FONT_SIZE
+    const hrBaseline = combinedCanvas.height - 7 * URL_FONT_SIZE
 
     if (context) {
-      // Fill the top area with white
+      // overall text styling
+      context.textBaseline = 'bottom'
+      context.textAlign = 'center'
+
+      // Fill the top and bottom areas with white
       context.fillStyle = sass.white
       context.fillRect(0, 0, combinedCanvas.width, TOP_PADDING)
+      context.fillRect(
+        0,
+        combinedCanvas.height - BOTTOM_PADDING - URL_FONT_SIZE,
+        combinedCanvas.width,
+        combinedCanvas.height
+      )
 
       // Draw the screenshot onto the combined canvas
       context.drawImage(canvas, 0, TOP_PADDING)
@@ -76,12 +85,19 @@ export function useDownloadCardImage(
       const originalAlpha = context.globalAlpha
 
       // Set opacity for logo text
-      context.globalAlpha = 0.4
+      context.globalAlpha = 1
+
+      // draw horizontal divider
+      context.beginPath()
+      context.moveTo(canvas.width * 0.2, hrBaseline)
+      context.lineTo(canvas.width * 0.8, hrBaseline)
+      context.lineWidth = 1
+      context.strokeStyle = LOGO_FONT_COLOR
+      context.stroke()
 
       context.font = `${LOGO_FONT_SIZE}px ${LOGO_FONT_STYLE}`
       context.fillStyle = LOGO_FONT_COLOR
-      context.textBaseline = 'bottom'
-      context.fillText(LOGO_TEXT, logoTextX, urlLogoBaseline)
+      context.fillText(LOGO_TEXT, canvas.width / 2, logoBaseline)
 
       // Reset the globalAlpha to the original value
       context.globalAlpha = originalAlpha
@@ -89,8 +105,12 @@ export function useDownloadCardImage(
       // Draw the url
       context.font = `${URL_FONT_SIZE}px ${URL_FONT_STYLE}`
       context.fillStyle = 'black'
-      context.textBaseline = 'bottom'
-      context.fillText(`${urlWithHash}`, URL_X, urlLogoBaseline)
+      context.fillText(
+        urlWithHash,
+        canvas.width / 2,
+        urlBaseline,
+        canvas.width - 40
+      )
     }
 
     const image = combinedCanvas.toDataURL('image/png')
@@ -117,7 +137,9 @@ export function useDownloadCardImage(
         const elementToHide = screenshotTargetRef.current?.querySelector(
           element
         ) as HTMLElement
-        if (elementToHide) elementToHide.style.visibility = 'hidden'
+        if (elementToHide) {
+          elementToHide.style.visibility = 'hidden'
+        }
       })
 
       if (dropdownElement) {
