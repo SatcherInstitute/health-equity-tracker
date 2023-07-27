@@ -437,7 +437,7 @@ function MapCardWithKey(props: MapCardProps) {
             )}
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
-              <div id="hm">
+              <div>
                 <CardContent sx={{ pt: 0 }}>
                   <Grid container>
                     <Grid item xs={12}>
