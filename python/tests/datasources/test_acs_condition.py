@@ -223,7 +223,7 @@ def testWriteToBq(
     mock_bq: mock.MagicMock,
     mock_cache: mock.MagicMock
 ):
-    acsCondition = AcsCondition(year='2019')
+    acsCondition = AcsCondition()
 
     acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2019')
 

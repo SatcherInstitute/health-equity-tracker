@@ -210,12 +210,6 @@ def update_col_types(df):
 
 class AcsCondition(DataSource):
 
-    # Initialize variables in class instance, also merge all metadata so that lookup of the
-    # prefix, suffix combos can return the entire metadata
-    def __init__(self, year: str):
-        self.year = year
-        self.base_url = ACS_URLS_MAP[year]
-
     def get_filename_race(self, measure, race, is_county):
         geo = 'COUNTY' if is_county else 'STATE'
         race = race.replace(" ", "_").upper()
@@ -244,6 +238,10 @@ class AcsCondition(DataSource):
     # Returns:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     def upload_to_gcs(self, bucket, **attrs):
+
+        year = self.get_attr(attrs, 'year')
+        self.year = year
+        self.base_url = ACS_URLS_MAP[year]
 
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
@@ -276,6 +274,11 @@ class AcsCondition(DataSource):
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+
+        year = self.get_attr(attrs, 'year')
+        self.year = year
+        self.base_url = ACS_URLS_MAP[year]
+
         metadata = census.fetch_acs_metadata(self.base_url)
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
