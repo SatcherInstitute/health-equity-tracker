@@ -171,7 +171,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData)
 
         return (
-          <CardContent>
+          <CardContent sx={{ pt: 0 }}>
             {queryResponseRates.shouldShowMissingDataMessage([
               metricConfigRates.metricId,
             ]) || nestedRatesData.length === 0 ? (

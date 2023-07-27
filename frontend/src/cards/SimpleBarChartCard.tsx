@@ -88,7 +88,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ isCawp ? 'cross_sectional' : undefined
   )
-  
+
   const chartTitle = generateChartTitle(
     /* chartTitle: */ metricConfig.chartTitle,
     /* fips: */ props.fips
@@ -115,7 +115,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
         return (
           <>
-            <CardContent>
+            <CardContent sx={{ pt: 0 }}>
               <ChartTitle title={chartTitle} />
               {queryResponse.shouldShowMissingDataMessage([
                 metricConfig.metricId,
