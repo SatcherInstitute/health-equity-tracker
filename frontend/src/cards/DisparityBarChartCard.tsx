@@ -130,7 +130,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            <CardContent>
+            <CardContent sx={{ pt: 0 }}>
               <ChartTitle title={chartTitle} />
               {dataAvailable && knownData.length !== 0 && (
                 <DisparityBarChart

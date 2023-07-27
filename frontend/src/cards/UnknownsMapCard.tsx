@@ -212,7 +212,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         })
 
         return (
-          <CardContent>
+          <CardContent sx={{ pt: 0 }}>
             <ChartTitle title={chartTitle} />
             {showingVisualization && (
               <>
