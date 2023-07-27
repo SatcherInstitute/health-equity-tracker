@@ -175,7 +175,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         return (
           <>
-            <CardContent>
+            <CardContent sx={{ pt: 0 }}>
               {shouldShowMissingData ? (
                 <MissingDataAlert
                   dataName={chartTitle}

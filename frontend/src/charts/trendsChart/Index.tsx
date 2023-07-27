@@ -298,7 +298,7 @@ export function TrendsChart({
         ) : (
           <>
             {/* Chart Title DESKTOP ABOVE LEGEND */}
-            <ChartTitle mt={isRelativeInequity ? 2 : 0} title={chartTitle} />
+            <ChartTitle title={chartTitle} />
             {/* Filter */}
             {data && (
               <FilterLegend

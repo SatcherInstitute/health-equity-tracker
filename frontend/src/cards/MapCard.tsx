@@ -240,7 +240,11 @@ function MapCardWithKey(props: MapCardProps) {
     setScale({ domain, range })
   }
 
-  const elementsToHide = ['#map-group-dropdown', '#download-card-image-button', '#card-options-menu']
+  const elementsToHide = [
+    '#map-group-dropdown',
+    '#download-card-image-button',
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper
@@ -397,7 +401,7 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
-                <CardContent className={styles.SmallMarginContent}>
+                <CardContent className={styles.MapControlsContent}>
                   <Grid
                     container
                     justifyContent="space-between"
@@ -434,7 +438,7 @@ function MapCardWithKey(props: MapCardProps) {
 
             {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
               <div>
-                <CardContent>
+                <CardContent sx={{ pt: 0 }}>
                   <Grid container>
                     <Grid item xs={12}>
                       <ChartTitle
@@ -537,7 +541,13 @@ function MapCardWithKey(props: MapCardProps) {
                       </Grid>
                     </Grid>
                   </Grid>
-                  <Grid id={props.isCompareCard ? 'highest-lowest-list-2' : 'highest-lowest-list'}>
+                  <Grid
+                    id={
+                      props.isCompareCard
+                        ? 'highest-lowest-list-2'
+                        : 'highest-lowest-list'
+                    }
+                  >
                     {!mapQueryResponse.dataIsMissing() &&
                       dataForActiveBreakdownFilter.length > 1 && (
                         <HighestLowestList
@@ -557,22 +567,21 @@ function MapCardWithKey(props: MapCardProps) {
                         />
                       )}
                   </Grid>
-
                 </CardContent>
 
                 {(mapQueryResponse.dataIsMissing() ||
                   dataForActiveBreakdownFilter.length === 0) && (
-                    <CardContent>
-                      <MissingDataAlert
-                        dataName={title}
-                        breakdownString={
-                          BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
-                        }
-                        isMapCard={true}
-                        fips={props.fips}
-                      />
-                    </CardContent>
-                  )}
+                  <CardContent>
+                    <MissingDataAlert
+                      dataName={title}
+                      breakdownString={
+                        BREAKDOWN_VAR_DISPLAY_NAMES[props.currentBreakdown]
+                      }
+                      isMapCard={true}
+                      fips={props.fips}
+                    />
+                  </CardContent>
+                )}
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveBreakdownFilter.length === 0 &&

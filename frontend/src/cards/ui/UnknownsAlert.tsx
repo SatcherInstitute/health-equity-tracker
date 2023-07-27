@@ -1,7 +1,6 @@
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import styles from '../Card.module.scss'
 import { CardContent, Alert } from '@mui/material'
 import {
   type BreakdownVar,
@@ -106,13 +105,13 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
-    <CardContent className={styles.SmallMarginContent}>
+    <CardContent>
       <Alert severity="warning" role="note">
         {diffRaceEthnicityText}
       </Alert>
     </CardContent>
   ) : (
-    <CardContent sx={{ m: 1 }} className={styles.SmallMarginContent}>
+    <CardContent sx={{ m: 1 }}>
       <Alert severity={showInfoSeverity ? 'info' : 'warning'} role="note">
         {percentageUnknown}
         {props.metricConfig.shortLabel}
