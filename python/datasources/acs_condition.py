@@ -33,11 +33,27 @@ from ingestion.standardized_columns import (
     Race,
     add_race_columns_from_category_id,
     generate_column_name)
+from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
+                                   ACS_EARLIEST_YEAR,
+                                   ACS_LATEST_YEAR)
 
 # available years: 2009-2021, inclusive
-# TODO: pass the year or the url from the DAG like in acs_population
-# BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
-BASE_ACS_URL = 'https://api.census.gov/data/2011/acs/acs5'
+ACS_URLS_MAP = {
+    ACS_EARLIEST_YEAR: 'https://api.census.gov/data/2009/acs/acs5',
+    '2010': 'https://api.census.gov/data/2010/acs/acs5',
+    '2011': 'https://api.census.gov/data/2011/acs/acs5',
+    '2012': 'https://api.census.gov/data/2012/acs/acs5',
+    '2013': 'https://api.census.gov/data/2013/acs/acs5',
+    '2014': 'https://api.census.gov/data/2014/acs/acs5',
+    '2015': 'https://api.census.gov/data/2015/acs/acs5',
+    '2016': 'https://api.census.gov/data/2016/acs/acs5',
+    '2017': 'https://api.census.gov/data/2017/acs/acs5',
+    '2018': 'https://api.census.gov/data/2018/acs/acs5',
+    ACS_DEFAULT_YEAR: 'https://api.census.gov/data/2019/acs/acs5',
+    '2020': 'https://api.census.gov/data/2020/acs/acs5',
+    ACS_LATEST_YEAR: 'https://api.census.gov/data/2021/acs/acs5',
+}
+
 
 HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
@@ -196,8 +212,9 @@ class AcsCondition(DataSource):
 
     # Initialize variables in class instance, also merge all metadata so that lookup of the
     # prefix, suffix combos can return the entire metadata
-    def __init__(self):
-        self.base_url = BASE_ACS_URL
+    def __init__(self, year: str):
+        self.year = year
+        self.base_url = ACS_URLS_MAP[year]
 
     def get_filename_race(self, measure, race, is_county):
         geo = 'COUNTY' if is_county else 'STATE'
@@ -227,9 +244,11 @@ class AcsCondition(DataSource):
     # Returns:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     def upload_to_gcs(self, bucket, **attrs):
+
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
+
         file_diff = False
         for measure, acs_item in ACS_ITEMS.items():
             for prefix, race in acs_item.prefix_map.items():

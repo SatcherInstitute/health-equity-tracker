@@ -4,7 +4,7 @@ from airflow.utils.dates import days_ago  # type: ignore
 
 import util
 
-_ACS_BASE_URL = "https://api.census.gov/data/2019/acs/acs5"
+# _ACS_BASE_URL = "https://api.census.gov/data/2019/acs/acs5"
 _ACS_WORKFLOW_ID = "ACS_CONDITION"
 _ACS_DATASET_NAME = "acs_condition"
 
@@ -20,15 +20,20 @@ data_ingestion_dag = DAG(
 )
 
 acs_condition_gcs_task_id = "acs_condition_to_gcs"
-acs_condition_gcs_payload = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, url=_ACS_BASE_URL)
+acs_condition_gcs_payload_2019 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2019')
 acs_condition_gcs_operator = util.create_gcs_ingest_operator(
-    acs_condition_gcs_task_id, acs_condition_gcs_payload, data_ingestion_dag)
+    acs_condition_gcs_task_id, acs_condition_gcs_payload_2019, data_ingestion_dag)
 
-acs_condition_bq_payload = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, url=_ACS_BASE_URL)
-acs_condition_bq_operator = util.create_bq_ingest_operator(
-    "acs_condition_to_bq", acs_condition_bq_payload, data_ingestion_dag)
+# acs_condition_bq_payload_2009 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
+# acs_condition_bq_operator_2009 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq", acs_condition_bq_payload_2009, data_ingestion_dag)
+
+acs_condition_bq_payload_2019 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2019')
+acs_condition_bq_operator_2019 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq", acs_condition_bq_payload_2019, data_ingestion_dag)
 
 acs_condition_exporter_payload_race = {
     'dataset_name': _ACS_DATASET_NAME,
@@ -58,7 +63,8 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
 # Ingestion DAG
 (
     acs_condition_gcs_operator >>
-    acs_condition_bq_operator >> [
+    # acs_condition_bq_operator_2009 >>
+    acs_condition_bq_operator_2019 >> [
         acs_condition_exporter_operator_race,
         acs_condition_exporter_operator_age,
         acs_condition_exporter_operator_sex,

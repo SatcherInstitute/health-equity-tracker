@@ -223,9 +223,9 @@ def testWriteToBq(
     mock_bq: mock.MagicMock,
     mock_cache: mock.MagicMock
 ):
-    acsCondition = AcsCondition()
+    acsCondition = AcsCondition(year='2019')
 
-    acsCondition.write_to_bq('dataset', 'gcs_bucket')
+    acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2019')
 
     for call in mock_bq.call_args_list:
         print("call ---")
