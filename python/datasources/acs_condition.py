@@ -34,7 +34,10 @@ from ingestion.standardized_columns import (
     add_race_columns_from_category_id,
     generate_column_name)
 
-BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
+# available years: 2009-2021, inclusive
+# TODO: pass the year or the url from the DAG like in acs_population
+# BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
+BASE_ACS_URL = 'https://api.census.gov/data/2011/acs/acs5'
 
 HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
