@@ -97,6 +97,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
+  const elementsToHide = ['#card-options-menu']
+
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
@@ -104,6 +106,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
+      expanded={a11yTableExpanded}
     >
       {([queryResponseRates, queryResponsePctShares]) => {
         const ratesData = queryResponseRates.getValidRowsForField(
@@ -257,6 +261,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
                   hasUnknowns={isCawp ? false : hasUnknowns}
+                  isCompareCard={props.isCompareCard}
                 />
               </>
             )}
