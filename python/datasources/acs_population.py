@@ -8,12 +8,10 @@ from ingestion.census import (get_census_params, parse_acs_metadata,
                               get_vars_for_group, standardize_frame, rename_age_bracket)
 from ingestion.dataset_utils import add_sum_of_rows, generate_pct_share_col_without_unknowns
 from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
-                                   ACS_EARLIEST_YEAR,
                                    ACS_LATEST_YEAR)
 
 
 ACS_URLS_MAP = {
-    ACS_EARLIEST_YEAR: 'https://api.census.gov/data/2009/acs/acs5',
     '2010': 'https://api.census.gov/data/2010/acs/acs5',
     '2011': 'https://api.census.gov/data/2011/acs/acs5',
     '2012': 'https://api.census.gov/data/2012/acs/acs5',
@@ -330,7 +328,7 @@ class ACSPopulationIngester():
             df_for_time_series[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND
-            overwrite = self.year == ACS_EARLIEST_YEAR
+            overwrite = self.year == '2010'
 
             float_cols = [std_col.POPULATION_COL]
             if std_col.POPULATION_PCT_COL in df_for_time_series.columns:
