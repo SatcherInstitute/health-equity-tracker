@@ -257,7 +257,7 @@ class AcsCondition(DataSource):
                             self.base_url,
                             params,
                             bucket,
-                            self.get_filename_race(measure, race, county_level, year),
+                            self.get_filename_race(measure, race, county_level, year)
                         )
                         or file_diff
                     )
