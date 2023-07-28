@@ -210,14 +210,14 @@ def update_col_types(df):
 
 class AcsCondition(DataSource):
 
-    def get_filename_race(self, measure, race, is_county):
+    def get_filename_race(self, measure, race, is_county, year):
         geo = 'COUNTY' if is_county else 'STATE'
         race = race.replace(" ", "_").upper()
-        return f'{measure.upper()}_BY_RACE_{geo}_{race}.json'
+        return f'{year}-{measure.upper()}_BY_RACE_{geo}_{race}.json'
 
-    def get_filename_sex(self, measure, is_county):
+    def get_filename_sex(self, measure, is_county, year):
         geo = 'COUNTY' if is_county else 'STATE'
-        return f'{measure.upper()}_BY_SEX_{geo}.json'
+        return f'{year}-{measure.upper()}_BY_SEX_{geo}.json'
 
     @staticmethod
     def get_id():
@@ -257,7 +257,7 @@ class AcsCondition(DataSource):
                             self.base_url,
                             params,
                             bucket,
-                            self.get_filename_race(measure, race, county_level),
+                            self.get_filename_race(measure, race, county_level, year),
                         )
                         or file_diff
                     )
@@ -266,7 +266,7 @@ class AcsCondition(DataSource):
                 params = get_all_params_for_group(acs_item.sex_age_prefix, county_level)
                 file_diff = (
                     url_file_to_gcs.url_file_to_gcs(
-                        self.base_url, params, bucket, self.get_filename_sex(measure, county_level)
+                        self.base_url, params, bucket, self.get_filename_sex(measure, county_level, year)
                     )
                     or file_diff
                 )
@@ -333,10 +333,10 @@ class AcsCondition(DataSource):
                 for race, concept in acs_item.concept_map.items():
                     # Get cached data from GCS
                     print("gcs_bucket", gcs_bucket)
-                    print("filename", self.get_filename_race(measure, race, geo == COUNTY_LEVEL))
+                    print("filename", self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year))
 
                     concept_df = gcs_to_bq_util.load_values_as_df(
-                        gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL)
+                        gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year)
                     )
 
                     concept_df = self.generate_df_for_concept(measure,
@@ -356,7 +356,7 @@ class AcsCondition(DataSource):
             for measure, acs_item in ACS_ITEMS.items():
                 concept_dfs = []
                 concept_df = gcs_to_bq_util.load_values_as_df(
-                    gcs_bucket, self.get_filename_sex(measure, geo == COUNTY_LEVEL)
+                    gcs_bucket, self.get_filename_sex(measure, geo == COUNTY_LEVEL, self.year)
                 )
                 concept_df = self.generate_df_for_concept(measure, acs_item, concept_df, demo, geo,
                                                           acs_item.sex_age_concept, var_map)
