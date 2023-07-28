@@ -19,6 +19,16 @@ data_ingestion_dag = DAG(
 )
 
 # CACHE ACS SOURCE INTO TMP JSON IN BUCKETS
+acs_condition_gcs_payload_2014 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2014')
+acs_condition_gcs_operator_2014 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2014', acs_condition_gcs_payload_2014, data_ingestion_dag)
+
+acs_condition_gcs_payload_2015 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2015')
+acs_condition_gcs_operator_2015 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2015', acs_condition_gcs_payload_2015, data_ingestion_dag)
+
 acs_condition_gcs_payload_2016 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2016')
 acs_condition_gcs_operator_2016 = util.create_gcs_ingest_operator(
@@ -40,6 +50,16 @@ acs_condition_gcs_operator_2019 = util.create_gcs_ingest_operator(
     'acs_condition_to_gcs_2019', acs_condition_gcs_payload_2019, data_ingestion_dag)
 
 # PROCESS AND WRITE TO BQ
+acs_condition_bq_payload_2014 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2014')
+acs_condition_bq_operator_2014 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2014", acs_condition_bq_payload_2014, data_ingestion_dag)
+
+acs_condition_bq_payload_2015 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2015')
+acs_condition_bq_operator_2015 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2015", acs_condition_bq_payload_2015, data_ingestion_dag)
+
 acs_condition_bq_payload_2016 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2016')
 acs_condition_bq_operator_2016 = util.create_bq_ingest_operator(
@@ -94,14 +114,18 @@ connector = DummyOperator(
 
 # Ingestion DAG
 (
-    acs_condition_gcs_operator_2016 >>
+    acs_condition_gcs_operator_2014 >>
     [
+        acs_condition_gcs_operator_2015,
+        acs_condition_gcs_operator_2016,
         acs_condition_gcs_operator_2017,
         acs_condition_gcs_operator_2018,
         acs_condition_gcs_operator_2019
     ] >>
-    acs_condition_bq_operator_2016 >>
+    acs_condition_bq_operator_2014 >>
     [
+        acs_condition_bq_operator_2015,
+        acs_condition_bq_operator_2016,
         acs_condition_bq_operator_2017,
         acs_condition_bq_operator_2018,
         acs_condition_bq_operator_2019
