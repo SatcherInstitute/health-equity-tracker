@@ -298,7 +298,7 @@ class AcsCondition(DataSource):
             # TIME SERIES TABLE
             df[std_col.TIME_PERIOD_COL] = self.year
 
-            # the first year written should OVERWRITE, the subsequent years should APPEND
+            # the first year written should OVERWRITE, the subsequent years should APPEND_
             overwrite = self.year == '2018'
 
             float_cols = []
