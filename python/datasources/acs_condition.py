@@ -332,8 +332,6 @@ class AcsCondition(DataSource):
                 concept_dfs = []
                 for race, concept in acs_item.concept_map.items():
                     # Get cached data from GCS
-                    print("gcs_bucket", gcs_bucket)
-                    print("filename", self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year))
 
                     concept_df = gcs_to_bq_util.load_values_as_df(
                         gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year)

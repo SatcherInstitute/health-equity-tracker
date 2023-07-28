@@ -219,7 +219,26 @@ def _load_values_as_df(*args):
             side_effect=_load_values_as_df)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
             return_value=None)
-def testWriteToBq(
+def testWrite2009ToBq(
+    mock_bq: mock.MagicMock,
+    mock_cache: mock.MagicMock
+):
+    acsCondition = AcsCondition()
+
+    acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2009')
+
+    for call in mock_bq.call_args_list:
+        print("call ---")
+        for piece in call:
+            print("piece -")
+            print(piece)
+
+
+@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+            side_effect=_load_values_as_df)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+            return_value=None)
+def testAppend2019ToBq(
     mock_bq: mock.MagicMock,
     mock_cache: mock.MagicMock
 ):
