@@ -296,11 +296,10 @@ class AcsCondition(DataSource):
         for table_name, df in dfs.items():
 
             # TIME SERIES TABLE
-            df_for_time_series = df.copy()
-            df_for_time_series[std_col.TIME_PERIOD_COL] = self.year
+            df[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND
-            overwrite = self.year == 2018
+            overwrite = self.year == '2018'
 
             float_cols = []
             for acs_item in ACS_ITEMS.values():
@@ -310,7 +309,8 @@ class AcsCondition(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name,
-                column_types=col_types)
+                column_types=col_types,
+                overwrite=overwrite)
 
     def get_raw_data(self, demo, geo, metadata, gcs_bucket):
         groups = []
