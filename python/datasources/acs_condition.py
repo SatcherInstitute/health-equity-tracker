@@ -299,7 +299,7 @@ class AcsCondition(DataSource):
             df[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
-            overwrite = self.year == '2018'
+            overwrite = self.year == ACS_EARLIEST_YEAR
 
             float_cols = []
             for acs_item in ACS_ITEMS.values():
