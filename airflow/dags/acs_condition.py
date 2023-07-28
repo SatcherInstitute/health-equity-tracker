@@ -19,10 +19,10 @@ data_ingestion_dag = DAG(
 )
 
 # CACHE ACS SOURCE INTO TMP JSON IN BUCKETS
-acs_condition_gcs_payload_2010 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2010')
-acs_condition_gcs_operator_2010 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2010', acs_condition_gcs_payload_2010, data_ingestion_dag)
+acs_condition_gcs_payload_2017 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2017')
+acs_condition_gcs_operator_2017 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2017', acs_condition_gcs_payload_2017, data_ingestion_dag)
 
 acs_condition_gcs_payload_2018 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2018')
@@ -35,10 +35,10 @@ acs_condition_gcs_operator_2019 = util.create_gcs_ingest_operator(
     'acs_condition_to_gcs_2019', acs_condition_gcs_payload_2019, data_ingestion_dag)
 
 # PROCESS AND WRITE TO BQ
-acs_condition_bq_payload_2010 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2010')
-acs_condition_bq_operator_2010 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2010", acs_condition_bq_payload_2010, data_ingestion_dag)
+acs_condition_bq_payload_2017 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2017')
+acs_condition_bq_operator_2017 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2017", acs_condition_bq_payload_2017, data_ingestion_dag)
 
 acs_condition_bq_payload_2018 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2018')
@@ -78,10 +78,10 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
 
 # Ingestion DAG
 (
-    acs_condition_gcs_operator_2010 >>
+    acs_condition_gcs_operator_2017 >>
     acs_condition_gcs_operator_2018 >>
     acs_condition_gcs_operator_2019 >>
-    acs_condition_bq_operator_2010 >>
+    acs_condition_bq_operator_2017 >>
     acs_condition_bq_operator_2018 >>
     acs_condition_bq_operator_2019 >> [
         acs_condition_exporter_operator_race,

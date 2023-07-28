@@ -38,7 +38,6 @@ from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
 
 # available years: 2009-2021, inclusive
 ACS_URLS_MAP = {
-    '2010': 'https://api.census.gov/data/2010/acs/acs5',
     '2011': 'https://api.census.gov/data/2011/acs/acs5',
     '2012': 'https://api.census.gov/data/2012/acs/acs5',
     '2013': 'https://api.census.gov/data/2013/acs/acs5',
@@ -297,7 +296,7 @@ class AcsCondition(DataSource):
             df[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
-            overwrite = self.year == '2010'
+            overwrite = self.year == '2017'
 
             float_cols = []
             for acs_item in ACS_ITEMS.values():
