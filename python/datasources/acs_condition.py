@@ -283,7 +283,7 @@ class AcsCondition(DataSource):
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
-                table_name = f'by_{demo}_{geo}_processed'
+                table_name = f'by_{demo}_{geo}_time_series'
                 df = self.get_raw_data(demo, geo, metadata, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo)
 
