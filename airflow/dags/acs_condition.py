@@ -144,9 +144,8 @@ connector = DummyOperator(
 
 # Ingestion DAG
 (
-    acs_condition_gcs_operator_2011 >>
+    acs_condition_gcs_operator_2012 >>
     [
-        acs_condition_gcs_operator_2012,
         acs_condition_gcs_operator_2013,
         acs_condition_gcs_operator_2014,
         acs_condition_gcs_operator_2015,
@@ -155,9 +154,8 @@ connector = DummyOperator(
         acs_condition_gcs_operator_2018,
         acs_condition_gcs_operator_2019
     ] >>
-    acs_condition_bq_operator_2011 >>
+    acs_condition_bq_operator_2012 >>
     [
-        acs_condition_bq_operator_2012,
         acs_condition_bq_operator_2013,
         acs_condition_bq_operator_2014,
         acs_condition_bq_operator_2015,
