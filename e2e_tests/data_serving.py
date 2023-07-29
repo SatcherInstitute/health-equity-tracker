@@ -1,9 +1,9 @@
 import os
-import pandas
-import requests
+# import pandas
+# import requests
 
-from google.oauth2 import service_account
-from google.auth.transport.requests import AuthorizedSession
+# from google.oauth2 import service_account
+# from google.auth.transport.requests import AuthorizedSession
 
 
 def testUnauthed_permissionDenied():
