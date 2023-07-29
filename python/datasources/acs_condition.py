@@ -38,8 +38,6 @@ from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
 
 # available years: 2009-2021, inclusive
 ACS_URLS_MAP = {
-    '2011': 'https://api.census.gov/data/2011/acs/acs5',
-    '2012': 'https://api.census.gov/data/2012/acs/acs5',
     '2013': 'https://api.census.gov/data/2013/acs/acs5',
     '2014': 'https://api.census.gov/data/2014/acs/acs5',
     '2015': 'https://api.census.gov/data/2015/acs/acs5',
