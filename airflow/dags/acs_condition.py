@@ -126,10 +126,16 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     data_ingestion_dag)
 
 
-connector = DummyOperator(
+connector1 = DummyOperator(
     default_args=default_args,
     dag=data_ingestion_dag,
-    task_id='connector'
+    task_id='connector1'
+)
+
+connector2 = DummyOperator(
+    default_args=default_args,
+    dag=data_ingestion_dag,
+    task_id='connector2'
 )
 
 # Ingestion  DAG
@@ -151,13 +157,13 @@ connector = DummyOperator(
         acs_condition_bq_operator_2015,
         acs_condition_bq_operator_2016
     ]
-    >> connector >>
+    >> connector1 >>
     [
         acs_condition_bq_operator_2017,
         acs_condition_bq_operator_2018,
         acs_condition_bq_operator_2019
     ]
-    >> connector >>
+    >> connector2 >>
     [
         acs_condition_exporter_operator_race,
         acs_condition_exporter_operator_age,
