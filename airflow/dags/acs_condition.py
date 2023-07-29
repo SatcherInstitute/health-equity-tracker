@@ -143,18 +143,21 @@ connector = DummyOperator(
         acs_condition_gcs_operator_2017,
         acs_condition_gcs_operator_2018,
         acs_condition_gcs_operator_2019
-    ] >>
-    acs_condition_bq_operator_2012 >>
+    ]
+    >> acs_condition_bq_operator_2012 >>
     [
         acs_condition_bq_operator_2013,
         acs_condition_bq_operator_2014,
         acs_condition_bq_operator_2015,
-        acs_condition_bq_operator_2016,
+        acs_condition_bq_operator_2016
+    ]
+    >> connector >>
+    [
         acs_condition_bq_operator_2017,
         acs_condition_bq_operator_2018,
         acs_condition_bq_operator_2019
-    ] >>
-    connector >>
+    ]
+    >> connector >>
     [
         acs_condition_exporter_operator_race,
         acs_condition_exporter_operator_age,
