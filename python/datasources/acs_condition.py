@@ -36,7 +36,8 @@ from ingestion.standardized_columns import (
 from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
                                    ACS_LATEST_YEAR)
 
-# available years: 2009-2021, inclusive
+# available years: 2009-2021 from api, inclusive
+# available years from all topics:
 ACS_URLS_MAP = {
     '2013': 'https://api.census.gov/data/2013/acs/acs5',
     '2014': 'https://api.census.gov/data/2014/acs/acs5',
