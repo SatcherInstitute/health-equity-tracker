@@ -292,7 +292,7 @@ class AcsCondition(DataSource):
         suffixes = [std_col.PCT_SHARE_SUFFIX, std_col.POP_PCT_SUFFIX, std_col.PER_100K_SUFFIX]
         for table_name, df in dfs.items():
 
-            # TIME SERIES TABLE
+            # TIME SERIES  TABLE
             df[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_

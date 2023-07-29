@@ -132,7 +132,7 @@ connector = DummyOperator(
     task_id='connector'
 )
 
-# Ingestion DAG
+# Ingestion  DAG
 (
     acs_condition_gcs_operator_2012 >>
     [
