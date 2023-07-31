@@ -1,4 +1,4 @@
-# The variables here are for resources which are qualified by cloud project 
+# The variables here are for resources which are qualified by cloud project
 # so they will not obverlap across environments
 ingestion_service_name         = "data-ingestion-service"
 ingestion_image_name           = "data-ingestion"
@@ -16,10 +16,10 @@ exporter_service_name          = "exporter-service"
 exporter_image_name            = "exporter"
 exporter_runner_identity_id    = "exporter-runner"
 exporter_runner_role_id        = "exporter_runner"
-aggregator_service_name        = "aggregator-service"
-aggregator_image_name          = "aggregator"
-aggregator_runner_identity_id  = "aggregator-runner"
-aggregator_runner_role_id      = "aggregator_runner"
+# aggregator_service_name        = "aggregator-service"
+# aggregator_image_name          = "aggregator"
+# aggregator_runner_identity_id  = "aggregator-runner"
+# aggregator_runner_role_id      = "aggregator_runner"
 frontend_service_name          = "frontend-service"
 frontend_image_name            = "frontend"
 frontend_runner_identity_id    = "frontend-runner"
