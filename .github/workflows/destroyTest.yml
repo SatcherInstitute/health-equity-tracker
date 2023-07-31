@@ -159,7 +159,7 @@ jobs:
         id: terraform
         working-directory: ./config
         run: |
-          terraform destroy -var-file=test/test.tfvars \
+          terraform destroy -auto-approve -var-file=test/test.tfvars \
           -var-file=common.tfvars \
           -var 'gcp_credentials=${{ secrets.TEST_DEPLOYER_SA_KEY }}' \
           -var 'project_id=${{ secrets.TEST_PROJECT_ID }}' \
