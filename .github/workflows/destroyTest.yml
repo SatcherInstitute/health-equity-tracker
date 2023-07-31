@@ -168,14 +168,14 @@ jobs:
           -var 'data_server_image_digest=${{ needs.build-data-server.outputs.image-digest }}' \
           -var 'exporter_image_digest=${{ needs.build-exporter.outputs.image-digest }}' \
           -var 'frontend_image_digest=${{ needs.build-frontend.outputs.image-digest }}'
-          data_server_url=$(terraform output data_server_url)
-          echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
-          ingestion_url=$(terraform output ingestion_url)
-          echo "ingestion_url=$ingestion_url" >> $GITHUB_OUTPUT
-          gcs_to_bq_url=$(terraform output gcs_to_bq_url)
-          echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
-          exporter_url=$(terraform output exporter_url)
-          echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
-          frontend_url=$(terraform output frontend_url)
-          echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
+          # data_server_url=$(terraform output data_server_url)
+          # echo "data_server_url=$data_server_url" >> $GITHUB_OUTPUT
+          # ingestion_url=$(terraform output ingestion_url)
+          # echo "ingestion_url=$ingestion_url" >> $GITHUB_OUTPUT
+          # gcs_to_bq_url=$(terraform output gcs_to_bq_url)
+          # echo "gcs_to_bq_url=$gcs_to_bq_url" >> $GITHUB_OUTPUT
+          # exporter_url=$(terraform output exporter_url)
+          # echo "exporter_url=$exporter_url" >> $GITHUB_OUTPUT
+          # frontend_url=$(terraform output frontend_url)
+          # echo "frontend_url=$frontend_url" >> $GITHUB_OUTPUT
 
