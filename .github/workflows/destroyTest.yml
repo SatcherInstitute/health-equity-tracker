@@ -1,4 +1,4 @@
-name: Deploy to Test
+name: Terraform Destroy on Test
 
 on:
   workflow_dispatch:
@@ -124,7 +124,7 @@ jobs:
 
   deploy:
     if: github.repository == 'SatcherInstitute/health-equity-tracker'
-    name: Deploy to Test Environment
+    name: Destroy on Test Environment
     runs-on: ubuntu-latest
     needs: [build-ingestion, build-gcs-to-bq, build-exporter, build-data-server, build-frontend]
 
