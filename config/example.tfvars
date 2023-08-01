@@ -16,7 +16,7 @@ ingestion_service_name = "ingestion-service"
 ingestion_image_name = "ingestion-service"
 ingestion_runner_identity_id = "ingestion-runner"
 ingestion_runner_role_id = "ingestion_runner_role2"
- 
+
 # GCS to BQ Cloud Run Service vars
 gcs_to_bq_service_name = "gcs-to-bq-service"
 gcs_to_bq_image_name = "gcs-to-bq-service"
@@ -28,12 +28,6 @@ data_server_service_name = "data-server-service"
 data_server_image_name = "data-server-service"
 data_server_runner_identity_id = "data-server-runner"
 data_server_runner_role_id = "data_server_runner_role"
- 
-# Aggregator Cloud Run vars
-aggregator_service_name = "aggregator-service"
-aggregator_image_name = "aggregator-service"
-aggregator_runner_identity_id = "aggregator-runner"
-aggregator_runner_role_id = "aggregator_runner_role"
 
 # Exporter Cloud Run vars
 exporter_service_name = "exporter-service"
