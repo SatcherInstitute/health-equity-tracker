@@ -1,10 +1,8 @@
 import os
-# test 3
-# import pandas
-# import requests
-
-# from google.oauth2 import service_account
-# from google.auth.transport.requests import AuthorizedSession
+import pandas
+import requests  # type: ignore
+from google.oauth2 import service_account
+from google.auth.transport.requests import AuthorizedSession
 
 
 def testUnauthed_permissionDenied():
@@ -12,8 +10,8 @@ def testUnauthed_permissionDenied():
     service_url = os.environ.get('SERVICE_URL').strip('"')
     print('SERVICE_URL={}'.format(service_url))
 
-    # resp = requests.get(service_url)
-    # assert resp.status_code == 403
+    resp = requests.get(service_url)
+    assert resp.status_code == 403
 
 
 def testDataServerDataServing():
@@ -21,15 +19,15 @@ def testDataServerDataServing():
     service_url = os.environ.get('SERVICE_URL').strip('"')
     print('SERVICE_URL={}'.format(service_url))
 
-    # # Get service account credentials to make request to private URL
-    # creds = service_account.IDTokenCredentials.from_service_account_file(
-    #     os.environ.get('PATH_TO_SA_CREDS'), target_audience=service_url)
+    # Get service account credentials to make request to private URL
+    creds = service_account.IDTokenCredentials.from_service_account_file(
+        os.environ.get('PATH_TO_SA_CREDS'), target_audience=service_url)
 
-    # authed_session = AuthorizedSession(creds)
+    authed_session = AuthorizedSession(creds)
 
-    # resp = authed_session.get(service_url)
-    # assert resp.ok
-    # assert b'Running data server.' in resp.content
+    resp = authed_session.get(service_url)
+    assert resp.ok
+    assert b'Running data server.' in resp.content
 
 
 def testDataServingThroughFrontend():
@@ -38,11 +36,11 @@ def testDataServingThroughFrontend():
         '"') + '/api/dataset?name=acs_population-by_sex_state.json'
     print('FRONTEND_URL={}'.format(frontend_url))
 
-    # frame = pandas.read_json(frontend_url, orient='values')
-    # assert len(frame.index) == 156
-    # assert frame.columns.size == 5
-    # assert frame.columns[0] == 'state_fips'
-    # assert frame.columns[1] == 'state_name'
-    # assert frame.columns[2] == 'sex'
-    # assert frame.columns[3] == 'population'
-    # assert frame.columns[4] == 'population_pct'
+    frame = pandas.read_json(frontend_url, orient='values')
+    assert len(frame.index) == 156
+    assert frame.columns.size == 5
+    assert frame.columns[0] == 'state_fips'
+    assert frame.columns[1] == 'state_name'
+    assert frame.columns[2] == 'sex'
+    assert frame.columns[3] == 'population'
+    assert frame.columns[4] == 'population_pct'
