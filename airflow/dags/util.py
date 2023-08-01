@@ -117,7 +117,7 @@ def service_request(url: str, data: dict, **kwargs):
         resp = requests.post(url, json=data, headers=receiving_service_headers)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
-        kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
+        # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
     except requests.exceptions.HTTPError as err:
         raise Exception('Failed response code: {}'.format(err))
 
