@@ -1,7 +1,6 @@
 import os
 import pandas
-import requests
-
+import requests  # type: ignore
 from google.oauth2 import service_account
 from google.auth.transport.requests import AuthorizedSession
 
