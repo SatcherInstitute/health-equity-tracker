@@ -1,7 +1,7 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-from airflow.operators.dummy_operator import DummyOperator  # type: ignore
+# from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _ACS_WORKFLOW_ID = "ACS_CONDITION"
@@ -20,97 +20,97 @@ data_ingestion_dag = DAG(
 
 # CACHE ACS SOURCE INTO TMP JSON IN BUCKETS
 
-acs_condition_gcs_payload_2013 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2013')
-acs_condition_gcs_operator_2013 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2013', acs_condition_gcs_payload_2013, data_ingestion_dag)
+# acs_condition_gcs_payload_2013 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2013')
+# acs_condition_gcs_operator_2013 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2013', acs_condition_gcs_payload_2013, data_ingestion_dag)
 
-acs_condition_gcs_payload_2014 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2014')
-acs_condition_gcs_operator_2014 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2014', acs_condition_gcs_payload_2014, data_ingestion_dag)
+# acs_condition_gcs_payload_2014 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2014')
+# acs_condition_gcs_operator_2014 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2014', acs_condition_gcs_payload_2014, data_ingestion_dag)
 
-acs_condition_gcs_payload_2015 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2015')
-acs_condition_gcs_operator_2015 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2015', acs_condition_gcs_payload_2015, data_ingestion_dag)
+# acs_condition_gcs_payload_2015 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2015')
+# acs_condition_gcs_operator_2015 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2015', acs_condition_gcs_payload_2015, data_ingestion_dag)
 
-acs_condition_gcs_payload_2016 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2016')
-acs_condition_gcs_operator_2016 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2016', acs_condition_gcs_payload_2016, data_ingestion_dag)
+# acs_condition_gcs_payload_2016 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2016')
+# acs_condition_gcs_operator_2016 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2016', acs_condition_gcs_payload_2016, data_ingestion_dag)
 
-acs_condition_gcs_payload_2017 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2017')
-acs_condition_gcs_operator_2017 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2017', acs_condition_gcs_payload_2017, data_ingestion_dag)
+# acs_condition_gcs_payload_2017 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2017')
+# acs_condition_gcs_operator_2017 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2017', acs_condition_gcs_payload_2017, data_ingestion_dag)
 
-acs_condition_gcs_payload_2018 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2018')
-acs_condition_gcs_operator_2018 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2018', acs_condition_gcs_payload_2018, data_ingestion_dag)
+# acs_condition_gcs_payload_2018 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2018')
+# acs_condition_gcs_operator_2018 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2018', acs_condition_gcs_payload_2018, data_ingestion_dag)
 
 acs_condition_gcs_payload_2019 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2019')
 acs_condition_gcs_operator_2019 = util.create_gcs_ingest_operator(
     'acs_condition_to_gcs_2019', acs_condition_gcs_payload_2019, data_ingestion_dag)
 
-acs_condition_gcs_payload_2020 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2020')
-acs_condition_gcs_operator_2020 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2020', acs_condition_gcs_payload_2020, data_ingestion_dag)
+# acs_condition_gcs_payload_2020 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2020')
+# acs_condition_gcs_operator_2020 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2020', acs_condition_gcs_payload_2020, data_ingestion_dag)
 
-acs_condition_gcs_payload_2021 = util.generate_gcs_payload(
-    _ACS_WORKFLOW_ID, year='2021')
-acs_condition_gcs_operator_2021 = util.create_gcs_ingest_operator(
-    'acs_condition_to_gcs_2021', acs_condition_gcs_payload_2021, data_ingestion_dag)
+# acs_condition_gcs_payload_2021 = util.generate_gcs_payload(
+#     _ACS_WORKFLOW_ID, year='2021')
+# acs_condition_gcs_operator_2021 = util.create_gcs_ingest_operator(
+#     'acs_condition_to_gcs_2021', acs_condition_gcs_payload_2021, data_ingestion_dag)
 
 # PROCESS AND WRITE TO BQ
 
-acs_condition_bq_payload_2013 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2013')
-acs_condition_bq_operator_2013 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2013", acs_condition_bq_payload_2013, data_ingestion_dag)
+# acs_condition_bq_payload_2013 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2013')
+# acs_condition_bq_operator_2013 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2013", acs_condition_bq_payload_2013, data_ingestion_dag)
 
-acs_condition_bq_payload_2014 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2014')
-acs_condition_bq_operator_2014 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2014", acs_condition_bq_payload_2014, data_ingestion_dag)
+# acs_condition_bq_payload_2014 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2014')
+# acs_condition_bq_operator_2014 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2014", acs_condition_bq_payload_2014, data_ingestion_dag)
 
-acs_condition_bq_payload_2015 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2015')
-acs_condition_bq_operator_2015 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2015", acs_condition_bq_payload_2015, data_ingestion_dag)
+# acs_condition_bq_payload_2015 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2015')
+# acs_condition_bq_operator_2015 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2015", acs_condition_bq_payload_2015, data_ingestion_dag)
 
-acs_condition_bq_payload_2016 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2016')
-acs_condition_bq_operator_2016 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2016", acs_condition_bq_payload_2016, data_ingestion_dag)
+# acs_condition_bq_payload_2016 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2016')
+# acs_condition_bq_operator_2016 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2016", acs_condition_bq_payload_2016, data_ingestion_dag)
 
-acs_condition_bq_payload_2017 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2017')
-acs_condition_bq_operator_2017 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2017", acs_condition_bq_payload_2017, data_ingestion_dag)
+# acs_condition_bq_payload_2017 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2017')
+# acs_condition_bq_operator_2017 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2017", acs_condition_bq_payload_2017, data_ingestion_dag)
 
-acs_condition_bq_payload_2018 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2018')
-acs_condition_bq_operator_2018 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2018", acs_condition_bq_payload_2018, data_ingestion_dag)
+# acs_condition_bq_payload_2018 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2018')
+# acs_condition_bq_operator_2018 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2018", acs_condition_bq_payload_2018, data_ingestion_dag)
 
 acs_condition_bq_payload_2019 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2019')
 acs_condition_bq_operator_2019 = util.create_bq_ingest_operator(
     "acs_condition_to_bq_2019", acs_condition_bq_payload_2019, data_ingestion_dag)
 
-acs_condition_bq_payload_2020 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2020')
-acs_condition_bq_operator_2020 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2020", acs_condition_bq_payload_2020, data_ingestion_dag)
+# acs_condition_bq_payload_2020 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2020')
+# acs_condition_bq_operator_2020 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2020", acs_condition_bq_payload_2020, data_ingestion_dag)
 
-acs_condition_bq_payload_2021 = util.generate_bq_payload(
-    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2021')
-acs_condition_bq_operator_2021 = util.create_bq_ingest_operator(
-    "acs_condition_to_bq_2021", acs_condition_bq_payload_2021, data_ingestion_dag)
+# acs_condition_bq_payload_2021 = util.generate_bq_payload(
+#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2021')
+# acs_condition_bq_operator_2021 = util.create_bq_ingest_operator(
+#     "acs_condition_to_bq_2021", acs_condition_bq_payload_2021, data_ingestion_dag)
 
 # EXPORT FROM BQ TO BUCKETS
 acs_condition_exporter_payload_race = {
@@ -138,11 +138,11 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     data_ingestion_dag)
 
 
-connector1 = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector1'
-)
+# connector1 = DummyOperator(
+#     default_args=default_args,
+#     dag=data_ingestion_dag,
+#     task_id='connector1'
+# )
 
 # connector2 = DummyOperator(
 #     default_args=default_args,
@@ -157,34 +157,44 @@ connector1 = DummyOperator(
 # )
 
 # Ingestion  DAG
+# (
+#     acs_condition_gcs_operator_2013 >>
+#     [
+#         acs_condition_gcs_operator_2014,
+#         acs_condition_gcs_operator_2015,
+#         acs_condition_gcs_operator_2016,
+#         acs_condition_gcs_operator_2017
+#     ]
+#     >> connector1 >>
+#     [
+#         acs_condition_gcs_operator_2018,
+#         acs_condition_gcs_operator_2019,
+#         acs_condition_gcs_operator_2020,
+#         acs_condition_gcs_operator_2021
+#     ]
+#     >> acs_condition_bq_operator_2013
+#     >> acs_condition_bq_operator_2014
+#     >> acs_condition_bq_operator_2015
+#     >> acs_condition_bq_operator_2016
+#     >> acs_condition_bq_operator_2017
+#     >> acs_condition_bq_operator_2018
+#     >> acs_condition_bq_operator_2019
+#     >> acs_condition_bq_operator_2020
+#     >> acs_condition_bq_operator_2021
+#     >>
+#     [
+#         acs_condition_exporter_operator_race,
+#         acs_condition_exporter_operator_age,
+#         acs_condition_exporter_operator_sex,
+#     ]
+# )
+
 (
-    acs_condition_gcs_operator_2013 >>
-    [
-        acs_condition_gcs_operator_2014,
-        acs_condition_gcs_operator_2015,
-        acs_condition_gcs_operator_2016,
-        acs_condition_gcs_operator_2017
-    ]
-    >> connector1 >>
-    [
-        acs_condition_gcs_operator_2018,
-        acs_condition_gcs_operator_2019,
-        acs_condition_gcs_operator_2020,
-        acs_condition_gcs_operator_2021
-    ]
-    >> acs_condition_bq_operator_2013
-    >> acs_condition_bq_operator_2014
-    >> acs_condition_bq_operator_2015
-    >> acs_condition_bq_operator_2016
-    >> acs_condition_bq_operator_2017
-    >> acs_condition_bq_operator_2018
-    >> acs_condition_bq_operator_2019
-    >> acs_condition_bq_operator_2020
-    >> acs_condition_bq_operator_2021
-    >>
+    acs_condition_gcs_operator_2019 >>
+    acs_condition_bq_operator_2019 >>
     [
         acs_condition_exporter_operator_race,
         acs_condition_exporter_operator_age,
-        acs_condition_exporter_operator_sex,
+        acs_condition_exporter_operator_sex
     ]
 )

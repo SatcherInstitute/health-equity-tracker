@@ -39,15 +39,15 @@ from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
 # available years: 2009-2021 from api, inclusive
 # available years from all topics:
 ACS_URLS_MAP = {
-    '2013': 'https://api.census.gov/data/2013/acs/acs1',
-    '2014': 'https://api.census.gov/data/2014/acs/acs1',
-    '2015': 'https://api.census.gov/data/2015/acs/acs1',
-    '2016': 'https://api.census.gov/data/2016/acs/acs1',
-    '2017': 'https://api.census.gov/data/2017/acs/acs1',
-    '2018': 'https://api.census.gov/data/2018/acs/acs1',
+    # '2013': 'https://api.census.gov/data/2013/acs/acs1',
+    # '2014': 'https://api.census.gov/data/2014/acs/acs1',
+    # '2015': 'https://api.census.gov/data/2015/acs/acs1',
+    # '2016': 'https://api.census.gov/data/2016/acs/acs1',
+    # '2017': 'https://api.census.gov/data/2017/acs/acs1',
+    # '2018': 'https://api.census.gov/data/2018/acs/acs1',
     ACS_DEFAULT_YEAR: 'https://api.census.gov/data/2019/acs/acs1',
     # '2020': 'https://api.census.gov/data/2020/acs/acs1',
-    ACS_LATEST_YEAR: 'https://api.census.gov/data/2021/acs/acs1',
+    # ACS_LATEST_YEAR: 'https://api.census.gov/data/2021/acs/acs1',
 }
 
 
@@ -295,7 +295,7 @@ class AcsCondition(DataSource):
             df[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
-            overwrite = self.year == '2013'
+            overwrite = self.year == '2019'
 
             float_cols = []
             for acs_item in ACS_ITEMS.values():
