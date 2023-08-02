@@ -1,12 +1,15 @@
 import os
 import pandas as pd
 from unittest import mock
-from pandas._testing import assert_frame_equal
+# from pandas._testing import assert_frame_equal
 from ingestion import gcs_to_bq_util
 
 from datasources.acs_condition import AcsCondition
 
-from test_utils import get_acs_metadata_as_json, get_state_fips_codes_as_df
+from test_utils import (
+    # get_acs_metadata_as_json,
+    get_state_fips_codes_as_df
+)
 
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -25,11 +28,11 @@ def get_fips_and_county_names_as_df(*args, **kwargs):
         return get_state_fips_codes_as_df()
 
 
-def _get_by_race_as_df(*args):
-    _, filename = args
-    return gcs_to_bq_util.values_json_to_df(
-        os.path.join(TEST_DIR, filename),
-        dtype={'state_fips': str, 'county_fips': str}).reset_index(drop=True)
+# def _get_by_race_as_df(*args):
+#     _, filename = args
+#     return gcs_to_bq_util.values_json_to_df(
+#         os.path.join(TEST_DIR, filename),
+#         dtype={'state_fips': str, 'county_fips': str}).reset_index(drop=True)
 
 
 # @mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
