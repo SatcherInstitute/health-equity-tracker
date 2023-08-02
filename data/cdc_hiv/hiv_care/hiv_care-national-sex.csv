@@ -9,6 +9,10 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","5,015","81.8","6,129"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","22,520","82.0","27,477"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","4,181","82.3","5,080"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","19,238","82.4","23,342"
 "Linkage to HIV care","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","5,110","80.2","6,371"
 "Linkage to HIV care","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","22,369","81.6","27,424"
 "Linkage to HIV care","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","5,061","79.8","6,341"
