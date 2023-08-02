@@ -1,7 +1,7 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-from airflow.operators.dummy_operator import DummyOperator  # type: ignore
+# from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _ACS_WORKFLOW_ID = "ACS_CONDITION"

@@ -2,7 +2,7 @@ import os
 import pandas as pd
 # from unittest import mock
 # from pandas._testing import assert_frame_equal
-from ingestion import gcs_to_bq_util
+# from ingestion import gcs_to_bq_util
 
 # from datasources.acs_condition import AcsCondition
 
