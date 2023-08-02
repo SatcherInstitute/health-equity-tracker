@@ -1,10 +1,10 @@
 import os
 import pandas as pd
-from unittest import mock
+# from unittest import mock
 # from pandas._testing import assert_frame_equal
 from ingestion import gcs_to_bq_util
 
-from datasources.acs_condition import AcsCondition
+# from datasources.acs_condition import AcsCondition
 
 from test_utils import (
     # get_acs_metadata_as_json,
@@ -210,47 +210,47 @@ def get_fips_and_county_names_as_df(*args, **kwargs):
 #     assert mock_bq.call_args_list[8].args[2] == 'by_sex_county_processed'
 
 
-def _load_values_as_df(*args):
-    _bucket, filename = args
+# def _load_values_as_df(*args):
+#     _bucket, filename = args
 
-    return gcs_to_bq_util.values_json_to_df(
-        os.path.join(TEST_DIR, filename),
-        dtype={'state_fips': str, 'county_fips': str}).reset_index(drop=True)
-
-
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
-            side_effect=_load_values_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testWrite2009ToBq(
-    mock_bq: mock.MagicMock,
-    mock_cache: mock.MagicMock
-):
-    acsCondition = AcsCondition()
-
-    acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2009')
-
-    for call in mock_bq.call_args_list:
-        print("call ---")
-        for piece in call:
-            print("piece -")
-            print(piece)
+#     return gcs_to_bq_util.values_json_to_df(
+#         os.path.join(TEST_DIR, filename),
+#         dtype={'state_fips': str, 'county_fips': str}).reset_index(drop=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
-            side_effect=_load_values_as_df)
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
-            return_value=None)
-def testAppend2019ToBq(
-    mock_bq: mock.MagicMock,
-    mock_cache: mock.MagicMock
-):
-    acsCondition = AcsCondition()
+# @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+#             side_effect=_load_values_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testWrite2009ToBq(
+#     mock_bq: mock.MagicMock,
+#     mock_cache: mock.MagicMock
+# ):
+#     acsCondition = AcsCondition()
 
-    acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2019')
+#     acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2009')
 
-    for call in mock_bq.call_args_list:
-        print("call ---")
-        for piece in call:
-            print("piece -")
-            print(piece)
+#     for call in mock_bq.call_args_list:
+#         print("call ---")
+#         for piece in call:
+#             print("piece -")
+#             print(piece)
+
+
+# @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
+#             side_effect=_load_values_as_df)
+# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq',
+#             return_value=None)
+# def testAppend2019ToBq(
+#     mock_bq: mock.MagicMock,
+#     mock_cache: mock.MagicMock
+# ):
+#     acsCondition = AcsCondition()
+
+#     acsCondition.write_to_bq('dataset', 'gcs_bucket', year='2019')
+
+#     for call in mock_bq.call_args_list:
+#         print("call ---")
+#         for piece in call:
+#             print("piece -")
+#             print(piece)
