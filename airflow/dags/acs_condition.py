@@ -14,7 +14,7 @@ default_args = {
 data_ingestion_dag = DAG(
     "acs_condition_ingestion_dag",
     default_args=default_args,
-    schedule_interval="@yearly",
+    schedule_interval=None,
     description="Ingestion configuration for ACS Condition",
 )
 
@@ -124,6 +124,12 @@ connector1 = DummyOperator(
     task_id='connector1'
 )
 
+connector2 = DummyOperator(
+    default_args=default_args,
+    dag=data_ingestion_dag,
+    task_id='connector2'
+)
+
 
 # Ingestion  DAG
 (
@@ -140,12 +146,15 @@ connector1 = DummyOperator(
     [
         acs_condition_bq_operator_2014,
         acs_condition_bq_operator_2015,
-        acs_condition_bq_operator_2016,
+        acs_condition_bq_operator_2016
+    ]
+    >> connector1 >>
+    [
         acs_condition_bq_operator_2017,
         acs_condition_bq_operator_2018,
         acs_condition_bq_operator_2019
     ]
-    >> connector1 >>
+    >> connector2 >>
     [
         acs_condition_exporter_operator_race,
         acs_condition_exporter_operator_age,
