@@ -39,15 +39,6 @@ from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
 # available years: 2009-2021 from api, inclusive
 # available years from all topics:
 ACS_URLS_MAP = {
-    '2004': 'https://api.census.gov/data/2004/acs/acs1',
-    '2005': 'https://api.census.gov/data/2005/acs/acs1',
-    '2006': 'https://api.census.gov/data/2006/acs/acs1',
-    '2007': 'https://api.census.gov/data/2007/acs/acs1',
-    '2008': 'https://api.census.gov/data/2008/acs/acs1',
-    '2009': 'https://api.census.gov/data/2009/acs/acs1',
-    '2010': 'https://api.census.gov/data/2010/acs/acs1',
-    '2011': 'https://api.census.gov/data/2011/acs/acs1',
-    '2012': 'https://api.census.gov/data/2012/acs/acs1',
     '2013': 'https://api.census.gov/data/2013/acs/acs1',
     '2014': 'https://api.census.gov/data/2014/acs/acs1',
     '2015': 'https://api.census.gov/data/2015/acs/acs1',
