@@ -1,5 +1,4 @@
 import pandas as pd
-
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 import ingestion.standardized_columns as std_col
@@ -33,8 +32,7 @@ from ingestion.standardized_columns import (
     Race,
     add_race_columns_from_category_id,
     generate_column_name)
-from ingestion.merge_utils import (ACS_DEFAULT_YEAR,
-                                   ACS_LATEST_YEAR)
+from ingestion.merge_utils import (ACS_DEFAULT_YEAR)
 
 # available years: 2009-2021 from api, inclusive
 # available years from all topics:
