@@ -45,20 +45,20 @@ data_ingestion_dag = DAG(
 # acs_condition_gcs_operator_2008 = util.create_gcs_ingest_operator(
 #     'acs_condition_to_gcs_2008', acs_condition_gcs_payload_2008, data_ingestion_dag)
 
-# acs_condition_gcs_payload_2009 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2009')
-# acs_condition_gcs_operator_2009 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2009', acs_condition_gcs_payload_2009, data_ingestion_dag)
+acs_condition_gcs_payload_2009 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2009')
+acs_condition_gcs_operator_2009 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2009', acs_condition_gcs_payload_2009, data_ingestion_dag)
 
-# acs_condition_gcs_payload_2010 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2010')
-# acs_condition_gcs_operator_2010 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2010', acs_condition_gcs_payload_2010, data_ingestion_dag)
+acs_condition_gcs_payload_2010 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2010')
+acs_condition_gcs_operator_2010 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2010', acs_condition_gcs_payload_2010, data_ingestion_dag)
 
-# acs_condition_gcs_payload_2011 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2011')
-# acs_condition_gcs_operator_2011 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2011', acs_condition_gcs_payload_2011, data_ingestion_dag)
+acs_condition_gcs_payload_2011 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2011')
+acs_condition_gcs_operator_2011 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2011', acs_condition_gcs_payload_2011, data_ingestion_dag)
 
 acs_condition_gcs_payload_2012 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2012')
@@ -137,20 +137,20 @@ acs_condition_gcs_operator_2019 = util.create_gcs_ingest_operator(
 # acs_condition_bq_operator_2008 = util.create_bq_ingest_operator(
 #     "acs_condition_to_bq_2008", acs_condition_bq_payload_2008, data_ingestion_dag)
 
-# acs_condition_bq_payload_2009 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
-# acs_condition_bq_operator_2009 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2009", acs_condition_bq_payload_2009, data_ingestion_dag)
+acs_condition_bq_payload_2009 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
+acs_condition_bq_operator_2009 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2009", acs_condition_bq_payload_2009, data_ingestion_dag)
 
-# acs_condition_bq_payload_2010 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2010')
-# acs_condition_bq_operator_2010 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2010", acs_condition_bq_payload_2010, data_ingestion_dag)
+acs_condition_bq_payload_2010 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2010')
+acs_condition_bq_operator_2010 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2010", acs_condition_bq_payload_2010, data_ingestion_dag)
 
-# acs_condition_bq_payload_2011 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2011')
-# acs_condition_bq_operator_2011 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2011", acs_condition_bq_payload_2011, data_ingestion_dag)
+acs_condition_bq_payload_2011 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2011')
+acs_condition_bq_operator_2011 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2011", acs_condition_bq_payload_2011, data_ingestion_dag)
 
 acs_condition_bq_payload_2012 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2012')
@@ -290,8 +290,11 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     #     acs_condition_gcs_operator_2010,
     #     acs_condition_gcs_operator_2011
     # ] >>
-    acs_condition_gcs_operator_2012 >>
+    acs_condition_gcs_operator_2009 >>
     [
+        acs_condition_gcs_operator_2010,
+        acs_condition_gcs_operator_2011,
+        acs_condition_gcs_operator_2012,
         acs_condition_gcs_operator_2013,
         acs_condition_gcs_operator_2014,
         acs_condition_gcs_operator_2015,
@@ -305,9 +308,9 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     # acs_condition_bq_operator_2006 >>
     # acs_condition_bq_operator_2007 >>
     # acs_condition_bq_operator_2008 >>
-    # acs_condition_bq_operator_2009 >>
-    # acs_condition_bq_operator_2010 >>
-    # acs_condition_bq_operator_2011 >>
+    acs_condition_bq_operator_2009 >>
+    acs_condition_bq_operator_2010 >>
+    acs_condition_bq_operator_2011 >>
     acs_condition_bq_operator_2012 >>
     acs_condition_bq_operator_2013 >>
     acs_condition_bq_operator_2014 >>
