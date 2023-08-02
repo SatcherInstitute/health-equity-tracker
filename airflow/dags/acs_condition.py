@@ -1,7 +1,7 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-# from airflow.operators.dummy_operator import DummyOperator  # type: ignore
+from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _ACS_WORKFLOW_ID = "ACS_CONDITION"
@@ -20,10 +20,10 @@ data_ingestion_dag = DAG(
 
 # CACHE ACS SOURCE INTO TMP JSON IN BUCKETS
 
-# acs_condition_gcs_payload_2004 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2004')
-# acs_condition_gcs_operator_2004 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2004', acs_condition_gcs_payload_2004, data_ingestion_dag)
+acs_condition_gcs_payload_2004 = util.generate_gcs_payload(
+    _ACS_WORKFLOW_ID, year='2004')
+acs_condition_gcs_operator_2004 = util.create_gcs_ingest_operator(
+    'acs_condition_to_gcs_2004', acs_condition_gcs_payload_2004, data_ingestion_dag)
 
 acs_condition_gcs_payload_2005 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2005')
@@ -112,10 +112,10 @@ acs_condition_gcs_operator_2021 = util.create_gcs_ingest_operator(
 
 # PROCESS AND WRITE TO BQ
 
-# acs_condition_bq_payload_2004 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2004')
-# acs_condition_bq_operator_2004 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2004", acs_condition_bq_payload_2004, data_ingestion_dag)
+acs_condition_bq_payload_2004 = util.generate_bq_payload(
+    _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2004')
+acs_condition_bq_operator_2004 = util.create_bq_ingest_operator(
+    "acs_condition_to_bq_2004", acs_condition_bq_payload_2004, data_ingestion_dag)
 
 acs_condition_bq_payload_2005 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2005')
@@ -228,11 +228,11 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     data_ingestion_dag)
 
 
-# connector1 = DummyOperator(
-#     default_args=default_args,
-#     dag=data_ingestion_dag,
-#     task_id='connector1'
-# )
+connector1 = DummyOperator(
+    default_args=default_args,
+    dag=data_ingestion_dag,
+    task_id='connector1'
+)
 
 # connector2 = DummyOperator(
 #     default_args=default_args,
@@ -248,13 +248,17 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
 
 # Ingestion  DAG
 (
-    acs_condition_gcs_operator_2005 >>
+    acs_condition_gcs_operator_2004 >>
     [
+        acs_condition_gcs_operator_2005,
         acs_condition_gcs_operator_2006,
         acs_condition_gcs_operator_2007,
         acs_condition_gcs_operator_2008,
         acs_condition_gcs_operator_2009,
-        acs_condition_gcs_operator_2010,
+        acs_condition_gcs_operator_2010
+    ]
+    >> connector1 >>
+    [
         acs_condition_gcs_operator_2011,
         acs_condition_gcs_operator_2012,
         acs_condition_gcs_operator_2013,
@@ -266,6 +270,7 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
         acs_condition_gcs_operator_2019,
         acs_condition_gcs_operator_2021
     ]
+    >> acs_condition_bq_operator_2004
     >> acs_condition_bq_operator_2005
     >> acs_condition_bq_operator_2006
     >> acs_condition_bq_operator_2007
