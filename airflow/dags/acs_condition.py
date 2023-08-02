@@ -234,17 +234,17 @@ connector1 = DummyOperator(
     task_id='connector1'
 )
 
-connector2 = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector2'
-)
+# connector2 = DummyOperator(
+#     default_args=default_args,
+#     dag=data_ingestion_dag,
+#     task_id='connector2'
+# )
 
-connector3 = DummyOperator(
-    default_args=default_args,
-    dag=data_ingestion_dag,
-    task_id='connector3'
-)
+# connector3 = DummyOperator(
+#     default_args=default_args,
+#     dag=data_ingestion_dag,
+#     task_id='connector3'
+# )
 
 # Ingestion  DAG
 (
@@ -255,9 +255,6 @@ connector3 = DummyOperator(
         acs_condition_gcs_operator_2006,
         acs_condition_gcs_operator_2007,
         acs_condition_gcs_operator_2008,
-    ]
-    >> connector2 >>
-    [
         acs_condition_gcs_operator_2009,
         acs_condition_gcs_operator_2010,
         acs_condition_gcs_operator_2011,
