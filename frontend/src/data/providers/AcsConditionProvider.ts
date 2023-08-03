@@ -20,37 +20,37 @@ class AcsConditionProvider extends VariableProvider {
     if (breakdowns.hasOnlyRace()) {
       if (breakdowns.geography === 'county') {
         return appendFipsIfNeeded(
-          'acs_condition-by_race_county_processed',
+          'acs_condition-by_race_county_time_series',
           breakdowns
         )
       } else if (breakdowns.geography === 'state') {
-        return 'acs_condition-by_race_state_processed'
+        return 'acs_condition-by_race_state_time_series'
       } else if (breakdowns.geography === 'national') {
-        return 'acs_condition-by_race_national_processed'
+        return 'acs_condition-by_race_national_time_series'
       }
     }
     if (breakdowns.hasOnlyAge()) {
       if (breakdowns.geography === 'county') {
         return appendFipsIfNeeded(
-          'acs_condition-by_age_county_processed',
+          'acs_condition-by_age_county_time_series',
           breakdowns
         )
       } else if (breakdowns.geography === 'state') {
-        return 'acs_condition-by_age_state_processed'
+        return 'acs_condition-by_age_state_time_series'
       } else if (breakdowns.geography === 'national') {
-        return 'acs_condition-by_age_national_processed'
+        return 'acs_condition-by_age_national_time_series'
       }
     }
     if (breakdowns.hasOnlySex()) {
       if (breakdowns.geography === 'county') {
         return appendFipsIfNeeded(
-          'acs_condition-by_sex_county_processed',
+          'acs_condition-by_sex_county_time_series',
           breakdowns
         )
       } else if (breakdowns.geography === 'state') {
-        return 'acs_condition-by_sex_state_processed'
+        return 'acs_condition-by_sex_state_time_series'
       } else if (breakdowns.geography === 'national') {
-        return 'acs_condition-by_sex_national_processed'
+        return 'acs_condition-by_sex_national_time_series'
       }
     }
 
@@ -62,6 +62,7 @@ class AcsConditionProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
+    const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
     const acsDataset = await getDataManager().loadDataset(datasetId)
 
@@ -70,6 +71,8 @@ class AcsConditionProvider extends VariableProvider {
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns)
+    const mostRecentYear = '2021'
+    df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)

@@ -1234,6 +1234,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         dental, vision, life, and disability insurance are not considered comprehensive health
         insurance coverage.`,
       dataTableTitle: 'Breakdown summary for uninsured people',
+      timeSeriesData: true,
       metrics: {
         per100k: {
           metricId: 'uninsured_per_100k',
@@ -1267,6 +1268,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayNameInline: 'people below the poverty line',
       dataTypeDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       dataTableTitle: 'Breakdown summary for people below the poverty line',
+      timeSeriesData: true,
       metrics: {
         per100k: {
           metricId: 'poverty_per_100k',
