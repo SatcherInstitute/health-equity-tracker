@@ -32,22 +32,19 @@ from ingestion.standardized_columns import (
     Race,
     add_race_columns_from_category_id,
     generate_column_name)
-from ingestion.merge_utils import (ACS_DEFAULT_YEAR)
 
-# available years: 2009-2021 from api, inclusive
-# available years from all topics:
+EARLIEST_ACS_CONDITION_YEAR = '2012'
+
+# available years with all topics working
 ACS_URLS_MAP = {
-    # '2009': 'https://api.census.gov/data/2009/acs/acs5',
-    # '2010': 'https://api.census.gov/data/2010/acs/acs5',
-    # '2011': 'https://api.census.gov/data/2011/acs/acs5',
-    '2012': 'https://api.census.gov/data/2012/acs/acs5',
+    EARLIEST_ACS_CONDITION_YEAR: 'https://api.census.gov/data/2012/acs/acs5',
     '2013': 'https://api.census.gov/data/2013/acs/acs5',
     '2014': 'https://api.census.gov/data/2014/acs/acs5',
     '2015': 'https://api.census.gov/data/2015/acs/acs5',
     '2016': 'https://api.census.gov/data/2016/acs/acs5',
     '2017': 'https://api.census.gov/data/2017/acs/acs5',
     '2018': 'https://api.census.gov/data/2018/acs/acs5',
-    ACS_DEFAULT_YEAR: 'https://api.census.gov/data/2019/acs/acs5',
+    '2019': 'https://api.census.gov/data/2019/acs/acs5',
     '2020': 'https://api.census.gov/data/2020/acs/acs5',
     '2021': 'https://api.census.gov/data/2021/acs/acs5',
 }
@@ -297,7 +294,7 @@ class AcsCondition(DataSource):
             df[std_col.TIME_PERIOD_COL] = self.year
 
             # the first year written should OVERWRITE, the subsequent years should APPEND_
-            overwrite = self.year == '2012'
+            overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
 
             float_cols = []
             for acs_item in ACS_ITEMS.values():

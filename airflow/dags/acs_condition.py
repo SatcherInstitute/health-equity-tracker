@@ -1,7 +1,6 @@
 # Ignore the Airflow module, it is installed in both dev and prod
 from airflow import DAG  # type: ignore
 from airflow.utils.dates import days_ago  # type: ignore
-# from airflow.operators.dummy_operator import DummyOperator  # type: ignore
 import util
 
 _ACS_WORKFLOW_ID = "ACS_CONDITION"
@@ -19,21 +18,6 @@ data_ingestion_dag = DAG(
 )
 
 # CACHE ACS SOURCE INTO TMP JSON IN BUCKETS
-
-# acs_condition_gcs_payload_2009 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2009')
-# acs_condition_gcs_operator_2009 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2009', acs_condition_gcs_payload_2009, data_ingestion_dag)
-
-# acs_condition_gcs_payload_2010 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2010')
-# acs_condition_gcs_operator_2010 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2010', acs_condition_gcs_payload_2010, data_ingestion_dag)
-
-# acs_condition_gcs_payload_2011 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2011')
-# acs_condition_gcs_operator_2011 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2011', acs_condition_gcs_payload_2011, data_ingestion_dag)
 
 acs_condition_gcs_payload_2012 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2012')
@@ -86,21 +70,6 @@ acs_condition_gcs_operator_2021 = util.create_gcs_ingest_operator(
     'acs_condition_to_gcs_2021', acs_condition_gcs_payload_2021, data_ingestion_dag)
 
 # PROCESS AND WRITE TO BQ
-
-# acs_condition_bq_payload_2009 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
-# acs_condition_bq_operator_2009 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2009", acs_condition_bq_payload_2009, data_ingestion_dag)
-
-# acs_condition_bq_payload_2010 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2010')
-# acs_condition_bq_operator_2010 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2010", acs_condition_bq_payload_2010, data_ingestion_dag)
-
-# acs_condition_bq_payload_2011 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2011')
-# acs_condition_bq_operator_2011 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2011", acs_condition_bq_payload_2011, data_ingestion_dag)
 
 acs_condition_bq_payload_2012 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2012')
@@ -177,6 +146,7 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     "acs_condition_exporter_sex", acs_condition_exporter_payload_sex,
     data_ingestion_dag)
 
+# NOTE: running these gcs "cache" steps in parralel causes data issues, so I'm running them in series
 (
     acs_condition_gcs_operator_2012 >>
     acs_condition_gcs_operator_2013 >>
