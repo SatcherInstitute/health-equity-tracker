@@ -227,69 +227,7 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     "acs_condition_exporter_sex", acs_condition_exporter_payload_sex,
     data_ingestion_dag)
 
-
-# connector1 = DummyOperator(
-#     default_args=default_args,
-#     dag=data_ingestion_dag,
-#     task_id='connector1'
-# )
-
-# connector2 = DummyOperator(
-#     default_args=default_args,
-#     dag=data_ingestion_dag,
-#     task_id='connector2'
-# )
-
-# connector3 = DummyOperator(
-#     default_args=default_args,
-#     dag=data_ingestion_dag,
-#     task_id='connector3'
-# )
-
-# Ingestion  DAG
-# (
-#     acs_condition_gcs_operator_2013 >>
-#     [
-#         acs_condition_gcs_operator_2014,
-#         acs_condition_gcs_operator_2015,
-#         acs_condition_gcs_operator_2016,
-#         acs_condition_gcs_operator_2017
-#     ]
-#     >> connector1 >>
-#     [
-#         acs_condition_gcs_operator_2018,
-#         acs_condition_gcs_operator_2019,
-#         acs_condition_gcs_operator_2020,
-#         acs_condition_gcs_operator_2021
-#     ]
-#     >> acs_condition_bq_operator_2013
-#     >> acs_condition_bq_operator_2014
-#     >> acs_condition_bq_operator_2015
-#     >> acs_condition_bq_operator_2016
-#     >> acs_condition_bq_operator_2017
-#     >> acs_condition_bq_operator_2018
-#     >> acs_condition_bq_operator_2019
-#     >> acs_condition_bq_operator_2020
-#     >> acs_condition_bq_operator_2021
-#     >>
-#     [
-#         acs_condition_exporter_operator_race,
-#         acs_condition_exporter_operator_age,
-#         acs_condition_exporter_operator_sex,
-#     ]
-# )
-
 (
-    # acs_condition_gcs_operator_2004 >>
-    # [
-    #     acs_condition_gcs_operator_2005,
-    #     acs_condition_gcs_operator_2006,
-    #     acs_condition_gcs_operator_2007,
-    #     acs_condition_gcs_operator_2008,
-    #     acs_condition_gcs_operator_2009,
-    #     acs_condition_gcs_operator_2010,
-    #     acs_condition_gcs_operator_2011
-    # ] >>
     acs_condition_gcs_operator_2009 >>
     [
         acs_condition_gcs_operator_2010,
@@ -305,23 +243,24 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
         acs_condition_gcs_operator_2020,
         acs_condition_gcs_operator_2021
     ] >>
-    # acs_condition_bq_operator_2004 >>
-    # acs_condition_bq_operator_2005 >>
-    # acs_condition_bq_operator_2006 >>
-    # acs_condition_bq_operator_2007 >>
-    # acs_condition_bq_operator_2008 >>
     acs_condition_bq_operator_2009 >>
-    acs_condition_bq_operator_2010 >>
-    acs_condition_bq_operator_2011 >>
-    acs_condition_bq_operator_2012 >>
+    [
+        acs_condition_bq_operator_2010,
+        acs_condition_bq_operator_2011,
+        acs_condition_bq_operator_2012
+    ] >>
     acs_condition_bq_operator_2013 >>
-    acs_condition_bq_operator_2014 >>
-    acs_condition_bq_operator_2015 >>
-    acs_condition_bq_operator_2016 >>
+    [
+        acs_condition_bq_operator_2014,
+        acs_condition_bq_operator_2015,
+        acs_condition_bq_operator_2016
+    ] >>
     acs_condition_bq_operator_2017 >>
-    acs_condition_bq_operator_2018 >>
-    acs_condition_bq_operator_2019 >>
-    acs_condition_bq_operator_2020 >>
+    [
+        acs_condition_bq_operator_2018,
+        acs_condition_bq_operator_2019,
+        acs_condition_bq_operator_2020
+    ] >>
     acs_condition_bq_operator_2021 >>
     [
         acs_condition_exporter_operator_race,
