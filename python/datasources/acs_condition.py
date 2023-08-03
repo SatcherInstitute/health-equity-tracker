@@ -541,8 +541,6 @@ class AcsCondition(DataSource):
             std_col.POVERTY_PREFIX
         ]:
             pct_rel_inequity_col = f'{measure}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
-            print("available cols before calc")
-            print(df.columns)
             df = generate_pct_rel_inequity_col(
                 df,
                 f'{measure}_{std_col.PCT_SHARE_SUFFIX}',
