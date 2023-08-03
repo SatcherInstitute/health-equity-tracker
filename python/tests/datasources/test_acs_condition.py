@@ -123,6 +123,7 @@ def testWriteToBqOverwriteFirstYear2012(
     for call in mock_bq.call_args_list:
         assert call[1]['overwrite'] is True
 
+
 @mock.patch('ingestion.census.fetch_acs_metadata',
             return_value=get_acs_metadata_as_json())
 @mock.patch('ingestion.gcs_to_bq_util.load_values_as_df',
