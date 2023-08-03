@@ -17,7 +17,8 @@ from ingestion.merge_utils import (
 from ingestion.dataset_utils import (
     generate_per_100k_col,
     generate_pct_share_col_without_unknowns,
-    add_sum_of_rows)
+    add_sum_of_rows,
+    generate_pct_rel_inequity_col)
 
 from ingestion.constants import (
     US_FIPS,
@@ -534,6 +535,21 @@ class AcsCondition(DataSource):
 
         df = generate_pct_share_col_without_unknowns(
             df, pct_share_cols, demo_col, all_val)
+
+        for measure in [
+            std_col.UNINSURED_PREFIX,
+            std_col.POVERTY_PREFIX
+        ]:
+            pct_rel_inequity_col = f'{measure}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
+            print("available cols before calc")
+            print(df.columns)
+            df = generate_pct_rel_inequity_col(
+                df,
+                f'{measure}_{std_col.PCT_SHARE_SUFFIX}',
+                f'{measure}_{std_col.POP_PCT_SUFFIX}',
+                pct_rel_inequity_col
+            )
+            all_columns.append(pct_rel_inequity_col)
 
         df = df[all_columns].reset_index(drop=True)
         return df
