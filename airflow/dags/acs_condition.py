@@ -20,31 +20,6 @@ data_ingestion_dag = DAG(
 
 # CACHE ACS SOURCE INTO TMP JSON IN BUCKETS
 
-# acs_condition_gcs_payload_2004 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2004')
-# acs_condition_gcs_operator_2004 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2004', acs_condition_gcs_payload_2004, data_ingestion_dag)
-
-# acs_condition_gcs_payload_2005 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2005')
-# acs_condition_gcs_operator_2005 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2005', acs_condition_gcs_payload_2005, data_ingestion_dag)
-
-# acs_condition_gcs_payload_2006 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2006')
-# acs_condition_gcs_operator_2006 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2006', acs_condition_gcs_payload_2006, data_ingestion_dag)
-
-# acs_condition_gcs_payload_2007 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2007')
-# acs_condition_gcs_operator_2007 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2007', acs_condition_gcs_payload_2007, data_ingestion_dag)
-
-# acs_condition_gcs_payload_2008 = util.generate_gcs_payload(
-#     _ACS_WORKFLOW_ID, year='2008')
-# acs_condition_gcs_operator_2008 = util.create_gcs_ingest_operator(
-#     'acs_condition_to_gcs_2008', acs_condition_gcs_payload_2008, data_ingestion_dag)
-
 acs_condition_gcs_payload_2009 = util.generate_gcs_payload(
     _ACS_WORKFLOW_ID, year='2009')
 acs_condition_gcs_operator_2009 = util.create_gcs_ingest_operator(
@@ -111,31 +86,6 @@ acs_condition_gcs_operator_2021 = util.create_gcs_ingest_operator(
     'acs_condition_to_gcs_2021', acs_condition_gcs_payload_2021, data_ingestion_dag)
 
 # PROCESS AND WRITE TO BQ
-
-# acs_condition_bq_payload_2004 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2004')
-# acs_condition_bq_operator_2004 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2004", acs_condition_bq_payload_2004, data_ingestion_dag)
-
-# acs_condition_bq_payload_2005 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2005')
-# acs_condition_bq_operator_2005 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2005", acs_condition_bq_payload_2005, data_ingestion_dag)
-
-# acs_condition_bq_payload_2006 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2006')
-# acs_condition_bq_operator_2006 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2006", acs_condition_bq_payload_2006, data_ingestion_dag)
-
-# acs_condition_bq_payload_2007 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2007')
-# acs_condition_bq_operator_2007 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2007", acs_condition_bq_payload_2007, data_ingestion_dag)
-
-# acs_condition_bq_payload_2008 = util.generate_bq_payload(
-#     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2008')
-# acs_condition_bq_operator_2008 = util.create_bq_ingest_operator(
-#     "acs_condition_to_bq_2008", acs_condition_bq_payload_2008, data_ingestion_dag)
 
 acs_condition_bq_payload_2009 = util.generate_bq_payload(
     _ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
@@ -244,23 +194,17 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
         acs_condition_gcs_operator_2021
     ] >>
     acs_condition_bq_operator_2009 >>
-    [
-        acs_condition_bq_operator_2010,
-        acs_condition_bq_operator_2011,
-        acs_condition_bq_operator_2012
-    ] >>
+    acs_condition_bq_operator_2010 >>
+    acs_condition_bq_operator_2011 >>
+    acs_condition_bq_operator_2012 >>
     acs_condition_bq_operator_2013 >>
-    [
-        acs_condition_bq_operator_2014,
-        acs_condition_bq_operator_2015,
-        acs_condition_bq_operator_2016
-    ] >>
+    acs_condition_bq_operator_2014 >>
+    acs_condition_bq_operator_2015 >>
+    acs_condition_bq_operator_2016 >>
     acs_condition_bq_operator_2017 >>
-    [
-        acs_condition_bq_operator_2018,
-        acs_condition_bq_operator_2019,
-        acs_condition_bq_operator_2020
-    ] >>
+    acs_condition_bq_operator_2018 >>
+    acs_condition_bq_operator_2019 >>
+    acs_condition_bq_operator_2020 >>
     acs_condition_bq_operator_2021 >>
     [
         acs_condition_exporter_operator_race,
