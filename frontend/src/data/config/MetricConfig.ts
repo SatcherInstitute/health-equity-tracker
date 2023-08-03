@@ -1239,6 +1239,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         per100k: {
           metricId: 'uninsured_per_100k',
           chartTitle: 'Uninsured people',
+          trendsCardTitleName: 'Rates of uninsurance over time',
           columnTitleHeader: 'Uninsured people per 100k',
           shortLabel: 'uninsured people per 100k',
           type: 'per100k',
@@ -1273,6 +1274,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         per100k: {
           metricId: 'poverty_per_100k',
           chartTitle: 'People below the poverty line',
+          trendsCardTitleName: 'Rates of poverty over time',
           columnTitleHeader: 'People below the poverty line per 100k',
           shortLabel: 'poverty per 100k',
           type: 'per100k',
