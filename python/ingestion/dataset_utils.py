@@ -13,6 +13,7 @@ from ingestion.constants import (
 )
 from functools import reduce
 
+
 def melt_to_het_style_df(
         source_df: pd.DataFrame,
         demo_col: Literal["age",
