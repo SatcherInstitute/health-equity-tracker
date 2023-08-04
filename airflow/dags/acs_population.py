@@ -15,7 +15,7 @@ default_args = {
 data_ingestion_dag = DAG(
     'acs_population_ingestion_dag',
     default_args=default_args,
-    schedule_interval='@yearly',
+    schedule_interval=None,
     description='Ingestion configuration for ACS Population')
 
 

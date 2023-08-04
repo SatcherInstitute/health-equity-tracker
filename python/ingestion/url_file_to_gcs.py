@@ -82,7 +82,7 @@ def download_first_url_to_gcs(url_list, gcs_bucket, dest_filename,
         new_file.write(file_from_url.content)
 
     # Downloads the current file in GCS to a local file
-    old_file_local_path = local_file_path("gcs_local_file")
+    old_file_local_path = local_file_path(f"gcs_local_file_{dest_filename}")
     with open(old_file_local_path, "wb") as old_file:
         try:
             bucket.blob(dest_filename).download_to_file(old_file)

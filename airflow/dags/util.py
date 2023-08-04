@@ -28,7 +28,8 @@ def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
 
 
 def generate_gcs_payload(workflow_id: str, filename: str = None,
-                         url: str = None, gcs_bucket: str = None) -> dict:
+                         url: str = None, gcs_bucket: str = None,
+                         year: str = None) -> dict:
     """Creates the payload object required for the GCS ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -42,6 +43,8 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
         message['filename'] = filename
     if url is not None:
         message['url'] = url
+    if year is not None:
+        message['year'] = year
     return {'message': message}
 
 

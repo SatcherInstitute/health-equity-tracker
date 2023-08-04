@@ -1,5 +1,4 @@
 import pandas as pd
-
 from datasources.data_source import DataSource
 from ingestion import url_file_to_gcs, gcs_to_bq_util, census
 import ingestion.standardized_columns as std_col
@@ -34,7 +33,22 @@ from ingestion.standardized_columns import (
     add_race_columns_from_category_id,
     generate_column_name)
 
-BASE_ACS_URL = 'https://api.census.gov/data/2019/acs/acs5'
+EARLIEST_ACS_CONDITION_YEAR = '2012'
+
+# available years with all topics working
+ACS_URLS_MAP = {
+    EARLIEST_ACS_CONDITION_YEAR: 'https://api.census.gov/data/2012/acs/acs5',
+    '2013': 'https://api.census.gov/data/2013/acs/acs5',
+    '2014': 'https://api.census.gov/data/2014/acs/acs5',
+    '2015': 'https://api.census.gov/data/2015/acs/acs5',
+    '2016': 'https://api.census.gov/data/2016/acs/acs5',
+    '2017': 'https://api.census.gov/data/2017/acs/acs5',
+    '2018': 'https://api.census.gov/data/2018/acs/acs5',
+    '2019': 'https://api.census.gov/data/2019/acs/acs5',
+    '2020': 'https://api.census.gov/data/2020/acs/acs5',
+    '2021': 'https://api.census.gov/data/2021/acs/acs5',
+}
+
 
 HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
@@ -191,19 +205,14 @@ def update_col_types(df):
 
 class AcsCondition(DataSource):
 
-    # Initialize variables in class instance, also merge all metadata so that lookup of the
-    # prefix, suffix combos can return the entire metadata
-    def __init__(self):
-        self.base_url = BASE_ACS_URL
-
-    def get_filename_race(self, measure, race, is_county):
+    def get_filename_race(self, measure, race, is_county, year):
         geo = 'COUNTY' if is_county else 'STATE'
         race = race.replace(" ", "_").upper()
-        return f'{measure.upper()}_BY_RACE_{geo}_{race}.json'
+        return f'{year}-{measure.upper()}_BY_RACE_{geo}_{race}.json'
 
-    def get_filename_sex(self, measure, is_county):
+    def get_filename_sex(self, measure, is_county, year):
         geo = 'COUNTY' if is_county else 'STATE'
-        return f'{measure.upper()}_BY_SEX_{geo}.json'
+        return f'{year}-{measure.upper()}_BY_SEX_{geo}.json'
 
     @staticmethod
     def get_id():
@@ -224,9 +233,15 @@ class AcsCondition(DataSource):
     # Returns:
     # FileDiff = If the data has changed by diffing the old run vs the new run.
     def upload_to_gcs(self, bucket, **attrs):
+
+        year = self.get_attr(attrs, 'year')
+        self.year = year
+        self.base_url = ACS_URLS_MAP[year]
+
         # Iterates over the different race ACS variables,
         # retrieves the race from the metadata merged dict
         # writes the data to the GCS bucket and sees if file diff is changed
+
         file_diff = False
         for measure, acs_item in ACS_ITEMS.items():
             for prefix, race in acs_item.prefix_map.items():
@@ -237,7 +252,7 @@ class AcsCondition(DataSource):
                             self.base_url,
                             params,
                             bucket,
-                            self.get_filename_race(measure, race, county_level),
+                            self.get_filename_race(measure, race, county_level, year)
                         )
                         or file_diff
                     )
@@ -246,7 +261,7 @@ class AcsCondition(DataSource):
                 params = get_all_params_for_group(acs_item.sex_age_prefix, county_level)
                 file_diff = (
                     url_file_to_gcs.url_file_to_gcs(
-                        self.base_url, params, bucket, self.get_filename_sex(measure, county_level)
+                        self.base_url, params, bucket, self.get_filename_sex(measure, county_level, year)
                     )
                     or file_diff
                 )
@@ -254,11 +269,16 @@ class AcsCondition(DataSource):
         return file_diff
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
+
+        year = self.get_attr(attrs, 'year')
+        self.year = year
+        self.base_url = ACS_URLS_MAP[year]
+
         metadata = census.fetch_acs_metadata(self.base_url)
         dfs = {}
         for geo in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
             for demo in [RACE, AGE, SEX]:
-                table_name = f'by_{demo}_{geo}_processed'
+                table_name = f'by_{demo}_{geo}_time_series'
                 df = self.get_raw_data(demo, geo, metadata, gcs_bucket=gcs_bucket)
                 df = self.post_process(df, demo, geo)
 
@@ -269,6 +289,13 @@ class AcsCondition(DataSource):
 
         suffixes = [std_col.PCT_SHARE_SUFFIX, std_col.POP_PCT_SUFFIX, std_col.PER_100K_SUFFIX]
         for table_name, df in dfs.items():
+
+            # TIME SERIES  TABLE
+            df[std_col.TIME_PERIOD_COL] = self.year
+
+            # the first year written should OVERWRITE, the subsequent years should APPEND_
+            overwrite = self.year == EARLIEST_ACS_CONDITION_YEAR
+
             float_cols = []
             for acs_item in ACS_ITEMS.values():
                 float_cols += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes]
@@ -277,7 +304,8 @@ class AcsCondition(DataSource):
 
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, table_name,
-                column_types=col_types)
+                column_types=col_types,
+                overwrite=overwrite)
 
     def get_raw_data(self, demo, geo, metadata, gcs_bucket):
         groups = []
@@ -307,8 +335,9 @@ class AcsCondition(DataSource):
                 concept_dfs = []
                 for race, concept in acs_item.concept_map.items():
                     # Get cached data from GCS
+
                     concept_df = gcs_to_bq_util.load_values_as_df(
-                        gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL)
+                        gcs_bucket, self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year)
                     )
 
                     concept_df = self.generate_df_for_concept(measure,
@@ -328,7 +357,7 @@ class AcsCondition(DataSource):
             for measure, acs_item in ACS_ITEMS.items():
                 concept_dfs = []
                 concept_df = gcs_to_bq_util.load_values_as_df(
-                    gcs_bucket, self.get_filename_sex(measure, geo == COUNTY_LEVEL)
+                    gcs_bucket, self.get_filename_sex(measure, geo == COUNTY_LEVEL, self.year)
                 )
                 concept_df = self.generate_df_for_concept(measure, acs_item, concept_df, demo, geo,
                                                           acs_item.sex_age_concept, var_map)
