@@ -13,7 +13,6 @@ from ingestion.constants import (
 )
 from functools import reduce
 
-
 def melt_to_het_style_df(
         source_df: pd.DataFrame,
         demo_col: Literal["age",
@@ -252,6 +251,9 @@ def generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col):
 
     df[pct_rate_col] = df[raw_count_col] / df[pop_col]
     df[pct_rate_col] = df[pct_rate_col].mul(100).round()
+
+    # div by zero results in inf, cast these as nan
+    df.replace([np.inf, -np.inf], np.nan, inplace=True)
 
     return df
 
