@@ -159,13 +159,17 @@ acs_condition_exporter_operator_sex = util.create_exporter_operator(
     acs_condition_gcs_operator_2020 >>
     acs_condition_gcs_operator_2021 >>
     acs_condition_bq_operator_2012 >>
-    acs_condition_bq_operator_2013 >>
-    acs_condition_bq_operator_2014 >>
-    acs_condition_bq_operator_2015 >>
+    [
+        acs_condition_bq_operator_2013,
+        acs_condition_bq_operator_2014,
+        acs_condition_bq_operator_2015
+    ] >>
     acs_condition_bq_operator_2016 >>
-    acs_condition_bq_operator_2017 >>
-    acs_condition_bq_operator_2018 >>
-    acs_condition_bq_operator_2019 >>
+    [
+        acs_condition_bq_operator_2017,
+        acs_condition_bq_operator_2018,
+        acs_condition_bq_operator_2019
+    ] >>
     acs_condition_bq_operator_2020 >>
     acs_condition_bq_operator_2021 >>
     [
