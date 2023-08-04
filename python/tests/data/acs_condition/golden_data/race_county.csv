@@ -1,10 +1,10 @@
-state_fips,state_name,race_category_id,county_name,county_fips,uninsured_per_100k,poverty_per_100k,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity
+state_fips,state_name,race_category_id,county_name,county_fips,uninsured_pct_rate,poverty_pct_rate,uninsured_pct_share,uninsured_population_pct,poverty_pct_share,poverty_population_pct,uninsured_pct_relative_inequity,poverty_pct_relative_inequity
 17,Illinois,AIAN,County 1,17051,0.0,0.0,0.0,0.3,0.0,0.3,-100.0,-100.0
-17,Illinois,ASIAN,County 1,17051,0.0,11207.0,0.0,0.6,0.4,0.6,-100.0,-33.3
+17,Illinois,ASIAN,County 1,17051,0.0,11.0,0.0,0.6,0.4,0.6,-100.0,-33.3
 17,Illinois,HISP,County 1,17051,0.0,0.0,0.0,1.0,0.0,1.0,-100.0,-100.0
-17,Illinois,BLACK,County 1,17051,0.0,64773.0,0.0,0.4,1.7,0.4,-100.0,325.0
+17,Illinois,BLACK,County 1,17051,0.0,65.0,0.0,0.4,1.7,0.4,-100.0,325.0
 17,Illinois,NHPI,County 1,17051,0.0,0.0,0.0,0.1,0.0,0.1,-100.0,-100.0
-17,Illinois,WHITE,County 1,17051,8404.0,17078.0,100.0,98.1,97.2,98.1,1.9,-0.9
+17,Illinois,WHITE,County 1,17051,8.0,17.0,100.0,98.1,97.2,98.1,1.9,-0.9
 17,Illinois,OTHER_STANDARD,County 1,17051,0.0,0.0,0.0,0.1,0.0,0.1,-100.0,-100.0
-17,Illinois,MULTI,County 1,17051,0.0,35616.0,0.0,0.4,0.8,0.4,-100.0,100.0
-17,Illinois,ALL,County 1,17051,8241.0,17230.0,100.0,100.0,100.0,100.0,0.0,0.0
+17,Illinois,MULTI,County 1,17051,0.0,36.0,0.0,0.4,0.8,0.4,-100.0,100.0
+17,Illinois,ALL,County 1,17051,8.0,17.0,100.0,100.0,100.0,100.0,0.0,0.0
