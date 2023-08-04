@@ -239,6 +239,26 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     return df.reset_index(drop=True)
 
 
+def generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col):
+    """Returns a df with a `_pct_rate` col
+
+        df: incoming df that will get the new column
+        raw_count_col: str col name that contains the raw count
+        of individuals with the condition. this will be the numerator
+        pop_col: str col name with the total population number.
+        this will be the denominator
+        pct_rate_col: str col name to place the generated
+        pct_rate data in"""
+
+    df[pct_rate_col] = df[raw_count_col] / df[pop_col]
+    df[pct_rate_col] = df[pct_rate_col].mul(100).round()
+
+    # div by zero results in inf, cast these as nan
+    df.replace([np.inf, -np.inf], np.nan, inplace=True)
+
+    return df
+
+
 def generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col):
     """Returns a dataframe with a `per_100k` column
 
