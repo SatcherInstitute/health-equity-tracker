@@ -54,7 +54,6 @@ def testGenerateRaceAgeNational(mock_data_dir: mock.MagicMock):
     expected_df = pd.read_csv(GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
-
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def testGenerateRaceAgeState(mock_data_dir: mock.MagicMock):
     datasource = CDCHIVData()
@@ -89,6 +88,8 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'national',
                                           alls_df)
+    
+    df.to_csv('output.csv', index=False)
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
@@ -104,6 +105,7 @@ def testGenerateSexNational(mock_data_dir: mock.MagicMock):
                           dtype=DTYPE)
 
     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
+    df.to_csv('output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -120,6 +122,7 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'state',
                                           alls_df)
+    df.to_csv('output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -136,6 +139,8 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('black_women',
                                           'national',
                                           alls_df)
+    
+    df.to_csv('output.csv', index=False)
     expected_df = pd.read_csv(
         GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)

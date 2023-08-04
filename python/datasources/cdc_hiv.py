@@ -318,7 +318,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        alls_df = alls_df[alls_df['Year'] == '2019']
+        alls_df = alls_df[alls_df['Year'] == '2021']
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
@@ -334,7 +334,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        race_df = race_df[race_df['Year'] == '2019']
+        race_df = race_df[race_df['Year'] == '2021']
         race_df[std_col.AGE_COL] = ALL_VALUE
         race_df = race_df[use_cols]
 
@@ -349,7 +349,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        age_df = age_df[age_df['Year'] == '2019']
+        age_df = age_df[age_df['Year'] == '2021']
         age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         age_df = age_df[use_cols]
 
