@@ -15,9 +15,10 @@ from ingestion.merge_utils import (
     merge_county_names)
 
 from ingestion.dataset_utils import (
-    generate_per_100k_col,
+    generate_pct_rate_col,
     generate_pct_share_col_without_unknowns,
-    add_sum_of_rows)
+    add_sum_of_rows,
+    generate_pct_rel_inequity_col)
 
 from ingestion.constants import (
     US_FIPS,
@@ -287,7 +288,7 @@ class AcsCondition(DataSource):
 
                 dfs[table_name] = df
 
-        suffixes = [std_col.PCT_SHARE_SUFFIX, std_col.POP_PCT_SUFFIX, std_col.PER_100K_SUFFIX]
+        suffixes = [std_col.PCT_SHARE_SUFFIX, std_col.POP_PCT_SUFFIX, std_col.PCT_RATE_SUFFIX]
         for table_name, df in dfs.items():
 
             # TIME SERIES  TABLE
@@ -475,8 +476,8 @@ class AcsCondition(DataSource):
 
     def post_process(self, df, demo, geo):
         """Merge population data, state, and county names.
-           Do all needed calculations to generate per100k and pct share
-           columns.
+           Do all needed calculations to generate pct_rate,
+           pct_share, and pct_relative_inequity columns.
            Returns a dataframe ready for the frontend.
 
            df: Dataframe with raw acs condition.
@@ -517,10 +518,11 @@ class AcsCondition(DataSource):
             raw_count_col = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
             pop_col = generate_column_name(measure, POP_SUFFIX)
 
-            per_100k_col = generate_column_name(acs_item.bq_prefix, std_col.PER_100K_SUFFIX)
-            all_columns.append(per_100k_col)
+            pct_rate_col = generate_column_name(acs_item.bq_prefix, std_col.PCT_RATE_SUFFIX)
+            all_columns.append(pct_rate_col)
 
-            df = generate_per_100k_col(df, raw_count_col, pop_col, per_100k_col)
+            # PCT_RATE
+            df = generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col)
 
         pct_share_cols = {}
         for measure, acs_item in ACS_ITEMS.items():
@@ -532,8 +534,21 @@ class AcsCondition(DataSource):
             pct_share_cols[generate_column_name(measure, POP_SUFFIX)] = pop_pct_col
             all_columns.append(pop_pct_col)
 
+        # PCT_SHARE
         df = generate_pct_share_col_without_unknowns(
             df, pct_share_cols, demo_col, all_val)
+
+        for item in ACS_ITEMS.values():
+            pct_rel_inequity_col = f'{item.bq_prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
+
+            # PCT_REL_INEQUITY
+            df = generate_pct_rel_inequity_col(
+                df,
+                f'{item.bq_prefix}_{std_col.PCT_SHARE_SUFFIX}',
+                f'{item.bq_prefix}_{std_col.POP_PCT_SUFFIX}',
+                pct_rel_inequity_col
+            )
+            all_columns.append(pct_rel_inequity_col)
 
         df = df[all_columns].reset_index(drop=True)
         return df
