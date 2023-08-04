@@ -476,8 +476,8 @@ class AcsCondition(DataSource):
 
     def post_process(self, df, demo, geo):
         """Merge population data, state, and county names.
-           Do all needed calculations to generate pct_rate
-           and pct share columns.
+           Do all needed calculations to generate pct_rate,
+           pct_share, and pct_relative_inequity columns.
            Returns a dataframe ready for the frontend.
 
            df: Dataframe with raw acs condition.
@@ -521,6 +521,7 @@ class AcsCondition(DataSource):
             pct_rate_col = generate_column_name(acs_item.bq_prefix, std_col.PCT_RATE_SUFFIX)
             all_columns.append(pct_rate_col)
 
+            # PCT_RATE
             df = generate_pct_rate_col(df, raw_count_col, pop_col, pct_rate_col)
 
         pct_share_cols = {}
@@ -533,18 +534,18 @@ class AcsCondition(DataSource):
             pct_share_cols[generate_column_name(measure, POP_SUFFIX)] = pop_pct_col
             all_columns.append(pop_pct_col)
 
+        # PCT_SHARE
         df = generate_pct_share_col_without_unknowns(
             df, pct_share_cols, demo_col, all_val)
 
-        for measure in [
-            std_col.UNINSURED_PREFIX,
-            std_col.POVERTY_PREFIX
-        ]:
-            pct_rel_inequity_col = f'{measure}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
+        for item in ACS_ITEMS.values():
+            pct_rel_inequity_col = f'{item.bq_prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
+
+            # PCT_REL_INEQUITY
             df = generate_pct_rel_inequity_col(
                 df,
-                f'{measure}_{std_col.PCT_SHARE_SUFFIX}',
-                f'{measure}_{std_col.POP_PCT_SUFFIX}',
+                f'{item.bq_prefix}_{std_col.PCT_SHARE_SUFFIX}',
+                f'{item.bq_prefix}_{std_col.POP_PCT_SUFFIX}',
                 pct_rel_inequity_col
             )
             all_columns.append(pct_rel_inequity_col)
