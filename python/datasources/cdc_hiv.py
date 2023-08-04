@@ -476,6 +476,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 df = df.replace({'13-24': '18-24'})
 
             df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
+            df['Year'] = df['Year'].str.replace('2020 (COVID-19 Pandemic)', '2020', regex=False)
 
             df = df.rename(columns=cols_to_standard)
 
