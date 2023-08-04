@@ -151,6 +151,7 @@ const CONFIG = {
 // line chart type dictionary
 const TYPES: Record<string, MetricType> = {
   HUNDRED_K: 'per100k',
+  PCT_RATE: 'pct_rate',
   PERCENT_SHARE: 'pct_share',
   PERCENT_RELATIVE_INEQUITY: 'pct_relative_inequity',
   INDEX: 'index',

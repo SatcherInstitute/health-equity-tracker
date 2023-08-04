@@ -76,6 +76,12 @@ export function Axes({
       formatter: (d: string | number) => d, // per 100k could be interpolated here
       yScaleMin: yMin,
     },
+    [TYPES.PCT_RATE]: {
+      topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
+      bottomLabel: '',
+      formatter: (d: number) => F.pct(d),
+      yScaleMin: yMin,
+    },
     [TYPES.PERCENT_SHARE]: {
       topLabel: yAxisLabel + ' →', // reference to shortLabel from metricConfig
       bottomLabel: '',
@@ -149,6 +155,8 @@ export function Axes({
 
   const optionalPct = !yAxisLabel ? '%' : ''
 
+  console.log(getMaxNumber(data))
+
   return (
     <g>
       {/* Axes */}
@@ -180,9 +188,9 @@ export function Axes({
       <g>
         <line
           x1={marginLeft}
-          y1={yScale(Y_AXIS_CONFIG[type].yScaleMin)}
+          y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
-          y2={yScale(Y_AXIS_CONFIG[type].yScaleMin)}
+          y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           stroke="black" // handle in CSS?
         />
       </g>

@@ -8,11 +8,13 @@ class AcsConditionProvider extends VariableProvider {
   constructor() {
     super('acs_condition_provider', [
       'uninsured_population_pct',
-      'uninsured_per_100k',
+      'uninsured_pct_rate',
       'uninsured_pct_share',
+      'uninsured_pct_relative_inequity',
       'poverty_population_pct',
-      'poverty_per_100k',
+      'poverty_pct_rate',
       'poverty_pct_share',
+      'poverty_pct_relative_inequity',
     ])
   }
 

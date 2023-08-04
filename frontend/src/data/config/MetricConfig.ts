@@ -194,8 +194,9 @@ export type MetricId =
   | 'population'
   | 'poverty_count'
   | 'poverty_pct_share'
-  | 'poverty_per_100k'
+  | 'poverty_pct_rate'
   | 'poverty_population_pct'
+  | 'poverty_pct_relative_inequity'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
   | 'prison_pct_relative_inequity'
@@ -215,8 +216,9 @@ export type MetricId =
   | 'total_us_congress_count'
   | 'total_us_congress_names'
   | 'uninsured_pct_share'
-  | 'uninsured_per_100k'
+  | 'uninsured_pct_rate'
   | 'uninsured_population_pct'
+  | 'uninsured_pct_relative_inequity'
   | 'vaccinated_pct_share'
   | 'vaccinated_per_100k'
   | 'vaccinated_pop_pct'
@@ -1236,13 +1238,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTableTitle: 'Breakdown summary for uninsured people',
       timeSeriesData: true,
       metrics: {
-        per100k: {
-          metricId: 'uninsured_per_100k',
+        pct_rate: {
+          metricId: 'uninsured_pct_rate',
           chartTitle: 'Uninsured people',
           trendsCardTitleName: 'Rates of uninsurance over time',
-          columnTitleHeader: 'Uninsured people per 100k',
-          shortLabel: 'uninsured people per 100k',
-          type: 'per100k',
+          columnTitleHeader: 'Uninsured people',
+          shortLabel: '% uninsured',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of uninsured people',
@@ -1258,6 +1260,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             type: 'pct_share',
           },
         },
+        pct_relative_inequity: {
+          chartTitle: 'Relative inequity for uninsurance',
+          metricId: 'uninsured_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
       },
     },
   ],
@@ -1271,13 +1279,13 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTableTitle: 'Breakdown summary for people below the poverty line',
       timeSeriesData: true,
       metrics: {
-        per100k: {
-          metricId: 'poverty_per_100k',
+        pct_rate: {
+          metricId: 'poverty_pct_rate',
           chartTitle: 'People below the poverty line',
           trendsCardTitleName: 'Rates of poverty over time',
-          columnTitleHeader: 'People below the poverty line per 100k',
-          shortLabel: 'poverty per 100k',
-          type: 'per100k',
+          columnTitleHeader: 'People below the poverty line',
+          shortLabel: '% in poverty',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of poverty',
@@ -1293,6 +1301,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: 'pct_share',
           },
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Relative inequity for poverty',
+          metricId: 'poverty_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
         },
       },
     },
@@ -1481,7 +1495,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTableTitle: 'Breakdown summary for voter participation',
       dataTypeDefinition: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
       metrics: {
-        per100k: {
+        pct_rate: {
           metricId: 'voter_participation_pct_rate',
           columnTitleHeader: 'Voter Participation',
           chartTitle: 'Voter participation',
