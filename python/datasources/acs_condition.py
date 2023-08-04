@@ -288,7 +288,12 @@ class AcsCondition(DataSource):
 
                 dfs[table_name] = df
 
-        suffixes = [std_col.PCT_SHARE_SUFFIX, std_col.POP_PCT_SUFFIX, std_col.PCT_RATE_SUFFIX]
+        suffixes = [
+            std_col.PCT_SHARE_SUFFIX,
+            std_col.POP_PCT_SUFFIX,
+            std_col.PCT_RATE_SUFFIX,
+            std_col.PCT_REL_INEQUITY_SUFFIX
+        ]
         for table_name, df in dfs.items():
 
             # TIME SERIES  TABLE
