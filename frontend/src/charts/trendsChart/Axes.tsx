@@ -155,8 +155,6 @@ export function Axes({
 
   const optionalPct = !yAxisLabel ? '%' : ''
 
-  console.log(getMaxNumber(data))
-
   return (
     <g>
       {/* Axes */}

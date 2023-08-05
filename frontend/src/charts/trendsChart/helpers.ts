@@ -87,7 +87,6 @@ function getDates(data: TrendsData) {
 
 /* Returns an array of all amounts (y values) */
 function getAmounts(data: TrendsData) {
-  console.log({ data })
   return data?.length
     ? data.flatMap(([_, d]) =>
         d ? d.map(([_, amount]: [string, number]) => amount || 0) : [0]

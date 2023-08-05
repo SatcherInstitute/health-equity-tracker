@@ -176,7 +176,7 @@ const FORMATTERS = {
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }
 
-const BASELINE_THRESHOLD_Y_AXIS_ZERO = 25
+const BASELINE_THRESHOLD_Y_AXIS_ZERO = 5
 
 export {
   COLOR_RANGE,
