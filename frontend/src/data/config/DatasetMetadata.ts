@@ -174,47 +174,47 @@ export const datasetMetadataList: DatasetMetadata[] = [
   },
   {
     id: 'acs_condition-by_age_county_time_series',
-    name: 'Health insurance and poverty by age and county',
+    name: 'Health insurance and poverty, yearly, by age and county',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_age_state_time_series',
-    name: 'Health insurance and poverty by age and state',
+    name: 'Health insurance and poverty, yearly, by age and state',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_age_national_time_series',
-    name: 'Health insurance and poverty by age at the national level',
+    name: 'Health insurance and poverty, yearly, by age at the national level',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_sex_county_time_series',
-    name: 'Health insurance and poverty by sex and county',
+    name: 'Health insurance and poverty, yearly, by sex and county',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_sex_state_time_series',
-    name: 'Health insurance and poverty by sex and state',
+    name: 'Health insurance and poverty, yearly, by sex and state',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_sex_national_time_series',
-    name: 'Health insurance and poverty by sex at the national level',
+    name: 'Health insurance and poverty, yearly, by sex at the national level',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_race_county_time_series',
-    name: 'Health insurance and poverty by race and county',
+    name: 'Health insurance and poverty, yearly, by race and county',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_race_state_time_series',
-    name: 'Health insurance and poverty by race and state',
+    name: 'Health insurance and poverty, yearly, by race and state',
     update_time: '2021',
   },
   {
     id: 'acs_condition-by_race_national_time_series',
-    name: 'Health insurance and poverty by race at the national level',
+    name: 'Health insurance and poverty, yearly, by race at the national level',
     update_time: '2021',
   },
   {

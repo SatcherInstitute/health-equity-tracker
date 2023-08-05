@@ -48,6 +48,7 @@ const {
   timeDarkRed,
   timeYellow,
   mapLight,
+  mapLighter,
 } = sass
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
@@ -102,14 +103,20 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '60-69': redOrange,
   '70-79': timeYellow,
   '80+': mapLight,
-  // age for HIV
-  '13-24': timeCyanBlue,
-  '16-24': timePastelGreen,
-  '18-24': darkBlue,
-  '25-34': timePurple,
+  // age for HIV + ACS CONDITION
+  '0-5': timeCyanBlue,
+  '6-11': timePastelGreen,
+  '12-17': darkBlue,
+  '13-24': darkBlue,
+  '16-24': darkBlue,
+  '18-24': timePurple,
+  '25-34': timePink,
   '35-44': timeDarkRed,
   '45-54': redOrange,
   '55+': timeYellow,
+  '55-64': timeYellow,
+  '65-74': mapLight,
+  '75+': mapLighter,
 }
 
 // domain for color scale

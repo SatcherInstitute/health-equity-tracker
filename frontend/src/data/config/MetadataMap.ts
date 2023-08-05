@@ -50,7 +50,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'Annual',
     description:
-      'Population percentages, health insurance rates, and poverty rates at the national, state and county levels.',
+      'Yearly population percentages, health insurance rates, and poverty rates at the national, state and county levels.',
     dataset_ids: [
       'acs_population-by_race_county',
       'acs_population-by_race_state',
