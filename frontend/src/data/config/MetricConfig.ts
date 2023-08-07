@@ -334,12 +334,12 @@ export function formatFieldValue(
   }
 
   // if values are numeric but rounded down to 0, instead replace with "less than 1"
-  if (value === 0 && metricType === 'per100k') return LESS_THAN_1
+  const RATES: MetricType[] = ['pct_rate', 'per100k']
+  if (value === 0 && RATES.includes(metricType)) return LESS_THAN_1
 
   const isRatio = metricType.includes('ratio')
-  const formatOptions = isPctType(metricType)
-    ? { minimumFractionDigits: 1 }
-    : {}
+  const formatOptions =
+    metricType === 'pct_share' ? { minimumFractionDigits: 1 } : {}
   const formattedValue: string =
     typeof value === 'number'
       ? value.toLocaleString('en', formatOptions)
