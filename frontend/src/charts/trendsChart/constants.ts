@@ -24,6 +24,14 @@ import {
   WHITE_W,
   MULTI_NH,
   API_NH,
+  AIAN,
+  ASIAN,
+  BLACK,
+  MULTI_OR_OTHER_STANDARD,
+  NHPI,
+  WHITE,
+  MULTI,
+  OTHER_STANDARD,
 } from '../../data/utils/Constants'
 
 // get colors from css variables
@@ -40,6 +48,7 @@ const {
   timeDarkRed,
   timeYellow,
   mapLight,
+  mapLighter,
 } = sass
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
@@ -54,6 +63,15 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   [NHPI_NH]: timePink,
   [MULTI_OR_OTHER_STANDARD_NH]: timeDarkRed,
   [WHITE_NH]: redOrange,
+  // race and ethnicity (not NH)
+  [AIAN]: timeCyanBlue,
+  [ASIAN]: timePastelGreen,
+  [BLACK]: mapLight,
+  [NHPI]: timePink,
+  [MULTI_OR_OTHER_STANDARD]: timeDarkRed,
+  [OTHER_STANDARD]: darkBlue,
+  [MULTI]: timeDarkRed,
+  [WHITE]: redOrange,
   // race and ethnicity for CAWP
   [ALL_W]: black,
   [AIANNH_W]: timeCyanBlue,
@@ -85,14 +103,20 @@ export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   '60-69': redOrange,
   '70-79': timeYellow,
   '80+': mapLight,
-  // age for HIV
-  '13-24': timeCyanBlue,
-  '16-24': timePastelGreen,
-  '18-24': darkBlue,
-  '25-34': timePurple,
+  // age for HIV + ACS CONDITION
+  '0-5': timeCyanBlue,
+  '6-11': timePastelGreen,
+  '12-17': darkBlue,
+  '13-24': darkBlue,
+  '16-24': darkBlue,
+  '18-24': timePurple,
+  '25-34': timePink,
   '35-44': timeDarkRed,
   '45-54': redOrange,
   '55+': timeYellow,
+  '55-64': timeYellow,
+  '65-74': mapLight,
+  '75+': mapLighter,
 }
 
 // domain for color scale
@@ -134,6 +158,7 @@ const CONFIG = {
 // line chart type dictionary
 const TYPES: Record<string, MetricType> = {
   HUNDRED_K: 'per100k',
+  PCT_RATE: 'pct_rate',
   PERCENT_SHARE: 'pct_share',
   PERCENT_RELATIVE_INEQUITY: 'pct_relative_inequity',
   INDEX: 'index',
@@ -151,7 +176,7 @@ const FORMATTERS = {
   capitalize: (d: string) => (d ? d[0]?.toUpperCase() + d.slice(1) : ''),
 }
 
-const BASELINE_THRESHOLD_Y_AXIS_ZERO = 25
+const BASELINE_THRESHOLD_Y_AXIS_ZERO = 5
 
 export {
   COLOR_RANGE,
