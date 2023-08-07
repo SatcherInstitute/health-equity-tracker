@@ -261,6 +261,44 @@ export const CDC_HIV_AGE_BUCKETS = [
   '55+',
 ]
 
+export const ACS_POVERTY_AGE_BUCKETS = [
+  '0-5',
+  '6-11',
+  '12-17',
+  '18-24',
+  '25-34',
+  '35-44',
+  '45-54',
+  '55-64',
+  '65-74',
+  '75+',
+]
+
+export const ACS_UNINSURANCE_PRE2020_AGE_BUCKETS = [
+  '0-5',
+  '6-17',
+  '18-24',
+  '25-34',
+  '35-44',
+  '45-54',
+  '55-64',
+  '65-74',
+  '75+',
+]
+
+// NOTE: these buckets are used pre-2020 and are slightly different from above
+export const ACS_UNINSURANCE_CURRENT_AGE_BUCKETS = [
+  '0-5',
+  '6-18',
+  '19-25',
+  '26-34',
+  '35-44',
+  '45-54',
+  '55-64',
+  '65-74',
+  '75+',
+]
+
 // buckets that have been calculated in the BigQuery table but are not used in current code
 // still need to be defined here to explicitly exclude from the TABLE
 export const UNUSED_BUCKETS = [
@@ -283,6 +321,9 @@ export const AGE_BUCKETS = [
   ...BJS_NATIONAL_AGE_BUCKETS,
   ...BJS_JAIL_AGE_BUCKETS,
   ...CDC_HIV_AGE_BUCKETS,
+  ...ACS_POVERTY_AGE_BUCKETS,
+  ...ACS_UNINSURANCE_PRE2020_AGE_BUCKETS,
+  ...ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
   ...UNUSED_BUCKETS,
 ] as const
 
