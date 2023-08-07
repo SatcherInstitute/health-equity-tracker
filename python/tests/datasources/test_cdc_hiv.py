@@ -103,7 +103,6 @@ def testGenerateSexNational(mock_data_dir: mock.MagicMock):
                           dtype=DTYPE)
 
     df = datasource.generate_breakdown_df('sex', 'national', alls_df)
-    df.to_csv('output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
@@ -120,7 +119,6 @@ def testGenerateRaceState(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'state',
                                           alls_df)
-    df.to_csv('output.csv', index=False)
     expected_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
