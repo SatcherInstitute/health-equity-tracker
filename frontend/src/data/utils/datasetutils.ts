@@ -39,6 +39,8 @@ import {
   BJS_JAIL_AGE_BUCKETS,
   type DemographicGroup,
   UNKNOWN_W,
+  ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
+  ACS_POVERTY_AGE_BUCKETS,
 } from './Constants'
 import { type Row } from './DatasetTypes'
 import { type Fips } from './Fips'
@@ -186,6 +188,24 @@ export function getExclusionList(
 
   if (currentBreakdown === RACE) {
     exclusionList.push(NON_HISPANIC)
+  }
+
+  // ACS CONDITION
+  if (currentDataTypeId === 'health_insurance') {
+    exclusionList.push(
+      ...AGE_BUCKETS.filter(
+        (bucket: AgeBucket) =>
+          !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any) // NOTE: table card only shows most recent year; this will mute older age buckets
+      )
+    )
+  }
+
+  if (currentDataTypeId === 'poverty') {
+    exclusionList.push(
+      ...AGE_BUCKETS.filter(
+        (bucket: AgeBucket) => !ACS_POVERTY_AGE_BUCKETS.includes(bucket as any)
+      )
+    )
   }
 
   // HIV
