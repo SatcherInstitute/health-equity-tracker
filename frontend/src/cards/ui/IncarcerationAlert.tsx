@@ -11,6 +11,8 @@ import {
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from '../../data/providers/IncarcerationProvider'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -19,11 +21,12 @@ const combinedAlertFipsList = [
 
 interface IncarcerationAlertProps {
   dataType: DataTypeId
-  demographicType: DemographicType
   fips: Fips
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const showAlaskaJailCaveat = [USA_DISPLAY_NAME, 'Alaska'].includes(
     props.fips.getDisplayName()
   )
@@ -33,19 +36,19 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     : 'Bureau of Justice Statistics'
 
   const severity: AlertColor =
-    props.demographicType === 'age' && props.dataType === 'prison'
+    demographicType === 'age' && props.dataType === 'prison'
       ? 'warning'
       : 'info'
-  const demographicType =
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[props.demographicType]
+  const lowercaseDemographicType =
+    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
 
   return (
     <Alert severity={severity} role="note">
-      The disaggregated <b>{demographicType}</b> dataset available from the{' '}
-      {source}{' '}
+      The disaggregated <b>{lowercaseDemographicType}</b> dataset available from
+      the {source}{' '}
       <IncarcerationDetailsText
         dataType={props.dataType}
-        demographicType={props.demographicType}
+        demographicType={demographicType}
       />{' '}
       individuals (including children) under the jurisdiction of an adult{' '}
       {props.dataType} facility.{' '}
