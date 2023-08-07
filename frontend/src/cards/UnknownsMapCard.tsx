@@ -33,7 +33,7 @@ export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   dataTypeConfig: DataTypeConfig
   // Breakdown value to evaluate for unknowns
-  currentDemographicType: DemographicType
+  demographicType: DemographicType
   // Geographic region of maps
   fips: Fips
   // Updates the madlib
@@ -48,7 +48,7 @@ export interface UnknownsMapCardProps {
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
   return (
     <UnknownsMapCardWithKey
-      key={props.currentDemographicType + props.dataTypeConfig.dataTypeId}
+      key={props.demographicType + props.dataTypeConfig.dataTypeId}
       {...props}
     />
   )
@@ -57,7 +57,7 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000])
   const metricConfig = props.dataTypeConfig.metrics.pct_share
-  const currentDemographicType = props.currentDemographicType
+  const demographicType = props.demographicType
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
   const location = useLocation()
 
@@ -78,10 +78,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
-    currentDemographicType
+    demographicType
   )
   const alertBreakdown = Breakdowns.forFips(props.fips).addBreakdown(
-    currentDemographicType
+    demographicType
   )
 
   const mapQuery = new MetricQuery(
@@ -100,7 +100,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const chartTitle = generateChartTitle(
     /* chartTitle:  */ metricConfig.chartTitle,
     /* fips: */ props.fips,
-    currentDemographicType
+    demographicType
   )
 
   const isCawpStateLeg =
@@ -131,18 +131,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
         const unknownRaces: Row[] = mapQueryResponse
-          .getValidRowsForField(currentDemographicType)
+          .getValidRowsForField(demographicType)
           .filter(
             (row: Row) =>
-              row[currentDemographicType] === UNKNOWN_RACE ||
-              row[currentDemographicType] === UNKNOWN
+              row[demographicType] === UNKNOWN_RACE ||
+              row[demographicType] === UNKNOWN
           )
 
         const unknownEthnicities: Row[] = mapQueryResponse
-          .getValidRowsForField(currentDemographicType)
-          .filter(
-            (row: Row) => row[currentDemographicType] === UNKNOWN_ETHNICITY
-          )
+          .getValidRowsForField(demographicType)
+          .filter((row: Row) => row[demographicType] === UNKNOWN_ETHNICITY)
 
         // If a state provides both unknown race and ethnicity numbers
         // use the higher one
@@ -163,13 +161,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // there is some data but only for ALL but not by demographic groups
         const noDemographicInfo =
           mapQueryResponse
-            .getValidRowsForField(currentDemographicType)
-            .filter((row: Row) => row[currentDemographicType] !== ALL)
-            .length === 0 &&
+            .getValidRowsForField(demographicType)
+            .filter((row: Row) => row[demographicType] !== ALL).length === 0 &&
           mapQueryResponse
-            .getValidRowsForField(currentDemographicType)
-            .filter((row: Row) => row[currentDemographicType] === ALL).length >
-            0
+            .getValidRowsForField(demographicType)
+            .filter((row: Row) => row[demographicType] === ALL).length > 0
 
         // when suppressing states with too low COVID numbers
         const unknownsUndefined =
@@ -254,16 +250,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <UnknownsAlert
                 queryResponse={alertQueryResponse}
                 metricConfig={metricConfig}
-                demographicType={currentDemographicType}
+                demographicType={demographicType}
                 displayType="map"
                 known={false}
-                overrideAndWithOr={currentDemographicType === RACE}
+                overrideAndWithOr={demographicType === RACE}
                 raceEthDiffMap={
                   mapQueryResponse
-                    .getValidRowsForField(currentDemographicType)
+                    .getValidRowsForField(demographicType)
                     .filter(
-                      (row: Row) =>
-                        row[currentDemographicType] === UNKNOWN_ETHNICITY
+                      (row: Row) => row[demographicType] === UNKNOWN_ETHNICITY
                     ).length !== 0
                 }
                 noDemographicInfoMap={noDemographicInfo}
@@ -277,9 +272,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <MissingDataAlert
                 dataName={chartTitle}
                 demographicTypeString={
-                  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
-                    currentDemographicType
-                  ]
+                  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
                 }
                 isMapCard={true}
                 fips={props.fips}
@@ -290,11 +283,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {(showNoUnknownsInfo || unknownsAllZero) && (
               <Alert sx={{ my: 2, mx: 5 }} severity="info" role="note">
                 No unknown values for{' '}
-                {
-                  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
-                    currentDemographicType
-                  ]
-                }{' '}
+                {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]}{' '}
                 reported in this dataset
                 {hasChildGeo && (
                   <> at the {props.fips.getChildFipsTypeDisplayName()} level</>

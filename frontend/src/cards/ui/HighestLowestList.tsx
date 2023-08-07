@@ -12,8 +12,9 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Fips } from '../../data/utils/Fips'
-import { type DemographicType } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 export interface HighestLowestListProps {
   // MetricConfig for data
@@ -34,7 +35,6 @@ export interface HighestLowestListProps {
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
   selectedRaceSuffix?: string
   parentGeoQueryResponse: MetricQueryResponse
-  currentDemographicType: DemographicType
   activeBreakdownFilter: DemographicGroup
 }
 
@@ -42,11 +42,13 @@ export interface HighestLowestListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const placesType = props.fips.getPluralChildFipsTypeDisplayName()
   const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
-    (row) => row[props.currentDemographicType] === props.activeBreakdownFilter
+    (row) => row[demographicType] === props.activeBreakdownFilter
   )
 
   const overallRate = formatFieldValue(

@@ -83,7 +83,7 @@ export interface MapCardProps {
   fips: Fips
   dataTypeConfig: DataTypeConfig
   updateFipsCallback: (fips: Fips) => void
-  currentDemographicType: DemographicType
+  demographicType: DemographicType
   isCompareCard?: boolean
   reportTitle: string
 }
@@ -93,7 +93,7 @@ export interface MapCardProps {
 export function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
-      key={props.currentDemographicType + props.dataTypeConfig.dataTypeId}
+      key={props.demographicType + props.dataTypeConfig.dataTypeId}
       {...props}
     />
   )
@@ -109,7 +109,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   if (!metricConfig) return <></>
 
-  const currentDemographicType = props.currentDemographicType
+  const demographicType = props.demographicType
 
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
@@ -158,8 +158,8 @@ function MapCardWithKey(props: MapCardProps) {
       geographyBreakdown
         .copy()
         .addBreakdown(
-          currentDemographicType,
-          currentDemographicType === RACE
+          demographicType,
+          demographicType === RACE
             ? exclude(NON_HISPANIC, UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY)
             : exclude(UNKNOWN)
         ),
@@ -215,7 +215,7 @@ function MapCardWithKey(props: MapCardProps) {
   const title = generateChartTitle(chartTitle, props.fips)
   const subtitle = generateSubtitle(
     activeBreakdownFilter,
-    currentDemographicType,
+    demographicType,
     metricId
   )
 
@@ -275,12 +275,12 @@ function MapCardWithKey(props: MapCardProps) {
         const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs =
-          props.currentDemographicType === 'age'
+          demographicType === 'age'
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : []
 
         const fieldValues = mapQueryResponse.getFieldValues(
-          /* fieldName: DemographicType */ props.currentDemographicType,
+          /* fieldName: DemographicType */ demographicType,
           /* relevantMetric: MetricId */ metricConfig.metricId
         )
 
@@ -291,14 +291,10 @@ function MapCardWithKey(props: MapCardProps) {
 
         let dataForActiveBreakdownFilter = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
-          .filter(
-            (row: Row) =>
-              row[props.currentDemographicType] === activeBreakdownFilter
-          )
+          .filter((row: Row) => row[demographicType] === activeBreakdownFilter)
 
         const allDataForActiveBreakdownFilter = mapQueryResponse.data.filter(
-          (row: Row) =>
-            row[props.currentDemographicType] === activeBreakdownFilter
+          (row: Row) => row[demographicType] === activeBreakdownFilter
         )
 
         const dataForSvi: Row[] =
@@ -333,8 +329,7 @@ function MapCardWithKey(props: MapCardProps) {
           DemographicTypeDisplayName,
           DemographicGroup[]
         > = {
-          [DEMOGRAPHIC_TYPE_DISPLAY_NAMES[props.currentDemographicType]]:
-            breakdownValues,
+          [DEMOGRAPHIC_TYPE_DISPLAY_NAMES[demographicType]]: breakdownValues,
         }
 
         const hideGroupDropdown =
@@ -344,7 +339,7 @@ function MapCardWithKey(props: MapCardProps) {
         let dropdownValue = ALL
         if (
           filterOptions[
-            DEMOGRAPHIC_TYPE_DISPLAY_NAMES[props.currentDemographicType]
+            DEMOGRAPHIC_TYPE_DISPLAY_NAMES[demographicType]
           ].includes(activeBreakdownFilter)
         ) {
           dropdownValue = activeBreakdownFilter
@@ -374,7 +369,7 @@ function MapCardWithKey(props: MapCardProps) {
         return (
           <>
             <MultiMapDialog
-              demographicType={props.currentDemographicType}
+              demographicType={demographicType}
               demographicGroups={breakdownValues}
               demographicGroupsNoData={fieldValues.noData}
               countColsToAdd={countColsToAdd}
@@ -413,7 +408,6 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item>
                       <DropDownMenu
                         idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
-                        demographicType={props.currentDemographicType}
                         dataTypeId={props.dataTypeConfig.dataTypeId}
                         setMultimapOpen={setMultimapOpen}
                         value={dropdownValue}
@@ -460,7 +454,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <ChoroplethMap
                         highestLowestGroupsByFips={getHighestLowestGroupsByFips(
                           mapQueryResponse.data,
-                          props.currentDemographicType,
+                          demographicType,
                           metricId
                         )}
                         activeBreakdownFilter={activeBreakdownFilter}
@@ -485,7 +479,6 @@ function MapCardWithKey(props: MapCardProps) {
                       {props.fips.isUsa() && (
                         <Grid item xs={12}>
                           <TerritoryCircles
-                            demographicType={props.currentDemographicType}
                             activeBreakdownFilter={activeBreakdownFilter}
                             countColsToAdd={countColsToAdd}
                             data={displayData}
@@ -564,7 +557,6 @@ function MapCardWithKey(props: MapCardProps) {
                           fips={props.fips}
                           qualifierItems={qualifierItems}
                           qualifierMessage={qualifierMessage}
-                          currentDemographicType={currentDemographicType}
                           activeBreakdownFilter={activeBreakdownFilter}
                         />
                       )}
@@ -577,9 +569,7 @@ function MapCardWithKey(props: MapCardProps) {
                     <MissingDataAlert
                       dataName={title}
                       demographicTypeString={
-                        DEMOGRAPHIC_TYPE_DISPLAY_NAMES[
-                          props.currentDemographicType
-                        ]
+                        DEMOGRAPHIC_TYPE_DISPLAY_NAMES[props.demographicType]
                       }
                       isMapCard={true}
                       fips={props.fips}
@@ -597,7 +587,6 @@ function MapCardWithKey(props: MapCardProps) {
                         {/* Offer multimap link if current demo group is missing info */}
                         <MultiMapLink
                           setMultimapOpen={setMultimapOpen}
-                          currentDemographicType={props.currentDemographicType}
                           currentDataType={props.dataTypeConfig.fullDisplayName}
                         />
                       </Alert>

@@ -72,7 +72,7 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [currentDemographicType, setCurrentDemographicType] = useAtom(
+  const [demographicType, setDemographicType] = useAtom(
     selectedDemographicTypeAtom
   )
 
@@ -91,13 +91,13 @@ export function Report(props: ReportProps) {
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
   if (
-    currentDemographicType &&
-    !Object.values(demographicOptionsMap).includes(currentDemographicType)
+    demographicType &&
+    !Object.values(demographicOptionsMap).includes(demographicType)
   ) {
     const newDemographicType = Object.values(
       demographicOptionsMap
     )[0] as DemographicType
-    setCurrentDemographicType(newDemographicType)
+    setDemographicType(newDemographicType)
     setParameter(DEMOGRAPHIC_PARAM, newDemographicType)
   }
 
@@ -119,7 +119,7 @@ export function Report(props: ReportProps) {
       setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
       const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
-      setCurrentDemographicType(demo)
+      setDemographicType(demo)
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
@@ -129,7 +129,7 @@ export function Report(props: ReportProps) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId, currentDemographicType])
+  }, [props.dropdownVarId, demographicType])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
@@ -143,7 +143,7 @@ export function Report(props: ReportProps) {
   const browserTitle = `${
     (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
   } by ${
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[currentDemographicType]
+    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
   } in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
@@ -203,7 +203,7 @@ export function Report(props: ReportProps) {
                     updateFipsCallback={(fips: Fips) => {
                       props.updateFipsCallback(fips)
                     }}
-                    currentDemographicType={currentDemographicType}
+                    demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
                 </Grid>
@@ -225,7 +225,7 @@ export function Report(props: ReportProps) {
                     !hideNonCountyBJSTimeCards && (
                       <RateTrendsChartCard
                         dataTypeConfig={dataTypeConfig}
-                        demographicType={currentDemographicType}
+                        demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
                       />
@@ -246,7 +246,7 @@ export function Report(props: ReportProps) {
                 >
                   <SimpleBarChartCard
                     dataTypeConfig={dataTypeConfig}
-                    demographicType={currentDemographicType}
+                    demographicType={demographicType}
                     fips={props.fips}
                     reportTitle={props.reportTitle}
                   />
@@ -267,13 +267,13 @@ export function Report(props: ReportProps) {
                   <LazyLoad offset={800} height={750} once>
                     {dataTypeConfig.metrics.pct_share && (
                       <UnknownsMapCard
-                        overrideAndWithOr={currentDemographicType === RACE}
+                        overrideAndWithOr={demographicType === RACE}
                         dataTypeConfig={dataTypeConfig}
                         fips={props.fips}
                         updateFipsCallback={(fips: Fips) => {
                           props.updateFipsCallback(fips)
                         }}
-                        currentDemographicType={currentDemographicType}
+                        demographicType={demographicType}
                         reportTitle={props.reportTitle}
                       />
                     )}
@@ -298,7 +298,7 @@ export function Report(props: ReportProps) {
                       !hideNonCountyBJSTimeCards && (
                         <ShareTrendsChartCard
                           dataTypeConfig={dataTypeConfig}
-                          demographicType={currentDemographicType}
+                          demographicType={demographicType}
                           fips={props.fips}
                           reportTitle={props.reportTitle}
                         />
@@ -322,7 +322,7 @@ export function Report(props: ReportProps) {
                     {dataTypeConfig.metrics.pct_share && (
                       <DisparityBarChartCard
                         dataTypeConfig={dataTypeConfig}
-                        demographicType={currentDemographicType}
+                        demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
                       />
@@ -344,7 +344,7 @@ export function Report(props: ReportProps) {
                   <TableCard
                     fips={props.fips}
                     dataTypeConfig={dataTypeConfig}
-                    demographicType={currentDemographicType}
+                    demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
                 </Grid>
@@ -366,7 +366,7 @@ export function Report(props: ReportProps) {
                         fips={props.fips}
                         dataTypeConfig={dataTypeConfig}
                         dropdownVarId={props.dropdownVarId}
-                        demographicType={currentDemographicType}
+                        demographicType={demographicType}
                         setDataTypeConfigWithParam={setDataTypeConfigWithParam}
                         reportTitle={props.reportTitle}
                       />

@@ -4,20 +4,18 @@ import {
   type MetricConfig,
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
-import {
-  type DemographicType,
-  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
-} from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Fips } from '../../data/utils/Fips'
 import { MultiMapLink } from './MultiMapLink'
 import styles from '../Card.module.scss'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
-  currentDemographicType: DemographicType
   activeBreakdownFilter: DemographicGroup
   metricConfig: MetricConfig
   fips: Fips
@@ -29,9 +27,11 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
   // If possible, calculate the total for the selected demographic group and dynamically generate the rest of the phrase
   //     {/* TODO: The "all" display in this info box should appear even if the only data available is the current level total */}
 
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   function generateDemographicTotalPhrase() {
     const options = props.overallQueryResponse.data.find(
-      (row) => row[props.currentDemographicType] === props.activeBreakdownFilter
+      (row) => row[demographicType] === props.activeBreakdownFilter
     )
 
     return options ? (
@@ -53,15 +53,11 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         {/* } for  */}
         {props.activeBreakdownFilter !== 'All' && ' for'}
         {/* } [ ages 30-39] */}
-        {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
-          props.currentDemographicType
-        ] === 'age' &&
+        {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType] === 'age' &&
           props.activeBreakdownFilter !== 'All' &&
           ` ages ${props.activeBreakdownFilter}`}
         {/* } [Asian (non Hispanic) individuals] */}
-        {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
-          props.currentDemographicType
-        ] !== 'age' &&
+        {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType] !== 'age' &&
           props.activeBreakdownFilter !== 'All' &&
           ` ${props.activeBreakdownFilter} individuals`}
         {' in  '}
@@ -83,7 +79,6 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {/* Compare across XYZ for all variables except vaccinated at county level */}
           <MultiMapLink
             setMultimapOpen={props.setMultimapOpen}
-            currentDemographicType={props.currentDemographicType}
             currentDataType={props.dataTypeConfig.fullDisplayName}
           />
         </Alert>

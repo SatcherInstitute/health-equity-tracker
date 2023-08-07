@@ -1,7 +1,6 @@
-import {
-  type DemographicType,
-  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
-} from '../../data/query/Breakdowns'
+import { useAtomValue } from 'jotai'
+import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 import styles from './MultiMapLink.module.scss'
 
 /*
@@ -9,13 +8,13 @@ Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples mo
 */
 interface MultiMapLinkProps {
   setMultimapOpen: (multimapOpen: boolean) => void
-  currentDemographicType: DemographicType
   currentDataType: string
 }
 
 export function MultiMapLink(props: MultiMapLinkProps) {
-  const groupTerm =
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[props.currentDemographicType]
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
+  const groupTerm = DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
   return (
     <>
       <button
