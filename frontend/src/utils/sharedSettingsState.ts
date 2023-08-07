@@ -4,6 +4,7 @@ import { type BreakdownVar } from '../data/query/Breakdowns'
 
 export const selectedDataTypeConfig1Atom = atom<DataTypeConfig | null>(null)
 export const selectedDataTypeConfig2Atom = atom<DataTypeConfig | null>(null)
-export const selectedDemographicTypeAtom = atom<BreakdownVar | null>(null)
+export const selectedDemographicTypeAtom =
+  atom<BreakdownVar>('race_and_ethnicity')
 
 export const topicInfoModalIsOpenAtom = atom<boolean>(false)

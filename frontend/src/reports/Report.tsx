@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -43,7 +43,10 @@ import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { useAtom } from 'jotai'
-import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDemographicTypeAtom,
+} from '../utils/sharedSettingsState'
 import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
@@ -69,8 +72,8 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+  const [currentBreakdown, setCurrentBreakdown] = useAtom(
+    selectedDemographicTypeAtom
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
@@ -85,15 +88,15 @@ export function Report(props: ReportProps) {
     setDataTypeConfig(v)
   }
 
-  function setDemoWithParam(str: BreakdownVar) {
-    setParameter(DEMOGRAPHIC_PARAM, str)
-    setCurrentBreakdown(str)
-  }
-
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
-  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  if (
+    currentBreakdown &&
+    !Object.values(demographicOptionsMap).includes(currentBreakdown)
+  ) {
+    const newBreakdown = Object.values(demographicOptionsMap)[0] as BreakdownVar
+    setCurrentBreakdown(newBreakdown)
+    setParameter(DEMOGRAPHIC_PARAM, newBreakdown)
   }
 
   const disabledDemographicOptions =
@@ -162,8 +165,6 @@ export function Report(props: ReportProps) {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            trackerDemographic={currentBreakdown}
-            setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -403,8 +404,6 @@ export function Report(props: ReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={currentBreakdown}
-              setDemoWithParam={setDemoWithParam}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />

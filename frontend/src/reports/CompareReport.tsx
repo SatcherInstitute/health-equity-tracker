@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -43,6 +43,7 @@ import { useAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
+  selectedDemographicTypeAtom,
 } from '../utils/sharedSettingsState'
 import {
   getDemographicOptionsMap,
@@ -73,8 +74,8 @@ function CompareReport(props: {
     props.dropdownVarId2 === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
-    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+  const [currentBreakdown, setCurrentBreakdown] = useAtom(
+    selectedDemographicTypeAtom
   )
 
   const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
@@ -210,8 +211,6 @@ function CompareReport(props: {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            trackerDemographic={currentBreakdown}
-            setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -462,8 +461,6 @@ function CompareReport(props: {
               isMobile={props.isMobile}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={currentBreakdown}
-              setDemoWithParam={setDemoWithParam}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />

@@ -116,7 +116,6 @@ export function Sources(props: SourcesProps) {
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
 
   const showRaceRenameFootnote = selectedBreakdownVar === 'race_and_ethnicity'
-  console.log({ selectedBreakdownVar })
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
