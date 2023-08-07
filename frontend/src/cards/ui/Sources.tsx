@@ -12,6 +12,8 @@ import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
 import { type MetricId } from '../../data/config/MetricConfig'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -93,6 +95,8 @@ export function Sources(props: SourcesProps) {
     return <></>
   }
 
+  const selectedBreakdownVar = useAtomValue(selectedDemographicTypeAtom)
+
   const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses)
   let datasetIds = stripCountyFips(unstrippedDatasetIds)
 
@@ -110,6 +114,9 @@ export function Sources(props: SourcesProps) {
   const showNhFootnote =
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
+
+  const showRaceRenameFootnote = selectedBreakdownVar === 'race_and_ethnicity'
+  console.log({ selectedBreakdownVar })
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
@@ -145,14 +152,14 @@ export function Sources(props: SourcesProps) {
       {/* NH note (if needed) listed first, full-width */}
       <Grid item xs={12} alignItems={'center'}>
         {showNhFootnote && (
-          <>
-            <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
-            <p className={styles.FootnoteTextNH}>
-              Note. To promote inclusive language, we replace the source data
-              labels <i>Multiracial</i> with <em>Two or more races</em>, and{' '}
-              <i>Some other race</i> with <i>Unrepresented race</i>.{' '}
-            </p>
-          </>
+          <p className={styles.FootnoteTextNH}>Note. NH: Non-Hispanic. </p>
+        )}
+        {showRaceRenameFootnote && (
+          <p className={styles.FootnoteTextNH}>
+            Note. To promote inclusive language, we replace the source data
+            labels <i>Multiracial</i> with <em>Two or more races</em>, and{' '}
+            <i>Some other race</i> with <i>Unrepresented race</i>.{' '}
+          </p>
         )}
       </Grid>
 
