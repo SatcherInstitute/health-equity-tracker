@@ -237,9 +237,6 @@ class CDCHIVData(DataSource):
                                                          std_col.ALL_VALUE)
 
         else:
-            print('--')
-            print(df)
-            df.to_csv('output_error.csv', index=False)
             df = generate_pct_share_col_without_unknowns(df,
                                                          PCT_SHARE_MAP,
                                                          cast(HIV_BREAKDOWN_TYPE, breakdown),
