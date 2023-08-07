@@ -40,7 +40,6 @@ import {
   type DemographicGroup,
   UNKNOWN_W,
   ACS_UNINSURANCE_CURRENT_AGE_BUCKETS,
-  ACS_UNINSURANCE_PRE2020_AGE_BUCKETS,
   ACS_POVERTY_AGE_BUCKETS,
 } from './Constants'
 import { type Row } from './DatasetTypes'
@@ -196,8 +195,7 @@ export function getExclusionList(
     exclusionList.push(
       ...AGE_BUCKETS.filter(
         (bucket: AgeBucket) =>
-          !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any) &&
-          !ACS_UNINSURANCE_PRE2020_AGE_BUCKETS.includes(bucket as any)
+          !ACS_UNINSURANCE_CURRENT_AGE_BUCKETS.includes(bucket as any) // NOTE: table card only shows most recent year; this will mute older age buckets
       )
     )
   }
