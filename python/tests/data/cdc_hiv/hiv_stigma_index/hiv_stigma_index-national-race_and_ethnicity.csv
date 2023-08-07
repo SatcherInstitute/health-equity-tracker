@@ -8,13 +8,13 @@ For unstable housing or homelessness, estimates with a coefficient of variation 
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","35.3","26.1","44.4","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","Data not available","29.0","27.1","31.0","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","Data not available","32.7","30.2","35.2","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","Data not available","30.8","29.5","32.2","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","32.4","21.8","43.1","NA"
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
 "HIV Stigma","2017","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","Data not available","35.7","30.1","41.2","NA"
 "HIV Stigma","2017","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","Data not available","28.2","26.3","30.0","NA"
 "HIV Stigma","2017","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
