@@ -15,8 +15,6 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import { type DemographicTypeDisplayName } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 import { type DataTypeId } from '../../data/config/MetricConfig'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -124,8 +122,6 @@ export interface DropDownMenuProps {
      * Dropdown with one level to select race and a second level listing all race options
 */
 function DropDownMenu(props: DropDownMenuProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
   const [firstMenuSelection, setFirstMenuSelection] = useState(
     Object.keys(props.options)[0]
   )
@@ -136,11 +132,7 @@ function DropDownMenu(props: DropDownMenuProps) {
 
   const demOption = firstMenuSelection
 
-  const suffix = useHIVLabelSuffix(
-    demographicType,
-    props.value,
-    props.dataTypeId
-  )
+  const suffix = useHIVLabelSuffix(props.value, props.dataTypeId)
 
   return (
     <div className={styles.SectionFilterBy}>
