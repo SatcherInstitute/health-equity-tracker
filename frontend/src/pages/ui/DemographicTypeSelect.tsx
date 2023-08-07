@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
 import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 import { DEMOGRAPHIC_PARAM, setParameter } from '../../utils/urlutils'
@@ -16,13 +16,13 @@ export default function DemographicTypeSelect(
     selectedDemographicTypeAtom
   )
 
-  function setDemoWithParam(newDemographicType: BreakdownVar) {
+  function setDemoWithParam(newDemographicType: DemographicType) {
     setTrackerDemographic(newDemographicType)
     setParameter(DEMOGRAPHIC_PARAM, newDemographicType)
   }
 
   return (
-    <SimpleSelect<BreakdownVar>
+    <SimpleSelect<DemographicType>
       label="Demographic"
       optionsMap={props.demographicOptionsMap}
       disabledOptions={props.disabledDemographicOptions}

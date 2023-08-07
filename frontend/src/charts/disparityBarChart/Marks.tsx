@@ -20,7 +20,7 @@ import { type MarkProps } from './types'
 
 export function Marks({
   barLabelBreakpoint,
-  breakdownVar,
+  demographicType,
   data,
   hasAltPop,
   altLightMeasure,
@@ -43,12 +43,12 @@ export function Marks({
     description: `${data.length} items`,
     encode: {
       update: {
-        y: { scale: 'y', field: breakdownVar, band: 0.5 },
+        y: { scale: 'y', field: demographicType, band: 0.5 },
         opacity: { signal: '0' },
         fontSize: { value: 0 },
         text: {
           signal: !hasAltPop
-            ? `${oneLineLabel(breakdownVar)}
+            ? `${oneLineLabel(demographicType)}
               +
                 ': '
                 +
@@ -63,7 +63,7 @@ export function Marks({
                 '${darkMeasureDisplayName}'
               `
             : `
-                ${oneLineLabel(breakdownVar)}
+                ${oneLineLabel(demographicType)}
                 +
                 ': '
                 +
@@ -92,7 +92,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            breakdownVar
+            demographicType
           )} + ', ${lightMeasureDisplayName}: ' + datum.${lightMetricDisplayColumnName}`,
         },
       },
@@ -101,10 +101,10 @@ export function Marks({
         ariaRoleDescription: { value: 'bar' },
         x: { scale: 'x', field: lightMeasure },
         x2: { scale: 'x', value: 0 },
-        y: { scale: 'y', field: breakdownVar },
+        y: { scale: 'y', field: demographicType },
         yc: {
           scale: 'y',
-          field: breakdownVar,
+          field: demographicType,
           offset: MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
         },
         height: {
@@ -125,7 +125,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            breakdownVar
+            demographicType
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -136,7 +136,7 @@ export function Marks({
         x2: { scale: 'x', value: 0 },
         yc: {
           scale: 'y',
-          field: breakdownVar,
+          field: demographicType,
           offset: MIDDLE_OF_BAND + SIDE_BY_SIDE_OFFSET,
         },
         height: {
@@ -157,7 +157,7 @@ export function Marks({
       enter: {
         tooltip: {
           signal: `${oneLineLabel(
-            breakdownVar
+            demographicType
           )} + ', ${darkMeasureDisplayName}: ' + datum.${darkMetricDisplayColumnName}`,
         },
       },
@@ -173,10 +173,10 @@ export function Marks({
           signal: `if(datum.${darkMeasure} > ${barLabelBreakpoint}, "white", "black")`,
         },
         x: { scale: 'x', field: darkMeasure },
-        y: { scale: 'y', field: breakdownVar, band: 0.5 },
+        y: { scale: 'y', field: demographicType, band: 0.5 },
         yc: {
           scale: 'y',
-          field: breakdownVar,
+          field: demographicType,
           offset: MIDDLE_OF_BAND + BAR_HEIGHT,
         },
         text: {
@@ -207,7 +207,7 @@ export function Marks({
         enter: {
           tooltip: {
             signal: `${oneLineLabel(
-              breakdownVar
+              demographicType
             )} + ', ${altLightMeasureDisplayName}: ' + datum.${altLightMetricDisplayColumnName}`,
           },
         },
@@ -217,10 +217,10 @@ export function Marks({
           ariaRoleDescription: { value: 'bar' },
           x: { scale: 'x', field: altLightMeasure },
           x2: { scale: 'x', value: 0 },
-          y: { scale: 'y', field: breakdownVar },
+          y: { scale: 'y', field: demographicType },
           yc: {
             scale: 'y',
-            field: breakdownVar,
+            field: demographicType,
             offset: MIDDLE_OF_BAND - SIDE_BY_SIDE_OFFSET,
           },
           height: {

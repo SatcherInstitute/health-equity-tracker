@@ -3,8 +3,8 @@ import { CardContent, Alert } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -43,7 +43,7 @@ const PRELOAD_HEIGHT = 668
 
 export interface ShareTrendsChartCardProps {
   key?: string
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
   isCompareCard?: boolean
@@ -66,7 +66,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-    props.breakdownVar,
+    props.demographicType,
     exclude(NON_HISPANIC, ALL)
   )
 
@@ -118,7 +118,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         )
         const [knownData] = splitIntoKnownsAndUnknowns(
           inequityData,
-          props.breakdownVar
+          props.demographicType
         )
 
         // swap race labels if applicable
@@ -138,12 +138,15 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
-          props.breakdownVar
+          props.demographicType
         )
 
         // retrieve list of all present demographic groups
         const demographicGroups: DemographicGroup[] = queryResponseInequity
-          .getFieldValues(props.breakdownVar, metricConfigInequitable.metricId)
+          .getFieldValues(
+            props.demographicType,
+            metricConfigInequitable.metricId
+          )
           .withData.filter(
             (group: DemographicGroup) => !UNKNOWN_LABELS.includes(group)
           )
@@ -157,7 +160,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         const nestedInequityData = getNestedData(
           knownInequityData,
           demographicGroupsLabelled,
-          props.breakdownVar,
+          props.demographicType,
           metricConfigInequitable.metricId
         )
 
@@ -179,8 +182,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
               {shouldShowMissingData ? (
                 <MissingDataAlert
                   dataName={chartTitle}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  demographicTypeString={
+                    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                      props.demographicType
+                    ]
                   }
                   fips={props.fips}
                 />
@@ -193,12 +198,12 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     axisConfig={{
                       type: metricConfigInequitable.type,
                       groupLabel:
-                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                          props.breakdownVar
+                        DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                          props.demographicType
                         ],
                       xAxisIsMonthly: metricConfigInequitable.isMonthly,
                     }}
-                    breakdownVar={props.breakdownVar}
+                    demographicType={props.demographicType}
                     setSelectedTableGroups={setSelectedTableGroups}
                     isCompareCard={props.isCompareCard ?? false}
                     expanded={unknownsExpanded}
@@ -209,7 +214,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   {hasUnknowns && (
                     <CardContent>
                       <UnknownBubblesAlert
-                        breakdownVar={props.breakdownVar}
+                        demographicType={props.demographicType}
                         fullDisplayName={
                           props.dataTypeConfig.fullDisplayNameInline ??
                           props.dataTypeConfig.fullDisplayName
@@ -225,11 +230,13 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     setExpanded={setA11yTableExpanded}
                     expandBoxLabel={cardHeaderTitle.toLowerCase()}
                     tableCaption={`${chartTitle} by ${
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                      DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                        props.demographicType
+                      ]
                     }`}
                     knownsData={inequityData}
                     unknownsData={unknownPctShareData}
-                    breakdownVar={props.breakdownVar}
+                    demographicType={props.demographicType}
                     knownMetricConfig={metricConfigInequitable}
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}

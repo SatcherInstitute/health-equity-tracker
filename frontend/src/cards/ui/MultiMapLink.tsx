@@ -1,6 +1,6 @@
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import styles from './MultiMapLink.module.scss'
 
@@ -9,13 +9,13 @@ Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples mo
 */
 interface MultiMapLinkProps {
   setMultimapOpen: (multimapOpen: boolean) => void
-  currentBreakdown: BreakdownVar
+  currentDemographicType: DemographicType
   currentDataType: string
 }
 
 export function MultiMapLink(props: MultiMapLinkProps) {
   const groupTerm =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown]
+    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[props.currentDemographicType]
   return (
     <>
       <button

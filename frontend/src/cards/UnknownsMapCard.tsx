@@ -8,8 +8,8 @@ import { MetricQuery } from '../data/query/MetricQuery'
 import MissingDataAlert from './ui/MissingDataAlert'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import {
   UNKNOWN,
@@ -33,7 +33,7 @@ export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   dataTypeConfig: DataTypeConfig
   // Breakdown value to evaluate for unknowns
-  currentBreakdown: BreakdownVar
+  currentDemographicType: DemographicType
   // Geographic region of maps
   fips: Fips
   // Updates the madlib
@@ -48,7 +48,7 @@ export interface UnknownsMapCardProps {
 export function UnknownsMapCard(props: UnknownsMapCardProps) {
   return (
     <UnknownsMapCardWithKey
-      key={props.currentBreakdown + props.dataTypeConfig.dataTypeId}
+      key={props.currentDemographicType + props.dataTypeConfig.dataTypeId}
       {...props}
     />
   )
@@ -57,7 +57,7 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000])
   const metricConfig = props.dataTypeConfig.metrics.pct_share
-  const currentBreakdown = props.currentBreakdown
+  const currentDemographicType = props.currentDemographicType
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
   const location = useLocation()
 
@@ -78,10 +78,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
-    currentBreakdown
+    currentDemographicType
   )
   const alertBreakdown = Breakdowns.forFips(props.fips).addBreakdown(
-    currentBreakdown
+    currentDemographicType
   )
 
   const mapQuery = new MetricQuery(
@@ -100,7 +100,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const chartTitle = generateChartTitle(
     /* chartTitle:  */ metricConfig.chartTitle,
     /* fips: */ props.fips,
-    currentBreakdown
+    currentDemographicType
   )
 
   const isCawpStateLeg =
@@ -131,16 +131,18 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         //  e.g. if you look at the United States, we are dealing with the Unknown pct_share at the state level
         // the exception is the <UnknownsAlert /> which presents the amount of unknown demographic at the SELECTED level
         const unknownRaces: Row[] = mapQueryResponse
-          .getValidRowsForField(currentBreakdown)
+          .getValidRowsForField(currentDemographicType)
           .filter(
             (row: Row) =>
-              row[currentBreakdown] === UNKNOWN_RACE ||
-              row[currentBreakdown] === UNKNOWN
+              row[currentDemographicType] === UNKNOWN_RACE ||
+              row[currentDemographicType] === UNKNOWN
           )
 
         const unknownEthnicities: Row[] = mapQueryResponse
-          .getValidRowsForField(currentBreakdown)
-          .filter((row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY)
+          .getValidRowsForField(currentDemographicType)
+          .filter(
+            (row: Row) => row[currentDemographicType] === UNKNOWN_ETHNICITY
+          )
 
         // If a state provides both unknown race and ethnicity numbers
         // use the higher one
@@ -161,11 +163,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         // there is some data but only for ALL but not by demographic groups
         const noDemographicInfo =
           mapQueryResponse
-            .getValidRowsForField(currentBreakdown)
-            .filter((row: Row) => row[currentBreakdown] !== ALL).length === 0 &&
+            .getValidRowsForField(currentDemographicType)
+            .filter((row: Row) => row[currentDemographicType] !== ALL)
+            .length === 0 &&
           mapQueryResponse
-            .getValidRowsForField(currentBreakdown)
-            .filter((row: Row) => row[currentBreakdown] === ALL).length > 0
+            .getValidRowsForField(currentDemographicType)
+            .filter((row: Row) => row[currentDemographicType] === ALL).length >
+            0
 
         // when suppressing states with too low COVID numbers
         const unknownsUndefined =
@@ -250,15 +254,16 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <UnknownsAlert
                 queryResponse={alertQueryResponse}
                 metricConfig={metricConfig}
-                breakdownVar={currentBreakdown}
+                demographicType={currentDemographicType}
                 displayType="map"
                 known={false}
-                overrideAndWithOr={currentBreakdown === RACE}
+                overrideAndWithOr={currentDemographicType === RACE}
                 raceEthDiffMap={
                   mapQueryResponse
-                    .getValidRowsForField(currentBreakdown)
+                    .getValidRowsForField(currentDemographicType)
                     .filter(
-                      (row: Row) => row[currentBreakdown] === UNKNOWN_ETHNICITY
+                      (row: Row) =>
+                        row[currentDemographicType] === UNKNOWN_ETHNICITY
                     ).length !== 0
                 }
                 noDemographicInfoMap={noDemographicInfo}
@@ -271,8 +276,10 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showMissingDataAlert && (
               <MissingDataAlert
                 dataName={chartTitle}
-                breakdownString={
-                  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+                demographicTypeString={
+                  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                    currentDemographicType
+                  ]
                 }
                 isMapCard={true}
                 fips={props.fips}
@@ -283,7 +290,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {(showNoUnknownsInfo || unknownsAllZero) && (
               <Alert sx={{ my: 2, mx: 5 }} severity="info" role="note">
                 No unknown values for{' '}
-                {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}{' '}
+                {
+                  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                    currentDemographicType
+                  ]
+                }{' '}
                 reported in this dataset
                 {hasChildGeo && (
                   <> at the {props.fips.getChildFipsTypeDisplayName()} level</>

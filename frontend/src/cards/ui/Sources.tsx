@@ -95,7 +95,7 @@ export function Sources(props: SourcesProps) {
     return <></>
   }
 
-  const selectedBreakdownVar = useAtomValue(selectedDemographicTypeAtom)
+  const selectedDemographicType = useAtomValue(selectedDemographicTypeAtom)
 
   const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses)
   let datasetIds = stripCountyFips(unstrippedDatasetIds)
@@ -115,7 +115,8 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
 
-  const showRaceRenameFootnote = selectedBreakdownVar === 'race_and_ethnicity'
+  const showRaceRenameFootnote =
+    selectedDemographicType === 'race_and_ethnicity'
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (

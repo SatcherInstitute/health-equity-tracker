@@ -21,7 +21,7 @@ import {
   type DropdownVarId,
   METRIC_CONFIG,
 } from '../../data/config/MetricConfig'
-import { DEMOGRAPHIC_BREAKDOWNS } from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_TYPES } from '../../data/query/Breakdowns'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 
 function GoalListItem(props: {
@@ -70,7 +70,7 @@ function TheProjectTab() {
       (tally, conditionKey) =>
         (tally += METRIC_CONFIG[conditionKey as DropdownVarId].length),
       0
-    ) * DEMOGRAPHIC_BREAKDOWNS.length
+    ) * DEMOGRAPHIC_TYPES.length
 
   return (
     <>

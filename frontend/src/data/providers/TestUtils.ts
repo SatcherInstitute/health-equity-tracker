@@ -1,5 +1,5 @@
 import { USA_FIPS, USA_DISPLAY_NAME } from '../utils/Fips'
-import { type Breakdowns, type BreakdownVar } from '../query/Breakdowns'
+import { type Breakdowns, type DemographicType } from '../query/Breakdowns'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import type VariableProvider from './VariableProvider'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
@@ -56,7 +56,7 @@ export function createWithAndWithoutAllEvaluator(
     datasetId: string,
     rawData: any[],
     baseBreakdown: Breakdowns,
-    breakdownVar: BreakdownVar,
+    demographicType: DemographicType,
     rowsExcludingAll: any[],
     rowsIncludingAll: any[]
   ) => {
@@ -64,7 +64,7 @@ export function createWithAndWithoutAllEvaluator(
 
     // Evaluate the response with requesting "All" field
     const responseWithAll = await variableProvider.getData(
-      new MetricQuery(metricIds, baseBreakdown.addBreakdown(breakdownVar))
+      new MetricQuery(metricIds, baseBreakdown.addBreakdown(demographicType))
     )
     expect(responseWithAll).toEqual(
       new MetricQueryResponse(rowsIncludingAll, [datasetId])
@@ -74,7 +74,7 @@ export function createWithAndWithoutAllEvaluator(
     const responseWithoutAll = await variableProvider.getData(
       new MetricQuery(
         metricIds,
-        baseBreakdown.addBreakdown(breakdownVar, excludeAll())
+        baseBreakdown.addBreakdown(demographicType, excludeAll())
       )
     )
     expect(responseWithoutAll).toEqual(

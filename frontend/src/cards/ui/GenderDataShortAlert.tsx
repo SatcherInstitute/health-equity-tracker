@@ -4,14 +4,14 @@ import { urlMap } from '../../utils/externalUrls'
 import { type MetricId, type DataTypeId } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse
   fips: Fips
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeId: DataTypeId
 }
 
@@ -52,7 +52,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
   }
 
   const dataAlls: Row[] = props.queryResponse.data.filter(
-    (row) => row[props.breakdownVar] === ALL
+    (row) => row[props.demographicType] === ALL
   )
 
   const transMenCountId: MetricId | undefined =

@@ -5,8 +5,8 @@ import {
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicGroup } from '../../data/utils/Constants'
@@ -17,7 +17,7 @@ import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
-  currentBreakdown: BreakdownVar
+  currentDemographicType: DemographicType
   activeBreakdownFilter: DemographicGroup
   metricConfig: MetricConfig
   fips: Fips
@@ -31,7 +31,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
 
   function generateDemographicTotalPhrase() {
     const options = props.overallQueryResponse.data.find(
-      (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
+      (row) => row[props.currentDemographicType] === props.activeBreakdownFilter
     )
 
     return options ? (
@@ -53,13 +53,15 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
         {/* } for  */}
         {props.activeBreakdownFilter !== 'All' && ' for'}
         {/* } [ ages 30-39] */}
-        {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] ===
-          'age' &&
+        {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+          props.currentDemographicType
+        ] === 'age' &&
           props.activeBreakdownFilter !== 'All' &&
           ` ages ${props.activeBreakdownFilter}`}
         {/* } [Asian (non Hispanic) individuals] */}
-        {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] !==
-          'age' &&
+        {DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+          props.currentDemographicType
+        ] !== 'age' &&
           props.activeBreakdownFilter !== 'All' &&
           ` ${props.activeBreakdownFilter} individuals`}
         {' in  '}
@@ -81,7 +83,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {/* Compare across XYZ for all variables except vaccinated at county level */}
           <MultiMapLink
             setMultimapOpen={props.setMultimapOpen}
-            currentBreakdown={props.currentBreakdown}
+            currentDemographicType={props.currentDemographicType}
             currentDataType={props.dataTypeConfig.fullDisplayName}
           />
         </Alert>

@@ -15,8 +15,8 @@ import {
   type DataTypeId,
 } from '../data/config/MetricConfig'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
@@ -74,7 +74,7 @@ function CompareReport(props: {
     props.dropdownVarId2 === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [currentBreakdown, setCurrentBreakdown] = useAtom(
+  const [currentDemographicType, setCurrentDemographicType] = useAtom(
     selectedDemographicTypeAtom
   )
 
@@ -86,9 +86,9 @@ function CompareReport(props: {
     selectedDataTypeConfig2Atom
   )
 
-  function setDemoWithParam(demographic: BreakdownVar) {
+  function setDemoWithParam(demographic: DemographicType) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
-    setCurrentBreakdown(demographic)
+    setCurrentDemographicType(demographic)
   }
 
   const demographicOptionsMap = getDemographicOptionsMap(
@@ -96,8 +96,8 @@ function CompareReport(props: {
     dataTypeConfig2
   )
 
-  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  if (!Object.values(demographicOptionsMap).includes(currentDemographicType)) {
+    setDemoWithParam(Object.values(demographicOptionsMap)[0] as DemographicType)
   }
 
   const disabledDemographicOptions = getDisabledDemographicOptions(
@@ -130,7 +130,7 @@ function CompareReport(props: {
         }
       )
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
 
       const newDemoParam1 =
         demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
@@ -142,7 +142,7 @@ function CompareReport(props: {
           : demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
       setDataTypeConfig2(newDemoParam2)
 
-      setCurrentBreakdown(demo)
+      setCurrentDemographicType(demo)
     }
     const psSub = psSubscribe(readParams, 'twovar')
     readParams()
@@ -185,7 +185,7 @@ function CompareReport(props: {
 
   const dt1 = dataTypeConfig1?.fullDisplayName
   const dt2 = dataTypeConfig2?.fullDisplayName
-  const demo = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+  const demo = DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[currentDemographicType]
   const loc1 = props.fips1.getSentenceDisplayName()
   const loc2 = props.fips2.getSentenceDisplayName()
 
@@ -241,7 +241,7 @@ function CompareReport(props: {
                   updateFipsCallback={(fips: Fips) => {
                     updateFips(fips)
                   }}
-                  currentBreakdown={currentBreakdown}
+                  currentDemographicType={currentDemographicType}
                   isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
                 />
@@ -267,7 +267,7 @@ function CompareReport(props: {
                 ) => (
                   <RateTrendsChartCard
                     dataTypeConfig={dataTypeConfig}
-                    breakdownVar={currentBreakdown}
+                    demographicType={currentDemographicType}
                     fips={fips}
                     isCompareCard={isCompareCard}
                     reportTitle={props.reportTitle}
@@ -293,7 +293,7 @@ function CompareReport(props: {
               ) => (
                 <SimpleBarChartCard
                   dataTypeConfig={dataTypeConfig}
-                  breakdownVar={currentBreakdown}
+                  demographicType={currentDemographicType}
                   fips={fips}
                   reportTitle={props.reportTitle}
                 />
@@ -317,13 +317,13 @@ function CompareReport(props: {
                 updateFips: (fips: Fips) => void
               ) => (
                 <UnknownsMapCard
-                  overrideAndWithOr={currentBreakdown === RACE}
+                  overrideAndWithOr={currentDemographicType === RACE}
                   dataTypeConfig={dataTypeConfig}
                   fips={fips}
                   updateFipsCallback={(fips: Fips) => {
                     updateFips(fips)
                   }}
-                  currentBreakdown={currentBreakdown}
+                  currentDemographicType={currentDemographicType}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -349,7 +349,7 @@ function CompareReport(props: {
                 ) => (
                   <ShareTrendsChartCard
                     dataTypeConfig={dataTypeConfig}
-                    breakdownVar={currentBreakdown}
+                    demographicType={currentDemographicType}
                     fips={fips}
                     isCompareCard={isCompareCard}
                     reportTitle={props.reportTitle}
@@ -374,7 +374,7 @@ function CompareReport(props: {
               ) => (
                 <DisparityBarChartCard
                   dataTypeConfig={dataTypeConfig}
-                  breakdownVar={currentBreakdown}
+                  demographicType={currentDemographicType}
                   fips={fips}
                   reportTitle={props.reportTitle}
                 />
@@ -400,7 +400,7 @@ function CompareReport(props: {
                 <TableCard
                   fips={fips}
                   dataTypeConfig={dataTypeConfig}
-                  breakdownVar={currentBreakdown}
+                  demographicType={currentDemographicType}
                   reportTitle={props.reportTitle}
                 />
               )}
@@ -433,7 +433,7 @@ function CompareReport(props: {
                   <AgeAdjustedTableCard
                     fips={fips}
                     dataTypeConfig={dataTypeConfig}
-                    breakdownVar={currentBreakdown}
+                    demographicType={currentDemographicType}
                     dropdownVarId={dropdownVarId}
                     reportTitle={props.reportTitle}
                   />

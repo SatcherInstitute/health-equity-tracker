@@ -4,8 +4,8 @@ import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES,
 } from '../data/query/Breakdowns'
 import { CardContent } from '@mui/material'
 import {
@@ -63,7 +63,7 @@ const exclusionList: RaceAndEthnicityGroup[] = [
 export interface AgeAdjustedTableCardProps {
   fips: Fips
   dataTypeConfig: DataTypeConfig
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dropdownVarId?: DropdownVarId
   setDataTypeConfigWithParam?: (v: DataTypeConfig) => void
   reportTitle: string
@@ -136,7 +136,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
           RACE
         )
 
-        const isWrongBreakdownVar = props.breakdownVar === SEX
+        const isWrongBreakdownVar = props.demographicType === SEX
         const noRatios = knownRaceData.every(
           (row) => row[ratioId] === undefined
         )
@@ -147,15 +147,16 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               <UnknownsAlert
                 metricConfig={metricConfigPctShare}
                 queryResponse={raceQueryResponse}
-                breakdownVar={
-                  props.breakdownVar === AGE || props.breakdownVar === RACE
+                demographicType={
+                  props.demographicType === AGE ||
+                  props.demographicType === RACE
                     ? RACE
-                    : props.breakdownVar
+                    : props.demographicType
                 }
                 ageQueryResponse={ageQueryResponse}
                 displayType="table"
                 known={true}
-                overrideAndWithOr={props.breakdownVar === RACE}
+                overrideAndWithOr={props.demographicType === RACE}
                 fips={props.fips}
               />
             )}
@@ -168,8 +169,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               <CardContent>
                 <MissingDataAlert
                   dataName={chartTitle}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+                  demographicTypeString={
+                    DEMOGRAPHIC_TYPE_DISPLAY_NAMES[props.demographicType]
                   }
                   dropdownVarId={props.dropdownVarId}
                   ageAdjustedDataTypes={ageAdjustedDataTypes}
@@ -181,7 +182,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&
               !noRatios &&
-              props.breakdownVar !== SEX && (
+              props.demographicType !== SEX && (
                 <div className={styles.TableChart}>
                   <AgeAdjustedTableChart
                     data={knownRaceData}

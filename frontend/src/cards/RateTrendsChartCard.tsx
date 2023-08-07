@@ -3,8 +3,8 @@ import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -40,7 +40,7 @@ const PRELOAD_HEIGHT = 668
 
 export interface RateTrendsChartCardProps {
   key?: string
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
   isCompareCard?: boolean
@@ -68,7 +68,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-    props.breakdownVar,
+    props.demographicType,
     exclude(NON_HISPANIC, AIAN_API)
   )
 
@@ -134,7 +134,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         // retrieve list of all present demographic groups
         const allDemographicGroups: DemographicGroup[] =
           queryResponseRates.getFieldValues(
-            props.breakdownVar,
+            props.demographicType,
             metricConfigRates.metricId
           ).withData
 
@@ -149,18 +149,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         // we want to send Unknowns as Knowns for CAWP so we can plot as a line as well
         const [knownRatesData] = isCawp
           ? [ratesDataLabelled]
-          : splitIntoKnownsAndUnknowns(ratesDataLabelled, props.breakdownVar)
+          : splitIntoKnownsAndUnknowns(ratesDataLabelled, props.demographicType)
 
         // rates for the unknown bubbles
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
-          props.breakdownVar
+          props.demographicType
         )
 
         const nestedRatesData = getNestedData(
           knownRatesData,
           demographicGroupsLabelled,
-          props.breakdownVar,
+          props.demographicType,
           metricConfigRates.metricId
         )
         const nestedUnknownPctShareData = getNestedUnknowns(
@@ -178,8 +178,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
               <>
                 <MissingDataAlert
                   dataName={`historical data for ${metricConfigRates.chartTitle}`}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  demographicTypeString={
+                    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                      props.demographicType
+                    ]
                   }
                   fips={props.fips}
                 />
@@ -214,8 +216,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   axisConfig={{
                     type: metricConfigRates.type,
                     groupLabel:
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.breakdownVar
+                      DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                        props.demographicType
                       ],
                     yAxisLabel: `${metricConfigRates.shortLabel} ${
                       props.fips.isUsa() ? '' : 'from'
@@ -226,7 +228,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     }`,
                     xAxisIsMonthly: metricConfigRates.isMonthly,
                   }}
-                  breakdownVar={props.breakdownVar}
+                  demographicType={props.demographicType}
                   setSelectedTableGroups={setSelectedTableGroups}
                   isCompareCard={props.isCompareCard ?? false}
                   expanded={unknownsExpanded}
@@ -236,7 +238,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {hasUnknowns && (
                   <CardContent>
                     <UnknownBubblesAlert
-                      breakdownVar={props.breakdownVar}
+                      demographicType={props.demographicType}
                       fullDisplayName={
                         props.dataTypeConfig.fullDisplayNameInline ??
                         props.dataTypeConfig.fullDisplayName
@@ -252,11 +254,13 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   setExpanded={setA11yTableExpanded}
                   expandBoxLabel={cardHeaderTitle.toLowerCase()}
                   tableCaption={`${getTitleText()} by ${
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[
+                      props.demographicType
+                    ]
                   }`}
                   knownsData={knownRatesData}
                   unknownsData={unknownPctShareData}
-                  breakdownVar={props.breakdownVar}
+                  demographicType={props.demographicType}
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
