@@ -157,7 +157,7 @@ class CDCHIVData(DataSource):
 
             all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
             alls_df = load_atlas_df_from_data_dir(geo_level, all)
-
+            alls_df.to_csv('county_ouput_error.csv', index=False)
             df = self.generate_breakdown_df(
                 demographic, geo_level, alls_df)
 
@@ -237,6 +237,9 @@ class CDCHIVData(DataSource):
                                                          std_col.ALL_VALUE)
 
         else:
+            print('--')
+            print(df)
+            df.to_csv('output_error.csv', index=False)
             df = generate_pct_share_col_without_unknowns(df,
                                                          PCT_SHARE_MAP,
                                                          cast(HIV_BREAKDOWN_TYPE, breakdown),
