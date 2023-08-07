@@ -154,7 +154,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <UnknownsAlert
                 metricConfig={metricConfig}
                 queryResponse={queryResponse}
-                demographicType={props.demographicType}
                 displayType="chart"
                 known={true}
                 overrideAndWithOr={props.demographicType === RACE}

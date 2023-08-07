@@ -147,12 +147,6 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               <UnknownsAlert
                 metricConfig={metricConfigPctShare}
                 queryResponse={raceQueryResponse}
-                demographicType={
-                  props.demographicType === AGE ||
-                  props.demographicType === RACE
-                    ? RACE
-                    : props.demographicType
-                }
                 ageQueryResponse={ageQueryResponse}
                 displayType="table"
                 known={true}

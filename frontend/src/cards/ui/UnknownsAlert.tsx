@@ -2,15 +2,14 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import { CardContent, Alert } from '@mui/material'
-import {
-  type DemographicType,
-  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
-} from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import { type VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { AGE } from '../../data/utils/Constants'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
 
@@ -18,7 +17,6 @@ interface UnknownsAlertProps {
   queryResponse: MetricQueryResponse
   ageQueryResponse?: MetricQueryResponse
   metricConfig: MetricConfig
-  demographicType: DemographicType
   displayType: VisualizationType
   known: boolean
   overrideAndWithOr?: boolean
@@ -30,14 +28,13 @@ interface UnknownsAlertProps {
 }
 
 export default function UnknownsAlert(props: UnknownsAlertProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const validData = props.queryResponse.getValidRowsForField(
     props.metricConfig.metricId
   )
 
-  const [, unknowns] = splitIntoKnownsAndUnknowns(
-    validData,
-    props.demographicType
-  )
+  const [, unknowns] = splitIntoKnownsAndUnknowns(validData, demographicType)
 
   let additionalAgeUnknowns = null
 
@@ -50,7 +47,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   }
 
   const demographicTypeDisplayName =
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[props.demographicType]
+    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
 
   if (unknowns.length === 0) {
     return <></>
@@ -87,12 +84,12 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
     ${unknowns[0][props.metricConfig.metricId] as string}${
         props.metricConfig.shortLabel
       } reported an
-    ${unknowns[0][props.demographicType].toLowerCase() as string} and
+    ${unknowns[0][demographicType].toLowerCase() as string} and
     ${unknowns[1][props.metricConfig.metricId] as string}${
         props.metricConfig?.knownBreakdownComparisonMetric?.shortLabel ??
         'This group'
       } reported an
-    ${unknowns[1][props.demographicType].toLowerCase() as string}.`
+    ${unknowns[1][demographicType].toLowerCase() as string}.`
     : ''
 
   const showCardHelperText =

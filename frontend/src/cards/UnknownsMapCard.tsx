@@ -250,7 +250,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
               <UnknownsAlert
                 queryResponse={alertQueryResponse}
                 metricConfig={metricConfig}
-                demographicType={demographicType}
                 displayType="map"
                 known={false}
                 overrideAndWithOr={demographicType === RACE}
