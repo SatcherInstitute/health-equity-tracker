@@ -8,11 +8,11 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV prevalence","2019","United States","NA","55+","Black/African American","Female","All transmission categories","51,300","908.2","5,648,605"
-"HIV prevalence","2019","United States","NA","45-54","Black/African American","Female","All transmission categories","40,735","1499.5","2,716,508"
-"HIV prevalence","2019","United States","NA","35-44","Black/African American","Female","All transmission categories","29,692","1062.8","2,793,873"
-"HIV prevalence","2019","United States","NA","25-34","Black/African American","Female","All transmission categories","15,965","487.1","3,277,716"
-"HIV prevalence","2019","United States","NA","13-24","Black/African American","Female","All transmission categories","3,906","111.6","3,501,536"
+"HIV prevalence","2021","United States","NA","55+","Black/African American","Female","All transmission categories","57,618","989.8","5,821,358"
+"HIV prevalence","2021","United States","NA","45-54","Black/African American","Female","All transmission categories","38,726","1449.1","2,672,389"
+"HIV prevalence","2021","United States","NA","35-44","Black/African American","Female","All transmission categories","27,927","965.5","2,892,576"
+"HIV prevalence","2021","United States","NA","25-34","Black/African American","Female","All transmission categories","14,828","451.1","3,287,103"
+"HIV prevalence","2021","United States","NA","13-24","Black/African American","Female","All transmission categories","3,281","92.6","3,543,480"
 "HIV prevalence","2017","United States","NA","55+","Black/African American","Female","All transmission categories","43,286","810.1","5,343,249"
 "HIV prevalence","2017","United States","NA","45-54","Black/African American","Female","All transmission categories","41,962","1508.1","2,782,489"
 "HIV prevalence","2017","United States","NA","35-44","Black/African American","Female","All transmission categories","30,988","1130.9","2,740,072"

@@ -8,39 +8,45 @@ NA - Not applicable.
 
 
 Indicator,Year,Sex,Cases
-HIV prevalence,2008,Additional gender identity (AGI),118
-HIV prevalence,2008,Transgender man,221
-HIV prevalence,2008,Transgender woman,"5,938"
-HIV prevalence,2009,Additional gender identity (AGI),127
-HIV prevalence,2009,Transgender man,234
-HIV prevalence,2009,Transgender woman,"6,429"
-HIV prevalence,2010,Additional gender identity (AGI),136
-HIV prevalence,2010,Transgender man,247
-HIV prevalence,2010,Transgender woman,"6,983"
-HIV prevalence,2011,Additional gender identity (AGI),144
-HIV prevalence,2011,Transgender man,265
-HIV prevalence,2011,Transgender woman,"7,505"
-HIV prevalence,2012,Additional gender identity (AGI),157
-HIV prevalence,2012,Transgender man,278
-HIV prevalence,2012,Transgender woman,"8,042"
-HIV prevalence,2013,Additional gender identity (AGI),164
-HIV prevalence,2013,Transgender man,291
-HIV prevalence,2013,Transgender woman,"8,564"
-HIV prevalence,2014,Additional gender identity (AGI),179
-HIV prevalence,2014,Transgender man,320
-HIV prevalence,2014,Transgender woman,"9,074"
-HIV prevalence,2015,Additional gender identity (AGI),196
-HIV prevalence,2015,Transgender man,351
-HIV prevalence,2015,Transgender woman,"9,612"
-HIV prevalence,2016,Additional gender identity (AGI),218
-HIV prevalence,2016,Transgender man,374
-HIV prevalence,2016,Transgender woman,"10,213"
-HIV prevalence,2017,Additional gender identity (AGI),239
-HIV prevalence,2017,Transgender man,400
-HIV prevalence,2017,Transgender woman,"10,773"
-HIV prevalence,2018,Additional gender identity (AGI),260
-HIV prevalence,2018,Transgender man,447
-HIV prevalence,2018,Transgender woman,"11,345"
-HIV prevalence,2019,Additional gender identity (AGI),292
-HIV prevalence,2019,Transgender man,489
-HIV prevalence,2019,Transgender woman,"11,935"
+"HIV prevalence","2008","Additional gender identity (AGI)","118"
+"HIV prevalence","2008","Transgender man","221"
+"HIV prevalence","2008","Transgender woman","5,938"
+"HIV prevalence","2009","Additional gender identity (AGI)","127"
+"HIV prevalence","2009","Transgender man","234"
+"HIV prevalence","2009","Transgender woman","6,429"
+"HIV prevalence","2010","Additional gender identity (AGI)","136"
+"HIV prevalence","2010","Transgender man","247"
+"HIV prevalence","2010","Transgender woman","6,983"
+"HIV prevalence","2011","Additional gender identity (AGI)","144"
+"HIV prevalence","2011","Transgender man","265"
+"HIV prevalence","2011","Transgender woman","7,505"
+"HIV prevalence","2012","Additional gender identity (AGI)","157"
+"HIV prevalence","2012","Transgender man","278"
+"HIV prevalence","2012","Transgender woman","8,042"
+"HIV prevalence","2013","Additional gender identity (AGI)","164"
+"HIV prevalence","2013","Transgender man","291"
+"HIV prevalence","2013","Transgender woman","8,564"
+"HIV prevalence","2014","Additional gender identity (AGI)","179"
+"HIV prevalence","2014","Transgender man","320"
+"HIV prevalence","2014","Transgender woman","9,074"
+"HIV prevalence","2015","Additional gender identity (AGI)","196"
+"HIV prevalence","2015","Transgender man","351"
+"HIV prevalence","2015","Transgender woman","9,612"
+"HIV prevalence","2016","Additional gender identity (AGI)","218"
+"HIV prevalence","2016","Transgender man","374"
+"HIV prevalence","2016","Transgender woman","10,213"
+"HIV prevalence","2017","Additional gender identity (AGI)","239"
+"HIV prevalence","2017","Transgender man","400"
+"HIV prevalence","2017","Transgender woman","10,773"
+"HIV prevalence","2018","Additional gender identity (AGI)","260"
+"HIV prevalence","2018","Transgender man","447"
+"HIV prevalence","2018","Transgender woman","11,345"
+"HIV prevalence","2019","Additional gender identity (AGI)","292"
+"HIV prevalence","2019","Transgender man","489"
+"HIV prevalence","2019","Transgender woman","11,935"
+"HIV prevalence","2020 (COVID-19 Pandemic)","Additional gender identity (AGI)","315"
+"HIV prevalence","2020 (COVID-19 Pandemic)","Transgender man","520"
+"HIV prevalence","2020 (COVID-19 Pandemic)","Transgender woman","12,446"
+"HIV prevalence","2021","Additional gender identity (AGI)","361"
+"HIV prevalence","2021","Transgender man","574"
+"HIV prevalence","2021","Transgender woman","13,110"

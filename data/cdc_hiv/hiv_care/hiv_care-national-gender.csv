@@ -8,12 +8,18 @@ NA - Not applicable.
 
 
 Indicator,Year,Sex,Cases
-Linkage to HIV care,2017,Additional gender identity (AGI),12
-Linkage to HIV care,2017,Transgender man,27
-Linkage to HIV care,2017,Transgender woman,375
-Linkage to HIV care,2018,Additional gender identity (AGI),9
-Linkage to HIV care,2018,Transgender man,32
-Linkage to HIV care,2018,Transgender woman,396
-Linkage to HIV care,2019,Additional gender identity (AGI),15
-Linkage to HIV care,2019,Transgender man,40
-Linkage to HIV care,2019,Transgender woman,484
+"Linkage to HIV care","2017","Additional gender identity (AGI)","12"
+"Linkage to HIV care","2017","Transgender man","27"
+"Linkage to HIV care","2017","Transgender woman","375"
+"Linkage to HIV care","2018","Additional gender identity (AGI)","9"
+"Linkage to HIV care","2018","Transgender man","32"
+"Linkage to HIV care","2018","Transgender woman","396"
+"Linkage to HIV care","2019","Additional gender identity (AGI)","15"
+"Linkage to HIV care","2019","Transgender man","40"
+"Linkage to HIV care","2019","Transgender woman","484"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","Additional gender identity (AGI)","15"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","Transgender man","35"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","Transgender woman","484"
+"Linkage to HIV care","2021","Additional gender identity (AGI)","36"
+"Linkage to HIV care","2021","Transgender man","51"
+"Linkage to HIV care","2021","Transgender woman","654"

@@ -8,5 +8,5 @@ For unstable housing or homelessness, estimates with a coefficient of variation 
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
-"HIV Stigma","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","30.7","29.2","32.1","NA"
+"HIV Stigma","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
 "HIV Stigma","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","31.2","30.3","32.1","NA"
