@@ -13,7 +13,6 @@ import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import React, { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { type DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
@@ -22,6 +21,8 @@ import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { DATA_TAB_LINK } from '../../utils/internalRoutes'
 import styles from './AltTableView.module.scss'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -30,7 +31,6 @@ interface AltTableViewProps {
   tableCaption: string
   knownsData: Row[]
   unknownsData: Row[]
-  demographicType: DemographicType
   knownMetricConfig: MetricConfig
   unknownMetricConfig: MetricConfig
   selectedGroups: DemographicGroup[]
@@ -39,15 +39,17 @@ interface AltTableViewProps {
 }
 
 export default function AltTableView(props: AltTableViewProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const tableRef = useRef(null)
   const linkRef = useRef(null)
 
-  const optionalAgesPrefix = props.demographicType === 'age' ? 'Ages ' : ''
+  const optionalAgesPrefix = demographicType === 'age' ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(
     props.knownsData,
     props.unknownsData,
-    props.demographicType,
+    demographicType,
     props.knownMetricConfig,
     props.unknownMetricConfig,
     props.selectedGroups,

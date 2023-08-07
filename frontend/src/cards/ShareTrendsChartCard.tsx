@@ -236,7 +236,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     }`}
                     knownsData={inequityData}
                     unknownsData={unknownPctShareData}
-                    demographicType={props.demographicType}
                     knownMetricConfig={metricConfigInequitable}
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}

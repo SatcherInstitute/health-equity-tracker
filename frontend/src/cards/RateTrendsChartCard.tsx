@@ -260,7 +260,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   }`}
                   knownsData={knownRatesData}
                   unknownsData={unknownPctShareData}
-                  demographicType={props.demographicType}
                   knownMetricConfig={metricConfigRates}
                   unknownMetricConfig={metricConfigPctShares}
                   selectedGroups={selectedTableGroups}
