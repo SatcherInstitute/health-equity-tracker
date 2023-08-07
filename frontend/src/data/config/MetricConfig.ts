@@ -194,8 +194,9 @@ export type MetricId =
   | 'population'
   | 'poverty_count'
   | 'poverty_pct_share'
-  | 'poverty_per_100k'
+  | 'poverty_pct_rate'
   | 'poverty_population_pct'
+  | 'poverty_pct_relative_inequity'
   | 'preventable_hospitalizations_pct_share'
   | 'preventable_hospitalizations_per_100k'
   | 'prison_pct_relative_inequity'
@@ -215,8 +216,9 @@ export type MetricId =
   | 'total_us_congress_count'
   | 'total_us_congress_names'
   | 'uninsured_pct_share'
-  | 'uninsured_per_100k'
+  | 'uninsured_pct_rate'
   | 'uninsured_population_pct'
+  | 'uninsured_pct_relative_inequity'
   | 'vaccinated_pct_share'
   | 'vaccinated_per_100k'
   | 'vaccinated_pop_pct'
@@ -332,12 +334,12 @@ export function formatFieldValue(
   }
 
   // if values are numeric but rounded down to 0, instead replace with "less than 1"
-  if (value === 0 && metricType === 'per100k') return LESS_THAN_1
+  const RATES: MetricType[] = ['pct_rate', 'per100k']
+  if (value === 0 && RATES.includes(metricType)) return LESS_THAN_1
 
   const isRatio = metricType.includes('ratio')
-  const formatOptions = isPctType(metricType)
-    ? { minimumFractionDigits: 1 }
-    : {}
+  const formatOptions =
+    metricType === 'pct_share' ? { minimumFractionDigits: 1 } : {}
   const formattedValue: string =
     typeof value === 'number'
       ? value.toLocaleString('en', formatOptions)
@@ -1234,13 +1236,15 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         dental, vision, life, and disability insurance are not considered comprehensive health
         insurance coverage.`,
       dataTableTitle: 'Breakdown summary for uninsured people',
+      timeSeriesData: true,
       metrics: {
-        per100k: {
-          metricId: 'uninsured_per_100k',
+        pct_rate: {
+          metricId: 'uninsured_pct_rate',
           chartTitle: 'Uninsured people',
-          columnTitleHeader: 'Uninsured people per 100k',
-          shortLabel: 'uninsured people per 100k',
-          type: 'per100k',
+          trendsCardTitleName: 'Rates of uninsurance over time',
+          columnTitleHeader: 'Uninsured people',
+          shortLabel: '% uninsured',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of uninsured people',
@@ -1256,6 +1260,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             type: 'pct_share',
           },
         },
+        pct_relative_inequity: {
+          chartTitle: 'Relative inequity for uninsurance',
+          metricId: 'uninsured_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
+        },
       },
     },
   ],
@@ -1267,13 +1277,15 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayNameInline: 'people below the poverty line',
       dataTypeDefinition: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       dataTableTitle: 'Breakdown summary for people below the poverty line',
+      timeSeriesData: true,
       metrics: {
-        per100k: {
-          metricId: 'poverty_per_100k',
+        pct_rate: {
+          metricId: 'poverty_pct_rate',
           chartTitle: 'People below the poverty line',
-          columnTitleHeader: 'People below the poverty line per 100k',
-          shortLabel: 'poverty per 100k',
-          type: 'per100k',
+          trendsCardTitleName: 'Rates of poverty over time',
+          columnTitleHeader: 'People below the poverty line',
+          shortLabel: '% in poverty',
+          type: 'pct_rate',
         },
         pct_share: {
           chartTitle: 'Share of poverty',
@@ -1289,6 +1301,12 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
             shortLabel: populationPctShortLabel,
             type: 'pct_share',
           },
+        },
+        pct_relative_inequity: {
+          chartTitle: 'Relative inequity for poverty',
+          metricId: 'poverty_pct_relative_inequity',
+          shortLabel: '% relative inequity',
+          type: 'pct_relative_inequity',
         },
       },
     },
@@ -1477,7 +1495,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       dataTableTitle: 'Breakdown summary for voter participation',
       dataTypeDefinition: `U.S. citizens ages 18 and older who voted in the last presidential election.`,
       metrics: {
-        per100k: {
+        pct_rate: {
           metricId: 'voter_participation_pct_rate',
           columnTitleHeader: 'Voter Participation',
           chartTitle: 'Voter participation',

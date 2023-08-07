@@ -33,7 +33,7 @@ describe('Tests generateChartTitle()', () => {
   })
 
   test('Standard subtitle', () => {
-    const subTitle = generateSubtitle('Male', 'sex', 'uninsured_per_100k')
+    const subTitle = generateSubtitle('Male', 'sex', 'uninsured_pct_rate')
     expect(subTitle).toEqual('Male')
   })
 })
@@ -54,7 +54,7 @@ describe('Tests generateSubtitle()', () => {
   })
 
   test('Standard subtitle', () => {
-    const subTitle = generateSubtitle('Male', 'sex', 'uninsured_per_100k')
+    const subTitle = generateSubtitle('Male', 'sex', 'uninsured_pct_rate')
     expect(subTitle).toEqual('Male')
   })
 })
