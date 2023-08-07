@@ -157,7 +157,6 @@ class CDCHIVData(DataSource):
 
             all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
             alls_df = load_atlas_df_from_data_dir(geo_level, all)
-
             df = self.generate_breakdown_df(
                 demographic, geo_level, alls_df)
 
@@ -318,7 +317,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        alls_df = alls_df[alls_df['Year'] == '2019']
+        alls_df = alls_df[alls_df['Year'] == '2021']
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
@@ -334,7 +333,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        race_df = race_df[race_df['Year'] == '2019']
+        race_df = race_df[race_df['Year'] == '2021']
         race_df[std_col.AGE_COL] = ALL_VALUE
         race_df = race_df[use_cols]
 
@@ -349,7 +348,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        age_df = age_df[age_df['Year'] == '2019']
+        age_df = age_df[age_df['Year'] == '2021']
         age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         age_df = age_df[use_cols]
 
@@ -476,6 +475,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 df = df.replace({'13-24': '18-24'})
 
             df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
+            df['Year'] = df['Year'].str.replace('2020 (COVID-19 Pandemic)', '2020', regex=False)
 
             df = df.rename(columns=cols_to_standard)
 
