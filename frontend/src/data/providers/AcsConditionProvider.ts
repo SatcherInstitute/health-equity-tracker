@@ -3,19 +3,27 @@ import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { type DataTypeId, type MetricId } from '../config/MetricConfig'
+
+export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
+  'health_insurance',
+  'poverty',
+]
+
+export const ACS_CONDITION_METRICS: MetricId[] = [
+  'uninsured_population_pct',
+  'uninsured_pct_rate',
+  'uninsured_pct_share',
+  'uninsured_pct_relative_inequity',
+  'poverty_population_pct',
+  'poverty_pct_rate',
+  'poverty_pct_share',
+  'poverty_pct_relative_inequity',
+]
 
 class AcsConditionProvider extends VariableProvider {
   constructor() {
-    super('acs_condition_provider', [
-      'uninsured_population_pct',
-      'uninsured_pct_rate',
-      'uninsured_pct_share',
-      'uninsured_pct_relative_inequity',
-      'poverty_population_pct',
-      'poverty_pct_rate',
-      'poverty_pct_share',
-      'poverty_pct_relative_inequity',
-    ])
+    super('acs_condition_provider', ACS_CONDITION_METRICS)
   }
 
   getDatasetId(breakdowns: Breakdowns): string {

@@ -60,7 +60,7 @@ export function TrendsTooltip({
       formatter: F.num,
     },
     [TYPES.PCT_RATE]: {
-      UNIT: ' %',
+      UNIT: '',
       width: getWidthPctShare,
       translate_x: (d: TimeSeries) => 0,
       formatter: F.pct,
