@@ -12,7 +12,8 @@ import {
 } from '../../charts/mapHelpers'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { type DemographicType } from '../../data/query/Breakdowns'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -24,7 +25,6 @@ interface TerritoryCirclesProps {
   countColsToAdd: MetricId[]
   mapIsWide: boolean
   isUnknownsMap?: boolean
-  demographicType?: DemographicType
   activeBreakdownFilter?: DemographicGroup
   fullData?: Row[]
   scaleConfig?: { domain: number[]; range: number[] }
@@ -32,6 +32,8 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const [mapScheme, mapMin] = getMapScheme({
     metricId: props.metricConfig.metricId,
     isUnknownsMap: props.isUnknownsMap,
@@ -39,7 +41,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
   const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
     props.fullData,
-    props.demographicType,
+    demographicType,
     props.metricConfig.metricId
   )
 

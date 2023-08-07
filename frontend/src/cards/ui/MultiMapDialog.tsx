@@ -26,10 +26,7 @@ import {
   type MetricQuery,
   type MetricQueryResponse,
 } from '../../data/query/MetricQuery'
-import {
-  type DemographicType,
-  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
-} from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
@@ -40,15 +37,15 @@ import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
   metricConfig: MetricConfig
   // Whether or not the data was collected via survey
   useSmallSampleMessage: boolean
-  // Demographic type upon which we're dividing the data, i.e. "age"
-  demographicType: DemographicType
-  // Unique values for demographicType, each one will have it's own map
+  // Unique values for demographicType, each one will have its own map
   demographicGroups: DemographicGroup[]
   // Geographic region of maps
   fips: Fips
@@ -83,10 +80,12 @@ export interface MultiMapDialogProps {
     value in a given demographicType for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const title = `${
     props.metricConfig.chartTitle
   } in ${props.fips.getSentenceDisplayName()} across all ${
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[props.demographicType]
+    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
   } groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
@@ -207,7 +206,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               ? getWomenRaceLabel(breakdownValue)
               : breakdownValue
             const dataForValue = props.data.filter(
-              (row: Row) => row[props.demographicType] === breakdownValue
+              (row: Row) => row[demographicType] === breakdownValue
             )
             return (
               <Grid

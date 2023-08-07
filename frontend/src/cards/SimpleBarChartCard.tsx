@@ -144,14 +144,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     <IncarceratedChildrenShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}
-                      demographicType={props.demographicType}
                     />
                   )}
                   {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
                     <GenderDataShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}
-                      demographicType={props.demographicType}
                       dataTypeId={props.dataTypeConfig.dataTypeId}
                     />
                   )}

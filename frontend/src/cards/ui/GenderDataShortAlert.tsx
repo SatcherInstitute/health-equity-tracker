@@ -4,18 +4,20 @@ import { urlMap } from '../../utils/externalUrls'
 import { type MetricId, type DataTypeId } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse
   fips: Fips
-  demographicType: DemographicType
   dataTypeId: DataTypeId
 }
 
 function GenderDataShortAlert(props: GenderDataShortAlertProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const hivPhraseMap: Partial<Record<DataTypeId, string>> = {
     hiv_deaths: 'who died from HIV or AIDS',
     hiv_prevalence: 'living with HIV',
@@ -52,7 +54,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
   }
 
   const dataAlls: Row[] = props.queryResponse.data.filter(
-    (row) => row[props.demographicType] === ALL
+    (row) => row[demographicType] === ALL
   )
 
   const transMenCountId: MetricId | undefined =

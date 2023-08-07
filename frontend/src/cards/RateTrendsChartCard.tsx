@@ -238,7 +238,6 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 {hasUnknowns && (
                   <CardContent>
                     <UnknownBubblesAlert
-                      demographicType={props.demographicType}
                       fullDisplayName={
                         props.dataTypeConfig.fullDisplayNameInline ??
                         props.dataTypeConfig.fullDisplayName

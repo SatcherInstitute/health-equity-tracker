@@ -1,25 +1,24 @@
 import styles from './UnknownBubblesAlert.module.scss'
-import {
-  type DemographicType,
-  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
-} from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
 import { Alert } from '@mui/material'
+import { useAtomValue } from 'jotai'
+import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 
 interface UnknownBubblesAlertProps {
-  demographicType: DemographicType
   fullDisplayName: string
   expanded: boolean
   setExpanded: (expanded: boolean) => void
 }
 
 export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
+  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
   const changeUnknownState = (event: any) => {
     event.preventDefault()
     props.setExpanded(!props.expanded)
   }
 
-  const groupTerm =
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[props.demographicType]
+  const groupTerm = DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
 
   return (
     <Alert severity="info" role="note" id="unknown-bubbles-alert">

@@ -369,7 +369,6 @@ function MapCardWithKey(props: MapCardProps) {
         return (
           <>
             <MultiMapDialog
-              demographicType={demographicType}
               demographicGroups={breakdownValues}
               demographicGroupsNoData={fieldValues.noData}
               countColsToAdd={countColsToAdd}

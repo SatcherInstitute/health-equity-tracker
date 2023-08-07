@@ -183,7 +183,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     const mapGroupLabel = getMapGroupLabel(
       props.activeBreakdownFilter,
-      props.metric.type === 'index' ? 'Score' : ''
+      props.metric.type === 'index' ? 'Score' : undefined
     )
     const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 

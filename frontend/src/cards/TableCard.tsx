@@ -172,14 +172,12 @@ export function TableCard(props: TableCardProps) {
               <IncarceratedChildrenShortAlert
                 fips={props.fips}
                 queryResponse={queryResponse}
-                demographicType={props.demographicType}
               />
             )}
             {isHIV && (
               <GenderDataShortAlert
                 fips={props.fips}
                 queryResponse={queryResponse}
-                demographicType={props.demographicType}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
               />
             )}

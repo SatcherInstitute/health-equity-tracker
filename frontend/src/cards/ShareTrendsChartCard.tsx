@@ -214,7 +214,6 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                   {hasUnknowns && (
                     <CardContent>
                       <UnknownBubblesAlert
-                        demographicType={props.demographicType}
                         fullDisplayName={
                           props.dataTypeConfig.fullDisplayNameInline ??
                           props.dataTypeConfig.fullDisplayName
