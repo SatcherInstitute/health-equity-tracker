@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert, CardContent } from '@mui/material'
+import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -35,6 +35,7 @@ import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import styles from '../charts/trendsChart/Trends.module.scss'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import Hiv2020Alert from './ui/Hiv2020Alert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -285,15 +286,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                 </>
               )}
             </CardContent>
-            {isHIV && (
-              <CardContent>
-                <Alert severity="warning" role="note">
-                  Due to COVID-19's effects on HIV testing, care services, and
-                  case surveillance, approach 2020 data with care. Disruptions
-                  may skew usual trends.
-                </Alert>
-              </CardContent>
-            )}
+            {isHIV && <Hiv2020Alert />}
           </>
         )
       }}
