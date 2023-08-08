@@ -512,9 +512,9 @@ function MethodologyTab() {
                   becomes available.
                 </p>
                 <p>
-                  Data for the years 2020, 2021, and 2022 are preliminary. For
-                  this reason, we have chosen 2019 as our source year when
-                  presenting single-year figures.
+                  Data for the years 2022 and 2023 are preliminary. For this
+                  reason, we have chosen 2021 as our source year when presenting
+                  single-year figures.
                 </p>
 
                 <p>
