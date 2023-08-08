@@ -34,6 +34,9 @@ export const DATA_TYPE_2_PARAM = 'dt2'
 export const MAP1_GROUP_PARAM = 'group1'
 export const MAP2_GROUP_PARAM = 'group2'
 
+export const TOPIC_INFO_MODAL_STATUS_PARAM = 'topic-info'
+export const MULTIPLE_MAPS_MODAL_STATUS_PARAM = 'view-multiple-maps'
+
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
   const swaps: Record<string, DataTypeId> = {

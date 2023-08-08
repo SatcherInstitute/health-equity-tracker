@@ -8,7 +8,7 @@ export function useParamState<ParamStateType>(
 
   const paramState = location.searchParams?.get(paramKey)
 
-  function setParamState(newValue: ParamStateType | null): void {
+  function setParamState(newValue: ParamStateType): void {
     newValue
       ? location.searchParams?.append(paramKey, newValue as string)
       : location.searchParams?.delete(paramKey)

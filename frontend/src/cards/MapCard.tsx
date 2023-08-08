@@ -135,10 +135,6 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
     useState<DemographicGroup>(initialGroup)
 
-  // const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
-  //   /* paramKey */ 'multiple-maps',
-  // )
-
   const metricQuery = (
     geographyBreakdown: Breakdowns,
     countColsToAdd?: MetricId[]

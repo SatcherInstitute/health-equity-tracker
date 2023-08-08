@@ -11,6 +11,3 @@ export const selectedDataTypeConfig1Atom = atom<DataTypeConfig | null>(null)
 export const selectedDataTypeConfig2Atom = atom<DataTypeConfig | null>(null)
 export const selectedDemographicTypeAtom =
   atom<DemographicType>('race_and_ethnicity')
-
-/* MODALS */
-export const topicInfoModalIsOpenAtom = atom<boolean>(false)

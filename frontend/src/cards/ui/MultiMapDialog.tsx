@@ -40,6 +40,7 @@ import MapBreadcrumbs from './MapBreadcrumbs'
 import { useAtomValue } from 'jotai'
 import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 import { useParamState } from '../../utils/hooks/useParamState'
+import { MULTIPLE_MAPS_MODAL_STATUS_PARAM } from '../../utils/urlutils'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -80,7 +81,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   const demographicType = useAtomValue(selectedDemographicTypeAtom)
 
   const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
-    /* paramKey */ 'multiple-maps'
+    /* paramKey */ MULTIPLE_MAPS_MODAL_STATUS_PARAM
   )
 
   const title = `${

@@ -1,10 +1,11 @@
 import { GridView } from '@mui/icons-material'
 import { Button } from '@mui/material'
 import { useParamState } from '../../utils/hooks/useParamState'
+import { MULTIPLE_MAPS_MODAL_STATUS_PARAM } from '../../utils/urlutils'
 
 export default function MultipleMapsButton() {
   const [, setMultimapOpen] = useParamState<boolean>(
-    /* paramKey */ 'multiple-maps'
+    /* paramKey */ MULTIPLE_MAPS_MODAL_STATUS_PARAM
   )
 
   return (
