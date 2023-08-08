@@ -39,6 +39,7 @@ import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { useAtomValue } from 'jotai'
 import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { useParamState } from '../../utils/hooks/useParamState'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -53,10 +54,6 @@ export interface MultiMapDialogProps {
   data: Row[]
   // Range of metric's values, used for creating a common legend across maps
   fieldRange: FieldRange | undefined
-  // Whether or not dialog is currently open
-  open: boolean
-  // Closes the dialog in the parent component
-  handleClose: () => void
   queries: MetricQuery[]
   // Dataset IDs required the source  footer
   queryResponses: MetricQueryResponse[]
@@ -81,6 +78,10 @@ export interface MultiMapDialogProps {
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
   const demographicType = useAtomValue(selectedDemographicTypeAtom)
+
+  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
+    /* paramKey */ 'multiple-maps'
+  )
 
   const title = `${
     props.metricConfig.chartTitle
@@ -118,8 +119,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
     <Dialog
       className={styles.MultiMapBox}
-      open={props.open}
-      onClose={props.handleClose}
+      open={multimapOpen}
+      onClose={() => {
+        setMultimapOpen(false)
+      }}
       maxWidth={false}
       scroll="paper"
       aria-labelledby="modalTitle"
@@ -142,7 +145,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               container
               justifyContent={'flex-end'}
             >
-              <Button onClick={props.handleClose} color="primary">
+              <Button
+                onClick={() => {
+                  setMultimapOpen(false)
+                }}
+                color="primary"
+              >
                 <CloseIcon />
               </Button>
             </Grid>
@@ -164,7 +172,12 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               container
               justifyContent={'flex-end'}
             >
-              <Button onClick={props.handleClose} color="primary">
+              <Button
+                onClick={() => {
+                  setMultimapOpen(false)
+                }}
+                color="primary"
+              >
                 <CloseIcon />
               </Button>
             </Grid>

@@ -136,7 +136,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
           RACE
         )
 
-        const isWrongBreakdownVar = props.demographicType === SEX
+        const hideAgeAdjustCard = props.demographicType === SEX
         const noRatios = knownRaceData.every(
           (row) => row[ratioId] === undefined
         )
@@ -157,7 +157,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
             {/* If TABLE can't display for any of these various reasons, show the missing data alert */}
             {(noRatios ||
-              isWrongBreakdownVar ||
+              hideAgeAdjustCard ||
               raceQueryResponse.dataIsMissing() ||
               raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
               <CardContent>

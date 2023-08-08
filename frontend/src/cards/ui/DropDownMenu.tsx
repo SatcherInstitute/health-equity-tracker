@@ -112,7 +112,6 @@ export interface DropDownMenuProps {
   ) => void
   idSuffix?: string
   dataTypeId: DataTypeId
-  setMultimapOpen: (multimapOpen: boolean) => void
 }
 
 /*

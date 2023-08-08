@@ -1,12 +1,5 @@
-import {
-  Button,
-  CardContent,
-  Grid,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { CardContent, Grid, useMediaQuery, useTheme } from '@mui/material'
 import Divider from '@mui/material/Divider'
-import Alert from '@mui/material/Alert'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -43,14 +36,12 @@ import {
   CAWP_DETERMINANTS,
   CAWP_STLEG_COUNTS,
 } from '../data/providers/CawpProvider'
-import { useAutoFocusDialog } from '../utils/hooks/useAutoFocusDialog'
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestList } from './ui/HighestLowestList'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { MultiMapDialog } from './ui/MultiMapDialog'
-import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -65,7 +56,6 @@ import {
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
-import { GridView } from '@mui/icons-material'
 import {
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
@@ -75,6 +65,7 @@ import {
   setParameter,
 } from '../utils/urlutils'
 import ChartTitle from './ChartTitle'
+import MultipleMapsButton from './ui/MultipleMapsButton'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -144,7 +135,9 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeBreakdownFilter, setActiveBreakdownFilter] =
     useState<DemographicGroup>(initialGroup)
 
-  const [multimapOpen, setMultimapOpen] = useAutoFocusDialog()
+  // const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
+  //   /* paramKey */ 'multiple-maps',
+  // )
 
   const metricQuery = (
     geographyBreakdown: Breakdowns,
@@ -376,14 +369,10 @@ function MapCardWithKey(props: MapCardProps) {
               fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
               fips={props.fips}
               geoData={geoData}
-              handleClose={() => {
-                setMultimapOpen(false)
-              }}
               handleMapGroupClick={handleMapGroupClick}
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
               metadata={metadata}
               metricConfig={metricConfig}
-              open={multimapOpen}
               queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}
@@ -408,22 +397,12 @@ function MapCardWithKey(props: MapCardProps) {
                       <DropDownMenu
                         idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
                         dataTypeId={props.dataTypeConfig.dataTypeId}
-                        setMultimapOpen={setMultimapOpen}
                         value={dropdownValue}
                         options={filterOptions}
                         onOptionUpdate={handleMapGroupClick}
                       />
                       <Divider />
-                      <Button
-                        onClick={() => {
-                          setMultimapOpen(true)
-                        }}
-                      >
-                        <GridView />
-                        <span className={styles.CompareMultipleText}>
-                          View multiple maps
-                        </span>
-                      </Button>
+                      <MultipleMapsButton />
                     </Grid>
                     <Divider />
                   </Grid>
@@ -575,22 +554,6 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   </CardContent>
                 )}
-
-                {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveBreakdownFilter.length === 0 &&
-                  activeBreakdownFilter !== 'All' && (
-                    <CardContent>
-                      <Alert severity="warning" role="note">
-                        Insufficient data available for filter:{' '}
-                        <b>{activeBreakdownFilter}</b>.{' '}
-                        {/* Offer multimap link if current demo group is missing info */}
-                        <MultiMapLink
-                          setMultimapOpen={setMultimapOpen}
-                          currentDataType={props.dataTypeConfig.fullDisplayName}
-                        />
-                      </Alert>
-                    </CardContent>
-                  )}
               </div>
             )}
           </>
