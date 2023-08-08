@@ -9,6 +9,20 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","791","81.8","967"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","7,048","82.1","8,580"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","59","79.7","74"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","7,958","84.5","9,416"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","10,889","79.8","13,650"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","608","87.0","699"
+"Linkage to HIV care","2021","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","182","82.7","220"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","610","83.7","729"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","6,066","83.6","7,256"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","54","85.7","63"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","6,380","85.1","7,498"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","9,615","79.7","12,069"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","538","87.9","612"
+"Linkage to HIV care","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","156","80.0","195"
 "Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","684","81.3","841"
 "Linkage to HIV care","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","6,817","82.6","8,249"
 "Linkage to HIV care","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","53","80.3","66"

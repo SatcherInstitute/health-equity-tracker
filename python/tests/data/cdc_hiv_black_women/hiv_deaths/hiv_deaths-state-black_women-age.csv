@@ -8,11 +8,11 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV deaths","2019","Alabama^","01","55+","Black/African American","Female","All transmission categories","21","11.0","190,911"
-"HIV deaths","2019","Alabama^","01","45-54","Black/African American","Female","All transmission categories","12","13.9","86,322"
-"HIV deaths","2019","Alabama^","01","35-44","Black/African American","Female","All transmission categories","11","12.1","90,672"
-"HIV deaths","2019","Alabama^","01","25-34","Black/African American","Female","All transmission categories","8","7.8","101,931"
-"HIV deaths","2019","Alabama^","01","13-24","Black/African American","Female","All transmission categories","0","0.0","115,121"
+"HIV deaths","2021","Alabama^","01","55+","Black/African American","Female","All transmission categories","47","23.7","198,333"
+"HIV deaths","2021","Alabama^","01","45-54","Black/African American","Female","All transmission categories","14","16.1","86,991"
+"HIV deaths","2021","Alabama^","01","35-44","Black/African American","Female","All transmission categories","6","6.4","94,458"
+"HIV deaths","2021","Alabama^","01","25-34","Black/African American","Female","All transmission categories","5","4.8","103,190"
+"HIV deaths","2021","Alabama^","01","13-24","Black/African American","Female","All transmission categories","0","0.0","117,794"
 "HIV deaths","2017","Alaska","02","55+","Black/African American","Female","All transmission categories","0","0.0","2,016"
 "HIV deaths","2017","Alaska","02","45-54","Black/African American","Female","All transmission categories","0","0.0","1,173"
 "HIV deaths","2017","Alaska","02","35-44","Black/African American","Female","All transmission categories","0","0.0","1,423"
