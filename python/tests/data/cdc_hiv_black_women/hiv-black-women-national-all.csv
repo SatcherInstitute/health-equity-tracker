@@ -8,5 +8,5 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,hiv_diagnoses,hiv_diagnoses_per_100k,population,hiv_deaths,hiv_deaths_per_100k,hiv_prevalence,hiv_prevalence_per_100k
-"HIV diagnoses","2017","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","38,316","14.1","272,395,718","16,350","6.0","995,297","365.4"
-"HIV diagnoses","2019","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","36,528","13.2","276,063,213","16,230","5.9","1,040,522","376.9"
+"HIV diagnoses","2017","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","4,246","24.1","17,616,853","2,283","13.0","136,404","774.3"
+"HIV diagnoses","2021","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","3,544","19.5","18,216,906","2,704","14.8","142,380","781.6"

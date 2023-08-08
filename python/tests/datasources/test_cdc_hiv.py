@@ -89,8 +89,7 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'national',
                                           alls_df)
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -136,8 +135,7 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('black_women',
                                           'national',
                                           alls_df)
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
 

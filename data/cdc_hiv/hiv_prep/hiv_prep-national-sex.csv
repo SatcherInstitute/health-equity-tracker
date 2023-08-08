@@ -7,9 +7,13 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Percent,Population
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","21,065","9.3","227,010"
-"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","253,974","25.7","989,200"
-"PrEP coverage and number of persons prescribed","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","15,806","7.0","227,010"
-"PrEP coverage and number of persons prescribed","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","204,105","20.6","989,200"
-"PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","11,274","5.0","227,240"
-"PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","143,689","14.5","993,840"
+"PrEP coverage and number of persons prescribed","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","28,012","12.3","227,010"
+"PrEP coverage and number of persons prescribed","2021","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","337,625","34.1","989,200"
+"PrEP coverage and number of persons prescribed","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","23,559","10.4","227,010"
+"PrEP coverage and number of persons prescribed","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","276,883","28.0","989,200"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","21,030","9.3","227,010"
+"PrEP coverage and number of persons prescribed","2019","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","253,749","25.7","989,200"
+"PrEP coverage and number of persons prescribed","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","15,793","7.0","227,010"
+"PrEP coverage and number of persons prescribed","2018","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","204,042","20.6","989,200"
+"PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Female","All transmission categories","11,252","5.0","227,240"
+"PrEP coverage and number of persons prescribed","2017","United States","NA","Ages 13 years and older","All races/ethnicities","Male","All transmission categories","143,680","14.5","993,840"
