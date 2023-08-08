@@ -40,7 +40,7 @@ import MapBreadcrumbs from './MapBreadcrumbs'
 import { useAtomValue } from 'jotai'
 import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 import { useParamState } from '../../utils/hooks/useParamState'
-import { MULTIPLE_MAPS_MODAL_STATUS_PARAM } from '../../utils/urlutils'
+import { MULTIPLE_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -80,8 +80,8 @@ export interface MultiMapDialogProps {
 export function MultiMapDialog(props: MultiMapDialogProps) {
   const demographicType = useAtomValue(selectedDemographicTypeAtom)
 
-  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
-    /* paramKey */ MULTIPLE_MAPS_MODAL_STATUS_PARAM
+  const [multimapOpen, setMultimapOpen] = useParamState(
+    /* paramKey */ MULTIPLE_MAPS_PARAM_KEY
   )
 
   const title = `${
@@ -120,9 +120,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
   return (
     <Dialog
       className={styles.MultiMapBox}
-      open={multimapOpen}
+      open={Boolean(multimapOpen)}
       onClose={() => {
-        setMultimapOpen(false)
+        setMultimapOpen('')
       }}
       maxWidth={false}
       scroll="paper"
@@ -148,7 +148,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             >
               <Button
                 onClick={() => {
-                  setMultimapOpen(false)
+                  setMultimapOpen('')
                 }}
                 color="primary"
               >
@@ -175,7 +175,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             >
               <Button
                 onClick={() => {
-                  setMultimapOpen(false)
+                  setMultimapOpen('')
                 }}
                 color="primary"
               >

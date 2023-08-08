@@ -8,7 +8,10 @@ import {
 } from '../../utils/sharedSettingsState'
 import styles from './Sidebar.module.scss'
 import { useParamState } from '../../utils/hooks/useParamState'
-import { TOPIC_INFO_MODAL_STATUS_PARAM } from '../../utils/urlutils'
+import {
+  MODAL_PARAM_VALUE_TRUE,
+  TOPIC_INFO_PARAM_KEY,
+} from '../../utils/urlutils'
 
 export default function TopicInfoModalButton() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
@@ -25,8 +28,8 @@ export default function TopicInfoModalButton() {
     configArray.push(selectedDataTypeConfig2)
   }
 
-  const [, setTopicInfoModalIsOpen] = useParamState<boolean>(
-    /* paramKey */ TOPIC_INFO_MODAL_STATUS_PARAM
+  const [, setTopicInfoModalIsOpen] = useParamState(
+    /* paramKey */ TOPIC_INFO_PARAM_KEY
   )
 
   if (!configArray) return <></>
@@ -34,7 +37,7 @@ export default function TopicInfoModalButton() {
   return (
     <Button
       onClick={() => {
-        setTopicInfoModalIsOpen(true)
+        setTopicInfoModalIsOpen(MODAL_PARAM_VALUE_TRUE)
       }}
       className={styles.TopicInfoModalButton}
       aria-label="open the topic info modal"

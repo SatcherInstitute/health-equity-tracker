@@ -10,15 +10,16 @@ import { HashLink } from 'react-router-hash-link'
 import { DATA_TAB_LINK, METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 import sass from '../../styles/variables.module.scss'
 import { useParamState } from '../../utils/hooks/useParamState'
-import { TOPIC_INFO_MODAL_STATUS_PARAM } from '../../utils/urlutils'
+import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 import { useEffect } from 'react'
 
 export default function TopicInfoModal() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
 
-  const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
-    useParamState<boolean>(/* paramKey */ TOPIC_INFO_MODAL_STATUS_PARAM)
+  const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] = useParamState(
+    /* paramKey */ TOPIC_INFO_PARAM_KEY
+  )
 
   useEffect(() => {
     console.log({ topicInfoModalIsOpen })
@@ -38,7 +39,7 @@ export default function TopicInfoModal() {
     <Dialog
       open={Boolean(topicInfoModalIsOpen)}
       onClose={() => {
-        setTopicInfoModalIsOpen(false)
+        setTopicInfoModalIsOpen('')
       }}
       maxWidth={'lg'}
       scroll="paper"
@@ -47,7 +48,7 @@ export default function TopicInfoModal() {
         <Button
           sx={{ float: 'right' }}
           onClick={() => {
-            setTopicInfoModalIsOpen(false)
+            setTopicInfoModalIsOpen('')
           }}
           color="primary"
           aria-label="close topic info modal"
