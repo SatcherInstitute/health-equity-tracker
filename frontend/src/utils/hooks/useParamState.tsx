@@ -6,7 +6,9 @@ export function useParamState<ParamStateType>(
 ): [ParamStateType, (newValue: ParamStateType) => void] {
   const [location, setLocation] = useAtom(locationAtom)
 
-  const paramState = location.searchParams?.get(paramKey)
+  const paramState = location.searchParams?.get(paramKey) as ParamStateType
+
+  // console.log(typeof (paramState) === ParamStateType);
 
   function setParamState(newValue: ParamStateType): void {
     newValue
@@ -19,5 +21,5 @@ export function useParamState<ParamStateType>(
     }))
   }
 
-  return [paramState as ParamStateType, setParamState]
+  return [paramState, setParamState]
 }
