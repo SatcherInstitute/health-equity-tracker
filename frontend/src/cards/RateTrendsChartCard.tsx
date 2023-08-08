@@ -34,6 +34,8 @@ import {
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import styles from '../charts/trendsChart/Trends.module.scss'
+import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import Hiv2020Alert from './ui/Hiv2020Alert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -93,6 +95,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const isCawp = CAWP_DETERMINANTS.includes(metricConfigRates.metricId)
   const isCawpStateLeg = metricConfigRates.metricId === 'pct_share_of_state_leg'
+
+  const isHIV = HIV_DETERMINANTS.includes(metricConfigRates.metricId)
 
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
@@ -171,101 +175,119 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData)
 
         return (
-          <CardContent sx={{ pt: 0 }}>
-            {queryResponseRates.shouldShowMissingDataMessage([
-              metricConfigRates.metricId,
-            ]) || nestedRatesData.length === 0 ? (
-              <>
-                <MissingDataAlert
-                  dataName={`historical data for ${metricConfigRates.chartTitle}`}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                  }
-                  fips={props.fips}
-                />
-              </>
-            ) : (
-              <>
-                {/* ensure we don't render two of these in compare mode */}
-                {!props.isCompareCard && (
-                  <svg
-                    height="0"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <linearGradient id="gradient">
-                      <stop className={styles.GradientMainStop} offset="0%" />
-                      <stop className={styles.GradientAltStop} offset="20%" />
-                      <stop className={styles.GradientMainStop} offset="30%" />
-                      <stop className={styles.GradientAltStop} offset="40%" />
-                      <stop className={styles.GradientMainStop} offset="50%" />
-                      <stop className={styles.GradientAltStop} offset="60%" />
-                      <stop className={styles.GradientMainStop} offset="70%" />
-                      <stop className={styles.GradientAltStop} offset="80%" />
-                      <stop className={styles.GradientMainStop} offset="90%" />
-                      <stop className={styles.GradientAltStop} offset="100%" />
-                    </linearGradient>
-                  </svg>
-                )}
-                <TrendsChart
-                  data={nestedRatesData}
-                  chartTitle={getTitleText()}
-                  unknown={nestedUnknownPctShareData}
-                  axisConfig={{
-                    type: metricConfigRates.type,
-                    groupLabel:
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-                        props.breakdownVar
-                      ],
-                    yAxisLabel: `${metricConfigRates.shortLabel} ${
-                      props.fips.isUsa() ? '' : 'from'
-                    } ${
-                      props.fips.isUsa()
-                        ? ''
-                        : props.fips.getSentenceDisplayName()
-                    }`,
-                    xAxisIsMonthly: metricConfigRates.isMonthly,
-                  }}
-                  breakdownVar={props.breakdownVar}
-                  setSelectedTableGroups={setSelectedTableGroups}
-                  isCompareCard={props.isCompareCard ?? false}
-                  expanded={unknownsExpanded}
-                  setExpanded={setUnknownsExpanded}
-                  hasUnknowns={hasUnknowns}
-                />
-                {hasUnknowns && (
-                  <CardContent>
-                    <UnknownBubblesAlert
-                      breakdownVar={props.breakdownVar}
-                      fullDisplayName={
-                        props.dataTypeConfig.fullDisplayNameInline ??
-                        props.dataTypeConfig.fullDisplayName
-                      }
-                      expanded={unknownsExpanded}
-                      setExpanded={setUnknownsExpanded}
-                    />
-                  </CardContent>
-                )}
+          <>
+            <CardContent sx={{ pt: 0 }}>
+              {queryResponseRates.shouldShowMissingDataMessage([
+                metricConfigRates.metricId,
+              ]) || nestedRatesData.length === 0 ? (
+                <>
+                  <MissingDataAlert
+                    dataName={`historical data for ${metricConfigRates.chartTitle}`}
+                    breakdownString={
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }
+                    fips={props.fips}
+                  />
+                </>
+              ) : (
+                <>
+                  {/* ensure we don't render two of these in compare mode */}
+                  {!props.isCompareCard && (
+                    <svg
+                      height="0"
+                      version="1.1"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <linearGradient id="gradient">
+                        <stop className={styles.GradientMainStop} offset="0%" />
+                        <stop className={styles.GradientAltStop} offset="20%" />
+                        <stop
+                          className={styles.GradientMainStop}
+                          offset="30%"
+                        />
+                        <stop className={styles.GradientAltStop} offset="40%" />
+                        <stop
+                          className={styles.GradientMainStop}
+                          offset="50%"
+                        />
+                        <stop className={styles.GradientAltStop} offset="60%" />
+                        <stop
+                          className={styles.GradientMainStop}
+                          offset="70%"
+                        />
+                        <stop className={styles.GradientAltStop} offset="80%" />
+                        <stop
+                          className={styles.GradientMainStop}
+                          offset="90%"
+                        />
+                        <stop
+                          className={styles.GradientAltStop}
+                          offset="100%"
+                        />
+                      </linearGradient>
+                    </svg>
+                  )}
+                  <TrendsChart
+                    data={nestedRatesData}
+                    chartTitle={getTitleText()}
+                    unknown={nestedUnknownPctShareData}
+                    axisConfig={{
+                      type: metricConfigRates.type,
+                      groupLabel:
+                        BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+                          props.breakdownVar
+                        ],
+                      yAxisLabel: `${metricConfigRates.shortLabel} ${
+                        props.fips.isUsa() ? '' : 'from'
+                      } ${
+                        props.fips.isUsa()
+                          ? ''
+                          : props.fips.getSentenceDisplayName()
+                      }`,
+                      xAxisIsMonthly: metricConfigRates.isMonthly,
+                    }}
+                    breakdownVar={props.breakdownVar}
+                    setSelectedTableGroups={setSelectedTableGroups}
+                    isCompareCard={props.isCompareCard ?? false}
+                    expanded={unknownsExpanded}
+                    setExpanded={setUnknownsExpanded}
+                    hasUnknowns={hasUnknowns}
+                  />
+                  {hasUnknowns && (
+                    <CardContent>
+                      <UnknownBubblesAlert
+                        breakdownVar={props.breakdownVar}
+                        fullDisplayName={
+                          props.dataTypeConfig.fullDisplayNameInline ??
+                          props.dataTypeConfig.fullDisplayName
+                        }
+                        expanded={unknownsExpanded}
+                        setExpanded={setUnknownsExpanded}
+                      />
+                    </CardContent>
+                  )}
 
-                <AltTableView
-                  expanded={a11yTableExpanded}
-                  setExpanded={setA11yTableExpanded}
-                  expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                  tableCaption={`${getTitleText()} by ${
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
-                  }`}
-                  knownsData={knownRatesData}
-                  unknownsData={unknownPctShareData}
-                  breakdownVar={props.breakdownVar}
-                  knownMetricConfig={metricConfigRates}
-                  unknownMetricConfig={metricConfigPctShares}
-                  selectedGroups={selectedTableGroups}
-                  hasUnknowns={isCawp ? false : hasUnknowns}
-                  isCompareCard={props.isCompareCard}
-                />
-              </>
-            )}
-          </CardContent>
+                  <AltTableView
+                    expanded={a11yTableExpanded}
+                    setExpanded={setA11yTableExpanded}
+                    expandBoxLabel={cardHeaderTitle.toLowerCase()}
+                    tableCaption={`${getTitleText()} by ${
+                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    }`}
+                    knownsData={knownRatesData}
+                    unknownsData={unknownPctShareData}
+                    breakdownVar={props.breakdownVar}
+                    knownMetricConfig={metricConfigRates}
+                    unknownMetricConfig={metricConfigPctShares}
+                    selectedGroups={selectedTableGroups}
+                    hasUnknowns={isCawp ? false : hasUnknowns}
+                    isCompareCard={props.isCompareCard}
+                  />
+                </>
+              )}
+            </CardContent>
+            {isHIV && <Hiv2020Alert />}
+          </>
         )
       }}
     </CardWrapper>
