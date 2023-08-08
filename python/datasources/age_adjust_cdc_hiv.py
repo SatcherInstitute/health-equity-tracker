@@ -19,7 +19,7 @@ from ingestion.constants import (
     STATE_LEVEL
 )
 
-SINGLE_YEAR = '2019'
+SINGLE_YEAR = '2021'
 REFERENCE_POPULATION = Race.ALL.value
 BASE_POPULATION = Race.WHITE_NH.value
 
