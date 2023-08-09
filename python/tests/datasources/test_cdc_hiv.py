@@ -136,6 +136,10 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
                                           'national',
                                           alls_df)
     expected_df = pd.read_csv(GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
+
+    print("^^^^^^")
+    print(df)
+    print(expected_df)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
