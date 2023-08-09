@@ -3,11 +3,11 @@ import { useAtom } from 'jotai'
 
 export function useParamState<ParamStateType>(
   paramKey: string,
-  paramDefaultValue: ParamStateType
+  paramDefaultValue?: ParamStateType
 ): [ParamStateType, (newValue: ParamStateType) => void] {
   const [location, setLocation] = useAtom(locationAtom)
 
-  const paramState = location.searchParams?.get(paramKey) ?? paramDefaultValue
+  const paramState = location.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
 
   function setParamState(newValue: ParamStateType): void {
     newValue

@@ -38,11 +38,6 @@ import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
-import { useAtom } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../utils/sharedSettingsState'
 import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
@@ -77,14 +72,12 @@ function CompareReport(props: {
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ defaultDemo
   )
-  const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
-    selectedDataTypeConfig1Atom
+  const [dataTypeId1, setDataTypeId1] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_1_PARAM,
   )
-
-  const [dataTypeConfig2, setDataTypeConfig2] = useAtom(
-    selectedDataTypeConfig2Atom
+  const [dataTypeId2, setDataTypeId2] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_2_PARAM,
   )
-
   const demographicOptionsMap = getDemographicOptionsMap(
     dataTypeConfig1,
     dataTypeConfig2

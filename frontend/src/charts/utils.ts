@@ -100,11 +100,10 @@ export function generateChartTitle(
   fips: Fips,
   currentDemographicType?: DemographicType
 ): string {
-  return `${chartTitle}${
-    currentDemographicType
-      ? ` with unknown ${DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[currentDemographicType]}`
-      : ''
-  } in ${fips.getSentenceDisplayName()}`
+  return `${chartTitle}${currentDemographicType
+    ? ` with unknown ${DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[currentDemographicType]}`
+    : ''
+    } in ${fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(

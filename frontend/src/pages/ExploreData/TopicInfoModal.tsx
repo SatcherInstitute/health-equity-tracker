@@ -1,21 +1,20 @@
 import { Button, Dialog, DialogContent } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
-import { useAtomValue } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDataTypeConfig2Atom,
-} from '../../utils/sharedSettingsState'
+import { type DataTypeId, type DataTypeConfig } from '../../data/config/MetricConfig'
 import { HashLink } from 'react-router-hash-link'
 import { DATA_TAB_LINK, METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 import sass from '../../styles/variables.module.scss'
 import { useParamState } from '../../utils/hooks/useParamState'
-import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
+import { DATA_TYPE_1_PARAM, DATA_TYPE_2_PARAM, TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
+import { getConfigFromDataTypeId } from './MadLibUI'
 
 export default function TopicInfoModal() {
-  const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
-  const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
-
+  const [dataTypeId1,] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_1_PARAM,
+  )
+  const [dataTypeId2,] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_2_PARAM,
+  )
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
     useParamState<boolean>(
       /* paramKey */ TOPIC_INFO_PARAM_KEY,
@@ -23,14 +22,11 @@ export default function TopicInfoModal() {
     )
 
   const configArray: DataTypeConfig[] = []
-  if (selectedDataTypeConfig1) {
-    configArray.push(selectedDataTypeConfig1)
+  if (dataTypeId1) {
+    configArray.push(getConfigFromDataTypeId(dataTypeId1))
   }
-  if (
-    selectedDataTypeConfig2 &&
-    selectedDataTypeConfig2 !== selectedDataTypeConfig1
-  ) {
-    configArray.push(selectedDataTypeConfig2)
+  if (dataTypeId2) {
+    configArray.push(getConfigFromDataTypeId(dataTypeId2))
   }
 
   return (

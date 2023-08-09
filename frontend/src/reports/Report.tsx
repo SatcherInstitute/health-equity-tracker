@@ -9,19 +9,14 @@ import { UnknownsMapCard } from '../cards/UnknownsMapCard'
 import { TableCard } from '../cards/TableCard'
 import {
   type DropdownVarId,
-  METRIC_CONFIG,
   type DataTypeConfig,
+  type DataTypeId,
 } from '../data/config/MetricConfig'
 import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
-  getParameter,
-  psSubscribe,
-  setParameters,
-  swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
@@ -41,13 +36,12 @@ import Sidebar from '../pages/ui/Sidebar'
 import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
-import { useAtom } from 'jotai'
-import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
 } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+import { getConfigFromDataTypeId } from '../pages/ExploreData/MadLibUI'
 
 export interface ReportProps {
   key: string
@@ -74,17 +68,12 @@ export function Report(props: ReportProps) {
     /* paramDefaultValue */ defaultDemo
   )
 
-  const [dataTypeConfig, setDataTypeConfig] = useAtom(
-    selectedDataTypeConfig1Atom
+  const [dataTypeId] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_1_PARAM,
   )
 
-  function setDataTypeConfigWithParam(v: DataTypeConfig) {
-    setParameters([
-      { name: DATA_TYPE_1_PARAM, value: v.dataTypeId },
-      { name: DATA_TYPE_2_PARAM, value: null },
-    ])
-    setDataTypeConfig(v)
-  }
+  const dataTypeConfig = getConfigFromDataTypeId(dataTypeId)
+
 
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
@@ -101,31 +90,6 @@ export function Report(props: ReportProps) {
   const disabledDemographicOptions =
     getDisabledDemographicOptions(dataTypeConfig)
 
-  useEffect(() => {
-    const readParams = () => {
-      const dataTypeParam1 = getParameter(
-        DATA_TYPE_1_PARAM,
-        undefined,
-        (val: string) => {
-          val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId]?.find(
-            (cfg) => cfg.dataTypeId === val
-          )
-        }
-      )
-      setDataTypeConfig(
-        dataTypeParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0]
-      )
-    }
-    const psHandler = psSubscribe(readParams, 'vardisp')
-    readParams()
-
-    return () => {
-      if (psHandler) {
-        psHandler.unsubscribe()
-      }
-    }
-  }, [props.dropdownVarId])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
@@ -136,11 +100,9 @@ export function Report(props: ReportProps) {
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
   }, [dataTypeConfig])
 
-  const browserTitle = `${
-    (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
-  } by ${
-    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
-  } in ${props.fips.getFullDisplayName()}`
+  const browserTitle = `${(dataTypeConfig?.fullDisplayName) ?? 'Data'
+    } by ${DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
+    } in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
     'covid_deaths',
@@ -261,7 +223,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {dataTypeConfig.metrics.pct_share && (
+                    {dataTypeConfig?.metrics?.pct_share && (
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
                         dataTypeConfig={dataTypeConfig}
@@ -315,7 +277,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {dataTypeConfig.metrics.pct_share && (
+                    {dataTypeConfig?.metrics?.pct_share && (
                       <DisparityBarChartCard
                         dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}
@@ -346,7 +308,7 @@ export function Report(props: ReportProps) {
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}
-                {dataTypeConfig.metrics.age_adjusted_ratio?.ageAdjusted && (
+                {dataTypeConfig?.metrics?.age_adjusted_ratio?.ageAdjusted && (
                   <Grid
                     item
                     xs={12}
@@ -363,7 +325,6 @@ export function Report(props: ReportProps) {
                         dataTypeConfig={dataTypeConfig}
                         dropdownVarId={props.dropdownVarId}
                         demographicType={demographicType}
-                        setDataTypeConfigWithParam={setDataTypeConfigWithParam}
                         reportTitle={props.reportTitle}
                       />
                     </LazyLoad>

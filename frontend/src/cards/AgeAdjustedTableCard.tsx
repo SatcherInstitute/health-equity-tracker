@@ -65,7 +65,6 @@ export interface AgeAdjustedTableCardProps {
   dataTypeConfig: DataTypeConfig
   demographicType: DemographicType
   dropdownVarId?: DropdownVarId
-  setDataTypeConfigWithParam?: (v: DataTypeConfig) => void
   reportTitle: string
 }
 
@@ -114,9 +113,9 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
   const ageAdjustedDataTypes: DataTypeConfig[] = dropdownId
     ? METRIC_CONFIG[dropdownId].filter((dataType) => {
-        // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
-        return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
-      })
+      // TODO: once every data type has a unique dataTypeId across all topics, we can simply check if that id is in the dataTypeLinkMap
+      return dataType?.metrics.age_adjusted_ratio?.ageAdjusted
+    })
     : []
 
   const HASH_ID: ScrollableHashId = 'age-adjusted-ratios'
@@ -160,18 +159,18 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               hideAgeAdjustCard ||
               raceQueryResponse.dataIsMissing() ||
               raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={chartTitle}
-                  demographicTypeString={
-                    DEMOGRAPHIC_TYPE_DISPLAY_NAMES[props.demographicType]
-                  }
-                  dropdownVarId={props.dropdownVarId}
-                  ageAdjustedDataTypes={ageAdjustedDataTypes}
-                  fips={props.fips}
-                />
-              </CardContent>
-            )}
+                <CardContent>
+                  <MissingDataAlert
+                    dataName={chartTitle}
+                    demographicTypeString={
+                      DEMOGRAPHIC_TYPE_DISPLAY_NAMES[props.demographicType]
+                    }
+                    dropdownVarId={props.dropdownVarId}
+                    ageAdjustedDataTypes={ageAdjustedDataTypes}
+                    fips={props.fips}
+                  />
+                </CardContent>
+              )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
             {!raceQueryResponse.dataIsMissing() &&
