@@ -108,37 +108,6 @@ cdc_hiv_bq_payload_age_county = util.generate_bq_payload(
 cdc_hiv_bq_operator_age_county = util.create_bq_ingest_operator(
     'cdc_hiv_to_bq_age_county', cdc_hiv_bq_payload_age_county, data_ingestion_dag)
 
-# AGE NATIONAL
-cdc_hiv_bq_payload_age_national = util.generate_bq_payload(
-    _CDC_HIV_WORKFLOW_ID,
-    _CDC_HIV_DATASET_NAME,
-    demographic='age',
-    geographic='national'
-)
-cdc_hiv_bq_operator_age_national = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_age_national', cdc_hiv_bq_payload_age_national, data_ingestion_dag)
-
-# AGE STATE
-cdc_hiv_bq_payload_age_state = util.generate_bq_payload(
-    _CDC_HIV_WORKFLOW_ID,
-    _CDC_HIV_DATASET_NAME,
-    demographic='age',
-    geographic='state'
-)
-cdc_hiv_bq_operator_age_state = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_age_state', cdc_hiv_bq_payload_age_state, data_ingestion_dag)
-
-# AGE COUNTY
-cdc_hiv_bq_payload_age_county = util.generate_bq_payload(
-    _CDC_HIV_WORKFLOW_ID,
-    _CDC_HIV_DATASET_NAME,
-    demographic='age',
-    geographic='county'
-)
-cdc_hiv_bq_operator_age_county = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_age_county', cdc_hiv_bq_payload_age_county, data_ingestion_dag)
-
-
 # BLACK WOMEN NATIONAL
 cdc_hiv_bq_payload_black_women_national = util.generate_bq_payload(
     _CDC_HIV_WORKFLOW_ID,
@@ -158,16 +127,6 @@ cdc_hiv_bq_payload_black_women_state = util.generate_bq_payload(
 )
 cdc_hiv_bq_operator_black_women_state = util.create_bq_ingest_operator(
     'cdc_hiv_to_bq_black_women_state', cdc_hiv_bq_payload_black_women_state, data_ingestion_dag)
-
-# BLACK WOMEN COUNTY
-cdc_hiv_bq_payload_black_women_county = util.generate_bq_payload(
-    _CDC_HIV_WORKFLOW_ID,
-    _CDC_HIV_DATASET_NAME,
-    demographic='black_women',
-    geographic='county'
-)
-cdc_hiv_bq_operator_black_women_county = util.create_bq_ingest_operator(
-    'cdc_hiv_to_bq_black_women_county', cdc_hiv_bq_payload_black_women_county, data_ingestion_dag)
 
 
 # AGE ADJUST
@@ -221,7 +180,6 @@ cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
 (
     cdc_hiv_bq_operator_black_women_national >>
     cdc_hiv_bq_operator_black_women_state >>
-    cdc_hiv_bq_operator_black_women_county >>
     [
         cdc_hiv_bq_operator_sex_national,
         cdc_hiv_bq_operator_sex_state
