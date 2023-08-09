@@ -10,7 +10,6 @@ import { TableCard } from '../cards/TableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
 import {
   type DropdownVarId,
-  METRIC_CONFIG,
   type DataTypeConfig,
   type DataTypeId,
 } from '../data/config/MetricConfig'
@@ -24,9 +23,6 @@ import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
-  getParameter,
-  psSubscribe,
-  swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
 import NoDataAlert from './ui/NoDataAlert'
@@ -43,6 +39,7 @@ import {
   getDisabledDemographicOptions,
 } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+import { getConfigFromDataTypeId } from '../pages/ExploreData/MadLibUI'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -72,12 +69,16 @@ function CompareReport(props: {
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ defaultDemo
   )
-  const [dataTypeId1, setDataTypeId1] = useParamState<DataTypeId>(
-    /* paramKey */ DATA_TYPE_1_PARAM,
+  const [dataTypeId1] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_1_PARAM
   )
-  const [dataTypeId2, setDataTypeId2] = useParamState<DataTypeId>(
-    /* paramKey */ DATA_TYPE_2_PARAM,
+  const [dataTypeId2] = useParamState<DataTypeId>(
+    /* paramKey */ DATA_TYPE_2_PARAM
   )
+
+  const dataTypeConfig1 = getConfigFromDataTypeId(dataTypeId1)
+  const dataTypeConfig2 = getConfigFromDataTypeId(dataTypeId2)
+
   const demographicOptionsMap = getDemographicOptionsMap(
     dataTypeConfig1,
     dataTypeConfig2
@@ -94,50 +95,6 @@ function CompareReport(props: {
     dataTypeConfig1,
     dataTypeConfig2
   )
-
-  useEffect(() => {
-    const readParams = () => {
-      const dtParam1 = getParameter(
-        DATA_TYPE_1_PARAM,
-        undefined,
-        (val: DataTypeId) => {
-          val = swapOldDatatypeParams(val)
-          return METRIC_CONFIG[props.dropdownVarId1].find(
-            (cfg) => cfg.dataTypeId === val
-          )
-        }
-      )
-      const dtParam2 = getParameter(
-        DATA_TYPE_2_PARAM,
-        undefined,
-        (val: DataTypeId) => {
-          val = swapOldDatatypeParams(val)
-          return (
-            METRIC_CONFIG[props.dropdownVarId2]?.find(
-              (cfg) => cfg.dataTypeId === val
-            ) ?? METRIC_CONFIG[props.dropdownVarId2][0]
-          )
-        }
-      )
-
-      const newDataTypeParam1 =
-        dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      setDataTypeConfig1(newDataTypeParam1)
-
-      const newDataTypeParam2 =
-        props.trackerMode === 'comparegeos'
-          ? newDataTypeParam1
-          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
-      setDataTypeConfig2(newDataTypeParam2)
-    }
-    const psSub = psSubscribe(readParams, 'twovar')
-    readParams()
-    return () => {
-      if (psSub) {
-        psSub.unsubscribe()
-      }
-    }
-  }, [props.dropdownVarId1, props.dropdownVarId2])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {
