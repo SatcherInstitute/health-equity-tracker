@@ -2,14 +2,17 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import { CardContent, Alert } from '@mui/material'
-import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
+import {
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+} from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import { type VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
-import { AGE } from '../../data/utils/Constants'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { AGE, RACE } from '../../data/utils/Constants'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
 
@@ -28,8 +31,10 @@ interface UnknownsAlertProps {
 }
 
 export default function UnknownsAlert(props: UnknownsAlertProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
   const validData = props.queryResponse.getValidRowsForField(
     props.metricConfig.metricId
   )

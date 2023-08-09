@@ -10,19 +10,22 @@ import {
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
+  RACE,
+  AGE,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { DATA_TAB_LINK } from '../../utils/internalRoutes'
 import styles from './AltTableView.module.scss'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -39,12 +42,15 @@ interface AltTableViewProps {
 }
 
 export default function AltTableView(props: AltTableViewProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
 
   const tableRef = useRef(null)
   const linkRef = useRef(null)
 
-  const optionalAgesPrefix = demographicType === 'age' ? 'Ages ' : ''
+  const optionalAgesPrefix = demographicType === AGE ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(
     props.knownsData,

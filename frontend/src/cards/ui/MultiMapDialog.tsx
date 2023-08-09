@@ -26,8 +26,11 @@ import {
   type MetricQuery,
   type MetricQueryResponse,
 } from '../../data/query/MetricQuery'
-import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import {
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+} from '../../data/query/Breakdowns'
+import { RACE, type DemographicGroup } from '../../data/utils/Constants'
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -37,10 +40,11 @@ import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
 import { useParamState } from '../../utils/hooks/useParamState'
-import { MULTIPLE_MAPS_PARAM_KEY } from '../../utils/urlutils'
+import {
+  DEMOGRAPHIC_PARAM,
+  MULTIPLE_MAPS_PARAM_KEY,
+} from '../../utils/urlutils'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -78,10 +82,13 @@ export interface MultiMapDialogProps {
     value in a given demographicType for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
-  const [multimapOpen, setMultimapOpen] = useParamState(
-    /* paramKey */ MULTIPLE_MAPS_PARAM_KEY
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
+  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
+    /* paramKey */ MULTIPLE_MAPS_PARAM_KEY,
+    /* paramDefaultValue */ false
   )
 
   const title = `${
@@ -122,7 +129,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       className={styles.MultiMapBox}
       open={Boolean(multimapOpen)}
       onClose={() => {
-        setMultimapOpen('')
+        setMultimapOpen(false)
       }}
       maxWidth={false}
       scroll="paper"
@@ -148,7 +155,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             >
               <Button
                 onClick={() => {
-                  setMultimapOpen('')
+                  setMultimapOpen(false)
                 }}
                 color="primary"
               >
@@ -175,7 +182,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             >
               <Button
                 onClick={() => {
-                  setMultimapOpen('')
+                  setMultimapOpen(false)
                 }}
                 color="primary"
               >

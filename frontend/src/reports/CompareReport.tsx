@@ -26,7 +26,6 @@ import {
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  setParameter,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -43,12 +42,12 @@ import { useAtom } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
-  selectedDemographicTypeAtom,
 } from '../utils/sharedSettingsState'
 import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
 } from './reportUtils'
+import { useParamState } from '../utils/hooks/useParamState'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -74,10 +73,10 @@ function CompareReport(props: {
     props.dropdownVarId2 === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useAtom(
-    selectedDemographicTypeAtom
+  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ defaultDemo
   )
-
   const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
     selectedDataTypeConfig1Atom
   )
@@ -86,18 +85,16 @@ function CompareReport(props: {
     selectedDataTypeConfig2Atom
   )
 
-  function setDemoWithParam(demographic: DemographicType) {
-    setParameter(DEMOGRAPHIC_PARAM, demographic)
-    setDemographicType(demographic)
-  }
-
   const demographicOptionsMap = getDemographicOptionsMap(
     dataTypeConfig1,
     dataTypeConfig2
   )
 
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as DemographicType)
+    const newDemographicType = Object.values(
+      demographicOptionsMap
+    )[0] as DemographicType
+    setDemographicType(newDemographicType)
   }
 
   const disabledDemographicOptions = getDisabledDemographicOptions(
@@ -107,7 +104,7 @@ function CompareReport(props: {
 
   useEffect(() => {
     const readParams = () => {
-      const demoParam1 = getParameter(
+      const dtParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
         (val: DataTypeId) => {
@@ -117,7 +114,7 @@ function CompareReport(props: {
           )
         }
       )
-      const demoParam2 = getParameter(
+      const dtParam2 = getParameter(
         DATA_TYPE_2_PARAM,
         undefined,
         (val: DataTypeId) => {
@@ -130,19 +127,15 @@ function CompareReport(props: {
         }
       )
 
-      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+      const newDataTypeParam1 =
+        dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
+      setDataTypeConfig1(newDataTypeParam1)
 
-      const newDemoParam1 =
-        demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      setDataTypeConfig1(newDemoParam1)
-
-      const newDemoParam2 =
+      const newDataTypeParam2 =
         props.trackerMode === 'comparegeos'
-          ? newDemoParam1
-          : demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
-      setDataTypeConfig2(newDemoParam2)
-
-      setDemographicType(demo)
+          ? newDataTypeParam1
+          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
+      setDataTypeConfig2(newDataTypeParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')
     readParams()

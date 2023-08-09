@@ -1,9 +1,15 @@
 import { useMemo } from 'react'
-import { AGE, ALL, type DemographicGroup } from '../../data/utils/Constants'
+import {
+  AGE,
+  ALL,
+  RACE,
+  type DemographicGroup,
+} from '../../data/utils/Constants'
 import { type DataTypeId } from '../../data/config/MetricConfig'
 import { DATATYPES_NEEDING_13PLUS } from '../../data/providers/HivProvider'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../sharedSettingsState'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_PARAM } from '../urlutils'
+import { useParamState } from './useParamState'
 
 const prepSuffix = ' (16+)'
 const hivSuffix = ' (13+)'
@@ -13,8 +19,10 @@ export function useHIVLabelSuffix(
   value: DemographicGroup,
   dataTypeId: DataTypeId
 ): string {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
   const suffix = useMemo(() => {
     if (demographicType === AGE && value === ALL) {
       if (dataTypeId === 'hiv_prep') {

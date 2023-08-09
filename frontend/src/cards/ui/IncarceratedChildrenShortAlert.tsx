@@ -2,11 +2,12 @@ import { type Fips } from '../../data/utils/Fips'
 import { urlMap } from '../../utils/externalUrls'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { ALL } from '../../data/utils/Constants'
+import { ALL, RACE } from '../../data/utils/Constants'
 import FlagIcon from '@mui/icons-material/Flag'
 import { CardContent, Alert } from '@mui/material'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
+import { type DemographicType } from '../../data/query/Breakdowns'
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -16,8 +17,10 @@ interface IncarceratedChildrenShortAlertProps {
 function IncarceratedChildrenShortAlert(
   props: IncarceratedChildrenShortAlertProps
 ) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
   let count = props.queryResponse.data.find(
     (row: Row) => row[demographicType] === ALL
   )?.total_confined_children

@@ -10,10 +10,11 @@ import {
   getHighestLowestGroupsByFips,
   getMapScheme,
 } from '../../charts/mapHelpers'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import { RACE, type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -32,8 +33,10 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
   const [mapScheme, mapMin] = getMapScheme({
     metricId: props.metricConfig.metricId,
     isUnknownsMap: props.isUnknownsMap,

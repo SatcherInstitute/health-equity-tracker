@@ -20,7 +20,6 @@ import {
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  setParameter,
   setParameters,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
@@ -43,14 +42,12 @@ import { type MadLibId } from '../utils/MadLibs'
 import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { useAtom } from 'jotai'
-import {
-  selectedDataTypeConfig1Atom,
-  selectedDemographicTypeAtom,
-} from '../utils/sharedSettingsState'
+import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
 } from './reportUtils'
+import { useParamState } from '../utils/hooks/useParamState'
 
 export interface ReportProps {
   key: string
@@ -72,8 +69,9 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useAtom(
-    selectedDemographicTypeAtom
+  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ defaultDemo
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
@@ -98,7 +96,6 @@ export function Report(props: ReportProps) {
       demographicOptionsMap
     )[0] as DemographicType
     setDemographicType(newDemographicType)
-    setParameter(DEMOGRAPHIC_PARAM, newDemographicType)
   }
 
   const disabledDemographicOptions =
@@ -106,7 +103,7 @@ export function Report(props: ReportProps) {
 
   useEffect(() => {
     const readParams = () => {
-      const demoParam1 = getParameter(
+      const dataTypeParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
         (val: string) => {
@@ -116,10 +113,9 @@ export function Report(props: ReportProps) {
           )
         }
       )
-      setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
-
-      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
-      setDemographicType(demo)
+      setDataTypeConfig(
+        dataTypeParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0]
+      )
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
@@ -129,7 +125,7 @@ export function Report(props: ReportProps) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId, demographicType])
+  }, [props.dropdownVarId])
 
   // when variable config changes (new data type), re-calc available card steps in TableOfContents
   useEffect(() => {

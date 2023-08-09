@@ -12,9 +12,10 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Fips } from '../../data/utils/Fips'
-import { type DemographicGroup } from '../../data/utils/Constants'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { RACE, type DemographicGroup } from '../../data/utils/Constants'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 export interface HighestLowestListProps {
   // MetricConfig for data
@@ -42,8 +43,10 @@ export interface HighestLowestListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
   const placesType = props.fips.getPluralChildFipsTypeDisplayName()
   const { type: metricType } = props.metricConfig
 

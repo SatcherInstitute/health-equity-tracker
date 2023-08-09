@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import { usePopover, type PopoverElements } from '../../utils/hooks/usePopover'

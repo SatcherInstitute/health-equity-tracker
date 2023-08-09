@@ -1,8 +1,12 @@
 import styles from './UnknownBubblesAlert.module.scss'
-import { DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
+import {
+  DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+} from '../../data/query/Breakdowns'
 import { Alert } from '@mui/material'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { RACE } from '../../data/utils/Constants'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface UnknownBubblesAlertProps {
   fullDisplayName: string
@@ -11,7 +15,10 @@ interface UnknownBubblesAlertProps {
 }
 
 export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
 
   const changeUnknownState = (event: any) => {
     event.preventDefault()

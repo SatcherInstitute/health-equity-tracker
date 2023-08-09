@@ -4,10 +4,11 @@ import { urlMap } from '../../utils/externalUrls'
 import { type MetricId, type DataTypeId } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { ALL } from '../../data/utils/Constants'
+import { ALL, RACE } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -16,7 +17,10 @@ interface GenderDataShortAlertProps {
 }
 
 function GenderDataShortAlert(props: GenderDataShortAlertProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
 
   const hivPhraseMap: Partial<Record<DataTypeId, string>> = {
     hiv_deaths: 'who died from HIV or AIDS',

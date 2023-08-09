@@ -1,8 +1,8 @@
-import { useAtom } from 'jotai'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
-import { DEMOGRAPHIC_PARAM, setParameter } from '../../utils/urlutils'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
+import { RACE } from '../../data/utils/Constants'
+import { useParamState } from '../../utils/hooks/useParamState'
 
 interface DemographicTypeSelectProps {
   demographicOptionsMap: any
@@ -12,22 +12,18 @@ interface DemographicTypeSelectProps {
 export default function DemographicTypeSelect(
   props: DemographicTypeSelectProps
 ) {
-  const [trackerDemographic, setTrackerDemographic] = useAtom(
-    selectedDemographicTypeAtom
+  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
   )
-
-  function setDemoWithParam(newDemographicType: DemographicType) {
-    setTrackerDemographic(newDemographicType)
-    setParameter(DEMOGRAPHIC_PARAM, newDemographicType)
-  }
 
   return (
     <SimpleSelect<DemographicType>
       label="Demographic"
       optionsMap={props.demographicOptionsMap}
       disabledOptions={props.disabledDemographicOptions}
-      selected={trackerDemographic}
-      setSelected={setDemoWithParam}
+      selected={demographicType}
+      setSelected={setDemographicType}
     />
   )
 }

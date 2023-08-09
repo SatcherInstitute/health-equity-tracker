@@ -3,6 +3,7 @@ import React from 'react'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_SOURCE_PRE_FILTERS,
+  DEMOGRAPHIC_PARAM,
   LinkWithStickyParams,
 } from '../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
@@ -12,8 +13,9 @@ import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
 import { type MetricId } from '../../data/config/MetricConfig'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { RACE } from '../../data/utils/Constants'
+import { useParamState } from '../../utils/hooks/useParamState'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -95,7 +97,10 @@ export function Sources(props: SourcesProps) {
     return <></>
   }
 
-  const selectedDemographicType = useAtomValue(selectedDemographicTypeAtom)
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
 
   const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses)
   let datasetIds = stripCountyFips(unstrippedDatasetIds)
@@ -115,8 +120,7 @@ export function Sources(props: SourcesProps) {
     !props.hideNH &&
     datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
 
-  const showRaceRenameFootnote =
-    selectedDemographicType === 'race_and_ethnicity'
+  const showRaceRenameFootnote = demographicType === RACE
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (

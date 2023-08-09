@@ -5,14 +5,14 @@ import {
 } from '../../data/query/Breakdowns'
 import { type Fips, USA_DISPLAY_NAME } from '../../data/utils/Fips'
 import { type DataTypeId } from '../../data/config/MetricConfig'
-import { AGE } from '../../data/utils/Constants'
+import { AGE, RACE } from '../../data/utils/Constants'
 import {
   COMBINED_INCARCERATION_STATES_LIST,
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from '../../data/providers/IncarcerationProvider'
-import { useAtomValue } from 'jotai'
-import { selectedDemographicTypeAtom } from '../../utils/sharedSettingsState'
+import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
+import { useParamState } from '../../utils/hooks/useParamState'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -25,8 +25,10 @@ interface IncarcerationAlertProps {
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
-  const demographicType = useAtomValue(selectedDemographicTypeAtom)
-
+  const [demographicType] = useParamState<DemographicType>(
+    /* paramKey */ DEMOGRAPHIC_PARAM,
+    /* paramDefaultValue */ RACE
+  )
   const showAlaskaJailCaveat = [USA_DISPLAY_NAME, 'Alaska'].includes(
     props.fips.getDisplayName()
   )
