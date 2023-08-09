@@ -681,17 +681,17 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
       fullDisplayNameInline: 'new HIV diagnoses',
       dataTypeDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year (single-year charts use data from 2021).`,
       timeSeriesData: true,
-      dataTableTitle: 'Breakdown summary for HIV prevalence',
+      dataTableTitle: 'Breakdown summary for HIV diagnoses',
       metrics: {
         pct_share: {
-          chartTitle: 'Share of total HIV prevalence',
+          chartTitle: 'Share of total HIV diagnoses',
           metricId: 'hiv_prevalence_pct_share',
-          columnTitleHeader: 'Share of total HIV prevalence',
-          trendsCardTitleName: 'Inequitable share of HIV prevalence over time',
-          shortLabel: '% of HIV prevalence',
+          columnTitleHeader: 'Share of total HIV diagnoses',
+          trendsCardTitleName: 'Inequitable share of HIV diagnoses over time',
+          shortLabel: '% of HIV diagnoses',
           type: 'pct_share',
           populationComparisonMetric: {
-            chartTitle: 'Population vs. distribution of total HIV prevalence',
+            chartTitle: 'Population vs. distribution of total HIV diagnoses',
             metricId: 'hiv_population_pct',
             columnTitleHeader: 'Population share (ages 13+)', // populationPctTitle,
             shortLabel: populationPctShortLabel,
@@ -700,10 +700,10 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
         },
         per100k: {
           metricId: 'hiv_prevalence_per_100k',
-          chartTitle: 'HIV prevalence',
-          trendsCardTitleName: 'HIV prevalence over time',
-          columnTitleHeader: 'HIV prevalence per 100k people',
-          shortLabel: 'HIV prevalence per 100k',
+          chartTitle: 'HIV diagnoses',
+          trendsCardTitleName: 'HIV diagnoses over time',
+          columnTitleHeader: 'HIV diagnoses per 100k people',
+          shortLabel: 'HIV diagnoses per 100k',
           type: 'per100k',
         },
         pct_relative_inequity: {
