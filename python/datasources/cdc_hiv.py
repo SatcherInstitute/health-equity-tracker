@@ -184,9 +184,6 @@ class CDCHIVData(DataSource):
                 if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
                     float_cols += GENDER_COLS
 
-            print(demographic)
-            print(df)
-
             col_types = gcs_to_bq_util.get_bq_column_types(
                 df, float_cols)
 
