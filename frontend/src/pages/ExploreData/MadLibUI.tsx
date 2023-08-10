@@ -59,8 +59,6 @@ export default function MadLibUI(props: {
       setDataTypeId2(METRIC_CONFIG[newValue as DropdownVarId][0].dataTypeId)
     }
 
-    console.log({ index })
-
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
       setDataTypeId1(null)
@@ -87,21 +85,6 @@ export default function MadLibUI(props: {
       top: 0,
       behavior: 'smooth',
     })
-  }
-
-  function handleDataTypeIdUpdate(
-    newDataTypeId: DataTypeId,
-    index: number,
-    setDataTypeId: any
-  ) {
-    const dropdownId: DropdownVarId =
-      getParentDropdownFromDataTypeId(newDataTypeId)
-    // madlib with updated topic
-    props.setMadLibWithParam(
-      getMadLibWithUpdatedValue(props.madLib, index, dropdownId)
-    )
-    console.log({ newDataTypeId })
-    setDataTypeId(newDataTypeId)
   }
 
   const [dataTypeId1, setDataTypeId1] = useParamState<DataTypeId | null>(
@@ -157,11 +140,7 @@ export default function MadLibUI(props: {
                           key={`${index}-datatype`}
                           value={dataTypeId ?? dataTypes[0][0]}
                           onOptionUpdate={(newValue) => {
-                            handleDataTypeIdUpdate(
-                              newValue as DataTypeId,
-                              index,
-                              setDataTypeId
-                            )
+                            setDataTypeId(newValue as DataTypeId)
                           }}
                           options={dataTypes}
                         />

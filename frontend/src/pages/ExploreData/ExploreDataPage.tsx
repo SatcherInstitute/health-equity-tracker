@@ -11,7 +11,6 @@ import {
   type MadLibId,
 } from '../../utils/MadLibs'
 import {
-  DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
   getParameter,
   MADLIB_PHRASE_PARAM,
@@ -31,7 +30,7 @@ import { urlMap } from '../../utils/externalUrls'
 import {
   type DataTypeConfig,
   METRIC_CONFIG,
-  type DropdownVarId,
+  type DataTypeId,
 } from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
@@ -42,16 +41,22 @@ import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRed
 import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
 import TopicInfoModal from './TopicInfoModal'
+import { useParamState } from '../../utils/hooks/useParamState'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
-
 const EXPLORE_DATA_ID = 'main'
+const MODE_INDEX_MAP: Record<MadLibId, number> = {
+  disparity: 0,
+  comparegeos: 1,
+  comparevars: 2,
+}
 
 export interface ExploreDataPageProps {
   isMobile: boolean
 }
 
 function ExploreDataPage(props: ExploreDataPageProps) {
+  const [, setDataTypeId2] = useParamState(DATA_TYPE_2_PARAM)
   const location: any = useLocation()
   const [showStickyLifeline, setShowStickyLifeline] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =
@@ -103,9 +108,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       })
     }
     const psSub = psSubscribe(readParams, 'explore')
-
     readParams()
-
     return () => {
       if (psSub) {
         psSub.unsubscribe()
@@ -114,26 +117,9 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   }, [])
 
   const setMadLibWithParam = (ml: MadLib) => {
-    // ONLY SOME TOPICS HAVE SUB DATA TYPES
-    const var1HasDataTypes =
-      METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId]?.length > 1
-    const var2HasDataTypes =
-      ml.id === 'comparevars' &&
-      METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId]?.length > 1
-
-    // DELETE DATA TYPE PARAM FROM URL IF NEW TOPIC(S) HAVE NO SUB DATA TYPES
-    if (!var1HasDataTypes || !var2HasDataTypes) {
-      const params = new URLSearchParams(window.location.search)
-      !var1HasDataTypes && params.delete(DATA_TYPE_1_PARAM)
-      !var2HasDataTypes && params.delete(DATA_TYPE_2_PARAM)
-      history.replaceState(null, '', '?' + params + window.location.hash)
-    }
-
-    //  GET REMAINING PARAMS FROM URL
+    //  GET GROUP PARAMS FROM URL
     const groupParam1 = getParameter(MAP1_GROUP_PARAM, ALL)
     const groupParam2 = getParameter(MAP2_GROUP_PARAM, ALL)
-    const dtParam1 = getParameter(DATA_TYPE_1_PARAM, '')
-    const dtParam2 = getParameter(DATA_TYPE_2_PARAM, '')
 
     // BUILD REPLACEMENT PARAMS
     const newParams = [
@@ -152,18 +138,6 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       newParams.push({
         name: MAP2_GROUP_PARAM,
         value: groupParam2,
-      })
-
-    // ONLY STORE DATA TYPES IN URL WHEN NEEDED
-    var1HasDataTypes &&
-      newParams.push({
-        name: DATA_TYPE_1_PARAM,
-        value: dtParam1,
-      })
-    var2HasDataTypes &&
-      newParams.push({
-        name: DATA_TYPE_2_PARAM,
-        value: dtParam2,
       })
 
     // UPDATE URL
@@ -212,13 +186,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const isSingleColumn = madLib.id === 'disparity'
 
   function handleModeChange(mode: MadLibId) {
-    const modeIndexMap: Record<MadLibId, number> = {
-      disparity: 0,
-      comparegeos: 1,
-      comparevars: 2,
-    }
-
-    const modeIndex = modeIndexMap[mode]
+    const modeIndex = MODE_INDEX_MAP[mode]
 
     // Extract values from the current madlib
     const var1 = madLib.activeSelections[1]
@@ -251,6 +219,16 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         value: MADLIB_LIST[modeIndex].id,
       },
     ])
+
+    // if changing to a compare topic report, set dt2 to default first option
+    // else if changing to single topic report, remove dt2 param
+    if (mode === 'comparevars') {
+      const newDataTypeId2: DataTypeId = METRIC_CONFIG[var2][0].dataTypeId
+      setDataTypeId2(newDataTypeId2)
+    } else {
+      setDataTypeId2(null)
+    }
+
     location.hash = ''
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
