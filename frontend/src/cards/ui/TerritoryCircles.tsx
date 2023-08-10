@@ -26,7 +26,7 @@ interface TerritoryCirclesProps {
   countColsToAdd: MetricId[]
   mapIsWide: boolean
   isUnknownsMap?: boolean
-  activeBreakdownFilter?: DemographicGroup
+  focusedGroup?: DemographicGroup
   fullData?: Row[]
   scaleConfig?: { domain: number[]; range: number[] }
   isMulti?: boolean
@@ -56,7 +56,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
             <ChoroplethMap
               highestLowestGroupsByFips={highestLowestGroupsByFips}
-              activeBreakdownFilter={props.activeBreakdownFilter}
+              focusedGroup={props.focusedGroup}
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
               data={props.data}

@@ -132,7 +132,7 @@ function MapCardWithKey(props: MapCardProps) {
   const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
 
   const [listExpanded, setListExpanded] = useState(false)
-  const [activeBreakdownFilter, setActiveBreakdownFilter] =
+  const [focusedGroup, setFocusedGroup] =
     useState<DemographicGroup>(initialGroup)
 
   const metricQuery = (
@@ -188,9 +188,9 @@ function MapCardWithKey(props: MapCardProps) {
   let selectedRaceSuffix = ''
   if (
     CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
-    activeBreakdownFilter !== 'All'
+    focusedGroup !== 'All'
   ) {
-    selectedRaceSuffix = ` and also identifying as ${activeBreakdownFilter}`
+    selectedRaceSuffix = ` and also identifying as ${focusedGroup}`
   }
 
   let qualifierMessage = ''
@@ -202,11 +202,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const { metricId, chartTitle } = metricConfig
   const title = generateChartTitle(chartTitle, props.fips)
-  const subtitle = generateSubtitle(
-    activeBreakdownFilter,
-    demographicType,
-    metricId
-  )
+  const subtitle = generateSubtitle(focusedGroup, demographicType, metricId)
 
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
 
@@ -278,37 +274,35 @@ function MapCardWithKey(props: MapCardProps) {
           sortArgs
         )
 
-        let dataForActiveBreakdownFilter = mapQueryResponse
+        let dataForFocusedGroup = mapQueryResponse
           .getValidRowsForField(metricConfig.metricId)
-          .filter((row: Row) => row[demographicType] === activeBreakdownFilter)
+          .filter((row: Row) => row[demographicType] === focusedGroup)
 
-        const allDataForActiveBreakdownFilter = mapQueryResponse.data.filter(
-          (row: Row) => row[demographicType] === activeBreakdownFilter
+        const allDataForFocusedGroup = mapQueryResponse.data.filter(
+          (row: Row) => row[demographicType] === focusedGroup
         )
 
         const dataForSvi: Row[] =
           sviQueryResponse
             ?.getValidRowsForField('svi')
             ?.filter((row) =>
-              dataForActiveBreakdownFilter.find(({ fips }) => row.fips === fips)
+              dataForFocusedGroup.find(({ fips }) => row.fips === fips)
             ) || []
 
         if (!props.fips.isUsa()) {
-          dataForActiveBreakdownFilter = dataForActiveBreakdownFilter.map(
-            (row) => {
-              const thisCountySviRow = dataForSvi.find(
-                (sviRow) => sviRow.fips === row.fips
-              )
-              return {
-                ...row,
-                rating: findVerboseRating(thisCountySviRow?.svi),
-              }
+          dataForFocusedGroup = dataForFocusedGroup.map((row) => {
+            const thisCountySviRow = dataForSvi.find(
+              (sviRow) => sviRow.fips === row.fips
+            )
+            return {
+              ...row,
+              rating: findVerboseRating(thisCountySviRow?.svi),
             }
-          )
+          })
         }
 
         const { highestValues, lowestValues } = getExtremeValues(
-          dataForActiveBreakdownFilter,
+          dataForFocusedGroup,
           metricConfig.metricId,
           SIZE_OF_HIGHEST_LOWEST_RATES_LIST
         )
@@ -329,23 +323,23 @@ function MapCardWithKey(props: MapCardProps) {
         if (
           filterOptions[
             DEMOGRAPHIC_TYPE_DISPLAY_NAMES[demographicType]
-          ].includes(activeBreakdownFilter)
+          ].includes(focusedGroup)
         ) {
-          dropdownValue = activeBreakdownFilter
+          dropdownValue = focusedGroup
         } else {
-          setActiveBreakdownFilter(ALL)
+          setFocusedGroup(ALL)
           setParameter(MAP_GROUP_PARAM, ALL)
         }
 
         function handleMapGroupClick(_: any, newGroup: DemographicGroup) {
-          setActiveBreakdownFilter(newGroup)
+          setFocusedGroup(newGroup)
           const groupCode = getGroupParamFromDemographicGroup(newGroup)
           setParameter(MAP_GROUP_PARAM, groupCode)
         }
 
         const displayData = listExpanded
           ? highestValues.concat(lowestValues)
-          : dataForActiveBreakdownFilter
+          : dataForFocusedGroup
 
         const isSummaryLegend =
           hasSelfButNotChildGeoData ?? props.fips.isCounty()
@@ -406,7 +400,7 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
 
-            {metricConfig && dataForActiveBreakdownFilter.length > 0 && (
+            {metricConfig && dataForFocusedGroup.length > 0 && (
               <div>
                 <CardContent sx={{ pt: 0 }}>
                   <Grid container>
@@ -431,7 +425,7 @@ function MapCardWithKey(props: MapCardProps) {
                           demographicType,
                           metricId
                         )}
-                        activeBreakdownFilter={activeBreakdownFilter}
+                        focusedGroup={focusedGroup}
                         countColsToAdd={countColsToAdd}
                         data={displayData}
                         filename={filename}
@@ -439,7 +433,7 @@ function MapCardWithKey(props: MapCardProps) {
                         geoData={geoData}
                         hideLegend={true}
                         hideMissingDataTooltip={listExpanded}
-                        legendData={dataForActiveBreakdownFilter}
+                        legendData={dataForFocusedGroup}
                         legendTitle={metricConfig.shortLabel.toLowerCase()}
                         listExpanded={listExpanded}
                         metric={metricConfig}
@@ -453,7 +447,7 @@ function MapCardWithKey(props: MapCardProps) {
                       {props.fips.isUsa() && (
                         <Grid item xs={12}>
                           <TerritoryCircles
-                            activeBreakdownFilter={activeBreakdownFilter}
+                            focusedGroup={focusedGroup}
                             countColsToAdd={countColsToAdd}
                             data={displayData}
                             fullData={mapQueryResponse.data}
@@ -479,7 +473,7 @@ function MapCardWithKey(props: MapCardProps) {
                       <Legend
                         metric={metricConfig}
                         legendTitle={metricConfig.shortLabel}
-                        data={allDataForActiveBreakdownFilter}
+                        data={allDataForFocusedGroup}
                         scaleType={RATE_MAP_SCALE}
                         sameDotSize={true}
                         description={'Legend for rate map'}
@@ -518,7 +512,7 @@ function MapCardWithKey(props: MapCardProps) {
                     }
                   >
                     {!mapQueryResponse.dataIsMissing() &&
-                      dataForActiveBreakdownFilter.length > 1 && (
+                      dataForFocusedGroup.length > 1 && (
                         <HighestLowestList
                           dataTypeConfig={props.dataTypeConfig}
                           selectedRaceSuffix={selectedRaceSuffix}
@@ -531,14 +525,14 @@ function MapCardWithKey(props: MapCardProps) {
                           fips={props.fips}
                           qualifierItems={qualifierItems}
                           qualifierMessage={qualifierMessage}
-                          activeBreakdownFilter={activeBreakdownFilter}
+                          focusedGroup={focusedGroup}
                         />
                       )}
                   </Grid>
                 </CardContent>
 
                 {(mapQueryResponse.dataIsMissing() ||
-                  dataForActiveBreakdownFilter.length === 0) && (
+                  dataForFocusedGroup.length === 0) && (
                   <CardContent>
                     <MissingDataAlert
                       dataName={title}

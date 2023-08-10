@@ -36,7 +36,7 @@ export interface HighestLowestListProps {
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
   selectedRaceSuffix?: string
   parentGeoQueryResponse: MetricQueryResponse
-  activeBreakdownFilter: DemographicGroup
+  focusedGroup: DemographicGroup
 }
 
 /*
@@ -51,7 +51,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
   const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
-    (row) => row[demographicType] === props.activeBreakdownFilter
+    (row) => row[demographicType] === props.focusedGroup
   )
 
   const overallRate = formatFieldValue(
