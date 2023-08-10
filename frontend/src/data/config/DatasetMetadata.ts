@@ -108,6 +108,16 @@ export const datasetMetadataList: DatasetMetadata[] = [
     update_time: '2021',
   },
   {
+    id: 'cdc_hiv_data-black_women_state_time_series',
+    name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
+    update_time: '2021',
+  },
+  {
+    id: 'cdc_hiv_data-black_women_national_time_series',
+    name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
+    update_time: '2021',
+  },
+  {
     id: 'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level',
     name: 'Population by race/ethnicity and Census Island Area territory',
     update_time: '2010',
