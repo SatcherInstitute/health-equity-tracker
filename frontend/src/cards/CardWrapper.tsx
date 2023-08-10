@@ -12,7 +12,7 @@ import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 
 function CardWrapper(props: {
-  // prevent layout shift as component loads
+  // prevent layout shift as component  loads
   minHeight?: number
   downloadTitle: string
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
