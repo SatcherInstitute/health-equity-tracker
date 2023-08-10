@@ -445,14 +445,12 @@ export function getHighestLowestGroupsByFips(
 
       fipsToGroup[fips] = {
         highest: generateSubtitle(
-          /* activeBreakdownFilter: */ ascendingGroups[
-            ascendingGroups.length - 1
-          ],
+          /* focusedGroup: */ ascendingGroups[ascendingGroups.length - 1],
           /* currentDemographicType:  */ demographicType,
           metricId
         ),
         lowest: generateSubtitle(
-          /* activeBreakdownFilter: */ ascendingGroups[0],
+          /* focusedGroup: */ ascendingGroups[0],
           /* currentDemographicType:  */ demographicType,
           metricId
         ),
@@ -483,16 +481,16 @@ export function embedHighestLowestGroups(
 }
 
 export function getMapGroupLabel(
-  activeBreakdownFilter?: DemographicGroup,
+  focusedGroup?: DemographicGroup,
   measureTypeOverride?: string
 ) {
-  const selectedGroup = activeBreakdownFilter
-    ? raceNameToCodeMap[activeBreakdownFilter]
-    : activeBreakdownFilter ?? ''
+  const selectedGroup = focusedGroup
+    ? raceNameToCodeMap[focusedGroup]
+    : focusedGroup ?? ''
 
   const measureType = measureTypeOverride ?? 'Rate'
 
-  return activeBreakdownFilter === ALL
+  return focusedGroup === ALL
     ? `${measureType} overall`
     : `Rate for ${selectedGroup ?? 'selected group'}`
 }

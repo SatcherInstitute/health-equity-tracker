@@ -100,25 +100,26 @@ export function generateChartTitle(
   fips: Fips,
   currentDemographicType?: DemographicType
 ): string {
-  return `${chartTitle}${currentDemographicType
-    ? ` with unknown ${DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[currentDemographicType]}`
-    : ''
-    } in ${fips.getSentenceDisplayName()}`
+  return `${chartTitle}${
+    currentDemographicType
+      ? ` with unknown ${DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[currentDemographicType]}`
+      : ''
+  } in ${fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(
-  activeBreakdownFilter: DemographicGroup,
+  focusedGroup: DemographicGroup,
   currentDemographicType: DemographicType,
   metricId: MetricId
 ) {
   let subtitle = ''
 
-  if (activeBreakdownFilter === ALL) {
+  if (focusedGroup === ALL) {
     subtitle = ''
   } else if (currentDemographicType === AGE) {
-    subtitle = `Ages ${activeBreakdownFilter}`
+    subtitle = `Ages ${focusedGroup}`
   } else {
-    subtitle = `${activeBreakdownFilter}`
+    subtitle = `${focusedGroup}`
   }
 
   if (HIV_DETERMINANTS.includes(metricId)) {

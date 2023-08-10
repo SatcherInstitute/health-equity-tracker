@@ -59,8 +59,12 @@ export default function MadLibUI(props: {
       setDataTypeId2(METRIC_CONFIG[newValue as DropdownVarId][0].dataTypeId)
     }
 
+    console.log({ index })
+
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
+      setDataTypeId1(null)
+      setDataTypeId2(null)
 
       setParameters([
         {
