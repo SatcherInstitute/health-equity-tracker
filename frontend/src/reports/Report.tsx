@@ -116,7 +116,7 @@ export function Report(props: ReportProps) {
     }
   }, [props.dropdownVarId, currentBreakdown])
 
-  // when variable config changes (new data type), re-calc available card steps in TableOfContents
+  // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined

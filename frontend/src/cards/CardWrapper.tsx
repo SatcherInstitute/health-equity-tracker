@@ -45,6 +45,7 @@ function CardWrapper(props: {
       className={styles.ChartCard}
       raised={true}
       style={{ minHeight: props.minHeight }}
+      tabIndex={-1}
     >
       <CardContent>
         <CircularProgress aria-label="loading" />
