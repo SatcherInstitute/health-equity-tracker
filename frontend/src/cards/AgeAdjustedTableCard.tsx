@@ -6,6 +6,7 @@ import {
   Breakdowns,
   type BreakdownVar,
   BREAKDOWN_VAR_DISPLAY_NAMES,
+  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { CardContent } from '@mui/material'
 import {
@@ -65,13 +66,12 @@ export interface AgeAdjustedTableCardProps {
   dataTypeConfig: DataTypeConfig
   breakdownVar: BreakdownVar
   dropdownVarId?: DropdownVarId
-  setDataTypeConfigWithParam?: (v: DataTypeConfig) => void
   reportTitle: string
 }
 
 export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
-  const metrics = getAgeAdjustedRatioMetric(props.dataTypeConfig)
-  const metricConfigPctShare = props.dataTypeConfig.metrics.pct_share
+  const metrics = getAgeAdjustedRatioMetric(props?.dataTypeConfig)
+  const metricConfigPctShare = props.dataTypeConfig?.metrics?.pct_share
 
   const raceBreakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     RACE,
@@ -101,6 +101,10 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     /* dataTypeId */ undefined,
     /* timeView */ CROSS_SECTIONAL
   )
+
+  const queries = [raceQuery, ageQuery].filter(
+    (query) => query.metricIds.length > 0
+  )
   const ratioId = metricIds[0]
   const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
     config.metricId.includes('ratio')
@@ -108,7 +112,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
 
   const chartTitle = metricConfigs?.[ratioId]?.chartTitle
     ? generateChartTitle(metricConfigs[ratioId].chartTitle, props.fips)
-    : 'Age-adjusted Ratios'
+    : `Age-adjusted Ratios for ${props.dataTypeConfig.fullDisplayName}`
 
   // collect data types from the currently selected condition that offer age-adjusted ratios
   const dropdownId: DropdownVarId | null = props.dropdownVarId ?? null
@@ -126,11 +130,26 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       downloadTitle={chartTitle}
       isCensusNotAcs={props.dropdownVarId === 'covid'}
       minHeight={PRELOAD_HEIGHT}
-      queries={[raceQuery, ageQuery]}
+      queries={queries}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
     >
-      {([raceQueryResponse, ageQueryResponse]) => {
+      {(queries) => {
+        if (queries.length < 2)
+          return (
+            <CardContent>
+              <MissingDataAlert
+                breakdownString={
+                  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                }
+                dataName={chartTitle}
+                fips={props.fips}
+              />
+            </CardContent>
+          )
+
+        const [raceQueryResponse, ageQueryResponse] = queries
+
         const [knownRaceData] = splitIntoKnownsAndUnknowns(
           raceQueryResponse.data,
           RACE

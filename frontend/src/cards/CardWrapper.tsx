@@ -12,7 +12,7 @@ import { useDownloadCardImage } from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
 
 function CardWrapper(props: {
-  // prevent layout shift as component loads
+  // prevent layout shift as component  loads
   minHeight?: number
   downloadTitle: string
   // To have an info icon that opens additional info, pass a Popover such as <RaceInfoPopoverContent />
@@ -45,6 +45,7 @@ function CardWrapper(props: {
       className={styles.ChartCard}
       raised={true}
       style={{ minHeight: props.minHeight }}
+      tabIndex={-1}
     >
       <CardContent>
         <CircularProgress aria-label="loading" />
@@ -65,6 +66,7 @@ function CardWrapper(props: {
             component={'article'}
             raised={true}
             ref={screenshotTargetRef}
+            tabIndex={-1}
           >
             <CardOptionsMenu
               downloadTargetScreenshot={downloadTargetScreenshot}
