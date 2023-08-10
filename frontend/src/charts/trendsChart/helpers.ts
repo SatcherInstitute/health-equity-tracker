@@ -117,7 +117,7 @@ function getWidthHundredK(
     (getAmountsByDate(d, selectedDate) /
       (getMaxNumberForDate(data, selectedDate) ?? 1)) *
     (BAR_WIDTH / 2)
-  return width
+  return width ?? 0
 }
 
 /* Returns the number of pixels to translate tooltip bar for the percent share chart for a specific group and date */

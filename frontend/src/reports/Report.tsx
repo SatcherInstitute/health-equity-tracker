@@ -14,10 +14,7 @@ import {
 } from '../data/config/MetricConfig'
 import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
-import {
-  DATA_TYPE_1_PARAM,
-  DEMOGRAPHIC_PARAM,
-} from '../utils/urlutils'
+import { DATA_TYPE_1_PARAM, DEMOGRAPHIC_PARAM } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
@@ -69,12 +66,10 @@ export function Report(props: ReportProps) {
   )
 
   const [dataTypeId] = useParamState<DataTypeId>(
-    /* paramKey */ DATA_TYPE_1_PARAM,
+    /* paramKey */ DATA_TYPE_1_PARAM
   )
 
   const dataTypeConfig = getConfigFromDataTypeId(dataTypeId)
-
-
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
   if (
@@ -90,8 +85,7 @@ export function Report(props: ReportProps) {
   const disabledDemographicOptions =
     getDisabledDemographicOptions(dataTypeConfig)
 
-
-  // when variable config changes (new data type), re-calc available card steps in TableOfContents
+  // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
     const hashIdsOnScreen: any[] = Object.keys(reportProviderSteps).filter(
       (key) => document.getElementById(key)?.id !== undefined
@@ -100,9 +94,12 @@ export function Report(props: ReportProps) {
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
   }, [dataTypeConfig])
 
-  const browserTitle = `${(dataTypeConfig?.fullDisplayName) ?? 'Data'
-    } by ${DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType]
-    } in ${props.fips.getFullDisplayName()}`
+  const demographicTypeString: string =
+    DEMOGRAPHIC_TYPE_DISPLAY_NAMES_LOWER_CASE[demographicType] ?? 'demographic'
+
+  const browserTitle = `${
+    dataTypeConfig?.fullDisplayName ?? 'Data'
+  } by ${demographicTypeString} in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
     'covid_deaths',
