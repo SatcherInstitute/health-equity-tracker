@@ -135,6 +135,7 @@ BW_FLOAT_COLS_RENAME_MAP = {
     'hiv_prevalence_per_100k': 'hiv_prevalence_black_women_per_100k'
 }
 
+
 class CDCHIVData(DataSource):
 
     @ staticmethod
