@@ -125,11 +125,12 @@ export function Report(props: ReportProps) {
     hashIdsOnScreen && props.setReportStepHashIds?.(hashIdsOnScreen)
   }, [dataTypeConfig])
 
+  const demographicTypeString: string =
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown] ?? 'demographic'
+
   const browserTitle = `${
     (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
-  } by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown] 
-  } in ${props.fips.getFullDisplayName()}`
+  } by ${demographicTypeString} in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
     'covid_deaths',

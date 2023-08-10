@@ -66,6 +66,7 @@ function CardWrapper(props: {
             component={'article'}
             raised={true}
             ref={screenshotTargetRef}
+            tabIndex={-1}
           >
             <CardOptionsMenu
               downloadTargetScreenshot={downloadTargetScreenshot}
