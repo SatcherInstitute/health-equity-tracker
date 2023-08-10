@@ -14,7 +14,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Fips } from '../../data/utils/Fips'
 import { RACE, type DemographicGroup } from '../../data/utils/Constants'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 export interface HighestLowestListProps {
@@ -43,7 +43,7 @@ export interface HighestLowestListProps {
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
 export function HighestLowestList(props: HighestLowestListProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

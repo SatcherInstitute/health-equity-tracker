@@ -13,7 +13,7 @@ import {
 import { RACE, type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface TerritoryCirclesProps {
@@ -33,7 +33,7 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

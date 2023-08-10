@@ -6,7 +6,7 @@ import { type Fips } from '../../data/utils/Fips'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { ALL, RACE } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
@@ -17,7 +17,7 @@ interface GenderDataShortAlertProps {
 }
 
 function GenderDataShortAlert(props: GenderDataShortAlertProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

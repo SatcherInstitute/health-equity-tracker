@@ -1,5 +1,5 @@
 import { locationAtom } from '../sharedSettingsState'
-import { useAtom } from 'jotai'
+import { useAtom, useAtomValue } from 'jotai'
 
 export function useParamState<ParamStateType>(
   paramKey: string,
@@ -7,7 +7,8 @@ export function useParamState<ParamStateType>(
 ): [ParamStateType, (newValue: ParamStateType) => void] {
   const [location, setLocation] = useAtom(locationAtom)
 
-  const paramState = location.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
+  const paramState =
+    location.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
 
   function setParamState(newValue: ParamStateType): void {
     newValue
@@ -21,4 +22,14 @@ export function useParamState<ParamStateType>(
   }
 
   return [paramState as ParamStateType, setParamState]
+}
+
+export function useGetParamState<ParamStateType>(
+  paramKey: string,
+  paramDefaultValue?: ParamStateType
+): ParamStateType {
+  const location = useAtomValue(locationAtom)
+  const paramState =
+    location.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
+  return paramState as ParamStateType
 }

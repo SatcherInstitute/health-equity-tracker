@@ -5,7 +5,7 @@ import {
 } from '../../data/query/Breakdowns'
 import { Alert } from '@mui/material'
 import { RACE } from '../../data/utils/Constants'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 interface UnknownBubblesAlertProps {
@@ -15,7 +15,7 @@ interface UnknownBubblesAlertProps {
 }
 
 export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

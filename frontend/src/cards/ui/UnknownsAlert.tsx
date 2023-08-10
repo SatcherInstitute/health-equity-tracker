@@ -11,7 +11,7 @@ import { type VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { AGE, RACE } from '../../data/utils/Constants'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
@@ -31,7 +31,7 @@ interface UnknownsAlertProps {
 }
 
 export default function UnknownsAlert(props: UnknownsAlertProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

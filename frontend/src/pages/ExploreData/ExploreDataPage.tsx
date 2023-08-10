@@ -56,7 +56,7 @@ export interface ExploreDataPageProps {
 }
 
 function ExploreDataPage(props: ExploreDataPageProps) {
-  const [, setDataTypeId2] = useParamState(DATA_TYPE_2_PARAM)
+  const [, setDataTypeId2] = useParamState<DataTypeId | null>(DATA_TYPE_2_PARAM)
   const location: any = useLocation()
   const [showStickyLifeline, setShowStickyLifeline] = useState(false)
   const [showIncarceratedChildrenAlert, setShowIncarceratedChildrenAlert] =

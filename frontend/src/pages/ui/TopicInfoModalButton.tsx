@@ -5,9 +5,7 @@ import { useParamState } from '../../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 
 export default function TopicInfoModalButton() {
-
-
-  const [, setTopicInfoModalIsOpen] = useParamState(
+  const [, setTopicInfoModalIsOpen] = useParamState<boolean>(
     /* paramKey */ TOPIC_INFO_PARAM_KEY,
     /* paramDefaultValue */ false
   )

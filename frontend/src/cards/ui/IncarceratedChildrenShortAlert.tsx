@@ -5,7 +5,7 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { ALL, RACE } from '../../data/utils/Constants'
 import FlagIcon from '@mui/icons-material/Flag'
 import { CardContent, Alert } from '@mui/material'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 import { type DemographicType } from '../../data/query/Breakdowns'
 
@@ -17,7 +17,7 @@ interface IncarceratedChildrenShortAlertProps {
 function IncarceratedChildrenShortAlert(
   props: IncarceratedChildrenShortAlertProps
 ) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

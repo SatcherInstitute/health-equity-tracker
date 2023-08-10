@@ -4,7 +4,7 @@ import { useParamState } from '../../utils/hooks/useParamState'
 import { MULTIPLE_MAPS_PARAM_KEY } from '../../utils/urlutils'
 
 export default function MultipleMapsButton() {
-  const [, setMultimapOpen] = useParamState(
+  const [, setMultimapOpen] = useParamState<boolean>(
     /* paramKey */ MULTIPLE_MAPS_PARAM_KEY,
     /* defaultParamValue */ false
   )

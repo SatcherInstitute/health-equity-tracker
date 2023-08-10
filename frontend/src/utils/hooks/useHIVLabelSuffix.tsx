@@ -9,7 +9,7 @@ import { type DataTypeId } from '../../data/config/MetricConfig'
 import { DATATYPES_NEEDING_13PLUS } from '../../data/providers/HivProvider'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { DEMOGRAPHIC_PARAM } from '../urlutils'
-import { useParamState } from './useParamState'
+import { useGetParamState } from './useParamState'
 
 const prepSuffix = ' (16+)'
 const hivSuffix = ' (13+)'
@@ -19,7 +19,7 @@ export function useHIVLabelSuffix(
   value: DemographicGroup,
   dataTypeId: DataTypeId
 ): string {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

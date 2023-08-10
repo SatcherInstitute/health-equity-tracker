@@ -12,7 +12,7 @@ import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from '../../data/providers/IncarcerationProvider'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -25,7 +25,7 @@ interface IncarcerationAlertProps {
 }
 
 function IncarcerationAlert(props: IncarcerationAlertProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

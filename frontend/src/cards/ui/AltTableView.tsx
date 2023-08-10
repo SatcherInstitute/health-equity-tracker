@@ -23,7 +23,7 @@ import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { DATA_TAB_LINK } from '../../utils/internalRoutes'
 import styles from './AltTableView.module.scss'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { DEMOGRAPHIC_PARAM } from '../../utils/urlutils'
 
@@ -42,7 +42,7 @@ interface AltTableViewProps {
 }
 
 export default function AltTableView(props: AltTableViewProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

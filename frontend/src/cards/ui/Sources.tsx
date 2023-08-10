@@ -15,7 +15,7 @@ import { DownloadCardImageButton } from './DownloadCardImageButton'
 import { type MetricId } from '../../data/config/MetricConfig'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { RACE } from '../../data/utils/Constants'
-import { useParamState } from '../../utils/hooks/useParamState'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 
 function insertPunctuation(idx: number, numSources: number) {
   let punctuation = ''
@@ -97,7 +97,7 @@ export function Sources(props: SourcesProps) {
     return <></>
   }
 
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )

@@ -40,7 +40,10 @@ import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
-import { useParamState } from '../../utils/hooks/useParamState'
+import {
+  useGetParamState,
+  useParamState,
+} from '../../utils/hooks/useParamState'
 import {
   DEMOGRAPHIC_PARAM,
   MULTIPLE_MAPS_PARAM_KEY,
@@ -82,7 +85,7 @@ export interface MultiMapDialogProps {
     value in a given demographicType for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
-  const [demographicType] = useParamState<DemographicType>(
+  const demographicType = useGetParamState<DemographicType>(
     /* paramKey */ DEMOGRAPHIC_PARAM,
     /* paramDefaultValue */ RACE
   )
