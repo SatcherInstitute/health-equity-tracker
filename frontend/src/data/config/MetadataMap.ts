@@ -205,6 +205,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'cdc_hiv_data-race_and_ethnicity_state_time_series',
       'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
       'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
+      'cdc_hiv_data-black_women_national_time_series',
+      'cdc_hiv_data-black_women_state_time_series',
     ],
     downloadable: true,
   },
