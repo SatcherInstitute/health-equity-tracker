@@ -59,6 +59,12 @@ export function TrendsTooltip({
       translate_x: (d: TimeSeries) => 0,
       formatter: F.num,
     },
+    [TYPES.PCT_RATE]: {
+      UNIT: '',
+      width: getWidthPctShare,
+      translate_x: (d: TimeSeries) => 0,
+      formatter: F.pct,
+    },
     [TYPES.PERCENT_SHARE]: {
       UNIT: '',
       width: getWidthPctShare,
@@ -99,7 +105,6 @@ export function TrendsTooltip({
           sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
               // get value or "<1" to prevent potentially misleading "0 per 100k" on rates
-
               let value = TYPE_CONFIG[type]?.formatter(
                 getAmountsByDate(d, selectedDate)
               )

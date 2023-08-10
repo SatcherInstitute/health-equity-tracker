@@ -115,6 +115,8 @@ export function TableCard(props: TableCardProps) {
 
   const HASH_ID: ScrollableHashId = 'data-table'
 
+  const elementsToHide = ['#card-options-menu']
+
   return (
     <CardWrapper
       downloadTitle={`Table card for ${
@@ -124,6 +126,7 @@ export function TableCard(props: TableCardProps) {
       queries={[query]}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
     >
       {([queryResponse]) => {
         let data = queryResponse.data

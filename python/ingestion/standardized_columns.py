@@ -140,13 +140,17 @@ PRISON_PCT_INEQUITY = "prison_relative_inequity"
 
 # HIV
 BLACK_WOMEN = 'black_women'
+HIV_BW_POPULATION_PCT = 'black_women_population_pct'
+
+HIV_POPULATION_PCT = 'hiv_population_pct'
+
+
 HIV_CARE_LINKAGE = 'hiv_care_linkage'
 HIV_CARE_POPULATION = 'hiv_care_population'
 HIV_CARE_POPULATION_PCT = 'hiv_care_population_pct'
 HIV_CARE_PREFIX = 'hiv_care'
 HIV_DEATHS_PREFIX = 'hiv_deaths'
 HIV_DIAGNOSES_PREFIX = 'hiv_diagnoses'
-HIV_POPULATION_PCT = 'hiv_population_pct'
 HIV_PREP_COVERAGE = 'hiv_prep_coverage'
 # population of individuals with PrEP indicators
 HIV_PREP_POPULATION = 'hiv_prep_population'

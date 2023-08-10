@@ -37,6 +37,8 @@ import {
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle } from '../charts/utils'
+import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
+import Hiv2020Alert from './ui/Hiv2020Alert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -98,7 +100,13 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
     metricConfigInequitable?.metricId &&
     CAWP_DETERMINANTS.includes(metricConfigInequitable.metricId)
 
+  const isHIV =
+    metricConfigInequitable?.metricId &&
+    HIV_DETERMINANTS.includes(metricConfigInequitable.metricId)
+
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
+
+  const elementsToHide = ['#card-options-menu']
 
   return (
     <CardWrapper
@@ -107,6 +115,8 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
+      elementsToHide={elementsToHide}
+      expanded={a11yTableExpanded}
     >
       {([queryResponseInequity, queryResponsePctShares]) => {
         const inequityData = queryResponseInequity.getValidRowsForField(
@@ -171,7 +181,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         return (
           <>
-            <CardContent>
+            <CardContent sx={{ pt: 0 }}>
               {shouldShowMissingData ? (
                 <MissingDataAlert
                   dataName={chartTitle}
@@ -230,10 +240,12 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
                     hasUnknowns={hasUnknowns}
+                    isCompareCard={props.isCompareCard}
                   />
                 </>
               )}
             </CardContent>
+            {isHIV && <Hiv2020Alert />}
             {!shouldShowMissingData && (
               <CardContent>
                 <Alert severity="info" role="note">

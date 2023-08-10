@@ -36,7 +36,7 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
   }
 
   return (
-    <Grid className={styles.ShareMenu}>
+    <Grid className={styles.ShareMenu} id={'card-options-menu'}>
       <Tooltip title="Card export options">
         <IconButton onClick={shareMenu.open}>
           <MoreHorizIcon />

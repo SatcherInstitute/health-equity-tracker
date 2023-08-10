@@ -117,6 +117,24 @@ GENDER_COLS = [f'{col}_{gender}' for col in BASE_COLS_NO_PREP for gender in [
     std_col.TOTAL_ADDITIONAL_GENDER, std_col.TOTAL_TRANS_MEN, std_col.TOTAL_TRANS_WOMEN]]
 TOTAL_DEATHS = f'{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}'
 
+# TODO: fix this properly; maybe black_women should be its own data source rather
+# TODO: than doing everything in this file with so many conditionals
+BW_FLOAT_COLS_RENAME_MAP = {
+    'hiv_deaths': 'hiv_deaths_black_women',
+    'hiv_deaths_pct_relative_inequity': 'hiv_deaths_black_women_pct_relative_inequity',
+    'hiv_deaths_pct_share': 'hiv_deaths_black_women_pct_share',
+    'hiv_deaths_per_100k': 'hiv_deaths_black_women_per_100k',
+    'hiv_diagnoses': 'hiv_diagnoses_black_women',
+    'hiv_diagnoses_pct_relative_inequity': 'hiv_diagnoses_black_women_pct_relative_inequity',
+    'hiv_diagnoses_pct_share': 'hiv_diagnoses_black_women_pct_share',
+    'hiv_diagnoses_per_100k': 'hiv_diagnoses_black_women_per_100k',
+    'hiv_population_pct': 'black_women_population_pct',
+    'hiv_prevalence': 'hiv_prevalence_black_women',
+    'hiv_prevalence_pct_relative_inequity': 'hiv_prevalence_black_women_pct_relative_inequity',
+    'hiv_prevalence_pct_share': 'hiv_prevalence_black_women_pct_share',
+    'hiv_prevalence_per_100k': 'hiv_prevalence_black_women_per_100k'
+}
+
 
 class CDCHIVData(DataSource):
 
@@ -134,51 +152,49 @@ class CDCHIVData(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, 'demographic')
+        geo_level = self.get_attr(attrs, 'geographic')
         if demographic == std_col.RACE_COL:
             demographic = std_col.RACE_OR_HISPANIC_COL
 
-        for geo_level in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
-
-            # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
-            if geo_level != COUNTY_LEVEL and demographic == std_col.RACE_OR_HISPANIC_COL:
-                print("make race-age", geo_level)
-
-                table_name = f'by_race_age_{geo_level}'
-                race_age_df = self.generate_race_age_deaths_df(geo_level)
-                float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
-                col_types = gcs_to_bq_util.get_bq_column_types(
-                    race_age_df, float_cols)
-                gcs_to_bq_util.add_df_to_bq(race_age_df,
-                                            dataset,
-                                            table_name,
-                                            column_types=col_types)
-            if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
-                continue
-
-            all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
-            alls_df = load_atlas_df_from_data_dir(geo_level, all)
-
-            df = self.generate_breakdown_df(
-                demographic, geo_level, alls_df)
-
-            if demographic == std_col.BLACK_WOMEN:
-                float_cols = BASE_COLS_PER_100K + PER_100K_COLS + BW_PCT_SHARE_COLS + \
-                    [std_col.HIV_POPULATION_PCT] + BW_PCT_REL_INEQUITY_COLS
-            else:
-                float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
-                    PCT_REL_INEQUITY_COLS
-                if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
-                    float_cols += GENDER_COLS
-
+        # MAKE RACE-AGE BREAKDOWN WITH ONLY COUNTS (NOT RATES) FOR AGE-ADJUSTMENT
+        if geo_level != COUNTY_LEVEL and demographic == std_col.RACE_OR_HISPANIC_COL:
+            table_name = f'by_race_age_{geo_level}'
+            race_age_df = self.generate_race_age_deaths_df(geo_level)
+            float_cols = [TOTAL_DEATHS, std_col.POPULATION_COL]
             col_types = gcs_to_bq_util.get_bq_column_types(
-                df, float_cols)
-
-            table_name = f'{demographic}_{geo_level}_time_series'
-
-            gcs_to_bq_util.add_df_to_bq(df,
+                race_age_df, float_cols)
+            gcs_to_bq_util.add_df_to_bq(race_age_df,
                                         dataset,
                                         table_name,
                                         column_types=col_types)
+
+        # WE DONT SHOW BLACK WOMEN AT COUNTY LEVEL
+        if geo_level == COUNTY_LEVEL and demographic == std_col.BLACK_WOMEN:
+            return
+
+        all = 'black_women_all' if demographic == std_col.BLACK_WOMEN else 'all'
+        alls_df = load_atlas_df_from_data_dir(geo_level, all)
+        df = self.generate_breakdown_df(
+            demographic, geo_level, alls_df)
+
+        if demographic == std_col.BLACK_WOMEN:
+            df.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
+            float_cols = BW_FLOAT_COLS_RENAME_MAP.values()
+        else:
+            float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
+                PCT_REL_INEQUITY_COLS
+            if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
+                float_cols += GENDER_COLS
+
+        col_types = gcs_to_bq_util.get_bq_column_types(
+            df, float_cols)
+
+        table_name = f'{demographic}_{geo_level}_time_series'
+
+        gcs_to_bq_util.add_df_to_bq(df,
+                                    dataset,
+                                    table_name,
+                                    column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
@@ -318,7 +334,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        alls_df = alls_df[alls_df['Year'] == '2019']
+        alls_df = alls_df[alls_df['Year'] == '2021']
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
@@ -334,7 +350,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        race_df = race_df[race_df['Year'] == '2019']
+        race_df = race_df[race_df['Year'] == '2021']
         race_df[std_col.AGE_COL] = ALL_VALUE
         race_df = race_df[use_cols]
 
@@ -349,7 +365,7 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        age_df = age_df[age_df['Year'] == '2019']
+        age_df = age_df[age_df['Year'] == '2021']
         age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         age_df = age_df[use_cols]
 
@@ -476,6 +492,7 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                 df = df.replace({'13-24': '18-24'})
 
             df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
+            df['Year'] = df['Year'].str.replace('2020 (COVID-19 Pandemic)', '2020', regex=False)
 
             df = df.rename(columns=cols_to_standard)
 

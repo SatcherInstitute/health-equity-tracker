@@ -89,8 +89,7 @@ def testGenerateRaceNational(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('race_and_ethnicity',
                                           'national',
                                           alls_df)
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -136,8 +135,8 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
     df = datasource.generate_breakdown_df('black_women',
                                           'national',
                                           alls_df)
-    expected_df = pd.read_csv(
-        GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
+    expected_df = pd.read_csv(GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
+
     assert_frame_equal(df, expected_df, check_like=True)
 
 
@@ -189,9 +188,9 @@ def testWriteToBqCallsRace(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="race")
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="race", geographic="national")
 
-    assert mock_bq.call_count == 5
+    assert mock_bq.call_count == 2
 
     expected_table_names = [
         call[0][2] for call in mock_bq.call_args_list
@@ -200,9 +199,6 @@ def testWriteToBqCallsRace(
     assert expected_table_names == [
         'by_race_age_national',
         'race_and_ethnicity_national_time_series',
-        'by_race_age_state',
-        'race_and_ethnicity_state_time_series',
-        'race_and_ethnicity_county_time_series'
     ]
 
 
@@ -215,18 +211,16 @@ def testWriteToBqCallsAge(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="age")
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="age", geographic="state")
 
-    assert mock_bq.call_count == 3
+    assert mock_bq.call_count == 1
 
     expected_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
 
     assert expected_table_names == [
-        'age_national_time_series',
         'age_state_time_series',
-        'age_county_time_series',
     ]
 
 
@@ -239,17 +233,15 @@ def testWriteToBqCallsSex(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="sex")
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="sex", geographic="county")
 
-    assert mock_bq.call_count == 3
+    assert mock_bq.call_count == 1
 
     expected_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
 
     assert expected_table_names == [
-        'sex_national_time_series',
-        'sex_state_time_series',
         'sex_county_time_series'
     ]
 
@@ -263,9 +255,9 @@ def testWriteToBqCallsBlackWomen(
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="black_women")
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="black_women", geographic="national")
 
-    assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 1
 
     expected_table_names = [
         call[0][2] for call in mock_bq.call_args_list
@@ -273,5 +265,4 @@ def testWriteToBqCallsBlackWomen(
 
     assert expected_table_names == [
         'black_women_national_time_series',
-        'black_women_state_time_series'
     ]

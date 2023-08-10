@@ -1,17 +1,6 @@
 @import '../styles/variables.module';
 @import '../styles/globals.scss';
 
-.CardHeaderBox {
-  padding-block: 8px;
-}
-
-.CardHeader {
-  @include inter700();
-  text-align: left;
-  display: flex;
-  align-items: center;
-}
-
 .ChartTitle {
   font-size: $title;
   padding: 0;
@@ -31,10 +20,10 @@
   position: relative;
 }
 
-.SmallMarginContent {
+.MapControlsContent {
   text-align: left;
   padding-bottom: 6px !important;
-  padding-top: 6px !important;
+  padding-top: 0px !important;
 }
 
 .CardFooter {

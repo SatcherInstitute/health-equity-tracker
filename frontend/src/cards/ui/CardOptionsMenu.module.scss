@@ -4,9 +4,12 @@
 .ShareMenu {
   display: flex;
   flex-direction: row-reverse;
-  position: absolute;
-  right: 16px;
-  top: 5px;
+  margin-inline-end: 6px;
+
+  @media only screen and (min-width: $sm) {
+    margin-inline-end: 10px;
+    margin-block-start: 6px;
+  }
 }
 
 .MenuList {

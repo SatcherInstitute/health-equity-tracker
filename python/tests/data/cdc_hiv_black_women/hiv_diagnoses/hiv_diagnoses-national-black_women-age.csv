@@ -8,11 +8,11 @@ NA - Not applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV diagnoses","2019","United States","NA","55+","Black/African American","Female","All transmission categories","705","12.5","5,648,605"
-"HIV diagnoses","2019","United States","NA","45-54","Black/African American","Female","All transmission categories","720","26.5","2,716,508"
-"HIV diagnoses","2019","United States","NA","35-44","Black/African American","Female","All transmission categories","892","31.9","2,793,873"
-"HIV diagnoses","2019","United States","NA","25-34","Black/African American","Female","All transmission categories","1,014","30.9","3,277,716"
-"HIV diagnoses","2019","United States","NA","13-24","Black/African American","Female","All transmission categories","536","15.3","3,501,536"
+"HIV diagnoses","2021","United States","NA","55+","Black/African American","Female","All transmission categories","597","10.3","5,821,358"
+"HIV diagnoses","2021","United States","NA","45-54","Black/African American","Female","All transmission categories","649","24.3","2,672,389"
+"HIV diagnoses","2021","United States","NA","35-44","Black/African American","Female","All transmission categories","867","30.0","2,892,576"
+"HIV diagnoses","2021","United States","NA","25-34","Black/African American","Female","All transmission categories","949","28.9","3,287,103"
+"HIV diagnoses","2021","United States","NA","13-24","Black/African American","Female","All transmission categories","482","13.6","3,543,480"
 "HIV diagnoses","2017","United States","NA","55+","Black/African American","Female","All transmission categories","737","13.8","5,343,249"
 "HIV diagnoses","2017","United States","NA","45-54","Black/African American","Female","All transmission categories","823","29.6","2,782,489"
 "HIV diagnoses","2017","United States","NA","35-44","Black/African American","Female","All transmission categories","966","35.3","2,740,072"

@@ -8,13 +8,13 @@ NA - Not Applicable.
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","52,753","1084.8","4,863,049"
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","303,234","176.8","171,541,840"
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","878","178.7","491,319"
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","240,651","512.5","46,954,313"
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","423,711","1246.9","33,981,764"
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","15,447","95.2","16,234,313"
-"HIV prevalence","2019","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","3,118","156.2","1,996,615"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","55,717","1063.9","5,237,094"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","306,428","178.6","171,591,284"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","952","185.9","512,209"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","Hispanic/Latino","Both sexes","All transmission categories","255,101","517.6","49,289,880"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","Black/African American","Both sexes","All transmission categories","432,227","1245.1","34,715,303"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","Asian","Both sexes","All transmission categories","16,632","98.9","16,816,427"
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","American Indian/Alaska Native","Both sexes","All transmission categories","3,270","160.3","2,040,452"
 "HIV prevalence","2017","United States","NA","Ages 13 years and older","Multiracial","Both sexes","All transmission categories","52,513","1153.8","4,551,142"
 "HIV prevalence","2017","United States","NA","Ages 13 years and older","White","Both sexes","All transmission categories","294,749","171.8","171,531,100"
 "HIV prevalence","2017","United States","NA","Ages 13 years and older","Native Hawaiian/Other Pacific Islander","Both sexes","All transmission categories","774","164.1","471,540"

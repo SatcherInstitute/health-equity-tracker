@@ -147,6 +147,7 @@ _fake_condition_data_with_per_100k = [
     ['04', 'Arizona', 'Two or more races', 20, 4000, 500],
     ['04', 'Arizona', 'TOTAL', 10, 2000, 500],
 ]
+
 _fake_race_data_without_totals = [
     ['state_fips', 'state_name', 'race', 'population'],
     ['01', 'Alabama', 'Asian alone', '66'],
@@ -293,6 +294,34 @@ def testGeneratePer100kCol():
     expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
 
     assert_frame_equal(expected_df, df, check_like=True)
+
+
+def test_generate_pct_rate_col():
+    data = [
+        {'some_condition_total': 1, 'population': 2},
+        {'some_condition_total': 11, 'population': 1000},
+        {'some_condition_total': 0, 'population': 1000},
+        {'some_condition_total': 1, 'population': 0},
+        {'some_condition_total': None, 'population': 1000},
+        {'some_condition_total': 1, 'population': 1000},
+    ]
+    df = pd.DataFrame(data)
+
+    df = dataset_utils.generate_pct_rate_col(
+        df, 'some_condition_total', 'population', 'condition_pct_rate')
+
+    expected_data = [
+        {'some_condition_total': 1, 'population': 2, 'condition_pct_rate': 50},
+        {'some_condition_total': 11, 'population': 1000, 'condition_pct_rate': 1.0},
+        {'some_condition_total': 0, 'population': 1000, 'condition_pct_rate': 0.0},
+        {'some_condition_total': 1, 'population': 0, 'condition_pct_rate': None},
+        {'some_condition_total': None, 'population': 1000, 'condition_pct_rate': None},
+        {'some_condition_total': 1, 'population': 1000, 'condition_pct_rate': 0.0},
+    ]
+    expected_df = pd.DataFrame(expected_data)
+    expected_df['condition_pct_rate'] = expected_df['condition_pct_rate'].astype(float)
+
+    assert_frame_equal(df, expected_df, check_like=True)
 
 
 def test_ensure_leading_zeros():

@@ -28,7 +28,8 @@ def get_required_attrs(workflow_id: str, gcs_bucket: str = None) -> dict:
 
 
 def generate_gcs_payload(workflow_id: str, filename: str = None,
-                         url: str = None, gcs_bucket: str = None) -> dict:
+                         url: str = None, gcs_bucket: str = None,
+                         year: str = None) -> dict:
     """Creates the payload object required for the GCS ingestion operator.
 
     workflow_id: ID of the datasource workflow. Should match ID defined in
@@ -42,6 +43,8 @@ def generate_gcs_payload(workflow_id: str, filename: str = None,
         message['filename'] = filename
     if url is not None:
         message['url'] = url
+    if year is not None:
+        message['year'] = year
     return {'message': message}
 
 
@@ -117,7 +120,7 @@ def service_request(url: str, data: dict, **kwargs):
         resp = requests.post(url, json=data, headers=receiving_service_headers)
         resp.raise_for_status()
         # Allow the most recent response code to be accessed by a downstream task for possible short circuiting.
-        kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
+        # kwargs['ti'].xcom_push(key='response_status', value=resp.status_code)
     except requests.exceptions.HTTPError as err:
         raise Exception('Failed response code: {}'.format(err))
 
@@ -148,14 +151,13 @@ def sanity_check_request(dataset_id: str):
         print('All checks have passed. No errors detected.')
 
 
-def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG, xcom_push: bool = True,
+def create_request_operator(task_id: str, url: str, payload: dict, dag: DAG,
                             provide_context: bool = True) -> PythonOperator:
     return PythonOperator(
         task_id=task_id,
         provide_context=provide_context,
         python_callable=service_request,
         op_kwargs={'url': url, 'data': payload},
-        xcom_push=xcom_push,
         dag=dag,
     )
 
