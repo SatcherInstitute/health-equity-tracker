@@ -183,8 +183,10 @@ function CompareReport(props: {
     dataTypeConfig2?.metrics?.age_adjusted_ratio?.ageAdjusted
 
   const dt1 = dataTypeConfig1?.fullDisplayName
-  const dt2 = dataTypeConfig2?.fullDisplayName
-  const demo = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+  const dt2 = dataTypeConfig2?.fullDisplayName 
+  const demo = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
+    currentBreakdown
+  ] 
   const loc1 = props.fips1.getSentenceDisplayName()
   const loc2 = props.fips2.getSentenceDisplayName()
 

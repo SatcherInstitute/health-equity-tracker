@@ -16,12 +16,10 @@ import { AGE, RACE } from '../data/utils/Constants'
 import { type Fips } from '../data/utils/Fips'
 import {
   DATA_TYPE_1_PARAM,
-  DATA_TYPE_2_PARAM,
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
   setParameter,
-  setParameters,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
@@ -77,14 +75,6 @@ export function Report(props: ReportProps) {
     selectedDataTypeConfig1Atom
   )
 
-  function setDataTypeConfigWithParam(v: DataTypeConfig) {
-    setParameters([
-      { name: DATA_TYPE_1_PARAM, value: v.dataTypeId },
-      { name: DATA_TYPE_2_PARAM, value: null },
-    ])
-    setDataTypeConfig(v)
-  }
-
   function setDemoWithParam(str: BreakdownVar) {
     setParameter(DEMOGRAPHIC_PARAM, str)
     setCurrentBreakdown(str)
@@ -138,7 +128,7 @@ export function Report(props: ReportProps) {
   const browserTitle = `${
     (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
   } by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]
+    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown] 
   } in ${props.fips.getFullDisplayName()}`
 
   const offerJumpToAgeAdjustment = [
@@ -364,7 +354,6 @@ export function Report(props: ReportProps) {
                         dataTypeConfig={dataTypeConfig}
                         dropdownVarId={props.dropdownVarId}
                         breakdownVar={currentBreakdown}
-                        setDataTypeConfigWithParam={setDataTypeConfigWithParam}
                         reportTitle={props.reportTitle}
                       />
                     </LazyLoad>
