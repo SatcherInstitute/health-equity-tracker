@@ -41,20 +41,23 @@ export default function MadLibUI(props: {
     return isNaN(Object.keys(phraseSegment)[0] as any)
       ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
       : Object.keys(phraseSegment)
-        .sort((a: string, b: string) => {
-          if (a.length === b.length) {
-            return a.localeCompare(b)
-          }
-          return b.length > a.length ? -1 : 1
-        })
-        .map((fipsCode) => new Fips(fipsCode))
+          .sort((a: string, b: string) => {
+            if (a.length === b.length) {
+              return a.localeCompare(b)
+            }
+            return b.length > a.length ? -1 : 1
+          })
+          .map((fipsCode) => new Fips(fipsCode))
   }
 
   function handleOptionUpdate(newValue: string, index: number) {
-
-    // when dropdown parent topic changes, reset sub datatype
-    if (index === 1) setDataTypeId1(METRIC_CONFIG[newValue as DropdownVarId][0].dataTypeId)
-
+    // when parent topic changes, reset sub datatype to new dropdown's first option
+    if (index === 1) {
+      setDataTypeId1(METRIC_CONFIG[newValue as DropdownVarId][0].dataTypeId)
+    }
+    if (index === 3 && props.madLib.id === 'comparevars') {
+      setDataTypeId2(METRIC_CONFIG[newValue as DropdownVarId][0].dataTypeId)
+    }
 
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
@@ -87,21 +90,22 @@ export default function MadLibUI(props: {
     index: number,
     setDataTypeId: any
   ) {
-    const dropdownId: DropdownVarId = getParentDropdownFromDataTypeId(newDataTypeId)
+    const dropdownId: DropdownVarId =
+      getParentDropdownFromDataTypeId(newDataTypeId)
     // madlib with updated topic
     props.setMadLibWithParam(
       getMadLibWithUpdatedValue(props.madLib, index, dropdownId)
     )
-    console.log({ newDataTypeId });
+    console.log({ newDataTypeId })
     setDataTypeId(newDataTypeId)
   }
 
   const [dataTypeId1, setDataTypeId1] = useParamState<DataTypeId | null>(
-    /* paramKey */ DATA_TYPE_1_PARAM,
+    /* paramKey */ DATA_TYPE_1_PARAM
   )
 
   const [dataTypeId2, setDataTypeId2] = useParamState<DataTypeId | null>(
-    /* paramKey */ DATA_TYPE_2_PARAM,
+    /* paramKey */ DATA_TYPE_2_PARAM
   )
 
   return (
@@ -112,11 +116,9 @@ export default function MadLibUI(props: {
             (phraseSegment: PhraseSegment, index: number) => {
               let dataTypes: any[][] = []
 
-
               const segmentDataTypeId: DropdownVarId | string =
                 props.madLib.activeSelections[index]
               if (isDropdownVarId(segmentDataTypeId)) {
-
                 dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
                   (dataTypeConfig: DataTypeConfig) => {
                     const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
@@ -125,12 +127,9 @@ export default function MadLibUI(props: {
                 )
               }
 
-              const dataTypeId =
-                index === 1 ? dataTypeId1 : dataTypeId2
+              const dataTypeId = index === 1 ? dataTypeId1 : dataTypeId2
               const setDataTypeId =
-                index === 1
-                  ? setDataTypeId1
-                  : setDataTypeId2
+                index === 1 ? setDataTypeId1 : setDataTypeId2
 
               return (
                 <React.Fragment key={index}>
@@ -189,11 +188,7 @@ export function getParentDropdownFromDataTypeId(
   dataType: DataTypeId
 ): DropdownVarId {
   for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
-    if (
-      configArray
-        .map((config) => config.dataTypeId)
-        .includes(dataType)
-    ) {
+    if (configArray.map((config) => config.dataTypeId).includes(dataType)) {
       return dropdownId as DropdownVarId
     }
   }
