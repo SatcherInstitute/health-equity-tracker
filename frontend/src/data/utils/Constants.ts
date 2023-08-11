@@ -234,7 +234,7 @@ export const CDC_AGE_BUCKETS = [
 ] as const
 
 export const BJS_NATIONAL_AGE_BUCKETS = [
-  'All',
+  ALL,
   '18-19',
   '20-24',
   '25-29',
@@ -313,7 +313,7 @@ export const UNDER_18_PRISON = `Children in Adult Prison`
 
 // COMBINE ALL AGE GROUP OPTIONS INTO A SINGLE ARRAY
 export const AGE_BUCKETS = [
-  'All',
+  ALL,
   ...DECADE_AGE_BUCKETS,
   ...DECADE_PLUS_5_AGE_BUCKETS,
   ...BROAD_AGE_BUCKETS,

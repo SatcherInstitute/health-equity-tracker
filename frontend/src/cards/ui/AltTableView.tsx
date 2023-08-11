@@ -18,6 +18,7 @@ import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
   AGE,
+  ALL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
@@ -130,7 +131,7 @@ export default function AltTableView(props: AltTableViewProps) {
                         }}
                       >
                         {!isTimeCol &&
-                          key !== 'All' &&
+                          key !== ALL &&
                           !isUnknownPctCol &&
                           optionalAgesPrefix}
                         {key.replaceAll('_', ' ')}

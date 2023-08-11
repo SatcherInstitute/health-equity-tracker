@@ -9,7 +9,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import { ALL, type DemographicGroup } from '../../data/utils/Constants'
 import { type Fips } from '../../data/utils/Fips'
 import { MultiMapLink } from './MultiMapLink'
 import styles from '../Card.module.scss'
@@ -51,16 +51,16 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {props.metricConfig.shortLabel}
         </a>
         {/* } for  */}
-        {props.activeDemographicGroup !== 'All' && ' for'}
+        {props.activeDemographicGroup !== ALL && ' for'}
         {/* } [ ages 30-39] */}
         {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType] ===
           'age' &&
-          props.activeDemographicGroup !== 'All' &&
+          props.activeDemographicGroup !== ALL &&
           ` ages ${props.activeDemographicGroup}`}
         {/* } [Asian (non Hispanic) individuals] */}
         {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType] !==
           'age' &&
-          props.activeDemographicGroup !== 'All' &&
+          props.activeDemographicGroup !== ALL &&
           ` ${props.activeDemographicGroup} individuals`}
         {' in  '}
         {/* } Georgia */}
