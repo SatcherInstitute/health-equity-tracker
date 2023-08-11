@@ -19,7 +19,7 @@ const combinedAlertFipsList = [
 
 interface IncarcerationAlertProps {
   dataType: DataTypeId
-  breakdown: DemographicType
+  demographicType: DemographicType
   fips: Fips
 }
 
@@ -33,17 +33,19 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     : 'Bureau of Justice Statistics'
 
   const severity: AlertColor =
-    props.breakdown === 'age' && props.dataType === 'prison'
+    props.demographicType === 'age' && props.dataType === 'prison'
       ? 'warning'
       : 'info'
-  const breakdown = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.breakdown]
+  const demographicType =
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
     <Alert severity={severity} role="note">
-      The disaggregated <b>{breakdown}</b> dataset available from the {source}{' '}
+      The disaggregated <b>{demographicType}</b> dataset available from the{' '}
+      {source}{' '}
       <IncarcerationDetailsText
         dataType={props.dataType}
-        breakdown={props.breakdown}
+        demographicType={props.demographicType}
       />{' '}
       individuals (including children) under the jurisdiction of an adult{' '}
       {props.dataType} facility.{' '}
@@ -58,11 +60,11 @@ export default IncarcerationAlert
 
 interface IncarcerationDetailsTextProps {
   dataType: DataTypeId
-  breakdown: DemographicType
+  demographicType: DemographicType
 }
 
 function IncarcerationDetailsText(props: IncarcerationDetailsTextProps) {
-  if (props.breakdown === AGE && props.dataType === 'prison') {
+  if (props.demographicType === AGE && props.dataType === 'prison') {
     return (
       <>
         reports only <b>sentenced</b>

@@ -200,14 +200,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
 
           {/* Multiples Maps */}
-          {props.demographicGroups.map((breakdownValue) => {
+          {props.demographicGroups.map((demographicGroup) => {
             const mapLabel = CAWP_DETERMINANTS.includes(
               props.metricConfig.metricId
             )
-              ? getWomenRaceLabel(breakdownValue)
-              : breakdownValue
+              ? getWomenRaceLabel(demographicGroup)
+              : demographicGroup
             const dataForValue = props.data.filter(
-              (row: Row) => row[props.demographicType] === breakdownValue
+              (row: Row) => row[props.demographicType] === demographicGroup
             )
             return (
               <Grid
@@ -216,11 +216,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 md={4}
                 lg={3}
                 item
-                key={`${breakdownValue}-grid-item`}
+                key={`${demographicGroup}-grid-item`}
                 className={styles.SmallMultipleMap}
                 component="li"
                 onClick={(e: any) => {
-                  props.handleMapGroupClick(null, breakdownValue)
+                  props.handleMapGroupClick(null, demographicGroup)
                 }}
               >
                 <b>{mapLabel}</b>
@@ -233,7 +233,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     geoData={props.geoData}
                     hideLegend={true}
-                    key={breakdownValue}
+                    key={demographicGroup}
                     legendData={props.data}
                     metric={props.metricConfig}
                     showCounties={

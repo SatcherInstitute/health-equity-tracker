@@ -28,7 +28,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
   const demographicPhrase = props.noDemographicInfo
     ? ' demographic information for '
     : ' '
-  const breakdownPhrase = props.noDemographicInfo ? (
+  const demographicTypePhrase = props.noDemographicInfo ? (
     ' '
   ) : (
     <>
@@ -48,7 +48,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       Our data sources do not have
       {demographicPhrase}
       <b>{props.dataName}</b>
-      {breakdownPhrase}
+      {demographicTypePhrase}
       {geoPhrase}
       for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
       this lack of data impacts{' '}

@@ -19,7 +19,7 @@ export type DemographicType =
   | 'lis'
   | 'eligibility'
 
-export const DEMOGRAPHIC_BREAKDOWNS = [
+export const DEMOGRAPHIC_TYPES = [
   'race_and_ethnicity',
   'sex',
   'age',
@@ -28,7 +28,7 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
 ] as const
 
 // union type of array
-export type DemographicBreakdownKey = (typeof DEMOGRAPHIC_BREAKDOWNS)[number]
+export type DemographicBreakdownKey = (typeof DEMOGRAPHIC_TYPES)[number]
 
 export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   race_and_ethnicity: 'Race and Ethnicity',

@@ -154,12 +154,12 @@ export function generateSubtitle(
 export function getAltGroupLabel(
   group: DemographicGroup,
   metricId: MetricId,
-  breakdown: DemographicType
+  demographicType: DemographicType
 ) {
   if (CAWP_DETERMINANTS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
-  if (group === ALL && breakdown === AGE) {
+  if (group === ALL && demographicType === AGE) {
     if (metricId.includes('prep')) {
       return `${group} (16+)`
     }
