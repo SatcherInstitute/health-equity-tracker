@@ -4,6 +4,15 @@ import {
   populationPctTitle,
 } from './MetricConfigUtils'
 
+export const BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS = [
+  'depression',
+  'excessive_drinking',
+  'frequent_mental_distress',
+  'suicide',
+  'substance',
+]
+
+// TODO: this isn't really a sub-data type, just a different name than the parent dropdown. we should really use the parent dropdown here
 export type BehavioralHealthDataTypeId = 'non_medical_drug_use'
 
 export type BehavioralHealthMetricId =

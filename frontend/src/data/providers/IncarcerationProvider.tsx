@@ -34,28 +34,28 @@ export const ALASKA_PRIVATE_JAIL_CAVEAT =
 
 export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
 
-export const JAIL_METRICS: MetricId[] = [
+export const JAIL_METRIC_IDS: MetricId[] = [
   'jail_pct_share',
   'jail_per_100k',
   'jail_pct_relative_inequity',
 ]
 
-export const PRISON_METRICS: MetricId[] = [
+export const PRISON_METRIC_IDS: MetricId[] = [
   'prison_pct_share',
   'prison_per_100k',
   'prison_pct_relative_inequity',
 ]
 
-export const INCARCERATION_METRICS: MetricId[] = [
-  ...JAIL_METRICS,
-  ...PRISON_METRICS,
+const INCARCERATION_METRIC_IDS: MetricId[] = [
+  ...JAIL_METRIC_IDS,
+  ...PRISON_METRIC_IDS,
   'total_confined_children',
   'incarceration_population_pct',
 ]
 
 class IncarcerationProvider extends VariableProvider {
   constructor() {
-    super('incarceration_provider', INCARCERATION_METRICS)
+    super('incarceration_provider', INCARCERATION_METRIC_IDS)
   }
 
   getDatasetId(breakdowns: Breakdowns): string {

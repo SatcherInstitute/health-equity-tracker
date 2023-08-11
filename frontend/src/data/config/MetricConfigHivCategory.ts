@@ -1,6 +1,14 @@
 import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
+export const HIV_CATEGORY_DROPDOWNIDS = [
+  'hiv_black_women',
+  'hiv_care',
+  'hiv_prep',
+  'hiv_stigma',
+  'hiv',
+]
+
 export type HivCategoryDataTypeId =
   | 'hiv_deaths_black_women'
   | 'hiv_deaths'
@@ -10,6 +18,7 @@ export type HivCategoryDataTypeId =
   | 'hiv_prevalence'
 
 export type HivCategoryMetricId =
+  | 'acs_vaccinated_pop_pct'
   | 'black_women_population_pct'
   | 'hiv_care_linkage'
   | 'hiv_care_pct_relative_inequity'

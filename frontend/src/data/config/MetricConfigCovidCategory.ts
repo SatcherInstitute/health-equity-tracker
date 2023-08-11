@@ -4,6 +4,8 @@ import {
   populationPctTitle,
 } from './MetricConfigUtils'
 
+export const COVID_CATEGORY_DROPDOWNIDS = ['covid_vaccinations', 'covid']
+
 export type CovidCategoryDataTypeId =
   | 'covid_cases'
   | 'covid_deaths'
