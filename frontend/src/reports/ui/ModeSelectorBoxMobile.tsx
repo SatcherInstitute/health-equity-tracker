@@ -1,7 +1,7 @@
 import { Card, Grid } from '@mui/material'
 import styles from './ModeSelectorBoxMobile.module.scss'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
@@ -11,8 +11,8 @@ import TopicInfoModalButton from '../../pages/ui/TopicInfoModalButton'
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-  trackerDemographic: BreakdownVar
-  setDemoWithParam: (demographic: BreakdownVar) => void
+  trackerDemographic: DemographicType
+  setDemoWithParam: (demographic: DemographicType) => void
   offerJumpToAgeAdjustment: boolean
   demographicOptionsMap: any
   disabledDemographicOptions?: string[][]
@@ -34,7 +34,7 @@ export default function ModeSelectorBoxMobile(
           justifyContent={{ xs: 'flex-end', sm: 'space-between' }}
         >
           <div>
-            <SimpleSelect<BreakdownVar>
+            <SimpleSelect<DemographicType>
               label="Demographic"
               optionsMap={props.demographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}

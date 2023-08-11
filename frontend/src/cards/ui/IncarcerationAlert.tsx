@@ -1,7 +1,7 @@
 import { Alert, type AlertColor } from '@mui/material'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type Fips, USA_DISPLAY_NAME } from '../../data/utils/Fips'
 import { type DataTypeId } from '../../data/config/MetricConfig'
@@ -19,7 +19,7 @@ const combinedAlertFipsList = [
 
 interface IncarcerationAlertProps {
   dataType: DataTypeId
-  breakdown: BreakdownVar
+  breakdown: DemographicType
   fips: Fips
 }
 
@@ -36,7 +36,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     props.breakdown === 'age' && props.dataType === 'prison'
       ? 'warning'
       : 'info'
-  const breakdown = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]
+  const breakdown = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.breakdown]
 
   return (
     <Alert severity={severity} role="note">
@@ -58,7 +58,7 @@ export default IncarcerationAlert
 
 interface IncarcerationDetailsTextProps {
   dataType: DataTypeId
-  breakdown: BreakdownVar
+  breakdown: DemographicType
 }
 
 function IncarcerationDetailsText(props: IncarcerationDetailsTextProps) {

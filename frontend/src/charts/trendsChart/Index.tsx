@@ -36,7 +36,7 @@ import {
   filterUnknownsByTimePeriod,
 } from './helpers'
 import { MOBILE_BREAKPOINT } from '../../App'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import useEscape from '../../utils/hooks/useEscape'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import { type DemographicGroup } from '../../data/utils/Constants'
@@ -48,7 +48,7 @@ export interface TrendsChartProps {
   unknown: UnknownData
   axisConfig: AxisConfig
   chartTitle: string
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   setSelectedTableGroups: (selectedTableGroups: any[]) => void
   isCompareCard: boolean
   expanded: boolean
@@ -62,7 +62,7 @@ export function TrendsChart({
   unknown,
   axisConfig,
   chartTitle,
-  breakdownVar,
+  demographicType,
   setSelectedTableGroups,
   isCompareCard,
   expanded,
@@ -286,7 +286,7 @@ export function TrendsChart({
                 groupLabel={groupLabel}
                 isSkinny={isSkinny}
                 chartWidth={width}
-                breakdownVar={breakdownVar}
+                demographicType={demographicType}
                 legendId={`legend-filter-label-${axisConfig.type}-${
                   isCompareCard ? '2' : '1'
                 }`}
@@ -309,7 +309,7 @@ export function TrendsChart({
                 groupLabel={groupLabel}
                 isSkinny={isSkinny}
                 chartWidth={width}
-                breakdownVar={breakdownVar}
+                demographicType={demographicType}
                 legendId={`legend-filter-label-${axisConfig.type}-${
                   isCompareCard ? '2' : '1'
                 }`}

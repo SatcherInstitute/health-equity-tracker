@@ -1,5 +1,5 @@
 import { MetricId, METRIC_CONFIG, DataTypeConfig } from '../config/MetricConfig'
-import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
+import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
   appendFipsIfNeeded,
   getExclusionList,
@@ -113,7 +113,7 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
   test('Prison by Race in USA Exclusions', async () => {
     const sampleDataTypeConfigPrisonRaceUSA: DataTypeConfig =
       METRIC_CONFIG.incarceration[0]
-    const sampleBreakdownPrisonRaceUSA: BreakdownVar = 'race_and_ethnicity'
+    const sampleBreakdownPrisonRaceUSA: DemographicType = 'race_and_ethnicity'
     const sampleFipsPrisonRaceUSA: Fips = new Fips('00')
     const expectedExclusionListPrisonRaceUSA = [
       'Unknown',
@@ -143,7 +143,7 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
   test('Diabetes by Sex in AL Exclusions', async () => {
     const sampleDataTypeConfigDiabetesSexAlabama: DataTypeConfig =
       METRIC_CONFIG.diabetes[0]
-    const sampleBreakdownDiabetesSexAlabama: BreakdownVar = 'sex'
+    const sampleBreakdownDiabetesSexAlabama: DemographicType = 'sex'
     const sampleFipsDiabetesSexAlabama: Fips = new Fips('01')
     const expectedExclusionListDiabetesSexAlabama = [
       'Unknown',

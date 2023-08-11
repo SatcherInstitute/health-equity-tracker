@@ -13,7 +13,7 @@ import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import React, { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
@@ -30,7 +30,7 @@ interface AltTableViewProps {
   tableCaption: string
   knownsData: Row[]
   unknownsData: Row[]
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   knownMetricConfig: MetricConfig
   unknownMetricConfig: MetricConfig
   selectedGroups: DemographicGroup[]
@@ -42,12 +42,12 @@ export default function AltTableView(props: AltTableViewProps) {
   const tableRef = useRef(null)
   const linkRef = useRef(null)
 
-  const optionalAgesPrefix = props.breakdownVar === 'age' ? 'Ages ' : ''
+  const optionalAgesPrefix = props.demographicType === 'age' ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(
     props.knownsData,
     props.unknownsData,
-    props.breakdownVar,
+    props.demographicType,
     props.knownMetricConfig,
     props.unknownMetricConfig,
     props.selectedGroups,
@@ -68,8 +68,9 @@ export default function AltTableView(props: AltTableViewProps) {
     >
       <div className={styles.CollapseButton}>
         <IconButton
-          aria-label={`${!props.expanded ? 'Expand' : 'Collapse'
-            } data table view of ${props.expandBoxLabel}`}
+          aria-label={`${
+            !props.expanded ? 'Expand' : 'Collapse'
+          } data table view of ${props.expandBoxLabel}`}
           aria-expanded={props.expanded}
           onClick={() => {
             props.setExpanded(!props.expanded)

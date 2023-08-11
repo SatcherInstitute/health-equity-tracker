@@ -15,28 +15,28 @@ import {
   PHRMA_DATATYPES,
   PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/PhrmaProvider'
-import { type BreakdownVar } from '../data/query/Breakdowns'
+import { type DemographicType } from '../data/query/Breakdowns'
 
-const DEMOGRAPHIC_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
+const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
   Sex: 'sex',
   Age: 'age',
 }
 
-const ONLY_AGE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
+const ONLY_AGE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   Age: 'age',
 }
 
-const ONLY_RACE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
+const ONLY_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
 }
 
-const ONLY_SEX_RACE_BREAKDOWN_MAP: Partial<Record<string, BreakdownVar>> = {
+const ONLY_SEX_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
   Sex: 'sex',
 }
 
-const PHRMA_BREAKDOWNS_MAP: Partial<Record<string, BreakdownVar>> = {
+const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
   Sex: 'sex',
   Age: 'age',
@@ -81,34 +81,34 @@ export function getDemographicOptionsMap(
     getIsBlackWomen(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsBlackWomen(dataTypeConfig2))
   ) {
-    return ONLY_AGE_BREAKDOWN_MAP
+    return ONLY_AGE_TYPE_MAP
   }
 
   if (
     getIsAHRWithMissingDemos(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsAHRWithMissingDemos(dataTypeConfig2))
   ) {
-    return ONLY_SEX_RACE_BREAKDOWN_MAP
+    return ONLY_SEX_RACE_TYPE_MAP
   }
 
   if (
     getIsCAWP(dataTypeConfig1) ??
     (dataTypeConfig2 && getIsCAWP(dataTypeConfig2))
   ) {
-    return ONLY_RACE_BREAKDOWN_MAP
+    return ONLY_RACE_TYPE_MAP
   }
 
   // compare mode needs BOTH to be PHRMA
   if (dataTypeConfig1 && dataTypeConfig2) {
     if (getIsPhrma(dataTypeConfig1) && getIsPhrma(dataTypeConfig2))
-      return PHRMA_BREAKDOWNS_MAP
+      return PHRMA_TYPES_MAP
   }
 
   if (getIsPhrma(dataTypeConfig1) && dataTypeConfig2 === undefined) {
-    return PHRMA_BREAKDOWNS_MAP
+    return PHRMA_TYPES_MAP
   }
 
-  return DEMOGRAPHIC_BREAKDOWNS_MAP
+  return DEMOGRAPHIC_TYPES_MAP
 }
 
 export function getDisabledDemographicOptions(

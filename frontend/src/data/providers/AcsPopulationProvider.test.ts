@@ -1,5 +1,5 @@
 import AcsPopulationProvider from './AcsPopulationProvider'
-import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
+import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -14,7 +14,7 @@ import { RACE, AGE, SEX } from '../utils/Constants'
 export async function ensureCorrectDatasetsDownloaded(
   acsDatasetId: string,
   baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
 ) {
   const acsPopulationProvider = new AcsPopulationProvider()
 
@@ -22,7 +22,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await acsPopulationProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)

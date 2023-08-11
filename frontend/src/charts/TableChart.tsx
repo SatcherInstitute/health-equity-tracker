@@ -22,8 +22,8 @@ import {
   type DataTypeId,
 } from '../data/config/MetricConfig'
 import {
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-  type BreakdownVar,
+  DEMOGRAPHIC_DISPLAY_TYPES,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { Tooltip, useMediaQuery } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
@@ -53,7 +53,7 @@ export const altCellStyle = {
 
 export interface TableChartProps {
   data: Array<Readonly<Record<string, any>>>
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   metrics: MetricConfig[]
   dataTypeId: DataTypeId
   fips: Fips
@@ -62,7 +62,7 @@ export interface TableChartProps {
 
 export function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
-  const { data, metrics, breakdownVar } = props
+  const { data, metrics, demographicType } = props
 
   let columns:
     | Array<{ Header: string; Cell: (a: any) => string; accessor: MetricId }>
@@ -88,9 +88,9 @@ export function TableChart(props: TableChartProps) {
 
   columns = [
     {
-      Header: BREAKDOWN_VAR_DISPLAY_NAMES[breakdownVar],
+      Header: DEMOGRAPHIC_DISPLAY_TYPES[demographicType],
       Cell: (cell: any) => cell.value,
-      accessor: breakdownVar as MetricId,
+      accessor: demographicType as MetricId,
     },
     ...columns,
   ]
@@ -117,7 +117,7 @@ export function TableChart(props: TableChartProps) {
         pageSize: MAX_NUM_ROWS_WITHOUT_PAGINATION,
         sortBy: [
           {
-            id: breakdownVar,
+            id: demographicType,
             desc: false,
           },
         ],

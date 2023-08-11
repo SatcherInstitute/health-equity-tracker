@@ -12,7 +12,7 @@ import {
 } from '../../charts/mapHelpers'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -24,7 +24,7 @@ interface TerritoryCirclesProps {
   countColsToAdd: MetricId[]
   mapIsWide: boolean
   isUnknownsMap?: boolean
-  breakdown?: BreakdownVar
+  demographicType?: DemographicType
   activeBreakdownFilter?: DemographicGroup
   fullData?: Row[]
   scaleConfig?: { domain: number[]; range: number[] }
@@ -39,7 +39,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
   const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
     props.fullData,
-    props.breakdown,
+    props.demographicType,
     props.metricConfig.metricId
   )
 

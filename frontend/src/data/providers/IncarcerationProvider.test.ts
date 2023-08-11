@@ -1,5 +1,5 @@
 import IncarcerationProvider from './IncarcerationProvider'
-import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
+import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -15,7 +15,7 @@ import { MetricId, DataTypeId } from '../config/MetricConfig'
 export async function ensureCorrectDatasetsDownloaded(
   IncarcerationDatasetId: string,
   baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
+  demographicType: DemographicType,
   dataTypeId: DataTypeId,
   acsDatasetIds?: string[],
   metricIds?: MetricId[]
@@ -32,7 +32,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const responseIncludingAll = await incarcerationProvider.getData(
     new MetricQuery(
       metricIds,
-      baseBreakdown.addBreakdown(breakdownVar),
+      baseBreakdown.addBreakdown(demographicType),
       dataTypeId
     )
   )

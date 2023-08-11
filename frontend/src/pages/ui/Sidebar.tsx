@@ -2,7 +2,7 @@ import { Card } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import styles from './Sidebar.module.scss'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
 import TableOfContents from './TableOfContents'
 import TopicInfoModalButton from './TopicInfoModalButton'
@@ -22,8 +22,8 @@ interface SidebarProps {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-  trackerDemographic: BreakdownVar
-  setDemoWithParam: (demographic: BreakdownVar) => void
+  trackerDemographic: DemographicType
+  setDemoWithParam: (demographic: DemographicType) => void
   isRaceBySex?: boolean
   demographicOptionsMap: any
   disabledDemographicOptions?: string[][]
@@ -40,7 +40,7 @@ export default function Sidebar(props: SidebarProps) {
         </Card>
         <div className="mode-selector-box">
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
-            <SimpleSelect<BreakdownVar>
+            <SimpleSelect<DemographicType>
               label="Demographic"
               optionsMap={props.demographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}
