@@ -1,13 +1,14 @@
 import { Button } from '@mui/material'
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import { useAtomValue, useSetAtom } from 'jotai'
+import { useAtomValue } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
-  topicInfoModalIsOpenAtom,
 } from '../../utils/sharedSettingsState'
 import styles from './Sidebar.module.scss'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 
 export default function TopicInfoModalButton() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
@@ -24,7 +25,10 @@ export default function TopicInfoModalButton() {
     configArray.push(selectedDataTypeConfig2)
   }
 
-  const setTopicInfoModalIsOpen = useSetAtom(topicInfoModalIsOpenAtom)
+  const [, setTopicInfoModalIsOpen] = useParamState<boolean>(
+    TOPIC_INFO_PARAM_KEY,
+    false
+  )
 
   if (!configArray) return <></>
 

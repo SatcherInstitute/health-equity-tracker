@@ -75,8 +75,13 @@ test.describe('Home to COVID Vax by Age', () => {
 
         // OPEN MODAL
         await page.getByRole('button', { name: 'open the topic info modal' }).click();
+        await expect(page).toHaveURL(/.*topic-info=true/);
+
+
         // CLOSE IT
         await page.getByRole('button', { name: 'close topic info modal' }).click();
+        await expect(page).not.toHaveURL(/.*topic-info=true/);
+
 
     });
 

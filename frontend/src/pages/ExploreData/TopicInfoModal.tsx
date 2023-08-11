@@ -1,22 +1,22 @@
 import { Button, Dialog, DialogContent } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
-import { useAtom, useAtomValue } from 'jotai'
+import { useAtomValue } from 'jotai'
 import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
-  topicInfoModalIsOpenAtom,
 } from '../../utils/sharedSettingsState'
 import { HashLink } from 'react-router-hash-link'
 import { DATA_TAB_LINK, METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 import sass from '../../styles/variables.module.scss'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 
 export default function TopicInfoModal() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
-  const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] = useAtom(
-    topicInfoModalIsOpenAtom
-  )
+  const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
+    useParamState<boolean>(TOPIC_INFO_PARAM_KEY, false)
 
   const configArray: DataTypeConfig[] = []
   if (selectedDataTypeConfig1) {
@@ -31,7 +31,7 @@ export default function TopicInfoModal() {
 
   return (
     <Dialog
-      open={topicInfoModalIsOpen}
+      open={Boolean(topicInfoModalIsOpen)}
       onClose={() => {
         setTopicInfoModalIsOpen(false)
       }}
