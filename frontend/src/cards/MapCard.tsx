@@ -44,7 +44,6 @@ import {
   CAWP_DETERMINANTS,
   CAWP_STLEG_COUNTS,
 } from '../data/providers/CawpProvider'
-import { useAutoFocusDialog } from '../utils/hooks/useAutoFocusDialog'
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
@@ -70,12 +69,15 @@ import { GridView } from '@mui/icons-material'
 import {
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
+  MULTIPLE_MAPS_1_PARAM_KEY,
+  MULTIPLE_MAPS_2_PARAM_KEY,
   getDemographicGroupFromGroupParam,
   getGroupParamFromDemographicGroup,
   getParameter,
   setParameter,
 } from '../utils/urlutils'
 import ChartTitle from './ChartTitle'
+import { useParamState } from '../utils/hooks/useParamState'
 
 const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
 
@@ -145,7 +147,13 @@ function MapCardWithKey(props: MapCardProps) {
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
 
-  const [multimapOpen, setMultimapOpen] = useAutoFocusDialog()
+  const MULTIMAP_PARAM_KEY = props.isCompareCard
+    ? MULTIPLE_MAPS_2_PARAM_KEY
+    : MULTIPLE_MAPS_1_PARAM_KEY
+  const [multimapOpen, setMultimapOpen] = useParamState<boolean>(
+    MULTIMAP_PARAM_KEY,
+    false
+  )
 
   const metricQuery = (
     geographyBreakdown: Breakdowns,
@@ -387,7 +395,7 @@ function MapCardWithKey(props: MapCardProps) {
               hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
               metadata={metadata}
               metricConfig={metricConfig}
-              open={multimapOpen}
+              open={Boolean(multimapOpen)}
               queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}

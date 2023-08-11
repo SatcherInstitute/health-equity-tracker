@@ -1,7 +1,10 @@
 import { atom } from 'jotai'
+import { atomWithLocation } from 'jotai-location'
+
 import { type DataTypeConfig } from '../data/config/MetricConfig'
 
 export const selectedDataTypeConfig1Atom = atom<DataTypeConfig | null>(null)
 export const selectedDataTypeConfig2Atom = atom<DataTypeConfig | null>(null)
 
-export const topicInfoModalIsOpenAtom = atom<boolean>(false)
+/* SHARED SYNCED URL PARAMS STATE */
+export const locationAtom = atomWithLocation()
