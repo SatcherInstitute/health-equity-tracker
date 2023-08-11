@@ -16,7 +16,7 @@ export default function TopicInfoModal() {
   const selectedDataTypeConfig1 = useAtomValue(selectedDataTypeConfig1Atom)
   const selectedDataTypeConfig2 = useAtomValue(selectedDataTypeConfig2Atom)
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
-    useParamState<boolean>(TOPIC_INFO_PARAM_KEY)
+    useParamState<boolean>(TOPIC_INFO_PARAM_KEY, false)
 
   const configArray: DataTypeConfig[] = []
   if (selectedDataTypeConfig1) {
@@ -31,7 +31,7 @@ export default function TopicInfoModal() {
 
   return (
     <Dialog
-      open={topicInfoModalIsOpen}
+      open={Boolean(topicInfoModalIsOpen)}
       onClose={() => {
         setTopicInfoModalIsOpen(false)
       }}

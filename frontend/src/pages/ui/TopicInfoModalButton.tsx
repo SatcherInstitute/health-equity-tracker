@@ -25,7 +25,10 @@ export default function TopicInfoModalButton() {
     configArray.push(selectedDataTypeConfig2)
   }
 
-  const [, setTopicInfoModalIsOpen] = useParamState(TOPIC_INFO_PARAM_KEY)
+  const [, setTopicInfoModalIsOpen] = useParamState<boolean>(
+    TOPIC_INFO_PARAM_KEY,
+    false
+  )
 
   if (!configArray) return <></>
 
