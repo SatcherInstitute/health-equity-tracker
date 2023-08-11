@@ -208,7 +208,7 @@ function MapCardWithKey(props: MapCardProps) {
   let selectedRaceSuffix = ''
   if (
     CAWP_DETERMINANTS.includes(metricConfig.metricId) &&
-    activeDemographicGroup !== 'All'
+    activeDemographicGroup !== ALL
   ) {
     selectedRaceSuffix = ` and also identifying as ${activeDemographicGroup}`
   }
@@ -593,7 +593,7 @@ function MapCardWithKey(props: MapCardProps) {
 
                 {!mapQueryResponse.dataIsMissing() &&
                   dataForActiveDemographicGroup.length === 0 &&
-                  activeDemographicGroup !== 'All' && (
+                  activeDemographicGroup !== ALL && (
                     <CardContent>
                       <Alert severity="warning" role="note">
                         Insufficient data available for filter:{' '}

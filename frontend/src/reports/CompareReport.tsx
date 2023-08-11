@@ -73,7 +73,7 @@ function CompareReport(props: {
     props.dropdownVarId2 === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setdemographicType] = useState<DemographicType>(
+  const [demographicType, setDemographicType] = useState<DemographicType>(
     getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
   )
 
@@ -87,7 +87,7 @@ function CompareReport(props: {
 
   function setDemoWithParam(demographic: DemographicType) {
     setParameter(DEMOGRAPHIC_PARAM, demographic)
-    setdemographicType(demographic)
+    setDemographicType(demographic)
   }
 
   const demographicOptionsMap = getDemographicOptionsMap(
@@ -141,7 +141,7 @@ function CompareReport(props: {
           : demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
       setDataTypeConfig2(newDemoParam2)
 
-      setdemographicType(demo)
+      setDemographicType(demo)
     }
     const psSub = psSubscribe(readParams, 'twovar')
     readParams()

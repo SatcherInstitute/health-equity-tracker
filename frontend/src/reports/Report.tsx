@@ -67,7 +67,7 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setdemographicType] = useState<DemographicType>(
+  const [demographicType, setDemographicType] = useState<DemographicType>(
     getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
   )
 
@@ -77,7 +77,7 @@ export function Report(props: ReportProps) {
 
   function setDemoWithParam(str: DemographicType) {
     setParameter(DEMOGRAPHIC_PARAM, str)
-    setdemographicType(str)
+    setDemographicType(str)
   }
 
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
@@ -104,7 +104,7 @@ export function Report(props: ReportProps) {
       setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
       const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
-      setdemographicType(demo)
+      setDemographicType(demo)
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
