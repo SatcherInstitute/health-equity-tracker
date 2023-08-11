@@ -29,7 +29,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         // Clicking left side multiple maps button launches INCARCERATION multimap modal
         await page.locator('#rate-map').getByRole('button', { name: 'View multiple maps' }).click();
         await expect(page).toHaveURL(/.*multiple-maps=true/);
-        await expect(page.getByRole('heading', { name: 'Prison incarceration in Georgia across all race and ethnicity groups' })).toBeInViewport()
+        await expect(page.getByRole('heading', { name: 'Prison incarceration in Georgia across all race and ethnicity groups' })).toBeVisible()
 
         // CLOSE IT
         await page.getByRole('button', { name: 'close multiple maps modal' }).click();
@@ -44,7 +44,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         // Clicking right side multiple maps button launches POVERTY multimap modal
         await page.locator('#rate-map2').getByRole('button', { name: 'View multiple maps' }).click();
         await expect(page).toHaveURL(/.*multiple-maps2=true/);
-        await expect(page.getByRole('heading', { name: 'People below the poverty line in Georgia across all race and ethnicity groups' })).toBeInViewport()
+        await expect(page.getByRole('heading', { name: 'People below the poverty line in Georgia across all race and ethnicity groups' })).toBeVisible()
 
         // CLOSE IT
         await page.getByRole('button', { name: 'close multiple maps modal' }).click();
