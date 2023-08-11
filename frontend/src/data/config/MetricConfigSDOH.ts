@@ -12,6 +12,7 @@ export const SDOH_CATEGORY_DROPDOWNIDS = [
 ]
 
 export type SDOHMetricId =
+  | 'ahr_population_pct'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
   | 'poverty_count'

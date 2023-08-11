@@ -16,6 +16,7 @@ export const BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS = [
 export type BehavioralHealthDataTypeId = 'non_medical_drug_use'
 
 export type BehavioralHealthMetricId =
+  | 'ahr_population_pct'
   | 'depression_pct_share'
   | 'depression_per_100k'
   | 'excessive_drinking_pct_share'

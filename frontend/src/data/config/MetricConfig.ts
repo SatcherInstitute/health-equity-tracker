@@ -100,10 +100,7 @@ export type MetricId =
   | PDOHMetricId
   | SDOHMetricId
   | ChronicDiseaseMetricId
-  | 'ahr_population_pct'
   | 'geo_context'
-  | 'population_decia'
-  | 'population_pct_decia'
   | 'population_pct'
   | 'population'
   | 'svi'

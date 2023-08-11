@@ -17,6 +17,7 @@ export type PDOHDataTypeId =
   | 'women_in_us_congress'
 
 export type PDOHMetricId =
+  | 'ahr_population_pct'
   | 'cawp_population_pct'
   | 'incarceration_population_pct'
   | 'jail_pct_relative_inequity'

@@ -13,6 +13,7 @@ export const CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS = [
 ]
 
 export type ChronicDiseaseMetricId =
+  | 'ahr_population_pct'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
   | 'cardiovascular_diseases_pct_share'
