@@ -143,7 +143,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               container
               justifyContent={'flex-end'}
             >
-              <Button onClick={props.handleClose} color="primary">
+              <Button
+                aria-label="close multiple maps modal"
+                onClick={props.handleClose}
+                color="primary"
+              >
                 <CloseIcon />
               </Button>
             </Grid>
@@ -165,7 +169,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               container
               justifyContent={'flex-end'}
             >
-              <Button onClick={props.handleClose} color="primary">
+              <Button
+                aria-label="close multiple maps modal"
+                onClick={props.handleClose}
+                color="primary"
+              >
                 <CloseIcon />
               </Button>
             </Grid>
