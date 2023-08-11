@@ -13,8 +13,8 @@ import {
 } from '@mui/material'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import {
-  type BreakdownVar,
-  type BreakdownVarDisplayName,
+  type DemographicType,
+  type DemographicTypeDisplayName,
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 import { type DataTypeId } from '../../data/config/MetricConfig'
@@ -23,7 +23,7 @@ interface MenuPopoverProps {
   popover: PopoverElements
   // Map type indicates items are first level menu items, array indicates second level
   items:
-    | Record<BreakdownVarDisplayName, DemographicGroup[]>
+    | Record<DemographicTypeDisplayName, DemographicGroup[]>
     | DemographicGroup[]
   onClick: (
     event: React.MouseEvent<HTMLElement>,
@@ -114,7 +114,7 @@ export interface DropDownMenuProps {
     filterSelection: DemographicGroup
   ) => void
   idSuffix?: string
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeId: DataTypeId
   setMultimapOpen: (multimapOpen: boolean) => void
 }
@@ -137,7 +137,7 @@ function DropDownMenu(props: DropDownMenuProps) {
   const demOption = firstMenuSelection
 
   const suffix = useHIVLabelSuffix(
-    props.breakdownVar,
+    props.demographicType,
     props.value,
     props.dataTypeId
   )

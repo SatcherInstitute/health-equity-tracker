@@ -3,15 +3,15 @@ import { CardContent, Alert } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
-import { NON_HISPANIC, ALL, RACE, HISPANIC } from '../data/utils/Constants'
+import { NON_HISPANIC, ALL, RACE, HISPANIC, SEX } from '../data/utils/Constants'
 import UnknownsAlert from './ui/UnknownsAlert'
 import {
   shouldShowAltPopCompare,
@@ -26,7 +26,7 @@ import { generateChartTitle } from '../charts/utils'
 
 export interface DisparityBarChartCardProps {
   key?: string
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
   reportTitle: string
@@ -37,7 +37,7 @@ export interface DisparityBarChartCardProps {
 export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
   return (
     <DisparityBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.breakdownVar}
+      key={props.dataTypeConfig.dataTypeId + props.demographicType}
       {...props}
     />
   )
@@ -46,12 +46,12 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1000],
-    props.breakdownVar === 'sex'
+    props.demographicType === SEX
   )
 
   const metricConfig = props.dataTypeConfig.metrics.pct_share
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-    props.breakdownVar,
+    props.demographicType,
     exclude(ALL, NON_HISPANIC)
   )
 
@@ -106,7 +106,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         const [knownData] = splitIntoKnownsAndUnknowns(
           validData,
-          props.breakdownVar
+          props.demographicType
         )
 
         const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId)
@@ -116,11 +116,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         // also require at least some data to be available to avoid showing info on suppressed/undefined states
         const shouldShowDoesntAddUpMessage =
           !isCawp &&
-          props.breakdownVar === RACE &&
+          props.demographicType === RACE &&
           queryResponse.data.every(
             (row) =>
-              !row[props.breakdownVar].includes('(NH)') ||
-              row[props.breakdownVar] === HISPANIC
+              !row[props.demographicType].includes('(NH)') ||
+              row[props.demographicType] === HISPANIC
           ) &&
           queryResponse.data.some((row) => row[metricConfig.metricId])
 
@@ -141,7 +141,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   darkMetric={
                     metricConfig.knownBreakdownComparisonMetric ?? metricConfig
                   }
-                  breakdownVar={props.breakdownVar}
+                  demographicType={props.demographicType}
                   metricDisplayName={metricConfig.shortLabel}
                   filename={chartTitle}
                   showAltPopCompare={shouldShowAltPopCompare(props)}
@@ -154,18 +154,18 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               <UnknownsAlert
                 metricConfig={metricConfig}
                 queryResponse={queryResponse}
-                breakdownVar={props.breakdownVar}
+                demographicType={props.demographicType}
                 displayType="chart"
                 known={true}
-                overrideAndWithOr={props.breakdownVar === RACE}
+                overrideAndWithOr={props.demographicType === RACE}
                 fips={props.fips}
               />
             ) : (
               <CardContent>
                 <MissingDataAlert
                   dataName={chartTitle}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
                   }
                   fips={props.fips}
                 />

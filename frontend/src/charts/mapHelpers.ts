@@ -26,7 +26,7 @@ import {
 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
-import { type BreakdownVar } from '../data/query/Breakdowns'
+import { type DemographicType } from '../data/query/Breakdowns'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -415,18 +415,20 @@ export interface HighestLowest {
 
 export function getHighestLowestGroupsByFips(
   fullData?: Row[],
-  breakdown?: BreakdownVar,
+  demographicType?: DemographicType,
   metricId?: MetricId
 ) {
   const fipsToGroup: Record<string, HighestLowest> = {}
 
-  if (!fullData || !breakdown || !metricId) return fipsToGroup
+  if (!fullData || !demographicType || !metricId) return fipsToGroup
 
   const fipsInData = new Set(fullData.map((row) => row.fips))
   for (const fips of fipsInData) {
     const dataForFips = fullData.filter(
       (row) =>
-        row.fips === fips && row[breakdown] !== ALL && row[metricId] != null
+        row.fips === fips &&
+        row[demographicType] !== ALL &&
+        row[metricId] != null
     )
 
     // handle places with limited groups / lots of zeros
@@ -438,20 +440,20 @@ export function getHighestLowestGroupsByFips(
         (a, b) => a[metricId] - b[metricId]
       )
       const ascendingGroups: DemographicGroup[] = ascendingRows.map(
-        (row) => row[breakdown]
+        (row) => row[demographicType]
       )
 
       fipsToGroup[fips] = {
         highest: generateSubtitle(
-          /* activeBreakdownFilter: */ ascendingGroups[
+          /* activeDemographicGroup: */ ascendingGroups[
             ascendingGroups.length - 1
           ],
-          /* currentBreakdown:  */ breakdown,
+          /* demographicType:  */ demographicType,
           metricId
         ),
         lowest: generateSubtitle(
-          /* activeBreakdownFilter: */ ascendingGroups[0],
-          /* currentBreakdown:  */ breakdown,
+          /* activeDemographicGroup: */ ascendingGroups[0],
+          /* demographicType:  */ demographicType,
           metricId
         ),
       }
@@ -481,16 +483,16 @@ export function embedHighestLowestGroups(
 }
 
 export function getMapGroupLabel(
-  activeBreakdownFilter?: DemographicGroup,
+  activeDemographicGroup?: DemographicGroup,
   measureTypeOverride?: string
 ) {
-  const selectedGroup = activeBreakdownFilter
-    ? raceNameToCodeMap[activeBreakdownFilter]
-    : activeBreakdownFilter ?? ''
+  const selectedGroup = activeDemographicGroup
+    ? raceNameToCodeMap[activeDemographicGroup]
+    : activeDemographicGroup ?? ''
 
   const measureType = measureTypeOverride ?? 'Rate'
 
-  return activeBreakdownFilter === ALL
+  return activeDemographicGroup === ALL
     ? `${measureType} overall`
     : `Rate for ${selectedGroup ?? 'selected group'}`
 }

@@ -13,10 +13,12 @@ import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
 import React, { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
+  AGE,
+  ALL,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
@@ -30,7 +32,7 @@ interface AltTableViewProps {
   tableCaption: string
   knownsData: Row[]
   unknownsData: Row[]
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   knownMetricConfig: MetricConfig
   unknownMetricConfig: MetricConfig
   selectedGroups: DemographicGroup[]
@@ -42,12 +44,12 @@ export default function AltTableView(props: AltTableViewProps) {
   const tableRef = useRef(null)
   const linkRef = useRef(null)
 
-  const optionalAgesPrefix = props.breakdownVar === 'age' ? 'Ages ' : ''
+  const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(
     props.knownsData,
     props.unknownsData,
-    props.breakdownVar,
+    props.demographicType,
     props.knownMetricConfig,
     props.unknownMetricConfig,
     props.selectedGroups,
@@ -68,8 +70,9 @@ export default function AltTableView(props: AltTableViewProps) {
     >
       <div className={styles.CollapseButton}>
         <IconButton
-          aria-label={`${!props.expanded ? 'Expand' : 'Collapse'
-            } data table view of ${props.expandBoxLabel}`}
+          aria-label={`${
+            !props.expanded ? 'Expand' : 'Collapse'
+          } data table view of ${props.expandBoxLabel}`}
           aria-expanded={props.expanded}
           onClick={() => {
             props.setExpanded(!props.expanded)
@@ -128,7 +131,7 @@ export default function AltTableView(props: AltTableViewProps) {
                         }}
                       >
                         {!isTimeCol &&
-                          key !== 'All' &&
+                          key !== ALL &&
                           !isUnknownPctCol &&
                           optionalAgesPrefix}
                         {key.replaceAll('_', ' ')}

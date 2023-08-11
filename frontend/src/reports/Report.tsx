@@ -32,8 +32,8 @@ import { reportProviderSteps } from './ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import Sidebar from '../pages/ui/Sidebar'
@@ -67,7 +67,7 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [currentBreakdown, setCurrentBreakdown] = useState<BreakdownVar>(
+  const [demographicType, setDemographicType] = useState<DemographicType>(
     getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
   )
 
@@ -75,15 +75,15 @@ export function Report(props: ReportProps) {
     selectedDataTypeConfig1Atom
   )
 
-  function setDemoWithParam(str: BreakdownVar) {
+  function setDemoWithParam(str: DemographicType) {
     setParameter(DEMOGRAPHIC_PARAM, str)
-    setCurrentBreakdown(str)
+    setDemographicType(str)
   }
 
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
-  if (!Object.values(demographicOptionsMap).includes(currentBreakdown)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as BreakdownVar)
+  if (!Object.values(demographicOptionsMap).includes(demographicType)) {
+    setDemoWithParam(Object.values(demographicOptionsMap)[0] as DemographicType)
   }
 
   const disabledDemographicOptions =
@@ -103,8 +103,8 @@ export function Report(props: ReportProps) {
       )
       setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
 
-      const demo: BreakdownVar = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
-      setCurrentBreakdown(demo)
+      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+      setDemographicType(demo)
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()
@@ -114,7 +114,7 @@ export function Report(props: ReportProps) {
         psHandler.unsubscribe()
       }
     }
-  }, [props.dropdownVarId, currentBreakdown])
+  }, [props.dropdownVarId, demographicType])
 
   // when variable config changes (new data type), re-calc available card steps TableOfContents
   useEffect(() => {
@@ -126,7 +126,7 @@ export function Report(props: ReportProps) {
   }, [dataTypeConfig])
 
   const demographicTypeString: string =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown] ?? 'demographic'
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType] ?? 'demographic'
 
   const browserTitle = `${
     (dataTypeConfig?.fullDisplayName as string) ?? 'Data'
@@ -153,7 +153,7 @@ export function Report(props: ReportProps) {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            trackerDemographic={currentBreakdown}
+            trackerDemographic={demographicType}
             setDemoWithParam={setDemoWithParam}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
@@ -191,7 +191,7 @@ export function Report(props: ReportProps) {
                     updateFipsCallback={(fips: Fips) => {
                       props.updateFipsCallback(fips)
                     }}
-                    currentBreakdown={currentBreakdown}
+                    demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
                 </Grid>
@@ -213,7 +213,7 @@ export function Report(props: ReportProps) {
                     !hideNonCountyBJSTimeCards && (
                       <RateTrendsChartCard
                         dataTypeConfig={dataTypeConfig}
-                        breakdownVar={currentBreakdown}
+                        demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
                       />
@@ -234,7 +234,7 @@ export function Report(props: ReportProps) {
                 >
                   <SimpleBarChartCard
                     dataTypeConfig={dataTypeConfig}
-                    breakdownVar={currentBreakdown}
+                    demographicType={demographicType}
                     fips={props.fips}
                     reportTitle={props.reportTitle}
                   />
@@ -255,13 +255,13 @@ export function Report(props: ReportProps) {
                   <LazyLoad offset={800} height={750} once>
                     {dataTypeConfig.metrics.pct_share && (
                       <UnknownsMapCard
-                        overrideAndWithOr={currentBreakdown === RACE}
+                        overrideAndWithOr={demographicType === RACE}
                         dataTypeConfig={dataTypeConfig}
                         fips={props.fips}
                         updateFipsCallback={(fips: Fips) => {
                           props.updateFipsCallback(fips)
                         }}
-                        currentBreakdown={currentBreakdown}
+                        demographicType={demographicType}
                         reportTitle={props.reportTitle}
                       />
                     )}
@@ -286,7 +286,7 @@ export function Report(props: ReportProps) {
                       !hideNonCountyBJSTimeCards && (
                         <ShareTrendsChartCard
                           dataTypeConfig={dataTypeConfig}
-                          breakdownVar={currentBreakdown}
+                          demographicType={demographicType}
                           fips={props.fips}
                           reportTitle={props.reportTitle}
                         />
@@ -310,7 +310,7 @@ export function Report(props: ReportProps) {
                     {dataTypeConfig.metrics.pct_share && (
                       <DisparityBarChartCard
                         dataTypeConfig={dataTypeConfig}
-                        breakdownVar={currentBreakdown}
+                        demographicType={demographicType}
                         fips={props.fips}
                         reportTitle={props.reportTitle}
                       />
@@ -332,7 +332,7 @@ export function Report(props: ReportProps) {
                   <TableCard
                     fips={props.fips}
                     dataTypeConfig={dataTypeConfig}
-                    breakdownVar={currentBreakdown}
+                    demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
                 </Grid>
@@ -354,7 +354,7 @@ export function Report(props: ReportProps) {
                         fips={props.fips}
                         dataTypeConfig={dataTypeConfig}
                         dropdownVarId={props.dropdownVarId}
-                        breakdownVar={currentBreakdown}
+                        demographicType={demographicType}
                         reportTitle={props.reportTitle}
                       />
                     </LazyLoad>
@@ -393,7 +393,7 @@ export function Report(props: ReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={currentBreakdown}
+              trackerDemographic={demographicType}
               setDemoWithParam={setDemoWithParam}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}

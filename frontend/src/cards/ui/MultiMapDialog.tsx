@@ -27,8 +27,8 @@ import {
   type MetricQueryResponse,
 } from '../../data/query/MetricQuery'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import {
@@ -46,10 +46,10 @@ export interface MultiMapDialogProps {
   metricConfig: MetricConfig
   // Whether or not the data was collected via survey
   useSmallSampleMessage: boolean
-  // Demographic breakdown upon which we're dividing the data, i.e. "age"
-  breakdown: BreakdownVar
-  // Unique values for breakdown, each one will have it's own map
-  breakdownValues: DemographicGroup[]
+  // Demographic upon which we're dividing the data, i.e. "age"
+  demographicType: DemographicType
+  // Unique values for demographicType, each one will have it's own map
+  demographicGroups: DemographicGroup[]
   // Geographic region of maps
   fips: Fips
   // Data that populates maps
@@ -65,7 +65,7 @@ export interface MultiMapDialogProps {
   queryResponses: MetricQueryResponse[]
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata
-  breakdownValuesNoData: DemographicGroup[]
+  demographicGroupsNoData: DemographicGroup[]
   countColsToAdd: MetricId[]
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
@@ -80,13 +80,13 @@ export interface MultiMapDialogProps {
 
 /*
    MultiMapDialog is a dialog opened via the MapCard that shows one small map for each unique
-    value in a given breakdown for a particular metric.
+    value in a given demographicType for a particular metric.
 */
 export function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
   } in ${props.fips.getSentenceDisplayName()} across all ${
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
   const [screenshotTargetRef, downloadTargetScreenshot] =
@@ -200,14 +200,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
 
           {/* Multiples Maps */}
-          {props.breakdownValues.map((breakdownValue) => {
+          {props.demographicGroups.map((demographicGroup) => {
             const mapLabel = CAWP_DETERMINANTS.includes(
               props.metricConfig.metricId
             )
-              ? getWomenRaceLabel(breakdownValue)
-              : breakdownValue
+              ? getWomenRaceLabel(demographicGroup)
+              : demographicGroup
             const dataForValue = props.data.filter(
-              (row: Row) => row[props.breakdown] === breakdownValue
+              (row: Row) => row[props.demographicType] === demographicGroup
             )
             return (
               <Grid
@@ -216,11 +216,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 md={4}
                 lg={3}
                 item
-                key={`${breakdownValue}-grid-item`}
+                key={`${demographicGroup}-grid-item`}
                 className={styles.SmallMultipleMap}
                 component="li"
                 onClick={(e: any) => {
-                  props.handleMapGroupClick(null, breakdownValue)
+                  props.handleMapGroupClick(null, demographicGroup)
                 }}
               >
                 <b>{mapLabel}</b>
@@ -233,7 +233,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     fips={props.fips}
                     geoData={props.geoData}
                     hideLegend={true}
-                    key={breakdownValue}
+                    key={demographicGroup}
                     legendData={props.data}
                     metric={props.metricConfig}
                     showCounties={
@@ -311,7 +311,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
 
           {/* Missing Groups */}
-          {props.breakdownValuesNoData.length > 0 && (
+          {props.demographicGroupsNoData.length > 0 && (
             <Grid item container justifyContent="center" xs={12} xl={7}>
               <Box my={3}>
                 <Alert severity="warning">
@@ -319,10 +319,10 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     Insufficient {props.metricConfig.shortLabel} data reported
                     at the {props.fips.getChildFipsTypeDisplayName()} level for
                     the following groups:{' '}
-                    {props.breakdownValuesNoData.map((group, i) => (
+                    {props.demographicGroupsNoData.map((group, i) => (
                       <span key={group}>
                         <b>{group}</b>
-                        {i < props.breakdownValuesNoData.length - 1 && '; '}
+                        {i < props.demographicGroupsNoData.length - 1 && '; '}
                       </span>
                     ))}
                   </p>

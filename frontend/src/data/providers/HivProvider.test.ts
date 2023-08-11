@@ -1,5 +1,5 @@
 import HivProvider from './HivProvider'
-import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
+import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -15,7 +15,7 @@ import { MetricId, DataTypeId } from '../config/MetricConfig'
 export async function ensureCorrectDatasetsDownloaded(
   hivDatasetId: string,
   baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
+  demographicType: DemographicType,
   dataTypeId: DataTypeId,
   metricIds?: MetricId[]
 ) {
@@ -30,7 +30,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const responseIncludingAll = await hivProvider.getData(
     new MetricQuery(
       metricIds,
-      baseBreakdown.addBreakdown(breakdownVar),
+      baseBreakdown.addBreakdown(demographicType),
       dataTypeId
     )
   )
@@ -52,7 +52,7 @@ const testCases = [
     name: 'County and Race Breakdown for Diagnoses',
     datasetId: 'cdc_hiv_data-race_and_ethnicity_county_time_series-06',
     breakdowns: Breakdowns.forFips(new Fips('06037')),
-    breakdownVar: RACE,
+    demographicType: RACE,
     metricName: 'hiv_diagnoses',
     metricIds: ['hiv_diagnoses_per_100k'],
   },
@@ -60,7 +60,7 @@ const testCases = [
     name: 'County and Sex Breakdown for PrEP',
     datasetId: 'cdc_hiv_data-sex_county_time_series-06',
     breakdowns: Breakdowns.forFips(new Fips('06037')),
-    breakdownVar: SEX,
+    demographicType: SEX,
     metricName: 'hiv_prep',
     metricIds: ['hiv_prep_coverage'],
   },
@@ -69,7 +69,7 @@ const testCases = [
     datasetId:
       'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('37')),
-    breakdownVar: RACE,
+    demographicType: RACE,
     metricName: 'hiv_deaths',
     metricIds: ['hiv_deaths_pct_share'],
   },
@@ -77,7 +77,7 @@ const testCases = [
     name: 'State and Age Breakdown PrEP',
     datasetId: 'cdc_hiv_data-age_state_time_series',
     breakdowns: Breakdowns.forFips(new Fips('37')),
-    breakdownVar: AGE,
+    demographicType: AGE,
     metricName: 'hiv_prep',
     metricIds: ['hiv_prep_pct_share'],
   },
@@ -85,7 +85,7 @@ const testCases = [
     name: 'State and Sex Breakdown Diagnoses',
     datasetId: 'cdc_hiv_data-sex_state_time_series',
     breakdowns: Breakdowns.forFips(new Fips('37')),
-    breakdownVar: SEX,
+    demographicType: SEX,
     metricName: 'hiv_diagnoses',
     metricIds: ['hiv_diagnoses_pct_share'],
   },
@@ -94,7 +94,7 @@ const testCases = [
     datasetId:
       'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('00')),
-    breakdownVar: RACE,
+    demographicType: RACE,
     metricName: 'hiv_prep',
     metricIds: ['hiv_prep_pct_relative_inequity'],
   },
@@ -103,7 +103,7 @@ const testCases = [
     datasetId:
       'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('00')),
-    breakdownVar: RACE,
+    demographicType: RACE,
     metricName: 'hiv_diagnoses',
     metricIds: ['hiv_diagnoses_pct_relative_inequity'],
   },
@@ -112,7 +112,7 @@ const testCases = [
     datasetId:
       'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
     breakdowns: Breakdowns.forFips(new Fips('00')),
-    breakdownVar: RACE,
+    demographicType: RACE,
     metricName: 'hiv_deaths',
     metricIds: ['hiv_deaths_pct_relative_inequity'],
   },
@@ -130,7 +130,7 @@ describe('HivProvider', () => {
       await ensureCorrectDatasetsDownloaded(
         testCase.datasetId,
         testCase.breakdowns,
-        testCase.breakdownVar as BreakdownVar,
+        testCase.demographicType as DemographicType,
         testCase.metricName as DataTypeId,
         testCase.metricIds as MetricId[]
       )

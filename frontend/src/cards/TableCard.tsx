@@ -4,8 +4,8 @@ import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { CardContent } from '@mui/material'
 import {
@@ -16,7 +16,7 @@ import {
   getRateAndPctShareMetrics,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
-import { ALL, RACE } from '../data/utils/Constants'
+import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import Alert from '@mui/material/Alert'
 import Divider from '@mui/material/Divider'
@@ -47,7 +47,7 @@ export const NEVER_SHOW_PROPERTIES = [
 
 export interface TableCardProps {
   fips: Fips
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   reportTitle: string
 }
@@ -55,7 +55,7 @@ export interface TableCardProps {
 export function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1500],
-    props.breakdownVar === 'sex'
+    props.demographicType === SEX
   )
 
   const metrics = getRateAndPctShareMetrics(props.dataTypeConfig)
@@ -63,9 +63,13 @@ export function TableCard(props: TableCardProps) {
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-    props.breakdownVar,
+    props.demographicType,
     exclude(
-      ...getExclusionList(props.dataTypeConfig, props.breakdownVar, props.fips)
+      ...getExclusionList(
+        props.dataTypeConfig,
+        props.demographicType,
+        props.fips
+      )
     )
   )
 
@@ -119,8 +123,9 @@ export function TableCard(props: TableCardProps) {
 
   return (
     <CardWrapper
-      downloadTitle={`Table card for ${props.dataTypeConfig.fullDisplayName
-        } in ${props.fips.getSentenceDisplayName()}`}
+      downloadTitle={`Table card for ${
+        props.dataTypeConfig.fullDisplayName
+      } in ${props.fips.getSentenceDisplayName()}`}
       minHeight={preloadHeight}
       queries={[query]}
       scrollToHash={HASH_ID}
@@ -137,7 +142,7 @@ export function TableCard(props: TableCardProps) {
           normalMetricIds = metricIds.filter(
             (id) => id !== 'total_confined_children'
           )
-          data = data.filter((row: Row) => row[props.breakdownVar] !== ALL)
+          data = data.filter((row: Row) => row[props.demographicType] !== ALL)
         }
 
         const showMissingDataAlert =
@@ -150,7 +155,7 @@ export function TableCard(props: TableCardProps) {
               <div className={styles.TableChart}>
                 <TableChart
                   data={data}
-                  breakdownVar={props.breakdownVar}
+                  demographicType={props.demographicType}
                   metrics={Object.values(metricConfigs).filter(
                     (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
                   )}
@@ -167,14 +172,14 @@ export function TableCard(props: TableCardProps) {
               <IncarceratedChildrenShortAlert
                 fips={props.fips}
                 queryResponse={queryResponse}
-                breakdownVar={props.breakdownVar}
+                demographicType={props.demographicType}
               />
             )}
             {isHIV && (
               <GenderDataShortAlert
                 fips={props.fips}
                 queryResponse={queryResponse}
-                breakdownVar={props.breakdownVar}
+                demographicType={props.demographicType}
                 dataTypeId={props.dataTypeConfig.dataTypeId}
               />
             )}
@@ -182,8 +187,8 @@ export function TableCard(props: TableCardProps) {
               <CardContent>
                 <MissingDataAlert
                   dataName={props.dataTypeConfig.fullDisplayName + ' '}
-                  breakdownString={
-                    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
                   }
                   fips={props.fips}
                 />
@@ -191,7 +196,7 @@ export function TableCard(props: TableCardProps) {
             )}
             {!queryResponse.dataIsMissing() &&
               displayingCovidData &&
-              props.breakdownVar === RACE && (
+              props.demographicType === RACE && (
                 <>
                   <CardContent>
                     <Alert severity="warning" role="note" id="AIAN-alert">

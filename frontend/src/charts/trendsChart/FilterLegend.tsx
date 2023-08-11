@@ -17,7 +17,7 @@ import sass from '../../styles/variables.module.scss'
 /* Constants */
 import { type TrendsData } from './types'
 import { COLORS as C } from './constants'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import {
   AGE,
@@ -35,7 +35,7 @@ export interface FilterLegendProps {
   groupLabel: string
   isSkinny: boolean
   chartWidth: number
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   legendId: string
 }
 
@@ -48,7 +48,7 @@ export function FilterLegend({
   groupLabel,
   isSkinny,
   chartWidth,
-  breakdownVar,
+  demographicType,
   legendId,
 }: FilterLegendProps) {
   const isComparing = window.location.href.includes('compare')
@@ -135,7 +135,7 @@ export function FilterLegend({
               />
               {/* Legend Item Label */}
               <div>
-                {breakdownVar === AGE && group !== ALL && 'Ages '}
+                {demographicType === AGE && group !== ALL && 'Ages '}
                 {group}
               </div>
             </button>

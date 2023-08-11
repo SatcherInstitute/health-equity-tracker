@@ -2,14 +2,14 @@ import {
   type MetricConfig,
   type MetricId,
 } from '../../data/config/MetricConfig'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import { type ChartDimensionProps } from '../../utils/hooks/useChartDimensions'
 
 type Data = Array<Record<string, any>>
 type Text = string | string[]
 
 export interface DisparityBarChartProps {
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   data: Data
   darkMetric: MetricConfig
   lightMetric: MetricConfig
@@ -26,7 +26,7 @@ export interface AxesProps {
 
 export interface MarkProps {
   barLabelBreakpoint: number
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   data: Data
   hasAltPop: boolean
   altLightMeasure: MetricId
@@ -48,6 +48,6 @@ export interface LegendsProps {
 
 export interface ScalesProps {
   largerMeasure: MetricId
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   LEGEND_DOMAINS: string[]
 }

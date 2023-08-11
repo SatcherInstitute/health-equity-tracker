@@ -5,11 +5,11 @@ import {
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { type DemographicGroup } from '../../data/utils/Constants'
+import { ALL, type DemographicGroup } from '../../data/utils/Constants'
 import { type Fips } from '../../data/utils/Fips'
 import { MultiMapLink } from './MultiMapLink'
 import styles from '../Card.module.scss'
@@ -17,8 +17,8 @@ import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
-  currentBreakdown: BreakdownVar
-  activeBreakdownFilter: DemographicGroup
+  demographicType: DemographicType
+  activeDemographicGroup: DemographicGroup
   metricConfig: MetricConfig
   fips: Fips
   setMultimapOpen: (smallMultiplesDialogOpen: boolean) => void
@@ -31,7 +31,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
 
   function generateDemographicTotalPhrase() {
     const options = props.overallQueryResponse.data.find(
-      (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
+      (row) => row[props.demographicType] === props.activeDemographicGroup
     )
 
     return options ? (
@@ -51,17 +51,17 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {props.metricConfig.shortLabel}
         </a>
         {/* } for  */}
-        {props.activeBreakdownFilter !== 'All' && ' for'}
+        {props.activeDemographicGroup !== ALL && ' for'}
         {/* } [ ages 30-39] */}
-        {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] ===
+        {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType] ===
           'age' &&
-          props.activeBreakdownFilter !== 'All' &&
-          ` ages ${props.activeBreakdownFilter}`}
+          props.activeDemographicGroup !== ALL &&
+          ` ages ${props.activeDemographicGroup}`}
         {/* } [Asian (non Hispanic) individuals] */}
-        {BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.currentBreakdown] !==
+        {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType] !==
           'age' &&
-          props.activeBreakdownFilter !== 'All' &&
-          ` ${props.activeBreakdownFilter} individuals`}
+          props.activeDemographicGroup !== ALL &&
+          ` ${props.activeDemographicGroup} individuals`}
         {' in  '}
         {/* } Georgia */}
         {props.fips.getSentenceDisplayName()}
@@ -81,7 +81,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {/* Compare across XYZ for all variables except vaccinated at county level */}
           <MultiMapLink
             setMultimapOpen={props.setMultimapOpen}
-            currentBreakdown={props.currentBreakdown}
+            demographicType={props.demographicType}
             currentDataType={props.dataTypeConfig.fullDisplayName}
           />
         </Alert>

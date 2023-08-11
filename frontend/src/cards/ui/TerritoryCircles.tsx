@@ -12,7 +12,7 @@ import {
 } from '../../charts/mapHelpers'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -24,8 +24,8 @@ interface TerritoryCirclesProps {
   countColsToAdd: MetricId[]
   mapIsWide: boolean
   isUnknownsMap?: boolean
-  breakdown?: BreakdownVar
-  activeBreakdownFilter?: DemographicGroup
+  demographicType?: DemographicType
+  activeDemographicGroup?: DemographicGroup
   fullData?: Row[]
   scaleConfig?: { domain: number[]; range: number[] }
   isMulti?: boolean
@@ -39,7 +39,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 
   const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
     props.fullData,
-    props.breakdown,
+    props.demographicType,
     props.metricConfig.metricId
   )
 
@@ -51,7 +51,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
             <ChoroplethMap
               highestLowestGroupsByFips={highestLowestGroupsByFips}
-              activeBreakdownFilter={props.activeBreakdownFilter}
+              activeDemographicGroup={props.activeDemographicGroup}
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
               data={props.data}
