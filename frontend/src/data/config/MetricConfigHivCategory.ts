@@ -1,7 +1,7 @@
 import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
-export type HivDataTypeId =
+export type HivCategoryDataTypeId =
   | 'hiv_deaths_black_women'
   | 'hiv_deaths'
   | 'hiv_diagnoses_black_women'
@@ -9,7 +9,8 @@ export type HivDataTypeId =
   | 'hiv_prevalence_black_women'
   | 'hiv_prevalence'
 
-export type HivMetricId =
+export type HivCategoryMetricId =
+  | 'black_women_population_pct'
   | 'hiv_care_linkage'
   | 'hiv_care_pct_relative_inequity'
   | 'hiv_care_pct_share'

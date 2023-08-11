@@ -4,12 +4,12 @@ import {
   populationPctTitle,
 } from './MetricConfigUtils'
 
-export type CovidDataTypeId =
+export type CovidCategoryDataTypeId =
   | 'covid_cases'
   | 'covid_deaths'
   | 'covid_hospitalizations'
 
-export type CovidMetricId =
+export type CovidCategoryMetricId =
   | 'covid_cases_pct_relative_inequity'
   | 'covid_cases_per_100k'
   | 'covid_cases_reporting_population_pct'
@@ -17,6 +17,7 @@ export type CovidMetricId =
   | 'covid_cases_share_of_known'
   | 'covid_cases_share'
   | 'covid_cases'
+  | 'cases_ratio_age_adjusted'
   | 'covid_deaths_pct_relative_inequity'
   | 'covid_deaths_per_100k'
   | 'covid_deaths_reporting_population_pct'
@@ -24,6 +25,7 @@ export type CovidMetricId =
   | 'covid_deaths_share_of_known'
   | 'covid_deaths_share'
   | 'covid_deaths'
+  | 'hosp_ratio_age_adjusted'
   | 'covid_hosp_pct_relative_inequity'
   | 'covid_hosp_per_100k'
   | 'covid_hosp_reporting_population_pct'
