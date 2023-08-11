@@ -35,7 +35,8 @@ export const MAP1_GROUP_PARAM = 'group1'
 export const MAP2_GROUP_PARAM = 'group2'
 
 export const TOPIC_INFO_PARAM_KEY = 'topic-info'
-export const MULTIPLE_MAPS_PARAM_KEY = 'multiple-maps'
+export const MULTIPLE_MAPS_1_PARAM_KEY = 'multiple-maps'
+export const MULTIPLE_MAPS_2_PARAM_KEY = 'multiple-maps2'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
