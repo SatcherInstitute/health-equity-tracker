@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -19,7 +19,6 @@ import {
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  setParameter,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
@@ -46,6 +45,7 @@ import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
 } from './reportUtils'
+import { useParamState } from '../utils/hooks/useParamState'
 
 export interface ReportProps {
   key: string
@@ -67,23 +67,21 @@ export function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useState<DemographicType>(
-    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+    DEMOGRAPHIC_PARAM,
+    defaultDemo
   )
 
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom
   )
 
-  function setDemoWithParam(str: DemographicType) {
-    setParameter(DEMOGRAPHIC_PARAM, str)
-    setDemographicType(str)
-  }
-
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as DemographicType)
+    setDemographicType(
+      Object.values(demographicOptionsMap)[0] as DemographicType
+    )
   }
 
   const disabledDemographicOptions =
@@ -154,7 +152,7 @@ export function Report(props: ReportProps) {
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
             trackerDemographic={demographicType}
-            setDemoWithParam={setDemoWithParam}
+            setDemoWithParam={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -394,7 +392,7 @@ export function Report(props: ReportProps) {
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
               trackerDemographic={demographicType}
-              setDemoWithParam={setDemoWithParam}
+              setDemoWithParam={setDemographicType}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />

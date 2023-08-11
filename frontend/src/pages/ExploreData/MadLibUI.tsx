@@ -190,9 +190,9 @@ export function getParentDropdownFromDataType(
     if (
       configArray
         .map((config) => config.dataTypeId)
-        .includes(dataType as DataTypeId)
+        .includes(dataType as any as DataTypeId)
     ) {
-      return dropdownId as DropdownVarId
+      return dropdownId as any as DropdownVarId
     }
   }
   // fallback to covid
