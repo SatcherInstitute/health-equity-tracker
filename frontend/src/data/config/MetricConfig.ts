@@ -12,6 +12,7 @@ import {
   SUBSTANCE_MISUSE_METRICS,
   FREQUENT_MENTAL_DISTRESS_METRICS,
   SUICIDE_METRICS,
+  type BehavioralHealthDataTypeId,
 } from './MetricConfigBehavioralHealth'
 import {
   COVID_DISEASE_METRICS,
@@ -28,6 +29,7 @@ import {
   type HivCategoryDataTypeId,
   type HivCategoryMetricId,
 } from './MetricConfigHivCategory'
+import { type PhrmaDataTypeId, type PhrmaMetricId } from './MetricConfigPhrma'
 import {
   populationPctShortLabel,
   populationPctTitle,
@@ -78,18 +80,11 @@ export type DataTypeId =
   | DropdownVarId
   | CovidCategoryDataTypeId
   | HivCategoryDataTypeId
-  | 'ami'
-  | 'arv_adherence'
-  | 'beta_blockers_adherence'
+  | BehavioralHealthDataTypeId
+  | PhrmaDataTypeId
   | 'jail'
-  | 'non_medical_drug_use'
   | 'poverty'
   | 'prison'
-  | 'rasa_adherence'
-  | 'statins_adherence'
-  | 'ccb_adherence'
-  | 'doac_adherence'
-  | 'nqf_adherence'
   | 'women_in_state_legislature'
   | 'women_in_us_congress'
   | 'prison'
@@ -100,49 +95,31 @@ export type MetricId =
   | CovidCategoryMetricId
   | HivCategoryMetricId
   | BehavioralHealthMetricId
+  | PhrmaMetricId
   | 'acs_vaccinated_pop_pct'
   | 'ahr_population_pct'
-  | 'ami_pct_share'
-  | 'ami_per_100k'
-  | 'arv_adherence_pct_rate'
-  | 'arv_adherence_pct_share'
-  | 'arv_population_pct_share'
   | 'asthma_pct_share'
   | 'asthma_per_100k'
   | 'avoided_care_pct_rate'
   | 'avoided_care_pct_share'
-  | 'beta_blockers_adherence_pct_rate'
-  | 'beta_blockers_adherence_pct_share'
-  | 'beta_blockers_population_pct_share'
   | 'cardiovascular_diseases_pct_share'
   | 'cardiovascular_diseases_per_100k'
   | 'cawp_population_pct'
-  | 'ccb_adherence_pct_rate'
-  | 'ccb_adherence_pct_share'
-  | 'ccb_population_pct_share'
   | 'chronic_kidney_disease_pct_share'
   | 'chronic_kidney_disease_per_100k'
   | 'copd_pct_share'
   | 'copd_per_100k'
   | 'diabetes_pct_share'
   | 'diabetes_per_100k'
-  | 'doac_adherence_pct_rate'
-  | 'doac_adherence_pct_share'
-  | 'doac_population_pct_share'
   | 'geo_context'
   | 'incarceration_population_pct'
   | 'jail_pct_relative_inequity'
   | 'jail_pct_share'
   | 'jail_per_100k'
-  | 'nqf_adherence_pct_rate'
-  | 'nqf_adherence_pct_share'
-  | 'nqf_population_pct_share'
   | 'pct_share_of_state_leg'
   | 'pct_share_of_us_congress'
   | 'pct_share_of_women_state_leg'
   | 'pct_share_of_women_us_congress'
-  | 'phrma_hiv_pct_share'
-  | 'phrma_hiv_per_100k'
   | 'phrma_population_pct_share'
   | 'population_decia'
   | 'population_pct_decia'
@@ -158,12 +135,6 @@ export type MetricId =
   | 'prison_pct_relative_inequity'
   | 'prison_pct_share'
   | 'prison_per_100k'
-  | 'rasa_adherence_pct_rate'
-  | 'rasa_adherence_pct_share'
-  | 'rasa_population_pct_share'
-  | 'statins_adherence_pct_rate'
-  | 'statins_adherence_pct_share'
-  | 'statins_population_pct_share'
   | 'svi'
   | 'total_confined_children'
   | 'total_state_leg_count'
