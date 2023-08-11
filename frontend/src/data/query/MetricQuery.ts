@@ -1,4 +1,8 @@
-import { type Breakdowns, type BreakdownVar, type TimeView } from './Breakdowns'
+import {
+  type Breakdowns,
+  type DemographicType,
+  type TimeView,
+} from './Breakdowns'
 import { type Row, type FieldRange } from '../utils/DatasetTypes'
 import { type MetricId, type DataTypeId } from '../config/MetricConfig'
 import { type DemographicGroup } from '../utils/Constants'
@@ -77,7 +81,7 @@ export class MetricQueryResponse {
     return this.missingDataMessage !== undefined
   }
 
-  isFieldMissing(fieldName: BreakdownVar | MetricId): boolean {
+  isFieldMissing(fieldName: DemographicType | MetricId): boolean {
     return this.invalidValues[fieldName] === this.data.length
   }
 
@@ -96,7 +100,7 @@ export class MetricQueryResponse {
   }
 
   // Filters rows to those for which the requested field has a valid value
-  getValidRowsForField(fieldName: BreakdownVar | MetricId) {
+  getValidRowsForField(fieldName: DemographicType | MetricId) {
     return this.data.filter(
       (row: Row) => row[fieldName] !== undefined && row[fieldName] !== null
     )
@@ -104,7 +108,7 @@ export class MetricQueryResponse {
 
   // Generate two arrays of demographic groups, with and without data in the target metric field
   getFieldValues(
-    fieldName: BreakdownVar,
+    fieldName: DemographicType,
     targetMetric: MetricId
   ): { withData: DemographicGroup[]; noData: DemographicGroup[] } {
     const withData: DemographicGroup[] = []

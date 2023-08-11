@@ -2,9 +2,9 @@ import { Vega } from 'react-vega'
 import { type Row } from '../data/utils/DatasetTypes'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import {
-  type BreakdownVar,
-  type BreakdownVarDisplayName,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  type DemographicTypeDisplayName,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
 import {
@@ -30,8 +30,8 @@ function getSpec(
   altText: string,
   data: Row[],
   width: number,
-  breakdownVar: BreakdownVar,
-  breakdownVarDisplayName: BreakdownVarDisplayName,
+  demographicType: DemographicType,
+  demographicTypeDisplayName: DemographicTypeDisplayName,
   measure: MetricId,
   measureDisplayName: string,
   // Column names to use for the display value of the metric. These columns
@@ -112,7 +112,7 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                breakdownVar
+                demographicType
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -120,7 +120,7 @@ function getSpec(
             fill: { value: MEASURE_COLOR },
             x: { scale: 'x', field: measure },
             x2: { scale: 'x', value: 0 },
-            y: { scale: 'y', field: breakdownVar },
+            y: { scale: 'y', field: demographicType },
             height: { scale: 'y', band: 1 },
           },
         },
@@ -132,14 +132,14 @@ function getSpec(
         from: { data: DATASET },
         encode: {
           update: {
-            y: { scale: 'y', field: breakdownVar, band: 0.8 },
+            y: { scale: 'y', field: demographicType, band: 0.8 },
             opacity: {
               signal: '0',
             },
             fontSize: { value: 0 },
             text: {
               signal: `${oneLineLabel(
-                breakdownVar
+                demographicType
               )} + ': ' + datum.${tooltipMetricDisplayColumnName} + ' ${measureDisplayName}'`,
             },
           },
@@ -155,7 +155,7 @@ function getSpec(
           enter: {
             tooltip: {
               signal: `${oneLineLabel(
-                breakdownVar
+                demographicType
               )} + ', ${measureDisplayName}: ' + datum.${tooltipMetricDisplayColumnName}`,
             },
           },
@@ -177,7 +177,7 @@ function getSpec(
               signal: `if(datum.${measure} > ${barLabelBreakpoint}, "white", "black")`,
             },
             x: { scale: 'x', field: measure },
-            y: { scale: 'y', field: breakdownVar, band: 0.8 },
+            y: { scale: 'y', field: demographicType, band: 0.8 },
             limit: { signal: 'width / 3' },
             text: {
               signal: barLabel,
@@ -205,7 +205,7 @@ function getSpec(
         type: 'band',
         domain: {
           data: DATASET,
-          field: breakdownVar,
+          field: demographicType,
         },
         range: { step: { signal: 'y_step' } },
         paddingInner: BAR_PADDING,
@@ -250,7 +250,7 @@ function getSpec(
         scale: 'y',
         orient: 'left',
         grid: false,
-        title: breakdownVarDisplayName,
+        title: demographicTypeDisplayName,
         zindex: sass.zMiddle,
         encode: {
           labels: {
@@ -273,7 +273,7 @@ function getSpec(
 export interface SimpleHorizontalBarChartProps {
   data: Row[]
   metric: MetricConfig
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   filename?: string
   usePercentSuffix?: boolean
 }
@@ -292,10 +292,10 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const dataLabelled = altLabelDeterminants.includes(props.metric.metricId)
     ? props.data.map((row: Row) => {
         const altRow = { ...row }
-        altRow[props.breakdownVar] = getAltGroupLabel(
-          row[props.breakdownVar],
+        altRow[props.demographicType] = getAltGroupLabel(
+          row[props.demographicType],
           props.metric.metricId,
-          props.breakdownVar
+          props.demographicType
         )
         return altRow
       })
@@ -303,7 +303,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
 
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     dataLabelled,
-    props.breakdownVar
+    props.demographicType
   )
   const [dataWithDisplayCol, barMetricDisplayColumnName] =
     addMetricDisplayColumn(props.metric, dataWithLineBreakDelimiter)
@@ -331,9 +331,9 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           }`,
           /* data  */ data,
           /* width  */ width,
-          /* breakdownVar  */ props.breakdownVar,
-          /* breakdownVarDisplayName  */ BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[
-            props.breakdownVar
+          /* demographicType  */ props.demographicType,
+          /* demographicTypeDisplayName  */ DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
+            props.demographicType
           ],
           /* measure  */ props.metric.metricId,
           /* measureDisplayName  */ props.metric.shortLabel,

@@ -3,7 +3,7 @@ import {
   type TrendsData,
 } from '../../charts/trendsChart/types'
 import { type MetricConfig, type MetricId } from '../config/MetricConfig'
-import { type BreakdownVar } from '../query/Breakdowns'
+import { type DemographicType } from '../query/Breakdowns'
 import {
   ALL,
   ALL_W,
@@ -133,13 +133,13 @@ Accepts fetched, "known" data, along with all expected groups, the current demog
 export function getNestedData(
   data: Row[],
   demographicGroups: DemographicGroup[],
-  currentBreakdown: BreakdownVar,
+  demographicType: DemographicType,
   metricId: MetricId
 ): TrendsData {
   if (!data.some((row) => row[TIME_PERIOD])) return []
 
   const nestedRates = demographicGroups.map((group) => {
-    let groupRows = data.filter((row) => row[currentBreakdown] === group)
+    let groupRows = data.filter((row) => row[demographicType] === group)
     groupRows = interpolateTimePeriods(groupRows)
 
     const groupTimeSeries = groupRows.map((row) => [
@@ -169,7 +169,7 @@ To present the data from the visual charts in a more accessible manner (includin
 export function makeA11yTableData(
   knownsData: Row[],
   unknownsData: Row[],
-  breakdownVar: BreakdownVar,
+  demographicType: DemographicType,
   knownMetric: MetricConfig,
   unknownMetric: MetricConfig,
   selectedGroups: DemographicGroup[],
@@ -180,7 +180,7 @@ export function makeA11yTableData(
   ).sort()
 
   const allDemographicGroups = Array.from(
-    new Set(knownsData.map((row) => row[breakdownVar]))
+    new Set(knownsData.map((row) => row[demographicType]))
   )
 
   const filteredDemographicGroups =
@@ -195,14 +195,15 @@ export function makeA11yTableData(
     // and shows value per demographic group
     for (const group of filteredDemographicGroups) {
       const rowForGroupTimePeriod = knownsData.find(
-        (row) => row[breakdownVar] === group && row[TIME_PERIOD] === timePeriod
+        (row) =>
+          row[demographicType] === group && row[TIME_PERIOD] === timePeriod
       )
       a11yRow[group] = rowForGroupTimePeriod?.[knownMetric.metricId]
     }
 
     // along with the unknown pct_share
     if (hasUnknowns) {
-      a11yRow[`${unknownMetric.shortLabel} with unknown ${breakdownVar}`] =
+      a11yRow[`${unknownMetric.shortLabel} with unknown ${demographicType}`] =
         unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
           unknownMetric.metricId
         ]

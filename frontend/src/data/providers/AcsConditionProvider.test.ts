@@ -1,5 +1,5 @@
 import AcsConditionProvider from './AcsConditionProvider'
-import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
+import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -15,14 +15,14 @@ import { RACE, SEX, AGE } from '../utils/Constants'
 export async function ensureCorrectDatasetsDownloaded(
   cdcDatasetId: string,
   baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
 ) {
   const acsProvider = new AcsConditionProvider()
 
   dataFetcher.setFakeDatasetLoaded(cdcDatasetId, [])
 
   const responseIncludingAll = await acsProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(breakdownVar))
+    new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)

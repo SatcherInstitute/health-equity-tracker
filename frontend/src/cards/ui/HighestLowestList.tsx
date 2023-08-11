@@ -12,7 +12,7 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Fips } from '../../data/utils/Fips'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 
 export interface HighestLowestListProps {
@@ -34,8 +34,8 @@ export interface HighestLowestListProps {
   // optional suffix to alter the selected metric (used for CAWP "identifying as Black women")
   selectedRaceSuffix?: string
   parentGeoQueryResponse: MetricQueryResponse
-  currentBreakdown: BreakdownVar
-  activeBreakdownFilter: DemographicGroup
+  demographicType: DemographicType
+  activeDemographicGroup: DemographicGroup
 }
 
 /*
@@ -46,7 +46,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
   const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
-    (row) => row[props.currentBreakdown] === props.activeBreakdownFilter
+    (row) => row[props.demographicType] === props.activeDemographicGroup
   )
 
   const overallRate = formatFieldValue(
