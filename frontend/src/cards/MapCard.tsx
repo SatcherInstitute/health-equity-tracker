@@ -29,6 +29,7 @@ import {
   UNKNOWN_ETHNICITY,
   type DemographicGroup,
   RACE,
+  AGE,
 } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
@@ -275,7 +276,7 @@ function MapCardWithKey(props: MapCardProps) {
         const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs =
-          props.demographicType === 'age'
+          props.demographicType === AGE
             ? ([new AgeSorterStrategy([ALL]).compareFn] as any)
             : []
 

@@ -16,7 +16,7 @@ import {
   getRateAndPctShareMetrics,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
-import { ALL, RACE } from '../data/utils/Constants'
+import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import Alert from '@mui/material/Alert'
 import Divider from '@mui/material/Divider'
@@ -55,7 +55,7 @@ export interface TableCardProps {
 export function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1500],
-    props.demographicType === 'sex'
+    props.demographicType === SEX
   )
 
   const metrics = getRateAndPctShareMetrics(props.dataTypeConfig)

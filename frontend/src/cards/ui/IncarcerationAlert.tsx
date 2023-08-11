@@ -33,7 +33,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     : 'Bureau of Justice Statistics'
 
   const severity: AlertColor =
-    props.demographicType === 'age' && props.dataType === 'prison'
+    props.demographicType === AGE && props.dataType === 'prison'
       ? 'warning'
       : 'info'
   const demographicType =

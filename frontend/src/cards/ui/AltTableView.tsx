@@ -17,6 +17,7 @@ import { type DemographicType } from '../../data/query/Breakdowns'
 import {
   type DemographicGroup,
   TIME_PERIOD_LABEL,
+  AGE,
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
@@ -42,7 +43,7 @@ export default function AltTableView(props: AltTableViewProps) {
   const tableRef = useRef(null)
   const linkRef = useRef(null)
 
-  const optionalAgesPrefix = props.demographicType === 'age' ? 'Ages ' : ''
+  const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(
     props.knownsData,

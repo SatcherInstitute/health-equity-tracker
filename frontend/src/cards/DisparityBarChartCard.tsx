@@ -11,7 +11,7 @@ import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
-import { NON_HISPANIC, ALL, RACE, HISPANIC } from '../data/utils/Constants'
+import { NON_HISPANIC, ALL, RACE, HISPANIC, SEX } from '../data/utils/Constants'
 import UnknownsAlert from './ui/UnknownsAlert'
 import {
   shouldShowAltPopCompare,
@@ -46,7 +46,7 @@ export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
 function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1000],
-    props.demographicType === 'sex'
+    props.demographicType === SEX
   )
 
   const metricConfig = props.dataTypeConfig.metrics.pct_share
