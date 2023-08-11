@@ -187,12 +187,8 @@ export function getParentDropdownFromDataType(
   dataType: DataTypeId | string
 ): DropdownVarId {
   for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
-    if (
-      configArray
-        .map((config) => config.dataTypeId)
-        .includes(dataType as DataTypeId)
-    ) {
-      return dropdownId as DropdownVarId
+    if (configArray.map((config) => config.dataTypeId).includes(dataType)) {
+      return dropdownId
     }
   }
   // fallback to covid
