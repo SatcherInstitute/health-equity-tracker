@@ -1,5 +1,5 @@
 import PhrmaProvider from './PhrmaProvider'
-import { Breakdowns, BreakdownVar } from '../query/Breakdowns'
+import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -15,7 +15,7 @@ import { MetricId, DataTypeId } from '../config/MetricConfig'
 export async function ensureCorrectDatasetsDownloaded(
   PhrmaDatasetId: string,
   baseBreakdown: Breakdowns,
-  breakdownVar: BreakdownVar,
+  demographicType: DemographicType,
   acsDatasetIds?: string[],
   metricIds?: MetricId[]
 ) {
@@ -31,7 +31,7 @@ export async function ensureCorrectDatasetsDownloaded(
   const responseIncludingAll = await phrmaProvider.getData(
     new MetricQuery(
       metricIds,
-      baseBreakdown.addBreakdown(breakdownVar),
+      baseBreakdown.addBreakdown(demographicType),
       undefined
     )
   )
