@@ -4,9 +4,9 @@ import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import {
@@ -36,7 +36,7 @@ const PRELOAD_HEIGHT = 668
 
 export interface SimpleBarChartCardProps {
   key?: string
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
   fips: Fips
   reportTitle: string
@@ -47,7 +47,7 @@ export interface SimpleBarChartCardProps {
 export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
-      key={props.dataTypeConfig.dataTypeId + props.breakdownVar}
+      key={props.dataTypeConfig.dataTypeId + props.demographicType}
       {...props}
     />
   )
@@ -78,7 +78,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   }
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
-    props.breakdownVar,
+    props.demographicType,
     exclude(NON_HISPANIC, AIAN_API, UNKNOWN_RACE)
   )
 
@@ -94,7 +94,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* fips: */ props.fips
   )
   const filename = `${chartTitle}, by ${
-    BREAKDOWN_VAR_DISPLAY_NAMES[props.breakdownVar]
+    DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
   }`
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
@@ -123,8 +123,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 <>
                   <MissingDataAlert
                     dataName={chartTitle}
-                    breakdownString={
-                      BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+                    demographicTypeString={
+                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
+                        props.demographicType
+                      ]
                     }
                     fips={props.fips}
                   />
@@ -133,7 +135,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 <>
                   <SimpleHorizontalBarChart
                     data={data}
-                    breakdownVar={props.breakdownVar}
+                    demographicType={props.demographicType}
                     metric={metricConfig}
                     filename={filename}
                     usePercentSuffix={isPctType(metricConfig.type)}
@@ -142,14 +144,14 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                     <IncarceratedChildrenShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}
-                      breakdownVar={props.breakdownVar}
+                      demographicType={props.demographicType}
                     />
                   )}
                   {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
                     <GenderDataShortAlert
                       fips={props.fips}
                       queryResponse={queryResponse}
-                      breakdownVar={props.breakdownVar}
+                      demographicType={props.demographicType}
                       dataTypeId={props.dataTypeConfig.dataTypeId}
                     />
                   )}

@@ -10,7 +10,7 @@ export type GeographicBreakdown =
   | 'territory'
   | 'state/territory'
 
-export type BreakdownVar =
+export type DemographicType =
   | 'race_and_ethnicity'
   | 'age'
   | 'sex'
@@ -19,7 +19,7 @@ export type BreakdownVar =
   | 'lis'
   | 'eligibility'
 
-export const DEMOGRAPHIC_BREAKDOWNS = [
+export const DEMOGRAPHIC_TYPES = [
   'race_and_ethnicity',
   'sex',
   'age',
@@ -28,9 +28,9 @@ export const DEMOGRAPHIC_BREAKDOWNS = [
 ] as const
 
 // union type of array
-export type DemographicBreakdownKey = (typeof DEMOGRAPHIC_BREAKDOWNS)[number]
+export type DemographicBreakdownKey = (typeof DEMOGRAPHIC_TYPES)[number]
 
-export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
+export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   race_and_ethnicity: 'Race and Ethnicity',
   age: 'Age',
   sex: 'Sex',
@@ -41,11 +41,11 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES: Record<BreakdownVar, string> = {
 } as const
 
 // union type of values (capitalized display names), eg "Race and Ethnicity" | "Age" | "Sex"
-export type BreakdownVarDisplayName =
-  (typeof BREAKDOWN_VAR_DISPLAY_NAMES)[keyof typeof BREAKDOWN_VAR_DISPLAY_NAMES]
+export type DemographicTypeDisplayName =
+  (typeof DEMOGRAPHIC_DISPLAY_TYPES)[keyof typeof DEMOGRAPHIC_DISPLAY_TYPES]
 
-export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
-  BreakdownVar,
+export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
+  DemographicType,
   string
 > = {
   race_and_ethnicity: 'race and ethnicity',
@@ -59,7 +59,7 @@ export const BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE: Record<
 
 interface DemographicBreakdown {
   // Name of the column in the returned data
-  readonly columnName: BreakdownVar
+  readonly columnName: DemographicType
   // Whether the demographic breakdown is requested
   readonly enabled: boolean
   // Filter to apply to the breakdown. If no filter is specified, all available
@@ -79,7 +79,7 @@ function stringifyDemographic(breakdown: DemographicBreakdown) {
 }
 
 function createDemographicBreakdown(
-  columnName: BreakdownVar,
+  columnName: DemographicType,
   enabled = false,
   filter?: BreakdownFilter
 ): DemographicBreakdown {
@@ -199,21 +199,18 @@ export class Breakdowns {
   }
 
   addBreakdown(
-    breakdownVar: BreakdownVar,
+    demographicType: DemographicType,
     filter?: BreakdownFilter
   ): Breakdowns {
-    switch (breakdownVar) {
+    switch (demographicType) {
       case 'race_and_ethnicity':
       case 'age':
       case 'sex':
       case 'lis':
       case 'eligibility':
         // Column name is the same as key
-        this.demographicBreakdowns[breakdownVar] = createDemographicBreakdown(
-          breakdownVar,
-          true,
-          filter
-        )
+        this.demographicBreakdowns[demographicType] =
+          createDemographicBreakdown(demographicType, true, filter)
         return this
       case 'date':
         this.time = true
@@ -319,8 +316,8 @@ export class Breakdowns {
     return this
   }
 
-  getJoinColumns(): BreakdownVar[] {
-    const joinCols: BreakdownVar[] = ['fips']
+  getJoinColumns(): DemographicType[] {
+    const joinCols: DemographicType[] = ['fips']
     Object.entries(this.demographicBreakdowns).forEach(
       ([key, demographicBreakdown]) => {
         if (demographicBreakdown.enabled) {

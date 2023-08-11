@@ -17,7 +17,7 @@ import {
   type MetricId,
   formatFieldValue,
 } from '../data/config/MetricConfig'
-import { BREAKDOWN_VAR_DISPLAY_NAMES } from '../data/query/Breakdowns'
+import { DEMOGRAPHIC_DISPLAY_TYPES } from '../data/query/Breakdowns'
 import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
@@ -64,7 +64,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
   })
   columns = [
     {
-      Header: BREAKDOWN_VAR_DISPLAY_NAMES[RACE],
+      Header: DEMOGRAPHIC_DISPLAY_TYPES[RACE],
       Cell: (cell: any) => cell.value,
       accessor: RACE as MetricId,
     },

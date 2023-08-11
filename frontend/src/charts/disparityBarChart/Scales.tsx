@@ -5,7 +5,7 @@ import { type ScalesProps } from './types'
 
 export function Scales({
   largerMeasure,
-  breakdownVar,
+  demographicType,
   LEGEND_DOMAINS,
 }: ScalesProps) {
   const pageIsTiny = useMediaQuery('(max-width:400px)')
@@ -24,7 +24,7 @@ export function Scales({
     type: 'band',
     domain: {
       data: DATASET,
-      field: breakdownVar,
+      field: demographicType,
     },
     range: { step: { signal: 'y_step' } },
     paddingInner: BAR_PADDING,

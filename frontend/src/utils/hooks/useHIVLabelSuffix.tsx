@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import { AGE, ALL, type DemographicGroup } from '../../data/utils/Constants'
 import { type DataTypeId } from '../../data/config/MetricConfig'
 import { DATATYPES_NEEDING_13PLUS } from '../../data/providers/HivProvider'
@@ -9,7 +9,7 @@ const hivSuffix = ' (13+)'
 const stigmaSuffix = ' (18+)'
 
 export function useHIVLabelSuffix(
-  demographic: BreakdownVar,
+  demographic: DemographicType,
   value: DemographicGroup,
   dataTypeId: DataTypeId
 ): string {

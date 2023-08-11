@@ -1,7 +1,7 @@
 import { Alert, type AlertColor } from '@mui/material'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type Fips, USA_DISPLAY_NAME } from '../../data/utils/Fips'
 import { type DataTypeId } from '../../data/config/MetricConfig'
@@ -19,7 +19,7 @@ const combinedAlertFipsList = [
 
 interface IncarcerationAlertProps {
   dataType: DataTypeId
-  breakdown: BreakdownVar
+  demographicType: DemographicType
   fips: Fips
 }
 
@@ -33,17 +33,19 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     : 'Bureau of Justice Statistics'
 
   const severity: AlertColor =
-    props.breakdown === 'age' && props.dataType === 'prison'
+    props.demographicType === AGE && props.dataType === 'prison'
       ? 'warning'
       : 'info'
-  const breakdown = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdown]
+  const demographicType =
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
     <Alert severity={severity} role="note">
-      The disaggregated <b>{breakdown}</b> dataset available from the {source}{' '}
+      The disaggregated <b>{demographicType}</b> dataset available from the{' '}
+      {source}{' '}
       <IncarcerationDetailsText
         dataType={props.dataType}
-        breakdown={props.breakdown}
+        demographicType={props.demographicType}
       />{' '}
       individuals (including children) under the jurisdiction of an adult{' '}
       {props.dataType} facility.{' '}
@@ -58,11 +60,11 @@ export default IncarcerationAlert
 
 interface IncarcerationDetailsTextProps {
   dataType: DataTypeId
-  breakdown: BreakdownVar
+  demographicType: DemographicType
 }
 
 function IncarcerationDetailsText(props: IncarcerationDetailsTextProps) {
-  if (props.breakdown === AGE && props.dataType === 'prison') {
+  if (props.demographicType === AGE && props.dataType === 'prison') {
     return (
       <>
         reports only <b>sentenced</b>

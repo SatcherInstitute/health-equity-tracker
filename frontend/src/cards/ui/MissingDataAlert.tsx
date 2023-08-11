@@ -2,7 +2,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { type BreakdownVarDisplayName } from '../../data/query/Breakdowns'
+import { type DemographicTypeDisplayName } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import {
   type AgeAdjustedDataTypeId,
@@ -15,7 +15,7 @@ import { Alert } from '@mui/material'
 
 interface MissingDataAlertProps {
   dataName: string
-  breakdownString: BreakdownVarDisplayName
+  demographicTypeString: DemographicTypeDisplayName
   noDemographicInfo?: boolean
   isMapCard?: boolean
   fips: Fips
@@ -28,12 +28,12 @@ function MissingDataAlert(props: MissingDataAlertProps) {
   const demographicPhrase = props.noDemographicInfo
     ? ' demographic information for '
     : ' '
-  const breakdownPhrase = props.noDemographicInfo ? (
+  const demographicTypePhrase = props.noDemographicInfo ? (
     ' '
   ) : (
     <>
       {' '}
-      broken down by <b>{props.breakdownString}</b>{' '}
+      broken down by <b>{props.demographicTypeString}</b>{' '}
     </>
   )
 
@@ -48,7 +48,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       Our data sources do not have
       {demographicPhrase}
       <b>{props.dataName}</b>
-      {breakdownPhrase}
+      {demographicTypePhrase}
       {geoPhrase}
       for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
       this lack of data impacts{' '}

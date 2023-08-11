@@ -4,20 +4,20 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { ALL } from '../../data/utils/Constants'
 import FlagIcon from '@mui/icons-material/Flag'
-import { type BreakdownVar } from '../../data/query/Breakdowns'
+import { type DemographicType } from '../../data/query/Breakdowns'
 import { CardContent, Alert } from '@mui/material'
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse
   fips: Fips
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
 }
 
 function IncarceratedChildrenShortAlert(
   props: IncarceratedChildrenShortAlertProps
 ) {
   let count = props.queryResponse.data.find(
-    (row: Row) => row[props.breakdownVar] === ALL
+    (row: Row) => row[props.demographicType] === ALL
   )?.total_confined_children
   if (count) count = parseInt(count)
   if (count == null) return <></>

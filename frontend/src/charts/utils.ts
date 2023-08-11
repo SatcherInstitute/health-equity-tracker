@@ -4,8 +4,8 @@ import {
   type MetricId,
 } from '../data/config/MetricConfig'
 import {
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
-  type BreakdownVar,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
+  type DemographicType,
 } from '../data/query/Breakdowns'
 import { AGE, ALL, type DemographicGroup } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
@@ -43,7 +43,7 @@ export const LABEL_HEIGHT = `length(${MULTILINE_LABEL}) > 2 ? 9 : 10`
 
 export function addLineBreakDelimitersToField(
   rawData: Row[],
-  field: BreakdownVar
+  field: DemographicType
 ): Row[] {
   return rawData.map((data) => {
     const lines = []
@@ -98,28 +98,28 @@ export function addMetricDisplayColumn(
 export function generateChartTitle(
   chartTitle: string,
   fips: Fips,
-  currentBreakdown?: BreakdownVar
+  demographicType?: DemographicType
 ): string {
   return `${chartTitle}${
-    currentBreakdown
-      ? ` with unknown ${BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[currentBreakdown]}`
+    demographicType
+      ? ` with unknown ${DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}`
       : ''
   } in ${fips.getSentenceDisplayName()}`
 }
 
 export function generateSubtitle(
-  activeBreakdownFilter: DemographicGroup,
-  currentBreakdown: BreakdownVar,
+  activeDemographicGroup: DemographicGroup,
+  demographicType: DemographicType,
   metricId: MetricId
 ) {
   let subtitle = ''
 
-  if (activeBreakdownFilter === ALL) {
+  if (activeDemographicGroup === ALL) {
     subtitle = ''
-  } else if (currentBreakdown === AGE) {
-    subtitle = `Ages ${activeBreakdownFilter}`
+  } else if (demographicType === AGE) {
+    subtitle = `Ages ${activeDemographicGroup}`
   } else {
-    subtitle = `${activeBreakdownFilter}`
+    subtitle = `${activeDemographicGroup}`
   }
 
   if (HIV_DETERMINANTS.includes(metricId)) {
@@ -134,7 +134,7 @@ export function generateSubtitle(
 
     if (subtitle === '') {
       subtitle = ageTitle
-    } else if (currentBreakdown !== AGE) {
+    } else if (demographicType !== AGE) {
       subtitle += `, ${ageTitle}`
     }
   }
@@ -154,12 +154,12 @@ export function generateSubtitle(
 export function getAltGroupLabel(
   group: DemographicGroup,
   metricId: MetricId,
-  breakdown: BreakdownVar
+  demographicType: DemographicType
 ) {
   if (CAWP_DETERMINANTS.includes(metricId)) {
     return getWomenRaceLabel(group)
   }
-  if (group === ALL && breakdown === AGE) {
+  if (group === ALL && demographicType === AGE) {
     if (metricId.includes('prep')) {
       return `${group} (16+)`
     }

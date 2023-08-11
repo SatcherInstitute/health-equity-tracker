@@ -1,12 +1,12 @@
 import styles from './UnknownBubblesAlert.module.scss'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { Alert } from '@mui/material'
 
 interface UnknownBubblesAlertProps {
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   fullDisplayName: string
   expanded: boolean
   setExpanded: (expanded: boolean) => void
@@ -18,7 +18,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
     props.setExpanded(!props.expanded)
   }
 
-  const groupTerm = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+  const groupTerm = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
     <Alert severity="info" role="note" id="unknown-bubbles-alert">

@@ -3,8 +3,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import { CardContent, Alert } from '@mui/material'
 import {
-  type BreakdownVar,
-  BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE,
+  type DemographicType,
+  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import { type VisualizationType } from '../../charts/utils'
@@ -18,7 +18,7 @@ interface UnknownsAlertProps {
   queryResponse: MetricQueryResponse
   ageQueryResponse?: MetricQueryResponse
   metricConfig: MetricConfig
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   displayType: VisualizationType
   known: boolean
   overrideAndWithOr?: boolean
@@ -34,7 +34,10 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
     props.metricConfig.metricId
   )
 
-  const [, unknowns] = splitIntoKnownsAndUnknowns(validData, props.breakdownVar)
+  const [, unknowns] = splitIntoKnownsAndUnknowns(
+    validData,
+    props.demographicType
+  )
 
   let additionalAgeUnknowns = null
 
@@ -46,8 +49,8 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
     additionalAgeUnknowns = ageUnknowns
   }
 
-  const breakdownVarDisplayName =
-    BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[props.breakdownVar]
+  const demographicTypeDisplayName =
+    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   if (unknowns.length === 0) {
     return <></>
@@ -60,13 +63,13 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   const cardHelperText = props.known
     ? `This ${
         props.displayType
-      } only displays data for cases where ${breakdownVarDisplayName} ${
+      } only displays data for cases where ${demographicTypeDisplayName} ${
         props.overrideAndWithOr ? 'were both' : 'was'
       } known.`
     : `This ${props.displayType} displays data for cases where ${
         props.overrideAndWithOr
           ? ` either ${RACE_OR_ETHNICITY}`
-          : breakdownVarDisplayName
+          : demographicTypeDisplayName
       } was unknown.`
 
   const raceEthDiffMapText = `In cases where race and ethnicity are reported
@@ -84,12 +87,12 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
     ${unknowns[0][props.metricConfig.metricId] as string}${
         props.metricConfig.shortLabel
       } reported an
-    ${unknowns[0][props.breakdownVar].toLowerCase() as string} and
+    ${unknowns[0][props.demographicType].toLowerCase() as string} and
     ${unknowns[1][props.metricConfig.metricId] as string}${
         props.metricConfig?.knownBreakdownComparisonMetric?.shortLabel ??
         'This group'
       } reported an
-    ${unknowns[1][props.breakdownVar].toLowerCase() as string}.`
+    ${unknowns[1][props.demographicType].toLowerCase() as string}.`
     : ''
 
   const showCardHelperText =
@@ -116,7 +119,9 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
         {percentageUnknown}
         {props.metricConfig.shortLabel}
         {' reported an unknown '}
-        {props.overrideAndWithOr ? RACE_OR_ETHNICITY : breakdownVarDisplayName}
+        {props.overrideAndWithOr
+          ? RACE_OR_ETHNICITY
+          : demographicTypeDisplayName}
         {/* Age Adjusted Card reports both unknown RACE + AGE */}
         {secondaryAgePercentageUnknown
           ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`

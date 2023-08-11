@@ -4,7 +4,7 @@ import {
   type DataTypeConfig,
   type DataTypeId,
 } from '../config/MetricConfig'
-import { type Breakdowns, type BreakdownVar } from '../query/Breakdowns'
+import { type Breakdowns, type DemographicType } from '../query/Breakdowns'
 import {
   AHR_API_NH_DETERMINANTS,
   AHR_DECADE_PLUS_5_AGE_DETERMINANTS,
@@ -58,7 +58,7 @@ export type JoinType = 'inner' | 'left' | 'outer'
 export function joinOnCols(
   df1: IDataFrame,
   df2: IDataFrame,
-  cols: BreakdownVar[],
+  cols: DemographicType[],
   joinType: JoinType = 'inner'
 ): IDataFrame {
   const keySelector = (row: any) => {
@@ -132,14 +132,14 @@ Analyzes state and determines if the 2nd population source should be used
 */
 export interface ShouldShowAltPopCompareI {
   fips: { isState: () => boolean }
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
   dataTypeConfig: { dataTypeId: DataTypeId }
 }
 
 export function shouldShowAltPopCompare(fromProps: ShouldShowAltPopCompareI) {
   return (
     fromProps.fips.isState() &&
-    fromProps.breakdownVar === RACE &&
+    fromProps.demographicType === RACE &&
     fromProps.dataTypeConfig.dataTypeId === 'covid_vaccinations'
   )
 }
@@ -165,7 +165,7 @@ const NON_STANDARD_AND_MULTI: DemographicGroup[] = [
 ]
 export function getExclusionList(
   currentDataType: DataTypeConfig,
-  currentBreakdown: BreakdownVar,
+  demographicType: DemographicType,
   currentFips: Fips
 ): DemographicGroup[] {
   const currentRate =
@@ -186,7 +186,7 @@ export function getExclusionList(
     exclusionList.push(ALL)
   }
 
-  if (currentBreakdown === RACE) {
+  if (demographicType === RACE) {
     exclusionList.push(NON_HISPANIC)
   }
 
@@ -210,7 +210,7 @@ export function getExclusionList(
 
   // HIV
   if (currentDataTypeId === 'hiv_prep') {
-    if (currentBreakdown === RACE) {
+    if (demographicType === RACE) {
       exclusionList.push(
         ...NON_STANDARD_AND_MULTI,
         AIAN_NH,
@@ -219,7 +219,7 @@ export function getExclusionList(
         MULTI_NH
       )
     }
-    if (currentBreakdown === AGE) {
+    if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket) => bucket === '13-24' || bucket === '18-24'
@@ -228,10 +228,10 @@ export function getExclusionList(
     }
   }
   if (DATATYPES_NEEDING_13PLUS.includes(currentDataTypeId)) {
-    if (currentBreakdown === RACE) {
+    if (demographicType === RACE) {
       exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
     }
-    if (currentBreakdown === AGE) {
+    if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket) => bucket === '16-24' || bucket === '18-24'
@@ -241,10 +241,10 @@ export function getExclusionList(
   }
 
   if (currentDataTypeId === 'hiv_stigma') {
-    if (currentBreakdown === RACE) {
+    if (demographicType === RACE) {
       exclusionList.push(...NON_STANDARD_AND_MULTI, OTHER_NONSTANDARD_NH)
     }
-    if (currentBreakdown === AGE) {
+    if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket) => bucket === '13-24' || bucket === '16-24'
@@ -255,13 +255,13 @@ export function getExclusionList(
 
   // Incarceration
   if (currentDataTypeId === 'prison') {
-    if (currentBreakdown === RACE) {
+    if (demographicType === RACE) {
       currentFips.isCounty()
         ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
         : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH)
     }
 
-    if (currentBreakdown === AGE) {
+    if (demographicType === AGE) {
       currentFips.isUsa() &&
         exclusionList.push(
           ...AGE_BUCKETS.filter(
@@ -278,13 +278,13 @@ export function getExclusionList(
     }
   }
   if (currentDataTypeId === 'jail') {
-    if (currentBreakdown === RACE) {
+    if (demographicType === RACE) {
       currentFips.isCounty()
         ? exclusionList.push(...NON_STANDARD_AND_MULTI, ASIAN_NH, NHPI_NH)
         : exclusionList.push(...NON_STANDARD_AND_MULTI, API_NH)
     }
 
-    if (currentBreakdown === AGE) {
+    if (demographicType === AGE) {
       exclusionList.push(
         ...AGE_BUCKETS.filter(
           (bucket: AgeBucket) => !BJS_JAIL_AGE_BUCKETS.includes(bucket as any)
@@ -294,13 +294,13 @@ export function getExclusionList(
   }
 
   // AHR
-  if (ALL_AHR_DETERMINANTS.includes(currentRate) && currentBreakdown === RACE) {
+  if (ALL_AHR_DETERMINANTS.includes(currentRate) && demographicType === RACE) {
     AHR_API_NH_DETERMINANTS.includes(currentRate)
       ? exclusionList.push(ASIAN_NH, NHPI_NH)
       : exclusionList.push(API_NH)
   }
 
-  if (ALL_AHR_DETERMINANTS.includes(currentRate) && currentBreakdown === AGE) {
+  if (ALL_AHR_DETERMINANTS.includes(currentRate) && demographicType === AGE) {
     // get correct age buckets for this determinant
     const determinantBuckets: any[] = []
     if (AHR_DECADE_PLUS_5_AGE_DETERMINANTS.includes(currentRate)) {
@@ -323,7 +323,7 @@ export function getExclusionList(
 
 export function splitIntoKnownsAndUnknowns(
   data: Row[],
-  breakdownVar: BreakdownVar
+  demographicType: DemographicType
 ): Row[][] {
   const knowns: Row[] = []
   const unknowns: Row[] = []
@@ -331,7 +331,7 @@ export function splitIntoKnownsAndUnknowns(
   data.forEach((row: Row) => {
     if (
       [UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY, UNKNOWN_W].includes(
-        row[breakdownVar]
+        row[demographicType]
       )
     ) {
       unknowns.push(row)

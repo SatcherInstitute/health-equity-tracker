@@ -20,7 +20,7 @@ import {
   PADDING_FOR_ACTIONS_MENU,
 } from '../utils'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE } from '../../data/query/Breakdowns'
+import { DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE } from '../../data/query/Breakdowns'
 
 export const altLightMetric: MetricConfig = {
   chartTitle: 'Population Share (ACS)',
@@ -45,7 +45,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     metricDisplayName,
     lightMetric,
     darkMetric,
-    breakdownVar,
+    demographicType,
   } = props
 
   if (showAltPopCompare) {
@@ -70,7 +70,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   // add delimiter for line breaks in column axis labels
   const dataWithLineBreakDelimiter = addLineBreakDelimitersToField(
     dataFromProps,
-    breakdownVar
+    demographicType
   )
 
   // omit the % symbol because it's included in shortLabel
@@ -102,7 +102,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
     darkMeasureDisplayName,
   ]
   const xAxisTitle = width < 350 ? xAxisTitleArray : xAxisTitleArray.join(' ')
-  const yAxisTitle = BREAKDOWN_VAR_DISPLAY_NAMES_LOWER_CASE[breakdownVar]
+  const yAxisTitle = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]
   const darkMeasureText = width < 350 ? '%' : metricDisplayName
 
   const downloadFileName = `${props.filename} - Health Equity Tracker`
@@ -115,7 +115,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
 
   const markProps = {
     barLabelBreakpoint,
-    breakdownVar,
+    demographicType,
     data,
     hasAltPop,
     altLightMeasure,
@@ -137,7 +137,7 @@ export function DisparityBarChart(props: DisparityBarChartProps) {
   const dataset = [{ name: 'DATASET', values: data }]
   const axes = Axes({ chartDimensions, xAxisTitle, yAxisTitle })
   const legends = Legends({ chartDimensions })
-  const scales = Scales({ largerMeasure, breakdownVar, LEGEND_DOMAINS })
+  const scales = Scales({ largerMeasure, demographicType, LEGEND_DOMAINS })
   const signals = getSignals()
   const marks = Marks(markProps)
 
