@@ -18,7 +18,7 @@ import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
   demographicType: DemographicType
-  activeBreakdownFilter: DemographicGroup
+  activeDemographicGroup: DemographicGroup
   metricConfig: MetricConfig
   fips: Fips
   setMultimapOpen: (smallMultiplesDialogOpen: boolean) => void
@@ -31,7 +31,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
 
   function generateDemographicTotalPhrase() {
     const options = props.overallQueryResponse.data.find(
-      (row) => row[props.demographicType] === props.activeBreakdownFilter
+      (row) => row[props.demographicType] === props.activeDemographicGroup
     )
 
     return options ? (
@@ -51,17 +51,17 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
           {props.metricConfig.shortLabel}
         </a>
         {/* } for  */}
-        {props.activeBreakdownFilter !== 'All' && ' for'}
+        {props.activeDemographicGroup !== 'All' && ' for'}
         {/* } [ ages 30-39] */}
         {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType] ===
           'age' &&
-          props.activeBreakdownFilter !== 'All' &&
-          ` ages ${props.activeBreakdownFilter}`}
+          props.activeDemographicGroup !== 'All' &&
+          ` ages ${props.activeDemographicGroup}`}
         {/* } [Asian (non Hispanic) individuals] */}
         {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType] !==
           'age' &&
-          props.activeBreakdownFilter !== 'All' &&
-          ` ${props.activeBreakdownFilter} individuals`}
+          props.activeDemographicGroup !== 'All' &&
+          ` ${props.activeDemographicGroup} individuals`}
         {' in  '}
         {/* } Georgia */}
         {props.fips.getSentenceDisplayName()}

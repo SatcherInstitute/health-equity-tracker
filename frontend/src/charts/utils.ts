@@ -108,18 +108,18 @@ export function generateChartTitle(
 }
 
 export function generateSubtitle(
-  activeBreakdownFilter: DemographicGroup,
+  activeDemographicGroup: DemographicGroup,
   demographicType: DemographicType,
   metricId: MetricId
 ) {
   let subtitle = ''
 
-  if (activeBreakdownFilter === ALL) {
+  if (activeDemographicGroup === ALL) {
     subtitle = ''
   } else if (demographicType === AGE) {
-    subtitle = `Ages ${activeBreakdownFilter}`
+    subtitle = `Ages ${activeDemographicGroup}`
   } else {
-    subtitle = `${activeBreakdownFilter}`
+    subtitle = `${activeDemographicGroup}`
   }
 
   if (HIV_DETERMINANTS.includes(metricId)) {

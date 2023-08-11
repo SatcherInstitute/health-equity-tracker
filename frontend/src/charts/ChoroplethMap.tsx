@@ -97,7 +97,7 @@ export interface ChoroplethMapProps {
   isMulti?: boolean
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
-  activeBreakdownFilter?: DemographicGroup
+  activeDemographicGroup?: DemographicGroup
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -182,7 +182,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const mapGroupLabel = getMapGroupLabel(
-      props.activeBreakdownFilter,
+      props.activeDemographicGroup,
       props.metric.type === 'index' ? 'Score' : ''
     )
     const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'

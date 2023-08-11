@@ -35,7 +35,7 @@ export interface HighestLowestListProps {
   selectedRaceSuffix?: string
   parentGeoQueryResponse: MetricQueryResponse
   demographicType: DemographicType
-  activeBreakdownFilter: DemographicGroup
+  activeDemographicGroup: DemographicGroup
 }
 
 /*
@@ -46,7 +46,7 @@ export function HighestLowestList(props: HighestLowestListProps) {
   const { type: metricType } = props.metricConfig
 
   const overallRow = props.parentGeoQueryResponse.data.find(
-    (row) => row[props.demographicType] === props.activeBreakdownFilter
+    (row) => row[props.demographicType] === props.activeDemographicGroup
   )
 
   const overallRate = formatFieldValue(
