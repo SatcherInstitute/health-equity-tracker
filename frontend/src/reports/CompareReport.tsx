@@ -203,8 +203,8 @@ function CompareReport(props: {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            trackerDemographic={demographicType}
-            setDemoWithParam={setDemographicType}
+            demographicType={demographicType}
+            setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -455,8 +455,8 @@ function CompareReport(props: {
               isMobile={props.isMobile}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={demographicType}
-              setDemoWithParam={setDemographicType}
+              demographicType={demographicType}
+              setDemographicType={setDemographicType}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />

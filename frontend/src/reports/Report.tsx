@@ -147,8 +147,8 @@ export function Report(props: ReportProps) {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            trackerDemographic={demographicType}
-            setDemoWithParam={setDemographicType}
+            demographicType={demographicType}
+            setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -387,8 +387,8 @@ export function Report(props: ReportProps) {
               // Mode selectors are in sidebar only on larger screens
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={demographicType}
-              setDemoWithParam={setDemographicType}
+              demographicType={demographicType}
+              setDemographicType={setDemographicType}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />
