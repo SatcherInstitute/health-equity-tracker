@@ -75,7 +75,6 @@ export function Report(props: ReportProps) {
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom
   )
-
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
@@ -89,7 +88,7 @@ export function Report(props: ReportProps) {
 
   useEffect(() => {
     const readParams = () => {
-      const demoParam1 = getParameter(
+      const dtParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
         (val: string) => {
@@ -99,10 +98,7 @@ export function Report(props: ReportProps) {
           )
         }
       )
-      setDataTypeConfig(demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
-
-      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
-      setDemographicType(demo)
+      setDataTypeConfig(dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId]?.[0])
     }
     const psHandler = psSubscribe(readParams, 'vardisp')
     readParams()

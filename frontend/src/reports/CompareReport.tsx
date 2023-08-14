@@ -104,7 +104,7 @@ function CompareReport(props: {
 
   useEffect(() => {
     const readParams = () => {
-      const demoParam1 = getParameter(
+      const dtParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
         (val: DataTypeId) => {
@@ -114,7 +114,7 @@ function CompareReport(props: {
           )
         }
       )
-      const demoParam2 = getParameter(
+      const dtParam2 = getParameter(
         DATA_TYPE_2_PARAM,
         undefined,
         (val: DataTypeId) => {
@@ -127,19 +127,14 @@ function CompareReport(props: {
         }
       )
 
-      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+      const newDtParam1 = dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
+      setDataTypeConfig1(newDtParam1)
 
-      const newDemoParam1 =
-        demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      setDataTypeConfig1(newDemoParam1)
-
-      const newDemoParam2 =
+      const newDtParam2 =
         props.trackerMode === 'comparegeos'
-          ? newDemoParam1
-          : demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
-      setDataTypeConfig2(newDemoParam2)
-
-      setDemographicType(demo)
+          ? newDtParam1
+          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
+      setDataTypeConfig2(newDtParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')
     readParams()
