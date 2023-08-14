@@ -77,6 +77,7 @@ export function Report(props: ReportProps) {
   )
   const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
 
+  // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
     setDemographicType(
       Object.values(demographicOptionsMap)[0] as DemographicType

@@ -91,6 +91,7 @@ function CompareReport(props: {
     dataTypeConfig2
   )
 
+  // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
     setDemographicType(
       Object.values(demographicOptionsMap)[0] as DemographicType
