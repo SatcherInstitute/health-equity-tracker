@@ -3,6 +3,13 @@ import {
   METRIC_CONFIG,
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
+import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
+import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
+import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
+import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
+import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
+import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrma'
+import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
 // Map of phrase segment index to its selected value
@@ -88,12 +95,10 @@ export function getSelectedConditions(madLib: MadLib) {
   if (madLib.activeSelections[1] === DEFAULT) return []
 
   const condition1array: DataTypeConfig[] =
-    METRIC_CONFIG[getPhraseValue(madLib, 1) as DropdownVarId]
+    METRIC_CONFIG[getPhraseValue(madLib, 1)]
   // get 2nd condition if in compare var mode
   const condition2array: DataTypeConfig[] =
-    madLib.id === 'comparevars'
-      ? METRIC_CONFIG[getPhraseValue(madLib, 3) as DropdownVarId]
-      : []
+    madLib.id === 'comparevars' ? METRIC_CONFIG[getPhraseValue(madLib, 3)] : []
 
   // make a list of conditions and sub-conditions, including #2 if it's unique
   return condition2array?.length && condition2array !== condition1array
@@ -127,7 +132,7 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     incarceration: 'Incarceration',
     poverty: 'Poverty',
     phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
-    phrma_hiv: 'HIV Conditions and Medication Adherence',
+    // phrma_hiv: 'HIV Conditions and Medication Adherence',
     preventable_hospitalizations: 'Preventable Hospitalization',
     substance: 'Opioid and Other Substance Misuse',
     suicide: 'Suicide',
@@ -155,54 +160,37 @@ const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: ['hiv', 'hiv_care', 'hiv_prep', 'hiv_black_women', 'hiv_stigma'],
+    options: HIV_CATEGORY_DROPDOWNIDS,
   },
   {
     title: 'Chronic Disease',
     definition: '',
-    options: [
-      'diabetes',
-      'copd',
-      'asthma',
-      'cardiovascular_diseases',
-      'chronic_kidney_disease',
-    ],
+    options: CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
   },
   {
     title: 'Behavioral Health',
     definition: '',
-    options: [
-      'depression',
-      'suicide',
-      'substance',
-      'excessive_drinking',
-      'frequent_mental_distress',
-    ],
+    options: BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS,
   },
   {
     title: 'Political Determinants of Health',
     definition: '',
-    options: ['voter_participation', 'women_in_gov', 'incarceration'],
+    options: PDOH_CATEGORY_DROPDOWNIDS,
   },
   {
     title: 'Social Determinants of Health',
     definition: '',
-    options: [
-      'health_insurance',
-      'poverty',
-      'preventable_hospitalizations',
-      'avoided_care',
-    ],
+    options: SDOH_CATEGORY_DROPDOWNIDS,
   },
   {
     title: 'COVID-19',
     definition: '',
-    options: ['covid', 'covid_vaccinations'],
+    options: COVID_CATEGORY_DROPDOWNIDS,
   },
   {
     title: 'Medicare Beneficiaries',
     definition: '',
-    options: ['phrma_cardiovascular'],
+    options: MEDICARE_CATEGORY_DROPDOWNIDS,
   },
 ]
 
