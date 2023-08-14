@@ -5,19 +5,30 @@ export function useParamState<ParamStateType>(
   paramKey: string,
   paramDefaultValue?: ParamStateType
 ): [ParamStateType, (newValue: ParamStateType) => void] {
-  const [location, setLocation] = useAtom(locationAtom)
+  const [locationState, setLocationState] = useAtom(locationAtom)
 
   const paramState =
-    location.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
+    locationState.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
 
   function setParamState(newValue: ParamStateType): void {
-    newValue
-      ? location.searchParams?.set(paramKey, newValue as string)
-      : location.searchParams?.delete(paramKey)
+    const existingURLParams = new URLSearchParams(document.location.search)
 
-    setLocation((prev) => ({
+    const existingLocationStateParams = new URLSearchParams(
+      locationState.searchParams
+    )
+
+    const combinedParams = new URLSearchParams({
+      ...Object.fromEntries(existingURLParams),
+      ...Object.fromEntries(existingLocationStateParams),
+    })
+
+    newValue
+      ? combinedParams.set(paramKey, newValue as string)
+      : combinedParams.delete(paramKey)
+
+    setLocationState((prev) => ({
       ...prev,
-      searchParams: location.searchParams,
+      searchParams: combinedParams,
     }))
   }
 
@@ -28,8 +39,8 @@ export function useGetParamState<ParamStateType>(
   paramKey: string,
   paramDefaultValue?: ParamStateType
 ): ParamStateType {
-  const location = useAtomValue(locationAtom)
+  const locationState = useAtomValue(locationAtom)
   const paramState =
-    location.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
+    locationState.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
   return paramState as ParamStateType
 }
