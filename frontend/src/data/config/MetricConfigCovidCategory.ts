@@ -12,6 +12,7 @@ export type CovidCategoryDataTypeId =
   | 'covid_hospitalizations'
 
 export type CovidCategoryMetricId =
+  | 'acs_vaccinated_pop_pct'
   | 'covid_cases_pct_relative_inequity'
   | 'covid_cases_per_100k'
   | 'covid_cases_reporting_population_pct'

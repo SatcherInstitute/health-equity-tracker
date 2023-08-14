@@ -18,7 +18,6 @@ export type HivCategoryDataTypeId =
   | 'hiv_prevalence'
 
 export type HivCategoryMetricId =
-  | 'acs_vaccinated_pop_pct'
   | 'black_women_population_pct'
   | 'hiv_care_linkage'
   | 'hiv_care_pct_relative_inequity'
