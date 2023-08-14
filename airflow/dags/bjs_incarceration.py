@@ -34,7 +34,7 @@ payload_age = {
     'demographic': "age"
 }
 bjs_incarceration_exporter_operator_age = util.create_exporter_operator(
-    'bjs_incarceration_exporter_age', payload_race, data_ingestion_dag)
+    'bjs_incarceration_exporter_age', payload_age, data_ingestion_dag)
 
 
 payload_sex = {
