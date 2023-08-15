@@ -148,7 +148,7 @@ function MapCardWithKey(props: MapCardProps) {
   const highestLowestParamKey = props.isCompareCard
     ? HIGHEST_LOWEST_2_PARAM_KEY
     : HIGHEST_LOWEST_1_PARAM_KEY
-  const [highestLowestGeosListIsOpen, setHighestLowestGeosListIsOpen] =
+  const [highestLowestGeosMode, setHighestLowestGeosMode] =
     useParamState<boolean>(highestLowestParamKey, false)
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
@@ -271,7 +271,7 @@ function MapCardWithKey(props: MapCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
-      expanded={highestLowestGeosListIsOpen}
+      expanded={highestLowestGeosMode}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
@@ -372,7 +372,7 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, groupCode)
         }
 
-        const displayData = highestLowestGeosListIsOpen
+        const displayData = highestLowestGeosMode
           ? highestValues.concat(lowestValues)
           : dataForActiveDemographicGroup
 
@@ -483,12 +483,10 @@ function MapCardWithKey(props: MapCardProps) {
                         fips={props.fips}
                         geoData={geoData}
                         hideLegend={true}
-                        hideMissingDataTooltip={highestLowestGeosListIsOpen}
+                        hideMissingDataTooltip={highestLowestGeosMode}
                         legendData={dataForActiveDemographicGroup}
                         legendTitle={metricConfig.shortLabel.toLowerCase()}
-                        highestLowestGeosListIsOpen={
-                          highestLowestGeosListIsOpen
-                        }
+                        highestLowestGeosMode={highestLowestGeosMode}
                         metric={metricConfig}
                         showCounties={
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
@@ -506,9 +504,7 @@ function MapCardWithKey(props: MapCardProps) {
                             data={displayData}
                             fullData={mapQueryResponse.data}
                             geoData={geoData}
-                            highestLowestGeosListIsOpen={
-                              highestLowestGeosListIsOpen
-                            }
+                            highestLowestGeosMode={highestLowestGeosMode}
                             mapIsWide={mapIsWide}
                             metricConfig={metricConfig}
                             signalListeners={signalListeners}
@@ -573,8 +569,8 @@ function MapCardWithKey(props: MapCardProps) {
                           dataTypeConfig={props.dataTypeConfig}
                           selectedRaceSuffix={selectedRaceSuffix}
                           metricConfig={metricConfig}
-                          isOpen={highestLowestGeosListIsOpen}
-                          setIsOpen={setHighestLowestGeosListIsOpen}
+                          isOpen={highestLowestGeosMode}
+                          setIsOpen={setHighestLowestGeosMode}
                           highestValues={highestValues}
                           lowestValues={lowestValues}
                           parentGeoQueryResponse={parentGeoQueryResponse}
