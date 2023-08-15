@@ -559,8 +559,8 @@ function MapCardWithKey(props: MapCardProps) {
                   <Grid
                     id={
                       props.isCompareCard
-                        ? 'highest-lowest-list-2'
-                        : 'highest-lowest-list'
+                        ? HIGHEST_LOWEST_2_PARAM_KEY
+                        : HIGHEST_LOWEST_1_PARAM_KEY
                     }
                   >
                     {!mapQueryResponse.dataIsMissing() &&
