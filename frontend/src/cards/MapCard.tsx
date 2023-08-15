@@ -67,8 +67,8 @@ import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
-  HIGHEST_LOWEST_1_PARAM_KEY,
-  HIGHEST_LOWEST_2_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
@@ -81,7 +81,7 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 
-const SIZE_OF_HIGHEST_LOWEST_RATES_LIST = 5
+const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
 export interface MapCardProps {
   key?: string
@@ -145,11 +145,11 @@ function MapCardWithKey(props: MapCardProps) {
   const initialGroupParam: string = getParameter(MAP_GROUP_PARAM, ALL)
   const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
 
-  const highestLowestParamKey = props.isCompareCard
-    ? HIGHEST_LOWEST_2_PARAM_KEY
-    : HIGHEST_LOWEST_1_PARAM_KEY
+  const highestLowestGeosParamKey = props.isCompareCard
+    ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
+    : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
   const [highestLowestGeosMode, setHighestLowestGeosMode] =
-    useParamState<boolean>(highestLowestParamKey, false)
+    useParamState<boolean>(highestLowestGeosParamKey, false)
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
@@ -339,7 +339,7 @@ function MapCardWithKey(props: MapCardProps) {
         const { highestValues, lowestValues } = getExtremeValues(
           dataForActiveDemographicGroup,
           metricConfig.metricId,
-          SIZE_OF_HIGHEST_LOWEST_RATES_LIST
+          SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST
         )
 
         // Create and populate a map of demographicType display name to options
@@ -559,8 +559,8 @@ function MapCardWithKey(props: MapCardProps) {
                   <Grid
                     id={
                       props.isCompareCard
-                        ? HIGHEST_LOWEST_2_PARAM_KEY
-                        : HIGHEST_LOWEST_1_PARAM_KEY
+                        ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
+                        : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
                     }
                   >
                     {!mapQueryResponse.dataIsMissing() &&
