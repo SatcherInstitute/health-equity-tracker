@@ -31,7 +31,7 @@ import { urlMap } from '../../utils/externalUrls'
 import {
   type DataTypeConfig,
   METRIC_CONFIG,
-  type DropdownVarId,
+  isDropdownVarId,
 } from '../../data/config/MetricConfig'
 import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
@@ -116,10 +116,12 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const setMadLibWithParam = (ml: MadLib) => {
     // ONLY SOME TOPICS HAVE SUB DATA TYPES
     const var1HasDataTypes =
-      METRIC_CONFIG[ml.activeSelections[1] as DropdownVarId]?.length > 1
+      isDropdownVarId(ml.activeSelections[1]) &&
+      METRIC_CONFIG[ml.activeSelections[1]]?.length > 1
     const var2HasDataTypes =
       ml.id === 'comparevars' &&
-      METRIC_CONFIG[ml.activeSelections[3] as DropdownVarId]?.length > 1
+      isDropdownVarId(ml.activeSelections[3]) &&
+      METRIC_CONFIG[ml.activeSelections[3]]?.length > 1
 
     // DELETE DATA TYPE PARAM FROM URL IF NEW TOPIC(S) HAVE NO SUB DATA TYPES
     if (!var1HasDataTypes || !var2HasDataTypes) {

@@ -11,8 +11,8 @@ import TopicInfoModalButton from '../../pages/ui/TopicInfoModalButton'
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-  trackerDemographic: DemographicType
-  setDemoWithParam: (demographic: DemographicType) => void
+  demographicType: DemographicType
+  setDemographicType: (demographic: DemographicType) => void
   offerJumpToAgeAdjustment: boolean
   demographicOptionsMap: any
   disabledDemographicOptions?: string[][]
@@ -38,8 +38,8 @@ export default function ModeSelectorBoxMobile(
               label="Demographic"
               optionsMap={props.demographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}
-              selected={props.trackerDemographic}
-              setSelected={props.setDemoWithParam}
+              selected={props.demographicType}
+              setSelected={props.setDemographicType}
             />
             <SimpleSelect<MadLibId>
               label="Compare mode"

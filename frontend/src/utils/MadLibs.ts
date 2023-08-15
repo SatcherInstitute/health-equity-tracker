@@ -82,7 +82,10 @@ export function getMadLibWithUpdatedValue(
   }
 }
 
-export function getPhraseValue(madLib: MadLib, segmentIndex: number): string {
+export function getPhraseValue(
+  madLib: MadLib,
+  segmentIndex: number
+): string | DropdownVarId {
   const segment = madLib.phrase[segmentIndex]
   return typeof segment === 'string'
     ? segment
@@ -96,10 +99,12 @@ export function getSelectedConditions(madLib: MadLib) {
   if (madLib.activeSelections[1] === DEFAULT) return []
 
   const condition1array: DataTypeConfig[] =
-    METRIC_CONFIG[getPhraseValue(madLib, 1)]
+    METRIC_CONFIG[getPhraseValue(madLib, 1) as any as DropdownVarId]
   // get 2nd condition if in compare var mode
   const condition2array: DataTypeConfig[] =
-    madLib.id === 'comparevars' ? METRIC_CONFIG[getPhraseValue(madLib, 3)] : []
+    madLib.id === 'comparevars'
+      ? METRIC_CONFIG[getPhraseValue(madLib, 3) as any as DropdownVarId]
+      : []
 
   // make a list of conditions and sub-conditions, including #2 if it's unique
   return condition2array?.length && condition2array !== condition1array

@@ -1,5 +1,5 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
@@ -26,7 +26,6 @@ import {
   DEMOGRAPHIC_PARAM,
   getParameter,
   psSubscribe,
-  setParameter,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -48,6 +47,7 @@ import {
   getDemographicOptionsMap,
   getDisabledDemographicOptions,
 } from './reportUtils'
+import { useParamState } from '../utils/hooks/useParamState'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
@@ -73,8 +73,9 @@ function CompareReport(props: {
     props.dropdownVarId2 === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 
-  const [demographicType, setDemographicType] = useState<DemographicType>(
-    getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+  const [demographicType, setDemographicType] = useParamState<DemographicType>(
+    DEMOGRAPHIC_PARAM,
+    defaultDemo
   )
 
   const [dataTypeConfig1, setDataTypeConfig1] = useAtom(
@@ -85,18 +86,16 @@ function CompareReport(props: {
     selectedDataTypeConfig2Atom
   )
 
-  function setDemoWithParam(demographic: DemographicType) {
-    setParameter(DEMOGRAPHIC_PARAM, demographic)
-    setDemographicType(demographic)
-  }
-
   const demographicOptionsMap = getDemographicOptionsMap(
     dataTypeConfig1,
     dataTypeConfig2
   )
 
+  // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
-    setDemoWithParam(Object.values(demographicOptionsMap)[0] as DemographicType)
+    setDemographicType(
+      Object.values(demographicOptionsMap)[0] as DemographicType
+    )
   }
 
   const disabledDemographicOptions = getDisabledDemographicOptions(
@@ -106,7 +105,7 @@ function CompareReport(props: {
 
   useEffect(() => {
     const readParams = () => {
-      const demoParam1 = getParameter(
+      const dtParam1 = getParameter(
         DATA_TYPE_1_PARAM,
         undefined,
         (val: DataTypeId) => {
@@ -116,7 +115,7 @@ function CompareReport(props: {
           )
         }
       )
-      const demoParam2 = getParameter(
+      const dtParam2 = getParameter(
         DATA_TYPE_2_PARAM,
         undefined,
         (val: DataTypeId) => {
@@ -129,19 +128,14 @@ function CompareReport(props: {
         }
       )
 
-      const demo: DemographicType = getParameter(DEMOGRAPHIC_PARAM, defaultDemo)
+      const newDtParam1 = dtParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
+      setDataTypeConfig1(newDtParam1)
 
-      const newDemoParam1 =
-        demoParam1 ?? METRIC_CONFIG?.[props.dropdownVarId1]?.[0]
-      setDataTypeConfig1(newDemoParam1)
-
-      const newDemoParam2 =
+      const newDtParam2 =
         props.trackerMode === 'comparegeos'
-          ? newDemoParam1
-          : demoParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
-      setDataTypeConfig2(newDemoParam2)
-
-      setDemographicType(demo)
+          ? newDtParam1
+          : dtParam2 ?? METRIC_CONFIG?.[props.dropdownVarId2]?.[0]
+      setDataTypeConfig2(newDtParam2)
     }
     const psSub = psSubscribe(readParams, 'twovar')
     readParams()
@@ -210,8 +204,8 @@ function CompareReport(props: {
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
             setTrackerMode={props.setTrackerMode}
-            trackerDemographic={demographicType}
-            setDemoWithParam={setDemoWithParam}
+            demographicType={demographicType}
+            setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
             demographicOptionsMap={demographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
@@ -462,8 +456,8 @@ function CompareReport(props: {
               isMobile={props.isMobile}
               trackerMode={props.trackerMode}
               setTrackerMode={props.setTrackerMode}
-              trackerDemographic={demographicType}
-              setDemoWithParam={setDemoWithParam}
+              demographicType={demographicType}
+              setDemographicType={setDemographicType}
               demographicOptionsMap={demographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />
