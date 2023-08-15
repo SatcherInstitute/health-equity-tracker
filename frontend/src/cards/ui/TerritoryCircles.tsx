@@ -18,7 +18,7 @@ interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
   signalListeners: any
   metricConfig: MetricConfig
-  listExpanded?: boolean
+  highestLowestGeosListIsOpen?: boolean
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
   countColsToAdd: MetricId[]
@@ -55,7 +55,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
               data={props.data}
-              hideMissingDataTooltip={props.listExpanded}
+              hideMissingDataTooltip={props.highestLowestGeosListIsOpen}
               legendData={props.legendData}
               hideLegend={true}
               showCounties={false}

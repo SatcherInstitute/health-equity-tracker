@@ -47,7 +47,7 @@ import {
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
-import { HighestLowestList } from './ui/HighestLowestList'
+import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
@@ -67,6 +67,8 @@ import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
+  HIGHEST_LOWEST_1_PARAM_KEY,
+  HIGHEST_LOWEST_2_PARAM_KEY,
   MAP1_GROUP_PARAM,
   MAP2_GROUP_PARAM,
   MULTIPLE_MAPS_1_PARAM_KEY,
@@ -143,7 +145,12 @@ function MapCardWithKey(props: MapCardProps) {
   const initialGroupParam: string = getParameter(MAP_GROUP_PARAM, ALL)
   const initialGroup = getDemographicGroupFromGroupParam(initialGroupParam)
 
-  const [listExpanded, setListExpanded] = useState(false)
+  const highestLowestParamKey = props.isCompareCard
+    ? HIGHEST_LOWEST_2_PARAM_KEY
+    : HIGHEST_LOWEST_1_PARAM_KEY
+  const [highestLowestGeosListIsOpen, setHighestLowestGeosListIsOpen] =
+    useParamState<boolean>(highestLowestParamKey, false)
+
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
 
@@ -264,7 +271,7 @@ function MapCardWithKey(props: MapCardProps) {
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
-      expanded={listExpanded}
+      expanded={highestLowestGeosListIsOpen}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)
@@ -365,7 +372,7 @@ function MapCardWithKey(props: MapCardProps) {
           setParameter(MAP_GROUP_PARAM, groupCode)
         }
 
-        const displayData = listExpanded
+        const displayData = highestLowestGeosListIsOpen
           ? highestValues.concat(lowestValues)
           : dataForActiveDemographicGroup
 
@@ -476,10 +483,12 @@ function MapCardWithKey(props: MapCardProps) {
                         fips={props.fips}
                         geoData={geoData}
                         hideLegend={true}
-                        hideMissingDataTooltip={listExpanded}
+                        hideMissingDataTooltip={highestLowestGeosListIsOpen}
                         legendData={dataForActiveDemographicGroup}
                         legendTitle={metricConfig.shortLabel.toLowerCase()}
-                        listExpanded={listExpanded}
+                        highestLowestGeosListIsOpen={
+                          highestLowestGeosListIsOpen
+                        }
                         metric={metricConfig}
                         showCounties={
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
@@ -497,7 +506,9 @@ function MapCardWithKey(props: MapCardProps) {
                             data={displayData}
                             fullData={mapQueryResponse.data}
                             geoData={geoData}
-                            listExpanded={listExpanded}
+                            highestLowestGeosListIsOpen={
+                              highestLowestGeosListIsOpen
+                            }
                             mapIsWide={mapIsWide}
                             metricConfig={metricConfig}
                             signalListeners={signalListeners}
@@ -558,12 +569,12 @@ function MapCardWithKey(props: MapCardProps) {
                   >
                     {!mapQueryResponse.dataIsMissing() &&
                       dataForActiveDemographicGroup.length > 1 && (
-                        <HighestLowestList
+                        <HighestLowestGeosList
                           dataTypeConfig={props.dataTypeConfig}
                           selectedRaceSuffix={selectedRaceSuffix}
                           metricConfig={metricConfig}
-                          listExpanded={listExpanded}
-                          setListExpanded={setListExpanded}
+                          isOpen={highestLowestGeosListIsOpen}
+                          setIsOpen={setHighestLowestGeosListIsOpen}
                           highestValues={highestValues}
                           lowestValues={lowestValues}
                           parentGeoQueryResponse={parentGeoQueryResponse}
