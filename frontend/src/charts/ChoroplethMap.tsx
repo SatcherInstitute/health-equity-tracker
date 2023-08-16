@@ -90,7 +90,7 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  listExpanded?: boolean
+  highestLowestGeosMode?: boolean
   countColsToAdd: MetricId[]
   mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean
@@ -149,7 +149,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       },
     ]
     // Null SVI was showing
-    if (!props.listExpanded) {
+    if (!props.highestLowestGeosMode) {
       geoTransformers[0].values.push('rating')
     }
 
@@ -278,7 +278,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* isTerritoryCircle? */ props.fips.isTerritory()
     )
 
-    if (props.isMulti ?? props.listExpanded) {
+    if (props.isMulti ?? props.highestLowestGeosMode) {
       colorScale.domain = props.scaleConfig?.domain
       colorScale.range = props.scaleConfig?.range
     }
