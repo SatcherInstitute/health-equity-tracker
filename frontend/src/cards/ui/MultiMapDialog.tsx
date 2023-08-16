@@ -16,10 +16,7 @@ import {
   type Row,
   type FieldRange,
 } from '../../data/utils/DatasetTypes'
-import {
-  type MetricConfig,
-  type MetricId,
-} from '../../data/config/MetricConfig'
+import { type MetricConfig } from '../../data/config/MetricConfig'
 import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
 import {
@@ -40,6 +37,7 @@ import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
+import { type CountColsMap } from '../MapCard'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -66,7 +64,7 @@ export interface MultiMapDialogProps {
   // Metadata required for the source footer
   metadata: MapOfDatasetMetadata
   demographicGroupsNoData: DemographicGroup[]
-  countColsToAdd: MetricId[]
+  countColsMap: CountColsMap
   // Geography data, in topojson format. Must include both states and counties.
   // If not provided, defaults to directly loading /tmp/geographies.json
   geoData?: Record<string, any>
@@ -234,7 +232,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 <b>{mapLabel}</b>
                 {props.metricConfig && dataForValue.length > 0 && (
                   <ChoroplethMap
-                    countColsToAdd={props.countColsToAdd}
+                    demographicType={props.demographicType}
+                    activeDemographicGroup={demographicGroup}
+                    countColsMap={props.countColsMap}
                     data={dataForValue}
                     fieldRange={props.fieldRange}
                     filename={title}
@@ -260,7 +260,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   dataForValue.length && (
                     <Grid container>
                       <TerritoryCircles
-                        countColsToAdd={props.countColsToAdd}
+                        demographicType={props.demographicType}
+                        countColsMap={props.countColsMap}
                         data={dataForValue}
                         geoData={props.geoData}
                         mapIsWide={false}
@@ -268,6 +269,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         signalListeners={multimapSignalListeners}
                         scaleConfig={scale}
                         isMulti={true}
+                        activeDemographicGroup={demographicGroup}
                       />
                     </Grid>
                   )}

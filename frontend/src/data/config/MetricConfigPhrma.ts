@@ -58,6 +58,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         chartTitle: 'Adherence to statins',
         shortLabel: '% adherent',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'statins_adherence_estimated_total',
+          shortLabel: '# adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'statins_beneficiaries_estimated_total',
+          shortLabel: '# total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total statins adherence',

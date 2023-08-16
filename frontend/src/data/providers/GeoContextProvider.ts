@@ -4,9 +4,12 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
+export const SVI = 'svi'
+export const POPULATION = 'population'
+
 class GeoContextProvider extends VariableProvider {
   constructor() {
-    super('geo_context_provider', ['svi', 'population'])
+    super('geo_context_provider', [SVI, POPULATION])
   }
 
   getDatasetId(breakdowns: Breakdowns): string {
@@ -34,7 +37,7 @@ class GeoContextProvider extends VariableProvider {
     // handles both SVI and/or POPULATION requests, need to dynamically infer the consumed datasets for footer
     const consumedDatasetIds: string[] = []
 
-    if (metricQuery.metricIds.includes('svi')) {
+    if (metricQuery.metricIds.includes(SVI)) {
       //  TODO: refactor SVI to not use pretend SEX demographic type, use some sort of true ALL demographic type
       consumedDatasetIds.push('cdc_svi_county-sex')
     }
@@ -58,7 +61,7 @@ class GeoContextProvider extends VariableProvider {
       territory: 'decia_2020_territory_population-by_sex_territory_state_level',
     }
 
-    if (metricQuery.metricIds.includes('population')) {
+    if (metricQuery.metricIds.includes(POPULATION)) {
       const datasetMap = breakdowns.filterFips?.isIslandArea()
         ? decia2020DatasetMap
         : acsDatasetMap

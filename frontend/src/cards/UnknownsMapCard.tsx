@@ -1,7 +1,7 @@
 import { CardContent, useMediaQuery, useTheme } from '@mui/material'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
-import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 import { type Row } from '../data/utils/DatasetTypes'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
@@ -102,15 +102,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* fips: */ props.fips,
     demographicType
   )
-
-  const isCawpStateLeg =
-    props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
-  const isCawpCongress =
-    props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
-
-  let countColsToAdd: MetricId[] = []
-  if (isCawpCongress) countColsToAdd = ['women_this_race_us_congress_count']
-  if (isCawpStateLeg) countColsToAdd = ['women_this_race_state_leg_count']
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 
@@ -217,6 +208,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {showingVisualization && (
               <>
                 <ChoroplethMap
+                  demographicType={demographicType}
+                  activeDemographicGroup={UNKNOWN}
+                  countColsMap={{}}
                   isUnknownsMap={true}
                   signalListeners={signalListeners}
                   metric={metricConfig}
@@ -229,14 +223,15 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                   filename={chartTitle}
-                  countColsToAdd={countColsToAdd}
                   mapConfig={{ mapScheme, mapMin }}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
                   <TerritoryCircles
+                    demographicType={demographicType}
+                    activeDemographicGroup={UNKNOWN}
+                    countColsMap={{}}
                     mapIsWide={mapIsWide}
                     data={unknowns}
-                    countColsToAdd={countColsToAdd}
                     metricConfig={metricConfig}
                     signalListeners={signalListeners}
                     geoData={geoData}
