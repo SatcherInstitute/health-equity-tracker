@@ -39,6 +39,8 @@ export type PhrmaMetricId =
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
   | 'statins_population_pct_share'
+  | 'statins_adherence_estimated_total'
+  | 'statins_beneficiaries_estimated_total'
   | 'phrma_hiv_pct_share'
   | 'phrma_hiv_per_100k'
   | 'phrma_population_pct_share'

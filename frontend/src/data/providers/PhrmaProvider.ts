@@ -9,6 +9,11 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
+export const PHRMA_STATINS_COUNTS: MetricId[] = [
+  'statins_adherence_estimated_total',
+  'statins_beneficiaries_estimated_total',
+]
+
 export const PHRMA_CONDITIONS: DropdownVarId[] = [
   'phrma_cardiovascular',
   'phrma_hiv',
@@ -53,6 +58,8 @@ export const PHRMA_METRICS: MetricId[] = [
   'statins_adherence_pct_rate',
   'statins_adherence_pct_share',
   'statins_population_pct_share',
+  'statins_adherence_estimated_total',
+  'statins_beneficiaries_estimated_total',
 ]
 
 const phrmaReason = 'only available when comparing two Medicare topics'

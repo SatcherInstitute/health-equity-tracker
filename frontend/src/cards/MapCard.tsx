@@ -80,6 +80,7 @@ import {
 } from '../utils/urlutils'
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
+import { PHRMA_STATINS_COUNTS } from '../data/providers/PhrmaProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -125,6 +126,8 @@ function MapCardWithKey(props: MapCardProps) {
   const isCawpCongress =
     props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
   const isCawp = isCawpStateLeg ?? isCawpCongress
+
+  const isPhrmaStatins = props.dataTypeConfig.dataTypeId === 'statins_adherence'
 
   const location = useLocation()
 
@@ -187,6 +190,7 @@ function MapCardWithKey(props: MapCardProps) {
   let countColsToAdd: MetricId[] = []
   if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS
   if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS
+  if (isPhrmaStatins) countColsToAdd = PHRMA_STATINS_COUNTS
 
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips), countColsToAdd),

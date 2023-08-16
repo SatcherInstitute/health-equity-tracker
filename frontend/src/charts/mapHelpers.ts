@@ -114,6 +114,33 @@ export function getCountyAddOn(fips: Fips, showCounties: boolean) {
 }
 
 /*
+Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # benes considered adherent and # benes
+*/
+export function addPHRMATooltipInfo(
+  tooltipPairs: Record<string, string>,
+  subTitle: string,
+  countCols: MetricId[]
+) {
+  const raceCode: string | undefined = subTitle
+    ? raceNameToCodeMap?.[subTitle]
+    : ''
+
+  const numLines = Object.keys(countCols).length
+
+  if (numLines > 0) {
+    tooltipPairs[
+      `# ${raceCode ?? ''} adherent beneficiaries`
+    ] = `datum.${countCols[0]}`
+  }
+
+  if (numLines > 1) {
+    tooltipPairs[`# total beneficiaries`] = `datum.${countCols[1]}`
+  }
+
+  return tooltipPairs
+}
+
+/*
 Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # TOTAL CONGRESS and # WOMEN THIS RACE IN CONGRESS
 */
 export function addCAWPTooltipInfo(

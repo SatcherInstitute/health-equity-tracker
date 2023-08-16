@@ -3,7 +3,7 @@ import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
 import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
-import { type FieldRange } from '../data/utils/DatasetTypes'
+import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import {
@@ -41,10 +41,12 @@ import {
   type HighestLowest,
   embedHighestLowestGroups,
   getMapGroupLabel,
+  addPHRMATooltipInfo,
 } from './mapHelpers'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -101,13 +103,33 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const dataWithHighestLowest = embedHighestLowestGroups(
-    props.data,
-    props.highestLowestGroupsByFips
-  )
-
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
+
+  let suppressedData = props.data
+
+  if (isPhrma) {
+    suppressedData = props.data?.map((row: Row) => {
+      const newRow = { ...row }
+      const numeratorMetricId = props.countColsToAdd[0]
+      const numerator = row[numeratorMetricId]
+      if (numerator === null)
+        newRow[numeratorMetricId] = 'Data suppressed for privacy'
+
+      const denominatorMetricId = props.countColsToAdd[1]
+      const denominator = row[denominatorMetricId]
+      if (denominator === null)
+        newRow[denominatorMetricId] = 'Data suppressed for privacy'
+
+      return newRow
+    })
+  }
+
+  const dataWithHighestLowest = embedHighestLowestGroups(
+    suppressedData,
+    props.highestLowestGroupsByFips
+  )
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -217,6 +239,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     if (isCawp) {
       addCAWPTooltipInfo(
+        /* tooltipPairs */ tooltipPairs,
+        /* subTitle */ props.titles?.subtitle ?? '',
+        /* colsToAdd */ props.countColsToAdd
+      )
+    } else if (isPhrma) {
+      addPHRMATooltipInfo(
         /* tooltipPairs */ tooltipPairs,
         /* subTitle */ props.titles?.subtitle ?? '',
         /* colsToAdd */ props.countColsToAdd
@@ -333,6 +361,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* fips */ props.fips,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle
     )
+
+    console.log({ dataWithHighestLowest })
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',

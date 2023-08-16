@@ -16,6 +16,7 @@ import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 const COLOR_SCALE = 'color_scale'
 const ZERO_SCALE = 'zero_scale'
@@ -80,6 +81,7 @@ export function getMapScheme(metricId: MetricId) {
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
   const defaultOrient =
     props.stackingDirection === 'vertical' ? 'left' : 'right'
   const orient = props.orient ?? defaultOrient
@@ -214,7 +216,9 @@ export function Legend(props: LegendProps) {
         },
         {
           name: ZERO_VALUES,
-          values: [{ zero: isCawp ? ZERO_BUCKET_LABEL : LESS_THAN_1 }],
+          values: [
+            { zero: isCawp || isPhrma ? ZERO_BUCKET_LABEL : LESS_THAN_1 },
+          ],
         },
         {
           name: DATASET_VALUES,
