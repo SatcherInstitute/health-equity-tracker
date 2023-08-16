@@ -1,4 +1,4 @@
-import styles from './HighestLowestList.module.scss'
+import styles from './HighestLowestGeosList.module.scss'
 import AnimateHeight from 'react-animate-height'
 import { Grid, IconButton } from '@mui/material'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
@@ -15,16 +15,16 @@ import { type Fips } from '../../data/utils/Fips'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 
-export interface HighestLowestListProps {
+export interface HighestLowestGeosListProps {
   // MetricConfig for data
   metricConfig: MetricConfig
   // DataTypeConfig for data
   dataTypeConfig: DataTypeConfig
   fips: Fips
   // Whether or not list is expanded
-  listExpanded: boolean
+  isOpen: boolean
   // Expand or collapse the list
-  setListExpanded: (listExpanded: boolean) => void
+  setIsOpen: (isOpen: boolean) => void
   highestValues: Row[]
   lowestValues: Row[]
   // items in highest/lowest list that should receive qualifiers
@@ -41,7 +41,7 @@ export interface HighestLowestListProps {
 /*
    Collapsible box showing lists of geographies with the highest and lowest rates
 */
-export function HighestLowestList(props: HighestLowestListProps) {
+export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
   const placesType = props.fips.getPluralChildFipsTypeDisplayName()
   const { type: metricType } = props.metricConfig
 
@@ -58,42 +58,42 @@ export function HighestLowestList(props: HighestLowestListProps) {
   return (
     <AnimateHeight
       duration={500}
-      height={props.listExpanded ? 'auto' : 47}
+      height={props.isOpen ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className={styles.ListBox}
     >
       <div className={styles.CollapseButton}>
         <IconButton
           aria-label={
-            props.listExpanded
+            props.isOpen
               ? `hide lists of ${placesType} with highest and lowest rates `
               : `show lists of ${placesType} with highest and lowest rates`
           }
           onClick={() => {
-            props.setListExpanded(!props.listExpanded)
+            props.setIsOpen(!props.isOpen)
           }}
           color="primary"
           size="large"
         >
-          {props.listExpanded ? <ArrowDropUp /> : <ArrowDropDown />}
+          {props.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
       </div>
       <div
         onClick={() => {
-          props.setListExpanded(!props.listExpanded)
+          props.setIsOpen(!props.isOpen)
         }}
         aria-hidden={true}
         className={
-          props.listExpanded ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
+          props.isOpen ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
         }
       >
-        {!props.listExpanded ? 'See ' : 'Viewing '}
+        {!props.isOpen ? 'See ' : 'Viewing '}
         <span className={styles.HideOnMobile}>the {placesType} with the </span>
         <b>highest</b> and <b>lowest</b> rates.
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
-      {props.listExpanded && (
+      {props.isOpen && (
         <>
           <div className={styles.ListBoxLists}>
             <Grid container justifyContent="space-around">

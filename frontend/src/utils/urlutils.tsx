@@ -37,6 +37,8 @@ export const MAP2_GROUP_PARAM = 'group2'
 export const TOPIC_INFO_PARAM_KEY = 'topic-info'
 export const MULTIPLE_MAPS_1_PARAM_KEY = 'multiple-maps'
 export const MULTIPLE_MAPS_2_PARAM_KEY = 'multiple-maps2'
+export const HIGHEST_LOWEST_GEOS_1_PARAM_KEY = 'highest-lowest-geos'
+export const HIGHEST_LOWEST_GEOS_2_PARAM_KEY = 'highest-lowest-geos2'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
