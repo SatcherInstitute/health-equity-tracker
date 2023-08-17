@@ -172,12 +172,11 @@ function MapCardWithKey(props: MapCardProps) {
     countColsMap?: CountColsMap
   ) => {
     const metricIds: MetricId[] = [metricConfig.metricId]
-    if (countColsMap) {
-      countColsMap.numeratorConfig &&
-        metricIds.push(countColsMap.numeratorConfig.metricId)
-      countColsMap.denominatorConfig &&
-        metricIds.push(countColsMap.denominatorConfig.metricId)
-    }
+
+    countColsMap?.numeratorConfig &&
+      metricIds.push(countColsMap.numeratorConfig.metricId)
+    countColsMap?.denominatorConfig &&
+      metricIds.push(countColsMap.denominatorConfig.metricId)
 
     return new MetricQuery(
       metricIds,
