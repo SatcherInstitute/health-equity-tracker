@@ -1,9 +1,6 @@
 import { Grid } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
-import {
-  type MetricId,
-  type MetricConfig,
-} from '../../data/config/MetricConfig'
+import { type MetricConfig } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
 import {
@@ -13,6 +10,7 @@ import {
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
+import { type CountColsMap } from '../MapCard'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -21,11 +19,11 @@ interface TerritoryCirclesProps {
   highestLowestGeosMode?: boolean
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
-  countColsToAdd: MetricId[]
+  countColsMap: CountColsMap
   mapIsWide: boolean
   isUnknownsMap?: boolean
-  demographicType?: DemographicType
-  activeDemographicGroup?: DemographicGroup
+  demographicType: DemographicType
+  activeDemographicGroup: DemographicGroup
   fullData?: Row[]
   scaleConfig?: { domain: number[]; range: number[] }
   isMulti?: boolean
@@ -50,6 +48,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
         return (
           <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
             <ChoroplethMap
+              demographicType={props.demographicType}
               highestLowestGroupsByFips={highestLowestGroupsByFips}
               activeDemographicGroup={props.activeDemographicGroup}
               signalListeners={props.signalListeners}
@@ -63,7 +62,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               isUnknownsMap={props.isUnknownsMap}
               geoData={props.geoData}
               overrideShapeWithCircle={true}
-              countColsToAdd={props.countColsToAdd}
+              countColsMap={props.countColsMap}
               mapConfig={{ mapScheme, mapMin }}
               scaleConfig={props.scaleConfig}
               isMulti={props.isMulti}

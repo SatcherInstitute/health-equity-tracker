@@ -9,9 +9,6 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
-export const SHOW_PHRMA = false
-// console.log('showing phrma?', SHOW_PHRMA)
-
 export const PHRMA_CONDITIONS: DropdownVarId[] = [
   'phrma_cardiovascular',
   'phrma_hiv',
@@ -32,30 +29,47 @@ export const PHRMA_DATATYPES: DataTypeId[] = [
 export const PHRMA_METRICS: MetricId[] = [
   'ami_pct_share',
   'ami_per_100k',
+  'ami_estimated_total',
   'arv_adherence_pct_rate',
   'arv_adherence_pct_share',
   'arv_population_pct_share',
+  'arv_adherence_estimated_total',
+  'arv_beneficiaries_estimated_total',
   'beta_blockers_adherence_pct_rate',
   'beta_blockers_adherence_pct_share',
   'beta_blockers_population_pct_share',
+  'beta_blockers_adherence_estimated_total',
+  'beta_blockers_beneficiaries_estimated_total',
   'ccb_adherence_pct_rate',
   'ccb_adherence_pct_share',
   'ccb_population_pct_share',
+  'ccb_adherence_estimated_total',
+  'ccb_beneficiaries_estimated_total',
   'doac_adherence_pct_rate',
   'doac_adherence_pct_share',
   'doac_population_pct_share',
+  'doac_adherence_estimated_total',
+  'doac_beneficiaries_estimated_total',
   'nqf_adherence_pct_rate',
   'nqf_adherence_pct_share',
   'nqf_population_pct_share',
+  'nqf_adherence_estimated_total',
+  'nqf_beneficiaries_estimated_total',
   'phrma_hiv_pct_share',
   'phrma_hiv_per_100k',
   'phrma_population_pct_share',
+  'phrma_hiv_estimated_total',
   'rasa_adherence_pct_rate',
   'rasa_adherence_pct_share',
   'rasa_population_pct_share',
+  'rasa_adherence_estimated_total',
+  'rasa_beneficiaries_estimated_total',
   'statins_adherence_pct_rate',
   'statins_adherence_pct_share',
   'statins_population_pct_share',
+  'statins_adherence_estimated_total',
+  'statins_beneficiaries_estimated_total',
+  'phrma_population',
 ]
 
 const phrmaReason = 'only available when comparing two Medicare topics'
@@ -64,6 +78,8 @@ export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['lis', phrmaReason],
   ['Eligibility', phrmaReason],
 ]
+
+export const SHOW_PHRMA = false
 
 class PhrmaProvider extends VariableProvider {
   constructor() {

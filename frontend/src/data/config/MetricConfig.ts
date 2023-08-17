@@ -126,6 +126,8 @@ export interface MetricConfig {
   unknownsVegaLabel?: string
   type: MetricType
   populationComparisonMetric?: MetricConfig
+  rateNumeratorMetric?: MetricConfig
+  rateDenominatorMetric?: MetricConfig
   ageAdjusted?: boolean
   isMonthly?: boolean
 
