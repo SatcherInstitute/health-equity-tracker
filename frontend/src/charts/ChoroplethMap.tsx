@@ -223,7 +223,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     const mapGroupLabel = isCawp
-      ? `Rate for ${getWomenRaceLabel(props.activeDemographicGroup)}`
+      ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
       : getMapGroupLabel(
           props.demographicType,
           props.activeDemographicGroup,
