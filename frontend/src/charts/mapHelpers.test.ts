@@ -6,6 +6,8 @@ import {
   addCountsTooltipInfo,
   buildTooltipTemplate,
   createBarLabel,
+  getCawpMapGroupDenominatorLabel,
+  getCawpMapGroupNumeratorLabel,
   getCountyAddOn,
   getHighestLowestGroupsByFips,
   getMapGroupLabel,
@@ -33,6 +35,41 @@ describe('Test getMapGroupLabel()', () => {
   test('Sex or anything else passes through', () => {
     expect(getMapGroupLabel(SEX, 'GroupABC', 'Some measure')).toEqual(
       'Some measure — GroupABC'
+    )
+  })
+})
+
+describe('Test getCawpMapGroupNumeratorLabel() and getCawpMapGroupLDenominatorLabel()', () => {
+  const cawpCountColsMap: CountColsMap = {
+    numeratorConfig: {
+      metricId: 'women_this_race_state_leg_count',
+      shortLabel: 'legislators',
+      chartTitle: '',
+      type: 'count',
+    },
+    denominatorConfig: {
+      metricId: 'total_state_leg_count',
+      shortLabel: 'Total legislators',
+      chartTitle: '',
+      type: 'count',
+    },
+  }
+
+  test('NUMERATOR All becomes Overall', () => {
+    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, ALL)).toEqual(
+      '# Women legislators overall'
+    )
+  })
+
+  test('NUMERATOR Black', () => {
+    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, BLACK)).toEqual(
+      '# Black or African American women legislators'
+    )
+  })
+
+  test('DENOMINATOR always overall', () => {
+    expect(getCawpMapGroupDenominatorLabel(cawpCountColsMap)).toEqual(
+      '# Total legislators'
     )
   })
 })

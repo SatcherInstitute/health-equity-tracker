@@ -126,16 +126,14 @@ export function addCountsTooltipInfo(
   isCawp?: boolean
 ) {
   const numeratorPhrase = isCawp
-    ? `# ${getWomenRaceLabel(activeDemographicGroup)} ${
-        countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
-      }` ?? '# for selected group'
+    ? getCawpMapGroupNumeratorLabel(countColsMap, activeDemographicGroup)
     : getMapGroupLabel(
         demographicType,
         activeDemographicGroup,
         countColsMap?.numeratorConfig?.shortLabel ?? '# '
       )
   const denominatorPhrase = isCawp
-    ? `# ${countColsMap?.denominatorConfig?.shortLabel ?? 'cases'}` ?? '# total'
+    ? getCawpMapGroupDenominatorLabel(countColsMap)
     : getMapGroupLabel(
         demographicType,
         activeDemographicGroup,
@@ -511,6 +509,24 @@ export function getMapGroupLabel(
     selectedGroup = ` — ${activeDemographicGroup}`
   }
   return `${measureType}${selectedGroup}`
+}
+
+export function getCawpMapGroupNumeratorLabel(
+  countColsMap: CountColsMap,
+  activeDemographicGroup: DemographicGroup
+) {
+  const cases = countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
+  if (activeDemographicGroup === ALL) return `# Women ${cases} overall`
+  return (
+    `# ${getWomenRaceLabel(activeDemographicGroup)} ${cases}` ??
+    '# for selected group'
+  )
+}
+
+export function getCawpMapGroupDenominatorLabel(countColsMap: CountColsMap) {
+  return (
+    `# ${countColsMap?.denominatorConfig?.shortLabel ?? 'cases'}` ?? '# total'
+  )
 }
 
 export function createBarLabel(
