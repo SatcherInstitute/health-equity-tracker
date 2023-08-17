@@ -44,7 +44,10 @@ import {
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
-import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
+import {
+  CAWP_DATA_TYPES,
+  CAWP_DETERMINANTS,
+} from '../data/providers/CawpProvider'
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
@@ -82,6 +85,7 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
+import { PHRMA_DATATYPES } from '../data/providers/PhrmaProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -127,15 +131,8 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
 
-  const isCawpStateLeg =
-    props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
-  const isCawpCongress =
-    props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
-  const isCawp = isCawpStateLeg || isCawpCongress
-
-  console.log({ isCawp })
-
-  const isPhrmaStatins = props.dataTypeConfig.dataTypeId === 'statins_adherence'
+  const isPhrma = PHRMA_DATATYPES.includes(props.dataTypeConfig.dataTypeId)
+  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
 
@@ -204,12 +201,10 @@ function MapCardWithKey(props: MapCardProps) {
 
   // if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS
   // if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS
-  if (isPhrmaStatins || isCawp) {
+  if (isPhrma || isCawp) {
     countColsMap.numeratorConfig = metricConfig.rateNumeratorMetric
     countColsMap.denominatorConfig = metricConfig.rateDenominatorMetric
   }
-
-  console.log(countColsMap)
 
   const queries = [
     metricQuery(Breakdowns.forChildrenFips(props.fips), countColsMap),

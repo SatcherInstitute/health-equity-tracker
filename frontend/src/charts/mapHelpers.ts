@@ -26,6 +26,7 @@ import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
 import { type CountColsMap } from '../cards/MapCard'
+import { getWomenRaceLabel } from '../data/providers/CawpProvider'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -124,17 +125,22 @@ export function addCountsTooltipInfo(
   activeDemographicGroup: DemographicGroup,
   isCawp?: boolean
 ) {
-  const numeratorPhrase = getMapGroupLabel(
-    demographicType,
-    activeDemographicGroup,
-    countColsMap?.numeratorConfig?.shortLabel ?? '# '
-  )
-  const denominatorPhrase = getMapGroupLabel(
-    demographicType,
-    activeDemographicGroup,
-    countColsMap?.denominatorConfig?.shortLabel ?? '# ',
-    /* isCawpDenominator */ isCawp
-  )
+  const numeratorPhrase = isCawp
+    ? `# ${getWomenRaceLabel(activeDemographicGroup)} ${
+        countColsMap?.denominatorConfig?.shortLabel ?? 'cases'
+      }` ?? '# for selected group'
+    : getMapGroupLabel(
+        demographicType,
+        activeDemographicGroup,
+        countColsMap?.numeratorConfig?.shortLabel ?? '# '
+      )
+  const denominatorPhrase = isCawp
+    ? ` ${countColsMap?.denominatorConfig?.shortLabel ?? 'cases'}` ?? '# total'
+    : getMapGroupLabel(
+        demographicType,
+        activeDemographicGroup,
+        countColsMap?.denominatorConfig?.shortLabel ?? '# '
+      )
 
   if (countColsMap?.numeratorConfig) {
     tooltipPairs[
@@ -150,36 +156,6 @@ export function addCountsTooltipInfo(
 
   return tooltipPairs
 }
-
-// /*
-// Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # TOTAL CONGRESS and # WOMEN THIS RACE IN CONGRESS
-// */
-// export function addCAWPTooltipInfo(
-//   tooltipPairs: Record<string, string>,
-//   subTitle: string,
-//   countColsMap: CountColsMap
-// ) {
-//   const raceName = subTitle ? getWomenRaceLabel(subTitle) : ''
-//   const members = countColsMap.numeratorConfig && CAWP_CONGRESS_COUNTS.includes(countColsMap.numeratorConfig.metricId)
-//     ? 'members'
-//     : 'legislators'
-
-//   const raceCode: string | undefined = raceName
-//     ? raceNameToCodeMap?.[raceName]
-//     : ''
-
-//   if (countColsMap.numeratorConfig) {
-//     tooltipPairs[
-//       `# ${raceCode ?? ''} women ${members}`
-//     ] = `datum.${countColsMap.numeratorConfig.metricId}`
-//   }
-
-//   if (countColsMap.denominatorConfig) {
-//     tooltipPairs[`# total ${members}`] = `datum.${countColsMap.denominatorConfig.metricId}`
-//   }
-
-//   return tooltipPairs
-// }
 
 /*
  formatted tooltip hover 100k values that round to zero should display as <1, otherwise should get pretty commas
@@ -521,22 +497,20 @@ export function embedHighestLowestGroups(
 export function getMapGroupLabel(
   demographicType: DemographicType,
   activeDemographicGroup: DemographicGroup,
-  measureType: string,
-  isCawpDenominator?: boolean
+  measureType: string
 ) {
-  if (isCawpDenominator) return measureType
-
   if (activeDemographicGroup === ALL) return `${measureType} overall`
 
   let selectedGroup = activeDemographicGroup
 
   if (demographicType === RACE) {
-    selectedGroup = raceNameToCodeMap[activeDemographicGroup]
+    selectedGroup = ` — ${raceNameToCodeMap[activeDemographicGroup]}`
   } else if (demographicType === AGE) {
-    selectedGroup = `Ages ${selectedGroup}`
+    selectedGroup = ` — Ages ${selectedGroup}`
+  } else {
+    selectedGroup = ` — ${activeDemographicGroup}`
   }
-
-  return `${measureType} for ${selectedGroup ?? 'selected group'}`
+  return `${measureType}${selectedGroup}`
 }
 
 export function createBarLabel(

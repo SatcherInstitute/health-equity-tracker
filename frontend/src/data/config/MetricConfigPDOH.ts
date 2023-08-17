@@ -99,13 +99,13 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'women_this_race_us_congress_count',
-          shortLabel: '# women members',
+          shortLabel: 'members',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'total_us_congress_count',
-          shortLabel: '# total members',
+          shortLabel: 'total members',
           chartTitle: '',
           type: 'count',
         },

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
-import { type MetricConfig } from '../data/config/MetricConfig'
+import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
@@ -43,7 +43,10 @@ import {
   addCountsTooltipInfo,
   DATA_SUPPRESSED,
 } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
@@ -159,6 +162,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? { values: props.geoData }
       : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
 
+    const neededCols: string[] = [
+      props.metric.metricId,
+      'highestGroup',
+      'lowestGroup',
+    ]
+
+    // if count col metricIds are available, add those columns to the transformed dataset for VEGA
+    props.countColsMap?.numeratorConfig?.metricId &&
+      neededCols.push(props.countColsMap.numeratorConfig.metricId)
+    props.countColsMap?.denominatorConfig?.metricId &&
+      neededCols.push(props.countColsMap.denominatorConfig.metricId)
+
     /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
     const geoTransformers: any[] = [
@@ -167,13 +182,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [
-          props.metric.metricId,
-          props.countColsMap?.numeratorConfig?.metricId,
-          props.countColsMap?.denominatorConfig?.metricId,
-          'highestGroup',
-          'lowestGroup',
-        ],
+        values: neededCols,
       },
     ]
     // Null SVI was showing
@@ -209,11 +218,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId
     )
 
-    const mapGroupLabel = getMapGroupLabel(
-      props.demographicType,
-      props.activeDemographicGroup,
-      props.metric.type === 'index' ? 'Score' : 'Rate'
-    )
+    const mapGroupLabel = isCawp
+      ? `Rate for ${getWomenRaceLabel(props.activeDemographicGroup)}`
+      : getMapGroupLabel(
+          props.demographicType,
+          props.activeDemographicGroup,
+          props.metric.type === 'index' ? 'Score' : 'Rate'
+        )
     const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
@@ -288,7 +299,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       gradientLength: width * 0.35,
       format: 'd',
     }
-    if (props.metric.type === 'pct_share') {
+    if (isPctType(props.metric.type)) {
       legend.encode = {
         labels: {
           update: {

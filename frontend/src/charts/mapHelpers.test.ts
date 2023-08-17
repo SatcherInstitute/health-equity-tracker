@@ -1,6 +1,6 @@
 import { CountColsMap } from '../cards/MapCard'
 import { MetricId } from '../data/config/MetricConfig'
-import { BLACK_NH } from '../data/utils/Constants'
+import { BLACK, BLACK_NH } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 import {
   addCountsTooltipInfo,
@@ -53,9 +53,9 @@ describe('Test addCountsTooltipInfo()', () => {
     )
 
     const expectedTooltipPairsSexAll = {
-      '# adherent beneficiaries for Ages 1-100':
+      '# adherent beneficiaries — Ages 1-100':
         'datum.statins_adherence_estimated_total',
-      '# total beneficiaries for Ages 1-100':
+      '# total beneficiaries — Ages 1-100':
         'datum.statins_beneficiaries_estimated_total',
     }
 
@@ -71,9 +71,9 @@ describe('Test addCountsTooltipInfo()', () => {
     )
 
     const expectedTooltipPairsSexAll = {
-      '# adherent beneficiaries for Black (NH)':
+      '# adherent beneficiaries — Black (NH)':
         'datum.statins_adherence_estimated_total',
-      '# total beneficiaries for Black (NH)':
+      '# total beneficiaries — Black (NH)':
         'datum.statins_beneficiaries_estimated_total',
     }
 
@@ -83,13 +83,13 @@ describe('Test addCountsTooltipInfo()', () => {
   const cawpCountColsMap: CountColsMap = {
     numeratorConfig: {
       metricId: 'women_this_race_us_congress_count',
-      shortLabel: '# women members',
+      shortLabel: 'members',
       chartTitle: '',
       type: 'count',
     },
     denominatorConfig: {
       metricId: 'total_us_congress_count',
-      shortLabel: '# total members',
+      shortLabel: 'total members',
       chartTitle: '',
       type: 'count',
     },
@@ -100,12 +100,12 @@ describe('Test addCountsTooltipInfo()', () => {
       'race_and_ethnicity',
       {},
       cawpCountColsMap,
-      BLACK_NH,
+      BLACK,
       true
     )
 
     const expectedTooltipPairsCawpBlack = {
-      '# women members for Black (NH)':
+      '# Black or African American women members':
         'datum.women_this_race_us_congress_count',
       '# total members': 'datum.total_us_congress_count',
     }
