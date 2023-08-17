@@ -441,22 +441,22 @@ export const datasetMetadataList: DatasetMetadata[] = [
   {
     id: 'cawp_time_data-race_and_ethnicity_national_time_series',
     name: 'National representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures, over time',
-    update_time: 'September 2022',
+    update_time: 'August 2023',
   },
   {
     id: 'cawp_time_data-race_and_ethnicity_state_time_series',
     name: 'Representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature over time',
-    update_time: 'September 2022',
+    update_time: 'August 2023',
   },
   {
     id: 'cawp_time_data-race_and_ethnicity_state_time_series_names',
     name: 'By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity',
-    update_time: 'September 2022',
+    update_time: 'August 2023',
   },
   {
     id: 'the_unitedstates_project',
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
-    update_time: 'December 2022',
+    update_time: '2023',
   },
   {
     id: GEOGRAPHIES_DATASET_ID,
