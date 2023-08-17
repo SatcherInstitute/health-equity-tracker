@@ -1,6 +1,6 @@
 import { CountColsMap } from '../cards/MapCard'
 import { MetricId } from '../data/config/MetricConfig'
-import { BLACK, BLACK_NH } from '../data/utils/Constants'
+import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 import {
   addCountsTooltipInfo,
@@ -8,7 +8,34 @@ import {
   createBarLabel,
   getCountyAddOn,
   getHighestLowestGroupsByFips,
+  getMapGroupLabel,
 } from './mapHelpers'
+
+describe('Test getMapGroupLabel()', () => {
+  test('All becomes Overall', () => {
+    expect(getMapGroupLabel('lis', ALL, 'Some measure')).toEqual(
+      'Some measure overall'
+    )
+  })
+
+  test('Race group ', () => {
+    expect(getMapGroupLabel(RACE, BLACK_NH, 'Some measure')).toEqual(
+      'Some measure — Black (NH)'
+    )
+  })
+
+  test('Age group ', () => {
+    expect(getMapGroupLabel(AGE, '0-99', 'Some measure')).toEqual(
+      'Some measure — Ages 0-99'
+    )
+  })
+
+  test('Sex or anything else passes through', () => {
+    expect(getMapGroupLabel(SEX, 'GroupABC', 'Some measure')).toEqual(
+      'Some measure — GroupABC'
+    )
+  })
+})
 
 describe('Test addCountsTooltipInfo()', () => {
   const phrmaCountColsMap: CountColsMap = {
