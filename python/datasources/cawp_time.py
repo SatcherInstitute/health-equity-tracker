@@ -36,7 +36,7 @@ FIPS_TO_STATE_TABLE_MAP = {
 # time_periods for entire dataset
 DEFAULT_CONGRESS_FIRST_YR = 1915
 DEFAULT_STLEG_FIRST_YR = 1983
-DEFAULT_LAST_YR = 2022
+DEFAULT_LAST_YR = 2023
 
 # data urls
 US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
@@ -709,7 +709,7 @@ def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, la
         first_year: optional int to start the list; defaults to 1915
             which is two years before the first woman in US Congress
         last_year: optional int to be the last element in the list
-            other than the default of 2022
+            other than the default
     Returns:
         a list of string years (e.g. ["1999", "2000", "2001"]) """
     return [str(x) for x in list(range(first_year, last_year + 1))]
