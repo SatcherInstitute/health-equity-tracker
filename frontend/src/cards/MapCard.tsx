@@ -119,9 +119,9 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
   const metricConfig =
-    props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics.pct_rate ??
-    props.dataTypeConfig.metrics.index
+    props.dataTypeConfig?.metrics?.per100k ??
+    props.dataTypeConfig?.metrics?.pct_rate ??
+    props.dataTypeConfig?.metrics?.index
 
   if (!metricConfig) return <></>
 

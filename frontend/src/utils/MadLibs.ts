@@ -137,7 +137,7 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     incarceration: 'Incarceration',
     poverty: 'Poverty',
     phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
-    // phrma_hiv: 'HIV Conditions and Medication Adherence',
+    phrma_hiv: 'HIV Conditions and Medication Adherence',
     preventable_hospitalizations: 'Preventable Hospitalization',
     substance: 'Opioid and Other Substance Misuse',
     suicide: 'Suicide',

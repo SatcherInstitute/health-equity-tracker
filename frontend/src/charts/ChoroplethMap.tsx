@@ -123,12 +123,16 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       const numerator = numeratorId !== undefined ? row[numeratorId] : undefined
       if (numeratorId && numerator === null)
         newRow[numeratorId] = DATA_SUPPRESSED
+      else if (numeratorId && numerator)
+        newRow[numeratorId] = numerator.toLocaleString()
 
       const denominatorId = props.countColsMap?.denominatorConfig?.metricId
       const denominator =
         denominatorId !== undefined ? row[denominatorId] : undefined
       if (denominatorId && denominator === null)
         newRow[denominatorId] = DATA_SUPPRESSED
+      else if (denominatorId && denominator)
+        newRow[denominatorId] = denominator.toLocaleString()
 
       return newRow
     })

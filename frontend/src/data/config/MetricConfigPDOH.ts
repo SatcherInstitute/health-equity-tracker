@@ -156,13 +156,13 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'women_this_race_state_leg_count',
-          shortLabel: '# women legislators',
+          shortLabel: 'legislators',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'total_state_leg_count',
-          shortLabel: '# total legislators',
+          shortLabel: 'total legislators',
           chartTitle: '',
           type: 'count',
         },

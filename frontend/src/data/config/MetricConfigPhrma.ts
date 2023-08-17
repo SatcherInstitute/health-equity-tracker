@@ -2,7 +2,7 @@ import { type DataTypeConfig } from './MetricConfig'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'phrma_cardiovascular',
-  // 'phrma_hiv',
+  'phrma_hiv',
 ]
 
 export type PhrmaDataTypeId =
