@@ -224,12 +224,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     const mapGroupLabel = isCawp
       ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
-      : isCawp
-      ? `Rate for ${getWomenRaceLabel(props.activeDemographicGroup)}`
       : getMapGroupLabel(
           props.demographicType,
           props.activeDemographicGroup,
-          props.metric.type === 'index' ? 'Score' : 'RateRate'
+          props.metric.type === 'index' ? 'Score' : 'Rate'
         )
     const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
