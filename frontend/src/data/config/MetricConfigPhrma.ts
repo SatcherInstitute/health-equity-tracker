@@ -2,7 +2,7 @@ import { type DataTypeConfig } from './MetricConfig'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'phrma_cardiovascular',
-  // 'phrma_hiv',
+  'phrma_hiv',
 ]
 
 export type PhrmaDataTypeId =
@@ -18,30 +18,47 @@ export type PhrmaDataTypeId =
 export type PhrmaMetricId =
   | 'ami_pct_share'
   | 'ami_per_100k'
+  | 'ami_estimated_total'
   | 'arv_adherence_pct_rate'
   | 'arv_adherence_pct_share'
   | 'arv_population_pct_share'
+  | 'arv_adherence_estimated_total'
+  | 'arv_beneficiaries_estimated_total'
   | 'beta_blockers_adherence_pct_rate'
   | 'beta_blockers_adherence_pct_share'
   | 'beta_blockers_population_pct_share'
+  | 'beta_blockers_adherence_estimated_total'
+  | 'beta_blockers_beneficiaries_estimated_total'
   | 'ccb_adherence_pct_rate'
   | 'ccb_adherence_pct_share'
   | 'ccb_population_pct_share'
+  | 'ccb_adherence_estimated_total'
+  | 'ccb_beneficiaries_estimated_total'
   | 'doac_adherence_pct_rate'
   | 'doac_adherence_pct_share'
   | 'doac_population_pct_share'
+  | 'doac_adherence_estimated_total'
+  | 'doac_beneficiaries_estimated_total'
   | 'nqf_adherence_pct_rate'
   | 'nqf_adherence_pct_share'
   | 'nqf_population_pct_share'
+  | 'nqf_adherence_estimated_total'
+  | 'nqf_beneficiaries_estimated_total'
   | 'rasa_adherence_pct_rate'
   | 'rasa_adherence_pct_share'
   | 'rasa_population_pct_share'
+  | 'rasa_adherence_estimated_total'
+  | 'rasa_beneficiaries_estimated_total'
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
   | 'statins_population_pct_share'
+  | 'statins_adherence_estimated_total'
+  | 'statins_beneficiaries_estimated_total'
   | 'phrma_hiv_pct_share'
   | 'phrma_hiv_per_100k'
   | 'phrma_population_pct_share'
+  | 'phrma_hiv_estimated_total'
+  | 'phrma_population'
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
@@ -56,6 +73,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         chartTitle: 'Adherence to statins',
         shortLabel: '% adherent',
         type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'statins_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'statins_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total statins adherence',
@@ -82,6 +111,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Beta-blockers are medications that block the effects of adrenaline and help lower blood pressure, reduce heart rate, and manage conditions like hypertension and heart-related issues. “Adherence to beta-blockers” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta-blockers during the measurement year.`,
     metrics: {
       pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'beta_blockers_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'beta_blockers_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
         metricId: 'beta_blockers_adherence_pct_rate',
         chartTitle: 'Adherence to beta-blockers',
         shortLabel: '% adherent',
@@ -114,6 +155,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Beta-blockers are medications that are used after an acute myocardial infarction (heart attack) to reduce the workload on the heart, lower blood pressure, and improve heart function by blocking the effects of adrenaline and stress hormones. Adherence on this report is measured as the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
     metrics: {
       pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'nqf_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'nqf_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
         metricId: 'nqf_adherence_pct_rate',
         chartTitle:
           'Persistence of Beta-Blocker Treatment After a Heart Attack',
@@ -146,6 +199,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     Renin angiotensin system antagonists are medications that block the actions of certain hormones to regulate blood pressure and fluid balance in the body. “Adherence to RAS antagonists” is measured as percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASA) during the measurement year.`,
     metrics: {
       pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'rasa_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'rasa_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
         metricId: 'rasa_adherence_pct_rate',
         chartTitle: 'Adherence to RAS antagonists',
         shortLabel: '% adherent',
@@ -177,6 +242,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Calcium channel blockers are medications that relax and widen blood vessels, making it easier for the heart to pump blood and reducing blood pressure. “Adherence to calcium channel blockers” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for calcium channel blockers during the measurement year.`,
     metrics: {
       pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'ccb_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'ccb_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
         metricId: 'ccb_adherence_pct_rate',
         chartTitle: 'Adherence to calcium channel blockers',
         shortLabel: '% adherent',
@@ -209,6 +286,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Direct oral anticoagulants are medications that help prevent blood clot formation by inhibiting specific clotting factors, reducing the risk of stroke and blood clots in conditions such as atrial fibrillation and deep vein thrombosis. “Adherence to direct oral anticoagulants” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% during the measurement period for direct-acting oral anticoagulants.`,
     metrics: {
       pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'doac_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'doac_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
         metricId: 'doac_adherence_pct_rate',
         chartTitle: 'Direct Oral Anticoagulants Adherence',
         shortLabel: '% adherent',
@@ -246,6 +335,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         chartTitle: 'Rates of Acute MI',
         shortLabel: 'Acute MI per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'ami_estimated_total',
+          shortLabel: '# cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'phrma_population',
+          shortLabel: '# beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total Acute MI',
@@ -275,6 +376,18 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `HIV antiretrovirals are medications that help control the HIV virus by interfering with its replication process, reducing viral load, and improving the immune system's ability to fight the infection. “Adherence to antiretrovirals” is measured as the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
     metrics: {
       pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'arv_adherence_estimated_total',
+          shortLabel: '# Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'arv_beneficiaries_estimated_total',
+          shortLabel: '# Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
         metricId: 'arv_adherence_pct_rate',
         chartTitle: 'Adherence to antiretrovirals',
         shortLabel: '% adherent',
@@ -310,6 +423,18 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         chartTitle: 'Rates of HIV cases',
         shortLabel: 'cases per 100k',
         type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'phrma_hiv_estimated_total',
+          shortLabel: '# cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'phrma_population',
+          shortLabel: '# beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of total HIV cases',

@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
-import { type MetricConfig, type MetricId } from '../data/config/MetricConfig'
-import { type FieldRange } from '../data/utils/DatasetTypes'
+import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import {
@@ -13,7 +13,6 @@ import {
 } from './Legend'
 import { Grid, useMediaQuery } from '@mui/material'
 import {
-  addCAWPTooltipInfo,
   buildTooltipTemplate,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
@@ -41,10 +40,18 @@ import {
   type HighestLowest,
   embedHighestLowestGroups,
   getMapGroupLabel,
+  addCountsTooltipInfo,
+  DATA_SUPPRESSED,
 } from './mapHelpers'
-import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
+import {
+  CAWP_DETERMINANTS,
+  getWomenRaceLabel,
+} from '../data/providers/CawpProvider'
 import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
+import { type CountColsMap } from '../cards/MapCard'
+import { type DemographicType } from '../data/query/Breakdowns'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -58,6 +65,7 @@ const GEO_ID = 'id'
 const VAR_FIPS = 'fips'
 
 export interface ChoroplethMapProps {
+  demographicType: DemographicType
   // Data used to create the map
   data: Array<Record<string, any>>
   // Geography data, in topojson format. Must include both states and counties.
@@ -91,23 +99,49 @@ export interface ChoroplethMapProps {
     subtitle?: string
   }
   highestLowestGeosMode?: boolean
-  countColsToAdd: MetricId[]
+  countColsMap: CountColsMap
   mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean
   isMulti?: boolean
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
-  activeDemographicGroup?: DemographicGroup
+  activeDemographicGroup: DemographicGroup
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const dataWithHighestLowest = embedHighestLowestGroups(
-    props.data,
-    props.highestLowestGroupsByFips
-  )
-
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
+  const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
+
+  let suppressedData = props.data
+
+  if (isPhrma) {
+    suppressedData = props.data.map((row: Row) => {
+      const newRow = { ...row }
+
+      const numeratorId = props.countColsMap?.numeratorConfig?.metricId
+      const numerator = numeratorId !== undefined ? row[numeratorId] : undefined
+      if (numeratorId && numerator === null)
+        newRow[numeratorId] = DATA_SUPPRESSED
+      else if (numeratorId && numerator)
+        newRow[numeratorId] = numerator.toLocaleString()
+
+      const denominatorId = props.countColsMap?.denominatorConfig?.metricId
+      const denominator =
+        denominatorId !== undefined ? row[denominatorId] : undefined
+      if (denominatorId && denominator === null)
+        newRow[denominatorId] = DATA_SUPPRESSED
+      else if (denominatorId && denominator)
+        newRow[denominatorId] = denominator.toLocaleString()
+
+      return newRow
+    })
+  }
+
+  const dataWithHighestLowest = embedHighestLowestGroups(
+    suppressedData,
+    props.highestLowestGroupsByFips
+  )
 
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -132,6 +166,18 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ? { values: props.geoData }
       : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
 
+    const neededCols: string[] = [
+      props.metric.metricId,
+      'highestGroup',
+      'lowestGroup',
+    ]
+
+    // if count col metricIds are available, add those columns to the transformed dataset for VEGA
+    props.countColsMap?.numeratorConfig?.metricId &&
+      neededCols.push(props.countColsMap.numeratorConfig.metricId)
+    props.countColsMap?.denominatorConfig?.metricId &&
+      neededCols.push(props.countColsMap.denominatorConfig.metricId)
+
     /* SET UP GEO DATASET */
     // Transform geo dataset by adding varField from VAR_DATASET
     const geoTransformers: any[] = [
@@ -140,12 +186,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         from: VAR_DATASET,
         key: VAR_FIPS,
         fields: [GEO_ID],
-        values: [
-          props.metric.metricId,
-          ...props.countColsToAdd,
-          'highestGroup',
-          'lowestGroup',
-        ],
+        values: neededCols,
       },
     ]
     // Null SVI was showing
@@ -181,10 +222,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* metricId */ props.metric.metricId
     )
 
-    const mapGroupLabel = getMapGroupLabel(
-      props.activeDemographicGroup,
-      props.metric.type === 'index' ? 'Score' : ''
-    )
+    const mapGroupLabel = isCawp
+      ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
+      : getMapGroupLabel(
+          props.demographicType,
+          props.activeDemographicGroup,
+          props.metric.type === 'index' ? 'Score' : 'Rate'
+        )
     const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
     // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
@@ -192,8 +236,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     const tooltipPairs = {
       [tooltipLabel]: tooltipDatum,
-      'Highest rate group': `datum.highestGroup`,
-      'Lowest rate group': `datum.lowestGroup`,
     }
 
     const geographyType = getCountyAddOn(
@@ -216,12 +258,24 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     )
 
     if (isCawp) {
-      addCAWPTooltipInfo(
+      addCountsTooltipInfo(
+        /* demographicType */ props.demographicType,
         /* tooltipPairs */ tooltipPairs,
-        /* subTitle */ props.titles?.subtitle ?? '',
-        /* colsToAdd */ props.countColsToAdd
+        /* countColsMap */ props.countColsMap,
+        /* activeDemographicGroup */ props.activeDemographicGroup,
+        /* isCawp */ true
+      )
+    } else if (isPhrma) {
+      addCountsTooltipInfo(
+        /* demographicType */ props.demographicType,
+        /* tooltipPairs */ tooltipPairs,
+        /* countColsMap */ props.countColsMap,
+        /* activeDemographicGroup */ props.activeDemographicGroup
       )
     }
+
+    tooltipPairs['Highest rate group'] = `datum.highestGroup`
+    tooltipPairs['Lowest rate group'] = `datum.lowestGroup`
 
     // Hover tooltip for non-zero data
     const tooltipValue = buildTooltipTemplate(
@@ -249,7 +303,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       gradientLength: width * 0.35,
       format: 'd',
     }
-    if (props.metric.type === 'pct_share') {
+    if (isPctType(props.metric.type)) {
       legend.encode = {
         labels: {
           update: {

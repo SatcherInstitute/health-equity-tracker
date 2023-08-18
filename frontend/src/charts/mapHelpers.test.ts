@@ -1,11 +1,182 @@
+import { CountColsMap } from '../cards/MapCard'
 import { MetricId } from '../data/config/MetricConfig'
+import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
 import {
+  addCountsTooltipInfo,
   buildTooltipTemplate,
   createBarLabel,
+  getCawpMapGroupDenominatorLabel,
+  getCawpMapGroupNumeratorLabel,
   getCountyAddOn,
   getHighestLowestGroupsByFips,
+  getMapGroupLabel,
 } from './mapHelpers'
+
+describe('Test getMapGroupLabel()', () => {
+  test('All becomes Overall', () => {
+    expect(getMapGroupLabel('lis', ALL, 'Some measure')).toEqual(
+      'Some measure overall'
+    )
+  })
+
+  test('Race group ', () => {
+    expect(getMapGroupLabel(RACE, BLACK_NH, 'Some measure')).toEqual(
+      'Some measure — Black (NH)'
+    )
+  })
+
+  test('Age group ', () => {
+    expect(getMapGroupLabel(AGE, '0-99', 'Some measure')).toEqual(
+      'Some measure — Ages 0-99'
+    )
+  })
+
+  test('Sex or anything else passes through', () => {
+    expect(getMapGroupLabel(SEX, 'GroupABC', 'Some measure')).toEqual(
+      'Some measure — GroupABC'
+    )
+  })
+})
+
+describe('Test getCawpMapGroupNumeratorLabel() and getCawpMapGroupLDenominatorLabel()', () => {
+  const cawpCountColsMap: CountColsMap = {
+    numeratorConfig: {
+      metricId: 'women_this_race_state_leg_count',
+      shortLabel: 'legislators',
+      chartTitle: '',
+      type: 'count',
+    },
+    denominatorConfig: {
+      metricId: 'total_state_leg_count',
+      shortLabel: 'Total legislators',
+      chartTitle: '',
+      type: 'count',
+    },
+  }
+
+  test('NUMERATOR All becomes Overall', () => {
+    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, ALL)).toEqual(
+      '# Women legislators overall'
+    )
+  })
+
+  test('NUMERATOR Black', () => {
+    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, BLACK)).toEqual(
+      '# Black or African American women legislators'
+    )
+  })
+
+  test('DENOMINATOR always overall', () => {
+    expect(getCawpMapGroupDenominatorLabel(cawpCountColsMap)).toEqual(
+      '# Total legislators'
+    )
+  })
+})
+
+describe('Test addCountsTooltipInfo()', () => {
+  const phrmaCountColsMap: CountColsMap = {
+    numeratorConfig: {
+      metricId: 'statins_adherence_estimated_total',
+      shortLabel: '# adherent beneficiaries',
+      chartTitle: '',
+      type: 'count',
+    },
+    denominatorConfig: {
+      metricId: 'statins_beneficiaries_estimated_total',
+      shortLabel: '# total beneficiaries',
+      chartTitle: '',
+      type: 'count',
+    },
+  }
+
+  test('ALL / SEX / PHRMA', () => {
+    const sexAllTooltipPairs = addCountsTooltipInfo(
+      'sex',
+      {},
+      phrmaCountColsMap,
+      'All'
+    )
+
+    const expectedTooltipPairsSexAll = {
+      '# adherent beneficiaries overall':
+        'datum.statins_adherence_estimated_total',
+      '# total beneficiaries overall':
+        'datum.statins_beneficiaries_estimated_total',
+    }
+
+    expect(sexAllTooltipPairs).toEqual(expectedTooltipPairsSexAll)
+  })
+
+  test('Ages 1-100 / AGE / PHRMA', () => {
+    const ageTooltipPairs = addCountsTooltipInfo(
+      'age',
+      {},
+      phrmaCountColsMap,
+      '1-100'
+    )
+
+    const expectedTooltipPairsSexAll = {
+      '# adherent beneficiaries — Ages 1-100':
+        'datum.statins_adherence_estimated_total',
+      '# total beneficiaries — Ages 1-100':
+        'datum.statins_beneficiaries_estimated_total',
+    }
+
+    expect(ageTooltipPairs).toEqual(expectedTooltipPairsSexAll)
+  })
+
+  test('Black / RACE / PHRMA', () => {
+    const raceTooltipPairs = addCountsTooltipInfo(
+      'race_and_ethnicity',
+      {},
+      phrmaCountColsMap,
+      BLACK_NH
+    )
+
+    const expectedTooltipPairsSexAll = {
+      '# adherent beneficiaries — Black (NH)':
+        'datum.statins_adherence_estimated_total',
+      '# total beneficiaries — Black (NH)':
+        'datum.statins_beneficiaries_estimated_total',
+    }
+
+    expect(raceTooltipPairs).toEqual(expectedTooltipPairsSexAll)
+  })
+
+  const cawpCountColsMap: CountColsMap = {
+    numeratorConfig: {
+      metricId: 'women_this_race_us_congress_count',
+      shortLabel: 'members',
+      chartTitle: '',
+      type: 'count',
+    },
+    denominatorConfig: {
+      metricId: 'total_us_congress_count',
+      shortLabel: 'total members',
+      chartTitle: '',
+      type: 'count',
+    },
+  }
+
+  test('Black / RACE / CAWP', () => {
+    const raceTooltipPairs = addCountsTooltipInfo(
+      'race_and_ethnicity',
+      {},
+      cawpCountColsMap,
+      BLACK,
+      true
+    )
+
+    const expectedTooltipPairsCawpBlack = {
+      '# Black or African American women members':
+        'datum.women_this_race_us_congress_count',
+      '# total members': 'datum.total_us_congress_count',
+    }
+
+    expect(raceTooltipPairs).toEqual(expectedTooltipPairsCawpBlack)
+  })
+})
 
 describe('Test buildTooltipTemplate()', () => {
   test('generates vega template string with a title, no SVI', () => {

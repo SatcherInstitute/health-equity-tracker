@@ -1,9 +1,5 @@
 import { type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
-import {
-  CAWP_CONGRESS_COUNTS,
-  getWomenRaceLabel,
-} from '../data/providers/CawpProvider'
 
 import {
   GREY_DOT_SCALE,
@@ -23,10 +19,16 @@ import {
   LESS_THAN_1,
   raceNameToCodeMap,
   ALL,
+  RACE,
+  AGE,
 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
+import { type CountColsMap } from '../cards/MapCard'
+import { getWomenRaceLabel } from '../data/providers/CawpProvider'
+
+export const DATA_SUPPRESSED = 'Data suppressed'
 
 export const MISSING_DATASET = 'MISSING_DATASET'
 export const US_PROJECTION = 'US_PROJECTION'
@@ -114,32 +116,40 @@ export function getCountyAddOn(fips: Fips, showCounties: boolean) {
 }
 
 /*
-Takes an existing VEGA formatted JSON string for the tooltip template and appends two rows for # TOTAL CONGRESS and # WOMEN THIS RACE IN CONGRESS
+Takes an existing VEGA formatted JSON string for the tooltip template, and adds a row with numerator count and a row with denominator count
 */
-export function addCAWPTooltipInfo(
+export function addCountsTooltipInfo(
+  demographicType: DemographicType,
   tooltipPairs: Record<string, string>,
-  subTitle: string,
-  countCols: MetricId[]
+  countColsMap: CountColsMap,
+  activeDemographicGroup: DemographicGroup,
+  isCawp?: boolean
 ) {
-  const raceName = subTitle ? getWomenRaceLabel(subTitle) : ''
-  const members = CAWP_CONGRESS_COUNTS.includes(countCols[0])
-    ? 'members'
-    : 'legislators'
+  const numeratorPhrase = isCawp
+    ? getCawpMapGroupNumeratorLabel(countColsMap, activeDemographicGroup)
+    : getMapGroupLabel(
+        demographicType,
+        activeDemographicGroup,
+        countColsMap?.numeratorConfig?.shortLabel ?? '# '
+      )
+  const denominatorPhrase = isCawp
+    ? getCawpMapGroupDenominatorLabel(countColsMap)
+    : getMapGroupLabel(
+        demographicType,
+        activeDemographicGroup,
+        countColsMap?.denominatorConfig?.shortLabel ?? '# '
+      )
 
-  const raceCode: string | undefined = raceName
-    ? raceNameToCodeMap?.[raceName]
-    : ''
-
-  const numLines = Object.keys(countCols).length
-
-  if (numLines > 0) {
+  if (countColsMap?.numeratorConfig) {
     tooltipPairs[
-      `# ${raceCode ?? ''} women ${members}`
-    ] = `datum.${countCols[0]}`
+      `${numeratorPhrase}`
+    ] = `datum.${countColsMap.numeratorConfig.metricId}`
   }
 
-  if (numLines > 1) {
-    tooltipPairs[`# total ${members}`] = `datum.${countCols[1]}`
+  if (countColsMap?.denominatorConfig) {
+    tooltipPairs[
+      `${denominatorPhrase}`
+    ] = `datum.${countColsMap.denominatorConfig.metricId}`
   }
 
   return tooltipPairs
@@ -483,18 +493,40 @@ export function embedHighestLowestGroups(
 }
 
 export function getMapGroupLabel(
-  activeDemographicGroup?: DemographicGroup,
-  measureTypeOverride?: string
+  demographicType: DemographicType,
+  activeDemographicGroup: DemographicGroup,
+  measureType: string
 ) {
-  const selectedGroup = activeDemographicGroup
-    ? raceNameToCodeMap[activeDemographicGroup]
-    : activeDemographicGroup ?? ''
+  if (activeDemographicGroup === ALL) return `${measureType} overall`
 
-  const measureType = measureTypeOverride ?? 'Rate'
+  let selectedGroup = activeDemographicGroup
 
-  return activeDemographicGroup === ALL
-    ? `${measureType} overall`
-    : `Rate for ${selectedGroup ?? 'selected group'}`
+  if (demographicType === RACE) {
+    selectedGroup = ` — ${raceNameToCodeMap[activeDemographicGroup]}`
+  } else if (demographicType === AGE) {
+    selectedGroup = ` — Ages ${selectedGroup}`
+  } else {
+    selectedGroup = ` — ${activeDemographicGroup}`
+  }
+  return `${measureType}${selectedGroup}`
+}
+
+export function getCawpMapGroupNumeratorLabel(
+  countColsMap: CountColsMap,
+  activeDemographicGroup: DemographicGroup
+) {
+  const cases = countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
+  if (activeDemographicGroup === ALL) return `# Women ${cases} overall`
+  return (
+    `# ${getWomenRaceLabel(activeDemographicGroup)} ${cases}` ??
+    '# for selected group'
+  )
+}
+
+export function getCawpMapGroupDenominatorLabel(countColsMap: CountColsMap) {
+  return (
+    `# ${countColsMap?.denominatorConfig?.shortLabel ?? 'cases'}` ?? '# total'
+  )
 }
 
 export function createBarLabel(

@@ -8,7 +8,11 @@ import {
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import { ChoroplethMap } from '../charts/ChoroplethMap'
-import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
+import {
+  type MetricId,
+  type DataTypeConfig,
+  type MetricConfig,
+} from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -30,6 +34,7 @@ import {
   type DemographicGroup,
   RACE,
   AGE,
+  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
@@ -40,9 +45,8 @@ import {
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
 import {
-  CAWP_CONGRESS_COUNTS,
+  CAWP_DATA_TYPES,
   CAWP_DETERMINANTS,
-  CAWP_STLEG_COUNTS,
 } from '../data/providers/CawpProvider'
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
@@ -80,8 +84,14 @@ import {
 } from '../utils/urlutils'
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
+import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
+
+export interface CountColsMap {
+  numeratorConfig?: MetricConfig
+  denominatorConfig?: MetricConfig
+}
 
 export interface MapCardProps {
   key?: string
@@ -108,9 +118,9 @@ function MapCardWithKey(props: MapCardProps) {
   const preloadHeight = useGuessPreloadHeight([750, 1050])
 
   const metricConfig =
-    props.dataTypeConfig.metrics?.per100k ??
-    props.dataTypeConfig.metrics.pct_rate ??
-    props.dataTypeConfig.metrics.index
+    props.dataTypeConfig?.metrics?.per100k ??
+    props.dataTypeConfig?.metrics?.pct_rate ??
+    props.dataTypeConfig?.metrics?.index
 
   if (!metricConfig) return <></>
 
@@ -119,12 +129,7 @@ function MapCardWithKey(props: MapCardProps) {
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
-
-  const isCawpStateLeg =
-    props.dataTypeConfig.dataTypeId === 'women_in_state_legislature'
-  const isCawpCongress =
-    props.dataTypeConfig.dataTypeId === 'women_in_us_congress'
-  const isCawp = isCawpStateLeg ?? isCawpCongress
+  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
 
@@ -164,10 +169,14 @@ function MapCardWithKey(props: MapCardProps) {
 
   const metricQuery = (
     geographyBreakdown: Breakdowns,
-    countColsToAdd?: MetricId[]
+    countColsMap?: CountColsMap
   ) => {
     const metricIds: MetricId[] = [metricConfig.metricId]
-    if (countColsToAdd) metricIds.push(...countColsToAdd)
+
+    countColsMap?.numeratorConfig &&
+      metricIds.push(countColsMap.numeratorConfig.metricId)
+    countColsMap?.denominatorConfig &&
+      metricIds.push(countColsMap.denominatorConfig.metricId)
 
     return new MetricQuery(
       metricIds,
@@ -180,35 +189,30 @@ function MapCardWithKey(props: MapCardProps) {
             : exclude(UNKNOWN)
         ),
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ isCawp ? 'cross_sectional' : undefined
+      /* timeView */ isCawp ? CROSS_SECTIONAL : undefined
     )
   }
 
-  let countColsToAdd: MetricId[] = []
-  if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS
-  if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS
+  const countColsMap: CountColsMap = {
+    numeratorConfig: metricConfig?.rateNumeratorMetric,
+    denominatorConfig: metricConfig?.rateDenominatorMetric,
+  }
 
   const queries = [
-    metricQuery(Breakdowns.forChildrenFips(props.fips), countColsToAdd),
+    metricQuery(Breakdowns.forChildrenFips(props.fips), countColsMap),
     metricQuery(Breakdowns.forFips(props.fips)),
   ]
 
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
-  const popQuery = new MetricQuery(
-    /* MetricId(s) */ ['population'],
-    /* Breakdowns */ popBreakdown
-  )
+  const popQuery = new MetricQuery([POPULATION], popBreakdown)
   queries.push(popQuery)
 
   // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
-    const sviQuery = new MetricQuery(
-      /* MetricId(s) */ ['svi'],
-      /* Breakdowns */ sviBreakdowns
-    )
+    const sviQuery = new MetricQuery([SVI], sviBreakdowns)
     queries.push(sviQuery)
   }
 
@@ -315,7 +319,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         const dataForSvi: Row[] =
           sviQueryResponse
-            ?.getValidRowsForField('svi')
+            ?.getValidRowsForField(SVI)
             ?.filter((row) =>
               dataForActiveDemographicGroup.find(
                 ({ fips }) => row.fips === fips
@@ -390,7 +394,7 @@ function MapCardWithKey(props: MapCardProps) {
               demographicType={props.demographicType}
               demographicGroups={demographicGroups}
               demographicGroupsNoData={fieldValues.noData}
-              countColsToAdd={countColsToAdd}
+              countColsMap={countColsMap}
               data={mapQueryResponse.data}
               fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
               fips={props.fips}
@@ -471,13 +475,14 @@ function MapCardWithKey(props: MapCardProps) {
                       lg={mapIsWide ? 10 : 12}
                     >
                       <ChoroplethMap
+                        demographicType={props.demographicType}
                         highestLowestGroupsByFips={getHighestLowestGroupsByFips(
                           mapQueryResponse.data,
                           props.demographicType,
                           metricId
                         )}
                         activeDemographicGroup={activeDemographicGroup}
-                        countColsToAdd={countColsToAdd}
+                        countColsMap={countColsMap}
                         data={displayData}
                         filename={filename}
                         fips={props.fips}
@@ -500,7 +505,7 @@ function MapCardWithKey(props: MapCardProps) {
                           <TerritoryCircles
                             demographicType={props.demographicType}
                             activeDemographicGroup={activeDemographicGroup}
-                            countColsToAdd={countColsToAdd}
+                            countColsMap={countColsMap}
                             data={displayData}
                             fullData={mapQueryResponse.data}
                             geoData={geoData}

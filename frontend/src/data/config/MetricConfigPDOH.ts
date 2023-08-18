@@ -89,14 +89,26 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Individuals identifying as women who have served in the Congress of the United States, including members of the U.S. Senate and members, territorial delegates, and resident commissioners of the U.S. House of Representatives. Women who self-identify as more than one race/ethnicity are included in the rates for each group with which they identify.`,
     dataTableTitle: 'Breakdown summary for Women in US Congress',
     metrics: {
-      per100k: {
+      pct_rate: {
         metricId: 'pct_share_of_us_congress',
         trendsCardTitleName:
           'Yearly rates of US Congress members identifying as women',
         columnTitleHeader: 'Share of Congress for women of each race',
         chartTitle: 'Current rates of US Congress members identifying as women',
         shortLabel: '% women in Congress',
-        type: 'pct_share',
+        type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'women_this_race_us_congress_count',
+          shortLabel: 'members',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'total_us_congress_count',
+          shortLabel: 'Total members',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of women US Congress members',
@@ -134,14 +146,26 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     `,
     dataTableTitle: 'Breakdown summary for Women in state legislatures',
     metrics: {
-      per100k: {
+      pct_rate: {
         metricId: 'pct_share_of_state_leg',
         chartTitle: 'Percentage of state legislators identifying as women',
         // MAP CARD HEADING, SIMPLE BAR TITLE, MAP INFO ALERT, TABLE COL HEADER, HI/LOW DROPDOWN FOOTNOTE
         trendsCardTitleName: 'Rates of women in state legislatures over time',
         columnTitleHeader: 'Percentage of women state legislators',
         shortLabel: '% women in state legislature', // SIMPLE BAR LEGEND, MAP LEGEND, INFO BOX IN MAP CARD
-        type: 'pct_share',
+        type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'women_this_race_state_leg_count',
+          shortLabel: 'legislators',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'total_state_leg_count',
+          shortLabel: 'Total legislators',
+          chartTitle: '',
+          type: 'count',
+        },
       },
       pct_share: {
         chartTitle: 'Percent share of women state legislators', // UNKNOWNS MAP TITLE, DISPARITY BAR TITLE
