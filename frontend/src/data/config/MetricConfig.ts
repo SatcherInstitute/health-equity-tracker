@@ -193,9 +193,8 @@ export function formatFieldValue(
     return ''
   }
 
-  // if values are numeric but rounded down to 0, instead replace with "less than 1"
-  const RATES: MetricType[] = ['pct_rate', 'per100k']
-  if (value === 0 && RATES.includes(metricType)) return LESS_THAN_1
+  // if values are 100k but rounded down to 0, instead replace with "less than 1"
+  if (value === 0 && metricType === 'per100k') return LESS_THAN_1
 
   const isRatio = metricType.includes('ratio')
   const formatOptions =
