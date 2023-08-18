@@ -172,3 +172,8 @@ export function getAltGroupLabel(
   }
   return group
 }
+
+export function removeLastS(inputString: string) {
+  // Use a regular expression to replace the last "s" with an empty string
+  return inputString.replace(/s$/, '')
+}

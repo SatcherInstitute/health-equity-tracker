@@ -34,6 +34,8 @@ import sass from '../styles/variables.module.scss'
 import { NO_DATA_MESSAGE } from './Legend'
 import { type Fips } from '../data/utils/Fips'
 import ChartTitle from '../cards/ChartTitle'
+import { type CountColsMap } from '../cards/MapCard'
+import { removeLastS } from './utils'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -52,6 +54,7 @@ export const altCellStyle = {
 }
 
 export interface TableChartProps {
+  countColsMap: CountColsMap
   data: Array<Readonly<Record<string, any>>>
   demographicType: DemographicType
   metrics: MetricConfig[]
@@ -142,6 +145,16 @@ export function TableChart(props: TableChartProps) {
 
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
+    const numeratorCount = props.countColsMap.numeratorConfig?.metricId
+      ? row.original[props.countColsMap.numeratorConfig.metricId]
+      : ''
+    const denominatorCount = props.countColsMap.denominatorConfig?.metricId
+      ? row.original[props.countColsMap.denominatorConfig.metricId]
+      : ''
+    let numeratorLabel = props.countColsMap.numeratorConfig?.shortLabel ?? ''
+    if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)
+    const denominatorLabel =
+      props.countColsMap.denominatorConfig?.shortLabel ?? ''
     prepareRow(row)
     return (
       <TableRow {...row.getRowProps()}>
@@ -171,6 +184,16 @@ export function TableChart(props: TableChartProps) {
                 metric={props.metrics}
                 wrap100kUnit={wrap100kUnit}
               />
+              {index === 1 && numeratorCount && denominatorCount ? (
+                <p className={styles.Unit}>
+                  <i>
+                    ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
+                    {denominatorLabel} )
+                  </i>
+                </p>
+              ) : (
+                <></>
+              )}
             </TableCell>
           )
         )}
