@@ -85,7 +85,6 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
-import { PHRMA_DATATYPES } from '../data/providers/PhrmaProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -131,7 +130,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
 
-  const isPhrma = PHRMA_DATATYPES.includes(props.dataTypeConfig.dataTypeId)
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
@@ -175,12 +173,11 @@ function MapCardWithKey(props: MapCardProps) {
     countColsMap?: CountColsMap
   ) => {
     const metricIds: MetricId[] = [metricConfig.metricId]
-    if (countColsMap) {
-      countColsMap.numeratorConfig &&
-        metricIds.push(countColsMap.numeratorConfig.metricId)
-      countColsMap.denominatorConfig &&
-        metricIds.push(countColsMap.denominatorConfig.metricId)
-    }
+
+    countColsMap?.numeratorConfig &&
+      metricIds.push(countColsMap.numeratorConfig.metricId)
+    countColsMap?.denominatorConfig &&
+      metricIds.push(countColsMap.denominatorConfig.metricId)
 
     return new MetricQuery(
       metricIds,
@@ -197,13 +194,9 @@ function MapCardWithKey(props: MapCardProps) {
     )
   }
 
-  const countColsMap: CountColsMap = {}
-
-  // if (isCawpCongress) countColsToAdd = CAWP_CONGRESS_COUNTS
-  // if (isCawpStateLeg) countColsToAdd = CAWP_STLEG_COUNTS
-  if (isPhrma || isCawp) {
-    countColsMap.numeratorConfig = metricConfig.rateNumeratorMetric
-    countColsMap.denominatorConfig = metricConfig.rateDenominatorMetric
+  const countColsMap: CountColsMap = {
+    numeratorConfig: metricConfig?.rateNumeratorMetric,
+    denominatorConfig: metricConfig?.rateDenominatorMetric,
   }
 
   const queries = [
@@ -213,20 +206,14 @@ function MapCardWithKey(props: MapCardProps) {
 
   // Population count
   const popBreakdown = Breakdowns.forFips(props.fips)
-  const popQuery = new MetricQuery(
-    /* MetricId(s) */ [POPULATION],
-    /* Breakdowns */ popBreakdown
-  )
+  const popQuery = new MetricQuery([POPULATION], popBreakdown)
   queries.push(popQuery)
 
   // state and county level reports require county-fips data for hover tooltips
   if (!props.fips.isUsa()) {
     const sviBreakdowns = Breakdowns.byCounty()
     sviBreakdowns.filterFips = props.fips
-    const sviQuery = new MetricQuery(
-      /* MetricId(s) */ [SVI],
-      /* Breakdowns */ sviBreakdowns
-    )
+    const sviQuery = new MetricQuery([SVI], sviBreakdowns)
     queries.push(sviQuery)
   }
 

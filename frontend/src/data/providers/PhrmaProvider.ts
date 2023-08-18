@@ -79,6 +79,8 @@ export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Eligibility', phrmaReason],
 ]
 
+export const SHOW_PHRMA = false
+
 class PhrmaProvider extends VariableProvider {
   constructor() {
     super('phrma_provider', PHRMA_METRICS)

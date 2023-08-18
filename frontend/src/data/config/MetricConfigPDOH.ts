@@ -105,7 +105,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'total_us_congress_count',
-          shortLabel: 'total members',
+          shortLabel: 'Total members',
           chartTitle: '',
           type: 'count',
         },
@@ -162,7 +162,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
         },
         rateDenominatorMetric: {
           metricId: 'total_state_leg_count',
-          shortLabel: 'total legislators',
+          shortLabel: 'Total legislators',
           chartTitle: '',
           type: 'count',
         },
