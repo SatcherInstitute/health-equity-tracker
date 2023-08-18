@@ -130,25 +130,25 @@ export function addCountsTooltipInfo(
     : getMapGroupLabel(
         demographicType,
         activeDemographicGroup,
-        countColsMap?.numeratorConfig?.shortLabel ?? '# '
+        countColsMap?.numeratorConfig?.shortLabel ?? ''
       )
   const denominatorPhrase = isCawp
     ? getCawpMapGroupDenominatorLabel(countColsMap)
     : getMapGroupLabel(
         demographicType,
         activeDemographicGroup,
-        countColsMap?.denominatorConfig?.shortLabel ?? '# '
+        countColsMap?.denominatorConfig?.shortLabel ?? ''
       )
 
   if (countColsMap?.numeratorConfig) {
     tooltipPairs[
-      `${numeratorPhrase}`
+      `# ${numeratorPhrase}`
     ] = `datum.${countColsMap.numeratorConfig.metricId}`
   }
 
   if (countColsMap?.denominatorConfig) {
     tooltipPairs[
-      `${denominatorPhrase}`
+      `# ${denominatorPhrase}`
     ] = `datum.${countColsMap.denominatorConfig.metricId}`
   }
 
@@ -516,17 +516,15 @@ export function getCawpMapGroupNumeratorLabel(
   activeDemographicGroup: DemographicGroup
 ) {
   const cases = countColsMap?.numeratorConfig?.shortLabel ?? 'cases'
-  if (activeDemographicGroup === ALL) return `# Women ${cases} overall`
+  if (activeDemographicGroup === ALL) return `Women ${cases} overall`
   return (
-    `# ${getWomenRaceLabel(activeDemographicGroup)} ${cases}` ??
-    '# for selected group'
+    `${getWomenRaceLabel(activeDemographicGroup)} ${cases}` ??
+    'for selected group'
   )
 }
 
 export function getCawpMapGroupDenominatorLabel(countColsMap: CountColsMap) {
-  return (
-    `# ${countColsMap?.denominatorConfig?.shortLabel ?? 'cases'}` ?? '# total'
-  )
+  return countColsMap?.denominatorConfig?.shortLabel ?? 'cases'
 }
 
 export function createBarLabel(

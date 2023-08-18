@@ -75,13 +75,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'statins_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'statins_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -113,13 +113,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'beta_blockers_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'beta_blockers_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -157,13 +157,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'nqf_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'nqf_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -201,13 +201,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'rasa_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'rasa_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -244,13 +244,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'ccb_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'ccb_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -288,13 +288,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'doac_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'doac_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -337,13 +337,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'ami_estimated_total',
-          shortLabel: '# cases',
+          shortLabel: 'cases',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'phrma_population',
-          shortLabel: '# beneficiaries',
+          shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -378,13 +378,13 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'arv_adherence_estimated_total',
-          shortLabel: '# Adherent beneficiaries',
+          shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'arv_beneficiaries_estimated_total',
-          shortLabel: '# Total beneficiaries',
+          shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
@@ -425,13 +425,13 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'phrma_hiv_estimated_total',
-          shortLabel: '# cases',
+          shortLabel: 'cases',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
           metricId: 'phrma_population',
-          shortLabel: '# beneficiaries',
+          shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
         },
