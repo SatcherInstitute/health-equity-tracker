@@ -71,7 +71,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_rate: {
         metricId: 'statins_adherence_pct_rate',
         chartTitle: 'Adherence to statins',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
         rateNumeratorMetric: {
           metricId: 'statins_adherence_estimated_total',
@@ -90,7 +90,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         chartTitle: 'Percent share of total statins adherence',
         metricId: 'statins_adherence_pct_share',
         columnTitleHeader: 'Percent share of total statins adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -125,14 +125,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
         metricId: 'beta_blockers_adherence_pct_rate',
         chartTitle: 'Adherence to beta-blockers',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share: {
         chartTitle: 'Percent share of total beta-blockers adherence',
         metricId: 'beta_blockers_adherence_pct_share',
         columnTitleHeader: 'Percent share of total beta-blockers adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -170,14 +170,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         metricId: 'nqf_adherence_pct_rate',
         chartTitle:
           'Persistence of Beta-Blocker Treatment After a Heart Attack',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share: {
         chartTitle: 'Percent share of total adherence',
         metricId: 'nqf_adherence_pct_share',
         columnTitleHeader: 'Percent share of total adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -213,14 +213,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
         metricId: 'rasa_adherence_pct_rate',
         chartTitle: 'Adherence to RAS antagonists',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share: {
         chartTitle: 'Percent share of total RAS antagonists adherence',
         metricId: 'rasa_adherence_pct_share',
         columnTitleHeader: 'Percent share of total RAS antagonists adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -256,7 +256,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
         metricId: 'ccb_adherence_pct_rate',
         chartTitle: 'Adherence to calcium channel blockers',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share: {
@@ -264,7 +264,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         metricId: 'ccb_adherence_pct_share',
         columnTitleHeader:
           'Percent share of total calcium channel blockers adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -300,7 +300,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
         metricId: 'doac_adherence_pct_rate',
         chartTitle: 'Direct Oral Anticoagulants Adherence',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share: {
@@ -309,7 +309,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         metricId: 'doac_adherence_pct_share',
         columnTitleHeader:
           'Percent share of total Direct Oral Anticoagulants adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
@@ -390,14 +390,14 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         },
         metricId: 'arv_adherence_pct_rate',
         chartTitle: 'Adherence to antiretrovirals',
-        shortLabel: '% adherent',
+        shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share: {
         chartTitle: 'Percent share of total antiretrovirals adherence',
         metricId: 'arv_adherence_pct_share',
         columnTitleHeader: 'Percent share of total antiretrovirals adherence',
-        shortLabel: '% of total adherence',
+        shortLabel: '% of total adherent pop.',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
