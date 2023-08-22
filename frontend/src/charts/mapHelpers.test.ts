@@ -13,78 +13,17 @@ import {
   getMapGroupLabel,
 } from './mapHelpers'
 
-describe('Test getMapGroupLabel()', () => {
-  test('All becomes Overall', () => {
-    expect(getMapGroupLabel('lis', ALL, 'Some measure')).toEqual(
-      'Some measure overall'
-    )
-  })
-
-  test('Race group ', () => {
-    expect(getMapGroupLabel(RACE, BLACK_NH, 'Some measure')).toEqual(
-      'Some measure — Black (NH)'
-    )
-  })
-
-  test('Age group ', () => {
-    expect(getMapGroupLabel(AGE, '0-99', 'Some measure')).toEqual(
-      'Some measure — Ages 0-99'
-    )
-  })
-
-  test('Sex or anything else passes through', () => {
-    expect(getMapGroupLabel(SEX, 'GroupABC', 'Some measure')).toEqual(
-      'Some measure — GroupABC'
-    )
-  })
-})
-
-describe('Test getCawpMapGroupNumeratorLabel() and getCawpMapGroupLDenominatorLabel()', () => {
-  const cawpCountColsMap: CountColsMap = {
-    numeratorConfig: {
-      metricId: 'women_this_race_state_leg_count',
-      shortLabel: 'legislators',
-      chartTitle: '',
-      type: 'count',
-    },
-    denominatorConfig: {
-      metricId: 'total_state_leg_count',
-      shortLabel: 'Total legislators',
-      chartTitle: '',
-      type: 'count',
-    },
-  }
-
-  test('NUMERATOR All becomes Overall', () => {
-    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, ALL)).toEqual(
-      '# Women legislators overall'
-    )
-  })
-
-  test('NUMERATOR Black', () => {
-    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, BLACK)).toEqual(
-      '# Black or African American women legislators'
-    )
-  })
-
-  test('DENOMINATOR always overall', () => {
-    expect(getCawpMapGroupDenominatorLabel(cawpCountColsMap)).toEqual(
-      '# Total legislators'
-    )
-  })
-})
-
 describe('Test addCountsTooltipInfo()', () => {
   const phrmaCountColsMap: CountColsMap = {
     numeratorConfig: {
       metricId: 'statins_adherence_estimated_total',
-      shortLabel: '# adherent beneficiaries',
+      shortLabel: 'adherent beneficiaries',
       chartTitle: '',
       type: 'count',
     },
     denominatorConfig: {
       metricId: 'statins_beneficiaries_estimated_total',
-      shortLabel: '# total beneficiaries',
+      shortLabel: 'total beneficiaries',
       chartTitle: '',
       type: 'count',
     },
@@ -175,6 +114,67 @@ describe('Test addCountsTooltipInfo()', () => {
     }
 
     expect(raceTooltipPairs).toEqual(expectedTooltipPairsCawpBlack)
+  })
+})
+
+describe('Test getMapGroupLabel()', () => {
+  test('All becomes Overall', () => {
+    expect(getMapGroupLabel('lis', ALL, 'Some measure')).toEqual(
+      'Some measure overall'
+    )
+  })
+
+  test('Race group ', () => {
+    expect(getMapGroupLabel(RACE, BLACK_NH, 'Some measure')).toEqual(
+      'Some measure — Black (NH)'
+    )
+  })
+
+  test('Age group ', () => {
+    expect(getMapGroupLabel(AGE, '0-99', 'Some measure')).toEqual(
+      'Some measure — Ages 0-99'
+    )
+  })
+
+  test('Sex or anything else passes through', () => {
+    expect(getMapGroupLabel(SEX, 'GroupABC', 'Some measure')).toEqual(
+      'Some measure — GroupABC'
+    )
+  })
+})
+
+describe('Test getCawpMapGroupNumeratorLabel() and getCawpMapGroupLDenominatorLabel()', () => {
+  const cawpCountColsMap: CountColsMap = {
+    numeratorConfig: {
+      metricId: 'women_this_race_state_leg_count',
+      shortLabel: 'legislators',
+      chartTitle: '',
+      type: 'count',
+    },
+    denominatorConfig: {
+      metricId: 'total_state_leg_count',
+      shortLabel: 'Total legislators',
+      chartTitle: '',
+      type: 'count',
+    },
+  }
+
+  test('NUMERATOR All becomes Overall', () => {
+    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, ALL)).toEqual(
+      'Women legislators overall'
+    )
+  })
+
+  test('NUMERATOR Black', () => {
+    expect(getCawpMapGroupNumeratorLabel(cawpCountColsMap, BLACK)).toEqual(
+      'Black or African American women legislators'
+    )
+  })
+
+  test('DENOMINATOR always overall', () => {
+    expect(getCawpMapGroupDenominatorLabel(cawpCountColsMap)).toEqual(
+      'Total legislators'
+    )
   })
 })
 

@@ -37,6 +37,7 @@ import {
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
+import { type CountColsMap } from './MapCard'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -106,6 +107,15 @@ export function TableCard(props: TableCardProps) {
     metricIds.push(...GENDER_METRICS)
   }
 
+  const countColsMap: CountColsMap = {
+    numeratorConfig: metrics[0]?.rateNumeratorMetric,
+    denominatorConfig: metrics[0]?.rateDenominatorMetric,
+  }
+  countColsMap?.numeratorConfig &&
+    metricIds.push(countColsMap.numeratorConfig.metricId)
+  countColsMap?.denominatorConfig &&
+    metricIds.push(countColsMap.denominatorConfig.metricId)
+
   const query = new MetricQuery(
     metricIds,
     breakdowns,
@@ -154,6 +164,7 @@ export function TableCard(props: TableCardProps) {
             {!queryResponse.dataIsMissing() && data.length > 0 && (
               <div className={styles.TableChart}>
                 <TableChart
+                  countColsMap={countColsMap}
                   data={data}
                   demographicType={props.demographicType}
                   metrics={Object.values(metricConfigs).filter(
