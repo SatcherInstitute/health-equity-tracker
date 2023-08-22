@@ -80,6 +80,11 @@ export const GENDER_METRICS: MetricId[] = [
   'hiv_prevalence_total_trans_women',
 ]
 
+export const STIGMA_METRICS: MetricId[] = [
+  'hiv_stigma_index',
+  'hiv_stigma_pct_share',
+]
+
 export const HIV_DETERMINANTS: MetricId[] = [
   ...BLACK_WOMEN_METRICS,
   ...CARE_METRICS,
@@ -88,8 +93,7 @@ export const HIV_DETERMINANTS: MetricId[] = [
   ...PREP_METRICS,
   ...PREVALENCE_METRICS,
   ...GENDER_METRICS,
-  'hiv_stigma_index',
-  'hiv_stigma_pct_share',
+  ...STIGMA_METRICS,
   'hiv_population_pct', // population shares of 13+
 ]
 
