@@ -165,7 +165,8 @@ class HivProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns)
 
-    const mostRecentYear = '2021'
+    let mostRecentYear = '2021'
+    if (metricQuery.metricIds.includes('hiv_stigma_index')) mostRecentYear = '2019'
 
     df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
