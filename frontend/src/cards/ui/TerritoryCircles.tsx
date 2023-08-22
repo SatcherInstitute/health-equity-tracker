@@ -66,6 +66,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               mapConfig={{ mapScheme, mapMin }}
               scaleConfig={props.scaleConfig}
               isMulti={props.isMulti}
+              highestLowestGeosMode={props.highestLowestGeosMode}
             />
             <figcaption className={styles.TerritoryLabel}>
               {postalCode}

@@ -348,20 +348,28 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       // ZEROS
       createShapeMarks(
         /* datasetName= */ ZERO_DATASET,
-        /* fillColor= */ { value: props.mapConfig.mapMin },
+        /* fillColor= */ {
+          value: props.highestLowestGeosMode
+            ? sass.white
+            : props.mapConfig.mapMin,
+        },
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ zeroTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+        /* outlineGeos */ props.highestLowestGeosMode
       ),
       // MISSING
       createShapeMarks(
         /* datasetName= */ MISSING_DATASET,
-        /* fillColor= */ { value: UNKNOWN_GREY },
+        /* fillColor= */ {
+          value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
+        },
         /* hoverColor= */ RED_ORANGE,
         /* tooltipExpression= */ missingDataTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+        /* outlineGeos */ props.highestLowestGeosMode
       ),
       // NON-ZERO
       createShapeMarks(
@@ -370,7 +378,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip
+        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+        /* outlineGeos */ props.highestLowestGeosMode
       ),
     ]
 
