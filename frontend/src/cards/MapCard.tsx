@@ -60,7 +60,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   RATE_MAP_SCALE,
   getHighestLowestGroupsByFips,
@@ -233,14 +233,16 @@ function MapCardWithKey(props: MapCardProps) {
 
   const { metricId, chartTitle } = metricConfig
   const title = generateChartTitle(chartTitle, props.fips)
-  const subtitle = generateSubtitle(
+  let subtitle = generateSubtitle(
     activeDemographicGroup,
     demographicType,
     metricId
   )
-
+  if (highestLowestGeosMode)
+    subtitle += ` (only ${
+      props.fips.getPluralChildFipsTypeDisplayName() ?? ''
+    } with highest/lowest rates)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
-
   const HASH_ID: ScrollableHashId = 'rate-map'
 
   const theme = useTheme()
@@ -387,6 +389,11 @@ function MapCardWithKey(props: MapCardProps) {
           metricId: metricConfig.metricId,
           isSummaryLegend,
         })
+
+        useEffect(() => {
+          if (dataForActiveDemographicGroup?.length <= 1)
+            setHighestLowestGeosMode(false)
+        }, [props.fips])
 
         return (
           <>

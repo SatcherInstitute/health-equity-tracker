@@ -365,7 +365,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* fillColor= */ {
           value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
         },
-        /* hoverColor= */ RED_ORANGE,
+        /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
         /* tooltipExpression= */ missingDataTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
