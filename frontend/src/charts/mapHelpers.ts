@@ -254,10 +254,6 @@ export function createShapeMarks(
     marks.transform = [{ type: 'geoshape', projection: US_PROJECTION }]
   }
 
-  if (!outlineGeos) {
-    marks.encode.update.stroke = 'black'
-  }
-
   return marks
 }
 
