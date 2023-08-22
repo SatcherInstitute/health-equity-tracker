@@ -348,6 +348,8 @@ function MapCardWithKey(props: MapCardProps) {
           SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST
         )
 
+        console.log(highestValues)
+
         // Create and populate a map of demographicType display name to options
         const filterOptions: Record<
           DemographicTypeDisplayName,

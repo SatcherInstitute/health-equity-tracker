@@ -109,6 +109,8 @@ export interface ChoroplethMapProps {
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  console.log(props.data)
+
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
@@ -349,9 +351,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       createShapeMarks(
         /* datasetName= */ ZERO_DATASET,
         /* fillColor= */ {
-          value: props.highestLowestGeosMode
-            ? sass.white
-            : props.mapConfig.mapMin,
+          value: props.mapConfig.mapMin,
         },
         /* hoverColor= */ DARK_BLUE,
         /* tooltipExpression= */ zeroTooltipValue,

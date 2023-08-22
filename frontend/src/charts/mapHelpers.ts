@@ -241,7 +241,7 @@ export function createShapeMarks(
         },
         stroke: {
           value: outlineGeos ? sass.altGrey : sass.white,
-          strokeWidth: { value: outlineGeos ? 1.5 : 0 },
+          strokeWidth: { value: outlineGeos ? 1 : 0 },
         },
       },
       hover: {
