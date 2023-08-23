@@ -129,7 +129,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
-
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
