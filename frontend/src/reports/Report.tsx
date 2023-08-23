@@ -75,7 +75,10 @@ export function Report(props: ReportProps) {
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom
   )
-  const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
+  const demographicOptionsMap = getDemographicOptionsMap(
+    dataTypeConfig,
+    props.fips
+  )
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
   if (!Object.values(demographicOptionsMap).includes(demographicType)) {
@@ -84,8 +87,11 @@ export function Report(props: ReportProps) {
     )
   }
 
-  const disabledDemographicOptions =
-    getDisabledDemographicOptions(dataTypeConfig)
+  const disabledDemographicOptions = getDisabledDemographicOptions(
+    dataTypeConfig,
+    undefined,
+    props.fips
+  )
 
   useEffect(() => {
     const readParams = () => {

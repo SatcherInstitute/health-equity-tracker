@@ -88,7 +88,9 @@ function CompareReport(props: {
 
   const demographicOptionsMap = getDemographicOptionsMap(
     dataTypeConfig1,
-    dataTypeConfig2
+    props.fips1,
+    dataTypeConfig2,
+    props.fips2
   )
 
   // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
@@ -100,7 +102,9 @@ function CompareReport(props: {
 
   const disabledDemographicOptions = getDisabledDemographicOptions(
     dataTypeConfig1,
-    dataTypeConfig2
+    dataTypeConfig2,
+    props.fips1,
+    props.fips2
   )
 
   useEffect(() => {

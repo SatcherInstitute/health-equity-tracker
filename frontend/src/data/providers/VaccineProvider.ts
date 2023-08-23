@@ -7,6 +7,13 @@ import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { RACE } from '../utils/Constants'
 
+const reason =
+  'demographics for COVID vaccination unavailable at state and county levels'
+export const COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', reason],
+  ['Sex', reason],
+]
+
 class VaccineProvider extends VariableProvider {
   private readonly acsProvider: AcsPopulationProvider
 
@@ -22,20 +29,35 @@ class VaccineProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.hasOnlyRace())
         return 'cdc_vaccination_national-race_processed'
-      } else if (breakdowns.hasOnlySex()) {
+      if (breakdowns.hasOnlySex())
         return 'cdc_vaccination_national-sex_processed'
-      } else if (breakdowns.hasOnlyAge()) {
+      if (breakdowns.hasOnlyAge())
         return 'cdc_vaccination_national-age_processed'
-      }
-    } else if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace()) {
-      return 'kff_vaccination-race_and_ethnicity_processed'
-    } else if (breakdowns.geography === 'county') {
-      return appendFipsIfNeeded(
-        'cdc_vaccination_county-race_and_ethnicity_processed',
-        breakdowns
-      )
+    }
+    if (breakdowns.geography === 'state') {
+      if (breakdowns.hasOnlyRace())
+        return 'kff_vaccination-race_and_ethnicity_processed'
+      if (breakdowns.hasOnlySex()) return 'kff_vaccination-sex_processed'
+      if (breakdowns.hasOnlyAge()) return 'kff_vaccination-age_processed'
+    }
+    if (breakdowns.geography === 'county') {
+      if (breakdowns.hasOnlyRace())
+        return appendFipsIfNeeded(
+          'cdc_vaccination_county-race_and_ethnicity_processed',
+          breakdowns
+        )
+      if (breakdowns.hasOnlySex())
+        return appendFipsIfNeeded(
+          'cdc_vaccination_county-sex_processed',
+          breakdowns
+        )
+      if (breakdowns.hasOnlyAge())
+        return appendFipsIfNeeded(
+          'cdc_vaccination_county-age_processed',
+          breakdowns
+        )
     }
     throw new Error('Not implemented')
   }
