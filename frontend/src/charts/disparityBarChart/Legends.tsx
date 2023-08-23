@@ -1,6 +1,6 @@
 import { type Legend } from 'vega'
-import { LEGEND_TEXT_FONT } from '../Legend'
 import { type LegendsProps } from './types'
+import { LEGEND_TEXT_FONT } from '../mapGlobals'
 
 export const Legends = ({ chartDimensions }: LegendsProps) => {
   const circleLegends: Legend = {

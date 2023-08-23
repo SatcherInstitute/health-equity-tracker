@@ -62,10 +62,9 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useState } from 'react'
 import {
-  RATE_MAP_SCALE,
   getHighestLowestGroupsByFips,
   getMapScheme,
-} from '../charts/mapHelpers'
+} from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
@@ -85,6 +84,7 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
+import { RATE_MAP_SCALE } from '../charts/mapGlobals'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 

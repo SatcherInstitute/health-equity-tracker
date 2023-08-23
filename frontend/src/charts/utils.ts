@@ -26,8 +26,6 @@ const MAX_LINE_LENGTH = 20
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
 export const DELIMITER = '  '
 
-export const ORDINAL = 'ordinal'
-
 // Returns a Vega Expression to create an array of the multiple lines in the label
 export const MULTILINE_LABEL = `split(datum.value, '${DELIMITER}')`
 

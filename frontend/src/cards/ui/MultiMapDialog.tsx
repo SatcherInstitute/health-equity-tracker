@@ -33,11 +33,12 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
-import { RATE_MAP_SCALE, getMapScheme } from '../../charts/mapHelpers'
+import { getMapScheme } from '../../charts/mapHelperFunctions'
 import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap } from '../MapCard'
+import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
