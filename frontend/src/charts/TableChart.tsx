@@ -148,12 +148,12 @@ export function TableChart(props: TableChartProps) {
     const numeratorCount = props.countColsMap.numeratorConfig?.metricId
       ? row.original[
           props.countColsMap.numeratorConfig.metricId
-        ].toLocaleString()
+        ]?.toLocaleString()
       : ''
     const denominatorCount = props.countColsMap.denominatorConfig?.metricId
       ? row.original[
           props.countColsMap.denominatorConfig.metricId
-        ].toLocaleString()
+        ]?.toLocaleString()
       : ''
     let numeratorLabel = props.countColsMap.numeratorConfig?.shortLabel ?? ''
     if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)
