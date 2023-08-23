@@ -368,21 +368,18 @@ export function getMapScheme({
   isSummaryLegend,
   isUnknownsMap,
 }: GetMapSchemeProps) {
-  let mapScheme = MAP_SCHEME
-  let mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
+  const mapScheme = MAP_SCHEME
+  const mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
 
+  if (isUnknownsMap) {
+    return [UNKNOWNS_MAP_SCHEME, sass.unknownMapMin]
+  }
   if (BLACK_WOMEN_METRICS.includes(metricId)) {
-    mapScheme = MAP_BW_SCHEME
-    mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
+    return [MAP_BW_SCHEME, isSummaryLegend ? sass.mapBwMid : sass.mapBwMin]
   }
   if (PHRMA_METRICS.includes(metricId)) {
-    mapScheme = MAP_MEDICARE_SCHEME
+    return [MAP_MEDICARE_SCHEME, mapMin]
   }
-  if (isUnknownsMap) {
-    mapScheme = UNKNOWNS_MAP_SCHEME
-    mapMin = sass.unknownMapMin
-  }
-
   return [mapScheme, mapMin]
 }
 
