@@ -18,9 +18,7 @@ import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 export type VisualizationType = 'chart' | 'map' | 'table'
-
 export const PADDING_FOR_ACTIONS_MENU = 30
-
 const MAX_LINE_LENGTH = 20
 
 // ! &nbsp&nbsp NON BREAKABLE SPACES that shouldn't occur in the data labels and can therefore be used as a delimiter that reads naturally on a screen reader &nbsp
