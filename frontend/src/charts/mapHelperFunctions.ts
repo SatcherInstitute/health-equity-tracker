@@ -369,16 +369,16 @@ export function getMapScheme({
   let mapScheme = MAP_SCHEME
   let mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
 
-  if (isUnknownsMap) {
-    mapScheme = UNKNOWNS_MAP_SCHEME
-    mapMin = sass.unknownMapMin
-  }
   if (BLACK_WOMEN_METRICS.includes(metricId)) {
     mapScheme = MAP_BW_SCHEME
     mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
   }
   if (PHRMA_METRICS.includes(metricId)) {
     mapScheme = MAP_MEDICARE_SCHEME
+  }
+  if (isUnknownsMap) {
+    mapScheme = UNKNOWNS_MAP_SCHEME
+    mapMin = sass.unknownMapMin
   }
 
   return [mapScheme, mapMin]
