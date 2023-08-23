@@ -98,7 +98,7 @@ export interface ChoroplethMapProps {
   titles?: {
     subtitle?: string
   }
-  highestLowestGeosMode?: boolean
+  highestLowestGeosMode: boolean
   countColsMap: CountColsMap
   mapConfig: { mapScheme: string; mapMin: string }
   isSummaryLegend?: boolean

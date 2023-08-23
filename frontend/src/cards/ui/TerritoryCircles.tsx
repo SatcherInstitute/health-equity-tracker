@@ -16,7 +16,7 @@ interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
   signalListeners: any
   metricConfig: MetricConfig
-  highestLowestGeosMode?: boolean
+  highestLowestGeosMode: boolean
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
   countColsMap: CountColsMap

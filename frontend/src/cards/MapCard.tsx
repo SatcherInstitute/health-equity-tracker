@@ -520,6 +520,7 @@ function MapCardWithKey(props: MapCardProps) {
                             mapIsWide={mapIsWide}
                             metricConfig={metricConfig}
                             signalListeners={signalListeners}
+                            scaleConfig={scale}
                           />
                         </Grid>
                       )}
