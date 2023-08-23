@@ -40,8 +40,10 @@ import {
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 /*
+
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
 Vega will render incoming strings AS CODE, meaning anything you want to appear as a literal string and not a vega function call / vega variable needs to be double quoted.
+
 */
 export function buildTooltipTemplate(
   tooltipPairs: Record<string, string>,
