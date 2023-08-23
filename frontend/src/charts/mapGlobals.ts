@@ -31,6 +31,7 @@ export const ORDINAL = 'ordinal'
 export const MAP_SCHEME = 'darkgreen'
 export const UNKNOWNS_MAP_SCHEME = 'greenblue'
 export const MAP_BW_SCHEME = 'plasma'
+export const MAP_MEDICARE_SCHEME = 'viridis'
 
 export const DOT_SIZE_SCALE = 'dot_size_scale'
 export const SUMMARY_SCALE = 'summary_scale'

@@ -35,7 +35,9 @@ import {
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
   ZERO_DOT_SCALE,
+  MAP_MEDICARE_SCHEME,
 } from './mapGlobals'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 /*
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
@@ -368,6 +370,9 @@ export function getMapScheme({
   if (BLACK_WOMEN_METRICS.includes(metricId)) {
     mapScheme = MAP_BW_SCHEME
     mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
+  }
+  if (PHRMA_METRICS.includes(metricId)) {
+    mapScheme = MAP_MEDICARE_SCHEME
   }
 
   return [mapScheme, mapMin]
