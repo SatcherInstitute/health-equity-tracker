@@ -86,7 +86,9 @@ def testWriteToBq(
               'table_name': 'output_table'}
 
     kffVaccination.write_to_bq('dataset', 'gcs_bucket', **kwargs)
-    assert mock_bq.call_count == 1
+    assert mock_bq.call_count == 2
+    assert mock_bq.call_args_list[0].args[2] == 'race_and_ethnicity_state'
+    assert mock_bq.call_args_list[1].args[2] == 'alls_state'
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'state_fips': str,
