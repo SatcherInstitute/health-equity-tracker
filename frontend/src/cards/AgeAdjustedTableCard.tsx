@@ -106,8 +106,8 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     (query) => query.metricIds.length > 0
   )
   const ratioId = metricIds[0]
-  const metricIdsForRatiosOnly = Object.values(metricConfigs).filter((config) =>
-    config.metricId.includes('ratio')
+  const ratioConfigs: MetricConfig[] = Object.values(metricConfigs).filter(
+    (config) => config.type === 'age_adjusted_ratio'
   )
 
   const chartTitle = metricConfigs?.[ratioId]?.chartTitle
@@ -205,7 +205,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 <div className={styles.TableChart}>
                   <AgeAdjustedTableChart
                     data={knownRaceData}
-                    metrics={metricIdsForRatiosOnly}
+                    metricConfigs={ratioConfigs}
                     title={chartTitle}
                   />
                 </div>
