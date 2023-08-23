@@ -19,6 +19,36 @@ abstract class VariableProvider {
     this.providesMetrics = providesMetrics
   }
 
+  getMostRecentYear(df: IDataFrame, metricIds: MetricId[], datatype?: string) {
+    const metricId = metricIds[0]
+
+    const filteredRows = df
+    .where(row => {
+      if (row[metricId] !== undefined) {
+        for (const property in row) {
+          if (property.includes(datatype ?? "")) {
+            return true
+          }
+        }
+      }
+      return false
+    })
+    .select(row => ({
+      time_period: row.time_period,
+      metricId: row[metricId],
+    }));
+
+    // Get distinct years with valid data
+    const distinctYearsWithData = filteredRows
+      .select(row => row.time_period)
+      .distinct()
+      .toArray()
+  
+    const mostRecentYear = Math.max(...distinctYearsWithData)
+  
+    return mostRecentYear.toString()
+  }
+
   async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
     if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
       return createMissingDataResponse(
