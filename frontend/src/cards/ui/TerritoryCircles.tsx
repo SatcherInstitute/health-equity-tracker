@@ -6,7 +6,7 @@ import styles from './TerritoryCircles.module.scss'
 import {
   getHighestLowestGroupsByFips,
   getMapScheme,
-} from '../../charts/mapHelpers'
+} from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
