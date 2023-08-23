@@ -240,7 +240,7 @@ function MapCardWithKey(props: MapCardProps) {
   )
   if (highestLowestGeosMode)
     subtitle += ` (only ${
-      props.fips.getPluralChildFipsTypeDisplayName() ?? ''
+      props.fips.getPluralChildFipsTypeDisplayName() ?? 'places'
     } with highest/lowest rates)`
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
   const HASH_ID: ScrollableHashId = 'rate-map'
