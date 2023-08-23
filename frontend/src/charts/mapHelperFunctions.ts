@@ -165,7 +165,8 @@ export function createShapeMarks(
   hoverColor: string,
   tooltipExpression: string,
   overrideShapeWithCircle?: boolean,
-  hideMissingDataTooltip?: boolean
+  hideMissingDataTooltip?: boolean,
+  outlineGeos?: boolean
 ) {
   let encodeEnter: any = {}
   if (overrideShapeWithCircle) {
@@ -195,6 +196,10 @@ export function createShapeMarks(
         opacity: {
           signal: '1',
         },
+        stroke: {
+          value: outlineGeos ? sass.altGrey : sass.white,
+          strokeWidth: { value: outlineGeos ? 1 : 0 },
+        },
       },
       hover: {
         fill: { value: hoverColor },
@@ -205,6 +210,7 @@ export function createShapeMarks(
   if (!overrideShapeWithCircle) {
     marks.transform = [{ type: 'geoshape', projection: US_PROJECTION }]
   }
+
   return marks
 }
 

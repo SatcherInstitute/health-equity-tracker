@@ -43,14 +43,14 @@ const altCellStyle = {
 
 export interface AgeAdjustedTableChartProps {
   data: Array<Readonly<Record<string, any>>>
-  metrics: MetricConfig[]
+  metricConfigs: MetricConfig[]
   title: string
 }
 
 export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
-  const { data, metrics } = props
+  const { data, metricConfigs } = props
 
-  let columns = metrics.map((metricConfig) => {
+  let columns = metricConfigs.map((metricConfig) => {
     return {
       Header: metricConfig.shortLabel,
       Cell: (a: any) =>
@@ -72,7 +72,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
 
   // Changes deps array to columns on save, which triggers reload loop
   // eslint-disable-next-line
-  const memoCols = useMemo<Column<any>[]>(() => columns, [metrics])
+  const memoCols = useMemo<Column<any>[]>(() => columns, [metricConfigs])
   const memoData = useMemo(() => data, [data])
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
@@ -140,7 +140,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
 
   return (
     <>
-      {props.data.length <= 0 || props.metrics.length <= 0 ? (
+      {props.data.length <= 0 || props.metricConfigs.length <= 0 ? (
         <h1>No Data provided</h1>
       ) : (
         <figure>

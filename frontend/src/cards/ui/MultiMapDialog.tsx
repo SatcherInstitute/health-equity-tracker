@@ -252,6 +252,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     mapConfig={{ mapScheme, mapMin }}
                     isMulti={true}
                     scaleConfig={scale}
+                    highestLowestGeosMode={false}
                   />
                 )}
 
@@ -271,6 +272,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                         scaleConfig={scale}
                         isMulti={true}
                         activeDemographicGroup={demographicGroup}
+                        highestLowestGeosMode={false}
                       />
                     </Grid>
                   )}

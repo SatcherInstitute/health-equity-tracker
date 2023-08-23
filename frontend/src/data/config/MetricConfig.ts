@@ -114,7 +114,6 @@ export type MetricType =
   | 'pct_relative_inequity'
   | 'pct_rate'
   | 'index'
-  | 'ratio'
   | 'age_adjusted_ratio'
 
 export interface MetricConfig {
@@ -166,7 +165,6 @@ export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {
   pct_share: '% share',
   count: 'people',
   index: '',
-  ratio: '×',
   age_adjusted_ratio: '×',
   pct_relative_inequity: '%',
   pct_rate: '%',
@@ -196,9 +194,12 @@ export function formatFieldValue(
   // if values are 100k but rounded down to 0, instead replace with "less than 1"
   if (value === 0 && metricType === 'per100k') return LESS_THAN_1
 
-  const isRatio = metricType.includes('ratio')
+  const isRatio = metricType === 'age_adjusted_ratio'
+  // only pct_share should get a decimal; others like pct_rate, 100k, index should be rounded as ints
   const formatOptions =
-    metricType === 'pct_share' ? { minimumFractionDigits: 1 } : {}
+    metricType === 'pct_share' || metricType === 'age_adjusted_ratio'
+      ? { minimumFractionDigits: 1 }
+      : { maximumFractionDigits: 0 }
   const formattedValue: string =
     typeof value === 'number'
       ? value.toLocaleString('en', formatOptions)
