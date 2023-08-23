@@ -181,7 +181,7 @@ export default function AltTableView(props: AltTableViewProps) {
                               </>
                             ) : (
                               <>
-                                {row[key]}
+                                {Math.round(row[key])}
                                 {!isTimePeriod && appendPct && '%'}
                               </>
                             )}

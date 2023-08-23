@@ -197,7 +197,7 @@ export function formatFieldValue(
   const isRatio = metricType === 'age_adjusted_ratio'
   // only pct_share should get a decimal; others like pct_rate, 100k, index should be rounded as ints
   const formatOptions =
-    metricType === 'pct_share'
+    metricType === 'pct_share' || metricType === 'age_adjusted_ratio'
       ? { minimumFractionDigits: 1 }
       : { maximumFractionDigits: 0 }
   const formattedValue: string =
