@@ -1,18 +1,7 @@
 import { type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
-
-import {
-  GREY_DOT_SCALE,
-  LEGEND_SYMBOL_TYPE,
-  LEGEND_TEXT_FONT,
-  UNKNOWN_SCALE,
-  DEFAULT_LEGEND_COLOR_COUNT,
-  MISSING_PLACEHOLDER_VALUES,
-  EQUAL_DOT_SIZE,
-  ZERO_DOT_SCALE,
-} from './Legend'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
-import { ORDINAL, generateSubtitle } from './utils'
+import { generateSubtitle } from './utils'
 import sass from '../styles/variables.module.scss'
 import {
   type DemographicGroup,
@@ -23,64 +12,32 @@ import {
   AGE,
 } from '../data/utils/Constants'
 import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
-import { type Legend } from 'vega'
+import { type ScaleType, type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
 import { type CountColsMap } from '../cards/MapCard'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
-
-export const DATA_SUPPRESSED = 'Data suppressed'
-
-export const MISSING_DATASET = 'MISSING_DATASET'
-export const US_PROJECTION = 'US_PROJECTION'
-export const CIRCLE_PROJECTION = 'CIRCLE_PROJECTION'
-export const GEO_DATASET = 'GEO_DATASET'
-export const VAR_DATASET = 'VAR_DATASET'
-export const ZERO_VAR_DATASET = 'ZERO_VAR_DATASET'
-
-export const VALID_DATASET = 'VALID_DATASET'
-export const ZERO_DATASET = 'ZERO_DATASET'
-
-export const COLOR_SCALE = 'COLOR_SCALE'
-export const ZERO_SCALE = 'ZERO_SCALE'
-
-export const LEGEND_DATASET = 'LEGEND_DATASET'
-
-export type ScaleType = 'quantize' | 'quantile' | 'symlog'
-
-export const RATE_MAP_SCALE: ScaleType = 'quantile'
-export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
-
-export const MAP_SCHEME = 'darkgreen'
-export const UNKNOWNS_MAP_SCHEME = 'greenblue'
-export const MAP_BW_SCHEME = 'plasma'
-
-export const UNKNOWN_SCALE_SPEC: any = {
-  name: UNKNOWN_SCALE,
-  type: ORDINAL,
-  domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-  range: [sass.unknownGrey],
-}
-
-export const GREY_DOT_SCALE_SPEC: any = {
-  name: GREY_DOT_SCALE,
-  type: ORDINAL,
-  domain: { data: 'missing_data', field: 'missing' },
-  range: [EQUAL_DOT_SIZE],
-}
-
-export const ZERO_DOT_SCALE_SPEC: any = {
-  name: ZERO_DOT_SCALE,
-  type: ORDINAL,
-  domain: [0, 0],
-  range: [EQUAL_DOT_SIZE],
-}
-
-export const ZERO_YELLOW_SCALE = {
-  name: ZERO_SCALE,
-  type: 'ordinal',
-  domain: [0],
-  range: [sass.mapMin],
-}
+import {
+  CIRCLE_PROJECTION,
+  COLOR_SCALE,
+  GEO_DATASET,
+  type HighestLowest,
+  MAP_BW_SCHEME,
+  MAP_SCHEME,
+  MISSING_DATASET,
+  UNKNOWNS_MAP_SCHEME,
+  US_PROJECTION,
+  VALID_DATASET,
+  VAR_DATASET,
+  ZERO_SCALE,
+  LEGEND_SYMBOL_TYPE,
+  DEFAULT_LEGEND_COLOR_COUNT,
+  GREY_DOT_SCALE,
+  LEGEND_TEXT_FONT,
+  UNKNOWN_SCALE,
+  ZERO_DOT_SCALE,
+  MAP_MEDICARE_SCHEME,
+} from './mapGlobals'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 /*
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
@@ -420,13 +377,11 @@ export function getMapScheme({
     mapScheme = MAP_BW_SCHEME
     mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
   }
+  if (PHRMA_METRICS.includes(metricId)) {
+    mapScheme = MAP_MEDICARE_SCHEME
+  }
 
   return [mapScheme, mapMin]
-}
-
-export interface HighestLowest {
-  highest?: DemographicGroup
-  lowest?: DemographicGroup
 }
 
 export function getHighestLowestGroupsByFips(

@@ -6,43 +6,8 @@ import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
-import {
-  LEGEND_TEXT_FONT,
-  MISSING_PLACEHOLDER_VALUES,
-  NO_DATA_MESSAGE,
-} from './Legend'
 import { Grid, useMediaQuery } from '@mui/material'
-import {
-  buildTooltipTemplate,
-  CIRCLE_PROJECTION,
-  COLOR_SCALE,
-  createInvisibleAltMarks,
-  createShapeMarks,
-  formatPreventZero100k,
-  GEO_DATASET,
-  getCountyAddOn,
-  getProjection,
-  LEGEND_DATASET,
-  makeAltText,
-  MISSING_DATASET,
-  setupColorScale,
-  VAR_DATASET,
-  GREY_DOT_SCALE_SPEC,
-  UNKNOWN_SCALE_SPEC,
-  ZERO_VAR_DATASET,
-  ZERO_DOT_SCALE_SPEC,
-  ZERO_YELLOW_SCALE,
-  UNKNOWNS_MAP_SCALE,
-  RATE_MAP_SCALE,
-  ZERO_DATASET,
-  VALID_DATASET,
-  getHelperLegend,
-  type HighestLowest,
-  embedHighestLowestGroups,
-  getMapGroupLabel,
-  addCountsTooltipInfo,
-  DATA_SUPPRESSED,
-} from './mapHelpers'
+
 import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
@@ -52,6 +17,42 @@ import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type CountColsMap } from '../cards/MapCard'
 import { type DemographicType } from '../data/query/Breakdowns'
+import {
+  DATA_SUPPRESSED,
+  VAR_DATASET,
+  type HighestLowest,
+  CIRCLE_PROJECTION,
+  COLOR_SCALE,
+  GEO_DATASET,
+  GREY_DOT_SCALE_SPEC,
+  LEGEND_DATASET,
+  LEGEND_TEXT_FONT,
+  MISSING_DATASET,
+  MISSING_PLACEHOLDER_VALUES,
+  NO_DATA_MESSAGE,
+  RATE_MAP_SCALE,
+  UNKNOWNS_MAP_SCALE,
+  UNKNOWN_SCALE_SPEC,
+  VALID_DATASET,
+  ZERO_DATASET,
+  ZERO_DOT_SCALE_SPEC,
+  ZERO_VAR_DATASET,
+  ZERO_YELLOW_SCALE,
+} from './mapGlobals'
+import {
+  addCountsTooltipInfo,
+  buildTooltipTemplate,
+  createInvisibleAltMarks,
+  createShapeMarks,
+  embedHighestLowestGroups,
+  formatPreventZero100k,
+  getCountyAddOn,
+  getHelperLegend,
+  getMapGroupLabel,
+  getProjection,
+  makeAltText,
+  setupColorScale,
+} from './mapHelperFunctions'
 
 const {
   unknownGrey: UNKNOWN_GREY,

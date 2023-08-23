@@ -27,7 +27,7 @@ import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
-import { getMapScheme } from '../charts/mapHelpers'
+import { getMapScheme } from '../charts/mapHelperFunctions'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns

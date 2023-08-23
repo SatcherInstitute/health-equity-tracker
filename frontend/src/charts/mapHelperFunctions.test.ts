@@ -11,7 +11,7 @@ import {
   getCountyAddOn,
   getHighestLowestGroupsByFips,
   getMapGroupLabel,
-} from './mapHelpers'
+} from './mapHelperFunctions'
 
 describe('Test addCountsTooltipInfo()', () => {
   const phrmaCountColsMap: CountColsMap = {
