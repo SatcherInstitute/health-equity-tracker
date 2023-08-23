@@ -1,10 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Vega, type VisualizationSpec } from 'react-vega'
-import {
-  isPctType,
-  type MetricConfig,
-  type MetricId,
-} from '../data/config/MetricConfig'
+import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import styles from './Legend.module.scss'
@@ -13,7 +9,6 @@ import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
-import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import {
   COLOR_SCALE,
@@ -63,17 +58,6 @@ export interface LegendProps {
   stackingDirection: 'horizontal' | 'vertical'
   orient?: 'bottom-right'
   handleScaleChange?: (domain: number[], range: number[]) => void
-}
-
-export function getMapScheme(metricId: MetricId) {
-  const mapScheme = BLACK_WOMEN_METRICS.includes(metricId)
-    ? 'plasma'
-    : 'darkgreen'
-  const mapMin = BLACK_WOMEN_METRICS.includes(metricId)
-    ? sass.mapBwMin
-    : sass.mapMin
-
-  return [mapScheme, mapMin]
 }
 
 export function Legend(props: LegendProps) {
