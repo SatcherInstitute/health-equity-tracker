@@ -41,10 +41,7 @@ import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
-import {
-  getDemographicOptionsMap,
-  getDisabledDemographicOptions,
-} from './reportUtils'
+import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
 
 export interface ReportProps {
@@ -75,17 +72,16 @@ export function Report(props: ReportProps) {
   const [dataTypeConfig, setDataTypeConfig] = useAtom(
     selectedDataTypeConfig1Atom
   )
-  const demographicOptionsMap = getDemographicOptionsMap(dataTypeConfig)
+
+  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
+    getAllDemographicOptions(dataTypeConfig, props.fips)
 
   // if the DemographicType in state doesn't work for the selected datatype, reset to the first demographic type option that works
-  if (!Object.values(demographicOptionsMap).includes(demographicType)) {
+  if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
     setDemographicType(
-      Object.values(demographicOptionsMap)[0] as DemographicType
+      Object.values(enabledDemographicOptionsMap)[0] as DemographicType
     )
   }
-
-  const disabledDemographicOptions =
-    getDisabledDemographicOptions(dataTypeConfig)
 
   useEffect(() => {
     const readParams = () => {
@@ -151,7 +147,7 @@ export function Report(props: ReportProps) {
             demographicType={demographicType}
             setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
-            demographicOptionsMap={demographicOptionsMap}
+            enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
@@ -390,7 +386,7 @@ export function Report(props: ReportProps) {
               setTrackerMode={props.setTrackerMode}
               demographicType={demographicType}
               setDemographicType={setDemographicType}
-              demographicOptionsMap={demographicOptionsMap}
+              enabledDemographicOptionsMap={enabledDemographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />
           </Grid>
