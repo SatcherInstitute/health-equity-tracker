@@ -24,7 +24,7 @@ cdc_vaccination_county_bq_operator = util.create_bq_ingest_operator(
 
 cdc_vaccination_county_exporter_payload_alls = {
     'dataset_name': _CDC_VACCINATION_COUNTY_DATASET_NAME,
-    'demographic': "multi"
+    'demographic': "alls"
 }
 cdc_vaccination_county_exporter_operator_alls = util.create_exporter_operator(
     'cdc_vaccination_county_exporter_alls', cdc_vaccination_county_exporter_payload_alls, data_ingestion_dag)
