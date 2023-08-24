@@ -5,7 +5,6 @@ import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type AcsPopulationProvider from './AcsPopulationProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
-import { RACE } from '../utils/Constants'
 
 const reason =
   'demographics for COVID vaccination unavailable at state and county levels'
@@ -45,7 +44,7 @@ class VaccineProvider extends VariableProvider {
     }
     if (breakdowns.geography === 'county') {
       return appendFipsIfNeeded(
-        'cdc_vaccination_county-race_and_ethnicity_processed',
+        'cdc_vaccination_county-alls_county',
         breakdowns
       )
     }
@@ -109,11 +108,7 @@ class VaccineProvider extends VariableProvider {
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
     return (
-      (breakdowns.geography === 'national' ||
-        (breakdowns.geography === 'state' &&
-          breakdowns.getSoleDemographicBreakdown().columnName === RACE) ||
-        (breakdowns.geography === 'county' &&
-          breakdowns.getSoleDemographicBreakdown().columnName === RACE)) &&
+      ['national', 'state', 'county'].includes(breakdowns.geography) &&
       validDemographicBreakdownRequest
     )
   }
