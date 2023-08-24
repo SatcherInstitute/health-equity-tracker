@@ -39,22 +39,6 @@ abstract class VariableProvider {
     return mostRecentYear.toString()
   }
 
-  async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
-    if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
-      return createMissingDataResponse(
-        'Breakdowns not supported for provider ' +
-          this.providerId +
-          ': ' +
-          metricQuery.breakdowns.getUniqueKey()
-      )
-    }
-
-    // TODO: check that the metrics are all provided by this provider once we don't have providers relying on other providers
-    const resp = await this.getDataInternal(metricQuery)
-    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize()
-    return resp
-  }
-
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
     const fipsColumn: string =
       breakdowns.geography === 'county' ? 'county_fips' : 'state_fips'
@@ -172,6 +156,22 @@ abstract class VariableProvider {
     timeView?: TimeView,
     dataTypeId?: DataTypeId
   ): string
+
+  async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
+    if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
+      return createMissingDataResponse(
+        'Breakdowns not supported for provider ' +
+          this.providerId +
+          ': ' +
+          metricQuery.breakdowns.getUniqueKey()
+      )
+    }
+
+    // TODO: check that the metrics are all provided by this provider once we don't have providers relying on other providers
+    const resp = await this.getDataInternal(metricQuery)
+    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize()
+    return resp
+  }
 }
 
 export default VariableProvider
