@@ -38,26 +38,16 @@ class VaccineProvider extends VariableProvider {
     }
     if (breakdowns.geography === 'state') {
       if (breakdowns.hasOnlyRace())
-        return 'kff_vaccination-race_and_ethnicity_processed'
-      if (breakdowns.hasOnlySex()) return 'kff_vaccination-sex_processed'
-      if (breakdowns.hasOnlyAge()) return 'kff_vaccination-age_processed'
+        return 'kff_vaccination-race_and_ethnicity_state'
+      // WE HAVE THE ALLS SO CAN AT LEAST SHOW THOSE FOR AGE OR SEX REPORTS
+      if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge())
+        return 'kff_vaccination-alls_state'
     }
     if (breakdowns.geography === 'county') {
-      if (breakdowns.hasOnlyRace())
-        return appendFipsIfNeeded(
-          'cdc_vaccination_county-race_and_ethnicity_processed',
-          breakdowns
-        )
-      if (breakdowns.hasOnlySex())
-        return appendFipsIfNeeded(
-          'cdc_vaccination_county-sex_processed',
-          breakdowns
-        )
-      if (breakdowns.hasOnlyAge())
-        return appendFipsIfNeeded(
-          'cdc_vaccination_county-age_processed',
-          breakdowns
-        )
+      return appendFipsIfNeeded(
+        'cdc_vaccination_county-race_and_ethnicity_processed',
+        breakdowns
+      )
     }
     throw new Error('Not implemented')
   }
