@@ -16,6 +16,7 @@ import {
   UNKNOWN_W,
   HISP_W,
 } from '../utils/Constants'
+import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',
@@ -94,8 +95,9 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns)
 
-    // TODO! Figure out a way to read the latest date ? is this already in place somewhere?
-    df = this.filterByTimeView(df, timeView, '2023')
+    const mostRecentYear = getMostRecentYearAsString(df, metricQuery.metricIds)
+   
+    df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
     const consumedDatasetIds = [datasetId]
