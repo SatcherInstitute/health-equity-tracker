@@ -25,7 +25,7 @@ interface SidebarProps {
   demographicType: DemographicType
   setDemographicType: (demographic: DemographicType) => void
   isRaceBySex?: boolean
-  demographicOptionsMap: any
+  enabledDemographicOptionsMap: any
   disabledDemographicOptions?: string[][]
 }
 
@@ -42,7 +42,7 @@ export default function Sidebar(props: SidebarProps) {
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
             <SimpleSelect<DemographicType>
               label="Demographic"
-              optionsMap={props.demographicOptionsMap}
+              optionsMap={props.enabledDemographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}
               selected={props.demographicType}
               setSelected={props.setDemographicType}

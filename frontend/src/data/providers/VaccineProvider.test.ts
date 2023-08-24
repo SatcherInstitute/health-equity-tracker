@@ -46,7 +46,7 @@ describe('VaccineProvider', () => {
 
   test('State and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'kff_vaccination-race_and_ethnicity_processed',
+      'kff_vaccination-race_and_ethnicity_state',
       Breakdowns.forFips(new Fips(NC.code)),
       RACE
     )
@@ -78,7 +78,7 @@ describe('VaccineProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_county-race_and_ethnicity_processed-06',
+      'cdc_vaccination_county-alls_county-06',
       Breakdowns.forFips(new Fips(MARIN.code)),
       RACE
     )

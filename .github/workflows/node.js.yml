@@ -13,7 +13,7 @@ defaults:
     working-directory: frontend
 
 jobs:
-  playwright_tests_e2e:
+  frontend_tests_e2e:
     name: Runs frontend E2E
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +47,7 @@ jobs:
           NODE_OPTIONS: "--max_old_space_size=4096"
         run: npm run build
 
-  jest_unit_tests_cspell:
+  frontend_unit_tests_cspell:
     name: Runs spellcheck and unit tests
     runs-on: ubuntu-latest
     steps:

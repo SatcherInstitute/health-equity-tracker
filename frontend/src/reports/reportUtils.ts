@@ -1,4 +1,7 @@
-import { type DataTypeConfig } from '../data/config/MetricConfig'
+import {
+  type DataTypeId,
+  type DataTypeConfig,
+} from '../data/config/MetricConfig'
 import {
   AHR_DATATYPES_WITH_MISSING_AGE_DEMO,
   AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS,
@@ -15,7 +18,9 @@ import {
   PHRMA_DATATYPES,
   PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS,
 } from '../data/providers/PhrmaProvider'
+import { COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS } from '../data/providers/VaccineProvider'
 import { type DemographicType } from '../data/query/Breakdowns'
+import { type Fips } from '../data/utils/Fips'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
@@ -44,109 +49,97 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
-function getIsBlackWomen(dataTypeConfig: DataTypeConfig | null) {
+export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
   return (
-    dataTypeConfig?.dataTypeId &&
-    BLACK_WOMEN_DATATYPES.includes(dataTypeConfig.dataTypeId)
+    Boolean(fips1?.isStateOrTerritory()) ||
+    Boolean(fips2?.isStateOrTerritory()) ||
+    Boolean(fips1?.isCounty()) ||
+    Boolean(fips2?.isCounty())
   )
 }
 
-function getIsAHRWithMissingDemos(dataTypeConfig: DataTypeConfig | null) {
-  return (
-    dataTypeConfig?.dataTypeId &&
-    AHR_DATATYPES_WITH_MISSING_AGE_DEMO.includes(dataTypeConfig.dataTypeId)
-  )
-}
-
-function getIsPhrma(dataTypeConfig: DataTypeConfig | null) {
-  return (
-    dataTypeConfig?.dataTypeId &&
-    PHRMA_DATATYPES.includes(dataTypeConfig?.dataTypeId)
-  )
-}
-
-function getIsCAWP(dataTypeConfig: DataTypeConfig | null) {
-  return (
-    dataTypeConfig?.dataTypeId &&
-    CAWP_DATA_TYPES.includes(dataTypeConfig?.dataTypeId)
-  )
-}
-
-/* Some datatypes have different demographic options */
-export function getDemographicOptionsMap(
-  dataTypeConfig1: DataTypeConfig | null,
-  dataTypeConfig2?: DataTypeConfig | null
+/*
+Takes an array of DataTypeConfigs (each having an id), and an array of possible match ids, and returns true if any of the configs contain one of the ids
+*/
+export function configsContainsMatchingId(
+  configs: DataTypeConfig[],
+  ids: DataTypeId[],
+  bothNeedToMatch?: boolean
 ) {
-  if (
-    getIsBlackWomen(dataTypeConfig1) ??
-    (dataTypeConfig2 && getIsBlackWomen(dataTypeConfig2))
-  ) {
-    return ONLY_AGE_TYPE_MAP
-  }
-
-  if (
-    getIsAHRWithMissingDemos(dataTypeConfig1) ??
-    (dataTypeConfig2 && getIsAHRWithMissingDemos(dataTypeConfig2))
-  ) {
-    return ONLY_SEX_RACE_TYPE_MAP
-  }
-
-  if (
-    getIsCAWP(dataTypeConfig1) ??
-    (dataTypeConfig2 && getIsCAWP(dataTypeConfig2))
-  ) {
-    return ONLY_RACE_TYPE_MAP
-  }
-
-  // compare mode needs BOTH to be PHRMA
-  if (dataTypeConfig1 && dataTypeConfig2) {
-    if (getIsPhrma(dataTypeConfig1) && getIsPhrma(dataTypeConfig2))
-      return PHRMA_TYPES_MAP
-  }
-
-  if (getIsPhrma(dataTypeConfig1) && dataTypeConfig2 === undefined) {
-    return PHRMA_TYPES_MAP
-  }
-
-  return DEMOGRAPHIC_TYPES_MAP
+  return bothNeedToMatch
+    ? configs.every((config) => ids.includes(config.dataTypeId))
+    : configs.some((config) => ids.includes(config.dataTypeId))
 }
 
-export function getDisabledDemographicOptions(
+export function getAllDemographicOptions(
   dataTypeConfig1: DataTypeConfig | null,
-  dataTypeConfig2?: DataTypeConfig | null
+  fips1: Fips,
+  dataTypeConfig2?: DataTypeConfig | null,
+  fips2?: Fips
 ) {
-  const disabledDemographicOptions: string[][] = []
+  const configs: DataTypeConfig[] = []
+  dataTypeConfig1 && configs.push(dataTypeConfig1)
+  dataTypeConfig2 && configs.push(dataTypeConfig2)
 
-  const isBlackWomen =
-    getIsBlackWomen(dataTypeConfig1) ??
-    (dataTypeConfig2 && getIsBlackWomen(dataTypeConfig2))
+  // DEFAULT ENABLED AND DISABLED DEMOGRAPHIC OPTIONS
+  let enabledDemographicOptionsMap = DEMOGRAPHIC_TYPES_MAP
+  const disabledDemographicOptionsWithRepeats: string[][] = []
 
-  const isCAWP =
-    getIsCAWP(dataTypeConfig1) ??
-    (dataTypeConfig2 && getIsCAWP(dataTypeConfig2))
+  // BLACK WOMEN HIV
+  if (configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES)) {
+    enabledDemographicOptionsMap = ONLY_AGE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
 
-  const isAHRWithMissingDemos =
-    getIsAHRWithMissingDemos(dataTypeConfig1) ??
-    (dataTypeConfig2 && getIsAHRWithMissingDemos(dataTypeConfig2))
+  // SELECT AHR CONDITIONS
+  if (configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO)) {
+    enabledDemographicOptionsMap = ONLY_SEX_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
 
+  // CAWP
+  if (configsContainsMatchingId(configs, CAWP_DATA_TYPES)) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
+  // PHRMA (ENABLED OPTIONS WHEN ALL REPORTS ARE PHRMA)
+  if (configsContainsMatchingId(configs, PHRMA_DATATYPES, true))
+    enabledDemographicOptionsMap = PHRMA_TYPES_MAP
+  // PHRMA (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS PHRMA)
   const exactlyOneReportIsPhrma =
     dataTypeConfig1?.dataTypeId &&
     dataTypeConfig2?.dataTypeId &&
     Boolean(PHRMA_DATATYPES.includes(dataTypeConfig1.dataTypeId)) !==
       Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
-
-  if (isBlackWomen)
-    disabledDemographicOptions.push(
-      ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS
-    )
-  if (isCAWP)
-    disabledDemographicOptions.push(...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS)
-  if (exactlyOneReportIsPhrma)
-    disabledDemographicOptions.push(...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS)
-  if (isAHRWithMissingDemos)
-    disabledDemographicOptions.push(
-      ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
+  exactlyOneReportIsPhrma &&
+    disabledDemographicOptionsWithRepeats.push(
+      ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS
     )
 
-  return Array.from(new Set(disabledDemographicOptions))
+  // COVID VACCINATIONS
+  if (
+    configsContainsMatchingId(configs, ['covid_vaccinations']) &&
+    isStateCountyLevel(fips1, fips2)
+  ) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
+
+  // remove any duplicates
+  const disabledDemographicOptions = Array.from(
+    new Set(disabledDemographicOptionsWithRepeats)
+  )
+
+  return {
+    enabledDemographicOptionsMap,
+    disabledDemographicOptions,
+  }
 }
