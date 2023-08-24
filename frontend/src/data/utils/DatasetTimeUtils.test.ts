@@ -58,18 +58,6 @@ describe('Tests for time_period functions', () => {
       expectedConsecutivePeriodsYearly
     )
   })
-
-  test('Testing getMostRecentYearAsString()', async() => {
-    const mockDataFrame = new DataFrame([
-      { time_period: '2019', pct_share_of_women_state_leg: 10 },
-      { time_period: '2017', pct_share_of_women_us_congress: 20 },
-  ])
-
-  const mostRecentYear = getMostRecentYearAsString(mockDataFrame, ['pct_share_of_women_us_congress'])
-  
-  expect(mostRecentYear).toEqual('2017')
-
-  })
 })
 
 const twoYearsOfNormalData = [
@@ -221,3 +209,14 @@ describe('Tests getPrettyDate() function', () => {
   })
 })
 
+describe('Tests getMostRecentYearAsString()', () => {
+test('correct year string is returned', async() => {
+  const mockDataFrame = new DataFrame([
+    { time_period: '2019', pct_share_of_women_state_leg: 10 },
+    { time_period: '2017', pct_share_of_women_us_congress: 20 },
+])
+
+const mostRecentYear = getMostRecentYearAsString(mockDataFrame, ['pct_share_of_women_us_congress'])
+expect(mostRecentYear).toEqual('2017')
+
+})})
