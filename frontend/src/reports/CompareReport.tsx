@@ -43,10 +43,7 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../utils/sharedSettingsState'
-import {
-  getDemographicOptionsMap,
-  getDisabledDemographicOptions,
-} from './reportUtils'
+import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
@@ -86,26 +83,20 @@ function CompareReport(props: {
     selectedDataTypeConfig2Atom
   )
 
-  const demographicOptionsMap = getDemographicOptionsMap(
-    dataTypeConfig1,
-    props.fips1,
-    dataTypeConfig2,
-    props.fips2
-  )
+  const { enabledDemographicOptionsMap, disabledDemographicOptions } =
+    getAllDemographicOptions(
+      dataTypeConfig1,
+      props.fips1,
+      dataTypeConfig2,
+      props.fips2
+    )
 
   // if the DemographicType in state doesn't work for both sides of the compare report, default to this first option that does work
-  if (!Object.values(demographicOptionsMap).includes(demographicType)) {
+  if (!Object.values(enabledDemographicOptionsMap).includes(demographicType)) {
     setDemographicType(
-      Object.values(demographicOptionsMap)[0] as DemographicType
+      Object.values(enabledDemographicOptionsMap)[0] as DemographicType
     )
   }
-
-  const disabledDemographicOptions = getDisabledDemographicOptions(
-    dataTypeConfig1,
-    props.fips1,
-    dataTypeConfig2,
-    props.fips2
-  )
 
   useEffect(() => {
     const readParams = () => {
@@ -211,7 +202,7 @@ function CompareReport(props: {
             demographicType={demographicType}
             setDemographicType={setDemographicType}
             offerJumpToAgeAdjustment={offerJumpToAgeAdjustment}
-            demographicOptionsMap={demographicOptionsMap}
+            enabledDemographicOptionsMap={enabledDemographicOptionsMap}
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
@@ -462,7 +453,7 @@ function CompareReport(props: {
               setTrackerMode={props.setTrackerMode}
               demographicType={demographicType}
               setDemographicType={setDemographicType}
-              demographicOptionsMap={demographicOptionsMap}
+              enabledDemographicOptionsMap={enabledDemographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />
           </Grid>

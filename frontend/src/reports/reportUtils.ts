@@ -49,7 +49,7 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
-function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
+export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
   return (
     Boolean(fips1?.isStateOrTerritory()) ||
     Boolean(fips2?.isStateOrTerritory()) ||
@@ -61,7 +61,7 @@ function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
 /*
 Takes an array of DataTypeConfigs (each having an id), and an array of possible match ids, and returns true if any of the configs contain one of the ids
 */
-function configsContainsMatchingId(
+export function configsContainsMatchingId(
   configs: DataTypeConfig[],
   ids: DataTypeId[],
   bothNeedToMatch?: boolean
@@ -71,8 +71,7 @@ function configsContainsMatchingId(
     : configs.some((config) => ids.includes(config.dataTypeId))
 }
 
-/* Some datatypes have different demographic options */
-export function getDemographicOptionsMap(
+export function getAllDemographicOptions(
   dataTypeConfig1: DataTypeConfig | null,
   fips1: Fips,
   dataTypeConfig2?: DataTypeConfig | null,
@@ -82,60 +81,65 @@ export function getDemographicOptionsMap(
   dataTypeConfig1 && configs.push(dataTypeConfig1)
   dataTypeConfig2 && configs.push(dataTypeConfig2)
 
-  if (configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES))
-    return ONLY_AGE_TYPE_MAP
-  if (configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO))
-    return ONLY_SEX_RACE_TYPE_MAP
-  if (configsContainsMatchingId(configs, CAWP_DATA_TYPES))
-    return ONLY_RACE_TYPE_MAP
-  if (configsContainsMatchingId(configs, PHRMA_DATATYPES, true))
-    return PHRMA_TYPES_MAP
+  // DEFAULT ENABLED AND DISABLED DEMOGRAPHIC OPTIONS
+  let enabledDemographicOptionsMap = DEMOGRAPHIC_TYPES_MAP
+  const disabledDemographicOptionsWithRepeats: string[][] = []
 
-  if (
-    configsContainsMatchingId(configs, ['covid_vaccinations']) &&
-    isStateCountyLevel(fips1, fips2)
-  )
-    return ONLY_RACE_TYPE_MAP
-
-  return DEMOGRAPHIC_TYPES_MAP
-}
-
-export function getDisabledDemographicOptions(
-  dataTypeConfig1: DataTypeConfig | null,
-  fips1: Fips,
-  dataTypeConfig2?: DataTypeConfig | null,
-  fips2?: Fips
-) {
-  const configs: DataTypeConfig[] = []
-  dataTypeConfig1 && configs.push(dataTypeConfig1)
-  dataTypeConfig2 && configs.push(dataTypeConfig2)
-
-  const disabledDemographicOptions: string[][] = []
-
-  configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES) &&
-    disabledDemographicOptions.push(
+  // BLACK WOMEN HIV
+  if (configsContainsMatchingId(configs, BLACK_WOMEN_DATATYPES)) {
+    enabledDemographicOptionsMap = ONLY_AGE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
       ...BLACK_WOMEN_RESTRICTED_DEMOGRAPHIC_DETAILS
     )
-  configsContainsMatchingId(configs, CAWP_DATA_TYPES) &&
-    disabledDemographicOptions.push(...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS)
-  configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO) &&
-    disabledDemographicOptions.push(
+  }
+
+  // SELECT AHR CONDITIONS
+  if (configsContainsMatchingId(configs, AHR_DATATYPES_WITH_MISSING_AGE_DEMO)) {
+    enabledDemographicOptionsMap = ONLY_SEX_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
       ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
     )
+  }
 
-  isStateCountyLevel(fips1, fips2) &&
-    configsContainsMatchingId(configs, ['covid_vaccinations']) &&
-    disabledDemographicOptions.push(
-      ...COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS
+  // CAWP
+  if (configsContainsMatchingId(configs, CAWP_DATA_TYPES)) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...CAWP_RESTRICTED_DEMOGRAPHIC_DETAILS
     )
-
+  }
+  // PHRMA (ENABLED OPTIONS WHEN ALL REPORTS ARE PHRMA)
+  if (configsContainsMatchingId(configs, PHRMA_DATATYPES, true))
+    enabledDemographicOptionsMap = PHRMA_TYPES_MAP
+  // PHRMA (DISABLED OPTIONS WHEN EXACTLY ONE REPORT IS PHRMA)
   const exactlyOneReportIsPhrma =
     dataTypeConfig1?.dataTypeId &&
     dataTypeConfig2?.dataTypeId &&
     Boolean(PHRMA_DATATYPES.includes(dataTypeConfig1.dataTypeId)) !==
       Boolean(PHRMA_DATATYPES.includes(dataTypeConfig2.dataTypeId))
   exactlyOneReportIsPhrma &&
-    disabledDemographicOptions.push(...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS)
+    disabledDemographicOptionsWithRepeats.push(
+      ...PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
 
-  return Array.from(new Set(disabledDemographicOptions))
+  // COVID VACCINATIONS
+  if (
+    configsContainsMatchingId(configs, ['covid_vaccinations']) &&
+    isStateCountyLevel(fips1, fips2)
+  ) {
+    enabledDemographicOptionsMap = ONLY_RACE_TYPE_MAP
+    disabledDemographicOptionsWithRepeats.push(
+      ...COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS
+    )
+  }
+
+  // remove any duplicates
+  const disabledDemographicOptions = Array.from(
+    new Set(disabledDemographicOptionsWithRepeats)
+  )
+
+  return {
+    enabledDemographicOptionsMap,
+    disabledDemographicOptions,
+  }
 }
