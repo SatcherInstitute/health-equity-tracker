@@ -131,7 +131,8 @@ def has_multi_demographics(table_id: str):
     return (
         ("age" in table_id and "sex" in table_id) or
         ("age" in table_id and "race" in table_id) or
-        ("sex" in table_id and "race" in table_id)
+        ("sex" in table_id and "race" in table_id) or
+        "alls" in table_id
     )
 
 
