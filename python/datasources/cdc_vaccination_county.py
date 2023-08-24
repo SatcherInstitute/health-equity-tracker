@@ -60,7 +60,7 @@ class CDCVaccinationCounty(DataSource):
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols=[std_col.VACCINATED_PER_100K])
 
         gcs_to_bq_util.add_df_to_bq(
-            df, dataset, 'race_and_ethnicity_processed', column_types=col_types)
+            df, dataset, 'alls_county', column_types=col_types)
 
 
 def generate_breakdown(df):
@@ -69,6 +69,8 @@ def generate_breakdown(df):
 
     df[CDC_ONE_DOSE] = df[CDC_ONE_DOSE].astype(float)
     df = df[list(COL_NAME_MAPPING.values()) + [std_col.RACE_CATEGORY_ID_COL]]
+    df[std_col.AGE_COL] = std_col.ALL_VALUE
+    df[std_col.SEX_COL] = std_col.ALL_VALUE
 
     df = merge_county_names(df)
     df = merge_pop_numbers(df, RACE, COUNTY_LEVEL)
@@ -76,8 +78,13 @@ def generate_breakdown(df):
     df = generate_per_100k_col(df, CDC_ONE_DOSE,
                                std_col.POPULATION_COL, std_col.VACCINATED_PER_100K)
 
-    df = df[[std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL,
-             std_col.RACE_CATEGORY_ID_COL, std_col.VACCINATED_PER_100K]]
+    df = df[[
+        std_col.COUNTY_FIPS_COL,
+        std_col.COUNTY_NAME_COL,
+        std_col.RACE_CATEGORY_ID_COL,
+        std_col.VACCINATED_PER_100K,
+        std_col.SEX_COL,
+        std_col.AGE_COL]]
 
     std_col.add_race_columns_from_category_id(df)
 
