@@ -292,8 +292,6 @@ class KFFVaccination(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = self.parse_data()
         df = self.post_process(df)
-        df_race = df.copy()
-        df_alls = df.copy()
 
         float_cols = [
             std_col.VACCINATED_PCT_SHARE,
@@ -302,18 +300,19 @@ class KFFVaccination(DataSource):
         ]
 
         # WRITE RACE TABLE
-        std_col.add_race_columns_from_category_id(df_race)
-        col_types = gcs_to_bq_util.get_bq_column_types(df_race, float_cols)
+        std_col.add_race_columns_from_category_id(df)
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
         gcs_to_bq_util.add_df_to_bq(
-            df_race, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_state', column_types=col_types)
+            df, dataset, f'{std_col.RACE_OR_HISPANIC_COL}_state', column_types=col_types)
 
         # WRITE ALLS TABLE FOR SEX/AGE (get just the All rows from the race table and add needed cols)
-        df_alls = df_alls[df_alls[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL]
-        df_alls[std_col.SEX_COL] = std_col.ALL_VALUE
-        df_alls[std_col.AGE_COL] = std_col.ALL_VALUE
-        col_types = gcs_to_bq_util.get_bq_column_types(df_alls, float_cols)
+        df = df[df[std_col.RACE_CATEGORY_ID_COL] == std_col.Race.ALL.value]
+        # print(df)
+        df[std_col.SEX_COL] = std_col.ALL_VALUE
+        df[std_col.AGE_COL] = std_col.ALL_VALUE
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
         gcs_to_bq_util.add_df_to_bq(
-            df_alls, dataset, 'alls_state', column_types=col_types)
+            df, dataset, 'alls_state', column_types=col_types)
 
 
 def clean_row(df, column):
