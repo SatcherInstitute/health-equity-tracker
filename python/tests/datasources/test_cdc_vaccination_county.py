@@ -11,7 +11,7 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cdc_vaccination_county")
 
 GOLDEN_DATA = os.path.join(
-    TEST_DIR, 'cdc_vaccination_county-race_and_ethnicity.csv')
+    TEST_DIR, 'cdc_vaccination_county-alls_county.csv')
 
 
 def get_total_vaccinations_as_df():
@@ -57,6 +57,7 @@ def testWriteToBq(
 
     cdcVaccinationCounty.write_to_bq('dataset', 'gcs_bucket', **kwargs)
     assert mock_bq.call_count == 1
+    assert mock_bq.call_args_list[0].args[2] == 'alls_county'
 
     expected_df = pd.read_csv(GOLDEN_DATA, dtype={
         'county_fips': str,

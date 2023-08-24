@@ -168,6 +168,7 @@ class CAWPTimeData(DataSource):
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+            df = df.drop_duplicates()
             gcs_to_bq_util.add_df_to_bq(
                 df, dataset, bq_table_name, column_types=column_types)
 

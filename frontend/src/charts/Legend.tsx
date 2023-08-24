@@ -1,45 +1,37 @@
 import { useState, useEffect, useRef } from 'react'
 import { Vega, type VisualizationSpec } from 'react-vega'
-import {
-  isPctType,
-  type MetricConfig,
-  type MetricId,
-} from '../data/config/MetricConfig'
+import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
-import { ORDINAL } from './utils'
-import { type ScaleType } from './mapHelpers'
 import styles from './Legend.module.scss'
 import { type View, type Legend as LegendType } from 'vega'
 import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
-import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-
-const COLOR_SCALE = 'color_scale'
-const ZERO_SCALE = 'zero_scale'
-const DOT_SIZE_SCALE = 'dot_size_scale'
-const SUMMARY_SCALE = 'summary_scale'
-export const GREY_DOT_SCALE = 'grey_dot_scale'
-export const UNKNOWN_SCALE = 'unknown_scale'
-export const ZERO_DOT_SCALE = 'zero_dot_scale'
-
-const RAW_VALUES = 'raw_values'
-const DATASET_VALUES = 'dataset_values'
-const NON_ZERO_DATASET_VALUES = 'non_zero_dataset_values'
-const SUMMARY_VALUE = 'summary_value'
-const ZERO_VALUES = 'zero_values'
-export const MISSING_PLACEHOLDER_VALUES = 'missing_data'
-
-export const LEGEND_SYMBOL_TYPE = 'square'
-export const LEGEND_TEXT_FONT = 'inter'
-export const NO_DATA_MESSAGE = 'no data'
-export const EQUAL_DOT_SIZE = 200
-export const DEFAULT_LEGEND_COLOR_COUNT = 6
-
-const ZERO_BUCKET_LABEL = '0'
+import {
+  COLOR_SCALE,
+  DATASET_VALUES,
+  DEFAULT_LEGEND_COLOR_COUNT,
+  DOT_SIZE_SCALE,
+  EQUAL_DOT_SIZE,
+  GREY_DOT_SCALE,
+  LEGEND_SYMBOL_TYPE,
+  MISSING_PLACEHOLDER_VALUES,
+  NON_ZERO_DATASET_VALUES,
+  NO_DATA_MESSAGE,
+  RAW_VALUES,
+  SUMMARY_SCALE,
+  SUMMARY_VALUE,
+  type ScaleType,
+  UNKNOWN_SCALE,
+  ZERO_BUCKET_LABEL,
+  ZERO_DOT_SCALE,
+  ZERO_SCALE,
+  ZERO_VALUES,
+  ORDINAL,
+} from './mapGlobals'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -66,17 +58,6 @@ export interface LegendProps {
   stackingDirection: 'horizontal' | 'vertical'
   orient?: 'bottom-right'
   handleScaleChange?: (domain: number[], range: number[]) => void
-}
-
-export function getMapScheme(metricId: MetricId) {
-  const mapScheme = BLACK_WOMEN_METRICS.includes(metricId)
-    ? 'plasma'
-    : 'darkgreen'
-  const mapMin = BLACK_WOMEN_METRICS.includes(metricId)
-    ? sass.mapBwMin
-    : sass.mapMin
-
-  return [mapScheme, mapMin]
 }
 
 export function Legend(props: LegendProps) {

@@ -22,7 +22,7 @@ function DisclaimerAlert() {
         working to close these known gaps which, in turn, will help create more
         effective health policies in the United States. Read more about missing
         and misidentified people on our{' '}
-        <HashLink to={`${METHODOLOGY_TAB_LINK}`}>methodology</HashLink>
+        <HashLink to={`${METHODOLOGY_TAB_LINK}`}>methodology</HashLink>.
       </Alert>
     </div>
   )

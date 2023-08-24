@@ -6,7 +6,7 @@ import styles from './TerritoryCircles.module.scss'
 import {
   getHighestLowestGroupsByFips,
   getMapScheme,
-} from '../../charts/mapHelpers'
+} from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
@@ -16,7 +16,7 @@ interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
   signalListeners: any
   metricConfig: MetricConfig
-  highestLowestGeosMode?: boolean
+  highestLowestGeosMode: boolean
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
   countColsMap: CountColsMap
@@ -66,6 +66,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               mapConfig={{ mapScheme, mapMin }}
               scaleConfig={props.scaleConfig}
               isMulti={props.isMulti}
+              highestLowestGeosMode={props.highestLowestGeosMode}
             />
             <figcaption className={styles.TerritoryLabel}>
               {postalCode}
