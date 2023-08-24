@@ -14,7 +14,7 @@ interface ModeSelectorBoxMobileProps {
   demographicType: DemographicType
   setDemographicType: (demographic: DemographicType) => void
   offerJumpToAgeAdjustment: boolean
-  demographicOptionsMap: any
+  enabledDemographicOptionsMap: any
   disabledDemographicOptions?: string[][]
 }
 
@@ -36,7 +36,7 @@ export default function ModeSelectorBoxMobile(
           <div>
             <SimpleSelect<DemographicType>
               label="Demographic"
-              optionsMap={props.demographicOptionsMap}
+              optionsMap={props.enabledDemographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}
               selected={props.demographicType}
               setSelected={props.setDemographicType}

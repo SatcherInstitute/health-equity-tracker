@@ -5,7 +5,13 @@ import { appendFipsIfNeeded } from '../utils/datasetutils'
 import type AcsPopulationProvider from './AcsPopulationProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
-import { RACE } from '../utils/Constants'
+
+const reason =
+  'demographics for COVID vaccination unavailable at state and county levels'
+export const COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS = [
+  ['Age', reason],
+  ['Sex', reason],
+]
 
 class VaccineProvider extends VariableProvider {
   private readonly acsProvider: AcsPopulationProvider
@@ -22,18 +28,23 @@ class VaccineProvider extends VariableProvider {
 
   getDatasetId(breakdowns: Breakdowns): string {
     if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.hasOnlyRace())
         return 'cdc_vaccination_national-race_processed'
-      } else if (breakdowns.hasOnlySex()) {
+      if (breakdowns.hasOnlySex())
         return 'cdc_vaccination_national-sex_processed'
-      } else if (breakdowns.hasOnlyAge()) {
+      if (breakdowns.hasOnlyAge())
         return 'cdc_vaccination_national-age_processed'
-      }
-    } else if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace()) {
-      return 'kff_vaccination-race_and_ethnicity_processed'
-    } else if (breakdowns.geography === 'county') {
+    }
+    if (breakdowns.geography === 'state') {
+      if (breakdowns.hasOnlyRace())
+        return 'kff_vaccination-race_and_ethnicity_state'
+      // WE HAVE THE ALLS SO CAN AT LEAST SHOW THOSE FOR AGE OR SEX REPORTS
+      if (breakdowns.hasOnlySex() || breakdowns.hasOnlyAge())
+        return 'kff_vaccination-alls_state'
+    }
+    if (breakdowns.geography === 'county') {
       return appendFipsIfNeeded(
-        'cdc_vaccination_county-race_and_ethnicity_processed',
+        'cdc_vaccination_county-alls_county',
         breakdowns
       )
     }
@@ -97,11 +108,7 @@ class VaccineProvider extends VariableProvider {
       !breakdowns.time && breakdowns.hasExactlyOneDemographic()
 
     return (
-      (breakdowns.geography === 'national' ||
-        (breakdowns.geography === 'state' &&
-          breakdowns.getSoleDemographicBreakdown().columnName === RACE) ||
-        (breakdowns.geography === 'county' &&
-          breakdowns.getSoleDemographicBreakdown().columnName === RACE)) &&
+      ['national', 'state', 'county'].includes(breakdowns.geography) &&
       validDemographicBreakdownRequest
     )
   }
