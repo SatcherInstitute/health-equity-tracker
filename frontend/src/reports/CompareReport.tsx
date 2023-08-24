@@ -102,8 +102,8 @@ function CompareReport(props: {
 
   const disabledDemographicOptions = getDisabledDemographicOptions(
     dataTypeConfig1,
-    dataTypeConfig2,
     props.fips1,
+    dataTypeConfig2,
     props.fips2
   )
 

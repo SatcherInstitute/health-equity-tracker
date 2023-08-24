@@ -89,7 +89,6 @@ export function Report(props: ReportProps) {
 
   const disabledDemographicOptions = getDisabledDemographicOptions(
     dataTypeConfig,
-    undefined,
     props.fips
   )
 

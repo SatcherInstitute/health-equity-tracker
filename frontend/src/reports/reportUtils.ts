@@ -49,6 +49,15 @@ const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   Eligibility: 'eligibility',
 }
 
+function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
+  return (
+    Boolean(fips1?.isStateOrTerritory()) ||
+    Boolean(fips2?.isStateOrTerritory()) ||
+    Boolean(fips1?.isCounty()) ||
+    Boolean(fips2?.isCounty())
+  )
+}
+
 /*
 Takes an array of DataTypeConfigs (each having an id), and an array of possible match ids, and returns true if any of the configs contain one of the ids
 */
@@ -81,14 +90,10 @@ export function getDemographicOptionsMap(
     return ONLY_RACE_TYPE_MAP
   if (configsContainsMatchingId(configs, PHRMA_DATATYPES, true))
     return PHRMA_TYPES_MAP
-  const isStateCountyLevel =
-    fips1?.isStateOrTerritory() ??
-    fips2?.isStateOrTerritory() ??
-    fips1?.isCounty() ??
-    fips2?.isCounty()
+
   if (
     configsContainsMatchingId(configs, ['covid_vaccinations']) &&
-    isStateCountyLevel
+    isStateCountyLevel(fips1, fips2)
   )
     return ONLY_RACE_TYPE_MAP
 
@@ -97,8 +102,8 @@ export function getDemographicOptionsMap(
 
 export function getDisabledDemographicOptions(
   dataTypeConfig1: DataTypeConfig | null,
+  fips1: Fips,
   dataTypeConfig2?: DataTypeConfig | null,
-  fips1?: Fips,
   fips2?: Fips
 ) {
   const configs: DataTypeConfig[] = []
@@ -117,12 +122,8 @@ export function getDisabledDemographicOptions(
     disabledDemographicOptions.push(
       ...AHR_PARTIAL_RESTRICTED_DEMOGRAPHIC_DETAILS
     )
-  const isStateCountyLevel =
-    fips1?.isStateOrTerritory() ??
-    fips2?.isStateOrTerritory() ??
-    fips1?.isCounty() ??
-    fips2?.isCounty()
-  isStateCountyLevel &&
+
+  isStateCountyLevel(fips1, fips2) &&
     configsContainsMatchingId(configs, ['covid_vaccinations']) &&
     disabledDemographicOptions.push(
       ...COVID_VACCINATION_RESTRICTED_DEMOGRAPHIC_DETAILS
