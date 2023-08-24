@@ -292,8 +292,6 @@ class KFFVaccination(DataSource):
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         df = self.parse_data()
         df = self.post_process(df)
-        df_race = df.copy()
-        df_alls = df.copy()
 
         float_cols = [
             std_col.VACCINATED_PCT_SHARE,
