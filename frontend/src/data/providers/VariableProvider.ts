@@ -19,7 +19,7 @@ abstract class VariableProvider {
     this.providesMetrics = providesMetrics
   }
 
-  getMostRecentYear(df: IDataFrame, metricIds: MetricId[], datatype?: string) {
+  getMostRecentYear(df: IDataFrame, metricIds: MetricId[]) {
     const metricId = metricIds[0]
 
     const filteredRows = df
