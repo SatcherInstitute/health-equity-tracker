@@ -19,24 +19,20 @@ abstract class VariableProvider {
     this.providesMetrics = providesMetrics
   }
 
-  getMostRecentYear(df: IDataFrame, metricIds: MetricId[]) {
-    const metricId = metricIds[0]
+  async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
+    if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
+      return createMissingDataResponse(
+        'Breakdowns not supported for provider ' +
+          this.providerId +
+          ': ' +
+          metricQuery.breakdowns.getUniqueKey()
+      )
+    }
 
-    const filteredRows = df
-    .where(row => row[metricId] !== undefined)
-    .select(row => ({
-      time_period: row.time_period,
-      metricId: row[metricId],
-    }))
-
-    const distinctYearsWithData = filteredRows
-      .select(row => row.time_period)
-      .distinct()
-      .toArray()
-  
-    const mostRecentYear = Math.max(...distinctYearsWithData)
-  
-    return mostRecentYear.toString()
+    // TODO: check that the metrics are all provided by this provider once we don't have providers relying on other providers
+    const resp = await this.getDataInternal(metricQuery)
+    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize()
+    return resp
   }
 
   filterByGeo(df: IDataFrame, breakdowns: Breakdowns): IDataFrame {
@@ -156,22 +152,6 @@ abstract class VariableProvider {
     timeView?: TimeView,
     dataTypeId?: DataTypeId
   ): string
-
-  async getData(metricQuery: MetricQuery): Promise<MetricQueryResponse> {
-    if (!this.allowsBreakdowns(metricQuery.breakdowns, metricQuery.metricIds)) {
-      return createMissingDataResponse(
-        'Breakdowns not supported for provider ' +
-          this.providerId +
-          ': ' +
-          metricQuery.breakdowns.getUniqueKey()
-      )
-    }
-
-    // TODO: check that the metrics are all provided by this provider once we don't have providers relying on other providers
-    const resp = await this.getDataInternal(metricQuery)
-    new DatasetOrganizer(resp.data, metricQuery.breakdowns).organize()
-    return resp
-  }
 }
 
 export default VariableProvider

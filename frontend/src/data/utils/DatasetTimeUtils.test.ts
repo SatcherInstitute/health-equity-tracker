@@ -1,3 +1,4 @@
+import { DataFrame } from 'data-forge'
 import { TrendsData } from '../../charts/trendsChart/types'
 import { METRIC_CONFIG } from '../config/MetricConfig'
 import {
@@ -8,6 +9,7 @@ import {
   getNestedUnknowns,
   makeA11yTableData,
   getMinMaxGroups,
+  getMostRecentYearAsString,
 } from './DatasetTimeUtils'
 import { Row } from './DatasetTypes'
 import { splitIntoKnownsAndUnknowns } from './datasetutils'
@@ -55,6 +57,18 @@ describe('Tests for time_period functions', () => {
     expect(generateConsecutivePeriods(testDataYearly)).toEqual(
       expectedConsecutivePeriodsYearly
     )
+  })
+
+  test('Testing getMostRecentYearAsString()', async() => {
+    const mockDataFrame = new DataFrame([
+      { time_period: '2019', pct_share_of_women_state_leg: 10 },
+      { time_period: '2017', pct_share_of_women_us_congress: 20 },
+  ])
+
+  const mostRecentYear = getMostRecentYearAsString(mockDataFrame, ['pct_share_of_women_us_congress'])
+  
+  expect(mostRecentYear).toEqual('2017')
+
   })
 })
 
@@ -206,3 +220,4 @@ describe('Tests getPrettyDate() function', () => {
     expect(getPrettyDate('ABCD-YZ')).toEqual('ABCD-YZ')
   })
 })
+

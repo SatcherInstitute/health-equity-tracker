@@ -2,6 +2,7 @@ import { getDataManager } from '../../utils/globals'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -169,7 +170,7 @@ class HivProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns)
     
-    const mostRecentYear = this.getMostRecentYear(df, metricQuery.metricIds)
+    const mostRecentYear = getMostRecentYearAsString(df, metricQuery.metricIds)
 
     df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
