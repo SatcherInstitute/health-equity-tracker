@@ -36,6 +36,7 @@ import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import styles from '../charts/trendsChart/Trends.module.scss'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
+import ChartTitle from './ChartTitle'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -179,8 +180,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             <CardContent sx={{ pt: 0 }}>
               {queryResponseRates.shouldShowMissingDataMessage([
                 metricConfigRates.metricId,
-              ]) || nestedRatesData.length === 0 ? (
+              ]) || nestedRatesData?.length === 0 ? (
                 <>
+                  {/* Chart Title Missing Data */}
+                  <ChartTitle title={'Graph unavailable: ' + getTitleText()} />
                   <MissingDataAlert
                     dataName={`historical data for ${metricConfigRates.chartTitle}`}
                     demographicTypeString={
