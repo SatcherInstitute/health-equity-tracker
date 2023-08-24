@@ -94,8 +94,9 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns)
 
-    // TODO! Figure out a way to read the latest date ? is this already in place somewhere?
-    df = this.filterByTimeView(df, timeView, '2023')
+    const mostRecentYear = this.getMostRecentYear(df, metricQuery.metricIds, metricQuery.dataTypeId)
+   
+    df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
     const consumedDatasetIds = [datasetId]

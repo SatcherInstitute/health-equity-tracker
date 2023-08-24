@@ -23,22 +23,12 @@ abstract class VariableProvider {
     const metricId = metricIds[0]
 
     const filteredRows = df
-    .where(row => {
-      if (row[metricId] !== undefined) {
-        for (const property in row) {
-          if (property.includes(datatype ?? "")) {
-            return true
-          }
-        }
-      }
-      return false
-    })
+    .where(row => row[metricId] !== undefined)
     .select(row => ({
       time_period: row.time_period,
       metricId: row[metricId],
-    }));
+    }))
 
-    // Get distinct years with valid data
     const distinctYearsWithData = filteredRows
       .select(row => row.time_period)
       .distinct()
