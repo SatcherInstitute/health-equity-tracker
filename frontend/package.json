@@ -136,7 +136,6 @@
     "@sentry/vite-plugin": "^2.3.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@typescript-eslint/eslint-plugin": "^5.57.0",
-    "@vitest/browser": "^0.34.3",
     "@vitest/coverage-c8": "^0.29.8",
     "eslint": "^8.37.0",
     "eslint-config-standard-with-typescript": "^34.0.1",
@@ -145,8 +144,7 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "typescript": "^5.0.3",
-    "vitest-canvas-mock": "^0.2.2",
-    "webdriverio": "^8.15.6"
+    "vitest-canvas-mock": "^0.2.2"
   },
   "prettier": {
     "trailingComma": "es5",
