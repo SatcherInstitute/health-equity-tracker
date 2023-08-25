@@ -3,7 +3,7 @@
 // establish the API types.
 
 import { type MapOfDatasetMetadata, type Row } from '../utils/DatasetTypes'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { type DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import { type Environment } from '../../utils/Environment'
 
 type FileFormat = 'json' | 'csv'
@@ -47,14 +47,14 @@ export class ApiDataFetcher implements DataFetcher {
   }
 
   /**
-   * @param datasetName The ID of the dataset to request
+   * @param datasetId The ID of the dataset to request
    * @param format FileFormat for the request.
    */
   private getDatasetRequestPath(
-    datasetName: string,
+    datasetId: string,
     format: FileFormat = 'json'
   ) {
-    const fullDatasetName = datasetName + '.' + format
+    const fullDatasetName = datasetId + '.' + format
     const basePath = this.shouldFetchAsStaticFile(fullDatasetName)
       ? '/tmp/'
       : this.getApiUrl() + '/dataset?name='
@@ -62,11 +62,14 @@ export class ApiDataFetcher implements DataFetcher {
   }
 
   /**
-   * @param datasetName The ID of the dataset to request
+   * @param datasetId The ID of the dataset to request
    * @param format FileFormat for the request.
    */
-  private async fetchDataset(datasetName: string, format: FileFormat = 'json') {
-    const requestPath = this.getDatasetRequestPath(datasetName, format)
+  private async fetchDataset(
+    datasetId: DatasetId | string,
+    format: FileFormat = 'json'
+  ) {
+    const requestPath = this.getDatasetRequestPath(datasetId, format)
     const resp = await fetch(requestPath)
     if (resp.status !== 200) {
       throw new Error('Failed to fetch dataset. Status: ' + resp.status)
@@ -75,7 +78,7 @@ export class ApiDataFetcher implements DataFetcher {
   }
 
   // TODO: build in retries, timeout before showing error to user.
-  async loadDataset(datasetId: string): Promise<Row[]> {
+  async loadDataset(datasetId: DatasetId | string): Promise<Row[]> {
     const result = await this.fetchDataset(datasetId)
 
     // Note that treating geographies as a normal dataset is a bit weird

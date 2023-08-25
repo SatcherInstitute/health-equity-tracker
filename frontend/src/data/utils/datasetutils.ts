@@ -44,6 +44,7 @@ import {
 } from './Constants'
 import { type Row } from './DatasetTypes'
 import { type Fips } from './Fips'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 
@@ -342,7 +343,7 @@ export function splitIntoKnownsAndUnknowns(
 }
 
 export function appendFipsIfNeeded(
-  baseId: string,
+  baseId: DatasetId,
   breakdowns: Breakdowns
 ): string {
   // if there is a parent fips, append it as needed (for county-level files)

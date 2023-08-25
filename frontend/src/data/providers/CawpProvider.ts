@@ -17,6 +17,8 @@ import {
   HISP_W,
 } from '../utils/Constants'
 import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
+import { type DatasetId } from '../config/DatasetMetadata'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export const CAWP_CONGRESS_COUNTS: MetricId[] = [
   'women_this_race_us_congress_count',
@@ -74,14 +76,11 @@ class CawpProvider extends VariableProvider {
     super('cawp_provider', CAWP_DETERMINANTS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace()) {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
+    if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
       return 'cawp_time_data-race_and_ethnicity_national_time_series'
-    }
-    if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace()) {
+    if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
       return 'cawp_time_data-race_and_ethnicity_state_time_series'
-    }
-    throw new Error('Not implemented')
   }
 
   async getDataInternal(
@@ -90,7 +89,9 @@ class CawpProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
-    const cawp = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
 
     df = this.filterByGeo(df, breakdowns)
@@ -129,7 +130,8 @@ class CawpProvider extends VariableProvider {
         }
       } else {
         // Non-Island Areas use ACS
-        consumedDatasetIds.push(GetAcsDatasetId(breakdowns))
+        const acsId = GetAcsDatasetId(breakdowns)
+        acsId && consumedDatasetIds.push(acsId)
       }
     }
     if (metricQuery.metricIds.includes('pct_share_of_us_congress')) {

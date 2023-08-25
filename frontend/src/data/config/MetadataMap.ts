@@ -176,7 +176,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'retail pharmacies, long-term care facilities, dialysis centers, ' +
       'Federal Emergency Management Agency and Health Resources and Services ' +
       'Administration partner sites, and federal entity facilities.',
-    dataset_ids: ['cdc_vaccination_county-race_and_ethnicity_processed'],
+    dataset_ids: ['cdc_vaccination_county-alls_county'],
     downloadable: true,
   },
   {
@@ -243,7 +243,10 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
       "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
       "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
-    dataset_ids: ['kff_vaccination-race_and_ethnicity_processed'],
+    dataset_ids: [
+      'kff_vaccination-race_and_ethnicity_state',
+      'kff_vaccination-alls_state',
+    ],
     downloadable: true,
   },
   {
@@ -394,5 +397,3 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
 
 export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
   Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))
-
-console.log({ DataSourceMetadataMap })

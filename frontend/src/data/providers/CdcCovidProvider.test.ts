@@ -3,7 +3,7 @@ import AcsPopulationProvider from './AcsPopulationProvider'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -12,16 +12,18 @@ import {
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { CHATAM, NC, VI, USA } from './TestUtils'
 import { RACE, SEX, AGE } from '../utils/Constants'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(
-  cdcDatasetId: string,
+  cdcDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType
 ) {
   const acsProvider = new AcsPopulationProvider()
   const cdcCovidProvider = new CdcCovidProvider(acsProvider)
 
-  dataFetcher.setFakeDatasetLoaded(cdcDatasetId, [])
+  const specificId = appendFipsIfNeeded(cdcDatasetId, baseBreakdown)
+  dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   const responseIncludingAll = await cdcCovidProvider.getData(
     new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
@@ -91,7 +93,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_age_county_processed-37',
+      'cdc_restricted_data-by_age_county_processed',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE
     )
@@ -99,7 +101,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_sex_county_processed-37',
+      'cdc_restricted_data-by_sex_county_processed',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX
     )
@@ -107,7 +109,7 @@ describe('cdcCovidProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_restricted_data-by_race_county_processed-37',
+      'cdc_restricted_data-by_race_county_processed',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE
     )

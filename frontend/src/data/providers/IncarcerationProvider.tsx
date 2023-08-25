@@ -6,6 +6,7 @@ import VariableProvider from './VariableProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 export function CombinedIncarcerationStateMessage() {
   return (
@@ -59,43 +60,28 @@ class IncarcerationProvider extends VariableProvider {
     super('incarceration_provider', INCARCERATION_METRIC_IDS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.hasOnlyRace())
         return 'bjs_incarceration_data-race_and_ethnicity_national'
-      }
       if (breakdowns.hasOnlyAge()) return 'bjs_incarceration_data-age_national'
       if (breakdowns.hasOnlySex()) return 'bjs_incarceration_data-sex_national'
     }
     if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.hasOnlyRace())
         return 'bjs_incarceration_data-race_and_ethnicity_state'
-      }
       if (breakdowns.hasOnlyAge()) return 'bjs_incarceration_data-age_state'
       if (breakdowns.hasOnlySex()) return 'bjs_incarceration_data-sex_state'
     }
 
     if (breakdowns.geography === 'county') {
-      if (breakdowns.hasOnlyRace()) {
-        return appendFipsIfNeeded(
-          'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
-          breakdowns
-        )
-      }
-      if (breakdowns.hasOnlyAge()) {
-        return appendFipsIfNeeded(
-          'vera_incarceration_county-by_age_county_time_series',
-          breakdowns
-        )
-      }
-      if (breakdowns.hasOnlySex()) {
-        return appendFipsIfNeeded(
-          'vera_incarceration_county-by_sex_county_time_series',
-          breakdowns
-        )
-      }
+      if (breakdowns.hasOnlyRace())
+        return 'vera_incarceration_county-by_race_and_ethnicity_county_time_series'
+      if (breakdowns.hasOnlyAge())
+        return 'vera_incarceration_county-by_age_county_time_series'
+      if (breakdowns.hasOnlySex())
+        return 'vera_incarceration_county-by_sex_county_time_series'
     }
-    throw new Error('Not implemented')
   }
 
   async getDataInternal(
@@ -104,10 +90,10 @@ class IncarcerationProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
-    const dataSource = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const dataSource = await getDataManager().loadDataset(specificDatasetId)
     let df = dataSource.toDataFrame()
-
-    console.log(df.toString())
 
     df = this.filterByGeo(df, breakdowns)
 
@@ -126,7 +112,8 @@ class IncarcerationProvider extends VariableProvider {
       breakdowns.geography !== 'county' &&
       !breakdowns.filterFips?.isIslandArea()
     ) {
-      consumedDatasetIds.push(GetAcsDatasetId(breakdowns))
+      const acsId = GetAcsDatasetId(breakdowns)
+      acsId && consumedDatasetIds.push(acsId)
     }
 
     // National Level - Map of all states + territory bubbles
