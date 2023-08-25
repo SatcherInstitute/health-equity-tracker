@@ -219,13 +219,48 @@ describe('Tests getMostRecentYearAsString()', () => {
     { time_period: '2015', pct_share_of_women_us_congress: 23 },
   ])
   test('correct year string is returned', async () => {
-    const mostRecentYearCongress = getMostRecentYearAsString(mockDataFrame, ['pct_share_of_women_us_congress'])
-    const mostRecentYearStateLeg = getMostRecentYearAsString(mockDataFrame, ['pct_share_of_women_state_leg'])
+    const mostRecentYearCongress = getMostRecentYearAsString(
+      mockDataFrame,
+      'pct_share_of_women_us_congress'
+    )
+    const mostRecentYearStateLeg = getMostRecentYearAsString(
+      mockDataFrame,
+      'pct_share_of_women_state_leg'
+    )
     expect(mostRecentYearCongress).toEqual('2017')
     expect(mostRecentYearStateLeg).toEqual('2019')
   })
   test('handles missing metricId', async () => {
-    const nonExistentMetricYear = getMostRecentYearAsString(mockDataFrame, ['hiv_prevalence_per_100k'])
-    expect(nonExistentMetricYear).toBeUndefined() 
+    const nonExistentMetricYear = getMostRecentYearAsString(
+      mockDataFrame,
+      'hiv_prevalence_per_100k'
+    )
+    expect(nonExistentMetricYear).toBeUndefined()
+  })
+
+  const mockDataFrameNoTime = new DataFrame([
+    {
+      state_fips: '20',
+      pct_share_of_women_state_leg: 10,
+      pct_share_of_women_us_congress: 20,
+    },
+    {
+      state_fips: '21',
+      pct_share_of_women_state_leg: 25,
+      pct_share_of_women_us_congress: 15,
+    },
+    {
+      state_fips: '22',
+      pct_share_of_women_state_leg: 50,
+      pct_share_of_women_us_congress: 23,
+    },
+  ])
+
+  test('df with no time period column returns undefined', async () => {
+    const mostRecentYear = getMostRecentYearAsString(
+      mockDataFrameNoTime,
+      'pct_share_of_women_us_congress'
+    )
+    expect(mostRecentYear).toEqual(undefined)
   })
 })
