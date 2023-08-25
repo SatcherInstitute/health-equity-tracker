@@ -18,11 +18,9 @@ export async function ensureCorrectDatasetsDownloaded(
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
   dataTypeId: DataTypeId,
-  acsDatasetIds?: DatasetId[],
-  metricIds?: MetricId[]
+  acsDatasetIds?: DatasetId[]
 ) {
   // if these aren't sent as args, default to []
-  metricIds = metricIds || []
   acsDatasetIds = acsDatasetIds || []
 
   const incarcerationProvider = new IncarcerationProvider()
@@ -33,11 +31,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await incarcerationProvider.getData(
-    new MetricQuery(
-      metricIds,
-      baseBreakdown.addBreakdown(demographicType),
-      dataTypeId
-    )
+    new MetricQuery([], baseBreakdown.addBreakdown(demographicType), dataTypeId)
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -67,7 +61,6 @@ describe('IncarcerationProvider', () => {
       RACE,
       'prison',
       []
-      // ['prison_per_100k']
     )
   })
 
@@ -98,7 +91,6 @@ describe('IncarcerationProvider', () => {
       AGE,
       'jail',
       []
-      // ['jail_per_100k']
     )
   })
 
@@ -129,7 +121,6 @@ describe('IncarcerationProvider', () => {
       SEX,
       'jail',
       []
-      // ['jail_per_100k']
     )
   })
 

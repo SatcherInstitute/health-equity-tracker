@@ -10,7 +10,7 @@ import {
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import { MetricId, DataTypeId } from '../config/MetricConfig'
+import { MetricId } from '../config/MetricConfig'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(
