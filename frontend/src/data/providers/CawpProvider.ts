@@ -95,8 +95,11 @@ class CawpProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns)
 
-    const mostRecentYear = getMostRecentYearAsString(df, metricQuery.metricIds)
-   
+    const mostRecentYear = getMostRecentYearAsString(
+      df,
+      metricQuery.metricIds[0]
+    )
+
     df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
