@@ -113,14 +113,17 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
       {([queryResponse]) => {
         const data = queryResponse.getValidRowsForField(metricConfig.metricId)
 
+        const hideChart =
+          data.length === 0 ||
+          queryResponse.shouldShowMissingDataMessage([metricConfig.metricId])
+
         return (
           <>
             <CardContent sx={{ pt: 0 }}>
-              <ChartTitle title={chartTitle} />
-              {queryResponse.shouldShowMissingDataMessage([
-                metricConfig.metricId,
-              ]) ? (
+              {hideChart ? (
                 <>
+                  <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+
                   <MissingDataAlert
                     dataName={chartTitle}
                     demographicTypeString={
@@ -133,6 +136,8 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
                 </>
               ) : (
                 <>
+                  <ChartTitle title={chartTitle} />
+
                   <SimpleHorizontalBarChart
                     data={data}
                     demographicType={props.demographicType}
