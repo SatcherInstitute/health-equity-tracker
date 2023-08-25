@@ -39,6 +39,7 @@ import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
 import { generateChartTitle } from '../charts/utils'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
+import ChartTitle from './ChartTitle'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -186,13 +187,19 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           <>
             <CardContent sx={{ pt: 0 }}>
               {shouldShowMissingData ? (
-                <MissingDataAlert
-                  dataName={chartTitle}
-                  demographicTypeString={
-                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                  }
-                  fips={props.fips}
-                />
+                <>
+                  {/* Chart Title Missing Data */}
+                  <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                  <MissingDataAlert
+                    dataName={chartTitle}
+                    demographicTypeString={
+                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
+                        props.demographicType
+                      ]
+                    }
+                    fips={props.fips}
+                  />
+                </>
               ) : (
                 <>
                   <TrendsChart

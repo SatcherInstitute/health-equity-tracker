@@ -101,9 +101,7 @@ class IncarcerationProvider extends VariableProvider {
   async getDataInternal(
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
-    const metricIds = metricQuery.metricIds
     const breakdowns = metricQuery.breakdowns
-    const dataTypeId: DataTypeId | undefined = metricQuery?.dataTypeId
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
     const dataSource = await getDataManager().loadDataset(datasetId)
@@ -113,12 +111,10 @@ class IncarcerationProvider extends VariableProvider {
 
     df = this.filterByGeo(df, breakdowns)
 
-    const yr = getMostRecentYearAsString(df, metricIds)
-    console.log({ yr })
-
-    let mostRecentYear: string = ''
-    if (dataTypeId === 'prison') mostRecentYear = '2016'
-    if (dataTypeId === 'jail') mostRecentYear = '2018'
+    const mostRecentYear = getMostRecentYearAsString(
+      df,
+      metricQuery.metricIds[0]
+    )
 
     df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)

@@ -131,21 +131,25 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
         return (
           <>
             <CardContent sx={{ pt: 0 }}>
-              <ChartTitle title={chartTitle} />
               {dataAvailable && knownData.length !== 0 && (
-                <DisparityBarChart
-                  data={knownData}
-                  lightMetric={
-                    metricConfig.populationComparisonMetric ?? metricConfig
-                  }
-                  darkMetric={
-                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
-                  }
-                  demographicType={props.demographicType}
-                  metricDisplayName={metricConfig.shortLabel}
-                  filename={chartTitle}
-                  showAltPopCompare={shouldShowAltPopCompare(props)}
-                />
+                <>
+                  <ChartTitle title={chartTitle} />
+
+                  <DisparityBarChart
+                    data={knownData}
+                    lightMetric={
+                      metricConfig.populationComparisonMetric ?? metricConfig
+                    }
+                    darkMetric={
+                      metricConfig.knownBreakdownComparisonMetric ??
+                      metricConfig
+                    }
+                    demographicType={props.demographicType}
+                    metricDisplayName={metricConfig.shortLabel}
+                    filename={chartTitle}
+                    showAltPopCompare={shouldShowAltPopCompare(props)}
+                  />
+                </>
               )}
             </CardContent>
 
@@ -162,6 +166,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               />
             ) : (
               <CardContent>
+                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={

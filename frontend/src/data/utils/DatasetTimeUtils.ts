@@ -282,9 +282,9 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
 
 export function getMostRecentYearAsString(
   df: IDataFrame,
-  metricIds: MetricId[]
+  metricId: MetricId
 ): string | undefined {
-  const metricId = metricIds[0]
+  if (!df.getColumnNames().includes(TIME_PERIOD)) return
 
   const filteredRows = df
     .where((row) => row?.[metricId] !== undefined)
@@ -293,7 +293,7 @@ export function getMostRecentYearAsString(
       metricId: row?.[metricId],
     }))
 
-  if (filteredRows.count() === 0) return undefined
+  if (filteredRows.count() === 0) return
 
   const distinctYearsWithData = filteredRows
     .select((row) => row.time_period)
