@@ -4,6 +4,7 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
+import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
   'health_insurance',
@@ -81,7 +82,12 @@ class AcsConditionProvider extends VariableProvider {
     // If requested, filter geography by state or county level
     // We apply the geo filter right away to reduce subsequent calculation times
     df = this.filterByGeo(df, breakdowns)
-    const mostRecentYear = '2021'
+
+    const mostRecentYear = getMostRecentYearAsString(
+      df,
+      metricQuery.metricIds[0]
+    )
+
     df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
