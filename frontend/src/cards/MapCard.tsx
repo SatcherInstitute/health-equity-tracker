@@ -395,6 +395,28 @@ function MapCardWithKey(props: MapCardProps) {
             setHighestLowestGeosMode(false)
         }, [props.fips])
 
+        if (!dataForActiveDemographicGroup?.length || !metricConfig)
+          return (
+            <CardContent>
+              <Grid item xs={12}>
+                <ChartTitle
+                  mt={0}
+                  mb={2}
+                  title={'Rate map unavailable: ' + title}
+                  subtitle={subtitle}
+                />
+              </Grid>
+              <MissingDataAlert
+                dataName={title}
+                demographicTypeString={
+                  DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
+                }
+                isMapCard={true}
+                fips={props.fips}
+              />
+            </CardContent>
+          )
+
         return (
           <>
             <MultiMapDialog
@@ -462,173 +484,157 @@ function MapCardWithKey(props: MapCardProps) {
               </>
             )}
 
-            {metricConfig && dataForActiveDemographicGroup.length > 0 && (
-              <div>
-                <CardContent sx={{ pt: 0 }}>
-                  <Grid container>
-                    <Grid item xs={12}>
-                      <ChartTitle
-                        mt={0}
-                        mb={2}
-                        title={title}
-                        subtitle={subtitle}
-                      />
-                    </Grid>
+            <div>
+              <CardContent sx={{ pt: 0 }}>
+                <Grid container>
+                  <Grid item xs={12}>
+                    <ChartTitle
+                      mt={0}
+                      mb={2}
+                      title={title}
+                      subtitle={subtitle}
+                    />
+                  </Grid>
 
-                    <Grid
-                      item
-                      xs={12}
-                      sm={mapIsWide ? 9 : 12}
-                      lg={mapIsWide ? 10 : 12}
-                    >
-                      <ChoroplethMap
-                        demographicType={props.demographicType}
-                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
-                          mapQueryResponse.data,
-                          props.demographicType,
-                          metricId
-                        )}
-                        activeDemographicGroup={activeDemographicGroup}
-                        countColsMap={countColsMap}
-                        data={displayData}
-                        filename={filename}
-                        fips={props.fips}
-                        geoData={geoData}
-                        hideLegend={true}
-                        hideMissingDataTooltip={highestLowestGeosMode}
-                        legendData={dataForActiveDemographicGroup}
-                        legendTitle={metricConfig.shortLabel.toLowerCase()}
-                        highestLowestGeosMode={highestLowestGeosMode}
-                        metric={metricConfig}
-                        showCounties={
-                          !props.fips.isUsa() && !hasSelfButNotChildGeoData
-                        }
-                        signalListeners={signalListeners}
-                        mapConfig={{ mapScheme, mapMin }}
-                        scaleConfig={scale}
-                      />
-                      {props.fips.isUsa() && (
-                        <Grid item xs={12}>
-                          <TerritoryCircles
-                            demographicType={props.demographicType}
-                            activeDemographicGroup={activeDemographicGroup}
-                            countColsMap={countColsMap}
-                            data={displayData}
-                            fullData={mapQueryResponse.data}
-                            geoData={geoData}
-                            highestLowestGeosMode={highestLowestGeosMode}
-                            mapIsWide={mapIsWide}
-                            metricConfig={metricConfig}
-                            signalListeners={signalListeners}
-                            scaleConfig={scale}
-                          />
-                        </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    sm={mapIsWide ? 9 : 12}
+                    lg={mapIsWide ? 10 : 12}
+                  >
+                    <ChoroplethMap
+                      demographicType={props.demographicType}
+                      highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                        mapQueryResponse.data,
+                        props.demographicType,
+                        metricId
                       )}
-                    </Grid>
-                    {/* Legend */}
-                    <Grid
-                      container
-                      justifyItems={'center'}
-                      alignItems={'flex-start'}
-                      item
-                      xs={12}
-                      sm={mapIsWide ? 3 : 12}
-                      lg={mapIsWide ? 2 : 12}
-                    >
-                      <Legend
-                        metric={metricConfig}
-                        legendTitle={metricConfig.shortLabel}
-                        data={allDataForActiveDemographicGroup}
-                        scaleType={RATE_MAP_SCALE}
-                        sameDotSize={true}
-                        description={'Legend for rate map'}
-                        isSummaryLegend={isSummaryLegend}
-                        fipsTypeDisplayName={fipsTypeDisplayName}
-                        mapConfig={{ mapScheme, mapMin }}
-                        columns={mapIsWide ? 1 : 3}
-                        stackingDirection={'vertical'}
-                        handleScaleChange={handleScaleChange}
-                      />
-                    </Grid>
-
-                    <Grid
-                      item
-                      xs={12}
-                      container
-                      justifyContent={'space-between'}
-                      alignItems={'center'}
-                    >
-                      <Grid item>
-                        <GeoContext
-                          fips={props.fips}
-                          updateFipsCallback={props.updateFipsCallback}
-                          dataTypeConfig={props.dataTypeConfig}
-                          totalPopulationPhrase={totalPopulationPhrase}
-                          sviQueryResponse={sviQueryResponse}
+                      activeDemographicGroup={activeDemographicGroup}
+                      countColsMap={countColsMap}
+                      data={displayData}
+                      filename={filename}
+                      fips={props.fips}
+                      geoData={geoData}
+                      hideLegend={true}
+                      hideMissingDataTooltip={highestLowestGeosMode}
+                      legendData={dataForActiveDemographicGroup}
+                      legendTitle={metricConfig.shortLabel.toLowerCase()}
+                      highestLowestGeosMode={highestLowestGeosMode}
+                      metric={metricConfig}
+                      showCounties={
+                        !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                      }
+                      signalListeners={signalListeners}
+                      mapConfig={{ mapScheme, mapMin }}
+                      scaleConfig={scale}
+                    />
+                    {props.fips.isUsa() && (
+                      <Grid item xs={12}>
+                        <TerritoryCircles
+                          demographicType={props.demographicType}
+                          activeDemographicGroup={activeDemographicGroup}
+                          countColsMap={countColsMap}
+                          data={displayData}
+                          fullData={mapQueryResponse.data}
+                          geoData={geoData}
+                          highestLowestGeosMode={highestLowestGeosMode}
+                          mapIsWide={mapIsWide}
+                          metricConfig={metricConfig}
+                          signalListeners={signalListeners}
+                          scaleConfig={scale}
                         />
                       </Grid>
+                    )}
+                  </Grid>
+                  {/* Legend */}
+                  <Grid
+                    container
+                    justifyItems={'center'}
+                    alignItems={'flex-start'}
+                    item
+                    xs={12}
+                    sm={mapIsWide ? 3 : 12}
+                    lg={mapIsWide ? 2 : 12}
+                  >
+                    <Legend
+                      metric={metricConfig}
+                      legendTitle={metricConfig.shortLabel}
+                      data={allDataForActiveDemographicGroup}
+                      scaleType={RATE_MAP_SCALE}
+                      sameDotSize={true}
+                      description={'Legend for rate map'}
+                      isSummaryLegend={isSummaryLegend}
+                      fipsTypeDisplayName={fipsTypeDisplayName}
+                      mapConfig={{ mapScheme, mapMin }}
+                      columns={mapIsWide ? 1 : 3}
+                      stackingDirection={'vertical'}
+                      handleScaleChange={handleScaleChange}
+                    />
+                  </Grid>
+
+                  <Grid
+                    item
+                    xs={12}
+                    container
+                    justifyContent={'space-between'}
+                    alignItems={'center'}
+                  >
+                    <Grid item>
+                      <GeoContext
+                        fips={props.fips}
+                        updateFipsCallback={props.updateFipsCallback}
+                        dataTypeConfig={props.dataTypeConfig}
+                        totalPopulationPhrase={totalPopulationPhrase}
+                        sviQueryResponse={sviQueryResponse}
+                      />
                     </Grid>
                   </Grid>
-                  <Grid
-                    id={
-                      props.isCompareCard
-                        ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
-                        : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
-                    }
-                  >
-                    {!mapQueryResponse.dataIsMissing() &&
-                      dataForActiveDemographicGroup.length > 1 && (
-                        <HighestLowestGeosList
-                          dataTypeConfig={props.dataTypeConfig}
-                          selectedRaceSuffix={selectedRaceSuffix}
-                          metricConfig={metricConfig}
-                          isOpen={highestLowestGeosMode}
-                          setIsOpen={setHighestLowestGeosMode}
-                          highestValues={highestValues}
-                          lowestValues={lowestValues}
-                          parentGeoQueryResponse={parentGeoQueryResponse}
-                          fips={props.fips}
-                          qualifierItems={qualifierItems}
-                          qualifierMessage={qualifierMessage}
-                          demographicType={demographicType}
-                          activeDemographicGroup={activeDemographicGroup}
-                        />
-                      )}
-                  </Grid>
-                </CardContent>
+                </Grid>
+                <Grid
+                  id={
+                    props.isCompareCard
+                      ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
+                      : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
+                  }
+                >
+                  {!mapQueryResponse.dataIsMissing() &&
+                    dataForActiveDemographicGroup.length > 1 && (
+                      <HighestLowestGeosList
+                        dataTypeConfig={props.dataTypeConfig}
+                        selectedRaceSuffix={selectedRaceSuffix}
+                        metricConfig={metricConfig}
+                        isOpen={highestLowestGeosMode}
+                        setIsOpen={setHighestLowestGeosMode}
+                        highestValues={highestValues}
+                        lowestValues={lowestValues}
+                        parentGeoQueryResponse={parentGeoQueryResponse}
+                        fips={props.fips}
+                        qualifierItems={qualifierItems}
+                        qualifierMessage={qualifierMessage}
+                        demographicType={demographicType}
+                        activeDemographicGroup={activeDemographicGroup}
+                      />
+                    )}
+                </Grid>
+              </CardContent>
 
-                {(mapQueryResponse.dataIsMissing() ||
-                  dataForActiveDemographicGroup.length === 0) && (
+              {!mapQueryResponse.dataIsMissing() &&
+                dataForActiveDemographicGroup.length === 0 &&
+                activeDemographicGroup !== ALL && (
                   <CardContent>
-                    <MissingDataAlert
-                      dataName={title}
-                      demographicTypeString={
-                        DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
-                      }
-                      isMapCard={true}
-                      fips={props.fips}
-                    />
+                    <Alert severity="warning" role="note">
+                      Insufficient data available for filter:{' '}
+                      <b>{activeDemographicGroup}</b>.{' '}
+                      {/* Offer multimap link if current demo group is missing info */}
+                      <MultiMapLink
+                        setMultimapOpen={setMultimapOpen}
+                        demographicType={props.demographicType}
+                        currentDataType={props.dataTypeConfig.fullDisplayName}
+                      />
+                    </Alert>
                   </CardContent>
                 )}
-
-                {!mapQueryResponse.dataIsMissing() &&
-                  dataForActiveDemographicGroup.length === 0 &&
-                  activeDemographicGroup !== ALL && (
-                    <CardContent>
-                      <Alert severity="warning" role="note">
-                        Insufficient data available for filter:{' '}
-                        <b>{activeDemographicGroup}</b>.{' '}
-                        {/* Offer multimap link if current demo group is missing info */}
-                        <MultiMapLink
-                          setMultimapOpen={setMultimapOpen}
-                          demographicType={props.demographicType}
-                          currentDataType={props.dataTypeConfig.fullDisplayName}
-                        />
-                      </Alert>
-                    </CardContent>
-                  )}
-              </div>
-            )}
+            </div>
           </>
         )
       }}
