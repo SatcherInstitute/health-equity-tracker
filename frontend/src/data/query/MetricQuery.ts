@@ -6,6 +6,7 @@ import {
 import { type Row, type FieldRange } from '../utils/DatasetTypes'
 import { type MetricId, type DataTypeId } from '../config/MetricConfig'
 import { type DemographicGroup } from '../utils/Constants'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 export class MetricQuery {
   readonly metricIds: MetricId[]
@@ -61,11 +62,11 @@ export class MetricQueryResponse {
   readonly data: Row[]
   readonly missingDataMessage: string | undefined
   readonly invalidValues: Record<string, number>
-  readonly consumedDatasetIds: string[]
+  readonly consumedDatasetIds: Array<DatasetId | string>
 
   constructor(
     data: Row[],
-    consumedDatasetIds: string[] = [],
+    consumedDatasetIds: Array<DatasetId | string> = [],
     missingDataMessage: string | undefined = undefined
   ) {
     this.data = data

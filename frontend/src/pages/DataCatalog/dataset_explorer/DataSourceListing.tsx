@@ -101,6 +101,8 @@ export interface DataSourceListingProps {
 export function DataSourceListing(props: DataSourceListingProps) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false)
 
+  if (props.source_metadata.hideFromUser) return <></>
+
   return (
     <Card
       elevation={3}

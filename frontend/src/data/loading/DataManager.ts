@@ -6,6 +6,7 @@ import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 // TODO: test this out on the real website and tweak these numbers as needed.
 
@@ -241,7 +242,7 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     })
 
     const consumedDatasetIds = queryResponses.reduce(
-      (accumulator: string[], response: MetricQueryResponse) =>
+      (accumulator: Array<DatasetId | string>, response: MetricQueryResponse) =>
         accumulator.concat(response.consumedDatasetIds),
       []
     )

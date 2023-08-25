@@ -4,6 +4,7 @@ import { type DataSourceId } from '../config/MetadataMap'
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
+  hideFromUser?: boolean
   readonly id: DataSourceId
   readonly description: string
   readonly dataset_ids: DatasetId[]
@@ -20,12 +21,10 @@ export interface DataSourceMetadata {
 // Datasets contain data with specified breakdowns
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
-  readonly id: DatasetId
   readonly name: string
   readonly update_time: string
   readonly contains_nh?: boolean
-  // Source ID is added programmatically based on DataSourceMetadata config
-  source_id?: DataSourceId | 'error'
+  source_id: DataSourceId | 'error'
 }
 
 export interface Field {
