@@ -148,9 +148,8 @@ abstract class VariableProvider {
 
   abstract getDatasetId(
     breakdown: Breakdowns,
-    dataType?: string,
-    timeView?: TimeView,
-    dataTypeId?: DataTypeId
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView
   ): string
 }
 

@@ -5,6 +5,25 @@ export const GEOGRAPHIES_DATASET_ID = 'geographies'
 // ALERT!!! Keep this file in sync with DatasetMetadata while it is present
 // All dataset IDs should be in the DatasetMetadata
 
+export type DataSourceId =
+  | 'cdc_restricted'
+  | 'acs'
+  | 'decia_2010_territory_population'
+  | 'decia_2020_territory_population'
+  | 'census_pop_estimates'
+  | 'cdc_svi_county'
+  | 'cdc_vaccination_county'
+  | 'cdc_vaccination_national'
+  | 'cdc_atlas'
+  | 'kff_vaccination'
+  | 'ahr'
+  | 'bjs'
+  | 'vera'
+  | 'cawp'
+  | 'the_unitedstates_project'
+  | 'phrma'
+  | 'covid_tracking_project'
+
 export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: 'cdc_restricted',
@@ -375,3 +394,5 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
 
 export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
   Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))
+
+console.log({ DataSourceMetadataMap })

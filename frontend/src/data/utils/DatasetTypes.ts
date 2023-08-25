@@ -1,10 +1,12 @@
 import { DataFrame, type IDataFrame } from 'data-forge'
+import { type DatasetId } from '../config/DatasetMetadata'
+import { type DataSourceId } from '../config/MetadataMap'
 
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
-  readonly id: string
+  readonly id: DataSourceId
   readonly description: string
-  readonly dataset_ids: string[]
+  readonly dataset_ids: DatasetId[]
   readonly data_source_name: string
   readonly data_source_pretty_site_name: string
   readonly data_source_link: string
@@ -18,12 +20,12 @@ export interface DataSourceMetadata {
 // Datasets contain data with specified breakdowns
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
-  readonly id: string
+  readonly id: DatasetId
   readonly name: string
   readonly update_time: string
   readonly contains_nh?: boolean
   // Source ID is added programmatically based on DataSourceMetadata config
-  source_id?: string
+  source_id?: DataSourceId | 'error'
 }
 
 export interface Field {

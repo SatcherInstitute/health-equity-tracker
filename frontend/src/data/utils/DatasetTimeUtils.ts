@@ -1,4 +1,4 @@
-import { IDataFrame } from 'data-forge'
+import { type IDataFrame } from 'data-forge'
 import {
   type TimeSeries,
   type TrendsData,
@@ -280,12 +280,15 @@ export function getMinMaxGroups(data: TrendsData): DemographicGroup[] {
   return lowestAndHighestGroups
 }
 
-export function getMostRecentYearAsString(df: IDataFrame, metricIds: MetricId[]): string | undefined {
+export function getMostRecentYearAsString(
+  df: IDataFrame,
+  metricIds: MetricId[]
+): string | undefined {
   const metricId = metricIds[0]
 
   const filteredRows = df
-    .where(row => row?.[metricId] !== undefined)
-    .select(row => ({
+    .where((row) => row?.[metricId] !== undefined)
+    .select((row) => ({
       time_period: row.time_period,
       metricId: row?.[metricId],
     }))
@@ -293,7 +296,7 @@ export function getMostRecentYearAsString(df: IDataFrame, metricIds: MetricId[])
   if (filteredRows.count() === 0) return undefined
 
   const distinctYearsWithData = filteredRows
-    .select(row => row.time_period)
+    .select((row) => row.time_period)
     .distinct()
     .toArray()
 
