@@ -47,8 +47,7 @@ class AcsPopulationProvider extends VariableProvider {
 
     const datasetId = this.getDatasetId(breakdowns)
     if (!datasetId) throw Error('DatasetId undefined')
-    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
-    return new MetricQueryResponse(df.toArray(), [specificDatasetId])
+    return new MetricQueryResponse(df.toArray(), [datasetId])
   }
 
   private async getDataInternalWithoutPercents(

@@ -22,7 +22,6 @@ export async function ensureCorrectDatasetsDownloaded(
   demographicType: DemographicType
 ) {
   const acsPopulationProvider = new AcsPopulationProvider()
-  if (!acsDatasetId) throw Error('DatasetId undefined')
   const specificId = appendFipsIfNeeded(acsDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
 
@@ -33,12 +32,7 @@ export async function ensureCorrectDatasetsDownloaded(
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
 
-  const consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [
-    acsDatasetId,
-  ]
-  expect(responseIncludingAll).toEqual(
-    new MetricQueryResponse([], consumedDatasetIds)
-  )
+  expect(responseIncludingAll.consumedDatasetIds).toContain(acsDatasetId)
 }
 
 autoInitGlobals()

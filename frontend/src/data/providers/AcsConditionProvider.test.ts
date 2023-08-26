@@ -21,11 +21,13 @@ export async function ensureCorrectDatasetsDownloaded(
   const acsProvider = new AcsConditionProvider()
   const specificId = appendFipsIfNeeded(acsDatasetId, baseBreakdown)
   dataFetcher.setFakeDatasetLoaded(specificId, [])
+
   const responseIncludingAll = await acsProvider.getData(
     new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
+
   expect(responseIncludingAll.consumedDatasetIds).toContain(acsDatasetId)
 }
 
