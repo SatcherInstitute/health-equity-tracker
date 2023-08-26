@@ -1,4 +1,5 @@
 import { type DatasetMetadata } from '../utils/DatasetTypes'
+import { type StateFipsCode } from '../utils/Fips'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
 export type DatasetId =
@@ -110,6 +111,8 @@ export type DatasetId =
   | 'vera_incarceration_county-by_age_county_time_series'
   | 'vera_incarceration_county-by_race_and_ethnicity_county_time_series'
   | 'vera_incarceration_county-by_sex_county_time_series'
+
+export type DatasetIdWithStateFIPSCode = `${DatasetId}-${StateFipsCode}`
 
 export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   'acs_population-by_race_county': {

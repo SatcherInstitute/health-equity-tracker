@@ -5,6 +5,10 @@ import type VariableProvider from './VariableProvider'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { type MetricId } from '../config/MetricConfig'
 import { excludeAll } from '../query/BreakdownFilter'
+import {
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
 
 export interface FipsSpec {
   code: string
@@ -53,7 +57,7 @@ export function createWithAndWithoutAllEvaluator(
   variableProvider: VariableProvider
 ) {
   return async (
-    datasetId: string,
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode,
     rawData: any[],
     baseBreakdown: Breakdowns,
     demographicType: DemographicType,

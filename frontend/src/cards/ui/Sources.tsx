@@ -11,6 +11,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
   DatasetMetadataMap,
+  type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
 import { DownloadCardImageButton } from './DownloadCardImageButton'
@@ -34,9 +35,9 @@ interface DataSourceInfo {
 
 export function getDatasetIdsFromResponses(
   queryResponses: MetricQueryResponse[]
-): Array<DatasetId | string> {
+): Array<DatasetId | DatasetIdWithStateFIPSCode> {
   return queryResponses.reduce(
-    (accumulator: Array<DatasetId | string>, response) =>
+    (accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>, response) =>
       accumulator.concat(response.consumedDatasetIds),
     []
   )
