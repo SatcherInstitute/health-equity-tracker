@@ -2,7 +2,6 @@ import { test, expect } from '@playwright/test';
 
 test.describe.configure({ mode: 'parallel' });
 
-
 test.describe('Topic and Multiple Maps Modals Open / Close States Represented in URL Param', () => {
 
     test('Topic Info Modal', async ({ page }) => {

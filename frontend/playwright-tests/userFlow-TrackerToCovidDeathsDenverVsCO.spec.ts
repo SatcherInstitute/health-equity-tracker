@@ -1,15 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-const COMPARE_GEO_MODE = "?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths"
-const COVID_DEN_VS_CO = "?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths"
-
 test.describe.configure({ mode: 'parallel' });
 
 
 test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
-    await page.goto(EXPLORE_DATA_PAGE_LINK + COMPARE_GEO_MODE);
+    await page.goto('/exploredata?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths');
 
     // Changing first location via madlib buttons
     await page.locator('#madlib-box').getByRole('button', { name: 'United States' }).click();
@@ -27,14 +23,9 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths/);
 })
 
-
-
-
-
-
 test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({ page }) => {
 
-    await page.goto(EXPLORE_DATA_PAGE_LINK + COVID_DEN_VS_CO);
+    await page.goto('/exploredata?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths');
 
     // find Table of Contents link to Unknown Map
     await page.getByRole('button', { name: 'Unknown demographic map', exact: true }).click();

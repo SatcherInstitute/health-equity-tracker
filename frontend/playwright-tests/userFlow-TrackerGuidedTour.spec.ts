@@ -1,5 +1,4 @@
 import { test, expect } from '@playwright/test';
-const EXPLORE_DATA_PAGE_LINK = "/exploredata";
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -8,7 +7,7 @@ test.describe('Guided tour of COVID-19 from Tracker Default Helper Box', () => {
     test('Guided Tour Link from Tracker Helper Box', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto(EXPLORE_DATA_PAGE_LINK, { waitUntil: "networkidle" });
+        await page.goto('/exploredata', { waitUntil: "networkidle" });
         await expect(page.getByRole('heading', { name: 'Select a topic above', exact: true })).toBeVisible();
 
         // Clicking small link under the video starts the joyride guided tour
