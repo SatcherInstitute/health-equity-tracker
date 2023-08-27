@@ -289,9 +289,3 @@ export function getDemographicGroupFromGroupParam(
 
   return groupName
 }
-
-export function updateUrlHash(newHash?: string) {
-  const newUrl = new URL(window.location.href)
-  newUrl.hash = newHash ?? ''
-  window.history.replaceState(null, '', newUrl)
-}
