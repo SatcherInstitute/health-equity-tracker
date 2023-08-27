@@ -29,6 +29,12 @@ jobs:
         run: npx playwright install chromium --with-deps
       - name: Runs playwright E2E
         run: npx playwright test --project=E2E
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
 
   build_frontend:
     name: Builds frontend
