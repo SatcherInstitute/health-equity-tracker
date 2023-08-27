@@ -295,6 +295,10 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div className={styles.MadLibUIContainer} id="madlib-container">
+          <pre className={styles.LifelineSticky}>
+            {import.meta.env.VITE_BASE_API_URL}
+          </pre>
+
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && (
