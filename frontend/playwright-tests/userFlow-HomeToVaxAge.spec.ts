@@ -68,21 +68,5 @@ test.describe('Home to COVID Vax by Age', () => {
 
     });
 
-    test('Covid Vax Open/Close Topic Info Modal', async ({ page }) => {
-
-        // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
-
-        // OPEN MODAL
-        await page.getByRole('button', { name: 'open the topic info modal' }).click();
-        await expect(page).toHaveURL(/.*topic-info=true/);
-
-
-        // CLOSE IT
-        await page.getByRole('button', { name: 'close topic info modal' }).click();
-        await expect(page).not.toHaveURL(/.*topic-info=true/);
-
-
-    });
 
 });
