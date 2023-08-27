@@ -35,6 +35,7 @@ export function WithLoadingOrErrorUI<R>(props: {
       <div data-testid="WithLoadingOrErrorUI-error">
         <p>
           <b>Oops, something went wrong.</b>
+          <pre>{props.resources.toString()}</pre>
         </p>
         <Button
           onClick={() => {
