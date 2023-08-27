@@ -41,8 +41,8 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on',
-
+    trace: 'retain-on-failure',
+    screenshot: 'only-on-failure',
     axeOptions: {
       rules: {
         // TODO: figure out how to ignore React Dev overlay that was triggering failure

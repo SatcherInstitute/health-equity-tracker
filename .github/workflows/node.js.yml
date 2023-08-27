@@ -51,7 +51,7 @@ jobs:
       - name: Build React frontend
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: npm run build
+        run: npm run build:deploy_preview
 
   frontend_unit_tests_cspell:
     name: Runs spellcheck and unit tests
