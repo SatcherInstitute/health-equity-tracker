@@ -25,7 +25,13 @@ const config: PlaywrightTestConfig = {
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
   retries: process.env.CI ? 0 : 0,
-  reporter: process.env.CI ? 'github' : 'list',
+  // reporter: process.env.CI ? 'github' : 'list',
+
+  reporter: [
+    [process.env.CI ? 'github' : 'list'],
+    ['html']
+  ],
+
   workers: 1,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
@@ -45,9 +51,6 @@ const config: PlaywrightTestConfig = {
     },
 
   },
-
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: 'playwright-report/',
 
   projects: [
     {
