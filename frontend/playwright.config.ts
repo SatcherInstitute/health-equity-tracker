@@ -13,28 +13,22 @@ const config: PlaywrightTestConfig = {
   webServer: {
     command: 'npm run start:deploy_preview',
     port: 3000,
-    timeout: 120 * 1000,
-    reuseExistingServer: true,
+    timeout: 60 * 1000,
+    reuseExistingServer: !process.env.CI,
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
   timeout: process.env.CI ? 240 * 1000 : 120 * 1000,
-  expect: {
-    timeout: process.env.CI ? 240 * 1000 : 120 * 1000
-  },
+
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 0 : 0,
-  // reporter: process.env.CI ? 'github' : 'list',
-
+  retries: process.env.CI ? 2 : 1,
   reporter: [
     [process.env.CI ? 'github' : 'list'],
     ['html']
   ],
 
-
-
-  workers: 1,
+  workers: 10,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
