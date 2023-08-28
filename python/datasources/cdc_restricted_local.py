@@ -134,24 +134,51 @@ HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 
 
+# def combine_race_eth(df):
+#     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
+#        We will keep this in place until we can figure out a plan on how to display
+#        the race and ethnicity to our users in a disaggregated way."""
+
+#     def get_combined_value(row):
+#         if row[ETH_COL] == 'Hispanic/Latino':
+#             return std_col.Race.HISP.value
+
+#         elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
+#             return std_col.Race.UNKNOWN.value
+
+#         else:
+#             return RACE_NAMES_MAPPING[row[RACE_COL]]
+
+#     df[RACE_ETH_COL] = df.apply(get_combined_value, axis=1)
+#     df = df.drop(columns=[RACE_COL, ETH_COL])
+#     return df
+
+
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep this in place until we can figure out a plan on how to display
        the race and ethnicity to our users in a disaggregated way."""
 
-    def get_combined_value(row):
-        if row[ETH_COL] == 'Hispanic/Latino':
-            return std_col.Race.HISP.value
+    # Create a mask for Hispanic/Latino
+    hispanic_mask = df[ETH_COL] == 'Hispanic/Latino'
 
-        elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
-            return std_col.Race.UNKNOWN.value
+    # Create masks for 'NA', 'Missing', 'Unknown'
+    race_missing_mask = df[RACE_COL].isin({'NA', 'Missing', 'Unknown'})
+    eth_missing_mask = df[ETH_COL].isin({'NA', 'Missing', 'Unknown'})
 
-        else:
-            return RACE_NAMES_MAPPING[row[RACE_COL]]
+    # Create a mask for other cases
+    other_mask = ~race_missing_mask & ~eth_missing_mask
 
-    df[RACE_ETH_COL] = df.apply(get_combined_value, axis=1)
+    # Create a new column with combined values
+    df[RACE_ETH_COL] = std_col.Race.UNKNOWN.value  # Initialize with UNKNOWN
+    df.loc[hispanic_mask, RACE_ETH_COL] = std_col.Race.HISP.value
+    df.loc[other_mask, RACE_ETH_COL] = df.loc[other_mask, RACE_COL].map(RACE_NAMES_MAPPING)
+
+    # Drop unnecessary columns
     df = df.drop(columns=[RACE_COL, ETH_COL])
+
     return df
+
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
