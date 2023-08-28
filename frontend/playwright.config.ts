@@ -11,7 +11,7 @@ expect.extend(matchers)
  */
 const config: PlaywrightTestConfig = {
   webServer: {
-    command: 'npm run start',
+    command: 'npm run start:deploy_preview',
     port: 3000,
     timeout: 120 * 1000,
     reuseExistingServer: true,

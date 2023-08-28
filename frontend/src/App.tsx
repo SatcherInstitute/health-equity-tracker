@@ -73,7 +73,7 @@ export const MOBILE_BREAKPOINT = 600
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]:
-    'BASE URL FROM ENV: {' + import.meta.env.VITE_BASE_API_URL + '}',
+    'BASE API URL FROM ENV: {' + import.meta.env.VITE_BASE_API_URL + '}',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [DATA_CATALOG_PAGE_LINK]: 'Downloads & Methodology',
   [NEWS_PAGE_LINK]: 'News',
