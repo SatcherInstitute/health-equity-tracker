@@ -140,6 +140,57 @@ def combine_race_eth(df):
     df = df.drop(columns=[RACE_COL, ETH_COL])
     return df
 
+def combine_race_eth_vectorized(df):
+
+    df[RACE_ETH_COL] = np.select([
+        # HISP
+        (df[ETH_COL] == 'Hispanic/Latino'),
+        # IF EITHER RACE OR ETH IS MISSING
+        (df[RACE_COL] == 'NA') |
+        (df[RACE_COL] == 'Missing') |
+        (df[RACE_COL] == 'Unknown') |
+        (df[ETH_COL] == 'NA') |
+        (df[ETH_COL] == 'Missing') |
+        (df[ETH_COL] == 'Unknown'),
+        # SPECIFIC RACES
+        (df[RACE_COL] == "American Indian/Alaska Native"),
+        (df[RACE_COL] == "Asian"),
+        (df[RACE_COL] == "Black"),
+        (df[RACE_COL] == "Multiple/Other"),
+        (df[RACE_COL] == "Native Hawaiian/Other Pacific Islander"),
+        (df[RACE_COL] == "White"),
+    ], [
+        # HISP
+        std_col.Race.HISP.value,
+        # IF EITHER RACE OR ETH IS MISSING
+        std_col.Race.UNKNOWN.value,
+        # SPECIFIC RACES
+        std_col.Race.AIAN_NH.value,
+        std_col.Race.ASIAN_NH.value,
+        std_col.Race.BLACK_NH.value,
+        std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+        std_col.Race.NHPI_NH.value,
+        std_col.Race.WHITE_NH.value,
+    ])
+
+    return df
+
+    # def get_combined_value(row):
+    #     if row[ETH_COL] == :
+    #         return std_col.Race.HISP.value
+    #     elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
+    #         return std_col.Race.UNKNOWN.value
+    #     else:
+    #         return RACE_NAMES_MAPPING.get(row[RACE_COL], row[RACE_COL])  # Use .get() to handle missing values
+    #         # return RACE_NAMES_MAPPING[row[RACE_COL]]
+
+    # # Use numpy vectorization to apply the function
+    # df[RACE_ETH_COL] = np.vectorize(get_combined_value)(df)
+
+    # # Drop unnecessary columns
+    # df = df.drop(columns=[RACE_COL, ETH_COL])
+
+    # return df
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
