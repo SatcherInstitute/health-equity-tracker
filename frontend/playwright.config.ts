@@ -28,7 +28,7 @@ const config: PlaywrightTestConfig = {
     ['html']
   ],
 
-  workers: 2,// process.env.CI ? 2 : 4,
+  workers: process.env.CI ? 1 : 2,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
