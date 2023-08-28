@@ -68,7 +68,12 @@ export class ApiDataFetcher implements DataFetcher {
   private async fetchDataset(datasetName: string, format: FileFormat = 'json') {
     const requestPath = this.getDatasetRequestPath(datasetName, format)
     const resp = await fetch(requestPath)
+    console.log(`Fetched dataset ${requestPath}. Status: ` + resp.status)
+
     if (resp.status !== 200) {
+      console.log(
+        `Failed to fetch dataset ${requestPath}. Status: ` + resp.status
+      )
       throw new Error('Failed to fetch dataset. Status: ' + resp.status)
     }
     return await resp.json()
