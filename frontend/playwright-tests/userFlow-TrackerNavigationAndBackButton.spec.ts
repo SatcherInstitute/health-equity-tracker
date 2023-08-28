@@ -2,12 +2,6 @@ import { test, expect } from '@playwright/test';
 
 // Subscribe to 'request' and 'response' events.
 
-function ignoreUrl(url) {
-	return url.includes("localhost") || url.includes("fonts")
-}
-
-
-
 test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ page }) => {
 
 	// Landing Page Loads
