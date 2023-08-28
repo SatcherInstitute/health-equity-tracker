@@ -37,7 +37,6 @@ parser.add_argument("-prefix", "--prefix",
 STATE_COL = 'res_state'
 COUNTY_FIPS_COL = 'county_fips_code'
 COUNTY_COL = 'res_county'
-RACE_ETH_COL = 'race_ethnicity_combined'
 SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
@@ -45,6 +44,20 @@ RACE_COL = 'race'
 ETH_COL = 'ethnicity'
 CASE_DATE_COL = 'cdc_case_earliest_dt'
 
+USE_COLS = [
+    STATE_COL,
+    COUNTY_FIPS_COL,
+    COUNTY_COL,
+    SEX_COL,
+    AGE_COL,
+    *OUTCOME_COLS,
+    RACE_COL,
+    ETH_COL,
+    CASE_DATE_COL,
+]
+
+# Previously used column no longer provided by CDC
+RACE_ETH_COL = 'race_ethnicity_combined'
 
 # Convenience list for when we group the data by county.
 COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
@@ -140,58 +153,6 @@ def combine_race_eth(df):
     df = df.drop(columns=[RACE_COL, ETH_COL])
     return df
 
-def combine_race_eth_vectorized(df):
-
-    df[RACE_ETH_COL] = np.select([
-        # HISP
-        (df[ETH_COL] == 'Hispanic/Latino'),
-        # IF EITHER RACE OR ETH IS MISSING
-        (df[RACE_COL] == 'NA') |
-        (df[RACE_COL] == 'Missing') |
-        (df[RACE_COL] == 'Unknown') |
-        (df[ETH_COL] == 'NA') |
-        (df[ETH_COL] == 'Missing') |
-        (df[ETH_COL] == 'Unknown'),
-        # SPECIFIC RACES
-        (df[RACE_COL] == "American Indian/Alaska Native"),
-        (df[RACE_COL] == "Asian"),
-        (df[RACE_COL] == "Black"),
-        (df[RACE_COL] == "Multiple/Other"),
-        (df[RACE_COL] == "Native Hawaiian/Other Pacific Islander"),
-        (df[RACE_COL] == "White"),
-    ], [
-        # HISP
-        std_col.Race.HISP.value,
-        # IF EITHER RACE OR ETH IS MISSING
-        std_col.Race.UNKNOWN.value,
-        # SPECIFIC RACES
-        std_col.Race.AIAN_NH.value,
-        std_col.Race.ASIAN_NH.value,
-        std_col.Race.BLACK_NH.value,
-        std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
-        std_col.Race.NHPI_NH.value,
-        std_col.Race.WHITE_NH.value,
-    ])
-
-    return df
-
-    # def get_combined_value(row):
-    #     if row[ETH_COL] == :
-    #         return std_col.Race.HISP.value
-    #     elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
-    #         return std_col.Race.UNKNOWN.value
-    #     else:
-    #         return RACE_NAMES_MAPPING.get(row[RACE_COL], row[RACE_COL])  # Use .get() to handle missing values
-    #         # return RACE_NAMES_MAPPING[row[RACE_COL]]
-
-    # # Use numpy vectorization to apply the function
-    # df[RACE_ETH_COL] = np.vectorize(get_combined_value)(df)
-
-    # # Drop unnecessary columns
-    # df = df.drop(columns=[RACE_COL, ETH_COL])
-
-    # return df
-
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
     basic standardization of dataframe elements. Groups by given groupby_cols
@@ -279,9 +240,9 @@ def standardize_data(df):
 
     df: Pandas dataframe to standardize.
     """
-    # Clean string values in the dataframe.
-    df = df.applymap(
-        lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
+    # # Clean string values in the dataframe.
+    # df = df.applymap(
+    #     lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
 
     # Standardize column names.
     df = df.rename(columns=COL_NAME_MAPPING)
@@ -351,17 +312,24 @@ def process_data(dir, files):
 
         # Note that we read CSVs with keep_default_na = False as we want to
         # prevent pandas from interpreting "NA" in the data as NaN
-        chunked_frame = pd.read_csv(os.path.join(dir, f), dtype=str,
-                                    chunksize=100000, keep_default_na=False)
+        chunked_frame = pd.read_csv(
+            os.path.join(dir, f),
+            dtype=str,
+            chunksize=100000,
+            keep_default_na=False,
+            usecols=USE_COLS
+        )
+
         for chunk in chunked_frame:
+
             # We first do a bit of cleaning up of geo values and str values.
             df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_NAMES_MAPPING})
             df = df.replace({COUNTY_COL: COUNTY_NAMES_MAPPING})
             df = df.replace({STATE_COL: STATE_NAMES_MAPPING})
 
-            def _clean_str(x):
-                return x.replace('"', '').strip() if isinstance(x, str) else x
-            df = df.applymap(_clean_str)
+            # def _clean_str(x):
+            #     return x.replace('"', '').strip() if isinstance(x, str) else x
+            # df = df.applymap(_clean_str)
 
             # For county fips, we make sure they are strings of length 5 as per
             # our standardization (ignoring empty values).
