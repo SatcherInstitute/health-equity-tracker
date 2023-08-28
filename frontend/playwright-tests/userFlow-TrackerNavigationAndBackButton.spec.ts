@@ -2,6 +2,12 @@ import { test, expect } from '@playwright/test';
 
 // Subscribe to 'request' and 'response' events.
 
+function ignoreUrl(url) {
+	return url.includes("node_modules") || url.includes("src") || url.includes("fonts")
+}
+
+
+
 test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ page }) => {
 
 	// Landing Page Loads
@@ -22,8 +28,8 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
 
 test('Clicking a state on national map loads state report; back button returns to national', async ({ page }) => {
 
-	page.on('request', request => console.log('>>', request.method(), request.url()));
-	page.on('response', response => console.log('<<', response.status(), response.url()));
+	page.on('request', request => !ignoreUrl(request.url()) && console.log('>>', request.method(), request.url()));
+	page.on('response', response => !ignoreUrl(response.url()) && console.log('<<', response.status(), response.url()));
 
 
 	//start at HIV national
