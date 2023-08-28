@@ -18,7 +18,7 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: process.env.CI ? 240 * 1000 : 120 * 1000,
+  timeout: 120 * 1000,
 
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
@@ -28,7 +28,7 @@ const config: PlaywrightTestConfig = {
     ['html']
   ],
 
-  workers: 10,
+  workers: 2,// process.env.CI ? 2 : 4,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
@@ -37,8 +37,9 @@ const config: PlaywrightTestConfig = {
     actionTimeout: 0,
     baseURL: 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'retain-on-failure',
+    trace: 'on',
     screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     axeOptions: {
       rules: {
         // TODO: figure out how to ignore React Dev overlay that was triggering failure

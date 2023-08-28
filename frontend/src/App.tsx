@@ -72,15 +72,12 @@ export const MOBILE_BREAKPOINT = 600
 
 const PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
-  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]:
-    'BASE API URL FROM ENV: {' + import.meta.env.VITE_BASE_API_URL + '}',
+  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [DATA_CATALOG_PAGE_LINK]: 'Downloads & Methodology',
   [NEWS_PAGE_LINK]: 'News',
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
-
-console.log(import.meta.env.BASE_URL)
 
 autoInitGlobals()
 
