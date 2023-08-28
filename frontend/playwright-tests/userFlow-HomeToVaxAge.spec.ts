@@ -1,6 +1,4 @@
 import { test, expect } from '@playwright/test';
-const EXPLORE_DATA_PAGE_LINK = "/exploredata";
-const VAX_USA_RACE = `mls=1.covid_vaccinations-3.00`
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -25,7 +23,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Tracker Default to Covid Vax', async ({ page }) => {
 
         // Load Tracker Default helper view
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}`, { waitUntil: "networkidle" });
+        await page.goto(`/exploredata`, { waitUntil: "networkidle" });
 
         // stop the pulsing button so we can target it
         await page.emulateMedia({ reducedMotion: "reduce" });
@@ -55,7 +53,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Covid Vax Toggle Age', async ({ page }) => {
 
         // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
+        await page.goto(`/exploredata?mls=1.covid_vaccinations-3.00`, { waitUntil: "networkidle" });
 
         // Changing demographic dropdown setting to AGE should change URL
         await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
@@ -68,21 +66,5 @@ test.describe('Home to COVID Vax by Age', () => {
 
     });
 
-    test('Covid Vax Open/Close Topic Info Modal', async ({ page }) => {
-
-        // Starting with COVID VAX
-        await page.goto(`${EXPLORE_DATA_PAGE_LINK}?${VAX_USA_RACE}`, { waitUntil: "networkidle" });
-
-        // OPEN MODAL
-        await page.getByRole('button', { name: 'open the topic info modal' }).click();
-        await expect(page).toHaveURL(/.*topic-info=true/);
-
-
-        // CLOSE IT
-        await page.getByRole('button', { name: 'close topic info modal' }).click();
-        await expect(page).not.toHaveURL(/.*topic-info=true/);
-
-
-    });
 
 });

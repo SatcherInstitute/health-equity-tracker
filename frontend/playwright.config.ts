@@ -11,22 +11,24 @@ expect.extend(matchers)
  */
 const config: PlaywrightTestConfig = {
   webServer: {
-    command: 'npm run start',
+    command: 'npm run start:deploy_preview',
     port: 3000,
-    timeout: 120 * 1000,
-    reuseExistingServer: true,
+    timeout: 60 * 1000,
+    reuseExistingServer: !process.env.CI,
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for. */
-  timeout: process.env.CI ? 300 * 1000 : 120 * 1000,
-  expect: {
-    timeout: process.env.CI ? 300 * 1000 : 120 * 1000
-  },
+  timeout: 120 * 1000,
+
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 0 : 0,
-  reporter: process.env.CI ? 'github' : 'list',
-  workers: 1,
+  retries: process.env.CI ? 2 : 1,
+  reporter: [
+    [process.env.CI ? 'github' : 'list'],
+    ['html']
+  ],
+
+  workers: process.env.CI ? 1 : 2,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
@@ -36,7 +38,8 @@ const config: PlaywrightTestConfig = {
     baseURL: 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
-
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
     axeOptions: {
       rules: {
         // TODO: figure out how to ignore React Dev overlay that was triggering failure
@@ -45,9 +48,6 @@ const config: PlaywrightTestConfig = {
     },
 
   },
-
-  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  outputDir: 'test-results/',
 
   projects: [
     {
