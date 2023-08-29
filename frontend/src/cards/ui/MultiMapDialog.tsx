@@ -17,7 +17,6 @@ import {
   type FieldRange,
 } from '../../data/utils/DatasetTypes'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
 import {
   type MetricQuery,
@@ -39,6 +38,8 @@ import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap } from '../MapCard'
 import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
+import CardOptionsMenu from './CardOptionsMenu'
+import { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -75,6 +76,8 @@ export interface MultiMapDialogProps {
   totalPopulationPhrase: string
   handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
   pageIsSmall: boolean
+  reportTitle: string
+  scrollToHash: ScrollableHashId
 }
 
 /*
@@ -126,6 +129,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
+      <CardOptionsMenu
+              downloadTargetScreenshot={downloadTargetScreenshot}
+              reportTitle={props.reportTitle}
+              scrollToHash={props.scrollToHash}
+            />
         <Grid
           container
           justifyContent="space-between"
@@ -134,25 +142,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         >
           {/* card heading row */}
           <Grid item xs={12} container justifyContent={'space-between'}>
-            {/* mobile-only close button */}
-            <Grid
-              item
-              xs={12}
-              sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
-              container
-              justifyContent={'flex-end'}
-            >
-              <Button
-                aria-label="close multiple maps modal"
-                onClick={props.handleClose}
-                color="primary"
-              >
-                <CloseIcon />
-              </Button>
-            </Grid>
             {/* Modal Title */}
             <Grid item xs={12} sm={9} md={10}>
-              <Typography id="modalTitle" variant="h6" component="h2">
+              <Typography id="modalTitle" variant="h6" component="h2" lineHeight={"25px"}>
                 {title}
               </Typography>
             </Grid>
@@ -199,7 +191,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     props.pageIsSmall ? 'vertical' : 'horizontal'
                   }
                   columns={props.pageIsSmall ? 2 : 6}
-                  orient={'bottom-right'}
                   handleScaleChange={handleScaleChange}
                 />
               </Grid>
@@ -348,13 +339,15 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer>
+        {/* mobile-only close button */}
         <div className={styles.FooterSourcesContainer}>
-          <Sources
-            queryResponses={props.queryResponses}
-            metadata={props.metadata}
-            downloadTargetScreenshot={downloadTargetScreenshot}
-            isMulti={true}
-          />
+          <Button
+            aria-label="close multiple maps modal"
+            onClick={props.handleClose}
+            color="primary"
+          >
+            Close
+          </Button>
         </div>
       </footer>
     </Dialog>
