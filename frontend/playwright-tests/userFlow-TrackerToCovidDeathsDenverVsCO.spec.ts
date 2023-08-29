@@ -20,8 +20,7 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
     await page.keyboard.press('Enter');
 
     // Confirm correct URL params (Denver County vs Colorado)
-    // TODO: re-enable once #2338 merged
-    // await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths/);
+    await expect(page).toHaveURL(/.*mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths/);
 })
 
 test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({ page }) => {
@@ -31,10 +30,10 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
     // find Table of Contents link to Unknown Map
     await page.getByRole('button', { name: 'Unknown demographic map', exact: true }).click();
 
-    // TODO: Fix this test breaking on CI
-    // const unknownMapCard = page.locator('#unknown-demographic-map')
-    // await expect(unknownMapCard).toBeFocused();
-    // await expect(unknownMapCard).toBeVisible();
+    // ensure card is on the page, focused, and visible
+    const unknownMapCard = page.locator('#unknown-demographic-map')
+    await expect(unknownMapCard).toBeFocused();
+    await expect(unknownMapCard).toBeVisible();
 
 });
 
