@@ -35,7 +35,6 @@ export function WithLoadingOrErrorUI<R>(props: {
       <div data-testid="WithLoadingOrErrorUI-error">
         <p>
           <b>Oops, something went wrong.</b>
-          <pre>{import.meta.env.VITE_BASE_API_URL}</pre>
         </p>
         <Button
           onClick={() => {
