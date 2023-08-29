@@ -12,6 +12,10 @@ import {
   useResources,
 } from './useResources'
 import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
+import {
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
+} from '../config/DatasetMetadata'
 
 /**
  * Provides a wrapper around a UI component that may be loading or have an async
@@ -93,13 +97,17 @@ export function WithMetrics(props: {
 }
 
 function WithDatasets(props: {
-  datasetIds: string[]
+  datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
   children: (datasets: Dataset[]) => JSX.Element
   loadingComponent?: JSX.Element
 }) {
-  const datasets = useResources<string, Dataset>(
+  const datasets = useResources<
+    DatasetId | DatasetIdWithStateFIPSCode,
+    Dataset
+  >(
     props.datasetIds,
-    async (id: string) => await getDataManager().loadDataset(id),
+    async (id: DatasetId | DatasetIdWithStateFIPSCode) =>
+      await getDataManager().loadDataset(id),
     (id: string) => id
   )
   return (

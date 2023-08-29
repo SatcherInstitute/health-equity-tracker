@@ -23,11 +23,15 @@ import GetAppIcon from '@mui/icons-material/GetApp'
 import { Grid, IconButton } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import Link from '@mui/material/Link'
+import {
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
+} from '../../../data/config/DatasetMetadata'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
 function DownloadDatasetListItem(props: {
-  datasetId: string
+  datasetId: DatasetId | DatasetIdWithStateFIPSCode
   datasetMetadata: DatasetMetadata
 }) {
   const [downloadStatus, setDownloadStatus] = useState<LoadStatus>('unloaded')
