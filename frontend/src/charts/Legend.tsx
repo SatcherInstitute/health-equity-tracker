@@ -310,7 +310,6 @@ export function Legend(props: LegendProps) {
     props.mapConfig.mapMin,
     props.mapConfig.mapScheme,
     props.metric,
-    props.orient,
     props.sameDotSize,
     props.scaleType,
     props.stackingDirection,
