@@ -7,6 +7,7 @@ import {
   DialogContent,
   Typography,
   Alert,
+  useMediaQuery,
 } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
@@ -33,13 +34,13 @@ import {
 } from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { getMapScheme } from '../../charts/mapHelperFunctions'
-import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap } from '../MapCard'
 import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
 import { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { Sources } from './Sources'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -118,6 +119,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     setScale({ domain, range })
   }
 
+  const isMobile = useMediaQuery('(max-width:400px)')
+
   return (
     <Dialog
       className={styles.MultiMapBox}
@@ -129,11 +132,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
-      <CardOptionsMenu
-              downloadTargetScreenshot={downloadTargetScreenshot}
-              reportTitle={props.reportTitle}
-              scrollToHash={props.scrollToHash}
-            />
+        <CardOptionsMenu
+          downloadTargetScreenshot={downloadTargetScreenshot}
+          reportTitle={props.reportTitle}
+          scrollToHash={props.scrollToHash}
+        />
         <Grid
           container
           justifyContent="space-between"
@@ -149,25 +152,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Typography>
             </Grid>
             {/* desktop-only close button */}
-            <Grid
-              item
-              sx={{
-                display: { xs: 'none', sm: 'flex' },
-                mr: { xs: 1, md: 0 },
-                mb: 3,
-              }}
-              sm={1}
-              container
-              justifyContent={'flex-end'}
-            >
-              <Button
-                aria-label="close multiple maps modal"
-                onClick={props.handleClose}
-                color="primary"
-              >
-                <CloseIcon />
-              </Button>
-            </Grid>
           </Grid>
 
           {/* LEGEND */}
@@ -341,13 +325,23 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       <footer>
         {/* mobile-only close button */}
         <div className={styles.FooterSourcesContainer}>
-          <Button
-            aria-label="close multiple maps modal"
-            onClick={props.handleClose}
-            color="primary"
-          >
-            Close
-          </Button>
+          {!isMobile && (
+            <Sources
+              queryResponses={props.queryResponses}
+              metadata={props.metadata}
+              downloadTargetScreenshot={downloadTargetScreenshot}
+              isMulti={true}
+            />
+          )}
+          <div className={styles.FooterCloseButton}>
+            <Button
+              aria-label="close multiple maps modal"
+              onClick={props.handleClose}
+              color="primary"
+            >
+              Close
+            </Button>
+          </div>
         </div>
       </footer>
     </Dialog>
