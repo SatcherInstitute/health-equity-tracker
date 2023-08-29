@@ -40,12 +40,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).not.toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
 
         // @ts-ignore
-        await expect(page).toPassAxe({
-            rules: {
-                // TODO: fix disabled filter colors to be proper contrast
-                'color-contrast': { enabled: false },
-            },
-        })
+        await expect(page).toPassAxe()
 
 
     })
