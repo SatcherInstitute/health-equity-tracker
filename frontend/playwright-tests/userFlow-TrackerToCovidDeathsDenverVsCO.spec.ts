@@ -30,10 +30,10 @@ test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', asy
     // find Table of Contents link to Unknown Map
     await page.getByRole('button', { name: 'Unknown demographic map', exact: true }).click();
 
-    // TODO: Fix this test breaking on CI
-    // const unknownMapCard = page.locator('#unknown-demographic-map')
-    // await expect(unknownMapCard).toBeFocused();
-    // await expect(unknownMapCard).toBeVisible();
+    // ensure card is on the page, focused, and visible
+    const unknownMapCard = page.locator('#unknown-demographic-map')
+    await expect(unknownMapCard).toBeFocused();
+    await expect(unknownMapCard).toBeVisible();
 
 });
 
