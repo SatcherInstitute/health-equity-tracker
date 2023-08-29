@@ -29,6 +29,12 @@ jobs:
         run: npx playwright install chromium --with-deps
       - name: Runs playwright E2E
         run: npx playwright test --project=E2E
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 30
 
   build_frontend:
     name: Builds frontend
@@ -45,7 +51,7 @@ jobs:
       - name: Build React frontend
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
-        run: npm run build
+        run: npm run build:deploy_preview
 
   frontend_unit_tests_cspell:
     name: Runs spellcheck and unit tests
