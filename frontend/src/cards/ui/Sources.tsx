@@ -43,7 +43,9 @@ export function getDatasetIdsFromResponses(
   )
 }
 
-export const stripCountyFips = (datasetIds: string[]): DatasetId[] => {
+export const stripCountyFips = (
+  datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
+): DatasetId[] => {
   const strippedData = datasetIds.map((id) => {
     // uses RegEx to check if datasetId string contains a hyphen followed by any two digits
     const regex = /-[0-9]/g
@@ -97,9 +99,8 @@ export function Sources(props: SourcesProps) {
     return <></>
   }
 
-  const unstrippedDatasetIds: string[] = getDatasetIdsFromResponses(
-    props.queryResponses
-  )
+  const unstrippedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> =
+    getDatasetIdsFromResponses(props.queryResponses)
   let datasetIds: DatasetId[] = stripCountyFips(unstrippedDatasetIds)
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
