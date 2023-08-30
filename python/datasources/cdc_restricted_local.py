@@ -22,6 +22,7 @@ import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
 pd.options.mode.chained_assignment = None  # default='warn'
 
+CHUNK_SIZE = 5_000_000
 
 # Command line flags for the dir and file name prefix for the data.
 parser = argparse.ArgumentParser()
@@ -133,58 +134,32 @@ ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 
-CHUNK_SIZE = 100_000
-print("CHUNKSIZE", CHUNK_SIZE)
-
-
-# print("new gpt race/eth")
-# def combine_race_eth(df):
-#     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
-#        We will keep this in place until we can figure out a plan on how to display
-#        the race and ethnicity to our users in a disaggregated way."""
-
-#     # Create a mask for Hispanic/Latino
-#     hispanic_mask = df[ETH_COL] == 'Hispanic/Latino'
-
-#     # Create masks for 'NA', 'Missing', 'Unknown'
-#     race_missing_mask = df[RACE_COL].isin({'NA', 'Missing', 'Unknown'})
-#     eth_missing_mask = df[ETH_COL].isin({'NA', 'Missing', 'Unknown'})
-
-#     # Create a mask for other cases
-#     other_mask = ~race_missing_mask & ~eth_missing_mask
-
-#     # Create a new combined race/eth column Initialize with UNKNOWN
-#     df[RACE_ETH_COL] = std_col.Race.UNKNOWN.value
-#     # Overwrite specific race if given
-#     df.loc[other_mask, RACE_ETH_COL] = df.loc[other_mask, RACE_COL].map(RACE_NAMES_MAPPING)
-#     # overwrite with Hispanic if given
-#     df.loc[hispanic_mask, RACE_ETH_COL] = std_col.Race.HISP.value
-
-#     # Drop unnecessary columns
-#     df = df.drop(columns=[RACE_COL, ETH_COL])
-
-#     return df
-
-print("old gpt race/eth")
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep this in place until we can figure out a plan on how to display
        the race and ethnicity to our users in a disaggregated way."""
 
-    def get_combined_value(row):
-        if row[ETH_COL] == 'Hispanic/Latino':
-            return std_col.Race.HISP.value
+    # Create a mask for Hispanic/Latino
+    hispanic_mask = df[ETH_COL] == 'Hispanic/Latino'
 
-        elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
-            return std_col.Race.UNKNOWN.value
+    # Create masks for 'NA', 'Missing', 'Unknown'
+    race_missing_mask = df[RACE_COL].isin({'NA', 'Missing', 'Unknown'})
+    eth_missing_mask = df[ETH_COL].isin({'NA', 'Missing', 'Unknown'})
 
-        else:
-            return RACE_NAMES_MAPPING[row[RACE_COL]]
+    # Create a mask for other cases
+    other_mask = ~race_missing_mask & ~eth_missing_mask
 
-    df[RACE_ETH_COL] = df.apply(get_combined_value, axis=1)
+    # Create a new combined race/eth column Initialize with UNKNOWN
+    df[RACE_ETH_COL] = std_col.Race.UNKNOWN.value
+    # Overwrite specific race if given
+    df.loc[other_mask, RACE_ETH_COL] = df.loc[other_mask, RACE_COL].map(RACE_NAMES_MAPPING)
+    # overwrite with Hispanic if given
+    df.loc[hispanic_mask, RACE_ETH_COL] = std_col.Race.HISP.value
+
+    # Drop unnecessary columns
     df = df.drop(columns=[RACE_COL, ETH_COL])
-    return df
 
+    return df
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
@@ -267,22 +242,6 @@ def sanity_check_data(df):
                         df[std_col.COVID_DEATH_UNKNOWN])
 
 
-def standardize_data(df):
-    """Standardizes the data by cleaning string values and standardizing column
-    names.
-
-    df: Pandas dataframe to standardize.
-    """
-    # # Clean string values in the dataframe.
-    # df = df.applymap(
-    #     lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
-
-    # Standardize column names.
-    df = df.rename(columns=COL_NAME_MAPPING)
-
-    return df
-
-
 def generate_national_dataset(state_df, groupby_cols):
     """Generates a national level dataset from the state_df.
        Returns a national level dataframe
@@ -360,10 +319,6 @@ def process_data(dir, files):
             df = df.replace({COUNTY_COL: COUNTY_NAMES_MAPPING})
             df = df.replace({STATE_COL: STATE_NAMES_MAPPING})
 
-            # def _clean_str(x):
-            #     return x.replace('"', '').strip() if isinstance(x, str) else x
-            # df = df.applymap(_clean_str)
-
             # For county fips, we make sure they are strings of length 5 as per
             # our standardization (ignoring empty values).
             df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
@@ -393,7 +348,7 @@ def process_data(dir, files):
                     demog_names_mapping)
 
         end = time.time()
-        print("Took", round(end - start, 2), "seconds to process file", f)
+        print("Took", round(end - start), "seconds to process file", f)
 
     # Post-processing of the data.
     for key in all_dfs.copy():
@@ -408,7 +363,7 @@ def process_data(dir, files):
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
 
         # Standardize the column names and race/age/sex values.
-        all_dfs[key] = standardize_data(all_dfs[key])
+        all_dfs[key] = all_dfs[key].rename(columns=COL_NAME_MAPPING)
 
         # Set hospitalization and death data for states we want to suppress to
         # an empty string, indicating missing data.
