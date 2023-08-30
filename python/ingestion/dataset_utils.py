@@ -382,8 +382,8 @@ def ensure_leading_zeros(df: pd.DataFrame, fips_col_name: str, num_digits: int) 
         fips_col_name: string column name containing the values to be padded
         num_digits: how many digits should be present after leading zeros are added
     """
-
-    df[fips_col_name] = df[fips_col_name].str.rjust(num_digits, '0')
+    df[fips_col_name] = df[fips_col_name].apply(
+        lambda code: (str(code).rjust(num_digits, '0')))
     return df
 
 

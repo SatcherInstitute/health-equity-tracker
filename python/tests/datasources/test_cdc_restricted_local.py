@@ -2,7 +2,7 @@ import os
 import json
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
-import timeit
+
 import ingestion.standardized_columns as std_col  # type: ignore
 import datasources.cdc_restricted_local as cdc  # type: ignore
 from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
