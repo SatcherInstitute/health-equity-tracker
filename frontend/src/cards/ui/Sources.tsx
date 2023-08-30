@@ -14,7 +14,6 @@ import {
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
-import { DownloadCardImageButton } from './DownloadCardImageButton'
 import { type MetricId } from '../../data/config/MetricConfig'
 
 function insertPunctuation(idx: number, numSources: number) {
@@ -174,24 +173,6 @@ export function Sources(props: SourcesProps) {
         >
           {sourcesInfo}
         </Grid>
-        {props.isMulti && (
-          <Grid
-            item
-            xs={4}
-            sm={3}
-            md={2}
-            container
-            justifyContent={'flex-end'}
-            alignItems={'flex-end'}
-          >
-            {props.downloadTargetScreenshot && (
-              <DownloadCardImageButton
-                downloadTargetScreenshot={props.downloadTargetScreenshot}
-                isMulti={props.isMulti}
-              />
-            )}
-          </Grid>
-        )}
       </>
     </Grid>
   )

@@ -56,16 +56,12 @@ export interface LegendProps {
   mapConfig: { mapScheme: string; mapMin: string }
   columns: number
   stackingDirection: 'horizontal' | 'vertical'
-  orient?: 'bottom-right'
   handleScaleChange?: (domain: number[], range: number[]) => void
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
-  const defaultOrient =
-    props.stackingDirection === 'vertical' ? 'left' : 'right'
-  const orient = props.orient ?? defaultOrient
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
@@ -137,7 +133,7 @@ export function Legend(props: LegendProps) {
         fill: props.isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
         size: props.isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-        orient,
+        orient: 'left',
         encode: {
           labels: {
             update: {
@@ -181,7 +177,7 @@ export function Legend(props: LegendProps) {
         fill: UNKNOWN_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
         size: GREY_DOT_SCALE,
-        orient,
+        orient: 'left',
       })
     }
 
@@ -314,7 +310,6 @@ export function Legend(props: LegendProps) {
     props.mapConfig.mapMin,
     props.mapConfig.mapScheme,
     props.metric,
-    props.orient,
     props.sameDotSize,
     props.scaleType,
     props.stackingDirection,
