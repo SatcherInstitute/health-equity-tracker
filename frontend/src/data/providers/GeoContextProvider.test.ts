@@ -2,7 +2,7 @@ import GeoContextProvider from './GeoContextProvider'
 import { Breakdowns } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -10,18 +10,21 @@ import {
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { MetricId } from '../config/MetricConfig'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 /* Given the geocontext id */
 export async function ensureCorrectDatasetsDownloaded(
   fips: Fips,
   metricIds: MetricId[],
-  expectedGeoContextId: string,
-  expectedDatasetIds: string[]
+  expectedGeoContextId: DatasetId,
+  expectedDatasetIds: DatasetId[]
 ) {
   const breakdown = Breakdowns.forFips(fips)
   const provider = new GeoContextProvider()
 
-  dataFetcher.setFakeDatasetLoaded(expectedGeoContextId, [])
+  const specificId = appendFipsIfNeeded(expectedGeoContextId, breakdown)
+
+  dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   // Evaluate the response
   const responseIncludingAll = await provider.getData(
@@ -49,8 +52,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06037'),
       ['svi', 'population'],
-      'geo_context-county-06',
-      ['cdc_svi_county-sex', 'acs_population-by_sex_county']
+      'geo_context-county',
+      ['cdc_svi_county-age', 'acs_population-by_sex_county']
     )
   })
 
@@ -58,8 +61,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('06037'),
       ['svi'],
-      'geo_context-county-06',
-      ['cdc_svi_county-sex']
+      'geo_context-county',
+      ['cdc_svi_county-age']
     )
   })
 
@@ -67,8 +70,8 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('72123'),
       ['svi', 'population'],
-      'geo_context-county-72',
-      ['cdc_svi_county-sex', 'acs_population-by_sex_county']
+      'geo_context-county',
+      ['cdc_svi_county-age', 'acs_population-by_sex_county']
     )
   })
 
@@ -76,9 +79,9 @@ describe('GeoContextProvider', () => {
     await ensureCorrectDatasetsDownloaded(
       new Fips('78010'),
       ['svi', 'population'],
-      'geo_context-county-78',
+      'geo_context-county',
       [
-        'cdc_svi_county-sex',
+        'cdc_svi_county-age',
         'decia_2020_territory_population-by_sex_territory_county_level',
       ]
     )

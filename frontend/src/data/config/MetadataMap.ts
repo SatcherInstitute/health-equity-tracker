@@ -5,6 +5,27 @@ export const GEOGRAPHIES_DATASET_ID = 'geographies'
 // ALERT!!! Keep this file in sync with DatasetMetadata while it is present
 // All dataset IDs should be in the DatasetMetadata
 
+export type DataSourceId =
+  | 'acs'
+  | 'ahr'
+  | 'bjs'
+  | 'cawp'
+  | 'cdc_atlas'
+  | 'cdc_restricted'
+  | 'cdc_svi_county'
+  | 'cdc_vaccination_county'
+  | 'cdc_vaccination_national'
+  | 'census_pop_estimates'
+  | 'covid_tracking_project'
+  | 'decia_2010_territory_population'
+  | 'decia_2020_territory_population'
+  | 'geographies_source'
+  | 'geo_context'
+  | 'kff_vaccination'
+  | 'phrma'
+  | 'the_unitedstates_project'
+  | 'vera'
+
 export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: 'cdc_restricted',
@@ -157,7 +178,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'retail pharmacies, long-term care facilities, dialysis centers, ' +
       'Federal Emergency Management Agency and Health Resources and Services ' +
       'Administration partner sites, and federal entity facilities.',
-    dataset_ids: ['cdc_vaccination_county-race_and_ethnicity_processed'],
+    dataset_ids: ['cdc_vaccination_county-alls_county'],
     downloadable: true,
   },
   {
@@ -224,7 +245,10 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
       "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
       "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
-    dataset_ids: ['kff_vaccination-race_and_ethnicity_processed'],
+    dataset_ids: [
+      'kff_vaccination-race_and_ethnicity_state',
+      'kff_vaccination-alls_state',
+    ],
     downloadable: true,
   },
   {
@@ -317,37 +341,57 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
   },
-  // {
-  //   id: 'phrma',
-  //   data_source_name: 'Medicare Administrative Data',
-  //   data_source_pretty_site_name: 'cms.gov',
-  //   data_source_link:
-  //     'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
-  //   geographic_level: 'National, State, County',
-  //   demographic_granularity:
-  //     'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
-  //   update_frequency: 'None',
-  //   description:
-  //     'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
-  //   dataset_ids: [
-  //     'phrma_data-race_and_ethnicity_national',
-  //     'phrma_data-race_and_ethnicity_state',
-  //     'phrma_data-race_and_ethnicity_county',
-  //     'phrma_data-age_national',
-  //     'phrma_data-age_state',
-  //     'phrma_data-age_county',
-  //     'phrma_data-sex_national',
-  //     'phrma_data-sex_state',
-  //     'phrma_data-sex_county',
-  //     'phrma_data-lis_national',
-  //     'phrma_data-lis_state',
-  //     'phrma_data-lis_county',
-  //     'phrma_data-eligibility_national',
-  //     'phrma_data-eligibility_state',
-  //     'phrma_data-eligibility_county',
-  //   ],
-  //   downloadable: true,
-  // },
+  {
+    id: 'geo_context',
+    data_source_name: 'Geographic Context - Composite Dataset',
+    data_source_pretty_site_name:
+      'github.com/SatcherInstitute/health-equity-tracker',
+    data_source_link:
+      'https://github.com/SatcherInstitute/health-equity-tracker',
+    geographic_level: 'National, State, County',
+    demographic_granularity: 'N/A',
+    update_frequency: 'Yearly',
+    description:
+      'This is a composite dataset we create for faster loading; it includes population data from ACS and SVI data at the county level from the CDC.',
+    dataset_ids: [
+      'geo_context-county',
+      'geo_context-state',
+      'geo_context-national',
+    ],
+    downloadable: true,
+  },
+  {
+    hideFromUser: true,
+    id: 'phrma',
+    data_source_name: 'Medicare Administrative Data',
+    data_source_pretty_site_name: 'cms.gov',
+    data_source_link:
+      'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
+    geographic_level: 'National, State, County',
+    demographic_granularity:
+      'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
+    update_frequency: 'None',
+    description:
+      'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
+    dataset_ids: [
+      'phrma_data-race_and_ethnicity_national',
+      'phrma_data-race_and_ethnicity_state',
+      'phrma_data-race_and_ethnicity_county',
+      'phrma_data-age_national',
+      'phrma_data-age_state',
+      'phrma_data-age_county',
+      'phrma_data-sex_national',
+      'phrma_data-sex_state',
+      'phrma_data-sex_county',
+      'phrma_data-lis_national',
+      'phrma_data-lis_state',
+      'phrma_data-lis_county',
+      'phrma_data-eligibility_national',
+      'phrma_data-eligibility_state',
+      'phrma_data-eligibility_county',
+    ],
+    downloadable: true,
+  },
   {
     id: 'covid_tracking_project',
     data_source_name: 'Covid Tracking Project’s Racial Data Tracker',
@@ -369,9 +413,6 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
 ]
-
-// SHOW_PHRMA
-// console.log('need to uncomment above once feature flag removed')
 
 export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
   Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))

@@ -1,4 +1,5 @@
 import { getDataManager } from '../../utils/globals'
+import { type DatasetId } from '../config/DatasetMetadata'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
@@ -109,54 +110,44 @@ class HivProvider extends VariableProvider {
     super('hiv_provider', HIV_DETERMINANTS)
   }
 
-  getDatasetId(breakdowns: Breakdowns, dataTypeId?: DataTypeId): string {
-    const isBlackWomenData = dataTypeId?.includes('black_women')
-    if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace()) {
-        return 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
-      }
-      if (breakdowns.hasOnlyAge()) {
-        if (isBlackWomenData)
-          return 'cdc_hiv_data-black_women_national_time_series'
-        return 'cdc_hiv_data-age_national_time_series'
-      }
-      if (breakdowns.hasOnlySex()) {
-        return 'cdc_hiv_data-sex_national_time_series'
-      }
-    }
-    if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace()) {
-        return 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
-      }
-      if (breakdowns.hasOnlyAge()) {
-        if (isBlackWomenData)
-          return 'cdc_hiv_data-black_women_state_time_series'
-        return 'cdc_hiv_data-age_state_time_series'
-      }
-      if (breakdowns.hasOnlySex()) return 'cdc_hiv_data-sex_state_time_series'
-    }
+  getDatasetId(
+    breakdowns: Breakdowns,
+    dataTypeId?: DataTypeId
+  ): DatasetId | undefined {
+    const isBlackWomenData =
+      dataTypeId && BLACK_WOMEN_DATATYPES.includes(dataTypeId)
 
-    if (breakdowns.geography === 'county') {
+    if (isBlackWomenData && breakdowns.hasOnlyAge()) {
+      if (breakdowns.geography === 'state')
+        return 'cdc_hiv_data-black_women_state_time_series'
+      if (breakdowns.geography === 'national')
+        return 'cdc_hiv_data-black_women_national_time_series'
+    } else {
       if (breakdowns.hasOnlyRace()) {
-        return appendFipsIfNeeded(
-          'cdc_hiv_data-race_and_ethnicity_county_time_series',
-          breakdowns
-        )
+        if (breakdowns.geography === 'county')
+          return 'cdc_hiv_data-race_and_ethnicity_county_time_series'
+        if (breakdowns.geography === 'state')
+          return 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
+        if (breakdowns.geography === 'national')
+          return 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
       }
       if (breakdowns.hasOnlyAge()) {
-        return appendFipsIfNeeded(
-          'cdc_hiv_data-age_county_time_series',
-          breakdowns
-        )
+        if (breakdowns.geography === 'county')
+          return 'cdc_hiv_data-age_county_time_series'
+        if (breakdowns.geography === 'state')
+          return 'cdc_hiv_data-age_state_time_series'
+        if (breakdowns.geography === 'national')
+          return 'cdc_hiv_data-age_national_time_series'
       }
       if (breakdowns.hasOnlySex()) {
-        return appendFipsIfNeeded(
-          'cdc_hiv_data-sex_county_time_series',
-          breakdowns
-        )
+        if (breakdowns.geography === 'county')
+          return 'cdc_hiv_data-sex_county_time_series'
+        if (breakdowns.geography === 'state')
+          return 'cdc_hiv_data-sex_state_time_series'
+        if (breakdowns.geography === 'national')
+          return 'cdc_hiv_data-sex_national_time_series'
       }
     }
-    throw new Error('Not implemented')
   }
 
   async getDataInternal(
@@ -165,7 +156,9 @@ class HivProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, metricQuery.dataTypeId)
-    const hiv = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const hiv = await getDataManager().loadDataset(specificDatasetId)
     let df = hiv.toDataFrame()
 
     df = this.filterByGeo(df, breakdowns)

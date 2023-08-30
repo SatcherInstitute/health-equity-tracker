@@ -5,6 +5,7 @@ import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 export const ACS_CONDITION_DATATYPES: DataTypeId[] = [
   'health_insurance',
@@ -27,46 +28,32 @@ class AcsConditionProvider extends VariableProvider {
     super('acs_condition_provider', ACS_CONDITION_METRICS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
-    if (breakdowns.hasOnlyRace()) {
-      if (breakdowns.geography === 'county') {
-        return appendFipsIfNeeded(
-          'acs_condition-by_race_county_time_series',
-          breakdowns
-        )
-      } else if (breakdowns.geography === 'state') {
-        return 'acs_condition-by_race_state_time_series'
-      } else if (breakdowns.geography === 'national') {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
+    if (breakdowns.geography === 'national') {
+      if (breakdowns.hasOnlyRace())
         return 'acs_condition-by_race_national_time_series'
-      }
-    }
-    if (breakdowns.hasOnlyAge()) {
-      if (breakdowns.geography === 'county') {
-        return appendFipsIfNeeded(
-          'acs_condition-by_age_county_time_series',
-          breakdowns
-        )
-      } else if (breakdowns.geography === 'state') {
-        return 'acs_condition-by_age_state_time_series'
-      } else if (breakdowns.geography === 'national') {
+      if (breakdowns.hasOnlyAge())
         return 'acs_condition-by_age_national_time_series'
-      }
-    }
-    if (breakdowns.hasOnlySex()) {
-      if (breakdowns.geography === 'county') {
-        return appendFipsIfNeeded(
-          'acs_condition-by_sex_county_time_series',
-          breakdowns
-        )
-      } else if (breakdowns.geography === 'state') {
-        return 'acs_condition-by_sex_state_time_series'
-      } else if (breakdowns.geography === 'national') {
+      if (breakdowns.hasOnlySex())
         return 'acs_condition-by_sex_national_time_series'
-      }
+    }
+    if (breakdowns.geography === 'state') {
+      if (breakdowns.hasOnlyRace())
+        return 'acs_condition-by_race_state_time_series'
+      if (breakdowns.hasOnlyAge())
+        return 'acs_condition-by_age_state_time_series'
+      if (breakdowns.hasOnlySex())
+        return 'acs_condition-by_sex_state_time_series'
     }
 
-    // Fallback for future breakdowns
-    throw new Error('Not implemented')
+    if (breakdowns.geography === 'county') {
+      if (breakdowns.hasOnlyRace())
+        return 'acs_condition-by_race_county_time_series'
+      if (breakdowns.hasOnlyAge())
+        return 'acs_condition-by_age_county_time_series'
+      if (breakdowns.hasOnlySex())
+        return 'acs_condition-by_sex_county_time_series'
+    }
   }
 
   async getDataInternal(
@@ -75,7 +62,9 @@ class AcsConditionProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
-    const acsDataset = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const acsDataset = await getDataManager().loadDataset(specificDatasetId)
 
     let df = acsDataset.toDataFrame()
 

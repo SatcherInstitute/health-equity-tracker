@@ -1,4 +1,5 @@
 import { getDataManager } from '../../utils/globals'
+import { type DatasetId } from '../config/DatasetMetadata'
 import {
   type DataTypeId,
   type DropdownVarId,
@@ -6,6 +7,7 @@ import {
 } from '../config/MetricConfig'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 export const AHR_CONDITIONS: DropdownVarId[] = [
@@ -90,25 +92,18 @@ class AhrProvider extends VariableProvider {
     ])
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     if (breakdowns.geography === 'national') {
-      if (breakdowns.hasOnlyRace()) {
+      if (breakdowns.hasOnlyRace())
         return 'ahr_data-race_and_ethnicity_national'
-      } else if (breakdowns.hasOnlySex()) {
-        return 'ahr_data-sex_national'
-      } else if (breakdowns.hasOnlyAge()) {
-        return 'ahr_data-age_national'
-      }
-    } else if (breakdowns.geography === 'state') {
-      if (breakdowns.hasOnlyRace()) {
-        return 'ahr_data-race_and_ethnicity_state'
-      } else if (breakdowns.hasOnlySex()) {
-        return 'ahr_data-sex_state'
-      } else if (breakdowns.hasOnlyAge()) {
-        return 'ahr_data-age_state'
-      }
+      if (breakdowns.hasOnlySex()) return 'ahr_data-sex_national'
+      if (breakdowns.hasOnlyAge()) return 'ahr_data-age_national'
     }
-    throw new Error('Not implemented')
+    if (breakdowns.geography === 'state') {
+      if (breakdowns.hasOnlyRace()) return 'ahr_data-race_and_ethnicity_state'
+      if (breakdowns.hasOnlySex()) return 'ahr_data-sex_state'
+      if (breakdowns.hasOnlyAge()) return 'ahr_data-age_state'
+    }
   }
 
   async getDataInternal(
@@ -117,7 +112,9 @@ class AhrProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns)
-    const ahr = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const ahr = await getDataManager().loadDataset(specificDatasetId)
     let df = ahr.toDataFrame()
 
     const consumedDatasetIds = [datasetId]

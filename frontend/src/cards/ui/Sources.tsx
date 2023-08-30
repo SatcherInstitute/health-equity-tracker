@@ -8,7 +8,11 @@ import {
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { DatasetMetadataMap } from '../../data/config/DatasetMetadata'
+import {
+  type DatasetId,
+  DatasetMetadataMap,
+  type DatasetIdWithStateFIPSCode,
+} from '../../data/config/DatasetMetadata'
 import { Grid } from '@mui/material'
 import { type MetricId } from '../../data/config/MetricConfig'
 
@@ -30,15 +34,17 @@ interface DataSourceInfo {
 
 export function getDatasetIdsFromResponses(
   queryResponses: MetricQueryResponse[]
-): string[] {
+): Array<DatasetId | DatasetIdWithStateFIPSCode> {
   return queryResponses.reduce(
-    (accumulator: string[], response) =>
+    (accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>, response) =>
       accumulator.concat(response.consumedDatasetIds),
     []
   )
 }
 
-export const stripCountyFips = (datasetIds: string[]) => {
+export const stripCountyFips = (
+  datasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode>
+): DatasetId[] => {
   const strippedData = datasetIds.map((id) => {
     // uses RegEx to check if datasetId string contains a hyphen followed by any two digits
     const regex = /-[0-9]/g
@@ -46,7 +52,7 @@ export const stripCountyFips = (datasetIds: string[]) => {
       return id.split('-').slice(0, 2).join('-')
     } else return id
   })
-  return strippedData
+  return strippedData as DatasetId[]
 }
 
 export function getDataSourceMapFromDatasetIds(
@@ -92,8 +98,9 @@ export function Sources(props: SourcesProps) {
     return <></>
   }
 
-  const unstrippedDatasetIds = getDatasetIdsFromResponses(props.queryResponses)
-  let datasetIds = stripCountyFips(unstrippedDatasetIds)
+  const unstrippedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> =
+    getDatasetIdsFromResponses(props.queryResponses)
+  let datasetIds: DatasetId[] = stripCountyFips(unstrippedDatasetIds)
 
   // for Age Adj only, swap ACS source(s) for Census Pop Estimate
   if (props.isCensusNotAcs) {
@@ -108,7 +115,7 @@ export function Sources(props: SourcesProps) {
 
   const showNhFootnote =
     !props.hideNH &&
-    datasetIds.some((set) => DatasetMetadataMap[set]?.contains_nh)
+    datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
 
   const sourcesInfo =
     Object.keys(dataSourceMap).length > 0 ? (
