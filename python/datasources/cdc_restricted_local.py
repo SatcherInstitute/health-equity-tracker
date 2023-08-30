@@ -22,6 +22,7 @@ import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
 pd.options.mode.chained_assignment = None  # default='warn'
 
+CHUNK_SIZE = 5_000_000
 
 # Command line flags for the dir and file name prefix for the data.
 parser = argparse.ArgumentParser()
@@ -37,7 +38,6 @@ parser.add_argument("-prefix", "--prefix",
 STATE_COL = 'res_state'
 COUNTY_FIPS_COL = 'county_fips_code'
 COUNTY_COL = 'res_county'
-RACE_ETH_COL = 'race_ethnicity_combined'
 SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
@@ -45,6 +45,20 @@ RACE_COL = 'race'
 ETH_COL = 'ethnicity'
 CASE_DATE_COL = 'cdc_case_earliest_dt'
 
+USE_COLS = [
+    STATE_COL,
+    COUNTY_FIPS_COL,
+    COUNTY_COL,
+    SEX_COL,
+    AGE_COL,
+    *OUTCOME_COLS,
+    RACE_COL,
+    ETH_COL,
+    CASE_DATE_COL,
+]
+
+# column no longer provided by CDC that we need to recreate
+RACE_ETH_COL = 'race_ethnicity_combined'
 
 # Convenience list for when we group the data by county.
 COUNTY_COLS = [COUNTY_FIPS_COL, COUNTY_COL, STATE_COL]
@@ -112,7 +126,7 @@ DEMOGRAPHIC_COL_MAPPING = {
     'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
 
-# States that we have decided to suppress different kinds of data for, due to
+# States that we previously decided to suppress different kinds of data for, due to
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
 # See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
@@ -126,18 +140,26 @@ def combine_race_eth(df):
        We will keep this in place until we can figure out a plan on how to display
        the race and ethnicity to our users in a disaggregated way."""
 
-    def get_combined_value(row):
-        if row[ETH_COL] == 'Hispanic/Latino':
-            return std_col.Race.HISP.value
+    # Create a mask for Hispanic/Latino
+    hispanic_mask = df[ETH_COL] == 'Hispanic/Latino'
 
-        elif row[RACE_COL] in {'NA', 'Missing', 'Unknown'} or row[ETH_COL] in {'NA', 'Missing', 'Unknown'}:
-            return std_col.Race.UNKNOWN.value
+    # Create masks for 'NA', 'Missing', 'Unknown'
+    race_missing_mask = df[RACE_COL].isin({'NA', 'Missing', 'Unknown'})
+    eth_missing_mask = df[ETH_COL].isin({'NA', 'Missing', 'Unknown'})
 
-        else:
-            return RACE_NAMES_MAPPING[row[RACE_COL]]
+    # Create a mask for other cases
+    other_mask = ~race_missing_mask & ~eth_missing_mask
 
-    df[RACE_ETH_COL] = df.apply(get_combined_value, axis=1)
+    # Create a new combined race/eth column Initialize with UNKNOWN
+    df[RACE_ETH_COL] = std_col.Race.UNKNOWN.value
+    # Overwrite specific race if given
+    df.loc[other_mask, RACE_ETH_COL] = df.loc[other_mask, RACE_COL].map(RACE_NAMES_MAPPING)
+    # overwrite with Hispanic if given
+    df.loc[hispanic_mask, RACE_ETH_COL] = std_col.Race.HISP.value
+
+    # Drop unnecessary columns
     df = df.drop(columns=[RACE_COL, ETH_COL])
+
     return df
 
 
@@ -195,8 +217,8 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     groupby_cols = groupby_cols + [CASE_DATE_COL]
     total_groupby_cols = total_groupby_cols + [CASE_DATE_COL]
 
-    df = df.groupby(groupby_cols).sum().reset_index()
-    totals = df.groupby(total_groupby_cols).sum().reset_index()
+    df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+    totals = df.groupby(total_groupby_cols).sum(numeric_only=True).reset_index()
 
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
@@ -220,22 +242,6 @@ def sanity_check_data(df):
                         df[std_col.COVID_HOSP_UNKNOWN])
     assert cases.equals(df[std_col.COVID_DEATH_Y] + df[std_col.COVID_DEATH_N] +
                         df[std_col.COVID_DEATH_UNKNOWN])
-
-
-def standardize_data(df):
-    """Standardizes the data by cleaning string values and standardizing column
-    names.
-
-    df: Pandas dataframe to standardize.
-    """
-    # Clean string values in the dataframe.
-    df = df.applymap(
-        lambda x: x.replace('"', '').strip() if isinstance(x, str) else x)
-
-    # Standardize column names.
-    df = df.rename(columns=COL_NAME_MAPPING)
-
-    return df
 
 
 def generate_national_dataset(state_df, groupby_cols):
@@ -300,17 +306,20 @@ def process_data(dir, files):
 
         # Note that we read CSVs with keep_default_na = False as we want to
         # prevent pandas from interpreting "NA" in the data as NaN
-        chunked_frame = pd.read_csv(os.path.join(dir, f), dtype=str,
-                                    chunksize=100000, keep_default_na=False)
+        chunked_frame = pd.read_csv(
+            os.path.join(dir, f),
+            dtype=str,
+            chunksize=CHUNK_SIZE,
+            keep_default_na=False,
+            usecols=USE_COLS
+        )
+
         for chunk in chunked_frame:
+
             # We first do a bit of cleaning up of geo values and str values.
             df = chunk.replace({COUNTY_FIPS_COL: COUNTY_FIPS_NAMES_MAPPING})
             df = df.replace({COUNTY_COL: COUNTY_NAMES_MAPPING})
             df = df.replace({STATE_COL: STATE_NAMES_MAPPING})
-
-            def _clean_str(x):
-                return x.replace('"', '').strip() if isinstance(x, str) else x
-            df = df.applymap(_clean_str)
 
             # For county fips, we make sure they are strings of length 5 as per
             # our standardization (ignoring empty values).
@@ -341,7 +350,7 @@ def process_data(dir, files):
                     demog_names_mapping)
 
         end = time.time()
-        print("Took", round(end - start, 2), "seconds to process file", f)
+        print("Took", round(end - start), "seconds to process file", f)
 
     # Post-processing of the data.
     for key in all_dfs.copy():
@@ -356,7 +365,7 @@ def process_data(dir, files):
         all_dfs[key] = all_dfs[key].astype(int).reset_index()
 
         # Standardize the column names and race/age/sex values.
-        all_dfs[key] = standardize_data(all_dfs[key])
+        all_dfs[key] = all_dfs[key].rename(columns=COL_NAME_MAPPING)
 
         # Set hospitalization and death data for states we want to suppress to
         # an empty string, indicating missing data.
