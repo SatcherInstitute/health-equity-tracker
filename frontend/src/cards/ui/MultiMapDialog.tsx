@@ -8,6 +8,7 @@ import {
   Typography,
   Alert,
   useMediaQuery,
+  useTheme,
 } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
@@ -42,6 +43,7 @@ import CardOptionsMenu from './CardOptionsMenu'
 import { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
 import sass from '../../styles/variables.module.scss'
+import CloseIcon from '@mui/icons-material/Close'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -120,7 +122,8 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     setScale({ domain, range })
   }
 
-  const isMobile = useMediaQuery('(max-width:400px)')
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
 
   return (
     <Dialog
@@ -133,11 +136,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       ref={screenshotTargetRef}
     >
       <DialogContent dividers={true}>
-        <CardOptionsMenu
-          downloadTargetScreenshot={downloadTargetScreenshot}
-          reportTitle={props.reportTitle}
-          scrollToHash={props.scrollToHash}
-        />
         <Grid
           container
           justifyContent="space-between"
@@ -146,6 +144,22 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         >
           {/* card heading row */}
           <Grid item xs={12} container justifyContent={'space-between'}>
+            {/* mobile-only card options button */}
+            {isMobile && (
+              <Grid
+                item
+                xs={12}
+                sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
+                container
+                justifyContent={'flex-end'}
+              >
+                <CardOptionsMenu
+                  downloadTargetScreenshot={downloadTargetScreenshot}
+                  reportTitle={props.reportTitle}
+                  scrollToHash={props.scrollToHash}
+                />
+              </Grid>
+            )}
             {/* Modal Title */}
             <Grid item xs={12} sm={9} md={10}>
               <Typography id="modalTitle" variant="h6" component="h2" lineHeight={sass.lhModalHeading}>
@@ -153,8 +167,28 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Typography>
             </Grid>
             {/* desktop-only close button */}
+            {!isMobile &&
+              (<Grid
+                item
+                sx={{
+                  display: { xs: 'none', sm: 'flex' },
+                  mr: { xs: 1, md: 0 },
+                  mb: 3,
+                }}
+                sm={1}
+                container
+                className={styles.DesktopCloseButton}
+              >
+                <Button
+                  aria-label="close multiple maps modal"
+                  onClick={props.handleClose}
+                  color="primary"
+                >
+                  <CloseIcon />
+                </Button>
+              </Grid>
+              )}
           </Grid>
-
           {/* LEGEND */}
           <Grid item xs={12}>
             <Grid container item>
@@ -324,17 +358,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer>
-        {/* mobile-only close button */}
         <div className={styles.FooterSourcesContainer}>
-          {!isMobile && (
-            <Sources
-              queryResponses={props.queryResponses}
-              metadata={props.metadata}
-              downloadTargetScreenshot={downloadTargetScreenshot}
-              isMulti={true}
-            />
-          )}
-          <div className={styles.FooterCloseButton}>
+
+          {!isMobile ? (
             <Button
               aria-label="close multiple maps modal"
               onClick={props.handleClose}
@@ -342,7 +368,23 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             >
               Close
             </Button>
-          </div>
+          ) :
+            <>
+              <Sources
+                queryResponses={props.queryResponses}
+                metadata={props.metadata}
+                downloadTargetScreenshot={downloadTargetScreenshot}
+                isMulti={true}
+              />
+              <div className={styles.FooterCloseButton}>
+                <CardOptionsMenu
+                  downloadTargetScreenshot={downloadTargetScreenshot}
+                  reportTitle={props.reportTitle}
+                  scrollToHash={props.scrollToHash}
+                />
+              </div>
+            </>
+          }
         </div>
       </footer>
     </Dialog>
