@@ -445,6 +445,8 @@ function MapCardWithKey(props: MapCardProps) {
                 (props.dataTypeConfig.surveyCollectedData ?? false)
               }
               pageIsSmall={pageIsSmall}
+              reportTitle={props.reportTitle}
+              scrollToHash={HASH_ID}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (

@@ -111,6 +111,7 @@ $lhLoose: 1.6;
 $lhSomeSpace: 1.15;
 $lhNormal: 1;
 $lhTight: 0.95;
+$lhModalHeading: 1.25;
 
 // default settings
 $card-gutter: 8px;
@@ -232,6 +233,7 @@ $z-top: 999;
   maxWidth: $max-width;
 
   lhTight: $lhTight;
+  lhModalHeading: $lhModalHeading;
 
   sm: $sm;
   md: $md;
