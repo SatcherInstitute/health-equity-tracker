@@ -126,7 +126,7 @@ DEMOGRAPHIC_COL_MAPPING = {
     'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
 
-# States that we have decided to suppress different kinds of data for, due to
+# States that we previously decided to suppress different kinds of data for, due to
 # very incomplete data. Note that states that have all data suppressed will
 # have case, hospitalization, and death data suppressed.
 # See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
