@@ -7,6 +7,8 @@ import {
   DialogContent,
   Typography,
   Alert,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
@@ -17,7 +19,6 @@ import {
   type FieldRange,
 } from '../../data/utils/DatasetTypes'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { Sources } from './Sources'
 import styles from './MultiMapDialog.module.scss'
 import {
   type MetricQuery,
@@ -34,11 +35,15 @@ import {
 } from '../../data/providers/CawpProvider'
 import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
 import { getMapScheme } from '../../charts/mapHelperFunctions'
-import CloseIcon from '@mui/icons-material/Close'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap } from '../MapCard'
 import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
+import CardOptionsMenu from './CardOptionsMenu'
+import { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { Sources } from './Sources'
+import sass from '../../styles/variables.module.scss'
+import CloseIcon from '@mui/icons-material/Close'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -75,6 +80,8 @@ export interface MultiMapDialogProps {
   totalPopulationPhrase: string
   handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
   pageIsSmall: boolean
+  reportTitle: string
+  scrollToHash: ScrollableHashId
 }
 
 /*
@@ -115,6 +122,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     setScale({ domain, range })
   }
 
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
   return (
     <Dialog
       className={styles.MultiMapBox}
@@ -134,50 +144,50 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
         >
           {/* card heading row */}
           <Grid item xs={12} container justifyContent={'space-between'}>
-            {/* mobile-only close button */}
-            <Grid
-              item
-              xs={12}
-              sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
-              container
-              justifyContent={'flex-end'}
-            >
-              <Button
-                aria-label="close multiple maps modal"
-                onClick={props.handleClose}
-                color="primary"
+            {/* mobile-only card options button */}
+            {isMobile && (
+              <Grid
+                item
+                xs={12}
+                sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
+                container
+                justifyContent={'flex-end'}
               >
-                <CloseIcon />
-              </Button>
-            </Grid>
+                <CardOptionsMenu
+                  downloadTargetScreenshot={downloadTargetScreenshot}
+                  reportTitle={props.reportTitle}
+                  scrollToHash={props.scrollToHash}
+                />
+              </Grid>
+            )}
             {/* Modal Title */}
             <Grid item xs={12} sm={9} md={10}>
-              <Typography id="modalTitle" variant="h6" component="h2">
+              <Typography id="modalTitle" variant="h6" component="h2" lineHeight={sass.lhModalHeading}>
                 {title}
               </Typography>
             </Grid>
             {/* desktop-only close button */}
-            <Grid
-              item
-              sx={{
-                display: { xs: 'none', sm: 'flex' },
-                mr: { xs: 1, md: 0 },
-                mb: 3,
-              }}
-              sm={1}
-              container
-              justifyContent={'flex-end'}
-            >
-              <Button
-                aria-label="close multiple maps modal"
-                onClick={props.handleClose}
-                color="primary"
+            {!isMobile &&
+              (<Grid
+                item
+                sx={{
+                  display: { xs: 'none', sm: 'flex' },
+                  mr: { xs: 1, md: 0 },
+                  mb: 3,
+                }}
+                sm={1}
+                container
               >
-                <CloseIcon />
-              </Button>
-            </Grid>
+                <Button
+                  aria-label="close multiple maps modal"
+                  onClick={props.handleClose}
+                  color="primary"
+                >
+                  <CloseIcon />
+                </Button>
+              </Grid>
+              )}
           </Grid>
-
           {/* LEGEND */}
           <Grid item xs={12}>
             <Grid container item>
@@ -199,7 +209,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     props.pageIsSmall ? 'vertical' : 'horizontal'
                   }
                   columns={props.pageIsSmall ? 2 : 6}
-                  orient={'bottom-right'}
                   handleScaleChange={handleScaleChange}
                 />
               </Grid>
@@ -349,12 +358,40 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       {/* MODAL FOOTER */}
       <footer>
         <div className={styles.FooterSourcesContainer}>
-          <Sources
-            queryResponses={props.queryResponses}
-            metadata={props.metadata}
-            downloadTargetScreenshot={downloadTargetScreenshot}
-            isMulti={true}
-          />
+
+          {isMobile ? (
+            <Button
+              aria-label="close multiple maps modal"
+              onClick={props.handleClose}
+              color="primary"
+            >
+              Close
+            </Button>
+          ) :
+            <>
+              <Sources
+                queryResponses={props.queryResponses}
+                metadata={props.metadata}
+                downloadTargetScreenshot={downloadTargetScreenshot}
+                isMulti={true}
+              />
+              <Grid
+                item
+                xs={4}
+                sm={3}
+                md={2}
+                container
+                justifyContent={'center'}
+                alignItems={'flex-end'}
+              >
+                <CardOptionsMenu
+                  downloadTargetScreenshot={downloadTargetScreenshot}
+                  reportTitle={props.reportTitle}
+                  scrollToHash={props.scrollToHash}
+                />
+              </Grid>
+            </>
+          }
         </div>
       </footer>
     </Dialog>
