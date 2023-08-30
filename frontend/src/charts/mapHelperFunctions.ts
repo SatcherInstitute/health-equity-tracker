@@ -433,12 +433,12 @@ export function getHighestLowestGroupsByFips(
       }
       // TIE OVERRIDES
       if (ascendingRows[0][metricId] === ascendingRows[1][metricId])
-        delete fipsToGroup[fips].lowest
+        fipsToGroup[fips].lowest = 'Multiple groups'
       const size = ascendingRows.length
       if (
         ascendingRows[size - 1][metricId] === ascendingRows[size - 2][metricId]
       )
-        delete fipsToGroup[fips].highest
+        fipsToGroup[fips].highest = 'Multiple groups'
     }
   }
 
