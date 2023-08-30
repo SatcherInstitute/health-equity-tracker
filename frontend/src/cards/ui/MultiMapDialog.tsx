@@ -177,7 +177,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 }}
                 sm={1}
                 container
-                className={styles.DesktopCloseButton}
               >
                 <Button
                   aria-label="close multiple maps modal"
@@ -360,7 +359,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       <footer>
         <div className={styles.FooterSourcesContainer}>
 
-          {!isMobile ? (
+          {isMobile ? (
             <Button
               aria-label="close multiple maps modal"
               onClick={props.handleClose}
@@ -376,13 +375,21 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 downloadTargetScreenshot={downloadTargetScreenshot}
                 isMulti={true}
               />
-              <div className={styles.FooterCloseButton}>
+              <Grid
+                item
+                xs={4}
+                sm={3}
+                md={2}
+                container
+                justifyContent={'center'}
+                alignItems={'flex-end'}
+              >
                 <CardOptionsMenu
                   downloadTargetScreenshot={downloadTargetScreenshot}
                   reportTitle={props.reportTitle}
                   scrollToHash={props.scrollToHash}
                 />
-              </div>
+              </Grid>
             </>
           }
         </div>
