@@ -166,12 +166,13 @@ export function createShapeMarks(
   tooltipExpression: string,
   overrideShapeWithCircle?: boolean,
   hideMissingDataTooltip?: boolean,
-  outlineGeos?: boolean
+  outlineGeos?: boolean,
+  isMulti?: boolean
 ) {
   let encodeEnter: any = {}
   if (overrideShapeWithCircle) {
     encodeEnter = {
-      size: { value: '1000' },
+      size: { value: isMulti?  '500': '1000' },
       fill: fillColor,
       stroke: { value: 'white' },
       strokeWidth: { value: 1.5 },

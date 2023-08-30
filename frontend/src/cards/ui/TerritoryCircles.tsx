@@ -42,7 +42,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
   )
 
   return (
-    <Grid container flexDirection={'row'} justifyContent={'flex-end'}>
+    <Grid container flexDirection={'row'} justifyContent={'flex-end'} style={{padding: props.isMulti ? '0px 5px 10px' : ''}}>
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
         const fips = new Fips(fipsCode)
         return (

@@ -356,8 +356,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* tooltipExpression= */ zeroTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode
-      ),
+        /* outlineGeos */ props.highestLowestGeosMode,
+        props.isMulti
+        ),
       // MISSING
       createShapeMarks(
         /* datasetName= */ MISSING_DATASET,
@@ -368,7 +369,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* tooltipExpression= */ missingDataTooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode
+        /* outlineGeos */ props.highestLowestGeosMode,
+        props.isMulti
+
       ),
       // NON-ZERO
       createShapeMarks(
@@ -378,7 +381,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* tooltipExpression= */ tooltipValue,
         /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode
+        /* outlineGeos */ props.highestLowestGeosMode,
+        props.isMulti
       ),
     ]
 
