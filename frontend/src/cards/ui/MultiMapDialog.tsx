@@ -41,6 +41,7 @@ import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
 import { ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
+import sass from '../../styles/variables.module.scss'
 
 export interface MultiMapDialogProps {
   // Metric the small maps will evaluate
@@ -147,7 +148,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           <Grid item xs={12} container justifyContent={'space-between'}>
             {/* Modal Title */}
             <Grid item xs={12} sm={9} md={10}>
-              <Typography id="modalTitle" variant="h6" component="h2" lineHeight={"25px"}>
+              <Typography id="modalTitle" variant="h6" component="h2" lineHeight={sass.lhModalHeading}>
                 {title}
               </Typography>
             </Grid>
