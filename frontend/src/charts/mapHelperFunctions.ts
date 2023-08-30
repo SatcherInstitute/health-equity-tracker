@@ -174,7 +174,7 @@ export function createShapeMarks(
   let encodeEnter: any = {}
   if (overrideShapeWithCircle) {
     encodeEnter = {
-      size: { value: isMulti?  '500': '1000' },
+      size: { value: isMulti ? '500' : '1000' },
       fill: fillColor,
       stroke: { value: 'white' },
       strokeWidth: { value: 1.5 },
@@ -379,7 +379,10 @@ export function getMapScheme({
     return [MAP_BW_SCHEME, isSummaryLegend ? sass.mapBwMid : sass.mapBwMin]
   }
   if (PHRMA_METRICS.includes(metricId)) {
-    return [MAP_MEDICARE_SCHEME, mapMin]
+    return [
+      MAP_MEDICARE_SCHEME,
+      isSummaryLegend ? sass.mapMedicareMid : sass.mapMedicareMin,
+    ]
   }
   return [mapScheme, mapMin]
 }
