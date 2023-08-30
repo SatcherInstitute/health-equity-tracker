@@ -10,12 +10,10 @@ import {
   type DemographicGroup,
 } from '../data/utils/Constants'
 
+// OLDER HANDLING PARAMS
+
 export const STICKY_VERSION_PARAM = 'sv'
-
-// Value is a comma-separated list of dataset ids. Dataset ids cannot have
-// commas in them.
 export const DATA_SOURCE_PRE_FILTERS = 'dpf'
-
 // Value is index of the phrase to jump to
 export const MADLIB_PHRASE_PARAM = 'mlp'
 
@@ -23,17 +21,18 @@ export const MADLIB_PHRASE_PARAM = 'mlp'
 // Values are applied on top of defaults so you only need to specify those that differ
 // mls=0:1,2:5
 export const MADLIB_SELECTIONS_PARAM = 'mls'
+export const DATA_TYPE_1_PARAM = 'dt1'
+export const DATA_TYPE_2_PARAM = 'dt2'
+export const MAP1_GROUP_PARAM = 'group1'
+export const MAP2_GROUP_PARAM = 'group2'
 
 // 'true' or 'false' will override the cookie to show or hide the onboarding flow
 export const SHOW_ONBOARDING_PARAM = 'onboard'
 
+// PARAMS HANDLED WITH USEPARAMSTATE() USING JOTAI
+// TODO: eventually all params should likely be moved to useParamState
+
 export const DEMOGRAPHIC_PARAM = 'demo'
-export const DATA_TYPE_1_PARAM = 'dt1'
-export const DATA_TYPE_2_PARAM = 'dt2'
-
-export const MAP1_GROUP_PARAM = 'group1'
-export const MAP2_GROUP_PARAM = 'group2'
-
 export const TOPIC_INFO_PARAM_KEY = 'topic-info'
 export const MULTIPLE_MAPS_1_PARAM_KEY = 'multiple-maps'
 export const MULTIPLE_MAPS_2_PARAM_KEY = 'multiple-maps2'

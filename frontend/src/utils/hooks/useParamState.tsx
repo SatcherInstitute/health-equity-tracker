@@ -1,5 +1,22 @@
 import { locationAtom } from '../sharedSettingsState'
 import { useAtom, useAtomValue } from 'jotai'
+import {
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  MADLIB_PHRASE_PARAM,
+  MADLIB_SELECTIONS_PARAM,
+  MAP1_GROUP_PARAM,
+  MAP2_GROUP_PARAM,
+} from '../urlutils'
+
+const paramsNotHandledByJotai = [
+  MADLIB_SELECTIONS_PARAM,
+  MADLIB_PHRASE_PARAM,
+  DATA_TYPE_1_PARAM,
+  DATA_TYPE_2_PARAM,
+  MAP1_GROUP_PARAM,
+  MAP2_GROUP_PARAM,
+]
 
 export function useParamState<ParamStateType>(
   paramKey: string,
@@ -11,15 +28,16 @@ export function useParamState<ParamStateType>(
     locationState.searchParams?.get(paramKey) ?? paramDefaultValue ?? ''
 
   function setParamState(newValue: ParamStateType): void {
-    const existingURLParams = new URLSearchParams(document.location.search)
+    const existingURLParams = new URLSearchParams(window.location.search)
+    const existingJotaiParams = new URLSearchParams(locationState.searchParams)
 
-    const existingLocationStateParams = new URLSearchParams(
-      locationState.searchParams
-    )
+    for (const param of paramsNotHandledByJotai) {
+      existingJotaiParams.delete(param)
+    }
 
     const combinedParams = new URLSearchParams({
       ...Object.fromEntries(existingURLParams),
-      ...Object.fromEntries(existingLocationStateParams),
+      ...Object.fromEntries(existingJotaiParams),
     })
 
     newValue
