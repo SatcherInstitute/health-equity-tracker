@@ -57,7 +57,7 @@ USE_COLS = [
     CASE_DATE_COL,
 ]
 
-# Previously used column no longer provided by CDC
+# column no longer provided by CDC that we need to recreate
 RACE_ETH_COL = 'race_ethnicity_combined'
 
 # Convenience list for when we group the data by county.
@@ -134,6 +134,7 @@ ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
 HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
 DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
 
+
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep this in place until we can figure out a plan on how to display
@@ -160,6 +161,7 @@ def combine_race_eth(df):
     df = df.drop(columns=[RACE_COL, ETH_COL])
 
     return df
+
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     """Converts/adds columns for cases, hospitalizations, deaths. Does some
