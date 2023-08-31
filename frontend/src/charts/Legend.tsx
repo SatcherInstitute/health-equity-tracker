@@ -35,7 +35,7 @@ import {
   ZERO_VALUES,
   ORDINAL,
 } from './mapGlobals'
-import LegendHeader from './LegendHeader'
+import ClickableLegendHeader from './ClickableLegendHeader'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -62,6 +62,7 @@ export interface LegendProps {
   columns: number
   stackingDirection: 'horizontal' | 'vertical'
   handleScaleChange?: (domain: number[], range: number[]) => void
+  isMulti?: boolean
 }
 
 export function Legend(props: LegendProps) {
@@ -322,10 +323,15 @@ export function Legend(props: LegendProps) {
 
   return (
     <section className={styles.Legend}>
-      <LegendHeader
-        legendTitle={props.legendTitle}
-        dataTypeConfig={props.dataTypeConfig}
-      />
+      {props.isMulti ? (
+        <span className={styles.LegendHeader}>{props.legendTitle}</span>
+      ) : (
+        <ClickableLegendHeader
+          legendTitle={props.legendTitle}
+          dataTypeConfig={props.dataTypeConfig}
+        />
+      )}
+
       {spec && (
         <div>
           <Vega

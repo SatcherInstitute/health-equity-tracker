@@ -47,6 +47,7 @@ import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
 import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
+import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 
 export interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -197,26 +198,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Grid>
             )}
           </Grid>
-          {/* LEGEND */}
-          <Grid item xs={12}>
-            <Grid container justifyContent="center">
-              <Legend
-                dataTypeConfig={props.dataTypeConfig}
-                metric={props.metricConfig}
-                legendTitle={props.metricConfig.shortLabel}
-                data={props.data}
-                scaleType={RATE_MAP_SCALE}
-                sameDotSize={true}
-                description={'Consistent legend for all displayed maps'}
-                mapConfig={{ mapScheme, mapMin }}
-                stackingDirection={
-                  props.pageIsSmall ? 'vertical' : 'horizontal'
-                }
-                columns={props.pageIsSmall ? 2 : 6}
-                handleScaleChange={handleScaleChange}
-              />
-            </Grid>
-          </Grid>
 
           {/* Multiples Maps */}
           {props.demographicGroups.map((demographicGroup) => {
@@ -292,6 +273,24 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             )
           })}
 
+          {/* LEGEND */}
+          <Grid item container xs={12} justifyContent="start">
+            <Legend
+              dataTypeConfig={props.dataTypeConfig}
+              metric={props.metricConfig}
+              legendTitle={props.metricConfig.shortLabel}
+              data={props.data}
+              scaleType={RATE_MAP_SCALE}
+              sameDotSize={true}
+              description={'Consistent legend for all displayed maps'}
+              mapConfig={{ mapScheme, mapMin }}
+              stackingDirection={props.pageIsSmall ? 'vertical' : 'horizontal'}
+              columns={props.pageIsSmall ? 2 : 6}
+              handleScaleChange={handleScaleChange}
+              isMulti={true}
+            />
+          </Grid>
+
           {/* Population Breadcrumbs + Legend */}
           <Grid
             container
@@ -308,7 +307,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               item
               xs={12}
               md={6}
-              justifyContent={'center'}
+              justifyContent={'start'}
             >
               <MapBreadcrumbs
                 fips={props.fips}
@@ -355,6 +354,14 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Box>
             </Grid>
           )}
+
+          <Grid container justifyContent={'center'}>
+            <Grid item xs={12}>
+              <Alert icon={<></>} severity="info" role="note">
+                <DataTypeDefinitionsList />
+              </Alert>
+            </Grid>
+          </Grid>
         </Grid>
       </DialogContent>
 

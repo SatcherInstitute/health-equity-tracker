@@ -5,12 +5,14 @@ import { useParamState } from '../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../utils/urlutils'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
 
-interface LegendHeaderProps {
+interface ClickableLegendHeaderProps {
   legendTitle: string
   dataTypeConfig: DataTypeConfig
 }
 
-export default function LegendHeader(props: LegendHeaderProps) {
+export default function ClickableLegendHeader(
+  props: ClickableLegendHeaderProps
+) {
   const [, setTopicInfoModalIsOpen] = useParamState<boolean>(
     TOPIC_INFO_PARAM_KEY,
     false
