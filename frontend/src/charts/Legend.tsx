@@ -32,6 +32,7 @@ import {
   ZERO_VALUES,
   ORDINAL,
 } from './mapGlobals'
+import LegendHeader from './LegendHeader'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -317,7 +318,7 @@ export function Legend(props: LegendProps) {
 
   return (
     <Grid component={'section'} className={styles.Legend}>
-      <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
+      <LegendHeader legendTitle={props.legendTitle} />
       <Grid>
         {spec && (
           <Vega
