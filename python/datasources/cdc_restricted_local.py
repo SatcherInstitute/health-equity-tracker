@@ -126,15 +126,6 @@ DEMOGRAPHIC_COL_MAPPING = {
     'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
 
-# States that we previously decided to suppress different kinds of data for, due to
-# very incomplete data. Note that states that have all data suppressed will
-# have case, hospitalization, and death data suppressed.
-# See https://github.com/SatcherInstitute/health-equity-tracker/issues/617.
-ALL_DATA_SUPPRESSION_STATES = ("MP", "MS", "WV")
-HOSP_DATA_SUPPRESSION_STATES = ("HI", "NE", "RI", "SD")
-DEATH_DATA_SUPPRESSION_STATES = ("HI", "NE", "SD", "DE")
-
-
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep this in place until we can figure out a plan on how to display
@@ -259,7 +250,7 @@ def generate_national_dataset(state_df, groupby_cols):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby(groupby_cols).sum().reset_index()
+    df = state_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME
@@ -326,9 +317,6 @@ def process_data(dir, files):
             df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
                 lambda x: x.zfill(5) if len(x) > 0 else x)
 
-            # Remove records from states where we want to suppress all data.
-            df = df[~df[STATE_COL].isin(ALL_DATA_SUPPRESSION_STATES)]
-
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
             for (geo, demo), _ in all_dfs.items():
@@ -366,20 +354,6 @@ def process_data(dir, files):
 
         # Standardize the column names and race/age/sex values.
         all_dfs[key] = all_dfs[key].rename(columns=COL_NAME_MAPPING)
-
-        # Set hospitalization and death data for states we want to suppress to
-        # an empty string, indicating missing data.
-        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
-            HOSP_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_Y] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_N] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_HOSP_UNKNOWN] = ""
-
-        rows_to_modify = all_dfs[key][std_col.STATE_POSTAL_COL].isin(
-            DEATH_DATA_SUPPRESSION_STATES)
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_Y] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_N] = ""
-        all_dfs[key].loc[rows_to_modify, std_col.COVID_DEATH_UNKNOWN] = ""
 
         # Standardize all None/NaNs in the data to an empty string, and convert
         # everything to string before returning & writing to CSV.

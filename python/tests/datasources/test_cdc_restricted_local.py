@@ -55,10 +55,13 @@ def testKeyMap():
 
 def run_test(key):
     dfs = cdc.process_data(TEST_DIR, TEST_DATA)
+
     expected_df = pd.read_csv(
         GOLDEN_DATA[key], dtype=str, keep_default_na=False)
 
     expected_df = expected_df.replace({'nan': ''})
+
+    sortby_cols = list(dfs[key].columns)
 
     assert set(dfs[key].columns) == set(expected_df.columns)
     sortby_cols = list(dfs[key].columns)
@@ -110,12 +113,12 @@ def testGenerateNationalDataset():
     groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
     national_df = cdc.generate_national_dataset(
         race_age_state_df, groupby_cols)
+    # national_df = national_df.replace({'nan': ''})
+
     expected_df = pd.read_csv(GOLDEN_DATA_NATIONAL, dtype={
         std_col.STATE_FIPS_COL: str,
         std_col.COVID_CASES: int,
     }, keep_default_na=False)
-
-    national_df = national_df.replace({'nan': ''})
 
     assert_frame_equal(expected_df, national_df, check_like=True)
 
