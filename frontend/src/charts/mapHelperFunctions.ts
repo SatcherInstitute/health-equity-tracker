@@ -40,8 +40,10 @@ import {
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 /*
+
 Vega requires a type of json to create the tooltip, where the key value pairs appear as new lines on the tooltip and render with a ":" in the middle.
 Vega will render incoming strings AS CODE, meaning anything you want to appear as a literal string and not a vega function call / vega variable needs to be double quoted.
+
 */
 export function buildTooltipTemplate(
   tooltipPairs: Record<string, string>,
@@ -172,7 +174,7 @@ export function createShapeMarks(
   let encodeEnter: any = {}
   if (overrideShapeWithCircle) {
     encodeEnter = {
-      size: { value: isMulti?  '500': '1000' },
+      size: { value: isMulti ? '500' : '1000' },
       fill: fillColor,
       stroke: { value: 'white' },
       strokeWidth: { value: 1.5 },
@@ -367,21 +369,21 @@ export function getMapScheme({
   isSummaryLegend,
   isUnknownsMap,
 }: GetMapSchemeProps) {
-  let mapScheme = MAP_SCHEME
-  let mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
+  const mapScheme = MAP_SCHEME
+  const mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
 
   if (isUnknownsMap) {
-    mapScheme = UNKNOWNS_MAP_SCHEME
-    mapMin = sass.unknownMapMin
+    return [UNKNOWNS_MAP_SCHEME, sass.unknownMapMin]
   }
   if (BLACK_WOMEN_METRICS.includes(metricId)) {
-    mapScheme = MAP_BW_SCHEME
-    mapMin = isSummaryLegend ? sass.mapBwMid : sass.mapBwMin
+    return [MAP_BW_SCHEME, isSummaryLegend ? sass.mapBwMid : sass.mapBwMin]
   }
   if (PHRMA_METRICS.includes(metricId)) {
-    mapScheme = MAP_MEDICARE_SCHEME
+    return [
+      MAP_MEDICARE_SCHEME,
+      isSummaryLegend ? sass.mapMedicareMid : sass.mapMedicareMin,
+    ]
   }
-
   return [mapScheme, mapMin]
 }
 
@@ -431,12 +433,12 @@ export function getHighestLowestGroupsByFips(
       }
       // TIE OVERRIDES
       if (ascendingRows[0][metricId] === ascendingRows[1][metricId])
-        delete fipsToGroup[fips].lowest
+        fipsToGroup[fips].lowest = 'Multiple groups'
       const size = ascendingRows.length
       if (
         ascendingRows[size - 1][metricId] === ascendingRows[size - 2][metricId]
       )
-        delete fipsToGroup[fips].highest
+        fipsToGroup[fips].highest = 'Multiple groups'
     }
   }
 

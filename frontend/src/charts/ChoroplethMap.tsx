@@ -124,7 +124,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       const numerator = numeratorId !== undefined ? row[numeratorId] : undefined
       if (numeratorId && numerator === null)
         newRow[numeratorId] = DATA_SUPPRESSED
-      else if (numeratorId && numerator)
+      else if (numeratorId && numerator >= 0)
         newRow[numeratorId] = numerator.toLocaleString()
 
       const denominatorId = props.countColsMap?.denominatorConfig?.metricId
@@ -132,7 +132,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         denominatorId !== undefined ? row[denominatorId] : undefined
       if (denominatorId && denominator === null)
         newRow[denominatorId] = DATA_SUPPRESSED
-      else if (denominatorId && denominator)
+      else if (denominatorId && denominator >= 0)
         newRow[denominatorId] = denominator.toLocaleString()
 
       return newRow
@@ -154,7 +154,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
 
-  const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.5
+  const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
 
   // Initial spec state is set in useEffect
   const [spec, setSpec] = useState({})
@@ -244,13 +244,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       /* showCounties */ props.showCounties
     )
 
-    // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
-    const zeroTooltipValue = buildTooltipTemplate(
-      /* tooltipPairs */ tooltipPairs,
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
-    )
-
     // Hover tooltip for null/undefined/missing data
     const missingDataTooltipValue = buildTooltipTemplate(
       /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
@@ -277,6 +270,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     tooltipPairs['Highest rate group'] = `datum.highestGroup`
     tooltipPairs['Lowest rate group'] = `datum.lowestGroup`
+
+    // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
+    const zeroTooltipValue = buildTooltipTemplate(
+      /* tooltipPairs */ tooltipPairs,
+      /* title */ `datum.properties.name + " ${geographyType}"`,
+      /* includeSvi */ true
+    )
 
     // Hover tooltip for non-zero data
     const tooltipValue = buildTooltipTemplate(
@@ -358,7 +358,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
         /* outlineGeos */ props.highestLowestGeosMode,
         props.isMulti
-        ),
+      ),
       // MISSING
       createShapeMarks(
         /* datasetName= */ MISSING_DATASET,
@@ -371,7 +371,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
         /* outlineGeos */ props.highestLowestGeosMode,
         props.isMulti
-
       ),
       // NON-ZERO
       createShapeMarks(

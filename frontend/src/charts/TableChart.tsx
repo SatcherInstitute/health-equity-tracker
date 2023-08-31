@@ -146,10 +146,14 @@ export function TableChart(props: TableChartProps) {
   /** Component for the table's data rows **/
   function TableDataRow({ row }: { row: Row<any> }) {
     const numeratorCount = props.countColsMap.numeratorConfig?.metricId
-      ? row.original[props.countColsMap.numeratorConfig.metricId]
+      ? row.original[
+          props.countColsMap.numeratorConfig.metricId
+        ]?.toLocaleString()
       : ''
     const denominatorCount = props.countColsMap.denominatorConfig?.metricId
-      ? row.original[props.countColsMap.denominatorConfig.metricId]
+      ? row.original[
+          props.countColsMap.denominatorConfig.metricId
+        ]?.toLocaleString()
       : ''
     let numeratorLabel = props.countColsMap.numeratorConfig?.shortLabel ?? ''
     if (numeratorCount === 1) numeratorLabel = removeLastS(numeratorLabel)

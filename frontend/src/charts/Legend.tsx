@@ -1,11 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { Vega, type VisualizationSpec } from 'react-vega'
-import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  isPctType,
+  type MetricConfig,
+} from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import styles from './Legend.module.scss'
 import { type View, type Legend as LegendType } from 'vega'
-import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
@@ -32,11 +35,13 @@ import {
   ZERO_VALUES,
   ORDINAL,
 } from './mapGlobals'
+import ClickableLegendHeader from './ClickableLegendHeader'
 
 /*
    Legend renders a vega chart that just contains a legend.
 */
 export interface LegendProps {
+  dataTypeConfig: DataTypeConfig
   // Data for which to create a legend.
   data?: Array<Record<string, any>> // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
@@ -57,6 +62,7 @@ export interface LegendProps {
   columns: number
   stackingDirection: 'horizontal' | 'vertical'
   handleScaleChange?: (domain: number[], range: number[]) => void
+  isMulti?: boolean
 }
 
 export function Legend(props: LegendProps) {
@@ -316,10 +322,18 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <Grid component={'section'} className={styles.Legend}>
-      <h4 className={styles.LegendTitle}>{props.legendTitle}</h4>
-      <Grid>
-        {spec && (
+    <section className={styles.Legend}>
+      {props.isMulti ? (
+        <span className={styles.LegendHeader}>{props.legendTitle}</span>
+      ) : (
+        <ClickableLegendHeader
+          legendTitle={props.legendTitle}
+          dataTypeConfig={props.dataTypeConfig}
+        />
+      )}
+
+      {spec && (
+        <div>
           <Vega
             renderer="svg"
             spec={spec}
@@ -328,8 +342,8 @@ export function Legend(props: LegendProps) {
               handleNewView(view)
             }}
           />
-        )}
-      </Grid>
-    </Grid>
+        </div>
+      )}
+    </section>
   )
 }

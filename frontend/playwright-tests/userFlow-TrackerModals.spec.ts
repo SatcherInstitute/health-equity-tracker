@@ -4,7 +4,7 @@ test.describe.configure({ mode: 'parallel' });
 
 test.describe('Topic and Multiple Maps Modals Open / Close States Represented in URL Param', () => {
 
-    test('Topic Info Modal', async ({ page }) => {
+    test('Topic Info Modal from Sidebar', async ({ page }) => {
 
         // Compare Topics Page Loads
         await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "networkidle" });
@@ -16,6 +16,22 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         // CLOSE IT
         await page.getByRole('button', { name: 'close topic info modal' }).click();
         await expect(page).not.toHaveURL(/.*topic-info=true/);
+    })
+
+    test('Topic Info Modal from Map Legend', async ({ page }) => {
+
+
+        await page.goto('http://localhost:3000/');
+        await page.locator('#landingPageCTA').click();
+        await page.getByRole('link', { name: 'Uninsurance in Florida & California, by sex' }).click();
+        await page.locator('#rate-map2').getByRole('button', { name: 'Click for more info on uninsured people' }).click();
+        await page.getByRole('link', { name: 'methodology' }).click();
+        await page.getByRole('link', { name: 'age-adjustment methodology' }).click();
+        await page.getByRole('link', { name: 'COVID-19 deaths' }).click();
+        await page.getByRole('link', { name: 'data reporting gaps' }).click();
+        await page.getByText('COVID-19COVID-19 cases: A COVID-19 case is an individual who has been determined').click();
+        await page.getByText('Investigate rates ofCOVID-19 Deaths in theUnited States DemographicRace/eth').press('Meta+c');
+
     })
 
     test('Multiple Maps 1 (Left Side)', async ({ page }) => {

@@ -3,10 +3,7 @@ Receives list of dataType objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
-import {
-  type DropdownVarId,
-  type DataTypeConfig,
-} from '../../data/config/MetricConfig'
+import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 
 export interface DefinitionsListProps {
@@ -20,7 +17,7 @@ export default function DefinitionsList(
   const relevantCategoriesSet = new Set<Category>()
   props.dataTypesToDefine.forEach((dataType) => {
     const matchingCategory = CATEGORIES_LIST.find((category) =>
-      category.options.includes(dataType[0] as DropdownVarId)
+      category.options.includes(dataType[0])
     )
     matchingCategory && relevantCategoriesSet.add(matchingCategory)
   })
