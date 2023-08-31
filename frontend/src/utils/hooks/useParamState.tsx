@@ -44,10 +44,14 @@ export function useParamState<ParamStateType>(
       ? combinedParams.set(paramKey, newValue as string)
       : combinedParams.delete(paramKey)
 
-    setLocationState((prev) => ({
-      ...prev,
-      searchParams: combinedParams,
-    }))
+    const paramsHaveChanged =
+      existingURLParams.toString() !== combinedParams.toString()
+
+    paramsHaveChanged &&
+      setLocationState((prev) => ({
+        ...prev,
+        searchParams: combinedParams,
+      }))
   }
 
   return [paramState as ParamStateType, setParamState]
