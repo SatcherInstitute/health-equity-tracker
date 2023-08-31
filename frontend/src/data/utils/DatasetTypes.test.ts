@@ -1,3 +1,5 @@
+import { DatasetId } from '../config/DatasetMetadata'
+import { DataSourceId } from '../config/MetadataMap'
 import { convertSpecialCharactersForCsv, Dataset } from './DatasetTypes'
 
 describe('DatasetTypes', () => {
@@ -11,9 +13,9 @@ describe('DatasetTypes', () => {
   })
 
   const fakeMetaData = {
-    id: 'xyz_condition-race_and_ethnicity',
+    id: 'xyz_condition-race_and_ethnicity' as DatasetId,
     name: 'Some Data Place',
-    source_id: 'this_that',
+    source_id: 'this_that' as DataSourceId,
     update_time: 'Jan 1983',
   }
 

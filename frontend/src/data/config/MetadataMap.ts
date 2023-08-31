@@ -5,6 +5,27 @@ export const GEOGRAPHIES_DATASET_ID = 'geographies'
 // ALERT!!! Keep this file in sync with DatasetMetadata while it is present
 // All dataset IDs should be in the DatasetMetadata
 
+export type DataSourceId =
+  | 'acs'
+  | 'ahr'
+  | 'bjs'
+  | 'cawp'
+  | 'cdc_atlas'
+  | 'cdc_restricted'
+  | 'cdc_svi_county'
+  | 'cdc_vaccination_county'
+  | 'cdc_vaccination_national'
+  | 'census_pop_estimates'
+  | 'covid_tracking_project'
+  | 'decia_2010_territory_population'
+  | 'decia_2020_territory_population'
+  | 'geographies_source'
+  | 'geo_context'
+  | 'kff_vaccination'
+  | 'phrma'
+  | 'the_unitedstates_project'
+  | 'vera'
+
 export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     id: 'cdc_restricted',
@@ -157,7 +178,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'retail pharmacies, long-term care facilities, dialysis centers, ' +
       'Federal Emergency Management Agency and Health Resources and Services ' +
       'Administration partner sites, and federal entity facilities.',
-    dataset_ids: ['cdc_vaccination_county-race_and_ethnicity_processed'],
+    dataset_ids: ['cdc_vaccination_county-alls_county'],
     downloadable: true,
   },
   {
@@ -224,7 +245,10 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
       "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
       "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
-    dataset_ids: ['kff_vaccination-race_and_ethnicity_processed'],
+    dataset_ids: [
+      'kff_vaccination-race_and_ethnicity_state',
+      'kff_vaccination-alls_state',
+    ],
     downloadable: true,
   },
   {
@@ -318,6 +342,26 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: false,
   },
   {
+    id: 'geo_context',
+    data_source_name: 'Geographic Context - Composite Dataset',
+    data_source_pretty_site_name:
+      'github.com/SatcherInstitute/health-equity-tracker',
+    data_source_link:
+      'https://github.com/SatcherInstitute/health-equity-tracker',
+    geographic_level: 'National, State, County',
+    demographic_granularity: 'N/A',
+    update_frequency: 'Yearly',
+    description:
+      'This is a composite dataset we create for faster loading; it includes population data from ACS and SVI data at the county level from the CDC.',
+    dataset_ids: [
+      'geo_context-county',
+      'geo_context-state',
+      'geo_context-national',
+    ],
+    downloadable: true,
+  },
+  {
+    hideFromUser: true,
     id: 'phrma',
     data_source_name: 'Medicare Administrative Data',
     data_source_pretty_site_name: 'cms.gov',

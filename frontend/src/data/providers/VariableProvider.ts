@@ -9,6 +9,7 @@ import {
 } from '../query/MetricQuery'
 import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { CROSS_SECTIONAL, TIME_SERIES, TIME_PERIOD } from '../utils/Constants'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 abstract class VariableProvider {
   readonly providerId: ProviderId
@@ -148,10 +149,9 @@ abstract class VariableProvider {
 
   abstract getDatasetId(
     breakdown: Breakdowns,
-    dataType?: string,
-    timeView?: TimeView,
-    dataTypeId?: DataTypeId
-  ): string
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView
+  ): DatasetId | undefined
 }
 
 export default VariableProvider

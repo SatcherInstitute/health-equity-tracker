@@ -1,562 +1,687 @@
 import { type DatasetMetadata } from '../utils/DatasetTypes'
-import { DataSourceMetadataMap, GEOGRAPHIES_DATASET_ID } from './MetadataMap'
+import { type StateFipsCode } from '../utils/Fips'
+import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
-export const datasetMetadataList: DatasetMetadata[] = [
-  {
-    id: 'acs_population-by_race_county',
+export type DatasetId =
+  | 'acs_condition-by_age_county_time_series'
+  | 'acs_condition-by_age_national_time_series'
+  | 'acs_condition-by_age_state_time_series'
+  | 'acs_condition-by_race_county_time_series'
+  | 'acs_condition-by_race_national_time_series'
+  | 'acs_condition-by_race_state_time_series'
+  | 'acs_condition-by_sex_county_time_series'
+  | 'acs_condition-by_sex_national_time_series'
+  | 'acs_condition-by_sex_state_time_series'
+  | 'acs_population-by_age_county'
+  | 'acs_population-by_age_national'
+  | 'acs_population-by_age_state'
+  | 'acs_population-by_race_county'
+  | 'acs_population-by_race_national'
+  | 'acs_population-by_race_state'
+  | 'acs_population-by_sex_county'
+  | 'acs_population-by_sex_national'
+  | 'acs_population-by_sex_state'
+  | 'ahr_data-age_national'
+  | 'ahr_data-age_state'
+  | 'ahr_data-race_and_ethnicity_national'
+  | 'ahr_data-race_and_ethnicity_state'
+  | 'ahr_data-sex_national'
+  | 'ahr_data-sex_state'
+  | 'bjs_incarceration_data-age_national'
+  | 'bjs_incarceration_data-age_state'
+  | 'bjs_incarceration_data-race_and_ethnicity_national'
+  | 'bjs_incarceration_data-race_and_ethnicity_state'
+  | 'bjs_incarceration_data-sex_national'
+  | 'bjs_incarceration_data-sex_state'
+  | 'cawp_time_data-race_and_ethnicity_national_time_series'
+  | 'cawp_time_data-race_and_ethnicity_state_time_series_names'
+  | 'cawp_time_data-race_and_ethnicity_state_time_series'
+  | 'cdc_hiv_data-age_county_time_series'
+  | 'cdc_hiv_data-age_national_time_series'
+  | 'cdc_hiv_data-age_state_time_series'
+  | 'cdc_hiv_data-black_women_national_time_series'
+  | 'cdc_hiv_data-black_women_state_time_series'
+  | 'cdc_hiv_data-race_and_ethnicity_county_time_series'
+  | 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
+  | 'cdc_hiv_data-race_and_ethnicity_national_time_series'
+  | 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
+  | 'cdc_hiv_data-race_and_ethnicity_state_time_series'
+  | 'cdc_hiv_data-sex_county_time_series'
+  | 'cdc_hiv_data-sex_national_time_series'
+  | 'cdc_hiv_data-sex_state_time_series'
+  | 'cdc_restricted_data-by_age_county_processed_time_series'
+  | 'cdc_restricted_data-by_age_county_processed'
+  | 'cdc_restricted_data-by_age_national_processed_time_series'
+  | 'cdc_restricted_data-by_age_national_processed'
+  | 'cdc_restricted_data-by_age_state_processed_time_series'
+  | 'cdc_restricted_data-by_age_state_processed'
+  | 'cdc_restricted_data-by_race_county_processed_time_series'
+  | 'cdc_restricted_data-by_race_county_processed'
+  | 'cdc_restricted_data-by_race_national_processed_time_series'
+  | 'cdc_restricted_data-by_race_national_processed-with_age_adjust'
+  | 'cdc_restricted_data-by_race_state_processed_time_series'
+  | 'cdc_restricted_data-by_race_state_processed-with_age_adjust'
+  | 'cdc_restricted_data-by_sex_county_processed_time_series'
+  | 'cdc_restricted_data-by_sex_county_processed'
+  | 'cdc_restricted_data-by_sex_national_processed_time_series'
+  | 'cdc_restricted_data-by_sex_national_processed'
+  | 'cdc_restricted_data-by_sex_state_processed_time_series'
+  | 'cdc_restricted_data-by_sex_state_processed'
+  | 'cdc_svi_county-age'
+  | 'cdc_vaccination_county-alls_county'
+  | 'cdc_vaccination_national-age_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
+  | 'cdc_vaccination_national-race_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
+  | 'cdc_vaccination_national-sex_processed' // TODO: rm "processed" on the backend and use the actual geography "national"
+  | 'census_pop_estimates-race_and_ethnicity'
+  | 'covid_tracking_project-cases_by_race_state'
+  | 'covid_tracking_project-deaths_by_race_state'
+  | 'covid_tracking_project-hospitalizations_by_race_state'
+  | 'covid_tracking_project-tests_by_race_state'
+  | 'decia_2010_territory_population-by_age_territory_state_level'
+  | 'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level'
+  | 'decia_2010_territory_population-by_sex_territory_state_level'
+  | 'decia_2020_territory_population-by_age_territory_county_level'
+  | 'decia_2020_territory_population-by_age_territory_state_level'
+  | 'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level'
+  | 'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
+  | 'decia_2020_territory_population-by_sex_territory_county_level'
+  | 'decia_2020_territory_population-by_sex_territory_state_level'
+  | 'geographies'
+  | 'geo_context-national'
+  | 'geo_context-state'
+  | 'geo_context-county'
+  | 'kff_vaccination-alls_state'
+  | 'kff_vaccination-race_and_ethnicity_state'
+  | 'phrma_data-age_county'
+  | 'phrma_data-age_national'
+  | 'phrma_data-age_state'
+  | 'phrma_data-eligibility_county'
+  | 'phrma_data-eligibility_national'
+  | 'phrma_data-eligibility_state'
+  | 'phrma_data-lis_county'
+  | 'phrma_data-lis_national'
+  | 'phrma_data-lis_state'
+  | 'phrma_data-race_and_ethnicity_county'
+  | 'phrma_data-race_and_ethnicity_national'
+  | 'phrma_data-race_and_ethnicity_state'
+  | 'phrma_data-sex_county'
+  | 'phrma_data-sex_national'
+  | 'phrma_data-sex_state'
+  | 'the_unitedstates_project'
+  | 'vera_incarceration_county-by_age_county_time_series'
+  | 'vera_incarceration_county-by_race_and_ethnicity_county_time_series'
+  | 'vera_incarceration_county-by_sex_county_time_series'
+
+export type DatasetIdWithStateFIPSCode = `${DatasetId}-${StateFipsCode}`
+
+export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
+  'acs_population-by_race_county': {
     name: 'Population by race/ethnicity and county',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_race_state',
+  'acs_population-by_race_state': {
     name: 'Population by race/ethnicity and state',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_race_national',
+  'acs_population-by_race_national': {
     name: 'Population by race/ethnicity nationally',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_age_county',
+  'acs_population-by_age_county': {
     name: 'Population by age and county',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_age_state',
+  'acs_population-by_age_state': {
     name: 'Population by age and state',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_age_national',
+  'acs_population-by_age_national': {
     name: 'Population by age nationally',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_sex_county',
+  'acs_population-by_sex_county': {
     name: 'Population by sex and county',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_sex_state',
+  'acs_population-by_sex_state': {
     name: 'Population by sex and state',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_population-by_sex_national',
+  'acs_population-by_sex_national': {
     name: 'Population by sex nationally',
     update_time: '2019',
+    source_id: 'acs',
   },
-  {
-    id: 'cdc_hiv_data-race_and_ethnicity_county_time_series',
+  'cdc_hiv_data-race_and_ethnicity_county_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and county',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-race_and_ethnicity_state_time_series',
+  'cdc_hiv_data-race_and_ethnicity_state_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-race_and_ethnicity_national_time_series',
+  'cdc_hiv_data-race_and_ethnicity_national_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
+  'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust': {
     name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
+  'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust': {
     name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-age_county_time_series',
+  'cdc_hiv_data-age_county_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and county',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-age_state_time_series',
+  'cdc_hiv_data-age_state_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and state',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-age_national_time_series',
+  'cdc_hiv_data-age_national_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-sex_county_time_series',
+  'cdc_hiv_data-sex_county_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and county',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-sex_state_time_series',
+  'cdc_hiv_data-sex_state_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and state',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-sex_national_time_series',
+  'cdc_hiv_data-sex_national_time_series': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-black_women_state_time_series',
+  'cdc_hiv_data-black_women_state_time_series': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'cdc_hiv_data-black_women_national_time_series',
+  'cdc_hiv_data-black_women_national_time_series': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
     update_time: '2021',
+    source_id: 'cdc_atlas',
   },
-  {
-    id: 'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level',
-    name: 'Population by race/ethnicity and Census Island Area territory',
-    update_time: '2010',
-  },
-  {
-    id: 'decia_2010_territory_population-by_sex_territory_state_level',
+  'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level':
+    {
+      name: 'Population by race/ethnicity and Census Island Area territory',
+      update_time: '2010',
+      source_id: 'decia_2010_territory_population',
+    },
+  'decia_2010_territory_population-by_sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     update_time: '2010',
+    source_id: 'decia_2010_territory_population',
   },
-  {
-    id: 'decia_2010_territory_population-by_age_territory_state_level',
+  'decia_2010_territory_population-by_age_territory_state_level': {
     name: 'Population by age and Census Island Area territory',
     update_time: '2010',
+    source_id: 'decia_2010_territory_population',
   },
-  {
-    id: 'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level',
-    name: 'Population by race/ethnicity and Census Island Area territory',
-    update_time: '2020',
-  },
-  {
-    id: 'decia_2020_territory_population-by_sex_territory_state_level',
+  'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level':
+    {
+      name: 'Population by race/ethnicity and Census Island Area territory',
+      update_time: '2020',
+      source_id: 'decia_2020_territory_population',
+    },
+  'decia_2020_territory_population-by_sex_territory_state_level': {
     name: 'Population by sex and Census Island Area territory',
     update_time: '2020',
+    source_id: 'decia_2020_territory_population',
   },
-  {
-    id: 'decia_2020_territory_population-by_age_territory_state_level',
+  'decia_2020_territory_population-by_age_territory_state_level': {
     name: 'Population by age and Census Island Area territory',
     update_time: '2020',
+    source_id: 'decia_2020_territory_population',
   },
-  {
-    id: 'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level',
-    name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
-    update_time: '2020',
-  },
-  {
-    id: 'decia_2020_territory_population-by_sex_territory_county_level',
+  'decia_2020_territory_population-by_race_and_ethnicity_territory_county_level':
+    {
+      name: 'Population by race/ethnicity and Census Island Area territory county-equivalent',
+      update_time: '2020',
+      source_id: 'decia_2020_territory_population',
+    },
+  'decia_2020_territory_population-by_sex_territory_county_level': {
     name: 'Population by sex and Census Island Area territory county-equivalent',
     update_time: '2020',
+    source_id: 'decia_2020_territory_population',
   },
-  {
-    id: 'decia_2020_territory_population-by_age_territory_county_level',
+  'decia_2020_territory_population-by_age_territory_county_level': {
     name: 'Population by age and Census Island Area territory county-equivalent',
     update_time: '2020',
+    source_id: 'decia_2020_territory_population',
   },
-  {
-    id: 'covid_tracking_project-cases_by_race_state',
+  'covid_tracking_project-cases_by_race_state': {
     name: 'COVID-19 cases by race/ethnicity and state',
     update_time: 'April 2021',
+    source_id: 'covid_tracking_project',
   },
-  {
-    id: 'covid_tracking_project-deaths_by_race_state',
+  'covid_tracking_project-deaths_by_race_state': {
     name: 'COVID-19 deaths by race/ethnicity and state',
     update_time: 'April 2021',
+    source_id: 'covid_tracking_project',
   },
-  {
-    id: 'covid_tracking_project-hospitalizations_by_race_state',
+  'covid_tracking_project-hospitalizations_by_race_state': {
     name: 'COVID-19 hospitalizations by race/ethnicity and state',
     update_time: 'April 2021',
+    source_id: 'covid_tracking_project',
   },
-  {
-    id: 'covid_tracking_project-tests_by_race_state',
+  'covid_tracking_project-tests_by_race_state': {
     name: 'COVID-19 tests by race/ethnicity and state',
     update_time: 'April 2021',
+    source_id: 'covid_tracking_project',
   },
-  {
-    id: 'acs_condition-by_age_county_time_series',
+  'acs_condition-by_age_county_time_series': {
     name: 'Health insurance and poverty, yearly, by age and county',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_age_state_time_series',
+  'acs_condition-by_age_state_time_series': {
     name: 'Health insurance and poverty, yearly, by age and state',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_age_national_time_series',
+  'acs_condition-by_age_national_time_series': {
     name: 'Health insurance and poverty, yearly, by age at the national level',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_sex_county_time_series',
+  'acs_condition-by_sex_county_time_series': {
     name: 'Health insurance and poverty, yearly, by sex and county',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_sex_state_time_series',
+  'acs_condition-by_sex_state_time_series': {
     name: 'Health insurance and poverty, yearly, by sex and state',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_sex_national_time_series',
+  'acs_condition-by_sex_national_time_series': {
     name: 'Health insurance and poverty, yearly, by sex at the national level',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_race_county_time_series',
+  'acs_condition-by_race_county_time_series': {
     name: 'Health insurance and poverty, yearly, by race and county',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_race_state_time_series',
+  'acs_condition-by_race_state_time_series': {
     name: 'Health insurance and poverty, yearly, by race and state',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'acs_condition-by_race_national_time_series',
+  'acs_condition-by_race_national_time_series': {
     name: 'Health insurance and poverty, yearly, by race at the national level',
     update_time: '2021',
+    source_id: 'acs',
   },
-  {
-    id: 'cdc_restricted_data-by_race_county_processed_time_series',
+  'cdc_restricted_data-by_race_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
     update_time: 'August 2023',
     contains_nh: true,
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_race_state_processed_time_series',
+  'cdc_restricted_data-by_race_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
     update_time: 'August 2023',
     contains_nh: true,
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_race_national_processed_time_series',
+  'cdc_restricted_data-by_race_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
     update_time: 'August 2023',
     contains_nh: true,
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_age_county_processed_time_series',
+  'cdc_restricted_data-by_age_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_age_state_processed_time_series',
+  'cdc_restricted_data-by_age_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_age_national_processed_time_series',
+  'cdc_restricted_data-by_age_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_sex_county_processed_time_series',
+  'cdc_restricted_data-by_sex_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_sex_state_processed_time_series',
+  'cdc_restricted_data-by_sex_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_sex_national_processed_time_series',
+  'cdc_restricted_data-by_sex_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_race_county_processed',
+  'cdc_restricted_data-by_race_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
     update_time: 'August 2023',
     contains_nh: true,
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_race_state_processed-with_age_adjust',
+  'cdc_restricted_data-by_race_state_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
     update_time: 'August 2023',
     contains_nh: true,
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_race_national_processed-with_age_adjust',
+  'cdc_restricted_data-by_race_national_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
     update_time: 'August 2023',
     contains_nh: true,
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_age_county_processed',
+  'cdc_restricted_data-by_age_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_age_state_processed',
+  'cdc_restricted_data-by_age_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_age_national_processed',
+  'cdc_restricted_data-by_age_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_sex_county_processed',
+  'cdc_restricted_data-by_sex_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_sex_state_processed',
+  'cdc_restricted_data-by_sex_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_restricted_data-by_sex_national_processed',
+  'cdc_restricted_data-by_sex_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
     update_time: 'August 2023',
+    source_id: 'cdc_restricted',
   },
-  {
-    id: 'cdc_svi_county-age',
+  'cdc_svi_county-age': {
     name: 'National SVI (Social Vulnerability Index) by county',
     update_time: '2020',
+    source_id: 'cdc_svi_county',
   },
-  {
-    id: 'cdc_vaccination_county-race_and_ethnicity_processed',
+  'cdc_vaccination_county-alls_county': {
     name: 'COVID-19 vaccinations by county',
     contains_nh: true,
     update_time: 'March 2023',
+    source_id: 'cdc_vaccination_county',
   },
-  {
-    id: 'cdc_vaccination_national-age_processed',
+  'cdc_vaccination_national-age_processed': {
     name: 'COVID-19 vaccinations by age, nationally',
     update_time: 'March 2023',
+    source_id: 'cdc_vaccination_national',
   },
-  {
-    id: 'cdc_vaccination_national-sex_processed',
+  'cdc_vaccination_national-sex_processed': {
     name: 'COVID-19 vaccinations by sex, nationally',
     update_time: 'March 2023',
+    source_id: 'cdc_vaccination_national',
   },
-  {
-    id: 'cdc_vaccination_national-race_processed',
+  'cdc_vaccination_national-race_processed': {
     name: 'COVID-19 vaccinations by race and ethnicity, nationally',
     update_time: 'March 2023',
     contains_nh: true,
+    source_id: 'cdc_vaccination_national',
   },
-  {
-    id: 'kff_vaccination-race_and_ethnicity_processed',
+  'kff_vaccination-race_and_ethnicity_state': {
     name: 'COVID-19 vaccinations by race and ethnicity by state/territory',
     update_time: 'July 2022',
     contains_nh: true,
+    source_id: 'kff_vaccination',
   },
-  {
-    id: 'ahr_data-age_national',
+  'kff_vaccination-alls_state': {
+    name: 'COVID-19 vaccinations by state/territory',
+    update_time: 'July 2022',
+    contains_nh: true,
+    source_id: 'kff_vaccination',
+  },
+  'ahr_data-age_national': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age, nationally',
     update_time: '2021',
+    source_id: 'ahr',
   },
-  {
-    id: 'ahr_data-race_and_ethnicity_national',
+  'ahr_data-race_and_ethnicity_national': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity, nationally',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'ahr',
   },
-  {
-    id: 'ahr_data-sex_national',
+  'ahr_data-sex_national': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex, nationally',
     update_time: '2021',
+    source_id: 'ahr',
   },
-  {
-    id: 'ahr_data-age_state',
+  'ahr_data-age_state': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by age and state',
     update_time: '2021',
+    source_id: 'ahr',
   },
-  {
-    id: 'ahr_data-race_and_ethnicity_state',
+  'ahr_data-race_and_ethnicity_state': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by race/ethnicity and state',
     update_time: '2021',
     contains_nh: true,
+    source_id: 'ahr',
   },
-  {
-    id: 'ahr_data-sex_state',
+  'ahr_data-sex_state': {
     name: 'Prevalence of multiple chronic disease, behavioral health, and social determinants of health by sex and state',
     update_time: '2021',
+    source_id: 'ahr',
   },
-  {
-    id: 'bjs_incarceration_data-age_national',
+  'bjs_incarceration_data-age_national': {
     name: 'National rates of sentenced individuals under the jurisdiction of federal or state adult prison facilities, or confined in local adult jail facilities, by age',
     update_time: '2019 for jail, 2020 for prison',
+    source_id: 'bjs',
   },
-  {
-    id: 'bjs_incarceration_data-age_state',
+  'bjs_incarceration_data-age_state': {
     name: 'Rates of individuals under the jurisdiction of state or territory prison facilities, by state/territory (totals only), or confined in local adult jail facilities by age, by state/territory',
     update_time: '2019 for jail, 2020 for prison',
+    source_id: 'bjs',
   },
-  {
-    id: 'bjs_incarceration_data-race_and_ethnicity_national',
+  'bjs_incarceration_data-race_and_ethnicity_national': {
     name: 'National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by race/ethnicity',
     update_time: '2019 for jail, 2020 for prison',
     contains_nh: true,
+    source_id: 'bjs',
   },
-  {
-    id: 'bjs_incarceration_data-race_and_ethnicity_state',
+  'bjs_incarceration_data-race_and_ethnicity_state': {
     name: 'Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by race/ethnicity and state/territory',
     update_time: '2019 for jail, 2020 for prison',
     contains_nh: true,
+    source_id: 'bjs',
   },
-  {
-    id: 'bjs_incarceration_data-sex_national',
+  'bjs_incarceration_data-sex_national': {
     name: 'National rates of individuals under the jurisdiction of federal or state adult prison facilities or confined in local adult jail facilities, by sex',
     update_time: '2019 for jail, 2020 for prison',
+    source_id: 'bjs',
   },
-  {
-    id: 'bjs_incarceration_data-sex_state',
+  'bjs_incarceration_data-sex_state': {
     name: 'Rates of individuals under the jurisdiction of state or territory prison facilities or confined in local adult jail facilities, by sex and state/territory',
     update_time: '2019 for jail, 2020 for prison',
+    source_id: 'bjs',
   },
-  {
-    id: 'vera_incarceration_county-by_race_and_ethnicity_county_time_series',
+  'vera_incarceration_county-by_race_and_ethnicity_county_time_series': {
     name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by race/ethnicity',
     update_time: '2016 for prison, 2018 for jail',
     contains_nh: true,
+    source_id: 'vera',
   },
-  {
-    id: 'vera_incarceration_county-by_age_county_time_series',
+  'vera_incarceration_county-by_age_county_time_series': {
     name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by age',
     update_time: '2016 for prison, 2018 for jail',
     contains_nh: true,
+    source_id: 'vera',
   },
-  {
-    id: 'vera_incarceration_county-by_sex_county_time_series',
+  'vera_incarceration_county-by_sex_county_time_series': {
     name: 'Rates of individuals under the jurisdiction of a state prison system on charges arising from a criminal case in a specific county. or confined in local adult jail facilities, by sex',
     update_time: '2016 for prison, 2018 for jail',
     contains_nh: true,
+    source_id: 'vera',
   },
-  {
-    id: 'cawp_time_data-race_and_ethnicity_national_time_series',
+  'cawp_time_data-race_and_ethnicity_national_time_series': {
     name: 'National representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures, over time',
     update_time: 'August 2023',
+    source_id: 'cawp',
   },
-  {
-    id: 'cawp_time_data-race_and_ethnicity_state_time_series',
+  'cawp_time_data-race_and_ethnicity_state_time_series': {
     name: 'Representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature over time',
     update_time: 'August 2023',
+    source_id: 'cawp',
   },
-  {
-    id: 'cawp_time_data-race_and_ethnicity_state_time_series_names',
+  'cawp_time_data-race_and_ethnicity_state_time_series_names': {
     name: 'By-state and by-territory lists of legislator names, yearly back to 1915 including: all members of U.S Congress, regardless of race or gender; all women members of U.S. Congress, by race/ethnicity; and all women members of state and territory legislatures, by race/ethnicity',
     update_time: 'August 2023',
+    source_id: 'cawp',
   },
-  {
-    id: 'the_unitedstates_project',
+  the_unitedstates_project: {
     name: '@unitedstates is a shared commons of data and tools for the United States. Made by the public, used by the public. Featuring work from people with the Sunlight Foundation, GovTrack.us, the New York Times, the Electronic Frontier Foundation, and the internet.',
     update_time: '2023',
+    source_id: 'the_unitedstates_project',
   },
-  {
-    id: GEOGRAPHIES_DATASET_ID,
+  'geo_context-national': {
+    name: 'Population from ACS nationally',
+    update_time: '2023',
+    source_id: 'acs',
+  },
+  'geo_context-state': {
+    name: 'Population from ACS by state',
+    update_time: '2023',
+    source_id: 'acs',
+  },
+  'geo_context-county': {
+    name: 'Population from ACS by county; SVI from CDC',
+    update_time: '2023',
+    source_id: 'acs',
+  },
+  [GEOGRAPHIES_DATASET_ID]: {
     name: 'U.S. Geographic Data',
     update_time: '2020',
+    source_id: 'geographies_source',
   },
-  {
-    id: 'census_pop_estimates-race_and_ethnicity',
+  'census_pop_estimates-race_and_ethnicity': {
     name: 'Census County Population by Characteristics: 2010-2019',
     update_time: '2019',
     contains_nh: true,
+    source_id: 'census_pop_estimates',
   },
-  {
-    id: 'phrma_data-race_and_ethnicity_national',
+  'phrma_data-race_and_ethnicity_national': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by race/ethnicity, nationally',
     update_time: '2020',
     contains_nh: true,
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-race_and_ethnicity_state',
+  'phrma_data-race_and_ethnicity_state': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by race/ethnicity, by state',
     update_time: '2020',
     contains_nh: true,
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-race_and_ethnicity_county',
+  'phrma_data-race_and_ethnicity_county': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by race/ethnicity, by county',
     update_time: '2020',
     contains_nh: true,
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-age_national',
+  'phrma_data-age_national': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by age, nationally',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-age_state',
+  'phrma_data-age_state': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by age, by state',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-age_county',
+  'phrma_data-age_county': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by age, by county',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-sex_national',
+  'phrma_data-sex_national': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by sex, nationally',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-sex_state',
+  'phrma_data-sex_state': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by sex, by state',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-sex_county',
+  'phrma_data-sex_county': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by sex, by county',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-lis_national',
+  'phrma_data-lis_national': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by low income subsidy status (LIS), nationally',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-lis_state',
+  'phrma_data-lis_state': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by low income subsidy (LIS), by state',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-lis_county',
+  'phrma_data-lis_county': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by low income subsidy (LIS), by county',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-eligibility_national',
+  'phrma_data-eligibility_national': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by Medicare eligibility reason, nationally',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-eligibility_state',
+  'phrma_data-eligibility_state': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by Medicare eligibility reason, by state',
     update_time: '2020',
+    source_id: 'phrma',
   },
-  {
-    id: 'phrma_data-eligibility_county',
+  'phrma_data-eligibility_county': {
     name: 'Disease and medication adherence rates for multiple HIV and cardiovascular conditions within the Medicare beneficiary population by Medicare eligibility reason, by county',
     update_time: '2020',
+    source_id: 'phrma',
   },
-]
-
-export const DatasetMetadataMap: Record<string, DatasetMetadata> =
-  Object.fromEntries(
-    datasetMetadataList.map((m) => {
-      const metadataWithSource = m
-      const dataSource = Object.values(DataSourceMetadataMap).find((metadata) =>
-        metadata.dataset_ids.includes(m.id)
-      )
-      metadataWithSource.source_id = dataSource ? dataSource.id : 'error'
-      return [m.id, metadataWithSource]
-    })
-  )
+}

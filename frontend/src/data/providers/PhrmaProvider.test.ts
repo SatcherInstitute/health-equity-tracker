@@ -2,7 +2,7 @@ import PhrmaProvider from './PhrmaProvider'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -10,13 +10,14 @@ import {
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
-import { MetricId, DataTypeId } from '../config/MetricConfig'
+import { MetricId } from '../config/MetricConfig'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(
-  PhrmaDatasetId: string,
+  PhrmaDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
-  acsDatasetIds?: string[],
+  acsDatasetIds?: DatasetId[],
   metricIds?: MetricId[]
 ) {
   // if these aren't sent as args, default to []
@@ -24,8 +25,8 @@ export async function ensureCorrectDatasetsDownloaded(
   acsDatasetIds = acsDatasetIds || []
 
   const phrmaProvider = new PhrmaProvider()
-
-  dataFetcher.setFakeDatasetLoaded(PhrmaDatasetId, [])
+  const specificDatasetId = appendFipsIfNeeded(PhrmaDatasetId, baseBreakdown)
+  dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await phrmaProvider.getData(
@@ -74,7 +75,7 @@ describe('PhrmaProvider', () => {
 
   test('County and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'phrma_data-age_county-02',
+      'phrma_data-age_county',
       Breakdowns.forFips(new Fips('02999')),
       AGE
     )

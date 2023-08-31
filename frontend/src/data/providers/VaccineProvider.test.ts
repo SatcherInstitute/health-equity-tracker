@@ -3,7 +3,7 @@ import AcsPopulationProvider from './AcsPopulationProvider'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -12,16 +12,20 @@ import {
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { NC, USA, MARIN } from './TestUtils'
 import { RACE, SEX, AGE } from '../utils/Constants'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(
-  vaccinationDatasetId: string,
+  vaccinationDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType
 ) {
   const acsProvider = new AcsPopulationProvider()
   const vaccineProvider = new VaccineProvider(acsProvider)
-
-  dataFetcher.setFakeDatasetLoaded(vaccinationDatasetId, [])
+  const specificDatasetId = appendFipsIfNeeded(
+    vaccinationDatasetId,
+    baseBreakdown
+  )
+  dataFetcher.setFakeDatasetLoaded(specificDatasetId, [])
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await vaccineProvider.getData(
@@ -78,7 +82,7 @@ describe('VaccineProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'cdc_vaccination_county-alls_county-06',
+      'cdc_vaccination_county-alls_county',
       Breakdowns.forFips(new Fips(MARIN.code)),
       RACE
     )

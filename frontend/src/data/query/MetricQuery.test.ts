@@ -1,3 +1,4 @@
+import { DatasetId } from '../config/DatasetMetadata'
 import { MetricId } from '../config/MetricConfig'
 import { MetricQueryResponse } from '../query/MetricQuery'
 import { RACE } from '../utils/Constants'
@@ -51,7 +52,7 @@ describe('MetricQueryResponse', () => {
           invalid: undefined,
         },
       ],
-      ['dataset1']
+      ['dataset1' as DatasetId]
     )
   })
 

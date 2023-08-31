@@ -1,3 +1,7 @@
+import {
+  type DatasetId,
+  type DatasetIdWithStateFIPSCode,
+} from '../../../data/config/DatasetMetadata'
 import { getDataManager } from '../../../utils/globals'
 
 function download(filename: string, content: string) {
@@ -15,7 +19,9 @@ function download(filename: string, content: string) {
 }
 
 // Returns true if the dataset downloads successfully and otherwise false
-async function downloadDataset(datasetId: string) {
+async function downloadDataset(
+  datasetId: DatasetId | DatasetIdWithStateFIPSCode
+) {
   try {
     const dataset = await getDataManager().loadDataset(datasetId)
     download('HET - ' + dataset.metadata.name + '.csv', dataset.toCsvString())
