@@ -6,6 +6,10 @@ import { DatasetOrganizer } from '../sorting/DatasetOrganizer'
 import { Dataset, type MapOfDatasetMetadata } from '../utils/DatasetTypes'
 import { joinOnCols } from '../utils/datasetutils'
 import VariableProviderMap from './VariableProviderMap'
+import {
+  type DatasetIdWithStateFIPSCode,
+  type DatasetId,
+} from '../config/DatasetMetadata'
 
 // TODO: test this out on the real website and tweak these numbers as needed.
 
@@ -169,7 +173,9 @@ export class MetadataCache extends ResourceCache<string, MapOfDatasetMetadata> {
 }
 
 class DatasetCache extends ResourceCache<string, Dataset> {
-  protected async loadResourceInternal(datasetId: string): Promise<Dataset> {
+  protected async loadResourceInternal(
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+  ): Promise<Dataset> {
     const promise = getDataFetcher().loadDataset(datasetId)
     const metadataPromise = getDataManager().loadMetadata()
     const [data, metadata] = await Promise.all([promise, metadataPromise])
@@ -180,7 +186,9 @@ class DatasetCache extends ResourceCache<string, Dataset> {
     return new Dataset(data, metadata[datasetId])
   }
 
-  getResourceId(datasetId: string): string {
+  getResourceId(
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+  ): DatasetId | DatasetIdWithStateFIPSCode {
     return datasetId
   }
 
@@ -241,8 +249,10 @@ class MetricQueryCache extends ResourceCache<MetricQuery, MetricQueryResponse> {
     })
 
     const consumedDatasetIds = queryResponses.reduce(
-      (accumulator: string[], response: MetricQueryResponse) =>
-        accumulator.concat(response.consumedDatasetIds),
+      (
+        accumulator: Array<DatasetId | DatasetIdWithStateFIPSCode>,
+        response: MetricQueryResponse
+      ) => accumulator.concat(response.consumedDatasetIds),
       []
     )
     const uniqueConsumedDatasetIds = Array.from(new Set(consumedDatasetIds))
@@ -290,7 +300,9 @@ export default class DataManager {
     this.metadataCache = new MetadataCache(MAX_CACHE_SIZE_METADATA)
   }
 
-  async loadDataset(datasetId: string): Promise<Dataset> {
+  async loadDataset(
+    datasetId: DatasetId | DatasetIdWithStateFIPSCode
+  ): Promise<Dataset> {
     return await this.datasetCache.loadResource(datasetId)
   }
 

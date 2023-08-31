@@ -1,3 +1,4 @@
+import { DatasetId } from '../config/DatasetMetadata'
 import { MetricId, METRIC_CONFIG, DataTypeConfig } from '../config/MetricConfig'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import {
@@ -82,7 +83,7 @@ describe('DatasetUtils.getExtremeValues() Unit Tests', () => {
 
 describe('DatasetUtils.appendFipsIfNeeded() Unit Tests', () => {
   // Only county-level breakdowns should get the appended parent fips
-  const base_id = 'base_dataset_id'
+  const base_id = 'base_dataset_id' as DatasetId
 
   test('County Level', async () => {
     const breakdowns_for_county = Breakdowns.forFips(new Fips('06037'))

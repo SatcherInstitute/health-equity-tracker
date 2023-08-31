@@ -1,4 +1,5 @@
 import { getDataManager } from '../../utils/globals'
+import { type DatasetId } from '../config/DatasetMetadata'
 import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
@@ -26,7 +27,7 @@ class VaccineProvider extends VariableProvider {
     this.acsProvider = acsProvider
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     if (breakdowns.geography === 'national') {
       if (breakdowns.hasOnlyRace())
         return 'cdc_vaccination_national-race_processed'
@@ -43,12 +44,8 @@ class VaccineProvider extends VariableProvider {
         return 'kff_vaccination-alls_state'
     }
     if (breakdowns.geography === 'county') {
-      return appendFipsIfNeeded(
-        'cdc_vaccination_county-alls_county',
-        breakdowns
-      )
+      return 'cdc_vaccination_county-alls_county'
     }
-    throw new Error('Not implemented')
   }
 
   async getDataInternal(
@@ -58,7 +55,9 @@ class VaccineProvider extends VariableProvider {
     const timeView = metricQuery.timeView
 
     const datasetId = this.getDatasetId(breakdowns)
-    const vaxData = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const vaxData = await getDataManager().loadDataset(specificDatasetId)
     let df = vaxData.toDataFrame()
 
     df = this.filterByTimeView(df, timeView)
@@ -69,33 +68,30 @@ class VaccineProvider extends VariableProvider {
     const acsBreakdowns = breakdowns.copy()
     acsBreakdowns.time = false
 
-    let consumedDatasetIds = [datasetId]
+    const consumedDatasetIds = [datasetId]
 
     if (breakdowns.geography === 'national') {
-      consumedDatasetIds = consumedDatasetIds.concat(
-        GetAcsDatasetId(breakdowns)
-      )
-    } else if (breakdowns.geography === 'state') {
-      consumedDatasetIds = consumedDatasetIds.concat(
-        'acs_population-by_race_state'
-      )
+      const acsId = GetAcsDatasetId(breakdowns)
+      acsId && consumedDatasetIds.push(acsId)
+    }
+    if (breakdowns.geography === 'state') {
+      consumedDatasetIds.push('acs_population-by_race_state')
 
       if (breakdowns.filterFips === undefined) {
-        consumedDatasetIds = consumedDatasetIds.concat(
+        consumedDatasetIds.push(
           'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
         )
       }
       if (breakdowns.filterFips?.isIslandArea()) {
-        consumedDatasetIds = consumedDatasetIds.concat(
+        consumedDatasetIds.push(
           'decia_2020_territory_population-by_race_and_ethnicity_territory_state_level'
         )
       }
-    } else if (breakdowns.geography === 'county') {
+    }
+    if (breakdowns.geography === 'county') {
       // We merge this in on the backend, no need to redownload it here
       // but we want to provide the proper citation
-      consumedDatasetIds = consumedDatasetIds.concat(
-        'acs_population-by_race_county'
-      )
+      consumedDatasetIds.push('acs_population-by_race_county')
     }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)

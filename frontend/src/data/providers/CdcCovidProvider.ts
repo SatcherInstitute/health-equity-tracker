@@ -6,6 +6,7 @@ import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { CROSS_SECTIONAL, TIME_SERIES } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
+import { type DatasetId } from '../config/DatasetMetadata'
 
 class CdcCovidProvider extends VariableProvider {
   private readonly acsProvider: AcsPopulationProvider
@@ -36,86 +37,62 @@ class CdcCovidProvider extends VariableProvider {
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns, timeView: TimeView): string {
+  getDatasetId(
+    breakdowns: Breakdowns,
+    timeView: TimeView
+  ): DatasetId | undefined {
     if (timeView === CROSS_SECTIONAL) {
       if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'county') {
-          return appendFipsIfNeeded(
-            'cdc_restricted_data-by_race_county_processed',
-            breakdowns
-          )
-        } else if (breakdowns.geography === 'state') {
+        if (breakdowns.geography === 'county')
+          return 'cdc_restricted_data-by_race_county_processed'
+        if (breakdowns.geography === 'state')
           return 'cdc_restricted_data-by_race_state_processed-with_age_adjust'
-        } else if (breakdowns.geography === 'national') {
+        if (breakdowns.geography === 'national')
           return 'cdc_restricted_data-by_race_national_processed-with_age_adjust'
-        }
       }
       if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'county') {
-          return appendFipsIfNeeded(
-            'cdc_restricted_data-by_age_county_processed',
-            breakdowns
-          )
-        } else if (breakdowns.geography === 'state') {
+        if (breakdowns.geography === 'county')
+          return 'cdc_restricted_data-by_age_county_processed'
+        if (breakdowns.geography === 'state')
           return 'cdc_restricted_data-by_age_state_processed'
-        } else if (breakdowns.geography === 'national') {
+        if (breakdowns.geography === 'national')
           return 'cdc_restricted_data-by_age_national_processed'
-        }
       }
       if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'county') {
-          return appendFipsIfNeeded(
-            'cdc_restricted_data-by_sex_county_processed',
-            breakdowns
-          )
-        } else if (breakdowns.geography === 'state') {
+        if (breakdowns.geography === 'county')
+          return 'cdc_restricted_data-by_sex_county_processed'
+        if (breakdowns.geography === 'state')
           return 'cdc_restricted_data-by_sex_state_processed'
-        } else if (breakdowns.geography === 'national') {
+        if (breakdowns.geography === 'national')
           return 'cdc_restricted_data-by_sex_national_processed'
-        }
       }
     }
-
     if (timeView === TIME_SERIES) {
       if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'county') {
-          return appendFipsIfNeeded(
-            'cdc_restricted_data-by_race_county_processed_time_series',
-            breakdowns
-          )
-        } else if (breakdowns.geography === 'state') {
+        if (breakdowns.geography === 'county')
+          return 'cdc_restricted_data-by_race_county_processed_time_series'
+        if (breakdowns.geography === 'state')
           return 'cdc_restricted_data-by_race_state_processed_time_series'
-        } else if (breakdowns.geography === 'national') {
+        if (breakdowns.geography === 'national')
           return 'cdc_restricted_data-by_race_national_processed_time_series'
-        }
       }
       if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'county') {
-          return appendFipsIfNeeded(
-            'cdc_restricted_data-by_age_county_processed_time_series',
-            breakdowns
-          )
-        } else if (breakdowns.geography === 'state') {
+        if (breakdowns.geography === 'county')
+          return 'cdc_restricted_data-by_age_county_processed_time_series'
+        if (breakdowns.geography === 'state')
           return 'cdc_restricted_data-by_age_state_processed_time_series'
-        } else if (breakdowns.geography === 'national') {
+        if (breakdowns.geography === 'national')
           return 'cdc_restricted_data-by_age_national_processed_time_series'
-        }
       }
       if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'county') {
-          return appendFipsIfNeeded(
-            'cdc_restricted_data-by_sex_county_processed_time_series',
-            breakdowns
-          )
-        } else if (breakdowns.geography === 'state') {
+        if (breakdowns.geography === 'county')
+          return 'cdc_restricted_data-by_sex_county_processed_time_series'
+        if (breakdowns.geography === 'state')
           return 'cdc_restricted_data-by_sex_state_processed_time_series'
-        } else if (breakdowns.geography === 'national') {
+        if (breakdowns.geography === 'national')
           return 'cdc_restricted_data-by_sex_national_processed_time_series'
-        }
       }
     }
-
-    throw new Error('Not implemented')
   }
 
   async getDataInternal(
@@ -124,8 +101,9 @@ class CdcCovidProvider extends VariableProvider {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
     const datasetId = this.getDatasetId(breakdowns, timeView)
-
-    const covidDataset = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const covidDataset = await getDataManager().loadDataset(specificDatasetId)
     const consumedDatasetIds = [datasetId]
     let df = covidDataset.toDataFrame()
 
@@ -181,7 +159,10 @@ class CdcCovidProvider extends VariableProvider {
           )
         }
       }
-    } else consumedDatasetIds.push(GetAcsDatasetId(breakdowns))
+    } else {
+      const acsId = GetAcsDatasetId(breakdowns)
+      acsId && consumedDatasetIds.push(acsId)
+    }
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)
     df = this.removeUnrequestedColumns(df, metricQuery)

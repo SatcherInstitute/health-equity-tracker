@@ -1,6 +1,5 @@
 import { dataSourceMetadataList } from './MetadataMap'
-import { datasetMetadataList } from './DatasetMetadata'
-import { DatasetMetadata } from '../utils/DatasetTypes'
+import { DatasetId, DatasetMetadataMap } from './DatasetMetadata'
 
 describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {
@@ -12,15 +11,27 @@ describe('Test Data Source URLs', () => {
 })
 
 describe('Test Data Source IDs', () => {
-  test('All ids in MetadataMap are present in DatasetMeta', () => {
-    const setIds = datasetMetadataList.map((set: DatasetMetadata) => set.id)
+  const datasetMetadaIds = Object.keys(DatasetMetadataMap)
 
-    const sourceIds: string[] = ['geographies']
-    for (const item of dataSourceMetadataList) {
-      sourceIds.push(...item.dataset_ids)
-    }
+  const dataSourceMetadataIds: DatasetId[] = ['geographies']
+  for (const item of dataSourceMetadataList) {
+    dataSourceMetadataIds.push(...item.dataset_ids)
+  }
 
-    // SHOW_PHRMA
-    // expect(new Set(sourceIds)).toEqual(new Set(setIds))
+  const uniqueDataSourceMetadataIds: DatasetId[] = [
+    ...new Set(dataSourceMetadataIds),
+  ]
+
+  test('There are no extra datasetMetadaIds', () => {
+    const extraIdsFromDatasetMetadaIds = datasetMetadaIds.filter(
+      (id) => !uniqueDataSourceMetadataIds.includes(id as DatasetId)
+    )
+    expect(extraIdsFromDatasetMetadaIds).toEqual([])
+  })
+  test('There are no extra dataSourceMetadataIds', () => {
+    const extraIdsFromDataSourceMetadaIds = uniqueDataSourceMetadataIds.filter(
+      (id) => !datasetMetadaIds.includes(id as DatasetId)
+    )
+    expect(extraIdsFromDataSourceMetadaIds).toEqual([])
   })
 })
