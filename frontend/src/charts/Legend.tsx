@@ -317,7 +317,7 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <Grid component={'section'} className={styles.Legend}>
+    <Grid component={'section'} sx={{ px: 1 }} className={styles.Legend}>
       <LegendHeader legendTitle={props.legendTitle} />
       <Grid>
         {spec && (
