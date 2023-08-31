@@ -98,7 +98,7 @@ class AgeAdjustCDCHiv(DataSource):
             std_col.RACE_CATEGORY_ID_COL,
             std_col.AGE_COL,
         ]
-        race_age_df = race_age_df.groupby(groupby_cols).sum().reset_index()
+        race_age_df = race_age_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
         race_age_df = race_age_df.loc[
             race_age_df[std_col.RACE_CATEGORY_ID_COL].isin(
@@ -218,7 +218,7 @@ def age_adjust_from_expected(df):
                     std_col.RACE_CATEGORY_ID_COL, std_col.TIME_PERIOD_COL]
 
     # Sum all of a race group's age rows into a single row
-    df = df.groupby(groupby_cols).sum().reset_index()
+    df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
     base_pop_df = df.loc[df[std_col.RACE_CATEGORY_ID_COL] ==
                          BASE_POPULATION].reset_index(drop=True)
 
