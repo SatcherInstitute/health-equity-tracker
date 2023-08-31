@@ -9,7 +9,6 @@ import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import styles from './Legend.module.scss'
 import { type View, type Legend as LegendType } from 'vega'
-import { Grid } from '@mui/material'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
@@ -322,13 +321,13 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <Grid component={'section'} sx={{ px: 1 }} className={styles.Legend}>
-      <Grid>
-        <LegendHeader
-          legendTitle={props.legendTitle}
-          dataTypeConfig={props.dataTypeConfig}
-        />
-        {spec && (
+    <section className={styles.Legend}>
+      <LegendHeader
+        legendTitle={props.legendTitle}
+        dataTypeConfig={props.dataTypeConfig}
+      />
+      {spec && (
+        <div>
           <Vega
             renderer="svg"
             spec={spec}
@@ -337,8 +336,8 @@ export function Legend(props: LegendProps) {
               handleNewView(view)
             }}
           />
-        )}
-      </Grid>
-    </Grid>
+        </div>
+      )}
+    </section>
   )
 }

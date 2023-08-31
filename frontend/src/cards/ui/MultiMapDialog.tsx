@@ -199,29 +199,22 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
           </Grid>
           {/* LEGEND */}
           <Grid item xs={12}>
-            <Grid container item>
-              <Grid container justifyContent="center">
-                <span className={styles.LegendTitleText}>
-                  Legend: {props.metricConfig.shortLabel}
-                </span>
-              </Grid>
-              <Grid container justifyContent="center">
-                <Legend
-                  dataTypeConfig={props.dataTypeConfig}
-                  metric={props.metricConfig}
-                  legendTitle={''}
-                  data={props.data}
-                  scaleType={RATE_MAP_SCALE}
-                  sameDotSize={true}
-                  description={'Consistent legend for all displayed maps'}
-                  mapConfig={{ mapScheme, mapMin }}
-                  stackingDirection={
-                    props.pageIsSmall ? 'vertical' : 'horizontal'
-                  }
-                  columns={props.pageIsSmall ? 2 : 6}
-                  handleScaleChange={handleScaleChange}
-                />
-              </Grid>
+            <Grid container justifyContent="center">
+              <Legend
+                dataTypeConfig={props.dataTypeConfig}
+                metric={props.metricConfig}
+                legendTitle={props.metricConfig.shortLabel}
+                data={props.data}
+                scaleType={RATE_MAP_SCALE}
+                sameDotSize={true}
+                description={'Consistent legend for all displayed maps'}
+                mapConfig={{ mapScheme, mapMin }}
+                stackingDirection={
+                  props.pageIsSmall ? 'vertical' : 'horizontal'
+                }
+                columns={props.pageIsSmall ? 2 : 6}
+                handleScaleChange={handleScaleChange}
+              />
             </Grid>
           </Grid>
 
