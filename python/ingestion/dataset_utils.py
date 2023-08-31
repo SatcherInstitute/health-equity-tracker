@@ -175,7 +175,7 @@ def generate_pct_share_col_with_unknowns(df: pd.DataFrame,
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     # Calculate an all demographic based on the known cases.
-    alls = df.groupby(groupby_cols).sum().reset_index()
+    alls = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
     alls[breakdown_col] = all_val
     df = pd.concat([df, alls]).reset_index(drop=True)
 
@@ -470,7 +470,7 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
     df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
 
     grouped_df = df_without_all_unknown.groupby(
-        geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
+        geo_cols + [std_col.TIME_PERIOD_COL]).sum(numeric_only=True, min_count=1).reset_index()
     grouped_df = grouped_df.rename(columns=per_100k_col_names)
     grouped_df = grouped_df[geo_cols +
                             list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]

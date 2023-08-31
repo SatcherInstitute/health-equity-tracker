@@ -167,7 +167,7 @@ class CDCRestrictedData(DataSource):
                 groupby_cols.extend(
                     [std_col.COUNTY_NAME_COL, std_col.COUNTY_FIPS_COL])
 
-            df = df.groupby(groupby_cols).sum(min_count=1).reset_index()
+            df = df.groupby(groupby_cols).sum(numeric_only=True, min_count=1).reset_index()
 
         else:
             all_columns.append(std_col.TIME_PERIOD_COL)
@@ -333,7 +333,7 @@ def generate_national_dataset(state_df, demo_col, time_series):
     groupby_cols = [demo_col]
     if time_series:
         groupby_cols.append(std_col.TIME_PERIOD_COL)
-    df = state_df.groupby(groupby_cols).sum().reset_index()
+    df = state_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
 
     df[std_col.STATE_FIPS_COL] = US_FIPS
     df[std_col.STATE_NAME_COL] = US_NAME
@@ -439,7 +439,7 @@ def remove_or_set_to_zero(df, geo, demographic):
 
     grouped_df = df.groupby(
 
-        geo_cols + [demog_col]).sum(min_count=1).reset_index()
+        geo_cols + [demog_col]).sum(numeric_only=True, min_count=1).reset_index()
     grouped_df = grouped_df.rename(
 
         columns={std_col.COVID_CASES: 'grouped_cases'})
