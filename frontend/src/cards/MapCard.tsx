@@ -420,6 +420,7 @@ function MapCardWithKey(props: MapCardProps) {
         return (
           <>
             <MultiMapDialog
+              dataTypeConfig={props.dataTypeConfig}
               demographicType={props.demographicType}
               demographicGroups={demographicGroups}
               demographicGroupsNoData={fieldValues.noData}
@@ -559,6 +560,7 @@ function MapCardWithKey(props: MapCardProps) {
                     lg={mapIsWide ? 2 : 12}
                   >
                     <Legend
+                      dataTypeConfig={props.dataTypeConfig}
                       metric={metricConfig}
                       legendTitle={metricConfig.shortLabel}
                       data={allDataForActiveDemographicGroup}

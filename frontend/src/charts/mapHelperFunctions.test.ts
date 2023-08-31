@@ -241,23 +241,31 @@ describe('Test getCountyAddOn()', () => {
 })
 
 describe('Test getHighestLowestGroupsByFips()', () => {
-  const testData = [
-    { fips: '01', sex: 'All', condition_per_100k: 2000 },
-    { fips: '01', sex: 'Male', condition_per_100k: 1000 },
-    { fips: '01', sex: 'Female', condition_per_100k: 3000 },
-    { fips: '02', sex: 'All', condition_per_100k: 2000 },
-    { fips: '02', sex: 'Male', condition_per_100k: 10 },
-    { fips: '02', sex: 'Female', condition_per_100k: 30 },
-    { fips: '03', sex: 'Other', condition_per_100k: 1 },
-    { fips: '03', sex: 'All', condition_per_100k: 2 },
-    { fips: '03', sex: 'Male', condition_per_100k: undefined },
-    { fips: '04', sex: 'Other', condition_per_100k: 999 },
-    { fips: '04', sex: 'Male', condition_per_100k: 1000 },
-    { fips: '04', sex: 'Female', condition_per_100k: 1000 },
-  ]
   test('Normal data gives a high and a low', () => {
+    const normalData = [
+      { fips: '01', sex: 'All', condition_per_100k: 2000 },
+      { fips: '01', sex: 'Male', condition_per_100k: 1000 },
+      { fips: '01', sex: 'Female', condition_per_100k: 3000 },
+      { fips: '02', sex: 'All', condition_per_100k: 2000 },
+      { fips: '02', sex: 'Male', condition_per_100k: 10 },
+      { fips: '02', sex: 'Female', condition_per_100k: 30 },
+      { fips: '03', sex: 'Other', condition_per_100k: 1 },
+      { fips: '03', sex: 'All', condition_per_100k: 2 },
+      { fips: '03', sex: 'Male', condition_per_100k: undefined },
+      { fips: '04', sex: 'Other', condition_per_100k: 999 },
+      { fips: '04', sex: 'Male', condition_per_100k: 1000 },
+      { fips: '04', sex: 'Female', condition_per_100k: 1000 },
+      { fips: '05', sex: 'All', condition_per_100k: 2000 },
+      { fips: '06', sex: 'Male', condition_per_100k: 2000 },
+      { fips: '06', sex: 'Female', condition_per_100k: 2000 },
+      { fips: '07', sex: 'A', condition_per_100k: 0 },
+      { fips: '07', sex: 'B', condition_per_100k: 0 },
+      { fips: '07', sex: 'C', condition_per_100k: 0 },
+      { fips: '07', sex: 'D', condition_per_100k: 0 },
+    ]
+
     const highLowSex = getHighestLowestGroupsByFips(
-      /* fullData */ testData,
+      /* fullData */ normalData,
       /* demographicType */ 'sex',
       /* metricId */ 'condition_per_100k' as MetricId
     )
@@ -273,8 +281,12 @@ describe('Test getHighestLowestGroupsByFips()', () => {
       },
       // 03 is undefined intentionally
       '04': {
+        highest: 'Multiple groups',
         lowest: 'Other',
       },
+      '05': undefined,
+      '06': undefined,
+      '07': undefined,
     })
   })
 })
