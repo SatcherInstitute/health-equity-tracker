@@ -126,6 +126,7 @@ DEMOGRAPHIC_COL_MAPPING = {
     'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
 }
 
+
 def combine_race_eth(df):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
        We will keep this in place until we can figure out a plan on how to display
