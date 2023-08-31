@@ -18,7 +18,10 @@ import {
   type Row,
   type FieldRange,
 } from '../../data/utils/DatasetTypes'
-import { type MetricConfig } from '../../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  type MetricConfig,
+} from '../../data/config/MetricConfig'
 import styles from './MultiMapDialog.module.scss'
 import {
   type MetricQuery,
@@ -40,12 +43,13 @@ import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap } from '../MapCard'
 import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
-import { ScrollableHashId } from '../../utils/hooks/useStepObserver'
+import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
 import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 
 export interface MultiMapDialogProps {
+  dataTypeConfig: DataTypeConfig
   // Metric the small maps will evaluate
   metricConfig: MetricConfig
   // Whether or not the data was collected via survey
@@ -162,13 +166,18 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             )}
             {/* Modal Title */}
             <Grid item xs={12} sm={9} md={10}>
-              <Typography id="modalTitle" variant="h6" component="h2" lineHeight={sass.lhModalHeading}>
+              <Typography
+                id="modalTitle"
+                variant="h6"
+                component="h2"
+                lineHeight={sass.lhModalHeading}
+              >
                 {title}
               </Typography>
             </Grid>
             {/* desktop-only close button */}
-            {!isMobile &&
-              (<Grid
+            {!isMobile && (
+              <Grid
                 item
                 sx={{
                   display: { xs: 'none', sm: 'flex' },
@@ -186,7 +195,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   <CloseIcon />
                 </Button>
               </Grid>
-              )}
+            )}
           </Grid>
           {/* LEGEND */}
           <Grid item xs={12}>
@@ -198,6 +207,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               </Grid>
               <Grid container justifyContent="center">
                 <Legend
+                  dataTypeConfig={props.dataTypeConfig}
                   metric={props.metricConfig}
                   legendTitle={''}
                   data={props.data}
@@ -358,7 +368,6 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       {/* MODAL FOOTER */}
       <footer>
         <div className={styles.FooterSourcesContainer}>
-
           {isMobile ? (
             <Button
               aria-label="close multiple maps modal"
@@ -367,7 +376,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
             >
               Close
             </Button>
-          ) :
+          ) : (
             <>
               <Sources
                 queryResponses={props.queryResponses}
@@ -391,7 +400,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                 />
               </Grid>
             </>
-          }
+          )}
         </div>
       </footer>
     </Dialog>

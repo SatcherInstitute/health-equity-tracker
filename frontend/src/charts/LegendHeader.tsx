@@ -3,9 +3,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import styles from './Legend.module.scss'
 import { useParamState } from '../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../utils/urlutils'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 
 interface LegendHeaderProps {
   legendTitle: string
+  dataTypeConfig: DataTypeConfig
 }
 
 export default function LegendHeader(props: LegendHeaderProps) {
@@ -14,45 +16,30 @@ export default function LegendHeader(props: LegendHeaderProps) {
     false
   )
 
+  const topicName =
+    props.dataTypeConfig.fullDisplayNameInline ??
+    props.dataTypeConfig.fullDisplayName
+
   return (
-    <Tooltip title="Click for more topic info">
+    <Tooltip
+      arrow={true}
+      placement="top"
+      title={`Click for more info on ${topicName}`}
+    >
       <Button
-        style={{ color: 'black' }}
         onClick={() => {
           setTopicInfoModalIsOpen(true)
         }}
       >
-        <span className={styles.LegendTitle}>
-          <Grid container alignItems={'center'}>
-            {/* <Grid item> */}
-            <InfoOutlinedIcon sx={{ p: '3px 3px 4px 3px' }} />
-            {/* </Grid> */}
-            {/* <Grid item> */}
+        <Grid container alignItems={'center'}>
+          <span className={styles.LegendHeader}>
+            <InfoOutlinedIcon
+              sx={{ mr: '4px', mb: '-1px', p: '3px 3px 3px 3px' }}
+            />
             {props.legendTitle}
-            {/* </Grid> */}
-          </Grid>
-        </span>
+          </span>
+        </Grid>
       </Button>
     </Tooltip>
-
-    // <>
-    //   <h4 className={styles.LegendTitle}>
-    //     {props.legendTitle}
-
-    //   </h4>
-    //   <Tooltip title="Click for more topic info">
-
-    //     <Button
-    //       style={{ color: 'black' }}
-    //       onClick={() => {
-    //         setTopicInfoModalIsOpen(true)
-    //       }}
-    //     ><InfoOutlinedIcon sx={{ p: '3px 3px 4px 3px' }} />
-    //       <span style={{ fontSize: "smaller" }}>
-    //         Topic Info
-    //       </span>
-    //     </Button>
-    //   </Tooltip>
-    // </>
   )
 }

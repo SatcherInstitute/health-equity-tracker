@@ -5,9 +5,12 @@
   text-align: left;
 }
 
-.LegendTitle {
+.LegendHeader {
+  display: inline-flex;
+  align-items: center;
+  line-height: $lhSomeMoreSpace;
+  color: $black;
   text-align: start;
   font-size: $smallest;
-  // margin-left: 5px;
   word-wrap: break-word;
 }

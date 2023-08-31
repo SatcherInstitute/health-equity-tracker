@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { Vega, type VisualizationSpec } from 'react-vega'
-import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  isPctType,
+  type MetricConfig,
+} from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import styles from './Legend.module.scss'
@@ -38,6 +42,7 @@ import LegendHeader from './LegendHeader'
    Legend renders a vega chart that just contains a legend.
 */
 export interface LegendProps {
+  dataTypeConfig: DataTypeConfig
   // Data for which to create a legend.
   data?: Array<Record<string, any>> // Dataset for which to calculate legend.
   // Metric in the data for which to create a legend.
@@ -318,8 +323,11 @@ export function Legend(props: LegendProps) {
 
   return (
     <Grid component={'section'} sx={{ px: 1 }} className={styles.Legend}>
-      <LegendHeader legendTitle={props.legendTitle} />
       <Grid>
+        <LegendHeader
+          legendTitle={props.legendTitle}
+          dataTypeConfig={props.dataTypeConfig}
+        />
         {spec && (
           <Vega
             renderer="svg"
