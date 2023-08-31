@@ -2,7 +2,11 @@ import AhrProvider from './AhrProvider'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import {
+  DatasetId,
+  DatasetIdWithStateFIPSCode,
+  DatasetMetadataMap,
+} from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -12,7 +16,7 @@ import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { RACE, AGE, SEX } from '../utils/Constants'
 
 export async function ensureCorrectDatasetsDownloaded(
-  ahrDatasetId: string,
+  ahrDatasetId: DatasetId | DatasetIdWithStateFIPSCode,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType
 ) {
@@ -27,7 +31,9 @@ export async function ensureCorrectDatasetsDownloaded(
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
 
-  const consumedDatasetIds = [ahrDatasetId]
+  const consumedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> = [
+    ahrDatasetId,
+  ]
   expect(responseIncludingAll).toEqual(
     new MetricQueryResponse([], consumedDatasetIds)
   )

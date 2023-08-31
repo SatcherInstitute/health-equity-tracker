@@ -2,7 +2,7 @@ import AcsConditionProvider from './AcsConditionProvider'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
 import { MetricQuery } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
-import { DatasetMetadataMap } from '../config/DatasetMetadata'
+import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
 import {
   autoInitGlobals,
   getDataFetcher,
@@ -11,22 +11,24 @@ import {
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
 import { CHATAM, NC, USA } from './TestUtils'
 import { RACE, SEX, AGE } from '../utils/Constants'
+import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 export async function ensureCorrectDatasetsDownloaded(
-  cdcDatasetId: string,
+  acsDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType
 ) {
   const acsProvider = new AcsConditionProvider()
-
-  dataFetcher.setFakeDatasetLoaded(cdcDatasetId, [])
+  const specificId = appendFipsIfNeeded(acsDatasetId, baseBreakdown)
+  dataFetcher.setFakeDatasetLoaded(specificId, [])
 
   const responseIncludingAll = await acsProvider.getData(
     new MetricQuery([], baseBreakdown.addBreakdown(demographicType))
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
-  expect(responseIncludingAll.consumedDatasetIds).toContain(cdcDatasetId)
+
+  expect(responseIncludingAll.consumedDatasetIds).toContain(acsDatasetId)
 }
 
 autoInitGlobals()
@@ -89,7 +91,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Age Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_age_county_time_series-37',
+      'acs_condition-by_age_county_time_series',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       AGE
     )
@@ -97,7 +99,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Sex Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_sex_county_time_series-37',
+      'acs_condition-by_sex_county_time_series',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       SEX
     )
@@ -105,7 +107,7 @@ describe('acsConditionProvider', () => {
 
   test('County and Race Breakdown', async () => {
     await ensureCorrectDatasetsDownloaded(
-      'acs_condition-by_race_county_time_series-37',
+      'acs_condition-by_race_county_time_series',
       Breakdowns.forFips(new Fips(CHATAM.code)),
       RACE
     )

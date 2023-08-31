@@ -43,7 +43,11 @@ import {
   ACS_POVERTY_AGE_BUCKETS,
 } from './Constants'
 import { type Row } from './DatasetTypes'
-import { type Fips } from './Fips'
+import { type StateFipsCode, type Fips } from './Fips'
+import {
+  type DatasetIdWithStateFIPSCode,
+  type DatasetId,
+} from '../config/DatasetMetadata'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 
@@ -342,9 +346,9 @@ export function splitIntoKnownsAndUnknowns(
 }
 
 export function appendFipsIfNeeded(
-  baseId: string,
+  baseId: DatasetId,
   breakdowns: Breakdowns
-): string {
+): DatasetId | DatasetIdWithStateFIPSCode {
   // if there is a parent fips, append it as needed (for county-level files)
   if (breakdowns.geography !== 'county') return baseId
 
@@ -352,10 +356,9 @@ export function appendFipsIfNeeded(
     breakdowns.geography === 'county' &&
     breakdowns.filterFips?.isStateOrTerritory()
 
-  const fipsToAppend = isCountyQueryFromStateLevelMap
+  const fipsToAppend: StateFipsCode | undefined = isCountyQueryFromStateLevelMap
     ? breakdowns.filterFips?.code
     : breakdowns?.filterFips?.getParentFips()?.code
 
-  const fipsTag = fipsToAppend ? `-${fipsToAppend}` : ''
-  return `${baseId}${fipsTag}`
+  return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
 }

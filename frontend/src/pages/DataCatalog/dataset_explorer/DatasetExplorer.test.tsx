@@ -9,9 +9,9 @@ import { test, expect } from 'vitest'
 import '@testing-library/jest-dom'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
-  id: 'acs_population-by_age_county',
   name: 'ACS Population by Age and County',
   update_time: 'update_time',
+  source_id: 'acs',
 }
 
 autoInitGlobals()

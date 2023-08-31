@@ -4,28 +4,25 @@ import { type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
+import { type DatasetId } from '../config/DatasetMetadata'
 
-export function GetAcsDatasetId(breakdowns: Breakdowns): string {
-  let id = ''
-  if (breakdowns.hasOnlySex()) {
-    id = 'acs_population-by_sex_' + breakdowns.geography
+export function GetAcsDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
+  if (breakdowns.geography === 'national') {
+    if (breakdowns.hasOnlyRace()) return 'acs_population-by_race_national'
+    if (breakdowns.hasOnlyAge()) return 'acs_population-by_age_national'
+    if (breakdowns.hasOnlySex()) return 'acs_population-by_sex_national'
   }
-  // Note: this assumes all age buckets are included in the same dataset. If
-  // we use multiple datasets for different age buckets we will need to check
-  // the filters the age breakdown is requesting and select the dataset based
-  // on which filters are applied (or select a default one). It is preferable
-  // to have the dataset include all breakdowns.
-  if (breakdowns.hasOnlyAge()) {
-    id = 'acs_population-by_age_' + breakdowns.geography
-  }
-  if (breakdowns.hasOnlyRace()) {
-    id =
-      breakdowns.geography === 'national'
-        ? 'acs_population-by_race_national'
-        : 'acs_population-by_race_' + breakdowns.geography
+  if (breakdowns.geography === 'state') {
+    if (breakdowns.hasOnlyRace()) return 'acs_population-by_race_state'
+    if (breakdowns.hasOnlyAge()) return 'acs_population-by_age_state'
+    if (breakdowns.hasOnlySex()) return 'acs_population-by_sex_state'
   }
 
-  return appendFipsIfNeeded(id, breakdowns)
+  if (breakdowns.geography === 'county') {
+    if (breakdowns.hasOnlyRace()) return 'acs_population-by_race_county'
+    if (breakdowns.hasOnlyAge()) return 'acs_population-by_age_county'
+    if (breakdowns.hasOnlySex()) return 'acs_population-by_sex_county'
+  }
 }
 
 class AcsPopulationProvider extends VariableProvider {
@@ -34,7 +31,7 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     return GetAcsDatasetId(breakdowns)
   }
 
@@ -42,22 +39,24 @@ class AcsPopulationProvider extends VariableProvider {
     metricQuery: MetricQuery
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
+
     let df = await this.getDataInternalWithoutPercents(breakdowns)
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)
     df = this.removeUnrequestedColumns(df, metricQuery)
 
-    return new MetricQueryResponse(df.toArray(), [
-      this.getDatasetId(breakdowns),
-    ])
+    const datasetId = this.getDatasetId(breakdowns)
+    if (!datasetId) throw Error('DatasetId undefined')
+    return new MetricQueryResponse(df.toArray(), [datasetId])
   }
 
   private async getDataInternalWithoutPercents(
     breakdowns: Breakdowns
   ): Promise<IDataFrame> {
-    const acsDataset = await getDataManager().loadDataset(
-      this.getDatasetId(breakdowns)
-    )
+    const datasetId = this.getDatasetId(breakdowns)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const acsDataset = await getDataManager().loadDataset(specificDatasetId)
     let acsDataFrame = acsDataset.toDataFrame()
 
     // If requested, filter geography by state or county level

@@ -1,4 +1,5 @@
 import { getDataManager } from '../../utils/globals'
+import { type DatasetId } from '../config/DatasetMetadata'
 import { type Breakdowns, type GeographicBreakdown } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
@@ -12,14 +13,10 @@ class GeoContextProvider extends VariableProvider {
     super('geo_context_provider', [SVI, POPULATION])
   }
 
-  getDatasetId(breakdowns: Breakdowns): string {
+  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
     if (breakdowns.geography === 'national') return 'geo_context-national'
     if (breakdowns.geography === 'state') return 'geo_context-state'
-    if (breakdowns.geography === 'county') {
-      return appendFipsIfNeeded('geo_context-county', breakdowns)
-    }
-
-    throw new Error(`Geography-level ${breakdowns.geography}: Not implemented`)
+    if (breakdowns.geography === 'county') return 'geo_context-county'
   }
 
   async getDataInternal(
@@ -27,7 +24,9 @@ class GeoContextProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const datasetId = this.getDatasetId(breakdowns)
-    const geoContext = await getDataManager().loadDataset(datasetId)
+    if (!datasetId) throw Error('DatasetId undefined')
+    const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
+    const geoContext = await getDataManager().loadDataset(specificDatasetId)
 
     let df = geoContext.toDataFrame()
     df = this.filterByGeo(df, breakdowns)
@@ -35,14 +34,14 @@ class GeoContextProvider extends VariableProvider {
     df = this.removeUnrequestedColumns(df, metricQuery)
 
     // handles both SVI and/or POPULATION requests, need to dynamically infer the consumed datasets for footer
-    const consumedDatasetIds: string[] = []
+    const consumedDatasetIds: DatasetId[] = []
 
     if (metricQuery.metricIds.includes(SVI)) {
-      //  TODO: refactor SVI to not use pretend SEX demographic type, use some sort of true ALL demographic type
-      consumedDatasetIds.push('cdc_svi_county-sex')
+      //  TODO: refactor SVI to not use pretend AGE demographic type, use ALL demographic type like in covid vaxx by county
+      consumedDatasetIds.push('cdc_svi_county-age')
     }
 
-    const acsDatasetMap: Record<GeographicBreakdown, string> = {
+    const acsDatasetMap: Record<GeographicBreakdown, DatasetId> = {
       county: 'acs_population-by_sex_county',
       state: 'acs_population-by_sex_state',
       national: 'acs_population-by_sex_national',
@@ -51,7 +50,7 @@ class GeoContextProvider extends VariableProvider {
       territory: 'decia_2020_territory_population-by_sex_territory_state_level',
     }
 
-    const decia2020DatasetMap: Record<GeographicBreakdown, string> = {
+    const decia2020DatasetMap: Record<GeographicBreakdown, DatasetId> = {
       county: 'decia_2020_territory_population-by_sex_territory_county_level',
       state: 'decia_2020_territory_population-by_sex_territory_state_level',
       national: 'acs_population-by_sex_national',
@@ -65,7 +64,8 @@ class GeoContextProvider extends VariableProvider {
       const datasetMap = breakdowns.filterFips?.isIslandArea()
         ? decia2020DatasetMap
         : acsDatasetMap
-      consumedDatasetIds.push(datasetMap[breakdowns.geography])
+      const populationId = datasetMap[breakdowns.geography]
+      populationId && consumedDatasetIds.push(populationId)
     }
 
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)

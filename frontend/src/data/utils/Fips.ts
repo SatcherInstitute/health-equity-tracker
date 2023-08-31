@@ -239,6 +239,8 @@ export const STATE_FIPS_MAP: Record<string, string> = {
   /* cSpell:enable */
 }
 
+export type StateFipsCode = keyof typeof STATE_FIPS_MAP
+
 export const COUNTY_FIPS_MAP: Record<string, string> = {
   /* cSpell:disable */
   '01001': 'Autauga',
