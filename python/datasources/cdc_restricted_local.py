@@ -209,8 +209,8 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     groupby_cols = groupby_cols + [CASE_DATE_COL]
     total_groupby_cols = total_groupby_cols + [CASE_DATE_COL]
 
-    df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
-    totals = df.groupby(total_groupby_cols).sum(numeric_only=True).reset_index()
+    df = df.groupby(groupby_cols).sum().reset_index()
+    totals = df.groupby(total_groupby_cols).sum().reset_index()
 
     # Special case required due to later processing.
     if demog_cols[0] == RACE_ETH_COL:
@@ -251,7 +251,7 @@ def generate_national_dataset(state_df, groupby_cols):
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
 
-    df = state_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+    df = state_df.groupby(groupby_cols).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME

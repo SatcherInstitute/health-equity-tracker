@@ -175,7 +175,7 @@ def generate_pct_share_col_with_unknowns(df: pd.DataFrame,
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     # Calculate an all demographic based on the known cases.
-    alls = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+    alls = df.groupby(groupby_cols).sum().reset_index()
     alls[breakdown_col] = all_val
     df = pd.concat([df, alls]).reset_index(drop=True)
 
@@ -345,7 +345,7 @@ def add_sum_of_rows(df, breakdown_col, value_col, new_row_breakdown_val,
         for col in value_col:
             group_by_cols.remove(col)
 
-    sums = filtered_df.groupby(group_by_cols).sum(numeric_only=True).reset_index()
+    sums = filtered_df.groupby(group_by_cols).sum().reset_index()
     sums[breakdown_col] = new_row_breakdown_val
 
     result = pd.concat([df, sums])

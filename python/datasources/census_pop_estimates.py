@@ -82,7 +82,7 @@ def generate_state_pop_data(df):
     df = df.loc[df['YEAR'] == YEAR_2019].reset_index(drop=True)
 
     groupby_cols = ['STATE', 'STNAME', 'AGEGRP']
-    df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+    df = df.groupby(groupby_cols).sum().reset_index()
 
     needed_cols = groupby_cols
 
@@ -95,7 +95,7 @@ def generate_state_pop_data(df):
 
     for std_age, census_age in AGES_MAP.items():
         age_df = df.loc[df['AGEGRP'].isin(census_age)]
-        age_df = age_df.groupby(['STATE', 'STNAME']).sum(numeric_only=True).reset_index()
+        age_df = age_df.groupby(['STATE', 'STNAME']).sum().reset_index()
         age_df[std_col.AGE_COL] = std_age
 
         for state_fips in age_df['STATE'].drop_duplicates().to_list():
@@ -133,7 +133,7 @@ def generate_national_pop_data(state_df, states_to_include):
     df[std_col.POPULATION_COL] = df[std_col.POPULATION_COL].astype(int)
 
     groupby_cols = [std_col.RACE_CATEGORY_ID_COL, std_col.AGE_COL]
-    df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+    df = df.groupby(groupby_cols).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME

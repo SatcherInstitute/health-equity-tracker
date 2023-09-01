@@ -482,7 +482,7 @@ class ACSPopulationIngester():
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.RACE_CATEGORY_ID_COL)
         standardized_race = standardized_race.groupby(
-            group_by_cols).sum(numeric_only=True).reset_index()
+            group_by_cols).sum().reset_index()
         return standardized_race
 
     def standardize_race_include_hispanic(self, df):
@@ -492,7 +492,7 @@ class ACSPopulationIngester():
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.HISPANIC_COL)
-        by_hispanic = by_hispanic.groupby(group_by_cols).sum(numeric_only=True).reset_index()
+        by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
         by_hispanic[std_col.RACE_CATEGORY_ID_COL] = by_hispanic.apply(
             lambda r: (Race.HISP.value
                        if r[std_col.HISPANIC_COL] == 'Hispanic or Latino'
@@ -503,7 +503,7 @@ class ACSPopulationIngester():
         by_race = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.RACE_COL)
-        by_race = by_race.groupby(group_by_cols).sum(numeric_only=True).reset_index()
+        by_race = by_race.groupby(group_by_cols).sum().reset_index()
         by_race[std_col.RACE_CATEGORY_ID_COL] = by_race.apply(
             lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[std_col.RACE_COL]],
             axis=1)
@@ -604,7 +604,7 @@ class ACSPopulationIngester():
 
         groupby_cols = cols[:-1] if self.county_level else cols[1: -1]
         by_sex_age = by_sex_age.groupby(
-            groupby_cols)[std_col.POPULATION_COL].sum(numeric_only=True).reset_index()
+            groupby_cols)[std_col.POPULATION_COL].sum().reset_index()
 
         return by_sex_age
 
@@ -739,7 +739,7 @@ def GENERATE_NATIONAL_DATASET(state_df, states_to_include, demographic_breakdown
     }
 
     df = df.groupby(
-        breakdown_map[demographic_breakdown_category]).sum(numeric_only=True).reset_index()
+        breakdown_map[demographic_breakdown_category]).sum().reset_index()
 
     df[std_col.STATE_FIPS_COL] = constants.US_FIPS
     df[std_col.STATE_NAME_COL] = constants.US_NAME

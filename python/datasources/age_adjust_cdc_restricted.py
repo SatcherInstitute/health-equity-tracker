@@ -123,7 +123,7 @@ class AgeAdjustCDCRestricted(DataSource):
                 std_col.RACE_CATEGORY_ID_COL,
                 std_col.AGE_COL,
             ]
-            with_race_age_df = with_race_age_df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+            with_race_age_df = with_race_age_df.groupby(groupby_cols).sum().reset_index()
 
         # Clean with race age df
         with_race_age_df = with_race_age_df.loc[
@@ -247,7 +247,7 @@ def age_adjust_from_expected(df, time_series):
         groupby_cols.append(std_col.TIME_PERIOD_COL)
 
     # First, sum up expected deaths across age groups
-    df = df.groupby(groupby_cols).sum(numeric_only=True).reset_index()
+    df = df.groupby(groupby_cols).sum().reset_index()
 
     base_pop_df = df.loc[df[std_col.RACE_CATEGORY_ID_COL] ==
                          BASE_POPULATION].reset_index(drop=True)
