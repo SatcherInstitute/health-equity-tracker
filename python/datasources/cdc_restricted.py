@@ -20,8 +20,6 @@ from ingestion.constants import (
 
 from datasources.data_source import DataSource
 from datasources.cdc_restricted_local import (
-    HOSP_DATA_SUPPRESSION_STATES,
-    DEATH_DATA_SUPPRESSION_STATES,
     RACE_NAMES_MAPPING,
     SEX_NAMES_MAPPING,
     AGE_NAMES_MAPPING)
@@ -189,7 +187,6 @@ class CDCRestrictedData(DataSource):
             ]
 
             df = merge_multiple_pop_cols(df, demo, pop_cols)
-            null_out_suppressed_deaths_hosps(df, True)
             df = generate_national_dataset(df, demo_col, time_series)
 
         fips = std_col.COUNTY_FIPS_COL if geo == COUNTY_LEVEL else std_col.STATE_FIPS_COL
@@ -242,9 +239,6 @@ class CDCRestrictedData(DataSource):
                     pct_relative_inequity_col)
 
                 all_columns.append(pct_relative_inequity_col)
-
-        if geo != NATIONAL_LEVEL:
-            null_out_suppressed_deaths_hosps(df, False)
 
         if geo == COUNTY_LEVEL:
             null_out_dc_county_rows(df)
@@ -472,38 +466,6 @@ def remove_or_set_to_zero(df, geo, demographic):
     df = pd.concat([df, unknown_df])
 
     return df.reset_index()
-
-
-def null_out_suppressed_deaths_hosps(df, modify_pop_rows):
-    """Sets suppressed states deaths and hospitalizations to null based on the
-       tuples defined in `cdc_restricted_local.py`.
-       Note: This is an in place function and doesn't return anything.
-
-       df: Pandas df to modify
-       modify_pop_rows: Boolean, whether or not to set corresponding population
-                        rows to np.nan. Note, these population rows must have been
-                        created using the `merge_multiple_pop_cols` function."""
-
-    suffixes = [std_col.PER_100K_SUFFIX,
-
-                std_col.SHARE_SUFFIX, std_col.PCT_REL_INEQUITY_SUFFIX]
-    hosp_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
-        HOSP_DATA_SUPPRESSION_STATES)
-    for suffix in suffixes:
-        df.loc[hosp_rows_to_modify,
-               generate_column_name(std_col.COVID_HOSP_PREFIX, suffix)] = np.nan
-
-    death_rows_to_modify = df[std_col.STATE_POSTAL_COL].isin(
-        DEATH_DATA_SUPPRESSION_STATES)
-    for suffix in suffixes:
-        df.loc[death_rows_to_modify,
-               generate_column_name(std_col.COVID_DEATH_PREFIX, suffix)] = np.nan
-
-    if modify_pop_rows:
-        df.loc[hosp_rows_to_modify,
-               generate_column_name(std_col.COVID_HOSP_Y, POPULATION_SUFFIX)] = np.nan
-        df.loc[death_rows_to_modify,
-               generate_column_name(std_col.COVID_DEATH_Y, POPULATION_SUFFIX)] = np.nan
 
 
 def null_out_all_unknown_deaths_hosps(df):
