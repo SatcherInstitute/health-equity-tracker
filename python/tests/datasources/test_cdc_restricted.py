@@ -156,7 +156,6 @@ def testGenerateBreakdownSexNationalTimeSeries(mock_fips: mock.MagicMock, mock_p
 
     df = cdc_restricted.generate_breakdown(
         get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', True)
-
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL_TIME_SERIES, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -181,7 +180,6 @@ def testGenerateBreakdownSexStateCumulative(mock_fips: mock.MagicMock, mock_pop:
 
     df = cdc_restricted.generate_breakdown(
         get_cdc_restricted_by_sex_state_as_df(), 'sex', 'state', False)
-
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_STATE_CUMULATIVE, dtype={
         'state_fips': str,
         'covid_cases_share': float,
@@ -206,7 +204,6 @@ def testGenerateBreakdownSexNationalCumulative(mock_fips: mock.MagicMock, mock_p
 
     df = cdc_restricted.generate_breakdown(
         get_cdc_restricted_by_sex_state_as_df(), 'sex', 'national', False)
-
     expected_df = pd.read_json(GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE, dtype={
         'state_fips': str,
         'covid_cases_share': float,
