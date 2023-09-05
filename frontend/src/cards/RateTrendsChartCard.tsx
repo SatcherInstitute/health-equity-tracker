@@ -85,7 +85,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
-  const pctShareUnknownQuery =
+
+  // get pct_share with unknown demographic for optional bubble chart
+  const pctShareQuery =
     metricConfigPctShares &&
     new MetricQuery(
       metricConfigPctShares.metricId,
@@ -96,7 +98,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const queries = [ratesQuery]
 
-  pctShareUnknownQuery && queries.push(pctShareUnknownQuery)
+  pctShareQuery && queries.push(pctShareQuery)
 
   function getTitleText() {
     return `${
