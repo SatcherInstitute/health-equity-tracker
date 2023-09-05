@@ -93,14 +93,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         columnTitleHeader: 'Adherent beneficiary population ',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of statins beneficiary population vs. share of total adherence',
-          metricId: 'statins_population_pct_share',
-          columnTitleHeader: 'Share of all Medicare statins beneficiaries',
-          shortLabel: '% of prescribed pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
