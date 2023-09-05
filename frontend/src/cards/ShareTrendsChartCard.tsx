@@ -178,12 +178,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
           metricConfigInequitable.metricId
         )
 
-        const nestedUnknowns = metricConfigPctShares
-          ? getNestedUnknowns(
-              unknownPctShareData,
-              metricConfigPctShares.metricId
-            )
-          : []
+        const nestedUnknowns = getNestedUnknowns(
+          unknownPctShareData,
+          metricConfigPctShares?.metricId
+        )
 
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknowns)
 

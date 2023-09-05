@@ -181,14 +181,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.demographicType,
           metricConfigRates.metricId
         )
-        const nestedUnknownPctShareData =
-          unknownPctShareData &&
-          getNestedUnknowns(
-            unknownPctShareData,
-            isCawp
-              ? metricConfigRates.metricId
-              : metricConfigPctShares?.metricId
-          )
+        const nestedUnknownPctShareData = getNestedUnknowns(
+          unknownPctShareData,
+          isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId
+        )
 
         hasUnknowns =
           nestedUnknownPctShareData != null &&
