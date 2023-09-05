@@ -90,7 +90,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
         metricId: 'statins_adherence_pct_share',
-        columnTitleHeader: 'Adherent beneficiary population ',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
       },
@@ -121,21 +120,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
-      pct_share: {
-        chartTitle: 'Percent share of total beta-blockers adherence',
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
         metricId: 'beta_blockers_adherence_pct_share',
-        columnTitleHeader: 'Percent share of total beta-blockers adherence',
-        shortLabel: '% of total adherent pop.',
+        shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of beta-blockers beneficiary population vs. share of total adherence',
-          metricId: 'beta_blockers_population_pct_share',
-          columnTitleHeader:
-            'Share of all Medicare beta-blockers beneficiaries',
-          shortLabel: '% of prescribed pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
@@ -166,20 +155,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         shortLabel: '% of pop. receiving persistent treatment',
         type: 'pct_rate',
       },
-      pct_share: {
-        chartTitle: 'Percent share of total persistent',
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
         metricId: 'nqf_adherence_pct_share',
-        columnTitleHeader: 'Percent share of total persistence',
-        shortLabel: '% of total adherent pop.',
+        shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of beneficiary population vs. share of total persistence',
-          metricId: 'nqf_population_pct_share',
-          columnTitleHeader: 'Share of all Medicare beneficiaries',
-          shortLabel: '% of prescribed pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
@@ -209,21 +189,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
-      pct_share: {
-        chartTitle: 'Percent share of total RAS antagonists adherence',
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
         metricId: 'rasa_adherence_pct_share',
-        columnTitleHeader: 'Percent share of total RAS antagonists adherence',
-        shortLabel: '% of total adherent pop.',
+        shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of RASA beneficiary population vs. share of total adherence',
-          metricId: 'rasa_population_pct_share',
-          columnTitleHeader:
-            'Share of all Medicare RAS antagonists beneficiaries',
-          shortLabel: '% of prescribed pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
@@ -252,22 +222,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
-      pct_share: {
-        chartTitle: 'Percent share of total calcium channel blockers adherence',
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
         metricId: 'ccb_adherence_pct_share',
-        columnTitleHeader:
-          'Percent share of total calcium channel blockers adherence',
-        shortLabel: '% of total adherent pop.',
+        shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of calcium channel blockers beneficiary population vs. share of total adherence',
-          metricId: 'ccb_population_pct_share',
-          columnTitleHeader:
-            'Share of all Medicare calcium channel blockers beneficiaries',
-          shortLabel: '% of prescribed pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
@@ -296,23 +255,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
-      pct_share: {
-        chartTitle:
-          'Percent share of total Direct Oral Anticoagulants adherence',
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
         metricId: 'doac_adherence_pct_share',
-        columnTitleHeader:
-          'Percent share of total Direct Oral Anticoagulants adherence',
-        shortLabel: '% of total adherent pop.',
+        shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of Direct Oral Anticoagulants beneficiary population vs. share of total adherence',
-          metricId: 'doac_population_pct_share',
-          columnTitleHeader:
-            'Share of all Medicare Direct Oral Anticoagulants beneficiaries',
-          shortLabel: '% of prescribed pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
@@ -327,6 +274,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         metricId: 'ami_per_100k',
         chartTitle: 'Rates of Acute MI',
         shortLabel: 'Acute MI per 100k',
+        columnTitleHeader: 'Medicare beneficiary AMI cases',
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'ami_estimated_total',
@@ -342,14 +290,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       },
       pct_share: {
-        chartTitle: 'Percent share of total Acute MI',
+        chartTitle: 'Share of total beneficiary AMI cases',
         metricId: 'ami_pct_share',
-        columnTitleHeader: 'Percent share of total Acute MI',
-        shortLabel: '% of total Acute MI',
+        columnTitleHeader: 'Share of total beneficiary AMI cases',
+        shortLabel: '% of beneficiary pop. with acute MI',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Share of beneficiary population vs. share of total Acute MI',
+            'Share of beneficiary population vs. share of total AMI cases',
           metricId: 'phrma_population_pct_share',
           columnTitleHeader: 'Share of all beneficiaries',
           shortLabel: '% of beneficiary pop.',
@@ -386,21 +334,11 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
-      pct_share: {
-        chartTitle: 'Percent share of total antiretrovirals adherence',
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
         metricId: 'arv_adherence_pct_share',
-        columnTitleHeader: 'Percent share of total antiretrovirals adherence',
-        shortLabel: '% of total adherent pop.',
+        shortLabel: '% of adherent pop.',
         type: 'pct_share',
-        populationComparisonMetric: {
-          chartTitle:
-            'Share of antiretrovirals beneficiary population vs. share of total adherence',
-          metricId: 'arv_population_pct_share',
-          columnTitleHeader:
-            'Share of all Medicare antiretrovirals beneficiaries',
-          shortLabel: '% of beneficiary pop.',
-          type: 'pct_share',
-        },
       },
     },
   },
@@ -415,6 +353,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         metricId: 'phrma_hiv_per_100k',
         chartTitle: 'Rates of HIV cases',
         shortLabel: 'cases per 100k',
+        columnTitleHeader: 'Medicare beneficiary HIV cases',
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'phrma_hiv_estimated_total',
@@ -430,10 +369,10 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         },
       },
       pct_share: {
-        chartTitle: 'Percent share of total HIV cases',
+        chartTitle: 'Share of total beneficiaries living with HIV',
         metricId: 'phrma_hiv_pct_share',
-        columnTitleHeader: 'Percent share of total HIV cases',
-        shortLabel: '% of total HIV cases',
+        columnTitleHeader: 'Share of total beneficiaries living with HIV',
+        shortLabel: '% of beneficiary pop. living with HIV',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
