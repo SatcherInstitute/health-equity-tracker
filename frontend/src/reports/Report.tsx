@@ -132,6 +132,10 @@ export function Report(props: ReportProps) {
   const hideNonCountyBJSTimeCards =
     !props.fips.isCounty() && INCARCERATION_IDS.includes(props.dropdownVarId)
 
+  const shareMetricConfig =
+    dataTypeConfig?.metrics.pct_share_unknown ??
+    dataTypeConfig?.metrics.pct_share
+
   return (
     <>
       <Helmet>
@@ -244,7 +248,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {dataTypeConfig.metrics.pct_share && (
+                    {shareMetricConfig && (
                       <UnknownsMapCard
                         overrideAndWithOr={demographicType === RACE}
                         dataTypeConfig={dataTypeConfig}
@@ -298,7 +302,7 @@ export function Report(props: ReportProps) {
                   }}
                 >
                   <LazyLoad offset={800} height={750} once>
-                    {dataTypeConfig.metrics.pct_share && (
+                    {shareMetricConfig && (
                       <DisparityBarChartCard
                         dataTypeConfig={dataTypeConfig}
                         demographicType={demographicType}

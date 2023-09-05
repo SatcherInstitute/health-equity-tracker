@@ -147,7 +147,8 @@ export interface DataTypeConfig {
   dataTypeDefinition?: string
   metrics: {
     count?: MetricConfig
-    pct_share: MetricConfig
+    pct_share?: MetricConfig
+    pct_share_unknown?: MetricConfig
     per100k?: MetricConfig
     pct_relative_inequity?: MetricConfig
     pct_rate?: MetricConfig
