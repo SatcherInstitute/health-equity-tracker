@@ -68,11 +68,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   if (!metricConfigRates) return <></>
 
-  const metricConfigPctShareUnknown =
+  const metricConfigPctShares =
     props.dataTypeConfig.metrics?.pct_share_unknown ??
     props.dataTypeConfig.metrics?.pct_share
 
-  let hasUnknowns = Boolean(metricConfigPctShareUnknown)
+  let hasUnknowns = Boolean(metricConfigPctShares)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
@@ -86,9 +86,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* timeView */ TIME_SERIES
   )
   const pctShareUnknownQuery =
-    metricConfigPctShareUnknown &&
+    metricConfigPctShares &&
     new MetricQuery(
-      metricConfigPctShareUnknown.metricId,
+      metricConfigPctShares.metricId,
       breakdowns,
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
       /* timeView */ TIME_SERIES
@@ -131,9 +131,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const pctShareData = isCawp
           ? ratesData
-          : metricConfigPctShareUnknown &&
+          : metricConfigPctShares &&
             queryResponsePctShares.getValidRowsForField(
-              metricConfigPctShareUnknown.metricId
+              metricConfigPctShares.metricId
             )
 
         // swap race labels if applicable
@@ -184,7 +184,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
             unknownPctShareData,
             isCawp
               ? metricConfigRates.metricId
-              : metricConfigPctShareUnknown?.metricId
+              : metricConfigPctShares?.metricId
           )
 
         hasUnknowns =
@@ -301,7 +301,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     unknownsData={unknownPctShareData}
                     demographicType={props.demographicType}
                     knownMetricConfig={metricConfigRates}
-                    unknownMetricConfig={metricConfigPctShareUnknown}
+                    unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
                     hasUnknowns={isCawp ? false : hasUnknowns}
                     isCompareCard={props.isCompareCard}
