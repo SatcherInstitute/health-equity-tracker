@@ -2,12 +2,19 @@ import { createRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
 import sass from '../../styles/variables.module.scss'
+import { type ScrollableHashId } from './useStepObserver'
+import {
+  ALT_TABLE_VIEW_1_PARAM_KEY,
+  ALT_TABLE_VIEW_2_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
+} from '../urlutils'
 
 const DROPDOWN_ELEMENT_IDS = [
-  '#alt-table-view',
-  '#alt-table-view-2',
-  '#highest-lowest-list',
-  '#highest-lowest-list-2',
+  ALT_TABLE_VIEW_1_PARAM_KEY,
+  ALT_TABLE_VIEW_2_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
 ]
 
 const LOGO_FONT_COLOR = sass.altGreen
@@ -28,8 +35,8 @@ export type HiddenElements =
 export function useDownloadCardImage(
   cardTitle: string,
   hiddenElements: HiddenElements[] = [],
-  dropdownOpen?: boolean,
-  scrollToHash: string = ''
+  scrollToHash: ScrollableHashId = 'rate-map',
+  dropdownOpen?: boolean
 ) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
   const [dropdownElement, setDropdownElement] = useState<HTMLElement>()
@@ -39,7 +46,7 @@ export function useDownloadCardImage(
 
   useEffect(() => {
     const element = DROPDOWN_ELEMENT_IDS.map((dropdownId) =>
-      screenshotTargetRef.current?.querySelector(dropdownId)
+      screenshotTargetRef.current?.querySelector(`#${dropdownId}`)
     ).find((element) => element !== null) as HTMLElement
 
     setDropdownElement(element)

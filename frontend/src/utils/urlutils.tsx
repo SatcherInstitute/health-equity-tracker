@@ -38,6 +38,8 @@ export const MULTIPLE_MAPS_1_PARAM_KEY = 'multiple-maps'
 export const MULTIPLE_MAPS_2_PARAM_KEY = 'multiple-maps2'
 export const HIGHEST_LOWEST_GEOS_1_PARAM_KEY = 'highest-lowest-geos'
 export const HIGHEST_LOWEST_GEOS_2_PARAM_KEY = 'highest-lowest-geos2'
+export const ALT_TABLE_VIEW_1_PARAM_KEY = 'alt-table-view1'
+export const ALT_TABLE_VIEW_2_PARAM_KEY = 'alt-table-view2'
 
 // Ensures backwards compatibility for external links to old DataTypeIds
 export function swapOldDatatypeParams(oldParam: string) {
