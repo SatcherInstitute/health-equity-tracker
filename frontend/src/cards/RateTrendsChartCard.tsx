@@ -68,7 +68,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   if (!metricConfigRates) return <></>
 
-  const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
+  const metricConfigPctShareUnknown =
+    props.dataTypeConfig.metrics?.pct_share_unknown ??
+    props.dataTypeConfig.metrics?.pct_share
+
+  let hasUnknowns = Boolean(metricConfigPctShareUnknown)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
@@ -81,12 +85,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
-  const pctShareQuery = new MetricQuery(
-    metricConfigPctShares.metricId,
-    breakdowns,
-    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ TIME_SERIES
-  )
+  const pctShareUnknownQuery =
+    metricConfigPctShareUnknown &&
+    new MetricQuery(
+      metricConfigPctShareUnknown.metricId,
+      breakdowns,
+      /* dataTypeId */ props.dataTypeConfig.dataTypeId,
+      /* timeView */ TIME_SERIES
+    )
+
+  const queries = [ratesQuery]
+
+  pctShareUnknownQuery && queries.push(pctShareUnknownQuery)
 
   function getTitleText() {
     return `${
@@ -107,7 +117,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
-      queries={[ratesQuery, pctShareQuery]}
+      queries={queries}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
@@ -121,8 +131,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const pctShareData = isCawp
           ? ratesData
-          : queryResponsePctShares.getValidRowsForField(
-              metricConfigPctShares.metricId
+          : metricConfigPctShareUnknown &&
+            queryResponsePctShares.getValidRowsForField(
+              metricConfigPctShareUnknown.metricId
             )
 
         // swap race labels if applicable
@@ -157,10 +168,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           : splitIntoKnownsAndUnknowns(ratesDataLabelled, props.demographicType)
 
         // rates for the unknown bubbles
-        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
-          pctShareData,
-          props.demographicType
-        )
+        const [, unknownPctShareData] = pctShareData
+          ? splitIntoKnownsAndUnknowns(pctShareData, props.demographicType)
+          : [[], []]
 
         const nestedRatesData = getNestedData(
           knownRatesData,
@@ -168,12 +178,18 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.demographicType,
           metricConfigRates.metricId
         )
-        const nestedUnknownPctShareData = getNestedUnknowns(
-          unknownPctShareData,
-          isCawp ? metricConfigRates.metricId : metricConfigPctShares.metricId
-        )
+        const nestedUnknownPctShareData =
+          unknownPctShareData &&
+          getNestedUnknowns(
+            unknownPctShareData,
+            isCawp
+              ? metricConfigRates.metricId
+              : metricConfigPctShareUnknown?.metricId
+          )
 
-        const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData)
+        hasUnknowns =
+          nestedUnknownPctShareData != null &&
+          hasNonZeroUnknowns(nestedUnknownPctShareData)
 
         return (
           <>
@@ -285,7 +301,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     unknownsData={unknownPctShareData}
                     demographicType={props.demographicType}
                     knownMetricConfig={metricConfigRates}
-                    unknownMetricConfig={metricConfigPctShares}
+                    unknownMetricConfig={metricConfigPctShareUnknown}
                     selectedGroups={selectedTableGroups}
                     hasUnknowns={isCawp ? false : hasUnknowns}
                     isCompareCard={props.isCompareCard}
