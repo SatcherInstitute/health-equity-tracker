@@ -23,6 +23,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
+import { type HiddenElements } from '../utils/hooks/useDownloadCardImage'
 
 export interface DisparityBarChartCardProps {
   key?: string
@@ -88,7 +89,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 
-  const elementsToHide = ['#card-options-menu']
+  const elementsToHide: HiddenElements[] = ['#card-options-menu']
 
   return (
     <CardWrapper

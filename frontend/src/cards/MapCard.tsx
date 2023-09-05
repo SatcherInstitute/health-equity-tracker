@@ -85,6 +85,7 @@ import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { RATE_MAP_SCALE } from '../charts/mapGlobals'
+import { type HiddenElements } from '../utils/hooks/useDownloadCardImage'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -262,7 +263,7 @@ function MapCardWithKey(props: MapCardProps) {
     setScale({ domain, range })
   }
 
-  const elementsToHide = [
+  const elementsToHide: HiddenElements[] = [
     '#map-group-dropdown',
     '#download-card-image-button',
     '#card-options-menu',

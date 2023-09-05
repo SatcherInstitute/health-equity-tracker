@@ -20,9 +20,14 @@ const BOTTOM_PADDING = 120
 const URL_FONT_SIZE = 14
 const URL_FONT_STYLE = '"Inter",sans-serif'
 
+export type HiddenElements =
+  | '#card-options-menu'
+  | '#download-card-image-button'
+  | '#map-group-dropdown'
+
 export function useDownloadCardImage(
   cardTitle: string,
-  hiddenElements: string[] = [],
+  hiddenElements: HiddenElements[] = [],
   dropdownOpen?: boolean,
   scrollToHash: string = ''
 ) {
