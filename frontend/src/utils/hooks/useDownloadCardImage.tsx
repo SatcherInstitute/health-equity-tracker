@@ -31,12 +31,14 @@ export type HiddenElements =
   | '#card-options-menu'
   | '#download-card-image-button'
   | '#map-group-dropdown'
+  | '#multi-map-close-button'
 
 export function useDownloadCardImage(
   cardTitle: string,
   hiddenElements: HiddenElements[] = [],
-  scrollToHash: ScrollableHashId = 'rate-map',
-  dropdownOpen?: boolean
+  scrollToHash: ScrollableHashId,
+  dropdownOpen?: boolean,
+  footerContentRef?: React.RefObject<HTMLDivElement>
 ) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
   const [dropdownElement, setDropdownElement] = useState<HTMLElement>()
@@ -146,17 +148,20 @@ export function useDownloadCardImage(
     try {
       // Hide specified elements for the screenshot
       hiddenElements.forEach((element) => {
-        const elementToHide = screenshotTargetRef.current?.querySelector(
-          element
-        ) as HTMLElement
-        if (elementToHide) {
-          elementToHide.style.visibility = 'hidden'
-        }
+        const elementToHide: HTMLElement =
+          screenshotTargetRef.current?.querySelector(element) as HTMLElement
+        if (elementToHide) elementToHide.style.visibility = 'hidden'
       })
 
-      if (dropdownElement) {
-        dropdownElement.style.visibility = dropdownOpen ? 'visible' : 'hidden'
+      if (footerContentRef) {
+        const elementToHide = footerContentRef.current?.querySelector(
+          '#card-options-menu'
+        ) as HTMLElement
+        if (elementToHide) elementToHide.style.visibility = 'hidden'
       }
+
+      if (dropdownElement)
+        dropdownElement.style.visibility = dropdownOpen ? 'visible' : 'hidden'
 
       const canvas = await html2canvas(
         screenshotTargetRef.current as HTMLElement,
@@ -166,8 +171,34 @@ export function useDownloadCardImage(
         }
       )
 
-      if (dropdownElement) {
-        dropdownElement.style.visibility = 'visible'
+      const footerCanvas = footerContentRef
+        ? await html2canvas(footerContentRef.current as HTMLElement, {
+            logging: true,
+            useCORS: true,
+          })
+        : null
+
+      const combinedCanvasHeight =
+        canvas.height + (footerCanvas ? footerCanvas.height : 0)
+
+      const combinedCanvas = document.createElement('canvas')
+      combinedCanvas.width = canvas.width
+      combinedCanvas.height = combinedCanvasHeight
+
+      const context = combinedCanvas.getContext('2d')
+
+      if (context) {
+        context.drawImage(canvas, 0, 0)
+        if (footerCanvas) context.drawImage(footerCanvas, 0, canvas.height)
+      }
+
+      if (dropdownElement) dropdownElement.style.visibility = 'visible'
+
+      if (footerContentRef) {
+        const elementToHide = footerContentRef.current?.querySelector(
+          '#card-options-menu'
+        ) as HTMLElement
+        if (elementToHide) elementToHide.style.visibility = 'visible'
       }
 
       // Restore specified elements for the screenshot
@@ -178,7 +209,7 @@ export function useDownloadCardImage(
         if (elementToHide) elementToHide.style.visibility = 'visible'
       })
 
-      download(canvas)
+      download(combinedCanvas)
 
       return true
     } catch (e) {

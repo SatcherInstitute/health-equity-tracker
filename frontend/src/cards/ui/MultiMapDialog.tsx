@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   Box,
   Grid,
@@ -36,7 +36,10 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
-import { useDownloadCardImage } from '../../utils/hooks/useDownloadCardImage'
+import {
+  type HiddenElements,
+  useDownloadCardImage,
+} from '../../utils/hooks/useDownloadCardImage'
 import { getMapScheme } from '../../charts/mapHelperFunctions'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
@@ -100,8 +103,19 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
-  const [screenshotTargetRef, downloadTargetScreenshot] =
-    useDownloadCardImage(title)
+  const elementsToHide: HiddenElements[] = ['#multi-map-close-button']
+
+  const footerContentRef = useRef(null)
+
+  const scrollToHash: ScrollableHashId = 'rate-map'
+
+  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
+    title,
+    elementsToHide,
+    scrollToHash,
+    false,
+    footerContentRef
+  )
 
   /* handle clicks on sub-geos in multimap view */
   const multimapSignalListeners: any = {
@@ -192,6 +206,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     aria-label="close multiple maps modal"
                     onClick={props.handleClose}
                     color="primary"
+                    id={'multi-map-close-button'}
                   >
                     <CloseIcon />
                   </Button>
@@ -369,7 +384,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
       </DialogContent>
 
       {/* MODAL FOOTER */}
-      <footer>
+      <footer ref={footerContentRef}>
         <div className={styles.FooterSourcesContainer}>
           {isMobile ? (
             <Button
