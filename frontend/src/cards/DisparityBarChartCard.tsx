@@ -49,30 +49,28 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     props.demographicType === SEX
   )
 
-  const shareMetricConfig = props.dataTypeConfig.metrics?.pct_share
-  if (!shareMetricConfig) return <></>
+  const metricConfig = props.dataTypeConfig.metrics?.pct_share
+  if (!metricConfig) return <></>
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
     exclude(ALL, NON_HISPANIC)
   )
 
-  const isCawp = CAWP_DETERMINANTS.includes(shareMetricConfig.metricId)
+  const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId)
 
   // Population Comparison Metric is required for the Disparity Bar Chart.
   // If MetricConfig supports known breakdown metric, prefer this metric.
-  const metricIds = [shareMetricConfig.metricId]
+  const metricIds = [metricConfig.metricId]
   const popCompareId: MetricId | null =
-    shareMetricConfig?.populationComparisonMetric?.metricId ?? null
+    metricConfig?.populationComparisonMetric?.metricId ?? null
   if (popCompareId) {
     metricIds.push(popCompareId)
   }
-  if (shareMetricConfig.knownBreakdownComparisonMetric) {
-    metricIds.push(shareMetricConfig.knownBreakdownComparisonMetric.metricId)
+  if (metricConfig.knownBreakdownComparisonMetric) {
+    metricIds.push(metricConfig.knownBreakdownComparisonMetric.metricId)
   }
-  if (shareMetricConfig.secondaryPopulationComparisonMetric) {
-    metricIds.push(
-      shareMetricConfig.secondaryPopulationComparisonMetric.metricId
-    )
+  if (metricConfig.secondaryPopulationComparisonMetric) {
+    metricIds.push(metricConfig.secondaryPopulationComparisonMetric.metricId)
   }
 
   const query = new MetricQuery(
@@ -84,8 +82,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
   const chartTitle = generateChartTitle(
     /* chartTitle: */
-    shareMetricConfig?.populationComparisonMetric?.chartTitle ??
-      shareMetricConfig.chartTitle,
+    metricConfig?.populationComparisonMetric?.chartTitle ??
+      metricConfig.chartTitle,
     /* fips:  */ props.fips
   )
 
@@ -104,7 +102,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     >
       {([queryResponse]) => {
         const validData = queryResponse.getValidRowsForField(
-          shareMetricConfig.metricId
+          metricConfig.metricId
         )
 
         const [knownData] = splitIntoKnownsAndUnknowns(
@@ -112,7 +110,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           props.demographicType
         )
 
-        const isCawp = CAWP_DETERMINANTS.includes(shareMetricConfig.metricId)
+        const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId)
 
         // include a note about percents adding to over 100%
         // if race options include hispanic twice (eg "White" and "Hispanic" can both include Hispanic people)
@@ -125,13 +123,11 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
               !row[props.demographicType].includes('(NH)') ||
               row[props.demographicType] === HISPANIC
           ) &&
-          queryResponse.data.some((row) => row[shareMetricConfig.metricId])
+          queryResponse.data.some((row) => row[metricConfig.metricId])
 
         const dataAvailable =
           knownData.length > 0 &&
-          !queryResponse.shouldShowMissingDataMessage([
-            shareMetricConfig.metricId,
-          ])
+          !queryResponse.shouldShowMissingDataMessage([metricConfig.metricId])
 
         return (
           <>
@@ -143,15 +139,14 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   <DisparityBarChart
                     data={knownData}
                     lightMetric={
-                      shareMetricConfig.populationComparisonMetric ??
-                      shareMetricConfig
+                      metricConfig.populationComparisonMetric ?? metricConfig
                     }
                     darkMetric={
-                      shareMetricConfig.knownBreakdownComparisonMetric ??
-                      shareMetricConfig
+                      metricConfig.knownBreakdownComparisonMetric ??
+                      metricConfig
                     }
                     demographicType={props.demographicType}
-                    metricDisplayName={shareMetricConfig.shortLabel}
+                    metricDisplayName={metricConfig.shortLabel}
                     filename={chartTitle}
                     showAltPopCompare={shouldShowAltPopCompare(props)}
                   />
@@ -162,7 +157,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (
               <UnknownsAlert
-                metricConfig={shareMetricConfig}
+                metricConfig={metricConfig}
                 queryResponse={queryResponse}
                 demographicType={props.demographicType}
                 displayType="chart"
