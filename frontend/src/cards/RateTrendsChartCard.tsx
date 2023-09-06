@@ -37,6 +37,7 @@ import styles from '../charts/trendsChart/Trends.module.scss'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
+import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -114,7 +115,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
-  const elementsToHide = ['#card-options-menu']
+  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper

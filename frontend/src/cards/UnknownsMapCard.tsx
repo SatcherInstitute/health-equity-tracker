@@ -28,6 +28,7 @@ import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { getMapScheme } from '../charts/mapHelperFunctions'
+import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -109,7 +110,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
 
-  const elementsToHide = ['#card-options-menu']
+  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper

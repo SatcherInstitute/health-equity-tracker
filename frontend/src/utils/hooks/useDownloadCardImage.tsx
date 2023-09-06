@@ -2,12 +2,19 @@ import { createRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
 import sass from '../../styles/variables.module.scss'
+import { type ScrollableHashId } from './useStepObserver'
+import {
+  ALT_TABLE_VIEW_1_PARAM_KEY,
+  ALT_TABLE_VIEW_2_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
+} from '../urlutils'
 
 const DROPDOWN_ELEMENT_IDS = [
-  '#alt-table-view',
-  '#alt-table-view-2',
-  '#highest-lowest-list',
-  '#highest-lowest-list-2',
+  ALT_TABLE_VIEW_1_PARAM_KEY,
+  ALT_TABLE_VIEW_2_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
+  HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
 ]
 
 const LOGO_FONT_COLOR = sass.altGreen
@@ -20,11 +27,19 @@ const BOTTOM_PADDING = 120
 const URL_FONT_SIZE = 14
 const URL_FONT_STYLE = '"Inter",sans-serif'
 
+export type ElementHashIdHiddenOnScreenshot =
+  | '#card-options-menu'
+  | '#download-card-image-button'
+  | '#map-group-dropdown'
+  | '#multi-map-close-button1'
+  | '#multi-map-close-button2'
+
 export function useDownloadCardImage(
   cardTitle: string,
-  hiddenElements: string[] = [],
+  hiddenElements: ElementHashIdHiddenOnScreenshot[] = [],
+  scrollToHash: ScrollableHashId,
   dropdownOpen?: boolean,
-  scrollToHash: string = ''
+  footerContentRef?: React.RefObject<HTMLDivElement>
 ) {
   const screenshotTargetRef = createRef<HTMLDivElement>()
   const [dropdownElement, setDropdownElement] = useState<HTMLElement>()
@@ -34,7 +49,7 @@ export function useDownloadCardImage(
 
   useEffect(() => {
     const element = DROPDOWN_ELEMENT_IDS.map((dropdownId) =>
-      screenshotTargetRef.current?.querySelector(dropdownId)
+      screenshotTargetRef.current?.querySelector(`#${dropdownId}`)
     ).find((element) => element !== null) as HTMLElement
 
     setDropdownElement(element)
@@ -134,17 +149,21 @@ export function useDownloadCardImage(
     try {
       // Hide specified elements for the screenshot
       hiddenElements.forEach((element) => {
-        const elementToHide = screenshotTargetRef.current?.querySelector(
-          element
-        ) as HTMLElement
-        if (elementToHide) {
-          elementToHide.style.visibility = 'hidden'
-        }
+        const elementToHide: HTMLElement =
+          screenshotTargetRef.current?.querySelector(element) as HTMLElement
+        if (elementToHide) elementToHide.style.visibility = 'hidden'
       })
 
-      if (dropdownElement) {
-        dropdownElement.style.visibility = dropdownOpen ? 'visible' : 'hidden'
+      if (footerContentRef) {
+        hiddenElements.forEach((element) => {
+          const elementToHide: HTMLElement =
+            footerContentRef.current?.querySelector(element) as HTMLElement
+          if (elementToHide) elementToHide.style.visibility = 'hidden'
+        })
       }
+
+      if (dropdownElement)
+        dropdownElement.style.visibility = dropdownOpen ? 'visible' : 'hidden'
 
       const canvas = await html2canvas(
         screenshotTargetRef.current as HTMLElement,
@@ -154,8 +173,36 @@ export function useDownloadCardImage(
         }
       )
 
-      if (dropdownElement) {
-        dropdownElement.style.visibility = 'visible'
+      const footerCanvas = footerContentRef
+        ? await html2canvas(footerContentRef.current as HTMLElement, {
+            logging: true,
+            useCORS: true,
+          })
+        : null
+
+      const combinedCanvasHeight =
+        canvas.height + (footerCanvas ? footerCanvas.height : 0)
+
+      const combinedCanvas = document.createElement('canvas')
+      combinedCanvas.width = canvas.width
+      combinedCanvas.height = combinedCanvasHeight
+
+      const context = combinedCanvas.getContext('2d')
+
+      if (context) {
+        context.drawImage(canvas, 0, 0)
+        if (footerCanvas) context.drawImage(footerCanvas, 0, canvas.height)
+      }
+
+      if (dropdownElement) dropdownElement.style.visibility = 'visible'
+
+      if (footerContentRef) {
+        hiddenElements.forEach((element) => {
+          const elementToHide = footerContentRef.current?.querySelector(
+            element
+          ) as HTMLElement
+          if (elementToHide) elementToHide.style.visibility = 'visible'
+        })
       }
 
       // Restore specified elements for the screenshot
@@ -166,7 +213,7 @@ export function useDownloadCardImage(
         if (elementToHide) elementToHide.style.visibility = 'visible'
       })
 
-      download(canvas)
+      download(combinedCanvas)
 
       return true
     } catch (e) {
