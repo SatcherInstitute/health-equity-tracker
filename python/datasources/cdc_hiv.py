@@ -586,40 +586,22 @@ def get_bq_col_types(demo, geo, table_type):
         return bw_col_types
 
     # FOR STANDARD DEMOGRAPHICS - SET BASE COLS
-    col_types = {
-        "hiv_stigma_index": BQ_FLOAT,
-        "hiv_deaths_per_100k": BQ_FLOAT,
-        "hiv_diagnoses_per_100k": BQ_FLOAT,
-        "hiv_prevalence_per_100k": BQ_FLOAT,
-        "hiv_care_linkage": BQ_FLOAT,
-        "hiv_prep_coverage": BQ_FLOAT,
-    }
+    col_types = {}
 
-    # SET DATA COLS
-    if table_type == CURRENT:
-        col_types.update({
-            "hiv_care": BQ_FLOAT,
-            "hiv_deaths": BQ_FLOAT,
-            "hiv_diagnoses": BQ_FLOAT,
-            "hiv_prep": BQ_FLOAT,
-            "hiv_prevalence": BQ_FLOAT,
-            "hiv_care_pct_share": BQ_FLOAT,
-            "hiv_deaths_pct_share": BQ_FLOAT,
-            "hiv_diagnoses_pct_share": BQ_FLOAT,
-            "hiv_prep_pct_share": BQ_FLOAT,
-            "hiv_prevalence_pct_share": BQ_FLOAT,
-            "hiv_prep_population_pct": BQ_FLOAT,
-            "hiv_population_pct": BQ_FLOAT,
-            "hiv_care_population_pct": BQ_FLOAT
-        })
+    # KEEP COLUMNS IN ORDER FOR EASIER READING ON BQ
     if table_type == TIME_SERIES:
+        col_types["time_period"] = BQ_STRING
+
+    # SET GEO COLS
+    if geo == COUNTY_LEVEL:
         col_types.update({
-            "time_period": BQ_STRING,
-            "hiv_care_pct_relative_inequity": BQ_FLOAT,
-            "hiv_deaths_pct_relative_inequity": BQ_FLOAT,
-            "hiv_diagnoses_pct_relative_inequity": BQ_FLOAT,
-            "hiv_prep_pct_relative_inequity": BQ_FLOAT,
-            "hiv_prevalence_pct_relative_inequity": BQ_FLOAT
+            std_col.COUNTY_NAME_COL: BQ_STRING,
+            std_col.COUNTY_FIPS_COL: BQ_STRING,
+        })
+    else:
+        col_types.update({
+            std_col.STATE_NAME_COL: BQ_STRING,
+            std_col.STATE_FIPS_COL: BQ_STRING,
         })
 
     # SET DEMO COLS
@@ -633,16 +615,40 @@ def get_bq_col_types(demo, geo, table_type):
             demo: BQ_STRING,
         })
 
-    # SET GEO COLS
-    if geo == COUNTY_LEVEL:
+    # ALL TABLES GET RATE COLS
+    col_types.update({
+        "hiv_stigma_index": BQ_FLOAT,
+        "hiv_deaths_per_100k": BQ_FLOAT,
+        "hiv_diagnoses_per_100k": BQ_FLOAT,
+        "hiv_prevalence_per_100k": BQ_FLOAT,
+        "hiv_care_linkage": BQ_FLOAT,
+        "hiv_prep_coverage": BQ_FLOAT,
+    })
+
+    # SET DATA COLS
+    if table_type == CURRENT:
         col_types.update({
-            std_col.COUNTY_NAME_COL: BQ_STRING,
-            std_col.COUNTY_FIPS_COL: BQ_STRING,
+            "hiv_care_pct_share": BQ_FLOAT,
+            "hiv_deaths_pct_share": BQ_FLOAT,
+            "hiv_diagnoses_pct_share": BQ_FLOAT,
+            "hiv_prep_pct_share": BQ_FLOAT,
+            "hiv_prevalence_pct_share": BQ_FLOAT,
+            "hiv_prep_population_pct": BQ_FLOAT,
+            "hiv_population_pct": BQ_FLOAT,
+            "hiv_care_population_pct": BQ_FLOAT,
+            "hiv_care": BQ_FLOAT,
+            "hiv_deaths": BQ_FLOAT,
+            "hiv_diagnoses": BQ_FLOAT,
+            "hiv_prep": BQ_FLOAT,
+            "hiv_prevalence": BQ_FLOAT,
         })
-    else:
+    elif table_type == TIME_SERIES:
         col_types.update({
-            std_col.STATE_NAME_COL: BQ_STRING,
-            std_col.STATE_FIPS_COL: BQ_STRING,
+            "hiv_care_pct_relative_inequity": BQ_FLOAT,
+            "hiv_deaths_pct_relative_inequity": BQ_FLOAT,
+            "hiv_diagnoses_pct_relative_inequity": BQ_FLOAT,
+            "hiv_prep_pct_relative_inequity": BQ_FLOAT,
+            "hiv_prevalence_pct_relative_inequity": BQ_FLOAT
         })
 
     # SET TRANSGENDER COUNT COLS
