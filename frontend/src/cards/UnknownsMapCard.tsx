@@ -57,7 +57,11 @@ export function UnknownsMapCard(props: UnknownsMapCardProps) {
 
 function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
   const preloadHeight = useGuessPreloadHeight([700, 1000])
-  const metricConfig = props.dataTypeConfig.metrics.pct_share
+  const metricConfig =
+    props.dataTypeConfig.metrics?.pct_share_unknown ??
+    props.dataTypeConfig.metrics?.pct_share
+
+  if (!metricConfig) return <></>
   const demographicType = props.demographicType
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
   const location = useLocation()

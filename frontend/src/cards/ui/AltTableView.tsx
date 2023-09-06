@@ -38,7 +38,7 @@ interface AltTableViewProps {
   unknownsData: Row[]
   demographicType: DemographicType
   knownMetricConfig: MetricConfig
-  unknownMetricConfig: MetricConfig
+  unknownMetricConfig?: MetricConfig
   selectedGroups: DemographicGroup[]
   hasUnknowns: boolean
   isCompareCard?: boolean

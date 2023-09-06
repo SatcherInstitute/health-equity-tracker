@@ -69,7 +69,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   if (!metricConfigRates) return <></>
 
-  const metricConfigPctShares = props.dataTypeConfig.metrics.pct_share
+  const metricConfigPctShares =
+    props.dataTypeConfig.metrics?.pct_share_unknown ??
+    props.dataTypeConfig.metrics?.pct_share
+
+  let hasUnknowns = Boolean(metricConfigPctShares)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
@@ -82,12 +86,20 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
-  const pctShareQuery = new MetricQuery(
-    metricConfigPctShares.metricId,
-    breakdowns,
-    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ TIME_SERIES
-  )
+
+  // get pct_share with unknown demographic for optional bubble chart
+  const pctShareQuery =
+    metricConfigPctShares &&
+    new MetricQuery(
+      metricConfigPctShares.metricId,
+      breakdowns,
+      /* dataTypeId */ props.dataTypeConfig.dataTypeId,
+      /* timeView */ TIME_SERIES
+    )
+
+  const queries = [ratesQuery]
+
+  pctShareQuery && queries.push(pctShareQuery)
 
   function getTitleText() {
     return `${
@@ -110,7 +122,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   return (
     <CardWrapper
       downloadTitle={getTitleText()}
-      queries={[ratesQuery, pctShareQuery]}
+      queries={queries}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
@@ -124,7 +136,8 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const pctShareData = isCawp
           ? ratesData
-          : queryResponsePctShares.getValidRowsForField(
+          : metricConfigPctShares &&
+            queryResponsePctShares.getValidRowsForField(
               metricConfigPctShares.metricId
             )
 
@@ -173,10 +186,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
         )
         const nestedUnknownPctShareData = getNestedUnknowns(
           unknownPctShareData,
-          isCawp ? metricConfigRates.metricId : metricConfigPctShares.metricId
+          isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId
         )
 
-        const hasUnknowns = hasNonZeroUnknowns(nestedUnknownPctShareData)
+        hasUnknowns =
+          nestedUnknownPctShareData != null &&
+          hasNonZeroUnknowns(nestedUnknownPctShareData)
 
         return (
           <>
