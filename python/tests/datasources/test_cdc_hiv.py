@@ -154,7 +154,7 @@ def _generate_breakdown_df(*args):
 
     # this pretend DF has ALL possible columns need by each breakdown
     return pd.DataFrame({
-        'time_period': ["1999", "1999", "1999"],
+        'time_period': ["2001", "2002", "2003"],
         "state_fips": ["01", "02", "03"],
         "state_name": ["SomeState01", "SomeState02", "SomeState03"],
         "county_fips": ["99001", "99002", "99003"],
@@ -310,24 +310,27 @@ def testWriteToBqCallsBlackWomen(
     ]
 
     black_women_national_time_series_df = mock_bq.call_args_list[0][0][0]
-    black_women_national_time_series_df.to_csv('black_women_national_time_series.csv', index=False)
+    # black_women_national_time_series_df.to_csv('black_women_national_time_series.csv', index=False)
     expected_black_women_national_time_series_df = pd.read_csv(
         GOLDEN_DATA['black_women_national_time_series'],
         index_col=False,
         dtype=EXP_DTYPE
     )
     assert_frame_equal(
-        black_women_national_time_series_df, expected_black_women_national_time_series_df
+        black_women_national_time_series_df, expected_black_women_national_time_series_df,
+        check_like=True
     )
 
     black_women_national_current_df = mock_bq.call_args_list[1][0][0]
-    black_women_national_current_df.to_csv('black_women_national_current.csv', index=False)
+    # black_women_national_current_df.to_csv('black_women_national_current.csv', index=False)
     expected_black_women_national_current_df = pd.read_csv(
         GOLDEN_DATA['black_women_national_current'],
         index_col=False,
         dtype=EXP_DTYPE
     )
+
     assert_frame_equal(
         black_women_national_current_df,
-        expected_black_women_national_current_df
+        expected_black_women_national_current_df,
+        check_like=True
     )

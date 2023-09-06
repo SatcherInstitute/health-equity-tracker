@@ -1,4 +1,4 @@
 time_period,state_name,state_fips,age,race_and_ethnicity,race_category_id,sex,hiv_deaths_black_women,hiv_diagnoses_black_women,hiv_prevalence_black_women,hiv_deaths_black_women_per_100k,hiv_diagnoses_black_women_per_100k,hiv_prevalence_black_women_per_100k,hiv_deaths_black_women_pct_share,hiv_diagnoses_black_women_pct_share,hiv_prevalence_black_women_pct_share,black_women_population_pct,hiv_deaths_black_women_pct_relative_inequity,hiv_diagnoses_black_women_pct_relative_inequity,hiv_prevalence_black_women_pct_relative_inequity
-1999,SomeState01,01,All,Black,Black,All,0,0,0,0,0,0,0,0,0,0,0,0,0
-1999,SomeState02,02,All,Black,Black,All,1,1,1,1,1,1,1,1,1,1,1,1,1
-1999,SomeState03,03,All,Black,Black,All,2,2,2,2,2,2,2,2,2,2,2,2,2
+2001,SomeState01,01,All,Black,Black,All,0,0,0,0,0,0,0,0,0,0,0,0,0
+2002,SomeState02,02,All,Black,Black,All,1,1,1,1,1,1,1,1,1,1,1,1,1
+2003,SomeState03,03,All,Black,Black,All,2,2,2,2,2,2,2,2,2,2,2,2,2

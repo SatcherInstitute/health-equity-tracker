@@ -7,9 +7,10 @@ from zipfile import ZipFile
 from io import BytesIO
 from typing import List
 
-
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
+BQ_STRING = 'STRING',
+BQ_FLOAT = 'FLOAT64'
 
 def __convert_frame_to_json(frame):
     """Returns the serialized version of the given dataframe in json."""
@@ -418,8 +419,8 @@ def get_bq_column_types(df, float_cols: List[str]):
          like {"something_pct_share": "FLOAT"}
     """
 
-    column_types = {c: 'STRING' for c in df.columns}
+    column_types = {c: BQ_STRING for c in df.columns}
     for col in float_cols:
-        column_types[col] = 'FLOAT'
+        column_types[col] = BQ_FLOAT
 
     return column_types
