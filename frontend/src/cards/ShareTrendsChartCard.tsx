@@ -82,12 +82,14 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       )
     : null
 
-  const pctShareQuery = new MetricQuery(
-    metricConfigPctShares.metricId,
-    breakdowns,
-    /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ TIME_SERIES
-  )
+  const pctShareQuery =
+    metricConfigPctShares &&
+    new MetricQuery(
+      metricConfigPctShares.metricId,
+      breakdowns,
+      /* dataTypeId */ props.dataTypeConfig.dataTypeId,
+      /* timeView */ TIME_SERIES
+    )
 
   const chartTitle = generateChartTitle(
     /* chartTitle: */ metricConfigInequitable?.chartTitle ?? '',
@@ -109,10 +111,13 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   const elementsToHide = ['#card-options-menu']
 
+  const queries = [inequityQuery]
+  pctShareQuery && queries.push(pctShareQuery)
+
   return (
     <CardWrapper
       downloadTitle={chartTitle}
-      queries={[inequityQuery, pctShareQuery]}
+      queries={queries}
       minHeight={PRELOAD_HEIGHT}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}
@@ -139,9 +144,11 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             })
           : knownData
 
-        const pctShareData = queryResponsePctShares.getValidRowsForField(
-          metricConfigPctShares.metricId
-        )
+        const pctShareData =
+          metricConfigPctShares &&
+          queryResponsePctShares.getValidRowsForField(
+            metricConfigPctShares.metricId
+          )
 
         const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
           pctShareData,
@@ -173,7 +180,7 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         const nestedUnknowns = getNestedUnknowns(
           unknownPctShareData,
-          metricConfigPctShares.metricId
+          metricConfigPctShares?.metricId
         )
 
         const hasUnknowns = hasNonZeroUnknowns(nestedUnknowns)
