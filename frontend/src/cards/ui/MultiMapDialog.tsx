@@ -37,7 +37,7 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import {
-  type ElementHashIdsHiddenOnScreenshot,
+  type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
 } from '../../utils/hooks/useDownloadCardImage'
 import { getMapScheme } from '../../charts/mapHelperFunctions'
@@ -103,7 +103,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
-  const elementsToHide: ElementHashIdsHiddenOnScreenshot[] = [
+  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
     '#multi-map-close-button1',
     '#multi-map-close-button2',
     '#card-options-menu',

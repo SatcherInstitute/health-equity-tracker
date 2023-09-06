@@ -27,7 +27,7 @@ const BOTTOM_PADDING = 120
 const URL_FONT_SIZE = 14
 const URL_FONT_STYLE = '"Inter",sans-serif'
 
-export type ElementHashIdsHiddenOnScreenshot =
+export type ElementHashIdHiddenOnScreenshot =
   | '#card-options-menu'
   | '#download-card-image-button'
   | '#map-group-dropdown'
@@ -36,7 +36,7 @@ export type ElementHashIdsHiddenOnScreenshot =
 
 export function useDownloadCardImage(
   cardTitle: string,
-  hiddenElements: ElementHashIdsHiddenOnScreenshot[] = [],
+  hiddenElements: ElementHashIdHiddenOnScreenshot[] = [],
   scrollToHash: ScrollableHashId,
   dropdownOpen?: boolean,
   footerContentRef?: React.RefObject<HTMLDivElement>
