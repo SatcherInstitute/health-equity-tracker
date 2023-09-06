@@ -5,6 +5,7 @@ import {
   appendFipsIfNeeded,
   getExclusionList,
   getExtremeValues,
+  splitIntoKnownsAndUnknowns,
 } from './datasetutils'
 import { Fips } from './Fips'
 
@@ -160,5 +161,40 @@ describe('DatasetUtils.getExclusionList() Tests', () => {
     expect(sampleExclusionListDiabetesSexAlabama).toEqual(
       expectedExclusionListDiabetesSexAlabama
     )
+  })
+})
+
+describe('DatasetUtils.splitIntoKnownsAndUnknowns() Unit Tests', () => {
+  test('good data with known and unknown demographic groups splits as expected', async () => {
+    const goodData = [
+      {
+        age: '0-100',
+        condition_pct_share: 50,
+      },
+      {
+        age: 'Unknown',
+        condition_pct_share: 50,
+      },
+    ]
+    const [knowns, unknowns] = splitIntoKnownsAndUnknowns(goodData, 'age')
+    expect(knowns).toEqual([
+      {
+        age: '0-100',
+        condition_pct_share: 50,
+      },
+    ])
+    expect(unknowns).toEqual([
+      {
+        age: 'Unknown',
+        condition_pct_share: 50,
+      },
+    ])
+  })
+
+  test('undefined data results in empty arrays for known and unknown', async () => {
+    const missingData = undefined
+    const [knowns, unknowns] = splitIntoKnownsAndUnknowns(missingData, 'age')
+    expect(knowns).toEqual([])
+    expect(unknowns).toEqual([])
   })
 })

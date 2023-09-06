@@ -49,7 +49,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     props.demographicType === SEX
   )
 
-  const metricConfig = props.dataTypeConfig.metrics.pct_share
+  const metricConfig = props.dataTypeConfig.metrics?.pct_share
+  if (!metricConfig) return <></>
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
     exclude(ALL, NON_HISPANIC)

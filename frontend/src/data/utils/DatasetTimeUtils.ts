@@ -156,9 +156,10 @@ export function getNestedData(
 Accepts fetched, prefiltered data that only contains rows with unknown pct_share data, and a target metric, and restructures the data into the nested array format required by d3 for the time-series "unknown bubbles" at the bottom of the charts
 */
 export function getNestedUnknowns(
-  unknownsData: Row[],
-  metricId: MetricId
+  unknownsData?: Row[],
+  metricId?: MetricId
 ): TimeSeries {
+  if (!metricId || !unknownsData) return []
   if (!unknownsData.some((row) => row[TIME_PERIOD])) return []
   unknownsData = interpolateTimePeriods(unknownsData)
   return unknownsData.map((row) => [row[TIME_PERIOD], row[metricId]])
@@ -172,7 +173,7 @@ export function makeA11yTableData(
   unknownsData: Row[],
   demographicType: DemographicType,
   knownMetric: MetricConfig,
-  unknownMetric: MetricConfig,
+  unknownMetric: MetricConfig | undefined,
   selectedGroups: DemographicGroup[],
   hasUnknowns: boolean
 ): Row[] {
@@ -203,7 +204,7 @@ export function makeA11yTableData(
     }
 
     // along with the unknown pct_share
-    if (hasUnknowns) {
+    if (hasUnknowns && unknownMetric) {
       a11yRow[`${unknownMetric.shortLabel} with unknown ${demographicType}`] =
         unknownsData.find((row) => row[TIME_PERIOD] === timePeriod)?.[
           unknownMetric.metricId
