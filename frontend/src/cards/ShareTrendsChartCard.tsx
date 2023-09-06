@@ -40,7 +40,7 @@ import { generateChartTitle } from '../charts/utils'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
-import { type HiddenElements } from '../utils/hooks/useDownloadCardImage'
+import { type ElementHashIdsHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -108,7 +108,9 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
   if (!inequityQuery || !metricConfigInequitable?.metricId) return <></>
 
-  const elementsToHide: HiddenElements[] = ['#card-options-menu']
+  const elementsToHide: ElementHashIdsHiddenOnScreenshot[] = [
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper

@@ -30,7 +30,7 @@ import {
   DATATYPES_NEEDING_13PLUS,
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
-import { type HiddenElements } from '../utils/hooks/useDownloadCardImage'
+import { type ElementHashIdsHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -100,7 +100,9 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
   const HASH_ID: ScrollableHashId = 'rate-chart'
 
-  const elementsToHide: HiddenElements[] = ['#card-options-menu']
+  const elementsToHide: ElementHashIdsHiddenOnScreenshot[] = [
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper

@@ -27,15 +27,16 @@ const BOTTOM_PADDING = 120
 const URL_FONT_SIZE = 14
 const URL_FONT_STYLE = '"Inter",sans-serif'
 
-export type HiddenElements =
+export type ElementHashIdsHiddenOnScreenshot =
   | '#card-options-menu'
   | '#download-card-image-button'
   | '#map-group-dropdown'
-  | '#multi-map-close-button'
+  | '#multi-map-close-button1'
+  | '#multi-map-close-button2'
 
 export function useDownloadCardImage(
   cardTitle: string,
-  hiddenElements: HiddenElements[] = [],
+  hiddenElements: ElementHashIdsHiddenOnScreenshot[] = [],
   scrollToHash: ScrollableHashId,
   dropdownOpen?: boolean,
   footerContentRef?: React.RefObject<HTMLDivElement>
@@ -154,10 +155,11 @@ export function useDownloadCardImage(
       })
 
       if (footerContentRef) {
-        const elementToHide = footerContentRef.current?.querySelector(
-          '#card-options-menu'
-        ) as HTMLElement
-        if (elementToHide) elementToHide.style.visibility = 'hidden'
+        hiddenElements.forEach((element) => {
+          const elementToHide: HTMLElement =
+            footerContentRef.current?.querySelector(element) as HTMLElement
+          if (elementToHide) elementToHide.style.visibility = 'hidden'
+        })
       }
 
       if (dropdownElement)
@@ -195,10 +197,12 @@ export function useDownloadCardImage(
       if (dropdownElement) dropdownElement.style.visibility = 'visible'
 
       if (footerContentRef) {
-        const elementToHide = footerContentRef.current?.querySelector(
-          '#card-options-menu'
-        ) as HTMLElement
-        if (elementToHide) elementToHide.style.visibility = 'visible'
+        hiddenElements.forEach((element) => {
+          const elementToHide = footerContentRef.current?.querySelector(
+            element
+          ) as HTMLElement
+          if (elementToHide) elementToHide.style.visibility = 'visible'
+        })
       }
 
       // Restore specified elements for the screenshot

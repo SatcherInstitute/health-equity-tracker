@@ -38,7 +38,7 @@ import {
 } from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import { type CountColsMap } from './MapCard'
-import { type HiddenElements } from '../utils/hooks/useDownloadCardImage'
+import { type ElementHashIdsHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -130,7 +130,9 @@ export function TableCard(props: TableCardProps) {
 
   const HASH_ID: ScrollableHashId = 'data-table'
 
-  const elementsToHide: HiddenElements[] = ['#card-options-menu']
+  const elementsToHide: ElementHashIdsHiddenOnScreenshot[] = [
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper

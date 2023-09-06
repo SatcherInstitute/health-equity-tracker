@@ -9,7 +9,7 @@ import { Sources } from './ui/Sources'
 import { type MapOfDatasetMetadata } from '../data/utils/DatasetTypes'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import {
-  type HiddenElements,
+  type ElementHashIdsHiddenOnScreenshot,
   useDownloadCardImage,
 } from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
@@ -33,7 +33,7 @@ function CardWrapper(props: {
   isCensusNotAcs?: boolean
   scrollToHash: ScrollableHashId
   reportTitle: string
-  elementsToHide?: HiddenElements[]
+  elementsToHide?: ElementHashIdsHiddenOnScreenshot[]
   expanded?: boolean
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(

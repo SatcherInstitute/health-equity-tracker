@@ -37,7 +37,7 @@ import {
   getWomenRaceLabel,
 } from '../../data/providers/CawpProvider'
 import {
-  type HiddenElements,
+  type ElementHashIdsHiddenOnScreenshot,
   useDownloadCardImage,
 } from '../../utils/hooks/useDownloadCardImage'
 import { getMapScheme } from '../../charts/mapHelperFunctions'
@@ -103,7 +103,11 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
   } groups`
 
-  const elementsToHide: HiddenElements[] = ['#multi-map-close-button']
+  const elementsToHide: ElementHashIdsHiddenOnScreenshot[] = [
+    '#multi-map-close-button1',
+    '#multi-map-close-button2',
+    '#card-options-menu',
+  ]
 
   const footerContentRef = useRef(null)
 
@@ -206,7 +210,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                     aria-label="close multiple maps modal"
                     onClick={props.handleClose}
                     color="primary"
-                    id={'multi-map-close-button'}
+                    id={'multi-map-close-button1'}
                   >
                     <CloseIcon />
                   </Button>
@@ -391,6 +395,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
               aria-label="close multiple maps modal"
               onClick={props.handleClose}
               color="primary"
+              id={'multi-map-close-button2'}
             >
               Close
             </Button>
