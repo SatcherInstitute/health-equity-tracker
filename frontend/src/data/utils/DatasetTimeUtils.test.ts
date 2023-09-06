@@ -145,8 +145,8 @@ describe('Tests for nesting functions', () => {
   test('getNestedUnknowns() on missing metricId returns []', () => {
     expect(getNestedUnknowns(twoYearsOfNormalData, undefined)).toEqual([])
   })
-  test('getNestedUnknowns() on missing metricId returns []', () => {
-    expect(getNestedUnknowns(twoYearsOfNormalData, undefined)).toEqual([])
+  test('getNestedUnknowns() on undefined data returns []', () => {
+    expect(getNestedUnknowns(undefined, 'jail_pct_share')).toEqual([])
   })
 })
 
