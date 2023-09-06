@@ -29,7 +29,10 @@ GOLDEN_DATA = {
     'race_national': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_national_output.csv'),
     'race_state': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_state_output.csv'),
     'sex_national': os.path.join(GOLDEN_DIR, 'sex_national_output.csv'),
-    'age_black_women_national': os.path.join(BLACK_GOLDEN_DIR, 'age_black_women_national_output.csv')}
+    'age_black_women_national': os.path.join(BLACK_GOLDEN_DIR, 'initial_breakdown_output-black_women_national.csv'),
+    'black_women_national_time_series': os.path.join(BLACK_GOLDEN_DIR, 'black_women_national_time_series.csv'),
+    'black_women_national_current': os.path.join(BLACK_GOLDEN_DIR, 'black_women_national_current.csv'),
+}
 
 EXP_DTYPE = {'state_fips': str, 'time_period': str}
 
@@ -132,9 +135,15 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
                           thousands=',',
                           dtype=DTYPE,)
 
+    # NOTE: this generate_breakdown_df function does some
+    # initial output, that is further changed inside write_to_bq
+    # before actually shipping to BigQuery. So this output df
+    # looks different than the golden_data used in the BqCalls
+    # tests below. We should improve this
     df = datasource.generate_breakdown_df('black_women',
                                           'national',
                                           alls_df)
+
     expected_df = pd.read_csv(GOLDEN_DATA['age_black_women_national'], dtype=EXP_DTYPE)
 
     assert_frame_equal(df, expected_df, check_like=True)
@@ -142,13 +151,42 @@ def testGenerateBlackWomenAge(mock_data_dir: mock.MagicMock):
 
 def _generate_breakdown_df(*args):
     print("mocking the breakdown calc function")
+
+    # this pretend DF has ALL possible columns need by each breakdown
     return pd.DataFrame({
+        'time_period': ["1999", "1999", "1999"],
         "state_fips": ["01", "02", "03"],
         "state_name": ["SomeState01", "SomeState02", "SomeState03"],
+        "county_fips": ["99001", "99002", "99003"],
+        "county_name": ["SomeCounty99001", "SomeCounty99002", "SomeCounty99003"],
         "race_category_id": ["Black", "Black", "Black"],
         "race_and_ethnicity": ["Black", "Black", "Black"],
-        "fake_col1": [0, 1, 2],
-        "fake_col2": ["a", "b", "c"]
+        "age": ["All", "All", "All"],
+        "sex": ["All", "All", "All"],
+        'hiv_stigma_index': [0, 1, 2],
+        'hiv_deaths_per_100k': [0, 1, 2],
+        'hiv_diagnoses_per_100k': [0, 1, 2],
+        'hiv_prevalence_per_100k': [0, 1, 2],
+        'hiv_care_linkage': [0, 1, 2],
+        'hiv_prep_coverage': [0, 1, 2],
+        'hiv_care_pct_relative_inequity': [0, 1, 2],
+        'hiv_deaths_pct_relative_inequity': [0, 1, 2],
+        'hiv_diagnoses_pct_relative_inequity': [0, 1, 2],
+        'hiv_prep_pct_relative_inequity': [0, 1, 2],
+        'hiv_prevalence_pct_relative_inequity': [0, 1, 2],
+        'hiv_care': [0, 1, 2],
+        'hiv_deaths': [0, 1, 2],
+        'hiv_diagnoses': [0, 1, 2],
+        'hiv_prep': [0, 1, 2],
+        'hiv_prevalence': [0, 1, 2],
+        'hiv_care_pct_share': [0, 1, 2],
+        'hiv_deaths_pct_share': [0, 1, 2],
+        'hiv_diagnoses_pct_share': [0, 1, 2],
+        'hiv_prep_pct_share': [0, 1, 2],
+        'hiv_prevalence_pct_share': [0, 1, 2],
+        'hiv_prep_population_pct': [0, 1, 2],
+        'hiv_population_pct': [0, 1, 2],
+        'hiv_care_population_pct': [0, 1, 2]
     })
 
 
@@ -190,15 +228,16 @@ def testWriteToBqCallsRace(
     datasource = CDCHIVData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic="race", geographic="national")
 
-    assert mock_bq.call_count == 2
+    assert mock_bq.call_count == 3
 
-    expected_table_names = [
+    generated_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
 
-    assert expected_table_names == [
+    assert generated_table_names == [
         'by_race_age_national',
         'race_and_ethnicity_national_time_series',
+        'race_and_ethnicity_national_current',
     ]
 
 
@@ -213,14 +252,15 @@ def testWriteToBqCallsAge(
     datasource = CDCHIVData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic="age", geographic="state")
 
-    assert mock_bq.call_count == 1
+    assert mock_bq.call_count == 2
 
-    expected_table_names = [
+    generated_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
 
-    assert expected_table_names == [
+    assert generated_table_names == [
         'age_state_time_series',
+        'age_state_current',
     ]
 
 
@@ -235,14 +275,15 @@ def testWriteToBqCallsSex(
     datasource = CDCHIVData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic="sex", geographic="county")
 
-    assert mock_bq.call_count == 1
+    assert mock_bq.call_count == 2
 
-    expected_table_names = [
+    generated_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
 
-    assert expected_table_names == [
-        'sex_county_time_series'
+    assert generated_table_names == [
+        'sex_county_time_series',
+        'sex_county_current'
     ]
 
 
@@ -257,12 +298,36 @@ def testWriteToBqCallsBlackWomen(
     datasource = CDCHIVData()
     datasource.write_to_bq('dataset', 'gcs_bucket', demographic="black_women", geographic="national")
 
-    assert mock_bq.call_count == 1
+    assert mock_bq.call_count == 2
 
-    expected_table_names = [
+    generated_table_names = [
         call[0][2] for call in mock_bq.call_args_list
     ]
 
-    assert expected_table_names == [
+    assert generated_table_names == [
         'black_women_national_time_series',
+        'black_women_national_current',
     ]
+
+    black_women_national_time_series_df = mock_bq.call_args_list[0][0][0]
+    black_women_national_time_series_df.to_csv('black_women_national_time_series.csv', index=False)
+    expected_black_women_national_time_series_df = pd.read_csv(
+        GOLDEN_DATA['black_women_national_time_series'],
+        index_col=False,
+        dtype=EXP_DTYPE
+    )
+    assert_frame_equal(
+        black_women_national_time_series_df, expected_black_women_national_time_series_df
+    )
+
+    black_women_national_current_df = mock_bq.call_args_list[1][0][0]
+    black_women_national_current_df.to_csv('black_women_national_current.csv', index=False)
+    expected_black_women_national_current_df = pd.read_csv(
+        GOLDEN_DATA['black_women_national_current'],
+        index_col=False,
+        dtype=EXP_DTYPE
+    )
+    assert_frame_equal(
+        black_women_national_current_df,
+        expected_black_women_national_current_df
+    )

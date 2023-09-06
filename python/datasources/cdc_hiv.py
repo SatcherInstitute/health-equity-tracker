@@ -5,7 +5,9 @@ from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
                                  NATIONAL_LEVEL,
                                  US_FIPS,
-                                 ALL_VALUE)
+                                 ALL_VALUE,
+                                 CURRENT,
+                                 TIME_SERIES)
 from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
@@ -135,6 +137,114 @@ BW_FLOAT_COLS_RENAME_MAP = {
     'hiv_prevalence_per_100k': 'hiv_prevalence_black_women_per_100k'
 }
 
+def get_bq_col_types(demo, geo, table_type):
+    """ Set the columns and associated BigQuery dtypes based
+     on the breakdown of the table """
+
+    # All Black Women tables get same columns and bq types
+    if demo == std_col.BLACK_WOMEN:
+        return {
+            "time_period": "STRING",
+            "state_name": "STRING",
+            "state_fips": "STRING",
+            "age": "STRING",
+            "race_and_ethnicity": "STRING",
+            "race_category_id": "STRING",
+            "sex": "STRING",
+            "hiv_deaths_black_women": "FLOAT64",
+            "hiv_diagnoses_black_women": "FLOAT64",
+            "hiv_prevalence_black_women": "FLOAT64",
+            "hiv_deaths_black_women_per_100k": "FLOAT64",
+            "hiv_diagnoses_black_women_per_100k": "FLOAT64",
+            "hiv_prevalence_black_women_per_100k": "FLOAT64",
+            "hiv_deaths_black_women_pct_share": "FLOAT64",
+            "hiv_diagnoses_black_women_pct_share": "FLOAT64",
+            "hiv_prevalence_black_women_pct_share": "FLOAT64",
+            "black_women_population_pct": "FLOAT64",
+            "hiv_deaths_black_women_pct_relative_inequity": "FLOAT64",
+            "hiv_diagnoses_black_women_pct_relative_inequity": "FLOAT64",
+            "hiv_prevalence_black_women_pct_relative_inequity": "FLOAT64"
+        }
+
+    # FOR STANDARD DEMOGRAPHICS - SET BASE COLS
+    col_types = {
+        "hiv_stigma_index": "FLOAT64",
+        "hiv_deaths_per_100k": "FLOAT64",
+        "hiv_diagnoses_per_100k": "FLOAT64",
+        "hiv_prevalence_per_100k": "FLOAT64",
+        "hiv_care_linkage": "FLOAT64",
+        "hiv_prep_coverage": "FLOAT64",
+    }
+
+    # SET DATA COLS
+    if table_type == CURRENT:
+        col_types.update({
+            "hiv_care": "FLOAT64",
+            "hiv_deaths": "FLOAT64",
+            "hiv_diagnoses": "FLOAT64",
+            "hiv_prep": "FLOAT64",
+            "hiv_prevalence": "FLOAT64",
+            "hiv_care_pct_share": "FLOAT64",
+            "hiv_deaths_pct_share": "FLOAT64",
+            "hiv_diagnoses_pct_share": "FLOAT64",
+            "hiv_prep_pct_share": "FLOAT64",
+            "hiv_prevalence_pct_share": "FLOAT64",
+            "hiv_prep_population_pct": "FLOAT64",
+            "hiv_population_pct": "FLOAT64",
+            "hiv_care_population_pct": "FLOAT64"
+        })
+    if table_type == TIME_SERIES:
+        col_types.update({
+            "time_period": "STRING",
+            "hiv_care_pct_relative_inequity": "FLOAT64",
+            "hiv_deaths_pct_relative_inequity": "FLOAT64",
+            "hiv_diagnoses_pct_relative_inequity": "FLOAT64",
+            "hiv_prep_pct_relative_inequity": "FLOAT64",
+            "hiv_prevalence_pct_relative_inequity": "FLOAT64"
+        })
+
+    # SET DEMO COLS
+    if demo == std_col.RACE_COL:
+        col_types.update({
+            "race_category_id": "STRING",
+            "race_and_ethnicity": "STRING",
+        })
+    else:
+        col_types.update({
+            demo: "STRING",
+        })
+
+    # SET GEO COLS
+    if geo == COUNTY_LEVEL:
+        col_types.update({
+            "county_name": "STRING",
+            "county_fips": "STRING",
+        })
+    else:
+        col_types.update({
+            "state_name": "STRING",
+            "state_fips": "STRING",
+        })
+
+    # SET TRANSGENDER COUNT COLS
+    if geo == NATIONAL_LEVEL and demo == std_col.SEX_COL:
+        col_types.update({
+            "hiv_care_total_additional_gender": "FLOAT64",
+            "hiv_care_total_trans_men": "FLOAT64",
+            "hiv_care_total_trans_women": "FLOAT64",
+            "hiv_deaths_total_additional_gender": "FLOAT64",
+            "hiv_deaths_total_trans_men": "FLOAT64",
+            "hiv_deaths_total_trans_women": "FLOAT64",
+            "hiv_diagnoses_total_additional_gender": "FLOAT64",
+            "hiv_diagnoses_total_trans_men": "FLOAT64",
+            "hiv_diagnoses_total_trans_women": "FLOAT64",
+            "hiv_prevalence_total_additional_gender": "FLOAT64",
+            "hiv_prevalence_total_trans_men": "FLOAT64",
+            "hiv_prevalence_total_trans_women": "FLOAT64",
+        })
+
+    return col_types
+
 
 class CDCHIVData(DataSource):
 
@@ -177,24 +287,21 @@ class CDCHIVData(DataSource):
         df = self.generate_breakdown_df(
             demographic, geo_level, alls_df)
 
-        if demographic == std_col.BLACK_WOMEN:
-            df.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
-            float_cols = BW_FLOAT_COLS_RENAME_MAP.values()
-        else:
-            float_cols = BASE_COLS + COMMON_COLS + PER_100K_COLS + PCT_SHARE_COLS + \
-                PCT_REL_INEQUITY_COLS
-            if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
-                float_cols += GENDER_COLS
+        # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
+        for table_type in (TIME_SERIES, CURRENT):
+            table_name = f'{demographic}_{geo_level}_{table_type}'
+            if demographic == std_col.BLACK_WOMEN:
+                df.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
+            col_types = get_bq_col_types(demographic, geo_level, table_type)
 
-        col_types = gcs_to_bq_util.get_bq_column_types(
-            df, float_cols)
+            # drop unneeded columns to reduce file size
+            keep_cols = col_types.keys()
+            df_for_bq = df.copy()[keep_cols]
 
-        table_name = f'{demographic}_{geo_level}_time_series'
-
-        gcs_to_bq_util.add_df_to_bq(df,
-                                    dataset,
-                                    table_name,
-                                    column_types=col_types)
+            gcs_to_bq_util.add_df_to_bq(df_for_bq,
+                                        dataset,
+                                        table_name,
+                                        column_types=col_types)
 
     def generate_breakdown_df(self, breakdown: str, geo_level: str, alls_df: pd.DataFrame):
         """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
