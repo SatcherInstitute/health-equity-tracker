@@ -1,0 +1,4 @@
+time_period,county_name,county_fips,sex,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_prep_pct_relative_inequity,hiv_prevalence_pct_relative_inequity
+2001,SomeCounty99001,99001,All,0,0,0,0,0,0,0,0,0,0,0
+2002,SomeCounty99002,99002,All,1,1,1,1,1,1,1,1,1,1,1
+2003,SomeCounty99003,99003,All,2,2,2,2,2,2,2,2,2,2,2
