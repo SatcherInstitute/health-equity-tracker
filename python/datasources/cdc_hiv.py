@@ -182,14 +182,14 @@ class CDCHIVData(DataSource):
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
         for table_type in (TIME_SERIES, CURRENT):
-            table_name = f'{demographic}_{geo_level}_{table_type}'
-            if demographic == std_col.BLACK_WOMEN:
-                df.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
-
-            col_types = get_bq_col_types(demographic, geo_level, table_type)
-
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
+
+            table_name = f'{demographic}_{geo_level}_{table_type}'
+            if demographic == std_col.BLACK_WOMEN:
+                df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
+
+            col_types = get_bq_col_types(demographic, geo_level, table_type)
 
             # drop unneeded rows from current
             if table_type == CURRENT:
@@ -197,6 +197,11 @@ class CDCHIVData(DataSource):
 
             # drop unneeded columns to reduce file size
             keep_cols = col_types.keys()
+            print("df_for_bq.columns")
+            print("df_for_bq.columns")
+            print("df_for_bq.columns")
+
+            print(df_for_bq.columns)
             df_for_bq = df_for_bq[keep_cols]
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq,
@@ -266,7 +271,7 @@ class CDCHIVData(DataSource):
                                                          cast(HIV_BREAKDOWN_TYPE, breakdown),
                                                          std_col.ALL_VALUE)
 
-        additional_cols_to_keep = []
+        additional_cols_to_keep = ["population"]
         for dict in DICTS:
             additional_cols_to_keep += list(dict.values())
 
@@ -320,6 +325,11 @@ class CDCHIVData(DataSource):
             cols_to_keep.append(breakdown)
             cols_to_keep.extend(additional_cols_to_keep)
 
+        print("df inside breakdown fn")
+        print(df.columns)
+        print(df)
+        print("cols to keep")
+        print(cols_to_keep)
         df = df[cols_to_keep]
 
         return df
@@ -533,17 +543,15 @@ def remove_non_current_rows(df: pd.DataFrame):
     calculates the most recent time_period value,
     and removes all rows that contain older time_periods """
 
-    # Convert 'time_period' to datetime-like object
-    df['time_period'] = pd.to_datetime(df['time_period'], format='%Y-%m', errors='coerce')
+    # Convert time_period to datetime-like object
+    df[std_col.TIME_PERIOD_COL] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format='%Y-%m', errors='coerce')
 
-    # Find the most recent 'time_period'
-    most_recent = df['time_period'].max()
-
-    # Filter the DataFrame to keep only the rows with the most recent 'time_period'
-    filtered_df = df[df['time_period'] == most_recent]
+    # Filter the DataFrame to keep only the rows with the most recent rows
+    most_recent = df[std_col.TIME_PERIOD_COL].max()
+    filtered_df = df[df[std_col.TIME_PERIOD_COL] == most_recent]
 
     # dont need time_period for single year tables
-    filtered_df = filtered_df.drop(columns=['time_period'])
+    filtered_df = filtered_df.drop(columns=[std_col.TIME_PERIOD_COL])
 
     return filtered_df.reset_index(drop=True)
 
@@ -554,30 +562,39 @@ def get_bq_col_types(demo, geo, table_type):
 
     # All Black Women tables get (almost) the same columns and bq types
     if demo == std_col.BLACK_WOMEN:
-        bw_col_types = {
+        bw_col_types = {}
+        if table_type == TIME_SERIES:
+            bw_col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
+
+        bw_col_types.update({
             std_col.STATE_NAME_COL: BQ_STRING,
             std_col.STATE_FIPS_COL: BQ_STRING,
             std_col.AGE_COL: BQ_STRING,
             std_col.SEX_COL: BQ_STRING,
             std_col.RACE_OR_HISPANIC_COL: BQ_STRING,
             std_col.RACE_CATEGORY_ID_COL: BQ_STRING,
-            "hiv_deaths_black_women": BQ_FLOAT,
-            "hiv_diagnoses_black_women": BQ_FLOAT,
-            "hiv_prevalence_black_women": BQ_FLOAT,
             "hiv_deaths_black_women_per_100k": BQ_FLOAT,
             "hiv_diagnoses_black_women_per_100k": BQ_FLOAT,
             "hiv_prevalence_black_women_per_100k": BQ_FLOAT,
-            "hiv_deaths_black_women_pct_share": BQ_FLOAT,
-            "hiv_diagnoses_black_women_pct_share": BQ_FLOAT,
-            "hiv_prevalence_black_women_pct_share": BQ_FLOAT,
-            "black_women_population_pct": BQ_FLOAT,
-            "hiv_deaths_black_women_pct_relative_inequity": BQ_FLOAT,
-            "hiv_diagnoses_black_women_pct_relative_inequity": BQ_FLOAT,
-            "hiv_prevalence_black_women_pct_relative_inequity": BQ_FLOAT
-        }
+        })
 
         if table_type == TIME_SERIES:
-            bw_col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
+            bw_col_types.update({
+                "hiv_deaths_black_women_pct_relative_inequity": BQ_FLOAT,
+                "hiv_diagnoses_black_women_pct_relative_inequity": BQ_FLOAT,
+                "hiv_prevalence_black_women_pct_relative_inequity": BQ_FLOAT
+            })
+        elif table_type == CURRENT:
+            bw_col_types.update({
+                "hiv_deaths_black_women": BQ_FLOAT,
+                "hiv_diagnoses_black_women": BQ_FLOAT,
+                "hiv_prevalence_black_women": BQ_FLOAT,
+                "black_women_population": BQ_FLOAT,
+                "hiv_deaths_black_women_pct_share": BQ_FLOAT,
+                "hiv_diagnoses_black_women_pct_share": BQ_FLOAT,
+                "hiv_prevalence_black_women_pct_share": BQ_FLOAT,
+                "black_women_population_pct": BQ_FLOAT,
+            })
 
         return bw_col_types
 
@@ -586,7 +603,7 @@ def get_bq_col_types(demo, geo, table_type):
 
     # KEEP COLUMNS IN ORDER FOR EASIER READING ON BQ
     if table_type == TIME_SERIES:
-        col_types["time_period"] = BQ_STRING
+        col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
 
     # SET GEO COLS
     if geo == COUNTY_LEVEL:
