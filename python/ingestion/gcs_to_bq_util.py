@@ -12,6 +12,7 @@ DATA_DIR = os.path.join(os.sep, 'app', 'data')
 BQ_STRING = 'STRING',
 BQ_FLOAT = 'FLOAT64'
 
+
 def __convert_frame_to_json(frame):
     """Returns the serialized version of the given dataframe in json."""
     # Repeated fields are not supported with bigquery.Client.load_table_from_dataframe()

@@ -547,6 +547,7 @@ def remove_non_current_rows(df: pd.DataFrame):
 
     return filtered_df.reset_index(drop=True)
 
+
 def get_bq_col_types(demo, geo, table_type):
     """ Set the columns and associated BigQuery dtypes based
      on the breakdown of the table """
