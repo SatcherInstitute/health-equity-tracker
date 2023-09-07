@@ -182,19 +182,14 @@ class CDCHIVData(DataSource):
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
         for table_type in (TIME_SERIES, CURRENT):
-            # print(table_type)
             table_name = f'{demographic}_{geo_level}_{table_type}'
-            # print(table_name)
             if demographic == std_col.BLACK_WOMEN:
                 df.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
 
-            # print(df)
             col_types = get_bq_col_types(demographic, geo_level, table_type)
-            # print(col_types)
 
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
-            # print(df_for_bq)
 
             # drop unneeded rows from current
             if table_type == CURRENT:
