@@ -24,6 +24,10 @@ import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { DATA_TAB_LINK } from '../../utils/internalRoutes'
 import styles from './AltTableView.module.scss'
+import {
+  ALT_TABLE_VIEW_1_PARAM_KEY,
+  ALT_TABLE_VIEW_2_PARAM_KEY,
+} from '../../utils/urlutils'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -66,7 +70,11 @@ export default function AltTableView(props: AltTableViewProps) {
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
       className={styles.AltTableExpanderBox}
-      id={props.isCompareCard ? 'alt-table-view-2' : 'alt-table-view'}
+      id={
+        props.isCompareCard
+          ? ALT_TABLE_VIEW_2_PARAM_KEY
+          : ALT_TABLE_VIEW_1_PARAM_KEY
+      }
     >
       <div className={styles.CollapseButton}>
         <IconButton
