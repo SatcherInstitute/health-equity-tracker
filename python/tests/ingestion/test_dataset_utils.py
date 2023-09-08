@@ -447,6 +447,7 @@ def test_preserve_only_current_time_period_rows():
     assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
 
@@ -499,3 +500,5 @@ def test_preserve_only_current_time_period_rows():
 =======
     assert_frame_equal(current_df_with_time, expected_current_df_with_alt_col, check_like=True)
 >>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
+=======
+>>>>>>> 33b542f8 (Revert "use new fn; add test for alt col arg")
