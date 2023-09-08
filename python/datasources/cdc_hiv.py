@@ -528,6 +528,7 @@ def generate_atlas_cols_to_exclude(breakdown: str):
 
     return atlas_cols
 
+
 def remove_non_current_rows(df: pd.DataFrame):
     """ Takes a dataframe with a `time_period` col,
     calculates the most recent time_period value,
