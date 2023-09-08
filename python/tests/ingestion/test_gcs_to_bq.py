@@ -8,6 +8,7 @@ from freezegun import freeze_time  # type: ignore
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util  # pylint: disable=no-name-in-module
+from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 
 
 def test_get_bq_column_types():
@@ -17,8 +18,8 @@ def test_get_bq_column_types():
     })
     column_types = gcs_to_bq_util.get_bq_column_types(
         fake_df, ['some_condition_per_100k'])
-    expected_column_types = {'state_fips': 'STRING',
-                             'some_condition_per_100k': 'FLOAT64'}
+    expected_column_types = {'state_fips': BQ_STRING,
+                             'some_condition_per_100k': BQ_FLOAT}
     assert column_types == expected_column_types
 
 
@@ -106,7 +107,7 @@ class GcsToBqTest(TestCase):
             mock_instance.dataset.return_value = mock_table
             mock_table.table.return_value = 'test-project.test-dataset.table'
 
-            column_types = {label: 'STRING' for label in test_frame.columns}
+            column_types = {label: BQ_STRING for label in test_frame.columns}
             col_modes = {'label1': 'REPEATED',
                          'label2': 'REQUIRED'}
             gcs_to_bq_util.add_df_to_bq(
@@ -121,7 +122,7 @@ class GcsToBqTest(TestCase):
             self.assertFalse(job_config.autodetect)
 
             expected_cols = ['label1', 'label2', 'label3']
-            expected_types = ['STRING', 'STRING', 'STRING']
+            expected_types = [BQ_STRING, BQ_STRING, BQ_STRING]
             expected_modes = ['REPEATED', 'REQUIRED', 'NULLABLE']
             self.assertListEqual([field.name for field in job_config.schema],
                                  expected_cols)
