@@ -100,13 +100,13 @@ def testWriteToBq(
     assert national_call[1]["column_types"] == state_call[1]["column_types"] == {
         'fake_col1': 'STRING',
         'fake_col2': 'STRING',
-        'population': 'FLOAT',
+        'population': 'FLOAT64',
     }
     assert county_call[1]["column_types"] == {
         'fake_col1': 'STRING',
         'fake_col2': 'STRING',
-        'svi': 'FLOAT',
-        'population': 'FLOAT',
+        'svi': 'FLOAT64',
+        'population': 'FLOAT64',
     }
 
 

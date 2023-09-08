@@ -18,7 +18,7 @@ def test_get_bq_column_types():
     column_types = gcs_to_bq_util.get_bq_column_types(
         fake_df, ['some_condition_per_100k'])
     expected_column_types = {'state_fips': 'STRING',
-                             'some_condition_per_100k': 'FLOAT'}
+                             'some_condition_per_100k': 'FLOAT64'}
     assert column_types == expected_column_types
 
 

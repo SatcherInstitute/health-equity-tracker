@@ -9,7 +9,7 @@ from typing import List
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
-BQ_STRING = 'STRING',
+BQ_STRING = 'STRING'
 BQ_FLOAT = 'FLOAT64'
 
 
