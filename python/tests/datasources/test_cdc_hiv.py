@@ -23,10 +23,8 @@ BLACK_GOLDEN_DIR = os.path.join(TEST_DIR, BLACK_HIV_DIR, 'golden_data')
 GOLDEN_DATA = {
     'age_national': os.path.join(GOLDEN_DIR, 'age_national_time_series.csv'),
     'race_age_national': os.path.join(GOLDEN_DIR, 'by_race_age_national.csv'),
-    'race_age_state': os.path.join(GOLDEN_DIR, 'by_race_age_state.csv'),
     'race_national': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_national_time_series.csv'),
-    'race_state': os.path.join(GOLDEN_DIR, 'race_and_ethnicity_state_time_series.csv'),
-    'sex_national': os.path.join(GOLDEN_DIR, 'sex_national_time_series.csv'),
+    'sex_state': os.path.join(GOLDEN_DIR, 'sex_state_time_series.csv'),
     'sex_county': os.path.join(GOLDEN_DIR, 'sex_county_time_series.csv'),
     'black_women_national': os.path.join(BLACK_GOLDEN_DIR, 'black_women_national_time_series.csv')}
 
@@ -75,31 +73,6 @@ def test_write_to_bq_race_national(
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-def test_write_to_bq_race_state(
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="race", geographic="state")
-
-    assert mock_bq.call_count == 2
-    mock_bq_race_age_state, mock_bq_race_state = mock_bq.call_args_list
-
-    # RACE/AGE STATE TABLE NEEDED FOR AGE ADJUSTMENT
-    (race_age_state_df, _dataset, race_age_table_name), _col_types = mock_bq_race_age_state
-    assert race_age_table_name == "by_race_age_state"
-    expected_race_age_state_df = pd.read_csv(GOLDEN_DATA['race_age_state'], dtype=EXP_DTYPE)
-    assert_frame_equal(race_age_state_df, expected_race_age_state_df, check_like=True)
-
-    # BY RACE STATE
-    (race_state_df, _dataset, race_table_name), _col_types = mock_bq_race_state
-    assert race_table_name == "race_and_ethnicity_state_time_series"
-    expected_race_state_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
-    assert_frame_equal(race_state_df, expected_race_state_df, check_like=True)
-
-
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
 def test_write_to_bq_age_national(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
@@ -117,19 +90,19 @@ def test_write_to_bq_age_national(
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
-def test_write_to_bq_sex_national(
+def test_write_to_bq_sex_state(
     mock_data_dir: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCHIVData()
-    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="sex", geographic="national")
+    datasource.write_to_bq('dataset', 'gcs_bucket', demographic="sex", geographic="state")
 
     assert mock_bq.call_count == 1
 
-    (sex_national_df, _dataset, table_name), _col_types = mock_bq.call_args_list[0]
-    assert table_name == "sex_national_time_series"
-    expected_sex_national_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
-    assert_frame_equal(sex_national_df, expected_sex_national_df, check_like=True)
+    (sex_state_df, _dataset, table_name), _col_types = mock_bq.call_args_list[0]
+    assert table_name == "sex_state_time_series"
+    expected_sex_state_df = pd.read_csv(GOLDEN_DATA['sex_state'], dtype=EXP_DTYPE)
+    assert_frame_equal(sex_state_df, expected_sex_state_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
