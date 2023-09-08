@@ -1,0 +1,24 @@
+﻿"Date Printed: Thursday, May 4, 2023 5:25:10 PM"
+Title: "HIV prevalence | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 | 2016 | 2017 | 2018 | 2019 | United States | Black/African American | Female | Ages 13 years and older | All transmission categories"
+Footnote(s): Data for years 2021 and 2022 are preliminary (subject to a 12-month reporting delay). Data for the year 2020 should be interpreted with caution due to the impact of the COVID-19 pandemic on access to HIV testing, care-related services, and case surveillance activities in state/local jurisdictions. Inclusion of 2020 through 2022 data in trend assessments is discouraged. Data by transmission category presented based on sex assigned at birth and are adjusted for missing transmission category. See Technical notes for more details on data availability and stratifications.
+Prevalence data for the year 2020 are preliminary and based on death data received by CDC as of December 2021. Prevalence data prior to 2010 are based on residence at diagnosis; prevalence data from 2010 to present are based on most recent known address. See Technical Notes for death reporting by jurisdiction.
+^ Jurisdiction with incomplete reporting of deaths for most recent year.
+NA - Not Applicable.
+
+
+
+Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Population
+"HIV prevalence","2021","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","142,380","781.6","18,216,906"
+"HIV prevalence","2020 (COVID-19 Pandemic)","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","141,187","780.4","18,092,070"
+"HIV prevalence","2019","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","140,606","783.8","17,938,238"
+"HIV prevalence","2018","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","138,566","779.5","17,776,373"
+"HIV prevalence","2017","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","136,404","774.3","17,616,853"
+"HIV prevalence","2016","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","134,020","768.3","17,444,798"
+"HIV prevalence","2015","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","131,643","762.5","17,265,429"
+"HIV prevalence","2014","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","129,378","757.4","17,082,757"
+"HIV prevalence","2013","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","127,153","752.9","16,888,903"
+"HIV prevalence","2012","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","124,879","748.2","16,691,012"
+"HIV prevalence","2011","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","122,215","741.0","16,493,898"
+"HIV prevalence","2010","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","119,219","731.4","16,300,467"
+"HIV prevalence","2009","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","115,645","719.3","16,077,576"
+"HIV prevalence","2008","United States","NA","Ages 13 years and older","Black/African American","Female","All transmission categories","112,227","705.5","15,908,442"
