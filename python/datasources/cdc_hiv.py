@@ -10,7 +10,7 @@ from ingestion.constants import (COUNTY_LEVEL,
                                  TIME_SERIES)
 from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col,
-                                     remove_non_current_rows)
+                                     preserve_only_current_time_period_rows)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.merge_utils import merge_county_names
@@ -133,6 +133,7 @@ BW_FLOAT_COLS_RENAME_MAP = {
     'hiv_diagnoses_pct_relative_inequity': 'hiv_diagnoses_black_women_pct_relative_inequity',
     'hiv_diagnoses_pct_share': 'hiv_diagnoses_black_women_pct_share',
     'hiv_diagnoses_per_100k': 'hiv_diagnoses_black_women_per_100k',
+    'population': 'black_women_population_count',
     'hiv_population_pct': 'black_women_population_pct',
     'hiv_prevalence': 'hiv_prevalence_black_women',
     'hiv_prevalence_pct_relative_inequity': 'hiv_prevalence_black_women_pct_relative_inequity',
@@ -195,7 +196,7 @@ class CDCHIVData(DataSource):
 
             # drop unneeded rows from current
             if table_type == CURRENT:
-                df_for_bq = remove_non_current_rows(df_for_bq)
+                df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
 
             # drop unneeded columns to reduce file size
             keep_cols = col_types.keys()
@@ -268,61 +269,31 @@ class CDCHIVData(DataSource):
                                                          cast(HIV_BREAKDOWN_TYPE, breakdown),
                                                          std_col.ALL_VALUE)
 
-        additional_cols_to_keep = ["population"]
-        for dict in DICTS:
-            additional_cols_to_keep += list(dict.values())
+        for col in HIV_DETERMINANTS.values():
+            pop_col = std_col.HIV_POPULATION_PCT
+            if col == std_col.HIV_PREP_PREFIX:
+                pop_col = std_col.HIV_PREP_POPULATION_PCT
+            if col == std_col.HIV_CARE_PREFIX:
+                pop_col = std_col.HIV_CARE_POPULATION_PCT
+            if breakdown == std_col.BLACK_WOMEN:
+                pop_col == "black_women_population_count"
 
-            for col in HIV_DETERMINANTS.values():
-                pop_col = std_col.HIV_POPULATION_PCT
-                if col == std_col.HIV_PREP_PREFIX:
-                    pop_col = std_col.HIV_PREP_POPULATION_PCT
-                if col == std_col.HIV_CARE_PREFIX:
-                    pop_col = std_col.HIV_CARE_POPULATION_PCT
+            if (breakdown == std_col.BLACK_WOMEN) and (col in BASE_COLS_PER_100K):
+                df = generate_pct_rel_inequity_col(
+                    df,
+                    PCT_SHARE_MAP[col],
+                    pop_col,
+                    PCT_RELATIVE_INEQUITY_MAP[col]
+                )
 
-                if (breakdown == std_col.BLACK_WOMEN) and (col in BASE_COLS_PER_100K):
-                    df = generate_pct_rel_inequity_col(df,
-                                                       PCT_SHARE_MAP[col],
-                                                       pop_col,
-                                                       PCT_RELATIVE_INEQUITY_MAP[col])
-
-                elif breakdown != std_col.BLACK_WOMEN:
-                    if col != std_col.HIV_STIGMA_INDEX:
-                        df = generate_pct_rel_inequity_col(df,
-                                                           PCT_SHARE_MAP[col],
-                                                           pop_col,
-                                                           PCT_RELATIVE_INEQUITY_MAP[col])
-
-        if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
-            additional_cols_to_keep.extend(GENDER_COLS)
-
-        cols_to_keep = [
-            std_col.TIME_PERIOD_COL,
-            geo_to_use,
-            fips_to_use,
-        ]
-
-        if breakdown == std_col.BLACK_WOMEN:
-            cols_to_keep.extend(
-                [
-                    std_col.AGE_COL,
-                    std_col.RACE_OR_HISPANIC_COL,
-                    std_col.RACE_CATEGORY_ID_COL,
-                    std_col.SEX_COL
-                ])
-            cols_to_keep.extend(BASE_COLS_PER_100K)
-            cols_to_keep.extend(PER_100K_COLS)
-            cols_to_keep.extend(BW_PCT_SHARE_COLS)
-            cols_to_keep.append(std_col.HIV_POPULATION_PCT)
-            cols_to_keep.extend(BW_PCT_REL_INEQUITY_COLS)
-        elif breakdown == std_col.RACE_OR_HISPANIC_COL:
-            cols_to_keep.extend([breakdown, std_col.RACE_CATEGORY_ID_COL])
-            cols_to_keep.extend(additional_cols_to_keep)
-
-        else:
-            cols_to_keep.append(breakdown)
-            cols_to_keep.extend(additional_cols_to_keep)
-
-        df = df[cols_to_keep]
+            elif breakdown != std_col.BLACK_WOMEN:
+                if col != std_col.HIV_STIGMA_INDEX:
+                    df = generate_pct_rel_inequity_col(
+                        df,
+                        PCT_SHARE_MAP[col],
+                        pop_col,
+                        PCT_RELATIVE_INEQUITY_MAP[col]
+                    )
 
         return df
 
@@ -564,7 +535,7 @@ def get_bq_col_types(demo, geo, table_type):
                 "hiv_deaths_black_women": BQ_FLOAT,
                 "hiv_diagnoses_black_women": BQ_FLOAT,
                 "hiv_prevalence_black_women": BQ_FLOAT,
-                # "black_women_population": BQ_FLOAT, TODO: Fix this, we would like to ship the N count
+                "black_women_population_count": BQ_FLOAT,
                 "hiv_deaths_black_women_pct_share": BQ_FLOAT,
                 "hiv_diagnoses_black_women_pct_share": BQ_FLOAT,
                 "hiv_prevalence_black_women_pct_share": BQ_FLOAT,
