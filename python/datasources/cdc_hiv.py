@@ -181,7 +181,7 @@ class CDCHIVData(DataSource):
             demographic, geo_level, alls_df)
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
-        for table_type in (TIME_SERIES, CURRENT):
+        for table_type in (CURRENT, TIME_SERIES):
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
 
@@ -197,11 +197,6 @@ class CDCHIVData(DataSource):
 
             # drop unneeded columns to reduce file size
             keep_cols = col_types.keys()
-            print("df_for_bq.columns")
-            print("df_for_bq.columns")
-            print("df_for_bq.columns")
-
-            print(df_for_bq.columns)
             df_for_bq = df_for_bq[keep_cols]
 
             gcs_to_bq_util.add_df_to_bq(df_for_bq,
@@ -325,11 +320,6 @@ class CDCHIVData(DataSource):
             cols_to_keep.append(breakdown)
             cols_to_keep.extend(additional_cols_to_keep)
 
-        print("df inside breakdown fn")
-        print(df.columns)
-        print(df)
-        print("cols to keep")
-        print(cols_to_keep)
         df = df[cols_to_keep]
 
         return df
@@ -589,7 +579,7 @@ def get_bq_col_types(demo, geo, table_type):
                 "hiv_deaths_black_women": BQ_FLOAT,
                 "hiv_diagnoses_black_women": BQ_FLOAT,
                 "hiv_prevalence_black_women": BQ_FLOAT,
-                "black_women_population": BQ_FLOAT,
+                # "black_women_population": BQ_FLOAT, TODO: Fix this, we would like to ship the N count
                 "hiv_deaths_black_women_pct_share": BQ_FLOAT,
                 "hiv_diagnoses_black_women_pct_share": BQ_FLOAT,
                 "hiv_prevalence_black_women_pct_share": BQ_FLOAT,
