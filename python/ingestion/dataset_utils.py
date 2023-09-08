@@ -494,20 +494,24 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
     return df
 
 
-def remove_non_current_rows(df: pd.DataFrame):
+def remove_non_current_rows(df: pd.DataFrame, keep_time_period_col: bool = False):
     """ Takes a dataframe with a `time_period` col,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
      and removes the time_period col """
 
     # Convert time_period to datetime-like object
-    df[std_col.TIME_PERIOD_COL] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format='%Y-%m', errors='coerce')
+    df["time_period_dt"] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format='%Y-%m', errors='coerce')
 
     # Filter the DataFrame to keep only the rows with the most recent rows
-    most_recent = df[std_col.TIME_PERIOD_COL].max()
-    filtered_df = df[df[std_col.TIME_PERIOD_COL] == most_recent]
+    most_recent = df["time_period_dt"].max()
+    filtered_df = df[df["time_period_dt"] == most_recent]
 
-    # dont need time_period for single year tables
-    filtered_df = filtered_df.drop(columns=[std_col.TIME_PERIOD_COL])
+    # optionally keep the original string "time_period" col
+    drop_cols = ["time_period_dt"]
+    if not keep_time_period_col:
+        drop_cols.append(std_col.TIME_PERIOD_COL)
+
+    filtered_df = filtered_df.drop(columns=drop_cols)
 
     return filtered_df.reset_index(drop=True)
