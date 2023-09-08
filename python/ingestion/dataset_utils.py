@@ -499,8 +499,11 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
+=======
+>>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
 def preserve_only_current_time_period_rows(
     df: pd.DataFrame,
     time_period_col: str = None,
@@ -508,6 +511,7 @@ def preserve_only_current_time_period_rows(
 ):
     """ Takes a dataframe with a time col (default `time_period`) that contains datatime strings
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_col: bool = False):
     """ Takes a dataframe with a `time_period` col that contains datatime strings
@@ -518,6 +522,8 @@ def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_co
 def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_col: bool = False):
     """ Takes a dataframe with a `time_period` col that contains datatime strings
 >>>>>>> 33b542f8 (Revert "use new fn; add test for alt col arg")
+=======
+>>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
     in formats like `YYYY` or `YYYY-MM`,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
@@ -525,12 +531,16 @@ def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_co
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
     if time_period_col is None:
         time_period_col = std_col.TIME_PERIOD_COL
 
     if time_period_col not in df.columns:
         raise ValueError(
             f'df does not contain column: {time_period_col}.')
+<<<<<<< HEAD
 
     # Convert time_period to datetime-like object
     df["time_period_dt"] = pd.to_datetime(df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce')
@@ -551,6 +561,11 @@ def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_co
     # Convert time_period to datetime-like object
     df["time_period_dt"] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format=DT_FORMAT_YYYY_MM, errors='coerce')
 >>>>>>> 33b542f8 (Revert "use new fn; add test for alt col arg")
+=======
+
+    # Convert time_period to datetime-like object
+    df["time_period_dt"] = pd.to_datetime(df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce')
+>>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
 
     # Filter the DataFrame to keep only the rows with the most recent rows
     most_recent = df["time_period_dt"].max()
@@ -562,6 +577,7 @@ def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_co
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         drop_cols.append(time_period_col)
 =======
         drop_cols.append(std_col.TIME_PERIOD_COL)
@@ -572,6 +588,9 @@ def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_co
 =======
         drop_cols.append(std_col.TIME_PERIOD_COL)
 >>>>>>> 33b542f8 (Revert "use new fn; add test for alt col arg")
+=======
+        drop_cols.append(time_period_col)
+>>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
 
     filtered_df = filtered_df.drop(columns=drop_cols)
 
