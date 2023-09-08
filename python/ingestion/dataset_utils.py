@@ -13,6 +13,8 @@ from ingestion.constants import (
 )
 from functools import reduce
 
+DT_FORMAT_YYYY_MM = '%Y-%m'
+
 
 def melt_to_het_style_df(
         source_df: pd.DataFrame,
@@ -494,14 +496,15 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
     return df
 
 
-def remove_non_current_rows(df: pd.DataFrame, keep_time_period_col: bool = False):
-    """ Takes a dataframe with a `time_period` col,
+def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_col: bool = False):
+    """ Takes a dataframe with a `time_period` col that contains datatime strings
+    in formats like `YYYY` or `YYYY-MM`,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
-     and removes the time_period col """
+    and removes (or optionally keeps) the original string time_period col """
 
     # Convert time_period to datetime-like object
-    df["time_period_dt"] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format='%Y-%m', errors='coerce')
+    df["time_period_dt"] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format=DT_FORMAT_YYYY_MM, errors='coerce')
 
     # Filter the DataFrame to keep only the rows with the most recent rows
     most_recent = df["time_period_dt"].max()

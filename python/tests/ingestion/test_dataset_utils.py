@@ -403,11 +403,11 @@ def test_melt_to_het_style_df():
     assert_frame_equal(df, expected_df, check_dtype=False)
 
 
-def test_remove_non_current_rows():
+def test_preserve_only_current_time_period_rows():
 
     _time_data = [
         ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-        ['1999', '88', 'North Somestate', 'black', 100, 999],
+        ['1999-01', '88', 'North Somestate', 'black', 100, 999],
         ['1999', '88', 'North Somestate', 'white', 50, 2222],
         ['1999', '99', 'South Somestate', 'black', 101, 998],
         ['1999', '99', 'South Somestate', 'white', 51, 2221],
@@ -420,7 +420,7 @@ def test_remove_non_current_rows():
         json.dumps(_time_data)).reset_index(drop=True)
 
     # normal mode: drop time_period
-    current_df = dataset_utils.remove_non_current_rows(time_df)
+    current_df = dataset_utils.preserve_only_current_time_period_rows(time_df)
     _expected_current_data = [
         ['state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
         ['88', 'North Somestate', 'black', 100, 999],
@@ -433,7 +433,7 @@ def test_remove_non_current_rows():
     assert_frame_equal(current_df, expected_current_df, check_like=True)
 
     # optional mode: keep time_period
-    current_df_with_time = dataset_utils.remove_non_current_rows(time_df, keep_time_period_col=True)
+    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(time_df, keep_time_period_col=True)
     _expected_current_data = [
         ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
         ['2000', '88', 'North Somestate', 'black', 100, 999],
