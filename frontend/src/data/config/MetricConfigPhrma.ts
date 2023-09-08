@@ -274,7 +274,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         metricId: 'ami_per_100k',
         chartTitle: 'Rates of Acute MI',
         shortLabel: 'Acute MI per 100k',
-        columnTitleHeader: 'Medicare beneficiary AMI cases',
+        columnTitleHeader: 'Medicare beneficiary acute MI cases',
         type: 'per100k',
         rateNumeratorMetric: {
           metricId: 'ami_estimated_total',
@@ -290,14 +290,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         },
       },
       pct_share: {
-        chartTitle: 'Share of total beneficiary AMI cases',
+        chartTitle: 'Share of total beneficiary acute MI cases',
         metricId: 'ami_pct_share',
-        columnTitleHeader: 'Share of total beneficiary AMI cases',
+        columnTitleHeader: 'Share of total beneficiary acute MI cases',
         shortLabel: '% of beneficiary pop. with acute MI',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
-            'Share of beneficiary population vs. share of total AMI cases',
+            'Share of beneficiary population vs. share of total acute MI cases',
           metricId: 'phrma_population_pct_share',
           columnTitleHeader: 'Share of all beneficiaries',
           shortLabel: '% of beneficiary pop.',

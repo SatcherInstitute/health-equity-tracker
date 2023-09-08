@@ -37,6 +37,7 @@ import styles from '../charts/trendsChart/Trends.module.scss'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
+import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -68,11 +69,11 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   if (!metricConfigRates) return <></>
 
-  const metricConfigPctShareUnknown =
+  const metricConfigPctShares =
     props.dataTypeConfig.metrics?.pct_share_unknown ??
     props.dataTypeConfig.metrics?.pct_share
 
-  let hasUnknowns = Boolean(metricConfigPctShareUnknown)
+  let hasUnknowns = Boolean(metricConfigPctShares)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
@@ -85,10 +86,12 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
     /* timeView */ TIME_SERIES
   )
-  const pctShareUnknownQuery =
-    metricConfigPctShareUnknown &&
+
+  // get pct_share with unknown demographic for optional bubble chart
+  const pctShareQuery =
+    metricConfigPctShares &&
     new MetricQuery(
-      metricConfigPctShareUnknown.metricId,
+      metricConfigPctShares.metricId,
       breakdowns,
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
       /* timeView */ TIME_SERIES
@@ -96,7 +99,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
   const queries = [ratesQuery]
 
-  pctShareUnknownQuery && queries.push(pctShareUnknownQuery)
+  pctShareQuery && queries.push(pctShareQuery)
 
   function getTitleText() {
     return `${
@@ -112,7 +115,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   const HASH_ID: ScrollableHashId = 'rates-over-time'
   const cardHeaderTitle = reportProviderSteps[HASH_ID].label
 
-  const elementsToHide = ['#card-options-menu']
+  const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
+    '#card-options-menu',
+  ]
 
   return (
     <CardWrapper
@@ -131,9 +136,9 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         const pctShareData = isCawp
           ? ratesData
-          : metricConfigPctShareUnknown &&
+          : metricConfigPctShares &&
             queryResponsePctShares.getValidRowsForField(
-              metricConfigPctShareUnknown.metricId
+              metricConfigPctShares.metricId
             )
 
         // swap race labels if applicable
@@ -178,14 +183,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           props.demographicType,
           metricConfigRates.metricId
         )
-        const nestedUnknownPctShareData =
-          unknownPctShareData &&
-          getNestedUnknowns(
-            unknownPctShareData,
-            isCawp
-              ? metricConfigRates.metricId
-              : metricConfigPctShareUnknown?.metricId
-          )
+        const nestedUnknownPctShareData = getNestedUnknowns(
+          unknownPctShareData,
+          isCawp ? metricConfigRates.metricId : metricConfigPctShares?.metricId
+        )
 
         hasUnknowns =
           nestedUnknownPctShareData != null &&
@@ -301,7 +302,7 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     unknownsData={unknownPctShareData}
                     demographicType={props.demographicType}
                     knownMetricConfig={metricConfigRates}
-                    unknownMetricConfig={metricConfigPctShareUnknown}
+                    unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
                     hasUnknowns={isCawp ? false : hasUnknowns}
                     isCompareCard={props.isCompareCard}

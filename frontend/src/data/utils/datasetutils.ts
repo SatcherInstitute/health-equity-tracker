@@ -326,13 +326,13 @@ export function getExclusionList(
 }
 
 export function splitIntoKnownsAndUnknowns(
-  data: Row[],
+  data: Row[] | undefined,
   demographicType: DemographicType
 ): Row[][] {
   const knowns: Row[] = []
   const unknowns: Row[] = []
 
-  data.forEach((row: Row) => {
+  data?.forEach((row: Row) => {
     if (
       [UNKNOWN, UNKNOWN_RACE, UNKNOWN_ETHNICITY, UNKNOWN_W].includes(
         row[demographicType]
