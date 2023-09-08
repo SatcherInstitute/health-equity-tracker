@@ -496,16 +496,22 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
     return df
 
 
+<<<<<<< HEAD
 def preserve_only_current_time_period_rows(
     df: pd.DataFrame,
     time_period_col: str = None,
     keep_time_period_col: bool = False
 ):
     """ Takes a dataframe with a time col (default `time_period`) that contains datatime strings
+=======
+def preserve_only_current_time_period_rows(df: pd.DataFrame, keep_time_period_col: bool = False):
+    """ Takes a dataframe with a `time_period` col that contains datatime strings
+>>>>>>> d199e5ea (BACKEND: `remove_non_current_` fn and BQ DTYPES (#2367))
     in formats like `YYYY` or `YYYY-MM`,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
     and removes (or optionally keeps) the original string time_period col """
+<<<<<<< HEAD
     if time_period_col is None:
         time_period_col = std_col.TIME_PERIOD_COL
 
@@ -515,6 +521,11 @@ def preserve_only_current_time_period_rows(
 
     # Convert time_period to datetime-like object
     df["time_period_dt"] = pd.to_datetime(df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce')
+=======
+
+    # Convert time_period to datetime-like object
+    df["time_period_dt"] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format=DT_FORMAT_YYYY_MM, errors='coerce')
+>>>>>>> d199e5ea (BACKEND: `remove_non_current_` fn and BQ DTYPES (#2367))
 
     # Filter the DataFrame to keep only the rows with the most recent rows
     most_recent = df["time_period_dt"].max()
@@ -523,7 +534,11 @@ def preserve_only_current_time_period_rows(
     # optionally keep the original string "time_period" col
     drop_cols = ["time_period_dt"]
     if not keep_time_period_col:
+<<<<<<< HEAD
         drop_cols.append(time_period_col)
+=======
+        drop_cols.append(std_col.TIME_PERIOD_COL)
+>>>>>>> d199e5ea (BACKEND: `remove_non_current_` fn and BQ DTYPES (#2367))
 
     filtered_df = filtered_df.drop(columns=drop_cols)
 

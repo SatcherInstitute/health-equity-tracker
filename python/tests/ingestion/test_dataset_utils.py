@@ -445,6 +445,7 @@ def test_preserve_only_current_time_period_rows():
         json.dumps(_expected_current_data),
         dtype={"time_period": str}).reset_index(drop=True)
     assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
+<<<<<<< HEAD
 
     # optional alt name for time_period column
     _time_alt_col_data = [
@@ -482,3 +483,5 @@ def test_preserve_only_current_time_period_rows():
         match="df does not contain column: BAD_COLUMN_NAME."
     ):
         _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")
+=======
+>>>>>>> d199e5ea (BACKEND: `remove_non_current_` fn and BQ DTYPES (#2367))
