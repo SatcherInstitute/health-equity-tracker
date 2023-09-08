@@ -445,3 +445,40 @@ def test_preserve_only_current_time_period_rows():
         json.dumps(_expected_current_data),
         dtype={"time_period": str}).reset_index(drop=True)
     assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
+
+    # optional alt name for time_period column
+    _time_alt_col_data = [
+        ['some_other_datetime_col', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
+        ['1999-01', '88', 'North Somestate', 'black', 100, 999],
+        ['1999', '88', 'North Somestate', 'white', 50, 2222],
+        ['1999', '99', 'South Somestate', 'black', 101, 998],
+        ['1999', '99', 'South Somestate', 'white', 51, 2221],
+        ['2000', '88', 'North Somestate', 'black', 100, 999],
+        ['2000', '88', 'North Somestate', 'white', 50, 2222],
+        ['2000', '99', 'South Somestate', 'black', 101, 998],
+        ['2000', '99', 'South Somestate', 'white', 51, 2221],
+    ]
+    time_alt_col_df = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_time_alt_col_data)).reset_index(drop=True)
+
+    current_df_with_alt_col = dataset_utils.preserve_only_current_time_period_rows(
+        time_alt_col_df,
+        time_period_col="some_other_datetime_col"
+    )
+    _expected_alt_col_current_data = [
+        ['state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
+        ['88', 'North Somestate', 'black', 100, 999],
+        ['88', 'North Somestate', 'white', 50, 2222],
+        ['99', 'South Somestate', 'black', 101, 998],
+        ['99', 'South Somestate', 'white', 51, 2221],
+    ]
+    expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
+        json.dumps(_expected_alt_col_current_data)).reset_index(drop=True)
+    assert_frame_equal(current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True)
+
+    # expect error
+    with pytest.raises(
+        ValueError,
+        match="df does not contain column: BAD_COLUMN_NAME."
+    ):
+        _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")

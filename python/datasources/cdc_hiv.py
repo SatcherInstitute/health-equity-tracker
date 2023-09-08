@@ -315,7 +315,11 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        alls_df = alls_df[alls_df['Year'] == '2021']
+        alls_df = preserve_only_current_time_period_rows(
+            alls_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
@@ -331,7 +335,11 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        race_df = race_df[race_df['Year'] == '2021']
+        race_df = preserve_only_current_time_period_rows(
+            race_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
         race_df[std_col.AGE_COL] = ALL_VALUE
         race_df = race_df[use_cols]
 
@@ -346,7 +354,11 @@ class CDCHIVData(DataSource):
             thousands=',',
             dtype=DTYPE
         )
-        age_df = age_df[age_df['Year'] == '2021']
+        age_df = preserve_only_current_time_period_rows(
+            age_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
         age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         age_df = age_df[use_cols]
 
@@ -362,6 +374,11 @@ class CDCHIVData(DataSource):
             dtype=DTYPE
         )
 
+        race_age_df = preserve_only_current_time_period_rows(
+            race_age_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
         # fix poorly formatted state names
         race_age_df['Geography'] = race_age_df['Geography'].str.replace('^', '', regex=False)
 
