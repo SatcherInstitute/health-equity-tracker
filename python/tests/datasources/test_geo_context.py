@@ -6,6 +6,8 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from datasources.geo_context import GeoContext, format_svi
 
+from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
+
 
 # UNIT TESTS
 
@@ -98,15 +100,15 @@ def testWriteToBq(
     national_call, state_call, county_call = mock_bq.call_args_list
 
     assert national_call[1]["column_types"] == state_call[1]["column_types"] == {
-        'fake_col1': 'STRING',
-        'fake_col2': 'STRING',
-        'population': 'FLOAT64',
+        'fake_col1': BQ_STRING,
+        'fake_col2': BQ_STRING,
+        'population': BQ_FLOAT,
     }
     assert county_call[1]["column_types"] == {
-        'fake_col1': 'STRING',
-        'fake_col2': 'STRING',
-        'svi': 'FLOAT64',
-        'population': 'FLOAT64',
+        'fake_col1': BQ_STRING,
+        'fake_col2': BQ_STRING,
+        'svi': BQ_FLOAT,
+        'population': BQ_FLOAT,
     }
 
 
