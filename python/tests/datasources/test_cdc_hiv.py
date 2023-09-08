@@ -62,14 +62,12 @@ def test_write_to_bq_race_national(
 
     # RACE/AGE NATIONAL TABLE NEEDED FOR AGE ADJUSTMENT
     (race_age_national_df, _dataset, race_age_table_name), _col_types = mock_bq_race_age_national
-    # race_age_national_df.to_csv(f'{race_age_table_name}.csv', index=False)
     assert race_age_table_name == "by_race_age_national"
     expected_race_age_national_df = pd.read_csv(GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE)
     assert_frame_equal(race_age_national_df, expected_race_age_national_df, check_like=True)
 
     # BY RACE NATIONAL
     (race_national_df, _dataset, race_table_name), _col_types = mock_bq_race_national
-    # race_national_df.to_csv(f'{race_table_name}.csv', index=False)
     assert race_table_name == "race_and_ethnicity_national_time_series"
     expected_race_national_df = pd.read_csv(GOLDEN_DATA['race_national'], dtype=EXP_DTYPE)
     assert_frame_equal(race_national_df, expected_race_national_df, check_like=True)
@@ -89,14 +87,12 @@ def test_write_to_bq_race_state(
 
     # RACE/AGE STATE TABLE NEEDED FOR AGE ADJUSTMENT
     (race_age_state_df, _dataset, race_age_table_name), _col_types = mock_bq_race_age_state
-    race_age_state_df.to_csv(f'{race_age_table_name}.csv', index=False)
     assert race_age_table_name == "by_race_age_state"
     expected_race_age_state_df = pd.read_csv(GOLDEN_DATA['race_age_state'], dtype=EXP_DTYPE)
     assert_frame_equal(race_age_state_df, expected_race_age_state_df, check_like=True)
 
     # BY RACE STATE
     (race_state_df, _dataset, race_table_name), _col_types = mock_bq_race_state
-    race_state_df.to_csv(f'{race_table_name}.csv', index=False)
     assert race_table_name == "race_and_ethnicity_state_time_series"
     expected_race_state_df = pd.read_csv(GOLDEN_DATA['race_state'], dtype=EXP_DTYPE)
     assert_frame_equal(race_state_df, expected_race_state_df, check_like=True)
@@ -114,7 +110,6 @@ def test_write_to_bq_age_national(
     assert mock_bq.call_count == 1
 
     (age_national_df, _dataset, table_name), _col_types = mock_bq.call_args_list[0]
-    # age_national_df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "age_national_time_series"
     expected_age_national_df = pd.read_csv(GOLDEN_DATA['age_national'], dtype=EXP_DTYPE)
     assert_frame_equal(age_national_df, expected_age_national_df, check_like=True)
@@ -132,7 +127,6 @@ def test_write_to_bq_sex_national(
     assert mock_bq.call_count == 1
 
     (sex_national_df, _dataset, table_name), _col_types = mock_bq.call_args_list[0]
-    # sex_national_df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "sex_national_time_series"
     expected_sex_national_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype=EXP_DTYPE)
     assert_frame_equal(sex_national_df, expected_sex_national_df, check_like=True)
@@ -155,9 +149,7 @@ def test_write_to_bq_sex_county(
     assert mock_bq.call_count == 1
 
     (sex_county_df, _dataset, table_name), _col_types = mock_bq.call_args_list[0]
-    # sex_county_df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "sex_county_time_series"
-    # sex_county_df.to_csv(table_name, index=False)
     expected_sex_county_df = pd.read_csv(GOLDEN_DATA['sex_county'], dtype=EXP_DTYPE)
     assert_frame_equal(sex_county_df, expected_sex_county_df, check_like=True)
 #
@@ -174,7 +166,6 @@ def test_write_to_bq_black_women_national(
     assert mock_bq.call_count == 1
 
     (black_women_national_df, _dataset, table_name), _col_types = mock_bq.call_args_list[0]
-    # black_women_national_df.to_csv(f'{table_name}.csv', index=False)
     assert table_name == "black_women_national_time_series"
     expected_black_women_national_df = pd.read_csv(GOLDEN_DATA['black_women_national'], dtype=EXP_DTYPE)
     assert_frame_equal(black_women_national_df, expected_black_women_national_df, check_like=True)
