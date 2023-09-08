@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
+<<<<<<< HEAD
 from ingestion.constants import (
     COUNTY_LEVEL,
     STATE_LEVEL,
@@ -15,6 +16,16 @@ from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
     preserve_only_current_time_period_rows,
 )
+=======
+from ingestion.constants import (COUNTY_LEVEL,
+                                 STATE_LEVEL,
+                                 NATIONAL_LEVEL,
+                                 US_FIPS,
+                                 ALL_VALUE)
+from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
+                                     generate_pct_rel_inequity_col,
+                                     preserve_only_current_time_period_rows)
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.merge_utils import merge_county_names
@@ -373,6 +384,14 @@ class CDCHIVData(DataSource):
         alls_df = preserve_only_current_time_period_rows(
             alls_df, keep_time_period_col=True, time_period_col="Year"
         )
+<<<<<<< HEAD
+=======
+        alls_df = preserve_only_current_time_period_rows(
+            alls_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
         alls_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         alls_df[std_col.AGE_COL] = ALL_VALUE
         alls_df = alls_df[use_cols]
@@ -390,6 +409,14 @@ class CDCHIVData(DataSource):
         race_df = preserve_only_current_time_period_rows(
             race_df, keep_time_period_col=True, time_period_col="Year"
         )
+<<<<<<< HEAD
+=======
+        race_df = preserve_only_current_time_period_rows(
+            race_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
         race_df[std_col.AGE_COL] = ALL_VALUE
         race_df = race_df[use_cols]
 
@@ -406,6 +433,14 @@ class CDCHIVData(DataSource):
         age_df = preserve_only_current_time_period_rows(
             age_df, keep_time_period_col=True, time_period_col="Year"
         )
+<<<<<<< HEAD
+=======
+        age_df = preserve_only_current_time_period_rows(
+            age_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+        )
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
         age_df[std_col.RACE_CATEGORY_ID_COL] = std_col.Race.ALL.value
         age_df = age_df[use_cols]
 
@@ -421,7 +456,13 @@ class CDCHIVData(DataSource):
         )
 
         race_age_df = preserve_only_current_time_period_rows(
+<<<<<<< HEAD
             race_age_df, keep_time_period_col=True, time_period_col="Year"
+=======
+            race_age_df,
+            keep_time_period_col=True,
+            time_period_col='Year'
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
         )
         # fix poorly formatted state names
         race_age_df["Geography"] = race_age_df["Geography"].str.replace(

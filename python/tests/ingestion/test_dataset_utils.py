@@ -446,6 +446,9 @@ def test_preserve_only_current_time_period_rows():
         dtype={"time_period": str}).reset_index(drop=True)
     assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
 
     # optional alt name for time_period column
     _time_alt_col_data = [
@@ -461,9 +464,16 @@ def test_preserve_only_current_time_period_rows():
     ]
     time_alt_col_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_time_alt_col_data)).reset_index(drop=True)
+<<<<<<< HEAD
 
     current_df_with_alt_col = dataset_utils.preserve_only_current_time_period_rows(
         time_alt_col_df,
+=======
+    time_alt_col_df = time_alt_col_df.rename(columns={"time_period", })
+
+    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(
+        time_df,
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
         time_period_col="some_other_datetime_col"
     )
     _expected_alt_col_current_data = [
@@ -475,6 +485,7 @@ def test_preserve_only_current_time_period_rows():
     ]
     expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_alt_col_current_data)).reset_index(drop=True)
+<<<<<<< HEAD
     assert_frame_equal(current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True)
 
     # expect error
@@ -485,3 +496,6 @@ def test_preserve_only_current_time_period_rows():
         _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")
 =======
 >>>>>>> d199e5ea (BACKEND: `remove_non_current_` fn and BQ DTYPES (#2367))
+=======
+    assert_frame_equal(current_df_with_time, expected_current_df_with_alt_col, check_like=True)
+>>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
