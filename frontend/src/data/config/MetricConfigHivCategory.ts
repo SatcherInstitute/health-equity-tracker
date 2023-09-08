@@ -159,7 +159,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     metrics: {
       pct_share: {
         chartTitle: 'Share of total HIV diagnoses',
-        metricId: 'hiv_prevalence_pct_share',
+        metricId: 'hiv_diagnoses_pct_share',
         columnTitleHeader: 'Share of total HIV diagnoses',
         trendsCardTitleName: 'Inequitable share of HIV diagnoses over time',
         shortLabel: '% of HIV diagnoses',
@@ -173,7 +173,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
         },
       },
       per100k: {
-        metricId: 'hiv_prevalence_per_100k',
+        metricId: 'hiv_diagnoses_per_100k',
         chartTitle: 'HIV diagnoses',
         trendsCardTitleName: 'HIV diagnoses over time',
         columnTitleHeader: 'HIV diagnoses per 100k people',
