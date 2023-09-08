@@ -460,10 +460,9 @@ def test_preserve_only_current_time_period_rows():
     ]
     time_alt_col_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_time_alt_col_data)).reset_index(drop=True)
-    time_alt_col_df = time_alt_col_df.rename(columns={"time_period", })
 
-    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(
-        time_df,
+    current_df_with_alt_col = dataset_utils.preserve_only_current_time_period_rows(
+        time_alt_col_df,
         time_period_col="some_other_datetime_col"
     )
     _expected_alt_col_current_data = [
@@ -475,4 +474,11 @@ def test_preserve_only_current_time_period_rows():
     ]
     expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_alt_col_current_data)).reset_index(drop=True)
-    assert_frame_equal(current_df_with_time, expected_current_df_with_alt_col, check_like=True)
+    assert_frame_equal(current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True)
+
+    # expect error
+    with pytest.raises(
+        ValueError,
+        match="df does not contain column: BAD_COLUMN_NAME."
+    ):
+        _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")

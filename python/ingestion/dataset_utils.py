@@ -509,6 +509,10 @@ def preserve_only_current_time_period_rows(
     if time_period_col is None:
         time_period_col = std_col.TIME_PERIOD_COL
 
+    if time_period_col not in df.columns:
+        raise ValueError(
+            f'df does not contain column: {time_period_col}.')
+
     # Convert time_period to datetime-like object
     df["time_period_dt"] = pd.to_datetime(df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce')
 
