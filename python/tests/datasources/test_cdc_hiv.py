@@ -185,7 +185,6 @@ def test_write_to_bq_black_women_national(
 
     (black_women_national_time_series_df, _dataset, table_name), _col_types = mock_bq_black_women_national_time_series
     assert table_name == "black_women_national_time_series"
-    black_women_national_time_series_df.to_csv(table_name + ".csv", index=False)
     expected_black_women_national_time_series_df = pd.read_csv(
         GOLDEN_DATA['black_women_national_time_series'],
         dtype=EXP_DTYPE
