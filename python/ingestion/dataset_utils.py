@@ -492,3 +492,22 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
         ), pct_inequity_col] = np.nan
 
     return df
+
+
+def remove_non_current_rows(df: pd.DataFrame):
+    """ Takes a dataframe with a `time_period` col,
+    calculates the most recent time_period value,
+    removes all rows that contain older time_periods,
+     and removes the time_period col """
+
+    # Convert time_period to datetime-like object
+    df[std_col.TIME_PERIOD_COL] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format='%Y-%m', errors='coerce')
+
+    # Filter the DataFrame to keep only the rows with the most recent rows
+    most_recent = df[std_col.TIME_PERIOD_COL].max()
+    filtered_df = df[df[std_col.TIME_PERIOD_COL] == most_recent]
+
+    # dont need time_period for single year tables
+    filtered_df = filtered_df.drop(columns=[std_col.TIME_PERIOD_COL])
+
+    return filtered_df.reset_index(drop=True)

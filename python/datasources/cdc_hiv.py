@@ -9,12 +9,14 @@ from ingestion.constants import (COUNTY_LEVEL,
                                  CURRENT,
                                  TIME_SERIES)
 from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
-                                     generate_pct_rel_inequity_col)
+                                     generate_pct_rel_inequity_col,
+                                     remove_non_current_rows)
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.merge_utils import merge_county_names
 from ingestion.types import HIV_BREAKDOWN_TYPE
 from typing import cast
+
 
 # constants
 DTYPE = {'FIPS': str, 'Year': str}
@@ -527,24 +529,6 @@ def generate_atlas_cols_to_exclude(breakdown: str):
             filter(lambda x: x != DEM_COLS_STANDARD[breakdown], CDC_DEM_COLS))
 
     return atlas_cols
-
-
-def remove_non_current_rows(df: pd.DataFrame):
-    """ Takes a dataframe with a `time_period` col,
-    calculates the most recent time_period value,
-    and removes all rows that contain older time_periods """
-
-    # Convert time_period to datetime-like object
-    df[std_col.TIME_PERIOD_COL] = pd.to_datetime(df[std_col.TIME_PERIOD_COL], format='%Y-%m', errors='coerce')
-
-    # Filter the DataFrame to keep only the rows with the most recent rows
-    most_recent = df[std_col.TIME_PERIOD_COL].max()
-    filtered_df = df[df[std_col.TIME_PERIOD_COL] == most_recent]
-
-    # dont need time_period for single year tables
-    filtered_df = filtered_df.drop(columns=[std_col.TIME_PERIOD_COL])
-
-    return filtered_df.reset_index(drop=True)
 
 
 def get_bq_col_types(demo, geo, table_type):

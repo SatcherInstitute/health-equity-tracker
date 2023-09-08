@@ -5,7 +5,6 @@ import pytest
 import pandas as pd
 from pandas._testing import assert_frame_equal
 from datasources.geo_context import GeoContext, format_svi
-
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 
 
