@@ -407,7 +407,7 @@ def test_remove_non_current_rows():
 
     _time_data = [
         ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
-        ['1999', '88', 'North Somestate', 'black', 100, 999],
+        ['1999-01', '88', 'North Somestate', 'black', 100, 999],
         ['1999', '88', 'North Somestate', 'white', 50, 2222],
         ['1999', '99', 'South Somestate', 'black', 101, 998],
         ['1999', '99', 'South Somestate', 'white', 51, 2221],
