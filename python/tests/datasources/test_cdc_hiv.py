@@ -125,7 +125,7 @@ def test_write_to_bq_sex_county(
     assert table_name == "sex_county_time_series"
     expected_sex_county_df = pd.read_csv(GOLDEN_DATA['sex_county'], dtype=EXP_DTYPE)
     assert_frame_equal(sex_county_df, expected_sex_county_df, check_like=True)
-#
+
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 @mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir', side_effect=_load_csv_as_df_from_data_dir)
