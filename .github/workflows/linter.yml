@@ -35,6 +35,8 @@ jobs:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false  # Only validate new or changed files
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_PYTHON_ISORT: false # dont require sorted imports
+
 
       # Perform type checking with mypy. This needs to be updated when new
       # directories containing Python code are added.
