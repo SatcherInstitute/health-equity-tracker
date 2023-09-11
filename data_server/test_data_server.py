@@ -3,7 +3,7 @@ import os
 from unittest import mock
 import google.cloud.exceptions  # type: ignore
 import pytest
-from flask.testing import FlaskClient
+from flask.testing import FlaskClient  # type: ignore
 from data_server.dataset_cache import DatasetCache
 from main import app, cache
 
