@@ -1,7 +1,0 @@
-state_name,state_fips,age,sex,race_and_ethnicity,race_category_id,hiv_deaths_black_women_per_100k,hiv_diagnoses_black_women_per_100k,hiv_prevalence_black_women_per_100k,hiv_deaths_black_women,hiv_diagnoses_black_women,hiv_prevalence_black_women,black_women_population_count,hiv_deaths_black_women_pct_share,hiv_diagnoses_black_women_pct_share,hiv_prevalence_black_women_pct_share,black_women_population_pct
-United States,00,55+,Female,Black or African American (NH),BLACK_NH,28.2,10.3,989.8,1642,597,57618,5821358,60.7,16.8,40.5,32.0
-United States,00,45-54,Female,Black or African American (NH),BLACK_NH,23.2,24.3,1449.1,620,649,38726,2672389,22.9,18.3,27.2,14.7
-United States,00,35-44,Female,Black or African American (NH),BLACK_NH,10.5,30.0,965.5,304,867,27927,2892576,11.2,24.5,19.6,15.9
-United States,00,25-34,Female,Black or African American (NH),BLACK_NH,4.0,28.9,451.1,130,949,14828,3287103,4.8,26.8,10.4,18.0
-United States,00,13-24,Female,Black or African American (NH),BLACK_NH,0.2,13.6,92.6,8,482,3281,3543480,0.3,13.6,2.3,19.5
-United States,00,All,Female,Black or African American (NH),BLACK_NH,14.8,19.5,781.6,2704,3544,142380,18216906,100.0,100.0,100.0,100.0
