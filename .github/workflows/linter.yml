@@ -28,18 +28,13 @@ jobs:
       - name: Install Dependencies
         run: python -m pip install --upgrade pip
 
-      # Lint using Super Linter. See https://github.com/github/super-linter.
+      # Lint using Super Linter. See https://github.com/super-linter/super-linter
       - name: Lint Code Base
-        uses: github/super-linter/slim@v4
+        uses: github/super-linter/slim@v5
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false  # Only validate new or changed files
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_DOCKERFILE: true
-          VALIDATE_JSON: true
-          VALIDATE_PYTHON_PYLINT: true
-          VALIDATE_PYTHON_FLAKE8: true
-          VALIDATE_TERRAFORM: true
 
       # Perform type checking with mypy. This needs to be updated when new
       # directories containing Python code are added.
