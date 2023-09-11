@@ -3,7 +3,7 @@ import os
 from flask import Flask, Response, request  # type: ignore
 from flask_cors import CORS  # type: ignore
 from werkzeug.datastructures import Headers  # type: ignore
-from data_server.dataset_cache import DatasetCache
+from data_server.dataset_cache import DatasetCache  # type: ignore
 
 app = Flask(__name__)
 CORS(app)
