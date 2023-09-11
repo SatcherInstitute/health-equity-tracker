@@ -4,35 +4,30 @@ export function useResponsiveWidth(
   defaultWidth: number
 ): [RefObject<HTMLDivElement>, number] {
   const [width, setWidth] = useState<number>(defaultWidth)
-  // Trigger a re-render when the width changes
-  const [, setForceUpdate] = useState({})
-  // Initial spec state is set in useEffect when default geo is set
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
-  const forceUpdate = () => { setForceUpdate({}); }
+  const forceUpdate = () => { setWidth((prevWidth) => prevWidth + 1); }
 
   useEffect(() => {
     const element = ref.current
 
-    if (element && width === defaultWidth) {
-      const newWidth = element.offsetWidth || defaultWidth
-      setWidth(newWidth)
-    }
-
     const handleResize = () => {
       if (element) {
         const newWidth = element.offsetWidth || defaultWidth
-        setWidth(newWidth)
-        forceUpdate()
+        if (newWidth !== width) {
+          setWidth(newWidth)
+        }
       }
     }
+    // Initial width calculation
+    handleResize()
 
     window.addEventListener('resize', handleResize)
 
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [width, defaultWidth, forceUpdate])
+  }, [defaultWidth, width, forceUpdate])
 
   return [ref, width]
 }
