@@ -24,7 +24,7 @@ jobs:
 
         # Lint using Super Linter. See https://github.com/super-linter/super-linter-
       - name: Lint Code Base
-        uses: github/super-linter/slim@v4
+        uses: github/super-linter/slim@v5
         env:
           DEFAULT_BRANCH: main
           VALIDATE_ALL_CODEBASE: false  # Only validate new or changed files
