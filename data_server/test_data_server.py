@@ -74,7 +74,7 @@ def testGetMetadata(mock_func: mock.MagicMock, client: FlaskClient):
     assert response.headers.get("Access-Control-Allow-Origin") == "*"
     assert response.headers.get("Vary") == "Accept-Encoding"
     assert response.data == test_data_json
-    # Make sure that the response is valid json
+    # Make sure that the metadata response is valid json
     try:
         json.loads(response.data)
     except json.decoder.JSONDecodeError as err:
@@ -115,7 +115,7 @@ def testGetDataset_DataExists(mock_func: mock.MagicMock, client: FlaskClient):
     assert response.headers.get("Access-Control-Allow-Origin") == "*"
     assert response.headers.get("Vary") == "Accept-Encoding"
     assert response.data == test_data_json
-    # Make sure that the response is valid json
+    # Make sure that the test dataset response is valid json
     try:
         json.loads(response.data)
     except json.decoder.JSONDecodeError as err:
