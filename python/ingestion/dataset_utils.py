@@ -14,7 +14,7 @@ from ingestion.constants import (
 )
 from functools import reduce
 
-DT_FORMAT_YYYY_MM = "%Y-%m"
+DT_FORMAT_YYYY_MM = '%Y-%m'
 
 
 def melt_to_het_style_df(
@@ -106,7 +106,7 @@ def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.Da
         )
 
     raise ValueError(
-        f"The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`."
+        f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.'
     )
 
 
@@ -127,11 +127,11 @@ def generate_pct_share_col_without_unknowns(
     all_val: The value representing 'ALL'"""
 
     all_demo_values = set(df[breakdown_col].to_list())
-    if Race.UNKNOWN.value in all_demo_values or "Unknown" in all_demo_values:
+    if Race.UNKNOWN.value in all_demo_values or 'Unknown' in all_demo_values:
         raise ValueError(
             (
-                "This dataset contains unknowns, use the"
-                "generate_pct_share_col_with_unknowns function instead"
+                'This dataset contains unknowns, use the'
+                'generate_pct_share_col_with_unknowns function instead'
             )
         )
 
@@ -172,8 +172,8 @@ def generate_pct_share_col_with_unknowns(
     if len(unknown_df) == 0:
         raise ValueError(
             (
-                "This dataset does not contains unknowns, use the "
-                "generate_pct_share_col_without_unknowns function instead"
+                'This dataset does not contains unknowns, use the '
+                'generate_pct_share_col_without_unknowns function instead'
             )
         )
 
@@ -206,12 +206,12 @@ def generate_pct_share_col_with_unknowns(
 def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     def calc_pct_share(record, raw_count_col):
         return percent_avoid_rounding_to_zero(
-            record[raw_count_col], record[f"{raw_count_col}_all"]
+            record[raw_count_col], record[f'{raw_count_col}_all']
         )
 
     rename_cols = {}
     for raw_count_col in raw_count_to_pct_share.keys():
-        rename_cols[raw_count_col] = f"{raw_count_col}_all"
+        rename_cols[raw_count_col] = f'{raw_count_col}_all'
 
     alls = df.loc[df[breakdown_col] == all_val]
     alls = alls.rename(columns=rename_cols).reset_index(drop=True)
@@ -241,9 +241,9 @@ def _generate_pct_share_col(df, raw_count_to_pct_share, breakdown_col, all_val):
     for f in all_splits:
         count = value_counts[f]
         if count != 1:
-            raise ValueError(f"Fips {f} has {count} ALL rows, there should be 1")
+            raise ValueError(f'Fips {f} has {count} ALL rows, there should be 1')
 
-    df = pd.merge(df, alls, how="left", on=on_cols)
+    df = pd.merge(df, alls, how='left', on=on_cols)
 
     for raw_count_col, pct_share_col in raw_count_to_pct_share.items():
         df[pct_share_col] = df.apply(calc_pct_share, axis=1, args=(raw_count_col,))
@@ -407,7 +407,7 @@ def ensure_leading_zeros(
         num_digits: how many digits should be present after leading zeros are added
     """
     df[fips_col_name] = df[fips_col_name].apply(
-        lambda code: (str(code).rjust(num_digits, "0"))
+        lambda code: (str(code).rjust(num_digits, '0'))
     )
     return df
 
@@ -490,7 +490,7 @@ def zero_out_pct_rel_inequity(
 
     per_100k_col_names = {}
     for rate_col in rate_to_inequity_col_map.keys():
-        per_100k_col_names[rate_col] = f"{rate_col}_grouped"
+        per_100k_col_names[rate_col] = f'{rate_col}_grouped'
 
     demo_col = std_col.RACE_CATEGORY_ID_COL if demographic == RACE else demographic
     unknown_val = Race.UNKNOWN.value if demographic == RACE else UNKNOWN
@@ -513,7 +513,7 @@ def zero_out_pct_rel_inequity(
         df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL]
     )
     for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
-        grouped_col = f"{rate_col}_grouped"
+        grouped_col = f'{rate_col}_grouped'
         # set pct_inequity to 0 in a place/time_period if the summed rates are zero
         df.loc[df[grouped_col] == 0, pct_inequity_col] = 0
 
@@ -541,11 +541,11 @@ def preserve_only_current_time_period_rows(
         time_period_col = std_col.TIME_PERIOD_COL
 
     if time_period_col not in df.columns:
-        raise ValueError(f"df does not contain column: {time_period_col}.")
+        raise ValueError(f'df does not contain column: {time_period_col}.')
 
     # Convert time_period to datetime-like object
     df["time_period_dt"] = pd.to_datetime(
-        df[time_period_col], format=DT_FORMAT_YYYY_MM, errors="coerce"
+        df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce'
     )
 
     # Filter the DataFrame to keep only the rows with the most recent rows
