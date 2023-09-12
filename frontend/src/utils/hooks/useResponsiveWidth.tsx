@@ -12,14 +12,25 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
   const [width, setWidth] = useState<number>(INVISIBLE_PRELOAD_WIDTH)
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
+  const forceUpdate = () => {
+    setWidth((prevWidth) => prevWidth + 1)
+  }
+
   useEffect(() => {
     const element = ref.current
 
+<<<<<<< HEAD
     const handleResize = debounce(() => {
       if (element) {
         const newWidth = element.offsetWidth
         const amountChanged = Math.abs(newWidth - width)
         if (amountChanged > MAP_RESIZE_TOLERANCE) {
+=======
+    const handleResize = () => {
+      if (element) {
+        const newWidth = element.offsetWidth || defaultWidth
+        if (newWidth !== width) {
+>>>>>>> 15cc5644 (Fixing rendering issue in `useResponsiveWidth` hook (#2372))
           setWidth(newWidth)
         }
       }
@@ -31,7 +42,11 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
     return () => {
       window.removeEventListener('resize', handleResize)
     }
+<<<<<<< HEAD
   }, [width])
+=======
+  }, [defaultWidth, width, forceUpdate])
+>>>>>>> 15cc5644 (Fixing rendering issue in `useResponsiveWidth` hook (#2372))
 
   return [ref, width]
 }
