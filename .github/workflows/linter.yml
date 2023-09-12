@@ -1,4 +1,4 @@
-name: Lint Code Base / Type Check Python
+name: Linting/Type Checks
 # Documentation:
 # https://help.github.com/en/articles/workflow-syntax-for-github-actions
 on:
