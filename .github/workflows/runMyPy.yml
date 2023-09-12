@@ -1,4 +1,4 @@
-name: MyPY Python Type Checks
+name: Python Type Checks
 on:
   pull_request:
     branches:
@@ -17,7 +17,7 @@ on:
 
 jobs:
   mypy:
-    name: Run mypy - Type Check Python Code
+    name: Run mypy
     runs-on: ubuntu-latest
     steps:
       - name: Check Out Code
@@ -29,6 +29,7 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: 3.8
+          cache: 'pip'
 
       - name: Install Dependencies
         run: python -m pip install --upgrade pip
