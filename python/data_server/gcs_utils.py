@@ -1,4 +1,4 @@
-from google.cloud import storage  # type: ignore
+from google.cloud import storage
 
 
 def download_blob_as_bytes(gcs_bucket: str, filename: str) -> bytes:
