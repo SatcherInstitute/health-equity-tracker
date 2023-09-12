@@ -116,7 +116,7 @@ export function TrendsChart({
   useEffect(() => {
     const isMobile = window.innerWidth < MOBILE_BREAKPOINT
     setIsMobile(isMobile)
-  }, [isMobile])
+  }, [])
 
   // resets tooltip parent width on data, filter, or hover change
   // allows to dynamically position tooltip to left of hover line
