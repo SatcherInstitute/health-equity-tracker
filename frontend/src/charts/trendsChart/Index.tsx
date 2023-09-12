@@ -267,48 +267,29 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
-        {isMobile ? (
-          <>
-            {/* Filter */}
-            {data && (
-              <FilterLegend
-                data={data}
-                selectedGroups={selectedTrendGroups}
-                handleClick={handleClick}
-                handleMinMaxClick={handleMinMaxClick}
-                groupLabel={groupLabel}
-                isSkinny={isSkinny}
-                chartWidth={width}
-                demographicType={demographicType}
-                legendId={`legend-filter-label-${axisConfig.type}-${
-                  isCompareCard ? '2' : '1'
-                }`}
-              />
-            )}
-            {/* Chart Title MOBILE BELOW LEGEND */}
-            <ChartTitle title={chartTitle} />
-          </>
-        ) : (
-          <>
-            {/* Chart Title DESKTOP ABOVE LEGEND */}
-            <ChartTitle title={chartTitle} />
-            {/* Filter */}
-            {data && (
-              <FilterLegend
-                data={data}
-                selectedGroups={selectedTrendGroups}
-                handleClick={handleClick}
-                handleMinMaxClick={handleMinMaxClick}
-                groupLabel={groupLabel}
-                isSkinny={isSkinny}
-                chartWidth={width}
-                demographicType={demographicType}
-                legendId={`legend-filter-label-${axisConfig.type}-${
-                  isCompareCard ? '2' : '1'
-                }`}
-              />
-            )}
-          </>
+        {!isMobile && (
+          // Render Chart Title DESKTOP ABOVE LEGEND
+          <ChartTitle title={chartTitle} />
+        )}
+        {/* Filter */}
+        {data && (
+          <FilterLegend
+            data={data}
+            selectedGroups={selectedTrendGroups}
+            handleClick={handleClick}
+            handleMinMaxClick={handleMinMaxClick}
+            groupLabel={groupLabel}
+            isSkinny={isSkinny}
+            chartWidth={width}
+            demographicType={demographicType}
+            legendId={`legend-filter-label-${axisConfig.type}-${
+              isCompareCard ? '2' : '1'
+            }`}
+          />
+        )}
+        {isMobile && (
+          // Render Chart Title MOBILE BELOW LEGEND
+          <ChartTitle title={chartTitle} />
         )}
       </div>
       {/* Tooltip */}
