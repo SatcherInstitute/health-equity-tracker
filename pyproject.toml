@@ -1,0 +1,3 @@
+# configuration settings for python linters when run locally / pre-commit
+[tool.black]
+skip-string-normalization = true
