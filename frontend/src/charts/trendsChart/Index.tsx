@@ -114,8 +114,8 @@ export function TrendsChart({
   /* Effects */
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
   useEffect(() => {
-    const isMobile = window.innerWidth < MOBILE_BREAKPOINT
-    setIsMobile(isMobile)
+    const mobile = window.innerWidth < MOBILE_BREAKPOINT
+    setIsMobile(mobile)
   }, [])
 
   // resets tooltip parent width on data, filter, or hover change
