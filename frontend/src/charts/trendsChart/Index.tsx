@@ -41,6 +41,7 @@ import useEscape from '../../utils/hooks/useEscape'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import ChartTitle from '../../cards/ChartTitle'
+import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -74,8 +75,6 @@ export function TrendsChart({
   const { groupLabel } = axisConfig ?? {}
 
   /* Refs */
-  // parent container ref - used for setting svg width
-  const containerRef = useRef(null)
   // tooltip wrapper ref
   const toolTipRef = useRef(null)
 
@@ -92,10 +91,10 @@ export function TrendsChart({
     useState<DemographicGroup[]>(defaultGroups)
 
   // manages dynamic svg width
-  const [[width, isMobile], setWidth] = useState<[number, boolean]>([
-    STARTING_WIDTH,
-    false,
-  ])
+  const [containerRef, width] = useResponsiveWidth(STARTING_WIDTH)
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth < MOBILE_BREAKPOINT
+  )
 
   const isCompareMode = window.location.href.includes('compare')
 
@@ -114,21 +113,15 @@ export function TrendsChart({
   // Stores width of tooltip to allow dynamic tooltip positioning
   const [tooltipWidth, setTooltipWidth] = useState<number>(0)
 
-  /* Effects */
-  // resets svg width on window resize, only sets listener after first render (so ref is defined)
   useEffect(() => {
-    function setDimensions() {
-      const isMobile = window.innerWidth < MOBILE_BREAKPOINT
-      setWidth([
-        // @ts-expect-error
-        containerRef.current?.getBoundingClientRect().width,
-        isMobile,
-      ])
+    function handleIsMobile() {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
     }
-    setDimensions()
-    window.addEventListener('resize', setDimensions)
+
+    window.addEventListener('resize', handleIsMobile)
+
     return () => {
-      window.removeEventListener('resize', setDimensions)
+      window.removeEventListener('resize', handleIsMobile)
     }
   }, [])
 
@@ -274,48 +267,29 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
-        {isMobile ? (
-          <>
-            {/* Filter */}
-            {data && (
-              <FilterLegend
-                data={data}
-                selectedGroups={selectedTrendGroups}
-                handleClick={handleClick}
-                handleMinMaxClick={handleMinMaxClick}
-                groupLabel={groupLabel}
-                isSkinny={isSkinny}
-                chartWidth={width}
-                demographicType={demographicType}
-                legendId={`legend-filter-label-${axisConfig.type}-${
-                  isCompareCard ? '2' : '1'
-                }`}
-              />
-            )}
-            {/* Chart Title MOBILE BELOW LEGEND */}
-            <ChartTitle title={chartTitle} />
-          </>
-        ) : (
-          <>
-            {/* Chart Title DESKTOP ABOVE LEGEND */}
-            <ChartTitle title={chartTitle} />
-            {/* Filter */}
-            {data && (
-              <FilterLegend
-                data={data}
-                selectedGroups={selectedTrendGroups}
-                handleClick={handleClick}
-                handleMinMaxClick={handleMinMaxClick}
-                groupLabel={groupLabel}
-                isSkinny={isSkinny}
-                chartWidth={width}
-                demographicType={demographicType}
-                legendId={`legend-filter-label-${axisConfig.type}-${
-                  isCompareCard ? '2' : '1'
-                }`}
-              />
-            )}
-          </>
+        {!isMobile && (
+          // Render Chart Title DESKTOP ABOVE LEGEND
+          <ChartTitle title={chartTitle} />
+        )}
+        {/* Filter */}
+        {data && (
+          <FilterLegend
+            data={data}
+            selectedGroups={selectedTrendGroups}
+            handleClick={handleClick}
+            handleMinMaxClick={handleMinMaxClick}
+            groupLabel={groupLabel}
+            isSkinny={isSkinny}
+            chartWidth={width}
+            demographicType={demographicType}
+            legendId={`legend-filter-label-${axisConfig.type}-${
+              isCompareCard ? '2' : '1'
+            }`}
+          />
+        )}
+        {isMobile && (
+          // Render Chart Title MOBILE BELOW LEGEND
+          <ChartTitle title={chartTitle} />
         )}
       </div>
       {/* Tooltip */}
