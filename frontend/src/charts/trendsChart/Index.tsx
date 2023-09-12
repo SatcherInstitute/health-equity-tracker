@@ -41,6 +41,7 @@ import useEscape from '../../utils/hooks/useEscape'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import ChartTitle from '../../cards/ChartTitle'
+import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -74,8 +75,6 @@ export function TrendsChart({
   const { groupLabel } = axisConfig ?? {}
 
   /* Refs */
-  // parent container ref - used for setting svg width
-  const containerRef = useRef(null)
   // tooltip wrapper ref
   const toolTipRef = useRef(null)
 
@@ -92,10 +91,8 @@ export function TrendsChart({
     useState<DemographicGroup[]>(defaultGroups)
 
   // manages dynamic svg width
-  const [[width, isMobile], setWidth] = useState<[number, boolean]>([
-    STARTING_WIDTH,
-    false,
-  ])
+  const [containerRef, width] = useResponsiveWidth(STARTING_WIDTH)
+  const [isMobile, setIsMobile] = useState<boolean>(false)
 
   const isCompareMode = window.location.href.includes('compare')
 
@@ -117,20 +114,9 @@ export function TrendsChart({
   /* Effects */
   // resets svg width on window resize, only sets listener after first render (so ref is defined)
   useEffect(() => {
-    function setDimensions() {
-      const isMobile = window.innerWidth < MOBILE_BREAKPOINT
-      setWidth([
-        // @ts-expect-error
-        containerRef.current?.getBoundingClientRect().width,
-        isMobile,
-      ])
-    }
-    setDimensions()
-    window.addEventListener('resize', setDimensions)
-    return () => {
-      window.removeEventListener('resize', setDimensions)
-    }
-  }, [])
+    const isMobile = window.innerWidth < MOBILE_BREAKPOINT
+    setIsMobile(isMobile)
+  }, [isMobile])
 
   // resets tooltip parent width on data, filter, or hover change
   // allows to dynamically position tooltip to left of hover line

@@ -4,6 +4,7 @@ export function useResponsiveWidth(
   defaultWidth: number
 ): [RefObject<HTMLDivElement>, number] {
   const [width, setWidth] = useState<number>(defaultWidth)
+  // Initial spec state is set in useEffect when default geo is set
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
   const forceUpdate = () => { setWidth((prevWidth) => prevWidth + 1); }
@@ -19,9 +20,8 @@ export function useResponsiveWidth(
         }
       }
     }
-    // Initial width calculation
-    handleResize()
 
+    handleResize()
     window.addEventListener('resize', handleResize)
 
     return () => {
