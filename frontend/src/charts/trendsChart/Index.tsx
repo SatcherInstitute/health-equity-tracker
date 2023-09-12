@@ -92,7 +92,7 @@ export function TrendsChart({
 
   // manages dynamic svg width
   const [containerRef, width] = useResponsiveWidth(STARTING_WIDTH)
-  const [isMobile, setIsMobile] = useState<boolean>(false)
+  const isMobile = window.innerWidth < MOBILE_BREAKPOINT
 
   const isCompareMode = window.location.href.includes('compare')
 
@@ -110,13 +110,6 @@ export function TrendsChart({
 
   // Stores width of tooltip to allow dynamic tooltip positioning
   const [tooltipWidth, setTooltipWidth] = useState<number>(0)
-
-  /* Effects */
-  // resets svg width on window resize, only sets listener after first render (so ref is defined)
-  useEffect(() => {
-    const mobile = window.innerWidth < MOBILE_BREAKPOINT
-    setIsMobile(mobile)
-  }, [])
 
   // resets tooltip parent width on data, filter, or hover change
   // allows to dynamically position tooltip to left of hover line
