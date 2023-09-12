@@ -1,9 +1,11 @@
 import threading
-import cachetools  # type: ignore
+
+import cachetools
+
 from data_server import gcs_utils
 
 
-class DatasetCache:
+class DatasetCache():
     """DatasetCache manages and stores datasets accessed through GCS.
     DatasetCache is a thin, thread-safe wrapper around cachetools.TTLCache."""
 
