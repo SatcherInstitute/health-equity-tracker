@@ -28,7 +28,7 @@ jobs:
           VALIDATE_JSON: true
           VALIDATE_TSX: true
           VALIDATE_TYPESCRIPT_ES: true
-          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
+          PYTHON_BLACK_CONFIG_FILE: black.ini
           VALIDATE_PYTHON_BLACK: true
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_PYTHON_FLAKE8: true
