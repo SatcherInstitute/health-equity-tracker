@@ -1,4 +1,4 @@
-TIME_SERIES = "time_series"
+HISTORICAL = "historical"
 CURRENT = "current"
 
 TERRITORY_FIPS_LIST = ["11", "60", "66", "69", "72", "78"]

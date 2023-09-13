@@ -8,7 +8,7 @@ from ingestion.constants import (
     US_FIPS,
     ALL_VALUE,
     CURRENT,
-    TIME_SERIES,
+    HISTORICAL,
 )
 from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
@@ -224,7 +224,7 @@ class CDCHIVData(DataSource):
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
-        for table_type in (CURRENT, TIME_SERIES):
+        for table_type in (CURRENT, HISTORICAL):
             # copy so iterative changes dont interfere
             df_for_bq = df.copy()
 
@@ -591,7 +591,7 @@ def get_bq_col_types(demo, geo, table_type):
     # All Black Women tables get (almost) the same columns and bq types
     if demo == std_col.BLACK_WOMEN:
         bw_col_types = {}
-        if table_type == TIME_SERIES:
+        if table_type == HISTORICAL:
             bw_col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
 
         bw_col_types.update(
@@ -608,7 +608,7 @@ def get_bq_col_types(demo, geo, table_type):
             }
         )
 
-        if table_type == TIME_SERIES:
+        if table_type == HISTORICAL:
             bw_col_types.update(
                 {
                     "hiv_deaths_black_women_pct_relative_inequity": BQ_FLOAT,
@@ -636,7 +636,7 @@ def get_bq_col_types(demo, geo, table_type):
     col_types = {}
 
     # KEEP COLUMNS IN ORDER FOR EASIER READING ON BQ
-    if table_type == TIME_SERIES:
+    if table_type == HISTORICAL:
         col_types[std_col.TIME_PERIOD_COL] = BQ_STRING
 
     # SET GEO COLS
@@ -695,7 +695,7 @@ def get_bq_col_types(demo, geo, table_type):
                 "hiv_prevalence": BQ_FLOAT,
             }
         )
-    elif table_type == TIME_SERIES:
+    elif table_type == HISTORICAL:
         col_types.update(
             {
                 "hiv_care_pct_relative_inequity": BQ_FLOAT,
