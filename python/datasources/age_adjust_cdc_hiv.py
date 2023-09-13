@@ -44,7 +44,7 @@ class AgeAdjustCDCHiv(DataSource):
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         for geo in [NATIONAL_LEVEL, STATE_LEVEL]:
-            # only merges current year for now
+            # only merges current year
             age_adjusted_df = self.generate_age_adjustment(geo)
             only_race_source = f'race_and_ethnicity_{geo}_current'
             table_name = f'{only_race_source}-with_age_adjust'
