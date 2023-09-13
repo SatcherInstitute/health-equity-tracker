@@ -7,9 +7,10 @@ from datasources.cdc_hiv import (
     TOTAL_DEATHS,
 )
 from ingestion import gcs_to_bq_util
+from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.dataset_utils import ratio_round_to_None
 
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, BQ_STRING, BQ_FLOAT
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 
 REFERENCE_POPULATION = Race.ALL.value
 BASE_POPULATION = Race.WHITE_NH.value
