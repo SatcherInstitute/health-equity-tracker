@@ -131,14 +131,6 @@ def merge_age_adjusted(df, age_adjusted_df):
     df = df.reset_index(drop=True)
     age_adjusted_df = age_adjusted_df.reset_index(drop=True)
 
-    # print("df")
-    # print(df.columns)
-    # print(df)
-
-    # print("age_adjusted_df")
-    # print(age_adjusted_df.columns)
-    # print(age_adjusted_df)
-
     return pd.merge(df, age_adjusted_df, how='left', on=merge_cols)
 
 
