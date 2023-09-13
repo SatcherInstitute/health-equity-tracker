@@ -2,20 +2,27 @@ import numpy as np
 import pandas as pd
 from datasources.data_source import DataSource
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 from ingestion.constants import (
     COUNTY_LEVEL,
     STATE_LEVEL,
     NATIONAL_LEVEL,
     US_FIPS,
     ALL_VALUE,
+<<<<<<< HEAD
     CURRENT,
     HISTORICAL,
+=======
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 )
 from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
     generate_pct_rel_inequity_col,
     preserve_only_current_time_period_rows,
 )
+<<<<<<< HEAD
 =======
 from ingestion.constants import (COUNTY_LEVEL,
                                  STATE_LEVEL,
@@ -35,6 +42,8 @@ from ingestion.dataset_utils import (generate_pct_share_col_without_unknowns,
                                      generate_pct_rel_inequity_col,
                                      preserve_only_current_time_period_rows)
 >>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
+=======
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.merge_utils import merge_county_names
@@ -50,6 +59,7 @@ CDC_ATLAS_COLS = ["Year", "Geography", "FIPS"]
 CDC_DEM_COLS = ["Age Group", "Race/Ethnicity", "Sex"]
 
 DEM_COLS_STANDARD = {
+<<<<<<< HEAD
     std_col.AGE_COL: "Age Group",
     std_col.RACE_OR_HISPANIC_COL: "Race/Ethnicity",
     std_col.SEX_COL: "Sex",
@@ -62,6 +72,20 @@ HIV_DETERMINANTS = {
     "prep": std_col.HIV_PREP_PREFIX,
     "prevalence": std_col.HIV_PREVALENCE_PREFIX,
     "stigma": std_col.HIV_STIGMA_INDEX,
+=======
+    std_col.AGE_COL: 'Age Group',
+    std_col.RACE_OR_HISPANIC_COL: 'Race/Ethnicity',
+    std_col.SEX_COL: 'Sex',
+}
+
+HIV_DETERMINANTS = {
+    'care': std_col.HIV_CARE_PREFIX,
+    'deaths': std_col.HIV_DEATHS_PREFIX,
+    'diagnoses': std_col.HIV_DIAGNOSES_PREFIX,
+    'prep': std_col.HIV_PREP_PREFIX,
+    'prevalence': std_col.HIV_PREVALENCE_PREFIX,
+    'stigma': std_col.HIV_STIGMA_INDEX,
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 }
 
 NON_PER_100K_LIST = [
@@ -87,9 +111,15 @@ PCT_SHARE_MAP[std_col.POPULATION_COL] = std_col.HIV_POPULATION_PCT
 PCT_SHARE_MAP[std_col.HIV_CARE_POPULATION] = std_col.HIV_CARE_POPULATION_PCT
 
 TEST_PCT_SHARE_MAP = {
+<<<<<<< HEAD
     std_col.HIV_DIAGNOSES_PREFIX: "hiv_diagnoses_pct_share",
     std_col.HIV_DEATHS_PREFIX: "hiv_deaths_pct_share",
     std_col.HIV_PREVALENCE_PREFIX: "hiv_prevalence_pct_share",
+=======
+    std_col.HIV_DIAGNOSES_PREFIX: 'hiv_diagnoses_pct_share',
+    std_col.HIV_DEATHS_PREFIX: 'hiv_deaths_pct_share',
+    std_col.HIV_PREVALENCE_PREFIX: 'hiv_prevalence_pct_share',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
     std_col.POPULATION_COL: std_col.HIV_POPULATION_PCT,
 }
 
@@ -103,6 +133,7 @@ PCT_RELATIVE_INEQUITY_MAP = {
 BREAKDOWN_TO_STANDARD_BY_COL = {
     std_col.AGE_COL: {"Ages 13 years and older": std_col.ALL_VALUE},
     std_col.RACE_CATEGORY_ID_COL: {
+<<<<<<< HEAD
         "All races/ethnicities": std_col.Race.ALL.value,
         "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
         "Asian": std_col.Race.ASIAN_NH.value,
@@ -114,6 +145,19 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         "White": std_col.Race.WHITE_NH.value,
     },
     std_col.SEX_COL: {"Both sexes": std_col.ALL_VALUE},
+=======
+        'All races/ethnicities': std_col.Race.ALL.value,
+        'American Indian/Alaska Native': std_col.Race.AIAN_NH.value,
+        'Asian': std_col.Race.ASIAN_NH.value,
+        'Black/African American': std_col.Race.BLACK_NH.value,
+        'Hispanic/Latino': std_col.Race.HISP.value,
+        'Multiracial': std_col.Race.MULTI_NH.value,
+        'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
+        'Native Hawaiian/Other Pacific Islander': std_col.Race.NHPI_NH.value,
+        'White': std_col.Race.WHITE_NH.value,
+    },
+    std_col.SEX_COL: {'Both sexes': std_col.ALL_VALUE},
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 }
 
 CARE_PREP_MAP = {
@@ -157,6 +201,7 @@ BASE_COLS_PER_100K = [
 ]
 
 # Generate 'per_100k', 'pct_share' and 'pct_relative_inequity' versions
+<<<<<<< HEAD
 PER_100K_COLS = [f"{col}_{std_col.PER_100K_SUFFIX}" for col in BASE_COLS_PER_100K]
 PCT_SHARE_COLS = [f"{col}_{std_col.PCT_SHARE_SUFFIX}" for col in BASE_COLS]
 BW_PCT_SHARE_COLS = [f"{col}_{std_col.PCT_SHARE_SUFFIX}" for col in BASE_COLS_PER_100K]
@@ -165,6 +210,16 @@ PCT_REL_INEQUITY_COLS = [
 ]
 BW_PCT_REL_INEQUITY_COLS = [
     f"{col}_{std_col.PCT_REL_INEQUITY_SUFFIX}" for col in BASE_COLS_PER_100K
+=======
+PER_100K_COLS = [f'{col}_{std_col.PER_100K_SUFFIX}' for col in BASE_COLS_PER_100K]
+PCT_SHARE_COLS = [f'{col}_{std_col.PCT_SHARE_SUFFIX}' for col in BASE_COLS]
+BW_PCT_SHARE_COLS = [f'{col}_{std_col.PCT_SHARE_SUFFIX}' for col in BASE_COLS_PER_100K]
+PCT_REL_INEQUITY_COLS = [
+    f'{col}_{std_col.PCT_REL_INEQUITY_SUFFIX}' for col in BASE_COLS
+]
+BW_PCT_REL_INEQUITY_COLS = [
+    f'{col}_{std_col.PCT_REL_INEQUITY_SUFFIX}' for col in BASE_COLS_PER_100K
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 ]
 
 # Define other common and unique columns
@@ -177,7 +232,11 @@ COMMON_COLS = [
     std_col.HIV_CARE_POPULATION_PCT,
 ]
 GENDER_COLS = [
+<<<<<<< HEAD
     f"{col}_{gender}"
+=======
+    f'{col}_{gender}'
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
     for col in BASE_COLS_NO_PREP
     for gender in [
         std_col.TOTAL_ADDITIONAL_GENDER,
@@ -185,11 +244,16 @@ GENDER_COLS = [
         std_col.TOTAL_TRANS_WOMEN,
     ]
 ]
+<<<<<<< HEAD
 TOTAL_DEATHS = f"{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}"
+=======
+TOTAL_DEATHS = f'{std_col.HIV_DEATHS_PREFIX}_{std_col.RAW_SUFFIX}'
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 
 # TODO: fix this properly; maybe black_women should be its own data source rather
 # TODO: than doing everything in this file with so many conditionals
 BW_FLOAT_COLS_RENAME_MAP = {
+<<<<<<< HEAD
     "hiv_deaths": "hiv_deaths_black_women",
     "hiv_deaths_pct_relative_inequity": "hiv_deaths_black_women_pct_relative_inequity",
     "hiv_deaths_pct_share": "hiv_deaths_black_women_pct_share",
@@ -204,6 +268,21 @@ BW_FLOAT_COLS_RENAME_MAP = {
     "hiv_prevalence_pct_relative_inequity": "hiv_prevalence_black_women_pct_relative_inequity",
     "hiv_prevalence_pct_share": "hiv_prevalence_black_women_pct_share",
     "hiv_prevalence_per_100k": "hiv_prevalence_black_women_per_100k",
+=======
+    'hiv_deaths': 'hiv_deaths_black_women',
+    'hiv_deaths_pct_relative_inequity': 'hiv_deaths_black_women_pct_relative_inequity',
+    'hiv_deaths_pct_share': 'hiv_deaths_black_women_pct_share',
+    'hiv_deaths_per_100k': 'hiv_deaths_black_women_per_100k',
+    'hiv_diagnoses': 'hiv_diagnoses_black_women',
+    'hiv_diagnoses_pct_relative_inequity': 'hiv_diagnoses_black_women_pct_relative_inequity',
+    'hiv_diagnoses_pct_share': 'hiv_diagnoses_black_women_pct_share',
+    'hiv_diagnoses_per_100k': 'hiv_diagnoses_black_women_per_100k',
+    'hiv_population_pct': 'black_women_population_pct',
+    'hiv_prevalence': 'hiv_prevalence_black_women',
+    'hiv_prevalence_pct_relative_inequity': 'hiv_prevalence_black_women_pct_relative_inequity',
+    'hiv_prevalence_pct_share': 'hiv_prevalence_black_women_pct_share',
+    'hiv_prevalence_per_100k': 'hiv_prevalence_black_women_per_100k',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 }
 
 
@@ -217,7 +296,11 @@ class CDCHIVData(DataSource):
         return "cdc_hiv_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
+<<<<<<< HEAD
         raise NotImplementedError("upload_to_gcs should not be called for CDCHIVData")
+=======
+        raise NotImplementedError('upload_to_gcs should not be called for CDCHIVData')
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")
@@ -243,6 +326,7 @@ class CDCHIVData(DataSource):
         alls_df = load_atlas_df_from_data_dir(geo_level, all)
         df = self.generate_breakdown_df(demographic, geo_level, alls_df)
 
+<<<<<<< HEAD
         # MAKE TWO TABLES: ONE FOR TIME WITH MORE ROWS AND ONE FOR CURRENT WITH MORE COLS
         for table_type in (CURRENT, HISTORICAL):
             # copy so iterative changes dont interfere
@@ -251,9 +335,27 @@ class CDCHIVData(DataSource):
             table_name = f"{demographic}_{geo_level}_{table_type}"
             if demographic == std_col.BLACK_WOMEN:
                 df_for_bq.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
+=======
+        if demographic == std_col.BLACK_WOMEN:
+            df.rename(columns=BW_FLOAT_COLS_RENAME_MAP, inplace=True)
+            float_cols = BW_FLOAT_COLS_RENAME_MAP.values()
+        else:
+            float_cols = (
+                BASE_COLS
+                + COMMON_COLS
+                + PER_100K_COLS
+                + PCT_SHARE_COLS
+                + PCT_REL_INEQUITY_COLS
+            )
+            if geo_level == NATIONAL_LEVEL and demographic == std_col.SEX_COL:
+                float_cols += GENDER_COLS
+
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 
             col_types = get_bq_col_types(demographic, geo_level, table_type)
 
+<<<<<<< HEAD
             # drop unneeded rows from current
             if table_type == CURRENT:
                 df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
@@ -266,6 +368,10 @@ class CDCHIVData(DataSource):
                 df_for_bq, dataset, table_name, column_types=col_types
             )
 
+=======
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
+
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
     def generate_breakdown_df(
         self, breakdown: str, geo_level: str, alls_df: pd.DataFrame
     ):
@@ -288,6 +394,7 @@ class CDCHIVData(DataSource):
         )
 
         cols_to_standard = {
+<<<<<<< HEAD
             "Age Group": std_col.AGE_COL,
             "FIPS": fips_to_use,
             "Geography": geo_to_use,
@@ -295,6 +402,15 @@ class CDCHIVData(DataSource):
             "Race/Ethnicity": std_col.RACE_CATEGORY_ID_COL,
             "Sex": std_col.SEX_COL,
             "Year": std_col.TIME_PERIOD_COL,
+=======
+            'Age Group': std_col.AGE_COL,
+            'FIPS': fips_to_use,
+            'Geography': geo_to_use,
+            'Population': std_col.POPULATION_COL,
+            'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
+            'Sex': std_col.SEX_COL,
+            'Year': std_col.TIME_PERIOD_COL,
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
         }
 
         breakdown_group_df = load_atlas_df_from_data_dir(geo_level, breakdown)
@@ -357,11 +473,60 @@ class CDCHIVData(DataSource):
                     df, PCT_SHARE_MAP[col], pop_col, PCT_RELATIVE_INEQUITY_MAP[col]
                 )
 
+<<<<<<< HEAD
             elif breakdown != std_col.BLACK_WOMEN:
                 if col != std_col.HIV_STIGMA_INDEX:
                     df = generate_pct_rel_inequity_col(
                         df, PCT_SHARE_MAP[col], pop_col, PCT_RELATIVE_INEQUITY_MAP[col]
                     )
+=======
+                if (breakdown == std_col.BLACK_WOMEN) and (col in BASE_COLS_PER_100K):
+                    df = generate_pct_rel_inequity_col(
+                        df, PCT_SHARE_MAP[col], pop_col, PCT_RELATIVE_INEQUITY_MAP[col]
+                    )
+
+                elif breakdown != std_col.BLACK_WOMEN:
+                    if col != std_col.HIV_STIGMA_INDEX:
+                        df = generate_pct_rel_inequity_col(
+                            df,
+                            PCT_SHARE_MAP[col],
+                            pop_col,
+                            PCT_RELATIVE_INEQUITY_MAP[col],
+                        )
+
+        if breakdown == std_col.SEX_COL and geo_level == NATIONAL_LEVEL:
+            additional_cols_to_keep.extend(GENDER_COLS)
+
+        cols_to_keep = [
+            std_col.TIME_PERIOD_COL,
+            geo_to_use,
+            fips_to_use,
+        ]
+
+        if breakdown == std_col.BLACK_WOMEN:
+            cols_to_keep.extend(
+                [
+                    std_col.AGE_COL,
+                    std_col.RACE_OR_HISPANIC_COL,
+                    std_col.RACE_CATEGORY_ID_COL,
+                    std_col.SEX_COL,
+                ]
+            )
+            cols_to_keep.extend(BASE_COLS_PER_100K)
+            cols_to_keep.extend(PER_100K_COLS)
+            cols_to_keep.extend(BW_PCT_SHARE_COLS)
+            cols_to_keep.append(std_col.HIV_POPULATION_PCT)
+            cols_to_keep.extend(BW_PCT_REL_INEQUITY_COLS)
+        elif breakdown == std_col.RACE_OR_HISPANIC_COL:
+            cols_to_keep.extend([breakdown, std_col.RACE_CATEGORY_ID_COL])
+            cols_to_keep.extend(additional_cols_to_keep)
+
+        else:
+            cols_to_keep.append(breakdown)
+            cols_to_keep.extend(additional_cols_to_keep)
+
+        df = df[cols_to_keep]
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 
         return df
 
@@ -371,6 +536,7 @@ class CDCHIVData(DataSource):
         merge and keep the counts needed for age-adjustment"""
 
         use_cols = [
+<<<<<<< HEAD
             "Year",
             "Geography",
             "FIPS",
@@ -378,6 +544,15 @@ class CDCHIVData(DataSource):
             "Race/Ethnicity",
             "Cases",
             "Population",
+=======
+            'Year',
+            'Geography',
+            'FIPS',
+            'Age Group',
+            'Race/Ethnicity',
+            'Cases',
+            'Population',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
         ]
 
         # ALL RACE x ALL AGE
@@ -387,7 +562,11 @@ class CDCHIVData(DataSource):
             subdirectory="hiv_deaths",
             na_values=NA_VALUES,
             usecols=use_cols,
+<<<<<<< HEAD
             thousands=",",
+=======
+            thousands=',',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             dtype=DTYPE,
         )
 <<<<<<< HEAD
@@ -400,9 +579,7 @@ class CDCHIVData(DataSource):
 =======
 >>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
         alls_df = preserve_only_current_time_period_rows(
-            alls_df,
-            keep_time_period_col=True,
-            time_period_col='Year'
+            alls_df, keep_time_period_col=True, time_period_col='Year'
         )
 <<<<<<< HEAD
 >>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
@@ -422,7 +599,11 @@ class CDCHIVData(DataSource):
             subdirectory="hiv_deaths",
             na_values=NA_VALUES,
             usecols=use_cols,
+<<<<<<< HEAD
             thousands=",",
+=======
+            thousands=',',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             dtype=DTYPE,
         )
 <<<<<<< HEAD
@@ -435,9 +616,7 @@ class CDCHIVData(DataSource):
 =======
 >>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
         race_df = preserve_only_current_time_period_rows(
-            race_df,
-            keep_time_period_col=True,
-            time_period_col='Year'
+            race_df, keep_time_period_col=True, time_period_col='Year'
         )
 <<<<<<< HEAD
 >>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
@@ -456,7 +635,11 @@ class CDCHIVData(DataSource):
             subdirectory="hiv_deaths",
             na_values=NA_VALUES,
             usecols=use_cols,
+<<<<<<< HEAD
             thousands=",",
+=======
+            thousands=',',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             dtype=DTYPE,
         )
 <<<<<<< HEAD
@@ -469,9 +652,7 @@ class CDCHIVData(DataSource):
 =======
 >>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
         age_df = preserve_only_current_time_period_rows(
-            age_df,
-            keep_time_period_col=True,
-            time_period_col='Year'
+            age_df, keep_time_period_col=True, time_period_col='Year'
         )
 <<<<<<< HEAD
 >>>>>>> 3cde1bdf (use new fn; add test for alt col arg)
@@ -490,7 +671,11 @@ class CDCHIVData(DataSource):
             subdirectory="hiv_deaths",
             na_values=NA_VALUES,
             usecols=use_cols,
+<<<<<<< HEAD
             thousands=",",
+=======
+            thousands=',',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             dtype=DTYPE,
         )
 
@@ -509,14 +694,17 @@ class CDCHIVData(DataSource):
 >>>>>>> 33b542f8 (Revert "use new fn; add test for alt col arg")
 =======
         race_age_df = preserve_only_current_time_period_rows(
-            race_age_df,
-            keep_time_period_col=True,
-            time_period_col='Year'
+            race_age_df, keep_time_period_col=True, time_period_col='Year'
         )
 >>>>>>> e28ce830 (BACKEND: extend current year function and implement (#2368))
         # fix poorly formatted state names
+<<<<<<< HEAD
         race_age_df["Geography"] = race_age_df["Geography"].str.replace(
             "^", "", regex=False
+=======
+        race_age_df['Geography'] = race_age_df['Geography'].str.replace(
+            '^', '', regex=False
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
         )
 
         df = pd.concat([alls_df, race_df, age_df, race_age_df], ignore_index=True)
@@ -524,6 +712,7 @@ class CDCHIVData(DataSource):
         # rename columns
         df = df.rename(
             columns={
+<<<<<<< HEAD
                 "Year": std_col.TIME_PERIOD_COL,
                 "Geography": std_col.STATE_NAME_COL,
                 "FIPS": std_col.STATE_FIPS_COL,
@@ -531,6 +720,15 @@ class CDCHIVData(DataSource):
                 "Race/Ethnicity": std_col.RACE_CATEGORY_ID_COL,
                 "Cases": TOTAL_DEATHS,
                 "Population": std_col.POPULATION_COL,
+=======
+                'Year': std_col.TIME_PERIOD_COL,
+                'Geography': std_col.STATE_NAME_COL,
+                'FIPS': std_col.STATE_FIPS_COL,
+                'Age Group': std_col.AGE_COL,
+                'Race/Ethnicity': std_col.RACE_CATEGORY_ID_COL,
+                'Cases': TOTAL_DEATHS,
+                'Population': std_col.POPULATION_COL,
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             }
         )
 
@@ -552,7 +750,11 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
     geo_level with AtlasPlus columns"""
     output_df = pd.DataFrame(columns=CDC_ATLAS_COLS)
     hiv_directory = (
+<<<<<<< HEAD
         "cdc_hiv_black_women" if std_col.BLACK_WOMEN in breakdown else "cdc_hiv"
+=======
+        'cdc_hiv_black_women' if std_col.BLACK_WOMEN in breakdown else 'cdc_hiv'
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
     )
 
     for determinant in HIV_DETERMINANTS.values():
@@ -569,7 +771,11 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
         )
         no_stigma_data = (determinant == std_col.HIV_STIGMA_INDEX) and (
             (geo_level == COUNTY_LEVEL)
+<<<<<<< HEAD
             or (geo_level == STATE_LEVEL and breakdown != "all")
+=======
+            or (geo_level == STATE_LEVEL and breakdown != 'all')
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
         )
 
         if no_black_women_data or no_deaths_data or no_prep_data or no_stigma_data:
@@ -579,34 +785,54 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             if breakdown == std_col.BLACK_WOMEN:
                 filename = f"{determinant}-{geo_level}-{breakdown}-age.csv"
             else:
+<<<<<<< HEAD
                 filename = f"{determinant}-{geo_level}-{breakdown}.csv"
+=======
+                filename = f'{determinant}-{geo_level}-{breakdown}.csv'
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                 hiv_directory,
                 filename,
                 subdirectory=determinant,
                 na_values=NA_VALUES,
                 usecols=lambda x: x not in atlas_cols_to_exclude,
+<<<<<<< HEAD
                 thousands=",",
+=======
+                thousands=',',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
                 dtype=DTYPE,
             )
 
             if (
                 (determinant in BASE_COLS_NO_PREP)
+<<<<<<< HEAD
                 and (breakdown == "all")
                 and (geo_level == NATIONAL_LEVEL)
             ):
                 filename = f"{determinant}-{geo_level}-gender.csv"
+=======
+                and (breakdown == 'all')
+                and (geo_level == NATIONAL_LEVEL)
+            ):
+                filename = f'{determinant}-{geo_level}-gender.csv'
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
                 all_national_gender_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
                     hiv_directory,
                     filename,
                     subdirectory=determinant,
                     na_values=NA_VALUES,
                     usecols=lambda x: x not in atlas_cols_to_exclude,
+<<<<<<< HEAD
                     thousands=",",
+=======
+                    thousands=',',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
                     dtype=DTYPE,
                 )
 
                 national_gender_cases_pivot = all_national_gender_df.pivot_table(
+<<<<<<< HEAD
                     index="Year", columns="Sex", values="Cases", aggfunc="sum"
                 ).reset_index()
 
@@ -615,12 +841,23 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                     f"{determinant}_{std_col.TOTAL_ADDITIONAL_GENDER}",
                     f"{determinant}_{std_col.TOTAL_TRANS_MEN}",
                     f"{determinant}_{std_col.TOTAL_TRANS_WOMEN}",
+=======
+                    index='Year', columns='Sex', values='Cases', aggfunc='sum'
+                ).reset_index()
+
+                national_gender_cases_pivot.columns = [
+                    'Year',
+                    f'{determinant}_{std_col.TOTAL_ADDITIONAL_GENDER}',
+                    f'{determinant}_{std_col.TOTAL_TRANS_MEN}',
+                    f'{determinant}_{std_col.TOTAL_TRANS_WOMEN}',
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
                 ]
 
                 df = pd.merge(df, national_gender_cases_pivot, on="Year")
 
             if determinant in [std_col.HIV_CARE_PREFIX, std_col.HIV_PREP_PREFIX]:
                 cols_to_standard = {
+<<<<<<< HEAD
                     "Cases": determinant,
                     "Percent": CARE_PREP_MAP[determinant],
                     "Population": POP_MAP[determinant],
@@ -635,6 +872,22 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
                     "Cases": determinant,
                     "Rate per 100000": PER_100K_MAP[determinant],
                     "Population": POP_MAP[determinant],
+=======
+                    'Cases': determinant,
+                    'Percent': CARE_PREP_MAP[determinant],
+                    'Population': POP_MAP[determinant],
+                }
+            elif determinant == std_col.HIV_STIGMA_INDEX:
+                cols_to_standard = {
+                    'Rate per 100000': std_col.HIV_STIGMA_INDEX,
+                    'Population': POP_MAP[determinant],
+                }
+            else:
+                cols_to_standard = {
+                    'Cases': determinant,
+                    'Rate per 100000': PER_100K_MAP[determinant],
+                    'Population': POP_MAP[determinant],
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
                 }
 
             if determinant == std_col.HIV_PREP_PREFIX:
@@ -642,9 +895,15 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             elif determinant == std_col.HIV_STIGMA_INDEX:
                 df = df.replace({"13-24": "18-24"})
 
+<<<<<<< HEAD
             df["Geography"] = df["Geography"].str.replace("^", "", regex=False)
             df["Year"] = df["Year"].str.replace(
                 "2020 (COVID-19 Pandemic)", "2020", regex=False
+=======
+            df['Geography'] = df['Geography'].str.replace('^', '', regex=False)
+            df['Year'] = df['Year'].str.replace(
+                '2020 (COVID-19 Pandemic)', '2020', regex=False
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
             )
 
             df = df.rename(columns=cols_to_standard)

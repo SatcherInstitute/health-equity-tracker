@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 ﻿"Date Printed: Wednesday, September 13, 2023 3:02:12 PM"
 Title: "HIV Stigma | 2018 | 2019 | 2020 (COVID-19 Pandemic) | 2021 | United States | All races/ethnicities | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories""
@@ -14,6 +15,8 @@ NA - Not applicable.
 
 
 >>>>>>> f6234fb4 (Updates Stigma data (now all HIV metrics have "2021" as most recent year) (#2373))
+=======
+>>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
 "HIV Stigma","2021","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","Data not available","25.7","23.9","27.6","NA"
 "HIV Stigma","2021","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","Data not available","29.8","27.5","32.0","NA"
