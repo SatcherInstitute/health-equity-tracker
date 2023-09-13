@@ -9,10 +9,11 @@ directory_path="$1"
 
 process_csv() {
     local file="$1"
-    local start_row=$(grep -m 1 -n '^Indicator,' "$file" | cut -d ':' -f 1)
+    local start_row
+    start_row=$(grep -m 1 -n '^Indicator,' "$file" | cut -d ':' -f 1)
 
     if [ -n "$start_row" ]; then
-        tail -n +$start_row "$file" > "$file.tmp"
+        tail -n +"$start_row" "$file" > "$file.tmp"
         mv "$file.tmp" "$file"
         echo "Processed: $file"
     else
