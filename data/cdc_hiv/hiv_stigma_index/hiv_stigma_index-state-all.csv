@@ -1,16 +1,3 @@
-﻿"Date Printed: Wednesday, September 13, 2023 3:03:15 PM"
-Title: "HIV Stigma | 2018 | 2019 | 2020 (COVID-19 Pandemic) | 2021 | Alabama | Alaska | American Samoa | Arizona | Arkansas | California | Colorado | Connecticut | Delaware | District of Columbia | Florida | Georgia | Guam | Hawaii | Idaho | Illinois | Indiana | Iowa | Kansas | Kentucky | Louisiana | Maine | Maryland | Massachusetts | Michigan | Minnesota | Mississippi | Missouri | Montana | Nebraska | Nevada | New Hampshire | New Jersey | New Mexico | New York | North Carolina | North Dakota | Northern Mariana Islands | Ohio | Oklahoma | Oregon | Pennsylvania | Puerto Rico | Rhode Island | South Carolina | South Dakota | Tennessee | Texas | U.S. Virgin Islands | Utah | Vermont | Virginia | Washington | West Virginia | Wisconsin | Wyoming | All races/ethnicities | Both sexes | Ages 13 years and older | All transmission categories""
-Footnote(s):
-Weighted percentages for unstable housing or homelessness and median HIV stigma scores are reported in the ‘Rate per 100,000’ column with corresponding 95% confidence intervals reported in the ‘Rate LCI’ and ‘Rate UCI’ columns within the Charts and Maps tools or in parentheses within the ‘Rate per 100,000’ column within the Tables tool.
-To allow for comparison with other HIV indicators, data are presented for persons aged ≥13 years and aged 13-24 years. However, these estimates are representative of persons with diagnosed HIV aged ≥18 years and 18-24 years, respectively.
-For unstable housing or homelessness, estimates with a coefficient of variation ≥0.30 or those based on a denominator sample size less than 30 were suppressed. For HIV stigma, estimates based on a denominator sample size less than 30 were suppressed.
-See Technical Notes for more details on data availability, stratifications, and variable definitions.
-* Estimates with an absolute CI width ≥30, estimates with an absolute CI width between 5 and 30 and a relative CI width greater than 130%, and estimates of 0% or 100% should be interpreted with caution. Currently, this applies to one estimate: Unstable Housing or Homelessness, 2018, United States, persons aged 18-24 years [reported in the 13-24 year age group].
-The 'Sex' column is used for either sex at birth or gender identity.
-NA - Not applicable.
-
-
-
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
 "HIV Stigma","2021","Alabama","01","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
 "HIV Stigma","2020 (COVID-19 Pandemic)","Alabama","01","Ages 13 years and older","All races/ethnicities","Both sexes","All transmission categories","Data not available","Data not available","NA","NA","NA"
