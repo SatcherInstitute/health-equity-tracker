@@ -116,6 +116,7 @@ def test_write_to_bq_race_national(
         _dataset,
         race_time_series_table_name,
     ), _col_types = mock_bq_race_national_time_series
+
     assert race_time_series_table_name == "race_and_ethnicity_national_time_series"
     expected_race_national_time_series_df = pd.read_csv(
         GOLDEN_DATA["race_national_time_series"], dtype=EXP_DTYPE

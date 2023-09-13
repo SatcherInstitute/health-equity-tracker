@@ -661,18 +661,12 @@ def get_bq_col_types(demo, geo, table_type):
             }
         )
 
-    # SET DEMO COLS
-    if demo == std_col.RACE_COL:
+    # SET DEMO COL(S)
+    col_types[demo] = BQ_STRING
+    if demo == std_col.RACE_OR_HISPANIC_COL:
         col_types.update(
             {
                 std_col.RACE_CATEGORY_ID_COL: BQ_STRING,
-                std_col.RACE_OR_HISPANIC_COL: BQ_STRING,
-            }
-        )
-    else:
-        col_types.update(
-            {
-                demo: BQ_STRING,
             }
         )
 
