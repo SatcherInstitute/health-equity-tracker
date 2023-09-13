@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 your_path/to_parent_directory/ <- will strip heading content from all csvs nested within the provided directory"
+    exit 1
+fi
+
+directory_path="$1"
+
+process_csv() {
+    local file="$1"
+    local start_row=$(grep -m 1 -n '^Indicator,' "$file" | cut -d ':' -f 1)
+
+    if [ -n "$start_row" ]; then
+        tail -n +$start_row "$file" > "$file.tmp"
+        mv "$file.tmp" "$file"
+        echo "Processed: $file"
+    else
+        echo "Error: No row starting with 'Indicator,' found in $file"
+        echo "Skipped: $file"
+    fi
+}
+
+find "$directory_path" -type f -name "*.csv" | while read -r file; do
+    process_csv "$file"
+done
