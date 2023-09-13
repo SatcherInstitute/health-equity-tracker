@@ -1,13 +1,27 @@
-﻿"Date Printed: Friday, May 19, 2023 3:27:31 PM"
-Title: "HIV Stigma | 2018 | 2019 | United States | All races/ethnicities | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories"
-Footnote(s): 
+﻿"Date Printed: Wednesday, September 13, 2023 3:02:12 PM"
+Title: "HIV Stigma | 2018 | 2019 | 2020 (COVID-19 Pandemic) | 2021 | United States | All races/ethnicities | Both sexes | 13-24 | 25-34 | 35-44 | 45-54 | 55+ | All transmission categories""
+Footnote(s):
 Weighted percentages for unstable housing or homelessness and median HIV stigma scores are reported in the ‘Rate per 100,000’ column with corresponding 95% confidence intervals reported in the ‘Rate LCI’ and ‘Rate UCI’ columns within the Charts and Maps tools or in parentheses within the ‘Rate per 100,000’ column within the Tables tool.
-To allow for comparison with other HIV indicators, data are presented for persons aged &ge;13 years and aged 13-24 years. However, these estimates are representative of persons with diagnosed HIV aged &ge;18 years and 18-24 years, respectively. 
-For unstable housing or homelessness, estimates with a coefficient of variation &ge;0.30 or those based on a denominator sample size less than 30 were suppressed. For HIV stigma, estimates based on a denominator sample size less than 30 were suppressed.
+To allow for comparison with other HIV indicators, data are presented for persons aged ≥13 years and aged 13-24 years. However, these estimates are representative of persons with diagnosed HIV aged ≥18 years and 18-24 years, respectively.
+For unstable housing or homelessness, estimates with a coefficient of variation ≥0.30 or those based on a denominator sample size less than 30 were suppressed. For HIV stigma, estimates based on a denominator sample size less than 30 were suppressed.
+See Technical Notes for more details on data availability, stratifications, and variable definitions.
+* Estimates with an absolute CI width ≥30, estimates with an absolute CI width between 5 and 30 and a relative CI width greater than 130%, and estimates of 0% or 100% should be interpreted with caution. Currently, this applies to one estimate: Unstable Housing or Homelessness, 2018, United States, persons aged 18-24 years [reported in the 13-24 year age group].
+The 'Sex' column is used for either sex at birth or gender identity.
+NA - Not applicable.
 
 
 
 Indicator,Year,Geography,FIPS,Age Group,Race/Ethnicity,Sex,Transmission Category,Cases,Rate per 100000,Rate LCI,Rate UCI,Population
+"HIV Stigma","2021","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","Data not available","25.7","23.9","27.6","NA"
+"HIV Stigma","2021","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","Data not available","29.8","27.5","32.0","NA"
+"HIV Stigma","2021","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","Data not available","32.9","30.6","35.3","NA"
+"HIV Stigma","2021","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","Data not available","30.9","27.6","34.3","NA"
+"HIV Stigma","2021","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","Data not available","42.1","33.4","50.9","NA"
+"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","Data not available","25.3","23.8","26.8","NA"
+"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","Data not available","28.8","27.3","30.3","NA"
+"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","Data not available","30.4","27.8","33.1","NA"
+"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","25-34","All races/ethnicities","Both sexes","All transmission categories","Data not available","31.7","29.4","34.0","NA"
+"HIV Stigma","2020 (COVID-19 Pandemic)","United States","NA","13-24","All races/ethnicities","Both sexes","All transmission categories","Data not available","44.3","34.3","54.3","NA"
 "HIV Stigma","2019","United States","NA","55+","All races/ethnicities","Both sexes","All transmission categories","Data not available","28.7","27.4","29.9","NA"
 "HIV Stigma","2019","United States","NA","45-54","All races/ethnicities","Both sexes","All transmission categories","Data not available","29.4","28.1","30.7","NA"
 "HIV Stigma","2019","United States","NA","35-44","All races/ethnicities","Both sexes","All transmission categories","Data not available","32.5","29.4","35.6","NA"
