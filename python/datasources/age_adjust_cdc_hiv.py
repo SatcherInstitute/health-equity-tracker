@@ -4,17 +4,12 @@ import pandas as pd  # type: ignore
 
 from datasources.data_source import DataSource
 from datasources.cdc_hiv import (
-    BASE_COLS,
-    COMMON_COLS,
-    PER_100K_COLS,
-    PCT_SHARE_COLS,
-    PCT_REL_INEQUITY_COLS,
     TOTAL_DEATHS,
 )
 from ingestion import gcs_to_bq_util
 from ingestion.dataset_utils import ratio_round_to_None
 
-from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL, BQ_STRING, BQ_FLOAT
 
 REFERENCE_POPULATION = Race.ALL.value
 BASE_POPULATION = Race.WHITE_NH.value
@@ -61,16 +56,32 @@ class AgeAdjustCDCHiv(DataSource):
 
             df = merge_age_adjusted(only_race_df, age_adjusted_df)
 
-            float_cols = [
-                *BASE_COLS,
-                *COMMON_COLS,
-                *PER_100K_COLS,
-                *PCT_SHARE_COLS,
-                *PCT_REL_INEQUITY_COLS,
-                std_col.HIV_DEATH_RATIO_AGE_ADJUSTED,
-            ]
-            std_col.add_race_columns_from_category_id(df)
-            col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
+            col_types = {
+                "state_name": BQ_STRING,
+                "state_fips": BQ_STRING,
+                "race_and_ethnicity": BQ_STRING,
+                "race_category_id": BQ_STRING,
+                "hiv_stigma_index": BQ_FLOAT,
+                "hiv_deaths_per_100k": BQ_FLOAT,
+                "hiv_diagnoses_per_100k": BQ_FLOAT,
+                "hiv_prevalence_per_100k": BQ_FLOAT,
+                "hiv_care_linkage": BQ_FLOAT,
+                "hiv_prep_coverage": BQ_FLOAT,
+                "hiv_care_pct_share": BQ_FLOAT,
+                "hiv_deaths_pct_share": BQ_FLOAT,
+                "hiv_diagnoses_pct_share": BQ_FLOAT,
+                "hiv_prep_pct_share": BQ_FLOAT,
+                "hiv_prevalence_pct_share": BQ_FLOAT,
+                "hiv_prep_population_pct": BQ_FLOAT,
+                "hiv_population_pct": BQ_FLOAT,
+                "hiv_care_population_pct": BQ_FLOAT,
+                "hiv_care": BQ_FLOAT,
+                "hiv_deaths": BQ_FLOAT,
+                "hiv_diagnoses": BQ_FLOAT,
+                "hiv_prep": BQ_FLOAT,
+                "hiv_prevalence": BQ_FLOAT,
+                "hiv_deaths_ratio_age_adjusted": BQ_FLOAT,
+            }
 
             gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
