@@ -1,17 +1,17 @@
 time_period,state_name,state_fips,race_and_ethnicity,race_category_id,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_pct_relative_inequity,hiv_deaths_pct_relative_inequity,hiv_diagnoses_pct_relative_inequity,hiv_prep_pct_relative_inequity,hiv_prevalence_pct_relative_inequity
-2021,United States,00,Two or more races (NH),MULTI_NH,,28.2,19.9,1063.9,81.8,,0.0,294.7,52.6,,173.7
-2021,United States,00,White (NH),WHITE_NH,,3.5,5.3,178.6,82.1,78.0,0.4,-49.8,-58.5,159.5,-53.3
+2021,United States,00,Two or more races (NH),MULTI_NH,33.6,28.2,19.9,1063.9,81.8,,0.0,294.7,52.6,,173.7
+2021,United States,00,White (NH),WHITE_NH,27.1,3.5,5.3,178.6,82.1,78.0,0.4,-49.8,-58.5,159.5,-53.3
 2021,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.7,14.8,185.9,79.7,,0.0,-50.0,0.0,,-50.0
-2021,United States,00,Hispanic or Latino,HISP,,7.1,20.4,517.6,84.5,20.4,3.2,1.1,60.2,-31.9,35.2
-2021,United States,00,Black or African American (NH),BLACK_NH,,24.2,41.8,1245.1,79.8,11.0,-2.7,245.2,228.2,-63.4,225.8
-2021,United States,00,Asian (NH),ASIAN_NH,,0.7,4.4,98.9,87.0,,4.8,-90.0,-65.0,,-73.3
+2021,United States,00,Hispanic or Latino,HISP,31.5,7.1,20.4,517.6,84.5,20.4,3.2,1.1,60.2,-31.9,35.2
+2021,United States,00,Black or African American (NH),BLACK_NH,27.8,24.2,41.8,1245.1,79.8,11.0,-2.7,245.2,228.2,-63.4,225.8
+2021,United States,00,Asian (NH),ASIAN_NH,33.1,0.7,4.4,98.9,87.0,,4.8,-90.0,-65.0,,-73.3
 2021,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,3.9,10.9,160.3,82.7,,0.0,-42.9,-14.3,,-57.1
-2020,United States,00,Two or more races (NH),MULTI_NH,,26.1,19.8,1107.4,83.7,,0.0,283.3,83.3,,194.4
-2020,United States,00,White (NH),WHITE_NH,,3.3,4.5,176.3,83.6,64.3,1.6,-51.0,-58.6,160.3,-53.2
+2020,United States,00,Two or more races (NH),MULTI_NH,29.4,26.1,19.8,1107.4,83.7,,0.0,283.3,83.3,,194.4
+2020,United States,00,White (NH),WHITE_NH,25.6,3.3,4.5,176.3,83.6,64.3,1.6,-51.0,-58.6,160.3,-53.2
 2020,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,,2.2,12.5,175.8,85.7,,0.0,-50.0,0.0,,-50.0
-2020,United States,00,Hispanic or Latino,HISP,,7.1,16.6,511.1,85.1,16.4,3.0,4.6,53.2,-33.5,35.8
-2020,United States,00,Black or African American (NH),BLACK_NH,,24.2,36.7,1233.6,79.7,9.2,-3.3,252.4,237.1,-62.6,225.8
-2020,United States,00,Asian (NH),ASIAN_NH,,0.6,3.7,95.6,87.9,,4.5,-91.7,-66.7,,-75.0
+2020,United States,00,Hispanic or Latino,HISP,29.9,7.1,16.6,511.1,85.1,16.4,3.0,4.6,53.2,-33.5,35.8
+2020,United States,00,Black or African American (NH),BLACK_NH,28.7,24.2,36.7,1233.6,79.7,9.2,-3.3,252.4,237.1,-62.6,225.8
+2020,United States,00,Asian (NH),ASIAN_NH,32.9,0.6,3.7,95.6,87.9,,4.5,-91.7,-66.7,,-75.0
 2020,United States,00,American Indian and Alaska Native (NH),AIAN_NH,,4.1,9.3,154.4,80.0,,0.0,-42.9,-14.3,,-57.1
 2019,United States,00,Two or more races (NH),MULTI_NH,35.3,22.4,27.0,1158.9,81.3,,0.0,272.2,100.0,,200.0
 2019,United States,00,White (NH),WHITE_NH,29.0,3.1,5.2,175.4,82.6,59.9,1.6,-48.1,-60.2,165.2,-53.3
@@ -102,8 +102,8 @@ time_period,state_name,state_fips,race_and_ethnicity,race_category_id,hiv_stigma
 2019,United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,9.3,,,,-59.3,
 2018,United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,7.6,,,,-58.3,
 2017,United States,00,Unrepresented race (NH),OTHER_NONSTANDARD_NH,,,,,,5.3,,,,-58.3,
-2021,United States,00,All,ALL,,7.0,12.7,382.2,81.9,30.1,0.0,0.0,0.0,0.0,0.0
-2020,United States,00,All,ALL,,6.8,10.9,377.1,82.4,24.7,0.0,0.0,0.0,0.0,0.0
+2021,United States,00,All,ALL,28.8,7.0,12.7,382.2,81.9,30.1,0.0,0.0,0.0,0.0,0.0
+2020,United States,00,All,ALL,28.4,6.8,10.9,377.1,82.4,24.7,0.0,0.0,0.0,0.0,0.0
 2019,United States,00,All,ALL,30.7,5.9,13.2,376.5,81.3,22.6,0.0,0.0,0.0,0.0,0.0
 2018,United States,00,All,ALL,31.2,5.9,13.6,370.8,80.2,18.1,0.0,0.0,0.0,0.0,0.0
 2017,United States,00,All,ALL,,6.0,14.1,364.8,77.8,12.7,0.0,0.0,0.0,0.0,0.0
