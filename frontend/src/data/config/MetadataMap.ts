@@ -372,7 +372,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
     description:
-      'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
+      'Data Source: Medicare FFS and Part D files (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS or Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',
