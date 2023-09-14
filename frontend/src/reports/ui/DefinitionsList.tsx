@@ -43,12 +43,20 @@ export default function DefinitionsList(
                 // for all matching conditions
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
-                  return dataType[1].map((dataType: DataTypeConfig) => {
+                  return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
                     return (
-                      <li key={dataType?.fullDisplayName}>
-                        <b>{dataType?.fullDisplayName ?? 'Data Type'}</b>
+                      <li key={dataTypeConfig?.fullDisplayName}>
+                        <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
                         {': '}
-                        {dataType.dataTypeDefinition}
+                        {dataTypeConfig.dataTypeDefinition}
+                        {dataTypeConfig?.dataTypeDescription && (
+                          <>
+                            <p>
+                              <b>Clinical Importance:</b>{' '}
+                              {dataTypeConfig.dataTypeDefinition}
+                            </p>
+                          </>
+                        )}
                       </li>
                     )
                   })
