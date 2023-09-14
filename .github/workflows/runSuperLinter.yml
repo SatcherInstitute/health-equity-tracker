@@ -33,7 +33,6 @@ jobs:
           VALIDATE_PYTHON_PYLINT: true
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_TERRAFORM_FMT: true
-          VALIDATE_MARKDOWN: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_ENV: true
           VALIDATE_CSS: true

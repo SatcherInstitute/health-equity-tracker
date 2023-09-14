@@ -171,8 +171,9 @@ The backend consists of
 5. Run `git push origin HEAD:infra-test -f` which will force push an exact copy of your local feature branch to the HET origin (not your fork) `infra-test` branch.
 6. This will trigger a build and deployment of backend images to the HET Infra TEST GCP project using the new backend code (and will also build and deploy the frontend the dev site using the frontend code from the `main` branch)
 7. Once the `deployBackendToInfraTest` GitHub action completes successfully (ignoring the `(infra-test) Terraform / Airflow Configs Process completed with exit code 1.` that unintentionally appears in the Annotations section), navigate to the test GCP project
+   > Note: if you run this command again too quickly before the first run has completed, you might encounter `Error acquiring the state lock` and the run will fail. If you are SURE that this occurred because of your 2nd run being too soon after the 1st (and not because another team member is using `infra-test`) then you can manually go into the Google Cloud Storage bucket that holds the terraform state, find the file named `default.tflock` and delete it or less destructively rename by adding today's date to the file name.
 8. Navigate to Composer > Airflow and trigger the DAG that corresponds to your updated backend code
-9. Once DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
+9.  Once DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
 10. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 11. When ready to merge, use the "Squash and merge" option
 12. **Ensure all affected pipelines are run after both merging to `main` and after cutting a release to production**.
