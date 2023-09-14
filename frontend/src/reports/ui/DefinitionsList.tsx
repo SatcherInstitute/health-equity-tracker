@@ -47,17 +47,18 @@ export default function DefinitionsList(
                     return (
                       <li key={dataTypeConfig?.fullDisplayName}>
                         <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
-                        {': '}
-                        <b>Measurement Definition:</b>{' '}
-                        {dataTypeConfig.dataTypeDefinition}
-                        {dataTypeConfig?.dataTypeDescription && (
-                          <>
-                            <p>
+                        <ul>
+                          <li>
+                            <b>Measurement Definition:</b>{' '}
+                            {dataTypeConfig.dataTypeDefinition}
+                          </li>
+                          {dataTypeConfig?.dataTypeDescription && (
+                            <li>
                               <b>Clinical Importance:</b>{' '}
                               {dataTypeConfig.dataTypeDescription}
-                            </p>
-                          </>
-                        )}
+                            </li>
+                          )}
+                        </ul>
                       </li>
                     )
                   })

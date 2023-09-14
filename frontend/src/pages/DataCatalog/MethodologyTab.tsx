@@ -1033,12 +1033,13 @@ function MethodologyTab() {
 
                     <h4>Medicare Demographic Identifiers</h4>
                     <p>
-                      <b>Race/ethnicity:</b> Medicare estimates the race and
-                      ethnicity of each beneficiary using data that has been
-                      used by the Social Security Administration and applying an
-                      algorithm that identifies more beneficiaries of Hispanic
-                      and Asian descent. Due to sample size constraints, we
-                      categorized racial/ethnic groups into six categories:
+                      <b>Race/ethnicity:</b> Medicare enhances the race and
+                      ethnicity determination of each beneficiary using data
+                      that has been used by the Social Security Administration
+                      and applying an algorithm that identifies more
+                      beneficiaries of Hispanic and Asian descent. Due to sample
+                      size constraints, we categorized racial/ethnic groups into
+                      six known categories:
                     </p>
                     <ul>
                       <li>
@@ -1063,10 +1064,10 @@ function MethodologyTab() {
                     </p>
 
                     <p>
-                      <b>Age:</b> Medicare estimates the age of each beneficiary
+                      <b>Age:</b> Medicare provides the age of each beneficiary
                       at the end of the reference year (i.e., 2020), or, for
                       beneficiaries that died during the year, age as of the
-                      date of death. We categorized age into six categories:
+                      date of death. We categorized age into six groups:
                     </p>
                     <ul>
                       <li>18-39 years old</li>
@@ -1093,7 +1094,7 @@ function MethodologyTab() {
                     </p>
 
                     <p>
-                      <b>Eligibility Qualification:</b> Medicare collects the
+                      <b>Entitlement Qualification:</b> Medicare collects the
                       reason for enrollment in Medicare. We categorized each
                       beneficiary’s reason for Medicare enrollment as:
                     </p>
