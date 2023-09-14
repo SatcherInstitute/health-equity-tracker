@@ -239,7 +239,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'doac_adherence',
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
-    fullDisplayName: 'Direct Oral Anticoagulants',
+    fullDisplayName: 'Adherence to direct oral anticoagulants',
     surveyCollectedData: true,
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% during the measurement period for direct-acting oral anticoagulants.`,
     dataTypeDescription: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke (CITE).`,
