@@ -34,10 +34,13 @@ jobs:
           VALIDATE_PYTHON_FLAKE8: true
           VALIDATE_TERRAFORM_FMT: true
 <<<<<<< HEAD
+<<<<<<< HEAD
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_ENV: true
 =======
           VALIDATE_MARKDOWN: true
+=======
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_ENV: true
           VALIDATE_CSS: true

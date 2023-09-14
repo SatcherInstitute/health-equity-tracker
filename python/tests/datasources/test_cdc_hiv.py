@@ -6,12 +6,16 @@ import os
 from test_utils import _load_public_dataset_from_bigquery_as_df
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
 HIV_DIR = "cdc_hiv"
 BLACK_HIV_DIR = "cdc_hiv_black_women"
 COLS_TO_EXCLUDE = ("Indictor", "Transmission Category", "Rate LCI", "Rate UCI")
 RACE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ("Age Group", "Sex")
 AGE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ("Race/Ethnicity", "Sex")
 SEX_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ("Age Group", "Race/Ethnicity")
+<<<<<<< HEAD
 =======
 HIV_DIR = 'cdc_hiv'
 BLACK_HIV_DIR = 'cdc_hiv_black_women'
@@ -20,6 +24,8 @@ RACE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ('Age Group', 'Sex')
 AGE_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ('Race/Ethnicity', 'Sex')
 SEX_COLS_TO_EXCLUDE = COLS_TO_EXCLUDE + ('Age Group', 'Race/Ethnicity')
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
@@ -28,11 +34,15 @@ BLACK_GOLDEN_DIR = os.path.join(TEST_DIR, BLACK_HIV_DIR, "golden_data")
 
 GOLDEN_DATA = {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     "age_national_current": os.path.join(GOLDEN_DIR, "age_national_current.csv"),
     "age_national_historical": os.path.join(GOLDEN_DIR, "age_national_historical.csv"),
     "race_age_national": os.path.join(GOLDEN_DIR, "by_race_age_national.csv"),
     "race_national_current": os.path.join(
         GOLDEN_DIR, "race_and_ethnicity_national_current.csv"
+<<<<<<< HEAD
     ),
     "race_national_historical": os.path.join(
         GOLDEN_DIR, "race_and_ethnicity_national_historical.csv"
@@ -57,6 +67,21 @@ GOLDEN_DATA = {
     'black_women_national': os.path.join(
         BLACK_GOLDEN_DIR, 'black_women_national_time_series.csv'
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+    ),
+    "race_national_historical": os.path.join(
+        GOLDEN_DIR, "race_and_ethnicity_national_historical.csv"
+    ),
+    "sex_state_current": os.path.join(GOLDEN_DIR, "sex_state_current.csv"),
+    "sex_state_historical": os.path.join(GOLDEN_DIR, "sex_state_historical.csv"),
+    "sex_county_current": os.path.join(GOLDEN_DIR, "sex_county_current.csv"),
+    "sex_county_historical": os.path.join(GOLDEN_DIR, "sex_county_historical.csv"),
+    "black_women_national_current": os.path.join(
+        BLACK_GOLDEN_DIR, "black_women_national_current.csv"
+    ),
+    "black_women_national_historical": os.path.join(
+        BLACK_GOLDEN_DIR, "black_women_national_historical.csv"
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     ),
 }
 
@@ -69,24 +94,33 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
     print("MOCKING FILE READ:", directory, subdirectory, filename)
 <<<<<<< HEAD
+<<<<<<< HEAD
     usecols = kwargs["usecols"]
 =======
     usecols = kwargs['usecols']
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+    usecols = kwargs["usecols"]
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     df = pd.read_csv(
         os.path.join(TEST_DIR, directory, subdirectory, filename),
         dtype=DTYPE,
         na_values=NA_VALUES,
         usecols=usecols,
 <<<<<<< HEAD
+<<<<<<< HEAD
         thousands=",",
 =======
         thousands=',',
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        thousands=",",
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
     return df
 
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
@@ -96,6 +130,11 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_race_national(
@@ -105,10 +144,14 @@ def test_write_to_bq_race_national(
     datasource = CDCHIVData()
     datasource.write_to_bq(
 <<<<<<< HEAD
+<<<<<<< HEAD
         "dataset", "gcs_bucket", demographic="race", geographic="national"
 =======
         'dataset', 'gcs_bucket', demographic="race", geographic="national"
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        "dataset", "gcs_bucket", demographic="race", geographic="national"
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
 
     assert mock_bq.call_count == 3
@@ -127,16 +170,23 @@ def test_write_to_bq_race_national(
     assert race_age_table_name == "by_race_age_national"
     expected_race_age_national_df = pd.read_csv(
 <<<<<<< HEAD
+<<<<<<< HEAD
         GOLDEN_DATA["race_age_national"], dtype=EXP_DTYPE
 =======
         GOLDEN_DATA['race_age_national'], dtype=EXP_DTYPE
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        GOLDEN_DATA["race_age_national"], dtype=EXP_DTYPE
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
     assert_frame_equal(
         race_age_national_df, expected_race_age_national_df, check_like=True
     )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     # BY RACE NATIONAL CURRENT
     (
         race_national_current_df,
@@ -168,6 +218,7 @@ def test_write_to_bq_race_national(
         race_national_historical_df,
         expected_race_national_historical_df,
         check_like=True,
+<<<<<<< HEAD
     )
 
 
@@ -180,14 +231,19 @@ def test_write_to_bq_race_national(
     assert race_table_name == "race_and_ethnicity_national_time_series"
     expected_race_national_df = pd.read_csv(
         GOLDEN_DATA['race_national'], dtype=EXP_DTYPE
+=======
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
-    assert_frame_equal(race_national_df, expected_race_national_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
+<<<<<<< HEAD
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_age_national(
@@ -197,10 +253,14 @@ def test_write_to_bq_age_national(
     datasource = CDCHIVData()
     datasource.write_to_bq(
 <<<<<<< HEAD
+<<<<<<< HEAD
         "dataset", "gcs_bucket", demographic="age", geographic="national"
 =======
         'dataset', 'gcs_bucket', demographic="age", geographic="national"
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        "dataset", "gcs_bucket", demographic="age", geographic="national"
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
 
     assert mock_bq.call_count == 2
@@ -241,6 +301,7 @@ def test_write_to_bq_age_national(
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
@@ -249,6 +310,11 @@ def test_write_to_bq_age_national(
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_sex_state(
@@ -258,10 +324,14 @@ def test_write_to_bq_sex_state(
     datasource = CDCHIVData()
     datasource.write_to_bq(
 <<<<<<< HEAD
+<<<<<<< HEAD
         "dataset", "gcs_bucket", demographic="sex", geographic="state"
 =======
         'dataset', 'gcs_bucket', demographic="sex", geographic="state"
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        "dataset", "gcs_bucket", demographic="sex", geographic="state"
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
 
     assert mock_bq.call_count == 2
@@ -295,6 +365,7 @@ def test_write_to_bq_sex_state(
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
 <<<<<<< HEAD
+<<<<<<< HEAD
     "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
@@ -307,6 +378,13 @@ def test_write_to_bq_sex_state(
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+    "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_sex_county(
@@ -317,10 +395,14 @@ def test_write_to_bq_sex_county(
     datasource = CDCHIVData()
     datasource.write_to_bq(
 <<<<<<< HEAD
+<<<<<<< HEAD
         "dataset", "gcs_bucket", demographic="sex", geographic="county"
 =======
         'dataset', 'gcs_bucket', demographic="sex", geographic="county"
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        "dataset", "gcs_bucket", demographic="sex", geographic="county"
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
 
     assert mock_bq.call_count == 2
@@ -354,6 +436,7 @@ def test_write_to_bq_sex_county(
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
@@ -362,6 +445,11 @@ def test_write_to_bq_sex_county(
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_black_women_national(
@@ -371,10 +459,14 @@ def test_write_to_bq_black_women_national(
     datasource = CDCHIVData()
     datasource.write_to_bq(
 <<<<<<< HEAD
+<<<<<<< HEAD
         "dataset", "gcs_bucket", demographic="black_women", geographic="national"
 =======
         'dataset', 'gcs_bucket', demographic="black_women", geographic="national"
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        "dataset", "gcs_bucket", demographic="black_women", geographic="national"
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
 
     assert mock_bq.call_count == 2
@@ -384,6 +476,7 @@ def test_write_to_bq_black_women_national(
     ) = mock_bq.call_args_list
 
     (
+<<<<<<< HEAD
 <<<<<<< HEAD
         black_women_national_current_df,
         _dataset,
@@ -414,14 +507,38 @@ def test_write_to_bq_black_women_national(
         check_like=True,
 =======
         black_women_national_df,
+=======
+        black_women_national_current_df,
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
         _dataset,
         table_name,
-    ), _col_types = mock_bq.call_args_list[0]
-    assert table_name == "black_women_national_time_series"
-    expected_black_women_national_df = pd.read_csv(
-        GOLDEN_DATA['black_women_national'], dtype=EXP_DTYPE
+    ), _col_types = mock_bq_black_women_national_current
+    assert table_name == "black_women_national_current"
+    expected_black_women_national_current_df = pd.read_csv(
+        GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE
     )
     assert_frame_equal(
+<<<<<<< HEAD
         black_women_national_df, expected_black_women_national_df, check_like=True
 >>>>>>> 078b3988 (Backend: Adds script; removes heading info from hiv csvs (#2374))
+=======
+        black_women_national_current_df,
+        expected_black_women_national_current_df,
+        check_like=True,
+    )
+
+    (
+        black_women_national_historical_df,
+        _dataset,
+        table_name,
+    ), _col_types = mock_bq_black_women_national_historical
+    assert table_name == "black_women_national_historical"
+    expected_black_women_national_historical_df = pd.read_csv(
+        GOLDEN_DATA["black_women_national_historical"], dtype=EXP_DTYPE
+    )
+    assert_frame_equal(
+        black_women_national_historical_df,
+        expected_black_women_national_historical_df,
+        check_like=True,
+>>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
     )
