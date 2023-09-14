@@ -170,33 +170,37 @@ export function MissingPrepData() {
 export function MissingPhrmaData() {
   return (
     <>
-      <h4>Medicare Adminstration Data</h4>
+      <h4>Medicare Administration Data</h4>
 
-      <p>
-        When examining Medicare claims data, it is important to consider the
-        potential equity issues faced by marginalized groups. Low-income
-        individuals, racial and ethnic minorities, immigrants, and those with
-        limited English proficiency may be underrepresented in the data due to
-        disparities in healthcare access and utilization. Factors such as
-        socioeconomic status, education, employment, housing, and community
-        resources, which significantly influence health outcomes, are often not
-        consistently captured in claims data. This incomplete representation can
-        hinder a comprehensive understanding of health disparities, particularly
-        from a pharmaceutical perspective, where medication-related issues faced
-        by marginalized groups may not be fully accounted for. Factors such as
-        access to affordable prescriptions and the impact of implicit biases on
-        prescribing patterns might be insufficiently captured in claims data.
-      </p>
-
-      <p>Specifically, please note the following limitations:</p>
+      <p>What demographic data are missing?</p>
 
       <ul>
         <li>
-          To protect patient privacy, any case counts below 10 must be
-          suppressed. We are still able to calculate and publish the rates in
-          most cases, however the suppression of the case counts prevents us
-          from calculating our <b>percent share</b> metrics in some situations,
-          particularly for the lowest-population groups at the county level.
+          <b>Gender:</b> The Medicare source files did not include information
+          on gender. Gender is not presented in this data.
+        </li>
+        <li>
+          <b>Sexual Orientation:</b> The Medicare source files did not include
+          information on sexual orientation. Sexual orientation is not presented
+          in this data.
+        </li>
+        <li>
+          <b>Disability:</b> Although important, we do not present data on
+          disparities associated with physical or mental disabilities.
+        </li>
+        <li>
+          <b>Social and Political Determinants of Health:</b> Unfortunately,
+          there are crucial data missing in the Medicare FFS (Fee-For-Service)
+          data, such as the impacts of racism and discrimination on health
+          outcomes and adherence to medicines.
+        </li>
+      </ul>
+
+      <p>Who is missing?</p>
+      <ul>
+        <li>
+          <b>Data Suppression:</b> To protect patient privacy, all data
+          representing less than 12 people were suppressed.
         </li>
       </ul>
     </>

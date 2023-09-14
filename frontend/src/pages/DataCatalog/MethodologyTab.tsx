@@ -1031,6 +1031,82 @@ function MethodologyTab() {
                       </li>
                     </ul>
 
+                    <h4>Medicare Demographic Identifiers</h4>
+                    <p>
+                      <b>Race/ethnicity:</b> Medicare estimates the race and
+                      ethnicity of each beneficiary using data that has been
+                      used by the Social Security Administration and applying an
+                      algorithm that identifies more beneficiaries of Hispanic
+                      and Asian descent. Due to sample size constraints, we
+                      categorized racial/ethnic groups into six categories:
+                    </p>
+                    <ul>
+                      <li>
+                        Asian, Native Hawaiian, and Pacific Islander
+                        (Non-Hispanic)
+                      </li>
+                      <li>American Indian and Alaska Native (Non-Hispanic)</li>
+                      <li>White (Non-Hispanic)</li>
+                      <li>Black or African American (Non-Hispanic)</li>
+                      <li>Hispanic or Latino</li>
+                      <li>
+                        Two or more races & Unrepresented races (Non-Hispanic)
+                      </li>
+                    </ul>
+
+                    <p>
+                      <b>Sex:</b> Medicare collects the sex of each beneficiary
+                      as Unknown, Male, or female. Due to sample size
+                      constraints, we do not present analyzes for individuals of
+                      “unknown” sex. These individuals are not excluded from the
+                      sample.
+                    </p>
+
+                    <p>
+                      <b>Age:</b> Medicare estimates the age of each beneficiary
+                      at the end of the reference year (i.e., 2020), or, for
+                      beneficiaries that died during the year, age as of the
+                      date of death. We categorized age into six categories:
+                    </p>
+                    <ul>
+                      <li>18-39 years old</li>
+                      <li>40-64 years old</li>
+                      <li>65-69 years old</li>
+                      <li>70-74 years old</li>
+                      <li>75-79 years old</li>
+                      <li>80-84 years old</li>
+                      <li>85+ years old</li>
+                    </ul>
+
+                    <p>
+                      <b>Low-Income Subsidy Eligibility:</b> The Low-Income
+                      Subsidy (LIS) program for Medicare Part D beneficiaries,
+                      provides subsidies to reduce or eliminate premiums and
+                      deductibles and offers zero to reduced co-payments for
+                      low-income Medicare Part D beneficiaries. We categorized
+                      Medicare beneficiaries, who were eligible for the Part D
+                      LIS program, for 1 or more months during 2020 as
+                      “receiving Low Income Subsidy.” Medicare beneficiaries,
+                      who were not eligible for the Part D LIS program at any
+                      time during 2020 were classified as “not receiving Low
+                      Income Subsidy.”
+                    </p>
+
+                    <p>
+                      <b>Eligibility Qualification:</b> Medicare collects the
+                      reason for enrollment in Medicare. We categorized each
+                      beneficiary’s reason for Medicare enrollment as:
+                    </p>
+                    <ul>
+                      <li>Eligible due to age</li>
+                      <li>Eligible due to disability</li>
+                      <li>Eligible due to end-stage renal disease (ESRD)</li>
+                      <li>
+                        Eligible due to disability and end-stage renal disease
+                        (ESRD)
+                      </li>
+                    </ul>
+
                     <Card elevation={3} className={styles.MissingDataBox}>
                       <MissingPhrmaData />
                     </Card>
