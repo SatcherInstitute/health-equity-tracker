@@ -361,7 +361,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    hideFromUser: true,
+    hideFromUser: true, // TODO: remove this once PHRMA merged
     id: 'phrma',
     data_source_name: 'Medicare Administrative Data',
     data_source_pretty_site_name: 'cms.gov',
