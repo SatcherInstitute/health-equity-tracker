@@ -48,12 +48,13 @@ export default function DefinitionsList(
                       <li key={dataTypeConfig?.fullDisplayName}>
                         <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
                         {': '}
+                        <b>Measurement Definition:</b>{' '}
                         {dataTypeConfig.dataTypeDefinition}
                         {dataTypeConfig?.dataTypeDescription && (
                           <>
                             <p>
                               <b>Clinical Importance:</b>{' '}
-                              {dataTypeConfig.dataTypeDefinition}
+                              {dataTypeConfig.dataTypeDescription}
                             </p>
                           </>
                         )}
