@@ -27,6 +27,7 @@ import {
   MissingAHRData,
   MissingPhrmaData,
 } from './methodologyContent/missingDataBlurbs'
+import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
@@ -787,246 +788,330 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
-                  Medicare Beneficiaries - Disease Rates and Medication
-                  Adherence
-                </h3>
+                {SHOW_PHRMA && (
+                  <>
+                    <h3 className={styles.MethodologySubsubheaderText}>
+                      Medicare Beneficiaries - Disease Rates and Medication
+                      Adherence
+                    </h3>
 
-                <p>
-                  Data presented is from 2020 and is sourced directly from the
-                  Medicare Administrative Data and encoded based on the fields
-                  below. For these reports, the study population consists of
-                  Medicare fee-for-service beneficiaries ages 18+, continuously
-                  enrolled, and treated with a medication of interest during the
-                  measurement period. For more information refer directly to the{' '}
-                  <a href="https://www2.ccwdata.org/documents/10280/19022436/codebook-mbsf-abcd.pdf">
-                    data dictionary
-                  </a>
-                  .
-                </p>
+                    <p>
+                      Data presented is from 2020 and is sourced directly from
+                      the Medicare Administrative Data and encoded based on the
+                      fields below. For these reports, the study population
+                      consists of Medicare fee-for-service beneficiaries ages
+                      18+, continuously enrolled, and treated with a medication
+                      of interest during the measurement period. For more
+                      information refer directly to the{' '}
+                      <a href="https://www2.ccwdata.org/documents/10280/19022436/codebook-mbsf-abcd.pdf">
+                        data dictionary
+                      </a>
+                      .
+                    </p>
 
-                <table className={styles.ExampleTable}>
-                  <thead>
-                    <tr>
-                      <th>Field from data dictionary</th>
-                      <th>Description</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <b>RTI_RACE_CD</b>
-                      </td>
-                      <td>
-                        Beneficiary race code (modified using RTI algorithm).
-                        The race of the beneficiary and enhanced based on first
-                        and last name algorithms.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>SEX_IDENT_CD</b>
-                      </td>
-                      <td>
-                        This variable indicates the sex of the beneficiary.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>AGE_AT_END_REF_YR</b>
-                      </td>
-                      <td>
-                        This is the beneficiary’s age, expressed in years and
-                        calculated as of the end of the calendar year, or, for
-                        beneficiaries that died during the year, age as of the
-                        date of death.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>CST_SHR_GRP_CD</b>
-                      </td>
-                      <td>
-                        Monthly cost sharing group under Part D low-income
-                        subsidy. Beneficiaries receiving the subsidy at any time
-                        during the year were classified as LIS.
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <b>ENTLMT_RSN_CURR</b>
-                      </td>
-                      <td>
-                        Current reason for Medicare entitlement. This variable
-                        indicates how the beneficiary currently qualifies for
-                        Medicare.
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                    <table className={styles.ExampleTable}>
+                      <thead>
+                        <tr>
+                          <th>Field from data dictionary</th>
+                          <th>Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <b>RTI_RACE_CD</b>
+                          </td>
+                          <td>
+                            Beneficiary race code (modified using RTI
+                            algorithm). The race of the beneficiary and enhanced
+                            based on first and last name algorithms.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>SEX_IDENT_CD</b>
+                          </td>
+                          <td>
+                            This variable indicates the sex of the beneficiary.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>AGE_AT_END_REF_YR</b>
+                          </td>
+                          <td>
+                            This is the beneficiary’s age, expressed in years
+                            and calculated as of the end of the calendar year,
+                            or, for beneficiaries that died during the year, age
+                            as of the date of death.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>CST_SHR_GRP_CD</b>
+                          </td>
+                          <td>
+                            Monthly cost sharing group under Part D low-income
+                            subsidy. Beneficiaries receiving the subsidy at any
+                            time during the year were classified as LIS.
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <b>ENTLMT_RSN_CURR</b>
+                          </td>
+                          <td>
+                            Current reason for Medicare entitlement. This
+                            variable indicates how the beneficiary currently
+                            qualifies for Medicare.
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-                <h4>Medicare PQA Adherence</h4>
-                <ul>
-                  <li>
-                    <b>Conditions</b>
+                    <h4>Medicare PQA Adherence</h4>
                     <ul>
                       <li>
-                        <b>Renin Angiotensin System Antagonists</b>{' '}
-                        <a href="https://www.pqaalliance.org/measures-overview#pdc-rasa">
-                          (PQA PDC-RASA)
-                        </a>
-                      </li>
-                      <li>
-                        <b>Statins</b>{' '}
-                        <a href="https://www.pqaalliance.org/measures-overview#pdc-sta">
-                          (PQA PDC-STA)
-                        </a>
-                      </li>
-
-                      <li>
-                        <b>Beta-blockers</b>{' '}
-                        <a href="https://www.pqaalliance.org/measures-overview#pdc-bb">
-                          (PQA PDC-BB)
-                        </a>
-                      </li>
-                      <li>
-                        <b>Calcium Channel Blockers</b>{' '}
-                        <a href="https://www.pqaalliance.org/measures-overview#pdc-ccb">
-                          (PQA PDC-CCB)
-                        </a>
-                      </li>
-                      <li>
-                        <b>Adherence to Direct-Acting Oral Anticoagulants</b>{' '}
-                        <a href="https://www.pqaalliance.org/measures-overview#pdc-doac">
-                          (PQA PDC-DOAC)
-                        </a>
-                      </li>
-                      <li>
-                        <b>Antiretrovirals Medications</b>{' '}
-                        <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
-                          (PQA PDC-ARV
-                        </a>
-                        )
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <b>Metrics</b>
-                    <ul>
-                      <li>
-                        <b>Adherence Rate</b>: this rate measures the percentage
-                        of Medicare fee-for-service beneficiaries 18 years and
-                        older who met the Proportion of Days Covered (PDC)
-                        threshold of 80% for the indicated medication during the
-                        measurement year.
-                      </li>
-                      <li>
-                        <b>Percent share</b>: this figure measures a particular
-                        group's percent share of the total number of adherent
-                        individuals
-                      </li>
-                      <li>
-                        <b>Population percent</b>: this figure measures a
-                        particular group's percent share of the measured
-                        population: Medicare fee-for-service beneficiaries 18
-                        years and older with indications for the given
-                        medication.
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-
-                <h4>Medicare NQF Adherence</h4>
-                <ul>
-                  <li>
-                    <b>Conditions</b>
-                    <ul>
-                      <li>
-                        <b>
-                          Persistence of Beta-Blocker Treatment After a Heart
-                          Attack
-                        </b>{' '}
-                        <a href="https://www.qualityforum.org/QPS/0071">
-                          (NQF 0071)
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <b>Metrics</b>
-                    <ul>
-                      <li>
-                        <b>Adherence Rate</b>: this rate measures the percentage
-                        of Medicare fee-for-service beneficiaries 18 years and
-                        older during the measurement year who were hospitalized
-                        and discharged with a diagnosis of acute myocardial
-                        infarction (AMI) and who received persistent
-                        beta-blocker treatment for six months after discharge.
-                      </li>
-                      <li>
-                        <b>Percent share</b>: this figure measures a particular
-                        group's percent share of the total number of adherent
-                        individuals
-                      </li>
-                      <li>
-                        <b>Population percent</b>: this figure measures a
-                        particular group's percent share of the measured
-                        population: Medicare fee-for-service beneficiaries 18
-                        years and older with indications for the given
-                        medication.
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-
-                <h4>Medicare Disease Measures</h4>
-                <ul>
-                  <li>
-                    <b>Conditions</b>
-                    <ul>
-                      <li>
-                        <b>HIV cases</b>
-                      </li>
-                      <li>
-                        <b>Acute Myocardial Infarction (AMI) cases</b>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <b>Metrics</b>
-                    <ul>
-                      <li>
-                        <b>Cases per 100k</b>: Rate of beneficiaries with the
-                        specified disease per 100,000 beneficiaries.
+                        <b>Conditions</b>
                         <ul>
                           <li>
-                            AMI defined as beneficiaries having 1+ medical
-                            claims with ICD-10-CM of I21
+                            <b>Renin Angiotensin System Antagonists</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-rasa">
+                              (PQA PDC-RASA)
+                            </a>
                           </li>
                           <li>
-                            HIV defined as beneficiaries having 1+ medical
-                            claims with ICD-10-CM of B20.
+                            <b>Statins</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-sta">
+                              (PQA PDC-STA)
+                            </a>
+                          </li>
+
+                          <li>
+                            <b>Beta-blockers</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-bb">
+                              (PQA PDC-BB)
+                            </a>
+                          </li>
+                          <li>
+                            <b>Calcium Channel Blockers</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-ccb">
+                              (PQA PDC-CCB)
+                            </a>
+                          </li>
+                          <li>
+                            <b>
+                              Adherence to Direct-Acting Oral Anticoagulants
+                            </b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-doac">
+                              (PQA PDC-DOAC)
+                            </a>
+                          </li>
+                          <li>
+                            <b>Antiretrovirals Medications</b>{' '}
+                            <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
+                              (PQA PDC-ARV
+                            </a>
+                            )
                           </li>
                         </ul>
                       </li>
                       <li>
-                        <b>Percent share</b>: this figure measures a particular
-                        group's percent share of the total number of disease
-                        cases.
-                      </li>
-                      <li>
-                        <b>Population percent</b>: this figure measures a
-                        particular group's percent share of the measured
-                        population: Medicare fee-for-service beneficiaries 18
-                        years and older.
+                        <b>Metrics</b>
+                        <ul>
+                          <li>
+                            <b>Adherence Rate</b>: this rate measures the
+                            percentage of Medicare fee-for-service beneficiaries
+                            18 years and older who met the Proportion of Days
+                            Covered (PDC) threshold of 80% for the indicated
+                            medication during the measurement year.
+                          </li>
+                          <li>
+                            <b>Percent share</b>: this figure measures a
+                            particular group's percent share of the total number
+                            of adherent individuals
+                          </li>
+                          <li>
+                            <b>Population percent</b>: this figure measures a
+                            particular group's percent share of the measured
+                            population: Medicare fee-for-service beneficiaries
+                            18 years and older with indications for the given
+                            medication.
+                          </li>
+                        </ul>
                       </li>
                     </ul>
-                  </li>
-                </ul>
 
-                <Card elevation={3} className={styles.MissingDataBox}>
-                  <MissingPhrmaData />
-                </Card>
+                    <h4>Medicare NQF Adherence</h4>
+                    <ul>
+                      <li>
+                        <b>Conditions</b>
+                        <ul>
+                          <li>
+                            <b>
+                              Persistence of Beta-Blocker Treatment After a
+                              Heart Attack
+                            </b>{' '}
+                            <a href="https://www.qualityforum.org/QPS/0071">
+                              (NQF 0071)
+                            </a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <b>Metrics</b>
+                        <ul>
+                          <li>
+                            <b>Adherence Rate</b>: this rate measures the
+                            percentage of Medicare fee-for-service beneficiaries
+                            18 years and older during the measurement year who
+                            were hospitalized and discharged with a diagnosis of
+                            acute myocardial infarction (AMI) and who received
+                            persistent beta-blocker treatment for six months
+                            after discharge.
+                          </li>
+                          <li>
+                            <b>Percent share</b>: this figure measures a
+                            particular group's percent share of the total number
+                            of adherent individuals
+                          </li>
+                          <li>
+                            <b>Population percent</b>: this figure measures a
+                            particular group's percent share of the measured
+                            population: Medicare fee-for-service beneficiaries
+                            18 years and older with indications for the given
+                            medication.
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <h4>Medicare Disease Measures</h4>
+                    <ul>
+                      <li>
+                        <b>Conditions</b>
+                        <ul>
+                          <li>
+                            <b>HIV cases</b>
+                          </li>
+                          <li>
+                            <b>Acute Myocardial Infarction (AMI) cases</b>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <b>Metrics</b>
+                        <ul>
+                          <li>
+                            <b>Cases per 100k</b>: Rate of beneficiaries with
+                            the specified disease per 100,000 beneficiaries.
+                            <ul>
+                              <li>
+                                AMI defined as beneficiaries having 1+ medical
+                                claims with ICD-10-CM of I21
+                              </li>
+                              <li>
+                                HIV defined as beneficiaries having 1+ medical
+                                claims with ICD-10-CM of B20.
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            <b>Percent share</b>: this figure measures a
+                            particular group's percent share of the total number
+                            of disease cases.
+                          </li>
+                          <li>
+                            <b>Population percent</b>: this figure measures a
+                            particular group's percent share of the measured
+                            population: Medicare fee-for-service beneficiaries
+                            18 years and older.
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+
+                    <h4>Medicare Demographic Identifiers</h4>
+                    <p>
+                      <b>Race/ethnicity:</b> Medicare estimates the race and
+                      ethnicity of each beneficiary using data that has been
+                      used by the Social Security Administration and applying an
+                      algorithm that identifies more beneficiaries of Hispanic
+                      and Asian descent. Due to sample size constraints, we
+                      categorized racial/ethnic groups into six categories:
+                    </p>
+                    <ul>
+                      <li>
+                        Asian, Native Hawaiian, and Pacific Islander
+                        (Non-Hispanic)
+                      </li>
+                      <li>American Indian and Alaska Native (Non-Hispanic)</li>
+                      <li>White (Non-Hispanic)</li>
+                      <li>Black or African American (Non-Hispanic)</li>
+                      <li>Hispanic or Latino</li>
+                      <li>
+                        Two or more races & Unrepresented races (Non-Hispanic)
+                      </li>
+                    </ul>
+
+                    <p>
+                      <b>Sex:</b> Medicare collects the sex of each beneficiary
+                      as Unknown, Male, or female. Due to sample size
+                      constraints, we do not present analyzes for individuals of
+                      “unknown” sex. These individuals are not excluded from the
+                      sample.
+                    </p>
+
+                    <p>
+                      <b>Age:</b> Medicare estimates the age of each beneficiary
+                      at the end of the reference year (i.e., 2020), or, for
+                      beneficiaries that died during the year, age as of the
+                      date of death. We categorized age into six categories:
+                    </p>
+                    <ul>
+                      <li>18-39 years old</li>
+                      <li>40-64 years old</li>
+                      <li>65-69 years old</li>
+                      <li>70-74 years old</li>
+                      <li>75-79 years old</li>
+                      <li>80-84 years old</li>
+                      <li>85+ years old</li>
+                    </ul>
+
+                    <p>
+                      <b>Low-Income Subsidy Eligibility:</b> The Low-Income
+                      Subsidy (LIS) program for Medicare Part D beneficiaries,
+                      provides subsidies to reduce or eliminate premiums and
+                      deductibles and offers zero to reduced co-payments for
+                      low-income Medicare Part D beneficiaries. We categorized
+                      Medicare beneficiaries, who were eligible for the Part D
+                      LIS program, for 1 or more months during 2020 as
+                      “receiving Low Income Subsidy.” Medicare beneficiaries,
+                      who were not eligible for the Part D LIS program at any
+                      time during 2020 were classified as “not receiving Low
+                      Income Subsidy.”
+                    </p>
+
+                    <p>
+                      <b>Eligibility Qualification:</b> Medicare collects the
+                      reason for enrollment in Medicare. We categorized each
+                      beneficiary’s reason for Medicare enrollment as:
+                    </p>
+                    <ul>
+                      <li>Eligible due to age</li>
+                      <li>Eligible due to disability</li>
+                      <li>Eligible due to end-stage renal disease (ESRD)</li>
+                      <li>
+                        Eligible due to disability and end-stage renal disease
+                        (ESRD)
+                      </li>
+                    </ul>
+
+                    <Card elevation={3} className={styles.MissingDataBox}>
+                      <MissingPhrmaData />
+                    </Card>
+                  </>
+                )}
                 <h3 className={styles.MethodologySubsubheaderText} id="svi">
                   Social Vulnerability Index (SVI)
                 </h3>

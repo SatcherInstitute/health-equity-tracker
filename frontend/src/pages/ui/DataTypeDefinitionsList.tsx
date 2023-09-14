@@ -26,6 +26,13 @@ export default function DataTypeDefinitionsList() {
           <div key={config.dataTypeId}>
             <h3>{config.fullDisplayName}</h3>
             {config.dataTypeDefinition}
+            {config?.dataTypeDescription && (
+              <>
+                <p>
+                  <b>Clinical Importance:</b> {config.dataTypeDefinition}
+                </p>
+              </>
+            )}
           </div>
         )
       })}
