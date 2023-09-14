@@ -44,20 +44,29 @@ export default function DefinitionsList(
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
                   return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
+                    const hasAddedInfo = Boolean(
+                      dataTypeConfig?.dataTypeDescription
+                    )
                     return (
                       <li key={dataTypeConfig?.fullDisplayName}>
                         <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
-                        {': '}
-                        <b>Measurement Definition:</b>{' '}
-                        {dataTypeConfig.dataTypeDefinition}
-                        {dataTypeConfig?.dataTypeDescription && (
-                          <>
-                            <p>
+                        <ul>
+                          <li>
+                            {hasAddedInfo && (
+                              <>
+                                <b>Measurement Definition:</b>{' '}
+                              </>
+                            )}
+
+                            {dataTypeConfig.dataTypeDefinition}
+                          </li>
+                          {hasAddedInfo && (
+                            <li>
                               <b>Clinical Importance:</b>{' '}
                               {dataTypeConfig.dataTypeDescription}
-                            </p>
-                          </>
-                        )}
+                            </li>
+                          )}
+                        </ul>
                       </li>
                     )
                   })
