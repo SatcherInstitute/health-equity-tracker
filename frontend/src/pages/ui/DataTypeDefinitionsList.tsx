@@ -25,7 +25,12 @@ export default function DataTypeDefinitionsList() {
         return (
           <div key={config.dataTypeId}>
             <h3>{config.fullDisplayName}</h3>
-            {config.dataTypeDefinition}
+            <b>Measurement Definition:</b> {config.dataTypeDefinition}
+            {config?.dataTypeDescription && (
+              <p>
+                <b>Clinical Importance:</b> {config.dataTypeDescription}
+              </p>
+            )}
           </div>
         )
       })}
