@@ -1,0 +1,9 @@
+state_name,state_fips,age,hiv_stigma_index,hiv_deaths_per_100k,hiv_diagnoses_per_100k,hiv_prevalence_per_100k,hiv_care_linkage,hiv_prep_coverage,hiv_care_pct_share,hiv_deaths_pct_share,hiv_diagnoses_pct_share,hiv_prep_pct_share,hiv_prevalence_pct_share,hiv_prep_population_pct,hiv_population_pct,hiv_care_population_pct,hiv_care,hiv_deaths,hiv_diagnoses,hiv_prep,hiv_prevalence
+United States,00,55+,25.7,12.3,3.8,439.1,84.0,29.8,10.6,61.8,10.4,10.0,40.4,10.1,35.2,10.3,2912.0,12124.0,3723.0,36739.0,433195.0
+United States,00,45-54,29.8,9.3,10.9,597.5,83.4,26.7,12.6,19.3,12.4,12.6,22.7,14.3,14.5,12.4,3462.0,3783.0,4442.0,46253.0,243129.0
+United States,00,35-44,32.9,5.2,17.4,468.1,82.2,37.1,21.2,11.5,21.1,24.2,19.0,19.6,15.5,21.1,5824.0,2247.0,7543.0,88542.0,203194.0
+United States,00,25-34,30.9,3.0,28.8,359.2,81.7,33.5,36.6,6.9,36.6,39.8,15.3,35.7,16.2,36.7,10074.0,1360.0,13081.0,145805.0,163431.0
+United States,00,13-24,,0.2,13.3,54.0,80.2,,19.1,0.6,19.4,,2.6,,18.5,19.5,5263.0,109.0,6927.0,,28056.0
+United States,00,16-24,,,,,,19.7,,,,13.3,,20.3,,,,,,48581.0,
+United States,00,18-24,42.1,,,,,,,,,,,,,,,,,,
+United States,00,All,28.8,7.0,12.7,382.2,81.9,30.1,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,27535.0,19623.0,35716.0,365919.0,1071005.0

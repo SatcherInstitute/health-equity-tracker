@@ -1,24 +1,115 @@
+HISTORICAL = "historical"
+CURRENT = "current"
 
 TERRITORY_FIPS_LIST = ["11", "60", "66", "69", "72", "78"]
 
-STATE_LEVEL_FIPS_LIST = ["01", "02", "04", "05",
-                         "06", "08", "09", "10",
-                         "12", "13", "15", "16", "17", "18", "19", "20",
-                         "21", "22", "23", "24", "25", "26", "27", "28", "29", "30",
-                         "31", "32", "33", "34", "35", "36", "37", "38", "39", "40",
-                         "41", "42", "44", "45", "46", "47", "48", "49", "50",
-                         "51", "53", "54", "55", "56", *TERRITORY_FIPS_LIST]
+STATE_LEVEL_FIPS_LIST = [
+    "01",
+    "02",
+    "04",
+    "05",
+    "06",
+    "08",
+    "09",
+    "10",
+    "12",
+    "13",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "53",
+    "54",
+    "55",
+    "56",
+    *TERRITORY_FIPS_LIST,
+]
 
 STATE_POSTALS = [
-    "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA", "HI", "ID",
-    "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS",
-    "MO", "MT", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR",
-    "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
+    "AL",
+    "AK",
+    "AZ",
+    "AR",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "HI",
+    "ID",
+    "IL",
+    "IN",
+    "IA",
+    "KS",
+    "KY",
+    "LA",
+    "ME",
+    "MD",
+    "MA",
+    "MI",
+    "MN",
+    "MS",
+    "MO",
+    "MT",
+    "NV",
+    "NH",
+    "NJ",
+    "NM",
+    "NY",
+    "NC",
+    "ND",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VT",
+    "VA",
+    "WA",
+    "WV",
+    "WI",
+    "WY",
 ]
 
-TERRITORY_POSTALS = [
-    "PR", "VI", "GU", "AS", "MP", "DC"
-]
+TERRITORY_POSTALS = ["PR", "VI", "GU", "AS", "MP", "DC"]
 
 
 COUNTY_EQUIVALENT_FIPS_MAP = {
@@ -89,11 +180,11 @@ STATE_NAMES = [
     "Washington",
     "West Virginia",
     "Wisconsin",
-    "Wyoming"
+    "Wyoming",
 ]
 
-US_FIPS = '00'
-US_NAME = 'United States'
+US_FIPS = "00"
+US_NAME = "United States"
 US_ABBR = "US"
 
 
@@ -104,9 +195,9 @@ COUNTY_LEVEL = "county"
 UNKNOWN = "Unknown"
 ALL_VALUE = "All"
 
-RACE = 'race'
-SEX = 'sex'
-AGE = 'age'
+RACE = "race"
+SEX = "sex"
+AGE = "age"
 
 
 class Sex:
@@ -3359,5 +3450,5 @@ COUNTY_LEVEL_FIPS_LIST = [
     "72153",
     "78010",
     "78020",
-    "78030"
+    "78030",
 ]
