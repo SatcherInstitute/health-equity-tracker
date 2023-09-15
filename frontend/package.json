@@ -24,7 +24,6 @@
     "@sentry/react": "^7.69.0",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0",
-    "@typeform/embed-react": "^2.31.0",
     "@types/d3": "^7.4.0",
     "@types/lru-cache": "^5.1.1",
     "@types/node": "^18.17.15",
