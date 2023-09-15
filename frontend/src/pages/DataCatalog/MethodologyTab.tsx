@@ -28,6 +28,7 @@ import {
   MissingPhrmaData,
 } from './methodologyContent/missingDataBlurbs'
 import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
+import { HashLink } from 'react-router-hash-link'
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
@@ -1033,34 +1034,61 @@ function MethodologyTab() {
 
                     <h4>Medicare Demographic Identifiers</h4>
                     <p>
-                      <b>Race/ethnicity:</b> Medicare enhances the race and
-                      ethnicity determination of each beneficiary using data
-                      that has been used by the Social Security Administration
-                      and applying an algorithm that identifies more
-                      beneficiaries of Hispanic and Asian descent. Due to sample
-                      size constraints, we categorized racial/ethnic groups into
-                      six known categories:
+                      <b>Race/ethnicity:</b> Medicare enhances the Social
+                      Security Administration's race and ethnicity
+                      determinations and applies an algorithm that further
+                      identifies beneficiaries of Hispanic and Asian descent. We
+                      represent racial/ethnic information using seven groups,
+                      and have adjusted the wording in some cases to use more
+                      inclusive terminology and to correspond more closely with
+                      our other data sources.
                     </p>
                     <ul>
                       <li>
-                        Asian, Native Hawaiian, and Pacific Islander
-                        (Non-Hispanic)
+                        <code>Asian/Pacific Islander</code> we represent as{' '}
+                        <b>
+                          Asian, Native Hawaiian, and Pacific Islander
+                          (Non-Hispanic)
+                        </b>
                       </li>
-                      <li>American Indian and Alaska Native (Non-Hispanic)</li>
-                      <li>White (Non-Hispanic)</li>
-                      <li>Black or African American (Non-Hispanic)</li>
-                      <li>Hispanic or Latino</li>
                       <li>
-                        Two or more races & Unrepresented races (Non-Hispanic)
+                        <code>American Indian / Alaska Native</code> we
+                        represent as{' '}
+                        <b>American Indian and Alaska Native (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Non-Hispanic White</code> we represent as{' '}
+                        <b>White (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Black or African-American</code> we represented as{' '}
+                        <b>Black or African American (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Hispanic</code> we represent as{' '}
+                        <b>Hispanic or Latino</b>
+                      </li>
+                      <li>
+                        <code>Other</code> we represent as{' '}
+                        <b>
+                          Two or more races & Unrepresented races (Non-Hispanic)
+                        </b>
+                      </li>
+                      <li>
+                        <code>Unknown</code> we represent on our{' '}
+                        <HashLink
+                          to={
+                            '/exploredata?mls=1.phrma_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'
+                          }
+                        >
+                          Unknown Demographic Map
+                        </HashLink>
                       </li>
                     </ul>
 
                     <p>
                       <b>Sex:</b> Medicare collects the sex of each beneficiary
-                      as Unknown, Male, or female. Due to sample size
-                      constraints, we do not present analyzes for individuals of
-                      “unknown” sex. These individuals are not excluded from the
-                      sample.
+                      as Unknown, Male, or Female.
                     </p>
 
                     <p>
