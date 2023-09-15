@@ -29,7 +29,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         await page.getByRole('link', { name: 'age-adjustment methodology' }).click();
         await page.getByRole('link', { name: 'COVID-19 deaths' }).click();
         await page.getByRole('link', { name: 'data reporting gaps' }).click();
-        await page.getByText('COVID-19COVID-19 cases: A COVID-19 case is an individual who has been determined').click();
+        await page.getByText('A COVID-19 case is an individual who has been determined').click();
         await page.getByText('Investigate rates ofCOVID-19 Deaths in theUnited States DemographicRace/eth').press('Meta+c');
 
     })

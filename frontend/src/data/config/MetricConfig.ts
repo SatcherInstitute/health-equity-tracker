@@ -145,6 +145,7 @@ export interface DataTypeConfig {
   fullDisplayName: string
   fullDisplayNameInline?: string
   dataTypeDefinition?: string
+  dataTypeDescription?: string
   metrics: {
     count?: MetricConfig
     pct_share?: MetricConfig
