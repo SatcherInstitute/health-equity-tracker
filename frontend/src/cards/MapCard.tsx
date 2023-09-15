@@ -295,7 +295,16 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
+        const totalPopulationPhrase = getPopulationPhrase(
+          'Total',
+          queryResponses[2]
+        )
+        const medicarePopulationPhrase = getPopulationPhrase(
+          'Medicare',
+          parentGeoQueryResponse
+        )
+        console.log({ medicarePopulationPhrase })
+
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs =
           props.demographicType === AGE
