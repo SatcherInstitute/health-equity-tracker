@@ -28,6 +28,7 @@ import {
   MissingPhrmaData,
 } from './methodologyContent/missingDataBlurbs'
 import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
+import { HashLink } from 'react-router-hash-link'
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
@@ -82,7 +83,9 @@ function MethodologyTab() {
                 health equity topics chosen?
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
+                <h3 id="covid" className={styles.MethodologySubsubheaderText}>
+                  COVID-19
+                </h3>
 
                 <ul>
                   <li>
@@ -169,7 +172,10 @@ function MethodologyTab() {
                   <MissingCovidData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3
+                  id="covid_vaccinations"
+                  className={styles.MethodologySubsubheaderText}
+                >
                   COVID-19 vaccinations
                 </h3>
 
@@ -286,6 +292,20 @@ function MethodologyTab() {
                   <MissingCovidVaccinationData />
                 </Card>
 
+                <span id="asthma"></span>
+                <span id="avoided_care"></span>
+                <span id="cardiovascular_diseases"></span>
+                <span id="chronic_kidney_disease"></span>
+                <span id="copd"></span>
+                <span id="depression"></span>
+                <span id="diabetes"></span>
+                <span id="excessive_drinking"></span>
+                <span id="frequent_mental_distress"></span>
+                <span id="preventable_hospitalizations"></span>
+                <span id="substance"></span>
+                <span id="suicide"></span>
+                <span id="voter_participation"></span>
+
                 <h3 className={styles.MethodologySubsubheaderText}>
                   America’s Health Rankings
                 </h3>
@@ -344,7 +364,10 @@ function MethodologyTab() {
                   <MissingAHRData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3
+                  id="women_in_gov"
+                  className={styles.MethodologySubsubheaderText}
+                >
                   Women in legislative office
                 </h3>
 
@@ -494,9 +517,11 @@ function MethodologyTab() {
                   <MissingCAWPData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
+                <h3 id="hiv" className={styles.MethodologySubsubheaderText}>
+                  HIV
+                </h3>
 
-                <p>
+                <p id="hiv_black_women">
                   The CDC collects and studies information on the number of
                   people diagnosed with HIV in the United States. This
                   information is gathered from state and local HIV surveillance
@@ -594,7 +619,7 @@ function MethodologyTab() {
                   <MissingHIVData />
                 </Card>
 
-                <p>
+                <p id="hiv_prep">
                   <b>PrEP Coverage</b>
                 </p>
                 <p>
@@ -673,7 +698,7 @@ function MethodologyTab() {
                   <MissingPrepData />
                 </Card>
 
-                <p>
+                <p id="hiv_care">
                   <b>Linkage to Care</b>
                 </p>
                 <p>
@@ -742,7 +767,7 @@ function MethodologyTab() {
                     </ul>
                   </li>
                 </ul>
-                <p>
+                <p id="hiv_stigma">
                   <b>HIV Stigma</b>
                 </p>
                 <p>
@@ -790,6 +815,8 @@ function MethodologyTab() {
 
                 {SHOW_PHRMA && (
                   <>
+                    <span id="phrma_cardiovascular"></span>
+                    <span id="phrma_hiv"></span>
                     <h3 className={styles.MethodologySubsubheaderText}>
                       Medicare Beneficiaries - Disease Rates and Medication
                       Adherence
@@ -910,9 +937,8 @@ function MethodologyTab() {
                           <li>
                             <b>Antiretrovirals Medications</b>{' '}
                             <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
-                              (PQA PDC-ARV
+                              (PQA PDC-ARV)
                             </a>
-                            )
                           </li>
                         </ul>
                       </li>
@@ -925,18 +951,6 @@ function MethodologyTab() {
                             18 years and older who met the Proportion of Days
                             Covered (PDC) threshold of 80% for the indicated
                             medication during the measurement year.
-                          </li>
-                          <li>
-                            <b>Percent share</b>: this figure measures a
-                            particular group's percent share of the total number
-                            of adherent individuals
-                          </li>
-                          <li>
-                            <b>Population percent</b>: this figure measures a
-                            particular group's percent share of the measured
-                            population: Medicare fee-for-service beneficiaries
-                            18 years and older with indications for the given
-                            medication.
                           </li>
                         </ul>
                       </li>
@@ -969,18 +983,6 @@ function MethodologyTab() {
                             acute myocardial infarction (AMI) and who received
                             persistent beta-blocker treatment for six months
                             after discharge.
-                          </li>
-                          <li>
-                            <b>Percent share</b>: this figure measures a
-                            particular group's percent share of the total number
-                            of adherent individuals
-                          </li>
-                          <li>
-                            <b>Population percent</b>: this figure measures a
-                            particular group's percent share of the measured
-                            population: Medicare fee-for-service beneficiaries
-                            18 years and older with indications for the given
-                            medication.
                           </li>
                         </ul>
                       </li>
@@ -1018,12 +1020,12 @@ function MethodologyTab() {
                           </li>
                           <li>
                             <b>Percent share</b>: this figure measures a
-                            particular group's percent share of the total number
-                            of disease cases.
+                            particular group's share of the total cases of the
+                            condition.
                           </li>
                           <li>
                             <b>Population percent</b>: this figure measures a
-                            particular group's percent share of the measured
+                            particular group's share of the total measured
                             population: Medicare fee-for-service beneficiaries
                             18 years and older.
                           </li>
@@ -1033,40 +1035,68 @@ function MethodologyTab() {
 
                     <h4>Medicare Demographic Identifiers</h4>
                     <p>
-                      <b>Race/ethnicity:</b> Medicare estimates the race and
-                      ethnicity of each beneficiary using data that has been
-                      used by the Social Security Administration and applying an
-                      algorithm that identifies more beneficiaries of Hispanic
-                      and Asian descent. Due to sample size constraints, we
-                      categorized racial/ethnic groups into six categories:
+                      <b>Race/ethnicity:</b> Medicare enhances the Social
+                      Security Administration's race and ethnicity
+                      determinations and applies an algorithm that further
+                      identifies beneficiaries of Hispanic and Asian descent. We
+                      represent racial/ethnic information using seven groups,
+                      and have adjusted the wording in some cases to use more
+                      inclusive terminology and to correspond more closely with
+                      our other data sources.
                     </p>
                     <ul>
                       <li>
-                        Asian, Native Hawaiian, and Pacific Islander
-                        (Non-Hispanic)
+                        <code>Asian/Pacific Islander</code> we represent as{' '}
+                        <b>
+                          Asian, Native Hawaiian, and Pacific Islander
+                          (Non-Hispanic)
+                        </b>
                       </li>
-                      <li>American Indian and Alaska Native (Non-Hispanic)</li>
-                      <li>White (Non-Hispanic)</li>
-                      <li>Black or African American (Non-Hispanic)</li>
-                      <li>Hispanic or Latino</li>
                       <li>
-                        Two or more races & Unrepresented races (Non-Hispanic)
+                        <code>American Indian / Alaska Native</code> we
+                        represent as{' '}
+                        <b>American Indian and Alaska Native (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Non-Hispanic White</code> we represent as{' '}
+                        <b>White (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Black or African-American</code> we represented as{' '}
+                        <b>Black or African American (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Hispanic</code> we represent as{' '}
+                        <b>Hispanic or Latino</b>
+                      </li>
+                      <li>
+                        <code>Other</code> we represent as{' '}
+                        <b>
+                          Two or more races & Unrepresented races (Non-Hispanic)
+                        </b>
+                      </li>
+                      <li>
+                        <code>Unknown</code> we represent on our{' '}
+                        <HashLink
+                          to={
+                            '/exploredata?mls=1.phrma_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'
+                          }
+                        >
+                          Unknown Demographic Map
+                        </HashLink>
                       </li>
                     </ul>
 
                     <p>
                       <b>Sex:</b> Medicare collects the sex of each beneficiary
-                      as Unknown, Male, or female. Due to sample size
-                      constraints, we do not present analyzes for individuals of
-                      “unknown” sex. These individuals are not excluded from the
-                      sample.
+                      as Unknown, Male, or Female.
                     </p>
 
                     <p>
-                      <b>Age:</b> Medicare estimates the age of each beneficiary
+                      <b>Age:</b> Medicare provides the age of each beneficiary
                       at the end of the reference year (i.e., 2020), or, for
                       beneficiaries that died during the year, age as of the
-                      date of death. We categorized age into six categories:
+                      date of death. We categorized age into six groups:
                     </p>
                     <ul>
                       <li>18-39 years old</li>
@@ -1093,7 +1123,7 @@ function MethodologyTab() {
                     </p>
 
                     <p>
-                      <b>Eligibility Qualification:</b> Medicare collects the
+                      <b>Entitlement Qualification:</b> Medicare collects the
                       reason for enrollment in Medicare. We categorized each
                       beneficiary’s reason for Medicare enrollment as:
                     </p>
@@ -1150,7 +1180,10 @@ function MethodologyTab() {
                   below the 90th percentile are given a value of 0.
                 </p>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3
+                  id="incarceration"
+                  className={styles.MethodologySubsubheaderText}
+                >
                   Incarceration
                 </h3>
 
