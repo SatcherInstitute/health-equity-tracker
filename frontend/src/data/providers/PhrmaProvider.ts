@@ -80,7 +80,7 @@ export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Eligibility', phrmaReason],
 ]
 
-export const SHOW_PHRMA = false
+export const SHOW_PHRMA = import.meta.env.VITE_SHOW_PHRMA
 
 class PhrmaProvider extends VariableProvider {
   constructor() {
