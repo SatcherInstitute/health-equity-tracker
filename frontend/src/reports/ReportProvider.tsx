@@ -77,7 +77,7 @@ function ReportProvider(props: ReportProviderProps) {
   )
 
   let fips1: Fips = new Fips('00')
-  let fips2: Fips = new Fips('00')
+  let fips2: Fips | null = null
 
   if (props.madLib.id === 'disparity')
     fips1 = new Fips(getPhraseValue(props.madLib, 3))
@@ -140,31 +140,33 @@ function ReportProvider(props: ReportProviderProps) {
       case 'comparegeos': {
         const dropdownOption = getPhraseValue(props.madLib, 1)
         return (
-          <CompareReport
-            key={dropdownOption + fips1.code + fips2.code}
-            dropdownVarId1={dropdownOption}
-            dropdownVarId2={dropdownOption}
-            fips1={fips1}
-            fips2={fips2}
-            updateFips1Callback={(fips: Fips) => {
-              props.setMadLib(
-                getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-              )
-            }}
-            updateFips2Callback={(fips: Fips) => {
-              props.setMadLib(
-                getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
-              )
-            }}
-            isScrolledToTop={props.isScrolledToTop}
-            reportStepHashIds={reportStepHashIds}
-            setReportStepHashIds={setReportStepHashIds}
-            headerScrollMargin={props.headerScrollMargin}
-            reportTitle={getMadLibPhraseText(props.madLib)}
-            isMobile={props.isMobile}
-            trackerMode={props.madLib.id}
-            setTrackerMode={props.handleModeChange}
-          />
+          fips2 && (
+            <CompareReport
+              key={dropdownOption + fips1.code + fips2?.code}
+              dropdownVarId1={dropdownOption}
+              dropdownVarId2={dropdownOption}
+              fips1={fips1}
+              fips2={fips2}
+              updateFips1Callback={(fips: Fips) => {
+                props.setMadLib(
+                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+                )
+              }}
+              updateFips2Callback={(fips: Fips) => {
+                props.setMadLib(
+                  getMadLibWithUpdatedValue(props.madLib, 5, fips.code)
+                )
+              }}
+              isScrolledToTop={props.isScrolledToTop}
+              reportStepHashIds={reportStepHashIds}
+              setReportStepHashIds={setReportStepHashIds}
+              headerScrollMargin={props.headerScrollMargin}
+              reportTitle={getMadLibPhraseText(props.madLib)}
+              isMobile={props.isMobile}
+              trackerMode={props.madLib.id}
+              setTrackerMode={props.handleModeChange}
+            />
+          )
         )
       }
       case 'comparevars': {
@@ -179,7 +181,7 @@ function ReportProvider(props: ReportProviderProps) {
             dropdownVarId1={dropdownOption1}
             dropdownVarId2={dropdownOption2}
             fips1={fips1}
-            fips2={fips2}
+            fips2={fips2 ?? fips1}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
             isScrolledToTop={props.isScrolledToTop}
