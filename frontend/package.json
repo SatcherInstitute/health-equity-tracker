@@ -14,16 +14,45 @@
     "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.14.9",
     "@mui/styles": "^5.14.9",
+<<<<<<< HEAD
     "@popperjs/core": "^2.11.8",
     "@sentry/react": "^7.69.0",
     "@vitejs/plugin-react": "^4.1.0",
     "axios": "^1.5.0",
+=======
+    "@playwright/test": "^1.38.0",
+    "@sentry/react": "^7.69.0",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^13.5.0",
+    "@typeform/embed-react": "^2.31.0",
+    "@types/d3": "^7.4.0",
+    "@types/lru-cache": "^5.1.1",
+    "@types/node": "^18.17.15",
+    "@types/react": "^17.0.65",
+    "@types/react-dom": "^17.0.20",
+    "@types/react-lazyload": "^3.2.0",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/react-router-hash-link": "^2.4.6",
+    "@types/react-table": "^7.7.15",
+    "@vitejs/plugin-react": "^3.1.0",
+    "axios": "^1.5.0",
+    "c8": "^7.14.0",
+>>>>>>> 7dd87395 (Updates NPM packages (#2378))
     "cspell": "^6.31.3",
     "d3": "^7.8.5",
     "data-forge": "^1.10.1",
     "env-cmd": "^10.1.0",
+<<<<<<< HEAD
     "html-react-parser": "^3.0.16",
     "html2canvas": "^1.4.1",
+=======
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "expect-axe-playwright": "^4.0.1",
+    "html-react-parser": "^3.0.16",
+    "html2canvas": "^1.4.1",
+    "husky": "^4.3.8",
+>>>>>>> 7dd87395 (Updates NPM packages (#2378))
     "jotai": "^2.4.2",
     "jotai-location": "^0.5.1",
     "jsdom": "^21.1.2",
@@ -33,8 +62,15 @@
     "normalize.css": "^8.0.1",
     "postcss": "^8.4.29",
     "postcss-import": "^15.1.0",
+<<<<<<< HEAD
     "react": "^17.0.2",
     "react-animate-height": "^3.2.2",
+=======
+    "prettier": "^2.8.8",
+    "react": "^17.0.2",
+    "react-animate-height": "^3.2.2",
+    "react-bottom-scroll-listener": "^5.1.0",
+>>>>>>> 7dd87395 (Updates NPM packages (#2378))
     "react-cookie": "^4.1.1",
     "react-dom": "^17.0.2",
     "react-floater": "^0.8.2",
@@ -59,6 +95,7 @@
     "vite": "^4.4.9",
     "vite-plugin-babel": "^1.1.3",
     "vite-plugin-svgr": "^2.4.0",
+<<<<<<< HEAD
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
@@ -95,6 +132,11 @@
     "typescript": "^5.2.2",
     "vitest": "^0.29.8",
     "vitest-canvas-mock": "^0.2.2"
+=======
+    "vite-tsconfig-paths": "^4.2.1",
+    "vitest": "^0.29.8",
+    "webpack": "^5.88.2"
+>>>>>>> 7dd87395 (Updates NPM packages (#2378))
   },
   "scripts": {
     "build:deploy_preview": "env-cmd -f .env.deploy_preview npm run build",
@@ -147,6 +189,23 @@
       "prettier --write"
     ]
   },
+<<<<<<< HEAD
+=======
+  "devDependencies": {
+    "@sentry/vite-plugin": "^2.7.1",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@vitest/coverage-c8": "^0.29.8",
+    "eslint": "^8.49.0",
+    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-n": "^15.7.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "typescript": "^5.2.2",
+    "vitest-canvas-mock": "^0.2.2"
+  },
+>>>>>>> 7dd87395 (Updates NPM packages (#2378))
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
