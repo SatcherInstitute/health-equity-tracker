@@ -34,6 +34,7 @@ import {
   MissingAHRData,
   MissingPrepData,
   MissingPhrmaData,
+  MissingIslandAreaPopulationData,
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS, SHOW_PHRMA } from '../data/providers/PhrmaProvider'
@@ -72,21 +73,29 @@ function ReportProvider(props: ReportProviderProps) {
   )
 
   const currentDropDownIds: DropdownVarId[] = metricConfigSubset.map(
-    (id) => id?.[0] as DropdownVarId
+    (id) => id?.[0]
   )
 
+  let fips1: Fips = new Fips('00')
+  let fips2: Fips = new Fips('00')
+
+  if (props.madLib.id === 'disparity')
+    fips1 = new Fips(getPhraseValue(props.madLib, 3))
+  else if (props.madLib.id === 'comparevars')
+    fips1 = new Fips(getPhraseValue(props.madLib, 5))
+  else if (props.madLib.id === 'comparegeos') {
+    fips1 = new Fips(getPhraseValue(props.madLib, 3))
+    fips2 = new Fips(getPhraseValue(props.madLib, 5))
+  }
+
+  const isIslandArea = fips1?.isIslandArea() ?? fips2?.isIslandArea()
   const isCovid = currentDropDownIds.includes('covid')
   const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
   const isCAWP = currentDropDownIds.includes('women_in_gov')
+  const isHivOutcome = currentDropDownIds.includes('hiv')
+  const isHivBWOutcome = currentDropDownIds.includes('hiv_black_women')
+  const isHivPrep = currentDropDownIds.includes('hiv_prep')
 
-  // includes standard and black women topics
-  const isHIV = currentDropDownIds.some(
-    (condition) =>
-      condition.includes('hiv_deaths') ||
-      condition.includes('hiv_diagnoses') ||
-      condition.includes('hiv_prevalance')
-  )
-  const isPrep = currentDropDownIds.includes('hiv_prep')
   const isAHR = currentDropDownIds.some((condition) =>
     AHR_CONDITIONS.includes(condition)
   )
@@ -108,8 +117,8 @@ function ReportProvider(props: ReportProviderProps) {
           <>
             <Report
               key={dropdownOption}
-              dropdownVarId={dropdownOption as DropdownVarId}
-              fips={new Fips(getPhraseValue(props.madLib, 3))}
+              dropdownVarId={dropdownOption}
+              fips={fips1}
               updateFipsCallback={(fips: Fips) => {
                 props.setMadLib(
                   getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
@@ -130,15 +139,13 @@ function ReportProvider(props: ReportProviderProps) {
       }
       case 'comparegeos': {
         const dropdownOption = getPhraseValue(props.madLib, 1)
-        const fipsCode1 = getPhraseValue(props.madLib, 3)
-        const fipsCode2 = getPhraseValue(props.madLib, 5)
         return (
           <CompareReport
-            key={dropdownOption + fipsCode1 + fipsCode2}
-            dropdownVarId1={dropdownOption as DropdownVarId}
-            dropdownVarId2={dropdownOption as DropdownVarId}
-            fips1={new Fips(fipsCode1)}
-            fips2={new Fips(fipsCode2)}
+            key={dropdownOption + fips1.code + fips2.code}
+            dropdownVarId1={dropdownOption}
+            dropdownVarId2={dropdownOption}
+            fips1={fips1}
+            fips2={fips2}
             updateFips1Callback={(fips: Fips) => {
               props.setMadLib(
                 getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
@@ -163,17 +170,16 @@ function ReportProvider(props: ReportProviderProps) {
       case 'comparevars': {
         const dropdownOption1 = getPhraseValue(props.madLib, 1)
         const dropdownOption2 = getPhraseValue(props.madLib, 3)
-        const fipsCode = getPhraseValue(props.madLib, 5)
         const updateFips = (fips: Fips) => {
           props.setMadLib(getMadLibWithUpdatedValue(props.madLib, 5, fips.code))
         }
         return (
           <CompareReport
-            key={dropdownOption1 + dropdownOption2 + fipsCode}
-            dropdownVarId1={dropdownOption1 as DropdownVarId}
-            dropdownVarId2={dropdownOption2 as DropdownVarId}
-            fips1={new Fips(fipsCode)}
-            fips2={new Fips(fipsCode)}
+            key={dropdownOption1 + dropdownOption2 + fips1.code}
+            dropdownVarId1={dropdownOption1}
+            dropdownVarId2={dropdownOption2}
+            fips1={fips1}
+            fips2={fips2}
             updateFips1Callback={updateFips}
             updateFips2Callback={updateFips}
             isScrolledToTop={props.isScrolledToTop}
@@ -253,37 +259,13 @@ function ReportProvider(props: ReportProviderProps) {
             as female, male, or other.
           </p>
 
-          <h4>Missing population data</h4>
-          <p>
-            We primarily incorporate the U.S. Census Bureau's American Community
-            Survey (ACS) 5-year estimates when presenting population
-            information. However, certain data sets have required an alternate
-            approach due to incompatible or missing data. Any alternate methods
-            for the displayed topics on this page are outlined below.
-          </p>
-          <p>
-            Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{' '}
-            <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
-            reported in the ACS five year estimates; in these territories, for
-            current and time-series based population figures back to 2016, we
-            incorporate the 2020 Decennial Island Areas report. For time-series
-            data from 2009-2015, we incorporate the 2010 release of the
-            Decennial report. Note: The NH, or Non-Hispanic race groups are only
-            provided by the Decennial report for <b>VI</b> but not the other
-            Island Areas. As the overall number of Hispanic-identifying people
-            is very low in these Island Areas (hence the Census not providing
-            these race groups), we use the ethnicity-agnostic race groups (e.g.{' '}
-            <b>Black or African American</b>) even though the condition data may
-            use Non-Hispanic race groups (e.g.{' '}
-            <b>Black or African American (NH)</b>).
-          </p>
-
+          {isIslandArea && <MissingIslandAreaPopulationData />}
           {isCovid && <MissingCovidData />}
           {isCovidVax && <MissingCovidVaccinationData />}
           {isCAWP && <MissingCAWPData />}
-          {isHIV && <MissingHIVData />}
+          {(isHivOutcome || isHivBWOutcome) && <MissingHIVData />}
+          {isHivPrep && <MissingPrepData />}
           {isPhrma && <MissingPhrmaData />}
-          {isPrep && <MissingPrepData />}
           {isAHR && <MissingAHRData />}
 
           <Button
