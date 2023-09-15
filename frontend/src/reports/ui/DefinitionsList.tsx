@@ -49,7 +49,13 @@ export default function DefinitionsList(
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
                   return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
+<<<<<<< HEAD
                     const hasAddedInfo = Boolean(dataTypeConfig?.description)
+=======
+                    const hasAddedInfo = Boolean(
+                      dataTypeConfig?.dataTypeDescription
+                    )
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
                     return (
                       <li key={dataTypeConfig?.fullDisplayName}>
                         <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
@@ -61,20 +67,28 @@ export default function DefinitionsList(
                               </>
                             )}
 
+<<<<<<< HEAD
                             {dataTypeConfig.definition?.text}
                             <InfoCitations
                               citations={dataTypeConfig.definition?.citations}
                             />
+=======
+                            {dataTypeConfig.dataTypeDefinition}
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
                           </li>
                           {hasAddedInfo && (
                             <li>
                               <b>Clinical Importance:</b>{' '}
+<<<<<<< HEAD
                               {dataTypeConfig.description?.text}
                               <InfoCitations
                                 citations={
                                   dataTypeConfig.description?.citations
                                 }
                               />
+=======
+                              {dataTypeConfig.dataTypeDescription}
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
                             </li>
                           )}
                         </ul>

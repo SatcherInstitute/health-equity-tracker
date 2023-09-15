@@ -26,12 +26,19 @@ export default function DataTypeDefinitionsList() {
         return (
           <div key={config.dataTypeId}>
             <h3>{config.fullDisplayName}</h3>
+<<<<<<< HEAD
             <b>Measurement Definition:</b> {config.definition?.text}
             <InfoCitations citations={config.definition?.citations} />
             {config?.description && (
               <p>
                 <b>Clinical Importance:</b> {config.description.text}
                 <InfoCitations citations={config.description?.citations} />
+=======
+            <b>Measurement Definition:</b> {config.dataTypeDefinition}
+            {config?.dataTypeDescription && (
+              <p>
+                <b>Clinical Importance:</b> {config.dataTypeDescription}
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
               </p>
             )}
           </div>

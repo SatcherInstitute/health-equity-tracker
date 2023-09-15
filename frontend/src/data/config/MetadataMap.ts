@@ -373,7 +373,11 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
+<<<<<<< HEAD
     hideFromUser: !SHOW_PHRMA, // TODO: remove this once PHRMA merged
+=======
+    hideFromUser: true, // TODO: remove this once PHRMA merged
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
     id: 'phrma',
     data_source_name: 'Medicare Administrative Data',
     data_source_pretty_site_name: 'cms.gov',
@@ -384,7 +388,11 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
     description:
+<<<<<<< HEAD
       'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
+=======
+      'Data Source: Medicare FFS and Part D files (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS or Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',

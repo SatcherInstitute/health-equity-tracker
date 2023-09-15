@@ -172,9 +172,14 @@ export function MissingPhrmaData() {
           in this data.
         </li>
         <li>
+<<<<<<< HEAD
           <b>Disability:</b> Although we can display rates for those who are
           eligible due to disability generally, we can not represent disparities
           associated with specific physical or mental disabilities.
+=======
+          <b>Disability:</b> Although important, we do not present data on
+          disparities associated with physical or mental disabilities.
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
         </li>
         <li>
           <b>Social and Political Determinants of Health:</b> Unfortunately,
@@ -187,11 +192,16 @@ export function MissingPhrmaData() {
       <p>Who is missing?</p>
       <ul>
         <li>
+<<<<<<< HEAD
           <b>Data Suppression:</b> To{' '}
           <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
             protect patient privacy
           </a>
           , all data representing 1-10 people were suppressed.
+=======
+          <b>Data Suppression:</b> To protect patient privacy, all data
+          representing less than 12 people were suppressed.
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
         </li>
       </ul>
     </>

@@ -160,8 +160,13 @@ export interface DataTypeConfig {
   dataTypeShortLabel: string
   fullDisplayName: string
   fullDisplayNameInline?: string
+<<<<<<< HEAD
   definition?: InfoWithCitations
   description?: InfoWithCitations
+=======
+  dataTypeDefinition?: string
+  dataTypeDescription?: string
+>>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
   metrics: {
     count?: MetricConfig
     pct_share?: MetricConfig
