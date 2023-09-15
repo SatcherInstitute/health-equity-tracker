@@ -18,7 +18,6 @@ export default function TopicInfoModal() {
   const selectedDataTypeId = useAtomValue(
     selectedDataTypeConfig1Atom
   )?.dataTypeId
-  console.log({ selectedDataTypeId })
 
   const dropdownVarId: DropdownVarId | '' = selectedDataTypeId
     ? getParentDropdownFromDataTypeId(selectedDataTypeId)
