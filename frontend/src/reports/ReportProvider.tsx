@@ -16,7 +16,24 @@ import LifelineAlert from './ui/LifelineAlert'
 import LazyLoad from 'react-lazyload'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
+<<<<<<< HEAD
 import WhatDataAreMissing from './WhatDataAreMissing'
+=======
+import { LinkWithStickyParams } from '../utils/urlutils'
+import {
+  MissingCovidData,
+  MissingCovidVaccinationData,
+  MissingCAWPData,
+  MissingHIVData,
+  MissingAHRData,
+  MissingPrepData,
+  MissingPhrmaData,
+  MissingIslandAreaPopulationData,
+} from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
+import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
+import { PHRMA_CONDITIONS, SHOW_PHRMA } from '../data/providers/PhrmaProvider'
+import { Widget } from '@typeform/embed-react'
+>>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -50,9 +67,19 @@ function ReportProvider(props: ReportProviderProps) {
       dataTypeArray[1].some((dataType) => definedConditions?.includes(dataType))
   )
 
+<<<<<<< HEAD
   let fips1: Fips = new Fips('00')
   let fips2: Fips | null = null
 
+=======
+  const currentDropDownIds: DropdownVarId[] = metricConfigSubset.map(
+    (id) => id?.[0]
+  )
+
+  let fips1: Fips = new Fips('00')
+  let fips2: Fips | null = null
+
+>>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
   if (props.madLib.id === 'disparity')
     fips1 = new Fips(getPhraseValue(props.madLib, 3))
   else if (props.madLib.id === 'comparevars')
@@ -61,7 +88,26 @@ function ReportProvider(props: ReportProviderProps) {
     fips1 = new Fips(getPhraseValue(props.madLib, 3))
     fips2 = new Fips(getPhraseValue(props.madLib, 5))
   }
+<<<<<<< HEAD
 
+=======
+
+  const isIslandArea = fips1?.isIslandArea() ?? fips2?.isIslandArea()
+  const isCovid = currentDropDownIds.includes('covid')
+  const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
+  const isCAWP = currentDropDownIds.includes('women_in_gov')
+  const isHivOutcome = currentDropDownIds.includes('hiv')
+  const isHivBWOutcome = currentDropDownIds.includes('hiv_black_women')
+  const isHivPrep = currentDropDownIds.includes('hiv_prep')
+
+  const isAHR = currentDropDownIds.some((condition) =>
+    AHR_CONDITIONS.includes(condition)
+  )
+
+  const isPhrma = currentDropDownIds.some((condition) =>
+    PHRMA_CONDITIONS.includes(condition)
+  )
+>>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper
@@ -190,11 +236,62 @@ function ReportProvider(props: ReportProviderProps) {
             )}
           </div>
 
+<<<<<<< HEAD
           <WhatDataAreMissing
             metricConfigSubset={metricConfigSubset}
             fips1={fips1}
             fips2={fips2 ?? undefined}
           />
+=======
+          <Box mt={10}>
+            <h3 className={styles.FootnoteLargeHeading}>
+              What data are missing?
+            </h3>
+          </Box>
+
+          <p>Unfortunately there are crucial data missing in our sources.</p>
+          <h4>Missing and misidentified people</h4>
+          <p>
+            Currently, there are no required or standardized race and ethnicity
+            categories for data collection across state and local jurisdictions.
+            The most notable gaps exist for race and ethnic groups, physical and
+            mental health status, and sex categories. Many states do not record
+            data for <b>American Indian</b>, <b>Alaska Native</b>,{' '}
+            <b>Native Hawaiian and Pacific Islander</b> racial categories,
+            lumping these people into other groups. Individuals who identify as{' '}
+            <b>Hispanic/Latino</b> may not be recorded in their respective race
+            category. Neither disability nor mental health status is collected
+            with most data sources, and in almost all cases sex is recorded only
+            as female, male, or other.
+          </p>
+
+          {isIslandArea && <MissingIslandAreaPopulationData />}
+          {isCovid && <MissingCovidData />}
+          {isCovidVax && <MissingCovidVaccinationData />}
+          {isCAWP && <MissingCAWPData />}
+          {(isHivOutcome || isHivBWOutcome) && <MissingHIVData />}
+          {isHivPrep && <MissingPrepData />}
+          {isPhrma && <MissingPhrmaData />}
+          {isAHR && <MissingAHRData />}
+
+          <Button
+            className={styles.SeeOurDataSourcesButton}
+            href={DATA_CATALOG_PAGE_LINK}
+            color="primary"
+            endIcon={<ArrowForward />}
+          >
+            See Our Data Sources
+          </Button>
+
+          <div className={styles.MissingDataContactUs}>
+            <p>
+              Do you have information that belongs on the Health Equity Tracker?{' '}
+              <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
+                We would love to hear from you!
+              </LinkWithStickyParams>
+            </p>
+          </div>
+>>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
         </aside>
       </div>
     </>

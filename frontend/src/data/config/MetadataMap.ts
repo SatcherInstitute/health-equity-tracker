@@ -374,10 +374,14 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   },
   {
 <<<<<<< HEAD
+<<<<<<< HEAD
     hideFromUser: !SHOW_PHRMA, // TODO: remove this once PHRMA merged
 =======
     hideFromUser: true, // TODO: remove this once PHRMA merged
 >>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
+=======
+    hideFromUser: !SHOW_PHRMA, // TODO: remove this once PHRMA merged
+>>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
     id: 'phrma',
     data_source_name: 'Medicare Administrative Data',
     data_source_pretty_site_name: 'cms.gov',

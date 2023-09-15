@@ -200,8 +200,12 @@ export function MissingPhrmaData() {
           , all data representing 1-10 people were suppressed.
 =======
           <b>Data Suppression:</b> To protect patient privacy, all data
+<<<<<<< HEAD
           representing less than 12 people were suppressed.
 >>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
+=======
+          representing 1-10 people were suppressed.
+>>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
         </li>
       </ul>
     </>
