@@ -1,6 +1,28 @@
 import { urlMap } from '../../../utils/externalUrls'
-import { Link } from 'react-router-dom'
-import { METHODOLOGY_TAB_LINK } from '../../../utils/internalRoutes'
+
+export function MissingIslandAreaPopulationData() {
+  return (
+    <>
+      <h4>Missing population data for Census Island Areas</h4>
+
+      <p>
+        Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{' '}
+        <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
+        reported in the ACS five year estimates; in these territories, for
+        current and time-series based population figures back to 2016, we
+        incorporate the 2020 Decennial Island Areas report. For time-series data
+        from 2009-2015, we incorporate the 2010 release of the Decennial report.
+        Note: The NH, or Non-Hispanic race groups are only provided by the
+        Decennial report for <b>VI</b> but not the other Island Areas. As the
+        overall number of Hispanic-identifying people is very low in these
+        Island Areas (hence the Census not providing these race groups), we use
+        the ethnicity-agnostic race groups (e.g.{' '}
+        <b>Black or African American</b>) even though the condition data may use
+        Non-Hispanic race groups (e.g. <b>Black or African American (NH)</b>).
+      </p>
+    </>
+  )
+}
 
 export function MissingCovidData() {
   return (
@@ -14,44 +36,9 @@ export function MissingCovidData() {
           jurisdictions to the CDC
         </a>
         . Many of these case records are insufficiently disaggregated, report an
-        unknown hospitalization and/or death status, otherwise fail to provide a
-        complete picture of COVID-19 and its overall impact. Due to the nature
-        of surveillance data, we expect this data to become more complete over
-        time and will use the Health Equity Tracker to record that progress.
+        unknown hospitalization and/or death status, or otherwise fail to
+        provide a complete picture of COVID-19 and its overall impact.
       </p>
-      <p>
-        In accordance with our{' '}
-        <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
-        incomplete data and render some states grey for certain COVID-19 data
-        types, as outlined below:
-      </p>
-      <ul>
-        <li>
-          Cases, hospitalizations and deaths: <b>Northern Mariana Islands</b>,{' '}
-          <b>Mississippi</b>, <b>West Virginia</b>
-        </li>
-        <li>
-          Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{' '}
-          <b>South Dakota</b>
-        </li>
-        <li>
-          Hospitalizations: <b>Rhode Island</b>
-        </li>
-        <li>
-          Deaths: <b>Delaware</b>
-        </li>
-      </ul>
-      <p>
-        Note: The following states' case data for COVID-19 <i>are</i> included,
-        but should be interpreted with caution since the cases reported may not
-        be representative of the population at large.
-      </p>
-      <ul>
-        <li>
-          Deaths (interpret with caution): <b>Mississippi</b> and <b>Georgia</b>
-          .
-        </li>
-      </ul>
     </>
   )
 }
