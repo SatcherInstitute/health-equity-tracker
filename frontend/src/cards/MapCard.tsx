@@ -86,6 +86,7 @@ import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { PHRMA_DATATYPES } from '../data/providers/PhrmaProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -131,6 +132,7 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
+  const isPhrma = PHRMA_DATATYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
 
@@ -169,11 +171,10 @@ function MapCardWithKey(props: MapCardProps) {
   )
 
   const metricQuery = (
+    metricIds: MetricId[],
     geographyBreakdown: Breakdowns,
     countColsMap?: CountColsMap
   ) => {
-    const metricIds: MetricId[] = [metricConfig.metricId]
-
     countColsMap?.numeratorConfig &&
       metricIds.push(countColsMap.numeratorConfig.metricId)
     countColsMap?.denominatorConfig &&
@@ -199,9 +200,16 @@ function MapCardWithKey(props: MapCardProps) {
     denominatorConfig: metricConfig?.rateDenominatorMetric,
   }
 
+  const initialMetridIds = [metricConfig.metricId]
+  if (isPhrma) initialMetridIds.push('phrma_population')
+
   const queries = [
-    metricQuery(Breakdowns.forChildrenFips(props.fips), countColsMap),
-    metricQuery(Breakdowns.forFips(props.fips)),
+    metricQuery(
+      initialMetridIds,
+      Breakdowns.forChildrenFips(props.fips),
+      countColsMap
+    ),
+    metricQuery(initialMetridIds, Breakdowns.forFips(props.fips)),
   ]
 
   // Population count
@@ -295,15 +303,13 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getPopulationPhrase(
-          'Total',
-          queryResponses[2]
-        )
-        const medicarePopulationPhrase = getPopulationPhrase(
-          'Medicare',
-          parentGeoQueryResponse
-        )
-        console.log({ medicarePopulationPhrase })
+        const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
+        const subPopulationPhrase = isPhrma
+          ? getPopulationPhrase(
+              parentGeoQueryResponse,
+              props.dataTypeConfig.dataTypeId
+            )
+          : ''
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs =
@@ -450,6 +456,7 @@ function MapCardWithKey(props: MapCardProps) {
               queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}
+              subPopulationPhrase={subPopulationPhrase}
               updateFipsCallback={props.updateFipsCallback}
               useSmallSampleMessage={
                 !mapQueryResponse.dataIsMissing() &&
@@ -599,6 +606,7 @@ function MapCardWithKey(props: MapCardProps) {
                         updateFipsCallback={props.updateFipsCallback}
                         dataTypeConfig={props.dataTypeConfig}
                         totalPopulationPhrase={totalPopulationPhrase}
+                        subPopulationPhrase={subPopulationPhrase}
                         sviQueryResponse={sviQueryResponse}
                       />
                     </Grid>
