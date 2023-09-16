@@ -11,7 +11,8 @@ function MapBreadcrumbs(props: {
   updateFipsCallback: (fips: Fips) => void
   ariaLabel?: string
   scrollToHashId: ScrollableHashId
-  endNote?: string
+  totalPopulationPhrase?: string
+  subPopulationPhrase?: string
 }) {
   const location = useLocation()
 
@@ -46,8 +47,20 @@ function MapBreadcrumbs(props: {
           <Crumb text={props.fips.getDisplayName()} isClickable={false} />
         )}
 
-        {props.endNote && (
-          <Crumb text={props.endNote} isClickable={false} isNote={true} />
+        {props.totalPopulationPhrase && (
+          <Crumb
+            text={props.totalPopulationPhrase}
+            isClickable={false}
+            isNote={true}
+          />
+        )}
+
+        {props.subPopulationPhrase && (
+          <Crumb
+            text={props.subPopulationPhrase}
+            isClickable={false}
+            isNote={true}
+          />
         )}
       </Breadcrumbs>
     </>
