@@ -11,6 +11,7 @@
       "vite-plugin-svgr/client",
       "vite/client"
     ],
+    "typeRoots": ["./node_modules"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
