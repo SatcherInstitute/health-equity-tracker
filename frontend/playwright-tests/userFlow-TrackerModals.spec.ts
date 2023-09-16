@@ -13,7 +13,17 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         await page.getByRole('button', { name: 'open the topic info modal' }).click();
         await expect(page).toHaveURL(/.*topic-info=true/);
 
-        // CLOSE IT
+        // clicking methodology link takes directly to #hiv section
+        await page.getByRole('link', { name: 'methodology' }).click();
+        const IncarcerationSubheading = page.getByRole('heading', { name: 'Incarceration', exact: true })
+        await expect(IncarcerationSubheading).toBeInViewport()
+        await expect(page).toHaveURL(/.*methodology#incarceration/);
+
+
+        // browser back button takes you back to the open topic modal
+        page.goBack()
+
+        // CLOSE modal
         await page.getByRole('button', { name: 'close topic info modal' }).click();
         await expect(page).not.toHaveURL(/.*topic-info=true/);
     })
@@ -33,6 +43,9 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         await page.getByText('Investigate rates ofCOVID-19 Deaths in theUnited States DemographicRace/eth').press('Meta+c');
 
     })
+
+
+
 
     test('Multiple Maps 1 (Left Side)', async ({ page }) => {
 

@@ -172,8 +172,9 @@ export function MissingPhrmaData() {
           in this data.
         </li>
         <li>
-          <b>Disability:</b> Although important, we do not present data on
-          disparities associated with physical or mental disabilities.
+          <b>Disability:</b> Although we can display rates for those who are
+          eligible due to disability generally, we can not represent disparities
+          associated with specific physical or mental disabilities.
         </li>
         <li>
           <b>Social and Political Determinants of Health:</b> Unfortunately,
