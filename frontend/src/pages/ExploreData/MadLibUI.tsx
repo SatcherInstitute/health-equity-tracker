@@ -94,7 +94,8 @@ export default function MadLibUI(props: {
         value: newDataType,
       },
     ])
-    const dropdownId: DropdownVarId = getParentDropdownFromDataType(newDataType)
+    const dropdownId: DropdownVarId =
+      getParentDropdownFromDataTypeId(newDataType)
     // madlib with updated topic
     props.setMadLibWithParam(
       getMadLibWithUpdatedValue(props.madLib, index, dropdownId)
@@ -183,7 +184,7 @@ export function getConfigFromDataTypeId(
   return config ?? METRIC_CONFIG.covid[0]
 }
 
-export function getParentDropdownFromDataType(
+export function getParentDropdownFromDataTypeId(
   dataType: DataTypeId | string
 ): DropdownVarId {
   for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
