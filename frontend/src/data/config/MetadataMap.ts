@@ -393,10 +393,14 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     update_frequency: 'None',
     description:
 <<<<<<< HEAD
+<<<<<<< HEAD
       'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
 =======
       'Data Source: Medicare FFS and Part D files (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS or Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
 >>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
+=======
+      'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
+>>>>>>> f871f2c6 (Direct link from topic info modal to methodology hash (#2382))
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',
