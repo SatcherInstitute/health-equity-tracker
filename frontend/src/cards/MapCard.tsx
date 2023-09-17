@@ -303,13 +303,16 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
-        const subPopulationPhrase = isPhrma
-          ? getPopulationPhrase(
-              parentGeoQueryResponse,
-              props.dataTypeConfig.dataTypeId
-            )
-          : ''
+        const totalPopulationPhrase = getPopulationPhrase(
+          queryResponses[2],
+          props.demographicType,
+          'population'
+        )
+        const subPopulationPhrase = getPopulationPhrase(
+          parentGeoQueryResponse,
+          props.demographicType,
+          metricId
+        )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs =

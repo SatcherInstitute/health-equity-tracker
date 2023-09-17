@@ -2,8 +2,6 @@ import { Grid } from '@mui/material'
 import {
   type MetricId,
   type DataTypeConfig,
-  type DataTypeId,
-  type DropdownVarId,
 } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
@@ -11,7 +9,9 @@ import MapBreadcrumbs from './MapBreadcrumbs'
 import SviAlert from './SviAlert'
 import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { getParentDropdownFromDataTypeId } from '../../pages/ExploreData/MadLibUI'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { ALL } from '../../data/utils/Constants'
+import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 
 interface GeoContextProps {
   fips: Fips
@@ -52,31 +52,24 @@ export default function GeoContext(props: GeoContextProps) {
   )
 }
 
-type PopConfig = [string, MetricId]
-
 export function getPopulationPhrase(
   populationQueryResponse: MetricQueryResponse,
-  dataTypeId?: DataTypeId
+  demographicType: DemographicType,
+  metricId: MetricId
 ): string {
-  const dropdownVarId: DropdownVarId | undefined = dataTypeId
-    ? getParentDropdownFromDataTypeId(dataTypeId)
-    : undefined
-
-  const popLookup: Partial<Record<DropdownVarId, PopConfig>> = {
-    phrma_cardiovascular: ['Total Medicare', 'phrma_population'],
-    phrma_hiv: ['Total Medicare', 'phrma_population'],
+  if (metricId === 'population') {
+    const popAllCount: string =
+      populationQueryResponse.data?.[0].population.toLocaleString()
+    console.log(popAllCount)
+    return `Total Population: ${popAllCount}`
   }
-
-  let popConfig: PopConfig | undefined
-  if (dropdownVarId && popLookup[dropdownVarId])
-    popConfig = popLookup[dropdownVarId]
-  if (!popConfig) popConfig = ['Total', 'population']
-
-  const [popLabel, popColumn]: PopConfig = popConfig
-
-  const totalPopulation: string =
-    populationQueryResponse.data?.[0]?.[popColumn]?.toLocaleString() ??
-    'unknown'
-
-  return `${popLabel} Population: ${totalPopulation}`
+  if (PHRMA_METRICS.includes(metricId)) {
+    const allRow = populationQueryResponse.data?.find(
+      (row) => row[demographicType] === ALL
+    )
+    const popAllCount: string =
+      allRow?.phrma_population.toLocaleString() ?? 'unknown'
+    return `Total Medicare Population: ${popAllCount}`
+  }
+  return ''
 }
