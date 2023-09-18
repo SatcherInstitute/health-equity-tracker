@@ -6,12 +6,16 @@ import MapBreadcrumbs from './MapBreadcrumbs'
 import SviAlert from './SviAlert'
 import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { ALL } from '../../data/utils/Constants'
+import { type Row } from '../../data/utils/DatasetTypes'
 
 interface GeoContextProps {
   fips: Fips
   updateFipsCallback: (fips: Fips) => void
   dataTypeConfig: DataTypeConfig
   totalPopulationPhrase: string
+  subPopulationPhrase: string
   sviQueryResponse: MetricQueryResponse | null
 }
 
@@ -27,7 +31,8 @@ export default function GeoContext(props: GeoContextProps) {
         updateFipsCallback={props.updateFipsCallback}
         ariaLabel={props.dataTypeConfig.fullDisplayName}
         scrollToHashId={HASH_ID}
-        endNote={props.totalPopulationPhrase}
+        totalPopulationPhrase={props.totalPopulationPhrase}
+        subPopulationPhrase={props.subPopulationPhrase}
       />
       <Grid className={styles.SviContainer}>
         <Grid>
@@ -44,11 +49,22 @@ export default function GeoContext(props: GeoContextProps) {
   )
 }
 
-export function getPopulationPhrase(
-  populationQueryResponse: MetricQueryResponse
-): string {
-  const totalPopulation: string =
-    populationQueryResponse.data?.[0].population?.toLocaleString() ?? 'unknown'
+const POP_MISSING_VALUE = 'unavailable'
 
-  return `Total Population: ${totalPopulation}`
+export function getTotalACSPopulationPhrase(populationData: Row[]): string {
+  const popAllCount: string = populationData[0].population.toLocaleString()
+  return `Total Population (US Census): ${popAllCount ?? POP_MISSING_VALUE}`
+}
+
+export function getSubPopulationPhrase(
+  subPopulationData: Row[],
+  demographicType: DemographicType,
+  dataTypeConfig: DataTypeConfig
+): string {
+  const subPopConfig = dataTypeConfig.metrics?.sub_population_count
+  if (!subPopConfig) return ''
+  const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
+  const popAllCount: string =
+    allRow?.[subPopConfig.metricId]?.toLocaleString() ?? POP_MISSING_VALUE
+  return `${subPopConfig.shortLabel}: ${popAllCount}`
 }

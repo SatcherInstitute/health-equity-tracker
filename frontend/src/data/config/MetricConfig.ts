@@ -156,6 +156,7 @@ export interface DataTypeConfig {
     index?: MetricConfig
     ratio?: MetricConfig
     age_adjusted_ratio?: MetricConfig
+    sub_population_count?: MetricConfig
   }
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
