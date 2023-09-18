@@ -23,7 +23,7 @@ describe('test getTotalACSPopulationPhrase()', () => {
 })
 
 describe('test getSubPopulationPhrase()', () => {
-  const nationalPhrmaPopData: Row[] = [
+  const nationalPhrmaData: Row[] = [
     {
       phrma_population: 41816007,
       race_and_ethnicity: 'All',
@@ -70,13 +70,46 @@ describe('test getSubPopulationPhrase()', () => {
   const statinsAdherenceConfig: DataTypeConfig =
     METRIC_CONFIG.phrma_cardiovascular[0]
 
-  test('phrma medicare population', () => {
+  test('phrma medicare national population', () => {
     const medicarePopPhrase = getSubPopulationPhrase(
-      /* data */ nationalPhrmaPopData,
+      /* data */ nationalPhrmaData,
       /* demographicType */ 'race_and_ethnicity',
       /* dataTypeConfig */ statinsAdherenceConfig
     )
     expect(medicarePopPhrase).toEqual('Total Medicare Population: 41,816,007')
+  })
+
+  const countyPhrmaData: Row[] = [
+    {
+      phrma_population: null,
+      some_metric_: 50.0,
+      sex: 'All',
+      fips: '99999',
+      fips_name: 'Some County',
+    },
+    {
+      phrma_population: null,
+      some_metric_: 50.0,
+      sex: 'Male',
+      fips: '99999',
+      fips_name: 'Some County',
+    },
+    {
+      phrma_population: null,
+      some_metric_: 50.0,
+      sex: 'Female',
+      fips: '99999',
+      fips_name: 'Some County',
+    },
+  ]
+
+  test('phrma medicare metric expects extra subpop breadcrumb, but pop data is unavailable', () => {
+    const medicarePopPhrase = getSubPopulationPhrase(
+      /* data */ countyPhrmaData,
+      /* demographicType */ 'sex',
+      /* dataTypeConfig */ statinsAdherenceConfig
+    )
+    expect(medicarePopPhrase).toEqual('Total Medicare Population: unavailable')
   })
 
   const nationalCovidData: Row[] = [

@@ -65,6 +65,6 @@ export function getSubPopulationPhrase(
   if (!subPopConfig) return ''
   const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
   const popAllCount: string =
-    allRow?.[subPopConfig.metricId].toLocaleString() ?? POP_MISSING_VALUE
+    allRow?.[subPopConfig.metricId]?.toLocaleString() ?? POP_MISSING_VALUE
   return `${subPopConfig.shortLabel}: ${popAllCount}`
 }
