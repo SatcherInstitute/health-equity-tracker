@@ -69,6 +69,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for statins during the measurement year. A higher rate indicates better performance.`,
     dataTypeDescription: `Statins are recommended for management of dyslipidemia and/or primary prevention of cardiovascular disease (CVD) in several treatment guidelines. High adherence to statins is associated with decreased risk of death and lower health care costs.`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         metricId: 'statins_adherence_pct_rate',
         chartTitle: 'Population adherent to statins',
@@ -104,6 +110,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta blockers during the measurement year.`,
     dataTypeDescription: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'beta_blockers_adherence_estimated_total',
@@ -140,6 +152,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `National Quality Forum measure representing the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
     dataTypeDescription: `Persistent use of beta-blockers after a heart attacked is indicted by major clinical guidelines to reduce the risk of a future heart attack (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'nqf_adherence_estimated_total',
@@ -176,6 +194,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASA) during the measurement year. A higher rate indicates better performance.`,
     dataTypeDescription: `RASAs are important for the chronic treatment of hypertension and proteinuria in patients with diabetes, in which these drugs have been shown to delay renal failure and heart disease. Non-adherence is a major contributor to poor control of hypertension and a key barrier to reducing mortality and understanding adherence patterns can lead to improved clinical outcomes for patients (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'rasa_adherence_estimated_total',
@@ -210,6 +234,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for calcium channel blockers during the measurement year.`,
     dataTypeDescription: `Adherence to calcium channel blockers is important to effectively treat high blood pressure and reduce risk of cardiovascular disease (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'ccb_adherence_estimated_total',
@@ -244,6 +274,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% during the measurement period for direct-acting oral anticoagulants.`,
     dataTypeDescription: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'doac_adherence_estimated_total',
@@ -278,6 +314,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) (otherwise known as a heart attack) per 100K during the measurement period.`,
     dataTypeDescription: ` Heart disease, such as heart attack and heart failure, is leading cause of death in the US.`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       per100k: {
         metricId: 'ami_per_100k',
         chartTitle: 'Rates of Acute MI',
@@ -325,6 +367,12 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
     dataTypeDescription: `Effective treatment of HIV with antiretroviral medications can reduce mortality and morbidity rates among people affected by HIV (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'arv_adherence_estimated_total',
@@ -359,6 +407,12 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of Human immunodeficiency virus (HIV) during the measurement period.`,
     dataTypeDescription: `HIV is a major public health crisis that infects thousands of people in the U.S. per year. If left untreated, HIV results in acquired immunodeficiency syndrome, which increases the risk of death.`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       per100k: {
         metricId: 'phrma_hiv_per_100k',
         chartTitle: 'Rates of HIV cases',

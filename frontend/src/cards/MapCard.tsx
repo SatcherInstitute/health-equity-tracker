@@ -66,7 +66,10 @@ import {
   getMapScheme,
 } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
-import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
+import GeoContext, {
+  getSubPopulationPhrase,
+  getTotalACSPopulationPhrase,
+} from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
@@ -169,11 +172,10 @@ function MapCardWithKey(props: MapCardProps) {
   )
 
   const metricQuery = (
+    metricIds: MetricId[],
     geographyBreakdown: Breakdowns,
     countColsMap?: CountColsMap
   ) => {
-    const metricIds: MetricId[] = [metricConfig.metricId]
-
     countColsMap?.numeratorConfig &&
       metricIds.push(countColsMap.numeratorConfig.metricId)
     countColsMap?.denominatorConfig &&
@@ -199,9 +201,19 @@ function MapCardWithKey(props: MapCardProps) {
     denominatorConfig: metricConfig?.rateDenominatorMetric,
   }
 
+  const initialMetridIds = [metricConfig.metricId]
+
+  const subPopulationId =
+    props.dataTypeConfig.metrics.sub_population_count?.metricId
+  if (subPopulationId) initialMetridIds.push(subPopulationId)
+
   const queries = [
-    metricQuery(Breakdowns.forChildrenFips(props.fips), countColsMap),
-    metricQuery(Breakdowns.forFips(props.fips)),
+    metricQuery(
+      initialMetridIds,
+      Breakdowns.forChildrenFips(props.fips),
+      countColsMap
+    ),
+    metricQuery(initialMetridIds, Breakdowns.forFips(props.fips)),
   ]
 
   // Population count
@@ -285,6 +297,7 @@ function MapCardWithKey(props: MapCardProps) {
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
+        const acsPopulationQueryResponse = queryResponses[2]
         const hasSelfButNotChildGeoData =
           childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
             .length === 0 &&
@@ -295,7 +308,15 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getPopulationPhrase(queryResponses[2])
+        const totalPopulationPhrase = getTotalACSPopulationPhrase(
+          acsPopulationQueryResponse.data
+        )
+        const subPopulationPhrase = getSubPopulationPhrase(
+          parentGeoQueryResponse.data,
+          props.demographicType,
+          props.dataTypeConfig
+        )
+
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
         const sortArgs =
           props.demographicType === AGE
@@ -441,6 +462,7 @@ function MapCardWithKey(props: MapCardProps) {
               queries={queries}
               queryResponses={queryResponses}
               totalPopulationPhrase={totalPopulationPhrase}
+              subPopulationPhrase={subPopulationPhrase}
               updateFipsCallback={props.updateFipsCallback}
               useSmallSampleMessage={
                 !mapQueryResponse.dataIsMissing() &&
@@ -590,6 +612,7 @@ function MapCardWithKey(props: MapCardProps) {
                         updateFipsCallback={props.updateFipsCallback}
                         dataTypeConfig={props.dataTypeConfig}
                         totalPopulationPhrase={totalPopulationPhrase}
+                        subPopulationPhrase={subPopulationPhrase}
                         sviQueryResponse={sviQueryResponse}
                       />
                     </Grid>
