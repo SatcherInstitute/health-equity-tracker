@@ -166,6 +166,9 @@ cdc_hiv_exporter_operator_black_women = util.create_exporter_operator(
 )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 49f1e735 (Fix hiv dag age adjust (#2388))
 payload_race_with_age_adjust = {
     'dataset_name': _CDC_HIV_DATASET_NAME,
     'demographic': "race_and_ethnicity",
@@ -174,6 +177,7 @@ cdc_hiv_exporter_operator_race_with_age_adjust = util.create_exporter_operator(
     'cdc_hiv_exporter_race_with_age_adjust',
     payload_race_with_age_adjust,
     data_ingestion_dag,
+<<<<<<< HEAD
 )
 
 =======
@@ -181,8 +185,11 @@ cdc_hiv_exporter_operator_race_with_age_adjust = util.create_exporter_operator(
 payload_multi = {'dataset_name': _CDC_HIV_DATASET_NAME, 'demographic': "multi"}
 cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
     'cdc_hiv_exporter_multi', payload_multi, data_ingestion_dag
+=======
+>>>>>>> 49f1e735 (Fix hiv dag age adjust (#2388))
 )
 >>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
+
 
 # Ingestion DAG
 (
@@ -200,6 +207,7 @@ cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
         cdc_hiv_exporter_operator_sex,
         cdc_hiv_exporter_operator_black_women,
 <<<<<<< HEAD
+<<<<<<< HEAD
     ]
     >> cdc_hiv_age_adjust_op
     >> cdc_hiv_exporter_operator_race_with_age_adjust,
@@ -208,4 +216,9 @@ cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
     ]
     >> cdc_hiv_age_adjust_op
 >>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
+=======
+    ]
+    >> cdc_hiv_age_adjust_op
+    >> cdc_hiv_exporter_operator_race_with_age_adjust,
+>>>>>>> 49f1e735 (Fix hiv dag age adjust (#2388))
 )
