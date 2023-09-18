@@ -1,17 +1,14 @@
 import { Grid } from '@mui/material'
-import {
-  type MetricId,
-  type DataTypeConfig,
-  type DataTypeId,
-  type DropdownVarId,
-} from '../../data/config/MetricConfig'
+import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import SviAlert from './SviAlert'
 import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
-import { getParentDropdownFromDataTypeId } from '../../pages/ExploreData/MadLibUI'
+import { type DemographicType } from '../../data/query/Breakdowns'
+import { ALL } from '../../data/utils/Constants'
+import { type Row } from '../../data/utils/DatasetTypes'
 
 interface GeoContextProps {
   fips: Fips
@@ -52,31 +49,22 @@ export default function GeoContext(props: GeoContextProps) {
   )
 }
 
-type PopConfig = [string, MetricId]
+const POP_MISSING_VALUE = 'unavailable'
 
-export function getPopulationPhrase(
-  populationQueryResponse: MetricQueryResponse,
-  dataTypeId?: DataTypeId
+export function getTotalACSPopulationPhrase(populationData: Row[]): string {
+  const popAllCount: string = populationData[0].population.toLocaleString()
+  return `Total Population (US Census): ${popAllCount ?? POP_MISSING_VALUE}`
+}
+
+export function getSubPopulationPhrase(
+  subPopulationData: Row[],
+  demographicType: DemographicType,
+  dataTypeConfig: DataTypeConfig
 ): string {
-  const dropdownVarId: DropdownVarId | undefined = dataTypeId
-    ? getParentDropdownFromDataTypeId(dataTypeId)
-    : undefined
-
-  const popLookup: Partial<Record<DropdownVarId, PopConfig>> = {
-    phrma_cardiovascular: ['Total Medicare', 'phrma_population'],
-    phrma_hiv: ['Total Medicare', 'phrma_population'],
-  }
-
-  let popConfig: PopConfig | undefined
-  if (dropdownVarId && popLookup[dropdownVarId])
-    popConfig = popLookup[dropdownVarId]
-  if (!popConfig) popConfig = ['Total', 'population']
-
-  const [popLabel, popColumn]: PopConfig = popConfig
-
-  const totalPopulation: string =
-    populationQueryResponse.data?.[0]?.[popColumn]?.toLocaleString() ??
-    'unknown'
-
-  return `${popLabel} Population: ${totalPopulation}`
+  const subPopConfig = dataTypeConfig.metrics?.sub_population_count
+  if (!subPopConfig) return ''
+  const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
+  const popAllCount: string =
+    allRow?.[subPopConfig.metricId]?.toLocaleString() ?? POP_MISSING_VALUE
+  return `${subPopConfig.shortLabel}: ${popAllCount}`
 }

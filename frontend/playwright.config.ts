@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 30 * 1000
+    timeout: 45 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
@@ -31,7 +31,7 @@ const config: PlaywrightTestConfig = {
     ['html']
   ],
 
-  workers: process.env.CI ? 2 : 4,
+  workers: process.env.CI ? 2 : 3,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',

@@ -36,19 +36,30 @@ export type DatasetId =
   | 'cawp_time_data-race_and_ethnicity_national_time_series'
   | 'cawp_time_data-race_and_ethnicity_state_time_series_names'
   | 'cawp_time_data-race_and_ethnicity_state_time_series'
-  | 'cdc_hiv_data-age_county_time_series'
-  | 'cdc_hiv_data-age_national_time_series'
-  | 'cdc_hiv_data-age_state_time_series'
-  | 'cdc_hiv_data-black_women_national_time_series'
-  | 'cdc_hiv_data-black_women_state_time_series'
-  | 'cdc_hiv_data-race_and_ethnicity_county_time_series'
-  | 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
-  | 'cdc_hiv_data-race_and_ethnicity_national_time_series'
-  | 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
-  | 'cdc_hiv_data-race_and_ethnicity_state_time_series'
-  | 'cdc_hiv_data-sex_county_time_series'
-  | 'cdc_hiv_data-sex_national_time_series'
-  | 'cdc_hiv_data-sex_state_time_series'
+  | 'cdc_hiv_data-age_county_current'
+  | 'cdc_hiv_data-age_national_current'
+  | 'cdc_hiv_data-age_state_current'
+  | 'cdc_hiv_data-black_women_national_current'
+  | 'cdc_hiv_data-black_women_state_current'
+  | 'cdc_hiv_data-race_and_ethnicity_county_current'
+  | 'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
+  | 'cdc_hiv_data-race_and_ethnicity_national_current'
+  | 'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust'
+  | 'cdc_hiv_data-race_and_ethnicity_state_current'
+  | 'cdc_hiv_data-sex_county_current'
+  | 'cdc_hiv_data-sex_national_current'
+  | 'cdc_hiv_data-sex_state_current'
+  | 'cdc_hiv_data-age_county_historical'
+  | 'cdc_hiv_data-age_national_historical'
+  | 'cdc_hiv_data-age_state_historical'
+  | 'cdc_hiv_data-black_women_national_historical'
+  | 'cdc_hiv_data-black_women_state_historical'
+  | 'cdc_hiv_data-race_and_ethnicity_county_historical'
+  | 'cdc_hiv_data-race_and_ethnicity_national_historical'
+  | 'cdc_hiv_data-race_and_ethnicity_state_historical'
+  | 'cdc_hiv_data-sex_county_historical'
+  | 'cdc_hiv_data-sex_national_historical'
+  | 'cdc_hiv_data-sex_state_historical'
   | 'cdc_restricted_data-by_age_county_processed_time_series'
   | 'cdc_restricted_data-by_age_county_processed'
   | 'cdc_restricted_data-by_age_national_processed_time_series'
@@ -160,72 +171,130 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
     update_time: '2019',
     source_id: 'acs',
   },
-  'cdc_hiv_data-race_and_ethnicity_county_time_series': {
+  'cdc_hiv_data-race_and_ethnicity_county_historical': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and county',
     update_time: '2021',
     contains_nh: true,
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-race_and_ethnicity_state_time_series': {
+  'cdc_hiv_data-race_and_ethnicity_state_historical': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
     update_time: '2021',
     contains_nh: true,
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-race_and_ethnicity_national_time_series': {
+  'cdc_hiv_data-race_and_ethnicity_national_historical': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
     update_time: '2021',
     contains_nh: true,
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust': {
+  'cdc_hiv_data-age_county_historical': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and county',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-age_state_historical': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and state',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-age_national_historical': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-sex_county_historical': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and county',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-sex_state_historical': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and state',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-sex_national_historical': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-black_women_state_historical': {
+    name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-black_women_national_historical': {
+    name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
+    update_time: '2021',
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-race_and_ethnicity_county_current': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and county',
+    update_time: '2021',
+    contains_nh: true,
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-race_and_ethnicity_state_current': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
+    update_time: '2021',
+    contains_nh: true,
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-race_and_ethnicity_national_current': {
+    name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
+    update_time: '2021',
+    contains_nh: true,
+    source_id: 'cdc_atlas',
+  },
+  'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust': {
     name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by race/ethnicity and state',
     update_time: '2021',
     contains_nh: true,
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust': {
+  'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust': {
     name: 'Age-adjusted HIV deaths and crude rates for HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by race/ethnicity nationally',
     update_time: '2021',
     contains_nh: true,
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-age_county_time_series': {
+  'cdc_hiv_data-age_county_current': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and county',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-age_state_time_series': {
+  'cdc_hiv_data-age_state_current': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by age and state',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-age_national_time_series': {
+  'cdc_hiv_data-age_national_current': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by age nationally',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-sex_county_time_series': {
+  'cdc_hiv_data-sex_county_current': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and county',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-sex_state_time_series': {
+  'cdc_hiv_data-sex_state_current': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage by sex and state',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-sex_national_time_series': {
+  'cdc_hiv_data-sex_national_current': {
     name: 'HIV diagnoses, deaths, prevalence, linkage to HIV care, stigma, and PrEP coverage by sex nationally',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_state_time_series': {
+  'cdc_hiv_data-black_women_state_current': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, by state',
     update_time: '2021',
     source_id: 'cdc_atlas',
   },
-  'cdc_hiv_data-black_women_national_time_series': {
+  'cdc_hiv_data-black_women_national_current': {
     name: 'HIV diagnoses, deaths, and prevalence for Black women, by age, nationally',
     update_time: '2021',
     source_id: 'cdc_atlas',
@@ -345,98 +414,98 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_restricted_data-by_race_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
-    update_time: 'August 2023',
+    update_time: 'September 2023',
     source_id: 'cdc_restricted',
   },
   'cdc_svi_county-age': {
