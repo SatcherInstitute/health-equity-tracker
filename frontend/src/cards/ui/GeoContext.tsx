@@ -60,7 +60,6 @@ export function getPopulationPhrase(
   if (metricId === 'population') {
     const popAllCount: string =
       populationQueryResponse.data?.[0].population.toLocaleString()
-    console.log(popAllCount)
     return `Total Population: ${popAllCount}`
   }
   if (PHRMA_METRICS.includes(metricId)) {
