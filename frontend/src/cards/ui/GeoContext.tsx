@@ -1,8 +1,5 @@
 import { Grid } from '@mui/material'
-import {
-  type MetricId,
-  type DataTypeConfig,
-} from '../../data/config/MetricConfig'
+import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import MapBreadcrumbs from './MapBreadcrumbs'
@@ -11,7 +8,6 @@ import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
-import { PHRMA_METRICS } from '../../data/providers/PhrmaProvider'
 
 interface GeoContextProps {
   fips: Fips
@@ -52,23 +48,27 @@ export default function GeoContext(props: GeoContextProps) {
   )
 }
 
-export function getPopulationPhrase(
+const POP_MISSING_VALUE = 'unavailable'
+
+export function getTotalACSPopulationPhrase(
+  populationQueryResponse: MetricQueryResponse
+): string {
+  const popAllCount: string =
+    populationQueryResponse.data?.[0].population.toLocaleString()
+  return `Total Population (US Census): ${popAllCount ?? POP_MISSING_VALUE}`
+}
+
+export function getSubPopulationPhrase(
   populationQueryResponse: MetricQueryResponse,
   demographicType: DemographicType,
-  metricId: MetricId
+  dataTypeConfig: DataTypeConfig
 ): string {
-  if (metricId === 'population') {
-    const popAllCount: string =
-      populationQueryResponse.data?.[0].population.toLocaleString()
-    return `Total Population: ${popAllCount}`
-  }
-  if (PHRMA_METRICS.includes(metricId)) {
-    const allRow = populationQueryResponse.data?.find(
-      (row) => row[demographicType] === ALL
-    )
-    const popAllCount: string =
-      allRow?.phrma_population.toLocaleString() ?? 'unknown'
-    return `Total Medicare Population: ${popAllCount}`
-  }
-  return ''
+  const subPopConfig = dataTypeConfig.metrics?.sub_population_count
+  if (!subPopConfig) return ''
+  const allRow = populationQueryResponse.data?.find(
+    (row) => row[demographicType] === ALL
+  )
+  const popAllCount: string =
+    allRow?.[subPopConfig.metricId].toLocaleString() ?? POP_MISSING_VALUE
+  return `${subPopConfig.shortLabel}: ${popAllCount}`
 }

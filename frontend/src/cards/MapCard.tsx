@@ -66,7 +66,10 @@ import {
   getMapScheme,
 } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
-import GeoContext, { getPopulationPhrase } from './ui/GeoContext'
+import GeoContext, {
+  getSubPopulationPhrase,
+  getTotalACSPopulationPhrase,
+} from './ui/GeoContext'
 import TerritoryCircles from './ui/TerritoryCircles'
 import { GridView } from '@mui/icons-material'
 import {
@@ -303,15 +306,13 @@ function MapCardWithKey(props: MapCardProps) {
           ? parentGeoQueryResponse
           : childGeoQueryResponse
 
-        const totalPopulationPhrase = getPopulationPhrase(
-          queryResponses[2],
-          props.demographicType,
-          'population'
+        const totalPopulationPhrase = getTotalACSPopulationPhrase(
+          queryResponses[2]
         )
-        const subPopulationPhrase = getPopulationPhrase(
+        const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse,
           props.demographicType,
-          metricId
+          props.dataTypeConfig
         )
 
         const sviQueryResponse: MetricQueryResponse = queryResponses[3] || null
