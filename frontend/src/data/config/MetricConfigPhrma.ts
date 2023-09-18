@@ -160,7 +160,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -222,7 +226,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -285,6 +293,12 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeDefinition: `National Quality Forum measure representing the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
     dataTypeDescription: `Persistent use of beta-blockers after a heart attacked is indicted by major clinical guidelines to reduce the risk of a future heart attack (CITE).`,
     metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
       pct_rate: {
         rateNumeratorMetric: {
           metricId: 'nqf_adherence_estimated_total',
@@ -324,7 +338,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -386,7 +404,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -447,7 +469,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -508,7 +534,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -574,7 +604,11 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -624,7 +658,11 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },

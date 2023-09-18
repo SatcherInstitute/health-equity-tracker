@@ -310,7 +310,11 @@ function MapCardWithKey(props: MapCardProps) {
         )
         const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse.data,
+<<<<<<< HEAD
           demographicType,
+=======
+          props.demographicType,
+>>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
           props.dataTypeConfig
         )
 
