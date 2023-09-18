@@ -1,5 +1,5 @@
 import HivProvider from './HivProvider'
-import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Breakdowns, DemographicType, TimeView } from '../query/Breakdowns'
 import { MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { Fips } from '../utils/Fips'
 import { DatasetId, DatasetMetadataMap } from '../config/DatasetMetadata'
@@ -9,44 +9,56 @@ import {
   resetCacheDebug,
 } from '../../utils/globals'
 import FakeDataFetcher from '../../testing/FakeDataFetcher'
-import { RACE, AGE, SEX } from '../utils/Constants'
+import {
+  RACE,
+  AGE,
+  SEX,
+  TIME_SERIES,
+  CROSS_SECTIONAL,
+} from '../utils/Constants'
 import { DataTypeId } from '../config/MetricConfig'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
 describe('Unit tests for method getDatasetId()', () => {
   const hivProvider = new HivProvider()
 
-  test('Black women nationally', async () => {
+  test('Black women nationally historical', async () => {
     const breakdowns = new Breakdowns('national').andAge()
     expect(
-      hivProvider.getDatasetId(breakdowns, 'hiv_deaths_black_women')
-    ).toEqual('cdc_hiv_data-black_women_national_time_series')
+      hivProvider.getDatasetId(
+        breakdowns,
+        'hiv_deaths_black_women',
+        TIME_SERIES
+      )
+    ).toEqual('cdc_hiv_data-black_women_national_historical')
   })
 
-  test('Race nationally', async () => {
+  test('Race nationally current year', async () => {
     const breakdowns = new Breakdowns('national').andRace()
-    expect(hivProvider.getDatasetId(breakdowns)).toEqual(
-      'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
+    expect(
+      hivProvider.getDatasetId(breakdowns, undefined, CROSS_SECTIONAL)
+    ).toEqual(
+      'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
     )
   })
 
-  test('Sex nationally', async () => {
+  test('Sex nationally, current', async () => {
     const breakdowns = new Breakdowns('national').andSex()
-    expect(hivProvider.getDatasetId(breakdowns)).toEqual(
-      'cdc_hiv_data-sex_national_time_series'
-    )
+    expect(
+      hivProvider.getDatasetId(breakdowns, undefined, CROSS_SECTIONAL)
+    ).toEqual('cdc_hiv_data-sex_national_current')
   })
 
-  test('County race', async () => {
+  test('County race over time', async () => {
     const breakdowns = new Breakdowns(
       'county',
       undefined,
       undefined,
       new Fips('01001')
     ).andRace()
-    expect(hivProvider.getDatasetId(breakdowns)).toEqual(
-      'cdc_hiv_data-race_and_ethnicity_county_time_series'
-    )
+    expect(
+      hivProvider.getDatasetId(breakdowns, undefined, TIME_SERIES)
+    ).toEqual('cdc_hiv_data-race_and_ethnicity_county_historical')
   })
 })
 
@@ -54,7 +66,8 @@ export async function ensureCorrectDatasetsDownloaded(
   hivDatasetId: DatasetId,
   baseBreakdown: Breakdowns,
   demographicType: DemographicType,
-  dataTypeId: DataTypeId
+  dataTypeId: DataTypeId,
+  timeView: TimeView
 ) {
   const hivProvider = new HivProvider()
   const specificId = appendFipsIfNeeded(hivDatasetId, baseBreakdown)
@@ -62,7 +75,12 @@ export async function ensureCorrectDatasetsDownloaded(
 
   // Evaluate the response with requesting "All" field
   const responseIncludingAll = await hivProvider.getData(
-    new MetricQuery([], baseBreakdown.addBreakdown(demographicType), dataTypeId)
+    new MetricQuery(
+      [],
+      baseBreakdown.addBreakdown(demographicType),
+      dataTypeId,
+      timeView
+    )
   )
 
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(1)
@@ -83,37 +101,41 @@ interface TestCase {
   breakdowns: Breakdowns
   demographicType: DemographicType
   dataTypeId: DataTypeId
+  timeView: TimeView
 }
 
 const testCases: TestCase[] = [
   {
     name: 'County and Sex Breakdown for PrEP',
-    datasetId: 'cdc_hiv_data-sex_county_time_series',
+    datasetId: 'cdc_hiv_data-sex_county_historical',
     breakdowns: Breakdowns.forFips(new Fips('06037')),
     demographicType: SEX,
     dataTypeId: 'hiv_prep',
+    timeView: TIME_SERIES,
   },
   {
     name: 'State and Race Breakdown Deaths',
-    datasetId:
-      'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
+    datasetId: 'cdc_hiv_data-race_and_ethnicity_state_historical',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     demographicType: RACE,
     dataTypeId: 'hiv_deaths',
+    timeView: TIME_SERIES,
   },
   {
     name: 'State and Age Breakdown PrEP',
-    datasetId: 'cdc_hiv_data-age_state_time_series',
+    datasetId: 'cdc_hiv_data-age_state_historical',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     demographicType: AGE,
     dataTypeId: 'hiv_prep',
+    timeView: TIME_SERIES,
   },
   {
     name: 'State and Sex Breakdown Diagnoses',
-    datasetId: 'cdc_hiv_data-sex_state_time_series',
+    datasetId: 'cdc_hiv_data-sex_state_historical',
     breakdowns: Breakdowns.forFips(new Fips('37')),
     demographicType: SEX,
     dataTypeId: 'hiv_diagnoses',
+    timeView: TIME_SERIES,
   },
 ]
 
@@ -130,7 +152,8 @@ describe('HivProvider Integration Tests', () => {
         testCase.datasetId,
         testCase.breakdowns,
         testCase.demographicType,
-        testCase.dataTypeId
+        testCase.dataTypeId,
+        testCase.timeView
       )
     })
   })
