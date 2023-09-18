@@ -18,6 +18,7 @@ const config: PlaywrightTestConfig = {
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
 <<<<<<< HEAD
+<<<<<<< HEAD
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
@@ -28,6 +29,12 @@ const config: PlaywrightTestConfig = {
   expect: {
     timeout: 15 * 1000
 >>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
+=======
+  timeout: 90 * 1000,
+  /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
+  expect: {
+    timeout: 45 * 1000
+>>>>>>> 6bb9a431 (Frontend: Update HIV to fetch newly split `_current` and `_historical` files (#2384))
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
@@ -37,7 +44,7 @@ const config: PlaywrightTestConfig = {
     ['html']
   ],
 
-  workers: process.env.CI ? 2 : 4,
+  workers: process.env.CI ? 2 : 3,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
