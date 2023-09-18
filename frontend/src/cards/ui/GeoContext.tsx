@@ -8,6 +8,7 @@ import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
+import { type Row } from '../../data/utils/DatasetTypes'
 
 interface GeoContextProps {
   fips: Fips
@@ -50,24 +51,19 @@ export default function GeoContext(props: GeoContextProps) {
 
 const POP_MISSING_VALUE = 'unavailable'
 
-export function getTotalACSPopulationPhrase(
-  populationQueryResponse: MetricQueryResponse
-): string {
-  const popAllCount: string =
-    populationQueryResponse.data?.[0].population.toLocaleString()
+export function getTotalACSPopulationPhrase(populationData: Row[]): string {
+  const popAllCount: string = populationData[0].population.toLocaleString()
   return `Total Population (US Census): ${popAllCount ?? POP_MISSING_VALUE}`
 }
 
 export function getSubPopulationPhrase(
-  populationQueryResponse: MetricQueryResponse,
+  subPopulationData: Row[],
   demographicType: DemographicType,
   dataTypeConfig: DataTypeConfig
 ): string {
   const subPopConfig = dataTypeConfig.metrics?.sub_population_count
   if (!subPopConfig) return ''
-  const allRow = populationQueryResponse.data?.find(
-    (row) => row[demographicType] === ALL
-  )
+  const allRow = subPopulationData.find((row) => row[demographicType] === ALL)
   const popAllCount: string =
     allRow?.[subPopConfig.metricId].toLocaleString() ?? POP_MISSING_VALUE
   return `${subPopConfig.shortLabel}: ${popAllCount}`

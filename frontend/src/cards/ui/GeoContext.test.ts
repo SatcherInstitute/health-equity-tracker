@@ -1,57 +1,137 @@
-import { METRIC_CONFIG, MetricId } from '../../data/config/MetricConfig'
-import { DemographicType } from '../../data/query/Breakdowns'
-import { MetricQueryResponse } from '../../data/query/MetricQuery'
-import { FieldRange } from '../../data/utils/DatasetTypes'
+import { DataTypeConfig, METRIC_CONFIG } from '../../data/config/MetricConfig'
+import { Row } from '../../data/utils/DatasetTypes'
 import {
   getSubPopulationPhrase,
   getTotalACSPopulationPhrase,
 } from './GeoContext'
 
 describe('test getTotalACSPopulationPhrase()', () => {
-  const nationalACSPopResponse: MetricQueryResponse = {
-    data: [
-      {
-        population: 328016242,
-        fips: '00',
-        fips_name: 'United States',
-      },
-    ],
-    invalidValues: {},
-    consumedDatasetIds: [],
-    missingDataMessage: undefined,
-    dataIsMissing: function (): boolean {
-      throw new Error('Function not implemented.')
+  const nationalACSPopData: Row[] = [
+    {
+      population: 328016242,
+      fips: '00',
+      fips_name: 'United States',
     },
-    isFieldMissing: function (fieldName: DemographicType | MetricId): boolean {
-      throw new Error('Function not implemented.')
-    },
-    getFieldRange: function (fieldName: MetricId): FieldRange | undefined {
-      throw new Error('Function not implemented.')
-    },
-    getValidRowsForField: function (
-      fieldName: DemographicType | MetricId
-    ): Readonly<Record<string, any>>[] {
-      throw new Error('Function not implemented.')
-    },
-    getFieldValues: function (
-      fieldName: DemographicType,
-      targetMetric: MetricId
-    ): { withData: string[]; noData: string[] } {
-      throw new Error('Function not implemented.')
-    },
-    shouldShowMissingDataMessage: function (fields: MetricId[]): boolean {
-      throw new Error('Function not implemented.')
-    },
-  }
+  ]
 
   test('normal ACS population', () => {
     const normalPopPhrase = getTotalACSPopulationPhrase(
-      /* MetricQueryResponse */ nationalACSPopResponse
+      /* data */ nationalACSPopData
     )
     expect(normalPopPhrase).toEqual('Total Population (US Census): 328,016,242')
   })
 })
 
-/*
-TODO: Figure out how to test getSubPopulationPhrase() was having problems with the MetricQueryResponse methods
-*/
+describe('test getSubPopulationPhrase()', () => {
+  const nationalPhrmaPopData: Row[] = [
+    {
+      phrma_population: 41816007,
+      race_and_ethnicity: 'All',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      phrma_population: 216860,
+      race_and_ethnicity: 'American Indian and Alaska Native (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      phrma_population: 1209171,
+      race_and_ethnicity: 'Asian, Native Hawaiian, and Pacific Islander (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      phrma_population: 4330893,
+      race_and_ethnicity: 'Black or African American (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      phrma_population: 2987102,
+      race_and_ethnicity: 'Hispanic or Latino',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      phrma_population: 332663,
+      race_and_ethnicity: 'Two or more races & Unrepresented race (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      phrma_population: 32003930,
+      race_and_ethnicity: 'White (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+  ]
+  const statinsAdherenceConfig: DataTypeConfig =
+    METRIC_CONFIG.phrma_cardiovascular[0]
+
+  test('phrma medicare population', () => {
+    const medicarePopPhrase = getSubPopulationPhrase(
+      /* data */ nationalPhrmaPopData,
+      /* demographicType */ 'race_and_ethnicity',
+      /* dataTypeConfig */ statinsAdherenceConfig
+    )
+    expect(medicarePopPhrase).toEqual('Total Medicare Population: 41,816,007')
+  })
+
+  const nationalCovidData: Row[] = [
+    {
+      covid_estimated_total: 41816007,
+      race_and_ethnicity: 'All',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      covid_estimated_total: 216860,
+      race_and_ethnicity: 'American Indian and Alaska Native (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      covid_estimated_total: 1209171,
+      race_and_ethnicity: 'Asian, Native Hawaiian, and Pacific Islander (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      covid_estimated_total: 4330893,
+      race_and_ethnicity: 'Black or African American (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      covid_estimated_total: 2987102,
+      race_and_ethnicity: 'Hispanic or Latino',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      covid_estimated_total: 332663,
+      race_and_ethnicity: 'Two or more races & Unrepresented race (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+    {
+      covid_estimated_total: 32003930,
+      race_and_ethnicity: 'White (NH)',
+      fips: '00',
+      fips_name: 'United States',
+    },
+  ]
+
+  const covidCasesConfig: DataTypeConfig = METRIC_CONFIG.covid[0]
+
+  test('covid should not get a subpopulation', () => {
+    const emptyCovidSubPopPhrase = getSubPopulationPhrase(
+      /* data */ nationalCovidData,
+      /* demographicType */ 'race_and_ethnicity',
+      /* dataTypeConfig */ covidCasesConfig
+    )
+    expect(emptyCovidSubPopPhrase).toEqual('')
+  })
+})

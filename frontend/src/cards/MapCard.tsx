@@ -89,7 +89,6 @@ import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import { PHRMA_DATATYPES } from '../data/providers/PhrmaProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -135,7 +134,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
   const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
-  const isPhrma = PHRMA_DATATYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
 
@@ -204,7 +202,10 @@ function MapCardWithKey(props: MapCardProps) {
   }
 
   const initialMetridIds = [metricConfig.metricId]
-  if (isPhrma) initialMetridIds.push('phrma_population')
+
+  const subPopulationId =
+    props.dataTypeConfig.metrics.sub_population_count?.metricId
+  if (subPopulationId) initialMetridIds.push(subPopulationId)
 
   const queries = [
     metricQuery(
@@ -296,6 +297,7 @@ function MapCardWithKey(props: MapCardProps) {
         const childGeoQueryResponse: MetricQueryResponse = queryResponses[0]
         // contains data rows current level (if viewing US, this data will be US level)
         const parentGeoQueryResponse = queryResponses[1]
+        const acsPopulationQueryResponse = queryResponses[2]
         const hasSelfButNotChildGeoData =
           childGeoQueryResponse.data.filter((row) => row[metricConfig.metricId])
             .length === 0 &&
@@ -307,10 +309,10 @@ function MapCardWithKey(props: MapCardProps) {
           : childGeoQueryResponse
 
         const totalPopulationPhrase = getTotalACSPopulationPhrase(
-          queryResponses[2]
+          acsPopulationQueryResponse.data
         )
         const subPopulationPhrase = getSubPopulationPhrase(
-          parentGeoQueryResponse,
+          parentGeoQueryResponse.data,
           props.demographicType,
           props.dataTypeConfig
         )
