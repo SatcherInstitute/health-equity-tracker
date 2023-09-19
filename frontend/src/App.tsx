@@ -50,7 +50,7 @@ import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquit
 import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
-import DatasetExplorer from './pages/DataCatalog/dataset_explorer/DatasetExplorer'
+import AgeAdjustmentTab from './pages/Methodology/AgeAdjustmentTab'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -65,8 +65,12 @@ const NotFoundPage = React.lazy(
 const TermsOfUsePage = React.lazy(
   async () => await import('./pages/TermsOfUsePage/TermsOfUsePage')
 )
-const DataCatalogTab = React.lazy(
-  async () => await import('./pages/DataCatalog/DataCatalogTab')
+const DataCatalogPage = React.lazy(
+  async () =>
+    await import('./pages/DataCatalog/dataset_explorer/DatasetExplorer')
+)
+const MethodologyPage = React.lazy(
+  async () => await import('./pages/Methodology/MethodologyPage')
 )
 
 export const MOBILE_BREAKPOINT = 600
@@ -228,15 +232,15 @@ function App() {
                         </Route>
 
                         <Route path={DATA_CATALOG_PAGE_LINK}>
-                          <DatasetExplorer />
+                          <DataCatalogPage />
                         </Route>
 
                         <Route path={METHODOLOGY_PAGE_LINK}>
-                          <DataCatalogTab />
+                          <MethodologyPage />
                         </Route>
 
                         <Route path={AGE_ADJUSTMENT_TAB_LINK}>
-                          <DataCatalogTab />
+                          <AgeAdjustmentTab />
                         </Route>
 
                         <Route path={EXPLORE_DATA_PAGE_LINK}>

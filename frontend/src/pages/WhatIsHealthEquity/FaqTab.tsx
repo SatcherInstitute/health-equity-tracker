@@ -7,7 +7,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { CITATION_APA } from '../DataCatalog/MethodologyTab'
+import { CITATION_APA } from '../Methodology/MethodologyPage'
 import { getHtml } from '../../utils/urlutils'
 import { urlMap } from '../../utils/externalUrls'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'

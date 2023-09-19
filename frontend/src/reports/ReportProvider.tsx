@@ -35,7 +35,7 @@ import {
   MissingPrepData,
   MissingPhrmaData,
   MissingIslandAreaPopulationData,
-} from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
+} from '../pages/Methodology/methodologyContent/missingDataBlurbs'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 
