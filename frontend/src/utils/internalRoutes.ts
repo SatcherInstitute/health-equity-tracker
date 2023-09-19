@@ -12,11 +12,32 @@ export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const FAQ_TAB_LINK = '/faqs'
 export const RESOURCES_TAB_LINK = '/resources'
 export const METHODOLOGY_TAB_LINK = '/methodology'
+export const METHODOLOGY_TAB_V2_LINK = '/methodology_2'
 export const AGE_ADJUSTMENT_TAB_LINK = '/ageadjustment'
 export const DATA_TAB_LINK = '/datacatalog'
 export const CONTACT_TAB_LINK = '/contact'
 export const OURTEAM_TAB_LINK = '/ourteam'
 export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
+
+// METHODOLOGY SECTIONS
+export const AGE_ADJUSTMENT_LINK = METHODOLOGY_TAB_V2_LINK + '/ageadjustment_2'
+export const SOURCES_LINK = METHODOLOGY_TAB_V2_LINK + '/source-acquisition'
+export const TOPICS_LINK = METHODOLOGY_TAB_V2_LINK + '/topics'
+export const BEHAVIORAL_HEALTH_LINK = TOPICS_LINK + '/behavioral-health'
+export const CHRONIC_DISEASE_LINK = TOPICS_LINK + '/chronic-disease'
+export const COVID_19_LINK = TOPICS_LINK + '/covid'
+export const HIV_LINK = TOPICS_LINK + '/hiv'
+export const PDOH_LINK = TOPICS_LINK + '/pdoh'
+export const SDOH_LINK = TOPICS_LINK + '/sdoh'
+export const DATA_METHOD_DEFINITIONS_LINK =
+  METHODOLOGY_TAB_V2_LINK + '/definitions'
+export const METRICS_LINK = DATA_METHOD_DEFINITIONS_LINK + '/metrics'
+export const CONDITION_VARIABLES_LINK =
+  DATA_METHOD_DEFINITIONS_LINK + '/condition-variables'
+export const RACES_AND_ETHNICITIES_LINK =
+  DATA_METHOD_DEFINITIONS_LINK + '/races-and-ethnicities'
+export const RECOMMENDED_CITATION_LINK =
+  METHODOLOGY_TAB_V2_LINK + '/recommended-citation'
 
 // TRACKER SETTINGS
 export const AGE_ADJUST_HIV_DEATHS_US_SETTING =

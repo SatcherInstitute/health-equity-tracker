@@ -30,3 +30,14 @@ a:link,
 a:visited {
   color: $alt-green;
 }
+
+// Padding for Methodology Grid
+.css-r1hick-MuiGrid-root > .MuiGrid-item {
+  padding: 1rem;
+  //   margin: 0 auto;
+}
+
+.css-480o17-MuiGrid-root > .MuiGrid-item {
+  padding: 1rem;
+  //   margin: 0 auto;
+}

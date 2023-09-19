@@ -5,7 +5,9 @@ import { METHODOLOGY_TAB_LINK } from '../../../utils/internalRoutes'
 export function MissingCovidData() {
   return (
     <>
-      <h4>Missing and suppressed COVID data</h4>
+      <h4 id="#covid19-missing-and-suppressed-data">
+        Missing and suppressed COVID data
+      </h4>
       <p>
         For COVID-19 related reports, this tracker uses disaggregated,
         individual{' '}

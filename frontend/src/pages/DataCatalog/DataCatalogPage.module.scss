@@ -1,6 +1,183 @@
 @import '../../styles/globals.scss';
 @import '../../styles/variables.module';
 
+/** ------------------ METHODOLOGY v2 -------------------- **/
+
+html {
+  scroll-behavior: smooth;
+}
+
+.MethodologySectionWrapper {
+  display: inline-flex;
+  flex-direction: row;
+  // max-width: 95vw;
+  margin: 1% auto;
+  // justify-content: flex-start;
+  justify-content: space-around;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 5rem;
+  flex-wrap: unset;
+  width: 95vw;
+}
+
+.SectionWrapper {
+  padding: 0;
+}
+
+.ArticleContainer {
+  display: inline-flex;
+  // justify-content: space-between;
+  width: 100%;
+  text-align: left;
+}
+
+.ArticleContainer h1 {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Taviraj/H3 */
+  font-family: Taviraj;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.8875rem; /* 94.375% */
+  letter-spacing: 0.022rem;
+}
+
+.ArticleContainer section {
+  display: flex;
+  // flex-direction: row;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  // min-width: 40vw;
+  gap: 5rem;
+  width: 100%;
+}
+
+.ArticleContainer article {
+  // display: inline-block;
+  // min-width: 50vw;
+  width: 100%;
+  // margin: 1% auto;
+}
+
+// .ArticleContainer body {
+//   scroll-margin-top: 0;
+// }
+
+.CardMenu {
+  border-radius: 0.25rem;
+  background: #fff;
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  display: flex;
+  padding: 1%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 20vw;
+  position: sticky;
+}
+
+.CardMenu a {
+  text-decoration: none;
+  color: #383838;
+}
+
+.CardMenu span {
+  color: var(--0-b-5240, #0b5240);
+  /* DM Sans */
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.CardMenu p {
+  color: var(--383838, #383838);
+  /* Inter/Menu/Regular */
+  font-family: Inter;
+  font-style: normal;
+  // font-weight: 400;
+}
+
+.SubMenu {
+  text-align: left;
+  min-width: 10vw;
+  position: sticky;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+}
+
+.SubMenu p {
+  color: #000;
+  font-family: Inter;
+  font-size: 0.625rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.30625rem; /* 209% */
+  letter-spacing: 0.00688rem;
+}
+
+.SubMenu h4 {
+  margin: 0.5rem auto;
+  color: #000;
+
+  /* DM Sans/H4 */
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.30625rem; /* 130.625% */
+  letter-spacing: 0.011rem;
+}
+
+// .SubMenu ul {
+//   margin-top: 0;
+//   color: #000;
+
+//   /* Inter/p */
+//   font-family: Inter;
+//   font-size: 0.875rem;
+//   font-style: normal;
+//   font-weight: 400;
+//   line-height: 1.25rem; /* 142.857% */
+//   letter-spacing: 0.0245rem;
+
+//   display: flex;
+//   flex-direction: column;
+//   align-items: flex-start;
+//   gap: 0.5rem;
+//   padding-inline-start: 2rem;
+// }
+
+// .SubMenu li {
+//   list-style: none;
+// }
+
+.SubMenu a {
+  text-decoration: none;
+  color: #000;
+  padding-inline-start: 1.5rem;
+  padding-right: 1rem;
+  display: block;
+  /* Inter/p */
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem; /* 142.857% */
+  letter-spacing: 0.0245rem;
+}
+
+.SubMenu a:active,
+a:focus {
+  color: var(--0-b-5240, #0b5240);
+  font-weight: 700;
+  border-left: 2px solid var(--0-b-5240, #0b5240);
+}
+
 /** ------------------ METHODOLOGY -------------------- **/
 
 .MethodologySection {
@@ -30,7 +207,8 @@
 .MethodologySubsubheaderText {
   @include inter500();
   font-size: $text;
-  margin-top: 5rem;
+  // margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 .MethodologyInfoBar {

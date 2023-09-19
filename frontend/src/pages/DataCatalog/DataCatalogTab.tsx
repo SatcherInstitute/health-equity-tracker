@@ -4,7 +4,9 @@ import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 import {
   DATA_CATALOG_PAGE_LINK,
   METHODOLOGY_TAB_LINK,
+  METHODOLOGY_TAB_V2_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
+  SOURCES_LINK,
 } from '../../utils/internalRoutes'
 import styles from '../AboutUs/AboutUsPage.module.scss'
 import { Link, Route, Switch } from 'react-router-dom'
@@ -13,6 +15,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 import DatasetExplorer from './dataset_explorer/DatasetExplorer'
 import MethodologyTab from './MethodologyTab'
 import AgeAdjustmentTab from './AgeAdjustmentTab'
+import MethodologyTabV2 from './MethodologyTabV2'
 import { useMediaQuery, useTheme } from '@mui/material'
 
 function DataCatalogTab() {
@@ -52,6 +55,12 @@ function DataCatalogTab() {
             component={Link}
             to={AGE_ADJUSTMENT_TAB_LINK}
           />
+          <Tab
+            value={METHODOLOGY_TAB_V2_LINK}
+            label="Methodology V2"
+            component={Link}
+            to={METHODOLOGY_TAB_V2_LINK}
+          />
         </Tabs>
       </Route>
 
@@ -64,6 +73,12 @@ function DataCatalogTab() {
         </Route>
         <Route path={`${AGE_ADJUSTMENT_TAB_LINK}/`}>
           <AgeAdjustmentTab />
+        </Route>
+        <Route path={`${METHODOLOGY_TAB_V2_LINK}/`}>
+          <MethodologyTabV2 />
+        </Route>
+        <Route path={`${SOURCES_LINK}/`}>
+          <MethodologyTabV2 />
         </Route>
       </Switch>
     </div>
