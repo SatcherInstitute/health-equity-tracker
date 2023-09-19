@@ -135,7 +135,11 @@ export function generateSubtitle(
     }
   }
 
-  if (PHRMA_METRICS.includes(metricId)) {
+  const medicareMetricIds: MetricId[] = [
+    ...PHRMA_METRICS,
+    'preventable_hospitalizations_per_100k',
+  ]
+  if (medicareMetricIds.includes(metricId)) {
     const beneficiariesTitle = 'Medicare beneficiaries'
     if (subtitle === '') {
       subtitle = beneficiariesTitle

@@ -23,6 +23,15 @@ describe('Tests generateChartTitle()', () => {
     )
   })
 
+  test('preventable hosp. subtitle', () => {
+    const subTitle = generateSubtitle(
+      'Male',
+      'sex',
+      'preventable_hospitalizations_per_100k'
+    )
+    expect(subTitle).toEqual('Male, Medicare beneficiaries')
+  })
+
   test('PHRMA subtitle', () => {
     const subTitle = generateSubtitle(
       'Male',
@@ -42,20 +51,6 @@ describe('Tests generateSubtitle()', () => {
   test('HIV subtitle', () => {
     const subTitle = generateSubtitle('Male', 'sex', 'hiv_deaths_per_100k')
     expect(subTitle).toEqual('Male, Ages 13+')
-  })
-
-  test('PHRMA subtitle', () => {
-    const subTitle = generateSubtitle(
-      'Male',
-      'sex',
-      'statins_adherence_pct_rate'
-    )
-    expect(subTitle).toEqual('Male, Medicare beneficiaries')
-  })
-
-  test('Standard subtitle', () => {
-    const subTitle = generateSubtitle('Male', 'sex', 'uninsured_pct_rate')
-    expect(subTitle).toEqual('Male')
   })
 })
 
