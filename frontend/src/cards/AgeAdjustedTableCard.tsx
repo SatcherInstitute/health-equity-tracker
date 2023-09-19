@@ -1,4 +1,3 @@
-import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
 import {
@@ -48,6 +47,7 @@ import { lazy } from 'react'
 const AgeAdjustedTableChart = lazy(
   async () => await import('../charts/AgeAdjustedTableChart')
 )
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {

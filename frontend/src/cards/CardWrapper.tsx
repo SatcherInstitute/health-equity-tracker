@@ -36,6 +36,13 @@ function CardWrapper(props: {
   elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
 }) {
+  const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
+    props.downloadTitle,
+    props.elementsToHide,
+    props.scrollToHash,
+    props.expanded
+  )
+
   const loadingComponent = (
     <Card
       className={styles.ChartCard}
@@ -56,14 +63,6 @@ function CardWrapper(props: {
       queries={props.queries ?? []}
     >
       {(metadata, queryResponses, geoData) => {
-        const [screenshotTargetRef, downloadTargetScreenshot] =
-          useDownloadCardImage(
-            props.downloadTitle,
-            props.elementsToHide,
-            props.scrollToHash,
-            props.expanded
-          )
-
         return (
           <Card
             className={styles.ChartCard}

@@ -8,7 +8,6 @@ import {
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
-import CardWrapper from './CardWrapper'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { exclude } from '../data/query/BreakdownFilter'
 import { NON_HISPANIC, ALL, RACE, HISPANIC, SEX } from '../data/utils/Constants'
@@ -24,6 +23,9 @@ import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { lazy } from 'react'
+
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
 
 export interface DisparityBarChartCardProps {
   key?: string

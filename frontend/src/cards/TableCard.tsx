@@ -1,4 +1,3 @@
-import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
 import {
@@ -41,6 +40,8 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { lazy } from 'react'
 
 // Lazy Loaded Components
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
+
 const TableChart = lazy(async () => await import('../charts/TableChart'))
 
 // We need to get this property, but we want to show it as

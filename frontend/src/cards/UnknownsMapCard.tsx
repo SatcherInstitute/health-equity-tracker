@@ -3,7 +3,6 @@ import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
 import { type Row } from '../data/utils/DatasetTypes'
-import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import MissingDataAlert from './ui/MissingDataAlert'
 import {
@@ -29,6 +28,10 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { getMapScheme } from '../charts/mapHelperFunctions'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { lazy } from 'react'
+
+// Lazy Loaded Components
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns

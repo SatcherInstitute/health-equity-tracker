@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { lazy, useState } from 'react'
 import { CardContent, Alert } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
@@ -8,7 +8,6 @@ import {
 } from '../data/query/Breakdowns'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
-import CardWrapper from './CardWrapper'
 import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
@@ -41,6 +40,9 @@ import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+
+// Lazy Loaded
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668

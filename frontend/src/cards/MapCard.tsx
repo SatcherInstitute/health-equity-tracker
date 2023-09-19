@@ -49,7 +49,6 @@ import {
   CAWP_DETERMINANTS,
 } from '../data/providers/CawpProvider'
 import styles from './Card.module.scss'
-import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -60,7 +59,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useState } from 'react'
+import { lazy, useEffect, useState } from 'react'
 import {
   getHighestLowestGroupsByFips,
   getMapScheme,
@@ -89,6 +88,8 @@ import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 

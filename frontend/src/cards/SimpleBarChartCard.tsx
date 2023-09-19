@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
 import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
@@ -14,7 +14,6 @@ import {
   type MetricId,
   type DataTypeConfig,
 } from '../data/config/MetricConfig'
-import CardWrapper from './CardWrapper'
 import { exclude } from '../data/query/BreakdownFilter'
 import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
@@ -31,6 +30,9 @@ import {
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+
+// Lazy Loaded
+const CardWrapper = lazy(async () => await import('./CardWrapper'))
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
