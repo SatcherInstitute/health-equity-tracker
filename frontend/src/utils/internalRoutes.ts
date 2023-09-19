@@ -11,7 +11,7 @@ export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 // TAB URLS
 export const FAQ_TAB_LINK = '/faqs'
 export const RESOURCES_TAB_LINK = '/resources'
-export const METHODOLOGY_TAB_LINK = '/methodology'
+export const METHODOLOGY_PAGE_LINK = '/methodology'
 export const AGE_ADJUSTMENT_TAB_LINK = '/ageadjustment'
 export const DATA_TAB_LINK = '/datacatalog'
 export const CONTACT_TAB_LINK = '/contact'

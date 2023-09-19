@@ -1,7 +1,10 @@
 import { Button, Dialog, DialogContent } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { HashLink } from 'react-router-hash-link'
-import { DATA_TAB_LINK, METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
+import {
+  DATA_TAB_LINK,
+  METHODOLOGY_PAGE_LINK,
+} from '../../utils/internalRoutes'
 import sass from '../../styles/variables.module.scss'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
@@ -47,7 +50,7 @@ export default function TopicInfoModal() {
       </DialogContent>
       <DialogContent dividers={true} sx={{ fontSize: sass.smallest }}>
         For specific calculations and more detailed information, visit our{' '}
-        <HashLink to={`${METHODOLOGY_TAB_LINK}#${dropdownVarId}`}>
+        <HashLink to={`${METHODOLOGY_PAGE_LINK}#${dropdownVarId}`}>
           methodology
         </HashLink>
         , or view the <HashLink to={DATA_TAB_LINK}>source data</HashLink>.

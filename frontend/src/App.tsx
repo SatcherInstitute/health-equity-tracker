@@ -29,7 +29,7 @@ import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   FAQ_TAB_LINK,
-  METHODOLOGY_TAB_LINK,
+  METHODOLOGY_PAGE_LINK,
   OURTEAM_TAB_LINK,
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
@@ -50,6 +50,7 @@ import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquit
 import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
+import DatasetExplorer from './pages/DataCatalog/dataset_explorer/DatasetExplorer'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -74,8 +75,9 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
-  [DATA_CATALOG_PAGE_LINK]: 'Downloads & Methodology',
   [NEWS_PAGE_LINK]: 'News',
+  [DATA_CATALOG_PAGE_LINK]: 'Downloads',
+  [METHODOLOGY_PAGE_LINK]: 'Methodology',
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
@@ -149,6 +151,7 @@ function AppToolbar() {
           EXPLORE_DATA_PAGE_LINK,
           NEWS_PAGE_LINK,
           DATA_CATALOG_PAGE_LINK,
+          METHODOLOGY_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl) => (
           <ReactRouterLinkButton
@@ -225,10 +228,10 @@ function App() {
                         </Route>
 
                         <Route path={DATA_CATALOG_PAGE_LINK}>
-                          <DataCatalogTab />
+                          <DatasetExplorer />
                         </Route>
 
-                        <Route path={METHODOLOGY_TAB_LINK}>
+                        <Route path={METHODOLOGY_PAGE_LINK}>
                           <DataCatalogTab />
                         </Route>
 

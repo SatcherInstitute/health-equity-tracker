@@ -9,6 +9,10 @@ import {
 import { WithMetadata } from '../../../data/react/WithLoadingOrErrorUI'
 import { Grid, Typography, Button } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
+import {
+  DATA_SOURCE_PRE_FILTERS,
+  useSearchParams,
+} from '../../../utils/urlutils'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -37,9 +41,14 @@ function getFilteredSources(
   return filters.reduce(reducer, allIds)
 }
 
-function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
+function DatasetExplorer() {
+  const params = useSearchParams()
+  const datasets = params[DATA_SOURCE_PRE_FILTERS]
+    ? params[DATA_SOURCE_PRE_FILTERS].split(',')
+    : []
+
   const activeFilter = {
-    [NAME_FILTER_ID]: props.preFilterDataSourceIds,
+    [NAME_FILTER_ID]: datasets,
   }
 
   return (
