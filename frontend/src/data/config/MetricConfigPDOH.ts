@@ -1,3 +1,4 @@
+import { womenMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -82,6 +83,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
 export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'women_in_us_congress',
+    mapConfig: womenMapConfig,
     dataTypeShortLabel: 'US Congress',
     fullDisplayName: 'Women in US Congress',
     surveyCollectedData: true,
@@ -138,6 +140,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'women_in_state_legislature',
+    mapConfig: womenMapConfig,
     dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
     fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
     surveyCollectedData: true,

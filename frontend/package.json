@@ -86,7 +86,7 @@
     "build:prod": "env-cmd -f .env.prod npm run build",
     "build:staging": "env-cmd -f .env.staging npm run build",
     "build": "tsc && vite build",
-    "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-progress --no-must-find-files",
+    "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-progress --no-must-find-files --gitignore",
     "dev": "env-cmd -f .env.development npm run start -- --host",
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E",
     "playwright": "npx playwright install chromium && npx playwright test",
@@ -143,6 +143,8 @@
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard-scss": "^11.0.0",
     "typescript": "^5.2.2",
     "vitest-canvas-mock": "^0.2.2"
   },
