@@ -3,6 +3,7 @@ To prevent components loading from one another, all exported consts for the map 
 */
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
+import { type ColorScheme } from 'vega'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -28,10 +29,14 @@ export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
 
 export const ORDINAL = 'ordinal'
 
-export const MAP_SCHEME = 'darkgreen'
-export const UNKNOWNS_MAP_SCHEME = 'greenblue'
-export const MAP_BW_SCHEME = 'plasma'
-export const MAP_MEDICARE_SCHEME = 'viridis'
+export type PopulationSubset = 'default' | 'women' | 'medicare' | 'unknown'
+
+export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
+  default: 'darkgreen',
+  women: 'plasma',
+  medicare: 'viridis',
+  unknown: 'greenblue',
+}
 
 export const DOT_SIZE_SCALE = 'dot_size_scale'
 export const SUMMARY_SCALE = 'summary_scale'

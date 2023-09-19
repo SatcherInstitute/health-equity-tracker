@@ -1,4 +1,6 @@
+import { MAP_SCHEMES } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
+import sass from '../../styles/variables.module.scss'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'phrma_cardiovascular',
@@ -63,6 +65,11 @@ export type PhrmaMetricId =
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'statins_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Adherence to Statins',
     fullDisplayName: 'Adherence to statins',
     surveyCollectedData: true,
@@ -104,6 +111,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'beta_blockers_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Adherence to Beta Blockers',
     fullDisplayName: 'Adherence to beta blockers',
     surveyCollectedData: true,
@@ -144,6 +156,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'nqf_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel:
       'Persistence to Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
@@ -187,6 +204,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'rasa_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
     fullDisplayName: 'Adherence to RAS-Antagonists',
@@ -228,6 +250,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'ccb_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
     fullDisplayName: 'Adherence to calcium channel blockers',
     surveyCollectedData: true,
@@ -268,6 +295,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'doac_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
     fullDisplayName: 'Adherence to direct oral anticoagulants',
     surveyCollectedData: true,
@@ -308,6 +340,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'ami',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
     fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
     surveyCollectedData: true,
@@ -361,6 +398,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'arv_adherence',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
     fullDisplayName: 'Adherence to antiretroviral medications',
     surveyCollectedData: true,
@@ -401,6 +443,11 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'phrma_hiv',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Cases of HIV',
     surveyCollectedData: true,

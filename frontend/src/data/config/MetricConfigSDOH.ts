@@ -1,8 +1,10 @@
+import { MAP_SCHEMES } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigUtils'
+import sass from '../../styles/variables.module.scss'
 
 export const SDOH_CATEGORY_DROPDOWNIDS = [
   'avoided_care',
@@ -156,6 +158,11 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
 export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'preventable_hospitalizations',
+    mapConfig: {
+      scheme: MAP_SCHEMES.medicare,
+      min: sass.mapMedicareMin,
+      mid: sass.mapMedicareMid,
+    },
     dataTypeShortLabel: 'Preventable hospitalizations',
     fullDisplayName: 'Preventable hospitalizations',
     fullDisplayNameInline: 'preventable hospitalizations',

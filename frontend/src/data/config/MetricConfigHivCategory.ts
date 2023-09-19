@@ -1,5 +1,7 @@
+import { MAP_SCHEMES } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
+import sass from '../../styles/variables.module.scss'
 
 export const HIV_CATEGORY_DROPDOWNIDS = [
   'hiv_black_women',
@@ -274,6 +276,11 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
 export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'hiv_prevalence_black_women',
+    mapConfig: {
+      scheme: MAP_SCHEMES.women,
+      min: sass.mapWomenMin,
+      mid: sass.mapWomenMid,
+    },
     dataTypeShortLabel: 'Prevalence for Black Women',
     fullDisplayName: 'HIV prevalence for Black women',
     dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
@@ -317,6 +324,11 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_diagnoses_black_women',
+    mapConfig: {
+      scheme: MAP_SCHEMES.women,
+      min: sass.mapWomenMin,
+      mid: sass.mapWomenMid,
+    },
     dataTypeShortLabel: 'New Diagnoses for Black Women',
     fullDisplayName: 'New HIV diagnoses for Black women',
     dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year.`,
@@ -362,6 +374,11 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_deaths_black_women',
+    mapConfig: {
+      scheme: MAP_SCHEMES.women,
+      min: sass.mapWomenMin,
+      mid: sass.mapWomenMid,
+    },
     dataTypeShortLabel: 'Deaths for Black women',
     fullDisplayName: 'HIV deaths for Black women',
     dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year.`,

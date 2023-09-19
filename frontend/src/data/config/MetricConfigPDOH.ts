@@ -1,8 +1,10 @@
+import { MAP_SCHEMES } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
   populationPctTitle,
 } from './MetricConfigUtils'
+import sass from '../../styles/variables.module.scss'
 
 export const PDOH_CATEGORY_DROPDOWNIDS = [
   'incarceration',
@@ -82,6 +84,11 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
 export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'women_in_us_congress',
+    mapConfig: {
+      scheme: MAP_SCHEMES.women,
+      min: sass.mapWomenMin,
+      mid: sass.mapWomenMid,
+    },
     dataTypeShortLabel: 'US Congress',
     fullDisplayName: 'Women in US Congress',
     surveyCollectedData: true,
@@ -138,6 +145,11 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'women_in_state_legislature',
+    mapConfig: {
+      scheme: MAP_SCHEMES.women,
+      min: sass.mapWomenMin,
+      mid: sass.mapWomenMid,
+    },
     dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
     fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
     surveyCollectedData: true,
