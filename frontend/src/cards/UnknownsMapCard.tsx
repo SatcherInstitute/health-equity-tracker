@@ -203,11 +203,11 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const isSummaryLegend = !hasChildGeo ?? props.fips.isCounty()
 
-        const [mapScheme, mapMin] = getMapScheme({
-          metricId: metricConfig.metricId,
-          isUnknownsMap: true,
-          isSummaryLegend,
-        })
+        const [mapScheme, mapMin] = getMapScheme(
+          /* dataTypeConfig */ props.dataTypeConfig,
+          /* isSummaryLegend */ isSummaryLegend,
+          /*  isUnknownsMap */ true
+        )
 
         return (
           <CardContent sx={{ pt: 0 }}>
@@ -241,6 +241,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     mapIsWide={mapIsWide}
                     data={unknowns}
                     metricConfig={metricConfig}
+                    dataTypeConfig={props.dataTypeConfig}
                     signalListeners={signalListeners}
                     geoData={geoData}
                     isUnknownsMap={true}

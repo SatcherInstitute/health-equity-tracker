@@ -1,3 +1,4 @@
+import { womenMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
@@ -274,6 +275,7 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
 export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'hiv_prevalence_black_women',
+    mapConfig: womenMapConfig,
     dataTypeShortLabel: 'Prevalence for Black Women',
     fullDisplayName: 'HIV prevalence for Black women',
     dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
@@ -317,6 +319,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_diagnoses_black_women',
+    mapConfig: womenMapConfig,
     dataTypeShortLabel: 'New Diagnoses for Black Women',
     fullDisplayName: 'New HIV diagnoses for Black women',
     dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year.`,
@@ -362,6 +365,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_deaths_black_women',
+    mapConfig: womenMapConfig,
     dataTypeShortLabel: 'Deaths for Black women',
     fullDisplayName: 'HIV deaths for Black women',
     dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year.`,
