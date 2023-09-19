@@ -17,6 +17,7 @@ import {
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
 
+// Lazy Loaded Code
 const AltTableExpanded = lazy(async () => await import('./AltTableExpanded'))
 
 interface AltTableViewProps {
