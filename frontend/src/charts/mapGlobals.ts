@@ -38,6 +38,18 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
   unknown: 'greenblue',
 }
 
+export const womenMapConfig = {
+  scheme: MAP_SCHEMES.women,
+  min: sass.mapWomenMin,
+  mid: sass.mapWomenMid,
+}
+
+export const medicareMapConfig = {
+  scheme: MAP_SCHEMES.medicare,
+  min: sass.mapMedicareMin,
+  mid: sass.mapMedicareMid,
+}
+
 export const DOT_SIZE_SCALE = 'dot_size_scale'
 export const SUMMARY_SCALE = 'summary_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'

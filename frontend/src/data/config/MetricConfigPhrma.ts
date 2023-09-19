@@ -1,6 +1,5 @@
-import { MAP_SCHEMES } from '../../charts/mapGlobals'
+import { medicareMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
-import sass from '../../styles/variables.module.scss'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'phrma_cardiovascular',
@@ -61,12 +60,6 @@ export type PhrmaMetricId =
   | 'phrma_population_pct_share'
   | 'phrma_hiv_estimated_total'
   | 'phrma_population'
-
-const medicareMapConfig = {
-  scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareMin,
-  mid: sass.mapMedicareMid,
-}
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
