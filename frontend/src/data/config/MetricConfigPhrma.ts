@@ -63,12 +63,19 @@ export type PhrmaMetricId =
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
+<<<<<<< HEAD
     dataTypeId: 'bb_ami_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
       'Population Receiving Persistent Beta Blocker Treatment After a Heart Attack',
+=======
+    dataTypeId: 'statins_adherence',
+    mapConfig: medicareMapConfig,
+    dataTypeShortLabel: 'Adherence to Statins',
+    fullDisplayName: 'Adherence to statins',
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
     surveyCollectedData: true,
     definition: {
       text: `National Quality Forum measure representing the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
@@ -198,6 +205,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'beta_blockers_adherence',
 <<<<<<< HEAD
+<<<<<<< HEAD
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Adherence to Beta Blockers',
     fullDisplayName: 'Adherence to beta blockers',
@@ -217,6 +225,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       text: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI.`,
     },
 =======
+=======
+    mapConfig: medicareMapConfig,
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
     dataTypeShortLabel: 'Adherence to Beta Blockers',
     fullDisplayName: 'Adherence to beta blockers',
     surveyCollectedData: true,
@@ -285,6 +296,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
 =======
     dataTypeId: 'nqf_adherence',
+    mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Persistence to Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
@@ -328,6 +340,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'rasa_adherence',
+    mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
     fullDisplayName: 'Adherence to RAS-Antagonists',
@@ -441,6 +454,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'doac_adherence',
 <<<<<<< HEAD
+<<<<<<< HEAD
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
     fullDisplayName: 'Adherence to direct oral anticoagulants',
@@ -460,6 +474,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       text: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke.`,
     },
 =======
+=======
+    mapConfig: medicareMapConfig,
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
     fullDisplayName: 'Adherence to direct oral anticoagulants',
     surveyCollectedData: true,
@@ -506,6 +523,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'ami',
 <<<<<<< HEAD
+<<<<<<< HEAD
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
     fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
@@ -525,6 +543,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
 =======
+=======
+    mapConfig: medicareMapConfig,
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
     fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
     surveyCollectedData: true,
@@ -584,6 +605,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'arv_adherence',
 <<<<<<< HEAD
+<<<<<<< HEAD
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
     fullDisplayName: 'Adherence to antiretroviral medications',
@@ -595,6 +617,9 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       text: `Effective treatment of HIV with antiretroviral medications can reduce mortality and morbidity rates among people affected by HIV.`,
     },
 =======
+=======
+    mapConfig: medicareMapConfig,
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
     fullDisplayName: 'Adherence to antiretroviral medications',
     surveyCollectedData: true,

@@ -146,6 +146,7 @@ export interface MapConfig {
   mid: string
 }
 
+<<<<<<< HEAD
 export interface Citation {
   shortLabel: string
   longerTitle: string
@@ -155,6 +156,8 @@ export interface InfoWithCitations {
   text: string
   citations?: Citation[]
 }
+=======
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string

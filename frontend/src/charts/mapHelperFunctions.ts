@@ -36,7 +36,10 @@ import {
   UNKNOWN_SCALE,
   ZERO_DOT_SCALE,
   MAP_SCHEMES,
+<<<<<<< HEAD
   type CountColsMap,
+=======
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
 } from './mapGlobals'
 
 /*

@@ -3,8 +3,12 @@ To prevent components loading from one another, all exported consts for the map 
 */
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
+<<<<<<< HEAD
 import { type Scale, type ColorScheme, type Legend } from 'vega'
 import { type MetricConfig } from '../data/config/MetricConfig'
+=======
+import { type ColorScheme } from 'vega'
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 

@@ -1,5 +1,9 @@
 import { Grid } from '@mui/material'
+<<<<<<< HEAD
 import ChoroplethMap from '../../charts/ChoroplethMap'
+=======
+import { ChoroplethMap } from '../../charts/ChoroplethMap'
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
 import {
   type DataTypeConfig,
   type MetricConfig,
@@ -37,6 +41,15 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     /* dataTypeConfig */ props.dataTypeConfig,
     /* isSummaryLegend */ undefined,
     /*  isUnknownsMap */ props.isUnknownsMap
+<<<<<<< HEAD
+=======
+  )
+
+  const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
+    props.fullData,
+    props.demographicType,
+    props.metricConfig.metricId
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
   )
 
   return (
@@ -44,7 +57,10 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       container
       flexDirection={'row'}
       justifyContent={'flex-end'}
+<<<<<<< HEAD
       aria-hidden={true}
+=======
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
       style={{ padding: props.isMulti ? '0px 5px 10px' : '' }}
     >
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {

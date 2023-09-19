@@ -43,7 +43,10 @@ jobs:
 >>>>>>> 733d46b2 (BACKEND: Split hiv into `_historical` and `_current` (#2362))
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_ENV: true
+<<<<<<< HEAD
           VALIDATE_CSS: true
 >>>>>>> f0fdfeec (Adjust Super Linter Settings (#2371))
+=======
+>>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
           VALIDATE_BASH: true
           VALIDATE_YAML: true
