@@ -1,53 +1,28 @@
 import Grid from '@mui/material/Grid'
-import Item, { createTheme } from '@mui/material'
 import styles from './DataCatalogPage.module.scss'
 import {
-  CONTACT_TAB_LINK,
   HET_URL,
-  DATA_TAB_LINK,
 } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { getHtml, LinkWithStickyParams } from '../../utils/urlutils'
-import { selectFaqs } from '../WhatIsHealthEquity/FaqTab'
-import { METRIC_CONFIG } from '../../data/config/MetricConfig'
-import { Card } from '@mui/material'
-import { urlMap } from '../../utils/externalUrls'
-import DefinitionsList from '../../reports/ui/DefinitionsList'
 import { currentYear } from '../../Footer'
-import {
-  ALASKA_PRIVATE_JAIL_CAVEAT,
-  CombinedIncarcerationStateMessage,
-} from '../../data/providers/IncarcerationProvider'
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
-import {
-  MissingCAWPData,
-  MissingCovidData,
-  MissingCovidVaccinationData,
-  MissingHIVData,
-  MissingPrepData,
-  MissingAHRData,
-  MissingPhrmaData,
-} from './methodologyContent/missingDataBlurbs'
-import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
+import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
-
 import MethodologySubMenu from './MethodologySubMenu'
-import { Source } from '@mui/icons-material'
+import React from 'react'
 
 import { routeConfigs } from './methodologyContent/routeConfigs'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
-import React, { useState } from 'react'
 
-interface LinkConfig {
-  label: string
-  path: string
-}
+// interface LinkConfig {
+//   label: string
+//   path: string
+// }
 
-interface MethodologySubMenuProps {
-  links: LinkConfig[]
-}
+// interface MethodologySubMenuProps {
+//   links: LinkConfig[]
+// }
 
-const MethodologyTabV2: React.FC = () => {
+function MethodologyTabV2() {
   return (
     <>
       <Helmet>

@@ -1,8 +1,7 @@
 import styles from './DataCatalogPage.module.scss'
-import React, { useEffect, useState } from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-import { Link as ScrollLink, Events, Element } from 'react-scroll'
+import { Link as ScrollLink } from 'react-scroll'
 
 interface LinkConfig {
   label: string
@@ -14,23 +13,8 @@ interface MenuProps {
 }
 
 const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
-  const [isSticky, setSticky] = useState(false)
-  const handleScroll = () => {
-    if (window.pageYOffset > 0) {
-      setSticky(true)
-    } else {
-      setSticky(false)
-    }
-  }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
-
-  const CombinedLink = ({ to, isScrollLink, ...rest }) => {
+  const CombinedLink = ({ to, isScrollLink, ...rest }: { to: any, isScrollLink: boolean, rest: any }) => {
     if (isScrollLink) {
       return <ScrollLink to={to} {...rest} />
     }

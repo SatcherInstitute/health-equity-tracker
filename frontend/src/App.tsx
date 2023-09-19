@@ -38,19 +38,19 @@ import {
   AGE_ADJUSTMENT_TAB_LINK,
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
-  SOURCES_LINK,
-  TOPICS_LINK,
-  BEHAVIORAL_HEALTH_LINK,
-  CHRONIC_DISEASE_LINK,
-  COVID_19_LINK,
-  HIV_LINK,
-  PDOH_LINK,
-  SDOH_LINK,
-  DATA_METHOD_DEFINITIONS_LINK,
-  METRICS_LINK,
-  CONDITION_VARIABLES_LINK,
-  RACES_AND_ETHNICITIES_LINK,
-  RECOMMENDED_CITATION_LINK,
+  // SOURCES_LINK,
+  // TOPICS_LINK,
+  // BEHAVIORAL_HEALTH_LINK,
+  // CHRONIC_DISEASE_LINK,
+  // COVID_19_LINK,
+  // HIV_LINK,
+  // PDOH_LINK,
+  // SDOH_LINK,
+  // DATA_METHOD_DEFINITIONS_LINK,
+  // METRICS_LINK,
+  // CONDITION_VARIABLES_LINK,
+  // RACES_AND_ETHNICITIES_LINK,
+  // RECOMMENDED_CITATION_LINK,
 } from './utils/internalRoutes'
 import AppBarLogo from './assets/AppbarLogo.png'
 import { HelmetProvider } from 'react-helmet-async'
@@ -64,19 +64,19 @@ import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquit
 import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
-import PdohLink from './pages/DataCatalog/methodologySections/PdohLink'
-import SourcesLink from './pages/DataCatalog/methodologySections/SourcesLink'
-import TopicsLink from './pages/DataCatalog/methodologySections/TopicsLink'
-import BehavioralHealthLink from './pages/DataCatalog/methodologySections/BehavioralHealthLink'
-import ChronicDiseaseLink from './pages/DataCatalog/methodologySections/ChronicDiseaseLink'
-import Covid19Link from './pages/DataCatalog/methodologySections/Covid19Link'
-import HivLink from './pages/DataCatalog/methodologySections/HivLink'
-import SdohLink from './pages/DataCatalog/methodologySections/SdohLink'
-import DataMethodDefinitionsLink from './pages/DataCatalog/methodologySections/DataMethodDefinitionsLink'
-import MetricsLink from './pages/DataCatalog/methodologySections/MetricsLink'
-import ConditionVariablesLink from './pages/DataCatalog/methodologySections/ConditionVariablesLink'
-import RacesAndEthnicitiesLink from './pages/DataCatalog/methodologySections/RacesAndEthnicitiesLink'
-import RecommendedCitationLink from './pages/DataCatalog/methodologySections/RecommendedCitationLink'
+// import PdohLink from './pages/DataCatalog/methodologySections/PdohLink'
+// import SourcesLink from './pages/DataCatalog/methodologySections/SourcesLink'
+// import TopicsLink from './pages/DataCatalog/methodologySections/TopicsLink'
+// import BehavioralHealthLink from './pages/DataCatalog/methodologySections/BehavioralHealthLink'
+// import ChronicDiseaseLink from './pages/DataCatalog/methodologySections/ChronicDiseaseLink'
+// import Covid19Link from './pages/DataCatalog/methodologySections/Covid19Link'
+// import HivLink from './pages/DataCatalog/methodologySections/HivLink'
+// import SdohLink from './pages/DataCatalog/methodologySections/SdohLink'
+// import DataMethodDefinitionsLink from './pages/DataCatalog/methodologySections/DataMethodDefinitionsLink'
+// import MetricsLink from './pages/DataCatalog/methodologySections/MetricsLink'
+// import ConditionVariablesLink from './pages/DataCatalog/methodologySections/ConditionVariablesLink'
+// import RacesAndEthnicitiesLink from './pages/DataCatalog/methodologySections/RacesAndEthnicitiesLink'
+// import RecommendedCitationLink from './pages/DataCatalog/methodologySections/RecommendedCitationLink'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
