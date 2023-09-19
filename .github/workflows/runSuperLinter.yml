@@ -35,6 +35,6 @@ jobs:
           VALIDATE_TERRAFORM_FMT: true
           VALIDATE_GITHUB_ACTIONS: true
           VALIDATE_ENV: true
-          VALIDATE_CSS: true
+          VALIDATE_CSS: false # needs more configuration before we can run this linter
           VALIDATE_BASH: true
           VALIDATE_YAML: true
