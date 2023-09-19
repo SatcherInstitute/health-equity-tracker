@@ -47,7 +47,9 @@ export interface AgeAdjustedTableChartProps {
   title: string
 }
 
-export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
+export default function AgeAdjustedTableChart(
+  props: AgeAdjustedTableChartProps
+) {
   const { data, metricConfigs } = props
 
   let columns = metricConfigs.map((metricConfig) => {

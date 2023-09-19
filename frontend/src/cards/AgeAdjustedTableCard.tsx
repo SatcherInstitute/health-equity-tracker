@@ -1,4 +1,3 @@
-import { AgeAdjustedTableChart } from '../charts/AgeAdjustedTableChart'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
@@ -43,6 +42,12 @@ import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
+import { lazy } from 'react'
+
+// Lazy Loaded Components
+const AgeAdjustedTableChart = lazy(
+  async () => await import('../charts/AgeAdjustedTableChart')
+)
 
 // when alternate data types are available, provide a link to the national level, by race report for that data type
 export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {

@@ -63,7 +63,7 @@ export interface TableChartProps {
   dataTableTitle: string
 }
 
-export function TableChart(props: TableChartProps) {
+export default function TableChart(props: TableChartProps) {
   const wrap100kUnit = useMediaQuery('(max-width:500px)')
   const { data, metrics, demographicType } = props
 

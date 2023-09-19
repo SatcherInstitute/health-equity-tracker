@@ -1,4 +1,3 @@
-import { TableChart } from '../charts/TableChart'
 import CardWrapper from './CardWrapper'
 import { MetricQuery } from '../data/query/MetricQuery'
 import { type Fips } from '../data/utils/Fips'
@@ -39,6 +38,10 @@ import {
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import { type CountColsMap } from './MapCard'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { lazy } from 'react'
+
+// Lazy Loaded Components
+const TableChart = lazy(async () => await import('../charts/TableChart'))
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
