@@ -1,3 +1,4 @@
 **/*.test.*
 vite.config.ts
 playwright.config.ts
+src/assets/geojson/geographies.json

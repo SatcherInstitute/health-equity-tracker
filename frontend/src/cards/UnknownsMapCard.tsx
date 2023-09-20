@@ -118,7 +118,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     <CardWrapper
       downloadTitle={chartTitle}
       queries={[mapQuery, alertQuery]}
-      loadGeographies={true}
+      loadGeographies={false}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}

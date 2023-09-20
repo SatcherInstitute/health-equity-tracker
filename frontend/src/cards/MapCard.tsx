@@ -285,7 +285,7 @@ function MapCardWithKey(props: MapCardProps) {
     <CardWrapper
       downloadTitle={filename}
       queries={queries}
-      loadGeographies={true}
+      loadGeographies={false}
       minHeight={preloadHeight}
       scrollToHash={HASH_ID}
       reportTitle={props.reportTitle}

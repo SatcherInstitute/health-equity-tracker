@@ -11,7 +11,6 @@ import {
   useMetrics,
   useResources,
 } from './useResources'
-import { GEOGRAPHIES_DATASET_ID } from '../config/MetadataMap'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
@@ -166,7 +165,7 @@ export function WithMetadataAndMetricsWithKey(
             }
             return (
               <WithDatasets
-                datasetIds={[GEOGRAPHIES_DATASET_ID]}
+                datasetIds={[]}
                 loadingComponent={props.loadingComponent}
               >
                 {(datasets) => {

@@ -4,7 +4,6 @@ import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
 import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
-import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import { Grid, useMediaQuery } from '@mui/material'
 
@@ -53,6 +52,8 @@ import {
   makeAltText,
   setupColorScale,
 } from './mapHelperFunctions'
+
+import GEO_JSON from '../assets/geojson/geographies.json'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -165,7 +166,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
-      : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
+      : { values: GEO_JSON }
 
     const neededCols: string[] = [
       props.metric.metricId,
