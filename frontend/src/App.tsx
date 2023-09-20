@@ -34,7 +34,6 @@ import {
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  AGE_ADJUSTMENT_TAB_LINK,
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from './utils/internalRoutes'
@@ -50,7 +49,6 @@ import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquit
 import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
-import AgeAdjustmentTab from './pages/Methodology/AgeAdjustmentTab'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -237,10 +235,6 @@ function App() {
 
                         <Route path={METHODOLOGY_PAGE_LINK}>
                           <MethodologyPage />
-                        </Route>
-
-                        <Route path={AGE_ADJUSTMENT_TAB_LINK}>
-                          <AgeAdjustmentTab />
                         </Route>
 
                         <Route path={EXPLORE_DATA_PAGE_LINK}>

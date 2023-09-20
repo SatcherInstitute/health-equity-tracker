@@ -34,7 +34,7 @@ import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
 import {
-  AGE_ADJUSTMENT_TAB_LINK,
+  AGE_ADJUSTMENT_LINK,
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
 } from '../utils/internalRoutes'
@@ -221,9 +221,7 @@ export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 individuals per age group. By normalizing for age, we can paint
                 a more accurate picture of undue burden of disease and death
                 between populations. More details can be found in our{' '}
-                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
-                  age-adjustment methodology
-                </Link>
+                <Link to={AGE_ADJUSTMENT_LINK}>age-adjustment methodology</Link>
                 .
               </Alert>
             </CardContent>

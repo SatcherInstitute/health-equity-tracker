@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid'
 import styles from './WhatIsHealthEquityPage.module.scss'
 import { Typography } from '@mui/material'
 import {
-  AGE_ADJUSTMENT_TAB_LINK,
+  AGE_ADJUSTMENT_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
@@ -112,7 +112,7 @@ Specific information on update frequencies by source can be found on our <a href
       Graphic visualizations reflect crude rates (non-age-adjusted), as either <b>per 100k</b>, <b>percent rate</b>, <b>percent share</b>, or as an <b>index score</b>.
     </li>
     <li>
-      Where data are readily available, calculations are made to present age-adjusted ratios in separate tables. These calculations are used by the Health Equity Tracker to illustrate the disproportionate impact of morbidity and mortality among different races and ethnic groups throughout the U.S. in comparison to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>.
+      Where data are readily available, calculations are made to present age-adjusted ratios in separate tables. These calculations are used by the Health Equity Tracker to illustrate the disproportionate impact of morbidity and mortality among different races and ethnic groups throughout the U.S. in comparison to the white (non-Hispanic) population. To learn more, please view our <a href=${AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
     </li>
     <li>
       Sources are refreshed when update notifications are received
