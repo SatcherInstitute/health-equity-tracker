@@ -1,3 +1,4 @@
+import { medicareMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -156,6 +157,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
 export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'preventable_hospitalizations',
+    mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Preventable hospitalizations',
     fullDisplayName: 'Preventable hospitalizations',
     fullDisplayNameInline: 'preventable hospitalizations',

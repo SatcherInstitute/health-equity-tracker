@@ -132,9 +132,9 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
     },
   }
 
-  const [mapScheme, mapMin] = getMapScheme({
-    metricId: props.metricConfig.metricId,
-  })
+  const [mapScheme, mapMin] = getMapScheme(
+    /* dataTypeConfig */ props.dataTypeConfig
+  )
 
   const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
     domain: [],
@@ -281,6 +281,7 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                           geoData={props.geoData}
                           mapIsWide={false}
                           metricConfig={props.metricConfig}
+                          dataTypeConfig={props.dataTypeConfig}
                           signalListeners={multimapSignalListeners}
                           scaleConfig={scale}
                           isMulti={true}
