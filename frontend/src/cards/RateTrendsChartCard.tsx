@@ -40,7 +40,7 @@ import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 /* minimize layout shift */
-const PRELOAD_HEIGHT = 668
+const PRELOAD_HEIGHT = 667
 
 export interface RateTrendsChartCardProps {
   key?: string
