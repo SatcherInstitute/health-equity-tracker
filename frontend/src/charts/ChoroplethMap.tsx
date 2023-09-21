@@ -149,7 +149,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
   const [ref, width] = useResponsiveWidth(
-    /* default width during initialization */ 90
+    /* default width during initialization */ 900
   )
 
   // calculate page size to determine if tiny mobile or not

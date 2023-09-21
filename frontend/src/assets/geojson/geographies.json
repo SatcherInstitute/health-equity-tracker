@@ -1,5 +1,6 @@
 {
   "type": "Topology",
+  "bbox": [-179.14733999999999, -14.552548999999999, 179.77847, 71.352561],
   "transform": {
     "scale": [0.003589293992939929, 0.0008590596905969058],
     "translate": [-179.14733999999999, -14.552548999999999]
@@ -22088,8 +22089,7 @@
           "arcs": [[-5484, 9531, 9532, -6228]],
           "id": "11001",
           "properties": {
-            "name": "District of Columbia",
-            "abbreviation": "DC"
+            "name": "District of Columbia"
           }
         },
         {
@@ -26763,8 +26763,7 @@
           ],
           "id": "72",
           "properties": {
-            "name": "Puerto Rico",
-            "abbreviation": "PR"
+            "name": "Puerto Rico"
           }
         },
         {
@@ -27390,8 +27389,7 @@
           "arcs": [[[2193]], [[2194]], [[2196, 8716]]],
           "id": "60",
           "properties": {
-            "name": "American Samoa",
-            "abbreviation": "AS"
+            "name": "American Samoa"
           }
         },
         {
@@ -27468,8 +27466,7 @@
           "arcs": [[[3975, 7972]], [[5521]], [[7971]]],
           "id": "78",
           "properties": {
-            "name": "U.S. Virgin Islands",
-            "abbreviation": "VI"
+            "name": "United States Virgin Islands"
           }
         },
         {
@@ -27553,8 +27550,7 @@
           ],
           "id": "69",
           "properties": {
-            "name": "Commonwealth of the Northern Mariana Islands",
-            "abbreviation": "MP"
+            "name": "Commonwealth of the Northern Mariana Islands"
           }
         },
         {
@@ -27562,8 +27558,7 @@
           "arcs": [[[8175]]],
           "id": "66",
           "properties": {
-            "name": "Guam",
-            "abbreviation": "GU"
+            "name": "Guam"
           }
         },
         {
@@ -27571,8 +27566,7 @@
           "arcs": [[[-5484, 9531, 9532, -6228]]],
           "id": "11",
           "properties": {
-            "name": "District of Columbia",
-            "abbreviation": "DC"
+            "name": "District of Columbia"
           }
         }
       ]
