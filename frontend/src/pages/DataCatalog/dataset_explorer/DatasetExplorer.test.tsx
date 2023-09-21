@@ -1,12 +1,13 @@
 import React from 'react'
-import { act } from 'react-dom/test-utils'
-import { render } from '@testing-library/react'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
 import DatasetExplorer from './DatasetExplorer'
-import { DatasetMetadata } from '../../../data/utils/DatasetTypes'
 import { autoInitGlobals, getDataFetcher } from '../../../utils/globals'
 import FakeDataFetcher from '../../../testing/FakeDataFetcher'
+import { type DatasetMetadata } from '../../../data/utils/DatasetTypes'
+import { render } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { test, expect } from 'vitest'
-import '@testing-library/jest-dom'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   name: 'ACS Population by Age and County',
@@ -18,10 +19,14 @@ autoInitGlobals()
 
 test('DatasetExplorer renders all data sources', async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher
+  const history = createMemoryHistory()
 
   const { queryByText, findByTestId } = render(
-    <DatasetExplorer preFilterDataSourceIds={[]} />
+    <Router history={history}>
+      <DatasetExplorer />
+    </Router>
   )
+
   act(() => {
     dataFetcher.setFakeMetadataLoaded({
       state_names: ACS_DATASET_METADATA,
@@ -38,10 +43,16 @@ test('DatasetExplorer renders all data sources', async () => {
 
 test('DatasetExplorer renders subset of data sources', async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher
+  const history = createMemoryHistory({
+    initialEntries: ['/exploredata?dpf=acs'],
+  })
 
   const { findByText, findByTestId, queryByTestId } = render(
-    <DatasetExplorer preFilterDataSourceIds={['acs']} />
+    <Router history={history}>
+      <DatasetExplorer />
+    </Router>
   )
+
   act(() => {
     dataFetcher.setFakeMetadataLoaded({
       state_names: ACS_DATASET_METADATA,
