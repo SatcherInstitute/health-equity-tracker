@@ -116,7 +116,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   )
 
   const [ref, width] = useResponsiveWidth(
-    /* default width during initialization */ 500
+    /* default width during initialization */ 0
   )
 
   // calculate page size to determine if tiny mobile or not
@@ -390,7 +390,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
-      {mapSpec && (
+      {mapSpec && ref && (
         <Vega
           renderer="svg"
           spec={mapSpec}

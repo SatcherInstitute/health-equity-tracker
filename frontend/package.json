@@ -44,6 +44,7 @@
     "jotai-location": "^0.5.1",
     "jsdom": "^21.1.2",
     "lint-staged": "^13.3.0",
+    "lodash": "^4.17.21",
     "lru-cache": "^6.0.0",
     "mini-css-extract-plugin": "^2.7.2",
     "normalize.css": "^8.0.1",
@@ -135,6 +136,7 @@
   "devDependencies": {
     "@sentry/vite-plugin": "^2.7.1",
     "@testing-library/jest-dom": "^5.17.0",
+    "@types/lodash": "^4.14.198",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@vitest/coverage-c8": "^0.29.8",
     "eslint": "^8.49.0",

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, type RefObject } from 'react'
+import debounce from 'lodash/debounce'
 
 export function useResponsiveWidth(
   defaultWidth: number
@@ -14,14 +15,14 @@ export function useResponsiveWidth(
   useEffect(() => {
     const element = ref.current
 
-    const handleResize = () => {
+    const handleResize = debounce(() => {
       if (element) {
         const newWidth = element.offsetWidth || defaultWidth
         if (newWidth !== width) {
           setWidth(newWidth)
         }
       }
-    }
+    }, 300) // Adjust the debounce delay (in milliseconds) as needed
 
     handleResize()
     window.addEventListener('resize', handleResize)
