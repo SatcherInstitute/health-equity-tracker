@@ -279,9 +279,7 @@ export interface SimpleHorizontalBarChartProps {
 }
 
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
-  const [ref, width] = useResponsiveWidth(
-    100 /* default width during initialization */
-  )
+  const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')

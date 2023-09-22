@@ -115,9 +115,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.highestLowestGroupsByFips
   )
 
-  const [ref, width] = useResponsiveWidth(
-    /* default width during initialization */ 0
-  )
+  const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
@@ -195,8 +193,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         props.metric.type === 'index' ? 'Score' : 'Rate'
       )
   const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
-
-  // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
   const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
 
   const tooltipPairs = {

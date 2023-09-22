@@ -2,10 +2,9 @@ import { useState, useRef, useEffect, type RefObject } from 'react'
 import debounce from 'lodash/debounce'
 
 export function useResponsiveWidth(
-  defaultWidth: number
+  defaultWidth?: number
 ): [RefObject<HTMLDivElement>, number] {
-  const [width, setWidth] = useState<number>(defaultWidth)
-  // Initial spec state is set in useEffect when default geo is set
+  const [width, setWidth] = useState<number>(defaultWidth ?? 0)
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
   const forceUpdate = () => {
@@ -17,7 +16,7 @@ export function useResponsiveWidth(
 
     const handleResize = debounce(() => {
       if (element) {
-        const newWidth = element.offsetWidth || defaultWidth
+        const newWidth = element.offsetWidth ?? defaultWidth ?? 0
         if (newWidth !== width) {
           setWidth(newWidth)
         }
