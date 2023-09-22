@@ -3,7 +3,7 @@ import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
 import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
-import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
+import { type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
 import { Grid, useMediaQuery } from '@mui/material'
@@ -18,7 +18,6 @@ import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type CountColsMap } from '../cards/MapCard'
 import { type DemographicType } from '../data/query/Breakdowns'
 import {
-  DATA_SUPPRESSED,
   VAR_DATASET,
   type HighestLowest,
   CIRCLE_PROJECTION,
@@ -53,6 +52,7 @@ import {
   makeAltText,
   setupColorScale,
 } from './mapHelperFunctions'
+import { treatNullsAsSuppressed } from '../data/utils/datasetutils'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -114,30 +114,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
 
-  let suppressedData = props.data
-
-  if (isPhrma) {
-    suppressedData = props.data.map((row: Row) => {
-      const newRow = { ...row }
-
-      const numeratorId = props.countColsMap?.numeratorConfig?.metricId
-      const numerator = numeratorId !== undefined ? row[numeratorId] : undefined
-      if (numeratorId && numerator === null)
-        newRow[numeratorId] = DATA_SUPPRESSED
-      else if (numeratorId && numerator >= 0)
-        newRow[numeratorId] = numerator.toLocaleString()
-
-      const denominatorId = props.countColsMap?.denominatorConfig?.metricId
-      const denominator =
-        denominatorId !== undefined ? row[denominatorId] : undefined
-      if (denominatorId && denominator === null)
-        newRow[denominatorId] = DATA_SUPPRESSED
-      else if (denominatorId && denominator >= 0)
-        newRow[denominatorId] = denominator.toLocaleString()
-
-      return newRow
-    })
-  }
+  const suppressedData = isPhrma
+    ? treatNullsAsSuppressed(props.data, props.countColsMap)
+    : props.data
 
   const dataWithHighestLowest = embedHighestLowestGroups(
     suppressedData,

@@ -48,6 +48,8 @@ import {
   type DatasetIdWithStateFIPSCode,
   type DatasetId,
 } from '../config/DatasetMetadata'
+import { type CountColsMap } from '../../cards/MapCard'
+import { DATA_SUPPRESSED } from '../../charts/mapGlobals'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 
@@ -361,4 +363,31 @@ export function appendFipsIfNeeded(
     : breakdowns?.filterFips?.getParentFips()?.code
 
   return fipsToAppend ? `${baseId}-${fipsToAppend}` : baseId
+}
+
+export function treatNullsAsSuppressed(
+  data: Row[],
+  countColsMap: CountColsMap
+) {
+  const suppressedData = data.map((row: Row) => {
+    const newRow = { ...row }
+
+    const numeratorId = countColsMap?.numeratorConfig?.metricId
+    const numerator = numeratorId !== undefined ? row[numeratorId] : undefined
+    if (numeratorId && numerator === null) newRow[numeratorId] = DATA_SUPPRESSED
+    else if (numeratorId && numerator >= 0)
+      newRow[numeratorId] = numerator.toLocaleString()
+
+    const denominatorId = countColsMap?.denominatorConfig?.metricId
+    const denominator =
+      denominatorId !== undefined ? row[denominatorId] : undefined
+    if (denominatorId && denominator === null)
+      newRow[denominatorId] = DATA_SUPPRESSED
+    else if (denominatorId && denominator >= 0)
+      newRow[denominatorId] = denominator.toLocaleString()
+
+    return newRow
+  })
+
+  return suppressedData
 }

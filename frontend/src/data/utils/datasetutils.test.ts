@@ -1,11 +1,15 @@
+import { CountColsMap } from '../../cards/MapCard'
+import { DATA_SUPPRESSED } from '../../charts/mapGlobals'
 import { DatasetId } from '../config/DatasetMetadata'
 import { MetricId, METRIC_CONFIG, DataTypeConfig } from '../config/MetricConfig'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'
+import { Row } from './DatasetTypes'
 import {
   appendFipsIfNeeded,
   getExclusionList,
   getExtremeValues,
   splitIntoKnownsAndUnknowns,
+  treatNullsAsSuppressed,
 } from './datasetutils'
 import { Fips } from './Fips'
 
@@ -196,5 +200,59 @@ describe('DatasetUtils.splitIntoKnownsAndUnknowns() Unit Tests', () => {
     const [knowns, unknowns] = splitIntoKnownsAndUnknowns(missingData, 'age')
     expect(knowns).toEqual([])
     expect(unknowns).toEqual([])
+  })
+})
+
+describe('DatasetUtils.treatNullsAsSuppressed() Unit Tests', () => {
+  test('Nulls cast as SUPPRESSED; numbers cast as LOCAL STRINGS; undefined remain so', async () => {
+    const dataWithNulls = [
+      {
+        state_fips: '96',
+        statins_beneficiaries_estimated_total: 0,
+      },
+      {
+        state_fips: '97',
+        statins_beneficiaries_estimated_total: undefined,
+      },
+      {
+        state_fips: '98',
+        statins_beneficiaries_estimated_total: null,
+      },
+      {
+        state_fips: '99',
+        statins_beneficiaries_estimated_total: 100_000,
+      },
+    ] as Row[]
+
+    const dataWithExpectedSuppressedData = [
+      {
+        state_fips: '96',
+        statins_beneficiaries_estimated_total: '0',
+      },
+      {
+        state_fips: '97',
+      },
+      {
+        state_fips: '98',
+        statins_beneficiaries_estimated_total: DATA_SUPPRESSED,
+      },
+      {
+        state_fips: '99',
+        statins_beneficiaries_estimated_total: '100,000',
+      },
+    ] as Row[]
+
+    const testCountColsMap: CountColsMap = {
+      numeratorConfig: {
+        metricId: 'statins_beneficiaries_estimated_total',
+        shortLabel: 'Adherent beneficiaries',
+        chartTitle: '',
+        type: 'count',
+      },
+    }
+
+    expect(treatNullsAsSuppressed(dataWithNulls, testCountColsMap)).toEqual(
+      dataWithExpectedSuppressedData
+    )
   })
 })
