@@ -16,7 +16,7 @@ import {
   RACE,
   AGE,
 } from '../data/utils/Constants'
-import { type ScaleType, type Legend } from 'vega'
+import { type ScaleType, type Legend, type Projection } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
 import { type CountColsMap } from '../cards/MapCard'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
@@ -37,7 +37,17 @@ import {
   UNKNOWN_SCALE,
   ZERO_DOT_SCALE,
   MAP_SCHEMES,
+  GREY_DOT_SCALE_SPEC,
+  LEGEND_DATASET,
+  MISSING_PLACEHOLDER_VALUES,
+  NO_DATA_MESSAGE,
+  UNKNOWN_SCALE_SPEC,
+  ZERO_DATASET,
+  ZERO_DOT_SCALE_SPEC,
+  ZERO_VAR_DATASET,
+  ZERO_YELLOW_SCALE,
 } from './mapGlobals'
+import { type VisualizationSpec } from 'react-vega'
 
 /*
 
@@ -270,7 +280,7 @@ export function getProjection(
   width: number,
   heightWidthRatio: number,
   overrideShapeWithCircle?: boolean
-) {
+): Projection {
   return overrideShapeWithCircle
     ? {
         name: CIRCLE_PROJECTION,
@@ -502,5 +512,113 @@ export function createBarLabel(
     return multiLineLabel
   } else {
     return singleLineLabel
+  }
+}
+
+export function getMapSpec(options: {
+  metricId: MetricId
+  projection: Projection
+  description: string
+  dataWithHighestLowest: Row[]
+  zeroData: Row[]
+  legendData: Row[]
+  geoData: any
+  geoTransformers: any[]
+  feature: 'counties' | 'states'
+  colorScale: any
+  legendList: any[]
+  marks: any[]
+  overrideShapeWithCircle?: boolean
+}): VisualizationSpec {
+  return {
+    $schema: 'https://vega.github.io/schema/vega/v5.json',
+    background: sass.white,
+    description: options.description,
+    data: [
+      {
+        name: MISSING_PLACEHOLDER_VALUES,
+        values: [{ missing: NO_DATA_MESSAGE }],
+      },
+      {
+        name: VAR_DATASET,
+        values: options.dataWithHighestLowest,
+      },
+      {
+        name: ZERO_VAR_DATASET,
+        values: options.zeroData,
+      },
+      {
+        name: LEGEND_DATASET,
+        values: options.legendData,
+      },
+      {
+        name: GEO_DATASET,
+        transform: options.geoTransformers,
+        ...options.geoData,
+        format: {
+          type: 'topojson',
+          feature: options.feature,
+        },
+      },
+      {
+        name: VALID_DATASET,
+        transform: [
+          {
+            type: 'filter',
+            expr: `isValid(datum.${options.metricId}) && datum.${options.metricId} > 0`,
+          },
+        ],
+        source: GEO_DATASET,
+        format: {
+          type: 'topojson',
+          feature: options.feature,
+        },
+      },
+      {
+        name: ZERO_DATASET,
+        transform: [
+          {
+            type: 'filter',
+            expr: `datum.${options.metricId} === 0`,
+          },
+        ],
+        source: GEO_DATASET,
+        format: {
+          type: 'topojson',
+          feature: options.feature,
+        },
+      },
+      {
+        name: MISSING_DATASET,
+        transform: [
+          {
+            type: 'filter',
+            expr: `!isValid(datum.${options.metricId})`,
+          },
+        ],
+        source: GEO_DATASET,
+        format: {
+          type: 'topojson',
+          feature: options.feature,
+        },
+      },
+    ],
+    projections: [options.projection],
+    scales: [
+      options.colorScale,
+      GREY_DOT_SCALE_SPEC,
+      UNKNOWN_SCALE_SPEC,
+      ZERO_DOT_SCALE_SPEC,
+      ZERO_YELLOW_SCALE,
+    ],
+    legends: options.legendList,
+    marks: options.marks,
+    signals: [
+      {
+        name: 'click',
+        value: 0,
+        on: [{ events: 'click', update: 'datum' }],
+      },
+    ],
   }
 }

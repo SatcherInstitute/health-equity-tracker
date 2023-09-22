@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
@@ -22,21 +21,13 @@ import {
   type HighestLowest,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
-  GEO_DATASET,
-  GREY_DOT_SCALE_SPEC,
-  LEGEND_DATASET,
   LEGEND_TEXT_FONT,
   MISSING_DATASET,
-  MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
   RATE_MAP_SCALE,
   UNKNOWNS_MAP_SCALE,
-  UNKNOWN_SCALE_SPEC,
   VALID_DATASET,
   ZERO_DATASET,
-  ZERO_DOT_SCALE_SPEC,
-  ZERO_VAR_DATASET,
-  ZERO_YELLOW_SCALE,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -48,6 +39,7 @@ import {
   getCountyAddOn,
   getHelperLegend,
   getMapGroupLabel,
+  getMapSpec,
   getProjection,
   makeAltText,
   setupColorScale,
@@ -123,11 +115,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.highestLowestGroupsByFips
   )
 
-  // render Vega map async as it can be slow
-  const [shouldRenderMap, setShouldRenderMap] = useState(false)
-
   const [ref, width] = useResponsiveWidth(
-    /* default width during initialization */ 90
+    /* default width during initialization */ 500
   )
 
   // calculate page size to determine if tiny mobile or not
@@ -135,369 +124,264 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
 
-  // Initial spec state is set in useEffect
-  const [spec, setSpec] = useState({})
-
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
 
-  useEffect(() => {
-    const geoData = props.geoData
-      ? { values: props.geoData }
-      : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
+  const geoData = props.geoData
+    ? { values: props.geoData }
+    : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
 
-    const neededCols: string[] = [
-      props.metric.metricId,
-      'highestGroup',
-      'lowestGroup',
-    ]
+  const neededCols: string[] = [
+    props.metric.metricId,
+    'highestGroup',
+    'lowestGroup',
+  ]
 
-    // if count col metricIds are available, add those columns to the transformed dataset for VEGA
-    props.countColsMap?.numeratorConfig?.metricId &&
-      neededCols.push(props.countColsMap.numeratorConfig.metricId)
-    props.countColsMap?.denominatorConfig?.metricId &&
-      neededCols.push(props.countColsMap.denominatorConfig.metricId)
+  // if count col metricIds are available, add those columns to the transformed dataset for VEGA
+  props.countColsMap?.numeratorConfig?.metricId &&
+    neededCols.push(props.countColsMap.numeratorConfig.metricId)
+  props.countColsMap?.denominatorConfig?.metricId &&
+    neededCols.push(props.countColsMap.denominatorConfig.metricId)
 
-    /* SET UP GEO DATASET */
-    // Transform geo dataset by adding varField from VAR_DATASET
-    const geoTransformers: any[] = [
-      {
-        type: 'lookup',
-        from: VAR_DATASET,
-        key: VAR_FIPS,
-        fields: [GEO_ID],
-        values: neededCols,
-      },
-    ]
-    // Null SVI was showing
-    if (!props.highestLowestGeosMode) {
-      geoTransformers[0].values.push('rating')
-    }
+  /* SET UP GEO DATASET */
+  // Transform geo dataset by adding varField from VAR_DATASET
+  const geoTransformers: any[] = [
+    {
+      type: 'lookup',
+      from: VAR_DATASET,
+      key: VAR_FIPS,
+      fields: [GEO_ID],
+      values: neededCols,
+    },
+  ]
+  // Null SVI was showing
+  if (!props.highestLowestGeosMode) {
+    geoTransformers[0].values.push('rating')
+  }
 
-    if (props.overrideShapeWithCircle) {
-      geoTransformers.push({
-        type: 'formula',
-        as: 'centroid',
-        expr: `geoCentroid('${CIRCLE_PROJECTION}', datum.fips)`,
-      })
-    }
-    if (props.fips.isStateOrTerritory()) {
-      // The first two characters of a county FIPS are the state FIPS
-      const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`
-      geoTransformers.push({
-        type: 'filter',
-        expr: stateFipsVar,
-      })
-    }
-    if (props.fips.isCounty()) {
-      geoTransformers.push({
-        type: 'filter',
-        expr: `datum.id === "${props.fips.code}"`,
-      })
-    }
-
-    /* SET UP TOOLTIP */
-    const tooltipDatum = formatPreventZero100k(
-      /* type */ props.metric.type,
-      /* metricId */ props.metric.metricId
-    )
-
-    const mapGroupLabel = isCawp
-      ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
-      : getMapGroupLabel(
-          props.demographicType,
-          props.activeDemographicGroup,
-          props.metric.type === 'index' ? 'Score' : 'Rate'
-        )
-    const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
-
-    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
-    const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
-
-    const tooltipPairs = {
-      [tooltipLabel]: tooltipDatum,
-    }
-
-    const geographyType = getCountyAddOn(
-      /* fips */ props.fips,
-      /* showCounties */ props.showCounties
-    )
-
-    // Hover tooltip for null/undefined/missing data
-    const missingDataTooltipValue = buildTooltipTemplate(
-      /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ false
-    )
-
-    if (isCawp) {
-      addCountsTooltipInfo(
-        /* demographicType */ props.demographicType,
-        /* tooltipPairs */ tooltipPairs,
-        /* countColsMap */ props.countColsMap,
-        /* activeDemographicGroup */ props.activeDemographicGroup,
-        /* isCawp */ true
-      )
-    } else if (isPhrma) {
-      addCountsTooltipInfo(
-        /* demographicType */ props.demographicType,
-        /* tooltipPairs */ tooltipPairs,
-        /* countColsMap */ props.countColsMap,
-        /* activeDemographicGroup */ props.activeDemographicGroup
-      )
-    }
-
-    tooltipPairs['Highest rate group'] = `datum.highestGroup`
-    tooltipPairs['Lowest rate group'] = `datum.lowestGroup`
-
-    // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
-    const zeroTooltipValue = buildTooltipTemplate(
-      /* tooltipPairs */ tooltipPairs,
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
-    )
-
-    // Hover tooltip for non-zero data
-    const tooltipValue = buildTooltipTemplate(
-      /* tooltipPairs */ tooltipPairs,
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ props.showCounties
-    )
-
-    /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
-    const legendList: Legend[] = []
-
-    const legend: Legend = {
-      fill: COLOR_SCALE,
-      direction: 'horizontal',
-      title: '% unknown',
-      titleFontSize: pageIsTiny ? 9 : 11,
-      titleLimit: 0,
-      labelFont: LEGEND_TEXT_FONT,
-      titleFont: LEGEND_TEXT_FONT,
-      labelOverlap: 'greedy',
-      labelSeparation: 10,
-      orient: 'none',
-      legendY: -50,
-      legendX: 50,
-      gradientLength: width * 0.35,
-      format: 'd',
-    }
-    if (isPctType(props.metric.type)) {
-      legend.encode = {
-        labels: {
-          update: {
-            text: {
-              signal: `format(datum.label, '0.1r') + '%'`,
-            },
-          },
-        },
-      }
-    }
-
-    const helperLegend = getHelperLegend(
-      /* yOffset */ -35,
-      /* xOffset */ width * 0.35 + 75,
-      /* overrideGrayMissingWithZeroYellow */ false
-    )
-    if (!props.hideLegend) {
-      legendList.push(legend, helperLegend)
-    }
-    const colorScale = setupColorScale(
-      /* legendData */ props.data,
-      /* metricId */ props.metric.metricId,
-      /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
-      /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.mapConfig.mapScheme,
-      /* isTerritoryCircle? */ props.fips.isTerritory()
-    )
-
-    if (props.isMulti ?? props.highestLowestGeosMode) {
-      colorScale.domain = props.scaleConfig?.domain
-      colorScale.range = props.scaleConfig?.range
-    }
-
-    const projection = getProjection(
-      /* fips */ props.fips,
-      /* width */ width,
-      /* heightWidthRatio */ heightWidthRatio,
-      /* overrideShapeWithCirce */ props.overrideShapeWithCircle
-    )
-
-    const marks = [
-      // ZEROS
-      createShapeMarks(
-        /* datasetName= */ ZERO_DATASET,
-        /* fillColor= */ {
-          value: props.mapConfig.mapMin,
-        },
-        /* hoverColor= */ DARK_BLUE,
-        /* tooltipExpression= */ zeroTooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode,
-        props.isMulti
-      ),
-      // MISSING
-      createShapeMarks(
-        /* datasetName= */ MISSING_DATASET,
-        /* fillColor= */ {
-          value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
-        },
-        /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
-        /* tooltipExpression= */ missingDataTooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode,
-        props.isMulti
-      ),
-      // NON-ZERO
-      createShapeMarks(
-        /* datasetName= */ VALID_DATASET,
-        /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
-        /* hoverColor= */ DARK_BLUE,
-        /* tooltipExpression= */ tooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode,
-        props.isMulti
-      ),
-    ]
-
-    marks.push(
-      createInvisibleAltMarks(
-        /* tooltipDatum */ tooltipDatum,
-        /*  tooltipLabel */ tooltipLabel
-      )
-    )
-
-    const altText = makeAltText(
-      /* data */ props.data,
-      /* filename */ props.filename ?? '',
-      /* fips */ props.fips,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle
-    )
-
-    setSpec({
-      $schema: 'https://vega.github.io/schema/vega/v5.json',
-      background: sass.white,
-      description: props.overrideShapeWithCircle
-        ? `Territory: ${props.fips.getDisplayName()}`
-        : altText,
-      data: [
-        {
-          name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: NO_DATA_MESSAGE }],
-        },
-        {
-          name: VAR_DATASET,
-          values: dataWithHighestLowest,
-        },
-        {
-          name: ZERO_VAR_DATASET,
-          values: zeroData,
-        },
-        {
-          name: LEGEND_DATASET,
-          values: legendData,
-        },
-        {
-          name: GEO_DATASET,
-          transform: geoTransformers,
-          ...geoData,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
-          },
-        },
-        {
-          name: VALID_DATASET,
-          transform: [
-            {
-              type: 'filter',
-              expr: `isValid(datum.${props.metric.metricId}) && datum.${props.metric.metricId} > 0`,
-            },
-          ],
-          source: GEO_DATASET,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
-          },
-        },
-        {
-          name: ZERO_DATASET,
-          transform: [
-            {
-              type: 'filter',
-              expr: `datum.${props.metric.metricId} === 0`,
-            },
-          ],
-          source: GEO_DATASET,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
-          },
-        },
-        {
-          name: MISSING_DATASET,
-          transform: [
-            {
-              type: 'filter',
-              expr: `!isValid(datum.${props.metric.metricId})`,
-            },
-          ],
-          source: GEO_DATASET,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
-          },
-        },
-      ],
-      projections: [projection],
-      scales: [
-        colorScale,
-        GREY_DOT_SCALE_SPEC,
-        UNKNOWN_SCALE_SPEC,
-        ZERO_DOT_SCALE_SPEC,
-        ZERO_YELLOW_SCALE,
-      ],
-      legends: legendList,
-      marks,
-      signals: [
-        {
-          name: 'click',
-          value: 0,
-          on: [{ events: 'click', update: 'datum' }],
-        },
-      ],
+  if (props.overrideShapeWithCircle) {
+    geoTransformers.push({
+      type: 'formula',
+      as: 'centroid',
+      expr: `geoCentroid('${CIRCLE_PROJECTION}', datum.fips)`,
     })
+  }
+  if (props.fips.isStateOrTerritory()) {
+    // The first two characters of a county FIPS are the state FIPS
+    const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`
+    geoTransformers.push({
+      type: 'filter',
+      expr: stateFipsVar,
+    })
+  }
+  if (props.fips.isCounty()) {
+    geoTransformers.push({
+      type: 'filter',
+      expr: `datum.id === "${props.fips.code}"`,
+    })
+  }
 
-    // Render the Vega map asynchronously, allowing the UI to respond to user interaction before Vega maps render.
-    // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
-    setTimeout(() => {
-      setShouldRenderMap(true)
-    }, 0)
-  }, [
-    isCawp,
-    width,
-    props.metric,
-    props.legendTitle,
-    props.data,
-    props.fips,
-    props.hideLegend,
-    props.showCounties,
-    props.fieldRange,
-    props.hideMissingDataTooltip,
-    props.overrideShapeWithCircle,
-    props.geoData,
+  /* SET UP TOOLTIP */
+  const tooltipDatum = formatPreventZero100k(
+    /* type */ props.metric.type,
+    /* metricId */ props.metric.metricId
+  )
+
+  const mapGroupLabel = isCawp
+    ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
+    : getMapGroupLabel(
+        props.demographicType,
+        props.activeDemographicGroup,
+        props.metric.type === 'index' ? 'Score' : 'Rate'
+      )
+  const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
+
+  // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
+  const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
+
+  const tooltipPairs = {
+    [tooltipLabel]: tooltipDatum,
+  }
+
+  const geographyType = getCountyAddOn(
+    /* fips */ props.fips,
+    /* showCounties */ props.showCounties
+  )
+
+  // Hover tooltip for null/undefined/missing data
+  const missingDataTooltipValue = buildTooltipTemplate(
+    /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
+    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* includeSvi */ false
+  )
+
+  if (isCawp) {
+    addCountsTooltipInfo(
+      /* demographicType */ props.demographicType,
+      /* tooltipPairs */ tooltipPairs,
+      /* countColsMap */ props.countColsMap,
+      /* activeDemographicGroup */ props.activeDemographicGroup,
+      /* isCawp */ true
+    )
+  } else if (isPhrma) {
+    addCountsTooltipInfo(
+      /* demographicType */ props.demographicType,
+      /* tooltipPairs */ tooltipPairs,
+      /* countColsMap */ props.countColsMap,
+      /* activeDemographicGroup */ props.activeDemographicGroup
+    )
+  }
+
+  tooltipPairs['Highest rate group'] = `datum.highestGroup`
+  tooltipPairs['Lowest rate group'] = `datum.lowestGroup`
+
+  // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
+  const zeroTooltipValue = buildTooltipTemplate(
+    /* tooltipPairs */ tooltipPairs,
+    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* includeSvi */ true
+  )
+
+  // Hover tooltip for non-zero data
+  const tooltipValue = buildTooltipTemplate(
+    /* tooltipPairs */ tooltipPairs,
+    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* includeSvi */ props.showCounties
+  )
+
+  /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
+  const legendList: Legend[] = []
+
+  const legend: Legend = {
+    fill: COLOR_SCALE,
+    direction: 'horizontal',
+    title: '% unknown',
+    titleFontSize: pageIsTiny ? 9 : 11,
+    titleLimit: 0,
+    labelFont: LEGEND_TEXT_FONT,
+    titleFont: LEGEND_TEXT_FONT,
+    labelOverlap: 'greedy',
+    labelSeparation: 10,
+    orient: 'none',
+    legendY: -50,
+    legendX: 50,
+    gradientLength: width * 0.35,
+    format: 'd',
+  }
+  if (isPctType(props.metric.type)) {
+    legend.encode = {
+      labels: {
+        update: {
+          text: {
+            signal: `format(datum.label, '0.1r') + '%'`,
+          },
+        },
+      },
+    }
+  }
+
+  const helperLegend = getHelperLegend(
+    /* yOffset */ -35,
+    /* xOffset */ width * 0.35 + 75,
+    /* overrideGrayMissingWithZeroYellow */ false
+  )
+  if (!props.hideLegend) {
+    legendList.push(legend, helperLegend)
+  }
+  const colorScale = setupColorScale(
+    /* legendData */ props.data,
+    /* metricId */ props.metric.metricId,
+    /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
+    /* fieldRange? */ props.fieldRange,
+    /* scaleColorScheme? */ props.mapConfig.mapScheme,
+    /* isTerritoryCircle? */ props.fips.isTerritory()
+  )
+
+  if (props.isMulti ?? props.highestLowestGeosMode) {
+    colorScale.domain = props.scaleConfig?.domain
+    colorScale.range = props.scaleConfig?.range
+  }
+
+  const projection = getProjection(
+    /* fips */ props.fips,
+    /* width */ width,
+    /* heightWidthRatio */ heightWidthRatio,
+    /* overrideShapeWithCirce */ props.overrideShapeWithCircle
+  )
+
+  const marks = [
+    // ZEROS
+    createShapeMarks(
+      /* datasetName= */ ZERO_DATASET,
+      /* fillColor= */ {
+        value: props.mapConfig.mapMin,
+      },
+      /* hoverColor= */ DARK_BLUE,
+      /* tooltipExpression= */ zeroTooltipValue,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+      /* outlineGeos */ props.highestLowestGeosMode,
+      props.isMulti
+    ),
+    // MISSING
+    createShapeMarks(
+      /* datasetName= */ MISSING_DATASET,
+      /* fillColor= */ {
+        value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
+      },
+      /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
+      /* tooltipExpression= */ missingDataTooltipValue,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+      /* outlineGeos */ props.highestLowestGeosMode,
+      props.isMulti
+    ),
+    // NON-ZERO
+    createShapeMarks(
+      /* datasetName= */ VALID_DATASET,
+      /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+      /* hoverColor= */ DARK_BLUE,
+      /* tooltipExpression= */ tooltipValue,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+      /* outlineGeos */ props.highestLowestGeosMode,
+      props.isMulti
+    ),
+  ]
+
+  marks.push(
+    createInvisibleAltMarks(
+      /* tooltipDatum */ tooltipDatum,
+      /*  tooltipLabel */ tooltipLabel
+    )
+  )
+
+  const altText = makeAltText(
+    /* data */ props.data,
+    /* filename */ props.filename ?? '',
+    /* fips */ props.fips,
+    /* overrideShapeWithCircle */ props.overrideShapeWithCircle
+  )
+
+  const description = props.overrideShapeWithCircle
+    ? `Territory: ${props.fips.getDisplayName()}`
+    : altText
+
+  const mapSpec = getMapSpec({
+    description,
+    projection,
+    overrideShapeWithCircle: props.overrideShapeWithCircle,
+    dataWithHighestLowest,
+    zeroData,
     legendData,
-    props.isUnknownsMap,
-    props.mapConfig.mapScheme,
-    props.mapConfig.mapMin,
-    props,
-    heightWidthRatio,
-    pageIsTiny,
-  ])
+    geoData,
+    geoTransformers,
+    feature: props.showCounties ? 'counties' : 'states',
+    metricId: props.metric.metricId,
+    colorScale,
+    legendList,
+    marks,
+  })
 
   return (
     <Grid
@@ -506,10 +390,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
-      {shouldRenderMap && (
+      {mapSpec && (
         <Vega
           renderer="svg"
-          spec={spec}
+          spec={mapSpec}
           width={props.overrideShapeWithCircle ? undefined : width}
           actions={false}
           downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
