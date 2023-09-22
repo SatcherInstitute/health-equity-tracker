@@ -7,10 +7,6 @@ export function useResponsiveWidth(
   const [width, setWidth] = useState<number>(defaultWidth ?? 0)
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
-  const forceUpdate = () => {
-    setWidth((prevWidth) => prevWidth + 1)
-  }
-
   useEffect(() => {
     const element = ref.current
 
@@ -29,7 +25,7 @@ export function useResponsiveWidth(
     return () => {
       window.removeEventListener('resize', handleResize)
     }
-  }, [defaultWidth, width, forceUpdate])
+  }, [defaultWidth, width])
 
   return [ref, width]
 }

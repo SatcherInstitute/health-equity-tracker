@@ -622,3 +622,46 @@ export function getMapSpec(options: {
     ],
   }
 }
+
+export function getEmbeddedUnknownMapLegend(
+  pageIsTiny: boolean,
+  width: number
+): Legend[] {
+  const legendList: Legend[] = []
+
+  const legend: Legend = {
+    fill: COLOR_SCALE,
+    direction: 'horizontal',
+    title: '% unknown',
+    titleFontSize: pageIsTiny ? 9 : 11,
+    titleLimit: 0,
+    labelFont: LEGEND_TEXT_FONT,
+    titleFont: LEGEND_TEXT_FONT,
+    labelOverlap: 'greedy',
+    labelSeparation: 10,
+    orient: 'none',
+    legendY: -50,
+    legendX: 50,
+    gradientLength: width * 0.35,
+    format: 'd',
+  }
+
+  legend.encode = {
+    labels: {
+      update: {
+        text: {
+          signal: `format(datum.label, '0.1r') + '%'`,
+        },
+      },
+    },
+  }
+
+  const helperLegend = getHelperLegend(
+    /* yOffset */ -35,
+    /* xOffset */ width * 0.35 + 75,
+    /* overrideGrayMissingWithZeroYellow */ false
+  )
+  legendList.push(legend, helperLegend)
+
+  return legendList
+}

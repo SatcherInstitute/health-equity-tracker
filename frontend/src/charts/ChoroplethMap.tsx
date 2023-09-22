@@ -1,7 +1,7 @@
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
-import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import { type MetricConfig } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
@@ -11,7 +11,6 @@ import {
   CAWP_DETERMINANTS,
   getWomenRaceLabel,
 } from '../data/providers/CawpProvider'
-import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type CountColsMap } from '../cards/MapCard'
@@ -21,7 +20,6 @@ import {
   type HighestLowest,
   CIRCLE_PROJECTION,
   COLOR_SCALE,
-  LEGEND_TEXT_FONT,
   MISSING_DATASET,
   NO_DATA_MESSAGE,
   RATE_MAP_SCALE,
@@ -37,7 +35,7 @@ import {
   embedHighestLowestGroups,
   formatPreventZero100k,
   getCountyAddOn,
-  getHelperLegend,
+  getEmbeddedUnknownMapLegend,
   getMapGroupLabel,
   getMapSpec,
   getProjection,
@@ -246,44 +244,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   )
 
   /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
-  const legendList: Legend[] = []
+  const legendList =
+    props.isUnknownsMap && !props.overrideShapeWithCircle
+      ? getEmbeddedUnknownMapLegend(pageIsTiny, width)
+      : []
 
-  const legend: Legend = {
-    fill: COLOR_SCALE,
-    direction: 'horizontal',
-    title: '% unknown',
-    titleFontSize: pageIsTiny ? 9 : 11,
-    titleLimit: 0,
-    labelFont: LEGEND_TEXT_FONT,
-    titleFont: LEGEND_TEXT_FONT,
-    labelOverlap: 'greedy',
-    labelSeparation: 10,
-    orient: 'none',
-    legendY: -50,
-    legendX: 50,
-    gradientLength: width * 0.35,
-    format: 'd',
-  }
-  if (isPctType(props.metric.type)) {
-    legend.encode = {
-      labels: {
-        update: {
-          text: {
-            signal: `format(datum.label, '0.1r') + '%'`,
-          },
-        },
-      },
-    }
-  }
-
-  const helperLegend = getHelperLegend(
-    /* yOffset */ -35,
-    /* xOffset */ width * 0.35 + 75,
-    /* overrideGrayMissingWithZeroYellow */ false
-  )
-  if (!props.hideLegend) {
-    legendList.push(legend, helperLegend)
-  }
   const colorScale = setupColorScale(
     /* legendData */ props.data,
     /* metricId */ props.metric.metricId,
