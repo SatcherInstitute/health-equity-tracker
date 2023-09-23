@@ -472,6 +472,7 @@ export function getMapGroupLabel(
   } else {
     selectedGroup = ` — ${activeDemographicGroup}`
   }
+
   return `${measureType}${selectedGroup}`
 }
 

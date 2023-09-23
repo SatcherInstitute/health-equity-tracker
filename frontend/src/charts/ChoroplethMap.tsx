@@ -344,6 +344,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     marks,
   })
 
+  const mapIsReady = props.overrideShapeWithCircle ?? (!!mapSpec && ref)
+
   return (
     <Grid
       container
@@ -351,7 +353,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
-      {mapSpec && ref && (
+      {mapIsReady && (
         <Vega
           renderer="svg"
           spec={mapSpec}

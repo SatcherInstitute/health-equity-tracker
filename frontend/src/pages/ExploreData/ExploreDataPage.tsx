@@ -1,5 +1,4 @@
 import { useEffect, useState, lazy } from 'react'
-import { STATUS } from 'react-joyride'
 import ReportProvider from '../../reports/ReportProvider'
 import {
   getMadLibPhraseText,
@@ -192,7 +191,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   const [activelyOnboarding, setActivelyOnboarding] =
     useState<boolean>(showOnboarding)
   const onboardingCallback = (data: any) => {
-    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(data.status)) {
+    if (['finished', 'skipped'].includes(data.status)) {
       setActivelyOnboarding(false)
       setParameter(SHOW_ONBOARDING_PARAM, 'false')
     }
@@ -285,10 +284,12 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   return (
     <>
       <TopicInfoModal />
-      <Onboarding
-        callback={onboardingCallback}
-        activelyOnboarding={activelyOnboarding}
-      />
+      {activelyOnboarding && (
+        <Onboarding
+          callback={onboardingCallback}
+          activelyOnboarding={activelyOnboarding}
+        />
+      )}
 
       <h2 className={styles.ScreenreaderTitleHeader}>
         {getMadLibPhraseText(madLib)}

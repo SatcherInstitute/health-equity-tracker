@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import { type DemographicType } from '../../data/query/Breakdowns'
