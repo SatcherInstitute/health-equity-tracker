@@ -9,11 +9,14 @@ import {
 import styles from '../AboutUs/AboutUsPage.module.scss'
 import { Link, Route, Switch } from 'react-router-dom'
 
-// can't lazy load (yet) due to scss loading issues
+// can't lazy load (yet)
 import DatasetExplorer from './dataset_explorer/DatasetExplorer'
-import MethodologyTab from './MethodologyTab'
 import AgeAdjustmentTab from './AgeAdjustmentTab'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { lazy } from 'react'
+
+// Lazy
+const MethodologyTab = lazy(async () => await import('./MethodologyTab'))
 
 function DataCatalogTab() {
   const theme = useTheme()

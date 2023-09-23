@@ -17,10 +17,7 @@ import {
 import AppbarLogo from './assets/AppbarLogo.png'
 import PartnerSatcher from './assets/PartnerSatcher.png'
 import { urlMap } from './utils/externalUrls'
-
-export function currentYear(): number {
-  return new Date().getFullYear()
-}
+import { currentYear } from './cards/ui/Sources'
 
 function Footer() {
   return (

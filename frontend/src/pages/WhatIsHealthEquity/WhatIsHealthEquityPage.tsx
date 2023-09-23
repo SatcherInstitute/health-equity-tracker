@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { lazy, useEffect } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { useUrlSearchParams } from '../../utils/urlutils'
@@ -11,10 +11,14 @@ import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
 
-// can't lazy load (yet) due to scss loading issues
-import EquityTab from './EquityTab'
-import FaqTab from './FaqTab'
+// can't lazy load (yet)
+// import EquityTab from './EquityTab'
+// import FaqTab from './FaqTab'
 import ResourcesTab from './ResourcesTab'
+
+// Lazy
+const FaqTab = lazy(async () => await import('./FaqTab'))
+const EquityTab = lazy(async () => await import('./EquityTab'))
 
 export default function WhatIsHealthEquityPage() {
   const theme = useTheme()
