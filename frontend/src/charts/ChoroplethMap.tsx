@@ -344,7 +344,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     marks,
   })
 
-  const mapIsReady = props.overrideShapeWithCircle ?? (!!mapSpec && ref)
+  const mapIsReady = mapSpec && (props.overrideShapeWithCircle ?? ref)
 
   return (
     <Grid
@@ -357,7 +357,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
         <Vega
           renderer="svg"
           spec={mapSpec}
-          width={props.overrideShapeWithCircle ? undefined : width}
           actions={false}
           downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
           signalListeners={props.signalListeners}

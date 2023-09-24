@@ -1,7 +1,12 @@
 import React, { useRef, useState } from 'react'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import { Fips, USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/Fips'
+import {
+  Fips,
+  USA_DISPLAY_NAME,
+  USA_FIPS,
+  isFipsString,
+} from '../../data/utils/Fips'
 import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
@@ -9,6 +14,7 @@ import {
   DEFAULT,
   SELECTED_DROPDOWN_OVERRIDES,
   type DefaultDropdownVarId,
+  DROPDOWN_TOPIC_MAP,
 } from '../../utils/MadLibs'
 import {
   Box,
@@ -29,18 +35,21 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 
-function TopicOrLocationSelector(props: {
+interface TopicOrLocationSelectorProps {
   value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
   options: Fips[] | string[][]
   onOptionUpdate: (option: string) => void
-}) {
-  const isFips = !!(props.options[0] && props.options[0] instanceof Fips)
+}
+
+function TopicOrLocationSelector(props: TopicOrLocationSelectorProps) {
+  const newValue: any | DataTypeId | string | DefaultDropdownVarId = props.value
+  const isFips = isFipsString(newValue)
   let currentDisplayName
   if (isFips) {
-    currentDisplayName = new Fips(props.value).getFullDisplayName()
+    currentDisplayName = new Fips(newValue).getFullDisplayName()
   } else {
     const chosenOption = (props.options as string[][]).find(
-      (i: string[]) => i[0] === props.value
+      (i: string[]) => i[0] === newValue
     )
     // prefer the overrides, use normal name otherwise. fallback to empty string
     currentDisplayName =
@@ -197,32 +206,24 @@ function TopicOrLocationSelector(props: {
                           {category.title}
                         </h3>
                         <List dense={true} role="menu">
-                          {(props.options as string[][]).map(
-                            (item: string[]) => {
-                              const [optionId, optionDisplayName] = item
-                              return (
-                                // place variables in their respective categories
-                                category.options.includes(
-                                  optionId as DropdownVarId
-                                ) && (
-                                  <ListItemButton
-                                    className={styles.ListItem}
-                                    key={optionId}
-                                    selected={optionId === props.value}
-                                    onClick={() => {
-                                      popover.close()
-                                      props.onOptionUpdate(optionId)
-                                    }}
-                                  >
-                                    <ListItemText
-                                      className={styles.ListItemText}
-                                      primary={optionDisplayName}
-                                    />
-                                  </ListItemButton>
-                                )
-                              )
-                            }
-                          )}
+                          {category.options.map((optionId: DropdownVarId) => {
+                            return (
+                              <ListItemButton
+                                className={styles.ListItem}
+                                key={optionId}
+                                selected={optionId === props.value}
+                                onClick={() => {
+                                  popover.close()
+                                  props.onOptionUpdate(optionId)
+                                }}
+                              >
+                                <ListItemText
+                                  className={styles.ListItemText}
+                                  primary={DROPDOWN_TOPIC_MAP[optionId]}
+                                />
+                              </ListItemButton>
+                            )
+                          })}
                         </List>
                       </Grid>
                     )

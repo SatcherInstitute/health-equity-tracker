@@ -91,7 +91,6 @@
     "dev": "env-cmd -f .env.development npm run start -- --host",
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E",
     "playwright": "npx playwright install chromium && npx playwright test",
-    "serve": "vite preview",
     "start:deploy_preview": "env-cmd -f .env.deploy_preview npm run start",
     "start:development": "env-cmd -f .env.development npm run start",
     "start": "vite",

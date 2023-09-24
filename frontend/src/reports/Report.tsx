@@ -1,9 +1,8 @@
 import { Box, Grid } from '@mui/material'
-import { useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
 import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
 import { TableCard } from '../cards/TableCard'
@@ -23,10 +22,8 @@ import {
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
-import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
 import styles from './Report.module.scss'
-
 import { reportProviderSteps } from './ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
@@ -43,6 +40,13 @@ import { useAtom } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
+
+const SimpleBarChartCard = lazy(
+  async () => await import('../cards/SimpleBarChartCard')
+)
+const RateTrendsChartCard = lazy(
+  async () => await import('../cards/RateTrendsChartCard')
+)
 
 export interface ReportProps {
   key: string
