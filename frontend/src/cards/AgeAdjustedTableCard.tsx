@@ -69,7 +69,7 @@ export interface AgeAdjustedTableCardProps {
   reportTitle: string
 }
 
-export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
+export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metrics = getAgeAdjustedRatioMetric(props?.dataTypeConfig)
   const metricConfigPctShare = props.dataTypeConfig?.metrics?.pct_share
 

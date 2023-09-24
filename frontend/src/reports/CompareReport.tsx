@@ -1,10 +1,8 @@
 import { Box, Grid } from '@mui/material'
 import { lazy, useEffect } from 'react'
-import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
 import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
-import { TableCard } from '../cards/TableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
 import {
   type DropdownVarId,
@@ -50,6 +48,10 @@ const SimpleBarChartCard = lazy(
 const RateTrendsChartCard = lazy(
   async () => await import('../cards/RateTrendsChartCard')
 )
+const AgeAdjustedTableCard = lazy(
+  async () => await import('../cards/AgeAdjustedTableCard')
+)
+const TableCard = lazy(async () => await import('../cards/TableCard'))
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */

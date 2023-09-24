@@ -3,9 +3,7 @@ import { lazy, useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
-import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
 import { UnknownsMapCard } from '../cards/UnknownsMapCard'
-import { TableCard } from '../cards/TableCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
@@ -47,6 +45,10 @@ const SimpleBarChartCard = lazy(
 const RateTrendsChartCard = lazy(
   async () => await import('../cards/RateTrendsChartCard')
 )
+const AgeAdjustedTableCard = lazy(
+  async () => await import('../cards/AgeAdjustedTableCard')
+)
+const TableCard = lazy(async () => await import('../cards/TableCard'))
 
 export interface ReportProps {
   key: string
@@ -328,12 +330,14 @@ export function Report(props: ReportProps) {
                     scrollMarginTop: props.headerScrollMargin,
                   }}
                 >
-                  <TableCard
-                    fips={props.fips}
-                    dataTypeConfig={dataTypeConfig}
-                    demographicType={demographicType}
-                    reportTitle={props.reportTitle}
-                  />
+                  <LazyLoad offset={600} height={750} once>
+                    <TableCard
+                      fips={props.fips}
+                      dataTypeConfig={dataTypeConfig}
+                      demographicType={demographicType}
+                      reportTitle={props.reportTitle}
+                    />
+                  </LazyLoad>
                 </Grid>
 
                 {/* AGE ADJUSTED TABLE CARD */}

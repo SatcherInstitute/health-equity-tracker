@@ -54,7 +54,7 @@ export interface TableCardProps {
   reportTitle: string
 }
 
-export function TableCard(props: TableCardProps) {
+export default function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1500],
     props.demographicType === SEX
