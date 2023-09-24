@@ -245,7 +245,7 @@ function EquityTab() {
                     src="https://www.youtube.com/embed/mux1c73fJ78"
                     title="YouTube video player -
                           The Allegory of the Orchard"
-                    frameBorder="0"
+                    loading="lazy"
                     allow="accelerometer; autoplay; clipboard-write;
                           encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -275,7 +275,7 @@ function EquityTab() {
                         src="https://www.youtube.com/embed/cmMutvgQIcU"
                         title="YouTube video player -
                               Jessica's Story"
-                        frameBorder="0"
+                        loading="lazy"
                         allow="accelerometer; autoplay; clipboard-write;
                               encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen

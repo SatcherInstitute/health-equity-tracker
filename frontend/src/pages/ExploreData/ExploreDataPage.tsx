@@ -23,6 +23,7 @@ import {
   setParameters,
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
+  TOPIC_INFO_PARAM_KEY,
 } from '../../utils/urlutils'
 import styles from './ExploreDataPage.module.scss'
 import { srSpeak } from '../../utils/a11yutils'
@@ -40,9 +41,10 @@ import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
-import TopicInfoModal from './TopicInfoModal'
+import { useGetParamState } from '../../utils/hooks/useParamState'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
+const TopicInfoModal = lazy(async () => await import('./TopicInfoModal'))
 
 const EXPLORE_DATA_ID = 'main'
 
@@ -281,9 +283,10 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     [madLib, showIncarceratedChildrenAlert, showStickyLifeline]
   )
 
+  const topicInfoModalIsOpen = useGetParamState(TOPIC_INFO_PARAM_KEY)
+
   return (
     <>
-      <TopicInfoModal />
       {activelyOnboarding && (
         <Onboarding
           callback={onboardingCallback}
@@ -323,6 +326,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
           )}
         </div>
       </div>
+      {topicInfoModalIsOpen && <TopicInfoModal />}
     </>
   )
 }
