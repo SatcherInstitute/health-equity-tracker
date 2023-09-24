@@ -1,5 +1,4 @@
 import { useEffect, useState, lazy } from 'react'
-import ReportProvider from '../../reports/ReportProvider'
 import {
   getMadLibPhraseText,
   getSelectedConditions,
@@ -37,7 +36,6 @@ import { INCARCERATION_IDS } from '../../data/providers/IncarcerationProvider'
 import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
-import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
 import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
@@ -45,6 +43,10 @@ import { useGetParamState } from '../../utils/hooks/useParamState'
 
 const Onboarding = lazy(async () => await import('./Onboarding'))
 const TopicInfoModal = lazy(async () => await import('./TopicInfoModal'))
+const DefaultHelperBox = lazy(async () => await import('./DefaultHelperBox'))
+const ReportProvider = lazy(
+  async () => await import('../../reports/ReportProvider')
+)
 
 const EXPLORE_DATA_ID = 'main'
 

@@ -50,7 +50,7 @@ const AgeAdjustedTableCard = lazy(
 )
 const TableCard = lazy(async () => await import('../cards/TableCard'))
 
-export interface ReportProps {
+interface ReportProps {
   key: string
   dropdownVarId: DropdownVarId
   fips: Fips
@@ -66,7 +66,7 @@ export interface ReportProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }
 
-export function Report(props: ReportProps) {
+export default function Report(props: ReportProps) {
   const isRaceBySex = props.dropdownVarId === 'hiv_black_women'
   const defaultDemo = isRaceBySex ? AGE : RACE
 

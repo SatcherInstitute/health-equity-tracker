@@ -1,6 +1,4 @@
-import { useState } from 'react'
-import { Report } from './Report'
-import CompareReport from './CompareReport'
+import { lazy, useState } from 'react'
 import {
   type MadLib,
   getMadLibWithUpdatedValue,
@@ -21,9 +19,7 @@ import {
 } from '../data/config/MetricConfig'
 import { Box, Button } from '@mui/material'
 import DefinitionsList from './ui/DefinitionsList'
-import LifelineAlert from './ui/LifelineAlert'
 import LazyLoad from 'react-lazyload'
-import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { LinkWithStickyParams } from '../utils/urlutils'
 import {
@@ -38,6 +34,13 @@ import {
 } from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
+
+const LifelineAlert = lazy(async () => await import('./ui/LifelineAlert'))
+const IncarceratedChildrenLongAlert = lazy(
+  async () => await import('./ui/IncarceratedChildrenLongAlert')
+)
+const Report = lazy(async () => await import('./Report'))
+const CompareReport = lazy(async () => await import('./CompareReport'))
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -113,27 +116,25 @@ function ReportProvider(props: ReportProviderProps) {
       case 'disparity': {
         const dropdownOption = getPhraseValue(props.madLib, 1)
         return (
-          <>
-            <Report
-              key={dropdownOption}
-              dropdownVarId={dropdownOption}
-              fips={fips1}
-              updateFipsCallback={(fips: Fips) => {
-                props.setMadLib(
-                  getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
-                )
-              }}
-              isScrolledToTop={props.isScrolledToTop}
-              reportStepHashIds={reportStepHashIds}
-              setReportStepHashIds={setReportStepHashIds}
-              headerScrollMargin={props.headerScrollMargin}
-              reportTitle={getMadLibPhraseText(props.madLib)}
-              isMobile={props.isMobile}
-              trackerMode={props.madLib.id}
-              setTrackerMode={props.handleModeChange}
-              dataTypesToDefine={metricConfigSubset}
-            />
-          </>
+          <Report
+            key={dropdownOption}
+            dropdownVarId={dropdownOption}
+            fips={fips1}
+            updateFipsCallback={(fips: Fips) => {
+              props.setMadLib(
+                getMadLibWithUpdatedValue(props.madLib, 3, fips.code)
+              )
+            }}
+            isScrolledToTop={props.isScrolledToTop}
+            reportStepHashIds={reportStepHashIds}
+            setReportStepHashIds={setReportStepHashIds}
+            headerScrollMargin={props.headerScrollMargin}
+            reportTitle={getMadLibPhraseText(props.madLib)}
+            isMobile={props.isMobile}
+            trackerMode={props.madLib.id}
+            setTrackerMode={props.handleModeChange}
+            dataTypesToDefine={metricConfigSubset}
+          />
         )
       }
       case 'comparegeos': {

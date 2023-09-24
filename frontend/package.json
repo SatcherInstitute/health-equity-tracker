@@ -27,7 +27,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router-hash-link": "^2.4.6",
     "@types/react-table": "^7.7.15",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.1.0",
     "axios": "^1.5.0",
     "c8": "^7.14.0",
     "cspell": "^6.31.3",
