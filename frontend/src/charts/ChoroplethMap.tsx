@@ -310,12 +310,13 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     ),
   ]
 
-  marks.push(
-    createInvisibleAltMarks(
-      /* tooltipDatum */ tooltipDatum,
-      /*  tooltipLabel */ tooltipLabel
+  !props.overrideShapeWithCircle &&
+    marks.push(
+      createInvisibleAltMarks(
+        /* tooltipDatum */ tooltipDatum,
+        /*  tooltipLabel */ tooltipLabel
+      )
     )
-  )
 
   const altText = makeAltText(
     /* data */ props.data,
@@ -324,9 +325,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* overrideShapeWithCircle */ props.overrideShapeWithCircle
   )
 
-  const description = props.overrideShapeWithCircle
-    ? `Territory: ${props.fips.getDisplayName()}`
-    : altText
+  const description = props.overrideShapeWithCircle ? `` : altText
 
   const mapSpec = getMapSpec({
     description,

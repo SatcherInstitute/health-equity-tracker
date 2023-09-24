@@ -44,6 +44,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       container
       flexDirection={'row'}
       justifyContent={'flex-end'}
+      aria-hidden={true}
       style={{ padding: props.isMulti ? '0px 5px 10px' : '' }}
     >
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {

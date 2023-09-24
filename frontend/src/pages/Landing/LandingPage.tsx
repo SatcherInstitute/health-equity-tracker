@@ -47,9 +47,6 @@ function LandingPage() {
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  const mode = import.meta.env.MODE
-  console.log(mode)
-
   return (
     <>
       <Helmet>
