@@ -219,7 +219,7 @@ function LandingPage() {
                   height="420px"
                   src="https://www.youtube.com/embed/XBoqT9Jjc8w"
                   title="YouTube video player"
-                  frameBorder="0"
+                  loading="lazy"
                   allow="accelerometer; autoplay; clipboard-write;
                 encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
