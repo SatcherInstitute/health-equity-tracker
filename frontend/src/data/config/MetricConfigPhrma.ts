@@ -187,7 +187,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeId: 'nqf_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
-      'Persistence to Beta Blocker Treatment after a Heart Attack',
+      'Persistence of Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
       'Population Receiving Persistent Beta Blocker Treatment After a Heart Attack',
     surveyCollectedData: true,
