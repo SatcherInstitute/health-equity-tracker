@@ -146,13 +146,22 @@ export interface MapConfig {
   mid: string
 }
 
+export interface Citation {
+  shortLabel: string
+  longerTitle: string
+  url: string
+}
+export interface InfoWithCitations {
+  text: string
+  citations?: Citation[]
+}
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
   fullDisplayName: string
   fullDisplayNameInline?: string
-  dataTypeDefinition?: string
-  dataTypeDescription?: string
+  definition?: InfoWithCitations
+  description?: InfoWithCitations
   metrics: {
     count?: MetricConfig
     pct_share?: MetricConfig

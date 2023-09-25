@@ -70,7 +70,9 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Linkage to HIV care',
     fullDisplayName: 'Linkage to HIV care',
     fullDisplayNameInline: 'linkage to HIV care',
-    dataTypeDefinition: `Individuals ages 13+ with linkage to HIV care in a particular year.`,
+    definition: {
+      text: `Individuals ages 13+ with linkage to HIV care in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for linkage to HIV care',
     metrics: {
@@ -114,7 +116,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'hiv_prevalence',
     dataTypeShortLabel: 'Prevalence',
     fullDisplayName: 'HIV prevalence',
-    dataTypeDefinition: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
+    definition: {
+      text: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV prevalence',
     metrics: {
@@ -154,7 +158,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'New diagnoses',
     fullDisplayName: 'New HIV diagnoses',
     fullDisplayNameInline: 'new HIV diagnoses',
-    dataTypeDefinition: `Individuals ages 13+ diagnosed with HIV in a particular year.`,
+    definition: {
+      text: `Individuals ages 13+ diagnosed with HIV in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV diagnoses',
     metrics: {
@@ -193,7 +199,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'hiv_deaths',
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'HIV deaths',
-    dataTypeDefinition: `Individuals ages 13+ who died from HIV or AIDS in a particular year.`,
+    definition: {
+      text: `Individuals ages 13+ who died from HIV or AIDS in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV deaths',
     metrics: {
@@ -243,7 +251,9 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
     dataTypeId: 'hiv_stigma',
     dataTypeShortLabel: 'Stigma',
     fullDisplayName: 'HIV stigma',
-    dataTypeDefinition: `Self-reported stigma scores ranging from 0 (no stigma) to 100 (high stigma) for HIV-diagnosed individuals ages 18+ in a particular year.`,
+    definition: {
+      text: `Self-reported stigma scores ranging from 0 (no stigma) to 100 (high stigma) for HIV-diagnosed individuals ages 18+ in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV stigma',
     metrics: {
@@ -278,7 +288,9 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     mapConfig: womenMapConfig,
     dataTypeShortLabel: 'Prevalence for Black Women',
     fullDisplayName: 'HIV prevalence for Black women',
-    dataTypeDefinition: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
+    definition: {
+      text: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV prevalence for Black (NH) women',
     metrics: {
@@ -322,7 +334,9 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     mapConfig: womenMapConfig,
     dataTypeShortLabel: 'New Diagnoses for Black Women',
     fullDisplayName: 'New HIV diagnoses for Black women',
-    dataTypeDefinition: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year.`,
+    definition: {
+      text: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle:
       'Breakdown summary for new HIV diagnoses for Black (NH) women',
@@ -368,7 +382,9 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     mapConfig: womenMapConfig,
     dataTypeShortLabel: 'Deaths for Black women',
     fullDisplayName: 'HIV deaths for Black women',
-    dataTypeDefinition: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year.`,
+    definition: {
+      text: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
     metrics: {
@@ -414,7 +430,9 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     dataTypeId: 'hiv_prep',
     dataTypeShortLabel: 'PrEP coverage',
     fullDisplayName: 'PrEP coverage',
-    dataTypeDefinition: `Individuals ages 16+ prescribed PrEP medication in a particular year.`,
+    definition: {
+      text: `Individuals ages 16+ prescribed PrEP medication in a particular year.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for PrEP coverage',
     metrics: {
