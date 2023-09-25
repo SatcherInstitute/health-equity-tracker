@@ -91,6 +91,7 @@ export default function DefaultHelperBox() {
             </Box>
             <div className={styles.NoTopicHelperVideoBox}>
               <iframe
+                loading="lazy"
                 className={styles.ResourceVideoEmbed}
                 src="https://www.youtube.com/embed/XBoqT9Jjc8w"
                 title="YouTube video player"
