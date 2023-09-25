@@ -137,8 +137,13 @@ class PhrmaData(DataSource):
 
                 # POP COMPARE FOR 100K
                 float_cols = [
+<<<<<<< HEAD
                     f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
                     f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
+=======
+                    f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+                    f'{PHRMA_DIR}_{std_col.POPULATION_COL}',
+>>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
                 ]
 
                 # PCT_RATE CONDITIONS
@@ -154,7 +159,13 @@ class PhrmaData(DataSource):
                     float_cols.append(
                         f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
                     )
+<<<<<<< HEAD
                     # float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
+=======
+                    float_cols.append(
+                        f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'
+                    )
+>>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
 
                 # PER_100K CONDITIONS
                 for condition in PHRMA_100K_CONDITIONS:
@@ -232,6 +243,7 @@ class PhrmaData(DataSource):
                 for condition in PHRMA_PCT_CONDITIONS
             },
             # comparison population shares for adherence
+<<<<<<< HEAD
             # **{
             #     f'{condition}_{COUNT_TOTAL}': (
             #         f'{condition}_{std_col.POPULATION_COL}'
@@ -239,13 +251,26 @@ class PhrmaData(DataSource):
             #     )
             #     for condition in PHRMA_PCT_CONDITIONS
             # },
+=======
+            **{
+                f'{condition}_{COUNT_TOTAL}': (
+                    f'{condition}_{std_col.POPULATION_COL}'
+                    + f'_{std_col.PCT_SHARE_SUFFIX}'
+                )
+                for condition in PHRMA_PCT_CONDITIONS
+            },
+>>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
             # Pct Share for disease
             **{
                 f'{condition}_{MEDICARE_DISEASE_COUNT}': f'{condition}_{std_col.PCT_SHARE_SUFFIX}'
                 for condition in PHRMA_100K_CONDITIONS
             },
             # Shared comparison population share col for all 100ks
+<<<<<<< HEAD
             MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+=======
+            MEDICARE_POP_COUNT: f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+>>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:

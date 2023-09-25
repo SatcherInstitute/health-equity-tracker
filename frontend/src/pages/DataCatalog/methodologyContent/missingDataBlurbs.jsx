@@ -199,11 +199,15 @@ export function MissingPhrmaData() {
       <ul>
         <li>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
           <b>Data Suppression:</b> To{' '}
           <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
             protect patient privacy
           </a>
           , all data representing 1-10 people were suppressed.
+<<<<<<< HEAD
 =======
           <b>Data Suppression:</b> To protect patient privacy, all data
 <<<<<<< HEAD
@@ -212,6 +216,8 @@ export function MissingPhrmaData() {
 =======
           representing 1-10 people were suppressed.
 >>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
+=======
+>>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
         </li>
       </ul>
     </>
