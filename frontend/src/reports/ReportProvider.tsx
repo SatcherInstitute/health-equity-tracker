@@ -8,36 +8,15 @@ import {
   getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
-import {
-  DATA_CATALOG_PAGE_LINK,
-  CONTACT_TAB_LINK,
-} from '../utils/internalRoutes'
-import ArrowForward from '@mui/icons-material/ArrowForward'
 import styles from './Report.module.scss'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeConfig,
-} from '../data/config/MetricConfig'
-import { Box, Button } from '@mui/material'
+import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
+import { Box } from '@mui/material'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import LazyLoad from 'react-lazyload'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { LinkWithStickyParams } from '../utils/urlutils'
-import {
-  MissingCovidData,
-  MissingCovidVaccinationData,
-  MissingCAWPData,
-  MissingHIVData,
-  MissingAHRData,
-  MissingPrepData,
-  MissingPhrmaData,
-  MissingIslandAreaPopulationData,
-} from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
-import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
-import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
+import WhatDataAreMissing from './WhatDataAreMissing'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -71,10 +50,6 @@ function ReportProvider(props: ReportProviderProps) {
       dataTypeArray[1].some((dataType) => definedConditions?.includes(dataType))
   )
 
-  const currentDropDownIds: DropdownVarId[] = metricConfigSubset.map(
-    (id) => id?.[0]
-  )
-
   let fips1: Fips = new Fips('00')
   let fips2: Fips | null = null
 
@@ -87,21 +62,6 @@ function ReportProvider(props: ReportProviderProps) {
     fips2 = new Fips(getPhraseValue(props.madLib, 5))
   }
 
-  const isIslandArea = fips1?.isIslandArea() ?? fips2?.isIslandArea()
-  const isCovid = currentDropDownIds.includes('covid')
-  const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
-  const isCAWP = currentDropDownIds.includes('women_in_gov')
-  const isHivOutcome = currentDropDownIds.includes('hiv')
-  const isHivBWOutcome = currentDropDownIds.includes('hiv_black_women')
-  const isHivPrep = currentDropDownIds.includes('hiv_prep')
-
-  const isAHR = currentDropDownIds.some((condition) =>
-    AHR_CONDITIONS.includes(condition)
-  )
-
-  const isPhrma = currentDropDownIds.some((condition) =>
-    PHRMA_CONDITIONS.includes(condition)
-  )
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper
@@ -230,54 +190,11 @@ function ReportProvider(props: ReportProviderProps) {
             )}
           </div>
 
-          <Box mt={10}>
-            <h3 className={styles.FootnoteLargeHeading}>
-              What data are missing?
-            </h3>
-          </Box>
-
-          <p>Unfortunately there are crucial data missing in our sources.</p>
-          <h4>Missing and misidentified people</h4>
-          <p>
-            Currently, there are no required or standardized race and ethnicity
-            categories for data collection across state and local jurisdictions.
-            The most notable gaps exist for race and ethnic groups, physical and
-            mental health status, and sex categories. Many states do not record
-            data for <b>American Indian</b>, <b>Alaska Native</b>,{' '}
-            <b>Native Hawaiian and Pacific Islander</b> racial categories,
-            lumping these people into other groups. Individuals who identify as{' '}
-            <b>Hispanic/Latino</b> may not be recorded in their respective race
-            category. Neither disability nor mental health status is collected
-            with most data sources, and in almost all cases sex is recorded only
-            as female, male, or other.
-          </p>
-
-          {isIslandArea && <MissingIslandAreaPopulationData />}
-          {isCovid && <MissingCovidData />}
-          {isCovidVax && <MissingCovidVaccinationData />}
-          {isCAWP && <MissingCAWPData />}
-          {(isHivOutcome || isHivBWOutcome) && <MissingHIVData />}
-          {isHivPrep && <MissingPrepData />}
-          {isPhrma && <MissingPhrmaData />}
-          {isAHR && <MissingAHRData />}
-
-          <Button
-            className={styles.SeeOurDataSourcesButton}
-            href={DATA_CATALOG_PAGE_LINK}
-            color="primary"
-            endIcon={<ArrowForward />}
-          >
-            See Our Data Sources
-          </Button>
-
-          <div className={styles.MissingDataContactUs}>
-            <p>
-              Do you have information that belongs on the Health Equity Tracker?{' '}
-              <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
-                We would love to hear from you!
-              </LinkWithStickyParams>
-            </p>
-          </div>
+          <WhatDataAreMissing
+            metricConfigSubset={metricConfigSubset}
+            fips1={fips1}
+            fips2={fips2 ?? undefined}
+          />
         </aside>
       </div>
     </>
