@@ -1037,12 +1037,15 @@ function MethodologyTab() {
                     <p>
                       <b>Race/ethnicity:</b> Medicare enhances the Social
                       Security Administration's race and ethnicity
-                      determinations and applies an algorithm that further
-                      identifies beneficiaries of Hispanic and Asian descent. We
-                      represent racial/ethnic information using seven groups,
-                      and have adjusted the wording in some cases to use more
-                      inclusive terminology and to correspond more closely with
-                      our other data sources.
+                      determinations and applies an algorithm that{' '}
+                      <a href="https://resdac.org/cms-data/variables/research-triangle-institute-rti-race-code">
+                        further identifies beneficiaries of Hispanic and Asian
+                        descent
+                      </a>
+                      . We represent racial/ethnic information using seven
+                      groups, and have adjusted the wording in some cases to use
+                      more inclusive terminology and to correspond more closely
+                      with our other data sources.
                     </p>
                     <ul>
                       <li>
@@ -1088,15 +1091,21 @@ function MethodologyTab() {
                     </ul>
 
                     <p>
-                      <b>Sex:</b> Medicare collects the sex of each beneficiary
+                      <b>Sex:</b> Medicare{' '}
+                      <a href="https://resdac.org/cms-data/variables/sex">
+                        collects the sex of each beneficiary
+                      </a>
                       as Unknown, Male, or Female.
                     </p>
 
                     <p>
                       <b>Age:</b> Medicare provides the age of each beneficiary
                       at the end of the reference year (i.e., 2020), or, for
-                      beneficiaries that died during the year, age as of the
-                      date of death. We categorized age into six groups:
+                      beneficiaries that died during the year,{' '}
+                      <a href="https://resdac.org/cms-data/variables/age-beneficiary-end-year">
+                        age as of the date of death
+                      </a>
+                      . We categorized age into six groups:
                     </p>
                     <ul>
                       <li>18-39 years old</li>
@@ -1110,16 +1119,21 @@ function MethodologyTab() {
 
                     <p>
                       <b>Low-Income Subsidy Eligibility:</b> The Low-Income
-                      Subsidy (LIS) program for Medicare Part D beneficiaries,
+                      Subsidy (LIS) program for Medicare Part D beneficiaries
                       provides subsidies to reduce or eliminate premiums and
-                      deductibles and offers zero to reduced co-payments for
-                      low-income Medicare Part D beneficiaries. We categorized
-                      Medicare beneficiaries, who were eligible for the Part D
-                      LIS program, for 1 or more months during 2020 as
-                      “receiving Low Income Subsidy.” Medicare beneficiaries,
-                      who were not eligible for the Part D LIS program at any
-                      time during 2020 were classified as “not receiving Low
-                      Income Subsidy.”
+                      deductibles, and offers zero to reduced co-payments{' '}
+                      <a href="https://resdac.org/cms-data/variables/current-reason-entitlement-code">
+                        for low-income Medicare Part D beneficiaries
+                      </a>
+                      . We categorized Medicare beneficiaries, who were eligible
+                      for the Part D LIS program, for 1 or more months during
+                      2020 as “receiving Low Income Subsidy.” Medicare
+                      beneficiaries, who were{' '}
+                      <a href="https://resdac.org/cms-data/variables/monthly-cost-sharing-group-under-part-d-low-income-subsidy-january">
+                        not eligible for the Part D LIS program
+                      </a>{' '}
+                      at any time during 2020 were classified as “not receiving
+                      Low Income Subsidy.”
                     </p>
 
                     <p>

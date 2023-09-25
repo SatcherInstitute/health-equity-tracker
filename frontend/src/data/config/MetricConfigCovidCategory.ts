@@ -48,7 +48,9 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'covid_cases',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COVID-19 cases',
-    dataTypeDefinition: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a “case definition”. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+    definition: {
+      text: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a “case definition”. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 cases',
     metrics: {
@@ -90,7 +92,9 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'covid_deaths',
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'COVID-19 deaths',
-    dataTypeDefinition: `The number of people who died due to COVID-19.`,
+    definition: {
+      text: `The number of people who died due to COVID-19.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 deaths',
     metrics: {
@@ -139,7 +143,9 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     dataTypeId: 'covid_hospitalizations',
     dataTypeShortLabel: 'Hospitalizations',
     fullDisplayName: 'COVID-19 hospitalizations',
-    dataTypeDefinition: `The number of people hospitalized at any point while ill with COVID-19.`,
+    definition: {
+      text: `The number of people hospitalized at any point while ill with COVID-19.`,
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 hospitalizations',
     metrics: {
@@ -193,7 +199,9 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
     dataTypeId: 'covid_vaccinations',
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',
-    dataTypeDefinition: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+    definition: {
+      text: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+    },
     dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
     metrics: {
       per100k: {

@@ -40,7 +40,7 @@ function ReportProvider(props: ReportProviderProps) {
 
   // only show determinants that have definitions
   const definedConditions = props.selectedConditions?.filter(
-    (condition) => condition?.dataTypeDefinition
+    (condition) => condition?.definition?.text
   )
 
   // create a subset of MetricConfig (with top level string + datatype array)
