@@ -407,10 +407,10 @@ function MapCardWithKey(props: MapCardProps) {
         const isSummaryLegend =
           hasSelfButNotChildGeoData ?? props.fips.isCounty()
 
-        const [mapScheme, mapMin] = getMapScheme({
-          metricId: metricConfig.metricId,
-          isSummaryLegend,
-        })
+        const [mapScheme, mapMin] = getMapScheme(
+          /* dataTypeConfig */ props.dataTypeConfig,
+          /* isSummaryLegend */ isSummaryLegend
+        )
 
         useEffect(() => {
           if (dataForActiveDemographicGroup?.length <= 1)
@@ -566,6 +566,7 @@ function MapCardWithKey(props: MapCardProps) {
                           highestLowestGeosMode={highestLowestGeosMode}
                           mapIsWide={mapIsWide}
                           metricConfig={metricConfig}
+                          dataTypeConfig={props.dataTypeConfig}
                           signalListeners={signalListeners}
                           scaleConfig={scale}
                         />

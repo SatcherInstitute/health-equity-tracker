@@ -165,11 +165,16 @@ cdc_hiv_exporter_operator_black_women = util.create_exporter_operator(
     'cdc_hiv_exporter_black_women', payload_black_women, data_ingestion_dag
 )
 
-
-payload_multi = {'dataset_name': _CDC_HIV_DATASET_NAME, 'demographic': "multi"}
-cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
-    'cdc_hiv_exporter_multi', payload_multi, data_ingestion_dag
+payload_race_with_age_adjust = {
+    'dataset_name': _CDC_HIV_DATASET_NAME,
+    'demographic': "race_and_ethnicity",
+}
+cdc_hiv_exporter_operator_race_with_age_adjust = util.create_exporter_operator(
+    'cdc_hiv_exporter_race_with_age_adjust',
+    payload_race_with_age_adjust,
+    data_ingestion_dag,
 )
+
 
 # Ingestion DAG
 (
@@ -186,7 +191,7 @@ cdc_hiv_exporter_operator_multi = util.create_exporter_operator(
         cdc_hiv_exporter_operator_age,
         cdc_hiv_exporter_operator_sex,
         cdc_hiv_exporter_operator_black_women,
-        cdc_hiv_exporter_operator_multi,
     ]
     >> cdc_hiv_age_adjust_op
+    >> cdc_hiv_exporter_operator_race_with_age_adjust,
 )
