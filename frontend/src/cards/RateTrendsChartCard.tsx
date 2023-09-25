@@ -173,9 +173,10 @@ export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
           : splitIntoKnownsAndUnknowns(ratesDataLabelled, props.demographicType)
 
         // rates for the unknown bubbles
-        const [, unknownPctShareData] = pctShareData
-          ? splitIntoKnownsAndUnknowns(pctShareData, props.demographicType)
-          : [[], []]
+        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
+          pctShareData,
+          props.demographicType
+        )
 
         const nestedRatesData = getNestedData(
           knownRatesData,

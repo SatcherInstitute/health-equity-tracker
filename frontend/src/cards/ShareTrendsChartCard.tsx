@@ -153,9 +153,10 @@ export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             metricConfigPctShares.metricId
           )
 
-        const [, unknownPctShareData] = pctShareData
-          ? splitIntoKnownsAndUnknowns(pctShareData, props.demographicType)
-          : [[], []]
+        const [, unknownPctShareData] = splitIntoKnownsAndUnknowns(
+          pctShareData,
+          props.demographicType
+        )
 
         // retrieve list of all present demographic groups
         const demographicGroups: DemographicGroup[] = queryResponseInequity
