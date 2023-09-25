@@ -19,6 +19,7 @@ const config: PlaywrightTestConfig = {
   /* Maximum time one test can run for, default was 30s. */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
@@ -35,6 +36,12 @@ const config: PlaywrightTestConfig = {
   expect: {
     timeout: 45 * 1000
 >>>>>>> 6bb9a431 (Frontend: Update HIV to fetch newly split `_current` and `_historical` files (#2384))
+=======
+  timeout: 120 * 1000,
+  /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
+  expect: {
+    timeout: 120 * 1000
+>>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,

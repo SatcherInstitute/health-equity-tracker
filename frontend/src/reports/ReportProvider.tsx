@@ -17,6 +17,7 @@ import LazyLoad from 'react-lazyload'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import WhatDataAreMissing from './WhatDataAreMissing'
 =======
 import { LinkWithStickyParams } from '../utils/urlutils'
@@ -38,6 +39,9 @@ import { Widget } from '@typeform/embed-react'
 =======
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 >>>>>>> f28b9949 (Remove typeform (#2380))
+=======
+import WhatDataAreMissing from './WhatDataAreMissing'
+>>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -72,6 +76,7 @@ function ReportProvider(props: ReportProviderProps) {
   )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   let fips1: Fips = new Fips('00')
   let fips2: Fips | null = null
 
@@ -80,6 +85,8 @@ function ReportProvider(props: ReportProviderProps) {
     (id) => id?.[0]
   )
 
+=======
+>>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
   let fips1: Fips = new Fips('00')
   let fips2: Fips | null = null
 
@@ -96,6 +103,7 @@ function ReportProvider(props: ReportProviderProps) {
 
 =======
 
+<<<<<<< HEAD
   const isIslandArea = fips1?.isIslandArea() ?? fips2?.isIslandArea()
   const isCovid = currentDropDownIds.includes('covid')
   const isCovidVax = currentDropDownIds.includes('covid_vaccinations')
@@ -112,6 +120,8 @@ function ReportProvider(props: ReportProviderProps) {
     PHRMA_CONDITIONS.includes(condition)
   )
 >>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
+=======
+>>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
   const reportWrapper = props.isSingleColumn
     ? styles.OneColumnReportWrapper
     : styles.TwoColumnReportWrapper
@@ -241,11 +251,15 @@ function ReportProvider(props: ReportProviderProps) {
           </div>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
           <WhatDataAreMissing
             metricConfigSubset={metricConfigSubset}
             fips1={fips1}
             fips2={fips2 ?? undefined}
           />
+<<<<<<< HEAD
 =======
           <Box mt={10}>
             <h3 className={styles.FootnoteLargeHeading}>
@@ -296,6 +310,8 @@ function ReportProvider(props: ReportProviderProps) {
             </p>
           </div>
 >>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
+=======
+>>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
         </aside>
       </div>
     </>
