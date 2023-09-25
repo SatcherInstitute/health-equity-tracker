@@ -187,8 +187,11 @@ export function MissingPhrmaData() {
       <p>Who is missing?</p>
       <ul>
         <li>
-          <b>Data Suppression:</b> To protect patient privacy, all data
-          representing 1-10 people were suppressed.
+          <b>Data Suppression:</b> To{' '}
+          <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
+            protect patient privacy
+          </a>
+          , all data representing 1-10 people were suppressed.
         </li>
       </ul>
     </>
