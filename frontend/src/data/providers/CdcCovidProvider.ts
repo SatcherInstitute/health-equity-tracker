@@ -7,7 +7,17 @@ import VariableProvider from './VariableProvider'
 import { CROSS_SECTIONAL, TIME_SERIES } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type DatasetId } from '../config/DatasetMetadata'
+import { type AgeAdjustedDataTypeId } from '../config/MetricConfig'
+import {
+  AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  AGE_ADJUST_COVID_HOSP_US_SETTING,
+} from '../../utils/internalRoutes'
 
+// when alternate data types are available, provide a link to the national level, by race report for that data type
+export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {
+  covid_deaths: AGE_ADJUST_COVID_DEATHS_US_SETTING,
+  covid_hospitalizations: AGE_ADJUST_COVID_HOSP_US_SETTING,
+}
 class CdcCovidProvider extends VariableProvider {
   private readonly acsProvider: AcsPopulationProvider
 

@@ -1,17 +1,17 @@
-import {
-  EXPLORE_DATA_PAGE_LINK,
-  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-} from '../../utils/internalRoutes'
+import { WHAT_IS_HEALTH_EQUITY_PAGE_LINK } from '../../utils/internalRoutes'
 import { type DemographicTypeDisplayName } from '../../data/query/Breakdowns'
 import { type Fips } from '../../data/utils/Fips'
 import {
-  type AgeAdjustedDataTypeId,
   type DropdownVarId,
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
-import { dataTypeLinkMap } from '../AgeAdjustedTableCard'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 import { Alert } from '@mui/material'
+import { lazy } from 'react'
+
+const AltDataTypesMessage = lazy(
+  async () => await import('./AltDataTypesMessage')
+)
 
 interface MissingDataAlertProps {
   dataName: string
@@ -66,34 +66,3 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 }
 
 export default MissingDataAlert
-
-interface AltDataTypesMessageProps {
-  ageAdjustedDataTypes: DataTypeConfig[]
-  setDataTypeConfigWithParam?: any
-}
-function AltDataTypesMessage(props: AltDataTypesMessageProps) {
-  if (!props.ageAdjustedDataTypes) return <></>
-  return (
-    <>
-      {' '}
-      Age-adjusted ratios by race and ethnicity at the national and state levels
-      are available for these alternate data types:{' '}
-      {props.ageAdjustedDataTypes.map((dataType, i) => {
-        return (
-          <span key={dataType.fullDisplayName}>
-            <a
-              href={`${EXPLORE_DATA_PAGE_LINK}${
-                dataTypeLinkMap[dataType.dataTypeId as AgeAdjustedDataTypeId] ??
-                ''
-              }#age-adjusted-ratios`}
-            >
-              {dataType.fullDisplayName}
-            </a>
-            {i < props.ageAdjustedDataTypes.length - 1 && ', '}
-            {i === props.ageAdjustedDataTypes.length - 1 && '.'}
-          </span>
-        )
-      })}
-    </>
-  )
-}
