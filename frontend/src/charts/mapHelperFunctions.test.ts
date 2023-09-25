@@ -1,7 +1,7 @@
-import { CountColsMap } from '../cards/MapCard'
 import { MetricId } from '../data/config/MetricConfig'
 import { AGE, ALL, BLACK, BLACK_NH, RACE, SEX } from '../data/utils/Constants'
 import { Fips } from '../data/utils/Fips'
+import { CountColsMap } from './mapGlobals'
 import {
   addCountsTooltipInfo,
   buildTooltipTemplate,

@@ -56,7 +56,7 @@ export interface ShareTrendsChartCardProps {
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
-export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
+export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   // Manages which group filters user has applied
   const [selectedTableGroups, setSelectedTableGroups] = useState<
     DemographicGroup[]

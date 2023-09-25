@@ -37,7 +37,6 @@ import useScrollPosition from '../../utils/hooks/useScrollPosition'
 import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
-import MadLibUI from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
 import { useGetParamState } from '../../utils/hooks/useParamState'
 
@@ -47,6 +46,7 @@ const DefaultHelperBox = lazy(async () => await import('./DefaultHelperBox'))
 const ReportProvider = lazy(
   async () => await import('../../reports/ReportProvider')
 )
+const MadLibUI = lazy(async () => await import('./MadLibUI'))
 
 const EXPLORE_DATA_ID = 'main'
 

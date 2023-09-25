@@ -13,7 +13,6 @@ import {
 } from '../data/providers/CawpProvider'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { type CountColsMap } from '../cards/MapCard'
 import { type DemographicType } from '../data/query/Breakdowns'
 import {
   VAR_DATASET,
@@ -26,6 +25,7 @@ import {
   UNKNOWNS_MAP_SCALE,
   VALID_DATASET,
   ZERO_DATASET,
+  type CountColsMap,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -99,7 +99,7 @@ export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
 }
 
-export function ChoroplethMap(props: ChoroplethMapProps) {
+export default function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)

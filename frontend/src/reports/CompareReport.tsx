@@ -1,9 +1,5 @@
 import { Box, Grid } from '@mui/material'
 import { lazy, useEffect } from 'react'
-import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
-import { MapCard } from '../cards/MapCard'
-import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
-import { UnknownsMapCard } from '../cards/UnknownsMapCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
@@ -25,14 +21,11 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import NoDataAlert from './ui/NoDataAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
-import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
 import { type MadLibId } from '../utils/MadLibs'
-import ModeSelectorBoxMobile from './ui/ModeSelectorBoxMobile'
 import RowOfTwoOptionalMetrics from './RowOfTwoOptionalMetrics'
 import { useAtom } from 'jotai'
 import {
@@ -42,6 +35,16 @@ import {
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
 
+const DisparityBarChartCard = lazy(
+  async () => await import('../cards/DisparityBarChartCard')
+)
+const MapCard = lazy(async () => await import('../cards/MapCard'))
+const ShareTrendsChartCard = lazy(
+  async () => await import('../cards/ShareTrendsChartCard')
+)
+const UnknownsMapCard = lazy(
+  async () => await import('../cards/UnknownsMapCard')
+)
 const SimpleBarChartCard = lazy(
   async () => await import('../cards/SimpleBarChartCard')
 )
@@ -52,6 +55,11 @@ const AgeAdjustedTableCard = lazy(
   async () => await import('../cards/AgeAdjustedTableCard')
 )
 const TableCard = lazy(async () => await import('../cards/TableCard'))
+const ModeSelectorBoxMobile = lazy(
+  async () => await import('./ui/ModeSelectorBoxMobile')
+)
+const Sidebar = lazy(async () => await import('../pages/ui/Sidebar'))
+const NoDataAlert = lazy(async () => await import('./ui/NoDataAlert'))
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */

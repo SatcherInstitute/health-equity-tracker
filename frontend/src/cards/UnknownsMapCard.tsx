@@ -1,5 +1,4 @@
 import { CardContent, useMediaQuery, useTheme } from '@mui/material'
-import { ChoroplethMap } from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
 import { type Row } from '../data/utils/DatasetTypes'
@@ -24,11 +23,14 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
-import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { getMapScheme } from '../charts/mapHelperFunctions'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { lazy } from 'react'
+
+const ChoroplethMap = lazy(async () => await import('../charts/ChoroplethMap'))
+const TerritoryCircles = lazy(async () => await import('./ui/TerritoryCircles'))
 
 export interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -46,7 +48,7 @@ export interface UnknownsMapCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
-export function UnknownsMapCard(props: UnknownsMapCardProps) {
+export default function UnknownsMapCard(props: UnknownsMapCardProps) {
   return (
     <UnknownsMapCardWithKey
       key={props.demographicType + props.dataTypeConfig.dataTypeId}

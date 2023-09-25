@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { lazy, useRef, useState } from 'react'
 import {
   Box,
   Grid,
@@ -10,7 +10,6 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import { ChoroplethMap } from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
 import {
@@ -43,8 +42,7 @@ import {
 import { getMapScheme } from '../../charts/mapHelperFunctions'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
-import { type CountColsMap } from '../MapCard'
-import { RATE_MAP_SCALE } from '../../charts/mapGlobals'
+import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
@@ -52,6 +50,9 @@ import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 
+const ChoroplethMap = lazy(
+  async () => await import('../../charts/ChoroplethMap')
+)
 export interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
   // Metric the small maps will evaluate
@@ -97,7 +98,7 @@ export interface MultiMapDialogProps {
    MultiMapDialog is a dialog opened via the MapCard that shows one small map for each unique
     value in a given demographicType for a particular metric.
 */
-export function MultiMapDialog(props: MultiMapDialogProps) {
+export default function MultiMapDialog(props: MultiMapDialogProps) {
   const title = `${
     props.metricConfig.chartTitle
   } in ${props.fips.getSentenceDisplayName()} across all ${

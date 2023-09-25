@@ -1,5 +1,4 @@
-import { CountColsMap } from '../../cards/MapCard'
-import { DATA_SUPPRESSED } from '../../charts/mapGlobals'
+import { CountColsMap, DATA_SUPPRESSED } from '../../charts/mapGlobals'
 import { DatasetId } from '../config/DatasetMetadata'
 import { MetricId, METRIC_CONFIG, DataTypeConfig } from '../config/MetricConfig'
 import { Breakdowns, DemographicType } from '../query/Breakdowns'

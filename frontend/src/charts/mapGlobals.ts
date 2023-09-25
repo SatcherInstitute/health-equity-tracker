@@ -4,6 +4,7 @@ To prevent components loading from one another, all exported consts for the map 
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { type ColorScheme } from 'vega'
+import { type MetricConfig } from '../data/config/MetricConfig'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -102,4 +103,9 @@ export const ZERO_YELLOW_SCALE = {
   type: 'ordinal',
   domain: [0],
   range: [sass.mapMin],
+}
+
+export interface CountColsMap {
+  numeratorConfig?: MetricConfig
+  denominatorConfig?: MetricConfig
 }

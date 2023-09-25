@@ -18,7 +18,6 @@ import {
 } from '../data/utils/Constants'
 import { type ScaleType, type Legend, type Projection } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
-import { type CountColsMap } from '../cards/MapCard'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
 import {
   CIRCLE_PROJECTION,
@@ -46,6 +45,7 @@ import {
   ZERO_DOT_SCALE_SPEC,
   ZERO_VAR_DATASET,
   ZERO_YELLOW_SCALE,
+  type CountColsMap,
 } from './mapGlobals'
 import { type VisualizationSpec } from 'react-vega'
 

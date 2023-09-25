@@ -7,12 +7,7 @@ import {
 } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
-import { ChoroplethMap } from '../charts/ChoroplethMap'
-import {
-  type MetricId,
-  type DataTypeConfig,
-  type MetricConfig,
-} from '../data/config/MetricConfig'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -53,14 +48,13 @@ import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
-import { MultiMapDialog } from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, useEffect, useMemo, useState } from 'react'
 import {
   getHighestLowestGroupsByFips,
   getMapScheme,
@@ -87,15 +81,13 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
-import { RATE_MAP_SCALE } from '../charts/mapGlobals'
+import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
-const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
+const ChoroplethMap = lazy(async () => await import('../charts/ChoroplethMap'))
+const MultiMapDialog = lazy(async () => await import('./ui/MultiMapDialog'))
 
-export interface CountColsMap {
-  numeratorConfig?: MetricConfig
-  denominatorConfig?: MetricConfig
-}
+const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
 export interface MapCardProps {
   key?: string
@@ -109,7 +101,7 @@ export interface MapCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
-export function MapCard(props: MapCardProps) {
+export default function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
       key={props.demographicType + props.dataTypeConfig.dataTypeId}
@@ -451,37 +443,41 @@ function MapCardWithKey(props: MapCardProps) {
 
         return (
           <>
-            <MultiMapDialog
-              dataTypeConfig={props.dataTypeConfig}
-              demographicType={props.demographicType}
-              demographicGroups={demographicGroups}
-              demographicGroupsNoData={fieldValues.noData}
-              countColsMap={countColsMap}
-              data={mapQueryResponse.data}
-              fieldRange={mapQueryResponse.getFieldRange(metricConfig.metricId)}
-              fips={props.fips}
-              geoData={geoData}
-              handleClose={() => {
-                setMultimapOpen(false)
-              }}
-              handleMapGroupClick={handleMapGroupClick}
-              hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
-              metadata={metadata}
-              metricConfig={metricConfig}
-              open={Boolean(multimapOpen)}
-              queries={queries}
-              queryResponses={queryResponses}
-              totalPopulationPhrase={totalPopulationPhrase}
-              subPopulationPhrase={subPopulationPhrase}
-              updateFipsCallback={props.updateFipsCallback}
-              useSmallSampleMessage={
-                !mapQueryResponse.dataIsMissing() &&
-                (props.dataTypeConfig.surveyCollectedData ?? false)
-              }
-              pageIsSmall={pageIsSmall}
-              reportTitle={props.reportTitle}
-              scrollToHash={HASH_ID}
-            />
+            {multimapOpen && (
+              <MultiMapDialog
+                dataTypeConfig={props.dataTypeConfig}
+                demographicType={props.demographicType}
+                demographicGroups={demographicGroups}
+                demographicGroupsNoData={fieldValues.noData}
+                countColsMap={countColsMap}
+                data={mapQueryResponse.data}
+                fieldRange={mapQueryResponse.getFieldRange(
+                  metricConfig.metricId
+                )}
+                fips={props.fips}
+                geoData={geoData}
+                handleClose={() => {
+                  setMultimapOpen(false)
+                }}
+                handleMapGroupClick={handleMapGroupClick}
+                hasSelfButNotChildGeoData={hasSelfButNotChildGeoData}
+                metadata={metadata}
+                metricConfig={metricConfig}
+                open={Boolean(multimapOpen)}
+                queries={queries}
+                queryResponses={queryResponses}
+                totalPopulationPhrase={totalPopulationPhrase}
+                subPopulationPhrase={subPopulationPhrase}
+                updateFipsCallback={props.updateFipsCallback}
+                useSmallSampleMessage={
+                  !mapQueryResponse.dataIsMissing() &&
+                  (props.dataTypeConfig.surveyCollectedData ?? false)
+                }
+                pageIsSmall={pageIsSmall}
+                reportTitle={props.reportTitle}
+                scrollToHash={HASH_ID}
+              />
+            )}
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>

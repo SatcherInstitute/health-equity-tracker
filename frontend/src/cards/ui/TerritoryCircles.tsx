@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material'
-import { ChoroplethMap } from '../../charts/ChoroplethMap'
 import {
   type DataTypeConfig,
   type MetricConfig,
@@ -10,9 +9,11 @@ import { getMapScheme } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { type CountColsMap } from '../MapCard'
-import { type HighestLowest } from '../../charts/mapGlobals'
-
+import { type CountColsMap, type HighestLowest } from '../../charts/mapGlobals'
+import { lazy } from 'react'
+const ChoroplethMap = lazy(
+  async () => await import('../../charts/ChoroplethMap')
+)
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
   signalListeners: any

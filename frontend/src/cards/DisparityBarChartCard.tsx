@@ -35,7 +35,9 @@ export interface DisparityBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
+export default function DisparityBarChartCard(
+  props: DisparityBarChartCardProps
+) {
   return (
     <DisparityBarChartCardWithKey
       key={props.dataTypeConfig.dataTypeId + props.demographicType}

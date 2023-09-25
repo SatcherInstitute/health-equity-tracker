@@ -48,8 +48,7 @@ import {
   type DatasetIdWithStateFIPSCode,
   type DatasetId,
 } from '../config/DatasetMetadata'
-import { type CountColsMap } from '../../cards/MapCard'
-import { DATA_SUPPRESSED } from '../../charts/mapGlobals'
+import { type CountColsMap, DATA_SUPPRESSED } from '../../charts/mapGlobals'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 
