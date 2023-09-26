@@ -13,6 +13,7 @@ import {
   useDownloadCardImage,
 } from '../utils/hooks/useDownloadCardImage'
 import CardOptionsMenu from './ui/CardOptionsMenu'
+import { type DataTypeConfig } from '../data/config/MetricConfig'
 
 function CardWrapper(props: {
   // prevent layout shift as component  loads
@@ -35,6 +36,7 @@ function CardWrapper(props: {
   reportTitle: string
   elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
+  dataTypeConfig?: DataTypeConfig
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle,
@@ -84,6 +86,7 @@ function CardWrapper(props: {
                   isCensusNotAcs={props.isCensusNotAcs}
                   metadata={metadata}
                   queryResponses={queryResponses}
+                  dataTypeConfig={props.dataTypeConfig}
                 />
               </CardContent>
             )}
