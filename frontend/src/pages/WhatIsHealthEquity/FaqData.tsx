@@ -3,7 +3,7 @@ import {
   AGE_ADJUSTMENT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import styles from './FaqSection.module.scss'
+import styles from '../ui/FaqSection.module.scss'
 
 export interface FAQ {
   questionText: string
