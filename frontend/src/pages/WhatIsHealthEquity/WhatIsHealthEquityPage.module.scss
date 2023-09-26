@@ -67,7 +67,7 @@
     }
 
     .DefinitionHeader {
-      @include tav500();
+      @include tav300();
       font-size: $title;
       line-height: $lhLoose;
       color: $alt-green;
@@ -329,3 +329,33 @@
 }
 
 /** ------------- NEWS ------------- **/
+
+.NewsAndStoriesHeaderText {
+  @include tav300();
+  font-size: $biggerHeader;
+  text-align: center;
+  color: $alt-green;
+  margin-bottom: 1rem;
+}
+
+.NewsAndStoriesSubheaderText {
+  margin: 1rem !important;
+}
+
+.NewsAndStoriesTitleText {
+  @include tav300();
+  text-align: center;
+  line-height: 130%;
+  color: $alt-green;
+  font-size: $smallestHeader;
+  margin: 15px 0 15px 0;
+}
+
+.NewsAndStoriesHeaderLinkNoUnderline {
+  text-decoration: none !important;
+}
+
+.NewsAndStoriesBigImg,
+.NewsAndStoriesSmallImg {
+  border-radius: 30px;
+}
