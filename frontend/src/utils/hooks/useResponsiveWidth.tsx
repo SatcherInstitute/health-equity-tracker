@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, type RefObject } from 'react'
-import debounce from 'lodash/debounce'
+import { debounce } from 'lodash'
 
 export function useResponsiveWidth(
   defaultWidth?: number
