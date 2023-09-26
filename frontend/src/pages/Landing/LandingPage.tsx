@@ -94,7 +94,7 @@ function LandingPage() {
                 className={styles.ExploreDataButton}
                 href={EXPLORE_DATA_PAGE_LINK}
               >
-                Explore the data
+                Explore the data eror
               </Button>
             </Box>
           </Grid>
