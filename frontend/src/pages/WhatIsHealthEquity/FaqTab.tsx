@@ -4,7 +4,11 @@ import { Typography } from '@mui/material'
 import { CONTACT_TAB_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
+<<<<<<< HEAD
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
+=======
+import { CITATION_APA } from '../../cards/ui/Sources'
+>>>>>>> fa3b6624 (RF: Split FAQ data (#2405))
 import { selectFAQs } from './FaqData'
 
 function FaqTab() {
