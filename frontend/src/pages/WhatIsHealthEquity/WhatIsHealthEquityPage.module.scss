@@ -330,32 +330,63 @@
 
 /** ------------- NEWS ------------- **/
 
-.NewsAndStoriesHeaderText {
-  @include tav300();
-  font-size: $biggerHeader;
-  text-align: center;
-  color: $alt-green;
-  margin-bottom: 1rem;
-}
+/** ------------- NEWS AND STORIES SECTION  ------------- **/
 
-.NewsAndStoriesSubheaderText {
-  margin: 1rem !important;
-}
+.NewsAndStoriesRow {
+  padding: 20px 0 20px 0;
 
-.NewsAndStoriesTitleText {
-  @include tav300();
-  text-align: center;
-  line-height: 130%;
-  color: $alt-green;
-  font-size: $smallestHeader;
-  margin: 15px 0 15px 0;
-}
+  .NewsAndStoriesHeaderText {
+    @include tav300();
+    font-size: $biggerHeader;
+    text-align: center;
+    line-height: $lhLoose;
+    color: $alt-green;
+  }
 
-.NewsAndStoriesHeaderLinkNoUnderline {
-  text-decoration: none !important;
-}
+  .NewsAndStoriesSubheaderText {
+    @include inter300();
+    font-size: $title;
+    text-align: left;
+    color: $black !important;
+  }
 
-.NewsAndStoriesBigImg,
-.NewsAndStoriesSmallImg {
-  border-radius: 30px;
+  .NewsAndStoriesItem {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+  }
+
+  .NewsAndStoriesBigImg {
+    width: 100%;
+    height: auto;
+    border-radius: 30px;
+  }
+
+  .NewsAndStoriesSmallImg {
+    width: 100%;
+    border-radius: 30px;
+  }
+  .NewsAndStoriesTitleLink {
+    text-decoration: none;
+  }
+  .NewsAndStoriesTitleText {
+    @include tav300();
+    text-align: center;
+    line-height: 130%;
+    color: $alt-green;
+    font-size: $smallestHeader;
+    margin: 15px 0 15px 0;
+  }
+
+  .NewsAndStoriesSubtitleText {
+    font-size: $text;
+    margin: 0px;
+
+    a {
+      text-decoration: underline;
+      color: $black;
+    }
+  }
 }
