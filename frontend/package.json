@@ -132,7 +132,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "lint-staged"
+      "pre-push": "npm run cspell"
     }
   },
   "lint-staged": {
