@@ -1,5 +1,4 @@
 import Button from '@mui/material/Button'
-import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { type DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
@@ -9,6 +8,7 @@ import {
   raceNameToCodeMap,
   type DemographicGroup,
 } from '../data/utils/Constants'
+import { type ReactNode } from 'react'
 
 // OLDER HANDLING PARAMS
 
@@ -59,7 +59,7 @@ export function LinkWithStickyParams(props: {
   to: string
   target?: string
   className?: string
-  children: React.ReactNode
+  children: ReactNode
 }) {
   const linkProps = { ...props }
   const params = useSearchParams()
@@ -77,7 +77,7 @@ export function ReactRouterLinkButton(props: {
   url: string
   className?: string
   displayName?: string
-  children?: React.ReactNode
+  children?: ReactNode
   ariaLabel?: string
 }) {
   return (
