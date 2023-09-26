@@ -132,12 +132,12 @@
   },
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "pre-push": "npm run cspell"
     }
   },
   "lint-staged": {
     "**/*.ts?(x)": "bash -c tsc --noEmit",
-    "*": "npm run cspell",
     "src/**/*.{js,jsx,ts,tsx,json}": [
       "eslint --fix"
     ],
