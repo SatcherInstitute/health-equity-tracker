@@ -34,7 +34,9 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Depression cases',
     fullDisplayNameInline: 'depression cases',
-    dataTypeDefinition: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
+    definition: {
+      text: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for depression cases',
     metrics: {
@@ -69,7 +71,9 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Excessive drinking cases',
     fullDisplayNameInline: 'excessive drinking cases',
-    dataTypeDefinition: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
+    definition: {
+      text: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for excessive drinking cases',
     metrics: {
@@ -106,7 +110,9 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Opioid and other non-medical drug use',
     fullDisplayName: 'Opioid and other non-medical drug use',
     fullDisplayNameInline: 'opioid and other non-medical drug use',
-    dataTypeDefinition: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
+    definition: {
+      text: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
+    },
     surveyCollectedData: true,
     dataTableTitle:
       'Breakdown summary for opioid and other non-medical drug use',
@@ -143,7 +149,9 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Frequent mental distress cases',
     fullDisplayNameInline: 'frequent mental distress cases',
-    dataTypeDefinition: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
+    definition: {
+      text: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for frequent mental distress cases',
     metrics: {
@@ -179,7 +187,9 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Suicides',
     fullDisplayNameInline: 'suicides',
-    dataTypeDefinition: `Deaths due to intentional self-harm.`,
+    definition: {
+      text: `Deaths due to intentional self-harm.`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for suicides',
     metrics: {

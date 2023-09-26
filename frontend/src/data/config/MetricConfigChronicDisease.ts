@@ -33,7 +33,9 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'asthma cases',
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for asthma cases',
-    dataTypeDefinition: `Adults who reported being told by a health professional that they currently have asthma.`,
+    definition: {
+      text: `Adults who reported being told by a health professional that they currently have asthma.`,
+    },
     metrics: {
       per100k: {
         metricId: 'asthma_per_100k',
@@ -68,7 +70,9 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'cases of cardiovascular diseases',
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for cases of cardiovascular diseases',
-    dataTypeDefinition: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
+    definition: {
+      text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
+    },
     metrics: {
       per100k: {
         metricId: 'cardiovascular_diseases_per_100k',
@@ -103,7 +107,9 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
     surveyCollectedData: true,
     fullDisplayName: 'Cases of chronic kidney disease',
     fullDisplayNameInline: 'cases of chronic kidney disease',
-    dataTypeDefinition: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+    definition: {
+      text: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+    },
     dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
     metrics: {
       per100k: {
@@ -138,7 +144,9 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Diabetes',
     fullDisplayNameInline: 'diabetes',
-    dataTypeDefinition: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+    definition: {
+      text: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for diabetes',
     metrics: {
@@ -172,7 +180,9 @@ export const COPD_METRICS: DataTypeConfig[] = [
     dataTypeId: 'copd',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COPD',
-    dataTypeDefinition: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+    definition: {
+      text: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for COPD',
     metrics: {

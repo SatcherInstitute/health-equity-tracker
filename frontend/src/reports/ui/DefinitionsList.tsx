@@ -5,6 +5,7 @@ Retrieves their parent categories (with optional category definitions)
 
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
+import InfoCitations from './InfoCitations'
 
 export interface DefinitionsListProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
@@ -44,9 +45,7 @@ export default function DefinitionsList(
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
                   return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
-                    const hasAddedInfo = Boolean(
-                      dataTypeConfig?.dataTypeDescription
-                    )
+                    const hasAddedInfo = Boolean(dataTypeConfig?.description)
                     return (
                       <li key={dataTypeConfig?.fullDisplayName}>
                         <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
@@ -58,12 +57,20 @@ export default function DefinitionsList(
                               </>
                             )}
 
-                            {dataTypeConfig.dataTypeDefinition}
+                            {dataTypeConfig.definition?.text}
+                            <InfoCitations
+                              citations={dataTypeConfig.definition?.citations}
+                            />
                           </li>
                           {hasAddedInfo && (
                             <li>
                               <b>Clinical Importance:</b>{' '}
-                              {dataTypeConfig.dataTypeDescription}
+                              {dataTypeConfig.description?.text}
+                              <InfoCitations
+                                citations={
+                                  dataTypeConfig.description?.citations
+                                }
+                              />
                             </li>
                           )}
                         </ul>
