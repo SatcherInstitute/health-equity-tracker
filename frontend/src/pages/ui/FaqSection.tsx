@@ -9,7 +9,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
 import { ReactRouterLinkButton, getHtml } from '../../utils/urlutils'
-import { selectFaqs } from '../WhatIsHealthEquity/FaqTab'
+import { selectFaqs } from '../WhatIsHealthEquity/FaqData'
 
 function Question(props: {
   questionText: string
