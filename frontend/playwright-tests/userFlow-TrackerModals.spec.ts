@@ -64,7 +64,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "networkidle" });
 
         // Clicking right side multiple maps button launches POVERTY multimap modal
-        await page.locator('#rate-map2').getByRole('button', { name: 'Compare maps across race and ethnicity groups' }).click();
+        await page.locator('#rate-map2').getByLabel('Launch to see race and ethnicity disparties across multiple small maps').click();
         await expect(page).toHaveURL(/.*multiple-maps2=true/);
         await expect(page.getByRole('heading', { name: 'People below the poverty line in Georgia across all race and ethnicity groups' })).toBeVisible()
 
