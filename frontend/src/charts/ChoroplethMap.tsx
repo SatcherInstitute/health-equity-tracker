@@ -393,9 +393,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* overrideShapeWithCircle */ props.overrideShapeWithCircle
   )
 
-  // render Vega map async as it can be slow
-  const [shouldRenderMap, setShouldRenderMap] = useState(false)
-
   useEffect(() => {
     const newSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -493,10 +490,10 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec(newSpec)
 
-    // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
-    setTimeout(() => {
-      setShouldRenderMap(true)
-    }, 0)
+    // // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
+    // setTimeout(() => {
+    //   setShouldRenderMap(true)
+    // }, 0)
   }, [
     isCawp,
     width,
@@ -508,7 +505,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   ])
 
   const mapIsReady =
-    shouldRenderMap && (props.overrideShapeWithCircle ?? (ref && width > 0))
+    spec && (props.overrideShapeWithCircle ?? (ref && width > 0))
 
   return (
     <Grid

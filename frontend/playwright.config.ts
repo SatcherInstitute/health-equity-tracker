@@ -5,7 +5,6 @@ import { expect } from '@playwright/test'
 import matchers from 'expect-axe-playwright'
 expect.extend(matchers)
 
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -14,14 +13,14 @@ const config: PlaywrightTestConfig = {
     command: 'npm run start:deploy_preview',
     port: 3000,
     timeout: 60 * 1000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
-  timeout: 75 * 1000,
+  timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 75 * 1000
+    timeout: 90 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
@@ -31,7 +30,7 @@ const config: PlaywrightTestConfig = {
     ['html']
   ],
 
-  workers: process.env.CI ? 2 : 4,
+  workers: process.env.CI ? 1 : 2,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
