@@ -18,14 +18,14 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
-  timeout: 120 * 1000,
+  timeout: 75 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 120 * 1000
+    timeout: 75 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 2 : 1,
   reporter: [
     [process.env.CI ? 'github' : 'list'],
     ['html']

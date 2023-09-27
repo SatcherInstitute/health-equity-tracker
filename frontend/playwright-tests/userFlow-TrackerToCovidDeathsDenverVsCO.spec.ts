@@ -5,7 +5,7 @@ test.describe.configure({ mode: 'parallel' });
 
 test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
-    await page.goto('/exploredata?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths');
+    await page.goto('/exploredata?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths', { waitUntil: "networkidle" });
 
     // Changing first location via madlib buttons
     await page.locator('#madlib-box').getByRole('button', { name: 'United States' }).click();
@@ -25,7 +25,9 @@ test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
 test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({ page }) => {
 
-    await page.goto('/exploredata?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths');
+    await page.goto('/exploredata?mls=1.covid-3.08031-5.08&mlp=comparegeos&dt1=covid_deaths', { waitUntil: "networkidle" });
+
+    await page.setViewportSize({ width: 1300, height: 800 });
 
     // find Table of Contents link to Unknown Map
     await page.getByRole('button', { name: 'Unknown demographic map', exact: true }).click();
