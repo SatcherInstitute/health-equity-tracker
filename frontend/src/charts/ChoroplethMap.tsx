@@ -147,9 +147,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
-  const [ref, width] = useResponsiveWidth(
-    /* default width during initialization */ 90
-  )
+  const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
@@ -520,6 +518,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     pageIsTiny,
   ])
 
+  const mapIsReady = shouldRenderMap && (props.overrideShapeWithCircle ?? ref)
+
   return (
     <Grid
       container
@@ -527,7 +527,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
-      {shouldRenderMap && (
+      {mapIsReady && (
         <Vega
           renderer="svg"
           spec={spec}
