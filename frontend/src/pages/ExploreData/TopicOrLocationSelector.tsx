@@ -202,9 +202,7 @@ function TopicOrLocationSelector(props: {
                               const [optionId, optionDisplayName] = item
                               return (
                                 // place variables in their respective categories
-                                category.options.includes(
-                                  optionId as DropdownVarId
-                                ) && (
+                                category.options.includes(optionId) && (
                                   <ListItemButton
                                     className={styles.ListItem}
                                     key={optionId}
