@@ -20,6 +20,7 @@ const config: PlaywrightTestConfig = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
@@ -42,16 +43,22 @@ const config: PlaywrightTestConfig = {
   expect: {
     timeout: 120 * 1000
 >>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
+=======
+  timeout: 90 * 1000,
+  /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
+  expect: {
+    timeout: 90 * 1000
+>>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 2 : 1,
   reporter: [
     [process.env.CI ? 'github' : 'list'],
     ['html']
   ],
 
-  workers: process.env.CI ? 2 : 3,
+  workers: process.env.CI ? 1 : 2,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',

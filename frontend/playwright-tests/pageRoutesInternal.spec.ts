@@ -12,7 +12,11 @@ test('Resources Tab Loads', async ({ page }) => {
 
 
 test('Methodology Tab Loads', async ({ page }) => {
+<<<<<<< HEAD
     await page.goto('/methodology/recommended-citation', { waitUntil: "commit" });
+=======
+    await page.goto('/methodology', { waitUntil: "commit" });
+>>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Recommended citation (APA) for the Health Equity Tracker:']);
     // @ts-ignore
@@ -20,7 +24,11 @@ test('Methodology Tab Loads', async ({ page }) => {
 });
 
 test('Age-Adjustment Tab Loads', async ({ page }) => {
+<<<<<<< HEAD
     await page.goto('methodology/ageadjustment', { waitUntil: "commit" });
+=======
+    await page.goto('/ageadjustment', { waitUntil: "commit" });
+>>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Calculating Age-Adjusted Ratios']);
     // @ts-ignore
