@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, type RefObject } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
@@ -6,7 +6,7 @@ import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
-import { Grid, useMediaQuery } from '@mui/material'
+import { CircularProgress, Grid, useMediaQuery } from '@mui/material'
 
 import {
   CAWP_DETERMINANTS,
@@ -107,9 +107,13 @@ export interface ChoroplethMapProps {
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
+  mapContainerRef?: RefObject<HTMLDivElement>
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
+  const mapWrapperWidth = props?.mapContainerRef?.current?.offsetWidth
+  if (!mapWrapperWidth) return <></>
+
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
@@ -147,7 +151,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
-  const [ref, width] = useResponsiveWidth()
+  const [ref, width] = useResponsiveWidth(mapWrapperWidth)
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')
@@ -160,6 +164,12 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
 
+  const altText = makeAltText(
+    /* data */ props.data,
+    /* filename */ props.filename ?? '',
+    /* fips */ props.fips,
+    /* overrideShapeWithCircle */ props.overrideShapeWithCircle
+  )
   useEffect(() => {
     const geoData = props.geoData
       ? { values: props.geoData }
@@ -390,13 +400,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       )
     )
 
-    const altText = makeAltText(
-      /* data */ props.data,
-      /* filename */ props.filename ?? '',
-      /* fips */ props.fips,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle
-    )
-
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       background: sass.white,
@@ -518,7 +521,11 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     pageIsTiny,
   ])
 
-  const mapIsReady = shouldRenderMap && (props.overrideShapeWithCircle ?? ref)
+  const mapIsReady =
+    shouldRenderMap && (props.overrideShapeWithCircle ?? (ref && width > 0))
+
+  console.log(ref, width)
+  console.log({ shouldRenderMap })
 
   return (
     <Grid
@@ -527,7 +534,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
-      {mapIsReady && (
+      {mapIsReady ? (
         <Vega
           renderer="svg"
           spec={spec}
@@ -536,6 +543,8 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
+      ) : (
+        <CircularProgress aria-label={altText} />
       )}
     </Grid>
   )
