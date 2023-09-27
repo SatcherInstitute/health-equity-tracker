@@ -294,7 +294,8 @@ function MapCardWithKey(props: MapCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={highestLowestGeosMode}
-      dataTypeConfig={props.dataTypeConfig}
+      showDefinition={true}
+      isCompareCard={props.isCompareCard}
     >
       {(queryResponses, metadata, geoData) => {
         // contains rows for sub-geos (if viewing US, this data will be STATE level)

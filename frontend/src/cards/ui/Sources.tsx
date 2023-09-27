@@ -13,8 +13,14 @@ import {
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { useAtomValue } from 'jotai'
-import { getParentDropdownFromDataTypeId } from '../../pages/ExploreData/MadLibUI'
-import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
+import {
+  getConfigFromDataTypeId,
+  getParentDropdownFromDataTypeId,
+} from '../../pages/ExploreData/MadLibUI'
+import {
+  selectedDataTypeConfig1Atom,
+  selectedDataTypeConfig2Atom,
+} from '../../utils/sharedSettingsState'
 import { HashLink } from 'react-router-hash-link'
 import {
   getDataSourceMapFromDatasetIds,
@@ -22,6 +28,7 @@ import {
   stripCountyFips,
 } from './SourcesHelpers'
 import SourcesInfo from './SourcesInfo'
+import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
 
 interface SourcesProps {
   queryResponses: MetricQueryResponse[]
@@ -30,7 +37,8 @@ interface SourcesProps {
   hideNH?: boolean
   downloadTargetScreenshot?: () => Promise<boolean>
   isMulti?: boolean
-  dataTypeConfig?: DataTypeConfig
+  showDefinition?: boolean
+  isCompareCard?: boolean
 }
 
 export function Sources(props: SourcesProps) {
@@ -38,14 +46,6 @@ export function Sources(props: SourcesProps) {
   if (props.queryResponses.every((resp) => resp.dataIsMissing())) {
     return <></>
   }
-
-  const selectedDataTypeId = useAtomValue(
-    selectedDataTypeConfig1Atom
-  )?.dataTypeId
-
-  const dropdownVarId: DropdownVarId | '' = selectedDataTypeId
-    ? getParentDropdownFromDataTypeId(selectedDataTypeId)
-    : ''
 
   const unstrippedDatasetIds: Array<DatasetId | DatasetIdWithStateFIPSCode> =
     getDatasetIdsFromResponses(props.queryResponses)
@@ -62,6 +62,36 @@ export function Sources(props: SourcesProps) {
     props.metadata
   )
 
+  const selectedDataTypeConfigAtom = props.isCompareCard
+    ? selectedDataTypeConfig2Atom
+    : selectedDataTypeConfig1Atom
+
+  const selectedDataTypeId = useAtomValue(
+    selectedDataTypeConfigAtom
+  )?.dataTypeId
+
+  const methodologyHashId: DropdownVarId | '' = selectedDataTypeId
+    ? getParentDropdownFromDataTypeId(selectedDataTypeId)
+    : ''
+
+  let optionalDefinition = ''
+
+  if (
+    props.showDefinition &&
+    selectedDataTypeId &&
+    PHRMA_DATATYPES.includes(selectedDataTypeId)
+  ) {
+    const selectedDataTypeConfig: DataTypeConfig | null = selectedDataTypeId
+      ? getConfigFromDataTypeId(selectedDataTypeId)
+      : null
+
+    const dtName = selectedDataTypeConfig?.fullDisplayName
+    const dtDefinition = selectedDataTypeConfig?.definition?.text
+
+    if (dtName && dtDefinition)
+      optionalDefinition = `${dtName}: ${dtDefinition} `
+  }
+
   const showNhFootnote =
     !props.hideNH &&
     datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
@@ -69,11 +99,12 @@ export function Sources(props: SourcesProps) {
   return (
     <Grid container className={styles.Footnote}>
       <Grid item xs={12} alignItems={'center'}>
-        {props.dataTypeConfig?.fullDisplayName}:{' '}
-        {props.dataTypeConfig?.definition?.text}. View{' '}
-        <HashLink to={`${METHODOLOGY_TAB_LINK}#${dropdownVarId}`}>
+        <>{optionalDefinition}</>
+        View{' '}
+        <HashLink to={`${METHODOLOGY_TAB_LINK}#${methodologyHashId}`}>
           methodology
         </HashLink>
+        .
       </Grid>
 
       {/* NH note (if needed) listed first, full-width */}
