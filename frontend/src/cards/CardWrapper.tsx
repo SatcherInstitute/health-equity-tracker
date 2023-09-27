@@ -35,6 +35,8 @@ function CardWrapper(props: {
   reportTitle: string
   elementsToHide?: ElementHashIdHiddenOnScreenshot[]
   expanded?: boolean
+  showDefinition?: boolean
+  isCompareCard?: boolean
 }) {
   const [screenshotTargetRef, downloadTargetScreenshot] = useDownloadCardImage(
     props.downloadTitle,
@@ -84,6 +86,8 @@ function CardWrapper(props: {
                   isCensusNotAcs={props.isCensusNotAcs}
                   metadata={metadata}
                   queryResponses={queryResponses}
+                  showDefinition={props.showDefinition}
+                  isCompareCard={props.isCompareCard}
                 />
               </CardContent>
             )}
