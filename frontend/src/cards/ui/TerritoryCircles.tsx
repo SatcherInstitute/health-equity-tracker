@@ -1,6 +1,9 @@
 import { Grid } from '@mui/material'
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
-import { type MetricConfig } from '../../data/config/MetricConfig'
+import {
+  type DataTypeConfig,
+  type MetricConfig,
+} from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
 import {
@@ -16,6 +19,7 @@ interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
   signalListeners: any
   metricConfig: MetricConfig
+  dataTypeConfig: DataTypeConfig
   highestLowestGeosMode: boolean
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
@@ -30,10 +34,11 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const [mapScheme, mapMin] = getMapScheme({
-    metricId: props.metricConfig.metricId,
-    isUnknownsMap: props.isUnknownsMap,
-  })
+  const [mapScheme, mapMin] = getMapScheme(
+    /* dataTypeConfig */ props.dataTypeConfig,
+    /* isSummaryLegend */ undefined,
+    /*  isUnknownsMap */ props.isUnknownsMap
+  )
 
   const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
     props.fullData,
@@ -42,7 +47,12 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
   )
 
   return (
-    <Grid container flexDirection={'row'} justifyContent={'flex-end'} style={{padding: props.isMulti ? '0px 5px 10px' : ''}}>
+    <Grid
+      container
+      flexDirection={'row'}
+      justifyContent={'flex-end'}
+      style={{ padding: props.isMulti ? '0px 5px 10px' : '' }}
+    >
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
         const fips = new Fips(fipsCode)
         return (

@@ -1,9 +1,9 @@
 import { getDataManager } from '../../utils/globals'
 import { type DatasetId } from '../config/DatasetMetadata'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
-import { type Breakdowns } from '../query/Breakdowns'
+import { type TimeView, type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
+import { CROSS_SECTIONAL, TIME_SERIES } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -112,40 +112,77 @@ class HivProvider extends VariableProvider {
 
   getDatasetId(
     breakdowns: Breakdowns,
-    dataTypeId?: DataTypeId
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView
   ): DatasetId | undefined {
     const isBlackWomenData =
       dataTypeId && BLACK_WOMEN_DATATYPES.includes(dataTypeId)
 
-    if (isBlackWomenData && breakdowns.hasOnlyAge()) {
-      if (breakdowns.geography === 'state')
-        return 'cdc_hiv_data-black_women_state_time_series'
-      if (breakdowns.geography === 'national')
-        return 'cdc_hiv_data-black_women_national_time_series'
-    } else {
-      if (breakdowns.hasOnlyRace()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_hiv_data-race_and_ethnicity_county_time_series'
+    if (timeView === TIME_SERIES) {
+      if (isBlackWomenData && breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state')
-          return 'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust'
+          return 'cdc_hiv_data-black_women_state_historical'
         if (breakdowns.geography === 'national')
-          return 'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust'
+          return 'cdc_hiv_data-black_women_national_historical'
+      } else {
+        if (breakdowns.hasOnlyRace()) {
+          if (breakdowns.geography === 'county')
+            return 'cdc_hiv_data-race_and_ethnicity_county_historical'
+          if (breakdowns.geography === 'state')
+            return 'cdc_hiv_data-race_and_ethnicity_state_historical'
+          if (breakdowns.geography === 'national')
+            return 'cdc_hiv_data-race_and_ethnicity_national_historical'
+        }
+        if (breakdowns.hasOnlyAge()) {
+          if (breakdowns.geography === 'county')
+            return 'cdc_hiv_data-age_county_historical'
+          if (breakdowns.geography === 'state')
+            return 'cdc_hiv_data-age_state_historical'
+          if (breakdowns.geography === 'national')
+            return 'cdc_hiv_data-age_national_historical'
+        }
+        if (breakdowns.hasOnlySex()) {
+          if (breakdowns.geography === 'county')
+            return 'cdc_hiv_data-sex_county_historical'
+          if (breakdowns.geography === 'state')
+            return 'cdc_hiv_data-sex_state_historical'
+          if (breakdowns.geography === 'national')
+            return 'cdc_hiv_data-sex_national_historical'
+        }
       }
-      if (breakdowns.hasOnlyAge()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_hiv_data-age_county_time_series'
+    }
+
+    if (timeView === CROSS_SECTIONAL) {
+      if (isBlackWomenData && breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state')
-          return 'cdc_hiv_data-age_state_time_series'
+          return 'cdc_hiv_data-black_women_state_current'
         if (breakdowns.geography === 'national')
-          return 'cdc_hiv_data-age_national_time_series'
-      }
-      if (breakdowns.hasOnlySex()) {
-        if (breakdowns.geography === 'county')
-          return 'cdc_hiv_data-sex_county_time_series'
-        if (breakdowns.geography === 'state')
-          return 'cdc_hiv_data-sex_state_time_series'
-        if (breakdowns.geography === 'national')
-          return 'cdc_hiv_data-sex_national_time_series'
+          return 'cdc_hiv_data-black_women_national_current'
+      } else {
+        if (breakdowns.hasOnlyRace()) {
+          if (breakdowns.geography === 'county')
+            return 'cdc_hiv_data-race_and_ethnicity_county_current'
+          if (breakdowns.geography === 'state')
+            return 'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust'
+          if (breakdowns.geography === 'national')
+            return 'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust'
+        }
+        if (breakdowns.hasOnlyAge()) {
+          if (breakdowns.geography === 'county')
+            return 'cdc_hiv_data-age_county_current'
+          if (breakdowns.geography === 'state')
+            return 'cdc_hiv_data-age_state_current'
+          if (breakdowns.geography === 'national')
+            return 'cdc_hiv_data-age_national_current'
+        }
+        if (breakdowns.hasOnlySex()) {
+          if (breakdowns.geography === 'county')
+            return 'cdc_hiv_data-sex_county_current'
+          if (breakdowns.geography === 'state')
+            return 'cdc_hiv_data-sex_state_current'
+          if (breakdowns.geography === 'national')
+            return 'cdc_hiv_data-sex_national_current'
+        }
       }
     }
   }
@@ -155,20 +192,17 @@ class HivProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, metricQuery.dataTypeId)
+    const datasetId = this.getDatasetId(
+      breakdowns,
+      metricQuery.dataTypeId,
+      timeView
+    )
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const hiv = await getDataManager().loadDataset(specificDatasetId)
     let df = hiv.toDataFrame()
 
     df = this.filterByGeo(df, breakdowns)
-
-    const mostRecentYear = getMostRecentYearAsString(
-      df,
-      metricQuery.metricIds[0]
-    )
-
-    df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
     const consumedDatasetIds = [datasetId]

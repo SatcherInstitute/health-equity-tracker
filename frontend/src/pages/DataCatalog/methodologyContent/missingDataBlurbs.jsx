@@ -1,6 +1,28 @@
 import { urlMap } from '../../../utils/externalUrls'
-import { Link } from 'react-router-dom'
-import { METHODOLOGY_TAB_LINK } from '../../../utils/internalRoutes'
+
+export function MissingIslandAreaPopulationData() {
+  return (
+    <>
+      <h4>Missing population data for Census Island Areas</h4>
+
+      <p>
+        Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{' '}
+        <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
+        reported in the ACS five year estimates; in these territories, for
+        current and time-series based population figures back to 2016, we
+        incorporate the 2020 Decennial Island Areas report. For time-series data
+        from 2009-2015, we incorporate the 2010 release of the Decennial report.
+        Note: The NH, or Non-Hispanic race groups are only provided by the
+        Decennial report for <b>VI</b> but not the other Island Areas. As the
+        overall number of Hispanic-identifying people is very low in these
+        Island Areas (hence the Census not providing these race groups), we use
+        the ethnicity-agnostic race groups (e.g.{' '}
+        <b>Black or African American</b>) even though the condition data may use
+        Non-Hispanic race groups (e.g. <b>Black or African American (NH)</b>).
+      </p>
+    </>
+  )
+}
 
 export function MissingCovidData() {
   return (
@@ -14,44 +36,9 @@ export function MissingCovidData() {
           jurisdictions to the CDC
         </a>
         . Many of these case records are insufficiently disaggregated, report an
-        unknown hospitalization and/or death status, otherwise fail to provide a
-        complete picture of COVID-19 and its overall impact. Due to the nature
-        of surveillance data, we expect this data to become more complete over
-        time and will use the Health Equity Tracker to record that progress.
+        unknown hospitalization and/or death status, or otherwise fail to
+        provide a complete picture of COVID-19 and its overall impact.
       </p>
-      <p>
-        In accordance with our{' '}
-        <Link to={METHODOLOGY_TAB_LINK}>methodology</Link>, we suppress this
-        incomplete data and render some states grey for certain COVID-19 data
-        types, as outlined below:
-      </p>
-      <ul>
-        <li>
-          Cases, hospitalizations and deaths: <b>Northern Mariana Islands</b>,{' '}
-          <b>Mississippi</b>, <b>West Virginia</b>
-        </li>
-        <li>
-          Hospitalizations and deaths: <b>Hawaii</b>, <b>Nebraska</b>,{' '}
-          <b>South Dakota</b>
-        </li>
-        <li>
-          Hospitalizations: <b>Rhode Island</b>
-        </li>
-        <li>
-          Deaths: <b>Delaware</b>
-        </li>
-      </ul>
-      <p>
-        Note: The following states' case data for COVID-19 <i>are</i> included,
-        but should be interpreted with caution since the cases reported may not
-        be representative of the population at large.
-      </p>
-      <ul>
-        <li>
-          Deaths (interpret with caution): <b>Mississippi</b> and <b>Georgia</b>
-          .
-        </li>
-      </ul>
     </>
   )
 }
@@ -170,33 +157,41 @@ export function MissingPrepData() {
 export function MissingPhrmaData() {
   return (
     <>
-      <h4>Medicare Adminstration Data</h4>
+      <h4>Medicare Administration Data</h4>
 
-      <p>
-        When examining Medicare claims data, it is important to consider the
-        potential equity issues faced by marginalized groups. Low-income
-        individuals, racial and ethnic minorities, immigrants, and those with
-        limited English proficiency may be underrepresented in the data due to
-        disparities in healthcare access and utilization. Factors such as
-        socioeconomic status, education, employment, housing, and community
-        resources, which significantly influence health outcomes, are often not
-        consistently captured in claims data. This incomplete representation can
-        hinder a comprehensive understanding of health disparities, particularly
-        from a pharmaceutical perspective, where medication-related issues faced
-        by marginalized groups may not be fully accounted for. Factors such as
-        access to affordable prescriptions and the impact of implicit biases on
-        prescribing patterns might be insufficiently captured in claims data.
-      </p>
-
-      <p>Specifically, please note the following limitations:</p>
+      <p>What demographic data are missing?</p>
 
       <ul>
         <li>
-          To protect patient privacy, any case counts below 10 must be
-          suppressed. We are still able to calculate and publish the rates in
-          most cases, however the suppression of the case counts prevents us
-          from calculating our <b>percent share</b> metrics in some situations,
-          particularly for the lowest-population groups at the county level.
+          <b>Gender:</b> The Medicare source files did not include information
+          on gender. Gender is not presented in this data.
+        </li>
+        <li>
+          <b>Sexual Orientation:</b> The Medicare source files did not include
+          information on sexual orientation. Sexual orientation is not presented
+          in this data.
+        </li>
+        <li>
+          <b>Disability:</b> Although we can display rates for those who are
+          eligible due to disability generally, we can not represent disparities
+          associated with specific physical or mental disabilities.
+        </li>
+        <li>
+          <b>Social and Political Determinants of Health:</b> Unfortunately,
+          there are crucial data missing in the Medicare FFS (Fee-For-Service)
+          data, such as the impacts of racism and discrimination on health
+          outcomes and adherence to medicines.
+        </li>
+      </ul>
+
+      <p>Who is missing?</p>
+      <ul>
+        <li>
+          <b>Data Suppression:</b> To{' '}
+          <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
+            protect patient privacy
+          </a>
+          , all data representing 1-10 people were suppressed.
         </li>
       </ul>
     </>

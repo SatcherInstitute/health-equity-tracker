@@ -5,7 +5,7 @@ import {
   DATA_SOURCE_PRE_FILTERS,
   LinkWithStickyParams,
 } from '../../utils/urlutils'
-import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
+import { DATA_CATALOG_PAGE_LINK, HET_URL } from '../../utils/internalRoutes'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
@@ -190,3 +190,8 @@ export function MetricDetails(props: MetricDetailsProps) {
     </>
   )
 }
+
+export function currentYear(): number {
+  return new Date().getFullYear()
+}
+export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`

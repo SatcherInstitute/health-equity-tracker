@@ -88,6 +88,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            loading="lazy"
           ></iframe>
         </div>
       </>,

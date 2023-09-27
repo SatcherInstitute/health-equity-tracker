@@ -10,7 +10,7 @@ module.exports = {
     'prettier',
   ],
   overrides: [],
-  ignorePatterns: ["**/*.spec.ts"],
+  ignorePatterns: ['**/*.spec.ts', 'geographies.json'],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

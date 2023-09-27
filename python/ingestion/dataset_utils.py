@@ -13,6 +13,8 @@ from ingestion.constants import (
 )
 from functools import reduce
 
+DT_FORMAT_YYYY_MM = '%Y-%m'
+
 
 def melt_to_het_style_df(
         source_df: pd.DataFrame,
@@ -492,3 +494,37 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
         ), pct_inequity_col] = np.nan
 
     return df
+
+
+def preserve_only_current_time_period_rows(
+    df: pd.DataFrame,
+    time_period_col: str = None,
+    keep_time_period_col: bool = False
+):
+    """ Takes a dataframe with a time col (default `time_period`) that contains datatime strings
+    in formats like `YYYY` or `YYYY-MM`,
+    calculates the most recent time_period value,
+    removes all rows that contain older time_periods,
+    and removes (or optionally keeps) the original string time_period col """
+    if time_period_col is None:
+        time_period_col = std_col.TIME_PERIOD_COL
+
+    if time_period_col not in df.columns:
+        raise ValueError(
+            f'df does not contain column: {time_period_col}.')
+
+    # Convert time_period to datetime-like object
+    df["time_period_dt"] = pd.to_datetime(df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce')
+
+    # Filter the DataFrame to keep only the rows with the most recent rows
+    most_recent = df["time_period_dt"].max()
+    filtered_df = df[df["time_period_dt"] == most_recent]
+
+    # optionally keep the original string "time_period" col
+    drop_cols = ["time_period_dt"]
+    if not keep_time_period_col:
+        drop_cols.append(time_period_col)
+
+    filtered_df = filtered_df.drop(columns=drop_cols)
+
+    return filtered_df.reset_index(drop=True)

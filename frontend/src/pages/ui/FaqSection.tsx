@@ -8,15 +8,17 @@ import {
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
-import { ReactRouterLinkButton, getHtml } from '../../utils/urlutils'
-import { selectFaqs } from '../WhatIsHealthEquity/FaqTab'
+import { ReactRouterLinkButton } from '../../utils/urlutils'
+import { type FAQ, selectFAQs } from '../WhatIsHealthEquity/FaqData'
 
-function Question(props: {
-  questionText: string
+interface FAQListItemProps {
+  key: string
   ariaControls: string
   id: string
-  answer: JSX.Element
-}) {
+  faq: FAQ
+}
+
+function FAQListItem(props: FAQListItemProps) {
   return (
     <Accordion className={styles.FaqListItem}>
       <AccordionSummary
@@ -25,17 +27,17 @@ function Question(props: {
         id={props.id}
       >
         <Typography className={styles.FaqQuestion} variant="h2" component="h4">
-          {props.questionText}
+          {props.faq.questionText}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        <div className={styles.FaqAnswer}>{props.answer}</div>
+        <div className={styles.FaqAnswer}>{props.faq.answer}</div>
       </AccordionDetails>
     </Accordion>
   )
 }
 
-function FaqSection() {
+export default function FaqSection() {
   return (
     <Grid container component="article">
       <Grid item>
@@ -44,14 +46,13 @@ function FaqSection() {
         </Typography>
       </Grid>
       <Grid item xs={12} className={styles.FaqQAItem}>
-        {selectFaqs.map((faq, index) => {
+        {selectFAQs.map((faq, index) => {
           return (
-            <Question
-              key={faq.q}
-              questionText={faq.q}
+            <FAQListItem
+              key={faq.questionText}
               ariaControls={`panel${index + 1}-content`}
               id={`panel${index + 1}-header`}
-              answer={<>{getHtml(faq.a)}</>}
+              faq={faq}
             />
           )
         })}
@@ -66,5 +67,3 @@ function FaqSection() {
     </Grid>
   )
 }
-
-export default FaqSection

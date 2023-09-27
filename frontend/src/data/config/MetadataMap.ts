@@ -1,3 +1,4 @@
+import { SHOW_PHRMA } from '../providers/PhrmaProvider'
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -215,19 +216,30 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     description:
       'The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, prevalence, linkage to HIV care, HIV stigma, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.',
     dataset_ids: [
-      'cdc_hiv_data-age_county_time_series',
-      'cdc_hiv_data-age_national_time_series',
-      'cdc_hiv_data-age_state_time_series',
-      'cdc_hiv_data-sex_county_time_series',
-      'cdc_hiv_data-sex_national_time_series',
-      'cdc_hiv_data-sex_state_time_series',
-      'cdc_hiv_data-race_and_ethnicity_county_time_series',
-      'cdc_hiv_data-race_and_ethnicity_national_time_series',
-      'cdc_hiv_data-race_and_ethnicity_state_time_series',
-      'cdc_hiv_data-race_and_ethnicity_national_time_series-with_age_adjust',
-      'cdc_hiv_data-race_and_ethnicity_state_time_series-with_age_adjust',
-      'cdc_hiv_data-black_women_national_time_series',
-      'cdc_hiv_data-black_women_state_time_series',
+      'cdc_hiv_data-age_county_current',
+      'cdc_hiv_data-age_national_current',
+      'cdc_hiv_data-age_state_current',
+      'cdc_hiv_data-sex_county_current',
+      'cdc_hiv_data-sex_national_current',
+      'cdc_hiv_data-sex_state_current',
+      'cdc_hiv_data-race_and_ethnicity_county_current',
+      'cdc_hiv_data-race_and_ethnicity_national_current',
+      'cdc_hiv_data-race_and_ethnicity_state_current',
+      'cdc_hiv_data-race_and_ethnicity_national_current-with_age_adjust',
+      'cdc_hiv_data-race_and_ethnicity_state_current-with_age_adjust',
+      'cdc_hiv_data-black_women_national_current',
+      'cdc_hiv_data-black_women_state_current',
+      'cdc_hiv_data-age_county_historical',
+      'cdc_hiv_data-age_national_historical',
+      'cdc_hiv_data-age_state_historical',
+      'cdc_hiv_data-sex_county_historical',
+      'cdc_hiv_data-sex_national_historical',
+      'cdc_hiv_data-sex_state_historical',
+      'cdc_hiv_data-race_and_ethnicity_county_historical',
+      'cdc_hiv_data-race_and_ethnicity_national_historical',
+      'cdc_hiv_data-race_and_ethnicity_state_historical',
+      'cdc_hiv_data-black_women_national_historical',
+      'cdc_hiv_data-black_women_state_historical',
     ],
     downloadable: true,
   },
@@ -361,7 +373,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    hideFromUser: true,
+    hideFromUser: !SHOW_PHRMA, // TODO: remove this once PHRMA merged
     id: 'phrma',
     data_source_name: 'Medicare Administrative Data',
     data_source_pretty_site_name: 'cms.gov',
@@ -372,7 +384,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
     description:
-      'Disease rates and medication adherence amongst Medicare fee-for-service beneficiaries 18 years and older, for multiple HIV and cardiovascular conditions.',
+      'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',

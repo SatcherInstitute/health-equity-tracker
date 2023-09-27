@@ -5,6 +5,7 @@ Retrieves their parent categories (with optional category definitions)
 
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
+import InfoCitations from './InfoCitations'
 
 export interface DefinitionsListProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
@@ -43,12 +44,36 @@ export default function DefinitionsList(
                 // for all matching conditions
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
-                  return dataType[1].map((dataType: DataTypeConfig) => {
+                  return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
+                    const hasAddedInfo = Boolean(dataTypeConfig?.description)
                     return (
-                      <li key={dataType?.fullDisplayName}>
-                        <b>{dataType?.fullDisplayName ?? 'Data Type'}</b>
-                        {': '}
-                        {dataType.dataTypeDefinition}
+                      <li key={dataTypeConfig?.fullDisplayName}>
+                        <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
+                        <ul>
+                          <li>
+                            {hasAddedInfo && (
+                              <>
+                                <b>Measurement Definition:</b>{' '}
+                              </>
+                            )}
+
+                            {dataTypeConfig.definition?.text}
+                            <InfoCitations
+                              citations={dataTypeConfig.definition?.citations}
+                            />
+                          </li>
+                          {hasAddedInfo && (
+                            <li>
+                              <b>Clinical Importance:</b>{' '}
+                              {dataTypeConfig.description?.text}
+                              <InfoCitations
+                                citations={
+                                  dataTypeConfig.description?.citations
+                                }
+                              />
+                            </li>
+                          )}
+                        </ul>
                       </li>
                     )
                   })

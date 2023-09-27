@@ -1,6 +1,7 @@
 // TODO: integrate strings from Category / Madlib into the Metric Config
 // so ALL related topic data is contained in a single object
 
+import { type ColorScheme } from 'vega'
 import { LESS_THAN_1 } from '../utils/Constants'
 import {
   DEPRESSION_METRICS,
@@ -139,12 +140,28 @@ export interface MetricConfig {
   secondaryPopulationComparisonMetric?: MetricConfig
 }
 
+export interface MapConfig {
+  scheme: ColorScheme
+  min: string
+  mid: string
+}
+
+export interface Citation {
+  shortLabel: string
+  longerTitle: string
+  url: string
+}
+export interface InfoWithCitations {
+  text: string
+  citations?: Citation[]
+}
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
   fullDisplayName: string
   fullDisplayNameInline?: string
-  dataTypeDefinition?: string
+  definition?: InfoWithCitations
+  description?: InfoWithCitations
   metrics: {
     count?: MetricConfig
     pct_share?: MetricConfig
@@ -155,10 +172,12 @@ export interface DataTypeConfig {
     index?: MetricConfig
     ratio?: MetricConfig
     age_adjusted_ratio?: MetricConfig
+    sub_population_count?: MetricConfig
   }
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
   dataTableTitle?: string
+  mapConfig?: MapConfig
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

@@ -1,4 +1,9 @@
-import { type MetricId, type MetricType } from '../data/config/MetricConfig'
+import {
+  type MapConfig,
+  type DataTypeConfig,
+  type MetricId,
+  type MetricType,
+} from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
@@ -11,7 +16,6 @@ import {
   RACE,
   AGE,
 } from '../data/utils/Constants'
-import { BLACK_WOMEN_METRICS } from '../data/providers/HivProvider'
 import { type ScaleType, type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
 import { type CountColsMap } from '../cards/MapCard'
@@ -21,10 +25,7 @@ import {
   COLOR_SCALE,
   GEO_DATASET,
   type HighestLowest,
-  MAP_BW_SCHEME,
-  MAP_SCHEME,
   MISSING_DATASET,
-  UNKNOWNS_MAP_SCHEME,
   US_PROJECTION,
   VALID_DATASET,
   VAR_DATASET,
@@ -35,9 +36,8 @@ import {
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
   ZERO_DOT_SCALE,
-  MAP_MEDICARE_SCHEME,
+  MAP_SCHEMES,
 } from './mapGlobals'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 /*
 
@@ -333,7 +333,7 @@ export function setupColorScale(
       field: metricId,
     },
     range: {
-      scheme: scaleColorScheme ?? MAP_SCHEME,
+      scheme: scaleColorScheme ?? MAP_SCHEMES.default,
       count: legendColorCount,
     },
   }
@@ -358,33 +358,23 @@ export function setupColorScale(
   return colorScale
 }
 
-interface GetMapSchemeProps {
-  metricId: MetricId
+export function getMapScheme(
+  dataTypeConfig: DataTypeConfig,
+  isSummaryLegend?: boolean,
   isUnknownsMap?: boolean
-  isSummaryLegend?: boolean
-}
+) {
+  if (isUnknownsMap) return [MAP_SCHEMES.unknown, sass.unknownMapMin]
 
-export function getMapScheme({
-  metricId,
-  isSummaryLegend,
-  isUnknownsMap,
-}: GetMapSchemeProps) {
-  const mapScheme = MAP_SCHEME
-  const mapMin = isSummaryLegend ? sass.mapMid : sass.mapMin
+  const defaultMapConfig: MapConfig = {
+    scheme: MAP_SCHEMES.default,
+    min: sass.mapMin,
+    mid: sass.mapMid,
+  }
 
-  if (isUnknownsMap) {
-    return [UNKNOWNS_MAP_SCHEME, sass.unknownMapMin]
-  }
-  if (BLACK_WOMEN_METRICS.includes(metricId)) {
-    return [MAP_BW_SCHEME, isSummaryLegend ? sass.mapBwMid : sass.mapBwMin]
-  }
-  if (PHRMA_METRICS.includes(metricId)) {
-    return [
-      MAP_MEDICARE_SCHEME,
-      isSummaryLegend ? sass.mapMedicareMid : sass.mapMedicareMin,
-    ]
-  }
-  return [mapScheme, mapMin]
+  const mapConfig = dataTypeConfig.mapConfig ?? defaultMapConfig
+  const mapMin = isSummaryLegend ? mapConfig.mid : mapConfig.min
+
+  return [mapConfig.scheme, mapMin]
 }
 
 export function getHighestLowestGroupsByFips(

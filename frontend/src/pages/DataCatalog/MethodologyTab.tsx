@@ -1,18 +1,12 @@
 import Grid from '@mui/material/Grid'
 import styles from './DataCatalogPage.module.scss'
-import {
-  CONTACT_TAB_LINK,
-  HET_URL,
-  DATA_TAB_LINK,
-} from '../../utils/internalRoutes'
+import { CONTACT_TAB_LINK, DATA_TAB_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { getHtml, LinkWithStickyParams } from '../../utils/urlutils'
-import { selectFaqs } from '../WhatIsHealthEquity/FaqTab'
+import { LinkWithStickyParams } from '../../utils/urlutils'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { Card } from '@mui/material'
 import { urlMap } from '../../utils/externalUrls'
 import DefinitionsList from '../../reports/ui/DefinitionsList'
-import { currentYear } from '../../Footer'
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
@@ -28,8 +22,9 @@ import {
   MissingPhrmaData,
 } from './methodologyContent/missingDataBlurbs'
 import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
-
-export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
+import { HashLink } from 'react-router-hash-link'
+import { CITATION_APA } from '../../cards/ui/Sources'
+import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
 
 function MethodologyTab() {
   return (
@@ -66,9 +61,11 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h2 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h2>
+              <h2 className={styles.MethodologyQuestion}>
+                {selectFAQs[4].questionText}
+              </h2>
               <div className={styles.MethodologyAnswer}>
-                {<>{getHtml(selectFaqs[4].a)}</>}
+                {<>{selectFAQs[4].answer}</>}
               </div>
             </Grid>
 
@@ -82,7 +79,9 @@ function MethodologyTab() {
                 health equity topics chosen?
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
+                <h3 id="covid" className={styles.MethodologySubsubheaderText}>
+                  COVID-19
+                </h3>
 
                 <ul>
                   <li>
@@ -169,7 +168,10 @@ function MethodologyTab() {
                   <MissingCovidData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3
+                  id="covid_vaccinations"
+                  className={styles.MethodologySubsubheaderText}
+                >
                   COVID-19 vaccinations
                 </h3>
 
@@ -286,6 +288,20 @@ function MethodologyTab() {
                   <MissingCovidVaccinationData />
                 </Card>
 
+                <span id="asthma"></span>
+                <span id="avoided_care"></span>
+                <span id="cardiovascular_diseases"></span>
+                <span id="chronic_kidney_disease"></span>
+                <span id="copd"></span>
+                <span id="depression"></span>
+                <span id="diabetes"></span>
+                <span id="excessive_drinking"></span>
+                <span id="frequent_mental_distress"></span>
+                <span id="preventable_hospitalizations"></span>
+                <span id="substance"></span>
+                <span id="suicide"></span>
+                <span id="voter_participation"></span>
+
                 <h3 className={styles.MethodologySubsubheaderText}>
                   America’s Health Rankings
                 </h3>
@@ -344,7 +360,10 @@ function MethodologyTab() {
                   <MissingAHRData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3
+                  id="women_in_gov"
+                  className={styles.MethodologySubsubheaderText}
+                >
                   Women in legislative office
                 </h3>
 
@@ -494,9 +513,11 @@ function MethodologyTab() {
                   <MissingCAWPData />
                 </Card>
 
-                <h3 className={styles.MethodologySubsubheaderText}>HIV</h3>
+                <h3 id="hiv" className={styles.MethodologySubsubheaderText}>
+                  HIV
+                </h3>
 
-                <p>
+                <p id="hiv_black_women">
                   The CDC collects and studies information on the number of
                   people diagnosed with HIV in the United States. This
                   information is gathered from state and local HIV surveillance
@@ -594,7 +615,7 @@ function MethodologyTab() {
                   <MissingHIVData />
                 </Card>
 
-                <p>
+                <p id="hiv_prep">
                   <b>PrEP Coverage</b>
                 </p>
                 <p>
@@ -673,7 +694,7 @@ function MethodologyTab() {
                   <MissingPrepData />
                 </Card>
 
-                <p>
+                <p id="hiv_care">
                   <b>Linkage to Care</b>
                 </p>
                 <p>
@@ -742,7 +763,7 @@ function MethodologyTab() {
                     </ul>
                   </li>
                 </ul>
-                <p>
+                <p id="hiv_stigma">
                   <b>HIV Stigma</b>
                 </p>
                 <p>
@@ -790,6 +811,8 @@ function MethodologyTab() {
 
                 {SHOW_PHRMA && (
                   <>
+                    <span id="phrma_cardiovascular"></span>
+                    <span id="phrma_hiv"></span>
                     <h3 className={styles.MethodologySubsubheaderText}>
                       Medicare Beneficiaries - Disease Rates and Medication
                       Adherence
@@ -910,9 +933,8 @@ function MethodologyTab() {
                           <li>
                             <b>Antiretrovirals Medications</b>{' '}
                             <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
-                              (PQA PDC-ARV
+                              (PQA PDC-ARV)
                             </a>
-                            )
                           </li>
                         </ul>
                       </li>
@@ -925,18 +947,6 @@ function MethodologyTab() {
                             18 years and older who met the Proportion of Days
                             Covered (PDC) threshold of 80% for the indicated
                             medication during the measurement year.
-                          </li>
-                          <li>
-                            <b>Percent share</b>: this figure measures a
-                            particular group's percent share of the total number
-                            of adherent individuals
-                          </li>
-                          <li>
-                            <b>Population percent</b>: this figure measures a
-                            particular group's percent share of the measured
-                            population: Medicare fee-for-service beneficiaries
-                            18 years and older with indications for the given
-                            medication.
                           </li>
                         </ul>
                       </li>
@@ -969,18 +979,6 @@ function MethodologyTab() {
                             acute myocardial infarction (AMI) and who received
                             persistent beta-blocker treatment for six months
                             after discharge.
-                          </li>
-                          <li>
-                            <b>Percent share</b>: this figure measures a
-                            particular group's percent share of the total number
-                            of adherent individuals
-                          </li>
-                          <li>
-                            <b>Population percent</b>: this figure measures a
-                            particular group's percent share of the measured
-                            population: Medicare fee-for-service beneficiaries
-                            18 years and older with indications for the given
-                            medication.
                           </li>
                         </ul>
                       </li>
@@ -1018,16 +1016,134 @@ function MethodologyTab() {
                           </li>
                           <li>
                             <b>Percent share</b>: this figure measures a
-                            particular group's percent share of the total number
-                            of disease cases.
+                            particular group's share of the total cases of the
+                            condition.
                           </li>
                           <li>
                             <b>Population percent</b>: this figure measures a
-                            particular group's percent share of the measured
+                            particular group's share of the total measured
                             population: Medicare fee-for-service beneficiaries
                             18 years and older.
                           </li>
                         </ul>
+                      </li>
+                    </ul>
+
+                    <h4>Medicare Demographic Identifiers</h4>
+                    <p>
+                      <b>Race/ethnicity:</b> Medicare enhances the Social
+                      Security Administration's race and ethnicity
+                      determinations and applies an algorithm that{' '}
+                      <a href="https://resdac.org/cms-data/variables/research-triangle-institute-rti-race-code">
+                        further identifies beneficiaries of Hispanic and Asian
+                        descent
+                      </a>
+                      . We represent racial/ethnic information using seven
+                      groups, and have adjusted the wording in some cases to use
+                      more inclusive terminology and to correspond more closely
+                      with our other data sources.
+                    </p>
+                    <ul>
+                      <li>
+                        <code>Asian/Pacific Islander</code> we represent as{' '}
+                        <b>
+                          Asian, Native Hawaiian, and Pacific Islander
+                          (Non-Hispanic)
+                        </b>
+                      </li>
+                      <li>
+                        <code>American Indian / Alaska Native</code> we
+                        represent as{' '}
+                        <b>American Indian and Alaska Native (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Non-Hispanic White</code> we represent as{' '}
+                        <b>White (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Black or African-American</code> we represented as{' '}
+                        <b>Black or African American (Non-Hispanic)</b>
+                      </li>
+                      <li>
+                        <code>Hispanic</code> we represent as{' '}
+                        <b>Hispanic or Latino</b>
+                      </li>
+                      <li>
+                        <code>Other</code> we represent as{' '}
+                        <b>
+                          Two or more races & Unrepresented races (Non-Hispanic)
+                        </b>
+                      </li>
+                      <li>
+                        <code>Unknown</code> we represent on our{' '}
+                        <HashLink
+                          to={
+                            '/exploredata?mls=1.phrma_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'
+                          }
+                        >
+                          Unknown Demographic Map
+                        </HashLink>
+                      </li>
+                    </ul>
+
+                    <p>
+                      <b>Sex:</b> Medicare{' '}
+                      <a href="https://resdac.org/cms-data/variables/sex">
+                        collects the sex of each beneficiary
+                      </a>
+                      as Unknown, Male, or Female.
+                    </p>
+
+                    <p>
+                      <b>Age:</b> Medicare provides the age of each beneficiary
+                      at the end of the reference year (i.e., 2020), or, for
+                      beneficiaries that died during the year,{' '}
+                      <a href="https://resdac.org/cms-data/variables/age-beneficiary-end-year">
+                        age as of the date of death
+                      </a>
+                      . We categorized age into six groups:
+                    </p>
+                    <ul>
+                      <li>18-39 years old</li>
+                      <li>40-64 years old</li>
+                      <li>65-69 years old</li>
+                      <li>70-74 years old</li>
+                      <li>75-79 years old</li>
+                      <li>80-84 years old</li>
+                      <li>85+ years old</li>
+                    </ul>
+
+                    <p>
+                      <b>Low-Income Subsidy Eligibility:</b> The Low-Income
+                      Subsidy (LIS) program for Medicare Part D beneficiaries
+                      provides subsidies to reduce or eliminate premiums and
+                      deductibles, and offers zero to reduced co-payments{' '}
+                      <a href="https://resdac.org/cms-data/variables/current-reason-entitlement-code">
+                        for low-income Medicare Part D beneficiaries
+                      </a>
+                      . We categorized Medicare beneficiaries, who were eligible
+                      for the Part D LIS program, for 1 or more months during
+                      2020 as “receiving Low Income Subsidy.” Medicare
+                      beneficiaries, who were{' '}
+                      <a href="https://resdac.org/cms-data/variables/monthly-cost-sharing-group-under-part-d-low-income-subsidy-january">
+                        not eligible for the Part D LIS program
+                      </a>{' '}
+                      at any time during 2020 were classified as “not receiving
+                      Low Income Subsidy.”
+                    </p>
+
+                    <p>
+                      <b>Entitlement Qualification:</b> Medicare collects the
+                      reason for enrollment in Medicare. We categorized each
+                      beneficiary’s reason for Medicare enrollment as:
+                    </p>
+                    <ul>
+                      <li>Eligible due to age</li>
+                      <li>Eligible due to disability</li>
+                      <li>Eligible due to end-stage renal disease (ESRD)</li>
+                      <li>
+                        Eligible due to disability and end-stage renal disease
+                        (ESRD)
                       </li>
                     </ul>
 
@@ -1074,7 +1190,10 @@ function MethodologyTab() {
                   below the 90th percentile are given a value of 0.
                 </p>
 
-                <h3 className={styles.MethodologySubsubheaderText}>
+                <h3
+                  id="incarceration"
+                  className={styles.MethodologySubsubheaderText}
+                >
                   Incarceration
                 </h3>
 
