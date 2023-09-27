@@ -136,7 +136,6 @@ const UNKNOWN_GROUP_COLOR_EXTENT = [unknownMapLeast, unknownMapMost]
 /* Config */
 const CONFIG = {
   HEIGHT: 506,
-  STARTING_WIDTH: 980,
   MARGIN: {
     top: 10,
     right: 55,

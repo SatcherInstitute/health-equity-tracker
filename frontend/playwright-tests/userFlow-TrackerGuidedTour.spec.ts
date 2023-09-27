@@ -7,7 +7,7 @@ test.describe('Guided tour of COVID-19 from Tracker Default Helper Box', () => {
     test('Guided Tour Link from Tracker Helper Box', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto('/exploredata', { waitUntil: "networkidle" });
+        await page.goto('/exploredata', { waitUntil: "commit" });
         await expect(page.getByRole('heading', { name: 'Select a topic above', exact: true })).toBeVisible();
 
         // Clicking small link under the video starts the joyride guided tour
