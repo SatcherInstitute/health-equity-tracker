@@ -5,6 +5,19 @@ import covidClick from '../../assets/screengrabs/covidClick.mp4'
 export function getOnboardingSteps(pageIsWide: boolean) {
   const steps = [
     onboardingStep(
+      '#root',
+      'Explore A Sample Report',
+      <>
+        <p>
+          Click through this tour to learn about some features of the Health
+          Equity Tracker including topic selection, demographic filtering, and
+          contextual alerts.
+        </p>
+      </>,
+      /* hideCloseButton= */ true,
+      /* placement= */ undefined
+    ),
+    onboardingStep(
       '.covid-dropdown-topic',
       'Start Your Search',
       <>
@@ -35,7 +48,8 @@ export function getOnboardingSteps(pageIsWide: boolean) {
       'Compare demographics, locations, and health topics',
       <ul>
         <li>
-          Where available, view by race and ethnicity, sex, and age breakdowns.
+          Where available, view the data breakdowns by race and ethnicity, sex,
+          or age.
         </li>
         <li>
           Compare mode offers even more ways to search, such as{' '}

@@ -40,7 +40,9 @@ import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRed
 import { ALL } from '../../data/utils/Constants'
 import { useGetParamState } from '../../utils/hooks/useParamState'
 
-const Onboarding = lazy(async () => await import('./Onboarding'))
+// const Onboarding = lazy(async () => await import('./Onboarding'))
+import Onboarding from './Onboarding'
+
 const TopicInfoModal = lazy(async () => await import('./TopicInfoModal'))
 const DefaultHelperBox = lazy(async () => await import('./DefaultHelperBox'))
 const ReportProvider = lazy(
@@ -180,7 +182,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   // Set up warm welcome onboarding behaviors
   let showOnboarding = false
-  if (noTopicChosen) {
+
+  if (noTopicChosen && madLib) {
     if (params?.[SHOW_ONBOARDING_PARAM] === 'true') {
       showOnboarding = true
     }
@@ -289,12 +292,12 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
   return (
     <>
-      {activelyOnboarding && (
-        <Onboarding
-          callback={onboardingCallback}
-          activelyOnboarding={activelyOnboarding}
-        />
-      )}
+      {/* {showOnboarding && ( */}
+      <Onboarding
+        callback={onboardingCallback}
+        activelyOnboarding={activelyOnboarding}
+      />
+      {/* )} */}
 
       <h2 className={styles.ScreenreaderTitleHeader}>
         {getMadLibPhraseText(madLib)}

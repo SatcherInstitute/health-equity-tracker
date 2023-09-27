@@ -2,6 +2,7 @@ import Joyride from 'react-joyride'
 import sass from '../../styles/variables.module.scss'
 import { getOnboardingSteps } from './OnboardingSteps'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { useEffect, useState } from 'react'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
@@ -10,8 +11,15 @@ export default function Onboarding(props: {
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
 
+  const [runJoyride, setRunJoyride] = useState(false)
+  useEffect(() => {
+    setRunJoyride(true)
+    console.log(runJoyride)
+  }, [])
+
   return (
     <Joyride
+      // stepIndex={0}
       steps={getOnboardingSteps(pageIsWide)}
       callback={props.callback}
       disableScrolling={false}
@@ -23,7 +31,7 @@ export default function Onboarding(props: {
       continuous={true}
       disableOverlayClose={false}
       disableOverlay={false}
-      run={props.activelyOnboarding}
+      run={props.activelyOnboarding && runJoyride}
       styles={{
         options: {
           arrowColor: sass.altGreen,
