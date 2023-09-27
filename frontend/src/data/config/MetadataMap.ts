@@ -117,7 +117,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name: 'Census 2020 Decennial Island Areas',
     data_source_pretty_site_name: 'census.gov',
     data_source_link:
-      'https://www.census.gov/data/datasets/2020/dec/virgin-islands.html',
+      'https://www.census.gov/data/tables/2020/dec/2020-us-virgin-islands.html',
     geographic_level: 'Territory/County-Equivalent',
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'None',
@@ -213,7 +213,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'Yearly',
     description:
-      'The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, prevalence, linkage to HIV care, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.',
+      'The Centers for Disease Control and Prevention (CDC) is a primary source of HIV data in the United States, gathering and sharing essential information on HIV diagnoses, deaths, prevalence, linkage to HIV care, HIV stigma, and PrEP coverage. Their annual surveillance report comprehensively summarizes diagnosed HIV cases nationwide and its dependent areas. This crucial data enables public health partners, government agencies, nonprofits, academia, and the public to effectively target prevention strategies, allocate resources, develop policies, and track HIV trends, ensuring a well-informed and coordinated response to the epidemic.',
     dataset_ids: [
       'cdc_hiv_data-age_county_time_series',
       'cdc_hiv_data-age_national_time_series',
@@ -256,7 +256,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     data_source_name: "America's Health Rankings",
     data_source_pretty_site_name: 'americashealthrankings.org',
     data_source_link:
-      'https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL',
+      'https://www.americashealthrankings.org/explore/measures/CHC',
     geographic_level: 'National, State',
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'Annual',
