@@ -7,7 +7,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
     test('Topic Info Modal from Sidebar', async ({ page }) => {
 
         // Compare Topics Page Loads
-        await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "networkidle" });
+        await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "commit" });
 
         // Clicking topic info modal button launched modal
         await page.getByRole('button', { name: 'open the topic info modal' }).click();
@@ -31,7 +31,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
     test('Topic Info Modal from Map Legend', async ({ page }) => {
 
 
-        await page.goto('http://localhost:3000/', { waitUntil: "networkidle" });
+        await page.goto('http://localhost:3000/', { waitUntil: "commit" });
         await page.locator('#landingPageCTA').click();
         await page.getByRole('link', { name: 'Uninsurance in Florida & California, by sex' }).click();
         await page.locator('#rate-map2').getByRole('button', { name: 'Click for more info on uninsured people' }).click();
@@ -50,7 +50,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
     test('Multiple Maps 1 (Left Side)', async ({ page }) => {
 
         // Compare Topics Page With Multimap Open Loads
-        await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison&multiple-maps=true', { waitUntil: "networkidle" });
+        await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison&multiple-maps=true', { waitUntil: "commit" });
         await expect(page.getByRole('heading', { name: 'Prison incarceration in Georgia across all race and ethnicity groups' })).toBeVisible()
 
         // CLOSE IT
@@ -61,7 +61,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
     test('Multiple Maps 2 (Right Side)', async ({ page }) => {
 
         // Compare Topics Page Loads
-        await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "networkidle" });
+        await page.goto('/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "commit" });
 
         // Clicking right side multiple maps button launches POVERTY multimap modal
         await page.locator('#rate-map2').getByRole('button', { name: 'View multiple maps' }).click();

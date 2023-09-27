@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
 
-test.describe.configure({ mode: 'parallel' });
-
 
 test('Compare Mode Default Geos to Denver County and CO', async ({ page }) => {
 
-    await page.goto('/exploredata?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths', { waitUntil: "networkidle" });
+    await page.goto('/exploredata?mls=1.covid-3.00-5.13&mlp=comparegeos&dt1=covid_deaths', { waitUntil: "commit" });
 
+    await page.waitForURL('**/login');
     // Changing first location via madlib buttons
     await page.locator('#madlib-box').getByRole('button', { name: 'United States' }).click();
 

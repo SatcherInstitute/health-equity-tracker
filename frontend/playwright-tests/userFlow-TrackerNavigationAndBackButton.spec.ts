@@ -21,7 +21,7 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
 test('Clicking a state on national map loads state report; back button returns to national', async ({ page }) => {
 
 	//start at HIV national
-	await page.goto('http://localhost:3000/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence', { waitUntil: "networkidle" });
+	await page.goto('http://localhost:3000/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence', { waitUntil: "commit" });
 
 	// click state of Mass.
 	await page.locator('path:nth-child(48)').click();
@@ -39,7 +39,7 @@ test('Clicking a state on national map loads state report; back button returns t
 test('Clicking a county on state map loads county report; back button returns to state', async ({ page }) => {
 
 	//start at Prison & poverty in Georgia, by race
-	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "networkidle" });
+	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "commit" });
 
 	// click on a county
 	await page.locator('path:nth-child(67)').click();
@@ -55,7 +55,7 @@ test('Clicking a county on state map loads county report; back button returns to
 
 test('Clear selections button from Compare Topics mode returns tracker to default state', async ({ page }) => {
 	// start at tracker default page (implicit default params)
-	await page.goto('http://localhost:3000/exploredata', { waitUntil: "networkidle" });
+	await page.goto('http://localhost:3000/exploredata', { waitUntil: "commit" });
 
 	// choose sample compare mode report
 	await page.getByRole('link', { name: 'Prison & poverty in Georgia, by race' }).click();
@@ -72,7 +72,7 @@ test('Clear selections button from Compare Topics mode returns tracker to defaul
 
 test('Use Table of Contents to Scroll Unknown Map Into View and Be Focused', async ({ page }) => {
 
-	await page.goto('/exploredata?mls=1.incarceration-3.00&mlp=disparity&dt1=hiv_prevalence', { waitUntil: "networkidle" });
+	await page.goto('/exploredata?mls=1.incarceration-3.00&mlp=disparity&dt1=hiv_prevalence', { waitUntil: "commit" });
 
 	// find Table of Contents link to Unknown Map
 	await page.getByRole('button', { name: 'Unknown demographic map', exact: true }).click();
