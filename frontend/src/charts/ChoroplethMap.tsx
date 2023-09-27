@@ -144,9 +144,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.highestLowestGroupsByFips
   )
 
-  // render Vega map async as it can be slow
-  const [shouldRenderMap, setShouldRenderMap] = useState(false)
-
   const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
@@ -160,244 +157,247 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
   // Dataset to use for computing the legend
   const legendData = props.legendData ?? props.data
 
-  useEffect(() => {
-    const geoData = props.geoData
-      ? { values: props.geoData }
-      : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
+  const geoData = props.geoData
+    ? { values: props.geoData }
+    : { url: `/tmp/${GEOGRAPHIES_DATASET_ID}.json` }
 
-    const neededCols: string[] = [
-      props.metric.metricId,
-      'highestGroup',
-      'lowestGroup',
-    ]
+  const neededCols: string[] = [
+    props.metric.metricId,
+    'highestGroup',
+    'lowestGroup',
+  ]
 
-    // if count col metricIds are available, add those columns to the transformed dataset for VEGA
-    props.countColsMap?.numeratorConfig?.metricId &&
-      neededCols.push(props.countColsMap.numeratorConfig.metricId)
-    props.countColsMap?.denominatorConfig?.metricId &&
-      neededCols.push(props.countColsMap.denominatorConfig.metricId)
+  // if count col metricIds are available, add those columns to the transformed dataset for VEGA
+  props.countColsMap?.numeratorConfig?.metricId &&
+    neededCols.push(props.countColsMap.numeratorConfig.metricId)
+  props.countColsMap?.denominatorConfig?.metricId &&
+    neededCols.push(props.countColsMap.denominatorConfig.metricId)
 
-    /* SET UP GEO DATASET */
-    // Transform geo dataset by adding varField from VAR_DATASET
-    const geoTransformers: any[] = [
-      {
-        type: 'lookup',
-        from: VAR_DATASET,
-        key: VAR_FIPS,
-        fields: [GEO_ID],
-        values: neededCols,
-      },
-    ]
-    // Null SVI was showing
-    if (!props.highestLowestGeosMode) {
-      geoTransformers[0].values.push('rating')
-    }
+  /* SET UP GEO DATASET */
+  // Transform geo dataset by adding varField from VAR_DATASET
+  const geoTransformers: any[] = [
+    {
+      type: 'lookup',
+      from: VAR_DATASET,
+      key: VAR_FIPS,
+      fields: [GEO_ID],
+      values: neededCols,
+    },
+  ]
+  // Null SVI was showing
+  if (!props.highestLowestGeosMode) {
+    geoTransformers[0].values.push('rating')
+  }
 
-    if (props.overrideShapeWithCircle) {
-      geoTransformers.push({
-        type: 'formula',
-        as: 'centroid',
-        expr: `geoCentroid('${CIRCLE_PROJECTION}', datum.fips)`,
-      })
-    }
-    if (props.fips.isStateOrTerritory()) {
-      // The first two characters of a county FIPS are the state FIPS
-      const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`
-      geoTransformers.push({
-        type: 'filter',
-        expr: stateFipsVar,
-      })
-    }
-    if (props.fips.isCounty()) {
-      geoTransformers.push({
-        type: 'filter',
-        expr: `datum.id === "${props.fips.code}"`,
-      })
-    }
+  if (props.overrideShapeWithCircle) {
+    geoTransformers.push({
+      type: 'formula',
+      as: 'centroid',
+      expr: `geoCentroid('${CIRCLE_PROJECTION}', datum.fips)`,
+    })
+  }
+  if (props.fips.isStateOrTerritory()) {
+    // The first two characters of a county FIPS are the state FIPS
+    const stateFipsVar = `slice(datum.id,0,2) == '${props.fips.code}'`
+    geoTransformers.push({
+      type: 'filter',
+      expr: stateFipsVar,
+    })
+  }
+  if (props.fips.isCounty()) {
+    geoTransformers.push({
+      type: 'filter',
+      expr: `datum.id === "${props.fips.code}"`,
+    })
+  }
 
-    /* SET UP TOOLTIP */
-    const tooltipDatum = formatPreventZero100k(
-      /* type */ props.metric.type,
-      /* metricId */ props.metric.metricId
-    )
+  /* SET UP TOOLTIP */
+  const tooltipDatum = formatPreventZero100k(
+    /* type */ props.metric.type,
+    /* metricId */ props.metric.metricId
+  )
 
-    const mapGroupLabel = isCawp
-      ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
-      : getMapGroupLabel(
-          props.demographicType,
-          props.activeDemographicGroup,
-          props.metric.type === 'index' ? 'Score' : 'Rate'
-        )
-    const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
-
-    // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
-    const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
-
-    const tooltipPairs = {
-      [tooltipLabel]: tooltipDatum,
-    }
-
-    const geographyType = getCountyAddOn(
-      /* fips */ props.fips,
-      /* showCounties */ props.showCounties
-    )
-
-    // Hover tooltip for null/undefined/missing data
-    const missingDataTooltipValue = buildTooltipTemplate(
-      /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ false
-    )
-
-    if (isCawp) {
-      addCountsTooltipInfo(
-        /* demographicType */ props.demographicType,
-        /* tooltipPairs */ tooltipPairs,
-        /* countColsMap */ props.countColsMap,
-        /* activeDemographicGroup */ props.activeDemographicGroup,
-        /* isCawp */ true
+  const mapGroupLabel = isCawp
+    ? `Rate — ${getWomenRaceLabel(props.activeDemographicGroup)}`
+    : getMapGroupLabel(
+        props.demographicType,
+        props.activeDemographicGroup,
+        props.metric.type === 'index' ? 'Score' : 'Rate'
       )
-    } else if (isPhrma) {
-      addCountsTooltipInfo(
-        /* demographicType */ props.demographicType,
-        /* tooltipPairs */ tooltipPairs,
-        /* countColsMap */ props.countColsMap,
-        /* activeDemographicGroup */ props.activeDemographicGroup
-      )
-    }
+  const unknownMapLabel = props.metric.unknownsVegaLabel ?? '% unknown'
 
-    tooltipPairs['Highest rate group'] = `datum.highestGroup`
-    tooltipPairs['Lowest rate group'] = `datum.lowestGroup`
+  // TODO: would be nice to use addMetricDisplayColumn for the tooltips here so that data formatting is consistent.
+  const tooltipLabel = props.isUnknownsMap ? unknownMapLabel : mapGroupLabel
 
-    // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
-    const zeroTooltipValue = buildTooltipTemplate(
+  const tooltipPairs = {
+    [tooltipLabel]: tooltipDatum,
+  }
+
+  const geographyType = getCountyAddOn(
+    /* fips */ props.fips,
+    /* showCounties */ props.showCounties
+  )
+
+  // Hover tooltip for null/undefined/missing data
+  const missingDataTooltipValue = buildTooltipTemplate(
+    /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
+    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* includeSvi */ false
+  )
+
+  if (isCawp) {
+    addCountsTooltipInfo(
+      /* demographicType */ props.demographicType,
       /* tooltipPairs */ tooltipPairs,
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ true
+      /* countColsMap */ props.countColsMap,
+      /* activeDemographicGroup */ props.activeDemographicGroup,
+      /* isCawp */ true
     )
-
-    // Hover tooltip for non-zero data
-    const tooltipValue = buildTooltipTemplate(
+  } else if (isPhrma) {
+    addCountsTooltipInfo(
+      /* demographicType */ props.demographicType,
       /* tooltipPairs */ tooltipPairs,
-      /* title */ `datum.properties.name + " ${geographyType}"`,
-      /* includeSvi */ props.showCounties
+      /* countColsMap */ props.countColsMap,
+      /* activeDemographicGroup */ props.activeDemographicGroup
     )
+  }
 
-    /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
-    const legendList: Legend[] = []
+  tooltipPairs['Highest rate group'] = `datum.highestGroup`
+  tooltipPairs['Lowest rate group'] = `datum.lowestGroup`
 
-    const legend: Legend = {
-      fill: COLOR_SCALE,
-      direction: 'horizontal',
-      title: '% unknown',
-      titleFontSize: pageIsTiny ? 9 : 11,
-      titleLimit: 0,
-      labelFont: LEGEND_TEXT_FONT,
-      titleFont: LEGEND_TEXT_FONT,
-      labelOverlap: 'greedy',
-      labelSeparation: 10,
-      orient: 'none',
-      legendY: -50,
-      legendX: 50,
-      gradientLength: width * 0.35,
-      format: 'd',
-    }
-    if (isPctType(props.metric.type)) {
-      legend.encode = {
-        labels: {
-          update: {
-            text: {
-              signal: `format(datum.label, '0.1r') + '%'`,
-            },
+  // Hover tooltip for states with expected 0 values, like CAWP Congress and some HIV/COVID metrics
+  const zeroTooltipValue = buildTooltipTemplate(
+    /* tooltipPairs */ tooltipPairs,
+    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* includeSvi */ true
+  )
+
+  // Hover tooltip for non-zero data
+  const tooltipValue = buildTooltipTemplate(
+    /* tooltipPairs */ tooltipPairs,
+    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* includeSvi */ props.showCounties
+  )
+
+  /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
+  const legendList: Legend[] = []
+
+  const legend: Legend = {
+    fill: COLOR_SCALE,
+    direction: 'horizontal',
+    title: '% unknown',
+    titleFontSize: pageIsTiny ? 9 : 11,
+    titleLimit: 0,
+    labelFont: LEGEND_TEXT_FONT,
+    titleFont: LEGEND_TEXT_FONT,
+    labelOverlap: 'greedy',
+    labelSeparation: 10,
+    orient: 'none',
+    legendY: -50,
+    legendX: 50,
+    gradientLength: width * 0.35,
+    format: 'd',
+  }
+  if (isPctType(props.metric.type)) {
+    legend.encode = {
+      labels: {
+        update: {
+          text: {
+            signal: `format(datum.label, '0.1r') + '%'`,
           },
         },
-      }
+      },
     }
+  }
 
-    const helperLegend = getHelperLegend(
-      /* yOffset */ -35,
-      /* xOffset */ width * 0.35 + 75,
-      /* overrideGrayMissingWithZeroYellow */ false
+  const helperLegend = getHelperLegend(
+    /* yOffset */ -35,
+    /* xOffset */ width * 0.35 + 75,
+    /* overrideGrayMissingWithZeroYellow */ false
+  )
+  if (!props.hideLegend) {
+    legendList.push(legend, helperLegend)
+  }
+  const colorScale = setupColorScale(
+    /* legendData */ props.data,
+    /* metricId */ props.metric.metricId,
+    /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
+    /* fieldRange? */ props.fieldRange,
+    /* scaleColorScheme? */ props.mapConfig.mapScheme,
+    /* isTerritoryCircle? */ props.fips.isTerritory()
+  )
+
+  if (props.isMulti ?? props.highestLowestGeosMode) {
+    colorScale.domain = props.scaleConfig?.domain
+    colorScale.range = props.scaleConfig?.range
+  }
+
+  const projection = getProjection(
+    /* fips */ props.fips,
+    /* width */ width,
+    /* heightWidthRatio */ heightWidthRatio,
+    /* overrideShapeWithCirce */ props.overrideShapeWithCircle
+  )
+
+  const marks = [
+    // ZEROS
+    createShapeMarks(
+      /* datasetName= */ ZERO_DATASET,
+      /* fillColor= */ {
+        value: props.mapConfig.mapMin,
+      },
+      /* hoverColor= */ DARK_BLUE,
+      /* tooltipExpression= */ zeroTooltipValue,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+      /* outlineGeos */ props.highestLowestGeosMode,
+      props.isMulti
+    ),
+    // MISSING
+    createShapeMarks(
+      /* datasetName= */ MISSING_DATASET,
+      /* fillColor= */ {
+        value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
+      },
+      /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
+      /* tooltipExpression= */ missingDataTooltipValue,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+      /* outlineGeos */ props.highestLowestGeosMode,
+      props.isMulti
+    ),
+    // NON-ZERO
+    createShapeMarks(
+      /* datasetName= */ VALID_DATASET,
+      /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
+      /* hoverColor= */ DARK_BLUE,
+      /* tooltipExpression= */ tooltipValue,
+      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
+      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
+      /* outlineGeos */ props.highestLowestGeosMode,
+      props.isMulti
+    ),
+  ]
+
+  marks.push(
+    createInvisibleAltMarks(
+      /* tooltipDatum */ tooltipDatum,
+      /*  tooltipLabel */ tooltipLabel
     )
-    if (!props.hideLegend) {
-      legendList.push(legend, helperLegend)
-    }
-    const colorScale = setupColorScale(
-      /* legendData */ props.data,
-      /* metricId */ props.metric.metricId,
-      /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
-      /* fieldRange? */ props.fieldRange,
-      /* scaleColorScheme? */ props.mapConfig.mapScheme,
-      /* isTerritoryCircle? */ props.fips.isTerritory()
-    )
+  )
 
-    if (props.isMulti ?? props.highestLowestGeosMode) {
-      colorScale.domain = props.scaleConfig?.domain
-      colorScale.range = props.scaleConfig?.range
-    }
+  const altText = makeAltText(
+    /* data */ props.data,
+    /* filename */ props.filename ?? '',
+    /* fips */ props.fips,
+    /* overrideShapeWithCircle */ props.overrideShapeWithCircle
+  )
 
-    const projection = getProjection(
-      /* fips */ props.fips,
-      /* width */ width,
-      /* heightWidthRatio */ heightWidthRatio,
-      /* overrideShapeWithCirce */ props.overrideShapeWithCircle
-    )
+  // render Vega map async as it can be slow
+  const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
-    const marks = [
-      // ZEROS
-      createShapeMarks(
-        /* datasetName= */ ZERO_DATASET,
-        /* fillColor= */ {
-          value: props.mapConfig.mapMin,
-        },
-        /* hoverColor= */ DARK_BLUE,
-        /* tooltipExpression= */ zeroTooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode,
-        props.isMulti
-      ),
-      // MISSING
-      createShapeMarks(
-        /* datasetName= */ MISSING_DATASET,
-        /* fillColor= */ {
-          value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
-        },
-        /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
-        /* tooltipExpression= */ missingDataTooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode,
-        props.isMulti
-      ),
-      // NON-ZERO
-      createShapeMarks(
-        /* datasetName= */ VALID_DATASET,
-        /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
-        /* hoverColor= */ DARK_BLUE,
-        /* tooltipExpression= */ tooltipValue,
-        /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-        /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-        /* outlineGeos */ props.highestLowestGeosMode,
-        props.isMulti
-      ),
-    ]
-
-    marks.push(
-      createInvisibleAltMarks(
-        /* tooltipDatum */ tooltipDatum,
-        /*  tooltipLabel */ tooltipLabel
-      )
-    )
-
-    const altText = makeAltText(
-      /* data */ props.data,
-      /* filename */ props.filename ?? '',
-      /* fips */ props.fips,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle
-    )
-
-    setSpec({
+  useEffect(() => {
+    const newSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       background: sass.white,
       description: props.overrideShapeWithCircle
@@ -489,36 +489,26 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           on: [{ events: 'click', update: 'datum' }],
         },
       ],
-    })
+    }
 
-    // Render the Vega map asynchronously, allowing the UI to respond to user interaction before Vega maps render.
-    // TODO! I'm not sure this is really working... the UI is definitely not responsive while state covid data is loading
+    setSpec(newSpec)
+
+    // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
     setTimeout(() => {
       setShouldRenderMap(true)
     }, 0)
   }, [
     isCawp,
     width,
-    props.metric,
-    props.legendTitle,
     props.data,
-    props.fips,
-    props.hideLegend,
-    props.showCounties,
     props.fieldRange,
-    props.hideMissingDataTooltip,
-    props.overrideShapeWithCircle,
-    props.geoData,
     legendData,
-    props.isUnknownsMap,
     props.mapConfig.mapScheme,
     props.mapConfig.mapMin,
-    props,
-    heightWidthRatio,
-    pageIsTiny,
   ])
 
-  const mapIsReady = shouldRenderMap && (props.overrideShapeWithCircle ?? ref)
+  const mapIsReady =
+    shouldRenderMap && (props.overrideShapeWithCircle ?? (ref && width > 0))
 
   return (
     <Grid
