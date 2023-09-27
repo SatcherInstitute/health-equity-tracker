@@ -144,10 +144,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     props.highestLowestGroupsByFips
   )
 
-  const [ref, width] = useResponsiveWidth(
-    undefined,
-    !props.overrideShapeWithCircle
-  )
+  const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
   const pageIsTiny = useMediaQuery('(max-width:400px)')

@@ -71,7 +71,7 @@ export function TrendsChart({
   hasUnknowns,
 }: TrendsChartProps) {
   /* Config */
-  const { STARTING_WIDTH, HEIGHT, MARGIN, MOBILE } = CONFIG
+  const { HEIGHT, MARGIN, MOBILE } = CONFIG
   const { groupLabel } = axisConfig ?? {}
 
   /* Refs */
@@ -91,7 +91,7 @@ export function TrendsChart({
     useState<DemographicGroup[]>(defaultGroups)
 
   // manages dynamic svg width
-  const [containerRef, width] = useResponsiveWidth(STARTING_WIDTH)
+  const [containerRef, width] = useResponsiveWidth()
   const [isMobile, setIsMobile] = useState(
     window.innerWidth < MOBILE_BREAKPOINT
   )
