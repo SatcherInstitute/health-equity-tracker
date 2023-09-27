@@ -3,10 +3,9 @@ import styles from './WhatIsHealthEquityPage.module.scss'
 import { Typography } from '@mui/material'
 import { CONTACT_TAB_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { getHtml } from '../../utils/urlutils'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import { CITATION_APA } from '../../cards/ui/Sources'
-import { selectFaqs } from './FaqData'
+import { selectFAQs } from './FaqData'
 
 function FaqTab() {
   return (
@@ -32,22 +31,22 @@ function FaqTab() {
           <Grid item xs={12} sm={12} md={9}>
             <Grid container>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{selectFaqs[4].q}</h3>
-                <div className={styles.FaqAnswer}>
-                  {getHtml(selectFaqs[4].a)}
-                </div>
+                <h3 className={styles.FaqQuestion}>
+                  {selectFAQs[4].questionText}
+                </h3>
+                <div className={styles.FaqAnswer}>{selectFAQs[4].answer}</div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{selectFaqs[2].q}</h3>
-                <div className={styles.FaqAnswer}>
-                  {getHtml(selectFaqs[2].a)}
-                </div>
+                <h3 className={styles.FaqQuestion}>
+                  {selectFAQs[2].questionText}
+                </h3>
+                <div className={styles.FaqAnswer}>{selectFAQs[2].answer}</div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>{selectFaqs[3].q}</h3>
-                <div className={styles.FaqAnswer}>
-                  {getHtml(selectFaqs[3].a)}
-                </div>
+                <h3 className={styles.FaqQuestion}>
+                  {selectFAQs[3].questionText}
+                </h3>
+                <div className={styles.FaqAnswer}>{selectFAQs[3].answer}</div>
                 <a href="/datacatalog" className={styles.MajorLink}>
                   See Data Sources
                 </a>
@@ -145,19 +144,15 @@ function FaqTab() {
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  {getHtml(selectFaqs[0].q)}
+                  {selectFAQs[0].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>
-                  {getHtml(selectFaqs[0].a)}
-                </div>
+                <div className={styles.FaqAnswer}>{selectFAQs[0].answer}</div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
-                  {getHtml(selectFaqs[1].q)}
+                  {selectFAQs[1].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>
-                  {getHtml(selectFaqs[1].a)}
-                </div>
+                <div className={styles.FaqAnswer}>{selectFAQs[1].answer}</div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>

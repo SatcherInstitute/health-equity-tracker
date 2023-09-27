@@ -2,7 +2,7 @@ import Grid from '@mui/material/Grid'
 import styles from './DataCatalogPage.module.scss'
 import { CONTACT_TAB_LINK, DATA_TAB_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { getHtml, LinkWithStickyParams } from '../../utils/urlutils'
+import { LinkWithStickyParams } from '../../utils/urlutils'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { Card } from '@mui/material'
 import { urlMap } from '../../utils/externalUrls'
@@ -24,7 +24,7 @@ import {
 import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
 import { HashLink } from 'react-router-hash-link'
 import { CITATION_APA } from '../../cards/ui/Sources'
-import { selectFaqs } from '../WhatIsHealthEquity/FaqData'
+import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
 
 function MethodologyTab() {
   return (
@@ -61,9 +61,11 @@ function MethodologyTab() {
               className={styles.MethodologyQuestionAndAnswer}
               component="article"
             >
-              <h2 className={styles.MethodologyQuestion}>{selectFaqs[4].q}</h2>
+              <h2 className={styles.MethodologyQuestion}>
+                {selectFAQs[4].questionText}
+              </h2>
               <div className={styles.MethodologyAnswer}>
-                {<>{getHtml(selectFaqs[4].a)}</>}
+                {<>{selectFAQs[4].answer}</>}
               </div>
             </Grid>
 

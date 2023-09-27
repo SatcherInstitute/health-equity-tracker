@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect, type RefObject } from 'react'
 import { debounce } from 'lodash'
 
+/*
+Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
+*/
 export function useResponsiveWidth(
   defaultWidth?: number
 ): [RefObject<HTMLDivElement>, number] {
