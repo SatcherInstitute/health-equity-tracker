@@ -294,7 +294,6 @@ function MapCardWithKey(props: MapCardProps) {
       reportTitle={props.reportTitle}
       elementsToHide={elementsToHide}
       expanded={highestLowestGeosMode}
-      showDefinition={true}
       isCompareCard={props.isCompareCard}
     >
       {(queryResponses, metadata, geoData) => {
@@ -497,7 +496,7 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                       <Divider />
                       <Tooltip
-                        title={`Launch to see ${prettyDemoType} disparties across multiple small maps`}
+                        title={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                       >
                         <Button
                           onClick={() => {
@@ -506,7 +505,8 @@ function MapCardWithKey(props: MapCardProps) {
                         >
                           <GridView />
                           <span className={styles.CompareMultipleText}>
-                            Compare maps across {prettyDemoType} groups
+                            View {prettyDemoType} disparties across multiple
+                            small maps
                           </span>
                         </Button>
                       </Tooltip>
