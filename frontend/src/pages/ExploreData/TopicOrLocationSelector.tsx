@@ -146,7 +146,8 @@ function TopicOrLocationSelector(props: {
                 renderInput={(params) => (
                   <TextField
                     placeholder=""
-                    autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+                    /* eslint-disable-next-line */
+                    autoFocus
                     margin="dense"
                     variant="outlined"
                     onChange={updateTextBox}
@@ -202,9 +203,7 @@ function TopicOrLocationSelector(props: {
                               const [optionId, optionDisplayName] = item
                               return (
                                 // place variables in their respective categories
-                                category.options.includes(
-                                  optionId as DropdownVarId
-                                ) && (
+                                category.options.includes(optionId) && (
                                   <ListItemButton
                                     className={styles.ListItem}
                                     key={optionId}
