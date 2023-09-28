@@ -31,7 +31,7 @@ export const altLightMetric: MetricConfig = {
 
 export function DisparityBarChart(props: DisparityBarChartProps) {
   /* default width during initialization */
-  const [ref, width] = useResponsiveWidth(100)
+  const [ref, width] = useResponsiveWidth()
   // some states don't have any NHPI AIAN won't need alt light on vega even if they fit criteria
 
   const [chartDimensions] = useChartDimensions(width)
