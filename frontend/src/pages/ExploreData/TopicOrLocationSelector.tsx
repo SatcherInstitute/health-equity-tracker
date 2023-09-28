@@ -146,7 +146,8 @@ function TopicOrLocationSelector(props: {
                 renderInput={(params) => (
                   <TextField
                     placeholder=""
-                    autoFocus // eslint-disable-line jsx-a11y/no-autofocus
+                    /* eslint-disable-next-line */
+                    autoFocus
                     margin="dense"
                     variant="outlined"
                     onChange={updateTextBox}
