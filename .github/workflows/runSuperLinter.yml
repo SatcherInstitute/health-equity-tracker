@@ -25,6 +25,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           VALIDATE_DOCKERFILE: true
+          JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.cjs
           VALIDATE_JSON: true
           VALIDATE_TSX: true
           VALIDATE_TYPESCRIPT_ES: true
