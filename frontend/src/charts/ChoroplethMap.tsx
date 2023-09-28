@@ -6,7 +6,7 @@ import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
-import { CircularProgress, Grid, useMediaQuery } from '@mui/material'
+import { Grid, useMediaQuery } from '@mui/material'
 
 import {
   CAWP_DETERMINANTS,
@@ -107,7 +107,6 @@ export interface ChoroplethMapProps {
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
-  // mapContainerRef?: RefObject<HTMLDivElement>
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
@@ -394,126 +393,119 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* overrideShapeWithCircle */ props.overrideShapeWithCircle
   )
 
-  useEffect(
-    () => {
-      const newSpec = {
-        $schema: 'https://vega.github.io/schema/vega/v5.json',
-        background: sass.white,
-        description: props.overrideShapeWithCircle
-          ? `Territory: ${props.fips.getDisplayName()}`
-          : altText,
-        data: [
-          {
-            name: MISSING_PLACEHOLDER_VALUES,
-            values: [{ missing: NO_DATA_MESSAGE }],
+  useEffect(() => {
+    const newSpec = {
+      $schema: 'https://vega.github.io/schema/vega/v5.json',
+      background: sass.white,
+      description: props.overrideShapeWithCircle
+        ? `Territory: ${props.fips.getDisplayName()}`
+        : altText,
+      data: [
+        {
+          name: MISSING_PLACEHOLDER_VALUES,
+          values: [{ missing: NO_DATA_MESSAGE }],
+        },
+        {
+          name: VAR_DATASET,
+          values: dataWithHighestLowest,
+        },
+        {
+          name: ZERO_VAR_DATASET,
+          values: zeroData,
+        },
+        {
+          name: LEGEND_DATASET,
+          values: legendData,
+        },
+        {
+          name: GEO_DATASET,
+          transform: geoTransformers,
+          ...geoData,
+          format: {
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
-          {
-            name: VAR_DATASET,
-            values: dataWithHighestLowest,
-          },
-          {
-            name: ZERO_VAR_DATASET,
-            values: zeroData,
-          },
-          {
-            name: LEGEND_DATASET,
-            values: legendData,
-          },
-          {
-            name: GEO_DATASET,
-            transform: geoTransformers,
-            ...geoData,
-            format: {
-              type: 'topojson',
-              feature: props.showCounties ? 'counties' : 'states',
+        },
+        {
+          name: VALID_DATASET,
+          transform: [
+            {
+              type: 'filter',
+              expr: `isValid(datum.${props.metric.metricId}) && datum.${props.metric.metricId} > 0`,
             },
+          ],
+          source: GEO_DATASET,
+          format: {
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
-          {
-            name: VALID_DATASET,
-            transform: [
-              {
-                type: 'filter',
-                expr: `isValid(datum.${props.metric.metricId}) && datum.${props.metric.metricId} > 0`,
-              },
-            ],
-            source: GEO_DATASET,
-            format: {
-              type: 'topojson',
-              feature: props.showCounties ? 'counties' : 'states',
+        },
+        {
+          name: ZERO_DATASET,
+          transform: [
+            {
+              type: 'filter',
+              expr: `datum.${props.metric.metricId} === 0`,
             },
+          ],
+          source: GEO_DATASET,
+          format: {
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
-          {
-            name: ZERO_DATASET,
-            transform: [
-              {
-                type: 'filter',
-                expr: `datum.${props.metric.metricId} === 0`,
-              },
-            ],
-            source: GEO_DATASET,
-            format: {
-              type: 'topojson',
-              feature: props.showCounties ? 'counties' : 'states',
+        },
+        {
+          name: MISSING_DATASET,
+          transform: [
+            {
+              type: 'filter',
+              expr: `!isValid(datum.${props.metric.metricId})`,
             },
+          ],
+          source: GEO_DATASET,
+          format: {
+            type: 'topojson',
+            feature: props.showCounties ? 'counties' : 'states',
           },
-          {
-            name: MISSING_DATASET,
-            transform: [
-              {
-                type: 'filter',
-                expr: `!isValid(datum.${props.metric.metricId})`,
-              },
-            ],
-            source: GEO_DATASET,
-            format: {
-              type: 'topojson',
-              feature: props.showCounties ? 'counties' : 'states',
-            },
-          },
-        ],
-        projections: [projection],
-        scales: [
-          colorScale,
-          GREY_DOT_SCALE_SPEC,
-          UNKNOWN_SCALE_SPEC,
-          ZERO_DOT_SCALE_SPEC,
-          ZERO_YELLOW_SCALE,
-        ],
-        legends: legendList,
-        marks,
-        signals: [
-          {
-            name: 'click',
-            value: 0,
-            on: [{ events: 'click', update: 'datum' }],
-          },
-        ],
-      }
+        },
+      ],
+      projections: [projection],
+      scales: [
+        colorScale,
+        GREY_DOT_SCALE_SPEC,
+        UNKNOWN_SCALE_SPEC,
+        ZERO_DOT_SCALE_SPEC,
+        ZERO_YELLOW_SCALE,
+      ],
+      legends: legendList,
+      marks,
+      signals: [
+        {
+          name: 'click',
+          value: 0,
+          on: [{ events: 'click', update: 'datum' }],
+        },
+      ],
+    }
 
-      setSpec(newSpec)
-    },
-    [
-      // props.overrideShapeWithCircle,
-      // props.fips,
-      // props.metric.metricId,
-      // props.showCounties,
-      // dataWithHighestLowest,
-      // zeroData,
-      // legendData,
-      // geoTransformers,
-      // geoData,
-      // projection,
-      // colorScale,
-      // legendList,
-      // marks,
-    ]
-  )
+    setSpec(newSpec)
 
-  const isBigMapCardMap =
-    !props.isMulti && !props.isUnknownsMap && !props.overrideShapeWithCircle
-  const hasRefWidth = Boolean(ref && width > 0)
+    // // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
+    // setTimeout(() => {
+    //   setShouldRenderMap(true)
+    // }, 0)
+  }, [
+    isCawp,
+    width,
+    props.data,
+    props.fieldRange,
+    legendData,
+    props.mapConfig.mapScheme,
+    props.mapConfig.mapMin,
+  ])
 
-  const mapIsReady = Boolean(spec && isBigMapCardMap ? hasRefWidth : true)
+  const mapIsReady =
+    spec && (props.overrideShapeWithCircle ?? (ref && width > 0))
 
   return (
     <Grid
@@ -522,7 +514,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
     >
-      {mapIsReady ? (
+      {mapIsReady && (
         <Vega
           renderer="svg"
           spec={spec}
@@ -531,8 +523,6 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
           downloadFileName={`${props.filename ?? ''} - Health Equity Tracker`}
           signalListeners={props.signalListeners}
         />
-      ) : (
-        <CircularProgress aria-label={altText} />
       )}
     </Grid>
   )

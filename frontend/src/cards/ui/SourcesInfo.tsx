@@ -1,4 +1,4 @@
-import React from 'react'
+import { Fragment } from 'react'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import {
   LinkWithStickyParams,
@@ -16,7 +16,7 @@ export default function SourcesInfo(props: SourcesInfoProps) {
     <p className={styles.FootnoteText}>
       Sources:{' '}
       {Object.keys(props.dataSourceMap).map((dataSourceId, idx) => (
-        <React.Fragment key={dataSourceId}>
+        <Fragment key={dataSourceId}>
           <LinkWithStickyParams
             target="_blank"
             to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
@@ -35,7 +35,7 @@ export default function SourcesInfo(props: SourcesInfoProps) {
             </>
           )}
           {insertPunctuation(idx, Object.keys(props.dataSourceMap).length)}
-        </React.Fragment>
+        </Fragment>
       ))}{' '}
     </p>
   )
