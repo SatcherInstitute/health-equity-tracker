@@ -62,7 +62,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   getHighestLowestGroupsByFips,
   getMapScheme,
@@ -441,8 +441,6 @@ function MapCardWithKey(props: MapCardProps) {
             </CardContent>
           )
 
-        const mapContainerRef = useRef(null)
-
         return (
           <>
             <MultiMapDialog
@@ -536,37 +534,33 @@ function MapCardWithKey(props: MapCardProps) {
                     xs={12}
                     sm={mapIsWide ? 9 : 12}
                     lg={mapIsWide ? 10 : 12}
-                    ref={mapContainerRef}
                   >
-                    {mapContainerRef && (
-                      <ChoroplethMap
-                        demographicType={demographicType}
-                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
-                          mapQueryResponse.data,
-                          demographicType,
-                          metricId
-                        )}
-                        activeDemographicGroup={activeDemographicGroup}
-                        countColsMap={countColsMap}
-                        data={displayData}
-                        filename={filename}
-                        fips={props.fips}
-                        geoData={geoData}
-                        hideLegend={true}
-                        hideMissingDataTooltip={highestLowestGeosMode}
-                        legendData={dataForActiveDemographicGroup}
-                        legendTitle={metricConfig.shortLabel.toLowerCase()}
-                        highestLowestGeosMode={highestLowestGeosMode}
-                        metric={metricConfig}
-                        showCounties={
-                          !props.fips.isUsa() && !hasSelfButNotChildGeoData
-                        }
-                        signalListeners={signalListeners}
-                        mapConfig={{ mapScheme, mapMin }}
-                        scaleConfig={scale}
-                        mapContainerRef={mapContainerRef}
-                      />
-                    )}
+                    <ChoroplethMap
+                      demographicType={demographicType}
+                      highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                        mapQueryResponse.data,
+                        demographicType,
+                        metricId
+                      )}
+                      activeDemographicGroup={activeDemographicGroup}
+                      countColsMap={countColsMap}
+                      data={displayData}
+                      filename={filename}
+                      fips={props.fips}
+                      geoData={geoData}
+                      hideLegend={true}
+                      hideMissingDataTooltip={highestLowestGeosMode}
+                      legendData={dataForActiveDemographicGroup}
+                      legendTitle={metricConfig.shortLabel.toLowerCase()}
+                      highestLowestGeosMode={highestLowestGeosMode}
+                      metric={metricConfig}
+                      showCounties={
+                        !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                      }
+                      signalListeners={signalListeners}
+                      mapConfig={{ mapScheme, mapMin }}
+                      scaleConfig={scale}
+                    />
                     {props.fips.isUsa() && (
                       <Grid item xs={12}>
                         <TerritoryCircles

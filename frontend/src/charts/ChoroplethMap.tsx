@@ -1,4 +1,4 @@
-import { useState, useEffect, type RefObject } from 'react'
+import { useState, useEffect } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
@@ -107,13 +107,10 @@ export interface ChoroplethMapProps {
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
-  mapContainerRef?: RefObject<HTMLDivElement>
+  // mapContainerRef?: RefObject<HTMLDivElement>
 }
 
 export function ChoroplethMap(props: ChoroplethMapProps) {
-  const mapWrapperWidth = props?.mapContainerRef?.current?.offsetWidth
-  if (!mapWrapperWidth) return <></>
-
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
@@ -397,119 +394,126 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
     /* overrideShapeWithCircle */ props.overrideShapeWithCircle
   )
 
-  useEffect(() => {
-    const newSpec = {
-      $schema: 'https://vega.github.io/schema/vega/v5.json',
-      background: sass.white,
-      description: props.overrideShapeWithCircle
-        ? `Territory: ${props.fips.getDisplayName()}`
-        : altText,
-      data: [
-        {
-          name: MISSING_PLACEHOLDER_VALUES,
-          values: [{ missing: NO_DATA_MESSAGE }],
-        },
-        {
-          name: VAR_DATASET,
-          values: dataWithHighestLowest,
-        },
-        {
-          name: ZERO_VAR_DATASET,
-          values: zeroData,
-        },
-        {
-          name: LEGEND_DATASET,
-          values: legendData,
-        },
-        {
-          name: GEO_DATASET,
-          transform: geoTransformers,
-          ...geoData,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
+  useEffect(
+    () => {
+      const newSpec = {
+        $schema: 'https://vega.github.io/schema/vega/v5.json',
+        background: sass.white,
+        description: props.overrideShapeWithCircle
+          ? `Territory: ${props.fips.getDisplayName()}`
+          : altText,
+        data: [
+          {
+            name: MISSING_PLACEHOLDER_VALUES,
+            values: [{ missing: NO_DATA_MESSAGE }],
           },
-        },
-        {
-          name: VALID_DATASET,
-          transform: [
-            {
-              type: 'filter',
-              expr: `isValid(datum.${props.metric.metricId}) && datum.${props.metric.metricId} > 0`,
+          {
+            name: VAR_DATASET,
+            values: dataWithHighestLowest,
+          },
+          {
+            name: ZERO_VAR_DATASET,
+            values: zeroData,
+          },
+          {
+            name: LEGEND_DATASET,
+            values: legendData,
+          },
+          {
+            name: GEO_DATASET,
+            transform: geoTransformers,
+            ...geoData,
+            format: {
+              type: 'topojson',
+              feature: props.showCounties ? 'counties' : 'states',
             },
-          ],
-          source: GEO_DATASET,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
           },
-        },
-        {
-          name: ZERO_DATASET,
-          transform: [
-            {
-              type: 'filter',
-              expr: `datum.${props.metric.metricId} === 0`,
+          {
+            name: VALID_DATASET,
+            transform: [
+              {
+                type: 'filter',
+                expr: `isValid(datum.${props.metric.metricId}) && datum.${props.metric.metricId} > 0`,
+              },
+            ],
+            source: GEO_DATASET,
+            format: {
+              type: 'topojson',
+              feature: props.showCounties ? 'counties' : 'states',
             },
-          ],
-          source: GEO_DATASET,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
           },
-        },
-        {
-          name: MISSING_DATASET,
-          transform: [
-            {
-              type: 'filter',
-              expr: `!isValid(datum.${props.metric.metricId})`,
+          {
+            name: ZERO_DATASET,
+            transform: [
+              {
+                type: 'filter',
+                expr: `datum.${props.metric.metricId} === 0`,
+              },
+            ],
+            source: GEO_DATASET,
+            format: {
+              type: 'topojson',
+              feature: props.showCounties ? 'counties' : 'states',
             },
-          ],
-          source: GEO_DATASET,
-          format: {
-            type: 'topojson',
-            feature: props.showCounties ? 'counties' : 'states',
           },
-        },
-      ],
-      projections: [projection],
-      scales: [
-        colorScale,
-        GREY_DOT_SCALE_SPEC,
-        UNKNOWN_SCALE_SPEC,
-        ZERO_DOT_SCALE_SPEC,
-        ZERO_YELLOW_SCALE,
-      ],
-      legends: legendList,
-      marks,
-      signals: [
-        {
-          name: 'click',
-          value: 0,
-          on: [{ events: 'click', update: 'datum' }],
-        },
-      ],
-    }
+          {
+            name: MISSING_DATASET,
+            transform: [
+              {
+                type: 'filter',
+                expr: `!isValid(datum.${props.metric.metricId})`,
+              },
+            ],
+            source: GEO_DATASET,
+            format: {
+              type: 'topojson',
+              feature: props.showCounties ? 'counties' : 'states',
+            },
+          },
+        ],
+        projections: [projection],
+        scales: [
+          colorScale,
+          GREY_DOT_SCALE_SPEC,
+          UNKNOWN_SCALE_SPEC,
+          ZERO_DOT_SCALE_SPEC,
+          ZERO_YELLOW_SCALE,
+        ],
+        legends: legendList,
+        marks,
+        signals: [
+          {
+            name: 'click',
+            value: 0,
+            on: [{ events: 'click', update: 'datum' }],
+          },
+        ],
+      }
 
-    setSpec(newSpec)
+      setSpec(newSpec)
+    },
+    [
+      // props.overrideShapeWithCircle,
+      // props.fips,
+      // props.metric.metricId,
+      // props.showCounties,
+      // dataWithHighestLowest,
+      // zeroData,
+      // legendData,
+      // geoTransformers,
+      // geoData,
+      // projection,
+      // colorScale,
+      // legendList,
+      // marks,
+    ]
+  )
 
-    // // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
-    // setTimeout(() => {
-    //   setShouldRenderMap(true)
-    // }, 0)
-  }, [
-    isCawp,
-    width,
-    props.data,
-    props.fieldRange,
-    legendData,
-    props.mapConfig.mapScheme,
-    props.mapConfig.mapMin,
-  ])
+  const isBigMapCardMap =
+    !props.isMulti && !props.isUnknownsMap && !props.overrideShapeWithCircle
+  const hasRefWidth = Boolean(ref && width > 0)
 
-  const mapIsReady =
-    spec && (props.overrideShapeWithCircle ?? (ref && width > 0))
+  const mapIsReady = Boolean(spec && isBigMapCardMap ? hasRefWidth : true)
 
   return (
     <Grid
