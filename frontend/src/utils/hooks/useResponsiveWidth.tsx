@@ -5,7 +5,9 @@ import { useMediaQuery, useTheme } from '@mui/material'
 /*
 Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
 */
-export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
+export function useResponsiveWidth(
+  isMulti?: boolean
+): [RefObject<HTMLDivElement>, number] {
   const theme = useTheme()
   const pageIsSmall = useMediaQuery(theme.breakpoints.down('md'))
   const isCompareMode = window.location.href.includes('compare')
@@ -15,6 +17,8 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
 
   let widthEstimate = window.innerWidth / widthEstimateDivider
   if (widthEstimate > 1200) widthEstimate = isCompareMode ? 750 : 1200
+
+  if (isMulti) widthEstimate /= 2.4
 
   const [width, setWidth] = useState<number>(widthEstimate)
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
