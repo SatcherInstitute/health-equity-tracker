@@ -138,12 +138,17 @@ class PhrmaData(DataSource):
                 # POP COMPARE FOR 100K
                 float_cols = [
 <<<<<<< HEAD
+<<<<<<< HEAD
                     f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
                     f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
 =======
                     f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
                     f'{PHRMA_DIR}_{std_col.POPULATION_COL}',
 >>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+=======
+                    f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+                    f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
+>>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
                 ]
 
                 # PCT_RATE CONDITIONS
@@ -151,7 +156,7 @@ class PhrmaData(DataSource):
                     # rate, pct_share, count cols
                     for metric in [
                         std_col.PCT_RATE_SUFFIX,
-                        std_col.PCT_SHARE_SUFFIX,
+                        # std_col.PCT_SHARE_SUFFIX,
                         std_col.RAW_SUFFIX,
                     ]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
@@ -160,12 +165,18 @@ class PhrmaData(DataSource):
                         f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
                     )
 <<<<<<< HEAD
+<<<<<<< HEAD
                     # float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
 =======
                     float_cols.append(
                         f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'
                     )
 >>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+=======
+                    # float_cols.append(
+                    #     f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'
+                    # )
+>>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
 
                 # PER_100K CONDITIONS
                 for condition in PHRMA_100K_CONDITIONS:
@@ -237,6 +248,7 @@ class PhrmaData(DataSource):
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0, 2)
 
         count_to_share_map = {
+<<<<<<< HEAD
             # Pct share of adherence
             **{
                 f'{condition}_{COUNT_YES}': f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}'
@@ -244,6 +256,14 @@ class PhrmaData(DataSource):
             },
             # comparison population shares for adherence
 <<<<<<< HEAD
+=======
+            # # Pct share of adherence
+            # **{
+            #     f'{condition}_{COUNT_YES}': f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}'
+            #     for condition in PHRMA_PCT_CONDITIONS
+            # },
+            # # comparison population shares for adherence
+>>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
             # **{
             #     f'{condition}_{COUNT_TOTAL}': (
             #         f'{condition}_{std_col.POPULATION_COL}'
@@ -251,6 +271,7 @@ class PhrmaData(DataSource):
             #     )
             #     for condition in PHRMA_PCT_CONDITIONS
             # },
+<<<<<<< HEAD
 =======
             **{
                 f'{condition}_{COUNT_TOTAL}': (
@@ -260,6 +281,8 @@ class PhrmaData(DataSource):
                 for condition in PHRMA_PCT_CONDITIONS
             },
 >>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+=======
+>>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
             # Pct Share for disease
             **{
                 f'{condition}_{MEDICARE_DISEASE_COUNT}': f'{condition}_{std_col.PCT_SHARE_SUFFIX}'
@@ -267,10 +290,14 @@ class PhrmaData(DataSource):
             },
             # Shared comparison population share col for all 100ks
 <<<<<<< HEAD
+<<<<<<< HEAD
             MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
 =======
             MEDICARE_POP_COUNT: f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
 >>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+=======
+            MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+>>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
