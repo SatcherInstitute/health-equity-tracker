@@ -311,10 +311,14 @@ function MapCardWithKey(props: MapCardProps) {
         const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse.data,
 <<<<<<< HEAD
+<<<<<<< HEAD
           demographicType,
 =======
           props.demographicType,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+          demographicType,
+>>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
           props.dataTypeConfig
         )
 
@@ -546,6 +550,7 @@ function MapCardWithKey(props: MapCardProps) {
                     sm={mapIsWide ? 8 : 12}
                     md={mapIsWide ? 9 : 12}
                   >
+<<<<<<< HEAD
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
@@ -572,6 +577,34 @@ function MapCardWithKey(props: MapCardProps) {
                       />
                     </Grid>
 
+=======
+                    <ChoroplethMap
+                      demographicType={demographicType}
+                      highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                        mapQueryResponse.data,
+                        demographicType,
+                        metricId
+                      )}
+                      activeDemographicGroup={activeDemographicGroup}
+                      countColsMap={countColsMap}
+                      data={displayData}
+                      filename={filename}
+                      fips={props.fips}
+                      geoData={geoData}
+                      hideLegend={true}
+                      hideMissingDataTooltip={highestLowestGeosMode}
+                      legendData={dataForActiveDemographicGroup}
+                      legendTitle={metricConfig.shortLabel.toLowerCase()}
+                      highestLowestGeosMode={highestLowestGeosMode}
+                      metric={metricConfig}
+                      showCounties={
+                        !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                      }
+                      signalListeners={signalListeners}
+                      mapConfig={{ mapScheme, mapMin }}
+                      scaleConfig={scale}
+                    />
+>>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
                     {props.fips.isUsa() && (
                       <Grid item xs={12}>
                         <TerritoryCircles

@@ -209,6 +209,7 @@ export default function TopicOrLocationSelector(
                           {category.title}
                         </h3>
                         <List dense={true} role="menu">
+<<<<<<< HEAD
                           {category.options.map((optionId: DropdownVarId) => {
                             return (
                               <ListItemButton
@@ -227,6 +228,32 @@ export default function TopicOrLocationSelector(
                               </ListItemButton>
                             )
                           })}
+=======
+                          {(props.options as string[][]).map(
+                            (item: string[]) => {
+                              const [optionId, optionDisplayName] = item
+                              return (
+                                // place variables in their respective categories
+                                category.options.includes(optionId) && (
+                                  <ListItemButton
+                                    className={styles.ListItem}
+                                    key={optionId}
+                                    selected={optionId === props.value}
+                                    onClick={() => {
+                                      popover.close()
+                                      props.onOptionUpdate(optionId)
+                                    }}
+                                  >
+                                    <ListItemText
+                                      className={styles.ListItemText}
+                                      primary={optionDisplayName}
+                                    />
+                                  </ListItemButton>
+                                )
+                              )
+                            }
+                          )}
+>>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
                         </List>
                       </Grid>
                     )

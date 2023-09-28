@@ -23,8 +23,8 @@ import {
 } from './methodologyContent/missingDataBlurbs'
 import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
 import { HashLink } from 'react-router-hash-link'
-import { CITATION_APA } from '../../cards/ui/Sources'
 import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
+import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 
 function MethodologyTab() {
   return (
