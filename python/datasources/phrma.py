@@ -156,7 +156,7 @@ class PhrmaData(DataSource):
                     # rate, pct_share, count cols
                     for metric in [
                         std_col.PCT_RATE_SUFFIX,
-                        # std_col.PCT_SHARE_SUFFIX,
+                        std_col.PCT_SHARE_SUFFIX,
                         std_col.RAW_SUFFIX,
                     ]:
                         float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
@@ -164,6 +164,7 @@ class PhrmaData(DataSource):
                     float_cols.append(
                         f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
                     )
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
                     # float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
@@ -177,6 +178,9 @@ class PhrmaData(DataSource):
                     #     f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'
                     # )
 >>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
+=======
+                    # float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
+>>>>>>> 0bfe0130 (Backend: Phrma needs unknown pct_share but not pop_pct_share for adherence (#2415))
 
                 # PER_100K CONDITIONS
                 for condition in PHRMA_100K_CONDITIONS:
@@ -249,12 +253,16 @@ class PhrmaData(DataSource):
 
         count_to_share_map = {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0bfe0130 (Backend: Phrma needs unknown pct_share but not pop_pct_share for adherence (#2415))
             # Pct share of adherence
             **{
                 f'{condition}_{COUNT_YES}': f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}'
                 for condition in PHRMA_PCT_CONDITIONS
             },
             # comparison population shares for adherence
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
             # # Pct share of adherence
@@ -264,6 +272,8 @@ class PhrmaData(DataSource):
             # },
             # # comparison population shares for adherence
 >>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
+=======
+>>>>>>> 0bfe0130 (Backend: Phrma needs unknown pct_share but not pop_pct_share for adherence (#2415))
             # **{
             #     f'{condition}_{COUNT_TOTAL}': (
             #         f'{condition}_{std_col.POPULATION_COL}'

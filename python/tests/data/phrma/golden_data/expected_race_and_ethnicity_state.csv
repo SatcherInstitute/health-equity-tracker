@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0bfe0130 (Backend: Phrma needs unknown pct_share but not pop_pct_share for adherence (#2415))
 race_category_id,state_name,state_fips,arv_adherence_estimated_total,arv_beneficiaries_estimated_total,beta_blockers_adherence_estimated_total,beta_blockers_beneficiaries_estimated_total,ccb_adherence_estimated_total,ccb_beneficiaries_estimated_total,doac_adherence_estimated_total,doac_beneficiaries_estimated_total,bb_ami_adherence_estimated_total,bb_ami_beneficiaries_estimated_total,ras_antagonists_adherence_estimated_total,ras_antagonists_beneficiaries_estimated_total,statins_adherence_estimated_total,statins_beneficiaries_estimated_total,medicare_ami_estimated_total,medicare_hiv_estimated_total,medicare_population,arv_adherence_pct_rate,beta_blockers_adherence_pct_rate,ccb_adherence_pct_rate,doac_adherence_pct_rate,bb_ami_adherence_pct_rate,ras_antagonists_adherence_pct_rate,statins_adherence_pct_rate,medicare_ami_per_100k,medicare_hiv_per_100k,arv_adherence_pct_share,beta_blockers_adherence_pct_share,ccb_adherence_pct_share,doac_adherence_pct_share,bb_ami_adherence_pct_share,ras_antagonists_adherence_pct_share,statins_adherence_pct_share,medicare_ami_pct_share,medicare_hiv_pct_share,medicare_population_pct_share,race_and_ethnicity
 AIAN_NH,Alabama,01,,,108.0,149.0,90.0,131.0,,,,,179.0,227.0,190.0,245.0,,,,100.0,72.0,69.0,75.0,,79.0,78.0,1389.0,417.0,,0.1,0.1,,,0.1,0.1,,,,American Indian and Alaska Native (NH)
 ALL,Alabama,01,301.0,378.0,139772.0,172174.0,118270.0,144032.0,13933.0,16082.0,259.0,332.0,196707.0,229528.0,204954.0,242041.0,10718.0,1794.0,749999.0,80.0,81.0,82.0,87.0,78.0,86.0,85.0,1429.0,239.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,100.0,All
@@ -408,6 +411,7 @@ HISP,Wyoming,56,,,533.0,682.0,403.0,525.0,,,,,998.0,1204.0,923.0,1106.0,64.0,,,,
 MULTI_OR_OTHER_STANDARD_NH,Wyoming,56,,,,,,,,,,,98.0,110.0,89.0,100.0,,,,,86.0,91.0,100.0,,89.0,89.0,1687.0,,,,,,,0.4,0.4,,,,Two or more races & Unrepresented race (NH)
 UNKNOWN,Wyoming,56,,,227.0,269.0,194.0,217.0,,,,,489.0,557.0,488.0,570.0,17.0,,,,84.0,89.0,97.0,,88.0,86.0,800.0,,,1.5,1.9,,,2.1,2.1,1.2,,,Unknown race
 WHITE_NH,Wyoming,56,,,13600.0,16150.0,9582.0,11270.0,1764.0,1947.0,50.0,61.0,21568.0,24751.0,21333.0,24327.0,1304.0,62.0,93032.0,100.0,84.0,85.0,91.0,82.0,87.0,88.0,1402.0,67.0,,94.8,94.1,100.0,100.0,93.5,93.9,92.4,100.0,100.0,White (NH)
+<<<<<<< HEAD
 =======
 race_category_id,state_name,state_fips,arv_adherence_estimated_total,arv_beneficiaries_estimated_total,beta_blockers_adherence_estimated_total,beta_blockers_beneficiaries_estimated_total,ccb_adherence_estimated_total,ccb_beneficiaries_estimated_total,doac_adherence_estimated_total,doac_beneficiaries_estimated_total,bb_ami_adherence_estimated_total,bb_ami_beneficiaries_estimated_total,ras_antagonists_adherence_estimated_total,ras_antagonists_beneficiaries_estimated_total,statins_adherence_estimated_total,statins_beneficiaries_estimated_total,medicare_ami_estimated_total,medicare_hiv_estimated_total,medicare_population,arv_adherence_pct_rate,beta_blockers_adherence_pct_rate,ccb_adherence_pct_rate,doac_adherence_pct_rate,bb_ami_adherence_pct_rate,ras_antagonists_adherence_pct_rate,statins_adherence_pct_rate,medicare_ami_per_100k,medicare_hiv_per_100k,medicare_ami_pct_share,medicare_hiv_pct_share,medicare_population_pct_share,race_and_ethnicity
 AIAN_NH,Alabama,01,,,108.0,149.0,90.0,131.0,,,,,179.0,227.0,190.0,245.0,,,,100.0,72.0,69.0,75.0,,79.0,78.0,1389.0,417.0,,,,American Indian and Alaska Native (NH)
@@ -819,3 +823,5 @@ MULTI_OR_OTHER_STANDARD_NH,Wyoming,56,,,,,,,,,,,98.0,110.0,89.0,100.0,,,,,86.0,9
 UNKNOWN,Wyoming,56,,,227.0,269.0,194.0,217.0,,,,,489.0,557.0,488.0,570.0,17.0,,,,84.0,89.0,97.0,,88.0,86.0,800.0,,1.2,,,Unknown race
 WHITE_NH,Wyoming,56,,,13600.0,16150.0,9582.0,11270.0,1764.0,1947.0,50.0,61.0,21568.0,24751.0,21333.0,24327.0,1304.0,62.0,93032.0,100.0,84.0,85.0,91.0,82.0,87.0,88.0,1402.0,67.0,92.4,100.0,100.0,White (NH)
 >>>>>>> d62b2825 (Backend: Nicer PHRMA naming for downloadable csvs (#2413))
+=======
+>>>>>>> 0bfe0130 (Backend: Phrma needs unknown pct_share but not pop_pct_share for adherence (#2415))
