@@ -59,7 +59,11 @@ export type PhrmaMetricId =
   | 'medicare_hiv_per_100k'
   | 'medicare_population_pct_share'
   | 'medicare_hiv_estimated_total'
+<<<<<<< HEAD
   | 'medicare_population'
+=======
+  | 'phrma_population'
+>>>>>>> 3543ae80 (Frontend: Update with new column names for PHRMA (#2414))
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
@@ -283,6 +287,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
   {
 <<<<<<< HEAD
+<<<<<<< HEAD
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
@@ -305,6 +310,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
 =======
     dataTypeId: 'nqf_adherence',
+=======
+    dataTypeId: 'bb_ami_adherence',
+>>>>>>> 3543ae80 (Frontend: Update with new column names for PHRMA (#2414))
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
@@ -334,18 +342,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
       pct_rate: {
         rateNumeratorMetric: {
-          metricId: 'nqf_adherence_estimated_total',
+          metricId: 'bb_ami_adherence_estimated_total',
           shortLabel: 'Persistently treated beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'nqf_beneficiaries_estimated_total',
+          metricId: 'bb_ami_beneficiaries_estimated_total',
           shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
-        metricId: 'nqf_adherence_pct_rate',
+        metricId: 'bb_ami_adherence_pct_rate',
         chartTitle:
           'Population Persistent to Beta Blocker Treatment After a Heart Attack',
         shortLabel: '% of pop. receiving persistent treatment',
@@ -353,14 +361,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
-        metricId: 'nqf_adherence_pct_share',
+        metricId: 'bb_ami_adherence_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
       },
     },
   },
   {
-    dataTypeId: 'rasa_adherence',
+    dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
@@ -411,10 +419,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'ras_antagonists_adherence_pct_rate',
 =======
         metricId: 'rasa_adherence_pct_rate',
 >>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
+=======
+        metricId: 'ras_antagonists_adherence_pct_rate',
+>>>>>>> 3543ae80 (Frontend: Update with new column names for PHRMA (#2414))
         chartTitle: 'Population adherent to RAS-Antagonists',
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
