@@ -137,8 +137,8 @@ class PhrmaData(DataSource):
 
                 # POP COMPARE FOR 100K
                 float_cols = [
-                    f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
-                    f'{PHRMA_DIR}_{std_col.POPULATION_COL}',
+                    f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+                    f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
                 ]
 
                 # PCT_RATE CONDITIONS
@@ -247,7 +247,7 @@ class PhrmaData(DataSource):
                 for condition in PHRMA_100K_CONDITIONS
             },
             # Shared comparison population share col for all 100ks
-            MEDICARE_POP_COUNT: f'{PHRMA_DIR}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+            MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
@@ -259,7 +259,9 @@ class PhrmaData(DataSource):
                 df, count_to_share_map, cast(PHRMA_BREAKDOWN_TYPE, demo_col), all_val
             )
 
-        rename_col_map = {MEDICARE_POP_COUNT: f'{PHRMA_DIR}_{std_col.POPULATION_COL}'}
+        rename_col_map = {
+            MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}'
+        }
         for condition in PHRMA_PCT_CONDITIONS:
             rename_col_map[
                 f'{condition}_{COUNT_YES}'

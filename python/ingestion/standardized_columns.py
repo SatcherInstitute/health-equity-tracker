@@ -165,6 +165,7 @@ HIV_DEATH_RATIO_AGE_ADJUSTED = "hiv_deaths_ratio_age_adjusted"
 
 
 # PHRMA
+MEDICARE_PREFIX = "medicare"
 AMI_PREFIX = "medicare_ami"
 ARV_PREFIX = "arv"
 BETA_BLOCKERS_PREFIX = "beta_blockers"
