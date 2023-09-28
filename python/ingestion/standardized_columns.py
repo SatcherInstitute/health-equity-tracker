@@ -165,14 +165,14 @@ HIV_DEATH_RATIO_AGE_ADJUSTED = "hiv_deaths_ratio_age_adjusted"
 
 
 # PHRMA
-AMI_PREFIX = "ami"
+AMI_PREFIX = "medicare_ami"
 ARV_PREFIX = "arv"
 BETA_BLOCKERS_PREFIX = "beta_blockers"
 CCB_PREFIX = "ccb"
 DOAC_PREFIX = "doac"
 BB_AMI_PREFIX = "bb_ami"
-PHRMA_HIV_PREFIX = "phrma_hiv"
-RASA_PREFIX = "rasa"
+PHRMA_HIV_PREFIX = "medicare_hiv"
+RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
 
 
