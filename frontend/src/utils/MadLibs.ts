@@ -40,7 +40,7 @@ export type CategoryId =
   | 'Behavioral Health'
   | 'Political Determinants of Health'
   | 'Social Determinants of Health'
-  | 'Medicare Beneficiaries'
+  | 'Medication Utilization in Medicare Population'
 
 export interface MadLib {
   readonly id: MadLibId
@@ -197,7 +197,7 @@ const CATEGORIES_LIST: Category[] = [
 
 SHOW_PHRMA &&
   CATEGORIES_LIST.push({
-    title: 'Medicare Beneficiaries',
+    title: 'Medication Utilization in Medicare Population',
     definition: '',
     options: MEDICARE_CATEGORY_DROPDOWNIDS,
   })

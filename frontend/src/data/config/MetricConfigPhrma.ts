@@ -387,7 +387,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'doac_adherence_pct_rate',
-        chartTitle: 'Direct Oral Anticoagulants Adherence',
+        chartTitle: 'Population adherent to direct oral anticoagulants',
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
