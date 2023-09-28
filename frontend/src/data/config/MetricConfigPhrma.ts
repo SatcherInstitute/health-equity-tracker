@@ -10,16 +10,16 @@ export type PhrmaDataTypeId =
   | 'ami'
   | 'arv_adherence'
   | 'beta_blockers_adherence'
-  | 'rasa_adherence'
+  | 'ras_antagonists_adherence'
   | 'statins_adherence'
   | 'ccb_adherence'
   | 'doac_adherence'
-  | 'nqf_adherence'
+  | 'bb_ami_adherence'
 
 export type PhrmaMetricId =
-  | 'ami_pct_share'
-  | 'ami_per_100k'
-  | 'ami_estimated_total'
+  | 'medicare_ami_pct_share'
+  | 'medicare_ami_per_100k'
+  | 'medicare_ami_estimated_total'
   | 'arv_adherence_pct_rate'
   | 'arv_adherence_pct_share'
   | 'arv_population_pct_share'
@@ -40,25 +40,25 @@ export type PhrmaMetricId =
   | 'doac_population_pct_share'
   | 'doac_adherence_estimated_total'
   | 'doac_beneficiaries_estimated_total'
-  | 'nqf_adherence_pct_rate'
-  | 'nqf_adherence_pct_share'
-  | 'nqf_population_pct_share'
-  | 'nqf_adherence_estimated_total'
-  | 'nqf_beneficiaries_estimated_total'
-  | 'rasa_adherence_pct_rate'
-  | 'rasa_adherence_pct_share'
-  | 'rasa_population_pct_share'
-  | 'rasa_adherence_estimated_total'
-  | 'rasa_beneficiaries_estimated_total'
+  | 'bb_ami_adherence_pct_rate'
+  | 'bb_ami_adherence_pct_share'
+  | 'bb_ami_population_pct_share'
+  | 'bb_ami_adherence_estimated_total'
+  | 'bb_ami_beneficiaries_estimated_total'
+  | 'ras_antagonists_adherence_pct_rate'
+  | 'ras_antagonists_adherence_pct_share'
+  | 'ras_antagonists_population_pct_share'
+  | 'ras_antagonists_adherence_estimated_total'
+  | 'ras_antagonists_beneficiaries_estimated_total'
   | 'statins_adherence_pct_rate'
   | 'statins_adherence_pct_share'
   | 'statins_population_pct_share'
   | 'statins_adherence_estimated_total'
   | 'statins_beneficiaries_estimated_total'
-  | 'phrma_hiv_pct_share'
-  | 'phrma_hiv_per_100k'
-  | 'phrma_population_pct_share'
-  | 'phrma_hiv_estimated_total'
+  | 'medicare_hiv_pct_share'
+  | 'medicare_hiv_per_100k'
+  | 'medicare_population_pct_share'
+  | 'medicare_hiv_estimated_total'
   | 'phrma_population'
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
@@ -184,7 +184,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
-    dataTypeId: 'nqf_adherence',
+    dataTypeId: 'bb_ami_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
@@ -214,18 +214,18 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
       pct_rate: {
         rateNumeratorMetric: {
-          metricId: 'nqf_adherence_estimated_total',
+          metricId: 'bb_ami_adherence_estimated_total',
           shortLabel: 'Persistently treated beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'nqf_beneficiaries_estimated_total',
+          metricId: 'bb_ami_beneficiaries_estimated_total',
           shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
-        metricId: 'nqf_adherence_pct_rate',
+        metricId: 'bb_ami_adherence_pct_rate',
         chartTitle:
           'Population Persistent to Beta Blocker Treatment After a Heart Attack',
         shortLabel: '% of pop. receiving persistent treatment',
@@ -233,14 +233,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
-        metricId: 'nqf_adherence_pct_share',
+        metricId: 'bb_ami_adherence_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
       },
     },
   },
   {
-    dataTypeId: 'rasa_adherence',
+    dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
@@ -269,25 +269,25 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
       pct_rate: {
         rateNumeratorMetric: {
-          metricId: 'rasa_adherence_estimated_total',
+          metricId: 'ras_antagonists_adherence_estimated_total',
           shortLabel: 'Adherent beneficiaries',
           chartTitle: '',
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'rasa_beneficiaries_estimated_total',
+          metricId: 'ras_antagonists_beneficiaries_estimated_total',
           shortLabel: 'Total beneficiaries',
           chartTitle: '',
           type: 'count',
         },
-        metricId: 'rasa_adherence_pct_rate',
+        metricId: 'ras_antagonists_adherence_pct_rate',
         chartTitle: 'Population adherent to RAS-Antagonists',
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
       pct_share_unknown: {
         chartTitle: 'Adherent beneficiary population ',
-        metricId: 'rasa_adherence_pct_share',
+        metricId: 'ras_antagonists_adherence_pct_share',
         shortLabel: '% of adherent pop.',
         type: 'pct_share',
       },
@@ -427,13 +427,13 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
         type: 'count',
       },
       per100k: {
-        metricId: 'ami_per_100k',
+        metricId: 'medicare_ami_per_100k',
         chartTitle: 'Rates of Acute MI',
         shortLabel: 'Acute MI per 100k',
         columnTitleHeader: 'Medicare beneficiary acute MI cases',
         type: 'per100k',
         rateNumeratorMetric: {
-          metricId: 'ami_estimated_total',
+          metricId: 'medicare_ami_estimated_total',
           shortLabel: 'cases',
           chartTitle: '',
           type: 'count',
@@ -447,14 +447,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
       pct_share: {
         chartTitle: 'Share of total beneficiary acute MI cases',
-        metricId: 'ami_pct_share',
+        metricId: 'medicare_ami_pct_share',
         columnTitleHeader: 'Share of total beneficiary acute MI cases',
         shortLabel: '% of beneficiary pop. with acute MI',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
             'Share of beneficiary population vs. share of total acute MI cases',
-          metricId: 'phrma_population_pct_share',
+          metricId: 'medicare_population_pct_share',
           columnTitleHeader: 'Share of all beneficiaries',
           shortLabel: '% of beneficiary pop.',
           type: 'pct_share',
@@ -530,13 +530,13 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         type: 'count',
       },
       per100k: {
-        metricId: 'phrma_hiv_per_100k',
+        metricId: 'medicare_hiv_per_100k',
         chartTitle: 'Rates of HIV cases',
         shortLabel: 'cases per 100k',
         columnTitleHeader: 'Medicare beneficiary HIV cases',
         type: 'per100k',
         rateNumeratorMetric: {
-          metricId: 'phrma_hiv_estimated_total',
+          metricId: 'medicare_hiv_estimated_total',
           shortLabel: 'cases',
           chartTitle: '',
           type: 'count',
@@ -550,14 +550,14 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       },
       pct_share: {
         chartTitle: 'Share of total beneficiaries living with HIV',
-        metricId: 'phrma_hiv_pct_share',
+        metricId: 'medicare_hiv_pct_share',
         columnTitleHeader: 'Share of total beneficiaries living with HIV',
         shortLabel: '% of beneficiary pop. living with HIV',
         type: 'pct_share',
         populationComparisonMetric: {
           chartTitle:
             'Share of beneficiary population vs. share of total HIV cases',
-          metricId: 'phrma_population_pct_share',
+          metricId: 'medicare_population_pct_share',
           columnTitleHeader: 'Share of all beneficiaries',
           shortLabel: '% of beneficiary pop.',
           type: 'pct_share',
