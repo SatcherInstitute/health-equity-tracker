@@ -594,16 +594,22 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     setSpec(newSpec)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a5a41202 (Fix rendering map (#2416))
     // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
     setTimeout(() => {
       setShouldRenderMap(true)
     }, 0)
+<<<<<<< HEAD
 =======
     // // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
     // setTimeout(() => {
     //   setShouldRenderMap(true)
     // }, 0)
 >>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
+=======
+>>>>>>> a5a41202 (Fix rendering map (#2416))
   }, [
     isCawp,
     width,
@@ -614,6 +620,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     props.mapConfig.mapMin,
   ])
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
@@ -628,6 +635,15 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const mapIsReady =
     spec && (props.overrideShapeWithCircle ?? (ref && width > 0))
 >>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
+=======
+  const [shouldRenderMap, setShouldRenderMap] = useState(false)
+
+  const mapIsReady =
+    shouldRenderMap &&
+    spec &&
+    props.signalListeners &&
+    (props.overrideShapeWithCircle ?? (ref && width > 0))
+>>>>>>> a5a41202 (Fix rendering map (#2416))
 
   return (
     <Grid

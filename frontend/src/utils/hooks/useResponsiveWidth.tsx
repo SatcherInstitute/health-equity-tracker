@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, type RefObject } from 'react'
 import { debounce } from 'lodash'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   INVISIBLE_PRELOAD_WIDTH,
   MAP_RESIZE_TOLERANCE,
@@ -11,6 +12,9 @@ import {
 =======
 import { useMediaQuery, useTheme } from '@mui/material'
 >>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
+=======
+import { useEstimateMapWidth } from './useEstimateMapWidth'
+>>>>>>> a5a41202 (Fix rendering map (#2416))
 
 /*
 Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
@@ -27,15 +31,7 @@ export function useResponsiveWidth(
 >>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
 =======
 export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
-  const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const isCompareMode = window.location.href.includes('compare')
-  let widthEstimateDivider = 1
-  if (!pageIsSmall) widthEstimateDivider = 1.6
-  if (isCompareMode) widthEstimateDivider = 2.6
-
-  let widthEstimate = window.innerWidth / widthEstimateDivider
-  if (widthEstimate > 1200) widthEstimate = isCompareMode ? 750 : 1200
+  const widthEstimate = useEstimateMapWidth()
 
   const [width, setWidth] = useState<number>(widthEstimate)
 >>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
@@ -67,10 +63,14 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
         }
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
     }, 30) // Adjust the debounce delay (in milliseconds) as needed
 =======
     }, 300) // Adjust the debounce delay (in milliseconds) as needed
 >>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
+=======
+    }, 30) // Adjust the debounce delay (in milliseconds) as needed
+>>>>>>> a5a41202 (Fix rendering map (#2416))
 
     handleResize()
     window.addEventListener('resize', handleResize)
