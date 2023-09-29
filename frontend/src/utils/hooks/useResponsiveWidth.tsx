@@ -1,29 +1,12 @@
 import { useState, useRef, useEffect, type RefObject } from 'react'
 import { debounce } from 'lodash'
-import { useMediaQuery, useTheme } from '@mui/material'
-import { useGetParamState } from './useParamState'
-import {
-  MULTIPLE_MAPS_1_PARAM_KEY,
-  MULTIPLE_MAPS_2_PARAM_KEY,
-} from '../urlutils'
+import { useEstimateMapWidth } from './useEstimateMapWidth'
 
 /*
 Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
 */
 export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
-  const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.down('md'))
-  const isCompareMode = window.location.href.includes('compare')
-  let widthEstimateDivider = 1
-  if (!pageIsSmall) widthEstimateDivider = 1.6
-  if (isCompareMode) widthEstimateDivider = 2.6
-
-  let widthEstimate = window.innerWidth / widthEstimateDivider
-  if (widthEstimate > 1200) widthEstimate = isCompareMode ? 750 : 1200
-
-  const multiMap1IsOpen = useGetParamState(MULTIPLE_MAPS_1_PARAM_KEY)
-  const multiMap2IsOpen = useGetParamState(MULTIPLE_MAPS_2_PARAM_KEY)
-  if (multiMap1IsOpen || multiMap2IsOpen) widthEstimate = 200
+  const widthEstimate = useEstimateMapWidth()
 
   const [width, setWidth] = useState<number>(widthEstimate)
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
