@@ -16,11 +16,12 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
     const handleResize = debounce(() => {
       if (element) {
         const newWidth = element.offsetWidth
-        if (newWidth !== width) {
-          setWidth(newWidth)
-        }
+
+        // only resize if new map size is a little smaller or significantly larger
+        if (newWidth - width > 50 || width - newWidth > 10)
+          setWidth(newWidth - 10)
       }
-    }, 50) // Adjust the debounce delay (in milliseconds) as needed
+    }, 50) // how many milliseconds to wait between re-calculations
 
     handleResize()
     window.addEventListener('resize', handleResize)
