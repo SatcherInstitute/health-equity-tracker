@@ -535,32 +535,41 @@ function MapCardWithKey(props: MapCardProps) {
                     sm={mapIsWide ? 9 : 12}
                     lg={mapIsWide ? 10 : 12}
                   >
-                    <ChoroplethMap
-                      demographicType={demographicType}
-                      highestLowestGroupsByFips={getHighestLowestGroupsByFips(
-                        mapQueryResponse.data,
-                        demographicType,
-                        metricId
-                      )}
-                      activeDemographicGroup={activeDemographicGroup}
-                      countColsMap={countColsMap}
-                      data={displayData}
-                      filename={filename}
-                      fips={props.fips}
-                      geoData={geoData}
-                      hideLegend={true}
-                      hideMissingDataTooltip={highestLowestGeosMode}
-                      legendData={dataForActiveDemographicGroup}
-                      legendTitle={metricConfig.shortLabel.toLowerCase()}
-                      highestLowestGeosMode={highestLowestGeosMode}
-                      metric={metricConfig}
-                      showCounties={
-                        !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                    <Grid
+                      item
+                      minHeight={
+                        pageIsSmall || isCompareMode ? '200px' : '500px'
                       }
-                      signalListeners={signalListeners}
-                      mapConfig={{ mapScheme, mapMin }}
-                      scaleConfig={scale}
-                    />
+                      xs={12}
+                    >
+                      <ChoroplethMap
+                        demographicType={demographicType}
+                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                          mapQueryResponse.data,
+                          demographicType,
+                          metricId
+                        )}
+                        activeDemographicGroup={activeDemographicGroup}
+                        countColsMap={countColsMap}
+                        data={displayData}
+                        filename={filename}
+                        fips={props.fips}
+                        geoData={geoData}
+                        hideLegend={true}
+                        hideMissingDataTooltip={highestLowestGeosMode}
+                        legendData={dataForActiveDemographicGroup}
+                        legendTitle={metricConfig.shortLabel.toLowerCase()}
+                        highestLowestGeosMode={highestLowestGeosMode}
+                        metric={metricConfig}
+                        showCounties={
+                          !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                        }
+                        signalListeners={signalListeners}
+                        mapConfig={{ mapScheme, mapMin }}
+                        scaleConfig={scale}
+                      />
+                    </Grid>
+
                     {props.fips.isUsa() && (
                       <Grid item xs={12}>
                         <TerritoryCircles
