@@ -506,11 +506,9 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
 
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
-  const mapIsReady =
-    shouldRenderMap &&
-    spec &&
-    props.signalListeners &&
-    (props.overrideShapeWithCircle ?? (ref && width > 0))
+  const mapIsReady = Boolean(
+    shouldRenderMap && spec && ref.current && props.signalListeners
+  )
 
   return (
     <Grid
