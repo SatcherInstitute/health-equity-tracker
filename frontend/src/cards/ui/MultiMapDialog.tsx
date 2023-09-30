@@ -244,30 +244,33 @@ export function MultiMapDialog(props: MultiMapDialogProps) {
                   }}
                 >
                   <b>{mapLabel}</b>
-                  {props.metricConfig && dataForValue.length > 0 && (
-                    <ChoroplethMap
-                      demographicType={props.demographicType}
-                      activeDemographicGroup={demographicGroup}
-                      countColsMap={props.countColsMap}
-                      data={dataForValue}
-                      fieldRange={props.fieldRange}
-                      filename={title}
-                      fips={props.fips}
-                      geoData={props.geoData}
-                      hideLegend={true}
-                      key={demographicGroup}
-                      legendData={props.data}
-                      metric={props.metricConfig}
-                      showCounties={
-                        !props.fips.isUsa() && !props.hasSelfButNotChildGeoData
-                      }
-                      signalListeners={multimapSignalListeners}
-                      mapConfig={{ mapScheme, mapMin }}
-                      isMulti={true}
-                      scaleConfig={scale}
-                      highestLowestGeosMode={false}
-                    />
-                  )}
+                  <Grid item minHeight={150}>
+                    {props.metricConfig && dataForValue.length > 0 && (
+                      <ChoroplethMap
+                        demographicType={props.demographicType}
+                        activeDemographicGroup={demographicGroup}
+                        countColsMap={props.countColsMap}
+                        data={dataForValue}
+                        fieldRange={props.fieldRange}
+                        filename={title}
+                        fips={props.fips}
+                        geoData={props.geoData}
+                        hideLegend={true}
+                        key={demographicGroup}
+                        legendData={props.data}
+                        metric={props.metricConfig}
+                        showCounties={
+                          !props.fips.isUsa() &&
+                          !props.hasSelfButNotChildGeoData
+                        }
+                        signalListeners={multimapSignalListeners}
+                        mapConfig={{ mapScheme, mapMin }}
+                        isMulti={true}
+                        scaleConfig={scale}
+                        highestLowestGeosMode={false}
+                      />
+                    )}
+                  </Grid>
 
                   {/* TERRITORIES (IF NATIONAL VIEW) */}
                   {props.metricConfig &&
