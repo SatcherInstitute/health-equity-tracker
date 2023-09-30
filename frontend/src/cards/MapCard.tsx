@@ -551,10 +551,21 @@ function MapCardWithKey(props: MapCardProps) {
                     md={mapIsWide ? 9 : 12}
                   >
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
                         highestLowestGroupsByFips={highestLowestGroupsByFips}
+=======
+                    <Grid item minHeight={preloadHeight * 0.3} xs={12}>
+                      <ChoroplethMap
+                        demographicType={demographicType}
+                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
+                          mapQueryResponse.data,
+                          demographicType,
+                          metricId
+                        )}
+>>>>>>> 54681117 (Tweak map renders (#2417))
                         activeDemographicGroup={activeDemographicGroup}
                         countColsMap={countColsMap}
                         data={displayData}
@@ -573,6 +584,7 @@ function MapCardWithKey(props: MapCardProps) {
                         signalListeners={signalListeners}
                         mapConfig={{ mapScheme, mapMin }}
                         scaleConfig={scale}
+<<<<<<< HEAD
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
                     </Grid>
@@ -605,6 +617,11 @@ function MapCardWithKey(props: MapCardProps) {
                       scaleConfig={scale}
                     />
 >>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
+=======
+                      />
+                    </Grid>
+
+>>>>>>> 54681117 (Tweak map renders (#2417))
                     {props.fips.isUsa() && (
                       <Grid item xs={12}>
                         <TerritoryCircles

@@ -3,6 +3,7 @@ import { debounce } from 'lodash'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import {
   INVISIBLE_PRELOAD_WIDTH,
   MAP_RESIZE_TOLERANCE,
@@ -15,6 +16,8 @@ import { useMediaQuery, useTheme } from '@mui/material'
 =======
 import { useEstimateMapWidth } from './useEstimateMapWidth'
 >>>>>>> a5a41202 (Fix rendering map (#2416))
+=======
+>>>>>>> 54681117 (Tweak map renders (#2417))
 
 /*
 Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
@@ -31,8 +34,7 @@ export function useResponsiveWidth(
 >>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
 =======
 export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
-  const widthEstimate = useEstimateMapWidth()
-
+  const widthEstimate = 1
   const [width, setWidth] = useState<number>(widthEstimate)
 >>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
@@ -45,6 +47,7 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
     const handleResize = debounce(() => {
       if (element) {
         const newWidth = element.offsetWidth
+<<<<<<< HEAD
 <<<<<<< HEAD
         const amountChanged = Math.abs(newWidth - width)
         if (amountChanged > MAP_RESIZE_TOLERANCE) {
@@ -71,6 +74,14 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
 =======
     }, 30) // Adjust the debounce delay (in milliseconds) as needed
 >>>>>>> a5a41202 (Fix rendering map (#2416))
+=======
+
+        // only resize if new map size is a little smaller or significantly larger
+        if (newWidth - width > 50 || width - newWidth > 10)
+          setWidth(newWidth - 10)
+      }
+    }, 50) // how many milliseconds to wait between re-calculations
+>>>>>>> 54681117 (Tweak map renders (#2417))
 
     handleResize()
     window.addEventListener('resize', handleResize)

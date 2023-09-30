@@ -638,12 +638,18 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 =======
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
+<<<<<<< HEAD
   const mapIsReady =
     shouldRenderMap &&
     spec &&
     props.signalListeners &&
     (props.overrideShapeWithCircle ?? (ref && width > 0))
 >>>>>>> a5a41202 (Fix rendering map (#2416))
+=======
+  const mapIsReady = Boolean(
+    shouldRenderMap && spec && ref.current && props.signalListeners
+  )
+>>>>>>> 54681117 (Tweak map renders (#2417))
 
   return (
     <Grid
