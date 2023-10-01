@@ -263,6 +263,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const theme = useTheme()
   const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
+
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !pageIsSmall && !isCompareMode
 
@@ -535,13 +536,7 @@ function MapCardWithKey(props: MapCardProps) {
                     sm={mapIsWide ? 9 : 12}
                     lg={mapIsWide ? 10 : 12}
                   >
-                    <Grid
-                      item
-                      minHeight={
-                        pageIsSmall || isCompareMode ? '200px' : '500px'
-                      }
-                      xs={12}
-                    >
+                    <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
                         highestLowestGroupsByFips={getHighestLowestGroupsByFips(
