@@ -7,7 +7,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Home to Tracker', async ({ page }) => {
 
         // Landing Page Loads
-        await page.goto('/', { waitUntil: "networkidle" });
+        await page.goto('/', { waitUntil: "commit" });
         await expect(page.locator('#main')).toContainText('Advancing Health Justice');
 
         // @ts-ignore
@@ -23,7 +23,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Tracker Default to Covid Vax', async ({ page }) => {
 
         // Load Tracker Default helper view
-        await page.goto(`/exploredata`, { waitUntil: "networkidle" });
+        await page.goto(`/exploredata`, { waitUntil: "commit" });
 
         // stop the pulsing button so we can target it
         await page.emulateMedia({ reducedMotion: "reduce" });
@@ -48,7 +48,7 @@ test.describe('Home to COVID Vax by Age', () => {
     test('Covid Vax Toggle Age', async ({ page }) => {
 
         // Starting with COVID VAX
-        await page.goto(`/exploredata?mls=1.covid_vaccinations-3.00`, { waitUntil: "networkidle" });
+        await page.goto(`/exploredata?mls=1.covid_vaccinations-3.00`, { waitUntil: "commit" });
 
         // Changing demographic dropdown setting to AGE should change URL
         await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();

@@ -165,21 +165,19 @@ HIV_DEATH_RATIO_AGE_ADJUSTED = "hiv_deaths_ratio_age_adjusted"
 
 
 # PHRMA
-AMI_PREFIX = "ami"
+MEDICARE_PREFIX = "medicare"
+AMI_PREFIX = "medicare_ami"
 ARV_PREFIX = "arv"
 BETA_BLOCKERS_PREFIX = "beta_blockers"
 CCB_PREFIX = "ccb"
 DOAC_PREFIX = "doac"
-NQF_PREFIX = "nqf"
-PHRMA_HIV_PREFIX = "phrma_hiv"
-RASA_PREFIX = "rasa"
+BB_AMI_PREFIX = "bb_ami"
+PHRMA_HIV_PREFIX = "medicare_hiv"
+RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
 
 
-RaceTuple = namedtuple("RaceTuple", [
-    "race_category_id",
-    "race_and_ethnicity"
-])
+RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])
 
 RACE_COLUMNS = RaceTuple._fields
 
@@ -242,17 +240,18 @@ class Race(Enum):
     # we add a * for the non-standard other so it doesn't accidentally get
     # joined with the standard other on the frontend.
     OTHER_NONSTANDARD = ("OTHER_NONSTANDARD", "Unrepresented race", True)
-    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH",
-                            "Unrepresented race", False)
+    OTHER_NONSTANDARD_NH = ("OTHER_NONSTANDARD_NH", "Unrepresented race", False)
 
     # CAWP Non-standard, non-exclusive Race/Eth Categories
     ASIAN_PAC = ("ASIAN_PAC", "Asian American & Pacific Islander", True)
-    AIANNH = (
-        "AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
+    AIANNH = ("AIANNH", "Native American, Alaska Native, & Native Hawaiian", True)
     # Composite group needed for CAWP pct_relative_inequity calculations
     # which is equiv to the combo ACS categories AIAN + ASIAN + NHPI
     AIAN_API = (
-        "AIAN_API", "American Indian, Alaska Native, Asian & Pacific Islander", True)
+        "AIAN_API",
+        "American Indian, Alaska Native, Asian & Pacific Islander",
+        True,
+    )
 
     HISP_F = ("HISP_F", "Latina", True)
     MENA = ("MENA", "Middle Eastern & North African", True)
@@ -269,11 +268,13 @@ class Race(Enum):
     MULTI_OR_OTHER_STANDARD = (
         "MULTI_OR_OTHER_STANDARD",
         "Two or more races & Unrepresented race",
-        True)
+        True,
+    )
     MULTI_OR_OTHER_STANDARD_NH = (
         "MULTI_OR_OTHER_STANDARD_NH",
         "Two or more races & Unrepresented race",
-        False)
+        False,
+    )
 
     # When the race is unknown. Different from ETHNICITY_UNKNOWN, which
     # specifically refers to whether Hispanic/Latino is unknown.
@@ -314,10 +315,12 @@ class Race(Enum):
     @property
     def race_and_ethnicity(self) -> str:
         """The fully-qualified display name that specifies both race and whether
-           the category includes Hispanic or Latino."""
-        if (self.includes_hispanic is True or
-                self.includes_hispanic is None or
-                self.race in ["Hispanic or Latino", "Not Hispanic or Latino"]):
+        the category includes Hispanic or Latino."""
+        if (
+            self.includes_hispanic is True
+            or self.includes_hispanic is None
+            or self.race in ["Hispanic or Latino", "Not Hispanic or Latino"]
+        ):
             return self.race
         else:
             return self.race + " (NH)"
@@ -325,7 +328,7 @@ class Race(Enum):
     @staticmethod
     def get_col_names() -> list:
         """The list of column names for putting the race attributes into a
-           table. Columns are returned in the same order as `as_tuple()`."""
+        table. Columns are returned in the same order as `as_tuple()`."""
         return list(RaceTuple._fields)
 
     @staticmethod
@@ -344,19 +347,18 @@ class Race(Enum):
 
 def add_race_columns_from_category_id(df):
     """Adds all race-related columns to the dataframe using the race category id
-       to determine these values."""
+    to determine these values."""
     df["race_tuple"] = df.apply(
-        lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(),
-        axis=1)
-    df[Race.get_col_names()] = pd.DataFrame(
-        df["race_tuple"].tolist(), index=df.index)
+        lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1
+    )
+    df[Race.get_col_names()] = pd.DataFrame(df["race_tuple"].tolist(), index=df.index)
     df.drop("race_tuple", axis=1, inplace=True)
 
 
 def generate_column_name(prefix, suffix):
     """Generates a standard column name.
 
-       prefix: A condition name
-       suffix: a type of measurement (pct_share, per_100k)"""
+    prefix: A condition name
+    suffix: a type of measurement (pct_share, per_100k)"""
 
     return f'{prefix}_{suffix}'

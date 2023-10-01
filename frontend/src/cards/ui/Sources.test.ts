@@ -2,7 +2,7 @@ import {
   DatasetId,
   DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import { stripCountyFips } from './Sources'
+import { stripCountyFips } from './SourcesHelpers'
 
 describe('stripCountyFips', () => {
   it('Should return string without fips code', () => {

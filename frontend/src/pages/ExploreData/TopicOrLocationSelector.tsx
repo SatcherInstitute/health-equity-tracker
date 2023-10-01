@@ -155,7 +155,7 @@ function TopicOrLocationSelector(props: TopicOrLocationSelectorProps) {
                 renderInput={(params) => (
                   <TextField
                     placeholder=""
-                    // eslint-disable-next-line jsx-a11y/no-autofocus
+                    /* eslint-disable-next-line */
                     autoFocus
                     margin="dense"
                     variant="outlined"
