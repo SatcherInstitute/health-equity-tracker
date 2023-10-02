@@ -34,9 +34,13 @@ export function useResponsiveWidth(
 >>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
 =======
 export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
+<<<<<<< HEAD
   const widthEstimate = 1
   const [width, setWidth] = useState<number>(widthEstimate)
 >>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
+=======
+  const [width, setWidth] = useState<number>(25)
+>>>>>>> 642aa127 (Re-implement hook to guess map preload width (#2418))
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
   useEffect(() => {
@@ -47,6 +51,7 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
     const handleResize = debounce(() => {
       if (element) {
         const newWidth = element.offsetWidth
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         const amountChanged = Math.abs(newWidth - width)
@@ -82,6 +87,14 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
       }
     }, 50) // how many milliseconds to wait between re-calculations
 >>>>>>> 54681117 (Tweak map renders (#2417))
+=======
+        const amountChanged = Math.abs(newWidth - width)
+        if (amountChanged > 20) {
+          setWidth(newWidth)
+        }
+      }
+    }, 30) // Adjust the debounce delay (in milliseconds) as needed
+>>>>>>> 642aa127 (Re-implement hook to guess map preload width (#2418))
 
     handleResize()
     window.addEventListener('resize', handleResize)
