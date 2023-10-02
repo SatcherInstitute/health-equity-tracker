@@ -38,6 +38,7 @@ import {
   ZERO_DOT_SCALE_SPEC,
   ZERO_VAR_DATASET,
   ZERO_YELLOW_SCALE,
+  INVISIBLE_PRELOAD_WIDTH,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -516,6 +517,7 @@ export function ChoroplethMap(props: ChoroplethMapProps) {
       justifyContent={'center'}
       ref={props.overrideShapeWithCircle ? undefined : ref}
       sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
+      display={width === INVISIBLE_PRELOAD_WIDTH ? 'none' : undefined}
     >
       {mapIsReady && (
         <Vega
