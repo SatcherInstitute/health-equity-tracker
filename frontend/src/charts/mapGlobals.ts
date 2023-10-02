@@ -103,3 +103,6 @@ export const ZERO_YELLOW_SCALE = {
   domain: [0],
   range: [sass.mapMin],
 }
+
+export const INVISIBLE_PRELOAD_WIDTH = 25
+export const MAP_RESIZE_TOLERANCE = 15
