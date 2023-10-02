@@ -36,7 +36,7 @@ import {
 } from './helpers'
 
 /* Define type interface */
-export interface TrendsTooltipProps {
+interface TrendsTooltipProps {
   data: TrendsData
   selectedDate: string | null
   axisConfig: AxisConfig

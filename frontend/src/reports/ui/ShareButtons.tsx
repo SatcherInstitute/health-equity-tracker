@@ -18,13 +18,13 @@ export const SHARE_LABEL = 'Share this report:'
 export const ARTICLE_DESCRIPTION =
   'Article from the Health Equity Tracker: a free-to-use data and visualization platform that is enabling new insights into the impact of COVID-19 and other determinants of health on marginalized groups in the United States.'
 
-export interface ShareButtonProps {
+interface ShareButtonProps {
   isMobile: boolean
   reportTitle?: string
   article?: Article
 }
 
-function ShareButtons(props: ShareButtonProps) {
+export default function ShareButtons(props: ShareButtonProps) {
   const sharedUrl: string = window.location.href
   let title: string = 'Health Equity Tracker'
   if (props.reportTitle) {
@@ -100,5 +100,3 @@ function ShareButtons(props: ShareButtonProps) {
     </Grid>
   )
 }
-
-export default ShareButtons

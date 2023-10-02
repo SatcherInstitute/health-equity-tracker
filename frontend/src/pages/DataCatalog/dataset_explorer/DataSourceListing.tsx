@@ -97,7 +97,7 @@ function DownloadDatasetListItem(props: {
     </ListItem>
   )
 }
-export interface DataSourceListingProps {
+interface DataSourceListingProps {
   source_metadata: DataSourceMetadata
   dataset_metadata: MapOfDatasetMetadata
 }

@@ -15,7 +15,6 @@ import {
 import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { type CountColsMap } from '../cards/MapCard'
 import { type DemographicType } from '../data/query/Breakdowns'
 import {
   DATA_SUPPRESSED,
@@ -39,6 +38,7 @@ import {
   ZERO_VAR_DATASET,
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
+  type CountColsMap,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -66,7 +66,7 @@ const GEO_ID = 'id'
 // TODO: consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = 'fips'
 
-export interface ChoroplethMapProps {
+interface ChoroplethMapProps {
   demographicType: DemographicType
   // Data used to create the map
   data: Array<Record<string, any>>
@@ -110,7 +110,7 @@ export interface ChoroplethMapProps {
   activeDemographicGroup: DemographicGroup
 }
 
-export function ChoroplethMap(props: ChoroplethMapProps) {
+export default function ChoroplethMap(props: ChoroplethMapProps) {
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)

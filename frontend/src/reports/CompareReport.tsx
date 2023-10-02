@@ -1,13 +1,13 @@
 import { Box, Grid } from '@mui/material'
 import { useEffect } from 'react'
-import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
-import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
-import { MapCard } from '../cards/MapCard'
-import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
-import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
-import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
-import { TableCard } from '../cards/TableCard'
-import { UnknownsMapCard } from '../cards/UnknownsMapCard'
+import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
+import DisparityBarChartCard from '../cards/DisparityBarChartCard'
+import MapCard from '../cards/MapCard'
+import RateTrendsChartCard from '../cards/RateTrendsChartCard'
+import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
+import SimpleBarChartCard from '../cards/SimpleBarChartCard'
+import TableCard from '../cards/TableCard'
+import UnknownsMapCard from '../cards/UnknownsMapCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,

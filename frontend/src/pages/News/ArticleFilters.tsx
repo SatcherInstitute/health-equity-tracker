@@ -11,7 +11,7 @@ const filterHeaderMap: Record<FilterType, string> = {
   category: 'Categories',
 }
 
-export interface ArticleFiltersProps {
+interface ArticleFiltersProps {
   filterType: FilterType
   filterOptions: string[]
 }

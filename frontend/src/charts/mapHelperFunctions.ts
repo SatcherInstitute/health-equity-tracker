@@ -18,7 +18,6 @@ import {
 } from '../data/utils/Constants'
 import { type ScaleType, type Legend } from 'vega'
 import { type DemographicType } from '../data/query/Breakdowns'
-import { type CountColsMap } from '../cards/MapCard'
 import { getWomenRaceLabel } from '../data/providers/CawpProvider'
 import {
   CIRCLE_PROJECTION,
@@ -37,6 +36,7 @@ import {
   UNKNOWN_SCALE,
   ZERO_DOT_SCALE,
   MAP_SCHEMES,
+  type CountColsMap,
 } from './mapGlobals'
 
 /*

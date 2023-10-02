@@ -15,7 +15,7 @@ import { type Fips } from '../../data/utils/Fips'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 
-export interface HighestLowestGeosListProps {
+interface HighestLowestGeosListProps {
   // MetricConfig for data
   metricConfig: MetricConfig
   // DataTypeConfig for data
