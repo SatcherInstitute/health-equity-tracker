@@ -1,9 +1,13 @@
 import { Grid } from '@mui/material'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ChoroplethMap from '../../charts/ChoroplethMap'
 =======
 import { ChoroplethMap } from '../../charts/ChoroplethMap'
 >>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
+=======
+import ChoroplethMap from '../../charts/ChoroplethMap'
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 import {
   type DataTypeConfig,
   type MetricConfig,
@@ -14,7 +18,11 @@ import { getMapScheme } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
+<<<<<<< HEAD
 import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
+=======
+import { type CountColsMap } from '../../charts/mapGlobals'
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>

@@ -37,9 +37,13 @@ import {
   ZERO_DOT_SCALE,
   MAP_SCHEMES,
 <<<<<<< HEAD
+<<<<<<< HEAD
   type CountColsMap,
 =======
 >>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
+=======
+  type CountColsMap,
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 } from './mapGlobals'
 
 /*

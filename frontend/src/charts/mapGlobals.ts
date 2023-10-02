@@ -8,7 +8,11 @@ import { type Scale, type ColorScheme, type Legend } from 'vega'
 import { type MetricConfig } from '../data/config/MetricConfig'
 =======
 import { type ColorScheme } from 'vega'
+<<<<<<< HEAD
 >>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
+=======
+import { type MetricConfig } from '../data/config/MetricConfig'
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -111,6 +115,7 @@ export const ZERO_YELLOW_SCALE = {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
 
 export const PHRMA_COLOR_SCALE_SPEC: Scale = {
@@ -134,12 +139,17 @@ export const UNKNOWN_LEGEND_SPEC: Legend = {
   orient: 'left',
 }
 
+=======
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 export interface CountColsMap {
   numeratorConfig?: MetricConfig
   denominatorConfig?: MetricConfig
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
+=======
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 export const INVISIBLE_PRELOAD_WIDTH = 25
 export const MAP_RESIZE_TOLERANCE = 15

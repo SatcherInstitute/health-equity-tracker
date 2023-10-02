@@ -39,10 +39,14 @@ import {
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
 <<<<<<< HEAD
+<<<<<<< HEAD
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
 =======
 >>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
+=======
+  type CountColsMap,
+>>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
