@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material'
-import { ChoroplethMap } from '../../charts/ChoroplethMap'
+import ChoroplethMap from '../../charts/ChoroplethMap'
 import {
   type DataTypeConfig,
   type MetricConfig,

@@ -37,8 +37,8 @@ import {
   GENDER_METRICS,
 } from '../data/providers/HivProvider'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
-import { type CountColsMap } from './MapCard'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { type CountColsMap } from '../charts/mapGlobals'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -54,7 +54,7 @@ export interface TableCardProps {
   reportTitle: string
 }
 
-export function TableCard(props: TableCardProps) {
+export default function TableCard(props: TableCardProps) {
   const preloadHeight = useGuessPreloadHeight(
     [700, 1500],
     props.demographicType === SEX

@@ -16,7 +16,6 @@ import {
   getAgeAdjustedRatioMetric,
   type DropdownVarId,
   METRIC_CONFIG,
-  type AgeAdjustedDataTypeId,
 } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
@@ -33,22 +32,12 @@ import {
 import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
-import {
-  AGE_ADJUSTMENT_TAB_LINK,
-  AGE_ADJUST_COVID_DEATHS_US_SETTING,
-  AGE_ADJUST_COVID_HOSP_US_SETTING,
-} from '../utils/internalRoutes'
+import { AGE_ADJUSTMENT_TAB_LINK } from '../utils/internalRoutes'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
-
-// when alternate data types are available, provide a link to the national level, by race report for that data type
-export const dataTypeLinkMap: Partial<Record<AgeAdjustedDataTypeId, string>> = {
-  covid_deaths: AGE_ADJUST_COVID_DEATHS_US_SETTING,
-  covid_hospitalizations: AGE_ADJUST_COVID_HOSP_US_SETTING,
-}
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 600
@@ -69,7 +58,7 @@ export interface AgeAdjustedTableCardProps {
   reportTitle: string
 }
 
-export function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
+export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
   const metrics = getAgeAdjustedRatioMetric(props?.dataTypeConfig)
   const metricConfigPctShare = props.dataTypeConfig?.metrics?.pct_share
 

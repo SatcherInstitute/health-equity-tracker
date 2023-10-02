@@ -8,7 +8,7 @@ import {
 } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
-import { ChoroplethMap } from '../charts/ChoroplethMap'
+import ChoroplethMap from '../charts/ChoroplethMap'
 import {
   type MetricId,
   type DataTypeConfig,
@@ -55,7 +55,7 @@ import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
-import { MultiMapDialog } from './ui/MultiMapDialog'
+import MultiMapDialog from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
@@ -111,7 +111,7 @@ export interface MapCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
-export function MapCard(props: MapCardProps) {
+export default function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
       key={props.demographicType + props.dataTypeConfig.dataTypeId}
