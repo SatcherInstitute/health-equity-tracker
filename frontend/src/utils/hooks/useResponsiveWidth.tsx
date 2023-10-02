@@ -4,10 +4,14 @@ import { debounce } from 'lodash'
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
 import {
   INVISIBLE_PRELOAD_WIDTH,
   MAP_RESIZE_TOLERANCE,
 } from '../../charts/mapGlobals'
+<<<<<<< HEAD
 =======
 >>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
 =======
@@ -18,6 +22,8 @@ import { useEstimateMapWidth } from './useEstimateMapWidth'
 >>>>>>> a5a41202 (Fix rendering map (#2416))
 =======
 >>>>>>> 54681117 (Tweak map renders (#2417))
+=======
+>>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
 
 /*
 Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
@@ -26,6 +32,7 @@ Allow visualizations to calculate their updated width when the window is resized
 <<<<<<< HEAD
 export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
   const [width, setWidth] = useState<number>(INVISIBLE_PRELOAD_WIDTH)
+<<<<<<< HEAD
 =======
 export function useResponsiveWidth(
   defaultWidth?: number
@@ -41,6 +48,8 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
 =======
   const [width, setWidth] = useState<number>(25)
 >>>>>>> 642aa127 (Re-implement hook to guess map preload width (#2418))
+=======
+>>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
   useEffect(() => {
@@ -89,7 +98,7 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
 >>>>>>> 54681117 (Tweak map renders (#2417))
 =======
         const amountChanged = Math.abs(newWidth - width)
-        if (amountChanged > 20) {
+        if (amountChanged > MAP_RESIZE_TOLERANCE) {
           setWidth(newWidth)
         }
       }

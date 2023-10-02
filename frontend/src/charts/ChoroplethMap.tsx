@@ -38,8 +38,11 @@ import {
   ZERO_VAR_DATASET,
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
+<<<<<<< HEAD
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
+=======
+>>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,

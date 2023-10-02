@@ -110,6 +110,7 @@ export const ZERO_YELLOW_SCALE = {
   range: [sass.mapMin],
 }
 
+<<<<<<< HEAD
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
 
 export const PHRMA_COLOR_SCALE_SPEC: Scale = {
@@ -138,5 +139,7 @@ export interface CountColsMap {
   denominatorConfig?: MetricConfig
 }
 
+=======
+>>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
 export const INVISIBLE_PRELOAD_WIDTH = 25
 export const MAP_RESIZE_TOLERANCE = 15
