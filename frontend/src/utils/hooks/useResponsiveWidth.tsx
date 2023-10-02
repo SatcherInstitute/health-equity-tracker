@@ -1,11 +1,15 @@
 import { useState, useRef, useEffect, type RefObject } from 'react'
 import { debounce } from 'lodash'
+import {
+  INVISIBLE_PRELOAD_WIDTH,
+  MAP_RESIZE_TOLERANCE,
+} from '../../charts/mapGlobals'
 
 /*
 Allow visualizations to calculate their updated width when the window is resized / re-zoomed. This function is debounced to restrict how often the calculation is done. Also prevents them from rendering before the width has been established based on the ref
 */
 export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
-  const [width, setWidth] = useState<number>(25)
+  const [width, setWidth] = useState<number>(INVISIBLE_PRELOAD_WIDTH)
   const ref = useRef<HTMLDivElement>(document.createElement('div'))
 
   useEffect(() => {
@@ -15,7 +19,7 @@ export function useResponsiveWidth(): [RefObject<HTMLDivElement>, number] {
       if (element) {
         const newWidth = element.offsetWidth
         const amountChanged = Math.abs(newWidth - width)
-        if (amountChanged > 20) {
+        if (amountChanged > MAP_RESIZE_TOLERANCE) {
           setWidth(newWidth)
         }
       }
