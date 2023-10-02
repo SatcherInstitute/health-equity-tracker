@@ -8,12 +8,8 @@ import {
 } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
-import { ChoroplethMap } from '../charts/ChoroplethMap'
-import {
-  type MetricId,
-  type DataTypeConfig,
-  type MetricConfig,
-} from '../data/config/MetricConfig'
+import ChoroplethMap from '../charts/ChoroplethMap'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -55,7 +51,7 @@ import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
-import { MultiMapDialog } from './ui/MultiMapDialog'
+import MultiMapDialog from './ui/MultiMapDialog'
 import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
@@ -89,17 +85,12 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
-import { RATE_MAP_SCALE } from '../charts/mapGlobals'
+import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
-export interface CountColsMap {
-  numeratorConfig?: MetricConfig
-  denominatorConfig?: MetricConfig
-}
-
-export interface MapCardProps {
+interface MapCardProps {
   key?: string
   fips: Fips
   dataTypeConfig: DataTypeConfig
@@ -111,7 +102,7 @@ export interface MapCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
 // the props change and the state needs to be reset) rather than relying on the card caller.
-export function MapCard(props: MapCardProps) {
+export default function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
       key={props.demographicType + props.dataTypeConfig.dataTypeId}

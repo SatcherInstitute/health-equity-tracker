@@ -27,7 +27,7 @@ import {
 } from '../../data/utils/Constants'
 
 /* Define type interface */
-export interface FilterLegendProps {
+interface FilterLegendProps {
   data: TrendsData
   selectedGroups: string[]
   handleClick: (group: DemographicGroup | null) => void

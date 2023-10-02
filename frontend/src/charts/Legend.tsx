@@ -40,7 +40,7 @@ import ClickableLegendHeader from './ClickableLegendHeader'
 /*
    Legend renders a vega chart that just contains a legend.
 */
-export interface LegendProps {
+interface LegendProps {
   dataTypeConfig: DataTypeConfig
   // Data for which to create a legend.
   data?: Array<Record<string, any>> // Dataset for which to calculate legend.

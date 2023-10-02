@@ -42,7 +42,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-export interface RateTrendsChartCardProps {
+interface RateTrendsChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
@@ -53,7 +53,7 @@ export interface RateTrendsChartCardProps {
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
-export function RateTrendsChartCard(props: RateTrendsChartCardProps) {
+export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
   // Manages which group filters user has applied
   const [selectedTableGroups, setSelectedTableGroups] = useState<
     DemographicGroup[]

@@ -47,7 +47,7 @@ const Onboarding = lazy(async () => await import('./Onboarding'))
 
 const EXPLORE_DATA_ID = 'main'
 
-export interface ExploreDataPageProps {
+interface ExploreDataPageProps {
   isMobile: boolean
 }
 
