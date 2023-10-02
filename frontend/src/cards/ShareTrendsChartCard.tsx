@@ -45,7 +45,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-export interface ShareTrendsChartCardProps {
+interface ShareTrendsChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
@@ -56,7 +56,7 @@ export interface ShareTrendsChartCardProps {
 
 // Intentionally removed key wrapper found in other cards as 2N prefers card not re-render
 // and instead D3 will handle updates to the data
-export function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
+export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
   // Manages which group filters user has applied
   const [selectedTableGroups, setSelectedTableGroups] = useState<
     DemographicGroup[]

@@ -1,4 +1,3 @@
-import React from 'react'
 import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
 import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
@@ -35,7 +34,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-export interface SimpleBarChartCardProps {
+interface SimpleBarChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
@@ -45,7 +44,7 @@ export interface SimpleBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export function SimpleBarChartCard(props: SimpleBarChartCardProps) {
+export default function SimpleBarChartCard(props: SimpleBarChartCardProps) {
   return (
     <SimpleBarChartCardWithKey
       key={props.dataTypeConfig.dataTypeId + props.demographicType}

@@ -1,12 +1,12 @@
 import { Box, Grid } from '@mui/material'
 import { useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
-import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
-import { MapCard } from '../cards/MapCard'
-import { SimpleBarChartCard } from '../cards/SimpleBarChartCard'
-import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
-import { UnknownsMapCard } from '../cards/UnknownsMapCard'
-import { TableCard } from '../cards/TableCard'
+import DisparityBarChartCard from '../cards/DisparityBarChartCard'
+import MapCard from '../cards/MapCard'
+import SimpleBarChartCard from '../cards/SimpleBarChartCard'
+import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
+import UnknownsMapCard from '../cards/UnknownsMapCard'
+import TableCard from '../cards/TableCard'
 import {
   type DropdownVarId,
   METRIC_CONFIG,
@@ -23,8 +23,8 @@ import {
 } from '../utils/urlutils'
 import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
-import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
-import { ShareTrendsChartCard } from '../cards/ShareTrendsChartCard'
+import RateTrendsChartCard from '../cards/RateTrendsChartCard'
+import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import styles from './Report.module.scss'
 
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -44,7 +44,7 @@ import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
 
-export interface ReportProps {
+interface ReportProps {
   key: string
   dropdownVarId: DropdownVarId
   fips: Fips

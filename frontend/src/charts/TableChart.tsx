@@ -33,9 +33,8 @@ import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { type Fips } from '../data/utils/Fips'
 import ChartTitle from '../cards/ChartTitle'
-import { type CountColsMap } from '../cards/MapCard'
 import { removeLastS } from './utils'
-import { NO_DATA_MESSAGE } from './mapGlobals'
+import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -53,7 +52,7 @@ export const altCellStyle = {
   width: '200px',
 }
 
-export interface TableChartProps {
+interface TableChartProps {
   countColsMap: CountColsMap
   data: Array<Readonly<Record<string, any>>>
   demographicType: DemographicType

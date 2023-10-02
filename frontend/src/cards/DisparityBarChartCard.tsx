@@ -25,7 +25,7 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
-export interface DisparityBarChartCardProps {
+interface DisparityBarChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
@@ -35,7 +35,9 @@ export interface DisparityBarChartCardProps {
 
 // This wrapper ensures the proper key is set to create a new instance when
 // required rather than relying on the card caller.
-export function DisparityBarChartCard(props: DisparityBarChartCardProps) {
+export default function DisparityBarChartCard(
+  props: DisparityBarChartCardProps
+) {
   return (
     <DisparityBarChartCardWithKey
       key={props.dataTypeConfig.dataTypeId + props.demographicType}

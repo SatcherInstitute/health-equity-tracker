@@ -7,7 +7,7 @@ import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 import InfoCitations from './InfoCitations'
 
-export interface DefinitionsListProps {
+interface DefinitionsListProps {
   dataTypesToDefine: Array<[string, DataTypeConfig[]]>
 }
 

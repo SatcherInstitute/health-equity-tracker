@@ -270,7 +270,7 @@ function getSpec(
   }
 }
 
-export interface SimpleHorizontalBarChartProps {
+interface SimpleHorizontalBarChartProps {
   data: Row[]
   metric: MetricConfig
   demographicType: DemographicType
