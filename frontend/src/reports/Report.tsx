@@ -44,7 +44,7 @@ import { selectedDataTypeConfig1Atom } from '../utils/sharedSettingsState'
 import { getAllDemographicOptions } from './reportUtils'
 import { useParamState } from '../utils/hooks/useParamState'
 
-export interface ReportProps {
+interface ReportProps {
   key: string
   dropdownVarId: DropdownVarId
   fips: Fips

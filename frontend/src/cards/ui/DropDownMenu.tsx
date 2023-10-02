@@ -102,7 +102,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
   )
 }
 
-export interface DropDownMenuProps {
+interface DropDownMenuProps {
   // Dropdown's currently selected option.
   value: DemographicGroup
   // Map of first level menu option to submenu options.

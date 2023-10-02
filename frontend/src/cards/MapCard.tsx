@@ -9,11 +9,7 @@ import {
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import ChoroplethMap from '../charts/ChoroplethMap'
-import {
-  type MetricId,
-  type DataTypeConfig,
-  type MetricConfig,
-} from '../data/config/MetricConfig'
+import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   Breakdowns,
@@ -89,17 +85,12 @@ import {
 import ChartTitle from './ChartTitle'
 import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
-import { RATE_MAP_SCALE } from '../charts/mapGlobals'
+import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
-export interface CountColsMap {
-  numeratorConfig?: MetricConfig
-  denominatorConfig?: MetricConfig
-}
-
-export interface MapCardProps {
+interface MapCardProps {
   key?: string
   fips: Fips
   dataTypeConfig: DataTypeConfig

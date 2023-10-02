@@ -47,7 +47,7 @@ export const NEVER_SHOW_PROPERTIES = [
     ?.secondaryPopulationComparisonMetric,
 ]
 
-export interface TableCardProps {
+interface TableCardProps {
   fips: Fips
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig

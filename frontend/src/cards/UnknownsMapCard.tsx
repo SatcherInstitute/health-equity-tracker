@@ -30,7 +30,7 @@ import { generateChartTitle } from '../charts/utils'
 import { getMapScheme } from '../charts/mapHelperFunctions'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
-export interface UnknownsMapCardProps {
+interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   dataTypeConfig: DataTypeConfig
   // Breakdown value to evaluate for unknowns

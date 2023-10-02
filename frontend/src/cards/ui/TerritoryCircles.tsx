@@ -13,7 +13,7 @@ import {
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { type CountColsMap } from '../MapCard'
+import { type CountColsMap } from '../../charts/mapGlobals'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>

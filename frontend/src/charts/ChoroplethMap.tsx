@@ -15,7 +15,6 @@ import {
 import { type Legend } from 'vega'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-import { type CountColsMap } from '../cards/MapCard'
 import { type DemographicType } from '../data/query/Breakdowns'
 import {
   DATA_SUPPRESSED,
@@ -39,6 +38,7 @@ import {
   ZERO_VAR_DATASET,
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
+  type CountColsMap,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,

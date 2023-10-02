@@ -27,7 +27,7 @@ import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
 import { UNKNOWN_W } from '../../data/utils/Constants'
 
 /* Define type interface */
-export interface LineChartProps {
+interface LineChartProps {
   data: TrendsData
   xScale: XScale
   yScale: YScale
