@@ -19,10 +19,14 @@ import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
 =======
 import { type CountColsMap } from '../../charts/mapGlobals'
 >>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
+=======
+import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
+>>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -53,6 +57,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 =======
   )
 
+<<<<<<< HEAD
   const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
     props.fullData,
     props.demographicType,
@@ -60,15 +65,21 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
 >>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
   )
 
+=======
+>>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
   return (
     <Grid
       container
       flexDirection={'row'}
       justifyContent={'flex-end'}
 <<<<<<< HEAD
+<<<<<<< HEAD
       aria-hidden={true}
 =======
 >>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
+=======
+      aria-hidden={true}
+>>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
       style={{ padding: props.isMulti ? '0px 5px 10px' : '' }}
     >
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {

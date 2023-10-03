@@ -488,12 +488,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     ),
   ]
 
-  marks.push(
-    createInvisibleAltMarks(
-      /* tooltipDatum */ tooltipDatum,
-      /*  tooltipLabel */ tooltipLabel
+  if (!props.overrideShapeWithCircle)
+    marks.push(
+      createInvisibleAltMarks(
+        /* tooltipDatum */ tooltipDatum,
+        /*  tooltipLabel */ tooltipLabel
+      )
     )
-  )
 
   const altText = makeAltText(
     /* data */ props.data,

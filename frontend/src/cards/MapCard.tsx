@@ -452,9 +452,12 @@ function MapCardWithKey(props: MapCardProps) {
           [mapQueryResponse.data, props.demographicType, metricId, props.fips]
         )
 
+<<<<<<< HEAD
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
+=======
+>>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
         return (
           <>
             <MultiMapDialog
@@ -560,12 +563,16 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
+<<<<<<< HEAD
                         highestLowestGroupsByFips={getHighestLowestGroupsByFips(
                           mapQueryResponse.data,
                           demographicType,
                           metricId
                         )}
 >>>>>>> 54681117 (Tweak map renders (#2417))
+=======
+                        highestLowestGroupsByFips={highestLowestGroupsByFips}
+>>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
                         activeDemographicGroup={activeDemographicGroup}
                         countColsMap={countColsMap}
                         data={displayData}
