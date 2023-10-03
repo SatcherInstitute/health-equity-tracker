@@ -39,6 +39,7 @@ import {
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
   type CountColsMap,
+  PHRMA_COLOR_SCALE_SPEC,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -326,14 +327,19 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   if (!props.hideLegend) {
     legendList.push(legend, helperLegend)
   }
-  const colorScale = setupColorScale(
-    /* legendData */ props.data,
-    /* metricId */ props.metric.metricId,
-    /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
-    /* fieldRange? */ props.fieldRange,
-    /* scaleColorScheme? */ props.mapConfig.mapScheme,
-    /* isTerritoryCircle? */ props.fips.isTerritory()
-  )
+
+  const colorScale = isPhrma
+    ? PHRMA_COLOR_SCALE_SPEC
+    : setupColorScale(
+        /* legendData */ props.data,
+        /* metricId */ props.metric.metricId,
+        /* scaleType */ props.isUnknownsMap
+          ? UNKNOWNS_MAP_SCALE
+          : RATE_MAP_SCALE,
+        /* fieldRange? */ props.fieldRange,
+        /* scaleColorScheme? */ props.mapConfig.mapScheme,
+        /* isTerritoryCircle? */ props.fips.isTerritory()
+      )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain

@@ -3,7 +3,7 @@ To prevent components loading from one another, all exported consts for the map 
 */
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
-import { type ColorScheme } from 'vega'
+import { type Scale, type ColorScheme } from 'vega'
 import { type MetricConfig } from '../data/config/MetricConfig'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
@@ -103,6 +103,21 @@ export const ZERO_YELLOW_SCALE = {
   type: 'ordinal',
   domain: [0],
   range: [sass.mapMin],
+}
+
+export const PHRMA_COLOR_SCALE_SPEC: Scale = {
+  name: COLOR_SCALE,
+  type: 'threshold',
+  domain: [60, 70, 75, 80, 85, 90],
+  range: [
+    '#46327F', // 1
+    '#365C8D',
+    '#267F8E',
+    '#1FA187',
+    '#4BC16C',
+    '#9FDA3A',
+    '#F0E525', // 7
+  ],
 }
 
 export interface CountColsMap {
