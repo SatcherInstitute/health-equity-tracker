@@ -70,7 +70,7 @@ function LandingPage() {
               paragraph={true}
               component="h3"
             >
-              Advancing Health Justice
+              Advancing Health Justice.
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
