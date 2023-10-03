@@ -6,14 +6,11 @@ import {
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
-import {
-  getHighestLowestGroupsByFips,
-  getMapScheme,
-} from '../../charts/mapHelperFunctions'
+import { getMapScheme } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { type CountColsMap } from '../../charts/mapGlobals'
+import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -21,6 +18,7 @@ interface TerritoryCirclesProps {
   metricConfig: MetricConfig
   dataTypeConfig: DataTypeConfig
   highestLowestGeosMode: boolean
+  highestLowestGroupsByFips?: Record<string, HighestLowest>
   legendData?: Array<Record<string, any>>
   geoData?: Record<string, any>
   countColsMap: CountColsMap
@@ -40,17 +38,12 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     /*  isUnknownsMap */ props.isUnknownsMap
   )
 
-  const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
-    props.fullData,
-    props.demographicType,
-    props.metricConfig.metricId
-  )
-
   return (
     <Grid
       container
       flexDirection={'row'}
       justifyContent={'flex-end'}
+      aria-hidden={true}
       style={{ padding: props.isMulti ? '0px 5px 10px' : '' }}
     >
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
@@ -59,7 +52,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
           <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
             <ChoroplethMap
               demographicType={props.demographicType}
-              highestLowestGroupsByFips={highestLowestGroupsByFips}
+              highestLowestGroupsByFips={props.highestLowestGroupsByFips}
               activeDemographicGroup={props.activeDemographicGroup}
               signalListeners={props.signalListeners}
               metric={props.metricConfig}
