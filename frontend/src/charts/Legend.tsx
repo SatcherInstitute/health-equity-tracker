@@ -79,6 +79,7 @@ export function Legend(props: LegendProps) {
   const missingData = props.data?.filter(
     (row) => row[props.metric.metricId] == null
   )
+  const hasMissingData = Boolean(missingData && missingData.length > 0)
 
   // Initial spec state is set in useEffect
   // TODO: Why??
@@ -122,7 +123,7 @@ export function Legend(props: LegendProps) {
     const legendList: LegendType[] = []
 
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
-    if (missingData && missingData.length > 0) {
+    if (hasMissingData) {
       legendList.push({
         fill: UNKNOWN_SCALE,
         symbolType: LEGEND_SYMBOL_TYPE,
@@ -131,28 +132,52 @@ export function Legend(props: LegendProps) {
       })
     }
 
-    // MAKE NON-ZERO LEGEND ITEMS IF NEEDED
-    if (uniqueNonZeroValueCount > 0) {
-      const nonZeroLegend: LegendType = {
-        fill: COLOR_SCALE,
-        // symbolType: LEGEND_SYMBOL_TYPE,
-        // size: DOT_SIZE_SCALE,
-        format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
-        direction: props.stackingDirection,
-        orient: 'left',
-        // gradientThickness: 30,
-        // columns: props.columns,
-        // columnPadding: 20,
-        encode: {
-          labels: {
-            update: {
-              text: {
-                signal: `if (datum.label != null, ${legendBucketLabel}, '')`,
-              },
+    console.log({ isPhrma })
+
+    const nonZeroLegend: LegendType = {
+      fill: COLOR_SCALE,
+      symbolType: LEGEND_SYMBOL_TYPE,
+      size: DOT_SIZE_SCALE,
+      format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
+      direction: props.stackingDirection,
+      columns: 0, // props.columns,
+      columnPadding: 20,
+      encode: {
+        labels: {
+          update: {
+            text: {
+              signal: `if (datum.label != null, ${legendBucketLabel}, '')`,
             },
           },
         },
-      }
+      },
+    }
+
+    const nonZeroPctLegend: LegendType = {
+      fill: COLOR_SCALE,
+      gradientLength:
+        props.stackingDirection === 'horizontal' && !hasMissingData ? 300 : 200,
+      format: 'd',
+      labelOffset: 8,
+      gradientThickness: 20,
+      direction: 'vertical', // props.stackingDirection,
+      // columns: 1,
+      encode: {
+        labels: {
+          update: {
+            text: {
+              signal: `if (datum.label != null, ${legendBucketLabel}, '')`,
+            },
+          },
+        },
+      },
+    }
+
+    // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
+
+    if (isPhrma) {
+      legendList.push(nonZeroPctLegend)
+    } else if (uniqueNonZeroValueCount > 0) {
       legendList.push(nonZeroLegend)
     }
 
@@ -309,6 +334,8 @@ export function Legend(props: LegendProps) {
     props.scaleType,
     props.stackingDirection,
   ])
+
+  console.log(spec)
 
   return (
     <section className={styles.Legend}>

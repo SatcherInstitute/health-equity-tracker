@@ -87,6 +87,7 @@ import { useParamState } from '../utils/hooks/useParamState'
 import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -443,6 +444,9 @@ function MapCardWithKey(props: MapCardProps) {
           [mapQueryResponse.data, props.demographicType, metricId, props.fips]
         )
 
+        const isPhrmaAdherence =
+          PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
+
         return (
           <>
             <MultiMapDialog
@@ -604,7 +608,11 @@ function MapCardWithKey(props: MapCardProps) {
                       fipsTypeDisplayName={fipsTypeDisplayName}
                       mapConfig={{ mapScheme, mapMin }}
                       columns={mapIsWide ? 1 : 3}
-                      stackingDirection={'vertical'}
+                      stackingDirection={
+                        isPhrmaAdherence && !mapIsWide
+                          ? 'horizontal'
+                          : 'vertical'
+                      }
                       handleScaleChange={handleScaleChange}
                     />
                   </Grid>
