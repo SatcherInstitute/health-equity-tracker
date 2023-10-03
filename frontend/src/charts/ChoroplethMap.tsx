@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
@@ -140,10 +140,17 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     })
   }
 
-  const dataWithHighestLowest = embedHighestLowestGroups(
-    suppressedData,
-    props.highestLowestGroupsByFips
-  )
+  const dataWithHighestLowest =
+    !props.isUnknownsMap && !props.isMulti
+      ? useMemo(
+          () =>
+            embedHighestLowestGroups(
+              suppressedData,
+              props.highestLowestGroupsByFips
+            ),
+          [suppressedData, props.highestLowestGroupsByFips]
+        )
+      : suppressedData
 
   const [ref, width] = useResponsiveWidth()
 
