@@ -41,7 +41,9 @@ interface TopicOrLocationSelectorProps {
   onOptionUpdate: (option: string) => void
 }
 
-function TopicOrLocationSelector(props: TopicOrLocationSelectorProps) {
+export default function TopicOrLocationSelector(
+  props: TopicOrLocationSelectorProps
+) {
   const newValue: any | DataTypeId | string | DefaultDropdownVarId = props.value
   const isFips = isFipsString(newValue)
   let currentDisplayName
@@ -262,5 +264,3 @@ function TopicOrLocationSelector(props: TopicOrLocationSelectorProps) {
     </>
   )
 }
-
-export default TopicOrLocationSelector
