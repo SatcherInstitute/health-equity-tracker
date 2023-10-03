@@ -53,7 +53,7 @@ import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 const ChoroplethMap = lazy(
   async () => await import('../../charts/ChoroplethMap')
 )
-export interface MultiMapDialogProps {
+interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
   // Metric the small maps will evaluate
   metricConfig: MetricConfig

@@ -52,7 +52,7 @@ export const altCellStyle = {
   width: '200px',
 }
 
-export interface TableChartProps {
+interface TableChartProps {
   countColsMap: CountColsMap
   data: Array<Readonly<Record<string, any>>>
   demographicType: DemographicType

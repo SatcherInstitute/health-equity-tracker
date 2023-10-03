@@ -91,7 +91,7 @@ const MultiMapDialog = lazy(async () => await import('./ui/MultiMapDialog'))
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
-export interface MapCardProps {
+interface MapCardProps {
   key?: string
   fips: Fips
   dataTypeConfig: DataTypeConfig

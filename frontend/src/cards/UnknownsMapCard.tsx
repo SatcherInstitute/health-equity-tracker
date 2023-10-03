@@ -32,7 +32,7 @@ import { lazy } from 'react'
 const ChoroplethMap = lazy(async () => await import('../charts/ChoroplethMap'))
 const TerritoryCircles = lazy(async () => await import('./ui/TerritoryCircles'))
 
-export interface UnknownsMapCardProps {
+interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
   dataTypeConfig: DataTypeConfig
   // Breakdown value to evaluate for unknowns

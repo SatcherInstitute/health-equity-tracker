@@ -25,7 +25,7 @@ import {
 import { type UnknownData, type XScale } from './types'
 
 /* Define type interface */
-export interface CircleChartProps {
+interface CircleChartProps {
   data: UnknownData
   xScale: XScale
   width: number

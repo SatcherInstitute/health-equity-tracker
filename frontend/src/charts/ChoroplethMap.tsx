@@ -25,8 +25,8 @@ import {
   UNKNOWNS_MAP_SCALE,
   VALID_DATASET,
   ZERO_DATASET,
-  type CountColsMap,
   INVISIBLE_PRELOAD_WIDTH,
+  type CountColsMap,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -56,7 +56,7 @@ const GEO_ID = 'id'
 // TODO: consider moving standardized column names, like fips, to variables shared between here and VariableProvider
 const VAR_FIPS = 'fips'
 
-export interface ChoroplethMapProps {
+interface ChoroplethMapProps {
   demographicType: DemographicType
   // Data used to create the map
   data: Array<Record<string, any>>

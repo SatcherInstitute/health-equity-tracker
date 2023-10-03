@@ -6,7 +6,7 @@ import { type Article } from './NewsPage'
 import { Box, Grid } from '@mui/material'
 import LazyLoad from 'react-lazyload'
 
-export interface NewsPreviewCardProps {
+interface NewsPreviewCardProps {
   article: Article
   arrow?: 'prev' | 'next'
 }

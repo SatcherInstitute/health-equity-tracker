@@ -34,7 +34,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
 
-export interface SimpleBarChartCardProps {
+interface SimpleBarChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig

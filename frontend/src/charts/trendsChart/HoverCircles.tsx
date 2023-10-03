@@ -21,7 +21,7 @@ import { COLORS as C } from './constants'
 import { type DemographicGroup } from '../../data/utils/Constants'
 
 /* Define type interface */
-export interface HoverCirclesProps {
+interface HoverCirclesProps {
   data: TrendsData
   yScale: YScale
   selectedDate: string | null

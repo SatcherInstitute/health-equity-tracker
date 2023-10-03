@@ -50,7 +50,7 @@ const exclusionList: RaceAndEthnicityGroup[] = [
   MULTI_OR_OTHER_STANDARD_NH,
 ]
 
-export interface AgeAdjustedTableCardProps {
+interface AgeAdjustedTableCardProps {
   fips: Fips
   dataTypeConfig: DataTypeConfig
   demographicType: DemographicType

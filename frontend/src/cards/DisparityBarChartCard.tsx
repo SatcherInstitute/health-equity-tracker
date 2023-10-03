@@ -25,7 +25,7 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
-export interface DisparityBarChartCardProps {
+interface DisparityBarChartCardProps {
   key?: string
   demographicType: DemographicType
   dataTypeConfig: DataTypeConfig
