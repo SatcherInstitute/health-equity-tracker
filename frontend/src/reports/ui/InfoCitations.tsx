@@ -11,7 +11,7 @@ export default function InfoCitations(props: InfoCitationsProps) {
     <span>
       {props.citations?.map((citation: Citation, i) => {
         return (
-          <>
+          <span key={`${citation.shortLabel}-${i}`}>
             {' '}
             <a
               key={citation.url + i}
@@ -20,7 +20,7 @@ export default function InfoCitations(props: InfoCitationsProps) {
             >
               {citation.shortLabel}
             </a>
-          </>
+          </span>
         )
       })}
     </span>

@@ -58,7 +58,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   getHighestLowestGroupsByFips,
   getMapScheme,
@@ -433,6 +433,16 @@ function MapCardWithKey(props: MapCardProps) {
             </CardContent>
           )
 
+        const highestLowestGroupsByFips = useMemo(
+          () =>
+            getHighestLowestGroupsByFips(
+              mapQueryResponse.data,
+              props.demographicType,
+              metricId
+            ),
+          [mapQueryResponse.data, props.demographicType, metricId, props.fips]
+        )
+
         return (
           <>
             <MultiMapDialog
@@ -530,11 +540,7 @@ function MapCardWithKey(props: MapCardProps) {
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
-                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
-                          mapQueryResponse.data,
-                          demographicType,
-                          metricId
-                        )}
+                        highestLowestGroupsByFips={highestLowestGroupsByFips}
                         activeDemographicGroup={activeDemographicGroup}
                         countColsMap={countColsMap}
                         data={displayData}
@@ -566,6 +572,7 @@ function MapCardWithKey(props: MapCardProps) {
                           fullData={mapQueryResponse.data}
                           geoData={geoData}
                           highestLowestGeosMode={highestLowestGeosMode}
+                          highestLowestGroupsByFips={highestLowestGroupsByFips}
                           mapIsWide={mapIsWide}
                           metricConfig={metricConfig}
                           dataTypeConfig={props.dataTypeConfig}
