@@ -9,6 +9,7 @@ import {
   type StackingDirection,
   ZERO_DOT_SCALE,
   ZERO_SCALE,
+  PHRMA_ADHERENCE_BREAKPOINTS,
 } from './mapGlobals'
 import { type MetricId } from '../data/config/MetricConfig'
 
@@ -44,7 +45,7 @@ export function setupNonZeroDiscreteLegend(
     fill: COLOR_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
     size: DOT_SIZE_SCALE,
-    format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
+    format: isPct ? 'd' : ',.2s', // simplify large 100k legend breakpoints: e.g. 8,123 -> 8.1k
     direction: stackingDirection,
     columns,
     columnPadding: 20,
@@ -113,7 +114,7 @@ export function setupPhrmaAdherenceLegendScaleSpec(dotRange: number[]) {
   return {
     name: DOT_SIZE_SCALE,
     type: 'threshold',
-    domain: [60, 70, 75, 80, 85, 90],
+    domain: PHRMA_ADHERENCE_BREAKPOINTS,
     range: dotRange,
   }
 }

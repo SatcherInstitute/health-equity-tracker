@@ -158,15 +158,6 @@ export function Legend(props: LegendProps) {
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
     if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
 
-    // INCLUDE ZERO LEGEND ITEM IF NEEDED
-    if (hasZeroData) {
-      const zeroLegend = setupZeroLegend(
-        legendBucketLabel,
-        props.isSummaryLegend
-      )
-      legendList.push(zeroLegend)
-    }
-
     const colorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
@@ -224,17 +215,6 @@ export function Legend(props: LegendProps) {
             {
               type: 'filter',
               expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) && datum["${props.metric.metricId}"] !== 0`,
-            },
-          ],
-        },
-        {
-          name: ZERO_VALUES,
-          values: [
-            {
-              zero:
-                isCawp || props.isPhrmaAdherence
-                  ? ZERO_BUCKET_LABEL
-                  : LESS_THAN_1,
             },
           ],
         },
