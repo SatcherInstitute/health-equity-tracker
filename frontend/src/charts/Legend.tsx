@@ -8,19 +8,16 @@ import {
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
 import styles from './Legend.module.scss'
-import { type View, type Legend as LegendType } from 'vega'
+import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { LESS_THAN_1 } from '../data/utils/Constants'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import {
   COLOR_SCALE,
   DATASET_VALUES,
   DEFAULT_LEGEND_COLOR_COUNT,
-  DOT_SIZE_SCALE,
   EQUAL_DOT_SIZE,
   GREY_DOT_SCALE,
-  LEGEND_SYMBOL_TYPE,
   MISSING_PLACEHOLDER_VALUES,
   NON_ZERO_DATASET_VALUES,
   NO_DATA_MESSAGE,
@@ -35,8 +32,18 @@ import {
   ZERO_VALUES,
   ORDINAL,
   PHRMA_COLOR_SCALE_SPEC,
+  UNKNOWN_LEGEND_SPEC,
+  type StackingDirection,
 } from './mapGlobals'
 import ClickableLegendHeader from './ClickableLegendHeader'
+import {
+  setupLegendScaleSpec,
+  setupNonZeroContinuousPctLegend,
+  setupNonZeroDiscreteLegend,
+  setupPhrmaAdherenceLegendScaleSpec,
+  setupStandardColorScaleSpec,
+  setupZeroLegend,
+} from './legendHelperFunctions'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -61,17 +68,17 @@ interface LegendProps {
   fipsTypeDisplayName?: GeographicBreakdown
   mapConfig: { mapScheme: string; mapMin: string }
   columns: number
-  stackingDirection: 'horizontal' | 'vertical'
+  stackingDirection: StackingDirection
   handleScaleChange?: (domain: number[], range: number[]) => void
   isMulti?: boolean
+  isPhrmaAdherence?: boolean
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
-    (row) => row[props.metric.metricId] > 1
+    (row) => row[props.metric.metricId] > 0
   )
   const uniqueNonZeroValueCount = new Set(
     nonZeroData?.map((row) => row[props.metric.metricId])
@@ -80,6 +87,7 @@ export function Legend(props: LegendProps) {
     (row) => row[props.metric.metricId] == null
   )
   const hasMissingData = Boolean(missingData && missingData.length > 0)
+  const hasZeroData = Boolean(zeroData && zeroData.length > 0)
 
   // Initial spec state is set in useEffect
   // TODO: Why??
@@ -99,16 +107,14 @@ export function Legend(props: LegendProps) {
     }
   }
 
-  const legendColorCount = isPhrma
+  const legendColorCount = props.isPhrmaAdherence
     ? 7
     : Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
 
+  const dotRange = Array(legendColorCount).fill(EQUAL_DOT_SIZE)
+
   useEffect(() => {
     // TODO: this should use the util in mapHelpers; been having issues with app breaking on this stuff, perhaps because Legend.tsx and mapHelpers.ts were each reading from one another? We should really have all utils centralized and then exported out to the consuming components
-
-    const dotRange = props.sameDotSize
-      ? Array(legendColorCount).fill(EQUAL_DOT_SIZE)
-      : [70, 120, 170, 220, 270, 320, 370]
 
     // prevent bugs when a single data point prevents Vega from calculating range for buckets
     if (uniqueNonZeroValueCount === 1) dotRange.unshift(0)
@@ -120,104 +126,57 @@ export function Legend(props: LegendProps) {
     const legendBucketLabel = `datum.label + '${
       isPct ? '%' : ''
     }' + '${overallPhrase}'`
+
     const legendList: LegendType[] = []
 
-    // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
-    if (hasMissingData) {
-      legendList.push({
-        fill: UNKNOWN_SCALE,
-        symbolType: LEGEND_SYMBOL_TYPE,
-        size: GREY_DOT_SCALE,
-        orient: 'left',
-      })
-    }
-
-    console.log({ isPhrma })
-
-    const nonZeroLegend: LegendType = {
-      fill: COLOR_SCALE,
-      symbolType: LEGEND_SYMBOL_TYPE,
-      size: DOT_SIZE_SCALE,
-      format: isPct ? 'd' : ',.2r', // simplify large 100k legend breakpoints: e.g. 81,234 -> 81,0000
-      direction: props.stackingDirection,
-      columns: 0, // props.columns,
-      columnPadding: 20,
-      encode: {
-        labels: {
-          update: {
-            text: {
-              signal: `if (datum.label != null, ${legendBucketLabel}, '')`,
-            },
-          },
-        },
-      },
-    }
-
-    const nonZeroPctLegend: LegendType = {
-      fill: COLOR_SCALE,
-      gradientLength:
-        props.stackingDirection === 'horizontal' && !hasMissingData ? 300 : 200,
-      format: 'd',
-      labelOffset: 8,
-      gradientThickness: 20,
-      direction: 'vertical', // props.stackingDirection,
-      // columns: 1,
-      encode: {
-        labels: {
-          update: {
-            text: {
-              signal: `if (datum.label != null, ${legendBucketLabel}, '')`,
-            },
-          },
-        },
-      },
-    }
-
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
-
-    if (isPhrma) {
-      legendList.push(nonZeroPctLegend)
+    if (props.isPhrmaAdherence) {
+      const nonZeroContinuousPctLegend = setupNonZeroContinuousPctLegend(
+        legendBucketLabel,
+        hasMissingData,
+        props.stackingDirection
+      )
+      legendList.push(nonZeroContinuousPctLegend)
     } else if (uniqueNonZeroValueCount > 0) {
+      const nonZeroLegend = setupNonZeroDiscreteLegend(
+        legendBucketLabel,
+        isPct,
+        props.stackingDirection,
+        props.columns
+      )
       legendList.push(nonZeroLegend)
     }
 
+    // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
+    if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
+
     // INCLUDE ZERO LEGEND ITEM IF NEEDED
-    if (zeroData && zeroData.length > 0) {
-      // MAKE LEGEND
-      const zeroLegend: LegendType = {
-        fill: props.isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
-        symbolType: LEGEND_SYMBOL_TYPE,
-        size: props.isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-        orient: 'left',
-        encode: {
-          labels: {
-            update: {
-              text: {
-                signal: legendBucketLabel,
-              },
-            },
-          },
-        },
-      }
+    if (hasZeroData) {
+      const zeroLegend = setupZeroLegend(
+        legendBucketLabel,
+        props.isSummaryLegend
+      )
       legendList.push(zeroLegend)
     }
 
-    const standardColorScaleSpec = {
-      name: COLOR_SCALE,
-      type: props.scaleType,
-      domain: {
-        data: props.isSummaryLegend ? DATASET_VALUES : NON_ZERO_DATASET_VALUES,
-        field: props.metric.metricId,
-      },
-      range: {
-        scheme: props.mapConfig.mapScheme,
-        count: props.isSummaryLegend ? 1 : legendColorCount,
-      },
-    }
-
-    const colorScaleSpec = isPhrma
+    const colorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
-      : standardColorScaleSpec
+      : setupStandardColorScaleSpec(
+          props.scaleType,
+          props.metric.metricId,
+          props.mapConfig.mapScheme,
+          legendColorCount,
+          props.isSummaryLegend
+        )
+
+    const dotSizeScale = props.isPhrmaAdherence
+      ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
+      : setupLegendScaleSpec(
+          dotRange,
+          props.metric.metricId,
+          props.scaleType,
+          props.isSummaryLegend
+        )
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -232,7 +191,12 @@ export function Legend(props: LegendProps) {
         {
           name: ZERO_VALUES,
           values: [
-            { zero: isCawp || isPhrma ? ZERO_BUCKET_LABEL : LESS_THAN_1 },
+            {
+              zero:
+                isCawp || props.isPhrmaAdherence
+                  ? ZERO_BUCKET_LABEL
+                  : LESS_THAN_1,
+            },
           ],
         },
         {
@@ -281,7 +245,7 @@ export function Legend(props: LegendProps) {
         },
       ],
       scales: [
-        colorScaleSpec,
+        colorScaleSpec as Scale,
         {
           name: ZERO_SCALE,
           type: ORDINAL,
@@ -300,12 +264,7 @@ export function Legend(props: LegendProps) {
           domain: { data: SUMMARY_VALUE, field: 'summary' },
           range: [EQUAL_DOT_SIZE],
         },
-        {
-          name: DOT_SIZE_SCALE,
-          type: 'threshold',
-          domain: [60, 70, 75, 80, 85, 90],
-          range: dotRange,
-        },
+        dotSizeScale as Scale,
         {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
@@ -334,8 +293,6 @@ export function Legend(props: LegendProps) {
     props.scaleType,
     props.stackingDirection,
   ])
-
-  console.log(spec)
 
   return (
     <section className={styles.Legend}>

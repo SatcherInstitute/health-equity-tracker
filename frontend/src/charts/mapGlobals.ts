@@ -3,7 +3,7 @@ To prevent components loading from one another, all exported consts for the map 
 */
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
-import { type Scale, type ColorScheme } from 'vega'
+import { type Scale, type ColorScheme, type Legend } from 'vega'
 import { type MetricConfig } from '../data/config/MetricConfig'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
@@ -24,6 +24,7 @@ export const ZERO_SCALE = 'ZERO_SCALE'
 export const LEGEND_DATASET = 'LEGEND_DATASET'
 
 export type ScaleType = 'quantize' | 'quantile' | 'symlog'
+export type StackingDirection = 'horizontal' | 'vertical'
 
 export const RATE_MAP_SCALE: ScaleType = 'quantile'
 export const UNKNOWNS_MAP_SCALE: ScaleType = 'symlog'
@@ -118,6 +119,12 @@ export const PHRMA_COLOR_SCALE_SPEC: Scale = {
     '#9FDA3A',
     '#F0E525', // 7
   ],
+}
+export const UNKNOWN_LEGEND_SPEC: Legend = {
+  fill: UNKNOWN_SCALE,
+  symbolType: LEGEND_SYMBOL_TYPE,
+  size: GREY_DOT_SCALE,
+  orient: 'left',
 }
 
 export interface CountColsMap {

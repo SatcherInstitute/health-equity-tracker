@@ -109,6 +109,7 @@ interface ChoroplethMapProps {
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
+  isPhrmaAdherence?: boolean
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
@@ -328,7 +329,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendList.push(legend, helperLegend)
   }
 
-  const colorScale = isPhrma
+  const colorScale = props.isPhrmaAdherence
     ? PHRMA_COLOR_SCALE_SPEC
     : setupColorScale(
         /* legendData */ props.data,
