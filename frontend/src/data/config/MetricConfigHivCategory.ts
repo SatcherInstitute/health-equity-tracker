@@ -3,11 +3,11 @@ import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
 export const HIV_CATEGORY_DROPDOWNIDS = [
+  'hiv',
   'hiv_black_women',
   'hiv_care',
   'hiv_prep',
   'hiv_stigma',
-  'hiv',
 ]
 
 export type HivCategoryDataTypeId =

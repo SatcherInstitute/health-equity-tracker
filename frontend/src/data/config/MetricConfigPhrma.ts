@@ -63,6 +63,62 @@ export type PhrmaMetricId =
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
+    dataTypeId: 'bb_ami_adherence',
+    mapConfig: medicareMapConfig,
+    dataTypeShortLabel:
+      'Persistence of Beta Blocker Treatment after a Heart Attack',
+    fullDisplayName:
+      'Population Receiving Persistent Beta Blocker Treatment After a Heart Attack',
+    surveyCollectedData: true,
+    definition: {
+      text: `National Quality Forum measure representing the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
+      citations: [
+        {
+          shortLabel: 'National Quality Forum',
+          longerTitle:
+            'Persistence of Beta-Blocker Treatment After a Heart Attack (NQF-0071). National Quality Forum. Updated July 2020.',
+          url: 'https://www.qualityforum.org/Home.aspx',
+        },
+      ],
+    },
+    description: {
+      text: `Persistent use of beta-blockers after a heart attacked is indicted by major clinical guidelines to reduce the risk of a future heart attack.`,
+    },
+    metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'phrma_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
+      pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'bb_ami_adherence_estimated_total',
+          shortLabel: 'Persistently treated beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'bb_ami_beneficiaries_estimated_total',
+          shortLabel: 'Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        metricId: 'bb_ami_adherence_pct_rate',
+        chartTitle:
+          'Population Persistent to Beta Blocker Treatment After a Heart Attack',
+        shortLabel: '% of pop. receiving persistent treatment',
+        type: 'pct_rate',
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'bb_ami_adherence_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+  {
     dataTypeId: 'statins_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Adherence to Statins',
@@ -183,62 +239,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
     },
   },
-  {
-    dataTypeId: 'bb_ami_adherence',
-    mapConfig: medicareMapConfig,
-    dataTypeShortLabel:
-      'Persistence of Beta Blocker Treatment after a Heart Attack',
-    fullDisplayName:
-      'Population Receiving Persistent Beta Blocker Treatment After a Heart Attack',
-    surveyCollectedData: true,
-    definition: {
-      text: `National Quality Forum measure representing the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
-      citations: [
-        {
-          shortLabel: 'National Quality Forum',
-          longerTitle:
-            'Persistence of Beta-Blocker Treatment After a Heart Attack (NQF-0071). National Quality Forum. Updated July 2020.',
-          url: 'https://www.qualityforum.org/Home.aspx',
-        },
-      ],
-    },
-    description: {
-      text: `Persistent use of beta-blockers after a heart attacked is indicted by major clinical guidelines to reduce the risk of a future heart attack.`,
-    },
-    metrics: {
-      sub_population_count: {
-        chartTitle: '',
-        metricId: 'phrma_population',
-        shortLabel: 'Total Medicare Population',
-        type: 'count',
-      },
-      pct_rate: {
-        rateNumeratorMetric: {
-          metricId: 'bb_ami_adherence_estimated_total',
-          shortLabel: 'Persistently treated beneficiaries',
-          chartTitle: '',
-          type: 'count',
-        },
-        rateDenominatorMetric: {
-          metricId: 'bb_ami_beneficiaries_estimated_total',
-          shortLabel: 'Total beneficiaries',
-          chartTitle: '',
-          type: 'count',
-        },
-        metricId: 'bb_ami_adherence_pct_rate',
-        chartTitle:
-          'Population Persistent to Beta Blocker Treatment After a Heart Attack',
-        shortLabel: '% of pop. receiving persistent treatment',
-        type: 'pct_rate',
-      },
-      pct_share_unknown: {
-        chartTitle: 'Adherent beneficiary population ',
-        metricId: 'bb_ami_adherence_pct_share',
-        shortLabel: '% of adherent pop.',
-        type: 'pct_share',
-      },
-    },
-  },
+
   {
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareMapConfig,
