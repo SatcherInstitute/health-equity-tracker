@@ -81,6 +81,8 @@ export interface HighestLowest {
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
   type: ORDINAL,
+  direction: 'vertical',
+  columns: 0,
   domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
   range: [sass.unknownGrey],
 }
@@ -89,12 +91,15 @@ export const GREY_DOT_SCALE_SPEC: any = {
   name: GREY_DOT_SCALE,
   type: ORDINAL,
   domain: { data: 'missing_data', field: 'missing' },
+
   range: [EQUAL_DOT_SIZE],
 }
 
 export const ZERO_DOT_SCALE_SPEC: any = {
   name: ZERO_DOT_SCALE,
   type: ORDINAL,
+  direction: 'vertical',
+  columns: 0,
   domain: [0, 0],
   range: [EQUAL_DOT_SIZE],
 }
@@ -113,13 +118,13 @@ export const PHRMA_COLOR_SCALE_SPEC: Scale = {
   type: 'threshold',
   domain: PHRMA_ADHERENCE_BREAKPOINTS,
   range: [
-    sass.mapMedicareDarkest, // 1
+    sass.mapMedicareDarkest,
     sass.mapMedicareDark,
     sass.mapMedicareMid,
     sass.mapMedicareLight,
     sass.mapMedicareLighter,
     sass.mapMedicareEvenLighter,
-    sass.mapMedicareLightest, // 7
+    sass.mapMedicareLightest,
   ],
 }
 export const UNKNOWN_LEGEND_SPEC: Legend = {
