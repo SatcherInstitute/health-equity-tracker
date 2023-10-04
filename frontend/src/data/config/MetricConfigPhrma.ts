@@ -68,18 +68,24 @@ export type PhrmaMetricId =
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
     dataTypeId: 'bb_ami_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
       'Population Receiving Persistent Beta Blocker Treatment After a Heart Attack',
+<<<<<<< HEAD
 =======
     dataTypeId: 'statins_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Adherence to Statins',
     fullDisplayName: 'Adherence to statins',
 >>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
+=======
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
     surveyCollectedData: true,
     definition: {
       text: `National Quality Forum measure representing the percentage of Medicare fee-for-service beneficiaries 18 years of age and older during the measurement year who were hospitalized and discharged with a diagnosis of acute myocardial infarction (AMI) and who received persistent beta-blocker treatment for six months after discharge.`,
@@ -98,7 +104,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
+<<<<<<< HEAD
         metricId: 'medicare_population',
+=======
+        metricId: 'phrma_population',
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -285,6 +295,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
 
+<<<<<<< HEAD
   {
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -367,6 +378,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
     },
   },
+=======
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
   {
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareMapConfig,

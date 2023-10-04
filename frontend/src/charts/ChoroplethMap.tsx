@@ -42,11 +42,14 @@ import {
 <<<<<<< HEAD
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
+<<<<<<< HEAD
 =======
 >>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
 =======
   type CountColsMap,
 >>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
+=======
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -359,6 +362,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* scaleColorScheme? */ props.mapConfig.mapScheme,
         /* isTerritoryCircle? */ props.fips.isTerritory()
       )
+<<<<<<< HEAD
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain
@@ -439,6 +443,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* scaleColorScheme? */ props.mapConfig.mapScheme,
     /* isTerritoryCircle? */ props.fips.isTerritory()
   )
+=======
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain

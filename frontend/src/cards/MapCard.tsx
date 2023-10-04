@@ -453,11 +453,17 @@ function MapCardWithKey(props: MapCardProps) {
         )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
 =======
 >>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
+=======
+        const isPhrmaAdherence =
+          PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
+
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
         return (
           <>
             <MultiMapDialog
@@ -592,6 +598,9 @@ function MapCardWithKey(props: MapCardProps) {
                         mapConfig={{ mapScheme, mapMin }}
                         scaleConfig={scale}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
                     </Grid>
