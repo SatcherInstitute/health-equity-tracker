@@ -326,6 +326,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   if (!props.hideLegend) {
     legendList.push(legend, helperLegend)
   }
+
   const colorScale = setupColorScale(
     /* legendData */ props.data,
     /* metricId */ props.metric.metricId,
