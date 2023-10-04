@@ -31,14 +31,16 @@ export const ISLAND_AREAS_FIPS = [
   AMERICAN_SAMOA,
 ]
 
-export function failInvalidFips(code: string) {
+export function isFipsString(code: string): boolean {
   /* NOTE: Tried testing for presense of the string key in the state and county objects below, but it caused a noticeable slowdown as the location dropdown is creating a FIPS instance for every single entry */
   const STATE_FIPS_REGEX = /^[0-9]{2}$/
   const COUNTY_FIPS_REGEX = /^[0-9]{5}$/
 
-  if (!STATE_FIPS_REGEX.test(code) && !COUNTY_FIPS_REGEX.test(code)) {
-    throw new Error('Invalid FIPS code')
-  }
+  return STATE_FIPS_REGEX.test(code) || COUNTY_FIPS_REGEX.test(code)
+}
+
+export function failInvalidFips(code: string) {
+  if (!isFipsString(code)) throw new Error('Invalid FIPS code')
 }
 
 class Fips {
