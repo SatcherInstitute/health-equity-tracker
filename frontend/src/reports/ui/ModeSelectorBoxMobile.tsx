@@ -6,7 +6,6 @@ import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
-import TopicInfoModalButton from '../../pages/ui/TopicInfoModalButton'
 
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
@@ -51,8 +50,6 @@ export default function ModeSelectorBoxMobile(
               offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
             />
           </div>
-
-          <TopicInfoModalButton />
         </Grid>
       </Card>
     </div>
