@@ -68,7 +68,8 @@ $map-women-darker: #5402a3;
 $map-women-darkest: #320161;
 
 // colors from VEGA map (Medicare Beneficiaries from PHRMA data - viridis)
-$map-medicare-lightest: #9fda3a;
+$map-medicare-lightest: #f0e525;
+$map-medicare-even-lighter: #9fda3a;
 $map-medicare-lighter: #4bc16c;
 $map-medicare-light: #1fa187;
 $map-medicare-mid: #267f8e;
@@ -220,13 +221,14 @@ $z-top: 999;
   mapWomenDarker: $map-women-darker;
   mapWomenDarkest: $map-women-darkest;
 
-  mapMedicareMin: $map-medicare-min;
   mapMedicareLightest: $map-medicare-lightest;
+  mapMedicareEvenLighter: $map-medicare-even-lighter;
   mapMedicareLighter: $map-medicare-lighter;
   mapMedicareLight: $map-medicare-light;
   mapMedicareMid: $map-medicare-mid;
   mapMedicareDark: $map-medicare-dark;
   mapMedicareDarkest: $map-medicare-darkest;
+  mapMedicareMin: $map-medicare-min;
 
   unknownMapMin: $unknown-map-min;
   unknownMapLeast: $unknown-map-least;
