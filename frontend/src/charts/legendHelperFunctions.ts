@@ -21,8 +21,6 @@ export function setupZeroLegend(
     fill: isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
     size: isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-    direction: 'vertical',
-    columns: 0,
     orient: 'left',
     encode: {
       labels: {
