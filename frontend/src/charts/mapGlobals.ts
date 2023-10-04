@@ -4,6 +4,9 @@ To prevent components loading from one another, all exported consts for the map 
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
 import { type Scale, type ColorScheme, type Legend } from 'vega'
 import { type MetricConfig } from '../data/config/MetricConfig'
 =======
@@ -116,6 +119,9 @@ export const ZERO_YELLOW_SCALE = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
 
 export const PHRMA_COLOR_SCALE_SPEC: Scale = {
@@ -139,8 +145,11 @@ export const UNKNOWN_LEGEND_SPEC: Legend = {
   orient: 'left',
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
+=======
+>>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
 export interface CountColsMap {
   numeratorConfig?: MetricConfig
   denominatorConfig?: MetricConfig

@@ -21,6 +21,11 @@ export function setupZeroLegend(
     fill: isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
     size: isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
+<<<<<<< HEAD
+=======
+    direction: 'vertical',
+    columns: 0,
+>>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
     orient: 'left',
     encode: {
       labels: {

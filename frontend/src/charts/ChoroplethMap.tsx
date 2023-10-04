@@ -345,6 +345,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendList.push(legend, helperLegend)
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
   const colorScale = props.isPhrmaAdherence
     ? PHRMA_COLOR_SCALE_SPEC
@@ -427,6 +428,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   )
 
 =======
+=======
+
+>>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
   const colorScale = setupColorScale(
     /* legendData */ props.data,
     /* metricId */ props.metric.metricId,
