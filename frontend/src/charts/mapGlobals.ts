@@ -106,18 +106,20 @@ export const ZERO_YELLOW_SCALE = {
   range: [sass.mapMin],
 }
 
+export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
+
 export const PHRMA_COLOR_SCALE_SPEC: Scale = {
   name: COLOR_SCALE,
   type: 'threshold',
-  domain: [60, 70, 75, 80, 85, 90],
+  domain: PHRMA_ADHERENCE_BREAKPOINTS,
   range: [
-    '#46327F', // 1
-    '#365C8D',
-    '#267F8E',
-    '#1FA187',
-    '#4BC16C',
-    '#9FDA3A',
-    '#F0E525', // 7
+    sass.mapMedicareDarkest,
+    sass.mapMedicareDark,
+    sass.mapMedicareMid,
+    sass.mapMedicareLight,
+    sass.mapMedicareLighter,
+    sass.mapMedicareEvenLighter,
+    sass.mapMedicareLightest,
   ],
 }
 export const UNKNOWN_LEGEND_SPEC: Legend = {

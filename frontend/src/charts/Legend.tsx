@@ -147,6 +147,14 @@ export function Legend(props: LegendProps) {
       legendList.push(nonZeroLegend)
     }
 
+    // INCLUDE ZERO LEGEND ITEM IF NEEDED
+    if (hasZeroData) {
+      const zeroLegend = setupZeroLegend(
+        legendBucketLabel,
+        props.isSummaryLegend
+      )
+      legendList.push(zeroLegend)
+    }
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
     if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
 
@@ -220,6 +228,17 @@ export function Legend(props: LegendProps) {
           ],
         },
         {
+          name: ZERO_VALUES,
+          values: [
+            {
+              zero:
+                isCawp || props.isPhrmaAdherence
+                  ? ZERO_BUCKET_LABEL
+                  : LESS_THAN_1,
+            },
+          ],
+        },
+        {
           name: MISSING_PLACEHOLDER_VALUES,
           values: [{ missing: NO_DATA_MESSAGE }],
         },
@@ -245,16 +264,19 @@ export function Legend(props: LegendProps) {
         },
       ],
       scales: [
+        dotSizeScale as Scale,
         colorScaleSpec as Scale,
         {
           name: ZERO_SCALE,
           type: ORDINAL,
+
           domain: { data: ZERO_VALUES, field: 'zero' },
           range: [props.mapConfig.mapMin],
         },
         {
           name: ZERO_DOT_SCALE,
           type: ORDINAL,
+
           domain: { data: ZERO_VALUES, field: 'zero' },
           range: [EQUAL_DOT_SIZE],
         },
@@ -264,16 +286,18 @@ export function Legend(props: LegendProps) {
           domain: { data: SUMMARY_VALUE, field: 'summary' },
           range: [EQUAL_DOT_SIZE],
         },
-        dotSizeScale as Scale,
+
         {
           name: UNKNOWN_SCALE,
           type: ORDINAL,
+
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
           range: [sass.unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
           type: ORDINAL,
+
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
           range: [EQUAL_DOT_SIZE],
         },
