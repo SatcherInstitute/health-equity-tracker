@@ -81,8 +81,6 @@ export interface HighestLowest {
 export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
   type: ORDINAL,
-  direction: 'vertical',
-  columns: 0,
   domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
   range: [sass.unknownGrey],
 }
@@ -91,15 +89,12 @@ export const GREY_DOT_SCALE_SPEC: any = {
   name: GREY_DOT_SCALE,
   type: ORDINAL,
   domain: { data: 'missing_data', field: 'missing' },
-
   range: [EQUAL_DOT_SIZE],
 }
 
 export const ZERO_DOT_SCALE_SPEC: any = {
   name: ZERO_DOT_SCALE,
   type: ORDINAL,
-  direction: 'vertical',
-  columns: 0,
   domain: [0, 0],
   range: [EQUAL_DOT_SIZE],
 }
