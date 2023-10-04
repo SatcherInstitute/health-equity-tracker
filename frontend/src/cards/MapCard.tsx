@@ -534,7 +534,8 @@ function MapCardWithKey(props: MapCardProps) {
                   <Grid
                     item
                     xs={12}
-                    sm={mapIsWide ? 9 : 12}
+                    sm={mapIsWide ? 8 : 12}
+                    md={mapIsWide ? 9 : 12}
                     lg={mapIsWide ? 10 : 12}
                   >
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
@@ -589,7 +590,8 @@ function MapCardWithKey(props: MapCardProps) {
                     alignItems={'flex-start'}
                     item
                     xs={12}
-                    sm={mapIsWide ? 3 : 12}
+                    sm={mapIsWide ? 4 : 12}
+                    md={mapIsWide ? 3 : 12}
                     lg={mapIsWide ? 2 : 12}
                   >
                     <Legend
