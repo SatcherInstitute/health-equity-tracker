@@ -116,6 +116,9 @@ export type DefaultDropdownVarId = 'default'
 export const DEFAULT: DefaultDropdownVarId = 'default'
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b8e29df4 (Refactor: Improved Madlib FIPS handling (#2423))
 export const DROPDOWN_TOPIC_MAP: Record<
   DropdownVarId | DefaultDropdownVarId,
   string
@@ -148,6 +151,7 @@ export const DROPDOWN_TOPIC_MAP: Record<
   voter_participation: 'Voter Participation',
   women_in_gov: 'Women Serving in Legislative Office',
 }
+<<<<<<< HEAD
 =======
 const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
   {
@@ -180,6 +184,8 @@ const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
     women_in_gov: 'Women Serving in Legislative Office',
   }
 >>>>>>> 3543ae80 (Frontend: Update with new column names for PHRMA (#2414))
+=======
+>>>>>>> b8e29df4 (Refactor: Improved Madlib FIPS handling (#2423))
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
