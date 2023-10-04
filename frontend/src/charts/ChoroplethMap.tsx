@@ -39,6 +39,7 @@ import {
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
   type CountColsMap,
+  PHRMA_COLOR_SCALE_SPEC,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -108,6 +109,7 @@ interface ChoroplethMapProps {
   scaleConfig?: { domain: number[]; range: number[] }
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
+  isPhrmaAdherence?: boolean
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
@@ -327,14 +329,18 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendList.push(legend, helperLegend)
   }
 
-  const colorScale = setupColorScale(
-    /* legendData */ props.data,
-    /* metricId */ props.metric.metricId,
-    /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
-    /* fieldRange? */ props.fieldRange,
-    /* scaleColorScheme? */ props.mapConfig.mapScheme,
-    /* isTerritoryCircle? */ props.fips.isTerritory()
-  )
+  const colorScale = props.isPhrmaAdherence
+    ? PHRMA_COLOR_SCALE_SPEC
+    : setupColorScale(
+        /* legendData */ props.data,
+        /* metricId */ props.metric.metricId,
+        /* scaleType */ props.isUnknownsMap
+          ? UNKNOWNS_MAP_SCALE
+          : RATE_MAP_SCALE,
+        /* fieldRange? */ props.fieldRange,
+        /* scaleColorScheme? */ props.mapConfig.mapScheme,
+        /* isTerritoryCircle? */ props.fips.isTerritory()
+      )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain

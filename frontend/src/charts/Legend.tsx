@@ -31,17 +31,19 @@ import {
   ZERO_SCALE,
   ZERO_VALUES,
   ORDINAL,
+  PHRMA_COLOR_SCALE_SPEC,
   UNKNOWN_LEGEND_SPEC,
   type StackingDirection,
 } from './mapGlobals'
 import ClickableLegendHeader from './ClickableLegendHeader'
 import {
   setupLegendScaleSpec,
+  setupNonZeroContinuousPctLegend,
   setupNonZeroDiscreteLegend,
+  setupPhrmaAdherenceLegendScaleSpec,
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -69,11 +71,11 @@ interface LegendProps {
   stackingDirection: StackingDirection
   handleScaleChange?: (domain: number[], range: number[]) => void
   isMulti?: boolean
+  isPhrmaAdherence?: boolean
 }
 
 export function Legend(props: LegendProps) {
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
-  const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
     (row) => row[props.metric.metricId] > 0
@@ -105,10 +107,9 @@ export function Legend(props: LegendProps) {
     }
   }
 
-  const legendColorCount = Math.min(
-    DEFAULT_LEGEND_COLOR_COUNT,
-    uniqueNonZeroValueCount
-  )
+  const legendColorCount = props.isPhrmaAdherence
+    ? 7
+    : Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
 
   const dotRange = Array(legendColorCount).fill(EQUAL_DOT_SIZE)
 
@@ -127,7 +128,16 @@ export function Legend(props: LegendProps) {
     }' + '${overallPhrase}'`
 
     const legendList: LegendType[] = []
-    if (uniqueNonZeroValueCount > 0) {
+
+    // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
+    if (props.isPhrmaAdherence) {
+      const nonZeroContinuousPctLegend = setupNonZeroContinuousPctLegend(
+        legendBucketLabel,
+        hasMissingData,
+        props.stackingDirection
+      )
+      legendList.push(nonZeroContinuousPctLegend)
+    } else if (uniqueNonZeroValueCount > 0) {
       const nonZeroLegend = setupNonZeroDiscreteLegend(
         legendBucketLabel,
         isPct,
@@ -148,20 +158,24 @@ export function Legend(props: LegendProps) {
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
     if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
 
-    const colorScaleSpec = setupStandardColorScaleSpec(
-      props.scaleType,
-      props.metric.metricId,
-      props.mapConfig.mapScheme,
-      legendColorCount,
-      props.isSummaryLegend
-    )
+    const colorScaleSpec = props.isPhrmaAdherence
+      ? PHRMA_COLOR_SCALE_SPEC
+      : setupStandardColorScaleSpec(
+          props.scaleType,
+          props.metric.metricId,
+          props.mapConfig.mapScheme,
+          legendColorCount,
+          props.isSummaryLegend
+        )
 
-    const dotSizeScale = setupLegendScaleSpec(
-      dotRange,
-      props.metric.metricId,
-      props.scaleType,
-      props.isSummaryLegend
-    )
+    const dotSizeScale = props.isPhrmaAdherence
+      ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
+      : setupLegendScaleSpec(
+          dotRange,
+          props.metric.metricId,
+          props.scaleType,
+          props.isSummaryLegend
+        )
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -173,7 +187,17 @@ export function Legend(props: LegendProps) {
           name: RAW_VALUES,
           values: props.data,
         },
-
+        {
+          name: ZERO_VALUES,
+          values: [
+            {
+              zero:
+                isCawp || props.isPhrmaAdherence
+                  ? ZERO_BUCKET_LABEL
+                  : LESS_THAN_1,
+            },
+          ],
+        },
         {
           name: DATASET_VALUES,
           source: RAW_VALUES,
@@ -191,14 +215,6 @@ export function Legend(props: LegendProps) {
             {
               type: 'filter',
               expr: `isValid(datum["${props.metric.metricId}"]) && isFinite(+datum["${props.metric.metricId}"]) && datum["${props.metric.metricId}"] !== 0`,
-            },
-          ],
-        },
-        {
-          name: ZERO_VALUES,
-          values: [
-            {
-              zero: isCawp || isPhrma ? ZERO_BUCKET_LABEL : LESS_THAN_1,
             },
           ],
         },
