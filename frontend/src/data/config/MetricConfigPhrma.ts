@@ -59,7 +59,7 @@ export type PhrmaMetricId =
   | 'medicare_hiv_per_100k'
   | 'medicare_population_pct_share'
   | 'medicare_hiv_estimated_total'
-  | 'phrma_population'
+  | 'medicare_population'
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
@@ -87,7 +87,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -155,7 +155,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -209,7 +209,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -264,7 +264,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -317,7 +317,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -370,7 +370,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -423,7 +423,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -440,7 +440,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'phrma_population',
+          metricId: 'medicare_population',
           shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
@@ -481,7 +481,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -526,7 +526,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -543,7 +543,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         rateDenominatorMetric: {
-          metricId: 'phrma_population',
+          metricId: 'medicare_population',
           shortLabel: 'beneficiaries',
           chartTitle: '',
           type: 'count',
