@@ -1,0 +1,716 @@
+BENE_N,SEX_NAME,STATE_NAME,STATE_FIPS,BENE_N,TOTAL_N,PER_100K
+Unknown,Male,Alabama,1,56,4014,1395.1170901843548
+Unknown,Male,Alaska,2,15,1270,1181.1023622047244
+Unknown,Male,Arizona,4,50,9877,506.2265870203503
+Unknown,Male,Arkansas,5,46,2825,1628.3185840707963
+Unknown,Male,California,6,354,34662,1021.291327678726
+Unknown,Male,Colorado,8,80,9291,861.0483263373156
+Unknown,Male,Connecticut,9,87,8151,1067.3536989326465
+Unknown,Male,Delaware,10,21,2446,858.5445625511038
+Unknown,Male,"District of Columbia",11,.,.,1171.875
+Unknown,Male,Florida,12,304,33309,912.6662463598427
+Unknown,Male,Georgia,13,128,10531,1215.4591206912924
+Unknown,Male,Hawaii,15,13,1143,1137.3578302712162
+Unknown,Male,Idaho,16,45,2827,1591.793420587195
+Unknown,Male,Illinois,17,172,19373,887.8335828214526
+Unknown,Male,Indiana,18,155,11566,1340.1348780909564
+Unknown,Male,Iowa,19,114,6371,1789.3580285669439
+Unknown,Male,Kansas,20,65,4675,1390.3743315508023
+Unknown,Male,Kentucky,21,51,5349,953.4492428491307
+Unknown,Male,Louisiana,22,101,4973,2030.967223004223
+Unknown,Male,Maine,23,54,3309,1631.9129646418858
+Unknown,Male,Maryland,24,121,11166,1083.6467848826796
+Unknown,Male,,25,298,15975,1865.4147104851331
+Unknown,Male,Michigan,26,251,16507,1520.567032168171
+Unknown,Male,Minnesota,27,223,7542,2956.775391142933
+Unknown,Male,Mississippi,28,42,2223,1889.3387314439947
+Unknown,Male,Missouri,29,156,7845,1988.527724665392
+Unknown,Male,Montana,30,22,2675,822.4299065420561
+Unknown,Male,Nebraska,31,51,3944,1293.103448275862
+Unknown,Male,Nevada,32,29,3413,849.6923527688251
+Unknown,Male,"New Hampshire",33,46,4510,1019.9556541019956
+Unknown,Male,"New Jersey",34,141,15248,924.7114375655823
+Unknown,Male,"New Mexico",35,27,2583,1045.2961672473868
+Unknown,Male,"New York",36,427,34485,1238.2195157314775
+Unknown,Male,"North Carolina",37,188,14279,1316.6188108410952
+Unknown,Male,"North Dakota",38,31,1139,2721.6856892010537
+Unknown,Male,Ohio,39,257,25561,1005.4379719103321
+Unknown,Male,Oklahoma,40,30,3431,874.3806470416789
+Unknown,Male,Oregon,41,75,6310,1188.5895404120445
+Unknown,Male,Pennsylvania,42,243,20937,1160.6247313368679
+Unknown,Male,"Rhode Island",44,36,2060,1747.5728155339807
+Unknown,Male,"South Carolina",45,83,8229,1008.6280228460323
+Unknown,Male,"South Dakota",46,16,1586,1008.827238335435
+Unknown,Male,Tennessee,47,67,7991,838.4432486547365
+Unknown,Male,Texas,48,208,20511,1014.0900004875433
+Unknown,Male,Utah,49,62,2757,2248.821182444686
+Unknown,Male,Vermont,50,36,3078,1169.5906432748538
+Unknown,Male,Virginia,51,140,14699,952.4457446084768
+Unknown,Male,Washington,53,134,11880,1127.946127946128
+Unknown,Male,"West Virginia",54,25,1899,1316.4823591363875
+Unknown,Male,Wisconsin,55,160,12927,1237.7195018179007
+Unknown,Male,Wyoming,56,.,.,489.853044086774
+Unknown,Female,Alabama,1,31,2010,1542.2885572139303
+Unknown,Female,Alaska,2,.,.,608.8280060882801
+Unknown,Female,Arizona,4,20,5031,397.5352812562115
+Unknown,Female,Arkansas,5,25,1396,1790.8309455587391
+Unknown,Female,California,6,187,23614,791.9031083255695
+Unknown,Female,Colorado,8,32,4667,685.6653096207414
+Unknown,Female,Connecticut,9,48,5005,959.040959040959
+Unknown,Female,Delaware,10,13,1401,927.9086366880799
+Unknown,Female,"District of Columbia",11,.,.,929.6148738379815
+Unknown,Female,Florida,12,135,18176,742.737676056338
+Unknown,Female,Georgia,13,55,5316,1034.6124905944318
+Unknown,Female,Hawaii,15,11,751,1464.7137150466044
+Unknown,Female,Idaho,16,20,1267,1578.531965272297
+Unknown,Female,Illinois,17,74,10223,723.8579673285728
+Unknown,Female,Indiana,18,52,5584,931.2320916905445
+Unknown,Female,Iowa,19,32,2885,1109.1854419410745
+Unknown,Female,Kansas,20,27,2394,1127.8195488721803
+Unknown,Female,Kentucky,21,28,2297,1218.9812799303438
+Unknown,Female,Louisiana,22,44,2486,1769.9115044247787
+Unknown,Female,Maine,23,18,1815,991.7355371900827
+Unknown,Female,Maryland,24,82,7984,1027.054108216433
+Unknown,Female,Massachusetts,25,117,12802,913.9197000468677
+Unknown,Female,Michigan,26,100,9469,1056.0777273207307
+Unknown,Female,Minnesota,27,95,4440,2139.6396396396394
+Unknown,Female,Mississippi,28,16,1168,1369.86301369863
+Unknown,Female,Missouri,29,72,3892,1849.9486125385406
+Unknown,Female,Montana,30,15,1334,1124.4377811094453
+Unknown,Female,Nebraska,31,20,2066,968.054211035818
+Unknown,Female,Nevada,32,.,.,389.10505836575874
+Unknown,Female,"New Hampshire",33,12,2644,453.85779122541607
+Unknown,Female,"New Jersey",34,74,9940,744.4668008048291
+Unknown,Female,"New Mexico",35,.,.,400.8016032064128
+Unknown,Female,"New York",36,218,26016,837.9458794587945
+Unknown,Female,"North Carolina",37,81,6936,1167.8200692041523
+Unknown,Female,"North Dakota",38,.,.,1795.3321364452424
+Unknown,Female,Ohio,39,106,12179,870.3506034978241
+Unknown,Female,Oklahoma,40,21,1693,1240.4016538688718
+Unknown,Female,Oregon,41,22,3489,630.5531670965893
+Unknown,Female,Pennsylvania,42,108,11931,905.2049283379432
+Unknown,Female,"Rhode Island",44,.,.,643.3166547533953
+Unknown,Female,"South Carolina",45,26,4122,630.7617661329452
+Unknown,Female,"South Dakota",46,.,.,1091.4051841746248
+Unknown,Female,Tennessee,47,27,3630,743.801652892562
+Unknown,Female,Texas,48,93,10648,873.4034560480842
+Unknown,Female,Utah,49,17,1484,1145.5525606469002
+Unknown,Female,Vermont,50,18,1736,1036.8663594470047
+Unknown,Female,Virginia,51,77,8083,952.616602746505
+Unknown,Female,Washington,53,48,7827,613.2617861249521
+Unknown,Female,"West Virginia",54,15,781,1920.6145966709346
+Unknown,Female,Wisconsin,55,57,6917,824.056671967616
+Unknown,Female,Wyoming,56,.,.,431.0344827586207
+"Non-Hispanic White",Male,Alabama,1,2251,253276,888.7537705901863
+"Non-Hispanic White",Male,Alaska,2,370,34198,1081.9346160594187
+"Non-Hispanic White",Male,Arizona,4,2020,329783,612.5239930499753
+"Non-Hispanic White",Male,Arkansas,5,2064,197075,1047.317011290118
+"Non-Hispanic White",Male,California,6,18482,969197,1906.9394560651758
+"Non-Hispanic White",Male,Colorado,8,2311,218416,1058.072668668962
+"Non-Hispanic White",Male,Connecticut,9,3200,160733,1990.879284278897
+"Non-Hispanic White",Male,Delaware,10,494,63732,775.1208184271637
+"Non-Hispanic White",Male,"District of Columbia",11,103,8699,1184.044143004943
+"Non-Hispanic White",Male,Florida,12,9131,1023699,891.961406624408
+"Non-Hispanic White",Male,Georgia,13,3527,371598,949.1439674056372
+"Non-Hispanic White",Male,Hawaii,15,235,24097,975.2251317591401
+"Non-Hispanic White",Male,Idaho,16,1275,105437,1209.2529188045942
+"Non-Hispanic White",Male,Illinois,17,7848,602982,1301.5313889966865
+"Non-Hispanic White",Male,Indiana,18,5347,376329,1420.8312407494507
+"Non-Hispanic White",Male,Iowa,19,3164,217960,1451.6425032115985
+"Non-Hispanic White",Male,Kansas,20,2306,177131,1301.8613342667293
+"Non-Hispanic White",Male,Kentucky,21,3431,295772,1160.0151468022666
+"Non-Hispanic White",Male,Louisiana,22,2679,186282,1438.1421715463653
+"Non-Hispanic White",Male,Maine,23,1680,106078,1583.7402665962782
+"Non-Hispanic White",Male,Maryland,24,3108,239510,1297.649367458561
+"Non-Hispanic White",Male,Massachusetts,25,7095,357466,1984.8041492057985
+"Non-Hispanic White",Male,Michigan,26,8047,542998,1481.9575762709992
+"Non-Hispanic White",Male,Minnesota,27,4904,245529,1997.3200721707008
+"Non-Hispanic White",Male,Mississippi,28,1679,155977,1076.440757291139
+"Non-Hispanic White",Male,Missouri,29,6000,353623,1696.722215466754
+"Non-Hispanic White",Male,Montana,30,975,85950,1134.3804537521814
+"Non-Hispanic White",Male,Nebraska,31,1456,118129,1232.5508554207688
+"Non-Hispanic White",Male,Nevada,32,1345,125059,1075.4923676024916
+"Non-Hispanic White",Male,"New Hampshire",33,1340,106908,1253.4141504845288
+"Non-Hispanic White",Male,"New Jersey",34,5121,388852,1316.953493874276
+"Non-Hispanic White",Male,"New Mexico",35,678,79079,857.3704776236422
+"Non-Hispanic White",Male,"New York",36,13877,696967,1991.0555306061835
+"Non-Hispanic White",Male,"North Carolina",37,5102,498924,1022.6006365698985
+"Non-Hispanic White",Male,"North Dakota",38,704,48017,1466.1474061269967
+"Non-Hispanic White",Male,Ohio,39,8377,593073,1412.473675247398
+"Non-Hispanic White",Male,Oklahoma,40,2852,219476,1299.4587107474165
+"Non-Hispanic White",Male,Oregon,41,2793,215231,1297.6755207195988
+"Non-Hispanic White",Male,Pennsylvania,42,8049,636482,1264.6076401217945
+"Non-Hispanic White",Male,"Rhode Island",44,681,48593,1401.4364208836662
+"Non-Hispanic White",Male,"South Carolina",45,1873,291457,642.6333901741938
+"Non-Hispanic White",Male,"South Dakota",46,666,63498,1048.8519323443259
+"Non-Hispanic White",Male,Tennessee,47,3233,362416,892.068782835195
+"Non-Hispanic White",Male,Texas,48,8028,861939,931.3884161176138
+"Non-Hispanic White",Male,Utah,49,1309,108019,1211.8238458049047
+"Non-Hispanic White",Male,Vermont,50,809,55299,1462.9559304869888
+"Non-Hispanic White",Male,Virginia,51,4160,400497,1038.709403566069
+"Non-Hispanic White",Male,Washington,53,4210,367044,1147.0014494175084
+"Non-Hispanic White",Male,"West Virginia",54,1809,147964,1222.5946851936958
+"Non-Hispanic White",Male,Wisconsin,55,4271,312329,1367.4682786420728
+"Non-Hispanic White",Male,Wyoming,56,406,44393,914.5586015813304
+"Non-Hispanic White",Female,Alabama,1,2080,313164,664.188731782708
+"Non-Hispanic White",Female,Alaska,2,259,33254,778.8536717387382
+"Non-Hispanic White",Female,Arizona,4,1419,374495,378.9102658246439
+"Non-Hispanic White",Female,Arkansas,5,1738,237934,730.454663898392
+"Non-Hispanic White",Female,California,6,13972,1127290,1239.432621596927
+"Non-Hispanic White",Female,Colorado,8,1399,253086,552.7765265561903
+"Non-Hispanic White",Female,Connecticut,9,2491,210016,1186.1001066585404
+"Non-Hispanic White",Female,Delaware,10,483,79271,609.3022669071918
+"Non-Hispanic White",Female,"District of Columbia",11,106,10665,993.905297702766
+"Non-Hispanic White",Female,Florida,12,8767,1199026,731.1768051735324
+"Non-Hispanic White",Female,Georgia,13,3041,452687,671.7665848588539
+"Non-Hispanic White",Female,Hawaii,15,141,21836,645.7226598278073
+"Non-Hispanic White",Female,Idaho,16,925,114898,805.0618809726889
+"Non-Hispanic White",Female,Illinois,17,6231,755806,824.4179061822742
+"Non-Hispanic White",Female,Indiana,18,4303,471909,911.8283397858486
+"Non-Hispanic White",Female,Iowa,19,2517,268451,937.6012754655412
+"Non-Hispanic White",Female,Kansas,20,2076,218263,951.1460943907122
+"Non-Hispanic White",Female,Kentucky,21,2810,340602,825.0098355265089
+"Non-Hispanic White",Female,Louisiana,22,2337,221142,1056.7870418102395
+"Non-Hispanic White",Female,Maine,23,1089,125450,868.074930251096
+"Non-Hispanic White",Female,Maryland,24,2532,310280,816.0371277555756
+"Non-Hispanic White",Female,Massachusetts,25,5520,459826,1200.454084805992
+"Non-Hispanic White",Female,Michigan,26,6139,652537,940.7895644231668
+"Non-Hispanic White",Female,Minnesota,27,3529,288026,1225.2366105837668
+"Non-Hispanic White",Female,Mississippi,28,1610,192402,836.7896383613476
+"Non-Hispanic White",Female,Missouri,29,4479,424658,1054.731101262663
+"Non-Hispanic White",Female,Montana,30,676,91965,735.0622519436743
+"Non-Hispanic White",Female,Nebraska,31,1166,147898,788.3811816251741
+"Non-Hispanic White",Female,Nevada,32,1040,128992,806.251550483751
+"Non-Hispanic White",Female,"New Hampshire",33,1025,131047,782.162125039108
+"Non-Hispanic White",Female,"New Jersey",34,4782,513186,931.8258876898435
+"Non-Hispanic White",Female,"New Mexico",35,491,90779,540.8739906806641
+"Non-Hispanic White",Female,"New York",36,10777,861460,1251.0157175028442
+"Non-Hispanic White",Female,"North Carolina",37,4692,620999,755.5567722331275
+"Non-Hispanic White",Female,"North Dakota",38,553,56019,987.1650689944482
+"Non-Hispanic White",Female,Ohio,39,7013,707167,991.703515576943
+"Non-Hispanic White",Female,Oklahoma,40,2473,266943,926.4150024537074
+"Non-Hispanic White",Female,Oregon,41,1763,235972,747.1225399623685
+"Non-Hispanic White",Female,Pennsylvania,42,6704,784541,854.5123836740208
+"Non-Hispanic White",Female,"Rhode Island",44,477,60548,787.8047169188083
+"Non-Hispanic White",Female,"South Carolina",45,1729,354052,488.34634460474734
+"Non-Hispanic White",Female,"South Dakota",46,569,72925,780.2536852931094
+"Non-Hispanic White",Female,Tennessee,47,3163,438610,721.1417888329039
+"Non-Hispanic White",Female,Texas,48,7410,1047236,707.5768976620361
+"Non-Hispanic White",Female,Utah,49,819,124173,659.5636732623034
+"Non-Hispanic White",Female,Vermont,50,560,66178,846.2026655383966
+"Non-Hispanic White",Female,Virginia,51,3440,500244,687.6644197631556
+"Non-Hispanic White",Female,Washington,53,2865,419776,682.5068608019515
+"Non-Hispanic White",Female,"West Virginia",54,1583,160059,989.0103024509713
+"Non-Hispanic White",Female,Wisconsin,55,3538,370301,955.438953716031
+"Non-Hispanic White",Female,Wyoming,56,300,48639,616.7889964843026
+"Black or African-American",Unknown,"North Carolina",37,.,.,100000
+"Black or African-American",Male,Alabama,1,2000,74083,2699.6746891999514
+"Black or African-American",Male,Alaska,2,57,1193,4777.870913663034
+"Black or African-American",Male,Arizona,4,291,12545,2319.649262654444
+"Black or African-American",Male,Arkansas,5,981,28188,3480.2043422733077
+"Black or African-American",Male,California,6,5152,99232,5191.873589164786
+"Black or African-American",Male,Colorado,8,316,9202,3434.036079113236
+"Black or African-American",Male,Connecticut,9,855,15106,5660.002647954456
+"Black or African-American",Male,Delaware,10,309,12522,2467.656923814087
+"Black or African-American",Male,"District of Columbia",11,817,18358,4450.375857936594
+"Black or African-American",Male,Florida,12,3718,117183,3172.8151694358394
+"Black or African-American",Male,Georgia,13,3542,131619,2691.1008289076804
+"Black or African-American",Male,Hawaii,15,32,1157,2765.7735522904063
+"Black or African-American",Male,Idaho,16,23,456,5043.859649122806
+"Black or African-American",Male,Illinois,17,3120,90440,3449.800973020787
+"Black or African-American",Male,Indiana,18,1238,30742,4027.063951597164
+"Black or African-American",Male,Iowa,19,225,4573,4920.183686857643
+"Black or African-American",Male,Kansas,20,385,9139,4212.714739030528
+"Black or African-American",Male,Kentucky,21,535,18784,2848.168654173765
+"Black or African-American",Male,Louisiana,22,2892,78644,3677.3307563196176
+"Black or African-American",Male,Maine,23,34,742,4582.210242587601
+"Black or African-American",Male,Maryland,24,3045,89818,3390.189048965686
+"Black or African-American",Male,Massachusetts,25,987,22366,4412.948224984351
+"Black or African-American",Male,Michigan,26,3504,77569,4517.268496435431
+"Black or African-American",Male,Minnesota,27,793,10769,7363.72922276906
+"Black or African-American",Male,Mississippi,28,2559,69052,3705.9027978914446
+"Black or African-American",Male,Missouri,29,1769,33307,5311.1958447173265
+"Black or African-American",Male,Montana,30,21,269,7806.691449814127
+"Black or African-American",Male,Nebraska,31,163,3984,4091.3654618473897
+"Black or African-American",Male,Nevada,32,456,13205,3453.237410071942
+"Black or African-American",Male,"New Hampshire",33,26,900,2888.8888888888887
+"Black or African-American",Male,"New Jersey",34,1869,54469,3431.309552222365
+"Black or African-American",Male,"New Mexico",35,54,2696,2002.967359050445
+"Black or African-American",Male,"New York",36,5442,107185,5077.202966833046
+"Black or African-American",Male,"North Carolina",37,4393,127141,3455.2190088169828
+"Black or African-American",Male,"North Dakota",38,17,369,4607.046070460705
+"Black or African-American",Male,Ohio,39,2485,68644,3620.1270322242294
+"Black or African-American",Male,Oklahoma,40,671,16505,4065.4347167524993
+"Black or African-American",Male,Oregon,41,156,3467,4499.567349293337
+"Black or African-American",Male,Pennsylvania,42,2208,60755,3634.268784462184
+"Black or African-American",Male,"Rhode Island",44,89,2564,3471.138845553822
+"Black or African-American",Male,"South Carolina",45,2107,80077,2631.2174532012937
+"Black or African-American",Male,"South Dakota",46,17,453,3752.7593818984546
+"Black or African-American",Male,Tennessee,47,1496,49195,3040.9594470982825
+"Black or African-American",Male,Texas,48,4262,133797,3185.42269258653
+"Black or African-American",Male,Utah,49,42,998,4208.416833667335
+"Black or African-American",Male,Vermont,50,14,351,3988.6039886039885
+"Black or African-American",Male,Virginia,51,2737,88243,3101.6624548122795
+"Black or African-American",Male,Washington,53,441,13948,3161.743619156868
+"Black or African-American",Male,"West Virginia",54,142,4559,3114.71813994297
+"Black or African-American",Male,Wisconsin,55,670,15457,4334.60568027431
+"Black or African-American",Male,Wyoming,56,17,325,5230.7692307692305
+"Black or African-American",Female,Alabama,1,1478,91096,1622.4642135768859
+"Black or African-American",Female,Alaska,2,35,1178,2971.1375212224107
+"Black or African-American",Female,Arizona,4,217,13248,1637.9830917874397
+"Black or African-American",Female,Arkansas,5,749,34204,2189.8023622968076
+"Black or African-American",Female,California,6,3914,110650,3537.279710799819
+"Black or African-American",Female,Colorado,8,214,8775,2438.746438746439
+"Black or African-American",Female,Connecticut,9,661,19464,3396.013152486642
+"Black or African-American",Female,Delaware,10,297,17099,1736.9436809170124
+"Black or African-American",Female,"District of Columbia",11,764,25523,2993.378521333699
+"Black or African-American",Female,Florida,12,3055,135455,2255.3615591893986
+"Black or African-American",Female,Georgia,13,2828,163053,1734.4053773926269
+"Black or African-American",Female,Hawaii,15,11,662,1661.631419939577
+"Black or African-American",Female,Idaho,16,19,313,6070.287539936102
+"Black or African-American",Female,Illinois,17,2464,126091,1954.1442291678234
+"Black or African-American",Female,Indiana,18,1006,40401,2490.0373753124923
+"Black or African-American",Female,Iowa,19,141,4850,2907.216494845361
+"Black or African-American",Female,Kansas,20,272,10553,2577.4661233772385
+"Black or African-American",Female,Kentucky,21,402,22468,1789.2113227701618
+"Black or African-American",Female,Louisiana,22,2163,94133,2297.812669308319
+"Black or African-American",Female,Maine,23,17,461,3687.63557483731
+"Black or African-American",Female,Maryland,24,2796,129435,2160.1576080658247
+"Black or African-American",Female,Massachusetts,25,736,27756,2651.678916270356
+"Black or African-American",Female,Michigan,26,2691,106548,2525.622254758419
+"Black or African-American",Female,Minnesota,27,587,10935,5368.084133516232
+"Black or African-American",Female,Mississippi,28,1969,87577,2248.3072039462418
+"Black or African-American",Female,Missouri,29,1320,41899,3150.433184562877
+"Black or African-American",Female,Montana,30,12,202,5940.59405940594
+"Black or African-American",Female,Nebraska,31,141,4465,3157.8947368421054
+"Black or African-American",Female,Nevada,32,402,15126,2657.6755255850853
+"Black or African-American",Female,"New Hampshire",33,20,911,2195.3896816684965
+"Black or African-American",Female,"New Jersey",34,1693,77082,2196.3623154562674
+"Black or African-American",Female,"New Mexico",35,39,2369,1646.264246517518
+"Black or African-American",Female,"New York",36,4360,144474,3017.8440411423508
+"Black or African-American",Female,"North Carolina",37,3515,164945,2131.0133680923946
+"Black or African-American",Female,"North Dakota",38,14,290,4827.586206896552
+"Black or African-American",Female,Ohio,39,1871,85211,2195.725903932591
+"Black or African-American",Female,Oklahoma,40,510,19547,2609.0960249654677
+"Black or African-American",Female,Oregon,41,94,2840,3309.859154929577
+"Black or African-American",Female,Pennsylvania,42,1820,74432,2445.1848667239897
+"Black or African-American",Female,"Rhode Island",44,53,2814,1883.4399431414358
+"Black or African-American",Female,"South Carolina",45,1595,102769,1552.02444316866
+"Black or African-American",Female,"South Dakota",46,.,.,3267.9738562091507
+"Black or African-American",Female,Tennessee,47,1118,63320,1765.6348704990523
+"Black or African-American",Female,Texas,48,3865,169150,2284.9541826780965
+"Black or African-American",Female,Utah,49,30,764,3926.7015706806283
+"Black or African-American",Female,Vermont,50,14,271,5166.051660516605
+"Black or African-American",Female,Virginia,51,2342,115883,2021.0039436328022
+"Black or African-American",Female,Washington,53,280,12314,2273.834659736885
+"Black or African-American",Female,"West Virginia",54,107,4677,2287.7913192217234
+"Black or African-American",Female,Wisconsin,55,538,18237,2950.0466085430717
+"Black or African-American",Female,Wyoming,56,11,263,4182.509505703421
+Other,Male,Alabama,1,.,.,1008.0645161290322
+Other,Male,Alaska,2,.,.,880.2816901408451
+Other,Male,Arizona,4,22,2982,737.7598926894701
+Other,Male,Arkansas,5,.,.,1336.898395721925
+Other,Male,California,6,322,29822,1079.7397894172088
+Other,Male,Colorado,8,30,1681,1784.651992861392
+Other,Male,Connecticut,9,44,1936,2272.727272727273
+Other,Male,Delaware,10,.,.,1107.5949367088608
+Other,Male,"District of Columbia",11,.,.,813.0081300813009
+Other,Male,Florida,12,97,10014,968.6438985420413
+Other,Male,Georgia,13,33,2691,1226.3099219620958
+Other,Male,Hawaii,15,30,7763,386.4485379363648
+Other,Male,Idaho,16,.,.,1477.1048744460857
+Other,Male,Illinois,17,74,7084,1044.6075663466968
+Other,Male,Indiana,18,32,1937,1652.0392359318535
+Other,Male,Iowa,19,21,938,2238.8059701492534
+Other,Male,Kansas,20,12,954,1257.861635220126
+Other,Male,Kentucky,21,.,.,751.8796992481202
+Other,Male,Louisiana,22,28,1189,2354.9201009251474
+Other,Male,Maine,23,24,688,3488.3720930232557
+Other,Male,Maryland,24,31,3666,845.608292416803
+Other,Male,Massachusetts,25,130,4983,2608.8701585390327
+Other,Male,Michigan,26,82,5250,1561.904761904762
+Other,Male,Minnesota,27,50,2080,2403.846153846154
+Other,Male,Mississippi,28,.,.,1452.2821576763486
+Other,Male,Missouri,29,25,1623,1540.3573629081945
+Other,Male,Montana,30,.,.,1518.4381778741865
+Other,Male,Nebraska,31,.,.,1760.5633802816901
+Other,Male,Nevada,32,16,2591,617.5221922037823
+Other,Male,"New Hampshire",33,17,729,2331.9615912208506
+Other,Male,"New Jersey",34,75,6511,1151.8967900476116
+Other,Male,"New Mexico",35,11,883,1245.753114382786
+Other,Male,"New York",36,295,13803,2137.216547127436
+Other,Male,"North Carolina",37,64,4810,1330.5613305613306
+Other,Male,"North Dakota",38,.,.,1766.7844522968198
+Other,Male,Ohio,39,68,3924,1732.9255861365953
+Other,Male,Oklahoma,40,13,1307,994.6442234123947
+Other,Male,Oregon,41,32,1745,1833.810888252149
+Other,Male,Pennsylvania,42,59,4233,1393.8105362626977
+Other,Male,"Rhode Island",44,16,711,2250.3516174402253
+Other,Male,"South Carolina",45,12,1510,794.7019867549669
+Other,Male,"South Dakota",46,.,.,2325.5813953488373
+Other,Male,Tennessee,47,18,1589,1132.787916928886
+Other,Male,Texas,48,70,7987,876.4241893076249
+Other,Male,Utah,49,11,878,1252.8473804100227
+Other,Male,Vermont,50,13,420,3095.2380952380954
+Other,Male,Virginia,51,46,4461,1031.1589329746694
+Other,Male,Washington,53,60,4655,1288.936627282492
+Other,Male,"West Virginia",54,.,.,833.3333333333334
+Other,Male,Wisconsin,55,31,1751,1770.416904625928
+Other,Male,Wyoming,56,.,.,2325.5813953488373
+Other,Female,Alabama,1,.,.,622.7758007117437
+Other,Female,Alaska,2,.,.,416.0887656033287
+Other,Female,Arizona,4,15,3616,414.82300884955754
+Other,Female,Arkansas,5,.,.,529.8013245033112
+Other,Female,California,6,277,33890,817.3502508114489
+Other,Female,Colorado,8,.,.,379.3266951161688
+Other,Female,Connecticut,9,31,1793,1728.9459007250418
+Other,Female,Delaware,10,.,.,465.1162790697674
+Other,Female,"District of Columbia",11,.,.,1416.4305949008499
+Other,Female,Florida,12,82,10307,795.5758222567188
+Other,Female,Georgia,13,28,3053,917.130691123485
+Other,Female,Hawaii,15,14,8472,165.2502360717658
+Other,Female,Idaho,16,.,.,896.8609865470852
+Other,Female,Illinois,17,41,6733,608.9410366849844
+Other,Female,Indiana,18,18,1671,1077.1992818671454
+Other,Female,Iowa,19,.,.,851.5815085158151
+Other,Female,Kansas,20,.,.,1028.80658436214
+Other,Female,Kentucky,21,.,.,926.9988412514484
+Other,Female,Louisiana,22,13,1106,1175.4068716094032
+Other,Female,Maine,23,.,.,646.551724137931
+Other,Female,Maryland,24,22,4105,535.931790499391
+Other,Female,Massachusetts,25,65,4902,1325.9893920848633
+Other,Female,Michigan,26,47,4295,1094.2956926658906
+Other,Female,Minnesota,27,31,1645,1884.4984802431609
+Other,Female,Mississippi,28,.,.,783.6990595611285
+Other,Female,Missouri,29,.,.,679.3478260869565
+Other,Female,Montana,30,.,.,1339.2857142857142
+Other,Female,Nebraska,31,.,.,981.9967266775777
+Other,Female,Nevada,32,.,.,280.2865151043289
+Other,Female,"New Hampshire",33,14,611,2291.3256955810148
+Other,Female,"New Jersey",34,56,6598,848.7420430433464
+Other,Female,"New Mexico",35,.,.,381.31553860819827
+Other,Female,"New York",36,187,13991,1336.5735115431348
+Other,Female,"North Carolina",37,44,4796,917.4311926605506
+Other,Female,"North Dakota",38,.,.,896.8609865470852
+Other,Female,Ohio,39,36,3455,1041.9681620839362
+Other,Female,Oklahoma,40,18,1438,1251.7385257301808
+Other,Female,Oregon,41,16,1885,848.8063660477453
+Other,Female,Pennsylvania,42,54,3885,1389.9613899613898
+Other,Female,"Rhode Island",44,.,.,1367.7811550151976
+Other,Female,"South Carolina",45,11,1613,681.9590824550527
+Other,Female,Tennessee,47,.,.,600.8010680907877
+Other,Female,Texas,48,50,9034,553.4646889528448
+Other,Female,Utah,49,.,.,614.1248720573183
+Other,Female,Vermont,50,.,.,996.6777408637873
+Other,Female,Virginia,51,31,5235,592.1680993314232
+Other,Female,Washington,53,30,6491,462.178400862733
+Other,Female,"West Virginia",54,.,.,1288.659793814433
+Other,Female,Wisconsin,55,24,1522,1576.8725361366621
+Other,Female,Wyoming,56,.,.,500
+"Asian/Pacific Islander",Male,Alabama,1,17,1392,1221.264367816092
+"Asian/Pacific Islander",Male,Alaska,2,32,1595,2006.2695924764892
+"Asian/Pacific Islander",Male,Arizona,4,43,5287,813.3156799697372
+"Asian/Pacific Islander",Male,Arkansas,5,25,1271,1966.9551534225018
+"Asian/Pacific Islander",Male,California,6,2709,178445,1518.1148252963098
+"Asian/Pacific Islander",Male,Colorado,8,64,3470,1844.3804034582133
+"Asian/Pacific Islander",Male,Connecticut,9,63,3873,1626.6460108443066
+"Asian/Pacific Islander",Male,Delaware,10,.,.,711.4624505928854
+"Asian/Pacific Islander",Male,"District of Columbia",11,12,480,2500
+"Asian/Pacific Islander",Male,Florida,12,162,16345,991.1287855613336
+"Asian/Pacific Islander",Male,Georgia,13,90,8958,1004.6885465505693
+"Asian/Pacific Islander",Male,Hawaii,15,339,29773,1138.6155241326035
+"Asian/Pacific Islander",Male,Idaho,16,13,725,1793.1034482758619
+"Asian/Pacific Islander",Male,Illinois,17,203,21026,965.4713212213451
+"Asian/Pacific Islander",Male,Indiana,18,44,2784,1580.4597701149428
+"Asian/Pacific Islander",Male,Iowa,19,43,1519,2830.8097432521395
+"Asian/Pacific Islander",Male,Kansas,20,49,1866,2625.9378349410504
+"Asian/Pacific Islander",Male,Kentucky,21,21,1286,1632.9704510108866
+"Asian/Pacific Islander",Male,Louisiana,22,32,2518,1270.8498808578236
+"Asian/Pacific Islander",Male,Maine,23,20,530,3773.584905660377
+"Asian/Pacific Islander",Male,Maryland,24,159,13742,1157.0368214233736
+"Asian/Pacific Islander",Male,Massachusetts,25,209,11940,1750.4187604690119
+"Asian/Pacific Islander",Male,Michigan,26,110,8396,1310.1476893758932
+"Asian/Pacific Islander",Male,Minnesota,27,162,4978,3254.3190036159103
+"Asian/Pacific Islander",Male,Mississippi,28,13,1045,1244.019138755981
+"Asian/Pacific Islander",Male,Missouri,29,70,2718,2575.42310522443
+"Asian/Pacific Islander",Male,Montana,30,.,.,3533.5689045936397
+"Asian/Pacific Islander",Male,Nebraska,31,27,875,3085.714285714286
+"Asian/Pacific Islander",Male,Nevada,32,96,7934,1209.982354423998
+"Asian/Pacific Islander",Male,"New Hampshire",33,14,726,1928.374655647383
+"Asian/Pacific Islander",Male,"New Jersey",34,220,24525,897.0438328236493
+"Asian/Pacific Islander",Male,"New Mexico",35,18,945,1904.761904761905
+"Asian/Pacific Islander",Male,"New York",36,590,39208,1504.7949398082023
+"Asian/Pacific Islander",Male,"North Carolina",37,86,6631,1296.9386216256976
+"Asian/Pacific Islander",Male,"North Dakota",38,12,165,7272.727272727272
+"Asian/Pacific Islander",Male,Ohio,39,87,6169,1410.2771924136812
+"Asian/Pacific Islander",Male,Oklahoma,40,37,2156,1716.1410018552876
+"Asian/Pacific Islander",Male,Oregon,41,93,4243,2191.84539241103
+"Asian/Pacific Islander",Male,Pennsylvania,42,131,11253,1164.1340087087888
+"Asian/Pacific Islander",Male,"Rhode Island",44,15,898,1670.378619153675
+"Asian/Pacific Islander",Male,"South Carolina",45,36,2423,1485.7614527445317
+"Asian/Pacific Islander",Male,"South Dakota",46,.,.,1574.8031496062993
+"Asian/Pacific Islander",Male,Tennessee,47,35,2848,1228.932584269663
+"Asian/Pacific Islander",Male,Texas,48,273,32366,843.477723537045
+"Asian/Pacific Islander",Male,Utah,49,27,1924,1403.3264033264034
+"Asian/Pacific Islander",Male,Vermont,50,.,.,2523.659305993691
+"Asian/Pacific Islander",Male,Virginia,51,184,14834,1240.3936901712282
+"Asian/Pacific Islander",Male,Washington,53,235,18366,1279.5382772514429
+"Asian/Pacific Islander",Male,"West Virginia",54,.,.,884.9557522123894
+"Asian/Pacific Islander",Male,Wisconsin,55,62,3678,1685.6987493202826
+"Asian/Pacific Islander",Male,Wyoming,56,.,.,2469.135802469136
+"Asian/Pacific Islander",Female,Alabama,1,21,2208,951.0869565217392
+"Asian/Pacific Islander",Female,Alaska,2,18,2235,805.3691275167786
+"Asian/Pacific Islander",Female,Arizona,4,62,7866,788.2023900330536
+"Asian/Pacific Islander",Female,Arkansas,5,14,1757,796.8127490039841
+"Asian/Pacific Islander",Female,California,6,2412,239480,1007.1822281610155
+"Asian/Pacific Islander",Female,Colorado,8,48,5142,933.4889148191364
+"Asian/Pacific Islander",Female,Connecticut,9,70,4476,1563.8963360142984
+"Asian/Pacific Islander",Female,Delaware,10,15,1633,918.5548071034906
+"Asian/Pacific Islander",Female,"District of Columbia",11,12,767,1564.537157757497
+"Asian/Pacific Islander",Female,Florida,12,193,23252,830.0361259246516
+"Asian/Pacific Islander",Female,Georgia,13,85,10825,785.2193995381062
+"Asian/Pacific Islander",Female,Hawaii,15,253,38501,657.125788940547
+"Asian/Pacific Islander",Female,Idaho,16,13,1189,1093.3557611438182
+"Asian/Pacific Islander",Female,Illinois,17,179,25155,711.5881534486185
+"Asian/Pacific Islander",Female,Indiana,18,37,3580,1033.5195530726257
+"Asian/Pacific Islander",Female,Iowa,19,27,2126,1269.9905926622766
+"Asian/Pacific Islander",Female,Kansas,20,23,2580,891.4728682170543
+"Asian/Pacific Islander",Female,Kentucky,21,17,1861,913.4873723804407
+"Asian/Pacific Islander",Female,Louisiana,22,30,3014,995.3550099535502
+"Asian/Pacific Islander",Female,Maine,23,.,.,1108.03324099723
+"Asian/Pacific Islander",Female,Maryland,24,158,18349,861.0823478118699
+"Asian/Pacific Islander",Female,Massachusetts,25,178,14396,1236.4545707140874
+"Asian/Pacific Islander",Female,Michigan,26,102,10359,984.6510280915146
+"Asian/Pacific Islander",Female,Minnesota,27,126,5980,2107.023411371237
+"Asian/Pacific Islander",Female,Mississippi,28,11,1465,750.853242320819
+"Asian/Pacific Islander",Female,Missouri,29,50,3710,1347.7088948787064
+"Asian/Pacific Islander",Female,Montana,30,12,485,2474.226804123711
+"Asian/Pacific Islander",Female,Nebraska,31,14,1220,1147.5409836065573
+"Asian/Pacific Islander",Female,Nevada,32,98,12430,788.4151246983105
+"Asian/Pacific Islander",Female,"New Hampshire",33,19,974,1950.7186858316222
+"Asian/Pacific Islander",Female,"New Jersey",34,201,29495,681.4714358365825
+"Asian/Pacific Islander",Female,"New Mexico",35,.,.,732.0644216691069
+"Asian/Pacific Islander",Female,"New York",36,587,51490,1140.0271897455816
+"Asian/Pacific Islander",Female,"North Carolina",37,97,9063,1070.2857773364228
+"Asian/Pacific Islander",Female,"North Dakota",38,.,.,4115.22633744856
+"Asian/Pacific Islander",Female,Ohio,39,73,7533,969.0694278507899
+"Asian/Pacific Islander",Female,Oklahoma,40,39,3187,1223.7213680577345
+"Asian/Pacific Islander",Female,Oregon,41,72,6137,1173.2116669382433
+"Asian/Pacific Islander",Female,Pennsylvania,42,115,13601,845.5260642599809
+"Asian/Pacific Islander",Female,"Rhode Island",44,15,1081,1387.604070305273
+"Asian/Pacific Islander",Female,"South Carolina",45,21,3260,644.1717791411043
+"Asian/Pacific Islander",Female,"South Dakota",46,11,404,2722.772277227723
+"Asian/Pacific Islander",Female,Tennessee,47,38,3950,962.0253164556963
+"Asian/Pacific Islander",Female,Texas,48,298,41298,721.584580367088
+"Asian/Pacific Islander",Female,Utah,49,25,2569,973.1413001167771
+"Asian/Pacific Islander",Female,Vermont,50,12,446,2690.582959641256
+"Asian/Pacific Islander",Female,Virginia,51,165,20168,818.1277270924237
+"Asian/Pacific Islander",Female,Washington,53,205,26968,760.1601898546426
+"Asian/Pacific Islander",Female,"West Virginia",54,.,.,966.183574879227
+"Asian/Pacific Islander",Female,Wisconsin,55,48,4866,986.4364981504316
+"Asian/Pacific Islander",Female,Wyoming,56,.,.,1209.6774193548388
+Hispanic,Male,Alabama,1,36,2701,1332.8396890040726
+Hispanic,Male,Alaska,2,18,1202,1497.504159733777
+Hispanic,Male,Arizona,4,600,45092,1330.6129690410717
+Hispanic,Male,Arkansas,5,53,3698,1433.2071389940509
+Hispanic,Male,California,6,7572,348120,2175.1120303343673
+Hispanic,Male,Colorado,8,515,28488,1807.7787138444257
+Hispanic,Male,Connecticut,9,607,14607,4155.541863490107
+Hispanic,Male,Delaware,10,46,2145,2144.5221445221446
+Hispanic,Male,"District of Columbia",11,32,1271,2517.7025963808023
+Hispanic,Male,Florida,12,2928,122870,2383.006429559697
+Hispanic,Male,Georgia,13,122,12053,1012.1961337426367
+Hispanic,Male,Hawaii,15,57,4624,1232.6989619377161
+Hispanic,Male,Idaho,16,107,4848,2207.0957095709573
+Hispanic,Male,Illinois,17,895,56526,1583.342178820366
+Hispanic,Male,Indiana,18,174,8905,1953.9584503088154
+Hispanic,Male,Iowa,19,87,3188,2728.9836888331242
+Hispanic,Male,Kansas,20,159,7162,2220.0502652890254
+Hispanic,Male,Kentucky,21,47,2095,2243.436754176611
+Hispanic,Male,Louisiana,22,107,5885,1818.181818181818
+Hispanic,Male,Maine,23,25,670,3731.343283582089
+Hispanic,Male,Maryland,24,162,9785,1655.595298926929
+Hispanic,Male,Massachusetts,25,1020,30970,3293.5098482402323
+Hispanic,Male,Michigan,26,309,13373,2310.62588798325
+Hispanic,Male,Minnesota,27,146,3975,3672.955974842768
+Hispanic,Male,Mississippi,28,34,1635,2079.510703363914
+Hispanic,Male,Missouri,29,139,4799,2896.436757657845
+Hispanic,Male,Montana,30,30,1133,2647.83759929391
+Hispanic,Male,Nebraska,31,73,3745,1949.2656875834448
+Hispanic,Male,Nevada,32,310,17263,1795.7481318426692
+Hispanic,Male,"New Hampshire",33,30,1428,2100.840336134454
+Hispanic,Male,"New Jersey",34,1030,48709,2114.598944753536
+Hispanic,Male,"New Mexico",35,662,44732,1479.9248859876598
+Hispanic,Male,"New York",36,2690,81974,3281.528289457633
+Hispanic,Male,"North Carolina",37,212,11652,1819.4301407483692
+Hispanic,Male,"North Dakota",38,22,393,5597.964376590331
+Hispanic,Male,Ohio,39,245,10441,2346.518532707595
+Hispanic,Male,Oklahoma,40,100,7114,1405.678942929435
+Hispanic,Male,Oregon,41,177,9851,1796.7719013298145
+Hispanic,Male,Pennsylvania,42,605,23061,2623.4768657040026
+Hispanic,Male,"Rhode Island",44,129,4904,2630.505709624796
+Hispanic,Male,"South Carolina",45,67,4619,1450.5304178393592
+Hispanic,Male,"South Dakota",46,15,538,2788.104089219331
+Hispanic,Male,Tennessee,47,53,4406,1202.9051293690422
+Hispanic,Male,Texas,48,3630,269961,1344.6386700301155
+Hispanic,Male,Utah,49,123,6337,1940.9815370048918
+Hispanic,Male,Vermont,50,.,.,2645.5026455026455
+Hispanic,Male,Virginia,51,185,11584,1597.0303867403313
+Hispanic,Male,Washington,53,334,18382,1816.994886301817
+Hispanic,Male,"West Virginia",54,20,732,2732.24043715847
+Hispanic,Male,Wisconsin,55,206,7463,2760.284068069141
+Hispanic,Male,Wyoming,56,44,2067,2128.688921141751
+Hispanic,Female,Alabama,1,44,3219,1366.8841255048153
+Hispanic,Female,Alaska,2,16,1324,1208.4592145015106
+Hispanic,Female,Arizona,4,283,43550,649.8277841561425
+Hispanic,Female,Arkansas,5,51,4019,1268.9723811893505
+Hispanic,Female,California,6,4895,373550,1310.4002141614242
+Hispanic,Female,Colorado,8,278,29156,953.4915626286185
+Hispanic,Female,Connecticut,9,382,17649,2164.428579522919
+Hispanic,Female,Delaware,10,32,2554,1252.9365700861395
+Hispanic,Female,"District of Columbia",11,23,1878,1224.7071352502662
+Hispanic,Female,Florida,12,2656,162459,1634.8740297551997
+Hispanic,Female,Georgia,13,116,13716,845.7276173811607
+Hispanic,Female,Hawaii,15,34,5062,671.6712761754247
+Hispanic,Female,Idaho,16,79,4914,1607.6516076516077
+Hispanic,Female,Illinois,17,591,62527,945.1916771954516
+Hispanic,Female,Indiana,18,113,10378,1088.841780689921
+Hispanic,Female,Iowa,19,64,3884,1647.7857878475797
+Hispanic,Female,Kansas,20,132,8141,1621.422429676944
+Hispanic,Female,Kentucky,21,33,2657,1242.002258185924
+Hispanic,Female,Louisiana,22,86,6910,1244.5730824891461
+Hispanic,Female,Maine,23,19,813,2337.0233702337023
+Hispanic,Female,Maryland,24,149,13949,1068.1769302458958
+Hispanic,Female,Massachusetts,25,589,36911,1595.7302701091817
+Hispanic,Female,Michigan,26,203,15710,1292.170591979631
+Hispanic,Female,Minnesota,27,110,4542,2421.84059885513
+Hispanic,Female,Mississippi,28,37,1971,1877.2196854388635
+Hispanic,Female,Missouri,29,120,5642,2126.9053527118044
+Hispanic,Female,Montana,30,29,1245,2329.3172690763054
+Hispanic,Female,Nebraska,31,53,4007,1322.6853007237335
+Hispanic,Female,Nevada,32,231,19662,1174.8550503509307
+Hispanic,Female,"New Hampshire",33,29,1807,1604.8699501936912
+Hispanic,Female,"New Jersey",34,888,62968,1410.2401219667133
+Hispanic,Female,"New Mexico",35,357,44746,797.8366781388281
+Hispanic,Female,"New York",36,1918,110324,1738.5156448279613
+Hispanic,Female,"North Carolina",37,194,14522,1335.904145434513
+Hispanic,Female,"North Dakota",38,11,452,2433.6283185840707
+Hispanic,Female,Ohio,39,173,11652,1484.7236525918297
+Hispanic,Female,Oklahoma,40,95,7789,1219.6687636410322
+Hispanic,Female,Oregon,41,117,10011,1168.7144141444412
+Hispanic,Female,Pennsylvania,42,391,25063,1560.0686270598094
+Hispanic,Female,"Rhode Island",44,62,6099,1016.5600918183309
+Hispanic,Female,"South Carolina",45,41,5542,739.8051245037893
+Hispanic,Female,"South Dakota",46,14,618,2265.37216828479
+Hispanic,Female,Tennessee,47,48,5202,922.722029988466
+Hispanic,Female,Texas,48,2579,293834,877.7064601101301
+Hispanic,Female,Utah,49,83,7132,1163.768928771733
+Hispanic,Female,Vermont,50,.,.,1992.03187250996
+Hispanic,Female,Virginia,51,163,15236,1069.8346022578105
+Hispanic,Female,Washington,53,209,20215,1033.8857284194905
+Hispanic,Female,"West Virginia",54,14,927,1510.2481121898597
+Hispanic,Female,Wisconsin,55,173,8580,2016.3170163170162
+Hispanic,Female,Wyoming,56,34,2237,1519.8927134555208
+"American Indian / Alaska Native",Male,Alabama,1,.,.,2312.1387283236995
+"American Indian / Alaska Native",Male,Alaska,2,249,5520,4510.869565217392
+"American Indian / Alaska Native",Male,Arizona,4,170,11381,1493.717599507952
+"American Indian / Alaska Native",Male,Arkansas,5,26,877,2964.6522234891677
+"American Indian / Alaska Native",Male,California,6,300,6703,4475.607936744741
+"American Indian / Alaska Native",Male,Colorado,8,35,862,4060.324825986079
+"American Indian / Alaska Native",Male,Connecticut,9,12,164,7317.073170731707
+"American Indian / Alaska Native",Male,Delaware,10,.,.,8000
+"American Indian / Alaska Native",Male,"District of Columbia",11,.,.,16666.666666666664
+"American Indian / Alaska Native",Male,Florida,12,27,933,2893.8906752411576
+"American Indian / Alaska Native",Male,Georgia,13,.,.,3300.3300330033
+"American Indian / Alaska Native",Male,Hawaii,15,.,.,3260.869565217391
+"American Indian / Alaska Native",Male,Idaho,16,25,926,2699.7840172786177
+"American Indian / Alaska Native",Male,Illinois,17,28,312,8974.358974358975
+"American Indian / Alaska Native",Male,Indiana,18,19,226,8407.079646017699
+"American Indian / Alaska Native",Male,Iowa,19,24,307,7817.5895765472305
+"American Indian / Alaska Native",Male,Kansas,20,49,1104,4438.40579710145
+"American Indian / Alaska Native",Male,Kentucky,21,.,.,3521.1267605633802
+"American Indian / Alaska Native",Male,Louisiana,22,15,313,4792.3322683706065
+"American Indian / Alaska Native",Male,Maine,23,15,371,4043.126684636118
+"American Indian / Alaska Native",Male,Maryland,24,15,188,7978.723404255319
+"American Indian / Alaska Native",Male,Massachusetts,25,32,297,10774.410774410773
+"American Indian / Alaska Native",Male,Michigan,26,78,2520,3095.2380952380954
+"American Indian / Alaska Native",Male,Minnesota,27,116,2461,4713.531084924827
+"American Indian / Alaska Native",Male,Mississippi,28,14,381,3674.540682414698
+"American Indian / Alaska Native",Male,Missouri,29,39,717,5439.330543933054
+"American Indian / Alaska Native",Male,Montana,30,70,3143,2227.1714922048996
+"American Indian / Alaska Native",Male,Nebraska,31,18,597,3015.075376884422
+"American Indian / Alaska Native",Male,Nevada,32,24,1080,2222.222222222222
+"American Indian / Alaska Native",Male,"New Hampshire",33,.,.,5084.745762711865
+"American Indian / Alaska Native",Male,"New Jersey",34,17,205,8292.68292682927
+"American Indian / Alaska Native",Male,"New Mexico",35,85,8300,1024.0963855421687
+"American Indian / Alaska Native",Male,"New York",36,68,1636,4156.479217603912
+"American Indian / Alaska Native",Male,"North Carolina",37,84,3476,2416.5707710011507
+"American Indian / Alaska Native",Male,"North Dakota",38,61,1602,3807.7403245942573
+"American Indian / Alaska Native",Male,Ohio,39,17,318,5345.911949685535
+"American Indian / Alaska Native",Male,Oklahoma,40,493,20710,2380.492515692902
+"American Indian / Alaska Native",Male,Oregon,41,77,2269,3393.5654473336267
+"American Indian / Alaska Native",Male,Pennsylvania,42,23,241,9543.56846473029
+"American Indian / Alaska Native",Male,"Rhode Island",44,.,.,3809.52380952381
+"American Indian / Alaska Native",Male,"South Carolina",45,15,292,5136.986301369862
+"American Indian / Alaska Native",Male,"South Dakota",46,108,2872,3760.4456824512536
+"American Indian / Alaska Native",Male,Tennessee,47,.,.,2287.581699346405
+"American Indian / Alaska Native",Male,Texas,48,49,2134,2296.157450796626
+"American Indian / Alaska Native",Male,Utah,49,13,849,1531.2131919905771
+"American Indian / Alaska Native",Male,Vermont,50,.,.,13513.513513513515
+"American Indian / Alaska Native",Male,Virginia,51,13,262,4961.832061068702
+"American Indian / Alaska Native",Male,Washington,53,126,4649,2710.260271026027
+"American Indian / Alaska Native",Male,"West Virginia",54,.,.,5357.142857142857
+"American Indian / Alaska Native",Male,Wisconsin,55,82,2447,3351.042092357989
+"American Indian / Alaska Native",Male,Wyoming,56,19,557,3411.131059245961
+"American Indian / Alaska Native",Female,Alabama,1,.,.,1336.898395721925
+"American Indian / Alaska Native",Female,Alaska,2,137,6180,2216.8284789644013
+"American Indian / Alaska Native",Female,Arizona,4,114,14426,790.2398447248024
+"American Indian / Alaska Native",Female,Arkansas,5,18,1103,1631.9129646418858
+"American Indian / Alaska Native",Female,California,6,227,8478,2677.518282613824
+"American Indian / Alaska Native",Female,Colorado,8,22,1059,2077.431539187913
+"American Indian / Alaska Native",Female,Connecticut,9,.,.,4225.352112676056
+"American Indian / Alaska Native",Female,Delaware,10,.,.,9259.25925925926
+"American Indian / Alaska Native",Female,Florida,12,25,1262,1980.9825673534071
+"American Indian / Alaska Native",Female,Georgia,13,11,364,3021.978021978022
+"American Indian / Alaska Native",Female,Hawaii,15,.,.,2941.176470588235
+"American Indian / Alaska Native",Female,Idaho,16,28,1169,2395.2095808383233
+"American Indian / Alaska Native",Female,Illinois,17,.,.,1830.6636155606407
+"American Indian / Alaska Native",Female,Indiana,18,.,.,1481.4814814814815
+"American Indian / Alaska Native",Female,Iowa,19,14,408,3431.372549019608
+"American Indian / Alaska Native",Female,Kansas,20,28,1413,1981.5994338287333
+"American Indian / Alaska Native",Female,Kentucky,21,.,.,1408.4507042253522
+"American Indian / Alaska Native",Female,Louisiana,22,.,.,2469.135802469136
+"American Indian / Alaska Native",Female,Maine,23,.,.,1449.2753623188405
+"American Indian / Alaska Native",Female,Maryland,24,15,264,5681.818181818182
+"American Indian / Alaska Native",Female,Massachusetts,25,.,.,2695.4177897574127
+"American Indian / Alaska Native",Female,Michigan,26,55,3015,1824.212271973466
+"American Indian / Alaska Native",Female,Minnesota,27,94,3161,2973.742486554888
+"American Indian / Alaska Native",Female,Mississippi,28,.,.,919.5402298850574
+"American Indian / Alaska Native",Female,Missouri,29,28,859,3259.604190919674
+"American Indian / Alaska Native",Female,Montana,30,59,3745,1575.43391188251
+"American Indian / Alaska Native",Female,Nebraska,31,22,852,2582.1596244131456
+"American Indian / Alaska Native",Female,Nevada,32,29,1644,1763.9902676399026
+"American Indian / Alaska Native",Female,"New Hampshire",33,.,.,2666.666666666667
+"American Indian / Alaska Native",Female,"New Jersey",34,.,.,3906.25
+"American Indian / Alaska Native",Female,"New Mexico",35,56,10660,525.328330206379
+"American Indian / Alaska Native",Female,"New York",36,51,2262,2254.6419098143233
+"American Indian / Alaska Native",Female,"North Carolina",37,72,4238,1698.9145823501653
+"American Indian / Alaska Native",Female,"North Dakota",38,41,1951,2101.4864172219377
+"American Indian / Alaska Native",Female,Ohio,39,12,334,3592.8143712574847
+"American Indian / Alaska Native",Female,Oklahoma,40,409,26688,1532.5239808153478
+"American Indian / Alaska Native",Female,Oregon,41,40,2776,1440.922190201729
+"American Indian / Alaska Native",Female,Pennsylvania,42,.,.,3146.8531468531473
+"American Indian / Alaska Native",Female,"Rhode Island",44,.,.,2380.9523809523807
+"American Indian / Alaska Native",Female,"South Carolina",45,.,.,1156.0693641618498
+"American Indian / Alaska Native",Female,"South Dakota",46,84,3769,2228.70788007429
+"American Indian / Alaska Native",Female,Tennessee,47,.,.,2064.896755162242
+"American Indian / Alaska Native",Female,Texas,48,41,2924,1402.18878248974
+"American Indian / Alaska Native",Female,Utah,49,14,1096,1277.3722627737227
+"American Indian / Alaska Native",Female,Vermont,50,.,.,3333.3333333333335
+"American Indian / Alaska Native",Female,Virginia,51,.,.,1739.1304347826087
+"American Indian / Alaska Native",Female,Washington,53,78,5989,1302.387710803139
+"American Indian / Alaska Native",Female,"West Virginia",54,.,.,3703.7037037037035
+"American Indian / Alaska Native",Female,Wisconsin,55,81,3152,2569.796954314721
+"American Indian / Alaska Native",Female,Wyoming,56,.,.,1098.901098901099
+,,,,,,
+,,,,0,,

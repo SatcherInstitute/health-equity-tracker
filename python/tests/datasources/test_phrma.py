@@ -34,7 +34,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
     na_values = kwargs['na_values']
     subdirectory = kwargs['subdirectory']
     file_path = os.path.join(
-        TEST_DIR, directory, f'test_input_{subdirectory}', filename
+        TEST_DIR, directory, 'test_input_data', subdirectory, filename
     )
 
     df = pd.read_csv(file_path, na_values=na_values, dtype=dtype)
@@ -115,6 +115,7 @@ def testBreakdownLisNational(mock_data_dir: mock.MagicMock):
     assert mock_data_dir.call_count == 9
 
     expected_df = pd.read_csv(GOLDEN_DATA['lis_national'], dtype={"state_fips": str})
+    # breakdown_df.to_csv('listnational.csv', index=False)
 
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
@@ -133,6 +134,8 @@ def testBreakdownEligibilityNational(mock_data_dir: mock.MagicMock):
     expected_df = pd.read_csv(
         GOLDEN_DATA['eligibility_national'], dtype={"state_fips": str}
     )
+    # breakdown_df.to_csv('elignational.csv', index=False)
+
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
@@ -148,6 +151,8 @@ def testBreakdownSexNational(mock_data_dir: mock.MagicMock):
     assert mock_data_dir.call_count == 9
 
     expected_df = pd.read_csv(GOLDEN_DATA['sex_national'], dtype={"state_fips": str})
+    # breakdown_df.to_csv('sexnational.csv', index=False)
+
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
@@ -167,6 +172,8 @@ def testBreakdownRaceState(mock_data_dir: mock.MagicMock):
     expected_df = pd.read_csv(
         GOLDEN_DATA['race_and_ethnicity_state'], dtype={"state_fips": str}
     )
+    # breakdown_df.to_csv('racestate.csv', index=False)
+
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
 
 
@@ -194,4 +201,6 @@ def testBreakdownAgeCounty(
     expected_df = pd.read_csv(
         GOLDEN_DATA['age_county'], dtype={"state_fips": str, "county_fips": str}
     )
+    # breakdown_df.to_csv('agecounty.csv', index=False)
+
     assert_frame_equal(breakdown_df, expected_df, check_dtype=False, check_like=True)
