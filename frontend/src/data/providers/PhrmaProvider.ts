@@ -70,7 +70,7 @@ export const PHRMA_METRICS: MetricId[] = [
   'statins_population_pct_share',
   'statins_adherence_estimated_total',
   'statins_beneficiaries_estimated_total',
-  'phrma_population',
+  'medicare_population',
 ]
 
 const phrmaReason = 'only available when comparing two Medicare topics'

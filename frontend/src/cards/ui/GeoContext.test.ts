@@ -25,43 +25,43 @@ describe('test getTotalACSPopulationPhrase()', () => {
 describe('test getSubPopulationPhrase()', () => {
   const nationalPhrmaData: Row[] = [
     {
-      phrma_population: 41816007,
+      medicare_population: 41816007,
       race_and_ethnicity: 'All',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      phrma_population: 216860,
+      medicare_population: 216860,
       race_and_ethnicity: 'American Indian and Alaska Native (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      phrma_population: 1209171,
+      medicare_population: 1209171,
       race_and_ethnicity: 'Asian, Native Hawaiian, and Pacific Islander (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      phrma_population: 4330893,
+      medicare_population: 4330893,
       race_and_ethnicity: 'Black or African American (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      phrma_population: 2987102,
+      medicare_population: 2987102,
       race_and_ethnicity: 'Hispanic or Latino',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      phrma_population: 332663,
+      medicare_population: 332663,
       race_and_ethnicity: 'Two or more races & Unrepresented race (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
-      phrma_population: 32003930,
+      medicare_population: 32003930,
       race_and_ethnicity: 'White (NH)',
       fips: '00',
       fips_name: 'United States',
@@ -81,21 +81,21 @@ describe('test getSubPopulationPhrase()', () => {
 
   const countyPhrmaData: Row[] = [
     {
-      phrma_population: null,
+      medicare_population: null,
       some_metric_: 50.0,
       sex: 'All',
       fips: '99999',
       fips_name: 'Some County',
     },
     {
-      phrma_population: null,
+      medicare_population: null,
       some_metric_: 50.0,
       sex: 'Male',
       fips: '99999',
       fips_name: 'Some County',
     },
     {
-      phrma_population: null,
+      medicare_population: null,
       some_metric_: 50.0,
       sex: 'Female',
       fips: '99999',
