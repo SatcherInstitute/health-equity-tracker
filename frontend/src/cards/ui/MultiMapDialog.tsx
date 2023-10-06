@@ -90,6 +90,7 @@ interface MultiMapDialogProps {
   pageIsSmall: boolean
   reportTitle: string
   scrollToHash: ScrollableHashId
+  isPhrmaAdherence?: boolean
 }
 
 /*
@@ -313,6 +314,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 columns={props.pageIsSmall ? 2 : 6}
                 handleScaleChange={handleScaleChange}
                 isMulti={true}
+                isPhrmaAdherence={props.isPhrmaAdherence}
               />
             </Grid>
 

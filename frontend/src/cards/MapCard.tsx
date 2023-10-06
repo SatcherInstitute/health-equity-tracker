@@ -479,6 +479,7 @@ function MapCardWithKey(props: MapCardProps) {
               pageIsSmall={pageIsSmall}
               reportTitle={props.reportTitle}
               scrollToHash={HASH_ID}
+              isPhrmaAdherence={isPhrmaAdherence}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
