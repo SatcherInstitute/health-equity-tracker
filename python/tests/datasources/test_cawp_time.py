@@ -4,7 +4,6 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 import json
 from test_utils import (
-    get_state_fips_codes_as_df,
     _load_public_dataset_from_bigquery_as_df,
     _load_df_from_bigquery,
 )
@@ -13,7 +12,6 @@ from datasources.cawp_time import (
     CAWPTimeData,
     US_CONGRESS_HISTORICAL_URL,
     US_CONGRESS_CURRENT_URL,
-    CAWP_LINE_ITEMS_FILE,
     get_postal_from_cawp_phrase,
     get_consecutive_time_periods,
     FIPS_TO_STATE_TABLE_MAP,
@@ -39,7 +37,6 @@ def test_get_consecutive_time_periods():
 
 # INTEGRATION TEST SETUP
 
-
 # Current working directory.
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "cawp_time")
@@ -64,98 +61,15 @@ def _fetch_json_from_web(*args):
         return json.load(file)
 
 
-def _merge_yearly_pop_numbers(*args):
-    print(f'reading mock yearly pop merge: {args[2]}')
-    return pd.read_csv(
-        os.path.join(TEST_DIR, "mock_acs_merge_responses", f'{args[2]}.csv'),
-        dtype={'state_fips': str, "time_period": str},
-    )
-
-
-def _generate_base_df(*args):
-    print("mocking the base df gen function")
-    return pd.DataFrame(
-        {
-            "time_period": ["1999", "2000", "2001"],
-            "state_fips": ["01", "01", "01"],
-            "state_name": ["SomeState", "SomeState", "SomeState"],
-            "race_category_id": ["ALL", "ALL", "ALL"],
-            "race_and_ethnicity": ["All", "All", "All"],
-            "total_us_congress_names": [
-                "Amelia Airheart",
-                "Betsy Ross",
-                "Cecilia Charles",
-            ],
-            "women_this_race_us_congress_names": [
-                "Amelia Airheart",
-                "Betsy Ross",
-                "Cecilia Charles",
-            ],
-            "women_this_race_state_leg_names": [
-                "Amelia Airheart",
-                "Betsy Ross",
-                "Cecilia Charles",
-            ],
-            "fake_col1": [0, 1, 2],
-            "fake_col2": ["a", "b", "c"],
-        }
-    )
-
-
-def _generate_breakdown(*args):
-    print("mocking the breakdown calc function")
-    return [
-        pd.DataFrame(
-            {
-                "time_period": ["1999", "2000", "2001"],
-                "state_fips": ["01", "01", "01"],
-                "state_name": ["SomeState", "SomeState", "SomeState"],
-                "race_category_id": ["ALL", "ALL", "ALL"],
-                "race_and_ethnicity": ["All", "All", "All"],
-                "fake_col1": [0, 1, 2],
-                "fake_col2": ["a", "b", "c"],
-            }
-        ),
-        "mock_table_name",
-    ]
-
-
-def _generate_names_breakdown(*args):
-    print("mocking the names breakdown function")
-    return pd.DataFrame(
-        {
-            "time_period": ["1999", "2000", "2001"],
-            "state_fips": ["01", "01", "01"],
-            "state_name": ["SomeState", "SomeState", "SomeState"],
-            "race_category_id": ["ALL", "ALL", "ALL"],
-            "race_and_ethnicity": ["All", "All", "All"],
-            "total_us_congress_names": [
-                "Amelia Airheart",
-                "Betsy Ross",
-                "Cecilia Charles",
-            ],
-            "women_this_race_us_congress_names": [
-                "Amelia Airheart",
-                "Betsy Ross",
-                "Cecilia Charles",
-            ],
-            "women_this_race_state_leg_names": [
-                "Amelia Airheart",
-                "Betsy Ross",
-                "Cecilia Charles",
-            ],
-        }
-    )
-
-
 def _load_csv_as_df_from_data_dir(*args, **kwargs):
     # mocked and reduced files for testing
 
     [_folder, filename] = args
 
+    print("MOCK READ FROM /data:", filename)
+
     if filename == "cawp-by_race_and_ethnicity_time_series.csv":
         # READ IN CAWP DB (numerators)
-        print("reading mock CAWP FULL FILE line items")
         test_input_data_types = {
             "id": str,
             "year": str,
@@ -176,9 +90,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         )
     else:
         # READ IN MANUAL TERRITORY STATELEG TOTAL TABLES
-        if filename == "cawp_state_leg_60.csv":
-            print("reading mock territory stateleg total tables")
-        else:
+        if filename != "cawp_state_leg_60.csv":
             filename = "cawp_state_leg_ZZ_territory.csv"
         test_input_data_types = {"state_fips": str, "time_period": str}
         return pd.read_csv(
@@ -188,9 +100,11 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         )
 
 
-def _load_csv_as_df_from_web(*args):
+def _load_csv_as_df_from_web(*args, **kwargs):
     # mocked and reduced files for testing
     url = args[0]
+    dtype = kwargs.get("dtype", {})
+
     # reverse lookup the FIPS based on the incoming url string arg
     fips = [i for i in FIPS_TO_STATE_TABLE_MAP if FIPS_TO_STATE_TABLE_MAP[i] in url][0]
 
@@ -203,11 +117,19 @@ def _load_csv_as_df_from_web(*args):
     return pd.read_csv(
         os.path.join(
             TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv'
-        )
+        ),
+        dtype=dtype,
     )
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
+    side_effect=_load_csv_as_df_from_web,
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     side_effect=_load_csv_as_df_from_data_dir,
@@ -219,14 +141,24 @@ def _load_csv_as_df_from_web(*args):
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
+@mock.patch(
+    'datasources.cawp_time.get_consecutive_time_periods',
+    side_effect=_get_consecutive_time_periods,
+)
+@mock.patch('datasources.cawp_time.get_state_level_fips', return_value=FIPS_TO_TEST)
 def testWriteToBq(
-    mock_df_from_bq: mock.MagicMock,
-    mock_public_bq: mock.MagicMock,
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
+    mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
+    mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
+    mock_df_from_bq: mock.MagicMock,  # shared util mock for any read from HET generated BQ tables like acs_population
+    mock_public_bq: mock.MagicMock,  # shared mock mock for any read from public BQ tables like FIPS CODES
+    mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG. TOTAL CSV
+    mock_csv_from_web: mock.MagicMock,  # reading STATE LEG TOTAL from CAWP site
+    mock_json_from_web: mock.MagicMock,  # reading CONGRESS TOTALS from UNITEDSTATES.IO
+    mock_bq: mock.MagicMock,  # writing HET tables to HET BQ
 ):
-    """Ensures the correct structure and arguments were
-    generated to be written to BigQuery"""
+    """Test overall tables output from write_to_bq method.
+    Since the code generates a base_df first and then creates other state/national/names
+     tables from that base, it doesn't make sense to split across multiple dag steps"""
     print("testWriteToBq()")
 
     kwargs_for_bq = {
@@ -237,248 +169,59 @@ def testWriteToBq(
     cawp_data = CAWPTimeData()
     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
 
-    for call in mock_bq.call_args_list:
-        (df, dataset, table_name), bq_types = call
-        print("TABLE NAME:", table_name)
-        print(df)
-        df.to_csv(f'{table_name}.csv', index=False)
+    # (CONGRESS + STATE LEG) * (BY RACES + BY ALL)
+    assert mock_test_fips.call_count == 4
 
+    # CONGRESS TOTALS + ADD AIANAPI +
+    # SCAFFOLD CONGRESS BY ALL + SCAFFOLD CONGRESS BY RACE +
+    # SCAFFOLD STATELEG BY ALL + SCAFFOLD STATELEG BY RACE
+    assert mock_test_time_periods.call_count == 6
 
-# # TEST OUTGOING SIDE OF BIGQUERY INTERACTION
+    # TODO: REFACTOR - THIS IS CALLING THE SAME HET TABLES MULTIPLE TIMES
+    assert mock_df_from_bq.call_count == 8
 
+    # TODO: REFACTOR - THIS IS CALLING THE PUBLIC FIPS TABLE 5 TIMES
+    assert mock_public_bq.call_count == 5
 
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# @mock.patch(
-#     'datasources.cawp_time.CAWPTimeData.generate_names_breakdown',
-#     side_effect=_generate_names_breakdown,
-# )
-# @mock.patch(
-#     'datasources.cawp_time.CAWPTimeData.generate_breakdown',
-#     side_effect=_generate_breakdown,
-# )
-# @mock.patch(
-#     'datasources.cawp_time.CAWPTimeData.generate_base_df', side_effect=_generate_base_df
-# )
-# def testWriteToBq(
-#     mock_base: mock.MagicMock,
-#     mock_breakdown: mock.MagicMock,
-#     mock_names: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-# ):
-#     """Ensures the correct structure and arguments were
-#     generated to be written to BigQuery"""
-#     print("testWriteToBq()")
+    # CAWP LINE ITEM CSV + 6 TERRITORY LEG. TOTAL CSVS
+    assert mock_data_dir.call_count == 7
 
-#     kwargs_for_bq = {
-#         'filename': 'test_file.csv',
-#         'metadata_table_id': 'test_metadata',
-#         'table_name': 'output_table',
-#     }
-#     cawp_data = CAWPTimeData()
-#     cawp_data.write_to_bq('dataset', 'gcs_bucket', **kwargs_for_bq)
-#     assert mock_base.call_count == 1
-#     assert mock_breakdown.call_count == 2
-#     assert mock_names.call_count == 1
-#     assert mock_bq.call_count == 3
+    # STATE LEG TOTALS FOR 50 STATES
+    assert mock_csv_from_web.call_count == 50
 
+    # CURRENT + HISTORICAL CONGRESS TOTALS
+    assert mock_json_from_web.call_count == 2
 
-# # # # # TEST GENERATION OF BASE DF
-# @mock.patch('datasources.cawp_time.get_state_level_fips', return_value=FIPS_TO_TEST)
-# @mock.patch(
-#     'datasources.cawp_time.get_consecutive_time_periods',
-#     side_effect=_get_consecutive_time_periods,
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#     side_effect=_load_csv_as_df_from_web,
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-#     side_effect=_load_csv_as_df_from_data_dir,
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-#     return_value=get_state_fips_codes_as_df(),
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web
-# )
-# def testGenerateBase(
-#     mock_web_json: mock.MagicMock,
-#     mock_fips: mock.MagicMock,
-#     mock_data_dir_csv: mock.MagicMock,
-#     mock_stateleg_tables: mock.MagicMock,
-#     mock_years: mock.MagicMock,
-#     mock_starter_fips: mock.MagicMock,
-# ):
-#     """Tests the generate_base_df() in isolation, mocking the input files
-#     to only consider data from 2019-2022 in Alaska and American Samoa"""
-#     print("testGenerateBase()")
+    # NATIONAL / STATE / STATE NAMES
+    assert mock_bq.call_count == 3
 
-#     cawp_data = CAWPTimeData()
-#     base_df = cawp_data.generate_base_df()
-#     base_df = base_df[
-#         base_df['time_period'] != '2023'
-#     ]  # TODO: fix this better for testing purposes
-#     expected_base_df = pd.read_csv(
-#         os.path.join(TEST_DIR, "test_expected_base_df.csv"),
-#         dtype={"state_fips": str, "time_period": str},
-#     )
+    # NAMES TABLE OUTPUT (can't really test df content due to csv weirdness)
+    names_call, state_call, national_call = mock_bq.call_args_list
+    (df_names, _dataset, table_name_names), _bq_types = names_call
+    assert table_name_names == "race_and_ethnicity_state_time_series_names"
 
-#     # issues comparing names cols since writing the test csv
-#     # adds unwanted single quotes
-#     names_cols = [
-#         "total_us_congress_names",
-#         "women_this_race_us_congress_names",
-#         "women_this_race_state_leg_names",
-#     ]
-#     expected_base_df = expected_base_df.drop(columns=names_cols)
-#     base_df = base_df.drop(columns=names_cols)
+    # STATE DATA OUTPUT
+    (df_state, _dataset, table_name_state), _bq_types = state_call
+    assert table_name_state == "race_and_ethnicity_state_time_series"
+    expected_df_state = pd.read_csv(
+        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_time_series.csv"),
+        dtype={"state_fips": str, "time_period": str},
+    )
+    assert_frame_equal(
+        df_state,
+        expected_df_state,
+        check_like=True,
+    )
 
-#     assert_frame_equal(base_df, expected_base_df, check_like=True, check_dtype=False)
-#     # fetches for HISTORICAL and CURRENT
-#     assert mock_web_json.call_count == 2
-#     assert mock_web_json.call_args_list[0][0][0] == US_CONGRESS_HISTORICAL_URL
-#     assert mock_web_json.call_args_list[1][0][0] == US_CONGRESS_CURRENT_URL
-#     # 2 in STATE+NATIONAL CONGRESS
-#     # 2 in STATE+NATIONAL ST_LEG
-#     # scaffolds and 1 when merging TOTALS columns
-#     assert mock_fips.call_count == 5
-#     # single fetch to /data for manually downloaded CAWP numerators
-#     # plus fetches to /data for each territory state leg table
-#     assert mock_data_dir_csv.call_count == 7
-#     assert mock_data_dir_csv.call_args_list[0][0][1] == CAWP_LINE_ITEMS_FILE
-#     # in scaffold ALL + EACH RACE X CONGRESS + STATELEG
-#     # and in combine AIAN_API and get_congress_totals
-#     assert mock_years.call_count == 6
-#     # once per state
-#     assert mock_stateleg_tables.call_count == 50
-#     # in scaffold ALL + scaffold EACH RACE X CONGRESS + STATELEG
-#     assert mock_starter_fips.call_count == 4
-
-
-# # # # # TEST GENERATION OF NAMES BREAKDOWN
-# @mock.patch('datasources.cawp_time.get_state_level_fips', return_value=FIPS_TO_TEST)
-# @mock.patch(
-#     'datasources.cawp_time.get_consecutive_time_periods',
-#     side_effect=_get_consecutive_time_periods,
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
-#     side_effect=_load_csv_as_df_from_web,
-# )
-# def testGenerateNamesBreakdown(
-#     mock_stateleg_tables: mock.MagicMock,
-#     mock_years: mock.MagicMock,
-#     mock_starter_fips: mock.MagicMock,
-# ):
-#     """Tests the generate_names_breakdown() function
-#     using the mock base_df which only has mock data from
-#     2017-2022, in Alaska and American Samoa"""
-#     print("testGenerateNamesBreakdown()")
-
-#     base_df = pd.read_csv(
-#         os.path.join(TEST_DIR, "test_expected_base_df.csv"),
-#         dtype={
-#             "state_fips": str,
-#             "time_period": str,
-#             "total_us_congress_names": str,
-#             "women_this_race_us_congress_names": str,
-#             "women_this_race_state_leg_names": str,
-#         },
-#     ).fillna('')
-
-#     cawp_data = CAWPTimeData()
-#     names_breakdown_df = cawp_data.generate_names_breakdown(base_df)
-
-#     expected_names_breakdown_df = pd.read_csv(
-#         os.path.join(TEST_DIR, "test_expected_names_df.csv"),
-#         dtype={
-#             'state_fips': str,
-#             'time_period': str,
-#             'total_us_congress_names': str,
-#             'women_this_race_us_congress_names': str,
-#             'women_this_race_state_leg_names': str,
-#         },
-#     ).fillna('')
-
-#     assert_frame_equal(
-#         names_breakdown_df,
-#         expected_names_breakdown_df,
-#         check_like=True,
-#         check_dtype=False,
-#     )
-
-
-# # # # # # TEST GENERATION OF STATE LEVEL BREAKDOWN
-
-
-# @mock.patch(
-#     'ingestion.merge_utils.merge_yearly_pop_numbers',
-#     side_effect=_merge_yearly_pop_numbers,
-# )
-# def testGenerateStateBreakdown(mock_merge_pop: mock.MagicMock):
-#     """Tests the generate_breakdown() function at the state
-#     # level using the mock base_df which only has mock data from
-#     2017-2022, in Alaska and American Samoa"""
-#     print("testGenerateStateBreakdown()")
-
-#     base_df = pd.read_csv(
-#         os.path.join(TEST_DIR, "test_expected_base_df.csv"),
-#         dtype={"state_fips": str, "time_period": str},
-#     )
-
-#     cawp_data = CAWPTimeData()
-#     state_breakdown_df, state_table_name = cawp_data.generate_breakdown(
-#         base_df, "state"
-#     )
-#     assert state_table_name == "race_and_ethnicity_state_time_series"
-#     assert mock_merge_pop.call_count == 1
-
-#     expected_state_breakdown_df = pd.read_csv(
-#         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_time_series.csv"),
-#         dtype={"state_fips": str, "time_period": str},
-#     )
-
-#     assert_frame_equal(
-#         state_breakdown_df,
-#         expected_state_breakdown_df,
-#         check_like=True,
-#         check_dtype=False,
-#     )
-
-
-# # # # # TEST GENERATION OF NATIONAL BREAKDOWN
-
-
-# @mock.patch(
-#     'ingestion.merge_utils.merge_yearly_pop_numbers',
-#     side_effect=_merge_yearly_pop_numbers,
-# )
-# def testGenerateNationalBreakdown(mock_merge_pop: mock.MagicMock):
-#     """Tests the generate_breakdown() function at the national
-#     level using the mock base_df which only has mock data from
-#     2017-2022, in Alaska and American Samoa"""
-#     print("testGenerateNationalBreakdown()")
-
-#     base_df = pd.read_csv(
-#         os.path.join(TEST_DIR, "test_expected_base_df.csv"),
-#         dtype={"state_fips": str, "time_period": str},
-#     )
-#     cawp_data = CAWPTimeData()
-#     national_breakdown_df, national_table_name = cawp_data.generate_breakdown(
-#         base_df, "national"
-#     )
-#     assert national_table_name == "race_and_ethnicity_national_time_series"
-#     assert mock_merge_pop.call_count == 1
-#     expected_national_breakdown_df = pd.read_csv(
-#         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_time_series.csv"),
-#         dtype={"state_fips": str, "time_period": str},
-#     )
-
-#     assert_frame_equal(
-#         national_breakdown_df,
-#         expected_national_breakdown_df,
-#         check_like=True,
-#         check_dtype=False,
-#     )
+    # NATIONAL DATA OUTPUT
+    (df_national, _dataset, table_name_national), _bq_types = national_call
+    assert table_name_national == "race_and_ethnicity_national_time_series"
+    expected_df_national = pd.read_csv(
+        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_time_series.csv"),
+        dtype={"state_fips": str, "time_period": str},
+    )
+    assert_frame_equal(
+        df_national,
+        expected_df_national,
+        check_like=True,
+    )
