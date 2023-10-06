@@ -26,70 +26,98 @@ describe('test getSubPopulationPhrase()', () => {
   const nationalPhrmaData: Row[] = [
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 41816007,
 =======
       phrma_population: 41816007,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 41816007,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'All',
       fips: '00',
       fips_name: 'United States',
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 216860,
 =======
       phrma_population: 216860,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 216860,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'American Indian and Alaska Native (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 1209171,
 =======
       phrma_population: 1209171,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 1209171,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'Asian, Native Hawaiian, and Pacific Islander (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 4330893,
 =======
       phrma_population: 4330893,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 4330893,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'Black or African American (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 2987102,
 =======
       phrma_population: 2987102,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 2987102,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'Hispanic or Latino',
       fips: '00',
       fips_name: 'United States',
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 332663,
 =======
       phrma_population: 332663,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 332663,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'Two or more races & Unrepresented race (NH)',
       fips: '00',
       fips_name: 'United States',
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: 32003930,
 =======
       phrma_population: 32003930,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: 32003930,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       race_and_ethnicity: 'White (NH)',
       fips: '00',
       fips_name: 'United States',
@@ -110,10 +138,14 @@ describe('test getSubPopulationPhrase()', () => {
   const countyPhrmaData: Row[] = [
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: null,
 =======
       phrma_population: null,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: null,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       some_metric_: 50.0,
       sex: 'All',
       fips: '99999',
@@ -121,10 +153,14 @@ describe('test getSubPopulationPhrase()', () => {
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: null,
 =======
       phrma_population: null,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: null,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       some_metric_: 50.0,
       sex: 'Male',
       fips: '99999',
@@ -132,10 +168,14 @@ describe('test getSubPopulationPhrase()', () => {
     },
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
       medicare_population: null,
 =======
       phrma_population: null,
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+      medicare_population: null,
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
       some_metric_: 50.0,
       sex: 'Female',
       fips: '99999',

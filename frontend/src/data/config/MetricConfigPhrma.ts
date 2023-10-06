@@ -60,10 +60,14 @@ export type PhrmaMetricId =
   | 'medicare_population_pct_share'
   | 'medicare_hiv_estimated_total'
 <<<<<<< HEAD
+<<<<<<< HEAD
   | 'medicare_population'
 =======
   | 'phrma_population'
 >>>>>>> 3543ae80 (Frontend: Update with new column names for PHRMA (#2414))
+=======
+  | 'medicare_population'
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
@@ -347,7 +351,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-        metricId: 'phrma_population',
+        metricId: 'medicare_population',
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -378,8 +382,133 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       },
     },
   },
+<<<<<<< HEAD
 =======
 >>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
+=======
+  {
+    dataTypeId: 'statins_adherence',
+    mapConfig: medicareMapConfig,
+    dataTypeShortLabel: 'Adherence to Statins',
+    fullDisplayName: 'Adherence to statins',
+    surveyCollectedData: true,
+    definition: {
+      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for statins during the measurement year. A higher rate indicates better performance.`,
+      citations: [
+        {
+          shortLabel: 'PQA Alliance',
+          longerTitle:
+            'Proportion of Days Covered: Statins (PDC-STA). Pharmacy Quality Alliance. Updated September 2019. ',
+          url: 'https://www.pqaalliance.org/measures-overview#pdc-sta',
+        },
+      ],
+    },
+    description: {
+      text: `Statins are recommended for management of dyslipidemia and/or primary prevention of cardiovascular disease (CVD) in several treatment guidelines. High adherence to statins is associated with decreased risk of death and lower health care costs.`,
+      citations: [
+        {
+          shortLabel: 'Journal of Clinical Medicine',
+          longerTitle:
+            'Nowak MM, Niemczyk M, Florczyk M, Kurzyna M, Pączek L. Effect of Statins on All-Cause Mortality in Adults: A Systematic Review and Meta-Analysis of Propensity Score-Matched Studies. J Clin Med. 2022 Sep 25;11(19):5643. doi: 10.3390/jcm11195643. PMID: 36233511; PMCID: PMC9572734.',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/36233511/',
+        },
+        {
+          shortLabel: 'Health Affairs (Project Hope)',
+          longerTitle:
+            'Roebuck MC, Liberman JN, Gemmill-Toyama M, et al. Medication adherence leads to lower health care use and costs despite increased drug spending. Health Aff (Millwood). 2011; 30(1):91-9. PMID: 21209444.',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/21209444/',
+        },
+      ],
+    },
+    metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'medicare_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
+      pct_rate: {
+        metricId: 'statins_adherence_pct_rate',
+        chartTitle: 'Population adherent to statins',
+        shortLabel: '% of pop. above adherence threshold',
+        columnTitleHeader: 'Population adherent to statins',
+        type: 'pct_rate',
+        rateNumeratorMetric: {
+          metricId: 'statins_adherence_estimated_total',
+          shortLabel: 'Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'statins_beneficiaries_estimated_total',
+          shortLabel: 'Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'statins_adherence_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+  {
+    dataTypeId: 'beta_blockers_adherence',
+    mapConfig: medicareMapConfig,
+    dataTypeShortLabel: 'Adherence to Beta Blockers',
+    fullDisplayName: 'Adherence to beta blockers',
+    surveyCollectedData: true,
+    definition: {
+      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta blockers during the measurement year.`,
+      citations: [
+        {
+          shortLabel: 'PQA Alliance',
+          longerTitle:
+            'Proportion of Days Covered: Beta-Blockers (PDC-BB). Pharmacy Quality Alliance. Updated September 2019.',
+          url: 'https://www.pqaalliance.org/measures-overview#pdc-bb',
+        },
+      ],
+    },
+    description: {
+      text: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI.`,
+    },
+    metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'medicare_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
+      pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'beta_blockers_adherence_estimated_total',
+          shortLabel: 'Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'beta_blockers_beneficiaries_estimated_total',
+          shortLabel: 'Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        metricId: 'beta_blockers_adherence_pct_rate',
+        chartTitle: 'Population adherent to beta blockers',
+        shortLabel: '% of pop. above adherence threshold',
+        type: 'pct_rate',
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'beta_blockers_adherence_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
   {
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareMapConfig,
@@ -411,10 +540,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'medicare_population',
 =======
         metricId: 'phrma_population',
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+        metricId: 'medicare_population',
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -487,10 +620,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'medicare_population',
 =======
         metricId: 'phrma_population',
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+        metricId: 'medicare_population',
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -559,10 +696,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'medicare_population',
 =======
         metricId: 'phrma_population',
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+        metricId: 'medicare_population',
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -631,10 +772,14 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'medicare_population',
 =======
         metricId: 'phrma_population',
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+        metricId: 'medicare_population',
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -708,10 +853,14 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'medicare_population',
 =======
         metricId: 'phrma_population',
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+        metricId: 'medicare_population',
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -768,10 +917,14 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       sub_population_count: {
         chartTitle: '',
 <<<<<<< HEAD
+<<<<<<< HEAD
         metricId: 'medicare_population',
 =======
         metricId: 'phrma_population',
 >>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
+=======
+        metricId: 'medicare_population',
+>>>>>>> dbbcca74 (Phrma adherence tweaks (#2429))
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
