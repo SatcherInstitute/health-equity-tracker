@@ -49,11 +49,13 @@ PHRMA_PCT_CONDITIONS = [
     std_col.BB_AMI_PREFIX,
     std_col.RASA_PREFIX,
     std_col.STATINS_PREFIX,
+    std_col.ANTI_PSYCHOTICS_PREFIX,
 ]
 
 PHRMA_100K_CONDITIONS = [
     std_col.AMI_PREFIX,
     std_col.PHRMA_HIV_PREFIX,
+    std_col.SCHIZOPHRENIA_PREFIX,
 ]
 
 # CONSTANTS USED BY DATA SOURCE
@@ -231,14 +233,6 @@ class PhrmaData(DataSource):
                 f'{condition}_{COUNT_YES}': f'{condition}_{ADHERENCE}_{std_col.PCT_SHARE_SUFFIX}'
                 for condition in PHRMA_PCT_CONDITIONS
             },
-            # comparison population shares for adherence
-            # **{
-            #     f'{condition}_{COUNT_TOTAL}': (
-            #         f'{condition}_{std_col.POPULATION_COL}'
-            #         + f'_{std_col.PCT_SHARE_SUFFIX}'
-            #     )
-            #     for condition in PHRMA_PCT_CONDITIONS
-            # },
             # Pct Share for disease
             **{
                 f'{condition}_{MEDICARE_DISEASE_COUNT}': f'{condition}_{std_col.PCT_SHARE_SUFFIX}'
