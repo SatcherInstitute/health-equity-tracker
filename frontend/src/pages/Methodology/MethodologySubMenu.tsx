@@ -1,9 +1,7 @@
 import styles from './MethodologyPage.module.scss'
 import React, { type ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
-// import { Link as ScrollLink } from 'react-scroll'
-
-// TODO: Updating typing
+import { Link as ScrollLink } from 'react-scroll'
 
 interface LinkConfig {
   label: string
@@ -29,10 +27,9 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
 }) => {
   if (isScrollLink) {
     return (
-      <></>
-      // <ScrollLink to={to} {...rest}>
-      //   {children}
-      // </ScrollLink>
+      <ScrollLink to={to} {...rest}>
+        {children}
+      </ScrollLink>
     )
   }
   return (

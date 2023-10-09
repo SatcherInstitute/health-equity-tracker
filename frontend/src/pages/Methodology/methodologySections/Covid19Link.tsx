@@ -29,15 +29,15 @@ const Covid19Link = () => {
     }
   }, [])
 
+  console.log(isSticky)
+
   return (
     <section>
       <article>
-        <h1 className={isSticky ? styles.StickyHeader : ''}>COVID-19</h1>
-
+        <h1 className={styles.MethodologyQuestion}>COVID-19</h1>
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>
-
         <ul>
           <li>
             National statistics are aggregations of state-wide data. If state
@@ -76,7 +76,13 @@ const Covid19Link = () => {
           </li>
         </ul>
 
-        <h4 id="#covid19-time-series-data">COVID-19 time-series data</h4>
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#covid19-time-series-data"
+        >
+          COVID-19 time-series data
+        </h3>
+
         <ul>
           <li>
             The CDC Restricted dataset includes a field called{' '}
@@ -164,7 +170,13 @@ const Covid19Link = () => {
             which provides the total number of vaccinations per county.
           </li>
         </ul>
-        <h4> Vaccination population sources </h4>
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#vaccination-population-sources"
+        >
+          Vaccination population sources
+        </h3>
+
         <ul>
           <li>
             For the national numbers we use the population numbers provided by
@@ -195,7 +207,12 @@ const Covid19Link = () => {
             For the county level we use the ACS 2019 population estimations.
           </li>
         </ul>
-        <h4>Vaccination data limitations</h4>
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#vaccination-data-limiations"
+        >
+          Vaccination data limitations
+        </h3>
         <ul>
           <li>
             <b>New Hampshire</b> lifted its national COVID-19 emergency response
@@ -226,7 +243,11 @@ const Covid19Link = () => {
           </li>
         </ul>
 
-        <Card elevation={3} className={styles.MissingDataBox}>
+        <Card
+          id="#missing-covid-vaccination-data"
+          elevation={3}
+          className={styles.MissingDataBox}
+        >
           <MissingCovidVaccinationData />
         </Card>
       </article>
