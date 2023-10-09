@@ -428,7 +428,7 @@ def rename_cols(
     df = df.rename(columns=rename_cols_map)
 
     # only keep the medicare/medicaid raw population for one of the 100k conditions
-    if condition == std_col.AMI_PREFIX:
+    if condition in PHRMA_100K_CONDITIONS and condition != std_col.AMI_PREFIX:
         df = df.drop(columns=[MEDICARE_POP_COUNT])
 
     return df
