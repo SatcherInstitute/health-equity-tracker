@@ -1,6 +1,6 @@
 import { Box, Grid } from '@mui/material'
 import { useEffect } from 'react'
-import { AgeAdjustedTableCard } from '../cards/AgeAdjustedTableCard'
+import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import { DisparityBarChartCard } from '../cards/DisparityBarChartCard'
 import { MapCard } from '../cards/MapCard'
 import { RateTrendsChartCard } from '../cards/RateTrendsChartCard'
