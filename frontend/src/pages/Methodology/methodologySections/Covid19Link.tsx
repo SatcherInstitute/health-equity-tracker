@@ -315,7 +315,7 @@ const Covid19Link = () => {
 =======
         <h3
           className={styles.MethodologySubsubheaderText}
-          id="#vaccination-data-limtiations"
+          id="#vaccination-data-limitations"
         >
           Vaccination data limitations
         </h3>
