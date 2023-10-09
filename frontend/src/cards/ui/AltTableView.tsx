@@ -22,7 +22,7 @@ import {
 } from '../../data/utils/Constants'
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
-import { DATA_TAB_LINK } from '../../utils/internalRoutes'
+import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
 import styles from './AltTableView.module.scss'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
@@ -204,7 +204,7 @@ export default function AltTableView(props: AltTableViewProps) {
           </TableContainer>
           <p>
             View and download full .csv files on the{' '}
-            <a href={DATA_TAB_LINK} ref={linkRef}>
+            <a href={DATA_CATALOG_PAGE_LINK} ref={linkRef}>
               Downloads page.
             </a>
           </p>
