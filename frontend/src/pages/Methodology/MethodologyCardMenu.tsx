@@ -24,7 +24,7 @@ import {
 } from '../../utils/internalRoutes'
 
 function MethodologyCardMenu() {
-  const [selectedIndex, setSelectedIndex] = React.useState(1)
+  const [selectedIndex, setSelectedIndex] = React.useState(0)
   const handleSelected = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
     index: number

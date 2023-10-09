@@ -36,7 +36,7 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         await page.getByRole('link', { name: 'Uninsurance in Florida & California, by sex' }).click();
         await page.locator('#rate-map2').getByRole('button', { name: 'Click for more info on uninsured people' }).click();
         await page.getByRole('link', { name: 'methodology' }).click();
-        await page.getByRole('link', { name: 'age-adjustment methodology' }).click();
+        await page.getByRole('button', { name: 'Age-Adjustment' }).click();
         await page.getByRole('link', { name: 'COVID-19 deaths' }).click();
         await page.getByRole('link', { name: 'data reporting gaps' }).click();
         await page.getByText('A COVID-19 case is an individual who has been determined').click();

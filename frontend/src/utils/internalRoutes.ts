@@ -7,12 +7,11 @@ export const NEWS_PAGE_LINK = '/news'
 export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
+export const METHODOLOGY_PAGE_LINK = '/methodology'
 
 // TAB URLS
 export const FAQ_TAB_LINK = '/faqs'
 export const RESOURCES_TAB_LINK = '/resources'
-export const METHODOLOGY_PAGE_LINK = '/methodology'
-export const DATA_TAB_LINK = '/datacatalog'
 export const CONTACT_TAB_LINK = '/contact'
 export const OURTEAM_TAB_LINK = '/ourteam'
 export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'

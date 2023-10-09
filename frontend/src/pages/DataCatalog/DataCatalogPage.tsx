@@ -1,18 +1,15 @@
 import DataSourceListing from './DataSourceListing'
-import styles from './DatasetExplorer.module.scss'
-import { DataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { type DataSourceMetadata } from '../../../data/utils/DatasetTypes'
+import styles from './DataCatalogPage.module.scss'
+import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
+import { type DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-} from '../../../utils/internalRoutes'
-import { WithMetadata } from '../../../data/react/WithLoadingOrErrorUI'
+} from '../../utils/internalRoutes'
+import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
 import { Grid, Typography, Button } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
-import {
-  DATA_SOURCE_PRE_FILTERS,
-  useSearchParams,
-} from '../../../utils/urlutils'
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -41,7 +38,7 @@ function getFilteredSources(
   return filters.reduce(reducer, allIds)
 }
 
-function DatasetExplorer() {
+function DataCatalogPage() {
   const params = useSearchParams()
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
@@ -57,7 +54,7 @@ function DatasetExplorer() {
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
       <h2 className={styles.ScreenreaderTitleHeader}>Data Downloads</h2>
-      <Grid container className={styles.DatasetExplorer}>
+      <Grid container className={styles.DatasetCatalog}>
         <div className={styles.DatasetHeader}>
           <Typography
             id="main"
@@ -122,4 +119,4 @@ function DatasetExplorer() {
   )
 }
 
-export default DatasetExplorer
+export default DataCatalogPage

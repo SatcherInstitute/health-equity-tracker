@@ -32,7 +32,7 @@ const Covid19Link = () => {
   return (
     <section>
       <article>
-        <h1 className={isSticky ? styles.StickyHeader : ''}>Covid19Link</h1>
+        <h1 className={isSticky ? styles.StickyHeader : ''}>COVID-19</h1>
 
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19

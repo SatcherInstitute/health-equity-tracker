@@ -3,8 +3,8 @@ import {
   type DataSourceMetadata,
   type MapOfDatasetMetadata,
   type DatasetMetadata,
-} from '../../../data/utils/DatasetTypes'
-import { getLogger } from '../../../utils/globals'
+} from '../../data/utils/DatasetTypes'
+import { getLogger } from '../../utils/globals'
 import styles from './DataSourceListing.module.scss'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -26,7 +26,7 @@ import Link from '@mui/material/Link'
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
-} from '../../../data/config/DatasetMetadata'
+} from '../../data/config/DatasetMetadata'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 

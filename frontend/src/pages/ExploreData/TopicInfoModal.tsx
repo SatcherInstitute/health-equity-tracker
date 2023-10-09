@@ -2,7 +2,7 @@ import { Button, Dialog, DialogContent } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { HashLink } from 'react-router-hash-link'
 import {
-  DATA_TAB_LINK,
+  DATA_CATALOG_PAGE_LINK,
   METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import sass from '../../styles/variables.module.scss'
@@ -53,7 +53,8 @@ export default function TopicInfoModal() {
         <HashLink to={`${METHODOLOGY_PAGE_LINK}#${dropdownVarId}`}>
           methodology
         </HashLink>
-        , or view the <HashLink to={DATA_TAB_LINK}>source data</HashLink>.
+        , or view the{' '}
+        <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
       </DialogContent>
     </Dialog>
   )

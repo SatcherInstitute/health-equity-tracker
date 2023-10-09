@@ -64,8 +64,7 @@ const TermsOfUsePage = React.lazy(
   async () => await import('./pages/TermsOfUsePage/TermsOfUsePage')
 )
 const DataCatalogPage = React.lazy(
-  async () =>
-    await import('./pages/DataCatalog/dataset_explorer/DatasetExplorer')
+  async () => await import('./pages/DataCatalog/DataCatalogPage')
 )
 const MethodologyPage = React.lazy(
   async () => await import('./pages/Methodology/MethodologyPage')

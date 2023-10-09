@@ -2,7 +2,7 @@ const DataMethodDefinitionsLink = () => {
   return (
     <section>
       <article>
-        <h1>DataMethodDefinitionsLink</h1>
+        <h1>Data Method Definitions</h1>
       </article>
     </section>
   )

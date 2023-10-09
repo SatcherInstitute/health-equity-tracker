@@ -1,10 +1,10 @@
 import React from 'react'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import DatasetExplorer from './DatasetExplorer'
-import { autoInitGlobals, getDataFetcher } from '../../../utils/globals'
-import FakeDataFetcher from '../../../testing/FakeDataFetcher'
-import { type DatasetMetadata } from '../../../data/utils/DatasetTypes'
+import DataCatalogPage from './DataCatalogPage'
+import { autoInitGlobals, getDataFetcher } from '../../utils/globals'
+import FakeDataFetcher from '../../testing/FakeDataFetcher'
+import { type DatasetMetadata } from '../../data/utils/DatasetTypes'
 import { render } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { test, expect } from 'vitest'
@@ -17,13 +17,13 @@ const ACS_DATASET_METADATA: DatasetMetadata = {
 
 autoInitGlobals()
 
-test('DatasetExplorer renders all data sources', async () => {
+test('Data catalog page renders all data sources', async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher
   const history = createMemoryHistory()
 
   const { queryByText, findByTestId } = render(
     <Router history={history}>
-      <DatasetExplorer />
+      <DataCatalogPage />
     </Router>
   )
 
@@ -41,7 +41,7 @@ test('DatasetExplorer renders all data sources', async () => {
   expect(await findByTestId('ahr')).toBeInTheDocument()
 })
 
-test('DatasetExplorer renders subset of data sources', async () => {
+test('Data catalog page renders subset of data sources', async () => {
   const dataFetcher = getDataFetcher() as FakeDataFetcher
   const history = createMemoryHistory({
     initialEntries: ['/exploredata?dpf=acs'],
@@ -49,7 +49,7 @@ test('DatasetExplorer renders subset of data sources', async () => {
 
   const { findByText, findByTestId, queryByTestId } = render(
     <Router history={history}>
-      <DatasetExplorer />
+      <DataCatalogPage />
     </Router>
   )
 
