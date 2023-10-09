@@ -5,7 +5,10 @@ import {
 } from '../../../data/providers/IncarcerationProvider'
 import styles from '../MethodologyPage.module.scss'
 import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
+<<<<<<< HEAD
 import { urlMap } from '../../../utils/externalUrls'
+=======
+>>>>>>> 25282a78 (fixing branch conflicts)
 
 const PdohLink = () => {
   return (
@@ -14,7 +17,11 @@ const PdohLink = () => {
         <h1 className={styles.MethodologyQuestion}>
           Political Determinants of Health
         </h1>
+<<<<<<< HEAD
         <h3 id="#incarceration" className={styles.MethodologySubsubheaderText}>
+=======
+        <h3 id="incarceration" className={styles.MethodologySubsubheaderText}>
+>>>>>>> 25282a78 (fixing branch conflicts)
           Incarceration
         </h3>
 
@@ -28,12 +35,17 @@ const PdohLink = () => {
           </p>
           <p>
             The ability to vote has been described as{' '}
+<<<<<<< HEAD
             <a href={urlMap.repJohnLewisTweet}>
+=======
+            <a href={'urlMap.repJohnLewisTweet'}>
+>>>>>>> 25282a78 (fixing branch conflicts)
               the singular most powerful, non-violent tool in American democracy
             </a>
             . As of 2020, an estimated 5.17 million people were disenfranchised
             because of a prior felony conviction with minority populations of
             voting age being disproportionately represented.{' '}
+<<<<<<< HEAD
             <a href={urlMap.deniedVoting}>(Sentencing Project)</a>
           </p>
           <p>
@@ -42,6 +54,16 @@ const PdohLink = () => {
             diseases such as HIV/ AIDS, mental illnesses and substance use
             disorders. Incarceration has also been{' '}
             <a href={urlMap.rwjf}>
+=======
+            <a href={'urlMap.deniedVoting'}>(Sentencing Project)</a>
+          </p>
+          <p>
+            <a href={'urlMap.aafp'}>Studies have also shown</a> that
+            incarceration increases the prevalence of chronic health conditions,
+            infectious diseases such as HIV/ AIDS, mental illnesses and
+            substance use disorders. Incarceration has also been{' '}
+            <a href={'urlMap.rwjf'}>
+>>>>>>> 25282a78 (fixing branch conflicts)
               shown to cause a reduction in life expectancy
             </a>
             , with each year spent in prison corresponding to 2 years of reduced
@@ -65,12 +87,22 @@ const PdohLink = () => {
         <p>
           The Bureau of Justice Statistic (BJS) releases a variety of reports on
           people under correctional control; by combining tables from two of
+<<<<<<< HEAD
           these reports (<a href={urlMap.bjsPrisoners}>“Prisoners in 2020”</a>{' '}
           and <a href={urlMap.bjsCensusOfJails}>“Census of Jails 2005-2019”</a>
           ), we are able to generate reports on individuals (including children)
           incarcerated in <b>Prison</b> and <b>Jail</b> in the United States at
           a national, state, and territory level. Additionally, the{' '}
           <a href={urlMap.veraGithub}>Vera Institute for Justice</a> has done
+=======
+          these reports (<a href={'urlMap.bjsPrisoners'}>“Prisoners in 2020”</a>{' '}
+          and{' '}
+          <a href={'urlMap.bjsCensusOfJails'}>“Census of Jails 2005-2019”</a>
+          ), we are able to generate reports on individuals (including children)
+          incarcerated in <b>Prison</b> and <b>Jail</b> in the United States at
+          a national, state, and territory level. Additionally, the{' '}
+          <a href={'urlMap.veraGithub'}>Vera Institute for Justice</a> has done
+>>>>>>> 25282a78 (fixing branch conflicts)
           extensive research and analysis of the BJS and other data sources to
           provide county level jail and prison incarceration rates.
         </p>
@@ -111,9 +143,15 @@ const PdohLink = () => {
           </li>
         </ul>
 
+<<<<<<< HEAD
         <h3 id="#jail" className={styles.MethodologySubsubheaderText}>
           Jail
         </h3>
+=======
+        <p>
+          <b>Jail</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
 
         <p>
           Jail includes all individuals currently confined by a local, adult
@@ -131,9 +169,15 @@ const PdohLink = () => {
           </li>
         </ul>
 
+<<<<<<< HEAD
         <h3 id="#prison" className={styles.MethodologySubsubheaderText}>
           Prison
         </h3>
+=======
+        <p>
+          <b>Prison</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
 
         <p>
           In general, prisons incarcerate individuals who have been sentenced to
@@ -193,6 +237,7 @@ const PdohLink = () => {
           <b>Did not report</b> race values into our <b>Unknown</b> race group.{' '}
         </p>
 
+<<<<<<< HEAD
         <h3
           id="#children-in-adult-facilities"
           className={styles.MethodologySubsubheaderText}
@@ -200,6 +245,11 @@ const PdohLink = () => {
           Children in Adult Facilities
         </h3>
 
+=======
+        <p>
+          <b>Children in Adult Facilities</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <p>
           When presenting incarceration reports, we have chosen to highlight the
           total number of confined children (in adult facilities), rather than
@@ -231,17 +281,24 @@ const PdohLink = () => {
           </li>
         </ul>
 
+<<<<<<< HEAD
         <h3
           id="#combined-systems"
           className={styles.MethodologySubsubheaderText}
         >
           Combined Systems
         </h3>
+=======
+        <p>
+          <b>Combined Systems</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
 
         <p>
           {CombinedIncarcerationStateMessage()} {ALASKA_PRIVATE_JAIL_CAVEAT}
         </p>
 
+<<<<<<< HEAD
         <h3 id="#women-in-gov" className={styles.MethodologySubsubheaderText}>
           Women in legislative office
         </h3>
@@ -261,6 +318,20 @@ const PdohLink = () => {
         <p>
           By leveraging data from the{' '}
           <a href={urlMap.cawp}>Center for American Women in Politics (CAWP)</a>{' '}
+=======
+        <h3 className={styles.MethodologySubsubheaderText}>Visualizations</h3>
+        <p>
+          Please consider the impact of under-reporting and data gaps when
+          exploring the visualizations. These issues may lead to incorrect
+          conclusions, e.g. low rates in a given location may be due to
+          under-reporting rather than absence of impact.
+        </p>
+        <p>
+          By leveraging data from the{' '}
+          <a href={'urlMap.cawp'}>
+            Center for American Women in Politics (CAWP)
+          </a>{' '}
+>>>>>>> 25282a78 (fixing branch conflicts)
           we are able to present two primary metrics on these reports:
         </p>
         <ul>
@@ -317,7 +388,11 @@ const PdohLink = () => {
             </i>
             ). We obtain the historical counts of U.S. Congress members, by year
             and by state/territory, from the open-source{' '}
+<<<<<<< HEAD
             <a href={urlMap.unitedStatesIo}>@unitedstates project</a>.
+=======
+            <a href={'urlMap.unitedStatesIo'}>@unitedstates project</a>.
+>>>>>>> 25282a78 (fixing branch conflicts)
           </li>
           <li>
             Historical relative inequity (e.g.{' '}
@@ -337,9 +412,15 @@ const PdohLink = () => {
           race/ethnicity groupings, making direct comparisons and calculations
           difficult or impossible in some cases. For specific methodology on the
           race groups collected by CAWP, please{' '}
+<<<<<<< HEAD
           <a href={urlMap.cawp}>visit their database directly</a> . We have made
           several adjustments to our methods to incorporate these non-standard
           race groupings when possible:
+=======
+          <a href={'urlMap.cawp'}>visit their database directly</a> . We have
+          made several adjustments to our methods to incorporate these
+          non-standard race groupings when possible:
+>>>>>>> 25282a78 (fixing branch conflicts)
         </p>
 
         <ul>
@@ -364,18 +445,26 @@ const PdohLink = () => {
             There is currently no population data collected by the U.S. Census
             for <b>Middle Eastern & North African</b>, although this data equity
             issue has seen{' '}
+<<<<<<< HEAD
             <a href={urlMap.senateMENA} rel="noreferrer" target="_blank">
+=======
+            <a href={'urlMap.senateMENA'} rel="noreferrer" target="_blank">
+>>>>>>> 25282a78 (fixing branch conflicts)
               some progress
             </a>{' '}
             in recent decades. Currently, <b>MENA</b> individuals are counted by
             the ACS as <b>White</b>.
           </li>
         </ul>
+<<<<<<< HEAD
         <Card
           id={'#women-in-gov-missing-and-suppressed-data'}
           elevation={3}
           className={styles.MissingDataBox}
         >
+=======
+        <Card elevation={3} className={styles.MissingDataBox}>
+>>>>>>> 25282a78 (fixing branch conflicts)
           <MissingCAWPData />
         </Card>
       </article>

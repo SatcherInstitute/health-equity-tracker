@@ -1,5 +1,8 @@
 import styles from '../MethodologyPage.module.scss'
+<<<<<<< HEAD
 import { urlMap } from '../../../utils/externalUrls'
+=======
+>>>>>>> 25282a78 (fixing branch conflicts)
 
 const BehavioralHealthLink = () => {
   return (
@@ -12,6 +15,7 @@ const BehavioralHealthLink = () => {
         <p>
           Multiple chronic disease, behavioral health, and social determinants
           of health in the tracker are sourced from{' '}
+<<<<<<< HEAD
           <a href={urlMap.amr}>America’s Health Rankings (AHR)</a>, who in turn
           source the majority of their data from the{' '}
           <a href={urlMap.cdcBrfss}>
@@ -20,6 +24,16 @@ const BehavioralHealthLink = () => {
           , a survey run by the CDC, along with supplemental data from{' '}
           <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
           <a href={urlMap.censusVoting}>US Census</a>.
+=======
+          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>, who in
+          turn source the majority of their data from the{' '}
+          <a href={'urlMap.cdcBrfss'}>
+            Behavioral Risk Factor Surveillance System (BRFSS)
+          </a>
+          , a survey run by the CDC, along with supplemental data from{' '}
+          <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
+          <a href={'urlMap.censusVoting'}>US Census</a>.
+>>>>>>> 25282a78 (fixing branch conflicts)
         </p>
         <ul>
           <li>
@@ -27,7 +41,11 @@ const BehavioralHealthLink = () => {
             to provide a statistically meaningful estimate of disease
             prevalence, especially for smaller and typically marginalized racial
             groups. Please see the{' '}
+<<<<<<< HEAD
             <a href={urlMap.amrMethodology}>methodology page</a> of America’s
+=======
+            <a href={'urlMap.amrMethodology'}>methodology page</a> of America’s
+>>>>>>> 25282a78 (fixing branch conflicts)
             Health Rankings for details on data suppression.
           </li>
           <li>

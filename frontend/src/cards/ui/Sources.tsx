@@ -2,6 +2,7 @@ import styles from './Sources.module.scss'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 =======
 import {
@@ -14,6 +15,9 @@ import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
 =======
 import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 >>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
+=======
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+>>>>>>> 25282a78 (fixing branch conflicts)
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
@@ -115,10 +119,14 @@ export function Sources(props: SourcesProps) {
         <>{optionalDefinition}</>
         View{' '}
 <<<<<<< HEAD
+<<<<<<< HEAD
         <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
 =======
         <HashLink to={`${METHODOLOGY_TAB_LINK}#${methodologyHashId}`}>
 >>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
+=======
+        <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
+>>>>>>> 25282a78 (fixing branch conflicts)
           methodology
         </HashLink>
         .

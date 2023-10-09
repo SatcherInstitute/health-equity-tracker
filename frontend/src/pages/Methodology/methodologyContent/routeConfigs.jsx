@@ -33,6 +33,7 @@ export const routeConfigs = [
   {
     path: AGE_ADJUSTMENT_LINK,
     component: AgeAdjustmentLink,
+<<<<<<< HEAD
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
@@ -43,6 +44,8 @@ export const routeConfigs = [
   {
     path: SOURCES_LINK,
     component: SourcesLink,
+=======
+>>>>>>> 25282a78 (fixing branch conflicts)
     subLinks: [],
   },
   {
@@ -56,6 +59,15 @@ export const routeConfigs = [
     subLinks: [],
   },
   {
+<<<<<<< HEAD
+=======
+    path: CONDITION_VARIABLES_LINK,
+    component: ConditionVariablesLink,
+    subLinks: [],
+  },
+
+  {
+>>>>>>> 25282a78 (fixing branch conflicts)
     path: COVID_19_LINK,
     component: Covid19Link,
     subLinks: [
@@ -68,6 +80,7 @@ export const routeConfigs = [
         label: 'COVID-19 Missing and Suppressed Data',
         path: '#covid19-missing-and-suppressed-data',
       },
+<<<<<<< HEAD
       {
         label: 'COVID-19 vaccinations',
         path: '#covid-19-vaccinations',
@@ -158,13 +171,66 @@ export const routeConfigs = [
     subLinks: [],
   },
   {
+=======
+    ],
+  },
+  {
+>>>>>>> 25282a78 (fixing branch conflicts)
     path: DATA_METHOD_DEFINITIONS_LINK,
     component: DataMethodDefinitionsLink,
     subLinks: [],
   },
+<<<<<<< HEAD
+=======
+
+  {
+    path: HIV_LINK,
+    component: HivLink,
+    subLinks: [],
+  },
+
+  {
+    path: METRICS_LINK,
+    component: MetricsLink,
+    subLinks: [],
+  },
+
+  {
+    path: PDOH_LINK,
+    component: PdohLink,
+    subLinks: [],
+  },
+  {
+    path: RACES_AND_ETHNICITIES_LINK,
+    component: RacesAndEthnicitiesLink,
+    subLinks: [],
+  },
+
+>>>>>>> 25282a78 (fixing branch conflicts)
   {
     path: RECOMMENDED_CITATION_LINK,
     component: RecommendedCitationLink,
     subLinks: [],
   },
+<<<<<<< HEAD
+=======
+
+  {
+    path: SDOH_LINK,
+    component: SdohLink,
+    subLinks: [],
+  },
+
+  {
+    path: SOURCES_LINK,
+    component: SourcesLink,
+    subLinks: [],
+  },
+
+  {
+    path: TOPICS_LINK,
+    component: TopicsLink,
+    subLinks: [],
+  },
+>>>>>>> 25282a78 (fixing branch conflicts)
 ]

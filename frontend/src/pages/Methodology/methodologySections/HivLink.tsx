@@ -10,7 +10,11 @@ const HivLink = () => {
     <section>
       <article>
         <h1 className={styles.MethodologyQuestion}>HIV</h1>
+<<<<<<< HEAD
         <p id="#hiv">
+=======
+        <p id="hiv_black_women">
+>>>>>>> 25282a78 (fixing branch conflicts)
           The CDC collects and studies information on the number of people
           diagnosed with HIV in the United States. This information is gathered
           from state and local HIV surveillance programs and is used to better
@@ -34,12 +38,18 @@ const HivLink = () => {
           figures.
         </p>
 
+<<<<<<< HEAD
         <h3
           id="#deaths-diagnosis-prevalence"
           className={styles.MethodologySubsubheaderText}
         >
           HIV Deaths, Diagnosis, & Prevalence
         </h3>
+=======
+        <p>
+          <b>HIV Deaths, Diagnosis, & Prevalence</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <p>
           Death data include deaths of persons aged 13 years and older with
           diagnosed HIV infection or AIDS classification, regardless of the
@@ -98,6 +108,7 @@ const HivLink = () => {
           </li>
         </ul>
 
+<<<<<<< HEAD
         <Card
           id={'#hiv-missing-and-suppressed-data'}
           elevation={3}
@@ -109,6 +120,15 @@ const HivLink = () => {
         <h3 id="#prep-coverage" className={styles.MethodologySubsubheaderText}>
           PrEP Coverage
         </h3>
+=======
+        <Card elevation={3} className={styles.MissingDataBox}>
+          <MissingHIVData />
+        </Card>
+
+        <p id="hiv_prep">
+          <b>PrEP Coverage</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <p>
           PrEP coverage, reported as a percentage, is defined as the number of
           persons aged 16 years and older classified as having been prescribed
@@ -180,12 +200,18 @@ const HivLink = () => {
           <MissingPrepData />
         </Card>
 
+<<<<<<< HEAD
         <h3
           id="#linkage-to-care"
           className={styles.MethodologySubsubheaderText}
         >
           Linkage to Care
         </h3>
+=======
+        <p id="hiv_care">
+          <b>Linkage to Care</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <p>
           Linkage to HIV care, reported as a percentage, refers to the number of
           persons aged 13 years and older newly diagnosed with HIV, having at
@@ -247,9 +273,15 @@ const HivLink = () => {
             </ul>
           </li>
         </ul>
+<<<<<<< HEAD
         <h3 id="#stigma" className={styles.MethodologySubsubheaderText}>
           HIV Stigma
         </h3>
+=======
+        <p id="hiv_stigma">
+          <b>HIV Stigma</b>
+        </p>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <p>
           HIV stigma, reported as a score, refers to the weighted median score
           on a 10-item scale ranging from 0 (no stigma) to 100 (high stigma)

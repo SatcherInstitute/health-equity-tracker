@@ -1,10 +1,14 @@
 import { urlMap } from '../../utils/externalUrls'
 import {
 <<<<<<< HEAD
+<<<<<<< HEAD
   AGE_ADJUSTMENT_LINK,
 =======
   AGE_ADJUSTMENT_TAB_LINK,
 >>>>>>> fa3b6624 (RF: Split FAQ data (#2405))
+=======
+  AGE_ADJUSTMENT_LINK,
+>>>>>>> 25282a78 (fixing branch conflicts)
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import styles from '../ui/FaqSection.module.scss'
@@ -157,10 +161,14 @@ function AnswerHowDidYouAcquire() {
           throughout the U.S. in comparison to the white (non-Hispanic)
           population. To learn more, please view our{' '}
 <<<<<<< HEAD
+<<<<<<< HEAD
           <a href={AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
 =======
           <a href={AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>.
 >>>>>>> fa3b6624 (RF: Split FAQ data (#2405))
+=======
+          <a href={AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
+>>>>>>> 25282a78 (fixing branch conflicts)
         </li>
         <li>Sources are refreshed when update notifications are received</li>
         <li>

@@ -5,6 +5,7 @@ import {
   MissingCovidData,
   MissingCovidVaccinationData,
 } from '../methodologyContent/missingDataBlurbs'
+<<<<<<< HEAD
 import React, { useEffect, useRef, useState } from 'react'
 
 const Covid19Link = () => {
@@ -24,6 +25,21 @@ const Covid19Link = () => {
     } else {
       setSticky(false)
       setHeaderWidth('auto')
+=======
+import React, { useEffect, useState } from 'react'
+
+const Covid19Link = () => {
+  // TODO: properly set up isSticky
+  const [isSticky, setSticky] = useState(false)
+
+  const handleScroll = () => {
+    const offset = window.scrollY
+    if (offset > 200) {
+      // Replace 200 with the position you prefer
+      setSticky(true)
+    } else {
+      setSticky(false)
+>>>>>>> 25282a78 (fixing branch conflicts)
     }
   }
 
@@ -35,6 +51,7 @@ const Covid19Link = () => {
     }
   }, [])
 
+<<<<<<< HEAD
   console.log(isSticky)
 
   return (
@@ -52,6 +69,17 @@ const Covid19Link = () => {
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>
+=======
+  return (
+    <section>
+      <article>
+        <h1 className={isSticky ? styles.StickyHeader : ''}>COVID-19</h1>
+
+        <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
+          COVID-19
+        </h3>
+
+>>>>>>> 25282a78 (fixing branch conflicts)
         <ul>
           <li>
             National statistics are aggregations of state-wide data. If state
@@ -89,6 +117,7 @@ const Covid19Link = () => {
             whether that that locale fails to report demographics correctly.
           </li>
         </ul>
+<<<<<<< HEAD
         <div id="#covid19-time-series-data" style={{ height: '10px' }}></div>
         <h3
           className={styles.MethodologySubsubheaderText}
@@ -97,6 +126,10 @@ const Covid19Link = () => {
           COVID-19 time-series data
         </h3>
 
+=======
+
+        <h4 id="#covid19-time-series-data">COVID-19 time-series data</h4>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <ul>
           <li>
             The CDC Restricted dataset includes a field called{' '}
@@ -134,20 +167,32 @@ const Covid19Link = () => {
           </li>
         </ul>
 
+<<<<<<< HEAD
         <div
           id="#covid19-missing-and-suppressed-data"
           style={{ height: '30px' }}
         ></div>
         <Card
           // id="#covid19-missing-and-suppressed-data"
+=======
+        <Card
+          id="#covid19-missing-and-suppressed-data"
+>>>>>>> 25282a78 (fixing branch conflicts)
           elevation={3}
           className={styles.MissingDataBox}
         >
           <MissingCovidData />
         </Card>
 
+<<<<<<< HEAD
         <div id="#covid-19-vaccinations" style={{ height: '10px' }}></div>
         <h3 className={styles.MethodologySubsubheaderText}>
+=======
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#covid-19-vaccinations"
+        >
+>>>>>>> 25282a78 (fixing branch conflicts)
           COVID-19 vaccinations
         </h3>
 
@@ -186,6 +231,7 @@ const Covid19Link = () => {
             which provides the total number of vaccinations per county.
           </li>
         </ul>
+<<<<<<< HEAD
         <div
           id="#vaccination-population-sources"
           style={{ height: '10px' }}
@@ -194,6 +240,9 @@ const Covid19Link = () => {
           Vaccination population sources
         </h3>
 
+=======
+        <h4> Vaccination population sources </h4>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <ul>
           <li>
             For the national numbers we use the population numbers provided by
@@ -224,6 +273,7 @@ const Covid19Link = () => {
             For the county level we use the ACS 2019 population estimations.
           </li>
         </ul>
+<<<<<<< HEAD
         <div
           id="#vaccination-data-limitations"
           style={{ height: '10px' }}
@@ -231,6 +281,9 @@ const Covid19Link = () => {
         <h3 className={styles.MethodologySubsubheaderText}>
           Vaccination data limitations
         </h3>
+=======
+        <h4>Vaccination data limitations</h4>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <ul>
           <li>
             <b>New Hampshire</b> lifted its national COVID-19 emergency response
@@ -261,11 +314,15 @@ const Covid19Link = () => {
           </li>
         </ul>
 
+<<<<<<< HEAD
         <Card
           id="#missing-covid-vaccination-data"
           elevation={3}
           className={styles.MissingDataBox}
         >
+=======
+        <Card elevation={3} className={styles.MissingDataBox}>
+>>>>>>> 25282a78 (fixing branch conflicts)
           <MissingCovidVaccinationData />
         </Card>
       </article>

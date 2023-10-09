@@ -7,7 +7,13 @@ const ConditionVariablesLink = () => {
   return (
     <section>
       <article>
+<<<<<<< HEAD
         <h1 className={styles.MethodologyQuestion}>Condition Variables</h1>
+=======
+        <h1 className={styles.MethodologySubsubheaderText}>
+          Condition Variables
+        </h1>
+>>>>>>> 25282a78 (fixing branch conflicts)
         <h2 className={styles.MethodologyQuestion}>
           What do the condition variables on the tracker mean?
         </h2>
