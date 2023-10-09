@@ -85,7 +85,7 @@ export const routeConfigs = [
       },
       {
         label: 'Vaccination data limitations',
-        path: '#vaccination-data-limiations',
+        path: '#vaccination-data-limitations',
       },
       {
         label: 'Missing COVID-19 vaccination data',
