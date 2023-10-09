@@ -34,6 +34,7 @@ export const routeConfigs = [
     path: AGE_ADJUSTMENT_LINK,
     component: AgeAdjustmentLink,
 <<<<<<< HEAD
+<<<<<<< HEAD
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
@@ -47,6 +48,14 @@ export const routeConfigs = [
 =======
 >>>>>>> 25282a78 (fixing branch conflicts)
     subLinks: [],
+=======
+    subLinks: [
+      { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
+      { label: 'Data Sourcing', path: '#data-sourcing' },
+      { label: 'Algorithm', path: '#algorith,' },
+      { label: 'Age-Adjustment Examples', path: '#age-adjustment-examples' },
+    ],
+>>>>>>> ece76097 (updated links)
   },
   {
     path: BEHAVIORAL_HEALTH_LINK,
@@ -63,9 +72,15 @@ export const routeConfigs = [
 =======
     path: CONDITION_VARIABLES_LINK,
     component: ConditionVariablesLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'HIV', path: '#hiv' },
+      { label: 'COVID-19', path: '#covid-19' },
+      { label: 'Behavioral Health', path: '#behavioral-health' },
+      { label: 'Chronic Disease', path: '#chronic-disease' },
+      { label: 'Social Determinants of Health', path: '#sodh' },
+      { label: 'Political Determinants of Health', path: '#podh' },
+    ],
   },
-
   {
 >>>>>>> 25282a78 (fixing branch conflicts)
     path: COVID_19_LINK,
@@ -81,6 +96,9 @@ export const routeConfigs = [
         path: '#covid19-missing-and-suppressed-data',
       },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ece76097 (updated links)
       {
         label: 'COVID-19 vaccinations',
         path: '#covid-19-vaccinations',
@@ -91,7 +109,11 @@ export const routeConfigs = [
       },
       {
         label: 'Vaccination data limitations',
+<<<<<<< HEAD
         path: '#vaccination-data-limitations',
+=======
+        path: '#vaccination-data-limiations',
+>>>>>>> ece76097 (updated links)
       },
       {
         label: 'Missing COVID-19 vaccination data',
@@ -186,7 +208,16 @@ export const routeConfigs = [
   {
     path: HIV_LINK,
     component: HivLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'HIV', path: '#hiv' },
+      {
+        label: 'HIV Missing and Suppressed Data',
+        path: '#hiv-missing-and-suppressed-data',
+      },
+      { label: 'PrEP Coverage', path: '#prep-coverage' },
+      { label: 'Linkage to Care', path: '#linkage-to-care' },
+      { label: 'HIV Stigma', path: '#stigma' },
+    ],
   },
 
   {
@@ -198,7 +229,21 @@ export const routeConfigs = [
   {
     path: PDOH_LINK,
     component: PdohLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'Incarceration', path: '#incarceration' },
+      { label: 'Jail', path: '#jail' },
+      { label: 'Prison', path: '#prison' },
+      {
+        label: 'Children in Adult Facilities',
+        path: '#children-in-adult-facilities',
+      },
+      { label: 'Combined Systems', path: '#combined-systems' },
+      { label: 'Women in Legislative Office', path: '#women-in-gov' },
+      {
+        label: 'Women in Legislative Office Missing and Suppressed Data',
+        path: '#women-in-gov-missing-and-suppressed-data',
+      },
+    ],
   },
   {
     path: RACES_AND_ETHNICITIES_LINK,

@@ -52,6 +52,7 @@ const Covid19Link = () => {
   }, [])
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   console.log(isSticky)
 
   return (
@@ -70,16 +71,22 @@ const Covid19Link = () => {
           COVID-19
         </h3>
 =======
+=======
+  console.log(isSticky)
+
+>>>>>>> ece76097 (updated links)
   return (
     <section>
       <article>
-        <h1 className={isSticky ? styles.StickyHeader : ''}>COVID-19</h1>
-
+        <h1 className={styles.MethodologyQuestion}>COVID-19</h1>
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>
+<<<<<<< HEAD
 
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+>>>>>>> ece76097 (updated links)
         <ul>
           <li>
             National statistics are aggregations of state-wide data. If state
@@ -128,8 +135,18 @@ const Covid19Link = () => {
 
 =======
 
+<<<<<<< HEAD
         <h4 id="#covid19-time-series-data">COVID-19 time-series data</h4>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#covid19-time-series-data"
+        >
+          COVID-19 time-series data
+        </h3>
+
+>>>>>>> ece76097 (updated links)
         <ul>
           <li>
             The CDC Restricted dataset includes a field called{' '}
@@ -232,6 +249,7 @@ const Covid19Link = () => {
           </li>
         </ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div
           id="#vaccination-population-sources"
           style={{ height: '10px' }}
@@ -243,6 +261,15 @@ const Covid19Link = () => {
 =======
         <h4> Vaccination population sources </h4>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#vaccination-population-sources"
+        >
+          Vaccination population sources
+        </h3>
+
+>>>>>>> ece76097 (updated links)
         <ul>
           <li>
             For the national numbers we use the population numbers provided by
@@ -274,6 +301,7 @@ const Covid19Link = () => {
           </li>
         </ul>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <div
           id="#vaccination-data-limitations"
           style={{ height: '10px' }}
@@ -284,6 +312,14 @@ const Covid19Link = () => {
 =======
         <h4>Vaccination data limitations</h4>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+        <h3
+          className={styles.MethodologySubsubheaderText}
+          id="#vaccination-data-limiations"
+        >
+          Vaccination data limitations
+        </h3>
+>>>>>>> ece76097 (updated links)
         <ul>
           <li>
             <b>New Hampshire</b> lifted its national COVID-19 emergency response
@@ -315,14 +351,20 @@ const Covid19Link = () => {
         </ul>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> ece76097 (updated links)
         <Card
           id="#missing-covid-vaccination-data"
           elevation={3}
           className={styles.MissingDataBox}
         >
+<<<<<<< HEAD
 =======
         <Card elevation={3} className={styles.MissingDataBox}>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+>>>>>>> ece76097 (updated links)
           <MissingCovidVaccinationData />
         </Card>
       </article>

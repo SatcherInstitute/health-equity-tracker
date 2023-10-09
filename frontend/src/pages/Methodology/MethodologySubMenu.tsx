@@ -2,12 +2,16 @@ import styles from './MethodologyPage.module.scss'
 import React, { type ReactNode } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Link as ScrollLink } from 'react-scroll'
 =======
 // import { Link as ScrollLink } from 'react-scroll'
 
 // TODO: Updating typing
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+import { Link as ScrollLink } from 'react-scroll'
+>>>>>>> ece76097 (updated links)
 
 interface LinkConfig {
   label: string
@@ -34,6 +38,7 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
   if (isScrollLink) {
     return (
 <<<<<<< HEAD
+<<<<<<< HEAD
       <ScrollLink to={to} {...rest}>
         {children}
       </ScrollLink>
@@ -43,6 +48,11 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
       //   {children}
       // </ScrollLink>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+      <ScrollLink to={to} {...rest}>
+        {children}
+      </ScrollLink>
+>>>>>>> ece76097 (updated links)
     )
   }
   return (

@@ -122,6 +122,7 @@
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router-hash-link": "^2.4.6",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "@types/react-scroll": "^1.8.8",
     "@types/react-table": "^7.7.15",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -135,18 +136,24 @@
     "eslint-plugin-react": "^7.33.2",
     "expect-axe-playwright": "^4.0.1",
 =======
+=======
+    "@types/react-scroll": "^1.8.8",
+>>>>>>> ece76097 (updated links)
     "@types/react-table": "^7.7.15",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "eslint": "^8.49.0",
-    "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-config-prettier": "^8.10.0",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "expect-axe-playwright": "^4.0.1",
+    "eslint-config-standard-with-typescript": "^34.0.1",
     "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.2",
+<<<<<<< HEAD
 >>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
+=======
+    "expect-axe-playwright": "^4.0.1",
+>>>>>>> ece76097 (updated links)
     "husky": "^4.3.8",
     "prettier": "^2.8.8",
     "stylelint": "^15.10.3",
