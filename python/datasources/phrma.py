@@ -162,6 +162,7 @@ class PhrmaData(DataSource):
 
         col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
+        df.to_json(f'phrma-{table_name}.json', orient="records")
         gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
     def generate_breakdown_df(
