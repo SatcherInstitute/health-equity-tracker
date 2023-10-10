@@ -18,11 +18,6 @@ data_ingestion_dag = DAG(
     description='Ingestion configuration for Phrma',
 )
 
-phrma_bq_payload = util.generate_bq_payload(_PHRMA_WORKFLOW_ID, _PHRMA_DATASET_NAME)
-phrma_bq_operator = util.create_bq_ingest_operator(
-    'phrma_to_bq', phrma_bq_payload, data_ingestion_dag
-)
-
 # INGEST BY GEO / DEMO
 
 # sex_national
