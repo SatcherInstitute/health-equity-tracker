@@ -35,7 +35,7 @@ phrma_bq_operator_sex_national = util.create_bq_ingest_operator(
 phrma_bq_payload_race_national = util.generate_bq_payload(
     _PHRMA_WORKFLOW_ID,
     _PHRMA_DATASET_NAME,
-    demographic='race',
+    demographic='race_and_ethnicity',
     geographic='national',
 )
 phrma_bq_operator_race_national = util.create_bq_ingest_operator(
@@ -91,7 +91,7 @@ phrma_bq_operator_sex_state = util.create_bq_ingest_operator(
 phrma_bq_payload_race_state = util.generate_bq_payload(
     _PHRMA_WORKFLOW_ID,
     _PHRMA_DATASET_NAME,
-    demographic='race',
+    demographic='race_and_ethnicity',
     geographic='state',
 )
 phrma_bq_operator_race_state = util.create_bq_ingest_operator(
@@ -147,7 +147,7 @@ phrma_bq_operator_sex_county = util.create_bq_ingest_operator(
 phrma_bq_payload_race_county = util.generate_bq_payload(
     _PHRMA_WORKFLOW_ID,
     _PHRMA_DATASET_NAME,
-    demographic='race',
+    demographic='race_and_ethnicity',
     geographic='county',
 )
 phrma_bq_operator_race_county = util.create_bq_ingest_operator(
