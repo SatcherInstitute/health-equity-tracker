@@ -234,10 +234,12 @@ phrma_exporter_operator_eligibility = util.create_exporter_operator(
         phrma_bq_operator_elig_national,
     ]
     >> phrma_bq_operator_race_state
-    >> phrma_bq_operator_sex_state
+    >> [
+        phrma_bq_operator_sex_state,
+        phrma_bq_operator_lis_state,
+        phrma_bq_operator_elig_state,
+    ]
     >> phrma_bq_operator_age_state
-    >> phrma_bq_operator_lis_state
-    >> phrma_bq_operator_elig_state
     >> phrma_bq_operator_sex_county
     >> phrma_bq_operator_age_county
     >> phrma_bq_operator_lis_county
