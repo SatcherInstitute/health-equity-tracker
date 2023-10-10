@@ -16,7 +16,7 @@ from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
 )
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.merge_utils import merge_county_names
+from ingestion.merge_utils import merge_county_names, merge_state_ids
 from ingestion.types import (
     GEO_TYPE,
     SEX_RACE_ETH_AGE_TYPE,
@@ -61,7 +61,7 @@ PHRMA_100K_CONDITIONS = [
 # CONSTANTS USED BY DATA SOURCE
 COUNT_TOTAL = "TOTAL_BENE"
 COUNT_YES = "BENE_YES"
-COUNT_NO = "BENE_NO"
+# COUNT_NO = "BENE_NO"
 MEDICARE_DISEASE_COUNT = "BENE_N"
 MEDICARE_POP_COUNT = "TOTAL_N"
 ADHERENCE_RATE = "BENE_YES_PCT"
@@ -124,55 +124,45 @@ class PhrmaData(DataSource):
         raise NotImplementedError('upload_to_gcs should not be called for PhrmaData')
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
-        for geo_level in [NATIONAL_LEVEL, STATE_LEVEL, COUNTY_LEVEL]:
-            alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
+        demo_type = self.get_attr(attrs, 'demographic')
+        geo_level = self.get_attr(attrs, 'geographic')
 
-            for breakdown in [
-                std_col.LIS_COL,
-                std_col.ELIGIBILITY_COL,
-                std_col.SEX_COL,
-                std_col.AGE_COL,
-                std_col.RACE_OR_HISPANIC_COL,
+        alls_df = load_phrma_df_from_data_dir(geo_level, TMP_ALL)
+
+        table_name = f'{demo_type}_{geo_level}'
+        df = self.generate_breakdown_df(demo_type, geo_level, alls_df)
+
+        # POP COMPARE FOR 100K
+        float_cols = [
+            f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+            f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
+        ]
+
+        # PCT_RATE CONDITIONS
+        for condition in PHRMA_PCT_CONDITIONS:
+            # rate, pct_share, count cols
+            for metric in [
+                std_col.PCT_RATE_SUFFIX,
+                std_col.PCT_SHARE_SUFFIX,
+                std_col.RAW_SUFFIX,
             ]:
-                table_name = f'{breakdown}_{geo_level}'
-                df = self.generate_breakdown_df(breakdown, geo_level, alls_df)
+                float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
+            # valid-population comparison pct_share and count cols
+            float_cols.append(f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}')
 
-                # POP COMPARE FOR 100K
-                float_cols = [
-                    f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
-                    f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}',
-                ]
+        # PER_100K CONDITIONS
+        for condition in PHRMA_100K_CONDITIONS:
+            # rate, pct_share, count_cols
+            for metric in [
+                std_col.PER_100K_SUFFIX,
+                std_col.PCT_SHARE_SUFFIX,
+                std_col.RAW_SUFFIX,
+            ]:
+                float_cols.append(f'{condition}_{metric}')
 
-                # PCT_RATE CONDITIONS
-                for condition in PHRMA_PCT_CONDITIONS:
-                    # rate, pct_share, count cols
-                    for metric in [
-                        std_col.PCT_RATE_SUFFIX,
-                        std_col.PCT_SHARE_SUFFIX,
-                        std_col.RAW_SUFFIX,
-                    ]:
-                        float_cols.append(f'{condition}_{ADHERENCE}_{metric}')
-                    # valid-population comparison pct_share and count cols
-                    float_cols.append(
-                        f'{condition}_{BENEFICIARIES}_{std_col.RAW_SUFFIX}'
-                    )
-                    # float_cols.append(f'{condition}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}')
+        col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-                # PER_100K CONDITIONS
-                for condition in PHRMA_100K_CONDITIONS:
-                    # rate, pct_share, count_cols
-                    for metric in [
-                        std_col.PER_100K_SUFFIX,
-                        std_col.PCT_SHARE_SUFFIX,
-                        std_col.RAW_SUFFIX,
-                    ]:
-                        float_cols.append(f'{condition}_{metric}')
-
-                col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-
-                gcs_to_bq_util.add_df_to_bq(
-                    df, dataset, table_name, column_types=col_types
-                )
+        gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types)
 
     def generate_breakdown_df(
         self,
@@ -224,8 +214,13 @@ class PhrmaData(DataSource):
             df[het_col_name] = df[source_col_name].round()
 
         if geo_level == COUNTY_LEVEL:
-            df = merge_county_names(df)
             df[std_col.STATE_FIPS_COL] = df[std_col.COUNTY_FIPS_COL].str.slice(0, 2)
+            df = merge_county_names(df)
+
+        if geo_level == NATIONAL_LEVEL:
+            df[std_col.STATE_NAME_COL] = US_NAME
+        else:
+            df = merge_state_ids(df)
 
         count_to_share_map = {
             # Pct share of adherence
@@ -270,7 +265,6 @@ class PhrmaData(DataSource):
 
         df = df.drop(
             columns=[
-                *[f'{condition}_{COUNT_NO}' for condition in PHRMA_PCT_CONDITIONS],
                 *[
                     f'{condition}_{ADHERENCE_RATE}'
                     for condition in PHRMA_PCT_CONDITIONS
@@ -298,9 +292,12 @@ def load_phrma_df_from_data_dir(
 
     sheet_name = get_sheet_name(geo_level, breakdown)
 
-    merge_cols = [std_col.STATE_FIPS_COL, std_col.STATE_NAME_COL]
+    merge_cols = []
+
     if geo_level == COUNTY_LEVEL:
-        merge_cols.extend([std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL])
+        merge_cols.append(std_col.COUNTY_FIPS_COL)
+    else:
+        merge_cols.append(std_col.STATE_FIPS_COL)
 
     if breakdown != TMP_ALL:
         breakdown_col = (
@@ -312,22 +309,55 @@ def load_phrma_df_from_data_dir(
     fips_col = (
         std_col.COUNTY_FIPS_COL if geo_level == COUNTY_LEVEL else std_col.STATE_FIPS_COL
     )
-    fips_length = 5 if geo_level == COUNTY_LEVEL else 2
+
+    breakdown_het_to_source_type = {
+        "age": AGE_GROUP,
+        "race_and_ethnicity": RACE_NAME,
+        "sex": SEX_NAME,
+        "lis": LIS,
+        "eligibility": ENTLMT_RSN_CURR,
+    }
+
+    # only read certain columns from source data
+    keep_cols = []
+
+    if breakdown != TMP_ALL:
+        keep_cols.append(breakdown_het_to_source_type[breakdown])
+
+    if geo_level == COUNTY_LEVEL:
+        fips_length = 5
+        keep_cols.append(COUNTY_FIPS)
+    if geo_level == STATE_LEVEL:
+        fips_length = 2
+        keep_cols.append(STATE_FIPS)
+    if geo_level == NATIONAL_LEVEL:
+        fips_length = 2
 
     topic_dfs = []
 
     for condition in [*PHRMA_PCT_CONDITIONS, *PHRMA_100K_CONDITIONS]:
+        if condition in PHRMA_PCT_CONDITIONS:
+            condition_keep_cols = [*keep_cols, COUNT_YES, COUNT_TOTAL, ADHERENCE_RATE]
+
+        if condition in PHRMA_100K_CONDITIONS:
+            condition_keep_cols = [
+                *keep_cols,
+                MEDICARE_DISEASE_COUNT,
+                MEDICARE_POP_COUNT,
+                PER_100K,
+            ]
+
         topic_df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
             PHRMA_DIR,
             f'{condition}-{sheet_name}.csv',
             subdirectory=condition,
             dtype=DTYPE,
             na_values=["."],
+            usecols=condition_keep_cols,
         )
 
         if geo_level == NATIONAL_LEVEL:
             topic_df[STATE_FIPS] = US_FIPS
-            topic_df[STATE_NAME] = US_NAME
 
         topic_df = rename_cols(
             topic_df,
@@ -388,7 +418,6 @@ def rename_cols(
 
     rename_cols_map: Dict[str, str] = (
         {
-            COUNT_NO: f'{condition}_{COUNT_NO}',
             COUNT_YES: f'{condition}_{COUNT_YES}',
             COUNT_TOTAL: f'{condition}_{COUNT_TOTAL}',
             ADHERENCE_RATE: f'{condition}_{ADHERENCE_RATE}',
@@ -401,13 +430,9 @@ def rename_cols(
     )
 
     if geo_level == COUNTY_LEVEL:
-        rename_cols_map[STATE_FIPS] = std_col.STATE_FIPS_COL
         rename_cols_map[COUNTY_FIPS] = std_col.COUNTY_FIPS_COL
-        rename_cols_map[STATE_NAME] = std_col.STATE_NAME_COL
-        rename_cols_map[COUNTY_NAME] = std_col.COUNTY_NAME_COL
 
     if geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
-        rename_cols_map[STATE_NAME] = std_col.STATE_NAME_COL
         rename_cols_map[STATE_FIPS] = std_col.STATE_FIPS_COL
 
     if breakdown == std_col.RACE_OR_HISPANIC_COL:
