@@ -24,6 +24,10 @@ export default function DefinitionsList(
   })
   const relevantCategories: Category[] = Array.from(relevantCategoriesSet)
 
+  function toLowerCaseWithHash(inputString: string) {
+    return '#' + inputString.toLowerCase().replace(/ /g, '-')
+  }
+
   return (
     <div id="definitionsList">
       {/* for each category */}
@@ -34,7 +38,7 @@ export default function DefinitionsList(
         )
 
         return (
-          <div key={category.title}>
+          <div key={category.title} id={toLowerCaseWithHash(category.title)}>
             {/* display category name and optional category definition */}
             <b>{category.title}</b>
             {category.definition && <p>{category.definition}</p>}

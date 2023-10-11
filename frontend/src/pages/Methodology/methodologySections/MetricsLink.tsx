@@ -4,7 +4,7 @@ const MetricsLink = () => {
   return (
     <section>
       <article>
-        <h1>Metrics</h1>
+        <h1 className={styles.MethodologyQuestion}>Metrics</h1>
         <h2 className={styles.MethodologyQuestion} id="metrics">
           What do the metrics on the tracker mean?
         </h2>

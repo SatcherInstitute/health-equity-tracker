@@ -36,9 +36,14 @@ export const routeConfigs = [
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
-      { label: 'Algorithm', path: '#algorith,' },
+      { label: 'Algorithm', path: '#algorithm' },
       { label: 'Age-Adjustment Examples', path: '#age-adjustment-examples' },
     ],
+  },
+  {
+    path: SOURCES_LINK,
+    component: SourcesLink,
+    subLinks: [],
   },
   {
     path: BEHAVIORAL_HEALTH_LINK,
@@ -49,18 +54,6 @@ export const routeConfigs = [
     path: CHRONIC_DISEASE_LINK,
     component: ChronicDiseaseLink,
     subLinks: [],
-  },
-  {
-    path: CONDITION_VARIABLES_LINK,
-    component: ConditionVariablesLink,
-    subLinks: [
-      { label: 'HIV', path: '#hiv' },
-      { label: 'COVID-19', path: '#covid-19' },
-      { label: 'Behavioral Health', path: '#behavioral-health' },
-      { label: 'Chronic Disease', path: '#chronic-disease' },
-      { label: 'Social Determinants of Health', path: '#sodh' },
-      { label: 'Political Determinants of Health', path: '#podh' },
-    ],
   },
   {
     path: COVID_19_LINK,
@@ -94,12 +87,6 @@ export const routeConfigs = [
     ],
   },
   {
-    path: DATA_METHOD_DEFINITIONS_LINK,
-    component: DataMethodDefinitionsLink,
-    subLinks: [],
-  },
-
-  {
     path: HIV_LINK,
     component: HivLink,
     subLinks: [
@@ -113,13 +100,6 @@ export const routeConfigs = [
       { label: 'HIV Stigma', path: '#stigma' },
     ],
   },
-
-  {
-    path: METRICS_LINK,
-    component: MetricsLink,
-    subLinks: [],
-  },
-
   {
     path: PDOH_LINK,
     component: PdohLink,
@@ -140,32 +120,51 @@ export const routeConfigs = [
     ],
   },
   {
-    path: RACES_AND_ETHNICITIES_LINK,
-    component: RacesAndEthnicitiesLink,
-    subLinks: [],
-  },
-
-  {
-    path: RECOMMENDED_CITATION_LINK,
-    component: RecommendedCitationLink,
-    subLinks: [],
-  },
-
-  {
     path: SDOH_LINK,
     component: SdohLink,
     subLinks: [],
   },
-
-  {
-    path: SOURCES_LINK,
-    component: SourcesLink,
-    subLinks: [],
-  },
-
   {
     path: TOPICS_LINK,
     component: TopicsLink,
+    subLinks: [],
+  },
+  {
+    path: METRICS_LINK,
+    component: MetricsLink,
+    subLinks: [],
+  },
+  {
+    path: CONDITION_VARIABLES_LINK,
+    component: ConditionVariablesLink,
+    subLinks: [
+      { label: 'HIV', path: '#hiv' },
+      { label: 'COVID-19', path: '#covid-19' },
+      { label: 'Behavioral Health', path: '#behavioral-health' },
+      { label: 'Chronic Disease', path: '#chronic-disease' },
+      {
+        label: 'Social Determinants of Health',
+        path: '#social-determinants-of-health',
+      },
+      {
+        label: 'Political Determinants of Health',
+        path: '#political-determinants-of-health',
+      },
+    ],
+  },
+  {
+    path: RACES_AND_ETHNICITIES_LINK,
+    component: RacesAndEthnicitiesLink,
+    subLinks: [],
+  },
+  {
+    path: DATA_METHOD_DEFINITIONS_LINK,
+    component: DataMethodDefinitionsLink,
+    subLinks: [],
+  },
+  {
+    path: RECOMMENDED_CITATION_LINK,
+    component: RecommendedCitationLink,
     subLinks: [],
   },
 ]
