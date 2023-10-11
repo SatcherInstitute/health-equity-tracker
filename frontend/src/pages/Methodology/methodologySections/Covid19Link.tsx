@@ -5,19 +5,25 @@ import {
   MissingCovidData,
   MissingCovidVaccinationData,
 } from '../methodologyContent/missingDataBlurbs'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 const Covid19Link = () => {
-  // TODO: properly set up isSticky
   const [isSticky, setSticky] = useState(false)
+  const articleRef = useRef<HTMLDivElement | null>(null)
+  const [headerWidth, setHeaderWidth] = useState('auto')
 
   const handleScroll = () => {
     const offset = window.scrollY
-    if (offset > 200) {
+    console.log(offset)
+    if (offset > 100) {
       // Replace 200 with the position you prefer
       setSticky(true)
+      if (articleRef.current) {
+        setHeaderWidth(`${articleRef?.current?.offsetWidth}px`)
+      }
     } else {
       setSticky(false)
+      setHeaderWidth('auto')
     }
   }
 
@@ -33,8 +39,16 @@ const Covid19Link = () => {
 
   return (
     <section>
-      <article>
-        <h1 className={styles.MethodologyQuestion}>COVID-19</h1>
+      <article ref={articleRef}>
+        <h1
+          className={`${styles.MethodologyQuestion} ${
+            isSticky ? styles.StickyHeader : ''
+          }`}
+          style={{ width: headerWidth }}
+        >
+          COVID-19
+        </h1>
+        <div id="#covid19" style={{ height: '10px' }}></div>
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>
@@ -75,7 +89,7 @@ const Covid19Link = () => {
             whether that that locale fails to report demographics correctly.
           </li>
         </ul>
-
+        <div id="#covid19-time-series-data" style={{ height: '10px' }}></div>
         <h3
           className={styles.MethodologySubsubheaderText}
           id="#covid19-time-series-data"
@@ -120,18 +134,20 @@ const Covid19Link = () => {
           </li>
         </ul>
 
-        <Card
+        <div
           id="#covid19-missing-and-suppressed-data"
+          style={{ height: '30px' }}
+        ></div>
+        <Card
+          // id="#covid19-missing-and-suppressed-data"
           elevation={3}
           className={styles.MissingDataBox}
         >
           <MissingCovidData />
         </Card>
 
-        <h3
-          className={styles.MethodologySubsubheaderText}
-          id="#covid-19-vaccinations"
-        >
+        <div id="#covid-19-vaccinations" style={{ height: '10px' }}></div>
+        <h3 className={styles.MethodologySubsubheaderText}>
           COVID-19 vaccinations
         </h3>
 
@@ -170,10 +186,11 @@ const Covid19Link = () => {
             which provides the total number of vaccinations per county.
           </li>
         </ul>
-        <h3
-          className={styles.MethodologySubsubheaderText}
+        <div
           id="#vaccination-population-sources"
-        >
+          style={{ height: '10px' }}
+        ></div>
+        <h3 className={styles.MethodologySubsubheaderText}>
           Vaccination population sources
         </h3>
 
@@ -207,10 +224,11 @@ const Covid19Link = () => {
             For the county level we use the ACS 2019 population estimations.
           </li>
         </ul>
-        <h3
-          className={styles.MethodologySubsubheaderText}
+        <div
           id="#vaccination-data-limitations"
-        >
+          style={{ height: '10px' }}
+        ></div>
+        <h3 className={styles.MethodologySubsubheaderText}>
           Vaccination data limitations
         </h3>
         <ul>
