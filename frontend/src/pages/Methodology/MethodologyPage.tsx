@@ -21,7 +21,6 @@ export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher 
 // }
 
 function MethodologyPage() {
-  console.log(routeConfigs)
   return (
     <>
       <Helmet>
