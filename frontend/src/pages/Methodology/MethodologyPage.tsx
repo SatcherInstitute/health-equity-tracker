@@ -21,9 +21,11 @@ export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher 
 // }
 
 function MethodologyPage() {
+  console.log(routeConfigs)
   return (
     <>
       <Helmet>
+<<<<<<< HEAD
 <<<<<<< HEAD
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
@@ -35,6 +37,12 @@ function MethodologyPage() {
 
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology v2</h2>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+        <title>Methodology - Health Equity Tracker</title>
+      </Helmet>
+
+      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
+>>>>>>> 019ed7f0 (updated styling)
 
       <Grid
         className={styles.MethodologySectionWrapper}

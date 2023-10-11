@@ -52,10 +52,15 @@ export const routeConfigs = [
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
-      { label: 'Algorithm', path: '#algorith,' },
+      { label: 'Algorithm', path: '#algorithm' },
       { label: 'Age-Adjustment Examples', path: '#age-adjustment-examples' },
     ],
 >>>>>>> ece76097 (updated links)
+  },
+  {
+    path: SOURCES_LINK,
+    component: SourcesLink,
+    subLinks: [],
   },
   {
     path: BEHAVIORAL_HEALTH_LINK,
@@ -68,6 +73,7 @@ export const routeConfigs = [
     subLinks: [],
   },
   {
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     path: CONDITION_VARIABLES_LINK,
@@ -83,6 +89,8 @@ export const routeConfigs = [
   },
   {
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+>>>>>>> 019ed7f0 (updated styling)
     path: COVID_19_LINK,
     component: Covid19Link,
     subLinks: [
@@ -126,6 +134,7 @@ export const routeConfigs = [
     ],
   },
   {
+<<<<<<< HEAD
     path: HIV_LINK,
     component: HivLink,
     subLinks: [
@@ -210,6 +219,8 @@ export const routeConfigs = [
 =======
 
   {
+=======
+>>>>>>> 019ed7f0 (updated styling)
     path: HIV_LINK,
     component: HivLink,
     subLinks: [
@@ -223,13 +234,6 @@ export const routeConfigs = [
       { label: 'HIV Stigma', path: '#stigma' },
     ],
   },
-
-  {
-    path: METRICS_LINK,
-    component: MetricsLink,
-    subLinks: [],
-  },
-
   {
     path: PDOH_LINK,
     component: PdohLink,
@@ -250,6 +254,7 @@ export const routeConfigs = [
     ],
   },
   {
+<<<<<<< HEAD
     path: RACES_AND_ETHNICITIES_LINK,
     component: RacesAndEthnicitiesLink,
     subLinks: [],
@@ -265,21 +270,57 @@ export const routeConfigs = [
 =======
 
   {
+=======
+>>>>>>> 019ed7f0 (updated styling)
     path: SDOH_LINK,
     component: SdohLink,
     subLinks: [],
   },
-
-  {
-    path: SOURCES_LINK,
-    component: SourcesLink,
-    subLinks: [],
-  },
-
   {
     path: TOPICS_LINK,
     component: TopicsLink,
     subLinks: [],
   },
+<<<<<<< HEAD
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+  {
+    path: METRICS_LINK,
+    component: MetricsLink,
+    subLinks: [],
+  },
+  {
+    path: CONDITION_VARIABLES_LINK,
+    component: ConditionVariablesLink,
+    subLinks: [
+      { label: 'HIV', path: '#hiv' },
+      { label: 'COVID-19', path: '#covid-19' },
+      { label: 'Behavioral Health', path: '#behavioral-health' },
+      { label: 'Chronic Disease', path: '#chronic-disease' },
+      {
+        label: 'Social Determinants of Health',
+        path: '#social-determinants-of-health',
+      },
+      {
+        label: 'Political Determinants of Health',
+        path: '#political-determinants-of-health',
+      },
+    ],
+  },
+  {
+    path: RACES_AND_ETHNICITIES_LINK,
+    component: RacesAndEthnicitiesLink,
+    subLinks: [],
+  },
+  {
+    path: DATA_METHOD_DEFINITIONS_LINK,
+    component: DataMethodDefinitionsLink,
+    subLinks: [],
+  },
+  {
+    path: RECOMMENDED_CITATION_LINK,
+    component: RecommendedCitationLink,
+    subLinks: [],
+  },
+>>>>>>> 019ed7f0 (updated styling)
 ]

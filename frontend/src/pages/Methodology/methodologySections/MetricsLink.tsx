@@ -5,10 +5,14 @@ const MetricsLink = () => {
     <section>
       <article>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <h1 className={styles.MethodologyQuestion}>Metrics</h1>
 =======
         <h1>Metrics</h1>
 >>>>>>> 25282a78 (fixing branch conflicts)
+=======
+        <h1 className={styles.MethodologyQuestion}>Metrics</h1>
+>>>>>>> 019ed7f0 (updated styling)
         <h2 className={styles.MethodologyQuestion} id="metrics">
           What do the metrics on the tracker mean?
         </h2>
