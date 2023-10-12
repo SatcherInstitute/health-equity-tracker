@@ -17,38 +17,31 @@ const config: PlaywrightTestConfig = {
   },
   testDir: './playwright-tests',
   /* Maximum time one test can run for, default was 30s. */
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  timeout: 90 * 1000,
-  /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
-  expect: {
-    timeout: 90 * 1000
-=======
+
+
+
   timeout: 60 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
     timeout: 15 * 1000
->>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
-=======
+
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
     timeout: 45 * 1000
->>>>>>> 6bb9a431 (Frontend: Update HIV to fetch newly split `_current` and `_historical` files (#2384))
-=======
+
+
   timeout: 120 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
     timeout: 120 * 1000
->>>>>>> daad9ed8 (RF: Extract What data missing Component (#2399))
-=======
+
+
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
     timeout: 90 * 1000
->>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
+
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,

@@ -38,18 +38,9 @@ import {
   ZERO_VAR_DATASET,
   ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
-<<<<<<< HEAD
-<<<<<<< HEAD
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
-<<<<<<< HEAD
-=======
->>>>>>> 0bf887a7 (Use `<SourcesHelpers>` (#2419))
-=======
   type CountColsMap,
->>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
-=======
->>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -164,15 +155,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         )
       : suppressedData
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
   // render Vega map async as it can be slow
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
->>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
-=======
->>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
   const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
@@ -347,8 +332,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   if (!props.hideLegend) {
     legendList.push(legend, helperLegend)
   }
-<<<<<<< HEAD
-<<<<<<< HEAD
 
   const colorScale = props.isPhrmaAdherence
     ? PHRMA_COLOR_SCALE_SPEC
@@ -362,79 +345,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* scaleColorScheme? */ props.mapConfig.mapScheme,
         /* isTerritoryCircle? */ props.fips.isTerritory()
       )
-<<<<<<< HEAD
 
-  if (props.isMulti ?? props.highestLowestGeosMode) {
-    colorScale.domain = props.scaleConfig?.domain
-    colorScale.range = props.scaleConfig?.range
-  }
-
-  const projection = getProjection(
-    /* fips */ props.fips,
-    /* width */ width,
-    /* heightWidthRatio */ heightWidthRatio,
-    /* overrideShapeWithCirce */ props.overrideShapeWithCircle
-  )
-
-  const marks = [
-    // ZEROS
-    createShapeMarks(
-      /* datasetName= */ ZERO_DATASET,
-      /* fillColor= */ {
-        value: props.mapConfig.mapMin,
-      },
-      /* hoverColor= */ DARK_BLUE,
-      /* tooltipExpression= */ zeroTooltipValue,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-      /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
-    ),
-    // MISSING
-    createShapeMarks(
-      /* datasetName= */ MISSING_DATASET,
-      /* fillColor= */ {
-        value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
-      },
-      /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
-      /* tooltipExpression= */ missingDataTooltipValue,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-      /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
-    ),
-    // NON-ZERO
-    createShapeMarks(
-      /* datasetName= */ VALID_DATASET,
-      /* fillColor= */ [{ scale: COLOR_SCALE, field: props.metric.metricId }],
-      /* hoverColor= */ DARK_BLUE,
-      /* tooltipExpression= */ tooltipValue,
-      /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
-      /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
-      /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
-    ),
-  ]
-
-  if (!props.overrideShapeWithCircle)
-    marks.push(
-      createInvisibleAltMarks(
-        /* tooltipDatum */ tooltipDatum,
-        /*  tooltipLabel */ tooltipLabel
-      )
-    )
-
-  const altText = makeAltText(
-    /* data */ props.data,
-    /* filename */ props.filename ?? '',
-    /* fips */ props.fips,
-    /* overrideShapeWithCircle */ props.overrideShapeWithCircle
-  )
-
-=======
-=======
-
->>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
   const colorScale = setupColorScale(
     /* legendData */ props.data,
     /* metricId */ props.metric.metricId,
@@ -443,8 +354,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* scaleColorScheme? */ props.mapConfig.mapScheme,
     /* isTerritoryCircle? */ props.fips.isTerritory()
   )
-=======
->>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain
@@ -513,7 +422,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* overrideShapeWithCircle */ props.overrideShapeWithCircle
   )
 
->>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
   useEffect(() => {
     const newSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -611,23 +519,14 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
     setSpec(newSpec)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a5a41202 (Fix rendering map (#2416))
     // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
     setTimeout(() => {
       setShouldRenderMap(true)
     }, 0)
-<<<<<<< HEAD
-=======
     // // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
     // setTimeout(() => {
     //   setShouldRenderMap(true)
     // }, 0)
->>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
-=======
->>>>>>> a5a41202 (Fix rendering map (#2416))
   }, [
     isCawp,
     width,
@@ -638,36 +537,22 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     props.mapConfig.mapMin,
   ])
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const [shouldRenderMap, setShouldRenderMap] = useState(false)
-
-  const mapIsReady = Boolean(
-    shouldRenderMap && spec && ref.current && props.signalListeners
-  )
-=======
   const mapIsReady = shouldRenderMap && (props.overrideShapeWithCircle ?? ref)
->>>>>>> 1172b4e8 (Debounces `useResponsiveWidth` hook; prevent map from rendering until ready (#2410))
-=======
+
   const mapIsReady =
     spec && (props.overrideShapeWithCircle ?? (ref && width > 0))
->>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
-=======
+
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
-<<<<<<< HEAD
   const mapIsReady =
     shouldRenderMap &&
     spec &&
     props.signalListeners &&
     (props.overrideShapeWithCircle ?? (ref && width > 0))
->>>>>>> a5a41202 (Fix rendering map (#2416))
-=======
+
   const mapIsReady = Boolean(
     shouldRenderMap && spec && ref.current && props.signalListeners
   )
->>>>>>> 54681117 (Tweak map renders (#2417))
 
   return (
     <Grid

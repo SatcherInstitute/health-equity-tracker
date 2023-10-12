@@ -32,15 +32,11 @@ import {
 import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
-=======
+
 import { AGE_ADJUSTMENT_TAB_LINK } from '../utils/internalRoutes'
->>>>>>> e7a9c150 (Switch some cards to `default` import/export for future code splitting (#2420))
-=======
+
 import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
->>>>>>> 25282a78 (fixing branch conflicts)
+
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'

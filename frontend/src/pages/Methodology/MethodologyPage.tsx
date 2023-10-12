@@ -24,24 +24,15 @@ function MethodologyPage() {
   return (
     <>
       <Helmet>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <title>Methodology - Health Equity Tracker</title>
-      </Helmet>
-
-      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
-=======
         <title>Methodology - Health Equity Tracker - v2</title>
       </Helmet>
 
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology v2</h2>
->>>>>>> 25282a78 (fixing branch conflicts)
-=======
-        <title>Methodology - Health Equity Tracker</title>
-      </Helmet>
+
+      <title>Methodology - Health Equity Tracker</title>
+      {/* </Helmet> */}
 
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
->>>>>>> 019ed7f0 (updated styling)
 
       <Grid
         className={styles.MethodologySectionWrapper}

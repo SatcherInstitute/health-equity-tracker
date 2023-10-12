@@ -209,10 +209,6 @@ export default function TopicOrLocationSelector(
                           {category.title}
                         </h3>
                         <List dense={true} role="menu">
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b8e29df4 (Refactor: Improved Madlib FIPS handling (#2423))
                           {category.options.map((optionId: DropdownVarId) => {
                             return (
                               <ListItemButton
@@ -231,8 +227,6 @@ export default function TopicOrLocationSelector(
                               </ListItemButton>
                             )
                           })}
-<<<<<<< HEAD
-=======
                           {(props.options as string[][]).map(
                             (item: string[]) => {
                               const [optionId, optionDisplayName] = item
@@ -257,9 +251,6 @@ export default function TopicOrLocationSelector(
                               )
                             }
                           )}
->>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
-=======
->>>>>>> b8e29df4 (Refactor: Improved Madlib FIPS handling (#2423))
                         </List>
                       </Grid>
                     )

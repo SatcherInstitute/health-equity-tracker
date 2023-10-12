@@ -50,26 +50,15 @@ export default function TopicInfoModal() {
       </DialogContent>
       <DialogContent dividers={true} sx={{ fontSize: sass.smallest }}>
         For specific calculations and more detailed information, visit our{' '}
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <HashLink to={`${METHODOLOGY_PAGE_LINK}#${dropdownVarId}`}>
-          methodology
-        </HashLink>
-        , or view the{' '}
-        <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
-=======
         <HashLink to={`${METHODOLOGY_TAB_LINK}#${dropdownVarId}`}>
           methodology
         </HashLink>
         , or view the <HashLink to={DATA_TAB_LINK}>source data</HashLink>.
->>>>>>> f871f2c6 (Direct link from topic info modal to methodology hash (#2382))
-=======
         <HashLink to={`${METHODOLOGY_PAGE_LINK}#${dropdownVarId}`}>
           methodology
         </HashLink>
         , or view the{' '}
         <HashLink to={DATA_CATALOG_PAGE_LINK}>source data</HashLink>.
->>>>>>> 25282a78 (fixing branch conflicts)
       </DialogContent>
     </Dialog>
   )

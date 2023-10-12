@@ -310,15 +310,11 @@ function MapCardWithKey(props: MapCardProps) {
         )
         const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse.data,
-<<<<<<< HEAD
-<<<<<<< HEAD
-          demographicType,
-=======
+
           props.demographicType,
->>>>>>> c22929f2 (Adds SubPopulation Breadcrumb (#2383))
-=======
+
           demographicType,
->>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
+
           props.dataTypeConfig
         )
 
@@ -452,18 +448,12 @@ function MapCardWithKey(props: MapCardProps) {
           [mapQueryResponse.data, props.demographicType, metricId, props.fips]
         )
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
-=======
->>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
-=======
-        const isPhrmaAdherence =
-          PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
 
->>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
         return (
           <>
             <MultiMapDialog
@@ -559,26 +549,24 @@ function MapCardWithKey(props: MapCardProps) {
                     sm={mapIsWide ? 8 : 12}
                     md={mapIsWide ? 9 : 12}
                   >
-<<<<<<< HEAD
-<<<<<<< HEAD
+
+
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
                         highestLowestGroupsByFips={highestLowestGroupsByFips}
-=======
+
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
-<<<<<<< HEAD
+
                         highestLowestGroupsByFips={getHighestLowestGroupsByFips(
                           mapQueryResponse.data,
                           demographicType,
                           metricId
                         )}
->>>>>>> 54681117 (Tweak map renders (#2417))
-=======
+
                         highestLowestGroupsByFips={highestLowestGroupsByFips}
->>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
                         activeDemographicGroup={activeDemographicGroup}
                         countColsMap={countColsMap}
                         data={displayData}
@@ -597,15 +585,12 @@ function MapCardWithKey(props: MapCardProps) {
                         signalListeners={signalListeners}
                         mapConfig={{ mapScheme, mapMin }}
                         scaleConfig={scale}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
+
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
                     </Grid>
 
-=======
+
                     <ChoroplethMap
                       demographicType={demographicType}
                       highestLowestGroupsByFips={getHighestLowestGroupsByFips(
@@ -632,12 +617,12 @@ function MapCardWithKey(props: MapCardProps) {
                       mapConfig={{ mapScheme, mapMin }}
                       scaleConfig={scale}
                     />
->>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
-=======
+
+
                       />
                     </Grid>
 
->>>>>>> 54681117 (Tweak map renders (#2417))
+
                     {props.fips.isUsa() && (
                       <Grid item xs={12}>
                         <TerritoryCircles

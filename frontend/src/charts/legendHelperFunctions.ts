@@ -21,14 +21,10 @@ export function setupZeroLegend(
     fill: isSummaryLegend ? COLOR_SCALE : ZERO_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
     size: isSummaryLegend ? SUMMARY_SCALE : ZERO_DOT_SCALE,
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
     direction: 'vertical',
     columns: 0,
->>>>>>> 9d2df47e (RF: Move code into legend helpers util file  (#2426))
-=======
->>>>>>> c4b95d2c (Use continuous legend with fixed buckets for all PHRMA adherence maps (#2424))
+
     orient: 'left',
     encode: {
       labels: {

@@ -4,15 +4,10 @@ const RacesAndEthnicitiesLink = () => {
   return (
     <section>
       <article>
-<<<<<<< HEAD
-<<<<<<< HEAD
-        <h1 className={styles.MethodologyQuestion}>Races and Ethnicities</h1>
-=======
         <h1>Races and Ethnicities </h1>
->>>>>>> 25282a78 (fixing branch conflicts)
-=======
+
         <h1 className={styles.MethodologyQuestion}>Races and Ethnicities</h1>
->>>>>>> 019ed7f0 (updated styling)
+
         <h2 className={styles.MethodologyQuestion}>
           What do the race/ethnicity groups mean?
         </h2>

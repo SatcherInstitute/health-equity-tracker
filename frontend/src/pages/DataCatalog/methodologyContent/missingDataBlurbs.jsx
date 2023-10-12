@@ -172,20 +172,11 @@ export function MissingPhrmaData() {
           in this data.
         </li>
         <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <b>Disability:</b> Although we can display rates for those who are
-          eligible due to disability generally, we can not represent disparities
-          associated with specific physical or mental disabilities.
-=======
           <b>Disability:</b> Although important, we do not present data on
           disparities associated with physical or mental disabilities.
->>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
-=======
           <b>Disability:</b> Although we can display rates for those who are
           eligible due to disability generally, we can not represent disparities
           associated with specific physical or mental disabilities.
->>>>>>> f871f2c6 (Direct link from topic info modal to methodology hash (#2382))
         </li>
         <li>
           <b>Social and Political Determinants of Health:</b> Unfortunately,
@@ -198,26 +189,14 @@ export function MissingPhrmaData() {
       <p>Who is missing?</p>
       <ul>
         <li>
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
           <b>Data Suppression:</b> To{' '}
           <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
             protect patient privacy
           </a>
           , all data representing 1-10 people were suppressed.
-<<<<<<< HEAD
-=======
           <b>Data Suppression:</b> To protect patient privacy, all data
-<<<<<<< HEAD
-          representing less than 12 people were suppressed.
->>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
-=======
-          representing 1-10 people were suppressed.
->>>>>>> 6f3f0c98 (Frontend: Cleanup Report Bottom Section (#2379))
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+          representing less than 12 people were suppressed. representing 1-10
+          people were suppressed.
         </li>
       </ul>
     </>

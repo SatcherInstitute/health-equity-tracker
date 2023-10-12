@@ -1,23 +1,8 @@
 import styles from './Sources.module.scss'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
-=======
-import {
-  DATA_SOURCE_PRE_FILTERS,
-  LinkWithStickyParams,
-} from '../../utils/urlutils'
-import { DATA_CATALOG_PAGE_LINK, HET_URL } from '../../utils/internalRoutes'
-import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
->>>>>>> fa3b6624 (RF: Split FAQ data (#2405))
-=======
-import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
->>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
-=======
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
->>>>>>> 25282a78 (fixing branch conflicts)
+
+import { HET_URL, METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
@@ -28,6 +13,7 @@ import { Grid } from '@mui/material'
 import {
   type DropdownVarId,
   type DataTypeConfig,
+  type MetricId,
 } from '../../data/config/MetricConfig'
 import { useAtomValue } from 'jotai'
 import {
@@ -118,15 +104,8 @@ export function Sources(props: SourcesProps) {
       <Grid item xs={12} alignItems={'center'}>
         <>{optionalDefinition}</>
         View{' '}
-<<<<<<< HEAD
-<<<<<<< HEAD
+        {/* <HashLink to={`${METHODOLOGY_TAB_LINK}#${methodologyHashId}`}> */}
         <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
-=======
-        <HashLink to={`${METHODOLOGY_TAB_LINK}#${methodologyHashId}`}>
->>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))
-=======
-        <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
->>>>>>> 25282a78 (fixing branch conflicts)
           methodology
         </HashLink>
         .
@@ -161,9 +140,6 @@ export function Sources(props: SourcesProps) {
     </Grid>
   )
 }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
 interface MetricDetailsProps {
   consumedIds: MetricId[]
@@ -182,6 +158,3 @@ export function currentYear(): number {
   return new Date().getFullYear()
 }
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
->>>>>>> fa3b6624 (RF: Split FAQ data (#2405))
-=======
->>>>>>> 309ebfc7 (Adds some definitions and links to card footers (#2409))

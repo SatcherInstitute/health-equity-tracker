@@ -419,15 +419,8 @@ function EquityTab() {
                       <a
                         href="https://satcherinstitute.org/hetblog2/"
                         aria-label="Satcher Blog Post on Why Data Matters"
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        className={styles.NewsAndStoriesTitleLink}
-=======
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
->>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
-=======
                         className={styles.NewsAndStoriesTitleLink}
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
                       >
                         Why it matters that information on race, ethnicity,
                         gender and disability are measured accurately and
@@ -469,15 +462,8 @@ function EquityTab() {
                       <a
                         href="https://satcherinstitute.org/hetblog3/"
                         aria-label="Satcher Blog Post on Why Data Matters"
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        className={styles.NewsAndStoriesTitleLink}
-=======
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
->>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
-=======
                         className={styles.NewsAndStoriesTitleLink}
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
                       >
                         How can we use data to inform practices to advance
                         health equity?
@@ -516,15 +502,8 @@ function EquityTab() {
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        className={styles.NewsAndStoriesTitleLink}
-=======
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
->>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
-=======
                         className={styles.NewsAndStoriesTitleLink}
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
                         href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
                         aria-label="Read Scientific American Article"
                       >
@@ -555,15 +534,8 @@ function EquityTab() {
                       <a
                         href="https://satcherinstitute.github.io/analysis/cdc_case_data"
                         aria-label="Satcher Post on COVID Data Completeness"
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        className={styles.NewsAndStoriesTitleLink}
-=======
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
->>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
-=======
                         className={styles.NewsAndStoriesTitleLink}
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
                       >
                         How complete are the CDC's COVID-19 case surveillance
                         datasets for race/ethnicity at the state and county
@@ -591,15 +563,8 @@ function EquityTab() {
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        className={styles.NewsAndStoriesTitleLink}
-=======
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
->>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
-=======
                         className={styles.NewsAndStoriesTitleLink}
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
                         href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
                         aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
                       >

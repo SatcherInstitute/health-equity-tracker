@@ -330,68 +330,6 @@
 
 /** ------------- NEWS ------------- **/
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/** ------------- NEWS AND STORIES SECTION  ------------- **/
-
-.NewsAndStoriesRow {
-  padding: 20px 0 20px 0;
-
-  .NewsAndStoriesHeaderText {
-    @include tav300();
-    font-size: $biggerHeader;
-    text-align: center;
-    line-height: $lhLoose;
-    color: $alt-green;
-  }
-
-  .NewsAndStoriesSubheaderText {
-    @include inter300();
-    font-size: $title;
-    text-align: left;
-    color: $black !important;
-  }
-
-  .NewsAndStoriesItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-  }
-
-  .NewsAndStoriesBigImg {
-    width: 100%;
-    height: auto;
-    border-radius: 30px;
-  }
-
-  .NewsAndStoriesSmallImg {
-    width: 100%;
-    border-radius: 30px;
-  }
-  .NewsAndStoriesTitleLink {
-    text-decoration: none;
-  }
-  .NewsAndStoriesTitleText {
-    @include tav300();
-    text-align: center;
-    line-height: 130%;
-    color: $alt-green;
-    font-size: $smallestHeader;
-    margin: 15px 0 15px 0;
-  }
-
-  .NewsAndStoriesSubtitleText {
-    font-size: $text;
-    margin: 0px;
-
-    a {
-      text-decoration: underline;
-      color: $black;
-    }
-  }
-=======
 .NewsAndStoriesHeaderText {
   @include tav300();
   font-size: $biggerHeader;
@@ -399,9 +337,8 @@
   color: $alt-green;
   margin-bottom: 1rem;
 }
-=======
+
 /** ------------- NEWS AND STORIES SECTION  ------------- **/
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
 
 .NewsAndStoriesRow {
   padding: 20px 0 20px 0;
@@ -421,50 +358,48 @@
     color: $black !important;
   }
 
-<<<<<<< HEAD
-.NewsAndStoriesBigImg,
-.NewsAndStoriesSmallImg {
-  border-radius: 30px;
->>>>>>> 1f374b2d (Frontend: Assorted cleanup and bug fixes (#2406))
-=======
-  .NewsAndStoriesItem {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-  }
-
-  .NewsAndStoriesBigImg {
-    width: 100%;
-    height: auto;
-    border-radius: 30px;
-  }
-
+  .NewsAndStoriesBigImg,
   .NewsAndStoriesSmallImg {
-    width: 100%;
     border-radius: 30px;
-  }
-  .NewsAndStoriesTitleLink {
-    text-decoration: none;
-  }
-  .NewsAndStoriesTitleText {
-    @include tav300();
-    text-align: center;
-    line-height: 130%;
-    color: $alt-green;
-    font-size: $smallestHeader;
-    margin: 15px 0 15px 0;
-  }
 
-  .NewsAndStoriesSubtitleText {
-    font-size: $text;
-    margin: 0px;
+    .NewsAndStoriesItem {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+    }
 
-    a {
-      text-decoration: underline;
-      color: $black;
+    .NewsAndStoriesBigImg {
+      width: 100%;
+      height: auto;
+      border-radius: 30px;
+    }
+
+    .NewsAndStoriesSmallImg {
+      width: 100%;
+      border-radius: 30px;
+    }
+    .NewsAndStoriesTitleLink {
+      text-decoration: none;
+    }
+    .NewsAndStoriesTitleText {
+      @include tav300();
+      text-align: center;
+      line-height: 130%;
+      color: $alt-green;
+      font-size: $smallestHeader;
+      margin: 15px 0 15px 0;
+    }
+
+    .NewsAndStoriesSubtitleText {
+      font-size: $text;
+      margin: 0px;
+
+      a {
+        text-decoration: underline;
+        color: $black;
+      }
     }
   }
->>>>>>> 5b7a5982 (Fix WIHE styles (#2407))
 }

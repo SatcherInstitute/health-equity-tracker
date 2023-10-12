@@ -49,17 +49,12 @@ export default function DefinitionsList(
                 dataTypesForThisCategory.map((dataType) => {
                   // list their data types and definitions
                   return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
+                    // const hasAddedInfo = Boolean(
+                    //   dataTypeConfig?.dataTypeDescription
+                    // )
+
                     const hasAddedInfo = Boolean(dataTypeConfig?.description)
-=======
-                    const hasAddedInfo = Boolean(
-                      dataTypeConfig?.dataTypeDescription
-                    )
->>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
-=======
-                    const hasAddedInfo = Boolean(dataTypeConfig?.description)
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+
                     return (
                       <li key={dataTypeConfig?.fullDisplayName}>
                         <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
@@ -71,40 +66,22 @@ export default function DefinitionsList(
                               </>
                             )}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
                             {dataTypeConfig.definition?.text}
                             <InfoCitations
                               citations={dataTypeConfig.definition?.citations}
                             />
-<<<<<<< HEAD
-=======
                             {dataTypeConfig.dataTypeDefinition}
->>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
                           </li>
                           {hasAddedInfo && (
                             <li>
                               <b>Clinical Importance:</b>{' '}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
                               {dataTypeConfig.description?.text}
                               <InfoCitations
                                 citations={
                                   dataTypeConfig.description?.citations
                                 }
                               />
-<<<<<<< HEAD
-=======
                               {dataTypeConfig.dataTypeDescription}
->>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
                             </li>
                           )}
                         </ul>

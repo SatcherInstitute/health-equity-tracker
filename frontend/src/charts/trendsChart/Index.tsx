@@ -91,15 +91,11 @@ export function TrendsChart({
     useState<DemographicGroup[]>(defaultGroups)
 
   // manages dynamic svg width
-<<<<<<< HEAD
-<<<<<<< HEAD
-  const [containerRef, width] = useResponsiveWidth()
-=======
+
   const [containerRef, width] = useResponsiveWidth(STARTING_WIDTH)
->>>>>>> 15cc5644 (Fixing rendering issue in `useResponsiveWidth` hook (#2372))
-=======
+
   const [containerRef, width] = useResponsiveWidth()
->>>>>>> 1e8ebf60 (Fix map, width hook, and e2e tests (#2411))
+
   const [isMobile, setIsMobile] = useState(
     window.innerWidth < MOBILE_BREAKPOINT
   )

@@ -146,10 +146,6 @@ export interface MapConfig {
   mid: string
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
 export interface Citation {
   shortLabel: string
   longerTitle: string
@@ -159,28 +155,19 @@ export interface InfoWithCitations {
   text: string
   citations?: Citation[]
 }
-<<<<<<< HEAD
-=======
->>>>>>> d419ca54 (Frontend: RF map color handling (#2391))
-=======
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
   fullDisplayName: string
   fullDisplayNameInline?: string
-<<<<<<< HEAD
-<<<<<<< HEAD
-  definition?: InfoWithCitations
-  description?: InfoWithCitations
-=======
+
   dataTypeDefinition?: string
   dataTypeDescription?: string
->>>>>>> cbae1314 (Hidden: Updates PHRMA definitions and methodology (#2377))
-=======
+
   definition?: InfoWithCitations
   description?: InfoWithCitations
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
+
   metrics: {
     count?: MetricConfig
     pct_share?: MetricConfig

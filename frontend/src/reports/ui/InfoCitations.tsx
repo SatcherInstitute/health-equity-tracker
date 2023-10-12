@@ -11,15 +11,9 @@ export default function InfoCitations(props: InfoCitationsProps) {
     <span>
       {props.citations?.map((citation: Citation, i) => {
         return (
-<<<<<<< HEAD
-<<<<<<< HEAD
+          // <>
+
           <span key={`${citation.shortLabel}-${i}`}>
-=======
-          <>
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
-=======
-          <span key={`${citation.shortLabel}-${i}`}>
->>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
             {' '}
             <a
               key={citation.url + i}
@@ -28,15 +22,8 @@ export default function InfoCitations(props: InfoCitationsProps) {
             >
               {citation.shortLabel}
             </a>
-<<<<<<< HEAD
-<<<<<<< HEAD
+            {/* </> */}
           </span>
-=======
-          </>
->>>>>>> a653f385 (RF: Update config citations; add hidden PHRMA citations (#2404))
-=======
-          </span>
->>>>>>> c4bbb991 (Memoize `getHighestLowestGroupsByFips()`; remove unneeded alt text items from Maps (#2421))
         )
       })}
     </span>

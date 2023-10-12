@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redeclare */
 import {
   type DropdownVarId,
   METRIC_CONFIG,
@@ -115,10 +116,6 @@ export function getSelectedConditions(madLib: MadLib) {
 export type DefaultDropdownVarId = 'default'
 export const DEFAULT: DefaultDropdownVarId = 'default'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> b8e29df4 (Refactor: Improved Madlib FIPS handling (#2423))
 export const DROPDOWN_TOPIC_MAP: Record<
   DropdownVarId | DefaultDropdownVarId,
   string
@@ -151,41 +148,36 @@ export const DROPDOWN_TOPIC_MAP: Record<
   voter_participation: 'Voter Participation',
   women_in_gov: 'Women Serving in Legislative Office',
 }
-<<<<<<< HEAD
-=======
-const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
-  {
-    default: 'select a topic',
-    asthma: 'Asthma',
-    avoided_care: 'Care Avoidance Due to Cost',
-    cardiovascular_diseases: 'Cardiovascular Diseases',
-    chronic_kidney_disease: 'Chronic Kidney Disease',
-    copd: 'COPD',
-    covid_vaccinations: 'COVID-19 Vaccinations',
-    covid: 'COVID-19',
-    depression: 'Depression',
-    diabetes: 'Diabetes',
-    excessive_drinking: 'Excessive Drinking',
-    frequent_mental_distress: 'Frequent Mental Distress',
-    health_insurance: 'Uninsured Individuals',
-    hiv_black_women: 'HIV (Black Women)',
-    hiv_care: 'Linkage to HIV Care',
-    hiv_prep: 'PrEP Coverage',
-    hiv_stigma: 'HIV Stigma',
-    hiv: 'HIV',
-    incarceration: 'Incarceration',
-    poverty: 'Poverty',
-    phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
-    phrma_hiv: 'HIV Conditions and Medication Adherence',
-    preventable_hospitalizations: 'Preventable Hospitalization',
-    substance: 'Opioid and Other Substance Misuse',
-    suicide: 'Suicide',
-    voter_participation: 'Voter Participation',
-    women_in_gov: 'Women Serving in Legislative Office',
-  }
->>>>>>> 3543ae80 (Frontend: Update with new column names for PHRMA (#2414))
-=======
->>>>>>> b8e29df4 (Refactor: Improved Madlib FIPS handling (#2423))
+// const DROPDOWN_TOPIC_MAP: Record<DropdownVarId | DefaultDropdownVarId, string> =
+//   {
+//     default: 'select a topic',
+//     asthma: 'Asthma',
+//     avoided_care: 'Care Avoidance Due to Cost',
+//     cardiovascular_diseases: 'Cardiovascular Diseases',
+//     chronic_kidney_disease: 'Chronic Kidney Disease',
+//     copd: 'COPD',
+//     covid_vaccinations: 'COVID-19 Vaccinations',
+//     covid: 'COVID-19',
+//     depression: 'Depression',
+//     diabetes: 'Diabetes',
+//     excessive_drinking: 'Excessive Drinking',
+//     frequent_mental_distress: 'Frequent Mental Distress',
+//     health_insurance: 'Uninsured Individuals',
+//     hiv_black_women: 'HIV (Black Women)',
+//     hiv_care: 'Linkage to HIV Care',
+//     hiv_prep: 'PrEP Coverage',
+//     hiv_stigma: 'HIV Stigma',
+//     hiv: 'HIV',
+//     incarceration: 'Incarceration',
+//     poverty: 'Poverty',
+//     phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
+//     phrma_hiv: 'HIV Conditions and Medication Adherence',
+//     preventable_hospitalizations: 'Preventable Hospitalization',
+//     substance: 'Opioid and Other Substance Misuse',
+//     suicide: 'Suicide',
+//     voter_participation: 'Voter Participation',
+//     women_in_gov: 'Women Serving in Legislative Office',
+//   }
 
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
