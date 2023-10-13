@@ -1,12 +1,6 @@
 import styles from './MethodologyPage.module.scss'
 import React, { type ReactNode } from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-
-// import { Link as ScrollLink } from 'react-scroll'
-
-// TODO: Updating typing
-
-// import { Link as ScrollLink } from 'react-scroll'
+import { Link as ScrollLink } from 'react-scroll'
 
 interface LinkConfig {
   label: string
@@ -32,28 +26,18 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
 }) => {
   if (isScrollLink) {
     return (
-      <></>
-      // <ScrollLink to={to} {...rest}>
-      //   {children}
-      // </ScrollLink>
-
-      // <ScrollLink to={to} {...rest}>
-      //   {children}
-      // </ScrollLink>
+      <ScrollLink to={to} {...rest}>
+        {children}
+      </ScrollLink>
     )
   }
-  return (
-    <RouterLink to={to} {...rest}>
-      {children}
-    </RouterLink>
-  )
 }
 
 const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
   return (
     <nav className={styles.SubMenu}>
       <p>On this page</p>
-      <h4>Limitations</h4>
+
       {links.map((link, index) => (
         <CombinedLink
           key={index}

@@ -31,11 +31,9 @@ import TopicsLink from '../methodologySections/TopicsLink'
 
 export const routeConfigs = [
   {
+    label: 'Age-Adjustment',
     path: AGE_ADJUSTMENT_LINK,
     component: AgeAdjustmentLink,
-
-    // subLinks: [],
-
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
@@ -44,33 +42,25 @@ export const routeConfigs = [
     ],
   },
   {
+    label: 'Source Acquisition',
     path: SOURCES_LINK,
     component: SourcesLink,
     subLinks: [],
   },
   {
+    label: 'Behavioral Health',
     path: BEHAVIORAL_HEALTH_LINK,
     component: BehavioralHealthLink,
     subLinks: [],
   },
   {
+    label: 'Chronic Diseases',
     path: CHRONIC_DISEASE_LINK,
     component: ChronicDiseaseLink,
     subLinks: [],
   },
   {
-    path: CONDITION_VARIABLES_LINK,
-    component: ConditionVariablesLink,
-    subLinks: [
-      { label: 'HIV', path: '#hiv' },
-      { label: 'COVID-19', path: '#covid-19' },
-      { label: 'Behavioral Health', path: '#behavioral-health' },
-      { label: 'Chronic Disease', path: '#chronic-disease' },
-      { label: 'Social Determinants of Health', path: '#sodh' },
-      { label: 'Political Determinants of Health', path: '#podh' },
-    ],
-  },
-  {
+    label: 'COVID-19',
     path: COVID_19_LINK,
     component: Covid19Link,
     subLinks: [
@@ -103,16 +93,9 @@ export const routeConfigs = [
       },
     ],
   },
-  // {
-  //   ],
-  // },
-  {
-    path: DATA_METHOD_DEFINITIONS_LINK,
-    component: DataMethodDefinitionsLink,
-    subLinks: [],
-  },
 
   {
+    label: 'HIV',
     path: HIV_LINK,
     component: HivLink,
     subLinks: [
@@ -127,6 +110,7 @@ export const routeConfigs = [
     ],
   },
   {
+    label: 'Political Determinants of Health (PDOH)',
     path: PDOH_LINK,
     component: PdohLink,
     subLinks: [
@@ -146,34 +130,25 @@ export const routeConfigs = [
     ],
   },
   {
-    path: RACES_AND_ETHNICITIES_LINK,
-    component: RacesAndEthnicitiesLink,
-    subLinks: [],
-  },
-
-  {
-    path: RECOMMENDED_CITATION_LINK,
-    component: RecommendedCitationLink,
-    subLinks: [],
-  },
-
-  {
+    label: 'Social Determinants of Health (SDOH)',
     path: SDOH_LINK,
     component: SdohLink,
     subLinks: [],
   },
   {
+    label: 'Topic Definitions and Limitations',
     path: TOPICS_LINK,
     component: TopicsLink,
     subLinks: [],
   },
-
   {
+    label: 'Metrics',
     path: METRICS_LINK,
     component: MetricsLink,
     subLinks: [],
   },
   {
+    label: 'Condition Variables',
     path: CONDITION_VARIABLES_LINK,
     component: ConditionVariablesLink,
     subLinks: [
@@ -192,16 +167,19 @@ export const routeConfigs = [
     ],
   },
   {
+    label: 'Races and Ethnicities',
     path: RACES_AND_ETHNICITIES_LINK,
     component: RacesAndEthnicitiesLink,
     subLinks: [],
   },
   {
+    label: 'Data Method Definitions',
     path: DATA_METHOD_DEFINITIONS_LINK,
     component: DataMethodDefinitionsLink,
     subLinks: [],
   },
   {
+    label: 'Recommended Citation (APA)',
     path: RECOMMENDED_CITATION_LINK,
     component: RecommendedCitationLink,
     subLinks: [],
