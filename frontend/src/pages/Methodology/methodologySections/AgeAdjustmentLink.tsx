@@ -1,5 +1,5 @@
 // import Grid from '@mui/material/Grid'
-// import styles from '../MethodologyPage.module.scss'
+// import styles from '../methodologyComponents/MethodologyPage.module.scss'
 // import { Helmet } from 'react-helmet-async'
 // import {
 //   AGE_ADJUST_COVID_DEATHS_US_SETTING,

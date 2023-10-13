@@ -3,7 +3,7 @@ import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
 } from '../../../data/providers/IncarcerationProvider'
-import styles from '../MethodologyPage.module.scss'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
 
 import { urlMap } from '../../../utils/externalUrls'

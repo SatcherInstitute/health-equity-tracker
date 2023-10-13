@@ -420,7 +420,6 @@ function EquityTab() {
                         href="https://satcherinstitute.org/hetblog2/"
                         aria-label="Satcher Blog Post on Why Data Matters"
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
-                        className={styles.NewsAndStoriesTitleLink}
                       >
                         Why it matters that information on race, ethnicity,
                         gender and disability are measured accurately and
@@ -463,7 +462,6 @@ function EquityTab() {
                         href="https://satcherinstitute.org/hetblog3/"
                         aria-label="Satcher Blog Post on Why Data Matters"
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
-                        className={styles.NewsAndStoriesTitleLink}
                       >
                         How can we use data to inform practices to advance
                         health equity?
@@ -503,7 +501,6 @@ function EquityTab() {
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
-                        className={styles.NewsAndStoriesTitleLink}
                         href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
                         aria-label="Read Scientific American Article"
                       >
@@ -535,7 +532,6 @@ function EquityTab() {
                         href="https://satcherinstitute.github.io/analysis/cdc_case_data"
                         aria-label="Satcher Post on COVID Data Completeness"
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
-                        className={styles.NewsAndStoriesTitleLink}
                       >
                         How complete are the CDC's COVID-19 case surveillance
                         datasets for race/ethnicity at the state and county
@@ -564,7 +560,6 @@ function EquityTab() {
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
                         className={styles.NewsAndStoriesHeaderLinkNoUnderline}
-                        className={styles.NewsAndStoriesTitleLink}
                         href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
                         aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
                       >

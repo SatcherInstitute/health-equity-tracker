@@ -1,6 +1,6 @@
 import { Card } from '@mui/material'
 import { urlMap } from '../../../utils/externalUrls'
-import styles from '../MethodologyPage.module.scss'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
   MissingCovidData,
   MissingCovidVaccinationData,
@@ -8,36 +8,36 @@ import {
 
 // import React, { useEffect, useState } from 'react'
 
-import React, { useEffect, useRef, useState } from 'react'
+// import React, { useEffect, useRef, useState } from 'react'
 
 const Covid19Link = () => {
-  const [isSticky, setSticky] = useState(false)
-  const articleRef = useRef<HTMLDivElement | null>(null)
-  const [headerWidth, setHeaderWidth] = useState('auto')
+  // const [isSticky, setSticky] = useState(false)
+  // const articleRef = useRef<HTMLDivElement | null>(null)
+  // const [headerWidth, setHeaderWidth] = useState('auto')
 
-  const handleScroll = () => {
-    const offset = window.scrollY
-    console.log(offset)
-    if (offset > 100) {
-      // Replace 200 with the position you prefer
-      setSticky(true)
-      if (articleRef.current) {
-        setHeaderWidth(`${articleRef?.current?.offsetWidth}px`)
-      }
-    } else {
-      setSticky(false)
+  // const handleScroll = () => {
+  //   const offset = window.scrollY
+  //   console.log(offset)
+  //   if (offset > 100) {
+  //     // Replace 200 with the position you prefer
+  //     setSticky(true)
+  //     if (articleRef.current) {
+  //       setHeaderWidth(`${articleRef?.current?.offsetWidth}px`)
+  //     }
+  //   } else {
+  //     setSticky(false)
 
-      setHeaderWidth('auto')
-    }
-  }
+  //     setHeaderWidth('auto')
+  //   }
+  // }
 
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll)
+  // useEffect(() => {
+  //   window.addEventListener('scroll', handleScroll)
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [])
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll)
+  //   }
+  // }, [])
 
   // console.log(isSticky)
 

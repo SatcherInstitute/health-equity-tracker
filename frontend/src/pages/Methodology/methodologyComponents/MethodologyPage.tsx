@@ -1,14 +1,14 @@
 import React from 'react'
 import Grid from '@mui/material/Grid'
 import styles from './MethodologyPage.module.scss'
-import { HET_URL } from '../../utils/internalRoutes'
+import { HET_URL } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import { currentYear } from '../../cards/ui/SourcesHelpers'
+import { currentYear } from '../../../cards/ui/SourcesHelpers'
 import { Route, Switch, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
 import MethodologySubMenu from './MethodologySubMenu'
 
-import { routeConfigs } from './methodologyContent/routeConfigs'
+import { routeConfigs } from '../methodologyContent/routeConfigs'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 // interface LinkConfig {

@@ -70,10 +70,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       'Persistence of Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
       'Population Receiving Persistent Beta Blocker Treatment After a Heart Attack',
-    dataTypeId: 'statins_adherence',
-    mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Adherence to Statins',
-    fullDisplayName: 'Adherence to statins',
 
     surveyCollectedData: true,
     definition: {
@@ -218,13 +214,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       text: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI.`,
     },
 
-    mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Adherence to Beta Blockers',
-    fullDisplayName: 'Adherence to beta blockers',
-    surveyCollectedData: true,
-    dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta blockers during the measurement year.`,
-    dataTypeDescription: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI (CITE).`,
-
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -261,8 +250,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
   {
     dataTypeId: 'nqf_adherence',
-
-    dataTypeId: 'bb_ami_adherence',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
@@ -469,11 +456,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-
-        metricId: 'phrma_population',
-
         metricId: 'medicare_population',
-
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -490,11 +473,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
           chartTitle: '',
           type: 'count',
         },
-
-        metricId: 'rasa_adherence_pct_rate',
-
         metricId: 'ras_antagonists_adherence_pct_rate',
-
         chartTitle: 'Population adherent to RAS-Antagonists',
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
@@ -534,11 +513,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-
-        metricId: 'phrma_population',
-
         metricId: 'medicare_population',
-
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -589,22 +564,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     description: {
       text: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke.`,
     },
-
-    mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
-    fullDisplayName: 'Adherence to direct oral anticoagulants',
-    surveyCollectedData: true,
-    dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% during the measurement period for direct-acting oral anticoagulants.`,
-    dataTypeDescription: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke (CITE).`,
-
     metrics: {
       sub_population_count: {
         chartTitle: '',
-
-        metricId: 'phrma_population',
-
         metricId: 'medicare_population',
-
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -656,21 +619,10 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
 
-    mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
-    fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
-    surveyCollectedData: true,
-    dataTypeDefinition: `The number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) (otherwise known as a heart attack) per 100K during the measurement period.`,
-    dataTypeDescription: ` Heart disease, such as heart attack and heart failure, is leading cause of death in the US.`,
-
     metrics: {
       sub_population_count: {
         chartTitle: '',
-
-        metricId: 'phrma_population',
-
         metricId: 'medicare_population',
-
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -726,22 +678,10 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     description: {
       text: `Effective treatment of HIV with antiretroviral medications can reduce mortality and morbidity rates among people affected by HIV.`,
     },
-
-    mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
-    fullDisplayName: 'Adherence to antiretroviral medications',
-    surveyCollectedData: true,
-    dataTypeDefinition: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
-    dataTypeDescription: `Effective treatment of HIV with antiretroviral medications can reduce mortality and morbidity rates among people affected by HIV (CITE).`,
-
     metrics: {
       sub_population_count: {
         chartTitle: '',
-
-        metricId: 'phrma_population',
-
         metricId: 'medicare_population',
-
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },
@@ -790,11 +730,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     metrics: {
       sub_population_count: {
         chartTitle: '',
-
-        metricId: 'phrma_population',
-
         metricId: 'medicare_population',
-
         shortLabel: 'Total Medicare Population',
         type: 'count',
       },

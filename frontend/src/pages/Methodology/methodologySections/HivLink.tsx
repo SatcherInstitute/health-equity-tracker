@@ -1,5 +1,5 @@
 import Card from '@mui/material/Card'
-import styles from '../MethodologyPage.module.scss'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
   MissingHIVData,
   MissingPrepData,

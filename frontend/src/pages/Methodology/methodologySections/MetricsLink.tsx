@@ -1,4 +1,4 @@
-import styles from '../MethodologyPage.module.scss'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
 
 const MetricsLink = () => {
   return (

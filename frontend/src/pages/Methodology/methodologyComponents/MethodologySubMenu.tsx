@@ -6,7 +6,7 @@ import { Link as RouterLink } from 'react-router-dom'
 
 // TODO: Updating typing
 
-import { Link as ScrollLink } from 'react-scroll'
+// import { Link as ScrollLink } from 'react-scroll'
 
 interface LinkConfig {
   label: string

@@ -1,6 +1,6 @@
 import Card from '@mui/material/Card'
-import styles from '../MethodologyPage.module.scss'
-import { CITATION_APA } from '../MethodologyPage'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import { CITATION_APA } from '../methodologyComponents/MethodologyPage'
 
 const RecommendedCitationLink = () => {
   return (

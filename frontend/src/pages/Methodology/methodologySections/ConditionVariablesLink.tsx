@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import DefinitionsList from '../../../reports/ui/DefinitionsList'
-import styles from '../MethodologyPage.module.scss'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
 
 const ConditionVariablesLink = () => {
   return (

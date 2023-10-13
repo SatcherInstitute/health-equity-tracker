@@ -1,4 +1,4 @@
-import styles from '../MethodologyPage.module.scss'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { urlMap } from '../../../utils/externalUrls'
 import { AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
 

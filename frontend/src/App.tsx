@@ -67,7 +67,8 @@ const DataCatalogPage = React.lazy(
   async () => await import('./pages/DataCatalog/DataCatalogPage')
 )
 const MethodologyPage = React.lazy(
-  async () => await import('./pages/Methodology/MethodologyPage')
+  async () =>
+    await import('./pages/Methodology/methodologyComponents/MethodologyPage')
 )
 
 export const MOBILE_BREAKPOINT = 600
