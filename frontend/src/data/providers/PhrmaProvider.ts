@@ -11,8 +11,9 @@ import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
 export const PHRMA_CONDITIONS: DropdownVarId[] = [
-  'phrma_cardiovascular',
-  'phrma_hiv',
+  'medicare_cardiovascular',
+  'medicare_hiv',
+  'medicare_mental_health',
 ]
 
 export const PHRMA_DATATYPES: DataTypeId[] = [
@@ -28,6 +29,7 @@ export const PHRMA_DATATYPES: DataTypeId[] = [
   // 100K
   'medicare_ami',
   'medicare_hiv',
+  'medicare_schizoprhenia',
 ]
 
 export const PHRMA_METRICS: MetricId[] = [

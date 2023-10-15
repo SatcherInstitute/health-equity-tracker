@@ -120,7 +120,7 @@ export default function MadLibUI(props: {
               const segmentDataTypeId: DropdownVarId | string =
                 props.madLib.activeSelections[index]
               if (isDropdownVarId(segmentDataTypeId)) {
-                dataTypes = METRIC_CONFIG[segmentDataTypeId].map(
+                dataTypes = METRIC_CONFIG[segmentDataTypeId]?.map(
                   (dataTypeConfig: DataTypeConfig) => {
                     const { dataTypeId, dataTypeShortLabel } = dataTypeConfig
                     return [dataTypeId, dataTypeShortLabel]
@@ -152,7 +152,7 @@ export default function MadLibUI(props: {
                         options={getOptionsFromPhraseSegment(phraseSegment)}
                       />
 
-                      {dataTypes.length > 1 && (
+                      {dataTypes?.length > 1 && (
                         <DataTypeSelector
                           key={`${index}-datatype`}
                           value={config?.dataTypeId ?? dataTypes[0][0]}

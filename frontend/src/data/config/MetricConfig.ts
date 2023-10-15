@@ -51,6 +51,7 @@ import {
   MEDICARE_CATEGORY_DROPDOWNIDS,
   PHRMA_CARDIOVASCULAR_METRICS,
   PHRMA_HIV_METRICS,
+  PHRMA_MENTAL_HEALTH_METRICS,
   type PhrmaDataTypeId,
   type PhrmaMetricId,
 } from './MetricConfigPhrma'
@@ -302,6 +303,7 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   voter_participation: VOTER_PARTICIPATION_METRICS,
   women_in_gov: WOMEN_IN_GOV_METRICS,
   incarceration: INCARCERATION_METRICS,
-  phrma_cardiovascular: PHRMA_CARDIOVASCULAR_METRICS,
-  phrma_hiv: PHRMA_HIV_METRICS,
+  medicare_cardiovascular: PHRMA_CARDIOVASCULAR_METRICS,
+  medicare_hiv: PHRMA_HIV_METRICS,
+  medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
 }

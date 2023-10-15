@@ -139,9 +139,9 @@ export const DROPDOWN_TOPIC_MAP: Record<
   hiv: 'HIV',
   incarceration: 'Incarceration',
   poverty: 'Poverty',
-  phrma_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
-  phrma_hiv: 'HIV Conditions and Medication Adherence',
-  phrma_mental_health: 'Mental Health Conditions and Medication Adherence',
+  medicare_cardiovascular: 'Cardiovascular Conditions and Medication Adherence',
+  medicare_hiv: 'HIV Conditions and Medication Adherence',
+  medicare_mental_health: 'Mental Health Conditions and Medication Adherence',
   preventable_hospitalizations: 'Preventable Hospitalization',
   substance: 'Opioid and Other Substance Misuse',
   suicide: 'Suicide',
@@ -152,8 +152,9 @@ export const DROPDOWN_TOPIC_MAP: Record<
 export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
 > = {
-  phrma_cardiovascular: 'Medicare Beneficiary',
-  phrma_hiv: 'Medicare Beneficiary HIV',
+  medicare_cardiovascular: 'Medicare Beneficiary',
+  medicare_hiv: 'Medicare Beneficiary HIV',
+  medicare_mental_health: 'Medicare Beneficiary',
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',
   women_in_gov: 'Women Serving in',

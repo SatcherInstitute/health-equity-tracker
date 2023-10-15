@@ -2,13 +2,15 @@ import { medicareMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
-  'phrma_cardiovascular',
-  'phrma_hiv',
-  'phrma_mental_health',
+  'medicare_cardiovascular',
+  'medicare_hiv',
+  'medicare_mental_health',
 ]
 
 export type PhrmaDataTypeId =
-  | 'ami'
+  | 'medicare_ami'
+  | 'medicare_hiv'
+  | 'medicare_anti_psychotics'
   | 'arv_adherence'
   | 'beta_blockers_adherence'
   | 'ras_antagonists_adherence'
@@ -521,7 +523,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     },
   },
   {
-    dataTypeId: 'phrma_hiv',
+    dataTypeId: 'medicare_hiv',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Cases of HIV',
@@ -611,7 +613,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
           type: 'count',
         },
         metricId: 'anti_psychotics_adherence_pct_rate',
-        chartTitle: 'Population adherent to antipsychoticss',
+        chartTitle: 'Population adherent to antipsychotics',
         shortLabel: '% of pop. above adherence threshold',
         type: 'pct_rate',
       },
@@ -626,7 +628,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'medicare_schizophrenia',
     mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Cases',
+    dataTypeShortLabel: 'Schizophrenia',
     fullDisplayName: 'Cases of Schizophrenia',
     surveyCollectedData: true,
     definition: {
