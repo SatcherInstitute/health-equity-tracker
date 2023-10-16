@@ -37,7 +37,7 @@ function MethodologyPage() {
       >
         <MethodologyCardMenu />
 
-        <main className={styles.ArticleContainer}>
+        <div className={styles.ArticleContainer}>
           <Switch>
             {routeConfigs.map((route, index) => (
               <Route
@@ -47,7 +47,7 @@ function MethodologyPage() {
               />
             ))}
           </Switch>
-        </main>
+        </div>
         {routeConfigs.map((route, index) => {
           const match = useRouteMatch({
             path: route.path,

@@ -18,11 +18,11 @@ const AgeAdjustmentLink = () => {
 
   return (
     <section>
-      <article>
+      <article id="main">
         <Helmet>
           <title>Age-Adjustment - Health Equity Tracker</title>
         </Helmet>
-        <h1 className={styles.MethodologyQuestion} id={'#age-adjusted-ratios'}>
+        <h1 className={styles.MethodologyQuestion} id={'age-adjusted-ratios'}>
           Calculating Age-Adjusted Ratios
         </h1>
         <div className={styles.MethodologyAnswer}>
@@ -79,12 +79,9 @@ const AgeAdjustmentLink = () => {
             .
           </p>
         </div>
-        <h4
-          className={styles.MethodologySubsubheaderText}
-          id={'#data-sourcing'}
-        >
+        <h2 id="data-sourcing" className={styles.MethodologySubsubheaderText}>
           Data Sourcing
-        </h4>
+        </h2>
         <p>
           In order to do an age-adjustment, we needed the following pieces of
           information:
@@ -133,9 +130,9 @@ const AgeAdjustmentLink = () => {
             </ul>
           </li>
         </ol>
-        <h4 className={styles.MethodologySubsubheaderText} id={'#algorithm'}>
+        <h2 className={styles.MethodologySubsubheaderText} id="algorithm">
           Algorithm
-        </h4>
+        </h2>
         <p>In order to generate the age-adjusted ratios, we do the following</p>
         <ol>
           <li>
@@ -211,12 +208,12 @@ const AgeAdjustmentLink = () => {
           </li>
         </ol>
 
-        <h3
+        <h2
           className={styles.MethodologyQuestion}
-          id={'#age-adjustment-examples'}
+          id={'age-adjustment-examples'}
         >
           Age-Adjustment Example: HIV Deaths
-        </h3>
+        </h2>
         <p>
           Here is an example of a single state with two races, <b>Race A</b> and{' '}
           <b>Race B</b>, with three age breakdowns: <b>0-29</b>, <b>30-59</b>,
@@ -279,10 +276,10 @@ const AgeAdjustmentLink = () => {
           </tbody>
         </table>
 
-        <h4 className={styles.MethodologySubsubheaderText}>
+        <h3 className={styles.MethodologySubsubheaderText}>
           1) Calculate the <b>age-specific HIV death rates</b> which will be
           each race/age group's death count divided by its population.
-        </h4>
+        </h3>
 
         {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
         <table className={styles.ExampleTable}>
@@ -365,10 +362,10 @@ const AgeAdjustmentLink = () => {
           </tbody>
         </table>
 
-        <h4 className={styles.MethodologySubsubheaderText}>
+        <h3 className={styles.MethodologySubsubheaderText}>
           2) Get the <b>standard population</b> per age group, which will be the
           summed population of all race/age groups within that age group.
-        </h4>
+        </h3>
 
         {/* A + B TABLE */}
         <table className={styles.ExampleTable}>
@@ -410,9 +407,9 @@ const AgeAdjustmentLink = () => {
           </tbody>
         </table>
 
-        <h4 className={styles.MethodologySubsubheaderText}>
+        <h3 className={styles.MethodologySubsubheaderText}>
           3) Calculate the expected deaths for each age/race group:
-        </h4>
+        </h3>
         <p>As noted above, the formula for each row is:</p>
         <pre>
           (HIV Deaths / Population) X Standard Population for Corresponding Age
@@ -520,11 +517,11 @@ const AgeAdjustmentLink = () => {
             </tr>
           </tbody>
         </table>
-        <h4 className={styles.MethodologySubsubheaderText}>
+        <h3 className={styles.MethodologySubsubheaderText}>
           4) For each race, we sum together the expected HIV deaths from each of
           its age groups to calculate the total expected HIV deaths for that
           race:
-        </h4>
+        </h3>
         <table className={styles.ExampleTable}>
           <thead>
             <tr>
@@ -550,9 +547,9 @@ const AgeAdjustmentLink = () => {
             </tr>
           </tbody>
         </table>
-        <h4 className={styles.MethodologySubsubheaderText}>
+        <h3 className={styles.MethodologySubsubheaderText}>
           5) Calculate the age-adjusted death ratio:
-        </h4>
+        </h3>
         <table className={styles.ExampleTable}>
           <thead>
             <tr>

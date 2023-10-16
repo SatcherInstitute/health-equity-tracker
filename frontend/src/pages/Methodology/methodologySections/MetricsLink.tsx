@@ -3,7 +3,7 @@ import styles from '../MethodologyPage.module.scss'
 const MetricsLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>Metrics</h1>
         <h2 className={styles.MethodologyQuestion} id="metrics">
           What do the metrics on the tracker mean?

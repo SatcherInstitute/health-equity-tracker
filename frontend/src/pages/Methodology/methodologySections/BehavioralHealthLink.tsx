@@ -4,7 +4,7 @@ import { urlMap } from '../../../utils/externalUrls'
 const BehavioralHealthLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>Behavioral Health</h1>
         <h3 className={styles.MethodologySubsubheaderText}>
           America’s Health Rankings

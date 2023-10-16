@@ -6,7 +6,7 @@ import styles from '../MethodologyPage.module.scss'
 const ConditionVariablesLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>Condition Variables</h1>
         <h2 className={styles.MethodologyQuestion}>
           What do the condition variables on the tracker mean?

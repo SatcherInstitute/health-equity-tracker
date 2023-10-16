@@ -8,9 +8,9 @@ import {
 const HivLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>HIV</h1>
-        <p id="#hiv">
+        <p id="hiv">
           The CDC collects and studies information on the number of people
           diagnosed with HIV in the United States. This information is gathered
           from state and local HIV surveillance programs and is used to better
@@ -35,7 +35,7 @@ const HivLink = () => {
         </p>
 
         <h3
-          id="#deaths-diagnosis-prevalence"
+          id="deaths-diagnosis-prevalence"
           className={styles.MethodologySubsubheaderText}
         >
           HIV Deaths, Diagnosis, & Prevalence
@@ -99,14 +99,14 @@ const HivLink = () => {
         </ul>
 
         <Card
-          id={'#hiv-missing-and-suppressed-data'}
+          id={'hiv-missing-and-suppressed-data'}
           elevation={3}
           className={styles.MissingDataBox}
         >
           <MissingHIVData />
         </Card>
 
-        <h3 id="#prep-coverage" className={styles.MethodologySubsubheaderText}>
+        <h3 id="prep-coverage" className={styles.MethodologySubsubheaderText}>
           PrEP Coverage
         </h3>
         <p>
@@ -180,10 +180,7 @@ const HivLink = () => {
           <MissingPrepData />
         </Card>
 
-        <h3
-          id="#linkage-to-care"
-          className={styles.MethodologySubsubheaderText}
-        >
+        <h3 id="linkage-to-care" className={styles.MethodologySubsubheaderText}>
           Linkage to Care
         </h3>
         <p>
@@ -247,7 +244,7 @@ const HivLink = () => {
             </ul>
           </li>
         </ul>
-        <h3 id="#stigma" className={styles.MethodologySubsubheaderText}>
+        <h3 id="stigma" className={styles.MethodologySubsubheaderText}>
           HIV Stigma
         </h3>
         <p>

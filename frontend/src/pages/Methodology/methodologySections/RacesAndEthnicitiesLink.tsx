@@ -3,7 +3,7 @@ import styles from '../MethodologyPage.module.scss'
 const RacesAndEthnicitiesLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>Races and Ethnicities</h1>
         <h2 className={styles.MethodologyQuestion}>
           What do the race/ethnicity groups mean?

@@ -5,8 +5,8 @@ import { CITATION_APA } from '../MethodologyPage'
 const RecommendedCitationLink = () => {
   return (
     <section>
-      <article>
-        <h1 className={styles.MethodologyQuestion}>
+      <article id="main">
+        <h1 className={styles.MethodologyQuestion} id={'recommended-citation'}>
           Recommended citation (APA) for the Health Equity Tracker:
         </h1>
         <div className={styles.MethodologyAnswer}>

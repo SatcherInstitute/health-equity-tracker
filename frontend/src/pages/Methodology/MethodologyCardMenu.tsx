@@ -33,7 +33,7 @@ function MethodologyCardMenu() {
   }
 
   return (
-    <nav className={styles.CardMenu}>
+    <nav className={styles.CardMenu} aria-label="methodology nav menu">
       <Box sx={{ width: '100%' }}>
         <List component="nav" aria-label="main methodology categories">
           <Link to={AGE_ADJUSTMENT_LINK}>

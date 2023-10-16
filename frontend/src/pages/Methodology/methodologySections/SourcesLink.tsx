@@ -5,7 +5,7 @@ import { AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
 const SourcesLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>Source Acquisition</h1>
         <h2 className={styles.MethodologyQuestion}>
           How did you acquire and standardize the data?

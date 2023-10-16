@@ -10,11 +10,11 @@ import { urlMap } from '../../../utils/externalUrls'
 const PdohLink = () => {
   return (
     <section>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>
           Political Determinants of Health
         </h1>
-        <h3 id="#incarceration" className={styles.MethodologySubsubheaderText}>
+        <h3 id="incarceration" className={styles.MethodologySubsubheaderText}>
           Incarceration
         </h3>
 
@@ -111,7 +111,7 @@ const PdohLink = () => {
           </li>
         </ul>
 
-        <h3 id="#jail" className={styles.MethodologySubsubheaderText}>
+        <h3 id="jail" className={styles.MethodologySubsubheaderText}>
           Jail
         </h3>
 
@@ -131,7 +131,7 @@ const PdohLink = () => {
           </li>
         </ul>
 
-        <h3 id="#prison" className={styles.MethodologySubsubheaderText}>
+        <h3 id="prison" className={styles.MethodologySubsubheaderText}>
           Prison
         </h3>
 
@@ -194,7 +194,7 @@ const PdohLink = () => {
         </p>
 
         <h3
-          id="#children-in-adult-facilities"
+          id="children-in-adult-facilities"
           className={styles.MethodologySubsubheaderText}
         >
           Children in Adult Facilities
@@ -232,7 +232,7 @@ const PdohLink = () => {
         </ul>
 
         <h3
-          id="#combined-systems"
+          id="combined-systems"
           className={styles.MethodologySubsubheaderText}
         >
           Combined Systems
@@ -242,7 +242,7 @@ const PdohLink = () => {
           {CombinedIncarcerationStateMessage()} {ALASKA_PRIVATE_JAIL_CAVEAT}
         </p>
 
-        <h3 id="#women-in-gov" className={styles.MethodologySubsubheaderText}>
+        <h3 id="women-in-gov" className={styles.MethodologySubsubheaderText}>
           Women in legislative office
         </h3>
 
@@ -372,7 +372,7 @@ const PdohLink = () => {
           </li>
         </ul>
         <Card
-          id={'#women-in-gov-missing-and-suppressed-data'}
+          id={'women-in-gov-missing-and-suppressed-data'}
           elevation={3}
           className={styles.MissingDataBox}
         >

@@ -4,7 +4,7 @@ function SdohLink() {
   return (
     <section>
       <nav className={styles.SubMenu}></nav>
-      <article>
+      <article id="main">
         <h1 className={styles.MethodologyQuestion}>
           Social Determinants of Health
         </h1>

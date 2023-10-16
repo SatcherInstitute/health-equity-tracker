@@ -14,7 +14,6 @@ const Covid19Link = () => {
 
   const handleScroll = () => {
     const offset = window.scrollY
-    console.log(offset)
     if (offset > 100) {
       // Replace 200 with the position you prefer
       setSticky(true)
@@ -35,11 +34,9 @@ const Covid19Link = () => {
     }
   }, [])
 
-  console.log(isSticky)
-
   return (
     <section>
-      <article ref={articleRef}>
+      <article ref={articleRef} id="main">
         <h1
           className={`${styles.MethodologyQuestion} ${
             isSticky ? styles.StickyHeader : ''
@@ -48,10 +45,8 @@ const Covid19Link = () => {
         >
           COVID-19
         </h1>
-        <div id="#covid19" style={{ height: '10px' }}></div>
-        <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
-          COVID-19
-        </h3>
+        <div id="covid19" style={{ height: '10px' }}></div>
+        <h3 className={styles.MethodologySubsubheaderText}>COVID-19</h3>
         <ul>
           <li>
             National statistics are aggregations of state-wide data. If state
@@ -89,11 +84,8 @@ const Covid19Link = () => {
             whether that that locale fails to report demographics correctly.
           </li>
         </ul>
-        <div id="#covid19-time-series-data" style={{ height: '10px' }}></div>
-        <h3
-          className={styles.MethodologySubsubheaderText}
-          id="#covid19-time-series-data"
-        >
+        <div id="covid19-time-series-data" style={{ height: '10px' }}></div>
+        <h3 className={styles.MethodologySubsubheaderText}>
           COVID-19 time-series data
         </h3>
 
@@ -135,18 +127,14 @@ const Covid19Link = () => {
         </ul>
 
         <div
-          id="#covid19-missing-and-suppressed-data"
+          id="covid19-missing-and-suppressed-data"
           style={{ height: '30px' }}
         ></div>
-        <Card
-          // id="#covid19-missing-and-suppressed-data"
-          elevation={3}
-          className={styles.MissingDataBox}
-        >
+        <Card elevation={3} className={styles.MissingDataBox}>
           <MissingCovidData />
         </Card>
 
-        <div id="#covid-19-vaccinations" style={{ height: '10px' }}></div>
+        <div id="covid-19-vaccinations" style={{ height: '10px' }}></div>
         <h3 className={styles.MethodologySubsubheaderText}>
           COVID-19 vaccinations
         </h3>
@@ -187,7 +175,7 @@ const Covid19Link = () => {
           </li>
         </ul>
         <div
-          id="#vaccination-population-sources"
+          id="vaccination-population-sources"
           style={{ height: '10px' }}
         ></div>
         <h3 className={styles.MethodologySubsubheaderText}>
@@ -224,10 +212,7 @@ const Covid19Link = () => {
             For the county level we use the ACS 2019 population estimations.
           </li>
         </ul>
-        <div
-          id="#vaccination-data-limitations"
-          style={{ height: '10px' }}
-        ></div>
+        <div id="vaccination-data-limitations" style={{ height: '10px' }}></div>
         <h3 className={styles.MethodologySubsubheaderText}>
           Vaccination data limitations
         </h3>
@@ -262,7 +247,7 @@ const Covid19Link = () => {
         </ul>
 
         <Card
-          id="#missing-covid-vaccination-data"
+          id="missing-covid-vaccination-data"
           elevation={3}
           className={styles.MissingDataBox}
         >

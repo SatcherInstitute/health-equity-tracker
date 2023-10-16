@@ -41,7 +41,7 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
 
 const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
   return (
-    <nav className={styles.SubMenu}>
+    <nav className={styles.SubMenu} aria-label={'Methodology Sub Menu'}>
       <p>On this page</p>
       <h4>Limitations</h4>
       {links.map((link, index) => (
