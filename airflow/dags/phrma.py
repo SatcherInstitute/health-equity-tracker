@@ -225,30 +225,32 @@ phrma_exporter_operator_eligibility = util.create_exporter_operator(
 )
 # Ingestion DAG
 (
-    phrma_bq_operator_race_county
+    phrma_bq_operator_race_national
     >> [
-        phrma_bq_operator_race_national,
-        phrma_bq_operator_sex_national,
         phrma_bq_operator_age_national,
-        phrma_bq_operator_lis_national,
         phrma_bq_operator_elig_national,
+        phrma_bq_operator_lis_national,
+        phrma_bq_operator_sex_national,
     ]
     >> phrma_bq_operator_race_state
     >> [
-        phrma_bq_operator_sex_state,
-        phrma_bq_operator_lis_state,
+        phrma_bq_operator_age_state,
         phrma_bq_operator_elig_state,
+        phrma_bq_operator_lis_state,
+        phrma_bq_operator_sex_state,
     ]
-    >> phrma_bq_operator_age_state
-    >> phrma_bq_operator_sex_county
-    >> phrma_bq_operator_age_county
-    >> phrma_bq_operator_lis_county
-    >> phrma_bq_operator_elig_county
+    >> phrma_bq_operator_race_county
+    >> [
+        phrma_bq_operator_age_county,
+        phrma_bq_operator_elig_county,
+        phrma_bq_operator_lis_county,
+        phrma_bq_operator_sex_county,
+    ]
     >> [
         phrma_exporter_operator_race,
         phrma_exporter_operator_age,
-        phrma_exporter_operator_sex,
-        phrma_exporter_operator_lis,
         phrma_exporter_operator_eligibility,
+        phrma_exporter_operator_lis,
+        phrma_exporter_operator_sex,
     ]
 )
