@@ -68,7 +68,7 @@ describe('test getSubPopulationPhrase()', () => {
     },
   ]
   const statinsAdherenceConfig: DataTypeConfig =
-    METRIC_CONFIG.phrma_cardiovascular[0]
+    METRIC_CONFIG.medicare_cardiovascular[0]
 
   test('phrma medicare national population', () => {
     const medicarePopPhrase = getSubPopulationPhrase(

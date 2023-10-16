@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import viteTsconfigPaths from 'vite-tsconfig-paths';
 import svgrPlugin from 'vite-plugin-svgr';
 import { configDefaults } from 'vitest/config'
-import { sentryVitePlugin } from "@sentry/vite-plugin";
+// import { sentryVitePlugin } from "@sentry/vite-plugin";
 
 
 export default defineConfig(({ mode }) => {
@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
 	// we only want the source maps created from npm build to upload to Sentry when Netlify builds from the `main` branch
 	// this avoids pushing sourcemaps for local development / deploy previews, and also bypasses dealing with passing
 	// secrets into docker images for dev / prod builds
-	const sentryAuthToken = env.BRANCH === 'main' ? env.SENTRY_AUTH_TOKEN : ""
+	// const sentryAuthToken = env.BRANCH === 'main' ? env.SENTRY_AUTH_TOKEN : ""
 
 	return {
 		build: {
@@ -30,13 +30,13 @@ export default defineConfig(({ mode }) => {
 			}),
 			viteTsconfigPaths(),
 			svgrPlugin(),
-			sentryVitePlugin({
-				org: env.SENTRY_ORG,
-				project: env.SENTRY_PROJECT,
-				// Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
-				// and need `project:releases` and `org:read` scopes
-				authToken: sentryAuthToken,
-			}),
+			// sentryVitePlugin({
+			// 	org: env.SENTRY_ORG,
+			// 	project: env.SENTRY_PROJECT,
+			// 	// Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
+			// 	// and need `project:releases` and `org:read` scopes
+			// 	authToken: sentryAuthToken,
+			// }),
 		],
 		test: {
 			exclude: [
