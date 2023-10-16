@@ -29,7 +29,9 @@ export const NavigationButtons: React.FC = () => {
   }
 
   return (
-    <div className={styles.NavigationButtonsDiv}>
+    <div className={styles.NavigationButtonsDiv} >
+      {prevRoute ? 
+      
       <Button
         disabled={currentIndex === 0}
         onClick={goPrevious}
@@ -48,8 +50,29 @@ export const NavigationButtons: React.FC = () => {
           </span>
         </span>
       </Button>
+      :  <Button
+      style={{visibility:'hidden'}}
+        disabled={currentIndex === 0}
+        onClick={goPrevious}
+        className={styles.Previous}
+      >
+        <span className={styles.ButtonHeader}>
+          {prevRoute ? (
+            <span>
+              <ArrowBack /> Previous
+            </span>
+          ) : null}
+        </span>
+        <span className={styles.ButtonContentDiv}>
+          <span className={styles.Previous}>
+            {prevRoute ? prevRoute.label : null}
+          </span>
+        </span>
+      </Button>}
 
-      <Button
+{nextRoute ?
+
+<Button
         disabled={currentIndex === routeConfigs.length - 1}
         onClick={goNext}
         className={styles.Next}
@@ -65,16 +88,8 @@ export const NavigationButtons: React.FC = () => {
           <span>{nextRoute ? nextRoute.label : null}</span>
         </span>
       </Button>
+: null}
 
-      {/* <Button
-        className={styles.ButtonNext}
-        variant="contained"
-        color="primary"
-        disabled={currentIndex === routeConfigs.length - 1}
-        onClick={goNext}
-      >
-        Next: {nextRoute ? nextRoute.label : 'N/A'}
-      </Button> */}
     </div>
   )
 }

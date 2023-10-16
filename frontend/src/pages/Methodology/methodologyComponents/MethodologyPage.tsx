@@ -11,7 +11,7 @@ import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
-function MethodologyPage() {
+const MethodologyPage = () => {
   const location = useLocation()
 
   // Find the route object that matches the current path
@@ -27,42 +27,46 @@ function MethodologyPage() {
 
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
 
-      <Grid
-        className={styles.MethodologySectionWrapper}
-        container
-        spacing={{ xs: 2, md: 3 }}
-        columns={{ xs: 4, sm: 8, md: 12 }}
-      >
-        <MethodologyCardMenu />
-        <main className={styles.ArticleContainer}>
-          <Grid direction="column">
-            <Typography className={styles.Header} variant="h1">
-              {activeRoute?.label}
-            </Typography>
-            <Switch>
-              <>
-                {routeConfigs.map((route, index) => (
-                  <Route
-                    key={index}
-                    path={route.path}
-                    render={route.component}
-                  />
-                ))}
-                <NavigationButtons />
-              </>
-            </Switch>
-          </Grid>
-        </main>
-        {routeConfigs.map((route, index) => {
-          const match = useRouteMatch({
-            path: route.path,
-            exact: true,
-          })
+      <Grid container sx={{m: 2}} spacing={3}>
+        <Grid item xs={12} sm={3}>
+          <MethodologyCardMenu />
+        </Grid>
 
-          return match && route.subLinks.length > 0 ? (
-            <MethodologySubMenu key={index} links={route.subLinks} />
-          ) : null
-        })}
+        {/* Article */}
+        <Grid item xs={12} sm={6}>
+          <main className={styles.ArticleContainer}>
+            <Grid direction="column">
+              <Typography className={styles.Header} variant="h1">
+                {activeRoute?.label}
+              </Typography>
+              <Switch>
+                <>
+                  {routeConfigs.map((route, index) => (
+                    <Route
+                      key={index}
+                      path={route.path}
+                      render={route.component}
+                    />
+                  ))}
+                  <NavigationButtons />
+                </>
+              </Switch>
+            </Grid>
+          </main>
+        </Grid>
+
+        <Grid item xs={12} sm={3}>
+          {routeConfigs.map((route, index) => {
+            const match = useRouteMatch({
+              path: route.path,
+              exact: true,
+            })
+
+            return match && route.subLinks.length > 0 ? (
+              <MethodologySubMenu key={index} links={route.subLinks} />
+            ) : null
+          })}
+        </Grid>
       </Grid>
     </>
   )

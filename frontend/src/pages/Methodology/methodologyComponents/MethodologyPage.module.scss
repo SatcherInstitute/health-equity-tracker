@@ -11,17 +11,17 @@ html {
 }
 
 .MethodologySectionWrapper {
-  display: inline-flex;
-  flex-direction: row;
-  // max-width: 95vw;
-  margin: 1% auto;
-  // justify-content: flex-start;
-  justify-content: space-around;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 5rem;
-  flex-wrap: unset;
-  width: 95vw;
+  // display: inline-flex;
+  // flex-direction: row;
+  // // max-width: 95vw;
+  // margin: 1% auto;
+  // // justify-content: flex-start;
+  // justify-content: space-between;
+  // align-items: flex-start;
+  // align-content: flex-start;
+  // gap: 5rem;
+  // flex-wrap: unset;
+  // width: 95vw;
 }
 
 .SectionWrapper {
@@ -29,7 +29,8 @@ html {
 }
 
 .ArticleContainer {
-  display: inline-flex;
+  // display: inline-flex;
+  display: flex;
   // justify-content: space-between;
   width: 100%;
   text-align: left;
@@ -211,7 +212,7 @@ html {
   color: var(--m-3-sys-light-on-surface, #1d1b20);
   display: flex;
 
-  width: 23.25rem;
+  width: 20rem;
   flex-direction: column;
   justify-content: center;
   // align-items: flex-end;
