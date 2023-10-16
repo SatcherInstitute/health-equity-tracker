@@ -8,7 +8,7 @@ import MethodologyCardMenu from './MethodologyCardMenu'
 import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import { Typography } from '@mui/material'
-
+import NavigationButtons from './NavigationButtons'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 function MethodologyPage() {
@@ -38,13 +38,16 @@ function MethodologyPage() {
           <Grid direction="column">
             <Typography variant="h1">{activeRoute?.label}</Typography>
             <Switch>
-              {routeConfigs.map((route, index) => (
-                <Route
-                  key={index}
-                  path={route.path}
-                  component={route.component}
-                />
-              ))}
+              <>
+                {routeConfigs.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    render={route.component}
+                  />
+                ))}
+                <NavigationButtons />
+              </>
             </Switch>
           </Grid>
         </main>

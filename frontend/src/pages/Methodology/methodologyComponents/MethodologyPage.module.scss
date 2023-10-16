@@ -177,6 +177,97 @@ a:focus {
   border-left: 2px solid var(--0-b-5240, #0b5240);
 }
 
+.NavigationButtonsDiv {
+  // text-align: right;
+  display: flex;
+  align-self: stretch;
+  flex: 1 0 0;
+  justify-content: space-between;
+}
+
+.Previous {
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.Previous span {
+  justify-content: flex-start;
+}
+
+.Next {
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.Next span {
+  justify-content: flex-end;
+}
+
+// .NavigationButtonsDiv #previous {
+//   align-items: flex-start;
+// }
+
+// .NavigationButtonsDiv #previous span {
+//   justify-content: flex-start;
+// }
+
+.NavigationButtonsDiv button {
+  font-family: DM Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4rem;
+  letter-spacing: 0.0375rem;
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
+  display: flex;
+
+  width: 23.25rem;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: flex-end;
+  // flex-shrink: 0;
+  border-radius: 1.75rem;
+  background: rgba(11, 82, 64, 0.3);
+}
+
+.ButtonHeader {
+  display: flex;
+  height: 3.5rem;
+  padding: 0.5rem;
+  // justify-content: flex-start;
+  align-items: center;
+  // gap: 0.25rem;
+  align-self: stretch;
+  // flex: 1 0 0;
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
+
+  /* Inter */
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.30625rem; /* 130.625% */
+  letter-spacing: 0.011rem;
+}
+
+.ButtonContentDiv {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: flex-end;
+  gap: 0.625rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  // height: 3rem;
+}
+
+.ButtonContentDiv span {
+  // padding: 1rem;
+}
+
 /** ------------------ METHODOLOGY -------------------- **/
 
 .MethodologySection {
