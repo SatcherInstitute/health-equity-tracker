@@ -9,6 +9,7 @@ from ingestion.constants import (
     ALL_VALUE,
     US_FIPS,
     US_NAME,
+    UNKNOWN,
 )
 from ingestion.dataset_utils import (
     ensure_leading_zeros,
@@ -243,6 +244,9 @@ class PhrmaData(DataSource):
                 df, count_to_share_map, demo_col, all_val, std_col.Race.UNKNOWN.value
             )
         else:
+            # Some Sex breakdowns contained null count rows for Unknown with 100k/100k rate
+            if demo_breakdown == std_col.SEX_COL:
+                df = df[df[demo_breakdown] != UNKNOWN]
             df = generate_pct_share_col_without_unknowns(
                 df, count_to_share_map, cast(PHRMA_BREAKDOWN_TYPE, demo_col), all_val
             )
