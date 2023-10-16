@@ -1,0 +1,50 @@
+RACE_NAME,AGE_GROUP,BENE_YES,BENE_NO,TOTAL_BENE,BENE_YES_PCT
+Unknown,_18-39,2004,871,2875,0.6970434783
+Unknown,_40-64,369,118,487,0.7577002053
+Unknown,_65-69,153,37,190,0.8052631579
+Unknown,_70-74,117,38,155,0.7548387097
+Unknown,_75-79,.,.,.,0.8275862069
+Unknown,_80-84,.,.,.,0.8
+Unknown,_85+,.,.,.,0
+"Non-Hispanic White",_18-39,15673,5147,20820,0.7527857829
+"Non-Hispanic White",_40-64,63358,13798,77156,0.8211675048
+"Non-Hispanic White",_65-69,12782,2602,15384,0.8308632345
+"Non-Hispanic White",_70-74,7199,1659,8858,0.8127116731
+"Non-Hispanic White",_75-79,3265,792,4057,0.8047818585
+"Non-Hispanic White",_80-84,1200,283,1483,0.8091706001
+"Non-Hispanic White",_85+,577,151,728,0.7925824176
+"Black or African-American",_18-39,6552,3766,10318,0.6350067843
+"Black or African-American",_40-64,18545,6775,25320,0.7324249605
+"Black or African-American",_65-69,3450,1152,4602,0.7496740548
+"Black or African-American",_70-74,1910,583,2493,0.7661452066
+"Black or African-American",_75-79,773,269,1042,0.7418426104
+"Black or African-American",_80-84,289,98,387,0.7467700258
+"Black or African-American",_85+,135,43,178,0.7584269663
+Other,_18-39,196,55,251,0.780876494
+Other,_40-64,673,151,824,0.8167475728
+Other,_65-69,107,32,139,0.7697841727
+Other,_70-74,86,15,101,0.8514851485
+Other,_75-79,36,11,47,0.7659574468
+Other,_80-84,.,.,.,0.6
+Other,_85+,.,.,.,0.6
+"Asian/Pacific Islander",_18-39,991,313,1304,0.7599693252
+"Asian/Pacific Islander",_40-64,2706,575,3281,0.8247485523
+"Asian/Pacific Islander",_65-69,426,94,520,0.8192307692
+"Asian/Pacific Islander",_70-74,283,61,344,0.8226744186
+"Asian/Pacific Islander",_75-79,119,32,151,0.7880794702
+"Asian/Pacific Islander",_80-84,.,.,.,0.8591549296
+"Asian/Pacific Islander",_85+,.,.,.,0.6875
+Hispanic,_18-39,3263,1320,4583,0.711979053
+Hispanic,_40-64,6821,2160,8981,0.7594922614
+Hispanic,_65-69,1064,307,1371,0.776075857
+Hispanic,_70-74,596,168,764,0.780104712
+Hispanic,_75-79,282,72,354,0.7966101695
+Hispanic,_80-84,141,34,175,0.8057142857
+Hispanic,_85+,92,27,119,0.7731092437
+"American Indian / Alaska Native",_18-39,344,158,502,0.6852589641
+"American Indian / Alaska Native",_40-64,802,290,1092,0.7344322344
+"American Indian / Alaska Native",_65-69,82,29,111,0.7387387387
+"American Indian / Alaska Native",_70-74,.,.,.,0.9193548387
+"American Indian / Alaska Native",_75-79,.,.,.,0.7619047619
+"American Indian / Alaska Native",_80-84,.,.,.,0.7142857143
+"American Indian / Alaska Native",_85+,.,.,.,0
