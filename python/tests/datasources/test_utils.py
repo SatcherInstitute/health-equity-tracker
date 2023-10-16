@@ -39,7 +39,8 @@ def _load_public_dataset_from_bigquery_as_df(*args, **kwargs) -> pd.DataFrame:
     print("MOCKING READ FROM PUBLIC BQ:", filename)
 
     county_names_df = pd.read_csv(
-        file_path, dtype={"state_fips_code": str, "county_fips_code": str}
+        file_path,
+        dtype={"state_fips_code": str, "county_fips_code": str},
     )
 
     return county_names_df
