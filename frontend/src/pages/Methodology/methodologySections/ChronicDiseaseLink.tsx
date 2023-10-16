@@ -6,7 +6,6 @@ const ChronicDiseaseLink = () => {
   return (
     <section>
       <article>
-        <h1 className={styles.MethodologyQuestion}>Chronic Disease</h1>
         <h3 className={styles.MethodologySubsubheaderText}>
           America’s Health Rankings
         </h3>

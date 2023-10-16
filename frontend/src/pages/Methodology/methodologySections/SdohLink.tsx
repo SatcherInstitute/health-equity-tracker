@@ -5,9 +5,6 @@ function SdohLink() {
     <section>
       <nav className={styles.SubMenu}></nav>
       <article>
-        <h1 className={styles.MethodologyQuestion}>
-          Social Determinants of Health
-        </h1>
         <h3 className={styles.MethodologySubsubheaderText}>
           America’s Health Rankings
         </h3>

@@ -9,8 +9,6 @@ const HivLink = () => {
   return (
     <section>
       <article>
-        <h1 className={styles.MethodologyQuestion}>HIV</h1>
-
         {/* <p id="hiv_black_women"> */}
 
         <p id="#hiv">

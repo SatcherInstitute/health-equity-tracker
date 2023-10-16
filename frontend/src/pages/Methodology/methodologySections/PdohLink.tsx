@@ -12,12 +12,6 @@ const PdohLink = () => {
   return (
     <section>
       <article>
-        <h1 className={styles.MethodologyQuestion}>
-          Political Determinants of Health
-        </h1>
-
-        {/* <h3 id="incarceration" className={styles.MethodologySubsubheaderText}> */}
-
         <h3 id="#incarceration" className={styles.MethodologySubsubheaderText}>
           Incarceration
         </h3>

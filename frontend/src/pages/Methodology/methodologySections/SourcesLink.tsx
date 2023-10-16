@@ -6,7 +6,6 @@ const SourcesLink = () => {
   return (
     <section>
       <article>
-        <h1 className={styles.MethodologyQuestion}>Source Acquisition</h1>
         <h2 className={styles.MethodologyQuestion}>
           How did you acquire and standardize the data?
         </h2>

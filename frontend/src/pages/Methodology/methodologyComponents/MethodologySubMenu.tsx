@@ -1,5 +1,5 @@
 import styles from './MethodologyPage.module.scss'
-import React, { type ReactNode } from 'react'
+import React, { useState, useEffect, type ReactNode } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
 
 interface LinkConfig {
@@ -31,13 +31,49 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
       </ScrollLink>
     )
   }
+  return null // Return null if not a ScrollLink
 }
 
+// const CombinedLink: React.FC<CombinedLinkProps> = ({
+//   to,
+//   isScrollLink,
+//   children,
+//   ...rest
+// }) => {
+//   if (isScrollLink) {
+//     return (
+//       <ScrollLink to={to} {...rest}>
+//         {children}
+//       </ScrollLink>
+//     )
+//   }
+// }
+
 const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
+  const [activeLink, setActiveLink] = useState<string | null>(null)
+
+  // Load active link from sessionStorage when component mounts
+  useEffect(() => {
+    const storedActiveLink = sessionStorage.getItem('activeLink')
+    if (storedActiveLink) {
+      setActiveLink(storedActiveLink)
+    }
+  }, [])
+
+  // Save active link to sessionStorage whenever it changes
+  useEffect(() => {
+    if (activeLink) {
+      sessionStorage.setItem('activeLink', activeLink)
+    }
+  }, [activeLink])
+
+  const handleClick = (path: string) => {
+    setActiveLink(path)
+  }
+
   return (
     <nav className={styles.SubMenu}>
       <p>On this page</p>
-
       {links.map((link, index) => (
         <CombinedLink
           key={index}
@@ -47,6 +83,10 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
           duration={200}
           spy
           hashSpy
+          onClick={() => {
+            handleClick(link.path)
+          }}
+          className={activeLink === link.path ? styles.active : ''}
         >
           {link.label}
         </CombinedLink>
@@ -54,5 +94,28 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
     </nav>
   )
 }
-
 export default MethodologySubMenu
+
+// const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
+//   return (
+//     <nav className={styles.SubMenu}>
+//       <p>On this page</p>
+
+//       {links.map((link, index) => (
+//         <CombinedLink
+//           key={index}
+//           to={link.path}
+//           isScrollLink
+//           smooth
+//           duration={200}
+//           spy
+//           hashSpy
+//         >
+//           {link.label}
+//         </CombinedLink>
+//       ))}
+//     </nav>
+//   )
+// }
+
+// export default MethodologySubMenu

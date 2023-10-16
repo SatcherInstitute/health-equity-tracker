@@ -59,8 +59,6 @@ const Covid19Link = () => {
   return (
     <section>
       <article>
-        <h1 className={styles.MethodologyQuestion}>COVID-19</h1>
-
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>

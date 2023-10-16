@@ -4,10 +4,6 @@ const RacesAndEthnicitiesLink = () => {
   return (
     <section>
       <article>
-        <h1>Races and Ethnicities </h1>
-
-        <h1 className={styles.MethodologyQuestion}>Races and Ethnicities</h1>
-
         <h2 className={styles.MethodologyQuestion}>
           What do the race/ethnicity groups mean?
         </h2>

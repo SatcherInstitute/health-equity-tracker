@@ -36,7 +36,9 @@ function MethodologyPage() {
         <MethodologyCardMenu />
         <main className={styles.ArticleContainer}>
           <Grid direction="column">
-            <Typography variant="h1">{activeRoute?.label}</Typography>
+            <Typography className={styles.Header} variant="h1">
+              {activeRoute?.label}
+            </Typography>
             <Switch>
               <>
                 {routeConfigs.map((route, index) => (

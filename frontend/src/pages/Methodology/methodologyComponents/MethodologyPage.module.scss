@@ -6,6 +6,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.Header {
+  font-weight: 300 !important;
+}
+
 .MethodologySectionWrapper {
   display: inline-flex;
   flex-direction: row;
@@ -100,6 +104,12 @@ html {
   // font-weight: 400;
 }
 
+.active {
+  color: var(--0-b-5240, #0b5240) !important;
+  font-weight: 700 !important;
+  // border-left: 2px solid var(--0-b-5240, #0b5240);
+}
+
 .SubMenu {
   text-align: left;
   min-width: 10vw;
@@ -132,34 +142,12 @@ html {
   letter-spacing: 0.011rem;
 }
 
-// .SubMenu ul {
-//   margin-top: 0;
-//   color: #000;
-
-//   /* Inter/p */
-//   font-family: Inter;
-//   font-size: 0.875rem;
-//   font-style: normal;
-//   font-weight: 400;
-//   line-height: 1.25rem; /* 142.857% */
-//   letter-spacing: 0.0245rem;
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: flex-start;
-//   gap: 0.5rem;
-//   padding-inline-start: 2rem;
-// }
-
-// .SubMenu li {
-//   list-style: none;
-// }
-
 .SubMenu a {
   text-decoration: none;
   color: #000;
   padding-inline-start: 1.5rem;
-  padding-right: 1rem;
+
+  // padding-right: 1rem;
   display: block;
   /* Inter/p */
   font-family: Inter;
@@ -170,12 +158,12 @@ html {
   letter-spacing: 0.0245rem;
 }
 
-.SubMenu a:active,
-a:focus {
-  color: var(--0-b-5240, #0b5240);
-  font-weight: 700;
-  border-left: 2px solid var(--0-b-5240, #0b5240);
-}
+// .SubMenu a:active,
+// a:focus {
+//   color: var(--0-b-5240, #0b5240);
+//   font-weight: 700;
+//   border-left: 2px solid var(--0-b-5240, #0b5240);
+// }
 
 .NavigationButtonsDiv {
   // text-align: right;
