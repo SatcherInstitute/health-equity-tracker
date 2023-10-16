@@ -68,7 +68,7 @@ phrma_bq_operator_lis_national = util.create_bq_ingest_operator(
 phrma_bq_payload_elig_national = util.generate_bq_payload(
     _PHRMA_WORKFLOW_ID,
     _PHRMA_DATASET_NAME,
-    demographic='elig',
+    demographic='eligibility',
     geographic='national',
 )
 phrma_bq_operator_elig_national = util.create_bq_ingest_operator(
@@ -124,7 +124,7 @@ phrma_bq_operator_lis_state = util.create_bq_ingest_operator(
 phrma_bq_payload_elig_state = util.generate_bq_payload(
     _PHRMA_WORKFLOW_ID,
     _PHRMA_DATASET_NAME,
-    demographic='elig',
+    demographic='eligibility',
     geographic='state',
 )
 phrma_bq_operator_elig_state = util.create_bq_ingest_operator(
@@ -180,7 +180,7 @@ phrma_bq_operator_lis_county = util.create_bq_ingest_operator(
 phrma_bq_payload_elig_county = util.generate_bq_payload(
     _PHRMA_WORKFLOW_ID,
     _PHRMA_DATASET_NAME,
-    demographic='elig',
+    demographic='eligibility',
     geographic='county',
 )
 phrma_bq_operator_elig_county = util.create_bq_ingest_operator(
