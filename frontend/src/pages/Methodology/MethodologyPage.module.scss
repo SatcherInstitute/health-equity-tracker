@@ -32,7 +32,7 @@ html {
   text-align: left;
 }
 
-.ArticleContainer h1 {
+.ArticleContainer > h1 {
   text-align: left;
   color: rgba(0, 0, 0, 0.87);
 
@@ -45,7 +45,7 @@ html {
   letter-spacing: 0.022rem;
 }
 
-.ArticleContainer section {
+.ArticleContainer > section {
   display: flex;
   // flex-direction: row;
   flex-direction: row-reverse;
@@ -55,7 +55,7 @@ html {
   width: 100%;
 }
 
-.ArticleContainer article {
+.ArticleContainer > article {
   // display: inline-block;
   // min-width: 50vw;
   width: 100%;
@@ -80,12 +80,12 @@ html {
   position: sticky;
 }
 
-.CardMenu a {
+.CardMenu > a {
   text-decoration: none;
   color: #383838;
 }
 
-.CardMenu span {
+.CardMenu > span {
   color: var(--0-b-5240, #0b5240);
   /* DM Sans */
   font-family: DM Sans;
@@ -93,7 +93,7 @@ html {
   font-weight: 500;
 }
 
-.CardMenu p {
+.CardMenu > p {
   color: var(--383838, #383838);
   /* Inter/Menu/Regular */
   font-family: Inter;
@@ -110,7 +110,7 @@ html {
   z-index: 9999;
 }
 
-.SubMenu p {
+.SubMenu > p {
   color: #000;
   font-family: Inter;
   font-size: 0.625rem;
@@ -120,7 +120,7 @@ html {
   letter-spacing: 0.00688rem;
 }
 
-.SubMenu h4 {
+.SubMenu > h4 {
   margin: 0.5rem auto;
   color: #000;
 
@@ -156,7 +156,7 @@ html {
 //   list-style: none;
 // }
 
-.SubMenu a {
+.SubMenu > a {
   text-decoration: none;
   color: #000;
   padding-inline-start: 1.5rem;
@@ -171,8 +171,8 @@ html {
   letter-spacing: 0.0245rem;
 }
 
-.SubMenu a:active,
-a:focus {
+.SubMenu > a:active,
+.SubMenu > a:focus {
   color: var(--0-b-5240, #0b5240);
   font-weight: 700;
   border-left: 2px solid var(--0-b-5240, #0b5240);

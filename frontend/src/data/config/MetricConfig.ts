@@ -84,6 +84,14 @@ export type AgeAdjustedDataTypeId =
   | 'covid_hospitalizations'
   | 'hiv_deaths'
 
+export type CategoryTypeId =
+  | 'behavioral-health'
+  | 'chronic-disease'
+  | 'covid'
+  | 'hiv'
+  | 'pdoh'
+  | 'sdoh'
+
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
   | DropdownVarId
@@ -156,6 +164,7 @@ export interface InfoWithCitations {
   citations?: Citation[]
 }
 export interface DataTypeConfig {
+  categoryId?: CategoryTypeId
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
   fullDisplayName: string
