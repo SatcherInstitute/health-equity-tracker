@@ -9,6 +9,7 @@ import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
+import SearchBar from './SearchBar'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 const MethodologyPage = () => {
@@ -20,39 +21,40 @@ const MethodologyPage = () => {
   )
 
   return (
-    <>
+    <main className={styles.MethodologySectionWrapper}>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
 
-      <Grid container sx={{m: 2}} spacing={3}>
+      <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
           <MethodologyCardMenu />
         </Grid>
 
-        {/* Article */}
+
+        {/* <SearchBar/> */}
         <Grid item xs={12} sm={6}>
-          <main className={styles.ArticleContainer}>
-            <Grid direction="column">
-              <Typography className={styles.Header} variant="h1">
-                {activeRoute?.label}
-              </Typography>
-              <Switch>
-                <>
-                  {routeConfigs.map((route, index) => (
-                    <Route
-                      key={index}
-                      path={route.path}
-                      render={route.component}
-                    />
-                  ))}
-                  <NavigationButtons />
-                </>
-              </Switch>
-            </Grid>
-          </main>
+          <article className={styles.ArticleContainer}>
+
+            <Typography variant="h1">
+              {activeRoute?.label}
+            </Typography>
+            <Switch>
+              <>
+                {routeConfigs.map((route, index) => (
+                  <Route
+                    key={index}
+                    path={route.path}
+                    render={route.component}
+                  />
+                ))}
+                <NavigationButtons />
+              </>
+            </Switch>
+
+          </article>
         </Grid>
 
         <Grid item xs={12} sm={3}>
@@ -68,7 +70,7 @@ const MethodologyPage = () => {
           })}
         </Grid>
       </Grid>
-    </>
+    </main>
   )
 }
 

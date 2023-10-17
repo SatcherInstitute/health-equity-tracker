@@ -45,7 +45,53 @@ export const routeConfigs = [
     label: 'Source Acquisition',
     path: SOURCES_LINK,
     component: SourcesLink,
-    subLinks: [],
+    subLinks: [
+      {
+        label: 'Data Sources', path: '#data-sources'
+      },
+      {
+        label: 'Data Collection',
+        path: '#data-collection',
+      },
+      {
+        label: 'Data Processing',
+        path: '#data-processing',
+      },
+
+      {
+        label: 'Data Analysis',
+        path: '#data-analysis',
+      },
+      {
+        label: 'Visualization Techniques',
+        path: '#visualization-techniques',
+      },
+      {
+        label: 'Dataset Limitations',
+        path: '#dataset-limitations',
+      },
+      {
+        label: 'Updates and Revisions',
+        path: '#updates-and-revisions',
+      },
+      {
+        label: 'Stakeholder Engagement',
+        path: '#stakeholder-engagement',
+      },
+      {
+        label: 'References and Citations',
+        path: '#references-and-citations',
+      },
+      {
+        label: 'Contact Information',
+        path: '#contact-information',
+      },
+      {
+        label: 'Useful Links',
+        path: '#sources-links',
+      },
+
+    ],
   },
   {
     label: 'Behavioral Health',
@@ -136,12 +182,6 @@ export const routeConfigs = [
     subLinks: [],
   },
   {
-    label: 'Topic Definitions and Limitations',
-    path: TOPICS_LINK,
-    component: TopicsLink,
-    subLinks: [],
-  },
-  {
     label: 'Metrics',
     path: METRICS_LINK,
     component: MetricsLink,
@@ -165,6 +205,12 @@ export const routeConfigs = [
         path: '#political-determinants-of-health',
       },
     ],
+  },
+  {
+    label: 'Topic Definitions and Limitations',
+    path: TOPICS_LINK,
+    component: TopicsLink,
+    subLinks: [],
   },
   {
     label: 'Races and Ethnicities',

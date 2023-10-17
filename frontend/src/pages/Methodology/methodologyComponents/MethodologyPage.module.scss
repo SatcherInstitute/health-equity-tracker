@@ -7,14 +7,14 @@ html {
 }
 
 .Header {
-  font-weight: 300 !important;
+  // font-weight: 300 !important;
 }
 
 .MethodologySectionWrapper {
   // display: inline-flex;
   // flex-direction: row;
   // // max-width: 95vw;
-  // margin: 1% auto;
+  margin: 2%;
   // // justify-content: flex-start;
   // justify-content: space-between;
   // align-items: flex-start;
@@ -31,6 +31,7 @@ html {
 .ArticleContainer {
   // display: inline-flex;
   display: flex;
+  flex-direction: column;
   // justify-content: space-between;
   width: 100%;
   text-align: left;
@@ -44,9 +45,20 @@ html {
   font-family: Taviraj;
   font-size: 2rem;
   font-style: normal;
-  font-weight: 400;
-  line-height: 1.8875rem; /* 94.375% */
+  font-weight: 300 !important;
+  line-height: 1.8875rem;
+  /* 94.375% */
   letter-spacing: 0.022rem;
+
+}
+
+.ArticleContainer h3 {
+  color: rgba(0, 0, 0, 0.87);
+  font-family: Inter;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 2rem;
+
 }
 
 .ArticleContainer section {
@@ -113,7 +125,7 @@ html {
 
 .SubMenu {
   text-align: left;
-  min-width: 10vw;
+  margin: 0 1rem 1rem 2rem;
   position: sticky;
   right: 0;
   top: 0;
@@ -126,7 +138,8 @@ html {
   font-size: 0.625rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.30625rem; /* 209% */
+  line-height: 1.30625rem;
+  /* 209% */
   letter-spacing: 0.00688rem;
 }
 
@@ -139,23 +152,22 @@ html {
   font-size: 1rem;
   font-style: normal;
   font-weight: 700;
-  line-height: 1.30625rem; /* 130.625% */
+  line-height: 1.30625rem;
+  /* 130.625% */
   letter-spacing: 0.011rem;
 }
 
 .SubMenu a {
   text-decoration: none;
   color: #000;
-  padding-inline-start: 1.5rem;
-
-  // padding-right: 1rem;
   display: block;
   /* Inter/p */
   font-family: Inter;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.25rem; /* 142.857% */
+  line-height: 1.25rem;
+  /* 142.857% */
   letter-spacing: 0.0245rem;
 }
 
@@ -172,6 +184,7 @@ html {
   align-self: stretch;
   flex: 1 0 0;
   justify-content: space-between;
+  margin-top: 2rem;
 }
 
 .Previous {
@@ -237,7 +250,8 @@ html {
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.30625rem; /* 130.625% */
+  line-height: 1.30625rem;
+  /* 130.625% */
   letter-spacing: 0.011rem;
 }
 
@@ -379,6 +393,8 @@ code {
   margin: 0;
   position: fixed;
   top: 0;
-  z-index: 1000; /* Ensuring it stays above other elements. Adjust this value if needed. */
-  background-color: white; /* To ensure the text is readable when overlaying other content. */
+  z-index: 1000;
+  /* Ensuring it stays above other elements. Adjust this value if needed. */
+  background-color: white;
+  /* To ensure the text is readable when overlaying other content. */
 }
