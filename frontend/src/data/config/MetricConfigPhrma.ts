@@ -2,12 +2,15 @@ import { medicareMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
-  'phrma_cardiovascular',
-  'phrma_hiv',
+  'medicare_cardiovascular',
+  'medicare_hiv',
+  'medicare_mental_health',
 ]
 
 export type PhrmaDataTypeId =
-  | 'ami'
+  | 'medicare_ami'
+  | 'medicare_hiv'
+  | 'medicare_anti_psychotics'
   | 'arv_adherence'
   | 'beta_blockers_adherence'
   | 'ras_antagonists_adherence'
@@ -17,49 +20,57 @@ export type PhrmaDataTypeId =
   | 'bb_ami_adherence'
 
 export type PhrmaMetricId =
-  | 'medicare_ami_pct_share'
-  | 'medicare_ami_per_100k'
-  | 'medicare_ami_estimated_total'
+  | 'anti_psychotics_adherence_estimated_total'
+  | 'anti_psychotics_adherence_pct_rate'
+  | 'anti_psychotics_adherence_pct_share'
+  | 'anti_psychotics_beneficiaries_estimated_total'
+  | 'anti_psychotics_population_pct_share'
+  | 'arv_adherence_estimated_total'
   | 'arv_adherence_pct_rate'
   | 'arv_adherence_pct_share'
-  | 'arv_population_pct_share'
-  | 'arv_adherence_estimated_total'
   | 'arv_beneficiaries_estimated_total'
-  | 'beta_blockers_adherence_pct_rate'
-  | 'beta_blockers_adherence_pct_share'
-  | 'beta_blockers_population_pct_share'
-  | 'beta_blockers_adherence_estimated_total'
-  | 'beta_blockers_beneficiaries_estimated_total'
-  | 'ccb_adherence_pct_rate'
-  | 'ccb_adherence_pct_share'
-  | 'ccb_population_pct_share'
-  | 'ccb_adherence_estimated_total'
-  | 'ccb_beneficiaries_estimated_total'
-  | 'doac_adherence_pct_rate'
-  | 'doac_adherence_pct_share'
-  | 'doac_population_pct_share'
-  | 'doac_adherence_estimated_total'
-  | 'doac_beneficiaries_estimated_total'
+  | 'arv_population_pct_share'
+  | 'bb_ami_adherence_estimated_total'
   | 'bb_ami_adherence_pct_rate'
   | 'bb_ami_adherence_pct_share'
-  | 'bb_ami_population_pct_share'
-  | 'bb_ami_adherence_estimated_total'
   | 'bb_ami_beneficiaries_estimated_total'
-  | 'ras_antagonists_adherence_pct_rate'
-  | 'ras_antagonists_adherence_pct_share'
-  | 'ras_antagonists_population_pct_share'
-  | 'ras_antagonists_adherence_estimated_total'
-  | 'ras_antagonists_beneficiaries_estimated_total'
-  | 'statins_adherence_pct_rate'
-  | 'statins_adherence_pct_share'
-  | 'statins_population_pct_share'
-  | 'statins_adherence_estimated_total'
-  | 'statins_beneficiaries_estimated_total'
+  | 'bb_ami_population_pct_share'
+  | 'beta_blockers_adherence_estimated_total'
+  | 'beta_blockers_adherence_pct_rate'
+  | 'beta_blockers_adherence_pct_share'
+  | 'beta_blockers_beneficiaries_estimated_total'
+  | 'beta_blockers_population_pct_share'
+  | 'ccb_adherence_estimated_total'
+  | 'ccb_adherence_pct_rate'
+  | 'ccb_adherence_pct_share'
+  | 'ccb_beneficiaries_estimated_total'
+  | 'ccb_population_pct_share'
+  | 'doac_adherence_estimated_total'
+  | 'doac_adherence_pct_rate'
+  | 'doac_adherence_pct_share'
+  | 'doac_beneficiaries_estimated_total'
+  | 'doac_population_pct_share'
+  | 'medicare_ami_estimated_total'
+  | 'medicare_ami_pct_share'
+  | 'medicare_ami_per_100k'
+  | 'medicare_hiv_estimated_total'
   | 'medicare_hiv_pct_share'
   | 'medicare_hiv_per_100k'
+  | 'medicare_schizophrenia_estimated_total'
+  | 'medicare_schizophrenia_pct_share'
+  | 'medicare_schizophrenia_per_100k'
   | 'medicare_population_pct_share'
-  | 'medicare_hiv_estimated_total'
   | 'medicare_population'
+  | 'ras_antagonists_adherence_estimated_total'
+  | 'ras_antagonists_adherence_pct_rate'
+  | 'ras_antagonists_adherence_pct_share'
+  | 'ras_antagonists_beneficiaries_estimated_total'
+  | 'ras_antagonists_population_pct_share'
+  | 'statins_adherence_estimated_total'
+  | 'statins_adherence_pct_rate'
+  | 'statins_adherence_pct_share'
+  | 'statins_beneficiaries_estimated_total'
+  | 'statins_population_pct_share'
 
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
@@ -512,7 +523,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     },
   },
   {
-    dataTypeId: 'phrma_hiv',
+    dataTypeId: 'medicare_hiv',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Cases of HIV',
@@ -558,6 +569,110 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
         populationComparisonMetric: {
           chartTitle:
             'Share of beneficiary population vs. share of total HIV cases',
+          metricId: 'medicare_population_pct_share',
+          columnTitleHeader: 'Share of all beneficiaries',
+          shortLabel: '% of beneficiary pop.',
+          type: 'pct_share',
+        },
+      },
+    },
+  },
+]
+
+export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
+  {
+    dataTypeId: 'anti_psychotics_adherence',
+    mapConfig: medicareMapConfig,
+    dataTypeShortLabel: 'Adherence to Anti-Psychotics',
+    fullDisplayName: 'Adherence to anti-psychotics',
+    surveyCollectedData: true,
+    definition: {
+      text: `placeholder text.`,
+    },
+    description: {
+      text: `placeholder text.`,
+    },
+    metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'medicare_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
+      pct_rate: {
+        rateNumeratorMetric: {
+          metricId: 'anti_psychotics_adherence_estimated_total',
+          shortLabel: 'Adherent beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'anti_psychotics_beneficiaries_estimated_total',
+          shortLabel: 'Total beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+        metricId: 'anti_psychotics_adherence_pct_rate',
+        chartTitle: 'Population adherent to antipsychotics',
+        shortLabel: '% of pop. above adherence threshold',
+        type: 'pct_rate',
+      },
+      pct_share_unknown: {
+        chartTitle: 'Adherent beneficiary population ',
+        metricId: 'anti_psychotics_adherence_pct_share',
+        shortLabel: '% of adherent pop.',
+        type: 'pct_share',
+      },
+    },
+  },
+  {
+    dataTypeId: 'medicare_schizophrenia',
+    mapConfig: medicareMapConfig,
+    dataTypeShortLabel: 'Schizophrenia',
+    fullDisplayName: 'Cases of Schizophrenia',
+    surveyCollectedData: true,
+    definition: {
+      text: `placeholder text.`,
+    },
+    description: {
+      text: `placeholder text.`,
+    },
+    metrics: {
+      sub_population_count: {
+        chartTitle: '',
+        metricId: 'medicare_population',
+        shortLabel: 'Total Medicare Population',
+        type: 'count',
+      },
+      per100k: {
+        metricId: 'medicare_schizophrenia_per_100k',
+        chartTitle: 'Rates of schizophrenia',
+        shortLabel: 'cases per 100k',
+        columnTitleHeader: 'Medicare beneficiary schizophrenia cases',
+        type: 'per100k',
+        rateNumeratorMetric: {
+          metricId: 'medicare_schizophrenia_estimated_total',
+          shortLabel: 'cases',
+          chartTitle: '',
+          type: 'count',
+        },
+        rateDenominatorMetric: {
+          metricId: 'medicare_population',
+          shortLabel: 'beneficiaries',
+          chartTitle: '',
+          type: 'count',
+        },
+      },
+      pct_share: {
+        chartTitle: 'Share of total beneficiaries diagnosed with schizophrenia',
+        metricId: 'medicare_schizophrenia_pct_share',
+        columnTitleHeader:
+          'Share of total beneficiaries diagnosed with schizophrenia',
+        shortLabel: '% of beneficiary pop. diagnosed with schizophrenia',
+        type: 'pct_share',
+        populationComparisonMetric: {
+          chartTitle:
+            'Share of beneficiary population vs. share of total schizophrenia cases',
           metricId: 'medicare_population_pct_share',
           columnTitleHeader: 'Share of all beneficiaries',
           shortLabel: '% of beneficiary pop.',
