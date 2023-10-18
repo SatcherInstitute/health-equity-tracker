@@ -813,6 +813,7 @@ function MethodologyTab() {
                   <>
                     <span id="medicare_cardiovascular"></span>
                     <span id="medicare_hiv"></span>
+                    <span id="medicare_mental_health"></span>
                     <h3 className={styles.MethodologySubsubheaderText}>
                       Medicare Beneficiaries - Disease Rates and Medication
                       Adherence
@@ -931,7 +932,7 @@ function MethodologyTab() {
                             </a>
                           </li>
                           <li>
-                            <b>Antiretrovirals Medications</b>{' '}
+                            <b>Antiretroviral Medications</b>{' '}
                             <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
                               (PQA PDC-ARV)
                             </a>
@@ -966,19 +967,52 @@ function MethodologyTab() {
                               (NQF 0071)
                             </a>
                           </li>
+                          <li>
+                            <b>
+                              Adherence to Antipsychotic Medications For
+                              Individuals with Schizophrenia
+                            </b>{' '}
+                            <a href="https://www.qualityforum.org/QPS/1879">
+                              (NQF 1879)
+                            </a>
+                          </li>
                         </ul>
                       </li>
                       <li>
                         <b>Metrics</b>
                         <ul>
                           <li>
-                            <b>Adherence Rate</b>: this rate measures the
-                            percentage of Medicare fee-for-service beneficiaries
-                            18 years and older during the measurement year who
-                            were hospitalized and discharged with a diagnosis of
-                            acute myocardial infarction (AMI) and who received
-                            persistent beta-blocker treatment for six months
-                            after discharge.
+                            <b>Adherence Rate</b>
+                            <ul>
+                              <li>
+                                <b>
+                                  Persistence of Beta-Blocker Treatment After a
+                                  Heart Attack
+                                </b>{' '}
+                                measures the percentage of Medicare
+                                fee-for-service beneficiaries 18 years and older
+                                during the measurement year who were
+                                hospitalized and discharged with a diagnosis of
+                                acute myocardial infarction (AMI) and who
+                                received persistent beta-blocker treatment for
+                                six months after discharge.
+                              </li>
+                              <li>
+                                <b>
+                                  Adherence to Antipsychotic Medications For
+                                  Individuals with Schizophrenia
+                                </b>{' '}
+                                measures the percentage of Medicare
+                                fee-for-service beneficiaries 18 years and older
+                                during the measurement year with schizophrenia
+                                or schizoaffective disorder who had at least two
+                                prescriptions filled for any antipsychotic
+                                medication and who had a Proportion of Days
+                                Covered (PDC) of at least 0.8 for antipsychotic
+                                medications during the measurement period (12
+                                consecutive months)
+                              </li>
+                            </ul>
                           </li>
                         </ul>
                       </li>
@@ -994,6 +1028,9 @@ function MethodologyTab() {
                           </li>
                           <li>
                             <b>Acute Myocardial Infarction (AMI) cases</b>
+                          </li>
+                          <li>
+                            <b>Schizophrenia cases</b>
                           </li>
                         </ul>
                       </li>
@@ -1011,6 +1048,10 @@ function MethodologyTab() {
                               <li>
                                 HIV defined as beneficiaries having 1+ medical
                                 claims with ICD-10-CM of B20.
+                              </li>
+                              <li>
+                                Schizophrenia defined as beneficiaries having 1+
+                                medical claims with ICD-10-CM of F20.
                               </li>
                             </ul>
                           </li>
