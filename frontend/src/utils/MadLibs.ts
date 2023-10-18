@@ -10,6 +10,7 @@ import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
 import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrma'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
+import { SHOW_PHRMA } from '../data/providers/PhrmaProvider'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
 // Map of phrase segment index to its selected value
@@ -196,12 +197,14 @@ const CATEGORIES_LIST: Category[] = [
     definition: '',
     options: COVID_CATEGORY_DROPDOWNIDS,
   },
-  {
+]
+
+SHOW_PHRMA &&
+  CATEGORIES_LIST.push({
     title: 'Medication Utilization in Medicare Population',
     definition: '',
     options: MEDICARE_CATEGORY_DROPDOWNIDS,
-  },
-]
+  })
 
 const MADLIB_LIST: MadLib[] = [
   {
