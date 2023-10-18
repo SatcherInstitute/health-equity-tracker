@@ -597,9 +597,6 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
         },
       ],
     },
-    description: {
-      text: `placeholder text.`,
-    },
     metrics: {
       sub_population_count: {
         chartTitle: '',
@@ -640,10 +637,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Cases of Schizophrenia',
     surveyCollectedData: true,
     definition: {
-      text: `placeholder text.`,
-    },
-    description: {
-      text: `placeholder text.`,
+      text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of schizophrenia during the measurement period.`,
     },
     metrics: {
       sub_population_count: {
