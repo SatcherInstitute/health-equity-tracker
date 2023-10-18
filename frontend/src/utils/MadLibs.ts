@@ -153,7 +153,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
   Record<DropdownVarId, string>
 > = {
   medicare_cardiovascular: 'Medicare Beneficiary',
-  medicare_hiv: 'Medicare Beneficiary HIV',
+  medicare_hiv: 'Medicare Beneficiary',
   medicare_mental_health: 'Medicare Beneficiary',
   hiv_black_women: 'HIV',
   incarceration: 'Incarceration in',

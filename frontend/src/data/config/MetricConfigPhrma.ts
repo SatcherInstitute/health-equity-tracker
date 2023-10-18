@@ -525,7 +525,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'medicare_hiv',
     mapConfig: medicareMapConfig,
-    dataTypeShortLabel: 'Cases',
+    dataTypeShortLabel: 'HIV Cases',
     fullDisplayName: 'Cases of HIV',
     surveyCollectedData: true,
     definition: {
@@ -587,7 +587,15 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Adherence to anti-psychotics',
     surveyCollectedData: true,
     definition: {
-      text: `placeholder text.`,
+      text: `Percentage of individuals at least 18 years of age as of the beginning of the measurement period with schizophrenia or schizoaffective disorder who had at least two prescriptions filled for any antipsychotic medication and who had a Proportion of Days Covered (PDC) of at least 0.8 for antipsychotic medications during the measurement period (12 consecutive months)`,
+      citations: [
+        {
+          shortLabel: 'National Quality Forum',
+          longerTitle:
+            'Adherence to Antipsychotic Medications For Individuals with Schizophrenia (NQF 1879). National Quality Forum. Updated July 2020.',
+          url: 'https://www.qualityforum.org/Home.aspx',
+        },
+      ],
     },
     description: {
       text: `placeholder text.`,
