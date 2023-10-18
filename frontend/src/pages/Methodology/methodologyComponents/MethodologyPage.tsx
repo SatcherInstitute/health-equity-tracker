@@ -10,6 +10,7 @@ import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
 import SearchBar from './SearchBar'
+import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 const MethodologyPage = () => {
@@ -31,6 +32,7 @@ const MethodologyPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
           <MethodologyCardMenu />
+          <MethodologyCardMenuMobile />
         </Grid>
 
 

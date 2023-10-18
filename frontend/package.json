@@ -12,7 +12,7 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.9",
     "@mui/lab": "^5.0.0-alpha.124",
-    "@mui/material": "^5.14.9",
+    "@mui/material": "^5.14.14",
     "@mui/styles": "^5.14.9",
     "@popperjs/core": "^2.11.8",
     "@sentry/react": "^7.69.0",
