@@ -811,8 +811,8 @@ function MethodologyTab() {
 
                 {SHOW_PHRMA && (
                   <>
-                    <span id="phrma_cardiovascular"></span>
-                    <span id="phrma_hiv"></span>
+                    <span id="medicare_cardiovascular"></span>
+                    <span id="medicare_hiv"></span>
                     <h3 className={styles.MethodologySubsubheaderText}>
                       Medicare Beneficiaries - Disease Rates and Medication
                       Adherence
@@ -1078,7 +1078,7 @@ function MethodologyTab() {
                         <code>Unknown</code> we represent on our{' '}
                         <HashLink
                           to={
-                            '/exploredata?mls=1.phrma_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'
+                            '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'
                           }
                         >
                           Unknown Demographic Map
