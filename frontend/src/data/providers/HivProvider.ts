@@ -3,7 +3,6 @@ import { type DatasetId } from '../config/DatasetMetadata'
 import { type DataTypeId, type MetricId } from '../config/MetricConfig'
 import { type TimeView, type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
-import { CROSS_SECTIONAL, TIME_SERIES } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import VariableProvider from './VariableProvider'
 
@@ -118,7 +117,7 @@ class HivProvider extends VariableProvider {
     const isBlackWomenData =
       dataTypeId && BLACK_WOMEN_DATATYPES.includes(dataTypeId)
 
-    if (timeView === TIME_SERIES) {
+    if (timeView === 'historical') {
       if (isBlackWomenData && breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state')
           return 'cdc_hiv_data-black_women_state_historical'
@@ -152,7 +151,7 @@ class HivProvider extends VariableProvider {
       }
     }
 
-    if (timeView === CROSS_SECTIONAL) {
+    if (timeView === 'current') {
       if (isBlackWomenData && breakdowns.hasOnlyAge()) {
         if (breakdowns.geography === 'state')
           return 'cdc_hiv_data-black_women_state_current'
@@ -215,7 +214,7 @@ class HivProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns, metricIds: MetricId[]): boolean {
     const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic()
+      breakdowns.hasExactlyOneDemographic()
 
     const noCountyData = [...BLACK_WOMEN_METRICS, ...DEATHS_METRICS]
     const hasNoCountyData = metricIds.some((metricId) =>

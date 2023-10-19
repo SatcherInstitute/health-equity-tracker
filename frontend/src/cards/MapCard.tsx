@@ -32,7 +32,6 @@ import {
   type DemographicGroup,
   RACE,
   AGE,
-  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
@@ -187,7 +186,7 @@ function MapCardWithKey(props: MapCardProps) {
             : exclude(UNKNOWN)
         ),
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ isCawp ? CROSS_SECTIONAL : undefined
+      /* timeView */ isCawp ? 'current' : undefined
     )
   }
 
