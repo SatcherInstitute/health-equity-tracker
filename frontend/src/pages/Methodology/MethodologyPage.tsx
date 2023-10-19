@@ -9,6 +9,8 @@ import MethodologyCardMenu from './MethodologyCardMenu'
 import MethodologySubMenu from './MethodologySubMenu'
 
 import { routeConfigs } from './methodologyContent/routeConfigs'
+import { useParamState } from '../../utils/hooks/useParamState'
+import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 // interface LinkConfig {
@@ -21,6 +23,7 @@ export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher 
 // }
 
 function MethodologyPage() {
+  useParamState(TOPIC_INFO_PARAM_KEY, false)
   return (
     <>
       <Helmet>
