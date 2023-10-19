@@ -1,7 +1,7 @@
 import { Fips } from '../utils/Fips'
 import type BreakdownFilter from './BreakdownFilter'
 
-export type TimeView = 'cross_sectional' | 'time_series'
+export type TimeView = 'current' | 'historical'
 
 export type GeographicBreakdown =
   | 'national'
@@ -14,7 +14,6 @@ export type DemographicType =
   | 'race_and_ethnicity'
   | 'age'
   | 'sex'
-  | 'date'
   | 'fips'
   | 'lis'
   | 'eligibility'
@@ -34,7 +33,6 @@ export const DEMOGRAPHIC_DISPLAY_TYPES: Record<DemographicType, string> = {
   race_and_ethnicity: 'Race and Ethnicity',
   age: 'Age',
   sex: 'Sex',
-  date: 'Date',
   fips: 'FIPS Code',
   lis: 'Low income subsidy',
   eligibility: 'Medicare eligibility',
@@ -51,7 +49,6 @@ export const DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE: Record<
   race_and_ethnicity: 'race and ethnicity',
   age: 'age',
   sex: 'sex',
-  date: 'date',
   fips: 'FIPs codes',
   lis: 'Low income subsidy',
   eligibility: 'eligibility',
@@ -92,9 +89,6 @@ function createDemographicBreakdown(
 
 export class Breakdowns {
   geography: GeographicBreakdown
-  // We may want to extend this to an explicit type to support variants for
-  // day/week/month/year.
-  time: boolean
   demographicBreakdowns: Record<
     DemographicBreakdownKey,
     Readonly<DemographicBreakdown>
@@ -108,7 +102,6 @@ export class Breakdowns {
       DemographicBreakdownKey,
       DemographicBreakdown
     >,
-    time = false,
     filterFips?: Fips | undefined
   ) {
     this.geography = geography
@@ -121,7 +114,6 @@ export class Breakdowns {
           lis: createDemographicBreakdown('lis'),
           eligibility: createDemographicBreakdown('eligibility'),
         }
-    this.time = time
     this.filterFips = filterFips
   }
 
@@ -129,7 +121,6 @@ export class Breakdowns {
   getUniqueKey() {
     const breakdowns: Record<string, any> = {
       geography: this.geography,
-      time: this.time || undefined,
       filterFips: this.filterFips ? this.filterFips.code : undefined,
     }
     Object.entries(this.demographicBreakdowns).forEach(
@@ -151,7 +142,6 @@ export class Breakdowns {
     return new Breakdowns(
       this.geography,
       { ...this.demographicBreakdowns },
-      this.time,
       this.filterFips ? new Fips(this.filterFips.code) : undefined
     )
   }
@@ -212,9 +202,6 @@ export class Breakdowns {
         this.demographicBreakdowns[demographicType] =
           createDemographicBreakdown(demographicType, true, filter)
         return this
-      case 'date':
-        this.time = true
-        return this
       case 'fips':
         throw new Error('Fips breakdown cannot be added')
     }
@@ -230,10 +217,6 @@ export class Breakdowns {
 
   andSex(filter?: BreakdownFilter): Breakdowns {
     return this.addBreakdown('sex', filter)
-  }
-
-  andTime(): Breakdowns {
-    return this.addBreakdown('date')
   }
 
   // Helper function returning how many demographic breakdowns are currently requested
@@ -325,9 +308,6 @@ export class Breakdowns {
         }
       }
     )
-    if (this.time) {
-      joinCols.push('date')
-    }
     return joinCols.sort()
   }
 }
