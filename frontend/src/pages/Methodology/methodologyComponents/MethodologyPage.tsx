@@ -11,9 +11,23 @@ import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
 import SearchBar from './SearchBar'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
+import { useEffect, useState } from 'react'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
 const MethodologyPage = () => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   const location = useLocation()
 
   // Find the route object that matches the current path
@@ -31,18 +45,31 @@ const MethodologyPage = () => {
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
-          <MethodologyCardMenu />
-          <MethodologyCardMenuMobile />
+          {windowWidth < 600 ? (
+            <MethodologyCardMenuMobile />
+          ) : (
+            <MethodologyCardMenu />
+          )}
         </Grid>
 
+        {windowWidth < 600 && (
+          <Grid item xs={12} sm={3}>
+            {routeConfigs.map((route, index) => {
+              const match = useRouteMatch({
+                path: route.path,
+                exact: true,
+              })
 
-        {/* <SearchBar/> */}
+              return match && route.subLinks.length > 0 ? (
+                <MethodologySubMenu key={index} links={route.subLinks} />
+              ) : null
+            })}
+          </Grid>
+        )}
+
         <Grid item xs={12} sm={6}>
           <article className={styles.ArticleContainer}>
-
-            <Typography variant="h1">
-              {activeRoute?.label}
-            </Typography>
+            <Typography variant="h1">{activeRoute?.label}</Typography>
             <Switch>
               <>
                 {routeConfigs.map((route, index) => (
@@ -55,22 +82,23 @@ const MethodologyPage = () => {
                 <NavigationButtons />
               </>
             </Switch>
-
           </article>
         </Grid>
 
-        <Grid item xs={12} sm={3}>
-          {routeConfigs.map((route, index) => {
-            const match = useRouteMatch({
-              path: route.path,
-              exact: true,
-            })
+        {windowWidth >= 600 && (
+          <Grid item xs={12} sm={3}>
+            {routeConfigs.map((route, index) => {
+              const match = useRouteMatch({
+                path: route.path,
+                exact: true,
+              })
 
-            return match && route.subLinks.length > 0 ? (
-              <MethodologySubMenu key={index} links={route.subLinks} />
-            ) : null
-          })}
-        </Grid>
+              return match && route.subLinks.length > 0 ? (
+                <MethodologySubMenu key={index} links={route.subLinks} />
+              ) : null
+            })}
+          </Grid>
+        )}
       </Grid>
     </main>
   )

@@ -4,6 +4,8 @@
 /** ------------------ METHODOLOGY v2 -------------------- **/
 html {
   scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
 }
 
 .Header {
@@ -22,6 +24,9 @@ html {
   // gap: 5rem;
   // flex-wrap: unset;
   // width: 95vw;
+  @media screen and (max-width: 1400px) {
+    // padding: 2rem;
+  }
 }
 
 .SectionWrapper {
@@ -35,6 +40,10 @@ html {
   // justify-content: space-between;
   width: 100%;
   text-align: left;
+
+  @media screen and (max-width: 1400px) {
+    padding: 2rem;
+  }
 }
 
 .ArticleContainer h1 {
@@ -49,7 +58,6 @@ html {
   line-height: 1.8875rem;
   /* 94.375% */
   letter-spacing: 0.022rem;
-
 }
 
 .ArticleContainer h3 {
@@ -58,28 +66,22 @@ html {
   font-size: 1rem;
   font-weight: 500;
   margin-top: 2rem;
-
 }
 
-.ArticleContainer section {
-  display: flex;
-  // flex-direction: row;
-  flex-direction: row-reverse;
-  justify-content: space-between;
-  // min-width: 40vw;
-  gap: 5rem;
-  width: 100%;
-}
+// .ArticleContainer section {
+//   display: flex;
+//   // flex-direction: row;
+//   flex-direction: row-reverse;
+//   justify-content: space-between;
+//   // min-width: 40vw;
+//   gap: 5rem;
+//   width: 100%;
+// }
 
-.ArticleContainer article {
-  // display: inline-block;
-  // min-width: 50vw;
-  width: 100%;
-  // margin: 1% auto;
-}
+// .ArticleContainer article {
 
-// .ArticleContainer body {
-//   scroll-margin-top: 0;
+//   width: 100%;
+
 // }
 
 .CardMenu {
@@ -88,12 +90,14 @@ html {
   box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0),
     0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
   display: flex;
-  padding: 1%;
+  padding: 1rem;
+  margin: 1rem auto;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  max-width: 20vw;
-  position: sticky;
+  max-width: 20rem;
+  // position: sticky;
+  // top: 0;
 }
 
 .CardMenu a {
@@ -117,6 +121,37 @@ html {
   // font-weight: 400;
 }
 
+.MenuItemText ul {
+  color: var(--383838, #383838) !important;
+  font-family: Inter !important;
+}
+
+.CardMenuMobile {
+  border-radius: 0.25rem;
+  background: #fff;
+  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.Fab {
+  background-color: var(--0-b-5240, #0b5240);
+  position: fixed;
+  bottom: 2vh;
+  right: 2vw;
+  z-index: 1000;
+}
+
+.Fab:hover {
+  background-color: var(--0-b-5240, #0b5240);
+}
+
 .active {
   color: var(--0-b-5240, #0b5240) !important;
   font-weight: 700 !important;
@@ -125,7 +160,7 @@ html {
 
 .SubMenu {
   text-align: left;
-  margin: 0 1rem 1rem 2rem;
+  margin: 1rem 2rem;
   position: sticky;
   right: 0;
   top: 0;
@@ -166,25 +201,48 @@ html {
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.25rem;
+  line-height: 1rem;
   /* 142.857% */
-  letter-spacing: 0.0245rem;
+  // letter-spacing: 0.0245rem;
+  margin: 0.8rem auto;
 }
 
-// .SubMenu a:active,
-// a:focus {
-//   color: var(--0-b-5240, #0b5240);
-//   font-weight: 700;
-//   border-left: 2px solid var(--0-b-5240, #0b5240);
-// }
-
 .NavigationButtonsDiv {
-  // text-align: right;
+  @media screen and (min-width: 1400px) {
+    display: flex;
+    align-self: stretch;
+    flex: 1 0 0;
+    justify-content: space-between;
+    margin: 2rem 0 0 0;
+  }
+
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+    width: 100%;
+    margin: 1rem 0 0 0;
+  }
+}
+
+.NavigationButtonsDiv button {
+  font-family: DM Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4rem;
+  letter-spacing: 0.0375rem;
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
   display: flex;
-  align-self: stretch;
-  flex: 1 0 0;
-  justify-content: space-between;
-  margin-top: 2rem;
+  flex-direction: column;
+  width: 20rem;
+  justify-content: center;
+  border-radius: 4rem;
+  background: rgba(11, 82, 64, 0.3);
+  padding: 2%;
+
+  @media screen and (max-width: 1400px) {
+    width: 100%;
+    margin: 1.5rem auto 0;
+  }
 }
 
 .Previous {
@@ -207,36 +265,9 @@ html {
   justify-content: flex-end;
 }
 
-// .NavigationButtonsDiv #previous {
-//   align-items: flex-start;
-// }
-
-// .NavigationButtonsDiv #previous span {
-//   justify-content: flex-start;
-// }
-
-.NavigationButtonsDiv button {
-  font-family: DM Sans;
-  font-size: 1.25rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.4rem;
-  letter-spacing: 0.0375rem;
-  color: var(--m-3-sys-light-on-surface, #1d1b20);
-  display: flex;
-
-  width: 20rem;
-  flex-direction: column;
-  justify-content: center;
-  // align-items: flex-end;
-  // flex-shrink: 0;
-  border-radius: 1.75rem;
-  background: rgba(11, 82, 64, 0.3);
-}
-
 .ButtonHeader {
   display: flex;
-  height: 3.5rem;
+  // height: 3.5rem;
   padding: 0.5rem;
   // justify-content: flex-start;
   align-items: center;
@@ -253,6 +284,10 @@ html {
   line-height: 1.30625rem;
   /* 130.625% */
   letter-spacing: 0.011rem;
+
+  @media screen and (max-width: 1400px) {
+    height: 1.5rem;
+  }
 }
 
 .ButtonContentDiv {
@@ -265,10 +300,6 @@ html {
   flex: 1 0 0;
   align-self: stretch;
   // height: 3rem;
-}
-
-.ButtonContentDiv span {
-  // padding: 1rem;
 }
 
 /** ------------------ METHODOLOGY -------------------- **/
