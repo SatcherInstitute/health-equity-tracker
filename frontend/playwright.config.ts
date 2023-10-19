@@ -57,8 +57,12 @@ const config: PlaywrightTestConfig = {
       testMatch: /.*externalUrls.spec.ts/,
     },
     {
+      name: 'E2E_PROD',
+      testMatch: /.*nightly.spec.ts/,
+    },
+    {
       name: 'E2E',
-      testIgnore: /.*externalUrls.spec.ts/,
+      testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
     },
   ],
 
