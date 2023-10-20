@@ -1,10 +1,8 @@
 from unittest import mock
 import os
-
 import pandas as pd
 from pandas._testing import assert_frame_equal
-
-from test_utils import get_state_fips_codes_as_df
+from test_utils import _load_public_dataset_from_bigquery_as_df
 from datasources.ahr import AHRData
 import ingestion.standardized_columns as std_col
 
@@ -12,19 +10,16 @@ THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "ahr")
 GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 
-GOLDEN_DATA_RACE = os.path.join(
-    GOLDEN_DIR, 'ahr_test_output_race_and_ethnicity.json')
-GOLDEN_DATA_AGE = os.path.join(
-    GOLDEN_DIR, 'ahr_test_output_age.json')
-GOLDEN_DATA_SEX = os.path.join(
-    GOLDEN_DIR, 'ahr_test_output_sex.json')
+GOLDEN_DATA_RACE = os.path.join(GOLDEN_DIR, 'ahr_test_output_race_and_ethnicity.json')
+GOLDEN_DATA_AGE = os.path.join(GOLDEN_DIR, 'ahr_test_output_age.json')
+GOLDEN_DATA_SEX = os.path.join(GOLDEN_DIR, 'ahr_test_output_sex.json')
 
 
 def get_test_data_as_df():
-
-    df = pd.read_csv(os.path.join(TEST_DIR, 'ahr_test_input.csv'), dtype={'StateCode': str,
-                                                                          "Measure": str,
-                                                                          "Value": float})
+    df = pd.read_csv(
+        os.path.join(TEST_DIR, 'ahr_test_input.csv'),
+        dtype={'StateCode': str, "Measure": str, "Value": float},
+    )
     df_national = df.copy().reset_index(drop=True)
     df_national['StateCode'] = 'ALL'
     df = pd.concat([df, df_national]).reset_index(drop=True)
@@ -93,23 +88,26 @@ EXPECTED_DTYPE = {
     "cardiovascular_diseases_per_100k": float,
     "asthma_per_100k": float,
     "voter_participation_pct_rate": float,
-    'ahr_population_pct': float
+    'ahr_population_pct': float,
 }
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-            return_value=get_test_data_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    return_value=get_test_data_as_df(),
+)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRaceState(
-        mock_bq: mock.MagicMock,
-        mock_data_dir_df: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock
+    mock_bq: mock.MagicMock,
+    mock_data_dir_df: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_pop: mock.MagicMock,
 ):
-
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
@@ -125,9 +123,11 @@ def testWriteToBqRaceState(
     expected_dtype = EXPECTED_DTYPE.copy()
 
     datasource = AHRData()
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+    kwargs = {
+        'filename': 'test_file.csv',
+        'metadata_table_id': 'test_metadata',
+        'table_name': 'output_table',
+    }
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
     assert mock_bq.call_count == 6
@@ -140,22 +140,25 @@ def testWriteToBqRaceState(
 
     expected_df = pd.read_json(GOLDEN_DATA_RACE, dtype=expected_dtype)
 
-    assert_frame_equal(
-        mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
+    assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-            return_value=get_test_data_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    return_value=get_test_data_as_df(),
+)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAgeState(
-        mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
-
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_pop: mock.MagicMock,
+):
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
@@ -171,9 +174,11 @@ def testWriteToBqAgeState(
     datasource = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+    kwargs = {
+        'filename': 'test_file.csv',
+        'metadata_table_id': 'test_metadata',
+        'table_name': 'output_table',
+    }
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -183,25 +188,27 @@ def testWriteToBqAgeState(
 
     expected_dtype['age'] = str
 
-    expected_df = pd.read_json(
-        GOLDEN_DATA_AGE, dtype=expected_dtype)
+    expected_df = pd.read_json(GOLDEN_DATA_AGE, dtype=expected_dtype)
 
-    assert_frame_equal(
-        mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
+    assert_frame_equal(mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-            return_value=get_test_data_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    return_value=get_test_data_as_df(),
+)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSexState(
-        mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
-
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_pop: mock.MagicMock,
+):
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
@@ -217,9 +224,11 @@ def testWriteToBqSexState(
     datasource = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+    kwargs = {
+        'filename': 'test_file.csv',
+        'metadata_table_id': 'test_metadata',
+        'table_name': 'output_table',
+    }
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -229,11 +238,9 @@ def testWriteToBqSexState(
 
     expected_dtype['sex'] = str
 
-    expected_df = pd.read_json(
-        GOLDEN_DATA_SEX, dtype=expected_dtype)
+    expected_df = pd.read_json(GOLDEN_DATA_SEX, dtype=expected_dtype)
 
-    assert_frame_equal(
-        mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
+    assert_frame_equal(mock_bq.call_args_list[2].args[0], expected_df, check_like=True)
 
 
 # For the national level we only need to make sure that we are making the
@@ -241,17 +248,21 @@ def testWriteToBqSexState(
 # test. There is no need to maintain GOLDEN files for this, as there is no
 # special parsing logic for national data.
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-            return_value=get_test_data_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    return_value=get_test_data_as_df(),
+)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqRaceNational(
-        mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
-
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_pop: mock.MagicMock,
+):
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
@@ -266,9 +277,11 @@ def testWriteToBqRaceNational(
 
     datasource = AHRData()
 
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+    kwargs = {
+        'filename': 'test_file.csv',
+        'metadata_table_id': 'test_metadata',
+        'table_name': 'output_table',
+    }
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -279,17 +292,21 @@ def testWriteToBqRaceNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-            return_value=get_test_data_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    return_value=get_test_data_as_df(),
+)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqAgeNational(
-        mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
-
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_pop: mock.MagicMock,
+):
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
@@ -304,9 +321,11 @@ def testWriteToBqAgeNational(
 
     datasource = AHRData()
 
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+    kwargs = {
+        'filename': 'test_file.csv',
+        'metadata_table_id': 'test_metadata',
+        'table_name': 'output_table',
+    }
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
@@ -317,17 +336,21 @@ def testWriteToBqAgeNational(
 
 
 @mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=get_state_fips_codes_as_df())
-@mock.patch('ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
-            return_value=get_test_data_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
+    return_value=get_test_data_as_df(),
+)
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
 def testWriteToBqSexNational(
-        mock_bq: mock.MagicMock,
-        mock_csv: mock.MagicMock,
-        mock_fips: mock.MagicMock,
-        mock_pop: mock.MagicMock):
-
+    mock_bq: mock.MagicMock,
+    mock_csv: mock.MagicMock,
+    mock_fips: mock.MagicMock,
+    mock_pop: mock.MagicMock,
+):
     mock_pop.side_effect = [
         get_race_pop_data_as_df_state(),
         get_race_pop_data_as_df_territory(),
@@ -342,9 +365,11 @@ def testWriteToBqSexNational(
 
     datasource = AHRData()
 
-    kwargs = {'filename': 'test_file.csv',
-              'metadata_table_id': 'test_metadata',
-              'table_name': 'output_table'}
+    kwargs = {
+        'filename': 'test_file.csv',
+        'metadata_table_id': 'test_metadata',
+        'table_name': 'output_table',
+    }
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
