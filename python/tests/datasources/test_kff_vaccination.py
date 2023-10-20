@@ -108,7 +108,7 @@ def testWriteToBq(
             'state_fips': str,
             'vaccinated_pct_share': float,
             'vaccinated_population_pct': float,
-            'acs_vaccinated_pop_pct': str,
+            'acs_vaccinated_pop_pct': float,
         },
     )
 
