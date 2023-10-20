@@ -87,7 +87,7 @@ class AcsConditionProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return breakdowns.hasExactlyOneDemographic() && !breakdowns.time
+    return breakdowns.hasExactlyOneDemographic()
   }
 }
 

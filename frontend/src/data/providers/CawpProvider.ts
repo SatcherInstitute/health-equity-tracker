@@ -114,8 +114,6 @@ class CawpProvider extends VariableProvider {
       ) ||
       metricQuery.metricIds.includes('women_state_leg_pct_relative_inequity')
     ) {
-      const acsBreakdowns = breakdowns.copy()
-      acsBreakdowns.time = false
       if (metricQuery.breakdowns.filterFips?.isIslandArea()) {
         // all CAWP island areas use DECIA_2020
         consumedDatasetIds.push(
@@ -123,7 +121,7 @@ class CawpProvider extends VariableProvider {
         )
 
         // CAWP time-series also use DECIA_2010
-        if (timeView === 'time_series') {
+        if (timeView === 'historical') {
           consumedDatasetIds.push(
             'decia_2010_territory_population-by_race_and_ethnicity_territory_state_level'
           )
@@ -145,8 +143,7 @@ class CawpProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasOnlyRace()
+    const validDemographicBreakdownRequest = breakdowns.hasOnlyRace()
 
     return (
       (breakdowns.geography === 'state' ||

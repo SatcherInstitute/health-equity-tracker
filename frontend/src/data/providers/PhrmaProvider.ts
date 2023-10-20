@@ -149,7 +149,7 @@ class PhrmaProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic()
+      breakdowns.hasExactlyOneDemographic()
 
     return (
       (breakdowns.geography === 'county' ||

@@ -4,8 +4,6 @@ Arrays to sort through distinct groupings
 Converts to types for TS checking
 */
 
-import { type TimeView } from '../query/Breakdowns'
-
 export const LESS_THAN_1 = '< 0.1'
 
 // DEMOGRAPHIC BREAKDOWN CATEGORY TERMS
@@ -345,5 +343,3 @@ export type DemographicGroup = AgeBucket | SexGroup | RaceAndEthnicityGroup
 
 export const TIME_PERIOD = 'time_period'
 export const TIME_PERIOD_LABEL = 'Time period'
-export const CROSS_SECTIONAL: TimeView = 'cross_sectional'
-export const TIME_SERIES: TimeView = 'time_series'
