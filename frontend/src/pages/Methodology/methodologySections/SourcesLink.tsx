@@ -6,8 +6,8 @@ import {
   DATA_CATALOG_PAGE_LINK,
   RESOURCES_TAB_LINK,
 } from '../../../utils/internalRoutes'
-import DatasetTable, { dataCatalog } from '../methodologyContent/DatasetTable'
-import DataTable from '../methodologyComponents/DataTable'
+// import DatasetTable, { dataCatalog } from '../methodologyContent/DatasetTable'
+// import DataTable from '../methodologyComponents/DataTable'
 // TODO: data catalog link
 interface SourceAcquisitionData {
   title: string

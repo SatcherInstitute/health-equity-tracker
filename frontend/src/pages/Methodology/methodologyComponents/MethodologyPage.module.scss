@@ -298,6 +298,10 @@ html {
   font-family: Inter;
 }
 
+.DataTable td > div {
+  box-shadow: none;
+}
+
 .DataTable code {
   margin: 0 auto;
   padding: 1% auto;
@@ -307,9 +311,33 @@ html {
   color: var(--0-b-5240, #0b5240);
   font-family: DM Sans;
   font-size: 1.2rem;
-
   font-weight: 500;
   vertical-align: baseline;
+  background-color: #fafafa;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.AccordionContainer > td {
+  border: 0;
+  padding: 0;
+  margin: 1%;
+}
+
+.Accordion {
+  padding: 0.5rem;
+  margin: 0 auto;
+  border: solid 2px #fafafa;
+}
+
+.AccordionSummary {
+  color: var(--383838, #383838);
+  font-family: DM Sans;
+}
+
+.AccordionDetails {
+  border-top: solid 2px #fafafa;
 }
 
 /** ------------------ METHODOLOGY -------------------- **/

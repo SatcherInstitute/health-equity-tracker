@@ -9,12 +9,12 @@ import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
-import SearchBar from './SearchBar'
+// import SearchBar from './SearchBar'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import { useEffect, useState } from 'react'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 
-const MethodologyPage = () => {
+const MethodologyPage: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth)
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const MethodologyPage = () => {
                     key={index}
                     exact
                     path={route.path}
-                    render={route.component}
+                    component={route.component}
                   />
                 ))}
                 <NavigationButtons />
