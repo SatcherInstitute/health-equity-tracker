@@ -3,7 +3,7 @@ import os
 
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
-from test_utils import _load_public_dataset_from_bigquery_as_df
+from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 from datasources.cdc_vaccination_county import CDCVaccinationCounty  # type: ignore
 
 # Current working directory.
@@ -20,28 +20,12 @@ def get_total_vaccinations_as_df():
     )
 
 
-def get_pop_data_as_df(*args):
-    if args[1] == 'by_race_county':
-        return pd.read_csv(
-            os.path.join(TEST_DIR, 'population_race_county.csv'),
-            dtype={'county_fips': str},
-        )
-
-    if args[1] == 'by_race_and_ethnicity_territory_county_level':
-        return pd.read_csv(
-            os.path.join(
-                TEST_DIR, 'population_by_race_and_ethnicity_territory_county_level.csv'
-            ),
-            dtype={'county_fips': str},
-        )
-
-
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
     return_value=get_total_vaccinations_as_df(),
 )
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_data_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
