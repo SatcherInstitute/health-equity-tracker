@@ -2,7 +2,7 @@ from unittest import mock
 import os
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from test_utils import _load_public_dataset_from_bigquery_as_df
+from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 from datasources.ahr import AHRData
 import ingestion.standardized_columns as std_col
 
@@ -27,51 +27,6 @@ def get_test_data_as_df():
     return df
 
 
-def get_race_pop_data_as_df_state():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
-
-
-def get_age_pop_data_as_df_state():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
-
-
-def get_sex_pop_data_as_df_state():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
-
-
-def get_race_pop_data_as_df_territory():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_race.csv'), dtype=str)
-
-
-def get_age_pop_data_as_df_territory():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_age.csv'), dtype=str)
-
-
-def get_sex_pop_data_as_df_territory():
-    return pd.read_csv(os.path.join(TEST_DIR, 'population_2010_sex.csv'), dtype=str)
-
-
-def get_race_pop_data_as_df_national():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'population_race.csv'), dtype=str)
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-    return df
-
-
-def get_age_pop_data_as_df_national():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'population_age.csv'), dtype=str)
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-    return df
-
-
-def get_sex_pop_data_as_df_national():
-    df = pd.read_csv(os.path.join(TEST_DIR, 'population_sex.csv'), dtype=str)
-    df[std_col.STATE_FIPS_COL] = '00'
-    df[std_col.STATE_NAME_COL] = 'United States'
-    return df
-
-
 EXPECTED_DTYPE = {
     'state_name': str,
     'state_fips': str,
@@ -92,7 +47,10 @@ EXPECTED_DTYPE = {
 }
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery',
+    side_effect=_load_df_from_bigquery,
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
@@ -108,18 +66,6 @@ def testWriteToBqRaceState(
     mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
-    mock_pop.side_effect = [
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-    ]
-
     expected_dtype = EXPECTED_DTYPE.copy()
 
     datasource = AHRData()
@@ -143,7 +89,9 @@ def testWriteToBqRaceState(
     assert_frame_equal(mock_bq.call_args_list[0].args[0], expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
@@ -159,18 +107,6 @@ def testWriteToBqAgeState(
     mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
-    mock_pop.side_effect = [
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-    ]
-
     datasource = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
@@ -193,7 +129,9 @@ def testWriteToBqAgeState(
     assert_frame_equal(mock_bq.call_args_list[1].args[0], expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
@@ -209,18 +147,6 @@ def testWriteToBqSexState(
     mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
-    mock_pop.side_effect = [
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-    ]
-
     datasource = AHRData()
 
     expected_dtype = EXPECTED_DTYPE.copy()
@@ -247,7 +173,9 @@ def testWriteToBqSexState(
 # correct call to bigquery to get population data, so that is all we need to
 # test. There is no need to maintain GOLDEN files for this, as there is no
 # special parsing logic for national data.
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
@@ -263,18 +191,6 @@ def testWriteToBqRaceNational(
     mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
-    mock_pop.side_effect = [
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-    ]
-
     datasource = AHRData()
 
     kwargs = {
@@ -291,7 +207,9 @@ def testWriteToBqRaceNational(
     assert mock_pop.call_args_list[6].args[1] == 'by_race_national'
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
@@ -307,18 +225,6 @@ def testWriteToBqAgeNational(
     mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
-    mock_pop.side_effect = [
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-    ]
-
     datasource = AHRData()
 
     kwargs = {
@@ -335,7 +241,9 @@ def testWriteToBqAgeNational(
     assert mock_pop.call_args_list[7].args[1] == 'by_age_national'
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery')
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
+)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
     side_effect=_load_public_dataset_from_bigquery_as_df,
@@ -351,18 +259,6 @@ def testWriteToBqSexNational(
     mock_fips: mock.MagicMock,
     mock_pop: mock.MagicMock,
 ):
-    mock_pop.side_effect = [
-        get_race_pop_data_as_df_state(),
-        get_race_pop_data_as_df_territory(),
-        get_age_pop_data_as_df_state(),
-        get_age_pop_data_as_df_territory(),
-        get_sex_pop_data_as_df_state(),
-        get_sex_pop_data_as_df_territory(),
-        get_race_pop_data_as_df_national(),
-        get_age_pop_data_as_df_national(),
-        get_sex_pop_data_as_df_national(),
-    ]
-
     datasource = AHRData()
 
     kwargs = {
