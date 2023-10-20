@@ -3,7 +3,7 @@ import os
 from io import StringIO
 import pandas as pd
 from pandas._testing import assert_frame_equal
-from test_utils import _load_public_dataset_from_bigquery_as_df
+from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 from datasources.bjs_incarceration import BJSIncarcerationData
 from ingestion.bjs_utils import (
     strip_footnote_refs_from_df,
@@ -197,7 +197,7 @@ expected_dtype_sex = {
 
 # - AGE
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -224,7 +224,7 @@ def testGenerateBreakdownAgeNational(
 
 # - RACE
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -258,7 +258,7 @@ def testGenerateBreakdownRaceNational(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -289,7 +289,7 @@ def testGenerateBreakdownSexNational(
 
 # - SEX
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -315,7 +315,7 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 
 # - AGE
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -341,7 +341,7 @@ def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
 
 # - RACE
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -371,7 +371,7 @@ def testGenerateBreakdownRaceState(mock_fips: mock.MagicMock, mock_pop: mock.Mag
 # INTEGRATION TEST - CORRECT NETWORK CALLS
 # comment out all mocks expect BQ to see real results (not just test sample results)
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
