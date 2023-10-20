@@ -71,13 +71,7 @@ const SourcesLink = () => {
     <section>
       <article>
         <h2 className={styles.ScreenreaderTitleHeader}>{title}</h2>
-        <DataTable
-          headers={{
-            topic: '',
-            definition: '',
-          }}
-          methodologyTableDefinitions={dataCatalog}
-        />
+
         <p>{description}</p>
 
         <h3 id="#data-sources">Data Sources</h3>

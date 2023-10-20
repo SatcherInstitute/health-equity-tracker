@@ -68,21 +68,15 @@ html {
   margin-top: 2rem;
 }
 
-// .ArticleContainer section {
-//   display: flex;
-//   // flex-direction: row;
-//   flex-direction: row-reverse;
-//   justify-content: space-between;
-//   // min-width: 40vw;
-//   gap: 5rem;
-//   width: 100%;
-// }
+.ArticleContainer figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-// .ArticleContainer article {
-
-//   width: 100%;
-
-// }
+.Calculation {
+  margin: 0 auto;
+}
 
 .CardMenu {
   border-radius: 0.25rem;

@@ -22,7 +22,7 @@ export const methodologyTableDefinitions: DataItem[] = [
     path: BEHAVIORAL_HEALTH_LINK,
     definitions: [
       {
-        key: 'depression',
+        key: '<code>depression</code>',
         description:
           'Depression is a mental illness that can cause a number of problems, including sadness, fatigue, and difficulty concentrating. It is more common in people of color and people with low incomes. Studying depression can help us understand why these disparities exist and how to address them.',
       },

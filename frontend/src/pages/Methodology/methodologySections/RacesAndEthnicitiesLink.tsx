@@ -89,7 +89,9 @@ const RacesAndEthnicitiesLink = () => {
         </p>
         <p>
           We include a few example groups and definitions below.
-          <Alert sx={{ mt: 4 }} severity="warning" role="note">
+          <br />
+          <br />
+          <Alert severity="info" role="note">
             Note that the complete definition of a race/ethnicity can only be
             understood <strong>in the context of a particular dataset</strong>{' '}
             and how it classifies race/ethnicity (e.g. the presence of "Other"

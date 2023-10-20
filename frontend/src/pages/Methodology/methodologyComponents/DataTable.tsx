@@ -129,7 +129,7 @@ const DataTable: React.FC<DataTableProps> = ({
                       <Grid container spacing={2}>
                         {item.definitions.map((definition, defIndex) => (
                           <Grid item xs={12} key={defIndex}>
-                            <strong>{definition.key}:</strong>{' '}
+                            <strong>{parseDescription(definition.key)}:</strong>{' '}
                             {parseDescription(definition.description)}
                           </Grid>
                         ))}
