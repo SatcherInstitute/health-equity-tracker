@@ -20,6 +20,8 @@ GOLDEN_DATA_COUNTY_SEX = os.path.join(TEST_DIR, 'golden_data', 'sex_county.csv')
 GOLDEN_DATA_COUNTY_RACE = os.path.join(TEST_DIR, 'golden_data', 'race_county.csv')
 
 
+# NOT USING SHARED POPULATION MOCKS BECAUSE THESE ARE THE CACHED ACS_CONDITION TABLES,
+# NOT THE NORMAL FETCHED ACS_POPULATION CALLS
 def _get_by_race_as_df(*args):
     _, filename = args
     return gcs_to_bq_util.values_json_to_df(
