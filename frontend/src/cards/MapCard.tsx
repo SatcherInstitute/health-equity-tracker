@@ -32,7 +32,6 @@ import {
   type DemographicGroup,
   RACE,
   AGE,
-  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import { type Row } from '../data/utils/DatasetTypes'
 import { getExtremeValues } from '../data/utils/datasetutils'
@@ -187,7 +186,7 @@ function MapCardWithKey(props: MapCardProps) {
             : exclude(UNKNOWN)
         ),
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ isCawp ? CROSS_SECTIONAL : undefined
+      /* timeView */ isCawp ? 'current' : undefined
     )
   }
 
@@ -310,11 +309,7 @@ function MapCardWithKey(props: MapCardProps) {
         )
         const subPopulationPhrase = getSubPopulationPhrase(
           parentGeoQueryResponse.data,
-
-          props.demographicType,
-
           demographicType,
-
           props.dataTypeConfig
         )
 
@@ -448,11 +443,8 @@ function MapCardWithKey(props: MapCardProps) {
           [mapQueryResponse.data, props.demographicType, metricId, props.fips]
         )
 
-
-
         const isPhrmaAdherence =
           PHRMA_METRICS.includes(metricId) && metricConfig.type === 'pct_rate'
-
 
         return (
           <>
@@ -549,23 +541,9 @@ function MapCardWithKey(props: MapCardProps) {
                     sm={mapIsWide ? 8 : 12}
                     md={mapIsWide ? 9 : 12}
                   >
-
-
                     <Grid item minHeight={preloadHeight * 0.3} xs={12}>
                       <ChoroplethMap
                         demographicType={demographicType}
-                        highestLowestGroupsByFips={highestLowestGroupsByFips}
-
-                    <Grid item minHeight={preloadHeight * 0.3} xs={12}>
-                      <ChoroplethMap
-                        demographicType={demographicType}
-
-                        highestLowestGroupsByFips={getHighestLowestGroupsByFips(
-                          mapQueryResponse.data,
-                          demographicType,
-                          metricId
-                        )}
-
                         highestLowestGroupsByFips={highestLowestGroupsByFips}
                         activeDemographicGroup={activeDemographicGroup}
                         countColsMap={countColsMap}
@@ -585,43 +563,9 @@ function MapCardWithKey(props: MapCardProps) {
                         signalListeners={signalListeners}
                         mapConfig={{ mapScheme, mapMin }}
                         scaleConfig={scale}
-
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
                     </Grid>
-
-
-                    <ChoroplethMap
-                      demographicType={demographicType}
-                      highestLowestGroupsByFips={getHighestLowestGroupsByFips(
-                        mapQueryResponse.data,
-                        demographicType,
-                        metricId
-                      )}
-                      activeDemographicGroup={activeDemographicGroup}
-                      countColsMap={countColsMap}
-                      data={displayData}
-                      filename={filename}
-                      fips={props.fips}
-                      geoData={geoData}
-                      hideLegend={true}
-                      hideMissingDataTooltip={highestLowestGeosMode}
-                      legendData={dataForActiveDemographicGroup}
-                      legendTitle={metricConfig.shortLabel.toLowerCase()}
-                      highestLowestGeosMode={highestLowestGeosMode}
-                      metric={metricConfig}
-                      showCounties={
-                        !props.fips.isUsa() && !hasSelfButNotChildGeoData
-                      }
-                      signalListeners={signalListeners}
-                      mapConfig={{ mapScheme, mapMin }}
-                      scaleConfig={scale}
-                    />
-
-
-                      />
-                    </Grid>
-
 
                     {props.fips.isUsa() && (
                       <Grid item xs={12}>

@@ -27,16 +27,11 @@ import {
   AGE,
   SEX,
   type RaceAndEthnicityGroup,
-  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
-
 import { AGE_ADJUSTMENT_TAB_LINK } from '../utils/internalRoutes'
-
-import { AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
-
 import UnknownsAlert from './ui/UnknownsAlert'
 import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
@@ -86,13 +81,13 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     /* metricIds */ metricIds,
     /* breakdowns */ raceBreakdowns,
     /* dataTypeId */ undefined,
-    /* timeView */ CROSS_SECTIONAL
+    /* timeView */ 'current'
   )
   const ageQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ ageBreakdowns,
     /* dataTypeId */ undefined,
-    /* timeView */ CROSS_SECTIONAL
+    /* timeView */ 'current'
   )
 
   const queries = [raceQuery, ageQuery].filter(
@@ -214,7 +209,9 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 individuals per age group. By normalizing for age, we can paint
                 a more accurate picture of undue burden of disease and death
                 between populations. More details can be found in our{' '}
-                <Link to={AGE_ADJUSTMENT_LINK}>age-adjustment methodology</Link>
+                <Link to={AGE_ADJUSTMENT_TAB_LINK}>
+                  age-adjustment methodology
+                </Link>
                 .
               </Alert>
             </CardContent>

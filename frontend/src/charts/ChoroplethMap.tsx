@@ -40,7 +40,6 @@ import {
   INVISIBLE_PRELOAD_WIDTH,
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
-  type CountColsMap,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -154,9 +153,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
           [suppressedData, props.highestLowestGroupsByFips]
         )
       : suppressedData
-
-  // render Vega map async as it can be slow
-  const [shouldRenderMap, setShouldRenderMap] = useState(false)
 
   const [ref, width] = useResponsiveWidth()
 
@@ -346,15 +342,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* isTerritoryCircle? */ props.fips.isTerritory()
       )
 
-  const colorScale = setupColorScale(
-    /* legendData */ props.data,
-    /* metricId */ props.metric.metricId,
-    /* scaleType */ props.isUnknownsMap ? UNKNOWNS_MAP_SCALE : RATE_MAP_SCALE,
-    /* fieldRange? */ props.fieldRange,
-    /* scaleColorScheme? */ props.mapConfig.mapScheme,
-    /* isTerritoryCircle? */ props.fips.isTerritory()
-  )
-
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain
     colorScale.range = props.scaleConfig?.range
@@ -523,10 +510,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     setTimeout(() => {
       setShouldRenderMap(true)
     }, 0)
-    // // Render the Vega map asynchronously, putting the expensive render at the back of the queued work
-    // setTimeout(() => {
-    //   setShouldRenderMap(true)
-    // }, 0)
   }, [
     isCawp,
     width,
@@ -537,18 +520,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     props.mapConfig.mapMin,
   ])
 
-  const mapIsReady = shouldRenderMap && (props.overrideShapeWithCircle ?? ref)
-
-  const mapIsReady =
-    spec && (props.overrideShapeWithCircle ?? (ref && width > 0))
-
   const [shouldRenderMap, setShouldRenderMap] = useState(false)
-
-  const mapIsReady =
-    shouldRenderMap &&
-    spec &&
-    props.signalListeners &&
-    (props.overrideShapeWithCircle ?? (ref && width > 0))
 
   const mapIsReady = Boolean(
     shouldRenderMap && spec && ref.current && props.signalListeners

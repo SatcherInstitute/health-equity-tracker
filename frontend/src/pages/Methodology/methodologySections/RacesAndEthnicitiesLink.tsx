@@ -1,6 +1,7 @@
 import { Alert, Card } from '@mui/material'
 import DataTable from '../methodologyComponents/DataTable'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
+// TODO: missing and misidentified people + missing population data
 
 interface DataItem {
   topic: string

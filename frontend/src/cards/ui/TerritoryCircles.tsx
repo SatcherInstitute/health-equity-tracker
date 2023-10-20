@@ -1,9 +1,5 @@
 import { Grid } from '@mui/material'
-
-import { ChoroplethMap } from '../../charts/ChoroplethMap'
-
 import ChoroplethMap from '../../charts/ChoroplethMap'
-
 import {
   type DataTypeConfig,
   type MetricConfig,
@@ -14,9 +10,6 @@ import { getMapScheme } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-
-import { type CountColsMap } from '../../charts/mapGlobals'
-
 import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
 
 interface TerritoryCirclesProps {
@@ -44,12 +37,6 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     /* dataTypeConfig */ props.dataTypeConfig,
     /* isSummaryLegend */ undefined,
     /*  isUnknownsMap */ props.isUnknownsMap
-  )
-
-  const highestLowestGroupsByFips = getHighestLowestGroupsByFips(
-    props.fullData,
-    props.demographicType,
-    props.metricConfig.metricId
   )
 
   return (

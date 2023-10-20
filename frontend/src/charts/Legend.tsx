@@ -31,27 +31,19 @@ import {
   ZERO_SCALE,
   ZERO_VALUES,
   ORDINAL,
-
-
   PHRMA_COLOR_SCALE_SPEC,
-
   UNKNOWN_LEGEND_SPEC,
   type StackingDirection,
 } from './mapGlobals'
 import ClickableLegendHeader from './ClickableLegendHeader'
 import {
   setupLegendScaleSpec,
-
-
   setupNonZeroContinuousPctLegend,
   setupNonZeroDiscreteLegend,
   setupPhrmaAdherenceLegendScaleSpec,
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
-
-import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
-
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -115,16 +107,9 @@ export function Legend(props: LegendProps) {
     }
   }
 
-
-  const legendColorCount = Math.min(
-    DEFAULT_LEGEND_COLOR_COUNT,
-    uniqueNonZeroValueCount
-  )
-
   const legendColorCount = props.isPhrmaAdherence
     ? 7
     : Math.min(DEFAULT_LEGEND_COLOR_COUNT, uniqueNonZeroValueCount)
-
 
   const dotRange = Array(legendColorCount).fill(EQUAL_DOT_SIZE)
 
@@ -144,7 +129,6 @@ export function Legend(props: LegendProps) {
 
     const legendList: LegendType[] = []
 
-
     // MAKE NON-ZERO LEGEND ITEMS ALWAYS FOR PHRMA ADHERENCE, OR IF NEEDED FOR OTHER REPORTS
     if (props.isPhrmaAdherence) {
       const nonZeroContinuousPctLegend = setupNonZeroContinuousPctLegend(
@@ -154,9 +138,6 @@ export function Legend(props: LegendProps) {
       )
       legendList.push(nonZeroContinuousPctLegend)
     } else if (uniqueNonZeroValueCount > 0) {
-    if (uniqueNonZeroValueCount > 0) {
-
-
       const nonZeroLegend = setupNonZeroDiscreteLegend(
         legendBucketLabel,
         isPct,
@@ -177,7 +158,6 @@ export function Legend(props: LegendProps) {
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
     if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
 
-
     const colorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
@@ -187,21 +167,6 @@ export function Legend(props: LegendProps) {
           legendColorCount,
           props.isSummaryLegend
         )
-    const colorScaleSpec = setupStandardColorScaleSpec(
-      props.scaleType,
-      props.metric.metricId,
-      props.mapConfig.mapScheme,
-      legendColorCount,
-      props.isSummaryLegend
-    )
-
-    const dotSizeScale = setupLegendScaleSpec(
-      dotRange,
-      props.metric.metricId,
-      props.scaleType,
-      props.isSummaryLegend
-    )
-
 
     const dotSizeScale = props.isPhrmaAdherence
       ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
@@ -211,7 +176,6 @@ export function Legend(props: LegendProps) {
           props.scaleType,
           props.isSummaryLegend
         )
-
 
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -223,7 +187,6 @@ export function Legend(props: LegendProps) {
           name: RAW_VALUES,
           values: props.data,
         },
-
         {
           name: ZERO_VALUES,
           values: [
@@ -235,7 +198,6 @@ export function Legend(props: LegendProps) {
             },
           ],
         },
-
         {
           name: DATASET_VALUES,
           source: RAW_VALUES,

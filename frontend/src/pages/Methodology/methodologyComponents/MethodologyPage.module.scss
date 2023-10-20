@@ -8,25 +8,8 @@ html {
   font-weight: 400;
 }
 
-.Header {
-  // font-weight: 300 !important;
-}
-
 .MethodologySectionWrapper {
-  // display: inline-flex;
-  // flex-direction: row;
-  // // max-width: 95vw;
   margin: 2%;
-  // // justify-content: flex-start;
-  // justify-content: space-between;
-  // align-items: flex-start;
-  // align-content: flex-start;
-  // gap: 5rem;
-  // flex-wrap: unset;
-  // width: 95vw;
-  @media screen and (max-width: 1400px) {
-    // padding: 2rem;
-  }
 }
 
 .SectionWrapper {
@@ -84,7 +67,6 @@ html {
   box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0),
     0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12);
   display: flex;
-  padding: 1rem;
   margin: 1rem auto;
   flex-direction: column;
   justify-content: center;
@@ -99,18 +81,24 @@ html {
   color: #383838;
 }
 
+.CardMenu a > div {
+  padding: 0;
+}
+
 .CardMenu span {
   color: var(--0-b-5240, #0b5240);
   /* DM Sans */
   font-family: DM Sans;
   font-style: normal;
   font-weight: 500;
+  padding: 1rem;
 }
 
 .CardMenu p {
   color: var(--383838, #383838);
   font-family: Inter;
   font-style: normal;
+  padding: 1rem;
 }
 
 .MenuItemText ul {
@@ -130,6 +118,10 @@ html {
   position: sticky;
   top: 0;
   z-index: 9999;
+}
+
+.CardMenuMobile > div {
+  padding: 2rem;
 }
 
 .Fab {
@@ -157,6 +149,9 @@ html {
   right: 0;
   top: 0;
   z-index: 9999;
+  @media screen and (max-width: 1400px) {
+    z-index: 0;
+  }
 }
 
 .SubMenu p {
@@ -301,6 +296,11 @@ html {
 .DataTable td {
   color: var(--383838, #383838);
   font-family: Inter;
+}
+
+.DataTable code {
+  margin: 0 auto;
+  padding: 1% auto;
 }
 
 .DataTable th {

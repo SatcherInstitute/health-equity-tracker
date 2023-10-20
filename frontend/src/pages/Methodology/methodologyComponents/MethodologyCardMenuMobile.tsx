@@ -50,9 +50,7 @@ const MethodologyCardMenuMobile: React.FC = () => {
       <Card raised={true} className={styles.CardMenuMobile}>
         <Toolbar>
           <FormControl sx={{ minWidth: '90vw' }} size="large">
-            <InputLabel id="methodology-select-label">
-              Methodology Sections
-            </InputLabel>
+            <InputLabel id="methodology-select-label">Jump to</InputLabel>
             <Select
               labelId="methodology-select-label"
               value={selectedIndex}
