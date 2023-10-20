@@ -1,1 +1,62 @@
-[{"state_fips":"00","state_name":"United States","sex":"All","covid_population_pct":100.0,"covid_cases_per_100k":36000.0,"covid_hosp_per_100k":6667.0,"covid_deaths_per_100k":6667.0,"covid_cases_share":100.0,"covid_hosp_share":100.0,"covid_deaths_share":100.0},{"state_fips":"00","state_name":"United States","sex":"Female","covid_population_pct":60.0,"covid_cases_per_100k":20000.0,"covid_hosp_per_100k":4444.0,"covid_deaths_per_100k":2222.0,"covid_cases_share":50.0,"covid_hosp_share":50.0,"covid_deaths_share":50.0},{"state_fips":"00","state_name":"United States","sex":"Male","covid_population_pct":40.0,"covid_cases_per_100k":30000.0,"covid_hosp_per_100k":6667.0,"covid_deaths_per_100k":3333.0,"covid_cases_share":50.0,"covid_hosp_share":50.0,"covid_deaths_share":50.0},{"state_fips":"00","state_name":"United States","sex":"Other","covid_population_pct":null,"covid_cases_per_100k":null,"covid_hosp_per_100k":null,"covid_deaths_per_100k":null,"covid_cases_share":0.0,"covid_hosp_share":0.0,"covid_deaths_share":0.0},{"state_fips":"00","state_name":"United States","sex":"Unknown","covid_population_pct":null,"covid_cases_per_100k":null,"covid_hosp_per_100k":null,"covid_deaths_per_100k":null,"covid_cases_share":38.9,"covid_hosp_share":20.0,"covid_deaths_share":60.0}]
+[
+	{
+		"state_fips": "00",
+		"state_name": "United States",
+		"sex": "All",
+		"covid_population_pct": 100.0,
+		"covid_cases_per_100k": 2291.0,
+		"covid_hosp_per_100k": 96.0,
+		"covid_deaths_per_100k": 35.0,
+		"covid_cases_share": 100.0,
+		"covid_hosp_share": 100.0,
+		"covid_deaths_share": 100.0
+	},
+	{
+		"state_fips": "00",
+		"state_name": "United States",
+		"sex": "Female",
+		"covid_population_pct": 50.8,
+		"covid_cases_per_100k": 2328.0,
+		"covid_hosp_per_100k": 87.0,
+		"covid_deaths_per_100k": 28.0,
+		"covid_cases_share": 52.0,
+		"covid_hosp_share": 45.6,
+		"covid_deaths_share": 40.7
+	},
+	{
+		"state_fips": "00",
+		"state_name": "United States",
+		"sex": "Male",
+		"covid_population_pct": 49.2,
+		"covid_cases_per_100k": 2172.0,
+		"covid_hosp_per_100k": 105.0,
+		"covid_deaths_per_100k": 41.0,
+		"covid_cases_share": 48.0,
+		"covid_hosp_share": 54.4,
+		"covid_deaths_share": 59.3
+	},
+	{
+		"state_fips": "00",
+		"state_name": "United States",
+		"sex": "Other",
+		"covid_population_pct": null,
+		"covid_cases_per_100k": null,
+		"covid_hosp_per_100k": null,
+		"covid_deaths_per_100k": null,
+		"covid_cases_share": 0.0,
+		"covid_hosp_share": 0.0,
+		"covid_deaths_share": 0.0
+	},
+	{
+		"state_fips": "00",
+		"state_name": "United States",
+		"sex": "Unknown",
+		"covid_population_pct": null,
+		"covid_cases_per_100k": null,
+		"covid_hosp_per_100k": null,
+		"covid_deaths_per_100k": null,
+		"covid_cases_share": 1.8,
+		"covid_hosp_share": 0.4,
+		"covid_deaths_share": 0.5
+	}
+]

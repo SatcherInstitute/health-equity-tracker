@@ -4,7 +4,7 @@ import os
 import pandas as pd  # type: ignore
 from pandas._testing import assert_frame_equal  # type: ignore
 
-from test_utils import _load_public_dataset_from_bigquery_as_df
+from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 from datasources.cdc_restricted import CDCRestrictedData  # type: ignore
 
 # Current working directory.
@@ -34,49 +34,6 @@ GOLDEN_DATA_BY_SEX_COUNTY_CUMULATIVE = os.path.join(
 GOLDEN_DATA_BY_SEX_NATIONAL_CUMULATIVE = os.path.join(
     TEST_DIR, 'golden_data', 'by_sex_national_cumulative.json'
 )
-
-
-def get_pop_numbers_as_df(*args, **kwargs):
-    demo = ''
-    if 'race' in args[1]:
-        demo = 'race'
-    elif 'age' in args[1]:
-        demo = 'age'
-    elif 'sex' in args[1]:
-        demo = 'sex'
-
-    loc = ''
-    if 'county' in args[1]:
-        loc = 'county'
-    elif 'state' in args[1]:
-        loc = 'state'
-    elif 'national' in args[1]:
-        loc = 'national'
-
-    if args[0] == 'decia_2010_territory_population':
-        return pd.read_csv(
-            os.path.join(TEST_DIR, f'population_2010_by_{demo}_{loc}_level.csv'),
-            dtype={
-                'state_fips': str,
-                'county_fips': str,
-            },
-        )
-    elif args[0] == 'decia_2020_territory_population':
-        return pd.read_csv(
-            os.path.join(TEST_DIR, f'population_2020_by_{demo}_{loc}_level.csv'),
-            dtype={
-                'state_fips': str,
-                'county_fips': str,
-            },
-        )
-    else:
-        return pd.read_csv(
-            os.path.join(TEST_DIR, f'population_by_{demo}_{loc}.csv'),
-            dtype={
-                'state_fips': str,
-                'county_fips': str,
-            },
-        )
 
 
 def get_cdc_numbers_as_df(*args, **kwargs):
@@ -118,7 +75,7 @@ def get_cdc_restricted_by_sex_county_as_df():
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -143,6 +100,7 @@ def testGenerateBreakdownSexStateTimeSeries(
     )
 
     sortby_cols = list(df.columns)
+
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -151,7 +109,7 @@ def testGenerateBreakdownSexStateTimeSeries(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -187,7 +145,7 @@ def testGenerateBreakdownSexCountyTimeSeries(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -212,6 +170,7 @@ def testGenerateBreakdownSexNationalTimeSeries(
     )
 
     sortby_cols = list(df.columns)
+
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -220,7 +179,7 @@ def testGenerateBreakdownSexNationalTimeSeries(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -245,6 +204,7 @@ def testGenerateBreakdownSexStateCumulative(
     )
 
     sortby_cols = list(df.columns)
+
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -253,7 +213,7 @@ def testGenerateBreakdownSexStateCumulative(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -278,6 +238,7 @@ def testGenerateBreakdownSexNationalCumulative(
     )
 
     sortby_cols = list(df.columns)
+
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -286,7 +247,7 @@ def testGenerateBreakdownSexNationalCumulative(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -313,6 +274,7 @@ def testGenerateBreakdownSexCountyCumulative(
     )
 
     sortby_cols = list(df.columns)
+
     assert_frame_equal(
         df.sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
@@ -321,7 +283,7 @@ def testGenerateBreakdownSexCountyCumulative(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -371,7 +333,7 @@ def testWriteToBqAgeNational(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -418,7 +380,7 @@ def testWriteToBqAgeState(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -465,7 +427,7 @@ def testWriteToBqAgeCounty(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
@@ -512,7 +474,7 @@ def testWriteToBqSexCounty(
 
 
 @mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=get_pop_numbers_as_df
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
