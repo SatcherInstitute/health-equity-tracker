@@ -75,6 +75,7 @@ const MethodologyPage = () => {
                 {routeConfigs.map((route, index) => (
                   <Route
                     key={index}
+                    exact
                     path={route.path}
                     render={route.component}
                   />

@@ -1,13 +1,18 @@
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import DataTable from '../methodologyComponents/DataTable'
+import { methodologyTableDefinitions } from '../methodologyContent/MethodologyTopicDefinitions'
 
-const TopicsLink = () => {
+const TopicsLink: React.FC = () => {
   return (
     <section>
       <article>
-        {/* <h2 className={styles.MethodologyQuestion}>
-          What are the limitations of the tracker, and why were these health
-          equity topics chosen?
-        </h2> */}
+        <DataTable
+          headers={{
+            topic: 'Topic',
+            definition: 'Significance for Health Equity',
+          }}
+          methodologyTableDefinitions={methodologyTableDefinitions}
+        />
       </article>
     </section>
   )

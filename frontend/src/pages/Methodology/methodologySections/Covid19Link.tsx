@@ -5,6 +5,8 @@ import {
   MissingCovidData,
   MissingCovidVaccinationData,
 } from '../methodologyContent/missingDataBlurbs'
+import DataTable from '../methodologyComponents/DataTable'
+import { covidDefinitions } from '../methodologyContent/CovidDefinitions'
 
 // import React, { useEffect, useState } from 'react'
 
@@ -59,6 +61,13 @@ const Covid19Link = () => {
   return (
     <section>
       <article>
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'COVID-19 Definitions and Limitations',
+          }}
+          methodologyTableDefinitions={covidDefinitions}
+        />
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>

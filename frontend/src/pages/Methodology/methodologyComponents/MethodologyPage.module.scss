@@ -115,10 +115,8 @@ html {
 
 .CardMenu p {
   color: var(--383838, #383838);
-  /* Inter/Menu/Regular */
   font-family: Inter;
   font-style: normal;
-  // font-weight: 400;
 }
 
 .MenuItemText ul {
@@ -300,6 +298,24 @@ html {
   flex: 1 0 0;
   align-self: stretch;
   // height: 3rem;
+}
+
+.DataTable {
+  margin-top: 2rem;
+}
+
+.DataTable td {
+  color: var(--383838, #383838);
+  font-family: Inter;
+}
+
+.DataTable th {
+  color: var(--0-b-5240, #0b5240);
+  font-family: DM Sans;
+  font-size: 1.2rem;
+
+  font-weight: 500;
+  vertical-align: baseline;
 }
 
 /** ------------------ METHODOLOGY -------------------- **/
