@@ -1,9 +1,0 @@
-state_fips,county_fips,county_name,sex,population,population_pct
-06,"06081",San Mateo County,Female,60,60.0
-06,"06081",San Mateo County,Male,40,40.0
-06,"06081",San Mateo County,All,100,100.0
-06,"06097",Sonoma County,Female,60,60.0
-06,"06097",Sonoma County,Male,40,40.0
-06,"06097",Sonoma County,All,100,100.0
-11,"11001",District of Columbia,Female,60,60.0
-11,"11001",District of Columbia,All,100,100.0
