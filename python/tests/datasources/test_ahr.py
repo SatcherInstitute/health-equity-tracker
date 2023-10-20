@@ -4,7 +4,6 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 from test_utils import _load_public_dataset_from_bigquery_as_df, _load_df_from_bigquery
 from datasources.ahr import AHRData
-import ingestion.standardized_columns as std_col
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "ahr")
