@@ -18,8 +18,8 @@ import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink'
 import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink'
 import ChronicDiseaseLink from '../methodologySections/ChronicDiseaseLink'
 import ConditionVariablesLink from '../methodologySections/ConditionVariablesLink'
-import Covid19Link from '../methodologySections/Covid19Link'
 import DataMethodDefinitionsLink from '../methodologySections/DataMethodDefinitionsLink'
+import Covid19Link from '../methodologySections/Covid19Link'
 import HivLink from '../methodologySections/HivLink'
 import MetricsLink from '../methodologySections/MetricsLink'
 import PdohLink from '../methodologySections/PdohLink'
@@ -47,7 +47,8 @@ export const routeConfigs = [
     component: SourcesLink,
     subLinks: [
       {
-        label: 'Data Sources', path: '#data-sources'
+        label: 'Data Sources',
+        path: '#data-sources',
       },
       {
         label: 'Data Collection',
@@ -90,7 +91,6 @@ export const routeConfigs = [
         label: 'Useful Links',
         path: '#sources-links',
       },
-
     ],
   },
   {

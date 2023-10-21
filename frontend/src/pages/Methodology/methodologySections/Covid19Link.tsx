@@ -1,73 +1,39 @@
-import { Card } from '@mui/material'
+import { Card, Link } from '@mui/material'
 import { urlMap } from '../../../utils/externalUrls'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
   MissingCovidData,
   MissingCovidVaccinationData,
 } from '../methodologyContent/missingDataBlurbs'
-import DataTable from '../methodologyComponents/DataTable'
-import { covidDefinitions } from '../methodologyContent/CovidDefinitions'
 
-// import React, { useEffect, useState } from 'react'
-
-// import React, { useEffect, useRef, useState } from 'react'
+import {
+  covidDataSources,
+  covidDefinitionsArray,
+} from '../methodologyContent/CovidDefinitions'
+import KeyTerms from '../methodologyComponents/KeyTerms'
+import {
+  DATA_SOURCE_PRE_FILTERS,
+  LinkWithStickyParams,
+} from '../../../utils/urlutils'
+import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 
 const Covid19Link = () => {
-  // const [isSticky, setSticky] = useState(false)
-  // const articleRef = useRef<HTMLDivElement | null>(null)
-  // const [headerWidth, setHeaderWidth] = useState('auto')
-
-  // const handleScroll = () => {
-  //   const offset = window.scrollY
-  //   console.log(offset)
-  //   if (offset > 100) {
-  //     // Replace 200 with the position you prefer
-  //     setSticky(true)
-  //     if (articleRef.current) {
-  //       setHeaderWidth(`${articleRef?.current?.offsetWidth}px`)
-  //     }
-  //   } else {
-  //     setSticky(false)
-
-  //     setHeaderWidth('auto')
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   window.addEventListener('scroll', handleScroll)
-
-  //   return () => {
-  //     window.removeEventListener('scroll', handleScroll)
-  //   }
-  // }, [])
-
-  // console.log(isSticky)
-
-  // return (
-  //   <section>
-  //     <article ref={articleRef}>
-  //       <h1
-  //         className={`${styles.MethodologyQuestion} ${
-  //           isSticky ? styles.StickyHeader : ''
-  //         }`}
-  //         style={{ width: headerWidth }}
-  //       >
-  //         COVID-19
-  //       </h1>
-  //       <div id="#covid19" style={{ height: '10px' }}></div>
-
-  // console.log(isSticky)
-
+  console.log(covidDataSources)
   return (
     <section>
       <article>
-        <DataTable
-          headers={{
-            topic: '',
-            definition: 'COVID-19 Definitions and Limitations',
-          }}
-          methodologyTableDefinitions={covidDefinitions}
-        />
+        {covidDataSources.map((source, index) => {
+          return (
+            <a
+              key={index}
+              href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
+            >
+              {source.data_source_name}
+            </a>
+          )
+        })}
+        <KeyTerms definitionsArray={covidDefinitionsArray} />
+
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>

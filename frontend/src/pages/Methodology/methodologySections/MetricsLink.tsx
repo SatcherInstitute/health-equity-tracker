@@ -1,12 +1,15 @@
-import { Alert, CardContent } from '@mui/material'
-import DataTable from '../methodologyComponents/DataTable'
+import { Alert } from '@mui/material'
+
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import { covidDefinitions } from '../methodologyContent/CovidDefinitions'
+
+import KeyTerms from '../methodologyComponents/KeyTerms'
+import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 
 const MetricsLink = () => {
   return (
     <section>
       <article>
+        <KeyTerms definitionsArray={metricDefinitionsArray} />
         <Alert severity="info" role="note">
           In the definitions below, we use <strong>COVID-19 cases</strong> as
           the variable, and <strong>race and ethnicity</strong> as the
@@ -36,13 +39,6 @@ const MetricsLink = () => {
             based on their share of Georgia’s overall population.”
           </em>
         </p>
-        <DataTable
-          headers={{
-            topic: '',
-            definition: '',
-          }}
-          methodologyTableDefinitions={[covidDefinitions[1]]}
-        />
       </article>
     </section>
   )

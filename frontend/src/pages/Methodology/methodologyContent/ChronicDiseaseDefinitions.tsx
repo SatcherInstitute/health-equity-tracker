@@ -2,80 +2,80 @@ import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
 import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
 
-export const behavioralHealthDefinitionsArray = [
+export const chronicDiseaseDefinitionsArray = [
   {
-    topic: 'Depression',
+    topic: 'Asthma',
     path: '',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: methodologyTableDefinitions[0].definitions[0].description,
+        description: methodologyTableDefinitions[1].definitions[0].description,
       },
       {
         key: 'Measurement Definition',
-        description: conditionVariableDefinitions[0].definitions[0].description,
+        description: conditionVariableDefinitions[1].definitions[0].description,
       },
     ],
   },
   {
-    topic: 'Excessive Drinking',
+    topic: 'Cardiovascular Disease',
     path: '',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: methodologyTableDefinitions[0].definitions[1].description,
+        description: methodologyTableDefinitions[1].definitions[1].description,
       },
       {
         key: 'Measurement Definition',
-        description: conditionVariableDefinitions[0].definitions[1].description,
+        description: conditionVariableDefinitions[1].definitions[1].description,
       },
     ],
   },
   {
-    topic: 'Frequent Mental Distress',
+    topic: 'Chronic Kidney Disease',
     path: '',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: methodologyTableDefinitions[0].definitions[2].description,
+        description: methodologyTableDefinitions[1].definitions[2].description,
       },
       {
         key: 'Measurement Definition',
-        description: conditionVariableDefinitions[0].definitions[2].description,
+        description: conditionVariableDefinitions[1].definitions[2].description,
       },
     ],
   },
   {
-    topic: 'Suicide',
+    topic: 'COPD (Chronic obstructive pulmonary disease)',
     path: '',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: methodologyTableDefinitions[0].definitions[4].description,
+        description: methodologyTableDefinitions[1].definitions[3].description,
       },
       {
         key: 'Measurement Definition',
-        description: conditionVariableDefinitions[0].definitions[4].description,
+        description: conditionVariableDefinitions[1].definitions[3].description,
       },
     ],
   },
   {
-    topic: 'Opioid and Other Substance Misuse',
+    topic: 'Diabetes',
     path: '',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: methodologyTableDefinitions[0].definitions[3].description,
+        description: methodologyTableDefinitions[1].definitions[4].description,
       },
       {
         key: 'Measurement Definition',
-        description: conditionVariableDefinitions[0].definitions[3].description,
+        description: conditionVariableDefinitions[1].definitions[4].description,
       },
     ],
   },
 ]
 
-export const behavioralHealthDataSources = [
+export const chronicDiseaseDataSources = [
   dataSourceMetadataList[1],
   dataSourceMetadataList[10],
 ]

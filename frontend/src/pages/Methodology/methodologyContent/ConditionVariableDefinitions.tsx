@@ -53,16 +53,6 @@ export const conditionVariableDefinitions: DataItem[] = [
     path: CHRONIC_DISEASE_LINK,
     definitions: [
       {
-        key: 'Diabetes',
-        description:
-          'Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).',
-      },
-      {
-        key: 'COPD',
-        description:
-          'Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.',
-      },
-      {
         key: 'Asthma cases',
         description:
           'Adults who reported being told by a health professional that they currently have asthma.',
@@ -76,6 +66,16 @@ export const conditionVariableDefinitions: DataItem[] = [
         key: 'Cases of chronic kidney disease',
         description:
           'Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.',
+      },
+      {
+        key: 'COPD',
+        description:
+          'Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.',
+      },
+      {
+        key: 'Diabetes',
+        description:
+          'Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).',
       },
     ],
   },
@@ -146,14 +146,14 @@ export const conditionVariableDefinitions: DataItem[] = [
           'Individuals ages 16+ prescribed PrEP medication in a particular year.',
       },
       {
-        key: 'HIV stigma',
-        description:
-          'Self-reported stigma scores ranging from 0 (no stigma) to 100 (high stigma) for HIV-diagnosed individuals ages 18+ in a particular year.',
-      },
-      {
         key: 'Linkage to HIV care',
         description:
           'Individuals ages 13+ with linkage to HIV care in a particular year.',
+      },
+      {
+        key: 'HIV stigma',
+        description:
+          'Self-reported stigma scores ranging from 0 (no stigma) to 100 (high stigma) for HIV-diagnosed individuals ages 18+ in a particular year.',
       },
     ],
   },
@@ -193,23 +193,24 @@ export const conditionVariableDefinitions: DataItem[] = [
     path: SDOH_LINK,
     definitions: [
       {
-        key: 'Uninsured people',
+        key: 'Care avoidance due to cost',
         description:
-          'Health insurance coverage in the ACS and other Census Bureau surveys define coverage to include plans and programs that provide comprehensive health coverage. Plans that provide insurance only for specific conditions or situations such as cancer and long-term care policies are not considered comprehensive health coverage. Likewise, other types of insurance like dental, vision, life, and disability insurance are not considered comprehensive health insurance coverage.',
+          'Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.',
       },
       {
         key: 'People below the poverty line',
         description: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
       },
       {
+        key: 'Uninsured people',
+        description:
+          'Health insurance coverage in the ACS and other Census Bureau surveys define coverage to include plans and programs that provide comprehensive health coverage. Plans that provide insurance only for specific conditions or situations such as cancer and long-term care policies are not considered comprehensive health coverage. Likewise, other types of insurance like dental, vision, life, and disability insurance are not considered comprehensive health insurance coverage.',
+      },
+
+      {
         key: 'Preventable hospitalization',
         description:
           'Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.',
-      },
-      {
-        key: 'Care avoidance due to cost',
-        description:
-          'Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.',
       },
     ],
   },

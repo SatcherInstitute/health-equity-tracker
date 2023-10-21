@@ -1,10 +1,13 @@
+import KeyTerms from '../methodologyComponents/KeyTerms'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import { sdohDefinitionsArray } from '../methodologyContent/SdohDefinitions'
 
 function SdohLink() {
   return (
     <section>
-      <nav className={styles.SubMenu}></nav>
+      {/* <nav className={styles.SubMenu}></nav> */}
       <article>
+        <KeyTerms definitionsArray={sdohDefinitionsArray} />
         <h3 className={styles.MethodologySubsubheaderText}>
           America’s Health Rankings
         </h3>

@@ -4,7 +4,6 @@ import {
   AccordionDetails,
   AccordionSummary,
   Grid,
-  Typography,
 } from '@mui/material'
 import {
   Table,
@@ -16,15 +15,25 @@ import {
 } from '@material-ui/core'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import { behavioralHealthDefinitionsArray } from '../methodologyContent/BehavioralHealthDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 
-const BehavioralHealthLink: React.FC = () => {
+import { parseDescription } from './DataTable'
+
+interface KeyTermsProps {
+  definitionsArray: Array<{
+    topic: string
+    definitions: Array<{
+      key: string
+      description: string
+    }>
+    path?: string
+  }>
+}
+
+const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray }) => {
   return (
     <section>
       <article>
-        <KeyTerms definitionsArray={behavioralHealthDefinitionsArray} />
-        {/* <Grid item xs={12}>
+        <Grid item xs={12}>
           <Paper>
             <Table className={styles.DataTable}>
               <TableHead>
@@ -33,7 +42,7 @@ const BehavioralHealthLink: React.FC = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {behavioralHealthDefinitionsArray.map((item) => (
+                {definitionsArray.map((item) => (
                   <TableRow
                     className={styles.AccordionContainer}
                     key={item.topic}
@@ -51,7 +60,7 @@ const BehavioralHealthLink: React.FC = () => {
                             {item.definitions.map((definition) => (
                               <Grid item xs={12} key={definition.key}>
                                 <strong>{definition.key}:</strong>{' '}
-                                {definition.description}
+                                {parseDescription(definition.description)}
                               </Grid>
                             ))}
                           </Grid>
@@ -63,10 +72,10 @@ const BehavioralHealthLink: React.FC = () => {
               </TableBody>
             </Table>
           </Paper>
-        </Grid> */}
+        </Grid>
       </article>
     </section>
   )
 }
 
-export default BehavioralHealthLink
+export default KeyTerms

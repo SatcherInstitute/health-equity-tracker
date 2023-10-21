@@ -7,11 +7,14 @@ import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
 
 import { urlMap } from '../../../utils/externalUrls'
+import KeyTerms from '../methodologyComponents/KeyTerms'
+import { pdohDefinitionsArray } from '../methodologyContent/PdohDefinitions'
 
 const PdohLink = () => {
   return (
     <section>
       <article>
+        <KeyTerms definitionsArray={pdohDefinitionsArray} />
         <h3 id="#incarceration" className={styles.MethodologySubsubheaderText}>
           Incarceration
         </h3>

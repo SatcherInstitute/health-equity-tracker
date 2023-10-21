@@ -37,14 +37,9 @@ export const methodologyTableDefinitions: DataItem[] = [
           'Frequent mental distress is a common experience that can have a negative impact on physical and mental health. It is more common in people of color and people with low incomes. Studying frequent mental distress can help us understand why these disparities exist and how to address them.',
       },
       {
-        key: 'non_medical_drug_use',
+        key: 'non_medical_drug_use and substance',
         description:
-          'Non-medical drug use is a serious public health problem. People who use drugs are more likely to experience a variety of health problems, including HIV, hepatitis C, and overdose. They are also more likely to die prematurely. Studying non-medical drug use in regard to health equity can help us to understand why certain populations are more likely to use drugs and how to address this problem.',
-      },
-      {
-        key: 'substance',
-        description:
-          'Substance use is a major public health problem. It can lead to a number of health problems, including addiction, overdose, and death. People of color and people with low incomes are more likely to use substances. Studying substance use can help us understand why these disparities exist and how to address them.',
+          'Non-medical drug use is a serious public health problem. People who use drugs are more likely to experience a variety of health problems, including HIV, hepatitis C, and overdose. People of color and people with low incomes are more likely to use substances. They are also more likely to die prematurely. Studying non-medical drug use in regard to health equity can help us to understand why certain populations are more likely to use drugs and how to address this problem.',
       },
       {
         key: 'suicide',
@@ -127,6 +122,11 @@ export const methodologyTableDefinitions: DataItem[] = [
         description:
           'HIV PrEP is a medication that can help to prevent HIV infection. PrEP is highly effective when taken as prescribed. Studying HIV PrEP in regard to health equity can help us to understand why certain populations are more likely to use PrEP and why others are less likely to use it.',
       },
+      {
+        key: 'hiv_stigma',
+        description:
+          'HIV stigma often intersects with other forms of stigma and discrimination, such as racism, homophobia, and sexism. Studying HIV stigma can shed light on broader issues of social injustice and inequality.',
+      },
     ],
   },
 
@@ -160,15 +160,16 @@ export const methodologyTableDefinitions: DataItem[] = [
         description:
           'Avoided care is when people do not get the healthcare they need because of cost, transportation, or other barriers. Avoided care can lead to worse health outcomes. Studying avoided care in regard to health equity can help us to understand why people avoid care and how to reduce these barriers.',
       },
-      {
-        key: 'health_insurance',
-        description:
-          'Health insurance is important for ensuring that people have access to quality healthcare. People of color and people with low incomes are less likely to have health insurance. Studying health insurance can help us understand why these disparities exist and how to address them.',
-      },
+
       {
         key: 'poverty',
         description:
           'Poverty is a major determinant of health. People who are poor are more likely to experience a number of health problems, including chronic diseases, mental illness, and substance use disorders. Studying poverty can help us understand why these disparities exist and how to address them.',
+      },
+      {
+        key: 'health_insurance',
+        description:
+          'Health insurance is important for ensuring that people have access to quality healthcare. People of color and people with low incomes are less likely to have health insurance. Studying health insurance can help us understand why these disparities exist and how to address them.',
       },
       {
         key: 'preventable_hospitalizations',
