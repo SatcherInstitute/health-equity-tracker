@@ -11,14 +11,10 @@ import {
   covidDefinitionsArray,
 } from '../methodologyContent/CovidDefinitions'
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  DATA_SOURCE_PRE_FILTERS,
-  LinkWithStickyParams,
-} from '../../../utils/urlutils'
+import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 
 const Covid19Link = () => {
-  console.log(covidDataSources)
   return (
     <section>
       <article>
@@ -37,7 +33,13 @@ const Covid19Link = () => {
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>
-
+        <h3>Age-Adjusted Data Sourcing</h3>
+        <p>
+          For COVID-19, we use the CDC Case Surveillance Restricted Access
+          Detailed Data for this. It can break down by race and age to ten-year
+          buckets. The age buckets are: 0-9, 10-19, 20-29, 30-39, 40-49, 50-59,
+          60-69, 70-79, 80+
+        </p>
         <ul>
           <li>
             National statistics are aggregations of state-wide data. If state

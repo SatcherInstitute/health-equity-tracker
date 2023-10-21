@@ -67,7 +67,7 @@ const MethodologyPage: React.FC = () => {
           </Grid>
         )}
 
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} className={styles.SectionWrapper}>
           <article className={styles.ArticleContainer}>
             <Typography variant="h1">{activeRoute?.label}</Typography>
             <Switch>

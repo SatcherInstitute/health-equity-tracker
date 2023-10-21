@@ -5,18 +5,13 @@ import {
   AccordionSummary,
   Grid,
 } from '@mui/material'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@material-ui/core'
+import { Paper } from '@material-ui/core'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material/styles'
 import { parseDescription } from './DataTable'
+import React, { useState } from 'react'
 
 interface KeyTermsProps {
   definitionsArray: Array<{
@@ -30,51 +25,56 @@ interface KeyTermsProps {
 }
 
 const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray }) => {
+  const theme = useTheme()
+  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+
+  const [expanded, setExpanded] = useState(isDesktop)
+
+  const handleAccordionToggle = (
+    event: React.SyntheticEvent,
+    newExpanded: boolean
+  ) => {
+    setExpanded(newExpanded)
+  }
+
   return (
-    <section>
-      <article>
-        <Grid item xs={12}>
-          <Paper>
-            <Table className={styles.DataTable}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Key Terms</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {definitionsArray.map((item) => (
-                  <TableRow
-                    className={styles.AccordionContainer}
-                    key={item.topic}
-                  >
-                    <TableCell>
-                      <Accordion className={styles.Accordion}>
-                        <AccordionSummary
-                          className={styles.AccordionSummary}
-                          expandIcon={<ExpandMoreIcon />}
-                        >
-                          {item.topic}
-                        </AccordionSummary>
-                        <AccordionDetails className={styles.AccordionDetails}>
-                          <Grid container spacing={2}>
-                            {item.definitions.map((definition) => (
-                              <Grid item xs={12} key={definition.key}>
-                                <strong>{definition.key}:</strong>{' '}
-                                {parseDescription(definition.description)}
-                              </Grid>
-                            ))}
-                          </Grid>
-                        </AccordionDetails>
-                      </Accordion>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Paper>
-        </Grid>
-      </article>
-    </section>
+    <Grid item xs={12} className={styles.KeyTerms}>
+      <Paper>
+        <Accordion
+          className={styles.AccordionHeader}
+          expanded={expanded}
+          onChange={handleAccordionToggle}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+            Key Terms
+          </AccordionSummary>
+
+          <AccordionDetails>
+            {definitionsArray.map((item) => (
+              <Accordion className={styles.Accordion} key={item.topic}>
+                <AccordionSummary
+                  className={styles.AccordionSummary}
+                  expandIcon={<ExpandMoreIcon />}
+                >
+                  {item.topic}
+                </AccordionSummary>
+
+                <AccordionDetails className={styles.AccordionDetails}>
+                  <Grid container spacing={2}>
+                    {item.definitions.map((definition) => (
+                      <Grid item xs={12} key={definition.key}>
+                        <strong>{definition.key}:</strong>{' '}
+                        {parseDescription(definition.description)}
+                      </Grid>
+                    ))}
+                  </Grid>
+                </AccordionDetails>
+              </Accordion>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      </Paper>
+    </Grid>
   )
 }
 

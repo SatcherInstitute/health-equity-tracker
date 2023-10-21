@@ -1,6 +1,7 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
 import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
+import { ageAdjustmentDefinitionsArray } from './AgeAdjustmentDefinitions'
 
 export const hivDefinitionsArray = [
   {
@@ -126,6 +127,47 @@ export const hivDefinitionsArray = [
       {
         key: 'Measurement Definition',
         description: conditionVariableDefinitions[3].definitions[8].description,
+      },
+    ],
+  },
+  {
+    topic: ageAdjustmentDefinitionsArray[3].topic,
+    path: '',
+    definitions: [
+      {
+        key: ageAdjustmentDefinitionsArray[3].definitions[0].key,
+        description:
+          ageAdjustmentDefinitionsArray[3].definitions[0].description,
+      },
+      {
+        key: ageAdjustmentDefinitionsArray[3].definitions[1].key,
+        description:
+          ageAdjustmentDefinitionsArray[3].definitions[1].description,
+      },
+      {
+        key: 'Age-Adjusted Ratio Data Sourcing',
+        description: `For HIV, we use the [CDC Atlas data tables](https://gis.cdc.gov/grasp/nchhstpatlas/tables.html).`,
+      },
+    ],
+  },
+  {
+    topic: ageAdjustmentDefinitionsArray[4].topic,
+    path: '',
+    definitions: [
+      {
+        key: ageAdjustmentDefinitionsArray[4].definitions[0].key,
+        description:
+          ageAdjustmentDefinitionsArray[4].definitions[0].description,
+      },
+      {
+        key: ageAdjustmentDefinitionsArray[4].definitions[1].key,
+        description:
+          ageAdjustmentDefinitionsArray[4].definitions[1].description,
+      },
+      {
+        key: 'Age-Adjusted Ratio Data Sourcing',
+        description: `For HIV, the CDC Atlas provides population counts in the
+        [same tables](https://gis.cdc.gov/grasp/nchhstpatlas/tables.html) as the condition counts.`,
       },
     ],
   },

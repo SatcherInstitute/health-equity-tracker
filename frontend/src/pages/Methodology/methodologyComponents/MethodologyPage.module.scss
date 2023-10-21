@@ -13,15 +13,13 @@ html {
 }
 
 .SectionWrapper {
-  padding: 0;
+  margin-top: 2rem !important;
+  padding: 0 !important;
 }
 
 .ArticleContainer {
-  // display: inline-flex;
   display: flex;
   flex-direction: column;
-  // justify-content: space-between;
-  width: 100%;
   text-align: left;
 
   @media screen and (max-width: 1400px) {
@@ -319,6 +317,19 @@ html {
   z-index: 1000;
 }
 
+.KeyTerms {
+  margin-top: 1rem;
+}
+
+.AccordionHeader {
+  color: var(--0-b-5240, #0b5240);
+  font-family: DM Sans;
+  font-size: 1.2rem;
+  font-weight: 500;
+  vertical-align: baseline;
+  background-color: #fafafa !important;
+}
+
 .AccordionContainer > td {
   border: 0;
   padding: 0;
@@ -326,7 +337,6 @@ html {
 }
 
 .Accordion {
-  padding: 0.5rem;
   margin: 0 auto;
   border: solid 2px #fafafa;
 }
@@ -338,6 +348,34 @@ html {
 
 .AccordionDetails {
   border-top: solid 2px #fafafa;
+}
+
+// .CodeContainer {
+//   border: 2px solid red;
+// }
+
+.TableContainer {
+  border: 2px solid #fafafa;
+  border-radius: 1rem;
+  margin: 2% auto;
+  padding: 2%;
+}
+
+.TableContainer th {
+  padding: 0;
+  border-bottom: none;
+}
+
+.TableCell {
+  display: flex;
+  justify-content: baseline;
+}
+
+.TableCell pre {
+  border: 0px transparent;
+  box-shadow: none;
+  background-color: transparent;
+  margin: 0 auto;
 }
 
 /** ------------------ METHODOLOGY -------------------- **/
@@ -413,6 +451,31 @@ p.CitationAPA:first-of-type {
   font-size: $smallHeader;
   text-align: center;
   color: $alt-black;
+}
+
+.AgeAdjustmentExampleTable td {
+  font-family: Inter, sans-serif;
+  font-weight: 400 !important;
+  font-size: 0.875rem;
+  text-align: left;
+}
+.AgeAdjustmentExampleTable tbody > tr > th {
+  font-family: Inter, sans-serif;
+  font-weight: 400 !important;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.AgeAdjustmentExampleTableHeader {
+  background: rgba(11, 82, 64, 0.3);
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
+}
+
+.AgeAdjustmentExampleTableHeader th {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  vertical-align: baseline;
 }
 
 .ExampleTable {
