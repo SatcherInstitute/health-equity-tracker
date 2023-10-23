@@ -14,7 +14,6 @@ import { exclude } from '../data/query/BreakdownFilter'
 import {
   ALL,
   type DemographicGroup,
-  TIME_SERIES,
   NON_HISPANIC,
   UNKNOWN_LABELS,
 } from '../data/utils/Constants'
@@ -79,7 +78,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         metricConfigInequitable.metricId,
         breakdowns,
         /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-        /* timeView */ TIME_SERIES
+        /* timeView */ 'historical'
       )
     : null
 
@@ -89,7 +88,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
       metricConfigPctShares.metricId,
       breakdowns,
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ TIME_SERIES
+      /* timeView */ 'historical'
     )
 
   const chartTitle = generateChartTitle(

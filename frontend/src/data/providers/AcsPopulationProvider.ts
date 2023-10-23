@@ -68,7 +68,7 @@ class AcsPopulationProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return !breakdowns.time && breakdowns.hasExactlyOneDemographic()
+    return breakdowns.hasExactlyOneDemographic()
   }
 }
 

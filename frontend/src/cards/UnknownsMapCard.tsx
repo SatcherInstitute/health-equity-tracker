@@ -93,13 +93,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     [metricConfig.metricId],
     mapGeoBreakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'cross_sectional' : undefined
+    /* timeView */ isCawp ? 'current' : undefined
   )
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'cross_sectional' : undefined
+    /* timeView */ isCawp ? 'current' : undefined
   )
 
   const chartTitle = generateChartTitle(

@@ -13,7 +13,6 @@ import { TrendsChart } from '../charts/trendsChart/Index'
 import { exclude } from '../data/query/BreakdownFilter'
 import {
   type DemographicGroup,
-  TIME_SERIES,
   NON_HISPANIC,
   AIAN_API,
 } from '../data/utils/Constants'
@@ -84,7 +83,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
     metricConfigRates.metricId,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ TIME_SERIES
+    /* timeView */ 'historical'
   )
 
   // get pct_share with unknown demographic for optional bubble chart
@@ -94,7 +93,7 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
       metricConfigPctShares.metricId,
       breakdowns,
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ TIME_SERIES
+      /* timeView */ 'historical'
     )
 
   const queries = [ratesQuery]

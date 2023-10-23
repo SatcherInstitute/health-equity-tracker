@@ -86,7 +86,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     metricIdsToFetch,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'cross_sectional' : undefined
+    /* timeView */ isCawp ? 'current' : undefined
   )
 
   const chartTitle = generateChartTitle(

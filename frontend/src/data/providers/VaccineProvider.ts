@@ -65,9 +65,6 @@ class VaccineProvider extends VariableProvider {
     df = this.filterByGeo(df, breakdowns)
     df = this.renameGeoColumns(df, breakdowns)
 
-    const acsBreakdowns = breakdowns.copy()
-    acsBreakdowns.time = false
-
     const consumedDatasetIds = [datasetId]
 
     if (breakdowns.geography === 'national') {
@@ -101,7 +98,7 @@ class VaccineProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic()
+      breakdowns.hasExactlyOneDemographic()
 
     return (
       ['national', 'state', 'county'].includes(breakdowns.geography) &&
