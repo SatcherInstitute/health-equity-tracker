@@ -6,6 +6,7 @@ import {
   COVID_19_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   HIV_LINK,
+  METHODOLOGY_PAGE_LINK,
   METRICS_LINK,
   PDOH_LINK,
   RACES_AND_ETHNICITIES_LINK,
@@ -28,8 +29,15 @@ import RecommendedCitationLink from '../methodologySections/RecommendedCitationL
 import SdohLink from '../methodologySections/SdohLink'
 import SourcesLink from '../methodologySections/SourcesLink'
 import TopicsLink from '../methodologySections/TopicsLink'
+import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
 
 export const routeConfigs = [
+  {
+    label: 'Methodology',
+    path: METHODOLOGY_PAGE_LINK,
+    component: MethodologyHomeLink,
+    subLinks: [],
+  },
   {
     label: 'Age-Adjustment',
     path: AGE_ADJUSTMENT_LINK,
