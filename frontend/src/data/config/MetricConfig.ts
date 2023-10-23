@@ -85,6 +85,14 @@ export type AgeAdjustedDataTypeId =
   | 'covid_hospitalizations'
   | 'hiv_deaths'
 
+export type CategoryTypeId =
+  | 'behavioral-health'
+  | 'chronic-disease'
+  | 'covid'
+  | 'hiv'
+  | 'pdoh'
+  | 'sdoh'
+
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
   | DropdownVarId
@@ -156,6 +164,7 @@ export interface InfoWithCitations {
   text: string
   citations?: Citation[]
 }
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
@@ -179,6 +188,7 @@ export interface DataTypeConfig {
   timeSeriesData?: boolean
   dataTableTitle?: string
   mapConfig?: MapConfig
+  categoryId?: CategoryTypeId
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

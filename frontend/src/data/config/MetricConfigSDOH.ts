@@ -30,6 +30,7 @@ export type SDOHMetricId =
 
 export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'sdoh',
     dataTypeId: 'health_insurance',
     dataTypeShortLabel: 'Uninsured people',
     fullDisplayName: 'Uninsured people',
@@ -79,6 +80,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
 
 export const POVERTY_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'sdoh',
     dataTypeId: 'poverty',
     dataTypeShortLabel: 'Poverty',
     fullDisplayName: 'People below the poverty line',
@@ -124,6 +126,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
 
 export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'sdoh',
     dataTypeId: 'avoided_care',
     dataTypeShortLabel: 'Avoided Care',
     fullDisplayName: 'Care avoidance due to cost',
@@ -162,6 +165,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
 
 export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'sdoh',
     dataTypeId: 'preventable_hospitalizations',
     mapConfig: medicareMapConfig,
     dataTypeShortLabel: 'Preventable hospitalizations',
