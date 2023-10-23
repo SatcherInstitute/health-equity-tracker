@@ -63,6 +63,7 @@ import {
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
 } from './MetricConfigSDOH'
+import { type CategoryTypeId } from '../../utils/MadLibs'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -84,14 +85,6 @@ export type AgeAdjustedDataTypeId =
   | 'covid_deaths'
   | 'covid_hospitalizations'
   | 'hiv_deaths'
-
-export type CategoryTypeId =
-  | 'behavioral-health'
-  | 'chronic-disease'
-  | 'covid'
-  | 'hiv'
-  | 'pdoh'
-  | 'sdoh'
 
 // IDs for the sub-data types (if any) for theDropDownId
 export type DataTypeId =
