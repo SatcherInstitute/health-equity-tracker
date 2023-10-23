@@ -31,16 +31,20 @@ export const MADLIB_MODE_MAP: Record<string, MadLibId> = {
   Topics: 'comparevars',
 }
 
-// wording used for determinant categories in the selectable dropdown on /exploredata
-export type CategoryId =
-  | 'HIV'
-  | `Black Women's Health`
-  | 'COVID-19'
-  | 'Chronic Disease'
-  | 'Behavioral Health'
-  | 'Political Determinants of Health'
-  | 'Social Determinants of Health'
-  | 'Medication Utilization in Medicare Population'
+export const CategoryMap = {
+  'behavioral-health': 'Behavioral Health',
+  'black-women-health': `Black Women's Health`,
+  'chronic-disease': 'Chronic Disease',
+  covid: 'COVID-19',
+  hiv: 'HIV',
+  medicare: 'Medication Utilization in Medicare Population',
+  pdoh: 'Political Determinants of Health',
+  sdoh: 'Social Determinants of Health',
+}
+
+export type CategoryTypeId = keyof typeof CategoryMap
+
+export type CategoryTitle = (typeof CategoryMap)[CategoryTypeId]
 
 export interface MadLib {
   readonly id: MadLibId
@@ -161,7 +165,7 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
 }
 
 export interface Category {
-  readonly title: CategoryId
+  readonly title: CategoryTitle
   readonly options: DropdownVarId[]
   readonly definition?: string
 }

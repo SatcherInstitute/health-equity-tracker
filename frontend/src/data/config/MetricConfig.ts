@@ -63,6 +63,7 @@ import {
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
 } from './MetricConfigSDOH'
+import { type CategoryTypeId } from '../../utils/MadLibs'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -156,6 +157,7 @@ export interface InfoWithCitations {
   text: string
   citations?: Citation[]
 }
+
 export interface DataTypeConfig {
   dataTypeId: DataTypeId
   dataTypeShortLabel: string
@@ -179,6 +181,7 @@ export interface DataTypeConfig {
   timeSeriesData?: boolean
   dataTableTitle?: string
   mapConfig?: MapConfig
+  categoryId?: CategoryTypeId
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

@@ -46,6 +46,7 @@ export type PDOHMetricId =
 
 export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'pdoh',
     dataTypeId: 'voter_participation',
     dataTypeShortLabel: 'Voter participation',
     fullDisplayName: 'Voter participation',
@@ -84,6 +85,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
 
 export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'pdoh',
     dataTypeId: 'women_in_us_congress',
     mapConfig: womenMapConfig,
     dataTypeShortLabel: 'US Congress',
@@ -143,6 +145,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'pdoh',
     dataTypeId: 'women_in_state_legislature',
     mapConfig: womenMapConfig,
     dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
@@ -206,6 +209,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
 
 export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'pdoh',
     dataTypeId: 'prison',
     dataTypeShortLabel: 'Prison',
     fullDisplayName: 'People in prison',
@@ -257,6 +261,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'pdoh',
     dataTypeId: 'jail',
     dataTypeShortLabel: 'Jail',
     fullDisplayName: 'People in jail',

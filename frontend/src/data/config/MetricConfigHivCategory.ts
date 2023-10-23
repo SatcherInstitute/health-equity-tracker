@@ -66,6 +66,7 @@ export type HivCategoryMetricId =
 
 export const HIV_CARE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_care',
     dataTypeShortLabel: 'Linkage to HIV care',
     fullDisplayName: 'Linkage to HIV care',
@@ -113,6 +114,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
 
 export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence',
     dataTypeShortLabel: 'Prevalence',
     fullDisplayName: 'HIV prevalence',
@@ -154,6 +156,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_diagnoses',
     dataTypeShortLabel: 'New diagnoses',
     fullDisplayName: 'New HIV diagnoses',
@@ -196,6 +199,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     },
   },
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_deaths',
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'HIV deaths',
@@ -248,6 +252,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
 
 export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_stigma',
     dataTypeShortLabel: 'Stigma',
     fullDisplayName: 'HIV stigma',
@@ -284,6 +289,7 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
 
 export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence_black_women',
     mapConfig: womenMapConfig,
     dataTypeShortLabel: 'Prevalence for Black Women',
@@ -427,6 +433,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
 
 export const HIV_PREP_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'hiv',
     dataTypeId: 'hiv_prep',
     dataTypeShortLabel: 'PrEP coverage',
     fullDisplayName: 'PrEP coverage',
