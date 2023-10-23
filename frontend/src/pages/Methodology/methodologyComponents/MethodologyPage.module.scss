@@ -359,10 +359,13 @@ html {
 .AccordionSummary {
   color: var(--383838, #383838);
   font-family: DM Sans;
+  font-size: 1rem;
 }
 
 .AccordionDetails {
   border-top: solid 2px #fafafa;
+  font-family: Inter;
+  font-size: 0.8rem;
 }
 
 // .CodeContainer {
@@ -431,6 +434,11 @@ td {
   font-size: $small;
   text-align: left;
   color: $alt-black;
+}
+
+.Tooltip {
+  display: inline !important;
+  font-weight: bold !important;
 }
 
 .MethodologySubsubheaderText {

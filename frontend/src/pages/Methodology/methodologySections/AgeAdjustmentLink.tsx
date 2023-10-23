@@ -14,24 +14,29 @@ import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustme
 import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import { ArrowForward } from '@mui/icons-material'
+import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 
 const AgeAdjustmentLink = () => {
   return (
-    <section>
+    <section id="#age-adjusted-ratios">
       <article>
         <Helmet>
           <title>Age-Adjustment - Health Equity Tracker</title>
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>Age-Adjustment</h2>
-        <KeyTerms definitionsArray={ageAdjustmentDefinitionsArray} />
+        <KeyTerms
+          definitionsArray={ageAdjustmentDefinitionsArray}
+          id="#age-adjusted-terms"
+        />
 
-        {/* <div className={styles.MethodologyAnswer}> */}
-        <div>
+        <div className={styles.MethodologyAnswer}>
           <p>
-            We have decided to present <b>age-adjusted ratios</b> when possible
-            in order to show a more accurate and equitable view of the impact on
+            We have decided to present{' '}
+            <DefinitionTooltip term="age-adjusted ratios" /> when possible in
+            order to show a more accurate and equitable view of the impact on
             non-White communities in the United States.
           </p>
+
           <p>
             As of{' '}
             {new Date().toLocaleString('default', {

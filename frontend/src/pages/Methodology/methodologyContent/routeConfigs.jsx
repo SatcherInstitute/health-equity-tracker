@@ -44,6 +44,7 @@ export const routeConfigs = [
     component: AgeAdjustmentLink,
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
+      { label: 'Key Terms', path: '#age-adjusted-terms' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
       { label: 'Algorithm', path: '#algorithm' },
       { label: 'Age-Adjustment Examples', path: '#age-adjustment-examples' },

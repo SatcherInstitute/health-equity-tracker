@@ -12,6 +12,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { parseDescription } from './DataTable'
 import React, { useState } from 'react'
+import { id } from 'vega'
 
 interface KeyTermsProps {
   definitionsArray: Array<{
@@ -21,10 +22,13 @@ interface KeyTermsProps {
       description: string
     }>
     path?: string
+    id?: string
   }>
+  id?: string
 }
 
-const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray }) => {
+const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
+  // Destructure the 'id' prop here
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 
@@ -38,7 +42,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray }) => {
   }
 
   return (
-    <Grid item xs={12} className={styles.KeyTerms}>
+    <Grid item xs={12} className={styles.KeyTerms} id={id}>
       <Paper>
         <Accordion
           className={styles.AccordionHeader}
