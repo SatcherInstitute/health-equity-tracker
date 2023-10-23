@@ -59,6 +59,20 @@ html {
   margin: 0 auto;
 }
 
+.TextButton {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 2rem 0;
+  max-width: 20vw;
+  font-size: 1.25rem;
+  font-family: DM Sans;
+}
+
+.TextButton span {
+  padding-right: 1rem;
+}
+
 .CardMenu {
   border-radius: 0.25rem;
   background: #fff;
@@ -355,16 +369,30 @@ html {
 //   border: 2px solid red;
 // }
 
-.TableContainer {
+// .TableContainer {
+.BorderTable {
+  display: flex;
+
   border: 2px solid #fafafa;
   border-radius: 1rem;
   margin: 2% auto;
   padding: 2%;
 }
 
-.TableContainer th {
+.BorderTable th {
   padding: 0;
   border-bottom: none;
+}
+
+.NoBorderTable table {
+  border: none !important;
+  margin: 2% auto;
+  padding: 2%;
+}
+.NoBorderTable th,
+td {
+  border: none;
+  padding: 0;
 }
 
 .TableCell {
@@ -373,7 +401,7 @@ html {
 }
 
 .TableCell pre {
-  border: 0px transparent;
+  border: none;
   box-shadow: none;
   background-color: transparent;
   margin: 0 auto;
@@ -454,6 +482,11 @@ p.CitationAPA:first-of-type {
   color: $alt-black;
 }
 
+.AgeAdjustmentExampleTable {
+  .thickBorder {
+    border-bottom: 3px solid var(--0-b-5240, #0b5240);
+  }
+}
 .AgeAdjustmentExampleTable td {
   font-family: Inter, sans-serif;
   font-weight: 400 !important;

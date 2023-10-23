@@ -44,7 +44,6 @@ const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
   return (
     <TableContainer component={Paper}>
       <Table
-        sx={{ minWidth: 700 }}
         aria-label="customized table"
         className={styles.AgeAdjustmentExampleTable}
       >
@@ -57,7 +56,14 @@ const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
         </TableHead>
         <TableBody className={styles.AgeAdjustmentExampleTable}>
           {rows.map((row, rowIndex) => (
-            <StyledTableRow key={rowIndex}>
+            <StyledTableRow
+              key={rowIndex}
+              className={
+                rows.length !== 3 && (rowIndex + 1) % 2 === 0
+                  ? styles.thickBorder
+                  : ''
+              }
+            >
               {columns.map((col) => (
                 <TableCell key={col.accessor} component="td" scope="row">
                   {row[col.accessor]}

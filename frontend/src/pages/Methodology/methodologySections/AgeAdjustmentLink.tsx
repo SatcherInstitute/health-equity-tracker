@@ -13,6 +13,7 @@ import KeyTerms from '../methodologyComponents/KeyTerms'
 import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
 import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
+import { ArrowForward } from '@mui/icons-material'
 
 const AgeAdjustmentLink = () => {
   return (
@@ -407,7 +408,7 @@ const AgeAdjustmentLink = () => {
                 population: `200,000`,
               },
               {
-                race: `Race A (ages 60+)`,
+                race: `Race B (ages 60+)`,
                 condition: `800`,
                 population: `60,000`,
               },
@@ -434,6 +435,7 @@ const AgeAdjustmentLink = () => {
                 population: `600,000`,
                 rate: (
                   <CodeBlock
+                    border={false}
                     rowData={[
                       {
                         content: <>(50 / 600,000)</>,
@@ -458,8 +460,7 @@ const AgeAdjustmentLink = () => {
                 population: `200,000`,
                 rate: (
                   <CodeBlock
-                    // className={`.CodeContainer`}
-
+                    border={false}
                     rowData={[
                       {
                         content: <>(20 / 200,000)</>,
@@ -484,6 +485,7 @@ const AgeAdjustmentLink = () => {
                 population: `800,000`,
                 rate: (
                   <CodeBlock
+                    border={false}
                     rowData={[
                       {
                         content: <>(500 / 800,000)</>,
@@ -508,6 +510,7 @@ const AgeAdjustmentLink = () => {
                 population: `300,000`,
                 rate: (
                   <CodeBlock
+                    border={false}
                     rowData={[
                       {
                         content: <>(200 / 300,000)</>,
@@ -532,6 +535,7 @@ const AgeAdjustmentLink = () => {
                 population: `200,000`,
                 rate: (
                   <CodeBlock
+                    border={false}
                     rowData={[
                       {
                         content: <>(5,000 / 200,000)</>,
@@ -551,11 +555,12 @@ const AgeAdjustmentLink = () => {
                 ),
               },
               {
-                race: `Race A (ages 60+)`,
+                race: `Race B (ages 60+)`,
                 condition: `800`,
                 population: `60,000`,
                 rate: (
                   <CodeBlock
+                    border={false}
                     rowData={[
                       {
                         content: <>(800 / 60,000)</>,
@@ -576,85 +581,6 @@ const AgeAdjustmentLink = () => {
               },
             ]}
           />
-          <table className={styles.ExampleTable}>
-            {/* <thead>
-                    <tr>
-                      <td>Race Group</td>
-                      <td>Age Group</td>
-                      <td>HIV Deaths</td>
-                      <td>Population</td>
-                      <td>Age-Specific HIV Death Rate</td>
-                    </tr>
-                  </thead> */}
-
-            <tbody>
-              <tr>
-                <td>Race A</td>
-                <td>0-29</td>
-                <td>50</td>
-                <td>600,000</td>
-                <td>
-                  <div className={styles.Calculation}>(50 / 600,000)</div>
-                  <b> = 0.00008333</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race A</td>
-                <td>30-59</td>
-                <td>500</td>
-                <td>800,000</td>
-                <td>
-                  <div className={styles.Calculation}>(500 / 800,000)</div>
-                  <b> = 0.000625</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race A</td>
-                <td>60+</td>
-                <td>5,000</td>
-                <td>200,000</td>
-                <td>
-                  <div className={styles.Calculation}>(5,000 / 200,000)</div>
-                  <b> = 0.025</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race B</td>
-                <td>0-29</td>
-                <td>20</td>
-                <td>200,000</td>
-                <td>
-                  <div className={styles.Calculation}>(20 / 200,000)</div>
-                  <b> = 0.0001</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race B</td>
-                <td>30-59</td>
-                <td>200</td>
-                <td>300,000</td>
-                <td>
-                  <div className={styles.Calculation}>(200 / 300,000)</div>
-                  <b> = 0.00066667</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race B</td>
-                <td>60+</td>
-                <td>800</td>
-                <td>60,000</td>
-                <td>
-                  <div className={styles.Calculation}>(800 / 60,000)</div>
-                  <b> = 0.01333333</b>
-                </td>
-              </tr>
-            </tbody>
-          </table>
 
           <h4 className={styles.MethodologySubsubheaderText}>
             2) Get the <b>standard population</b> per age group, which will be
@@ -662,249 +588,394 @@ const AgeAdjustmentLink = () => {
           </h4>
 
           {/* A + B TABLE */}
-          <table className={styles.ExampleTable}>
-            <thead>
-              <tr>
-                <td>Race Group</td>
-                <td>Age Group</td>
-                <td>Standard Population</td>
-              </tr>
-            </thead>
+          <AgeAdjustmentExampleTable
+            columns={[
+              { header: 'Race Groups by Age', accessor: 'race' },
 
-            <tbody>
-              <tr>
-                <td>Total (A & B)</td>
-                <td>0-29</td>
-                <td>
-                  <div className={styles.Calculation}>600,000 + 200,000</div>
-                  <b>= 800,000</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Total (A & B)</td>
-                <td>30-59</td>
-                <td>
-                  <div className={styles.Calculation}>800,000 + 300,000</div>
-                  <b>= 1,100,000</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Total (A & B)</td>
-                <td>60+</td>
-                <td>
-                  <div className={styles.Calculation}>200,000 + 60,000</div>
-                  <b>= 260,000</b>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-          <h4 className={styles.MethodologySubsubheaderText}>
-            3) Calculate the expected deaths for each age/race group:
-          </h4>
-          <p>As noted above, the formula for each row is:</p>
-          <pre>
-            (HIV Deaths / Population) X Standard Population for Corresponding
-            Age Group
-          </pre>
-
-          <CodeBlock
-            rowData={[
-              { content: 'age_specific_rate' },
-              { content: '=' },
+              { header: 'Standard Population', accessor: 'population' },
+            ]}
+            rows={[
               {
-                content: (
-                  <>
-                    (Condition count for race A, age group 1) /<br />{' '}
-                    (Population count of race A, age group 1){' '}
-                  </>
+                race: `Race A (ages 0 - 29)`,
+                population: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(600,000 + 200,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>800,000</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race B (ages 0 - 29)`,
+                population: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(800,000 + 300,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>1,100,000</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race A (ages 30 - 59)`,
+                population: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(200,000 + 60,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>260,000</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
                 ),
               },
             ]}
           />
 
-          <table className={styles.ExampleTable}>
-            <thead>
-              <tr>
-                <td>Race Group</td>
-                <td>Age Group</td>
-                <td>Age-Specific HIV Death Rate</td>
-                <td>Standard Population</td>
-                <td>Expected HIV Deaths</td>
-              </tr>
-            </thead>
+          <h4 className={styles.MethodologySubsubheaderText}>
+            3) Calculate the expected deaths for each age/race group:
+          </h4>
+          <p>As noted above, the formula for each row is:</p>
+          <CodeBlock
+            rowData={[
+              { content: '(HIV Deaths / Population)' },
+              { content: 'x' },
+              {
+                content: ` Standard Population for Corresponding Age Group`,
+              },
+            ]}
+          />
 
-            <tbody>
-              <tr>
-                <td>Race A</td>
-                <td>0-29</td>
-                <td>0.00008333</td>
-                <td>
-                  <div className={styles.Calculation}>for Ages 0-29:</div>
-                  800,000
-                </td>
-                <td>
-                  <div className={styles.Calculation}>0.00008333 * 800,000</div>
-                  <b> = 66.67</b>
-                </td>
-              </tr>
+          <AgeAdjustmentExampleTable
+            columns={[
+              { header: 'Race Groups by Age', accessor: 'race' },
+              { header: 'Age-Specific HIV Death Rate', accessor: 'condition' },
+              { header: 'Standard Population', accessor: 'population' },
+              { header: 'Expected HIV Death Rate', accessor: 'rate' },
+            ]}
+            rows={[
+              {
+                race: `Race A (ages 0 - 29)`,
+                condition: `0.00008333`,
+                population: `800,000`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(0.00008333 * 800,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>66.67</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race B (ages 0 - 29)`,
+                condition: `0.0001`,
+                population: `800,000`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(0.0001 * 800,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>80</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race A (ages 30 - 59)`,
+                condition: `0.000625`,
+                population: `1,100,000`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(0.000625 * 1,100,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>687.5</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race B (ages 30 - 59)`,
+                condition: `0.00066667`,
+                population: `1,100,000`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(0.00066667 * 1,100,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>733.33</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race A (ages 60+)`,
+                condition: `0.025`,
+                population: `260,000`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(0.025 * 260,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>6,500</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race B (ages 60+)`,
+                condition: `0.01333333`,
+                population: `260,000`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(0.01333333 * 260,000)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>3466.67</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+            ]}
+          />
 
-              <tr>
-                <td>Race A</td>
-                <td>30-59</td>
-
-                <td>0.000625</td>
-                <td>
-                  <div className={styles.Calculation}>for Ages 30-59:</div>
-                  1,100,000
-                </td>
-
-                <td>
-                  <div className={styles.Calculation}>0.000625 * 1,100,000</div>
-                  <b> = 687.5</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race A</td>
-                <td>60+</td>
-                <td>0.025</td>
-                <td>
-                  <div className={styles.Calculation}>for Ages 60+:</div>
-                  260,000
-                </td>
-
-                <td>
-                  <div className={styles.Calculation}>0.025 * 260,000</div>
-                  <b> = 6,500</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race B</td>
-                <td>0-29</td>
-
-                <td>0.0001</td>
-                <td>
-                  <div className={styles.Calculation}>for Ages 0-29:</div>
-                  800,000
-                </td>
-
-                <td>
-                  <div className={styles.Calculation}>0.0001 * 800,000</div>
-                  <b> = 80</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race B</td>
-                <td>30-59</td>
-                <td>0.00066667</td>
-                <td>
-                  <div className={styles.Calculation}>for Ages 30-59:</div>
-                  1,100,000
-                </td>
-                <td>
-                  <div className={styles.Calculation}>
-                    0.00066667 * 1,100,000
-                  </div>
-                  <b> = 733.33</b>
-                </td>
-              </tr>
-
-              <tr>
-                <td>Race B</td>
-                <td>60+</td>
-                <td>0.01333333</td>
-                <td>
-                  <div className={styles.Calculation}>for Ages 60+:</div>
-                  260,000
-                </td>
-                <td>
-                  <div className={styles.Calculation}>0.01333333 * 260,000</div>
-                  <b> = 3466.67</b>
-                </td>
-              </tr>
-            </tbody>
-          </table>
           <h4 className={styles.MethodologySubsubheaderText}>
             4) For each race, we sum together the expected HIV deaths from each
             of its age groups to calculate the total expected HIV deaths for
             that race:
           </h4>
-          <table className={styles.ExampleTable}>
-            <thead>
-              <tr>
-                <td>Race Group</td>
-                <td>Total Expected HIV Deaths</td>
-              </tr>
-            </thead>
 
-            <tbody>
-              <tr>
-                <td>Race A</td>
-                <td>
-                  <div className={styles.Calculation}>
-                    66.67 + 687.5 + 6,500
-                  </div>
-                  <b>= 7,254.17</b>
-                </td>
-              </tr>
-              <tr>
-                <td>Race B</td>
-                <td>
-                  <div className={styles.Calculation}>
-                    80 + 733.33 + 3466.67
-                  </div>
-                  <b>= 4,280</b>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <AgeAdjustmentExampleTable
+            columns={[
+              { header: 'Race Groups by All Ages', accessor: 'race' },
+              { header: 'Total Expected HIV Deaths', accessor: 'rate' },
+            ]}
+            rows={[
+              {
+                race: `Race A (all ages)`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(66.67 + 687.5 + 6,500)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>7,254.17</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race B (all ages)`,
+                rate: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(80 + 733.33 + 3466.67)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>4,280</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+            ]}
+          />
+
           <h4 className={styles.MethodologySubsubheaderText}>
             5) Calculate the age-adjusted death ratio:
           </h4>
-          <table className={styles.ExampleTable}>
-            <thead>
-              <tr>
-                <td>Race Group</td>
-                <td>Total Expected HIV Deaths</td>
-                <td>Age-Adjusted Death Ratio</td>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Race A</td>
-                <td>7,254.17</td>
-                <td>
-                  <div className={styles.Calculation}>7,254.17 / 7,254.17</div>
-                  <b>= 1.0×</b>
-                </td>
-              </tr>
-              <tr>
-                <td>Race B</td>
-                <td>4,280</td>
-                <td>
-                  <div className={styles.Calculation}>4,280 / 7,254.17</div>
-                  <b>= 0.6×</b>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <AgeAdjustmentExampleTable
+            columns={[
+              { header: 'Race Groups by All Ages', accessor: 'race' },
+              { header: 'Total Expected HIV Deaths', accessor: 'rate' },
+              { header: 'Age-Adjusted Death Ratio', accessor: 'ratio' },
+            ]}
+            rows={[
+              {
+                race: `Race A (all ages)`,
+                rate: '7,254.17',
+                ratio: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(7,254.17 / 7,254.17)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>1.0×</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              {
+                race: `Race B (all ages)`,
+                rate: '4,280',
+                ratio: (
+                  <CodeBlock
+                    border={false}
+                    rowData={[
+                      {
+                        content: <>(4,280 / 7,254.17)</>,
+                      },
+                      {
+                        content: <>=</>,
+                      },
+                      {
+                        content: (
+                          <>
+                            <b>0.6×</b>
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+            ]}
+          />
         </div>
 
-        <Grid item xs={12} sm={12} md={8} lg={5}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={styles.PrimaryButton}
-            href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
-          >
-            Explore age-adjusted ratios
-          </Button>
-        </Grid>
+        <Button
+          className={styles.TextButton}
+          variant="text"
+          color="primary"
+          href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
+        >
+          <>
+            <span>Explore age-adjusted ratios</span>
+            <ArrowForward />
+          </>
+        </Button>
       </article>
     </section>
   )

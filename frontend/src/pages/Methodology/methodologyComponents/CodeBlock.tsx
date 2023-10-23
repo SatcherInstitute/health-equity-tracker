@@ -14,12 +14,24 @@ interface CodeData {
 
 interface CodeBlockProps {
   rowData: CodeData[]
+  border?: boolean
+  minWidth?: number | string // Can be a number (like 700) or a string (like "700px")
 }
 
-export const CodeBlock: React.FC<CodeBlockProps> = ({ rowData }) => {
+export const CodeBlock: React.FC<CodeBlockProps> = ({
+  rowData,
+  border = true,
+  minWidth = 700, // Default value
+}) => {
+  const tableClass = border ? styles.BorderTable : styles.NoBorderTable
+
   return (
-    <TableContainer className={styles.TableContainer}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
+    <TableContainer>
+      <Table
+        className={tableClass}
+        // sx={{ minWidth }}
+        aria-label="customized table"
+      >
         <TableHead>
           <TableRow className={styles.TableCell}>
             {rowData.map((cell, index) => (
