@@ -4,7 +4,6 @@ import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import type AcsPopulationProvider from './AcsPopulationProvider'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
-import { CROSS_SECTIONAL, TIME_SERIES } from '../utils/Constants'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type DatasetId } from '../config/DatasetMetadata'
 import { type AgeAdjustedDataTypeId } from '../config/MetricConfig'
@@ -51,7 +50,7 @@ class CdcCovidProvider extends VariableProvider {
     breakdowns: Breakdowns,
     timeView: TimeView
   ): DatasetId | undefined {
-    if (timeView === CROSS_SECTIONAL) {
+    if (timeView === 'current') {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === 'county')
           return 'cdc_restricted_data-by_race_county_processed'
@@ -77,7 +76,7 @@ class CdcCovidProvider extends VariableProvider {
           return 'cdc_restricted_data-by_sex_national_processed'
       }
     }
-    if (timeView === TIME_SERIES) {
+    if (timeView === 'historical') {
       if (breakdowns.hasOnlyRace()) {
         if (breakdowns.geography === 'county')
           return 'cdc_restricted_data-by_race_county_processed_time_series'
@@ -181,7 +180,7 @@ class CdcCovidProvider extends VariableProvider {
   }
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
-    return !breakdowns.time && breakdowns.hasExactlyOneDemographic()
+    return breakdowns.hasExactlyOneDemographic()
   }
 }
 

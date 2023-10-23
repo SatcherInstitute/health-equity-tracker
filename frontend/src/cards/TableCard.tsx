@@ -121,7 +121,7 @@ export default function TableCard(props: TableCardProps) {
     metricIds,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'cross_sectional' : undefined
+    /* timeView */ isCawp ? 'current' : undefined
   )
 
   const displayingCovidData = metrics

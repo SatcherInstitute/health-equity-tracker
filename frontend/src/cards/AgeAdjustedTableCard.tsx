@@ -27,7 +27,6 @@ import {
   AGE,
   SEX,
   type RaceAndEthnicityGroup,
-  CROSS_SECTIONAL,
 } from '../data/utils/Constants'
 import Alert from '@mui/material/Alert'
 import styles from './Card.module.scss'
@@ -82,13 +81,13 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
     /* metricIds */ metricIds,
     /* breakdowns */ raceBreakdowns,
     /* dataTypeId */ undefined,
-    /* timeView */ CROSS_SECTIONAL
+    /* timeView */ 'current'
   )
   const ageQuery = new MetricQuery(
     /* metricIds */ metricIds,
     /* breakdowns */ ageBreakdowns,
     /* dataTypeId */ undefined,
-    /* timeView */ CROSS_SECTIONAL
+    /* timeView */ 'current'
   )
 
   const queries = [raceQuery, ageQuery].filter(

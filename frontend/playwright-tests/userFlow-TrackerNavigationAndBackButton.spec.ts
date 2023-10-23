@@ -38,18 +38,18 @@ test('Clicking a state on national map loads state report; back button returns t
 
 test('Clicking a county on state map loads county report; back button returns to state', async ({ page }) => {
 
-	//start at Prison & poverty in Georgia, by race
-	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison', { waitUntil: "commit" });
+	//start at Prison in Georgia, by race
+	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.13&mlp=disparity&dt1=prison', { waitUntil: "commit" });
 
 	// click on a county
-	await page.locator('path:nth-child(67)').click();
+	await page.locator('path:nth-child(128)').click();
 
 	// Confirm correct madlib setting includes FIPS for county
-	await expect(page).toHaveURL(/.*mls=1.incarceration-3.poverty-5.13083/);
+	await expect(page).toHaveURL(/.*mls=1.incarceration-3.13241/);
 
 	// back button should take you back to state report
 	await page.goBack()
-	await expect(page).toHaveURL(/.*mls=1.incarceration-3.poverty-5.13/);
+	await expect(page).toHaveURL(/.*mls=1.incarceration-3.13/);
 })
 
 

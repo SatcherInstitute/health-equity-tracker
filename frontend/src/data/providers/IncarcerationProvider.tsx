@@ -129,7 +129,7 @@ class IncarcerationProvider extends VariableProvider {
         'decia_2020_territory_population-by_sex_territory_state_level'
       )
       // only time-series cards use decia 2010
-      if (timeView === 'time_series') {
+      if (timeView === 'historical') {
         consumedDatasetIds.push(
           'decia_2010_territory_population-by_sex_territory_state_level'
         )
@@ -144,7 +144,7 @@ class IncarcerationProvider extends VariableProvider {
 
   allowsBreakdowns(breakdowns: Breakdowns): boolean {
     const validDemographicBreakdownRequest =
-      !breakdowns.time && breakdowns.hasExactlyOneDemographic()
+      breakdowns.hasExactlyOneDemographic()
 
     return (
       (breakdowns.geography === 'national' ||

@@ -30,6 +30,7 @@ export type BehavioralHealthMetricId =
 
 export const DEPRESSION_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'behavioral-health',
     dataTypeId: 'depression',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Depression cases',
@@ -67,6 +68,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
 
 export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'behavioral-health',
     dataTypeId: 'excessive_drinking',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Excessive drinking cases',
@@ -105,6 +107,7 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
 
 export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'behavioral-health',
     // parent data type
     dataTypeId: 'non_medical_drug_use',
     dataTypeShortLabel: 'Opioid and other non-medical drug use',
@@ -145,6 +148,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
 
 export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'behavioral-health',
     dataTypeId: 'frequent_mental_distress',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Frequent mental distress cases',
@@ -183,6 +187,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
 
 export const SUICIDE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'behavioral-health',
     dataTypeId: 'suicide',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Suicides',

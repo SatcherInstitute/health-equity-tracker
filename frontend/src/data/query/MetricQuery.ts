@@ -26,7 +26,7 @@ export class MetricQuery {
     this.metricIds = [metricIds].flat()
     this.breakdowns = breakdowns
     this.dataTypeId = dataTypeId
-    this.timeView = timeView ?? 'cross_sectional'
+    this.timeView = timeView ?? 'current'
   }
 
   getUniqueKey(): string {

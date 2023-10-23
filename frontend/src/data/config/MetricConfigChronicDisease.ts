@@ -27,6 +27,7 @@ export type ChronicDiseaseMetricId =
 
 export const ASTHMA_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'chronic-disease',
     dataTypeId: 'asthma',
     dataTypeShortLabel: 'Asthma',
     fullDisplayName: 'Asthma cases',
@@ -64,6 +65,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
 
 export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'chronic-disease',
     dataTypeId: 'cardiovascular_diseases',
     dataTypeShortLabel: 'Cardiovascular diseases',
     fullDisplayName: 'Cases of cardiovascular diseases',
@@ -102,6 +104,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
 
 export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'chronic-disease',
     dataTypeId: 'chronic_kidney_disease',
     dataTypeShortLabel: 'Chronic kidney disease',
     surveyCollectedData: true,
@@ -140,6 +143,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
 
 export const DIABETES_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'chronic-disease',
     dataTypeId: 'diabetes',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Diabetes',
@@ -177,6 +181,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
 
 export const COPD_METRICS: DataTypeConfig[] = [
   {
+    categoryId: 'chronic-disease',
     dataTypeId: 'copd',
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COPD',
