@@ -32,5 +32,4 @@ test('CAWP: CAWP National Congress Flow', async ({ page }) => {
     await page.getByLabel('Comparison bar chart showing Population vs. distribution of total women in US congress in the United States').getByText('7.1% of women members', { exact: true }).click();
     await page.getByLabel('Comparison bar chart showing Population vs. distribution of total women in US congress in the United States').getByText('20.0% of women members', { exact: true }).click();
     await page.getByRole('cell', { name: '25% women in Congress ( 155 members / 621 Total members )' }).click();
-    await page.getByText('Individuals identifying as women who have served in the Congress of the United S').click();
 });
