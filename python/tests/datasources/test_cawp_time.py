@@ -47,7 +47,8 @@ def _get_consecutive_time_periods(*args, **kwargs):
     print("mocking with reduced years")
     if len(kwargs) == 1:
         return get_consecutive_time_periods(first_year=2018)
-    return get_consecutive_time_periods(first_year=2018, last_year=2022)
+    # NOTE: ensure this end date is updated to reflect current test data set's last year
+    return get_consecutive_time_periods(first_year=2018, last_year=2023)
 
 
 def _fetch_json_from_web(*args):
@@ -192,36 +193,87 @@ def testWriteToBq(
     # CURRENT + HISTORICAL CONGRESS TOTALS
     assert mock_json_from_web.call_count == 2
 
-    # NATIONAL / STATE / STATE NAMES
-    assert mock_bq.call_count == 3
+    # [ NATIONAL+STATE X CURRENT+HISTORICAL ] + STATE NAMES
+    assert mock_bq.call_count == 5
 
     # NAMES TABLE OUTPUT (can't really test df content due to csv weirdness)
-    names_call, state_call, national_call = mock_bq.call_args_list
+    (
+        names_call,
+        state_historical_call,
+        state_current_call,
+        national_historical_call,
+        national_current_call,
+    ) = mock_bq.call_args_list
     (df_names, _dataset, table_name_names), _bq_types = names_call
-    assert table_name_names == "race_and_ethnicity_state_time_series_names"
+    assert table_name_names == "race_and_ethnicity_state_historical_names"
 
-    # STATE DATA OUTPUT
-    (df_state, _dataset, table_name_state), _bq_types = state_call
-    assert table_name_state == "race_and_ethnicity_state_time_series"
-    expected_df_state = pd.read_csv(
-        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_time_series.csv"),
+    # STATE DATA HISTORICAL OUTPUT
+    (
+        df_state_historical,
+        _dataset,
+        table_name_state_historical,
+    ), _bq_types = state_historical_call
+    assert table_name_state_historical == "race_and_ethnicity_state_historical"
+
+    expected_df_state_historical = pd.read_csv(
+        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
     assert_frame_equal(
-        df_state,
-        expected_df_state,
+        df_state_historical,
+        expected_df_state_historical,
         check_like=True,
     )
 
-    # NATIONAL DATA OUTPUT
-    (df_national, _dataset, table_name_national), _bq_types = national_call
-    assert table_name_national == "race_and_ethnicity_national_time_series"
-    expected_df_national = pd.read_csv(
-        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_time_series.csv"),
+    # STATE DATA CURRENT OUTPUT
+    (
+        df_state_current,
+        _dataset,
+        table_name_state_current,
+    ), _bq_types = state_current_call
+    assert table_name_state_current == "race_and_ethnicity_state_current"
+    expected_df_state_current = pd.read_csv(
+        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_current.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
     assert_frame_equal(
-        df_national,
-        expected_df_national,
+        df_state_current,
+        expected_df_state_current,
+        check_like=True,
+    )
+
+    # NATIONAL DATA HISTORICAL OUTPUT
+    (
+        df_national_historical,
+        _dataset,
+        table_name_national_historical,
+    ), _bq_types = national_historical_call
+    assert table_name_national_historical == "race_and_ethnicity_national_historical"
+
+    expected_df_national_historical = pd.read_csv(
+        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_historical.csv"),
+        dtype={"state_fips": str, "time_period": str},
+    )
+    assert_frame_equal(
+        df_national_historical,
+        expected_df_national_historical,
+        check_like=True,
+    )
+
+    # NATIONAL DATA CURRENT OUTPUT
+    (
+        df_national_current,
+        _dataset,
+        table_name_national_current,
+    ), _bq_types = national_current_call
+    assert table_name_national_current == "race_and_ethnicity_national_current"
+
+    expected_df_national_current = pd.read_csv(
+        os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_current.csv"),
+        dtype={"state_fips": str, "time_period": str},
+    )
+    assert_frame_equal(
+        df_national_current,
+        expected_df_national_current,
         check_like=True,
     )

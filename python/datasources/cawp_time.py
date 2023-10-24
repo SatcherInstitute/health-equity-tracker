@@ -4,6 +4,7 @@ from ingestion.standardized_columns import Race
 from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
     zero_out_pct_rel_inequity,
+    preserve_only_current_time_period_rows,
 )
 from ingestion import gcs_to_bq_util, merge_utils
 import ingestion.standardized_columns as std_col
@@ -193,32 +194,108 @@ class CAWPTimeData(DataSource):
         gcs_to_bq_util.add_df_to_bq(
             df_names,
             dataset,
-            'race_and_ethnicity_state_time_series_names',
+            'race_and_ethnicity_state_historical_names',
             column_types=column_types,
         )
 
         for geo_level in [STATE_LEVEL, NATIONAL_LEVEL]:
             df = base_df.copy()
             df, bq_table_name = self.generate_breakdown(df, geo_level)
+
+            # make _historical table with limited cols
+            df_historical = df.copy()
+            print("starting hist", bq_table_name)
+            print(df_historical)
+            df_historical.to_csv("starting1", index=False)
+
+            df_historical = df.drop(
+                columns=[
+                    std_col.CONGRESS_COUNT,
+                    std_col.W_THIS_RACE_CONGRESS_COUNT,
+                    # std_col.PCT_OF_CONGRESS,
+                    std_col.PCT_OF_W_CONGRESS,
+                    # std_col.W_CONGRESS_PCT_INEQUITY,
+                    std_col.STLEG_COUNT,
+                    std_col.W_THIS_RACE_STLEG_COUNT,
+                    # std_col.PCT_OF_STLEG,
+                    std_col.PCT_OF_W_STLEG,
+                    # std_col.W_STLEG_PCT_INEQUITY,
+                    CAWP_POP_COL,
+                    CAWP_POP_PCT_COL,
+                ]
+            )
+            float_cols = [
+                # std_col.CONGRESS_COUNT,
+                # std_col.W_THIS_RACE_CONGRESS_COUNT,
+                std_col.PCT_OF_CONGRESS,
+                # std_col.PCT_OF_W_CONGRESS,
+                std_col.W_CONGRESS_PCT_INEQUITY,
+                # std_col.STLEG_COUNT,
+                # std_col.W_THIS_RACE_STLEG_COUNT,
+                std_col.PCT_OF_STLEG,
+                # std_col.PCT_OF_W_STLEG,
+                std_col.W_STLEG_PCT_INEQUITY,
+                # CAWP_POP_COL,
+                # CAWP_POP_PCT_COL,
+            ]
+
+            column_types = gcs_to_bq_util.get_bq_column_types(df_historical, float_cols)
+            df_historical = df_historical.drop_duplicates()
+            gcs_to_bq_util.add_df_to_bq(
+                df_historical,
+                dataset,
+                f'{bq_table_name}_historical',
+                column_types=column_types,
+            )
+
+            # make _current table with limited rows
+            df_current = df.copy()
+
+            print("starting curr", bq_table_name)
+            print(df_current)
+            df_current.to_csv("starting2", index=False)
+
+            df_current = df_current.drop(
+                columns=[
+                    # std_col.CONGRESS_COUNT,
+                    # std_col.W_THIS_RACE_CONGRESS_COUNT,
+                    # std_col.PCT_OF_CONGRESS,
+                    # std_col.PCT_OF_W_CONGRESS,
+                    std_col.W_CONGRESS_PCT_INEQUITY,
+                    # std_col.STLEG_COUNT,
+                    # std_col.W_THIS_RACE_STLEG_COUNT,
+                    # std_col.PCT_OF_STLEG,
+                    # std_col.PCT_OF_W_STLEG,
+                    std_col.W_STLEG_PCT_INEQUITY,
+                    # CAWP_POP_COL,
+                    # CAWP_POP_PCT_COL,
+                ]
+            )
+            # drop unneeded rows from current
+            df_current = preserve_only_current_time_period_rows(df_current)
+
             float_cols = [
                 std_col.CONGRESS_COUNT,
                 std_col.W_THIS_RACE_CONGRESS_COUNT,
                 std_col.PCT_OF_CONGRESS,
                 std_col.PCT_OF_W_CONGRESS,
-                std_col.W_CONGRESS_PCT_INEQUITY,
+                # std_col.W_CONGRESS_PCT_INEQUITY,
                 std_col.STLEG_COUNT,
                 std_col.W_THIS_RACE_STLEG_COUNT,
                 std_col.PCT_OF_STLEG,
                 std_col.PCT_OF_W_STLEG,
-                std_col.W_STLEG_PCT_INEQUITY,
+                # std_col.W_STLEG_PCT_INEQUITY,
                 CAWP_POP_COL,
                 CAWP_POP_PCT_COL,
             ]
 
-            column_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
-            df = df.drop_duplicates()
+            column_types = gcs_to_bq_util.get_bq_column_types(df_current, float_cols)
+            df_current = df_current.drop_duplicates()
             gcs_to_bq_util.add_df_to_bq(
-                df, dataset, bq_table_name, column_types=column_types
+                df_current,
+                dataset,
+                f'{bq_table_name}_current',
+                column_types=column_types,
             )
 
     # CLASS METHODS
@@ -332,7 +409,7 @@ class CAWPTimeData(DataSource):
         if geo_level == NATIONAL_LEVEL:
             df = combine_states_to_national(df)
 
-        bq_table_name = f'race_and_ethnicity_{geo_level}_time_series'
+        bq_table_name = f'race_and_ethnicity_{geo_level}'
 
         # calculate rates of representation
         df[std_col.PCT_OF_CONGRESS] = round(
