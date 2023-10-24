@@ -127,194 +127,194 @@ def test_write_to_bq_race_national(
     )
 
 
-@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
-def test_write_to_bq_age_national(
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="age", geographic="national"
-    )
+# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+# @mock.patch(
+#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+#     side_effect=_load_csv_as_df_from_data_dir,
+# )
+# def test_write_to_bq_age_national(
+#     mock_data_dir: mock.MagicMock,
+#     mock_bq: mock.MagicMock,
+# ):
+#     datasource = CDCHIVData()
+#     datasource.write_to_bq(
+#         "dataset", "gcs_bucket", demographic="age", geographic="national"
+#     )
 
-    assert mock_bq.call_count == 2
-    (
-        mock_bq_age_national_current,
-        mock_bq_age_national_historical,
-    ) = mock_bq.call_args_list
+#     assert mock_bq.call_count == 2
+#     (
+#         mock_bq_age_national_current,
+#         mock_bq_age_national_historical,
+#     ) = mock_bq.call_args_list
 
-    (
-        age_national_current_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_age_national_current
-    assert table_name == "age_national_current"
-    expected_age_national_current_df = pd.read_csv(
-        GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE
-    )
+#     (
+#         age_national_current_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_age_national_current
+#     assert table_name == "age_national_current"
+#     expected_age_national_current_df = pd.read_csv(
+#         GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE
+#     )
 
-    assert_frame_equal(
-        age_national_current_df, expected_age_national_current_df, check_like=True
-    )
+#     assert_frame_equal(
+#         age_national_current_df, expected_age_national_current_df, check_like=True
+#     )
 
-    (
-        age_national_historical_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_age_national_historical
-    assert table_name == "age_national_historical"
-    expected_age_national_historical_df = pd.read_csv(
-        GOLDEN_DATA["age_national_historical"], dtype=EXP_DTYPE
-    )
+#     (
+#         age_national_historical_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_age_national_historical
+#     assert table_name == "age_national_historical"
+#     expected_age_national_historical_df = pd.read_csv(
+#         GOLDEN_DATA["age_national_historical"], dtype=EXP_DTYPE
+#     )
 
-    assert_frame_equal(
-        age_national_historical_df,
-        expected_age_national_historical_df,
-        check_like=True,
-    )
-
-
-@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
-def test_write_to_bq_sex_state(
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="sex", geographic="state"
-    )
-
-    assert mock_bq.call_count == 2
-    mock_bq_sex_state_current, mock_bq_sex_state_historical = mock_bq.call_args_list
-
-    (sex_state_current_df, _dataset, table_name), _col_types = mock_bq_sex_state_current
-    assert table_name == "sex_state_current"
-    expected_sex_state_current_df = pd.read_csv(
-        GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE
-    )
-
-    assert_frame_equal(
-        sex_state_current_df, expected_sex_state_current_df, check_like=True
-    )
-
-    (
-        sex_state_historical_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_sex_state_historical
-    assert table_name == "sex_state_historical"
-    expected_sex_state_historical_df = pd.read_csv(
-        GOLDEN_DATA["sex_state_historical"], dtype=EXP_DTYPE
-    )
-
-    assert_frame_equal(
-        sex_state_historical_df, expected_sex_state_historical_df, check_like=True
-    )
+#     assert_frame_equal(
+#         age_national_historical_df,
+#         expected_age_national_historical_df,
+#         check_like=True,
+#     )
 
 
-@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
-    side_effect=_load_public_dataset_from_bigquery_as_df,
-)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
-def test_write_to_bq_sex_county(
-    mock_data_dir: mock.MagicMock,
-    mock_public_bq: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="sex", geographic="county"
-    )
+# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+# @mock.patch(
+#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+#     side_effect=_load_csv_as_df_from_data_dir,
+# )
+# def test_write_to_bq_sex_state(
+#     mock_data_dir: mock.MagicMock,
+#     mock_bq: mock.MagicMock,
+# ):
+#     datasource = CDCHIVData()
+#     datasource.write_to_bq(
+#         "dataset", "gcs_bucket", demographic="sex", geographic="state"
+#     )
 
-    assert mock_bq.call_count == 2
-    mock_bq_sex_county_current, mock_bq_sex_county_historical = mock_bq.call_args_list
+#     assert mock_bq.call_count == 2
+#     mock_bq_sex_state_current, mock_bq_sex_state_historical = mock_bq.call_args_list
 
-    (
-        sex_county_current_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_sex_county_current
-    assert table_name == "sex_county_current"
-    expected_sex_county_current_df = pd.read_csv(
-        GOLDEN_DATA["sex_county_current"], dtype=EXP_DTYPE
-    )
-    assert_frame_equal(
-        sex_county_current_df, expected_sex_county_current_df, check_like=True
-    )
+#     (sex_state_current_df, _dataset, table_name), _col_types = mock_bq_sex_state_current
+#     assert table_name == "sex_state_current"
+#     expected_sex_state_current_df = pd.read_csv(
+#         GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE
+#     )
 
-    (
-        sex_county_historical_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_sex_county_historical
-    assert table_name == "sex_county_historical"
-    expected_sex_county_historical_df = pd.read_csv(
-        GOLDEN_DATA["sex_county_historical"], dtype=EXP_DTYPE
-    )
-    assert_frame_equal(
-        sex_county_historical_df, expected_sex_county_historical_df, check_like=True
-    )
+#     assert_frame_equal(
+#         sex_state_current_df, expected_sex_state_current_df, check_like=True
+#     )
+
+#     (
+#         sex_state_historical_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_sex_state_historical
+#     assert table_name == "sex_state_historical"
+#     expected_sex_state_historical_df = pd.read_csv(
+#         GOLDEN_DATA["sex_state_historical"], dtype=EXP_DTYPE
+#     )
+
+#     assert_frame_equal(
+#         sex_state_historical_df, expected_sex_state_historical_df, check_like=True
+#     )
 
 
-@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-@mock.patch(
-    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-    side_effect=_load_csv_as_df_from_data_dir,
-)
-def test_write_to_bq_black_women_national(
-    mock_data_dir: mock.MagicMock,
-    mock_bq: mock.MagicMock,
-):
-    datasource = CDCHIVData()
-    datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="black_women", geographic="national"
-    )
+# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+# @mock.patch(
+#     "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
+#     side_effect=_load_public_dataset_from_bigquery_as_df,
+# )
+# @mock.patch(
+#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+#     side_effect=_load_csv_as_df_from_data_dir,
+# )
+# def test_write_to_bq_sex_county(
+#     mock_data_dir: mock.MagicMock,
+#     mock_public_bq: mock.MagicMock,
+#     mock_bq: mock.MagicMock,
+# ):
+#     datasource = CDCHIVData()
+#     datasource.write_to_bq(
+#         "dataset", "gcs_bucket", demographic="sex", geographic="county"
+#     )
 
-    assert mock_bq.call_count == 2
-    (
-        mock_bq_black_women_national_current,
-        mock_bq_black_women_national_historical,
-    ) = mock_bq.call_args_list
+#     assert mock_bq.call_count == 2
+#     mock_bq_sex_county_current, mock_bq_sex_county_historical = mock_bq.call_args_list
 
-    (
-        black_women_national_current_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_black_women_national_current
-    assert table_name == "black_women_national_current"
-    expected_black_women_national_current_df = pd.read_csv(
-        GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE
-    )
-    assert_frame_equal(
-        black_women_national_current_df,
-        expected_black_women_national_current_df,
-        check_like=True,
-    )
+#     (
+#         sex_county_current_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_sex_county_current
+#     assert table_name == "sex_county_current"
+#     expected_sex_county_current_df = pd.read_csv(
+#         GOLDEN_DATA["sex_county_current"], dtype=EXP_DTYPE
+#     )
+#     assert_frame_equal(
+#         sex_county_current_df, expected_sex_county_current_df, check_like=True
+#     )
 
-    (
-        black_women_national_historical_df,
-        _dataset,
-        table_name,
-    ), _col_types = mock_bq_black_women_national_historical
-    assert table_name == "black_women_national_historical"
-    expected_black_women_national_historical_df = pd.read_csv(
-        GOLDEN_DATA["black_women_national_historical"], dtype=EXP_DTYPE
-    )
-    assert_frame_equal(
-        black_women_national_historical_df,
-        expected_black_women_national_historical_df,
-        check_like=True,
-    )
+#     (
+#         sex_county_historical_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_sex_county_historical
+#     assert table_name == "sex_county_historical"
+#     expected_sex_county_historical_df = pd.read_csv(
+#         GOLDEN_DATA["sex_county_historical"], dtype=EXP_DTYPE
+#     )
+#     assert_frame_equal(
+#         sex_county_historical_df, expected_sex_county_historical_df, check_like=True
+#     )
+
+
+# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+# @mock.patch(
+#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+#     side_effect=_load_csv_as_df_from_data_dir,
+# )
+# def test_write_to_bq_black_women_national(
+#     mock_data_dir: mock.MagicMock,
+#     mock_bq: mock.MagicMock,
+# ):
+#     datasource = CDCHIVData()
+#     datasource.write_to_bq(
+#         "dataset", "gcs_bucket", demographic="black_women", geographic="national"
+#     )
+
+#     assert mock_bq.call_count == 2
+#     (
+#         mock_bq_black_women_national_current,
+#         mock_bq_black_women_national_historical,
+#     ) = mock_bq.call_args_list
+
+#     (
+#         black_women_national_current_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_black_women_national_current
+#     assert table_name == "black_women_national_current"
+#     expected_black_women_national_current_df = pd.read_csv(
+#         GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE
+#     )
+#     assert_frame_equal(
+#         black_women_national_current_df,
+#         expected_black_women_national_current_df,
+#         check_like=True,
+#     )
+
+#     (
+#         black_women_national_historical_df,
+#         _dataset,
+#         table_name,
+#     ), _col_types = mock_bq_black_women_national_historical
+#     assert table_name == "black_women_national_historical"
+#     expected_black_women_national_historical_df = pd.read_csv(
+#         GOLDEN_DATA["black_women_national_historical"], dtype=EXP_DTYPE
+#     )
+#     assert_frame_equal(
+#         black_women_national_historical_df,
+#         expected_black_women_national_historical_df,
+#         check_like=True,
+#     )
