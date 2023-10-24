@@ -212,31 +212,19 @@ class CAWPTimeData(DataSource):
                 columns=[
                     std_col.CONGRESS_COUNT,
                     std_col.W_THIS_RACE_CONGRESS_COUNT,
-                    # std_col.PCT_OF_CONGRESS,
                     std_col.PCT_OF_W_CONGRESS,
-                    # std_col.W_CONGRESS_PCT_INEQUITY,
                     std_col.STLEG_COUNT,
                     std_col.W_THIS_RACE_STLEG_COUNT,
-                    # std_col.PCT_OF_STLEG,
                     std_col.PCT_OF_W_STLEG,
-                    # std_col.W_STLEG_PCT_INEQUITY,
                     CAWP_POP_COL,
                     CAWP_POP_PCT_COL,
                 ]
             )
             float_cols = [
-                # std_col.CONGRESS_COUNT,
-                # std_col.W_THIS_RACE_CONGRESS_COUNT,
                 std_col.PCT_OF_CONGRESS,
-                # std_col.PCT_OF_W_CONGRESS,
                 std_col.W_CONGRESS_PCT_INEQUITY,
-                # std_col.STLEG_COUNT,
-                # std_col.W_THIS_RACE_STLEG_COUNT,
                 std_col.PCT_OF_STLEG,
-                # std_col.PCT_OF_W_STLEG,
                 std_col.W_STLEG_PCT_INEQUITY,
-                # CAWP_POP_COL,
-                # CAWP_POP_PCT_COL,
             ]
 
             column_types = gcs_to_bq_util.get_bq_column_types(df_historical, float_cols)
@@ -257,18 +245,8 @@ class CAWPTimeData(DataSource):
 
             df_current = df_current.drop(
                 columns=[
-                    # std_col.CONGRESS_COUNT,
-                    # std_col.W_THIS_RACE_CONGRESS_COUNT,
-                    # std_col.PCT_OF_CONGRESS,
-                    # std_col.PCT_OF_W_CONGRESS,
                     std_col.W_CONGRESS_PCT_INEQUITY,
-                    # std_col.STLEG_COUNT,
-                    # std_col.W_THIS_RACE_STLEG_COUNT,
-                    # std_col.PCT_OF_STLEG,
-                    # std_col.PCT_OF_W_STLEG,
                     std_col.W_STLEG_PCT_INEQUITY,
-                    # CAWP_POP_COL,
-                    # CAWP_POP_PCT_COL,
                 ]
             )
             # drop unneeded rows from current
@@ -279,12 +257,10 @@ class CAWPTimeData(DataSource):
                 std_col.W_THIS_RACE_CONGRESS_COUNT,
                 std_col.PCT_OF_CONGRESS,
                 std_col.PCT_OF_W_CONGRESS,
-                # std_col.W_CONGRESS_PCT_INEQUITY,
                 std_col.STLEG_COUNT,
                 std_col.W_THIS_RACE_STLEG_COUNT,
                 std_col.PCT_OF_STLEG,
                 std_col.PCT_OF_W_STLEG,
-                # std_col.W_STLEG_PCT_INEQUITY,
                 CAWP_POP_COL,
                 CAWP_POP_PCT_COL,
             ]
