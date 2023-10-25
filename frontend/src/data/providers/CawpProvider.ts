@@ -1,6 +1,6 @@
 import { getDataManager } from '../../utils/globals'
 import { type MetricId, type DataTypeId } from '../config/MetricConfig'
-import { type Breakdowns } from '../query/Breakdowns'
+import { type TimeView, type Breakdowns } from '../query/Breakdowns'
 import { type MetricQuery, MetricQueryResponse } from '../query/MetricQuery'
 import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
@@ -16,7 +16,6 @@ import {
   UNKNOWN_W,
   HISP_W,
 } from '../utils/Constants'
-import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 import { type DatasetId } from '../config/DatasetMetadata'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 
@@ -76,11 +75,22 @@ class CawpProvider extends VariableProvider {
     super('cawp_provider', CAWP_DETERMINANTS)
   }
 
-  getDatasetId(breakdowns: Breakdowns): DatasetId | undefined {
-    if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
-      return 'cawp_time_data-race_and_ethnicity_national_time_series'
-    if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
-      return 'cawp_time_data-race_and_ethnicity_state_time_series'
+  getDatasetId(
+    breakdowns: Breakdowns,
+    timeView?: TimeView
+  ): DatasetId | undefined {
+    if (timeView === 'current') {
+      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
+        return 'cawp_time_data-race_and_ethnicity_national_current'
+      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
+        return 'cawp_time_data-race_and_ethnicity_state_current'
+    }
+    if (timeView === 'historical') {
+      if (breakdowns.geography === 'national' && breakdowns.hasOnlyRace())
+        return 'cawp_time_data-race_and_ethnicity_national_historical'
+      if (breakdowns.geography === 'state' && breakdowns.hasOnlyRace())
+        return 'cawp_time_data-race_and_ethnicity_state_historical'
+    }
   }
 
   async getDataInternal(
@@ -88,20 +98,13 @@ class CawpProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns)
+    const datasetId = this.getDatasetId(breakdowns, timeView)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
     let df = cawp.toDataFrame()
 
     df = this.filterByGeo(df, breakdowns)
-
-    const mostRecentYear = getMostRecentYearAsString(
-      df,
-      metricQuery.metricIds[0]
-    )
-
-    df = this.filterByTimeView(df, timeView, mostRecentYear)
     df = this.renameGeoColumns(df, breakdowns)
 
     const consumedDatasetIds = [datasetId]
