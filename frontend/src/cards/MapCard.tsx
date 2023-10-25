@@ -41,10 +41,7 @@ import {
   COMBINED_QUALIFIER,
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
-import {
-  CAWP_DATA_TYPES,
-  CAWP_DETERMINANTS,
-} from '../data/providers/CawpProvider'
+import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
@@ -127,7 +124,6 @@ function MapCardWithKey(props: MapCardProps) {
   const isPrison = props.dataTypeConfig.dataTypeId === 'prison'
   const isJail = props.dataTypeConfig.dataTypeId === 'jail'
   const isIncarceration = isJail ?? isPrison
-  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const location = useLocation()
 
@@ -186,7 +182,7 @@ function MapCardWithKey(props: MapCardProps) {
             : exclude(UNKNOWN)
         ),
       /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-      /* timeView */ isCawp ? 'current' : undefined
+      /* timeView */ 'current'
     )
   }
 
