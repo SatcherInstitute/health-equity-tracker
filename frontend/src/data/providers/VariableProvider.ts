@@ -70,7 +70,7 @@ abstract class VariableProvider {
     // const currentTimePeriod = sourceCurrentTimePeriod || "current"
 
     if (df.getColumnNames().includes(TIME_PERIOD)) {
-      if (timeView === 'historical') {
+      if (timeView === 'current') {
         df = df.where((row) => row[TIME_PERIOD] === sourceCurrentTimePeriod)
       }
     }

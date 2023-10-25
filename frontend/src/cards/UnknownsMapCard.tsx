@@ -23,7 +23,6 @@ import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
@@ -63,7 +62,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
   if (!metricConfig) return <></>
   const demographicType = props.demographicType
-  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
   const location = useLocation()
 
   const signalListeners: any = {
@@ -93,13 +91,13 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     [metricConfig.metricId],
     mapGeoBreakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'current' : undefined
+    /* timeView */ 'current'
   )
   const alertQuery = new MetricQuery(
     [metricConfig.metricId],
     alertBreakdown,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'current' : undefined
+    /* timeView */ 'current'
   )
 
   const chartTitle = generateChartTitle(

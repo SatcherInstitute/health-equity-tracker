@@ -78,6 +78,7 @@ class AcsConditionProvider extends VariableProvider {
     )
 
     df = this.filterByTimeView(df, timeView, mostRecentYear)
+
     df = this.renameGeoColumns(df, breakdowns)
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)

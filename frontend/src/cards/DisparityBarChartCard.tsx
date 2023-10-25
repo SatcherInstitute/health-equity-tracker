@@ -59,8 +59,6 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     exclude(ALL, NON_HISPANIC)
   )
 
-  const isCawp = CAWP_DETERMINANTS.includes(metricConfig.metricId)
-
   // Population Comparison Metric is required for the Disparity Bar Chart.
   // If MetricConfig supports known breakdown metric, prefer this metric.
   const metricIds = [metricConfig.metricId]
@@ -80,7 +78,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     metricIds,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'current' : undefined
+    /* timeView */ 'current'
   )
 
   const chartTitle = generateChartTitle(
