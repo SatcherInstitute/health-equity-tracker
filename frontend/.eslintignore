@@ -1,3 +1,5 @@
 **/*.test.*
 vite.config.ts
 playwright.config.ts
+tailwind.config.ts
+postcss.config.ts
