@@ -12,7 +12,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { parseDescription } from './DataTable'
 import React, { useState } from 'react'
-import { id } from 'vega'
 
 interface KeyTermsProps {
   definitionsArray: Array<{

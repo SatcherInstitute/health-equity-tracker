@@ -15,8 +15,12 @@ import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExa
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import { ArrowForward } from '@mui/icons-material'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
+import { defLookup } from '../methodologyComponents/MethodologyPage'
+import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 
 const AgeAdjustmentLink = () => {
+  defLookup()
+
   return (
     <section id="#age-adjusted-ratios">
       <article>
@@ -31,10 +35,13 @@ const AgeAdjustmentLink = () => {
 
         <div className={styles.MethodologyAnswer}>
           <p>
-            We have decided to present{' '}
-            <DefinitionTooltip term="age-adjusted ratios" /> when possible in
-            order to show a more accurate and equitable view of the impact on
-            non-White communities in the United States.
+            We have decided to present
+            <DefinitionTooltip
+              topic="Age-adjusted ratios"
+              definitionsGlossary={definitionsGlossary}
+            />
+            when possible in order to show a more accurate and equitable view of
+            the impact on non-White communities in the United States.
           </p>
 
           <p>
@@ -69,15 +76,24 @@ const AgeAdjustmentLink = () => {
             racial and ethnic minorities.
           </p>
           <p>
-            We use a <b>direct standardization method</b>, with the{' '}
-            <b>internal standard population</b> for each state being that
-            state's total population. Finally, the ratios we present for each
-            race group is that race's age-adjusted count, divided by the
-            age-adjusted count for White, non-Hispanic individuals in the same
-            location. Thus, our age-adjusted ratios can only be used to compare
-            race groups within each state, and <b>not</b> to compare race groups
-            between states. For COVID-19 reports, we source the standard
-            population numbers from the 2019 population numbers from{' '}
+            We use a
+            <DefinitionTooltip
+              topic={'Direct standardization method'}
+              definitionsGlossary={definitionsGlossary}
+            />
+            , with the
+            <DefinitionTooltip
+              topic={'Internal standard population'}
+              definitionsGlossary={definitionsGlossary}
+            />
+            for each state being that state's total population. Finally, the
+            ratios we present for each race group is that race's age-adjusted
+            count, divided by the age-adjusted count for White, non-Hispanic
+            individuals in the same location. Thus, our age-adjusted ratios can
+            only be used to compare race groups within each state, and{' '}
+            <b>not</b> to compare race groups between states. For COVID-19
+            reports, we source the standard population numbers from the 2019
+            population numbers from{' '}
             <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
               County Population by Characteristics
             </a>

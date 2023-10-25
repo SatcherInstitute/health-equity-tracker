@@ -437,8 +437,13 @@ td {
 }
 
 .Tooltip {
-  display: inline !important;
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.Tooltip p {
   font-weight: bold !important;
+  margin: 0 0.1rem 0 0.2rem;
 }
 
 .MethodologySubsubheaderText {

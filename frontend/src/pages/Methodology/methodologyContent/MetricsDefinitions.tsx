@@ -10,7 +10,7 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Measurement Definition',
-        description: `Aa statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.`,
+        description: `A statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.`,
       },
       {
         key: 'Examples to Explore',

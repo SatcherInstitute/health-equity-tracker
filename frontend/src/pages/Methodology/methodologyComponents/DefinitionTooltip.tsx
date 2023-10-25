@@ -6,20 +6,29 @@ import CloseIcon from '@mui/icons-material/Close'
 import {
   ClickAwayListener,
   Typography,
-  styled,
   useMediaQuery,
   useTheme,
 } from '@mui/material'
-import DefinitionGlossary from '../methodologyContent/DefinitionGlossary'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import { InfoOutlined } from '@mui/icons-material'
 
 interface DefinitionTooltipProps {
-  term: keyof typeof DefinitionGlossary
+  topic: string
+  definitionsGlossary: Array<{
+    topic: string
+    definitions: Array<{
+      key: string
+      description: string
+    }>
+  }>
+  id?: string
 }
 
-const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({ term }) => {
-  const definition = DefinitionGlossary[term]
+const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
+  definitionsGlossary,
+  topic,
+}) => {
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [isDrawerOpen, setDrawerOpen] = useState(false)
@@ -34,31 +43,31 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({ term }) => {
   const handleDrawerOpen = () => {
     setDrawerOpen(true)
   }
-
   const handleDrawerClose = () => {
     setDrawerOpen(false)
   }
 
+  const topicObject = definitionsGlossary.find(
+    (item: { topic: any }) => item.topic === topic
+  )
+
+  const measurementDescription = topicObject?.definitions.find(
+    (def: { key: string }) => def.key === 'Measurement Definition'
+  )?.description
+
   if (isMobile) {
     return (
       <div className={styles.Tooltip}>
-        <Tooltip
-          PopperProps={{
-            disablePortal: true,
-          }}
-          title={definition}
-          arrow
-          placement="top-start"
-          className={styles.Tooltip}
-        >
+        <span>
           <Typography
             className={styles.MethodologyAnswer}
             onClick={handleDrawerOpen}
           >
-            {term}
-            <HelpOutlineIcon />
+            {' '}
+            {topic.toLowerCase()}
+            <InfoOutlined />{' '}
           </Typography>
-        </Tooltip>
+        </span>
 
         <Drawer anchor="bottom" open={isDrawerOpen} onClose={handleDrawerClose}>
           <div style={{ padding: '16px' }}>
@@ -69,10 +78,10 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({ term }) => {
               className={styles.MethodologySubsubheaderText}
               variant="h6"
             >
-              {term}
+              {topic.toLowerCase()}
             </Typography>
             <Typography className={styles.MethodologyAnswer}>
-              {definition}
+              {measurementDescription}
             </Typography>
           </div>
         </Drawer>
@@ -82,26 +91,27 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({ term }) => {
 
   return (
     <ClickAwayListener onClickAway={handleTooltipClose}>
-      <div className={styles.Tooltip}>
-        <Tooltip
-          disableFocusListener
-          disableTouchListener
-          onClose={handleTooltipClose}
-          open={open}
-          title={definition}
-          arrow
-          placement="top-start"
-          className={styles.Tooltip}
-        >
+      <Tooltip
+        disableFocusListener
+        disableTouchListener
+        onClose={handleTooltipClose}
+        open={open}
+        title={measurementDescription}
+        arrow
+        placement="top-start"
+        className={styles.Tooltip}
+      >
+        <span className={styles.Tooltip}>
           <Typography
             className={styles.MethodologyAnswer}
             onClick={handleTooltipOpen}
           >
-            {term}
-            <HelpOutlineIcon />
+            {' '}
+            {topic.toLowerCase()}
+            <InfoOutlined />{' '}
           </Typography>
-        </Tooltip>
-      </div>
+        </span>
+      </Tooltip>
     </ClickAwayListener>
   )
 }
