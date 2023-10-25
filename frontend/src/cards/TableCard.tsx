@@ -31,7 +31,6 @@ import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type Row } from '../data/utils/DatasetTypes'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import {
   DATATYPES_NEEDING_13PLUS,
   GENDER_METRICS,
@@ -61,8 +60,6 @@ export default function TableCard(props: TableCardProps) {
   )
 
   const metrics = getRateAndPctShareMetrics(props.dataTypeConfig)
-
-  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const breakdowns = Breakdowns.forFips(props.fips).addBreakdown(
     props.demographicType,
@@ -121,7 +118,7 @@ export default function TableCard(props: TableCardProps) {
     metricIds,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'current' : undefined
+    /* timeView */ 'current'
   )
 
   const displayingCovidData = metrics
