@@ -1,5 +1,5 @@
 {
-  "name": "app",
+  "name": "health-equity-tracker",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -47,6 +47,7 @@
     "react-vega": "^7.6.0",
     "sass": "^1.67.0",
     "seamless-scroll-polyfill": "^2.3.4",
+    "ts-node": "^10.9.1",
     "typeface-dm-sans": "^1.1.13",
     "typeface-hind": "^1.1.13",
     "typeface-montserrat": "^1.1.13",
