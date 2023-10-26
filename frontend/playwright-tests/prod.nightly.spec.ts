@@ -7,7 +7,7 @@ test(`Production Site Loads`, async ({ page }) => {
 
 
 test('CAWP: CAWP National Congress Flow', async ({ page }) => {
-    await page.goto('http://localhost:3000/exploredata?mls=1.women_in_gov-3.00&group1=All');
+    await page.goto('https://healthequitytracker.org/exploredata?mls=1.women_in_gov-3.00&group1=All');
     await page.getByText('See the states/territories with the highest and lowest rates.').click();
     await page.getByText('U.S. Virgin Islands,').click();
     await page.getByText('U.S. Virgin Islands,').click();
@@ -27,7 +27,7 @@ test('CAWP: CAWP National Congress Flow', async ({ page }) => {
     await page.getByText('No unknown values for race and ethnicity reported in this dataset at the state/t').click();
     await page.locator('#inequities-over-time').getByLabel('Include Black or African American women').click();
     await page.getByText('Expand inequities over time table').click();
-    await page.getByRole('row', { name: '2023', exact: true }).getByRole('cell').click();
+    await page.getByRole('columnheader', { name: 'Black or African American women % relative inequity' }).click();
     await page.getByLabel('Comparison bar chart showing Population vs. distribution of total women in US congress in the United States').getByRole('img').click();
     await page.getByLabel('Comparison bar chart showing Population vs. distribution of total women in US congress in the United States').getByText('7.1% of women members', { exact: true }).click();
     await page.getByLabel('Comparison bar chart showing Population vs. distribution of total women in US congress in the United States').getByText('20.0% of women members', { exact: true }).click();
