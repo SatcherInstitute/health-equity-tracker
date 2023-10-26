@@ -51,7 +51,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.goto(`/exploredata?mls=1.covid_vaccinations-3.00`, { waitUntil: "commit" });
 
         // Changing demographic dropdown setting to AGE should change URL
-        await page.getByRole('button', { name: 'Demographic Race/ethnicity' }).click();
+        await page.getByRole('combobox', { name: 'Demographic Race/ethnicity' }).click();
         await page.getByRole('option', { name: 'Age' }).click();
         await expect(page).toHaveURL(/.*demo=age/);
 
