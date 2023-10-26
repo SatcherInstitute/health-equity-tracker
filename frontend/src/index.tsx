@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom'
 import './styles/index.scss'
+import './index.css'
 import App from './App'
 import 'typeface-hind'
 import 'typeface-montserrat'
