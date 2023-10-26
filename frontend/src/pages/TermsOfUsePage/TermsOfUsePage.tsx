@@ -7,13 +7,13 @@ function TermsOfUsePage() {
       <Helmet>
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
-      <section className="flex w-full flex-col justify-center md:flex-row">
+      <section className="ml-10 flex w-full flex-col justify-center md:flex-row">
         <div className="w-full md:w-1/4">
           <h2 id="main" className="pb-1 pt-3 font-serif text-header font-light">
             Terms of Use
           </h2>
         </div>
-        <ul className="w-full max-w-2xl md:w-3/4">
+        <ul className="w-full max-w-3xl md:w-3/4">
           <li className="list-none pb-5">
             <h3 className="text-left font-sansTitle text-title font-medium">
               Privacy Policy
