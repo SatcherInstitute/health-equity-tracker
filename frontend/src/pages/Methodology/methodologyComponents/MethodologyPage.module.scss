@@ -42,10 +42,15 @@ html {
 }
 
 .ArticleContainer h3 {
-  color: rgba(0, 0, 0, 0.87);
-  font-family: Inter;
-  font-size: 1rem;
-  font-weight: 500;
+  @include tav300();
+  font-size: $smallestHeader;
+  text-align: left;
+  color: $alt-black;
+}
+
+.ArticleContainer h4 {
+  @include inter500();
+  font-size: $text;
   margin-top: 2rem;
 }
 
@@ -55,6 +60,14 @@ html {
   align-items: center;
 }
 
+.ArticleContainer p,
+li {
+  @include inter400();
+  font-size: $small;
+  text-align: left;
+  color: $alt-black;
+}
+
 .Calculation {
   margin: 0 auto;
 }
@@ -62,6 +75,7 @@ html {
 .TextButton {
   display: flex;
   justify-content: start;
+  line-height: 1.2rem;
   align-items: center;
   padding: 2rem 0;
   max-width: 20vw;
@@ -444,6 +458,15 @@ td {
 .Tooltip p {
   font-weight: bold !important;
   margin: 0 0.1rem 0 0.2rem;
+  cursor: help;
+}
+
+.ExampleDiv {
+  padding-inline-start: 40px;
+}
+
+.ExampleDiv ol {
+  padding: 0;
 }
 
 .MethodologySubsubheaderText {

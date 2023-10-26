@@ -5,6 +5,7 @@ import {
   CONDITION_VARIABLES_LINK,
   COVID_19_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
+  GLOSSARY_LINK,
   HIV_LINK,
   METHODOLOGY_PAGE_LINK,
   METRICS_LINK,
@@ -30,6 +31,7 @@ import SdohLink from '../methodologySections/SdohLink'
 import SourcesLink from '../methodologySections/SourcesLink'
 import TopicsLink from '../methodologySections/TopicsLink'
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
+import GlossaryLink from '../methodologySections/GlossaryLink'
 
 export const routeConfigs = [
   {
@@ -44,10 +46,14 @@ export const routeConfigs = [
     component: AgeAdjustmentLink,
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },
-      { label: 'Key Terms', path: '#age-adjusted-terms' },
       { label: 'Data Sourcing', path: '#data-sourcing' },
       { label: 'Algorithm', path: '#algorithm' },
-      { label: 'Age-Adjustment Examples', path: '#age-adjustment-examples' },
+      {
+        label: 'Age-Adjustment Example: HIV Deaths',
+        path: '#age-adjustment-examples',
+      },
+      { label: 'Key Terms', path: '#age-adjustment-terms' },
+      { label: 'Explore Examples', path: '#age-adjustment-explore' },
     ],
   },
   {
@@ -216,7 +222,7 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Topic Definitions and Limitations',
+    label: 'Topics and Limitations',
     path: TOPICS_LINK,
     component: TopicsLink,
     subLinks: [],
@@ -228,7 +234,7 @@ export const routeConfigs = [
     subLinks: [],
   },
   {
-    label: 'Data Method Definitions',
+    label: 'Data Methods',
     path: DATA_METHOD_DEFINITIONS_LINK,
     component: DataMethodDefinitionsLink,
     subLinks: [],
@@ -237,6 +243,12 @@ export const routeConfigs = [
     label: 'Recommended Citation (APA)',
     path: RECOMMENDED_CITATION_LINK,
     component: RecommendedCitationLink,
+    subLinks: [],
+  },
+  {
+    label: 'Glossary',
+    path: GLOSSARY_LINK,
+    component: GlossaryLink,
     subLinks: [],
   },
 ]

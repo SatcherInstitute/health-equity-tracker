@@ -13,20 +13,32 @@ import {
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { InfoOutlined } from '@mui/icons-material'
 
+// interface DefinitionTooltipProps {
+//   topic: string
+//   definitionsGlossary: Array<{
+//     topic: string
+//     definitions: Array<{
+//       key: string
+//       description: string
+//     }>
+//   }>
+//   id?: string
+// }
+
 interface DefinitionTooltipProps {
   topic: string
-  definitionsGlossary: Array<{
+  definitionItem: {
     topic: string
     definitions: Array<{
       key: string
       description: string
     }>
-  }>
+  }
   id?: string
 }
 
 const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
-  definitionsGlossary,
+  definitionItem,
   topic,
 }) => {
   const theme = useTheme()
@@ -47,11 +59,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
     setDrawerOpen(false)
   }
 
-  const topicObject = definitionsGlossary.find(
-    (item: { topic: any }) => item.topic === topic
-  )
-
-  const measurementDescription = topicObject?.definitions.find(
+  const measurementDescription = definitionItem.definitions.find(
     (def: { key: string }) => def.key === 'Measurement Definition'
   )?.description
 
@@ -74,6 +82,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
             <IconButton onClick={handleDrawerClose} style={{ float: 'right' }}>
               <CloseIcon />
             </IconButton>
+
             <Typography
               className={styles.MethodologySubsubheaderText}
               variant="h6"

@@ -48,7 +48,7 @@ export const definitionsGlossary = [
       {
         key: 'Measurement Definition',
         description:
-          'It is defined as a population with known age-specific rates and serves as the basis for calculating age-adjusted rates.',
+          'A population with known age-specific rates and serves as the basis for calculating age-adjusted rates.',
       },
     ],
   },

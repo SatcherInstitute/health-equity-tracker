@@ -21,6 +21,7 @@ import {
   RECOMMENDED_CITATION_LINK,
   AGE_ADJUSTMENT_LINK,
   METHODOLOGY_PAGE_LINK,
+  GLOSSARY_LINK,
 } from '../../../utils/internalRoutes'
 import { useState } from 'react'
 
@@ -86,9 +87,12 @@ export const links: LinkItem[] = [
     to: RECOMMENDED_CITATION_LINK,
     primary: 'Recommended Citation (APA)',
   },
+  {
+    index: 15,
+    to: GLOSSARY_LINK,
+    primary: 'Glossary',
+  },
 ]
-
-// ... (other imports and code)
 
 const MethodologyCardMenu: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
