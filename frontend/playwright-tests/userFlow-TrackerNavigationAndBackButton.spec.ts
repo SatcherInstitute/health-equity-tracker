@@ -6,7 +6,7 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
 	await page.goto('/exploredata?mls=1.covid-3.00&dt1=covid_deaths');
 
 	// change  to "Compare Places mode"
-	await page.getByRole('button', { name: 'Off' }).click();
+	await page.getByText('Off').nth(1).click();
 	await page.getByRole('option', { name: 'Places' }).click();
 
 	const madlibBox = page.locator('id=madlib-container')
@@ -38,11 +38,11 @@ test('Clicking a state on national map loads state report; back button returns t
 
 test('Clicking a county on state map loads county report; back button returns to state', async ({ page }) => {
 
-	//start at Prison in Georgia, by race
-	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.13&mlp=disparity&dt1=prison', { waitUntil: "commit" });
+	//start at Jail in Georgia, by race
+	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.13&mlp=disparity&dt1=jail', { waitUntil: "commit" });
 
-	// click on a county
-	await page.locator('path:nth-child(128)').click();
+	// click on specific county
+	await page.locator('path:nth-child(122)').click();
 
 	// Confirm correct madlib setting includes FIPS for county
 	await expect(page).toHaveURL(/.*mls=1.incarceration-3.13241/);

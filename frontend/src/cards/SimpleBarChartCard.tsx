@@ -21,7 +21,6 @@ import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import { CAWP_DATA_TYPES } from '../data/providers/CawpProvider'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
@@ -67,7 +66,6 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
   const isHIV = DATATYPES_NEEDING_13PLUS.includes(
     props.dataTypeConfig.dataTypeId
   )
-  const isCawp = CAWP_DATA_TYPES.includes(props.dataTypeConfig.dataTypeId)
 
   const metricIdsToFetch: MetricId[] = []
   metricIdsToFetch.push(metricConfig.metricId)
@@ -86,7 +84,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     metricIdsToFetch,
     breakdowns,
     /* dataTypeId */ props.dataTypeConfig.dataTypeId,
-    /* timeView */ isCawp ? 'current' : undefined
+    /* timeView */ 'current'
   )
 
   const chartTitle = generateChartTitle(

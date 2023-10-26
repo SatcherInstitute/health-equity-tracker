@@ -47,7 +47,6 @@ interface AltTableViewProps {
 export default function AltTableView(props: AltTableViewProps) {
   const tableRef = useRef(null)
   const linkRef = useRef(null)
-
   const optionalAgesPrefix = props.demographicType === AGE ? 'Ages ' : ''
 
   const accessibleData = makeA11yTableData(

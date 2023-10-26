@@ -130,21 +130,24 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
         const inequityData = queryResponseInequity.getValidRowsForField(
           metricConfigInequitable.metricId
         )
-        const [knownData] = splitIntoKnownsAndUnknowns(
-          inequityData,
-          props.demographicType
-        )
 
         // swap race labels if applicable
-        const knownInequityData = isCawp
-          ? knownData.map((row: Row) => {
+        const inequityDataLabelled = isCawp
+          ? inequityData.map((row: Row) => {
               const altRow = { ...row }
               altRow.race_and_ethnicity = getWomenRaceLabel(
                 row.race_and_ethnicity
               )
               return altRow
             })
-          : knownData
+          : inequityData
+
+        const [knownInequityData] = isCawp
+          ? [inequityDataLabelled]
+          : splitIntoKnownsAndUnknowns(
+              inequityDataLabelled,
+              props.demographicType
+            )
 
         const pctShareData =
           metricConfigPctShares &&
@@ -254,13 +257,13 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                         props.demographicType
                       ]
                     }`}
-                    knownsData={inequityData}
+                    knownsData={knownInequityData}
                     unknownsData={unknownPctShareData}
                     demographicType={props.demographicType}
                     knownMetricConfig={metricConfigInequitable}
                     unknownMetricConfig={metricConfigPctShares}
                     selectedGroups={selectedTableGroups}
-                    hasUnknowns={hasUnknowns}
+                    hasUnknowns={isCawp ? false : hasUnknowns}
                     isCompareCard={props.isCompareCard}
                   />
                 </>
