@@ -72,8 +72,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
             onClick={handleDrawerOpen}
           >
             {' '}
-            {topic.toLowerCase()}
-            <InfoOutlined />{' '}
+            {topic.toLowerCase()}{' '}
           </Typography>
         </span>
 
@@ -116,8 +115,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
             onClick={handleTooltipOpen}
           >
             {' '}
-            {topic.toLowerCase()}
-            <InfoOutlined />{' '}
+            {topic.toLowerCase()}{' '}
           </Typography>
         </span>
       </Tooltip>

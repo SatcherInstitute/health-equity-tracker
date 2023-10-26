@@ -1,3 +1,4 @@
+import DataTable from '../methodologyComponents/DataTable'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { sdohDefinitionsArray } from '../methodologyContent/SdohDefinitions'
@@ -7,7 +8,14 @@ function SdohLink() {
     <section>
       {/* <nav className={styles.SubMenu}></nav> */}
       <article>
-        <KeyTerms definitionsArray={sdohDefinitionsArray} />
+        {/* <KeyTerms definitionsArray={sdohDefinitionsArray} /> */}
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'SDOH Key Terms',
+          }}
+          methodologyTableDefinitions={sdohDefinitionsArray}
+        />
         <h3 className={styles.MethodologySubsubheaderText}>
           America’s Health Rankings
         </h3>

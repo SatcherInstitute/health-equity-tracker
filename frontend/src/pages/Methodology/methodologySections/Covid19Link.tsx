@@ -13,6 +13,7 @@ import {
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import DataTable from '../methodologyComponents/DataTable'
 
 const Covid19Link = () => {
   return (
@@ -28,8 +29,14 @@ const Covid19Link = () => {
             </a>
           )
         })}
-        <KeyTerms definitionsArray={covidDefinitionsArray} />
-
+        {/* <KeyTerms definitionsArray={covidDefinitionsArray} /> */}
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'COVID-19 Key Terms',
+          }}
+          methodologyTableDefinitions={covidDefinitionsArray}
+        />
         <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
           COVID-19
         </h3>

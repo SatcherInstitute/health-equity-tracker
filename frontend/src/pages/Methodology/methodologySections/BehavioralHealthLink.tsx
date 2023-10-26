@@ -18,12 +18,29 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { behavioralHealthDefinitionsArray } from '../methodologyContent/BehavioralHealthDefinitions'
 import KeyTerms from '../methodologyComponents/KeyTerms'
+import DataTable from '../methodologyComponents/DataTable'
+import { conditionVariableDefinitions } from '../methodologyContent/ConditionVariableDefinitions'
 
 const BehavioralHealthLink: React.FC = () => {
   return (
     <section>
       <article>
-        <KeyTerms definitionsArray={behavioralHealthDefinitionsArray} />
+        {/* <KeyTerms definitionsArray={behavioralHealthDefinitionsArray} /> */}
+        {/* <DataTable
+          headers={{
+            topic: '',
+            definition: 'Behavioral Health Terms',
+          }}
+          methodologyTableDefinitions={[behavioralHealthDefinitionsArray]}
+        /> */}
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'Behavioral Health Key Terms',
+          }}
+          methodologyTableDefinitions={behavioralHealthDefinitionsArray}
+        />
+
         {/* <Grid item xs={12}>
           <Paper>
             <Table className={styles.DataTable}>

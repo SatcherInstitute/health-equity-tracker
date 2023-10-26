@@ -224,7 +224,7 @@ const AgeAdjustmentLink = () => {
               <p>
                 <b>
                   For each race/age combination, calculate the
-                  {ageSpecificRateTooltip}
+                  {ageSpecificRateTooltip}:
                 </b>
               </p>
               <CodeBlock
@@ -283,8 +283,8 @@ const AgeAdjustmentLink = () => {
               <p>
                 <b>
                   Calculate the
-                  {expectedConditionCountsTooltip}
-                  for each race/age combination:
+                  {expectedConditionCountsTooltip} for each race/age
+                  combination:
                 </b>
               </p>
               <p>
@@ -1023,16 +1023,13 @@ const AgeAdjustmentLink = () => {
         </div>
 
         <Button
-          className={styles.TextButton}
+          className={styles.LearnMoreLink}
           variant="text"
           color="primary"
           href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
           id="#age-adjustment-explore"
         >
-          <>
-            <span>Explore age-adjusted ratios</span>
-            <ArrowForward />
-          </>
+          <span>Explore age-adjusted ratios</span>
         </Button>
       </article>
     </section>

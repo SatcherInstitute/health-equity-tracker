@@ -37,7 +37,7 @@ export const links: LinkItem[] = [
   { index: 0, to: METHODOLOGY_PAGE_LINK, primary: 'Methodology' },
   { index: 1, to: AGE_ADJUSTMENT_LINK, primary: 'Age-Adjustment' },
   { index: 2, to: SOURCES_LINK, primary: 'Source Acquisition' },
-  { index: 3, to: TOPICS_LINK, primary: 'Topic Definitions and Limitations' },
+  { index: 3, to: TOPICS_LINK, primary: 'Variables and Limitations' },
   {
     index: 4,
     to: BEHAVIORAL_HEALTH_LINK,

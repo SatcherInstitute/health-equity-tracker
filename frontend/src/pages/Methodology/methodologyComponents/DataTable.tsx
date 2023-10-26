@@ -11,6 +11,8 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { Link } from 'react-router-dom'
+import { Button } from '@mui/material'
+import { ArrowForward } from '@mui/icons-material'
 
 const useStyles = makeStyles({
   stickyHeader: {
@@ -105,10 +107,8 @@ const DataTable: React.FC<DataTableProps> = ({
         <Paper elevation={3}>
           <Table className={styles.DataTable}>
             <TableHead>
-              <TableRow>
-                <TableCell>{headers.topic}</TableCell>
-                <TableCell>{headers.definition}</TableCell>
-              </TableRow>
+              <TableCell>{headers.topic}</TableCell>
+              <TableCell>{headers.definition}</TableCell>
             </TableHead>
             <TableBody>
               {methodologyTableDefinitions.map((item, index) => (
@@ -119,11 +119,7 @@ const DataTable: React.FC<DataTableProps> = ({
                       scope="row"
                       className={classes.stickyHeader}
                     >
-                      {item.path ? (
-                        <Link to={item.path}>{item.topic}</Link>
-                      ) : (
-                        item.topic
-                      )}
+                      {item.topic}
                     </TableCell>
                     <TableCell>
                       <Grid container spacing={2}>
@@ -133,6 +129,16 @@ const DataTable: React.FC<DataTableProps> = ({
                             {parseDescription(definition.description)}
                           </Grid>
                         ))}
+                        {item.path ? (
+                          <Grid item xs={12}>
+                            <Link
+                              className={styles.LearnMoreLink}
+                              to={item.path}
+                            >
+                              <span>Learn more about {item.topic}</span>
+                            </Link>
+                          </Grid>
+                        ) : null}
                       </Grid>
                     </TableCell>
                   </TableRow>

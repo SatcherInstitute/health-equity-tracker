@@ -6,12 +6,20 @@ import {
 } from '../methodologyContent/missingDataBlurbs'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { hivDefinitionsArray } from '../methodologyContent/HIVDefinitions'
+import DataTable from '../methodologyComponents/DataTable'
 
 const HivLink = () => {
   return (
     <section>
       <article>
-        <KeyTerms definitionsArray={hivDefinitionsArray} />
+        {/* <KeyTerms definitionsArray={hivDefinitionsArray} /> */}
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'HIV Key Terms',
+          }}
+          methodologyTableDefinitions={hivDefinitionsArray}
+        />
         {/* <p id="hiv_black_women"> */}
 
         <p id="#hiv">

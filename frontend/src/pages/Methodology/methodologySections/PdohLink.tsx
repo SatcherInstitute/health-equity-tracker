@@ -9,12 +9,20 @@ import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
 import { urlMap } from '../../../utils/externalUrls'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { pdohDefinitionsArray } from '../methodologyContent/PdohDefinitions'
+import DataTable from '../methodologyComponents/DataTable'
 
 const PdohLink = () => {
   return (
     <section>
       <article>
-        <KeyTerms definitionsArray={pdohDefinitionsArray} />
+        {/* <KeyTerms definitionsArray={pdohDefinitionsArray} /> */}
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'PDOH Key Terms',
+          }}
+          methodologyTableDefinitions={pdohDefinitionsArray}
+        />
         <h3 id="#incarceration" className={styles.MethodologySubsubheaderText}>
           Incarceration
         </h3>

@@ -3,12 +3,20 @@ import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { urlMap } from '../../../utils/externalUrls'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { chronicDiseaseDefinitionsArray } from '../methodologyContent/ChronicDiseaseDefinitions'
+import DataTable from '../methodologyComponents/DataTable'
 
 const ChronicDiseaseLink = () => {
   return (
     <section>
       <article>
-        <KeyTerms definitionsArray={chronicDiseaseDefinitionsArray} />
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'Chronic Diseases Key Terms',
+          }}
+          methodologyTableDefinitions={chronicDiseaseDefinitionsArray}
+        />
+        {/* <KeyTerms definitionsArray={chronicDiseaseDefinitionsArray} /> */}
         <h3 className={styles.MethodologySubsubheaderText}>
           America’s Health Rankings
         </h3>

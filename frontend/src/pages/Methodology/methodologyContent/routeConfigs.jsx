@@ -222,7 +222,7 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Topics and Limitations',
+    label: 'Variables and Limitations',
     path: TOPICS_LINK,
     component: TopicsLink,
     subLinks: [],

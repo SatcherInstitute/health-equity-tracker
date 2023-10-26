@@ -46,6 +46,7 @@ html {
   font-size: $smallestHeader;
   text-align: left;
   color: $alt-black;
+  margin-top: 0;
 }
 
 .ArticleContainer h4 {
@@ -70,6 +71,18 @@ li {
 
 .Calculation {
   margin: 0 auto;
+}
+
+.LearnMoreLink {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--0-b-5240, #0b5240);
+  text-decoration: none;
+}
+
+.LearnMoreLink::after {
+  content: '→';
 }
 
 .TextButton {
@@ -334,7 +347,9 @@ li {
   padding: 1% auto;
 }
 
-.DataTable th {
+.DataTable th,
+thead,
+tr {
   color: var(--0-b-5240, #0b5240);
   font-family: DM Sans;
   font-size: 1.2rem;
@@ -344,6 +359,7 @@ li {
   position: sticky;
   top: 0;
   z-index: 1000;
+  line-height: 1.1rem;
 }
 
 .KeyTerms {
@@ -456,10 +472,17 @@ td {
 }
 
 .Tooltip p {
-  font-weight: bold !important;
+  // font-weight: bold !important;
+  font-size: normal;
   margin: 0 0.1rem 0 0.2rem;
+  text-decoration: underline;
+  text-decoration-style: dotted;
   cursor: help;
 }
+
+// .Tooltip::after {
+//   content: 'ⓘ';
+// }
 
 .ExampleDiv {
   padding-inline-start: 40px;

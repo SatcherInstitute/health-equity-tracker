@@ -2,7 +2,16 @@ import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
 import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
 
-export const behavioralHealthDefinitionsArray = [
+interface DataItem {
+  topic: string
+  definitions: Array<{
+    key: string
+    description: string
+  }>
+  path: string
+}
+
+export const behavioralHealthDefinitionsArray: DataItem[] = [
   {
     topic: 'Depression',
     path: '',

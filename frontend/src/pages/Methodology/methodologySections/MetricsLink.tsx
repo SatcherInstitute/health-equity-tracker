@@ -4,12 +4,20 @@ import styles from '../methodologyComponents/MethodologyPage.module.scss'
 
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
+import DataTable from '../methodologyComponents/DataTable'
 
 const MetricsLink = () => {
   return (
     <section>
       <article>
-        <KeyTerms definitionsArray={metricDefinitionsArray} />
+        {/* <KeyTerms definitionsArray={metricDefinitionsArray} /> */}
+        <DataTable
+          headers={{
+            topic: '',
+            definition: 'COVID-19 Key Terms',
+          }}
+          methodologyTableDefinitions={metricDefinitionsArray}
+        />
         <Alert severity="info" role="note">
           In the definitions below, we use <strong>COVID-19 cases</strong> as
           the variable, and <strong>race and ethnicity</strong> as the
