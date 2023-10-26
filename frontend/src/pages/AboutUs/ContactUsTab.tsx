@@ -1,7 +1,7 @@
 import styles from './AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import { urlMap } from '../../utils/externalUrls'
-import { Button, TextField, Typography, Grid } from '@mui/material'
+import { Button, TextField, Grid } from '@mui/material'
 import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
@@ -14,7 +14,7 @@ function ContactUsTab() {
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Contact Us</h2>
+      <h2 className="sr-only">Contact Us</h2>
       <Grid container className={styles.Grid} maxWidth={'md'}>
         <Grid
           container
@@ -24,24 +24,24 @@ function ContactUsTab() {
           alignItems="center"
         >
           <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
-            <Typography
+            <h2
               id="main"
-              className={styles.ContactUsHeaderText}
-              variant="h2"
+              className="font-serif
+              text-biggerHeader
+              font-light
+              text-alt-green"
             >
-              <span className={styles.MoveEquityForward}>
-                Let's move
-                <br aria-hidden="true" />
-                equity <b style={{ fontWeight: 400 }}>forward</b>
-              </span>
-            </Typography>
+              Let's move
+              <br aria-hidden="true" />
+              equity <i className="font-normal">forward</i>
+            </h2>
           </Grid>
           <Grid item md={7} className={styles.HeaderImgItem}>
             <img
               width="870"
               height="644"
               src="/img/stock/women-laughing-in-line.png"
-              className={styles.ImgContactUsHeader}
+              className="max-h-lg m-5 h-auto w-full rounded-3xl border-border-color md:border-l-2"
               alt=""
             />
           </Grid>
@@ -54,13 +54,14 @@ function ContactUsTab() {
           alignItems="center"
         >
           <Grid item xs={12} sm={12} md={8} lg={6}>
-            <Typography
-              className={styles.ContactUsSubheaderText}
-              variant="h4"
-              paragraph={true}
+            <h4
+              className="font-serif
+                            text-header
+                            font-light
+                            text-alt-green"
             >
               Thank you for your interest in the Health Equity Tracker
-            </Typography>
+            </h4>
           </Grid>
           <Grid item xs={12} sm={12} md={7}>
             <p className={styles.ContactUsP}>
