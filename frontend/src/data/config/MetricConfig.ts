@@ -182,6 +182,7 @@ export interface DataTypeConfig {
   dataTableTitle?: string
   mapConfig?: MapConfig
   categoryId?: CategoryTypeId
+  higherIsBetter?: boolean
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

@@ -30,6 +30,7 @@ interface TerritoryCirclesProps {
   scaleConfig?: { domain: number[]; range: number[] }
   isMulti?: boolean
   isPhrmaAdherence?: boolean
+  higherIsBetter?: boolean
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
@@ -72,6 +73,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               isMulti={props.isMulti}
               highestLowestGeosMode={props.highestLowestGeosMode}
               isPhrmaAdherence={props.isPhrmaAdherence}
+              higherIsBetter={props.higherIsBetter}
             />
             <figcaption className={styles.TerritoryLabel}>
               {postalCode}

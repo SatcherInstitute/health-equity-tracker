@@ -560,6 +560,7 @@ function MapCardWithKey(props: MapCardProps) {
                         mapConfig={{ mapScheme, mapMin }}
                         scaleConfig={scale}
                         isPhrmaAdherence={isPhrmaAdherence}
+                        higherIsBetter={props.dataTypeConfig.higherIsBetter}
                       />
                     </Grid>
 
@@ -580,6 +581,7 @@ function MapCardWithKey(props: MapCardProps) {
                           signalListeners={signalListeners}
                           scaleConfig={scale}
                           isPhrmaAdherence={isPhrmaAdherence}
+                          higherIsBetter={props.dataTypeConfig.higherIsBetter}
                         />
                       </Grid>
                     )}

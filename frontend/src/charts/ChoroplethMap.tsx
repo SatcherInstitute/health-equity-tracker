@@ -110,6 +110,7 @@ interface ChoroplethMapProps {
   highestLowestGroupsByFips?: Record<string, HighestLowest>
   activeDemographicGroup: DemographicGroup
   isPhrmaAdherence?: boolean
+  higherIsBetter?: boolean
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
@@ -339,7 +340,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
           : RATE_MAP_SCALE,
         /* fieldRange? */ props.fieldRange,
         /* scaleColorScheme? */ props.mapConfig.mapScheme,
-        /* isTerritoryCircle? */ props.fips.isTerritory()
+        /* isTerritoryCircle? */ props.fips.isTerritory(),
+        /* higherIsBetter? */ props.higherIsBetter
       )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {

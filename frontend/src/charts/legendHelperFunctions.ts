@@ -39,7 +39,8 @@ export function setupNonZeroDiscreteLegend(
   legendBucketLabel: string,
   isPct: boolean,
   stackingDirection: StackingDirection,
-  columns: number
+  columns: number,
+  higherIsBetter?: boolean
 ): Legend {
   return {
     fill: COLOR_SCALE,
@@ -93,7 +94,8 @@ export function setupStandardColorScaleSpec(
   metricId: MetricId,
   mapScheme: string,
   legendColorCount: number,
-  isSummaryLegend?: boolean
+  isSummaryLegend?: boolean,
+  higherIsBetter?: boolean
 ) {
   const standardColorScaleSpec = {
     name: COLOR_SCALE,
@@ -106,6 +108,7 @@ export function setupStandardColorScaleSpec(
       scheme: mapScheme,
       count: isSummaryLegend ? 1 : legendColorCount,
     },
+    reverse: !higherIsBetter,
   }
   return standardColorScaleSpec
 }

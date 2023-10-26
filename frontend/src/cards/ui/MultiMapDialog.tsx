@@ -268,6 +268,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         isMulti={true}
                         scaleConfig={scale}
                         highestLowestGeosMode={false}
+                        higherIsBetter={props.dataTypeConfig.higherIsBetter}
                       />
                     )}
                   </Grid>

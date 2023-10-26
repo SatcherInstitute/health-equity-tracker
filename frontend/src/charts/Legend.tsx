@@ -89,6 +89,8 @@ export function Legend(props: LegendProps) {
   const hasMissingData = Boolean(missingData && missingData.length > 0)
   const hasZeroData = Boolean(zeroData && zeroData.length > 0)
 
+  const higherIsBetter = props.dataTypeConfig.higherIsBetter
+
   // Initial spec state is set in useEffect
   // TODO: Why??
   const [spec, setSpec] = useState<VisualizationSpec | null>(null)
@@ -165,7 +167,8 @@ export function Legend(props: LegendProps) {
           props.metric.metricId,
           props.mapConfig.mapScheme,
           legendColorCount,
-          props.isSummaryLegend
+          props.isSummaryLegend,
+          higherIsBetter
         )
 
     const dotSizeScale = props.isPhrmaAdherence
