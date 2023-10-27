@@ -95,7 +95,7 @@ export function setupStandardColorScaleSpec(
   mapScheme: string,
   legendColorCount: number,
   isSummaryLegend?: boolean,
-  higherIsBetter?: boolean
+  reverse?: boolean
 ) {
   const standardColorScaleSpec = {
     name: COLOR_SCALE,
@@ -108,7 +108,7 @@ export function setupStandardColorScaleSpec(
       scheme: mapScheme,
       count: isSummaryLegend ? 1 : legendColorCount,
     },
-    reverse: !higherIsBetter,
+    reverse,
   }
   return standardColorScaleSpec
 }

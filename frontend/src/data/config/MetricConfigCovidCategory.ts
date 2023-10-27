@@ -201,6 +201,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_vaccinations',
+    higherIsBetter: true,
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',
     definition: {

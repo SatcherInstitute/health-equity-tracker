@@ -341,7 +341,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* fieldRange? */ props.fieldRange,
         /* scaleColorScheme? */ props.mapConfig.mapScheme,
         /* isTerritoryCircle? */ props.fips.isTerritory(),
-        /* higherIsBetter? */ props.higherIsBetter
+        /* reverse? */ (props.isPhrmaAdherence && !props.higherIsBetter) ??
+          props.higherIsBetter
       )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {

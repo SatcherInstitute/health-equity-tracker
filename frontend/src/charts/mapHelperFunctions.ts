@@ -321,11 +321,9 @@ export function setupColorScale(
   fieldRange?: FieldRange,
   scaleColorScheme?: string,
   isTerritoryCircle?: boolean,
-  higherIsBetter?: boolean
+  reverse?: boolean
 ) {
-  console.log({ higherIsBetter })
   const legendColorCount = calculateLegendColorCount(legendData, metricId)
-
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
@@ -338,7 +336,7 @@ export function setupColorScale(
       scheme: scaleColorScheme ?? MAP_SCHEMES.default,
       count: legendColorCount,
     },
-    reverse: !higherIsBetter,
+    reverse,
   }
   if (fieldRange) {
     colorScale.domainMax = fieldRange.max

@@ -168,7 +168,7 @@ export function Legend(props: LegendProps) {
           props.mapConfig.mapScheme,
           legendColorCount,
           props.isSummaryLegend,
-          higherIsBetter
+          /* reverse?: boolean */ higherIsBetter
         )
 
     const dotSizeScale = props.isPhrmaAdherence
