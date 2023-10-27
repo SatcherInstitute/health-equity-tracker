@@ -3,14 +3,7 @@ import styles from './NewsPage.module.scss'
 
 export default function ShareYourStory() {
   return (
-    <Grid
-      sx={{ textAlign: 'start' }}
-      width={'100%'}
-      container
-      alignItems={'center'}
-      justifyContent={'center'}
-      direction={'column'}
-    >
+    <div className="flex w-full items-center justify-center text-start">
       <Grid maxWidth={'md'}>
         <Grid padding={'6rem 4rem 1rem 4rem'}>
           <Typography
@@ -149,6 +142,6 @@ export default function ShareYourStory() {
           </Button>
         </Grid>
       </Grid>
-    </Grid>
+    </div>
   )
 }
