@@ -1,4 +1,3 @@
-import styles from './AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import {
@@ -68,7 +67,7 @@ function OurTeamTab() {
             Former SHLI Contributors
           </h3>
 
-          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <ul className="grid list-none grid-cols-1 justify-between gap-5 md:grid-cols-2 lg:grid-cols-3">
             {HET_ALUMNI.map((leader) => {
               return (
                 <li key={leader.name}>
@@ -84,13 +83,12 @@ function OurTeamTab() {
           <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
             Google.org Fellows
           </h3>
-          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5">
+          <ul className="grid list-none grid-cols-2 justify-between gap-5 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5">
             {GOOGLE_FELLOWS.map((fellow) => {
               return (
                 <li key={fellow.name}>
                   {fellow.link && (
                     <a
-                      className={styles.MemberName}
                       href={fellow.link}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -111,11 +109,9 @@ function OurTeamTab() {
           <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
             Health Equity Task Force
           </h3>
-          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <ul className="grid list-none grid-cols-2 justify-between gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
             {HE_TASKFORCE.map((taskforceName) => (
-              <li key={taskforceName}>
-                <span className={styles.MemberName}>{taskforceName}</span>
-              </li>
+              <li key={taskforceName}>{taskforceName}</li>
             ))}
           </ul>
         </section>
