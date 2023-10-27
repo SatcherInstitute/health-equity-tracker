@@ -15,15 +15,9 @@ function ContactUsTab() {
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className="sr-only">Contact Us</h2>
-      <Grid container className={styles.Grid} maxWidth={'md'}>
-        <Grid
-          container
-          className={styles.GridOutlinedImgRow}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Grid item md={5} className={styles.GridVerticallyAlignedItem}>
+      <div className=" flex w-full flex-col ">
+        <div className="hidden w-full border-2 border-l-0 border-r-0 border-t-0 border-solid border-border-color md:flex">
+          <div className="grid w-full place-content-center md:w-5/12">
             <h2
               id="main"
               className="font-serif
@@ -35,17 +29,17 @@ function ContactUsTab() {
               <br aria-hidden="true" />
               equity <i className="font-normal">forward</i>
             </h2>
-          </Grid>
-          <Grid item md={7} className={styles.HeaderImgItem}>
+          </div>
+          <div className="w-full border-2 border-b-0 border-r-0 border-t-0 border-solid border-border-color  md:w-7/12">
             <img
               width="870"
               height="644"
               src="/img/stock/women-laughing-in-line.png"
-              className="max-h-lg m-5 h-auto w-full rounded-3xl border-border-color md:border-l-2"
+              className="m-10 h-auto w-full max-w-xl rounded-3xl"
               alt=""
             />
-          </Grid>
-        </Grid>
+          </div>
+        </div>
 
         <Grid
           container
@@ -142,7 +136,7 @@ function ContactUsTab() {
             </p>
           </Grid>
         </Grid>
-      </Grid>
+      </div>
     </>
   )
 }
