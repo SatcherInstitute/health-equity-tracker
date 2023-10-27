@@ -1,5 +1,3 @@
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 import styles from './AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
@@ -14,254 +12,157 @@ import {
 
 function OurTeamTab() {
   return (
-    <>
+    <div className="flex justify-center">
       <Helmet>
         <title>Our Team - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Our Team</h2>
-      <Grid container className={styles.Grid}>
-        <Grid container className={styles.GridRowHeaderText}>
-          <Grid item xs={12} sm={8} md={6} lg={10} xl={8}>
-            <Typography
+      <h2 className="sr-only">Our Team</h2>
+      <div className="flex w-full max-w-xl flex-col p-10">
+        <div className="flex w-full justify-center">
+          <div className="w-full justify-center sm:w-10/12 md:w-6/12 xl:w-8/12">
+            <h3
               id="main"
-              className={styles.OurTeamHeaderText}
-              align="left"
-              variant="h2"
-              component="h3"
+              className="mb-0
+            py-0
+            font-serif
+            text-biggerHeader
+            font-light
+            leading-lhSomeSpace
+            text-alt-green
+            "
             >
               We're working towards a better tomorrow.
-            </Typography>
-            <Typography
-              className={styles.HeaderSubtext}
-              variant="subtitle1"
-              component="p"
-            >
+            </h3>
+            <p className="pb-2 text-left font-sansText text-title font-light leading-lhLoose xl:text-center">
               We strongly support breaking down systemic barriers in order to
               achieve a more healthy, equitable, and inclusive society.
-            </Typography>
-          </Grid>
-        </Grid>
+            </p>
+          </div>
+        </div>
 
-        <Grid container className={styles.GridRow} component={'section'}>
-          <Grid item xs={12}>
-            <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Leadership Team
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Grid
-              container
-              justifyContent="space-around"
-              className={styles.GridSubRow}
-              component="ul"
-            >
-              {LEADERSHIP_TEAM.map((leader) => {
-                return (
-                  <Grid
-                    key={leader.name}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={3}
-                    className={styles.TextProfile}
-                    component="li"
-                  >
-                    <LazyLoad offset={300} height={181} once>
-                      <img
-                        src={leader.imageUrl}
-                        alt=""
-                        className={styles.ProfileImg}
-                      />
-                    </LazyLoad>
+        <section className="flex flex-col">
+          <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
+            Leadership Team
+          </h3>
+          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {LEADERSHIP_TEAM.map((leader) => {
+              return (
+                <li key={leader.name}>
+                  <LazyLoad offset={300} height={181} once>
+                    <img
+                      src={leader.imageUrl}
+                      alt=""
+                      className="max-w-teamHeadshot rounded-md"
+                    />
+                  </LazyLoad>
+                  <div className="font-medium">{leader.name}</div>
+                  <div className="text-small font-normal">{leader.role}</div>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
 
-                    <div className={styles.MemberName}>{leader.name}</div>
-                    <div className={styles.MemberRole}>{leader.role}</div>
-                  </Grid>
-                )
-              })}
-            </Grid>
-          </Grid>
-        </Grid>
+        <section className="flex flex-col">
+          <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
+            Former SHLI Contributors
+          </h3>
 
-        <Grid container className={styles.GridRow} component={'section'}>
-          <Grid item xs={12}>
-            <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Former SHLI Contributors
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Grid
-              container
-              justifyContent="space-around"
-              className={styles.GridSubRow}
-              component="ul"
-            >
-              {HET_ALUMNI.map((leader) => {
-                return (
-                  <Grid
-                    key={leader.name}
-                    item
-                    xs={12}
-                    sm={6}
-                    md={3}
-                    className={styles.TextProfile}
-                    component="li"
-                  >
-                    <div className={styles.MemberName}>{leader.name}</div>
-                    <div className={styles.MemberRole}>{leader.role}</div>
-                  </Grid>
-                )
-              })}
-            </Grid>
-          </Grid>
-        </Grid>
+          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {HET_ALUMNI.map((leader) => {
+              return (
+                <li key={leader.name}>
+                  <div className="font-medium">{leader.name}</div>
+                  <div className="text-small font-normal">{leader.role}</div>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
 
-        <Grid container className={styles.GridRow} component={'section'}>
-          <Grid item xs={12}>
-            <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Google.org Fellows
-            </Typography>
-          </Grid>
-          <Grid item>
-            <Grid
-              container
-              justifyContent="space-around"
-              className={styles.GridSubRow}
-              component="ul"
-            >
-              {GOOGLE_FELLOWS.map((fellow) => {
-                return (
-                  <Grid
-                    item
-                    className={styles.TextProfile}
-                    key={fellow.name}
-                    component="li"
-                  >
-                    {fellow.link && (
-                      <a
-                        className={styles.MemberName}
-                        href={fellow.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {fellow.text}
-                      </a>
-                    )}
+        <section className="flex flex-col">
+          <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
+            Google.org Fellows
+          </h3>
+          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5">
+            {GOOGLE_FELLOWS.map((fellow) => {
+              return (
+                <li key={fellow.name}>
+                  {fellow.link && (
+                    <a
+                      className={styles.MemberName}
+                      href={fellow.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {fellow.text}
+                    </a>
+                  )}
 
-                    <div className={styles.MemberName}>{fellow.name}</div>
-                    <div className={styles.MemberRole}>{fellow.role}</div>
-                  </Grid>
-                )
-              })}
-            </Grid>
-          </Grid>
-        </Grid>
+                  <div className="font-medium">{fellow.name}</div>
+                  <div className="text-small font-normal">{fellow.role}</div>
+                </li>
+              )
+            })}
+          </ul>
+        </section>
 
-        <Grid container className={styles.GridRow} component={'section'}>
-          <Grid item xs={12}>
-            <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Health Equity Task Force
-            </Typography>
-          </Grid>
+        <section className="flex flex-col">
+          <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
+            Health Equity Task Force
+          </h3>
+          <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {HE_TASKFORCE.map((taskforceName) => (
+              <li key={taskforceName}>
+                <span className={styles.MemberName}>{taskforceName}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-          <Grid item xs={12}>
-            <Grid
-              container
-              justifyContent="space-around"
-              className={styles.GridSubRow}
-              component="ul"
-            >
-              {HE_TASKFORCE.map((taskforceName) => (
-                <Grid
-                  item
-                  className={styles.TextProfile}
-                  key={taskforceName}
-                  component="li"
-                >
-                  <span className={styles.MemberName}>{taskforceName}</span>
-                </Grid>
-              ))}
-            </Grid>
-          </Grid>
-        </Grid>
+        <section className="flex flex-col">
+          <h3 className="border-[0] border-b-1 border-solid border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
+            Founding Partners
+          </h3>
 
-        <Grid container className={styles.GridRow} component={'section'}>
-          <Grid item xs={12}>
-            <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Founding Partners
-            </Typography>
-          </Grid>
           <LazyLoad offset={300} height={200} once>
-            <Grid
-              item
-              container
-              xs={12}
-              className={styles.GridSubRow}
-              component="ul"
-            >
+            <ul className="grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
               {PARTNERS.map((partner) => (
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  xl={2}
-                  container
-                  justifyContent="space-around"
-                  key={partner.url}
-                  component="li"
-                >
+                <li key={partner.url}>
                   <a href={partner.url}>
                     <img
                       src={partner.imageUrl}
                       alt={partner.alt}
-                      className={styles.PartnerImg}
+                      className="max-w-teamLogo"
                     />
                   </a>
-                </Grid>
+                </li>
               ))}
-            </Grid>
+            </ul>
           </LazyLoad>
-        </Grid>
+        </section>
 
-        <Grid container className={styles.GridRow} component={'section'}>
-          <Grid item xs={12}>
-            <Typography variant="h3" align="left" className={styles.TeamHeader}>
-              Grantors
-            </Typography>
-          </Grid>
-          <Grid
-            item
-            container
-            xs={12}
-            className={styles.GridSubRow}
-            component="ul"
-          >
+        <section className="flex flex-col">
+          <h3 className="border-[0] border-b-1 border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace">
+            Grantors
+          </h3>
+
+          <ul className="grid list-none grid-cols-3 justify-between gap-5  lg:grid-cols-6 ">
             {GRANTORS.map((grantor) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                xl={2}
-                container
-                justifyContent="space-around"
-                key={grantor.url}
-                component="li"
-              >
+              <li key={grantor.url}>
                 <a href={grantor.url}>
                   <img
                     src={grantor.imageUrl}
                     alt={grantor.alt}
-                    className={styles.GrantorImg}
+                    className="max-w-teamLogo"
                   />
                 </a>
-              </Grid>
+              </li>
             ))}
-          </Grid>
-        </Grid>
-      </Grid>
-    </>
+          </ul>
+        </section>
+      </div>
+    </div>
   )
 }
 export default OurTeamTab
