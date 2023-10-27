@@ -25,6 +25,41 @@ import {
   internalStandardPopulationTooltip,
   standardPopulationTooltip,
 } from '../methodologyContent/TooltipLibrary'
+import {
+  RESOURCES,
+  PDOH_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  AIAN_RESOURCES,
+  API_RESOURCES,
+  HISP_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  COVID_RESOURCES,
+  COVID_VACCINATION_RESOURCES,
+  ECONOMIC_EQUITY_RESOURCES,
+  HIV_RESOURCES,
+} from '../../WhatIsHealthEquity/ResourcesData'
+import Resources from '../methodologyComponents/Resources'
+import DataTable from '../methodologyComponents/DataTable'
+
+const AGE_ADJUSTED_RESOURCES = [
+  {
+    heading: 'Age-Adjustment Resources',
+    resources: [
+      {
+        name: 'County Population by Characteristics',
+        url: 'https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html',
+      },
+      {
+        name: 'CDC Atlas data tables',
+        url: 'https://gis.cdc.gov/grasp/nchhstpatlas/tables.html',
+      },
+      {
+        name: 'CDC Case Surveillance Restricted Access Detailed Data',
+        url: 'https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t',
+      },
+    ],
+  },
+]
 
 const AgeAdjustmentLink = () => {
   return (
@@ -100,7 +135,13 @@ const AgeAdjustmentLink = () => {
             </a>
             .
           </p>
-
+          <DataTable
+            headers={{
+              topic: '',
+              definition: 'Age-Adjustment Key Terms',
+            }}
+            methodologyTableDefinitions={ageAdjustmentDefinitionsArray}
+          />
           <h3 id="#data-sourcing">Data Sourcing</h3>
           <p>
             In order to do an age-adjustment, we needed the following pieces of
@@ -1015,10 +1056,9 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
-          <KeyTerms
-            definitionsArray={ageAdjustmentDefinitionsArray}
-            id="#age-adjustment-terms"
+          <Resources
+            id="#age-adjustment-resources"
+            resourceGroups={AGE_ADJUSTED_RESOURCES}
           />
         </div>
 

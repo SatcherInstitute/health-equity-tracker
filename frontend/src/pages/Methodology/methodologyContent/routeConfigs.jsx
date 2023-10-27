@@ -52,7 +52,7 @@ export const routeConfigs = [
         label: 'Age-Adjustment Example: HIV Deaths',
         path: '#age-adjustment-examples',
       },
-      { label: 'Key Terms', path: '#age-adjustment-terms' },
+      { label: 'Resources', path: '#age-adjustment-resources' },
       { label: 'Explore Examples', path: '#age-adjustment-explore' },
     ],
   },
@@ -222,7 +222,7 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Variables and Limitations',
+    label: 'Categories and Limitations',
     path: TOPICS_LINK,
     component: TopicsLink,
     subLinks: [],
@@ -249,6 +249,55 @@ export const routeConfigs = [
     label: 'Glossary',
     path: GLOSSARY_LINK,
     component: GlossaryLink,
-    subLinks: [],
+    subLinks: [
+      {
+        label: 'Health Equity A-Z',
+        path: '#health-equity-terms',
+      },
+      {
+        label: 'Health Equity Resources',
+        path: '#health-equity-resources',
+      },
+      {
+        label: 'Equity Indices Resources',
+        path: '#equity-index-resources',
+      },
+      {
+        label: 'Economics of Health Equity Resources',
+        path: '#economic-equity-resources',
+      },
+      {
+        label: 'Mental and Behavioral Health Resources',
+        path: '#mental-health-resources',
+      },
+      {
+        label: 'COVID-19 Resources',
+        path: '#covid-resources',
+      },
+      {
+        label: 'COVID-19 Vaccination Resources',
+        path: '#covid-vaccination-resources',
+      },
+      {
+        label: 'HIV Resources',
+        path: '#hiv-resources',
+      },
+      {
+        label: 'American Indian and Alaska Native Resources',
+        path: '#aian-resources',
+      },
+      {
+        label: 'Asian, Native Hawaiian, and Pacific Islander Resources',
+        path: '#api-resources',
+      },
+      {
+        label: 'Latino and Hispanic Resources',
+        path: '#hisp-resources',
+      },
+      {
+        label: 'Social and Political Determinants of Health Resources',
+        path: '#pdoh-resources',
+      },
+    ],
   },
 ]

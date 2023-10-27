@@ -11,19 +11,6 @@ import {
 } from '@mui/material'
 
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import { InfoOutlined } from '@mui/icons-material'
-
-// interface DefinitionTooltipProps {
-//   topic: string
-//   definitionsGlossary: Array<{
-//     topic: string
-//     definitions: Array<{
-//       key: string
-//       description: string
-//     }>
-//   }>
-//   id?: string
-// }
 
 interface DefinitionTooltipProps {
   topic: string

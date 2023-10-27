@@ -1,64 +1,56 @@
 import { Helmet } from 'react-helmet-async'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import {
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  Grid,
-} from '@mui/material'
-import { Link } from 'react-router-dom'
+  RESOURCES,
+  PDOH_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  AIAN_RESOURCES,
+  API_RESOURCES,
+  HISP_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  COVID_RESOURCES,
+  COVID_VACCINATION_RESOURCES,
+  ECONOMIC_EQUITY_RESOURCES,
+  HIV_RESOURCES,
+} from '../../WhatIsHealthEquity/ResourcesData'
+import Resources from '../methodologyComponents/Resources'
+import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
 
-const GlossaryLink: React.FC = () => {
+function GlossaryLink() {
   return (
-    <section>
+    <section id="#health-equity-terms">
       <article>
         <Helmet>
           <title>Glossary - Health Equity Tracker</title>
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>Glossary</h2>
 
-        <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {/* <TableCell> */}
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Consequatur quaerat totam soluta eos ullam minima voluptates
-                tempore, aperiam ex fugit maiores numquam culpa error officia
-                magnam veniam voluptatibus maxime! Veritatis.
-                {/* </TableCell> */}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>
-                  <Link to={''}>link</Link>
-                </TableCell>
-                <TableCell>
-                  <Grid>body</Grid>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </Paper>
+        <GlossaryTerm topic={''} definitionItems={definitionsGlossary} />
 
-        {/* <div>
-          {definitionsGlossary.map((item, idx) => (
-            <div key={idx}>
-              <h3>{item.topic}</h3>
-              {item.definitions.map((definition, defIdx) => (
-                <div key={defIdx}>
-                  <h4>{definition.key}:</h4>
-                  <p>{parseDescription(definition.description)}</p>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div> */}
+        <Resources resourceGroups={[RESOURCES]} id="#health-equity-resources" />
+        <Resources
+          resourceGroups={[EQUITY_INDEX_RESOURCES]}
+          id="#equity-index-resources"
+        />
+        <Resources
+          resourceGroups={[ECONOMIC_EQUITY_RESOURCES]}
+          id="#economic-equity-resources"
+        />
+        <Resources
+          resourceGroups={[MENTAL_HEALTH_RESOURCES]}
+          id="#mental-health-resources"
+        />
+        <Resources resourceGroups={[COVID_RESOURCES]} id="#covid-resources" />
+        <Resources
+          resourceGroups={[COVID_VACCINATION_RESOURCES]}
+          id="#covid-vaccination-resources"
+        />
+        <Resources resourceGroups={[HIV_RESOURCES]} id="#hiv-resources" />
+        <Resources resourceGroups={[AIAN_RESOURCES]} id="#aian-resources" />
+        <Resources resourceGroups={[API_RESOURCES]} id="#api-resources" />
+        <Resources resourceGroups={[HISP_RESOURCES]} id="#hisp-resources" />
+        <Resources resourceGroups={[PDOH_RESOURCES]} id="#pdoh-resources" />
       </article>
     </section>
   )

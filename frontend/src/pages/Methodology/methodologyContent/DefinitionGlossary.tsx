@@ -1,6 +1,4 @@
-// topic casing needs to match exactly when using in <DefinitionTooltip/>
 export const definitionsGlossary = [
-  // AGE-ADJUSTMENT
   {
     topic: 'Age-adjusted ratios',
     path: '',
@@ -161,7 +159,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'excessive_drinking',
+    topic: 'Excessive drinking',
     path: '',
     definitions: [
       {
@@ -172,7 +170,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'frequent_mental_distress',
+    topic: 'Frequent mental distress',
     path: '',
     definitions: [
       {
@@ -183,7 +181,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'non_medical_drug_use and substance',
+    topic: 'Non-medical drug use and substance abuse',
     path: '',
     definitions: [
       {
@@ -194,7 +192,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'suicide',
+    topic: 'Suicide',
     path: '',
     definitions: [
       {
@@ -207,7 +205,7 @@ export const definitionsGlossary = [
 
   // CHRONIC DISEASES
   {
-    topic: 'asthma',
+    topic: 'Asthma',
     path: '',
     definitions: [
       {
@@ -218,7 +216,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'cardiovascular_diseases',
+    topic: 'Cardiovascular Diseases',
     path: '',
     definitions: [
       {
@@ -229,7 +227,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'chronic_kidney_disease',
+    topic: 'Chronic Kidney Disease',
     path: '',
     definitions: [
       {
@@ -240,7 +238,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'copd',
+    topic: 'COPD (Chronic obstructive pulmonary disease)',
     path: '',
     definitions: [
       {
@@ -251,7 +249,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'diabetes',
+    topic: 'Diabetes',
     path: '',
     definitions: [
       {
@@ -266,7 +264,7 @@ export const definitionsGlossary = [
 
   // COVID-19
   {
-    topic: 'covid',
+    topic: 'COVID-19',
     path: '',
     definitions: [
       {
@@ -277,7 +275,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'covid_vaccinations',
+    topic: 'COVID-19 Vaccinations',
     path: '',
     definitions: [
       {
@@ -290,7 +288,7 @@ export const definitionsGlossary = [
 
   // HIV
   {
-    topic: 'hiv',
+    topic: 'HIV (human immunodeficiency virus)',
     path: '',
     definitions: [
       {
@@ -301,7 +299,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'hiv_black_women',
+    topic: 'HIV in Black Women',
     path: '',
     definitions: [
       {
@@ -312,7 +310,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'hiv_care',
+    topic: 'HIV Linkage to Care',
     path: '',
     definitions: [
       {
@@ -323,7 +321,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'hiv_prep',
+    topic: 'HIV PrEP',
     path: '',
     definitions: [
       {
@@ -334,7 +332,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'hiv_stigma',
+    topic: 'HIV Stigma',
     path: '',
     definitions: [
       {
@@ -449,7 +447,7 @@ export const definitionsGlossary = [
   },
   // PDOH
   {
-    topic: 'incarceration',
+    topic: 'Incarceration',
     path: '',
     definitions: [
       {
@@ -460,7 +458,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'voter_participation',
+    topic: 'Voter Participation',
     path: '',
     definitions: [
       {
@@ -471,7 +469,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'women_in_gov',
+    topic: 'Women in government',
     path: '',
     definitions: [
       {
@@ -483,7 +481,7 @@ export const definitionsGlossary = [
   },
   // SDOH
   {
-    topic: 'avoided_care',
+    topic: 'Avoided Care',
     path: '',
     definitions: [
       {
@@ -494,7 +492,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'poverty',
+    topic: 'Poverty',
     path: '',
     definitions: [
       {
@@ -505,7 +503,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'health_insurance',
+    topic: 'Health insurance',
     path: '',
     definitions: [
       {
@@ -516,7 +514,7 @@ export const definitionsGlossary = [
     ],
   },
   {
-    topic: 'preventable_hospitalizations',
+    topic: 'Preventable Hospitalizations',
     path: '',
     definitions: [
       {

@@ -330,7 +330,7 @@ li {
 }
 
 .DataTable {
-  margin-top: 2rem;
+  margin: 2rem auto;
 }
 
 .DataTable td {
@@ -362,8 +362,86 @@ tr {
   line-height: 1.1rem;
 }
 
+.DataGrid .MuiDataGrid-cell {
+  overflow: visible !important;
+  white-space: pre-wrap !important;
+}
+
 .KeyTerms {
   margin-top: 1rem;
+}
+
+.GlossaryTermContainer {
+}
+
+.GlossaryTerm {
+  color: var(--0-b-5240, #0b5240);
+  font-family: DM Sans;
+  font-size: 1.5rem;
+  margin: 1% auto 0 auto;
+  font-weight: 500;
+}
+
+.GlossaryDefinition {
+  color: var(--383838, #383838);
+  font-size: 0.7rem !important;
+  margin: 1% auto 0 auto;
+}
+
+.Resources {
+  margin: 2rem auto;
+  border-top: var(--0-b-5240, #0b5240) 1px solid;
+}
+
+.Resources li {
+  font-size: $smallest;
+  list-style: none;
+  margin: 2% 0;
+}
+.Resources ul {
+  padding-inline-start: 0;
+  @media screen and (max-width: 1400px) {
+    margin: 0 2%;
+  }
+}
+
+.Resources h3 {
+  @include tav300();
+  font-size: $smallHeader !important;
+  margin: 1rem 0 0 0;
+  text-align: left;
+  @media screen and (max-width: 1400px) {
+    font-size: 0.5rem;
+    line-height: 1.6rem;
+  }
+}
+.ResourcesHeader h4 {
+  margin: 0.5rem 0 0 0;
+  width: 100%;
+}
+
+.ResourcesRow {
+  display: flex;
+  flex-direction: row;
+
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+  }
+}
+
+.ResourcesRow::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.ResourcesColumn {
+  float: left;
+  width: 50%;
+  padding: 0.5rem 0;
+  @media screen and (max-width: 1400px) {
+    width: 100%;
+  }
 }
 
 .AccordionHeader {
@@ -405,8 +483,8 @@ tr {
 // .TableContainer {
 .BorderTable {
   display: flex;
-
   border: 2px solid #fafafa;
+  background-color: #fafafa;
   border-radius: 1rem;
   margin: 2% auto;
   padding: 2%;
