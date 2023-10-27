@@ -163,6 +163,12 @@
 
 /** ------------- THE PROJECT ------------- **/
 
+.HeaderImgItem {
+  @media (min-width: $md) {
+    border-left: 1px solid $border-color;
+  }
+}
+
 // For each item in the "Where We Aim To Go" section
 .GoalList {
   display: flex;
@@ -271,69 +277,4 @@
 .GrantorImg {
   padding: 10px;
   max-width: 250px;
-}
-
-/** ------------- CONTACT US ------------- **/
-
-.MoveEquityForward {
-  display: none;
-
-  @media (min-width: $md) {
-    display: block;
-  }
-}
-
-.ContactUsHeaderText {
-  @include tav300();
-  font-size: $biggerHeader !important;
-  line-height: $lhNormal !important;
-  color: $alt-green;
-}
-
-.ContactUsSubheaderText {
-  @include tav300();
-  color: $alt-green;
-}
-
-.ImgContactUsHeader {
-  width: 100%;
-  height: auto;
-  max-width: 870px;
-  max-height: 645px;
-}
-
-.HeaderImgItem {
-  @media (min-width: $md) {
-    border-left: 1px solid $border-color;
-  }
-}
-
-.ImgContactUsHeader {
-  border-radius: 30px;
-  height: auto;
-  max-height: $header-height;
-  width: 100%;
-  max-width: 700px;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-}
-
-.ContactUsP {
-  margin-top: 2rem;
-}
-
-.EmailTextField {
-  line-height: $lhSuperLoose;
-  height: $lhSuperLoose;
-
-  input,
-  button {
-    padding: 10px 1rem 10px 1rem !important;
-  }
-}
-
-.EmailAddressFormSubmit {
-  line-height: $lhSuperLoose;
-  min-height: $lhSuperLoose;
 }
