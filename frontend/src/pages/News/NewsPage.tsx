@@ -73,9 +73,9 @@ export default function NewsPage(props: NewsPageProps) {
   }, [pageIsWide])
 
   return (
-    <div className="flex">
-      <div className="m-auto max-w-1440">
-        <div className="flex flex-col items-center">
+    <section>
+      <div className="text-sansText m-auto flex	max-w-1440 font-light">
+        <div className="flex-col">
           <Route path="/">
             <Tabs
               {...tabLayout}
@@ -112,6 +112,6 @@ export default function NewsPage(props: NewsPageProps) {
           </Switch>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

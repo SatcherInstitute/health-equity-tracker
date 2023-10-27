@@ -62,6 +62,12 @@ export default {
         maxWidth: {
           '1440': '1440px',
         },
+        maxHeight: {
+          '100': '100px',
+        }, 
+        borderRadius: {
+          '10': '10%'
+        }
       }
       // extend: {
       //   spacing: {

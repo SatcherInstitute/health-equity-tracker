@@ -16,12 +16,11 @@ interface ArticleFiltersProps {
 
 export default function ArticleFilters(props: ArticleFiltersProps) {
   return (
-    <div className="flex h-auto w-11/12	flex-col	flex-nowrap items-start">
+    <div className="flex h-auto w-11/12	flex-col flex-nowrap items-start">
       {/* FILTER BOX HEADING */}
       <h2 className="my-0 font-serif text-smallestHeader font-light capitalize leading-10 text-alt-green">
         {filterHeaderMap[props.filterType]}
       </h2>
-
       {/* LIST OF LINKED FILTERS (IF ANY) */}
       <ul className="font-text mb-20	w-full list-none ps-4 text-start">
         {props.filterOptions.length > 0 &&

@@ -35,7 +35,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
                 article?._embedded?.['wp:featuredmedia']?.[0]?.media_details
                   ?.sizes?.medium?.source_url || AppbarLogo
               }
-              className="max-h-[100px] w-auto rounded-[10%]"
+              className="max-h-100 w-auto rounded-10"
               alt=""
             />
           </LazyLoad>
