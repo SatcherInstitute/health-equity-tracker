@@ -163,6 +163,12 @@
 
 /** ------------- THE PROJECT ------------- **/
 
+.HeaderImgItem {
+  @media (min-width: $md) {
+    border-left: 1px solid $border-color;
+  }
+}
+
 // For each item in the "Where We Aim To Go" section
 .GoalList {
   display: flex;
@@ -271,12 +277,4 @@
 .GrantorImg {
   padding: 10px;
   max-width: 250px;
-}
-
-/** ------------- CONTACT US ------------- **/
-
-.HeaderImgItem {
-  @media (min-width: $md) {
-    border-left: 1px solid $border-color;
-  }
 }
