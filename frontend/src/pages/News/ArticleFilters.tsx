@@ -1,7 +1,5 @@
-import { Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
-import styles from './NewsPage.module.scss'
 
 type FilterType = 'author' | 'category'
 
@@ -18,21 +16,21 @@ interface ArticleFiltersProps {
 
 export default function ArticleFilters(props: ArticleFiltersProps) {
   return (
-    <div className={styles.FilterListBox}>
+    <div className="flex h-auto w-11/12	flex-col	flex-nowrap items-start">
       {/* FILTER BOX HEADING */}
-      <Typography className={styles.FilterListHeader} variant="h2">
+      <h2 className="my-0 font-serif text-smallestHeader font-light capitalize leading-10 text-alt-green">
         {filterHeaderMap[props.filterType]}
-      </Typography>
+      </h2>
 
       {/* LIST OF LINKED FILTERS (IF ANY) */}
-      <ul className={styles.FilterList}>
+      <ul className="font-text mb-20	w-full list-none ps-4 text-start">
         {props.filterOptions.length > 0 &&
           props.filterOptions.map((filter) => {
             return (
               <li key={filter}>
                 <Link
                   to={`${NEWS_PAGE_LINK}?${props.filterType}=${filter}`}
-                  className={styles.FilterListLink}
+                  className="text-alt-black no-underline"
                 >
                   {filter}
                 </Link>
@@ -41,7 +39,7 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
           })}
         {/* ALWAYS DISPLAY ALL POSTS LINK */}
         <li>
-          <Link to={NEWS_PAGE_LINK} className={styles.FilterListLink}>
+          <Link to={NEWS_PAGE_LINK} className="text-alt-black no-underline">
             All Posts
           </Link>
         </li>

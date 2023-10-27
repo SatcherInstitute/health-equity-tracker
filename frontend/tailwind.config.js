@@ -28,6 +28,9 @@ export default {
       'gray-dark': '#273444',
       'gray': '#8492a6',
       'gray-light': '#d3dce6',
+      'alt-green': '#0b5240',
+      'alt-black':'#383838',
+      'border-color': '#3e3e3e'
     },
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
@@ -54,6 +57,11 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
+      },
+      extend: {
+        maxWidth: {
+          '1440': '1440px',
+        },
       }
       // extend: {
       //   spacing: {
