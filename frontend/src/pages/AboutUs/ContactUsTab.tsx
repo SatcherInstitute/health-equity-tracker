@@ -42,7 +42,7 @@ function ContactUsTab() {
 
         <div className="flex w-full flex-col items-center px-12 md:w-8/12 lg:w-6/12">
           <div className="grid  w-full place-content-center">
-            <h4
+            <h3
               className="px-18
               mb-0
                 py-6
@@ -54,12 +54,12 @@ function ContactUsTab() {
                 md:py-12"
             >
               Thank you for your interest in the Health Equity Tracker
-            </h4>
+            </h3>
           </div>
           <div className="w-full md:w-7/12">
-            <h5 className="mb-2 mt-8 text-text font-bold">
+            <h4 className="mb-2 mt-8 text-text font-bold">
               Join our mailing list:
-            </h5>
+            </h4>
             <div>
               <form
                 action={urlMap.newsletterSignup}
@@ -86,9 +86,9 @@ function ContactUsTab() {
               </form>
             </div>
 
-            <h5 className="mb-0 mt-8 text-text font-bold">
+            <h4 className="mb-0 mt-8 text-text font-bold">
               For general requests and media inquiries:
-            </h5>
+            </h4>
             <div>
               Please contact the{' '}
               <a href={urlMap.shli}>Satcher Health Leadership Institute</a> at{' '}
@@ -97,12 +97,12 @@ function ContactUsTab() {
               </a>
             </div>
 
-            <h5 className="mb-0 mt-8 text-text font-bold">Phone:</h5>
+            <h4 className="mb-0 mt-8 text-text font-bold">Phone:</h4>
             <div>
               <a href="tel:4047528654">(404) 752-8654</a>
             </div>
 
-            <h5 className="mb-0 mt-8 text-text font-bold">Mailing address:</h5>
+            <h4 className="mb-0 mt-8 text-text font-bold">Mailing address:</h4>
             <div>
               Morehouse School of Medicine
               <br />
@@ -113,7 +113,7 @@ function ContactUsTab() {
               Atlanta, Georgia 30310
             </div>
 
-            <h5 className="mb-0 mt-8 text-text font-bold">Share your story:</h5>
+            <h4 className="mb-0 mt-8 text-text font-bold">Share your story:</h4>
             <div>
               Read our{' '}
               <Link to={SHARE_YOUR_STORY_TAB_LINK}>
