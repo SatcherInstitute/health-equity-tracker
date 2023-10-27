@@ -371,7 +371,38 @@ tr {
   margin-top: 1rem;
 }
 
+.ConditionKey {
+  color: var(--0-b-5240, #0b5240);
+  font-family: Inter;
+  font-size: 1rem;
+  max-width: 10vw;
+}
+
+.ConditionDefinition {
+  color: var(--383838, #383838);
+  font-size: 0.7rem !important;
+  margin: 0 0 0 1%;
+}
+
 .GlossaryTermContainer {
+  margin: 2rem auto;
+}
+
+.GlossaryTermContainer figure {
+  display: flex;
+  justify-content: baseline;
+  align-items: baseline;
+  padding: 0;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.GlossaryTermContainer figure:first-of-type {
+  border-top: 1px solid var(--383838, #383838);
+}
+
+.GlossaryTermContainer h3 {
+  margin: 0;
 }
 
 .GlossaryTerm {

@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import DataTable from '../methodologyComponents/DataTable'
 import { conditionVariableDefinitions } from '../methodologyContent/ConditionVariableDefinitions'
+import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
 const TopicsLink: React.FC = () => {
   return (
     <section id="#data-sources">
@@ -40,12 +41,55 @@ const TopicsLink: React.FC = () => {
             of diverse communities.
           </p>
         </div>
-        <DataTable
-          headers={{
-            topic: '',
-            definition: 'Variables that Affect Health Conditions',
-          }}
-          methodologyTableDefinitions={conditionVariableDefinitions}
+
+        <AgeAdjustmentExampleTable
+          id="#categories-table"
+          applyThickBorder={false}
+          columns={[
+            { header: 'Category', accessor: 'category' },
+            { header: 'Topics', accessor: 'topic' },
+            { header: 'Variables', accessor: 'variable' },
+          ]}
+          rows={[
+            {
+              category: 'Behavioral Health',
+              topic:
+                'Depression, Excessive Drinking, Frequent Mental Distress, Suicide, Opioid and Substance Misuse',
+              variable: 'Race/ethnicity, Sex, Age',
+            },
+            {
+              category: 'Chronic Diseases',
+              topic:
+                'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
+              variable: 'Race/ethnicity, Sex, Age',
+            },
+            {
+              category: 'COVID-19',
+              topic: 'COVID-19, COVID-19 Vaccinations',
+              variable:
+                'Cases, Deaths, Hospitalizations, Race/ethnicity, Sex, Age',
+            },
+            {
+              category: 'HIV',
+              topic:
+                'HIV, HIV (Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
+              variable:
+                'Prevalence, New diagnoses, Deaths, Race/ethnicity, Sex, Age',
+            },
+            {
+              category: 'Political Determinants of Health',
+              topic:
+                'Incarceration, Voter Participation, Women Serving in Legislative Office',
+              variable:
+                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures, Race/ethnicity, Sex, Age',
+            },
+            {
+              category: 'Social Determinants of Health',
+              topic:
+                'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
+              variable: 'Race/ethnicity, Sex, Age',
+            },
+          ]}
         />
       </article>
     </section>

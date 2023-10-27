@@ -225,7 +225,12 @@ export const routeConfigs = [
     label: 'Categories and Limitations',
     path: TOPICS_LINK,
     component: TopicsLink,
-    subLinks: [],
+    subLinks: [
+      {
+        label: 'Categories, Topics, and Variables',
+        path: '#categories-table',
+      },
+    ],
   },
   {
     label: 'Races and Ethnicities',

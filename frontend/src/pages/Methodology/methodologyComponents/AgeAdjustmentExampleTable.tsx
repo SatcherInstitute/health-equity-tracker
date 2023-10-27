@@ -35,14 +35,18 @@ interface Column {
 interface AgeAdjustmentExampleTableProps {
   rows: Row[]
   columns: Column[]
+  id?: string
+  applyThickBorder?: boolean
 }
 
 const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
   rows,
   columns,
+  id,
+  applyThickBorder = true,
 }) => {
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} id={id}>
       <Table
         aria-label="customized table"
         className={styles.AgeAdjustmentExampleTable}
@@ -59,7 +63,9 @@ const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
             <StyledTableRow
               key={rowIndex}
               className={
-                rows.length !== 3 && (rowIndex + 1) % 2 === 0
+                applyThickBorder &&
+                rows.length !== 3 &&
+                (rowIndex + 1) % 2 === 0
                   ? styles.thickBorder
                   : ''
               }

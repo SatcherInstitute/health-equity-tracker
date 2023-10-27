@@ -20,74 +20,43 @@ import {
   ECONOMIC_EQUITY_RESOURCES,
   HIV_RESOURCES,
 } from '../../../../src/pages/WhatIsHealthEquity/ResourcesData'
-
+import { parseDescription } from '../methodologyComponents/DataTable'
 const ConditionVariablesLink = () => {
   return (
     <section>
       <article>
-        <>
-          <Helmet>
-            <title>
-              Health Equity Resources - What Is Health Equity? - Health Equity
-              Tracker
-            </title>
-          </Helmet>
-          <h2 className={styles.ScreenreaderTitleHeader}>
-            Health Equity Resources
-          </h2>
-          <Grid container className={styles.Grid}>
-            <Grid container className={styles.ResourcesTabSection}>
-              {[RESOURCES].map(({ heading, resources }) => {
-                // first heading should get a "main" id for Playwright testing and our a11y setups
-                const id = heading === 'Health Equity' ? 'main' : heading
-                return (
-                  <Grid
-                    container
-                    className={styles.ResourcesGroup}
-                    key={heading}
-                  >
-                    <Grid item xs={12} sm={12} md={3}>
-                      <Typography
-                        id={id}
-                        tabIndex={-1}
-                        className={styles.ResourcesTabHeaderText}
-                      >
-                        {heading}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={9}>
-                      <Grid container>
-                        <Grid item>
-                          <ul className={styles.ResourcesTabList}>
-                            {resources.map(
-                              (resource: {
-                                // eslint-disable-next-line @typescript-eslint/ban-types
-                                name: {} | null | undefined
-                                url: string | undefined
-                              }) => (
-                                <li
-                                  className={styles.ResourcesTabListItem}
-                                  key={resource.name}
-                                >
-                                  <a href={resource.url}>{resource.name}</a>
-                                </li>
-                              )
-                            )}
-                          </ul>
-                        </Grid>
-                      </Grid>
-                    </Grid>
-                  </Grid>
-                )
-              })}
-            </Grid>
-          </Grid>
-        </>
-        <p>
-          Links to the original sources of data and their definitions can be
-          found on our <Link to={'DATA_CATALOG_PAGE_LINK'}>Data Downloads</Link>{' '}
-          page.
-        </p>
+        <Helmet>
+          <title>
+            Health Equity Resources - What Is Health Equity? - Health Equity
+            Tracker
+          </title>
+        </Helmet>
+        <h2 className={styles.ScreenreaderTitleHeader}>
+          Health Equity Resources
+        </h2>
+
+        <div id={''} className={styles.GlossaryTermContainer}>
+          {conditionVariableDefinitions.map((item) => {
+            return (
+              <div key={item.topic}>
+                <h3>{item.topic}</h3>
+                {item.definitions.map((def) => {
+                  return (
+                    <figure key={def.key}>
+                      <span className={styles.ConditionKey}>
+                        <strong>{def.key}:</strong>{' '}
+                      </span>
+                      <p className={styles.ConditionDefinition}>
+                        {parseDescription(def.description)}
+                      </p>
+                    </figure>
+                  )
+                })}
+              </div>
+            )
+          })}
+        </div>
+
         <DataTable
           headers={{
             topic: '',
