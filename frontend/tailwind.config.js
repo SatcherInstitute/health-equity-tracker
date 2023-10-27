@@ -61,13 +61,18 @@ export default {
       extend: {
         maxWidth: {
           '1440': '1440px',
+          '960': '960px'
         },
         maxHeight: {
           '100': '100px',
         }, 
         borderRadius: {
-          '10': '10%'
-        }
+          '10': '10%',
+          '40': '40px'
+        }, 
+        minWidth: {
+          '200': '200px'
+        },
       }
       // extend: {
       //   spacing: {
