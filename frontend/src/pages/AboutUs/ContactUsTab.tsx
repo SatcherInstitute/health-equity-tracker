@@ -1,4 +1,3 @@
-import styles from './AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import { urlMap } from '../../utils/externalUrls'
 import { Button, TextField } from '@mui/material'
@@ -16,8 +15,8 @@ function ContactUsTab() {
       </Helmet>
       <h2 className="sr-only">Contact Us</h2>
       <div className=" flex w-full flex-col content-center items-center">
-        <div className="border-l-0 border-r-0 border-t-0 hidden w-full border-1 border-solid border-border-color md:flex">
-          <div className="grid w-full place-content-center md:w-5/12">
+        <div className="hidden w-full md:flex">
+          <div className="grid w-full place-content-center border-1 border-solid border-border-color  border-opacity-50 md:w-5/12">
             <h2
               id="main"
               className="font-serif
@@ -30,7 +29,7 @@ function ContactUsTab() {
               equity <i className="font-normal">forward</i>
             </h2>
           </div>
-          <div className="border-b-0 border-r-0 border-t-0 w-full border-1 border-solid border-border-color  md:w-7/12">
+          <div className="w-full border-1 border-solid border-border-color border-opacity-50  md:w-7/12">
             <img
               width="870"
               height="644"
@@ -72,7 +71,6 @@ function ContactUsTab() {
                   id="Enter email address to sign up" // Accessibility label
                   name="MERGE0"
                   variant="outlined"
-                  className={styles.EmailTextField}
                   type="email"
                   aria-label="Enter Email Address for Newsletter signup"
                   placeholder="Enter email address"
@@ -81,7 +79,6 @@ function ContactUsTab() {
                   type="submit"
                   color="primary"
                   variant="contained"
-                  className={styles.EmailAddressFormSubmit}
                   aria-label="Sign Up for Newsletter in a new window"
                 >
                   Sign up
