@@ -15,7 +15,7 @@ function ContactUsTab() {
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className="sr-only">Contact Us</h2>
-      <div className=" flex w-full flex-col ">
+      <div className=" flex w-full flex-col content-center items-center">
         <div className="hidden w-full border-2 border-l-0 border-r-0 border-t-0 border-solid border-border-color md:flex">
           <div className="grid w-full place-content-center md:w-5/12">
             <h2
@@ -41,23 +41,21 @@ function ContactUsTab() {
           </div>
         </div>
 
-        <Grid
-          container
-          className={styles.GridOutlinedRow}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Grid item xs={12} sm={12} md={8} lg={6}>
+        <div className="flex w-full flex-col items-center md:w-8/12 lg:w-6/12">
+          <div className="grid  w-full place-content-center">
             <h4
-              className="font-serif
+              className="px-12
+              pt-24
+                            font-serif
                             text-header
                             font-light
+                            leading-lhSomeMoreSpace
                             text-alt-green"
             >
               Thank you for your interest in the Health Equity Tracker
             </h4>
-          </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          </div>
+          <div className="w-full md:w-7/12">
             <p className={styles.ContactUsP}>
               <b>Join our mailing list:</b>
             </p>
@@ -134,8 +132,8 @@ function ContactUsTab() {
               <Link to={NEWS_PAGE_LINK}>News and Stories page</Link>, and email
               the address above with any specific questions.
             </p>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </div>
     </>
   )

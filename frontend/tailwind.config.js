@@ -123,6 +123,15 @@ export default {
 "time-dark-red": "#8c0000",
 "time-yellow": "#fcb431",
     },
+    lineHeight: {
+      "lhSuperLoose": "2.45",
+"lhLoose": "1.6",
+"lhSomeMoreSpace": "1.3",
+"lhSomeSpace": "1.15",
+"lhNormal": "1",
+"lhTight": "0.95",
+"lhModalHeading": "1.25",
+    },
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
