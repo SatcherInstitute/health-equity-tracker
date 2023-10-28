@@ -2,6 +2,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Age-adjusted ratios',
     path: '',
+    id: '#age-adjusted-ratios-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
@@ -21,6 +22,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Total cases per 100k people',
     path: '',
+    id: '#per-100k-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
@@ -37,6 +39,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Share of total cases with unknown race and ethnicity',
     path: '',
+    id: '#unknown-cases-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
@@ -57,6 +60,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Share of total cases',
     path: '',
+    id: '#total-share-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
@@ -71,6 +75,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Population share',
     path: '',
+    id: '#population-share-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
@@ -87,6 +92,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Relative inequity',
     path: '',
+    id: '#relative-inequity-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
@@ -106,6 +112,7 @@ export const metricDefinitionsArray = [
   {
     topic: 'Time-series',
     path: '',
+    id: '#time-series-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',

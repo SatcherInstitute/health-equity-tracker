@@ -21,49 +21,16 @@ import {
   HIV_RESOURCES,
 } from '../../../../src/pages/WhatIsHealthEquity/ResourcesData'
 import { parseDescription } from '../methodologyComponents/DataTable'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
 const ConditionVariablesLink = () => {
   return (
-    <section>
+    <section id="condition-variables">
       <article>
         <Helmet>
-          <title>
-            Health Equity Resources - What Is Health Equity? - Health Equity
-            Tracker
-          </title>
+          <title>Condition Variables - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>
-          Health Equity Resources
-        </h2>
-
-        <div id={''} className={styles.GlossaryTermContainer}>
-          {conditionVariableDefinitions.map((item) => {
-            return (
-              <div key={item.topic}>
-                <h3>{item.topic}</h3>
-                {item.definitions.map((def) => {
-                  return (
-                    <figure key={def.key}>
-                      <span className={styles.ConditionKey}>
-                        <strong>{def.key}:</strong>{' '}
-                      </span>
-                      <p className={styles.ConditionDefinition}>
-                        {parseDescription(def.description)}
-                      </p>
-                    </figure>
-                  )
-                })}
-              </div>
-            )
-          })}
-        </div>
-
-        <DataTable
-          headers={{
-            topic: '',
-            definition: 'Variables that Affect Health Conditions',
-          }}
-          methodologyTableDefinitions={conditionVariableDefinitions}
-        />
+        <h2 className={styles.ScreenreaderTitleHeader}>Condition Variables</h2>
+        <ConditionVariable definitionsArray={conditionVariableDefinitions} />
       </article>
     </section>
   )

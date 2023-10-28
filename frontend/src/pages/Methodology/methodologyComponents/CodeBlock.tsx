@@ -27,11 +27,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
 
   return (
     <TableContainer>
-      <Table
-        className={tableClass}
-        // sx={{ minWidth }}
-        aria-label="customized table"
-      >
+      <Table className={tableClass} aria-label="customized table">
         <TableHead>
           <TableRow className={styles.TableCell}>
             {rowData.map((cell, index) => (

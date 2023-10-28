@@ -1,6 +1,25 @@
 import { Alert, Card } from '@mui/material'
 import DataTable from '../methodologyComponents/DataTable'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
+import Resources from '../methodologyComponents/Resources'
+import {
+  RESOURCES,
+  PDOH_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  AIAN_RESOURCES,
+  API_RESOURCES,
+  HISP_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  COVID_RESOURCES,
+  COVID_VACCINATION_RESOURCES,
+  ECONOMIC_EQUITY_RESOURCES,
+  HIV_RESOURCES,
+} from '../../WhatIsHealthEquity/ResourcesData'
+import { Helmet } from 'react-helmet-async'
+import MissingDataAlert from '../../../cards/ui/MissingDataAlert'
+import DataAlertError from '../methodologyContent/DataAlertError'
+import { missingIslandAreaPopulationDataArray } from '../../DataCatalog/methodologyContent/missingDataBlurbs'
 // TODO: missing and misidentified people + missing population data
 
 interface DataItem {
@@ -80,8 +99,14 @@ const raceDefinitions: DataItem[] = [
 
 const RacesAndEthnicitiesLink = () => {
   return (
-    <section>
+    <section id="#races-and-ethnicities">
       <article>
+        <Helmet>
+          <title>Races and Ethnicities - Health Equity Tracker</title>
+        </Helmet>
+        <h2 className={styles.ScreenreaderTitleHeader}>
+          Races and Ethnicities
+        </h2>
         <p>
           The combined race/ethnicity groups shown on the tracker can be hard to
           understand, partially due to non-standard race/ethnicity breakdowns
@@ -89,9 +114,6 @@ const RacesAndEthnicitiesLink = () => {
           include Hispanic/Latino unless otherwise specified.
         </p>
         <p>
-          We include a few example groups and definitions below.
-          <br />
-          <br />
           <Alert severity="info" role="note">
             Note that the complete definition of a race/ethnicity can only be
             understood <strong>in the context of a particular dataset</strong>{' '}
@@ -99,13 +121,24 @@ const RacesAndEthnicitiesLink = () => {
             within a dataset changes who might be classified as "Asian" vs.
             "Other").
           </Alert>
+          <br />
+          We include a few example groups and definitions below.
+          <br />
         </p>
-        <DataTable
-          headers={{
-            topic: '',
-            definition: '',
-          }}
-          methodologyTableDefinitions={raceDefinitions}
+
+        <ConditionVariable definitionsArray={raceDefinitions} />
+        <DataAlertError alertsArray={missingIslandAreaPopulationDataArray} />
+        <Resources
+          id={'#hisp-resources-races'}
+          resourceGroups={[HISP_RESOURCES]}
+        />
+        <Resources
+          id={'#aian-resources-races'}
+          resourceGroups={[AIAN_RESOURCES]}
+        />
+        <Resources
+          id={'#api-resources-races'}
+          resourceGroups={[API_RESOURCES]}
         />
       </article>
     </section>

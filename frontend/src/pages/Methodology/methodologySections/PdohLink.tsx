@@ -8,21 +8,66 @@ import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
 
 import { urlMap } from '../../../utils/externalUrls'
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import { pdohDefinitionsArray } from '../methodologyContent/PdohDefinitions'
+import {
+  pdohDataSources,
+  pdohDefinitionsArray,
+} from '../methodologyContent/PdohDefinitions'
 import DataTable from '../methodologyComponents/DataTable'
+import Resources from '../methodologyComponents/Resources'
+import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
+import {
+  RESOURCES,
+  PDOH_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  AIAN_RESOURCES,
+  API_RESOURCES,
+  HISP_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  COVID_RESOURCES,
+  COVID_VACCINATION_RESOURCES,
+  ECONOMIC_EQUITY_RESOURCES,
+  HIV_RESOURCES,
+} from '../../WhatIsHealthEquity/ResourcesData'
+import { Helmet } from 'react-helmet-async'
+import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import { missingCawpDataArray } from '../../DataCatalog/methodologyContent/missingDataBlurbs'
+import DataAlertError from '../methodologyContent/DataAlertError'
 
 const PdohLink = () => {
   return (
-    <section>
+    <section id="#pdoh">
       <article>
-        {/* <KeyTerms definitionsArray={pdohDefinitionsArray} /> */}
-        <DataTable
-          headers={{
-            topic: '',
-            definition: 'PDOH Key Terms',
-          }}
-          methodologyTableDefinitions={pdohDefinitionsArray}
+        <Helmet>
+          <title>
+            Political Determinants of Health - Health Equity Tracker
+          </title>
+        </Helmet>
+        <h2 className={styles.ScreenreaderTitleHeader}>
+          Political Determinants of Health
+        </h2>
+        <br />
+        <AgeAdjustmentExampleTable
+          id="#categories-table"
+          applyThickBorder={false}
+          columns={[
+            { header: 'Category', accessor: 'category' },
+            { header: 'Topics', accessor: 'topic' },
+            { header: 'Variables', accessor: 'variable' },
+          ]}
+          rows={[
+            {
+              category: 'Political Determinants of Health',
+              topic:
+                'Incarceration, Voter Participation, Women Serving in Legislative Office',
+              variable:
+                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures, Race/ethnicity, Sex, Age',
+            },
+          ]}
         />
+        <h3 id="#pdoh-data-sourcing">Data Sourcing</h3>
         <h3 id="#incarceration" className={styles.MethodologySubsubheaderText}>
           Incarceration
         </h3>
@@ -297,13 +342,6 @@ const PdohLink = () => {
           advancement of health equity for all.
         </Card>
 
-        <h3 className={styles.MethodologySubsubheaderText}>Visualizations</h3>
-        <p>
-          Please consider the impact of under-reporting and data gaps when
-          exploring the visualizations. These issues may lead to incorrect
-          conclusions, e.g. low rates in a given location may be due to
-          under-reporting rather than absence of impact.
-        </p>
         <p>
           By leveraging data from the{' '}
           <a href={'urlMap.cawp'}>
@@ -435,7 +473,35 @@ const PdohLink = () => {
           {/* <Card elevation={3} className={styles.MissingDataBox}> */}
 
           <MissingCAWPData />
+          <DataAlertError alertsArray={missingCawpDataArray} />
         </Card>
+        <br />
+        <h3 id="#pdoh-key-terms">Key Terms</h3>
+        <ConditionVariable definitionsArray={pdohDefinitionsArray} />
+        <Resources id="#pdoh-resources" resourceGroups={[PDOH_RESOURCES]} />
+        <h3 id="#pdoh-data-sources">Data Sources</h3>
+        <AgeAdjustmentExampleTable
+          applyThickBorder={false}
+          columns={[
+            { header: 'Source', accessor: 'source' },
+            { header: 'Geographic Level', accessor: 'geo' },
+            { header: 'Granularity', accessor: 'granularity' },
+            { header: 'Update Frequency', accessor: 'updates' },
+          ]}
+          rows={pdohDataSources.map((source, index) => ({
+            source: (
+              <a
+                key={index}
+                href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
+              >
+                {source.data_source_name}
+              </a>
+            ),
+            geo: source.geographic_level,
+            granularity: source.demographic_granularity,
+            updates: source.update_frequency,
+          }))}
+        />
       </article>
     </section>
   )

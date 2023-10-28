@@ -14,12 +14,14 @@ interface DataItem {
     description: string
   }>
   path: string
+  id?: string
 }
 
 export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'Behavioral Health',
     path: BEHAVIORAL_HEALTH_LINK,
+    id: '#behavioral-health-variables',
     definitions: [
       {
         key: 'Depression cases',
@@ -51,6 +53,7 @@ export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'Chronic Diseases',
     path: CHRONIC_DISEASE_LINK,
+    id: '#chronic-diseases-variables',
     definitions: [
       {
         key: 'Asthma cases',
@@ -83,6 +86,7 @@ export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'COVID-19',
     path: COVID_19_LINK,
+    id: '#covid-19-variables',
     definitions: [
       {
         key: 'COVID-19 cases',
@@ -109,6 +113,7 @@ export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'HIV',
     path: HIV_LINK,
+    id: '#hiv-variables',
     definitions: [
       {
         key: 'HIV prevalence',
@@ -161,6 +166,7 @@ export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'Political Determinants of Health (PDOH)',
     path: PDOH_LINK,
+    id: '#pdoh-variables',
     definitions: [
       {
         key: 'Voter participation',
@@ -191,6 +197,7 @@ export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'Social Determinants of Health (SDOH)',
     path: SDOH_LINK,
+    id: '#sdoh-variables',
     definitions: [
       {
         key: 'Care avoidance due to cost',

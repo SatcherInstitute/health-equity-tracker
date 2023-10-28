@@ -52,12 +52,13 @@ export const routeConfigs = [
         label: 'Age-Adjustment Example: HIV Deaths',
         path: '#age-adjustment-examples',
       },
+      { label: 'Key Terms', path: '#age-adjustment-key-terms' },
       { label: 'Resources', path: '#age-adjustment-resources' },
       { label: 'Explore Examples', path: '#age-adjustment-explore' },
     ],
   },
   {
-    label: 'Source Acquisition',
+    label: 'Data Sources',
     path: SOURCES_LINK,
     component: SourcesLink,
     subLinks: [
@@ -102,23 +103,40 @@ export const routeConfigs = [
         label: 'Contact Information',
         path: '#contact-information',
       },
-      {
-        label: 'Useful Links',
-        path: '#sources-links',
-      },
     ],
   },
   {
     label: 'Behavioral Health',
     path: BEHAVIORAL_HEALTH_LINK,
     component: BehavioralHealthLink,
-    subLinks: [],
+    subLinks: [
+      {
+        label: 'Data Sourcing',
+        path: '#behavioral-health-data-sourcing',
+      },
+      {
+        label: 'Key Terms',
+        path: '#behavioral-health-key-terms',
+      },
+      {
+        label: 'Data Sources',
+        path: '#behavioral-health-data-sources',
+      },
+      {
+        label: 'Behavioral and Mental Health Resources',
+        path: '#behavioral-health-resources',
+      },
+    ],
   },
   {
     label: 'Chronic Diseases',
     path: CHRONIC_DISEASE_LINK,
     component: ChronicDiseaseLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'Data Sourcing', path: '#chronic-diseases-data-sourcing' },
+      { label: 'Key Terms', path: '#chronic-diseases-key-terms' },
+      { label: 'Data Sources', path: '#chronic-diseases-data-sources' },
+    ],
   },
   {
     label: 'COVID-19',
@@ -126,6 +144,7 @@ export const routeConfigs = [
     component: Covid19Link,
     subLinks: [
       { label: 'COVID-19', path: '#covid19' },
+      { label: 'Data Sourcing', path: '#covid-data-sourcing' },
       {
         label: 'COVID-19 Time-Series Data',
         path: '#covid19-time-series-data',
@@ -152,6 +171,19 @@ export const routeConfigs = [
         label: 'Missing COVID-19 vaccination data',
         path: '#missing-covid-vaccination-data',
       },
+      {
+        label: 'Key Terms',
+        path: '#covid-key-terms',
+      },
+      { label: 'Data Sources', path: '#covid-data-sources' },
+      {
+        label: 'COVID-19 Resources',
+        path: '#covid-resources',
+      },
+      {
+        label: 'COVID-19 Vaccination Resources',
+        path: '#covid-vaccination-resources',
+      },
     ],
   },
 
@@ -160,6 +192,7 @@ export const routeConfigs = [
     path: HIV_LINK,
     component: HivLink,
     subLinks: [
+      { label: 'Data Sourcing', path: '#hiv-data-sourcing' },
       { label: 'HIV', path: '#hiv' },
       {
         label: 'HIV Missing and Suppressed Data',
@@ -168,6 +201,9 @@ export const routeConfigs = [
       { label: 'PrEP Coverage', path: '#prep-coverage' },
       { label: 'Linkage to Care', path: '#linkage-to-care' },
       { label: 'HIV Stigma', path: '#stigma' },
+      { label: 'Key Terms', path: '#hiv-key-terms' },
+      { label: 'Data Sources', path: '#hiv-data-sources' },
+      { label: 'HIV Resources', path: '#hiv-resources' },
     ],
   },
   {
@@ -175,6 +211,7 @@ export const routeConfigs = [
     path: PDOH_LINK,
     component: PdohLink,
     subLinks: [
+      { label: 'Data Sourcing', path: '#pdoh-data-sourcing' },
       { label: 'Incarceration', path: '#incarceration' },
       { label: 'Jail', path: '#jail' },
       { label: 'Prison', path: '#prison' },
@@ -188,36 +225,75 @@ export const routeConfigs = [
         label: 'Women in Legislative Office Missing and Suppressed Data',
         path: '#women-in-gov-missing-and-suppressed-data',
       },
+      {
+        label: 'Key Terms',
+        path: '#pdoh-key-terms',
+      },
+      {
+        label: 'Data Sources',
+        path: '#sdoh-resources',
+      },
+      {
+        label: 'Resources',
+        path: '#pdoh-resources',
+      },
     ],
   },
   {
     label: 'Social Determinants of Health (SDOH)',
     path: SDOH_LINK,
     component: SdohLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'Data Sourcing', path: '#sdoh-data-sourcing' },
+      { label: 'Key Terms', path: '#sdoh-key-terms' },
+      { label: 'Data Sources', path: '#sdoh-data-sources' },
+      { label: 'Resources', path: '#sdoh-resources' },
+    ],
   },
   {
     label: 'Metrics',
     path: METRICS_LINK,
     component: MetricsLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'Metrics', path: '#metrics' },
+      { label: 'Age-adjusted ratios', path: '#age-adjusted-ratios-metrics' },
+      { label: 'Total cases per 100k people', path: '#per-100k-metrics' },
+      {
+        label: 'Share of total cases with unknown races',
+        path: '#unknown-cases-metrics',
+      },
+      { label: 'Share of total cases', path: '#total-share-metrics' },
+      { label: 'Population share', path: '#population-share-metrics' },
+      { label: 'Relative inequity', path: '#relative-inequity-metrics' },
+      { label: 'Time-series', path: '#time-series-metrics' },
+      {
+        label: 'Percent Share Example: COVID-19 Cases',
+        path: '#percent-share-example',
+      },
+    ],
   },
   {
     label: 'Condition Variables',
     path: CONDITION_VARIABLES_LINK,
     component: ConditionVariablesLink,
     subLinks: [
-      { label: 'HIV', path: '#hiv' },
-      { label: 'COVID-19', path: '#covid-19' },
-      { label: 'Behavioral Health', path: '#behavioral-health' },
-      { label: 'Chronic Disease', path: '#chronic-disease' },
       {
-        label: 'Social Determinants of Health',
-        path: '#social-determinants-of-health',
+        label: 'Behavioral Health Variables',
+        path: '#behavioral-health-variables',
       },
       {
-        label: 'Political Determinants of Health',
-        path: '#political-determinants-of-health',
+        label: 'Chronic Diseases Variables',
+        path: '#chronic-diseases-variables',
+      },
+      { label: 'COVID-19 Variables', path: '#covid-19-variables' },
+      { label: 'HIV Variables', path: '#hiv-variables' },
+      {
+        label: 'Political Determinants of Health Variables',
+        path: '#pdoh-variables',
+      },
+      {
+        label: 'Social Determinants of Health Variables',
+        path: '#sdoh-variables',
       },
     ],
   },
@@ -227,8 +303,12 @@ export const routeConfigs = [
     component: TopicsLink,
     subLinks: [
       {
-        label: 'Categories, Topics, and Variables',
-        path: '#categories-table',
+        label: 'Categories',
+        path: '#categories',
+      },
+      {
+        label: 'Limitations',
+        path: '#limitations',
       },
     ],
   },
@@ -236,7 +316,18 @@ export const routeConfigs = [
     label: 'Races and Ethnicities',
     path: RACES_AND_ETHNICITIES_LINK,
     component: RacesAndEthnicitiesLink,
-    subLinks: [],
+    subLinks: [
+      { label: 'Races and Ethnicities', path: '#races-and-ethnicities' },
+      { label: 'Latino and Hispanic Resources', path: '#hisp-resources-races' },
+      {
+        label: 'American Indian and Alaska Native Resources',
+        path: '#aian-resources-races',
+      },
+      {
+        label: 'Asian, Native Hawaiian, and Pacific Islander Resources',
+        path: '#api-resources-races',
+      },
+    ],
   },
   {
     label: 'Data Methods',

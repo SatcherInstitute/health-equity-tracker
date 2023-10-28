@@ -29,7 +29,7 @@ const SourcesLink = () => {
     <section id="#data-sources">
       <article>
         <Helmet>
-          <title>Source Acquisition - Health Equity Tracker</title>
+          <title>Data Sources - Health Equity Tracker</title>
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>{title}</h2>
         <div>
@@ -87,15 +87,6 @@ const SourcesLink = () => {
 
           <h3 id="#contact-information">Contact Information</h3>
           <p>{parseDescription(listItems[7])}</p>
-
-          <h3 id="#sources-links">Useful Links</h3>
-          <ul>
-            {links.map((link) => (
-              <li key={link.url}>
-                <a href={link.url}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
         </div>
       </article>
     </section>

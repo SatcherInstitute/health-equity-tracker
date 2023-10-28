@@ -46,7 +46,7 @@ html {
   font-size: $smallestHeader;
   text-align: left;
   color: $alt-black;
-  margin-top: 0;
+  margin-top: 1rem;
 }
 
 .ArticleContainer h4 {
@@ -371,44 +371,59 @@ tr {
   margin-top: 1rem;
 }
 
+.MissingDataContainer {
+  width: 100%;
+}
+
+.GridContainer {
+  padding: 0;
+  margin: 1% 1% 2% 1%;
+  display: flex;
+  flex-direction: column;
+
+  // grid-template-columns: auto 1fr; /* This will make the span and p side by side with span taking only required space and p taking the rest */
+  // gap: 10px; /* Adjust gap between the columns as needed */
+}
+
 .ConditionKey {
   color: var(--0-b-5240, #0b5240);
   font-family: Inter;
-  font-size: 1rem;
-  max-width: 10vw;
+  font-size: 0.8rem;
+  align-self: start;
 }
 
 .ConditionDefinition {
   color: var(--383838, #383838);
   font-size: 0.7rem !important;
   margin: 0 0 0 1%;
+  align-self: start;
 }
 
 .GlossaryTermContainer {
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
 
 .GlossaryTermContainer figure {
-  display: flex;
-  justify-content: baseline;
-  align-items: baseline;
-  padding: 0;
-  width: 100%;
-  margin: 0 auto;
+  // display: flex;
+  // justify-content: baseline;
+  // align-items: baseline;
+  // padding: 0;
+  // width: 100%;
+  // margin: 0 auto;
 }
 
 .GlossaryTermContainer figure:first-of-type {
   border-top: 1px solid var(--383838, #383838);
 }
 
-.GlossaryTermContainer h3 {
+.GlossaryTermContainer h4 {
   margin: 0;
 }
 
 .GlossaryTerm {
   color: var(--0-b-5240, #0b5240);
   font-family: DM Sans;
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin: 1% auto 0 auto;
   font-weight: 500;
 }
@@ -420,7 +435,7 @@ tr {
 }
 
 .Resources {
-  margin: 2rem auto;
+  margin: 1rem auto;
   border-top: var(--0-b-5240, #0b5240) 1px solid;
 }
 
@@ -438,11 +453,10 @@ tr {
 
 .Resources h3 {
   @include tav300();
-  font-size: $smallHeader !important;
+
   margin: 1rem 0 0 0;
   text-align: left;
   @media screen and (max-width: 1400px) {
-    font-size: 0.5rem;
     line-height: 1.6rem;
   }
 }
@@ -531,6 +545,7 @@ tr {
   margin: 2% auto;
   padding: 2%;
 }
+
 .NoBorderTable th,
 td {
   border: none;

@@ -569,4 +569,15 @@ export const definitionsGlossary = [
       },
     ],
   },
+  {
+    topic: 'Proportional inequitable burden',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'The relative disproportionality of a specific health outcome experienced by a demographic group, normalized to their representation in the general population. It quantifies the extent to which a specific group is unfairly affected by a health issue compared to what would be expected based on their share of the overall population.',
+      },
+    ],
+  },
 ]

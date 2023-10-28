@@ -258,6 +258,13 @@ export const preventableHospitalizationsTooltip = (
   />
 )
 
+export const proportionalInequitableBurdenTooltip = (
+  <DefinitionTooltip
+    topic="Proportional inequitable burden"
+    definitionItem={definitionsGlossary[43]}
+  />
+)
+
 // Relative inequity
 export const relativeInequityTooltip = (
   <DefinitionTooltip

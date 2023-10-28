@@ -5,23 +5,64 @@ import {
   MissingPrepData,
 } from '../methodologyContent/missingDataBlurbs'
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import { hivDefinitionsArray } from '../methodologyContent/HIVDefinitions'
+import {
+  hivDataSources,
+  hivDefinitionsArray,
+} from '../methodologyContent/HIVDefinitions'
 import DataTable from '../methodologyComponents/DataTable'
+import {
+  RESOURCES,
+  PDOH_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  AIAN_RESOURCES,
+  API_RESOURCES,
+  HISP_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  COVID_RESOURCES,
+  COVID_VACCINATION_RESOURCES,
+  ECONOMIC_EQUITY_RESOURCES,
+  HIV_RESOURCES,
+} from '../../WhatIsHealthEquity/ResourcesData'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
+import Resources from '../methodologyComponents/Resources'
+import { Helmet } from 'react-helmet-async'
+import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
+import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import DataAlertError from '../methodologyContent/DataAlertError'
+import {
+  missingHivDataArray,
+  missingPrepDataArray,
+} from '../../DataCatalog/methodologyContent/missingDataBlurbs'
 
 const HivLink = () => {
   return (
-    <section>
+    <section id="#hiv">
       <article>
-        {/* <KeyTerms definitionsArray={hivDefinitionsArray} /> */}
-        <DataTable
-          headers={{
-            topic: '',
-            definition: 'HIV Key Terms',
-          }}
-          methodologyTableDefinitions={hivDefinitionsArray}
+        <Helmet>
+          <title>HIV - Health Equity Tracker</title>
+        </Helmet>
+        <h2 className={styles.ScreenreaderTitleHeader}>HIV</h2>
+        <br />
+        <AgeAdjustmentExampleTable
+          id="#categories-table"
+          applyThickBorder={false}
+          columns={[
+            { header: 'Category', accessor: 'category' },
+            { header: 'Topics', accessor: 'topic' },
+            { header: 'Variables', accessor: 'variable' },
+          ]}
+          rows={[
+            {
+              category: 'HIV',
+              topic:
+                'HIV, HIV (Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
+              variable:
+                'Prevalence, New diagnoses, Deaths, Race/ethnicity, Sex, Age',
+            },
+          ]}
         />
-        {/* <p id="hiv_black_women"> */}
-
+        <h3 id="#hiv-data-sourcing">Data Sourcing</h3>
         <p id="#hiv">
           The CDC collects and studies information on the number of people
           diagnosed with HIV in the United States. This information is gathered
@@ -128,6 +169,7 @@ const HivLink = () => {
           </p>
 
           <MissingHIVData />
+          <DataAlertError alertsArray={missingHivDataArray} />
         </Card>
 
         <h3 id="#prep-coverage" className={styles.MethodologySubsubheaderText}>
@@ -204,6 +246,7 @@ const HivLink = () => {
         <Card elevation={3} className={styles.MissingDataBox}>
           <MissingPrepData />
         </Card>
+        <DataAlertError alertsArray={missingPrepDataArray} />
 
         <h3
           id="#linkage-to-care"
@@ -323,6 +366,33 @@ const HivLink = () => {
             </ul>
           </li>
         </ul>
+        <br />
+        <h3 id="#hiv-key-terms">Key Terms</h3>
+        <ConditionVariable definitionsArray={hivDefinitionsArray} />
+        <Resources id="#hiv-resources" resourceGroups={[HIV_RESOURCES]} />
+        <h3 id="#hiv-data-sources">Data Sources</h3>
+        <AgeAdjustmentExampleTable
+          applyThickBorder={false}
+          columns={[
+            { header: 'Source', accessor: 'source' },
+            { header: 'Geographic Level', accessor: 'geo' },
+            { header: 'Granularity', accessor: 'granularity' },
+            { header: 'Update Frequency', accessor: 'updates' },
+          ]}
+          rows={hivDataSources.map((source, index) => ({
+            source: (
+              <a
+                key={index}
+                href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
+              >
+                {source.data_source_name}
+              </a>
+            ),
+            geo: source.geographic_level,
+            granularity: source.demographic_granularity,
+            updates: source.update_frequency,
+          }))}
+        />
       </article>
     </section>
   )

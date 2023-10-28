@@ -36,7 +36,7 @@ interface LinkItem {
 export const links: LinkItem[] = [
   { index: 0, to: METHODOLOGY_PAGE_LINK, primary: 'Methodology' },
   { index: 1, to: AGE_ADJUSTMENT_LINK, primary: 'Age-Adjustment' },
-  { index: 2, to: SOURCES_LINK, primary: 'Source Acquisition' },
+  { index: 2, to: SOURCES_LINK, primary: 'Data Sources' },
   { index: 3, to: TOPICS_LINK, primary: 'Categories and Limitations' },
   {
     index: 4,

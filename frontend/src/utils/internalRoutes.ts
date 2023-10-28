@@ -22,7 +22,7 @@ export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + '/ageadjustment'
 
 export const AGE_ADJUSTMENT_TAB_LINK = AGE_ADJUSTMENT_LINK // TODO: Remove
 
-export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/source-acquisition'
+export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources'
 export const TOPICS_LINK = METHODOLOGY_PAGE_LINK + '/topics'
 export const BEHAVIORAL_HEALTH_LINK = TOPICS_LINK + '/behavioral-health'
 export const CHRONIC_DISEASE_LINK = TOPICS_LINK + '/chronic-disease'

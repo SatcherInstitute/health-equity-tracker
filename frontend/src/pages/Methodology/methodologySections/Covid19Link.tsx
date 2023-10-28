@@ -5,7 +5,6 @@ import {
   MissingCovidData,
   MissingCovidVaccinationData,
 } from '../methodologyContent/missingDataBlurbs'
-
 import {
   covidDataSources,
   covidDefinitionsArray,
@@ -14,38 +13,131 @@ import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import DataTable from '../methodologyComponents/DataTable'
+import {
+  RESOURCES,
+  PDOH_RESOURCES,
+  EQUITY_INDEX_RESOURCES,
+  AIAN_RESOURCES,
+  API_RESOURCES,
+  HISP_RESOURCES,
+  MENTAL_HEALTH_RESOURCES,
+  COVID_RESOURCES,
+  COVID_VACCINATION_RESOURCES,
+  ECONOMIC_EQUITY_RESOURCES,
+  HIV_RESOURCES,
+} from '../../WhatIsHealthEquity/ResourcesData'
+import Resources from '../methodologyComponents/Resources'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
+import { Helmet } from 'react-helmet-async'
+import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import { CodeBlock } from '../methodologyComponents/CodeBlock'
+
+import DataAlertError from '../methodologyContent/DataAlertError'
+import {
+  missingCovidDataArray,
+  missingCovidVaccinationDataArray,
+} from '../../DataCatalog/methodologyContent/missingDataBlurbs'
 
 const Covid19Link = () => {
   return (
-    <section>
+    <section id="#covid-19">
       <article>
-        {covidDataSources.map((source, index) => {
-          return (
-            <a
-              key={index}
-              href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
-            >
-              {source.data_source_name}
-            </a>
-          )
-        })}
-        {/* <KeyTerms definitionsArray={covidDefinitionsArray} /> */}
-        <DataTable
-          headers={{
-            topic: '',
-            definition: 'COVID-19 Key Terms',
-          }}
-          methodologyTableDefinitions={covidDefinitionsArray}
+        <Helmet>
+          <title>COVID-19 - Health Equity Tracker</title>
+        </Helmet>
+        <h2 className={styles.ScreenreaderTitleHeader}>COVID-19</h2>
+        <br />
+        <AgeAdjustmentExampleTable
+          id="#categories-table"
+          applyThickBorder={false}
+          columns={[
+            { header: 'Category', accessor: 'category' },
+            { header: 'Topics', accessor: 'topic' },
+            { header: 'Variables', accessor: 'variable' },
+          ]}
+          rows={[
+            {
+              category: 'COVID-19',
+              topic: 'COVID-19, COVID-19 Vaccinations',
+              variable:
+                'Cases, Deaths, Hospitalizations, Race/ethnicity, Sex, Age',
+            },
+          ]}
         />
-        <h3 className={styles.MethodologySubsubheaderText} id="#covid19">
-          COVID-19
-        </h3>
+        <h3 id="#covid-data-sourcing">Data Sourcing</h3>
+
         <h3>Age-Adjusted Data Sourcing</h3>
         <p>
           For COVID-19, we use the CDC Case Surveillance Restricted Access
           Detailed Data for this. It can break down by race and age to ten-year
-          buckets. The age buckets are: 0-9, 10-19, 20-29, 30-39, 40-49, 50-59,
-          60-69, 70-79, 80+
+          buckets. The age buckets are:
+          <CodeBlock
+            rowData={[
+              {
+                content: (
+                  <>
+                    <b>0-9</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>10-19</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>20-29</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>30-39</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>40-49</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>50-59</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>60-69</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>70-79</b>,
+                  </>
+                ),
+              },
+              {
+                content: (
+                  <>
+                    <b>80+</b>
+                  </>
+                ),
+              },
+            ]}
+          />
         </p>
         <ul>
           <li>
@@ -165,6 +257,7 @@ const Covid19Link = () => {
 
           COVID-19 vaccinations */}
         </h3>
+        <DataAlertError alertsArray={missingCovidDataArray} />
 
         <p>
           Because there is currently no national vaccine demographic dataset, we
@@ -298,6 +391,60 @@ const Covid19Link = () => {
 
           <MissingCovidVaccinationData />
         </Card>
+        <DataAlertError alertsArray={missingCovidVaccinationDataArray} />
+        <h3 id="#covid-key-terms">Key Terms</h3>
+        <ConditionVariable definitionsArray={covidDefinitionsArray} />
+        <Resources id="#covid-resources" resourceGroups={[COVID_RESOURCES]} />
+        <Resources
+          id="#covid-vaccination-resources"
+          resourceGroups={[COVID_VACCINATION_RESOURCES]}
+        />
+        <h3 id="#covid-data-sources">COVID-19 Data Sources</h3>
+        <AgeAdjustmentExampleTable
+          applyThickBorder={false}
+          columns={[
+            { header: 'Source', accessor: 'source' },
+            { header: 'Geographic Level', accessor: 'geo' },
+            { header: 'Granularity', accessor: 'granularity' },
+            { header: 'Update Frequency', accessor: 'updates' },
+          ]}
+          rows={covidDataSources.map((source, index) => ({
+            source: (
+              <a
+                key={index}
+                href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
+              >
+                {source.data_source_name}
+              </a>
+            ),
+            geo: source.geographic_level,
+            granularity: source.demographic_granularity,
+            updates: source.update_frequency,
+          }))}
+        />
+        <h3 id="#covid-data-sources">Data Sources</h3>
+        <AgeAdjustmentExampleTable
+          applyThickBorder={false}
+          columns={[
+            { header: 'Source', accessor: 'source' },
+            { header: 'Geographic Level', accessor: 'geo' },
+            { header: 'Granularity', accessor: 'granularity' },
+            { header: 'Update Frequency', accessor: 'updates' },
+          ]}
+          rows={covidDataSources.map((source, index) => ({
+            source: (
+              <a
+                key={index}
+                href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
+              >
+                {source.data_source_name}
+              </a>
+            ),
+            geo: source.geographic_level,
+            granularity: source.demographic_granularity,
+            updates: source.update_frequency,
+          }))}
+        />
       </article>
     </section>
   )

@@ -40,10 +40,11 @@ import {
 } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import DataTable from '../methodologyComponents/DataTable'
+import ConditionVariable from '../methodologyContent/ConditionVariable'
 
 const AGE_ADJUSTED_RESOURCES = [
   {
-    heading: 'Age-Adjustment Resources',
+    heading: 'Age-Adjustment',
     resources: [
       {
         name: 'County Population by Characteristics',
@@ -135,13 +136,7 @@ const AgeAdjustmentLink = () => {
             </a>
             .
           </p>
-          <DataTable
-            headers={{
-              topic: '',
-              definition: 'Age-Adjustment Key Terms',
-            }}
-            methodologyTableDefinitions={ageAdjustmentDefinitionsArray}
-          />
+
           <h3 id="#data-sourcing">Data Sourcing</h3>
           <p>
             In order to do an age-adjustment, we needed the following pieces of
@@ -1056,6 +1051,9 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
+          <br />
+          <h3 id="#age-adjustment-key-terms">Key Terms</h3>
+          <ConditionVariable definitionsArray={ageAdjustmentDefinitionsArray} />
           <Resources
             id="#age-adjustment-resources"
             resourceGroups={AGE_ADJUSTED_RESOURCES}
