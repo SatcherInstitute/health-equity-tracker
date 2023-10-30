@@ -41,19 +41,34 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
   }
 
   return (
-    <Grid item xs={12} className={styles.KeyTerms} id={id}>
+    <Grid item xs={12} id={id} className={styles.KeyTermsContainer}>
       <Paper>
-        <Accordion
-          className={styles.AccordionHeader}
-          expanded={expanded}
-          onChange={handleAccordionToggle}
-        >
+        <Accordion expanded={expanded} onChange={handleAccordionToggle}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            Key Terms
+            <h3 className={styles.AccordionHeader}>Key Terms</h3>
           </AccordionSummary>
 
           <AccordionDetails>
-            {definitionsArray.map((item) => (
+            {definitionsArray.map((item) => {
+              return (
+                <div id={item.id} key={item.topic}>
+                  <h4>{item.topic}</h4>
+                  {item.definitions.map((def) => {
+                    return (
+                      <figure key={def.key} className={styles.GridContainer}>
+                        <span className={styles.ConditionKey}>
+                          <strong>{def.key}: </strong>
+                        </span>
+                        <p className={styles.ConditionDefinition}>
+                          {parseDescription(def.description)}
+                        </p>
+                      </figure>
+                    )
+                  })}
+                </div>
+              )
+            })}
+            {/* {definitionsArray.map((item) => (
               <Accordion className={styles.Accordion} key={item.topic}>
                 <AccordionSummary
                   className={styles.AccordionSummary}
@@ -73,7 +88,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
                   </Grid>
                 </AccordionDetails>
               </Accordion>
-            ))}
+            ))} */}
           </AccordionDetails>
         </Accordion>
       </Paper>

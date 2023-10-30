@@ -85,7 +85,7 @@ export const links: LinkItem[] = [
   {
     index: 14,
     to: RECOMMENDED_CITATION_LINK,
-    primary: 'Recommended Citation (APA)',
+    primary: 'Recommended Citation',
   },
   {
     index: 15,

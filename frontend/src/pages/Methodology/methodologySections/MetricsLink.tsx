@@ -103,10 +103,12 @@ const MetricsLink = () => {
             In plain language, this would be interpreted as,{' '}
             <Card elevation={3} className={styles.WhyBox}>
               <em>
-                “<strong>Deaths</strong> of individuals identifying as{' '}
-                <strong>White (Non Hispanic)</strong> in Georgia{' '}
-                <strong>from COVID-19</strong> were almost 25% higher than
-                expected, based on their share of Georgia’s overall population.”
+                “<strong>Deaths</strong> of individuals identifying as White
+                (Non Hispanic) in Georgia{' '}
+                <strong>
+                  from COVID-19 were almost 25% higher than expected
+                </strong>
+                , based on their share of Georgia’s overall population.”
               </em>
             </Card>
           </p>

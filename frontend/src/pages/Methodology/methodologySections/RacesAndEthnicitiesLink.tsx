@@ -17,9 +17,10 @@ import {
   HIV_RESOURCES,
 } from '../../WhatIsHealthEquity/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-import MissingDataAlert from '../../../cards/ui/MissingDataAlert'
+// import MissingDataAlert from '../../../cards/ui/MissingDataAlert'
 import DataAlertError from '../methodologyContent/DataAlertError'
-import { missingIslandAreaPopulationDataArray } from '../../DataCatalog/methodologyContent/missingDataBlurbs'
+import { missingIslandAreaPopulationDataArray } from '../methodologyContent/missingDataBlurbs'
+import DisclaimerAlert from '../../../reports/ui/DisclaimerAlert'
 // TODO: missing and misidentified people + missing population data
 
 interface DataItem {
@@ -107,6 +108,7 @@ const RacesAndEthnicitiesLink = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>
           Races and Ethnicities
         </h2>
+        <DisclaimerAlert />
         <p>
           The combined race/ethnicity groups shown on the tracker can be hard to
           understand, partially due to non-standard race/ethnicity breakdowns

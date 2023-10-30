@@ -99,9 +99,9 @@ const TopicsLink: React.FC = () => {
           less critical since a visualization can still show the different
           values.
         </p>
-        <h4>Missing Data</h4>
-        <ConditionVariable definitionsArray={missingDataArray} />
-        <MissingDataAlert />
+        <div id="#missing-data">
+          <ConditionVariable definitionsArray={missingDataArray} />
+        </div>
       </article>
     </section>
   )

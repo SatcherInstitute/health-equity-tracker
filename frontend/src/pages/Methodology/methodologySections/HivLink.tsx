@@ -1,9 +1,7 @@
 import Card from '@mui/material/Card'
+import FlagIcon from '@mui/icons-material/Flag'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import {
-  MissingHIVData,
-  MissingPrepData,
-} from '../methodologyContent/missingDataBlurbs'
+
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   hivDataSources,
@@ -33,7 +31,8 @@ import DataAlertError from '../methodologyContent/DataAlertError'
 import {
   missingHivDataArray,
   missingPrepDataArray,
-} from '../../DataCatalog/methodologyContent/missingDataBlurbs'
+} from '../methodologyContent/missingDataBlurbs'
+import { Alert, AlertTitle } from '@mui/material'
 
 const HivLink = () => {
   return (
@@ -62,29 +61,88 @@ const HivLink = () => {
             },
           ]}
         />
+        <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
+          The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
+          <b>gender identity</b>. Due to lack of reliable population data for
+          gender-expansive people, we are unable to present{' '}
+          <b>rates per 100k</b>, however our data sources do provide the
+          following 2019 case counts for{' '}
+          {/* <b>
+          people {hivPhraseMap?.[props?.dataTypeId]} in{' '}
+          {props.fips.getSentenceDisplayName()}
+        </b>
+        :
+        <ul>
+          <li>
+            <b>
+              {transMenCount.toLocaleString()} individuals identified as
+              transgender men
+            </b>
+          </li>
+
+          <li>
+            <b>
+              {transWomenCount.toLocaleString()} individuals identified as
+              transgender women
+            </b>
+          </li>
+          <li>
+            <b>
+              {agiCount.toLocaleString()} individuals with additional gender
+              identities (AGI)
+            </b>
+          </li>
+        </ul>
+        Visit the{' '}
+        <a href={urlMap.cdcTrans}> */}
+          CDC's HIV Prevention and Care for Transgender People
+          {/* </a>{' '} */}
+          to learn more.
+        </Alert>
         <h3 id="#hiv-data-sourcing">Data Sourcing</h3>
         <p id="#hiv">
-          The CDC collects and studies information on the number of people
-          diagnosed with HIV in the United States. This information is gathered
-          from state and local HIV surveillance programs and is used to better
-          understand the impact of HIV across the country. To protect people’s
-          privacy, the CDC and these programs have agreed to limit the amount of
-          data released at the state and county levels. It takes 12 months for
-          the data to become official, so the numbers reported before this time
-          are not final and should be interpreted with caution. Additionally,
-          some of the data is adjusted to account for missing information on how
-          people became infected with HIV. This means that the data may change
-          as more information becomes available.
+          The CDC's National Center for HIV, Viral Hepatitis, STD, and TB
+          Prevention (NCHHSTP) collects and studies information on the number of
+          people diagnosed with HIV in the United States. This information is
+          gathered from state and local HIV surveillance programs and is used to
+          better understand the impact of HIV across the country.
         </p>
         <p>
-          The COVID-19 pandemic significantly disrupted data for the year 2020.
-          This impact could lead to distortions in the reported numbers. Please
-          exercise caution when analyzing this year's data.
+          <Alert severity="info" role="note">
+            <AlertTitle>A note about CDC NCHHSTP AtlasPlus</AlertTitle>
+            <p>
+              The CDC's NCHHSTP and other HIV surveillance programs have agreed
+              to limit the amount of data released at the state and county
+              levels in order to protect the privacy of those affected. It takes
+              12 months for the data to become official, so the numbers reported
+              before this time are not final and should be interpreted with
+              caution.
+            </p>
+          </Alert>
         </p>
         <p>
-          Data for the years 2022 and 2023 are preliminary. For this reason, we
-          have chosen 2021 as our source year when presenting single-year
-          figures.
+          To protect people’s privacy, the CDC and these programs have agreed to
+          limit the amount of data released at the state and county levels.
+          Additionally, some of the data is adjusted to account for missing
+          information on how people became infected with HIV. This means that
+          the data may change as more information becomes available.
+        </p>
+        <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
+          <AlertTitle>2020 Data Disruption Due to COVID-19</AlertTitle>
+          <p>
+            The COVID-19 pandemic significantly disrupted data for the year
+            2020. This impact could lead to distortions in the reported numbers.
+            Please exercise caution when analyzing this year's data.
+          </p>
+        </Alert>
+        <p>
+          The data for 2022 and 2023 is still in its initial stages of
+          collection and has not been finalized, making it "preliminary."
+          Single-year figures refer to data that represents just one specific
+          year, rather than an average or cumulative total over multiple years.
+          Given the preliminary status of the 2022 and 2023 data, we've opted to
+          use 2021 as our reference year when showcasing data from a single
+          year.
         </p>
 
         <h3
@@ -155,22 +213,19 @@ const HivLink = () => {
           </li>
         </ul>
 
-        <Card
+        {/* <Card
           id={'#hiv-missing-and-suppressed-data'}
           elevation={3}
           className={styles.MissingDataBox}
         >
-          <Card elevation={3} className={styles.MissingDataBox}>
-            <MissingHIVData />
-          </Card>
+          <Card elevation={3} className={styles.MissingDataBox}></Card>
 
           <p id="hiv_prep">
             <b>PrEP Coverage</b>
           </p>
 
-          <MissingHIVData />
-          <DataAlertError alertsArray={missingHivDataArray} />
-        </Card>
+        </Card> */}
+        <DataAlertError alertsArray={missingHivDataArray} />
 
         <h3 id="#prep-coverage" className={styles.MethodologySubsubheaderText}>
           PrEP Coverage
@@ -243,9 +298,9 @@ const HivLink = () => {
           </li>
         </ul>
 
-        <Card elevation={3} className={styles.MissingDataBox}>
+        {/* <Card elevation={3} className={styles.MissingDataBox}>
           <MissingPrepData />
-        </Card>
+        </Card> */}
         <DataAlertError alertsArray={missingPrepDataArray} />
 
         <h3
@@ -366,10 +421,7 @@ const HivLink = () => {
             </ul>
           </li>
         </ul>
-        <br />
-        <h3 id="#hiv-key-terms">Key Terms</h3>
-        <ConditionVariable definitionsArray={hivDefinitionsArray} />
-        <Resources id="#hiv-resources" resourceGroups={[HIV_RESOURCES]} />
+
         <h3 id="#hiv-data-sources">Data Sources</h3>
         <AgeAdjustmentExampleTable
           applyThickBorder={false}
@@ -393,6 +445,8 @@ const HivLink = () => {
             updates: source.update_frequency,
           }))}
         />
+        <KeyTerms id="#hiv-key-terms" definitionsArray={hivDefinitionsArray} />
+        <Resources id="#hiv-resources" resourceGroups={[HIV_RESOURCES]} />
       </article>
     </section>
   )

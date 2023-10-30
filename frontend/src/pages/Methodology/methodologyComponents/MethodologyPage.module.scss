@@ -52,7 +52,7 @@ html {
 .ArticleContainer h4 {
   @include inter500();
   font-size: $text;
-  margin-top: 2rem;
+  // margin-top: 2rem;
 }
 
 .ArticleContainer figure {
@@ -83,6 +83,24 @@ li {
 
 .LearnMoreLink::after {
   content: '→';
+}
+
+.ConditionList::before {
+  content: '→ ';
+}
+
+.ConditionList {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--0-b-5240, #0b5240);
+
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.ConditionList a {
+  text-decoration: none;
 }
 
 .TextButton {
@@ -367,11 +385,11 @@ tr {
   white-space: pre-wrap !important;
 }
 
-.KeyTerms {
-  margin-top: 1rem;
+.KeyTermsContainer {
+  margin-top: 2rem;
 }
 
-.MissingDataContainer {
+.DataAlertErrorContainer {
   width: 100%;
 }
 
@@ -390,6 +408,7 @@ tr {
   font-family: Inter;
   font-size: 0.8rem;
   align-self: start;
+  margin-block-start: 0 !important;
 }
 
 .ConditionDefinition {
@@ -439,12 +458,13 @@ tr {
   border-top: var(--0-b-5240, #0b5240) 1px solid;
 }
 
-.Resources li {
+.ResourcesList li {
   font-size: $smallest;
   list-style: none;
   margin: 2% 0;
 }
-.Resources ul {
+
+.ResourcesList ul {
   padding-inline-start: 0;
   @media screen and (max-width: 1400px) {
     margin: 0 2%;
@@ -468,6 +488,7 @@ tr {
 .ResourcesRow {
   display: flex;
   flex-direction: row;
+  align-items: baseline;
 
   @media screen and (max-width: 1400px) {
     flex-direction: column;
@@ -489,15 +510,6 @@ tr {
   }
 }
 
-.AccordionHeader {
-  color: var(--0-b-5240, #0b5240);
-  font-family: DM Sans;
-  font-size: 1.2rem;
-  font-weight: 500;
-  vertical-align: baseline;
-  background-color: #fafafa !important;
-}
-
 .AccordionContainer > td {
   border: 0;
   padding: 0;
@@ -513,12 +525,20 @@ tr {
   color: var(--383838, #383838);
   font-family: DM Sans;
   font-size: 1rem;
+  min-height: 0;
+}
+
+.AccordionHeader {
+  padding: 0;
+  margin: 0 !important;
 }
 
 .AccordionDetails {
   border-top: solid 2px #fafafa;
   font-family: Inter;
   font-size: 0.8rem;
+  padding: 0 2% !important;
+  margin: 0 auto;
 }
 
 // .CodeContainer {

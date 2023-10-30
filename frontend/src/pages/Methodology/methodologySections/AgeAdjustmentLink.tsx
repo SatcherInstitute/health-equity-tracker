@@ -1051,9 +1051,11 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
-          <h3 id="#age-adjustment-key-terms">Key Terms</h3>
-          <ConditionVariable definitionsArray={ageAdjustmentDefinitionsArray} />
+
+          <KeyTerms
+            id="#age-adjustment-key-terms"
+            definitionsArray={ageAdjustmentDefinitionsArray}
+          />
           <Resources
             id="#age-adjustment-resources"
             resourceGroups={AGE_ADJUSTED_RESOURCES}

@@ -52,6 +52,10 @@ export const routeConfigs = [
         label: 'Age-Adjustment Example: HIV Deaths',
         path: '#age-adjustment-examples',
       },
+      {
+        label: 'Data Sources',
+        path: '#age-adjustment-data-sources',
+      },
       { label: 'Key Terms', path: '#age-adjustment-key-terms' },
       { label: 'Resources', path: '#age-adjustment-resources' },
       { label: 'Explore Examples', path: '#age-adjustment-explore' },
@@ -115,12 +119,12 @@ export const routeConfigs = [
         path: '#behavioral-health-data-sourcing',
       },
       {
-        label: 'Key Terms',
-        path: '#behavioral-health-key-terms',
-      },
-      {
         label: 'Data Sources',
         path: '#behavioral-health-data-sources',
+      },
+      {
+        label: 'Key Terms',
+        path: '#behavioral-health-key-terms',
       },
       {
         label: 'Behavioral and Mental Health Resources',
@@ -134,8 +138,8 @@ export const routeConfigs = [
     component: ChronicDiseaseLink,
     subLinks: [
       { label: 'Data Sourcing', path: '#chronic-diseases-data-sourcing' },
-      { label: 'Key Terms', path: '#chronic-diseases-key-terms' },
       { label: 'Data Sources', path: '#chronic-diseases-data-sources' },
+      { label: 'Key Terms', path: '#chronic-diseases-key-terms' },
     ],
   },
   {
@@ -143,46 +147,44 @@ export const routeConfigs = [
     path: COVID_19_LINK,
     component: Covid19Link,
     subLinks: [
-      { label: 'COVID-19', path: '#covid19' },
+      { label: 'COVID-19', path: '#covid-19' },
       { label: 'Data Sourcing', path: '#covid-data-sourcing' },
       {
-        label: 'COVID-19 Time-Series Data',
-        path: '#covid19-time-series-data',
+        label: 'Age and Demographic Data Analysis',
+        path: '#covid-age-and-demographic-data-analysis',
       },
       {
-        label: 'COVID-19 Missing and Suppressed Data',
-        path: '#covid19-missing-and-suppressed-data',
-      },
-
-      {
-        label: 'COVID-19 vaccinations',
-        path: '#covid-19-vaccinations',
+        label: 'Geographical Distribution and Reporting',
+        path: '#covid-geographical-reporting',
       },
       {
-        label: 'Vaccination population sources',
-        path: '#vaccination-population-sources',
+        label: 'Time-Series and Temporal Analysis',
+        path: '#covid-time-series',
       },
       {
-        label: 'Vaccination data limitations',
-
-        path: '#vaccination-data-limiations',
+        label: 'Addressing Missing and Suppressed Data',
+        path: '#covid-missing-and-suppressed-data',
       },
       {
-        label: 'Missing COVID-19 vaccination data',
-        path: '#missing-covid-vaccination-data',
+        label: 'Vaccination Data Compilation and Analysis',
+        path: '#covid-vaccination-data-analysis',
       },
+      {
+        label: 'Demographic Population Estimates for Vaccination Data',
+        path: '#covid-vaccination-demographic-estimates',
+      },
+      {
+        label: 'Data Limitations and Specific Considerations',
+        path: '#covid-data-limitations',
+      },
+      { label: 'Data Sources', path: '#covid-data-sources' },
       {
         label: 'Key Terms',
         path: '#covid-key-terms',
       },
-      { label: 'Data Sources', path: '#covid-data-sources' },
       {
-        label: 'COVID-19 Resources',
+        label: 'Resources',
         path: '#covid-resources',
-      },
-      {
-        label: 'COVID-19 Vaccination Resources',
-        path: '#covid-vaccination-resources',
       },
     ],
   },
@@ -201,8 +203,8 @@ export const routeConfigs = [
       { label: 'PrEP Coverage', path: '#prep-coverage' },
       { label: 'Linkage to Care', path: '#linkage-to-care' },
       { label: 'HIV Stigma', path: '#stigma' },
-      { label: 'Key Terms', path: '#hiv-key-terms' },
       { label: 'Data Sources', path: '#hiv-data-sources' },
+      { label: 'Key Terms', path: '#hiv-key-terms' },
       { label: 'HIV Resources', path: '#hiv-resources' },
     ],
   },
@@ -226,12 +228,12 @@ export const routeConfigs = [
         path: '#women-in-gov-missing-and-suppressed-data',
       },
       {
-        label: 'Key Terms',
-        path: '#pdoh-key-terms',
+        label: 'Data Sources',
+        path: '#pdoh-data-resources',
       },
       {
-        label: 'Data Sources',
-        path: '#sdoh-resources',
+        label: 'Key Terms',
+        path: '#pdoh-key-terms',
       },
       {
         label: 'Resources',
@@ -245,8 +247,8 @@ export const routeConfigs = [
     component: SdohLink,
     subLinks: [
       { label: 'Data Sourcing', path: '#sdoh-data-sourcing' },
-      { label: 'Key Terms', path: '#sdoh-key-terms' },
       { label: 'Data Sources', path: '#sdoh-data-sources' },
+      { label: 'Key Terms', path: '#sdoh-key-terms' },
       { label: 'Resources', path: '#sdoh-resources' },
     ],
   },
@@ -309,6 +311,10 @@ export const routeConfigs = [
       {
         label: 'Limitations',
         path: '#limitations',
+      },
+      {
+        label: 'Missing Data',
+        path: '#missing-data',
       },
     ],
   },

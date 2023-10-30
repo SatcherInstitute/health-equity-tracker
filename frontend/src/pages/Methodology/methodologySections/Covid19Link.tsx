@@ -1,9 +1,9 @@
-import { Card, Link } from '@mui/material'
+import { Alert, AlertTitle, Card, Link } from '@mui/material'
 import { urlMap } from '../../../utils/externalUrls'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
-  MissingCovidData,
-  MissingCovidVaccinationData,
+  missingCovidDataArray,
+  missingCovidVaccinationDataArray,
 } from '../methodologyContent/missingDataBlurbs'
 import {
   covidDataSources,
@@ -33,10 +33,6 @@ import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExa
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
 
 import DataAlertError from '../methodologyContent/DataAlertError'
-import {
-  missingCovidDataArray,
-  missingCovidVaccinationDataArray,
-} from '../../DataCatalog/methodologyContent/missingDataBlurbs'
 
 const Covid19Link = () => {
   return (
@@ -64,341 +60,281 @@ const Covid19Link = () => {
             },
           ]}
         />
+
         <h3 id="#covid-data-sourcing">Data Sourcing</h3>
-
-        <h3>Age-Adjusted Data Sourcing</h3>
         <p>
-          For COVID-19, we use the CDC Case Surveillance Restricted Access
-          Detailed Data for this. It can break down by race and age to ten-year
-          buckets. The age buckets are:
-          <CodeBlock
-            rowData={[
-              {
-                content: (
-                  <>
-                    <b>0-9</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>10-19</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>20-29</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>30-39</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>40-49</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>50-59</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>60-69</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>70-79</b>,
-                  </>
-                ),
-              },
-              {
-                content: (
-                  <>
-                    <b>80+</b>
-                  </>
-                ),
-              },
-            ]}
-          />
+          The primary data source is the CDC Case Surveillance Restricted Access
+          Detailed Data. This dataset allows for detailed breakdowns by race,
+          age, and even specific ten-year age intervals. We also use the New
+          York Times COVID Dataset as a benchmark to evaluate the
+          comprehensiveness of state data in our tracker.
         </p>
-        <ul>
-          <li>
-            National statistics are aggregations of state-wide data. If state
-            data is not available, these aggregations may be incomplete and
-            potentially skewed.
-          </li>
-          <li>
-            When calculating national-level per100k COVID-19 rates for cases,
-            deaths, and hospitalizations, we only include the population of
-            states that do not have a suppressed case, hospitalization, or death
-            count as part of the total population for each respective measure.
-            See the <b>What data are missing</b> section for further details.
-          </li>
-          <li>
-            To protect the privacy of affected individuals, COVID-19 data may be
-            hidden in counties with low numbers of COVID-19 cases,
-            hospitalizations and deaths.
-          </li>
-          <li>
-            Decisions to suppress COVID-19 data for particular states in the
-            tracker are evaluated by comparing the aggregate case, death, and
-            hospitalization counts in the CDC surveillance dataset vs. other
-            sources, such as the New York Times COVID Dataset, which in turn
-            sources their data directly from state and territory health
-            departments. Data for a state are suppressed if the aggregate counts
-            for that state are &lt; 5% of the source being used for comparison.
-            These analyses are available for{' '}
-            <a href={urlMap.shliGitHubSuppressCovidCases}>cases</a> and{' '}
-            <a href={urlMap.shliGitHubSuppressCovidDeaths}>deaths</a>.
-          </li>
-          <li>
-            The underlying data is reported by the CDC at the case-level, so we
-            cannot determine whether a state/county lacking cases for a
-            particular demographic group truly has zero cases for that group or
-            whether that that locale fails to report demographics correctly.
-          </li>
-        </ul>
-
-        <div id="#covid19-time-series-data" style={{ height: '10px' }}></div>
-        <h3
-          className={styles.MethodologySubsubheaderText}
-          id="#covid19-time-series-data"
-        >
-          COVID-19 time-series data
+        <h3 id="#covid-age-and-demographic-data-analysis">
+          Age and Demographic Data Analysis
         </h3>
-
-        <h4 id="#covid19-time-series-data">COVID-19 time-series data</h4>
-
-        <h3
-          className={styles.MethodologySubsubheaderText}
-          id="#covid19-time-series-data"
-        >
-          COVID-19 time-series data
-        </h3>
-
-        <ul>
-          <li>
-            The CDC Restricted dataset includes a field called{' '}
-            <b>cdc_case_earliest_dt</b>, which represents the earliest of either
-            the date of first symptoms onset, a positive COVID test, or the date
-            the case was first reported to the CDC. We use the month and year of
-            this field to categorize the month and year that each COVID case,
-            death, and hospitalization occurred. It is important to note here,
-            that, for deaths and hospitalizations, we plot the month the case
-            was first reported, and not when the death or hospitalization itself
-            occurred.
-          </li>
-          <li>
-            We chose to use this field because it is filled out for the vast
-            majority of cases, and because it provides the best estimate we can
-            get on when the COVID case in question occurred.
-          </li>
-          <li>
-            We only count confirmed deaths and hospitalizations in the{' '}
-            <b>per100k</b> and <b>inequitable distribution</b> metrics, so when
-            we show “zero” deaths or hospitalizations for a demographic group in
-            any month, it is possible that there are unconfirmed deaths or
-            hospitalizations for that group in that month, but they have not
-            been reported to the CDC.
-          </li>
-          <li>
-            If a geographic jurisdiction reports zero cases, deaths, or
-            hospitalizations for a demographic for the entire pandemic, we leave
-            that demographic off of our charts all together, as we assume they
-            are not collecting data on that population.
-          </li>
-          <li>
-            Each chart represents the “incidence rate” – the amount of new cases
-            that were reported in each month.
-          </li>
-        </ul>
-
-        {/* 
-        <Card
-          id="#covid19-missing-and-suppressed-data"
-
-        <div
-          id="#covid19-missing-and-suppressed-data"
-          style={{ height: '30px' }}
-        ></div> */}
-        <Card
-          // id="#covid19-missing-and-suppressed-data"
-
-          elevation={3}
-          className={styles.MissingDataBox}
-        >
-          <MissingCovidData />
-        </Card>
-
-        <h3
-          className={styles.MethodologySubsubheaderText}
-          id="#covid-19-vaccinations"
-        >
-          <div id="#covid-19-vaccinations" style={{ height: '10px' }}></div>
-          {/* <h3 className={styles.MethodologySubsubheaderText}>
-
-          COVID-19 vaccinations */}
-        </h3>
-        <DataAlertError alertsArray={missingCovidDataArray} />
-
         <p>
-          Because there is currently no national vaccine demographic dataset, we
-          combine the best datasets we could find for each geographic level.
+          Age categorization involves ten-year age buckets, ranging from 0-9 up
+          to 80+. The data provides a breakdown by both race and age.
         </p>
-        <ul>
-          <li>
-            For the national level numbers, we use the{' '}
-            <a href={urlMap.cdcVaxTrends}>CDC vaccine demographic dataset,</a>{' '}
-            which provides data on the race/ethnicity, sex, and age range of
-            vaccine recipients, as well whether they have taken one or two
-            shots.{' '}
-          </li>
 
-          <li>
-            For the state level we use{' '}
-            <a href={urlMap.kffCovid}>
-              the Kaiser Family Foundation COVID-19 Indicators dataset,
-            </a>{' '}
-            which is a hand-curated dataset based on analysis from state health
-            department websites. It is the only state level demographic vaccine
-            dataset that publishes this data in a usable format. The dataset
-            only provides data on the race and ethnicity of vaccine recipients,
-            and for the majority of states counts individuals who have received
-            at least one shot as vaccinated. It does not include any data for US
-            territories.{' '}
-          </li>
-          <li>
-            For the county level, we could not identify a dataset that provides
-            vaccine demographics, so to show some context we use the{' '}
-            <a href={urlMap.cdcVaxCounty}>
-              COVID-19 Vaccinations in the United States, County dataset
-            </a>{' '}
-            which provides the total number of vaccinations per county.
-          </li>
-        </ul>
+        <h3 id="#covid-geographical-reporting">
+          Geographical Distribution and Reporting
+        </h3>
+        <p></p>
 
-        <h4> Vaccination population sources </h4>
+        <h4>National Data</h4>
+        <p>
+          National statistics are aggregations of state-wide data, meaning that
+          we present this information in a summarized form, rather than broken
+          down into detailed, individual case levels.
+        </p>
+        <p>
+          <blockquote>
+            <strong>
+              However, if state data is not available, these aggregations may be
+              incomplete and potentially skewed.
+            </strong>
+          </blockquote>
+        </p>
+        <p>
+          In our calculations for the national-level COVID-19 rates per 100,000
+          individuals, we consider only the populations of states that report
+          complete data. States that have suppressed counts of cases,
+          hospitalizations, or deaths are excluded from these calculations.
+        </p>
 
-        {/* <h3
-          className={styles.MethodologySubsubheaderText} */}
+        <h4>State and Territory Data</h4>
+        <p>
+          There are instances where the aggregated case counts for COVID-19
+          cases and COVID-19 deaths in some states account for less than 5% of
+          the total case counts, compared to external data sources, like the New
+          York Times' (NYT) COVID Dataset.
+        </p>
+        <Alert severity="info" role="note">
+          <AlertTitle>A note about The NYT COVID Dataset</AlertTitle>
+          <p>
+            The NYT COVID Dataset sources their data directly from state and
+            territory health departments. We then use the NYT's COVID Dataset to
+            compare the overall aggregate case, death, and hospitalization
+            counts in the CDC surveillance dataset.
+          </p>
+          <p>
+            If after these analyses, the overall counts are still significantly
+            low, this data is unfortunately withheld (which we refer to as
+            suppressed), because we can't ascertain if that state genuinely has
+            no cases for that demographic or if it's a reporting oversight
+            concerning demographic details.
+          </p>
+        </Alert>
 
-        <div
-          id="#vaccination-population-sources"
-          style={{ height: '10px' }}
-        ></div>
-        <h3 className={styles.MethodologySubsubheaderText}>
-          Vaccination population sources
+        <h4>County Data</h4>
+        <p>
+          Specific figures might be concealed in counties with low case counts
+          to protect the privacy of affected individuals. The foundational data
+          provided by the CDC is detailed at the case level. Therefore, when a
+          county doesn't report cases for a certain demographic, it's uncertain
+          whether the county truly lacks cases for that group or if there's a
+          lapse in accurate demographic reporting.
+        </p>
+
+        <h3 id="#covid-time-series">Time-Series and Temporal Analysis</h3>
+        <p>
+          Utilizes the <code>cdc_case_earliest_dt</code> ("CDC Case Earliest
+          Date") field from the CDC Restricted dataset. Data is categorized
+          based on the earliest of several factors:
+          <ol>
+            <li>symptom onset,</li>
+            <li>positive test date, or</li>
+            <li>report date</li>
+          </ol>
+          to the CDC. Monthly charts represent the incidence rate, indicating
+          the number of new cases reported. We categorize each COVID case,
+          death, and hospitalization based on the month and year recorded in the
+          dataset.
+        </p>
+        <p>
+          <blockquote>
+            <strong>
+              However, it's crucial to highlight that, for deaths and
+              hospitalizations, our data reflects the month when the case was
+              initially reported, not the actual month of the death or
+              hospitalization event.
+            </strong>
+          </blockquote>
+        </p>
+        <p>
+          In our per 100,000 and inequitable distribution metrics, we only
+          account for confirmed deaths and hospitalizations.
+        </p>
+        <p>
+          Therefore, if our data indicates 'zero' deaths or hospitalizations for
+          a specific demographic in a given month, it's possible there were
+          unreported or unconfirmed events for that group during that time frame
+          that the CDC hasn't noted. If any geographic area shows no data for
+          cases, deaths, or hospitalizations for a particular demographic
+          throughout the pandemic, we exclude that demographic from our visual
+          representations, under the assumption that data collection for that
+          group might be lacking.
+        </p>
+
+        <h3 id="#covid-missing-and-suppressed-data">
+          Addressing Missing and Suppressed Data
+        </h3>
+        <p>
+          Vaccination definitions might vary across datasets, with terms like
+          <em>“at least one dose”</em> and <em>“total doses administered”</em>{' '}
+          being used.
+        </p>
+        <p>
+          For COVID-19 related reports, this tracker uses data that is
+          disaggregated, meaning it's broken down into detailed, individual case
+          levels rather than being presented in a summarized form. This detailed
+          data is reported by states, territories, and other jurisdictions to
+          the CDC.
+        </p>
+        <p>
+          <blockquote>
+            <strong>
+              However, many of these case records aren't broken down
+              comprehensively, may not specify hospitalization or death
+              statuses, or might lack the complete details needed to fully
+              understand COVID-19's overall impact.
+            </strong>
+          </blockquote>
+        </p>
+        <p>
+          National figures might be affected if specific state data is
+          unavailable. In counties with minimal figures, data may be hidden to
+          ensure individual privacy. Decisions to withhold state data are based
+          on comparative analysis with other datasets. Data suppression criteria
+          involve a comparative analysis with the New York Times COVID Dataset.
+        </p>
+
+        <h3 id="#covid-vaccination-data-analysis">
+          Vaccination Data Compilation and Analysis
+        </h3>
+        <p>
+          Due to the lack of a consolidated national vaccine demographic
+          dataset, multiple sources are combined:
+        </p>
+
+        <h4>National Data</h4>
+        <p>Derived from the CDC vaccine demographic dataset.</p>
+
+        <h4>State Data</h4>
+        <p>
+          Extracted from the Kaiser Family Foundation's COVID-19 Indicators
+          dataset.
+        </p>
+
+        <h4>County Data</h4>
+        <p>
+          At the county level, our data differs from what we present nationally
+          and at the state level. While we typically provide detailed vaccine
+          demographics, such as age, race, or gender of those vaccinated, we
+          couldn't find a dataset for counties that offers this level of detail.
+          Instead, to offer some context, we utilize the 'COVID-19 Vaccinations
+          in the United States, County' dataset. This dataset provides only the
+          total number of vaccinations administered in each county, without the
+          demographic breakdown that we present for other geographical levels.
+        </p>
+
+        <h3 id="#covid-vaccination-demographic-estimates">
+          Demographic Population Estimates for Vaccination Data
         </h3>
 
-        <ul>
-          <li>
-            For the national numbers we use the population numbers provided by
-            the CDC, we chose to do this because they include population
-            estimates from <b>Palau</b>, <b>Micronesia</b>, and the{' '}
-            <b>U.S. Marshall Islands,</b> which are difficult to find
-            estimations for. Furthermore the CDC has estimations for age ranges
-            that the ACS numbers do not readily provide, as they use a per year
-            population estimate from the ACS that we do not use anywhere else
-            and have not added to our system.
-          </li>
-          <li>
-            For the state level, to calculate the total number of vaccinations
-            we use the ACS 2019 estimates of each state’s population. The
-            population counts for each demographic group at the state level are
-            provided by the Kaiser Family Foundation, who researched exactly
-            what the definition of each demographic group in every state is.
-            They provide population estimates for <b>Asian</b>, <b>Black</b>,{' '}
-            <b>White</b>, and <b>Hispanic</b>, so we fill in the ACS 2019
-            estimation for <b>American Indian and Alaska Native</b>, and{' '}
-            <b>Native Hawaiian and Pacific Islander</b>. These alternate
-            population comparisons metrics shown with a different color on the
-            disparities bar chart. We are unable to show a population comparison
-            metric for “Unrepresented Race” because we are unsure of the
-            definition in each state.
-          </li>
-          <li>
-            For the county level we use the ACS 2019 population estimations.
-          </li>
-        </ul>
+        <Alert severity="info" role="note">
+          <AlertTitle>
+            A note about the 2019 American Community Survey (ACS)
+          </AlertTitle>
+          <p>
+            While the American Community Survey (ACS) is a valuable resource for
+            many demographic insights, it has its limitations in the context of
+            our study. The ACS doesn't provide the specific age-segmented
+            estimates that the CDC offers. Furthermore, even though the ACS
+            provides yearly population breakdowns, we've chosen not to
+            incorporate their year-by-year data into our system.
+          </p>
+        </Alert>
+        <h4>National Estimates</h4>
+        <p>
+          We use the CDC's population numbers for our national figures,
+          especially when considering regions like Palau, Micronesia, and the
+          U.S. Marshall Islands, for which obtaining accurate data can be
+          challenging.
+        </p>
 
-        <h4>Vaccination data limitations</h4>
+        <h4>State and County Estimates</h4>
+        <p>
+          Accurate population estimates are essential for understanding the
+          distribution of vaccinations and pinpointing disparities, especially
+          among indigenous and underrepresented groups. For the state level, we
+          base our primary data on the ACS 2019 estimates to calculate each
+          state's total vaccinations. It's noteworthy that state-reported
+          population categories sometimes differ from census categories, leading
+          us to lean on the Kaiser Family Foundation's (KFF) tabulations. The
+          Kaiser Family Foundation provides detailed population counts for
+          specific demographic groups at the state level, including Asian,
+          Black, White, and Hispanic populations.
+        </p>
+        <p>
+          <blockquote>
+            <strong>
+              However, since the KFF data doesn't comprehensively cover
+              indigenous groups, we supplement with ACS 2019 estimates for
+              American Indian and Alaska Native, as well as Native Hawaiian and
+              Pacific Islander groups.
+            </strong>
+          </blockquote>
+        </p>
+        <p>
+          On our disparities bar chart, these specific population metrics stand
+          out with a different color. Yet, the 'Unrepresented Race' category
+          poses challenges due to its varying definitions across states. As a
+          result, direct comparisons become challenging. The 'Percent of
+          vaccinated' metrics for Native Hawaiian and Pacific Islander, and
+          American Indian and Alaska Native, are juxtaposed with ACS 5-year
+          estimates, while the 'Unrepresented Race' lacks a direct comparison
+          metric. For county-level insights, our data stems from the ACS 2019
+          population estimates. However, it's crucial to note that the CDC's
+          county-level vaccine dataset only presents overall vaccination figures
+          without any demographic breakdown.
+        </p>
 
-        {/* <h3
-          className={styles.MethodologySubsubheaderText} */}
-
-        <div
-          id="#vaccination-data-limitations"
-          style={{ height: '10px' }}
-        ></div>
-        <h3 className={styles.MethodologySubsubheaderText}>
-          Vaccination data limitations
+        <h3 id="#covid-data-limitations">
+          Data Limitations and Specific Considerations
         </h3>
+        <p>
+          In our analysis, we account for unique state-specific reporting
+          conditions. For instance, New Hampshire, after lifting its national
+          COVID-19 emergency response declaration in May 2021, allowed vaccine
+          recipients to opt out of state records, potentially skewing the data
+          since then.
+        </p>
+        <p>
+          <blockquote>
+            <strong>
+              Additionally, there are disparities in state reporting methods;
+              some states differentiate race and ethnicity, leading to varied
+              percentages of unknown cases. We choose to display the higher
+              metric on national maps and both figures on state pages for
+              clarity.
+            </strong>
+          </blockquote>
+        </p>
+        <p>
+          The Kaiser Family Foundation's data collection primarily encompasses
+          Asian, Black, White, and Hispanic demographics, limiting the scope of
+          our per 100k metrics and demographic breakdowns at the state level.
+        </p>
+        <p>
+          Another challenge arises from the lack of a standardized definition
+          for “vaccinated.” Typically, it refers to individuals who've received
+          at least one vaccine dose. However, states like Arkansas, Illinois,
+          Maine, New Jersey, and Tennessee report total vaccine doses
+          administered, adding another layer to our comprehensive analysis.
+        </p>
 
-        <ul>
-          <li>
-            <b>New Hampshire</b> lifted its national COVID-19 emergency response
-            declaration in May 2021, which allows vaccine recipients to opt out
-            of having their COVID-19 vaccinations included in the state’s IIS.
-            As such, data submitted by New Hampshire since May 2021 may not be
-            representative of all COVID-19 vaccinations occurring in the state.
-          </li>
-          <li>
-            Some states report race and ethnicity separately, in which case they
-            report unknown percentages separately. In this case, we show the
-            higher of the two metrics on the national map of unknown cases, and
-            display both numbers on the state page.
-          </li>
-          <li>
-            The Kaiser Family Foundation only collects population data for{' '}
-            <b>Asian</b>, <b>Black</b>, <b>White</b>, and <b>Hispanic</b>{' '}
-            demographics, limiting their per 100k metrics and what demographic
-            breakdowns we are able to show at the state level.
-          </li>
-          <li>
-            As there is no standardized definition for “vaccinated”, we display
-            vaccination data as “at least one dose” which is used by most
-            states. However, some states including <b>Arkansas</b>,{' '}
-            <b>Illinois</b>, <b>Maine</b>, <b>New Jersey</b>, and{' '}
-            <b>Tennessee</b> report “Total vaccine doses administered”, in which
-            case those numbers are reported.
-          </li>
-        </ul>
-
-        <Card
-          id="#missing-covid-vaccination-data"
-          elevation={3}
-          className={styles.MissingDataBox}
-        >
-          {/* <Card elevation={3} className={styles.MissingDataBox}> */}
-
-          <MissingCovidVaccinationData />
-        </Card>
-        <DataAlertError alertsArray={missingCovidVaccinationDataArray} />
-        <h3 id="#covid-key-terms">Key Terms</h3>
-        <ConditionVariable definitionsArray={covidDefinitionsArray} />
-        <Resources id="#covid-resources" resourceGroups={[COVID_RESOURCES]} />
-        <Resources
-          id="#covid-vaccination-resources"
-          resourceGroups={[COVID_VACCINATION_RESOURCES]}
-        />
         <h3 id="#covid-data-sources">COVID-19 Data Sources</h3>
         <AgeAdjustmentExampleTable
           applyThickBorder={false}
@@ -422,28 +358,15 @@ const Covid19Link = () => {
             updates: source.update_frequency,
           }))}
         />
-        <h3 id="#covid-data-sources">Data Sources</h3>
-        <AgeAdjustmentExampleTable
-          applyThickBorder={false}
-          columns={[
-            { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
-            { header: 'Update Frequency', accessor: 'updates' },
-          ]}
-          rows={covidDataSources.map((source, index) => ({
-            source: (
-              <a
-                key={index}
-                href={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${source.id}`}
-              >
-                {source.data_source_name}
-              </a>
-            ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
-            updates: source.update_frequency,
-          }))}
+
+        <KeyTerms
+          id="#covid-key-terms"
+          definitionsArray={covidDefinitionsArray}
+        />
+
+        <Resources
+          id="#covid-resources"
+          resourceGroups={[COVID_RESOURCES, COVID_VACCINATION_RESOURCES]}
         />
       </article>
     </section>

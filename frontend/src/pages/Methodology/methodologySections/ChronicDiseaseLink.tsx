@@ -22,9 +22,12 @@ import {
 import Resources from '../methodologyComponents/Resources'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { Helmet } from 'react-helmet-async'
-import { Alert } from '@mui/material'
+import { Alert, AlertTitle } from '@mui/material'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import { totalCasesPer100kPeopleTooltip } from '../methodologyContent/TooltipLibrary'
+import {
+  percentShareTooltip,
+  totalCasesPer100kPeopleTooltip,
+} from '../methodologyContent/TooltipLibrary'
 import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -57,46 +60,79 @@ const ChronicDiseaseLink = () => {
         />
         <h3 id="#chronic-diseases-data-sourcing">Data Sourcing</h3>
         <p>
-          Multiple chronic diseases, behavioral health, and social determinants
-          of health in the tracker are sourced from{' '}
-          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>, who in
-          turn source the majority of their data from the{' '}
+          For chronic diseases like COPD and diabetes, our tracker sources data
+          primarily from
+          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>, which
+          predominantly obtains its data from the CDC's
           <a href={'urlMap.cdcBrfss'}>
             Behavioral Risk Factor Surveillance System (BRFSS)
-          </a>
-          , a survey run by the CDC, along with supplemental data from{' '}
+          </a>{' '}
+          , complemented by
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
-          <a href={'urlMap.censusVoting'}>US Census</a>.
-        </p>
-        <p>
-          Because BRFSS is a survey, there are not always enough respondents to
-          provide a statistically meaningful estimate of disease prevalence,
-          especially for smaller and typically marginalized racial groups.
-        </p>
-        <p>
-          BRFSS data broken down by race and ethnicity is not available at the
-          county level, so the tracker does not display these conditions at the
-          county level either.
-        </p>
-
-        <p>
-          All metrics sourced from America’s Health Rankings are calculated
-          based on the rates provided from their downloadable data files:
-        </p>
-        <p>
-          For most conditions, AHR provides these rates as a percentage, though
-          in some cases they use cases per 100,000. If we present the condition
-          using the same units, we simply pass the data along directly.
+          <a href={'urlMap.censusVoting'}>U.S. Census</a> data. Given that BRFSS
+          is survey-based, data availability can sometimes be limited,
+          especially for smaller and marginalized racial and ethnic groups.
+          Furthermore, race and ethnicity-specific data from BRFSS is not
+          presented at the county level due to limitations in the original data.
+          The data on behavioral health conditions such as frequent mental
+          distress, depression, and excessive drinking, featured in the Health
+          Equity Tracker, primarily comes from{' '}
+          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>. AHR
+          primarily relies on the{' '}
+          <a href={'urlMap.cdcBrfss'}>
+            Behavioral Risk Factor Surveillance System (BRFSS)
+          </a>{' '}
+          survey conducted by the CDC, supplemented by data from{' '}
+          <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
+          <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
         <Alert severity="info" role="note">
-          If we need to convert a rate they present as a <b>percent</b> into a{' '}
-          <b>per 100k</b>, we multiply their percent amount by 1,000 to obtain
-          the new {totalCasesPer100kPeopleTooltip} rate.
+          <AlertTitle>
+            A note about the CDC's Behavioral Risk Factor Surveillance System
+            (BRFSS) survey
+          </AlertTitle>
+          <p>
+            It's important to note that because BRFSS is survey-based, it
+            sometimes lacks sufficient data for smaller or marginalized racial
+            groups, making some estimates less statistically robust.
+          </p>
+          <p>
+            Additionally, BRFSS data by race and ethnicity is not available at
+            the county level, limiting our tracker's granularity for these
+            metrics.
+          </p>
         </Alert>
+        <p>
+          We obtain our data for the following specific issues directly from
+          America's Health Rankings (AHR). This data is based on{' '}
+          {percentShareTooltip} metrics that AHR provides in downloadable data
+          files. Click on the following to explore the reports:
+        </p>
+        <ul>
+          <li className={styles.ConditionList}>
+            <a href="https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All">
+              COPD
+            </a>
+          </li>
+          <li className={styles.ConditionList}>
+            <a href="https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All">
+              diabetes
+            </a>
+          </li>
+        </ul>
+
+        <p>
+          AHR usually gives us rates as percentages. In some cases, they provide
+          the number of cases for every 100,000 people. We keep the data in the
+          format AHR provides it. If we need to change a percentage into a{' '}
+          {totalCasesPer100kPeopleTooltip} rate, we simply multiply the
+          percentage by 1,000. For example, a 5% rate would become 5,000 per
+          100,000 people.
+        </p>
         <CodeBlock
           rowData={[
             {
-              content: '5% (of 100)',
+              content: '5% rate (of 100)',
             },
             {
               content: '===',
@@ -104,76 +140,13 @@ const ChronicDiseaseLink = () => {
             {
               content: (
                 <>
-                  <b>5,000 per 100,000</b>
+                  <b>5,000 per 100,000 people</b>
                 </>
               ),
             },
           ]}
         />
-        <p>
-          For COPD, diabetes, frequent mental distress, depression, excessive
-          drinking, asthma, avoided care, and suicide, we source the{' '}
-          <b>percent share</b> metrics directly from AHR.
-        </p>
-        <p>
-          Multiple chronic disease, behavioral health, and social determinants
-          of health in the tracker are sourced from{' '}
-          <a href={'urlMap.amr'}>America’s Health Rankings (AHR)</a>, who in
-          turn source the majority of their data from the{' '}
-          <a href={'urlMap.cdcBrfss'}>
-            Behavioral Risk Factor Surveillance System (BRFSS)
-          </a>
-          , a survey run by the CDC, along with supplemental data from{' '}
-          <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
-          <a href={'urlMap.censusVoting'}>US Census</a>.
-          <a href={urlMap.amr}>America’s Health Rankings (AHR)</a>, who in turn
-          source the majority of their data from the{' '}
-          <a href={urlMap.cdcBrfss}>
-            Behavioral Risk Factor Surveillance System (BRFSS)
-          </a>
-          , a survey run by the CDC, along with supplemental data from{' '}
-          <a href={urlMap.cdcWonder}>CDC WONDER</a> and the{' '}
-          <a href={urlMap.censusVoting}>US Census</a>.
-        </p>
-        <ul>
-          <li>
-            Because BRFSS is a survey, there are not always enough respondents
-            to provide a statistically meaningful estimate of disease
-            prevalence, especially for smaller and typically marginalized racial
-            groups. Please see the{' '}
-            <a href={'urlMap.amrMethodology'}>methodology page</a> of America’s
-            <a href={urlMap.amrMethodology}>methodology page</a> of America’s
-            Health Rankings for details on data suppression.
-          </li>
-          <li>
-            BRFSS data broken down by race and ethnicity is not available at the
-            county level, so the tracker does not display these conditions at
-            the county level either.
-          </li>
-          <li>
-            All metrics sourced from America’s Health Rankings are calculated
-            based on the rates provided from their downloadable data files:
-            <ul>
-              <li>
-                For most conditions, AHR provides these rates as a percentage,
-                though in some cases they use cases per 100,000. If we present
-                the condition using the same units, we simply pass the data
-                along directly. If we need to convert a rate they present as a{' '}
-                <b>percent</b> into a <b>per 100k</b>, we multiply their percent
-                amount by 1,000 to obtain the new per 100k rate.
-                <code>5% (of 100) === 5,000 per 100,000</code>.
-              </li>
-              <li>
-                For COPD, diabetes, frequent mental distress, depression,
-                excessive drinking, asthma, avoided care, and suicide, we source
-                the <b>percent share</b> metrics directly from AHR.
-              </li>
-            </ul>
-          </li>
-        </ul>
-        <br />
-        <h3 id="#chronic-diseases-key-terms">Key Terms</h3>
-        <ConditionVariable definitionsArray={chronicDiseaseDefinitionsArray} />
+
         <h3 id="#chronic-diseases-data-sources">Data Sources</h3>
         <AgeAdjustmentExampleTable
           applyThickBorder={false}
@@ -196,6 +169,10 @@ const ChronicDiseaseLink = () => {
             granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
+        />
+        <KeyTerms
+          id="#chronic-diseases-key-terms"
+          definitionsArray={chronicDiseaseDefinitionsArray}
         />
       </article>
     </section>

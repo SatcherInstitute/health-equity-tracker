@@ -1,10 +1,10 @@
-import { Card } from '@mui/material'
+import { Alert, AlertTitle, Card } from '@mui/material'
 import {
   ALASKA_PRIVATE_JAIL_CAVEAT,
   CombinedIncarcerationStateMessage,
 } from '../../../data/providers/IncarcerationProvider'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
+// import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
 
 import { urlMap } from '../../../utils/externalUrls'
 import KeyTerms from '../methodologyComponents/KeyTerms'
@@ -33,8 +33,11 @@ import { Helmet } from 'react-helmet-async'
 import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import { missingCawpDataArray } from '../../DataCatalog/methodologyContent/missingDataBlurbs'
+import { missingCawpDataArray } from '../methodologyContent/missingDataBlurbs'
 import DataAlertError from '../methodologyContent/DataAlertError'
+import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
+import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import { percentShareTooltip } from '../methodologyContent/TooltipLibrary'
 
 const PdohLink = () => {
   return (
@@ -465,20 +468,51 @@ const PdohLink = () => {
           </li>
         </ul>
 
-        <Card
+        <DataAlertError alertsArray={missingCawpDataArray} />
+        {/* <Card
           id={'#women-in-gov-missing-and-suppressed-data'}
           elevation={3}
           className={styles.MissingDataBox}
         >
-          {/* <Card elevation={3} className={styles.MissingDataBox}> */}
+           <Card elevation={3} className={styles.MissingDataBox}> 
 
           <MissingCAWPData />
-          <DataAlertError alertsArray={missingCawpDataArray} />
-        </Card>
-        <br />
-        <h3 id="#pdoh-key-terms">Key Terms</h3>
-        <ConditionVariable definitionsArray={pdohDefinitionsArray} />
-        <Resources id="#pdoh-resources" resourceGroups={[PDOH_RESOURCES]} />
+        </Card>  */}
+        <Alert severity="info" role="note">
+          <AlertTitle>
+            A note about the America's Health Rankings (AHR)'s population data
+          </AlertTitle>
+          <p>
+            Without population data, it is difficult to accurately calculate{' '}
+            {percentShareTooltip} measures, which could potentially result in
+            misleading data.{' '}
+          </p>
+          <p>
+            We don't display percent share figures for certain health measures
+            because the original data source only gives us these numbers as{' '}
+            {
+              <DefinitionTooltip
+                topic={'rates'}
+                definitionItem={definitionsGlossary[40]}
+              />
+            }
+            , and not as a portion of the population.
+          </p>
+          <p>
+            Please note that AHR does not provide population-specific data for
+            certain conditions, including:
+            <ul>
+              <li className={styles.ConditionList}>
+                <a href="https://healthequitytracker.org/exploredata?mls=1.voter_participation-3.00&group1=All">
+                  voter participation
+                </a>
+                .
+              </li>
+            </ul>
+            However, we encourage you to explore our comprehensive reports for
+            valuable insights into these and other conditions.
+          </p>
+        </Alert>
         <h3 id="#pdoh-data-sources">Data Sources</h3>
         <AgeAdjustmentExampleTable
           applyThickBorder={false}
@@ -502,6 +536,11 @@ const PdohLink = () => {
             updates: source.update_frequency,
           }))}
         />
+        <KeyTerms
+          id="#pdoh-key-terms"
+          definitionsArray={pdohDefinitionsArray}
+        />
+        <Resources id="#pdoh-resources" resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
   )
