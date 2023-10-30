@@ -40,15 +40,27 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
   unknown: 'greenblue',
 }
 
-export const womenMapConfig = {
+export const womenHigherIsBetterMapConfig = {
   scheme: MAP_SCHEMES.women,
-  min: sass.mapWomenMin,
+  min: sass.mapWomenDarkZero,
   mid: sass.mapWomenMid,
 }
 
-export const medicareMapConfig = {
+export const womenHigherIsWorseMapConfig = {
+  scheme: MAP_SCHEMES.women,
+  min: sass.mapWomenLightZero,
+  mid: sass.mapWomenMid,
+}
+
+export const medicareHigherIsBetterMapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareMin,
+  min: sass.mapMedicareZeroDark,
+  mid: sass.mapMedicareMid,
+}
+
+export const medicareHigherIsWorseMapConfig = {
+  scheme: MAP_SCHEMES.medicare,
+  min: sass.mapMedicareZeroLight,
   mid: sass.mapMedicareMid,
 }
 
@@ -99,11 +111,18 @@ export const ZERO_DOT_SCALE_SPEC: any = {
   range: [EQUAL_DOT_SIZE],
 }
 
-export const ZERO_YELLOW_SCALE = {
+export const ZERO_LIGHT_SCALE = {
   name: ZERO_SCALE,
   type: 'ordinal',
   domain: [0],
-  range: [sass.mapMin],
+  range: [sass.mapLightZero],
+}
+
+export const ZERO_DARK_SCALE = {
+  name: ZERO_SCALE,
+  type: 'ordinal',
+  domain: [0],
+  range: [sass.mapDarkZero],
 }
 
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]

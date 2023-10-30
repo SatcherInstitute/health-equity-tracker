@@ -1,4 +1,4 @@
-import { womenMapConfig } from '../../charts/mapGlobals'
+import { womenHigherIsBetterMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -89,7 +89,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     categoryId: 'pdoh',
     dataTypeId: 'women_in_us_congress',
     higherIsBetter: true,
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'US Congress',
     fullDisplayName: 'Women in US Congress',
     surveyCollectedData: true,
@@ -150,7 +150,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     categoryId: 'pdoh',
     dataTypeId: 'women_in_state_legislature',
     higherIsBetter: true,
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
     fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
     surveyCollectedData: true,

@@ -1,4 +1,7 @@
-import { medicareMapConfig } from '../../charts/mapGlobals'
+import {
+  medicareHigherIsBetterMapConfig,
+  medicareHigherIsWorseMapConfig,
+} from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
@@ -76,7 +79,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'bb_ami_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
     fullDisplayName:
@@ -133,7 +136,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'statins_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Statins',
     fullDisplayName: 'Adherence to statins',
     surveyCollectedData: true,
@@ -202,7 +205,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'beta_blockers_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Beta Blockers',
     fullDisplayName: 'Adherence to beta blockers',
     surveyCollectedData: true,
@@ -257,7 +260,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'ras_antagonists_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
     fullDisplayName: 'Adherence to RAS-Antagonists',
@@ -311,7 +314,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'ccb_adherence',
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
     fullDisplayName: 'Adherence to calcium channel blockers',
     surveyCollectedData: true,
@@ -365,7 +368,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'doac_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
     fullDisplayName: 'Adherence to direct oral anticoagulants',
     surveyCollectedData: true,
@@ -418,7 +421,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'ami',
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
     fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
     surveyCollectedData: true,
@@ -485,7 +488,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'arv_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
     fullDisplayName: 'Adherence to antiretroviral medications',
     surveyCollectedData: true,
@@ -530,7 +533,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'medicare_hiv',
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'HIV Cases',
     fullDisplayName: 'Cases of HIV',
     surveyCollectedData: true,
@@ -589,7 +592,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'anti_psychotics_adherence',
     higherIsBetter: true,
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Anti-Psychotics',
     fullDisplayName: 'Adherence to anti-psychotics',
     surveyCollectedData: true,
@@ -639,7 +642,7 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'medicare_schizophrenia',
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Schizophrenia',
     fullDisplayName: 'Cases of Schizophrenia',
     surveyCollectedData: true,

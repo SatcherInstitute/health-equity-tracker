@@ -1,4 +1,4 @@
-import { medicareMapConfig } from '../../charts/mapGlobals'
+import { medicareHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -167,7 +167,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'preventable_hospitalizations',
-    mapConfig: medicareMapConfig,
+    mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Preventable hospitalizations',
     fullDisplayName: 'Preventable hospitalizations',
     fullDisplayNameInline: 'preventable hospitalizations',

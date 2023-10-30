@@ -36,10 +36,11 @@ import {
   ZERO_DATASET,
   ZERO_DOT_SCALE_SPEC,
   ZERO_VAR_DATASET,
-  ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
+  ZERO_DARK_SCALE,
+  ZERO_LIGHT_SCALE,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -330,6 +331,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     legendList.push(legend, helperLegend)
   }
 
+  const reverseColorsSoBrighterIsBetter =
+    !props.higherIsBetter || (!props.higherIsBetter && props.isPhrmaAdherence)
+
   const colorScale = props.isPhrmaAdherence
     ? PHRMA_COLOR_SCALE_SPEC
     : setupColorScale(
@@ -341,8 +345,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* fieldRange? */ props.fieldRange,
         /* scaleColorScheme? */ props.mapConfig.mapScheme,
         /* isTerritoryCircle? */ props.fips.isTerritory(),
-        /* reverse? */ (props.isPhrmaAdherence && !props.higherIsBetter) ??
-          props.higherIsBetter
+        /* reverse? */ reverseColorsSoBrighterIsBetter
       )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
@@ -494,7 +497,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         GREY_DOT_SCALE_SPEC,
         UNKNOWN_SCALE_SPEC,
         ZERO_DOT_SCALE_SPEC,
-        ZERO_YELLOW_SCALE,
+        // ZERO_YELLOW_SCALE,
+        props.higherIsBetter ? ZERO_DARK_SCALE : ZERO_LIGHT_SCALE,
       ],
       legends: legendList,
       marks,

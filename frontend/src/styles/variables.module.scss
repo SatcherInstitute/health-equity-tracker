@@ -48,7 +48,7 @@ $alt-grey: #bdbdbd;
 $alt-red: #d32f2f;
 
 // colors from VEGA map (yellowgreen)
-$map-min: #134b3a;
+$map-light-zero: #fff9c1;
 $map-lightest: #f2e62f;
 $map-lighter: #b9ce3a;
 $map-light: #7db640;
@@ -56,9 +56,10 @@ $map-mid: #3e9b42;
 $map-dark: #027e47;
 $map-darker: #185e49;
 $map-darkest: #134b3a;
+$map-dark-zero: #35403d;
 
-// colors from VEGA map (Black women - plasma)
-$map-women-min: #120161;
+// colors from VEGA map (women - plasma)
+$map-women-light-zero: #f3f021;
 $map-women-lightest: #febc2b;
 $map-women-lighter: #f48849;
 $map-women-light: #db5b68;
@@ -66,8 +67,10 @@ $map-women-mid: #b93389;
 $map-women-dark: #8b0aa5;
 $map-women-darker: #5402a3;
 $map-women-darkest: #320161;
+$map-women-dark-zero: #120161;
 
 // colors from VEGA map (Medicare Beneficiaries from PHRMA data - viridis)
+$map-medicare-light-zero: #fff9c1;
 $map-medicare-lightest: #f0e525;
 $map-medicare-even-lighter: #9fda3a;
 $map-medicare-lighter: #4bc16c;
@@ -75,7 +78,7 @@ $map-medicare-light: #1fa187;
 $map-medicare-mid: #267f8e;
 $map-medicare-dark: #365c8d;
 $map-medicare-darkest: #46327f;
-$map-medicare-min: #090121;
+$map-medicare-dark-zero: #090121;
 
 // roughly spaced out 7 colors from VEGA map (unknown - greenblue)
 $unknown-map-min: #eceecc;
@@ -203,7 +206,7 @@ $z-top: 999;
   altGrey: $alt-grey;
   altRed: $alt-red;
 
-  mapMin: $map-min;
+  mapLightZero: $map-light-zero;
   mapLightest: $map-lightest;
   mapLighter: $map-lighter;
   mapLight: $map-light;
@@ -211,8 +214,9 @@ $z-top: 999;
   mapDark: $map-dark;
   mapDarker: $map-darker;
   mapDarkest: $map-darkest;
+  mapDarkZero: $map-dark-zero;
 
-  mapWomenMin: $map-women-min;
+  mapWomenLightZero: $map-women-light-zero;
   mapWomenLightest: $map-women-lightest;
   mapWomenLighter: $map-women-lighter;
   mapWomenLight: $map-women-light;
@@ -220,7 +224,9 @@ $z-top: 999;
   mapWomenDark: $map-women-dark;
   mapWomenDarker: $map-women-darker;
   mapWomenDarkest: $map-women-darkest;
+  mapWomenDarkZero: $map-women-dark-zero;
 
+  mapMedicareLightZero: $map-medicare-light-zero;
   mapMedicareLightest: $map-medicare-lightest;
   mapMedicareEvenLighter: $map-medicare-even-lighter;
   mapMedicareLighter: $map-medicare-lighter;
@@ -228,7 +234,7 @@ $z-top: 999;
   mapMedicareMid: $map-medicare-mid;
   mapMedicareDark: $map-medicare-dark;
   mapMedicareDarkest: $map-medicare-darkest;
-  mapMedicareMin: $map-medicare-min;
+  mapMedicareDarkZero: $map-medicare-dark-zero;
 
   unknownMapMin: $unknown-map-min;
   unknownMapLeast: $unknown-map-least;

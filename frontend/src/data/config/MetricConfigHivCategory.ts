@@ -1,4 +1,4 @@
-import { womenMapConfig } from '../../charts/mapGlobals'
+import { womenHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
@@ -292,7 +292,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence_black_women',
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prevalence for Black Women',
     fullDisplayName: 'HIV prevalence for Black women',
     definition: {
@@ -338,7 +338,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_diagnoses_black_women',
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New Diagnoses for Black Women',
     fullDisplayName: 'New HIV diagnoses for Black women',
     definition: {
@@ -386,7 +386,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_deaths_black_women',
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths for Black women',
     fullDisplayName: 'HIV deaths for Black women',
     definition: {
