@@ -54,13 +54,13 @@ export const womenHigherIsWorseMapConfig = {
 
 export const medicareHigherIsBetterMapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareZeroDark,
+  min: sass.mapMedicareDarkZero,
   mid: sass.mapMedicareMid,
 }
 
 export const medicareHigherIsWorseMapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareZeroLight,
+  min: sass.mapMedicareLightZero,
   mid: sass.mapMedicareMid,
 }
 

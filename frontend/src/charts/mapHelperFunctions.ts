@@ -369,7 +369,6 @@ export function getMapScheme(
   const defaultMapConfig: MapConfig = {
     scheme: MAP_SCHEMES.default,
     min: dataTypeConfig.higherIsBetter ? sass.mapDarkZero : sass.mapLightZero,
-    // min: dataTypeConfig.higherIsBetter ? sass.mapLightest : sass.mapMin,
     mid: sass.mapMid,
   }
 
