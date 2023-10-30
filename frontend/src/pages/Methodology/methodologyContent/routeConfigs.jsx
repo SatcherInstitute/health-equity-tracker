@@ -324,14 +324,58 @@ export const routeConfigs = [
     component: RacesAndEthnicitiesLink,
     subLinks: [
       { label: 'Races and Ethnicities', path: '#races-and-ethnicities' },
-      { label: 'Latino and Hispanic Resources', path: '#hisp-resources-races' },
+      { label: 'Addressing Data Gaps', path: '#data-gaps' },
       {
-        label: 'American Indian and Alaska Native Resources',
-        path: '#aian-resources-races',
+        label: 'All',
+        path: '#all',
+      },
+
+      {
+        label: 'American Indian and Alaska Native (NH)',
+        path: '#aian_nh',
+      },
+
+      {
+        label: 'Asian (NH)',
+        path: '#api_nh',
+      },
+
+      {
+        label: 'Black or African American (NH)',
+        path: '#black_nh',
       },
       {
-        label: 'Asian, Native Hawaiian, and Pacific Islander Resources',
-        path: '#api-resources-races',
+        label: 'Hispanic/Latino',
+        path: '#hispanic',
+      },
+
+      {
+        label: 'Middle Eastern / North African (MENA)',
+        path: '#mena',
+      },
+      {
+        label: 'Native Hawaiian or Other Pacific Islander (NH)',
+        path: '#nhpi_nh',
+      },
+      {
+        label: 'NH',
+        path: '#nh',
+      },
+      {
+        label: 'Unrepresented race (NH)',
+        path: '#other_nonstandard_nh',
+      },
+      {
+        label: 'Two or more races (NH)',
+        path: '#multi_or_other_standard',
+      },
+      {
+        label: 'Two or more races & Unrepresented race (NH)',
+        path: '#multi_or_other_standard_nh',
+      },
+      {
+        label: 'White (NH)',
+        path: '#white',
       },
     ],
   },

@@ -79,6 +79,7 @@ li {
   font-weight: 500;
   color: var(--0-b-5240, #0b5240);
   text-decoration: none;
+  line-height: 1rem;
 }
 
 .LearnMoreLink::after {
@@ -418,6 +419,29 @@ tr {
   align-self: start;
 }
 
+.RacesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0;
+}
+
+.RacesContainer h4 {
+  margin: 0;
+}
+
+.RacesDefinition {
+  color: var(--383838, #383838);
+  margin: 0;
+  font-style: italic;
+}
+
+.RacesContainer figure {
+  align-items: flex-start;
+  gap: 0.8rem;
+  // margin-top: 1%;
+}
+
 .GlossaryTermContainer {
   margin: 1rem auto;
 }
@@ -455,7 +479,7 @@ tr {
 
 .Resources {
   margin: 1rem auto;
-  border-top: var(--0-b-5240, #0b5240) 1px solid;
+  // border-top: var(--0-b-5240, #0b5240) 1px solid;
 }
 
 .ResourcesList li {
@@ -473,16 +497,33 @@ tr {
 
 .Resources h3 {
   @include tav300();
-
   margin: 1rem 0 0 0;
   text-align: left;
   @media screen and (max-width: 1400px) {
     line-height: 1.6rem;
   }
 }
+
+.ResourcesHeader h3 {
+  margin-bottom: 0.5rem;
+}
+
 .ResourcesHeader h4 {
+  margin-bottom: 0.5rem;
+  color: var(--383838, #383838);
+}
+
+.ResourcesHeader h5 {
   margin: 0.5rem 0 0 0;
-  width: 100%;
+  color: var(--0-b-5240, #0b5240);
+}
+
+.ResourcesHeader h6 {
+  color: var(--383838, #383838);
+}
+
+.ResourcesHeader p {
+  margin-bottom: 0.5rem;
 }
 
 .ResourcesRow {
@@ -624,9 +665,94 @@ td {
   cursor: help;
 }
 
-// .Tooltip::after {
-//   content: 'ⓘ';
+.Numerator,
+.Denominator {
+  font-size: 0.7rem;
+  display: inline-block;
+  text-align: center;
+  // padding: 1%;
+  width: max-content;
+}
+
+.Numerator {
+  border-bottom: 1px solid black;
+}
+
+.Fraction {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // width: -webkit-fill-available;
+  width: max-content;
+  @media screen and (max-width: 1400px) {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.WrappedInParentheses {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  line-height: 0.8rem;
+}
+
+.Fraction::before {
+  content: '(';
+  // margin-left: 1%;
+  font-size: 2rem;
+  // flex-grow: 1;
+  @media screen and (max-width: 1400px) {
+    font-size: 1rem;
+  }
+}
+
+.Fraction::after {
+  content: ')';
+  // margin-right: 1%;
+  font-size: 2rem;
+  // flex-grow: 1;
+  @media screen and (max-width: 1400px) {
+    font-size: 1rem;
+  }
+}
+
+.FormulaFormat {
+  // overflow-wrap: break-word;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  border-radius: 1rem;
+  overflow-x: scroll;
+  // overflow: auto;
+}
+// .FormulaFormat div {
+//   @media screen and (max-width: 1400px) {
+//     flex-direction: column;
+//   }
 // }
+
+.FormulaFormatCode {
+  border: none;
+  background-color: transparent;
+  margin: 0% auto;
+  font-size: $smallest;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: start;
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+    width: max-content;
+  }
+  // width: -webkit-fill-available;
+}
 
 .ExampleDiv {
   padding-inline-start: 40px;
@@ -748,10 +874,10 @@ p.CitationAPA:first-of-type {
 
 pre,
 code {
-  border: 1px solid $bg-color;
+  // border: 1px solid $bg-color;
   padding: 5px;
   margin: 3px 3px 2rem 3px;
-  background-color: $explore-bg-color;
+  background-color: #fafafa;
   font-size: $smallest;
   overflow-x: auto;
   white-space: pre-wrap;

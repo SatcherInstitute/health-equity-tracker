@@ -32,7 +32,9 @@ import {
   missingHivDataArray,
   missingPrepDataArray,
 } from '../methodologyContent/missingDataBlurbs'
-import { Alert, AlertTitle } from '@mui/material'
+import { Alert, AlertTitle, CardContent, Typography } from '@mui/material'
+import { Percent } from '@mui/icons-material'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const HivLink = () => {
   return (
@@ -43,6 +45,7 @@ const HivLink = () => {
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>HIV</h2>
         <br />
+
         <AgeAdjustmentExampleTable
           id="#categories-table"
           applyThickBorder={false}
@@ -61,6 +64,7 @@ const HivLink = () => {
             },
           ]}
         />
+
         <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
           The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
           <b>gender identity</b>. Due to lack of reliable population data for
@@ -149,70 +153,95 @@ const HivLink = () => {
           id="#deaths-diagnosis-prevalence"
           className={styles.MethodologySubsubheaderText}
         >
-          HIV Deaths, Diagnosis, & Prevalence
+          Variable Data Compilation and Analysis
         </h3>
-        <p>
-          <b>HIV Deaths, Diagnosis, & Prevalence</b>
-        </p>
 
+        <h4>HIV Diagnosis</h4>
         <p>
-          Death data include deaths of persons aged 13 years and older with
-          diagnosed HIV infection or AIDS classification, regardless of the
-          cause of death. Death data are based on a 12-month reporting delay to
-          allow data to be reported to CDC. For death data, age is based on the
-          person’s age at the time of death.
+          Refers to confirmed HIV infections via laboratory or clinical evidence
+          within a specific calendar year. Counts are for individuals aged 13 or
+          older diagnosed with HIV during the year. Age is determined by the
+          person's age at the time of infection. All metrics sourced from the
+          CDC for HIV deaths are calculated directly from the raw count of those
+          cases.
         </p>
+        <h4>HIV Prevalence</h4>
         <p>
-          HIV diagnoses refer to the number of HIV infections confirmed by
-          laboratory or clinical evidence during a specific calendar year.
-          Diagnoses of HIV infection are counted for individuals who are 13
-          years of age or older and have received a confirmed diagnosis of HIV
-          during the specified year. For incidence estimates, age is based on
-          the person’s age at infection.
+          Represents estimated individuals aged 13 and older living with HIV by
+          the year's end. Accounts for both diagnosed and undiagnosed cases.
+          Adjusted using the total number of diagnosed cases and subsequent
+          deaths from CDC’s Atlas database. The Asian category includes cases
+          classified as "Asian/Pacific Islander" using the pre-1997 OMB
+          race/ethnicity system when querying HIV prevalence. HIV prevalence
+          metrics are determined by estimating the total number of individuals
+          who have ever been infected with HIV (diagnosed and undiagnosed cases)
+          and then adjusting for the reported total number of people diagnosed
+          with HIV and subsequently died provided by the CDC’s Atlas database.
         </p>
+        <h4>HIV Deaths</h4>
         <p>
-          HIV prevalence refers to the estimated number of individuals aged 13
-          and older living with HIV at the end of the specified year, regardless
-          of when they were infected or whether they received a diagnosis.This
-          measure estimates the burden of HIV in a population.
+          Counts deaths of persons aged 13 and older with diagnosed HIV or AIDS,
+          irrespective of death cause. Data has a 12-month reporting delay for
+          CDC reporting. Age is determined by the person's age at the time of
+          death. All metrics sourced from the CDC for HIV deaths are calculated
+          directly from the raw count of those cases.
         </p>
-        <ul>
-          <li>
-            All metrics sourced from the CDC for HIV deaths and diagnoses are
-            calculated directly from the raw count of those cases. In contrast,
-            HIV prevalence is determined by estimating the total number of
-            individuals who have ever been infected with HIV (diagnosed and
-            undiagnosed cases) and then adjusting for the reported total number
-            of people diagnosed with HIV and subsequently died provided by the
-            CDC’s Atlas database.
-            <ul>
-              <li>
-                <b>Percent share</b>: To calculate the percent share of
-                HIVdeaths, diagnoses, or prevalence, we divide the number of HIV
-                deaths, diagnoses, or prevalence in a specific demographic group
-                by the total number of HIV deaths, diagnoses, or prevalence and
-                multiply the result by 100.
-              </li>
-              <li>
-                <b>Population percent</b>: The population data is obtained
-                directly from the CDC. To calculate the population percent
-                share, we divide the number of individuals in a specific
-                population by the total number of individuals in the larger
-                population and multiply the result by 100.
-              </li>
-              <li>
-                <b>Rate Per 100k</b>: The rate per 100k for HIV deaths,
-                diagnoses, and prevalence is obtained directly from the CDC.
-                Calculating the rate per 100k of HIV deaths, diagnoses, or
-                prevalence involves dividing the number of deaths, diagnoses, or
-                prevalence within a specific population by the total population
-                of that group, multiplying the result by 100,000, and then
-                expressing it as a rate per 100,000 people.
-              </li>
-            </ul>
-          </li>
-        </ul>
-
+        <h5>Percent share</h5>
+        <p>
+          To calculate the percent share of HIV diagnoses, prevalence, or
+          deaths, we divide the number of HIV deaths, diagnoses, or prevalence
+          in a specific demographic group by the total number of HIV deaths,
+          diagnoses, or prevalence and multiply the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="Percent Share"
+          rightSide={[
+            {
+              numerator: 'Number of cases in demographic group',
+              denominator: 'Total number of cases',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>Population percent</h5>
+        <p>
+          The population data is obtained directly from the CDC. To calculate
+          the population percent share, we divide the number of individuals in a
+          specific population by the total number of individuals in the larger
+          population and multiply the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="Population Percent"
+          rightSide={[
+            {
+              numerator: 'Number of individuals in specific population',
+              denominator: 'Total population',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>Rate Per 100,000 People (also referred to as 'Rate Per 100k')</h5>
+        <p>
+          The rate per 100k for HIV diagnoses, prevalence, and deaths, is
+          obtained directly from the CDC. Calculating the rate per 100k of HIV
+          deaths, diagnoses, or prevalence involves dividing the number of
+          deaths, diagnoses, or prevalence within a specific population by the
+          total population of that group, multiplying the result by 100,000, and
+          then expressing it as a rate per 100,000 people.
+        </p>
+        <FormulaFormat
+          leftSide="Rate per 100,000 people"
+          rightSide={[
+            {
+              numerator: 'Number of cases within specific population',
+              denominator: 'Total population of that group',
+            },
+            ' * ',
+            ' 100,000 ',
+          ]}
+        />
         {/* <Card
           id={'#hiv-missing-and-suppressed-data'}
           elevation={3}
@@ -224,7 +253,43 @@ const HivLink = () => {
             <b>PrEP Coverage</b>
           </p>
 
-        </Card> */}
+        <</Card> */}
+        <h3>Addressing Missing and Suppressed Data</h3>
+        <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
+          <AlertTitle>
+            Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)
+          </AlertTitle>
+          <p>
+            To protect personal privacy, prevent revealing information that
+            might identify specific individuals, and ensure the reliability of
+            statistical estimates, small data values may not be available in
+            some circumstances.
+          </p>
+        </Alert>
+        <p>
+          County-level data is suppressed when the population denominator is:
+          <ul>
+            <li>less than 100,</li>
+            <li>the total case count is between 1–4 cases, or </li>
+            <li>when querying HIV or AIDS deaths.</li>
+          </ul>
+        </p>
+
+        <p>
+          For the Census Island Areas (US territories other than Puerto Rico),
+          there isn't enough data to accurately calculate subpopulation rates by
+          <ul>
+            <li>age,</li>
+            <li>sex, and</li>
+            <li>race/ethnicity.</li>
+          </ul>
+          As a result, the analysis or report will not provide detailed
+          information about these specific groups in those regions. The Asian
+          category includes cases previously classified as "Asian/Pacific
+          Islander" under the pre-1997 Office of Management and Budget (OMB)
+          race/ethnicity classification system when querying HIV prevalence.
+        </p>
+
         <DataAlertError alertsArray={missingHivDataArray} />
 
         <h3 id="#prep-coverage" className={styles.MethodologySubsubheaderText}>

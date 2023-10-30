@@ -32,7 +32,7 @@ function Resources({ resourceGroups, id }: ResourcesProps) {
   const renderResourceGroup = ({ heading, resources }) => (
     <Grid container id={id} key={heading}>
       <Grid item xs={12}>
-        <h3 className={styles.ResourcesHeader}>{heading} Resources</h3>
+        <h4 className={styles.ResourcesHeader}>{heading} Resources</h4>
       </Grid>
       <Grid item xs={12} md={resources.length >= 10 ? 6 : 12}>
         {renderResourcesList(

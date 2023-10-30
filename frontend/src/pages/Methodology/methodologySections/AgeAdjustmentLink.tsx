@@ -41,6 +41,7 @@ import {
 import Resources from '../methodologyComponents/Resources'
 import DataTable from '../methodologyComponents/DataTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const AGE_ADJUSTED_RESOURCES = [
   {
@@ -263,23 +264,12 @@ const AgeAdjustmentLink = () => {
                   {ageSpecificRateTooltip}:
                 </b>
               </p>
-              <CodeBlock
-                rowData={[
+              <FormulaFormat
+                leftSide="age_specific_rate"
+                rightSide={[
                   {
-                    content: (
-                      <>
-                        <b>age_specific_rate</b>
-                      </>
-                    ),
-                  },
-                  { content: '=' },
-                  {
-                    content: (
-                      <>
-                        (Condition count for race A, age group 1) /<br />{' '}
-                        (Population count of race A, age group 1){' '}
-                      </>
-                    ),
+                    numerator: 'Condition count for race A, age group 1',
+                    denominator: 'Population count of race A, age group 1',
                   },
                 ]}
               />
@@ -292,24 +282,17 @@ const AgeAdjustmentLink = () => {
                   {standardPopulationTooltip}:
                 </b>
               </p>
-
-              <CodeBlock
-                rowData={[
+              <FormulaFormat
+                leftSide="standard_population_age_group_1"
+                rightSide={[
                   {
-                    content: (
-                      <>
-                        <b>standard_population_age_group_1</b>
-                      </>
-                    ),
+                    numerator: '',
+                    denominator: 'Population count for Race A, Age group 1',
                   },
-                  { content: '=' },
+                  ' + ',
                   {
-                    content: (
-                      <>
-                        (Population count Race A, Age group 1) +<br />
-                        (Population count Race B, Age group 1)
-                      </>
-                    ),
+                    numerator: '',
+                    denominator: 'Population count for Race B, Age group 1',
                   },
                 ]}
               />
@@ -331,23 +314,18 @@ const AgeAdjustmentLink = () => {
                 same age breakdown as the population as a whole.
               </p>
 
-              <CodeBlock
-                rowData={[
+              <FormulaFormat
+                leftSide="expected_condition_count"
+                rightSide={[
                   {
-                    content: (
-                      <>
-                        <b>expected_condition_count</b>
-                      </>
-                    ),
+                    numerator: '',
+                    denominator: 'age_specific_rate',
                   },
-                  { content: '=' },
+                  ' * ',
                   {
-                    content: (
-                      <>
-                        (age_specific_rate) *<br />
-                        (standard_population (for corresponding age group))
-                      </>
-                    ),
+                    numerator: '',
+                    denominator:
+                      'standard_population (for corresponding age group)',
                   },
                 ]}
               />
@@ -748,12 +726,18 @@ const AgeAdjustmentLink = () => {
               <li>Calculate the expected deaths for each age/race group:</li>
             </ol>
             <p>As noted above, the formula for each row is:</p>
-            <CodeBlock
-              rowData={[
-                { content: '(HIV Deaths / Population)' },
-                { content: 'x' },
+            <FormulaFormat
+              leftSide="expected deaths for each age/race group"
+              rightSide={[
                 {
-                  content: ` Standard Population for Corresponding Age Group`,
+                  numerator: 'HIV Deaths',
+                  denominator: 'Population',
+                },
+                ' * ',
+                {
+                  numerator: '',
+                  denominator:
+                    'Standard Population for Corresponding Age Group',
                 },
               ]}
             />
