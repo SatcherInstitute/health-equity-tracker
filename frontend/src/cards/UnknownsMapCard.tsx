@@ -199,8 +199,6 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
-        const mapConfig = unknownMapConfig
-
         return (
           <CardContent sx={{ pt: 0 }}>
             <ChartTitle title={chartTitle} />
@@ -222,7 +220,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                   filename={chartTitle}
-                  mapConfig={mapConfig}
+                  mapConfig={unknownMapConfig}
                   highestLowestGeosMode={false}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (
