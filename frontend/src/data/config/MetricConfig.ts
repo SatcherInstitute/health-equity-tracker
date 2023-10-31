@@ -181,7 +181,7 @@ export interface DataTypeConfig {
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
   dataTableTitle?: string
-  mapConfig?: MapConfig
+  mapConfig: MapConfig
   categoryId?: CategoryTypeId
 }
 

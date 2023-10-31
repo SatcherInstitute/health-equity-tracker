@@ -1,4 +1,7 @@
-import { medicareHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import {
+  medicareHigherIsWorseMapConfig,
+  defaultHigherIsWorseMapConfig,
+} from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -32,6 +35,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'health_insurance',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Uninsured people',
     fullDisplayName: 'Uninsured people',
     fullDisplayNameInline: 'uninsured people',
@@ -82,6 +86,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'poverty',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Poverty',
     fullDisplayName: 'People below the poverty line',
     fullDisplayNameInline: 'people below the poverty line',
@@ -128,6 +133,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'avoided_care',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Avoided Care',
     fullDisplayName: 'Care avoidance due to cost',
     fullDisplayNameInline: 'care avoidance due to cost',

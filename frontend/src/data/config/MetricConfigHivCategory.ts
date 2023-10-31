@@ -1,5 +1,6 @@
 import {
   defaultHigherIsBetterMapConfig,
+  defaultHigherIsWorseMapConfig,
   womenHigherIsWorseMapConfig,
 } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
@@ -120,6 +121,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prevalence',
     fullDisplayName: 'HIV prevalence',
     definition: {
@@ -162,6 +164,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_diagnoses',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New diagnoses',
     fullDisplayName: 'New HIV diagnoses',
     fullDisplayNameInline: 'new HIV diagnoses',
@@ -205,6 +208,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_deaths',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'HIV deaths',
     definition: {
@@ -258,6 +262,7 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_stigma',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Stigma',
     fullDisplayName: 'HIV stigma',
     definition: {

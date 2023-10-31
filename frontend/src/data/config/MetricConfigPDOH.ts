@@ -1,5 +1,6 @@
 import {
   defaultHigherIsBetterMapConfig,
+  defaultHigherIsWorseMapConfig,
   womenHigherIsBetterMapConfig,
 } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
@@ -215,6 +216,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'prison',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prison',
     fullDisplayName: 'People in prison',
     fullDisplayNameInline: 'people in prison',
@@ -267,6 +269,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'jail',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Jail',
     fullDisplayName: 'People in jail',
     fullDisplayNameInline: 'people in jail',

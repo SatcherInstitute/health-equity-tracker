@@ -6,7 +6,6 @@ import {
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
-import { getMapConfig } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
@@ -39,7 +38,7 @@ interface TerritoryCirclesProps {
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
   const mapConfig = props.isUnknownsMap
     ? unknownMapConfig
-    : getMapConfig(/* dataTypeConfig */ props.dataTypeConfig)
+    : props.dataTypeConfig.mapConfig
 
   return (
     <Grid

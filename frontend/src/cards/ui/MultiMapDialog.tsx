@@ -40,7 +40,6 @@ import {
   type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
 } from '../../utils/hooks/useDownloadCardImage'
-import { getMapConfig } from '../../charts/mapHelperFunctions'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
@@ -132,7 +131,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     },
   }
 
-  const mapConfig = getMapConfig(/* dataTypeConfig */ props.dataTypeConfig)
+  const mapConfig = props.dataTypeConfig.mapConfig
 
   const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
     domain: [],
