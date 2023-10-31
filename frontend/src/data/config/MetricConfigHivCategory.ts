@@ -1,4 +1,7 @@
-import { womenHigherIsWorseMapConfig } from '../../charts/mapGlobals'
+import {
+  defaultHigherIsBetterMapConfig,
+  womenHigherIsWorseMapConfig,
+} from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import { populationPctShortLabel } from './MetricConfigUtils'
 
@@ -68,7 +71,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_care',
-    higherIsBetter: true,
+    mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Linkage to HIV care',
     fullDisplayName: 'Linkage to HIV care',
     fullDisplayNameInline: 'linkage to HIV care',
@@ -436,7 +439,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prep',
-    higherIsBetter: true,
+    mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'PrEP coverage',
     fullDisplayName: 'PrEP coverage',
     definition: {

@@ -57,7 +57,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useEffect, useMemo, useState } from 'react'
 import {
   getHighestLowestGroupsByFips,
-  getMapScheme,
+  getMapConfig,
 } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, {
@@ -397,7 +397,7 @@ function MapCardWithKey(props: MapCardProps) {
         const isSummaryLegend =
           hasSelfButNotChildGeoData ?? props.fips.isCounty()
 
-        const [mapScheme, mapMin] = getMapScheme(
+        const mapConfig = getMapConfig(
           /* dataTypeConfig */ props.dataTypeConfig,
           /* isSummaryLegend */ isSummaryLegend
         )
@@ -557,10 +557,9 @@ function MapCardWithKey(props: MapCardProps) {
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
                         signalListeners={signalListeners}
-                        mapConfig={{ mapScheme, mapMin }}
+                        mapConfig={mapConfig}
                         scaleConfig={scale}
                         isPhrmaAdherence={isPhrmaAdherence}
-                        higherIsBetter={props.dataTypeConfig.higherIsBetter}
                       />
                     </Grid>
 
@@ -581,7 +580,6 @@ function MapCardWithKey(props: MapCardProps) {
                           signalListeners={signalListeners}
                           scaleConfig={scale}
                           isPhrmaAdherence={isPhrmaAdherence}
-                          higherIsBetter={props.dataTypeConfig.higherIsBetter}
                         />
                       </Grid>
                     )}
@@ -606,7 +604,7 @@ function MapCardWithKey(props: MapCardProps) {
                       description={'Legend for rate map'}
                       isSummaryLegend={isSummaryLegend}
                       fipsTypeDisplayName={fipsTypeDisplayName}
-                      mapConfig={{ mapScheme, mapMin }}
+                      mapConfig={mapConfig}
                       columns={mapIsWide ? 1 : 3}
                       stackingDirection={
                         isPhrmaAdherence && !mapIsWide

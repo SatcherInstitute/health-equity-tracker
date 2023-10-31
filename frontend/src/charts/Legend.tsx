@@ -4,6 +4,7 @@ import {
   type DataTypeConfig,
   isPctType,
   type MetricConfig,
+  type MapConfig,
 } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
@@ -66,7 +67,7 @@ interface LegendProps {
   description: string
   isSummaryLegend?: boolean
   fipsTypeDisplayName?: GeographicBreakdown
-  mapConfig: { mapScheme: string; mapMin: string }
+  mapConfig: MapConfig
   columns: number
   stackingDirection: StackingDirection
   handleScaleChange?: (domain: number[], range: number[]) => void
@@ -88,8 +89,6 @@ export function Legend(props: LegendProps) {
   )
   const hasMissingData = Boolean(missingData && missingData.length > 0)
   const hasZeroData = Boolean(zeroData && zeroData.length > 0)
-
-  const higherIsBetter = props.dataTypeConfig.higherIsBetter
 
   // Initial spec state is set in useEffect
   // TODO: Why??
@@ -160,16 +159,18 @@ export function Legend(props: LegendProps) {
     // MAKE AND ADD UNKNOWN LEGEND ITEM IF NEEDED
     if (hasMissingData) legendList.push(UNKNOWN_LEGEND_SPEC)
 
-    const colorScaleSpec = props.isPhrmaAdherence
+    const legendColorScaleSpec = props.isPhrmaAdherence
       ? PHRMA_COLOR_SCALE_SPEC
       : setupStandardColorScaleSpec(
           props.scaleType,
           props.metric.metricId,
-          props.mapConfig.mapScheme,
+          props.mapConfig.scheme,
           legendColorCount,
           props.isSummaryLegend,
-          /* reverse?: boolean */ !higherIsBetter
+          /* reverse?: boolean */ !props.mapConfig.higherIsBetter
         )
+
+    console.log({ legendColorScaleSpec })
 
     const dotSizeScale = props.isPhrmaAdherence
       ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
@@ -248,13 +249,13 @@ export function Legend(props: LegendProps) {
       ],
       scales: [
         dotSizeScale as Scale,
-        colorScaleSpec as Scale,
+        legendColorScaleSpec as Scale,
         {
           name: ZERO_SCALE,
           type: ORDINAL,
 
           domain: { data: ZERO_VALUES, field: 'zero' },
-          range: [props.mapConfig.mapMin],
+          range: [props.mapConfig.min],
         },
         {
           name: ZERO_DOT_SCALE,
@@ -293,8 +294,8 @@ export function Legend(props: LegendProps) {
     props.fipsTypeDisplayName,
     props.isSummaryLegend,
     props.legendTitle,
-    props.mapConfig.mapMin,
-    props.mapConfig.mapScheme,
+    props.mapConfig.min,
+    props.mapConfig.scheme,
     props.metric,
     props.sameDotSize,
     props.scaleType,

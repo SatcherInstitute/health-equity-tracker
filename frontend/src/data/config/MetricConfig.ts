@@ -146,6 +146,7 @@ export interface MapConfig {
   scheme: ColorScheme
   min: string
   mid: string
+  higherIsBetter?: boolean
 }
 
 export interface Citation {
@@ -182,7 +183,6 @@ export interface DataTypeConfig {
   dataTableTitle?: string
   mapConfig?: MapConfig
   categoryId?: CategoryTypeId
-  higherIsBetter?: boolean
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

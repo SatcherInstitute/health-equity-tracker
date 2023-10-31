@@ -40,7 +40,7 @@ import {
   type ElementHashIdHiddenOnScreenshot,
   useDownloadCardImage,
 } from '../../utils/hooks/useDownloadCardImage'
-import { getMapScheme } from '../../charts/mapHelperFunctions'
+import { getMapConfig } from '../../charts/mapHelperFunctions'
 import TerritoryCircles from './TerritoryCircles'
 import MapBreadcrumbs from './MapBreadcrumbs'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
@@ -132,9 +132,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     },
   }
 
-  const [mapScheme, mapMin] = getMapScheme(
-    /* dataTypeConfig */ props.dataTypeConfig
-  )
+  const mapConfig = getMapConfig(/* dataTypeConfig */ props.dataTypeConfig)
 
   const [scale, setScale] = useState<{ domain: number[]; range: number[] }>({
     domain: [],
@@ -264,11 +262,10 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                           !props.hasSelfButNotChildGeoData
                         }
                         signalListeners={multimapSignalListeners}
-                        mapConfig={{ mapScheme, mapMin }}
+                        mapConfig={mapConfig}
                         isMulti={true}
                         scaleConfig={scale}
                         highestLowestGeosMode={false}
-                        higherIsBetter={props.dataTypeConfig.higherIsBetter}
                       />
                     )}
                   </Grid>
@@ -308,7 +305,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 scaleType={RATE_MAP_SCALE}
                 sameDotSize={true}
                 description={'Consistent legend for all displayed maps'}
-                mapConfig={{ mapScheme, mapMin }}
+                mapConfig={mapConfig}
                 stackingDirection={
                   props.pageIsSmall ? 'vertical' : 'horizontal'
                 }

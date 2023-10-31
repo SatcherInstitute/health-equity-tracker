@@ -1,3 +1,4 @@
+import { defaultHigherIsBetterMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -201,7 +202,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_vaccinations',
-    higherIsBetter: true,
+    mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',
     definition: {

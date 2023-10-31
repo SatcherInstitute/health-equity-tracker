@@ -6,7 +6,7 @@ import {
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
-import { getMapScheme } from '../../charts/mapHelperFunctions'
+import { getMapConfig } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
@@ -30,11 +30,10 @@ interface TerritoryCirclesProps {
   scaleConfig?: { domain: number[]; range: number[] }
   isMulti?: boolean
   isPhrmaAdherence?: boolean
-  higherIsBetter?: boolean
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const [mapScheme, mapMin] = getMapScheme(
+  const mapConfig = getMapConfig(
     /* dataTypeConfig */ props.dataTypeConfig,
     /* isSummaryLegend */ undefined,
     /*  isUnknownsMap */ props.isUnknownsMap
@@ -68,12 +67,11 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               geoData={props.geoData}
               overrideShapeWithCircle={true}
               countColsMap={props.countColsMap}
-              mapConfig={{ mapScheme, mapMin }}
+              mapConfig={mapConfig}
               scaleConfig={props.scaleConfig}
               isMulti={props.isMulti}
               highestLowestGeosMode={props.highestLowestGeosMode}
               isPhrmaAdherence={props.isPhrmaAdherence}
-              higherIsBetter={props.higherIsBetter}
             />
             <figcaption className={styles.TerritoryLabel}>
               {postalCode}

@@ -78,7 +78,6 @@ export type PhrmaMetricId =
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'bb_ami_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
@@ -135,7 +134,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'statins_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Statins',
     fullDisplayName: 'Adherence to statins',
@@ -204,7 +202,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'beta_blockers_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Beta Blockers',
     fullDisplayName: 'Adherence to beta blockers',
@@ -259,7 +256,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 
   {
     dataTypeId: 'ras_antagonists_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
@@ -314,7 +310,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'ccb_adherence',
-    mapConfig: medicareHigherIsWorseMapConfig,
+    mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
     fullDisplayName: 'Adherence to calcium channel blockers',
     surveyCollectedData: true,
@@ -367,7 +363,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'doac_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
     fullDisplayName: 'Adherence to direct oral anticoagulants',
@@ -487,7 +482,6 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
 export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'arv_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
     fullDisplayName: 'Adherence to antiretroviral medications',
@@ -591,7 +585,6 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
 export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'anti_psychotics_adherence',
-    higherIsBetter: true,
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Anti-Psychotics',
     fullDisplayName: 'Adherence to anti-psychotics',

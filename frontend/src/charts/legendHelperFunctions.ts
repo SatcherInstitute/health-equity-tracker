@@ -39,8 +39,7 @@ export function setupNonZeroDiscreteLegend(
   legendBucketLabel: string,
   isPct: boolean,
   stackingDirection: StackingDirection,
-  columns: number,
-  higherIsBetter?: boolean
+  columns: number
 ): Legend {
   return {
     fill: COLOR_SCALE,

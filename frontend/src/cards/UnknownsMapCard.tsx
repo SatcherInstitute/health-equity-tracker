@@ -26,7 +26,7 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
-import { getMapScheme } from '../charts/mapHelperFunctions'
+import { getMapConfig } from '../charts/mapHelperFunctions'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 
 interface UnknownsMapCardProps {
@@ -201,7 +201,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const isSummaryLegend = !hasChildGeo ?? props.fips.isCounty()
 
-        const [mapScheme, mapMin] = getMapScheme(
+        const mapConfig = getMapConfig(
           /* dataTypeConfig */ props.dataTypeConfig,
           /* isSummaryLegend */ isSummaryLegend,
           /*  isUnknownsMap */ true
@@ -228,7 +228,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   }
                   geoData={geoData}
                   filename={chartTitle}
-                  mapConfig={{ mapScheme, mapMin }}
+                  mapConfig={mapConfig}
                   highestLowestGeosMode={false}
                 />
                 {props.fips.isUsa() && unknowns.length > 0 && (

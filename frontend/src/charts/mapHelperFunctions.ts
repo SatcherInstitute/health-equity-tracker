@@ -28,15 +28,14 @@ import {
   US_PROJECTION,
   VALID_DATASET,
   VAR_DATASET,
-  ZERO_SCALE,
   LEGEND_SYMBOL_TYPE,
   DEFAULT_LEGEND_COLOR_COUNT,
   GREY_DOT_SCALE,
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
-  ZERO_DOT_SCALE,
   MAP_SCHEMES,
   type CountColsMap,
+  defaultHigherIsWorseMapConfig,
 } from './mapGlobals'
 
 /*
@@ -131,25 +130,20 @@ export function formatPreventZero100k(
 }
 
 /*
-Get either the normal "insufficient data" legend item with a grey box,
-or optionally the "0" item with a light yellow green box for CAWP congress or
-any other datatype where we expect and want to highlight zeros
+Get the  "no data" legend item with a grey box,
+
 */
 export type HelperLegendType = 'insufficient' | 'zero'
-export function getHelperLegend(
-  yOffset: number,
-  xOffset: number,
-  overrideGrayMissingWithZeroYellow?: boolean
-): Legend {
+export function getHelperLegend(yOffset: number, xOffset: number): Legend {
   return {
-    fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
+    fill: UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    orient: overrideGrayMissingWithZeroYellow ? undefined : 'none',
+    orient: 'none',
     titleFont: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
-    size: overrideGrayMissingWithZeroYellow ? ZERO_DOT_SCALE : GREY_DOT_SCALE,
+    size: GREY_DOT_SCALE,
   }
 }
 
@@ -359,23 +353,24 @@ export function setupColorScale(
   return colorScale
 }
 
-export function getMapScheme(
+export function getMapConfig(
   dataTypeConfig: DataTypeConfig,
   isSummaryLegend?: boolean,
   isUnknownsMap?: boolean
-) {
-  if (isUnknownsMap) return [MAP_SCHEMES.unknown, sass.unknownMapMin]
+): MapConfig {
+  // UNKNOWNS MAP CARD / TERRITORY CIRCLE
+  if (isUnknownsMap)
+    return {
+      scheme: MAP_SCHEMES.unknown,
+      min: sass.unknownMapMin,
+      mid: sass.unknownMapMid,
+    }
 
-  const defaultMapConfig: MapConfig = {
-    scheme: MAP_SCHEMES.default,
-    min: dataTypeConfig.higherIsBetter ? sass.mapDarkZero : sass.mapLightZero,
-    mid: sass.mapMid,
-  }
-
-  const mapConfig = dataTypeConfig.mapConfig ?? defaultMapConfig
+  // OVERRIDE FOR SUBSET POPULATION MAPS LIKE MEDICARE AND WOMEN
+  const mapConfig = dataTypeConfig.mapConfig ?? defaultHigherIsWorseMapConfig
   const mapMin = isSummaryLegend ? mapConfig.mid : mapConfig.min
 
-  return [mapConfig.scheme, mapMin]
+  return { scheme: mapConfig.scheme, min: mapMin, mid: mapConfig.mid }
 }
 
 export function getHighestLowestGroupsByFips(
