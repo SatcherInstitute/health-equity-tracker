@@ -126,4 +126,21 @@ export const metricDefinitionsArray = [
       },
     ],
   },
+  {
+    topic: 'Social Vulnerability Index',
+    path: '',
+    id: '#svi',
+    definitions: [
+      {
+        key: 'Health Equity Significance',
+        description:
+          'The Social Vulnerability Index uses percentile ranking values ranging from 0 to 1 to assess the resilience of communities when confronted by external stresses. Scores between 0-0.33 indicate a low level of vulnerability, 0.34-0.66 signify a medium level, and 0.67-1 designate a high level of vulnerability. Specifically, areas that fall in the top 10%, or at the 90th percentile of values, are marked as highly vulnerable, while those below this threshold have comparatively lower vulnerability. From a health equity perspective, understanding these vulnerability scores is crucial. It enables policymakers and health officials to allocate resources effectively, ensuring that the most vulnerable communities receive the necessary support during crises, thus promoting equitable health outcomes.Identifies long-term trends and fluctuations in health disparities or access to healthcare services.',
+      },
+      {
+        key: 'Measurement Definition',
+        description:
+          'The measurement of social vulnerability grants policymakers, public health officials, and local planners the ability to effectively decide how to best protect their most vulnerable communities in case of a natural disaster or public health crisis. This advances health equity by ensuring that the communities that need resources the most, in times of devastation, receive them.',
+      },
+    ],
+  },
 ]

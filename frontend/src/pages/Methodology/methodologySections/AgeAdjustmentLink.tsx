@@ -119,11 +119,16 @@ const AgeAdjustmentLink = () => {
             age-adjusted count for White, non-Hispanic individuals in the same
             location.
           </p>
-          <Alert severity="warning" role="note">
-            Thus, our age-adjusted ratios can only be used to compare race
-            groups within each state, and <b>not</b> to compare race groups
-            between states.
-          </Alert>
+          <blockquote>
+            <p>
+              <strong>
+                Thus, our age-adjusted ratios can only be used to compare race
+                groups within each state, and <b>not</b> to compare race groups
+                between states.
+              </strong>
+            </p>
+          </blockquote>
+
           <p>
             For COVID-19 reports, we source the standard population numbers from
             the 2019 population numbers from{' '}
@@ -252,7 +257,7 @@ const AgeAdjustmentLink = () => {
               </ul>
             </li>
           </ol>
-          <h3 id="#algorithm">Algorithm</h3>
+          <h3 id="#algorithm">Algorithms</h3>
           <p>
             In order to generate the age-adjusted ratios, we do the following:
           </p>

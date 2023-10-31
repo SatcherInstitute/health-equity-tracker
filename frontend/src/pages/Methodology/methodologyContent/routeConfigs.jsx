@@ -194,18 +194,27 @@ export const routeConfigs = [
     path: HIV_LINK,
     component: HivLink,
     subLinks: [
-      { label: 'Data Sourcing', path: '#hiv-data-sourcing' },
       { label: 'HIV', path: '#hiv' },
+      { label: 'Data Sourcing', path: '#hiv-data-sourcing' },
       {
-        label: 'HIV Missing and Suppressed Data',
+        label: ' Variable Data Compilation and Analysis',
+        path: '#hiv-variable-data-compilation',
+      },
+      {
+        label: 'Addressing Missing and Suppressed Data',
         path: '#hiv-missing-and-suppressed-data',
       },
       { label: 'PrEP Coverage', path: '#prep-coverage' },
+      {
+        label:
+          'Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data',
+        path: '#prep-missing-and-suppressed-data',
+      },
       { label: 'Linkage to Care', path: '#linkage-to-care' },
-      { label: 'HIV Stigma', path: '#stigma' },
+      { label: 'Stigma', path: '#stigma' },
       { label: 'Data Sources', path: '#hiv-data-sources' },
       { label: 'Key Terms', path: '#hiv-key-terms' },
-      { label: 'HIV Resources', path: '#hiv-resources' },
+      { label: 'Resources', path: '#hiv-resources' },
     ],
   },
   {
@@ -213,19 +222,43 @@ export const routeConfigs = [
     path: PDOH_LINK,
     component: PdohLink,
     subLinks: [
+      { label: 'Political Determinants of Health', path: '#pdoh' },
       { label: 'Data Sourcing', path: '#pdoh-data-sourcing' },
-      { label: 'Incarceration', path: '#incarceration' },
-      { label: 'Jail', path: '#jail' },
-      { label: 'Prison', path: '#prison' },
+      { label: 'Jails vs. Prisons', path: '#jails-vs-prisons' },
       {
         label: 'Children in Adult Facilities',
         path: '#children-in-adult-facilities',
       },
       { label: 'Combined Systems', path: '#combined-systems' },
-      { label: 'Women in Legislative Office', path: '#women-in-gov' },
       {
-        label: 'Women in Legislative Office Missing and Suppressed Data',
-        path: '#women-in-gov-missing-and-suppressed-data',
+        label: 'Political Forces and Incarceration',
+        path: '#political-forces',
+      },
+      {
+        label: 'Health Impact of Incarceration',
+        path: '#health-impact-of-incarceration',
+      },
+
+      {
+        label: 'Women in Legislative Office and Health Impacts',
+        path: '#women-in-gov',
+      },
+      {
+        label: 'Data Metrics and Methodology',
+        path: '#pdoh-data-metrics',
+      },
+      {
+        label: 'Historical Tracking',
+        path: '#historical-tracking',
+      },
+
+      {
+        label: 'Race/Ethnicity Groupings and Challenges',
+        path: '#race-ethnicity-groupings-and-challenges',
+      },
+      {
+        label: 'Missing Data',
+        path: '#pdoh-missing-data',
       },
       {
         label: 'Data Sources',
@@ -268,6 +301,7 @@ export const routeConfigs = [
       { label: 'Population share', path: '#population-share-metrics' },
       { label: 'Relative inequity', path: '#relative-inequity-metrics' },
       { label: 'Time-series', path: '#time-series-metrics' },
+      { label: 'Social Vulnerability Index', path: '#svi' },
       {
         label: 'Percent Share Example: COVID-19 Cases',
         path: '#percent-share-example',

@@ -27,7 +27,7 @@ const ConditionVariable: React.FC<ConditionVariableProps> = ({
               return (
                 <figure key={def.key} className={styles.GridContainer}>
                   <span className={styles.ConditionKey}>
-                    <strong>{def.key}: </strong>
+                    <strong>{def.key}</strong>
                   </span>
                   <p className={styles.ConditionDefinition}>
                     {parseDescription(def.description)}

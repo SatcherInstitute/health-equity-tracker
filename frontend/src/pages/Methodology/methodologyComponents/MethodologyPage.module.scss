@@ -676,6 +676,7 @@ td {
 
 .Numerator {
   border-bottom: 1px solid black;
+  overflow-wrap: break-word;
 }
 
 .Fraction {
@@ -732,11 +733,11 @@ td {
   overflow-x: scroll;
   // overflow: auto;
 }
-// .FormulaFormat div {
-//   @media screen and (max-width: 1400px) {
-//     flex-direction: column;
-//   }
-// }
+
+.FormulaFormatFunction {
+  font-family: KaTeX_Math;
+  font-style: italic;
+}
 
 .FormulaFormatCode {
   border: none;

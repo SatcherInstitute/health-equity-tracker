@@ -45,7 +45,6 @@ const HivLink = () => {
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>HIV</h2>
         <br />
-
         <AgeAdjustmentExampleTable
           id="#categories-table"
           applyThickBorder={false}
@@ -65,44 +64,6 @@ const HivLink = () => {
           ]}
         />
 
-        <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
-          The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
-          <b>gender identity</b>. Due to lack of reliable population data for
-          gender-expansive people, we are unable to present{' '}
-          <b>rates per 100k</b>, however our data sources do provide the
-          following 2019 case counts for{' '}
-          {/* <b>
-          people {hivPhraseMap?.[props?.dataTypeId]} in{' '}
-          {props.fips.getSentenceDisplayName()}
-        </b>
-        :
-        <ul>
-          <li>
-            <b>
-              {transMenCount.toLocaleString()} individuals identified as
-              transgender men
-            </b>
-          </li>
-
-          <li>
-            <b>
-              {transWomenCount.toLocaleString()} individuals identified as
-              transgender women
-            </b>
-          </li>
-          <li>
-            <b>
-              {agiCount.toLocaleString()} individuals with additional gender
-              identities (AGI)
-            </b>
-          </li>
-        </ul>
-        Visit the{' '}
-        <a href={urlMap.cdcTrans}> */}
-          CDC's HIV Prevention and Care for Transgender People
-          {/* </a>{' '} */}
-          to learn more.
-        </Alert>
         <h3 id="#hiv-data-sourcing">Data Sourcing</h3>
         <p id="#hiv">
           The CDC's National Center for HIV, Viral Hepatitis, STD, and TB
@@ -148,14 +109,9 @@ const HivLink = () => {
           use 2021 as our reference year when showcasing data from a single
           year.
         </p>
-
-        <h3
-          id="#deaths-diagnosis-prevalence"
-          className={styles.MethodologySubsubheaderText}
-        >
+        <h3 id="#hiv-variable-data-compilation">
           Variable Data Compilation and Analysis
         </h3>
-
         <h4>HIV Diagnosis</h4>
         <p>
           Refers to confirmed HIV infections via laboratory or clinical evidence
@@ -186,6 +142,7 @@ const HivLink = () => {
           death. All metrics sourced from the CDC for HIV deaths are calculated
           directly from the raw count of those cases.
         </p>
+        <h4>Algorithms</h4>
         <h5>Percent share</h5>
         <p>
           To calculate the percent share of HIV diagnoses, prevalence, or
@@ -242,19 +199,35 @@ const HivLink = () => {
             ' 100,000 ',
           ]}
         />
-        {/* <Card
-          id={'#hiv-missing-and-suppressed-data'}
-          elevation={3}
-          className={styles.MissingDataBox}
-        >
-          <Card elevation={3} className={styles.MissingDataBox}></Card>
-
-          <p id="hiv_prep">
-            <b>PrEP Coverage</b>
+        <br />
+        <Alert severity="info" role="note">
+          <AlertTitle>
+            A note about HIV Prevention and Care Rates for Transgender People
+            (2019)
+          </AlertTitle>
+          <p>
+            Please note: The mentioned groups in our reports refer to{' '}
+            <em>sex assigned at birth</em> and not <em>gender identity</em>.
           </p>
-
-        <</Card> */}
-        <h3>Addressing Missing and Suppressed Data</h3>
+          <p>
+            <span>
+              <strong>Rates per 100k:</strong>
+            </span>{' '}
+            Unfortunately, due to the absence of reliable population data for
+            gender-expansive individuals, we cannot provide rates per 100k.
+          </p>
+          <p>
+            <span>
+              <strong>2019 Case Counts:</strong>
+            </span>{' '}
+            Our data sources, based on the CDC's guidelines, do provide case
+            counts for HIV Prevention and Care specifically targeting
+            Transgender People.
+          </p>
+        </Alert>
+        <h3 id="#hiv-missing-and-suppressed-data">
+          Addressing Missing and Suppressed Data
+        </h3>
         <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
           <AlertTitle>
             Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)
@@ -274,7 +247,6 @@ const HivLink = () => {
             <li>when querying HIV or AIDS deaths.</li>
           </ul>
         </p>
-
         <p>
           For the Census Island Areas (US territories other than Puerto Rico),
           there isn't enough data to accurately calculate subpopulation rates by
@@ -289,95 +261,169 @@ const HivLink = () => {
           Islander" under the pre-1997 Office of Management and Budget (OMB)
           race/ethnicity classification system when querying HIV prevalence.
         </p>
-
-        <DataAlertError alertsArray={missingHivDataArray} />
-
-        <h3 id="#prep-coverage" className={styles.MethodologySubsubheaderText}>
-          PrEP Coverage
-        </h3>
-
+        <h3 id="#prep-coverage">Defining PrEP Coverage as a Percentage</h3>
         <p>
-          PrEP coverage, reported as a percentage, is defined as the number of
-          persons aged 16 years and older classified as having been prescribed
-          PrEP during the specified year divided by the estimated annual number
-          of persons aged 16 years and older with indications for PrEP during
-          the specified year.
+          PrEP coverage is quantified as a percentage. It represents the ratio
+          of people, aged 16 and older, who were prescribed PrEP in a given year
+          to the estimated number of individuals in the same age group with
+          indications for PrEP during that year.
         </p>
-        <p>
-          The percentage of PrEP coverage is an important measure for evaluating
-          the success of PrEP implementation and uptake efforts, as well as for
-          identifying disparities in PrEP access and use among different
-          demographic groups or geographic regions. It can also be used to
-          monitor changes in PrEP coverage over time and to inform targeted
-          interventions to increase PrEP uptake and reduce HIV incidence among
-          high-risk populations. Using PrEP coverage as a percentage helps to
-          convey the actual proportion of individuals who are covered by PrEP
-          relative to the total population of interest. Creating a clear picture
-          of the proportion of individuals who are eligible for PrEP and have
-          access to it.
-        </p>
-        <p>
-          PrEP coverage is often considered a necessary precursor to PrEP usage.
-          Without adequate PrEP coverage, individuals who are at high risk for
-          HIV may not have access to PrEP or may not be aware of its
-          availability. As a result, PrEP usage may be lower in populations with
-          low PrEP coverage.
-        </p>
+        <h4>Significance of Measuring PrEP Coverage</h4>
         <ul>
           <li>
-            All metrics sourced from the CDC are calculated based on the number
-            of PrEP prescriptions provided by the CDC’s Atlas database.
-            <ul>
-              <li>
-                <b>Percent share</b>: Calculating the percent share of PrEP
-                prescriptions involves dividing the number of PrEP prescriptions
-                filled by a specific population or demographic group by the
-                total number of PrEP prescriptions filled and multiplying the
-                result by 100.
-              </li>
-              <li>
-                <b>PrEP-eligible population percent</b>: Calculating the percent
-                share of the PrEP-eligible population involves dividing the
-                number of individuals within a specific population or
-                demographic group eligible for PrEP by the total number of
-                individuals eligible for PrEP and multiplying the result by 100.
-              </li>
-              <li>
-                <b>PrEP coverage</b>: This percentage is obtained directly from
-                the CDC. It involves dividing the number of individuals within a
-                specific population or demographic group using PrEP at a given
-                time by the total number of individuals in the same population
-                or demographic group eligible for PrEP based on their HIV risk
-                and multiplying the result by 100.
-              </li>
-              <li>
-                <b>Relative Inequity</b>: Calculating the percentage of relative
-                inequity involves subtracting the proportion of all PrEP
-                prescriptions filled by a specific population or group from the
-                proportion of a specific population or group in the
-                PrEP-eligible population. The value is divided by the proportion
-                of a specific population or group in the PrEP-eligible
-                population multiplied by 100 to express it as a percentage.
-              </li>
-            </ul>
+            <span>
+              <strong>Identifying Disparities:</strong>
+            </span>{' '}
+            This measure sheds light on variations in PrEP accessibility and
+            utilization across diverse demographic segments and geographical
+            zones.
+          </li>
+          <li>
+            <span>
+              <strong>Monitoring Tool:</strong>
+            </span>{' '}
+            PrEP coverage percentage serves as an instrument to track shifts in
+            PrEP coverage across periods, aiding in the design of targeted
+            strategies to amplify PrEP uptake and curtail HIV incidence in
+            susceptible groups.
+          </li>
+          <li>
+            <span>
+              <strong>Representation of Reality:</strong>
+            </span>{' '}
+            Expressing PrEP coverage as a percentage gives an authentic
+            representation of the fraction of the target population that
+            benefits from PrEP.
+          </li>
+          <li>
+            <span>
+              <strong>Evaluation Tool:</strong>
+            </span>{' '}
+            The percentage of PrEP coverage is pivotal in assessing the
+            effectiveness of PrEP implementation and uptake initiatives.
           </li>
         </ul>
-
-        {/* <Card elevation={3} className={styles.MissingDataBox}>
-          <MissingPrepData />
-        </Card> */}
-        <DataAlertError alertsArray={missingPrepDataArray} />
-
-        <h3
-          id="#linkage-to-care"
-          className={styles.MethodologySubsubheaderText}
-        >
-          Linkage to Care
-        </h3>
-        <p id="hiv_care">
-          <b>Linkage to Care</b>
+        <h4>The Interrelation Between PrEP Coverage and Usage</h4>
+        <p>
+          Adequate PrEP coverage is a foundational step towards its utilization.
+          If PrEP coverage is insufficient, high-risk individuals might remain
+          unaware or lack access to PrEP. Consequently, lower PrEP coverage can
+          correlate with reduced PrEP usage, especially in communities with
+          limited access.
         </p>
 
+        <h4>Algorithms</h4>
+
+        <p>
+          All metrics sourced from the CDC are calculated based on the number of
+          PrEP prescriptions provided by the CDC’s Atlas database.
+        </p>
+        <h5>Percent share</h5>
+        <p>
+          Calculating the percent share of PrEP prescriptions involves dividing
+          the number of PrEP prescriptions filled by a specific population or
+          demographic group by the total number of PrEP prescriptions filled and
+          multiplying the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="Percent Share"
+          rightSide={[
+            {
+              numerator:
+                'Number of PrEP prescriptions filled by specific demographic',
+              denominator: 'Total number of PrEP prescriptions filled',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>PrEP-eligible population percent</h5>
+        <p>
+          Calculating the percent share of the PrEP-eligible population involves
+          dividing the number of individuals within a specific population or
+          demographic group eligible for PrEP by the total number of individuals
+          eligible for PrEP and multiplying the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="PrEP-Eligible Percent"
+          rightSide={[
+            {
+              numerator:
+                'Number of individuals in specific demographic eligible for PrEP',
+              denominator: 'Total number of individuals eligible for PrEP',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>PrEP coverage</h5>
+        <p>
+          This percentage is obtained directly from the CDC. It involves
+          dividing the number of individuals within a specific population or
+          demographic group using PrEP at a given time by the total number of
+          individuals in the same population or demographic group eligible for
+          PrEP based on their HIV risk and multiplying the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="PrEP Coverage"
+          rightSide={[
+            {
+              numerator:
+                'Number of individuals in specific demographic using PrEP',
+              denominator:
+                'Number of individuals in the same demographic eligible for PrEP',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>Relative Inequity</h5>
+        <p>
+          Calculating the percentage of relative inequity involves subtracting
+          the proportion of all PrEP prescriptions filled by a specific
+          population or group from the proportion of a specific population or
+          group in the PrEP-eligible population. The value is divided by the
+          proportion of a specific population or group in the PrEP-eligible
+          population multiplied by 100 to express it as a percentage.
+        </p>
+        <FormulaFormat
+          leftSide="Relative Inequity"
+          rightSide={[
+            {
+              numerator: '(Percent Share − PrEP-Eligible Percent)',
+              denominator: 'PrEP-Eligible Percent',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h3 id="#prep-missing-and-suppressed-data">
+          Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data
+        </h3>
+        <p>
+          State-level and county-level PrEP data are not available for race and
+          ethnicity. The race and ethnicity of individuals prescribed PrEP are
+          only available for less than 40% of all people prescribed PrEP and are
+          limited to four categories:
+        </p>
+        <ol>
+          <li>White,</li>
+          <li>Black,</li>
+          <li>Hispanic/Latino, and</li>
+          <li>Other.</li>
+        </ol>
+        <p>
+          PrEP coverage data are suppressed at any level if
+          <ul>
+            <li>the number of persons prescribed PrEP is suppressed,</li>
+            <li>
+              the estimated number of persons with indications for PrEP
+              (PreEP-eligible population) is suppressed, or
+            </li>
+            <li>if the number of persons prescribed PrEP is less than 40.</li>
+          </ul>
+        </p>
+        <h3 id="#linkage-to-care">Linkage to Care</h3>
         <p>
           Linkage to HIV care, reported as a percentage, refers to the number of
           persons aged 13 years and older newly diagnosed with HIV, having at
@@ -396,58 +442,98 @@ const HivLink = () => {
           care can result in poorer health outcomes for individuals living with
           HIV and can increase the risk of transmitting HIV to others.
         </p>
-
-        <ul>
-          <li>
-            All metrics sourced from the CDC are calculated based on the number
-            of cases of HIV diagnosis where individuals have received at least 1
-            CD4 or viral load test performed less than one month after
-            diagnosis.
-            <ul>
-              <li>
-                <b>Percent share</b>: Calculating the percent share of
-                individuals who received testing or treatment within a month
-                involves dividing the number of people with access to HIV care
-                by a specific population or demographic group by the total
-                number of people with access to HIV care and multiplying the
-                result by 100.
-              </li>
-              <li>
-                <b>Diagnosed population percent</b>: Calculating the percent
-                share of the population involves dividing the number of
-                individuals within a specific population or demographic group
-                with HIV diagnoses by the total number of individuals with HIV
-                diagnoses and multiplying the result by 100.
-              </li>
-              <li>
-                <b>Linkage to Care</b>: This percentage is obtained directly
-                from the CDC. It involves dividing the number of individuals
-                within a specific population or demographic group with access to
-                care at a given time by the total number of individuals living
-                with HIV in the same population or demographic group and
-                multiplying the result by 100.
-              </li>
-              <li>
-                <b>Relative Inequity</b>: Calculating the percentage of relative
-                inequity involves subtracting the proportion of all individuals
-                with access to care by a specific population or group from the
-                proportion of a specific population or group in the diagnosed
-                population. The value is divided by the proportion of a specific
-                population or group in the diagnosed population multiplied by
-                100 to express it as a percentage.
-              </li>
-            </ul>
-          </li>
-        </ul>
-
-        <p id="hiv_stigma">
-          <b>HIV Stigma</b>
+        <h4>Algorithms</h4>
+        <p>
+          All metrics sourced from the CDC are calculated based on the number of
+          cases of HIV diagnosis where individuals have received at least 1 CD4
+          or viral load test performed less than one month after diagnosis.
         </p>
+        <h5>Percent share</h5>
+        <p>
+          Calculating the percent share of individuals who received testing or
+          treatment within a month involves dividing the number of people with
+          access to HIV care by a specific population or demographic group by
+          the total number of people with access to HIV care and multiplying the
+          result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="Percent Share"
+          rightSide={[
+            {
+              numerator:
+                'Number of people with access to HIV care in specific group',
+              denominator: 'Total number of people with access to HIV care',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>Diagnosed population percent</h5>
+        <p>
+          Calculating the percent share of the population involves dividing the
+          number of individuals within a specific population or demographic
+          group with HIV diagnoses by the total number of individuals with HIV
+          diagnoses and multiplying the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="Diagnosed Population Percent"
+          rightSide={[
+            {
+              numerator: 'Number of individuals with HIV in specific group',
+              denominator: 'Total number of individuals with HIV​',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>Linkage to Care</h5>
+        <p>
+          This percentage is obtained directly from the CDC. It involves
+          dividing the number of individuals within a specific population or
+          demographic group with access to care at a given time by the total
+          number of individuals living with HIV in the same population or
+          demographic group and multiplying the result by 100.
+        </p>
+        <FormulaFormat
+          leftSide="Linkage to Care"
+          rightSide={[
+            {
+              numerator:
+                'Number of individuals in specific group with access to care​',
+              denominator:
+                'Total number of individuals living with HIV in the specific group',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <h5>Relative Inequity</h5>
+        <p>
+          Calculating the percentage of relative inequity involves subtracting
+          the proportion of all individuals with access to care by a specific
+          population or group from the proportion of a specific population or
+          group in the diagnosed population. The value is divided by the
+          proportion of a specific population or group in the diagnosed
+          population multiplied by 100 to express it as a percentage.
+        </p>
+        <FormulaFormat
+          leftSide="Relative Inequity"
+          rightSide={[
+            {
+              numerator: (
+                <>
+                  (Prop. of all with access in specific group − <wbr />
+                  Prop. of diagnosed in specific group)
+                </>
+              ),
+              denominator: 'Proportion of diagnosed in specific group​',
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
 
-        <h3 id="#stigma" className={styles.MethodologySubsubheaderText}>
-          HIV Stigma
-        </h3>
-
+        <h3 id="#stigma">HIV Stigma</h3>
         <p>
           HIV stigma, reported as a score, refers to the weighted median score
           on a 10-item scale ranging from 0 (no stigma) to 100 (high stigma)
@@ -466,27 +552,82 @@ const HivLink = () => {
           stigma, promote social support, and improve the well-being of
           individuals living with HIV.
         </p>
+        <h4>Algorithm</h4>
 
-        <ul>
-          <li>
-            All metrics related to HIV stigma, sourced from the CDC, are
-            calculated based on a national probability sample of individuals
-            diagnosed with HIV.
-            <ul>
-              <li>
-                <b>Stigma score</b>: Calculating HIV stigma involves determining
-                the weighted median score on a 10-item scale among a national
-                probability sample of people with diagnosed HIV. The scores
-                obtained from self-reported data are then analyzed to assess the
-                prevalence and impact of HIV stigma. This method allows for the
-                quantification and comparison of stigma levels across different
-                populations and geographic areas, providing insights into the
-                experiences of individuals living with HIV.
-              </li>
-            </ul>
-          </li>
-        </ul>
+        <p>
+          All metrics related to HIV stigma, sourced from the CDC, are
+          calculated based on a national probability sample of individuals
+          diagnosed with HIV.
+        </p>
+        <h5>Stigma score</h5>
+        <p>
+          Calculating HIV stigma involves determining the weighted median score
+          on a 10-item scale among a national probability sample of people with
+          diagnosed HIV.
+        </p>
 
+        <FormulaFormat
+          leftSide="HIV Stigma Score"
+          rightSide={[
+            {
+              numerator: '',
+              denominator: 'Weighted Median of Responses on 10-Item Scale',
+            },
+          ]}
+        />
+        <p>
+          The scores obtained from self-reported data are then analyzed to
+          assess the prevalence and impact of HIV stigma.
+        </p>
+
+        <FormulaFormat
+          leftSide="Analyzed Stigma Score"
+          rightSide={[
+            {
+              numerator: 'Self-Reported Data',
+              denominator: (
+                <>
+                  <span className={styles.FormulaFormatFunction}>f</span>
+                  (Self-Reported Data)
+                </>
+              ),
+            },
+            ' * ',
+            ' 100 ',
+          ]}
+        />
+        <blockquote>
+          <p>
+            <em>
+              Where <span className={styles.FormulaFormatFunction}>f</span> is a
+              function that assesses the prevalence and impact of HIV stigma
+              based on the self-reported data.
+            </em>
+          </p>
+        </blockquote>
+        <p>
+          This method allows for the quantification and comparison of stigma
+          levels across different populations and geographic areas, providing
+          insights into the experiences of individuals living with HIV.
+        </p>
+
+        <FormulaFormat
+          leftSide="Comparison Value"
+          rightSide={[
+            {
+              numerator: 'HIV Stigma Score of Population A​',
+              denominator: 'HIV Stigma Score of Population B',
+            },
+          ]}
+        />
+        <blockquote>
+          <p>
+            <em>
+              Or any other comparative metrics based on the exact methodology
+              used.
+            </em>
+          </p>
+        </blockquote>
         <h3 id="#hiv-data-sources">Data Sources</h3>
         <AgeAdjustmentExampleTable
           applyThickBorder={false}
