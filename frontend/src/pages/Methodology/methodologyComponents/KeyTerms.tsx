@@ -1,4 +1,3 @@
-// import { Alert } from '@mui/material'
 import {
   Accordion,
   AccordionDetails,
@@ -10,7 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
-import { parseDescription } from './DataTable'
+import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
 
 interface KeyTermsProps {
@@ -27,7 +26,6 @@ interface KeyTermsProps {
 }
 
 const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
-  // Destructure the 'id' prop here
   const theme = useTheme()
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
 

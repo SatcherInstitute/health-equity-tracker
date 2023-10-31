@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
+
 const DataMethodDefinitionsLink = () => {
   return (
     <section id="#data-methods">

@@ -23,9 +23,6 @@ const FractionFormat: React.FC<FractionProps> = ({
         <div className={styles.Denominator}>{denominator}</div>
       </div>
     )}
-
-    {/* {numerator && <div className={styles.Numerator}>{numerator}</div>}
-      {denominator && <div className={styles.Denominator}>{denominator}</div>} */}
   </div>
 )
 

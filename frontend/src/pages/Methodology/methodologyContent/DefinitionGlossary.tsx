@@ -146,7 +146,7 @@ export const definitionsGlossary = [
       },
     ],
   },
-  // BEHAVIORAL HEALTH
+
   {
     topic: 'Depression',
     path: '',
@@ -203,7 +203,6 @@ export const definitionsGlossary = [
     ],
   },
 
-  // CHRONIC DISEASES
   {
     topic: 'Asthma',
     path: '',
@@ -260,9 +259,6 @@ export const definitionsGlossary = [
     ],
   },
 
-  // CONDITION VARIABLES
-
-  // COVID-19
   {
     topic: 'COVID-19',
     path: '',
@@ -286,7 +282,6 @@ export const definitionsGlossary = [
     ],
   },
 
-  // HIV
   {
     topic: 'HIV (human immunodeficiency virus)',
     path: '',
@@ -343,7 +338,6 @@ export const definitionsGlossary = [
     ],
   },
 
-  // METRICS
   {
     topic: 'Total cases per 100k people',
     path: '',
@@ -445,7 +439,7 @@ export const definitionsGlossary = [
       },
     ],
   },
-  // PDOH
+
   {
     topic: 'Incarceration',
     path: '',
@@ -479,7 +473,7 @@ export const definitionsGlossary = [
       },
     ],
   },
-  // SDOH
+
   {
     topic: 'Avoided Care',
     path: '',
@@ -525,7 +519,6 @@ export const definitionsGlossary = [
     ],
   },
 
-  // SOURCES
   {
     topic: 'Crude rates',
     path: '',

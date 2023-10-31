@@ -7,7 +7,6 @@ import {
 } from '@mui/material'
 import styles from './MethodologyPage.module.scss'
 
-// Define the CodeData type
 interface CodeData {
   content: string | JSX.Element
 }
@@ -15,13 +14,13 @@ interface CodeData {
 interface CodeBlockProps {
   rowData: CodeData[]
   border?: boolean
-  minWidth?: number | string // Can be a number (like 700) or a string (like "700px")
+  minWidth?: number | string
 }
 
 export const CodeBlock: React.FC<CodeBlockProps> = ({
   rowData,
   border = true,
-  minWidth = 700, // Default value
+  minWidth = 700,
 }) => {
   const tableClass = border ? styles.BorderTable : styles.NoBorderTable
 

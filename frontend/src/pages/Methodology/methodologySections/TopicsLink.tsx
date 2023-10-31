@@ -1,12 +1,9 @@
 import { Helmet } from 'react-helmet-async'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import DataTable from '../methodologyComponents/DataTable'
-import { conditionVariableDefinitions } from '../methodologyContent/ConditionVariableDefinitions'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import StripedTable from '../methodologyComponents/StripedTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
-import IncarceratedChildrenLongAlert from '../../../reports/ui/IncarceratedChildrenLongAlert'
-import MissingDataAlert from '../methodologyContent/DataAlertError'
+
 const TopicsLink: React.FC = () => {
   return (
     <section id="#categories">
@@ -41,7 +38,7 @@ const TopicsLink: React.FC = () => {
         </p>
 
         <h3 id="#categories">Categories</h3>
-        <AgeAdjustmentExampleTable
+        <StripedTable
           id="#categories-table"
           applyThickBorder={false}
           columns={[

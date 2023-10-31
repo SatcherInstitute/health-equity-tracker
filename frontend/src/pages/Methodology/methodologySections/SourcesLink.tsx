@@ -1,18 +1,8 @@
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import {
-  AGE_ADJUSTMENT_LINK,
-  RESOURCES_TAB_LINK,
-} from '../../../utils/internalRoutes'
-import {
-  sourceAcquisitionData,
-  sourcesDefinitionsArray,
-} from '../methodologyContent/SourcesDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import { urlMap } from '../../../utils/externalUrls'
-import { parseDescription } from '../methodologyComponents/DataTable'
+import { AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
+import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
+import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 import { Helmet } from 'react-helmet-async'
-import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import {
   crudeRatesTooltip,
   percentRateTooltip,
@@ -22,7 +12,7 @@ import {
 } from '../methodologyContent/TooltipLibrary'
 
 const SourcesLink = () => {
-  const { title, description, links, listItems, nestedListItems } =
+  const { title, description, listItems, nestedListItems } =
     sourceAcquisitionData
 
   return (

@@ -1,4 +1,3 @@
-import { Grid, Typography } from '@mui/material'
 import styles from '../../AboutUs/AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 

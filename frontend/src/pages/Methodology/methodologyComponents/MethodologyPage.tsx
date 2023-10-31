@@ -9,19 +9,16 @@ import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
-// import SearchBar from './SearchBar'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import { useEffect, useState } from 'react'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 export const defLookup = () => {
-  // Map the original array to include the original index
   const indexedDefinitions = definitionsGlossary.map((item, index) => ({
     item,
     originalIndex: index,
   }))
 
-  // Sort the array based on the topic
   indexedDefinitions
     .sort((a, b) => a.item.topic.localeCompare(b.item.topic))
     .forEach(({ item, originalIndex }) => {
@@ -45,7 +42,6 @@ const MethodologyPage: React.FC = () => {
 
   const location = useLocation()
 
-  // Find the route object that matches the current path
   const activeRoute = routeConfigs.find(
     (route) => route.path === location.pathname
   )

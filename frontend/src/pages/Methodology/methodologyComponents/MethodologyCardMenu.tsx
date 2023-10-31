@@ -102,20 +102,20 @@ const MethodologyCardMenu: React.FC = () => {
   }
 
   const shouldDisplayDivider = (currentIndex: number) => {
-    if (currentIndex === links.length - 1) return false // No divider for the last item
+    if (currentIndex === links.length - 1) return false
 
     const currentLink = links[currentIndex]
     const nextLink = links[currentIndex + 1]
 
     if (currentLink.primary && nextLink?.secondary) {
-      return false // If current is primary and next is secondary, don't show divider
+      return false
     }
 
     if (currentLink.primary && (nextLink?.primary ?? !nextLink)) {
-      return true // If current is secondary and next is primary or there's no next link, show divider
+      return true
     }
     if (currentLink.secondary && (nextLink?.primary ?? !nextLink)) {
-      return true // If current is secondary and next is primary or there's no next link, show divider
+      return true
     }
 
     return false
@@ -149,39 +149,3 @@ const MethodologyCardMenu: React.FC = () => {
 }
 
 export default MethodologyCardMenu
-
-// const MethodologyCardMenu: React.FC = () => {
-//   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
-//   const handleSelected = (index: number) => {
-//     setSelectedIndex(index)
-//   }
-
-//   return (
-//     <nav className={styles.CardMenu}>
-//       <Box sx={{ width: '100%' }}>
-//         {links.map((link, idx) => (
-//           <React.Fragment key={idx}>
-//             <Link to={link.to}>
-//               <ListItemButton
-//                 selected={selectedIndex === link.index}
-//                 onClick={() => {
-//                   handleSelected(link.index)
-//                 }}
-//                 sx={{ pl: link.paddingLeft ?? 0 }}
-//               >
-//                 <ListItemText
-//                   primary={link.primary}
-//                   secondary={link.secondary}
-//                 />
-//               </ListItemButton>
-//             </Link>
-//             {idx !== links.length - 1 && <Divider />}
-//           </React.Fragment>
-//         ))}
-//       </Box>
-//     </nav>
-//   )
-// }
-
-// export default MethodologyCardMenu

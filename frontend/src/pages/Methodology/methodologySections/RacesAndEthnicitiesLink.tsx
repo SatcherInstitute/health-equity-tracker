@@ -1,33 +1,8 @@
-import { Alert, AlertTitle, Button, Card, Link } from '@mui/material'
-import DataTable, { parseDescription } from '../methodologyComponents/DataTable'
+import { Alert, AlertTitle } from '@mui/material'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
-import Resources from '../methodologyComponents/Resources'
-import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
-  COVID_RESOURCES,
-  COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-// import MissingDataAlert from '../../../cards/ui/MissingDataAlert'
-import DataAlertError from '../methodologyContent/DataAlertError'
-import { missingIslandAreaPopulationDataArray } from '../methodologyContent/missingDataBlurbs'
-import DisclaimerAlert from '../../../reports/ui/DisclaimerAlert'
-import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
-import FlagIcon from '@mui/icons-material/Flag'
-import {
-  AGE_ADJUST_HIV_DEATHS_US_SETTING,
-  EXPLORE_DATA_PAGE_LINK,
-  GLOSSARY_LINK,
-} from '../../../utils/internalRoutes'
+import { GLOSSARY_LINK } from '../../../utils/internalRoutes'
+import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 
 interface DataItem {
   topic: string
@@ -38,7 +13,7 @@ interface DataItem {
     resource?: string
     considerations?: Array<{
       title: string
-      points: Array<string>
+      points: string[]
     }>
   }>
 }

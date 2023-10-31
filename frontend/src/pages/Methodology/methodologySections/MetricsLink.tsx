@@ -1,16 +1,9 @@
 import { Alert, Card } from '@mui/material'
-
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
-import DataTable from '../methodologyComponents/DataTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import {
-  percentShareTooltip,
-  proportionalInequitableBurdenTooltip,
-} from '../methodologyContent/TooltipLibrary'
+import { proportionalInequitableBurdenTooltip } from '../methodologyContent/TooltipLibrary'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { Helmet } from 'react-helmet-async'

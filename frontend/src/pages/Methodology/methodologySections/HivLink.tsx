@@ -1,39 +1,17 @@
-import Card from '@mui/material/Card'
 import FlagIcon from '@mui/icons-material/Flag'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   hivDataSources,
   hivDefinitionsArray,
 } from '../methodologyContent/HIVDefinitions'
-import DataTable from '../methodologyComponents/DataTable'
-import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
-  COVID_RESOURCES,
-  COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
+import { HIV_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import DataAlertError from '../methodologyContent/DataAlertError'
-import {
-  missingHivDataArray,
-  missingPrepDataArray,
-} from '../methodologyContent/missingDataBlurbs'
-import { Alert, AlertTitle, CardContent, Typography } from '@mui/material'
-import { Percent } from '@mui/icons-material'
+import { Alert, AlertTitle } from '@mui/material'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const HivLink = () => {
@@ -45,7 +23,7 @@ const HivLink = () => {
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>HIV</h2>
         <br />
-        <AgeAdjustmentExampleTable
+        <StripedTable
           id="#categories-table"
           applyThickBorder={false}
           columns={[
@@ -629,7 +607,7 @@ const HivLink = () => {
           </p>
         </blockquote>
         <h3 id="#hiv-data-sources">Data Sources</h3>
-        <AgeAdjustmentExampleTable
+        <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },

@@ -1,5 +1,4 @@
 import { urlMap } from '../../../utils/externalUrls'
-import DataAlertError from './DataAlertError'
 
 export function MissingIslandAreaPopulationData() {
   return (
@@ -363,38 +362,6 @@ export const missingPhrmaDataArray = [
     ],
   },
 ]
-
-export function MissingAHRData() {
-  return (
-    <>
-      <h4>Missing America's Health Rankings data</h4>
-      <ul>
-        <li>
-          <DataAlertError alertsArray={missingAhrDataArray} />
-        </li>
-      </ul>
-    </>
-  )
-}
-
-// export function MissingAHRData() {
-//   return (
-//     <>
-//       <h4>Missing America's Health Rankings data</h4>
-//       <ul>
-//         <li>
-//           <b>Population data:</b> AHR does not have population data available
-//           for: preventable hospitalizations, voter participation, and
-//           non-medical drug use. We have chosen not to show any percent share
-//           metrics for the measures without population data because the source
-//           only provides the metrics as rates. Without population data, it is
-//           difficult to accurately calculate percent share measures, which could
-//           potentially result in misleading data.
-//         </li>
-//       </ul>
-//     </>
-//   )
-// }
 
 export const missingAhrDataArray = [
   {

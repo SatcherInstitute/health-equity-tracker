@@ -1,46 +1,13 @@
-// import { Alert } from '@mui/material'
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Alert,
-  AlertTitle,
-  Grid,
-  Typography,
-} from '@mui/material'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  Paper,
-} from '@material-ui/core'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Alert, AlertTitle } from '@mui/material'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
   behavioralHealthDataSources,
   behavioralHealthDefinitionsArray,
 } from '../methodologyContent/BehavioralHealthDefinitions'
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import DataTable from '../methodologyComponents/DataTable'
-import { conditionVariableDefinitions } from '../methodologyContent/ConditionVariableDefinitions'
-import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
-  COVID_RESOURCES,
-  COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
+import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { Helmet } from 'react-helmet-async'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import {
@@ -63,7 +30,7 @@ const BehavioralHealthLink: React.FC = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>Behavioral Health</h2>
 
         <br />
-        <AgeAdjustmentExampleTable
+        <StripedTable
           id="#categories-table"
           applyThickBorder={false}
           columns={[
@@ -200,7 +167,7 @@ const BehavioralHealthLink: React.FC = () => {
           </p>
         </Alert>
         <h3 id="#behavioral-health-data-sources">Data Sources</h3>
-        <AgeAdjustmentExampleTable
+        <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },

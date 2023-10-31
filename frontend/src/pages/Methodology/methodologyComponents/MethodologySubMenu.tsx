@@ -15,7 +15,7 @@ interface CombinedLinkProps {
   to: string
   isScrollLink: boolean
   children: ReactNode
-  [x: string]: any // For the rest of the props
+  [x: string]: any
 }
 
 const CombinedLink: React.FC<CombinedLinkProps> = ({
@@ -31,28 +31,12 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
       </ScrollLink>
     )
   }
-  return null // Return null if not a ScrollLink
+  return null
 }
-
-// const CombinedLink: React.FC<CombinedLinkProps> = ({
-//   to,
-//   isScrollLink,
-//   children,
-//   ...rest
-// }) => {
-//   if (isScrollLink) {
-//     return (
-//       <ScrollLink to={to} {...rest}>
-//         {children}
-//       </ScrollLink>
-//     )
-//   }
-// }
 
 const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
   const [activeLink, setActiveLink] = useState<string | null>(null)
 
-  // Load active link from sessionStorage when component mounts
   useEffect(() => {
     const storedActiveLink = sessionStorage.getItem('activeLink')
     if (storedActiveLink) {
@@ -60,7 +44,6 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
     }
   }, [])
 
-  // Save active link to sessionStorage whenever it changes
   useEffect(() => {
     if (activeLink) {
       sessionStorage.setItem('activeLink', activeLink)
@@ -95,27 +78,3 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
   )
 }
 export default MethodologySubMenu
-
-// const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
-//   return (
-//     <nav className={styles.SubMenu}>
-//       <p>On this page</p>
-
-//       {links.map((link, index) => (
-//         <CombinedLink
-//           key={index}
-//           to={link.path}
-//           isScrollLink
-//           smooth
-//           duration={200}
-//           spy
-//           hashSpy
-//         >
-//           {link.label}
-//         </CombinedLink>
-//       ))}
-//     </nav>
-//   )
-// }
-
-// export default MethodologySubMenu

@@ -1,10 +1,5 @@
-import { Alert, AlertTitle, Card, Link } from '@mui/material'
-import { urlMap } from '../../../utils/externalUrls'
+import { Alert, AlertTitle } from '@mui/material'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import {
-  missingCovidDataArray,
-  missingCovidVaccinationDataArray,
-} from '../methodologyContent/missingDataBlurbs'
 import {
   covidDataSources,
   covidDefinitionsArray,
@@ -12,27 +7,13 @@ import {
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
-import DataTable from '../methodologyComponents/DataTable'
 import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
 } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { Helmet } from 'react-helmet-async'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
-
-import DataAlertError from '../methodologyContent/DataAlertError'
+import StripedTable from '../methodologyComponents/StripedTable'
 
 const Covid19Link = () => {
   return (
@@ -43,7 +24,7 @@ const Covid19Link = () => {
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>COVID-19</h2>
         <br />
-        <AgeAdjustmentExampleTable
+        <StripedTable
           id="#categories-table"
           applyThickBorder={false}
           columns={[
@@ -336,7 +317,7 @@ const Covid19Link = () => {
         </p>
 
         <h3 id="#covid-data-sources">COVID-19 Data Sources</h3>
-        <AgeAdjustmentExampleTable
+        <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },

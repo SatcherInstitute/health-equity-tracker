@@ -2,6 +2,11 @@
 @import '../../../styles/variables.module.scss';
 
 /** ------------------ METHODOLOGY v2 -------------------- **/
+// For the title of the page read off by screenreaders in an h1
+.ScreenreaderTitleHeader {
+  @include srOnly();
+}
+
 html {
   scroll-behavior: smooth;
   font-family: 'Inter', sans-serif;
@@ -812,30 +817,30 @@ p.CitationAPA:first-of-type {
   color: $alt-black;
 }
 
-.AgeAdjustmentExampleTable {
+.StripedTable {
   .thickBorder {
     border-bottom: 3px solid var(--0-b-5240, #0b5240);
   }
 }
-.AgeAdjustmentExampleTable td {
+.StripedTable td {
   font-family: Inter, sans-serif;
   font-weight: 400 !important;
   font-size: 0.875rem;
   text-align: left;
 }
-.AgeAdjustmentExampleTable tbody > tr > th {
+.StripedTable tbody > tr > th {
   font-family: Inter, sans-serif;
   font-weight: 400 !important;
   font-size: 0.875rem;
   text-align: left;
 }
 
-.AgeAdjustmentExampleTableHeader {
+.StripedTableHeader {
   background: rgba(11, 82, 64, 0.3);
   color: var(--m-3-sys-light-on-surface, #1d1b20);
 }
 
-.AgeAdjustmentExampleTableHeader th {
+.StripedTableHeader th {
   font-family: DM Sans;
   font-size: 1rem;
   font-weight: 500;

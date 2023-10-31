@@ -32,14 +32,14 @@ interface Column {
   accessor: string
 }
 
-interface AgeAdjustmentExampleTableProps {
+interface StripedTableProps {
   rows: Row[]
   columns: Column[]
   id?: string
   applyThickBorder?: boolean
 }
 
-const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
+const StripedTable: React.FC<StripedTableProps> = ({
   rows,
   columns,
   id,
@@ -47,18 +47,15 @@ const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
 }) => {
   return (
     <TableContainer component={Paper} id={id}>
-      <Table
-        aria-label="customized table"
-        className={styles.AgeAdjustmentExampleTable}
-      >
+      <Table aria-label="customized table" className={styles.StripedTable}>
         <TableHead>
-          <TableRow className={styles.AgeAdjustmentExampleTableHeader}>
+          <TableRow className={styles.StripedTableHeader}>
             {columns.map((col) => (
               <TableCell key={col.accessor}>{col.header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
-        <TableBody className={styles.AgeAdjustmentExampleTable}>
+        <TableBody className={styles.StripedTable}>
           {rows.map((row, rowIndex) => (
             <StyledTableRow
               key={rowIndex}
@@ -83,4 +80,4 @@ const AgeAdjustmentExampleTable: React.FC<AgeAdjustmentExampleTableProps> = ({
   )
 }
 
-export default AgeAdjustmentExampleTable
+export default StripedTable

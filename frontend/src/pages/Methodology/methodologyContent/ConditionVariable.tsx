@@ -1,8 +1,8 @@
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import { parseDescription } from '../methodologyComponents/DataTable'
+import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 
 interface Definition {
-  id: string | undefined
+  id?: string | undefined
   topic: string
   definitions: Array<{
     key: string

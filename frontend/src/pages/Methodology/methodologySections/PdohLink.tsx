@@ -1,40 +1,16 @@
-import { Alert, AlertTitle, Card } from '@mui/material'
-import {
-  ALASKA_PRIVATE_JAIL_CAVEAT,
-  CombinedIncarcerationStateMessage,
-} from '../../../data/providers/IncarcerationProvider'
+import { Alert, AlertTitle } from '@mui/material'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-// import { MissingCAWPData } from '../methodologyContent/missingDataBlurbs'
-
-import { urlMap } from '../../../utils/externalUrls'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   pdohDataSources,
   pdohDefinitionsArray,
 } from '../methodologyContent/PdohDefinitions'
-import DataTable from '../methodologyComponents/DataTable'
 import Resources from '../methodologyComponents/Resources'
-import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
-import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
-  COVID_RESOURCES,
-  COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
+import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import { missingCawpDataArray } from '../methodologyContent/missingDataBlurbs'
-import DataAlertError from '../methodologyContent/DataAlertError'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { percentShareTooltip } from '../methodologyContent/TooltipLibrary'
@@ -52,7 +28,7 @@ const PdohLink = () => {
           Political Determinants of Health
         </h2>
         <br />
-        <AgeAdjustmentExampleTable
+        <StripedTable
           id="#categories-table"
           applyThickBorder={false}
           columns={[
@@ -371,7 +347,7 @@ const PdohLink = () => {
           </p>
         </Alert>
         <h3 id="#pdoh-data-resources">Data Sources</h3>
-        <AgeAdjustmentExampleTable
+        <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },

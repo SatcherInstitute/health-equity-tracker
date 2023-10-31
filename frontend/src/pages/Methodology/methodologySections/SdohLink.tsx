@@ -1,45 +1,27 @@
-import DataTable, { parseDescription } from '../methodologyComponents/DataTable'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import Resources from '../methodologyComponents/Resources'
-import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
 import {
   sdohDataSources,
   sdohDefinitionsArray,
 } from '../methodologyContent/SdohDefinitions'
-import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
-  COVID_RESOURCES,
-  COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
+import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import {
-  percentRateTooltip,
   percentShareTooltip,
   totalCasesPer100kPeopleTooltip,
 } from '../methodologyContent/TooltipLibrary'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import { Alert, AlertTitle } from '@mui/material'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import DataAlertError from '../methodologyContent/DataAlertError'
-// import { missingAhrDataArray } from '../methodologyContent/missingDataBlurbs'
 
 export const missingAhrDataArray = [
   {
-    id: 'missingData1', // or some other unique ID
+    id: '',
     topic: "Missing America's Health Rankings data",
     definitions: [
       {
@@ -62,7 +44,7 @@ function SdohLink() {
           Social Determinants of Health
         </h2>
         <br />
-        <AgeAdjustmentExampleTable
+        <StripedTable
           id="#categories-table"
           applyThickBorder={false}
           columns={[
@@ -183,7 +165,7 @@ function SdohLink() {
           </p>
         </Alert>
         <h3 id="#sdoh-data-sources">Data Sources</h3>
-        <AgeAdjustmentExampleTable
+        <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },

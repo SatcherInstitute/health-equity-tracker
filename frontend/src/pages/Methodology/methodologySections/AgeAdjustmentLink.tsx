@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Grid'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import {
@@ -7,14 +6,12 @@ import {
   AGE_ADJUST_HIV_DEATHS_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from '../../../utils/internalRoutes'
-import { Alert, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
-import AgeAdjustmentExampleTable from '../methodologyComponents/AgeAdjustmentExampleTable'
+import StripedTable from '../methodologyComponents/StripedTable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import { ArrowForward } from '@mui/icons-material'
-
 import {
   ageAdjustedRatiosTooltip,
   ageSpecificRateTooltip,
@@ -25,22 +22,7 @@ import {
   internalStandardPopulationTooltip,
   standardPopulationTooltip,
 } from '../methodologyContent/TooltipLibrary'
-import {
-  RESOURCES,
-  PDOH_RESOURCES,
-  EQUITY_INDEX_RESOURCES,
-  AIAN_RESOURCES,
-  API_RESOURCES,
-  HISP_RESOURCES,
-  MENTAL_HEALTH_RESOURCES,
-  COVID_RESOURCES,
-  COVID_VACCINATION_RESOURCES,
-  ECONOMIC_EQUITY_RESOURCES,
-  HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
-import DataTable from '../methodologyComponents/DataTable'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const AGE_ADJUSTED_RESOURCES = [
@@ -421,7 +403,7 @@ const AgeAdjustmentLink = () => {
               ratios (like <b>White, Non-Hispanic</b>), and <b>Race B</b> is any
               other race group.
             </p>
-            <AgeAdjustmentExampleTable
+            <StripedTable
               columns={[
                 { header: 'Race Groups by Age', accessor: 'race' },
                 { header: 'HIV Deaths', accessor: 'condition' },
@@ -474,7 +456,7 @@ const AgeAdjustmentLink = () => {
             </ol>
 
             {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
-            <AgeAdjustmentExampleTable
+            <StripedTable
               columns={[
                 { header: 'Race Groups by Age', accessor: 'race' },
                 { header: 'HIV Deaths', accessor: 'condition' },
@@ -646,7 +628,7 @@ const AgeAdjustmentLink = () => {
             </ol>
 
             {/* A + B TABLE */}
-            <AgeAdjustmentExampleTable
+            <StripedTable
               columns={[
                 { header: 'Race Groups by Age', accessor: 'race' },
 
@@ -747,7 +729,7 @@ const AgeAdjustmentLink = () => {
               ]}
             />
 
-            <AgeAdjustmentExampleTable
+            <StripedTable
               columns={[
                 { header: 'Race Groups by Age', accessor: 'race' },
                 {
@@ -921,7 +903,7 @@ const AgeAdjustmentLink = () => {
               </li>
             </ol>
 
-            <AgeAdjustmentExampleTable
+            <StripedTable
               columns={[
                 { header: 'Race Groups by All Ages', accessor: 'race' },
                 { header: 'Total Expected HIV Deaths', accessor: 'rate' },
@@ -982,7 +964,7 @@ const AgeAdjustmentLink = () => {
               <li>Calculate the age-adjusted death ratio:</li>
             </ol>
 
-            <AgeAdjustmentExampleTable
+            <StripedTable
               columns={[
                 { header: 'Race Groups by All Ages', accessor: 'race' },
                 { header: 'Total Expected HIV Deaths', accessor: 'rate' },
