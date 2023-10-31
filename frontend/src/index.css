@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
+@layer base {
+  :root {
+    --alt-dark: 95 99 104;
+    --alt-green: 11 82 64;
+    --hex-share-icon-gray: #757575;
+  }
+}

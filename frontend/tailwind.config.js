@@ -75,9 +75,9 @@ export default {
       "join-effort-bg2": "#edb2a6",
       "join-effort-bg3": "#275141",
 
-      "alt-green": "#0b5240",
+      "alt-green": 'rgb(var(--alt-green) / <alpha-value>)',
       "alt-black": "#383838",
-      "alt-dark": "#5f6368",
+      "alt-dark": 'rgb(var(--alt-dark) / <alpha-value>)',
       "alt-grey": "#bdbdbd",
       "alt-red": "#d32f2f",
 
