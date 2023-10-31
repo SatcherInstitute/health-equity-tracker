@@ -94,7 +94,7 @@ export function Sources(props: SourcesProps) {
     datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
 
   return (
-    <div>
+    <footer className="px-1 py-0 text-left text-smallest">
       <p className="w-full">
         <>{optionalDefinition}</>
         View{' '}
@@ -107,26 +107,21 @@ export function Sources(props: SourcesProps) {
       {/* NH note (if needed) listed first, full-width */}
       <div className="w-full">
         {showNhFootnote && (
-          <>
-            <p className="mb-0 mt-1 text-smallest">
-              Note. NH: Non-Hispanic. To promote inclusion, we replace the
-              source data labels <i>‘Multiracial’</i> with{' '}
-              <i>‘Two or more races’</i>, and <i>‘Some other’</i> with{' '}
-              <i>‘Unrepresented’</i>.{' '}
-            </p>
-          </>
+          <p className="mb-0 mt-1">
+            Note. NH: Non-Hispanic. To promote inclusion, we replace the source
+            data labels <i>‘Multiracial’</i> with <i>‘Two or more races’</i>,
+            and <i>‘Some other’</i> with <i>‘Unrepresented’</i>.{' '}
+          </p>
         )}
       </div>
 
-      <>
-        <div
-          className={`${
-            props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
-          }`}
-        >
-          <SourcesInfo dataSourceMap={dataSourceMap} />
-        </div>
-      </>
-    </div>
+      <div
+        className={`${
+          props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
+        }`}
+      >
+        <SourcesInfo dataSourceMap={dataSourceMap} />
+      </div>
+    </footer>
   )
 }

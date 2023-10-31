@@ -73,16 +73,14 @@ function CardWrapper(props: {
             />
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
-              <footer className="px-1 py-0 text-left text-smallest">
-                <Sources
-                  hideNH={props.hideNH}
-                  isCensusNotAcs={props.isCensusNotAcs}
-                  metadata={metadata}
-                  queryResponses={queryResponses}
-                  showDefinition={props.scrollToHash === 'rate-map'}
-                  isCompareCard={props.isCompareCard}
-                />
-              </footer>
+              <Sources
+                hideNH={props.hideNH}
+                isCensusNotAcs={props.isCensusNotAcs}
+                metadata={metadata}
+                queryResponses={queryResponses}
+                showDefinition={props.scrollToHash === 'rate-map'}
+                isCompareCard={props.isCompareCard}
+              />
             )}
           </article>
         )
