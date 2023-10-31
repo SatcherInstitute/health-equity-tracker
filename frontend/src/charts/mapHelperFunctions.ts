@@ -355,17 +355,8 @@ export function setupColorScale(
 
 export function getMapConfig(
   dataTypeConfig: DataTypeConfig,
-  isSummaryLegend?: boolean,
-  isUnknownsMap?: boolean
+  isSummaryLegend?: boolean
 ): MapConfig {
-  // UNKNOWNS MAP CARD / TERRITORY CIRCLE
-  if (isUnknownsMap)
-    return {
-      scheme: MAP_SCHEMES.unknown,
-      min: sass.unknownMapMin,
-      mid: sass.unknownMapMid,
-    }
-
   // OVERRIDE FOR SUBSET POPULATION MAPS LIKE MEDICARE AND WOMEN
   const mapConfig = dataTypeConfig.mapConfig ?? defaultHigherIsWorseMapConfig
   const mapMin = isSummaryLegend ? mapConfig.mid : mapConfig.min

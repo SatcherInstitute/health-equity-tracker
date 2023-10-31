@@ -26,8 +26,8 @@ import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
-import { getMapConfig } from '../charts/mapHelperFunctions'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { unknownMapConfig } from '../charts/mapGlobals'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -199,13 +199,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
-        const isSummaryLegend = !hasChildGeo ?? props.fips.isCounty()
-
-        const mapConfig = getMapConfig(
-          /* dataTypeConfig */ props.dataTypeConfig,
-          /* isSummaryLegend */ isSummaryLegend,
-          /*  isUnknownsMap */ true
-        )
+        const mapConfig = unknownMapConfig
 
         return (
           <CardContent sx={{ pt: 0 }}>

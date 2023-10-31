@@ -10,7 +10,11 @@ import { getMapConfig } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
+import {
+  type HighestLowest,
+  type CountColsMap,
+  unknownMapConfig,
+} from '../../charts/mapGlobals'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -33,11 +37,9 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const mapConfig = getMapConfig(
-    /* dataTypeConfig */ props.dataTypeConfig,
-    /* isSummaryLegend */ undefined,
-    /*  isUnknownsMap */ props.isUnknownsMap
-  )
+  const mapConfig = props.isUnknownsMap
+    ? unknownMapConfig
+    : getMapConfig(/* dataTypeConfig */ props.dataTypeConfig)
 
   return (
     <Grid

@@ -82,6 +82,12 @@ export const medicareHigherIsWorseMapConfig: MapConfig = {
   higherIsBetter: false,
 }
 
+export const unknownMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.unknown,
+  min: sass.unknownMapMin,
+  mid: sass.unknownMapMid,
+}
+
 export const DOT_SIZE_SCALE = 'dot_size_scale'
 export const SUMMARY_SCALE = 'summary_scale'
 export const GREY_DOT_SCALE = 'grey_dot_scale'
