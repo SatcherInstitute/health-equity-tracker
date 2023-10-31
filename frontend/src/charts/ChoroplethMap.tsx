@@ -350,11 +350,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain
     colorScale.range = props.scaleConfig?.range
-    // colorScale.reverse = false
+    colorScale.reverse = false
   }
-
-  console.log('higher is better:', props.mapConfig)
-  console.log({ colorScale })
 
   const projection = getProjection(
     /* fips */ props.fips,

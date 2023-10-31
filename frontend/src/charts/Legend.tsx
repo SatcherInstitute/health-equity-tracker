@@ -170,8 +170,6 @@ export function Legend(props: LegendProps) {
           /* reverse?: boolean */ !props.mapConfig.higherIsBetter
         )
 
-    console.log({ legendColorScaleSpec })
-
     const dotSizeScale = props.isPhrmaAdherence
       ? setupPhrmaAdherenceLegendScaleSpec(dotRange)
       : setupLegendScaleSpec(

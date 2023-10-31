@@ -370,7 +370,12 @@ export function getMapConfig(
   const mapConfig = dataTypeConfig.mapConfig ?? defaultHigherIsWorseMapConfig
   const mapMin = isSummaryLegend ? mapConfig.mid : mapConfig.min
 
-  return { scheme: mapConfig.scheme, min: mapMin, mid: mapConfig.mid }
+  return {
+    scheme: mapConfig.scheme,
+    min: mapMin,
+    mid: mapConfig.mid,
+    higherIsBetter: mapConfig.higherIsBetter,
+  }
 }
 
 export function getHighestLowestGroupsByFips(
