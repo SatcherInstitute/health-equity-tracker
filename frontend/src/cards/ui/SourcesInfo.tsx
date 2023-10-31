@@ -4,7 +4,6 @@ import {
   LinkWithStickyParams,
   DATA_SOURCE_PRE_FILTERS,
 } from '../../utils/urlutils'
-import styles from './Sources.module.scss'
 import { type DataSourceInfo, insertPunctuation } from './SourcesHelpers'
 
 interface SourcesInfoProps {
@@ -13,7 +12,7 @@ interface SourcesInfoProps {
 
 export default function SourcesInfo(props: SourcesInfoProps) {
   return (
-    <p className={styles.FootnoteText}>
+    <p className="text-smallest">
       Sources:{' '}
       {Object.keys(props.dataSourceMap).map((dataSourceId, idx) => (
         <Fragment key={dataSourceId}>
