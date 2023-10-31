@@ -36,7 +36,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
 
   return (
     <div
-      className="mr-1 flex flex-row-reverse pb-5 pr-3 sm:mr-2 sm:mt-1"
+      className="mb:0 mr-0 flex flex-row-reverse pb-0 pr-0 sm:mt-1 sm:pr-3 md:mr-1"
       id={'card-options-menu'}
     >
       <Tooltip title="Card export options">
