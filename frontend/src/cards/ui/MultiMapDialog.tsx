@@ -415,7 +415,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 downloadTargetScreenshot={downloadTargetScreenshot}
                 isMulti={true}
               />
-              <div className="grid w-4/12 place-content-end sm:w-3/12 md:w-2/12">
+              <div className="m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12">
                 <CardOptionsMenu
                   downloadTargetScreenshot={downloadTargetScreenshot}
                   reportTitle={props.reportTitle}
