@@ -353,6 +353,11 @@ export function setupColorScale(
   return colorScale
 }
 
+/* This function defaults the scheme and overrides if another config is stored in the metric config
+It also overwrites the min value with the mid value for "summary" reports like county level or state- without county data
+
+Honestly this function should probably be removed, and we can make mapConfig a required property (setting current empty ones to the default explicity, and just over-riding the summary legend stuff manually as needed)
+*/
 export function getMapConfig(
   dataTypeConfig: DataTypeConfig,
   isSummaryLegend?: boolean
