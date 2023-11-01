@@ -30,7 +30,10 @@ export default {
       'gray-light': '#d3dce6',
       'alt-green': '#0b5240',
       'alt-black':'#383838',
-      'border-color': '#3e3e3e'
+      'border-color': '#3e3e3e', 
+      'alt-grey': '#bdbdbd',
+      'white': '#fff !important',
+      'alt-dark': '#5f6368'
     },
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
@@ -61,18 +64,24 @@ export default {
       extend: {
         maxWidth: {
           '1440': '1440px',
+          '800': '800px',
           '960': '960px'
         },
         maxHeight: {
           '100': '100px',
+          '770': '770px'
         }, 
         borderRadius: {
           '10': '10%',
+          '30': '30px',
           '40': '40px'
         }, 
         minWidth: {
           '200': '200px'
         },
+        padding: {
+          '15': '15%',
+        }
       }
       // extend: {
       //   spacing: {

@@ -35,60 +35,55 @@ export default function ShareYourStory() {
 
         <ul className="list-none">
           <li className="p-3">
-            <span className="font-bold">Purpose of News and Stories:</span> Our
-            articles focus on health equity and large-scale public health
-            efforts such as ending the HIV epidemic. Please align your story
-            with these topics, addressing issues related to health disparities,
-            social determinants of health, barriers to access and care, and the
-            impact on underserved communities.
+            <b>Purpose of News and Stories:</b> Our articles focus on health
+            equity and large-scale public health efforts such as ending the HIV
+            epidemic. Please align your story with these topics, addressing
+            issues related to health disparities, social determinants of health,
+            barriers to access and care, and the impact on underserved
+            communities.
           </li>
 
           <li className="p-3">
-            <span className="font-bold">Personal Stories:</span> We value
-            personal narratives that authentically express a unique perspective
-            and resonate with readers. Share your own experiences related to
-            HIV, health equity, or any related aspect you feel is relevant.
+            <b>Personal Stories:</b> We value personal narratives that
+            authentically express a unique perspective and resonate with
+            readers. Share your own experiences related to HIV, health equity,
+            or any related aspect you feel is relevant.
           </li>
 
           <li className="p-3">
-            <span className="font-bold">Accuracy and Validity:</span> We
-            encourage you to include evidenced-based information in your story
-            whenever possible. If you mention statistics, studies, or any
-            specific data, please provide credible references. Use reputable
-            sources such as scientific journals, government reports, or
-            recognized health organizations to support your claims.
+            <b>Accuracy and Validity:</b> We encourage you to include
+            evidenced-based information in your story whenever possible. If you
+            mention statistics, studies, or any specific data, please provide
+            credible references. Use reputable sources such as scientific
+            journals, government reports, or recognized health organizations to
+            support your claims.
           </li>
 
           <li className="p-3">
-            <span className="font-bold">
-              Respectful and Inclusive Language:
-            </span>{' '}
-            Maintain a respectful and inclusive tone throughout your writing.
-            Avoid offensive language, stereotypes, or stigmatizing attitudes.
-            Our goal is to foster a safe and supportive environment for readers
-            from diverse backgrounds.
+            <b>Respectful and Inclusive Language:</b> Maintain a respectful and
+            inclusive tone throughout your writing. Avoid offensive language,
+            stereotypes, or stigmatizing attitudes. Our goal is to foster a safe
+            and supportive environment for readers from diverse backgrounds.
           </li>
 
           <li className="p-3">
-            <span className="font-bold">Formatting and Length:</span> Structure
-            your story with an introduction, body, and conclusion. Aim for a
-            length of under 2000 words to maintain readability and engagement.
-            Feel free to include headings, subheadings, or bullet points to
-            enhance clarity and organization.
+            <b>Formatting and Length:</b> Structure your story with an
+            introduction, body, and conclusion. Aim for a length of under 2000
+            words to maintain readability and engagement. Feel free to include
+            headings, subheadings, or bullet points to enhance clarity and
+            organization.
           </li>
 
           <li className="p-3">
-            <span className="font-bold">Plagiarism and Copyright:</span> Ensure
-            that your story is original and not published elsewhere. Plagiarism
-            or copyright infringement will not be tolerated. If you include any
-            external sources, provide proper citations and give credit to the
-            original authors.
+            <b>Plagiarism and Copyright:</b> Ensure that your story is original
+            and not published elsewhere. Plagiarism or copyright infringement
+            will not be tolerated. If you include any external sources, provide
+            proper citations and give credit to the original authors.
           </li>
 
           <li className="p-3">
-            <span className="font-bold">Submitting Your Story:</span> To
-            contribute, please send your story as a Word document or Google Doc
-            to{' '}
+            <b>Submitting Your Story:</b> To contribute, please send your story
+            as a Word document or Google Doc to{' '}
             <a href="mailto:info@healthequitytracker.org">
               info@healthequitytracker.org
             </a>
@@ -97,11 +92,11 @@ export default function ShareYourStory() {
           </li>
 
           <li className="p-3">
-            <span className="font-bold">Editorial Process:</span> All
-            submissions will go through an editorial process to ensure clarity,
-            grammar, and adherence to the guidelines. You may be requested to
-            revise your story based on feedback from our editorial team. We will
-            notify you if your story is selected for publication.
+            <b>Editorial Process:</b> All submissions will go through an
+            editorial process to ensure clarity, grammar, and adherence to the
+            guidelines. You may be requested to revise your story based on
+            feedback from our editorial team. We will notify you if your story
+            is selected for publication.
           </li>
 
           {/* <li>
@@ -112,11 +107,11 @@ export default function ShareYourStory() {
           </li> */}
 
           <li className="p-3">
-            <span className="font-bold">Publication and Promotion:</span> While
-            we cannot guarantee that all submissions will be published, we
-            appreciate your contribution and will notify you if your story is
-            selected. Published stories will be promoted on our website and
-            various social media platforms, amplifying their reach and impact.
+            <b>Publication and Promotion:</b> While we cannot guarantee that all
+            submissions will be published, we appreciate your contribution and
+            will notify you if your story is selected. Published stories will be
+            promoted on our website and various social media platforms,
+            amplifying their reach and impact.
           </li>
         </ul>
 
@@ -132,7 +127,17 @@ export default function ShareYourStory() {
           <Button
             variant="contained"
             color="primary"
-            className="text-white min-w-200	rounded-40 bg-alt-green text-center	font-sansTitle text-exploreButton font-medium"
+            className="
+              min-w-200 
+              rounded-40	
+              bg-alt-green 
+              px-8 
+              py-5	
+              text-center 
+              font-sansTitle 
+              text-exploreButton 
+              font-medium 
+              text-white"
             href="mailto:info@healthequitytracker.org"
           >
             Share your story
