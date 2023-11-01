@@ -6,7 +6,6 @@ import Maisha from '../../assets/team/StandiferMaisha.jpg'
 import Jammie from '../../assets/team/HopkinsJammie.jpg'
 import Megan from '../../assets/team/DouglasMegan.jpg'
 import Donrie from '../../assets/team/PurcellDonrie.png'
-import Elias from '../../assets/team/BerhanuElias.jpg'
 import Jareese from '../../assets/team/StroudJareese.png'
 import Kim from '../../assets/team/CincoKim.jpg'
 import Evan from '../../assets/team/MartinEvan.jpg'
@@ -60,11 +59,6 @@ export const LEADERSHIP_TEAM = [
     name: 'Megan Douglas, JD',
     role: 'Health Policy Analyst',
     imageUrl: Megan,
-  },
-  {
-    name: 'Elias Berhanu, MPH',
-    role: 'Researcher',
-    imageUrl: Elias,
   },
   {
     name: 'Jareese Stroud, MPH',
@@ -123,6 +117,10 @@ export const HET_ALUMNI = [
   {
     name: 'Aye Obe, LLM',
     role: 'Legal Fellow',
+  },
+  {
+    name: 'Elias Berhanu, MPH',
+    role: 'Researcher',
   },
 ]
 export const GOOGLE_FELLOWS = [
