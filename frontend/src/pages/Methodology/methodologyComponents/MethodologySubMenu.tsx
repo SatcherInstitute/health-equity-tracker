@@ -71,7 +71,7 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
           }}
           className={activeLink === link.path ? styles.active : ''}
         >
-          {link.label}
+          <span className="hover:cursor-pointer">{link.label}</span>
         </CombinedLink>
       ))}
     </nav>
