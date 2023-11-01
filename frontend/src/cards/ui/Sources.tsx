@@ -1,6 +1,6 @@
 import styles from './Sources.module.scss'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
-import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
+import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
@@ -66,9 +66,8 @@ export function Sources(props: SourcesProps) {
     ? selectedDataTypeConfig2Atom
     : selectedDataTypeConfig1Atom
 
-  const selectedDataTypeId = useAtomValue(
-    selectedDataTypeConfigAtom
-  )?.dataTypeId
+  const selectedDataTypeId = useAtomValue(selectedDataTypeConfigAtom)
+    ?.dataTypeId
 
   const methodologyHashId: DropdownVarId | '' = selectedDataTypeId
     ? getParentDropdownFromDataTypeId(selectedDataTypeId)
@@ -101,7 +100,7 @@ export function Sources(props: SourcesProps) {
       <Grid item xs={12} alignItems={'center'}>
         <>{optionalDefinition}</>
         View{' '}
-        <HashLink to={`${METHODOLOGY_TAB_LINK}#${methodologyHashId}`}>
+        <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
           methodology
         </HashLink>
         .

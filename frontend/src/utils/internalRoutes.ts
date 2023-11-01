@@ -1,6 +1,5 @@
 // PAGE URLS
 export const HET_URL = 'https://healthequitytracker.org'
-
 export const EXPLORE_DATA_PAGE_LINK = '/exploredata'
 export const DATA_CATALOG_PAGE_LINK = '/datacatalog'
 export const NEWS_PAGE_LINK = '/news'
@@ -8,9 +7,6 @@ export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const METHODOLOGY_PAGE_LINK = '/methodology'
-export const METHODOLOGY_TAB_LINK = METHODOLOGY_PAGE_LINK // Remove
-export const DATA_TAB_LINK = DATA_CATALOG_PAGE_LINK // Remove
-// TAB URLS
 export const FAQ_TAB_LINK = '/faqs'
 export const RESOURCES_TAB_LINK = '/resources'
 export const CONTACT_TAB_LINK = '/contact'
@@ -19,9 +15,6 @@ export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
 
 // METHODOLOGY SECTIONS
 export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + '/ageadjustment'
-
-export const AGE_ADJUSTMENT_TAB_LINK = AGE_ADJUSTMENT_LINK // TODO: Remove
-
 export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources'
 export const TOPICS_LINK = METHODOLOGY_PAGE_LINK + '/topics'
 export const BEHAVIORAL_HEALTH_LINK = TOPICS_LINK + '/behavioral-health'
