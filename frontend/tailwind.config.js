@@ -18,9 +18,6 @@ export default {
       titleLg: '1500px',
       titleXl: '1850px',
     },
-    borderWidth: {
-      "1": "1px"
-    },
     colors: {
       // 'blue': '#1fb6ff',
       // 'purple': '#7e5bef',
@@ -36,7 +33,7 @@ export default {
       'alt-black':'#383838',
       'border-color': '#3e3e3e', 
       'alt-grey': '#bdbdbd',
-      'alt-dark': '#5f6368'
+      'alt-dark': '#5f6368',
       "grey-dark": "#222",
       'white': '#fff !important',
       "yellow":" yellow",

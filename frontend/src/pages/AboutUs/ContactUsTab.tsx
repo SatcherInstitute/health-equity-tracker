@@ -16,7 +16,7 @@ function ContactUsTab() {
       <h2 className="sr-only">Contact Us</h2>
       <div className=" flex w-full flex-col content-center items-center">
         <div className="hidden w-full md:flex">
-          <div className="grid w-full place-content-center border-1 border-solid border-border-color  border-opacity-50 md:w-5/12">
+          <div className="grid w-full place-content-center border border-t-0 border-solid border-border-color  border-opacity-50 md:w-5/12">
             <h2
               id="main"
               className="font-serif
@@ -29,7 +29,7 @@ function ContactUsTab() {
               equity <i className="font-normal">forward</i>
             </h2>
           </div>
-          <div className="w-full border-1 border-solid border-border-color border-opacity-50  md:w-7/12">
+          <div className="w-full border-0 border-b border-solid border-border-color border-opacity-50  md:w-7/12">
             <img
               width="870"
               height="644"
