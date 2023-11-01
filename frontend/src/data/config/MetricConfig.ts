@@ -146,6 +146,7 @@ export interface MapConfig {
   scheme: ColorScheme
   min: string
   mid: string
+  higherIsBetter?: boolean
 }
 
 export interface Citation {
@@ -180,7 +181,7 @@ export interface DataTypeConfig {
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
   dataTableTitle?: string
-  mapConfig?: MapConfig
+  mapConfig: MapConfig
   categoryId?: CategoryTypeId
 }
 

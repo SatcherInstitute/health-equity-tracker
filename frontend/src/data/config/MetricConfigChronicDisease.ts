@@ -1,3 +1,4 @@
+import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -29,6 +30,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'asthma',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Asthma',
     fullDisplayName: 'Asthma cases',
     fullDisplayNameInline: 'asthma cases',
@@ -67,6 +69,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'cardiovascular_diseases',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cardiovascular diseases',
     fullDisplayName: 'Cases of cardiovascular diseases',
     fullDisplayNameInline: 'cases of cardiovascular diseases',
@@ -106,6 +109,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'chronic_kidney_disease',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Chronic kidney disease',
     surveyCollectedData: true,
     fullDisplayName: 'Cases of chronic kidney disease',
@@ -145,6 +149,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'diabetes',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Diabetes',
     fullDisplayNameInline: 'diabetes',
@@ -183,6 +188,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'copd',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COPD',
     definition: {

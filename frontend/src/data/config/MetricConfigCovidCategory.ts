@@ -1,3 +1,7 @@
+import {
+  defaultHigherIsBetterMapConfig,
+  defaultHigherIsWorseMapConfig,
+} from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -47,6 +51,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_cases',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COVID-19 cases',
     definition: {
@@ -92,6 +97,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_deaths',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'COVID-19 deaths',
     definition: {
@@ -144,6 +150,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_hospitalizations',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Hospitalizations',
     fullDisplayName: 'COVID-19 hospitalizations',
     definition: {
@@ -201,6 +208,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_vaccinations',
+    mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',
     definition: {

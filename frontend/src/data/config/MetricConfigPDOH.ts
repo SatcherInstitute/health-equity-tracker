@@ -1,4 +1,8 @@
-import { womenMapConfig } from '../../charts/mapGlobals'
+import {
+  defaultHigherIsBetterMapConfig,
+  defaultHigherIsWorseMapConfig,
+  womenHigherIsBetterMapConfig,
+} from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -48,6 +52,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'voter_participation',
+    mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Voter participation',
     fullDisplayName: 'Voter participation',
     fullDisplayNameInline: 'voter participation',
@@ -87,7 +92,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'women_in_us_congress',
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'US Congress',
     fullDisplayName: 'Women in US Congress',
     surveyCollectedData: true,
@@ -147,7 +152,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'women_in_state_legislature',
-    mapConfig: womenMapConfig,
+    mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
     fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
     surveyCollectedData: true,
@@ -211,6 +216,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'prison',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prison',
     fullDisplayName: 'People in prison',
     fullDisplayNameInline: 'people in prison',
@@ -263,6 +269,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'jail',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Jail',
     fullDisplayName: 'People in jail',
     fullDisplayNameInline: 'people in jail',

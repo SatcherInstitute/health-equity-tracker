@@ -55,10 +55,7 @@ import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { useEffect, useMemo, useState } from 'react'
-import {
-  getHighestLowestGroupsByFips,
-  getMapScheme,
-} from '../charts/mapHelperFunctions'
+import { getHighestLowestGroupsByFips } from '../charts/mapHelperFunctions'
 import { Legend } from '../charts/Legend'
 import GeoContext, {
   getSubPopulationPhrase,
@@ -397,10 +394,8 @@ function MapCardWithKey(props: MapCardProps) {
         const isSummaryLegend =
           hasSelfButNotChildGeoData ?? props.fips.isCounty()
 
-        const [mapScheme, mapMin] = getMapScheme(
-          /* dataTypeConfig */ props.dataTypeConfig,
-          /* isSummaryLegend */ isSummaryLegend
-        )
+        const mapConfig = props.dataTypeConfig.mapConfig
+        if (isSummaryLegend) mapConfig.min = mapConfig.mid
 
         useEffect(() => {
           if (dataForActiveDemographicGroup?.length <= 1)
@@ -557,7 +552,7 @@ function MapCardWithKey(props: MapCardProps) {
                           !props.fips.isUsa() && !hasSelfButNotChildGeoData
                         }
                         signalListeners={signalListeners}
-                        mapConfig={{ mapScheme, mapMin }}
+                        mapConfig={mapConfig}
                         scaleConfig={scale}
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
@@ -604,7 +599,7 @@ function MapCardWithKey(props: MapCardProps) {
                       description={'Legend for rate map'}
                       isSummaryLegend={isSummaryLegend}
                       fipsTypeDisplayName={fipsTypeDisplayName}
-                      mapConfig={{ mapScheme, mapMin }}
+                      mapConfig={mapConfig}
                       columns={mapIsWide ? 1 : 3}
                       stackingDirection={
                         isPhrmaAdherence && !mapIsWide
