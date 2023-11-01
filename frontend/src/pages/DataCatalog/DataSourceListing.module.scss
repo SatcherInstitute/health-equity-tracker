@@ -1,0 +1,55 @@
+@import '../../styles/variables.module';
+@import '../../styles/globals.scss';
+
+.Description {
+  text-align: left;
+}
+
+.DataSourceListing {
+  padding: 20px;
+  padding-bottom: 10px;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.DatasetTitle {
+  font-size: $title;
+  @include tav300();
+}
+
+.Footer {
+  height: 29px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+
+  Button {
+    min-width: 10px;
+  }
+}
+
+.CardFooterRight {
+  float: right;
+}
+
+.MetadataTable {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  td {
+    padding-right: 15px;
+  }
+}
+
+.DownloadListItem {
+  padding-right: 24px !important;
+  padding-left: 24px !important;
+}
+
+.DownloadIcon {
+  height: 24px !important;
+  width: 24px !important;
+}

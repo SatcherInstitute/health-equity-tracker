@@ -1,0 +1,25 @@
+import Card from '@mui/material/Card'
+import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import { CITATION_APA } from '../methodologyComponents/MethodologyPage'
+import { Helmet } from 'react-helmet-async'
+
+const RecommendedCitationLink = () => {
+  return (
+    <section id="#recommended-citation">
+      <article>
+        <Helmet>
+          <title>Recommended Citation - Health Equity Tracker</title>
+        </Helmet>
+        <h2 className={styles.ScreenreaderTitleHeader}>Recommended Citation</h2>
+        <h3>APA (American Psychological Association) Format</h3>
+        <div className={styles.MethodologyAnswer}>
+          <Card elevation={3}>
+            <p className={styles.CitationAPA}>{CITATION_APA}</p>
+          </Card>
+        </div>
+      </article>
+    </section>
+  )
+}
+
+export default RecommendedCitationLink
