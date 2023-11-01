@@ -4,7 +4,7 @@ To prevent components loading from one another, all exported consts for the map 
 import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { type Scale, type ColorScheme, type Legend } from 'vega'
-import { type MetricConfig } from '../data/config/MetricConfig'
+import { type MapConfig, type MetricConfig } from '../data/config/MetricConfig'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -40,16 +40,52 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
   unknown: 'greenblue',
 }
 
-export const womenMapConfig = {
-  scheme: MAP_SCHEMES.women,
-  min: sass.mapWomenMin,
-  mid: sass.mapWomenMid,
+export const defaultHigherIsBetterMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.default,
+  min: sass.mapDarkZero,
+  mid: sass.mapMid,
+  higherIsBetter: true,
 }
 
-export const medicareMapConfig = {
+export const defaultHigherIsWorseMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.default,
+  min: sass.mapLightZero,
+  mid: sass.mapMid,
+  higherIsBetter: false,
+}
+
+export const womenHigherIsBetterMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.women,
+  min: sass.mapWomenDarkZero,
+  mid: sass.mapWomenMid,
+  higherIsBetter: true,
+}
+
+export const womenHigherIsWorseMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.women,
+  min: sass.mapWomenLightZero,
+  mid: sass.mapWomenMid,
+  higherIsBetter: false,
+}
+
+export const medicareHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareMin,
+  min: sass.mapMedicareDarkZero,
   mid: sass.mapMedicareMid,
+  higherIsBetter: true,
+}
+
+export const medicareHigherIsWorseMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.medicare,
+  min: sass.mapMedicareLightZero,
+  mid: sass.mapMedicareMid,
+  higherIsBetter: false,
+}
+
+export const unknownMapConfig: MapConfig = {
+  scheme: MAP_SCHEMES.unknown,
+  min: sass.unknownMapMin,
+  mid: sass.unknownMapMid,
 }
 
 export const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -99,11 +135,18 @@ export const ZERO_DOT_SCALE_SPEC: any = {
   range: [EQUAL_DOT_SIZE],
 }
 
-export const ZERO_YELLOW_SCALE = {
+export const ZERO_LIGHT_SCALE = {
   name: ZERO_SCALE,
   type: 'ordinal',
   domain: [0],
-  range: [sass.mapMin],
+  range: [sass.mapLightZero],
+}
+
+export const ZERO_DARK_SCALE = {
+  name: ZERO_SCALE,
+  type: 'ordinal',
+  domain: [0],
+  range: [sass.mapDarkZero],
 }
 
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]

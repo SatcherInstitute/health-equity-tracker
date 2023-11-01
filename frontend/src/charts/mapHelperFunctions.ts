@@ -1,9 +1,4 @@
-import {
-  type MapConfig,
-  type DataTypeConfig,
-  type MetricId,
-  type MetricType,
-} from '../data/config/MetricConfig'
+import { type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
@@ -28,13 +23,11 @@ import {
   US_PROJECTION,
   VALID_DATASET,
   VAR_DATASET,
-  ZERO_SCALE,
   LEGEND_SYMBOL_TYPE,
   DEFAULT_LEGEND_COLOR_COUNT,
   GREY_DOT_SCALE,
   LEGEND_TEXT_FONT,
   UNKNOWN_SCALE,
-  ZERO_DOT_SCALE,
   MAP_SCHEMES,
   type CountColsMap,
 } from './mapGlobals'
@@ -131,25 +124,20 @@ export function formatPreventZero100k(
 }
 
 /*
-Get either the normal "insufficient data" legend item with a grey box,
-or optionally the "0" item with a light yellow green box for CAWP congress or
-any other datatype where we expect and want to highlight zeros
+Get the  "no data" legend item with a grey box,
+
 */
 export type HelperLegendType = 'insufficient' | 'zero'
-export function getHelperLegend(
-  yOffset: number,
-  xOffset: number,
-  overrideGrayMissingWithZeroYellow?: boolean
-): Legend {
+export function getHelperLegend(yOffset: number, xOffset: number): Legend {
   return {
-    fill: overrideGrayMissingWithZeroYellow ? ZERO_SCALE : UNKNOWN_SCALE,
+    fill: UNKNOWN_SCALE,
     symbolType: LEGEND_SYMBOL_TYPE,
-    orient: overrideGrayMissingWithZeroYellow ? undefined : 'none',
+    orient: 'none',
     titleFont: LEGEND_TEXT_FONT,
     labelFont: LEGEND_TEXT_FONT,
     legendY: yOffset,
     legendX: xOffset,
-    size: overrideGrayMissingWithZeroYellow ? ZERO_DOT_SCALE : GREY_DOT_SCALE,
+    size: GREY_DOT_SCALE,
   }
 }
 
@@ -320,10 +308,10 @@ export function setupColorScale(
   scaleType: ScaleType,
   fieldRange?: FieldRange,
   scaleColorScheme?: string,
-  isTerritoryCircle?: boolean
+  isTerritoryCircle?: boolean,
+  reverse?: boolean
 ) {
   const legendColorCount = calculateLegendColorCount(legendData, metricId)
-
   const colorScale: any = {
     name: COLOR_SCALE,
     type: scaleType,
@@ -336,6 +324,7 @@ export function setupColorScale(
       scheme: scaleColorScheme ?? MAP_SCHEMES.default,
       count: legendColorCount,
     },
+    reverse,
   }
   if (fieldRange) {
     colorScale.domainMax = fieldRange.max
@@ -356,25 +345,6 @@ export function setupColorScale(
   }
 
   return colorScale
-}
-
-export function getMapScheme(
-  dataTypeConfig: DataTypeConfig,
-  isSummaryLegend?: boolean,
-  isUnknownsMap?: boolean
-) {
-  if (isUnknownsMap) return [MAP_SCHEMES.unknown, sass.unknownMapMin]
-
-  const defaultMapConfig: MapConfig = {
-    scheme: MAP_SCHEMES.default,
-    min: sass.mapMin,
-    mid: sass.mapMid,
-  }
-
-  const mapConfig = dataTypeConfig.mapConfig ?? defaultMapConfig
-  const mapMin = isSummaryLegend ? mapConfig.mid : mapConfig.min
-
-  return [mapConfig.scheme, mapMin]
 }
 
 export function getHighestLowestGroupsByFips(
