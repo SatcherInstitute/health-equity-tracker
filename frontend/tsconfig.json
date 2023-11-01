@@ -27,7 +27,7 @@
   },
   "include": [
     "src"
-  ],
+, "src/pages/DataCatalog/DataCatalogPage.tsx", "src/pages/DataCatalog/dataset_explorer/DatasetExplorer.tsx"  ],
   "exclude": [
     "**/*.test.tsx",
     "node_modules"
