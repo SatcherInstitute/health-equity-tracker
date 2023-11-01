@@ -72,26 +72,22 @@ export default {
           '770': '770px'
         }, 
         borderRadius: {
-          '10': '10%',
+          '10p': '10%',
           '30': '30px',
           '40': '40px'
+  //     '4xl': '2rem',
         }, 
         minWidth: {
           '200': '200px'
         },
         padding: {
           '15': '15%',
-        }
+        },
+    //   spacing: {
+    //     '128': '32rem',
+    //     '144': '36rem',
+    //   },
       }
-      // extend: {
-      //   spacing: {
-      //     '128': '32rem',
-      //     '144': '36rem',
-      //   },
-      //   borderRadius: {
-      //     '4xl': '2rem',
-      //   }
-      // }
   },
   plugins: [],
   corePlugins: {
