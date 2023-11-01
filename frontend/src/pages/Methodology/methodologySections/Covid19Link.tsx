@@ -84,30 +84,6 @@ const Covid19Link = () => {
           hospitalizations, or deaths are excluded from these calculations.
         </p>
 
-        <h4>State and Territory Data</h4>
-        <p>
-          There are instances where the aggregated case counts for COVID-19
-          cases and COVID-19 deaths in some states account for less than 5% of
-          the total case counts, compared to external data sources, like the New
-          York Times' (NYT) COVID Dataset.
-        </p>
-        <Alert severity="info" role="note">
-          <AlertTitle>A note about The NYT COVID Dataset</AlertTitle>
-          <p>
-            The NYT COVID Dataset sources their data directly from state and
-            territory health departments. We then use the NYT's COVID Dataset to
-            compare the overall aggregate case, death, and hospitalization
-            counts in the CDC surveillance dataset.
-          </p>
-          <p>
-            If after these analyses, the overall counts are still significantly
-            low, this data is unfortunately withheld (which we refer to as
-            suppressed), because we can't ascertain if that state genuinely has
-            no cases for that demographic or if it's a reporting oversight
-            concerning demographic details.
-          </p>
-        </Alert>
-
         <h4>County Data</h4>
         <p>
           Specific figures might be concealed in counties with low case counts
