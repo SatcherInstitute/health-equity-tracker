@@ -18,7 +18,7 @@ describe('test getTotalACSPopulationPhrase()', () => {
     const normalPopPhrase = getTotalACSPopulationPhrase(
       /* data */ nationalACSPopData
     )
-    expect(normalPopPhrase).toEqual('Total Population (US Census): 328,016,242')
+    expect(normalPopPhrase).toEqual('Total Population: 328,016,242')
   })
 })
 

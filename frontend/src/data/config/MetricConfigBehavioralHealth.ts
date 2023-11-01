@@ -1,3 +1,4 @@
+import { defaultHigherIsWorseMapConfig } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 import {
   populationPctShortLabel,
@@ -32,6 +33,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'depression',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Depression cases',
     fullDisplayNameInline: 'depression cases',
@@ -70,6 +72,7 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'excessive_drinking',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Excessive drinking cases',
     fullDisplayNameInline: 'excessive drinking cases',
@@ -110,6 +113,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
     categoryId: 'behavioral-health',
     // parent data type
     dataTypeId: 'non_medical_drug_use',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Opioid and other non-medical drug use',
     fullDisplayName: 'Opioid and other non-medical drug use',
     fullDisplayNameInline: 'opioid and other non-medical drug use',
@@ -150,6 +154,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'frequent_mental_distress',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Frequent mental distress cases',
     fullDisplayNameInline: 'frequent mental distress cases',
@@ -189,6 +194,7 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'suicide',
+    mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Suicides',
     fullDisplayNameInline: 'suicides',
