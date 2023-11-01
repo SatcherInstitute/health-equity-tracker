@@ -2,7 +2,11 @@ import { useState, useEffect, useMemo } from 'react'
 import { Vega } from 'react-vega'
 import { useResponsiveWidth } from '../utils/hooks/useResponsiveWidth'
 import { type Fips } from '../data/utils/Fips'
-import { isPctType, type MetricConfig } from '../data/config/MetricConfig'
+import {
+  isPctType,
+  type MapConfig,
+  type MetricConfig,
+} from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
@@ -36,10 +40,11 @@ import {
   ZERO_DATASET,
   ZERO_DOT_SCALE_SPEC,
   ZERO_VAR_DATASET,
-  ZERO_YELLOW_SCALE,
   INVISIBLE_PRELOAD_WIDTH,
   type CountColsMap,
   PHRMA_COLOR_SCALE_SPEC,
+  ZERO_DARK_SCALE,
+  ZERO_LIGHT_SCALE,
 } from './mapGlobals'
 import {
   addCountsTooltipInfo,
@@ -103,7 +108,7 @@ interface ChoroplethMapProps {
   }
   highestLowestGeosMode: boolean
   countColsMap: CountColsMap
-  mapConfig: { mapScheme: string; mapMin: string }
+  mapConfig: MapConfig
   isSummaryLegend?: boolean
   isMulti?: boolean
   scaleConfig?: { domain: number[]; range: number[] }
@@ -322,8 +327,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const helperLegend = getHelperLegend(
     /* yOffset */ -35,
-    /* xOffset */ width * 0.35 + 75,
-    /* overrideGrayMissingWithZeroYellow */ false
+    /* xOffset */ width * 0.35 + 75
   )
   if (!props.hideLegend) {
     legendList.push(legend, helperLegend)
@@ -338,13 +342,15 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
           ? UNKNOWNS_MAP_SCALE
           : RATE_MAP_SCALE,
         /* fieldRange? */ props.fieldRange,
-        /* scaleColorScheme? */ props.mapConfig.mapScheme,
-        /* isTerritoryCircle? */ props.fips.isTerritory()
+        /* scaleColorScheme? */ props.mapConfig.scheme,
+        /* isTerritoryCircle? */ props.fips.isTerritory(),
+        /* reverse? */ !props.mapConfig.higherIsBetter
       )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
     colorScale.domain = props.scaleConfig?.domain
     colorScale.range = props.scaleConfig?.range
+    colorScale.reverse = false
   }
 
   const projection = getProjection(
@@ -359,7 +365,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     createShapeMarks(
       /* datasetName= */ ZERO_DATASET,
       /* fillColor= */ {
-        value: props.mapConfig.mapMin,
+        value: props.mapConfig.min,
       },
       /* hoverColor= */ DARK_BLUE,
       /* tooltipExpression= */ zeroTooltipValue,
@@ -491,7 +497,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         GREY_DOT_SCALE_SPEC,
         UNKNOWN_SCALE_SPEC,
         ZERO_DOT_SCALE_SPEC,
-        ZERO_YELLOW_SCALE,
+        props.mapConfig.higherIsBetter ? ZERO_DARK_SCALE : ZERO_LIGHT_SCALE,
       ],
       legends: legendList,
       marks,
@@ -516,8 +522,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     props.data,
     props.fieldRange,
     legendData,
-    props.mapConfig.mapScheme,
-    props.mapConfig.mapMin,
+    props.mapConfig.scheme,
+    props.mapConfig.min,
   ])
 
   const [shouldRenderMap, setShouldRenderMap] = useState(false)

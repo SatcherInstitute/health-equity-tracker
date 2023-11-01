@@ -53,7 +53,7 @@ const POP_MISSING_VALUE = 'unavailable'
 
 export function getTotalACSPopulationPhrase(populationData: Row[]): string {
   const popAllCount: string = populationData[0].population.toLocaleString()
-  return `Total Population (US Census): ${popAllCount ?? POP_MISSING_VALUE}`
+  return `Total Population: ${popAllCount ?? POP_MISSING_VALUE}`
 }
 
 export function getSubPopulationPhrase(

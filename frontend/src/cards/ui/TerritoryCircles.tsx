@@ -6,11 +6,14 @@ import {
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
 import styles from './TerritoryCircles.module.scss'
-import { getMapScheme } from '../../charts/mapHelperFunctions'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { type HighestLowest, type CountColsMap } from '../../charts/mapGlobals'
+import {
+  type HighestLowest,
+  type CountColsMap,
+  unknownMapConfig,
+} from '../../charts/mapGlobals'
 
 interface TerritoryCirclesProps {
   data: Array<Record<string, any>>
@@ -33,11 +36,9 @@ interface TerritoryCirclesProps {
 }
 
 export default function TerritoryCircles(props: TerritoryCirclesProps) {
-  const [mapScheme, mapMin] = getMapScheme(
-    /* dataTypeConfig */ props.dataTypeConfig,
-    /* isSummaryLegend */ undefined,
-    /*  isUnknownsMap */ props.isUnknownsMap
-  )
+  const mapConfig = props.isUnknownsMap
+    ? unknownMapConfig
+    : props.dataTypeConfig.mapConfig
 
   return (
     <Grid
@@ -67,7 +68,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               geoData={props.geoData}
               overrideShapeWithCircle={true}
               countColsMap={props.countColsMap}
-              mapConfig={{ mapScheme, mapMin }}
+              mapConfig={mapConfig}
               scaleConfig={props.scaleConfig}
               isMulti={props.isMulti}
               highestLowestGeosMode={props.highestLowestGeosMode}
