@@ -14,6 +14,14 @@ export default {
       titleLg: '1500px',
       titleXl: '1850px',
     },
+    maxWidth: {
+      sm: '600px',
+      md: '960px',
+      lg: '1280px',
+      xl: '1920px',
+      "teamHeadshot": "181px",
+      "teamLogo": "250px"
+    },
     borderWidth: {
       1: '1px',
     },
@@ -135,6 +143,7 @@ export default {
       biggestHeader: '4rem',
     },
   },
+
   plugins: [],
   corePlugins: {
     preflight: false,
