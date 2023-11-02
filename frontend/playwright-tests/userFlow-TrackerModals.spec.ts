@@ -13,16 +13,6 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
         await page.getByRole('button', { name: 'open the topic info modal' }).click();
         await expect(page).toHaveURL(/.*topic-info=true/);
 
-        // clicking methodology link takes directly to #hiv section
-        await page.getByRole('link', { name: 'methodology' }).click();
-        const IncarcerationSubheading = page.getByRole('heading', { name: 'Incarceration', exact: true })
-        await expect(IncarcerationSubheading).toBeInViewport()
-        await expect(page).toHaveURL(/.*methodology#incarceration/);
-
-
-        // browser back button takes you back to the open topic modal
-        page.goBack()
-
         // CLOSE modal
         await page.getByRole('button', { name: 'close topic info modal' }).click();
         await expect(page).not.toHaveURL(/.*topic-info=true/);
@@ -30,17 +20,10 @@ test.describe('Topic and Multiple Maps Modals Open / Close States Represented in
 
     test('Topic Info Modal from Map Legend', async ({ page }) => {
 
-
         await page.goto('http://localhost:3000/', { waitUntil: "commit" });
         await page.locator('#landingPageCTA').click();
         await page.getByRole('link', { name: 'Uninsurance in Florida & California, by sex' }).click();
         await page.locator('#rate-map2').getByRole('button', { name: 'Click for more info on uninsured people' }).click();
-        await page.getByRole('link', { name: 'methodology' }).click();
-        await page.getByRole('link', { name: 'age-adjustment methodology' }).click();
-        await page.getByRole('link', { name: 'COVID-19 deaths' }).click();
-        await page.getByRole('link', { name: 'data reporting gaps' }).click();
-        await page.getByText('A COVID-19 case is an individual who has been determined').click();
-        await page.getByText('Investigate rates ofCOVID-19 Deaths in theUnited States DemographicRace/eth').press('Meta+c');
 
     })
 

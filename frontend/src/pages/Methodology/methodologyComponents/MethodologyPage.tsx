@@ -47,12 +47,14 @@ const MethodologyPage: React.FC = () => {
   )
 
   return (
-    <main className={styles.MethodologySectionWrapper}>
+    <div className={styles.MethodologySectionWrapper}>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
-      <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
+      <h2 id='#main' className={styles.ScreenreaderTitleHeader}>
+        Methodology
+      </h2>
 
       <Grid container spacing={3}>
         <Grid item xs={12} sm={3}>
@@ -80,7 +82,7 @@ const MethodologyPage: React.FC = () => {
 
         <Grid item xs={12} sm={6} className={styles.SectionWrapper}>
           <article className={styles.ArticleContainer}>
-            <Typography variant="h1">{activeRoute?.label}</Typography>
+            <Typography variant='h1'>{activeRoute?.label}</Typography>
             <Switch>
               <>
                 {routeConfigs.map((route, index) => (
@@ -112,7 +114,7 @@ const MethodologyPage: React.FC = () => {
           </Grid>
         )}
       </Grid>
-    </main>
+    </div>
   )
 }
 
