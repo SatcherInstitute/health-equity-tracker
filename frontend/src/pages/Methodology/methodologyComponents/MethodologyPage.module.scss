@@ -222,46 +222,6 @@ li {
   }
 }
 
-.SubMenu p {
-  color: #000;
-  font-family: Inter;
-  font-size: 0.625rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.30625rem;
-  /* 209% */
-  letter-spacing: 0.00688rem;
-}
-
-.SubMenu h4 {
-  margin: 0.5rem auto;
-  color: #000;
-
-  /* DM Sans/H4 */
-  font-family: DM Sans;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 1.30625rem;
-  /* 130.625% */
-  letter-spacing: 0.011rem;
-}
-
-.SubMenu a {
-  text-decoration: none;
-  color: #000;
-  display: block;
-  /* Inter/p */
-  font-family: Inter;
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1rem;
-  /* 142.857% */
-  // letter-spacing: 0.0245rem;
-  margin: 0.8rem auto;
-}
-
 .NavigationButtonsDiv {
   @media screen and (min-width: 1400px) {
     display: flex;
@@ -455,14 +415,14 @@ tr {
   margin: 1rem auto;
 }
 
-.GlossaryTermContainer figure {
-  // display: flex;
-  // justify-content: baseline;
-  // align-items: baseline;
-  // padding: 0;
-  // width: 100%;
-  // margin: 0 auto;
-}
+// .GlossaryTermContainer figure {
+// display: flex;
+// justify-content: baseline;
+// align-items: baseline;
+// padding: 0;
+// width: 100%;
+// margin: 0 auto;
+// }
 
 .GlossaryTermContainer figure:first-of-type {
   border-top: 1px solid var(--383838, #383838);

@@ -1,4 +1,3 @@
-import styles from './MethodologyPage.module.scss'
 import React, { useState, useEffect, type ReactNode } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
 
@@ -55,25 +54,34 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
   }
 
   return (
-    <nav className={styles.SubMenu}>
-      <p>On this page</p>
-      {links.map((link, index) => (
-        <CombinedLink
-          key={index}
-          to={link.path}
-          isScrollLink
-          smooth
-          duration={200}
-          spy
-          hashSpy
-          onClick={() => {
-            handleClick(link.path)
-          }}
-          className={activeLink === link.path ? styles.active : ''}
-        >
-          <span className="hover:cursor-pointer">{link.label}</span>
-        </CombinedLink>
-      ))}
+    <nav className='sticky right-0 top-0 z-z-middle m-2 text-left lg:z-z-top'>
+      <h4 className='font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'>
+        On this page
+      </h4>
+      <ul className='list-none pl-0'>
+        {links.map((link, index) => (
+          <li key={index}>
+            <CombinedLink
+              to={link.path}
+              isScrollLink
+              smooth
+              duration={200}
+              spy
+              hashSpy
+              onClick={() => {
+                handleClick(link.path)
+              }}
+              className={
+                activeLink === link.path ? 'font-semibold text-alt-green' : ''
+              }
+            >
+              <span className='py-3 font-sansText text-small  hover:cursor-pointer'>
+                {link.label}
+              </span>
+            </CombinedLink>
+          </li>
+        ))}
+      </ul>
     </nav>
   )
 }
