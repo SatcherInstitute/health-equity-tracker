@@ -62,7 +62,7 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
         On this page
       </h4>
       <nav
-        aria-labelledby='#submenu'
+        aria-labelledby='submenu'
         className='sticky right-0 top-0 z-z-middle m-2 text-left lg:z-z-top'
       >
         <ul className='list-none pl-0'>
