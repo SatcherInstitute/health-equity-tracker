@@ -1,4 +1,4 @@
-import { Grid, useTheme, useMediaQuery, Tooltip } from '@mui/material'
+import { Tooltip } from '@mui/material'
 import IconButton from '@mui/material/IconButton'
 import MenuList from '@mui/material/MenuList'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
@@ -9,7 +9,7 @@ import CopyLinkButton from './CopyLinkButton'
 import CardShareIcons from './CardShareIcons'
 import { usePopover } from '../../utils/hooks/usePopover'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import styles from './CardOptionsMenu.module.scss'
+import { useBreakpoint } from '../../utils/hooks/useTailwindConfig'
 
 interface CardOptionsMenuProps {
   downloadTargetScreenshot: () => Promise<boolean>
@@ -17,10 +17,9 @@ interface CardOptionsMenuProps {
   scrollToHash: ScrollableHashId
 }
 
-function CardOptionsMenu(props: CardOptionsMenuProps) {
+export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   const shareMenu = usePopover()
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+  const isSm = useBreakpoint('sm')
 
   const urlWithoutHash = window.location.href.split('#')[0]
   const urlWithHash = `${urlWithoutHash}#${props.scrollToHash}`
@@ -32,11 +31,14 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
 
   const transformOrigin: PopoverOrigin = {
     vertical: 'top',
-    horizontal: pageIsWide ? 'left' : 'center',
+    horizontal: isSm ? 'left' : 'center',
   }
 
   return (
-    <Grid className={styles.ShareMenu} id={'card-options-menu'}>
+    <div
+      className="mb:0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-3 md:mr-1"
+      id={'card-options-menu'}
+    >
       <Tooltip title="Card export options">
         <IconButton onClick={shareMenu.open}>
           <MoreHorizIcon />
@@ -52,7 +54,7 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
           shareMenu.close()
         }}
       >
-        <MenuList className={styles.MenuList}>
+        <MenuList className="pr-1">
           <CopyLinkButton
             scrollToHash={props.scrollToHash}
             popover={shareMenu}
@@ -69,8 +71,6 @@ function CardOptionsMenu(props: CardOptionsMenuProps) {
           />
         </MenuList>
       </Popover>
-    </Grid>
+    </div>
   )
 }
-
-export default CardOptionsMenu
