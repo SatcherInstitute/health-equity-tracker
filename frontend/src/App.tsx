@@ -262,7 +262,7 @@ function App() {
                         </Route>
 
                         <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                                  <NewsPage isMobile={isMobile} />
+                          <NewsPage isMobile={isMobile} />
                         </Route>
 
                         <Route path={TERMS_OF_USE_PAGE_LINK}>
