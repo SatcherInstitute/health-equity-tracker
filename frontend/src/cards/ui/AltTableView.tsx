@@ -84,8 +84,8 @@ export default function AltTableView(props: AltTableViewProps) {
           onClick={() => {
             props.setExpanded(!props.expanded)
           }}
-          color="primary"
-          size="large"
+          color='primary'
+          size='large'
         >
           {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
@@ -115,7 +115,7 @@ export default function AltTableView(props: AltTableViewProps) {
               tabIndex={0}
               ref={tableRef}
               className={styles.AltTable}
-              size="small"
+              size='small'
               stickyHeader
             >
               <caption>
@@ -177,7 +177,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           >
                             {row[key] == null ? (
                               <>
-                                <Tooltip title="Insufficient data">
+                                <Tooltip title='Insufficient data'>
                                   <WarningRoundedIcon />
                                 </Tooltip>
                                 <span

@@ -3,11 +3,11 @@ import {
   AccordionDetails,
   AccordionSummary,
   Grid,
+  Paper,
+  useMediaQuery,
 } from '@mui/material'
-import { Paper } from '@material-ui/core'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
 import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
