@@ -5,7 +5,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import LinkIcon from '@mui/icons-material/Link'
 import MenuItem from '@mui/material/MenuItem'
 import { type PopoverElements } from '../../utils/hooks/usePopover'
-import styles from './CopyLinkButton.module.scss'
 
 interface CopyLinkButtonProps {
   popover: PopoverElements
@@ -36,18 +35,17 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
 
   return (
     <>
-      <MenuItem
-        aria-label={title}
-        onClick={handleClick}
-        className={styles.CopyLinkButton}
-      >
-        <ListItemIcon className={styles.CopyLinkIcon}>
-          <LinkIcon className={styles.LinkIcon} />
-          <div className={styles.CopyCardLinkText}>Copy card link</div>
+      <MenuItem aria-label={title} onClick={handleClick} className="pl-3">
+        <ListItemIcon className="flex items-center px-2 py-1">
+          <LinkIcon className="mx-1 w-8" />
+          <div className="pl-1 text-alt-black">Copy card link</div>
         </ListItemIcon>
       </MenuItem>
-      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
-        <Alert onClose={handleClose} className={styles.SnackBarAlert}>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          className="border-1 border-solid border-bar-chart-light"
+        >
           Direct link to <b>{cardName}</b> copied to clipboard!
         </Alert>
       </Snackbar>
