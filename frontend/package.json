@@ -142,20 +142,9 @@
   },
   "lint-staged": {
     "**/*.ts?(x)": "bash -c tsc --noEmit",
-    "src/**/*.{js,jsx,ts,tsx,json}": [
-      "eslint --fix"
-    ],
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
+      "eslint --fix",
       "prettier --write"
-    ]
-  },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": false,
-    "singleQuote": true,
-    "plugins": [
-      "prettier-plugin-tailwindcss"
     ]
   }
 }
