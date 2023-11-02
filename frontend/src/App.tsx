@@ -85,26 +85,26 @@ function MobileAppToolbar() {
   const [open, setOpen] = useState(false)
 
   function ListItemLink(props: any) {
-    return <ListItem component="a" {...props} />
+    return <ListItem component='a' {...props} />
   }
 
   return (
     <Toolbar>
-      <a className={styles.SkipMainLink} href="#main">
+      <a className={styles.SkipMainLink} href='#main'>
         Skip to main content
       </a>
       <IconButton
         onClick={() => {
           setOpen(true)
         }}
-        aria-label="Expand site navigation"
-        size="large"
+        aria-label='Expand site navigation'
+        size='large'
       >
         <MenuIcon className={styles.MenuIconForMobile} />
       </IconButton>
-      <Drawer variant="persistent" anchor="left" open={open}>
+      <Drawer variant='persistent' anchor='left' open={open}>
         <Button
-          aria-label="Collapse site navigation"
+          aria-label='Collapse site navigation'
           onClick={() => {
             setOpen(false)
           }}
@@ -128,18 +128,18 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <a className={styles.SkipMainLink} href="#main">
+      <a className={styles.SkipMainLink} href='#main'>
         Skip to main content
       </a>
-      <ReactRouterLinkButton url="/" className={styles.AppbarLogoImg}>
+      <ReactRouterLinkButton url='/' className={styles.AppbarLogoImg}>
         <img
           src={AppBarLogo}
           className={styles.AppbarLogoImg}
-          alt="Health Equity Tracker logo"
+          alt='Health Equity Tracker logo'
         />
       </ReactRouterLinkButton>
-      <Typography variant="h1" className={styles.HomeLogo}>
-        <LinkWithStickyParams to="/">
+      <Typography variant='h1' className={styles.HomeLogo}>
+        <LinkWithStickyParams to='/'>
           Health Equity Tracker
         </LinkWithStickyParams>
       </Typography>
@@ -197,7 +197,7 @@ function App() {
             <div className={styles.App}>
               <div className={styles.Content}>
                 <Router>
-                  <AppBar position="static" elevation={0}>
+                  <AppBar position='static' elevation={0}>
                     {isMobile ? <MobileAppToolbar /> : <AppToolbar />}
                   </AppBar>
                   <ScrollToTop />
@@ -205,7 +205,7 @@ function App() {
                     fallback={
                       <main className={styles.FallbackPage}>
                         <Box mt={10}>
-                          <CircularProgress aria-label="loading" />
+                          <CircularProgress aria-label='loading' />
                         </Box>
                       </main>
                     }
@@ -269,11 +269,11 @@ function App() {
                         </Route>
 
                         {/* redirect the old URL for possible outside links */}
-                        <Route path={`/termsofservice`}>
+                        <Route path={'/termsofservice'}>
                           <Redirect to={TERMS_OF_USE_PAGE_LINK} />
                         </Route>
 
-                        <Route path="/">
+                        <Route path='/'>
                           <LandingPage />
                         </Route>
 
