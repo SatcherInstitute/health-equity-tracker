@@ -23,13 +23,11 @@ module.exports = {
     },
   },
   rules: {
-    '@typescript-eslint/comma-dangle': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/restrict-plus-operands': 'off',
     'react/no-unescaped-entities': 'off',
-    '@typescript-eslint/indent': 'off',
     'react/react-in-jsx-scope': 'off',
     '@typescript-eslint/require-array-sort-compare': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',

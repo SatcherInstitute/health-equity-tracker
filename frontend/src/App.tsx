@@ -270,7 +270,7 @@ function App() {
                         </Route>
 
                         {/* redirect the old URL for possible outside links */}
-                        <Route path={`/termsofservice`}>
+                        <Route path={'/termsofservice'}>
                           <Redirect to={TERMS_OF_USE_PAGE_LINK} />
                         </Route>
 
