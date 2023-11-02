@@ -23,10 +23,7 @@ module.exports = {
     },
   },
   rules: {
-    quotes: 'off',
-    '@typescript-eslint/quotes': 'off',
     '@typescript-eslint/comma-dangle': 'off',
-    '@typescript-eslint/semi': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
