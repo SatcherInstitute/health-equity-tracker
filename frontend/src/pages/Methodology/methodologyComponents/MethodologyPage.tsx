@@ -52,7 +52,7 @@ const MethodologyPage: React.FC = () => {
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
-      <h2 id='#main' className={styles.ScreenreaderTitleHeader}>
+      <h2 id='main' className={styles.ScreenreaderTitleHeader}>
         Methodology
       </h2>
 

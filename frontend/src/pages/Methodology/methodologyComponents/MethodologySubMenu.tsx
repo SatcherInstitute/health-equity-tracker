@@ -54,35 +54,43 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
   }
 
   return (
-    <nav className='sticky right-0 top-0 z-z-middle m-2 text-left lg:z-z-top'>
-      <h4 className='font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'>
+    <>
+      <h4
+        id='submenu'
+        className='text-left font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'
+      >
         On this page
       </h4>
-      <ul className='list-none pl-0'>
-        {links.map((link, index) => (
-          <li key={index}>
-            <CombinedLink
-              to={link.path}
-              isScrollLink
-              smooth
-              duration={200}
-              spy
-              hashSpy
-              onClick={() => {
-                handleClick(link.path)
-              }}
-              className={
-                activeLink === link.path ? 'font-semibold text-alt-green' : ''
-              }
-            >
-              <span className='py-3 font-sansText text-small  hover:cursor-pointer'>
-                {link.label}
-              </span>
-            </CombinedLink>
-          </li>
-        ))}
-      </ul>
-    </nav>
+      <nav
+        aria-labelledby='#submenu'
+        className='sticky right-0 top-0 z-z-middle m-2 text-left lg:z-z-top'
+      >
+        <ul className='list-none pl-0'>
+          {links.map((link, index) => (
+            <li key={index}>
+              <CombinedLink
+                to={link.path}
+                isScrollLink
+                smooth
+                duration={200}
+                spy
+                hashSpy
+                onClick={() => {
+                  handleClick(link.path)
+                }}
+                className={
+                  activeLink === link.path ? 'font-semibold text-alt-green' : ''
+                }
+              >
+                <span className='py-3 font-sansText text-small  hover:cursor-pointer'>
+                  {link.label}
+                </span>
+              </CombinedLink>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </>
   )
 }
 export default MethodologySubMenu
