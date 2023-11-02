@@ -19,8 +19,8 @@ export default {
       md: '960px',
       lg: '1280px',
       xl: '1920px',
-      "teamHeadshot": "181px",
-      "teamLogo": "250px"
+      teamHeadshot: '181px',
+      teamLogo: '250px',
     },
     borderWidth: {
       1: '1px',
@@ -40,8 +40,8 @@ export default {
       'bar-chart-dark': 'rgb(var(--bar-chart-dark) / <alpha-value>)',
       'bar-chart-light': 'rgb(var(--bar-chart-light) / <alpha-value>)',
       'bg-color': 'rgb(var(--bg-color) / <alpha-value>)',
-      black: 'rgb(var(--black) / <alpha-value>)',
-      blue: 'rgb(var(--blue) / <alpha-value>)',
+      'black': 'rgb(var(--black) / <alpha-value>)',
+      'blue': 'rgb(var(--blue) / <alpha-value>)',
       'border-color': 'rgb(var(--border-color) / <alpha-value>)',
       'dark-blue': 'rgb(var(--dark-blue) / <alpha-value>)',
       'dark-green': 'rgb(var(--dark-green) / <alpha-value>)',
@@ -110,9 +110,9 @@ export default {
       'unknown-map-min': 'rgb(var(--unknown-map-min) / <alpha-value>)',
       'unknown-map-more': 'rgb(var(--unknown-map-more) / <alpha-value>)',
       'unknown-map-most': 'rgb(var(--unknown-map-most) / <alpha-value>)',
-      white: 'rgb(var(--white) / <alpha-value>)',
+      'white': 'rgb(var(--white) / <alpha-value>)',
       'why-box-color': 'rgb(var(--why-box-color) / <alpha-value>)',
-      yellow: 'rgb(var(--yellow) / <alpha-value>)',
+      'yellow': 'rgb(var(--yellow) / <alpha-value>)',
     },
     lineHeight: {
       lhSuperLoose: '2.45',
