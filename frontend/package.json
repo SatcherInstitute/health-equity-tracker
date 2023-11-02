@@ -146,7 +146,7 @@
       "eslint --fix",
       "prettier --write"
     ],
-    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md,html}": [
+    "src/**/*.{css,scss,md,html}": [
       "prettier --write"
     ]
   }
