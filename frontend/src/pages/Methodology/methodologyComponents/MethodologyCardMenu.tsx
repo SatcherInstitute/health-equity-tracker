@@ -122,7 +122,7 @@ const MethodologyCardMenu: React.FC = () => {
   }
 
   return (
-    <nav className={styles.CardMenu}>
+    <nav aria-label='methodology sections' className={styles.CardMenu}>
       <Box sx={{ width: '100%' }}>
         {links.map((link, idx) => (
           <React.Fragment key={idx}>
