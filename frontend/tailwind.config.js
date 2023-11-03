@@ -143,13 +143,13 @@ export default {
       biggestHeader: '4rem',
     },
     zIndex: {
-      "z-bottom": "-999",
+      "z-bottom": 'var(--z-bottom)',
       // multimap modal blur backdrop -1
-      "z-middle": "0",
+      "z-middle": 'var(--z-middle)',
       // MUI sticky headers assigned 2
-      "z-almost-top": "3",
+      "z-almost-top": 'var(--z-almost-top)',
       // joyride warm welcome auto-assigned 101
-      "z-top": "999",
+      "z-top": 'var(--z-top)',
     }
   },
 
