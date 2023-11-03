@@ -1,5 +1,4 @@
-import styles from './Card.module.scss'
-import { CardContent, Card, CircularProgress } from '@mui/material'
+import { CircularProgress } from '@mui/material'
 import {
   type MetricQuery,
   type MetricQueryResponse,
@@ -45,16 +44,13 @@ function CardWrapper(props: {
   )
 
   const loadingComponent = (
-    <Card
-      className={styles.ChartCard}
-      raised={true}
+    <div
+      className="relative m-2 rounded bg-white p-3 shadow-raised"
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
-      <CardContent>
-        <CircularProgress aria-label="loading" />
-      </CardContent>
-    </Card>
+      <CircularProgress aria-label="loading" />
+    </div>
   )
 
   return (
@@ -65,10 +61,8 @@ function CardWrapper(props: {
     >
       {(metadata, queryResponses, geoData) => {
         return (
-          <Card
-            className={styles.ChartCard}
-            component={'article'}
-            raised={true}
+          <article
+            className="relative m-2 rounded  bg-white p-3 shadow-raised"
             ref={screenshotTargetRef}
             tabIndex={-1}
           >
@@ -79,18 +73,16 @@ function CardWrapper(props: {
             />
             {props.children(queryResponses, metadata, geoData)}
             {!props.hideFooter && props.queries && (
-              <CardContent className={styles.CardFooter} component={'footer'}>
-                <Sources
-                  hideNH={props.hideNH}
-                  isCensusNotAcs={props.isCensusNotAcs}
-                  metadata={metadata}
-                  queryResponses={queryResponses}
-                  showDefinition={props.scrollToHash === 'rate-map'}
-                  isCompareCard={props.isCompareCard}
-                />
-              </CardContent>
+              <Sources
+                hideNH={props.hideNH}
+                isCensusNotAcs={props.isCensusNotAcs}
+                metadata={metadata}
+                queryResponses={queryResponses}
+                showDefinition={props.scrollToHash === 'rate-map'}
+                isCompareCard={props.isCompareCard}
+              />
             )}
-          </Card>
+          </article>
         )
       }}
     </WithMetadataAndMetrics>

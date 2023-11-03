@@ -394,7 +394,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
-        <div className={styles.FooterSourcesContainer}>
+        <div className="flex justify-between pl-2 text-left text-small">
           {isMobile ? (
             <Button
               aria-label="close multiple maps modal"
@@ -412,21 +412,13 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 downloadTargetScreenshot={downloadTargetScreenshot}
                 isMulti={true}
               />
-              <Grid
-                item
-                xs={4}
-                sm={3}
-                md={2}
-                container
-                justifyContent={'center'}
-                alignItems={'flex-end'}
-              >
+              <div className="m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12">
                 <CardOptionsMenu
                   downloadTargetScreenshot={downloadTargetScreenshot}
                   reportTitle={props.reportTitle}
                   scrollToHash={props.scrollToHash}
                 />
-              </Grid>
+              </div>
             </>
           )}
         </div>

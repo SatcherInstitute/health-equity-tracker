@@ -84,8 +84,8 @@ export default function AltTableView(props: AltTableViewProps) {
           onClick={() => {
             props.setExpanded(!props.expanded)
           }}
-          color="primary"
-          size="large"
+          color='primary'
+          size='large'
         >
           {props.expanded ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
@@ -115,7 +115,7 @@ export default function AltTableView(props: AltTableViewProps) {
               tabIndex={0}
               ref={tableRef}
               className={styles.AltTable}
-              size="small"
+              size='small'
               stickyHeader
             >
               <caption>
@@ -160,6 +160,7 @@ export default function AltTableView(props: AltTableViewProps) {
                     <TableRow key={row[TIME_PERIOD_LABEL]}>
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL
+
                         const appendPct =
                           key.includes('with unknown ') ||
                           [
@@ -177,7 +178,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           >
                             {row[key] == null ? (
                               <>
-                                <Tooltip title="Insufficient data">
+                                <Tooltip title='Insufficient data'>
                                   <WarningRoundedIcon />
                                 </Tooltip>
                                 <span
@@ -188,8 +189,8 @@ export default function AltTableView(props: AltTableViewProps) {
                               </>
                             ) : (
                               <>
-                                {Math.round(row[key])}
-                                {!isTimePeriod && appendPct && '%'}
+                                {isTimePeriod ? row[key] : Math.round(row[key])}
+                                {!isTimePeriod && appendPct ? '%' : ''}
                               </>
                             )}
                           </TableCell>

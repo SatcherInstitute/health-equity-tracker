@@ -1,4 +1,3 @@
-import styles from './Sources.module.scss'
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import { METHODOLOGY_TAB_LINK } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
@@ -7,7 +6,6 @@ import {
   DatasetMetadataMap,
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import { Grid } from '@mui/material'
 import {
   type DropdownVarId,
   type DataTypeConfig,
@@ -66,9 +64,8 @@ export function Sources(props: SourcesProps) {
     ? selectedDataTypeConfig2Atom
     : selectedDataTypeConfig1Atom
 
-  const selectedDataTypeId = useAtomValue(
-    selectedDataTypeConfigAtom
-  )?.dataTypeId
+  const selectedDataTypeId = useAtomValue(selectedDataTypeConfigAtom)
+    ?.dataTypeId
 
   const methodologyHashId: DropdownVarId | '' = selectedDataTypeId
     ? getParentDropdownFromDataTypeId(selectedDataTypeId)
@@ -97,42 +94,34 @@ export function Sources(props: SourcesProps) {
     datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
 
   return (
-    <Grid container className={styles.Footnote}>
-      <Grid item xs={12} alignItems={'center'}>
+    <footer className="px-1 py-0 text-left text-smallest">
+      <p className="w-full">
         <>{optionalDefinition}</>
         View{' '}
         <HashLink to={`${METHODOLOGY_TAB_LINK}#${methodologyHashId}`}>
           methodology
         </HashLink>
         .
-      </Grid>
+      </p>
 
       {/* NH note (if needed) listed first, full-width */}
-      <Grid item xs={12} alignItems={'center'}>
+      <div className="w-full">
         {showNhFootnote && (
-          <>
-            <p className={styles.FootnoteTextNH}>
-              Note. NH: Non-Hispanic. To promote inclusion, we replace the
-              source data labels <>‘Multiracial’</> with{' '}
-              <>‘Two or more races’</>, and <>‘Some other’</> with{' '}
-              <>‘Unrepresented’</>.{' '}
-            </p>
-          </>
+          <p className="mb-0 mt-1">
+            Note. NH: Non-Hispanic. To promote inclusion, we replace the source
+            data labels <i>‘Multiracial’</i> with <i>‘Two or more races’</i>,
+            and <i>‘Some other’</i> with <i>‘Unrepresented’</i>.{' '}
+          </p>
         )}
-      </Grid>
+      </div>
 
-      <>
-        <Grid
-          item
-          xs={props.isMulti ? 8 : 12}
-          sm={props.isMulti ? 9 : 12}
-          md={props.isMulti ? 10 : 12}
-          container
-          alignItems={'center'}
-        >
-          <SourcesInfo dataSourceMap={dataSourceMap} />
-        </Grid>
-      </>
-    </Grid>
+      <div
+        className={`${
+          props.isMulti ? 'xs:w-8/12 sm:w-9/12 md:w-10/12' : 'w-full'
+        }`}
+      >
+        <SourcesInfo dataSourceMap={dataSourceMap} />
+      </div>
+    </footer>
   )
 }
