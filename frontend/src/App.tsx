@@ -49,6 +49,7 @@ import WhatIsHealthEquityPage from './pages/WhatIsHealthEquity/WhatIsHealthEquit
 import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
+import SkipLink from './SkipLink'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -94,9 +95,6 @@ function MobileAppToolbar() {
 
   return (
     <Toolbar>
-      <a className={styles.SkipMainLink} href='#main'>
-        Skip to main content
-      </a>
       <IconButton
         onClick={() => {
           setOpen(true)
@@ -132,9 +130,6 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <a className={styles.SkipMainLink} href='#main'>
-        Skip to main content
-      </a>
       <ReactRouterLinkButton url='/' className={styles.AppbarLogoImg}>
         <img
           src={AppBarLogo}
@@ -200,6 +195,8 @@ function App() {
           <CookiesProvider>
             <CssBaseline />
             <div className={styles.App}>
+              <SkipLink />
+
               <div className={styles.Content}>
                 <Router>
                   <AppBar position='static' elevation={0}>

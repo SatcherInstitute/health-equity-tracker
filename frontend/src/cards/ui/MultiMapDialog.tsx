@@ -148,19 +148,19 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   return (
     <Dialog
-      className={styles.MultiMapBox}
+      className='z-z-top'
       open={props.open}
       onClose={props.handleClose}
       maxWidth={false}
-      scroll="paper"
-      aria-labelledby="modalTitle"
+      scroll='paper'
+      aria-labelledby='modalTitle'
     >
       <DialogContent dividers={true}>
         <div ref={screenshotTargetRef}>
           <Grid
             container
-            justifyContent="space-between"
-            component="ul"
+            justifyContent='space-between'
+            component='ul'
             sx={{ p: 0 }}
           >
             {/* card heading row */}
@@ -184,9 +184,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               {/* Modal Title */}
               <Grid item xs={12} sm={9} md={10}>
                 <Typography
-                  id="modalTitle"
-                  variant="h6"
-                  component="h2"
+                  id='modalTitle'
+                  variant='h6'
+                  component='h2'
                   lineHeight={sass.lhModalHeading}
                 >
                   {title}
@@ -205,9 +205,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   container
                 >
                   <Button
-                    aria-label="close multiple maps modal"
+                    aria-label='close multiple maps modal'
                     onClick={props.handleClose}
-                    color="primary"
+                    color='primary'
                     id={'multi-map-close-button1'}
                   >
                     <CloseIcon />
@@ -235,7 +235,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   item
                   key={`${demographicGroup}-grid-item`}
                   className={styles.SmallMultipleMap}
-                  component="li"
+                  component='li'
                   onClick={(e: any) => {
                     props.handleMapGroupClick(null, demographicGroup)
                   }}
@@ -295,7 +295,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             })}
 
             {/* LEGEND */}
-            <Grid item container xs={12} justifyContent="start">
+            <Grid item container xs={12} justifyContent='start'>
               <Legend
                 dataTypeConfig={props.dataTypeConfig}
                 metric={props.metricConfig}
@@ -362,9 +362,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
             {/* Missing Groups */}
             {props.demographicGroupsNoData.length > 0 && (
-              <Grid item container justifyContent="center" xs={12} xl={7}>
+              <Grid item container justifyContent='center' xs={12} xl={7}>
                 <Box my={3}>
-                  <Alert severity="warning">
+                  <Alert severity='warning'>
                     <p className={styles.NoDataWarning}>
                       Insufficient {props.metricConfig.shortLabel} data reported
                       at the {props.fips.getChildFipsTypeDisplayName()} level
@@ -383,7 +383,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
             <Grid container justifyContent={'center'}>
               <Grid item xs={12}>
-                <Alert icon={<></>} severity="info" role="note">
+                <Alert icon={<></>} severity='info' role='note'>
                   <DataTypeDefinitionsList />
                 </Alert>
               </Grid>
@@ -394,12 +394,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
-        <div className="flex justify-between pl-2 text-left text-small">
+        <div className='flex justify-between pl-2 text-left text-small'>
           {isMobile ? (
             <Button
-              aria-label="close multiple maps modal"
+              aria-label='close multiple maps modal'
               onClick={props.handleClose}
-              color="primary"
+              color='primary'
               id={'multi-map-close-button2'}
             >
               Close
@@ -412,7 +412,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 downloadTargetScreenshot={downloadTargetScreenshot}
                 isMulti={true}
               />
-              <div className="m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12">
+              <div className='m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12'>
                 <CardOptionsMenu
                   downloadTargetScreenshot={downloadTargetScreenshot}
                   reportTitle={props.reportTitle}
