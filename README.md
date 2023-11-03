@@ -11,8 +11,8 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 ## Contributing
 
 1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
-2. On your development machine, clone your forked repo and add the official repo as a remote.
-   - Tip: our development team keeps the remote name `origin` for the original repo, and uses a different name for our forked remote like `kim`, `ben`, or `eric`.
+2. On your development machine, clone your forked repo.
+   - Tip: our development team keeps the remote name `origin` for the original repo instead of `upstream`, and uses a different name for our forked remote like `kim`, `ben`, or `eric`.
    - To add a remote branch (replacing with your desired remote name and actual remote URL) `git remote add ben https://github.com/benhammondmusic/health-equity-tracker`
 
 Read more about the forking workflow [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
@@ -174,7 +174,7 @@ The backend consists of
 7. Once the `deployBackendToInfraTest` GitHub action completes successfully (ignoring the `(infra-test) Terraform / Airflow Configs Process completed with exit code 1.` that unintentionally appears in the Annotations section), navigate to the test GCP project
    > Note: if you run this command again too quickly before the first run has completed, you might encounter `Error acquiring the state lock` and the run will fail. If you are SURE that this occurred because of your 2nd run being too soon after the 1st (and not because another team member is using `infra-test`) then you can manually go into the Google Cloud Storage bucket that holds the terraform state, find the file named `default.tflock` and delete it or less destructively rename by adding today's date to the file name.
 8. Navigate to Composer > Airflow and trigger the DAG that corresponds to your updated backend code
-9.  Once DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
+9. Once DAG completes successfully, you should be able to view the updated data pipeline output in the test GCP project's BigQuery tables and also the exported .json files found in the GCP Buckets.
 10. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).
 11. When ready to merge, use the "Squash and merge" option
 12. **Ensure all affected pipelines are run after both merging to `main` and after cutting a release to production**.
@@ -190,19 +190,20 @@ Unit tests run using pytest, which will recursively look for and execute test fi
 To install, ensure your venv is activated, and run: `pip install pytest`
 
 To run pytest against your entire, updated backend code:
+
 ```bash
 pip install python/data_server/ python/datasources/ python/ingestion/ && pytest python/tests/
 ```
 
 To run single test file follow this pattern (the `-s` flag enables `print()` statements to log even on passing tests):
+
 ```bash
 pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
 ```
 
-
 # HET Microservice Architecture
-![HET Microservice Architecture Diagram](https://raw.githubusercontent.com/SatcherInstitute/health-equity-tracker/9325c032d8df110fc234f0ecd75c54129282418f/HET%20Architecture.svg)
 
+![HET Microservice Architecture Diagram](https://raw.githubusercontent.com/SatcherInstitute/health-equity-tracker/9325c032d8df110fc234f0ecd75c54129282418f/HET%20Architecture.svg)
 
 # Developing Your Own Tracker
 
