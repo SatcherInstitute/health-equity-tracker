@@ -142,6 +142,15 @@ export default {
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
     },
+    zIndex: {
+      "z-bottom": "-999",
+      // multimap modal blur backdrop -1
+      "z-middle": "0",
+      // MUI sticky headers assigned 2
+      "z-almost-top": "3",
+      // joyride warm welcome auto-assigned 101
+      "z-top": "999",
+    }
   },
 
   plugins: [],
