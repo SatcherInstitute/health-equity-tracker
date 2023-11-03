@@ -51,30 +51,30 @@ function LandingPage() {
     <>
       <Helmet>
         <title>Home - Health Equity Tracker</title>
-        <link rel="preload" as="image" href="/img/stock/family-laughing.png" />
+        <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Home Page</h2>
+      <h2 className='sr-only'>Home Page</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container
           className={styles.HeaderRow}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
         >
           <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={7}>
             <Typography
-              id="main"
+              id='main'
               className={styles.HeaderText}
               variant={pageIsWide ? 'h3' : 'h4'}
               paragraph={true}
-              component="h3"
+              component='h3'
             >
               Advancing Health Justice
             </Typography>
             <Typography
               className={styles.HeaderSubtext}
-              variant="body1"
+              variant='body1'
               paragraph={true}
             >
               The Health Equity Tracker from the Satcher Health Leadership
@@ -88,9 +88,9 @@ function LandingPage() {
 
             <Box mt={pageIsWide ? 10 : 5} mb={5}>
               <Button
-                id="landingPageCTA"
-                variant="contained"
-                color="primary"
+                id='landingPageCTA'
+                variant='contained'
+                color='primary'
                 className={styles.ExploreDataButton}
                 href={EXPLORE_DATA_PAGE_LINK}
               >
@@ -100,11 +100,11 @@ function LandingPage() {
           </Grid>
           <Grid item xs={12} sm={12} md={5} className={styles.HeaderImgItem}>
             <img
-              height="601"
-              width="700"
-              src="/img/stock/family-laughing.png"
+              height='601'
+              width='700'
+              src='/img/stock/family-laughing.png'
               className={styles.HeaderImg}
-              alt=""
+              alt=''
             />
           </Grid>
         </Grid>
@@ -112,14 +112,14 @@ function LandingPage() {
         <Grid
           container
           className={styles.RecentNewsRow}
-          justifyContent="flex-start"
-          align-items="center"
+          justifyContent='flex-start'
+          align-items='center'
         >
           <Grid item xs={12}>
             <Typography
               className={styles.RecentNewsHeaderText}
-              variant="h4"
-              component="h3"
+              variant='h4'
+              component='h3'
             >
               Recent news
             </Typography>
@@ -127,8 +127,8 @@ function LandingPage() {
           <Grid item xs={12}>
             <Typography
               className={styles.RecentNewsHeaderSubtext}
-              variant="subtitle1"
-              component="p"
+              variant='subtitle1'
+              component='p'
             >
               Stories and updates from Morehouse School of Medicine and beyond
             </Typography>
@@ -137,8 +137,8 @@ function LandingPage() {
             <Grid
               container
               className={styles.RecentNewsItem}
-              direction="row"
-              justifyContent="space-around"
+              direction='row'
+              justifyContent='space-around'
             >
               {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
@@ -159,13 +159,13 @@ function LandingPage() {
             <Box mt={5}>
               <Typography
                 className={styles.PrioritizeHealthEquityHeaderSubtext}
-                variant="body1"
+                variant='body1'
                 paragraph={true}
               >
                 <ReactRouterLinkButton
                   url={NEWS_PAGE_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
-                  displayName="View all articles"
+                  displayName='View all articles'
                 />
               </Typography>
             </Box>
@@ -175,14 +175,14 @@ function LandingPage() {
         <Grid
           container
           className={styles.HowToRow}
-          component="article"
-          justifyContent="center"
+          component='article'
+          justifyContent='center'
         >
           <Grid item xs={12}>
             <Typography
               className={styles.HowToHeaderText}
-              variant="h4"
-              component="h3"
+              variant='h4'
+              component='h3'
             >
               How do I use the Health Equity Tracker?
             </Typography>
@@ -190,18 +190,18 @@ function LandingPage() {
 
           <Grid
             container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
-            component="ul"
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
+            component='ul'
           >
             <Grid
               container
               className={styles.HowToStepContainer}
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              component="li"
+              direction='row'
+              justifyContent='space-around'
+              alignItems='center'
+              component='li'
             >
               <Grid item xs={12} sm={12} md={3}>
                 <h4 className={styles.HowToStepTextHeader}>
@@ -215,13 +215,13 @@ function LandingPage() {
               <Grid item xs={12} sm={12} md={8}>
                 <iframe
                   className={styles.ResourceVideoEmbed}
-                  width="100%"
-                  height="420px"
-                  src="https://www.youtube.com/embed/XBoqT9Jjc8w"
-                  title="YouTube video player"
-                  loading="lazy"
-                  allow="accelerometer; autoplay; clipboard-write;
-                encrypted-media; gyroscope; picture-in-picture"
+                  width='100%'
+                  height='420px'
+                  src='https://www.youtube.com/embed/XBoqT9Jjc8w'
+                  title='YouTube video player'
+                  loading='lazy'
+                  allow='accelerometer; autoplay; clipboard-write;
+                encrypted-media; gyroscope; picture-in-picture'
                   allowFullScreen
                 ></iframe>
               </Grid>
@@ -230,10 +230,10 @@ function LandingPage() {
             <Grid
               container
               className={styles.HowToStepContainer}
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              component="li"
+              direction='row'
+              justifyContent='space-around'
+              alignItems='center'
+              component='li'
             >
               <Grid item xs={12} sm={12} md={3}>
                 <h4 className={styles.HowToStepTextHeader}>
@@ -253,7 +253,7 @@ function LandingPage() {
                     playsInline
                     className={styles.HowToStepImg}
                   >
-                    <source src="videos/search-by.mp4" type="video/mp4" />
+                    <source src='videos/search-by.mp4' type='video/mp4' />
                   </video>
                 </LazyLoad>
               </Grid>
@@ -262,10 +262,10 @@ function LandingPage() {
             <Grid
               container
               className={styles.HowToStepContainer}
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              component="li"
+              direction='row'
+              justifyContent='space-around'
+              alignItems='center'
+              component='li'
             >
               <Grid item xs={12} sm={12} md={3}>
                 <div>
@@ -288,7 +288,7 @@ function LandingPage() {
                     playsInline
                     className={styles.HowToStepImg}
                   >
-                    <source src="videos/filters.mp4" />
+                    <source src='videos/filters.mp4' />
                   </video>
                 </LazyLoad>
               </Grid>
@@ -297,10 +297,10 @@ function LandingPage() {
             <Grid
               container
               className={styles.HowToStepContainer}
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              component="li"
+              direction='row'
+              justifyContent='space-around'
+              alignItems='center'
+              component='li'
             >
               <Grid item xs={12} sm={12} md={3}>
                 <div>
@@ -323,7 +323,7 @@ function LandingPage() {
                     playsInline
                     className={styles.HowToStepImg}
                   >
-                    <source src="videos/explore-map.mp4" />
+                    <source src='videos/explore-map.mp4' />
                   </video>
                 </LazyLoad>
               </Grid>
@@ -331,8 +331,8 @@ function LandingPage() {
           </Grid>
           <Box mt={7}>
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               className={styles.PrimaryButton}
               href={EXPLORE_DATA_PAGE_LINK}
             >
@@ -344,15 +344,15 @@ function LandingPage() {
         <Grid
           container
           className={styles.NewsletterSignUpRow}
-          justifyContent="center"
+          justifyContent='center'
           component={'aside'}
         >
           <section className={styles.NewsletterSignUpBox}>
             <Grid item xs={12}>
               <Typography
                 className={styles.NewsletterSignUpHeader}
-                variant="h4"
-                component="h3"
+                variant='h4'
+                component='h3'
               >
                 Sign up for our newsletter:
               </Typography>
@@ -360,28 +360,28 @@ function LandingPage() {
 
             <form
               action={urlMap.newsletterSignup}
-              method="post"
-              target="_blank"
+              method='post'
+              target='_blank'
             >
-              <Grid container justifyContent="center" alignContent="center">
+              <Grid container justifyContent='center' alignContent='center'>
                 <Grid item>
                   <TextField
-                    id="Enter email address to sign up" // Accessibility label (is it tho?)
-                    name="MERGE0"
-                    variant="outlined"
+                    id='Enter email address to sign up' // Accessibility label (is it tho?)
+                    name='MERGE0'
+                    variant='outlined'
                     className={styles.EmailTextField}
-                    type="email"
-                    aria-label="Enter Email Address for Newsletter signup"
-                    placeholder="Enter email address"
+                    type='email'
+                    aria-label='Enter Email Address for Newsletter signup'
+                    placeholder='Enter email address'
                   />
                 </Grid>
                 <Grid item>
                   <Button
-                    type="submit"
-                    color="primary"
-                    variant="contained"
+                    type='submit'
+                    color='primary'
+                    variant='contained'
                     className={styles.EmailAddressFormSubmit}
-                    aria-label="Sign Up for Newsletter in a new window"
+                    aria-label='Sign Up for Newsletter in a new window'
                   >
                     Sign up
                   </Button>

@@ -15,7 +15,7 @@ const MetricsLink = () => {
         <Helmet>
           <title>Metrics - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>Metrics</h2>
+        <h2 className='sr-only'>Metrics</h2>
         <ConditionVariable definitionsArray={metricDefinitionsArray} />
 
         <h3 className='font-sansTitle text-title' id='#percent-share-example'>
@@ -43,7 +43,6 @@ const MetricsLink = () => {
             />
             , their disproportionate percent share would be{' '}
             <strong>+13%</strong>:
-            <br />
             <CodeBlock
               rowData={[
                 {

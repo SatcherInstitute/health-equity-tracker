@@ -10,7 +10,7 @@ const RecommendedCitationLink = () => {
         <Helmet>
           <title>Recommended Citation - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>Recommended Citation</h2>
+        <h2 className='sr-only'>Recommended Citation</h2>
         <h3 className='font-sansTitle text-title'>
           APA (American Psychological Association) Format
         </h3>

@@ -1,5 +1,4 @@
 import { Alert, AlertTitle } from '@mui/material'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
   covidDataSources,
   covidDefinitionsArray,
@@ -22,8 +21,8 @@ const Covid19Link = () => {
         <Helmet>
           <title>COVID-19 - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>COVID-19</h2>
-        <br />
+        <h2 className='sr-only'>COVID-19</h2>
+
         <StripedTable
           id='#categories-table'
           applyThickBorder={false}

@@ -1,11 +1,7 @@
 @import '../../../styles/globals.scss';
 @import '../../../styles/variables.module.scss';
 
-/** ------------------ METHODOLOGY v2 -------------------- **/
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  @include srOnly();
-}
+/** ------------------ METHODOLOGY OVERHAUL -------------------- **/
 
 html {
   scroll-behavior: smooth;

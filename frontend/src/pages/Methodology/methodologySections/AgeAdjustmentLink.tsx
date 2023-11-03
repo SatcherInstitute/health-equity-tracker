@@ -52,7 +52,7 @@ const AgeAdjustmentLink = () => {
         <Helmet>
           <title>Age-Adjustment - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>Age-Adjustment</h2>
+        <h2 className='sr-only'>Age-Adjustment</h2>
 
         <div>
           <p>
@@ -221,7 +221,7 @@ const AgeAdjustmentLink = () => {
                 </li>
               </ul>
             </li>
-            <br />
+
             <li>
               <b>Population counts broken down by both race and age:</b>
 
@@ -450,7 +450,7 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
+
           <div className={styles.ExampleDiv}>
             <ol start={1}>
               <li>
@@ -624,7 +624,7 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
+
           <div className={styles.ExampleDiv}>
             <ol start={2}>
               <li>
@@ -714,7 +714,7 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
+
           <div className={styles.ExampleDiv}>
             <ol start={3}>
               <li>Calculate the expected deaths for each age/race group:</li>
@@ -900,7 +900,7 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
+
           <div className={styles.ExampleDiv}>
             <ol start={4}>
               <li>
@@ -965,7 +965,7 @@ const AgeAdjustmentLink = () => {
               ]}
             />
           </div>
-          <br />
+
           <div className={styles.ExampleDiv}>
             <ol start={5}>
               <li>Calculate the age-adjusted death ratio:</li>

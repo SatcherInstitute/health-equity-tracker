@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 
 const DataMethodDefinitionsLink = () => {
   return (
@@ -8,7 +7,7 @@ const DataMethodDefinitionsLink = () => {
         <Helmet>
           <title>Data Methods - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>Data Methods</h2>
+        <h2 className='sr-only'>Data Methods</h2>
 
         <h3 className='font-sansTitle text-title'>Visualizations</h3>
         <p>

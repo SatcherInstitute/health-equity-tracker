@@ -1,4 +1,3 @@
-import styles from '../../AboutUs/AboutUsPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 
 const MethodologyHomeLink = () => {
@@ -8,9 +7,8 @@ const MethodologyHomeLink = () => {
         <Helmet>
           <title>Methodology - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
+        <h2 className='sr-only'>Methodology</h2>
 
-        <br />
         <div>
           <p>
             We are committed to principles of{' '}
@@ -34,7 +32,6 @@ const MethodologyHomeLink = () => {
             tell us what you are working on to advance Health Equity, and how
             the Health Equity Tracker might help. In the spirit of
             collaboration, I hope you will join us in saying:
-            <br />
             <strong>Health Equity for All!</strong>
           </p>
         </div>

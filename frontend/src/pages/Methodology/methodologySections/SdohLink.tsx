@@ -40,10 +40,8 @@ function SdohLink() {
         <Helmet>
           <title>Social Determinants of Health - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>
-          Social Determinants of Health
-        </h2>
-        <br />
+        <h2 className='sr-only'>Social Determinants of Health</h2>
+
         <StripedTable
           id='#categories-table'
           applyThickBorder={false}

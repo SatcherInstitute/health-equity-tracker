@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import StripedTable from '../methodologyComponents/StripedTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
@@ -11,9 +10,7 @@ const TopicsLink: React.FC = () => {
         <Helmet>
           <title>Categories and Limitations - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>
-          Categories and Limitations
-        </h2>
+        <h2 className='sr-only'>Categories and Limitations</h2>
 
         <p>
           The Health Equity Tracker (HET) was initially conceived in 2020 as a

@@ -48,8 +48,8 @@ export default function TableOfContents(props: TableOfContentsProps) {
       activeStep={props.reportStepHashIds?.findIndex(
         (stepId) => stepId === activeId
       )}
-      orientation="vertical"
-      aria-label="Available cards on this report"
+      orientation='vertical'
+      aria-label='Available cards on this report'
       className={styles.Stepper}
     >
       {props.reportStepHashIds?.map((stepId) => {
@@ -65,11 +65,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
             >
               <span
                 // hide labels visually but not from screen readers on small screens
-                className={
-                  pageIsWide
-                    ? styles.StepButtonLabel
-                    : styles.ScreenreaderTitleHeader
-                }
+                className={pageIsWide ? styles.StepButtonLabel : 'sr-only'}
               >
                 {reportProviderSteps[stepId].label}
               </span>

@@ -53,13 +53,13 @@ function DataCatalogPage() {
       <Helmet>
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Data Downloads</h2>
+      <h2 className='sr-only'>Data Downloads</h2>
       <Grid container className={styles.DatasetCatalog}>
         <div className={styles.DatasetHeader}>
           <Typography
-            id="main"
+            id='main'
             className={styles.DataDownloadsHeaderText}
-            variant="h3"
+            variant='h3'
           >
             View and download Health Equity Tracker data sources
           </Typography>
@@ -104,7 +104,7 @@ function DataCatalogPage() {
                     <Button
                       sx={{ mt: 5, color: 'white !important' }}
                       href={DATA_CATALOG_PAGE_LINK}
-                      variant="contained"
+                      variant='contained'
                     >
                       View All Datasets
                     </Button>

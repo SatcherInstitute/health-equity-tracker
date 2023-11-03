@@ -55,9 +55,7 @@ function Resources({ resourceGroups, id }: ResourcesProps) {
       <Helmet>
         <title>Health Equity Resources - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>
-        Health Equity Resources
-      </h2>
+      <h2 className='sr-only'>Health Equity Resources</h2>
       <div className={styles.Resources}>
         <Grid container className={styles.ResourcesHeader}>
           <div className={styles.ResourcesRow}>

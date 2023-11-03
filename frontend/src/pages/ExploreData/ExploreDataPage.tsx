@@ -290,9 +290,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         activelyOnboarding={activelyOnboarding}
       />
 
-      <h2 className={styles.ScreenreaderTitleHeader}>
-        {getMadLibPhraseText(madLib)}
-      </h2>
+      <h2 className='sr-only'>{getMadLibPhraseText(madLib)}</h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
           className={styles.MadLibUIContainer + ' z-z-almost-top'}

@@ -239,9 +239,7 @@ const RacesAndEthnicitiesLink = () => {
         <Helmet>
           <title>Races and Ethnicities - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>
-          Races and Ethnicities
-        </h2>
+        <h2 className='sr-only'>Races and Ethnicities</h2>
         <h3 className='font-sansTitle text-title' id='#data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
         </h3>

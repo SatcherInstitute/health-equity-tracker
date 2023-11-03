@@ -180,9 +180,7 @@ export default function AltTableView(props: AltTableViewProps) {
                                 <Tooltip title='Insufficient data'>
                                   <WarningRoundedIcon />
                                 </Tooltip>
-                                <span
-                                  className={styles.ScreenreaderTitleHeader}
-                                >
+                                <span className='sr-only'>
                                   Insufficient data
                                 </span>
                               </>

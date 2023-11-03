@@ -27,9 +27,8 @@ const BehavioralHealthLink: React.FC = () => {
         <Helmet>
           <title>Behavioral Health - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>Behavioral Health</h2>
+        <h2 className='sr-only'>Behavioral Health</h2>
 
-        <br />
         <StripedTable
           id='#categories-table'
           applyThickBorder={false}
@@ -203,7 +202,7 @@ const BehavioralHealthLink: React.FC = () => {
           id='#behavioral-health-key-terms'
           definitionsArray={behavioralHealthDefinitionsArray}
         />
-        <br />
+
         <LifelineAlert />
         <Resources
           id='#behavioral-health-resources'

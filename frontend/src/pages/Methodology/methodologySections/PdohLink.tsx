@@ -24,10 +24,8 @@ const PdohLink = () => {
             Political Determinants of Health - Health Equity Tracker
           </title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>
-          Political Determinants of Health
-        </h2>
-        <br />
+        <h2 className='sr-only'>Political Determinants of Health</h2>
+
         <StripedTable
           id='#categories-table'
           applyThickBorder={false}

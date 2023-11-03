@@ -21,8 +21,8 @@ const HivLink = () => {
         <Helmet>
           <title>HIV - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>HIV</h2>
-        <br />
+        <h2 className='sr-only'>HIV</h2>
+
         <StripedTable
           id='#categories-table'
           applyThickBorder={false}
@@ -182,7 +182,7 @@ const HivLink = () => {
             ' 100,000 ',
           ]}
         />
-        <br />
+
         <Alert severity='info' role='note'>
           <AlertTitle>
             A note about HIV Prevention and Care Rates for Transgender People

@@ -1,4 +1,3 @@
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
 import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
@@ -21,7 +20,7 @@ const SourcesLink = () => {
         <Helmet>
           <title>Data Sources - Health Equity Tracker</title>
         </Helmet>
-        <h2 className={styles.ScreenreaderTitleHeader}>{title}</h2>
+        <h2 className='sr-only'>{title}</h2>
         <div>
           <p>{parseDescription(description)}</p>
 
