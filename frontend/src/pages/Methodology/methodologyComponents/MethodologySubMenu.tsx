@@ -55,16 +55,13 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
 
   return (
     <>
-      <h4
-        id='submenu'
-        className='text-left font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'
-      >
-        On this page
-      </h4>
       <nav
         aria-label='on this page quick navigation'
-        className='sticky right-0 top-0 z-z-middle m-2 text-left lg:z-z-top'
+        className='sticky right-0 top-2 z-z-middle m-2 text-left lg:z-z-top'
       >
+        <h4 className='text-left font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'>
+          On this page
+        </h4>
         <ul className='list-none pl-0'>
           {links.map((link, index) => (
             <li key={index}>
