@@ -39,7 +39,7 @@ import { useHeaderScrollMargin } from '../../utils/hooks/useHeaderScrollMargin'
 import { useLocation } from 'react-router-dom'
 import DefaultHelperBox from './DefaultHelperBox'
 import useDeprecatedParamRedirects from '../../utils/hooks/useDeprecatedParamRedirects'
-import MadLibUI from './MadLibUI'
+import MadLibUI, { getConfigFromDataTypeId } from './MadLibUI'
 import { ALL } from '../../data/utils/Constants'
 import TopicInfoModal from './TopicInfoModal'
 
@@ -223,21 +223,21 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     const modeIndex = modeIndexMap[mode]
 
     // Extract values from the current madlib
-    const var1 = madLib.activeSelections[1]
+    const dtId1 = madLib.activeSelections[1]
 
     const geo1 =
       madLib.id === 'comparevars'
         ? madLib.activeSelections[5]
         : madLib.activeSelections[3]
 
-    // default non-duplicate settings for compare modes
-    const var2 = var1 === 'covid' ? 'covid_vaccinations' : 'covid'
+    // default settings for compare modes
+    const dtId2 = getConfigFromDataTypeId(dtId1).defaultCompareDataTypeId
     const geo2 = geo1 === '00' ? '13' : '00' // default to US or Georgia
 
     // Construct UPDATED madlib based on the future mode's Madlib shape
-    let updatedMadLib: PhraseSelections = { 1: var1, 3: geo1 } // disparity "Investigate Rates"
-    if (modeIndex === 1) updatedMadLib = { 1: var1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
-    if (modeIndex === 2) updatedMadLib = { 1: var1, 3: var2, 5: geo1 } // comparevars "Explore Relationships"
+    let updatedMadLib: PhraseSelections = { 1: dtId1, 3: geo1 } // disparity "Investigate Rates"
+    if (modeIndex === 1) updatedMadLib = { 1: dtId1, 3: geo1, 5: geo2 } // comparegeos "Compare Rates"
+    if (modeIndex === 2) updatedMadLib = { 1: dtId1, 3: dtId2, 5: geo1 } // comparevars "Explore Relationships"
 
     setMadLib({
       ...MADLIB_LIST[modeIndex],
@@ -294,7 +294,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         {getMadLibPhraseText(madLib)}
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div className={styles.MadLibUIContainer} id="madlib-container">
+        <div className={styles.MadLibUIContainer} id='madlib-container'>
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && (

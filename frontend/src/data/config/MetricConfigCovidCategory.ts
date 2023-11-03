@@ -51,6 +51,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_cases',
+    defaultCompareDataTypeId: 'poverty',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COVID-19 cases',
@@ -97,6 +98,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_deaths',
+    defaultCompareDataTypeId: 'cardiovascular_diseases',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'COVID-19 deaths',
@@ -150,6 +152,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_hospitalizations',
+    defaultCompareDataTypeId: 'covid_vaccinations',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Hospitalizations',
     fullDisplayName: 'COVID-19 hospitalizations',
@@ -208,6 +211,7 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'covid',
     dataTypeId: 'covid_vaccinations',
+    defaultCompareDataTypeId: 'covid_hosp',
     mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Vaccinations',
     fullDisplayName: 'COVID-19 vaccinations',

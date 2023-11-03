@@ -52,6 +52,7 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'voter_participation',
+    defaultCompareDataTypeId: 'poverty',
     mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Voter participation',
     fullDisplayName: 'Voter participation',
@@ -92,6 +93,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'women_in_us_congress',
+    defaultCompareDataTypeId: 'prison',
     mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'US Congress',
     fullDisplayName: 'Women in US Congress',
@@ -152,6 +154,7 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'women_in_state_legislature',
+    defaultCompareDataTypeId: 'voter_participation',
     mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'State legislatures', // DATA TOGGLE
     fullDisplayName: 'Women in state legislatures', // TABLE TITLE,
@@ -216,6 +219,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'prison',
+    defaultCompareDataTypeId: 'hiv_prevelance',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prison',
     fullDisplayName: 'People in prison',
@@ -269,6 +273,7 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'pdoh',
     dataTypeId: 'jail',
+    defaultCompareDataTypeId: 'non_medical_drug_use',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Jail',
     fullDisplayName: 'People in jail',

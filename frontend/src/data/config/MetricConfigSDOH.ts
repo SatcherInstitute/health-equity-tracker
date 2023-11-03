@@ -35,6 +35,7 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'health_insurance',
+    defaultCompareDataTypeId: 'poverty',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Uninsured people',
     fullDisplayName: 'Uninsured people',
@@ -86,6 +87,7 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'poverty',
+    defaultCompareDataTypeId: 'jail',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Poverty',
     fullDisplayName: 'People below the poverty line',
@@ -133,6 +135,7 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'avoided_care',
+    defaultCompareDataTypeId: 'hiv_deaths',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Avoided Care',
     fullDisplayName: 'Care avoidance due to cost',
@@ -173,6 +176,7 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'sdoh',
     dataTypeId: 'preventable_hospitalizations',
+    defaultCompareDataTypeId: 'statins_adherence',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Preventable hospitalizations',
     fullDisplayName: 'Preventable hospitalizations',

@@ -183,6 +183,7 @@ export interface DataTypeConfig {
   dataTableTitle?: string
   mapConfig: MapConfig
   categoryId?: CategoryTypeId
+  defaultCompareDataTypeId: DataTypeId
 }
 
 export const SYMBOL_TYPE_LOOKUP: Record<MetricType, string> = {

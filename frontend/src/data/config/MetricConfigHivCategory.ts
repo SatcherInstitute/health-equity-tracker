@@ -72,6 +72,7 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_care',
+    defaultCompareDataTypeId: 'hiv_deaths',
     mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Linkage to HIV care',
     fullDisplayName: 'Linkage to HIV care',
@@ -121,6 +122,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence',
+    defaultCompareDataTypeId: 'hiv_stigma',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prevalence',
     fullDisplayName: 'HIV prevalence',
@@ -164,6 +166,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_diagnoses',
+    defaultCompareDataTypeId: 'hiv_prep',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New diagnoses',
     fullDisplayName: 'New HIV diagnoses',
@@ -208,6 +211,7 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_deaths',
+    defaultCompareDataTypeId: 'hiv_care',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths',
     fullDisplayName: 'HIV deaths',
@@ -262,6 +266,7 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_stigma',
+    defaultCompareDataTypeId: 'hiv_diagnoses_black_women',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Stigma',
     fullDisplayName: 'HIV stigma',
@@ -300,6 +305,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prevalence_black_women',
+    defaultCompareDataTypeId: 'hiv_prevalence',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Prevalence for Black Women',
     fullDisplayName: 'HIV prevalence for Black women',
@@ -346,6 +352,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_diagnoses_black_women',
+    defaultCompareDataTypeId: 'hiv_diagnoses',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'New Diagnoses for Black Women',
     fullDisplayName: 'New HIV diagnoses for Black women',
@@ -394,6 +401,7 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
   },
   {
     dataTypeId: 'hiv_deaths_black_women',
+    defaultCompareDataTypeId: 'hiv_deaths',
     mapConfig: womenHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Deaths for Black women',
     fullDisplayName: 'HIV deaths for Black women',
@@ -444,6 +452,7 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'hiv',
     dataTypeId: 'hiv_prep',
+    defaultCompareDataTypeId: 'health_insurance',
     mapConfig: defaultHigherIsBetterMapConfig,
     dataTypeShortLabel: 'PrEP coverage',
     fullDisplayName: 'PrEP coverage',

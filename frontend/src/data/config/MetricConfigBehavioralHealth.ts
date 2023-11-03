@@ -33,6 +33,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'depression',
+    defaultCompareDataTypeId: 'excessive_drinking',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Depression cases',
@@ -72,6 +73,7 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'excessive_drinking',
+    defaultCompareDataTypeId: 'frequent_mental_distress',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Excessive drinking cases',
@@ -113,6 +115,7 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
     categoryId: 'behavioral-health',
     // parent data type
     dataTypeId: 'non_medical_drug_use',
+    defaultCompareDataTypeId: 'prison',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Opioid and other non-medical drug use',
     fullDisplayName: 'Opioid and other non-medical drug use',
@@ -154,6 +157,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'frequent_mental_distress',
+    defaultCompareDataTypeId: 'diabetes',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Frequent mental distress cases',
@@ -194,6 +198,7 @@ export const SUICIDE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'behavioral-health',
     dataTypeId: 'suicide',
+    defaultCompareDataTypeId: 'poverty',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Suicides',

@@ -30,6 +30,7 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'asthma',
+    defaultCompareDataTypeId: 'poverty',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Asthma',
     fullDisplayName: 'Asthma cases',
@@ -69,6 +70,7 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'cardiovascular_diseases',
+    defaultCompareDataTypeId: 'excessive_drinking',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cardiovascular diseases',
     fullDisplayName: 'Cases of cardiovascular diseases',
@@ -109,6 +111,7 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'chronic_kidney_disease',
+    defaultCompareDataTypeId: 'diabetes',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Chronic kidney disease',
     surveyCollectedData: true,
@@ -149,6 +152,7 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'diabetes',
+    defaultCompareDataTypeId: 'health_insurance',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'Diabetes',
@@ -188,6 +192,7 @@ export const COPD_METRICS: DataTypeConfig[] = [
   {
     categoryId: 'chronic-disease',
     dataTypeId: 'copd',
+    defaultCompareDataTypeId: 'diabetes',
     mapConfig: defaultHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases',
     fullDisplayName: 'COPD',
