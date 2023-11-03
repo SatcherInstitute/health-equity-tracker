@@ -294,7 +294,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         {getMadLibPhraseText(madLib)}
       </h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
-        <div className={styles.MadLibUIContainer} id="madlib-container">
+        <div className={styles.MadLibUIContainer} id='madlib-container'>
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
 
           {showStickyLifeline && (

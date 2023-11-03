@@ -1,18 +1,6 @@
 @import '../../styles/variables.module';
 @import '../../styles/globals.scss';
 
-.MultiMapBox {
-  z-index: $z-top !important; // to get tooltips to render on top
-
-  @media (max-width: $sm) {
-    padding: 0 !important;
-  }
-}
-
-:global(.vega-embed) {
-  z-index: $z-middle !important; // to stop non-modal actions menus from "peeking" through the modal
-}
-
 .SmallMultipleMap {
   width: 300px;
   list-style: none;
