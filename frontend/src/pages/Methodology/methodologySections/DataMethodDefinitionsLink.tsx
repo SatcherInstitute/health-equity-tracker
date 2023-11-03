@@ -3,14 +3,14 @@ import styles from '../methodologyComponents/MethodologyPage.module.scss'
 
 const DataMethodDefinitionsLink = () => {
   return (
-    <section id="#data-methods">
+    <section id='#data-methods'>
       <article>
         <Helmet>
           <title>Data Methods - Health Equity Tracker</title>
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>Data Methods</h2>
 
-        <h3>Visualizations</h3>
+        <h3 className='font-sansTitle text-title'>Visualizations</h3>
         <p>
           Please consider the impact of under-reporting and data gaps when
           exploring the visualizations. These issues may lead to incorrect

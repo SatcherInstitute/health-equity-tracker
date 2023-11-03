@@ -16,7 +16,7 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const HivLink = () => {
   return (
-    <section id="#hiv">
+    <section id='#hiv'>
       <article>
         <Helmet>
           <title>HIV - Health Equity Tracker</title>
@@ -24,7 +24,7 @@ const HivLink = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>HIV</h2>
         <br />
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -42,8 +42,10 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 id="#hiv-data-sourcing">Data Sourcing</h3>
-        <p id="#hiv">
+        <h3 className='font-sansTitle text-title' id='#hiv-data-sourcing'>
+          Data Sourcing
+        </h3>
+        <p id='#hiv'>
           The CDC's National Center for HIV, Viral Hepatitis, STD, and TB
           Prevention (NCHHSTP) collects and studies information on the number of
           people diagnosed with HIV in the United States. This information is
@@ -51,7 +53,7 @@ const HivLink = () => {
           better understand the impact of HIV across the country.
         </p>
         <p>
-          <Alert severity="info" role="note">
+          <Alert severity='info' role='note'>
             <AlertTitle>A note about CDC NCHHSTP AtlasPlus</AlertTitle>
             <p>
               The CDC's NCHHSTP and other HIV surveillance programs have agreed
@@ -70,7 +72,7 @@ const HivLink = () => {
           information on how people became infected with HIV. This means that
           the data may change as more information becomes available.
         </p>
-        <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
+        <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
           <AlertTitle>2020 Data Disruption Due to COVID-19</AlertTitle>
           <p>
             The COVID-19 pandemic significantly disrupted data for the year
@@ -87,7 +89,10 @@ const HivLink = () => {
           use 2021 as our reference year when showcasing data from a single
           year.
         </p>
-        <h3 id="#hiv-variable-data-compilation">
+        <h3
+          className='font-sansTitle text-title'
+          id='#hiv-variable-data-compilation'
+        >
           Variable Data Compilation and Analysis
         </h3>
         <h4>HIV Diagnosis</h4>
@@ -129,7 +134,7 @@ const HivLink = () => {
           diagnoses, or prevalence and multiply the result by 100.
         </p>
         <FormulaFormat
-          leftSide="Percent Share"
+          leftSide='Percent Share'
           rightSide={[
             {
               numerator: 'Number of cases in demographic group',
@@ -147,7 +152,7 @@ const HivLink = () => {
           population and multiply the result by 100.
         </p>
         <FormulaFormat
-          leftSide="Population Percent"
+          leftSide='Population Percent'
           rightSide={[
             {
               numerator: 'Number of individuals in specific population',
@@ -167,7 +172,7 @@ const HivLink = () => {
           then expressing it as a rate per 100,000 people.
         </p>
         <FormulaFormat
-          leftSide="Rate per 100,000 people"
+          leftSide='Rate per 100,000 people'
           rightSide={[
             {
               numerator: 'Number of cases within specific population',
@@ -178,7 +183,7 @@ const HivLink = () => {
           ]}
         />
         <br />
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about HIV Prevention and Care Rates for Transgender People
             (2019)
@@ -203,10 +208,13 @@ const HivLink = () => {
             Transgender People.
           </p>
         </Alert>
-        <h3 id="#hiv-missing-and-suppressed-data">
+        <h3
+          className='font-sansTitle text-title'
+          id='#hiv-missing-and-suppressed-data'
+        >
           Addressing Missing and Suppressed Data
         </h3>
-        <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
+        <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
           <AlertTitle>
             Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)
           </AlertTitle>
@@ -239,7 +247,9 @@ const HivLink = () => {
           Islander" under the pre-1997 Office of Management and Budget (OMB)
           race/ethnicity classification system when querying HIV prevalence.
         </p>
-        <h3 id="#prep-coverage">Defining PrEP Coverage as a Percentage</h3>
+        <h3 className='font-sansTitle text-title' id='#prep-coverage'>
+          Defining PrEP Coverage as a Percentage
+        </h3>
         <p>
           PrEP coverage is quantified as a percentage. It represents the ratio
           of people, aged 16 and older, who were prescribed PrEP in a given year
@@ -304,7 +314,7 @@ const HivLink = () => {
           multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide="Percent Share"
+          leftSide='Percent Share'
           rightSide={[
             {
               numerator:
@@ -323,7 +333,7 @@ const HivLink = () => {
           eligible for PrEP and multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide="PrEP-Eligible Percent"
+          leftSide='PrEP-Eligible Percent'
           rightSide={[
             {
               numerator:
@@ -343,7 +353,7 @@ const HivLink = () => {
           PrEP based on their HIV risk and multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide="PrEP Coverage"
+          leftSide='PrEP Coverage'
           rightSide={[
             {
               numerator:
@@ -365,7 +375,7 @@ const HivLink = () => {
           population multiplied by 100 to express it as a percentage.
         </p>
         <FormulaFormat
-          leftSide="Relative Inequity"
+          leftSide='Relative Inequity'
           rightSide={[
             {
               numerator: '(Percent Share − PrEP-Eligible Percent)',
@@ -375,7 +385,10 @@ const HivLink = () => {
             ' 100 ',
           ]}
         />
-        <h3 id="#prep-missing-and-suppressed-data">
+        <h3
+          className='font-sansTitle text-title'
+          id='#prep-missing-and-suppressed-data'
+        >
           Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data
         </h3>
         <p>
@@ -401,7 +414,9 @@ const HivLink = () => {
             <li>if the number of persons prescribed PrEP is less than 40.</li>
           </ul>
         </p>
-        <h3 id="#linkage-to-care">Linkage to Care</h3>
+        <h3 className='font-sansTitle text-title' id='#linkage-to-care'>
+          Linkage to Care
+        </h3>
         <p>
           Linkage to HIV care, reported as a percentage, refers to the number of
           persons aged 13 years and older newly diagnosed with HIV, having at
@@ -435,7 +450,7 @@ const HivLink = () => {
           result by 100.
         </p>
         <FormulaFormat
-          leftSide="Percent Share"
+          leftSide='Percent Share'
           rightSide={[
             {
               numerator:
@@ -454,7 +469,7 @@ const HivLink = () => {
           diagnoses and multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide="Diagnosed Population Percent"
+          leftSide='Diagnosed Population Percent'
           rightSide={[
             {
               numerator: 'Number of individuals with HIV in specific group',
@@ -473,7 +488,7 @@ const HivLink = () => {
           demographic group and multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide="Linkage to Care"
+          leftSide='Linkage to Care'
           rightSide={[
             {
               numerator:
@@ -495,7 +510,7 @@ const HivLink = () => {
           population multiplied by 100 to express it as a percentage.
         </p>
         <FormulaFormat
-          leftSide="Relative Inequity"
+          leftSide='Relative Inequity'
           rightSide={[
             {
               numerator: (
@@ -511,7 +526,9 @@ const HivLink = () => {
           ]}
         />
 
-        <h3 id="#stigma">HIV Stigma</h3>
+        <h3 className='font-sansTitle text-title' id='#stigma'>
+          HIV Stigma
+        </h3>
         <p>
           HIV stigma, reported as a score, refers to the weighted median score
           on a 10-item scale ranging from 0 (no stigma) to 100 (high stigma)
@@ -545,7 +562,7 @@ const HivLink = () => {
         </p>
 
         <FormulaFormat
-          leftSide="HIV Stigma Score"
+          leftSide='HIV Stigma Score'
           rightSide={[
             {
               numerator: '',
@@ -559,7 +576,7 @@ const HivLink = () => {
         </p>
 
         <FormulaFormat
-          leftSide="Analyzed Stigma Score"
+          leftSide='Analyzed Stigma Score'
           rightSide={[
             {
               numerator: 'Self-Reported Data',
@@ -590,7 +607,7 @@ const HivLink = () => {
         </p>
 
         <FormulaFormat
-          leftSide="Comparison Value"
+          leftSide='Comparison Value'
           rightSide={[
             {
               numerator: 'HIV Stigma Score of Population A​',
@@ -606,7 +623,9 @@ const HivLink = () => {
             </em>
           </p>
         </blockquote>
-        <h3 id="#hiv-data-sources">Data Sources</h3>
+        <h3 className='font-sansTitle text-title' id='#hiv-data-sources'>
+          Data Sources
+        </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -629,8 +648,8 @@ const HivLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms id="#hiv-key-terms" definitionsArray={hivDefinitionsArray} />
-        <Resources id="#hiv-resources" resourceGroups={[HIV_RESOURCES]} />
+        <KeyTerms id='#hiv-key-terms' definitionsArray={hivDefinitionsArray} />
+        <Resources id='#hiv-resources' resourceGroups={[HIV_RESOURCES]} />
       </article>
     </section>
   )

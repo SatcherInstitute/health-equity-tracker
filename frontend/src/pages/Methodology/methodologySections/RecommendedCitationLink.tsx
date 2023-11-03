@@ -5,13 +5,15 @@ import { Helmet } from 'react-helmet-async'
 
 const RecommendedCitationLink = () => {
   return (
-    <section id="#recommended-citation">
+    <section id='#recommended-citation'>
       <article>
         <Helmet>
           <title>Recommended Citation - Health Equity Tracker</title>
         </Helmet>
         <h2 className={styles.ScreenreaderTitleHeader}>Recommended Citation</h2>
-        <h3>APA (American Psychological Association) Format</h3>
+        <h3 className='font-sansTitle text-title'>
+          APA (American Psychological Association) Format
+        </h3>
         <div className={styles.MethodologyAnswer}>
           <Card elevation={3}>
             <p className={styles.CitationAPA}>{CITATION_APA}</p>

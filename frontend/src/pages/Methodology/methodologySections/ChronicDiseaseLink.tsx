@@ -17,7 +17,7 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 
 const ChronicDiseaseLink = () => {
   return (
-    <section id="#chronic-diseases">
+    <section id='#chronic-diseases'>
       <article>
         <Helmet>
           <title>Chronic Diseases - Health Equity Tracker</title>
@@ -25,7 +25,7 @@ const ChronicDiseaseLink = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>Chronic Diseases</h2>
         <br />
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -41,7 +41,12 @@ const ChronicDiseaseLink = () => {
             },
           ]}
         />
-        <h3 id="#chronic-diseases-data-sourcing">Data Sourcing</h3>
+        <h3
+          className='font-sansTitle text-title'
+          id='#chronic-diseases-data-sourcing'
+        >
+          Data Sourcing
+        </h3>
         <p>
           For chronic diseases like COPD and diabetes, our tracker sources data
           primarily from
@@ -69,7 +74,7 @@ const ChronicDiseaseLink = () => {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey
@@ -93,12 +98,12 @@ const ChronicDiseaseLink = () => {
         </p>
         <ul>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All'>
               COPD
             </a>
           </li>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All'>
               diabetes
             </a>
           </li>
@@ -130,7 +135,12 @@ const ChronicDiseaseLink = () => {
           ]}
         />
 
-        <h3 id="#chronic-diseases-data-sources">Data Sources</h3>
+        <h3
+          className='font-sansTitle text-title'
+          id='#chronic-diseases-data-sources'
+        >
+          Data Sources
+        </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -154,7 +164,7 @@ const ChronicDiseaseLink = () => {
           }))}
         />
         <KeyTerms
-          id="#chronic-diseases-key-terms"
+          id='#chronic-diseases-key-terms'
           definitionsArray={chronicDiseaseDefinitionsArray}
         />
       </article>

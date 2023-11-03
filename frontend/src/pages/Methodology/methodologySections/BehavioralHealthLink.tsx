@@ -22,7 +22,7 @@ import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 
 const BehavioralHealthLink: React.FC = () => {
   return (
-    <section id="#behavioral-health">
+    <section id='#behavioral-health'>
       <article>
         <Helmet>
           <title>Behavioral Health - Health Equity Tracker</title>
@@ -31,7 +31,7 @@ const BehavioralHealthLink: React.FC = () => {
 
         <br />
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -47,7 +47,12 @@ const BehavioralHealthLink: React.FC = () => {
             },
           ]}
         />
-        <h3 id="#behavioral-health-data-sourcing">Data Sourcing</h3>
+        <h3
+          className='font-sansTitle text-title'
+          id='#behavioral-health-data-sourcing'
+        >
+          Data Sourcing
+        </h3>
         <p>
           The data on behavioral health conditions such as frequent mental
           distress, depression, and excessive drinking, featured in the Health
@@ -61,7 +66,7 @@ const BehavioralHealthLink: React.FC = () => {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey
@@ -85,22 +90,22 @@ const BehavioralHealthLink: React.FC = () => {
         </p>
         <ul>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.suicide-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.suicide-3.00&group1=All'>
               suicide
             </a>
           </li>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.frequent_mental_distress-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.frequent_mental_distress-3.00&group1=All'>
               frequent mental distress
             </a>
           </li>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'>
               depression
             </a>
           </li>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All'>
               excessive drinking
             </a>
           </li>
@@ -131,7 +136,7 @@ const BehavioralHealthLink: React.FC = () => {
             },
           ]}
         />
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the America's Health Rankings (AHR)'s population data
           </AlertTitle>
@@ -156,7 +161,7 @@ const BehavioralHealthLink: React.FC = () => {
             certain conditions, including:
             <ul>
               <li className={styles.ConditionList}>
-                <a href="https://healthequitytracker.org/exploredata?mls=1.substance-3.00&group1=All">
+                <a href='https://healthequitytracker.org/exploredata?mls=1.substance-3.00&group1=All'>
                   non-medical drug use
                 </a>
                 .
@@ -166,7 +171,12 @@ const BehavioralHealthLink: React.FC = () => {
             valuable insights into these and other conditions.
           </p>
         </Alert>
-        <h3 id="#behavioral-health-data-sources">Data Sources</h3>
+        <h3
+          className='font-sansTitle text-title'
+          id='#behavioral-health-data-sources'
+        >
+          Data Sources
+        </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -190,13 +200,13 @@ const BehavioralHealthLink: React.FC = () => {
           }))}
         />
         <KeyTerms
-          id="#behavioral-health-key-terms"
+          id='#behavioral-health-key-terms'
           definitionsArray={behavioralHealthDefinitionsArray}
         />
         <br />
         <LifelineAlert />
         <Resources
-          id="#behavioral-health-resources"
+          id='#behavioral-health-resources'
           resourceGroups={[MENTAL_HEALTH_RESOURCES]}
         />
       </article>

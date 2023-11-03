@@ -17,7 +17,7 @@ import { percentShareTooltip } from '../methodologyContent/TooltipLibrary'
 
 const PdohLink = () => {
   return (
-    <section id="#pdoh">
+    <section id='#pdoh'>
       <article>
         <Helmet>
           <title>
@@ -29,7 +29,7 @@ const PdohLink = () => {
         </h2>
         <br />
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -46,7 +46,9 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 id="#pdoh-data-sourcing">Data Sourcing</h3>
+        <h3 className='font-sansTitle text-title' id='#pdoh-data-sourcing'>
+          Data Sourcing
+        </h3>
         <p>
           We gather our information on incarcerated individuals (including
           children) in the U.S. from trusted sources:
@@ -97,7 +99,9 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 id="#jails-vs-prisons">Understanding Jails vs. Prisons</h3>
+        <h3 className='font-sansTitle text-title' id='#jails-vs-prisons'>
+          Understanding Jails vs. Prisons
+        </h3>
         <h4>Jails</h4>
         <p>
           Jails are local facilities that primarily house individuals awaiting
@@ -135,7 +139,12 @@ const PdohLink = () => {
           county.
         </p>
 
-        <h3 id="#children-in-adult-facilities">Children in Adult Facilities</h3>
+        <h3
+          className='font-sansTitle text-title'
+          id='#children-in-adult-facilities'
+        >
+          Children in Adult Facilities
+        </h3>
         <p>
           We highlight the total count of children in adult facilities rather
           than a "per 100k" rate for a few reasons:
@@ -155,14 +164,18 @@ const PdohLink = () => {
             </li>
           </ul>
         </p>
-        <h3 id="#combined-systems">Combined Systems</h3>
+        <h3 className='font-sansTitle text-title' id='#combined-systems'>
+          Combined Systems
+        </h3>
         <p>
           Some states, like Alaska, Connecticut, Delaware, Hawaii, Rhode Island,
           and Vermont, integrate both prison and jail systems. For our reports,
           these are categorized as prison facilities only.
         </p>
 
-        <h3 id="#political-forces">Political Forces and Incarceration</h3>
+        <h3 className='font-sansTitle text-title' id='#political-forces'>
+          Political Forces and Incarceration
+        </h3>
         <p>
           Incarceration is influenced by a blend of political forces, laws, and
           public opinion. Sentencing policies and the disenfranchisement of
@@ -178,7 +191,10 @@ const PdohLink = () => {
           conviction. Minority populations of voting age are disproportionately
           affected by this disenfranchisement (Sentencing Project).
         </p>
-        <h3 id="#health-impact-of-incarceration">
+        <h3
+          className='font-sansTitle text-title'
+          id='#health-impact-of-incarceration'
+        >
           Health Impact of Incarceration
         </h3>
         <h4>Immediate Health Consequences</h4>
@@ -202,7 +218,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 id="#women-in-gov">
+        <h3 className='font-sansTitle text-title' id='#women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -214,7 +230,9 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 id="#pdoh-data-metrics">Data Metrics and Methodology</h3>
+        <h3 className='font-sansTitle text-title' id='#pdoh-data-metrics'>
+          Data Metrics and Methodology
+        </h3>
         <p>
           We use data from the Center for American Women in Politics (CAWP) to
           present metrics on the representation of women in legislative roles:
@@ -249,7 +267,9 @@ const PdohLink = () => {
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification.
         </p>
-        <h3 id="#historical-tracking">Historical Tracking</h3>
+        <h3 className='font-sansTitle text-title' id='#historical-tracking'>
+          Historical Tracking
+        </h3>
         <ul>
           <li>
             <span>
@@ -273,7 +293,10 @@ const PdohLink = () => {
           election in 1917. However, for state legislators, our data reliably
           goes back only to 1983.
         </p>
-        <h3 id="#race-ethnicity-groupings-and-challenges">
+        <h3
+          className='font-sansTitle text-title'
+          id='#race-ethnicity-groupings-and-challenges'
+        >
           Race/Ethnicity Groupings and Challenges
         </h3>
         <p>
@@ -297,7 +320,9 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 id="#pdoh-missing-data">Missing Data</h3>
+        <h3 className='font-sansTitle text-title' id='#pdoh-missing-data'>
+          Missing Data
+        </h3>
         <p>
           The CAWP dataset's unique race/ethnicity groupings don't align with
           U.S. Census categories. Consequently, certain groups (Middle Eastern &
@@ -311,7 +336,7 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the America's Health Rankings (AHR)'s population data
           </AlertTitle>
@@ -336,7 +361,7 @@ const PdohLink = () => {
             certain conditions, including:
             <ul>
               <li className={styles.ConditionList}>
-                <a href="https://healthequitytracker.org/exploredata?mls=1.voter_participation-3.00&group1=All">
+                <a href='https://healthequitytracker.org/exploredata?mls=1.voter_participation-3.00&group1=All'>
                   voter participation
                 </a>
                 .
@@ -346,7 +371,9 @@ const PdohLink = () => {
             valuable insights into these and other conditions.
           </p>
         </Alert>
-        <h3 id="#pdoh-data-resources">Data Sources</h3>
+        <h3 className='font-sansTitle text-title' id='#pdoh-data-resources'>
+          Data Sources
+        </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -370,10 +397,10 @@ const PdohLink = () => {
           }))}
         />
         <KeyTerms
-          id="#pdoh-key-terms"
+          id='#pdoh-key-terms'
           definitionsArray={pdohDefinitionsArray}
         />
-        <Resources id="#pdoh-resources" resourceGroups={[PDOH_RESOURCES]} />
+        <Resources id='#pdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
   )

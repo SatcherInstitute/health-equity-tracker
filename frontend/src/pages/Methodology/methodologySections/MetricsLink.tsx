@@ -10,7 +10,7 @@ import { Helmet } from 'react-helmet-async'
 
 const MetricsLink = () => {
   return (
-    <section id="#metrics">
+    <section id='#metrics'>
       <article>
         <Helmet>
           <title>Metrics - Health Equity Tracker</title>
@@ -18,10 +18,10 @@ const MetricsLink = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>Metrics</h2>
         <ConditionVariable definitionsArray={metricDefinitionsArray} />
 
-        <h3 id="#percent-share-example">
+        <h3 className='font-sansTitle text-title' id='#percent-share-example'>
           Percent Share Example: COVID-19 Cases
         </h3>
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           In the example below, we use <strong>COVID-19 cases</strong> as the
           variable, and <strong>race and ethnicity</strong> as the demographic
           breakdown for simplicity; the definitions apply to all variables and
@@ -32,13 +32,13 @@ const MetricsLink = () => {
             As an example, if in a certain month,{' '}
             <strong>White (Non-Hispanic) people</strong> in Georgia had 65.7%
             <DefinitionTooltip
-              topic="share"
+              topic='share'
               definitionItem={definitionsGlossary[41]}
             />{' '}
             of <strong>COVID-19 deaths</strong> but only 52.7%
             <DefinitionTooltip
-              topic="share of the
-    population"
+              topic='share of the
+    population'
               definitionItem={definitionsGlossary[29]}
             />
             , their disproportionate percent share would be{' '}

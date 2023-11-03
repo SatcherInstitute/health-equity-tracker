@@ -47,7 +47,7 @@ const AGE_ADJUSTED_RESOURCES = [
 
 const AgeAdjustmentLink = () => {
   return (
-    <section id="#age-adjusted-ratios">
+    <section id='#age-adjusted-ratios'>
       <article>
         <Helmet>
           <title>Age-Adjustment - Health Equity Tracker</title>
@@ -114,18 +114,20 @@ const AgeAdjustmentLink = () => {
           <p>
             For COVID-19 reports, we source the standard population numbers from
             the 2019 population numbers from{' '}
-            <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+            <a href='https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html'>
               County Population by Characteristics
             </a>
             . For HIV reports, the population data is provided along with the
             condition rates from the same{' '}
-            <a href="https://gis.cdc.gov/grasp/nchhstpatlas/tables.html">
+            <a href='https://gis.cdc.gov/grasp/nchhstpatlas/tables.html'>
               CDC Atlas data tables
             </a>
             .
           </p>
 
-          <h3 id="#data-sourcing">Data Sourcing</h3>
+          <h3 className='font-sansTitle text-title' id='#data-sourcing'>
+            Data Sourcing
+          </h3>
           <p>
             In order to do an age-adjustment, we needed the following pieces of
             information:
@@ -137,7 +139,7 @@ const AgeAdjustmentLink = () => {
               <ul>
                 <li>
                   For COVID-19, we use the{' '}
-                  <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t">
+                  <a href='https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t'>
                     CDC Case Surveillance Restricted Access Detailed Data
                   </a>{' '}
                   for this. It can break down by race and age to ten-year
@@ -213,7 +215,7 @@ const AgeAdjustmentLink = () => {
 
                 <li>
                   For HIV, we use the{' '}
-                  <a href="https://gis.cdc.gov/grasp/nchhstpatlas/tables.html">
+                  <a href='https://gis.cdc.gov/grasp/nchhstpatlas/tables.html'>
                     CDC Atlas data tables.
                   </a>
                 </li>
@@ -227,7 +229,7 @@ const AgeAdjustmentLink = () => {
                 <li>
                   For COVID-19, the most reliable population source we could
                   find with these particular age and race groupings were the{' '}
-                  <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+                  <a href='https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html'>
                     County Population by Characteristics
                   </a>{' '}
                   numbers provided by the census.
@@ -239,7 +241,9 @@ const AgeAdjustmentLink = () => {
               </ul>
             </li>
           </div>
-          <h3 id="#algorithm">Algorithms</h3>
+          <h3 className='font-sansTitle text-title' id='#algorithm'>
+            Algorithms
+          </h3>
           <p>
             In order to generate the age-adjusted ratios, we do the following:
           </p>
@@ -252,7 +256,7 @@ const AgeAdjustmentLink = () => {
                 </b>
               </p>
               <FormulaFormat
-                leftSide="age_specific_rate"
+                leftSide='age_specific_rate'
                 rightSide={[
                   {
                     numerator: 'Condition count for race A, age group 1',
@@ -270,7 +274,7 @@ const AgeAdjustmentLink = () => {
                 </b>
               </p>
               <FormulaFormat
-                leftSide="standard_population_age_group_1"
+                leftSide='standard_population_age_group_1'
                 rightSide={[
                   {
                     numerator: '',
@@ -302,7 +306,7 @@ const AgeAdjustmentLink = () => {
               </p>
 
               <FormulaFormat
-                leftSide="expected_condition_count"
+                leftSide='expected_condition_count'
                 rightSide={[
                   {
                     numerator: '',
@@ -356,7 +360,10 @@ const AgeAdjustmentLink = () => {
             </li>
           </ol>
 
-          <h3 id="#age-adjustment-examples">
+          <h3
+            className='font-sansTitle text-title'
+            id='#age-adjustment-examples'
+          >
             Age-Adjustment Example: HIV Deaths
           </h3>
           <div className={styles.ExampleDiv}>
@@ -714,7 +721,7 @@ const AgeAdjustmentLink = () => {
             </ol>
             <p>As noted above, the formula for each row is:</p>
             <FormulaFormat
-              leftSide="expected deaths for each age/race group"
+              leftSide='expected deaths for each age/race group'
               rightSide={[
                 {
                   numerator: 'HIV Deaths',
@@ -1024,21 +1031,21 @@ const AgeAdjustmentLink = () => {
           </div>
 
           <KeyTerms
-            id="#age-adjustment-key-terms"
+            id='#age-adjustment-key-terms'
             definitionsArray={ageAdjustmentDefinitionsArray}
           />
           <Resources
-            id="#age-adjustment-resources"
+            id='#age-adjustment-resources'
             resourceGroups={AGE_ADJUSTED_RESOURCES}
           />
         </div>
 
         <Button
           className={styles.LearnMoreLink}
-          variant="text"
-          color="primary"
+          variant='text'
+          color='primary'
           href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
-          id="#age-adjustment-explore"
+          id='#age-adjustment-explore'
         >
           <span>Explore age-adjusted ratios</span>
         </Button>

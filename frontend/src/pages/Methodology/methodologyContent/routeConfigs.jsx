@@ -420,7 +420,7 @@ export const routeConfigs = [
     subLinks: [],
   },
   {
-    label: 'Recommended Citation (APA)',
+    label: 'Recommended Citation',
     path: RECOMMENDED_CITATION_LINK,
     component: RecommendedCitationLink,
     subLinks: [],

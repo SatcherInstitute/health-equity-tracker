@@ -46,13 +46,13 @@ html {
   letter-spacing: 0.022rem;
 }
 
-.ArticleContainer h3 {
-  @include tav300();
-  font-size: $smallestHeader;
-  text-align: left;
-  color: $alt-black;
-  margin-top: 1rem;
-}
+// .ArticleContainer h3 {
+//   @include tav300();
+//   font-size: $smallestHeader;
+//   text-align: left;
+//   color: $alt-black;
+//   margin-top: 1rem;
+// }
 
 .ArticleContainer h4 {
   @include inter500();

@@ -7,7 +7,6 @@ import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
 import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
-import { Typography } from '@mui/material'
 import NavigationButtons from './NavigationButtons'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import { useEffect, useState } from 'react'
@@ -80,9 +79,9 @@ const MethodologyPage: React.FC = () => {
 
         <Grid item xs={12} sm={6} className={styles.SectionWrapper}>
           <article className={styles.ArticleContainer}>
-            <Typography variant='h1' id='main'>
+            <h2 className='font-serif text-header font-light' id='main'>
               {activeRoute?.label}
-            </Typography>
+            </h2>
             <Switch>
               <>
                 {routeConfigs.map((route, index) => (

@@ -16,7 +16,7 @@ const SourcesLink = () => {
     sourceAcquisitionData
 
   return (
-    <section id="#data-sources">
+    <section id='#data-sources'>
       <article>
         <Helmet>
           <title>Data Sources - Health Equity Tracker</title>
@@ -25,17 +25,21 @@ const SourcesLink = () => {
         <div>
           <p>{parseDescription(description)}</p>
 
-          <h3>Data Sources</h3>
+          <h3 className='font-sansTitle text-title'>Data Sources</h3>
           <p>{parseDescription(listItems[0])}</p>
 
-          <h3 id="#data-collection">Data Collection</h3>
+          <h3 className='font-sansTitle text-title' id='#data-collection'>
+            Data Collection
+          </h3>
           <ul>
             {nestedListItems[0].sub.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
 
-          <h3 id="#data-processing">Data Processing</h3>
+          <h3 className='font-sansTitle text-title' id='#data-processing'>
+            Data Processing
+          </h3>
 
           <ul>
             <li>{nestedListItems[1].sub[0]}</li>
@@ -49,7 +53,9 @@ const SourcesLink = () => {
             <li>{nestedListItems[1].sub[2]}</li>
           </ul>
 
-          <h3 id="#data-analysis">Data Analysis</h3>
+          <h3 className='font-sansTitle text-title' id='#data-analysis'>
+            Data Analysis
+          </h3>
           <p>{listItems[1]}</p>
           <ul>
             <li>
@@ -60,22 +66,43 @@ const SourcesLink = () => {
             </li>
           </ul>
 
-          <h3 id="#visualization-techniques">Visualization Techniques</h3>
+          <h3
+            className='font-sansTitle text-title'
+            id='#visualization-techniques'
+          >
+            Visualization Techniques
+          </h3>
           <p>{listItems[2]}</p>
 
-          <h3 id="#dataset-limitations">Dataset Limitations</h3>
+          <h3 className='font-sansTitle text-title' id='#dataset-limitations'>
+            Dataset Limitations
+          </h3>
           <p>{listItems[3]}</p>
 
-          <h3 id="#updates-and-revisions">Updates and Revisions</h3>
+          <h3 className='font-sansTitle text-title' id='#updates-and-revisions'>
+            Updates and Revisions
+          </h3>
           <p>{listItems[4]}</p>
 
-          <h3 id="#stakeholder-engagement">Stakeholder Engagement</h3>
+          <h3
+            className='font-sansTitle text-title'
+            id='#stakeholder-engagement'
+          >
+            Stakeholder Engagement
+          </h3>
           <p>{listItems[5]}</p>
 
-          <h3 id="#references-and-citations">References and Citations</h3>
+          <h3
+            className='font-sansTitle text-title'
+            id='#references-and-citations'
+          >
+            References and Citations
+          </h3>
           <p>{parseDescription(listItems[6])}</p>
 
-          <h3 id="#contact-information">Contact Information</h3>
+          <h3 className='font-sansTitle text-title' id='#contact-information'>
+            Contact Information
+          </h3>
           <p>{parseDescription(listItems[7])}</p>
         </div>
       </article>

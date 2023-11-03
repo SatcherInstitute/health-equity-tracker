@@ -6,7 +6,7 @@ import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
 
 const TopicsLink: React.FC = () => {
   return (
-    <section id="#categories">
+    <section id='#categories'>
       <article>
         <Helmet>
           <title>Categories and Limitations - Health Equity Tracker</title>
@@ -37,9 +37,11 @@ const TopicsLink: React.FC = () => {
           understanding the unique challenges and needs of diverse communities.
         </p>
 
-        <h3 id="#categories">Categories</h3>
+        <h3 className='font-sansTitle text-title' id='#categories'>
+          Categories
+        </h3>
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -87,7 +89,9 @@ const TopicsLink: React.FC = () => {
             },
           ]}
         />
-        <h3 id="#limitations">Limitations</h3>
+        <h3 className='font-sansTitle text-title' id='#limitations'>
+          Limitations
+        </h3>
         <p>
           One challenge is inconsistent breakdown values across datasets. We do
           our best to standardize the values. However, this may not always be
@@ -96,7 +100,7 @@ const TopicsLink: React.FC = () => {
           less critical since a visualization can still show the different
           values.
         </p>
-        <div id="#missing-data">
+        <div id='#missing-data'>
           <ConditionVariable definitionsArray={missingDataArray} />
         </div>
       </article>

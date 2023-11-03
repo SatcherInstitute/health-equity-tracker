@@ -17,7 +17,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 
 const Covid19Link = () => {
   return (
-    <section id="#covid-19">
+    <section id='#covid-19'>
       <article>
         <Helmet>
           <title>COVID-19 - Health Equity Tracker</title>
@@ -25,7 +25,7 @@ const Covid19Link = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>COVID-19</h2>
         <br />
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -42,7 +42,9 @@ const Covid19Link = () => {
           ]}
         />
 
-        <h3 id="#covid-data-sourcing">Data Sourcing</h3>
+        <h3 className='font-sansTitle text-title' id='#covid-data-sourcing'>
+          Data Sourcing
+        </h3>
         <p>
           The primary data source is the CDC Case Surveillance Restricted Access
           Detailed Data. This dataset allows for detailed breakdowns by race,
@@ -50,7 +52,10 @@ const Covid19Link = () => {
           York Times COVID Dataset as a benchmark to evaluate the
           comprehensiveness of state data in our tracker.
         </p>
-        <h3 id="#covid-age-and-demographic-data-analysis">
+        <h3
+          className='font-sansTitle text-title'
+          id='#covid-age-and-demographic-data-analysis'
+        >
           Age and Demographic Data Analysis
         </h3>
         <p>
@@ -58,7 +63,10 @@ const Covid19Link = () => {
           to 80+. The data provides a breakdown by both race and age.
         </p>
 
-        <h3 id="#covid-geographical-reporting">
+        <h3
+          className='font-sansTitle text-title'
+          id='#covid-geographical-reporting'
+        >
           Geographical Distribution and Reporting
         </h3>
         <p></p>
@@ -94,7 +102,9 @@ const Covid19Link = () => {
           lapse in accurate demographic reporting.
         </p>
 
-        <h3 id="#covid-time-series">Time-Series and Temporal Analysis</h3>
+        <h3 className='font-sansTitle text-title' id='#covid-time-series'>
+          Time-Series and Temporal Analysis
+        </h3>
         <p>
           Utilizes the <code>cdc_case_earliest_dt</code> ("CDC Case Earliest
           Date") field from the CDC Restricted dataset. Data is categorized
@@ -134,7 +144,10 @@ const Covid19Link = () => {
           group might be lacking.
         </p>
 
-        <h3 id="#covid-missing-and-suppressed-data">
+        <h3
+          className='font-sansTitle text-title'
+          id='#covid-missing-and-suppressed-data'
+        >
           Addressing Missing and Suppressed Data
         </h3>
         <p>
@@ -167,7 +180,10 @@ const Covid19Link = () => {
           involve a comparative analysis with the New York Times COVID Dataset.
         </p>
 
-        <h3 id="#covid-vaccination-data-analysis">
+        <h3
+          className='font-sansTitle text-title'
+          id='#covid-vaccination-data-analysis'
+        >
           Vaccination Data Compilation and Analysis
         </h3>
         <p>
@@ -196,11 +212,14 @@ const Covid19Link = () => {
           demographic breakdown that we present for other geographical levels.
         </p>
 
-        <h3 id="#covid-vaccination-demographic-estimates">
+        <h3
+          className='font-sansTitle text-title'
+          id='#covid-vaccination-demographic-estimates'
+        >
           Demographic Population Estimates for Vaccination Data
         </h3>
 
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the 2019 American Community Survey (ACS)
           </AlertTitle>
@@ -258,7 +277,7 @@ const Covid19Link = () => {
           without any demographic breakdown.
         </p>
 
-        <h3 id="#covid-data-limitations">
+        <h3 className='font-sansTitle text-title' id='#covid-data-limitations'>
           Data Limitations and Specific Considerations
         </h3>
         <p>
@@ -292,7 +311,9 @@ const Covid19Link = () => {
           administered, adding another layer to our comprehensive analysis.
         </p>
 
-        <h3 id="#covid-data-sources">COVID-19 Data Sources</h3>
+        <h3 className='font-sansTitle text-title' id='#covid-data-sources'>
+          COVID-19 Data Sources
+        </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -317,12 +338,12 @@ const Covid19Link = () => {
         />
 
         <KeyTerms
-          id="#covid-key-terms"
+          id='#covid-key-terms'
           definitionsArray={covidDefinitionsArray}
         />
 
         <Resources
-          id="#covid-resources"
+          id='#covid-resources'
           resourceGroups={[COVID_RESOURCES, COVID_VACCINATION_RESOURCES]}
         />
       </article>

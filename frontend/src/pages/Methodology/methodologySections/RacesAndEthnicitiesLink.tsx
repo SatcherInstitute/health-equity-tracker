@@ -234,7 +234,7 @@ const raceDefinitions: DataItem[] = [
 
 const RacesAndEthnicitiesLink = () => {
   return (
-    <section id="#races-and-ethnicities">
+    <section id='#races-and-ethnicities'>
       <article>
         <Helmet>
           <title>Races and Ethnicities - Health Equity Tracker</title>
@@ -242,7 +242,7 @@ const RacesAndEthnicitiesLink = () => {
         <h2 className={styles.ScreenreaderTitleHeader}>
           Races and Ethnicities
         </h2>
-        <h3 id="#data-gaps">
+        <h3 className='font-sansTitle text-title' id='#data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
         </h3>
         <p>
@@ -269,7 +269,7 @@ const RacesAndEthnicitiesLink = () => {
           across data sources.
         </p>
         <p>
-          <Alert severity="info" role="note">
+          <Alert severity='info' role='note'>
             <AlertTitle>
               Dataset Definitions and Contextual Variances
             </AlertTitle>

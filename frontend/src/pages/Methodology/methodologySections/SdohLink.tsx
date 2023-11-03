@@ -35,7 +35,7 @@ export const missingAhrDataArray = [
 
 function SdohLink() {
   return (
-    <section id="#sdoh">
+    <section id='#sdoh'>
       <article>
         <Helmet>
           <title>Social Determinants of Health - Health Equity Tracker</title>
@@ -45,7 +45,7 @@ function SdohLink() {
         </h2>
         <br />
         <StripedTable
-          id="#categories-table"
+          id='#categories-table'
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
@@ -61,7 +61,9 @@ function SdohLink() {
             },
           ]}
         />
-        <h3 id="#sdoh-data-sourcing">Data Sourcing</h3>
+        <h3 className='font-sansTitle text-title' id='#sdoh-data-sourcing'>
+          Data Sourcing
+        </h3>
         <p>
           Our tracker's data on social determinants of health, such as
           uninsurance rates and poverty levels, is largely sourced from{' '}
@@ -74,7 +76,7 @@ function SdohLink() {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.
         </p>
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey
@@ -98,7 +100,7 @@ function SdohLink() {
         </p>
         <ul>
           <li className={styles.ConditionList}>
-            <a href="https://healthequitytracker.org/exploredata?mls=1.avoided_care-3.00&group1=All">
+            <a href='https://healthequitytracker.org/exploredata?mls=1.avoided_care-3.00&group1=All'>
               care avoidance due to cost
             </a>
           </li>
@@ -129,7 +131,7 @@ function SdohLink() {
             },
           ]}
         />
-        <Alert severity="info" role="note">
+        <Alert severity='info' role='note'>
           <AlertTitle>
             A note about the America's Health Rankings (AHR)'s population data
           </AlertTitle>
@@ -154,7 +156,7 @@ function SdohLink() {
             certain conditions, including:
             <ul>
               <li className={styles.ConditionList}>
-                <a href="https://healthequitytracker.org/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All">
+                <a href='https://healthequitytracker.org/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All'>
                   preventable hospitalizations
                 </a>
                 .
@@ -164,7 +166,9 @@ function SdohLink() {
             valuable insights into these and other conditions.
           </p>
         </Alert>
-        <h3 id="#sdoh-data-sources">Data Sources</h3>
+        <h3 className='font-sansTitle text-title' id='#sdoh-data-sources'>
+          Data Sources
+        </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
@@ -189,10 +193,10 @@ function SdohLink() {
         />
 
         <KeyTerms
-          id="#sdoh-key-terms"
+          id='#sdoh-key-terms'
           definitionsArray={sdohDefinitionsArray}
         />
-        <Resources id="#sdoh-resources" resourceGroups={[PDOH_RESOURCES]} />
+        <Resources id='#sdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
   )
