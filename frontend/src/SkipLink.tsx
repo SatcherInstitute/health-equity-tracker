@@ -1,3 +1,7 @@
+/*
+Accessible "Skip to Main Content" link
+for screenreader and non-mouse users
+ */
 export default function SkipLink() {
   return (
     <a
