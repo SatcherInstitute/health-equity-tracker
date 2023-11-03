@@ -14,7 +14,7 @@ test('Resources Tab Loads', async ({ page }) => {
 test('Methodology Page Loads', async ({ page }) => {
     await page.goto('/methodology', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText(['Health Equity']);
+    await expect(mainHeading).toHaveText(['Methodology']);
     // @ts-ignore
     await expect(page).toPassAxe()
 });
