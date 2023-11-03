@@ -84,7 +84,7 @@ export default function SinglePost(props: SinglePostProps) {
           }}
         />
       )}
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         <Helmet>
           <title>{`News${
             fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -126,15 +126,15 @@ export default function SinglePost(props: SinglePostProps) {
               <img
                 src={articleImage ?? hetLogo}
                 className="
-                  mt-8 
-                  h-auto	
                   max-h-80 
+                  mt-8	
+                  h-auto 
                   w-3/5	
                   max-w-md 
-                  rounded-30 
+                  rounded-xl
                   object-contain 
                   md:mt-0 
-                  md:max-h-770"
+                  md:max-h-xl"
                 alt={articleImageAltText}
                 width={200}
                 height={100}
@@ -145,15 +145,15 @@ export default function SinglePost(props: SinglePostProps) {
           {/* TEXT SECTION OF HEADER */}
           <div
             className="
+              px-15 
               flex 
               w-full 
               flex-col 
               flex-wrap 
               justify-center 
-              border-0 
+              border-0
               border-solid
-              border-border-color
-              px-15	
+              border-border-color	
               py-8 
               md:w-2/3 
               md:border-l	
@@ -164,13 +164,13 @@ export default function SinglePost(props: SinglePostProps) {
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
             <div
               className="
+              leading-tight 
               m-auto 
               pb-4 
               text-left 
               font-serif 
-              text-header 
-              font-light
-              leading-tight 
+              text-header
+              font-light 
               text-alt-green						
               md:text-bigHeader
             "
@@ -260,7 +260,7 @@ export default function SinglePost(props: SinglePostProps) {
                     variant="contained"
                     color="primary"
                     className="
-                      rounded-40 
+                      rounded-2xl 
                       bg-alt-green 
                       px-8 
                       py-4 
@@ -282,7 +282,7 @@ export default function SinglePost(props: SinglePostProps) {
 
               {/* OPTIONALLY RENDER REPRINT NOTICE */}
               <div className="mt-10">
-                <div className="text-left font-sansText text-text font-medium leading-none">
+                <div className="leading-none text-left font-sansText text-text font-medium">
                   {fullArticle?.acf?.canonical_url && (
                     <span className={styles.ReprintNotice}>
                       Note: this article was originally published on{' '}
@@ -297,7 +297,7 @@ export default function SinglePost(props: SinglePostProps) {
 
           {/* PREV / NEXT ARTICLES NAV */}
           <LazyLoad offset={300} height={300} once>
-            <div className="flex items-center border-0 border-b border-solid border-alt-grey">
+            <div className="flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey">
               <div className="w-full md:w-1/3">
                 {prevArticle && (
                   <NewsPreviewCard article={prevArticle} arrow={'prev'} />

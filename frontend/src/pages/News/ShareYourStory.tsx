@@ -1,13 +1,13 @@
-import { Button, Divider } from '@mui/material'
+import { Button } from '@mui/material'
 
 export default function ShareYourStory() {
   return (
     <div className="flex w-full items-center justify-center text-start">
-      <div className="max-w-960">
+      <div className="flex max-w-md flex-wrap justify-center">
         <div className="pb-4 pl-16 pr-16 pt-24">
           <h2
             id="main"
-            className="m-0 text-center font-serif text-bigHeader font-light text-alt-green	"
+            className="m-0 text-center font-serif text-bigHeader font-light text-alt-green"
           >
             Call for Community Writers
           </h2>
@@ -16,7 +16,7 @@ export default function ShareYourStory() {
           </h3>
         </div>
 
-        <p>
+        <p className="px-1">
           We believe that everyone's voice matters when it comes to health
           equity and ending the HIV epidemic. We invite community members,
           advocates, and individuals directly affected by HIV to share their
@@ -27,11 +27,13 @@ export default function ShareYourStory() {
           you to follow the guidelines outlined below.
         </p>
 
-        <Divider sx={{ mt: 5 }}>
+        <div className="mt-5 flex w-full items-center">
+          <div className="flex-1 border-0 border-t border-solid border-alt-grey"></div>
           <h3 className="m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light text-alt-green">
             Submission guidelines
           </h3>
-        </Divider>
+          <div className="flex-1 border-0 border-t border-solid border-alt-grey"></div>
+        </div>
 
         <ul className="list-none">
           <li className="p-3">
@@ -115,9 +117,11 @@ export default function ShareYourStory() {
           </li>
         </ul>
 
-        <Divider sx={{ m: 5 }} />
+        <div className="m-10 flex w-full items-center">
+          <div className="flex-1 border-0 border-t border-solid border-alt-grey"></div>
+        </div>
 
-        <p>
+        <p className="px-1">
           Thank you for considering sharing your story with us. Your voice can
           make a difference in advancing health equity for all people. We look
           forward to hearing from you and appreciate your support in creating a
@@ -128,9 +132,8 @@ export default function ShareYourStory() {
             variant="contained"
             color="primary"
             className="
-              min-w-200 
-              rounded-40	
-              bg-alt-green 
+              min-w-min	 
+              rounded-2xl
               px-8 
               py-5	
               text-center 

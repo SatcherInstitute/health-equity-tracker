@@ -202,7 +202,7 @@ function AllPosts() {
   if (data?.data.length === 0) return <></>
 
   return (
-    <div className="w-full">
+    <div className="flex w-full flex-wrap">
       <Helmet>
         <title>News - Health Equity Tracker</title>
       </Helmet>
@@ -254,11 +254,11 @@ function AllPosts() {
               <div>
                 <p
                   className="
+                    leading-6 
                     text-left 
                     font-sansText 
                     text-title 
-                    font-light 
-                    leading-6
+                    font-light
                 "
                 >
                   We believe in the power of storytelling. The Health Equity
@@ -272,11 +272,11 @@ function AllPosts() {
 
                 <p
                   className="
+                    leading-6 
                     text-left 
                     font-sansText 
                     text-title 
-                    font-light 
-                    leading-6
+                    font-light
                 "
                 >
                   Health Equity is a transformative pursuit that empowers all
@@ -305,14 +305,14 @@ function AllPosts() {
                   <Link
                     to={NEWS_PAGE_LINK}
                     className="
-                    inline
-                    px-4	
+                    leading-7
+                    inline	
+                    px-4
                     py-1.5
                     font-sansText
                     text-small
-                    font-medium
-                    normal-case		
-                    leading-7	
+                    font-medium		
+                    normal-case	
                     tracking-wide	
                     no-underline
                 "
@@ -321,14 +321,14 @@ function AllPosts() {
                   </Link>
                   <span
                     className="
-                      inline
-                      px-4	
+                      leading-7
+                      inline	
+                      px-4
                       py-1.5
                       font-sansText
                       text-small
-                      font-medium
-                      normal-case		
-                      leading-7	
+                      font-medium		
+                      normal-case	
                       tracking-wide	
                       no-underline
                   "
@@ -339,14 +339,14 @@ function AllPosts() {
               )}
               <span
                 className="
-                      inline
-                      px-4	
+                      leading-7
+                      inline	
+                      px-4
                       py-1.5
                       font-sansText
                       text-small
-                      font-medium
-                      normal-case		
-                      leading-7	
+                      font-medium		
+                      normal-case	
                       tracking-wide	
                       no-underline
                   "

@@ -27,7 +27,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           )}
         </div>
 
-        <div className="flex w-11/12 flex-col items-center justify-center">
+        <div className="flex w-9/12 flex-col items-center justify-center">
           <LazyLoad once height={100} offset={300}>
             <img
               height="100"
@@ -35,12 +35,12 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
                 article?._embedded?.['wp:featuredmedia']?.[0]?.media_details
                   ?.sizes?.medium?.source_url || AppbarLogo
               }
-              className="max-h-100 w-auto rounded-10p"
+              className="max-h-28 w-auto rounded-md"
               alt=""
             />
           </LazyLoad>
 
-          <div className="mx-1">
+          <div className="mx-2">
             <h3
               className="
               font-title
@@ -50,7 +50,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
               font-serif
               text-title
               font-light
-              leading-snug
+              leading-lhModalHeading
           "
             >
               {getHtml(article.title.rendered, true)}

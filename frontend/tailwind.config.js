@@ -3,10 +3,6 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     screens: {
-      // sm: '480px',
-      // md: '768px',
-      // lg: '976px',
-      // xl: '1440px',
       xs: '0px',
       sm: '600px',
       md: '960px',
@@ -18,33 +14,39 @@ export default {
       titleLg: '1500px',
       titleXl: '1850px',
     },
+    maxHeight: {
+      xl : '770px'
+    },
     maxWidth: {
       sm: '600px',
       md: '960px',
       lg: '1280px',
       xl: '1920px',
-      "teamHeadshot": "181px",
-      "teamLogo": "250px"
+      teamHeadshot: '181px',
+      teamLogo: '250px',
+      newsPage: '1440px'
+    },
+    borderRadius: {
+      sm: '4px', 
+      md: '8px', 
+      lg: '16px',
+      xl: '30px',
+      '2xl': '40px',
+    },
+    boxShadow: {
+      raised:
+        'rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px',
     },
     colors: {
-      // 'blue': '#1fb6ff',
-      // 'purple': '#7e5bef',
-      // 'pink': '#ff49db',
-      // 'orange': '#ff7849',
-      // 'green': '#13ce66',
-      // 'yellow': '#ffc82c',
-      // 'gray-dark': '#273444',
-      // 'gray': '#8492a6',
-      // 'gray-light': '#d3dce6',
       // color palette
       'alt-green': '#0b5240',
-      'alt-black':'#383838',
-      'border-color': '#3e3e3e', 
+      'alt-black': '#383838',
+      'border-color': '#3e3e3e',
       'alt-grey': '#bdbdbd',
       'alt-dark': '#5f6368',
       "grey-dark": "#222",
       'white': '#fff !important',
-      "yellow":" yellow",
+      "yellow": " yellow",
       "red-orange": "#ed573f",
       "blue": "#07538f",
       "dark-blue": "#255792",
@@ -137,13 +139,13 @@ export default {
       "time-yellow": "#fcb431",
     },
     lineHeight: {
-      "lhSuperLoose": "2.45",
-      "lhLoose": "1.6",
-      "lhSomeMoreSpace": "1.3",
-      "lhSomeSpace": "1.15",
-      "lhNormal": "1",
-      "lhTight": "0.95",
-      "lhModalHeading": "1.25",
+      lhSuperLoose: '2.45',
+      lhLoose: '1.6',
+      lhSomeMoreSpace: '1.3',
+      lhSomeSpace: '1.15',
+      lhNormal: '1',
+      lhTight: '0.95',
+      lhModalHeading: '1.25',
     },
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
@@ -151,13 +153,6 @@ export default {
       serif: ['Taviraj', 'serif'],
     },
     fontSize: {
-      // sm: '0.8rem',
-      // base: '1rem',
-      // xl: '1.25rem',
-      // '2xl': '1.563rem',
-      // '3xl': '1.953rem',
-      // '4xl': '2.441rem',
-      // '5xl': '3.052rem',
       smallest: '0.75rem',
       small: '0.875rem',
       text: '1rem',
@@ -170,34 +165,7 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
-      },
-      extend: {
-        maxWidth: {
-          '1440': '1440px',
-          '800': '800px',
-          '960': '960px'
-        },
-        maxHeight: {
-          '100': '100px',
-          '770': '770px'
-        }, 
-        borderRadius: {
-          '10p': '10%',
-          '30': '30px',
-          '40': '40px'
-  //     '4xl': '2rem',
-        }, 
-        minWidth: {
-          '200': '200px'
-        },
-        padding: {
-          '15': '15%',
-        },
-    //   spacing: {
-    //     '128': '32rem',
-    //     '144': '36rem',
-    //   },
-      }
+    }
   },
 
   plugins: [],
