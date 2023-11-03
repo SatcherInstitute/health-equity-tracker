@@ -144,11 +144,8 @@ export default {
     },
     zIndex: {
       "z-bottom": 'var(--z-bottom)',
-      // multimap modal blur backdrop -1
       "z-middle": 'var(--z-middle)',
-      // MUI sticky headers assigned 2
       "z-almost-top": 'var(--z-almost-top)',
-      // joyride warm welcome auto-assigned 101
       "z-top": 'var(--z-top)',
     }
   },
