@@ -232,7 +232,13 @@ export function DataSourceListing(props: DataSourceListingProps) {
               </Grid>
             </Grid>
           </DialogTitle>
-
+          <div>
+            {props.source_metadata?.downloadable_blurb && (
+              <p className='mx-10 my-3 text-small font-thin text-alt-black'>
+                {props.source_metadata.downloadable_blurb}
+              </p>
+            )}
+          </div>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (
               <DownloadDatasetListItem
