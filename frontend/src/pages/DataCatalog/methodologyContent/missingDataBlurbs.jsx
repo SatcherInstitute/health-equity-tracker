@@ -196,7 +196,7 @@ export function MissingPhrmaData() {
           used to derive a cell value of 1 to 10. For more information on the
           cell suppression technique, visit the{' '}
           <a href='https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.'>
-            RESDAC website
+            ResDAC website
           </a>
           .
         </li>

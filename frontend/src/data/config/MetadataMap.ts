@@ -380,7 +380,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
   {
     hideFromUser: !SHOW_PHRMA_HIV_AND_CVD, // TODO: remove this once PHRMA merged
     id: 'phrma',
-    data_source_name: 'Medicare Administrative Data',
+    data_source_name:
+      'Medication Utilization and Disease Rates in the Medicare Population',
     data_source_pretty_site_name: 'cms.gov',
     data_source_link:
       'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
