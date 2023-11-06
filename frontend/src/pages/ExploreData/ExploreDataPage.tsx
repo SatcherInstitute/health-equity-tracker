@@ -225,6 +225,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
     // Extract values from the current madlib
     const dtId1 = madLib.activeSelections[1]
 
+    console.log({ dtId1 })
+
     const geo1 =
       madLib.id === 'comparevars'
         ? madLib.activeSelections[5]
@@ -232,6 +234,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
 
     // default settings for compare modes
     const dtId2 = getConfigFromDataTypeId(dtId1).defaultCompareDataTypeId
+    console.log({ dtId2 })
     const geo2 = geo1 === '00' ? '13' : '00' // default to US or Georgia
 
     // Construct UPDATED madlib based on the future mode's Madlib shape
