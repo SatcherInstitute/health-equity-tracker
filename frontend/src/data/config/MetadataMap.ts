@@ -410,6 +410,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'phrma_data-eligibility_county',
     ],
     downloadable: true,
+    downloadable_data_dictionary: true,
   },
   {
     id: 'covid_tracking_project',

@@ -50,7 +50,7 @@ function DownloadDatasetListItem(props: {
         return (
           <CircularProgress
             className={styles.DownloadIcon}
-            aria-label="loading"
+            aria-label='loading'
           />
         )
       case 'loaded':
@@ -90,7 +90,7 @@ function DownloadDatasetListItem(props: {
           />
         </>
       ) : (
-        <Alert severity="error">
+        <Alert severity='error'>
           Error downloading {props.datasetMetadata.name}.
         </Alert>
       )}
@@ -113,12 +113,12 @@ export function DataSourceListing(props: DataSourceListingProps) {
       className={styles.DataSourceListing}
       data-testid={props.source_metadata.id}
     >
-      <Typography variant="h4" className={styles.DatasetTitle} align="left">
+      <Typography variant='h4' className={styles.DatasetTitle} align='left'>
         <Link
           href={props.source_metadata.data_source_link}
-          target="_blank"
-          rel="noopener noreferrer"
-          underline="hover"
+          target='_blank'
+          rel='noopener noreferrer'
+          underline='hover'
         >
           {props.source_metadata.data_source_name}
         </Link>
@@ -159,9 +159,9 @@ export function DataSourceListing(props: DataSourceListingProps) {
             <td>
               <Link
                 href={props.source_metadata.data_source_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                underline="hover"
+                target='_blank'
+                rel='noopener noreferrer'
+                underline='hover'
               >
                 {props.source_metadata.data_source_pretty_site_name}
               </Link>
@@ -173,7 +173,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       <footer className={styles.Footer}>
         {props.source_metadata.downloadable && (
           <Button
-            color="primary"
+            color='primary'
             onClick={() => {
               setDialogIsOpen(true)
             }}
@@ -181,6 +181,15 @@ export function DataSourceListing(props: DataSourceListingProps) {
             aria-label={'Download ' + props.source_metadata.data_source_name}
           >
             View downloadable tables
+          </Button>
+        )}
+        {props.source_metadata.downloadable_data_dictionary && (
+          <Button
+            color='primary'
+            href='/data_dictionaries/medicare_population.csv'
+            className={styles.DownloadListItem}
+          >
+            Download data dictionary
           </Button>
         )}
 
@@ -194,16 +203,16 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <DialogTitle>
             <Grid
               container
-              justifyContent="space-between"
-              alignItems="center"
-              component="header"
+              justifyContent='space-between'
+              alignItems='center'
+              component='header'
             >
               <Grid item xs={10} sm={11}>
                 <Typography
-                  variant="body1"
+                  variant='body1'
                   className={styles.DatasetTitle}
-                  align="left"
-                  component="h3"
+                  align='left'
+                  component='h3'
                 >
                   Available breakdowns for{' '}
                   {props.source_metadata.data_source_name}
@@ -212,17 +221,18 @@ export function DataSourceListing(props: DataSourceListingProps) {
 
               <Grid item xs={2} sm={1}>
                 <IconButton
-                  aria-label="close dialogue"
+                  aria-label='close dialogue'
                   onClick={() => {
                     setDialogIsOpen(false)
                   }}
-                  size="large"
+                  size='large'
                 >
                   <CloseIcon />
                 </IconButton>
               </Grid>
             </Grid>
           </DialogTitle>
+
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (
               <DownloadDatasetListItem

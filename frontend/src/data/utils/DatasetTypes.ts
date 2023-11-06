@@ -15,6 +15,7 @@ export interface DataSourceMetadata {
   readonly demographic_granularity: string
   readonly update_frequency: string
   readonly downloadable: boolean
+  readonly downloadable_data_dictionary?: boolean
   readonly time_period_range?: string
 }
 
