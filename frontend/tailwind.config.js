@@ -14,6 +14,9 @@ export default {
       titleLg: '1500px',
       titleXl: '1850px',
     },
+    maxHeight: {
+      xl : '770px'
+    },
     maxWidth: {
       sm: '600px',
       md: '960px',
@@ -21,9 +24,14 @@ export default {
       xl: '1920px',
       teamHeadshot: '181px',
       teamLogo: '250px',
+      newsPage: '1440px'
     },
-    borderWidth: {
-      1: '1px',
+    borderRadius: {
+      sm: '4px', 
+      md: '8px', 
+      lg: '16px',
+      xl: '30px',
+      '2xl': '40px',
     },
     boxShadow: {
       raised:
@@ -141,7 +149,7 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
-    },
+    }
   },
 
   plugins: [],

@@ -1,6 +1,4 @@
 import { lazy, useEffect, useState } from 'react'
-import styles from './NewsPage.module.scss'
-import Grid from '@mui/material/Grid'
 import { Link, Route, Switch } from 'react-router-dom'
 import {
   NEWS_PAGE_LINK,
@@ -75,14 +73,9 @@ export default function NewsPage(props: NewsPageProps) {
   }, [pageIsWide])
 
   return (
-    <div className={styles.WhatIsHealthEquityPage}>
-      <Grid container className={styles.Grid}>
-        <Grid
-          container
-          className={styles.ResourcesAndNewsRow}
-          direction="column"
-          justifyContent="center"
-        >
+    <section>
+      <div className="m-auto max-w-newsPage">
+        <div className="flex-col">
           <Route path="/">
             <Tabs
               {...tabLayout}
@@ -117,8 +110,8 @@ export default function NewsPage(props: NewsPageProps) {
               <ShareYourStory />
             </Route>
           </Switch>
-        </Grid>
-      </Grid>
-    </div>
+        </div>
+      </div>
+    </section>
   )
 }
