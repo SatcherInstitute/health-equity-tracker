@@ -35,11 +35,11 @@ export const CategoryMap = {
   'behavioral-health': 'Behavioral Health',
   'black-women-health': `Black Women's Health`,
   'chronic-disease': 'Chronic Disease',
-  covid: 'COVID-19',
-  hiv: 'HIV',
-  medicare: 'Medication Utilization in Medicare Population',
-  pdoh: 'Political Determinants of Health',
-  sdoh: 'Social Determinants of Health',
+  'covid': 'COVID-19',
+  'hiv': 'HIV',
+  'medicare': 'Medication Utilization in the Medicare Population',
+  'pdoh': 'Political Determinants of Health',
+  'sdoh': 'Social Determinants of Health',
 }
 
 export type CategoryTypeId = keyof typeof CategoryMap
@@ -205,7 +205,7 @@ const CATEGORIES_LIST: Category[] = [
 
 SHOW_PHRMA &&
   CATEGORIES_LIST.push({
-    title: 'Medication Utilization in Medicare Population',
+    title: 'Medication Utilization in the Medicare Population',
     definition: '',
     options: MEDICARE_CATEGORY_DROPDOWNIDS,
   })

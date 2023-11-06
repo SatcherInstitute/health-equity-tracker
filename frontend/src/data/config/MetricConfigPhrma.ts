@@ -96,7 +96,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Persistent use of beta-blockers after a heart attacked is indicted by major clinical guidelines to reduce the risk of a future heart attack.`,
+      text: `Beta-blockers are recommended by clinical guidelines for reducing the risk of a secondary heart attack.`,
     },
     metrics: {
       sub_population_count: {
@@ -150,7 +150,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Statins are recommended for management of dyslipidemia and/or primary prevention of cardiovascular disease (CVD) in several treatment guidelines. High adherence to statins is associated with decreased risk of death and lower health care costs.`,
+      text: `Statins are recommended by several treatment guidelines for the prevention of cardiovascular disease (CVD).`,
       citations: [
         {
           shortLabel: 'Journal of Clinical Medicine',
@@ -207,7 +207,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Adherence to beta blockers',
     surveyCollectedData: true,
     definition: {
-      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta blockers during the measurement year.`,
+      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta-blockers during the measurement year. A higher rate indicates better performance.`,
       citations: [
         {
           shortLabel: 'PQA Alliance',
@@ -218,7 +218,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI.`,
+      text: `Beta-blockers are recommended by clinical guidelines as a treatment for high blood pressure among some patients with coronary artery disease or heart failure.`,
     },
     metrics: {
       sub_population_count: {
@@ -258,11 +258,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
-      'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
-    fullDisplayName: 'Adherence to RAS-Antagonists',
+      'Adherence to Renin Angiotensin System Antagonists (RASA)',
+    fullDisplayName: 'Adherence to RASA',
     surveyCollectedData: true,
     definition: {
-      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASA) during the measurement year. A higher rate indicates better performance.`,
+      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASAs) during the measurement year. A higher rate indicates better performance.`,
       citations: [
         {
           shortLabel: 'PQA Alliance',
@@ -273,7 +273,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `RASAs are important for the chronic treatment of hypertension and proteinuria in patients with diabetes, in which these drugs have been shown to delay renal failure and heart disease. Non-adherence is a major contributor to poor control of hypertension and a key barrier to reducing mortality and understanding adherence patterns can lead to improved clinical outcomes for patients.`,
+      text: `RASAs are commonly prescribed to treat hypertension. The 2017 American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines recommend RASAs as first-line treatment of hypertension.`,
     },
     metrics: {
       sub_population_count: {
@@ -326,7 +326,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Adherence to calcium channel blockers is important to effectively treat high blood pressure and reduce risk of cardiovascular disease.`,
+      text: `Calcium channel blockers are recommended by clinical guidelines as first-line treatment of hypertension.`,
     },
     metrics: {
       sub_population_count: {
@@ -379,7 +379,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke.`,
+      text: `DOACs are recommended by clinical guidelines among many patients with a history of ischemic stroke and atrial fibrillation.`,
     },
     metrics: {
       sub_population_count: {
@@ -424,7 +424,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       text: `The number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) (otherwise known as a heart attack) per 100K during the measurement period.`,
     },
     description: {
-      text: `Heart disease, such as heart attack and heart failure, is the leading cause of death in the US.`,
+      text: `Heart disease, such as heart attack and heart failure, is leading cause of death in the US.`,
       citations: [
         {
           shortLabel: 'CDC',
@@ -490,7 +490,7 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
       text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
     },
     description: {
-      text: `Effective treatment of HIV with antiretroviral medications can reduce mortality and morbidity rates among people affected by HIV.`,
+      text: `Antiretroviral medications are recommended for the treatment of HIV.`,
     },
     metrics: {
       sub_population_count: {
@@ -532,10 +532,10 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Cases of HIV',
     surveyCollectedData: true,
     definition: {
-      text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of Human immunodeficiency virus (HIV) during the measurement period.`,
+      text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of human immunodeficiency virus (HIV) during the measurement period.`,
     },
     description: {
-      text: `HIV is a major public health crisis that infects thousands of people in the U.S. per year. If left untreated, HIV results in acquired immunodeficiency syndrome, which increases the risk of death.`,
+      text: `HIV is a major public health crisis, which disproportionately impacts certain subpopulations.`,
     },
     metrics: {
       sub_population_count: {

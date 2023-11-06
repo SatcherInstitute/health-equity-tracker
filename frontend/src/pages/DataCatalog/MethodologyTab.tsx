@@ -35,18 +35,18 @@ function MethodologyTab() {
       <h2 className={styles.ScreenreaderTitleHeader}>Methodology</h2>
       <Grid
         container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
+        direction='column'
+        justifyContent='space-around'
+        alignItems='center'
       >
         <Grid item>
           <Grid container className={styles.MethodologySection}>
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
-              <h2 id="main" className={styles.MethodologyQuestion}>
+              <h2 id='main' className={styles.MethodologyQuestion}>
                 Recommended citation (APA) for the Health Equity Tracker:
               </h2>
 
@@ -59,7 +59,7 @@ function MethodologyTab() {
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
               <h2 className={styles.MethodologyQuestion}>
                 {selectFAQs[4].questionText}
@@ -72,14 +72,14 @@ function MethodologyTab() {
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
               <h2 className={styles.MethodologyQuestion}>
                 What are the limitations of the tracker, and why were these
                 health equity topics chosen?
               </h2>
               <div className={styles.MethodologyAnswer}>
-                <h3 id="covid" className={styles.MethodologySubsubheaderText}>
+                <h3 id='covid' className={styles.MethodologySubsubheaderText}>
                   COVID-19
                 </h3>
 
@@ -169,7 +169,7 @@ function MethodologyTab() {
                 </Card>
 
                 <h3
-                  id="covid_vaccinations"
+                  id='covid_vaccinations'
                   className={styles.MethodologySubsubheaderText}
                 >
                   COVID-19 vaccinations
@@ -288,19 +288,19 @@ function MethodologyTab() {
                   <MissingCovidVaccinationData />
                 </Card>
 
-                <span id="asthma"></span>
-                <span id="avoided_care"></span>
-                <span id="cardiovascular_diseases"></span>
-                <span id="chronic_kidney_disease"></span>
-                <span id="copd"></span>
-                <span id="depression"></span>
-                <span id="diabetes"></span>
-                <span id="excessive_drinking"></span>
-                <span id="frequent_mental_distress"></span>
-                <span id="preventable_hospitalizations"></span>
-                <span id="substance"></span>
-                <span id="suicide"></span>
-                <span id="voter_participation"></span>
+                <span id='asthma'></span>
+                <span id='avoided_care'></span>
+                <span id='cardiovascular_diseases'></span>
+                <span id='chronic_kidney_disease'></span>
+                <span id='copd'></span>
+                <span id='depression'></span>
+                <span id='diabetes'></span>
+                <span id='excessive_drinking'></span>
+                <span id='frequent_mental_distress'></span>
+                <span id='preventable_hospitalizations'></span>
+                <span id='substance'></span>
+                <span id='suicide'></span>
+                <span id='voter_participation'></span>
 
                 <h3 className={styles.MethodologySubsubheaderText}>
                   America’s Health Rankings
@@ -361,7 +361,7 @@ function MethodologyTab() {
                 </Card>
 
                 <h3
-                  id="women_in_gov"
+                  id='women_in_gov'
                   className={styles.MethodologySubsubheaderText}
                 >
                   Women in legislative office
@@ -500,8 +500,8 @@ function MethodologyTab() {
                     this data equity issue has seen{' '}
                     <a
                       href={urlMap.senateMENA}
-                      rel="noreferrer"
-                      target="_blank"
+                      rel='noreferrer'
+                      target='_blank'
                     >
                       some progress
                     </a>{' '}
@@ -513,11 +513,11 @@ function MethodologyTab() {
                   <MissingCAWPData />
                 </Card>
 
-                <h3 id="hiv" className={styles.MethodologySubsubheaderText}>
+                <h3 id='hiv' className={styles.MethodologySubsubheaderText}>
                   HIV
                 </h3>
 
-                <p id="hiv_black_women">
+                <p id='hiv_black_women'>
                   The CDC collects and studies information on the number of
                   people diagnosed with HIV in the United States. This
                   information is gathered from state and local HIV surveillance
@@ -615,7 +615,7 @@ function MethodologyTab() {
                   <MissingHIVData />
                 </Card>
 
-                <p id="hiv_prep">
+                <p id='hiv_prep'>
                   <b>PrEP Coverage</b>
                 </p>
                 <p>
@@ -694,7 +694,7 @@ function MethodologyTab() {
                   <MissingPrepData />
                 </Card>
 
-                <p id="hiv_care">
+                <p id='hiv_care'>
                   <b>Linkage to Care</b>
                 </p>
                 <p>
@@ -763,7 +763,7 @@ function MethodologyTab() {
                     </ul>
                   </li>
                 </ul>
-                <p id="hiv_stigma">
+                <p id='hiv_stigma'>
                   <b>HIV Stigma</b>
                 </p>
                 <p>
@@ -811,9 +811,9 @@ function MethodologyTab() {
 
                 {SHOW_PHRMA && (
                   <>
-                    <span id="medicare_cardiovascular"></span>
-                    <span id="medicare_hiv"></span>
-                    <span id="medicare_mental_health"></span>
+                    <span id='medicare_cardiovascular'></span>
+                    <span id='medicare_hiv'></span>
+                    <span id='medicare_mental_health'></span>
                     <h3 className={styles.MethodologySubsubheaderText}>
                       Medicare Beneficiaries - Disease Rates and Medication
                       Adherence
@@ -827,7 +827,7 @@ function MethodologyTab() {
                       18+, continuously enrolled, and treated with a medication
                       of interest during the measurement period. For more
                       information refer directly to the{' '}
-                      <a href="https://www2.ccwdata.org/documents/10280/19022436/codebook-mbsf-abcd.pdf">
+                      <a href='https://www2.ccwdata.org/documents/10280/19022436/codebook-mbsf-abcd.pdf'>
                         data dictionary
                       </a>
                       .
@@ -900,26 +900,26 @@ function MethodologyTab() {
                         <ul>
                           <li>
                             <b>Renin Angiotensin System Antagonists</b>{' '}
-                            <a href="https://www.pqaalliance.org/measures-overview#pdc-rasa">
+                            <a href='https://www.pqaalliance.org/measures-overview#pdc-rasa'>
                               (PQA PDC-RASA)
                             </a>
                           </li>
                           <li>
                             <b>Statins</b>{' '}
-                            <a href="https://www.pqaalliance.org/measures-overview#pdc-sta">
+                            <a href='https://www.pqaalliance.org/measures-overview#pdc-sta'>
                               (PQA PDC-STA)
                             </a>
                           </li>
 
                           <li>
                             <b>Beta-blockers</b>{' '}
-                            <a href="https://www.pqaalliance.org/measures-overview#pdc-bb">
+                            <a href='https://www.pqaalliance.org/measures-overview#pdc-bb'>
                               (PQA PDC-BB)
                             </a>
                           </li>
                           <li>
                             <b>Calcium Channel Blockers</b>{' '}
-                            <a href="https://www.pqaalliance.org/measures-overview#pdc-ccb">
+                            <a href='https://www.pqaalliance.org/measures-overview#pdc-ccb'>
                               (PQA PDC-CCB)
                             </a>
                           </li>
@@ -927,13 +927,13 @@ function MethodologyTab() {
                             <b>
                               Adherence to Direct-Acting Oral Anticoagulants
                             </b>{' '}
-                            <a href="https://www.pqaalliance.org/measures-overview#pdc-doac">
+                            <a href='https://www.pqaalliance.org/measures-overview#pdc-doac'>
                               (PQA PDC-DOAC)
                             </a>
                           </li>
                           <li>
                             <b>Antiretroviral Medications</b>{' '}
-                            <a href="https://www.pqaalliance.org/measures-overview#pdc-arv">
+                            <a href='https://www.pqaalliance.org/measures-overview#pdc-arv'>
                               (PQA PDC-ARV)
                             </a>
                           </li>
@@ -963,7 +963,7 @@ function MethodologyTab() {
                               Persistence of Beta-Blocker Treatment After a
                               Heart Attack
                             </b>{' '}
-                            <a href="https://www.qualityforum.org/QPS/0071">
+                            <a href='https://www.qualityforum.org/QPS/0071'>
                               (NQF 0071)
                             </a>
                           </li>
@@ -972,7 +972,7 @@ function MethodologyTab() {
                               Adherence to Antipsychotic Medications For
                               Individuals with Schizophrenia
                             </b>{' '}
-                            <a href="https://www.qualityforum.org/QPS/1879">
+                            <a href='https://www.qualityforum.org/QPS/1879'>
                               (NQF 1879)
                             </a>
                           </li>
@@ -1072,17 +1072,18 @@ function MethodologyTab() {
 
                     <h4>Medicare Demographic Identifiers</h4>
                     <p>
-                      <b>Race/ethnicity:</b> Medicare enhances the Social
-                      Security Administration's race and ethnicity
-                      determinations and applies an algorithm that{' '}
-                      <a href="https://resdac.org/cms-data/variables/research-triangle-institute-rti-race-code">
-                        further identifies beneficiaries of Hispanic and Asian
-                        descent
-                      </a>
-                      . We represent racial/ethnic information using seven
-                      groups, and have adjusted the wording in some cases to use
-                      more inclusive terminology and to correspond more closely
-                      with our other data sources.
+                      <b>Race/ethnicity:</b> Medicare enhances the race and
+                      ethnicity of each beneficiary that has been used by the
+                      Social Security Administration and applies{' '}
+                      <a href='https://resdac.org/cms-data/variables/research-triangle-institute-rti-race-code'>
+                        an algorithm
+                      </a>{' '}
+                      that identifies more beneficiaries of Hispanic and Asian
+                      descent. Due to sample size constraints and data
+                      availability, we categorized racial/ethnic groups using
+                      the following groups, and have adjusted the wording in
+                      some cases to use more inclusive terminology and to
+                      correspond more closely with our other data sources.
                     </p>
                     <ul>
                       <li>
@@ -1129,7 +1130,7 @@ function MethodologyTab() {
 
                     <p>
                       <b>Sex:</b> Medicare{' '}
-                      <a href="https://resdac.org/cms-data/variables/sex">
+                      <a href='https://resdac.org/cms-data/variables/sex'>
                         collects the sex of each beneficiary
                       </a>
                       as Unknown, Male, or Female.
@@ -1139,10 +1140,10 @@ function MethodologyTab() {
                       <b>Age:</b> Medicare provides the age of each beneficiary
                       at the end of the reference year (i.e., 2020), or, for
                       beneficiaries that died during the year,{' '}
-                      <a href="https://resdac.org/cms-data/variables/age-beneficiary-end-year">
+                      <a href='https://resdac.org/cms-data/variables/age-beneficiary-end-year'>
                         age as of the date of death
                       </a>
-                      . We categorized age into six groups:
+                      . We categorized age into the following groups:
                     </p>
                     <ul>
                       <li>18-39 years old</li>
@@ -1159,14 +1160,14 @@ function MethodologyTab() {
                       Subsidy (LIS) program for Medicare Part D beneficiaries
                       provides subsidies to reduce or eliminate premiums and
                       deductibles, and offers zero to reduced co-payments{' '}
-                      <a href="https://resdac.org/cms-data/variables/current-reason-entitlement-code">
+                      <a href='https://resdac.org/cms-data/variables/current-reason-entitlement-code'>
                         for low-income Medicare Part D beneficiaries
                       </a>
                       . We categorized Medicare beneficiaries, who were eligible
                       for the Part D LIS program, for 1 or more months during
                       2020 as “receiving Low Income Subsidy.” Medicare
                       beneficiaries, who were{' '}
-                      <a href="https://resdac.org/cms-data/variables/monthly-cost-sharing-group-under-part-d-low-income-subsidy-january">
+                      <a href='https://resdac.org/cms-data/variables/monthly-cost-sharing-group-under-part-d-low-income-subsidy-january'>
                         not eligible for the Part D LIS program
                       </a>{' '}
                       at any time during 2020 were classified as “not receiving
@@ -1193,7 +1194,7 @@ function MethodologyTab() {
                     </Card>
                   </>
                 )}
-                <h3 className={styles.MethodologySubsubheaderText} id="svi">
+                <h3 className={styles.MethodologySubsubheaderText} id='svi'>
                   Social Vulnerability Index (SVI)
                 </h3>
 
@@ -1232,7 +1233,7 @@ function MethodologyTab() {
                 </p>
 
                 <h3
-                  id="incarceration"
+                  id='incarceration'
                   className={styles.MethodologySubsubheaderText}
                 >
                   Incarceration
@@ -1487,9 +1488,9 @@ function MethodologyTab() {
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
-              <h2 className={styles.MethodologyQuestion} id="metrics">
+              <h2 className={styles.MethodologyQuestion} id='metrics'>
                 What do the metrics on the tracker mean?
               </h2>
               <div className={styles.MethodologyAnswer}>
@@ -1570,7 +1571,7 @@ function MethodologyTab() {
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
               <h2 className={styles.MethodologyQuestion}>
                 What do the condition variables on the tracker mean?
@@ -1589,7 +1590,7 @@ function MethodologyTab() {
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
               <h2 className={styles.MethodologyQuestion}>
                 What do the race/ethnicity groups mean?
@@ -1688,7 +1689,7 @@ function MethodologyTab() {
             <Grid
               item
               className={styles.MethodologyQuestionAndAnswer}
-              component="article"
+              component='article'
             >
               <div className={styles.MethodologyInfoBar}>
                 <p>
