@@ -1121,9 +1121,7 @@ function MethodologyTab() {
                       </li>
                       <li>
                         <code>Other</code> we represent as{' '}
-                        <b>
-                          Two or more races & Unrepresented races (Non-Hispanic)
-                        </b>
+                        <b>Unrepresented race (Non-Hispanic)</b>
                       </li>
                       <li>
                         <code>Unknown</code> we represent on our{' '}
