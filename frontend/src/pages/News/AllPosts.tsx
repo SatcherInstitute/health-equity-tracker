@@ -17,6 +17,7 @@ import { useQuery } from 'react-query'
 import { type Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
 import { Link } from 'react-router-dom'
+import { getCssVar } from '../../utils/designUtils'
 
 export const ARTICLES_TERM = 'Articles'
 const NUM_OF_LOADING_SKELETONS = 6
@@ -103,6 +104,8 @@ function AllPosts() {
 
   const categoryParam: string | null = useUrlSearchParams().get('category')
   const authorParam: string | null = useUrlSearchParams().get('author')
+
+  const altGreenRgb = getCssVar('alt-green')
 
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
@@ -239,14 +242,13 @@ function AllPosts() {
               <div>
                 <h2
                   id="main"
+                  style={{ color: `rgb(${altGreenRgb})` }}
                   className="
                     m-0
                     text-center
                     font-serif
                     text-bigHeader
-                    font-light
-                    text-alt-green
-                "
+                    font-light"
                 >
                   News and Stories
                 </h2>
