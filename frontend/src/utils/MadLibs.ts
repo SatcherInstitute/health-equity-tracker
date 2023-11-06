@@ -8,9 +8,15 @@ import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfi
 import { COVID_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigCovidCategory'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigHivCategory'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPDOH'
-import { MEDICARE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigPhrma'
+import {
+  MEDICARE_CATEGORY_DROPDOWNIDS,
+  MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
+} from '../data/config/MetricConfigPhrma'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigSDOH'
-import { SHOW_PHRMA } from '../data/providers/PhrmaProvider'
+import {
+  SHOW_PHRMA_MENTAL_HEALTH,
+  SHOW_PHRMA_HIV_AND_CVD,
+} from '../data/providers/PhrmaProvider'
 import { FIPS_MAP, GEORGIA_FIPS, USA_FIPS } from '../data/utils/Fips'
 
 // Map of phrase segment index to its selected value
@@ -203,11 +209,13 @@ const CATEGORIES_LIST: Category[] = [
   },
 ]
 
-SHOW_PHRMA &&
+SHOW_PHRMA_HIV_AND_CVD &&
   CATEGORIES_LIST.push({
     title: 'Medication Utilization in the Medicare Population',
     definition: '',
-    options: MEDICARE_CATEGORY_DROPDOWNIDS,
+    options: SHOW_PHRMA_MENTAL_HEALTH
+      ? MEDICARE_CATEGORY_DROPDOWNIDS
+      : MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
   })
 
 const MADLIB_LIST: MadLib[] = [

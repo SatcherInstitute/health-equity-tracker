@@ -4,6 +4,11 @@ import {
 } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 
+export const MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS = [
+  'medicare_cardiovascular',
+  'medicare_hiv',
+]
+
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'medicare_cardiovascular',
   'medicare_hiv',

@@ -21,7 +21,10 @@ import {
   MissingAHRData,
   MissingPhrmaData,
 } from './methodologyContent/missingDataBlurbs'
-import { SHOW_PHRMA } from '../../data/providers/PhrmaProvider'
+import {
+  SHOW_PHRMA_HIV_AND_CVD,
+  SHOW_PHRMA_MENTAL_HEALTH,
+} from '../../data/providers/PhrmaProvider'
 import { HashLink } from 'react-router-hash-link'
 import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
@@ -809,7 +812,7 @@ function MethodologyTab() {
                   </li>
                 </ul>
 
-                {SHOW_PHRMA && (
+                {SHOW_PHRMA_HIV_AND_CVD && (
                   <>
                     <span id='medicare_cardiovascular'></span>
                     <span id='medicare_hiv'></span>
@@ -967,15 +970,17 @@ function MethodologyTab() {
                               (NQF 0071)
                             </a>
                           </li>
-                          <li>
-                            <b>
-                              Adherence to Antipsychotic Medications For
-                              Individuals with Schizophrenia
-                            </b>{' '}
-                            <a href='https://www.qualityforum.org/QPS/1879'>
-                              (NQF 1879)
-                            </a>
-                          </li>
+                          {SHOW_PHRMA_MENTAL_HEALTH && (
+                            <li>
+                              <b>
+                                Adherence to Antipsychotic Medications For
+                                Individuals with Schizophrenia
+                              </b>{' '}
+                              <a href='https://www.qualityforum.org/QPS/1879'>
+                                (NQF 1879)
+                              </a>
+                            </li>
+                          )}
                         </ul>
                       </li>
                       <li>
@@ -997,21 +1002,23 @@ function MethodologyTab() {
                                 received persistent beta-blocker treatment for
                                 six months after discharge.
                               </li>
-                              <li>
-                                <b>
-                                  Adherence to Antipsychotic Medications For
-                                  Individuals with Schizophrenia
-                                </b>{' '}
-                                measures the percentage of Medicare
-                                fee-for-service beneficiaries 18 years and older
-                                during the measurement year with schizophrenia
-                                or schizoaffective disorder who had at least two
-                                prescriptions filled for any antipsychotic
-                                medication and who had a Proportion of Days
-                                Covered (PDC) of at least 0.8 for antipsychotic
-                                medications during the measurement period (12
-                                consecutive months)
-                              </li>
+                              {SHOW_PHRMA_MENTAL_HEALTH && (
+                                <li>
+                                  <b>
+                                    Adherence to Antipsychotic Medications For
+                                    Individuals with Schizophrenia
+                                  </b>{' '}
+                                  measures the percentage of Medicare
+                                  fee-for-service beneficiaries 18 years and
+                                  older during the measurement year with
+                                  schizophrenia or schizoaffective disorder who
+                                  had at least two prescriptions filled for any
+                                  antipsychotic medication and who had a
+                                  Proportion of Days Covered (PDC) of at least
+                                  0.8 for antipsychotic medications during the
+                                  measurement period (12 consecutive months)
+                                </li>
+                              )}
                             </ul>
                           </li>
                         </ul>
@@ -1049,10 +1056,12 @@ function MethodologyTab() {
                                 HIV defined as beneficiaries having 1+ medical
                                 claims with ICD-10-CM of B20.
                               </li>
-                              <li>
-                                Schizophrenia defined as beneficiaries having 1+
-                                medical claims with ICD-10-CM of F20.
-                              </li>
+                              {SHOW_PHRMA_MENTAL_HEALTH && (
+                                <li>
+                                  Schizophrenia defined as beneficiaries having
+                                  1+ medical claims with ICD-10-CM of F20.
+                                </li>
+                              )}
                             </ul>
                           </li>
                           <li>
