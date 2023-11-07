@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography, Skeleton } from '@mui/material'
+import { Button, Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
 import styles from './NewsPage.module.scss'
 import { Link, Redirect, useParams } from 'react-router-dom'
@@ -20,6 +20,7 @@ import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
 import LazyLoad from 'react-lazyload'
+import { getCssVar } from '../../utils/designUtils'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -36,6 +37,8 @@ export default function SinglePost(props: SinglePostProps) {
   const [nextArticle, setNextArticle] = useState<Article>()
 
   const { slug }: { slug?: string } = useParams()
+
+  const altGreenRgb = getCssVar('alt-green')
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
@@ -84,7 +87,7 @@ export default function SinglePost(props: SinglePostProps) {
           }}
         />
       )}
-      <Grid container className={styles.Grid}>
+      <div className="flex flex-wrap justify-center">
         <Helmet>
           <title>{`News${
             fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -100,16 +103,22 @@ export default function SinglePost(props: SinglePostProps) {
         </Helmet>
 
         {/* HEADER ROW */}
-        <Grid
-          container
-          className={styles.HeaderRow}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
+        <div
+          className="
+            flex 
+            flex-row 
+            flex-wrap 
+            items-center 
+            justify-center 
+            border-0 
+            border-b 
+            border-solid 
+            border-border-color
+        "
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
 
-          <Grid container item xs={10} md={4} className={styles.HeaderImgItem}>
+          <div className="flex w-10/12 items-center justify-center md:w-1/3">
             {isLoading && (
               <Skeleton width={300} height={300} animation="wave"></Skeleton>
             )}
@@ -119,46 +128,70 @@ export default function SinglePost(props: SinglePostProps) {
             {!isLoading && !error && (
               <img
                 src={articleImage ?? hetLogo}
-                className={styles.SingleArticleHeaderImg ?? hetLogo}
+                className="
+                  max-h-80 
+                  mt-8	
+                  h-auto 
+                  w-3/5	
+                  max-w-md 
+                  rounded-xl
+                  object-contain 
+                  md:mt-0 
+                  md:max-h-xl"
                 alt={articleImageAltText}
                 width={200}
                 height={100}
               />
             )}
-          </Grid>
+          </div>
 
           {/* TEXT SECTION OF HEADER */}
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={8}
-            className={styles.SingleArticleHeaderTextItem}
+          <div
+            className="
+              px-15 
+              flex 
+              w-full 
+              flex-col 
+              flex-wrap 
+              justify-center 
+              border-0
+              border-solid
+              border-border-color	
+              py-8 
+              md:w-2/3 
+              md:border-l	
+              md:px-16 
+              md:py-24
+          "
           >
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
-            <Typography
-              className={styles.SingleArticleHeaderText}
-              variant="h2"
-              paragraph={true}
-              component="div"
+            <div
+              style={{ color: `rgb(${altGreenRgb})` }}
+              className="
+              leading-tight 
+              m-auto 
+              pb-4 
+              text-left 
+              font-serif 
+              text-header
+              font-light 
+              md:text-bigHeader
+            "
             >
               {isLoading ? (
                 <Skeleton></Skeleton>
               ) : (
                 getHtml(fullArticle?.title?.rendered ?? '')
               )}
-            </Typography>
+            </div>
 
             {/* AUTHOR(S) OR LOADING OR NOTHING */}
-            <Typography
-              className={styles.SingleArticleDetailText}
-              variant="body1"
-            >
+            <div className="text-start text-text text-alt-dark">
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   Authored by{' '}
                   <Link
-                    className={styles.FilterLink}
+                    className="cursor-pointer"
                     to={`${NEWS_PAGE_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
@@ -175,40 +208,30 @@ export default function SinglePost(props: SinglePostProps) {
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
               {fullArticle?.acf?.additional_contributors ? (
-                <Typography
-                  className={styles.SingleArticleDetailText}
-                  variant="body1"
-                >
+                <div className="text-start text-text text-alt-dark underline">
                   Contributors: {fullArticle.acf.additional_contributors}
-                </Typography>
+                </div>
               ) : (
                 ''
               )}
-            </Typography>
+            </div>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
-            <Typography
-              className={styles.SingleArticleDetailText}
-              variant="body1"
-            >
+            <div className="text-start text-text text-alt-dark">
               {fullArticle?.date ? (
                 <>Published {prettyDate(fullArticle.date)}</>
               ) : (
                 <Skeleton width="50%"></Skeleton>
               )}
-            </Typography>
+            </div>
 
             {/* OPTIONAL ARTICLE CATEGORIES */}
             {articleCategories && (
-              <Typography
-                className={styles.SingleArticleDetailText}
-                variant="body1"
-              >
+              <div className="text-start text-text text-alt-dark">
                 Categorized under:{' '}
                 {articleCategories.map((categoryChunk, i) => (
                   <span key={categoryChunk.id}>
                     <Link
-                      className={styles.CategoryTag}
                       to={`${NEWS_PAGE_LINK}?category=${categoryChunk.name}`}
                     >
                       {categoryChunk.name}
@@ -216,35 +239,39 @@ export default function SinglePost(props: SinglePostProps) {
                     {i < articleCategories.length - 1 ? ', ' : ''}
                   </span>
                 ))}
-              </Typography>
+              </div>
             )}
 
             {/* SOCIAL MEDIA ICONS */}
-            <Grid item xs={12} md={3} sx={{ py: 3, textAlign: 'left' }}>
+            <div className="w-full py-6 text-left md:w-1/4">
               <ShareButtons isMobile={false} article={fullArticle} />
-            </Grid>
-          </Grid>
-        </Grid>
+            </div>
+          </div>
+        </div>
 
         {/* ARTICLE CONTENT SECTION */}
-        <Grid
-          container
-          className={styles.NewsAndStoriesRow}
-          direction="row"
-          justifyContent="center"
-        >
-          <Grid item>
+        <div className="flex flex-wrap justify-center py-5">
+          <div>
             <article className={styles.FullArticleContainer}>
               {/* RENDER WP ARTICLE HTML */}
               {fullArticle && getHtml(fullArticle.content?.rendered)}
 
               {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
               {fullArticle?.acf?.full_article_url && (
-                <Box mt={5}>
+                <div className="mt-10">
                   <Button
                     variant="contained"
                     color="primary"
-                    className={styles.FullLink}
+                    className="
+                      rounded-2xl 
+                      bg-alt-green 
+                      px-8 
+                      py-4 
+                      text-center 
+                      font-sansTitle 
+                      text-title 
+                      font-medium 
+                      text-white"
                     href={fullArticle.acf.full_article_url}
                   >
                     Continue Reading
@@ -253,12 +280,12 @@ export default function SinglePost(props: SinglePostProps) {
                       : ''}{' '}
                     <OpenInNewIcon />
                   </Button>
-                </Box>
+                </div>
               )}
 
               {/* OPTIONALLY RENDER REPRINT NOTICE */}
-              <Box mt={5}>
-                <Typography className={styles.HeaderSubtext} variant="body1">
+              <div className="mt-10">
+                <div className="leading-none text-left font-sansText text-text font-medium">
                   {fullArticle?.acf?.canonical_url && (
                     <span className={styles.ReprintNotice}>
                       Note: this article was originally published on{' '}
@@ -266,40 +293,40 @@ export default function SinglePost(props: SinglePostProps) {
                       , and is reprinted here with permission.
                     </span>
                   )}
-                </Typography>
-              </Box>
+                </div>
+              </div>
             </article>
-          </Grid>
+          </div>
 
           {/* PREV / NEXT ARTICLES NAV */}
           <LazyLoad offset={300} height={300} once>
-            <Grid container className={styles.PrevNextSection}>
-              <Grid item xs={12} md={4}>
+            <div className="flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey">
+              <div className="w-full md:w-1/3">
                 {prevArticle && (
                   <NewsPreviewCard article={prevArticle} arrow={'prev'} />
                 )}
-              </Grid>
-              <Grid item xs={12} md={4}>
+              </div>
+              <div className="w-full md:w-1/3">
                 <ReactRouterLinkButton
                   url={NEWS_PAGE_LINK}
                   className={styles.PrevNextHeaderText}
                   displayName="All Posts"
                 />
-              </Grid>
-              <Grid item xs={12} md={4}>
+              </div>
+              <div className="w-full md:w-1/3">
                 {nextArticle && (
                   <>
                     <NewsPreviewCard article={nextArticle} arrow={'next'} />
                   </>
                 )}
-              </Grid>
-            </Grid>
+              </div>
+            </div>
           </LazyLoad>
-        </Grid>
+        </div>
 
         {/* EMAIL SIGNUP  */}
         <SignupSection />
-      </Grid>
+      </div>
     </>
   )
 }
