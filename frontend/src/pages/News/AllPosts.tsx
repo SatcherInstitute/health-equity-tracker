@@ -33,29 +33,29 @@ export function ArticlesSkeleton(props: {
   const numberLoadingSkeletons = props.numberLoading ?? NUM_OF_LOADING_SKELETONS
 
   return (
-    <div className="grid grid-flow-row justify-between gap-1">
+    <div className='grid grid-flow-row justify-between gap-1'>
       {[...Array(numberLoadingSkeletons)].map((_, i) => {
         return (
           <div
-            className="flex w-full flex-col items-center sm:w-5/12 md:w-1/4"
+            className='flex w-full flex-col items-center sm:w-5/12 md:w-1/4'
             key={i}
           >
             <Skeleton
               animation={props.doPulse && 'wave'}
-              variant="rectangular"
+              variant='rectangular'
               height={100}
               width={150}
             ></Skeleton>
             <Skeleton
               animation={false}
-              variant="text"
+              variant='text'
               height={36}
               width={200}
             ></Skeleton>
-            <div className="mb-10">
+            <div className='mb-10'>
               <Skeleton
                 animation={props.doPulse && 'wave'}
-                variant="text"
+                variant='text'
                 height={36}
                 width={175}
               ></Skeleton>
@@ -75,14 +75,14 @@ function PinnedArticles(props: PinnedArticlesProps) {
   const { articles } = props
 
   return articles?.length > 0 ? (
-    <div className="shadow-md">
-      <h6 className="m-0 text-center font-serif font-light text-alt-green">
+    <div className='shadow-md'>
+      <h6 className='m-0 text-center font-serif font-light text-alt-green'>
         Featured:
       </h6>
-      <div className="flex">
+      <div className='flex'>
         {articles.map((post: any) => {
           return (
-            <div className="w-full sm:w-1/2" key={post.id}>
+            <div className='w-full sm:w-1/2' key={post.id}>
               <NewsPreviewCard article={post} />
             </div>
           )
@@ -105,7 +105,8 @@ function AllPosts() {
   const categoryParam: string | null = useUrlSearchParams().get('category')
   const authorParam: string | null = useUrlSearchParams().get('author')
 
-  const altGreenRgb = getCssVar('alt-green')
+  // TODO: once MUI is removed, these colors should be applied via tailwind directly
+  const altGreenRgb = getCssVar<string>('alt-green')
 
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
@@ -205,63 +206,62 @@ function AllPosts() {
   if (data?.data.length === 0) return <></>
 
   return (
-    <div className="flex w-full flex-wrap">
+    <div className='flex w-full flex-wrap'>
       <Helmet>
         <title>News - Health Equity Tracker</title>
       </Helmet>
       <div
-        className="
-        flex 
-        flex-wrap 
-        border-0 
-        border-b 
-        border-solid 
-        border-alt-grey	
-        px-5 
+        className='
+        flex
+        flex-wrap
+        border-0
+        border-b
+        border-solid
+        border-alt-grey
+        px-5
         py-12
-      "
+      '
       >
         <div
-          className="
-          flex 
-          hidden 
-          w-full 
-          flex-col 
-          flex-wrap 
-          md:block 
+          className='
+          hidden
+          w-full
+          flex-col
+          flex-wrap
+          md:block
           md:w-1/4
-        "
+        '
         >
           <ArticleFilters filterType={'category'} filterOptions={categories} />
           <ArticleFilters filterType={'author'} filterOptions={authors} />
         </div>
 
-        <div className="w-full md:w-3/4">
-          <div className="mx-10">
+        <div className='w-full md:w-3/4'>
+          <div className='mx-10'>
             <div>
               <div>
                 <h2
-                  id="main"
+                  id='main'
                   style={{ color: `rgb(${altGreenRgb})` }}
-                  className="
+                  className='
                     m-0
                     text-center
                     font-serif
                     text-bigHeader
-                    font-light"
+                    font-light'
                 >
                   News and Stories
                 </h2>
               </div>
               <div>
                 <p
-                  className="
-                    leading-6 
-                    text-left 
-                    font-sansText 
-                    text-title 
+                  className='
+                    leading-6
+                    text-left
+                    font-sansText
+                    text-title
                     font-light
-                "
+                '
                 >
                   We believe in the power of storytelling. The Health Equity
                   Tracker is designed to enable transformative change through
@@ -273,13 +273,13 @@ function AllPosts() {
                 </p>
 
                 <p
-                  className="
-                    leading-6 
-                    text-left 
-                    font-sansText 
-                    text-title 
+                  className='
+                    leading-6
+                    text-left
+                    font-sansText
+                    text-title
                     font-light
-                "
+                '
                 >
                   Health Equity is a transformative pursuit that empowers all
                   people: giving their voices the platform to be heard and their
@@ -293,8 +293,8 @@ function AllPosts() {
             </div>
           </div>
 
-          <div className="flex flex-wrap justify-center">
-            <div className="m-10">
+          <div className='flex flex-wrap justify-center'>
+            <div className='m-10'>
               {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
               {selectedAuthor?.length === 0 &&
                 selectedCategory?.length === 0 && (
@@ -306,52 +306,52 @@ function AllPosts() {
                 <>
                   <Link
                     to={NEWS_PAGE_LINK}
-                    className="
+                    className='
                     leading-7
-                    inline	
+                    inline
                     px-4
                     py-1.5
                     font-sansText
                     text-small
-                    font-medium		
-                    normal-case	
-                    tracking-wide	
+                    font-medium
+                    normal-case
+                    tracking-wide
                     no-underline
-                "
+                '
                   >
                     {ARTICLES_TERM}
                   </Link>
                   <span
-                    className="
+                    className='
                       leading-7
-                      inline	
+                      inline
                       px-4
                       py-1.5
                       font-sansText
                       text-small
-                      font-medium		
-                      normal-case	
-                      tracking-wide	
+                      font-medium
+                      normal-case
+                      tracking-wide
                       no-underline
-                  "
+                  '
                   >
                     ›
                   </span>
                 </>
               )}
               <span
-                className="
+                className='
                       leading-7
-                      inline	
+                      inline
                       px-4
                       py-1.5
                       font-sansText
                       text-small
-                      font-medium		
-                      normal-case	
-                      tracking-wide	
+                      font-medium
+                      normal-case
+                      tracking-wide
                       no-underline
-                  "
+                  '
               >
                 {selectedAuthor?.length > 0 && `Author: ${selectedAuthor}`}
                 {selectedCategory?.length > 0 &&
@@ -360,11 +360,11 @@ function AllPosts() {
             </div>
 
             {/* all posts matching client applied filters */}
-            <div className="flex flex-wrap items-start justify-between">
+            <div className='flex flex-wrap items-start justify-between'>
               {filteredArticles?.map((post: any) => {
                 return (
-                  <div className="w-full sm:w-1/2" key={post.id}>
-                    <div className="my-4">
+                  <div className='w-full sm:w-1/2' key={post.id}>
+                    <div className='my-4'>
                       <NewsPreviewCard article={post} />
                     </div>
                   </div>
@@ -372,18 +372,18 @@ function AllPosts() {
               })}
             </div>
 
-            <div className="flex flex-col justify-center">
+            <div className='flex flex-col justify-center'>
               {isLoading && (
                 <>
                   <ArticlesSkeleton doPulse={true} />
-                  <div className="m-10">
+                  <div className='m-10'>
                     <i>Updating articles...</i>
                   </div>
                 </>
               )}
               {error && !isLoading && (
                 <>
-                  <div className="m-10">
+                  <div className='m-10'>
                     <i>Problem updating articles.</i>
                   </div>
                   <ArticlesSkeleton doPulse={false} />
@@ -394,25 +394,25 @@ function AllPosts() {
         </div>
 
         <div
-          className="
-            flex 
-            w-full 
-            flex-wrap 
-            content-center 
-            justify-around 
+          className='
+            flex
+            w-full
+            flex-wrap
+            content-center
+            justify-around
             md:hidden
-        "
+        '
         >
-          <div className="w-full">
-            <div className="mt-16 border-0	border-t border-solid border-alt-grey p-4"></div>
+          <div className='w-full'>
+            <div className='mt-16 border-0	border-t border-solid border-alt-grey p-4'></div>
           </div>
-          <div className="flex w-full justify-center sm:w-1/2">
+          <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters
               filterType={'category'}
               filterOptions={categories}
             />
           </div>
-          <div className="flex w-full justify-center sm:w-1/2">
+          <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters filterType={'author'} filterOptions={authors} />
           </div>
         </div>

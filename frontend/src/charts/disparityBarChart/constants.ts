@@ -21,7 +21,6 @@ const SIDE_BY_SIDE_FULL_BAR_RATIO = 5
 const SMALL_MIN_TICK_BAR_STEP = 5
 const THIN_RATIO = 0.3
 const Y_STEP = 60
-const Z_MIDDLE = 0
 
 // calculations
 const SIDE_BY_SIDE_BAND_HEIGHT =
@@ -58,7 +57,6 @@ export {
   SMALL_MIN_TICK_BAR_STEP,
   THIN_RATIO,
   Y_STEP,
-  Z_MIDDLE,
   MIDDLE_OF_BAND,
   SIDE_BY_SIDE_OFFSET,
   ALT_TEXT_LABELS,
