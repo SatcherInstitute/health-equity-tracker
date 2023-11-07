@@ -1,9 +1,7 @@
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
-import styles from './NewsPage.module.scss'
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import { getHtml, ReactRouterLinkButton } from '../../utils/urlutils'
 import { type Article } from './NewsPage'
-import { Box, Grid } from '@mui/material'
 import LazyLoad from 'react-lazyload'
 
 interface NewsPreviewCardProps {
@@ -17,72 +15,58 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
   return (
     <ReactRouterLinkButton
       url={`${NEWS_PAGE_LINK}/${article.slug}`}
-      className={styles.NewsPreviewHeaderText}
+      className='font-title m-0 p-4 text-center'
     >
-      <Grid container wrap="nowrap" justifyContent="space-evenly">
+      <div className='flex flex-nowrap justify-evenly'>
         {/* Optional "Left/Previous" Arrow */}
-        <Grid
-          item
-          xs={1}
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <div className='flex w-1/12 flex-col items-center justify-center'>
           {props.arrow === 'prev' ? (
-            <span className={styles.PrevNextArrow}>«</span>
+            <div className='font-serif text-bigHeader font-medium'>«</div>
           ) : (
             ' '
           )}
-        </Grid>
+        </div>
 
-        <Grid
-          item
-          xs={11}
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <div className='flex w-9/12 flex-col items-center justify-center'>
           <LazyLoad once height={100} offset={300}>
             <img
-              height="100"
+              height='100'
               src={
                 article?._embedded?.['wp:featuredmedia']?.[0]?.media_details
                   ?.sizes?.medium?.source_url || AppbarLogo
               }
-              className={
-                article._embedded['wp:featuredmedia']
-                  ? styles.NewsPreviewThumbnail
-                  : styles.LogoThumbnail
-              }
-              alt=""
+              className='max-h-28 w-auto rounded-md'
+              alt=''
             />
           </LazyLoad>
 
-          <Box mx={1}>
-            <h3 className={styles.NewsPreviewTitleText}>
+          <div className='mx-2'>
+            <h3
+              className='
+              font-title
+              m-0
+              p-4
+              text-center
+              font-serif
+              text-title
+              font-light
+              leading-lhModalHeading
+          '
+            >
               {getHtml(article.title.rendered, true)}
             </h3>
-          </Box>
-        </Grid>
+          </div>
+        </div>
 
         {/* Optional "Right/Next" Arrow */}
-        <Grid
-          item
-          xs={1}
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-        >
+        <div className='flex w-1/12 flex-col items-center justify-center'>
           {props.arrow === 'next' ? (
-            <span className={styles.PrevNextArrow}>»</span>
+            <div className='font-serif text-bigHeader font-medium'>»</div>
           ) : (
             ' '
           )}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </ReactRouterLinkButton>
   )
 }

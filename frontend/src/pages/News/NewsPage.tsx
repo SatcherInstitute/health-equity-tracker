@@ -1,6 +1,4 @@
 import { lazy, useEffect, useState } from 'react'
-import styles from './NewsPage.module.scss'
-import Grid from '@mui/material/Grid'
 import { Link, Route, Switch } from 'react-router-dom'
 import {
   NEWS_PAGE_LINK,
@@ -35,7 +33,7 @@ export interface Article {
     hide_on_production: boolean
   }
   _embedded: {
-    author: {
+    'author': {
       id: number
     }
     'wp:featuredmedia': Array<{
@@ -75,31 +73,26 @@ export default function NewsPage(props: NewsPageProps) {
   }, [pageIsWide])
 
   return (
-    <div className={styles.WhatIsHealthEquityPage}>
-      <Grid container className={styles.Grid}>
-        <Grid
-          container
-          className={styles.ResourcesAndNewsRow}
-          direction="column"
-          justifyContent="center"
-        >
-          <Route path="/">
+    <section>
+      <div className='m-auto max-w-newsPage'>
+        <div className='flex-col'>
+          <Route path='/'>
             <Tabs
               {...tabLayout}
               centered={true}
-              indicatorColor="primary"
-              textColor="primary"
+              indicatorColor='primary'
+              textColor='primary'
               value={window.location.pathname}
             >
               <Tab
                 value={NEWS_PAGE_LINK}
-                label="All Articles"
+                label='All Articles'
                 component={Link}
                 to={NEWS_PAGE_LINK}
               />
               <Tab
                 value={SHARE_YOUR_STORY_TAB_LINK}
-                label="Share Your Story"
+                label='Share Your Story'
                 component={Link}
                 to={SHARE_YOUR_STORY_TAB_LINK}
               />
@@ -117,8 +110,8 @@ export default function NewsPage(props: NewsPageProps) {
               <ShareYourStory />
             </Route>
           </Switch>
-        </Grid>
-      </Grid>
-    </div>
+        </div>
+      </div>
+    </section>
   )
 }
