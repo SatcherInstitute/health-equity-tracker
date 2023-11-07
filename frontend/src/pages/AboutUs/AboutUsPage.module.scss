@@ -3,17 +3,6 @@
 
 /** ------------- TYPES OF GRID ROWS ------------- **/
 
-// Generic grid row with no special styling
-.GridRow {
-  padding: 30px;
-
-  // Generic grid subrow with no special styling
-  .GridSubRow {
-    padding: 20px 0 20px 0;
-    list-style: none;
-  }
-}
-
 // Generic grid subrow with no special styling
 .GridSubRow {
   padding: 20px 0 20px 0;
@@ -24,27 +13,6 @@
   .GridVerticallyAlignedItem {
     justify-content: center;
     padding: 25px;
-  }
-
-  .HeaderText {
-    @include tav300();
-    font-size: $biggerHeader;
-    text-align: left;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
-
-  .SubheaderL1Text {
-    @include tav300();
-    font-size: $header;
-    padding: 10px 0 10px 0;
-  }
-
-  .SubheaderL2Text {
-    @include tav300();
-    font-size: $smallHeader;
-    padding: 10px 0 10px 0;
-    text-align: left !important;
   }
 
   .HeaderSubtext {
@@ -69,14 +37,6 @@
 .GridRowHeaderText {
   padding: 30px;
   justify-content: center;
-
-  .HeaderText {
-    @include tav300();
-    font-size: $bigHeader;
-    text-align: center;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
 
   .HeaderSubtext {
     @include inter300();
@@ -108,27 +68,6 @@
 
   .GridVerticallyAlignedItem {
     justify-content: center;
-  }
-
-  .HeaderText {
-    @include tav300();
-    font-size: $bigHeader;
-    text-align: center;
-    color: $alt-green;
-    padding-bottom: 20px;
-  }
-
-  .SubheaderL1Text {
-    @include tav300();
-    font-size: $header;
-    padding: 0 0 10px 0;
-  }
-
-  .SubheaderL2Text {
-    @include tav300();
-    font-size: $smallestHeader;
-    padding: 30px 0 1rem 0;
-    text-align: left;
   }
 
   .HeaderSubtext {
@@ -167,31 +106,6 @@
   @media (min-width: $md) {
     border-left: 1px solid $border-color;
   }
-}
-
-// For each item in the "Where We Aim To Go" section
-.GoalList {
-  display: flex;
-  padding-left: 0;
-}
-
-.GoalListItem {
-  padding: 0 1.5rem 0 1.5rem;
-  list-style: none;
-}
-
-// For each image in the "Where We Aim To Go" section
-.ImgAimToGo {
-  display: none;
-
-  @media (min-width: $md) {
-    display: block;
-  }
-
-  width: 100%;
-  height: auto;
-  max-height: 255px;
-  max-width: 255px;
 }
 
 // Grid item for each Ethics subheader

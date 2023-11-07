@@ -20,7 +20,6 @@ import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
 import LazyLoad from 'react-lazyload'
-import { getCssVar } from '../../utils/designUtils'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -37,8 +36,6 @@ export default function SinglePost(props: SinglePostProps) {
   const [nextArticle, setNextArticle] = useState<Article>()
 
   const { slug }: { slug?: string } = useParams()
-
-  const altGreenRgb = getCssVar('alt-green')
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
@@ -87,7 +84,7 @@ export default function SinglePost(props: SinglePostProps) {
           }}
         />
       )}
-      <div className="flex flex-wrap justify-center">
+      <div className='flex flex-wrap justify-center'>
         <Helmet>
           <title>{`News${
             fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -95,32 +92,32 @@ export default function SinglePost(props: SinglePostProps) {
           {/* if cross-posted from external site, should be input on WP as canonical_url */}
           {fullArticle && (
             <link
-              rel="canonical"
+              rel='canonical'
               href={fullArticle.acf?.canonical_url ?? fullArticle.link}
             />
           )}
-          <meta name="description" content={ARTICLE_DESCRIPTION} />
+          <meta name='description' content={ARTICLE_DESCRIPTION} />
         </Helmet>
 
         {/* HEADER ROW */}
         <div
-          className="
-            flex 
-            flex-row 
-            flex-wrap 
-            items-center 
-            justify-center 
-            border-0 
-            border-b 
-            border-solid 
+          className='
+            flex
+            flex-row
+            flex-wrap
+            items-center
+            justify-center
+            border-0
+            border-b
+            border-solid
             border-border-color
-        "
+        '
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
 
-          <div className="flex w-10/12 items-center justify-center md:w-1/3">
+          <div className='flex w-10/12 items-center justify-center md:w-1/3'>
             {isLoading && (
-              <Skeleton width={300} height={300} animation="wave"></Skeleton>
+              <Skeleton width={300} height={300} animation='wave'></Skeleton>
             )}
             {error && (
               <Skeleton width={300} height={300} animation={false}></Skeleton>
@@ -128,16 +125,16 @@ export default function SinglePost(props: SinglePostProps) {
             {!isLoading && !error && (
               <img
                 src={articleImage ?? hetLogo}
-                className="
-                  max-h-80 
-                  mt-8	
-                  h-auto 
-                  w-3/5	
-                  max-w-md 
+                className='
+                  max-h-80
+                  mt-8
+                  h-auto
+                  w-3/5
+                  max-w-md
                   rounded-xl
-                  object-contain 
-                  md:mt-0 
-                  md:max-h-xl"
+                  object-contain
+                  md:mt-0
+                  md:max-h-articleLogo'
                 alt={articleImageAltText}
                 width={200}
                 height={100}
@@ -147,36 +144,36 @@ export default function SinglePost(props: SinglePostProps) {
 
           {/* TEXT SECTION OF HEADER */}
           <div
-            className="
-              px-15 
-              flex 
-              w-full 
-              flex-col 
-              flex-wrap 
-              justify-center 
+            className='
+              px-15
+              flex
+              w-full
+              flex-col
+              flex-wrap
+              justify-center
               border-0
               border-solid
-              border-border-color	
-              py-8 
-              md:w-2/3 
-              md:border-l	
-              md:px-16 
+              border-border-color
+              py-8
+              md:w-2/3
+              md:border-l
+              md:px-16
               md:py-24
-          "
+          '
           >
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
             <div
-              style={{ color: `rgb(${altGreenRgb})` }}
-              className="
-              leading-tight 
-              m-auto 
-              pb-4 
-              text-left 
-              font-serif 
+              className='
+              leading-tight
+              m-auto
+              pb-4
+              text-left
+              font-serif
               text-header
-              font-light 
+              font-light
+              text-alt-green
               md:text-bigHeader
-            "
+            '
             >
               {isLoading ? (
                 <Skeleton></Skeleton>
@@ -186,12 +183,12 @@ export default function SinglePost(props: SinglePostProps) {
             </div>
 
             {/* AUTHOR(S) OR LOADING OR NOTHING */}
-            <div className="text-start text-text text-alt-dark">
+            <div className='text-start text-text text-alt-dark'>
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   Authored by{' '}
                   <Link
-                    className="cursor-pointer"
+                    className='cursor-pointer'
                     to={`${NEWS_PAGE_LINK}?author=${fullArticle.acf.contributing_author}`}
                   >
                     {fullArticle.acf.contributing_author}
@@ -208,7 +205,7 @@ export default function SinglePost(props: SinglePostProps) {
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
               {fullArticle?.acf?.additional_contributors ? (
-                <div className="text-start text-text text-alt-dark underline">
+                <div className='text-start text-text text-alt-dark underline'>
                   Contributors: {fullArticle.acf.additional_contributors}
                 </div>
               ) : (
@@ -217,17 +214,17 @@ export default function SinglePost(props: SinglePostProps) {
             </div>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
-            <div className="text-start text-text text-alt-dark">
+            <div className='text-start text-text text-alt-dark'>
               {fullArticle?.date ? (
                 <>Published {prettyDate(fullArticle.date)}</>
               ) : (
-                <Skeleton width="50%"></Skeleton>
+                <Skeleton width='50%'></Skeleton>
               )}
             </div>
 
             {/* OPTIONAL ARTICLE CATEGORIES */}
             {articleCategories && (
-              <div className="text-start text-text text-alt-dark">
+              <div className='text-start text-text text-alt-dark'>
                 Categorized under:{' '}
                 {articleCategories.map((categoryChunk, i) => (
                   <span key={categoryChunk.id}>
@@ -243,14 +240,14 @@ export default function SinglePost(props: SinglePostProps) {
             )}
 
             {/* SOCIAL MEDIA ICONS */}
-            <div className="w-full py-6 text-left md:w-1/4">
+            <div className='w-full py-6 text-left md:w-1/4'>
               <ShareButtons isMobile={false} article={fullArticle} />
             </div>
           </div>
         </div>
 
         {/* ARTICLE CONTENT SECTION */}
-        <div className="flex flex-wrap justify-center py-5">
+        <div className='flex flex-wrap justify-center py-5'>
           <div>
             <article className={styles.FullArticleContainer}>
               {/* RENDER WP ARTICLE HTML */}
@@ -258,20 +255,20 @@ export default function SinglePost(props: SinglePostProps) {
 
               {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
               {fullArticle?.acf?.full_article_url && (
-                <div className="mt-10">
+                <div className='mt-10'>
                   <Button
-                    variant="contained"
-                    color="primary"
-                    className="
-                      rounded-2xl 
-                      bg-alt-green 
-                      px-8 
-                      py-4 
-                      text-center 
-                      font-sansTitle 
-                      text-title 
-                      font-medium 
-                      text-white"
+                    variant='contained'
+                    color='primary'
+                    className='
+                      rounded-2xl
+                      bg-alt-green
+                      px-8
+                      py-4
+                      text-center
+                      font-sansTitle
+                      text-title
+                      font-medium
+                      text-white'
                     href={fullArticle.acf.full_article_url}
                   >
                     Continue Reading
@@ -284,8 +281,8 @@ export default function SinglePost(props: SinglePostProps) {
               )}
 
               {/* OPTIONALLY RENDER REPRINT NOTICE */}
-              <div className="mt-10">
-                <div className="leading-none text-left font-sansText text-text font-medium">
+              <div className='mt-10'>
+                <div className='leading-none text-left font-sansText text-text font-medium'>
                   {fullArticle?.acf?.canonical_url && (
                     <span className={styles.ReprintNotice}>
                       Note: this article was originally published on{' '}
@@ -300,20 +297,20 @@ export default function SinglePost(props: SinglePostProps) {
 
           {/* PREV / NEXT ARTICLES NAV */}
           <LazyLoad offset={300} height={300} once>
-            <div className="flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey">
-              <div className="w-full md:w-1/3">
+            <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey'>
+              <div className='w-full md:w-1/3'>
                 {prevArticle && (
                   <NewsPreviewCard article={prevArticle} arrow={'prev'} />
                 )}
               </div>
-              <div className="w-full md:w-1/3">
+              <div className='w-full md:w-1/3'>
                 <ReactRouterLinkButton
                   url={NEWS_PAGE_LINK}
                   className={styles.PrevNextHeaderText}
-                  displayName="All Posts"
+                  displayName='All Posts'
                 />
               </div>
-              <div className="w-full md:w-1/3">
+              <div className='w-full md:w-1/3'>
                 {nextArticle && (
                   <>
                     <NewsPreviewCard article={nextArticle} arrow={'next'} />

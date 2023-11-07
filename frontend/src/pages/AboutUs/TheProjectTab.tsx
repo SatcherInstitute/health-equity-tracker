@@ -15,51 +15,11 @@ import {
 } from '../../utils/internalRoutes'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { Helmet } from 'react-helmet-async'
-import LazyLoad from 'react-lazyload'
 import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-} from '../../data/config/MetricConfig'
+import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../data/query/Breakdowns'
 import { LinkWithStickyParams } from '../../utils/urlutils'
-
-function GoalListItem(props: {
-  src?: string
-  alt?: string
-  title: string
-  text: string
-}) {
-  return (
-    <Grid
-      container
-      direction="column"
-      justifyContent="flex-start"
-      item
-      sm={12}
-      md={4}
-      className={styles.GoalListItem}
-      component="li"
-    >
-      {props.src && (
-        <LazyLoad offset={300} height={255} once>
-          <img className={styles.ImgAimToGo} src={props.src} alt={props.alt} />
-        </LazyLoad>
-      )}
-      <Typography
-        className={styles.SubheaderL2Text}
-        variant="h3"
-        paragraph={true}
-        component="h4"
-      >
-        {props.title}
-      </Typography>
-      <Typography className={styles.HeaderSubtextL2} variant="body2" paragraph>
-        {props.text}
-      </Typography>
-    </Grid>
-  )
-}
+import GoalListItem from './GoalListItem'
 
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -67,8 +27,7 @@ function TheProjectTab() {
   // tally number of conditions (including sub-conditions like COVID) x # demographic options
   const numVariables =
     Object.keys(METRIC_CONFIG).reduce(
-      (tally, conditionKey) =>
-        (tally += METRIC_CONFIG[conditionKey as DropdownVarId].length),
+      (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
       0
     ) * DEMOGRAPHIC_TYPES.length
 
@@ -77,15 +36,15 @@ function TheProjectTab() {
       <Helmet>
         <title>The Project - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>The Project</h2>
-      <Grid container className={styles.Grid} component="section">
+      <h2 className='sr-only'>The Project</h2>
+      <Grid container className={styles.Grid} component='section'>
         <Grid
           container
           className={styles.GridOutlinedImgRow}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          component="header"
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
+          component='header'
         >
           <Grid
             item
@@ -94,18 +53,15 @@ function TheProjectTab() {
             md={5}
             className={styles.GridVerticallyAlignedItem}
           >
-            <Typography
-              id="main"
-              className={styles.HeaderText}
-              variant="h2"
-              paragraph={true}
-              component="h3"
+            <h3
+              id='main'
+              className='text-left font-serif text-biggerHeader font-light leading-lhSomeSpace text-alt-green'
             >
               We're focused on equitable data.
-            </Typography>
+            </h3>
             <Typography
               className={styles.HeaderSubtext}
-              variant="body1"
+              variant='body1'
               paragraph={true}
             >
               Health equity can't exist without equitable data. That's why we're
@@ -115,11 +71,11 @@ function TheProjectTab() {
           </Grid>
           <Grid item xs={12} sm={12} md={7} className={styles.HeaderImgItem}>
             <img
-              width="754"
-              height="644"
-              src="/img/stock/woman-kids.png"
+              width='754'
+              height='644'
+              src='/img/stock/woman-kids.png'
               className={styles.HeaderImg}
-              alt=""
+              alt=''
             />
           </Grid>
         </Grid>
@@ -127,16 +83,16 @@ function TheProjectTab() {
         <Grid
           container
           className={styles.GridOutlinedRow}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
+          direction='row'
+          justifyContent='center'
+          alignItems='center'
         >
           <Grid
             container
             className={styles.GridSubRow}
-            direction="row"
-            justifyContent="space-around"
-            alignItems="center"
+            direction='row'
+            justifyContent='space-around'
+            alignItems='center'
           >
             <Grid
               item
@@ -145,48 +101,43 @@ function TheProjectTab() {
               md={5}
               className={styles.GridVerticallyAlignedItem}
             >
-              <Typography
-                className={styles.SubheaderL1Text}
-                variant="h2"
-                paragraph={true}
-                component="h3"
-              >
+              <h3 className='p-0 font-serif text-header font-extralight'>
                 Where we started
-              </Typography>
-              <Typography variant="body1" paragraph={true}>
+              </h3>
+              <p className='text-text'>
                 Prompted by the COVID-19 pandemic, the Health Equity Tracker was
                 created in 2020 to aggregate up-to-date demographic data from
                 the hardest-hit communities.
-              </Typography>
-              <Typography variant="body1" paragraph={true}>
+              </p>
+              <p className='text-text'>
                 The Health Equity Tracker aims to give a detailed view of health
                 outcomes by race, ethnicity, sex, and other critical factors.
                 Our hope is that it will help policymakers understand what
                 resources and support affected communities need to be able to
                 improve their outcomes.
-              </Typography>
+              </p>
             </Grid>
 
             <Grid item xs={12} sm={12} md={6}>
               <Grid
                 container
-                direction="row"
-                justifyContent="space-around"
-                alignItems="flex-start"
+                direction='row'
+                justifyContent='space-around'
+                alignItems='flex-start'
                 spacing={3}
               >
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
-                    variant="h3"
+                    variant='h3'
                     paragraph={true}
-                    component="h4"
+                    component='h4'
                   >
                     {`${numDataSources} data sources`}
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
-                    variant="body2"
+                    variant='body2'
                     paragraph={true}
                   >
                     HET currently aggregates data from{' '}
@@ -201,15 +152,15 @@ function TheProjectTab() {
                 <Grid item xs={12} sm={12} md={5}>
                   <Typography
                     className={styles.UnderlinedHeaderL2}
-                    variant="h3"
+                    variant='h3'
                     paragraph={true}
-                    component="h4"
+                    component='h4'
                   >
                     {numVariables} variables
                   </Typography>
                   <Typography
                     className={styles.HeaderSubtextL3}
-                    variant="body2"
+                    variant='body2'
                     paragraph={true}
                   >
                     In addition to COVID-19{' '}
@@ -260,15 +211,24 @@ function TheProjectTab() {
                 <Grid item xs={12}>
                   <Grid
                     container
-                    direction="row"
-                    justifyContent="space-around"
-                    alignItems="flex-start"
+                    direction='row'
+                    justifyContent='space-around'
+                    alignItems='flex-start'
                   >
                     <Grid item xs={12} sm={12} md={8} lg={5}>
                       <Button
-                        variant="contained"
-                        color="primary"
-                        className={styles.PrimaryButton}
+                        variant='contained'
+                        color='primary'
+                        className='
+                        min-w-min
+                        rounded-2xl
+                        px-8
+                        py-5
+                        text-center
+                        font-sansTitle
+                        text-exploreButton
+                        font-medium
+                        text-white'
                         href={EXPLORE_DATA_PAGE_LINK}
                       >
                         Explore the data
@@ -280,33 +240,22 @@ function TheProjectTab() {
             </Grid>
           </Grid>
 
-          <Grid
-            container
-            className={styles.GridSubRow}
-            direction="row"
-            justifyContent="space-around"
-          >
-            <Grid item xs={12}>
-              <Typography
-                className={styles.SubheaderL1Text}
-                variant="h2"
-                component="h3"
-              >
-                Where we aim to go
-              </Typography>
-            </Grid>
-            <Grid container component="ul" className={styles.GoalList}>
+          <section>
+            <h3 className='p-0 font-serif text-header font-extralight'>
+              Where we aim to go
+            </h3>
+            <ul className='flex flex-wrap pl-0'>
               <GoalListItem
                 src={
                   prefersReducedMotion
                     ? '/img/animations/HET-lines-no-motion.gif'
                     : '/img/animations/HET-lines.gif'
                 }
-                alt=""
-                title="Expand data"
-                text="As we continue to expand our data sources and analyze the
+                alt=''
+                title='Expand data'
+                text='As we continue to expand our data sources and analyze the
             data, we will have more information to share on
-            disparities and the equity impact of COVID-19."
+            disparities and the equity impact of COVID-19.'
               />
               <GoalListItem
                 src={
@@ -314,11 +263,11 @@ function TheProjectTab() {
                     ? '/img/animations/HET-fields-no-motion.gif'
                     : '/img/animations/HET-fields.gif'
                 }
-                alt=""
-                title="Empower policy makers"
-                text="We plan to develop policy templates for local, state, and
+                alt=''
+                title='Empower policy makers'
+                text='We plan to develop policy templates for local, state, and
             federal policy makers, and help create actionable policies
-            with diverse communities."
+            with diverse communities.'
               />
               <GoalListItem
                 src={
@@ -326,58 +275,41 @@ function TheProjectTab() {
                     ? '/img/animations/HET-dots-no-motion.gif'
                     : '/img/animations/HET-dots.gif'
                 }
-                alt=""
-                title="Measure progress"
-                text="It’s important to track progress, so we plan to develop
-            and publish more health equity reports and analyses."
+                alt=''
+                title='Measure progress'
+                text='It’s important to track progress, so we plan to develop
+            and publish more health equity reports and analyses.'
               />
-            </Grid>
-          </Grid>
+            </ul>
+          </section>
         </Grid>
 
-        <Grid
-          container
-          className={styles.GridOutlinedRow}
-          direction="row"
-          justifyContent="space-around"
-        >
-          <Grid
-            container
-            item
-            className={styles.GridSubRow}
-            justifyContent="space-around"
-            alignItems="flex-start"
-          >
-            <Typography
-              className={styles.HeaderText}
-              variant="h2"
-              component="h3"
-            >
-              <i>We are committed to the following ethics</i>
-            </Typography>
-            <Grid container component="ul" className={styles.GoalList}>
-              <GoalListItem
-                title="Transparency & Accountability"
-                text="We partner closely with diverse communities and are clear
+        <section className='border-0 border-t border-solid border-border-color px-10 pt-24'>
+          <h2 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-alt-green'>
+            We are committed to the following ethics
+          </h2>
+          <ul className='flex list-none flex-wrap'>
+            <GoalListItem
+              title='Transparency & Accountability'
+              text='We partner closely with diverse communities and are clear
                 about who interprets the data and how that shapes the overall
-                health narrative."
-              />
-              <GoalListItem
-                title="Community First"
-                text="People and communities drive our work. By making sure we
+                health narrative.'
+            />
+            <GoalListItem
+              title='Community First'
+              text='People and communities drive our work. By making sure we
                 collect data from underserved populations, we can help
                 highlight what policy changes are needed to boost these
-                communities."
-              />
-              <GoalListItem
-                title="Open Access"
-                text="We ensure community leaders partner with us and play an active
+                communities.'
+            />
+            <GoalListItem
+              title='Open Access'
+              text='We ensure community leaders partner with us and play an active
                 role in determining what data to use in making policy
-                recommendations."
-              />
-            </Grid>
-          </Grid>
-        </Grid>
+                recommendations.'
+            />
+          </ul>
+        </section>
       </Grid>
     </>
   )
