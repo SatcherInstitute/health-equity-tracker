@@ -2,6 +2,7 @@ import { Button } from '@mui/material'
 import { getCssVar } from '../../utils/designUtils'
 
 export default function ShareYourStory() {
+  // TODO: once MUI styles are removed, these colors should be applied directly via tailwind using `text-alt-green` or similar
   const altGreenRgb = getCssVar<string>('alt-green')
   const whiteRgb = getCssVar<string>('white')
 

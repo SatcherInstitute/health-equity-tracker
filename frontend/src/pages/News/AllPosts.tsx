@@ -105,6 +105,7 @@ function AllPosts() {
   const categoryParam: string | null = useUrlSearchParams().get('category')
   const authorParam: string | null = useUrlSearchParams().get('author')
 
+  // TODO: once MUI is removed, these colors should be applied via tailwind directly
   const altGreenRgb = getCssVar<string>('alt-green')
 
   const { isLoading, error, data }: any = useQuery(
