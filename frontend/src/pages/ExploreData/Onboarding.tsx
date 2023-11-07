@@ -2,6 +2,7 @@ import Joyride from 'react-joyride'
 import sass from '../../styles/variables.module.scss'
 import { getOnboardingSteps } from './OnboardingSteps'
 import { useMediaQuery, useTheme } from '@mui/material'
+import { getCssVar } from '../../utils/designUtils'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
@@ -9,6 +10,7 @@ export default function Onboarding(props: {
 }) {
   const theme = useTheme()
   const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
+  const zAlmostTop = getCssVar<number>('z-almost-top') ?? 3
 
   return (
     <Joyride
@@ -31,7 +33,7 @@ export default function Onboarding(props: {
           primaryColor: sass.altGreen,
           textColor: sass.white,
           width: 900,
-          zIndex: parseInt(sass.zAlmostTop),
+          zIndex: zAlmostTop,
         },
       }}
     />

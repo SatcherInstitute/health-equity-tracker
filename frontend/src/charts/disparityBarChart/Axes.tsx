@@ -1,7 +1,10 @@
 import { MULTILINE_LABEL, AXIS_LABEL_Y_DELTA, LABEL_HEIGHT } from '../utils'
-import { BAR_HEIGHT, Z_MIDDLE } from './constants'
+import { BAR_HEIGHT } from './constants'
 import { type Axis } from 'vega'
 import { type AxesProps } from './types'
+import { getCssVar } from '../../utils/designUtils'
+
+const zMiddle = getCssVar<number>('z-middle') ?? 0
 
 export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
   const verticalTickBars: Axis = {
@@ -17,7 +20,7 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
     maxExtent: 0,
     minExtent: 0,
     ticks: false,
-    zindex: Z_MIDDLE,
+    zindex: zMiddle,
   }
 
   const axisTicks: Axis = {
@@ -31,7 +34,7 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
     labelOverlap: true,
     tickCount: { signal: `ceil(width/${BAR_HEIGHT})` },
     tickMinStep: chartDimensions.axisTickMinStep,
-    zindex: Z_MIDDLE,
+    zindex: zMiddle,
     titleLimit: { signal: 'width - 10' },
   }
 
@@ -40,7 +43,7 @@ export function Axes({ chartDimensions, xAxisTitle, yAxisTitle }: AxesProps) {
     orient: 'left',
     grid: false,
     title: yAxisTitle,
-    zindex: Z_MIDDLE,
+    zindex: zMiddle,
     tickSize: 5,
     labelBaseline: 'bottom',
     labelLimit: 100,

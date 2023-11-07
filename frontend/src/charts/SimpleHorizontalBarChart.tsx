@@ -22,6 +22,7 @@ import { useMediaQuery } from '@mui/material'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { createBarLabel } from './mapHelperFunctions'
+import { getCssVar } from '../utils/designUtils'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
@@ -76,6 +77,8 @@ function getSpec(
   const onlyZeros = data.every((row) => {
     return !row[measure]
   })
+
+  const zMiddle = getCssVar<number>('z-middle') ?? 0
 
   return {
     $schema: 'https://vega.github.io/schema/vega/v5.json',
@@ -230,7 +233,7 @@ function getSpec(
         maxExtent: 0,
         minExtent: 0,
         ticks: false,
-        zindex: sass.zMiddle,
+        zindex: zMiddle,
       },
       {
         scale: 'x',
@@ -243,7 +246,7 @@ function getSpec(
         labelFlush: true,
         labelOverlap: true,
         tickCount: { signal: 'ceil(width/40)' },
-        zindex: sass.zMiddle,
+        zindex: zMiddle,
         titleLimit: { signal: 'width - 10 ' },
       },
       {
@@ -251,7 +254,7 @@ function getSpec(
         orient: 'left',
         grid: false,
         title: demographicTypeDisplayName,
-        zindex: sass.zMiddle,
+        zindex: zMiddle,
         encode: {
           labels: {
             update: {
@@ -319,7 +322,7 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   return (
     <div ref={ref}>
       <Vega
-        renderer="svg"
+        renderer='svg'
         downloadFileName={`${
           props.filename ?? 'Data Download'
         } - Health Equity Tracker`}

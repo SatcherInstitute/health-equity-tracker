@@ -156,6 +156,12 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
+    },
+    zIndex: {
+      "z-bottom": 'var(--z-bottom)',
+      "z-middle": 'var(--z-middle)',
+      "z-almost-top": 'var(--z-almost-top)',
+      "z-top": 'var(--z-top)',
     }
   },
 

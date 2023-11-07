@@ -33,7 +33,7 @@ export interface Article {
     hide_on_production: boolean
   }
   _embedded: {
-    author: {
+    'author': {
       id: number
     }
     'wp:featuredmedia': Array<{
@@ -74,25 +74,25 @@ export default function NewsPage(props: NewsPageProps) {
 
   return (
     <section>
-      <div className="m-auto max-w-newsPage">
-        <div className="flex-col">
-          <Route path="/">
+      <div className='m-auto max-w-newsPage'>
+        <div className='flex-col'>
+          <Route path='/'>
             <Tabs
               {...tabLayout}
               centered={true}
-              indicatorColor="primary"
-              textColor="primary"
+              indicatorColor='primary'
+              textColor='primary'
               value={window.location.pathname}
             >
               <Tab
                 value={NEWS_PAGE_LINK}
-                label="All Articles"
+                label='All Articles'
                 component={Link}
                 to={NEWS_PAGE_LINK}
               />
               <Tab
                 value={SHARE_YOUR_STORY_TAB_LINK}
-                label="Share Your Story"
+                label='Share Your Story'
                 component={Link}
                 to={SHARE_YOUR_STORY_TAB_LINK}
               />

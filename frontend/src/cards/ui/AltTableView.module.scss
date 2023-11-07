@@ -1,12 +1,6 @@
 @import '../../styles/variables.module';
 @import '../../styles/globals.scss';
 
-.Collapsed {
-  :not(:focus-within) {
-    @include srOnly();
-  }
-}
-
 .AltTableExpanderBox {
   margin-top: 15px;
   background: $listbox-color;
