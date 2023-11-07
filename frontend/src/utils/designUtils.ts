@@ -1,4 +1,4 @@
-export function getCssVar(cssVarName: string): string {
+export function getCssVar<T>(cssVarName: string): T {
   if (!cssVarName.startsWith('--')) {
     cssVarName = '--' + cssVarName
   }
@@ -9,5 +9,5 @@ export function getCssVar(cssVarName: string): string {
 
   if (!value) console.log(`CSS Custom Property Not Found: ${cssVarName}`)
 
-  return value
+  return value as T
 }

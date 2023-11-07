@@ -16,31 +16,31 @@ interface ArticleFiltersProps {
 
 export default function ArticleFilters(props: ArticleFiltersProps) {
   return (
-    <div className="flex h-auto w-11/12	flex-col flex-nowrap items-start">
+    <div className='flex h-auto w-11/12	flex-col flex-nowrap items-start'>
       {/* FILTER BOX HEADING */}
       <h2
-        className="
+        className='
+          leading-10 
           m-0 
           font-serif 
-          text-smallestHeader 
-          font-light
-        capitalize 
-          leading-10	 
+          text-smallestHeader
+        font-light 
+          capitalize	 
           text-alt-green
-      "
+      '
       >
         {filterHeaderMap[props.filterType]}
       </h2>
 
       {/* LIST OF LINKED FILTERS (IF ANY) */}
-      <ul className="mb-20 w-full list-none ps-4 text-start text-text text-alt-black">
+      <ul className='mb-20 w-full list-none ps-4 text-start text-text text-alt-black'>
         {props.filterOptions.length > 0 &&
           props.filterOptions.map((filter) => {
             return (
               <li key={filter}>
                 <Link
                   to={`${NEWS_PAGE_LINK}?${props.filterType}=${filter}`}
-                  className="no-underline"
+                  className='no-underline'
                 >
                   {filter}
                 </Link>
@@ -49,7 +49,7 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
           })}
         {/* ALWAYS DISPLAY ALL POSTS LINK */}
         <li>
-          <Link to={NEWS_PAGE_LINK} className="no-underline">
+          <Link to={NEWS_PAGE_LINK} className='no-underline'>
             All Posts
           </Link>
         </li>
