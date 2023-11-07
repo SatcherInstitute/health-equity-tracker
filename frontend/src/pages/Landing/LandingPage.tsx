@@ -53,7 +53,7 @@ function LandingPage() {
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Home Page</h2>
+      <h2 className='absolute top-auto h-px	w-px overflow-hidden'>Home Page</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container
@@ -62,20 +62,27 @@ function LandingPage() {
           justifyContent='center'
           alignItems='center'
         >
-          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={7}>
-            <Typography
+          <div className='w-full px-12 py-4 md:w-7/12'>
+            <h3
               id='main'
-              className={styles.HeaderText}
-              variant={pageIsWide ? 'h3' : 'h4'}
-              paragraph={true}
-              component='h3'
+              className={`
+              mb-4 mt-0
+              pb-4 pt-12
+              ${
+                pageIsWide
+                  ? 'text-left text-bigHeader'
+                  : 'text-center text-header'
+              }
+              font-serif
+              font-light leading-lhModalHeading
+              text-alt-green`}
             >
               Advancing Health Justice
-            </Typography>
-            <Typography
-              className={styles.HeaderSubtext}
-              variant='body1'
-              paragraph={true}
+            </h3>
+            <p
+              className={`mt-0 text-left ${
+                pageIsWide ? 'text-title' : 'text-text'
+              }`}
             >
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
@@ -84,29 +91,28 @@ function LandingPage() {
               researchers the data they need to make informed decisions, this
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
-            </Typography>
-
-            <Box mt={pageIsWide ? 10 : 5} mb={5}>
+            </p>
+            <div className={`mb-10 ${pageIsWide ? 'mt-20' : 'mt-10'}`}>
               <Button
                 id='landingPageCTA'
                 variant='contained'
                 color='primary'
-                className={styles.ExploreDataButton}
+                className='rounded-2xl px-8 py-5 text-exploreButton text-white'
                 href={EXPLORE_DATA_PAGE_LINK}
               >
                 Explore the data
               </Button>
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm={12} md={5} className={styles.HeaderImgItem}>
+            </div>
+          </div>
+          <div className='w-full px-12 py-4 md:w-5/12'>
             <img
               height='601'
               width='700'
               src='/img/stock/family-laughing.png'
-              className={styles.HeaderImg}
+              className='border-xl h-auto max-h-headerHeight w-full	max-w-md p-2.5'
               alt=''
             />
-          </Grid>
+          </div>
         </Grid>
 
         <Grid
@@ -115,25 +121,17 @@ function LandingPage() {
           justifyContent='flex-start'
           align-items='center'
         >
-          <Grid item xs={12}>
-            <Typography
-              className={styles.RecentNewsHeaderText}
-              variant='h4'
-              component='h3'
-            >
+          <div className='w-full'>
+            <h3 className='m-0 font-serif text-header font-light leading-lhModalHeading text-alt-green'>
               Recent news
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              className={styles.RecentNewsHeaderSubtext}
-              variant='subtitle1'
-              component='p'
-            >
+            </h3>
+          </div>
+          <div className='w-full'>
+            <p className='m-0 pb-16 text-title'>
               Stories and updates from Morehouse School of Medicine and beyond
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
+            </p>
+          </div>
+          <div className='w-full'>
             <Grid
               container
               className={styles.RecentNewsItem}
@@ -155,21 +153,16 @@ function LandingPage() {
                 />
               )}
             </Grid>
-
-            <Box mt={5}>
-              <Typography
-                className={styles.PrioritizeHealthEquityHeaderSubtext}
-                variant='body1'
-                paragraph={true}
-              >
+            <div className='mt-10'>
+              <div className='mb-4'>
                 <ReactRouterLinkButton
                   url={NEWS_PAGE_LINK}
                   className={styles.LearnMoreAboutHealthEquity}
                   displayName='View all articles'
                 />
-              </Typography>
-            </Box>
-          </Grid>
+              </div>
+            </div>
+          </div>
         </Grid>
 
         <Grid
