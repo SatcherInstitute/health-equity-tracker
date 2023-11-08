@@ -18,7 +18,7 @@ export default function SimpleBackdrop(props: SimpleBackdropProps) {
         open={props.open}
         onClick={handleClose}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color='inherit' />
       </Backdrop>
     </div>
   )

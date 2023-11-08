@@ -20,10 +20,10 @@ function FaqTab() {
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
             <Typography
-              id="main"
+              id='main'
               tabIndex={-1}
               className={styles.FaqHeaderText}
-              variant="h2"
+              variant='h2'
             >
               Data
             </Typography>
@@ -47,7 +47,7 @@ function FaqTab() {
                   {selectFAQs[3].questionText}
                 </h3>
                 <div className={styles.FaqAnswer}>{selectFAQs[3].answer}</div>
-                <a href="/datacatalog" className={styles.MajorLink}>
+                <a href='/datacatalog' className={styles.MajorLink}>
                   See Data Sources
                 </a>
               </Grid>
@@ -110,7 +110,7 @@ function FaqTab() {
 
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
-            <Typography className={styles.FaqHeaderText} variant="h2">
+            <Typography className={styles.FaqHeaderText} variant='h2'>
               Definitions
             </Typography>
           </Grid>
@@ -200,7 +200,7 @@ function FaqTab() {
 
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
-            <Typography className={styles.FaqHeaderText} variant="h2">
+            <Typography className={styles.FaqHeaderText} variant='h2'>
               Take Action
             </Typography>
           </Grid>
@@ -264,7 +264,7 @@ function FaqTab() {
                 </div>
               </Grid>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion} id="citation">
+                <h3 className={styles.FaqQuestion} id='citation'>
                   What is the recommended citation (APA) for the Health Equity
                   Tracker?
                 </h3>

@@ -21,7 +21,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
   const groupTerm = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
-    <Alert severity="info" role="note" id="unknown-bubbles-alert">
+    <Alert severity='info' role='note' id='unknown-bubbles-alert'>
       Missing and unknown data impacts Health Equity. Please consider the impact
       of {props.fullDisplayName} with an unknown {groupTerm}.{' '}
       {props.expanded && (

@@ -15,9 +15,8 @@ export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
     useParamState(TOPIC_INFO_PARAM_KEY)
 
-  const selectedDataTypeId = useAtomValue(
-    selectedDataTypeConfig1Atom
-  )?.dataTypeId
+  const selectedDataTypeId = useAtomValue(selectedDataTypeConfig1Atom)
+    ?.dataTypeId
 
   const dropdownVarId: DropdownVarId | '' = selectedDataTypeId
     ? getParentDropdownFromDataTypeId(selectedDataTypeId)
@@ -30,7 +29,7 @@ export default function TopicInfoModal() {
         setTopicInfoModalIsOpen(false)
       }}
       maxWidth={'lg'}
-      scroll="paper"
+      scroll='paper'
     >
       <DialogContent dividers={true}>
         <Button
@@ -38,8 +37,8 @@ export default function TopicInfoModal() {
           onClick={() => {
             setTopicInfoModalIsOpen(false)
           }}
-          color="primary"
-          aria-label="close topic info modal"
+          color='primary'
+          aria-label='close topic info modal'
         >
           <CloseIcon />
         </Button>

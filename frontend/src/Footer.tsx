@@ -22,7 +22,7 @@ import { currentYear } from './cards/ui/SourcesHelpers'
 function Footer() {
   return (
     <div className={styles.Footer}>
-      <Grid container justifyContent="space-around" alignItems="center">
+      <Grid container justifyContent='space-around' alignItems='center'>
         <Grid item xs={12} sm={12} lg={6} xl={4} className={styles.FooterGrid}>
           <Logos />
         </Grid>
@@ -38,8 +38,8 @@ function Footer() {
         >
           <Grid
             className={styles.Links}
-            justifyContent="space-between"
-            alignItems="center"
+            justifyContent='space-between'
+            alignItems='center'
             spacing={0}
             container
           >
@@ -68,15 +68,15 @@ function Footer() {
         <Grid
           container
           item
-          direction="column"
+          direction='column'
           xs={12}
           md={1}
           lg={12}
           xl={1}
-          alignItems="center"
-          justifyContent="center"
+          alignItems='center'
+          justifyContent='center'
         >
-          <Grid item container justifyContent="center">
+          <Grid item container justifyContent='center'>
             <ReturnToTop />
           </Grid>
         </Grid>
@@ -87,36 +87,36 @@ function Footer() {
 
 function Logos() {
   return (
-    <Grid item container spacing={2} justifyContent="center">
+    <Grid item container spacing={2} justifyContent='center'>
       <Grid
         container
         item
         xs={10}
         sm={5}
-        alignItems="center"
-        justifyContent="center"
-        wrap="nowrap"
+        alignItems='center'
+        justifyContent='center'
+        wrap='nowrap'
       >
         <Grid item>
-          <ReactRouterLinkButton url="/">
+          <ReactRouterLinkButton url='/'>
             <img
               src={AppbarLogo}
               className={styles.FooterLogo}
-              alt="Health Equity Tracker logo"
+              alt='Health Equity Tracker logo'
             />
           </ReactRouterLinkButton>
         </Grid>
         <Grid item>
-          <Grid container justifyContent="flex-start" alignItems="flex-start">
+          <Grid container justifyContent='flex-start' alignItems='flex-start'>
             <Grid item xs={12}>
-              <span className={styles.FooterTitleSpan} aria-hidden="true">
+              <span className={styles.FooterTitleSpan} aria-hidden='true'>
                 Health Equity Tracker
               </span>
-              <Grid container justifyContent="center">
+              <Grid container justifyContent='center'>
                 <Grid item className={styles.SocialsIcon}>
                   <a
                     href={urlMap.shliLinkedIn}
-                    aria-label="Satcher Health on LinkedIn"
+                    aria-label='Satcher Health on LinkedIn'
                   >
                     <LinkedInIcon />
                   </a>
@@ -124,7 +124,7 @@ function Logos() {
                 <Grid item className={styles.SocialsIcon}>
                   <a
                     href={urlMap.shliTwitter}
-                    aria-label="Satcher Health on Twitter"
+                    aria-label='Satcher Health on Twitter'
                   >
                     <TwitterIcon />
                   </a>
@@ -132,7 +132,7 @@ function Logos() {
                 <Grid item className={styles.SocialsIcon}>
                   <a
                     href={urlMap.shliYoutube}
-                    aria-label="Satcher Health on YouTube"
+                    aria-label='Satcher Health on YouTube'
                   >
                     <YouTubeIcon />
                   </a>
@@ -147,13 +147,13 @@ function Logos() {
         xs={10}
         sm={5}
         container
-        justifyContent="center"
-        alignItems="center"
+        justifyContent='center'
+        alignItems='center'
       >
         <ReactRouterLinkButton url={urlMap.shli}>
           <img
             src={PartnerSatcher}
-            alt="Satcher Health Leadership Institute Logo"
+            alt='Satcher Health Leadership Institute Logo'
             height={60}
             width={216}
           />
@@ -183,7 +183,7 @@ function LinkGridItem(props: {
 function ReturnToTop() {
   return (
     <Button
-      aria-label="Scroll to Top"
+      aria-label='Scroll to Top'
       onClick={() => {
         window.scrollTo(0, 0)
       }}

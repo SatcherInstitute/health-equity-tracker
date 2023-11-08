@@ -10,7 +10,7 @@ export default function CAWPOverlappingRacesAlert(
 ) {
   return (
     <CardContent>
-      <Alert severity="info" role="note">
+      <Alert severity='info' role='note'>
         Percentages reported for <b>{props.dataTypeConfig.fullDisplayName}</b>{' '}
         cannot be summed, as these race/ethnicity groupings are not mutually
         exclusive. Individuals who identify with more than one group (e.g. both

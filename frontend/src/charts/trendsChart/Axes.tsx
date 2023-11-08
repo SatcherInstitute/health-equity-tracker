@@ -165,7 +165,7 @@ export function Axes({
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
-          role="group"
+          role='group'
           tabIndex={0}
         />
         {/* Y-Axis */}
@@ -178,7 +178,7 @@ export function Axes({
           } ranging from ${getMinNumber(data) ?? 'lowest'}${optionalPct} to ${
             getMaxNumber(data) ?? 'highest'
           }${optionalPct}`}
-          role="group"
+          role='group'
           tabIndex={0}
         />
       </g>
@@ -189,7 +189,7 @@ export function Axes({
           y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
           y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
-          stroke="black" // handle in CSS?
+          stroke='black' // handle in CSS?
         />
       </g>
       {/* Axis Labels */}
@@ -201,7 +201,7 @@ export function Axes({
           })`}
         >
           {/* only display x-axis label on desktop */}
-          <text textAnchor="end" dy="8px" aria-hidden={true}>
+          <text textAnchor='end' dy='8px' aria-hidden={true}>
             {isSkinny ? '' : 'time →'}
           </text>
         </g>
@@ -210,7 +210,7 @@ export function Axes({
           aria-hidden={true}
           transform={`translate(${yAxisLabelPadding}, 0)rotate(-90)`}
         >
-          <text textAnchor="end">{Y_AXIS_CONFIG[type]?.topLabel}</text>
+          <text textAnchor='end'>{Y_AXIS_CONFIG[type]?.topLabel}</text>
         </g>
         {/* Bottom Y-Axis Label */}
         <g
@@ -219,7 +219,7 @@ export function Axes({
             HEIGHT - marginBottom
           })rotate(-90)`}
         >
-          <text textAnchor="start">{Y_AXIS_CONFIG[type]?.bottomLabel}</text>
+          <text textAnchor='start'>{Y_AXIS_CONFIG[type]?.bottomLabel}</text>
         </g>
       </g>
     </g>

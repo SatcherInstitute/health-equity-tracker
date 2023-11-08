@@ -26,7 +26,7 @@ function FAQListItem(props: FAQListItemProps) {
         aria-controls={props.ariaControls}
         id={props.id}
       >
-        <Typography className={styles.FaqQuestion} variant="h2" component="h4">
+        <Typography className={styles.FaqQuestion} variant='h2' component='h4'>
           {props.faq.questionText}
         </Typography>
       </AccordionSummary>
@@ -39,9 +39,9 @@ function FAQListItem(props: FAQListItemProps) {
 
 export default function FaqSection() {
   return (
-    <Grid container component="article">
+    <Grid container component='article'>
       <Grid item>
-        <Typography className={styles.FaqHeader} variant="h1" component="h3">
+        <Typography className={styles.FaqHeader} variant='h1' component='h3'>
           Frequently asked questions
         </Typography>
       </Grid>
@@ -61,7 +61,7 @@ export default function FaqSection() {
         <ReactRouterLinkButton
           url={`${FAQ_TAB_LINK}`}
           className={styles.FaqLink}
-          displayName="See our full FAQ page"
+          displayName='See our full FAQ page'
         />
       </Grid>
     </Grid>

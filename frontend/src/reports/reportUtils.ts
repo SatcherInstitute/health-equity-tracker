@@ -24,8 +24,8 @@ import { type Fips } from '../data/utils/Fips'
 
 const DEMOGRAPHIC_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
-  Sex: 'sex',
-  Age: 'age',
+  'Sex': 'sex',
+  'Age': 'age',
 }
 
 const ONLY_AGE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
@@ -38,15 +38,15 @@ const ONLY_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
 
 const ONLY_SEX_RACE_TYPE_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
-  Sex: 'sex',
+  'Sex': 'sex',
 }
 
 const PHRMA_TYPES_MAP: Partial<Record<string, DemographicType>> = {
   'Race/ethnicity': 'race_and_ethnicity',
-  Sex: 'sex',
-  Age: 'age',
-  Subsidy: 'lis',
-  Eligibility: 'eligibility',
+  'Sex': 'sex',
+  'Age': 'age',
+  'Subsidy': 'lis',
+  'Eligibility': 'eligibility',
 }
 
 export function isStateCountyLevel(fips1?: Fips, fips2?: Fips) {
