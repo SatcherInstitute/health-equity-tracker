@@ -25,28 +25,28 @@ export default function AboutUsPage() {
           }}
         />
       )}
-      <Route path="/">
+      <Route path='/'>
         <Tabs
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor='primary'
+          textColor='primary'
           centered
           value={window.location.pathname}
         >
           <Tab
             value={ABOUT_US_PAGE_LINK}
-            label="The Project"
+            label='The Project'
             component={Link}
             to={ABOUT_US_PAGE_LINK}
           />
           <Tab
             value={OURTEAM_TAB_LINK}
-            label="Our Team"
+            label='Our Team'
             component={Link}
             to={OURTEAM_TAB_LINK}
           />
           <Tab
             value={CONTACT_TAB_LINK}
-            label="Contact Us"
+            label='Contact Us'
             component={Link}
             to={CONTACT_TAB_LINK}
           />

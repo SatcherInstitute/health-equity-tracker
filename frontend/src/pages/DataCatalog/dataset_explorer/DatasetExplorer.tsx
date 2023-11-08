@@ -51,9 +51,9 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
       <Grid container className={styles.DatasetExplorer}>
         <div className={styles.DatasetHeader}>
           <Typography
-            id="main"
+            id='main'
             className={styles.DataDownloadsHeaderText}
-            variant="h3"
+            variant='h3'
           >
             View and download Health Equity Tracker data sources
           </Typography>
@@ -98,7 +98,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
                     <Button
                       sx={{ mt: 5, color: 'white !important' }}
                       href={DATA_CATALOG_PAGE_LINK}
-                      variant="contained"
+                      variant='contained'
                     >
                       View All Datasets
                     </Button>

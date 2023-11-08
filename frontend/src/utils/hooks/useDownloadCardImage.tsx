@@ -48,8 +48,9 @@ export function useDownloadCardImage(
   const urlWithHash = `${urlWithoutHash}#${scrollToHash}`
 
   useEffect(() => {
-    const element = DROPDOWN_ELEMENT_IDS.map((dropdownId) =>
-      screenshotTargetRef.current?.querySelector(`#${dropdownId}`)
+    const element = DROPDOWN_ELEMENT_IDS.map(
+      (dropdownId) =>
+        screenshotTargetRef.current?.querySelector(`#${dropdownId}`)
     ).find((element) => element !== null) as HTMLElement
 
     setDropdownElement(element)

@@ -49,7 +49,7 @@ const MaterialTheme = createTheme({
   components: {
     MuiCssBaseline: {
       styleOverrides: {
-        body: {
+        'body': {
           fontFamily: '"Inter", sans-serif',
         },
         '.MuiAlert-standardInfo .MuiAlert-icon': {
@@ -171,14 +171,14 @@ const MaterialTheme = createTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${sass.unknownGrey} !important`,
-          fontWeight: 'normal',
-          fontSize: '14px',
-          color: sass.black,
-          lineHeight: '16px !important',
-          padding: '11px !important',
-          backgroundColor: `${sass.white} !important`,
-          textTransform: 'none',
+          'outline': `1px solid ${sass.unknownGrey} !important`,
+          'fontWeight': 'normal',
+          'fontSize': '14px',
+          'color': sass.black,
+          'lineHeight': '16px !important',
+          'padding': '11px !important',
+          'backgroundColor': `${sass.white} !important`,
+          'textTransform': 'none',
           '&.Mui-selected': {
             color: sass.altGreen,
             backgroundColor: `${sass.toggleColor} !important`,

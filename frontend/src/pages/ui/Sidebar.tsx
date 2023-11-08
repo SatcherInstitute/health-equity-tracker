@@ -38,17 +38,17 @@ export default function Sidebar(props: SidebarProps) {
         <Card className={styles.SidebarTopicInfoButtonBox} raised={true}>
           <TopicInfoModalButton />
         </Card>
-        <div className="mode-selector-box">
+        <div className='mode-selector-box'>
           <Card raised={true} className={styles.SidebarModeSelectorBox}>
             <SimpleSelect<DemographicType>
-              label="Demographic"
+              label='Demographic'
               optionsMap={props.enabledDemographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}
               selected={props.demographicType}
               setSelected={props.setDemographicType}
             />
             <SimpleSelect<MadLibId>
-              label="Compare mode"
+              label='Compare mode'
               optionsMap={MADLIB_MODE_MAP}
               selected={props.trackerMode}
               setSelected={props.setTrackerMode}

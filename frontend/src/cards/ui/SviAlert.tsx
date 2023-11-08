@@ -50,13 +50,13 @@ function SviAlert(props: SviAlertProps) {
   return (
     <>
       {props.svi === undefined || props.svi === null ? (
-        <Alert severity="warning" className={styles.Alert}>
+        <Alert severity='warning' className={styles.Alert}>
           We do not currently have the <b>social vulnerability index</b> for{' '}
           <b>{props.fips.getDisplayName()}</b>. Learn more about how this lack
           of data impacts <a href={urlMap.cdcSvi}>health equity.</a>
         </Alert>
       ) : (
-        <Alert severity="info" className={styles.Alert}>
+        <Alert severity='info' className={styles.Alert}>
           This county has a social vulnerability index of <b>{props.svi}</b>;
           which indicates a{' '}
           <HashLink to={`${METHODOLOGY_TAB_LINK}#svi`} className={color}>

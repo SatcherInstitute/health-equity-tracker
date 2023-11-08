@@ -48,8 +48,8 @@ export default function TableOfContents(props: TableOfContentsProps) {
       activeStep={props.reportStepHashIds?.findIndex(
         (stepId) => stepId === activeId
       )}
-      orientation="vertical"
-      aria-label="Available cards on this report"
+      orientation='vertical'
+      aria-label='Available cards on this report'
       className={styles.Stepper}
     >
       {props.reportStepHashIds?.map((stepId) => {

@@ -331,7 +331,7 @@ export function TrendsChart({
             onMouseLeave={() => {
               setHoveredDate(null)
             }}
-            role="group"
+            role='group'
             aria-labelledby={chartTitleId}
           >
             {/* Chart Axes */}

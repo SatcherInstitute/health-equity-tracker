@@ -160,12 +160,12 @@ describe('Tests for A11y Table Data functions', () => {
     const expectedA11yTableDataOnlyMale: Row[] = [
       {
         '% of total jail population with unknown sex': 40,
-        Male: 3000,
+        'Male': 3000,
         'Time period': '2020',
       },
       {
         '% of total jail population with unknown sex': 40,
-        Male: 2000,
+        'Male': 2000,
         'Time period': '2021',
       },
     ]
