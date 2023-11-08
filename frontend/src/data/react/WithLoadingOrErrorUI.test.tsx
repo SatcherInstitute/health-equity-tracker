@@ -32,7 +32,7 @@ function WithMetricsWrapperApp(props: {
     <WithMetrics queries={[props.query]}>
       {([response]) => {
         return (
-          <div data-testid="MetricQueryResponseReturned">
+          <div data-testid='MetricQueryResponseReturned'>
             {response.dataIsMissing() && (
               <>Error: {response.missingDataMessage!}</>
             )}

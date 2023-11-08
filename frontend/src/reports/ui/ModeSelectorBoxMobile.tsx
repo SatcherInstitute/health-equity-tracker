@@ -26,7 +26,7 @@ export default function ModeSelectorBoxMobile(
   props: ModeSelectorBoxMobileProps
 ) {
   return (
-    <div className="mode-selector-box-mobile">
+    <div className='mode-selector-box-mobile'>
       <Card raised={true} className={styles.ModeSelectorBoxMobile}>
         <Grid
           container
@@ -34,14 +34,14 @@ export default function ModeSelectorBoxMobile(
         >
           <div>
             <SimpleSelect<DemographicType>
-              label="Demographic"
+              label='Demographic'
               optionsMap={props.enabledDemographicOptionsMap}
               disabledOptions={props.disabledDemographicOptions}
               selected={props.demographicType}
               setSelected={props.setDemographicType}
             />
             <SimpleSelect<MadLibId>
-              label="Compare mode"
+              label='Compare mode'
               optionsMap={MADLIB_MODE_MAP}
               selected={props.trackerMode}
               setSelected={props.setTrackerMode}

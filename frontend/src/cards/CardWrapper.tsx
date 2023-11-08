@@ -45,11 +45,11 @@ function CardWrapper(props: {
 
   const loadingComponent = (
     <div
-      className="relative m-2 rounded bg-white p-3 shadow-raised"
+      className='rounded relative m-2 bg-white p-3 shadow-raised'
       style={{ minHeight: props.minHeight }}
       tabIndex={-1}
     >
-      <CircularProgress aria-label="loading" />
+      <CircularProgress aria-label='loading' />
     </div>
   )
 
@@ -62,7 +62,7 @@ function CardWrapper(props: {
       {(metadata, queryResponses, geoData) => {
         return (
           <article
-            className="relative m-2 rounded  bg-white p-3 shadow-raised"
+            className='rounded relative m-2  bg-white p-3 shadow-raised'
             ref={screenshotTargetRef}
             tabIndex={-1}
           >

@@ -117,7 +117,7 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
               key={`no-data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              <Tooltip title="No data available">
+              <Tooltip title='No data available'>
                 <WarningRoundedIcon />
               </Tooltip>
               <span className={styles.ScreenreaderTitleHeader}>

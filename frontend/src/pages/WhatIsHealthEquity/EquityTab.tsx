@@ -85,7 +85,7 @@ function JoinTheEffortContainer(props: {
   return (
     <Grid
       container
-      justifyContent="space-around"
+      justifyContent='space-around'
       className={styles.JoinTheEffortItemContainer}
     >
       <Grid
@@ -106,8 +106,8 @@ function JoinTheEffortContainer(props: {
       <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
         <Typography
           className={styles.JoinTheEffortStepHeaderText}
-          variant="h2"
-          component="h4"
+          variant='h2'
+          component='h4'
         >
           {props.textTitle}
         </Typography>
@@ -138,9 +138,9 @@ function EquityTab() {
           <Grid
             container
             className={styles.HeaderRow}
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
           >
             <Grid
               container
@@ -152,21 +152,21 @@ function EquityTab() {
             >
               <LazyLoad offset={300} height={760} once>
                 <img
-                  width="397"
-                  height="760"
-                  src="/img/stock/woman-in-wheelchair-with-tea.png"
+                  width='397'
+                  height='760'
+                  src='/img/stock/woman-in-wheelchair-with-tea.png'
                   className={styles.HeaderImg}
-                  alt=""
+                  alt=''
                 />
               </LazyLoad>
             </Grid>
             <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
               <Box mb={5}>
                 <Typography
-                  id="main"
+                  id='main'
                   className={styles.HeaderText}
-                  variant="h2"
-                  component="h2"
+                  variant='h2'
+                  component='h2'
                   paragraph={true}
                 >
                   What is Health Equity?
@@ -174,7 +174,7 @@ function EquityTab() {
               </Box>
               <Typography
                 className={styles.HeaderSubtext}
-                variant="body1"
+                variant='body1'
                 paragraph={true}
               >
                 <b>Health Equity</b> exists when all people, regardless of race,
@@ -183,12 +183,12 @@ function EquityTab() {
                 just access, opportunity, and resources to achieve their highest
                 potential for health.
               </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
+              <Typography className={styles.HeaderSubtext} variant='body1'>
                 Unfortunately, social and political determinants of health
                 negatively affect many communities, their people, and their
                 ability to lead healthy lives.
               </Typography>
-              <Typography className={styles.HeaderSubtext} variant="body1">
+              <Typography className={styles.HeaderSubtext} variant='body1'>
                 <span className={styles.DefinitionSourceSpan}>
                   Health Equity Leadership & Exchange Network, 2020
                 </span>
@@ -197,9 +197,9 @@ function EquityTab() {
                 container
                 item
                 xs={12}
-                direction="row"
-                justifyContent="space-between"
-                alignItems="flex-start"
+                direction='row'
+                justifyContent='space-between'
+                alignItems='flex-start'
                 className={styles.DefinitionsContainer}
               >
                 {/* PDOH */}
@@ -212,8 +212,8 @@ function EquityTab() {
                 >
                   <Typography
                     className={styles.DefinitionHeader}
-                    variant="h2"
-                    component="h3"
+                    variant='h2'
+                    component='h3'
                   >
                     Political determinants of health
                   </Typography>
@@ -240,8 +240,8 @@ function EquityTab() {
                 >
                   <Typography
                     className={styles.DefinitionHeader}
-                    variant="h2"
-                    component="h3"
+                    variant='h2'
+                    component='h3'
                   >
                     Social determinants of health
                   </Typography>
@@ -262,24 +262,24 @@ function EquityTab() {
           <Grid
             container
             className={styles.ResourcesAndNewsRow}
-            direction="column"
-            justifyContent="center"
+            direction='column'
+            justifyContent='center'
           >
             <Grid
               container
               className={styles.ResourcesRow}
-              justifyContent="center"
+              justifyContent='center'
             >
               <Grid item>
-                <Typography className={styles.ResourcesHeaderText} variant="h3">
+                <Typography className={styles.ResourcesHeaderText} variant='h3'>
                   {wordpressCopy?.section2_headingLevel2}
                 </Typography>
               </Grid>
               <Grid
                 container
                 className={styles.ResourcesContainer}
-                direction="row"
-                justifyContent="space-around"
+                direction='row'
+                justifyContent='space-around'
                 item
                 xs={12}
               >
@@ -292,14 +292,14 @@ function EquityTab() {
                 >
                   <iframe
                     className={styles.ResourceVideoEmbed}
-                    width="100%"
-                    height="633px"
-                    src="https://www.youtube.com/embed/mux1c73fJ78"
-                    title="YouTube video player -
-                          The Allegory of the Orchard"
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write;
-                          encrypted-media; gyroscope; picture-in-picture"
+                    width='100%'
+                    height='633px'
+                    src='https://www.youtube.com/embed/mux1c73fJ78'
+                    title='YouTube video player -
+                          The Allegory of the Orchard'
+                    loading='lazy'
+                    allow='accelerometer; autoplay; clipboard-write;
+                          encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
                   ></iframe>
                   <h4 className={styles.MainResourceTitleText}>
@@ -315,21 +315,21 @@ function EquityTab() {
                 <Grid item xs={12} sm={12} md={3}>
                   <Grid
                     container
-                    direction="column"
-                    alignItems="center"
-                    justifyContent="space-evenly"
+                    direction='column'
+                    alignItems='center'
+                    justifyContent='space-evenly'
                   >
                     <Grid item className={styles.ResourceItem}>
                       <iframe
                         className={styles.ResourceVideoEmbed}
-                        width="100%"
-                        height="180px"
-                        src="https://www.youtube.com/embed/cmMutvgQIcU"
+                        width='100%'
+                        height='180px'
+                        src='https://www.youtube.com/embed/cmMutvgQIcU'
                         title="YouTube video player -
                               Jessica's Story"
-                        loading="lazy"
-                        allow="accelerometer; autoplay; clipboard-write;
-                              encrypted-media; gyroscope; picture-in-picture"
+                        loading='lazy'
+                        allow='accelerometer; autoplay; clipboard-write;
+                              encrypted-media; gyroscope; picture-in-picture'
                         allowFullScreen
                       ></iframe>
                       <h4 className={styles.ResourceTitleText}>
@@ -345,8 +345,8 @@ function EquityTab() {
                         <LazyLoad offset={300} height={200} once>
                           <img
                             className={styles.ResourceImg}
-                            src="/img/graphics/NCRN.png"
-                            alt="Header for Morehouse School of Medicine National COVID-19 Resiliency Network"
+                            src='/img/graphics/NCRN.png'
+                            alt='Header for Morehouse School of Medicine National COVID-19 Resiliency Network'
                           />
                         </LazyLoad>
                         <h4 className={styles.ResourceTitleText}>
@@ -369,13 +369,13 @@ function EquityTab() {
             <Grid
               container
               className={styles.NewsAndStoriesRow}
-              direction="row"
-              justifyContent="center"
+              direction='row'
+              justifyContent='center'
             >
               <Grid item>
                 <Typography
                   className={styles.NewsAndStoriesHeaderText}
-                  variant="h3"
+                  variant='h3'
                   pb={1}
                 >
                   News and stories
@@ -393,9 +393,9 @@ function EquityTab() {
               <LazyLoad offset={300} height={700} once>
                 <Grid
                   container
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="flex-start"
+                  direction='row'
+                  justifyContent='space-between'
+                  alignItems='flex-start'
                 >
                   <Grid
                     item
@@ -403,22 +403,22 @@ function EquityTab() {
                     sm={12}
                     md={6}
                     className={styles.NewsAndStoriesItem}
-                    component="article"
+                    component='article'
                   >
                     <a
-                      href="https://satcherinstitute.org/hetblog2/"
-                      aria-label="Satcher Blog Post on Why Data Matters"
+                      href='https://satcherinstitute.org/hetblog2/'
+                      aria-label='Satcher Blog Post on Why Data Matters'
                     >
                       <img
                         className={styles.NewsAndStoriesBigImg}
-                        src="/img/stock/kid-gets-a-mask.png"
-                        alt=""
+                        src='/img/stock/kid-gets-a-mask.png'
+                        alt=''
                       />
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
-                        href="https://satcherinstitute.org/hetblog2/"
-                        aria-label="Satcher Blog Post on Why Data Matters"
+                        href='https://satcherinstitute.org/hetblog2/'
+                        aria-label='Satcher Blog Post on Why Data Matters'
                         className={styles.NewsAndStoriesTitleLink}
                       >
                         Why it matters that information on race, ethnicity,
@@ -432,8 +432,8 @@ function EquityTab() {
                       used in targeting federal resources and programs to
                       address inequities due to social and economic factors.{' '}
                       <a
-                        href="https://satcherinstitute.org/hetblog2/"
-                        aria-label="Satcher Blog Post on Why Data Matters"
+                        href='https://satcherinstitute.org/hetblog2/'
+                        aria-label='Satcher Blog Post on Why Data Matters'
                       >
                         Read article at SatcherInstitute.org
                       </a>
@@ -445,22 +445,22 @@ function EquityTab() {
                     sm={6}
                     md={6}
                     className={styles.NewsAndStoriesItem}
-                    component="article"
+                    component='article'
                   >
                     <a
-                      href="https://satcherinstitute.org/hetblog3/"
-                      aria-label="Satcher Blog Post on Health Equity Data"
+                      href='https://satcherinstitute.org/hetblog3/'
+                      aria-label='Satcher Blog Post on Health Equity Data'
                     >
                       <img
                         className={styles.NewsAndStoriesBigImg}
-                        src="/img/stock/girls-studying.jpg"
-                        alt=""
+                        src='/img/stock/girls-studying.jpg'
+                        alt=''
                       />
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
-                        href="https://satcherinstitute.org/hetblog3/"
-                        aria-label="Satcher Blog Post on Why Data Matters"
+                        href='https://satcherinstitute.org/hetblog3/'
+                        aria-label='Satcher Blog Post on Why Data Matters'
                         className={styles.NewsAndStoriesTitleLink}
                       >
                         How can we use data to inform practices to advance
@@ -473,8 +473,8 @@ function EquityTab() {
                       accurate data, so we know what’s happening both on the
                       ground and at a population level.{' '}
                       <a
-                        href="https://satcherinstitute.org/hetblog3/"
-                        aria-label="Satcher Blog Post on Health Equity Data"
+                        href='https://satcherinstitute.org/hetblog3/'
+                        aria-label='Satcher Blog Post on Health Equity Data'
                       >
                         Read article at SatcherInstitute.org
                       </a>
@@ -486,23 +486,23 @@ function EquityTab() {
                     sm={6}
                     md={4}
                     className={styles.NewsAndStoriesItem}
-                    component="article"
+                    component='article'
                   >
                     <a
-                      href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
-                      aria-label="Read Scientific American Article"
+                      href='https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/'
+                      aria-label='Read Scientific American Article'
                     >
                       <img
                         className={styles.NewsAndStoriesSmallImg}
-                        src="/img/stock/filling-in-forms.png"
-                        alt=""
+                        src='/img/stock/filling-in-forms.png'
+                        alt=''
                       />
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
                         className={styles.NewsAndStoriesTitleLink}
-                        href="https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/"
-                        aria-label="Read Scientific American Article"
+                        href='https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/'
+                        aria-label='Read Scientific American Article'
                       >
                         Data and technology can help us make progress on COVID
                         inequities
@@ -515,22 +515,22 @@ function EquityTab() {
                     sm={6}
                     md={4}
                     className={styles.NewsAndStoriesItem}
-                    component="article"
+                    component='article'
                   >
                     <a
-                      href="https://satcherinstitute.github.io/analysis/cdc_case_data"
-                      aria-label="Satcher Post on COVID Data Completeness"
+                      href='https://satcherinstitute.github.io/analysis/cdc_case_data'
+                      aria-label='Satcher Post on COVID Data Completeness'
                     >
                       <img
                         className={styles.NewsAndStoriesSmallImg}
-                        src="/img/stock/kids-ukulele.png"
-                        alt=""
+                        src='/img/stock/kids-ukulele.png'
+                        alt=''
                       />
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
-                        href="https://satcherinstitute.github.io/analysis/cdc_case_data"
-                        aria-label="Satcher Post on COVID Data Completeness"
+                        href='https://satcherinstitute.github.io/analysis/cdc_case_data'
+                        aria-label='Satcher Post on COVID Data Completeness'
                         className={styles.NewsAndStoriesTitleLink}
                       >
                         How complete are the CDC's COVID-19 case surveillance
@@ -545,23 +545,23 @@ function EquityTab() {
                     sm={6}
                     md={4}
                     className={styles.NewsAndStoriesItem}
-                    component="article"
+                    component='article'
                   >
                     <a
-                      href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
-                      aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
+                      href='https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children'
+                      aria-label='Kennedy Satcher Article: The Mental Fitness of Our Children'
                     >
                       <img
                         className={styles.NewsAndStoriesSmallImg}
-                        src="/img/graphics/laptop-HET.png"
-                        alt=""
+                        src='/img/graphics/laptop-HET.png'
+                        alt=''
                       />
                     </a>
                     <h4 className={styles.NewsAndStoriesTitleText}>
                       <a
                         className={styles.NewsAndStoriesTitleLink}
-                        href="https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children"
-                        aria-label="Kennedy Satcher Article: The Mental Fitness of Our Children"
+                        href='https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children'
+                        aria-label='Kennedy Satcher Article: The Mental Fitness of Our Children'
                       >
                         The mental fitness of our children
                       </a>
@@ -574,8 +574,8 @@ function EquityTab() {
           <Grid
             container
             className={styles.FaqRow}
-            alignItems="center"
-            justifyContent="center"
+            alignItems='center'
+            justifyContent='center'
           >
             <Grid item sm={12} md={10}>
               <FaqSection />
@@ -585,23 +585,23 @@ function EquityTab() {
         <Grid
           container
           className={styles.JoinTheEffortRow}
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
+          direction='column'
+          justifyContent='center'
+          alignItems='center'
         >
           <Grid
             item
             className={styles.JoinTheEffortHeaderRow}
             id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
             container
-            direction="column"
-            justifyContent="center"
-            alignItems="center"
+            direction='column'
+            justifyContent='center'
+            alignItems='center'
           >
             <Typography
               className={styles.JoinTheEffortHeaderText}
-              variant="h2"
-              component="h3"
+              variant='h2'
+              component='h3'
             >
               {wordpressCopy?.section4_headingLevel2}
             </Typography>
@@ -617,7 +617,7 @@ function EquityTab() {
                 : 'img/animations/HET-lines.gif'
             }
             imageBackground={sass.joinEffortBg1}
-            imageAlt=""
+            imageAlt=''
             textTitle={wordpressCopy?.section4_a_headingLevel3}
             content={
               <>
@@ -644,7 +644,7 @@ function EquityTab() {
                 : 'img/animations/HET-fields.gif'
             }
             imageBackground={sass.joinEffortBg2}
-            imageAlt=""
+            imageAlt=''
             textTitle={wordpressCopy?.section4_b_headingLevel3}
             content={
               <>
@@ -657,8 +657,8 @@ function EquityTab() {
                 <p>
                   <Button
                     className={styles.ContactUsLink}
-                    aria-label="Sign Up - vaccine rideshare program"
-                    href="https://satcherinstitute.org/uberrideshare/"
+                    aria-label='Sign Up - vaccine rideshare program'
+                    href='https://satcherinstitute.org/uberrideshare/'
                   >
                     Sign Up
                   </Button>
@@ -674,7 +674,7 @@ function EquityTab() {
                 : 'img/animations/HET-dots.gif'
             }
             imageBackground={sass.joinEffortBg3}
-            imageAlt=""
+            imageAlt=''
             textTitle={wordpressCopy?.section4_c_headingLevel3}
             content={
               <>
@@ -683,24 +683,24 @@ function EquityTab() {
                 </p>
                 <form
                   action={urlMap.newsletterSignup}
-                  method="post"
-                  target="_blank"
+                  method='post'
+                  target='_blank'
                 >
                   <TextField
-                    id="Enter email address to sign up" // Accessibility label
-                    name="MERGE0"
-                    variant="outlined"
+                    id='Enter email address to sign up' // Accessibility label
+                    name='MERGE0'
+                    variant='outlined'
                     className={styles.EmailTextField}
-                    type="email"
-                    aria-label="Enter Email Address for Newsletter signup"
-                    placeholder="Enter email address"
+                    type='email'
+                    aria-label='Enter Email Address for Newsletter signup'
+                    placeholder='Enter email address'
                   />
                   <Button
-                    type="submit"
-                    color="primary"
-                    variant="contained"
+                    type='submit'
+                    color='primary'
+                    variant='contained'
                     className={styles.EmailAddressFormSubmit}
-                    aria-label="Sign Up for Newsletter in a new window"
+                    aria-label='Sign Up for Newsletter in a new window'
                   >
                     Sign up
                   </Button>

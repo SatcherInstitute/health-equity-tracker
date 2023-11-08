@@ -83,7 +83,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
       <Button
         className={styles.SeeOurDataSourcesButton}
         href={DATA_CATALOG_PAGE_LINK}
-        color="primary"
+        color='primary'
         endIcon={<ArrowForward />}
       >
         See Our Data Sources
