@@ -220,7 +220,7 @@ function AllPosts() {
       >
         <div
           className='
-          flex
+          hidden
           w-full
           flex-col
           flex-wrap
