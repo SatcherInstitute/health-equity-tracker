@@ -111,8 +111,8 @@ export default function MadLibUI(props: {
 
   return (
     <>
-      <Grid item xs={12} container justifyContent="center" alignItems="center">
-        <div className={styles.MadLibUI} id="madlib-box">
+      <Grid item xs={12} container justifyContent='center' alignItems='center'>
+        <div className={styles.MadLibUI} id='madlib-box'>
           {props.madLib.phrase.map(
             (phraseSegment: PhraseSegment, index: number) => {
               let dataTypes: any[][] = []

@@ -32,7 +32,7 @@ export default function PopulationSubsetAlert({
 
   return (
     <CardContent>
-      <Alert severity="info" role="note">
+      <Alert severity='info' role='note'>
         All values presented for <b>{variable}</b> are calculated on the
         population of individuals {ageGroup}. Read more on our{' '}
         <HashLink to={METHODOLOGY_PAGE_LINK}>methodology.</HashLink>

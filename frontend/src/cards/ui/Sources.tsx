@@ -94,8 +94,8 @@ export function Sources(props: SourcesProps) {
     datasetIds.some((id) => DatasetMetadataMap[id]?.contains_nh)
 
   return (
-    <footer className="px-1 py-0 text-left text-smallest">
-      <p className="w-full">
+    <footer className='px-1 py-0 text-left text-smallest'>
+      <p className='w-full'>
         <>{optionalDefinition}</>
         View{' '}
         <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
@@ -105,9 +105,9 @@ export function Sources(props: SourcesProps) {
       </p>
 
       {/* NH note (if needed) listed first, full-width */}
-      <div className="w-full">
+      <div className='w-full'>
         {showNhFootnote && (
-          <p className="mb-0 mt-1">
+          <p className='mb-0 mt-1'>
             Note. NH: Non-Hispanic. To promote inclusion, we replace the source
             data labels <i>‘Multiracial’</i> with <i>‘Two or more races’</i>,
             and <i>‘Some other’</i> with <i>‘Unrepresented’</i>.{' '}

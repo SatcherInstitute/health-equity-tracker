@@ -32,7 +32,7 @@ export default function TopicInfoModal() {
         setTopicInfoModalIsOpen(false)
       }}
       maxWidth={'lg'}
-      scroll="paper"
+      scroll='paper'
     >
       <DialogContent dividers={true}>
         <Button
@@ -40,8 +40,8 @@ export default function TopicInfoModal() {
           onClick={() => {
             setTopicInfoModalIsOpen(false)
           }}
-          color="primary"
-          aria-label="close topic info modal"
+          color='primary'
+          aria-label='close topic info modal'
         >
           <CloseIcon />
         </Button>

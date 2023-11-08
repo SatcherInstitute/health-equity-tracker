@@ -23,7 +23,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
             playsInline
             className={styles.HowToStepImg}
           >
-            <source src={covidClick} type="video/mp4" />
+            <source src={covidClick} type='video/mp4' />
           </video>
         </LazyLoad>
       </>,
@@ -84,11 +84,11 @@ export function getOnboardingSteps(pageIsWide: boolean) {
         <div className={styles.StepVideoBox}>
           <iframe
             className={styles.ResourceVideoEmbed}
-            src="https://www.youtube.com/embed/XBoqT9Jjc8w"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            src='https://www.youtube.com/embed/XBoqT9Jjc8w'
+            title='YouTube video player'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
-            loading="lazy"
+            loading='lazy'
           ></iframe>
         </div>
       </>,

@@ -6,21 +6,21 @@ function TermsOfUsePage() {
       <Helmet>
         <title>Terms of Use - Health Equity Tracker</title>
       </Helmet>
-      <section className="flex w-full flex-col justify-center p-10 md:flex-row">
-        <div className="w-full md:w-1/4">
+      <section className='flex w-full flex-col justify-center p-10 md:flex-row'>
+        <div className='w-full md:w-1/4'>
           <h2
-            id="main"
-            className="m-0 font-serif text-header font-light md:m-2"
+            id='main'
+            className='m-0 font-serif text-header font-light md:m-2'
           >
             Terms of Use
           </h2>
         </div>
-        <ul className="w-full max-w-3xl list-none text-left md:w-3/4">
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+        <ul className='max-w-3xl w-full list-none text-left md:w-3/4'>
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Privacy Policy
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               Morehouse School of Medicine’s (MSM) Health Equity Tracker (HET)
               is committed to protecting your online privacy. The only
               information MSM’s HET obtains about individual visitors to this
@@ -29,11 +29,11 @@ function TermsOfUsePage() {
               use of your personal information from your visit to our web site.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Personally Provided Information
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               In general, you can visit official MSM web sites, such as the
               Health Equity Tracker, without revealing any personal information.
               If you choose to provide us with any personal information by
@@ -45,11 +45,11 @@ function TermsOfUsePage() {
               unless required by law.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Email and Phone Communications
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               Email communication that you send to us via contact forms on our
               sites or through phone calls may be shared with a customer service
               representative, employee, HET partners or medical expert that is
@@ -57,11 +57,11 @@ function TermsOfUsePage() {
               in a timely fashion once communications are received.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Collection of Technical Information
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               MSM and the HET use IP addresses (the Internet address of your
               computer) to help diagnose problems with our servers and to
               administer our site. For instance, we run statistical software to
@@ -70,7 +70,7 @@ function TermsOfUsePage() {
               But, we do not link IP addresses to anything personally
               identifiable.
             </p>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               Like many other web sites, portions of MSM’s HET web site might
               use cookies. This is typically done to recognize you and your
               access privileges on the MSM web site. For instance, using cookies
@@ -79,15 +79,15 @@ function TermsOfUsePage() {
               never contain personal data and cannot be accessed remotely by
               anybody other than MSM.
             </p>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               While aggregate statistical reports may be generated based on site
               usage, no personally identifiable information will ever be
               disseminated to any unaffiliated third party.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">Security</h3>
-            <p className="font-sansText text-small">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>Security</h3>
+            <p className='font-sansText text-small'>
               While no computing environment can be 100% secure, it is MSM’s
               goal to maintain as secure a technical environment as feasible
               given the current state of capabilities and technologies. MSM will
@@ -97,11 +97,11 @@ function TermsOfUsePage() {
               information.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Links to Other Sites
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               Please note that some pages within MSM web site, for the
               convenience of users, are linked to web sites not managed by the
               institution or HET. MSM does not review, control or take
@@ -110,11 +110,11 @@ function TermsOfUsePage() {
               web site.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Changes to our Privacy Policy
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               We may change the terms and conditions of our Privacy Policy at
               any time by posting revisions on the MSM and HET web site. By
               accessing or using the MSM and HET web site, you agree to be bound
@@ -124,11 +124,11 @@ function TermsOfUsePage() {
               statement, please exit the site immediately.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Complaint Process
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               If you have a complaint or problem with the HET website, or if you
               believe your privacy rights have been violated from the HET
               website, you may email us at HET@msm.edu. Please indicate the
@@ -136,11 +136,11 @@ function TermsOfUsePage() {
               Core will review your complaint for response or resolution.
             </p>
           </li>
-          <li className="pb-5">
-            <h3 className="font-sansTitle text-title font-medium">
+          <li className='pb-5'>
+            <h3 className='font-sansTitle text-title font-medium'>
               Disclaimer
             </h3>
-            <p className="font-sansText text-small">
+            <p className='font-sansText text-small'>
               No data protection method or combination of methods can be
               guaranteed as completely secure. MSM nor HET are responsible for
               and will not be held liable for disclosures of your personal
@@ -155,7 +155,7 @@ function TermsOfUsePage() {
           </li>
         </ul>
       </section>
-      <hr className="w-full border-b-0 border-b-gray" />
+      <hr className='border-b-gray w-full border-b-0' />
     </>
   )
 }

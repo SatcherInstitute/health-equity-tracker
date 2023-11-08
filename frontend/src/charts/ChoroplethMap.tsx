@@ -542,7 +542,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     >
       {mapIsReady && (
         <Vega
-          renderer="svg"
+          renderer='svg'
           spec={spec}
           width={props.overrideShapeWithCircle ? undefined : width}
           actions={false}

@@ -161,7 +161,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                     : props.demographicType
                 }
                 ageQueryResponse={ageQueryResponse}
-                displayType="table"
+                displayType='table'
                 known={true}
                 overrideAndWithOr={props.demographicType === RACE}
                 fips={props.fips}
@@ -200,7 +200,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               )}
             <CardContent>
               {/* Always show info on what age-adj is */}
-              <Alert severity="info" role="note">
+              <Alert severity='info' role='note'>
                 Age-adjustment is a statistical process applied to rates of
                 disease, death, or other health outcomes that correlate with an
                 individual's age. Adjusting for age allows for fairer comparison
