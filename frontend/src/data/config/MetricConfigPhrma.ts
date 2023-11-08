@@ -4,6 +4,11 @@ import {
 } from '../../charts/mapGlobals'
 import { type DataTypeConfig } from './MetricConfig'
 
+export const MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS = [
+  'medicare_cardiovascular',
+  'medicare_hiv',
+]
+
 export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'medicare_cardiovascular',
   'medicare_hiv',
@@ -96,7 +101,16 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Persistent use of beta-blockers after a heart attacked is indicted by major clinical guidelines to reduce the risk of a future heart attack.`,
+      text: `Beta-blockers are recommended by clinical guidelines for reducing the risk of a secondary heart attack.`,
+      citations: [
+        {
+          shortLabel:
+            'American Heart Association/American College of Cardiology Foundation',
+          longerTitle:
+            'Smith, S. C., Jr, Benjamin, E. J., Bonow, R. O., Braun, L. T., Creager, M. A., Franklin, B. A., Gibbons, R. J., Grundy, S. M., Hiratzka, L. F., Jones, D. W., Lloyd-Jones, D. M., Minissian, M., Mosca, L., Peterson, E. D., Sacco, R. L., Spertus, J., Stein, J. H., Taubert, K. A., & World Heart Federation and the Preventive Cardiovascular Nurses Association (2011). AHA/ACCF Secondary Prevention and Risk Reduction Therapy for Patients with Coronary and other Atherosclerotic Vascular Disease: 2011 update: a guideline from the American Heart Association and American College of Cardiology Foundation. Circulation, 124(22), 2458–2473. https://doi.org/10.1161/CIR.0b013e318235eb4d',
+          url: 'https://doi.org/10.1161/CIR.0b013e318235eb4d',
+        },
+      ],
     },
     metrics: {
       sub_population_count: {
@@ -150,19 +164,21 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Statins are recommended for management of dyslipidemia and/or primary prevention of cardiovascular disease (CVD) in several treatment guidelines. High adherence to statins is associated with decreased risk of death and lower health care costs.`,
+      text: `Statins are recommended by several treatment guidelines for the prevention of cardiovascular disease (CVD).`,
       citations: [
         {
-          shortLabel: 'Journal of Clinical Medicine',
+          shortLabel:
+            'American College of Cardiology/American Heart Association',
           longerTitle:
-            'Nowak MM, Niemczyk M, Florczyk M, Kurzyna M, Pączek L. Effect of Statins on All-Cause Mortality in Adults: A Systematic Review and Meta-Analysis of Propensity Score-Matched Studies. J Clin Med. 2022 Sep 25;11(19):5643. doi: 10.3390/jcm11195643. PMID: 36233511; PMCID: PMC9572734.',
-          url: 'https://pubmed.ncbi.nlm.nih.gov/36233511/',
+            'Stone NJ, Robinson JG, Lichtenstein AH, et al. American College of Cardiology/American Heart Association Task Force on Practice Guidelines. 2013 ACC/AHA guideline on the treatment of blood cholesterol to reduce atherosclerotic cardiovascular risk in adults: a report of the American College of Cardiology/American Heart Association Task Force on Practice Guidelines. Circulation. 2014; 129(25 Suppl 2):S1-45. PMID: 24222016.',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/24222016/',
         },
         {
-          shortLabel: 'Health Affairs (Project Hope)',
+          shortLabel:
+            'American Association of Clinical Endocrinologists/American College of Endocrinology',
           longerTitle:
-            'Roebuck MC, Liberman JN, Gemmill-Toyama M, et al. Medication adherence leads to lower health care use and costs despite increased drug spending. Health Aff (Millwood). 2011; 30(1):91-9. PMID: 21209444.',
-          url: 'https://pubmed.ncbi.nlm.nih.gov/21209444/',
+            'Jellinger PS, Handelsman Y, Rosenblit PD, et al. American Association of Clinical Endocrinologists and American College of Endocrinology Guidelines for Management of Dyslipidemia and Prevention of Cardiovascular Disease. Endocr Pract. 2017; 23(Suppl 2):1-87. PMID: 28437620.',
+          url: 'https://pubmed.ncbi.nlm.nih.gov/28437620/',
         },
       ],
     },
@@ -207,7 +223,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Adherence to beta blockers',
     surveyCollectedData: true,
     definition: {
-      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta blockers during the measurement year.`,
+      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for beta-blockers during the measurement year. A higher rate indicates better performance.`,
       citations: [
         {
           shortLabel: 'PQA Alliance',
@@ -218,7 +234,16 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Adherence to beta blockers is essential in preventing complications from cardiovascular conditions. Adherence to beta blockers have been shown to decrease the rate of mortality and hospitalization in patients with heart failure and to improve survival after AMI.`,
+      text: `Beta-blockers are recommended by clinical guidelines as a treatment for high blood pressure among some patients with coronary artery disease or heart failure.`,
+      citations: [
+        {
+          shortLabel:
+            'American College of Cardiology/American Heart Association',
+          longerTitle:
+            'Whelton, P. K., Carey, R. M., Aronow, W. S., Casey, D. E., Jr, Collins, K. J., Dennison Himmelfarb, C., DePalma, S. M., Gidding, S., Jamerson, K. A., Jones, D. W., MacLaughlin, E. J., Muntner, P., Ovbiagele, B., Smith, S. C., Jr, Spencer, C. C., Stafford, R. S., Taler, S. J., Thomas, R. J., Williams, K. A., Sr, Williamson, J. D., … Wright, J. T., Jr (2018). 2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults: Executive Summary: A Report of the American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines. Hypertension (Dallas, Tex. : 1979), 71(6), 1269–1324.',
+          url: 'https://doi.org/10.1161/HYP.0000000000000066',
+        },
+      ],
     },
     metrics: {
       sub_population_count: {
@@ -258,11 +283,11 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeId: 'ras_antagonists_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
-      'Adherence to Renin Angiotensin System Antagonists (RAS-Antagonists)',
-    fullDisplayName: 'Adherence to RAS-Antagonists',
+      'Adherence to Renin Angiotensin System Antagonists (RASA)',
+    fullDisplayName: 'Adherence to RASA',
     surveyCollectedData: true,
     definition: {
-      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASA) during the measurement year. A higher rate indicates better performance.`,
+      text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for renin angiotensin system antagonists (RASAs) during the measurement year. A higher rate indicates better performance.`,
       citations: [
         {
           shortLabel: 'PQA Alliance',
@@ -273,7 +298,16 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `RASAs are important for the chronic treatment of hypertension and proteinuria in patients with diabetes, in which these drugs have been shown to delay renal failure and heart disease. Non-adherence is a major contributor to poor control of hypertension and a key barrier to reducing mortality and understanding adherence patterns can lead to improved clinical outcomes for patients.`,
+      text: `RASAs are commonly prescribed to treat hypertension. The 2017 American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines recommend RASAs as first-line treatment of hypertension.`,
+      citations: [
+        {
+          shortLabel:
+            'American College of Cardiology/American Heart Association',
+          longerTitle:
+            'Whelton, P. K., Carey, R. M., Aronow, W. S., Casey, D. E., Jr, Collins, K. J., Dennison Himmelfarb, C., DePalma, S. M., Gidding, S., Jamerson, K. A., Jones, D. W., MacLaughlin, E. J., Muntner, P., Ovbiagele, B., Smith, S. C., Jr, Spencer, C. C., Stafford, R. S., Taler, S. J., Thomas, R. J., Williams, K. A., Sr, Williamson, J. D., … Wright, J. T., Jr (2018). 2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults: Executive Summary: A Report of the American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines. Hypertension (Dallas, Tex. : 1979), 71(6), 1269–1324.',
+          url: 'https://doi.org/10.1161/HYP.0000000000000066',
+        },
+      ],
     },
     metrics: {
       sub_population_count: {
@@ -326,7 +360,16 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Adherence to calcium channel blockers is important to effectively treat high blood pressure and reduce risk of cardiovascular disease.`,
+      text: `Calcium channel blockers are recommended by clinical guidelines as first-line treatment of hypertension.`,
+      citations: [
+        {
+          shortLabel:
+            'American College of Cardiology/American Heart Association',
+          longerTitle:
+            'Whelton, P. K., Carey, R. M., Aronow, W. S., Casey, D. E., Jr, Collins, K. J., Dennison Himmelfarb, C., DePalma, S. M., Gidding, S., Jamerson, K. A., Jones, D. W., MacLaughlin, E. J., Muntner, P., Ovbiagele, B., Smith, S. C., Jr, Spencer, C. C., Stafford, R. S., Taler, S. J., Thomas, R. J., Williams, K. A., Sr, Williamson, J. D., … Wright, J. T., Jr (2018). 2017 ACC/AHA/AAPA/ABC/ACPM/AGS/APhA/ASH/ASPC/NMA/PCNA Guideline for the Prevention, Detection, Evaluation, and Management of High Blood Pressure in Adults: Executive Summary: A Report of the American College of Cardiology/American Heart Association Task Force on Clinical Practice Guidelines. Hypertension (Dallas, Tex. : 1979), 71(6), 1269–1324.',
+          url: 'https://doi.org/10.1161/HYP.0000000000000066',
+        },
+      ],
     },
     metrics: {
       sub_population_count: {
@@ -379,7 +422,19 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       ],
     },
     description: {
-      text: `Missed doses of DOAC can increase the risk for blood clots in patients. Improved adherence to DOACs is associated with decreased risk of stroke.`,
+      text: `DOACs are recommended by clinical guidelines among many patients with a history of ischemic stroke and atrial fibrillation.`,
+      citations: [
+        {
+          shortLabel:
+            'American Heart Association / American Stroke Association',
+          longerTitle:
+            'Kleindorfer, D. O., Towfighi, A., Chaturvedi, S., Cockroft, K. M., Gutierrez, J., Lombardi-Hill, D., Kamel, H., Kernan, W. N., Kittner, S. J., Leira, E. C., Lennon, O., Meschia, J. F., Nguyen, T. N., Pollak, P. M., Santangeli, P., Sharrief, A. Z., Smith, S. C., Jr, Turan, T. N., & Williams, L. S. (2021). 2021 Guideline for the Prevention of Stroke in Patients With Stroke and Transient Ischemic Attack: A Guideline From the American Heart Association/American Stroke Association. Stroke, 52(7), e364–e467. https://doi.org/10.1161/STR.0000000000000375',
+          url: 'https://doi.org/10.1161/STR.0000000000000375',
+        },
+      ],
+      /*
+
+      */
     },
     metrics: {
       sub_population_count: {
@@ -424,7 +479,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
       text: `The number of Medicare fee-for-service beneficiaries with a diagnosis of acute myocardial infarction (AMI) (otherwise known as a heart attack) per 100K during the measurement period.`,
     },
     description: {
-      text: `Heart disease, such as heart attack and heart failure, is the leading cause of death in the US.`,
+      text: `Heart disease, such as heart attack and heart failure, is leading cause of death in the US.`,
       citations: [
         {
           shortLabel: 'CDC',
@@ -488,9 +543,29 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     surveyCollectedData: true,
     definition: {
       text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 90% for ≥3 antiretroviral medications during the measurement year.`,
+      citations: [
+        {
+          shortLabel: 'PQA Alliance',
+          longerTitle:
+            'Proportion of Days Covered: Antiretroviral Medications (PDC-ARV). Pharmacy Quality Alliance. Updated September 2019.',
+          url: 'https://www.pqaalliance.org/measures-overview#pdc-arv',
+        },
+      ],
     },
     description: {
-      text: `Effective treatment of HIV with antiretroviral medications can reduce mortality and morbidity rates among people affected by HIV.`,
+      text: `Antiretroviral medications are recommended for the treatment of HIV.`,
+      citations: [
+        {
+          shortLabel: 'CDC',
+          longerTitle:
+            'Centers for Disease Control and Prevention, Health Resources and Services Administration, National Institutes of Health, American Academy of HIV Medicine, Association of Nurses in AIDS Care, International Association of Providers of AIDS Care, the National Minority AIDS Council, and Urban Coalition for HIV / AIDS Prevention Services.Recommendations for HIV Prevention with Adults and Adolescents with HIV in the United States, 2014',
+          url: 'https://health.gov/healthypeople/tools-action/browse-evidence-based-resources/recommendations-hiv-prevention-adults-and-adolescents-hiv-united-states-2014',
+        },
+      ],
+      /*
+
+
+      */
     },
     metrics: {
       sub_population_count: {
@@ -532,10 +607,18 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'Cases of HIV',
     surveyCollectedData: true,
     definition: {
-      text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of Human immunodeficiency virus (HIV) during the measurement period.`,
+      text: `The number of Medicare fee-for-service beneficiaries per 100K with a diagnosis of human immunodeficiency virus (HIV) during the measurement period.`,
     },
     description: {
-      text: `HIV is a major public health crisis that infects thousands of people in the U.S. per year. If left untreated, HIV results in acquired immunodeficiency syndrome, which increases the risk of death.`,
+      text: `HIV is a major public health crisis, which disproportionately impacts certain subpopulations.`,
+      citations: [
+        {
+          shortLabel: 'CDC',
+          longerTitle:
+            'HIV Incidence. Centers for Disease and Control. https://www.cdc.gov/hiv/statistics/overview/in-us/incidence.html',
+          url: 'https://www.cdc.gov/hiv/statistics/overview/in-us/incidence.html',
+        },
+      ],
     },
     metrics: {
       sub_population_count: {

@@ -160,6 +160,7 @@ export default function AltTableView(props: AltTableViewProps) {
                     <TableRow key={row[TIME_PERIOD_LABEL]}>
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL
+
                         const appendPct =
                           key.includes('with unknown ') ||
                           [
@@ -186,8 +187,8 @@ export default function AltTableView(props: AltTableViewProps) {
                               </>
                             ) : (
                               <>
-                                {Math.round(row[key])}
-                                {!isTimePeriod && appendPct && '%'}
+                                {isTimePeriod ? row[key] : Math.round(row[key])}
+                                {!isTimePeriod && appendPct ? '%' : ''}
                               </>
                             )}
                           </TableCell>
