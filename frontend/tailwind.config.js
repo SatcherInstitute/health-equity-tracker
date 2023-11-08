@@ -150,11 +150,18 @@ export default {
       bigHeader: '3rem',
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
+    },
+  },
+  extend: {
+    width: {
+      g: '700px',
+    },
+    height: {
+      g: '600px',
     }
   },
-
   plugins: [],
   corePlugins: {
     preflight: false,
-  },
+  }
 }
