@@ -477,8 +477,8 @@ function MapCardWithKey(props: MapCardProps) {
                 <CardContent className={styles.MapControlsContent}>
                   <Grid
                     container
-                    justifyContent="space-between"
-                    align-items="flex-end"
+                    justifyContent='space-between'
+                    align-items='flex-end'
                     id={'map-group-dropdown'}
                   >
                     <Grid item>
@@ -662,7 +662,7 @@ function MapCardWithKey(props: MapCardProps) {
                 dataForActiveDemographicGroup.length === 0 &&
                 activeDemographicGroup !== ALL && (
                   <CardContent>
-                    <Alert severity="warning" role="note">
+                    <Alert severity='warning' role='note'>
                       Insufficient data available for filter:{' '}
                       <b>{activeDemographicGroup}</b>.{' '}
                       {/* Offer multimap link if current demo group is missing info */}

@@ -163,7 +163,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 metricConfig={metricConfig}
                 queryResponse={queryResponse}
                 demographicType={props.demographicType}
-                displayType="chart"
+                displayType='chart'
                 known={true}
                 overrideAndWithOr={props.demographicType === RACE}
                 fips={props.fips}
@@ -184,7 +184,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
             {shouldShowDoesntAddUpMessage && (
               <CardContent>
-                <Alert severity="info" role="note">
+                <Alert severity='info' role='note'>
                   Population percentages on this graph add up to over 100%
                   because the racial categories reported for {chartTitle} in{' '}
                   {props.fips.getSentenceDisplayName()} include Hispanic

@@ -8,7 +8,9 @@ $breakpoint-mobile: 600px;
 
 @mixin hoverTransition {
   opacity: 1;
-  transition: opacity 250ms ease-in-out, transform 200ms linear;
+  transition:
+    opacity 250ms ease-in-out,
+    transform 200ms linear;
 }
 
 figure {

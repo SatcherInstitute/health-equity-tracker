@@ -72,8 +72,8 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
           onClick={() => {
             props.setIsOpen(!props.isOpen)
           }}
-          color="primary"
-          size="large"
+          color='primary'
+          size='large'
         >
           {props.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
         </IconButton>
@@ -96,9 +96,9 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
       {props.isOpen && (
         <>
           <div className={styles.ListBoxLists}>
-            <Grid container justifyContent="space-around">
+            <Grid container justifyContent='space-around'>
               <ExtremeList
-                whichExtreme="Highest"
+                whichExtreme='Highest'
                 values={props.highestValues}
                 metricConfig={props.metricConfig}
                 qualifierMessage={props.qualifierMessage}
@@ -106,7 +106,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
               />
 
               <ExtremeList
-                whichExtreme="Lowest"
+                whichExtreme='Lowest'
                 values={props.lowestValues}
                 metricConfig={props.metricConfig}
                 qualifierMessage={props.qualifierMessage}
