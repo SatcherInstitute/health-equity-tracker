@@ -15,7 +15,7 @@ const TheProjectTab = lazy(async () => await import('./TheProjectTab'))
 
 export default function AboutUsPage() {
   return (
-    <div className='mx-auto max-w-lg'>
+    <div className='mx-auto min-h-screen max-w-lg '>
       {/*  intercept old CONTACT via query params for backwards compatible links */}
       {useUrlSearchParams().get('tab') === '2' && (
         <Redirect
