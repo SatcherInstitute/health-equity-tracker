@@ -102,39 +102,10 @@
 
 /** ------------- THE PROJECT ------------- **/
 
-.HeaderImgItem {
-  @media (min-width: $md) {
-    border-left: 1px solid $border-color;
-  }
-}
-
 // Grid item for each Ethics subheader
 .CommittedToEthicsSubheaderItem {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   min-height: 100px;
-}
-
-.HeaderImgItem {
-  display: none;
-
-  @media (min-width: $md) {
-    display: block;
-  }
-
-  @media (min-width: $md) {
-    border-left: 1px solid $border-color;
-  }
-}
-
-.HeaderImg {
-  border-radius: 30px;
-  height: auto;
-  max-height: $header-height;
-  width: 100%;
-  max-width: 700px;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
 }
