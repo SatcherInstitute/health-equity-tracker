@@ -1,7 +1,4 @@
 import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import styles from './AboutUsPage.module.scss'
 import {
   COPD_US_SETTING,
   COVID_HOSP_NY_COUNTY_SETTING,
@@ -37,7 +34,7 @@ function TheProjectTab() {
         <title>The Project - About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>The Project</h2>
-      <header className='flex'>
+      <header className='flex border-0 border-b border-solid border-border-color'>
         <div className='grid w-full place-content-center p-6 md:w-5/12'>
           <h3
             id='main'
@@ -62,30 +59,18 @@ function TheProjectTab() {
         </div>
       </header>
 
-      <Grid
-        container
-        className={styles.GridOutlinedRow}
-        direction='row'
-        justifyContent='center'
-        alignItems='center'
-      >
-        <Grid
-          container
-          className={styles.GridSubRow}
-          direction='row'
-          justifyContent='space-around'
-          alignItems='center'
-        >
-          <div className='grid w-full place-content-center md:w-5/12'>
-            <h3 className='my-0 p-0 font-serif text-header font-extralight'>
+      <div className='grid place-content-center'>
+        <div className='flex w-full flex-col justify-around  p-10 md:flex-row'>
+          <div className='flex w-full flex-col flex-wrap justify-center md:w-5/12'>
+            <h3 className='my-0 w-full p-0 font-serif text-header font-extralight'>
               Where we started
             </h3>
-            <p className='text-text'>
+            <p className='text-left text-text '>
               Prompted by the COVID-19 pandemic, the Health Equity Tracker was
               created in 2020 to aggregate up-to-date demographic data from the
               hardest-hit communities.
             </p>
-            <p className='text-text'>
+            <p className='text-left text-text '>
               The Health Equity Tracker aims to give a detailed view of health
               outcomes by race, ethnicity, sex, and other critical factors. Our
               hope is that it will help policymakers understand what resources
@@ -94,28 +79,13 @@ function TheProjectTab() {
             </p>
           </div>
 
-          <Grid item xs={12} sm={12} md={6}>
-            <Grid
-              container
-              direction='row'
-              justifyContent='space-around'
-              alignItems='flex-start'
-              spacing={3}
-            >
-              <Grid item xs={12} sm={12} md={5}>
-                <Typography
-                  className={styles.UnderlinedHeaderL2}
-                  variant='h3'
-                  paragraph={true}
-                  component='h4'
-                >
+          <div className='w-full md:w-6/12'>
+            <div className='flex justify-around gap-3'>
+              <div className='w-full md:w-5/12'>
+                <h4 className='border-0 border-b-2 border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
                   {`${numDataSources} data sources`}
-                </Typography>
-                <Typography
-                  className={styles.HeaderSubtextL3}
-                  variant='body2'
-                  paragraph={true}
-                >
+                </h4>
+                <p className='text-left font-sansText text-small'>
                   HET currently aggregates data from{' '}
                   <LinkWithStickyParams to={DATA_CATALOG_PAGE_LINK}>
                     {`${numDataSources}`} key data sources
@@ -123,22 +93,13 @@ function TheProjectTab() {
                   , including the CDC and the U.S. Census Bureau. We’ll continue
                   adding to these initial sources as data access and quality
                   improves.
-                </Typography>
-              </Grid>
-              <Grid item xs={12} sm={12} md={5}>
-                <Typography
-                  className={styles.UnderlinedHeaderL2}
-                  variant='h3'
-                  paragraph={true}
-                  component='h4'
-                >
+                </p>
+              </div>
+              <div className='w-full md:w-5/12'>
+                <h4 className=' border-0 border-b-2 border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
                   {numVariables} variables
-                </Typography>
-                <Typography
-                  className={styles.HeaderSubtextL3}
-                  variant='body2'
-                  paragraph={true}
-                >
+                </h4>
+                <p className='text-left font-sansText text-small'>
                   In addition to COVID-19{' '}
                   <LinkWithStickyParams
                     to={EXPLORE_DATA_PAGE_LINK + COVID_VAX_US_SETTING}
@@ -182,20 +143,14 @@ function TheProjectTab() {
                     poverty
                   </LinkWithStickyParams>
                   <span aria-hidden={true}>.</span>
-                </Typography>
-              </Grid>
-              <Grid item xs={12}>
-                <Grid
-                  container
-                  direction='row'
-                  justifyContent='space-around'
-                  alignItems='flex-start'
-                >
-                  <Grid item xs={12} sm={12} md={8} lg={5}>
-                    <Button
-                      variant='contained'
-                      color='primary'
-                      className='
+                </p>
+              </div>
+            </div>
+            <Button
+              variant='contained'
+              color='primary'
+              className='
+                        m-6
                         min-w-min
                         rounded-2xl
                         px-8
@@ -205,16 +160,12 @@ function TheProjectTab() {
                         text-exploreButton
                         font-medium
                         text-white'
-                      href={EXPLORE_DATA_PAGE_LINK}
-                    >
-                      Explore the data
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+              href={EXPLORE_DATA_PAGE_LINK}
+            >
+              Explore the data
+            </Button>
+          </div>
+        </div>
 
         <section>
           <h3 className='p-0 font-serif text-header font-extralight'>
@@ -258,7 +209,7 @@ function TheProjectTab() {
             />
           </ul>
         </section>
-      </Grid>
+      </div>
 
       <section className='border-0 border-t border-solid border-border-color px-10 pt-24'>
         <h2 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-alt-green'>
