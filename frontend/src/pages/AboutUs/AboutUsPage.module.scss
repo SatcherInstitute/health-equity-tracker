@@ -1,0 +1,226 @@
+@import '../../styles/globals.scss';
+@import '../../styles/variables.module';
+
+/** ------------- TYPES OF GRID ROWS ------------- **/
+
+// Generic grid row with no special styling
+.GridRow {
+  padding: 30px;
+
+  // Generic grid subrow with no special styling
+  .GridSubRow {
+    padding: 20px 0 20px 0;
+    list-style: none;
+  }
+}
+
+// Generic grid subrow with no special styling
+.GridSubRow {
+  padding: 20px 0 20px 0;
+}
+
+// Grid rows that have outlines and an image in one cell.
+.GridOutlinedImgRow {
+  .GridVerticallyAlignedItem {
+    justify-content: center;
+    padding: 25px;
+  }
+
+  .HeaderText {
+    @include tav300();
+    font-size: $biggerHeader;
+    text-align: left;
+    color: $alt-green;
+    padding-bottom: 20px;
+  }
+
+  .SubheaderL1Text {
+    @include tav300();
+    font-size: $header;
+    padding: 10px 0 10px 0;
+  }
+
+  .SubheaderL2Text {
+    @include tav300();
+    font-size: $smallHeader;
+    padding: 10px 0 10px 0;
+    text-align: left !important;
+  }
+
+  .HeaderSubtext {
+    @include inter300();
+    font-size: $title;
+    text-align: left;
+  }
+
+  .HeaderSubtextL2 {
+    @include inter300();
+    font-size: $text;
+    text-align: left;
+  }
+
+  .HeaderSubtextL3 {
+    @include inter400();
+    font-size: $small;
+    text-align: left;
+  }
+}
+
+.GridRowHeaderText {
+  padding: 30px;
+  justify-content: center;
+
+  .HeaderText {
+    @include tav300();
+    font-size: $bigHeader;
+    text-align: center;
+    color: $alt-green;
+    padding-bottom: 20px;
+  }
+
+  .HeaderSubtext {
+    @include inter300();
+    font-size: $title;
+    text-align: left;
+  }
+}
+
+// Grid rows with outlines.
+.GridOutlinedRow {
+  align-items: center;
+  border-top: 1px solid $border-color;
+
+  @media (min-width: $lg) {
+    padding: 147px 120px 147px 120px;
+  }
+
+  @media (max-width: $lg) {
+    padding: 100px;
+  }
+
+  @media (max-width: $md) {
+    padding: 80px;
+  }
+
+  @media (max-width: $sm) {
+    padding: 40px;
+  }
+
+  .GridVerticallyAlignedItem {
+    justify-content: center;
+  }
+
+  .HeaderText {
+    @include tav300();
+    font-size: $bigHeader;
+    text-align: center;
+    color: $alt-green;
+    padding-bottom: 20px;
+  }
+
+  .SubheaderL1Text {
+    @include tav300();
+    font-size: $header;
+    padding: 0 0 10px 0;
+  }
+
+  .SubheaderL2Text {
+    @include tav300();
+    font-size: $smallestHeader;
+    padding: 30px 0 1rem 0;
+    text-align: left;
+  }
+
+  .HeaderSubtext {
+    @include inter300();
+    font-size: $title;
+    text-align: left;
+  }
+
+  .HeaderSubtextL2 {
+    @include inter300();
+    font-size: $text;
+    text-align: left;
+  }
+
+  .HeaderSubtextL3 {
+    @include inter400();
+    font-size: $small;
+    text-align: left;
+  }
+}
+
+/** ------------- HEADERS ------------- **/
+
+// # data source / variables
+.UnderlinedHeaderL2 {
+  @include tav300();
+  font-size: $smallHeader !important;
+  border-bottom: 1.5px solid $alt-green;
+  margin: 25px 0 25px 0;
+  text-align: left;
+}
+
+/** ------------- THE PROJECT ------------- **/
+
+.HeaderImgItem {
+  @media (min-width: $md) {
+    border-left: 1px solid $border-color;
+  }
+}
+
+// For each item in the "Where We Aim To Go" section
+.GoalList {
+  display: flex;
+  padding-left: 0;
+}
+
+.GoalListItem {
+  padding: 0 1.5rem 0 1.5rem;
+  list-style: none;
+}
+
+// For each image in the "Where We Aim To Go" section
+.ImgAimToGo {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+
+  width: 100%;
+  height: auto;
+  max-height: 255px;
+  max-width: 255px;
+}
+
+// Grid item for each Ethics subheader
+.CommittedToEthicsSubheaderItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: 100px;
+}
+
+.HeaderImgItem {
+  display: none;
+
+  @media (min-width: $md) {
+    display: block;
+  }
+
+  @media (min-width: $md) {
+    border-left: 1px solid $border-color;
+  }
+}
+
+.HeaderImg {
+  border-radius: 30px;
+  height: auto;
+  max-height: $header-height;
+  width: 100%;
+  max-width: 700px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}

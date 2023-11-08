@@ -59,8 +59,8 @@ function TheProjectTab() {
         </div>
       </header>
 
-      <div className='grid place-content-center'>
-        <div className='flex w-full flex-col justify-around  p-10 md:flex-row'>
+      <section className='grid place-content-center gap-24 p-24'>
+        <div className='flex w-full flex-col justify-around  md:flex-row'>
           <div className='flex w-full flex-col flex-wrap justify-center md:w-5/12'>
             <h3 className='my-0 w-full p-0 font-serif text-header font-extralight'>
               Where we started
@@ -80,9 +80,9 @@ function TheProjectTab() {
           </div>
 
           <div className='w-full md:w-6/12'>
-            <div className='flex justify-around gap-3'>
+            <div className='flex flex-col justify-around gap-3 md:flex-row'>
               <div className='w-full md:w-5/12'>
-                <h4 className='border-0 border-b-2 border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
+                <h4 className='border-0 border-b border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
                   {`${numDataSources} data sources`}
                 </h4>
                 <p className='text-left font-sansText text-small'>
@@ -96,7 +96,7 @@ function TheProjectTab() {
                 </p>
               </div>
               <div className='w-full md:w-5/12'>
-                <h4 className=' border-0 border-b-2 border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
+                <h4 className=' border-0 border-b border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
                   {numVariables} variables
                 </h4>
                 <p className='text-left font-sansText text-small'>
@@ -167,11 +167,11 @@ function TheProjectTab() {
           </div>
         </div>
 
-        <section>
-          <h3 className='p-0 font-serif text-header font-extralight'>
+        <div className=''>
+          <h3 className='my-0 p-0  font-serif text-header font-extralight'>
             Where we aim to go
           </h3>
-          <ul className='flex flex-wrap pl-0'>
+          <ul className='m-0 flex flex-wrap pl-0'>
             <GoalListItem
               src={
                 prefersReducedMotion
@@ -208,13 +208,13 @@ function TheProjectTab() {
             and publish more health equity reports and analyses.'
             />
           </ul>
-        </section>
-      </div>
+        </div>
+      </section>
 
-      <section className='border-0 border-t border-solid border-border-color px-10 pt-24'>
-        <h2 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-alt-green'>
+      <section className='border-0 border-t border-solid border-border-color p-24'>
+        <h3 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-alt-green'>
           We are committed to the following ethics
-        </h2>
+        </h3>
         <ul className='flex list-none flex-wrap'>
           <GoalListItem
             title='Transparency & Accountability'

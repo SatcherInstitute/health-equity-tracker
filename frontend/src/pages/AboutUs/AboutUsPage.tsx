@@ -6,7 +6,6 @@ import {
   CONTACT_TAB_LINK,
   OURTEAM_TAB_LINK,
 } from '../../utils/internalRoutes'
-import styles from './AboutUsPage.module.scss'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
 import { lazy } from 'react'
 
@@ -16,7 +15,7 @@ const TheProjectTab = lazy(async () => await import('./TheProjectTab'))
 
 export default function AboutUsPage() {
   return (
-    <div className={styles.AboutUsPage}>
+    <div className='mx-auto max-w-lg'>
       {/*  intercept old CONTACT via query params for backwards compatible links */}
       {useUrlSearchParams().get('tab') === '2' && (
         <Redirect
@@ -25,28 +24,28 @@ export default function AboutUsPage() {
           }}
         />
       )}
-      <Route path="/">
+      <Route path='/'>
         <Tabs
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor='primary'
+          textColor='primary'
           centered
           value={window.location.pathname}
         >
           <Tab
             value={ABOUT_US_PAGE_LINK}
-            label="The Project"
+            label='The Project'
             component={Link}
             to={ABOUT_US_PAGE_LINK}
           />
           <Tab
             value={OURTEAM_TAB_LINK}
-            label="Our Team"
+            label='Our Team'
             component={Link}
             to={OURTEAM_TAB_LINK}
           />
           <Tab
             value={CONTACT_TAB_LINK}
-            label="Contact Us"
+            label='Contact Us'
             component={Link}
             to={CONTACT_TAB_LINK}
           />
