@@ -11,7 +11,7 @@ interface JumpToSelectProps {
 
 export default function JumpToSelect(props: JumpToSelectProps) {
   return (
-    <FormControl sx={{ m: 1, minWidth: 110 }} size="small">
+    <FormControl sx={{ m: 1, minWidth: 110 }} size='small'>
       <InputLabel id={`jump-to-select-label`}>Jump to</InputLabel>
       <Select
         autoWidth
@@ -21,7 +21,7 @@ export default function JumpToSelect(props: JumpToSelectProps) {
         label={'Jump to'}
       >
         <MenuItem value={' '}>
-          <a className={styles.JumpToLink} href="#top">
+          <a className={styles.JumpToLink} href='#top'>
             Select a card
           </a>
         </MenuItem>

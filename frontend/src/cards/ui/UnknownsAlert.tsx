@@ -85,13 +85,13 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
     ${unknowns[0][props.metricConfig.metricId] as string}${
-        props.metricConfig.shortLabel
-      } reported an
+      props.metricConfig.shortLabel
+    } reported an
     ${unknowns[0][props.demographicType].toLowerCase() as string} and
     ${unknowns[1][props.metricConfig.metricId] as string}${
-        props.metricConfig?.knownBreakdownComparisonMetric?.shortLabel ??
-        'This group'
-      } reported an
+      props.metricConfig?.knownBreakdownComparisonMetric?.shortLabel ??
+      'This group'
+    } reported an
     ${unknowns[1][props.demographicType].toLowerCase() as string}.`
     : ''
 
@@ -109,13 +109,13 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   // show the higher one on the map
   return raceEthnicityDiff ? (
     <CardContent>
-      <Alert severity="warning" role="note">
+      <Alert severity='warning' role='note'>
         {diffRaceEthnicityText}
       </Alert>
     </CardContent>
   ) : (
     <CardContent sx={{ m: 1 }}>
-      <Alert severity={showInfoSeverity ? 'info' : 'warning'} role="note">
+      <Alert severity={showInfoSeverity ? 'info' : 'warning'} role='note'>
         {percentageUnknown}
         {props.metricConfig.shortLabel}
         {' reported an unknown '}

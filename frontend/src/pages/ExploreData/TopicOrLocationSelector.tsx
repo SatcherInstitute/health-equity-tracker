@@ -109,8 +109,8 @@ export default function TopicOrLocationSelector(
       <span ref={popoverRef}>
         {/* Clickable Madlib Button with Dropdown Arrow */}
         <Button
-          variant="text"
-          aria-haspopup="true"
+          variant='text'
+          aria-haspopup='true'
           className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
           onClick={popover.open}
         >
@@ -122,7 +122,7 @@ export default function TopicOrLocationSelector(
 
         <Popover
           className={styles.PopoverOverride}
-          aria-expanded="true"
+          aria-expanded='true'
           open={popover.isOpen}
           anchorEl={popover.anchor}
           onClose={popover.close}
@@ -156,11 +156,11 @@ export default function TopicOrLocationSelector(
                 onClose={closeAutoComplete}
                 renderInput={(params) => (
                   <TextField
-                    placeholder=""
+                    placeholder=''
                     /* eslint-disable-next-line */
                     autoFocus
-                    margin="dense"
-                    variant="outlined"
+                    margin='dense'
+                    variant='outlined'
                     onChange={updateTextBox}
                     {...params}
                   />
@@ -208,7 +208,7 @@ export default function TopicOrLocationSelector(
                         >
                           {category.title}
                         </h3>
-                        <List dense={true} role="menu">
+                        <List dense={true} role='menu'>
                           {category.options.map((optionId: DropdownVarId) => {
                             return (
                               <ListItemButton
@@ -235,8 +235,8 @@ export default function TopicOrLocationSelector(
                     item
                     xs={12}
                     container
-                    alignItems="flex-end"
-                    justifyContent="flex-end"
+                    alignItems='flex-end'
+                    justifyContent='flex-end'
                   >
                     {!noTopic && (
                       <a

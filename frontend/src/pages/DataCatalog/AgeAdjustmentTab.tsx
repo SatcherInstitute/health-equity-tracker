@@ -19,18 +19,18 @@ function AgeAdjustmentTab() {
       <h2 className={styles.ScreenreaderTitleHeader}>Age-Adjustment</h2>
       <Grid
         container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
+        direction='column'
+        justifyContent='space-around'
+        alignItems='center'
       >
         <Grid container className={styles.AgeAdjustmentSection}>
           {/* Age-adjusted Info */}
           <Grid
             item
             className={styles.MethodologyQuestionAndAnswer}
-            component="article"
+            component='article'
           >
-            <h3 className={styles.AgeAdjustmentHeader} id="main">
+            <h3 className={styles.AgeAdjustmentHeader} id='main'>
               Calculating Age-Adjusted Ratios
             </h3>
 
@@ -84,12 +84,12 @@ function AgeAdjustmentTab() {
                 compare race groups between states. For COVID-19 reports, we
                 source the standard population numbers from the 2019 population
                 numbers from{' '}
-                <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+                <a href='https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html'>
                   County Population by Characteristics
                 </a>
                 . For HIV reports, the population data is provided along with
                 the condition rates from the same{' '}
-                <a href="https://gis.cdc.gov/grasp/nchhstpatlas/tables.html">
+                <a href='https://gis.cdc.gov/grasp/nchhstpatlas/tables.html'>
                   CDC Atlas data tables
                 </a>
                 .
@@ -108,7 +108,7 @@ function AgeAdjustmentTab() {
                   <ul>
                     <li>
                       For COVID-19, we use the{' '}
-                      <a href="https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t">
+                      <a href='https://data.cdc.gov/Case-Surveillance/COVID-19-Case-Surveillance-Restricted-Access-Detai/mbd7-r32t'>
                         CDC Case Surveillance Restricted Access Detailed Data
                       </a>{' '}
                       for this. It can break down by race and age to ten-year
@@ -119,7 +119,7 @@ function AgeAdjustmentTab() {
 
                     <li>
                       For HIV, we use the{' '}
-                      <a href="https://gis.cdc.gov/grasp/nchhstpatlas/tables.html">
+                      <a href='https://gis.cdc.gov/grasp/nchhstpatlas/tables.html'>
                         CDC Atlas data tables
                       </a>
                     </li>
@@ -133,7 +133,7 @@ function AgeAdjustmentTab() {
                     <li>
                       For COVID-19, the most reliable population source we could
                       find with these particular age and race groupings were the{' '}
-                      <a href="https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html">
+                      <a href='https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html'>
                         County Population by Characteristics
                       </a>{' '}
                       numbers provided by the census
@@ -626,8 +626,8 @@ function AgeAdjustmentTab() {
 
         <Grid item xs={12} sm={12} md={8} lg={5}>
           <Button
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             className={styles.PrimaryButton}
             href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
           >

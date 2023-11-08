@@ -40,7 +40,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
-    <Alert severity={severity} role="note">
+    <Alert severity={severity} role='note'>
       The disaggregated <b>{demographicType}</b> dataset available from the{' '}
       {source}{' '}
       <IncarcerationDetailsText

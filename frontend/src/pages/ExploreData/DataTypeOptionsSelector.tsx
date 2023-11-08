@@ -39,8 +39,8 @@ export default function DataTypeOptionsSelector(
       <span ref={popoverRef}>
         {/* Clickable Madlib Button with Dropdown Arrow */}
         <Button
-          variant="text"
-          aria-haspopup="true"
+          variant='text'
+          aria-haspopup='true'
           className={styles.MadLibButton}
           onClick={popover.open}
         >
@@ -51,9 +51,9 @@ export default function DataTypeOptionsSelector(
         </Button>
 
         <Popover
-          id="popoverBox"
+          id='popoverBox'
           className={styles.PopoverOverride}
-          aria-expanded="true"
+          aria-expanded='true'
           open={popover.isOpen}
           anchorEl={popover.anchor}
           onClose={popover.close}
@@ -69,12 +69,12 @@ export default function DataTypeOptionsSelector(
           <>
             <Box my={3} mx={3}>
               <Grid container>
-                <List dense={true} role="menu">
+                <List dense={true} role='menu'>
                   {props.options.map((item: string[]) => {
                     const [optionId, optionDisplayName] = item
                     return (
                       <ListItemButton
-                        role="menuitem"
+                        role='menuitem'
                         className={styles.ListItem}
                         key={optionId}
                         selected={optionId === props.value}

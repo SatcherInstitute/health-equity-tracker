@@ -272,7 +272,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             {isHIV && <Hiv2020Alert />}
             {!shouldShowMissingData && (
               <CardContent>
-                <Alert severity="info" role="note">
+                <Alert severity='info' role='note'>
                   This graph visualizes the disproportionate share of{' '}
                   {props.dataTypeConfig.fullDisplayName} as experienced by
                   different demographic groups compared to their relative shares
