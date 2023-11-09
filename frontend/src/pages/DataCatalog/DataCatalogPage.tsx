@@ -1,5 +1,8 @@
 import DataSourceListing from './DataSourceListing'
-import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
+import {
+  type DataSourceId,
+  DataSourceMetadataMap,
+} from '../../data/config/MetadataMap'
 import { type DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_CATALOG_PAGE_LINK,
@@ -12,7 +15,7 @@ import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
-type Filters = Record<string, string[]>
+type Filters = Record<string, DataSourceId[]>
 
 // The id of the filter by dataset name. This is the only one that supports
 // pre-filtering from url params.
@@ -23,17 +26,20 @@ const NAME_FILTER_ID = 'name_filter'
  * displayed sources are the intersection of each filter.
  */
 function getFilteredSources(
-  metadata: Record<string, DataSourceMetadata>,
+  metadata: Record<DataSourceId, DataSourceMetadata>,
   activeFilter: Filters
-): string[] {
+): DataSourceId[] {
   const filters = Object.values(activeFilter)
-  const reducer = (intersection: string[], nextFilter: string[]) => {
+  const reducer = (
+    intersection: DataSourceId[],
+    nextFilter: DataSourceId[]
+  ) => {
     if (nextFilter.length === 0) {
       return intersection
     }
     return intersection.filter((x) => nextFilter.includes(x))
   }
-  const allIds = Object.keys(metadata)
+  const allIds = Object.keys(metadata) as DataSourceId[]
   return filters.reduce(reducer, allIds)
 }
 
@@ -44,7 +50,7 @@ function DataCatalogPage() {
     : []
 
   const activeFilter = {
-    [NAME_FILTER_ID]: datasets,
+    [NAME_FILTER_ID]: datasets as DataSourceId[],
   }
 
   return (
@@ -65,9 +71,7 @@ function DataCatalogPage() {
             Here you can access and download the data sources that are displayed
             in the charts on the Health Equity Tracker. Want to explore what
             each data set can show us about different health outcomes?{' '}
-            <a href={EXPLORE_DATA_PAGE_LINK} className=''>
-              Explore the data dashboard
-            </a>
+            <a href={EXPLORE_DATA_PAGE_LINK}>Explore the data dashboard</a>
             <span aria-hidden={true}>.</span>
           </p>
         </header>
@@ -87,7 +91,7 @@ function DataCatalogPage() {
               return (
                 <>
                   {filteredDatasets.map((sourceId, index) => (
-                    <li className='' key={index}>
+                    <li key={index}>
                       <DataSourceListing
                         key={DataSourceMetadataMap[sourceId].id}
                         source_metadata={DataSourceMetadataMap[sourceId]}
