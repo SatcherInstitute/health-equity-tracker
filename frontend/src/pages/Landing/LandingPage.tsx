@@ -93,13 +93,13 @@ function LandingPage() {
           <div className='w-full border-0 border-l border-solid px-12 py-4 md:w-5/12'>
             <img
               src='/img/stock/family-laughing.png'
-              className='border-xl h-auto max-h-headerHeight w-full	max-w-md p-2.5'
+              className='border-xl h-auto max-h-sm w-full	max-w-articleLogo p-2.5'
               alt=''
             />
           </div>
         </div>
 
-        <div className='border-0 border-b border-solid px-8 py-20'>
+        <div className='flex flex-wrap border-0 border-b border-solid px-8 py-20'>
           <div className='w-full'>
             <h3 className='m-0 font-serif text-header font-light leading-lhModalHeading text-alt-green'>
               Recent news

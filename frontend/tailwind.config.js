@@ -18,7 +18,6 @@ export default {
     maxHeight: {
       aimToGo: "255px",
       sm: '600px',
-      articleLogo: '770px',
       md: '960px',
       lg: '1280px',
       xl: '1920px',
@@ -26,6 +25,7 @@ export default {
     maxWidth: {
       aimToGo: "255px",
       sm: '600px',
+      articleLogo: '700px',
       md: '960px',
       lg: '1280px',
       xl: '1920px',
