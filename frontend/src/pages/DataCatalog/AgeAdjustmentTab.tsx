@@ -16,7 +16,7 @@ function AgeAdjustmentTab() {
       <Helmet>
         <title>Age-Adjustment - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Age-Adjustment</h2>
+      <h2 className='sr-only'>Age-Adjustment</h2>
       <Grid
         container
         direction='column'
