@@ -4,7 +4,6 @@ import {
   AGE_ADJUSTMENT_SLUG,
   METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import styles from '../AboutUs/AboutUsPage.module.scss'
 import { Link, Route, Switch } from 'react-router-dom'
 
 // can't lazy load (yet) due to scss loading issues
@@ -17,7 +16,7 @@ export default function OldMethodologyPage() {
   const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
 
   return (
-    <div className={styles.AboutUsPage}>
+    <div className='mx-auto min-h-screen max-w-lg'>
       <Route path='/'>
         <Tabs
           centered={pageIsWide}

@@ -140,8 +140,7 @@ export default function ShareYourStory() {
               font-sansTitle
               text-exploreButton
               font-medium
-              text-alt-green
-              '
+              text-white'
             href='mailto:info@healthequitytracker.org'
           >
             Share your story

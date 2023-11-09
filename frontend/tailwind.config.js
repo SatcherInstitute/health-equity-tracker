@@ -16,9 +16,15 @@ export default {
       titleXl: '1850px',
     },
     maxHeight: {
-      xl : '770px'
+      aimToGo: "255px",
+      sm: '600px',
+      articleLogo: '770px',
+      md: '960px',
+      lg: '1280px',
+      xl: '1920px',
     },
     maxWidth: {
+      aimToGo: "255px",
       sm: '600px',
       md: '960px',
       lg: '1280px',
