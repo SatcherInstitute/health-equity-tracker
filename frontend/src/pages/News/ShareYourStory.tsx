@@ -1,18 +1,13 @@
 import { Button } from '@mui/material'
-import { getCssVar } from '../../utils/designUtils'
 
 export default function ShareYourStory() {
-  const altGreenRgb = getCssVar('alt-green')
-  const whiteRgb = getCssVar('white')
-
   return (
     <div className='flex w-full items-center justify-center text-start'>
       <div className='flex max-w-md flex-wrap justify-center'>
-        <div className="pb-4 pl-16 pr-16 pt-24">
+        <div className='pb-4 pl-16 pr-16 pt-24'>
           <h2
             id='main'
-            style={{ color: `rgb(${altGreenRgb})` }}
-            className='m-0 text-center font-serif text-bigHeader font-light'
+            className='m-0 text-center font-serif text-bigHeader font-light text-alt-green'
           >
             Call for Community Writers
           </h2>
@@ -33,11 +28,8 @@ export default function ShareYourStory() {
         </p>
 
         <div className='mt-5 flex w-full items-center'>
-          <div className="flex-1 border-0 border-t border-solid border-alt-grey"></div>
-          <h3
-            style={{ color: `rgb(${altGreenRgb})` }}
-            className='m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light'
-          >
+          <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
+          <h3 className='m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light text-alt-green'>
             Submission guidelines
           </h3>
           <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
@@ -94,7 +86,7 @@ export default function ShareYourStory() {
           <li className='p-3'>
             <b>Submitting Your Story:</b> To contribute, please send your story
             as a Word document or Google Doc to{' '}
-            <a href="mailto:info@healthequitytracker.org">
+            <a href='mailto:info@healthequitytracker.org'>
               info@healthequitytracker.org
             </a>
             . Include a brief bio (2-3 sentences) introducing yourself and any
@@ -126,8 +118,7 @@ export default function ShareYourStory() {
         </ul>
 
         <div className='m-10 flex w-full items-center'>
-          <div
-          className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
+          <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
         </div>
 
         <p className='px-1'>
@@ -140,16 +131,16 @@ export default function ShareYourStory() {
           <Button
             variant='contained'
             color='primary'
-            style={{ color: `rgb(${whiteRgb})` }}
             className='
-              min-w-min	 
+              min-w-min
               rounded-2xl
-              px-8 
-              py-5	
-              text-center 
-              font-sansTitle 
-              text-exploreButton 
-              font-medium'
+              px-8
+              py-5
+              text-center
+              font-sansTitle
+              text-exploreButton
+              font-medium
+              text-white'
             href='mailto:info@healthequitytracker.org'
           >
             Share your story

@@ -45,7 +45,8 @@ function LandingPage() {
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
-      <h2 className='absolute top-auto h-px	w-px overflow-hidden'>Home Page</h2>
+
+      <h2 className='sr-only'>Home Page</h2>
       <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
         <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid pb-8 pt-4'>
           <div className='w-full px-12 py-4 md:w-7/12'>

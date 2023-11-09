@@ -1,0 +1,59 @@
+Column Name,Description
+,
+race_category_id,Column containing the internal codes for the race/ethnicity groups
+race_and_ethnicity,Column containing the race/ethnicity groups
+sex,Column containing the sex groups
+age,Column containing the age groups
+lis,Column containing the Low Income Subsidy status groups
+eligibility,Column containing the Medicare eligibility groups
+,
+county_fips,Column containing the 5 digit number code representing specific county (created as the 2 digit state fips code followed by the 3 digit county fips code)
+state_fips,Column containing the 2 digit number code representing the specific state or territory
+state_name,Column containing the name of the specific state or territory
+,
+arv_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to antiretrovirals 
+arv_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed antiretrovirals 
+,
+beta_blockers_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to beta blockers
+beta_blockers_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed beta blockers
+ccb_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to calcium channel blockers 
+ccb_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed calcium channel blockers
+doac_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to direct oral anticoagulants
+doac_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed direct oral anticoagulants
+bb_ami_adherence_estimated_total,Column containing the total counts of beneficiaries with persistent use of beta blockers after a heart attack
+bb_ami_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed beta blockers after a heart attack
+ras_antagonists_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to Renin Angiotensin System Antagonists
+ras_antagonists_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed Renin Angiotensin System Antagonists
+statins_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to statins
+statins_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed statins
+anti_psychotics_adherence_estimated_total,Column containing the total counts of beneficiaries considered adherent to anti-psychotics
+anti_psychotics_beneficiaries_estimated_total,Column containing the total counts of beneficiaries prescribed anti-psychotics
+medicare_ami_estimated_total,Column containing the total counts of beneficiaries diagnosed with acute myocardial infarction
+medicare_population,Column containing the total counts of beneficiaries in the studied group
+medicare_hiv_estimated_total,Column containing the total counts of beneficiaries diagnosed with HIV
+medicare_schizophrenia_estimated_total,Column containing the total counts of beneficiaries diagnosed with schizophrenia
+,
+arv_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to antiretrovirals (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+beta_blockers_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to beta blockers (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+ccb_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to calcium channel blockers (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+doac_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to direct oral anticoagulants (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+bb_ami_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries with persistent use of beta blockers after a heart attack (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+ras_antagonists_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to renin angiotensin system antagonists (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+statins_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to statins (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+anti_psychotics_adherence_pct_rate,Column containing the percent rate of medicare beneficiaries who were considered adherent to anti-psychotics (calculated as the _adherence estimated_total column / _beneficiaries_estimate_total column)
+medicare_ami_per_100k,Column containing the rate per one hundred thousand of beneficiaries diagnosed with acute myocardial infarction
+medicare_hiv_per_100k,Column containing the rate per one hundred thousand of beneficiaries diagnosed with HIV
+medicare_schizophrenia_per_100k,Column containing the rate per one hundred thousand of beneficiaries diagnosed with schizophrenia
+,
+arv_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to antiretrovirals who belong to the current row's demographic group
+beta_blockers_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to beta blockers who belong to the current row's demographic group
+ccb_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to calcium channel blockers who belong to the current row's demographic group
+doac_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to direct oral anticoagulants who belong to the current row's demographic group
+bb_ami_adherence_pct_share,Column containing the percent share of beneficiaries with persistent use of beta blockers after a heart attack who belong to the current row's demographic group
+ras_antagonists_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to renin angiotensin system antagonists who belong to the current row's demographic group
+statins_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to statins who belong to the current row's demographic group
+anti_psychotics_adherence_pct_share,Column containing the percent share of beneficiaries considered adherent to anti-psychotics who belong to the current row's demographic group
+medicare_ami_pct_share,Column containing the percent share of beneficiaries diagnosed with acute myocardial infarction who belong to the current row's demographic group
+medicare_hiv_pct_share,Column containing the percent share of beneficiaries diagnosed with HIV who belong to the current row's demographic group
+medicare_schizophrenia_pct_share,Column containing the percent share of beneficiaries diagnosed with schizophrenia who belong to the current row's demographic group
+medicare_population_pct_share,Column containing the percent share of beneficiaries who belong to the current row's demographic group

@@ -13,37 +13,37 @@ function ContactUsTab() {
       <Helmet>
         <title>Contact Us - About Us - Health Equity Tracker</title>
       </Helmet>
-      <h2 className="sr-only">Contact Us</h2>
-      <div className=" flex w-full flex-col content-center items-center">
-        <div className="hidden w-full md:flex">
-          <div className="grid w-full place-content-center border border-t-0 border-solid border-border-color  border-opacity-50 md:w-5/12">
+      <h2 className='sr-only'>Contact Us</h2>
+      <div className=' flex w-full flex-col content-center items-center'>
+        <div className='hidden w-full  md:flex '>
+          <div className='grid w-full place-content-center border-0 border-b border-solid border-border-color md:w-5/12'>
             <h2
-              id="main"
-              className="font-serif
+              id='main'
+              className='font-serif
               text-biggerHeader
               font-light
-              text-alt-green"
+              text-alt-green'
             >
               Let's move
-              <br aria-hidden="true" />
-              equity <i className="font-normal">forward</i>
+              <br aria-hidden='true' />
+              equity <i className='font-normal'>forward</i>
             </h2>
           </div>
-          <div className="w-full border-0 border-b border-solid border-border-color border-opacity-50  md:w-7/12">
+          <div className='w-full border-0 border-b border-l border-solid border-border-color  md:w-7/12'>
             <img
-              width="870"
-              height="644"
-              src="/img/stock/women-laughing-in-line.png"
-              className="m-10 h-auto w-9/12 max-w-xl rounded-3xl"
-              alt=""
+              width='870'
+              height='644'
+              src='/img/stock/women-laughing-in-line.png'
+              className='rounded-3xl m-10 h-auto w-9/12 max-w-xl'
+              alt=''
             />
           </div>
         </div>
 
-        <div className="flex w-full flex-col items-center px-12 md:w-8/12 lg:w-6/12">
-          <div className="grid  w-full place-content-center">
+        <div className='flex w-full flex-col items-center px-12 md:w-8/12 lg:w-6/12'>
+          <div className='grid  w-full place-content-center'>
             <h3
-              className="px-18
+              className='px-18
               mb-0
                 py-6
                 font-serif
@@ -51,58 +51,58 @@ function ContactUsTab() {
                 font-light
                 leading-lhSomeMoreSpace
                 text-alt-green
-                md:py-12"
+                md:py-12'
             >
               Thank you for your interest in the Health Equity Tracker
             </h3>
           </div>
-          <div className="w-full md:w-7/12">
-            <h4 className="mb-2 mt-8 text-text font-bold">
+          <div className='w-full md:w-7/12'>
+            <h4 className='mb-2 mt-8 text-text font-bold'>
               Join our mailing list:
             </h4>
             <div>
               <form
                 action={urlMap.newsletterSignup}
-                method="post"
-                target="_blank"
-                className="flex justify-center"
+                method='post'
+                target='_blank'
+                className='flex justify-center'
               >
                 <TextField
-                  id="Enter email address to sign up" // Accessibility label
-                  name="MERGE0"
-                  variant="outlined"
-                  type="email"
-                  aria-label="Enter Email Address for Newsletter signup"
-                  placeholder="Enter email address"
+                  id='Enter email address to sign up' // Accessibility label
+                  name='MERGE0'
+                  variant='outlined'
+                  type='email'
+                  aria-label='Enter Email Address for Newsletter signup'
+                  placeholder='Enter email address'
                 />
                 <Button
-                  type="submit"
-                  color="primary"
-                  variant="contained"
-                  aria-label="Sign Up for Newsletter in a new window"
+                  type='submit'
+                  color='primary'
+                  variant='contained'
+                  aria-label='Sign Up for Newsletter in a new window'
                 >
                   Sign up
                 </Button>
               </form>
             </div>
 
-            <h4 className="mb-0 mt-8 text-text font-bold">
+            <h4 className='mb-0 mt-8 text-text font-bold'>
               For general requests and media inquiries:
             </h4>
             <div>
               Please contact the{' '}
               <a href={urlMap.shli}>Satcher Health Leadership Institute</a> at{' '}
-              <a href="mailto:info@healthequitytracker.org">
+              <a href='mailto:info@healthequitytracker.org'>
                 info@healthequitytracker.org
               </a>
             </div>
 
-            <h4 className="mb-0 mt-8 text-text font-bold">Phone:</h4>
+            <h4 className='mb-0 mt-8 text-text font-bold'>Phone:</h4>
             <div>
-              <a href="tel:4047528654">(404) 752-8654</a>
+              <a href='tel:4047528654'>(404) 752-8654</a>
             </div>
 
-            <h4 className="mb-0 mt-8 text-text font-bold">Mailing address:</h4>
+            <h4 className='mb-0 mt-8 text-text font-bold'>Mailing address:</h4>
             <div>
               Morehouse School of Medicine
               <br />
@@ -113,7 +113,7 @@ function ContactUsTab() {
               Atlanta, Georgia 30310
             </div>
 
-            <h4 className="mb-0 mt-8 text-text font-bold">Share your story:</h4>
+            <h4 className='mb-0 mt-8 text-text font-bold'>Share your story:</h4>
             <div>
               Read our{' '}
               <Link to={SHARE_YOUR_STORY_TAB_LINK}>

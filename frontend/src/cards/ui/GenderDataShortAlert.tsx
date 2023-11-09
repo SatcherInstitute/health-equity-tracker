@@ -72,7 +72,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
 
   return (
     <CardContent>
-      <Alert severity={'warning'} role="note" icon={<FlagIcon />}>
+      <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
         The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
         <b>gender identity</b>. Due to lack of reliable population data for
         gender-expansive people, we are unable to present <b>rates per 100k</b>,

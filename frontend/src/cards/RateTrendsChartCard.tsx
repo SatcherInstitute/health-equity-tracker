@@ -216,35 +216,35 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                   {/* ensure we don't render two of these in compare mode */}
                   {!props.isCompareCard && (
                     <svg
-                      height="0"
-                      version="1.1"
-                      xmlns="http://www.w3.org/2000/svg"
+                      height='0'
+                      version='1.1'
+                      xmlns='http://www.w3.org/2000/svg'
                     >
-                      <linearGradient id="gradient">
-                        <stop className={styles.GradientMainStop} offset="0%" />
-                        <stop className={styles.GradientAltStop} offset="20%" />
+                      <linearGradient id='gradient'>
+                        <stop className={styles.GradientMainStop} offset='0%' />
+                        <stop className={styles.GradientAltStop} offset='20%' />
                         <stop
                           className={styles.GradientMainStop}
-                          offset="30%"
+                          offset='30%'
                         />
-                        <stop className={styles.GradientAltStop} offset="40%" />
+                        <stop className={styles.GradientAltStop} offset='40%' />
                         <stop
                           className={styles.GradientMainStop}
-                          offset="50%"
+                          offset='50%'
                         />
-                        <stop className={styles.GradientAltStop} offset="60%" />
+                        <stop className={styles.GradientAltStop} offset='60%' />
                         <stop
                           className={styles.GradientMainStop}
-                          offset="70%"
+                          offset='70%'
                         />
-                        <stop className={styles.GradientAltStop} offset="80%" />
+                        <stop className={styles.GradientAltStop} offset='80%' />
                         <stop
                           className={styles.GradientMainStop}
-                          offset="90%"
+                          offset='90%'
                         />
                         <stop
                           className={styles.GradientAltStop}
-                          offset="100%"
+                          offset='100%'
                         />
                       </linearGradient>
                     </svg>

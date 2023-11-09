@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  important: true,
   theme: {
     screens: {
       xs: '0px',
@@ -15,10 +16,15 @@ export default {
       titleXl: '1850px',
     },
     maxHeight: {
-      headerHeight: '600px',
-      xl : '770px'
+      aimToGo: "255px",
+      sm: '600px',
+      articleLogo: '770px',
+      md: '960px',
+      lg: '1280px',
+      xl: '1920px',
     },
     maxWidth: {
+      aimToGo: "255px",
       sm: '600px',
       md: '960px',
       lg: '1280px',
@@ -28,8 +34,8 @@ export default {
       newsPage: '1440px'
     },
     borderRadius: {
-      sm: '4px', 
-      md: '8px', 
+      sm: '4px',
+      md: '8px',
       lg: '16px',
       xl: '30px',
       '2xl': '40px',
@@ -153,12 +159,12 @@ export default {
     },
   },
   extend: {
-    width: {
-      g: '700px',
+    zIndex: {
+      "z-bottom": 'var(--z-bottom)',
+      "z-middle": 'var(--z-middle)',
+      "z-almost-top": 'var(--z-almost-top)',
+      "z-top": 'var(--z-top)',
     },
-    height: {
-      g: '600px',
-    }
   },
   plugins: [],
   corePlugins: {

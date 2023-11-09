@@ -9,10 +9,10 @@ function IncarceratedChildrenLongAlert() {
   return (
     <div>
       <Alert
-        severity="error"
+        severity='error'
         className={styles.ReportAlert}
         icon={<FlagIcon />}
-        role="note"
+        role='note'
       >
         {/* <AlertTitle>The 3 Ws of Incarceration: Where, What and Why</AlertTitle> */}
         <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
@@ -21,7 +21,7 @@ function IncarceratedChildrenLongAlert() {
           Although the criminal justice system makes distinctions between adults
           and children, individual states have laws that remove children from
           the protective cover of these distinctions and{' '}
-          <a target="_blank" rel="noreferrer" href={urlMap.prisonPolicy}>
+          <a target='_blank' rel='noreferrer' href={urlMap.prisonPolicy}>
             enable the incarceration of children in adult institutions
           </a>
           . Such children are more exposed to physical and sexual abuse, fewer

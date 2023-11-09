@@ -16,7 +16,7 @@ export default function SourcesInfo(props: SourcesInfoProps) {
       {Object.keys(props.dataSourceMap).map((dataSourceId, idx) => (
         <span key={dataSourceId}>
           <LinkWithStickyParams
-            target="_blank"
+            target='_blank'
             to={`${DATA_CATALOG_PAGE_LINK}?${DATA_SOURCE_PRE_FILTERS}=${dataSourceId}`}
           >
             {props.dataSourceMap[dataSourceId].name}
