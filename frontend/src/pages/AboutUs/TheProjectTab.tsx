@@ -53,7 +53,7 @@ function TheProjectTab() {
             width='754'
             height='644'
             src='/img/stock/woman-kids.png'
-            className='max-h-sm h-auto w-full max-w-sm rounded-xl p-3'
+            className='h-auto max-h-sm w-full max-w-sm rounded-xl p-3'
             alt=''
           />
         </div>

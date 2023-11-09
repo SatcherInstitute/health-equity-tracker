@@ -20,7 +20,6 @@ import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
 import LazyLoad from 'react-lazyload'
-import { getCssVar } from '../../utils/designUtils'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -37,8 +36,6 @@ export default function SinglePost(props: SinglePostProps) {
   const [nextArticle, setNextArticle] = useState<Article>()
 
   const { slug }: { slug?: string } = useParams()
-
-  const altGreenRgb = getCssVar<string>('alt-green')
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
@@ -137,7 +134,7 @@ export default function SinglePost(props: SinglePostProps) {
                   rounded-xl
                   object-contain
                   md:mt-0
-                  md:max-h-xl'
+                  md:max-h-articleLogo'
                 alt={articleImageAltText}
                 width={200}
                 height={100}
@@ -166,7 +163,6 @@ export default function SinglePost(props: SinglePostProps) {
           >
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
             <div
-              style={{ color: `rgb(${altGreenRgb})` }}
               className='
               leading-tight
               m-auto
@@ -175,6 +171,7 @@ export default function SinglePost(props: SinglePostProps) {
               font-serif
               text-header
               font-light
+              text-alt-green
               md:text-bigHeader
             '
             >

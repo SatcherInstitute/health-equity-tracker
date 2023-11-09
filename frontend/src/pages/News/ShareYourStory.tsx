@@ -1,19 +1,13 @@
 import { Button } from '@mui/material'
-import { getCssVar } from '../../utils/designUtils'
 
 export default function ShareYourStory() {
-  // TODO: once MUI styles are removed, these colors should be applied directly via tailwind using `text-alt-green` or similar
-  const altGreenRgb = getCssVar<string>('alt-green')
-  const whiteRgb = getCssVar<string>('white')
-
   return (
     <div className='flex w-full items-center justify-center text-start'>
       <div className='flex max-w-md flex-wrap justify-center'>
         <div className='pb-4 pl-16 pr-16 pt-24'>
           <h2
             id='main'
-            style={{ color: `rgb(${altGreenRgb})` }}
-            className='m-0 text-center font-serif text-bigHeader font-light'
+            className='m-0 text-center font-serif text-bigHeader font-light text-alt-green'
           >
             Call for Community Writers
           </h2>
@@ -35,10 +29,7 @@ export default function ShareYourStory() {
 
         <div className='mt-5 flex w-full items-center'>
           <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
-          <h3
-            style={{ color: `rgb(${altGreenRgb})` }}
-            className='m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light'
-          >
+          <h3 className='m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light text-alt-green'>
             Submission guidelines
           </h3>
           <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
@@ -140,7 +131,6 @@ export default function ShareYourStory() {
           <Button
             variant='contained'
             color='primary'
-            style={{ color: `rgb(${whiteRgb})` }}
             className='
               min-w-min
               rounded-2xl
@@ -149,7 +139,8 @@ export default function ShareYourStory() {
               text-center
               font-sansTitle
               text-exploreButton
-              font-medium'
+              font-medium
+              text-white'
             href='mailto:info@healthequitytracker.org'
           >
             Share your story

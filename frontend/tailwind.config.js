@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  important: true,
   theme: {
     screens: {
       xs: '0px',
@@ -15,9 +16,15 @@ export default {
       titleXl: '1850px',
     },
     maxHeight: {
-      xl : '770px'
+      aimToGo: "255px",
+      sm: '600px',
+      articleLogo: '770px',
+      md: '960px',
+      lg: '1280px',
+      xl: '1920px',
     },
     maxWidth: {
+      aimToGo: "255px",
       sm: '600px',
       md: '960px',
       lg: '1280px',
@@ -41,7 +48,7 @@ export default {
       'alert-color': 'rgb(var(--alert-color) / <alpha-value>)',
       'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
       'alt-dark': 'rgb(var(--alt-dark)  / <alpha-value>)',
-      'alt-green': 'rgb(var(--alt-green) /  / <alpha-value>)',
+      'alt-green': 'rgb(var(--alt-green)  / <alpha-value>)',
       'alt-grey': 'rgb(var(--alt-grey) / <alpha-value>)',
       'alt-orange': 'rgb(var(--alt-orange) / <alpha-value>)',
       'alt-red': 'rgb(var(--alt-red) / <alpha-value>)',
