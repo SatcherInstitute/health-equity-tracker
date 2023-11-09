@@ -53,7 +53,7 @@ function LandingPage() {
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Home Page</h2>
+      <h2 className='sr-only'>Home Page</h2>
       <Grid container className={styles.Grid}>
         <Grid
           container

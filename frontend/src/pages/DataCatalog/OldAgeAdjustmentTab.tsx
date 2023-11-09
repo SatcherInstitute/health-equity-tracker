@@ -10,7 +10,7 @@ import {
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 
-function AgeAdjustmentTab() {
+export default function OldAgeAdjustmentTab() {
   return (
     <>
       <Helmet>
@@ -638,5 +638,3 @@ function AgeAdjustmentTab() {
     </>
   )
 }
-
-export default AgeAdjustmentTab

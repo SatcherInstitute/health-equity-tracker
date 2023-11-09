@@ -1,14 +1,14 @@
 import DataSourceListing from './DataSourceListing'
-import styles from './DatasetExplorer.module.scss'
-import { DataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { type DataSourceMetadata } from '../../../data/utils/DatasetTypes'
+import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
+import { type DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
-} from '../../../utils/internalRoutes'
-import { WithMetadata } from '../../../data/react/WithLoadingOrErrorUI'
-import { Grid, Typography, Button } from '@mui/material'
+} from '../../utils/internalRoutes'
+import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
+import { Button } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
+import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -37,9 +37,14 @@ function getFilteredSources(
   return filters.reduce(reducer, allIds)
 }
 
-function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
+function DataCatalogPage() {
+  const params = useSearchParams()
+  const datasets = params[DATA_SOURCE_PRE_FILTERS]
+    ? params[DATA_SOURCE_PRE_FILTERS].split(',')
+    : []
+
   const activeFilter = {
-    [NAME_FILTER_ID]: props.preFilterDataSourceIds,
+    [NAME_FILTER_ID]: datasets,
   }
 
   return (
@@ -47,30 +52,26 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
       <Helmet>
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
-      <h2 className={styles.ScreenreaderTitleHeader}>Data Downloads</h2>
-      <Grid container className={styles.DatasetExplorer}>
-        <div className={styles.DatasetHeader}>
-          <Typography
+      <h2 className='sr-only'>Data Downloads</h2>
+      <div className='mx-auto min-h-full max-w-md flex-col p-10'>
+        <header className='pb-2'>
+          <h3
             id='main'
-            className={styles.DataDownloadsHeaderText}
-            variant='h3'
+            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-alt-black'
           >
             View and download Health Equity Tracker data sources
-          </Typography>
-          <p className={styles.DataDownloadsHeaderSubtext}>
+          </h3>
+          <p className='text-small'>
             Here you can access and download the data sources that are displayed
             in the charts on the Health Equity Tracker. Want to explore what
             each data set can show us about different health outcomes?{' '}
-            <a
-              href={EXPLORE_DATA_PAGE_LINK}
-              className={styles.DataDownloadsExploreLink}
-            >
+            <a href={EXPLORE_DATA_PAGE_LINK} className=''>
               Explore the data dashboard
             </a>
             <span aria-hidden={true}>.</span>
           </p>
-        </div>
-        <ul className={styles.DatasetList}>
+        </header>
+        <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
               const filteredDatasets = getFilteredSources(
@@ -86,7 +87,7 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
               return (
                 <>
                   {filteredDatasets.map((sourceId, index) => (
-                    <li className={styles.DatasetListItem} key={index}>
+                    <li className='' key={index}>
                       <DataSourceListing
                         key={DataSourceMetadataMap[sourceId].id}
                         source_metadata={DataSourceMetadataMap[sourceId]}
@@ -108,9 +109,9 @@ function DatasetExplorer(props: { preFilterDataSourceIds: string[] }) {
             }}
           </WithMetadata>
         </ul>
-      </Grid>
+      </div>
     </HelmetProvider>
   )
 }
 
-export default DatasetExplorer
+export default DataCatalogPage

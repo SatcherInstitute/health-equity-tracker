@@ -1,22 +1,39 @@
 // PAGE URLS
 export const HET_URL = 'https://healthequitytracker.org'
-
 export const EXPLORE_DATA_PAGE_LINK = '/exploredata'
 export const DATA_CATALOG_PAGE_LINK = '/datacatalog'
 export const NEWS_PAGE_LINK = '/news'
 export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
-
-// TAB URLS
+export const METHODOLOGY_PAGE_LINK = '/methodology'
 export const FAQ_TAB_LINK = '/faqs'
 export const RESOURCES_TAB_LINK = '/resources'
-export const METHODOLOGY_TAB_LINK = '/methodology'
-export const AGE_ADJUSTMENT_TAB_LINK = '/ageadjustment'
-export const DATA_TAB_LINK = '/datacatalog'
 export const CONTACT_TAB_LINK = '/contact'
 export const OURTEAM_TAB_LINK = '/ourteam'
 export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
+
+// METHODOLOGY SECTIONS
+export const AGE_ADJUSTMENT_SLUG = '/ageadjustment'
+export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + AGE_ADJUSTMENT_SLUG
+export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources'
+export const TOPICS_LINK = METHODOLOGY_PAGE_LINK + '/topics'
+export const BEHAVIORAL_HEALTH_LINK = TOPICS_LINK + '/behavioral-health'
+export const CHRONIC_DISEASE_LINK = TOPICS_LINK + '/chronic-disease'
+export const COVID_19_LINK = TOPICS_LINK + '/covid'
+export const GLOSSARY_LINK = METHODOLOGY_PAGE_LINK + '/glossary'
+export const HIV_LINK = TOPICS_LINK + '/hiv'
+export const PDOH_LINK = TOPICS_LINK + '/pdoh'
+export const SDOH_LINK = TOPICS_LINK + '/sdoh'
+export const DATA_METHOD_DEFINITIONS_LINK =
+  METHODOLOGY_PAGE_LINK + '/definitions'
+export const METRICS_LINK = DATA_METHOD_DEFINITIONS_LINK + '/metrics'
+export const CONDITION_VARIABLES_LINK =
+  DATA_METHOD_DEFINITIONS_LINK + '/condition-variables'
+export const RACES_AND_ETHNICITIES_LINK =
+  DATA_METHOD_DEFINITIONS_LINK + '/races-and-ethnicities'
+export const RECOMMENDED_CITATION_LINK =
+  METHODOLOGY_PAGE_LINK + '/recommended-citation'
 
 // TRACKER SETTINGS
 export const AGE_ADJUST_HIV_DEATHS_US_SETTING =

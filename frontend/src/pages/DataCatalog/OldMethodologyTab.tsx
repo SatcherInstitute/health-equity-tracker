@@ -1,6 +1,9 @@
 import Grid from '@mui/material/Grid'
 import styles from './DataCatalogPage.module.scss'
-import { CONTACT_TAB_LINK, DATA_TAB_LINK } from '../../utils/internalRoutes'
+import {
+  CONTACT_TAB_LINK,
+  DATA_CATALOG_PAGE_LINK,
+} from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
@@ -29,7 +32,7 @@ import { HashLink } from 'react-router-hash-link'
 import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
 
-function MethodologyTab() {
+export default function OldMethodologyTab() {
   return (
     <>
       <Helmet>
@@ -1590,7 +1593,7 @@ function MethodologyTab() {
                 <p>
                   Links to the original sources of data and their definitions
                   can be found on our{' '}
-                  <Link to={DATA_TAB_LINK}>Data Downloads</Link> page.
+                  <Link to={DATA_CATALOG_PAGE_LINK}>Data Downloads</Link> page.
                 </p>
               </div>
             </Grid>
@@ -1715,5 +1718,3 @@ function MethodologyTab() {
     </>
   )
 }
-
-export default MethodologyTab

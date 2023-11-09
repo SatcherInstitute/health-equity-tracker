@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import {
   type DataSourceMetadata,
   type MapOfDatasetMetadata,
   type DatasetMetadata,
-} from '../../../data/utils/DatasetTypes'
-import { getLogger } from '../../../utils/globals'
-import styles from './DataSourceListing.module.scss'
+} from '../../data/utils/DatasetTypes'
+import { getLogger } from '../../utils/globals'
 import Button from '@mui/material/Button'
-import Card from '@mui/material/Card'
-import Typography from '@mui/material/Typography'
 import downloadDataset from './downloadDataset'
 import DialogTitle from '@mui/material/DialogTitle'
 import Dialog from '@mui/material/Dialog'
@@ -18,15 +15,16 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import CircularProgress from '@mui/material/CircularProgress'
 import Alert from '@mui/material/Alert'
 import ListItemText from '@mui/material/ListItemText'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
-import GetAppIcon from '@mui/icons-material/GetApp'
-import { Grid, IconButton } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { IconButton } from '@mui/material'
 import Link from '@mui/material/Link'
+import CloseIcon from '@mui/icons-material/Close'
+import GetAppIcon from '@mui/icons-material/GetApp'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
-} from '../../../data/config/DatasetMetadata'
+} from '../../data/config/DatasetMetadata'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -49,7 +47,7 @@ function DownloadDatasetListItem(props: {
       case 'loading':
         return (
           <CircularProgress
-            className={styles.DownloadIcon}
+            className='h-[24px] w-[24px]'
             aria-label='loading'
           />
         )
@@ -72,8 +70,7 @@ function DownloadDatasetListItem(props: {
 
   return (
     <ListItem
-      className={styles.DownloadListItem}
-      button
+      className='px-6'
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={async () => {
         await download()
@@ -84,7 +81,6 @@ function DownloadDatasetListItem(props: {
         <>
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
-            className={styles.DownloadListItemText}
             primary={props.datasetMetadata.name + '.csv'}
             secondary={'Last updated: ' + props.datasetMetadata.update_time}
           />
@@ -108,12 +104,11 @@ export function DataSourceListing(props: DataSourceListingProps) {
   if (props.source_metadata.hideFromUser) return <></>
 
   return (
-    <Card
-      elevation={3}
-      className={styles.DataSourceListing}
+    <article
+      className='mb-5 w-full p-2 pt-5 shadow-raised-tighter sm:p-5'
       data-testid={props.source_metadata.id}
     >
-      <Typography variant='h4' className={styles.DatasetTitle} align='left'>
+      <h4 className='m-0 text-left font-serif text-title font-light'>
         <Link
           href={props.source_metadata.data_source_link}
           target='_blank'
@@ -122,62 +117,70 @@ export function DataSourceListing(props: DataSourceListingProps) {
         >
           {props.source_metadata.data_source_name}
         </Link>
-      </Typography>
-      <table className={styles.MetadataTable}>
-        <tbody>
-          {props.source_metadata.time_period_range && (
-            <tr>
-              <td>
-                <b>Time Series Range</b>
-              </td>
-              <td>{props.source_metadata.time_period_range}</td>
-            </tr>
-          )}
+      </h4>
+      <ul className='list-none px-0 py-2 text-left'>
+        {props.source_metadata.time_period_range && (
+          <li className='pb-1 sm:flex'>
+            <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+              Time Series Range
+            </p>
+            <p className='m-0 text-small'>
+              {props.source_metadata.time_period_range}
+            </p>
+          </li>
+        )}
 
-          <tr>
-            <td>
-              <b>Geographic Level</b>
-            </td>
-            <td>{props.source_metadata.geographic_level}</td>
-          </tr>
-          <tr>
-            <td>
-              <b>Demographic Granularity</b>
-            </td>
-            <td>{props.source_metadata.demographic_granularity}</td>
-          </tr>
-          <tr>
-            <td>
-              <b>Update Frequency</b>
-            </td>
-            <td>{props.source_metadata.update_frequency}</td>
-          </tr>
-          <tr>
-            <td>
-              <b>Source Website</b>
-            </td>
-            <td>
-              <Link
-                href={props.source_metadata.data_source_link}
-                target='_blank'
-                rel='noopener noreferrer'
-                underline='hover'
-              >
-                {props.source_metadata.data_source_pretty_site_name}
-              </Link>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <p className={styles.Description}>{props.source_metadata.description}</p>
-      <footer className={styles.Footer}>
+        <li className='pb-1 sm:flex'>
+          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+            Geographic Level
+          </p>
+          <p className='m-0 text-small'>
+            {props.source_metadata.geographic_level}
+          </p>
+        </li>
+        <li className='pb-1 sm:flex'>
+          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+            Demographic Granularity
+          </p>
+          <p className='m-0 text-small'>
+            {props.source_metadata.demographic_granularity}
+          </p>
+        </li>
+        <li className='pb-1 sm:flex'>
+          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+            Update Frequency
+          </p>
+          <p className='m-0 text-small'>
+            {props.source_metadata.update_frequency}
+          </p>
+        </li>
+        <li className='pb-1 sm:flex'>
+          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+            Source Website
+          </p>
+          <Link
+            href={props.source_metadata.data_source_link}
+            target='_blank'
+            rel='noopener noreferrer'
+            underline='hover'
+          >
+            <p className='m-0 text-small'>
+              {props.source_metadata.data_source_pretty_site_name}
+            </p>
+          </Link>
+        </li>
+      </ul>
+      <p className='text-left text-small'>
+        {props.source_metadata.description}
+      </p>
+      <footer className='mb-2 mt-4 flex h-auto w-full flex-col justify-end sm:flex-row'>
         {props.source_metadata.downloadable && (
           <Button
             color='primary'
             onClick={() => {
               setDialogIsOpen(true)
             }}
-            className={styles.DownloadListItem}
+            className='px-6'
             aria-label={'Download ' + props.source_metadata.data_source_name}
           >
             View downloadable tables
@@ -187,7 +190,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <Button
             color='primary'
             href='/data_dictionaries/medicare_population.csv'
-            className={styles.DownloadListItem}
+            className='px-6'
           >
             Download data dictionary
           </Button>
@@ -200,45 +203,24 @@ export function DataSourceListing(props: DataSourceListingProps) {
           }}
           open={dialogIsOpen}
         >
-          <DialogTitle>
-            <Grid
-              container
-              justifyContent='space-between'
-              alignItems='center'
-              component='header'
-            >
-              <Grid item xs={10} sm={11}>
-                <Typography
-                  variant='body1'
-                  className={styles.DatasetTitle}
-                  align='left'
-                  component='h3'
-                >
-                  Available breakdowns for{' '}
-                  {props.source_metadata.data_source_name}
-                </Typography>
-              </Grid>
+          <DialogTitle className='flex justify-between'>
+            <header className='flex w-8/12 sm:w-10/12'>
+              <h3 className='text-left font-serif text-title font-light'>
+                Available breakdowns for{' '}
+                {props.source_metadata.data_source_name}
+              </h3>
+            </header>
 
-              <Grid item xs={2} sm={1}>
-                <IconButton
-                  aria-label='close dialogue'
-                  onClick={() => {
-                    setDialogIsOpen(false)
-                  }}
-                  size='large'
-                >
-                  <CloseIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
+            <IconButton
+              aria-label='close dialogue'
+              onClick={() => {
+                setDialogIsOpen(false)
+              }}
+              size='large'
+            >
+              <CloseIcon />
+            </IconButton>
           </DialogTitle>
-          <div>
-            {props.source_metadata?.downloadable_blurb && (
-              <p className='mx-10 my-3 text-small font-thin text-alt-black'>
-                {props.source_metadata.downloadable_blurb}
-              </p>
-            )}
-          </div>
           <List>
             {props.source_metadata.dataset_ids.map((datasetId) => (
               <DownloadDatasetListItem
@@ -250,7 +232,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </List>
         </Dialog>
       </footer>
-    </Card>
+    </article>
   )
 }
 
