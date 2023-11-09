@@ -1,6 +1,6 @@
 import { urlMap } from '../../utils/externalUrls'
 import {
-  AGE_ADJUSTMENT_LINK,
+  AGE_ADJUSTMENT_SLUG,
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import styles from '../ui/FaqSection.module.scss'
@@ -152,7 +152,7 @@ function AnswerHowDidYouAcquire() {
           morbidity and mortality among different races and ethnic groups
           throughout the U.S. in comparison to the white (non-Hispanic)
           population. To learn more, please view our{' '}
-          <a href={AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
+          <a href={AGE_ADJUSTMENT_SLUG}>age-adjustment methodology</a>.
         </li>
         <li>Sources are refreshed when update notifications are received</li>
         <li>

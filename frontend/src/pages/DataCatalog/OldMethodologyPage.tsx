@@ -1,6 +1,7 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
+  AGE_ADJUSTMENT_LINK,
   AGE_ADJUSTMENT_SLUG,
   METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
@@ -42,6 +43,10 @@ export default function OldMethodologyPage() {
       </Route>
 
       <Switch>
+        <Route path={`${AGE_ADJUSTMENT_LINK}/`}>
+          <AgeAdjustmentTab />
+        </Route>
+
         <Route path={`${METHODOLOGY_PAGE_LINK}/`}>
           <MethodologyTab />
         </Route>
