@@ -52,25 +52,19 @@ function LandingPage() {
           <div className='w-full px-12 py-4 md:w-7/12'>
             <h3
               id='main'
-              className={`
+              className='
               mb-4 mt-0
               pb-4 pt-12
-              ${
-                pageIsWide
-                  ? 'text-left text-bigHeader'
-                  : 'text-center text-header'
-              }
               font-serif
-              font-light leading-lhModalHeading
-              text-alt-green`}
+              text-header font-light
+              leading-lhModalHeading
+              text-alt-green
+              lg:text-left
+              lg:text-bigHeader'
             >
               Advancing Health Justice
             </h3>
-            <p
-              className={`mt-0 text-left ${
-                pageIsWide ? 'text-title' : 'text-text'
-              }`}
-            >
+            <p className='mt-0 text-left lg:text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -79,7 +73,7 @@ function LandingPage() {
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
             </p>
-            <div className={`mb-10 ${pageIsWide ? 'mt-20' : 'mt-10'}`}>
+            <div className='mb-10 mt-10 lg:mt-20'>
               <Button
                 id='landingPageCTA'
                 variant='contained'
@@ -150,7 +144,7 @@ function LandingPage() {
           </div>
 
           <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
-            <li className='m-2.5 flex w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
                   Take a Tour of the Data
@@ -173,7 +167,7 @@ function LandingPage() {
                 ></iframe>
               </div>
             </li>
-            <li className='m-2.5 flex w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                   Search by completing the sentence
@@ -197,7 +191,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 flex w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
@@ -223,7 +217,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 flex w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
