@@ -5,15 +5,7 @@ import {
   fetchLandingPageNewsData,
   REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
-import {
-  Button,
-  Grid,
-  Typography,
-  Box,
-  TextField,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { Button, TextField, useMediaQuery, useTheme } from '@mui/material'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -58,30 +50,26 @@ function LandingPage() {
         <title>Home - Health Equity Tracker</title>
         <link rel='preload' as='image' href='/img/stock/family-laughing.png' />
       </Helmet>
+
       <h2 className='sr-only'>Home Page</h2>
-      <Grid container className={styles.Grid}>
-        <Grid
-          container
-          className={styles.HeaderRow}
-          direction='row'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Grid item className={styles.HeaderTextItem} xs={12} sm={12} md={7}>
-            <Typography
+      <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+        <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid pb-8 pt-4'>
+          <div className='w-full px-12 py-4 md:w-7/12'>
+            <h3
               id='main'
-              className={styles.HeaderText}
-              variant={pageIsWide ? 'h3' : 'h4'}
-              paragraph={true}
-              component='h3'
+              className='
+              mb-4 mt-0
+              pb-4 pt-12
+              font-serif
+              text-header font-light
+              leading-lhModalHeading
+              text-alt-green
+              lg:text-left
+              lg:text-bigHeader'
             >
               Advancing Health Justice
-            </Typography>
-            <Typography
-              className={styles.HeaderSubtext}
-              variant='body1'
-              paragraph={true}
-            >
+            </h3>
+            <p className='mt-0 text-left lg:text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -89,62 +77,44 @@ function LandingPage() {
               researchers the data they need to make informed decisions, this
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
-            </Typography>
-
-            <div className='my-5 lg:mt-20'>
+            </p>
+            <div className='mb-10 mt-10 lg:mt-20'>
               <HetBigButton href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
               </HetBigButton>
             </div>
-          </Grid>
-          <Grid item xs={12} sm={12} md={5} className={styles.HeaderImgItem}>
+          </div>
+          <div className='w-full border-0 border-l border-solid px-12 py-4 md:w-5/12'>
             <img
-              height='601'
-              width='700'
               src='/img/stock/family-laughing.png'
-              className={styles.HeaderImg}
+              className='border-xl h-auto max-h-sm w-full	max-w-articleLogo p-2.5'
               alt=''
             />
-          </Grid>
-        </Grid>
+          </div>
+        </div>
 
-        <Grid
-          container
-          className={styles.RecentNewsRow}
-          justifyContent='flex-start'
-          align-items='center'
-        >
-          <Grid item xs={12}>
-            <Typography
-              className={styles.RecentNewsHeaderText}
-              variant='h4'
-              component='h3'
-            >
+        <div className='flex flex-wrap border-0 border-b border-solid px-8 py-20'>
+          <div className='w-full'>
+            <h3 className='m-0 font-serif text-header font-light leading-lhModalHeading text-alt-green'>
               Recent news
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography
-              className={styles.RecentNewsHeaderSubtext}
-              variant='subtitle1'
-              component='p'
-            >
+            </h3>
+          </div>
+          <div className='w-full'>
+            <p className='m-0 pb-16 text-title'>
               Stories and updates from Morehouse School of Medicine and beyond
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <Grid
-              container
-              className={styles.RecentNewsItem}
-              direction='row'
-              justifyContent='space-around'
-            >
+            </p>
+          </div>
+          <div className='w-full'>
+            <div className='flex flex-wrap justify-around px-4'>
               {recentArticles && !isLoading ? (
                 recentArticles.map((article: Article) => {
                   return (
-                    <Grid item xs={12} sm={6} md={4} lg={3} key={article.id}>
+                    <div
+                      key={article.id}
+                      className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
+                    >
                       <NewsPreviewCard article={article} />
-                    </Grid>
+                    </div>
                   )
                 })
               ) : (
@@ -153,68 +123,40 @@ function LandingPage() {
                   numberLoading={numberOfArticlePreviews}
                 />
               )}
-            </Grid>
-
-            <Box mt={5}>
-              <Typography
-                className={styles.PrioritizeHealthEquityHeaderSubtext}
-                variant='body1'
-                paragraph={true}
-              >
+            </div>
+            <div className='mt-10'>
+              <div className='mb-4'>
                 <ReactRouterLinkButton
                   url={NEWS_PAGE_LINK}
-                  className={styles.LearnMoreAboutHealthEquity}
+                  className='text-smallestHeader font-medium underline	'
                   displayName='View all articles'
                 />
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <Grid
-          container
-          className={styles.HowToRow}
-          component='article'
-          justifyContent='center'
-        >
-          <Grid item xs={12}>
-            <Typography
-              className={styles.HowToHeaderText}
-              variant='h4'
-              component='h3'
-            >
+        <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-8 pb-32 pt-20'>
+          <div className='w-full'>
+            <h3 className='m-0 pb-16 text-center font-serif text-header font-light text-alt-green'>
               How do I use the Health Equity Tracker?
-            </Typography>
-          </Grid>
+            </h3>
+          </div>
 
-          <Grid
-            container
-            direction='column'
-            justifyContent='center'
-            alignItems='center'
-            component='ul'
-          >
-            <Grid
-              container
-              className={styles.HowToStepContainer}
-              direction='row'
-              justifyContent='space-around'
-              alignItems='center'
-              component='li'
-            >
-              <Grid item xs={12} sm={12} md={3}>
-                <h4 className={styles.HowToStepTextHeader}>
+          <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
+                <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
                   Take a Tour of the Data
                 </h4>
-                <p className={styles.HowToStepTextSubheader}>
+                <p className='md:text-left'>
                   New to the Health Equity Tracker? Watch a short video demo
                   that highlights major features of the platform.
                 </p>
-              </Grid>
-              <Grid item xs={12} sm={12} md={8}>
+              </div>
+              <div className='w-full md:w-2/3'>
                 <iframe
-                  className={styles.ResourceVideoEmbed}
-                  width='100%'
+                  className='w-full rounded-xl'
                   height='420px'
                   src='https://www.youtube.com/embed/XBoqT9Jjc8w'
                   title='YouTube video player'
@@ -223,147 +165,112 @@ function LandingPage() {
                 encrypted-media; gyroscope; picture-in-picture'
                   allowFullScreen
                 ></iframe>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              className={styles.HowToStepContainer}
-              direction='row'
-              justifyContent='space-around'
-              alignItems='center'
-              component='li'
-            >
-              <Grid item xs={12} sm={12} md={3}>
-                <h4 className={styles.HowToStepTextHeader}>
+              </div>
+            </li>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
+                <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                   Search by completing the sentence
                 </h4>
-                <p className={styles.HowToStepTextSubheader}>
+                <p className='md:text-left'>
                   Select variables you’re interested in to complete the sentence
                   and explore the data.
                 </p>
-              </Grid>
-              <Grid item xs={12} sm={12} md={8}>
+              </div>
+              <div className='w-full md:w-2/3'>
                 <LazyLoad offset={300} once>
                   <video
                     autoPlay={!prefersReducedMotion}
                     loop
                     muted
                     playsInline
-                    className={styles.HowToStepImg}
+                    className='h-full w-full p-2.5'
                   >
                     <source src='videos/search-by.mp4' type='video/mp4' />
                   </video>
                 </LazyLoad>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              className={styles.HowToStepContainer}
-              direction='row'
-              justifyContent='space-around'
-              alignItems='center'
-              component='li'
-            >
-              <Grid item xs={12} sm={12} md={3}>
+              </div>
+            </li>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
                 <div>
-                  <h4 className={styles.HowToStepTextHeader}>
+                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                     Use filters to go deeper
                   </h4>
-                  <p className={styles.HowToStepTextSubheader}>
+                  <p className='md:text-left'>
                     Where available, the tracker offers breakdowns by race and
                     ethnicity, sex, and age.
                   </p>
                 </div>
-              </Grid>
-
-              <Grid item xs={12} sm={12} md={8}>
+              </div>
+              <div className='w-full md:w-2/3'>
                 <LazyLoad offset={300} once>
                   <video
                     autoPlay={!prefersReducedMotion}
                     loop
                     muted
                     playsInline
-                    className={styles.HowToStepImg}
+                    className='h-full w-full p-2.5'
                   >
                     <source src='videos/filters.mp4' />
                   </video>
                 </LazyLoad>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              className={styles.HowToStepContainer}
-              direction='row'
-              justifyContent='space-around'
-              alignItems='center'
-              component='li'
-            >
-              <Grid item xs={12} sm={12} md={3}>
+              </div>
+            </li>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+              <div className='w-full md:w-1/4'>
                 <div>
-                  <h4 className={styles.HowToStepTextHeader}>
+                  <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                     Explore maps and graphs
                   </h4>
-                  <p className={styles.HowToStepTextSubheader}>
+                  <p className='md:text-left'>
                     The interactive maps and graphs are a great way to
                     investigate the data more closely. If a state or county is
                     gray, that means there’s no data currently available.
                   </p>
                 </div>
-              </Grid>
-              <Grid item xs={12} sm={12} md={8}>
+              </div>
+              <div className='w-full md:w-2/3'>
                 <LazyLoad offset={300} once>
                   <video
                     autoPlay={!prefersReducedMotion}
                     loop
                     muted
                     playsInline
-                    className={styles.HowToStepImg}
+                    className='h-full w-full p-2.5'
                   >
                     <source src='videos/explore-map.mp4' />
                   </video>
                 </LazyLoad>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Box mt={7}>
+              </div>
+            </li>
+          </ul>
+
+          <div className='mt-14'>
             <Button
               variant='contained'
-              color='primary'
-              className={styles.PrimaryButton}
+              className='rounded-2xl px-8 py-4 text-title text-white'
               href={EXPLORE_DATA_PAGE_LINK}
             >
               Explore the data
             </Button>
-          </Box>
-        </Grid>
+          </div>
+        </article>
 
-        <Grid
-          container
-          className={styles.NewsletterSignUpRow}
-          justifyContent='center'
-          component={'aside'}
-        >
-          <section className={styles.NewsletterSignUpBox}>
-            <Grid item xs={12}>
-              <Typography
-                className={styles.NewsletterSignUpHeader}
-                variant='h4'
-                component='h3'
-              >
+        <aside className='flex w-full items-center justify-center px-8 pb-2.5 pt-24'>
+          <section>
+            <div className='w-full'>
+              <h3 className='mb-4 mt-8 font-serif text-header font-light text-alt-green'>
                 Sign up for our newsletter:
-              </Typography>
-            </Grid>
-
+              </h3>
+            </div>
             <form
               action={urlMap.newsletterSignup}
               method='post'
               target='_blank'
             >
-              <Grid container justifyContent='center' alignContent='center'>
-                <Grid item>
+              <div className='flex content-center justify-center'>
+                <div>
                   <TextField
                     id='Enter email address to sign up' // Accessibility label (is it tho?)
                     name='MERGE0'
@@ -373,23 +280,22 @@ function LandingPage() {
                     aria-label='Enter Email Address for Newsletter signup'
                     placeholder='Enter email address'
                   />
-                </Grid>
-                <Grid item>
+                </div>
+                <div>
                   <Button
                     type='submit'
-                    color='primary'
                     variant='contained'
-                    className={styles.EmailAddressFormSubmit}
+                    className='px-4 py-1.5'
                     aria-label='Sign Up for Newsletter in a new window'
                   >
                     Sign up
                   </Button>
-                </Grid>
-              </Grid>
+                </div>
+              </div>
             </form>
           </section>
-        </Grid>
-      </Grid>
+        </aside>
+      </div>
     </>
   )
 }
