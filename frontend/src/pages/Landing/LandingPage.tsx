@@ -26,6 +26,11 @@ import type { Article } from '../News/NewsPage'
 import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
+import HetBigButton from '../ui/HetBigCTA'
+
+import { Collapse, Dropdown, Ripple, initTE } from 'tw-elements'
+
+initTE({ Collapse, Dropdown, Ripple })
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -92,10 +97,14 @@ function LandingPage() {
                 variant='contained'
                 color='primary'
                 className={styles.ExploreDataButton}
-                href={EXPLORE_DATA_PAGE_LINK}
+                // href={EXPLORE_DATA_PAGE_LINK}
               >
                 Explore the data
               </Button>
+
+              <HetBigButton href={EXPLORE_DATA_PAGE_LINK}>
+                Explore the data
+              </HetBigButton>
             </Box>
           </Grid>
           <Grid item xs={12} sm={12} md={5} className={styles.HeaderImgItem}>
