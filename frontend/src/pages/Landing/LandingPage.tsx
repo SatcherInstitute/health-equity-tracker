@@ -91,21 +91,11 @@ function LandingPage() {
               equity and justice for all.
             </Typography>
 
-            <Box mt={pageIsWide ? 10 : 5} mb={5}>
-              <Button
-                id='landingPageCTA'
-                variant='contained'
-                color='primary'
-                className={styles.ExploreDataButton}
-                // href={EXPLORE_DATA_PAGE_LINK}
-              >
-                Explore the data
-              </Button>
-
+            <div className='my-5 lg:mt-20'>
               <HetBigButton href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
               </HetBigButton>
-            </Box>
+            </div>
           </Grid>
           <Grid item xs={12} sm={12} md={5} className={styles.HeaderImgItem}>
             <img

@@ -12,6 +12,7 @@
     --alert-color: 216 92 71;
     --alt-black: 56 56 56;
     --alt-green: 11 82 64;
+    --clicked: 96 120 112;
     --alt-grey: 189 189 189;
     --alt-orange: 157 77 63;
     --alt-red: 211 47 47;
@@ -112,7 +113,6 @@
     radial-gradient(circle, transparent 1%, rgb(11 82 64) 1%) center/15000%;
 }
 #cta:active {
-  background-color: rgb(96 120 112) !important;
   background-size: 100%;
   transition: background 0s;
 }

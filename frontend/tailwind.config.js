@@ -61,6 +61,8 @@ export default {
       'black': 'rgb(var(--black) / <alpha-value>)',
       'blue': 'rgb(var(--blue) / <alpha-value>)',
       'border-color': 'rgb(var(--border-color) / <alpha-value>)',
+      'clicked': 'rgb(var(--clicked) / <alpha-value>)',
+
       'dark-blue': 'rgb(var(--dark-blue) / <alpha-value>)',
       'dark-green': 'rgb(var(--dark-green) / <alpha-value>)',
       'explore-bg-color': 'rgb(var(--explore-bg-color) / <alpha-value>)',
@@ -165,7 +167,7 @@ export default {
       "z-middle": 'var(--z-middle)',
       "z-almost-top": 'var(--z-almost-top)',
       "z-top": 'var(--z-top)',
-    }
+    },
   },
 
   plugins: [],
