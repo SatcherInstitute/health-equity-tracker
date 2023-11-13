@@ -1,6 +1,6 @@
 import { urlMap } from '../../utils/externalUrls'
 import {
-  AGE_ADJUSTMENT_TAB_LINK,
+  AGE_ADJUSTMENT_SLUG,
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import styles from '../ui/FaqSection.module.scss'
@@ -35,7 +35,7 @@ export const selectFAQs: FAQ[] = [
 
 function AnswerWhatIsHealthEquity() {
   return (
-    <div className={styles.FaqAnswer}>
+    <div className='text-text'>
       <p>
         The World Health Organization defines health equity “as the absence of
         unfair and avoidable or remediable differences in health among
@@ -62,7 +62,7 @@ function AnswerWhatIsHealthEquity() {
 
 function AnswerWhatAreHealthDisparities() {
   return (
-    <div className={styles.FaqAnswer}>
+    <div className='text-text'>
       <p>
         Health disparities are preventable differences in the burden of disease,
         injury, violence, or in opportunities to achieve optimal health
@@ -75,7 +75,7 @@ function AnswerWhatAreHealthDisparities() {
 
 function AnswerWhatDataSources() {
   return (
-    <div className={styles.FaqAnswer}>
+    <div className='text-text'>
       <p>
         In this tracker, we are using many sources, including
         <a href={urlMap.acs5}>American Community Survey 5-year estimates</a>,
@@ -93,7 +93,7 @@ function AnswerWhatDataSources() {
 
 function AnswerAreTheLimitations() {
   return (
-    <div className={styles.FaqAnswer}>
+    <div className='text-text'>
       <p>
         Unfortunately, with these publicly available data sets, there are
         crucial gaps, including but not limited to:
@@ -132,7 +132,7 @@ function AnswerAreTheLimitations() {
 
 function AnswerHowDidYouAcquire() {
   return (
-    <div className={styles.FaqAnswer}>
+    <div className='text-text'>
       <ul>
         <li>
           All data presented in the Health Equity Tracker are retrieved from
@@ -152,7 +152,7 @@ function AnswerHowDidYouAcquire() {
           morbidity and mortality among different races and ethnic groups
           throughout the U.S. in comparison to the white (non-Hispanic)
           population. To learn more, please view our{' '}
-          <a href={AGE_ADJUSTMENT_TAB_LINK}>age-adjustment methodology</a>.
+          <a href={AGE_ADJUSTMENT_SLUG}>age-adjustment methodology</a>.
         </li>
         <li>Sources are refreshed when update notifications are received</li>
         <li>

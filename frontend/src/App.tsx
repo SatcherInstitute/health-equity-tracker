@@ -29,14 +29,15 @@ import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   FAQ_TAB_LINK,
-  METHODOLOGY_TAB_LINK,
+  METHODOLOGY_PAGE_LINK,
   OURTEAM_TAB_LINK,
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-  AGE_ADJUSTMENT_TAB_LINK,
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
+  AGE_ADJUSTMENT_LINK,
+  AGE_ADJUSTMENT_SLUG,
 } from './utils/internalRoutes'
 import AppBarLogo from './assets/AppbarLogo.png'
 import { HelmetProvider } from 'react-helmet-async'
@@ -65,8 +66,11 @@ const NotFoundPage = React.lazy(
 const TermsOfUsePage = React.lazy(
   async () => await import('./pages/TermsOfUsePage/TermsOfUsePage')
 )
-const DataCatalogTab = React.lazy(
-  async () => await import('./pages/DataCatalog/DataCatalogTab')
+const DataCatalogPage = React.lazy(
+  async () => await import('./pages/DataCatalog/DataCatalogPage')
+)
+const OldMethodologyPage = React.lazy(
+  async () => await import('./pages/DataCatalog/OldMethodologyPage')
 )
 
 export const MOBILE_BREAKPOINT = 600
@@ -75,8 +79,9 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   '/': 'Home',
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
-  [DATA_CATALOG_PAGE_LINK]: 'Downloads & Methodology',
   [NEWS_PAGE_LINK]: 'News',
+  [DATA_CATALOG_PAGE_LINK]: 'Downloads',
+  [METHODOLOGY_PAGE_LINK]: 'Methodology',
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
@@ -144,6 +149,7 @@ function AppToolbar() {
           EXPLORE_DATA_PAGE_LINK,
           NEWS_PAGE_LINK,
           DATA_CATALOG_PAGE_LINK,
+          METHODOLOGY_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl) => (
           <ReactRouterLinkButton
@@ -222,15 +228,19 @@ function App() {
                         </Route>
 
                         <Route path={DATA_CATALOG_PAGE_LINK}>
-                          <DataCatalogTab />
+                          <DataCatalogPage />
                         </Route>
 
-                        <Route path={METHODOLOGY_TAB_LINK}>
-                          <DataCatalogTab />
+                        <Route path={METHODOLOGY_PAGE_LINK}>
+                          <OldMethodologyPage />
                         </Route>
 
-                        <Route path={AGE_ADJUSTMENT_TAB_LINK}>
-                          <DataCatalogTab />
+                        <Route path={AGE_ADJUSTMENT_LINK}>
+                          <OldMethodologyPage />
+                        </Route>
+
+                        <Route path={AGE_ADJUSTMENT_SLUG}>
+                          <OldMethodologyPage />
                         </Route>
 
                         <Route path={EXPLORE_DATA_PAGE_LINK}>
