@@ -6,7 +6,6 @@ import {
   METHODOLOGY_TAB_LINK,
   AGE_ADJUSTMENT_TAB_LINK,
 } from '../../utils/internalRoutes'
-import styles from '../AboutUs/AboutUsPage.module.scss'
 import { Link, Route, Switch } from 'react-router-dom'
 
 // can't lazy load (yet) due to scss loading issues
@@ -24,7 +23,7 @@ function DataCatalogTab() {
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
     : []
   return (
-    <div className={styles.AboutUsPage}>
+    <div className='mx-auto min-h-screen max-w-lg'>
       <Route path='/'>
         <Tabs
           centered={pageIsWide}

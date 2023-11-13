@@ -13,7 +13,7 @@ export default function GoalListItem(props: GoalListItemProps) {
       {props.src && (
         <LazyLoad offset={300} height={255} once>
           <img
-            className='max-h-aimToGo max-w-aimToGo hidden h-auto w-full pb-0 md:block'
+            className='hidden h-auto max-h-aimToGo w-full max-w-aimToGo pb-0 md:block'
             src={props.src}
             alt={props.alt}
           />

@@ -171,9 +171,7 @@ export function TableChart(props: TableChartProps) {
               <Tooltip title={NO_DATA_MESSAGE}>
                 <WarningRoundedIcon />
               </Tooltip>
-              <span className={styles.ScreenreaderTitleHeader}>
-                {NO_DATA_MESSAGE}
-              </span>
+              <span className='sr-only'>{NO_DATA_MESSAGE}</span>
             </TableCell>
           ) : (
             <TableCell
