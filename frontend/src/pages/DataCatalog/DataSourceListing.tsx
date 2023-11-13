@@ -45,12 +45,7 @@ function DownloadDatasetListItem(props: {
       case 'unloaded':
         return <GetAppIcon />
       case 'loading':
-        return (
-          <CircularProgress
-            className='h-[24px] w-[24px]'
-            aria-label='loading'
-          />
-        )
+        return <CircularProgress className='h-6 w-6' aria-label='loading' />
       case 'loaded':
         return <CheckCircleIcon />
       case 'error':
