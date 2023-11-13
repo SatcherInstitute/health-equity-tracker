@@ -127,14 +127,14 @@ export default function SinglePost(props: SinglePostProps) {
                 src={articleImage ?? hetLogo}
                 className='
                   max-h-80
+                  md:max-h-articleLogo
                   mt-8
                   h-auto
                   w-3/5
                   max-w-md
                   rounded-xl
                   object-contain
-                  md:mt-0
-                  md:max-h-articleLogo'
+                  md:mt-0'
                 alt={articleImageAltText}
                 width={200}
                 height={100}
