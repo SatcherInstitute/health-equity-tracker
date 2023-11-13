@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 interface HetBigCTAProps {
   children: ReactNode
   href: string
+  id?: string
 }
 
 export default function HetBigCTA(props: HetBigCTAProps) {
@@ -18,6 +19,7 @@ export default function HetBigCTA(props: HetBigCTAProps) {
   return (
     <>
       <button
+        id={props.id}
         className='ripple-once flare-in relative overflow-hidden rounded-2xl border-0 bg-alt-green px-10 py-5 shadow-raised-tighter hover:cursor-pointer hover:bg-dark-green active:bg-clicked'
         onClick={() => {
           handleClick()

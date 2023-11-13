@@ -79,7 +79,7 @@ function LandingPage() {
               equity and justice for all.
             </p>
             <div className='mb-10 mt-10 lg:mt-20'>
-              <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
+              <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
               </HetBigCTA>
             </div>
