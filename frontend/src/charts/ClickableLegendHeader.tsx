@@ -25,7 +25,7 @@ export default function ClickableLegendHeader(
   return (
     <Tooltip
       arrow={true}
-      placement="top"
+      placement='top'
       title={`Click for more info on ${topicName}`}
     >
       <Button

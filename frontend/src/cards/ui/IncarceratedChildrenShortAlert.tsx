@@ -29,7 +29,7 @@ function IncarceratedChildrenShortAlert(
     <CardContent>
       <Alert
         severity={count === 0 ? 'info' : 'error'}
-        role="note"
+        role='note'
         icon={count !== 0 ? <FlagIcon /> : null}
       >
         <b>

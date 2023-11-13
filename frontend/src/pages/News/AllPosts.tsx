@@ -1,6 +1,5 @@
-import { Box, Card, Grid, Typography, Skeleton } from '@mui/material'
+import { Skeleton } from '@mui/material'
 import { useEffect, useState } from 'react'
-import styles from './NewsPage.module.scss'
 import { useUrlSearchParams, LinkWithStickyParams } from '../../utils/urlutils'
 import {
   fetchNewsData,
@@ -33,43 +32,37 @@ export function ArticlesSkeleton(props: {
   const numberLoadingSkeletons = props.numberLoading ?? NUM_OF_LOADING_SKELETONS
 
   return (
-    <Grid spacing={1} justifyContent="space-between" container>
+    <div className='grid grid-flow-row justify-between gap-1'>
       {[...Array(numberLoadingSkeletons)].map((_, i) => {
         return (
-          <Grid
-            item
-            xs={12}
-            sm={5}
-            md={3}
-            container
-            direction="column"
-            alignItems="center"
+          <div
+            className='flex w-full flex-col items-center sm:w-5/12 md:w-1/4'
             key={i}
           >
             <Skeleton
               animation={props.doPulse && 'wave'}
-              variant="rectangular"
+              variant='rectangular'
               height={100}
               width={150}
             ></Skeleton>
             <Skeleton
               animation={false}
-              variant="text"
+              variant='text'
               height={36}
               width={200}
             ></Skeleton>
-            <Box mb={5}>
+            <div className='mb-10'>
               <Skeleton
                 animation={props.doPulse && 'wave'}
-                variant="text"
+                variant='text'
                 height={36}
                 width={175}
               ></Skeleton>
-            </Box>
-          </Grid>
+            </div>
+          </div>
         )
       })}
-    </Grid>
+    </div>
   )
 }
 
@@ -81,26 +74,20 @@ function PinnedArticles(props: PinnedArticlesProps) {
   const { articles } = props
 
   return articles?.length > 0 ? (
-    <Card elevation={3}>
-      <Typography className={styles.FeaturedArticlesHeaderText} variant="h6">
+    <div className='shadow-md'>
+      <h6 className='m-0 text-center font-serif font-light text-alt-green'>
         Featured:
-      </Typography>
-      <Grid container>
+      </h6>
+      <div className='flex'>
         {articles.map((post: any) => {
           return (
-            <Grid
-              item
-              xs={12}
-              sm={6}
-              className={styles.AllArticlesItem}
-              key={post.id}
-            >
+            <div className='w-full sm:w-1/2' key={post.id}>
               <NewsPreviewCard article={post} />
-            </Grid>
+            </div>
           )
         })}
-      </Grid>
-    </Card>
+      </div>
+    </div>
   ) : (
     <></>
   )
@@ -135,10 +122,11 @@ function AllPosts() {
 
       if (selectedCategory && data?.data) {
         setFilteredArticles(
-          data.data.filter((article: Article) =>
-            article._embedded['wp:term'][0]?.some(
-              (term: { name: string }) => term.name === selectedCategory
-            )
+          data.data.filter(
+            (article: Article) =>
+              article._embedded['wp:term'][0]?.some(
+                (term: { name: string }) => term.name === selectedCategory
+              )
           )
         )
       }
@@ -214,37 +202,63 @@ function AllPosts() {
   if (data?.data.length === 0) return <></>
 
   return (
-    <Grid container className={styles.Grid}>
+    <div className='flex w-full flex-wrap'>
       <Helmet>
         <title>News - Health Equity Tracker</title>
       </Helmet>
-      <Grid container className={styles.AllArticlesSection}>
-        <Grid
-          item
-          md={3}
-          container
-          direction="column"
-          alignItems="center"
-          className={styles.FilterBoxSideBar}
+      <div
+        className='
+        flex
+        flex-wrap
+        border-0
+        border-b
+        border-solid
+        border-alt-grey
+        px-5
+        py-12
+      '
+      >
+        <div
+          className='
+          hidden
+          w-full
+          flex-col
+          flex-wrap
+          md:block
+          md:w-1/4
+        '
         >
           <ArticleFilters filterType={'category'} filterOptions={categories} />
           <ArticleFilters filterType={'author'} filterOptions={authors} />
-        </Grid>
+        </div>
 
-        <Grid item xs={12} sm={12} md={9}>
-          <Box mx={5}>
-            <div className={styles.AllArticlesHeader}>
-              <Grid item>
-                <Typography
-                  id="main"
-                  className={styles.AllArticlesHeaderText}
-                  variant="h2"
+        <div className='w-full md:w-3/4'>
+          <div className='mx-10'>
+            <div>
+              <div>
+                <h2
+                  id='main'
+                  className='
+                    m-0
+                    text-center
+                    font-serif
+                    text-bigHeader
+                    font-light
+                    text-alt-green'
                 >
                   News and Stories
-                </Typography>
-              </Grid>
-              <Grid item>
-                <p className={styles.AllArticlesHeaderSubtext}>
+                </h2>
+              </div>
+              <div>
+                <p
+                  className='
+                    leading-6
+                    text-left
+                    font-sansText
+                    text-title
+                    font-light
+                '
+                >
                   We believe in the power of storytelling. The Health Equity
                   Tracker is designed to enable transformative change through
                   data, but we know that is only part of the picture. Here, you
@@ -254,7 +268,15 @@ function AllPosts() {
                   the Health Equity movement.
                 </p>
 
-                <p className={styles.AllArticlesHeaderSubtext}>
+                <p
+                  className='
+                    leading-6
+                    text-left
+                    font-sansText
+                    text-title
+                    font-light
+                '
+                >
                   Health Equity is a transformative pursuit that empowers all
                   people: giving their voices the platform to be heard and their
                   experiences the visibility they deserve. We encourage your to{' '}
@@ -263,12 +285,12 @@ function AllPosts() {
                   </LinkWithStickyParams>
                   .
                 </p>
-              </Grid>
+              </div>
             </div>
-          </Box>
+          </div>
 
-          <Grid item container justifyContent="center">
-            <Box m={5}>
+          <div className='flex flex-wrap justify-center'>
+            <div className='m-10'>
               {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
               {selectedAuthor?.length === 0 &&
                 selectedCategory?.length === 0 && (
@@ -279,90 +301,121 @@ function AllPosts() {
               {(selectedAuthor || selectedCategory) && (
                 <>
                   <Link
-                    className={styles.AllArticlesBreadCrumbs}
                     to={NEWS_PAGE_LINK}
+                    className='
+                    leading-7
+                    inline
+                    px-4
+                    py-1.5
+                    font-sansText
+                    text-small
+                    font-medium
+                    normal-case
+                    tracking-wide
+                    no-underline
+                '
                   >
                     {ARTICLES_TERM}
                   </Link>
-                  <span className={styles.AllArticlesBreadCrumbs}> › </span>
+                  <span
+                    className='
+                      leading-7
+                      inline
+                      px-4
+                      py-1.5
+                      font-sansText
+                      text-small
+                      font-medium
+                      normal-case
+                      tracking-wide
+                      no-underline
+                  '
+                  >
+                    ›
+                  </span>
                 </>
               )}
-              <span className={styles.AllArticlesBreadCrumbs}>
+              <span
+                className='
+                      leading-7
+                      inline
+                      px-4
+                      py-1.5
+                      font-sansText
+                      text-small
+                      font-medium
+                      normal-case
+                      tracking-wide
+                      no-underline
+                  '
+              >
                 {selectedAuthor?.length > 0 && `Author: ${selectedAuthor}`}
                 {selectedCategory?.length > 0 &&
                   `Category: ${selectedCategory}`}
               </span>
-            </Box>
+            </div>
 
             {/* all posts matching client applied filters */}
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-start"
-            >
+            <div className='flex flex-wrap items-start justify-between'>
               {filteredArticles?.map((post: any) => {
                 return (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    className={styles.AllArticlesItem}
-                    key={post.id}
-                  >
-                    <Box my={2}>
+                  <div className='w-full sm:w-1/2' key={post.id}>
+                    <div className='my-4'>
                       <NewsPreviewCard article={post} />
-                    </Box>
-                  </Grid>
+                    </div>
+                  </div>
                 )
               })}
-            </Grid>
-            <Grid container direction="column" justifyContent="center">
+            </div>
+
+            <div className='flex flex-col justify-center'>
               {isLoading && (
                 <>
                   <ArticlesSkeleton doPulse={true} />
-                  <Box mt={5}>
+                  <div className='m-10'>
                     <i>Updating articles...</i>
-                  </Box>
+                  </div>
                 </>
               )}
               {error && !isLoading && (
                 <>
-                  <Box mt={5}>
+                  <div className='m-10'>
                     <i>Problem updating articles.</i>
-                  </Box>
+                  </div>
                   <ArticlesSkeleton doPulse={false} />
                 </>
               )}
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          item
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignContent="center"
-          className={styles.FilterBoxBottom}
+            </div>
+          </div>
+        </div>
+
+        <div
+          className='
+            flex
+            w-full
+            flex-wrap
+            content-center
+            justify-around
+            md:hidden
+        '
         >
-          <Grid item xs={12}>
-            <div className={styles.Divider}></div>
-          </Grid>
-          <Grid item xs={12} sm={6} container justifyContent="center">
+          <div className='w-full'>
+            <div className='mt-16 border-0	border-t border-solid border-alt-grey p-4'></div>
+          </div>
+          <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters
               filterType={'category'}
               filterOptions={categories}
             />
-          </Grid>
-
-          <Grid item xs={12} sm={6} container justifyContent="center">
+          </div>
+          <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters filterType={'author'} filterOptions={authors} />
-          </Grid>
-        </Grid>
-      </Grid>
+          </div>
+        </div>
+      </div>
 
       <SignupSection />
-    </Grid>
+    </div>
   )
 }
 

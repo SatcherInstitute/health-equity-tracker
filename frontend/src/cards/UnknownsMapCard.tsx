@@ -246,7 +246,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 queryResponse={alertQueryResponse}
                 metricConfig={metricConfig}
                 demographicType={demographicType}
-                displayType="map"
+                displayType='map'
                 known={false}
                 overrideAndWithOr={demographicType === RACE}
                 raceEthDiffMap={
@@ -276,7 +276,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
-              <Alert sx={{ my: 2, mx: 5 }} severity="info" role="note">
+              <Alert sx={{ my: 2, mx: 5 }} severity='info' role='note'>
                 No unknown values for{' '}
                 {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]} reported
                 in this dataset

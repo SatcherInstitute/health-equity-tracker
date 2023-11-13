@@ -25,7 +25,7 @@ export default function DefinitionsList(
   const relevantCategories: Category[] = Array.from(relevantCategoriesSet)
 
   return (
-    <div id="definitionsList">
+    <div id='definitionsList'>
       {/* for each category */}
       {relevantCategories.map((category: Category) => {
         // sort requested dataTypes into their categories

@@ -12,8 +12,8 @@ export default function SignupSection() {
   return (
     <Grid
       container
-      direction="column"
-      justifyContent="center"
+      direction='column'
+      justifyContent='center'
       className={styles.NewsEmailSignup}
     >
       <Grid item>
@@ -33,24 +33,24 @@ export default function SignupSection() {
           Satcher Health Leadership Institute newsletter.
         </p>
       </Grid>
-      <Grid item container justifyContent="center" alignItems="center">
-        <form action={urlMap.newsletterSignup} method="post" target="_blank">
+      <Grid item container justifyContent='center' alignItems='center'>
+        <form action={urlMap.newsletterSignup} method='post' target='_blank'>
           <TextField
-            id="Enter email address to sign up" // Accessibility label
-            name="MERGE0"
-            variant="outlined"
+            id='Enter email address to sign up' // Accessibility label
+            name='MERGE0'
+            variant='outlined'
             className={styles.NewsEmailTextField}
-            type="email"
-            role="textbox"
-            aria-label="Enter Email Address for Newsletter signup"
-            placeholder="Enter email address"
+            type='email'
+            role='textbox'
+            aria-label='Enter Email Address for Newsletter signup'
+            placeholder='Enter email address'
           />
           <Button
-            type="submit"
-            color="primary"
-            variant="contained"
+            type='submit'
+            color='primary'
+            variant='contained'
             className={styles.NewsEmailAddressFormSubmit}
-            aria-label="Sign Up for Newsletter in a new window"
+            aria-label='Sign Up for Newsletter in a new window'
           >
             Sign up
           </Button>

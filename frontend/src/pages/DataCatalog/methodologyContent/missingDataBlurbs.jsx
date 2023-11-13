@@ -163,35 +163,42 @@ export function MissingPhrmaData() {
 
       <ul>
         <li>
-          <b>Gender:</b> The Medicare source files did not include information
-          on gender. Gender is not presented in this data.
+          <b>Gender:</b> The Medicare source files include information on sex,
+          but not gender. Gender is not presented in these data.
         </li>
         <li>
           <b>Sexual Orientation:</b> The Medicare source files did not include
           information on sexual orientation. Sexual orientation is not presented
-          in this data.
+          in these data.
         </li>
         <li>
-          <b>Disability:</b> Although we can display rates for those who are
-          eligible due to disability generally, we can not represent disparities
-          associated with specific physical or mental disabilities.
+          <b>Disability:</b> Although important, we do not present data on
+          disparities associated with specific physical or mental disabilities.
+          We do however display rates for those who are eligible due to
+          disability.
         </li>
         <li>
           <b>Social and Political Determinants of Health:</b> Unfortunately,
-          there are crucial data missing in the Medicare FFS (Fee-For-Service)
-          data, such as the impacts of racism and discrimination on health
-          outcomes and adherence to medicines.
+          there are crucial data missing in the Medicare FFS data. We are also
+          missing critical data, such as the impacts of racism and
+          discrimination, on health outcomes and adherence to medicines.
         </li>
       </ul>
 
       <p>Who is missing?</p>
       <ul>
         <li>
-          <b>Data Suppression:</b> To{' '}
-          <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
-            protect patient privacy
+          <b>Data Suppression:</b> In accordance with the Centers for Medicare
+          and Medicaid (CMS) Cell Suppression Policy, we suppressed cells with a
+          value of 1 to 10 (e.g., number of people non-adherent to statins). A
+          value of zero does not violate the policy. In addition, we suppressed
+          any value (e.g., percentages or total population size), which can be
+          used to derive a cell value of 1 to 10. For more information on the
+          cell suppression technique, visit the{' '}
+          <a href='https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.'>
+            ResDAC website
           </a>
-          , all data representing 1-10 people were suppressed.
+          .
         </li>
       </ul>
     </>

@@ -92,7 +92,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
       transformOrigin={transformOrigin}
     >
       <List
-        aria-label="List of Options"
+        aria-label='List of Options'
         dense={true}
         className={styles.GroupListMenuBox}
       >
@@ -152,9 +152,9 @@ function DropDownMenu(props: DropDownMenuProps) {
         {demOption}:
       </label>
       <Button
-        variant="text"
+        variant='text'
         onClick={firstMenu.open}
-        aria-haspopup="true"
+        aria-haspopup='true'
         id={`groupMenu${props?.idSuffix ?? ''}`}
         className={styles.GroupText}
       >
@@ -170,7 +170,7 @@ function DropDownMenu(props: DropDownMenuProps) {
       <MenuPopover
         aria-labelledby={`#groupMenu${props?.idSuffix ?? ''}`}
         popover={firstMenu}
-        aria-expanded="true"
+        aria-expanded='true'
         items={oneLevelMenu ? Object.values(props.options)[0] : props.options}
         onClick={(event: React.MouseEvent<HTMLElement>, value) => {
           if (oneLevelMenu) {

@@ -20,7 +20,7 @@ function MapBreadcrumbs(props: {
     <>
       <Breadcrumbs
         sx={{ mx: 3, my: 1, justifyContent: 'center' }}
-        separator="›"
+        separator='›'
         aria-label={`Breadcrumb navigation for ${
           props.ariaLabel ?? 'data'
         } in ${props.fips.getDisplayName()} report`}
@@ -77,7 +77,7 @@ function Crumb(props: {
     <>
       {props.isClickable && (
         <Button
-          color="primary"
+          color='primary'
           className={styles.Crumb}
           onClick={() => {
             props.onClick?.()
@@ -88,7 +88,7 @@ function Crumb(props: {
       )}
       {!props.isClickable && (
         <Button
-          color="primary"
+          color='primary'
           className={props.isNote ? styles.NoteCrumb : styles.CurrentCrumb}
           disabled
         >

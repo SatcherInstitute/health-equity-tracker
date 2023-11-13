@@ -178,7 +178,7 @@ function ReportProvider(props: ReportProviderProps) {
             {definedConditions?.length > 0 && (
               <Box mb={5}>
                 <h3
-                  id="definitions-missing-data"
+                  id='definitions-missing-data'
                   className={styles.FootnoteLargeHeading}
                 >
                   Definitions:

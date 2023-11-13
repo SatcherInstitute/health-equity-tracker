@@ -59,7 +59,7 @@ export function LineChart({
     .curve(curveMonotoneX)
 
   return (
-    <g role="list" tabIndex={0} aria-label="Demographic group trendlines">
+    <g role='list' tabIndex={0} aria-label='Demographic group trendlines'>
       {data?.map(([group, d]: GroupData) => {
         const dCopy = [...d]
 
@@ -86,7 +86,7 @@ export function LineChart({
         const isUnknownLine = group === UNKNOWN_W
         return (
           <path
-            role="listitem"
+            role='listitem'
             aria-label={groupA11yDescription}
             className={
               isUnknownLine ? styles.TrendLineGradient : styles.TrendLine

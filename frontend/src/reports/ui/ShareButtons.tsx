@@ -52,7 +52,7 @@ export default function ShareButtons(props: ShareButtonProps) {
       <Grid item>
         {/* SOCIAL SHARE BUTTONS */}
 
-        <Tooltip title="Tweet this page">
+        <Tooltip title='Tweet this page'>
           <TwitterShareButton
             url={sharedUrl}
             hashtags={['healthequity']}
@@ -63,7 +63,7 @@ export default function ShareButtons(props: ShareButtonProps) {
           </TwitterShareButton>
         </Tooltip>
 
-        <Tooltip title="Post this page to Facebook">
+        <Tooltip title='Post this page to Facebook'>
           <FacebookShareButton
             url={sharedUrl}
             hashtag={'#healthequity'}
@@ -74,7 +74,7 @@ export default function ShareButtons(props: ShareButtonProps) {
           </FacebookShareButton>
         </Tooltip>
 
-        <Tooltip title="Post this page to LinkedIn">
+        <Tooltip title='Post this page to LinkedIn'>
           <LinkedinShareButton
             source={'Health Equity Tracker'}
             url={sharedUrl}
@@ -84,7 +84,7 @@ export default function ShareButtons(props: ShareButtonProps) {
           </LinkedinShareButton>
         </Tooltip>
 
-        <Tooltip title="Share this page by email">
+        <Tooltip title='Share this page by email'>
           <EmailShareButton
             aria-label={'Share by email'}
             subject={`Sharing from healthequitytracker.org`}

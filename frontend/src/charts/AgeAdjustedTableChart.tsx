@@ -22,7 +22,6 @@ import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
-import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { RACE } from '../data/utils/Constants'
 import ChartTitle from '../cards/ChartTitle'
@@ -117,12 +116,10 @@ export function AgeAdjustedTableChart(props: AgeAdjustedTableChartProps) {
               key={`no-data-${index}`}
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
-              <Tooltip title="No data available">
+              <Tooltip title='No data available'>
                 <WarningRoundedIcon />
               </Tooltip>
-              <span className={styles.ScreenreaderTitleHeader}>
-                No Data Available
-              </span>
+              <span className='sr-only'>No Data Available</span>
             </TableCell>
           ) : (
             <TableCell

@@ -152,14 +152,14 @@ function CompareReport(props: {
 
   if (dataTypeConfig1 === null) {
     return (
-      <Grid container spacing={1} alignItems="center" justifyContent="center">
+      <Grid container spacing={1} alignItems='center' justifyContent='center'>
         <NoDataAlert dropdownVarId={props.dropdownVarId1} />
       </Grid>
     )
   }
   if (dataTypeConfig2 === null) {
     return (
-      <Grid container spacing={1} alignItems="center" justifyContent="center">
+      <Grid container spacing={1} alignItems='center' justifyContent='center'>
         <NoDataAlert dropdownVarId={props.dropdownVarId2} />
       </Grid>
     )
@@ -206,11 +206,11 @@ function CompareReport(props: {
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
-          <Grid container spacing={1} alignItems="flex-start">
+          <Grid container spacing={1} alignItems='flex-start'>
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              id="rate-map"
+              id='rate-map'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
@@ -242,7 +242,7 @@ function CompareReport(props: {
             {showTrendCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                id="rates-over-time"
+                id='rates-over-time'
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
                 fips1={props.fips1}
@@ -270,7 +270,7 @@ function CompareReport(props: {
 
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              id="rate-chart"
+              id='rate-chart'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
@@ -293,7 +293,7 @@ function CompareReport(props: {
             {/* SIDE-BY-SIDE UNKNOWNS MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              id="unknown-demographic-map"
+              id='unknown-demographic-map'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
@@ -324,7 +324,7 @@ function CompareReport(props: {
             {showTrendCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                id="inequities-over-time"
+                id='inequities-over-time'
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
                 fips1={props.fips1}
@@ -351,7 +351,7 @@ function CompareReport(props: {
             {/* SIDE-BY-SIDE DISPARITY BAR GRAPH (COMPARE TO POPULATION) CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              id="population-vs-distribution"
+              id='population-vs-distribution'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
@@ -374,7 +374,7 @@ function CompareReport(props: {
             {/* SIDE-BY-SIDE DATA TABLE CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
-              id="data-table"
+              id='data-table'
               dataTypeConfig1={dataTypeConfig1}
               dataTypeConfig2={dataTypeConfig2}
               fips1={props.fips1}
@@ -401,7 +401,7 @@ function CompareReport(props: {
             {showAgeAdjustCardRow && (
               <RowOfTwoOptionalMetrics
                 trackerMode={props.trackerMode}
-                id="age-adjusted-ratios"
+                id='age-adjusted-ratios'
                 // specific data type
                 dataTypeConfig1={dataTypeConfig1}
                 dataTypeConfig2={dataTypeConfig2}
@@ -439,8 +439,8 @@ function CompareReport(props: {
             md={2}
             container
             spacing={0}
-            direction="column"
-            alignItems="center"
+            direction='column'
+            alignItems='center'
             className={styles.FloatingSidebarWrapper}
           >
             <Sidebar
