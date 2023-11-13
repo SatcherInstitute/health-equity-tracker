@@ -17,8 +17,7 @@ export default function HetBigCTA(props: HetBigCTAProps) {
 
   return (
     <button
-      id='cta'
-      className='relative overflow-hidden rounded-2xl  border-0 bg-alt-green px-10 py-5 shadow-raised-tighter hover:cursor-pointer hover:bg-dark-green focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-1  focus-visible:outline-bar-chart-light active:bg-clicked'
+      className='ripple-once relative overflow-hidden rounded-2xl  border-0 bg-alt-green px-10 py-5 shadow-raised-tighter hover:cursor-pointer hover:bg-dark-green focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-1  focus-visible:outline-bar-chart-light active:bg-clicked'
       onClick={() => {
         handleClick()
       }}
