@@ -20,10 +20,6 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import { urlMap } from '../../utils/externalUrls'
 import HetBigCTA from '../ui/HetBigCTA'
 
-import { Collapse, Dropdown, Ripple, initTE } from 'tw-elements'
-
-initTE({ Collapse, Dropdown, Ripple })
-
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY_4,
