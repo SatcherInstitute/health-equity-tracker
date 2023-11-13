@@ -210,15 +210,15 @@ export default function TableCard(props: TableCardProps) {
               props.demographicType === RACE && (
                 <>
                   <CardContent>
-                    <Alert severity="warning" role="note" id="AIAN-alert">
+                    <Alert severity='warning' role='note' id='AIAN-alert'>
                       Share of COVID-19 cases reported for American Indian,
                       Alaska Native, Native Hawaiian and Pacific Islander are
                       underrepresented at the national level and in many states
                       because these racial categories are often not recorded.
                       The Urban Indian Health Institute publishes{' '}
                       <a
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target='_blank'
+                        rel='noopener noreferrer'
                         href={urlMap.uihiBestPractice}
                       >
                         guidelines for American Indian and Alaska Native Data

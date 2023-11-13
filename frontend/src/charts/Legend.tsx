@@ -314,7 +314,7 @@ export function Legend(props: LegendProps) {
       {spec && (
         <div>
           <Vega
-            renderer="svg"
+            renderer='svg'
             spec={spec}
             actions={false}
             onNewView={(view) => {

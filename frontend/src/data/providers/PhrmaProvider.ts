@@ -93,7 +93,9 @@ export const PHRMA_RESTRICTED_DEMOGRAPHIC_DETAILS = [
   ['Eligibility', phrmaReason],
 ]
 
-export const SHOW_PHRMA = import.meta.env.VITE_SHOW_PHRMA
+export const SHOW_PHRMA_HIV_AND_CVD = import.meta.env.VITE_SHOW_PHRMA
+export const SHOW_PHRMA_MENTAL_HEALTH = import.meta.env
+  .VITE_SHOW_PHRMA_MENTAL_HEALTH
 
 class PhrmaProvider extends VariableProvider {
   constructor() {
@@ -144,6 +146,7 @@ class PhrmaProvider extends VariableProvider {
 
     df = this.applyDemographicBreakdownFilters(df, breakdowns)
     df = this.removeUnrequestedColumns(df, metricQuery)
+
     return new MetricQueryResponse(df.toArray(), consumedDatasetIds)
   }
 

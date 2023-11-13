@@ -26,7 +26,7 @@ export default function SimpleSelect<ListItemType>(
     : ''
 
   return (
-    <FormControl sx={{ m: 1, minWidth: MIN_TOP_LABEL_WIDTH }} size="small">
+    <FormControl sx={{ m: 1, minWidth: MIN_TOP_LABEL_WIDTH }} size='small'>
       <InputLabel id={`${props.label}-select-label`}>{props.label}</InputLabel>
       <Select
         autoWidth
@@ -35,7 +35,7 @@ export default function SimpleSelect<ListItemType>(
         value={value as string}
         label={props.label}
         onChange={handleChange}
-        defaultValue=""
+        defaultValue=''
       >
         {Object.entries(props.optionsMap).map(([label, id]) => {
           return (
@@ -52,7 +52,7 @@ export default function SimpleSelect<ListItemType>(
               placement={'right-end'}
             >
               <span>
-                <MenuItem disabled value="">
+                <MenuItem disabled value=''>
                   {disabledOption}
                 </MenuItem>
               </span>

@@ -14,11 +14,11 @@ export default function DefaultHelperBox() {
   return (
     <Grid
       container
-      alignContent="flex-start"
-      justifyContent="center"
+      alignContent='flex-start'
+      justifyContent='center'
       className={styles.NoTopicContent}
     >
-      <Alert severity="info" icon={<></>} className={styles.NoTopicAlert}>
+      <Alert severity='info' icon={<></>} className={styles.NoTopicAlert}>
         <Grid
           item
           xs={12}
@@ -82,20 +82,20 @@ export default function DefaultHelperBox() {
             xs={12}
             md={6}
             className={styles.NoTopicHelperVideoBoxWithCaption}
-            direction="column"
-            alignItems="center"
-            justifyContent="center"
+            direction='column'
+            alignItems='center'
+            justifyContent='center'
           >
             <Box mt={1} mb={5} sx={{ display: { xs: 'block', md: 'none' } }}>
               <DisclaimerAlert />
             </Box>
             <div className={styles.NoTopicHelperVideoBox}>
               <iframe
-                loading="lazy"
+                loading='lazy'
                 className={styles.ResourceVideoEmbed}
-                src="https://www.youtube.com/embed/XBoqT9Jjc8w"
-                title="YouTube video player"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                src='https://www.youtube.com/embed/XBoqT9Jjc8w'
+                title='YouTube video player'
+                allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
                 allowFullScreen
               ></iframe>
             </div>

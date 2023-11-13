@@ -159,23 +159,23 @@ export function Report(props: ReportProps) {
             item
             container
             xs={12}
-            alignItems="center"
+            alignItems='center'
             spacing={0}
-            justifyContent="center"
+            justifyContent='center'
           >
             {!dataTypeConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
             )}
 
             {dataTypeConfig && (
-              <Grid container justifyContent="center">
+              <Grid container justifyContent='center'>
                 {/* 100k MAP CARD */}
                 <Grid
                   item
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
-                  id="rate-map"
+                  id='rate-map'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
@@ -222,7 +222,7 @@ export function Report(props: ReportProps) {
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
-                  id="rate-chart"
+                  id='rate-chart'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
@@ -242,7 +242,7 @@ export function Report(props: ReportProps) {
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
-                  id="unknown-demographic-map"
+                  id='unknown-demographic-map'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
@@ -296,7 +296,7 @@ export function Report(props: ReportProps) {
                   sm={12}
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
-                  id="population-vs-distribution"
+                  id='population-vs-distribution'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
@@ -319,7 +319,7 @@ export function Report(props: ReportProps) {
                   xs={12}
                   md={SINGLE_COLUMN_WIDTH}
                   tabIndex={-1}
-                  id="data-table"
+                  id='data-table'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
@@ -339,7 +339,7 @@ export function Report(props: ReportProps) {
                     xs={12}
                     md={SINGLE_COLUMN_WIDTH}
                     tabIndex={-1}
-                    id="age-adjusted-ratios"
+                    id='age-adjusted-ratios'
                     style={{
                       scrollMarginTop: props.headerScrollMargin,
                     }}
@@ -375,8 +375,8 @@ export function Report(props: ReportProps) {
             // icons + text
             md={2}
             container
-            direction="column"
-            alignItems="center"
+            direction='column'
+            alignItems='center'
             className={styles.FloatingSidebarWrapper}
           >
             <Sidebar

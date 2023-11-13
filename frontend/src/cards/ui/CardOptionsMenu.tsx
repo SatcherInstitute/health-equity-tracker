@@ -36,10 +36,10 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
 
   return (
     <div
-      className="mb:0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-3 md:mr-1"
+      className='mb:0 mr-0 flex flex-row-reverse pr-0 sm:mt-1 sm:pr-3 md:mr-1'
       id={'card-options-menu'}
     >
-      <Tooltip title="Card export options">
+      <Tooltip title='Card export options'>
         <IconButton onClick={shareMenu.open}>
           <MoreHorizIcon />
         </IconButton>
@@ -54,7 +54,7 @@ export default function CardOptionsMenu(props: CardOptionsMenuProps) {
           shareMenu.close()
         }}
       >
-        <MenuList className="pr-1">
+        <MenuList className='pr-1'>
           <CopyLinkButton
             scrollToHash={props.scrollToHash}
             popover={shareMenu}

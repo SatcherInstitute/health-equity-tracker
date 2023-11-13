@@ -13,7 +13,7 @@ import { type PopoverElements } from '../../utils/hooks/usePopover'
 import { getCssVar } from '../../utils/designUtils'
 
 const shareIconAttributes = {
-  iconFillColor: getCssVar('hex-share-icon-gray'),
+  iconFillColor: getCssVar<string>('hex-share-icon-gray'),
   bgStyle: { fill: 'none' },
   size: 39,
 }
@@ -40,9 +40,9 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           hashtags={['healthequity']}
           related={['@SatcherHealth', '@MSMEDU']}
           url={sharedUrl}
-          className="flex items-center px-2 py-1"
+          className='flex items-center px-2 py-1'
         >
-          <TwitterIcon {...shareIconAttributes} className="mx-2 w-8" />
+          <TwitterIcon {...shareIconAttributes} className='mx-2 w-8' />
           <div>Share on Twitter</div>
         </TwitterShareButton>
       </MenuItem>
@@ -53,9 +53,9 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           hashtag={'#healthequity'}
           quote={''}
           url={sharedUrl}
-          className="flex items-center px-2 py-1"
+          className='flex items-center px-2 py-1'
         >
-          <FacebookIcon {...shareIconAttributes} className="mx-2 w-8" />
+          <FacebookIcon {...shareIconAttributes} className='mx-2 w-8' />
           <div>Share on Facebook</div>
         </FacebookShareButton>
       </MenuItem>
@@ -63,11 +63,11 @@ export default function CardShareIcons(props: CardShareIconsProps) {
       <MenuItem aria-label={'Share on LinkedIn'} onClick={handleClose}>
         <LinkedinShareButton
           aria-label={'Share to LinkedIn'}
-          className="flex items-center px-2 py-1"
+          className='flex items-center px-2 py-1'
           source={'Health Equity Tracker'}
           url={sharedUrl}
         >
-          <LinkedinIcon {...shareIconAttributes} className="mx-2 w-8" />
+          <LinkedinIcon {...shareIconAttributes} className='mx-2 w-8' />
           <div>Share on LinkedIn</div>
         </LinkedinShareButton>
       </MenuItem>
@@ -76,11 +76,11 @@ export default function CardShareIcons(props: CardShareIconsProps) {
         <EmailShareButton
           aria-label={'Share by email'}
           body={emailShareBody}
-          className="flex items-center px-2 py-1"
+          className='flex items-center px-2 py-1'
           subject={`Sharing from healthequitytracker.org`}
           url={sharedUrl}
         >
-          <EmailIcon {...shareIconAttributes} className="mx-2 w-8" />
+          <EmailIcon {...shareIconAttributes} className='mx-2 w-8' />
           <div>Email card link</div>
         </EmailShareButton>
       </MenuItem>

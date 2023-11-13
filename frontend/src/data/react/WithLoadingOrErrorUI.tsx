@@ -30,13 +30,13 @@ export function WithLoadingOrErrorUI<R>(props: {
     return props.loadingComponent ? (
       props.loadingComponent
     ) : (
-      <CircularProgress aria-label="loading" />
+      <CircularProgress aria-label='loading' />
     )
   }
 
   if (props.resources === 'error') {
     return (
-      <div data-testid="WithLoadingOrErrorUI-error">
+      <div data-testid='WithLoadingOrErrorUI-error'>
         <p>
           <b>Oops, something went wrong.</b>
         </p>

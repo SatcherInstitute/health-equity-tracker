@@ -1,4 +1,4 @@
-import { SHOW_PHRMA } from '../providers/PhrmaProvider'
+import { SHOW_PHRMA_HIV_AND_CVD } from '../providers/PhrmaProvider'
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -375,9 +375,10 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    hideFromUser: !SHOW_PHRMA, // TODO: remove this once PHRMA merged
+    hideFromUser: !SHOW_PHRMA_HIV_AND_CVD, // TODO: remove this once PHRMA merged
     id: 'phrma',
-    data_source_name: 'Medicare Administrative Data',
+    data_source_name:
+      'Medication Utilization and Disease Rates in the Medicare Population',
     data_source_pretty_site_name: 'cms.gov',
     data_source_link:
       'https://www.cms.gov/research-statistics-data-and-systems/cms-information-technology/accesstodataapplication',
@@ -385,8 +386,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity:
       'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
-    description:
-      'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older, for multiple HIV and cardiovascular conditions.',
+    description: `Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older.`,
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',
@@ -405,6 +405,9 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'phrma_data-eligibility_county',
     ],
     downloadable: true,
+    downloadable_blurb:
+      'Disease rates and medication adherence percentages for multiple HIV, mental health, and cardiovascular conditions within the Medicare beneficiary population.',
+    downloadable_data_dictionary: true,
   },
   {
     id: 'covid_tracking_project',

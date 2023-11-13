@@ -11,10 +11,10 @@ function DisclaimerAlert() {
   return (
     <div>
       <Alert
-        severity="warning"
+        severity='warning'
         className={styles.ReportAlert}
         icon={!pageIsTiny ? <FlagIcon /> : <></>}
-        role="note"
+        role='note'
       >
         <AlertTitle>Major gaps in the data</AlertTitle>
         Structural racism and oppression create health inequities, and lead to
