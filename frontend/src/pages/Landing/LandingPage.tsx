@@ -18,7 +18,7 @@ import type { Article } from '../News/NewsPage'
 import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
-import HetBigButton from '../ui/HetBigCTA'
+import HetBigCTA from '../ui/HetBigCTA'
 
 import { Collapse, Dropdown, Ripple, initTE } from 'tw-elements'
 
@@ -79,9 +79,9 @@ function LandingPage() {
               equity and justice for all.
             </p>
             <div className='mb-10 mt-10 lg:mt-20'>
-              <HetBigButton href={EXPLORE_DATA_PAGE_LINK}>
+              <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
-              </HetBigButton>
+              </HetBigCTA>
             </div>
           </div>
           <div className='w-full border-0 border-l border-solid px-12 py-4 md:w-5/12'>
@@ -247,13 +247,9 @@ function LandingPage() {
           </ul>
 
           <div className='mt-14'>
-            <Button
-              variant='contained'
-              className='rounded-2xl px-8 py-4 text-title text-white'
-              href={EXPLORE_DATA_PAGE_LINK}
-            >
+            <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
-            </Button>
+            </HetBigCTA>
           </div>
         </article>
 

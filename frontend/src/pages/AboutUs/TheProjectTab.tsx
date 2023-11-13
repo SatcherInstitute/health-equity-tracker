@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import {
   COPD_US_SETTING,
   COVID_HOSP_NY_COUNTY_SETTING,
@@ -17,6 +16,7 @@ import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../data/query/Breakdowns'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 import GoalListItem from './GoalListItem'
+import HetBigCTA from '../ui/HetBigCTA'
 
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion()
@@ -146,24 +146,10 @@ function TheProjectTab() {
                 </p>
               </div>
             </div>
-            <Button
-              variant='contained'
-              color='primary'
-              className='
-                        m-6
-                        min-w-min
-                        rounded-2xl
-                        px-8
-                        py-5
-                        text-center
-                        font-sansTitle
-                        text-exploreButton
-                        font-medium
-                        text-white'
-              href={EXPLORE_DATA_PAGE_LINK}
-            >
+
+            <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
-            </Button>
+            </HetBigCTA>
           </div>
         </div>
 
