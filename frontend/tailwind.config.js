@@ -61,8 +61,6 @@ export default {
       'black': 'rgb(var(--black) / <alpha-value>)',
       'blue': 'rgb(var(--blue) / <alpha-value>)',
       'border-color': 'rgb(var(--border-color) / <alpha-value>)',
-      'clicked': 'rgb(var(--clicked) / <alpha-value>)',
-
       'dark-blue': 'rgb(var(--dark-blue) / <alpha-value>)',
       'dark-green': 'rgb(var(--dark-green) / <alpha-value>)',
       'explore-bg-color': 'rgb(var(--explore-bg-color) / <alpha-value>)',
