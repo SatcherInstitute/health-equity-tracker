@@ -1,5 +1,5 @@
+import { Button } from '@mui/material'
 import { type ReactNode } from 'react'
-import { useHistory } from 'react-router-dom'
 
 interface HetBigCTAProps {
   children: ReactNode
@@ -8,27 +8,14 @@ interface HetBigCTAProps {
 }
 
 export default function HetBigCTA(props: HetBigCTAProps) {
-  const routerHistory = useHistory()
-
-  function handleClick() {
-    setTimeout(() => {
-      routerHistory.push(props.href)
-    }, 200)
-  }
-
   return (
-    <>
-      <button
-        id={props.id}
-        className='ripple-once flare-in relative overflow-hidden rounded-2xl border-0 bg-alt-green px-10 py-5 shadow-raised-tighter hover:cursor-pointer hover:bg-dark-green active:bg-clicked'
-        onClick={() => {
-          handleClick()
-        }}
-      >
-        <span className='font-sansTitle text-exploreButton  font-medium text-white no-underline'>
-          {props.children}
-        </span>
-      </button>
-    </>
+    <Button
+      id={props.id}
+      variant='contained'
+      className='rounded-2xl px-8 py-5 text-exploreButton text-white'
+      href={props.href}
+    >
+      {props.children}
+    </Button>
   )
 }
