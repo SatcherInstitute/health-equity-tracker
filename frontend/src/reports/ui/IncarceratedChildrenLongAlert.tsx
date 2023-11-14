@@ -14,7 +14,6 @@ function IncarceratedChildrenLongAlert() {
         icon={<FlagIcon />}
         role='note'
       >
-        {/* <AlertTitle>The 3 Ws of Incarceration: Where, What and Why</AlertTitle> */}
         <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
 
         <p>
