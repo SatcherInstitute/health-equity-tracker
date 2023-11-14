@@ -19,8 +19,8 @@ import {
   CONDITION_VARIABLES_LINK,
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
-  AGE_ADJUSTMENT_LINK,
-  METHODOLOGY_PAGE_LINK,
+  NEW_AGE_ADJUSTMENT_LINK,
+  NEW_METHODOLOGY_PAGE_LINK,
   GLOSSARY_LINK,
 } from '../../../utils/internalRoutes'
 import { useState } from 'react'
@@ -34,8 +34,8 @@ interface LinkItem {
 }
 
 export const links: LinkItem[] = [
-  { index: 0, to: METHODOLOGY_PAGE_LINK, primary: 'Methodology' },
-  { index: 1, to: AGE_ADJUSTMENT_LINK, primary: 'Age-Adjustment' },
+  { index: 0, to: NEW_METHODOLOGY_PAGE_LINK, primary: 'Methodology' },
+  { index: 1, to: NEW_AGE_ADJUSTMENT_LINK, primary: 'Age-Adjustment' },
   { index: 2, to: SOURCES_LINK, primary: 'Data Sources' },
   { index: 3, to: TOPICS_LINK, primary: 'Categories and Limitations' },
   {

@@ -1,4 +1,4 @@
-import { AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
+import { NEW_AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
 import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 import { Helmet } from 'react-helmet-async'
@@ -61,7 +61,10 @@ const SourcesLink = () => {
               Where data are readily available, calculations are made to present
               age-adjusted ratios in separate tables. To learn more, please view
               our{' '}
-              <a href={`${AGE_ADJUSTMENT_LINK}`}>age-adjustment methodology</a>.
+              <a href={`${NEW_AGE_ADJUSTMENT_LINK}`}>
+                age-adjustment methodology
+              </a>
+              .
             </li>
           </ul>
 

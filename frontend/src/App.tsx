@@ -29,13 +29,15 @@ import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
   FAQ_TAB_LINK,
-  METHODOLOGY_PAGE_LINK,
   OURTEAM_TAB_LINK,
   RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
+  OLD_METHODOLOGY_PAGE_LINK,
+  OLD_AGE_ADJUSTMENT_LINK,
+  NEW_METHODOLOGY_PAGE_LINK,
 } from './utils/internalRoutes'
 import AppBarLogo from './assets/AppbarLogo.png'
 import { HelmetProvider } from 'react-helmet-async'
@@ -50,6 +52,8 @@ import ErrorBoundaryDropParams from './ErrorBoundaryDropParams'
 import ExploreDataFallback from './pages/ExploreData/ExploreDataFallback'
 import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
+import OldMethodologyPage from './pages/DataCatalog/OldMethodologyPage'
+import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -67,10 +71,6 @@ const TermsOfUsePage = React.lazy(
 const DataCatalogPage = React.lazy(
   async () => await import('./pages/DataCatalog/DataCatalogPage')
 )
-const MethodologyPage = React.lazy(
-  async () =>
-    await import('./pages/Methodology/methodologyComponents/MethodologyPage')
-)
 
 export const MOBILE_BREAKPOINT = 600
 
@@ -80,7 +80,7 @@ const PAGE_URL_TO_NAMES: Record<string, string> = {
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [NEWS_PAGE_LINK]: 'News',
   [DATA_CATALOG_PAGE_LINK]: 'Downloads',
-  [METHODOLOGY_PAGE_LINK]: 'Methodology',
+  [OLD_METHODOLOGY_PAGE_LINK]: 'Methodology',
   [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
@@ -148,7 +148,7 @@ function AppToolbar() {
           EXPLORE_DATA_PAGE_LINK,
           NEWS_PAGE_LINK,
           DATA_CATALOG_PAGE_LINK,
-          METHODOLOGY_PAGE_LINK,
+          OLD_METHODOLOGY_PAGE_LINK,
           ABOUT_US_PAGE_LINK,
         ].map((pageUrl) => (
           <ReactRouterLinkButton
@@ -230,7 +230,19 @@ function App() {
                           <DataCatalogPage />
                         </Route>
 
-                        <Route path={METHODOLOGY_PAGE_LINK}>
+                        {/* VISIBLE - OLDER METHODOLOGY CONTENT */}
+
+                        <Route path={OLD_METHODOLOGY_PAGE_LINK}>
+                          <OldMethodologyPage />
+                        </Route>
+
+                        <Route path={OLD_AGE_ADJUSTMENT_LINK}>
+                          <OldMethodologyPage />
+                        </Route>
+
+                        {/* HIDDEN FOR NOW - NEWER METHODOLOGY REWRITE CONTENT */}
+
+                        <Route path={NEW_METHODOLOGY_PAGE_LINK}>
                           <MethodologyPage />
                         </Route>
 

@@ -1,5 +1,4 @@
 import {
-  AGE_ADJUSTMENT_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
   CONDITION_VARIABLES_LINK,
@@ -7,7 +6,6 @@ import {
   DATA_METHOD_DEFINITIONS_LINK,
   GLOSSARY_LINK,
   HIV_LINK,
-  METHODOLOGY_PAGE_LINK,
   METRICS_LINK,
   PDOH_LINK,
   RACES_AND_ETHNICITIES_LINK,
@@ -15,6 +13,8 @@ import {
   SDOH_LINK,
   SOURCES_LINK,
   TOPICS_LINK,
+  NEW_METHODOLOGY_PAGE_LINK,
+  NEW_AGE_ADJUSTMENT_LINK,
 } from '../../../utils/internalRoutes'
 import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink'
 import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink'
@@ -36,13 +36,13 @@ import GlossaryLink from '../methodologySections/GlossaryLink'
 export const routeConfigs = [
   {
     label: 'Methodology',
-    path: METHODOLOGY_PAGE_LINK,
+    path: NEW_METHODOLOGY_PAGE_LINK,
     component: MethodologyHomeLink,
     subLinks: [],
   },
   {
     label: 'Age-Adjustment',
-    path: AGE_ADJUSTMENT_LINK,
+    path: NEW_AGE_ADJUSTMENT_LINK,
     component: AgeAdjustmentLink,
     subLinks: [
       { label: 'Age-Adjusted Ratios', path: '#age-adjusted-ratios' },

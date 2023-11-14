@@ -1,5 +1,5 @@
 import {
-  AGE_ADJUSTMENT_LINK,
+  NEW_AGE_ADJUSTMENT_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
   RESOURCES_TAB_LINK,
@@ -26,7 +26,7 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
     'The Health Equity Tracker is committed to providing accurate, transparent, and up-to-date information on health equity issues. This section elaborates on how we acquire, standardize, and present our data.',
   links: [
     { label: 'Data Catalog', url: `${DATA_CATALOG_PAGE_LINK}` },
-    { label: 'Age-adjustment methodology', url: `${AGE_ADJUSTMENT_LINK}` },
+    { label: 'Age-adjustment methodology', url: `${NEW_AGE_ADJUSTMENT_LINK}` },
     { label: 'GitHub', url: 'urlMap.hetGitHub' },
     { label: 'Resources', url: `${RESOURCES_TAB_LINK}` },
     { label: 'Contact Us', url: `${CONTACT_TAB_LINK}` },
@@ -209,9 +209,9 @@ export const missingDataArray = [
         key: 'Missing data for women in legislative office',
         description: `The Center for American Women in Politics (CAWP) dataset uses unique
         race/ethnicity groupings that do not correspond directly with the
-        categories used by the U.S. Census. For this reason, 
+        categories used by the U.S. Census. For this reason,
         Middle Eastern & North African (Women),
-        Asian American & Pacific Islander (Women), and 
+        Asian American & Pacific Islander (Women), and
         Native American, Alaska Native, & Native Hawaiian (Women) are
         presented without corresponding population comparison metrics. We are currently unable to locate reliable data on state legislature
         totals, by state, by year prior to 1983. For that reason, we cannot
