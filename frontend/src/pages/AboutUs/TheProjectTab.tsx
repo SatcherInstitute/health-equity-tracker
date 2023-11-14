@@ -16,7 +16,7 @@ import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../data/query/Breakdowns'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 import GoalListItem from './GoalListItem'
-import HetBigCTA from '../ui/HetBigCTA'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion()

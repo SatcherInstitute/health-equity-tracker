@@ -18,7 +18,7 @@ import type { Article } from '../News/NewsPage'
 import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { urlMap } from '../../utils/externalUrls'
-import HetBigCTA from '../ui/HetBigCTA'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(

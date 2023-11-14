@@ -7,7 +7,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Link } from 'react-router-dom'
-import HetBigCTA from '../ui/HetBigCTA'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 export default function OldAgeAdjustmentTab() {
   return (
