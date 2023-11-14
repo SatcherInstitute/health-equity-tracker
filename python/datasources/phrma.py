@@ -105,7 +105,7 @@ BREAKDOWN_TO_STANDARD_BY_COL = {
         'Asian/Pacific Islander': std_col.Race.API_NH.value,
         'Black or African-American': std_col.Race.BLACK_NH.value,
         'Hispanic': std_col.Race.HISP.value,
-        'Other': std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+        'Other': std_col.Race.OTHER_NONSTANDARD_NH.value,
         'Non-Hispanic White': std_col.Race.WHITE_NH.value,
     }
     # SEX source groups already match needed HET groups
@@ -235,7 +235,9 @@ class PhrmaData(DataSource):
                 for condition in PHRMA_100K_CONDITIONS
             },
             # Shared comparison population share col for all 100ks
-            MEDICARE_POP_COUNT: f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}',
+            MEDICARE_POP_COUNT: (
+                f'{std_col.MEDICARE_PREFIX}_{std_col.POPULATION_COL}_{std_col.PCT_SHARE_SUFFIX}'
+            ),
         }
 
         if demo_breakdown == std_col.RACE_OR_HISPANIC_COL:
