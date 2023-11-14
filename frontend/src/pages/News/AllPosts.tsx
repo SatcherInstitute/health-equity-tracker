@@ -17,10 +17,9 @@ import { useQuery } from 'react-query'
 import { type Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
 import { Link } from 'react-router-dom'
-import { getCssVar } from '../../utils/designUtils'
 
 export const ARTICLES_TERM = 'Articles'
-const NUM_OF_LOADING_SKELETONS = 6
+const NUM_OF_LOADING_SKELETONS = 12
 
 /*
 displays several loading indicator elements while blog content is fetched
@@ -33,11 +32,11 @@ export function ArticlesSkeleton(props: {
   const numberLoadingSkeletons = props.numberLoading ?? NUM_OF_LOADING_SKELETONS
 
   return (
-    <div className='grid grid-flow-row justify-between gap-1'>
+    <div className='flex flex-wrap justify-between'>
       {[...Array(numberLoadingSkeletons)].map((_, i) => {
         return (
           <div
-            className='flex w-full flex-col items-center sm:w-5/12 md:w-1/4'
+            className='flex w-full flex-col items-center sm:w-1/2 xl:w-1/3'
             key={i}
           >
             <Skeleton
@@ -104,9 +103,6 @@ function AllPosts() {
 
   const categoryParam: string | null = useUrlSearchParams().get('category')
   const authorParam: string | null = useUrlSearchParams().get('author')
-
-  // TODO: once MUI is removed, these colors should be applied via tailwind directly
-  const altGreenRgb = getCssVar<string>('alt-green')
 
   const { isLoading, error, data }: any = useQuery(
     ARTICLES_KEY,
@@ -242,13 +238,13 @@ function AllPosts() {
               <div>
                 <h2
                   id='main'
-                  style={{ color: `rgb(${altGreenRgb})` }}
                   className='
                     m-0
                     text-center
                     font-serif
                     text-bigHeader
-                    font-light'
+                    font-light
+                    text-alt-green'
                 >
                   News and Stories
                 </h2>
@@ -363,7 +359,7 @@ function AllPosts() {
             <div className='flex flex-wrap items-start justify-between'>
               {filteredArticles?.map((post: any) => {
                 return (
-                  <div className='w-full sm:w-1/2' key={post.id}>
+                  <div className='w-full sm:w-1/2 xl:w-1/3' key={post.id}>
                     <div className='my-4'>
                       <NewsPreviewCard article={post} />
                     </div>

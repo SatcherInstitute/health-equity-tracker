@@ -1,19 +1,21 @@
 import DataSourceListing from './DataSourceListing'
-import styles from './DataCatalogPage.module.scss'
-import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
+import {
+  type DataSourceId,
+  DataSourceMetadataMap,
+} from '../../data/config/MetadataMap'
 import { type DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import {
   DATA_CATALOG_PAGE_LINK,
   EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
-import { Grid, Typography, Button } from '@mui/material'
+import { Button } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
-type Filters = Record<string, string[]>
+type Filters = Record<string, DataSourceId[]>
 
 // The id of the filter by dataset name. This is the only one that supports
 // pre-filtering from url params.
@@ -24,17 +26,20 @@ const NAME_FILTER_ID = 'name_filter'
  * displayed sources are the intersection of each filter.
  */
 function getFilteredSources(
-  metadata: Record<string, DataSourceMetadata>,
+  metadata: Record<DataSourceId, DataSourceMetadata>,
   activeFilter: Filters
-): string[] {
+): DataSourceId[] {
   const filters = Object.values(activeFilter)
-  const reducer = (intersection: string[], nextFilter: string[]) => {
+  const reducer = (
+    intersection: DataSourceId[],
+    nextFilter: DataSourceId[]
+  ) => {
     if (nextFilter.length === 0) {
       return intersection
     }
     return intersection.filter((x) => nextFilter.includes(x))
   }
-  const allIds = Object.keys(metadata)
+  const allIds = Object.keys(metadata) as DataSourceId[]
   return filters.reduce(reducer, allIds)
 }
 
@@ -45,7 +50,7 @@ function DataCatalogPage() {
     : []
 
   const activeFilter = {
-    [NAME_FILTER_ID]: datasets,
+    [NAME_FILTER_ID]: datasets as DataSourceId[],
   }
 
   return (
@@ -54,29 +59,23 @@ function DataCatalogPage() {
         <title>Data Downloads - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Data Downloads</h2>
-      <Grid container className={styles.DatasetCatalog}>
-        <div className={styles.DatasetHeader}>
-          <Typography
+      <div className='mx-auto min-h-full max-w-md flex-col p-10'>
+        <header className='pb-2'>
+          <h3
             id='main'
-            className={styles.DataDownloadsHeaderText}
-            variant='h3'
+            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-alt-black'
           >
             View and download Health Equity Tracker data sources
-          </Typography>
-          <p className={styles.DataDownloadsHeaderSubtext}>
+          </h3>
+          <p className='text-small'>
             Here you can access and download the data sources that are displayed
             in the charts on the Health Equity Tracker. Want to explore what
             each data set can show us about different health outcomes?{' '}
-            <a
-              href={EXPLORE_DATA_PAGE_LINK}
-              className={styles.DataDownloadsExploreLink}
-            >
-              Explore the data dashboard
-            </a>
+            <a href={EXPLORE_DATA_PAGE_LINK}>Explore the data dashboard</a>
             <span aria-hidden={true}>.</span>
           </p>
-        </div>
-        <ul className={styles.DatasetList}>
+        </header>
+        <ul className='list-none pl-0'>
           <WithMetadata>
             {(datasetMetadata) => {
               const filteredDatasets = getFilteredSources(
@@ -92,7 +91,7 @@ function DataCatalogPage() {
               return (
                 <>
                   {filteredDatasets.map((sourceId, index) => (
-                    <li className={styles.DatasetListItem} key={index}>
+                    <li key={index}>
                       <DataSourceListing
                         key={DataSourceMetadataMap[sourceId].id}
                         source_metadata={DataSourceMetadataMap[sourceId]}
@@ -114,7 +113,7 @@ function DataCatalogPage() {
             }}
           </WithMetadata>
         </ul>
-      </Grid>
+      </div>
     </HelmetProvider>
   )
 }

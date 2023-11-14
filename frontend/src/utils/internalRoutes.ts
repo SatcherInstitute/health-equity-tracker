@@ -14,7 +14,8 @@ export const OURTEAM_TAB_LINK = '/ourteam'
 export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
 
 // METHODOLOGY SECTIONS
-export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + '/ageadjustment'
+export const AGE_ADJUSTMENT_SLUG = '/ageadjustment'
+export const AGE_ADJUSTMENT_LINK = METHODOLOGY_PAGE_LINK + AGE_ADJUSTMENT_SLUG
 export const SOURCES_LINK = METHODOLOGY_PAGE_LINK + '/data-sources'
 export const TOPICS_LINK = METHODOLOGY_PAGE_LINK + '/topics'
 export const BEHAVIORAL_HEALTH_LINK = TOPICS_LINK + '/behavioral-health'
