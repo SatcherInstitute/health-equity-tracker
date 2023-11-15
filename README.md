@@ -28,38 +28,48 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 1. While still in the `health-equity-tracker/frontend/` folder, run `npm run dev`
 2. In your browser, visit <http://localhost:3000>
 
+### Running the Frontend Unit Tests (Vitest)
+
+- Run once: `npm run test`
+- Run in watch mode, so saved changes to the codebase will trigger reruns of affected tests: `npm run test:watch`
+
+### Running the Frontend END TO END (E2E) Tests (Playwright)
+
+- Run the limited suite of tests (same as ones that are run on CI against PR updates). Ensure the localhost server is still running first: `npm run e2e`
+- Run the more comprehensive tests that check the production site (same as the ones run nightly): `npm run e2e-prod`
+- Run the outgoing link checker, which is run weekly: `npm run url`
+
 ## Making a Pull Request (PR)
 
-1. Ensure your local main branch is up to date with the origin main branch: `git pull origin main`
-2. Ensure your forked repo's main branch is up to date:
-   1. first time to set the upstream for the main branch `git push -u <your-remote-name> main`
-   2. ongoing simply `git push`
-3. Create and switch to a local feature branch from main: `git checkout -b <new-feature-branch-name>` (we don't follow any particular conventions here or in commit messages, just make it easy to type and relevant)
-4. Continuously ensure the branch is up to date with the origin main branch which is often updated several times a day: `git pull origin main`
-5. If you encounter merge conflicts, resolve them (I like VSCode's new conflict resolution split screen feature, and I like to set VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`).
-6. Make changes to the code base, save the files, add those changes to staging: `git add -p` and yes/no your way through the chunks of changes
-7. Commit those changes when you're ready: `git commit -m "adds new stuff"`
-8. Ensure the pre-commit checks pass. If not, make the fixes as required by the linters and type-checker, etc., and run the same commit command again (hit ⬆ key to cycle through your previously run terminal commands)
-9. Push to your forked remote
-   1. First time: `git push -u <your-remote-name> <new-feature-branch-name>`
-   2. Ongoing code changes: `git push`
-10. CMD+Click (CTRL+Click for Windows) on the URL under this line in the logged message: `Create a pull request for 'new-feature-branch-name' on GitHub by visiting:` to launch the web UI for your new pull request
-11. In the browser with the new PR open, edit the title to make it a meaningful description of what the PR actively does to the code. Please fill in the templated sections as relevant, and when ready request a review. If you are unable to request a review, your username may need permissions first, please reach out to a team member.
-12. Once your PR is approved (and you've ensured CI tests have passed), you can "Squash and Merge" your PR. Once complete, feel free to delete the branch from your remote fork (using the purple button).
-13. Delete your local branch by switching back to main: `git switch main` and then deleting: `git branch -D <new-feature-branch-name>`
-14. Pull those new updates from origin main into your local main: `git pull origin main`
-15. Push those new updates to your remote main: `git push`
-16.
+1. Ensure you assign yourself to the [issue(s)](https://github.com/SatcherInstitute/health-equity-tracker/issues?q=is%3Aissue+is%3Aopen) that this PR will address. Create one if it doesn't exist, assigning the correct Milestones if needed.
+2. Ensure your local main branch is up to date with the origin main branch: `git pull origin main`
+3. Ensure your forked repo's main branch is up to date:
+    - first time to set the upstream for the main branch `git push -u <your-remote-name> main`
+    - ongoing, simply `git push`
+4. Create and switch to a local feature branch from main: `git checkout -b <new-feature-branch-name>` (we don't follow any particular conventions here or in commit messages, just make it easy to type and relevant)
+5. Continuously ensure the branch is up to date with the origin main branch which is often updated several times a day: `git pull origin main`
+6. If you encounter merge conflicts, resolve them (I like VSCode's new conflict resolution split screen feature, and I like to set VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`).
+7. Make changes to the code base, save the files, add those changes to staging: `git add -p` and yes/no your way through the chunks of changes
+8. Commit those changes when you're ready: `git commit -m "adds new stuff"`
+9. Ensure the pre-commit checks pass. If not, make the fixes as required by the linters and type-checker, etc., and run the same commit command again (hit ⬆ key to cycle through your previously run terminal commands)
+10. Push to your forked remote:
+    - First time: `git push -u <your-remote-name> <new-feature-branch-name>`
+    - Ongoing code changes: `git push`
+11. CMD+Click (CTRL+Click for Windows) on the URL under this line in the logged message: `Create a pull request for 'new-feature-branch-name' on GitHub by visiting:` to launch the web UI for your new pull request
+12. In the browser with the new PR open, edit the title to make it a meaningful description of what the PR actively does to the code.
+13. Please fill in the templated sections as relevant, especially triggering auto-completion of issues if true using `closes #1234` or `fixes #1234` somewhere in the description text of the PR.
+14. A preview link is generated automatically by Netlify and posted to the PR comments; check it out to manually confirm changes appeared to the frontend as you expected.
+15. When ready, request a review. If you are unable to request a review, your username may need permissions first; please reach out to a team member.
+16. Once your PR is approved (and you've ensured CI tests have passed), you can "Squash and Merge" your PR. Once complete, feel free to delete the branch from your remote fork (using the purple button).
+17. Delete your local branch by switching back to main: `git switch main` and then deleting: `git branch -D <new-feature-branch-name>`
+18. Pull those new updates from origin main into your local main: `git pull origin main`
+19. Push those new updates to your remote main: `git push`
 
+## YOU'RE DONE WITH SETUP 🥳
 
+Everything below is more detailed, advanced info that you probably won't need right away. Congratulations!!
 
-
-
-
-
-
-
-# Frontend
+## Frontend (Advanced)
 
 The frontend consists of
 
@@ -67,112 +77,27 @@ The frontend consists of
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
-## To confirm and stage changes to `/frontend`:
-
-1. Complete all one-time configurations needed (instructions further down)
-2. Pull the latest changes from the official repo
-   - Tip: If your official remote is named `origin`, run `git pull origin main`
-3. Create a local branch, make changes, and commit to your local branch. Repeat until changes are ready for review
-4. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).<details><summary>More</summary> `git push ben -u new-feature-branch` (`-u` sets the remote as it's default upstream, so for future pushes on this branch you can just use `git push`). A preview link is generated automatically by Netlify and posted to the PR comments</details>
-5. Push additional commits to your remote forked branch as you respond to reviewer comments
-6. When ready to merge to `main`, use the "Squash and merge" option. <details><summary>More</summary> (found under the submit button dropdown options). This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from main, merge them into your PR, and try again.</details>
-
-8. Preview the updated `main` branch code at dev.healthequitytracker.org before cutting a release to production
-
-## Frontend React App Environments
-
-The frontend React App runs in different environments. We use configuration files (`frontend/.env.prod`, `frontend/.env.staging`, etc) to control settings in different environments. These include things like the data server URL and logging settings. These can be overridden for local development using a `frontend/.env.development` file.
-
-### Running just the React App locally
-
-#### One Time Setup
-
-Switch to the `frontend/` directory, then install dependencies using NPM.
-
-_Note: you will need a compatible version of Node.JS and NPM installed locally; see the "engines" field in `frontend/package.json` for the required of each. It's recommended to use [Node Version Manager (`nvm`)](https://github.com/nvm-sh/nvm) if you need to have multiple versions of Node.JS / NPM installed on your machine, though members have also had success with Homebrew._
-
-```bash
-cd frontend && npm install
-```
-
-#### Trouble-shooting Install
-
-<details><summary>gyp error</summary>If you encounter an error regarding `gyp`, that refers to a Node.js native addon build tool that is required for some modules. Follow the instructions on the [gyp github repo](https://github.com/nodejs/node-gyp#installation) for installation and setting up required dependencies (eg Python and certain build tools like XCode Command Line Tools for OS X).</details>
-
-#### Running the React App
-
-Since the frontend is a static site that just connects to an API for data requests, most frontend development happens independently of server-side changes. If you're only changing client-side behavior, you only need to run the React App. The simplest way to do this is to connect the frontend to the test website server. First, copy `frontend/.env.example` into `frontend/.env.development`. This file is already set up to point to the test website server.
-
-To start a local development server, switch to the `frontend/` directory and run:
-
-```bash
-npm run dev
-```
-
-The site should now be visible at `http://localhost:3000`. Any changes to source code will cause a live reload of the site.
-
-Note: when new, non-secret environment variables are added, be sure to update the `.env.example` file so developers can reference it for their own `.env.development` files.
-
-#### Available Overrides for local development
+### Available Overrides for local development
 
 You can force specific dataset files to read from the `/public/tmp` directory by setting an environment variable with the name `VITE_FORCE_STATIC` variable to a comma-separated list of filenames. For example, `VITE_FORCE_STATIC=my_file1.json,my_file2.json` would force `my_file1.json` and `my_file2.json` to be served from `/public/tmp` even if `VITE_BASE_API_URL` is set to a real server url.
 
-<details>
-<summary>Environment variables can also be tweaked for local development:</summary>
+### Environment variables can also be tweaked for local development
+
 The `VITE_BASE_API_URL` can be changed for different setups:
+
 - You can deploy the frontend server to your own GCP project
 - You can run the frontend server locally (see below)
 - You can run Docker locally (see below)
 - You can set it to an empty string or remove it to make the frontend read files from the `/public/tmp` directory. This allows testing behavior by simply dropping local files into that directory.
-</details>
-
-### Frontend Automated Testing
-
-#### Unit Tests (Vitest)
-
-To run unit tests, switch to the `frontend/` directory and run:
-
-```bash
-npm run test:watch
-```
-
-This will run tests in watch mode, automatically running tests against changes to your code.
-
-#### End To End (E22) Tests (Playwright)
-
-To run e2e tests, switch to the `frontend/` directory and run:
-
-```bash
-npm run e2e
-```
-
-This will use Playwright test runner to launch the React app if needed, and then confirm routing/rendering is working as expected. These tests are run on GitHub pull request commits.
-
-#### Outgoing Links Tests
-
-To run url tests, switch to the `frontend/` directory and run:
-
-```bash
-npm run url
-```
-
-This will use Playwright test runner to launch the React app if needed, and then confirm all outgoing links are returning successful responses. This runs weekly on GitHub.
 
 ### Building / Bundling for Production
 
-Note: Building manually is not required for development, but helpful for debugging deployment issues as this step is run during CI. To create a "production" build do:
+Note: Building manually is not required for development, but helpful for debugging deployment issues as this step is run during CI. To create a "production" development build do: `npm run preview`. For more finetuned control, run `npm run build:${DEPLOY_CONTEXT}` This will use the `frontend/.env.${DEPLOY_CONTEXT}` file for environment variables and outputs bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
 
-```bash
-npm run build:${DEPLOY_CONTEXT}
-```
+## Backend
 
-This will use the `frontend/.env.${DEPLOY_CONTEXT}` file for environment variables and outputs bundled files in the `frontend/build/` directory. These are the files that are used for hosting the app in production environments.
+The backend consists of:
 
-# Backend
-
-The backend consists of
-
-- `health-equity-tracker/aggregator/`: DEPRECATED: Code for the microservice previously responsible for running SQL merges of Census data
 - `health-equity-tracker/airflow/`: Code that controls the DAGs which orchestrate the execution of these various microservices
 - `health-equity-tracker/config/`: Terraform configuration for setting permissions and provisioning needed resources for cloud computing
 - `health-equity-tracker/data/`: In code-base "bucket" used to store manually downloaded data from outside sources where it isn't possible to fetch new data directly via and API endpoint or linkable file URL
@@ -182,14 +107,15 @@ The backend consists of
 - `health-equity-tracker/requirements/`: Packages required for the HET
 - `health-equity-tracker/run_gcs_to_bq/`: Code for the microservice responsible for running datasource specific modules found in `/python` and ultimately exporting the produced dataframes to BigQuery
 - `health-equity-tracker/run_ingestion/`: (PARTIALLY USED) Code for the microservice responsible for caching datasource data into GCP buckets, for later use by the `run_gcs_to_bq` operator. This service is only used by some of our older data sources, like `acs_population`, but often for newer datasources we simply load data directly from the `run_gcs_to_bq` microservice
+- `health-equity-tracker/aggregator/`: DEPRECATED: Code for the microservice previously responsible for running SQL merges of Census data
 
-## Python environment setup
+### Python environment setup
 
 1. (One-time) Create a virtual environment in your project directory, for example: `python3 -m venv .venv`
 2. (Every time you develop on Python code) Activate the venv (every time you want to update Python ): `source .venv/bin/activate`
 3. (One-time) Install pip-tools and other packages as needed: `pip install pip-tools`
 
-## To confirm and stage changes to `/python`, `/airflow/dags`, or other backend code:
+### To confirm and stage changes to `/python`, `/airflow/dags`, or other backend code
 
 1. Follow the rest of the instructions below these steps for one-time configurations needed.
 2. Pull the latest changes from the official repo.
@@ -210,7 +136,7 @@ Note: Pipeline updates should be non-breaking, ideally pushing additional data t
 
 Note: All files in the airflows/dags directory will be uploaded to the test airflow environment. Please only put DAG files in this directory.
 
-## Python Unit Testing
+### Python Unit Testing
 
 Unit tests run using pytest, which will recursively look for and execute test files (which contain the string `test` in the file name).
 
@@ -228,11 +154,11 @@ To run single test file follow this pattern (the `-s` flag enables `print()` sta
 pip install python/datasources/ && pytest python/tests/datasources/test_cdc_hiv.py -s
 ```
 
-# HET Microservice Architecture
+## HET Microservice Architecture
 
 ![HET Microservice Architecture Diagram](https://raw.githubusercontent.com/SatcherInstitute/health-equity-tracker/9325c032d8df110fc234f0ecd75c54129282418f/HET%20Architecture.svg)
 
-# Developing Your Own Tracker
+## Developing Your Own Tracker
 
 Much of the guidance in this readme is aimed towards ongoing development of the platform available at healthequitytracker.org, however we highly encourage interested parties to leverage this open-sourced code base and the data access it provides to advance health equity in their own research and communities.
 
@@ -244,7 +170,7 @@ The following section is not required for regular maintenance of the Health Equi
 
 ### Running the Frontend Server locally
 
-#### If you need to run the frontend server locally to test server-side changes:
+#### If you need to run the frontend server locally to test server-side changes
 
 Copy `frontend_server/.env.example` into `frontend_server/.env.development`, and update `DATA_SERVER_URL` to point to a specific data server url, similar to above.
 
@@ -277,7 +203,7 @@ When building with Docker, changes will not automatically be applied; you will n
 
 #### Running the Frontend Server in your own GCP project
 
-Refer to [Deploying your own instance with terraform](#Deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
+Refer to [Deploying your own instance with terraform](#deploying-your-own-instance-with-terraform) for instructions on deploying the frontend server to your own GCP project.
 
 ## Advanced Backend Configuration
 
@@ -389,7 +315,7 @@ To upload to BigQuery from your local development environment, use [these setup 
 
 ### Deploying your own instance with terraform
 
-Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [Set up](#Set-up) above.
+Before deploying, make sure you have installed Terraform and a Docker client (e.g. Docker Desktop). See [Set up](#set-up) above.
 
 - Edit the `config/example.tfvars` file and rename it to `config/terraform.tfvars`
 
@@ -428,7 +354,7 @@ pushd airflow
 popd
 ```
 
-### To test changes to python code:
+### To test changes to python code
 
 - Build and push docker images
 
@@ -444,7 +370,7 @@ pushd config
 popd
 ```
 
-6. To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the docker commands from your base project dir and the terraform commands from the `config/` directory.
+- To redeploy, e.g. after making changes to a Cloud Run service, repeat steps 4-5. Make sure you run the docker commands from your base project dir and the terraform commands from the `config/` directory.
 
 #### Terraform deployment notes
 
@@ -467,6 +393,6 @@ You can then set the `ingestion_image_name` variable in your tfvars file to `<yo
 
 </details>
 
-# License
+## License
 
 [MIT](./LICENSE)
