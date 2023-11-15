@@ -3,7 +3,6 @@ import {
   AGE_ADJUSTMENT_SLUG,
   DATA_CATALOG_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import styles from '../ui/FaqSection.module.scss'
 
 export interface FAQ {
   questionText: string
@@ -62,7 +61,7 @@ function AnswerWhatIsHealthEquity() {
 
 function AnswerWhatAreHealthDisparities() {
   return (
-    <div className='text-text'>
+    <div className='text-small'>
       <p>
         Health disparities are preventable differences in the burden of disease,
         injury, violence, or in opportunities to achieve optimal health
@@ -103,7 +102,7 @@ function AnswerAreTheLimitations() {
         <li>comprehensive race and ethnicity breakdowns</li>
         <li>comprehensive sex and age breakdowns</li>
       </ul>
-      <h4 className={styles.FaqSubheaderText}>Known limitations in the data</h4>
+      <h4>Known limitations in the data</h4>
       <ul>
         <li>
           To protect the privacy of affected individuals, COVID-19 data may be
