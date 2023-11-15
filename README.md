@@ -8,29 +8,56 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 [![Check Outgoing Links](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/urlsScheduled.yml/badge.svg)](https://github.com/SatcherInstitute/health-equity-tracker/actions/workflows/urlsScheduled.yml)
 [![GitHub Super-Linter](https://github.com/SatcherInstitute/health-equity-tracker/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-## Contributing
+## Frontend Quick-Start
 
-1. [Fork the repository on github](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo)
-2. On your development machine, clone your forked repo.
-   - Tip: our development team keeps the remote name `origin` for the original repo instead of `upstream`, and uses a different name for our forked remote like `kim`, `ben`, or `eric`.
-   - To add a remote branch (replacing with your desired remote name and actual remote URL) `git remote add ben https://github.com/benhammondmusic/health-equity-tracker`
+### Setting Up Your Git and GitHub
 
-Read more about the forking workflow [here](https://www.atlassian.com/git/tutorials/comparing-workflows/forking-workflow).
+1. In your browser, create a fork of the Health Equity Tracker repo: <https://github.com/SatcherInstitute/health-equity-tracker/fork>
+2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your github username): `git clone https://github.com/<your-github-username>/health-equity-tracker.git`
+3. Set the original repo to be "origin": `git remote set-url origin https://github.com/SatcherInstitute/health-equity-tracker.git`
+4. Set your forked repo to a memorable remote name: `git remote add <your-remote-name> <your-forked-git-url>`. For example, Ben would do `git remote add ben https://github.com/benhammondmusic/health-equity-tracker.git`
 
-<details>
-<summary>Note that there are a few downsides to "Squash and merge":</summary>
+### Setting Up the Frontend Locally (One Time Setup)
 
-- The official repo will not show commits from collaborators if the PR is a collaborative branch.
-- Working off the same branch or a dependent branch duplicates commits on the dependent branch and can cause repeated merge conflicts. To work around this, if you have a PR `my_branch_1` and you want to start work on a new PR that is dependent on `my_branch_1`, you can do the following:
-  1. Create a new local branch `my_branch_2` based on `my_branch_1`. Continue to develop on `my_branch_2`.
-  2. If `my_branch_1` is updated (including by merging changes from main), switch to `my_branch_2` and run `git rebase -i my_branch_1` to incorporate the changes into `my_branch_2` while maintaining the the branch dependency.
-  3. When review is done, squash and merge `my_branch_1`. Don't delete `my_branch_1`yet.
-  4. From local client, go to main branch and pull from main to update the local main branch with the squashed change.
-  5. From local client, run `git rebase --onto main my_branch_1 my_branch_2`. This tells git to move all the commits between `my_branch_1` and `my_branch_2` onto main. You can now delete `my_branch_1`.
+1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
+2. Duplicate the example environmental variables file into a new, automatically git-ignored local development file: `cp -i .env.example .env.development`
+3. Download the node modules: `npm i`
 
-For details on "Squash and merge" see [here](https://docs.github.com/en/free-pro-team@latest/github/administering-a-repository/about-merge-methods-on-github#squashing-your-merge-commits)
+### Running the Frontend Locally on a Development Server (localhost)
 
-</details>
+1. While still in the `health-equity-tracker/frontend/` folder, run `npm run dev`
+2. In your browser, visit <http://localhost:3000>
+
+## Making a Pull Request (PR)
+
+1. Ensure your local main branch is up to date with the origin main branch: `git pull origin main`
+2. Ensure your forked repo's main branch is up to date:
+   1. first time to set the upstream for the main branch `git push -u <your-remote-name> main`
+   2. ongoing simply `git push`
+3. Create and switch to a local feature branch from main: `git checkout -b <new-feature-branch-name>` (we don't follow any particular conventions here or in commit messages, just make it easy to type and relevant)
+4. Continuously ensure the branch is up to date with the origin main branch which is often updated several times a day: `git pull origin main`
+5. If you encounter merge conflicts, resolve them (I like VSCode's new conflict resolution split screen feature, and I like to set VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`).
+6. Make changes to the code base, save the files, add those changes to staging: `git add -p` and yes/no your way through the chunks of changes
+7. Commit those changes when you're ready: `git commit -m "adds new stuff"`
+8. Ensure the pre-commit checks pass. If not, make the fixes as required by the linters and type-checker, etc., and run the same commit command again (hit ⬆ key to cycle through your previously run terminal commands)
+9. Push to your forked remote
+   1. First time: `git push -u <your-remote-name> <new-feature-branch-name>`
+   2. Ongoing code changes: `git push`
+10. CMD+Click (CTRL+Click for Windows) on the URL under this line in the logged message: `Create a pull request for 'new-feature-branch-name' on GitHub by visiting:` to launch the web UI for your new pull request
+11. In the browser with the new PR open, edit the title to make it a meaningful description of what the PR actively does to the code. Please fill in the templated sections as relevant, and when ready request a review. If you are unable to request a review, your username may need permissions first, please reach out to a team member.
+12. Once your PR is approved (and you've ensured CI tests have passed), you can "Squash and Merge" your PR. Once complete, feel free to delete the branch from your remote fork (using the purple button).
+13. Delete your local branch by switching back to main: `git switch main` and then deleting: `git branch -D <new-feature-branch-name>`
+14. Pull those new updates from origin main into your local main: `git pull origin main`
+15. Push those new updates to your remote main: `git push`
+16.
+
+
+
+
+
+
+
+
 
 # Frontend
 
@@ -49,7 +76,7 @@ The frontend consists of
 4. Push your branch to your remote fork, use the github UI to open a pull request (PR), and add reviewer(s).<details><summary>More</summary> `git push ben -u new-feature-branch` (`-u` sets the remote as it's default upstream, so for future pushes on this branch you can just use `git push`). A preview link is generated automatically by Netlify and posted to the PR comments</details>
 5. Push additional commits to your remote forked branch as you respond to reviewer comments
 6. When ready to merge to `main`, use the "Squash and merge" option. <details><summary>More</summary> (found under the submit button dropdown options). This maintains linear history and ensures your entire PR is merged as a single commit, while being simple to use in most cases. If there are conflicts, pull the latest changes from main, merge them into your PR, and try again.</details>
-7. Once your branch is merged, you can delete it from your forked repo using the suggestion on the GitHub UI, and also from your local repo
+
 8. Preview the updated `main` branch code at dev.healthequitytracker.org before cutting a release to production
 
 ## Frontend React App Environments
