@@ -132,7 +132,7 @@ function AnswerAreTheLimitations() {
 
 function AnswerHowDidYouAcquire() {
   return (
-    <div className='text-text'>
+    <div className='text-small'>
       <ul>
         <li>
           All data presented in the Health Equity Tracker are retrieved from

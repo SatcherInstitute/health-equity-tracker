@@ -15,25 +15,22 @@ function FaqTab() {
       </Helmet>
       <h2 className='sr-only'>Frequently Asked Questions</h2>
       <Grid container className={styles.Grid}>
-        <Grid container className={styles.FaqSection}>
-          <Grid item xs={12} sm={12} md={3}>
-            <Typography
-              id='main'
-              tabIndex={-1}
-              className={styles.FaqHeaderText}
-              variant='h2'
-            >
+        <div className='flex px-5 py-12'>
+          <div className='w-full md:w-1/4'>
+            <h2 className='m-auto pb-5 font-serif text-header font-light'>
               Data
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={12} md={9}>
-            <Grid container>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+            </h2>
+          </div>
+          <div className='w-full md:w-3/4'>
+            <div className='flex flex-wrap'>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   {selectFAQs[4].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>{selectFAQs[4].answer}</div>
-              </Grid>
+                <div className='font-sansText font-normal'>
+                  {selectFAQs[4].answer}
+                </div>
+              </div>
               <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
                 <h3 className={styles.FaqQuestion}>
                   {selectFAQs[2].questionText}
@@ -102,9 +99,9 @@ function FaqTab() {
                   </ul>
                 </div>
               </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+            </div>
+          </div>
+        </div>
 
         <Grid container className={styles.FaqSection}>
           <Grid item xs={12} sm={12} md={3}>
