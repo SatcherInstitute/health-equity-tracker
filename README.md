@@ -28,12 +28,14 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 1. While still in the `health-equity-tracker/frontend/` folder, run `npm run dev`
 2. In your browser, visit <http://localhost:3000>
 
-### Running the Frontend Unit Tests (Vitest)
+## Running Frontend Tests Locally
 
-- Run once: `npm run test`
-- Run in watch mode, so saved changes to the codebase will trigger reruns of affected tests: `npm run test:watch`
+### Unit Tests with Vitest
 
-### Running the Frontend END TO END (E2E) Tests (Playwright)
+- To run once: `npm run test`
+- To run in watch mode, so saved changes to the codebase will trigger reruns of affected tests: `npm run test:watch`
+
+### End to End (E2E) Tests with Playwright
 
 - Run the limited suite of tests (same as ones that are run on CI against PR updates). Ensure the localhost server is still running first: `npm run e2e`
 - Run the more comprehensive tests that check the production site (same as the ones run nightly): `npm run e2e-prod`
