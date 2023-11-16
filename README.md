@@ -34,6 +34,21 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
    For example, Ben would do `git remote add ben https://github.com/benhammondmusic/health-equity-tracker.git`
 
+5. Confirm your remote and origin are set up as expected:
+
+   ```bash
+   git remote -v
+   ```
+
+   Example output for Ben:
+
+   ```txt
+   ben   https://github.com/benhammondmusic/health-equity-tracker.git (fetch)
+   ben   https://github.com/benhammondmusic/health-equity-tracker.git (push)
+   origin   https://github.com/SatcherInstitute/health-equity-tracker.git (fetch)
+   origin   https://github.com/SatcherInstitute/health-equity-tracker.git (push)
+   ```
+
 ### Setting Up the Frontend Locally (One Time Setup)
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
