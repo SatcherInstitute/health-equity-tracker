@@ -6,8 +6,8 @@ import {
   AGE_ADJUST_HIV_DEATHS_US_SETTING,
   EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 export default function OldAgeAdjustmentTab() {
   return (
@@ -841,24 +841,11 @@ export default function OldAgeAdjustmentTab() {
         </Grid>
 
         <Grid item xs={12} sm={12} md={8} lg={5}>
-          <Button
-            variant='contained'
-            color='primary'
-            className='
-              min-w-min
-              rounded-2xl
-              px-8
-              py-5
-              text-center
-              font-sansTitle
-              text-exploreButton
-              font-medium
-              text-white
-              '
+          <HetBigCTA
             href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
           >
             Explore age-adjusted ratios
-          </Button>
+          </HetBigCTA>
         </Grid>
       </Grid>
     </>
