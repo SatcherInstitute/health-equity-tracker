@@ -14,7 +14,7 @@ test.describe('Home to COVID Vax by Age', () => {
         await expect(page).toPassAxe()
 
         // Clicking large CTA button takes us to the tracker
-        const exploreButton = page.locator('a#landingPageCTA:has-text("Explore the data")')
+        const exploreButton = page.locator('#landingPageCTA')
         exploreButton.click();
         await expect(page).toHaveURL(/.*exploredata/);
 
