@@ -1,8 +1,8 @@
 import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
-} from '../../../data/config/DatasetMetadata'
-import { getDataManager } from '../../../utils/globals'
+} from '../../data/config/DatasetMetadata'
+import { getDataManager } from '../../utils/globals'
 
 function download(filename: string, content: string) {
   const element = document.createElement('a')

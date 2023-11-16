@@ -1,11 +1,10 @@
-import styles from './LandingPage.module.scss'
 import { ReactRouterLinkButton } from '../../utils/urlutils'
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
   REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
-import { Button, TextField, useMediaQuery, useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -17,7 +16,8 @@ import { useQuery } from 'react-query'
 import type { Article } from '../News/NewsPage'
 import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
-import { urlMap } from '../../utils/externalUrls'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -74,14 +74,9 @@ function LandingPage() {
               equity and justice for all.
             </p>
             <div className='mb-10 mt-10 lg:mt-20'>
-              <Button
-                id='landingPageCTA'
-                variant='contained'
-                className='rounded-2xl px-8 py-5 text-exploreButton text-white'
-                href={EXPLORE_DATA_PAGE_LINK}
-              >
+              <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
-              </Button>
+              </HetBigCTA>
             </div>
           </div>
           <div className='w-full border-0 border-l border-solid px-12 py-4 md:w-5/12'>
@@ -247,13 +242,9 @@ function LandingPage() {
           </ul>
 
           <div className='mt-14'>
-            <Button
-              variant='contained'
-              className='rounded-2xl px-8 py-4 text-title text-white'
-              href={EXPLORE_DATA_PAGE_LINK}
-            >
+            <HetBigCTA href={EXPLORE_DATA_PAGE_LINK}>
               Explore the data
-            </Button>
+            </HetBigCTA>
           </div>
         </article>
 
@@ -264,35 +255,8 @@ function LandingPage() {
                 Sign up for our newsletter:
               </h3>
             </div>
-            <form
-              action={urlMap.newsletterSignup}
-              method='post'
-              target='_blank'
-            >
-              <div className='flex content-center justify-center'>
-                <div>
-                  <TextField
-                    id='Enter email address to sign up' // Accessibility label (is it tho?)
-                    name='MERGE0'
-                    variant='outlined'
-                    className={styles.EmailTextField}
-                    type='email'
-                    aria-label='Enter Email Address for Newsletter signup'
-                    placeholder='Enter email address'
-                  />
-                </div>
-                <div>
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    className='px-4 py-1.5'
-                    aria-label='Sign Up for Newsletter in a new window'
-                  >
-                    Sign up
-                  </Button>
-                </div>
-              </div>
-            </form>
+
+            <HetEmailSignup id='landing-email-signup' />
           </section>
         </aside>
       </div>
