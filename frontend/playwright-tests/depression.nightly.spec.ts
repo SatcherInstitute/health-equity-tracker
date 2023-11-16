@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test('Depression Flow', async ({ page }) => {
+test.only('Depression Flow', async ({ page }) => {
   await page.goto(
     'https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'
   )
@@ -46,4 +46,12 @@ test('Depression Flow', async ({ page }) => {
       name: 'Breakdown summary for depression cases in the United States',
     })
     .click()
+  await page.getByRole('columnheader', { name: 'Race and Ethnicity' }).click()
+  await page
+    .getByRole('columnheader', { name: 'Cases of depression per 100k adults' })
+    .click()
+  await page
+    .getByRole('columnheader', { name: 'Share of total depression cases' })
+    .click()
+  await page.getByRole('columnheader', { name: 'Population share' }).click()
 })
