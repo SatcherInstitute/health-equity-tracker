@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 export default function ShareYourStory() {
   return (
@@ -128,23 +128,9 @@ export default function ShareYourStory() {
           more inclusive and informed community.
         </p>
         <div className='mt-20 flex justify-center'>
-          <Button
-            variant='contained'
-            color='primary'
-            className='
-              min-w-min
-              rounded-2xl
-              px-8
-              py-5
-              text-center
-              font-sansTitle
-              text-exploreButton
-              font-medium
-              text-white'
-            href='mailto:info@healthequitytracker.org'
-          >
+          <HetBigCTA href='mailto:info@healthequitytracker.org'>
             Share your story
-          </Button>
+          </HetBigCTA>
         </div>
       </div>
     </div>

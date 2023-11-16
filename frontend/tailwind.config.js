@@ -160,8 +160,6 @@ export default {
       biggerHeader: '3.125rem',
       biggestHeader: '4rem',
     },
-  },
-  extend: {
     zIndex: {
       "z-bottom": 'var(--z-bottom)',
       "z-middle": 'var(--z-middle)',

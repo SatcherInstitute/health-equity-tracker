@@ -29,7 +29,7 @@ import {
 import { HashLink } from 'react-router-hash-link'
 import { selectFAQs } from '../WhatIsHealthEquity/FaqData'
 import { CITATION_APA } from '../../cards/ui/SourcesHelpers'
-import HetHorizontalRuleHeading from '../ui/HetHorizontalRuleHeader'
+import HetHorizontalRuleHeading from '../../styles/HetComponents/HetHorizontalRuleHeader'
 
 export default function OldMethodologyTab() {
   return (
