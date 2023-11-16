@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async'
 import { urlMap } from '../../utils/externalUrls'
-import { Button, TextField } from '@mui/material'
 import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from '../../utils/internalRoutes'
 import { Link } from 'react-router-dom'
+import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 
 function ContactUsTab() {
   return (
@@ -60,31 +60,7 @@ function ContactUsTab() {
             <h4 className='mb-2 mt-8 text-text font-bold'>
               Join our mailing list:
             </h4>
-            <div>
-              <form
-                action={urlMap.newsletterSignup}
-                method='post'
-                target='_blank'
-                className='flex justify-center'
-              >
-                <TextField
-                  id='Enter email address to sign up' // Accessibility label
-                  name='MERGE0'
-                  variant='outlined'
-                  type='email'
-                  aria-label='Enter Email Address for Newsletter signup'
-                  placeholder='Enter email address'
-                />
-                <Button
-                  type='submit'
-                  color='primary'
-                  variant='contained'
-                  aria-label='Sign Up for Newsletter in a new window'
-                >
-                  Sign up
-                </Button>
-              </form>
-            </div>
+            <HetEmailSignup id='contact-email-signup' />
 
             <h4 className='mb-0 mt-8 text-text font-bold'>
               For general requests and media inquiries:
