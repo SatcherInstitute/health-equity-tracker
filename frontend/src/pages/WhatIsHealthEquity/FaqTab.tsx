@@ -1,6 +1,3 @@
-import Grid from '@mui/material/Grid'
-import styles from './WhatIsHealthEquityPage.module.scss'
-import { Typography } from '@mui/material'
 import { CONTACT_TAB_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
@@ -14,47 +11,50 @@ function FaqTab() {
         <title>FAQ - What Is Health Equity - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Frequently Asked Questions</h2>
-      <Grid container className={styles.Grid}>
-        <Grid container className={styles.FaqSection}>
-          <Grid item xs={12} sm={12} md={3}>
-            <Typography
+      <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+        <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
+          <div className='w-full md:w-1/4'>
+            <h2
+              className='m-auto pb-5 font-serif text-header font-light'
               id='main'
               tabIndex={-1}
-              className={styles.FaqHeaderText}
-              variant='h2'
             >
               Data
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={12} md={9}>
-            <Grid container>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+            </h2>
+          </div>
+          <div className='w-full md:w-3/4'>
+            <div className='flex flex-wrap'>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   {selectFAQs[4].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>{selectFAQs[4].answer}</div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+                <div className='font-sansText font-normal'>
+                  {selectFAQs[4].answer}
+                </div>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   {selectFAQs[2].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>{selectFAQs[2].answer}</div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+                <div className='font-sansText font-normal'>
+                  {selectFAQs[2].answer}
+                </div>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   {selectFAQs[3].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>{selectFAQs[3].answer}</div>
-                <a href='/datacatalog' className={styles.MajorLink}>
-                  See Data Sources
-                </a>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+                <div className='font-sansText font-normal'>
+                  {selectFAQs[3].answer}
+                </div>
+                <a href='/datacatalog'>See Data Sources</a>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   What are the inequities in the data?
                 </h3>
-                <div className={styles.FaqAnswer}>
-                  <ul>
+                <div className='font-sansText font-normal'>
+                  <ul className='text-small'>
                     <li>
                       We’ve seen that many agencies do not reliably collect race
                       and ethnicity data
@@ -66,12 +66,12 @@ function FaqTab() {
                     </li>
                   </ul>
                 </div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   What principles guide you?
                 </h3>
-                <div className={styles.FaqAnswer}>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     It is essential that this work and its resulting products
                     are done consistently in an ethical manner. One of the core
@@ -79,7 +79,7 @@ function FaqTab() {
                     developing the Health Equity Tracker is the importance of
                     working in a way that garners public trust.{' '}
                   </p>
-                  <h4 className={styles.FaqSubheaderText}>
+                  <h4>
                     These guiding questions help ensure the right standards are
                     in place:
                   </h4>
@@ -101,34 +101,36 @@ function FaqTab() {
                     <li>Are we holding our partners accountable?</li>
                   </ul>
                 </div>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <Grid container className={styles.FaqSection}>
-          <Grid item xs={12} sm={12} md={3}>
-            <Typography className={styles.FaqHeaderText} variant='h2'>
+        <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
+          <div className='w-full md:w-1/4'>
+            <h2 className='m-auto pb-5 font-serif text-header font-light'>
               Definitions
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={12} md={9}>
-            <Grid container>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>What is equity?</h3>
-                <div className={styles.FaqAnswer}>
+            </h2>
+          </div>
+          <div className='w-full md:w-3/4'>
+            <div className='flex flex-wrap'>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
+                  What is equity?
+                </h3>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     Equity refers to everyone having a fair opportunity to reach
                     their full potential and no one being disadvantaged from
                     achieving this potential (Dawes D.E., 2020).
                   </p>
                 </div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   What is the difference between equality and equity?
                 </h3>
-                <div className={styles.FaqAnswer}>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     By definition, equality means “the state of being equal,
                     especially in status, rights, and opportunities.” Equity, in
@@ -139,24 +141,28 @@ function FaqTab() {
                     yield fair results.
                   </p>
                 </div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   {selectFAQs[0].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>{selectFAQs[0].answer}</div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+                <div className='font-sansText font-normal'>
+                  {selectFAQs[0].answer}
+                </div>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   {selectFAQs[1].questionText}
                 </h3>
-                <div className={styles.FaqAnswer}>{selectFAQs[1].answer}</div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+                <div className='font-sansText font-normal'>
+                  {selectFAQs[1].answer}
+                </div>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   What are political determinants of health?
                 </h3>
-                <div className={styles.FaqAnswer}>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     The political determinants of health create the structural
                     conditions and the social drivers – including poor
@@ -177,12 +183,12 @@ function FaqTab() {
                     health gap.
                   </p>
                 </div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   What are social determinants of health?
                 </h3>
-                <div className={styles.FaqAnswer}>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     Social determinants of health are conditions in the
                     environments in which people are born, live, learn, work,
@@ -191,22 +197,24 @@ function FaqTab() {
                     (Healthy People 2020, CDC)
                   </p>
                 </div>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <Grid container className={styles.FaqSection}>
-          <Grid item xs={12} sm={12} md={3}>
-            <Typography className={styles.FaqHeaderText} variant='h2'>
+        <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
+          <div className='w-full md:w-1/4'>
+            <h2 className='m-auto pb-5 font-serif text-header font-light'>
               Take Action
-            </Typography>
-          </Grid>
-          <Grid item xs={12} sm={12} md={9}>
-            <Grid container>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>How can I get involved?</h3>
-                <div className={styles.FaqAnswer}>
+            </h2>
+          </div>
+          <div className='w-full md:w-3/4'>
+            <div className='flex flex-wrap'>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
+                  How can I get involved?
+                </h3>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     To advance health equity, we need smart, talented,
                     passionate folks like you on board.
@@ -228,13 +236,13 @@ function FaqTab() {
                     </li>
                   </ul>
                 </div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion}>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3 className='font-sansTitle text-title font-medium'>
                   How do I share or save the visualizations (graphs, charts,
                   maps)?
                 </h3>
-                <div className={styles.FaqAnswer}>
+                <div className='font-sansText text-small font-normal'>
                   <p>
                     In the top-right of each card, there is an icon button with
                     three horizontal dots like this: <MoreHorizIcon />. Clicking
@@ -260,20 +268,23 @@ function FaqTab() {
                     </li>
                   </ul>
                 </div>
-              </Grid>
-              <Grid item xs={12} className={styles.FaqQuestionAndAnswer}>
-                <h3 className={styles.FaqQuestion} id='citation'>
+              </div>
+              <div className='w-full pb-5 text-left'>
+                <h3
+                  className='font-sansTitle text-title font-medium'
+                  id='citation'
+                >
                   What is the recommended citation (APA) for the Health Equity
                   Tracker?
                 </h3>
-                <div className={styles.FaqAnswer}>
+                <div className='font-sansText text-small font-normal'>
                   <p>{CITATION_APA}</p>
                 </div>
-              </Grid>
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }
