@@ -1,9 +1,14 @@
 import { test } from '@playwright/test'
 
-test.only('Depression Flow', async ({ page }) => {
+test('Depression Flow', async ({ page }) => {
   await page.goto(
     'https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'
   )
+  await page
+    .getByLabel(
+      'Map showing Depression in the United States : including data from 50 states/territories'
+    )
+    .getByRole('img')
   await page
     .getByText('See the states/territories with the highest and lowest rates.')
     .click()
