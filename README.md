@@ -13,6 +13,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 ### Setting Up Your Git and GitHub
 
 1. In your browser, create a fork of the Health Equity Tracker repo: <https://github.com/SatcherInstitute/health-equity-tracker/fork>
+
 2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your github username):
 
    ```bash
@@ -36,6 +37,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 ### Setting Up the Frontend Locally (One Time Setup)
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
+
 2. Duplicate the example environmental variables file into a new, automatically git-ignored local development file:
 
    ```bash
@@ -78,11 +80,13 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
    ```
 
 - Run the more comprehensive tests that check the production site (same as the ones run nightly): `npm run e2e-prod`
+
 - Run the outgoing link checker, which is run weekly: `npm run url`
 
 ## Making a Pull Request (PR)
 
 1. Ensure you assign yourself to the [issue(s)](https://github.com/SatcherInstitute/health-equity-tracker/issues?q=is%3Aissue+is%3Aopen) that this PR will address. Create one if it doesn't exist, assigning the correct Milestones if needed.
+
 2. Ensure your local main branch is up to date with the origin main branch:
 
    ```bash
@@ -97,6 +101,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
       ```
 
     - ongoing, simply `git push`
+
 4. Create and switch to a local feature branch from main:
 
    ```bash
@@ -110,7 +115,8 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
    git pull origin main
    ```
 
-6. If you encounter merge conflicts, resolve them (Ben likes VSCode's new conflict resolution split screen feature, and also prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`).
+6. If you encounter merge conflicts, resolve them. Ben likes VSCode's new conflict resolution split screen feature, and also prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`
+
 7. Make changes to the code base, save the files, add those changes to staging:
 
    ```bash
@@ -124,6 +130,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
    ```
 
 9. Ensure the pre-commit checks pass. If not, make the fixes as required by the linters and type-checker, etc., and run the same commit command again (hit ⬆ key to cycle through your previously run terminal commands)
+
 10. Push to your forked remote:
     - First time:
 
@@ -132,12 +139,19 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
       ```
 
     - Ongoing code changes: `git push`
+
 11. CMD+Click (CTRL+Click for Windows) on the URL under this line in the logged message: `Create a pull request for 'new-feature-branch-name' on GitHub by visiting:` to launch the web UI for your new pull request
+
 12. In the browser with the new PR open, edit the title to make it a meaningful description of what the PR actively does to the code.
+
 13. Please fill in the templated sections as relevant, especially triggering auto-completion of issues if true using `closes #1234` or `fixes #1234` somewhere in the description text of the PR.
+
 14. A preview link is generated automatically by Netlify and posted to the PR comments; check it out to manually confirm changes appeared to the frontend as you expected.
+
 15. When ready, request a review. If you are unable to request a review, your username may need permissions first; please reach out to a team member.
+
 16. Once your PR is approved (and you've ensured CI tests have passed), you can "Squash and Merge" your PR. Once complete, feel free to delete the branch from your remote fork (using the purple button).
+
 17. Switch back to main:
 
     ```bash
@@ -166,12 +180,15 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 Everything below is more detailed, advanced info that you probably won't need right away. Congratulations!!
 
+![Health Equity Tracker displayed on a desktop monitor](<https://healthequitytracker.org/img/graphics/het-share.png> | width=300)
+
 ## Frontend (Advanced)
 
 The frontend consists of
 
 1. `health-equity-tracker/frontend/`: A React app that contains all code and static resources needed in the browser (html, TS, CSS, images). This app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and later migrated to Vite.
 2. `health-equity-tracker/frontend_server/`: A lightweight server that serves the React app as static files and forwards data requests to the data server.
+
 3. `health-equity-tracker/data_server/`: A data server that responds to data requests by serving data files that have been exported from the data pipeline.
 
 ### Available Overrides for local development
