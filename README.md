@@ -13,19 +13,49 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 ### Setting Up Your Git and GitHub
 
 1. In your browser, create a fork of the Health Equity Tracker repo: <https://github.com/SatcherInstitute/health-equity-tracker/fork>
-2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your github username): `git clone https://github.com/<your-github-username>/health-equity-tracker.git`
-3. Set the original repo to be "origin": `git remote set-url origin https://github.com/SatcherInstitute/health-equity-tracker.git`
-4. Set your forked repo to a memorable remote name: `git remote add <your-remote-name> <your-forked-git-url>`. For example, Ben would do `git remote add ben https://github.com/benhammondmusic/health-equity-tracker.git`
+2. In your terminal, clone your new forked repo down to your local development machine (replace placeholder with your github username):
+
+   ```bash
+   git clone https://github.com/<your-github-username>/health-equity-tracker.git
+   ```
+
+3. Set the original repo to be "origin":
+
+   ```bash
+   git remote set-url origin https://github.com/SatcherInstitute/health-equity-tracker.git
+   ```
+
+4. Set your forked repo to a memorable remote name:
+
+   ```bash
+   git remote add <your-remote-name> <your-forked-git-url>
+   ```
+
+   For example, Ben would do `git remote add ben https://github.com/benhammondmusic/health-equity-tracker.git`
 
 ### Setting Up the Frontend Locally (One Time Setup)
 
 1. In your terminal, change into the health-equity-tracker frontend directory: `cd health-equity-tracker/frontend`
-2. Duplicate the example environmental variables file into a new, automatically git-ignored local development file: `cp -i .env.example .env.development`
-3. Download the node modules: `npm i`
+2. Duplicate the example environmental variables file into a new, automatically git-ignored local development file:
+
+   ```bash
+   cp -i .env.example .env.development
+   ```
+
+3. Install the node modules:
+
+   ```bash
+   npm i
+   ```
 
 ### Running the Frontend Locally on a Development Server (localhost)
 
-1. While still in the `health-equity-tracker/frontend/` folder, run `npm run dev`
+1. While still in the `health-equity-tracker/frontend/` folder, run
+
+   ```bash
+   npm run dev
+   ```
+
 2. In your browser, visit <http://localhost:3000>
 
 ## Running Frontend Tests Locally
@@ -33,29 +63,74 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 ### Unit Tests with Vitest
 
 - To run once: `npm run test`
-- To run in watch mode, so saved changes to the codebase will trigger reruns of affected tests: `npm run test:watch`
+- To run in watch mode, so saved changes to the codebase will trigger reruns of affected tests:
+
+   ```bash
+   npm run test:watch
+   ```
 
 ### End to End (E2E) Tests with Playwright
 
-- Run the limited suite of tests (same as ones that are run on CI against PR updates). Ensure the localhost server is still running first: `npm run e2e`
+- Run the limited suite of tests (same as ones that are run on CI against PR updates). Ensure the localhost server is still running first:
+
+   ```bash
+   npm run e2e
+   ```
+
 - Run the more comprehensive tests that check the production site (same as the ones run nightly): `npm run e2e-prod`
 - Run the outgoing link checker, which is run weekly: `npm run url`
 
 ## Making a Pull Request (PR)
 
 1. Ensure you assign yourself to the [issue(s)](https://github.com/SatcherInstitute/health-equity-tracker/issues?q=is%3Aissue+is%3Aopen) that this PR will address. Create one if it doesn't exist, assigning the correct Milestones if needed.
-2. Ensure your local main branch is up to date with the origin main branch: `git pull origin main`
+2. Ensure your local main branch is up to date with the origin main branch:
+
+   ```bash
+   git pull origin main
+   ```
+
 3. Ensure your forked repo's main branch is up to date:
-    - first time to set the upstream for the main branch `git push -u <your-remote-name> main`
+    - first time to set the upstream for the main branch
+
+      ```bash
+      git push -u <your-remote-name> main
+      ```
+
     - ongoing, simply `git push`
-4. Create and switch to a local feature branch from main: `git checkout -b <new-feature-branch-name>` (we don't follow any particular conventions here or in commit messages, just make it easy to type and relevant)
-5. Continuously ensure the branch is up to date with the origin main branch which is often updated several times a day: `git pull origin main`
-6. If you encounter merge conflicts, resolve them (I like VSCode's new conflict resolution split screen feature, and I like to set VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`).
-7. Make changes to the code base, save the files, add those changes to staging: `git add -p` and yes/no your way through the chunks of changes
-8. Commit those changes when you're ready: `git commit -m "adds new stuff"`
+4. Create and switch to a local feature branch from main:
+
+   ```bash
+   git checkout -b <new-feature-branch-name>
+   ```
+
+   (we don't follow any particular conventions here or in commit messages, just make it easy to type and relevant)
+5. Continuously ensure the branch is up to date with the origin main branch which is often updated several times a day:
+
+   ```bash
+   git pull origin main
+   ```
+
+6. If you encounter merge conflicts, resolve them (Ben likes VSCode's new conflict resolution split screen feature, and also prefers setting VSCode as the default message editor rather than VIM: `git config --global core.editor "code --wait"`).
+7. Make changes to the code base, save the files, add those changes to staging:
+
+   ```bash
+   git add -p`# yes/no your way through the chunks of changes
+   ```
+
+8. Commit those changes when you're ready:
+
+   ```bash
+   git commit -m "adds new stuff"
+   ```
+
 9. Ensure the pre-commit checks pass. If not, make the fixes as required by the linters and type-checker, etc., and run the same commit command again (hit ⬆ key to cycle through your previously run terminal commands)
 10. Push to your forked remote:
-    - First time: `git push -u <your-remote-name> <new-feature-branch-name>`
+    - First time:
+
+      ```bash
+      git push -u <your-remote-name> <new-feature-branch-name>
+      ```
+
     - Ongoing code changes: `git push`
 11. CMD+Click (CTRL+Click for Windows) on the URL under this line in the logged message: `Create a pull request for 'new-feature-branch-name' on GitHub by visiting:` to launch the web UI for your new pull request
 12. In the browser with the new PR open, edit the title to make it a meaningful description of what the PR actively does to the code.
@@ -63,9 +138,29 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 14. A preview link is generated automatically by Netlify and posted to the PR comments; check it out to manually confirm changes appeared to the frontend as you expected.
 15. When ready, request a review. If you are unable to request a review, your username may need permissions first; please reach out to a team member.
 16. Once your PR is approved (and you've ensured CI tests have passed), you can "Squash and Merge" your PR. Once complete, feel free to delete the branch from your remote fork (using the purple button).
-17. Delete your local branch by switching back to main: `git switch main` and then deleting: `git branch -D <new-feature-branch-name>`
-18. Pull those new updates from origin main into your local main: `git pull origin main`
-19. Push those new updates to your remote main: `git push`
+17. Switch back to main:
+
+    ```bash
+    git switch main
+    ```
+
+18. Delete the feature branch
+
+    ```bash
+    git branch -D <new-feature-branch-name>
+    ```
+
+19. Pull those new updates from origin main into your local main:
+
+    ```bash
+    git pull origin main
+    ```
+
+20. Push those new updates to your remote main:
+
+    ```bash
+    git push
+    ```
 
 ## YOU'RE DONE WITH SETUP 🥳
 
