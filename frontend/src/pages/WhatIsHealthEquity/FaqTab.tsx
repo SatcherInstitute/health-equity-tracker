@@ -14,7 +14,11 @@ function FaqTab() {
       <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
         <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
           <div className='w-full md:w-1/4'>
-            <h2 className='m-auto pb-5 font-serif text-header font-light'>
+            <h2
+              className='m-auto pb-5 font-serif text-header font-light'
+              id='main'
+              tabIndex={-1}
+            >
               Data
             </h2>
           </div>
@@ -43,9 +47,7 @@ function FaqTab() {
                 <div className='font-sansText font-normal'>
                   {selectFAQs[3].answer}
                 </div>
-                <a href='/datacatalog' className=''>
-                  See Data Sources
-                </a>
+                <a href='/datacatalog'>See Data Sources</a>
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
