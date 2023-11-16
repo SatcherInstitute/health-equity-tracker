@@ -180,7 +180,7 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 Everything below is more detailed, advanced info that you probably won't need right away. Congratulations!!
 
-![Health Equity Tracker displayed on a desktop monitor](<https://healthequitytracker.org/img/graphics/het-share.png> | width=300)
+<img src="https://healthequitytracker.org/img/graphics/het-share.png" width=300 alt="Computer displaying the health equity tracker comparison maps" />
 
 ## Frontend (Advanced)
 
