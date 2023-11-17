@@ -2,7 +2,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Grid,
   Paper,
   useMediaQuery,
 } from '@mui/material'
@@ -39,11 +38,11 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
   }
 
   return (
-    <Grid item xs={12} id={id} className={styles.KeyTermsContainer}>
+    <div id={id} className='mt-8 w-full'>
       <Paper>
         <Accordion expanded={expanded} onChange={handleAccordionToggle}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <h3 className={styles.AccordionHeader}>Key Terms</h3>
+            <h3 className='m-0 p-0'>Key Terms</h3>
           </AccordionSummary>
 
           <AccordionDetails>
@@ -53,11 +52,14 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
                   <h4>{item.topic}</h4>
                   {item.definitions.map((def) => {
                     return (
-                      <figure key={def.key} className={styles.GridContainer}>
+                      <figure
+                        key={def.key}
+                        className='mx-1 mb-2 mt-1 flex flex-col  p-0'
+                      >
                         <span className={styles.ConditionKey}>
                           <strong>{def.key}</strong>
                         </span>
-                        <p className={styles.ConditionDefinition}>
+                        <p className='m-0 ml-1 self-start text-smallest text-alt-black'>
                           {parseDescription(def.description)}
                         </p>
                       </figure>
@@ -69,7 +71,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
           </AccordionDetails>
         </Accordion>
       </Paper>
-    </Grid>
+    </div>
   )
 }
 

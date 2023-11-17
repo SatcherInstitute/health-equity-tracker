@@ -1,4 +1,4 @@
-import { Alert, Card } from '@mui/material'
+import { Alert } from '@mui/material'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
@@ -93,7 +93,7 @@ const MetricsLink = () => {
               ]}
             />
             In plain language, this would be interpreted as,{' '}
-            <Card elevation={3} className={styles.WhyBox}>
+            <div className='bg-standard-info px-8 py-4 shadow-raised-tighter'>
               <em>
                 “<strong>Deaths</strong> of individuals identifying as White
                 (Non Hispanic) in Georgia{' '}
@@ -102,7 +102,7 @@ const MetricsLink = () => {
                 </strong>
                 , based on their share of Georgia’s overall population.”
               </em>
-            </Card>
+            </div>
           </p>
         </div>
       </article>

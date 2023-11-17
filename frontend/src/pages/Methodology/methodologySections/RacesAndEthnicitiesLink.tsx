@@ -1,5 +1,4 @@
 import { Alert, AlertTitle } from '@mui/material'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import { GLOSSARY_LINK } from '../../../utils/internalRoutes'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
@@ -298,18 +297,20 @@ const RacesAndEthnicitiesLink = () => {
               {item.definitions.map((def) => {
                 return (
                   <div
-                    className={styles.RacesContainer}
+                    className='mt-0 flex flex-col items-start'
                     id={def.path}
                     key={def.key}
                   >
                     <h3>{def.key}</h3>
-                    <figure className={styles.RacesContainer}>
-                      <p className={styles.RacesDefinition}>
+                    <figure className='mt-0 flex flex-col items-start gap-3'>
+                      <p className='m-0 italic text-alt-black'>
                         {parseDescription(def.description)}
                       </p>
                       {def.considerations && def.considerations.length > 0 && (
-                        <div className={styles.ResourcesHeader}>
-                          <h4>Data Limitations and Specific Considerations</h4>
+                        <div className=''>
+                          <h4 className='m-0 mb-4 text-alt-black'>
+                            Data Limitations and Specific Considerations
+                          </h4>
                           {def.considerations.map((consideration) => (
                             <div key={consideration.title}>
                               <h5>{consideration.title}</h5>
@@ -321,9 +322,12 @@ const RacesAndEthnicitiesLink = () => {
                         </div>
                       )}
                       {def.resource && (
-                        <p className={styles.LearnMoreLink}>
-                          <a href={def.resource}>Explore {def.key} resources</a>
-                        </p>
+                        <a
+                          href={def.resource}
+                          className='font-sansTitle  font-medium leading-lhNormal text-alt-green no-underline'
+                        >
+                          Explore {def.key} resources →
+                        </a>
                       )}
                     </figure>
                   </div>

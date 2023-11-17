@@ -14,7 +14,7 @@ const RecommendedCitationLink = () => {
         <h3 className='font-sansTitle text-title'>
           APA (American Psychological Association) Format
         </h3>
-        <div className={styles.MethodologyAnswer}>
+        <div className='text-left font-sansText text-small text-alt-black'>
           <Card elevation={3}>
             <p className={styles.CitationAPA}>{CITATION_APA}</p>
           </Card>

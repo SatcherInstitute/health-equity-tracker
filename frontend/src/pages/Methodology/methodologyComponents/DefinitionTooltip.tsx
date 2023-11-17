@@ -52,10 +52,10 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
 
   if (isMobile) {
     return (
-      <div className={styles.Tooltip}>
+      <div className='inline-flex flex-row'>
         <span>
           <Typography
-            className={styles.MethodologyAnswer}
+            className='text-left font-sansText text-small text-alt-black'
             onClick={handleDrawerOpen}
           >
             {' '}
@@ -63,7 +63,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
           </Typography>
         </span>
 
-        <Drawer anchor="bottom" open={isDrawerOpen} onClose={handleDrawerClose}>
+        <Drawer anchor='bottom' open={isDrawerOpen} onClose={handleDrawerClose}>
           <div style={{ padding: '16px' }}>
             <IconButton onClick={handleDrawerClose} style={{ float: 'right' }}>
               <CloseIcon />
@@ -71,11 +71,11 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
 
             <Typography
               className={styles.MethodologySubsubheaderText}
-              variant="h6"
+              variant='h6'
             >
               {topic.toLowerCase()}
             </Typography>
-            <Typography className={styles.MethodologyAnswer}>
+            <Typography className='text-left font-sansText text-small text-alt-black'>
               {measurementDescription}
             </Typography>
           </div>
@@ -93,18 +93,16 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
         open={open}
         title={measurementDescription}
         arrow
-        placement="top-start"
-        className={styles.Tooltip}
+        placement='top-start'
+        className='inline-flex flex-row'
       >
-        <span className={styles.Tooltip}>
-          <Typography
-            className={styles.MethodologyAnswer}
-            onClick={handleTooltipOpen}
-          >
-            {' '}
-            {topic.toLowerCase()}{' '}
-          </Typography>
-        </span>
+        <Typography
+          className='text-left font-sansText text-small text-alt-black'
+          onClick={handleTooltipOpen}
+        >
+          {' '}
+          {topic.toLowerCase()}{' '}
+        </Typography>
       </Tooltip>
     </ClickAwayListener>
   )

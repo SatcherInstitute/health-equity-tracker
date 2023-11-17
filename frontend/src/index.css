@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  ,
+/* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
   :root {
     /* non-tailwind values */
     --hex-share-icon-gray: #757575;

@@ -1,5 +1,4 @@
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import Resources from '../methodologyComponents/Resources'
 import {
   sdohDataSources,
@@ -96,9 +95,12 @@ function SdohLink() {
           {percentShareTooltip} metrics that AHR provides in downloadable data
           files. Click on the following to explore the report:
         </p>
-        <ul>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.avoided_care-3.00&group1=All'>
+        <ul className='list-none pl-0'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.avoided_care-3.00&group1=All'
+            >
               care avoidance due to cost
             </a>
           </li>
@@ -153,7 +155,7 @@ function SdohLink() {
             Please note that AHR does not provide population-specific data for
             certain conditions, including:
             <ul>
-              <li className={styles.ConditionList}>
+              <li className='font-sansTitle font-medium'>
                 <a href='https://healthequitytracker.org/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All'>
                   preventable hospitalizations
                 </a>

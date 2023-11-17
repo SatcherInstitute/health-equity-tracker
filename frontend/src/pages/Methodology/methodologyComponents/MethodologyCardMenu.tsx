@@ -1,8 +1,6 @@
-import styles from './MethodologyPage.module.scss'
 import * as React from 'react'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
-import Box from '@mui/material/Box'
 import Divider from '@mui/material/Divider'
 import { Link } from 'react-router-dom'
 import {
@@ -94,7 +92,7 @@ export const links: LinkItem[] = [
   },
 ]
 
-const MethodologyCardMenu: React.FC = () => {
+export default function MethodologyCardMenu() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
 
   const handleSelected = (index: number) => {
@@ -122,8 +120,11 @@ const MethodologyCardMenu: React.FC = () => {
   }
 
   return (
-    <nav aria-label='methodology sections' className={styles.CardMenu}>
-      <Box sx={{ width: '100%' }}>
+    <nav
+      aria-label='methodology sections'
+      className='sticky top-0 z-z-almost-top flex max-w-menu flex-col items-start justify-center rounded-sm bg-white shadow-raised-tighter'
+    >
+      <div className='w-full'>
         {links.map((link, idx) => (
           <React.Fragment key={idx}>
             <Link to={link.to}>
@@ -143,9 +144,7 @@ const MethodologyCardMenu: React.FC = () => {
             {shouldDisplayDivider(idx) && <Divider />}
           </React.Fragment>
         ))}
-      </Box>
+      </div>
     </nav>
   )
 }
-
-export default MethodologyCardMenu

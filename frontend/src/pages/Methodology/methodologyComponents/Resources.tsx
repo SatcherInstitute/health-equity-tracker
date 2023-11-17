@@ -1,4 +1,3 @@
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { Grid } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { type ResourceGroup } from '../../WhatIsHealthEquity/ResourcesData'
@@ -13,11 +12,13 @@ interface Resource {
   url: string | undefined
 }
 
-function Resources({ resourceGroups, id }: ResourcesProps) {
+export default function Resources(props: ResourcesProps) {
+  const { resourceGroups, id } = props
+
   const renderResourcesList = (groups: Resource[]) => (
-    <ul className={styles.ResourcesList}>
+    <ul className='mx-1 my-0 list-none pl-0 text-smallest'>
       {groups.map((resource) => (
-        <li key={resource.name ? resource.name : ''}>
+        <li className='' key={resource.name ? resource.name : ''}>
           <a href={resource.url}>{resource.name}</a>
         </li>
       ))}
@@ -33,7 +34,7 @@ function Resources({ resourceGroups, id }: ResourcesProps) {
   }) => (
     <Grid container id={id} key={heading}>
       <Grid item xs={12}>
-        <h4 className={styles.ResourcesHeader}>{heading} Resources</h4>
+        <h4 className='mb-2 text-alt-black'>{heading} Resources</h4>
       </Grid>
       <Grid item xs={12} md={resources.length >= 10 ? 6 : 12}>
         {renderResourcesList(
@@ -56,9 +57,9 @@ function Resources({ resourceGroups, id }: ResourcesProps) {
         <title>Health Equity Resources - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Health Equity Resources</h2>
-      <div className={styles.Resources}>
-        <Grid container className={styles.ResourcesHeader}>
-          <div className={styles.ResourcesRow}>
+      <div className='mx-auto my-4'>
+        <Grid container className=''>
+          <div className='flex flex-col items-baseline lg:flex-row'>
             {resourceGroups.map(renderResourceGroup)}
           </div>
         </Grid>
@@ -66,5 +67,3 @@ function Resources({ resourceGroups, id }: ResourcesProps) {
     </section>
   )
 }
-
-export default Resources

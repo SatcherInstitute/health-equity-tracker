@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 
 interface GlossaryDefinition {
   key: string
@@ -46,8 +45,8 @@ export const parseDescription = (description: string) => {
         <a
           key={linkUrl}
           href={linkUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+          target='_blank'
+          rel='noopener noreferrer'
         >
           {linkText}
         </a>
@@ -72,10 +71,9 @@ export const parseDescription = (description: string) => {
   return elements
 }
 
-const GlossaryTerm: React.FC<GlossaryTermProps> = ({
-  definitionItems,
-  topic,
-}) => {
+export default function GlossaryTerm(props: GlossaryTermProps) {
+  const { definitionItems } = props
+
   const sortedDefinitionItems = [...definitionItems].sort((a, b) =>
     a.topic.localeCompare(b.topic)
   )
@@ -92,14 +90,16 @@ const GlossaryTerm: React.FC<GlossaryTermProps> = ({
           : null
 
         return (
-          <div key={index} className={styles.GlossaryTermContainer}>
-            <h4 className={styles.GlossaryTerm}>{item.topic}</h4>
-            <p className={styles.GlossaryDefinition}>{parsedDefinition}</p>
+          <div key={index} className='mx-auto my-4'>
+            <h4 className='mx-auto mb-0 mt-1 font-sansTitle text-text font-medium text-alt-green '>
+              {item.topic}
+            </h4>
+            <p className='mx-auto mb-0 mt-1 text-smallest text-alt-black'>
+              {parsedDefinition}
+            </p>
           </div>
         )
       })}
     </>
   )
 }
-
-export default GlossaryTerm

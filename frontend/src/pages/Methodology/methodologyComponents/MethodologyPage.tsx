@@ -1,5 +1,4 @@
 import Grid from '@mui/material/Grid'
-import styles from './MethodologyPage.module.scss'
 import { HET_URL } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { currentYear } from '../../../cards/ui/SourcesHelpers'
@@ -46,7 +45,7 @@ const MethodologyPage: React.FC = () => {
   )
 
   return (
-    <div className={styles.MethodologySectionWrapper}>
+    <div className='m-1'>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
@@ -77,8 +76,8 @@ const MethodologyPage: React.FC = () => {
           </Grid>
         )}
 
-        <Grid item xs={12} sm={6} className={styles.SectionWrapper}>
-          <article className={styles.ArticleContainer}>
+        <div className='mt-8 flex p-0'>
+          <article className='flex w-full flex-col p-8 text-left sm:w-1/2 lg:p-0 '>
             <h2 className='font-serif text-header font-light' id='main'>
               {activeRoute?.label}
             </h2>
@@ -96,7 +95,7 @@ const MethodologyPage: React.FC = () => {
               </>
             </Switch>
           </article>
-        </Grid>
+        </div>
 
         {windowWidth >= 600 && (
           <Grid item xs={12} sm={3}>

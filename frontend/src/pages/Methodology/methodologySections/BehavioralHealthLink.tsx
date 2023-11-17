@@ -1,5 +1,4 @@
 import { Alert, AlertTitle } from '@mui/material'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import {
   behavioralHealthDataSources,
   behavioralHealthDefinitionsArray,
@@ -87,24 +86,36 @@ const BehavioralHealthLink: React.FC = () => {
           {percentShareTooltip} metrics that AHR provides in downloadable data
           files. Click on the following to explore the reports:
         </p>
-        <ul>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.suicide-3.00&group1=All'>
+        <ul className='list-none pl-0'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.suicide-3.00&group1=All'
+            >
               suicide
             </a>
           </li>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.frequent_mental_distress-3.00&group1=All'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.frequent_mental_distress-3.00&group1=All'
+            >
               frequent mental distress
             </a>
           </li>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'
+            >
               depression
             </a>
           </li>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All'
+            >
               excessive drinking
             </a>
           </li>
@@ -159,8 +170,11 @@ const BehavioralHealthLink: React.FC = () => {
             Please note that AHR does not provide population-specific data for
             certain conditions, including:
             <ul>
-              <li className={styles.ConditionList}>
-                <a href='https://healthequitytracker.org/exploredata?mls=1.substance-3.00&group1=All'>
+              <li className='font-sansTitle font-medium'>
+                <a
+                  className='no-underline'
+                  href='https://healthequitytracker.org/exploredata?mls=1.substance-3.00&group1=All'
+                >
                   non-medical drug use
                 </a>
                 .

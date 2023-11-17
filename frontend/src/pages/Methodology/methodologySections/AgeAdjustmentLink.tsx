@@ -1041,13 +1041,13 @@ const AgeAdjustmentLink = () => {
         </div>
 
         <Button
-          className={styles.LearnMoreLink}
+          className=''
           variant='text'
           color='primary'
           href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
           id='#age-adjustment-explore'
         >
-          <span>Explore age-adjusted ratios</span>
+          <span>Explore age-adjusted ratios →</span>
         </Button>
       </article>
     </section>

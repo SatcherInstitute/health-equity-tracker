@@ -5,7 +5,6 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material'
-import styles from './MethodologyPage.module.scss'
 
 interface CodeData {
   content: string | JSX.Element
@@ -22,16 +21,23 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   border = true,
   minWidth = 700,
 }) => {
-  const tableClass = border ? styles.BorderTable : styles.NoBorderTable
-
   return (
     <TableContainer>
-      <Table className={tableClass} aria-label="customized table">
+      <Table
+        className={
+          border
+            ? 'mx-auto my-1 flex rounded-lg border border-solid border-grey-grid-color p-1'
+            : 'mx-auto my-1 border-none p-1'
+        }
+        aria-label='customized table'
+      >
         <TableHead>
-          <TableRow className={styles.TableCell}>
+          <TableRow>
             {rowData.map((cell, index) => (
-              <TableCell key={index}>
-                <pre>{cell.content}</pre>
+              <TableCell className='flex content-baseline' key={index}>
+                <pre className='mx-auto my-0 border-none bg-opacity-0'>
+                  {cell.content}
+                </pre>
               </TableCell>
             ))}
           </TableRow>

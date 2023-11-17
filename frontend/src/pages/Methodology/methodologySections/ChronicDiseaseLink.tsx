@@ -1,4 +1,3 @@
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   chronicDiseaseDataSources,
@@ -96,14 +95,20 @@ const ChronicDiseaseLink = () => {
           {percentShareTooltip} metrics that AHR provides in downloadable data
           files. Click on the following to explore the reports:
         </p>
-        <ul>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All'>
+        <ul className='list-none pl-0'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All'
+            >
               COPD
             </a>
           </li>
-          <li className={styles.ConditionList}>
-            <a href='https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All'>
+          <li className='font-sansTitle font-medium'>
+            <a
+              className='no-underline'
+              href='https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All'
+            >
               diabetes
             </a>
           </li>

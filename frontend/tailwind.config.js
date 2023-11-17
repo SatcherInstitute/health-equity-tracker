@@ -24,6 +24,7 @@ export default {
     },
     maxWidth: {
       aimToGo: "255px",
+      menu: "320px",
       sm: '600px',
       articleLogo: '700px',
       md: '960px',

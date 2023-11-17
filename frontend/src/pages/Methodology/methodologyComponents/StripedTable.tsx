@@ -47,9 +47,12 @@ const StripedTable: React.FC<StripedTableProps> = ({
 }) => {
   return (
     <TableContainer component={Paper} id={id}>
-      <Table aria-label="customized table" className={styles.StripedTable}>
+      <Table aria-label='customized table' className={styles.StripedTable}>
         <TableHead>
-          <TableRow className={styles.StripedTableHeader}>
+          <TableRow
+            // className={styles.StripedTableHeader}
+            className='bg-alt-green text-navlink-color'
+          >
             {columns.map((col) => (
               <TableCell key={col.accessor}>{col.header}</TableCell>
             ))}
@@ -68,7 +71,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
               }
             >
               {columns.map((col) => (
-                <TableCell key={col.accessor} component="td" scope="row">
+                <TableCell key={col.accessor} component='td' scope='row'>
                   {row[col.accessor]}
                 </TableCell>
               ))}

@@ -212,7 +212,7 @@ function App() {
                       </main>
                     }
                   >
-                    <main>
+                    <main className='scroll-smooth'>
                       <Switch>
                         <Route path={ABOUT_US_PAGE_LINK}>
                           <AboutUsPage />

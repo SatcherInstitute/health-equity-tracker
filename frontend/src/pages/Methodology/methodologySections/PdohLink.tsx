@@ -1,5 +1,5 @@
 import { Alert, AlertTitle } from '@mui/material'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
+
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   pdohDataSources,
@@ -64,35 +64,35 @@ const PdohLink = () => {
         <h4>Breakdown of Our Reports</h4>
         <h5>By Age</h5>
         <ul>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
           </li>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
         <h5>By Race</h5>
         <ul>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
         <h5>By Sex</h5>
         <ul>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
         <h5>Special Reports</h5>
         <ul>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
           </li>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             Data for all territories: From BJS's "Prisoners Table 23".
           </li>
-          <li className={styles.ConditionList}>
+          <li className='font-sansTitle font-medium'>
             County-level data: Sourced from Vera Institute's Incarceration
             Trends.
           </li>
@@ -255,8 +255,13 @@ const PdohLink = () => {
         </ol>
         <p></p>
         <ul>
-          <li className={styles.ConditionList}>Women in State Legislature</li>
-          <li className={styles.ConditionList}> Women in U.S. Congress</li>
+          <li className='font-sansTitle font-medium'>
+            Women in State Legislature
+          </li>
+          <li className='font-sansTitle font-medium'>
+            {' '}
+            Women in U.S. Congress
+          </li>
         </ul>
         <p>
           Both metrics cover state, territory, and national levels. Our national
@@ -358,7 +363,7 @@ const PdohLink = () => {
             Please note that AHR does not provide population-specific data for
             certain conditions, including:
             <ul>
-              <li className={styles.ConditionList}>
+              <li className='font-sansTitle font-medium'>
                 <a href='https://healthequitytracker.org/exploredata?mls=1.voter_participation-3.00&group1=All'>
                   voter participation
                 </a>

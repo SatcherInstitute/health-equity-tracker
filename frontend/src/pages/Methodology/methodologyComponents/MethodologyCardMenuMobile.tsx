@@ -1,5 +1,5 @@
 import Toolbar from '@mui/material/Toolbar'
-import { Select, FormControl, MenuItem, InputLabel, Card } from '@mui/material'
+import { Select, FormControl, MenuItem, InputLabel } from '@mui/material'
 import { links } from './MethodologyCardMenu'
 import { useHistory } from 'react-router-dom'
 import styles from '../methodologyComponents/MethodologyPage.module.scss'
@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react'
 import Fab from '@mui/material/Fab'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-const MethodologyCardMenuMobile: React.FC = () => {
+export default function MethodologyCardMenuMobile() {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [showScrollTop, setShowScrollTop] = useState(false) // State to track visibility of the FAB
   const history = useHistory()
@@ -42,15 +42,15 @@ const MethodologyCardMenuMobile: React.FC = () => {
 
   return (
     <>
-      <Card raised={true} className={styles.CardMenuMobile}>
+      <div className='sticky top-0 z-z-almost-top flex items-center justify-center rounded-sm bg-white p-1 shadow-raised-tighter'>
         <Toolbar>
-          <FormControl sx={{ minWidth: '90vw' }} size="medium">
-            <InputLabel id="methodology-select-label">Jump to</InputLabel>
+          <FormControl sx={{ minWidth: '90vw' }} size='medium'>
+            <InputLabel id='methodology-select-label'>Jump to</InputLabel>
             <Select
-              labelId="methodology-select-label"
+              labelId='methodology-select-label'
               value={selectedIndex}
               onChange={handleSelected}
-              label="Sections"
+              label='Sections'
             >
               {links.map((link, idx) => (
                 <MenuItem
@@ -64,13 +64,14 @@ const MethodologyCardMenuMobile: React.FC = () => {
             </Select>
           </FormControl>
         </Toolbar>
-      </Card>
+      </div>
       {showScrollTop && (
         <Fab
-          color="secondary"
-          size="small"
-          aria-label="scroll back to top"
-          className={styles.Fab}
+          color='secondary'
+          size='small'
+          aria-label='scroll back to top'
+          // className={styles.Fab}
+          className='fixed bottom-2 right-2 z-z-top bg-alt-green'
           onClick={scrollTop}
         >
           <KeyboardArrowUpIcon />
@@ -79,5 +80,3 @@ const MethodologyCardMenuMobile: React.FC = () => {
     </>
   )
 }
-
-export default MethodologyCardMenuMobile
