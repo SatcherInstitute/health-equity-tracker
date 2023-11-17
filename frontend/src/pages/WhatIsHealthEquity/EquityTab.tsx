@@ -1,7 +1,6 @@
 import styles from './WhatIsHealthEquityPage.module.scss'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
-import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import FaqSection from '../ui/FaqSection'
 import {
@@ -21,6 +20,7 @@ import { useQuery } from 'react-query'
 import sass from '../../styles/variables.module.scss'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
+import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 
 interface WIHEWordpressCopy {
   section2_headingLevel2: string
@@ -677,35 +677,12 @@ function EquityTab() {
             imageAlt=''
             textTitle={wordpressCopy?.section4_c_headingLevel3}
             content={
-              <>
+              <div className='flex flex-col items-start'>
                 <p className={styles.JoinTheEffortStepText}>
                   {wordpressCopy?.section4_c_heading3_text}
                 </p>
-                <form
-                  action={urlMap.newsletterSignup}
-                  method='post'
-                  target='_blank'
-                >
-                  <TextField
-                    id='Enter email address to sign up' // Accessibility label
-                    name='MERGE0'
-                    variant='outlined'
-                    className={styles.EmailTextField}
-                    type='email'
-                    aria-label='Enter Email Address for Newsletter signup'
-                    placeholder='Enter email address'
-                  />
-                  <Button
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    className={styles.EmailAddressFormSubmit}
-                    aria-label='Sign Up for Newsletter in a new window'
-                  >
-                    Sign up
-                  </Button>
-                </form>
-              </>
+                <HetEmailSignup id='wihe-email-signup' />
+              </div>
             }
           />
         </Grid>
