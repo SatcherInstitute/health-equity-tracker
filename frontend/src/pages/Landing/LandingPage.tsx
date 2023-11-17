@@ -1,11 +1,10 @@
-import styles from './LandingPage.module.scss'
 import { ReactRouterLinkButton } from '../../utils/urlutils'
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
   REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
-import { Button, TextField, useMediaQuery, useTheme } from '@mui/material'
+import { useMediaQuery, useTheme } from '@mui/material'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -17,8 +16,8 @@ import { useQuery } from 'react-query'
 import type { Article } from '../News/NewsPage'
 import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
-import { urlMap } from '../../utils/externalUrls'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -256,35 +255,8 @@ function LandingPage() {
                 Sign up for our newsletter:
               </h3>
             </div>
-            <form
-              action={urlMap.newsletterSignup}
-              method='post'
-              target='_blank'
-            >
-              <div className='flex content-center justify-center'>
-                <div>
-                  <TextField
-                    id='Enter email address to sign up' // Accessibility label (is it tho?)
-                    name='MERGE0'
-                    variant='outlined'
-                    className={styles.EmailTextField}
-                    type='email'
-                    aria-label='Enter Email Address for Newsletter signup'
-                    placeholder='Enter email address'
-                  />
-                </div>
-                <div>
-                  <Button
-                    type='submit'
-                    variant='contained'
-                    className='px-4 py-1.5'
-                    aria-label='Sign Up for Newsletter in a new window'
-                  >
-                    Sign up
-                  </Button>
-                </div>
-              </div>
-            </form>
+
+            <HetEmailSignup id='landing-email-signup' />
           </section>
         </aside>
       </div>
