@@ -160,17 +160,12 @@ function EquityTab() {
                 />
               </LazyLoad>
             </Grid>
+
             <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
               <Box mb={5}>
-                <Typography
-                  id='main'
-                  className={styles.HeaderText}
-                  variant='h2'
-                  component='h2'
-                  paragraph={true}
-                >
+                <h2 className='leading-lhNormalfont-serif mb-4 mt-0 text-left text-biggerHeader font-light text-alt-green'>
                   What is Health Equity?
-                </Typography>
+                </h2>
               </Box>
               <Typography
                 className={styles.HeaderSubtext}
