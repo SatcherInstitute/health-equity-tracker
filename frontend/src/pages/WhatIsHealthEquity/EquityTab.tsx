@@ -12,7 +12,6 @@ import {
   NEWS_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from '../../utils/internalRoutes'
-import { Box } from '@mui/material'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
@@ -162,32 +161,29 @@ function EquityTab() {
             </Grid>
 
             <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
-              <Box mb={5}>
-                <h2 className='leading-lhNormalfont-serif mb-4 mt-0 text-left text-biggerHeader font-light text-alt-green'>
+              <section className='mb-10'>
+                <h2 className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'>
                   What is Health Equity?
                 </h2>
-              </Box>
-              <Typography
-                className={styles.HeaderSubtext}
-                variant='body1'
-                paragraph={true}
-              >
+              </section>
+              <p className='mb-4 mt-0 text-left font-sansText text-title font-normal leading-lhLoose'>
                 <b>Health Equity</b> exists when all people, regardless of race,
                 sex, sexual orientation, disability, socio-economic status,
                 geographic location, or other societal constructs have fair and
                 just access, opportunity, and resources to achieve their highest
                 potential for health.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant='body1'>
+              </p>
+              <p className='m-0 text-left font-sansText text-title font-normal leading-lhLoose'>
                 Unfortunately, social and political determinants of health
                 negatively affect many communities, their people, and their
                 ability to lead healthy lives.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant='body1'>
-                <span className={styles.DefinitionSourceSpan}>
+              </p>
+              <p className='m-0 text-left font-sansText text-title font-normal leading-lhLoose'>
+                <span className='text-small text-alt-dark'>
                   Health Equity Leadership & Exchange Network, 2020
                 </span>
-              </Typography>
+              </p>
+
               <Grid
                 container
                 item
