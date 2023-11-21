@@ -52,6 +52,12 @@ test('Excessive Drinking Flow', async ({ page }) => {
     .getByText('1.5% of all cases', { exact: true })
     .click()
   await page
+    .getByLabel(
+      'Comparison bar chart showing Population vs. distribution of total excessive drinking cases in the United States'
+    )
+    .getByText('64.5% of all cases', { exact: true })
+    .click()
+  await page
     .getByRole('heading', {
       name: 'Breakdown summary for excessive drinking cases in the United States',
     })
