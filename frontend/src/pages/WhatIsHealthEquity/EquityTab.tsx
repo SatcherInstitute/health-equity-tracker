@@ -1,7 +1,4 @@
-import styles from './WhatIsHealthEquityPage.module.scss'
 import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 import FaqSection from '../ui/FaqSection'
 import {
   DYNAMIC_COPY_KEY,
@@ -16,7 +13,6 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import { useQuery } from 'react-query'
-import sass from '../../styles/variables.module.scss'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
@@ -82,37 +78,25 @@ function JoinTheEffortContainer(props: {
   content: JSX.Element
 }) {
   return (
-    <Grid
-      container
-      justifyContent='space-around'
-      className={styles.JoinTheEffortItemContainer}
-    >
-      <Grid
-        item
-        md={5}
-        lg={5}
-        className={styles.JoinTheEffortImgContainer}
-        style={{ backgroundColor: props.imageBackground }}
+    <div className='flex items-center justify-around border-0 border-t border-solid border-alt-dark py-8'>
+      <div
+        className={`hidden h-joinEffortLogo w-full items-center justify-center rounded-xl md:flex md:w-5/12 lg:w-5/12 bg-${props.imageBackground}`}
       >
         <LazyLoad offset={300} height={500} once>
           <img
             src={props.imageUrl}
             alt={props.imageAlt}
-            className={styles.JoinTheEffortImg}
+            className='h-auto max-h-sm max-w-equityLogo'
           />
         </LazyLoad>
-      </Grid>
-      <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
-        <Typography
-          className={styles.JoinTheEffortStepHeaderText}
-          variant='h2'
-          component='h4'
-        >
+      </div>
+      <div className='items-left flex w-full flex-col justify-center p-2.5 text-left sm:w-full md:w-1/2'>
+        <h4 className='m-0 py-2.5 font-serif text-bigHeader font-light leading-lhModalHeading'>
           {props.textTitle}
-        </Typography>
+        </h4>
         {props.content}
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 
@@ -133,39 +117,24 @@ function EquityTab() {
         <Helmet>
           <title>What is Health Equity? - Health Equity Tracker</title>
         </Helmet>
-        <Grid container className={styles.Grid}>
-          <Grid
-            container
-            className={styles.HeaderRow}
-            direction='row'
-            justifyContent='center'
-            alignItems='center'
-          >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.HeaderImgItem}
-            >
+        <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+          <div className='flex w-full items-center justify-center border-0 border-b border-solid border-border-color'>
+            <figure className='mx-auto mt-0 hidden w-full text-left md:block md:w-1/3'>
               <LazyLoad offset={300} height={760} once>
                 <img
-                  width='397'
-                  height='760'
-                  src='/img/stock/woman-in-wheelchair-with-tea.png'
-                  className={styles.HeaderImg}
                   alt=''
+                  className='h-auto w-full max-w-equityLogo rounded-xl p-2.5'
+                  src='/img/stock/woman-in-wheelchair-with-tea.png'
                 />
               </LazyLoad>
-            </Grid>
+            </figure>
 
-            <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
-              <section className='mb-10'>
+            <div className='w-full border-0 px-15p py-8 md:w-2/3 md:border-l md:border-solid md:px-16 md:py-28'>
+              <header className='mb-10'>
                 <h2 className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'>
                   What is Health Equity?
                 </h2>
-              </section>
+              </header>
               <p className='mb-4 mt-0 text-left font-sansText text-title font-normal leading-lhLoose'>
                 <b>Health Equity</b> exists when all people, regardless of race,
                 sex, sexual orientation, disability, socio-economic status,
@@ -183,7 +152,7 @@ function EquityTab() {
                   Health Equity Leadership & Exchange Network, 2020
                 </span>
               </p>
-              <div className='flex w-full items-start justify-between text-left'>
+              <div className='flex w-full flex-wrap items-start justify-between text-left'>
                 {/* PDOH */}
                 <section className='w-full p-4 pl-0 md:w-1/2'>
                   <h3 className='m-0 pt-4 font-serif text-title font-light leading-lhLoose text-alt-green'>
@@ -201,9 +170,8 @@ function EquityTab() {
                     Daniel Dawes, 2020
                   </span>
                 </section>
-
                 {/* SDOH */}
-                <section className='w-full p-4 md:w-1/2'>
+                <section className='w-full p-4 pl-0 md:w-1/2'>
                   <h3 className='m-0 pt-4 font-serif text-title font-light leading-lhLoose text-alt-green'>
                     Social determinants of health
                   </h3>
@@ -218,23 +186,18 @@ function EquityTab() {
                   </span>
                 </section>
               </div>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
 
-          <Grid
-            container
-            className={styles.ResourcesAndNewsRow}
-            direction='column'
-            justifyContent='center'
-          >
-            <div className='flex w-full flex-col justify-center py-5'>
+          <div className='flex w-full flex-col flex-wrap items-center justify-center'>
+            <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
                 <h3 className='m-0 text-center font-serif text-biggerHeader font-light leading-lhLoose text-alt-green'>
                   {wordpressCopy?.section2_headingLevel2}
                 </h3>
               </section>
-              <div className='flex w-full py-5'>
-                <div className='flex w-full flex-col items-start p-4 text-left md:w-3/4'>
+              <div className='flex w-full flex-wrap justify-around py-5 text-left'>
+                <div className='flex w-full flex-col  items-start p-4 text-left md:w-3/4'>
                   <iframe
                     className='w-full rounded-xl'
                     height='633px'
@@ -302,7 +265,6 @@ function EquityTab() {
                 </section>
               </div>
             </div>
-
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
                 <h3 className='m-0 pb-2 text-center font-serif text-biggerHeader font-light text-alt-green'>
@@ -341,12 +303,12 @@ function EquityTab() {
                         completely
                       </a>
                     </h4>
-                    <p className='m-0 text-text'>
+                    <p className='m-0 text-left text-text'>
                       Why ongoing data on health and well-being metrics could be
                       used in targeting federal resources and programs to
                       address inequities due to social and economic factors.{' '}
                       <a
-                        className='text-black'
+                        className='text-left text-black'
                         href='https://satcherinstitute.org/hetblog2/'
                         aria-label='Satcher Blog Post on Why Data Matters'
                       >
@@ -354,7 +316,7 @@ function EquityTab() {
                       </a>
                     </p>
                   </article>
-                  <article className='flex w-full flex-col items-center justify-center p-8 md:w-1/2'>
+                  <article className='flex w-full flex-col items-center justify-center p-8 sm:w-1/2 md:w-1/2'>
                     <a
                       href='https://satcherinstitute.org/hetblog3/'
                       aria-label='Satcher Blog Post on Health Equity Data'
@@ -375,7 +337,7 @@ function EquityTab() {
                         health equity?
                       </a>
                     </h4>
-                    <p className='m-0 text-text'>
+                    <p className='m-0 text-left text-text'>
                       In public health, much of our work depends on having
                       accurate data, so we know what’s happening both on the
                       ground and at a population level.{' '}
@@ -457,45 +419,26 @@ function EquityTab() {
                 </div>
               </LazyLoad>
             </div>
-          </Grid>
-          <Grid
-            container
-            className={styles.FaqRow}
-            alignItems='center'
-            justifyContent='center'
-          >
-            <Grid item sm={12} md={10}>
+          </div>
+          <div className='flex w-full items-center justify-center border-0 border-b border-solid py-12'>
+            <section className='w-full md:w-5/6'>
               <FaqSection />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          className={styles.JoinTheEffortRow}
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Grid
-            item
-            className={styles.JoinTheEffortHeaderRow}
-            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-            container
-            direction='column'
-            justifyContent='center'
-            alignItems='center'
-          >
-            <Typography
-              className={styles.JoinTheEffortHeaderText}
-              variant='h2'
-              component='h3'
+            </section>
+          </div>
+        </div>
+
+        <div className='flex w-full flex-col items-center justify-center px-8'>
+          <section className='flex w-full flex-col items-center justify-center py-16'>
+            <h3
+              id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
+              className='m-0 mb-4 text-center font-serif text-biggerHeader font-light leading-lhModalHeading text-alt-green'
             >
               {wordpressCopy?.section4_headingLevel2}
-            </Typography>
-            <span className={styles.JoinTheEffortSubheaderText}>
+            </h3>
+            <span className='text-left font-sansText text-title font-normal leading-lhLoose'>
               {wordpressCopy?.section4_heading2_text}
             </span>
-          </Grid>
+          </section>
 
           <JoinTheEffortContainer
             imageUrl={
@@ -503,17 +446,17 @@ function EquityTab() {
                 ? 'img/HET-lines-no-motion.gif'
                 : 'img/animations/HET-lines.gif'
             }
-            imageBackground={sass.joinEffortBg1}
+            imageBackground='join-effort-bg1'
             imageAlt=''
             textTitle={wordpressCopy?.section4_a_headingLevel3}
             content={
               <>
-                <p className={styles.JoinTheEffortStepText}>
+                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
                   {wordpressCopy?.section4_a_heading3_text}
                 </p>
                 <p>
                   <Button
-                    className={styles.ContactUsLink}
+                    className='text-smallestHeader underline'
                     href={wordpressCopy?.section4_a_heading3_link?.url}
                     target={wordpressCopy?.section4_a_heading3_link?.target}
                   >
@@ -530,12 +473,12 @@ function EquityTab() {
                 ? 'img/HET-fields-no-motion.gif'
                 : 'img/animations/HET-fields.gif'
             }
-            imageBackground={sass.joinEffortBg2}
+            imageBackground='join-effort-bg2'
             imageAlt=''
             textTitle={wordpressCopy?.section4_b_headingLevel3}
             content={
               <>
-                <p className={styles.JoinTheEffortStepText}>
+                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
                   Are you a community leader interested in expanding
                   transportation access to vaccine sites within your community?
                   Complete our inquiry form to receive information on our
@@ -543,7 +486,7 @@ function EquityTab() {
                 </p>
                 <p>
                   <Button
-                    className={styles.ContactUsLink}
+                    className='text-smallestHeader underline'
                     aria-label='Sign Up - vaccine rideshare program'
                     href='https://satcherinstitute.org/uberrideshare/'
                   >
@@ -560,19 +503,19 @@ function EquityTab() {
                 ? 'img/HET-dots-no-motion.gif'
                 : 'img/animations/HET-dots.gif'
             }
-            imageBackground={sass.joinEffortBg3}
+            imageBackground='join-effort-bg3'
             imageAlt=''
             textTitle={wordpressCopy?.section4_c_headingLevel3}
             content={
               <div className='flex flex-col items-start'>
-                <p className={styles.JoinTheEffortStepText}>
+                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
                   {wordpressCopy?.section4_c_heading3_text}
                 </p>
                 <HetEmailSignup id='wihe-email-signup' />
               </div>
             }
           />
-        </Grid>
+        </div>
       </div>
     </>
   )
