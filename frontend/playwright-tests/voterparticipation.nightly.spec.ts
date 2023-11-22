@@ -35,11 +35,6 @@ test('Voter Participation Flow', async ({ page }) => {
     })
     .click()
   await page
-    .getByText(
-      'Our data sources do not have Population vs. distribution of total voter particip'
-    )
-    .click()
-  await page
     .getByRole('heading', {
       name: 'Breakdown summary for voter participation in the United States',
     })
