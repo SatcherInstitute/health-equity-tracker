@@ -234,6 +234,7 @@ function CompareReport(props: {
                   demographicType={demographicType}
                   isCompareCard={isCompareCard}
                   reportTitle={props.reportTitle}
+                  trackerMode={props.trackerMode}
                 />
               )}
             />

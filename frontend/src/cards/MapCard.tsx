@@ -81,6 +81,7 @@ import { POPULATION, SVI } from '../data/providers/GeoContextProvider'
 import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
+import { type MadLibId } from '../utils/MadLibs'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -92,6 +93,7 @@ interface MapCardProps {
   demographicType: DemographicType
   isCompareCard?: boolean
   reportTitle: string
+  trackerMode: MadLibId
 }
 
 // This wrapper ensures the proper key is set to create a new instance when required (when
@@ -99,7 +101,11 @@ interface MapCardProps {
 export default function MapCard(props: MapCardProps) {
   return (
     <MapCardWithKey
-      key={props.demographicType + props.dataTypeConfig.dataTypeId}
+      key={
+        props.demographicType +
+        props.dataTypeConfig.dataTypeId +
+        props.trackerMode
+      }
       {...props}
     />
   )
@@ -146,6 +152,10 @@ function MapCardWithKey(props: MapCardProps) {
     : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
   const [highestLowestGeosMode, setHighestLowestGeosMode] =
     useParamState<boolean>(highestLowestGeosParamKey, false)
+
+  useEffect(() => {
+    setHighestLowestGeosMode(false)
+  }, [props.reportTitle, props.trackerMode])
 
   const [activeDemographicGroup, setActiveDemographicGroup] =
     useState<DemographicGroup>(initialGroup)
