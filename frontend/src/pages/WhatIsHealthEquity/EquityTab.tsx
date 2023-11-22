@@ -131,7 +131,10 @@ function EquityTab() {
 
             <div className='w-full border-0 px-15p py-8 md:w-2/3 md:border-l md:border-solid md:px-16 md:py-28'>
               <header className='mb-10'>
-                <h2 className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'>
+                <h2
+                  id='main'
+                  className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'
+                >
                   What is Health Equity?
                 </h2>
               </header>
@@ -221,7 +224,10 @@ function EquityTab() {
                 </div>
                 <section className='w-full md:w-1/4'>
                   <div className='flex w-full flex-col flex-wrap items-center justify-evenly'>
-                    <aside className='flex flex-col items-start p-4 text-left'>
+                    <aside
+                      className='flex flex-col items-start p-4 text-left'
+                      aria-label="Jessica's Story Video"
+                    >
                       <iframe
                         className='h-44 w-full rounded-xl'
                         src='https://www.youtube.com/embed/cmMutvgQIcU'
@@ -240,7 +246,10 @@ function EquityTab() {
                         impact they have on BIPOC communities.
                       </p>
                     </aside>
-                    <aside className='flex flex-col items-start p-4 text-left'>
+                    <aside
+                      className='flex flex-col items-start p-4 text-left'
+                      aria-label='NCRN Information'
+                    >
                       <a href={urlMap.ncrn} className='text-black	no-underline'>
                         <LazyLoad offset={300} height={200} once>
                           <img
