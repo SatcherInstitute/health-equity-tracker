@@ -16,8 +16,7 @@ export const PHRMA_CONDITIONS: DropdownVarId[] = [
   'medicare_mental_health',
 ]
 
-export const PHRMA_DATATYPES: DataTypeId[] = [
-  // % ADHERENCE
+const PHRMA_ADHERENCE_DATATYPES: DataTypeId[] = [
   'anti_psychotics_adherence',
   'arv_adherence',
   'beta_blockers_adherence',
@@ -26,10 +25,17 @@ export const PHRMA_DATATYPES: DataTypeId[] = [
   'bb_ami_adherence',
   'ras_antagonists_adherence',
   'statins_adherence',
-  // 100K
+]
+
+const PHRMA_DISEASE_DATATYPES: DataTypeId[] = [
   'medicare_ami',
   'medicare_hiv',
   'medicare_schizoprhenia',
+]
+
+export const PHRMA_DATATYPES: DataTypeId[] = [
+  ...PHRMA_ADHERENCE_DATATYPES,
+  ...PHRMA_DISEASE_DATATYPES,
 ]
 
 export const PHRMA_METRICS: MetricId[] = [
