@@ -59,10 +59,29 @@ const config: PlaywrightTestConfig = {
     {
       name: 'E2E_PROD',
       testMatch: /.*nightly.spec.ts/,
+      use: {
+        baseURL: 'https://healthequitytracker.org'
+      }
+    },
+    // TODO: either figure out how to let playwright log into dev.healthequitytracker
+    // TODO: or disable the basic auth that is in place (and ensure robots.txt block tracking)
+    {
+      name: 'E2E_STAGING_LOGIN',
+      testMatch: /.*staging.login.setup.spec.ts/,
+    },
+    {
+      name: 'E2E_STAGING',
+      testMatch: /.*nightly.spec.ts/,
+      use: {
+        baseURL: 'https://dev.healthequitytracker.org',
+        // Use prepared auth state.
+        storageState: 'playwright/.auth/user.json',
+      },
+      dependencies: ['E2E_STAGING_LOGIN']
     },
     {
       name: 'E2E',
-      testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
+      testIgnore: /.*(?:externalUrls|nightly|setup).spec.ts/,
     },
   ],
 

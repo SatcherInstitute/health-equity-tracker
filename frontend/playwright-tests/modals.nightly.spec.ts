@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 test('Topic Info Modal from Sidebar', async ({ page }) => {
   // Compare Topics Page Loads
   await page.goto(
-    'https://healthequitytracker.org/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
+    '/exploredata?mls=1.incarceration-3.poverty-5.13&mlp=comparevars&dt1=prison',
     { waitUntil: 'commit' }
   )
 

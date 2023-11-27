@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 test('Excessive Drinking Flow', async ({ page }) => {
   await page.goto(
-    'https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All'
+    '/exploredata?mls=1.excessive_drinking-3.00&group1=All'
   )
   await page
     .getByLabel(
