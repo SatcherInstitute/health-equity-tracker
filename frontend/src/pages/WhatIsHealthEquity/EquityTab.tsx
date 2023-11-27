@@ -78,9 +78,9 @@ function JoinTheEffortContainer(props: {
   content: JSX.Element
 }) {
   return (
-    <div className='flex items-center justify-around border-0 border-t border-solid border-alt-dark py-8'>
+    <div className='flex w-full items-center justify-around border-0 border-t border-solid border-alt-dark py-8'>
       <div
-        className={`hidden h-joinEffortLogo w-full items-center justify-center rounded-xl md:flex md:w-5/12 lg:w-5/12 bg-${props.imageBackground}`}
+        className={`hidden h-joinEffortLogo w-full items-center justify-center rounded-xl md:flex md:w-5/12 lg:w-5/12 ${props.imageBackground}`}
       >
         <LazyLoad offset={300} height={500} once>
           <img
@@ -455,7 +455,7 @@ function EquityTab() {
                 ? 'img/HET-lines-no-motion.gif'
                 : 'img/animations/HET-lines.gif'
             }
-            imageBackground='join-effort-bg1'
+            imageBackground='bg-join-effort-bg1'
             imageAlt=''
             textTitle={wordpressCopy?.section4_a_headingLevel3}
             content={
@@ -482,7 +482,7 @@ function EquityTab() {
                 ? 'img/HET-fields-no-motion.gif'
                 : 'img/animations/HET-fields.gif'
             }
-            imageBackground='join-effort-bg2'
+            imageBackground='bg-join-effort-bg2'
             imageAlt=''
             textTitle={wordpressCopy?.section4_b_headingLevel3}
             content={
@@ -512,7 +512,7 @@ function EquityTab() {
                 ? 'img/HET-dots-no-motion.gif'
                 : 'img/animations/HET-dots.gif'
             }
-            imageBackground='join-effort-bg3'
+            imageBackground='bg-join-effort-bg3'
             imageAlt=''
             textTitle={wordpressCopy?.section4_c_headingLevel3}
             content={
