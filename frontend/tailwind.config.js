@@ -31,7 +31,8 @@ export default {
       xl: '1920px',
       teamHeadshot: '181px',
       teamLogo: '250px',
-      newsPage: '1440px'
+      newsPage: '1440px',
+      equityLogo: '400px'
     },
     borderRadius: {
       sm: '4px',
@@ -165,6 +166,17 @@ export default {
       "z-middle": 'var(--z-middle)',
       "z-almost-top": 'var(--z-almost-top)',
       "z-top": 'var(--z-top)',
+    },
+    extend: {
+      height: {
+        joinEffortLogo: '720px',
+      },
+      width: {
+        joinEffortLogo: '600px',
+      },
+      padding: {
+        '15p': '15%'
+      }
     },
   },
   plugins: [],
