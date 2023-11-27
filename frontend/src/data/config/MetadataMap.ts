@@ -1,4 +1,3 @@
-import { SHOW_PHRMA_HIV_AND_CVD } from '../providers/PhrmaProvider'
 import { type DataSourceMetadata } from '../utils/DatasetTypes'
 
 export const GEOGRAPHIES_DATASET_ID = 'geographies'
@@ -375,7 +374,6 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     downloadable: true,
   },
   {
-    hideFromUser: !SHOW_PHRMA_HIV_AND_CVD, // TODO: remove this once PHRMA merged
     id: 'phrma',
     data_source_name:
       'Medication Utilization and Disease Rates in the Medicare Population',
