@@ -68,11 +68,12 @@ const config: PlaywrightTestConfig = {
       testMatch: /.*nightly.spec.ts/,
       use: {
         baseURL: 'https://dev.healthequitytracker.org',
-      },
+      }
+
     },
     {
       name: 'E2E',
-      testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
+      testIgnore: /.*(?:externalUrls|nightly).spec.ts/
     },
   ],
 
