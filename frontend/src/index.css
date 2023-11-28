@@ -2,9 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-/* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
 @layer base {
+  #root {
+    height: 100%;
+  }
+  html {
+    scroll-behavior: smooth;
+    height: 100%;
+  }
+  ,
+  body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    height: 100%;
+    background: white;
+  }
+
+  /* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
   :root {
+    font-size: 100%;
     /* non-tailwind values */
     --hex-share-icon-gray: #757575;
 
@@ -98,5 +115,9 @@
     --z-middle: 0;
     --z-almost-top: 3;
     --z-top: 999;
+  }
+  /* TODO: why doesnt var(--alt-green) work here? should try to avoid hard coded colors */
+  a {
+    color: #0b5240;
   }
 }

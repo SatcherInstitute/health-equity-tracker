@@ -5,28 +5,3 @@
 * {
   box-sizing: border-box;
 }
-
-:root {
-  font-size: 100%;
-}
-
-#root {
-  height: 100%;
-}
-
-html {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  height: 100%;
-  background: white;
-}
-
-a:link,
-a:visited {
-  color: $alt-green;
-}
