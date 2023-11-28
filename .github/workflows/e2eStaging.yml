@@ -1,0 +1,41 @@
+name: Run E2Es Against Staging CI
+
+on:
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  e2e_staging:
+    name: Runs frontend E2E_STAGING on PR merge
+    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install playwright browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Runs playwright E2E_STAGING
+        run: npx playwright test --project=E2E_STAGING
+
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 30
