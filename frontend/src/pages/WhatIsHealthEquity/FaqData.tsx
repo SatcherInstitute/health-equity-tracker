@@ -77,21 +77,14 @@ function AnswerWhatDataSources() {
     <div className='text-small'>
       <p>
         In this tracker, we are using many sources, including{' '}
-        <a className='text-alt-green' href={urlMap.acs5}>
-          American Community Survey 5-year estimates
-        </a>
-        , multiple datasets from the CDC including the{' '}
-        <a className='text-alt-green' href={urlMap.cdcBrfss}>
-          CDC’s BRFSS data set
-        </a>{' '}
-        via America's Health Rankings, and many more. Some sources are updated
-        bi-weekly, while other important data (such as information around social
-        determinants of health) can lag from weeks to years. Specific
-        information on update frequencies by source can be found on our{' '}
-        <a className='text-alt-green' href={DATA_CATALOG_PAGE_LINK}>
-          Data Downloads
-        </a>{' '}
-        page.
+        <a href={urlMap.acs5}>American Community Survey 5-year estimates</a>,
+        multiple datasets from the CDC including the{' '}
+        <a href={urlMap.cdcBrfss}>CDC’s BRFSS data set</a> via America's Health
+        Rankings, and many more. Some sources are updated bi-weekly, while other
+        important data (such as information around social determinants of
+        health) can lag from weeks to years. Specific information on update
+        frequencies by source can be found on our{' '}
+        <a href={DATA_CATALOG_PAGE_LINK}>Data Downloads</a> page.
       </p>
     </div>
   )
@@ -129,11 +122,7 @@ function AnswerAreTheLimitations() {
         <li>
           We typically refresh our data sources with newly available data within
           a few days. Seeking the latest information? A direct link is provided
-          for each of our{' '}
-          <a className='text-alt-green' href='/datacatalog'>
-            data sources
-          </a>
-          .
+          for each of our <a href='/datacatalog'>data sources</a>.
         </li>
       </ul>
     </div>
@@ -162,19 +151,13 @@ function AnswerHowDidYouAcquire() {
           morbidity and mortality among different races and ethnic groups
           throughout the U.S. in comparison to the white (non-Hispanic)
           population. To learn more, please view our{' '}
-          <a className='text-alt-green' href={OLD_AGE_ADJUSTMENT_LINK}>
-            age-adjustment methodology
-          </a>
-          .
+          <a href={OLD_AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
         </li>
         <li>Sources are refreshed when update notifications are received</li>
         <li>
           The entire Health Equity Tracker codebase is publicly available and
           open-source; contributions are welcome via{' '}
-          <a className='text-alt-green' href={urlMap.hetGitHub}>
-            GitHub
-          </a>
-          .
+          <a href={urlMap.hetGitHub}>GitHub</a>.
         </li>
       </ul>
     </div>

@@ -47,9 +47,7 @@ function FaqTab() {
                 <div className='font-sansText font-normal'>
                   {selectFAQs[3].answer}
                 </div>
-                <a className='text-alt-green' href='/datacatalog'>
-                  See Data Sources
-                </a>
+                <a href='/datacatalog'>See Data Sources</a>
               </div>
               <div className='w-full pb-5 text-left'>
                 <h3 className='font-sansTitle text-title font-medium'>
@@ -231,10 +229,7 @@ function FaqTab() {
                       media
                     </li>
                     <li>
-                      <a
-                        className='text-alt-green'
-                        href={`${CONTACT_TAB_LINK}`}
-                      >
+                      <a href={`${CONTACT_TAB_LINK}`}>
                         Share your health equity story
                       </a>
                     </li>

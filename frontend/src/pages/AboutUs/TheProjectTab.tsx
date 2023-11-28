@@ -153,7 +153,7 @@ function TheProjectTab() {
           </div>
         </div>
 
-        <div className=''>
+        <div>
           <h3 className='my-0 p-0  font-serif text-header font-extralight'>
             Where we aim to go
           </h3>

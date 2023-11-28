@@ -1041,7 +1041,6 @@ const AgeAdjustmentLink = () => {
         </div>
 
         <Button
-          className=''
           variant='text'
           color='primary'
           href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}

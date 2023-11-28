@@ -18,7 +18,7 @@ export default function Resources(props: ResourcesProps) {
   const renderResourcesList = (groups: Resource[]) => (
     <ul className='mx-1 my-0 list-none pl-0 text-smallest'>
       {groups.map((resource) => (
-        <li className='' key={resource.name ? resource.name : ''}>
+        <li key={resource.name ? resource.name : ''}>
           <a href={resource.url}>{resource.name}</a>
         </li>
       ))}
@@ -58,7 +58,7 @@ export default function Resources(props: ResourcesProps) {
       </Helmet>
       <h2 className='sr-only'>Health Equity Resources</h2>
       <div className='mx-auto my-4'>
-        <Grid container className=''>
+        <Grid container>
           <div className='flex flex-col items-baseline lg:flex-row'>
             {resourceGroups.map(renderResourceGroup)}
           </div>

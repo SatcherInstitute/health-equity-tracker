@@ -37,7 +37,6 @@ export default function DefaultHelperBox() {
               <ul className={styles.SuggestedReportsList}>
                 <li className={styles.SuggestedReportsListItem}>
                   <a
-                    className='text-alt-green'
                     href={
                       EXPLORE_DATA_PAGE_LINK + HIV_PREVALANCE_RACE_USA_SETTING
                     }
@@ -47,7 +46,6 @@ export default function DefaultHelperBox() {
                 </li>
                 <li className={styles.SuggestedReportsListItem}>
                   <a
-                    className='text-alt-green'
                     href={
                       EXPLORE_DATA_PAGE_LINK +
                       COVID_DEATHS_AGE_FULTON_COUNTY_SETTING
@@ -58,7 +56,6 @@ export default function DefaultHelperBox() {
                 </li>
                 <li className={styles.SuggestedReportsListItem}>
                   <a
-                    className='text-alt-green'
                     href={
                       EXPLORE_DATA_PAGE_LINK + PRISON_VS_POVERTY_RACE_GA_SETTING
                     }
@@ -68,7 +65,6 @@ export default function DefaultHelperBox() {
                 </li>
                 <li className={styles.SuggestedReportsListItem}>
                   <a
-                    className='text-alt-green'
                     href={
                       EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING
                     }
@@ -106,10 +102,7 @@ export default function DefaultHelperBox() {
             <p className={styles.NoTopicHelperVideoBoxTourText}>
               <i>
                 New to the tracker? Watch the video demo, or take a{' '}
-                <a
-                  className='text-alt-green'
-                  href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}
-                >
+                <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
                   guided tour of a COVID-19 report.
                 </a>
               </i>

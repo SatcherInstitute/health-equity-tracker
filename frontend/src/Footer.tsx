@@ -118,7 +118,7 @@ function Logos() {
                     href={urlMap.shliLinkedIn}
                     aria-label='Satcher Health on LinkedIn'
                   >
-                    <LinkedInIcon className='text-alt-green' />
+                    <LinkedInIcon />
                   </a>
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
@@ -126,7 +126,7 @@ function Logos() {
                     href={urlMap.shliTwitter}
                     aria-label='Satcher Health on Twitter'
                   >
-                    <TwitterIcon className='text-alt-green' />
+                    <TwitterIcon />
                   </a>
                 </Grid>
                 <Grid item className={styles.SocialsIcon}>
@@ -134,7 +134,7 @@ function Logos() {
                     href={urlMap.shliYoutube}
                     aria-label='Satcher Health on YouTube'
                   >
-                    <YouTubeIcon className='text-alt-green' />
+                    <YouTubeIcon />
                   </a>
                 </Grid>
               </Grid>

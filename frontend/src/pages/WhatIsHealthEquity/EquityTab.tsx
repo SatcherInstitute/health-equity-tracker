@@ -281,7 +281,7 @@ function EquityTab() {
                 </h3>
                 <p className='text-left font-sansText text-title font-light text-black'>
                   Read the{' '}
-                  <Link className='text-alt-green' to={NEWS_PAGE_LINK}>
+                  <Link to={NEWS_PAGE_LINK}>
                     latest news, posts, and stories
                   </Link>{' '}
                   related to health equity, or learn more from the articles
