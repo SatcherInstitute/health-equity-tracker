@@ -1,7 +1,4 @@
-import styles from './WhatIsHealthEquityPage.module.scss'
 import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 import FaqSection from '../ui/FaqSection'
 import {
   DYNAMIC_COPY_KEY,
@@ -12,12 +9,10 @@ import {
   NEWS_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
 } from '../../utils/internalRoutes'
-import { Box } from '@mui/material'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import { useQuery } from 'react-query'
-import sass from '../../styles/variables.module.scss'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
@@ -83,37 +78,25 @@ function JoinTheEffortContainer(props: {
   content: JSX.Element
 }) {
   return (
-    <Grid
-      container
-      justifyContent='space-around'
-      className={styles.JoinTheEffortItemContainer}
-    >
-      <Grid
-        item
-        md={5}
-        lg={5}
-        className={styles.JoinTheEffortImgContainer}
-        style={{ backgroundColor: props.imageBackground }}
+    <div className='flex w-full items-center justify-around border-0 border-t border-solid border-alt-dark py-8'>
+      <div
+        className={`hidden h-joinEffortLogo w-full items-center justify-center rounded-xl md:flex md:w-5/12 lg:w-5/12 ${props.imageBackground}`}
       >
         <LazyLoad offset={300} height={500} once>
           <img
             src={props.imageUrl}
             alt={props.imageAlt}
-            className={styles.JoinTheEffortImg}
+            className='h-auto max-h-sm max-w-equityLogo'
           />
         </LazyLoad>
-      </Grid>
-      <Grid item sm={12} md={6} className={styles.JoinTheEffortTextContainer}>
-        <Typography
-          className={styles.JoinTheEffortStepHeaderText}
-          variant='h2'
-          component='h4'
-        >
+      </div>
+      <div className='items-left flex w-full flex-col justify-center p-2.5 text-left sm:w-full md:w-1/2'>
+        <h4 className='m-0 py-2.5 font-serif text-bigHeader font-light leading-lhModalHeading'>
           {props.textTitle}
-        </Typography>
+        </h4>
         {props.content}
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }
 
@@ -134,90 +117,51 @@ function EquityTab() {
         <Helmet>
           <title>What is Health Equity? - Health Equity Tracker</title>
         </Helmet>
-        <Grid container className={styles.Grid}>
-          <Grid
-            container
-            className={styles.HeaderRow}
-            direction='row'
-            justifyContent='center'
-            alignItems='center'
-          >
-            <Grid
-              container
-              item
-              xs={12}
-              sm={12}
-              md={4}
-              className={styles.HeaderImgItem}
-            >
+        <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+          <div className='flex w-full items-center justify-center border-0 border-b border-solid border-border-color'>
+            <figure className='mx-auto mt-0 hidden w-full text-left md:block md:w-1/3'>
               <LazyLoad offset={300} height={760} once>
                 <img
-                  width='397'
-                  height='760'
-                  src='/img/stock/woman-in-wheelchair-with-tea.png'
-                  className={styles.HeaderImg}
                   alt=''
+                  className='h-auto w-full max-w-equityLogo rounded-xl p-2.5'
+                  src='/img/stock/woman-in-wheelchair-with-tea.png'
                 />
               </LazyLoad>
-            </Grid>
-            <Grid item xs={12} sm={12} md={8} className={styles.HeaderTextItem}>
-              <Box mb={5}>
-                <Typography
+            </figure>
+
+            <div className='w-full border-0 px-15p py-8 md:w-2/3 md:border-l md:border-solid md:px-16 md:py-28'>
+              <header className='mb-10'>
+                <h2
                   id='main'
-                  className={styles.HeaderText}
-                  variant='h2'
-                  component='h2'
-                  paragraph={true}
+                  className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'
                 >
                   What is Health Equity?
-                </Typography>
-              </Box>
-              <Typography
-                className={styles.HeaderSubtext}
-                variant='body1'
-                paragraph={true}
-              >
+                </h2>
+              </header>
+              <p className='mb-4 mt-0 text-left font-sansText text-title font-normal leading-lhLoose'>
                 <b>Health Equity</b> exists when all people, regardless of race,
                 sex, sexual orientation, disability, socio-economic status,
                 geographic location, or other societal constructs have fair and
                 just access, opportunity, and resources to achieve their highest
                 potential for health.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant='body1'>
+              </p>
+              <p className='m-0 text-left font-sansText text-title font-normal leading-lhLoose'>
                 Unfortunately, social and political determinants of health
                 negatively affect many communities, their people, and their
                 ability to lead healthy lives.
-              </Typography>
-              <Typography className={styles.HeaderSubtext} variant='body1'>
-                <span className={styles.DefinitionSourceSpan}>
+              </p>
+              <p className='m-0 text-left font-sansText text-title font-normal leading-lhLoose'>
+                <span className='text-small text-alt-dark'>
                   Health Equity Leadership & Exchange Network, 2020
                 </span>
-              </Typography>
-              <Grid
-                container
-                item
-                xs={12}
-                direction='row'
-                justifyContent='space-between'
-                alignItems='flex-start'
-                className={styles.DefinitionsContainer}
-              >
+              </p>
+              <div className='flex w-full flex-wrap items-start justify-between text-left'>
                 {/* PDOH */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={6}
-                  className={styles.DefinitionsItem}
-                >
-                  <Typography
-                    className={styles.DefinitionHeader}
-                    variant='h2'
-                    component='h3'
-                  >
+                <section className='w-full p-4 pl-0 md:w-1/2'>
+                  <h3 className='m-0 pt-4 font-serif text-title font-light leading-lhLoose text-alt-green'>
                     Political determinants of health
-                  </Typography>
-                  <p className={styles.DefinitionText}>
+                  </h3>
+                  <p className='mb-2 mt-2 text-small leading-lhLoose'>
                     The Political determinants of health involve the systematic
                     process of structuring relationships, distributing
                     resources, and administering power, operating simultaneously
@@ -225,74 +169,40 @@ function EquityTab() {
                     shape opportunities that either advance health equity or
                     exacerbate health inequities.
                   </p>
-                  <span className={styles.DefinitionSourceSpan}>
+                  <span className='text-small text-alt-dark'>
                     Daniel Dawes, 2020
                   </span>
-                </Grid>
-
+                </section>
                 {/* SDOH */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={6}
-                  className={styles.DefinitionsItem}
-                >
-                  <Typography
-                    className={styles.DefinitionHeader}
-                    variant='h2'
-                    component='h3'
-                  >
+                <section className='w-full p-4 pl-0 md:w-1/2'>
+                  <h3 className='m-0 pt-4 font-serif text-title font-light leading-lhLoose text-alt-green'>
                     Social determinants of health
-                  </Typography>
-                  <p className={styles.DefinitionText}>
+                  </h3>
+                  <p className='mb-2 mt-2 text-small leading-lhLoose'>
                     The conditions in the environments in which people are born,
                     live, learn, work, play, worship, and age that affect a wide
                     range of health, functioning, and quality-of-life outcomes
                     and risks.
                   </p>
-                  <span className={styles.DefinitionSourceSpan}>
+                  <span className='text-small text-alt-dark'>
                     Healthy People 2020, CDC
                   </span>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
+                </section>
+              </div>
+            </div>
+          </div>
 
-          <Grid
-            container
-            className={styles.ResourcesAndNewsRow}
-            direction='column'
-            justifyContent='center'
-          >
-            <Grid
-              container
-              className={styles.ResourcesRow}
-              justifyContent='center'
-            >
-              <Grid item>
-                <Typography className={styles.ResourcesHeaderText} variant='h3'>
+          <div className='flex w-full flex-col flex-wrap items-center justify-center'>
+            <div className='flex w-full flex-wrap justify-center py-5'>
+              <section>
+                <h3 className='m-0 text-center font-serif text-biggerHeader font-light leading-lhLoose text-alt-green'>
                   {wordpressCopy?.section2_headingLevel2}
-                </Typography>
-              </Grid>
-              <Grid
-                container
-                className={styles.ResourcesContainer}
-                direction='row'
-                justifyContent='space-around'
-                item
-                xs={12}
-              >
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={9}
-                  className={styles.ResourceItem}
-                >
+                </h3>
+              </section>
+              <div className='flex w-full flex-wrap justify-around py-5 text-left'>
+                <div className='flex w-full flex-col  items-start p-4 text-left md:w-3/4'>
                   <iframe
-                    className={styles.ResourceVideoEmbed}
-                    width='100%'
+                    className='w-full rounded-xl'
                     height='633px'
                     src='https://www.youtube.com/embed/mux1c73fJ78'
                     title='YouTube video player -
@@ -301,29 +211,25 @@ function EquityTab() {
                     allow='accelerometer; autoplay; clipboard-write;
                           encrypted-media; gyroscope; picture-in-picture'
                     allowFullScreen
-                  ></iframe>
-                  <h4 className={styles.MainResourceTitleText}>
+                  />
+                  <h4 className='my-4 font-sansText text-smallHeader font-medium'>
                     Learn about the Political Determinants of Health through the{' '}
                     <b>Allegory of the Orchard</b>
                   </h4>
-                  <p className={styles.MainResourceSubtitleText}>
+                  <p className='m-0 font-sansText text-title font-light'>
                     Girding all health determinants is one that rarely gets
                     addressed but which has power over all aspects of health:
                     political determinants of health.
                   </p>
-                </Grid>
-                <Grid item xs={12} sm={12} md={3}>
-                  <Grid
-                    container
-                    direction='column'
-                    alignItems='center'
-                    justifyContent='space-evenly'
-                  >
-                    <Grid item className={styles.ResourceItem}>
+                </div>
+                <section className='w-full md:w-1/4'>
+                  <div className='flex w-full flex-col flex-wrap items-center justify-evenly'>
+                    <aside
+                      className='flex flex-col items-start p-4 text-left'
+                      aria-label="Jessica's Story Video"
+                    >
                       <iframe
-                        className={styles.ResourceVideoEmbed}
-                        width='100%'
-                        height='180px'
+                        className='h-44 w-full rounded-xl'
                         src='https://www.youtube.com/embed/cmMutvgQIcU'
                         title="YouTube video player -
                               Jessica's Story"
@@ -331,57 +237,49 @@ function EquityTab() {
                         allow='accelerometer; autoplay; clipboard-write;
                               encrypted-media; gyroscope; picture-in-picture'
                         allowFullScreen
-                      ></iframe>
-                      <h4 className={styles.ResourceTitleText}>
+                      />
+                      <h4 className='my-4 font-sansText text-title font-medium'>
                         Jessica's Story
                       </h4>
-                      <p className={styles.ResourceSubtitleText}>
+                      <p className='m-0 font-light'>
                         How political determinants of health operate and the
                         impact they have on BIPOC communities.
                       </p>
-                    </Grid>
-                    <Grid item className={styles.ResourceItem}>
-                      <a href={urlMap.ncrn}>
+                    </aside>
+                    <aside
+                      className='flex flex-col items-start p-4 text-left'
+                      aria-label='NCRN Information'
+                    >
+                      <a href={urlMap.ncrn} className='text-black	no-underline'>
                         <LazyLoad offset={300} height={200} once>
                           <img
-                            className={styles.ResourceImg}
+                            className='h-44 w-full rounded-xl'
                             src='/img/graphics/NCRN.png'
                             alt='Header for Morehouse School of Medicine National COVID-19 Resiliency Network'
                           />
                         </LazyLoad>
-                        <h4 className={styles.ResourceTitleText}>
+                        <h4 className='my-4 font-sansText text-title font-medium'>
                           Morehouse School of Medicine National COVID-19
                           Resiliency Network (NCRN)
                         </h4>
-                        <p className={styles.ResourceSubtitleText}>
+                        <p className='font-light'>
                           We provide awareness and linkage to critical health
                           information and services, helping families recover
                           from difficulties that may have been caused or
                           worsened by the Coronavirus (COVID-19) pandemic.
                         </p>
                       </a>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
-            </Grid>
-
-            <Grid
-              container
-              className={styles.NewsAndStoriesRow}
-              direction='row'
-              justifyContent='center'
-            >
-              <Grid item>
-                <Typography
-                  className={styles.NewsAndStoriesHeaderText}
-                  variant='h3'
-                  pb={1}
-                >
+                    </aside>
+                  </div>
+                </section>
+              </div>
+            </div>
+            <div className='flex w-full flex-wrap justify-center py-5'>
+              <section>
+                <h3 className='m-0 pb-2 text-center font-serif text-biggerHeader font-light text-alt-green'>
                   News and stories
-                </Typography>
-
-                <p className={styles.NewsAndStoriesSubheaderText}>
+                </h3>
+                <p className='text-left font-sansText text-title font-light text-black'>
                   Read the{' '}
                   <Link to={NEWS_PAGE_LINK}>
                     latest news, posts, and stories
@@ -389,118 +287,92 @@ function EquityTab() {
                   related to health equity, or learn more from the articles
                   below.
                 </p>
-              </Grid>
+              </section>
               <LazyLoad offset={300} height={700} once>
-                <Grid
-                  container
-                  direction='row'
-                  justifyContent='space-between'
-                  alignItems='flex-start'
-                >
-                  <Grid
-                    item
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    className={styles.NewsAndStoriesItem}
-                    component='article'
-                  >
+                <div className='flex w-full flex-wrap items-start justify-between'>
+                  <article className='flex w-full flex-col items-center justify-center p-8 md:w-1/2'>
                     <a
                       href='https://satcherinstitute.org/hetblog2/'
                       aria-label='Satcher Blog Post on Why Data Matters'
                     >
                       <img
-                        className={styles.NewsAndStoriesBigImg}
+                        className='h-auto w-full rounded-xl'
                         src='/img/stock/kid-gets-a-mask.png'
                         alt=''
                       />
                     </a>
-                    <h4 className={styles.NewsAndStoriesTitleText}>
+                    <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
+                        className='no-underline'
                         href='https://satcherinstitute.org/hetblog2/'
                         aria-label='Satcher Blog Post on Why Data Matters'
-                        className={styles.NewsAndStoriesTitleLink}
                       >
                         Why it matters that information on race, ethnicity,
                         gender and disability are measured accurately and
                         completely
                       </a>
                     </h4>
-
-                    <p className={styles.NewsAndStoriesSubtitleText}>
+                    <p className='m-0 text-left text-text'>
                       Why ongoing data on health and well-being metrics could be
                       used in targeting federal resources and programs to
                       address inequities due to social and economic factors.{' '}
                       <a
+                        className='text-left text-black'
                         href='https://satcherinstitute.org/hetblog2/'
                         aria-label='Satcher Blog Post on Why Data Matters'
                       >
                         Read article at SatcherInstitute.org
                       </a>
                     </p>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={6}
-                    className={styles.NewsAndStoriesItem}
-                    component='article'
-                  >
+                  </article>
+                  <article className='flex w-full flex-col items-center justify-center p-8 sm:w-1/2 md:w-1/2'>
                     <a
                       href='https://satcherinstitute.org/hetblog3/'
                       aria-label='Satcher Blog Post on Health Equity Data'
                     >
                       <img
-                        className={styles.NewsAndStoriesBigImg}
+                        className='h-auto w-full rounded-xl'
                         src='/img/stock/girls-studying.jpg'
                         alt=''
                       />
                     </a>
-                    <h4 className={styles.NewsAndStoriesTitleText}>
+                    <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
+                        className='no-underline'
                         href='https://satcherinstitute.org/hetblog3/'
                         aria-label='Satcher Blog Post on Why Data Matters'
-                        className={styles.NewsAndStoriesTitleLink}
                       >
                         How can we use data to inform practices to advance
                         health equity?
                       </a>
                     </h4>
-
-                    <p className={styles.NewsAndStoriesSubtitleText}>
+                    <p className='m-0 text-left text-text'>
                       In public health, much of our work depends on having
                       accurate data, so we know what’s happening both on the
                       ground and at a population level.{' '}
                       <a
+                        className='text-black'
                         href='https://satcherinstitute.org/hetblog3/'
                         aria-label='Satcher Blog Post on Health Equity Data'
                       >
                         Read article at SatcherInstitute.org
                       </a>
                     </p>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    className={styles.NewsAndStoriesItem}
-                    component='article'
-                  >
+                  </article>
+                  <article className='flex w-full flex-col items-center justify-center p-8 sm:w-1/2 md:w-1/3'>
                     <a
                       href='https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/'
                       aria-label='Read Scientific American Article'
                     >
                       <img
-                        className={styles.NewsAndStoriesSmallImg}
+                        className='w-full rounded-xl'
                         src='/img/stock/filling-in-forms.png'
                         alt=''
                       />
                     </a>
-                    <h4 className={styles.NewsAndStoriesTitleText}>
+                    <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className={styles.NewsAndStoriesTitleLink}
+                        className='no-underline'
                         href='https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/'
                         aria-label='Read Scientific American Article'
                       >
@@ -508,107 +380,74 @@ function EquityTab() {
                         inequities
                       </a>
                     </h4>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    className={styles.NewsAndStoriesItem}
-                    component='article'
-                  >
+                  </article>
+                  <article className='flex w-full flex-col items-center justify-center p-8 sm:w-1/2 md:w-1/3'>
                     <a
                       href='https://satcherinstitute.github.io/analysis/cdc_case_data'
                       aria-label='Satcher Post on COVID Data Completeness'
                     >
                       <img
-                        className={styles.NewsAndStoriesSmallImg}
+                        className='w-full rounded-xl'
                         src='/img/stock/kids-ukulele.png'
                         alt=''
                       />
                     </a>
-                    <h4 className={styles.NewsAndStoriesTitleText}>
+                    <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
+                        className='no-underline'
                         href='https://satcherinstitute.github.io/analysis/cdc_case_data'
                         aria-label='Satcher Post on COVID Data Completeness'
-                        className={styles.NewsAndStoriesTitleLink}
                       >
                         How complete are the CDC's COVID-19 case surveillance
                         datasets for race/ethnicity at the state and county
                         levels?
                       </a>
                     </h4>
-                  </Grid>
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    className={styles.NewsAndStoriesItem}
-                    component='article'
-                  >
+                  </article>
+                  <article className='flex w-full flex-col items-center justify-center p-8 sm:w-1/2 md:w-1/3'>
                     <a
                       href='https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children'
                       aria-label='Kennedy Satcher Article: The Mental Fitness of Our Children'
                     >
                       <img
-                        className={styles.NewsAndStoriesSmallImg}
+                        className='w-full rounded-xl'
                         src='/img/graphics/laptop-HET.png'
                         alt=''
                       />
                     </a>
-                    <h4 className={styles.NewsAndStoriesTitleText}>
+                    <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className={styles.NewsAndStoriesTitleLink}
+                        className='no-underline'
                         href='https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children'
                         aria-label='Kennedy Satcher Article: The Mental Fitness of Our Children'
                       >
                         The mental fitness of our children
                       </a>
                     </h4>
-                  </Grid>
-                </Grid>
+                  </article>
+                </div>
               </LazyLoad>
-            </Grid>
-          </Grid>
-          <Grid
-            container
-            className={styles.FaqRow}
-            alignItems='center'
-            justifyContent='center'
-          >
-            <Grid item sm={12} md={10}>
+            </div>
+          </div>
+          <div className='flex w-full items-center justify-center border-0 border-b border-solid py-12'>
+            <section className='w-full md:w-5/6'>
               <FaqSection />
-            </Grid>
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          className={styles.JoinTheEffortRow}
-          direction='column'
-          justifyContent='center'
-          alignItems='center'
-        >
-          <Grid
-            item
-            className={styles.JoinTheEffortHeaderRow}
-            id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-            container
-            direction='column'
-            justifyContent='center'
-            alignItems='center'
-          >
-            <Typography
-              className={styles.JoinTheEffortHeaderText}
-              variant='h2'
-              component='h3'
+            </section>
+          </div>
+        </div>
+
+        <div className='flex w-full flex-col items-center justify-center px-8'>
+          <section className='flex w-full flex-col items-center justify-center py-16'>
+            <h3
+              id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
+              className='m-0 mb-4 text-center font-serif text-biggerHeader font-light leading-lhModalHeading text-alt-green'
             >
               {wordpressCopy?.section4_headingLevel2}
-            </Typography>
-            <span className={styles.JoinTheEffortSubheaderText}>
+            </h3>
+            <span className='text-left font-sansText text-title font-normal leading-lhLoose'>
               {wordpressCopy?.section4_heading2_text}
             </span>
-          </Grid>
+          </section>
 
           <JoinTheEffortContainer
             imageUrl={
@@ -616,17 +455,17 @@ function EquityTab() {
                 ? 'img/HET-lines-no-motion.gif'
                 : 'img/animations/HET-lines.gif'
             }
-            imageBackground={sass.joinEffortBg1}
+            imageBackground='bg-join-effort-bg1'
             imageAlt=''
             textTitle={wordpressCopy?.section4_a_headingLevel3}
             content={
               <>
-                <p className={styles.JoinTheEffortStepText}>
+                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
                   {wordpressCopy?.section4_a_heading3_text}
                 </p>
                 <p>
                   <Button
-                    className={styles.ContactUsLink}
+                    className='text-smallestHeader underline'
                     href={wordpressCopy?.section4_a_heading3_link?.url}
                     target={wordpressCopy?.section4_a_heading3_link?.target}
                   >
@@ -643,12 +482,12 @@ function EquityTab() {
                 ? 'img/HET-fields-no-motion.gif'
                 : 'img/animations/HET-fields.gif'
             }
-            imageBackground={sass.joinEffortBg2}
+            imageBackground='bg-join-effort-bg2'
             imageAlt=''
             textTitle={wordpressCopy?.section4_b_headingLevel3}
             content={
               <>
-                <p className={styles.JoinTheEffortStepText}>
+                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
                   Are you a community leader interested in expanding
                   transportation access to vaccine sites within your community?
                   Complete our inquiry form to receive information on our
@@ -656,7 +495,7 @@ function EquityTab() {
                 </p>
                 <p>
                   <Button
-                    className={styles.ContactUsLink}
+                    className='text-smallestHeader underline'
                     aria-label='Sign Up - vaccine rideshare program'
                     href='https://satcherinstitute.org/uberrideshare/'
                   >
@@ -673,19 +512,19 @@ function EquityTab() {
                 ? 'img/HET-dots-no-motion.gif'
                 : 'img/animations/HET-dots.gif'
             }
-            imageBackground={sass.joinEffortBg3}
+            imageBackground='bg-join-effort-bg3'
             imageAlt=''
             textTitle={wordpressCopy?.section4_c_headingLevel3}
             content={
               <div className='flex flex-col items-start'>
-                <p className={styles.JoinTheEffortStepText}>
+                <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
                   {wordpressCopy?.section4_c_heading3_text}
                 </p>
                 <HetEmailSignup id='wihe-email-signup' />
               </div>
             }
           />
-        </Grid>
+        </div>
       </div>
     </>
   )

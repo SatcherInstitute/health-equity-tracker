@@ -59,6 +59,17 @@ const config: PlaywrightTestConfig = {
     {
       name: 'E2E_PROD',
       testMatch: /.*nightly.spec.ts/,
+      use: {
+        baseURL: 'https://healthequitytracker.org'
+      }
+    },
+    {
+      name: 'E2E_STAGING',
+      testMatch: /.*nightly.spec.ts/,
+      use: {
+        baseURL: 'https://dev.healthequitytracker.org',
+      }
+
     },
     {
       name: 'E2E',

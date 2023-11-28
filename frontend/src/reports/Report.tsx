@@ -188,6 +188,7 @@ export function Report(props: ReportProps) {
                     }}
                     demographicType={demographicType}
                     reportTitle={props.reportTitle}
+                    trackerMode={props.trackerMode}
                   />
                 </Grid>
 
