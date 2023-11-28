@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 
 test('Covid Hospitalizations Flow', async ({ page }) => {
 
-	await page.goto('https://healthequitytracker.org/exploredata?mls=1.covid-3.00&dt1=covid_hospitalizations');
+	await page.goto('/exploredata?mls=1.covid-3.00&dt1=covid_hospitalizations');
 	await page.locator('#rate-map').getByRole('heading', { name: 'Rates of COVID-19 hospitalizations since Jan 2020 in the United States' }).click();
 	await page.getByText('Expand rates over time table').click();
 
