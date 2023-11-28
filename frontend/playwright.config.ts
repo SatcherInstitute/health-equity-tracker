@@ -72,7 +72,7 @@ const config: PlaywrightTestConfig = {
     },
     {
       name: 'E2E',
-      testIgnore: /.*(?:externalUrls|nightly|setup).spec.ts/,
+      testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
     },
   ],
 
