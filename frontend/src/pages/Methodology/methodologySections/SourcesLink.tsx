@@ -61,7 +61,7 @@ const SourcesLink = () => {
               Where data are readily available, calculations are made to present
               age-adjusted ratios in separate tables. To learn more, please view
               our{' '}
-              <a href={`${NEW_AGE_ADJUSTMENT_LINK}`}>
+              <a className='text-alt-green' href={`${NEW_AGE_ADJUSTMENT_LINK}`}>
                 age-adjustment methodology
               </a>
               .

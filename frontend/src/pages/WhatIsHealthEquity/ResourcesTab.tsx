@@ -62,7 +62,12 @@ function ResourcesTab() {
                             className={styles.ResourcesTabListItem}
                             key={resource.name}
                           >
-                            <a href={resource.url}>{resource.name}</a>
+                            <a
+                              className='text-alt-green no-underline hover:underline'
+                              href={resource.url}
+                            >
+                              {resource.name}
+                            </a>
                           </li>
                         ))}
                       </ul>

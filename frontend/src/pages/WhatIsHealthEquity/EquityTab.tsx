@@ -14,8 +14,8 @@ import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
 import { useQuery } from 'react-query'
 import { urlMap } from '../../utils/externalUrls'
-import { Link } from 'react-router-dom'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
+import { Link } from 'react-router-dom'
 
 interface WIHEWordpressCopy {
   section2_headingLevel2: string
@@ -281,7 +281,7 @@ function EquityTab() {
                 </h3>
                 <p className='text-left font-sansText text-title font-light text-black'>
                   Read the{' '}
-                  <Link to={NEWS_PAGE_LINK}>
+                  <Link className='text-alt-green' to={NEWS_PAGE_LINK}>
                     latest news, posts, and stories
                   </Link>{' '}
                   related to health equity, or learn more from the articles
@@ -303,7 +303,7 @@ function EquityTab() {
                     </a>
                     <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className='no-underline'
+                        className='text-alt-green no-underline hover:underline'
                         href='https://satcherinstitute.org/hetblog2/'
                         aria-label='Satcher Blog Post on Why Data Matters'
                       >
@@ -338,7 +338,7 @@ function EquityTab() {
                     </a>
                     <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className='no-underline'
+                        className='text-alt-green no-underline hover:underline'
                         href='https://satcherinstitute.org/hetblog3/'
                         aria-label='Satcher Blog Post on Why Data Matters'
                       >
@@ -372,7 +372,7 @@ function EquityTab() {
                     </a>
                     <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className='no-underline'
+                        className='text-alt-green no-underline hover:underline'
                         href='https://www.scientificamerican.com/article/data-and-technology-can-help-us-make-progress-on-covid-inequities/'
                         aria-label='Read Scientific American Article'
                       >
@@ -394,7 +394,7 @@ function EquityTab() {
                     </a>
                     <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className='no-underline'
+                        className='text-alt-green no-underline hover:underline'
                         href='https://satcherinstitute.github.io/analysis/cdc_case_data'
                         aria-label='Satcher Post on COVID Data Completeness'
                       >
@@ -417,7 +417,7 @@ function EquityTab() {
                     </a>
                     <h4 className='my-4 text-center font-serif text-smallestHeader font-light leading-lhSomeMoreSpace'>
                       <a
-                        className='no-underline'
+                        className='text-alt-green no-underline hover:underline'
                         href='https://www.kennedysatcher.org/blog/the-mental-fitness-of-our-children'
                         aria-label='Kennedy Satcher Article: The Mental Fitness of Our Children'
                       >

@@ -209,7 +209,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                 individuals per age group. By normalizing for age, we can paint
                 a more accurate picture of undue burden of disease and death
                 between populations. More details can be found in our{' '}
-                <Link to={OLD_AGE_ADJUSTMENT_LINK}>
+                <Link className='text-alt-green' to={OLD_AGE_ADJUSTMENT_LINK}>
                   age-adjustment methodology
                 </Link>
                 .
