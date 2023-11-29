@@ -12,7 +12,8 @@ test('Resources Tab Loads', async ({ page }) => {
 
 
 test('Methodology Page Loads', async ({ page }) => {
-    await page.goto('/methodology', { waitUntil: "commit" });
+    // TODO: update this route once we switch over to newer methodology version
+    await page.goto('/new-methodology', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
     await expect(mainHeading).toHaveText(['Methodology']);
     // @ts-ignore
