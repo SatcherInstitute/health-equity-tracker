@@ -13,9 +13,9 @@ interface ConditionVariableProps {
   definitionsArray: Definition[]
 }
 
-const ConditionVariable: React.FC<ConditionVariableProps> = ({
+export default function ConditionVariable({
   definitionsArray,
-}) => {
+}: ConditionVariableProps) {
   return (
     <div className='mx-auto my-4'>
       {definitionsArray.map((item) => {
@@ -43,5 +43,3 @@ const ConditionVariable: React.FC<ConditionVariableProps> = ({
     </div>
   )
 }
-
-export default ConditionVariable
