@@ -8,16 +8,7 @@ import { type DatasetMetadata } from '../../data/utils/DatasetTypes'
 import { render } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { test, expect } from 'vitest'
-// import React from 'react'
-// import { Router } from 'react-router-dom'
-// import { createMemoryHistory } from 'history'
-// import DataCatalogPage from './DataCatalogPage'
-// import { autoInitGlobals, getDataFetcher } from '../../utils/globals'
-// import FakeDataFetcher from '../../testing/FakeDataFetcher'
-// import { type DatasetMetadata } from '../../data/utils/DatasetTypes'
-// import { render } from '@testing-library/react'
-// import { act } from 'react-dom/test-utils'
-// import { test, expect } from 'vitest'
+import '@testing-library/jest-dom/extend-expect'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   name: 'ACS Population by Age and County',
@@ -68,14 +59,6 @@ test('Data catalog page renders subset of data sources', async () => {
       state_names: ACS_DATASET_METADATA,
     })
   })
-
-  //   expect(dataFetcher.getNumGetMetadataCalls()).toBe(1)
-  //   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0)
-  //   expect(await findByText('View All Datasets')).toBeInTheDocument()
-  //   expect(await findByTestId('acs')).toBeInTheDocument()
-  //   expect(await queryByTestId('covid_tracking_project')).not.toBeInTheDocument()
-  //   expect(await queryByTestId('ahr')).not.toBeInTheDocument()
-  // })
 
   expect(dataFetcher.getNumGetMetadataCalls()).toBe(1)
   expect(dataFetcher.getNumLoadDatasetCalls()).toBe(0)
