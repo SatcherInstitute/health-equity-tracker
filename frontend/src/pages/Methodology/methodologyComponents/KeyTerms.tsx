@@ -6,7 +6,6 @@ import {
   useMediaQuery,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { useTheme } from '@mui/material/styles'
 import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
@@ -56,7 +55,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
                         key={def.key}
                         className='mx-1 mb-2 mt-1 flex flex-col  p-0'
                       >
-                        <span className={styles.ConditionKey}>
+                        <span className=''>
                           <strong>{def.key}</strong>
                         </span>
                         <p className='m-0 ml-1 self-start text-smallest text-alt-black'>

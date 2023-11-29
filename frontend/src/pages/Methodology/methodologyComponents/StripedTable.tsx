@@ -10,8 +10,6 @@ import {
   TableBody,
 } from '@mui/material'
 
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
-
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: '#fafafa',
@@ -47,7 +45,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
 }) => {
   return (
     <TableContainer component={Paper} id={id}>
-      <Table aria-label='customized table' className={styles.StripedTable}>
+      <Table aria-label='customized table'>
         <TableHead>
           <TableRow
             // className={styles.StripedTableHeader}
@@ -58,7 +56,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
             ))}
           </TableRow>
         </TableHead>
-        <TableBody className={styles.StripedTable}>
+        <TableBody>
           {rows.map((row, rowIndex) => (
             <StyledTableRow
               key={rowIndex}

@@ -1,4 +1,3 @@
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 
 interface Definition {
@@ -29,7 +28,7 @@ const ConditionVariable: React.FC<ConditionVariableProps> = ({
                   key={def.key}
                   className='first:border-t-1 ml-0 self-start border-0 border-alt-dark font-sansText text-smallest text-alt-green'
                 >
-                  <span className={styles.ConditionKey}>
+                  <span>
                     <strong>{def.key}</strong>
                   </span>
                   <p className='m-0 ml-1 self-start text-smallest text-alt-black'>
