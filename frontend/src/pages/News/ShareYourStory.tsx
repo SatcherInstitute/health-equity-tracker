@@ -3,15 +3,15 @@ import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 export default function ShareYourStory() {
   return (
     <div className='flex w-full items-center justify-center text-start'>
-      <div className='flex max-w-md flex-wrap justify-center'>
+      <div className='flex max-w-md flex-wrap justify-center p-5'>
         <div className='pb-4 pl-16 pr-16 pt-24'>
           <h2
             id='main'
-            className='m-0 text-center font-serif text-bigHeader font-light text-alt-green'
+            className='m-0 text-center font-serif text-header font-light text-alt-green md:text-bigHeader'
           >
             Call for Community Writers
           </h2>
-          <h3 className='m-0 pb-4	text-center font-sansText	text-smallestHeader font-normal'>
+          <h3 className='m-0 pb-4	text-center font-sansText text-title	font-normal md:text-smallestHeader'>
             Share Your Story and Amplify Your Voice
           </h3>
         </div>

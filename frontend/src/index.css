@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  * {
+    box-sizing: border-box;
+  }
   #root {
     height: 100%;
   }
