@@ -12,10 +12,10 @@ export default function HetBigCTA(props: HetBigCTAProps) {
     <Button
       id={props.id}
       variant='contained'
-      className='rounded-2xl px-8 py-5 text-exploreButton text-white'
+      className='rounded-2xl px-8 py-5'
       href={props.href}
     >
-      {props.children}
+      <span className='text-exploreButton text-white'>{props.children}</span>
     </Button>
   )
 }
