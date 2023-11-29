@@ -2,8 +2,6 @@ import Toolbar from '@mui/material/Toolbar'
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material'
 import { links } from './MethodologyCardMenu'
 import { useHistory } from 'react-router-dom'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
-
 import { useState, useEffect } from 'react'
 import Fab from '@mui/material/Fab'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -53,11 +51,7 @@ export default function MethodologyCardMenuMobile() {
               label='Sections'
             >
               {links.map((link, idx) => (
-                <MenuItem
-                  key={idx}
-                  value={link.index}
-                  className={styles.MenuItemText}
-                >
+                <MenuItem key={idx} value={link.index} className=''>
                   {link.primary ? link.primary : link.secondary}
                 </MenuItem>
               ))}
