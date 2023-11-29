@@ -66,12 +66,17 @@ const StripedTable: React.FC<StripedTableProps> = ({
                 applyThickBorder &&
                 rows.length !== 3 &&
                 (rowIndex + 1) % 2 === 0
-                  ? styles.thickBorder
+                  ? 'border-0 border-b-2 border-alt-green'
                   : ''
               }
             >
               {columns.map((col) => (
-                <TableCell key={col.accessor} component='td' scope='row'>
+                <TableCell
+                  key={col.accessor}
+                  component='td'
+                  className='font-text text-left text-small font-normal'
+                  scope='row'
+                >
                   {row[col.accessor]}
                 </TableCell>
               ))}

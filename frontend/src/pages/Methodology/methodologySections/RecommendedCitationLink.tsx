@@ -1,5 +1,4 @@
 import Card from '@mui/material/Card'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { CITATION_APA } from '../methodologyComponents/MethodologyPage'
 import { Helmet } from 'react-helmet-async'
 
@@ -16,7 +15,9 @@ const RecommendedCitationLink = () => {
         </h3>
         <div className='text-left font-sansText text-small text-alt-black'>
           <Card elevation={3}>
-            <p className={styles.CitationAPA}>{CITATION_APA}</p>
+            <p className='mx-0 my-4 pl-12 pr-4 first-of-type:-indent-8'>
+              {CITATION_APA}
+            </p>
           </Card>
         </div>
       </article>

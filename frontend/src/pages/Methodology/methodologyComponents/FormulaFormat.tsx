@@ -1,36 +1,7 @@
 import React from 'react'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
+import { FractionFormat, type FractionProps } from './FractionFormat'
 
 type RightSideItem = string | FractionProps
-
-interface FractionProps {
-  numerator?: any
-  denominator?: any
-}
-
-const FractionFormat: React.FC<FractionProps> = ({
-  numerator,
-  denominator,
-}) => (
-  <div className='flex w-max flex-row items-center justify-center lg:inline-flex '>
-    {numerator ? (
-      <div className='mx-auto my-0 flex flex-col items-center justify-center self-center leading-lhTight'>
-        <div className='border-b-1 inline-block w-max break-words border-0 border-solid border-black text-center text-smallest'>
-          {numerator}
-        </div>
-        <div className='inline-block w-max text-center text-smallest'>
-          {denominator}
-        </div>
-      </div>
-    ) : (
-      <div className='mx-auto my-0 flex flex-col items-center justify-center self-center leading-lhTight'>
-        <div className='inline-block w-max text-center text-smallest'>
-          {denominator}
-        </div>
-      </div>
-    )}
-  </div>
-)
 
 interface FormulaProps {
   leftSide?: string
@@ -38,8 +9,8 @@ interface FormulaProps {
 }
 
 const FormulaFormat: React.FC<FormulaProps> = ({ leftSide, rightSide }) => (
-  <div className={styles.FormulaFormat}>
-    <code className={styles.FormulaFormatCode}>
+  <div className='flex flex-row items-center justify-between overflow-x-scroll rounded-lg bg-standard-info'>
+    <code className='mx-auto my-0 flex w-max max-w-lg flex-col items-center justify-center self-start border-none bg-opacity-0 text-smallest lg:flex-row'>
       <b>{leftSide}</b>
       <div>{' = '}</div>
 

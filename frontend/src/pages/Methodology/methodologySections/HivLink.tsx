@@ -1,5 +1,4 @@
 import FlagIcon from '@mui/icons-material/Flag'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   hivDataSources,
@@ -582,7 +581,7 @@ const HivLink = () => {
               numerator: 'Self-Reported Data',
               denominator: (
                 <>
-                  <span className={styles.FormulaFormatFunction}>f</span>
+                  <span className='font-math italic'>f</span>
                   (Self-Reported Data)
                 </>
               ),
@@ -594,9 +593,9 @@ const HivLink = () => {
         <blockquote>
           <p>
             <em>
-              Where <span className={styles.FormulaFormatFunction}>f</span> is a
-              function that assesses the prevalence and impact of HIV stigma
-              based on the self-reported data.
+              Where <span className='font-math italic'>f</span> is a function
+              that assesses the prevalence and impact of HIV stigma based on the
+              self-reported data.
             </em>
           </p>
         </blockquote>

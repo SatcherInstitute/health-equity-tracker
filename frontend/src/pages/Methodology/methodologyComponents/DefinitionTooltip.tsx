@@ -10,8 +10,6 @@ import {
   useTheme,
 } from '@mui/material'
 
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
-
 interface DefinitionTooltipProps {
   topic: string
   definitionItem: {
@@ -69,12 +67,9 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
               <CloseIcon />
             </IconButton>
 
-            <Typography
-              className={styles.MethodologySubsubheaderText}
-              variant='h6'
-            >
+            <h6 className='mt-8 font-sansText font-medium'>
               {topic.toLowerCase()}
-            </Typography>
+            </h6>
             <Typography className='text-left font-sansText text-small text-alt-black'>
               {measurementDescription}
             </Typography>

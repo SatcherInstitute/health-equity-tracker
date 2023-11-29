@@ -1,4 +1,3 @@
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { Helmet } from 'react-helmet-async'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
@@ -366,7 +365,7 @@ const AgeAdjustmentLink = () => {
           >
             Age-Adjustment Example: HIV Deaths
           </h3>
-          <div className={styles.ExampleDiv}>
+          <div className='pl-10'>
             <p>
               Here is an example of a single state with two races,
               <CodeBlock
@@ -451,8 +450,8 @@ const AgeAdjustmentLink = () => {
             />
           </div>
 
-          <div className={styles.ExampleDiv}>
-            <ol start={1}>
+          <div className='pl-10'>
+            <ol className='p-0' start={1}>
               <li>
                 <p>
                   Calculate the <b>age-specific HIV death rates</b> which will
@@ -625,8 +624,8 @@ const AgeAdjustmentLink = () => {
             />
           </div>
 
-          <div className={styles.ExampleDiv}>
-            <ol start={2}>
+          <div className='pl-10'>
+            <ol className='p-0' start={2}>
               <li>
                 Get the <b>standard population</b> per age group, which will be
                 the summed population of all race/age groups within that age
@@ -715,8 +714,8 @@ const AgeAdjustmentLink = () => {
             />
           </div>
 
-          <div className={styles.ExampleDiv}>
-            <ol start={3}>
+          <div className='pl-10'>
+            <ol className='p-0' start={3}>
               <li>Calculate the expected deaths for each age/race group:</li>
             </ol>
             <p>As noted above, the formula for each row is:</p>
@@ -901,8 +900,8 @@ const AgeAdjustmentLink = () => {
             />
           </div>
 
-          <div className={styles.ExampleDiv}>
-            <ol start={4}>
+          <div className='pl-10'>
+            <ol className='p-0' start={4}>
               <li>
                 For each race, we sum together the expected HIV deaths from each
                 of its age groups to calculate the total expected HIV deaths for
@@ -966,8 +965,8 @@ const AgeAdjustmentLink = () => {
             />
           </div>
 
-          <div className={styles.ExampleDiv}>
-            <ol start={5}>
+          <div className='pl-10'>
+            <ol className='p-0' start={5}>
               <li>Calculate the age-adjusted death ratio:</li>
             </ol>
 

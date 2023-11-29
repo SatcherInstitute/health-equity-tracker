@@ -147,6 +147,7 @@ export default {
       sansTitle: ['DM Sans', 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
+      math: ['KaTeX_Math', 'mono']
     },
     fontSize: {
       smallest: '0.75rem',

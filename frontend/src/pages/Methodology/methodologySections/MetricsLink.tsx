@@ -1,5 +1,4 @@
 import { Alert } from '@mui/material'
-import styles from '../methodologyComponents/MethodologyPage.module.scss'
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
@@ -27,7 +26,7 @@ const MetricsLink = () => {
           breakdown for simplicity; the definitions apply to all variables and
           demographic breakdowns.
         </Alert>
-        <div className={styles.ExampleDiv}>
+        <div className='pl-10'>
           <p>
             As an example, if in a certain month,{' '}
             <strong>White (Non-Hispanic) people</strong> in Georgia had 65.7%
