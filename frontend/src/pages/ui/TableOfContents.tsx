@@ -9,7 +9,6 @@ import {
   useStepObserver,
   type ScrollableHashId,
 } from '../../utils/hooks/useStepObserver'
-import styles from './TableOfContents.module.scss'
 import { scrollIntoView } from 'seamless-scroll-polyfill'
 import { reportProviderSteps } from '../../reports/ReportProviderSteps'
 
@@ -50,14 +49,14 @@ export default function TableOfContents(props: TableOfContentsProps) {
       )}
       orientation='vertical'
       aria-label='Available cards on this report'
-      className={styles.Stepper}
+      className='hidden p-0 sm:flex sm:w-90p titleSm:pl-1p md:px-5'
     >
       {props.reportStepHashIds?.map((stepId) => {
         return (
           <Step completed={false} key={stepId}>
             <StepButton
               // title=
-              className={styles.StepButton}
+              className='text-left'
               onClick={(e) => {
                 e.preventDefault()
                 handleStepClick(stepId)
@@ -65,11 +64,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
             >
               <span
                 // hide labels visually but not from screen readers on small screens
-                className={
-                  pageIsWide
-                    ? styles.StepButtonLabel
-                    : styles.ScreenreaderTitleHeader
-                }
+                className={pageIsWide ? 'text-smallest' : 'sr-only'}
               >
                 {reportProviderSteps[stepId].label}
               </span>
