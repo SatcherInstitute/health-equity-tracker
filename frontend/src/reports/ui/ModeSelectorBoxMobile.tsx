@@ -27,7 +27,7 @@ export default function ModeSelectorBoxMobile(
   return (
     <div className='mode-selector-box-mobile'>
       <Card raised={true} className='p-8 md:hidden'>
-        <Grid container justifyContent='flex-end'>
+        <Grid container justifyContent='flex-start'>
           <div>
             <SimpleSelect<DemographicType>
               label='Demographic'
