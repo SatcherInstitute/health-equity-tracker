@@ -175,9 +175,12 @@ export default {
       },
       width: {
         joinEffortLogo: '600px',
+        '90p': '90%'
       },
       padding: {
-        '15p': '15%'
+        '1p': '1%',
+        '15p': '15%',
+
       }
     },
   },
