@@ -229,9 +229,8 @@ function FaqTab() {
                       media
                     </li>
                     <li>
-                      Share your health equity story.{' '}
                       <a href={`${CONTACT_TAB_LINK}`}>
-                        Click here to contact us
+                        Share your health equity story
                       </a>
                     </li>
                   </ul>
