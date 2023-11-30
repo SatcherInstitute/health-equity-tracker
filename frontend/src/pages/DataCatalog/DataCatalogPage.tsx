@@ -43,19 +43,14 @@ function getFilteredSources(
   return filters.reduce(reducer, allIds)
 }
 
-interface DataCatalogPageProps {
-  preFilterDataSourceIds?: DataSourceId[]
-}
-
-export default function DataCatalogPage(props: DataCatalogPageProps) {
+export default function DataCatalogPage() {
   const params = useSearchParams()
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
     : []
 
   const activeFilter = {
-    [NAME_FILTER_ID]:
-      props.preFilterDataSourceIds ?? (datasets as DataSourceId[]),
+    [NAME_FILTER_ID]: datasets as DataSourceId[],
   }
 
   return (
