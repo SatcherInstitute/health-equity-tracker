@@ -76,7 +76,7 @@ function AnswerWhatDataSources() {
   return (
     <div className='text-small'>
       <p>
-        In this tracker, we are using many sources, including
+        In this tracker, we are using many sources, including{' '}
         <a href={urlMap.acs5}>American Community Survey 5-year estimates</a>,
         multiple datasets from the CDC including the{' '}
         <a href={urlMap.cdcBrfss}>CDC’s BRFSS data set</a> via America's Health
