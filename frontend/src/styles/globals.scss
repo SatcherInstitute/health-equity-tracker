@@ -59,20 +59,6 @@
   font-weight: 500 !important;
 }
 
-@mixin srOnly {
-  left: -999px;
-  position: absolute;
-  top: auto;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-// For the title of the page read off by screenreaders in an h1
-.ScreenreaderTitleHeader {
-  @include srOnly();
-}
-
 .Grid {
   @include inter400();
   margin: auto;

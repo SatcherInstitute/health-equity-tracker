@@ -11,7 +11,7 @@ export function srSpeak(message: string) {
   temp.setAttribute('role', 'alert')
 
   // hide from browsers
-  temp.classList.add('srOnly')
+  temp.classList.add('sr-only')
   document.body.appendChild(temp)
 
   // render
