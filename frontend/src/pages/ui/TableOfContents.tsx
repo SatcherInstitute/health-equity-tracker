@@ -1,10 +1,4 @@
-import {
-  Step,
-  StepButton,
-  Stepper,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { Step, StepButton, Stepper } from '@mui/material'
 import {
   useStepObserver,
   type ScrollableHashId,
@@ -18,9 +12,6 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents(props: TableOfContentsProps) {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
-
   const [activeId, setRecentlyClicked] = useStepObserver(
     props.reportStepHashIds,
     props.isScrolledToTop
@@ -64,7 +55,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
             >
               <span
                 // hide labels visually but not from screen readers on small screens
-                className={pageIsWide ? 'text-smallest' : 'sr-only'}
+                className='sr-only text-smallest md:not-sr-only'
               >
                 {reportProviderSteps[stepId].label}
               </span>
