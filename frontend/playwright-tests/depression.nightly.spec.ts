@@ -1,8 +1,9 @@
 import { test } from '@playwright/test'
 
+
 test('Depression Flow', async ({ page }) => {
   await page.goto(
-    'https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'
+    '/exploredata?mls=1.depression-3.00&group1=All'
   )
   await page
     .getByLabel(

@@ -43,7 +43,7 @@ function getFilteredSources(
   return filters.reduce(reducer, allIds)
 }
 
-function DataCatalogPage() {
+export default function DataCatalogPage() {
   const params = useSearchParams()
   const datasets = params[DATA_SOURCE_PRE_FILTERS]
     ? params[DATA_SOURCE_PRE_FILTERS].split(',')
@@ -117,5 +117,3 @@ function DataCatalogPage() {
     </HelmetProvider>
   )
 }
-
-export default DataCatalogPage

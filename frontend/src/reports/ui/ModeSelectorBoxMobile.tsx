@@ -1,11 +1,10 @@
 import { Card, Grid } from '@mui/material'
-import styles from './ModeSelectorBoxMobile.module.scss'
+import SimpleSelect from '../../pages/ui/SimpleSelect'
+import JumpToSelect from '../../pages/ui/JumpToSelect'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import SimpleSelect from '../../pages/ui/SimpleSelect'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { reportProviderSteps } from '../ReportProviderSteps'
-import JumpToSelect from '../../pages/ui/JumpToSelect'
 
 interface ModeSelectorBoxMobileProps {
   trackerMode: MadLibId
@@ -27,11 +26,8 @@ export default function ModeSelectorBoxMobile(
 ) {
   return (
     <div className='mode-selector-box-mobile'>
-      <Card raised={true} className={styles.ModeSelectorBoxMobile}>
-        <Grid
-          container
-          justifyContent={{ xs: 'flex-end', sm: 'space-between' }}
-        >
+      <Card raised={true} className='m-2 p-2 md:hidden'>
+        <Grid container justifyContent='flex-start'>
           <div>
             <SimpleSelect<DemographicType>
               label='Demographic'

@@ -24,6 +24,7 @@ export default {
     },
     maxWidth: {
       aimToGo: "255px",
+      menu: "320px",
       sm: '600px',
       articleLogo: '700px',
       md: '960px',
@@ -31,7 +32,8 @@ export default {
       xl: '1920px',
       teamHeadshot: '181px',
       teamLogo: '250px',
-      newsPage: '1440px'
+      newsPage: '1440px',
+      equityLogo: '400px'
     },
     borderRadius: {
       sm: '4px',
@@ -145,6 +147,7 @@ export default {
       sansTitle: ['DM Sans', 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
+      math: ['KaTeX_Math', 'mono']
     },
     fontSize: {
       smallest: '0.75rem',
@@ -165,6 +168,20 @@ export default {
       "z-middle": 'var(--z-middle)',
       "z-almost-top": 'var(--z-almost-top)',
       "z-top": 'var(--z-top)',
+    },
+    extend: {
+      height: {
+        joinEffortLogo: '720px',
+      },
+      width: {
+        joinEffortLogo: '600px',
+        '90p': '90%'
+      },
+      padding: {
+        '1p': '1%',
+        '15p': '15%',
+
+      }
     },
   },
   plugins: [],

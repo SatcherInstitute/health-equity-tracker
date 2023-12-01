@@ -63,7 +63,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.38.0",
-    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0",
     "@types/d3": "^7.4.0",
@@ -108,6 +108,7 @@
     "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-progress --no-must-find-files --gitignore",
     "dev": "env-cmd -f .env.development npm run start -- --host",
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E",
+    "e2e-staging": "npx playwright install chromium && npx playwright test --project=E2E_STAGING",
     "e2e-prod": "npx playwright install chromium && npx playwright test --project=E2E_PROD",
     "playwright": "npx playwright install chromium && npx playwright test",
     "preview": "npm run build:development && vite preview",

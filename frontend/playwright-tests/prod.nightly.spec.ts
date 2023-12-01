@@ -1,5 +1,6 @@
 import { test } from '@playwright/test'
 
-test(`Production Site Loads`, async ({ page }) => {
-  await page.goto('https://healthequitytracker.org', { waitUntil: 'commit' })
+test(`Site Loads`, async ({ page, baseURL }) => {
+  console.log(`Running tests against: ${baseURL}`);
+  await page.goto('/', { waitUntil: 'commit' })
 })

@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 test('CAWP: CAWP National Congress Flow', async ({ page }) => {
   await page.goto(
-    'https://healthequitytracker.org/exploredata?mls=1.women_in_gov-3.00&group1=All'
+    '/exploredata?mls=1.women_in_gov-3.00&group1=All'
   )
   await page
     .getByText('See the states/territories with the highest and lowest rates.')
