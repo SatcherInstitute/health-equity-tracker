@@ -12,7 +12,7 @@ import {
   FAQ_TAB_LINK,
   CONTACT_TAB_LINK,
   NEWS_PAGE_LINK,
-  METHODOLOGY_PAGE_LINK,
+  OLD_METHODOLOGY_PAGE_LINK,
 } from './utils/internalRoutes'
 import AppbarLogo from './assets/AppbarLogo.png'
 import PartnerSatcher from './assets/PartnerSatcher.png'
@@ -45,7 +45,7 @@ function Footer() {
           >
             {[
               ['Explore Data', EXPLORE_DATA_PAGE_LINK],
-              ['Methods', METHODOLOGY_PAGE_LINK],
+              ['Methods', OLD_METHODOLOGY_PAGE_LINK],
               ['News', NEWS_PAGE_LINK],
               ['FAQs', `${FAQ_TAB_LINK}`, 'Frequently Asked Questions'],
               ['Contact Us', `${CONTACT_TAB_LINK}`],

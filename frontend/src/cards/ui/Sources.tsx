@@ -1,5 +1,5 @@
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
@@ -98,7 +98,7 @@ export function Sources(props: SourcesProps) {
       <p className='w-full'>
         <>{optionalDefinition}</>
         View{' '}
-        <HashLink to={`${METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
+        <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}#${methodologyHashId}`}>
           methodology
         </HashLink>
         .
