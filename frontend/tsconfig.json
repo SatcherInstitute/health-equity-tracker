@@ -1,16 +1,8 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "types": [
-      "vitest/globals",
-      "vite-plugin-svgr/client",
-      "vite/client"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vitest/globals", "vite-plugin-svgr/client", "vite/client"],
     "typeRoots": ["./node_modules"],
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,11 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": [
-    "src"
-  ],
-  "exclude": [
-    "**/*.test.tsx",
-    "node_modules"
-  ]
+  "include": ["src"],
+  "exclude": ["**/*.test.tsx", "node_modules"]
 }
