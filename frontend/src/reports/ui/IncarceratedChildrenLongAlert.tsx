@@ -1,7 +1,7 @@
 import { Alert, AlertTitle } from '@mui/material'
 import styles from './IncarceratedChildrenLongAlert.module.scss'
 import FlagIcon from '@mui/icons-material/Flag'
-import { METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
+import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 
@@ -14,7 +14,6 @@ function IncarceratedChildrenLongAlert() {
         icon={<FlagIcon />}
         role='note'
       >
-        {/* <AlertTitle>The 3 Ws of Incarceration: Where, What and Why</AlertTitle> */}
         <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
 
         <p>
@@ -28,7 +27,7 @@ function IncarceratedChildrenLongAlert() {
           age-appropriate services, and worse health outcomes. When reporting on
           incarceration, we highlight the{' '}
           <b>total number of confined children</b> in adult facilities. Read
-          more in <Link to={METHODOLOGY_PAGE_LINK}>our methodology</Link>.
+          more in <Link to={OLD_METHODOLOGY_PAGE_LINK}>our methodology</Link>.
         </p>
       </Alert>
     </div>
