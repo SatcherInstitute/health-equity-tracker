@@ -1,4 +1,4 @@
-import { CardContent, useMediaQuery, useTheme } from '@mui/material'
+import { CardContent } from '@mui/material'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -28,6 +28,7 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
+import { useTailwindBreakpoint } from '../utils/hooks/useTailwindBreakpoint'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -74,10 +75,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     },
   }
 
-  const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSm = useTailwindBreakpoint('sm')
   const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !pageIsSmall && !isCompareMode
+  const mapIsWide = !isSm && !isCompareMode
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(

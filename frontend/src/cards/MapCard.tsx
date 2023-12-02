@@ -1,11 +1,4 @@
-import {
-  Button,
-  CardContent,
-  Grid,
-  Tooltip,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { Button, CardContent, Grid, Tooltip } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import Alert from '@mui/material/Alert'
 import ChoroplethMap from '../charts/ChoroplethMap'
@@ -82,6 +75,7 @@ import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
+import { useTailwindBreakpoint } from '../utils/hooks/useTailwindBreakpoint'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -255,11 +249,10 @@ function MapCardWithKey(props: MapCardProps) {
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
   const HASH_ID: ScrollableHashId = 'rate-map'
 
-  const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSm = useTailwindBreakpoint('sm')
 
   const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !pageIsSmall && !isCompareMode
+  const mapIsWide = !isSm && !isCompareMode
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
@@ -476,7 +469,7 @@ function MapCardWithKey(props: MapCardProps) {
                 !mapQueryResponse.dataIsMissing() &&
                 (props.dataTypeConfig.surveyCollectedData ?? false)
               }
-              pageIsSmall={pageIsSmall}
+              pageIsSmall={isSm}
               reportTitle={props.reportTitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}

@@ -3,12 +3,8 @@ import Tooltip from '@mui/material/Tooltip'
 import Drawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
-import {
-  ClickAwayListener,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from '@mui/material'
+import { ClickAwayListener, Typography } from '@mui/material'
+import { useTailwindBreakpoint } from '../../../utils/hooks/useTailwindBreakpoint'
 
 interface DefinitionTooltipProps {
   topic: string
@@ -26,8 +22,8 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
   definitionItem,
   topic,
 }) => {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useTailwindBreakpoint('xs')
+
   const [isDrawerOpen, setDrawerOpen] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -48,7 +44,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
     (def: { key: string }) => def.key === 'Measurement Definition'
   )?.description
 
-  if (isMobile) {
+  if (isXs) {
     return (
       <div className='inline-flex flex-row'>
         <span>

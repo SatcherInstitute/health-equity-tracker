@@ -4,7 +4,6 @@ import {
   fetchLandingPageNewsData,
   REACT_QUERY_OPTIONS,
 } from '../../utils/blogUtils'
-import { useMediaQuery, useTheme } from '@mui/material'
 import {
   EXPLORE_DATA_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -18,6 +17,7 @@ import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
+import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -26,15 +26,14 @@ function LandingPage() {
     REACT_QUERY_OPTIONS
   )
 
-  const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.only('sm'))
-  const pageIsMedium = useMediaQuery(theme.breakpoints.only('md'))
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('lg'))
+  const isSm = useTailwindBreakpoint('sm')
+  const isMd = useTailwindBreakpoint('md')
+  const isLg = useTailwindBreakpoint('lg')
 
   let numberOfArticlePreviews = 1
-  if (pageIsSmall) numberOfArticlePreviews = 2
-  if (pageIsMedium) numberOfArticlePreviews = 3
-  if (pageIsWide) numberOfArticlePreviews = 4
+  if (isSm) numberOfArticlePreviews = 2
+  if (isMd) numberOfArticlePreviews = 3
+  if (isLg) numberOfArticlePreviews = 4
 
   const recentArticles = data?.data.slice(0, numberOfArticlePreviews)
   const prefersReducedMotion = usePrefersReducedMotion()

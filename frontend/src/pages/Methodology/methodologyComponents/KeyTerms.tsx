@@ -3,12 +3,11 @@ import {
   AccordionDetails,
   AccordionSummary,
   Paper,
-  useMediaQuery,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { useTheme } from '@mui/material/styles'
 import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
+import { useTailwindBreakpoint } from '../../../utils/hooks/useTailwindBreakpoint'
 
 interface KeyTermsProps {
   definitionsArray: Array<{
@@ -24,10 +23,9 @@ interface KeyTermsProps {
 }
 
 const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
-  const theme = useTheme()
-  const isDesktop = useMediaQuery(theme.breakpoints.up('md'))
+  const isMd = useTailwindBreakpoint('md')
 
-  const [expanded, setExpanded] = useState(isDesktop)
+  const [expanded, setExpanded] = useState(isMd)
 
   const handleAccordionToggle = (
     event: React.SyntheticEvent,
