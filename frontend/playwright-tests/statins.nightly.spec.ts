@@ -4,6 +4,7 @@ test('Statin Adherence', async ({ page }) => {
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=statins_adherence'
   )
+  //removed top level landing page
   await page.getByLabel('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
   await page
