@@ -1,4 +1,5 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from 'tailwindcss'
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
@@ -45,10 +46,10 @@ export default {
     boxShadow: {
       raised:
         'rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px',
-        'raised-tighter':
+      'raised-tighter':
         'rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px',
 
-      },
+    },
     colors: {
       'alert-color': 'rgb(var(--alert-color) / <alpha-value>)',
       'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
@@ -188,4 +189,4 @@ export default {
   corePlugins: {
     preflight: false,
   }
-}
+} satisfies Config

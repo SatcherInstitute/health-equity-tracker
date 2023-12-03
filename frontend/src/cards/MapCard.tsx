@@ -251,6 +251,8 @@ function MapCardWithKey(props: MapCardProps) {
 
   const isSm = useTailwindBreakpoint('sm')
 
+  console.log({ isSm })
+
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !isSm && !isCompareMode
 

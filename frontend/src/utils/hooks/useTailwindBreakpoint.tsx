@@ -8,39 +8,31 @@ This hook should really load breakpoint keys and values from tailwind config dyn
       xl: '1920px',
 */
 import { useState, useEffect } from 'react'
+import resolveConfig from 'tailwindcss/resolveConfig'
+import tailwindConfig from '../../../tailwind.config.js'
+
+const fullConfig = resolveConfig(tailwindConfig)
 
 // Define string union type for Tailwind breakpoints
 type TailwindBreakpoint = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-// Function to convert Tailwind breakpoint to pixel value
-function getBreakpointValue(breakpoint: TailwindBreakpoint): string {
-  switch (breakpoint) {
-    case 'xs':
-      return '0px'
-    case 'sm':
-      return '600px'
-    case 'md':
-      return '960px'
-    case 'lg':
-      return '1280px'
-    case 'xl':
-      return '1920px'
-    default:
-      throw new Error('Invalid breakpoint')
-  }
+function getTailwindBreakpointValue(breakpoint: TailwindBreakpoint): number {
+  const pixelBreakpoint = fullConfig?.theme?.screens?.[breakpoint]
+
+  const pixelValue = parseInt(pixelBreakpoint.replace('px', ''))
+
+  return pixelValue || 0
 }
 
 export function useTailwindBreakpoint(breakpoint: TailwindBreakpoint) {
   const [isBreakpoint, setIsBreakpoint] = useState(
-    window.innerWidth >=
-      parseInt(getBreakpointValue(breakpoint).replace('px', ''))
+    window.innerWidth >= getTailwindBreakpointValue(breakpoint)
   )
 
   useEffect(() => {
     const handleResize = () => {
       setIsBreakpoint(
-        window.innerWidth >=
-          parseInt(getBreakpointValue(breakpoint).replace('px', ''))
+        window.innerWidth >= getTailwindBreakpointValue(breakpoint)
       )
     }
 
