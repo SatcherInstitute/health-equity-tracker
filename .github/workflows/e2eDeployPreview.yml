@@ -1,6 +1,6 @@
 # https://www.joranquinten.nl/tutorials/running-e2e-test-suite-on-a-netlify-preview-url/
 
-name: Run E2Es Against Netlify Deploy Preview
+name: E2E_DEPLOY_PREVIEW
 
 env:
   ## Sets environment variables
@@ -19,7 +19,7 @@ defaults:
 
 jobs:
   tests_e2e_netlify_prepare:
-    name: Wait for deployment on Netlify
+    name: Wait for Netlify deploy
     runs-on: ubuntu-latest
     steps:
       - name: Waiting for Netlify Preview
@@ -31,7 +31,7 @@ jobs:
 
   tests_e2e_netlify:
     needs: tests_e2e_netlify_prepare
-    name: Run E2E_DEPLOY_PREVIEW on Netlify preview deploy site
+    name: Run tests on deploy preview
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
@@ -41,7 +41,7 @@ jobs:
           node-version: 19
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
-      - name: Install playwright dependencies
+      - name: Install playwright deps
         run: npm install @playwright/test
       - name: run E2E_DEPLOY_PREVIEW
         run: npm run e2e-deploy-preview
