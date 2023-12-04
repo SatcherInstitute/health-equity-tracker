@@ -10,6 +10,9 @@ env:
 on:
   pull_request:
     branches: [main]
+    paths:
+      - 'frontend/**' # Run when changes occur in the frontend subfolder
+  workflow_dispatch:
 defaults:
   run:
     working-directory: frontend
