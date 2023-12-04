@@ -9,22 +9,21 @@ import { Link, Route, Switch } from 'react-router-dom'
 // can't lazy load (yet) due to scss loading issues
 import OldMethodologyTab from './OldMethodologyTab'
 import OldAgeAdjustmentTab from './OldAgeAdjustmentTab'
-import { useMediaQuery, useTheme } from '@mui/material'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function OldMethodologyPage() {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+  const isSm = useIsBreakpointAndUp('sm')
 
   return (
     <div className='mx-auto min-h-screen max-w-lg'>
       <Route path='/'>
         <Tabs
-          centered={pageIsWide}
+          centered={isSm}
           indicatorColor='primary'
           textColor='primary'
           value={window.location.pathname}
-          variant={pageIsWide ? 'standard' : 'fullWidth'}
-          scrollButtons={pageIsWide ? 'auto' : undefined}
+          variant={isSm ? 'standard' : 'fullWidth'}
+          scrollButtons={isSm ? 'auto' : undefined}
         >
           <Tab
             value={OLD_METHODOLOGY_PAGE_LINK}

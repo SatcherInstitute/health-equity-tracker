@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@mui/material'
 import { type Scale } from 'vega'
 import { BAR_PADDING, DATASET, LEGEND_COLORS } from './constants'
 import { type ScalesProps } from './types'
@@ -8,14 +7,12 @@ export function Scales({
   demographicType,
   LEGEND_DOMAINS,
 }: ScalesProps) {
-  const pageIsTiny = useMediaQuery('(max-width:400px)')
-
   const xScales: Scale = {
     name: 'x',
     type: 'linear',
     domain: { data: DATASET, field: largerMeasure },
     range: [0, { signal: 'width' }],
-    nice: !pageIsTiny, // on desktop, extend x-axis to a "nice" value
+    nice: true,
     zero: true,
   }
 

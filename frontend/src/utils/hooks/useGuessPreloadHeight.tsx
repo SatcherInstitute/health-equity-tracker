@@ -1,4 +1,4 @@
-import { useMediaQuery, useTheme } from '@mui/material'
+import { useIsBreakpointAndUp } from './useIsBreakpointAndUp'
 
 // calculate page size for responsive layout and minimized CLS
 export function useGuessPreloadHeight(
@@ -6,9 +6,8 @@ export function useGuessPreloadHeight(
   halveHeight?: boolean
 ) {
   const [min, max] = minMaxArray
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('xl'))
-  let preloadHeight = pageIsWide ? max : min
+  const isXl = useIsBreakpointAndUp('xl')
+  let preloadHeight = isXl ? max : min
   if (halveHeight) preloadHeight /= 2
 
   return preloadHeight

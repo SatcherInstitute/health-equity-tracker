@@ -7,8 +7,6 @@ import {
   DialogContent,
   Typography,
   Alert,
-  useMediaQuery,
-  useTheme,
 } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
@@ -49,6 +47,7 @@ import { Sources } from './Sources'
 import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -143,8 +142,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     setScale({ domain, range })
   }
 
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+  const isXs = useIsBreakpointAndUp('xs')
 
   return (
     <Dialog
@@ -166,7 +164,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             {/* card heading row */}
             <Grid item xs={12} container justifyContent={'space-between'}>
               {/* mobile-only card options button */}
-              {isMobile && (
+              {isXs && (
                 <Grid
                   item
                   xs={12}
@@ -193,7 +191,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 </Typography>
               </Grid>
               {/* desktop-only close button */}
-              {!isMobile && (
+              {!isXs && (
                 <Grid
                   item
                   sx={{
@@ -395,7 +393,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
         <div className='flex justify-between pl-2 text-left text-small'>
-          {isMobile ? (
+          {isXs ? (
             <Button
               aria-label='close multiple maps modal'
               onClick={props.handleClose}

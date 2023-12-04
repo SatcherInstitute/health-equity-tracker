@@ -1,20 +1,20 @@
 import Joyride from 'react-joyride'
-import sass from '../../styles/variables.module.scss'
 import { getOnboardingSteps } from './OnboardingSteps'
-import { useMediaQuery, useTheme } from '@mui/material'
 import { getCssVar } from '../../utils/designUtils'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
   activelyOnboarding: boolean
 }) {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('md'))
+  const isMd = useIsBreakpointAndUp('md')
   const zAlmostTop = getCssVar<number>('z-almost-top') ?? 3
+  const altGreen = getCssVar<string>('alt-green')
+  const white = getCssVar<string>('white')
 
   return (
     <Joyride
-      steps={getOnboardingSteps(pageIsWide)}
+      steps={getOnboardingSteps(isMd)}
       callback={props.callback}
       disableScrolling={false}
       scrollOffset={200}
@@ -28,10 +28,10 @@ export default function Onboarding(props: {
       run={props.activelyOnboarding}
       styles={{
         options: {
-          arrowColor: sass.altGreen,
-          backgroundColor: sass.altGreen,
-          primaryColor: sass.altGreen,
-          textColor: sass.white,
+          arrowColor: altGreen,
+          backgroundColor: altGreen,
+          primaryColor: altGreen,
+          textColor: white,
           width: 900,
           zIndex: zAlmostTop,
         },

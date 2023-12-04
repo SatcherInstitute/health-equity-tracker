@@ -10,7 +10,7 @@ import {
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
 import sass from '../styles/variables.module.scss'
-import { Grid, useMediaQuery } from '@mui/material'
+import { Grid } from '@mui/material'
 
 import {
   CAWP_DETERMINANTS,
@@ -161,9 +161,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const [ref, width] = useResponsiveWidth()
 
-  // calculate page size to determine if tiny mobile or not
-  const pageIsTiny = useMediaQuery('(max-width:400px)')
-
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
 
   // Initial spec state is set in useEffect
@@ -301,7 +298,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     fill: COLOR_SCALE,
     direction: 'horizontal',
     title: '% unknown',
-    titleFontSize: pageIsTiny ? 9 : 11,
+    titleFontSize: 10,
     titleLimit: 0,
     labelFont: LEGEND_TEXT_FONT,
     titleFont: LEGEND_TEXT_FONT,
