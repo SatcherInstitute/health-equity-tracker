@@ -250,9 +250,6 @@ function MapCardWithKey(props: MapCardProps) {
   const HASH_ID: ScrollableHashId = 'rate-map'
 
   const isSm = useIsBreakpointAndUp('sm')
-
-  console.log({ isSm })
-
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !isSm && !isCompareMode
 

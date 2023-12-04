@@ -60,7 +60,6 @@ import {
   makeAltText,
   setupColorScale,
 } from './mapHelperFunctions'
-import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -162,8 +161,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   const [ref, width] = useResponsiveWidth()
 
-  // calculate page size to determine if tiny mobile or not
-  const isXs = useIsBreakpointAndUp('xs')
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
 
   // Initial spec state is set in useEffect
@@ -301,7 +298,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     fill: COLOR_SCALE,
     direction: 'horizontal',
     title: '% unknown',
-    titleFontSize: isXs ? 9 : 11,
+    titleFontSize: 10,
     titleLimit: 0,
     labelFont: LEGEND_TEXT_FONT,
     titleFont: LEGEND_TEXT_FONT,
