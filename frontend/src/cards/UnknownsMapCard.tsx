@@ -28,7 +28,7 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
-import { useTailwindBreakpoint } from '../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -75,7 +75,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     },
   }
 
-  const isSm = useTailwindBreakpoint('sm')
+  const isSm = useIsBreakpointAndUp('sm')
   const isCompareMode = window.location.href.includes('compare')
   const mapIsWide = !isSm && !isCompareMode
 

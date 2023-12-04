@@ -75,7 +75,7 @@ import { type CountColsMap, RATE_MAP_SCALE } from '../charts/mapGlobals'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
-import { useTailwindBreakpoint } from '../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -249,7 +249,7 @@ function MapCardWithKey(props: MapCardProps) {
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
   const HASH_ID: ScrollableHashId = 'rate-map'
 
-  const isSm = useTailwindBreakpoint('sm')
+  const isSm = useIsBreakpointAndUp('sm')
 
   console.log({ isSm })
 

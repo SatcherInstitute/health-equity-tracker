@@ -60,7 +60,7 @@ import {
   makeAltText,
   setupColorScale,
 } from './mapHelperFunctions'
-import { useTailwindBreakpoint } from '../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -163,7 +163,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   const [ref, width] = useResponsiveWidth()
 
   // calculate page size to determine if tiny mobile or not
-  const isXs = useTailwindBreakpoint('xs')
+  const isXs = useIsBreakpointAndUp('xs')
   const heightWidthRatio = props.overrideShapeWithCircle ? 1.2 : 0.65
 
   // Initial spec state is set in useEffect

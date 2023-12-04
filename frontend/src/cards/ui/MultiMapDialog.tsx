@@ -47,7 +47,7 @@ import { Sources } from './Sources'
 import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
-import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -142,7 +142,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     setScale({ domain, range })
   }
 
-  const isXs = useTailwindBreakpoint('xs')
+  const isXs = useIsBreakpointAndUp('xs')
 
   return (
     <Dialog

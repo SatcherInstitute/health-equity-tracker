@@ -1,4 +1,4 @@
-import { useTailwindBreakpoint } from './useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from './useIsBreakpointAndUp'
 
 // calculate page size for responsive layout and minimized CLS
 export function useGuessPreloadHeight(
@@ -6,7 +6,7 @@ export function useGuessPreloadHeight(
   halveHeight?: boolean
 ) {
   const [min, max] = minMaxArray
-  const isXl = useTailwindBreakpoint('xl')
+  const isXl = useIsBreakpointAndUp('xl')
   let preloadHeight = isXl ? max : min
   if (halveHeight) preloadHeight /= 2
 

@@ -4,7 +4,7 @@ import Drawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import { ClickAwayListener, Typography } from '@mui/material'
-import { useTailwindBreakpoint } from '../../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 
 interface DefinitionTooltipProps {
   topic: string
@@ -22,7 +22,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
   definitionItem,
   topic,
 }) => {
-  const isXs = useTailwindBreakpoint('xs')
+  const isXs = useIsBreakpointAndUp('xs')
 
   const [isDrawerOpen, setDrawerOpen] = useState(false)
   const [open, setOpen] = useState(false)

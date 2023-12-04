@@ -9,10 +9,10 @@ import { Link, Route, Switch } from 'react-router-dom'
 // can't lazy load (yet) due to scss loading issues
 import OldMethodologyTab from './OldMethodologyTab'
 import OldAgeAdjustmentTab from './OldAgeAdjustmentTab'
-import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function OldMethodologyPage() {
-  const isSm = useTailwindBreakpoint('sm')
+  const isSm = useIsBreakpointAndUp('sm')
 
   return (
     <div className='mx-auto min-h-screen max-w-lg'>

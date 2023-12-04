@@ -13,10 +13,10 @@ import { Link, Redirect, Route, Switch } from 'react-router-dom'
 import EquityTab from './EquityTab'
 import FaqTab from './FaqTab'
 import ResourcesTab from './ResourcesTab'
-import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function WhatIsHealthEquityPage() {
-  const isSm = useTailwindBreakpoint('sm')
+  const isSm = useIsBreakpointAndUp('sm')
 
   const [tabLayout, setTabLayout] = useState({})
 

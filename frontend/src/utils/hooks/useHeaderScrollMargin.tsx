@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useTailwindBreakpoint } from './useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from './useIsBreakpointAndUp'
 
 /*
 
@@ -50,7 +50,7 @@ export function useHeaderScrollMargin(
   // track and return the adjusted height of the element
   const [headerScrollMargin, setHeaderScrollMargin] = useState(measureHeight())
 
-  const isMd = useTailwindBreakpoint('md')
+  const isMd = useIsBreakpointAndUp('md')
   useEffect(() => {
     setHeaderScrollMargin(isMd ? measureHeight() : 0)
   }, [elemId, pageWidth, sticking, ...otherDependencies])

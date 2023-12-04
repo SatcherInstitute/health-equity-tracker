@@ -11,7 +11,7 @@ import {
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 import { type DataTypeId } from '../../data/config/MetricConfig'
-import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -29,7 +29,7 @@ interface MenuPopoverProps {
 
 export function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
-  const isSm = useTailwindBreakpoint('sm')
+  const isSm = useIsBreakpointAndUp('sm')
   const anchorOrigin: PopoverOrigin = {
     vertical: 'top',
     horizontal: 'right',

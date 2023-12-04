@@ -17,7 +17,7 @@ import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
-import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -26,9 +26,9 @@ function LandingPage() {
     REACT_QUERY_OPTIONS
   )
 
-  const isSm = useTailwindBreakpoint('sm')
-  const isMd = useTailwindBreakpoint('md')
-  const isLg = useTailwindBreakpoint('lg')
+  const isSm = useIsBreakpointAndUp('sm')
+  const isMd = useIsBreakpointAndUp('md')
+  const isLg = useIsBreakpointAndUp('lg')
 
   let numberOfArticlePreviews = 1
   if (isSm) numberOfArticlePreviews = 2

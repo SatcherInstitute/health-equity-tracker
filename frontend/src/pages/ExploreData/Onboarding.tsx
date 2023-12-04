@@ -1,13 +1,13 @@
 import Joyride from 'react-joyride'
 import { getOnboardingSteps } from './OnboardingSteps'
 import { getCssVar } from '../../utils/designUtils'
-import { useTailwindBreakpoint } from '../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
   activelyOnboarding: boolean
 }) {
-  const isMd = useTailwindBreakpoint('md')
+  const isMd = useIsBreakpointAndUp('md')
   const zAlmostTop = getCssVar<number>('z-almost-top') ?? 3
   const altGreen = getCssVar<string>('alt-green')
   const white = getCssVar<string>('white')

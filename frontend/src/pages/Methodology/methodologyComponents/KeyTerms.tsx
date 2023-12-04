@@ -7,7 +7,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
-import { useTailwindBreakpoint } from '../../../utils/hooks/useTailwindBreakpoint'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 
 interface KeyTermsProps {
   definitionsArray: Array<{
@@ -23,7 +23,7 @@ interface KeyTermsProps {
 }
 
 const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
-  const isMd = useTailwindBreakpoint('md')
+  const isMd = useIsBreakpointAndUp('md')
 
   const [expanded, setExpanded] = useState(isMd)
 
