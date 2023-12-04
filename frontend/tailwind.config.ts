@@ -1,41 +1,20 @@
 import type { Config } from 'tailwindcss'
 
+export const standardSizes = {
+  xs: '0px',
+  sm: '600px',
+  md: '960px',
+  lg: '1280px',
+  xl: '1920px',
+}
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
-    screens: {
-      xs: '0px',
-      sm: '600px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1920px',
-      titleXs: '0px',
-      titleSm: '800px',
-      titleMd: '900px',
-      titleLg: '1500px',
-      titleXl: '1850px',
-    },
-    maxHeight: {
-      aimToGo: "255px",
-      sm: '600px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1920px',
-    },
-    maxWidth: {
-      aimToGo: "255px",
-      menu: "320px",
-      sm: '600px',
-      articleLogo: '700px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1920px',
-      teamHeadshot: '181px',
-      teamLogo: '250px',
-      newsPage: '1440px',
-      equityLogo: '400px'
-    },
+    screens: standardSizes,
+    maxHeight: standardSizes,
+    maxWidth: standardSizes,
     borderRadius: {
       sm: '4px',
       md: '8px',
@@ -171,6 +150,18 @@ export default {
       "z-top": 'var(--z-top)',
     },
     extend: {
+      maxHeight: {
+        aimToGo: "255px",
+      },
+      maxWidth: {
+        aimToGo: "255px",
+        menu: "320px",
+        articleLogo: '700px',
+        teamHeadshot: '181px',
+        teamLogo: '250px',
+        newsPage: '1440px',
+        equityLogo: '400px'
+      },
       height: {
         joinEffortLogo: '720px',
       },

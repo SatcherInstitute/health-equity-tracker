@@ -20,7 +20,7 @@ export default function Units(props: UnitsProps) {
   // If it's 100k and tiny screen, the unit should be a block and appear on the next line
   return (
     <span
-      className={`text-smallest text-alt-dark ${
+      className={`font-sansText text-smallest font-light text-alt-dark ${
         metric.type === 'per100k' ? 'block sm:inline' : 'inline'
       }`}
     >
