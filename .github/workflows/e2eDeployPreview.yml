@@ -1,0 +1,50 @@
+name: Run E2Es Against Netlify Deploy Preview
+
+env:
+  ## Sets environment variables
+  NETLIFY_SITE_NAME: 'health-equity-tracker'
+  GITHUB_PR_NUMBER: ${{github.event.pull_request.number}}
+
+on:
+  pull_request:
+    branches: [main]
+defaults:
+  run:
+    working-directory: frontend
+
+jobs:
+  tests_e2e_netlify_prepare:
+    name: Wait for deployment on Netlify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Waiting for Netlify Preview
+        uses: josephduffy/wait-for-netlify-action@v1
+        id: wait-for-netflify-preview
+        with:
+          site_name: env.NETLIFY_SITE_NAME
+          max_timeout: 60
+
+  tests_e2e_netlify:
+    needs: tests_e2e_netlify_prepare
+    name: Run E2E_DEPLOY_PREVIEW on Netlify preview deploy site
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 19
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+      - name: run E2E_DEPLOY_PREVIEW
+        run: npm run e2e-deploy-preview
+        # Here we provide the preview domain, based on the GITHUB_PR_NUMBER combined with the NETLIFY_SITE_NAME
+        env:
+          VITE_PLAYWRIGHT_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
+      # store test run reports
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report/
+          retention-days: 30
