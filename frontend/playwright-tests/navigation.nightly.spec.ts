@@ -21,7 +21,7 @@ test('COVID Deaths: Investigate Mode to Compare Geos Mode and Back', async ({ pa
 test('Clicking a state on national map loads state report; back button returns to national', async ({ page }) => {
 
 	//start at HIV national
-	await page.goto('http://localhost:3000/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence', { waitUntil: "commit" });
+	await page.goto('/exploredata?mls=1.hiv-3.00&mlp=disparity&dt1=hiv_prevalence', { waitUntil: "commit" });
 
 	// click state of Mass.
 	await page.locator('path:nth-child(48)').click();
@@ -39,7 +39,7 @@ test('Clicking a state on national map loads state report; back button returns t
 test('Clicking a county on state map loads county report; back button returns to state', async ({ page }) => {
 
 	//start at Jail in Georgia, by race
-	await page.goto('http://localhost:3000/exploredata?mls=1.incarceration-3.13&mlp=disparity&dt1=jail', { waitUntil: "commit" });
+	await page.goto('/exploredata?mls=1.incarceration-3.13&mlp=disparity&dt1=jail', { waitUntil: "commit" });
 
 	// click on specific county
 	await page.locator('path:nth-child(122)').click();
@@ -55,7 +55,7 @@ test('Clicking a county on state map loads county report; back button returns to
 
 test('Clear selections button from Compare Topics mode returns tracker to default state', async ({ page }) => {
 	// start at tracker default page (implicit default params)
-	await page.goto('http://localhost:3000/exploredata', { waitUntil: "commit" });
+	await page.goto('/exploredata', { waitUntil: "commit" });
 
 	// choose sample compare mode report
 	await page.getByRole('link', { name: 'Prison & poverty in Georgia, by race' }).click();
@@ -65,7 +65,7 @@ test('Clear selections button from Compare Topics mode returns tracker to defaul
 	await page.getByRole('link', { name: 'Clear selections' }).click();
 
 	// should return to default page (with explicit params)
-	await expect(page).toHaveURL('http://localhost:3000/exploredata');
+	await expect(page).toHaveURL('/exploredata');
 
 });
 
