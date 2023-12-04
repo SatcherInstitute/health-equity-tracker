@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { useUrlSearchParams } from '../../utils/urlutils'
@@ -7,24 +7,23 @@ import {
   RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
 
 // can't lazy load (yet) due to scss loading issues
 import EquityTab from './EquityTab'
 import FaqTab from './FaqTab'
 import ResourcesTab from './ResourcesTab'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function WhatIsHealthEquityPage() {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
-  const [tabLayout, setTabLayout] = React.useState({})
+  const isSm = useIsBreakpointAndUp('sm')
+
+  const [tabLayout, setTabLayout] = useState({})
 
   // when screen width changes, update tab spacing MUI attribute
   useEffect(() => {
-    setTabLayout(pageIsWide ? { centered: true } : { variant: 'fullWidth' })
-  }, [pageIsWide])
+    setTabLayout(isSm ? { centered: true } : { variant: 'fullWidth' })
+  }, [isSm])
 
   return (
     <div>

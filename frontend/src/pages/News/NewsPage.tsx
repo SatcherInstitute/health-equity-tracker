@@ -4,8 +4,9 @@ import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
 } from '../../utils/internalRoutes'
-import { Tab, Tabs, useMediaQuery, useTheme } from '@mui/material'
+import { Tab, Tabs } from '@mui/material'
 import ShareYourStory from './ShareYourStory'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 const AllPosts = lazy(async () => await import('./AllPosts'))
 const SinglePost = lazy(async () => await import('./SinglePost'))
@@ -63,14 +64,13 @@ interface NewsPageProps {
 }
 
 export default function NewsPage(props: NewsPageProps) {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+  const isSm = useIsBreakpointAndUp('sm')
   const [tabLayout, setTabLayout] = useState({})
 
   // when screen width changes, update tab spacing MUI attribute
   useEffect(() => {
-    setTabLayout(pageIsWide ? { centered: true } : { variant: 'fullWidth' })
-  }, [pageIsWide])
+    setTabLayout(isSm ? { centered: true } : { variant: 'fullWidth' })
+  }, [isSm])
 
   return (
     <section>
