@@ -182,6 +182,13 @@ BB_AMI_PREFIX = "bb_ami"
 RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
 
+# GUN VIOLENCE
+SEXUAL_ASSAULT_PREFIX = 'sexual_assault'
+LEGAL_INTERVENTION_PREFIX = 'legal_intervention'
+OTHER_ASSAULT_PREFIX = 'other_assault'
+SELF_HARM_PREFIX = 'self_harm'
+UNINTENTIONAL_PREFIX = 'unintentional'
+
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])
 
