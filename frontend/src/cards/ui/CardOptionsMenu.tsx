@@ -9,7 +9,7 @@ import CopyLinkButton from './CopyLinkButton'
 import CardShareIcons from './CardShareIcons'
 import { usePopover } from '../../utils/hooks/usePopover'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import { useBreakpoint } from '../../utils/hooks/useTailwindConfig'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface CardOptionsMenuProps {
   downloadTargetScreenshot: () => Promise<boolean>
@@ -19,7 +19,7 @@ interface CardOptionsMenuProps {
 
 export default function CardOptionsMenu(props: CardOptionsMenuProps) {
   const shareMenu = usePopover()
-  const isSm = useBreakpoint('sm')
+  const isSm = useIsBreakpointAndUp('sm')
 
   const urlWithoutHash = window.location.href.split('#')[0]
   const urlWithHash = `${urlWithoutHash}#${props.scrollToHash}`

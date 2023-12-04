@@ -3,14 +3,7 @@ import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import { usePopover, type PopoverElements } from '../../utils/hooks/usePopover'
 import styles from './DropDownMenu.module.scss'
-import {
-  useMediaQuery,
-  useTheme,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-} from '@mui/material'
+import { Button, List, ListItem, ListItemText } from '@mui/material'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import {
   type DemographicType,
@@ -18,6 +11,7 @@ import {
 } from '../../data/query/Breakdowns'
 import { useHIVLabelSuffix } from '../../utils/hooks/useHIVLabelSuffix'
 import { type DataTypeId } from '../../data/config/MetricConfig'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 interface MenuPopoverProps {
   popover: PopoverElements
@@ -35,15 +29,14 @@ interface MenuPopoverProps {
 
 export function MenuPopover(props: MenuPopoverProps): JSX.Element {
   // calculate page size for responsive layout
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+  const isSm = useIsBreakpointAndUp('sm')
   const anchorOrigin: PopoverOrigin = {
     vertical: 'top',
     horizontal: 'right',
   }
   const transformOrigin: PopoverOrigin = {
     vertical: 'top',
-    horizontal: pageIsWide ? 'left' : 'center',
+    horizontal: isSm ? 'left' : 'center',
   }
 
   const hasChildren = !Array.isArray(props.items)

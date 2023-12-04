@@ -65,7 +65,7 @@ function DownloadDatasetListItem(props: {
 
   return (
     <ListItem
-      className='px-6'
+      className='px-6 hover:cursor-pointer'
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
       onClick={async () => {
         await download()

@@ -18,14 +18,13 @@ import {
   type MetricConfig,
   type MetricId,
   formatFieldValue,
-  SYMBOL_TYPE_LOOKUP,
   type DataTypeId,
 } from '../data/config/MetricConfig'
 import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   type DemographicType,
 } from '../data/query/Breakdowns'
-import { Tooltip, useMediaQuery } from '@mui/material'
+import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
@@ -35,6 +34,7 @@ import { type Fips } from '../data/utils/Fips'
 import ChartTitle from '../cards/ChartTitle'
 import { removeLastS } from './utils'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
+import Units from './Units'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -63,7 +63,6 @@ interface TableChartProps {
 }
 
 export function TableChart(props: TableChartProps) {
-  const wrap100kUnit = useMediaQuery('(max-width:500px)')
   const { data, metrics, demographicType } = props
 
   let columns:
@@ -180,11 +179,7 @@ export function TableChart(props: TableChartProps) {
               style={row.index % 2 === 0 ? cellStyle : altCellStyle}
             >
               {cell.render('Cell')}
-              <Units
-                column={index}
-                metric={props.metrics}
-                wrap100kUnit={wrap100kUnit}
-              />
+              <Units column={index} metric={props.metrics} />
               {index === 1 && numeratorCount && denominatorCount ? (
                 <p className={styles.Unit}>
                   <i>
@@ -256,28 +251,5 @@ export function TableChart(props: TableChartProps) {
         </figure>
       )}
     </>
-  )
-}
-
-interface UnitsProps {
-  column: number
-  metric: MetricConfig[]
-  wrap100kUnit: boolean
-}
-function Units(props: UnitsProps) {
-  if (!props.column) return null
-
-  const metric = props.metric[props.column - 1]
-
-  const unit =
-    metric.type === 'per100k'
-      ? SYMBOL_TYPE_LOOKUP[metric.type]
-      : metric.shortLabel
-
-  // inline vs block
-  return props.wrap100kUnit && metric.type === 'per100k' ? (
-    <p className={styles.Unit}>{unit}</p>
-  ) : (
-    <span className={styles.Unit}>{unit}</span>
   )
 }

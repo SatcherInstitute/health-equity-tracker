@@ -18,7 +18,6 @@ import {
   LABEL_HEIGHT,
 } from './utils'
 import sass from '../styles/variables.module.scss'
-import { useMediaQuery } from '@mui/material'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { createBarLabel } from './mapHelperFunctions'
@@ -41,7 +40,6 @@ function getSpec(
   tooltipMetricDisplayColumnName: string,
   showLegend: boolean,
   barLabelBreakpoint: number,
-  pageIsTiny: boolean,
   usePercentSuffix: boolean
 ): any {
   const MEASURE_COLOR = sass.altGreen
@@ -200,7 +198,7 @@ function getSpec(
           field: measure,
         },
         range: [0, { signal: 'width' }],
-        nice: !pageIsTiny, // on desktop, extend x-axis to a "nice" value
+        nice: true,
         zero: true,
       },
       {
@@ -284,9 +282,6 @@ interface SimpleHorizontalBarChartProps {
 export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
   const [ref, width] = useResponsiveWidth()
 
-  // calculate page size to determine if tiny mobile or not
-  const pageIsTiny = useMediaQuery('(max-width:400px)')
-
   const altLabelDeterminants = [...CAWP_DETERMINANTS, ...HIV_DETERMINANTS]
 
   // swap race labels if applicable
@@ -342,7 +337,6 @@ export function SimpleHorizontalBarChart(props: SimpleHorizontalBarChartProps) {
           /* tooltipMetricDisplayColumnName  */ tooltipMetricDisplayColumnName,
           /* showLegend  */ false,
           /* barLabelBreakpoint  */ barLabelBreakpoint,
-          /* pageIsTiny  */ pageIsTiny,
           /* usePercentSuffix  */ props.usePercentSuffix ?? false
         )}
         actions={false}

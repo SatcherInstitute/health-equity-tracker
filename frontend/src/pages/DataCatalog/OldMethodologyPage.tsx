@@ -1,58 +1,52 @@
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import {
-  AGE_ADJUSTMENT_LINK,
-  AGE_ADJUSTMENT_SLUG,
-  METHODOLOGY_PAGE_LINK,
+  OLD_AGE_ADJUSTMENT_LINK,
+  OLD_METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Link, Route, Switch } from 'react-router-dom'
 
 // can't lazy load (yet) due to scss loading issues
-import MethodologyTab from './OldMethodologyTab'
-import AgeAdjustmentTab from './OldAgeAdjustmentTab'
-import { useMediaQuery, useTheme } from '@mui/material'
+import OldMethodologyTab from './OldMethodologyTab'
+import OldAgeAdjustmentTab from './OldAgeAdjustmentTab'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function OldMethodologyPage() {
-  const theme = useTheme()
-  const pageIsWide = useMediaQuery(theme.breakpoints.up('sm'))
+  const isSm = useIsBreakpointAndUp('sm')
 
   return (
     <div className='mx-auto min-h-screen max-w-lg'>
       <Route path='/'>
         <Tabs
-          centered={pageIsWide}
+          centered={isSm}
           indicatorColor='primary'
           textColor='primary'
           value={window.location.pathname}
-          variant={pageIsWide ? 'standard' : 'fullWidth'}
-          scrollButtons={pageIsWide ? 'auto' : undefined}
+          variant={isSm ? 'standard' : 'fullWidth'}
+          scrollButtons={isSm ? 'auto' : undefined}
         >
           <Tab
-            value={METHODOLOGY_PAGE_LINK}
+            value={OLD_METHODOLOGY_PAGE_LINK}
             label='Methodology'
             component={Link}
-            to={METHODOLOGY_PAGE_LINK}
+            to={OLD_METHODOLOGY_PAGE_LINK}
           />
           <Tab
-            value={AGE_ADJUSTMENT_SLUG}
+            value={OLD_AGE_ADJUSTMENT_LINK}
             label='Age-Adjustment'
             component={Link}
-            to={AGE_ADJUSTMENT_SLUG}
+            to={OLD_AGE_ADJUSTMENT_LINK}
           />
         </Tabs>
       </Route>
 
       <Switch>
-        <Route path={`${AGE_ADJUSTMENT_LINK}/`}>
-          <AgeAdjustmentTab />
+        <Route path={`${OLD_METHODOLOGY_PAGE_LINK as string}/`}>
+          <OldMethodologyTab />
         </Route>
 
-        <Route path={`${METHODOLOGY_PAGE_LINK}/`}>
-          <MethodologyTab />
-        </Route>
-
-        <Route path={`${AGE_ADJUSTMENT_SLUG}/`}>
-          <AgeAdjustmentTab />
+        <Route path={`${OLD_AGE_ADJUSTMENT_LINK as string}/`}>
+          <OldAgeAdjustmentTab />
         </Route>
       </Switch>
     </div>

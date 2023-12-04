@@ -1,5 +1,5 @@
-import { useMediaQuery, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { useIsBreakpointAndUp } from './useIsBreakpointAndUp'
 
 /*
 
@@ -49,11 +49,10 @@ export function useHeaderScrollMargin(
 
   // track and return the adjusted height of the element
   const [headerScrollMargin, setHeaderScrollMargin] = useState(measureHeight())
-  const theme = useTheme()
-  const isWideEnoughForSticky = useMediaQuery(theme.breakpoints.up('md'))
 
+  const isMd = useIsBreakpointAndUp('md')
   useEffect(() => {
-    setHeaderScrollMargin(isWideEnoughForSticky ? measureHeight() : 0)
+    setHeaderScrollMargin(isMd ? measureHeight() : 0)
   }, [elemId, pageWidth, sticking, ...otherDependencies])
 
   return headerScrollMargin
