@@ -69,8 +69,13 @@ const config: PlaywrightTestConfig = {
       use: {
         baseURL: 'https://dev.healthequitytracker.org',
       }
-
     },
+    {
+
+      name: 'E2E_LOCAL',
+      testMatch: /.*nightly.spec.ts/,
+    },
+    // TODO: delete this next E2E project once new environment based testing is in place
     {
       name: 'E2E',
       testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
