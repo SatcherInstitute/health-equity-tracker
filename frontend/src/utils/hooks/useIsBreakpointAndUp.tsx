@@ -3,13 +3,11 @@ import resolveConfig from 'tailwindcss/resolveConfig'
 import tailwindConfig from '../../../tailwind.config.js'
 
 const fullConfig = resolveConfig(tailwindConfig)
-
-// Define string union type for Tailwind breakpoints
 type TailwindBreakpoint = keyof typeof fullConfig.theme.screens
 
 function getTailwindBreakpointValue(breakpoint: TailwindBreakpoint): number {
-  const pixelBreakpoint = fullConfig.theme.screens[breakpoint]
-  const pixelValue = parseInt(pixelBreakpoint.replace('px', ''))
+  const breakpointStringValue = fullConfig.theme.screens[breakpoint]
+  const pixelValue = parseInt(breakpointStringValue.replace('px', ''))
   return pixelValue || 0
 }
 
@@ -24,9 +22,7 @@ export function useIsBreakpointAndUp(breakpoint: TailwindBreakpoint) {
         window.innerWidth >= getTailwindBreakpointValue(breakpoint)
       )
     }
-
     window.addEventListener('resize', handleResize)
-
     return () => {
       window.removeEventListener('resize', handleResize)
     }
