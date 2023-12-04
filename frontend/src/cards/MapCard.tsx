@@ -251,7 +251,7 @@ function MapCardWithKey(props: MapCardProps) {
 
   const isSm = useIsBreakpointAndUp('sm')
   const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !isSm && !isCompareMode
+  const mapIsWide = isSm && !isCompareMode
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
