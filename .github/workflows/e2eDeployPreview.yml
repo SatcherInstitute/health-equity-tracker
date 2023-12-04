@@ -26,7 +26,7 @@ jobs:
         uses: josephduffy/wait-for-netlify-action@v1
         id: wait-for-netflify-preview
         with:
-          site_name: env.NETLIFY_SITE_NAME
+          site_name: ${{env.NETLIFY_SITE_NAME}}
           max_timeout: 60
 
   tests_e2e_netlify:
@@ -45,7 +45,7 @@ jobs:
         run: npm run e2e-deploy-preview
         # Here we provide the preview domain, based on the GITHUB_PR_NUMBER combined with the NETLIFY_SITE_NAME
         env:
-          VITE_PLAYWRIGHT_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
+          PLAYWRIGHT_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
       # store test run reports
       - uses: actions/upload-artifact@v3
         if: always()
