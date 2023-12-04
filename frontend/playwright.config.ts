@@ -71,14 +71,17 @@ const config: PlaywrightTestConfig = {
       }
     },
     {
+      name: 'E2E_DEPLOY_PREVIEW',
+      testMatch: /.*nightly.spec.ts/,
+      use: {
+        // TODO: figure out how to use the generated netlify deploy url here,
+        // TODO: e.g. PR #2397 generates https://deploy-preview-2397--health-equity-tracker.netlify.app/
+      }
+    },
+    {
 
       name: 'E2E_LOCAL',
       testMatch: /.*nightly.spec.ts/,
-    },
-    // TODO: delete this next E2E project once new environment based testing is in place
-    {
-      name: 'E2E',
-      testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
     },
   ],
 
