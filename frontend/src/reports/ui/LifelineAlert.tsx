@@ -1,4 +1,3 @@
-import styles from './LifelineAlert.module.scss'
 import PhoneIcon from '@mui/icons-material/Phone'
 import { urlMap } from '../../utils/externalUrls'
 import HetAlert from '../../styles/HetComponents/HetAlert'
@@ -7,7 +6,7 @@ function LifelineAlert() {
   return (
     <div>
       <HetAlert
-        className={styles.ReportAlert}
+        className='m-2 mt-0 border border-secondary-main text-left text-small'
         icon={<PhoneIcon />}
         title='988 Suicide & Crisis Lifeline'
       >
