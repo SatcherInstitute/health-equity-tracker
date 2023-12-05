@@ -1,4 +1,4 @@
-import { CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
 import FlagIcon from '@mui/icons-material/Flag'
 import { urlMap } from '../../utils/externalUrls'
 import { type MetricId, type DataTypeId } from '../../data/config/MetricConfig'
@@ -7,6 +7,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -72,7 +73,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
 
   return (
     <CardContent>
-      <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
+      <HetAlert severity={'warning'} icon={<FlagIcon />}>
         The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
         <b>gender identity</b>. Due to lack of reliable population data for
         gender-expansive people, we are unable to present <b>rates per 100k</b>,
@@ -108,7 +109,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
           CDC's HIV Prevention and Care for Transgender People
         </a>{' '}
         to learn more.
-      </Alert>
+      </HetAlert>
     </CardContent>
   )
 }

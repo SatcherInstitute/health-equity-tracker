@@ -1,4 +1,4 @@
-import { Box, Grid, Alert } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import {
   COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   EXPLORE_DATA_PAGE_LINK,
@@ -9,6 +9,7 @@ import {
 } from '../../utils/internalRoutes'
 import styles from './DefaultHelperBox.module.scss'
 import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 export default function DefaultHelperBox() {
   return (
@@ -18,7 +19,7 @@ export default function DefaultHelperBox() {
       justifyContent='center'
       className={styles.NoTopicContent}
     >
-      <Alert severity='info' icon={<></>} className={styles.NoTopicAlert}>
+      <HetAlert icon={<></>} className={styles.NoTopicAlert}>
         <Grid
           item
           xs={12}
@@ -112,7 +113,7 @@ export default function DefaultHelperBox() {
         <Box mx={7} my={7} sx={{ display: { xs: 'none', md: 'block' } }}>
           <DisclaimerAlert />
         </Box>
-      </Alert>
+      </HetAlert>
     </Grid>
   )
 }

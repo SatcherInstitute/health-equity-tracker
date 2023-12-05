@@ -7,6 +7,7 @@ interface HetAlertProps {
   severity?: AlertColor
   id?: string
   icon?: ReactNode
+  className?: string
 }
 
 export default function HetAlert(props: HetAlertProps) {
@@ -14,7 +15,7 @@ export default function HetAlert(props: HetAlertProps) {
     <Alert
       id={props.id}
       severity={props.severity ?? 'info'}
-      className='rounded'
+      className={`rounded ${props.className ?? ''}`}
       role='note'
       icon={props.icon}
     >

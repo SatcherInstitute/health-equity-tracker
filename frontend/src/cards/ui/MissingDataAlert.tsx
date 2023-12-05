@@ -6,8 +6,8 @@ import {
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { LinkWithStickyParams } from '../../utils/urlutils'
-import { Alert } from '@mui/material'
 import { lazy } from 'react'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 const AltDataTypesMessage = lazy(
   async () => await import('./AltDataTypesMessage')
@@ -44,24 +44,27 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       : ''
 
   return (
-    <Alert sx={{ mt: 4 }} severity='warning' role='note'>
-      Our data sources do not have
-      {demographicPhrase}
-      <b>{props.dataName}</b>
-      {demographicTypePhrase}
-      {geoPhrase}
-      for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
-      this lack of data impacts{' '}
-      <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-        health equity
-      </LinkWithStickyParams>
-      {'. '}
-      {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
-        <AltDataTypesMessage
-          ageAdjustedDataTypes={props.ageAdjustedDataTypes}
-        />
-      )}
-    </Alert>
+    <div className='mt-4'>
+      <HetAlert severity='warning'>
+        Our data sources do not have
+        {demographicPhrase}
+        <b>{props.dataName}</b>
+        {demographicTypePhrase}
+        {geoPhrase}
+        for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
+        this lack of data impacts{' '}
+        <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+          health equity
+        </LinkWithStickyParams>
+        {'. '}
+        {props.ageAdjustedDataTypes &&
+          props.ageAdjustedDataTypes.length > 0 && (
+            <AltDataTypesMessage
+              ageAdjustedDataTypes={props.ageAdjustedDataTypes}
+            />
+          )}
+      </HetAlert>
+    </div>
   )
 }
 

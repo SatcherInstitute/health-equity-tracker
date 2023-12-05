@@ -10,7 +10,6 @@ import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import { Alert, AlertTitle } from '@mui/material'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetAlert from '../../../styles/HetComponents/HetAlert'
 
@@ -71,14 +70,17 @@ const HivLink = () => {
           information on how people became infected with HIV. This means that
           the data may change as more information becomes available.
         </p>
-        <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
-          <AlertTitle>2020 Data Disruption Due to COVID-19</AlertTitle>
+        <HetAlert
+          severity={'warning'}
+          icon={<FlagIcon />}
+          title='2020 Data Disruption Due to COVID-19'
+        >
           <p>
             The COVID-19 pandemic significantly disrupted data for the year
             2020. This impact could lead to distortions in the reported numbers.
             Please exercise caution when analyzing this year's data.
           </p>
-        </Alert>
+        </HetAlert>
         <p>
           The data for 2022 and 2023 is still in its initial stages of
           collection and has not been finalized, making it "preliminary."
@@ -212,17 +214,18 @@ const HivLink = () => {
         >
           Addressing Missing and Suppressed Data
         </h3>
-        <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
-          <AlertTitle>
-            Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)
-          </AlertTitle>
+        <HetAlert
+          severity='warning'
+          icon={<FlagIcon />}
+          title='Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)'
+        >
           <p>
             To protect personal privacy, prevent revealing information that
             might identify specific individuals, and ensure the reliability of
             statistical estimates, small data values may not be available in
             some circumstances.
           </p>
-        </Alert>
+        </HetAlert>
         <p>
           County-level data is suppressed when the population denominator is:
           <ul>

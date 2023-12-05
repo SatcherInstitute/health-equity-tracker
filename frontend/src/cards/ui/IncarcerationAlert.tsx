@@ -1,4 +1,4 @@
-import { Alert, type AlertColor } from '@mui/material'
+import { type AlertColor } from '@mui/material'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -11,6 +11,7 @@ import {
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from '../../data/providers/IncarcerationProvider'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -40,7 +41,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
-    <Alert severity={severity} role='note'>
+    <HetAlert severity={severity}>
       The disaggregated <b>{demographicType}</b> dataset available from the{' '}
       {source}{' '}
       <IncarcerationDetailsText
@@ -52,7 +53,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
       {combinedAlertFipsList.includes(props.fips.getDisplayName()) &&
         CombinedIncarcerationStateMessage()}{' '}
       {showAlaskaJailCaveat && ALASKA_PRIVATE_JAIL_CAVEAT}
-    </Alert>
+    </HetAlert>
   )
 }
 

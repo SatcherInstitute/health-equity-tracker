@@ -1,13 +1,14 @@
-import { CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 function Hiv2020Alert() {
   return (
     <CardContent>
-      <Alert severity='warning' role='note'>
+      <HetAlert severity='warning'>
         Due to COVID-19's effects on HIV testing, care services, and case
         surveillance, approach 2020 data with care. Disruptions may skew usual
         trends.
-      </Alert>
+      </HetAlert>
     </CardContent>
   )
 }

@@ -13,7 +13,6 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import CircularProgress from '@mui/material/CircularProgress'
-import Alert from '@mui/material/Alert'
 import ListItemText from '@mui/material/ListItemText'
 import { IconButton } from '@mui/material'
 import Link from '@mui/material/Link'
@@ -25,6 +24,7 @@ import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -81,9 +81,9 @@ function DownloadDatasetListItem(props: {
           />
         </>
       ) : (
-        <Alert severity='error'>
+        <HetAlert severity='error'>
           Error downloading {props.datasetMetadata.name}.
-        </Alert>
+        </HetAlert>
       )}
     </ListItem>
   )

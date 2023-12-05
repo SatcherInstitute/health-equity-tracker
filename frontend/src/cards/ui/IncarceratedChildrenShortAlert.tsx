@@ -5,7 +5,8 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { ALL } from '../../data/utils/Constants'
 import FlagIcon from '@mui/icons-material/Flag'
 import { type DemographicType } from '../../data/query/Breakdowns'
-import { CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -27,9 +28,8 @@ function IncarceratedChildrenShortAlert(
 
   return (
     <CardContent>
-      <Alert
+      <HetAlert
         severity={count === 0 ? 'info' : 'error'}
-        role='note'
         icon={count !== 0 ? <FlagIcon /> : null}
       >
         <b>
@@ -38,7 +38,7 @@ function IncarceratedChildrenShortAlert(
         confined in {adultFacilities} in{' '}
         <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
         <a href={urlMap.childrenInPrison}>Learn more.</a>
-      </Alert>
+      </HetAlert>
     </CardContent>
   )
 }

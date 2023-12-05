@@ -1,7 +1,7 @@
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -11,6 +11,7 @@ import { type VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { AGE } from '../../data/utils/Constants'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
 
@@ -109,13 +110,11 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   // show the higher one on the map
   return raceEthnicityDiff ? (
     <CardContent>
-      <Alert severity='warning' role='note'>
-        {diffRaceEthnicityText}
-      </Alert>
+      <HetAlert severity='warning'>{diffRaceEthnicityText}</HetAlert>
     </CardContent>
   ) : (
     <CardContent sx={{ m: 1 }}>
-      <Alert severity={showInfoSeverity ? 'info' : 'warning'} role='note'>
+      <HetAlert severity={showInfoSeverity ? 'info' : 'warning'}>
         {percentageUnknown}
         {props.metricConfig.shortLabel}
         {' reported an unknown '}
@@ -137,7 +136,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
             when interpreting age-adjusted ratios.
           </>
         )}
-      </Alert>
+      </HetAlert>
     </CardContent>
   )
 }

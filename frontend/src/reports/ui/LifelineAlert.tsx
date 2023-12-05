@@ -1,18 +1,16 @@
-import { Alert, AlertTitle } from '@mui/material'
 import styles from './LifelineAlert.module.scss'
 import PhoneIcon from '@mui/icons-material/Phone'
 import { urlMap } from '../../utils/externalUrls'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 function LifelineAlert() {
   return (
     <div>
-      <Alert
-        severity='info'
+      <HetAlert
         className={styles.ReportAlert}
         icon={<PhoneIcon />}
-        role='note'
+        title='988 Suicide & Crisis Lifeline'
       >
-        <AlertTitle>988 Suicide & Crisis Lifeline</AlertTitle>
         <p>
           For 24/7, free and confidential support, prevention and crisis
           resources, and professional best practices, call{' '}
@@ -21,7 +19,7 @@ function LifelineAlert() {
           is experiencing an emergency, call 911 or go to your nearest emergency
           room.
         </p>
-      </Alert>
+      </HetAlert>
     </div>
   )
 }

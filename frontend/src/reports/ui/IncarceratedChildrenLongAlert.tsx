@@ -1,21 +1,18 @@
-import { Alert, AlertTitle } from '@mui/material'
-import styles from './IncarceratedChildrenLongAlert.module.scss'
 import FlagIcon from '@mui/icons-material/Flag'
 import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
+import HetAlert from '../../styles/HetComponents/HetAlert'
 
 function IncarceratedChildrenLongAlert() {
   return (
     <div>
-      <Alert
+      <HetAlert
+        title='Children in Adult Jails and Prisons'
         severity='error'
-        className={styles.ReportAlert}
+        className='m-2 border border-report-alert text-left'
         icon={<FlagIcon />}
-        role='note'
       >
-        <AlertTitle>Children in Adult Jails and Prisons</AlertTitle>
-
         <p>
           Although the criminal justice system makes distinctions between adults
           and children, individual states have laws that remove children from
@@ -29,7 +26,7 @@ function IncarceratedChildrenLongAlert() {
           <b>total number of confined children</b> in adult facilities. Read
           more in <Link to={OLD_METHODOLOGY_PAGE_LINK}>our methodology</Link>.
         </p>
-      </Alert>
+      </HetAlert>
     </div>
   )
 }
