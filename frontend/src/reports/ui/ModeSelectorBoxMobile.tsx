@@ -24,28 +24,24 @@ export default function ModeSelectorBoxMobile(
   props: ModeSelectorBoxMobileProps
 ) {
   return (
-    <div className='mode-selector-box-mobile'>
-      <div className='m-2 rounded-sm bg-white p-2 shadow-raised md:hidden'>
-        <div className='flex justify-start'>
-          <div>
-            <SimpleSelect<DemographicType>
-              label='Demographic'
-              optionsMap={props.enabledDemographicOptionsMap}
-              disabledOptions={props.disabledDemographicOptions}
-              selected={props.demographicType}
-              setSelected={props.setDemographicType}
-            />
-            <SimpleSelect<MadLibId>
-              label='Compare mode'
-              optionsMap={MADLIB_MODE_MAP}
-              selected={props.trackerMode}
-              setSelected={props.setTrackerMode}
-            />
-            <JumpToSelect
-              offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
-            />
-          </div>
-        </div>
+    <div className='mode-selector-box-mobile m-2 flex justify-start rounded-sm bg-white p-2 shadow-raised md:hidden'>
+      <div>
+        <SimpleSelect<DemographicType>
+          label='Demographic'
+          optionsMap={props.enabledDemographicOptionsMap}
+          disabledOptions={props.disabledDemographicOptions}
+          selected={props.demographicType}
+          setSelected={props.setDemographicType}
+        />
+        <SimpleSelect<MadLibId>
+          label='Compare mode'
+          optionsMap={MADLIB_MODE_MAP}
+          selected={props.trackerMode}
+          setSelected={props.setTrackerMode}
+        />
+        <JumpToSelect
+          offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
+        />
       </div>
     </div>
   )
