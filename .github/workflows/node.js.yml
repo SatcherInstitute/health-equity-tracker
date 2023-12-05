@@ -28,8 +28,8 @@ jobs:
         run: npm ci
       - name: Install playwright browsers
         run: npx playwright install chromium --with-deps
-      - name: Runs playwright E2E
-        run: npx playwright test --project=E2E
+      - name: Starts a CI dev server; runs E2E_LOCAL there
+        run: npx playwright test --project=E2E_LOCAL
       - uses: actions/upload-artifact@v3
         if: always()
         with:
