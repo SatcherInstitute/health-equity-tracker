@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('test', async ({ page }) => {
+test('Incarceration (Prison and Jail) User Flow', async ({ page }) => {
   await page.goto('/exploredata?mls=1.incarceration-3.00&group1=All');
   await page.getByLabel('Launch multiple maps view with side-by-side maps of each race and ethnicity group').click();
   await page.getByLabel('close multiple maps modal').click();
