@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Incarceration (Prison and Jail) User Flow', async ({ page }) => {
+  //  PRISON BY RACE
   await page.goto('/exploredata?mls=1.incarceration-3.00&group1=All');
   await page.getByLabel('Launch multiple maps view with side-by-side maps of each race and ethnicity group').click();
   await page.getByLabel('close multiple maps modal').click();
@@ -11,12 +12,14 @@ test('Incarceration (Prison and Jail) User Flow', async ({ page }) => {
   await page.getByRole('heading', { name: 'Population vs. distribution of total people in prison in the United States' }).click();
   await page.getByRole('button', { name: 'Data table' }).click();
   await page.getByRole('columnheader', { name: 'Total population share' }).click();
+  //  PRISON BY SEX
   await page.getByRole('combobox', { name: 'Demographic Race/ethnicity' }).click();
   await page.getByRole('option', { name: 'Sex' }).click();
   await page.getByText('Individuals of any age, including children, under the jurisdiction of an adult p').click();
   await page.locator('#data-table').getByText('3,232 children confined in adult facilities in the United States. Learn more.').click();
   await page.getByRole('cell', { name: 'Female' }).click();
   await page.getByText('Off').nth(1).click();
+  // JAIL BY SEX
   await page.getByRole('option', { name: 'Topics' }).click();
   await page.getByRole('button', { name: 'COVID-19', exact: true }).click();
   await page.getByRole('button', { name: 'Incarceration' }).click();
