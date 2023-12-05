@@ -14,6 +14,7 @@ airflow-logs
 *.iml
 .idea/
 ~$*
+tig
 
 node_modules/
 /frontend_server/build/
@@ -41,3 +42,5 @@ python/ingestion/build/
 *.json
 # Exception: Dont ignore these specific JSON files
 !frontend/cspell.config.json
+
+
