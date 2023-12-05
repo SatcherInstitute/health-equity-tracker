@@ -74,8 +74,7 @@ const config: PlaywrightTestConfig = {
       name: 'E2E_DEPLOY_PREVIEW',
       testMatch: /.*nightly.spec.ts/,
       use: {
-        // TODO: figure out how to use the generated netlify deploy url here,
-        // TODO: e.g. PR #2397 generates https://deploy-preview-2397--health-equity-tracker.netlify.app/
+        channel: 'chrome'
       }
     },
     {
