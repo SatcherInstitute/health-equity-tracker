@@ -12,6 +12,7 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { Alert, AlertTitle } from '@mui/material'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import HetAlert from '../../../styles/HetComponents/HetAlert'
 
 const HivLink = () => {
   return (
@@ -52,8 +53,7 @@ const HivLink = () => {
           better understand the impact of HIV across the country.
         </p>
         <p>
-          <Alert severity='info' role='note'>
-            <AlertTitle>A note about CDC NCHHSTP AtlasPlus</AlertTitle>
+          <HetAlert title='A note about CDC NCHHSTP AtlasPlus'>
             <p>
               The CDC's NCHHSTP and other HIV surveillance programs have agreed
               to limit the amount of data released at the state and county
@@ -62,7 +62,7 @@ const HivLink = () => {
               before this time are not final and should be interpreted with
               caution.
             </p>
-          </Alert>
+          </HetAlert>
         </p>
         <p>
           To protect people’s privacy, the CDC and these programs have agreed to
@@ -182,11 +182,10 @@ const HivLink = () => {
           ]}
         />
 
-        <Alert severity='info' role='note'>
-          <AlertTitle>
-            A note about HIV Prevention and Care Rates for Transgender People
-            (2019)
-          </AlertTitle>
+        <HetAlert
+          title='A note about HIV Prevention and Care Rates for Transgender People
+            (2019)'
+        >
           <p>
             Please note: The mentioned groups in our reports refer to{' '}
             <em>sex assigned at birth</em> and not <em>gender identity</em>.
@@ -206,7 +205,7 @@ const HivLink = () => {
             counts for HIV Prevention and Care specifically targeting
             Transgender People.
           </p>
-        </Alert>
+        </HetAlert>
         <h3
           className='font-sansTitle text-title'
           id='#hiv-missing-and-suppressed-data'

@@ -1,4 +1,3 @@
-import { Alert } from '@mui/material'
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
@@ -6,6 +5,7 @@ import { proportionalInequitableBurdenTooltip } from '../methodologyContent/Tool
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { Helmet } from 'react-helmet-async'
+import HetAlert from '../../../styles/HetComponents/HetAlert'
 
 const MetricsLink = () => {
   return (
@@ -20,12 +20,12 @@ const MetricsLink = () => {
         <h3 className='font-sansTitle text-title' id='#percent-share-example'>
           Percent Share Example: COVID-19 Cases
         </h3>
-        <Alert severity='info' role='note'>
+        <HetAlert>
           In the example below, we use <strong>COVID-19 cases</strong> as the
           variable, and <strong>race and ethnicity</strong> as the demographic
           breakdown for simplicity; the definitions apply to all variables and
           demographic breakdowns.
-        </Alert>
+        </HetAlert>
         <div className='pl-10'>
           <p>
             As an example, if in a certain month,{' '}

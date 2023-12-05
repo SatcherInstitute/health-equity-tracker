@@ -13,10 +13,11 @@ import {
   totalCasesPer100kPeopleTooltip,
 } from '../methodologyContent/TooltipLibrary'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import { Alert, AlertTitle } from '@mui/material'
+import { AlertTitle } from '@mui/material'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import HetAlert from '../../../styles/HetComponents/HetAlert'
 
 export const missingAhrDataArray = [
   {
@@ -73,11 +74,10 @@ function SdohLink() {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.
         </p>
-        <Alert severity='info' role='note'>
-          <AlertTitle>
-            A note about the CDC's Behavioral Risk Factor Surveillance System
-            (BRFSS) survey
-          </AlertTitle>
+        <HetAlert
+          title="A note about the CDC's Behavioral Risk Factor Surveillance System
+            (BRFSS) survey"
+        >
           <p>
             It's important to note that because BRFSS is survey-based, it
             sometimes lacks sufficient data for smaller or marginalized racial
@@ -88,7 +88,7 @@ function SdohLink() {
             the county level, limiting our tracker's granularity for these
             metrics.
           </p>
-        </Alert>
+        </HetAlert>
         <p>
           We obtain our data for the following specific issues directly from
           America's Health Rankings (AHR). This data is based on{' '}
@@ -131,7 +131,7 @@ function SdohLink() {
             },
           ]}
         />
-        <Alert severity='info' role='note'>
+        <HetAlert>
           <AlertTitle>
             A note about the America's Health Rankings (AHR)'s population data
           </AlertTitle>
@@ -165,7 +165,7 @@ function SdohLink() {
             However, we encourage you to explore our comprehensive reports for
             valuable insights into these and other conditions.
           </p>
-        </Alert>
+        </HetAlert>
         <h3 className='font-sansTitle text-title' id='#sdoh-data-sources'>
           Data Sources
         </h3>

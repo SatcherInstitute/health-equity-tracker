@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CardContent, Alert } from '@mui/material'
+import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -40,6 +40,7 @@ import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import HetAlert from '../styles/HetComponents/HetAlert'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -272,7 +273,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
             {isHIV && <Hiv2020Alert />}
             {!shouldShowMissingData && (
               <CardContent>
-                <Alert severity='info' role='note'>
+                <HetAlert>
                   This graph visualizes the disproportionate share of{' '}
                   {props.dataTypeConfig.fullDisplayName} as experienced by
                   different demographic groups compared to their relative shares
@@ -282,7 +283,7 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
                     methodology
                   </HashLink>
                   .
-                </Alert>
+                </HetAlert>
               </CardContent>
             )}
           </>

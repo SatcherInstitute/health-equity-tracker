@@ -1,7 +1,7 @@
-import { Alert, AlertTitle } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import { GLOSSARY_LINK } from '../../../utils/internalRoutes'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
+import HetAlert from '../../../styles/HetComponents/HetAlert'
 
 interface DataItem {
   topic: string
@@ -266,10 +266,7 @@ const RacesAndEthnicitiesLink = () => {
           across data sources.
         </p>
         <p>
-          <Alert severity='info' role='note'>
-            <AlertTitle>
-              Dataset Definitions and Contextual Variances
-            </AlertTitle>
+          <HetAlert title='Dataset Definitions and Contextual Variances'>
             <p>
               Understanding race and ethnicity classifications within our
               tracker requires a nuanced approach. Generally, we include
@@ -289,7 +286,7 @@ const RacesAndEthnicitiesLink = () => {
               how individuals are categorized, potentially affecting
               distinctions like "Asian" vs. "Other".
             </p>
-          </Alert>
+          </HetAlert>
         </p>
         {raceDefinitions.map((item) => {
           return (
