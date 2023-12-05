@@ -1,4 +1,3 @@
-import { Card, Grid } from '@mui/material'
 import SimpleSelect from '../../pages/ui/SimpleSelect'
 import JumpToSelect from '../../pages/ui/JumpToSelect'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
@@ -26,8 +25,8 @@ export default function ModeSelectorBoxMobile(
 ) {
   return (
     <div className='mode-selector-box-mobile'>
-      <Card raised={true} className='m-2 p-2 md:hidden'>
-        <Grid container justifyContent='flex-start'>
+      <div className='m-2 rounded-sm bg-white p-2 shadow-raised md:hidden'>
+        <div className='flex justify-start'>
           <div>
             <SimpleSelect<DemographicType>
               label='Demographic'
@@ -46,8 +45,8 @@ export default function ModeSelectorBoxMobile(
               offerJumpToAgeAdjustment={props.offerJumpToAgeAdjustment}
             />
           </div>
-        </Grid>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
