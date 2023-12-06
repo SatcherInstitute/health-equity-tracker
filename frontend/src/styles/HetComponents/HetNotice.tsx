@@ -29,7 +29,7 @@ export default function HetNotice(props: HetNoticeProps) {
     <Alert
       id={props.id}
       severity={severity}
-      className={`rounded ${props.className ?? ''}`}
+      className={`rounded mx-2 my-4 lg:mx-5 ${props.className ?? ''}`}
       role='note'
       icon={props.icon ?? icon}
       variant={variant}

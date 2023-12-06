@@ -44,27 +44,24 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       : ''
 
   return (
-    <div className='mt-4'>
-      <HetNotice kind='data-integrity'>
-        Our data sources do not have
-        {demographicPhrase}
-        <b>{props.dataName}</b>
-        {demographicTypePhrase}
-        {geoPhrase}
-        for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
-        this lack of data impacts{' '}
-        <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
-          health equity
-        </LinkWithStickyParams>
-        {'. '}
-        {props.ageAdjustedDataTypes &&
-          props.ageAdjustedDataTypes.length > 0 && (
-            <AltDataTypesMessage
-              ageAdjustedDataTypes={props.ageAdjustedDataTypes}
-            />
-          )}
-      </HetNotice>
-    </div>
+    <HetNotice kind='data-integrity'>
+      Our data sources do not have
+      {demographicPhrase}
+      <b>{props.dataName}</b>
+      {demographicTypePhrase}
+      {geoPhrase}
+      for <b>{props.fips.getSentenceDisplayName()}</b>. Learn more about how
+      this lack of data impacts{' '}
+      <LinkWithStickyParams to={WHAT_IS_HEALTH_EQUITY_PAGE_LINK}>
+        health equity
+      </LinkWithStickyParams>
+      {'. '}
+      {props.ageAdjustedDataTypes && props.ageAdjustedDataTypes.length > 0 && (
+        <AltDataTypesMessage
+          ageAdjustedDataTypes={props.ageAdjustedDataTypes}
+        />
+      )}
+    </HetNotice>
   )
 }
 

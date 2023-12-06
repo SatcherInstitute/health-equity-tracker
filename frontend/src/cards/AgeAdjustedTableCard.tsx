@@ -8,7 +8,6 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { CardContent } from '@mui/material'
 import {
   type MetricConfig,
   type MetricId,
@@ -125,15 +124,13 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
       {(queries) => {
         if (queries.length < 2)
           return (
-            <CardContent>
-              <MissingDataAlert
-                demographicTypeString={
-                  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                }
-                dataName={chartTitle}
-                fips={props.fips}
-              />
-            </CardContent>
+            <MissingDataAlert
+              demographicTypeString={
+                DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+              }
+              dataName={chartTitle}
+              fips={props.fips}
+            />
           )
 
         const [raceQueryResponse, ageQueryResponse] = queries
@@ -173,17 +170,15 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               isWrongDemographicType ||
               raceQueryResponse.dataIsMissing() ||
               raceQueryResponse.shouldShowMissingDataMessage(metricIds)) && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={chartTitle}
-                  demographicTypeString={
-                    DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
-                  }
-                  dropdownVarId={props.dropdownVarId}
-                  ageAdjustedDataTypes={ageAdjustedDataTypes}
-                  fips={props.fips}
-                />
-              </CardContent>
+              <MissingDataAlert
+                dataName={chartTitle}
+                demographicTypeString={
+                  DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
+                }
+                dropdownVarId={props.dropdownVarId}
+                ageAdjustedDataTypes={ageAdjustedDataTypes}
+                fips={props.fips}
+              />
             )}
 
             {/* values are present or partially null, implying we have at least some age-adjustments */}
@@ -198,23 +193,21 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   />
                 </div>
               )}
-            <CardContent>
-              {/* Always show info on what age-adj is */}
-              <HetNotice>
-                Age-adjustment is a statistical process applied to rates of
-                disease, death, or other health outcomes that correlate with an
-                individual's age. Adjusting for age allows for fairer comparison
-                between populations, where age might be a confounding risk
-                factor and the studied groups have different distributions of
-                individuals per age group. By normalizing for age, we can paint
-                a more accurate picture of undue burden of disease and death
-                between populations. More details can be found in our{' '}
-                <Link to={OLD_AGE_ADJUSTMENT_LINK}>
-                  age-adjustment methodology
-                </Link>
-                .
-              </HetNotice>
-            </CardContent>
+            {/* Always show info on what age-adj is */}
+            <HetNotice>
+              Age-adjustment is a statistical process applied to rates of
+              disease, death, or other health outcomes that correlate with an
+              individual's age. Adjusting for age allows for fairer comparison
+              between populations, where age might be a confounding risk factor
+              and the studied groups have different distributions of individuals
+              per age group. By normalizing for age, we can paint a more
+              accurate picture of undue burden of disease and death between
+              populations. More details can be found in our{' '}
+              <Link to={OLD_AGE_ADJUSTMENT_LINK}>
+                age-adjustment methodology
+              </Link>
+              .
+            </HetNotice>
           </>
         )
       }}
