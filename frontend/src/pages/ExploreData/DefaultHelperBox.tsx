@@ -19,7 +19,7 @@ export default function DefaultHelperBox() {
       justifyContent='center'
       className={styles.NoTopicContent}
     >
-      <HetAlert icon={<></>} className={styles.NoTopicAlert}>
+      <HetAlert kind='text-only' className={styles.NoTopicAlert}>
         <Grid
           item
           xs={12}

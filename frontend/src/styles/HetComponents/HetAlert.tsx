@@ -3,12 +3,14 @@ import { type ReactNode } from 'react'
 import FlagIcon from '@mui/icons-material/Flag'
 import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined'
 
 export type HetAlertKind =
   | 'data-integrity'
   | 'health-crisis'
   | 'text-only'
   | 'helpful-info'
+  | 'technical-error'
 
 interface HetAlertProps {
   children: ReactNode
@@ -50,6 +52,8 @@ function getMuiAlertProps(kind: HetAlertKind | undefined): AlertProps {
       return { severity: 'warning', icon: <ReportProblemOutlinedIcon /> }
     case 'health-crisis':
       return { severity: 'error', icon: <FlagIcon /> }
+    case 'technical-error':
+      return { severity: 'error', icon: <DangerousOutlinedIcon /> }
     // default is 'helpful-info'
     case 'helpful-info':
     default:

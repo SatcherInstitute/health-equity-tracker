@@ -34,10 +34,10 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     ? 'Vera Institute of Justice'
     : 'Bureau of Justice Statistics'
 
-  const alertKind: HetAlertKind | undefined =
+  const alertKind: HetAlertKind =
     props.demographicType === AGE && props.dataType === 'prison'
       ? 'data-integrity'
-      : undefined
+      : 'helpful-info'
   const demographicType =
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 

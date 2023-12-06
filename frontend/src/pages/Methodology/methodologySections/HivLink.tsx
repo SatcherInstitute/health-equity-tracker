@@ -1,4 +1,3 @@
-import FlagIcon from '@mui/icons-material/Flag'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   hivDataSources,
@@ -72,7 +71,6 @@ const HivLink = () => {
         </p>
         <HetAlert
           kind='data-integrity'
-          icon={<FlagIcon />}
           title='2020 Data Disruption Due to COVID-19'
         >
           <p>
@@ -216,7 +214,6 @@ const HivLink = () => {
         </h3>
         <HetAlert
           kind='data-integrity'
-          icon={<FlagIcon />}
           title='Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)'
         >
           <p>
