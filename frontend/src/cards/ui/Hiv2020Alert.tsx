@@ -4,7 +4,7 @@ import HetAlert from '../../styles/HetComponents/HetAlert'
 function Hiv2020Alert() {
   return (
     <CardContent>
-      <HetAlert severity='warning'>
+      <HetAlert kind='data-integrity'>
         Due to COVID-19's effects on HIV testing, care services, and case
         surveillance, approach 2020 data with care. Disruptions may skew usual
         trends.

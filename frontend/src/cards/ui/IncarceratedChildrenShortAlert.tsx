@@ -3,7 +3,6 @@ import { urlMap } from '../../utils/externalUrls'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { ALL } from '../../data/utils/Constants'
-import FlagIcon from '@mui/icons-material/Flag'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { CardContent } from '@mui/material'
 import HetAlert from '../../styles/HetComponents/HetAlert'
@@ -28,10 +27,7 @@ function IncarceratedChildrenShortAlert(
 
   return (
     <CardContent>
-      <HetAlert
-        severity={count === 0 ? 'info' : 'error'}
-        icon={count !== 0 ? <FlagIcon /> : null}
-      >
+      <HetAlert kind={count > 0 ? 'health-crisis' : 'text-only'}>
         <b>
           {count.toLocaleString()} {children}
         </b>{' '}

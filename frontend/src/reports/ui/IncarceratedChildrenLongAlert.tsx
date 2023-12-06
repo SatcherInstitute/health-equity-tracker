@@ -1,4 +1,3 @@
-import FlagIcon from '@mui/icons-material/Flag'
 import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
@@ -9,9 +8,8 @@ function IncarceratedChildrenLongAlert() {
     <div>
       <HetAlert
         title='Children in Adult Jails and Prisons'
-        severity='error'
+        kind='health-crisis'
         className='m-2 border border-report-alert text-left'
-        icon={<FlagIcon />}
       >
         <p>
           Although the criminal justice system makes distinctions between adults

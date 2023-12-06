@@ -1,4 +1,3 @@
-import { type AlertColor } from '@mui/material'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -11,7 +10,9 @@ import {
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from '../../data/providers/IncarcerationProvider'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetAlert, {
+  type HetAlertKind,
+} from '../../styles/HetComponents/HetAlert'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -33,15 +34,15 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     ? 'Vera Institute of Justice'
     : 'Bureau of Justice Statistics'
 
-  const severity: AlertColor =
+  const alertKind: HetAlertKind | undefined =
     props.demographicType === AGE && props.dataType === 'prison'
-      ? 'warning'
-      : 'info'
+      ? 'data-integrity'
+      : undefined
   const demographicType =
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
-    <HetAlert severity={severity}>
+    <HetAlert kind={alertKind}>
       The disaggregated <b>{demographicType}</b> dataset available from the{' '}
       {source}{' '}
       <IncarcerationDetailsText

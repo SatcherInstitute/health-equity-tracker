@@ -664,7 +664,7 @@ function MapCardWithKey(props: MapCardProps) {
                 dataForActiveDemographicGroup.length === 0 &&
                 activeDemographicGroup !== ALL && (
                   <CardContent>
-                    <HetAlert severity='warning'>
+                    <HetAlert kind='data-integrity'>
                       Insufficient data available for filter:{' '}
                       <b>{activeDemographicGroup}</b>.{' '}
                       {/* Offer multimap link if current demo group is missing info */}

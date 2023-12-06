@@ -7,7 +7,7 @@ function DisclaimerAlert() {
   return (
     <div>
       <HetAlert
-        severity='warning'
+        kind='data-integrity'
         className='m-1 mt-2 border border-solid border-report-alert text-left text-smallest sm:mx-3 sm:mt-4 sm:text-small'
         icon={<FlagIcon className='hidden sm:inline-block' />}
         title='Major gaps in the data'

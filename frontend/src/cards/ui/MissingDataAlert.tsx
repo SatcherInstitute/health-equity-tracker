@@ -45,7 +45,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 
   return (
     <div className='mt-4'>
-      <HetAlert severity='warning'>
+      <HetAlert kind='data-integrity'>
         Our data sources do not have
         {demographicPhrase}
         <b>{props.dataName}</b>

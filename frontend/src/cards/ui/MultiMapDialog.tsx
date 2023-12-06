@@ -355,7 +355,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             {props.demographicGroupsNoData.length > 0 && (
               <Grid item container justifyContent='center' xs={12} xl={7}>
                 <div className='my-3'>
-                  <HetAlert severity='warning'>
+                  <HetAlert kind='data-integrity'>
                     <p className={styles.NoDataWarning}>
                       Insufficient {props.metricConfig.shortLabel} data reported
                       at the {props.fips.getChildFipsTypeDisplayName()} level

@@ -50,7 +50,10 @@ function SviAlert(props: SviAlertProps) {
   const color = findColor(rating)
 
   return (
-    <HetAlert severity={props.svi ? 'warning' : 'info'} className='m-2'>
+    <HetAlert
+      kind={props.svi ? 'data-integrity' : 'helpful-info'}
+      className='m-2'
+    >
       {props.svi ? (
         <>
           This county has a social vulnerability index of <b>{props.svi}</b>;

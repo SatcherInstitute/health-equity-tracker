@@ -81,7 +81,7 @@ function DownloadDatasetListItem(props: {
           />
         </>
       ) : (
-        <HetAlert severity='error'>
+        <HetAlert kind='health-crisis'>
           Error downloading {props.datasetMetadata.name}.
         </HetAlert>
       )}

@@ -81,7 +81,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   const secondaryAgePercentageUnknown: string =
     additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId]
 
-  const showInfoSeverity = percentageUnknown === 0
+  const noUnknowns = percentageUnknown === 0
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
@@ -110,11 +110,11 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   // show the higher one on the map
   return raceEthnicityDiff ? (
     <CardContent>
-      <HetAlert severity='warning'>{diffRaceEthnicityText}</HetAlert>
+      <HetAlert kind='data-integrity'>{diffRaceEthnicityText}</HetAlert>
     </CardContent>
   ) : (
     <CardContent sx={{ m: 1 }}>
-      <HetAlert severity={showInfoSeverity ? 'info' : 'warning'}>
+      <HetAlert kind={noUnknowns ? 'text-only' : 'data-integrity'}>
         {percentageUnknown}
         {props.metricConfig.shortLabel}
         {' reported an unknown '}

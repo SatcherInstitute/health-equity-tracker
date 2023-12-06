@@ -71,7 +71,7 @@ const HivLink = () => {
           the data may change as more information becomes available.
         </p>
         <HetAlert
-          severity={'warning'}
+          kind='data-integrity'
           icon={<FlagIcon />}
           title='2020 Data Disruption Due to COVID-19'
         >
@@ -215,7 +215,7 @@ const HivLink = () => {
           Addressing Missing and Suppressed Data
         </h3>
         <HetAlert
-          severity='warning'
+          kind='data-integrity'
           icon={<FlagIcon />}
           title='Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)'
         >

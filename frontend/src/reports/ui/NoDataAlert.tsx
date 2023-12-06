@@ -4,7 +4,7 @@ import HetAlert from '../../styles/HetComponents/HetAlert'
 function NoDataAlert(props: { dropdownVarId: string }) {
   return (
     <Grid item xs={5}>
-      <HetAlert severity='error'>
+      <HetAlert kind='health-crisis'>
         This data is not currently available in the Health Equity Tracker, but
         will be coming soon.
         <br />
