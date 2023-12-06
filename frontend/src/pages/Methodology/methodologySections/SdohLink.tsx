@@ -13,7 +13,6 @@ import {
   totalCasesPer100kPeopleTooltip,
 } from '../methodologyContent/TooltipLibrary'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import { AlertTitle } from '@mui/material'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
@@ -131,10 +130,7 @@ function SdohLink() {
             },
           ]}
         />
-        <HetAlert>
-          <AlertTitle>
-            A note about the America's Health Rankings (AHR)'s population data
-          </AlertTitle>
+        <HetAlert title="A note about the America's Health Rankings (AHR)'s population data">
           <p>
             Without population data, it is difficult to accurately calculate{' '}
             {percentShareTooltip} measures, which could potentially result in
