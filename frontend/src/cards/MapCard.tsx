@@ -1,6 +1,5 @@
 import { Button, CardContent, Grid, Tooltip } from '@mui/material'
 import Divider from '@mui/material/Divider'
-import Alert from '@mui/material/Alert'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -76,6 +75,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -664,7 +664,7 @@ function MapCardWithKey(props: MapCardProps) {
                 dataForActiveDemographicGroup.length === 0 &&
                 activeDemographicGroup !== ALL && (
                   <CardContent>
-                    <Alert severity='warning' role='note'>
+                    <HetNotice kind='data-integrity'>
                       Insufficient data available for filter:{' '}
                       <b>{activeDemographicGroup}</b>.{' '}
                       {/* Offer multimap link if current demo group is missing info */}
@@ -673,7 +673,7 @@ function MapCardWithKey(props: MapCardProps) {
                         demographicType={demographicType}
                         currentDataType={props.dataTypeConfig.fullDisplayName}
                       />
-                    </Alert>
+                    </HetNotice>
                   </CardContent>
                 )}
             </div>

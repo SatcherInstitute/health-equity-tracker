@@ -68,9 +68,16 @@ test('CAWP: CAWP National Congress Flow', async ({ page }) => {
     )
     .getByText('20.0% of women members', { exact: true })
     .click()
+
   await page
     .getByRole('cell', {
       name: '25% women in Congress ( 155 members / 621 Total members )',
     })
     .click()
+  await page.getByRole('button', { name: 'US Congress', exact: true }).click();
+  await page.getByRole('button', { name: 'State legislatures' }).click();
+  await page.getByRole('button', { name: 'Population vs. distribution' }).click();
+  // ensure CAWP specific alert is visible
+  await page.getByText('Percentages reported for Women in state legislatures cannot be summed, as these ').click();
+
 })

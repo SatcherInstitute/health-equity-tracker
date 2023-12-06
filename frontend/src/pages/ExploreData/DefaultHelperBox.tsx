@@ -1,4 +1,4 @@
-import { Box, Grid, Alert } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import {
   COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   EXPLORE_DATA_PAGE_LINK,
@@ -18,13 +18,13 @@ export default function DefaultHelperBox() {
       justifyContent='center'
       className={styles.NoTopicContent}
     >
-      <Alert severity='info' icon={<></>} className={styles.NoTopicAlert}>
+      <section className={styles.NoTopicAlert}>
         <Grid
           item
           xs={12}
           container
           justifyContent={'space-evenly'}
-          className={styles.NoTopicBox}
+          className='bg-standard-info px-12 pb-0 pt-4'
         >
           <Grid item xs={12} md={6} container justifyContent={'center'}>
             <div>
@@ -99,7 +99,7 @@ export default function DefaultHelperBox() {
                 allowFullScreen
               ></iframe>
             </div>
-            <p className={styles.NoTopicHelperVideoBoxTourText}>
+            <p className='px-4 pb-4 text-small md:px-4'>
               <i>
                 New to the tracker? Watch the video demo, or take a{' '}
                 <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
@@ -112,7 +112,7 @@ export default function DefaultHelperBox() {
         <Box mx={7} my={7} sx={{ display: { xs: 'none', md: 'block' } }}>
           <DisclaimerAlert />
         </Box>
-      </Alert>
+      </section>
     </Grid>
   )
 }

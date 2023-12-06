@@ -1,4 +1,4 @@
-import { CardContent, Divider, Alert } from '@mui/material'
+import { CardContent, Divider } from '@mui/material'
 import {
   formatFieldValue,
   type MetricConfig,
@@ -14,6 +14,7 @@ import { type Fips } from '../../data/utils/Fips'
 import { MultiMapLink } from './MultiMapLink'
 import styles from '../Card.module.scss'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
@@ -76,7 +77,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
     <>
       <Divider />
       <CardContent>
-        <Alert severity='info' role='note'>
+        <HetNotice>
           {generateDemographicTotalPhrase()}
           {/* Compare across XYZ for all variables except vaccinated at county level */}
           <MultiMapLink
@@ -84,7 +85,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
             demographicType={props.demographicType}
             currentDataType={props.dataTypeConfig.fullDisplayName}
           />
-        </Alert>
+        </HetNotice>
       </CardContent>
     </>
   )
