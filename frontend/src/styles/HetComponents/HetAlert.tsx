@@ -19,10 +19,11 @@ interface HetAlertProps {
   id?: string
   className?: string
   kind?: HetAlertKind
+  variant?: 'filled' | 'outlined'
 }
 
 export default function HetAlert(props: HetAlertProps) {
-  const { severity, icon } = getMuiAlertProps(props.kind)
+  const { severity, icon, variant } = getMuiAlertProps(props.kind)
 
   return (
     <Alert
@@ -31,6 +32,7 @@ export default function HetAlert(props: HetAlertProps) {
       className={`rounded ${props.className ?? ''}`}
       role='note'
       icon={props.icon ?? icon}
+      variant={variant}
     >
       {props.title && <AlertTitle>{props.title}</AlertTitle>}
       {props.children}
@@ -41,13 +43,14 @@ export default function HetAlert(props: HetAlertProps) {
 interface AlertProps {
   severity: AlertColor
   icon: ReactNode
+  variant?: 'outlined'
 }
 
 /* Accepts an optional HetAlertKind and returns needed MUI AlertProps object for the icon and severity */
 function getMuiAlertProps(kind: HetAlertKind | undefined): AlertProps {
   switch (kind) {
     case 'text-only':
-      return { severity: 'info', icon: <></> }
+      return { severity: 'success', icon: <></>, variant: 'outlined' }
     case 'data-integrity':
       return { severity: 'warning', icon: <ReportProblemOutlinedIcon /> }
     case 'health-crisis':

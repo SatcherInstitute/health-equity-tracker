@@ -114,7 +114,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
     </CardContent>
   ) : (
     <CardContent sx={{ m: 1 }}>
-      <HetAlert kind={noUnknowns ? 'text-only' : 'data-integrity'}>
+      <HetAlert kind={noUnknowns ? 'helpful-info' : 'data-integrity'}>
         {percentageUnknown}
         {props.metricConfig.shortLabel}
         {' reported an unknown '}

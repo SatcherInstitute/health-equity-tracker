@@ -27,7 +27,7 @@ function IncarceratedChildrenShortAlert(
 
   return (
     <CardContent>
-      <HetAlert kind={count > 0 ? 'health-crisis' : 'text-only'}>
+      <HetAlert kind={count > 0 ? 'health-crisis' : 'helpful-info'}>
         <b>
           {count.toLocaleString()} {children}
         </b>{' '}
