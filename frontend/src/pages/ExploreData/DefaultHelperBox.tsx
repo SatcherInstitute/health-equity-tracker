@@ -18,16 +18,16 @@ export default function DefaultHelperBox() {
       justifyContent='center'
       className={styles.NoTopicContent}
     >
-      <section className={styles.NoTopicAlert}>
+      <section className='m-0 mb-5 max-w-helperBox content-center items-center justify-center justify-items-center bg-standard-info'>
         <Grid
           item
           xs={12}
           container
           justifyContent={'space-evenly'}
-          className='bg-standard-info px-12 pb-0 pt-4'
+          className='px-12 pb-0 pt-4'
         >
           <Grid item xs={12} md={6} container justifyContent={'center'}>
-            <div>
+            <div className='text-left'>
               <h3 className={styles.BigHeadline}>Select a topic above</h3>
 
               <h3 className={styles.LittleHeadline}>
