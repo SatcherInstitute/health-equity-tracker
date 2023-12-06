@@ -110,6 +110,7 @@
     "e2e-prod": "npx playwright install chromium && npx playwright test --project=E2E_PROD",
     "e2e-local": "npx playwright install chromium && npx playwright test --project=E2E_LOCAL",
     "e2e-deploy-preview": "npx playwright install chromium && npx playwright test --project=E2E_DEPLOY_PREVIEW",
+    "e2e-new": "npx playwright codegen http://localhost:3000",
     "playwright": "npx playwright install chromium && npx playwright test",
     "codegen": "npx playwright codegen http://localhost:3000",
     "preview": "npm run build:development && vite preview",
