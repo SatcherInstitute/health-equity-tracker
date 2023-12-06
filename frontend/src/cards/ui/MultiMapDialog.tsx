@@ -374,7 +374,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
             <Grid container justifyContent={'center'}>
               <Grid item xs={12}>
-                <HetNotice icon={<></>}>
+                <HetNotice kind='text-only'>
                   <DataTypeDefinitionsList />
                 </HetNotice>
               </Grid>
