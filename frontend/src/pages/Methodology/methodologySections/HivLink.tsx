@@ -1,4 +1,3 @@
-import FlagIcon from '@mui/icons-material/Flag'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import {
   hivDataSources,
@@ -10,8 +9,8 @@ import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import { Alert, AlertTitle } from '@mui/material'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const HivLink = () => {
   return (
@@ -52,8 +51,7 @@ const HivLink = () => {
           better understand the impact of HIV across the country.
         </p>
         <p>
-          <Alert severity='info' role='note'>
-            <AlertTitle>A note about CDC NCHHSTP AtlasPlus</AlertTitle>
+          <HetNotice title='A note about CDC NCHHSTP AtlasPlus'>
             <p>
               The CDC's NCHHSTP and other HIV surveillance programs have agreed
               to limit the amount of data released at the state and county
@@ -62,7 +60,7 @@ const HivLink = () => {
               before this time are not final and should be interpreted with
               caution.
             </p>
-          </Alert>
+          </HetNotice>
         </p>
         <p>
           To protect people’s privacy, the CDC and these programs have agreed to
@@ -71,14 +69,16 @@ const HivLink = () => {
           information on how people became infected with HIV. This means that
           the data may change as more information becomes available.
         </p>
-        <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
-          <AlertTitle>2020 Data Disruption Due to COVID-19</AlertTitle>
+        <HetNotice
+          kind='data-integrity'
+          title='2020 Data Disruption Due to COVID-19'
+        >
           <p>
             The COVID-19 pandemic significantly disrupted data for the year
             2020. This impact could lead to distortions in the reported numbers.
             Please exercise caution when analyzing this year's data.
           </p>
-        </Alert>
+        </HetNotice>
         <p>
           The data for 2022 and 2023 is still in its initial stages of
           collection and has not been finalized, making it "preliminary."
@@ -182,11 +182,10 @@ const HivLink = () => {
           ]}
         />
 
-        <Alert severity='info' role='note'>
-          <AlertTitle>
-            A note about HIV Prevention and Care Rates for Transgender People
-            (2019)
-          </AlertTitle>
+        <HetNotice
+          title='A note about HIV Prevention and Care Rates for Transgender People
+            (2019)'
+        >
           <p>
             Please note: The mentioned groups in our reports refer to{' '}
             <em>sex assigned at birth</em> and not <em>gender identity</em>.
@@ -206,24 +205,24 @@ const HivLink = () => {
             counts for HIV Prevention and Care specifically targeting
             Transgender People.
           </p>
-        </Alert>
+        </HetNotice>
         <h3
           className='font-sansTitle text-title'
           id='#hiv-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
         </h3>
-        <Alert severity={'warning'} role='note' icon={<FlagIcon />}>
-          <AlertTitle>
-            Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)
-          </AlertTitle>
+        <HetNotice
+          kind='data-integrity'
+          title='Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)'
+        >
           <p>
             To protect personal privacy, prevent revealing information that
             might identify specific individuals, and ensure the reliability of
             statistical estimates, small data values may not be available in
             some circumstances.
           </p>
-        </Alert>
+        </HetNotice>
         <p>
           County-level data is suppressed when the population denominator is:
           <ul>

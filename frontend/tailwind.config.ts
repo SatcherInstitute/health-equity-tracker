@@ -49,8 +49,6 @@ export default {
       'footer-color': 'rgb(var(--footer-color) / <alpha-value>)',
       'grey-dark': 'rgb(var(--grey-dark) / <alpha-value>)',
       'grey-grid-color': 'rgb(var(--grey-grid-color) / <alpha-value>)',
-      'highest-lowest-color':
-        'rgb(var(--highest-lowest-color) / <alpha-value>)',
       'how-to-color': 'rgb(var(--how-to-color) / <alpha-value>)',
       'infobar-color': 'rgb(var(--infobar-color) / <alpha-value>)',
       'join-effort-bg1': 'rgb(var(--join-effort-bg1) / <alpha-value>)',
@@ -160,7 +158,8 @@ export default {
         teamHeadshot: '181px',
         teamLogo: '250px',
         newsPage: '1440px',
-        equityLogo: '400px'
+        equityLogo: '400px',
+        helperBox: '1200px',
       },
       height: {
         joinEffortLogo: '720px',
