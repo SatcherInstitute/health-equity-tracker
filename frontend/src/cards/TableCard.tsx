@@ -37,7 +37,7 @@ import {
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { type CountColsMap } from '../charts/mapGlobals'
-import HetAlert from '../styles/HetComponents/HetAlert'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -210,7 +210,7 @@ export default function TableCard(props: TableCardProps) {
               props.demographicType === RACE && (
                 <>
                   <CardContent>
-                    <HetAlert kind='data-integrity' id='AIAN-alert'>
+                    <HetNotice kind='data-integrity' id='AIAN-alert'>
                       Share of COVID-19 cases reported for American Indian,
                       Alaska Native, Native Hawaiian and Pacific Islander are
                       underrepresented at the national level and in many states
@@ -225,7 +225,7 @@ export default function TableCard(props: TableCardProps) {
                         Collection
                       </a>
                       .
-                    </HetAlert>
+                    </HetNotice>
                   </CardContent>
                   <Divider />
                 </>

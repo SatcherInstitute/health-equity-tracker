@@ -5,24 +5,24 @@ import ReportProblemOutlinedIcon from '@mui/icons-material/ReportProblemOutlined
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import DangerousOutlinedIcon from '@mui/icons-material/DangerousOutlined'
 
-export type HetAlertKind =
+export type HetNoticeKind =
   | 'data-integrity'
   | 'health-crisis'
   | 'text-only'
   | 'helpful-info'
   | 'technical-error'
 
-interface HetAlertProps {
+interface HetNoticeProps {
   children: ReactNode
   title?: string
   icon?: ReactNode
   id?: string
   className?: string
-  kind?: HetAlertKind
+  kind?: HetNoticeKind
   variant?: 'filled' | 'outlined'
 }
 
-export default function HetAlert(props: HetAlertProps) {
+export default function HetNotice(props: HetNoticeProps) {
   const { severity, icon, variant } = getMuiAlertProps(props.kind)
 
   return (
@@ -46,8 +46,8 @@ interface AlertProps {
   variant?: 'outlined'
 }
 
-/* Accepts an optional HetAlertKind and returns needed MUI AlertProps object for the icon and severity */
-function getMuiAlertProps(kind: HetAlertKind | undefined): AlertProps {
+/* Accepts an optional HetNoticeKind and returns needed MUI AlertProps object for the icon and severity */
+function getMuiAlertProps(kind: HetNoticeKind | undefined): AlertProps {
   switch (kind) {
     case 'text-only':
       return { severity: 'success', icon: <></>, variant: 'outlined' }

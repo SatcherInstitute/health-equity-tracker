@@ -6,7 +6,7 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -72,7 +72,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
 
   return (
     <CardContent>
-      <HetAlert kind='data-integrity'>
+      <HetNotice kind='data-integrity'>
         The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
         <b>gender identity</b>. Due to lack of reliable population data for
         gender-expansive people, we are unable to present <b>rates per 100k</b>,
@@ -108,7 +108,7 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
           CDC's HIV Prevention and Care for Transgender People
         </a>{' '}
         to learn more.
-      </HetAlert>
+      </HetNotice>
     </CardContent>
   )
 }

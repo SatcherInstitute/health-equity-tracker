@@ -1,10 +1,10 @@
 import { Grid, Button } from '@mui/material'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 function NoDataAlert(props: { dropdownVarId: string }) {
   return (
     <Grid item xs={5}>
-      <HetAlert kind='health-crisis'>
+      <HetNotice kind='health-crisis'>
         This data is not currently available in the Health Equity Tracker, but
         will be coming soon.
         <br />
@@ -24,8 +24,8 @@ function NoDataAlert(props: { dropdownVarId: string }) {
         >
           See our roadmap to learn more.
         </Button>
-      </HetAlert>
-      <HetAlert>
+      </HetNotice>
+      <HetNotice>
         Do you have information on {props.dropdownVarId} at the state or local
         level?
         <a
@@ -40,7 +40,7 @@ function NoDataAlert(props: { dropdownVarId: string }) {
         >
           We would love to hear from you.
         </a>
-      </HetAlert>
+      </HetNotice>
     </Grid>
   )
 }

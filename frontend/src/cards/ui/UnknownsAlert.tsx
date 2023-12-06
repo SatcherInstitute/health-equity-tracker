@@ -11,7 +11,7 @@ import { type VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { AGE } from '../../data/utils/Constants'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
 
@@ -110,11 +110,11 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   // show the higher one on the map
   return raceEthnicityDiff ? (
     <CardContent>
-      <HetAlert kind='data-integrity'>{diffRaceEthnicityText}</HetAlert>
+      <HetNotice kind='data-integrity'>{diffRaceEthnicityText}</HetNotice>
     </CardContent>
   ) : (
     <CardContent sx={{ m: 1 }}>
-      <HetAlert kind={noUnknowns ? 'helpful-info' : 'data-integrity'}>
+      <HetNotice kind={noUnknowns ? 'helpful-info' : 'data-integrity'}>
         {percentageUnknown}
         {props.metricConfig.shortLabel}
         {' reported an unknown '}
@@ -136,7 +136,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
             when interpreting age-adjusted ratios.
           </>
         )}
-      </HetAlert>
+      </HetNotice>
     </CardContent>
   )
 }

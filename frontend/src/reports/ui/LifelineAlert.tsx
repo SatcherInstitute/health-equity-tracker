@@ -1,10 +1,10 @@
 import PhoneIcon from '@mui/icons-material/Phone'
 import { urlMap } from '../../utils/externalUrls'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 function LifelineAlert() {
   return (
-    <HetAlert
+    <HetNotice
       className='m-2 mt-0 border border-secondary-main text-left text-small'
       icon={<PhoneIcon color='primary' />}
       title='988 Suicide & Crisis Lifeline'
@@ -18,7 +18,7 @@ function LifelineAlert() {
         experiencing an emergency, call 911 or go to your nearest emergency
         room.
       </p>
-    </HetAlert>
+    </HetNotice>
   )
 }
 

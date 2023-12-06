@@ -7,7 +7,7 @@ import {
 } from '../../data/config/MetricConfig'
 import { LinkWithStickyParams } from '../../utils/urlutils'
 import { lazy } from 'react'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 const AltDataTypesMessage = lazy(
   async () => await import('./AltDataTypesMessage')
@@ -45,7 +45,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
 
   return (
     <div className='mt-4'>
-      <HetAlert kind='data-integrity'>
+      <HetNotice kind='data-integrity'>
         Our data sources do not have
         {demographicPhrase}
         <b>{props.dataName}</b>
@@ -63,7 +63,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
               ageAdjustedDataTypes={props.ageAdjustedDataTypes}
             />
           )}
-      </HetAlert>
+      </HetNotice>
     </div>
   )
 }

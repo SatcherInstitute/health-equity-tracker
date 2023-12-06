@@ -28,7 +28,7 @@ import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import HetAlert from '../styles/HetComponents/HetAlert'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -277,7 +277,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
               <div className='mx-5 my-2'>
-                <HetAlert>
+                <HetNotice>
                   No unknown values for{' '}
                   {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}{' '}
                   reported in this dataset
@@ -288,7 +288,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                     </>
                   )}
                   {'.'}
-                </HetAlert>
+                </HetNotice>
               </div>
             )}
           </CardContent>

@@ -5,7 +5,7 @@ import { type Row } from '../../data/utils/DatasetTypes'
 import { ALL } from '../../data/utils/Constants'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { CardContent } from '@mui/material'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface IncarceratedChildrenShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -27,14 +27,14 @@ function IncarceratedChildrenShortAlert(
 
   return (
     <CardContent>
-      <HetAlert kind={count > 0 ? 'health-crisis' : 'helpful-info'}>
+      <HetNotice kind={count > 0 ? 'health-crisis' : 'helpful-info'}>
         <b>
           {count.toLocaleString()} {children}
         </b>{' '}
         confined in {adultFacilities} in{' '}
         <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
         <a href={urlMap.childrenInPrison}>Learn more.</a>
-      </HetAlert>
+      </HetNotice>
     </CardContent>
   )
 }

@@ -24,7 +24,7 @@ import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -81,9 +81,9 @@ function DownloadDatasetListItem(props: {
           />
         </>
       ) : (
-        <HetAlert kind='health-crisis'>
+        <HetNotice kind='health-crisis'>
           Error downloading {props.datasetMetadata.name}.
-        </HetAlert>
+        </HetNotice>
       )}
     </ListItem>
   )

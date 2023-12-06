@@ -3,7 +3,7 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface UnknownBubblesAlertProps {
   demographicType: DemographicType
@@ -21,7 +21,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
   const groupTerm = DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
-    <HetAlert id='unknown-bubbles-alert'>
+    <HetNotice id='unknown-bubbles-alert'>
       Missing and unknown data impacts Health Equity. Please consider the impact
       of {props.fullDisplayName} with an unknown {groupTerm}.{' '}
       {props.expanded && (
@@ -43,6 +43,6 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
       >
         {!props.expanded ? 'Show unknowns' : 'Hide unknowns'}
       </button>
-    </HetAlert>
+    </HetNotice>
   )
 }

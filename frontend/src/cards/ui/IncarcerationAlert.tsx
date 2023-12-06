@@ -10,9 +10,9 @@ import {
   CombinedIncarcerationStateMessage,
   ALASKA_PRIVATE_JAIL_CAVEAT,
 } from '../../data/providers/IncarcerationProvider'
-import HetAlert, {
-  type HetAlertKind,
-} from '../../styles/HetComponents/HetAlert'
+import HetNotice, {
+  type HetNoticeKind,
+} from '../../styles/HetComponents/HetNotice'
 
 const combinedAlertFipsList = [
   USA_DISPLAY_NAME,
@@ -34,7 +34,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     ? 'Vera Institute of Justice'
     : 'Bureau of Justice Statistics'
 
-  const alertKind: HetAlertKind =
+  const alertKind: HetNoticeKind =
     props.demographicType === AGE && props.dataType === 'prison'
       ? 'data-integrity'
       : 'helpful-info'
@@ -42,7 +42,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
     DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
 
   return (
-    <HetAlert kind={alertKind}>
+    <HetNotice kind={alertKind}>
       The disaggregated <b>{demographicType}</b> dataset available from the{' '}
       {source}{' '}
       <IncarcerationDetailsText
@@ -54,7 +54,7 @@ function IncarcerationAlert(props: IncarcerationAlertProps) {
       {combinedAlertFipsList.includes(props.fips.getDisplayName()) &&
         CombinedIncarcerationStateMessage()}{' '}
       {showAlaskaJailCaveat && ALASKA_PRIVATE_JAIL_CAVEAT}
-    </HetAlert>
+    </HetNotice>
   )
 }
 

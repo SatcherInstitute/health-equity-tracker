@@ -10,7 +10,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
-import HetAlert from '../../../styles/HetComponents/HetAlert'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const HivLink = () => {
   return (
@@ -51,7 +51,7 @@ const HivLink = () => {
           better understand the impact of HIV across the country.
         </p>
         <p>
-          <HetAlert title='A note about CDC NCHHSTP AtlasPlus'>
+          <HetNotice title='A note about CDC NCHHSTP AtlasPlus'>
             <p>
               The CDC's NCHHSTP and other HIV surveillance programs have agreed
               to limit the amount of data released at the state and county
@@ -60,7 +60,7 @@ const HivLink = () => {
               before this time are not final and should be interpreted with
               caution.
             </p>
-          </HetAlert>
+          </HetNotice>
         </p>
         <p>
           To protect people’s privacy, the CDC and these programs have agreed to
@@ -69,7 +69,7 @@ const HivLink = () => {
           information on how people became infected with HIV. This means that
           the data may change as more information becomes available.
         </p>
-        <HetAlert
+        <HetNotice
           kind='data-integrity'
           title='2020 Data Disruption Due to COVID-19'
         >
@@ -78,7 +78,7 @@ const HivLink = () => {
             2020. This impact could lead to distortions in the reported numbers.
             Please exercise caution when analyzing this year's data.
           </p>
-        </HetAlert>
+        </HetNotice>
         <p>
           The data for 2022 and 2023 is still in its initial stages of
           collection and has not been finalized, making it "preliminary."
@@ -182,7 +182,7 @@ const HivLink = () => {
           ]}
         />
 
-        <HetAlert
+        <HetNotice
           title='A note about HIV Prevention and Care Rates for Transgender People
             (2019)'
         >
@@ -205,14 +205,14 @@ const HivLink = () => {
             counts for HIV Prevention and Care specifically targeting
             Transgender People.
           </p>
-        </HetAlert>
+        </HetNotice>
         <h3
           className='font-sansTitle text-title'
           id='#hiv-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
         </h3>
-        <HetAlert
+        <HetNotice
           kind='data-integrity'
           title='Upholding the Confidentiality of People Living with HIV/AIDS (PLWHA)'
         >
@@ -222,7 +222,7 @@ const HivLink = () => {
             statistical estimates, small data values may not be available in
             some circumstances.
           </p>
-        </HetAlert>
+        </HetNotice>
         <p>
           County-level data is suppressed when the population denominator is:
           <ul>

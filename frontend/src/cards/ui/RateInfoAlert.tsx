@@ -14,7 +14,7 @@ import { type Fips } from '../../data/utils/Fips'
 import { MultiMapLink } from './MultiMapLink'
 import styles from '../Card.module.scss'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface RateInfoAlertProps {
   overallQueryResponse: MetricQueryResponse
@@ -77,7 +77,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
     <>
       <Divider />
       <CardContent>
-        <HetAlert>
+        <HetNotice>
           {generateDemographicTotalPhrase()}
           {/* Compare across XYZ for all variables except vaccinated at county level */}
           <MultiMapLink
@@ -85,7 +85,7 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
             demographicType={props.demographicType}
             currentDataType={props.dataTypeConfig.fullDisplayName}
           />
-        </HetAlert>
+        </HetNotice>
       </CardContent>
     </>
   )

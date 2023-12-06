@@ -1,12 +1,12 @@
 import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 function IncarceratedChildrenLongAlert() {
   return (
     <div>
-      <HetAlert
+      <HetNotice
         title='Children in Adult Jails and Prisons'
         kind='health-crisis'
         className='m-2 border border-report-alert text-left'
@@ -24,7 +24,7 @@ function IncarceratedChildrenLongAlert() {
           <b>total number of confined children</b> in adult facilities. Read
           more in <Link to={OLD_METHODOLOGY_PAGE_LINK}>our methodology</Link>.
         </p>
-      </HetAlert>
+      </HetNotice>
     </div>
   )
 }

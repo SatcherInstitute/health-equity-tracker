@@ -3,7 +3,7 @@ import { type Fips } from '../../data/utils/Fips'
 import { urlMap } from '../../utils/externalUrls'
 import { HashLink } from 'react-router-hash-link'
 import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface SviAlertProps {
   svi: number
@@ -50,7 +50,7 @@ function SviAlert(props: SviAlertProps) {
   const color = findColor(rating)
 
   return (
-    <HetAlert
+    <HetNotice
       kind={props.svi ? 'data-integrity' : 'helpful-info'}
       className='m-2'
     >
@@ -69,7 +69,7 @@ function SviAlert(props: SviAlertProps) {
           of data impacts <a href={urlMap.cdcSvi}>health equity.</a>
         </>
       )}
-    </HetAlert>
+    </HetNotice>
   )
 }
 

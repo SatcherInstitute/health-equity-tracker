@@ -16,7 +16,7 @@ import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import HetAlert from '../../../styles/HetComponents/HetAlert'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 export const missingAhrDataArray = [
   {
@@ -73,7 +73,7 @@ function SdohLink() {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.
         </p>
-        <HetAlert
+        <HetNotice
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
@@ -87,7 +87,7 @@ function SdohLink() {
             the county level, limiting our tracker's granularity for these
             metrics.
           </p>
-        </HetAlert>
+        </HetNotice>
         <p>
           We obtain our data for the following specific issues directly from
           America's Health Rankings (AHR). This data is based on{' '}
@@ -130,7 +130,7 @@ function SdohLink() {
             },
           ]}
         />
-        <HetAlert title="A note about the America's Health Rankings (AHR)'s population data">
+        <HetNotice title="A note about the America's Health Rankings (AHR)'s population data">
           <p>
             Without population data, it is difficult to accurately calculate{' '}
             {percentShareTooltip} measures, which could potentially result in
@@ -161,7 +161,7 @@ function SdohLink() {
             However, we encourage you to explore our comprehensive reports for
             valuable insights into these and other conditions.
           </p>
-        </HetAlert>
+        </HetNotice>
         <h3 className='font-sansTitle text-title' id='#sdoh-data-sources'>
           Data Sources
         </h3>

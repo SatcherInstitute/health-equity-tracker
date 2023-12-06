@@ -17,7 +17,7 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
-import HetAlert from '../../../styles/HetComponents/HetAlert'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const BehavioralHealthLink: React.FC = () => {
   return (
@@ -64,7 +64,7 @@ const BehavioralHealthLink: React.FC = () => {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
-        <HetAlert
+        <HetNotice
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
@@ -78,7 +78,7 @@ const BehavioralHealthLink: React.FC = () => {
             the county level, limiting our tracker's granularity for these
             metrics.
           </p>
-        </HetAlert>
+        </HetNotice>
         <p>
           We obtain our data for the following specific issues directly from
           America's Health Rankings (AHR). This data is based on{' '}
@@ -145,7 +145,7 @@ const BehavioralHealthLink: React.FC = () => {
             },
           ]}
         />
-        <HetAlert title="A note about the America's Health Rankings (AHR)'s population data">
+        <HetNotice title="A note about the America's Health Rankings (AHR)'s population data">
           <p>
             Without population data, it is difficult to accurately calculate{' '}
             {percentShareTooltip} measures, which could potentially result in
@@ -179,7 +179,7 @@ const BehavioralHealthLink: React.FC = () => {
             However, we encourage you to explore our comprehensive reports for
             valuable insights into these and other conditions.
           </p>
-        </HetAlert>
+        </HetNotice>
         <h3
           className='font-sansTitle text-title'
           id='#behavioral-health-data-sources'

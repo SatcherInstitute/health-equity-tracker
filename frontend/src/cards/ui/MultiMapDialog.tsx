@@ -40,7 +40,7 @@ import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import HetAlert from '../../styles/HetComponents/HetAlert'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -355,7 +355,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             {props.demographicGroupsNoData.length > 0 && (
               <Grid item container justifyContent='center' xs={12} xl={7}>
                 <div className='my-3'>
-                  <HetAlert kind='data-integrity'>
+                  <HetNotice kind='data-integrity'>
                     <p className={styles.NoDataWarning}>
                       Insufficient {props.metricConfig.shortLabel} data reported
                       at the {props.fips.getChildFipsTypeDisplayName()} level
@@ -367,16 +367,16 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         </span>
                       ))}
                     </p>
-                  </HetAlert>
+                  </HetNotice>
                 </div>
               </Grid>
             )}
 
             <Grid container justifyContent={'center'}>
               <Grid item xs={12}>
-                <HetAlert icon={<></>}>
+                <HetNotice icon={<></>}>
                   <DataTypeDefinitionsList />
-                </HetAlert>
+                </HetNotice>
               </Grid>
             </Grid>
           </Grid>

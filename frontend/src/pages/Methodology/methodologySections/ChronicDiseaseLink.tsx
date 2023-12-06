@@ -12,7 +12,7 @@ import {
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import HetAlert from '../../../styles/HetComponents/HetAlert'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const ChronicDiseaseLink = () => {
   return (
@@ -73,7 +73,7 @@ const ChronicDiseaseLink = () => {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
-        <HetAlert
+        <HetNotice
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
@@ -87,7 +87,7 @@ const ChronicDiseaseLink = () => {
             the county level, limiting our tracker's granularity for these
             metrics.
           </p>
-        </HetAlert>
+        </HetNotice>
         <p>
           We obtain our data for the following specific issues directly from
           America's Health Rankings (AHR). This data is based on{' '}

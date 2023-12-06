@@ -24,7 +24,7 @@ import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
-import HetAlert from '../styles/HetComponents/HetAlert'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 interface DisparityBarChartCardProps {
   key?: string
@@ -185,13 +185,13 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
             {shouldShowDoesntAddUpMessage && (
               <CardContent>
-                <HetAlert>
+                <HetNotice>
                   Population percentages on this graph add up to over 100%
                   because the racial categories reported for {chartTitle} in{' '}
                   {props.fips.getSentenceDisplayName()} include Hispanic
                   individuals in each racial category. As a result, Hispanic
                   individuals are counted twice.
-                </HetAlert>
+                </HetNotice>
               </CardContent>
             )}
             {isCawp && (

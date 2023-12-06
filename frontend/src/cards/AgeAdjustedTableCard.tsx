@@ -36,7 +36,7 @@ import { Link } from 'react-router-dom'
 import { splitIntoKnownsAndUnknowns } from '../data/utils/datasetutils'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { generateChartTitle } from '../charts/utils'
-import HetAlert from '../styles/HetComponents/HetAlert'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 600
@@ -200,7 +200,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
               )}
             <CardContent>
               {/* Always show info on what age-adj is */}
-              <HetAlert>
+              <HetNotice>
                 Age-adjustment is a statistical process applied to rates of
                 disease, death, or other health outcomes that correlate with an
                 individual's age. Adjusting for age allows for fairer comparison
@@ -213,7 +213,7 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
                   age-adjustment methodology
                 </Link>
                 .
-              </HetAlert>
+              </HetNotice>
             </CardContent>
           </>
         )
