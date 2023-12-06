@@ -1,13 +1,5 @@
 import { useRef, useState } from 'react'
-import {
-  Box,
-  Grid,
-  Button,
-  Dialog,
-  DialogContent,
-  Typography,
-  Alert,
-} from '@mui/material'
+import { Grid, Button, Dialog, DialogContent, Typography } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
@@ -48,6 +40,7 @@ import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -361,8 +354,8 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             {/* Missing Groups */}
             {props.demographicGroupsNoData.length > 0 && (
               <Grid item container justifyContent='center' xs={12} xl={7}>
-                <Box my={3}>
-                  <Alert severity='warning'>
+                <div className='my-3'>
+                  <HetNotice kind='data-integrity'>
                     <p className={styles.NoDataWarning}>
                       Insufficient {props.metricConfig.shortLabel} data reported
                       at the {props.fips.getChildFipsTypeDisplayName()} level
@@ -374,16 +367,16 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         </span>
                       ))}
                     </p>
-                  </Alert>
-                </Box>
+                  </HetNotice>
+                </div>
               </Grid>
             )}
 
             <Grid container justifyContent={'center'}>
               <Grid item xs={12}>
-                <Alert icon={<></>} severity='info' role='note'>
+                <HetNotice icon={<></>}>
                   <DataTypeDefinitionsList />
-                </Alert>
+                </HetNotice>
               </Grid>
             </Grid>
           </Grid>
