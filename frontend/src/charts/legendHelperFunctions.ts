@@ -10,6 +10,7 @@ import {
   ZERO_DOT_SCALE,
   ZERO_SCALE,
   PHRMA_ADHERENCE_BREAKPOINTS,
+  LEGEND_TEXT_FONT,
 } from './mapGlobals'
 import { type MetricId } from '../data/config/MetricConfig'
 
@@ -32,6 +33,38 @@ export function setupZeroLegend(
       },
     },
   }
+}
+
+export function setupUnknownsLegend(width: number, isPct?: boolean): Legend {
+  const unknownsLegend: Legend = {
+    fill: COLOR_SCALE,
+    direction: 'horizontal',
+    title: '% unknown',
+    titleFontSize: 10,
+    titleLimit: 0,
+    labelFont: LEGEND_TEXT_FONT,
+    titleFont: LEGEND_TEXT_FONT,
+    labelOverlap: 'greedy',
+    labelSeparation: 10,
+    orient: 'none',
+    legendY: -50,
+    legendX: 50,
+    gradientLength: width * 0.35,
+    format: 'd',
+  }
+
+  if (isPct) {
+    unknownsLegend.encode = {
+      labels: {
+        update: {
+          text: {
+            signal: `format(datum.label, '0.1r') + '%'`,
+          },
+        },
+      },
+    }
+  }
+  return unknownsLegend
 }
 
 /* To make the discrete style legend where each color bucket is its own distinct shape */
