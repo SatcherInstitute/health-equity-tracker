@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { Snackbar, Alert } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import LinkIcon from '@mui/icons-material/Link'
 import MenuItem from '@mui/material/MenuItem'
 import { type PopoverElements } from '../../utils/hooks/usePopover'
+import HetDialog from '../../styles/HetComponents/HetDialog'
 
 interface CopyLinkButtonProps {
   popover: PopoverElements
@@ -41,14 +41,8 @@ export default function CopyLinkButton(props: CopyLinkButtonProps) {
           <div className='pl-1 text-alt-black'>Copy card link</div>
         </ListItemIcon>
       </MenuItem>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-        <Alert
-          onClose={handleClose}
-          className='border-1 border-solid border-bar-chart-light'
-        >
-          Direct link to <b>{cardName}</b> copied to clipboard!
-        </Alert>
-      </Snackbar>
+
+      <HetDialog open={open} cardName={cardName} handleClose={handleClose} />
     </>
   )
 }

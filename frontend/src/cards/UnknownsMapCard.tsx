@@ -18,7 +18,6 @@ import {
   ALL,
   RACE,
 } from '../data/utils/Constants'
-import Alert from '@mui/material/Alert'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
@@ -29,6 +28,7 @@ import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -276,15 +276,20 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
-              <Alert sx={{ my: 2, mx: 5 }} severity='info' role='note'>
-                No unknown values for{' '}
-                {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]} reported
-                in this dataset
-                {hasChildGeo && (
-                  <> at the {props.fips.getChildFipsTypeDisplayName()} level</>
-                )}
-                {'.'}
-              </Alert>
+              <div className='mx-5 my-2'>
+                <HetNotice>
+                  No unknown values for{' '}
+                  {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}{' '}
+                  reported in this dataset
+                  {hasChildGeo && (
+                    <>
+                      {' '}
+                      at the {props.fips.getChildFipsTypeDisplayName()} level
+                    </>
+                  )}
+                  {'.'}
+                </HetNotice>
+              </div>
             )}
           </CardContent>
         )

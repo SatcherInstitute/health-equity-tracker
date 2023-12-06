@@ -1,4 +1,3 @@
-import { Alert, AlertTitle } from '@mui/material'
 import {
   covidDataSources,
   covidDefinitionsArray,
@@ -13,6 +12,7 @@ import {
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const Covid19Link = () => {
   return (
@@ -218,10 +218,7 @@ const Covid19Link = () => {
           Demographic Population Estimates for Vaccination Data
         </h3>
 
-        <Alert severity='info' role='note'>
-          <AlertTitle>
-            A note about the 2019 American Community Survey (ACS)
-          </AlertTitle>
+        <HetNotice title='A note about the 2019 American Community Survey (ACS)'>
           <p>
             While the American Community Survey (ACS) is a valuable resource for
             many demographic insights, it has its limitations in the context of
@@ -230,7 +227,7 @@ const Covid19Link = () => {
             provides yearly population breakdowns, we've chosen not to
             incorporate their year-by-year data into our system.
           </p>
-        </Alert>
+        </HetNotice>
         <h4>National Estimates</h4>
         <p>
           We use the CDC's population numbers for our national figures,
