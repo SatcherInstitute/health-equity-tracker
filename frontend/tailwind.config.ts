@@ -158,7 +158,8 @@ export default {
         teamHeadshot: '181px',
         teamLogo: '250px',
         newsPage: '1440px',
-        equityLogo: '400px'
+        equityLogo: '400px',
+        helperBox: '1200px',
       },
       height: {
         joinEffortLogo: '720px',
