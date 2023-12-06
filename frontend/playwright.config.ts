@@ -37,7 +37,7 @@ const config: PlaywrightTestConfig = {
     headless: true,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     screenshot: 'only-on-failure',
@@ -74,8 +74,7 @@ const config: PlaywrightTestConfig = {
       name: 'E2E_DEPLOY_PREVIEW',
       testMatch: /.*nightly.spec.ts/,
       use: {
-        // TODO: figure out how to use the generated netlify deploy url here,
-        // TODO: e.g. PR #2397 generates https://deploy-preview-2397--health-equity-tracker.netlify.app/
+        channel: 'chrome'
       }
     },
     {
