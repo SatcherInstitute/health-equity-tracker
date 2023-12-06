@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -198,93 +197,82 @@ export default function ShareTrendsChartCard(props: ShareTrendsChartCardProps) {
 
         return (
           <>
-            <CardContent sx={{ pt: 0 }}>
-              {shouldShowMissingData ? (
-                <>
-                  {/* Chart Title Missing Data */}
-                  <ChartTitle title={'Graph unavailable: ' + chartTitle} />
-                  <MissingDataAlert
-                    dataName={chartTitle}
-                    demographicTypeString={
+            {shouldShowMissingData ? (
+              <>
+                {/* Chart Title Missing Data */}
+                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                <MissingDataAlert
+                  dataName={chartTitle}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }
+                  fips={props.fips}
+                />
+              </>
+            ) : (
+              <>
+                <TrendsChart
+                  data={nestedInequityData}
+                  chartTitle={chartTitle}
+                  unknown={nestedUnknowns}
+                  axisConfig={{
+                    type: metricConfigInequitable.type,
+                    groupLabel:
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
                         props.demographicType
-                      ]
-                    }
-                    fips={props.fips}
-                  />
-                </>
-              ) : (
-                <>
-                  <TrendsChart
-                    data={nestedInequityData}
-                    chartTitle={chartTitle}
-                    unknown={nestedUnknowns}
-                    axisConfig={{
-                      type: metricConfigInequitable.type,
-                      groupLabel:
-                        DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                          props.demographicType
-                        ],
-                      xAxisIsMonthly: metricConfigInequitable.isMonthly,
-                    }}
+                      ],
+                    xAxisIsMonthly: metricConfigInequitable.isMonthly,
+                  }}
+                  demographicType={props.demographicType}
+                  setSelectedTableGroups={setSelectedTableGroups}
+                  isCompareCard={props.isCompareCard ?? false}
+                  expanded={unknownsExpanded}
+                  setExpanded={setUnknownsExpanded}
+                  hasUnknowns={hasUnknowns}
+                />
+
+                {hasUnknowns && (
+                  <UnknownBubblesAlert
                     demographicType={props.demographicType}
-                    setSelectedTableGroups={setSelectedTableGroups}
-                    isCompareCard={props.isCompareCard ?? false}
+                    fullDisplayName={
+                      props.dataTypeConfig.fullDisplayNameInline ??
+                      props.dataTypeConfig.fullDisplayName
+                    }
                     expanded={unknownsExpanded}
                     setExpanded={setUnknownsExpanded}
-                    hasUnknowns={hasUnknowns}
                   />
+                )}
 
-                  {hasUnknowns && (
-                    <CardContent>
-                      <UnknownBubblesAlert
-                        demographicType={props.demographicType}
-                        fullDisplayName={
-                          props.dataTypeConfig.fullDisplayNameInline ??
-                          props.dataTypeConfig.fullDisplayName
-                        }
-                        expanded={unknownsExpanded}
-                        setExpanded={setUnknownsExpanded}
-                      />
-                    </CardContent>
-                  )}
-
-                  <AltTableView
-                    expanded={a11yTableExpanded}
-                    setExpanded={setA11yTableExpanded}
-                    expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                    tableCaption={`${chartTitle} by ${
-                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
-                      ]
-                    }`}
-                    knownsData={knownInequityData}
-                    unknownsData={unknownPctShareData}
-                    demographicType={props.demographicType}
-                    knownMetricConfig={metricConfigInequitable}
-                    unknownMetricConfig={metricConfigPctShares}
-                    selectedGroups={selectedTableGroups}
-                    hasUnknowns={isCawp ? false : hasUnknowns}
-                    isCompareCard={props.isCompareCard}
-                  />
-                </>
-              )}
-            </CardContent>
+                <AltTableView
+                  expanded={a11yTableExpanded}
+                  setExpanded={setA11yTableExpanded}
+                  expandBoxLabel={cardHeaderTitle.toLowerCase()}
+                  tableCaption={`${chartTitle} by ${
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }`}
+                  knownsData={knownInequityData}
+                  unknownsData={unknownPctShareData}
+                  demographicType={props.demographicType}
+                  knownMetricConfig={metricConfigInequitable}
+                  unknownMetricConfig={metricConfigPctShares}
+                  selectedGroups={selectedTableGroups}
+                  hasUnknowns={isCawp ? false : hasUnknowns}
+                  isCompareCard={props.isCompareCard}
+                />
+              </>
+            )}
             {isHIV && <Hiv2020Alert />}
             {!shouldShowMissingData && (
-              <CardContent>
-                <HetNotice>
-                  This graph visualizes the disproportionate share of{' '}
-                  {props.dataTypeConfig.fullDisplayName} as experienced by
-                  different demographic groups compared to their relative shares
-                  of the total population. Read more about this calculation in
-                  our{' '}
-                  <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}#metrics`}>
-                    methodology
-                  </HashLink>
-                  .
-                </HetNotice>
-              </CardContent>
+              <HetNotice>
+                This graph visualizes the disproportionate share of{' '}
+                {props.dataTypeConfig.fullDisplayName} as experienced by
+                different demographic groups compared to their relative shares
+                of the total population. Read more about this calculation in our{' '}
+                <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}#metrics`}>
+                  methodology
+                </HashLink>
+                .
+              </HetNotice>
             )}
           </>
         )

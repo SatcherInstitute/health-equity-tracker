@@ -1,4 +1,3 @@
-import { CardContent } from '@mui/material'
 import { HashLink } from 'react-router-hash-link'
 import { type DataTypeId } from '../../data/config/MetricConfig'
 import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
@@ -32,12 +31,10 @@ export default function PopulationSubsetAlert({
   }
 
   return (
-    <CardContent>
-      <HetNotice>
-        All values presented for <b>{variable}</b> are calculated on the
-        population of individuals {ageGroup}. Read more on our{' '}
-        <HashLink to={OLD_METHODOLOGY_PAGE_LINK}>methodology.</HashLink>
-      </HetNotice>
-    </CardContent>
+    <HetNotice>
+      All values presented for <b>{variable}</b> are calculated on the
+      population of individuals {ageGroup}. Read more on our{' '}
+      <HashLink to={OLD_METHODOLOGY_PAGE_LINK}>methodology.</HashLink>
+    </HetNotice>
   )
 }

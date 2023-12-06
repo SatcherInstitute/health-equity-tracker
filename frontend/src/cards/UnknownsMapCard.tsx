@@ -1,4 +1,3 @@
-import { CardContent } from '@mui/material'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -200,7 +199,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
         return (
-          <CardContent sx={{ pt: 0 }}>
+          <>
             <ChartTitle title={chartTitle} />
             {showingVisualization && (
               <>
@@ -291,7 +290,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                 </HetNotice>
               </div>
             )}
-          </CardContent>
+          </>
         )
       }}
     </CardWrapper>
