@@ -8,7 +8,7 @@ test('Incarceration (Prison and Jail) User Flow', async ({ page }) => {
   await page.getByRole('button', { name: 'Rates over time' }).click();
   await page.getByText('Our data sources do not have historical data for Prison incarceration broken dow').click();
   await page.getByRole('button', { name: 'Unknown demographic map' }).click();
-  await page.locator('#unknown-demographic-map').getByText('0.4% of prison pop. reported an unknown race or ethnicity in the United States. ').click();
+  await page.locator('#unknown-demographic-map').getByText('0.4% of prison pop. reported an unknown race or ethnicity in the United States').click();
   await page.getByRole('heading', { name: 'Population vs. distribution of total people in prison in the United States' }).click();
   await page.getByRole('button', { name: 'Data table' }).click();
   await page.getByRole('columnheader', { name: 'Total population share' }).click();
