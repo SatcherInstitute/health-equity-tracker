@@ -29,7 +29,6 @@ import {
   GEO_DATASET,
   GREY_DOT_SCALE_SPEC,
   LEGEND_DATASET,
-  LEGEND_TEXT_FONT,
   MISSING_DATASET,
   MISSING_PLACEHOLDER_VALUES,
   NO_DATA_MESSAGE,
@@ -60,6 +59,7 @@ import {
   makeAltText,
   setupColorScale,
 } from './mapHelperFunctions'
+import { setupUnknownsLegend } from './legendHelperFunctions'
 
 const {
   unknownGrey: UNKNOWN_GREY,
@@ -291,43 +291,20 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* includeSvi */ props.showCounties
   )
 
-  /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
   const legendList: Legend[] = []
 
-  const legend: Legend = {
-    fill: COLOR_SCALE,
-    direction: 'horizontal',
-    title: '% unknown',
-    titleFontSize: 10,
-    titleLimit: 0,
-    labelFont: LEGEND_TEXT_FONT,
-    titleFont: LEGEND_TEXT_FONT,
-    labelOverlap: 'greedy',
-    labelSeparation: 10,
-    orient: 'none',
-    legendY: -50,
-    legendX: 50,
-    gradientLength: width * 0.35,
-    format: 'd',
-  }
-  if (isPctType(props.metric.type)) {
-    legend.encode = {
-      labels: {
-        update: {
-          text: {
-            signal: `format(datum.label, '0.1r') + '%'`,
-          },
-        },
-      },
-    }
-  }
+  /* SET UP MAP EMBEDDED LEGEND (ONLY FOR UNKNOWNS MAP GRADIENT)  */
+  const unknownsLegend = setupUnknownsLegend(
+    /* width */ width,
+    /* isPct */ isPctType(props.metric.type)
+  )
 
   const helperLegend = getHelperLegend(
     /* yOffset */ -35,
     /* xOffset */ width * 0.35 + 75
   )
   if (!props.hideLegend) {
-    legendList.push(legend, helperLegend)
+    legendList.push(unknownsLegend, helperLegend)
   }
 
   const colorScale = props.isPhrmaAdherence
@@ -341,7 +318,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
         /* fieldRange? */ props.fieldRange,
         /* scaleColorScheme? */ props.mapConfig.scheme,
         /* isTerritoryCircle? */ props.fips.isTerritory(),
-        /* reverse? */ !props.mapConfig.higherIsBetter
+        /* reverse? */ !props.mapConfig.higherIsBetter && !props.isUnknownsMap
       )
 
   if (props.isMulti ?? props.highestLowestGeosMode) {
