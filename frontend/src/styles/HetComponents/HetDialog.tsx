@@ -17,6 +17,7 @@ export default function HetDialog(props: HetDialogProps) {
       <Alert
         onClose={props.handleClose}
         className='border-1 border-solid border-bar-chart-light'
+        role='alert'
       >
         Direct link to <b>{props.cardName}</b> copied to clipboard!
       </Alert>
