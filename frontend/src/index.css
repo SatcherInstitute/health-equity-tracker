@@ -122,9 +122,18 @@
   /* STYLING FOR FETCHED WORDPRESS HTML FOR NEWS AND STORIES */
   /* TODO: use CSS nesting here once supported by all major browsers */
 
+  .fetched-wordpress-html > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .fetched-wordpress-html figure {
     margin-inline: 0 !important;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .fetched-wordpress-html figcaption {
@@ -133,18 +142,25 @@
     font-size: 0.75rem !important;
     font-weight: 200 !important;
     font-decoration: none !important;
+    max-width: 600px;
   }
 
   .fetched-wordpress-html p,
   .fetched-wordpress-html ul,
   .fetched-wordpress-html ol,
-  .fetched-wordpress-html h2 {
+  .fetched-wordpress-html h1,
+  .fetched-wordpress-html h2,
+  .fetched-wordpress-html h3,
+  .fetched-wordpress-html h4,
+  .fetched-wordpress-html h5,
+  .fetched-wordpress-html h6 {
+    width: 95vw;
     max-width: 800px;
     @media only screen and (min-width: 600px) {
-      weight: 75%;
+      weight: 75vw;
     }
     @media only screen and (min-width: 960px) {
-      weight: 50%;
+      weight: 50vw;
     }
   }
 
@@ -232,8 +248,9 @@
 
   .fetched-wordpress-html img {
     display: block;
-    margin: 40px auto 0px auto;
-    width: 100%;
+    margin: 40px auto 10px auto;
+    /* width: 100%; */
+    max-width: 100%;
     height: auto;
   }
 

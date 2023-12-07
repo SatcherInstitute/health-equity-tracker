@@ -84,21 +84,22 @@ export default function SinglePost(props: SinglePostProps) {
           }}
         />
       )}
-      <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
-        <Helmet>
-          <title>{`News${
-            fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
-          } - Health Equity Tracker`}</title>
-          {/* if cross-posted from external site, should be input on WP as canonical_url */}
-          {fullArticle && (
-            <link
-              rel='canonical'
-              href={fullArticle.acf?.canonical_url ?? fullArticle.link}
-            />
-          )}
-          <meta name='description' content={ARTICLE_DESCRIPTION} />
-        </Helmet>
+      <Helmet>
+        <title>{`News${
+          fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
+        } - Health Equity Tracker`}</title>
+        {/* if cross-posted from external site, should be input on WP as canonical_url */}
+        {fullArticle && (
+          <link
+            rel='canonical'
+            href={fullArticle.acf?.canonical_url ?? fullArticle.link}
+          />
+        )}
+        <meta name='description' content={ARTICLE_DESCRIPTION} />
+      </Helmet>
 
+      {/* PAGE CONTENT */}
+      <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
         {/* HEADER ROW */}
         <div
           className='
@@ -111,6 +112,7 @@ export default function SinglePost(props: SinglePostProps) {
             border-b
             border-solid
             border-border-color
+            px-10 md:px-0
         '
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
@@ -247,19 +249,17 @@ export default function SinglePost(props: SinglePostProps) {
         </div>
 
         {/* ARTICLE CONTENT SECTION */}
-        <div className='flex flex-wrap justify-center '>
-          <div className='min-h-preload-article break-words'>
-            <article className='fetched-wordpress-html pt-10'>
-              {/* RENDER WP ARTICLE HTML */}
-              {fullArticle && getHtml(fullArticle.content?.rendered)}
+        <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col justify-center break-words'>
+          {/* RENDER WP ARTICLE HTML */}
+          {fullArticle && getHtml(fullArticle.content?.rendered)}
 
-              {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
-              {fullArticle?.acf?.full_article_url && (
-                <div className='mt-10'>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    className='
+          {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
+          {fullArticle?.acf?.full_article_url && (
+            <div className='mt-10'>
+              <Button
+                variant='contained'
+                color='primary'
+                className='
                       rounded-2xl
                       bg-alt-green
                       px-8
@@ -269,61 +269,59 @@ export default function SinglePost(props: SinglePostProps) {
                       text-title
                       font-medium
                       text-white'
-                    href={fullArticle.acf.full_article_url}
-                  >
-                    Continue Reading
-                    {fullArticle?.acf?.friendly_site_name
-                      ? ` on ${fullArticle.acf.friendly_site_name}`
-                      : ''}{' '}
-                    <OpenInNewIcon />
-                  </Button>
-                </div>
-              )}
-
-              {/* OPTIONALLY RENDER REPRINT NOTICE */}
-              <div className='mt-10'>
-                <div className='leading-none text-left font-sansText text-text font-medium'>
-                  {fullArticle?.acf?.canonical_url && (
-                    <span className='text-small italic'>
-                      Note: this article was originally published on{' '}
-                      <a href={fullArticle?.acf?.canonical_url}>another site</a>
-                      , and is reprinted here with permission.
-                    </span>
-                  )}
-                </div>
-              </div>
-            </article>
-          </div>
-
-          {/* PREV / NEXT ARTICLES NAV */}
-          <LazyLoad offset={300} height={300} once>
-            <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey'>
-              <div className='w-full md:w-1/3'>
-                {prevArticle && (
-                  <NewsPreviewCard article={prevArticle} arrow={'prev'} />
-                )}
-              </div>
-              <div className='mb-10 w-full text-center md:w-1/3'>
-                <ReactRouterLinkButton
-                  url={NEWS_PAGE_LINK}
-                  className={styles.PrevNextHeaderText}
-                  displayName='All Posts'
-                />
-              </div>
-              <div className='w-full md:w-1/3'>
-                {nextArticle && (
-                  <>
-                    <NewsPreviewCard article={nextArticle} arrow={'next'} />
-                  </>
-                )}
-              </div>
+                href={fullArticle.acf.full_article_url}
+              >
+                Continue Reading
+                {fullArticle?.acf?.friendly_site_name
+                  ? ` on ${fullArticle.acf.friendly_site_name}`
+                  : ''}{' '}
+                <OpenInNewIcon />
+              </Button>
             </div>
-          </LazyLoad>
-        </div>
+          )}
 
-        {/* EMAIL SIGNUP  */}
-        <SignupSection />
+          {/* OPTIONALLY RENDER REPRINT NOTICE */}
+          <div className='mt-10'>
+            <div className='leading-none text-left font-sansText text-text font-medium'>
+              {fullArticle?.acf?.canonical_url && (
+                <span className='text-small italic'>
+                  Note: this article was originally published on{' '}
+                  <a href={fullArticle?.acf?.canonical_url}>another site</a>,
+                  and is reprinted here with permission.
+                </span>
+              )}
+            </div>
+          </div>
+        </article>
+
+        {/* PREV / NEXT ARTICLES NAV */}
+        <LazyLoad offset={300} height={300} once>
+          <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey'>
+            <div className='w-full md:w-1/3'>
+              {prevArticle && (
+                <NewsPreviewCard article={prevArticle} arrow={'prev'} />
+              )}
+            </div>
+            <div className='mb-10 w-full text-center md:w-1/3'>
+              <ReactRouterLinkButton
+                url={NEWS_PAGE_LINK}
+                className={styles.PrevNextHeaderText}
+                displayName='All Posts'
+              />
+            </div>
+            <div className='w-full md:w-1/3'>
+              {nextArticle && (
+                <>
+                  <NewsPreviewCard article={nextArticle} arrow={'next'} />
+                </>
+              )}
+            </div>
+          </div>
+        </LazyLoad>
       </div>
+
+      {/* EMAIL SIGNUP  */}
+      <SignupSection />
     </>
   )
 }
