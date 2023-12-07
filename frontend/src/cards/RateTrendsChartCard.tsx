@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -194,122 +193,99 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
 
         return (
           <>
-            <CardContent sx={{ pt: 0 }}>
-              {queryResponseRates.shouldShowMissingDataMessage([
-                metricConfigRates.metricId,
-              ]) || nestedRatesData?.length === 0 ? (
-                <>
-                  {/* Chart Title Missing Data */}
-                  <ChartTitle title={'Graph unavailable: ' + getTitleText()} />
-                  <MissingDataAlert
-                    dataName={`historical data for ${metricConfigRates.chartTitle}`}
-                    demographicTypeString={
+            {queryResponseRates.shouldShowMissingDataMessage([
+              metricConfigRates.metricId,
+            ]) || nestedRatesData?.length === 0 ? (
+              <>
+                {/* Chart Title Missing Data */}
+                <ChartTitle title={'Graph unavailable: ' + getTitleText()} />
+                <MissingDataAlert
+                  dataName={`historical data for ${metricConfigRates.chartTitle}`}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }
+                  fips={props.fips}
+                />
+              </>
+            ) : (
+              <>
+                {/* ensure we don't render two of these in compare mode */}
+                {!props.isCompareCard && (
+                  <svg
+                    height='0'
+                    version='1.1'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <linearGradient id='gradient'>
+                      <stop className={styles.GradientMainStop} offset='0%' />
+                      <stop className={styles.GradientAltStop} offset='20%' />
+                      <stop className={styles.GradientMainStop} offset='30%' />
+                      <stop className={styles.GradientAltStop} offset='40%' />
+                      <stop className={styles.GradientMainStop} offset='50%' />
+                      <stop className={styles.GradientAltStop} offset='60%' />
+                      <stop className={styles.GradientMainStop} offset='70%' />
+                      <stop className={styles.GradientAltStop} offset='80%' />
+                      <stop className={styles.GradientMainStop} offset='90%' />
+                      <stop className={styles.GradientAltStop} offset='100%' />
+                    </linearGradient>
+                  </svg>
+                )}
+                <TrendsChart
+                  data={nestedRatesData}
+                  chartTitle={getTitleText()}
+                  unknown={nestedUnknownPctShareData}
+                  axisConfig={{
+                    type: metricConfigRates.type,
+                    groupLabel:
                       DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
                         props.demographicType
-                      ]
-                    }
-                    fips={props.fips}
-                  />
-                </>
-              ) : (
-                <>
-                  {/* ensure we don't render two of these in compare mode */}
-                  {!props.isCompareCard && (
-                    <svg
-                      height='0'
-                      version='1.1'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <linearGradient id='gradient'>
-                        <stop className={styles.GradientMainStop} offset='0%' />
-                        <stop className={styles.GradientAltStop} offset='20%' />
-                        <stop
-                          className={styles.GradientMainStop}
-                          offset='30%'
-                        />
-                        <stop className={styles.GradientAltStop} offset='40%' />
-                        <stop
-                          className={styles.GradientMainStop}
-                          offset='50%'
-                        />
-                        <stop className={styles.GradientAltStop} offset='60%' />
-                        <stop
-                          className={styles.GradientMainStop}
-                          offset='70%'
-                        />
-                        <stop className={styles.GradientAltStop} offset='80%' />
-                        <stop
-                          className={styles.GradientMainStop}
-                          offset='90%'
-                        />
-                        <stop
-                          className={styles.GradientAltStop}
-                          offset='100%'
-                        />
-                      </linearGradient>
-                    </svg>
-                  )}
-                  <TrendsChart
-                    data={nestedRatesData}
-                    chartTitle={getTitleText()}
-                    unknown={nestedUnknownPctShareData}
-                    axisConfig={{
-                      type: metricConfigRates.type,
-                      groupLabel:
-                        DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                          props.demographicType
-                        ],
-                      yAxisLabel: `${metricConfigRates.shortLabel} ${
-                        props.fips.isUsa() ? '' : 'from'
-                      } ${
-                        props.fips.isUsa()
-                          ? ''
-                          : props.fips.getSentenceDisplayName()
-                      }`,
-                      xAxisIsMonthly: metricConfigRates.isMonthly,
-                    }}
+                      ],
+                    yAxisLabel: `${metricConfigRates.shortLabel} ${
+                      props.fips.isUsa() ? '' : 'from'
+                    } ${
+                      props.fips.isUsa()
+                        ? ''
+                        : props.fips.getSentenceDisplayName()
+                    }`,
+                    xAxisIsMonthly: metricConfigRates.isMonthly,
+                  }}
+                  demographicType={props.demographicType}
+                  setSelectedTableGroups={setSelectedTableGroups}
+                  isCompareCard={props.isCompareCard ?? false}
+                  expanded={unknownsExpanded}
+                  setExpanded={setUnknownsExpanded}
+                  hasUnknowns={hasUnknowns}
+                />
+                {hasUnknowns && (
+                  <UnknownBubblesAlert
                     demographicType={props.demographicType}
-                    setSelectedTableGroups={setSelectedTableGroups}
-                    isCompareCard={props.isCompareCard ?? false}
+                    fullDisplayName={
+                      props.dataTypeConfig.fullDisplayNameInline ??
+                      props.dataTypeConfig.fullDisplayName
+                    }
                     expanded={unknownsExpanded}
                     setExpanded={setUnknownsExpanded}
-                    hasUnknowns={hasUnknowns}
                   />
-                  {hasUnknowns && (
-                    <CardContent>
-                      <UnknownBubblesAlert
-                        demographicType={props.demographicType}
-                        fullDisplayName={
-                          props.dataTypeConfig.fullDisplayNameInline ??
-                          props.dataTypeConfig.fullDisplayName
-                        }
-                        expanded={unknownsExpanded}
-                        setExpanded={setUnknownsExpanded}
-                      />
-                    </CardContent>
-                  )}
+                )}
 
-                  <AltTableView
-                    expanded={a11yTableExpanded}
-                    setExpanded={setA11yTableExpanded}
-                    expandBoxLabel={cardHeaderTitle.toLowerCase()}
-                    tableCaption={`${getTitleText()} by ${
-                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
-                      ]
-                    }`}
-                    knownsData={knownRatesData}
-                    unknownsData={unknownPctShareData}
-                    demographicType={props.demographicType}
-                    knownMetricConfig={metricConfigRates}
-                    unknownMetricConfig={metricConfigPctShares}
-                    selectedGroups={selectedTableGroups}
-                    hasUnknowns={isCawp ? false : hasUnknowns}
-                    isCompareCard={props.isCompareCard}
-                  />
-                </>
-              )}
-            </CardContent>
+                <AltTableView
+                  expanded={a11yTableExpanded}
+                  setExpanded={setA11yTableExpanded}
+                  expandBoxLabel={cardHeaderTitle.toLowerCase()}
+                  tableCaption={`${getTitleText()} by ${
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }`}
+                  knownsData={knownRatesData}
+                  unknownsData={unknownPctShareData}
+                  demographicType={props.demographicType}
+                  knownMetricConfig={metricConfigRates}
+                  unknownMetricConfig={metricConfigPctShares}
+                  selectedGroups={selectedTableGroups}
+                  hasUnknowns={isCawp ? false : hasUnknowns}
+                  isCompareCard={props.isCompareCard}
+                />
+              </>
+            )}
             {isHIV && <Hiv2020Alert />}
           </>
         )

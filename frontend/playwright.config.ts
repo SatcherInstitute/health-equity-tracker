@@ -20,17 +20,16 @@ const config: PlaywrightTestConfig = {
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 90 * 1000
+    timeout: 30 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   reporter: [
     [process.env.CI ? 'github' : 'list'],
     ['html']
   ],
 
-  workers: process.env.CI ? 1 : 2,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
@@ -60,7 +59,7 @@ const config: PlaywrightTestConfig = {
       name: 'E2E_PROD',
       testMatch: /.*nightly.spec.ts/,
       use: {
-        baseURL: 'https://healthequitytracker.org'
+        baseURL: 'https://healthequitytracker.org',
       }
     },
     {
