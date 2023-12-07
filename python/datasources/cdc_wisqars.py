@@ -72,7 +72,7 @@ class CDCWisqarsData(DataSource):
             if table_type == CURRENT:
                 df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
 
-            df_for_bq.to_csv(f"output-{table_type}.csv", index=False)
+            df_for_bq.to_csv(f"{demographic}_{geo_level}_{table_type}.csv", index=False)
 
             gcs_to_bq_util.add_df_to_bq(
                 df_for_bq, dataset, table_name, column_types=col_types
@@ -170,7 +170,7 @@ def generate_use_cols(breakdown: str):
     if breakdown == std_col.AGE_COL:
         cdc_wisqars_cols.append("Age Group")
 
-    if breakdown == std_col.RACE_OR_HISPANIC_COL:
+    if breakdown == std_col.SEX_COL:
         cdc_wisqars_cols.append("Sex")
 
     return cdc_wisqars_cols
