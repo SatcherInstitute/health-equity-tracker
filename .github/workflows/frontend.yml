@@ -53,9 +53,13 @@ jobs:
       - name: Run Jest unit tests
         run: npm test
 
+  # If it's a PR creation or update, we'll run the e2e test here on Netlify
+  # if it's a merge to main, the E2E will run in e2eStaging.yml
+
   tests_e2e_netlify_prepare:
     name: Wait for Netlify deploy
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     steps:
       - name: Waiting for Netlify Preview
         uses: josephduffy/wait-for-netlify-action@v1
@@ -68,6 +72,7 @@ jobs:
     needs: tests_e2e_netlify_prepare
     name: Run E2E tests on deploy preview
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
