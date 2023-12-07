@@ -1,6 +1,5 @@
 import { Button, Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
-import styles from './NewsPage.module.scss'
 import { Link, Redirect, useParams } from 'react-router-dom'
 import { ReactRouterLinkButton, getHtml } from '../../utils/urlutils'
 import {
@@ -249,7 +248,7 @@ export default function SinglePost(props: SinglePostProps) {
         </div>
 
         {/* ARTICLE CONTENT SECTION */}
-        <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col justify-center break-words'>
+        <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col break-words'>
           {/* RENDER WP ARTICLE HTML */}
           {fullArticle && getHtml(fullArticle.content?.rendered)}
 
@@ -305,7 +304,6 @@ export default function SinglePost(props: SinglePostProps) {
             <div className='mb-10 w-full text-center md:w-1/3'>
               <ReactRouterLinkButton
                 url={NEWS_PAGE_LINK}
-                className={styles.PrevNextHeaderText}
                 displayName='All Posts'
               />
             </div>

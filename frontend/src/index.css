@@ -254,6 +254,30 @@
     height: auto;
   }
 
+  /* hide featured image since already in header; hide HRs; show youtube embed <figure> */
+  .wp-block-post-featured-image {
+    display: none !important;
+  }
+
+  /* set youtube video container to proper aspect ratio */
+  .wp-block-embed-youtube .wp-block-embed__wrapper {
+    margin-block: 3rem;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+
+  /* fill iframe to above container */
+  .wp-block-embed-youtube .wp-block-embed__wrapper > iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 20px;
+  }
+
   /* TODO: why doesnt var(--alt-green) work here? should try to avoid hard coded colors */
   a {
     color: #0b5240;
