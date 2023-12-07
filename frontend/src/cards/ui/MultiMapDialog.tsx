@@ -31,7 +31,7 @@ import {
   useDownloadCardImage,
 } from '../../utils/hooks/useDownloadCardImage'
 import TerritoryCircles from './TerritoryCircles'
-import MapBreadcrumbs from './MapBreadcrumbs'
+import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
@@ -324,7 +324,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 md={6}
                 justifyContent={'start'}
               >
-                <MapBreadcrumbs
+                <HetBreadcrumbs
                   fips={props.fips}
                   updateFipsCallback={props.updateFipsCallback}
                   scrollToHashId={'rate-map'}
@@ -341,7 +341,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 xs={12}
                 justifyContent={'center'}
               >
-                <MapBreadcrumbs
+                <HetBreadcrumbs
                   fips={props.fips}
                   updateFipsCallback={props.updateFipsCallback}
                   scrollToHashId={'rate-map'}
