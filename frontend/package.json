@@ -108,7 +108,7 @@
     "dev": "env-cmd -f .env.development npm run start -- --host",
     "e2e-staging": "npx playwright install chromium && npx playwright test --project=E2E_STAGING --workers 5",
     "e2e-prod": "npx playwright install chromium && npx playwright test --project=E2E_PROD --workers 5",
-    "e2e-local": "npx playwright install chromium && npx playwright test --project=E2E_LOCAL --workers 3",
+    "e2e-local": "npx playwright install chromium && npx playwright test --project=E2E_LOCAL --workers 2",
     "e2e-deploy-preview": "npx playwright install chromium && npx playwright test --project=E2E_DEPLOY_PREVIEW --workers 5",
     "e2e-new": "npx playwright codegen http://localhost:3000",
     "preview": "npm run build:development && vite preview",
