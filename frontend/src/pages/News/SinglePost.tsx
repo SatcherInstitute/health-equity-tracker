@@ -84,7 +84,7 @@ export default function SinglePost(props: SinglePostProps) {
           }}
         />
       )}
-      <div className='flex flex-wrap justify-center'>
+      <div className='flex flex-wrap justify-center text-left text-title leading-lhSomeMoreSpace'>
         <Helmet>
           <title>{`News${
             fullArticle ? ` - ${fullArticle?.title?.rendered}` : ''
@@ -205,7 +205,7 @@ export default function SinglePost(props: SinglePostProps) {
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
               {fullArticle?.acf?.additional_contributors ? (
-                <div className='text-start text-text text-alt-dark underline'>
+                <div className='text-start text-text text-alt-dark'>
                   Contributors: {fullArticle.acf.additional_contributors}
                 </div>
               ) : (
@@ -247,9 +247,9 @@ export default function SinglePost(props: SinglePostProps) {
         </div>
 
         {/* ARTICLE CONTENT SECTION */}
-        <div className='flex flex-wrap justify-center py-5'>
-          <div>
-            <article className={styles.FullArticleContainer}>
+        <div className='flex flex-wrap justify-center '>
+          <div className='min-h-preload-article break-words'>
+            <article className='fetched-wordpress-html pt-10'>
               {/* RENDER WP ARTICLE HTML */}
               {fullArticle && getHtml(fullArticle.content?.rendered)}
 
@@ -284,7 +284,7 @@ export default function SinglePost(props: SinglePostProps) {
               <div className='mt-10'>
                 <div className='leading-none text-left font-sansText text-text font-medium'>
                   {fullArticle?.acf?.canonical_url && (
-                    <span className={styles.ReprintNotice}>
+                    <span className='text-small italic'>
                       Note: this article was originally published on{' '}
                       <a href={fullArticle?.acf?.canonical_url}>another site</a>
                       , and is reprinted here with permission.
@@ -303,7 +303,7 @@ export default function SinglePost(props: SinglePostProps) {
                   <NewsPreviewCard article={prevArticle} arrow={'prev'} />
                 )}
               </div>
-              <div className='w-full md:w-1/3'>
+              <div className='mb-10 w-full text-center md:w-1/3'>
                 <ReactRouterLinkButton
                   url={NEWS_PAGE_LINK}
                   className={styles.PrevNextHeaderText}

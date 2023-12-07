@@ -118,6 +118,125 @@
     --z-almost-top: 3;
     --z-top: 999;
   }
+
+  /* STYLING FOR FETCHED WORDPRESS HTML FOR NEWS AND STORIES */
+  /* TODO: use CSS nesting here once supported by all major browsers */
+
+  .fetched-wordpress-html figure {
+    margin-inline: 0 !important;
+    width: 100%;
+  }
+
+  .fetched-wordpress-html figcaption {
+    margin-top: 0.5rem;
+    text-align: center !important;
+    font-size: 0.75rem !important;
+    font-weight: 200 !important;
+    font-decoration: none !important;
+  }
+
+  .fetched-wordpress-html p,
+  .fetched-wordpress-html ul,
+  .fetched-wordpress-html ol,
+  .fetched-wordpress-html h2 {
+    max-width: 800px;
+    @media only screen and (min-width: 600px) {
+      weight: 75%;
+    }
+    @media only screen and (min-width: 960px) {
+      weight: 50%;
+    }
+  }
+
+  .fetched-wordpress-html hr {
+    margin-block: 3rem;
+    width: 50%;
+  }
+
+  .fetched-wordpress-html blockquote > p {
+    font-style: italic;
+  }
+
+  .fetched-wordpress-html h1 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $header !important;
+    line-height: 110%;
+    color: #0b5240;
+    text-align: left;
+  }
+
+  .fetched-wordpress-html h2 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $header !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .fetched-wordpress-html h3 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $header !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .fetched-wordpress-html h4 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $smallestHeader !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .fetched-wordpress-html h5 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $title !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .fetched-wordpress-html h6 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $text !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 5rem;
+    text-align: left;
+  }
+
+  .fetched-wordpress-html h6 a {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    background-color: (var(--alt-green)) !important;
+    color: (var(--white)) !important;
+    border-radius: 40px !important;
+    padding: 16px 30px !important;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    max-width: 400px;
+    margin: 40px auto 0px auto;
+    font-size: 1.5rem !important;
+  }
+
+  .fetched-wordpress-html img {
+    display: block;
+    margin: 40px auto 0px auto;
+    width: 100%;
+    height: auto;
+  }
+
   /* TODO: why doesnt var(--alt-green) work here? should try to avoid hard coded colors */
   a {
     color: #0b5240;

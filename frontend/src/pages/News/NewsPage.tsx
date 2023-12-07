@@ -72,6 +72,12 @@ export default function NewsPage(props: NewsPageProps) {
     setTabLayout(isSm ? { centered: true } : { variant: 'fullWidth' })
   }, [isSm])
 
+  const isAllArticlesTab = window.location.pathname === NEWS_PAGE_LINK
+  const isShareYourStoryTab =
+    window.location.pathname === SHARE_YOUR_STORY_TAB_LINK
+
+  const isSingleArticle = !isAllArticlesTab && !isShareYourStoryTab
+
   return (
     <section>
       <div className='m-auto max-w-newsPage'>
@@ -86,10 +92,13 @@ export default function NewsPage(props: NewsPageProps) {
             >
               <Tab
                 value={NEWS_PAGE_LINK}
-                label='All Articles'
+                label={`${isSingleArticle ? 'Back to ' : ''}All Articles`}
                 component={Link}
                 to={NEWS_PAGE_LINK}
               />
+              {isSingleArticle && (
+                <Tab value={window.location.pathname} label='Current Article' />
+              )}
               <Tab
                 value={SHARE_YOUR_STORY_TAB_LINK}
                 label='Share Your Story'
