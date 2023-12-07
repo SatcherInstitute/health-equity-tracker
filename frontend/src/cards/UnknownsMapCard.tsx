@@ -1,4 +1,3 @@
-import { CardContent } from '@mui/material'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -200,7 +199,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
         return (
-          <CardContent sx={{ pt: 0 }}>
+          <>
             <ChartTitle title={chartTitle} />
             {showingVisualization && (
               <>
@@ -276,22 +275,17 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
-              <div className='mx-5 my-2'>
-                <HetNotice>
-                  No unknown values for{' '}
-                  {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]}{' '}
-                  reported in this dataset
-                  {hasChildGeo && (
-                    <>
-                      {' '}
-                      at the {props.fips.getChildFipsTypeDisplayName()} level
-                    </>
-                  )}
-                  {'.'}
-                </HetNotice>
-              </div>
+              <HetNotice>
+                No unknown values for{' '}
+                {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]} reported
+                in this dataset
+                {hasChildGeo && (
+                  <> at the {props.fips.getChildFipsTypeDisplayName()} level</>
+                )}
+                {'.'}
+              </HetNotice>
             )}
-          </CardContent>
+          </>
         )
       }}
     </CardWrapper>

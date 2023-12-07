@@ -1,5 +1,4 @@
 import { DisparityBarChart } from '../charts/disparityBarChart/Index'
-import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -135,28 +134,25 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            <CardContent sx={{ pt: 0 }}>
-              {dataAvailable && knownData.length !== 0 && (
-                <>
-                  <ChartTitle title={chartTitle} />
+            {dataAvailable && knownData.length !== 0 && (
+              <>
+                <ChartTitle title={chartTitle} />
 
-                  <DisparityBarChart
-                    data={knownData}
-                    lightMetric={
-                      metricConfig.populationComparisonMetric ?? metricConfig
-                    }
-                    darkMetric={
-                      metricConfig.knownBreakdownComparisonMetric ??
-                      metricConfig
-                    }
-                    demographicType={props.demographicType}
-                    metricDisplayName={metricConfig.shortLabel}
-                    filename={chartTitle}
-                    showAltPopCompare={shouldShowAltPopCompare(props)}
-                  />
-                </>
-              )}
-            </CardContent>
+                <DisparityBarChart
+                  data={knownData}
+                  lightMetric={
+                    metricConfig.populationComparisonMetric ?? metricConfig
+                  }
+                  darkMetric={
+                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
+                  }
+                  demographicType={props.demographicType}
+                  metricDisplayName={metricConfig.shortLabel}
+                  filename={chartTitle}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
+                />
+              </>
+            )}
 
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (
@@ -170,9 +166,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 fips={props.fips}
               />
             ) : (
-              <CardContent>
+              <>
                 <ChartTitle title={'Graph unavailable: ' + chartTitle} />
-
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={
@@ -180,19 +175,17 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   }
                   fips={props.fips}
                 />
-              </CardContent>
+              </>
             )}
 
             {shouldShowDoesntAddUpMessage && (
-              <CardContent>
-                <HetNotice>
-                  Population percentages on this graph add up to over 100%
-                  because the racial categories reported for {chartTitle} in{' '}
-                  {props.fips.getSentenceDisplayName()} include Hispanic
-                  individuals in each racial category. As a result, Hispanic
-                  individuals are counted twice.
-                </HetNotice>
-              </CardContent>
+              <HetNotice>
+                Population percentages on this graph add up to over 100% because
+                the racial categories reported for {chartTitle} in{' '}
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
+              </HetNotice>
             )}
             {isCawp && (
               <CAWPOverlappingRacesAlert

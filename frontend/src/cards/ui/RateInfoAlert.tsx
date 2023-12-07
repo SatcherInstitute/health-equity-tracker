@@ -1,4 +1,4 @@
-import { CardContent, Divider } from '@mui/material'
+import { Divider } from '@mui/material'
 import {
   formatFieldValue,
   type MetricConfig,
@@ -76,17 +76,15 @@ export function RateInfoAlert(props: RateInfoAlertProps) {
   return (
     <>
       <Divider />
-      <CardContent>
-        <HetNotice>
-          {generateDemographicTotalPhrase()}
-          {/* Compare across XYZ for all variables except vaccinated at county level */}
-          <MultiMapLink
-            setMultimapOpen={props.setMultimapOpen}
-            demographicType={props.demographicType}
-            currentDataType={props.dataTypeConfig.fullDisplayName}
-          />
-        </HetNotice>
-      </CardContent>
+      <HetNotice>
+        {generateDemographicTotalPhrase()}
+        {/* Compare across XYZ for all variables except vaccinated at county level */}
+        <MultiMapLink
+          setMultimapOpen={props.setMultimapOpen}
+          demographicType={props.demographicType}
+          currentDataType={props.dataTypeConfig.fullDisplayName}
+        />
+      </HetNotice>
     </>
   )
 }

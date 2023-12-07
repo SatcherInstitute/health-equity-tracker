@@ -1,4 +1,4 @@
-import { Button, CardContent, Grid, Tooltip } from '@mui/material'
+import { Button, Grid, Tooltip } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
@@ -406,7 +406,7 @@ function MapCardWithKey(props: MapCardProps) {
 
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
-            <CardContent>
+            <>
               <Grid item xs={12}>
                 <ChartTitle
                   mt={0}
@@ -423,7 +423,7 @@ function MapCardWithKey(props: MapCardProps) {
                 isMapCard={true}
                 fips={props.fips}
               />
-            </CardContent>
+            </>
           )
 
         const highestLowestGroupsByFips = useMemo(
@@ -476,205 +476,193 @@ function MapCardWithKey(props: MapCardProps) {
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
               <>
-                <CardContent className={styles.MapControlsContent}>
-                  <Grid
-                    container
-                    justifyContent='space-between'
-                    align-items='flex-end'
-                    id={'map-group-dropdown'}
-                  >
-                    <Grid item>
-                      <DropDownMenu
-                        idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
-                        demographicType={demographicType}
-                        dataTypeId={props.dataTypeConfig.dataTypeId}
-                        setMultimapOpen={setMultimapOpen}
-                        value={dropdownValue}
-                        options={filterOptions}
-                        onOptionUpdate={handleMapGroupClick}
-                      />
-                      <Divider />
-                      <Tooltip
-                        title={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
-                      >
-                        <Button
-                          onClick={() => {
-                            setMultimapOpen(true)
-                          }}
-                        >
-                          <GridView />
-                          <span className={styles.CompareMultipleText}>
-                            View {prettyDemoType} disparties across multiple
-                            small maps
-                          </span>
-                        </Button>
-                      </Tooltip>
-                    </Grid>
+                <Grid
+                  className='pb-1 pt-0 text-left'
+                  container
+                  justifyContent='space-between'
+                  align-items='flex-end'
+                  id={'map-group-dropdown'}
+                >
+                  <Grid item>
+                    <DropDownMenu
+                      idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
+                      demographicType={demographicType}
+                      dataTypeId={props.dataTypeConfig.dataTypeId}
+                      setMultimapOpen={setMultimapOpen}
+                      value={dropdownValue}
+                      options={filterOptions}
+                      onOptionUpdate={handleMapGroupClick}
+                    />
                     <Divider />
+                    <Tooltip
+                      title={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
+                    >
+                      <Button
+                        onClick={() => {
+                          setMultimapOpen(true)
+                        }}
+                      >
+                        <GridView />
+                        <span className={styles.CompareMultipleText}>
+                          View {prettyDemoType} disparties across multiple small
+                          maps
+                        </span>
+                      </Button>
+                    </Tooltip>
                   </Grid>
-                </CardContent>
+                  <Divider />
+                </Grid>
               </>
             )}
 
-            <div>
-              <CardContent sx={{ pt: 0 }}>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <ChartTitle
-                      mt={0}
-                      mb={2}
-                      title={title}
-                      subtitle={subtitle}
+            <div className='pt-0'>
+              <Grid container>
+                <Grid item xs={12}>
+                  <ChartTitle mt={0} mb={2} title={title} subtitle={subtitle} />
+                </Grid>
+
+                <Grid
+                  item
+                  xs={12}
+                  sm={mapIsWide ? 8 : 12}
+                  md={mapIsWide ? 9 : 12}
+                >
+                  <Grid item minHeight={preloadHeight * 0.3} xs={12}>
+                    <ChoroplethMap
+                      demographicType={demographicType}
+                      highestLowestGroupsByFips={highestLowestGroupsByFips}
+                      activeDemographicGroup={activeDemographicGroup}
+                      countColsMap={countColsMap}
+                      data={displayData}
+                      filename={filename}
+                      fips={props.fips}
+                      geoData={geoData}
+                      hideLegend={true}
+                      hideMissingDataTooltip={highestLowestGeosMode}
+                      legendData={dataForActiveDemographicGroup}
+                      legendTitle={metricConfig.shortLabel.toLowerCase()}
+                      highestLowestGeosMode={highestLowestGeosMode}
+                      metric={metricConfig}
+                      showCounties={
+                        !props.fips.isUsa() && !hasSelfButNotChildGeoData
+                      }
+                      signalListeners={signalListeners}
+                      mapConfig={mapConfig}
+                      scaleConfig={scale}
+                      isPhrmaAdherence={isPhrmaAdherence}
                     />
                   </Grid>
 
-                  <Grid
-                    item
-                    xs={12}
-                    sm={mapIsWide ? 8 : 12}
-                    md={mapIsWide ? 9 : 12}
-                  >
-                    <Grid item minHeight={preloadHeight * 0.3} xs={12}>
-                      <ChoroplethMap
+                  {props.fips.isUsa() && (
+                    <Grid item xs={12}>
+                      <TerritoryCircles
                         demographicType={demographicType}
-                        highestLowestGroupsByFips={highestLowestGroupsByFips}
                         activeDemographicGroup={activeDemographicGroup}
                         countColsMap={countColsMap}
                         data={displayData}
-                        filename={filename}
-                        fips={props.fips}
+                        fullData={mapQueryResponse.data}
                         geoData={geoData}
-                        hideLegend={true}
-                        hideMissingDataTooltip={highestLowestGeosMode}
-                        legendData={dataForActiveDemographicGroup}
-                        legendTitle={metricConfig.shortLabel.toLowerCase()}
                         highestLowestGeosMode={highestLowestGeosMode}
-                        metric={metricConfig}
-                        showCounties={
-                          !props.fips.isUsa() && !hasSelfButNotChildGeoData
-                        }
+                        highestLowestGroupsByFips={highestLowestGroupsByFips}
+                        mapIsWide={mapIsWide}
+                        metricConfig={metricConfig}
+                        dataTypeConfig={props.dataTypeConfig}
                         signalListeners={signalListeners}
-                        mapConfig={mapConfig}
                         scaleConfig={scale}
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
                     </Grid>
+                  )}
+                </Grid>
+                {/* Legend */}
+                <Grid
+                  container
+                  justifyItems={'center'}
+                  alignItems={'flex-start'}
+                  item
+                  xs={12}
+                  sm={mapIsWide ? 4 : 12}
+                  md={mapIsWide ? 3 : 12}
+                >
+                  <Legend
+                    dataTypeConfig={props.dataTypeConfig}
+                    metric={metricConfig}
+                    legendTitle={metricConfig.shortLabel}
+                    data={allDataForActiveDemographicGroup}
+                    scaleType={RATE_MAP_SCALE}
+                    sameDotSize={true}
+                    description={'Legend for rate map'}
+                    isSummaryLegend={isSummaryLegend}
+                    fipsTypeDisplayName={fipsTypeDisplayName}
+                    mapConfig={mapConfig}
+                    columns={mapIsWide ? 1 : 3}
+                    stackingDirection={
+                      isPhrmaAdherence && !mapIsWide ? 'horizontal' : 'vertical'
+                    }
+                    isPhrmaAdherence={isPhrmaAdherence}
+                    handleScaleChange={handleScaleChange}
+                  />
+                </Grid>
 
-                    {props.fips.isUsa() && (
-                      <Grid item xs={12}>
-                        <TerritoryCircles
-                          demographicType={demographicType}
-                          activeDemographicGroup={activeDemographicGroup}
-                          countColsMap={countColsMap}
-                          data={displayData}
-                          fullData={mapQueryResponse.data}
-                          geoData={geoData}
-                          highestLowestGeosMode={highestLowestGeosMode}
-                          highestLowestGroupsByFips={highestLowestGroupsByFips}
-                          mapIsWide={mapIsWide}
-                          metricConfig={metricConfig}
-                          dataTypeConfig={props.dataTypeConfig}
-                          signalListeners={signalListeners}
-                          scaleConfig={scale}
-                          isPhrmaAdherence={isPhrmaAdherence}
-                        />
-                      </Grid>
-                    )}
-                  </Grid>
-                  {/* Legend */}
-                  <Grid
-                    container
-                    justifyItems={'center'}
-                    alignItems={'flex-start'}
-                    item
-                    xs={12}
-                    sm={mapIsWide ? 4 : 12}
-                    md={mapIsWide ? 3 : 12}
-                  >
-                    <Legend
+                <Grid
+                  item
+                  xs={12}
+                  container
+                  justifyContent={'space-between'}
+                  alignItems={'center'}
+                >
+                  <Grid item>
+                    <GeoContext
+                      fips={props.fips}
+                      updateFipsCallback={props.updateFipsCallback}
                       dataTypeConfig={props.dataTypeConfig}
-                      metric={metricConfig}
-                      legendTitle={metricConfig.shortLabel}
-                      data={allDataForActiveDemographicGroup}
-                      scaleType={RATE_MAP_SCALE}
-                      sameDotSize={true}
-                      description={'Legend for rate map'}
-                      isSummaryLegend={isSummaryLegend}
-                      fipsTypeDisplayName={fipsTypeDisplayName}
-                      mapConfig={mapConfig}
-                      columns={mapIsWide ? 1 : 3}
-                      stackingDirection={
-                        isPhrmaAdherence && !mapIsWide
-                          ? 'horizontal'
-                          : 'vertical'
-                      }
-                      isPhrmaAdherence={isPhrmaAdherence}
-                      handleScaleChange={handleScaleChange}
+                      totalPopulationPhrase={totalPopulationPhrase}
+                      subPopulationPhrase={subPopulationPhrase}
+                      sviQueryResponse={sviQueryResponse}
                     />
                   </Grid>
-
-                  <Grid
-                    item
-                    xs={12}
-                    container
-                    justifyContent={'space-between'}
-                    alignItems={'center'}
-                  >
-                    <Grid item>
-                      <GeoContext
-                        fips={props.fips}
-                        updateFipsCallback={props.updateFipsCallback}
-                        dataTypeConfig={props.dataTypeConfig}
-                        totalPopulationPhrase={totalPopulationPhrase}
-                        subPopulationPhrase={subPopulationPhrase}
-                        sviQueryResponse={sviQueryResponse}
-                      />
-                    </Grid>
-                  </Grid>
                 </Grid>
-                <Grid
-                  id={
-                    props.isCompareCard
-                      ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
-                      : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
-                  }
-                >
-                  {!mapQueryResponse.dataIsMissing() &&
-                    dataForActiveDemographicGroup.length > 1 && (
-                      <HighestLowestGeosList
-                        dataTypeConfig={props.dataTypeConfig}
-                        selectedRaceSuffix={selectedRaceSuffix}
-                        metricConfig={metricConfig}
-                        isOpen={highestLowestGeosMode}
-                        setIsOpen={setHighestLowestGeosMode}
-                        highestValues={highestValues}
-                        lowestValues={lowestValues}
-                        parentGeoQueryResponse={parentGeoQueryResponse}
-                        fips={props.fips}
-                        qualifierItems={qualifierItems}
-                        qualifierMessage={qualifierMessage}
-                        demographicType={demographicType}
-                        activeDemographicGroup={activeDemographicGroup}
-                      />
-                    )}
-                </Grid>
-              </CardContent>
+              </Grid>
+              <Grid
+                id={
+                  props.isCompareCard
+                    ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
+                    : HIGHEST_LOWEST_GEOS_1_PARAM_KEY
+                }
+              >
+                {!mapQueryResponse.dataIsMissing() &&
+                  dataForActiveDemographicGroup.length > 1 && (
+                    <HighestLowestGeosList
+                      dataTypeConfig={props.dataTypeConfig}
+                      selectedRaceSuffix={selectedRaceSuffix}
+                      metricConfig={metricConfig}
+                      isOpen={highestLowestGeosMode}
+                      setIsOpen={setHighestLowestGeosMode}
+                      highestValues={highestValues}
+                      lowestValues={lowestValues}
+                      parentGeoQueryResponse={parentGeoQueryResponse}
+                      fips={props.fips}
+                      qualifierItems={qualifierItems}
+                      qualifierMessage={qualifierMessage}
+                      demographicType={demographicType}
+                      activeDemographicGroup={activeDemographicGroup}
+                    />
+                  )}
+              </Grid>
 
               {!mapQueryResponse.dataIsMissing() &&
                 dataForActiveDemographicGroup.length === 0 &&
                 activeDemographicGroup !== ALL && (
-                  <CardContent>
-                    <HetNotice kind='data-integrity'>
-                      Insufficient data available for filter:{' '}
-                      <b>{activeDemographicGroup}</b>.{' '}
-                      {/* Offer multimap link if current demo group is missing info */}
-                      <MultiMapLink
-                        setMultimapOpen={setMultimapOpen}
-                        demographicType={demographicType}
-                        currentDataType={props.dataTypeConfig.fullDisplayName}
-                      />
-                    </HetNotice>
-                  </CardContent>
+                  <HetNotice kind='data-integrity'>
+                    Insufficient data available for filter:{' '}
+                    <b>{activeDemographicGroup}</b>.{' '}
+                    {/* Offer multimap link if current demo group is missing info */}
+                    <MultiMapLink
+                      setMultimapOpen={setMultimapOpen}
+                      demographicType={demographicType}
+                      currentDataType={props.dataTypeConfig.fullDisplayName}
+                    />
+                  </HetNotice>
                 )}
             </div>
           </>

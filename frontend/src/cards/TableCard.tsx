@@ -7,7 +7,6 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { CardContent } from '@mui/material'
 import {
   METRIC_CONFIG,
   type MetricConfig,
@@ -195,38 +194,34 @@ export default function TableCard(props: TableCardProps) {
               />
             )}
             {showMissingDataAlert && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={props.dataTypeConfig.fullDisplayName + ' '}
-                  demographicTypeString={
-                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                  }
-                  fips={props.fips}
-                />
-              </CardContent>
+              <MissingDataAlert
+                dataName={props.dataTypeConfig.fullDisplayName + ' '}
+                demographicTypeString={
+                  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                }
+                fips={props.fips}
+              />
             )}
             {!queryResponse.dataIsMissing() &&
               displayingCovidData &&
               props.demographicType === RACE && (
                 <>
-                  <CardContent>
-                    <HetNotice kind='data-integrity' id='AIAN-alert'>
-                      Share of COVID-19 cases reported for American Indian,
-                      Alaska Native, Native Hawaiian and Pacific Islander are
-                      underrepresented at the national level and in many states
-                      because these racial categories are often not recorded.
-                      The Urban Indian Health Institute publishes{' '}
-                      <a
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        href={urlMap.uihiBestPractice}
-                      >
-                        guidelines for American Indian and Alaska Native Data
-                        Collection
-                      </a>
-                      .
-                    </HetNotice>
-                  </CardContent>
+                  <HetNotice kind='data-integrity' id='AIAN-alert'>
+                    Share of COVID-19 cases reported for American Indian, Alaska
+                    Native, Native Hawaiian and Pacific Islander are
+                    underrepresented at the national level and in many states
+                    because these racial categories are often not recorded. The
+                    Urban Indian Health Institute publishes{' '}
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href={urlMap.uihiBestPractice}
+                    >
+                      guidelines for American Indian and Alaska Native Data
+                      Collection
+                    </a>
+                    .
+                  </HetNotice>
                   <Divider />
                 </>
               )}
