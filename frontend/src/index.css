@@ -249,7 +249,6 @@
   .fetched-wordpress-html img {
     display: block;
     margin: 40px auto 10px auto;
-    /* width: 100%; */
     max-width: 100%;
     height: auto;
   }
