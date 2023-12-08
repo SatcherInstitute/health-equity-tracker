@@ -1,5 +1,5 @@
 import { lazy, useEffect, useState } from 'react'
-import { Link, Route, Switch } from 'react-router-dom'
+import { Link, Route, Switch, useLocation } from 'react-router-dom'
 import {
   NEWS_PAGE_LINK,
   SHARE_YOUR_STORY_TAB_LINK,
@@ -67,14 +67,15 @@ export default function NewsPage(props: NewsPageProps) {
   const isSm = useIsBreakpointAndUp('sm')
   const [tabLayout, setTabLayout] = useState({})
 
+  const location = useLocation()
+
   // when screen width changes, update tab spacing MUI attribute
   useEffect(() => {
     setTabLayout(isSm ? { centered: true } : { variant: 'fullWidth' })
   }, [isSm])
 
-  const isAllArticlesTab = window.location.pathname === NEWS_PAGE_LINK
-  const isShareYourStoryTab =
-    window.location.pathname === SHARE_YOUR_STORY_TAB_LINK
+  const isAllArticlesTab = location.pathname === NEWS_PAGE_LINK
+  const isShareYourStoryTab = location.pathname === SHARE_YOUR_STORY_TAB_LINK
 
   const isSingleArticle = !isAllArticlesTab && !isShareYourStoryTab
 
@@ -88,7 +89,7 @@ export default function NewsPage(props: NewsPageProps) {
               centered={true}
               indicatorColor='primary'
               textColor='primary'
-              value={window.location.pathname}
+              value={location.pathname}
             >
               <Tab
                 value={NEWS_PAGE_LINK}
@@ -97,7 +98,7 @@ export default function NewsPage(props: NewsPageProps) {
                 to={NEWS_PAGE_LINK}
               />
               {isSingleArticle && (
-                <Tab value={window.location.pathname} label='Current Article' />
+                <Tab value={location.pathname} label='Current Article' />
               )}
               <Tab
                 value={SHARE_YOUR_STORY_TAB_LINK}

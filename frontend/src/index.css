@@ -183,6 +183,9 @@
     font-size: $header !important;
     line-height: 110%;
     color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
 
@@ -192,7 +195,8 @@
     line-height: 110%;
     color: #0b5240;
     font-weight: 300;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
 
@@ -202,7 +206,8 @@
     line-height: 110%;
     color: #0b5240;
     font-weight: 300;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
 
@@ -212,7 +217,8 @@
     line-height: 110%;
     color: #0b5240;
     font-weight: 300;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
 
@@ -222,7 +228,8 @@
     line-height: 110%;
     color: #0b5240;
     font-weight: 300;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
 
@@ -232,7 +239,8 @@
     line-height: 110%;
     color: #0b5240;
     font-weight: 300;
-    margin-top: 5rem;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
     text-align: left;
   }
 

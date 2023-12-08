@@ -115,26 +115,42 @@ export default function SinglePost(props: SinglePostProps) {
         '
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
-
           <div className='flex w-10/12 items-center justify-center md:w-1/3'>
             {isLoading && (
               <Skeleton width={300} height={300} animation='wave'></Skeleton>
             )}
             {error && (
-              <Skeleton width={300} height={300} animation={false}></Skeleton>
-            )}
-            {!isLoading && !error && (
               <img
-                src={articleImage ?? hetLogo}
+                src={hetLogo}
                 className='
-                  max-h-80
-                  md:max-h-articleLogo
+                max-h-80
+                md:max-h-articleLogo
+                mt-8
+                h-auto
+                w-3/5
+                max-w-md
+                rounded-xl
+                object-contain
+                md:mt-0'
+                alt={''}
+                width={200}
+                height={100}
+              />
+            )}
+            {!isLoading && !error && articleImage && (
+              <img
+                src={articleImage}
+                className='
+                max-h-80
+                md:max-h-articleLogo
                   mt-8
+                  hidden
                   h-auto
                   w-3/5
                   max-w-md
-                  rounded-xl
+                  rounded-md
                   object-contain
+                  sm:block
                   md:mt-0'
                 alt={articleImageAltText}
                 width={200}
@@ -155,7 +171,7 @@ export default function SinglePost(props: SinglePostProps) {
               border-0
               border-solid
               border-border-color
-              py-8
+              pt-8
               md:w-2/3
               md:border-l
               md:px-16
