@@ -119,11 +119,16 @@ function EquityTab() {
         </Helmet>
         <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
           <div className='flex w-full items-center justify-center border-0 border-b border-solid border-border-color'>
-            <figure className='mx-auto mt-0 hidden w-full text-left md:block md:w-1/3'>
-              <LazyLoad offset={300} height={760} once>
+            <figure className='mx-auto mt-0 hidden p-2 text-left md:block md:w-1/3'>
+              <LazyLoad
+                offset={300}
+                height={760}
+                once
+                className='flex justify-center'
+              >
                 <img
                   alt=''
-                  className='m-5 h-auto w-11/12 max-w-equityLogo rounded-md'
+                  className='m-5 h-auto w-9/12 max-w-equityLogo rounded-md'
                   src='/img/stock/woman-in-wheelchair-with-tea.png'
                 />
               </LazyLoad>
@@ -133,7 +138,7 @@ function EquityTab() {
               <header className='mb-10'>
                 <h2
                   id='main'
-                  className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'
+                  className='mb-4 mt-0 text-left font-serif text-header font-light leading-lhNormal text-alt-green sm:text-bigHeader md:text-biggerHeader'
                 >
                   What is Health Equity?
                 </h2>
@@ -195,7 +200,7 @@ function EquityTab() {
           <div className='flex w-full flex-col flex-wrap items-center justify-center'>
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
-                <h3 className='m-0 text-center font-serif text-biggerHeader font-light leading-lhLoose text-alt-green'>
+                <h3 className='ms:text-bigHeader m-0 text-center font-serif text-header font-light leading-lhLoose text-alt-green md:text-biggerHeader'>
                   {wordpressCopy?.section2_headingLevel2}
                 </h3>
               </section>
@@ -276,7 +281,7 @@ function EquityTab() {
             </div>
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
-                <h3 className='m-0 pb-2 text-center font-serif text-biggerHeader font-light text-alt-green'>
+                <h3 className='ms:text-bigHeader m-0 pb-2 text-center font-serif text-header font-light text-alt-green md:text-biggerHeader'>
                   News and stories
                 </h3>
                 <p className='text-left font-sansText text-title font-light text-black'>
@@ -440,7 +445,7 @@ function EquityTab() {
           <section className='flex w-full flex-col items-center justify-center py-16'>
             <h3
               id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-              className='m-0 mb-4 text-center font-serif text-biggerHeader font-light leading-lhModalHeading text-alt-green'
+              className='ms:text-bigHeader m-0 mb-4 text-center font-serif text-header font-light leading-lhModalHeading text-alt-green md:text-biggerHeader'
             >
               {wordpressCopy?.section4_headingLevel2}
             </h3>
