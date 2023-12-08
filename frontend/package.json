@@ -15,6 +15,7 @@
     "@mui/material": "^5.14.9",
     "@mui/styles": "^5.14.9",
     "@popperjs/core": "^2.11.8",
+    "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@vitejs/plugin-react": "^4.1.0",
     "axios": "^1.5.0",
     "cspell": "^6.31.3",

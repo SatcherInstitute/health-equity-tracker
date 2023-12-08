@@ -316,10 +316,10 @@ export default function SinglePost(props: SinglePostProps) {
             </div>
           </div>
         </LazyLoad>
-      </div>
 
-      {/* EMAIL SIGNUP  */}
-      <SignupSection />
+        {/* EMAIL SIGNUP  */}
+        <SignupSection />
+      </div>
     </>
   )
 }

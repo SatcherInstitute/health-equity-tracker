@@ -8,7 +8,7 @@ import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 
 export default function SignupSection() {
   return (
-    <section className='m-5 flex w-full flex-col sm:m-20'>
+    <section className='m-5 flex w-11/12 max-w-sm flex-col sm:m-20'>
       <p>
         Please{' '}
         <LinkWithStickyParams to={CONTACT_TAB_LINK}>

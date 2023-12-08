@@ -202,7 +202,7 @@ function AllPosts() {
   if (data?.data.length === 0) return <></>
 
   return (
-    <div className='flex w-full flex-wrap'>
+    <div className='flex w-full flex-wrap justify-center'>
       <Helmet>
         <title>News - Health Equity Tracker</title>
       </Helmet>
@@ -359,7 +359,10 @@ function AllPosts() {
             <div className='flex flex-wrap items-start justify-between'>
               {filteredArticles?.map((post: any) => {
                 return (
-                  <div className='w-full sm:w-1/2 xl:w-1/3' key={post.id}>
+                  <div
+                    className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'
+                    key={post.id}
+                  >
                     <div className='my-4'>
                       <NewsPreviewCard article={post} />
                     </div>
