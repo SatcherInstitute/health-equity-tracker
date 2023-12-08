@@ -1,4 +1,3 @@
-import { CardContent, useMediaQuery, useTheme } from '@mui/material'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { Fips } from '../data/utils/Fips'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -18,7 +17,6 @@ import {
   ALL,
   RACE,
 } from '../data/utils/Constants'
-import Alert from '@mui/material/Alert'
 import UnknownsAlert from './ui/UnknownsAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { useLocation } from 'react-router-dom'
@@ -28,6 +26,8 @@ import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 interface UnknownsMapCardProps {
   // Variable the map will evaluate for unknowns
@@ -74,10 +74,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     },
   }
 
-  const theme = useTheme()
-  const pageIsSmall = useMediaQuery(theme.breakpoints.down('sm'))
+  const isSm = useIsBreakpointAndUp('sm')
   const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = !pageIsSmall && !isCompareMode
+  const mapIsWide = !isSm && !isCompareMode
 
   // TODO: Debug why onlyInclude(UNKNOWN, UNKNOWN_RACE) isn't working
   const mapGeoBreakdowns = Breakdowns.forParentFips(props.fips).addBreakdown(
@@ -200,7 +199,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
         const hasChildGeo = props.fips.getChildFipsTypeDisplayName() !== ''
 
         return (
-          <CardContent sx={{ pt: 0 }}>
+          <>
             <ChartTitle title={chartTitle} />
             {showingVisualization && (
               <>
@@ -276,7 +275,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
             {/* NO UNKNOWNS INFO BOX */}
             {(showNoUnknownsInfo || unknownsAllZero) && (
-              <Alert sx={{ my: 2, mx: 5 }} severity='info' role='note'>
+              <HetNotice>
                 No unknown values for{' '}
                 {DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[demographicType]} reported
                 in this dataset
@@ -284,9 +283,9 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
                   <> at the {props.fips.getChildFipsTypeDisplayName()} level</>
                 )}
                 {'.'}
-              </Alert>
+              </HetNotice>
             )}
-          </CardContent>
+          </>
         )
       }}
     </CardWrapper>

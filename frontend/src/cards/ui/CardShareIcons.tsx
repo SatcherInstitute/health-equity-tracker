@@ -42,7 +42,7 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           url={sharedUrl}
           className='flex items-center px-2 py-1'
         >
-          <TwitterIcon {...shareIconAttributes} className='mx-2 w-8' />
+          <TwitterIcon {...shareIconAttributes} className='mx-0 w-8' />
           <div>Share on Twitter</div>
         </TwitterShareButton>
       </MenuItem>
@@ -55,7 +55,7 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           url={sharedUrl}
           className='flex items-center px-2 py-1'
         >
-          <FacebookIcon {...shareIconAttributes} className='mx-2 w-8' />
+          <FacebookIcon {...shareIconAttributes} className='mx-0 w-8' />
           <div>Share on Facebook</div>
         </FacebookShareButton>
       </MenuItem>
@@ -67,7 +67,7 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           source={'Health Equity Tracker'}
           url={sharedUrl}
         >
-          <LinkedinIcon {...shareIconAttributes} className='mx-2 w-8' />
+          <LinkedinIcon {...shareIconAttributes} className='mx-0 w-8' />
           <div>Share on LinkedIn</div>
         </LinkedinShareButton>
       </MenuItem>
@@ -80,7 +80,7 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           subject={`Sharing from healthequitytracker.org`}
           url={sharedUrl}
         >
-          <EmailIcon {...shareIconAttributes} className='mx-2 w-8' />
+          <EmailIcon {...shareIconAttributes} className='mx-0 w-8' />
           <div>Email card link</div>
         </EmailShareButton>
       </MenuItem>

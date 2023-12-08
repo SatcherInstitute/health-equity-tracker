@@ -20,24 +20,23 @@ const config: PlaywrightTestConfig = {
   timeout: 90 * 1000,
   /* Maximum time one "expect"" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 90 * 1000
+    timeout: 30 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
-  retries: process.env.CI ? 2 : 1,
+  retries: process.env.CI ? 2 : 0,
   reporter: [
     [process.env.CI ? 'github' : 'list'],
     ['html']
   ],
 
-  workers: process.env.CI ? 1 : 2,
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     browserName: 'chromium',
     headless: true,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on',
     screenshot: 'only-on-failure',
@@ -60,7 +59,7 @@ const config: PlaywrightTestConfig = {
       name: 'E2E_PROD',
       testMatch: /.*nightly.spec.ts/,
       use: {
-        baseURL: 'https://healthequitytracker.org'
+        baseURL: 'https://healthequitytracker.org',
       }
     },
     {
@@ -69,11 +68,18 @@ const config: PlaywrightTestConfig = {
       use: {
         baseURL: 'https://dev.healthequitytracker.org',
       }
-
     },
     {
-      name: 'E2E',
-      testIgnore: /.*(?:externalUrls|nightly).spec.ts/,
+      name: 'E2E_DEPLOY_PREVIEW',
+      testMatch: /.*nightly.spec.ts/,
+      use: {
+        channel: 'chrome'
+      }
+    },
+    {
+
+      name: 'E2E_LOCAL',
+      testMatch: /.*nightly.spec.ts/,
     },
   ],
 

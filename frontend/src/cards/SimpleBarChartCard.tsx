@@ -1,5 +1,4 @@
 import { SimpleHorizontalBarChart } from '../charts/SimpleHorizontalBarChart'
-import { CardContent } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -119,50 +118,46 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
 
         return (
           <>
-            <CardContent sx={{ pt: 0 }}>
-              {hideChart ? (
-                <>
-                  <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+            {hideChart ? (
+              <>
+                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
 
-                  <MissingDataAlert
-                    dataName={chartTitle}
-                    demographicTypeString={
-                      DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[
-                        props.demographicType
-                      ]
-                    }
+                <MissingDataAlert
+                  dataName={chartTitle}
+                  demographicTypeString={
+                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                  }
+                  fips={props.fips}
+                />
+              </>
+            ) : (
+              <>
+                <ChartTitle title={chartTitle} />
+
+                <SimpleHorizontalBarChart
+                  data={data}
+                  demographicType={props.demographicType}
+                  metric={metricConfig}
+                  filename={filename}
+                  usePercentSuffix={isPctType(metricConfig.type)}
+                />
+                {isIncarceration && (
+                  <IncarceratedChildrenShortAlert
                     fips={props.fips}
-                  />
-                </>
-              ) : (
-                <>
-                  <ChartTitle title={chartTitle} />
-
-                  <SimpleHorizontalBarChart
-                    data={data}
+                    queryResponse={queryResponse}
                     demographicType={props.demographicType}
-                    metric={metricConfig}
-                    filename={filename}
-                    usePercentSuffix={isPctType(metricConfig.type)}
                   />
-                  {isIncarceration && (
-                    <IncarceratedChildrenShortAlert
-                      fips={props.fips}
-                      queryResponse={queryResponse}
-                      demographicType={props.demographicType}
-                    />
-                  )}
-                  {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
-                    <GenderDataShortAlert
-                      fips={props.fips}
-                      queryResponse={queryResponse}
-                      demographicType={props.demographicType}
-                      dataTypeId={props.dataTypeConfig.dataTypeId}
-                    />
-                  )}
-                </>
-              )}
-            </CardContent>
+                )}
+                {isHIV && breakdowns.demographicBreakdowns.sex.enabled && (
+                  <GenderDataShortAlert
+                    fips={props.fips}
+                    queryResponse={queryResponse}
+                    demographicType={props.demographicType}
+                    dataTypeId={props.dataTypeConfig.dataTypeId}
+                  />
+                )}
+              </>
+            )}
           </>
         )
       }}

@@ -1,40 +1,20 @@
-/** @type {import('tailwindcss').Config} */
+import type { Config } from 'tailwindcss'
+
+export const standardSizes = {
+  xs: '0px',
+  sm: '600px',
+  md: '960px',
+  lg: '1280px',
+  xl: '1920px',
+}
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
-    screens: {
-      xs: '0px',
-      sm: '600px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1920px',
-      titleXs: '0px',
-      titleSm: '800px',
-      titleMd: '900px',
-      titleLg: '1500px',
-      titleXl: '1850px',
-    },
-    maxHeight: {
-      aimToGo: "255px",
-      sm: '600px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1920px',
-    },
-    maxWidth: {
-      aimToGo: "255px",
-      menu: "320px",
-      sm: '600px',
-      articleLogo: '700px',
-      md: '960px',
-      lg: '1280px',
-      xl: '1920px',
-      teamHeadshot: '181px',
-      teamLogo: '250px',
-      newsPage: '1440px',
-      equityLogo: '400px'
-    },
+    screens: standardSizes,
+    maxHeight: standardSizes,
+    maxWidth: standardSizes,
     borderRadius: {
       sm: '4px',
       md: '8px',
@@ -45,10 +25,10 @@ export default {
     boxShadow: {
       raised:
         'rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px',
-        'raised-tighter':
+      'raised-tighter':
         'rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px',
 
-      },
+    },
     colors: {
       'alert-color': 'rgb(var(--alert-color) / <alpha-value>)',
       'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
@@ -69,8 +49,6 @@ export default {
       'footer-color': 'rgb(var(--footer-color) / <alpha-value>)',
       'grey-dark': 'rgb(var(--grey-dark) / <alpha-value>)',
       'grey-grid-color': 'rgb(var(--grey-grid-color) / <alpha-value>)',
-      'highest-lowest-color':
-        'rgb(var(--highest-lowest-color) / <alpha-value>)',
       'how-to-color': 'rgb(var(--how-to-color) / <alpha-value>)',
       'infobar-color': 'rgb(var(--infobar-color) / <alpha-value>)',
       'join-effort-bg1': 'rgb(var(--join-effort-bg1) / <alpha-value>)',
@@ -170,6 +148,19 @@ export default {
       "z-top": 'var(--z-top)',
     },
     extend: {
+      maxHeight: {
+        aimToGo: "255px",
+      },
+      maxWidth: {
+        aimToGo: "255px",
+        menu: "320px",
+        articleLogo: '700px',
+        teamHeadshot: '181px',
+        teamLogo: '250px',
+        newsPage: '1440px',
+        equityLogo: '400px',
+        helperBox: '1200px',
+      },
       height: {
         joinEffortLogo: '720px',
       },
@@ -188,4 +179,4 @@ export default {
   corePlugins: {
     preflight: false,
   }
-}
+} satisfies Config

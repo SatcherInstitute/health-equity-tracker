@@ -2,7 +2,7 @@ import { Grid } from '@mui/material'
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import MapBreadcrumbs from './MapBreadcrumbs'
+import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import SviAlert from './SviAlert'
 import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
@@ -26,7 +26,7 @@ export default function GeoContext(props: GeoContextProps) {
 
   return (
     <>
-      <MapBreadcrumbs
+      <HetBreadcrumbs
         fips={props.fips}
         updateFipsCallback={props.updateFipsCallback}
         ariaLabel={props.dataTypeConfig.fullDisplayName}

@@ -6,8 +6,8 @@ import {
   type DataTypeConfig,
 } from '../../data/config/MetricConfig'
 import { LinkWithStickyParams } from '../../utils/urlutils'
-import { Alert } from '@mui/material'
 import { lazy } from 'react'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 const AltDataTypesMessage = lazy(
   async () => await import('./AltDataTypesMessage')
@@ -44,7 +44,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
       : ''
 
   return (
-    <Alert sx={{ mt: 4 }} severity='warning' role='note'>
+    <HetNotice kind='data-integrity'>
       Our data sources do not have
       {demographicPhrase}
       <b>{props.dataName}</b>
@@ -61,7 +61,7 @@ function MissingDataAlert(props: MissingDataAlertProps) {
           ageAdjustedDataTypes={props.ageAdjustedDataTypes}
         />
       )}
-    </Alert>
+    </HetNotice>
   )
 }
 
