@@ -242,23 +242,19 @@ function AllPosts() {
                     m-0
                     text-center
                     font-serif
-                    text-bigHeader
+                    text-header
                     font-light
-                    text-alt-green'
+                    leading-lhNormal
+                    text-alt-green
+                    md:text-bigHeader
+
+                    '
                 >
                   News and Stories
                 </h2>
               </div>
-              <div>
-                <p
-                  className='
-                    leading-6
-                    text-left
-                    font-sansText
-                    text-title
-                    font-light
-                '
-                >
+              <div className='text-left font-sansText font-light leading-lhSomeSpace md:text-title md:leading-lhSomeMoreSpace'>
+                <p>
                   We believe in the power of storytelling. The Health Equity
                   Tracker is designed to enable transformative change through
                   data, but we know that is only part of the picture. Here, you
@@ -268,15 +264,7 @@ function AllPosts() {
                   the Health Equity movement.
                 </p>
 
-                <p
-                  className='
-                    leading-6
-                    text-left
-                    font-sansText
-                    text-title
-                    font-light
-                '
-                >
+                <p>
                   Health Equity is a transformative pursuit that empowers all
                   people: giving their voices the platform to be heard and their
                   experiences the visibility they deserve. We encourage your to{' '}

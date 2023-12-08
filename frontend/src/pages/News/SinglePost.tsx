@@ -129,7 +129,7 @@ export default function SinglePost(props: SinglePostProps) {
                 h-auto
                 w-3/5
                 max-w-md
-                rounded-xl
+                rounded-md
                 object-contain
                 md:mt-0'
                 alt={''}
@@ -186,9 +186,10 @@ export default function SinglePost(props: SinglePostProps) {
               pb-4
               text-left
               font-serif
-              text-header
+              text-smallHeader
               font-light
               text-alt-green
+              sm:text-header
               md:text-bigHeader
             '
             >
