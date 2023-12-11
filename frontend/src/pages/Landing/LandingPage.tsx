@@ -79,6 +79,7 @@ function LandingPage() {
             </div>
           </div>
           <div className='w-full border-0 border-l border-solid px-12 py-4 md:w-5/12'>
+            {/* image is actually rounded */}
             <img
               src='/img/stock/family-laughing.png'
               className='border-xl h-auto max-h-sm w-full	max-w-articleLogo p-2.5'
@@ -138,7 +139,7 @@ function LandingPage() {
           </div>
 
           <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
                   Take a Tour of the Data
@@ -150,7 +151,7 @@ function LandingPage() {
               </div>
               <div className='w-full md:w-2/3'>
                 <iframe
-                  className='w-full rounded-xl'
+                  className='w-full rounded-md'
                   height='420px'
                   src='https://www.youtube.com/embed/XBoqT9Jjc8w'
                   title='YouTube video player'
@@ -161,7 +162,7 @@ function LandingPage() {
                 ></iframe>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                   Search by completing the sentence
@@ -185,7 +186,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
@@ -211,7 +212,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-xl border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
