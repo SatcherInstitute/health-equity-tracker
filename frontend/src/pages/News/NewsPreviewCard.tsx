@@ -15,7 +15,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
   return (
     <ReactRouterLinkButton
       url={`${NEWS_PAGE_LINK}/${article.slug}`}
-      className='font-title m-0 p-4 text-center'
+      className='font-title m-0 p-2 text-center'
     >
       <div className='flex flex-nowrap justify-evenly'>
         {/* Optional "Left/Previous" Arrow */}
