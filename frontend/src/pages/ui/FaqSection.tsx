@@ -9,7 +9,7 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
 import { type FAQ, selectFAQs } from '../WhatIsHealthEquity/FaqData'
-import HetTextButton from '../../styles/HetComponents/HetTextButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 interface FAQListItemProps {
   key: string
@@ -58,12 +58,12 @@ export default function FaqSection() {
         })}
       </Grid>
       <Grid item>
-        <HetTextButton
+        <HetLinkButton
           href={FAQ_TAB_LINK}
           className='text-smallestHeader text-alt-green underline'
         >
           See our full FAQ page
-        </HetTextButton>
+        </HetLinkButton>
       </Grid>
     </Grid>
   )

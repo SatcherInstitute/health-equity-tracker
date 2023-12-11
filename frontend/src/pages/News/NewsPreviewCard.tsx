@@ -3,7 +3,7 @@ import AppbarLogo from '../../assets/AppbarLogo.png'
 import { getHtml } from '../../utils/urlutils'
 import { type Article } from './NewsPage'
 import LazyLoad from 'react-lazyload'
-import HetTextButton from '../../styles/HetComponents/HetTextButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 interface NewsPreviewCardProps {
   article: Article
@@ -14,7 +14,7 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
   const { article } = props
 
   return (
-    <HetTextButton
+    <HetLinkButton
       href={`${NEWS_PAGE_LINK}/${article.slug}`}
       className='font-title m-0 p-2 text-center'
     >
@@ -66,6 +66,6 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           )}
         </div>
       </div>
-    </HetTextButton>
+    </HetLinkButton>
   )
 }

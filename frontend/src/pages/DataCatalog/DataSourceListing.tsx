@@ -24,7 +24,7 @@ import {
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import HetNotice from '../../styles/HetComponents/HetNotice'
-import HetTextButton from '../../styles/HetComponents/HetTextButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -170,22 +170,22 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </p>
       <footer className='mb-2 mt-4 flex h-auto w-full flex-col justify-end sm:flex-row'>
         {props.source_metadata.downloadable && (
-          <HetTextButton
+          <HetLinkButton
             onClick={() => {
               setDialogIsOpen(true)
             }}
             ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
             View downloadable tables
-          </HetTextButton>
+          </HetLinkButton>
         )}
         {props.source_metadata.downloadable_data_dictionary && (
-          <HetTextButton
+          <HetLinkButton
             href='/data_dictionaries/medicare_population.csv'
             ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
             Download data dictionary
-          </HetTextButton>
+          </HetLinkButton>
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}

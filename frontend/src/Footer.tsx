@@ -3,7 +3,6 @@ import styles from './Footer.module.scss'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import YouTubeIcon from '@mui/icons-material/YouTube'
-import { ReactRouterLinkButton } from './utils/urlutils'
 import {
   EXPLORE_DATA_PAGE_LINK,
   TERMS_OF_USE_PAGE_LINK,
@@ -17,6 +16,7 @@ import PartnerSatcher from './assets/PartnerSatcher.png'
 import { urlMap } from './utils/externalUrls'
 import { currentYear } from './cards/ui/SourcesHelpers'
 import HetReturnToTop from './styles/HetComponents/HetReturnToTop'
+import HetLinkButton from './styles/HetComponents/HetLinkButton'
 
 function Footer() {
   return (
@@ -97,13 +97,13 @@ function Logos() {
         wrap='nowrap'
       >
         <Grid item>
-          <ReactRouterLinkButton url='/'>
+          <HetLinkButton href='/'>
             <img
               src={AppbarLogo}
-              className={styles.FooterLogo}
+              className='m-2 mb-0 h-[30px] w-[30px]'
               alt='Health Equity Tracker logo'
             />
-          </ReactRouterLinkButton>
+          </HetLinkButton>
         </Grid>
         <Grid item>
           <Grid container justifyContent='flex-start' alignItems='flex-start'>
@@ -149,14 +149,14 @@ function Logos() {
         justifyContent='center'
         alignItems='center'
       >
-        <ReactRouterLinkButton url={urlMap.shli}>
+        <HetLinkButton href={urlMap.shli}>
           <img
             src={PartnerSatcher}
             alt='Satcher Health Leadership Institute Logo'
             height={60}
             width={216}
           />
-        </ReactRouterLinkButton>
+        </HetLinkButton>
       </Grid>
     </Grid>
   )
@@ -168,14 +168,13 @@ function LinkGridItem(props: {
   ariaLabel: string
 }) {
   return (
-    <Grid item className={styles.FooterLinkBox}>
-      <ReactRouterLinkButton
-        url={props.link}
-        className={styles.FooterLink}
-        displayName={props.text}
-        ariaLabel={props.ariaLabel}
-      />
-    </Grid>
+    <HetLinkButton
+      ariaLabel={props.ariaLabel}
+      href={props.link}
+      className='w-full text-navlink-color no-underline sm:w-auto'
+    >
+      {props.text}
+    </HetLinkButton>
   )
 }
 

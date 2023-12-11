@@ -9,7 +9,7 @@ import LazyLoad from 'react-lazyload'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
-import HetTextButton from '../../styles/HetComponents/HetTextButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 function JoinTheEffortContainer(props: {
   imageUrl: string
@@ -406,12 +406,12 @@ function EquityTab() {
                   healthy communities.
                 </p>
                 <p>
-                  <HetTextButton
+                  <HetLinkButton
                     className='text-smallestHeader underline'
                     href={urlMap.shliPdohLab}
                   >
                     Apply to Fellowship
-                  </HetTextButton>
+                  </HetLinkButton>
                 </p>
               </>
             }
@@ -435,13 +435,13 @@ function EquityTab() {
                   vaccine rideshare efforts and opportunities.
                 </p>
                 <p>
-                  <HetTextButton
+                  <HetLinkButton
                     className='text-smallestHeader underline'
                     aria-label='Sign Up - vaccine rideshare program'
                     href='https://satcherinstitute.org/uberrideshare/'
                   >
                     Sign Up
-                  </HetTextButton>
+                  </HetLinkButton>
                 </p>
               </>
             }

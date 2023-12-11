@@ -17,7 +17,7 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import HetTextButton from '../../styles/HetComponents/HetTextButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -120,12 +120,12 @@ function LandingPage() {
               )}
             </div>
 
-            <HetTextButton
+            <HetLinkButton
               href={NEWS_PAGE_LINK}
               className='mb-4  mt-10 text-smallestHeader underline'
             >
               View all articles
-            </HetTextButton>
+            </HetLinkButton>
           </div>
         </div>
 

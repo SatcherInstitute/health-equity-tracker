@@ -18,7 +18,7 @@ import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
-import HetTextButton from '../../styles/HetComponents/HetTextButton'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -316,7 +316,7 @@ export default function SinglePost(props: SinglePostProps) {
             <NewsPreviewCard article={prevArticle} arrow={'prev'} />
           )}
           <p className='text-center'>
-            <HetTextButton href={NEWS_PAGE_LINK}>All Posts</HetTextButton>
+            <HetLinkButton href={NEWS_PAGE_LINK}>All Posts</HetLinkButton>
           </p>
 
           {nextArticle && (

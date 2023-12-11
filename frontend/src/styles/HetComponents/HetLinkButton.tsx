@@ -1,7 +1,7 @@
 import { Button } from '@mui/material'
 import { type ReactNode } from 'react'
 
-interface HetTextButtonProps {
+interface HetLinkButtonProps {
   children: ReactNode
   href?: string
   onClick?: () => void
@@ -11,7 +11,7 @@ interface HetTextButtonProps {
   underline?: boolean
 }
 
-export default function HetTextButton(props: HetTextButtonProps) {
+export default function HetLinkButton(props: HetLinkButtonProps) {
   return (
     <Button
       color='primary'
