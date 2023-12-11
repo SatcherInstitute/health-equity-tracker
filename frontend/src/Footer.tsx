@@ -3,8 +3,6 @@ import styles from './Footer.module.scss'
 import TwitterIcon from '@mui/icons-material/Twitter'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import YouTubeIcon from '@mui/icons-material/YouTube'
-import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded'
-import { Button } from '@mui/material'
 import { ReactRouterLinkButton } from './utils/urlutils'
 import {
   EXPLORE_DATA_PAGE_LINK,
@@ -18,6 +16,7 @@ import AppbarLogo from './assets/AppbarLogo.png'
 import PartnerSatcher from './assets/PartnerSatcher.png'
 import { urlMap } from './utils/externalUrls'
 import { currentYear } from './cards/ui/SourcesHelpers'
+import HetReturnToTop from './styles/HetComponents/HetReturnToTop'
 
 function Footer() {
   return (
@@ -77,7 +76,7 @@ function Footer() {
           justifyContent='center'
         >
           <Grid item container justifyContent='center'>
-            <ReturnToTop />
+            <HetReturnToTop />
           </Grid>
         </Grid>
       </Grid>
@@ -177,20 +176,6 @@ function LinkGridItem(props: {
         ariaLabel={props.ariaLabel}
       />
     </Grid>
-  )
-}
-
-function ReturnToTop() {
-  return (
-    <Button
-      aria-label='Scroll to Top'
-      onClick={() => {
-        window.scrollTo(0, 0)
-      }}
-      className={styles.ScrollToTopButton}
-    >
-      <ArrowUpwardRoundedIcon />
-    </Button>
   )
 }
 

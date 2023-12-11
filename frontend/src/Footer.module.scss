@@ -86,16 +86,3 @@
     width: 100% !important;
   }
 }
-
-/** ------------------ Back to top - third -------------------- **/
-
-.ScrollToTopButton {
-  border-radius: 30px;
-  background-color: transparent;
-  border: none;
-
-  &:focus {
-    // use a grey "bubble" background on focus instead of default outline
-    outline: none;
-  }
-}

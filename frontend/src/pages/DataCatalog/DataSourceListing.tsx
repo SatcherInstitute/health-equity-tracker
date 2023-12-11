@@ -5,7 +5,6 @@ import {
   type DatasetMetadata,
 } from '../../data/utils/DatasetTypes'
 import { getLogger } from '../../utils/globals'
-import Button from '@mui/material/Button'
 import downloadDataset from './downloadDataset'
 import DialogTitle from '@mui/material/DialogTitle'
 import Dialog from '@mui/material/Dialog'
@@ -25,6 +24,7 @@ import {
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetTextButton from '../../styles/HetComponents/HetTextButton'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -170,25 +170,22 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </p>
       <footer className='mb-2 mt-4 flex h-auto w-full flex-col justify-end sm:flex-row'>
         {props.source_metadata.downloadable && (
-          <Button
-            color='primary'
+          <HetTextButton
             onClick={() => {
               setDialogIsOpen(true)
             }}
-            className='px-6'
-            aria-label={'Download ' + props.source_metadata.data_source_name}
+            ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
             View downloadable tables
-          </Button>
+          </HetTextButton>
         )}
         {props.source_metadata.downloadable_data_dictionary && (
-          <Button
-            color='primary'
+          <HetTextButton
             href='/data_dictionaries/medicare_population.csv'
-            className='px-6'
+            ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
             Download data dictionary
-          </Button>
+          </HetTextButton>
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}
