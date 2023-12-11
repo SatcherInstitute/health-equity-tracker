@@ -1,4 +1,3 @@
-import { ReactRouterLinkButton } from '../../utils/urlutils'
 import {
   ARTICLES_KEY_4,
   fetchLandingPageNewsData,
@@ -18,6 +17,7 @@ import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMoti
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import HetTextButton from '../../styles/HetComponents/HetTextButton'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -119,15 +119,13 @@ function LandingPage() {
                 />
               )}
             </div>
-            <div className='mt-10'>
-              <div className='mb-4'>
-                <ReactRouterLinkButton
-                  url={NEWS_PAGE_LINK}
-                  className='text-smallestHeader font-medium underline	'
-                  displayName='View all articles'
-                />
-              </div>
-            </div>
+
+            <HetTextButton
+              href={NEWS_PAGE_LINK}
+              className='mb-4  mt-10 text-smallestHeader underline'
+            >
+              View all articles
+            </HetTextButton>
           </div>
         </div>
 
