@@ -1,7 +1,7 @@
 import { Button, Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { Link, Redirect, useParams } from 'react-router-dom'
-import { ReactRouterLinkButton, getHtml } from '../../utils/urlutils'
+import { getHtml } from '../../utils/urlutils'
 import {
   fetchNewsData,
   ARTICLES_KEY,
@@ -18,7 +18,7 @@ import SignupSection from '../ui/SignupSection'
 import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
-import LazyLoad from 'react-lazyload'
+import HetTextButton from '../../styles/HetComponents/HetTextButton'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -311,28 +311,20 @@ export default function SinglePost(props: SinglePostProps) {
         </article>
 
         {/* PREV / NEXT ARTICLES NAV */}
-        <LazyLoad offset={300} height={300} once>
-          <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid border-alt-grey'>
-            <div className='w-full md:w-1/3'>
-              {prevArticle && (
-                <NewsPreviewCard article={prevArticle} arrow={'prev'} />
-              )}
-            </div>
-            <div className='mb-10 w-full text-center md:w-1/3'>
-              <ReactRouterLinkButton
-                url={NEWS_PAGE_LINK}
-                displayName='All Posts'
-              />
-            </div>
-            <div className='w-full md:w-1/3'>
-              {nextArticle && (
-                <>
-                  <NewsPreviewCard article={nextArticle} arrow={'next'} />
-                </>
-              )}
-            </div>
-          </div>
-        </LazyLoad>
+        <div className='grid max-w-md grid-cols-1 items-center justify-center border-0 border-b border-solid border-alt-grey md:grid-cols-3'>
+          {prevArticle && (
+            <NewsPreviewCard article={prevArticle} arrow={'prev'} />
+          )}
+          <p className='text-center'>
+            <HetTextButton href={NEWS_PAGE_LINK}>All Posts</HetTextButton>
+          </p>
+
+          {nextArticle && (
+            <>
+              <NewsPreviewCard article={nextArticle} arrow={'next'} />
+            </>
+          )}
+        </div>
 
         {/* EMAIL SIGNUP  */}
         <SignupSection />

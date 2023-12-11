@@ -1,8 +1,9 @@
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import AppbarLogo from '../../assets/AppbarLogo.png'
-import { getHtml, ReactRouterLinkButton } from '../../utils/urlutils'
+import { getHtml } from '../../utils/urlutils'
 import { type Article } from './NewsPage'
 import LazyLoad from 'react-lazyload'
+import HetTextButton from '../../styles/HetComponents/HetTextButton'
 
 interface NewsPreviewCardProps {
   article: Article
@@ -13,8 +14,8 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
   const { article } = props
 
   return (
-    <ReactRouterLinkButton
-      url={`${NEWS_PAGE_LINK}/${article.slug}`}
+    <HetTextButton
+      href={`${NEWS_PAGE_LINK}/${article.slug}`}
       className='font-title m-0 p-2 text-center'
     >
       <div className='flex flex-nowrap justify-evenly'>
@@ -45,12 +46,10 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
               className='
               font-title
               m-0
-              p-4
               text-center
               font-serif
-              text-title
               font-light
-              leading-lhModalHeading
+              leading-lhSomeSpace
           '
             >
               {getHtml(article.title.rendered, true)}
@@ -67,6 +66,6 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
           )}
         </div>
       </div>
-    </ReactRouterLinkButton>
+    </HetTextButton>
   )
 }
