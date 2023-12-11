@@ -8,18 +8,11 @@ interface HetTextButtonProps {
   id?: string
   className?: string
   ariaLabel?: string
+  underline?: boolean
 }
 
 export default function HetTextButton(props: HetTextButtonProps) {
   return (
-    /*    <Button
-      id={props.id}
-      variant='contained'
-      className={`rounded-2xl px-8 py-5 ${props.className ?? ''}`}
-      href={props.href}
-    >
-      <span className='text-exploreButton text-white'>{props.children}</span>
-    </Button> */
     <Button
       color='primary'
       href={props.href}
@@ -27,7 +20,9 @@ export default function HetTextButton(props: HetTextButtonProps) {
       className='px-6'
       aria-label={props.ariaLabel}
     >
-      <span className=' text-alt-green'>{props.children}</span>
+      <span className={`text-alt-green ${props.className ?? ''}`}>
+        {props.children}
+      </span>
     </Button>
   )
 }
