@@ -78,7 +78,7 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const isSmMd = useIsBreakpointAndUp('smMd')
+  const isSm = useIsBreakpointAndUp('sm')
 
   return (
     <HelmetProvider>
@@ -147,7 +147,7 @@ export default function App() {
                           <ErrorBoundaryDropParams
                             fallback={<ExploreDataFallback />}
                           >
-                            <ExploreDataPage isMobile={isSmMd} />
+                            <ExploreDataPage isMobile={isSm} />
                           </ErrorBoundaryDropParams>
                         </Route>
 
@@ -164,11 +164,11 @@ export default function App() {
                         </Route>
 
                         <Route path={NEWS_PAGE_LINK}>
-                          <NewsPage isMobile={isSmMd} />
+                          <NewsPage isMobile={isSm} />
                         </Route>
 
                         <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                          <NewsPage isMobile={isSmMd} />
+                          <NewsPage isMobile={isSm} />
                         </Route>
 
                         <Route path={TERMS_OF_USE_PAGE_LINK}>

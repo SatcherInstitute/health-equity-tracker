@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import { Link, useLocation } from 'react-router-dom'
 import { type DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
@@ -88,24 +87,6 @@ export const PAGE_URL_TO_NAMES: Record<string, string> = {
   [DATA_CATALOG_PAGE_LINK]: 'Downloads',
   [OLD_METHODOLOGY_PAGE_LINK]: 'Methodology',
   [ABOUT_US_PAGE_LINK]: 'About Us',
-}
-
-export function ReactRouterLinkButton(props: {
-  url: string
-  className?: string
-  displayName?: string
-  children?: ReactNode
-  ariaLabel?: string
-}) {
-  return (
-    <Button
-      href={props.url}
-      className={props.className}
-      aria-label={props.ariaLabel}
-    >
-      {props.displayName ?? props.children}
-    </Button>
-  )
 }
 
 export function useSearchParams() {
