@@ -131,10 +131,10 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <HetLinkButton href='/'>
+      <HetLinkButton href='/' className='h-littleHetLogo w-littleHetLogo'>
         <img
           src={AppBarLogo}
-          className='h-[30px] w-[30px]'
+          className='h-littleHetLogo w-littleHetLogo'
           alt='Health Equity Tracker logo'
         />
       </HetLinkButton>

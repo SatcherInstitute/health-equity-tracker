@@ -100,7 +100,7 @@ function Logos() {
           <HetLinkButton href='/'>
             <img
               src={AppbarLogo}
-              className='m-2 mb-0 h-[30px] w-[30px]'
+              className='m-2 mb-0 h-littleHetLogo w-littleHetLogo'
               alt='Health Equity Tracker logo'
             />
           </HetLinkButton>
