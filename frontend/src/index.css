@@ -13,7 +13,6 @@
     scroll-behavior: smooth;
     height: 100%;
   }
-  ,
   body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -162,10 +161,10 @@
     width: 95vw;
     max-width: 800px;
     @media only screen and (min-width: 600px) {
-      weight: 75vw;
+      width: 75vw;
     }
     @media only screen and (min-width: 960px) {
-      weight: 50vw;
+      width: 50vw;
     }
   }
 
