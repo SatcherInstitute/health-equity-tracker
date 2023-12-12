@@ -2,7 +2,14 @@ import Button from '@mui/material/Button'
 import { Link, useLocation } from 'react-router-dom'
 import { type DataTypeId } from '../data/config/MetricConfig'
 import { getLogger } from './globals'
-import { EXPLORE_DATA_PAGE_LINK } from './internalRoutes'
+import {
+  ABOUT_US_PAGE_LINK,
+  DATA_CATALOG_PAGE_LINK,
+  EXPLORE_DATA_PAGE_LINK,
+  NEWS_PAGE_LINK,
+  OLD_METHODOLOGY_PAGE_LINK,
+  WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
+} from './internalRoutes'
 import { type MadLibId, type PhraseSelections } from './MadLibs'
 import {
   raceNameToCodeMap,
@@ -71,6 +78,16 @@ export function LinkWithStickyParams(props: {
   linkProps.to = newUrl
 
   return <Link {...linkProps}>{props.children}</Link>
+}
+
+export const PAGE_URL_TO_NAMES: Record<string, string> = {
+  '/': 'Home',
+  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
+  [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
+  [NEWS_PAGE_LINK]: 'News',
+  [DATA_CATALOG_PAGE_LINK]: 'Downloads',
+  [OLD_METHODOLOGY_PAGE_LINK]: 'Methodology',
+  [ABOUT_US_PAGE_LINK]: 'About Us',
 }
 
 export function ReactRouterLinkButton(props: {

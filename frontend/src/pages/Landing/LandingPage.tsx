@@ -46,9 +46,9 @@ function LandingPage() {
       </Helmet>
 
       <h2 className='sr-only'>Home Page</h2>
-      <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+      <div className='m-auto flex w-full max-w-newsPage flex-wrap justify-center'>
         <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid pb-8 pt-4'>
-          <div className='w-full px-12 py-4 md:w-7/12'>
+          <div className='flex w-full flex-col items-center px-12 py-4 md:w-7/12'>
             <h3
               id='main'
               className='
@@ -63,7 +63,7 @@ function LandingPage() {
             >
               Advancing Health Justice
             </h3>
-            <p className='mt-0 text-left lg:text-title'>
+            <p className='mt-0 max-w-sm text-left lg:text-title'>
               The Health Equity Tracker from the Satcher Health Leadership
               Institute aims to address health disparities in the United States
               by identifying at-risk populations and highlighting data
@@ -72,17 +72,17 @@ function LandingPage() {
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
             </p>
-            <div className='mb-10 mt-10 lg:mt-20'>
+            <div className=' mb-5 mt-5 '>
               <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
               </HetBigCTA>
             </div>
           </div>
-          <div className='w-full border-0 border-l border-solid px-12 py-4 md:w-5/12'>
+          <div className='hidden w-full border-0 border-solid px-12 py-4 tiny:block md:w-5/12 md:border-l'>
             {/* image is actually rounded */}
             <img
               src='/img/stock/family-laughing.png'
-              className='border-xl h-auto max-h-sm w-full	max-w-articleLogo p-2.5'
+              className='border-xl h-auto max-h-tiny w-full max-w-sm rounded-xl	object-cover p-2.5'
               alt=''
             />
           </div>

@@ -17,31 +17,6 @@
   height: 100%;
 }
 
-.AppToolbar {
-  background-color: $white;
-  border-bottom: 1px solid $black;
-  min-height: 65px;
-}
-
-.MenuIconForMobile {
-  color: $white;
-}
-
-.HomeLogo {
-  @include dmSans500();
-  font-size: $logo !important;
-  flex-grow: 1;
-  text-align: left;
-  color: $alt-green;
-  padding-left: 17px;
-
-  a:link,
-  a:visited {
-    color: $alt-green;
-    text-decoration: none;
-  }
-}
-
 .NavLink {
   @include dmSans500();
   color: $navlink-color !important;

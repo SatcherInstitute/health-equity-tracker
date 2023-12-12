@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 
 export const standardSizes = {
   xs: '0px',
+  tiny: '350px',
   sm: '600px',
   md: '960px',
   lg: '1280px',
@@ -133,6 +134,7 @@ export default {
       text: '1rem',
       title: '1.125rem',
       exploreButton: '1.2rem',
+      navBarHeader: '1.25rem',
       smallestHeader: '1.5rem',
       smallerHeader: '1.625rem',
       smallHeader: '1.75rem',

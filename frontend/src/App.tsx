@@ -1,16 +1,6 @@
 import AppBar from '@mui/material/AppBar'
-import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
-import Drawer from '@mui/material/Drawer'
-import IconButton from '@mui/material/IconButton'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import MenuIcon from '@mui/icons-material/Menu'
-import React, { Suspense, useEffect, useState } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import {
   BrowserRouter as Router,
   Redirect,
@@ -22,7 +12,6 @@ import { CookiesProvider } from 'react-cookie'
 import styles from './App.module.scss'
 import MaterialTheme from './styles/MaterialTheme'
 import { autoInitGlobals } from './utils/globals'
-import { LinkWithStickyParams, ReactRouterLinkButton } from './utils/urlutils'
 import {
   ABOUT_US_PAGE_LINK,
   CONTACT_TAB_LINK,
@@ -39,7 +28,6 @@ import {
   OLD_AGE_ADJUSTMENT_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
 } from './utils/internalRoutes'
-import AppBarLogo from './assets/AppbarLogo.png'
 import { HelmetProvider } from 'react-helmet-async'
 import { Box, CircularProgress, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
@@ -54,7 +42,9 @@ import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
 import OldMethodologyPage from './pages/DataCatalog/OldMethodologyPage'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
-import HetLinkButton from './styles/HetComponents/HetLinkButton'
+import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
+import HetMobileAppToolbar from './styles/HetComponents/HetMobileAppToolbar'
+import HetAppToolbar from './styles/HetComponents/HetAppToolbar'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -73,97 +63,7 @@ const DataCatalogPage = React.lazy(
   async () => await import('./pages/DataCatalog/DataCatalogPage')
 )
 
-export const MOBILE_BREAKPOINT = 600
-
-const PAGE_URL_TO_NAMES: Record<string, string> = {
-  '/': 'Home',
-  [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
-  [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
-  [NEWS_PAGE_LINK]: 'News',
-  [DATA_CATALOG_PAGE_LINK]: 'Downloads',
-  [OLD_METHODOLOGY_PAGE_LINK]: 'Methodology',
-  [ABOUT_US_PAGE_LINK]: 'About Us',
-}
-
 autoInitGlobals()
-
-function MobileAppToolbar() {
-  const [open, setOpen] = useState(false)
-
-  function ListItemLink(props: any) {
-    return <ListItem component='a' {...props} />
-  }
-
-  return (
-    <Toolbar>
-      <IconButton
-        onClick={() => {
-          setOpen(true)
-        }}
-        aria-label='Expand site navigation'
-        size='large'
-      >
-        <MenuIcon className={styles.MenuIconForMobile} />
-      </IconButton>
-      <Drawer variant='persistent' anchor='left' open={open}>
-        <Button
-          aria-label='Collapse site navigation'
-          onClick={() => {
-            setOpen(false)
-          }}
-        >
-          <ChevronLeftIcon />
-        </Button>
-        <nav>
-          <List>
-            {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
-              <ListItemLink href={pageUrl} key={index}>
-                <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
-              </ListItemLink>
-            ))}
-          </List>
-        </nav>
-      </Drawer>
-    </Toolbar>
-  )
-}
-
-function AppToolbar() {
-  return (
-    <Toolbar className={styles.AppToolbar}>
-      <HetLinkButton href='/' className='h-littleHetLogo w-littleHetLogo'>
-        <img
-          src={AppBarLogo}
-          className='h-littleHetLogo w-littleHetLogo'
-          alt='Health Equity Tracker logo'
-        />
-      </HetLinkButton>
-
-      <Typography variant='h1' className={styles.HomeLogo}>
-        <LinkWithStickyParams to='/'>
-          Health Equity Tracker
-        </LinkWithStickyParams>
-      </Typography>
-      <nav>
-        {[
-          WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
-          EXPLORE_DATA_PAGE_LINK,
-          NEWS_PAGE_LINK,
-          DATA_CATALOG_PAGE_LINK,
-          OLD_METHODOLOGY_PAGE_LINK,
-          ABOUT_US_PAGE_LINK,
-        ].map((pageUrl) => (
-          <ReactRouterLinkButton
-            key={pageUrl}
-            url={pageUrl}
-            className={styles.NavLink}
-            displayName={PAGE_URL_TO_NAMES[pageUrl]}
-          />
-        ))}
-      </nav>
-    </Toolbar>
-  )
-}
 
 // TODO: this could be pulled into a hook
 // https://reactrouter.com/web/api/Hooks/uselocation
@@ -177,18 +77,8 @@ function ScrollToTop() {
   return null
 }
 
-function App() {
-  const [width, setWidth] = useState(window.innerWidth)
-  const isMobile = width < MOBILE_BREAKPOINT
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth)
-    }
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+export default function App() {
+  const isSm = useIsBreakpointAndUp('sm')
 
   return (
     <HelmetProvider>
@@ -202,7 +92,12 @@ function App() {
               <div className={styles.Content}>
                 <Router>
                   <AppBar position='static' elevation={0}>
-                    {isMobile ? <MobileAppToolbar /> : <AppToolbar />}
+                    <div className='sm:hidden'>
+                      <HetMobileAppToolbar />
+                    </div>
+                    <div className='hidden  sm:block'>
+                      <HetAppToolbar />
+                    </div>
                   </AppBar>
                   <ScrollToTop />
                   <Suspense
@@ -252,7 +147,7 @@ function App() {
                           <ErrorBoundaryDropParams
                             fallback={<ExploreDataFallback />}
                           >
-                            <ExploreDataPage isMobile={isMobile} />
+                            <ExploreDataPage isMobile={isSm} />
                           </ErrorBoundaryDropParams>
                         </Route>
 
@@ -269,11 +164,11 @@ function App() {
                         </Route>
 
                         <Route path={NEWS_PAGE_LINK}>
-                          <NewsPage isMobile={isMobile} />
+                          <NewsPage isMobile={isSm} />
                         </Route>
 
                         <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                          <NewsPage isMobile={isMobile} />
+                          <NewsPage isMobile={isSm} />
                         </Route>
 
                         <Route path={TERMS_OF_USE_PAGE_LINK}>
@@ -310,5 +205,3 @@ function App() {
     </HelmetProvider>
   )
 }
-
-export default App
