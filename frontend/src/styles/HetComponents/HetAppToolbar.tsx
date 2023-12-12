@@ -1,5 +1,5 @@
 import { Toolbar } from '@mui/material'
-import AppBarLogo from '../../assets/AppBarLogo.png'
+import AppBarLogo from '../../assets/AppbarLogo.png'
 import { PAGE_URL_TO_NAMES } from '../../utils/urlutils'
 import HetLinkButton from './HetLinkButton'
 
