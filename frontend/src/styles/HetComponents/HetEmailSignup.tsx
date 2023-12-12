@@ -8,12 +8,12 @@ interface HetEmailSignupProps {
 export default function HetEmailSignup(props: HetEmailSignupProps) {
   return (
     <form action={urlMap.newsletterSignup} method='post' target='_blank'>
-      <div className='flex content-center justify-center gap-1'>
+      <div className='flex content-center justify-center gap-1 '>
         <TextField
           id={props.id}
           name='MERGE0'
           variant='outlined'
-          className='leading-lhSuperLoose'
+          className='rounded-sm leading-lhSuperLoose shadow-raised-tighter'
           type='email'
           label='Email Address'
         />
@@ -21,7 +21,7 @@ export default function HetEmailSignup(props: HetEmailSignupProps) {
         <Button
           type='submit'
           variant='contained'
-          className='whitespace-nowrap py-0 leading-lhSuperLoose'
+          className='whitespace-nowrap py-0 leading-lhSuperLoose shadow-raised-tighter'
           aria-label='Sign Up for Newsletter in a new window'
         >
           Sign up

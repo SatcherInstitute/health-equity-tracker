@@ -5,6 +5,7 @@ interface HetBigCTAProps {
   children: ReactNode
   href: string
   id?: string
+  className?: string
 }
 
 export default function HetBigCTA(props: HetBigCTAProps) {
@@ -12,7 +13,7 @@ export default function HetBigCTA(props: HetBigCTAProps) {
     <Button
       id={props.id}
       variant='contained'
-      className='rounded-2xl px-8 py-5'
+      className={`rounded-2xl px-8 py-5 ${props.className ?? ''}`}
       href={props.href}
     >
       <span className='text-exploreButton text-white'>{props.children}</span>
