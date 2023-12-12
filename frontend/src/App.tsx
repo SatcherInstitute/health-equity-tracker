@@ -54,6 +54,7 @@ import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
 import OldMethodologyPage from './pages/DataCatalog/OldMethodologyPage'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
+import HetLinkButton from './styles/HetComponents/HetLinkButton'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -130,13 +131,14 @@ function MobileAppToolbar() {
 function AppToolbar() {
   return (
     <Toolbar className={styles.AppToolbar}>
-      <ReactRouterLinkButton url='/' className={styles.AppbarLogoImg}>
+      <HetLinkButton href='/'>
         <img
           src={AppBarLogo}
-          className={styles.AppbarLogoImg}
+          className='h-[30px] w-[30px]'
           alt='Health Equity Tracker logo'
         />
-      </ReactRouterLinkButton>
+      </HetLinkButton>
+
       <Typography variant='h1' className={styles.HomeLogo}>
         <LinkWithStickyParams to='/'>
           Health Equity Tracker
