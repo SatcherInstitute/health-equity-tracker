@@ -78,7 +78,7 @@ function ScrollToTop() {
 }
 
 export default function App() {
-  const isSm = useIsBreakpointAndUp('sm')
+  const isSmMd = useIsBreakpointAndUp('smMd')
 
   return (
     <HelmetProvider>
@@ -92,10 +92,10 @@ export default function App() {
               <div className={styles.Content}>
                 <Router>
                   <AppBar position='static' elevation={0}>
-                    <div className='sm:hidden'>
+                    <div className='smMd:hidden'>
                       <HetMobileAppToolbar />
                     </div>
-                    <div className='hidden  sm:block'>
+                    <div className='hidden  smMd:block'>
                       <HetAppToolbar />
                     </div>
                   </AppBar>
@@ -147,7 +147,7 @@ export default function App() {
                           <ErrorBoundaryDropParams
                             fallback={<ExploreDataFallback />}
                           >
-                            <ExploreDataPage isMobile={isSm} />
+                            <ExploreDataPage isMobile={isSmMd} />
                           </ErrorBoundaryDropParams>
                         </Route>
 
@@ -164,11 +164,11 @@ export default function App() {
                         </Route>
 
                         <Route path={NEWS_PAGE_LINK}>
-                          <NewsPage isMobile={isSm} />
+                          <NewsPage isMobile={isSmMd} />
                         </Route>
 
                         <Route path={SHARE_YOUR_STORY_TAB_LINK}>
-                          <NewsPage isMobile={isSm} />
+                          <NewsPage isMobile={isSmMd} />
                         </Route>
 
                         <Route path={TERMS_OF_USE_PAGE_LINK}>

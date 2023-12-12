@@ -21,15 +21,13 @@ export default function HetAppToolbar() {
 
       <nav className='flex max-w-sm flex-wrap justify-evenly lg:max-w-lg'>
         {Object.entries(PAGE_URL_TO_NAMES).map(([pageUrl, pageName]) => (
-          <>
-            <HetLinkButton
-              key={pageUrl}
-              href={pageUrl}
-              className='my-0 min-w-[100px] p-0 px-0 font-sansTitle text-small font-medium text-navlink-color'
-            >
-              {pageName}
-            </HetLinkButton>
-          </>
+          <HetLinkButton
+            key={pageUrl}
+            href={pageUrl}
+            className='my-0 w-auto p-0 px-0 font-sansTitle text-small font-medium text-navlink-color '
+          >
+            {pageName}
+          </HetLinkButton>
         ))}
       </nav>
     </Toolbar>

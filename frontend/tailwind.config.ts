@@ -4,6 +4,7 @@ export const standardSizes = {
   xs: '0px',
   tiny: '350px',
   sm: '600px',
+  smMd: '768px',
   md: '960px',
   lg: '1280px',
   xl: '1920px',
