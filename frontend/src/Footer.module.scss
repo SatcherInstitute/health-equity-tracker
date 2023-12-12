@@ -31,12 +31,6 @@
   width: max-content;
 }
 
-.FooterLogo {
-  margin: 10px 10px 0 10px;
-  width: 30px;
-  height: 30px;
-}
-
 /** ------------------ Links - second -------------------- **/
 
 .CopyrightSpanBox {
@@ -68,34 +62,4 @@
 
 .Links {
   min-height: 78px;
-}
-
-.FooterLink {
-  color: $navlink-color !important;
-
-  &:link,
-  &:visited {
-    color: $navlink-color !important;
-    text-decoration: none !important;
-  }
-}
-
-.FooterLinkBox {
-  // mobile links should take up full width
-  @media only screen and (max-width: $sm) {
-    width: 100% !important;
-  }
-}
-
-/** ------------------ Back to top - third -------------------- **/
-
-.ScrollToTopButton {
-  border-radius: 30px;
-  background-color: transparent;
-  border: none;
-
-  &:focus {
-    // use a grey "bubble" background on focus instead of default outline
-    outline: none;
-  }
 }
