@@ -14,7 +14,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import CircularProgress from '@mui/material/CircularProgress'
 import ListItemText from '@mui/material/ListItemText'
 import { IconButton } from '@mui/material'
-import Link from '@mui/material/Link'
 import CloseIcon from '@mui/icons-material/Close'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
@@ -104,14 +103,14 @@ export function DataSourceListing(props: DataSourceListingProps) {
       data-testid={props.source_metadata.id}
     >
       <h4 className='m-0 text-left font-serif text-title font-light'>
-        <Link
+        <a
           href={props.source_metadata.data_source_link}
           target='_blank'
           rel='noopener noreferrer'
-          underline='hover'
+          className='no-underline hover:underline'
         >
           {props.source_metadata.data_source_name}
-        </Link>
+        </a>
       </h4>
       <ul className='list-none px-0 py-2 text-left'>
         {props.source_metadata.time_period_range && (
@@ -153,16 +152,16 @@ export function DataSourceListing(props: DataSourceListingProps) {
           <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
             Source Website
           </p>
-          <Link
+          <a
             href={props.source_metadata.data_source_link}
             target='_blank'
             rel='noopener noreferrer'
-            underline='hover'
+            className='no-underline hover:underline'
           >
             <p className='m-0 text-small'>
               {props.source_metadata.data_source_pretty_site_name}
             </p>
-          </Link>
+          </a>
         </li>
       </ul>
       <p className='text-left text-small'>
