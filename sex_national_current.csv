@@ -1,4 +1,0 @@
-state_name,state_fips,sex,population,other_assault,sexual_assault,legal_intervention,self_harm,unintentional,other_assault_per_100k,sexual_assault_per_100k,legal_intervention_per_100k,self_harm_per_100k,unintentional_per_100k,age,legal_intervention_pct_share,other_assault_pct_share,self_harm_pct_share,sexual_assault_pct_share,unintentional_pct_share,population_pct,legal_intervention_pct_relative_inequity,other_assault_pct_relative_inequity,self_harm_pct_relative_inequity,sexual_assault_pct_relative_inequity,unintentional_pct_relative_inequity
-United States,00,Females,167509003.0,,,,,,,,,,,,,,,,,50.5,,,,,
-United States,00,Males,164384742.0,,,,,27007.0,,,,,16.43,,,,,,89.1,49.5,,,,,-100.0
-United States,00,All,331893745.0,,,,,30303.0,,,,,9.13,All,,,,,100.0,100.0,,,,,-100.0

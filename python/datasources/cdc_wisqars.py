@@ -71,8 +71,6 @@ class CDCWisqarsData(DataSource):
             if table_type == CURRENT:
                 df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
 
-            df_for_bq.to_csv(f"{demographic}_{geo_level}_{table_type}.csv", index=False)
-
             gcs_to_bq_util.add_df_to_bq(
                 df_for_bq, dataset, table_name, column_types=col_types
             )
