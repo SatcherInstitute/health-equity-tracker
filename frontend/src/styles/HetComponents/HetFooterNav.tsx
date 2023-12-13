@@ -9,11 +9,11 @@ import HetCopyright from './HetCopywright'
 import HetLinkButton from './HetLinkButton'
 export default function HetFooterLinks() {
   return (
-    <div className='flex flex-col items-center lg:items-end'>
-      <nav
-        aria-label='footer site navigation'
-        className='flex min-h-[78px] list-none flex-col  sm:flex-row'
-      >
+    <nav
+      aria-label='footer site navigation'
+      className='flex flex-col items-center lg:items-end'
+    >
+      <ul className='flex min-h-[78px] list-none flex-col  p-0 sm:flex-row'>
         {[
           ['Explore Data', EXPLORE_DATA_PAGE_LINK],
           ['Methods', OLD_METHODOLOGY_PAGE_LINK],
@@ -31,8 +31,8 @@ export default function HetFooterLinks() {
             </HetLinkButton>
           </li>
         ))}
-      </nav>
+      </ul>
       <HetCopyright />
-    </div>
+    </nav>
   )
 }
