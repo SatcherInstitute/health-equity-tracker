@@ -1,4 +1,4 @@
-# Resources and routines for CDC HIV Data ingestion.
+# Resources and routines for CDC WISQARS Data ingestion.
 
 # Create a BigQuery dataset for CDC HIV data.
 resource "google_bigquery_dataset" "cdc_wisqars" {
