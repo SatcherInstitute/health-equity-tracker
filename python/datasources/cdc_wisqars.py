@@ -2,7 +2,6 @@ import pandas as pd
 from datasources.data_source import DataSource
 from ingestion.constants import CURRENT, HISTORICAL, US_NAME, US_FIPS
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
-from ingestion.gcs_to_bq_util import BQ_STRING, BQ_FLOAT
 from ingestion.dataset_utils import (
     generate_pct_share_col_without_unknowns,
     generate_pct_rel_inequity_col,
