@@ -8,8 +8,8 @@ import YouTubeIcon from '@mui/icons-material/YouTube'
 
 export default function HetLogos() {
   return (
-    <figure className='flex flex-col items-center gap-2 md:flex-row md:justify-center'>
-      <div className='flex w-10/12 flex-nowrap items-center justify-center sm:w-5/12'>
+    <figure className='m-0 flex flex-col content-center justify-items-center gap-x-8 gap-y-2 sm:flex-row sm:items-center sm:justify-center'>
+      <div className='flex flex-nowrap items-center justify-center md:min-w-[150px]'>
         <HetLinkButton href='/'>
           <img
             src={AppbarLogo}
@@ -51,16 +51,14 @@ export default function HetLogos() {
           </div>
         </div>
       </div>
-      <div className='grid w-10/12 place-content-center sm:w-5/12'>
-        <HetLinkButton href={urlMap.shli}>
-          <img
-            src={PartnerSatcher}
-            alt='Satcher Health Leadership Institute Logo'
-            height={60}
-            width={216}
-          />
-        </HetLinkButton>
-      </div>
+      <HetLinkButton href={urlMap.shli} className='min-w-[250px]'>
+        <img
+          src={PartnerSatcher}
+          alt='Satcher Health Leadership Institute Logo'
+          height={60}
+          width={216}
+        />
+      </HetLinkButton>
     </figure>
   )
 }
