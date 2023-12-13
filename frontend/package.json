@@ -15,6 +15,7 @@
     "@mui/material": "^5.14.9",
     "@mui/styles": "^5.14.9",
     "@popperjs/core": "^2.11.8",
+    "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
     "@vitejs/plugin-react": "^4.1.0",
     "axios": "^1.5.0",
     "cspell": "^6.31.3",
@@ -61,7 +62,7 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.38.0",
+    "@playwright/test": "^1.40.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^13.5.0",
@@ -106,10 +107,11 @@
     "build": "tsc && vite build",
     "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-progress --no-must-find-files --gitignore",
     "dev": "env-cmd -f .env.development npm run start -- --host",
-    "e2e": "npx playwright install chromium && npx playwright test --project=E2E",
-    "e2e-staging": "npx playwright install chromium && npx playwright test --project=E2E_STAGING",
-    "e2e-prod": "npx playwright install chromium && npx playwright test --project=E2E_PROD",
-    "playwright": "npx playwright install chromium && npx playwright test",
+    "e2e-staging": "npx playwright install chromium && npx playwright test --project=E2E_STAGING --workers 5",
+    "e2e-prod": "npx playwright install chromium && npx playwright test --project=E2E_PROD --workers 5",
+    "e2e-local": "npx playwright install chromium && npx playwright test --project=E2E_LOCAL --workers 2",
+    "e2e-deploy-preview": "npx playwright install chromium && npx playwright test --project=E2E_DEPLOY_PREVIEW --workers 5",
+    "e2e-new": "npx playwright codegen http://localhost:3000",
     "preview": "npm run build:development && vite preview",
     "start:deploy_preview": "env-cmd -f .env.deploy_preview npm run start",
     "start:development": "env-cmd -f .env.development npm run start",
@@ -138,8 +140,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged",
-      "pre-push": "npm run cspell"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {

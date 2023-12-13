@@ -13,12 +13,6 @@ test('Excessive Drinking Flow', async ({ page }) => {
     .getByText('See the states/territories with the highest and lowest rates.')
     .click()
   await page
-    .getByLabel(
-      'Bar Chart showing Excessive drinking cases in the United States, by Race and Ethnicity'
-    )
-    .getByRole('img')
-    .click()
-  await page
     .getByRole('heading', {
       name: 'Share of all excessive drinking cases with unknown race and ethnicity in the United States',
     })

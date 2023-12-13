@@ -13,7 +13,6 @@
     scroll-behavior: smooth;
     height: 100%;
   }
-  ,
   body {
     margin: 0;
     -webkit-font-smoothing: antialiased;
@@ -47,7 +46,6 @@
     --footer-color: 237 243 240;
     --grey-dark: 34 34 34;
     --grey-grid-color: 249 249 249;
-    --highest-lowest-color: 248 249 250;
     --how-to-color: 189 193 198;
     --infobar-color: 248 232 176;
     --join-effort-bg1: 165 205 192;
@@ -119,8 +117,175 @@
     --z-almost-top: 3;
     --z-top: 999;
   }
+
   /* TODO: why doesnt var(--alt-green) work here? should try to avoid hard coded colors */
   a {
     color: #0b5240;
+  }
+}
+
+/* STYLING FOR FETCHED WORDPRESS HTML FOR NEWS AND STORIES */
+.fetched-wordpress-html {
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & figure {
+    margin-inline: 0 !important;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  & figcaption {
+    margin-top: 0.5rem;
+    text-align: center !important;
+    font-size: 0.75rem !important;
+    font-weight: 200 !important;
+    font-decoration: none !important;
+    max-width: 600px;
+  }
+
+  & p,
+  & ul,
+  & ol,
+  & h1,
+  & h2,
+  & h3,
+  & h4,
+  & h5,
+  & h6 {
+    width: 95vw;
+    max-width: 800px;
+    @media only screen and (min-width: 600px) {
+      width: 75vw;
+    }
+    @media only screen and (min-width: 960px) {
+      width: 50vw;
+    }
+  }
+
+  & hr {
+    margin-block: 3rem;
+    width: 50%;
+  }
+
+  & blockquote > p {
+    font-style: italic;
+  }
+
+  & h1 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $header !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+
+  & h2 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $header !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+
+  & h3 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $header !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+
+  & h4 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $smallestHeader !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+
+  & h5 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $title !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+
+  & h6 {
+    font-family: 'Taviraj', serif !important;
+    font-size: $text !important;
+    line-height: 110%;
+    color: #0b5240;
+    font-weight: 300;
+    margin-top: 3rem;
+    margin-bottom: 0rem;
+    text-align: left;
+  }
+
+  & h6 a {
+    font-family: 'DM Sans', sans-serif !important;
+    font-weight: 500 !important;
+    background-color: (var(--alt-green)) !important;
+    color: (var(--white)) !important;
+    border-radius: 40px !important;
+    padding: 16px 30px !important;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    max-width: 400px;
+    margin: 40px auto 0px auto;
+    font-size: 1.5rem !important;
+  }
+
+  & img {
+    display: block;
+    margin: 40px auto 10px auto;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* hide featured image since already in header; hide HRs; show youtube embed <figure> */
+  .wp-block-post-featured-image {
+    display: none !important;
+  }
+
+  /* set youtube video container to proper aspect ratio */
+  .wp-block-embed-youtube .wp-block-embed__wrapper {
+    margin-block: 3rem;
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+  }
+
+  /* fill iframe to above container */
+  .wp-block-embed-youtube .wp-block-embed__wrapper > iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 20px;
   }
 }

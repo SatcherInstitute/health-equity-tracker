@@ -58,7 +58,6 @@ export const NavigationButtons: React.FC = () => {
           style={{ visibility: 'hidden' }}
           disabled={currentIndex === 0}
           onClick={goPrevious}
-          // className={styles.Previous}
           className='items-start justify-start text-left'
         >
           <span className='flex items-center self-stretch p-2 font-sansText leading-lhSomeMoreSpace text-alt-black  '>

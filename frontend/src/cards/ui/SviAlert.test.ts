@@ -1,5 +1,5 @@
+import { getCssVar } from '../../utils/designUtils'
 import { findRating, findColor } from './SviAlert'
-import styles from './SviAlert.module.scss'
 
 //Find Rating Unit Test
 describe('find rating', () => {
@@ -30,21 +30,21 @@ describe('find rating', () => {
 describe('find color', () => {
   describe('when given a rating', () => {
     it('should return a className property', () => {
-      const [rating, expected] = ['low', styles.Low]
+      const [rating, expected] = ['low', 'text-alt-green']
       const result = findColor(rating)
       expect(result).toEqual(expected)
     })
   })
   describe('when given a rating', () => {
     it('should return a className property', () => {
-      const [rating, expected] = ['medium', styles.Medium]
+      const [rating, expected] = ['medium', 'text-alt-orange']
       const result = findColor(rating)
       expect(result).toEqual(expected)
     })
   })
   describe('when given a rating', () => {
     it('should return a className property', () => {
-      const [rating, expected] = ['high', styles.High]
+      const [rating, expected] = ['high', 'text-alt-red']
       const result = findColor(rating)
       expect(result).toEqual(expected)
     })

@@ -34,11 +34,3 @@
   text-align: left;
   color: $alt-black;
 }
-
-.FaqLink {
-  @include inter500();
-  font-size: $smallestHeader !important;
-  margin-top: 20px !important;
-  color: $alt-green !important;
-  text-decoration: underline !important;
-}

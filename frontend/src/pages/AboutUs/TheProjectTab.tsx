@@ -48,12 +48,12 @@ function TheProjectTab() {
             and centralize it all in one place.
           </p>
         </div>
-        <div className='hidden w-full border-0 border-solid border-border-color md:block md:w-7/12 md:border-l'>
+        <div className='hidden w-full border-0 border-solid border-border-color p-2 md:block md:w-7/12 md:border-l'>
           <img
             width='754'
             height='644'
             src='/img/stock/woman-kids.png'
-            className='h-auto max-h-sm w-full max-w-sm rounded-xl p-3'
+            className='m-3 h-auto max-h-sm w-full max-w-sm rounded-md'
             alt=''
           />
         </div>

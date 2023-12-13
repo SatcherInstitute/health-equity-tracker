@@ -7,7 +7,6 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../data/query/Breakdowns'
-import { CardContent } from '@mui/material'
 import {
   METRIC_CONFIG,
   type MetricConfig,
@@ -18,7 +17,6 @@ import {
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
-import Alert from '@mui/material/Alert'
 import Divider from '@mui/material/Divider'
 import { urlMap } from '../utils/externalUrls'
 import {
@@ -38,6 +36,7 @@ import {
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { type CountColsMap } from '../charts/mapGlobals'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -195,38 +194,34 @@ export default function TableCard(props: TableCardProps) {
               />
             )}
             {showMissingDataAlert && (
-              <CardContent>
-                <MissingDataAlert
-                  dataName={props.dataTypeConfig.fullDisplayName + ' '}
-                  demographicTypeString={
-                    DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
-                  }
-                  fips={props.fips}
-                />
-              </CardContent>
+              <MissingDataAlert
+                dataName={props.dataTypeConfig.fullDisplayName + ' '}
+                demographicTypeString={
+                  DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE[props.demographicType]
+                }
+                fips={props.fips}
+              />
             )}
             {!queryResponse.dataIsMissing() &&
               displayingCovidData &&
               props.demographicType === RACE && (
                 <>
-                  <CardContent>
-                    <Alert severity='warning' role='note' id='AIAN-alert'>
-                      Share of COVID-19 cases reported for American Indian,
-                      Alaska Native, Native Hawaiian and Pacific Islander are
-                      underrepresented at the national level and in many states
-                      because these racial categories are often not recorded.
-                      The Urban Indian Health Institute publishes{' '}
-                      <a
-                        target='_blank'
-                        rel='noopener noreferrer'
-                        href={urlMap.uihiBestPractice}
-                      >
-                        guidelines for American Indian and Alaska Native Data
-                        Collection
-                      </a>
-                      .
-                    </Alert>
-                  </CardContent>
+                  <HetNotice kind='data-integrity' id='AIAN-alert'>
+                    Share of COVID-19 cases reported for American Indian, Alaska
+                    Native, Native Hawaiian and Pacific Islander are
+                    underrepresented at the national level and in many states
+                    because these racial categories are often not recorded. The
+                    Urban Indian Health Institute publishes{' '}
+                    <a
+                      target='_blank'
+                      rel='noopener noreferrer'
+                      href={urlMap.uihiBestPractice}
+                    >
+                      guidelines for American Indian and Alaska Native Data
+                      Collection
+                    </a>
+                    .
+                  </HetNotice>
                   <Divider />
                 </>
               )}

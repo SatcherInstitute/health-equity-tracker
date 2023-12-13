@@ -1,7 +1,6 @@
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type MetricConfig } from '../../data/config/MetricConfig'
-import { CardContent, Alert } from '@mui/material'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -11,6 +10,7 @@ import { type VisualizationType } from '../../charts/utils'
 import { splitIntoKnownsAndUnknowns } from '../../data/utils/datasetutils'
 import { WHAT_DATA_ARE_MISSING_ID } from '../../utils/internalRoutes'
 import { AGE } from '../../data/utils/Constants'
+import HetNotice from '../../styles/HetComponents/HetNotice'
 
 export const RACE_OR_ETHNICITY = 'race or ethnicity'
 
@@ -80,7 +80,7 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   const secondaryAgePercentageUnknown: string =
     additionalAgeUnknowns?.[0]?.[props.metricConfig.metricId]
 
-  const showInfoSeverity = percentageUnknown === 0
+  const noUnknowns = percentageUnknown === 0
 
   const diffRaceEthnicityText = raceEthnicityDiff
     ? `This state reports race and ethnicity separately.
@@ -108,36 +108,28 @@ export default function UnknownsAlert(props: UnknownsAlertProps) {
   // In the case we have unknowns for race and ethnicity reported separately,
   // show the higher one on the map
   return raceEthnicityDiff ? (
-    <CardContent>
-      <Alert severity='warning' role='note'>
-        {diffRaceEthnicityText}
-      </Alert>
-    </CardContent>
+    <HetNotice kind='data-integrity'>{diffRaceEthnicityText}</HetNotice>
   ) : (
-    <CardContent sx={{ m: 1 }}>
-      <Alert severity={showInfoSeverity ? 'info' : 'warning'} role='note'>
-        {percentageUnknown}
-        {props.metricConfig.shortLabel}
-        {' reported an unknown '}
-        {props.overrideAndWithOr
-          ? RACE_OR_ETHNICITY
-          : demographicTypeDisplayName}
-        {/* Age Adjusted Card reports both unknown RACE + AGE */}
-        {secondaryAgePercentageUnknown
-          ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
-          : null}
-        {' in '}
-        {props.fips.getSentenceDisplayName()}.{' '}
-        {showCardHelperText && cardHelperText}
-        {props.raceEthDiffMap && raceEthDiffMapText}
-        {showDataGapsRisk && (
-          <>
-            Consider the possible impact of{' '}
-            <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{' '}
-            when interpreting age-adjusted ratios.
-          </>
-        )}
-      </Alert>
-    </CardContent>
+    <HetNotice kind={noUnknowns ? 'helpful-info' : 'data-integrity'}>
+      {percentageUnknown}
+      {props.metricConfig.shortLabel}
+      {' reported an unknown '}
+      {props.overrideAndWithOr ? RACE_OR_ETHNICITY : demographicTypeDisplayName}
+      {/* Age Adjusted Card reports both unknown RACE + AGE */}
+      {secondaryAgePercentageUnknown
+        ? `, and ${secondaryAgePercentageUnknown}${props.metricConfig.shortLabel} reported an unknown age`
+        : null}
+      {' in '}
+      {props.fips.getSentenceDisplayName()} overall.{' '}
+      {showCardHelperText && cardHelperText}
+      {props.raceEthDiffMap && raceEthDiffMapText}
+      {showDataGapsRisk && (
+        <>
+          Consider the possible impact of{' '}
+          <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a> when
+          interpreting age-adjusted ratios.
+        </>
+      )}
+    </HetNotice>
   )
 }

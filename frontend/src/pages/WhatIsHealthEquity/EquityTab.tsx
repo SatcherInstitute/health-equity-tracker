@@ -1,10 +1,4 @@
-import Button from '@mui/material/Button'
 import FaqSection from '../ui/FaqSection'
-import {
-  DYNAMIC_COPY_KEY,
-  fetchCopyData,
-  REACT_QUERY_OPTIONS,
-} from '../../utils/blogUtils'
 import {
   NEWS_PAGE_LINK,
   WIHE_JOIN_THE_EFFORT_SECTION_ID,
@@ -12,63 +6,10 @@ import {
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { Helmet } from 'react-helmet-async'
 import LazyLoad from 'react-lazyload'
-import { useQuery } from 'react-query'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
-
-interface WIHEWordpressCopy {
-  section2_headingLevel2: string
-  section4_headingLevel2: string
-  section4_heading2_text: string
-  section4_a_headingLevel3: string
-  section4_a_heading3_text: string
-  section4_a_heading3_link: {
-    title: string
-    url: string
-    target: string
-  }
-  section4_b_headingLevel3: string
-  section4_b_heading3_text: string
-  section4_b_heading3_link: {
-    title: string
-    url: string
-    target: string
-  }
-  section4_c_headingLevel3: string
-  section4_c_heading3_text: string
-}
-
-/*
-Some of the copy for this tab page is loaded from https://hetblog.dreamhosters.com/wp-json/wp/v2/pages/37
-The object below provides fallback if that fetch fails
-*/
-
-export const WIHEFallbackCopy: WIHEWordpressCopy = {
-  section2_headingLevel2: 'Health equity learning',
-  section4_headingLevel2: 'How do I join the movement?',
-  section4_heading2_text:
-    'To advance health equity, we need smart, talented, passionate folks like you on board.',
-  section4_a_headingLevel3: 'Learn to create actionable solutions',
-  section4_a_heading3_text:
-    'Apply to our Political Determinants of Health Learning Laboratory Fellowship. We seek to partner and support diverse groups in building equitable and sustainable pathways for healthy communities.',
-  section4_a_heading3_link: {
-    title: 'Learn More',
-    url: 'https://satcherinstitute.org/programs/political-determinants-of-health-learning-laboratory-program/',
-    target: '_blank',
-  },
-  section4_b_headingLevel3: 'Give back to your community',
-  section4_b_heading3_text:
-    'Are you a community leader interested in expanding transportation access to vaccine sites within your community? Complete our inquiry form to receive information on our vaccine rideshare efforts and opportunities.',
-  section4_b_heading3_link: {
-    title: 'Sign Up*',
-    url: 'https://satcherinstitute.org/uberrideshare/',
-    target: '_blank',
-  },
-  section4_c_headingLevel3: 'Sign up for our newsletter',
-  section4_c_heading3_text:
-    'Want updates on the latest news in health equity? Sign up for our Satcher Health Leadership Institute newsletter.',
-}
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 function JoinTheEffortContainer(props: {
   imageUrl: string
@@ -80,7 +21,7 @@ function JoinTheEffortContainer(props: {
   return (
     <div className='flex w-full items-center justify-around border-0 border-t border-solid border-alt-dark py-8'>
       <div
-        className={`hidden h-joinEffortLogo w-full items-center justify-center rounded-xl md:flex md:w-5/12 lg:w-5/12 ${props.imageBackground}`}
+        className={`hidden h-joinEffortLogo w-full items-center justify-center rounded-md md:flex md:w-5/12 lg:w-5/12 ${props.imageBackground}`}
       >
         <LazyLoad offset={300} height={500} once>
           <img
@@ -103,14 +44,6 @@ function JoinTheEffortContainer(props: {
 function EquityTab() {
   const prefersReducedMotion = usePrefersReducedMotion()
 
-  let wordpressCopy: WIHEWordpressCopy = WIHEFallbackCopy
-  const { data }: any = useQuery(
-    DYNAMIC_COPY_KEY,
-    async () => await fetchCopyData(),
-    REACT_QUERY_OPTIONS
-  )
-  if (data) wordpressCopy = data.data?.acf
-
   return (
     <>
       <div>
@@ -119,11 +52,16 @@ function EquityTab() {
         </Helmet>
         <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
           <div className='flex w-full items-center justify-center border-0 border-b border-solid border-border-color'>
-            <figure className='mx-auto mt-0 hidden w-full text-left md:block md:w-1/3'>
-              <LazyLoad offset={300} height={760} once>
+            <figure className='mx-auto mt-0 hidden p-2 text-left md:block md:w-1/3'>
+              <LazyLoad
+                offset={300}
+                height={760}
+                once
+                className='flex justify-center'
+              >
                 <img
                   alt=''
-                  className='h-auto w-full max-w-equityLogo rounded-xl p-2.5'
+                  className='m-5 h-auto w-9/12 max-w-equityLogo rounded-md'
                   src='/img/stock/woman-in-wheelchair-with-tea.png'
                 />
               </LazyLoad>
@@ -133,7 +71,7 @@ function EquityTab() {
               <header className='mb-10'>
                 <h2
                   id='main'
-                  className='mb-4 mt-0 text-left font-serif text-biggerHeader font-light leading-lhNormal text-alt-green'
+                  className='mb-4 mt-0 text-left font-serif text-header font-light leading-lhNormal text-alt-green sm:text-bigHeader md:text-biggerHeader'
                 >
                   What is Health Equity?
                 </h2>
@@ -195,14 +133,14 @@ function EquityTab() {
           <div className='flex w-full flex-col flex-wrap items-center justify-center'>
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
-                <h3 className='m-0 text-center font-serif text-biggerHeader font-light leading-lhLoose text-alt-green'>
-                  {wordpressCopy?.section2_headingLevel2}
+                <h3 className='ms:text-bigHeader m-0 text-center font-serif text-header font-light leading-lhLoose text-alt-green md:text-biggerHeader'>
+                  Health equity learning
                 </h3>
               </section>
               <div className='flex w-full flex-wrap justify-around py-5 text-left'>
                 <div className='flex w-full flex-col  items-start p-4 text-left md:w-3/4'>
                   <iframe
-                    className='w-full rounded-xl'
+                    className='w-full rounded-md'
                     height='633px'
                     src='https://www.youtube.com/embed/mux1c73fJ78'
                     title='YouTube video player -
@@ -229,7 +167,7 @@ function EquityTab() {
                       aria-label="Jessica's Story Video"
                     >
                       <iframe
-                        className='h-44 w-full rounded-xl'
+                        className='h-44 w-full rounded-md'
                         src='https://www.youtube.com/embed/cmMutvgQIcU'
                         title="YouTube video player -
                               Jessica's Story"
@@ -253,7 +191,7 @@ function EquityTab() {
                       <a href={urlMap.ncrn} className='text-black	no-underline'>
                         <LazyLoad offset={300} height={200} once>
                           <img
-                            className='h-44 w-full rounded-xl'
+                            className='h-44 w-full rounded-md'
                             src='/img/graphics/NCRN.png'
                             alt='Header for Morehouse School of Medicine National COVID-19 Resiliency Network'
                           />
@@ -276,7 +214,7 @@ function EquityTab() {
             </div>
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
-                <h3 className='m-0 pb-2 text-center font-serif text-biggerHeader font-light text-alt-green'>
+                <h3 className='ms:text-bigHeader m-0 pb-2 text-center font-serif text-header font-light text-alt-green md:text-biggerHeader'>
                   News and stories
                 </h3>
                 <p className='text-left font-sansText text-title font-light text-black'>
@@ -296,7 +234,7 @@ function EquityTab() {
                       aria-label='Satcher Blog Post on Why Data Matters'
                     >
                       <img
-                        className='h-auto w-full rounded-xl'
+                        className='h-auto w-full rounded-md'
                         src='/img/stock/kid-gets-a-mask.png'
                         alt=''
                       />
@@ -331,7 +269,7 @@ function EquityTab() {
                       aria-label='Satcher Blog Post on Health Equity Data'
                     >
                       <img
-                        className='h-auto w-full rounded-xl'
+                        className='h-auto w-full rounded-md'
                         src='/img/stock/girls-studying.jpg'
                         alt=''
                       />
@@ -365,7 +303,7 @@ function EquityTab() {
                       aria-label='Read Scientific American Article'
                     >
                       <img
-                        className='w-full rounded-xl'
+                        className='w-full rounded-md'
                         src='/img/stock/filling-in-forms.png'
                         alt=''
                       />
@@ -387,7 +325,7 @@ function EquityTab() {
                       aria-label='Satcher Post on COVID Data Completeness'
                     >
                       <img
-                        className='w-full rounded-xl'
+                        className='w-full rounded-md'
                         src='/img/stock/kids-ukulele.png'
                         alt=''
                       />
@@ -410,7 +348,7 @@ function EquityTab() {
                       aria-label='Kennedy Satcher Article: The Mental Fitness of Our Children'
                     >
                       <img
-                        className='w-full rounded-xl'
+                        className='w-full rounded-md'
                         src='/img/graphics/laptop-HET.png'
                         alt=''
                       />
@@ -440,12 +378,13 @@ function EquityTab() {
           <section className='flex w-full flex-col items-center justify-center py-16'>
             <h3
               id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-              className='m-0 mb-4 text-center font-serif text-biggerHeader font-light leading-lhModalHeading text-alt-green'
+              className='ms:text-bigHeader m-0 mb-4 text-center font-serif text-header font-light leading-lhModalHeading text-alt-green md:text-biggerHeader'
             >
-              {wordpressCopy?.section4_headingLevel2}
+              How do I join the movement?
             </h3>
             <span className='text-left font-sansText text-title font-normal leading-lhLoose'>
-              {wordpressCopy?.section4_heading2_text}
+              To advance health equity, we need smart, talented, passionate
+              folks like you on board.
             </span>
           </section>
 
@@ -457,20 +396,22 @@ function EquityTab() {
             }
             imageBackground='bg-join-effort-bg1'
             imageAlt=''
-            textTitle={wordpressCopy?.section4_a_headingLevel3}
+            textTitle='Learn to create actionable solutions'
             content={
               <>
                 <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
-                  {wordpressCopy?.section4_a_heading3_text}
+                  Apply to our Political Determinants of Health Learning
+                  Laboratory Fellowship. We seek to partner and support diverse
+                  groups in building equitable and sustainable pathways for
+                  healthy communities.
                 </p>
                 <p>
-                  <Button
+                  <HetLinkButton
                     className='text-smallestHeader underline'
-                    href={wordpressCopy?.section4_a_heading3_link?.url}
-                    target={wordpressCopy?.section4_a_heading3_link?.target}
+                    href={urlMap.shliPdohLab}
                   >
-                    {wordpressCopy?.section4_a_heading3_link?.title}
-                  </Button>
+                    Apply to Fellowship
+                  </HetLinkButton>
                 </p>
               </>
             }
@@ -484,7 +425,7 @@ function EquityTab() {
             }
             imageBackground='bg-join-effort-bg2'
             imageAlt=''
-            textTitle={wordpressCopy?.section4_b_headingLevel3}
+            textTitle='Give back to your community'
             content={
               <>
                 <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
@@ -494,13 +435,13 @@ function EquityTab() {
                   vaccine rideshare efforts and opportunities.
                 </p>
                 <p>
-                  <Button
+                  <HetLinkButton
                     className='text-smallestHeader underline'
                     aria-label='Sign Up - vaccine rideshare program'
                     href='https://satcherinstitute.org/uberrideshare/'
                   >
                     Sign Up
-                  </Button>
+                  </HetLinkButton>
                 </p>
               </>
             }
@@ -514,11 +455,12 @@ function EquityTab() {
             }
             imageBackground='bg-join-effort-bg3'
             imageAlt=''
-            textTitle={wordpressCopy?.section4_c_headingLevel3}
+            textTitle='Sign up for our newsletter'
             content={
               <div className='flex flex-col items-start'>
                 <p className='my-4 py-2.5 font-sansTitle text-title font-normal leading-lhLoose'>
-                  {wordpressCopy?.section4_c_heading3_text}
+                  Want updates on the latest news in health equity? Sign up for
+                  our Satcher Health Leadership Institute newsletter.
                 </p>
                 <HetEmailSignup id='wihe-email-signup' />
               </div>

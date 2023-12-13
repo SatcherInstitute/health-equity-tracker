@@ -1,5 +1,4 @@
 import { DisparityBarChart } from '../charts/disparityBarChart/Index'
-import { CardContent, Alert } from '@mui/material'
 import { type Fips } from '../data/utils/Fips'
 import {
   Breakdowns,
@@ -24,6 +23,7 @@ import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
 import { generateChartTitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import HetNotice from '../styles/HetComponents/HetNotice'
 
 interface DisparityBarChartCardProps {
   key?: string
@@ -134,28 +134,25 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
 
         return (
           <>
-            <CardContent sx={{ pt: 0 }}>
-              {dataAvailable && knownData.length !== 0 && (
-                <>
-                  <ChartTitle title={chartTitle} />
+            {dataAvailable && knownData.length !== 0 && (
+              <>
+                <ChartTitle title={chartTitle} />
 
-                  <DisparityBarChart
-                    data={knownData}
-                    lightMetric={
-                      metricConfig.populationComparisonMetric ?? metricConfig
-                    }
-                    darkMetric={
-                      metricConfig.knownBreakdownComparisonMetric ??
-                      metricConfig
-                    }
-                    demographicType={props.demographicType}
-                    metricDisplayName={metricConfig.shortLabel}
-                    filename={chartTitle}
-                    showAltPopCompare={shouldShowAltPopCompare(props)}
-                  />
-                </>
-              )}
-            </CardContent>
+                <DisparityBarChart
+                  data={knownData}
+                  lightMetric={
+                    metricConfig.populationComparisonMetric ?? metricConfig
+                  }
+                  darkMetric={
+                    metricConfig.knownBreakdownComparisonMetric ?? metricConfig
+                  }
+                  demographicType={props.demographicType}
+                  metricDisplayName={metricConfig.shortLabel}
+                  filename={chartTitle}
+                  showAltPopCompare={shouldShowAltPopCompare(props)}
+                />
+              </>
+            )}
 
             {/* Display either UnknownsAlert OR MissingDataAlert */}
             {dataAvailable ? (
@@ -169,9 +166,8 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                 fips={props.fips}
               />
             ) : (
-              <CardContent>
+              <>
                 <ChartTitle title={'Graph unavailable: ' + chartTitle} />
-
                 <MissingDataAlert
                   dataName={chartTitle}
                   demographicTypeString={
@@ -179,19 +175,17 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
                   }
                   fips={props.fips}
                 />
-              </CardContent>
+              </>
             )}
 
             {shouldShowDoesntAddUpMessage && (
-              <CardContent>
-                <Alert severity='info' role='note'>
-                  Population percentages on this graph add up to over 100%
-                  because the racial categories reported for {chartTitle} in{' '}
-                  {props.fips.getSentenceDisplayName()} include Hispanic
-                  individuals in each racial category. As a result, Hispanic
-                  individuals are counted twice.
-                </Alert>
-              </CardContent>
+              <HetNotice>
+                Population percentages on this graph add up to over 100% because
+                the racial categories reported for {chartTitle} in{' '}
+                {props.fips.getSentenceDisplayName()} include Hispanic
+                individuals in each racial category. As a result, Hispanic
+                individuals are counted twice.
+              </HetNotice>
             )}
             {isCawp && (
               <CAWPOverlappingRacesAlert
