@@ -3,7 +3,6 @@ from pandas._testing import assert_frame_equal
 from datasources.cdc_wisqars import CDCWisqarsData
 import pandas as pd
 import os
-from test_utils import _load_public_dataset_from_bigquery_as_df
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
