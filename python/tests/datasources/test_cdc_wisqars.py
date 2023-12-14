@@ -26,7 +26,7 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
         os.path.join(TEST_DIR, directory, filename),
         usecols=use_cols,
         na_values='--',
-        dtype={"Year": str},
+        dtype={"Year": str, "Estimated Number": float},
         thousands=',',
     )
     return df
