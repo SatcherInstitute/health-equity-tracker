@@ -64,10 +64,10 @@ export default function ExtremeList(props: ExtremeListProps) {
 
                 return (
                   <li key={row.fips_name}>
-                    {placeName}: {formatFieldValue(metricType, row[metricId])}{' '}
-                    <HetUnitLabel>
-                      {metricType === 'per100k' ? 'per 100k' : ''}
-                    </HetUnitLabel>
+                    {placeName}: {formatFieldValue(metricType, row[metricId])}
+                    {metricType === 'per100k' && (
+                      <HetUnitLabel> per 100k</HetUnitLabel>
+                    )}
                   </li>
                 )
               })}

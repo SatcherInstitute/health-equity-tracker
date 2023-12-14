@@ -123,10 +123,10 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
             <ul>
               <li>
                 {props.fips.getDisplayName()}:{' '}
-                {formatFieldValue(metricType, overallRate)}{' '}
-                <HetUnitLabel>
-                  {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
-                </HetUnitLabel>
+                {formatFieldValue(metricType, overallRate)}
+                {props.metricConfig.type === 'per100k' && (
+                  <HetUnitLabel> per 100k</HetUnitLabel>
+                )}
               </li>
             </ul>
           </div>
