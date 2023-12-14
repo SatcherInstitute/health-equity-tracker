@@ -29,7 +29,7 @@ PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
 PIVOT_INDEX_COLS = {
     std_col.AGE_COL: ["Year", "Age Group", "Population"],
     std_col.SEX_COL: ["Year", "Sex", "Population"],
-    std_col.ALL_VALUE: ["Year", "Age Group", "Sex", "Population"],
+    "all": ["Year", "Age Group", "Sex", "Population"],
 }
 
 
@@ -49,9 +49,7 @@ class CDCWisqarsData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        nat_totals_by_intent_df = load_wisqars_df_from_data_dir(
-            std_col.ALL_VALUE, geo_level
-        )
+        nat_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
 
         df = self.generate_breakdown_df(demographic, geo_level, nat_totals_by_intent_df)
 
@@ -139,7 +137,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     df = df.dropna(subset=["Intent"])
 
     # add the missing demographic columns to the alls_df
-    if breakdown == std_col.ALL_VALUE:
+    if breakdown == "all":
         df[["Age Group", "Sex"]] = std_col.ALL_VALUE
 
     # reshape df to add the intent rows as columns
