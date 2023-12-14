@@ -28,13 +28,13 @@ import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
-import styles from './Chart.module.scss'
 import sass from '../styles/variables.module.scss'
 import { type Fips } from '../data/utils/Fips'
 import ChartTitle from '../cards/ChartTitle'
 import { removeLastS } from './utils'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
+import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
@@ -181,12 +181,11 @@ export function TableChart(props: TableChartProps) {
               {cell.render('Cell')}
               <Units column={index} metric={props.metrics} />
               {index === 1 && numeratorCount && denominatorCount ? (
-                <p className={styles.Unit}>
-                  <i>
-                    ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
-                    {denominatorLabel} )
-                  </i>
-                </p>
+                <HetUnitLabel>
+                  {' '}
+                  ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
+                  {denominatorLabel} )
+                </HetUnitLabel>
               ) : (
                 <></>
               )}

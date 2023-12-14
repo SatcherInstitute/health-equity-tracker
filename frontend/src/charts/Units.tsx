@@ -2,6 +2,7 @@ import {
   type MetricConfig,
   SYMBOL_TYPE_LOOKUP,
 } from '../data/config/MetricConfig'
+import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
 
 interface UnitsProps {
   column: number
@@ -19,13 +20,11 @@ export default function Units(props: UnitsProps) {
 
   // If it's 100k and tiny screen, the unit should be a block and appear on the next line
   return (
-    <span
-      className={`font-sansText text-smallest font-light tracking-tighter text-alt-dark ${
-        metric.type === 'per100k' ? 'block sm:inline' : 'inline'
-      }`}
+    <HetUnitLabel
+      className={metric.type === 'per100k' ? 'block sm:inline' : 'inline'}
     >
       {metric.type === 'per100k' ? ' ' : ''}
       {unit}
-    </span>
+    </HetUnitLabel>
   )
 }

@@ -122,6 +122,7 @@ export default {
       lhNormal: '1',
       lhTight: '0.95',
       lhModalHeading: '1.25',
+      lhListBoxTitle: '47px',
     },
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
