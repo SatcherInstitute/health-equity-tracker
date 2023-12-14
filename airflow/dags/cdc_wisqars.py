@@ -17,41 +17,46 @@ data_ingestion_dag = DAG(
     description='Ingestion configuration for CDC_WISQARS',
 )
 
-cdc_wisqars_bq_payload = util.generate_bq_payload(
-    _CDC_WISQARS_WORKFLOW_ID, _CDC_WISQARS_DATASET_NAME
+# AGE NATIONAL
+cdc_wisqars_bq_payload_age_national = util.generate_bq_payload(
+    _CDC_WISQARS_WORKFLOW_ID,
+    _CDC_WISQARS_DATASET_NAME,
+    demographic='age',
+    geographic='national',
 )
-cdc_wisqars_bq_operator = util.create_bq_ingest_operator(
-    'cdc_wisqars_to_bq',
-    cdc_wisqars_bq_payload,
+cdc_wisqars_bq_operator_age_national = util.create_bq_ingest_operator(
+    'cdc_wisqars_to_bq_age_national',
+    cdc_wisqars_bq_payload_age_national,
     data_ingestion_dag,
 )
 
-cdc_wisqars_national_exporter_payload_age = {
-    'dataset_name': _CDC_WISQARS_DATASET_NAME,
-    'demographic': "age",
-}
-cdc_wisqars_national_exporter_operator_age = util.create_exporter_operator(
-    'cdc_wisqars_national_exporter_age',
-    cdc_wisqars_national_exporter_payload_age,
+# SEX NATIONAL
+cdc_wisqars_bq_payload_sex_national = util.generate_bq_payload(
+    _CDC_WISQARS_WORKFLOW_ID,
+    _CDC_WISQARS_DATASET_NAME,
+    demographic='sex',
+    geographic='national',
+)
+cdc_wisqars_bq_operator_sex_national = util.create_bq_ingest_operator(
+    'cdc_wisqars_to_bq_sex_national',
+    cdc_wisqars_bq_payload_sex_national,
     data_ingestion_dag,
 )
 
+# EXPORTERS
+payload_age = {'dataset_name': _CDC_WISQARS_DATASET_NAME, 'demographic': "age"}
+cdc_wisqars_exporter_operator_age = util.create_exporter_operator(
+    'cdc_wisqars_exporter_age', payload_age, data_ingestion_dag
+)
 
-cdc_wisqars_national_exporter_payload_sex = {
-    'dataset_name': _CDC_WISQARS_DATASET_NAME,
-    'demographic': "sex",
-}
-cdc_wisqars_national_exporter_operator_sex = util.create_exporter_operator(
-    'cdc_wisqars_national_exporter_sex',
-    cdc_wisqars_national_exporter_payload_sex,
-    data_ingestion_dag,
+payload_sex = {'dataset_name': _CDC_WISQARS_DATASET_NAME, 'demographic': "sex"}
+cdc_wisqars_exporter_operator_sex = util.create_exporter_operator(
+    'cdc_wisqars_exporter_sex', payload_sex, data_ingestion_dag
 )
 
 # Ingestion DAG
 (
-    cdc_wisqars_bq_operator
-    >> [
-        cdc_wisqars_national_exporter_operator_age,
-        cdc_wisqars_national_exporter_operator_sex,
-    ]
+    cdc_wisqars_bq_operator_age_national
+    >> cdc_wisqars_bq_operator_sex_national
+    >> [cdc_wisqars_exporter_operator_age, cdc_wisqars_exporter_operator_sex]
 )
