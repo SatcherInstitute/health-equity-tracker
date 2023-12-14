@@ -1,4 +1,3 @@
-import styles from './HighestLowestGeosList.module.scss'
 import AnimateHeight from 'react-animate-height'
 import { Grid, IconButton } from '@mui/material'
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
@@ -14,6 +13,8 @@ import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type Fips } from '../../data/utils/Fips'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
+import ExtremeList from './ExtremeList'
+import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 
 interface HighestLowestGeosListProps {
   // MetricConfig for data
@@ -60,9 +61,9 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
       duration={500}
       height={props.isOpen ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className={styles.ListBox}
+      className='mt-4 rounded-md bg-standard-info text-left'
     >
-      <div className={styles.CollapseButton}>
+      <div className='float-right'>
         <IconButton
           aria-label={
             props.isOpen
@@ -83,19 +84,23 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
           props.setIsOpen(!props.isOpen)
         }}
         aria-hidden={true}
-        className={
-          props.isOpen ? styles.ListBoxTitleExpanded : styles.ListBoxTitle
-        }
+        className={`cursor-pointer pl-4 text-left  text-smallest sm:text-text ${
+          props.isOpen
+            ? 'px-0 py-4'
+            : 'text-ellipsis whitespace-nowrap leading-lhListBoxTitle sm:overflow-hidden'
+        } `}
       >
         {!props.isOpen ? 'See ' : 'Viewing '}
-        <span className={styles.HideOnMobile}>the {placesType} with the </span>
+        <span className='sr-only sm:not-sr-only'>
+          the {placesType} with the{' '}
+        </span>
         <b>highest</b> and <b>lowest</b> rates.
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.isOpen && (
         <>
-          <div className={styles.ListBoxLists}>
+          <div className='mx-4 my-0'>
             <Grid container justifyContent='space-around'>
               <ExtremeList
                 whichExtreme='Highest'
@@ -119,14 +124,14 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
               <li>
                 {props.fips.getDisplayName()}:{' '}
                 {formatFieldValue(metricType, overallRate)}{' '}
-                <span className={styles.Unit}>
+                <HetUnitLabel>
                   {props.metricConfig.type === 'per100k' ? 'per 100k' : ''}
-                </span>
+                </HetUnitLabel>
               </li>
             </ul>
           </div>
 
-          <p>
+          <p className='m-0 p-4'>
             All rates are reported as:{' '}
             <b>
               {props.metricConfig.chartTitle}
@@ -134,7 +139,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
             </b>
             .
           </p>
-          <p>
+          <p className='m-0 p-4'>
             Consider the possible impact of{' '}
             <a href={`#${WHAT_DATA_ARE_MISSING_ID}`}>data reporting gaps</a>{' '}
             when interpreting the highest and lowest rates.
@@ -142,77 +147,5 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
         </>
       )}
     </AnimateHeight>
-  )
-}
-
-// TODO: This should be its own component file
-interface ExtremeListProps {
-  whichExtreme: 'Highest' | 'Lowest'
-  values: Row[]
-  metricConfig: MetricConfig
-  qualifierItems?: string[]
-  qualifierMessage?: string
-}
-
-function ExtremeList(props: ExtremeListProps) {
-  const { type: metricType, metricId } = props.metricConfig
-
-  const extremeVal = props.values?.[0]?.[props.metricConfig.metricId]
-
-  const isTie = extremeVal === props.values?.[1]?.[props.metricConfig.metricId]
-
-  const tieDisplayValue = isTie
-    ? formatFieldValue(metricType, extremeVal)
-    : null
-
-  return (
-    <Grid item xs={12} sm={6}>
-      <h4>
-        {tieDisplayValue
-          ? `${props.whichExtreme} (${tieDisplayValue}):`
-          : `${props.values.length} ${props.whichExtreme}:`}
-      </h4>
-
-      <ul className={styles.ExtremeList}>
-        {isTie ? (
-          <li>
-            <>
-              {props.values.map((row, i) => {
-                let placeName = row.fips_name
-                if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage ?? ''}`
-                }
-
-                return (
-                  <span key={row.fips_name}>
-                    {placeName}
-                    {i < props.values.length - 1 ? ', ' : ''}
-                  </span>
-                )
-              })}
-            </>
-          </li>
-        ) : (
-          <>
-            {!isTie &&
-              props.values.map((row) => {
-                let placeName = row.fips_name
-                if (props.qualifierItems?.includes(placeName)) {
-                  placeName += ` ${props.qualifierMessage ?? ''}`
-                }
-
-                return (
-                  <li key={row.fips_name}>
-                    {placeName}: {formatFieldValue(metricType, row[metricId])}{' '}
-                    <span className={styles.Unit}>
-                      {metricType === 'per100k' ? 'per 100k' : ''}
-                    </span>
-                  </li>
-                )
-              })}
-          </>
-        )}
-      </ul>
-    </Grid>
   )
 }
