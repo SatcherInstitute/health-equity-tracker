@@ -6,7 +6,6 @@ import {
 import { type Row } from '../../data/utils/DatasetTypes'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
 
-// TODO: This should be its own component file
 interface ExtremeListProps {
   whichExtreme: 'Highest' | 'Lowest'
   values: Row[]
