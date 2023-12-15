@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 from datasources.data_source import DataSource
 from ingestion.constants import CURRENT, HISTORICAL, US_NAME, US_FIPS
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
@@ -125,7 +126,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         f"non_fatal-{geo_level}-{breakdown}.csv",
         na_values="--",
         usecols=generate_use_cols(breakdown),
-        dtype={"Year": str, "Estimated Number": float},
+        dtype={"Year": str, "Estimated Number": np.float64},
     )
 
     # removes the metadata section from the csv
