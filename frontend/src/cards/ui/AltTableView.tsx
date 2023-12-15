@@ -58,8 +58,8 @@ export default function AltTableView(props: AltTableViewProps) {
     props.hasUnknowns
   )
 
-  const firstTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
-  const lastTimePeriod: string =
+  const latestTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
+  const earliestTimePeriod: string =
     accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
   return (
@@ -150,7 +150,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           !isUnknownPctCol &&
                           ` ${dataColumnLabel}`}
                         {isTimeCol &&
-                          ` (${lastTimePeriod} - ${firstTimePeriod})`}
+                          ` (${earliestTimePeriod} - ${latestTimePeriod})`}
                       </TableCell>
                     )
                   })}
