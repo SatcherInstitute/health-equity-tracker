@@ -10,7 +10,7 @@ test('Covid Hospitalizations Flow', async ({ page }) => {
 	TODO: MANUALLY UPDATE
 	this will generally be the month before the month in which new data is released. This ensures the backend source data has been uploaded and processed properly on the PROD account
 	*/
-	await page.getByRole('cell', { name: 'October 2023' }).click();
+	await page.getByRole('cell', { name: 'Oct 2023' }).click();
 	const page1Promise = page.waitForEvent('popup');
 
 	/*
