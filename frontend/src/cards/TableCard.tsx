@@ -37,6 +37,7 @@ import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { type CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { generateSubtitle } from '../charts/utils'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -130,6 +131,8 @@ export default function TableCard(props: TableCardProps) {
     '#card-options-menu',
   ]
 
+  const subtitle = generateSubtitle(ALL, props.demographicType, metricIds[0])
+
   return (
     <CardWrapper
       downloadTitle={`Table card for ${
@@ -174,6 +177,7 @@ export default function TableCard(props: TableCardProps) {
                   dataTableTitle={
                     props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
                   }
+                  subtitle={subtitle}
                 />
               </div>
             )}

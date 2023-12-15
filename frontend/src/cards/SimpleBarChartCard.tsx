@@ -14,14 +14,19 @@ import {
 } from '../data/config/MetricConfig'
 import CardWrapper from './CardWrapper'
 import { exclude } from '../data/query/BreakdownFilter'
-import { AIAN_API, NON_HISPANIC, UNKNOWN_RACE } from '../data/utils/Constants'
+import {
+  AIAN_API,
+  ALL,
+  NON_HISPANIC,
+  UNKNOWN_RACE,
+} from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import {
   DATATYPES_NEEDING_13PLUS,
@@ -90,6 +95,12 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
     /* chartTitle: */ metricConfig.chartTitle,
     /* fips: */ props.fips
   )
+
+  const subtitle = generateSubtitle(
+    ALL,
+    props.demographicType,
+    metricConfig.metricId
+  )
   const filename = `${chartTitle}, by ${
     DEMOGRAPHIC_DISPLAY_TYPES[props.demographicType]
   }`
@@ -120,7 +131,10 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
           <>
             {hideChart ? (
               <>
-                <ChartTitle title={'Graph unavailable: ' + chartTitle} />
+                <ChartTitle
+                  title={'Graph unavailable: ' + chartTitle}
+                  subtitle={subtitle}
+                />
 
                 <MissingDataAlert
                   dataName={chartTitle}
@@ -132,7 +146,7 @@ function SimpleBarChartCardWithKey(props: SimpleBarChartCardProps) {
               </>
             ) : (
               <>
-                <ChartTitle title={chartTitle} />
+                <ChartTitle title={chartTitle} subtitle={subtitle} />
 
                 <SimpleHorizontalBarChart
                   data={data}
