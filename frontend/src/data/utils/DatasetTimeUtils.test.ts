@@ -160,13 +160,13 @@ describe('Tests for A11y Table Data functions', () => {
     const expectedA11yTableDataOnlyMale: Row[] = [
       {
         '% of total jail population with unknown sex': 40,
-        'Male': 3000,
-        'Time period': '2020',
+        'Male': 2000,
+        'Time period': '2021',
       },
       {
         '% of total jail population with unknown sex': 40,
-        'Male': 2000,
-        'Time period': '2021',
+        'Male': 3000,
+        'Time period': '2020',
       },
     ]
 
@@ -203,7 +203,7 @@ describe('Tests getPrettyDate() function', () => {
     expect(getPrettyDate('2020')).toEqual('2020')
   })
   test('YYYY-MM conversion', () => {
-    expect(getPrettyDate('2020-01')).toEqual('January 2020')
+    expect(getPrettyDate('2020-01')).toEqual('Jan 2020')
   })
   test("don't convert, just pass through malformed YY-M", () => {
     expect(getPrettyDate('20-1')).toEqual('20-1')
