@@ -1,16 +1,16 @@
 @use '../../styles/globals.scss';
 @import '../../styles/variables.module';
 
-.NoTopicContent {
-  background-color: $white;
-  width: 100%;
+// .NoTopicContent {
+//   background-color: $white;
+//   width: 100%;
 
-  padding: 1rem 3rem 0 3rem;
+//   padding: 1rem 3rem 0 3rem;
 
-  @media (min-width: $sm) {
-    padding: 2rem 5rem 0 5rem;
-  }
-}
+//   @media (min-width: $sm) {
+//     padding: 2rem 5rem 0 5rem;
+//   }
+// }
 
 .NoTopicAlert {
   justify-content: center !important;
@@ -121,10 +121,10 @@
   font-size: $text;
   list-style: none;
 
-  li::before {
-    content: '→ ';
-    color: $alt-green;
-  }
+  // li::before {
+  //   content: '→ ';
+  //   color: $alt-green;
+  // }
 
   padding-left: 0px;
 

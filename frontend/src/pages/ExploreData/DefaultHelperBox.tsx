@@ -1,8 +1,10 @@
 import { Box, Grid } from '@mui/material'
+import FiberNewIcon from '@mui/icons-material/FiberNew'
 import {
   COVID_DEATHS_AGE_FULTON_COUNTY_SETTING,
   EXPLORE_DATA_PAGE_LINK,
   HIV_PREVALANCE_RACE_USA_SETTING,
+  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING,
   PRISON_VS_POVERTY_RACE_GA_SETTING,
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
   WARM_WELCOME_DEMO_SETTING,
@@ -16,7 +18,7 @@ export default function DefaultHelperBox() {
       container
       alignContent='flex-start'
       justifyContent='center'
-      className={styles.NoTopicContent}
+      className='w-full bg-white px-12 pb-0 pt-4 sm:px-20 sm:pt-8'
     >
       <section className='m-0 mb-5 max-w-helperBox content-center items-center justify-center justify-items-center bg-standard-info'>
         <Grid
@@ -38,12 +40,23 @@ export default function DefaultHelperBox() {
                 <li className={styles.SuggestedReportsListItem}>
                   <a
                     href={
+                      EXPLORE_DATA_PAGE_LINK +
+                      PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING
+                    }
+                  >
+                    HIV by Medicare eligibility <FiberNewIcon />
+                  </a>
+                </li>
+                <li className={styles.SuggestedReportsListItem}>
+                  <a
+                    href={
                       EXPLORE_DATA_PAGE_LINK + HIV_PREVALANCE_RACE_USA_SETTING
                     }
                   >
                     HIV by race
                   </a>
                 </li>
+
                 <li className={styles.SuggestedReportsListItem}>
                   <a
                     href={
