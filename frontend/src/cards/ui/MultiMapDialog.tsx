@@ -80,6 +80,7 @@ interface MultiMapDialogProps {
   handleMapGroupClick: (_: any, newGroup: DemographicGroup) => void
   pageIsSmall: boolean
   reportTitle: string
+  subtitle?: string
   scrollToHash: ScrollableHashId
   isPhrmaAdherence?: boolean
 }
@@ -181,6 +182,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   lineHeight={sass.lhModalHeading}
                 >
                   {title}
+                  {props?.subtitle && ` (${props.subtitle})`}
                 </Typography>
               </Grid>
               {/* desktop-only close button */}

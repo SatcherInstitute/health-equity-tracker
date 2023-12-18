@@ -180,7 +180,7 @@ export interface DataTypeConfig {
   }
   surveyCollectedData?: boolean
   timeSeriesData?: boolean
-  dataTableTitle?: string
+  dataTableTitle: string
   mapConfig: MapConfig
   categoryId?: CategoryTypeId
 }
