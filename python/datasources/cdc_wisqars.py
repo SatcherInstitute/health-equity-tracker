@@ -141,7 +141,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         "cdc_wisqars",
-        f"non_fatal-{geo_level}-{breakdown}.csv",
+        f"non_fatal_gun_injuries-{geo_level}-{breakdown}.csv",
         na_values="--",
         usecols=generate_use_cols(breakdown),
         thousands=",",
