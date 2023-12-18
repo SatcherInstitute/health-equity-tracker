@@ -12,12 +12,12 @@ import LazyLoad from 'react-lazyload'
 import NewsPreviewCard from '../News/NewsPreviewCard'
 import { useQuery } from 'react-query'
 import type { Article } from '../News/NewsPage'
-import { ArticlesSkeleton } from '../News/AllPosts'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
+import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
 
 function LandingPage() {
   const { isLoading, error, data }: any = useQuery(
@@ -113,7 +113,8 @@ function LandingPage() {
                   )
                 })
               ) : (
-                <ArticlesSkeleton
+                <HetPostsLoading
+                  className='w-full sm:w-1/2 md:w-1/3 lg:w-1/4'
                   doPulse={!error}
                   numberLoading={numberOfArticlePreviews}
                 />
