@@ -470,6 +470,7 @@ function MapCardWithKey(props: MapCardProps) {
               }
               pageIsSmall={isSm}
               reportTitle={props.reportTitle}
+              subtitle={subtitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
             />
