@@ -58,8 +58,6 @@ class CDCWisqarsData(DataSource):
         else:
             nat_totals_by_intent_df = nat_totals_by_intent_df.drop(columns=['Sex'])
 
-        nat_totals_by_intent_df.to_csv(f"all_output{demographic}.csv", index=False)
-
         df = self.generate_breakdown_df(demographic, geo_level, nat_totals_by_intent_df)
 
         float_cols = [std_col.POPULATION_COL]
@@ -85,6 +83,13 @@ class CDCWisqarsData(DataSource):
     def generate_breakdown_df(
         self, breakdown: str, geo_level: str, alls_df: pd.DataFrame
     ):
+        """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
+
+        breakdown: string equal to `age` or `sex`
+        geo_level: string equal to `national`
+        alls_df: the data frame containing the all values for each demographic breakdown
+        return: a data frame of national time-based WISQARS data by breakdown"""
+
         cols_to_standard = {
             "Age Group": std_col.AGE_COL,
             "Crude Rate_Assault - Other": PER_100K_MAP[std_col.OTHER_ASSAULT_PREFIX],
@@ -129,6 +134,12 @@ class CDCWisqarsData(DataSource):
 
 
 def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
+    """load_wisqars_df_from_data_dir generates WISQARS data by breakdown and geo_level
+
+    breakdown: string equal to `age` or `sex`
+    geo_level: string equal to `national`
+    return: a data frame of national time-based WISQARS data by breakdown with WISQARS columns
+    """
     df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
         "cdc_wisqars",
         f"non_fatal-{geo_level}-{breakdown}.csv",
@@ -146,11 +157,11 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     # removes the rows with missing "Intent" values
     df = df.dropna(subset=["Intent"])
 
-    # add the missing demographic columns to the alls_df
+    # adds the missing demographic columns to the alls_df
     if breakdown == "all":
         df[["Age Group", "Sex"]] = std_col.ALL_VALUE
 
-    # reshape df to add the intent rows as columns
+    # reshapes df to add the intent rows as columns
     pivot_df = df.pivot(
         index=PIVOT_INDEX_COLS.get(breakdown, []),
         columns="Intent",
