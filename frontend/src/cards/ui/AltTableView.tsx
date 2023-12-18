@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import { ArrowDropDown, ArrowDropUp } from '@mui/icons-material'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import AnimateHeight from 'react-animate-height'
 import { type MetricConfig } from '../../data/config/MetricConfig'
 import { type DemographicType } from '../../data/query/Breakdowns'
@@ -23,7 +23,6 @@ import {
 import { makeA11yTableData } from '../../data/utils/DatasetTimeUtils'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { DATA_CATALOG_PAGE_LINK } from '../../utils/internalRoutes'
-import styles from './AltTableView.module.scss'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
@@ -59,8 +58,8 @@ export default function AltTableView(props: AltTableViewProps) {
     props.hasUnknowns
   )
 
-  const firstTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
-  const lastTimePeriod: string =
+  const latestTimePeriod: string = accessibleData[0][TIME_PERIOD_LABEL]
+  const earliestTimePeriod: string =
     accessibleData[accessibleData.length - 1][TIME_PERIOD_LABEL]
 
   return (
@@ -68,14 +67,14 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className={styles.AltTableExpanderBox}
+      className='mt-4 rounded-md bg-listbox-color text-left'
       id={
         props.isCompareCard
           ? ALT_TABLE_VIEW_2_PARAM_KEY
           : ALT_TABLE_VIEW_1_PARAM_KEY
       }
     >
-      <div className={styles.CollapseButton}>
+      <div className='float-right'>
         <IconButton
           aria-label={`${
             !props.expanded ? 'Expand' : 'Collapse'
@@ -95,26 +94,30 @@ export default function AltTableView(props: AltTableViewProps) {
           props.setExpanded(!props.expanded)
         }}
         aria-hidden={true}
-        className={
-          props.expanded ? styles.AltTableTitleExpanded : styles.AltTableTitle
-        }
+        className={`cursor-pointer pl-4 text-left  text-smallest sm:text-text ${
+          props.expanded
+            ? 'px-0 py-4'
+            : 'text-ellipsis whitespace-nowrap leading-lhListBoxTitle sm:overflow-hidden'
+        } `}
       >
-        {!props.expanded ? 'Expand' : 'Collapse'} <b>{props.expandBoxLabel}</b>{' '}
-        table
+        <span>
+          {!props.expanded ? 'Expand' : 'Collapse'}{' '}
+          <b>{props.expandBoxLabel}</b> table
+        </span>
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
       {props.expanded && (
         <>
-          <p>
+          <p className='m-0 p-4'>
             Add or remove columns by toggling demographic groups above the
             chart.
           </p>
-          <TableContainer className={styles.AltTableContainer}>
+          <TableContainer className='flex max-h-sm caption-top self-center overflow-auto'>
             <Table
               tabIndex={0}
               ref={tableRef}
-              className={styles.AltTable}
+              className='border-1 rounded-xs w-98p m-3 whitespace-nowrap border-alt-dark'
               size='small'
               stickyHeader
             >
@@ -136,6 +139,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
+                        className='break-words border-0 border-b border-alt-dark bg-white leading-lhSomeSpace'
                       >
                         {!isTimeCol &&
                           key !== ALL &&
@@ -146,7 +150,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           !isUnknownPctCol &&
                           ` ${dataColumnLabel}`}
                         {isTimeCol &&
-                          ` (${firstTimePeriod} - ${lastTimePeriod})`}
+                          ` (${earliestTimePeriod} - ${latestTimePeriod})`}
                       </TableCell>
                     )
                   })}
@@ -157,7 +161,10 @@ export default function AltTableView(props: AltTableViewProps) {
                 {accessibleData.map((row, i) => {
                   const keys = Object.keys(row)
                   return (
-                    <TableRow key={row[TIME_PERIOD_LABEL]}>
+                    <TableRow
+                      key={row[TIME_PERIOD_LABEL]}
+                      className='odd:bg-table-zebra even:bg-white'
+                    >
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL
 
@@ -200,7 +207,7 @@ export default function AltTableView(props: AltTableViewProps) {
               </TableBody>
             </Table>
           </TableContainer>
-          <p>
+          <p className='m-0 p-4'>
             View and download full .csv files on the{' '}
             <a href={DATA_CATALOG_PAGE_LINK} ref={linkRef}>
               Downloads page.
