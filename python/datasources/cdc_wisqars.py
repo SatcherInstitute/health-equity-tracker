@@ -51,10 +51,18 @@ class CDCWisqarsData(DataSource):
         geo_level = self.get_attr(attrs, "geographic")
 
         nat_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
+        if demographic == std_col.SEX_COL:
+            nat_totals_by_intent_df = nat_totals_by_intent_df.drop(
+                columns=['Age Group']
+            )
+        else:
+            nat_totals_by_intent_df = nat_totals_by_intent_df.drop(columns=['Sex'])
+
+        nat_totals_by_intent_df.to_csv(f"all_output{demographic}.csv", index=False)
 
         df = self.generate_breakdown_df(demographic, geo_level, nat_totals_by_intent_df)
 
-        float_cols = []
+        float_cols = [std_col.POPULATION_COL]
         float_cols.extend(INJ_INTENTS)
         float_cols.extend(PER_100K_MAP.values())
         float_cols.extend(PCT_SHARE_MAP.values())
