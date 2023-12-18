@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from datasources.data_source import DataSource
 from ingestion.constants import CURRENT, HISTORICAL, US_NAME, US_FIPS
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
