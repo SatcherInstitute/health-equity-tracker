@@ -126,7 +126,8 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         f"non_fatal-{geo_level}-{breakdown}.csv",
         na_values="--",
         usecols=generate_use_cols(breakdown),
-        dtype={"Year": str, "Estimated Number": np.float64},
+        thousands=",",
+        dtype={"Year": str},
     )
 
     # removes the metadata section from the csv
