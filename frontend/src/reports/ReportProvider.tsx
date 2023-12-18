@@ -67,6 +67,7 @@ function ReportProvider(props: ReportProviderProps) {
     : styles.TwoColumnReportWrapper
 
   function getReport() {
+    const reportTitle = getMadLibPhraseText(props.madLib)
     // Each report has a unique key based on its props so it will create a
     // new instance and reset its state when the provided props change.
     switch (props.madLib.id) {
@@ -87,7 +88,7 @@ function ReportProvider(props: ReportProviderProps) {
               reportStepHashIds={reportStepHashIds}
               setReportStepHashIds={setReportStepHashIds}
               headerScrollMargin={props.headerScrollMargin}
-              reportTitle={getMadLibPhraseText(props.madLib)}
+              reportTitle={reportTitle}
               isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
@@ -120,7 +121,7 @@ function ReportProvider(props: ReportProviderProps) {
               reportStepHashIds={reportStepHashIds}
               setReportStepHashIds={setReportStepHashIds}
               headerScrollMargin={props.headerScrollMargin}
-              reportTitle={getMadLibPhraseText(props.madLib)}
+              reportTitle={reportTitle}
               isMobile={props.isMobile}
               trackerMode={props.madLib.id}
               setTrackerMode={props.handleModeChange}
@@ -147,7 +148,7 @@ function ReportProvider(props: ReportProviderProps) {
             reportStepHashIds={reportStepHashIds}
             setReportStepHashIds={setReportStepHashIds}
             headerScrollMargin={props.headerScrollMargin}
-            reportTitle={getMadLibPhraseText(props.madLib)}
+            reportTitle={reportTitle}
             isMobile={props.isMobile}
             trackerMode={props.madLib.id}
             setTrackerMode={props.handleModeChange}

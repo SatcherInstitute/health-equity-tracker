@@ -83,6 +83,8 @@ export type PhrmaMetricId =
 export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'bb_ami_adherence',
+    dataTableTitle:
+      'Breakdown summary for persistance of beta blockers post AMI',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Persistence of Beta Blocker Treatment after a Heart Attack',
@@ -149,6 +151,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'statins_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
+    dataTableTitle: 'Breakdown summary for adherence to statins',
+
     dataTypeShortLabel: 'Adherence to Statins',
     fullDisplayName: 'Adherence to statins',
     surveyCollectedData: true,
@@ -219,6 +223,8 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
   {
     dataTypeId: 'beta_blockers_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
+    dataTableTitle: 'Breakdown summary for adherence to beta blockers',
+
     dataTypeShortLabel: 'Adherence to Beta Blockers',
     fullDisplayName: 'Adherence to beta blockers',
     surveyCollectedData: true,
@@ -284,6 +290,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel:
       'Adherence to Renin Angiotensin System Antagonists (RASA)',
+    dataTableTitle:
+      'Breakdown summary for adherence to renin angiotensin system antagonists',
+
     fullDisplayName: 'Adherence to RASA',
     surveyCollectedData: true,
     definition: {
@@ -347,6 +356,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Calcium Channel Blockers',
     fullDisplayName: 'Adherence to calcium channel blockers',
+    dataTableTitle:
+      'Breakdown summary for adherence to calcium channel blockers',
+
     surveyCollectedData: true,
     definition: {
       text: `Pharmacy Quality Alliance measure representing the percentage of Medicare fee-for-service beneficiaries 18 years and older who met the Proportion of Days Covered (PDC) threshold of 80% for calcium channel blockers during the measurement year.`,
@@ -408,6 +420,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeId: 'doac_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Direct Oral Anticoagulants (DOACs)',
+    dataTableTitle:
+      'Breakdown summary for adherence to direct oral anticoagulants',
+
     fullDisplayName: 'Adherence to direct oral anticoagulants',
     surveyCollectedData: true,
     definition: {
@@ -473,6 +488,9 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     dataTypeId: 'ami',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
+    dataTableTitle:
+      'Breakdown summary for acute myocardial infarctions (heart attacks)',
+
     fullDisplayName: 'Acute Myocardial Infarctions (Heart Attacks)',
     surveyCollectedData: true,
     definition: {
@@ -539,6 +557,8 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     dataTypeId: 'arv_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Antiretroviral Medications',
+    dataTableTitle: 'Breakdown summary for adherence to antiretrovirals',
+
     fullDisplayName: 'Adherence to antiretroviral medications',
     surveyCollectedData: true,
     definition: {
@@ -604,6 +624,8 @@ export const PHRMA_HIV_METRICS: DataTypeConfig[] = [
     dataTypeId: 'medicare_hiv',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'HIV Cases',
+    dataTableTitle: 'Breakdown summary for HIV cases',
+
     fullDisplayName: 'Cases of HIV',
     surveyCollectedData: true,
     definition: {
@@ -670,6 +692,8 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     dataTypeId: 'anti_psychotics_adherence',
     mapConfig: medicareHigherIsBetterMapConfig,
     dataTypeShortLabel: 'Adherence to Anti-Psychotics',
+    dataTableTitle: 'Breakdown summary for adherence to anti-psychotics',
+
     fullDisplayName: 'Adherence to anti-psychotics',
     surveyCollectedData: true,
     definition: {
@@ -720,6 +744,8 @@ export const PHRMA_MENTAL_HEALTH_METRICS: DataTypeConfig[] = [
     dataTypeId: 'medicare_schizophrenia',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Schizophrenia',
+    dataTableTitle: 'Breakdown summary for schizophrenia cases',
+
     fullDisplayName: 'Cases of Schizophrenia',
     surveyCollectedData: true,
     definition: {
