@@ -12,127 +12,127 @@
 //   }
 // }
 
-.NoTopicAlert {
-  justify-content: center !important;
-  align-items: center !important;
-  align-content: center !important;
-  justify-items: center !important;
-  margin: 0 0 20rem 0;
-  max-width: $helper-box-max-width;
-}
+// .NoTopicAlert {
+//   justify-content: center !important;
+//   align-items: center !important;
+//   align-content: center !important;
+//   justify-items: center !important;
+//   margin: 0 0 20rem 0;
+//   max-width: $helper-box-max-width;
+// }
 
-.BigHeadline {
-  padding-right: 1rem;
-  margin-top: 0;
-  font-size: $small;
+// .BigHeadline {
+//   padding-right: 1rem;
+//   margin-top: 0;
+//   font-size: $small;
 
-  @media (min-width: $sm) {
-    font-size: $smallestHeader;
-    margin-top: 2rem;
-  }
+//   @media (min-width: $sm) {
+//     font-size: $smallestHeader;
+//     margin-top: 2rem;
+//   }
 
-  @media (min-width: $lg) {
-    font-size: $header;
-  }
-}
+//   @media (min-width: $lg) {
+//     font-size: $header;
+//   }
+// }
 
-.LittleHeadline {
-  font-size: $smallest;
-  padding-right: 1rem;
+// .LittleHeadline {
+//   font-size: $smallest;
+//   padding-right: 1rem;
 
-  @media (min-width: $sm) {
-    font-size: $title;
-  }
+//   @media (min-width: $sm) {
+//     font-size: $title;
+//   }
 
-  @media (min-width: $lg) {
-    font-size: $explore-button;
-  }
-}
+//   @media (min-width: $lg) {
+//     font-size: $explore-button;
+//   }
+// }
 
-.NoTopicHelperVideoBoxWithCaption {
-  margin-top: 2rem;
+// .NoTopicHelperVideoBoxWithCaption {
+//   margin-top: 2rem;
 
-  @media only screen and (min-width: $md) {
-    p {
-      margin-inline: 3rem;
-    }
-  }
-}
+//   @media only screen and (min-width: $md) {
+//     p {
+//       margin-inline: 3rem;
+//     }
+//   }
+// }
 
-.NoTopicHelperVideoBox {
-  iframe {
-    height: 157px;
-    width: 250px;
-    max-width: 80vw;
-  }
+// .NoTopicHelperVideoBox {
+//   iframe {
+//     height: 157px;
+//     width: 250px;
+//     max-width: 80vw;
+//   }
 
-  @media (min-width: $lg) {
-    iframe {
-      height: 252px;
-      width: 400px;
-    }
-  }
+//   @media (min-width: $lg) {
+//     iframe {
+//       height: 252px;
+//       width: 400px;
+//     }
+//   }
 
-  @media (min-width: $xl) {
-    iframe {
-      height: 346px;
-      width: 550px;
-    }
-  }
-}
+//   @media (min-width: $xl) {
+//     iframe {
+//       height: 346px;
+//       width: 550px;
+//     }
+//   }
+// }
 
-.NoTopicHelperVideoBoxTourText {
-  padding-inline: 1rem;
+// .NoTopicHelperVideoBoxTourText {
+//   padding-inline: 1rem;
 
-  @media only screen and (min-width: $md) {
-    padding-inline: 3rem;
-  }
-}
+//   @media only screen and (min-width: $md) {
+//     padding-inline: 3rem;
+//   }
+// }
 
-.CategoryList {
-  ul span,
-  ul h2 {
-    display: flex;
-    font-size: $smallest !important;
-    line-height: $lhTight;
+// .CategoryList {
+//   ul span,
+//   ul h2 {
+//     display: flex;
+//     font-size: $smallest !important;
+//     line-height: $lhTight;
 
-    @media only screen and (min-width: $md) {
-      font-size: $text !important;
-      line-height: $lhLoose;
-    }
-  }
-}
+//     @media only screen and (min-width: $md) {
+//       font-size: $text !important;
+//       line-height: $lhLoose;
+//     }
+//   }
+// }
 
-.ResourceVideoEmbed {
-  border-radius: 16px;
-}
+// .ResourceVideoEmbed {
+//   border-radius: 16px;
+// }
 
-.SuggestedReportsList {
-  a {
-    text-decoration: none;
-  }
+// .SuggestedReportsList {
+// a {
+//   text-decoration: none;
+// }
 
-  a:hover {
-    text-decoration: underline;
-  }
+// a:hover {
+//   text-decoration: underline;
+// }
 
-  margin-block: 0px;
-  text-align: left;
-  font-size: $text;
-  list-style: none;
+// margin-block: 0px;
+// text-align: left;
+// font-size: $text;
+// list-style: none;
 
-  // li::before {
-  //   content: '→ ';
-  //   color: $alt-green;
-  // }
+// li::before {
+//   content: '→ ';
+//   color: $alt-green;
+// }
 
-  padding-left: 0px;
+// padding-left: 0px;
 
-  @media only screen and (min-width: $sm) {
-    padding-left: 1rem;
-  }
-}
+// @media only screen and (min-width: $sm) {
+//   padding-left: 1rem;
+// }
+// }
 
-.SuggestedReportsListItem {
-  margin-top: 0.5rem;
-}
+// .SuggestedReportsListItem {
+//   margin-top: 0.5rem;
+// }
