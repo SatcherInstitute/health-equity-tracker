@@ -5,10 +5,59 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
-import AgeAdjustmentIntro, {
+import {
+  AgeAdjustmentIntro,
   AlgorithmSection,
   DataSourcingSection,
 } from '../Methodology/methodologyComponents/AgeAdjustmentComponents'
+
+interface ExampleTableConfig {
+  head: string[]
+  body: string[][]
+}
+
+const exampleTableConfig = {
+  head: ['Race Group', 'Age Group', 'HIV Deaths', 'Population'],
+  body: [
+    ['Race A', '0-29', '50', '600,000'],
+    ['Race A', '30-59', '500', '800,000'],
+    ['Race A', '60+', '5,000', '200,000'],
+    ['Race B', '0-29', '20', '200,000'],
+    ['Race B', '30-59', '200', '300,000'],
+    ['Race B', '60', '800', '60,000'],
+  ],
+}
+
+const AgeAdjustmentTable = ({ config }: { config: ExampleTableConfig }) => (
+  <table className='m-4 border-collapse border-solid border-bg-color p-1'>
+    <thead className='font-bold'>
+      <tr className='bg-join-effort-bg1'>
+        {config.head.map((h, i) => (
+          <td
+            key={h}
+            className='border-collapse border-solid border-bg-color p-1'
+          >
+            {h}
+          </td>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {config.body.map((row, i) => (
+        <tr key={i} className='odd:bg-white even:bg-explore-bg-color'>
+          {row.map((data) => (
+            <td
+              key={data}
+              className='border-collapse border-solid border-bg-color p-1'
+            >
+              {data}
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+)
 
 export default function OldAgeAdjustmentTab() {
   return (
@@ -40,7 +89,7 @@ export default function OldAgeAdjustmentTab() {
 
               <AlgorithmSection />
 
-              {/* TABLES */}
+              {/* Tables */}
 
               <h3 className='text-left font-serif text-smallestHeader font-light text-alt-black'>
                 Age-Adjustment Example: HIV Deaths
@@ -53,116 +102,8 @@ export default function OldAgeAdjustmentTab() {
                 <b>White, Non-Hispanic</b>), and <b>Race B</b> is any other race
                 group.
               </p>
-              <table className='m-4 border-collapse border-solid border-bg-color p-1'>
-                <thead className='font-bold'>
-                  <tr className='bg-join-effort-bg1'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race Group
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Age Group
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      HIV Deaths
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Population
-                    </td>
-                  </tr>
-                </thead>
 
-                <tbody>
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race A
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      0-29
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      50
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      600,000
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race A
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      30-59
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      500
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      800,000
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race A
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      60+
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      5,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      200,000
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race B
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      0-29
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      20
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      200,000
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race B
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      30-59
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      200
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      300,000
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race B
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      60+
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      800
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      60,000
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <AgeAdjustmentTable config={exampleTableConfig} />
 
               <h4 className='mt-20 font-sansText text-text font-medium'>
                 1) Calculate the <b>age-specific HIV death rates</b> which will

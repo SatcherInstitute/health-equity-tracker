@@ -1,10 +1,6 @@
-interface AgeAdjustmentSubListType {
-  subDescription: JSX.Element | string
-}
-
-export interface AgeAdjustmentConfigType {
+export interface AgeAdjustmentConfig {
   topic: string
-  subList?: AgeAdjustmentSubListType[]
+  subList?: Array<{ subDescription: JSX.Element | string }>
   description?: JSX.Element | string
   snippet?: string
 }
