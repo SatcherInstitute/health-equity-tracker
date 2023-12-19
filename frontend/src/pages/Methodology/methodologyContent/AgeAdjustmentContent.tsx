@@ -5,6 +5,36 @@ export interface AgeAdjustmentConfig {
   snippet?: string
 }
 
+export const TableOperationsTypes = {
+  divide: '/',
+  multiply: '*',
+  add: '+',
+} as const
+
+export type TableOperationsKeys = keyof typeof TableOperationsTypes
+
+export interface TableCalculation {
+  operation: TableOperationsKeys
+  operands: number[]
+  resultOptions?: {
+    minDigit: number
+    maxDigit: number
+  }
+  appendSymbol?: string
+}
+
+export interface AgeInfo {
+  age: string
+  value: number
+}
+
+export type TableData = string | TableCalculation | AgeInfo
+
+export interface AgeAdjustTableConfig {
+  head: string[]
+  body: TableData[][]
+}
+
 export const DataSourcingConfig = [
   {
     topic: 'Condition counts broken down by both age and race:',
@@ -97,3 +127,179 @@ export const AlgorithmConfig = [
     ),
   },
 ]
+
+export const exampleTableConfig = {
+  head: ['Race Group', 'Age Group', 'HIV Deaths', 'Population'],
+  body: [
+    ['Race A', '0-29', '50', '600,000'],
+    ['Race A', '30-59', '500', '800,000'],
+    ['Race A', '60+', '5,000', '200,000'],
+    ['Race B', '0-29', '20', '200,000'],
+    ['Race B', '30-59', '200', '300,000'],
+    ['Race B', '60', '800', '60,000'],
+  ],
+}
+
+export const ageSpecificTableConfig: AgeAdjustTableConfig = {
+  head: [
+    'Race Group',
+    'Age Group',
+    'HIV Deaths',
+    'Population',
+    'Age-Specific HIV Death Rate',
+  ],
+  body: [
+    [
+      'Race A',
+      '0-29',
+      '50',
+      '600,000',
+      { operation: 'divide', operands: [50, 600_000] },
+    ],
+    [
+      'Race A',
+      '30-59',
+      '500',
+      '800,000',
+      { operation: 'divide', operands: [500, 800_000] },
+    ],
+    [
+      'Race A',
+      '60+',
+      '5,000',
+      '200,000',
+      { operation: 'divide', operands: [5000, 200_000] },
+    ],
+    [
+      'Race B',
+      '0-29',
+      '20',
+      '200,000',
+      { operation: 'divide', operands: [20, 200_000] },
+    ],
+    [
+      'Race B',
+      '30-59',
+      '200',
+      '300,000',
+      { operation: 'divide', operands: [200, 300_000] },
+    ],
+    [
+      'Race B',
+      '60+',
+      '800',
+      '60,000',
+      { operation: 'divide', operands: [800, 60_000] },
+    ],
+  ],
+}
+
+export const standardPopulationTableConfig: AgeAdjustTableConfig = {
+  head: ['Race Group', 'Age Group', 'Standard Population'],
+  body: [
+    ['Total (A & B)', '0-29', { operation: 'add', operands: [600000, 200000] }],
+    [
+      'Total (A & B)',
+      '30-59',
+      { operation: 'add', operands: [800000, 300000] },
+    ],
+    ['Total (A & B)', '60+', { operation: 'add', operands: [200000, 60000] }],
+  ],
+}
+
+export const expectedProductTableConfig: AgeAdjustTableConfig = {
+  head: [
+    'Race Group',
+    'Age Group',
+    'Age-Specific HIV Death Rate',
+    'Standard Population',
+    'Expected HIV Deaths',
+  ],
+  body: [
+    [
+      'Race A',
+      '0-29',
+      '0.00008333',
+      { age: 'for Ages 0-29:', value: 800000 },
+      { operation: 'multiply', operands: [0.00008333, 800000] },
+    ],
+    [
+      'Race A',
+      '30-59',
+      '0.000625',
+      { age: 'for Ages 30-59:', value: 1100000 },
+      { operation: 'multiply', operands: [0.000625, 1100000] },
+    ],
+    [
+      'Race A',
+      '60+',
+      '0.025',
+      { age: 'for Ages 60+:', value: 260000 },
+      { operation: 'multiply', operands: [0.025, 260000] },
+    ],
+    [
+      'Race B',
+      '0-29',
+      '0.0001',
+      { age: 'for Ages 0-29:', value: 800000 },
+      { operation: 'multiply', operands: [0.0001, 800000] },
+    ],
+    [
+      'Race B',
+      '30-59',
+      '0.00066667',
+      { age: 'for Ages 30-59:', value: 1100000 },
+      {
+        operation: 'multiply',
+        operands: [0.00066667, 1100000],
+      },
+    ],
+    [
+      'Race B',
+      '60+',
+      '0.01333333',
+      { age: 'for Ages 60+:', value: 260000 },
+      { operation: 'multiply', operands: [0.01333333, 260000] },
+    ],
+  ],
+}
+
+export const expectedSumTableConfig: AgeAdjustTableConfig = {
+  head: ['Race Group', 'TotalExpected HIV Deaths'],
+  body: [
+    ['Race A', { operation: 'add', operands: [66.67, 687.5, 6500] }],
+    [
+      'Race B',
+      {
+        operation: 'add',
+        operands: [80, 733.33, 3466.67],
+      },
+    ],
+  ],
+}
+
+export const deathRatioTableConfig: AgeAdjustTableConfig = {
+  head: ['Race Group', 'TotalExpected HIV Deaths', 'Age-Adjusted Death Ratio'],
+  body: [
+    [
+      'Race A',
+      '7,254.17',
+      {
+        operation: 'divide',
+        operands: [7254.17, 7254.17],
+        resultOptions: { minDigit: 1, maxDigit: 1 },
+        appendSymbol: 'x',
+      },
+    ],
+    [
+      'Race B',
+      '4,280',
+      {
+        operation: 'divide',
+        operands: [4280, 7254.17],
+        resultOptions: { minDigit: 1, maxDigit: 1 },
+        appendSymbol: 'x',
+      },
+    ],
+  ],
+}
