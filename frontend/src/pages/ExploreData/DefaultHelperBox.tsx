@@ -8,7 +8,6 @@ import {
   UNINSURANCE_SEX_FL_VS_CA_SETTING,
   WARM_WELCOME_DEMO_SETTING,
 } from '../../utils/internalRoutes'
-import styles from './DefaultHelperBox.module.scss'
 import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
 
 export default function DefaultHelperBox() {
@@ -79,16 +78,14 @@ export default function DefaultHelperBox() {
 
         <div className='col-span-2 grid w-full place-content-center pt-8 smMd:px-12 xl:col-span-3'>
           <DisclaimerAlert className='mb-5 mt-1 smMd:hidden' />
-          <div className={styles.NoTopicHelperVideoBox}>
-            <iframe
-              loading='lazy'
-              className='h-[157px] w-[250px] max-w-[80vw] rounded-lg lg:h-[252px] lg:w-[400px] xl:h-[346px] xl:w-[550px]'
-              src='https://www.youtube.com/embed/XBoqT9Jjc8w'
-              title='YouTube video player'
-              allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-              allowFullScreen
-            ></iframe>
-          </div>
+          <iframe
+            loading='lazy'
+            className='h-[157px] w-[250px] max-w-[80vw] rounded-lg lg:h-[252px] lg:w-[400px] xl:h-[346px] xl:w-[550px]'
+            src='https://www.youtube.com/embed/XBoqT9Jjc8w'
+            title='YouTube video player'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+          ></iframe>
           <p className='px-4 pb-4 text-small italic md:px-4'>
             New to the tracker? Watch the video demo, or take a{' '}
             <a href={EXPLORE_DATA_PAGE_LINK + WARM_WELCOME_DEMO_SETTING}>
