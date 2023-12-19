@@ -11,9 +11,16 @@ import {
   DataSourcingSection,
 } from '../Methodology/methodologyComponents/AgeAdjustmentComponents'
 
-interface ExampleTableConfig {
+type OperationsTypes = 'divide' | 'multiply' | 'add'
+type TableData =
+  | string
+  | {
+      operation: OperationsTypes
+      operands: number[]
+    }
+interface AgeAdjustTableConfig {
   head: string[]
-  body: string[][]
+  body: TableData[][]
 }
 
 const exampleTableConfig = {
@@ -27,8 +34,73 @@ const exampleTableConfig = {
     ['Race B', '60', '800', '60,000'],
   ],
 }
+const ageSpecificConfig: AgeAdjustTableConfig = {
+  head: [
+    'Race Group',
+    'Age Group',
+    'HIV Deaths',
+    'Population',
+    'Age-Specific HIV Death Rate',
+  ],
+  body: [
+    [
+      'Race A',
+      '0-29',
+      '50',
+      '600,000',
+      { operation: 'divide', operands: [50, 600_000] },
+    ],
+    [
+      'Race A',
+      '30-59',
+      '500',
+      '800,000',
+      { operation: 'divide', operands: [500, 800_000] },
+    ],
+    [
+      'Race A',
+      '60+',
+      '5,000',
+      '200,000',
+      { operation: 'divide', operands: [5000, 200_000] },
+    ],
+    [
+      'Race B',
+      '0-29',
+      '20',
+      '200,000',
+      { operation: 'divide', operands: [20, 200_000] },
+    ],
+    [
+      'Race B',
+      '30-59',
+      '200',
+      '300,000',
+      { operation: 'divide', operands: [200, 300_000] },
+    ],
+    [
+      'Race B',
+      '60+',
+      '800',
+      '60,000',
+      { operation: 'divide', operands: [800, 60_000] },
+    ],
+  ],
+}
 
-const AgeAdjustmentTable = ({ config }: { config: ExampleTableConfig }) => (
+// const standardPopulationConfig = {}
+
+const operations = {
+  divide: (operands: number[]) => operands.reduce((acc, val) => acc / val),
+  multiply: (operands: number[]) => operands.reduce((acc, val) => acc * val),
+  add: (operands: number[]) => operands.reduce((acc, val) => acc + val),
+}
+
+const performOperation = (operation: OperationsTypes, operands: number[]) => {
+  return operations[operation] ? operations[operation](operands) : 0
+}
+
+const AgeAdjustmentTable = ({ config }: { config: AgeAdjustTableConfig }) => (
   <table className='m-4 border-collapse border-solid border-bg-color p-1'>
     <thead className='font-bold'>
       <tr className='bg-join-effort-bg1'>
@@ -45,14 +117,39 @@ const AgeAdjustmentTable = ({ config }: { config: ExampleTableConfig }) => (
     <tbody>
       {config.body.map((row, i) => (
         <tr key={i} className='odd:bg-white even:bg-explore-bg-color'>
-          {row.map((data) => (
-            <td
-              key={data}
-              className='border-collapse border-solid border-bg-color p-1'
-            >
-              {data}
-            </td>
-          ))}
+          {row.map((data, index) => {
+            if (typeof data === 'object' && data.operation) {
+              const result = performOperation(
+                data.operation,
+                data.operands
+              ).toLocaleString()
+              const formattedOperands = data.operands
+                .map((op) => op.toLocaleString())
+                .join(` ${data.operation} `)
+
+              return (
+                <td
+                  key={index}
+                  className='border-collapse border-solid border-bg-color p-1'
+                >
+                  <div className='text-smallest italic'>
+                    {formattedOperands}
+                  </div>
+                  <b> = {result}</b>
+                </td>
+              )
+              // if (data.)
+            } else {
+              return (
+                <td
+                  key={index}
+                  className='border-collapse border-solid border-bg-color p-1'
+                >
+                  {data}
+                </td>
+              )
+            }
+          })}
         </tr>
       ))}
     </tbody>
@@ -73,7 +170,6 @@ export default function OldAgeAdjustmentTab() {
         alignItems='center'
       >
         <Grid container className='m-auto max-w-md px-5 pb-12 pt-1'>
-          {/* Age-adjusted Info */}
           <article className='pb-6'>
             <h3
               className='text-center font-serif text-smallHeader font-light text-alt-black'
@@ -83,6 +179,8 @@ export default function OldAgeAdjustmentTab() {
             </h3>
 
             <div className='text-left font-sansText text-small text-alt-black'>
+              {/* Age-adjusted Info */}
+
               <AgeAdjustmentIntro />
 
               <DataSourcingSection />
@@ -111,149 +209,7 @@ export default function OldAgeAdjustmentTab() {
               </h4>
 
               {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
-              <table className='m-4 border-collapse border-solid border-bg-color p-1'>
-                <thead className='font-bold'>
-                  <tr className='bg-join-effort-bg1'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race Group
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Age Group
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      HIV Deaths
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Population
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Age-Specific HIV Death Rate
-                    </td>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race A
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      0-29
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      50
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      600,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      <div className='text-smallest italic'>(50 / 600,000)</div>
-                      <b> = 0.00008333</b>
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race A
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      30-59
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      500
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      800,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      <div className='text-smallest italic'>
-                        (500 / 800,000)
-                      </div>
-                      <b> = 0.000625</b>
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race A
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      60+
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      5,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      200,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      <div className='text-smallest italic'>
-                        (5,000 / 200,000)
-                      </div>
-                      <b> = 0.025</b>
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race B
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      0-29
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      20
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      200,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      <div className='text-smallest italic'>(20 / 200,000)</div>
-                      <b> = 0.0001</b>
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race B
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      30-59
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      200
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      300,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      <div className='text-smallest italic'>
-                        (200 / 300,000)
-                      </div>
-                      <b> = 0.00066667</b>
-                    </td>
-                  </tr>
-
-                  <tr className='odd:bg-white even:bg-explore-bg-color'>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      Race B
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      60+
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      800
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      60,000
-                    </td>
-                    <td className='border-collapse border-solid border-bg-color p-1'>
-                      <div className='text-smallest italic'>(800 / 60,000)</div>
-                      <b> = 0.01333333</b>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              <AgeAdjustmentTable config={ageSpecificConfig} />
 
               <h4 className='mt-20 font-sansText text-text font-medium'>
                 2) Get the <b>standard population</b> per age group, which will
@@ -497,6 +453,7 @@ export default function OldAgeAdjustmentTab() {
                   </tr>
                 </tbody>
               </table>
+
               <h4 className='mt-20 font-sansText text-text font-medium'>
                 4) For each race, we sum together the expected HIV deaths from
                 each of its age groups to calculate the total expected HIV
