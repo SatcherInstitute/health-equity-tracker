@@ -41,13 +41,11 @@ export default function AgeAdjustmentTab() {
 
             <div className='text-left font-sansText text-small text-alt-black'>
               {/* AGE-ADJUSTED INFO */}
-
               <AgeAdjustmentIntro />
               <DataSourcingSection />
               <AlgorithmSection />
 
               {/* TABLES */}
-
               <ExampleTable />
               <AgeSpecificTableConfig />
               <StandardPopulationTable />
