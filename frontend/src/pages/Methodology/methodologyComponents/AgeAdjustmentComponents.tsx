@@ -171,7 +171,7 @@ export const DeathRatioTable = () => (
   </>
 )
 
-// // // RESUABLE, STYLED COMPONENTS AND HELPERS BELOW, MOVE?
+// // // REUSABLE, STYLED COMPONENTS AND HELPERS BELOW, MOVE?
 
 const AgeAdjustmentTitle = ({
   title,
