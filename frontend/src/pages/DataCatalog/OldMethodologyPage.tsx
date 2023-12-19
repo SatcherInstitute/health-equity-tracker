@@ -8,7 +8,7 @@ import { Link, Route, Switch } from 'react-router-dom'
 
 // can't lazy load (yet) due to scss loading issues
 import OldMethodologyTab from './OldMethodologyTab'
-import OldAgeAdjustmentTab from './OldAgeAdjustmentTab'
+import AgeAdjustmentTab from './AgeAdjustmentTab'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function OldMethodologyPage() {
@@ -46,7 +46,7 @@ export default function OldMethodologyPage() {
         </Route>
 
         <Route path={`${OLD_AGE_ADJUSTMENT_LINK as string}/`}>
-          <OldAgeAdjustmentTab />
+          <AgeAdjustmentTab />
         </Route>
       </Switch>
     </div>
