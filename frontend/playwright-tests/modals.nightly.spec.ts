@@ -33,7 +33,7 @@ test('Topic Info Modal from Map Legend', async ({ page }) => {
 
   await page.goto('http://localhost:3000/', { waitUntil: "commit" });
   await page.locator('#landingPageCTA').click();
-  await page.getByRole('link', { name: 'Uninsurance in Florida & California, by sex' }).click();
+  await page.getByRole('link', { name: 'Uninsurance in FL & CA, by sex' }).click();
   await page.locator('#rate-map2').getByRole('button', { name: 'Click for more info on uninsured people' }).click();
 
 })
