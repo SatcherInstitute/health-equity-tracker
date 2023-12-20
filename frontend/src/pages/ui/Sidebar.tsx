@@ -32,7 +32,7 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <>
-      {/* @BEN: is it acceptable to combine tw ulitity classes and inline style={{}} prop (for dynamic vals)? */}
+      {/* @BEN: is it acceptable to combine tw utility classes and inline style={{}} prop (for dynamic vals)? */}
       <div className='sticky' style={{ top: tocOffset }}>
         <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:p-2'>
           <TopicInfoModalButton />
