@@ -80,13 +80,16 @@ export function LinkWithStickyParams(props: {
 }
 
 export const PAGE_URL_TO_NAMES: Record<string, string> = {
-  '/': 'Home',
   [WHAT_IS_HEALTH_EQUITY_PAGE_LINK]: 'What is Health Equity?',
   [EXPLORE_DATA_PAGE_LINK]: 'Explore the Data',
   [NEWS_PAGE_LINK]: 'News',
   [DATA_CATALOG_PAGE_LINK]: 'Downloads',
   [OLD_METHODOLOGY_PAGE_LINK]: 'Methodology',
   [ABOUT_US_PAGE_LINK]: 'About Us',
+}
+
+export const ADDED_MOBILE_PAGE_URL_TO_NAMES: Record<string, string> = {
+  '/': 'Home',
 }
 
 export function useSearchParams() {

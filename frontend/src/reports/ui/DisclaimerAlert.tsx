@@ -3,9 +3,13 @@ import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { HashLink } from 'react-router-hash-link'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 
-function DisclaimerAlert() {
+interface DisclaimerAlertProps {
+  className?: string
+}
+
+export default function DisclaimerAlert(props: DisclaimerAlertProps) {
   return (
-    <div>
+    <div className={props.className ?? ''}>
       <HetNotice
         kind='data-integrity'
         className='m-1 mt-2 border border-solid border-report-alert text-left text-smallest sm:mx-3 sm:mt-4 sm:text-small'
@@ -22,5 +26,3 @@ function DisclaimerAlert() {
     </div>
   )
 }
-
-export default DisclaimerAlert

@@ -10,7 +10,10 @@ import {
 import MenuIcon from '@mui/icons-material/Menu'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import { useState } from 'react'
-import { PAGE_URL_TO_NAMES } from '../../utils/urlutils'
+import {
+  ADDED_MOBILE_PAGE_URL_TO_NAMES,
+  PAGE_URL_TO_NAMES,
+} from '../../utils/urlutils'
 
 export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
@@ -37,6 +40,15 @@ export default function HetMobileAppToolbar() {
         </Button>
         <nav>
           <List>
+            {Object.keys(ADDED_MOBILE_PAGE_URL_TO_NAMES).map(
+              (pageUrl, index) => (
+                <ListItemLink href={pageUrl} key={index}>
+                  <ListItemText
+                    primary={ADDED_MOBILE_PAGE_URL_TO_NAMES[pageUrl]}
+                  />
+                </ListItemLink>
+              )
+            )}
             {Object.keys(PAGE_URL_TO_NAMES).map((pageUrl, index) => (
               <ListItemLink href={pageUrl} key={index}>
                 <ListItemText primary={PAGE_URL_TO_NAMES[pageUrl]} />
