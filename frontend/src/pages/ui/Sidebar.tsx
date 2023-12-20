@@ -1,4 +1,3 @@
-import { Card } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import { type DemographicType } from '../../data/query/Breakdowns'
@@ -35,18 +34,12 @@ export default function Sidebar(props: SidebarProps) {
     <>
       {/* @BEN: is it acceptable to combine tw ulitity classes and inline style={{}} prop? */}
       <div className='sticky' style={{ top: tocOffset }}>
-        <Card
-          className='md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:p-2'
-          raised={true}
-        >
+        <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:p-2'>
           <TopicInfoModalButton />
-        </Card>
+        </div>
 
         <div className='mode-selector-box'>
-          <Card
-            className='md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:px-2 md:py-4'
-            raised={true}
-          >
+          <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:px-2 md:py-4'>
             <SimpleSelect<DemographicType>
               label='Demographic'
               optionsMap={props.enabledDemographicOptionsMap}
@@ -60,18 +53,15 @@ export default function Sidebar(props: SidebarProps) {
               selected={props.trackerMode}
               setSelected={props.setTrackerMode}
             />
-          </Card>
+          </div>
         </div>
 
-        <Card
-          className='m-cardGutter flex w-[90%] justify-center py-4 '
-          raised={true}
-        >
+        <div className='m-cardGutter flex w-[90%] justify-center rounded-sm bg-white py-4 shadow-raised'>
           <TableOfContents
             reportStepHashIds={props.reportStepHashIds}
             isScrolledToTop={props.isScrolledToTop ?? false}
           />
-        </Card>
+        </div>
       </div>
     </>
   )
