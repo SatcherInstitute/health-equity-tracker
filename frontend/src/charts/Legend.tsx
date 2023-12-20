@@ -8,7 +8,6 @@ import {
 } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
 import sass from '../styles/variables.module.scss'
-import styles from './Legend.module.scss'
 import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
@@ -301,9 +300,11 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <section className={styles.Legend}>
+    <section className='mx-4 text-left'>
       {props.isMulti ? (
-        <span className={styles.LegendHeader}>{props.legendTitle}</span>
+        <span className='inline-flex items-center break-words text-start text-smallest leading-lhSomeMoreSpace text-black'>
+          {props.legendTitle}
+        </span>
       ) : (
         <ClickableLegendHeader
           legendTitle={props.legendTitle}

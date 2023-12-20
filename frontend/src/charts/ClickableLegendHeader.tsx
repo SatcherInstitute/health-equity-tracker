@@ -1,6 +1,5 @@
 import { Button, Grid, Tooltip } from '@mui/material'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import styles from './Legend.module.scss'
 import { useParamState } from '../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../utils/urlutils'
 import { type DataTypeConfig } from '../data/config/MetricConfig'
@@ -34,7 +33,7 @@ export default function ClickableLegendHeader(
         }}
       >
         <Grid container alignItems={'center'}>
-          <span className={styles.LegendHeader}>
+          <span className='inline-flex items-center break-words text-start text-smallest leading-lhSomeMoreSpace text-black'>
             <InfoOutlinedIcon
               sx={{ mr: '4px', mb: '-1px', p: '3px 3px 3px 3px' }}
             />
