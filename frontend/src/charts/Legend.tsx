@@ -7,8 +7,6 @@ import {
   type MapConfig,
 } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
-import sass from '../styles/variables.module.scss'
-import styles from './Legend.module.scss'
 import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
@@ -45,6 +43,7 @@ import {
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
+import { getCssVar } from '../utils/designUtils'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -76,6 +75,8 @@ interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
+  const white = getCssVar<string>('--white')
+  const unknownGrey = getCssVar<string>('--unknownGrey')
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
@@ -182,7 +183,7 @@ export function Legend(props: LegendProps) {
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
-      background: sass.white,
+      background: white,
       padding: 10,
       data: [
         {
@@ -274,7 +275,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
 
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [sass.unknownGrey],
+          range: [unknownGrey],
         },
         {
           name: GREY_DOT_SCALE,
@@ -301,9 +302,11 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <section className={styles.Legend}>
+    <section className='mx-4 text-left'>
       {props.isMulti ? (
-        <span className={styles.LegendHeader}>{props.legendTitle}</span>
+        <span className='inline-flex items-center break-words text-start text-smallest leading-lhSomeMoreSpace text-black'>
+          {props.legendTitle}
+        </span>
       ) : (
         <ClickableLegendHeader
           legendTitle={props.legendTitle}
