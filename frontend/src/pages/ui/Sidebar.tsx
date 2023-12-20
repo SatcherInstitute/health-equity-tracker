@@ -1,6 +1,5 @@
 import { Card } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import styles from './Sidebar.module.scss'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
@@ -34,12 +33,20 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <>
-      <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
-        <Card className={styles.SidebarTopicInfoButtonBox} raised={true}>
+      {/* @BEN: is it acceptable to combine tw ulitity classes and inline style={{}} prop? */}
+      <div className='sticky' style={{ top: tocOffset }}>
+        <Card
+          className='md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:p-2'
+          raised={true}
+        >
           <TopicInfoModalButton />
         </Card>
+
         <div className='mode-selector-box'>
-          <Card raised={true} className={styles.SidebarModeSelectorBox}>
+          <Card
+            className='md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:px-2 md:py-4'
+            raised={true}
+          >
             <SimpleSelect<DemographicType>
               label='Demographic'
               optionsMap={props.enabledDemographicOptionsMap}
@@ -56,7 +63,10 @@ export default function Sidebar(props: SidebarProps) {
           </Card>
         </div>
 
-        <Card raised={true} className={styles.TableOfContentsBox}>
+        <Card
+          className='m-cardGutter flex w-[90%] justify-center py-4 '
+          raised={true}
+        >
           <TableOfContents
             reportStepHashIds={props.reportStepHashIds}
             isScrolledToTop={props.isScrolledToTop ?? false}

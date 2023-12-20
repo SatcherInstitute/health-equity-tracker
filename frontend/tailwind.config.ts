@@ -18,22 +18,22 @@ export default {
     maxHeight: standardSizes,
     maxWidth: standardSizes,
     borderRadius: {
-      sm: '4px',
-      md: '8px',
-      lg: '16px',
-      xl: '30px',
+      'sm': '4px',
+      'md': '8px',
+      'lg': '16px',
+      'xl': '30px',
       '2xl': '40px',
     },
     boxShadow: {
-      raised:
+      'raised':
         'rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px',
       'raised-tighter':
         'rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px',
-
     },
     colors: {
       'alert-color': 'rgb(var(--alert-color) / <alpha-value>)',
-      'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
+      // 'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
+      'alt-black': '#383838', // @BEN: ex.: how about this pattern to use tailwind theme config instead?
       'alt-dark': 'rgb(var(--alt-dark)  / <alpha-value>)',
       'alt-green': 'rgb(var(--alt-green) / <alpha-value>)',
       'alt-grey': 'rgb(var(--alt-grey) / <alpha-value>)',
@@ -128,7 +128,7 @@ export default {
       sansTitle: ['DM Sans', 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
-      math: ['KaTeX_Math', 'mono']
+      math: ['KaTeX_Math', 'mono'],
     },
     fontSize: {
       smallest: '0.75rem',
@@ -146,18 +146,18 @@ export default {
       biggestHeader: '4rem',
     },
     zIndex: {
-      "z-bottom": 'var(--z-bottom)',
-      "z-middle": 'var(--z-middle)',
-      "z-almost-top": 'var(--z-almost-top)',
-      "z-top": 'var(--z-top)',
+      'z-bottom': 'var(--z-bottom)',
+      'z-middle': 'var(--z-middle)',
+      'z-almost-top': 'var(--z-almost-top)',
+      'z-top': 'var(--z-top)',
     },
     extend: {
       maxHeight: {
-        aimToGo: "255px",
+        aimToGo: '255px',
       },
       maxWidth: {
-        aimToGo: "255px",
-        menu: "320px",
+        aimToGo: '255px',
+        menu: '320px',
         articleLogo: '700px',
         teamHeadshot: '181px',
         teamLogo: '250px',
@@ -167,26 +167,29 @@ export default {
         helperBox: '1200px',
       },
       minHeight: {
-        "preload-article": '750px',
+        'preload-article': '750px',
       },
       height: {
         littleHetLogo: '30px',
         joinEffortLogo: '720px',
       },
       width: {
-        littleHetLogo: '30px',
-        joinEffortLogo: '600px',
-        '90p': '90%'
+        'littleHetLogo': '30px',
+        'joinEffortLogo': '600px',
+        '90p': '90%',
       },
       padding: {
         '1p': '1%',
         '15p': '15%',
-
-      }
+      },
+      // for use w/spacing utilities: 'm', 'p', 'gap', etc.
+      spacing: {
+        cardGutter: '8px',
+      },
     },
   },
   plugins: [],
   corePlugins: {
     preflight: false,
-  }
+  },
 } satisfies Config
