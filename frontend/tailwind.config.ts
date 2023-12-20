@@ -35,7 +35,7 @@ export default {
       'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
       'alt-dark': 'rgb(var(--alt-dark)  / <alpha-value>)',
       // 'alt-green': 'rgb(var(--alt-green) / <alpha-value>)',
-      'alt-green': '#0b5240', // @BEN: same questoin here, continue with this pattern?
+      'alt-green': '#0b5240', // @BEN: same question here, continue with this pattern?
       'alt-grey': 'rgb(var(--alt-grey) / <alpha-value>)',
       'alt-orange': 'rgb(var(--alt-orange) / <alpha-value>)',
       'alt-red': 'rgb(var(--alt-red) / <alpha-value>)',
