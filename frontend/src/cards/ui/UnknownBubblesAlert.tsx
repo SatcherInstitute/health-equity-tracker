@@ -1,4 +1,3 @@
-import styles from './UnknownBubblesAlert.module.scss'
 import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
@@ -33,7 +32,7 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
       )}{' '}
       <button
         onClick={changeUnknownState}
-        className={styles.UnknownBubblesLink}
+        className='cursor-pointer border-0 bg-transparent p-0 text-alt-green underline'
         aria-label={
           'View the share of ' +
           props.fullDisplayName +
