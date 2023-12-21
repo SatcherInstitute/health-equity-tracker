@@ -182,6 +182,10 @@ export default {
         '1p': '1%',
         '15p': '15%',
       },
+      // for use w/spacing utilities: 'm', 'p', 'gap', etc.
+      spacing: {
+        cardGutter: '8px',
+      },
     },
   },
   plugins: [],
