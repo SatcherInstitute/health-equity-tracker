@@ -1,0 +1,884 @@
+@import '../../styles/globals.scss';
+@import '../../styles/variables.module.scss';
+
+/** ------------------ METHODOLOGY v2 -------------------- **/
+// For the title of the page read off by screenreaders in an h1
+
+html {
+  scroll-behavior: smooth;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+.MethodologySectionWrapper {
+  margin: 2%;
+}
+
+.SectionWrapper {
+  margin-top: 2rem !important;
+  padding: 0 !important;
+}
+
+.ArticleContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+
+  @media screen and (max-width: 1400px) {
+    padding: 2rem;
+  }
+}
+
+.ArticleContainer h1 {
+  text-align: left;
+  color: rgba(0, 0, 0, 0.87);
+
+  /* Taviraj/H3 */
+  font-family: Taviraj;
+  font-size: 2rem;
+  font-style: normal;
+  font-weight: 300 !important;
+  line-height: 1.8875rem;
+  /* 94.375% */
+  letter-spacing: 0.022rem;
+}
+
+.ArticleContainer h3 {
+  @include tav300();
+  font-size: $smallestHeader;
+  text-align: left;
+  color: $alt-black;
+  margin-top: 1rem;
+}
+
+.ArticleContainer h4 {
+  @include inter500();
+  font-size: $text;
+  // margin-top: 2rem;
+}
+
+.ArticleContainer figure {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ArticleContainer p,
+li {
+  @include inter400();
+  font-size: $small;
+  text-align: left;
+  color: $alt-black;
+}
+
+.Calculation {
+  margin: 0 auto;
+}
+
+.LearnMoreLink {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--0-b-5240, #0b5240);
+  text-decoration: none;
+  line-height: 1rem;
+}
+
+.LearnMoreLink::after {
+  content: '→';
+}
+
+.ConditionList::before {
+  content: '→ ';
+}
+
+.ConditionList {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--0-b-5240, #0b5240);
+
+  padding-inline-start: 0;
+  list-style: none;
+}
+
+.ConditionList a {
+  text-decoration: none;
+}
+
+.TextButton {
+  display: flex;
+  justify-content: start;
+  line-height: 1.2rem;
+  align-items: center;
+  padding: 2rem 0;
+  max-width: 20vw;
+  font-size: 1.25rem;
+  font-family: DM Sans;
+}
+
+.TextButton span {
+  padding-right: 1rem;
+}
+
+.CardMenu a {
+  text-decoration: none;
+  color: #383838;
+}
+
+.CardMenu a > div {
+  padding: 0;
+}
+
+.CardMenu span {
+  color: var(--0-b-5240, #0b5240);
+  /* DM Sans */
+  font-family: DM Sans;
+  font-style: normal;
+  font-weight: 500;
+  padding: 0.5rem;
+}
+
+.CardMenu p {
+  color: var(--383838, #383838);
+  font-family: Inter;
+  font-style: normal;
+  padding: 0.2rem 0.5rem;
+}
+
+.MenuItemText ul {
+  color: var(--383838, #383838) !important;
+  font-family: Inter !important;
+}
+
+.CardMenuMobile {
+  border-radius: 0.25rem;
+  background: #fff;
+  box-shadow:
+    0px 3px 3px -2px rgba(0, 0, 0, 0),
+    0px 3px 4px 0px rgba(0, 0, 0, 0.14),
+    0px 1px 8px 0px rgba(0, 0, 0, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1%;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.CardMenuMobile > div {
+  padding: 2rem;
+}
+
+.Fab {
+  background-color: var(--0-b-5240, #0b5240);
+  position: fixed;
+  bottom: 2vh;
+  right: 2vw;
+  z-index: 1000;
+}
+
+.Fab:hover {
+  background-color: var(--0-b-5240, #0b5240);
+}
+
+.active {
+  color: var(--0-b-5240, #0b5240) !important;
+  font-weight: 700 !important;
+  // border-left: 2px solid var(--0-b-5240, #0b5240);
+}
+
+.SubMenu {
+  text-align: left;
+  margin: 1rem 2rem;
+  position: sticky;
+  right: 0;
+  top: 0;
+  z-index: 9999;
+  @media screen and (max-width: 1400px) {
+    z-index: 0;
+  }
+}
+
+.SubMenu p {
+  color: #000;
+  font-family: Inter;
+  font-size: 0.625rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.30625rem;
+  /* 209% */
+  letter-spacing: 0.00688rem;
+}
+
+.SubMenu h4 {
+  margin: 0.5rem auto;
+  color: #000;
+
+  /* DM Sans/H4 */
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.30625rem;
+  /* 130.625% */
+  letter-spacing: 0.011rem;
+}
+
+.SubMenu a {
+  text-decoration: none;
+  color: #000;
+  display: block;
+  /* Inter/p */
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  /* 142.857% */
+  // letter-spacing: 0.0245rem;
+  margin: 0.8rem auto;
+}
+
+.NavigationButtonsDiv {
+  @media screen and (min-width: 1400px) {
+    display: flex;
+    align-self: stretch;
+    flex: 1 0 0;
+    justify-content: space-between;
+    margin: 2rem 0 0 0;
+  }
+
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+    width: 100%;
+    margin: 1rem 0 0 0;
+  }
+}
+
+.NavigationButtonsDiv button {
+  font-family: DM Sans;
+  font-size: 1.25rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4rem;
+  letter-spacing: 0.0375rem;
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  justify-content: center;
+  border-radius: 4rem;
+  background: rgba(11, 82, 64, 0.3);
+  padding: 2%;
+
+  @media screen and (max-width: 1400px) {
+    width: 100%;
+    margin: 1.5rem auto 0;
+  }
+}
+
+.Previous {
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.Previous span {
+  justify-content: flex-start;
+}
+
+.Next {
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.Next span {
+  justify-content: flex-end;
+}
+
+.ButtonHeader {
+  display: flex;
+  // height: 3.5rem;
+  padding: 0.5rem;
+  // justify-content: flex-start;
+  align-items: center;
+  // gap: 0.25rem;
+  align-self: stretch;
+  // flex: 1 0 0;
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
+
+  /* Inter */
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.30625rem;
+  /* 130.625% */
+  letter-spacing: 0.011rem;
+
+  @media screen and (max-width: 1400px) {
+    height: 1.5rem;
+  }
+}
+
+.ButtonContentDiv {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  justify-content: center;
+  // align-items: flex-end;
+  gap: 0.625rem;
+  flex: 1 0 0;
+  align-self: stretch;
+  // height: 3rem;
+}
+
+.DataTable {
+  margin: 2rem auto;
+}
+
+.DataTable td {
+  color: var(--383838, #383838);
+  font-family: Inter;
+}
+
+.DataTable td > div {
+  box-shadow: none;
+}
+
+.DataTable code {
+  margin: 0 auto;
+  padding: 1% auto;
+}
+
+.DataTable th,
+thead,
+tr {
+  color: var(--0-b-5240, #0b5240);
+  font-family: DM Sans;
+  font-size: 1.2rem;
+  font-weight: 500;
+  vertical-align: baseline;
+  background-color: #fafafa;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  line-height: 1.1rem;
+}
+
+.DataGrid .MuiDataGrid-cell {
+  overflow: visible !important;
+  white-space: pre-wrap !important;
+}
+
+.KeyTermsContainer {
+  margin-top: 2rem;
+}
+
+.DataAlertErrorContainer {
+  width: 100%;
+}
+
+.GridContainer {
+  padding: 0;
+  margin: 1% 1% 2% 1%;
+  display: flex;
+  flex-direction: column;
+
+  // grid-template-columns: auto 1fr; /* This will make the span and p side by side with span taking only required space and p taking the rest */
+  // gap: 10px; /* Adjust gap between the columns as needed */
+}
+
+.ConditionKey {
+  color: var(--0-b-5240, #0b5240);
+  font-family: Inter;
+  font-size: 0.8rem;
+  align-self: start;
+  margin-block-start: 0 !important;
+}
+
+.ConditionDefinition {
+  color: var(--383838, #383838);
+  font-size: 0.7rem !important;
+  margin: 0 0 0 1%;
+  align-self: start;
+}
+
+.RacesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 0;
+}
+
+.RacesContainer h4 {
+  margin: 0;
+}
+
+.RacesDefinition {
+  color: var(--383838, #383838);
+  margin: 0;
+  font-style: italic;
+}
+
+.RacesContainer figure {
+  align-items: flex-start;
+  gap: 0.8rem;
+  // margin-top: 1%;
+}
+
+.GlossaryTermContainer {
+  margin: 1rem auto;
+}
+
+// .GlossaryTermContainer figure {
+//   // display: flex;
+//   // justify-content: baseline;
+//   // align-items: baseline;
+//   // padding: 0;
+//   // width: 100%;
+//   // margin: 0 auto;
+// }
+
+.GlossaryTermContainer figure:first-of-type {
+  border-top: 1px solid var(--383838, #383838);
+}
+
+.GlossaryTermContainer h4 {
+  margin: 0;
+}
+
+.GlossaryTerm {
+  color: var(--0-b-5240, #0b5240);
+  font-family: DM Sans;
+  font-size: 1rem;
+  margin: 1% auto 0 auto;
+  font-weight: 500;
+}
+
+.GlossaryDefinition {
+  color: var(--383838, #383838);
+  font-size: 0.7rem !important;
+  margin: 1% auto 0 auto;
+}
+
+.Resources {
+  margin: 1rem auto;
+  // border-top: var(--0-b-5240, #0b5240) 1px solid;
+}
+
+.ResourcesList li {
+  font-size: $smallest;
+  list-style: none;
+  margin: 2% 0;
+}
+
+.ResourcesList ul {
+  padding-inline-start: 0;
+  @media screen and (max-width: 1400px) {
+    margin: 0 2%;
+  }
+}
+
+.Resources h3 {
+  @include tav300();
+  margin: 1rem 0 0 0;
+  text-align: left;
+  @media screen and (max-width: 1400px) {
+    line-height: 1.6rem;
+  }
+}
+
+.ResourcesHeader h3 {
+  margin-bottom: 0.5rem;
+}
+
+.ResourcesHeader h4 {
+  margin-bottom: 0.5rem;
+  color: var(--383838, #383838);
+}
+
+.ResourcesHeader h5 {
+  margin: 0.5rem 0 0 0;
+  color: var(--0-b-5240, #0b5240);
+}
+
+.ResourcesHeader h6 {
+  color: var(--383838, #383838);
+}
+
+.ResourcesHeader p {
+  margin-bottom: 0.5rem;
+}
+
+.ResourcesRow {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+  }
+}
+
+.ResourcesRow::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.ResourcesColumn {
+  float: left;
+  width: 50%;
+  padding: 0.5rem 0;
+  @media screen and (max-width: 1400px) {
+    width: 100%;
+  }
+}
+
+.AccordionContainer > td {
+  border: 0;
+  padding: 0;
+  margin: 1%;
+}
+
+.Accordion {
+  margin: 0 auto;
+  border: solid 2px #fafafa;
+}
+
+.AccordionSummary {
+  color: var(--383838, #383838);
+  font-family: DM Sans;
+  font-size: 1rem;
+  min-height: 0;
+}
+
+.AccordionHeader {
+  padding: 0;
+  margin: 0 !important;
+}
+
+.AccordionDetails {
+  border-top: solid 2px #fafafa;
+  font-family: Inter;
+  font-size: 0.8rem;
+  padding: 0 2% !important;
+  margin: 0 auto;
+}
+
+// .CodeContainer {
+//   border: 2px solid red;
+// }
+
+// .TableContainer {
+.BorderTable {
+  display: flex;
+  border: 2px solid #fafafa;
+  background-color: #fafafa;
+  border-radius: 1rem;
+  margin: 2% auto;
+  padding: 2%;
+}
+
+.BorderTable th {
+  padding: 0;
+  border-bottom: none;
+}
+
+.NoBorderTable table {
+  border: none !important;
+  margin: 2% auto;
+  padding: 2%;
+}
+
+.NoBorderTable th,
+td {
+  border: none;
+  padding: 0;
+}
+
+.TableCell {
+  display: flex;
+  justify-content: baseline;
+}
+
+.TableCell pre {
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
+  margin: 0 auto;
+}
+
+/** ------------------ METHODOLOGY -------------------- **/
+
+.MethodologySection {
+  padding: 50px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
+}
+
+.MethodologyQuestionAndAnswer {
+  padding-bottom: 1.5rem;
+}
+
+.MethodologyQuestion {
+  @include tav300();
+  font-size: $smallestHeader;
+  text-align: left;
+  color: $alt-black;
+}
+
+.MethodologyAnswer {
+  @include inter400();
+  font-size: $small;
+  text-align: left;
+  color: $alt-black;
+}
+
+.Tooltip {
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.Tooltip p {
+  // font-weight: bold !important;
+  font-size: normal;
+  margin: 0 0.1rem 0 0.2rem;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  cursor: help;
+}
+
+.Numerator,
+.Denominator {
+  font-size: 0.7rem;
+  display: inline-block;
+  text-align: center;
+  // padding: 1%;
+  width: max-content;
+}
+
+.Numerator {
+  border-bottom: 1px solid black;
+  overflow-wrap: break-word;
+}
+
+.Fraction {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  // width: -webkit-fill-available;
+  width: max-content;
+  @media screen and (max-width: 1400px) {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.WrappedInParentheses {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+  line-height: 0.8rem;
+}
+
+.Fraction::before {
+  content: '(';
+  // margin-left: 1%;
+  font-size: 2rem;
+  // flex-grow: 1;
+  @media screen and (max-width: 1400px) {
+    font-size: 1rem;
+  }
+}
+
+.Fraction::after {
+  content: ')';
+  // margin-right: 1%;
+  font-size: 2rem;
+  // flex-grow: 1;
+  @media screen and (max-width: 1400px) {
+    font-size: 1rem;
+  }
+}
+
+.FormulaFormat {
+  // overflow-wrap: break-word;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fafafa;
+  border-radius: 1rem;
+  overflow-x: scroll;
+  // overflow: auto;
+}
+
+.FormulaFormatFunction {
+  font-family: KaTeX_Math;
+  font-style: italic;
+}
+
+.FormulaFormatCode {
+  border: none;
+  background-color: transparent;
+  margin: 0% auto;
+  font-size: $smallest;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: start;
+  @media screen and (max-width: 1400px) {
+    flex-direction: column;
+    width: max-content;
+  }
+  // width: -webkit-fill-available;
+}
+
+.ExampleDiv {
+  padding-inline-start: 40px;
+}
+
+.ExampleDiv ol {
+  padding: 0;
+}
+
+.MethodologySubsubheaderText {
+  @include inter500();
+  font-size: $text;
+  // margin-top: 5rem;
+  margin-top: 2rem;
+}
+
+.MethodologyInfoBar {
+  background-color: $infobar-color;
+  padding: 2px 10px 2px 10px;
+  border-radius: 8px;
+  font-size: $small;
+}
+
+p.CitationAPA {
+  padding-left: 3rem;
+  padding-right: 1rem;
+  margin: 1rem initial;
+}
+
+p.CitationAPA:first-of-type {
+  text-indent: -2rem;
+}
+
+.MissingDataBox {
+  padding: 1rem 2rem;
+  background-color: $standard-warning !important;
+}
+
+.WhyBox {
+  padding: 1rem 2rem;
+  background-color: $standard-info !important;
+}
+
+/* AGE ADJUSTMENT */
+
+.AgeAdjustmentSection {
+  padding: 5px 20px 50px 20px;
+  margin: auto;
+  max-width: $max-width;
+}
+
+.AgeAdjustmentHeader {
+  @include tav300();
+  font-size: $smallHeader;
+  text-align: center;
+  color: $alt-black;
+}
+
+.StripedTable {
+  .thickBorder {
+    border-bottom: 3px solid var(--0-b-5240, #0b5240);
+  }
+}
+.StripedTable td {
+  font-family: Inter, sans-serif;
+  font-weight: 400 !important;
+  font-size: 0.875rem;
+  text-align: left;
+}
+.StripedTable tbody > tr > th {
+  font-family: Inter, sans-serif;
+  font-weight: 400 !important;
+  font-size: 0.875rem;
+  text-align: left;
+}
+
+.StripedTableHeader {
+  background: rgba(11, 82, 64, 0.3);
+  color: var(--m-3-sys-light-on-surface, #1d1b20);
+}
+
+.StripedTableHeader th {
+  font-family: DM Sans;
+  font-size: 1rem;
+  font-weight: 500;
+  vertical-align: baseline;
+}
+
+.ExampleTable {
+  margin: 1rem;
+}
+
+.ExampleTable,
+.ExampleTable td {
+  border: 1px solid $bg-color;
+  border-collapse: collapse;
+  padding: 5px;
+}
+
+.ExampleTable thead {
+  background-color: $join-effort-bg1;
+  font-weight: bold;
+}
+
+.ExampleTable tr:nth-child(even) {
+  background-color: $explore-bg-color;
+}
+
+.Highlighted {
+  background-color: $standard-warning;
+  font-weight: bold;
+  outline: 3px solid $alert-color;
+}
+
+.Calculation {
+  font-style: italic;
+  font-size: $smallest;
+}
+
+pre,
+code {
+  // border: 1px solid $bg-color;
+  padding: 5px;
+  margin: 3px 3px 2rem 3px;
+  background-color: #fafafa;
+  font-size: $smallest;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.StickyHeader {
+  margin: 0;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  /* Ensuring it stays above other elements. Adjust this value if needed. */
+  background-color: white;
+  /* To ensure the text is readable when overlaying other content. */
+}

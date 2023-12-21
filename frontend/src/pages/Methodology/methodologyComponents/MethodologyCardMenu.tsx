@@ -1,3 +1,5 @@
+import styles from '../Methodology.module.scss'
+
 import * as React from 'react'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
@@ -122,29 +124,26 @@ export default function MethodologyCardMenu() {
   return (
     <nav
       aria-label='methodology sections'
-      className='sticky top-0 z-z-almost-top flex max-w-menu flex-col items-start justify-center rounded-sm bg-white shadow-raised-tighter'
+      className={`sticky top-4 z-z-top flex h-min max-w-menu flex-col rounded-sm py-4 shadow-raised-tighter ${
+        styles.CardMenu ?? ''
+      }`}
     >
-      <div className='w-full'>
-        {links.map((link, idx) => (
-          <React.Fragment key={idx}>
-            <Link to={link.to}>
-              <ListItemButton
-                selected={selectedIndex === link.index}
-                onClick={() => {
-                  handleSelected(link.index)
-                }}
-                sx={{ pl: link.paddingLeft ?? 0 }}
-              >
-                <ListItemText
-                  primary={link.primary}
-                  secondary={link.secondary}
-                />
-              </ListItemButton>
-            </Link>
-            {shouldDisplayDivider(idx) && <Divider />}
-          </React.Fragment>
-        ))}
-      </div>
+      {links.map((link, idx) => (
+        <React.Fragment key={idx}>
+          <Link to={link.to}>
+            <ListItemButton
+              selected={selectedIndex === link.index}
+              onClick={() => {
+                handleSelected(link.index)
+              }}
+              sx={{ pl: link.paddingLeft ?? 0 }}
+            >
+              <ListItemText primary={link.primary} secondary={link.secondary} />
+            </ListItemButton>
+          </Link>
+          {shouldDisplayDivider(idx) && <Divider />}
+        </React.Fragment>
+      ))}
     </nav>
   )
 }
