@@ -32,8 +32,7 @@ export default {
     },
     colors: {
       'alert-color': 'rgb(var(--alert-color) / <alpha-value>)',
-      // 'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
-      'alt-black': '#383838', // @BEN: ex.: how about this pattern to use tailwind theme config instead?
+      'alt-black': 'rgb(var(--alt-black) / <alpha-value>)',
       'alt-dark': 'rgb(var(--alt-dark)  / <alpha-value>)',
       'alt-green': 'rgb(var(--alt-green) / <alpha-value>)',
       'alt-grey': 'rgb(var(--alt-grey) / <alpha-value>)',
@@ -110,8 +109,7 @@ export default {
       'unknown-map-min': 'rgb(var(--unknown-map-min) / <alpha-value>)',
       'unknown-map-more': 'rgb(var(--unknown-map-more) / <alpha-value>)',
       'unknown-map-most': 'rgb(var(--unknown-map-most) / <alpha-value>)',
-      // 'white': 'rgb(var(--white) / <alpha-value>) !important',
-      'white': '#fff',
+      'white': 'rgb(var(--white) / <alpha-value>) !important',
       'why-box-color': 'rgb(var(--why-box-color) / <alpha-value>)',
       'yellow': 'rgb(var(--yellow) / <alpha-value>)',
     },

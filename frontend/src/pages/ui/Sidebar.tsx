@@ -32,14 +32,13 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <>
-      {/* @BEN: is it acceptable to combine tw utility classes and inline style={{}} prop (for dynamic vals)? */}
-      <div className='sticky' style={{ top: tocOffset }}>
-        <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:p-2'>
+      <aside className='sticky' style={{ top: tocOffset }}>
+        <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
           <TopicInfoModalButton />
         </div>
 
         <div className='mode-selector-box'>
-          <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-[90%] md:flex-col md:justify-center md:px-2 md:py-4'>
+          <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:px-2 md:py-4'>
             <SimpleSelect<DemographicType>
               label='Demographic'
               optionsMap={props.enabledDemographicOptionsMap}
@@ -56,13 +55,13 @@ export default function Sidebar(props: SidebarProps) {
           </div>
         </div>
 
-        <div className='m-cardGutter flex w-[90%] justify-center rounded-sm bg-white py-4 shadow-raised'>
+        <nav className='m-cardGutter flex w-90p justify-center rounded-sm bg-white py-4 shadow-raised'>
           <TableOfContents
             reportStepHashIds={props.reportStepHashIds}
             isScrolledToTop={props.isScrolledToTop ?? false}
           />
-        </div>
-      </div>
+        </nav>
+      </aside>
     </>
   )
 }

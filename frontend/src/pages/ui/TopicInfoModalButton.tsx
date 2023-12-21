@@ -32,7 +32,6 @@ export default function TopicInfoModalButton() {
   if (!configArray) return <></>
 
   return (
-    // @BEN: keep this as fully MUI component?
     <Button
       onClick={() => {
         setTopicInfoModalIsOpen(true)
