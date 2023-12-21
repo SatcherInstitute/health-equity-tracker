@@ -6,7 +6,6 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
-import styles from './Sidebar.module.scss'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 
@@ -37,7 +36,7 @@ export default function TopicInfoModalButton() {
       onClick={() => {
         setTopicInfoModalIsOpen(true)
       }}
-      className={styles.TopicInfoModalButton}
+      className='text-smallest text-alt-black'
       aria-label='open the topic info modal'
     >
       <InfoOutlinedIcon sx={{ mr: '4px', mb: '0px' }} fontSize='small' />

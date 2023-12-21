@@ -1,6 +1,4 @@
-import { Card } from '@mui/material'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
-import styles from './Sidebar.module.scss'
 import { MADLIB_MODE_MAP, type MadLibId } from '../../utils/MadLibs'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import SimpleSelect from './SimpleSelect'
@@ -34,12 +32,13 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <>
-      <div className={styles.StickySidebarBox} style={{ top: tocOffset }}>
-        <Card className={styles.SidebarTopicInfoButtonBox} raised={true}>
+      <div className='sticky' style={{ top: tocOffset }}>
+        <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:p-2'>
           <TopicInfoModalButton />
-        </Card>
+        </div>
+
         <div className='mode-selector-box'>
-          <Card raised={true} className={styles.SidebarModeSelectorBox}>
+          <div className='rounded-sm bg-white shadow-raised md:m-cardGutter md:flex md:w-90p md:flex-col md:justify-center md:px-2 md:py-4'>
             <SimpleSelect<DemographicType>
               label='Demographic'
               optionsMap={props.enabledDemographicOptionsMap}
@@ -53,15 +52,18 @@ export default function Sidebar(props: SidebarProps) {
               selected={props.trackerMode}
               setSelected={props.setTrackerMode}
             />
-          </Card>
+          </div>
         </div>
 
-        <Card raised={true} className={styles.TableOfContentsBox}>
+        <nav
+          className='m-cardGutter flex w-90p justify-center rounded-sm bg-white py-4 shadow-raised'
+          aria-label='page contents navigation'
+        >
           <TableOfContents
             reportStepHashIds={props.reportStepHashIds}
             isScrolledToTop={props.isScrolledToTop ?? false}
           />
-        </Card>
+        </nav>
       </div>
     </>
   )
