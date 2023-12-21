@@ -2,7 +2,6 @@ import {
   type DemographicType,
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
-import styles from './MultiMapLink.module.scss'
 
 /*
 Generates the "COMPARES ACROSS GROUPS" button which opens the small multiples modal
@@ -21,7 +20,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
         onClick={() => {
           props.setMultimapOpen(true)
         }}
-        className={styles.CompareAcrossLink}
+        className='cursor-pointer border-0 bg-transparent p-0 text-alt-green underline'
         aria-label={
           'Open modal to Compare ' +
           props.currentDataType +

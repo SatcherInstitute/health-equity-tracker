@@ -100,6 +100,7 @@ export default {
       'time-purple': 'rgb(var(--time-purple) / <alpha-value>)',
       'time-yellow': 'rgb(var(--time-yellow) / <alpha-value>)',
       'toggle-color': 'rgb(var(--toggle-color) / <alpha-value>)',
+      'transparent': '#00000000',
       'unknown-map-even-more':
         'rgb(var(--unknown-map-even-more) / <alpha-value>)',
       'unknown-map-least': 'rgb(var(--unknown-map-least) / <alpha-value>)',
