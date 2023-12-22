@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Grid'
 import { HET_URL } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { currentYear } from '../../../cards/ui/SourcesHelpers'
@@ -8,8 +7,10 @@ import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import NavigationButtons from './NavigationButtons'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
-import { useEffect, useState } from 'react'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import styles from '../Methodology.module.scss'
+
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 export const defLookup = () => {
   const indexedDefinitions = definitionsGlossary.map((item, index) => ({
@@ -24,19 +25,8 @@ export const defLookup = () => {
     })
 }
 
-const MethodologyPage: React.FC = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+export default function MethodologyPage() {
+  const isMd = useIsBreakpointAndUp('md')
 
   const location = useLocation()
 
@@ -45,75 +35,69 @@ const MethodologyPage: React.FC = () => {
   )
 
   return (
-    <div className='m-1'>
+    <>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
-      <h2 className='sr-only'>Methodology</h2>
+      <div className={styles.MethodologySectionWrapper}>
+        <h2 className='sr-only'>Methodology</h2>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={3}>
-          {windowWidth < 600 ? (
-            <MethodologyCardMenuMobile />
-          ) : (
-            <MethodologyCardMenu />
+        <div className='grid grid-cols-1 gap-12  md:grid-cols-5'>
+          {!isMd ? <MethodologyCardMenuMobile /> : <MethodologyCardMenu />}
+
+          {!isMd && (
+            <>
+              {routeConfigs.map((route, index) => {
+                const match = useRouteMatch({
+                  path: route.path,
+                  exact: true,
+                })
+
+                return match && route.subLinks.length > 0 ? (
+                  <MethodologySubMenu key={index} links={route.subLinks} />
+                ) : null
+              })}
+            </>
           )}
-        </Grid>
 
-        {windowWidth < 600 && (
-          <Grid item xs={12} sm={3}>
-            {routeConfigs.map((route, index) => {
-              const match = useRouteMatch({
-                path: route.path,
-                exact: true,
-              })
+          <div className='mt-8 flex p-0 md:col-span-3'>
+            <article className='flex w-full flex-col p-8 text-left lg:p-0 '>
+              <h2 className='font-serif text-header font-light' id='main'>
+                {activeRoute?.label}
+              </h2>
+              <Switch>
+                <>
+                  {routeConfigs.map((route, index) => (
+                    <Route
+                      key={index}
+                      exact
+                      path={route.path}
+                      component={route.component}
+                    />
+                  ))}
+                  <NavigationButtons />
+                </>
+              </Switch>
+            </article>
+          </div>
 
-              return match && route.subLinks.length > 0 ? (
-                <MethodologySubMenu key={index} links={route.subLinks} />
-              ) : null
-            })}
-          </Grid>
-        )}
+          {isMd && (
+            <div>
+              {routeConfigs.map((route, index) => {
+                const match = useRouteMatch({
+                  path: route.path,
+                  exact: true,
+                })
 
-        <div className='mt-8 flex p-0'>
-          <article className='flex w-full flex-col p-8 text-left sm:w-1/2 lg:p-0 '>
-            <h2 className='font-serif text-header font-light' id='main'>
-              {activeRoute?.label}
-            </h2>
-            <Switch>
-              <>
-                {routeConfigs.map((route, index) => (
-                  <Route
-                    key={index}
-                    exact
-                    path={route.path}
-                    component={route.component}
-                  />
-                ))}
-                <NavigationButtons />
-              </>
-            </Switch>
-          </article>
+                return match && route.subLinks.length > 0 ? (
+                  <MethodologySubMenu key={index} links={route.subLinks} />
+                ) : null
+              })}
+            </div>
+          )}
         </div>
-
-        {windowWidth >= 600 && (
-          <Grid item xs={12} sm={3}>
-            {routeConfigs.map((route, index) => {
-              const match = useRouteMatch({
-                path: route.path,
-                exact: true,
-              })
-
-              return match && route.subLinks.length > 0 ? (
-                <MethodologySubMenu key={index} links={route.subLinks} />
-              ) : null
-            })}
-          </Grid>
-        )}
-      </Grid>
-    </div>
+      </div>
+    </>
   )
 }
-
-export default MethodologyPage
