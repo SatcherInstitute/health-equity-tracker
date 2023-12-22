@@ -1,8 +1,3 @@
-import styles from '../Methodology.module.scss'
-
-import * as React from 'react'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
 import Divider from '@mui/material/Divider'
 import { Link } from 'react-router-dom'
 import {
@@ -23,127 +18,175 @@ import {
   NEW_METHODOLOGY_PAGE_LINK,
   GLOSSARY_LINK,
 } from '../../../utils/internalRoutes'
-import { useState } from 'react'
-
-interface LinkItem {
-  index: number
-  to: string
-  primary?: string
-  secondary?: string
-  paddingLeft?: number
-}
-
-export const links: LinkItem[] = [
-  { index: 0, to: NEW_METHODOLOGY_PAGE_LINK, primary: 'Methodology' },
-  { index: 1, to: NEW_AGE_ADJUSTMENT_LINK, primary: 'Age-Adjustment' },
-  { index: 2, to: SOURCES_LINK, primary: 'Data Sources' },
-  { index: 3, to: TOPICS_LINK, primary: 'Categories and Limitations' },
-  {
-    index: 4,
-    to: BEHAVIORAL_HEALTH_LINK,
-    secondary: 'Behavioral Health',
-    paddingLeft: 5,
-  },
-  {
-    index: 5,
-    to: CHRONIC_DISEASE_LINK,
-    secondary: 'Chronic Diseases',
-    paddingLeft: 4,
-  },
-  { index: 6, to: COVID_19_LINK, secondary: 'COVID-19', paddingLeft: 4 },
-  { index: 7, to: HIV_LINK, secondary: 'HIV', paddingLeft: 4 },
-  {
-    index: 8,
-    to: PDOH_LINK,
-    secondary: 'Political Determinants of Health (PDOH)',
-    paddingLeft: 4,
-  },
-  {
-    index: 9,
-    to: SDOH_LINK,
-    secondary: 'Social Determinants of Health (SDOH)',
-    paddingLeft: 4,
-  },
-  {
-    index: 10,
-    to: DATA_METHOD_DEFINITIONS_LINK,
-    primary: 'Data Method Definitions',
-  },
-  { index: 11, to: METRICS_LINK, secondary: 'Metrics', paddingLeft: 4 },
-  {
-    index: 12,
-    to: CONDITION_VARIABLES_LINK,
-    secondary: 'Condition Variables',
-    paddingLeft: 4,
-  },
-  {
-    index: 13,
-    to: RACES_AND_ETHNICITIES_LINK,
-    secondary: 'Races and Ethnicities',
-    paddingLeft: 4,
-  },
-  {
-    index: 14,
-    to: RECOMMENDED_CITATION_LINK,
-    primary: 'Recommended Citation',
-  },
-  {
-    index: 15,
-    to: GLOSSARY_LINK,
-    primary: 'Glossary',
-  },
-]
+import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
 
 export default function MethodologyCardMenu() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
-
-  const handleSelected = (index: number) => {
-    setSelectedIndex(index)
-  }
-
-  const shouldDisplayDivider = (currentIndex: number) => {
-    if (currentIndex === links.length - 1) return false
-
-    const currentLink = links[currentIndex]
-    const nextLink = links[currentIndex + 1]
-
-    if (currentLink.primary && nextLink?.secondary) {
-      return false
-    }
-
-    if (currentLink.primary && (nextLink?.primary ?? !nextLink)) {
-      return true
-    }
-    if (currentLink.secondary && (nextLink?.primary ?? !nextLink)) {
-      return true
-    }
-
-    return false
-  }
-
   return (
     <nav
       aria-label='methodology sections'
-      className={`sticky top-4 z-z-top flex h-min max-w-menu flex-col rounded-sm py-4 shadow-raised-tighter ${
-        styles.CardMenu ?? ''
-      }`}
+      className={`sticky top-4 z-z-top flex h-min max-w-menu flex-col rounded-sm py-0 shadow-raised-tighter`}
     >
-      {links.map((link, idx) => (
-        <React.Fragment key={idx}>
-          <Link to={link.to}>
-            <ListItemButton
-              selected={selectedIndex === link.index}
-              onClick={() => {
-                handleSelected(link.index)
-              }}
-              sx={{ pl: link.paddingLeft ?? 0 }}
+      <ul className='my-0 list-none pl-0 leading-lhLoose'>
+        <li>
+          <Link to={NEW_METHODOLOGY_PAGE_LINK} className='no-underline'>
+            <HetListItemButton
+              selected={window.location.pathname === NEW_METHODOLOGY_PAGE_LINK}
             >
-              <ListItemText primary={link.primary} secondary={link.secondary} />
-            </ListItemButton>
+              Methodology
+            </HetListItemButton>
           </Link>
-          {shouldDisplayDivider(idx) && <Divider />}
-        </React.Fragment>
-      ))}
+        </li>
+        <Divider />
+        <li>
+          <Link className='no-underline' to={NEW_AGE_ADJUSTMENT_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === NEW_AGE_ADJUSTMENT_LINK}
+            >
+              Age-Adjustment
+            </HetListItemButton>
+          </Link>
+        </li>
+        <Divider />
+        <li>
+          <Link className='no-underline' to={SOURCES_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === SOURCES_LINK}
+            >
+              Data Sources
+            </HetListItemButton>
+          </Link>
+        </li>
+        <Divider />
+        <li>
+          <Link className='no-underline' to={TOPICS_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === TOPICS_LINK}
+            >
+              Categories and Limitations
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={BEHAVIORAL_HEALTH_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === BEHAVIORAL_HEALTH_LINK}
+              option='normalBlack'
+            >
+              Behavioral Health
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={CHRONIC_DISEASE_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === CHRONIC_DISEASE_LINK}
+              option='normalBlack'
+            >
+              Chronic Diseases
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={COVID_19_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === COVID_19_LINK}
+              option='normalBlack'
+            >
+              COVID-19
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={HIV_LINK}>
+            <HetListItemButton selected={window.location.pathname === HIV_LINK}>
+              HIV
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={PDOH_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === PDOH_LINK}
+              option='normalBlack'
+            >
+              Political Determinants of Health
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={SDOH_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === SDOH_LINK}
+              option='normalBlack'
+            >
+              Social Determinants of Health
+            </HetListItemButton>
+          </Link>
+        </li>
+        <Divider />
+        <li>
+          <Link className='no-underline' to={DATA_METHOD_DEFINITIONS_LINK}>
+            <HetListItemButton
+              selected={
+                window.location.pathname === DATA_METHOD_DEFINITIONS_LINK
+              }
+            >
+              Data Method Definitions
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={METRICS_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === METRICS_LINK}
+              option='normalBlack'
+            >
+              Metrics
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={CONDITION_VARIABLES_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === CONDITION_VARIABLES_LINK}
+              option='normalBlack'
+            >
+              Condition Variables
+            </HetListItemButton>
+          </Link>
+        </li>
+
+        <li>
+          <Link className='no-underline' to={RACES_AND_ETHNICITIES_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === RACES_AND_ETHNICITIES_LINK}
+              option='normalBlack'
+            >
+              Races and Ethnicities
+            </HetListItemButton>
+          </Link>
+        </li>
+        <Divider />
+        <li>
+          <Link className='no-underline' to={RECOMMENDED_CITATION_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === RECOMMENDED_CITATION_LINK}
+            >
+              Recommended Citation
+            </HetListItemButton>
+          </Link>
+        </li>
+        <Divider />
+        <li>
+          <Link className='no-underline' to={GLOSSARY_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === GLOSSARY_LINK}
+            >
+              Glossary
+            </HetListItemButton>
+          </Link>
+        </li>
+      </ul>
     </nav>
   )
 }

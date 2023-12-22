@@ -64,7 +64,7 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
         </h4>
         <ul className='list-none pl-0'>
           {links.map((link, index) => (
-            <li key={index}>
+            <li key={index} className='pb-1 leading-lhSomeSpace'>
               <CombinedLink
                 to={link.path}
                 isScrollLink
@@ -79,7 +79,7 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
                   activeLink === link.path ? 'font-semibold text-alt-green' : ''
                 }
               >
-                <span className='py-3 font-sansText text-small  hover:cursor-pointer'>
+                <span className='py-3 font-sansText text-smallest hover:cursor-pointer'>
                   {link.label}
                 </span>
               </CombinedLink>

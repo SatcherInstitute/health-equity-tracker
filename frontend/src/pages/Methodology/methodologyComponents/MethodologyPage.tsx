@@ -25,8 +25,8 @@ export const defLookup = () => {
     })
 }
 
-const MethodologyPage: React.FC = () => {
-  const isSm = useIsBreakpointAndUp('sm')
+export default function MethodologyPage() {
+  const isMd = useIsBreakpointAndUp('md')
 
   const location = useLocation()
 
@@ -43,10 +43,10 @@ const MethodologyPage: React.FC = () => {
       <div className={styles.MethodologySectionWrapper}>
         <h2 className='sr-only'>Methodology</h2>
 
-        <div className='grid grid-cols-1 gap-12  sm:grid-cols-4'>
-          {!isSm ? <MethodologyCardMenuMobile /> : <MethodologyCardMenu />}
+        <div className='grid grid-cols-1 gap-12  md:grid-cols-5'>
+          {!isMd ? <MethodologyCardMenuMobile /> : <MethodologyCardMenu />}
 
-          {!isSm && (
+          {!isMd && (
             <>
               {routeConfigs.map((route, index) => {
                 const match = useRouteMatch({
@@ -61,7 +61,7 @@ const MethodologyPage: React.FC = () => {
             </>
           )}
 
-          <div className='mt-8 flex p-0 sm:col-span-2'>
+          <div className='mt-8 flex p-0 md:col-span-3'>
             <article className='flex w-full flex-col p-8 text-left lg:p-0 '>
               <h2 className='font-serif text-header font-light' id='main'>
                 {activeRoute?.label}
@@ -82,7 +82,7 @@ const MethodologyPage: React.FC = () => {
             </article>
           </div>
 
-          {isSm && (
+          {isMd && (
             <div>
               {routeConfigs.map((route, index) => {
                 const match = useRouteMatch({
@@ -101,5 +101,3 @@ const MethodologyPage: React.FC = () => {
     </>
   )
 }
-
-export default MethodologyPage
