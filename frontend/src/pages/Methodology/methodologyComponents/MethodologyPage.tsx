@@ -26,7 +26,7 @@ export const defLookup = () => {
 }
 
 export default function MethodologyPage() {
-  const isMd = useIsBreakpointAndUp('md')
+  const isDesktop = useIsBreakpointAndUp('md')
 
   const location = useLocation()
 
@@ -44,16 +44,17 @@ export default function MethodologyPage() {
         <h2 className='sr-only'>Methodology</h2>
 
         <div className='grid grid-cols-1 gap-12  md:grid-cols-5'>
-          {!isMd ? <MethodologyCardMenuMobile /> : <MethodologyCardMenu />}
+          {/* MAIN METHODOLOGY PAGES MENU */}
+          {isDesktop ? <MethodologyCardMenu /> : <MethodologyCardMenuMobile />}
 
-          {!isMd && (
+          {/* ON THIS PAGE SUB-MENU - MOBILE */}
+          {!isDesktop && (
             <>
               {routeConfigs.map((route, index) => {
                 const match = useRouteMatch({
                   path: route.path,
                   exact: true,
                 })
-
                 return match && route.subLinks.length > 0 ? (
                   <MethodologySubMenu key={index} links={route.subLinks} />
                 ) : null
@@ -61,13 +62,17 @@ export default function MethodologyPage() {
             </>
           )}
 
+          {/* CONTENT */}
           <div className='mt-8 flex p-0 md:col-span-3'>
             <article className='flex w-full flex-col p-8 text-left lg:p-0 '>
+              {/* HEADING */}
               <h2 className='font-serif text-header font-light' id='main'>
                 {activeRoute?.label}
               </h2>
+
               <Switch>
                 <>
+                  {/* TEXT */}
                   {routeConfigs.map((route, index) => (
                     <Route
                       key={index}
@@ -76,20 +81,21 @@ export default function MethodologyPage() {
                       component={route.component}
                     />
                   ))}
+                  {/* PREV / NEXT */}
                   <NavigationButtons />
                 </>
               </Switch>
             </article>
           </div>
 
-          {isMd && (
+          {/* ON THIS PAGE SUB-MENU - DESKTOP */}
+          {isDesktop && (
             <div>
               {routeConfigs.map((route, index) => {
                 const match = useRouteMatch({
                   path: route.path,
                   exact: true,
                 })
-
                 return match && route.subLinks.length > 0 ? (
                   <MethodologySubMenu key={index} links={route.subLinks} />
                 ) : null

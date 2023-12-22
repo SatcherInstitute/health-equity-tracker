@@ -98,7 +98,10 @@ export default function MethodologyCardMenu() {
         </li>
         <li>
           <Link className='no-underline' to={HIV_LINK}>
-            <HetListItemButton selected={window.location.pathname === HIV_LINK}>
+            <HetListItemButton
+              selected={window.location.pathname === HIV_LINK}
+              option='normalBlack'
+            >
               HIV
             </HetListItemButton>
           </Link>
