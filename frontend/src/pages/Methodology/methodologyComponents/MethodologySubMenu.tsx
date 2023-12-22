@@ -57,14 +57,14 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className='z-z-middle lg:z-z-top sticky right-0 top-2 m-2 text-left'
+        className='sticky right-0 top-2 z-z-middle m-2 text-left lg:z-z-top'
       >
         <h4 className='text-left font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'>
           On this page
         </h4>
         <ul className='list-none pl-0'>
           {links.map((link, index) => (
-            <li key={index}>
+            <li key={index} className='pb-1 leading-lhSomeSpace'>
               <CombinedLink
                 to={link.path}
                 isScrollLink
@@ -79,7 +79,7 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
                   activeLink === link.path ? 'font-semibold text-alt-green' : ''
                 }
               >
-                <span className='py-3 font-sansText text-small  hover:cursor-pointer'>
+                <span className='py-3 font-sansText text-smallest hover:cursor-pointer'>
                   {link.label}
                 </span>
               </CombinedLink>

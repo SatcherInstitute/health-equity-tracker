@@ -17,10 +17,9 @@ export default function HetLinkButton(props: HetLinkButtonProps) {
       color='primary'
       href={props.href}
       onClick={props.onClick}
-      className='px-6'
       aria-label={props.ariaLabel}
     >
-      <span className={`text-alt-green ${props.className ?? ''}`}>
+      <span className={`px-6 text-alt-green ${props.className ?? ''}`}>
         {props.children}
       </span>
     </Button>

@@ -31,7 +31,7 @@ const MethodologyHomeLink = () => {
             the most critical political determinants of health. We invite you to
             tell us what you are working on to advance Health Equity, and how
             the Health Equity Tracker might help. In the spirit of
-            collaboration, I hope you will join us in saying:
+            collaboration, I hope you will join us in saying:{' '}
             <strong>Health Equity for All!</strong>
           </p>
         </div>
