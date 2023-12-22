@@ -138,7 +138,7 @@ export default function MethodologyCardMenuMobile() {
             >
               {links.map((link, idx) => (
                 <MenuItem key={idx} value={link.index} className=''>
-                  {link.primary ? link.primary : link.secondary}
+                  {link?.primary ?? link.secondary}
                 </MenuItem>
               ))}
             </Select>
