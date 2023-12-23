@@ -29,12 +29,12 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
   return null
 }
 
-interface MethodologySubMenuProps {
+interface HetOnThisPageMenuProps {
   links: LinkConfig[]
   className?: string
 }
 
-export default function MethodologySubMenu(props: MethodologySubMenuProps) {
+export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
   const [activeLink, setActiveLink] = useState<string | null>(null)
 
   useEffect(() => {
@@ -58,12 +58,12 @@ export default function MethodologySubMenu(props: MethodologySubMenuProps) {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className={`m-2 text-left  ${props.className ?? ''} }`}
+        className={`m-2 text-left  ${props.className ?? ''}`}
       >
         <h4 className='text-left font-sansTitle text-smallest text-black'>
           On this page
         </h4>
-        <ul className='list-none space-y-0 pl-0 lg:space-y-1'>
+        <ul className='space-t-1 list-none pl-0 leading-lhTight lg:space-y-2'>
           {props.links.map((link, index) => (
             <li key={index}>
               <CombinedLink

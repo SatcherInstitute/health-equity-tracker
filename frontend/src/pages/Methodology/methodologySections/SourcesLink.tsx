@@ -2,13 +2,6 @@ import { NEW_AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
 import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 import { Helmet } from 'react-helmet-async'
-import {
-  crudeRatesTooltip,
-  percentRateTooltip,
-  percentShareTooltip,
-  indexScoreTooltip,
-  totalCasesPer100kPeopleTooltip,
-} from '../methodologyContent/TooltipLibrary'
 
 const SourcesLink = () => {
   const { title, description, listItems, nestedListItems } =
@@ -44,10 +37,10 @@ const SourcesLink = () => {
             <li>{nestedListItems[1].sub[0]}</li>
             <li>
               Transformation: Graphic visualizations reflect
-              {crudeRatesTooltip}
+              <b>crude rates</b>
               (non-age-adjusted) presented in various formats, such as
-              {totalCasesPer100kPeopleTooltip}, {percentRateTooltip},{' '}
-              {percentShareTooltip}, or as an {indexScoreTooltip}.
+              <b>cases per 100k</b>, <b>percent rate</b>, <b>percent share</b>,
+              or as an <b>index score</b>.
             </li>
             <li>{nestedListItems[1].sub[2]}</li>
           </ul>
@@ -61,10 +54,7 @@ const SourcesLink = () => {
               Where data are readily available, calculations are made to present
               age-adjusted ratios in separate tables. To learn more, please view
               our{' '}
-              <a href={`${NEW_AGE_ADJUSTMENT_LINK}`}>
-                age-adjustment methodology
-              </a>
-              .
+              <a href={NEW_AGE_ADJUSTMENT_LINK}>age-adjustment methodology</a>.
             </li>
           </ul>
 

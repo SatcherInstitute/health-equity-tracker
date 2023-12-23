@@ -3,11 +3,11 @@ import { Helmet } from 'react-helmet-async'
 import { currentYear } from '../../../cards/ui/SourcesHelpers'
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
-import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import NavigationButtons from './NavigationButtons'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 export const defLookup = () => {
@@ -44,21 +44,20 @@ export default function MethodologyPage() {
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
               <MethodologyCardMenu className='sticky top-4 z-z-top hidden h-min max-w-menu smMd:block' />
-
               <MethodologyCardMenuMobile className='smMd:hidden' />
             </div>
 
             {/* CONTENT */}
             <div className='flex flex-wrap p-0'>
-              {/* ON THIS PAGE SUB-MENU - MOBILE */}
-              <div className='lg:hidden'>
+              {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
+              <div className='px-12 lg:hidden'>
                 {routeConfigs.map((route, index) => {
                   const match = useRouteMatch({
                     path: route.path,
                     exact: true,
                   })
                   return match && route.subLinks.length > 0 ? (
-                    <MethodologySubMenu
+                    <HetOnThisPageMenu
                       key={index}
                       links={route.subLinks}
                       className=''
@@ -99,7 +98,7 @@ export default function MethodologyPage() {
                   exact: true,
                 })
                 return match && route.subLinks.length > 0 ? (
-                  <MethodologySubMenu
+                  <HetOnThisPageMenu
                     key={index}
                     links={route.subLinks}
                     className='sticky right-0 top-4  z-z-top h-min'

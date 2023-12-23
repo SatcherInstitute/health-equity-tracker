@@ -11,18 +11,9 @@ import KeyTerms from '../methodologyComponents/KeyTerms'
 import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import {
-  ageAdjustedRatiosTooltip,
-  ageSpecificRateTooltip,
-  crudeRatesTooltip,
-  directStandardizationMethodTooltip,
-  edgeCasesTooltip,
-  expectedConditionCountsTooltip,
-  internalStandardPopulationTooltip,
-  standardPopulationTooltip,
-} from '../methodologyContent/TooltipLibrary'
 import Resources from '../methodologyComponents/Resources'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const AGE_ADJUSTED_RESOURCES = [
   {
@@ -54,11 +45,19 @@ const AgeAdjustmentLink = () => {
         <h2 className='sr-only'>Age-Adjustment</h2>
 
         <div>
+          <HetNotice>
+            Age-adjustment is a statistical process applied to rates of disease,
+            death, or other health outcomes that correlate with an individual's
+            age. Adjusting for age allows for fairer comparison between
+            populations, where age might be a confounding risk factor and the
+            studied groups have different distributions of individuals per age
+            group. By normalizing for age, we can paint a more accurate picture
+            of undue burden of disease and death between populations.
+          </HetNotice>
           <p>
-            We have decided to present
-            {ageAdjustedRatiosTooltip}
-            when possible in order to show a more accurate and equitable view of
-            the impact on non-White communities in the United States.
+            We have decided to present age-adjusted ratios when possible in
+            order to show a more accurate and equitable view of the impact on
+            non-White communities in the United States.
           </p>
 
           <p>
@@ -87,27 +86,26 @@ const AgeAdjustmentLink = () => {
             </Link>
             , and we present the findings in a distinct, age-adjusted table. All
             of the other data shown on the tracker, including visualizations
-            across all topics, are not age-adjusted, or
-            {crudeRatesTooltip}. Showing non-adjusted data can mask disparities,
-            and we are working to expand our analysis to provide a more
-            equitable view of the impact to racial and ethnic minorities.
+            across all topics, are ‘crude rates’ (rates that have not been
+            age-adjusted). Showing non-adjusted data can mask disparities, and
+            we are working to expand our analysis to provide a more equitable
+            view of the impact to racial and ethnic minorities.
           </p>
           <p>
-            We use a {directStandardizationMethodTooltip} with the{' '}
-            {internalStandardPopulationTooltip} for each state being that
+            We use a{' '}
+            <a href='https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3406211/'>
+              direct standardization method
+            </a>{' '}
+            with the ‘internal standard population’ for each state being that
             state's total population. Finally, the ratios we present for each
             race group is that race's age-adjusted count, divided by the
             age-adjusted count for White, non-Hispanic individuals in the same
             location.
           </p>
-          <blockquote>
-            <p>
-              <strong>
-                Thus, our age-adjusted ratios can only be used to compare race
-                groups within each state, and <b>not</b> to compare race groups
-                between states.
-              </strong>
-            </p>
+          <blockquote className='italic'>
+            Thus, our age-adjusted ratios can only be used to compare race
+            groups within each state, and <b>not</b> to compare race groups
+            across different states.
           </blockquote>
 
           <p>
@@ -143,73 +141,11 @@ const AgeAdjustmentLink = () => {
                   </a>{' '}
                   for this. It can break down by race and age to ten-year
                   buckets. The age buckets are:
-                  <CodeBlock
-                    rowData={[
-                      {
-                        content: (
-                          <>
-                            <b>0-9</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>10-19</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>20-29</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>30-39</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>40-49</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>50-59</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>60-69</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>70-79</b>,
-                          </>
-                        ),
-                      },
-                      {
-                        content: (
-                          <>
-                            <b>80+</b>
-                          </>
-                        ),
-                      },
-                    ]}
-                  />
+                  <blockquote className='rounded-md bg-grey-grid-color p-5'>
+                    <b>0-9</b>, <b>10-19</b>, <b>20-29</b>, <b>30-39</b>,{' '}
+                    <b>40-49</b>, <b>50-59</b>, <b>60-69</b>, <b>70-79</b>,{' '}
+                    <b>80+</b>
+                  </blockquote>
                 </li>
 
                 <li>
@@ -250,8 +186,8 @@ const AgeAdjustmentLink = () => {
             <li>
               <p>
                 <b>
-                  For each race/age combination, calculate the
-                  {ageSpecificRateTooltip}:
+                  For each race/age combination, calculate the ‘age-specific
+                  rate’:
                 </b>
               </p>
               <FormulaFormat
@@ -267,10 +203,7 @@ const AgeAdjustmentLink = () => {
 
             <li>
               <p>
-                <b>
-                  For each age group, calculate the
-                  {standardPopulationTooltip}:
-                </b>
+                <b>For each age group, calculate the ‘standard population’</b>
               </p>
               <FormulaFormat
                 leftSide='standard_population_age_group_1'
@@ -291,8 +224,7 @@ const AgeAdjustmentLink = () => {
             <li>
               <p>
                 <b>
-                  Calculate the
-                  {expectedConditionCountsTooltip} for each race/age
+                  Calculate the ‘expected condition counts’ for each race/age
                   combination:
                 </b>
               </p>
@@ -324,7 +256,7 @@ const AgeAdjustmentLink = () => {
             <li>
               <p>
                 <b>
-                  Calculate the total expected condition count for each race
+                  Calculate the ‘total expected condition count’ for each race
                   group:
                 </b>
               </p>
@@ -336,7 +268,7 @@ const AgeAdjustmentLink = () => {
 
             <li>
               <p>
-                <b>Calculate the age-adjusted condition ratios:</b>
+                <b>Calculate the ‘age-adjusted condition ratios’:</b>
               </p>
               <p>
                 For each non-White NH race, divide the total expected condition
@@ -346,10 +278,7 @@ const AgeAdjustmentLink = () => {
             </li>
             <li>
               <p>
-                <b>
-                  Account for
-                  {edgeCasesTooltip}:
-                </b>
+                <b>Account for ‘edge cases’:</b>
               </p>
               <p>
                 If a ratio ends up being less than <b>0.1</b>, we report it on
