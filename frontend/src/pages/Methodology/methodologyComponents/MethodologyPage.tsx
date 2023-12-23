@@ -40,7 +40,7 @@ export default function MethodologyPage() {
         <h2 className='sr-only'>Methodology</h2>
 
         <section className='m-[2%] max-w-xl'>
-          <div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-12'>
+          <div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-2 md:gap-12'>
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
               <MethodologyCardMenu className='sticky top-4 z-z-top hidden h-min max-w-menu smMd:block' />
