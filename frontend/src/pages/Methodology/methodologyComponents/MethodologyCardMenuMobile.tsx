@@ -128,7 +128,7 @@ export default function MethodologyCardMenuMobile(
   return (
     <>
       <div
-        className={`top-0 z-z-almost-top flex items-center  justify-center rounded-sm bg-white p-1 sm:top-auto sm:items-start sm:justify-start ${
+        className={`top-0 z-z-almost-top flex items-center rounded-sm bg-white p-1 sm:items-start sm:justify-start md:justify-center ${
           props.className ?? ''
         }`}
       >
@@ -138,7 +138,7 @@ export default function MethodologyCardMenuMobile(
               Methodology Pages
             </InputLabel>
             <Select
-              className='max-w-tiny'
+              // className='max-w-tiny'
               labelId='methodology-select-label'
               value={window.location.pathname}
               onChange={handleSelected}

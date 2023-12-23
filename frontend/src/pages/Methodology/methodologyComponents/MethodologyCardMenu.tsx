@@ -20,11 +20,17 @@ import {
 } from '../../../utils/internalRoutes'
 import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
 
-export default function MethodologyCardMenu() {
+interface MethodologyCardMenuProps {
+  className?: string
+}
+
+export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
   return (
     <nav
       aria-label='methodology sections'
-      className={`sticky top-4 z-z-top flex h-min max-w-menu flex-col rounded-sm py-0 shadow-raised-tighter`}
+      className={`flex  flex-col rounded-sm py-0 shadow-raised-tighter ${
+        props.className ?? ''
+      } `}
     >
       <ul className='my-0 list-none pl-0 leading-lhLoose'>
         <li>
