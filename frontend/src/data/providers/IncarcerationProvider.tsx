@@ -8,17 +8,6 @@ import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { getMostRecentYearAsString } from '../utils/DatasetTimeUtils'
 import { type DatasetId } from '../config/DatasetMetadata'
 
-export function CombinedIncarcerationStateMessage() {
-  return (
-    <>
-      <b>Alaska</b>, <b>Connecticut</b>, <b>Delaware</b>, <b>Hawaii</b>,{' '}
-      <b>Rhode Island</b>, and <b>Vermont</b> each operate an integrated system
-      that combines both prisons and jails; for our reports these are treated
-      only as prison facilities.
-    </>
-  )
-}
-
 // states with combined prison and jail systems
 export const COMBINED_INCARCERATION_STATES_LIST = [
   'Alaska',
@@ -31,8 +20,6 @@ export const COMBINED_INCARCERATION_STATES_LIST = [
 
 export const COMBINED_QUALIFIER = '(combined prison and jail)'
 export const PRIVATE_JAILS_QUALIFIER = '(private jail system only)'
-export const ALASKA_PRIVATE_JAIL_CAVEAT =
-  'In addition, Alaska contracts with a small network of private jails, which are included here only as jail facilities.'
 
 export const INCARCERATION_IDS: DataTypeId[] = ['prison', 'jail']
 
