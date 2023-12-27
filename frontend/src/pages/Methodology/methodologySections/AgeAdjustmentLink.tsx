@@ -241,8 +241,8 @@ const AgeAdjustmentLink = () => {
               </p>
               <p>
                 If a ratio ends up being less than <b>0.1</b>, we report it on
-                the tracker as <b>Insufficient Data</b> to prevent sharing
-                potentially unreliable data.
+                the tracker as <HetTerm>Insufficient Data</HetTerm> to prevent
+                sharing potentially unreliable data.
               </p>
             </li>
           </ol>
@@ -516,8 +516,9 @@ const AgeAdjustmentLink = () => {
           </table>
 
           <h4 className='mt-20 font-sansText text-text font-medium'>
-            2) Get the <b>standard population</b> per age group, which will be
-            the summed population of all race/age groups within that age group.
+            2) Get the <HetTerm>standard population</HetTerm> per age group,
+            which will be the summed population of all race/age groups within
+            that age group.
           </h4>
 
           {/* A + B TABLE */}

@@ -23,6 +23,7 @@ import { type Fips } from '../data/utils/Fips'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 import styles from './Report.module.scss'
+import HetTerm from '../styles/HetComponents/HetTerm'
 
 interface WhatDataAreMissingProps {
   metricConfigSubset: Array<[string, DataTypeConfig[]]>
@@ -62,13 +63,13 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
         categories for data collection across state and local jurisdictions. The
         most notable gaps exist for race and ethnic groups, physical and mental
         health status, and sex categories. Many states do not record data for{' '}
-        <b>American Indian</b>, <b>Alaska Native</b>,{' '}
-        <b>Native Hawaiian and Pacific Islander</b> racial categories, lumping
-        these people into other groups. Individuals who identify as{' '}
-        <b>Hispanic/Latino</b> may not be recorded in their respective race
-        category. Neither disability nor mental health status is collected with
-        most data sources, and in almost all cases sex is recorded only as
-        female, male, or other.
+        <HetTerm>American Indian</HetTerm>, <HetTerm>Alaska Native</HetTerm>,{' '}
+        <HetTerm>Native Hawaiian and Pacific Islander</HetTerm> racial
+        categories, lumping these people into other groups. Individuals who
+        identify as <HetTerm>Hispanic/Latino</HetTerm> may not be recorded in
+        their respective race category. Neither disability nor mental health
+        status is collected with most data sources, and in almost all cases sex
+        is recorded only as female, male, or other.
       </p>
 
       {isIslandArea && <MissingIslandAreaPopulationData />}

@@ -41,6 +41,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -233,7 +234,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                     props.handleMapGroupClick(null, demographicGroup)
                   }}
                 >
-                  <b>{mapLabel}</b>
+                  <h4 className='font-medium'>{mapLabel}</h4>
                   <Grid item minHeight={150}>
                     {props.metricConfig && dataForValue.length > 0 && (
                       <ChoroplethMap
@@ -364,7 +365,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                       for the following groups:{' '}
                       {props.demographicGroupsNoData.map((group, i) => (
                         <span key={group}>
-                          <b>{group}</b>
+                          <HetTerm>{group}</HetTerm>
                           {i < props.demographicGroupsNoData.length - 1 && '; '}
                         </span>
                       ))}

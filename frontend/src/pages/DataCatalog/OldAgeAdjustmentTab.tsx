@@ -8,6 +8,7 @@ import {
 } from '../../utils/internalRoutes'
 import { Link } from 'react-router-dom'
 import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 export default function OldAgeAdjustmentTab() {
   return (
@@ -34,9 +35,10 @@ export default function OldAgeAdjustmentTab() {
 
             <div className='text-left font-sansText text-small text-alt-black'>
               <p>
-                We have decided to present <b>age-adjusted ratios</b> when
-                possible in order to show a more accurate and equitable view of
-                the impact on non-White communities in the United States.
+                We have decided to present{' '}
+                <HetTerm>age-adjusted ratios</HetTerm> when possible in order to
+                show a more accurate and equitable view of the impact on
+                non-White communities in the United States.
               </p>
               <p>
                 As of{' '}
@@ -72,16 +74,16 @@ export default function OldAgeAdjustmentTab() {
                 equitable view of the impact to racial and ethnic minorities.
               </p>
               <p>
-                We use a <b>direct standardization method</b>, with the{' '}
-                <b>internal standard population</b> for each state being that
-                state's total population. Finally, the ratios we present for
-                each race group is that race's age-adjusted count, divided by
-                the age-adjusted count for White, non-Hispanic individuals in
-                the same location. Thus, our age-adjusted ratios can only be
-                used to compare race groups within each state, and <b>not</b> to
-                compare race groups between states. For COVID-19 reports, we
-                source the standard population numbers from the 2019 population
-                numbers from{' '}
+                We use a <HetTerm>direct standardization method</HetTerm>, with
+                the <HetTerm>internal standard population</HetTerm> for each
+                state being that state's total population. Finally, the ratios
+                we present for each race group is that race's age-adjusted
+                count, divided by the age-adjusted count for White, non-Hispanic
+                individuals in the same location. Thus, our age-adjusted ratios
+                can only be used to compare race groups within each state, and{' '}
+                <strong>not</strong> to compare race groups between states. For
+                COVID-19 reports, we source the standard population numbers from
+                the 2019 population numbers from{' '}
                 <a href='https://www.census.gov/data/tables/time-series/demo/popest/2010s-counties-detail.html'>
                   County Population by Characteristics
                 </a>
@@ -110,9 +112,11 @@ export default function OldAgeAdjustmentTab() {
                         CDC Case Surveillance Restricted Access Detailed Data
                       </a>{' '}
                       for this. It can break down by race and age to ten-year
-                      buckets. The age buckets are: <b>0-9</b>, <b>10-19</b>,{' '}
-                      <b>20-29</b>, <b>30-39</b>, <b>40-49</b>, <b>50-59</b>,{' '}
-                      <b>60-69</b>, <b>70-79</b>, <b>80+</b>
+                      buckets. The age buckets are: <HetTerm>0-9</HetTerm>,{' '}
+                      <HetTerm>10-19</HetTerm>, <HetTerm>20-29</HetTerm>,{' '}
+                      <HetTerm>30-39</HetTerm>, <HetTerm>40-49</HetTerm>,{' '}
+                      <HetTerm>50-59</HetTerm>, <HetTerm>60-69</HetTerm>,{' '}
+                      <HetTerm>70-79</HetTerm>, <HetTerm>80+</HetTerm>
                     </li>
 
                     <li>
@@ -154,8 +158,8 @@ export default function OldAgeAdjustmentTab() {
                 <li>
                   <p>
                     <b>
-                      For each race/age combination, calculate the ‘age-specific
-                      rate’
+                      For each race/age combination, calculate the{' '}
+                      <HetTerm>age-specific rate</HetTerm>
                     </b>
                   </p>
                   <pre className='mx-1 mb-8 mt-1 overflow-x-auto whitespace-pre-wrap break-words border-solid border-bg-color bg-explore-bg-color p-1 text-smallest'>
@@ -167,7 +171,8 @@ export default function OldAgeAdjustmentTab() {
                 <li>
                   <p>
                     <b>
-                      For each age group, calculate the ‘standard population’
+                      For each age group, calculate the{' '}
+                      <HetTerm>standard population</HetTerm>
                     </b>
                   </p>
                   <pre className='mx-1 mb-8 mt-1 overflow-x-auto whitespace-pre-wrap break-words border-solid border-bg-color bg-explore-bg-color p-1 text-smallest'>
