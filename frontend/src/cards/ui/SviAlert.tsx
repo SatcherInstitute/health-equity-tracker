@@ -4,6 +4,7 @@ import { urlMap } from '../../utils/externalUrls'
 import { HashLink } from 'react-router-hash-link'
 import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface SviAlertProps {
   svi: number
@@ -56,17 +57,21 @@ function SviAlert(props: SviAlertProps) {
     >
       {props.svi ? (
         <>
-          This county has a social vulnerability index of <b>{props.svi}</b>;
-          which indicates a{' '}
-          <HashLink to={`${OLD_METHODOLOGY_PAGE_LINK}#svi`} className={color}>
-            <b>{rating} level of vulnerability.</b>
+          This county has a <HetTerm>social vulnerability index</HetTerm> of{' '}
+          <strong>{props.svi}</strong>; which indicates a{' '}
+          <HashLink
+            to={`${OLD_METHODOLOGY_PAGE_LINK as string}#svi`}
+            className={color}
+          >
+            <span>{rating} level of vulnerability.</span>
           </HashLink>
         </>
       ) : (
         <>
-          We do not currently have the <b>social vulnerability index</b> for{' '}
-          <b>{props.fips.getDisplayName()}</b>. Learn more about how this lack
-          of data impacts <a href={urlMap.cdcSvi}>health equity.</a>
+          We do not currently have the{' '}
+          <HetTerm>social vulnerability index</HetTerm> for{' '}
+          <span>{props.fips.getDisplayName()}</span>. Learn more about how this
+          lack of data impacts <a href={urlMap.cdcSvi}>health equity.</a>
         </>
       )}
     </HetNotice>

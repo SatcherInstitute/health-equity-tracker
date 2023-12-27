@@ -9,6 +9,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 const ChronicDiseaseLink = () => {
   return (
@@ -87,8 +88,9 @@ const ChronicDiseaseLink = () => {
         <p>
           We obtain our data for the following specific issues directly from
           America's Health Rankings (AHR). This data is based on{' '}
-          <b>percent share</b> metrics that AHR provides in downloadable data
-          files. Click on the following to explore the reports:
+          <HetTerm>percent share</HetTerm> metrics that AHR provides in
+          downloadable data files. Click on the following to explore the
+          reports:
         </p>
         <ul className='list-none pl-0'>
           <li className='font-sansTitle font-medium'>
@@ -113,8 +115,9 @@ const ChronicDiseaseLink = () => {
           AHR usually gives us rates as percentages. In some cases, they provide
           the number of cases for every 100,000 people. We keep the data in the
           format AHR provides it. If we need to change a percentage into a{' '}
-          <b>cases per 100k rate</b>, we simply multiply the percentage by
-          1,000. For example, a 5% rate would become 5,000 per 100,000 people.
+          <HetTerm>cases per 100k rate</HetTerm>, we simply multiply the
+          percentage by 1,000. For example, a 5% rate would become 5,000 per
+          100,000 people.
         </p>
         <CodeBlock
           rowData={[
