@@ -492,7 +492,11 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                     <Divider />
 
-                    <HetLinkButton>
+                    <HetLinkButton
+                      onClick={() => {
+                        setMultimapOpen(true)
+                      }}
+                    >
                       <GridView />
                       <span className='mt-1 px-1 align-bottom'>
                         View {prettyDemoType} disparties across multiple small
