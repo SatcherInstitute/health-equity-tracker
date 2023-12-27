@@ -101,12 +101,12 @@ export default function ShareYourStory() {
             is selected for publication.
           </li>
 
-          {/* <li>
+          <li>
             <b>Anonymity and Privacy:</b> If you prefer to remain anonymous or
             use a pseudonym, please let us know in your submission email. We
             respect your privacy and will handle your personal information with
             utmost confidentiality.
-          </li> */}
+          </li>
 
           <li className='p-3'>
             <b>Publication and Promotion:</b> While we cannot guarantee that all

@@ -3,6 +3,7 @@ import {
   DEMOGRAPHIC_DISPLAY_TYPES_LOWER_CASE,
 } from '../../data/query/Breakdowns'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface UnknownBubblesAlertProps {
   demographicType: DemographicType
@@ -25,9 +26,9 @@ export default function UnknownBubblesAlert(props: UnknownBubblesAlertProps) {
       of {props.fullDisplayName} with an unknown {groupTerm}.{' '}
       {props.expanded && (
         <>
-          The <b>unknown percentage</b> along the bottom of this chart expresses
-          the share of total {props.fullDisplayName} per month that did not
-          include {groupTerm} information.
+          The <HetTerm>unknown percentage</HetTerm> along the bottom of this
+          chart expresses the share of total {props.fullDisplayName} per month
+          that did not include {groupTerm} information.
         </>
       )}{' '}
       <button
