@@ -2,6 +2,7 @@ import { NEW_AGE_ADJUSTMENT_LINK } from '../../../utils/internalRoutes'
 import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
 import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 import { Helmet } from 'react-helmet-async'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 const SourcesLink = () => {
   const { title, description, listItems, nestedListItems } =
@@ -37,10 +38,11 @@ const SourcesLink = () => {
             <li>{nestedListItems[1].sub[0]}</li>
             <li>
               Transformation: Graphic visualizations reflect
-              <b>crude rates</b>
+              <HetTerm>crude rates</HetTerm>
               (non-age-adjusted) presented in various formats, such as
-              <b>cases per 100k</b>, <b>percent rate</b>, <b>percent share</b>,
-              or as an <b>index score</b>.
+              <HetTerm>cases per 100k</HetTerm>, <HetTerm>percent rate</HetTerm>
+              , <HetTerm>percent share</HetTerm>, or as an{' '}
+              <HetTerm>index score</HetTerm>.
             </li>
             <li>{nestedListItems[1].sub[2]}</li>
           </ul>

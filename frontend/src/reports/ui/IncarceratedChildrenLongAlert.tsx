@@ -2,6 +2,7 @@ import { OLD_METHODOLOGY_PAGE_LINK } from '../../utils/internalRoutes'
 import { urlMap } from '../../utils/externalUrls'
 import { Link } from 'react-router-dom'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 function IncarceratedChildrenLongAlert() {
   return (
@@ -21,8 +22,9 @@ function IncarceratedChildrenLongAlert() {
           . Such children are more exposed to physical and sexual abuse, fewer
           age-appropriate services, and worse health outcomes. When reporting on
           incarceration, we highlight the{' '}
-          <b>total number of confined children</b> in adult facilities. Read
-          more in <Link to={OLD_METHODOLOGY_PAGE_LINK}>our methodology</Link>.
+          <HetTerm>total number of confined children</HetTerm> in adult
+          facilities. Read more in{' '}
+          <Link to={OLD_METHODOLOGY_PAGE_LINK}>our methodology</Link>.
         </p>
       </HetNotice>
     </div>

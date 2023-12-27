@@ -1,4 +1,5 @@
 import { Snackbar, Alert, Slide } from '@mui/material'
+import HetTerm from './HetTerm'
 
 interface HetDialogProps {
   cardName: string
@@ -19,7 +20,7 @@ export default function HetDialog(props: HetDialogProps) {
         className='border-1 border-solid border-bar-chart-light'
         role='alert'
       >
-        Direct link to <b>{props.cardName}</b> copied to clipboard!
+        Direct link to <HetTerm>{props.cardName}</HetTerm> copied to clipboard!
       </Alert>
     </Snackbar>
   )

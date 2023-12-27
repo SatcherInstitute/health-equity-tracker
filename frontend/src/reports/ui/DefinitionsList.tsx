@@ -4,6 +4,7 @@ Retrieves their parent categories (with optional category definitions)
 */
 
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 import InfoCitations from './InfoCitations'
 
@@ -48,7 +49,9 @@ export default function DefinitionsList(
                     const hasAddedInfo = Boolean(dataTypeConfig?.description)
                     return (
                       <li key={dataTypeConfig?.fullDisplayName}>
-                        <b>{dataTypeConfig?.fullDisplayName ?? 'Data Type'}</b>
+                        <HetTerm>
+                          {dataTypeConfig?.fullDisplayName ?? 'Data Type'}
+                        </HetTerm>
                         <ul>
                           <li>
                             {hasAddedInfo && (
