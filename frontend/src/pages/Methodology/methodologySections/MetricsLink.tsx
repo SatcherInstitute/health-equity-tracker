@@ -1,7 +1,6 @@
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import { proportionalInequitableBurdenTooltip } from '../methodologyContent/TooltipLibrary'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { Helmet } from 'react-helmet-async'
@@ -66,7 +65,7 @@ const MetricsLink = () => {
               ]}
             />
             This value is then divided by the population percent share to give a
-            {proportionalInequitableBurdenTooltip} of
+            <b>percent relative inequity</b> of
             <strong>+24.7%</strong>:
             <CodeBlock
               rowData={[
