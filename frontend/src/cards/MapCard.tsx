@@ -496,6 +496,7 @@ function MapCardWithKey(props: MapCardProps) {
                       onClick={() => {
                         setMultimapOpen(true)
                       }}
+                      ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                     >
                       <GridView />
                       <span className='mt-1 px-1 align-bottom'>
