@@ -23,6 +23,7 @@ export default {
       'lg': '16px',
       'xl': '30px',
       '2xl': '40px',
+      '3xl': '64px',
     },
     boxShadow: {
       'raised':
@@ -84,6 +85,7 @@ export default {
       'map-women-lightest': 'rgb(var(--map-women-lightest) / <alpha-value>)',
       'map-women-mid': 'rgb(var(--map-women-mid) / <alpha-value>)',
       'map-women-min': 'rgb(var(--map-women-min) / <alpha-value>)',
+      'methodology-green': 'rgb(var(--methodology-green) / <alpha-value>)',
       'navlink-color': 'rgb(var(--navlink-color) / <alpha-value>)',
       'red-orange': 'rgb(var(--red-orange) / <alpha-value>)',
       'report-alert': 'rgb(var(--report-alert) / <alpha-value>)',
