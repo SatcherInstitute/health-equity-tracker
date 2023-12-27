@@ -5,7 +5,6 @@ import {
   type MetricConfig,
 } from '../../data/config/MetricConfig'
 import { Fips, TERRITORY_CODES } from '../../data/utils/Fips'
-import styles from './TerritoryCircles.module.scss'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import { type DemographicType } from '../../data/query/Breakdowns'
@@ -74,7 +73,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               highestLowestGeosMode={props.highestLowestGeosMode}
               isPhrmaAdherence={props.isPhrmaAdherence}
             />
-            <figcaption className={styles.TerritoryLabel}>
+            <figcaption className='-mt-1 mb-1 text-center text-smallest leading-lhTight'>
               {postalCode}
             </figcaption>
           </Grid>
