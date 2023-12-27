@@ -1,6 +1,6 @@
 import { Button, Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
-import { Link, Redirect, useParams } from 'react-router-dom'
+import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
 import { getHtml } from '../../utils/urlutils'
 import {
   fetchNewsData,
@@ -9,7 +9,6 @@ import {
 } from '../../utils/blogUtils'
 import { NEWS_PAGE_LINK } from '../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
-import NewsPreviewCard from './NewsPreviewCard'
 import { useQuery } from 'react-query'
 import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import { type Article } from './NewsPage'
@@ -19,6 +18,7 @@ import ShareButtons, {
   ARTICLE_DESCRIPTION,
 } from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
+import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -30,11 +30,25 @@ interface SinglePostProps {
 }
 
 export default function SinglePost(props: SinglePostProps) {
+  const history = useHistory()
+
   const [fullArticle, setFullArticle] = useState<Article>()
   const [prevArticle, setPrevArticle] = useState<Article>()
   const [nextArticle, setNextArticle] = useState<Article>()
 
   const { slug }: { slug?: string } = useParams()
+
+  function goNext() {
+    if (nextArticle) {
+      history.push(NEWS_PAGE_LINK + '/' + nextArticle.slug)
+    }
+  }
+
+  function goPrevious() {
+    if (prevArticle) {
+      history.push(NEWS_PAGE_LINK + '/' + prevArticle.slug)
+    }
+  }
 
   // FETCH ARTICLES
   const { data, isLoading, error } = useQuery(
@@ -311,21 +325,31 @@ export default function SinglePost(props: SinglePostProps) {
         </article>
 
         {/* PREV / NEXT ARTICLES NAV */}
-        <div className='grid max-w-md grid-cols-1 items-center justify-center border-0 border-b border-solid border-alt-grey md:grid-cols-3'>
+        <div className='mx-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-alt-grey pt-24 md:grid-cols-3'>
           {prevArticle && (
-            <NewsPreviewCard article={prevArticle} arrow={'prev'} />
+            <HetPaginationButton
+              direction='previous'
+              label={prevArticle.title.rendered}
+              onClick={() => {
+                goPrevious()
+              }}
+            />
           )}
+
           <p className='text-center'>
             <HetLinkButton href={NEWS_PAGE_LINK}>All Posts</HetLinkButton>
           </p>
 
           {nextArticle && (
-            <>
-              <NewsPreviewCard article={nextArticle} arrow={'next'} />
-            </>
+            <HetPaginationButton
+              direction='next'
+              label={nextArticle.title.rendered}
+              onClick={() => {
+                goNext()
+              }}
+            />
           )}
         </div>
-
         {/* EMAIL SIGNUP  */}
         <SignupSection />
       </div>

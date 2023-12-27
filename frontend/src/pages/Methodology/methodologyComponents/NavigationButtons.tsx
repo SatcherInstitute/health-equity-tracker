@@ -13,13 +13,13 @@ export default function NavigationButtons() {
   const nextRoute = routeConfigs[currentIndex + 1]
   const prevRoute = routeConfigs[currentIndex - 1]
 
-  const goNext = () => {
+  function goNext() {
     if (nextRoute) {
       history.push(nextRoute.path)
     }
   }
 
-  const goPrevious = () => {
+  function goPrevious() {
     if (prevRoute) {
       history.push(prevRoute.path)
     }
