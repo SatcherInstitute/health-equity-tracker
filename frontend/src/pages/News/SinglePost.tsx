@@ -329,11 +329,12 @@ export default function SinglePost(props: SinglePostProps) {
           {prevArticle && (
             <HetPaginationButton
               direction='previous'
-              label={prevArticle.title.rendered}
               onClick={() => {
                 goPrevious()
               }}
-            />
+            >
+              {getHtml(prevArticle?.title?.rendered ?? '')}
+            </HetPaginationButton>
           )}
 
           <p className='text-center'>
@@ -343,11 +344,12 @@ export default function SinglePost(props: SinglePostProps) {
           {nextArticle && (
             <HetPaginationButton
               direction='next'
-              label={nextArticle.title.rendered}
               onClick={() => {
                 goNext()
               }}
-            />
+            >
+              {getHtml(nextArticle?.title?.rendered ?? '')}
+            </HetPaginationButton>
           )}
         </div>
         {/* EMAIL SIGNUP  */}

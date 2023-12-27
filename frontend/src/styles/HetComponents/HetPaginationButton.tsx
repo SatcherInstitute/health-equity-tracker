@@ -5,8 +5,8 @@ export type HetPaginationDirection = 'previous' | 'next'
 
 interface HetPaginationButtonsProps {
   direction: HetPaginationDirection
-  label: string
   onClick: () => void
+  children?: React.ReactNode | string
   disabled?: boolean
 }
 
@@ -42,7 +42,7 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
               : 'mr-5 items-end justify-end text-right'
           }
         >
-          {props.label}
+          {props.children}
         </span>
       </span>
     </Button>

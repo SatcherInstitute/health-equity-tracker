@@ -29,11 +29,9 @@ export default function NavigationButtons() {
   return (
     <div className='lg:flex-grow-1 lg:flex-basis-0 mx-0 mb-0 mt-4 flex w-full flex-col justify-between lg:mt-8 lg:flex-shrink-0 lg:flex-row lg:self-stretch '>
       {prevRoute ? (
-        <HetPaginationButton
-          direction='previous'
-          label={prevRoute.label}
-          onClick={goPrevious}
-        />
+        <HetPaginationButton direction='previous' onClick={goPrevious}>
+          {prevRoute.label}
+        </HetPaginationButton>
       ) : (
         <div></div>
       )}
@@ -41,15 +39,14 @@ export default function NavigationButtons() {
       {nextRoute ? (
         <HetPaginationButton
           direction='next'
-          label={nextRoute.label}
           onClick={goNext}
           disabled={currentIndex === routeConfigs.length - 1}
-        />
+        >
+          {nextRoute.label}
+        </HetPaginationButton>
       ) : (
         <div></div>
       )}
     </div>
   )
 }
-
-/*  */
