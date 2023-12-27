@@ -1,4 +1,4 @@
-import { Button, Grid, Tooltip } from '@mui/material'
+import { Grid } from '@mui/material'
 import Divider from '@mui/material/Divider'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
@@ -39,7 +39,6 @@ import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
-import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -74,8 +73,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import HetNotice from '../styles/HetComponents/HetNotice'
-import HetTerm from '../styles/HetComponents/HetTerm'
+import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -493,21 +491,14 @@ function MapCardWithKey(props: MapCardProps) {
                       onOptionUpdate={handleMapGroupClick}
                     />
                     <Divider />
-                    <Tooltip
-                      title={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
-                    >
-                      <Button
-                        onClick={() => {
-                          setMultimapOpen(true)
-                        }}
-                      >
-                        <GridView />
-                        <span className='leading-lhSomeMoreSpacemt-1 px-1 align-bottom '>
-                          View {prettyDemoType} disparties across multiple small
-                          maps
-                        </span>
-                      </Button>
-                    </Tooltip>
+
+                    <HetLinkButton>
+                      <GridView />
+                      <span className='mt-1 px-1 align-bottom'>
+                        View {prettyDemoType} disparties across multiple small
+                        maps
+                      </span>
+                    </HetLinkButton>
                   </Grid>
                   <Divider />
                 </Grid>
@@ -648,21 +639,6 @@ function MapCardWithKey(props: MapCardProps) {
                     />
                   )}
               </Grid>
-
-              {!mapQueryResponse.dataIsMissing() &&
-                dataForActiveDemographicGroup.length === 0 &&
-                activeDemographicGroup !== ALL && (
-                  <HetNotice kind='data-integrity'>
-                    Insufficient data available for filter:{' '}
-                    <HetTerm>{activeDemographicGroup}</HetTerm>.{' '}
-                    {/* Offer multimap link if current demo group is missing info */}
-                    <MultiMapLink
-                      setMultimapOpen={setMultimapOpen}
-                      demographicType={demographicType}
-                      currentDataType={props.dataTypeConfig.fullDisplayName}
-                    />
-                  </HetNotice>
-                )}
             </div>
           </>
         )
