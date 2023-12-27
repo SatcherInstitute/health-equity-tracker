@@ -76,7 +76,7 @@ interface LegendProps {
 
 export function Legend(props: LegendProps) {
   const white = getCssVar<string>('--white')
-  const unknownGrey = getCssVar<string>('--unknownGrey')
+  const unknownGrey = getCssVar<string>('--how-to-color')
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
