@@ -76,6 +76,7 @@ import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import HetTerm from '../styles/HetComponents/HetTerm'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -656,7 +657,7 @@ function MapCardWithKey(props: MapCardProps) {
                 activeDemographicGroup !== ALL && (
                   <HetNotice kind='data-integrity'>
                     Insufficient data available for filter:{' '}
-                    <b>{activeDemographicGroup}</b>.{' '}
+                    <HetTerm>{activeDemographicGroup}</HetTerm>.{' '}
                     {/* Offer multimap link if current demo group is missing info */}
                     <MultiMapLink
                       setMultimapOpen={setMultimapOpen}

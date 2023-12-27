@@ -6,10 +6,6 @@ interface LinkConfig {
   path: string
 }
 
-interface MenuProps {
-  links: LinkConfig[]
-}
-
 interface CombinedLinkProps {
   to: string
   isScrollLink: boolean
@@ -33,7 +29,12 @@ const CombinedLink: React.FC<CombinedLinkProps> = ({
   return null
 }
 
-const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
+interface HetOnThisPageMenuProps {
+  links: LinkConfig[]
+  className?: string
+}
+
+export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
   const [activeLink, setActiveLink] = useState<string | null>(null)
 
   useEffect(() => {
@@ -57,14 +58,14 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className='sticky right-0 top-2 z-z-middle m-2 text-left lg:z-z-top'
+        className={`m-2 text-left  ${props.className ?? ''}`}
       >
-        <h4 className='text-left font-sansTitle text-smallest leading-lhSomeMoreSpace text-black'>
+        <h4 className='text-left font-sansTitle text-smallest text-black'>
           On this page
         </h4>
-        <ul className='list-none pl-0'>
-          {links.map((link, index) => (
-            <li key={index} className='pb-1 leading-lhSomeSpace'>
+        <ul className='space-t-1 list-none pl-0 leading-lhTight lg:space-y-2'>
+          {props.links.map((link, index) => (
+            <li key={index}>
               <CombinedLink
                 to={link.path}
                 isScrollLink
@@ -79,7 +80,7 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
                   activeLink === link.path ? 'font-semibold text-alt-green' : ''
                 }
               >
-                <span className='py-3 font-sansText text-smallest hover:cursor-pointer'>
+                <span className='font-sansText text-smallest hover:cursor-pointer'>
                   {link.label}
                 </span>
               </CombinedLink>
@@ -90,4 +91,3 @@ const MethodologySubMenu: React.FC<MenuProps> = ({ links }) => {
     </>
   )
 }
-export default MethodologySubMenu

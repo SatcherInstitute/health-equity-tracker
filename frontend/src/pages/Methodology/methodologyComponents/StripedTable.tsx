@@ -44,8 +44,8 @@ const StripedTable: React.FC<StripedTableProps> = ({
   applyThickBorder = true,
 }) => {
   return (
-    <TableContainer component={Paper} id={id}>
-      <Table aria-label='customized table'>
+    <TableContainer className=' overflow-x-auto' component={Paper} id={id}>
+      <Table aria-label='customized table' className='min-w-full'>
         <TableHead>
           <TableRow
             // className={styles.StripedTableHeader}

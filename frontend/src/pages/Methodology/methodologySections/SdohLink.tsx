@@ -6,12 +6,6 @@ import {
 } from '../methodologyContent/SdohDefinitions'
 import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
-import {
-  percentShareTooltip,
-  totalCasesPer100kPeopleTooltip,
-} from '../methodologyContent/TooltipLibrary'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
@@ -91,7 +85,7 @@ function SdohLink() {
         <p>
           We obtain our data for the following specific issues directly from
           America's Health Rankings (AHR). This data is based on{' '}
-          {percentShareTooltip} metrics that AHR provides in downloadable data
+          <b>percent share</b> metrics that AHR provides in downloadable data
           files. Click on the following to explore the report:
         </p>
         <ul className='list-none pl-0'>
@@ -108,10 +102,10 @@ function SdohLink() {
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide
           the number of cases for every 100,000 people. We keep the data in the
-          format AHR provides it. If we need to change a percentage into a{' '}
-          {totalCasesPer100kPeopleTooltip} rate, we simply multiply the
-          percentage by 1,000. For example, a 5% rate would become 5,000 per
-          100,000 people.
+          format AHR provides it. If we need to change a <b>percentage rate</b>{' '}
+          into a <b>cases per 100k rate</b>, we simply multiply the percentage
+          by 1,000. For example, a 5% rate would become 5,000 per 100,000
+          people.
         </p>
         <CodeBlock
           rowData={[
@@ -130,38 +124,7 @@ function SdohLink() {
             },
           ]}
         />
-        <HetNotice title="A note about the America's Health Rankings (AHR)'s population data">
-          <p>
-            Without population data, it is difficult to accurately calculate{' '}
-            {percentShareTooltip} measures, which could potentially result in
-            misleading data.{' '}
-          </p>
-          <p>
-            We don't display percent share figures for certain health measures
-            because the original data source only gives us these numbers as{' '}
-            {
-              <DefinitionTooltip
-                topic={'rates'}
-                definitionItem={definitionsGlossary[40]}
-              />
-            }
-            , and not as a portion of the population.
-          </p>
-          <p>
-            Please note that AHR does not provide population-specific data for
-            certain conditions, including:
-            <ul>
-              <li className='font-sansTitle font-medium'>
-                <a href='https://healthequitytracker.org/exploredata?mls=1.preventable_hospitalizations-3.00&group1=All'>
-                  preventable hospitalizations
-                </a>
-                .
-              </li>
-            </ul>
-            However, we encourage you to explore our comprehensive reports for
-            valuable insights into these and other conditions.
-          </p>
-        </HetNotice>
+
         <h3 className='font-sansTitle text-title' id='#sdoh-data-sources'>
           Data Sources
         </h3>

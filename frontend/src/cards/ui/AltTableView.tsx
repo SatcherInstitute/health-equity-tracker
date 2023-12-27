@@ -27,6 +27,7 @@ import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -102,7 +103,7 @@ export default function AltTableView(props: AltTableViewProps) {
       >
         <span>
           {!props.expanded ? 'Expand' : 'Collapse'}{' '}
-          <b>{props.expandBoxLabel}</b> table
+          <HetTerm>{props.expandBoxLabel}</HetTerm> table
         </span>
       </div>
 
@@ -121,9 +122,7 @@ export default function AltTableView(props: AltTableViewProps) {
               size='small'
               stickyHeader
             >
-              <caption>
-                <b>{props.tableCaption}</b>
-              </caption>
+              <caption className='font-medium'>{props.tableCaption}</caption>
               <TableHead>
                 <TableRow>
                   {Object.keys(accessibleData[0]).map((key, i) => {
