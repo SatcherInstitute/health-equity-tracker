@@ -34,7 +34,6 @@ import {
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
-import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
@@ -410,8 +409,6 @@ function MapCardWithKey(props: MapCardProps) {
             <>
               <Grid item xs={12}>
                 <ChartTitle
-                  mt={0}
-                  mb={2}
                   title={'Rate map unavailable: ' + title}
                   subtitle={subtitle}
                 />
@@ -505,7 +502,7 @@ function MapCardWithKey(props: MapCardProps) {
                         }}
                       >
                         <GridView />
-                        <span className={styles.CompareMultipleText}>
+                        <span className='leading-lhSomeMoreSpacemt-1 px-1 align-bottom '>
                           View {prettyDemoType} disparties across multiple small
                           maps
                         </span>
@@ -520,7 +517,7 @@ function MapCardWithKey(props: MapCardProps) {
             <div className='pt-0'>
               <Grid container>
                 <Grid item xs={12}>
-                  <ChartTitle mt={0} mb={2} title={title} subtitle={subtitle} />
+                  <ChartTitle title={title} subtitle={subtitle} />
                 </Grid>
 
                 <Grid
