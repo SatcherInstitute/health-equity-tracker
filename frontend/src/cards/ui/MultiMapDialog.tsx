@@ -12,7 +12,6 @@ import {
   type DataTypeConfig,
   type MetricConfig,
 } from '../../data/config/MetricConfig'
-import styles from './MultiMapDialog.module.scss'
 import {
   type MetricQuery,
   type MetricQueryResponse,
@@ -154,6 +153,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             container
             justifyContent='space-between'
             component='ul'
+            className='list-none'
             sx={{ p: 0 }}
           >
             {/* card heading row */}
@@ -228,7 +228,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   lg={3}
                   item
                   key={`${demographicGroup}-grid-item`}
-                  className={styles.SmallMultipleMap}
+                  className='w-[300px] sm:p-4'
                   component='li'
                   onClick={(e: any) => {
                     props.handleMapGroupClick(null, demographicGroup)
@@ -316,7 +316,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               alignItems={'flex-end'}
               item
               xs={12}
-              className={styles.SmallMultipleLegendMap}
+              className='pt-4 lg:pb-4 xl:pb-8 xl:pt-0'
             >
               {/* DESKTOP BREADCRUMBS */}
               <Grid
@@ -359,7 +359,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               <Grid item container justifyContent='center' xs={12} xl={7}>
                 <div className='my-3'>
                   <HetNotice kind='data-integrity'>
-                    <p className={styles.NoDataWarning}>
+                    <p className='m-0'>
                       Insufficient {props.metricConfig.shortLabel} data reported
                       at the {props.fips.getChildFipsTypeDisplayName()} level
                       for the following groups:{' '}
