@@ -91,10 +91,10 @@ export default function GlossaryTerm(props: GlossaryTermProps) {
 
         return (
           <div key={index} className='mx-auto my-4'>
-            <h4 className='mx-auto mb-0 mt-1 font-sansTitle text-text font-medium text-alt-green '>
+            <h4 className='mx-auto mb-0 mt-1 font-sansTitle text-text font-medium text-altGreen '>
               {item.topic}
             </h4>
-            <p className='mx-auto mb-0 mt-1 text-smallest text-alt-black'>
+            <p className='mx-auto mb-0 mt-1 text-smallest text-altBlack'>
               {parsedDefinition}
             </p>
           </div>

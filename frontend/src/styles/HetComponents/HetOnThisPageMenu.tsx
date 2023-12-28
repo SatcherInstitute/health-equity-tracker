@@ -63,7 +63,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
         <h4 className='text-left font-sansTitle text-smallest text-black'>
           On this page
         </h4>
-        <ul className='space-t-1 list-none pl-0 leading-lhTight lg:space-y-2'>
+        <ul className='list-none space-y-1 pl-0 leading-lhTight lg:space-y-2'>
           {props.links.map((link, index) => (
             <li key={index}>
               <CombinedLink
@@ -77,7 +77,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
                   handleClick(link.path)
                 }}
                 className={
-                  activeLink === link.path ? 'font-semibold text-alt-green' : ''
+                  activeLink === link.path ? 'font-semibold text-altGreen' : ''
                 }
               >
                 <span className='font-sansText text-smallest hover:cursor-pointer'>

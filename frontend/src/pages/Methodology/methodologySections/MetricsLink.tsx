@@ -92,7 +92,7 @@ const MetricsLink = () => {
               ]}
             />
             In plain language, this would be interpreted as,{' '}
-            <div className='bg-standard-info px-8 py-4 shadow-raised-tighter'>
+            <div className='bg-standardInfo px-8 py-4 shadow-raised-tighter'>
               <em>
                 “<strong>Deaths</strong> of individuals identifying as White
                 (Non Hispanic) in Georgia{' '}

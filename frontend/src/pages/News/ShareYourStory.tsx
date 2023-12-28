@@ -4,10 +4,10 @@ export default function ShareYourStory() {
   return (
     <div className='flex w-full items-center justify-center text-start'>
       <div className='flex max-w-md flex-wrap justify-center p-5'>
-        <div className='pb-4 pl-16 pr-16 pt-24'>
+        <div className='px-16 pb-4 pt-24'>
           <h2
             id='main'
-            className='m-0 text-center font-serif text-header font-light text-alt-green md:text-bigHeader'
+            className='m-0 text-center font-serif text-header font-light text-altGreen md:text-bigHeader'
           >
             Call for Community Writers
           </h2>
@@ -28,11 +28,11 @@ export default function ShareYourStory() {
         </p>
 
         <div className='mt-5 flex w-full items-center'>
-          <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
-          <h3 className='m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light text-alt-green'>
+          <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
+          <h3 className='m-0 pe-4 ps-4 text-center font-serif text-smallestHeader font-light text-altGreen'>
             Submission guidelines
           </h3>
-          <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
+          <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
         </div>
 
         <ul className='list-none'>
@@ -118,7 +118,7 @@ export default function ShareYourStory() {
         </ul>
 
         <div className='m-10 flex w-full items-center'>
-          <div className='flex-1 border-0 border-t border-solid border-alt-grey'></div>
+          <div className='flex-1 border-0 border-t border-solid border-altGrey'></div>
         </div>
 
         <p className='px-1'>

@@ -49,7 +49,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
       <div className='inline-flex flex-row'>
         <span>
           <Typography
-            className='text-left font-sansText text-small text-alt-black'
+            className='text-left font-sansText text-small text-altBlack'
             onClick={handleDrawerOpen}
           >
             {' '}
@@ -66,7 +66,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
             <h6 className='mt-8 font-sansText font-medium'>
               {topic.toLowerCase()}
             </h6>
-            <Typography className='text-left font-sansText text-small text-alt-black'>
+            <Typography className='text-left font-sansText text-small text-altBlack'>
               {measurementDescription}
             </Typography>
           </div>
@@ -88,7 +88,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
         className='inline-flex flex-row'
       >
         <Typography
-          className='text-left font-sansText text-small text-alt-black'
+          className='text-left font-sansText text-small text-altBlack'
           onClick={handleTooltipOpen}
         >
           {' '}

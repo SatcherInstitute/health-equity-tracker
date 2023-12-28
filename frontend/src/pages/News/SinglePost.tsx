@@ -124,7 +124,7 @@ export default function SinglePost(props: SinglePostProps) {
             border-0
             border-b
             border-solid
-            border-border-color
+            border-borderColor
             px-10 md:px-0
         '
         >
@@ -137,15 +137,14 @@ export default function SinglePost(props: SinglePostProps) {
               <img
                 src={hetLogo}
                 className='
-                max-h-80
-                md:max-h-articleLogo
                 mt-8
                 h-auto
                 w-3/5
                 max-w-md
                 rounded-md
                 object-contain
-                md:mt-0'
+                md:mt-0
+                md:max-h-articleLogo'
                 alt={''}
                 width={200}
                 height={100}
@@ -155,9 +154,7 @@ export default function SinglePost(props: SinglePostProps) {
               <img
                 src={articleImage}
                 className='
-                max-h-80
-                md:max-h-articleLogo
-                  mt-8
+                mt-8
                   hidden
                   h-auto
                   w-3/5
@@ -165,7 +162,8 @@ export default function SinglePost(props: SinglePostProps) {
                   rounded-md
                   object-contain
                   sm:block
-                  md:mt-0'
+                  md:mt-0
+                  md:max-h-articleLogo'
                 alt={articleImageAltText}
                 width={200}
                 height={100}
@@ -176,7 +174,6 @@ export default function SinglePost(props: SinglePostProps) {
           {/* TEXT SECTION OF HEADER */}
           <div
             className='
-              px-15
               flex
               w-full
               flex-col
@@ -184,7 +181,8 @@ export default function SinglePost(props: SinglePostProps) {
               justify-center
               border-0
               border-solid
-              border-border-color
+              border-borderColor
+              px-16
               pt-8
               md:w-2/3
               md:border-l
@@ -195,14 +193,14 @@ export default function SinglePost(props: SinglePostProps) {
             {/* ARTICLE TITLE OR LOADING INDICATOR */}
             <div
               className='
-              leading-tight
               m-auto
               pb-4
               text-left
               font-serif
               text-smallHeader
               font-light
-              text-alt-green
+              leading-lhTight
+              text-altGreen
               sm:text-header
               md:text-bigHeader
             '
@@ -215,7 +213,7 @@ export default function SinglePost(props: SinglePostProps) {
             </div>
 
             {/* AUTHOR(S) OR LOADING OR NOTHING */}
-            <div className='text-start text-text text-alt-dark'>
+            <div className='text-start text-text text-altDark'>
               {fullArticle?.acf?.contributing_author ? (
                 <>
                   Authored by{' '}
@@ -237,7 +235,7 @@ export default function SinglePost(props: SinglePostProps) {
                 ? `, ${fullArticle.acf.post_nominals}`
                 : ''}
               {fullArticle?.acf?.additional_contributors ? (
-                <div className='text-start text-text text-alt-dark'>
+                <div className='text-start text-text text-altDark'>
                   Contributors: {fullArticle.acf.additional_contributors}
                 </div>
               ) : (
@@ -246,7 +244,7 @@ export default function SinglePost(props: SinglePostProps) {
             </div>
 
             {/* PUBLISH DATE WITH LOADING INDICATOR */}
-            <div className='text-start text-text text-alt-dark'>
+            <div className='text-start text-text text-altDark'>
               {fullArticle?.date ? (
                 <>Published {prettyDate(fullArticle.date)}</>
               ) : (
@@ -256,7 +254,7 @@ export default function SinglePost(props: SinglePostProps) {
 
             {/* OPTIONAL ARTICLE CATEGORIES */}
             {articleCategories && (
-              <div className='text-start text-text text-alt-dark'>
+              <div className='text-start text-text text-altDark'>
                 Categorized under:{' '}
                 {articleCategories.map((categoryChunk, i) => (
                   <span key={categoryChunk.id}>
@@ -291,7 +289,7 @@ export default function SinglePost(props: SinglePostProps) {
                 color='primary'
                 className='
                       rounded-2xl
-                      bg-alt-green
+                      bg-altGreen
                       px-8
                       py-4
                       text-center
@@ -312,7 +310,7 @@ export default function SinglePost(props: SinglePostProps) {
 
           {/* OPTIONALLY RENDER REPRINT NOTICE */}
           <div className='mt-10'>
-            <div className='leading-none text-left font-sansText text-text font-medium'>
+            <div className='text-left font-sansText text-text font-medium'>
               {fullArticle?.acf?.canonical_url && (
                 <span className='text-small italic'>
                   Note: this article was originally published on{' '}
@@ -325,7 +323,7 @@ export default function SinglePost(props: SinglePostProps) {
         </article>
 
         {/* PREV / NEXT ARTICLES NAV */}
-        <div className='mx-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-alt-grey pt-24 md:grid-cols-3'>
+        <div className='mx-10 grid max-w-md grid-cols-1 items-center justify-center border-0 border-t border-solid border-altGrey pt-24 md:grid-cols-3'>
           {prevArticle && (
             <HetPaginationButton
               direction='previous'

@@ -293,7 +293,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       <h2 className='sr-only'>{getMadLibPhraseText(madLib)}</h2>
       <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
         <div
-          className={styles.MadLibUIContainer + ' z-z-almost-top'}
+          className={styles.MadLibUIContainer + ' z-almostTop'}
           id='madlib-container'
         >
           <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />

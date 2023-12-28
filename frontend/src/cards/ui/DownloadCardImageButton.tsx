@@ -31,7 +31,7 @@ export function DownloadCardImageButton(props: DownloadCardImageButtonProps) {
         <ListItemIcon className='flex items-center px-2 py-1'>
           <SaveAlt className='mx-1 w-8' />
           {!props.isMulti && (
-            <div className='pl-1 text-alt-black'>Save Image</div>
+            <div className='pl-1 text-altBlack'>Save Image</div>
           )}
         </ListItemIcon>
       </MenuItem>

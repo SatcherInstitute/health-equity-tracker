@@ -36,7 +36,7 @@ export default function OldMethodologyTab() {
         <article className='pb-6'>
           <h2
             id='main'
-            className='text-left font-serif text-smallestHeader font-light text-alt-black'
+            className='text-left font-serif text-smallestHeader font-light text-altBlack'
           >
             Recommended citation (APA) for the Health Equity Tracker:
           </h2>
@@ -48,7 +48,7 @@ export default function OldMethodologyTab() {
           </div>
         </article>
         <article className='pb-6'>
-          <h2 className='text-left font-serif text-smallestHeader font-light text-alt-black'>
+          <h2 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
             {selectFAQs[4].questionText}
           </h2>
           <div className='text-left font-sansText text-text'>
@@ -57,7 +57,7 @@ export default function OldMethodologyTab() {
         </article>
 
         <article className='pb-6 text-left font-sansText text-text'>
-          <h2 className='text-left font-serif text-smallestHeader font-light text-alt-black'>
+          <h2 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
             What are the limitations of the tracker, and why were these health
             equity topics chosen?
           </h2>
@@ -123,7 +123,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingCovidData />
             </Card>
           </section>
@@ -237,7 +237,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingCovidVaccinationData />
             </Card>
           </section>
@@ -309,7 +309,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingAHRData />
             </Card>
           </section>
@@ -322,7 +322,7 @@ export default function OldMethodologyTab() {
 
             <aside
               aria-label='Equity implications of women in legislative office'
-              className='bg-standard-info px-8 py-4 shadow-raised-tighter'
+              className='bg-standardInfo px-8 py-4 shadow-raised-tighter'
             >
               <a href={urlMap.doi1}>A link has been established</a> between
               having women in government and improvements in population health.{' '}
@@ -454,7 +454,7 @@ export default function OldMethodologyTab() {
                 counted by the ACS as <b>White</b>.
               </li>
             </ul>
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingCAWPData />
             </Card>
           </section>
@@ -550,7 +550,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingHIVData />
             </Card>
 
@@ -627,7 +627,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingPrepData />
             </Card>
 
@@ -761,37 +761,37 @@ export default function OldMethodologyTab() {
               .
             </p>
 
-            <table className='m-4 border-collapse border-solid border-bg-color p-1'>
-              <thead className='bg-join-effort-bg1 font-bold'>
+            <table className='m-4 border-collapse border-solid border-bgColor p-1'>
+              <thead className='bg-joinEffortBg1 font-bold'>
                 <tr>
                   <th>Field from data dictionary</th>
                   <th>Description</th>
                 </tr>
               </thead>
-              <tbody className='even:bg-explore-bg-color'>
+              <tbody className='even:bg-exploreBgColor'>
                 <tr>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     <b>RTI_RACE_CD</b>
                   </td>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     Beneficiary race code (modified using RTI algorithm). The
                     race of the beneficiary and enhanced based on first and last
                     name algorithms.
                   </td>
                 </tr>
                 <tr>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     <b>SEX_IDENT_CD</b>
                   </td>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     This variable indicates the sex of the beneficiary.
                   </td>
                 </tr>
                 <tr>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     <b>AGE_AT_END_REF_YR</b>
                   </td>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     This is the beneficiary’s age, expressed in years and
                     calculated as of the end of the calendar year, or, for
                     beneficiaries that died during the year, age as of the date
@@ -799,20 +799,20 @@ export default function OldMethodologyTab() {
                   </td>
                 </tr>
                 <tr>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     <b>CST_SHR_GRP_CD</b>
                   </td>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     Monthly cost sharing group under Part D low-income subsidy.
                     Beneficiaries receiving the subsidy at any time during the
                     year were classified as LIS.
                   </td>
                 </tr>
                 <tr>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     <b>ENTLMT_RSN_CURR</b>
                   </td>
-                  <td className='border-collapse border-solid border-bg-color p-1'>
+                  <td className='border-collapse border-solid border-bgColor p-1'>
                     Current reason for Medicare entitlement. This variable
                     indicates how the beneficiary currently qualifies for
                     Medicare.
@@ -1109,7 +1109,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingPhrmaData />
             </Card>
           </section>
@@ -1122,7 +1122,7 @@ export default function OldMethodologyTab() {
 
             <aside
               aria-label='Equity implications of SVI score'
-              className='bg-standard-info px-8 py-4 shadow-raised-tighter'
+              className='bg-standardInfo px-8 py-4 shadow-raised-tighter'
             >
               The measurement of social vulnerability grants policymakers,
               public health officials, and local planners the ability to
@@ -1164,7 +1164,7 @@ export default function OldMethodologyTab() {
 
             <aside
               aria-label='Equity implications of incarceration'
-              className='bg-standard-info px-8 py-4 shadow-raised-tighter'
+              className='bg-standardInfo px-8 py-4 shadow-raised-tighter'
             >
               <p>
                 Incarceration is influenced by a blend of political forces,
@@ -1414,7 +1414,7 @@ export default function OldMethodologyTab() {
 
         <article className='pb-6'>
           <h2
-            className='text-left font-serif text-smallestHeader font-light text-alt-black'
+            className='text-left font-serif text-smallestHeader font-light text-altBlack'
             id='metrics'
           >
             What do the metrics on the tracker mean?
@@ -1491,7 +1491,7 @@ export default function OldMethodologyTab() {
           </div>
         </article>
         <article className='pb-6'>
-          <h2 className='text-left font-serif text-smallestHeader font-light text-alt-black'>
+          <h2 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
             What do the condition variables on the tracker mean?
           </h2>
           <div className='text-left font-sansText text-text'>
@@ -1506,7 +1506,7 @@ export default function OldMethodologyTab() {
           </div>
         </article>
         <article className='pb-6'>
-          <h2 className='text-left font-serif text-smallestHeader font-light text-alt-black'>
+          <h2 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
             What do the race/ethnicity groups mean?
           </h2>
           <div className='text-left font-sansText text-text'>
@@ -1597,7 +1597,7 @@ export default function OldMethodologyTab() {
         </article>
 
         <article className='pb-6'>
-          <div className='rounded-md bg-infobar-color px-2 py-1 text-small'>
+          <div className='rounded-md bg-infobarColor px-2 py-1 text-small'>
             <p>
               Do you have information on health outcomes at the state and local
               level that belong in the Health Equity Tracker?

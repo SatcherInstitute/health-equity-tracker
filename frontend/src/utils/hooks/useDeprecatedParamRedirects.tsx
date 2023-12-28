@@ -1,9 +1,5 @@
 import { useHistory } from 'react-router-dom'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-  type DataTypeId,
-} from '../../data/config/MetricConfig'
+import { METRIC_CONFIG, type DataTypeId } from '../../data/config/MetricConfig'
 import { EXPLORE_DATA_PAGE_LINK } from '../internalRoutes'
 import { MADLIB_SELECTIONS_PARAM, useSearchParams } from '../urlutils'
 
@@ -45,7 +41,7 @@ export default function useDeprecatedParamRedirects() {
       )
     } else if (
       // otherwise handle other malformed ids in param and redirect to helper box
-      !Object.keys(METRIC_CONFIG).includes(dropdownVarId1 as DropdownVarId)
+      !Object.keys(METRIC_CONFIG).includes(dropdownVarId1)
     ) {
       history.push(EXPLORE_DATA_PAGE_LINK)
     }

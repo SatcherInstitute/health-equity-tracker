@@ -15,7 +15,7 @@ interface HetListItemButtonProps {
 
 const optionsToClasses: Record<HetListItemButtonOptionType, string> = {
   boldGreen: 'py-2 pl-0 font-sansTitle text-small font-medium no-underline',
-  normalBlack: 'py-1 pl-2 text-small font-light text-alt-black',
+  normalBlack: 'py-1 pl-2 text-small font-light text-altBlack',
 }
 
 export default function HetListItemButton(props: HetListItemButtonProps) {
