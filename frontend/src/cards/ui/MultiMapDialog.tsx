@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Grid, Button, Dialog, DialogContent, Typography } from '@mui/material'
+import { Button, Dialog, DialogContent } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
@@ -35,7 +35,6 @@ import { type CountColsMap, RATE_MAP_SCALE } from '../../charts/mapGlobals'
 import CardOptionsMenu from './CardOptionsMenu'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
-import sass from '../../styles/variables.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
@@ -149,55 +148,31 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     >
       <DialogContent dividers={true}>
         <div ref={screenshotTargetRef}>
-          <Grid
-            container
-            justifyContent='space-between'
-            component='ul'
-            className='list-none'
-            sx={{ p: 0 }}
+          {/* mobile-only card options button */}
+          {isXs && (
+            <div className='mb-3 flex w-full justify-end sm:hidden'>
+              <CardOptionsMenu
+                downloadTargetScreenshot={downloadTargetScreenshot}
+                reportTitle={props.reportTitle}
+                scrollToHash={props.scrollToHash}
+              />
+            </div>
+          )}
+
+          {/* Modal Title */}
+          <h2
+            className='w-full font-sansTitle text-exploreButton font-light leading-lhModalHeading'
+            id='modalTitle'
           >
+            {title}
+            {props?.subtitle && ` (${props.subtitle})`}
+          </h2>
+          <ul className='grid list-none grid-cols-2 justify-between gap-x-5 gap-y-2 p-0 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
             {/* card heading row */}
-            <Grid item xs={12} container justifyContent={'space-between'}>
-              {/* mobile-only card options button */}
-              {isXs && (
-                <Grid
-                  item
-                  xs={12}
-                  sx={{ display: { xs: 'flex', sm: 'none' }, mb: 3 }}
-                  container
-                  justifyContent={'flex-end'}
-                >
-                  <CardOptionsMenu
-                    downloadTargetScreenshot={downloadTargetScreenshot}
-                    reportTitle={props.reportTitle}
-                    scrollToHash={props.scrollToHash}
-                  />
-                </Grid>
-              )}
-              {/* Modal Title */}
-              <Grid item xs={12} sm={9} md={10}>
-                <Typography
-                  id='modalTitle'
-                  variant='h6'
-                  component='h2'
-                  lineHeight={sass.lhModalHeading}
-                >
-                  {title}
-                  {props?.subtitle && ` (${props.subtitle})`}
-                </Typography>
-              </Grid>
+            <div className='col-span-full flex w-full justify-between'>
               {/* desktop-only close button */}
               {!isXs && (
-                <Grid
-                  item
-                  sx={{
-                    display: { xs: 'none', sm: 'flex' },
-                    mr: { xs: 1, md: 0 },
-                    mb: 3,
-                  }}
-                  sm={1}
-                  container
-                >
+                <div className='mb-3 mr-1 hidden sm:flex md:mr-0'>
                   <Button
                     aria-label='close multiple maps modal'
                     onClick={props.handleClose}
@@ -206,9 +181,9 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   >
                     <CloseIcon />
                   </Button>
-                </Grid>
+                </div>
               )}
-            </Grid>
+            </div>
 
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
@@ -221,21 +196,14 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 (row: Row) => row[props.demographicType] === demographicGroup
               )
               return (
-                <Grid
-                  xs={12}
-                  sm={6}
-                  md={4}
-                  lg={3}
-                  item
+                <li
                   key={`${demographicGroup}-grid-item`}
-                  className='w-[300px] sm:p-4'
-                  component='li'
-                  onClick={(e: any) => {
-                    props.handleMapGroupClick(null, demographicGroup)
-                  }}
+                  className='w-full sm:p-1 md:p-2'
                 >
-                  <h4 className='font-medium'>{mapLabel}</h4>
-                  <Grid item minHeight={150}>
+                  <h4 className='m-0 text-small font-medium leading-lhTight md:text-text md:leading-lhNormal'>
+                    {mapLabel}
+                  </h4>
+                  <div className=''>
                     {props.metricConfig && dataForValue.length > 0 && (
                       <ChoroplethMap
                         demographicType={props.demographicType}
@@ -261,35 +229,33 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                         highestLowestGeosMode={false}
                       />
                     )}
-                  </Grid>
+                  </div>
 
                   {/* TERRITORIES (IF NATIONAL VIEW) */}
                   {props.metricConfig &&
                     props.fips.isUsa() &&
                     dataForValue.length && (
-                      <Grid container>
-                        <TerritoryCircles
-                          demographicType={props.demographicType}
-                          countColsMap={props.countColsMap}
-                          data={dataForValue}
-                          geoData={props.geoData}
-                          mapIsWide={false}
-                          metricConfig={props.metricConfig}
-                          dataTypeConfig={props.dataTypeConfig}
-                          signalListeners={multimapSignalListeners}
-                          scaleConfig={scale}
-                          isMulti={true}
-                          activeDemographicGroup={demographicGroup}
-                          highestLowestGeosMode={false}
-                        />
-                      </Grid>
+                      <TerritoryCircles
+                        demographicType={props.demographicType}
+                        countColsMap={props.countColsMap}
+                        data={dataForValue}
+                        geoData={props.geoData}
+                        mapIsWide={false}
+                        metricConfig={props.metricConfig}
+                        dataTypeConfig={props.dataTypeConfig}
+                        signalListeners={multimapSignalListeners}
+                        scaleConfig={scale}
+                        isMulti={true}
+                        activeDemographicGroup={demographicGroup}
+                        highestLowestGeosMode={false}
+                      />
                     )}
-                </Grid>
+                </li>
               )
             })}
 
             {/* LEGEND */}
-            <Grid item container xs={12} justifyContent='start'>
+            <div className='col-span-full flex w-full justify-start md:col-span-1'>
               <Legend
                 dataTypeConfig={props.dataTypeConfig}
                 metric={props.metricConfig}
@@ -307,26 +273,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 isMulti={true}
                 isPhrmaAdherence={props.isPhrmaAdherence}
               />
-            </Grid>
+            </div>
 
             {/* Population Breadcrumbs + Legend */}
-            <Grid
-              container
-              justifyContent={'space-between'}
-              alignItems={'flex-end'}
-              item
-              xs={12}
-              className='pt-4 lg:pb-4 xl:pb-8 xl:pt-0'
-            >
+            <div className='col-span-full flex w-full items-end justify-between pt-4 lg:pb-4 xl:pb-8 xl:pt-0'>
               {/* DESKTOP BREADCRUMBS */}
-              <Grid
-                sx={{ display: { xs: 'none', md: 'flex' } }}
-                container
-                item
-                xs={12}
-                md={6}
-                justifyContent={'start'}
-              >
+              <div className='hidden w-full justify-start md:flex md:w-1/2'>
                 <HetBreadcrumbs
                   fips={props.fips}
                   updateFipsCallback={props.updateFipsCallback}
@@ -334,16 +286,10 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   totalPopulationPhrase={props.totalPopulationPhrase}
                   subPopulationPhrase={props.subPopulationPhrase}
                 />
-              </Grid>
+              </div>
 
               {/* MOBILE BREADCRUMBS */}
-              <Grid
-                sx={{ mt: 3, display: { xs: 'flex', md: 'none' } }}
-                container
-                item
-                xs={12}
-                justifyContent={'center'}
-              >
+              <div className='col-span-full mt-3 flex w-full justify-center md:hidden'>
                 <HetBreadcrumbs
                   fips={props.fips}
                   updateFipsCallback={props.updateFipsCallback}
@@ -351,12 +297,12 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   totalPopulationPhrase={props.totalPopulationPhrase}
                   subPopulationPhrase={props.subPopulationPhrase}
                 />
-              </Grid>
-            </Grid>
+              </div>
+            </div>
 
             {/* Missing Groups */}
             {props.demographicGroupsNoData.length > 0 && (
-              <Grid item container justifyContent='center' xs={12} xl={7}>
+              <div className='col-span-full w-full justify-center xl:w-7/12'>
                 <div className='my-3'>
                   <HetNotice kind='data-integrity'>
                     <p className='m-0'>
@@ -372,17 +318,13 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                     </p>
                   </HetNotice>
                 </div>
-              </Grid>
+              </div>
             )}
 
-            <Grid container justifyContent={'center'}>
-              <Grid item xs={12}>
-                <HetNotice kind='text-only'>
-                  <DataTypeDefinitionsList />
-                </HetNotice>
-              </Grid>
-            </Grid>
-          </Grid>
+            <HetNotice kind='text-only' className='col-span-full'>
+              <DataTypeDefinitionsList />
+            </HetNotice>
+          </ul>
         </div>
       </DialogContent>
 

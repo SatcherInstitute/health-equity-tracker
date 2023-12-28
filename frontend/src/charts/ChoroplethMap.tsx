@@ -60,6 +60,7 @@ import {
 } from './mapHelperFunctions'
 import { setupUnknownsLegend } from './legendHelperFunctions'
 import { het } from '../styles/DesignTokens'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 const {
   howToColor: UNKNOWN_GREY,
@@ -118,6 +119,8 @@ interface ChoroplethMapProps {
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
+  const isMobile = !useIsBreakpointAndUp('md')
+
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
@@ -346,7 +349,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
+      /* is multimap */ props.isMulti,
+      /* is mobile device */ isMobile
     ),
     // MISSING
     createShapeMarks(
@@ -359,7 +363,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
+      props.isMulti,
+      /* is mobile device */ isMobile
     ),
     // NON-ZERO
     createShapeMarks(
@@ -370,7 +375,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
+      props.isMulti,
+      /* is mobile device */ isMobile
     ),
   ]
 
