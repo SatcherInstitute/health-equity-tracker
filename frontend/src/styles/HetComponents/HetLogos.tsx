@@ -20,7 +20,7 @@ export default function HetLogos() {
         <div className='flex items-start justify-start'>
           <div className='w-full'>
             <span
-              className='inline-block w-max font-sansTitle text-title font-medium text-alt-green'
+              className='inline-block w-max font-sansTitle text-title font-medium text-altGreen'
               aria-hidden='true'
             >
               Health Equity Tracker

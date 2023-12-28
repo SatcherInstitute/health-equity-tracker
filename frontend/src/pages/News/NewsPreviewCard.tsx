@@ -7,7 +7,6 @@ import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 interface NewsPreviewCardProps {
   article: Article
-  arrow?: 'prev' | 'next'
 }
 
 export default function NewsPreviewCard(props: NewsPreviewCardProps) {
@@ -16,18 +15,9 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
   return (
     <HetLinkButton
       href={`${NEWS_PAGE_LINK}/${article.slug}`}
-      className='font-title m-0 p-2 text-center'
+      className='m-0 p-2 text-center text-title'
     >
       <div className='flex flex-nowrap justify-evenly'>
-        {/* Optional "Left/Previous" Arrow */}
-        <div className='flex w-1/12 flex-col items-center justify-center'>
-          {props.arrow === 'prev' ? (
-            <div className='font-serif text-bigHeader font-medium'>«</div>
-          ) : (
-            ' '
-          )}
-        </div>
-
         <div className='flex w-9/12 flex-col items-center justify-center'>
           <LazyLoad once height={100} offset={300}>
             <img
@@ -36,34 +26,16 @@ export default function NewsPreviewCard(props: NewsPreviewCardProps) {
                 article?._embedded?.['wp:featuredmedia']?.[0]?.media_details
                   ?.sizes?.medium?.source_url || AppbarLogo
               }
-              className='max-h-28 w-auto rounded-md'
+              className='w-auto rounded-md'
               alt=''
             />
           </LazyLoad>
 
           <div className='mx-2'>
-            <h3
-              className='
-              font-title
-              m-0
-              text-center
-              font-serif
-              font-light
-              leading-lhSomeSpace
-          '
-            >
+            <h3 className='m-0 text-center font-serif text-title font-light leading-lhSomeSpace'>
               {getHtml(article.title.rendered, true)}
             </h3>
           </div>
-        </div>
-
-        {/* Optional "Right/Next" Arrow */}
-        <div className='flex w-1/12 flex-col items-center justify-center'>
-          {props.arrow === 'next' ? (
-            <div className='font-serif text-bigHeader font-medium'>»</div>
-          ) : (
-            ' '
-          )}
         </div>
       </div>
     </HetLinkButton>

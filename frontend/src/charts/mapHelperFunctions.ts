@@ -2,7 +2,6 @@ import { type MetricId, type MetricType } from '../data/config/MetricConfig'
 import { type Fips } from '../data/utils/Fips'
 import { type FieldRange, type Row } from '../data/utils/DatasetTypes'
 import { generateSubtitle } from './utils'
-import sass from '../styles/variables.module.scss'
 import {
   type DemographicGroup,
   LESS_THAN_1,
@@ -31,6 +30,7 @@ import {
   MAP_SCHEMES,
   type CountColsMap,
 } from './mapGlobals'
+import { het } from '../styles/DesignTokens'
 
 /*
 
@@ -188,7 +188,7 @@ export function createShapeMarks(
           signal: '1',
         },
         stroke: {
-          value: outlineGeos ? sass.altGrey : sass.white,
+          value: outlineGeos ? het.altGrey : het.white,
           strokeWidth: { value: outlineGeos ? 1 : 0 },
         },
       },

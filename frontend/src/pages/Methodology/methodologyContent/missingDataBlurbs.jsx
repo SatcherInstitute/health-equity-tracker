@@ -329,7 +329,7 @@ export function MissingPhrmaData() {
       <ul>
         <li>
           <b>Data Suppression:</b> To{' '}
-          <a href="https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.">
+          <a href='https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.'>
             protect patient privacy
           </a>
           , all data representing 1-10 people were suppressed.

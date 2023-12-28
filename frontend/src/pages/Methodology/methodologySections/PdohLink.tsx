@@ -9,10 +9,6 @@ import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
-import { percentShareTooltip } from '../methodologyContent/TooltipLibrary'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 const PdohLink = () => {
   return (
@@ -338,38 +334,6 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <HetNotice title="A note about the America's Health Rankings (AHR)'s population data">
-          <p>
-            Without population data, it is difficult to accurately calculate{' '}
-            {percentShareTooltip} measures, which could potentially result in
-            misleading data.{' '}
-          </p>
-          <p>
-            We don't display percent share figures for certain health measures
-            because the original data source only gives us these numbers as{' '}
-            {
-              <DefinitionTooltip
-                topic={'rates'}
-                definitionItem={definitionsGlossary[40]}
-              />
-            }
-            , and not as a portion of the population.
-          </p>
-          <p>
-            Please note that AHR does not provide population-specific data for
-            certain conditions, including:
-            <ul>
-              <li className='font-sansTitle font-medium'>
-                <a href='https://healthequitytracker.org/exploredata?mls=1.voter_participation-3.00&group1=All'>
-                  voter participation
-                </a>
-                .
-              </li>
-            </ul>
-            However, we encourage you to explore our comprehensive reports for
-            valuable insights into these and other conditions.
-          </p>
-        </HetNotice>
         <h3 className='font-sansTitle text-title' id='#pdoh-data-resources'>
           Data Sources
         </h3>

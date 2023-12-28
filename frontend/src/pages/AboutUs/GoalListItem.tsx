@@ -19,7 +19,7 @@ export default function GoalListItem(props: GoalListItemProps) {
           />
         </LazyLoad>
       )}
-      <h4 className='px-0 py-0 text-left font-serif text-smallestHeader font-thin'>
+      <h4 className='p-0 text-left font-serif text-smallestHeader font-thin'>
         {props.title}
       </h4>
       <p className='my-0 text-left font-sansText font-thin'>{props.text}</p>

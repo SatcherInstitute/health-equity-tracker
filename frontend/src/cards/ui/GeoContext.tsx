@@ -4,7 +4,6 @@ import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import SviAlert from './SviAlert'
-import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
@@ -34,7 +33,7 @@ export default function GeoContext(props: GeoContextProps) {
         totalPopulationPhrase={props.totalPopulationPhrase}
         subPopulationPhrase={props.subPopulationPhrase}
       />
-      <Grid className={styles.SviContainer}>
+      <Grid className='md:flex md:items-center'>
         <Grid>
           {props.fips.isCounty() && (
             <SviAlert

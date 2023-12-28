@@ -1,15 +1,14 @@
-import Grid from '@mui/material/Grid'
 import { HET_URL } from '../../../utils/internalRoutes'
 import { Helmet } from 'react-helmet-async'
 import { currentYear } from '../../../cards/ui/SourcesHelpers'
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
-import MethodologySubMenu from './MethodologySubMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import NavigationButtons from './NavigationButtons'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
-import { useEffect, useState } from 'react'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
+
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
 export const defLookup = () => {
   const indexedDefinitions = definitionsGlossary.map((item, index) => ({
@@ -24,20 +23,7 @@ export const defLookup = () => {
     })
 }
 
-const MethodologyPage: React.FC = () => {
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
-
+export default function MethodologyPage() {
   const location = useLocation()
 
   const activeRoute = routeConfigs.find(
@@ -45,75 +31,84 @@ const MethodologyPage: React.FC = () => {
   )
 
   return (
-    <div className='m-1'>
+    <>
       <Helmet>
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
-      <h2 className='sr-only'>Methodology</h2>
+      <div className='flex justify-center'>
+        <h2 className='sr-only'>Methodology</h2>
 
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={3}>
-          {windowWidth < 600 ? (
-            <MethodologyCardMenuMobile />
-          ) : (
-            <MethodologyCardMenu />
-          )}
-        </Grid>
+        <section className='m-[2%] max-w-xl'>
+          <div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-2 md:gap-12'>
+            {/* MAIN METHODOLOGY PAGES MENU */}
+            <div className='min-w-fit'>
+              <MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
+              <MethodologyCardMenuMobile className='smMd:hidden' />
+            </div>
 
-        {windowWidth < 600 && (
-          <Grid item xs={12} sm={3}>
-            {routeConfigs.map((route, index) => {
-              const match = useRouteMatch({
-                path: route.path,
-                exact: true,
-              })
+            {/* CONTENT */}
+            <div className='flex flex-wrap p-0'>
+              {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
+              <div className='px-12 lg:hidden'>
+                {routeConfigs.map((route, index) => {
+                  const match = useRouteMatch({
+                    path: route.path,
+                    exact: true,
+                  })
+                  return match && route.subLinks.length > 0 ? (
+                    <HetOnThisPageMenu
+                      key={index}
+                      links={route.subLinks}
+                      className=''
+                    />
+                  ) : null
+                })}
+              </div>
 
-              return match && route.subLinks.length > 0 ? (
-                <MethodologySubMenu key={index} links={route.subLinks} />
-              ) : null
-            })}
-          </Grid>
-        )}
+              <article className='flex w-full flex-col p-8 text-left lg:p-0 '>
+                {/* HEADING */}
+                <h2 className='font-serif text-header font-light' id='main'>
+                  {activeRoute?.label}
+                </h2>
 
-        <div className='mt-8 flex p-0'>
-          <article className='flex w-full flex-col p-8 text-left sm:w-1/2 lg:p-0 '>
-            <h2 className='font-serif text-header font-light' id='main'>
-              {activeRoute?.label}
-            </h2>
-            <Switch>
-              <>
-                {routeConfigs.map((route, index) => (
-                  <Route
+                <Switch>
+                  <>
+                    {/* TEXT */}
+                    {routeConfigs.map((route, index) => (
+                      <Route
+                        key={index}
+                        exact
+                        path={route.path}
+                        component={route.component}
+                      />
+                    ))}
+                    {/* PREV / NEXT */}
+                    <NavigationButtons />
+                  </>
+                </Switch>
+              </article>
+            </div>
+
+            {/* ON THIS PAGE SUB-MENU - DESKTOP */}
+            <div className='hidden min-w-fit lg:block'>
+              {routeConfigs.map((route, index) => {
+                const match = useRouteMatch({
+                  path: route.path,
+                  exact: true,
+                })
+                return match && route.subLinks.length > 0 ? (
+                  <HetOnThisPageMenu
                     key={index}
-                    exact
-                    path={route.path}
-                    component={route.component}
+                    links={route.subLinks}
+                    className='sticky right-0 top-4  z-top h-min'
                   />
-                ))}
-                <NavigationButtons />
-              </>
-            </Switch>
-          </article>
-        </div>
-
-        {windowWidth >= 600 && (
-          <Grid item xs={12} sm={3}>
-            {routeConfigs.map((route, index) => {
-              const match = useRouteMatch({
-                path: route.path,
-                exact: true,
-              })
-
-              return match && route.subLinks.length > 0 ? (
-                <MethodologySubMenu key={index} links={route.subLinks} />
-              ) : null
-            })}
-          </Grid>
-        )}
-      </Grid>
-    </div>
+                ) : null
+              })}
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   )
 }
-
-export default MethodologyPage

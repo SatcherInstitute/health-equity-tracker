@@ -63,7 +63,7 @@ export default function DataCatalogPage() {
         <header className='pb-2'>
           <h3
             id='main'
-            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-alt-black'
+            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-altBlack'
           >
             View and download Health Equity Tracker data sources
           </h3>

@@ -57,7 +57,7 @@ function LandingPage() {
               font-serif
               text-header font-light
               leading-lhModalHeading
-              text-alt-green
+              text-altGreen
               lg:text-left
               lg:text-bigHeader'
             >
@@ -72,7 +72,7 @@ function LandingPage() {
               scalable, feature-rich platform supports efforts to achieve health
               equity and justice for all.
             </p>
-            <div className=' mb-5 mt-5 '>
+            <div className=' my-5 '>
               <HetBigCTA id='landingPageCTA' href={EXPLORE_DATA_PAGE_LINK}>
                 Explore the data
               </HetBigCTA>
@@ -82,7 +82,7 @@ function LandingPage() {
             {/* image is actually rounded */}
             <img
               src='/img/stock/family-laughing.png'
-              className='border-xl h-auto max-h-tiny w-full max-w-sm rounded-xl	object-cover p-2.5'
+              className='h-auto max-h-tiny w-full max-w-sm rounded-xl	object-cover p-2.5'
               alt=''
             />
           </div>
@@ -90,7 +90,7 @@ function LandingPage() {
 
         <div className='flex flex-wrap border-0 border-b border-solid px-8 py-20'>
           <div className='w-full'>
-            <h3 className='m-0 font-serif text-header font-light leading-lhModalHeading text-alt-green'>
+            <h3 className='m-0 font-serif text-header font-light leading-lhModalHeading text-altGreen'>
               Recent news
             </h3>
           </div>
@@ -132,13 +132,13 @@ function LandingPage() {
 
         <article className='flex flex-wrap items-center justify-center border-0	border-b border-solid px-8 pb-32 pt-20'>
           <div className='w-full'>
-            <h3 className='m-0 pb-16 text-center font-serif text-header font-light text-alt-green'>
+            <h3 className='m-0 pb-16 text-center font-serif text-header font-light text-altGreen'>
               How do I use the Health Equity Tracker?
             </h3>
           </div>
 
           <ul className='flex flex-col flex-wrap items-center justify-center p-0'>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader	font-medium md:text-left'>
                   Take a Tour of the Data
@@ -161,7 +161,7 @@ function LandingPage() {
                 ></iframe>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
                   Search by completing the sentence
@@ -185,7 +185,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
@@ -211,7 +211,7 @@ function LandingPage() {
                 </LazyLoad>
               </div>
             </li>
-            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-alt-grey p-2.5 md:flex'>
+            <li className='m-2.5 w-full list-none items-center justify-around rounded-md border border-solid border-altGrey p-2.5 md:flex'>
               <div className='w-full md:w-1/4'>
                 <div>
                   <h4 className='font-sansTitle text-smallestHeader font-medium md:text-left'>
@@ -250,7 +250,7 @@ function LandingPage() {
         <aside className='flex w-full items-center justify-center px-8 pb-2.5 pt-24'>
           <section>
             <div className='w-full'>
-              <h3 className='mb-4 mt-8 font-serif text-header font-light text-alt-green'>
+              <h3 className='mb-4 mt-8 font-serif text-header font-light text-altGreen'>
                 Sign up for our newsletter:
               </h3>
             </div>
