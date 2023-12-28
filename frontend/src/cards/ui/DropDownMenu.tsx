@@ -48,11 +48,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
       hasChildren &&
       (props.items as Record<string, DemographicGroup[]>)[listItem].length === 0
     ) {
-      return (
-        <ListItem key={listItem} button disabled>
-          {listItem} [unavailable]
-        </ListItem>
-      )
+      return <ListItem key={listItem}>{listItem} [unavailable]</ListItem>
     } else {
       return (
         <ListItem
