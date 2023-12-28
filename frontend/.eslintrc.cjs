@@ -8,6 +8,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'standard-with-typescript',
     'prettier',
+    'plugin:tailwindcss/recommended',
   ],
   overrides: [],
   ignorePatterns: ['**/*.spec.ts', 'geographies.json'],
@@ -16,7 +17,7 @@ module.exports = {
     sourceType: 'module',
     project: ['tsconfig.json'],
   },
-  plugins: ['react', 'jsx-a11y'],
+  plugins: ['react', 'jsx-a11y', 'tailwindcss'],
   settings: {
     react: {
       version: 'detect',
@@ -33,5 +34,8 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'multiline-ternary': 'off',
     'react/prop-types': 'off',
+    'tailwindcss/classnames-order': 'off',
+    'tailwindcss/migration-from-tailwind-2': 'off',
+    'tailwindcss/no-custom-classname': [2,{"whitelist": ["mode\\-selector\\-box", "mode\\-selector\\-box\\-mobile"]}],
   },
 }

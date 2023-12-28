@@ -12,7 +12,6 @@
 
 /* Styles */
 import styles from './Trends.module.scss'
-import sass from '../../styles/variables.module.scss'
 
 /* Constants */
 import { type TrendsData } from './types'
@@ -25,6 +24,7 @@ import {
   type DemographicGroup,
   UNKNOWN_W,
 } from '../../data/utils/Constants'
+import { het } from '../../styles/DesignTokens'
 
 /* Define type interface */
 interface FilterLegendProps {
@@ -107,7 +107,7 @@ export function FilterLegend({
           const groupEnabled = selectedGroups.includes(group)
 
           const isUnknown = group === UNKNOWN_W
-          const gradient = `linear-gradient(30deg, ${sass.unknownMapMost}, ${sass.unknownMapMid},${sass.unknownMapMost})`
+          const gradient = `linear-gradient(30deg, ${het.unknownMapMost}, ${het.unknownMapMid},${het.unknownMapMost})`
 
           // Legend Item Filter Button
           return (

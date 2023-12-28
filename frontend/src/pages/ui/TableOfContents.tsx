@@ -40,7 +40,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
       )}
       orientation='vertical'
       aria-label='Available cards on this report'
-      className='hidden p-0 sm:flex sm:w-90p titleSm:pl-1p md:px-5'
+      className='titleSm:pl-1p hidden p-0 sm:flex sm:w-90p md:px-5'
     >
       {props.reportStepHashIds?.map((stepId) => {
         return (

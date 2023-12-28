@@ -62,7 +62,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
       duration={500}
       height={props.isOpen ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 rounded-md bg-standard-info text-left'
+      className='mt-4 rounded-md bg-standardInfo text-left'
     >
       <div className='float-right'>
         <IconButton

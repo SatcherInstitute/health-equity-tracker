@@ -60,7 +60,7 @@ export default function FaqSection() {
       <Grid item>
         <HetLinkButton
           href={FAQ_TAB_LINK}
-          className='text-smallestHeader text-alt-green underline'
+          className='text-smallestHeader text-altGreen underline'
         >
           See our full FAQ page
         </HetLinkButton>
