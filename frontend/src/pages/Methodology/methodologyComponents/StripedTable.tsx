@@ -72,7 +72,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
                 <TableCell
                   key={col.accessor}
                   component='td'
-                  className='font-text text-left text-small font-normal'
+                  className='text-left font-sansText text-small font-normal'
                   scope='row'
                 >
                   {row[col.accessor]}

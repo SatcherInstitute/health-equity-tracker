@@ -93,6 +93,7 @@ export default {
         'littleHetLogo': '30px',
         'joinEffortLogo': '600px',
         '90p': '90%',
+        '98p': '98%',
       },
       padding: {
         '1p': '1%',

@@ -81,6 +81,7 @@ const ThemeColors = {
   timePurple: '#816d98',
   timeYellow: '#fcb431',
   toggleColor: '#e1e9e7',
+  transparent: '#00000000',
   unknownMapEvenMore: '#2384b9',
   unknownMapLeast: '#d3eece',
   unknownMapLess: '#92d4be',

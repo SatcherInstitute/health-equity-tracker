@@ -40,7 +40,7 @@ function OurTeamTab() {
         </div>
 
         <section className='flex flex-col'>
-          <h3 className='border-b-1 border-[0] border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -63,7 +63,7 @@ function OurTeamTab() {
         </section>
 
         <section className='flex flex-col'>
-          <h3 className='border-b-1 border-[0] border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
             Former SHLI Contributors
           </h3>
 
@@ -80,7 +80,7 @@ function OurTeamTab() {
         </section>
 
         <section className='flex flex-col'>
-          <h3 className='border-b-1 border-[0] border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
             Google.org Fellows
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-5 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5'>
@@ -106,7 +106,7 @@ function OurTeamTab() {
         </section>
 
         <section className='flex flex-col'>
-          <h3 className='border-b-1 border-[0] border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
             Health Equity Task Force
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
@@ -117,7 +117,7 @@ function OurTeamTab() {
         </section>
 
         <section className='flex flex-col'>
-          <h3 className='border-b-1 border-[0] border-solid border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
             Founding Partners
           </h3>
 
@@ -139,7 +139,7 @@ function OurTeamTab() {
         </section>
 
         <section className='flex flex-col'>
-          <h3 className='border-b-1 border-[0] border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
             Grantors
           </h3>
 

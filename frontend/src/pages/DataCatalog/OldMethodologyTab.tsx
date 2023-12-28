@@ -123,7 +123,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingCovidData />
             </Card>
           </section>
@@ -237,7 +237,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingCovidVaccinationData />
             </Card>
           </section>
@@ -309,7 +309,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingAHRData />
             </Card>
           </section>
@@ -454,7 +454,7 @@ export default function OldMethodologyTab() {
                 counted by the ACS as <b>White</b>.
               </li>
             </ul>
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingCAWPData />
             </Card>
           </section>
@@ -550,7 +550,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingHIVData />
             </Card>
 
@@ -627,7 +627,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingPrepData />
             </Card>
 
@@ -762,7 +762,7 @@ export default function OldMethodologyTab() {
             </p>
 
             <table className='m-4 border-collapse border-solid border-bgColor p-1'>
-              <thead className='bg-join-effort-bg1 font-bold'>
+              <thead className='bg-joinEffortBg1 font-bold'>
                 <tr>
                   <th>Field from data dictionary</th>
                   <th>Description</th>
@@ -1109,7 +1109,7 @@ export default function OldMethodologyTab() {
               </li>
             </ul>
 
-            <Card className='bg-standard-warning px-8 py-4'>
+            <Card className='bg-standardWarning px-8 py-4'>
               <MissingPhrmaData />
             </Card>
           </section>
@@ -1597,7 +1597,7 @@ export default function OldMethodologyTab() {
         </article>
 
         <article className='pb-6'>
-          <div className='bg-infobar-color rounded-md px-2 py-1 text-small'>
+          <div className='rounded-md bg-infobarColor px-2 py-1 text-small'>
             <p>
               Do you have information on health outcomes at the state and local
               level that belong in the Health Equity Tracker?

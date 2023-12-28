@@ -82,7 +82,7 @@ function LandingPage() {
             {/* image is actually rounded */}
             <img
               src='/img/stock/family-laughing.png'
-              className='border-xl h-auto max-h-tiny w-full max-w-sm rounded-xl	object-cover p-2.5'
+              className='h-auto max-h-tiny w-full max-w-sm rounded-xl	object-cover p-2.5'
               alt=''
             />
           </div>

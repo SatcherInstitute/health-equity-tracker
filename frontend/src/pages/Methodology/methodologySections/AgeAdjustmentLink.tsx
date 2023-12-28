@@ -261,7 +261,7 @@ const AgeAdjustmentLink = () => {
           </p>
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
-              <tr className='bg-join-effort-bg1'>
+              <tr className='bg-joinEffortBg1'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
                 </td>
@@ -379,7 +379,7 @@ const AgeAdjustmentLink = () => {
           {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
-              <tr className='bg-join-effort-bg1'>
+              <tr className='bg-joinEffortBg1'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
                 </td>
@@ -524,7 +524,7 @@ const AgeAdjustmentLink = () => {
           {/* A + B TABLE */}
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
-              <tr className='bg-join-effort-bg1'>
+              <tr className='bg-joinEffortBg1'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
                 </td>
@@ -589,7 +589,7 @@ const AgeAdjustmentLink = () => {
           </pre>
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
-              <tr className='bg-join-effort-bg1'>
+              <tr className='bg-joinEffortBg1'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
                 </td>
@@ -750,7 +750,7 @@ const AgeAdjustmentLink = () => {
           </h4>
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
-              <tr className='bg-join-effort-bg1'>
+              <tr className='bg-joinEffortBg1'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
                 </td>
@@ -790,7 +790,7 @@ const AgeAdjustmentLink = () => {
           </h4>
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
-              <tr className='bg-join-effort-bg1'>
+              <tr className='bg-joinEffortBg1'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
                 </td>

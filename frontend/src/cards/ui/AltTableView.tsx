@@ -68,7 +68,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='bg-listbox-color mt-4 rounded-md text-left'
+      className='mt-4 rounded-md bg-listboxColor text-left'
       id={
         props.isCompareCard
           ? ALT_TABLE_VIEW_2_PARAM_KEY
@@ -118,7 +118,7 @@ export default function AltTableView(props: AltTableViewProps) {
             <Table
               tabIndex={0}
               ref={tableRef}
-              className='border-1 rounded-xs w-98p m-3 whitespace-nowrap border-altDark'
+              className='m-3 w-98p whitespace-nowrap rounded-sm border border-altDark'
               size='small'
               stickyHeader
             >

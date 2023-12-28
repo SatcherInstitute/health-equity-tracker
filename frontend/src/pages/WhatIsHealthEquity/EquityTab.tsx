@@ -394,7 +394,7 @@ function EquityTab() {
                 ? 'img/HET-lines-no-motion.gif'
                 : 'img/animations/HET-lines.gif'
             }
-            imageBackground='bg-join-effort-bg1'
+            imageBackground='bg-joinEffortBg1'
             imageAlt=''
             textTitle='Learn to create actionable solutions'
             content={
@@ -423,7 +423,7 @@ function EquityTab() {
                 ? 'img/HET-fields-no-motion.gif'
                 : 'img/animations/HET-fields.gif'
             }
-            imageBackground='bg-join-effort-bg2'
+            imageBackground='bg-joinEffortBg2'
             imageAlt=''
             textTitle='Give back to your community'
             content={
@@ -453,7 +453,7 @@ function EquityTab() {
                 ? 'img/HET-dots-no-motion.gif'
                 : 'img/animations/HET-dots.gif'
             }
-            imageBackground='bg-join-effort-bg3'
+            imageBackground='bg-joinEffortBg3'
             imageAlt=''
             textTitle='Sign up for our newsletter'
             content={
