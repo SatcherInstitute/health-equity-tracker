@@ -77,7 +77,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
                   handleClick(link.path)
                 }}
                 className={
-                  activeLink === link.path ? 'font-semibold text-alt-green' : ''
+                  activeLink === link.path ? 'font-semibold text-altGreen' : ''
                 }
               >
                 <span className='font-sansText text-smallest hover:cursor-pointer'>

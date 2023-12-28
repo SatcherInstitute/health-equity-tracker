@@ -7,7 +7,9 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'standard-with-typescript',
+    "plugin:tailwindcss/recommended",
     'prettier',
+
   ],
   overrides: [],
   ignorePatterns: ['**/*.spec.ts', 'geographies.json'],
@@ -33,5 +35,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-comment': 'off',
     'multiline-ternary': 'off',
     'react/prop-types': 'off',
+    'tailwindcss/classnames-order': 'off',
+    'tailwindcss/no-custom-classname': [1,{"whitelist": ["mode\\-selector\\-box", "mode\\-selector\\-box\\-mobile"]}],
   },
 }

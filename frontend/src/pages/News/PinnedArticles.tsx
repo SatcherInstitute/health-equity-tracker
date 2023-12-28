@@ -12,7 +12,7 @@ export default function PinnedArticles(props: PinnedArticlesProps) {
 
   return articles?.length > 0 ? (
     <div className='shadow-md'>
-      <h6 className='m-0 text-center font-serif font-light text-alt-green'>
+      <h6 className='m-0 text-center font-serif font-light text-altGreen'>
         Featured:
       </h6>
       <div className='flex'>

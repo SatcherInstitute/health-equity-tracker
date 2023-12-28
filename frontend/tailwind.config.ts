@@ -69,6 +69,7 @@ export default {
     extend: {
       maxHeight: {
         aimToGo: '255px',
+        articleLogo: '700px',
       },
       maxWidth: {
         aimToGo: '255px',

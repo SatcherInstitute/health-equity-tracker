@@ -68,7 +68,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 rounded-md bg-listbox-color text-left'
+      className='bg-listbox-color mt-4 rounded-md text-left'
       id={
         props.isCompareCard
           ? ALT_TABLE_VIEW_2_PARAM_KEY
@@ -118,7 +118,7 @@ export default function AltTableView(props: AltTableViewProps) {
             <Table
               tabIndex={0}
               ref={tableRef}
-              className='border-1 rounded-xs w-98p m-3 whitespace-nowrap border-alt-dark'
+              className='border-1 rounded-xs w-98p m-3 whitespace-nowrap border-altDark'
               size='small'
               stickyHeader
             >
@@ -138,7 +138,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
-                        className='break-words border-0 border-b border-alt-dark bg-white leading-lhSomeSpace'
+                        className='break-words border-0 border-b border-altDark bg-white leading-lhSomeSpace'
                       >
                         {!isTimeCol &&
                           key !== ALL &&
@@ -162,7 +162,7 @@ export default function AltTableView(props: AltTableViewProps) {
                   return (
                     <TableRow
                       key={row[TIME_PERIOD_LABEL]}
-                      className='odd:bg-table-zebra even:bg-white'
+                      className='odd:bg-tableZebra even:bg-white'
                     >
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL

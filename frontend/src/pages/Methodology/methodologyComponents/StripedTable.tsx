@@ -49,7 +49,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
         <TableHead>
           <TableRow
             // className={styles.StripedTableHeader}
-            className='bg-alt-green text-navlink-color'
+            className='bg-altGreen text-navlinkColor'
           >
             {columns.map((col) => (
               <TableCell key={col.accessor}>{col.header}</TableCell>
@@ -64,7 +64,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
                 applyThickBorder &&
                 rows.length !== 3 &&
                 (rowIndex + 1) % 2 === 0
-                  ? 'border-0 border-b-2 border-alt-green'
+                  ? 'border-0 border-b-2 border-altGreen'
                   : ''
               }
             >

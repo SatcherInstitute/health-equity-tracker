@@ -27,7 +27,7 @@ function OurTeamTab() {
             text-biggerHeader
             font-light
             leading-lhSomeSpace
-            text-alt-green
+            text-altGreen
             '
             >
               We're working towards a better tomorrow.

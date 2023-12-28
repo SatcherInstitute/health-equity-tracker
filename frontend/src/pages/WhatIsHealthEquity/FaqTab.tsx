@@ -12,7 +12,7 @@ function FaqTab() {
       </Helmet>
       <h2 className='sr-only'>Frequently Asked Questions</h2>
       <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
-        <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
+        <div className='border-0 border-b border-solid border-altGrey px-5 py-12 md:flex'>
           <div className='w-full md:w-1/4'>
             <h2
               className='m-auto pb-5 font-serif text-header font-light'
@@ -106,7 +106,7 @@ function FaqTab() {
           </div>
         </div>
 
-        <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
+        <div className='border-0 border-b border-solid border-altGrey px-5 py-12 md:flex'>
           <div className='w-full md:w-1/4'>
             <h2 className='m-auto pb-5 font-serif text-header font-light'>
               Definitions
@@ -202,7 +202,7 @@ function FaqTab() {
           </div>
         </div>
 
-        <div className='border-0 border-b border-solid border-alt-grey px-5 py-12 md:flex'>
+        <div className='border-0 border-b border-solid border-altGrey px-5 py-12 md:flex'>
           <div className='w-full md:w-1/4'>
             <h2 className='m-auto pb-5 font-serif text-header font-light'>
               Take Action

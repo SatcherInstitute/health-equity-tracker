@@ -141,7 +141,7 @@ function AllPosts() {
         border-0
         border-b
         border-solid
-        border-alt-grey
+        border-altGrey
         px-5
         py-12
       '
@@ -173,7 +173,7 @@ function AllPosts() {
                     text-header
                     font-light
                     leading-lhNormal
-                    text-alt-green
+                    text-altGreen
                     md:text-bigHeader
 
                     '
@@ -322,7 +322,7 @@ function AllPosts() {
         '
         >
           <div className='w-full'>
-            <div className='mt-16 border-0	border-t border-solid border-alt-grey p-4'></div>
+            <div className='mt-16 border-0	border-t border-solid border-altGrey p-4'></div>
           </div>
           <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters

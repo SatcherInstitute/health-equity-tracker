@@ -56,7 +56,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
                         <span className=''>
                           <strong>{def.key}</strong>
                         </span>
-                        <p className='m-0 ml-1 self-start text-smallest text-alt-black'>
+                        <p className='m-0 ml-1 self-start text-smallest text-altBlack'>
                           {parseDescription(def.description)}
                         </p>
                       </figure>

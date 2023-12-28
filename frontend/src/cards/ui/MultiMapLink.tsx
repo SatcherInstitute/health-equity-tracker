@@ -20,7 +20,7 @@ export function MultiMapLink(props: MultiMapLinkProps) {
         onClick={() => {
           props.setMultimapOpen(true)
         }}
-        className='cursor-pointer border-0 bg-transparent p-0 text-alt-green underline'
+        className='bg-transparent cursor-pointer border-0 p-0 text-altGreen underline'
         aria-label={
           'Open modal to Compare ' +
           props.currentDataType +

@@ -20,20 +20,20 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
       {/* FILTER BOX HEADING */}
       <h2
         className='
-          leading-10 
-          m-0 
-          font-serif 
+          leading-10
+          m-0
+          font-serif
           text-smallestHeader
-        font-light 
-          capitalize	 
-          text-alt-green
+        font-light
+          capitalize
+          text-altGreen
       '
       >
         {filterHeaderMap[props.filterType]}
       </h2>
 
       {/* LIST OF LINKED FILTERS (IF ANY) */}
-      <ul className='mb-20 w-full list-none ps-4 text-start text-text text-alt-black'>
+      <ul className='mb-20 w-full list-none ps-4 text-start text-text text-altBlack'>
         {props.filterOptions.length > 0 &&
           props.filterOptions.map((filter) => {
             return (

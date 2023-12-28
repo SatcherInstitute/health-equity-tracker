@@ -171,7 +171,7 @@ export default function MethodologyCardMenuMobile(
           size='small'
           aria-label='scroll back to top'
           // className={styles.Fab}
-          className='bg-alt-green fixed bottom-2 right-2 z-top'
+          className='fixed bottom-2 right-2 z-top bg-altGreen'
           onClick={scrollTop}
         >
           <KeyboardArrowUpIcon />

@@ -34,11 +34,11 @@ function TheProjectTab() {
         <title>The Project - About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>The Project</h2>
-      <header className='flex border-0 border-b border-solid border-border-color'>
+      <header className='flex border-0 border-b border-solid border-borderColor'>
         <div className='grid w-full place-content-center p-6 md:w-5/12'>
           <h3
             id='main'
-            className='text-left font-serif text-biggerHeader  font-light leading-lhSomeSpace text-alt-green'
+            className='text-left font-serif text-biggerHeader  font-light leading-lhSomeSpace text-altGreen'
           >
             We're focused on equitable data.
           </h3>
@@ -48,7 +48,7 @@ function TheProjectTab() {
             and centralize it all in one place.
           </p>
         </div>
-        <div className='hidden w-full border-0 border-solid border-border-color p-2 md:block md:w-7/12 md:border-l'>
+        <div className='hidden w-full border-0 border-solid border-borderColor p-2 md:block md:w-7/12 md:border-l'>
           <img
             width='754'
             height='644'
@@ -82,7 +82,7 @@ function TheProjectTab() {
           <div className='w-full md:w-6/12'>
             <div className='flex flex-col justify-around gap-3 md:flex-row'>
               <div className='w-full md:w-5/12'>
-                <h4 className='border-0 border-b border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
+                <h4 className='border-0 border-b border-solid border-altGreen text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
                   {`${numDataSources} data sources`}
                 </h4>
                 <p className='text-left font-sansText text-small'>
@@ -96,7 +96,7 @@ function TheProjectTab() {
                 </p>
               </div>
               <div className='w-full md:w-5/12'>
-                <h4 className=' border-0 border-b border-solid border-alt-green text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
+                <h4 className=' border-0 border-b border-solid border-altGreen text-left font-serif text-smallHeader font-light leading-lhSomeSpace'>
                   {numVariables} variables
                 </h4>
                 <p className='text-left font-sansText text-small'>
@@ -197,8 +197,8 @@ function TheProjectTab() {
         </div>
       </section>
 
-      <section className='border-0 border-t border-solid border-border-color p-24'>
-        <h3 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-alt-green'>
+      <section className='border-0 border-t border-solid border-borderColor p-24'>
+        <h3 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-altGreen'>
           We are committed to the following ethics
         </h3>
         <ul className='flex list-none flex-wrap'>
