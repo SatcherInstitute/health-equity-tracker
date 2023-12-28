@@ -11,7 +11,7 @@ import {
 import { Grid, Tooltip } from '@mui/material'
 import { type Article } from '../../pages/News/NewsPage'
 import { getHtml } from '../../utils/urlutils'
-import { Het } from '../../styles/DesignTokens'
+import { ThemeColors } from '../../styles/DesignTokens'
 
 export const SHARE_LABEL = 'Share this report:'
 
@@ -38,7 +38,7 @@ export default function ShareButtons(props: ShareButtonProps) {
   }
 
   const shareIconAttributes = {
-    iconFillColor: Het.altDark,
+    iconFillColor: ThemeColors.altDark,
     bgStyle: { fill: 'none' },
     size: props.isMobile ? 64 : 32,
   }

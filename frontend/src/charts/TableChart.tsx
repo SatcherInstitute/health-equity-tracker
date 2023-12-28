@@ -34,13 +34,13 @@ import { removeLastS } from './utils'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
 import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
-import { Het } from '../styles/DesignTokens'
+import { ThemeColors } from '../styles/DesignTokens'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
 export const headerCellStyle = {
   width: '200px',
-  backgroundColor: Het.exploreBgColor,
+  backgroundColor: ThemeColors.exploreBgColor,
 }
 
 export const cellStyle = {
@@ -48,7 +48,7 @@ export const cellStyle = {
 }
 
 export const altCellStyle = {
-  backgroundColor: Het.standardInfo,
+  backgroundColor: ThemeColors.standardInfo,
   width: '200px',
 }
 

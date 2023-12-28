@@ -24,11 +24,11 @@ import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
 import { RACE } from '../data/utils/Constants'
 import ChartTitle from '../cards/ChartTitle'
-import { Het } from '../styles/DesignTokens'
+import { ThemeColors } from '../styles/DesignTokens'
 
 const headerCellStyle = {
   width: '200px',
-  backgroundColor: Het.footerColor,
+  backgroundColor: ThemeColors.footerColor,
 }
 
 const cellStyle = {
@@ -36,7 +36,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: Het.greyGridColor,
+  backgroundColor: ThemeColors.greyGridColor,
   width: '200px',
 }
 

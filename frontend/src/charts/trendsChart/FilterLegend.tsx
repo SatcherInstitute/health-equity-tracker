@@ -24,7 +24,7 @@ import {
   type DemographicGroup,
   UNKNOWN_W,
 } from '../../data/utils/Constants'
-import { Het } from '../../styles/DesignTokens'
+import { ThemeColors } from '../../styles/DesignTokens'
 
 /* Define type interface */
 interface FilterLegendProps {
@@ -107,7 +107,7 @@ export function FilterLegend({
           const groupEnabled = selectedGroups.includes(group)
 
           const isUnknown = group === UNKNOWN_W
-          const gradient = `linear-gradient(30deg, ${Het.unknownMapMost}, ${Het.unknownMapMid},${Het.unknownMapMost})`
+          const gradient = `linear-gradient(30deg, ${ThemeColors.unknownMapMost}, ${ThemeColors.unknownMapMid},${ThemeColors.unknownMapMost})`
 
           // Legend Item Filter Button
           return (
