@@ -27,7 +27,6 @@ import {
   SEX,
   type RaceAndEthnicityGroup,
 } from '../data/utils/Constants'
-import styles from './Card.module.scss'
 import MissingDataAlert from './ui/MissingDataAlert'
 import { OLD_AGE_ADJUSTMENT_LINK } from '../utils/internalRoutes'
 import UnknownsAlert from './ui/UnknownsAlert'
@@ -185,13 +184,11 @@ export default function AgeAdjustedTableCard(props: AgeAdjustedTableCardProps) {
             {!raceQueryResponse.dataIsMissing() &&
               !noRatios &&
               props.demographicType !== SEX && (
-                <div className={styles.TableChart}>
-                  <AgeAdjustedTableChart
-                    data={knownRaceData}
-                    metricConfigs={ratioConfigs}
-                    title={chartTitle}
-                  />
-                </div>
+                <AgeAdjustedTableChart
+                  data={knownRaceData}
+                  metricConfigs={ratioConfigs}
+                  title={chartTitle}
+                />
               )}
             {/* Always show info on what age-adj is */}
             <HetNotice>
