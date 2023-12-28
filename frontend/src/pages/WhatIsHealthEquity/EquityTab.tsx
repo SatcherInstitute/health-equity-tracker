@@ -31,7 +31,7 @@ function JoinTheEffortContainer(props: {
           />
         </LazyLoad>
       </div>
-      <div className='items-left flex w-full flex-col justify-center p-2.5 text-left sm:w-full md:w-1/2'>
+      <div className='flex w-full flex-col items-start justify-center p-2.5 text-left sm:w-full md:w-1/2'>
         <h4 className='m-0 py-2.5 font-serif text-bigHeader font-light leading-lhModalHeading'>
           {props.textTitle}
         </h4>

@@ -115,7 +115,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
       <ul className='list-none px-0 py-2 text-left'>
         {props.source_metadata.time_period_range && (
           <li className='pb-1 sm:flex'>
-            <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+            <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
               Time Series Range
             </p>
             <p className='m-0 text-small'>
@@ -125,7 +125,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
         )}
 
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Geographic Level
           </p>
           <p className='m-0 text-small'>
@@ -133,7 +133,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </p>
         </li>
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Demographic Granularity
           </p>
           <p className='m-0 text-small'>
@@ -141,7 +141,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </p>
         </li>
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Update Frequency
           </p>
           <p className='m-0 text-small'>
@@ -149,7 +149,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </p>
         </li>
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Source Website
           </p>
           <a

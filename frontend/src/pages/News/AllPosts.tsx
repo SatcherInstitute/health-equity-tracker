@@ -219,7 +219,7 @@ function AllPosts() {
                   <Link
                     to={NEWS_PAGE_LINK}
                     className='
-                    leading-7
+
                     inline
                     px-4
                     py-1.5
@@ -235,7 +235,7 @@ function AllPosts() {
                   </Link>
                   <span
                     className='
-                      leading-7
+
                       inline
                       px-4
                       py-1.5
@@ -253,7 +253,7 @@ function AllPosts() {
               )}
               <span
                 className='
-                      leading-7
+
                       inline
                       px-4
                       py-1.5

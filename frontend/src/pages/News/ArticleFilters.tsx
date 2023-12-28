@@ -20,7 +20,6 @@ export default function ArticleFilters(props: ArticleFiltersProps) {
       {/* FILTER BOX HEADING */}
       <h2
         className='
-          leading-10
           m-0
           font-serif
           text-smallestHeader

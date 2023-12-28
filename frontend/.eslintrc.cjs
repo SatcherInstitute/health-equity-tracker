@@ -36,6 +36,7 @@ module.exports = {
     'multiline-ternary': 'off',
     'react/prop-types': 'off',
     'tailwindcss/classnames-order': 'off',
+    'tailwindcss/migration-from-tailwind-2': 'off',
     'tailwindcss/no-custom-classname': [1,{"whitelist": ["mode\\-selector\\-box", "mode\\-selector\\-box\\-mobile"]}],
   },
 }
