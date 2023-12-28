@@ -141,7 +141,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
 
   return (
     <Dialog
-      className='z-z-top'
+      className='z-top'
       open={props.open}
       onClose={props.handleClose}
       maxWidth={false}

@@ -43,7 +43,7 @@ export default function MethodologyPage() {
           <div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-2 md:gap-12'>
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
-              <MethodologyCardMenu className='sticky top-4 z-z-top hidden h-min max-w-menu smMd:block' />
+              <MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
               <MethodologyCardMenuMobile className='smMd:hidden' />
             </div>
 
@@ -101,7 +101,7 @@ export default function MethodologyPage() {
                   <HetOnThisPageMenu
                     key={index}
                     links={route.subLinks}
-                    className='sticky right-0 top-4  z-z-top h-min'
+                    className='sticky right-0 top-4  z-top h-min'
                   />
                 ) : null
               })}

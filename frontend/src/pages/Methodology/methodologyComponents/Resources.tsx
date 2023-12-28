@@ -34,7 +34,7 @@ export default function Resources(props: ResourcesProps) {
   }) => (
     <Grid container id={id} key={heading}>
       <Grid item xs={12}>
-        <h4 className='mb-2 text-alt-black'>{heading} Resources</h4>
+        <h4 className='mb-2 text-altBlack'>{heading} Resources</h4>
       </Grid>
       <Grid item xs={12} md={resources.length >= 10 ? 6 : 12}>
         {renderResourcesList(

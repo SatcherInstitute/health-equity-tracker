@@ -13,7 +13,7 @@ import DisclaimerAlert from '../../reports/ui/DisclaimerAlert'
 export default function DefaultHelperBox() {
   return (
     <div className='flex w-full items-center justify-center bg-white px-12 pb-0 pt-4 sm:px-20 sm:pt-8'>
-      <section className='m-0 mb-5  grid w-full max-w-helperBox grid-cols-1 content-center  items-center justify-evenly justify-items-center rounded-md bg-standard-info pb-0 smMd:grid-cols-5'>
+      <section className='m-0 mb-5  grid w-full max-w-helperBox grid-cols-1 content-center  items-center justify-evenly justify-items-center rounded-md bg-standardInfo pb-0 smMd:grid-cols-5'>
         <div className='col-span-3 px-10 py-0 text-left smMd:px-0 md:px-10 xl:col-span-2'>
           <h3 className='mt-4 pr-4 text-small sm:mt-8 sm:text-smallestHeader md:mt-0 lg:text-header'>
             Select a topic above...
@@ -24,17 +24,6 @@ export default function DefaultHelperBox() {
           </h3>
 
           <ul className='my-0 list-none pl-0 text-left'>
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
-                href={
-                  EXPLORE_DATA_PAGE_LINK +
-                  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING
-                }
-              >
-                HIV by Medicare eligibility <FiberNewIcon />
-              </a>
-            </li>
             <li className='mt-1 md:mt-2'>
               <a
                 className='no-underline hover:underline'
@@ -71,6 +60,17 @@ export default function DefaultHelperBox() {
                 href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING}
               >
                 Uninsurance in FL & CA, by sex
+              </a>
+            </li>
+            <li className='mt-1 md:mt-2'>
+              <a
+                className='no-underline hover:underline'
+                href={
+                  EXPLORE_DATA_PAGE_LINK +
+                  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING
+                }
+              >
+                HIV disparity maps by Medicare eligibility <FiberNewIcon />
               </a>
             </li>
           </ul>

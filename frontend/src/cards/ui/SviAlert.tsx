@@ -41,7 +41,7 @@ export const findColor = (rating: string) => {
     return 'text-alt-orange'
   }
   if (rating === 'low') {
-    return 'text-alt-green'
+    return 'text-altGreen'
   }
   return 'text-black'
 }
