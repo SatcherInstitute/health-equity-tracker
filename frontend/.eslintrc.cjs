@@ -36,6 +36,6 @@ module.exports = {
     'react/prop-types': 'off',
     'tailwindcss/classnames-order': 'off',
     'tailwindcss/migration-from-tailwind-2': 'off',
-    'tailwindcss/no-custom-classname': [1,{"whitelist": ["mode\\-selector\\-box", "mode\\-selector\\-box\\-mobile"]}],
+    'tailwindcss/no-custom-classname': [2,{"whitelist": ["mode\\-selector\\-box", "mode\\-selector\\-box\\-mobile"]}],
   },
 }

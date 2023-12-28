@@ -150,10 +150,10 @@
     "**/*.ts?(x)": "bash -c tsc --noEmit",
     "src/**/*.{js,jsx,ts,tsx,json}": [
       "npm run lint",
-      "prettier --write"
+      "npm run format"
     ],
     "src/**/*.{css,scss,md,html}": [
-      "prettier --write"
+      "npm run format"
     ]
   }
 }
