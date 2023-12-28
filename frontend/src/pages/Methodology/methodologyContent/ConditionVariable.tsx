@@ -26,7 +26,7 @@ export default function ConditionVariable({
               return (
                 <figure
                   key={def.key}
-                  className='first:border-t-1 ml-0 self-start border-0 border-altDark font-sansText text-smallest text-altGreen'
+                  className='ml-0 self-start border-0 border-altDark font-sansText text-smallest text-altGreen first:border-t'
                 >
                   <span>
                     <strong>{def.key}</strong>

@@ -43,8 +43,8 @@ function ContactUsTab() {
         <div className='flex w-full flex-col items-center px-12 md:w-8/12 lg:w-6/12'>
           <div className='grid  w-full place-content-center'>
             <h3
-              className='px-18
-              mb-0
+              className='mb-0
+              px-16
                 py-6
                 font-serif
                 text-header
