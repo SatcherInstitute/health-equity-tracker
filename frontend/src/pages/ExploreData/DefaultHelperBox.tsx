@@ -27,17 +27,6 @@ export default function DefaultHelperBox() {
             <li className='mt-1 md:mt-2'>
               <a
                 className='no-underline hover:underline'
-                href={
-                  EXPLORE_DATA_PAGE_LINK +
-                  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING
-                }
-              >
-                HIV by Medicare eligibility <FiberNewIcon />
-              </a>
-            </li>
-            <li className='mt-1 md:mt-2'>
-              <a
-                className='no-underline hover:underline'
                 href={EXPLORE_DATA_PAGE_LINK + HIV_PREVALANCE_RACE_USA_SETTING}
               >
                 HIV by race/ethnicity
@@ -71,6 +60,17 @@ export default function DefaultHelperBox() {
                 href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING}
               >
                 Uninsurance in FL & CA, by sex
+              </a>
+            </li>
+            <li className='mt-1 md:mt-2'>
+              <a
+                className='no-underline hover:underline'
+                href={
+                  EXPLORE_DATA_PAGE_LINK +
+                  PHRMA_HIV_ELIGIBILITY_USA_MULTIMAP_SETTING
+                }
+              >
+                HIV disparity maps by Medicare eligibility <FiberNewIcon />
               </a>
             </li>
           </ul>
