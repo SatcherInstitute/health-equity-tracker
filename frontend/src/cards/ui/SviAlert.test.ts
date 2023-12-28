@@ -1,4 +1,3 @@
-import { getCssVar } from '../../utils/designUtils'
 import { findRating, findColor } from './SviAlert'
 
 //Find Rating Unit Test

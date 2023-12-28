@@ -59,7 +59,7 @@ export default function MethodologyCardMenuMobile(
   return (
     <>
       <div
-        className={`top-0 z-z-almost-top flex items-center rounded-sm bg-white p-1 sm:items-start sm:justify-start md:justify-center ${
+        className={`top-0 z-almostTop flex items-center rounded-sm bg-white p-1 sm:items-start sm:justify-start md:justify-center ${
           props.className ?? ''
         }`}
       >
@@ -171,7 +171,7 @@ export default function MethodologyCardMenuMobile(
           size='small'
           aria-label='scroll back to top'
           // className={styles.Fab}
-          className='fixed bottom-2 right-2 z-z-top bg-alt-green'
+          className='bg-alt-green fixed bottom-2 right-2 z-top'
           onClick={scrollTop}
         >
           <KeyboardArrowUpIcon />

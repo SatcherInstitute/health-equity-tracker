@@ -43,7 +43,7 @@ import {
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
-import { getCssVar } from '../utils/designUtils'
+import { ThemeColors } from '../styles/DesignTokens'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -75,8 +75,6 @@ interface LegendProps {
 }
 
 export function Legend(props: LegendProps) {
-  const white = getCssVar<string>('--white')
-  const unknownGrey = getCssVar<string>('--unknownGrey')
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const zeroData = props.data?.filter((row) => row[props.metric.metricId] === 0)
   const nonZeroData = props.data?.filter(
@@ -183,7 +181,7 @@ export function Legend(props: LegendProps) {
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
-      background: white,
+      background: ThemeColors.white,
       padding: 10,
       data: [
         {
@@ -275,7 +273,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
 
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [unknownGrey],
+          range: [ThemeColors.howToColor],
         },
         {
           name: GREY_DOT_SCALE,
