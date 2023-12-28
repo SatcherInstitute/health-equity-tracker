@@ -56,7 +56,7 @@ export default function DefaultHelperBox() {
             </li>
             <li className='mt-1 md:mt-2'>
               <a
-                className='no-underlinee hover:underline'
+                className='no-underlineeeee hover:underline'
                 href={EXPLORE_DATA_PAGE_LINK + UNINSURANCE_SEX_FL_VS_CA_SETTING}
               >
                 Uninsurance in FL & CA, by sex

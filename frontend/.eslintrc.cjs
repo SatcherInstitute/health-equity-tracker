@@ -7,8 +7,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:jsx-a11y/recommended',
     'standard-with-typescript',
-    "plugin:tailwindcss/recommended",
     'prettier',
+    'plugin:tailwindcss/recommended',
   ],
   overrides: [],
   ignorePatterns: ['**/*.spec.ts', 'geographies.json'],
@@ -17,7 +17,7 @@ module.exports = {
     sourceType: 'module',
     project: ['tsconfig.json'],
   },
-  plugins: ['react', 'jsx-a11y'],
+  plugins: ['react', 'jsx-a11y', 'tailwindcss'],
   settings: {
     react: {
       version: 'detect',
