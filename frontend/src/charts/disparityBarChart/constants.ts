@@ -1,4 +1,4 @@
-import { ThemeColors } from '../../styles/DesignTokens'
+import { het } from '../../styles/DesignTokens'
 
 // specs
 const ACTIONS = {
@@ -37,10 +37,10 @@ const DARK_MEASURE_TEXT_LABELS = 'darkMeasure_text_labels'
 const LIGHT_MEASURE_BARS = 'lightMeasure_bars'
 
 // colors
-const ALT_LIGHT_MEASURE_COLOR = ThemeColors.unknownMapMid
-const BACKGROUND_COLOR = ThemeColors.white
-const DARK_MEASURE_COLOR = ThemeColors.barChartDark
-const LIGHT_MEASURE_COLOR = ThemeColors.barChartLight
+const ALT_LIGHT_MEASURE_COLOR = het.unknownMapMid
+const BACKGROUND_COLOR = het.white
+const DARK_MEASURE_COLOR = het.barChartDark
+const LIGHT_MEASURE_COLOR = het.barChartLight
 const LEGEND_COLORS = [LIGHT_MEASURE_COLOR, DARK_MEASURE_COLOR]
 
 export {

@@ -30,7 +30,7 @@ import {
   MAP_SCHEMES,
   type CountColsMap,
 } from './mapGlobals'
-import { ThemeColors } from '../styles/DesignTokens'
+import { het } from '../styles/DesignTokens'
 
 /*
 
@@ -188,7 +188,7 @@ export function createShapeMarks(
           signal: '1',
         },
         stroke: {
-          value: outlineGeos ? ThemeColors.altGrey : ThemeColors.white,
+          value: outlineGeos ? het.altGrey : het.white,
           strokeWidth: { value: outlineGeos ? 1 : 0 },
         },
       },

@@ -20,7 +20,7 @@ import {
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import { createBarLabel } from './mapHelperFunctions'
-import { ThemeColors, ThemeZIndexValues } from '../styles/DesignTokens'
+import { het, ThemeZIndexValues } from '../styles/DesignTokens'
 
 // determine where (out of 100) to flip labels inside/outside the bar
 const LABEL_SWAP_CUTOFF_PERCENT = 66
@@ -41,7 +41,7 @@ function getSpec(
   barLabelBreakpoint: number,
   usePercentSuffix: boolean
 ): any {
-  const MEASURE_COLOR = ThemeColors.altGreen
+  const MEASURE_COLOR = het.altGreen
   const BAR_HEIGHT = 60
   const BAR_PADDING = 0.2
   const DATASET = 'DATASET'
@@ -78,7 +78,7 @@ function getSpec(
   return {
     $schema: 'https://vega.github.io/schema/vega/v5.json',
     description: altText,
-    background: ThemeColors.white,
+    background: het.white,
     autosize: { resize: true, type: 'fit-x' },
     width: width - PADDING_FOR_ACTIONS_MENU,
     style: 'cell',

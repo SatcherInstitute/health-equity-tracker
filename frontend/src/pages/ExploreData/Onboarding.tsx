@@ -1,7 +1,7 @@
 import Joyride from 'react-joyride'
 import { getOnboardingSteps } from './OnboardingSteps'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
-import { ThemeColors, ThemeZIndexValues } from '../../styles/DesignTokens'
+import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
@@ -25,10 +25,10 @@ export default function Onboarding(props: {
       run={props.activelyOnboarding}
       styles={{
         options: {
-          arrowColor: ThemeColors.altGreen,
-          backgroundColor: ThemeColors.altGreen,
-          primaryColor: ThemeColors.altGreen,
-          textColor: ThemeColors.white,
+          arrowColor: het.altGreen,
+          backgroundColor: het.altGreen,
+          primaryColor: het.altGreen,
+          textColor: het.white,
           width: 900,
           zIndex: ThemeZIndexValues.almostTop,
         },
