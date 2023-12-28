@@ -9,9 +9,9 @@ import {
   TwitterIcon,
 } from 'react-share'
 import { Grid, Tooltip } from '@mui/material'
-import sass from '../../styles/variables.module.scss'
 import { type Article } from '../../pages/News/NewsPage'
 import { getHtml } from '../../utils/urlutils'
+import { ThemeColors } from '../../styles/DesignTokens'
 
 export const SHARE_LABEL = 'Share this report:'
 
@@ -38,7 +38,7 @@ export default function ShareButtons(props: ShareButtonProps) {
   }
 
   const shareIconAttributes = {
-    iconFillColor: sass.altDark,
+    iconFillColor: ThemeColors.altDark,
     bgStyle: { fill: 'none' },
     size: props.isMobile ? 64 : 32,
   }

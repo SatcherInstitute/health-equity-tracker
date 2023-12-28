@@ -1,10 +1,10 @@
 /*
 To prevent components loading from one another, all exported consts for the map cards should be in this file
 */
-import sass from '../styles/variables.module.scss'
 import { type DemographicGroup } from '../data/utils/Constants'
 import { type Scale, type ColorScheme, type Legend } from 'vega'
 import { type MapConfig, type MetricConfig } from '../data/config/MetricConfig'
+import { ThemeColors } from '../styles/DesignTokens'
 
 export const DATA_SUPPRESSED = 'Data suppressed'
 
@@ -42,50 +42,50 @@ export const MAP_SCHEMES: Record<PopulationSubset, ColorScheme> = {
 
 export const defaultHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.default,
-  min: sass.mapDarkZero,
-  mid: sass.mapMid,
+  min: ThemeColors.mapDarkZero,
+  mid: ThemeColors.mapMid,
   higherIsBetter: true,
 }
 
 export const defaultHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.default,
-  min: sass.mapLightZero,
-  mid: sass.mapMid,
+  min: ThemeColors.mapLightZero,
+  mid: ThemeColors.mapMid,
   higherIsBetter: false,
 }
 
 export const womenHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.women,
-  min: sass.mapWomenDarkZero,
-  mid: sass.mapWomenMid,
+  min: ThemeColors.mapWomenDarkZero,
+  mid: ThemeColors.mapWomenMid,
   higherIsBetter: true,
 }
 
 export const womenHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.women,
-  min: sass.mapWomenLightZero,
-  mid: sass.mapWomenMid,
+  min: ThemeColors.mapWomenLightZero,
+  mid: ThemeColors.mapWomenMid,
   higherIsBetter: false,
 }
 
 export const medicareHigherIsBetterMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareDarkZero,
-  mid: sass.mapMedicareMid,
+  min: ThemeColors.mapMedicareDarkZero,
+  mid: ThemeColors.mapMedicareMid,
   higherIsBetter: true,
 }
 
 export const medicareHigherIsWorseMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.medicare,
-  min: sass.mapMedicareLightZero,
-  mid: sass.mapMedicareMid,
+  min: ThemeColors.mapMedicareLightZero,
+  mid: ThemeColors.mapMedicareMid,
   higherIsBetter: false,
 }
 
 export const unknownMapConfig: MapConfig = {
   scheme: MAP_SCHEMES.unknown,
-  min: sass.unknownMapMin,
-  mid: sass.unknownMapMid,
+  min: ThemeColors.unknownMapLeast,
+  mid: ThemeColors.unknownMapMid,
 }
 
 export const DOT_SIZE_SCALE = 'dot_size_scale'
@@ -118,7 +118,7 @@ export const UNKNOWN_SCALE_SPEC: any = {
   name: UNKNOWN_SCALE,
   type: ORDINAL,
   domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-  range: [sass.unknownGrey],
+  range: [ThemeColors.howToColor],
 }
 
 export const GREY_DOT_SCALE_SPEC: any = {
@@ -139,14 +139,14 @@ export const ZERO_LIGHT_SCALE = {
   name: ZERO_SCALE,
   type: 'ordinal',
   domain: [0],
-  range: [sass.mapLightZero],
+  range: [ThemeColors.mapLightZero],
 }
 
 export const ZERO_DARK_SCALE = {
   name: ZERO_SCALE,
   type: 'ordinal',
   domain: [0],
-  range: [sass.mapDarkZero],
+  range: [ThemeColors.mapDarkZero],
 }
 
 export const PHRMA_ADHERENCE_BREAKPOINTS = [60, 70, 75, 80, 85, 90]
@@ -156,13 +156,13 @@ export const PHRMA_COLOR_SCALE_SPEC: Scale = {
   type: 'threshold',
   domain: PHRMA_ADHERENCE_BREAKPOINTS,
   range: [
-    sass.mapMedicareDarkest,
-    sass.mapMedicareDark,
-    sass.mapMedicareMid,
-    sass.mapMedicareLight,
-    sass.mapMedicareLighter,
-    sass.mapMedicareEvenLighter,
-    sass.mapMedicareLightest,
+    ThemeColors.mapMedicareDarkest,
+    ThemeColors.mapMedicareDark,
+    ThemeColors.mapMedicareMid,
+    ThemeColors.mapMedicareLight,
+    ThemeColors.mapMedicareLighter,
+    ThemeColors.mapMedicareEvenLighter,
+    ThemeColors.mapMedicareLightest,
   ],
 }
 export const UNKNOWN_LEGEND_SPEC: Legend = {

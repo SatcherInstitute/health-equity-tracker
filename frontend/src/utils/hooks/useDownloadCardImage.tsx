@@ -1,7 +1,6 @@
 import { createRef, useState, useEffect } from 'react'
 import html2canvas from 'html2canvas'
 import { createFileName } from 'use-react-screenshot'
-import sass from '../../styles/variables.module.scss'
 import { type ScrollableHashId } from './useStepObserver'
 import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
@@ -9,6 +8,7 @@ import {
   HIGHEST_LOWEST_GEOS_1_PARAM_KEY,
   HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
 } from '../urlutils'
+import { ThemeColors } from '../../styles/DesignTokens'
 
 const DROPDOWN_ELEMENT_IDS = [
   ALT_TABLE_VIEW_1_PARAM_KEY,
@@ -17,7 +17,7 @@ const DROPDOWN_ELEMENT_IDS = [
   HIGHEST_LOWEST_GEOS_2_PARAM_KEY,
 ]
 
-const LOGO_FONT_COLOR = sass.altGreen
+const LOGO_FONT_COLOR = ThemeColors.altGreen
 const LOGO_FONT_SIZE = 24
 const LOGO_FONT_STYLE = '"DM Sans", sans-serif'
 const LOGO_TEXT = 'Health Equity Tracker'
@@ -76,7 +76,7 @@ export function useDownloadCardImage(
       context.textAlign = 'center'
 
       // Fill the top and bottom areas with white
-      context.fillStyle = sass.white
+      context.fillStyle = ThemeColors.white
       context.fillRect(0, 0, combinedCanvas.width, TOP_PADDING)
       context.fillRect(
         0,
@@ -89,7 +89,7 @@ export function useDownloadCardImage(
       context.drawImage(canvas, 0, TOP_PADDING)
 
       const urlPaddingHeight = URL_FONT_SIZE + 10
-      context.fillStyle = sass.white
+      context.fillStyle = ThemeColors.white
       context.fillRect(
         0,
         combinedCanvas.height - urlPaddingHeight,

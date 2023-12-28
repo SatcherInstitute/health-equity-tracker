@@ -1,6 +1,5 @@
 import { format, utcFormat, scaleOrdinal } from 'd3'
 import { type MetricType } from '../../data/config/MetricConfig'
-import sass from '../../styles/variables.module.scss'
 import {
   AAPI_W,
   AIANNH_W,
@@ -33,6 +32,7 @@ import {
   MULTI,
   OTHER_STANDARD,
 } from '../../data/utils/Constants'
+import { ThemeColors } from '../../styles/DesignTokens'
 
 // get colors from css variables
 const {
@@ -49,7 +49,7 @@ const {
   timeYellow,
   mapLight,
   mapLighter,
-} = sass
+} = ThemeColors
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   // shared between breakdown types
