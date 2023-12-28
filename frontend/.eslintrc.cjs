@@ -9,7 +9,6 @@ module.exports = {
     'standard-with-typescript',
     "plugin:tailwindcss/recommended",
     'prettier',
-
   ],
   overrides: [],
   ignorePatterns: ['**/*.spec.ts', 'geographies.json'],
