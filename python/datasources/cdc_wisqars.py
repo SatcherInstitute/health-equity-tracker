@@ -212,90 +212,88 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         if outcome == std_col.NON_FATAL_PREFIX:
             data_metric = 'Estimated Number'
             if geo_level == STATE_LEVEL or breakdown == std_col.RACE_OR_HISPANIC_COL:
-                pass
-        else:
-            df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
-                DATA_DIR,
-                f"{outcome}_gun_injuries-{geo_level}-{breakdown}.csv",
-                na_values=["--", "**"],
-                usecols=lambda x: x not in WISQARS_COLS,
-                thousands=",",
-                dtype={"Year": str},
+                continue
+
+        df = gcs_to_bq_util.load_csv_as_df_from_data_dir(
+            DATA_DIR,
+            f"{outcome}_gun_injuries-{geo_level}-{breakdown}.csv",
+            na_values=["--", "**"],
+            usecols=lambda x: x not in WISQARS_COLS,
+            thousands=",",
+            dtype={"Year": str},
+        )
+
+        # removes the metadata section from the csv
+        metadata_start_index = df[df["Intent"] == "Total"].index
+        metadata_start_index = metadata_start_index[0]
+        df = df.iloc[:metadata_start_index]
+
+        # removes the rows with missing "Intent" values
+        df = df.dropna(subset=["Intent"])
+
+        # cleans data frame
+        columns_to_convert = [data_metric, 'Crude Rate']
+        convert_columns_to_numeric(df, columns_to_convert)
+
+        if geo_level == NATIONAL_LEVEL:
+            df.insert(2, "State", US_NAME)
+
+        # reshapes df to add the intent rows as columns
+        pivot_df = df.pivot(
+            index=PIVOT_DEM_COLS.get(breakdown, []),
+            columns="Intent",
+            values=[data_metric, 'Crude Rate'],
+        )
+
+        pivot_df.columns = [
+            f"{outcome}_"
+            + "_".join(col[-1].lower().replace('-', ' ').split())
+            + ("" if col[0] == data_metric else "_per_100k")
+            if col[0] in ['Crude Rate', data_metric]
+            else "_".join(col)
+            for col in pivot_df.columns
+        ]
+
+        df = pivot_df.reset_index()
+
+        if breakdown == std_col.RACE_OR_HISPANIC_COL:
+            df['RaceEthn'] = df.apply(
+                lambda row: f"{row['Race']} {row['Ethnicity']}", axis=1
             )
 
-            # removes the metadata section from the csv
-            metadata_start_index = df[df["Intent"] == "Total"].index
-            metadata_start_index = metadata_start_index[0]
-            df = df.iloc[:metadata_start_index]
+            df.insert(2, std_col.RACE_OR_HISPANIC_COL, df['RaceEthn'])
 
-            # removes the rows with missing "Intent" values
-            df = df.dropna(subset=["Intent"])
-
-            # cleans data frame
-            columns_to_convert = [data_metric, 'Crude Rate']
-            convert_columns_to_numeric(df, columns_to_convert)
-
-            if geo_level == NATIONAL_LEVEL:
-                df.insert(2, "State", US_NAME)
-
-            # reshapes df to add the intent rows as columns
-            pivot_df = df.pivot(
-                index=PIVOT_DEM_COLS.get(breakdown, []),
-                columns="Intent",
-                values=[data_metric, 'Crude Rate'],
+            df.drop(
+                columns=['Race', 'Ethnicity', 'RaceEthn'],
+                inplace=True,
             )
+            df = df.replace(to_replace=RACE_COLS_TO_STANDARD)
 
-            pivot_df.columns = [
-                f"{outcome}_"
-                + "_".join(col[-1].lower().replace('-', ' ').split())
-                + ("" if col[0] == data_metric else "_per_100k")
-                if col[0] in ['Crude Rate', data_metric]
-                else "_".join(col)
-                for col in pivot_df.columns
+            unknown_ethnicity_df = df[
+                df[std_col.RACE_OR_HISPANIC_COL] == std_col.Race.ETHNICITY_UNKNOWN.value
             ]
 
-            df = pivot_df.reset_index()
-
-            if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                df['RaceEthn'] = df.apply(
-                    lambda row: f"{row['Race']} {row['Ethnicity']}", axis=1
+            unknown_ethnicity_df = (
+                unknown_ethnicity_df.groupby(
+                    ['Year', 'State', std_col.RACE_OR_HISPANIC_COL]
                 )
-
-                df.insert(2, std_col.RACE_OR_HISPANIC_COL, df['RaceEthn'])
-
-                df.drop(
-                    columns=['Race', 'Ethnicity', 'RaceEthn'],
-                    inplace=True,
-                )
-                df = df.replace(to_replace=RACE_COLS_TO_STANDARD)
-
-                unknown_ethnicity_df = df[
-                    df[std_col.RACE_OR_HISPANIC_COL]
-                    == std_col.Race.ETHNICITY_UNKNOWN.value
-                ]
-
-                unknown_ethnicity_df = (
-                    unknown_ethnicity_df.groupby(
-                        ['Year', 'State', std_col.RACE_OR_HISPANIC_COL]
-                    )
-                    .sum(min_count=1)
-                    .reset_index()
-                )
-
-                df_filtered = df[
-                    df[std_col.RACE_OR_HISPANIC_COL]
-                    != std_col.Race.ETHNICITY_UNKNOWN.value
-                ]
-
-                df = pd.concat([df_filtered, unknown_ethnicity_df], ignore_index=True)
-
-            df = df.rename(
-                columns={
-                    "Population": f"{outcome}_population",
-                    "Age Group": std_col.AGE_COL,
-                    "Sex": std_col.SEX_COL,
-                }
+                .sum(min_count=1)
+                .reset_index()
             )
+
+            df_filtered = df[
+                df[std_col.RACE_OR_HISPANIC_COL] != std_col.Race.ETHNICITY_UNKNOWN.value
+            ]
+
+            df = pd.concat([df_filtered, unknown_ethnicity_df], ignore_index=True)
+
+        df = df.rename(
+            columns={
+                "Population": f"{outcome}_population",
+                "Age Group": std_col.AGE_COL,
+                "Sex": std_col.SEX_COL,
+            }
+        )
 
         output_df = output_df.merge(df, how="outer")
 
