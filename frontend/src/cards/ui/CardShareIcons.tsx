@@ -10,10 +10,10 @@ import {
   TwitterIcon,
 } from 'react-share'
 import { type PopoverElements } from '../../utils/hooks/usePopover'
-import { ThemeColors } from '../../styles/DesignTokens'
+import { Het } from '../../styles/DesignTokens'
 
 const shareIconAttributes = {
-  iconFillColor: ThemeColors.hexShareIconGray,
+  iconFillColor: Het.hexShareIconGray,
   bgStyle: { fill: 'none' },
   size: 39,
 }

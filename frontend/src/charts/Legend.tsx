@@ -43,7 +43,7 @@ import {
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
-import { ThemeColors } from '../styles/DesignTokens'
+import { Het } from '../styles/DesignTokens'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -181,7 +181,7 @@ export function Legend(props: LegendProps) {
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
-      background: ThemeColors.white,
+      background: Het.white,
       padding: 10,
       data: [
         {
@@ -273,7 +273,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
 
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [ThemeColors.howToColor],
+          range: [Het.howToColor],
         },
         {
           name: GREY_DOT_SCALE,

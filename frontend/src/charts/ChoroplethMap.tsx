@@ -59,13 +59,13 @@ import {
   setupColorScale,
 } from './mapHelperFunctions'
 import { setupUnknownsLegend } from './legendHelperFunctions'
-import { ThemeColors } from '../styles/DesignTokens'
+import { Het } from '../styles/DesignTokens'
 
 const {
   howToColor: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
   darkBlue: DARK_BLUE,
-} = ThemeColors
+} = Het
 
 const GEO_ID = 'id'
 
@@ -352,11 +352,9 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     createShapeMarks(
       /* datasetName= */ MISSING_DATASET,
       /* fillColor= */ {
-        value: props.highestLowestGeosMode ? ThemeColors.white : UNKNOWN_GREY,
+        value: props.highestLowestGeosMode ? Het.white : UNKNOWN_GREY,
       },
-      /* hoverColor= */ props.highestLowestGeosMode
-        ? ThemeColors.white
-        : RED_ORANGE,
+      /* hoverColor= */ props.highestLowestGeosMode ? Het.white : RED_ORANGE,
       /* tooltipExpression= */ missingDataTooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
@@ -394,7 +392,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   useEffect(() => {
     const newSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
-      background: ThemeColors.white,
+      background: Het.white,
       description: props.overrideShapeWithCircle
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,

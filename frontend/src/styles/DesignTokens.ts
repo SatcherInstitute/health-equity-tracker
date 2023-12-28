@@ -10,7 +10,7 @@ const ThemeZIndexValues = {
   almostTop: 3,
   top: 999,
 }
-const ThemeColors = {
+const Het = {
   alertColor: '#d85c47',
   altBlack: '#383838',
   altDark: '#5f6368',
@@ -93,4 +93,4 @@ const ThemeColors = {
   whyBoxColor: '#d8ebe5',
 }
 
-export { ThemeColors, ThemeZIndexValues }
+export { Het, ThemeZIndexValues }

@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { ThemeColors, ThemeZIndexValues } from './src/styles/DesignTokens'
+import { Het, ThemeZIndexValues } from './src/styles/DesignTokens'
 
 export const standardSizes = {
   xs: '0px',
@@ -32,7 +32,7 @@ export default {
       'raised-tighter':
         'rgba(0, 0, 0, 0.1) 0px 3px 3px -2px, rgba(0, 0, 0, 0.08) 0px 6px 7px 0px, rgba(0, 0, 0, 0.06) 0px 2px 9px 1px',
     },
-    colors: ThemeColors,
+    colors: Het,
     lineHeight: {
       lhSuperLoose: '2.45',
       lhLoose: '1.6',

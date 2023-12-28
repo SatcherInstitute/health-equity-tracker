@@ -32,7 +32,7 @@ import {
   MULTI,
   OTHER_STANDARD,
 } from '../../data/utils/Constants'
-import { ThemeColors } from '../../styles/DesignTokens'
+import { Het } from '../../styles/DesignTokens'
 
 // get colors from css variables
 const {
@@ -49,7 +49,7 @@ const {
   timeYellow,
   mapLight,
   mapLighter,
-} = ThemeColors
+} = Het
 
 export const GROUP_COLOR_MAP: Partial<Record<DemographicGroup, string>> = {
   // shared between breakdown types
