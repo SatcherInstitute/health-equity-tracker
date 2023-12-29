@@ -528,4 +528,3 @@ def preserve_only_current_time_period_rows(
     filtered_df = filtered_df.drop(columns=drop_cols)
 
     return filtered_df.reset_index(drop=True)
-        

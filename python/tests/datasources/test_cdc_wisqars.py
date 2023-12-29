@@ -2,7 +2,6 @@ from unittest import mock
 from pandas._testing import assert_frame_equal
 from datasources.cdc_wisqars import CDCWisqarsData
 import pandas as pd
-import numpy as np
 import os
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
