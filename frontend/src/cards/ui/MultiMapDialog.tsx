@@ -39,6 +39,7 @@ import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 interface MultiMapDialogProps {
   dataTypeConfig: DataTypeConfig
@@ -159,7 +160,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
           <div className='col-span-full flex w-full justify-between'>
             {/* Modal Title */}
             <h2
-              className='m-0 w-full font-sansTitle text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
+              className='m-2 w-full font-sansTitle text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
               id='modalTitle'
             >
               {title}
@@ -167,18 +168,17 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             </h2>
             {/* desktop-only close button */}
             <div className='mb-3 mr-1 hidden sm:flex md:mr-0'>
-              <Button
-                aria-label='close multiple maps modal'
+              <HetLinkButton
+                ariaLabel='close multiple maps modal'
                 onClick={props.handleClose}
-                color='primary'
-                id={'multi-map-close-button1'}
+                id='multi-map-close-button1'
               >
                 <CloseIcon />
-              </Button>
+              </HetLinkButton>
             </div>
           </div>
 
-          <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5  xl:grid-cols-6'>
+          <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_DETERMINANTS.includes(
@@ -192,7 +192,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               return (
                 <li
                   key={`${demographicGroup}-grid-item`}
-                  className='w-full sm:p-1 md:p-2'
+                  className='min-h-multimapMobile w-full sm:p-1 md:min-h-multimapDesktop md:p-2'
                 >
                   <h4 className='m-0 text-smallest font-medium leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
                     {mapLabel}
@@ -270,7 +270,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             </div>
 
             {/* Population Breadcrumbs + Legend */}
-            <div className='col-span-full flex w-full items-end justify-between pt-4 lg:pb-4 xl:pb-8 xl:pt-0'>
+            <div className='col-span-full flex w-full items-end justify-between'>
               {/* DESKTOP BREADCRUMBS */}
               <div className='hidden w-full justify-start md:flex md:w-1/2'>
                 <HetBreadcrumbs
@@ -336,20 +336,18 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             Close
           </Button>
           {/* Desktop only Sources and Card Options */}
-          <div className='hidden sm:flex'>
+          <div className='hidden w-full justify-between sm:flex'>
             <Sources
               queryResponses={props.queryResponses}
               metadata={props.metadata}
               downloadTargetScreenshot={downloadTargetScreenshot}
               isMulti={true}
             />
-            <div className='m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12'>
-              <CardOptionsMenu
-                downloadTargetScreenshot={downloadTargetScreenshot}
-                reportTitle={props.reportTitle}
-                scrollToHash={props.scrollToHash}
-              />
-            </div>
+            <CardOptionsMenu
+              downloadTargetScreenshot={downloadTargetScreenshot}
+              reportTitle={props.reportTitle}
+              scrollToHash={props.scrollToHash}
+            />
           </div>
         </div>
       </footer>

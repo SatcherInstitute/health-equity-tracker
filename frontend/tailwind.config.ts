@@ -83,6 +83,8 @@ export default {
         helperBox: '1200px',
       },
       minHeight: {
+        'multimapMobile': '125px',
+        'multimapDesktop': '175px',
         'preload-article': '750px',
       },
       height: {
