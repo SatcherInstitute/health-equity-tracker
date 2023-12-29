@@ -272,7 +272,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
             {/* Population Breadcrumbs + Legend */}
             <div className='col-span-full flex w-full items-end justify-between'>
               {/* DESKTOP BREADCRUMBS */}
-              <div className='hidden w-full justify-start md:flex md:w-1/2'>
+              <div className='hidden w-full justify-start md:flex'>
                 <HetBreadcrumbs
                   fips={props.fips}
                   updateFipsCallback={props.updateFipsCallback}
