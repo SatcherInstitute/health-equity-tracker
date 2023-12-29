@@ -517,12 +517,6 @@ def preserve_only_current_time_period_rows(
     df["time_period_dt"] = pd.to_datetime(
         df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce'
     )
-    # For rows that failed to parse, try with just the year
-    df.loc[df["time_period_dt"].isna(), "time_period_dt"] = pd.to_datetime(
-        df.loc[df["time_period_dt"].isna(), time_period_col],
-        format='%Y',
-        errors='coerce',
-    )
 
     # Filter the DataFrame to keep only the rows with the most recent rows
     most_recent = df["time_period_dt"].max()
