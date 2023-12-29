@@ -27,6 +27,7 @@ import {
   ALT_TABLE_VIEW_1_PARAM_KEY,
   ALT_TABLE_VIEW_2_PARAM_KEY,
 } from '../../utils/urlutils'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface AltTableViewProps {
   expanded: boolean
@@ -67,7 +68,7 @@ export default function AltTableView(props: AltTableViewProps) {
       duration={500}
       height={props.expanded ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 rounded-md bg-listbox-color text-left'
+      className='mt-4 rounded-md bg-listboxColor text-left'
       id={
         props.isCompareCard
           ? ALT_TABLE_VIEW_2_PARAM_KEY
@@ -102,7 +103,7 @@ export default function AltTableView(props: AltTableViewProps) {
       >
         <span>
           {!props.expanded ? 'Expand' : 'Collapse'}{' '}
-          <b>{props.expandBoxLabel}</b> table
+          <HetTerm>{props.expandBoxLabel}</HetTerm> table
         </span>
       </div>
 
@@ -117,13 +118,11 @@ export default function AltTableView(props: AltTableViewProps) {
             <Table
               tabIndex={0}
               ref={tableRef}
-              className='border-1 rounded-xs w-98p m-3 whitespace-nowrap border-alt-dark'
+              className='m-3 w-98p whitespace-nowrap rounded-sm border border-altDark'
               size='small'
               stickyHeader
             >
-              <caption>
-                <b>{props.tableCaption}</b>
-              </caption>
+              <caption className='font-medium'>{props.tableCaption}</caption>
               <TableHead>
                 <TableRow>
                   {Object.keys(accessibleData[0]).map((key, i) => {
@@ -139,7 +138,7 @@ export default function AltTableView(props: AltTableViewProps) {
                           whiteSpace: 'normal',
                           wordWrap: 'break-word',
                         }}
-                        className='break-words border-0 border-b border-alt-dark bg-white leading-lhSomeSpace'
+                        className='break-words border-0 border-b border-altDark bg-white leading-lhSomeSpace'
                       >
                         {!isTimeCol &&
                           key !== ALL &&
@@ -163,7 +162,7 @@ export default function AltTableView(props: AltTableViewProps) {
                   return (
                     <TableRow
                       key={row[TIME_PERIOD_LABEL]}
-                      className='odd:bg-table-zebra even:bg-white'
+                      className='odd:bg-tableZebra even:bg-white'
                     >
                       {keys.map((key, j) => {
                         const isTimePeriod = key === TIME_PERIOD_LABEL

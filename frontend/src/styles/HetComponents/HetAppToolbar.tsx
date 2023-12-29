@@ -13,7 +13,7 @@ export default function HetAppToolbar() {
             className='h-littleHetLogo w-littleHetLogo'
             alt='Health Equity Tracker logo'
           />
-          <span className='grow pl-5 text-left font-sansTitle text-navBarHeader font-medium  leading-lhSomeSpace text-alt-green no-underline'>
+          <span className='grow pl-5 text-left font-sansTitle text-navBarHeader font-medium  leading-lhSomeSpace text-altGreen no-underline'>
             Health Equity Tracker
           </span>
         </HetLinkButton>
@@ -24,7 +24,7 @@ export default function HetAppToolbar() {
           <HetLinkButton
             key={pageUrl}
             href={pageUrl}
-            className='my-0 w-auto p-0 px-0 font-sansTitle text-small font-medium text-navlink-color '
+            className='my-0 w-auto p-0 font-sansTitle text-small font-medium text-navlinkColor'
           >
             {pageName}
           </HetLinkButton>

@@ -1,11 +1,11 @@
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { CodeBlock } from '../methodologyComponents/CodeBlock'
-import { proportionalInequitableBurdenTooltip } from '../methodologyContent/TooltipLibrary'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 const MetricsLink = () => {
   return (
@@ -66,7 +66,7 @@ const MetricsLink = () => {
               ]}
             />
             This value is then divided by the population percent share to give a
-            {proportionalInequitableBurdenTooltip} of
+            <HetTerm>percent relative inequity</HetTerm> of
             <strong>+24.7%</strong>:
             <CodeBlock
               rowData={[
@@ -92,7 +92,7 @@ const MetricsLink = () => {
               ]}
             />
             In plain language, this would be interpreted as,{' '}
-            <div className='bg-standard-info px-8 py-4 shadow-raised-tighter'>
+            <div className='bg-standardInfo px-8 py-4 shadow-raised-tighter'>
               <em>
                 “<strong>Deaths</strong> of individuals identifying as White
                 (Non Hispanic) in Georgia{' '}

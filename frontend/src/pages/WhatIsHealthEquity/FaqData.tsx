@@ -1,3 +1,4 @@
+import HetTerm from '../../styles/HetComponents/HetTerm'
 import { urlMap } from '../../utils/externalUrls'
 import {
   OLD_AGE_ADJUSTMENT_LINK,
@@ -141,8 +142,9 @@ function AnswerHowDidYouAcquire() {
         </li>
         <li>
           Graphic visualizations reflect crude rates (non-age-adjusted), as
-          either <b>per 100k</b>, <b>percent rate</b>, <b>percent share</b>, or
-          as an <b>index score</b>.
+          either <HetTerm>per 100k</HetTerm>, <HetTerm>percent rate</HetTerm>,{' '}
+          <HetTerm>percent share</HetTerm>, or as an{' '}
+          <HetTerm>index score</HetTerm>.
         </li>
         <li>
           Where data are readily available, calculations are made to present

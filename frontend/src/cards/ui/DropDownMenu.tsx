@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { ArrowDropDown, ArrowRight } from '@mui/icons-material'
 import Popover, { type PopoverOrigin } from '@mui/material/Popover'
 import { usePopover, type PopoverElements } from '../../utils/hooks/usePopover'
-import styles from './DropDownMenu.module.scss'
 import { Button, List, ListItem, ListItemText } from '@mui/material'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import {
@@ -49,11 +48,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
       hasChildren &&
       (props.items as Record<string, DemographicGroup[]>)[listItem].length === 0
     ) {
-      return (
-        <ListItem key={listItem} button disabled>
-          {listItem} [unavailable]
-        </ListItem>
-      )
+      return <ListItem key={listItem}>{listItem} [unavailable]</ListItem>
     } else {
       return (
         <ListItem
@@ -72,7 +67,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
 
   return (
     <Popover
-      className={styles.GroupListMenuBox}
+      className=' w-auto max-w-[95vw] overflow-x-auto p-4'
       open={props.popover.isOpen}
       anchorEl={props.popover.anchor}
       onClose={() => {
@@ -87,7 +82,7 @@ export function MenuPopover(props: MenuPopoverProps): JSX.Element {
       <List
         aria-label='List of Options'
         dense={true}
-        className={styles.GroupListMenuBox}
+        className=' w-auto max-w-[95vw] overflow-x-auto p-4'
       >
         {listItems.map((listItem) => renderListItem(listItem))}
       </List>
@@ -136,9 +131,9 @@ function DropDownMenu(props: DropDownMenuProps) {
   )
 
   return (
-    <div className={styles.SectionFilterBy}>
+    <div className='flex'>
       <label
-        className={styles.FilterBy}
+        className='flex items-center px-2 py-[6px] text-small'
         htmlFor={`groupMenu${props?.idSuffix ?? ''}`}
         aria-hidden={true}
       >
@@ -149,7 +144,7 @@ function DropDownMenu(props: DropDownMenuProps) {
         onClick={firstMenu.open}
         aria-haspopup='true'
         id={`groupMenu${props?.idSuffix ?? ''}`}
-        className={styles.GroupText}
+        className='text-small underline'
       >
         {props.value}
         {suffix}

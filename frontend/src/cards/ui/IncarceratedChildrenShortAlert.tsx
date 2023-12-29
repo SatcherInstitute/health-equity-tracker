@@ -26,11 +26,11 @@ function IncarceratedChildrenShortAlert(
 
   return (
     <HetNotice kind={count > 0 ? 'health-crisis' : 'helpful-info'}>
-      <b>
+      <strong>
         {count.toLocaleString()} {children}
-      </b>{' '}
+      </strong>{' '}
       confined in {adultFacilities} in{' '}
-      <b>{props.fips.getSentenceDisplayName()}</b>.{' '}
+      <span>{props.fips.getSentenceDisplayName()}</span>.{' '}
       <a href={urlMap.childrenInPrison}>Learn more.</a>
     </HetNotice>
   )

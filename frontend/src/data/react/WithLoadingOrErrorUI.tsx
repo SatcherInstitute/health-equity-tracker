@@ -38,14 +38,14 @@ export function WithLoadingOrErrorUI<R>(props: {
     return (
       <div data-testid='WithLoadingOrErrorUI-error'>
         <p>
-          <b>Oops, something went wrong.</b>
+          <strong>Oops, something went wrong.</strong>
         </p>
         <Button
           onClick={() => {
             window.location.reload()
           }}
         >
-          <b>Reload</b>
+          <strong>Reload</strong>
         </Button>
       </div>
     )

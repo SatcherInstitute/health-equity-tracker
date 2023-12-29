@@ -23,7 +23,6 @@ import {
   getExclusionList,
   shouldShowAltPopCompare,
 } from '../data/utils/datasetutils'
-import styles from './Card.module.scss'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type Row } from '../data/utils/DatasetTypes'
@@ -164,22 +163,20 @@ export default function TableCard(props: TableCardProps) {
         return (
           <>
             {!queryResponse.dataIsMissing() && data.length > 0 && (
-              <div className={styles.TableChart}>
-                <TableChart
-                  countColsMap={countColsMap}
-                  data={data}
-                  demographicType={props.demographicType}
-                  metrics={Object.values(metricConfigs).filter(
-                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                  )}
-                  dataTypeId={props.dataTypeConfig.dataTypeId}
-                  fips={props.fips}
-                  dataTableTitle={
-                    props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
-                  }
-                  subtitle={subtitle}
-                />
-              </div>
+              <TableChart
+                countColsMap={countColsMap}
+                data={data}
+                demographicType={props.demographicType}
+                metrics={Object.values(metricConfigs).filter(
+                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                )}
+                dataTypeId={props.dataTypeConfig.dataTypeId}
+                fips={props.fips}
+                dataTableTitle={
+                  props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
+                }
+                subtitle={subtitle}
+              />
             )}
 
             {isIncarceration && (

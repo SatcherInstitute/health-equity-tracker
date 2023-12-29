@@ -26,12 +26,12 @@ export default function ConditionVariable({
               return (
                 <figure
                   key={def.key}
-                  className='first:border-t-1 ml-0 self-start border-0 border-alt-dark font-sansText text-smallest text-alt-green'
+                  className='ml-0 self-start border-0 border-altDark font-sansText text-smallest text-altGreen first:border-t'
                 >
                   <span>
                     <strong>{def.key}</strong>
                   </span>
-                  <p className='m-0 ml-1 self-start text-smallest text-alt-black'>
+                  <p className='m-0 ml-1 self-start text-smallest text-altBlack'>
                     {parseDescription(def.description)}
                   </p>
                 </figure>

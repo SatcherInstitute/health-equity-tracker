@@ -22,13 +22,13 @@ import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
-import sass from '../styles/variables.module.scss'
 import { RACE } from '../data/utils/Constants'
 import ChartTitle from '../cards/ChartTitle'
+import { het } from '../styles/DesignTokens'
 
 const headerCellStyle = {
   width: '200px',
-  backgroundColor: sass.footerColor,
+  backgroundColor: het.footerColor,
 }
 
 const cellStyle = {
@@ -36,7 +36,7 @@ const cellStyle = {
 }
 
 const altCellStyle = {
-  backgroundColor: sass.greyGridColor,
+  backgroundColor: het.greyGridColor,
   width: '200px',
 }
 

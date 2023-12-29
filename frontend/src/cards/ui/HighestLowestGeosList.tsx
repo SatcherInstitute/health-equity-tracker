@@ -15,6 +15,7 @@ import { type DemographicType } from '../../data/query/Breakdowns'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import ExtremeList from './ExtremeList'
 import HetUnitLabel from '../../styles/HetComponents/HetUnitLabel'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface HighestLowestGeosListProps {
   // MetricConfig for data
@@ -61,7 +62,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
       duration={500}
       height={props.isOpen ? 'auto' : 47}
       onAnimationEnd={() => window.dispatchEvent(new Event('resize'))}
-      className='mt-4 rounded-md bg-standard-info text-left'
+      className='mt-4 rounded-md bg-standardInfo text-left'
     >
       <div className='float-right'>
         <IconButton
@@ -94,7 +95,7 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
         <span className='sr-only sm:not-sr-only'>
           the {placesType} with the{' '}
         </span>
-        <b>highest</b> and <b>lowest</b> rates.
+        <strong>highest</strong> and <strong>lowest</strong> rates.
       </div>
 
       {/* Don't render collapsed info, so keyboard nav will skip */}
@@ -133,10 +134,10 @@ export function HighestLowestGeosList(props: HighestLowestGeosListProps) {
 
           <p className='m-0 p-4'>
             All rates are reported as:{' '}
-            <b>
+            <HetTerm>
               {props.metricConfig.chartTitle}
-              {props.selectedRaceSuffix}
-            </b>
+              {props?.selectedRaceSuffix ?? ''}
+            </HetTerm>
             .
           </p>
           <p className='m-0 p-4'>

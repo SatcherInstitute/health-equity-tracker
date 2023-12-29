@@ -177,7 +177,7 @@ export default function TopicOrLocationSelector(
                   USA_DISPLAY_NAME
                 ) : (
                   <button
-                    className={styles.UsaButton}
+                    className='cursor-pointer border-0 bg-transparent p-0 italic text-altGreen underline'
                     onClick={handleUsaButton}
                   >
                     United States

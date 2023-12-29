@@ -54,11 +54,6 @@
   font-style: italic;
 }
 
-.UsaButton {
-  @include buttonThatLooksLikeLink();
-  font-style: italic;
-}
-
 .TopicOrLocationSelectorPopover {
   padding: 20px;
 }
