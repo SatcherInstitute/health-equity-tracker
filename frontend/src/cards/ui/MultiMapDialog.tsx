@@ -37,7 +37,6 @@ import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import { Sources } from './Sources'
 import CloseIcon from '@mui/icons-material/Close'
 import DataTypeDefinitionsList from '../../pages/ui/DataTypeDefinitionsList'
-import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 import HetNotice from '../../styles/HetComponents/HetNotice'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 
@@ -135,8 +134,6 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
     setScale({ domain, range })
   }
 
-  const isXs = useIsBreakpointAndUp('xs')
-
   return (
     <Dialog
       className='z-top'
@@ -146,45 +143,42 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       scroll='paper'
       aria-labelledby='modalTitle'
     >
-      <DialogContent dividers={true}>
+      <DialogContent dividers={true} className='p-2'>
         <div ref={screenshotTargetRef}>
           {/* mobile-only card options button */}
-          {isXs && (
-            <div className='mb-3 flex w-full justify-end sm:hidden'>
-              <CardOptionsMenu
-                downloadTargetScreenshot={downloadTargetScreenshot}
-                reportTitle={props.reportTitle}
-                scrollToHash={props.scrollToHash}
-              />
-            </div>
-          )}
 
-          {/* Modal Title */}
-          <h2
-            className='w-full font-sansTitle text-exploreButton font-light leading-lhModalHeading'
-            id='modalTitle'
-          >
-            {title}
-            {props?.subtitle && ` (${props.subtitle})`}
-          </h2>
-          <ul className='grid list-none grid-cols-2 justify-between gap-x-5 gap-y-2 p-0 sm:grid-cols-3  md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6'>
-            {/* card heading row */}
-            <div className='col-span-full flex w-full justify-between'>
-              {/* desktop-only close button */}
-              {!isXs && (
-                <div className='mb-3 mr-1 hidden sm:flex md:mr-0'>
-                  <Button
-                    aria-label='close multiple maps modal'
-                    onClick={props.handleClose}
-                    color='primary'
-                    id={'multi-map-close-button1'}
-                  >
-                    <CloseIcon />
-                  </Button>
-                </div>
-              )}
-            </div>
+          <div className='mb-3 flex w-full justify-end sm:hidden'>
+            <CardOptionsMenu
+              downloadTargetScreenshot={downloadTargetScreenshot}
+              reportTitle={props.reportTitle}
+              scrollToHash={props.scrollToHash}
+            />
+          </div>
 
+          {/* card heading row */}
+          <div className='col-span-full flex w-full justify-between'>
+            {/* Modal Title */}
+            <h2
+              className='m-0 w-full font-sansTitle text-small font-light leading-lhNormal sm:text-text sm:leading-lhModalHeading md:m-2 md:text-exploreButton'
+              id='modalTitle'
+            >
+              {title}
+              {props?.subtitle && ` (${props.subtitle})`}
+            </h2>
+            {/* desktop-only close button */}
+            <div className='mb-3 mr-1 hidden sm:flex md:mr-0'>
+              <Button
+                aria-label='close multiple maps modal'
+                onClick={props.handleClose}
+                color='primary'
+                id={'multi-map-close-button1'}
+              >
+                <CloseIcon />
+              </Button>
+            </div>
+          </div>
+
+          <ul className='grid list-none grid-cols-2 justify-between gap-2 p-0 sm:grid-cols-3 md:grid-cols-4 md:gap-3 md:p-2 lg:grid-cols-5  xl:grid-cols-6'>
             {/* Multiples Maps */}
             {props.demographicGroups.map((demographicGroup) => {
               const mapLabel = CAWP_DETERMINANTS.includes(
@@ -200,7 +194,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                   key={`${demographicGroup}-grid-item`}
                   className='w-full sm:p-1 md:p-2'
                 >
-                  <h4 className='m-0 text-small font-medium leading-lhTight md:text-text md:leading-lhNormal'>
+                  <h4 className='m-0 text-smallest font-medium leading-lhTight sm:text-small sm:leading-lhNormal md:text-text'>
                     {mapLabel}
                   </h4>
                   <div className=''>
@@ -268,7 +262,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
                 stackingDirection={
                   props.pageIsSmall ? 'vertical' : 'horizontal'
                 }
-                columns={props.pageIsSmall ? 2 : 6}
+                columns={2}
                 handleScaleChange={handleScaleChange}
                 isMulti={true}
                 isPhrmaAdherence={props.isPhrmaAdherence}
@@ -331,32 +325,32 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       {/* MODAL FOOTER */}
       <footer ref={footerContentRef}>
         <div className='flex justify-between pl-2 text-left text-small'>
-          {isXs ? (
-            <Button
-              aria-label='close multiple maps modal'
-              onClick={props.handleClose}
-              color='primary'
-              id={'multi-map-close-button2'}
-            >
-              Close
-            </Button>
-          ) : (
-            <>
-              <Sources
-                queryResponses={props.queryResponses}
-                metadata={props.metadata}
+          {/* mobile-only CLOSE button */}
+          <Button
+            aria-label='close multiple maps modal'
+            onClick={props.handleClose}
+            color='primary'
+            id={'multi-map-close-button2'}
+            className='sm:hidden'
+          >
+            Close
+          </Button>
+          {/* Desktop only Sources and Card Options */}
+          <div className='hidden sm:flex'>
+            <Sources
+              queryResponses={props.queryResponses}
+              metadata={props.metadata}
+              downloadTargetScreenshot={downloadTargetScreenshot}
+              isMulti={true}
+            />
+            <div className='m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12'>
+              <CardOptionsMenu
                 downloadTargetScreenshot={downloadTargetScreenshot}
-                isMulti={true}
+                reportTitle={props.reportTitle}
+                scrollToHash={props.scrollToHash}
               />
-              <div className='m-3 grid w-4/12 place-content-end sm:w-3/12 md:w-2/12'>
-                <CardOptionsMenu
-                  downloadTargetScreenshot={downloadTargetScreenshot}
-                  reportTitle={props.reportTitle}
-                  scrollToHash={props.scrollToHash}
-                />
-              </div>
-            </>
-          )}
+            </div>
+          </div>
         </div>
       </footer>
     </Dialog>

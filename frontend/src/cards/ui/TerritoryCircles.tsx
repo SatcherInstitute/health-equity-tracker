@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import {
   type DataTypeConfig,
@@ -40,17 +39,11 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
     : props.dataTypeConfig.mapConfig
 
   return (
-    <Grid
-      container
-      flexDirection={'row'}
-      justifyContent={'flex-end'}
-      aria-hidden={true}
-      style={{ padding: props.isMulti ? '0px 5px 10px' : '' }}
-    >
+    <div className='flex justify-end p-0' aria-hidden={true}>
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
         const fips = new Fips(fipsCode)
         return (
-          <Grid item key={fipsCode} sx={{ width: 40 }} component={'figure'}>
+          <figure className='p-0.5' key={fipsCode}>
             <ChoroplethMap
               demographicType={props.demographicType}
               highestLowestGroupsByFips={props.highestLowestGroupsByFips}
@@ -73,12 +66,12 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
               highestLowestGeosMode={props.highestLowestGeosMode}
               isPhrmaAdherence={props.isPhrmaAdherence}
             />
-            <figcaption className='-mt-1 mb-1 text-center text-smallest leading-lhTight'>
+            <figcaption className='-mt-1 mb-1 text-center text-smallest leading-lhTight tracking-tighter'>
               {postalCode}
             </figcaption>
-          </Grid>
+          </figure>
         )
       })}
-    </Grid>
+    </div>
   )
 }
