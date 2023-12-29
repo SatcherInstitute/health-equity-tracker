@@ -1,5 +1,3 @@
-import { Grid } from '@mui/material'
-import Divider from '@mui/material/Divider'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -74,6 +72,7 @@ import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
+import HetDivider from '../styles/HetComponents/HetDivider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -405,12 +404,12 @@ function MapCardWithKey(props: MapCardProps) {
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
             <>
-              <Grid item xs={12}>
+              <div className='w-full'>
                 <ChartTitle
                   title={'Rate map unavailable: ' + title}
                   subtitle={subtitle}
                 />
-              </Grid>
+              </div>
               <MissingDataAlert
                 dataName={title}
                 demographicTypeString={
@@ -472,57 +471,44 @@ function MapCardWithKey(props: MapCardProps) {
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
-              <>
-                <Grid
-                  className='pb-1 pt-0 text-left'
-                  container
-                  justifyContent='space-between'
-                  align-items='flex-end'
-                  id={'map-group-dropdown'}
-                >
-                  <Grid item>
-                    <DropDownMenu
-                      idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
-                      demographicType={demographicType}
-                      dataTypeId={props.dataTypeConfig.dataTypeId}
-                      setMultimapOpen={setMultimapOpen}
-                      value={dropdownValue}
-                      options={filterOptions}
-                      onOptionUpdate={handleMapGroupClick}
-                    />
-                    <Divider />
+              <div id='map-group-dropdown' className='pb-1 pt-0 text-left'>
+                <DropDownMenu
+                  idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
+                  demographicType={demographicType}
+                  dataTypeId={props.dataTypeConfig.dataTypeId}
+                  setMultimapOpen={setMultimapOpen}
+                  value={dropdownValue}
+                  options={filterOptions}
+                  onOptionUpdate={handleMapGroupClick}
+                />
+                <HetDivider />
 
-                    <HetLinkButton
-                      onClick={() => {
-                        setMultimapOpen(true)
-                      }}
-                      ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
-                    >
-                      <GridView />
-                      <span className='mt-1 px-1 align-bottom'>
-                        View {prettyDemoType} disparties across multiple small
-                        maps
-                      </span>
-                    </HetLinkButton>
-                  </Grid>
-                  <Divider />
-                </Grid>
-              </>
+                <HetLinkButton
+                  onClick={() => {
+                    setMultimapOpen(true)
+                  }}
+                  className='flex items-center'
+                  ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
+                >
+                  <GridView />
+                  <span className='mt-1 px-1'>
+                    View {prettyDemoType} disparties across multiple small maps
+                  </span>
+                </HetLinkButton>
+              </div>
             )}
 
             <div className='pt-0'>
-              <Grid container>
-                <Grid item xs={12}>
+              <div className='flex flex-wrap'>
+                <div className='w-full'>
                   <ChartTitle title={title} subtitle={subtitle} />
-                </Grid>
+                </div>
 
-                <Grid
-                  item
-                  xs={12}
-                  sm={mapIsWide ? 8 : 12}
-                  md={mapIsWide ? 9 : 12}
-                >
-                  <Grid item minHeight={preloadHeight * 0.3} xs={12}>
+                <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
+                  <div
+                    className='w-full'
+                    style={{ minHeight: preloadHeight * 0.3 }}
+                  >
                     <ChoroplethMap
                       demographicType={demographicType}
                       highestLowestGroupsByFips={highestLowestGroupsByFips}
@@ -546,10 +532,10 @@ function MapCardWithKey(props: MapCardProps) {
                       scaleConfig={scale}
                       isPhrmaAdherence={isPhrmaAdherence}
                     />
-                  </Grid>
+                  </div>
 
                   {props.fips.isUsa() && (
-                    <Grid item xs={12}>
+                    <div className='w-full'>
                       <TerritoryCircles
                         demographicType={demographicType}
                         activeDemographicGroup={activeDemographicGroup}
@@ -566,19 +552,11 @@ function MapCardWithKey(props: MapCardProps) {
                         scaleConfig={scale}
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
-                    </Grid>
+                    </div>
                   )}
-                </Grid>
-                {/* Legend */}
-                <Grid
-                  container
-                  justifyItems={'center'}
-                  alignItems={'flex-start'}
-                  item
-                  xs={12}
-                  sm={mapIsWide ? 4 : 12}
-                  md={mapIsWide ? 3 : 12}
-                >
+                </div>
+
+                <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
                   <Legend
                     dataTypeConfig={props.dataTypeConfig}
                     metric={metricConfig}
@@ -597,28 +575,20 @@ function MapCardWithKey(props: MapCardProps) {
                     isPhrmaAdherence={isPhrmaAdherence}
                     handleScaleChange={handleScaleChange}
                   />
-                </Grid>
+                </div>
 
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  justifyContent={'space-between'}
-                  alignItems={'center'}
-                >
-                  <Grid item>
-                    <GeoContext
-                      fips={props.fips}
-                      updateFipsCallback={props.updateFipsCallback}
-                      dataTypeConfig={props.dataTypeConfig}
-                      totalPopulationPhrase={totalPopulationPhrase}
-                      subPopulationPhrase={subPopulationPhrase}
-                      sviQueryResponse={sviQueryResponse}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid
+                <div>
+                  <GeoContext
+                    fips={props.fips}
+                    updateFipsCallback={props.updateFipsCallback}
+                    dataTypeConfig={props.dataTypeConfig}
+                    totalPopulationPhrase={totalPopulationPhrase}
+                    subPopulationPhrase={subPopulationPhrase}
+                    sviQueryResponse={sviQueryResponse}
+                  />
+                </div>
+              </div>
+              <div
                 id={
                   props.isCompareCard
                     ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
@@ -643,7 +613,7 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
-              </Grid>
+              </div>
             </div>
           </>
         )

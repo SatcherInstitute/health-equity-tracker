@@ -9,7 +9,6 @@ import {
 } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
-import { Grid } from '@mui/material'
 
 import {
   CAWP_DETERMINANTS,
@@ -507,12 +506,13 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   )
 
   return (
-    <Grid
-      container
-      justifyContent={'center'}
+    <div
+      className='justify-center'
       ref={props.overrideShapeWithCircle ? undefined : ref}
-      sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
-      display={width === INVISIBLE_PRELOAD_WIDTH ? 'none' : undefined}
+      style={{
+        marginTop: props.isUnknownsMap ? 5 : 0,
+        display: width === INVISIBLE_PRELOAD_WIDTH ? 'none' : undefined,
+      }}
     >
       {mapIsReady && (
         <Vega
@@ -524,6 +524,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
           signalListeners={props.signalListeners}
         />
       )}
-    </Grid>
+    </div>
   )
 }
