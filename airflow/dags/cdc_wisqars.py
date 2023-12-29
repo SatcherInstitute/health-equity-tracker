@@ -105,7 +105,7 @@ payload_race = {
     'dataset_name': _CDC_WISQARS_DATASET_NAME,
     'demographic': "race_and_ethnicity",
 }
-cdc_wisqars_exporter_operator_sex = util.create_exporter_operator(
+cdc_wisqars_exporter_operator_race = util.create_exporter_operator(
     'cdc_wisqars_exporter_race', payload_race, data_ingestion_dag
 )
 
@@ -122,5 +122,9 @@ cdc_wisqars_exporter_operator_sex = util.create_exporter_operator(
     >> cdc_wisqars_bq_operator_race_state
     >> cdc_wisqars_bq_operator_sex_national
     >> cdc_wisqars_bq_operator_sex_state
-    >> [cdc_wisqars_exporter_operator_age, cdc_wisqars_exporter_operator_sex]
+    >> [
+        cdc_wisqars_exporter_operator_age,
+        cdc_wisqars_exporter_operator_race,
+        cdc_wisqars_exporter_operator_sex,
+    ]
 )
