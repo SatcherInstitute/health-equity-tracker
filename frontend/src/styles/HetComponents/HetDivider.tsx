@@ -1,3 +1,4 @@
+// @BEN: could export MUI Divider here instead if you'd prefer
 const HetDivider = ({ className }: { className?: string }) => {
   return (
     <hr
