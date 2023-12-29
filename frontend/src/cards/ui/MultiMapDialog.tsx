@@ -327,7 +327,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
         <div className='flex justify-between pl-2 text-left text-small'>
           {/* mobile-only CLOSE button */}
           <Button
-            aria-label='close multiple maps modal'
+            aria-label='close this multiple maps modal'
             onClick={props.handleClose}
             color='primary'
             id={'multi-map-close-button2'}
