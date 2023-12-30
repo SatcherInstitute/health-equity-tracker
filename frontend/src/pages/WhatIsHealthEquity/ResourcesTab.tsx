@@ -1,5 +1,3 @@
-import styles from './WhatIsHealthEquityPage.module.scss'
-import { Typography, Grid } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
 import {
   RESOURCES,
@@ -25,8 +23,8 @@ function ResourcesTab() {
         </title>
       </Helmet>
       <h2 className='sr-only'>Health Equity Resources</h2>
-      <Grid container className={styles.Grid}>
-        <Grid container className={styles.ResourcesTabSection}>
+      <div className=''>
+        <div className='flex flex-col px-5 py-12'>
           {[
             RESOURCES,
             PDOH_RESOURCES,
@@ -43,37 +41,28 @@ function ResourcesTab() {
             // first heading should get a "main" id for Playwright testing and our a11y setups
             const id = heading === 'Health Equity' ? 'main' : heading
             return (
-              <Grid container className={styles.ResourcesGroup} key={heading}>
-                <Grid item xs={12} sm={12} md={3}>
-                  <Typography
-                    id={id}
-                    tabIndex={-1}
-                    className={styles.ResourcesTabHeaderText}
-                  >
-                    {heading}
-                  </Typography>
-                </Grid>
-                <Grid item xs={12} sm={12} md={9}>
-                  <Grid container>
-                    <Grid item>
-                      <ul className={styles.ResourcesTabList}>
-                        {resources.map((resource) => (
-                          <li
-                            className={styles.ResourcesTabListItem}
-                            key={resource.name}
-                          >
-                            <a href={resource.url}>{resource.name}</a>
-                          </li>
-                        ))}
-                      </ul>
-                    </Grid>
-                  </Grid>
-                </Grid>
-              </Grid>
+              <div className='mt-12 flex' key={heading}>
+                <h3
+                  id={id}
+                  className='w-full px-8 py-0 text-center font-serif text-smallestHeader font-light text-altBlack md:w-3/12 md:pb-5'
+                >
+                  {heading}
+                </h3>
+
+                <ul className='w-full pt-0 text-left md:w-9/12 md:pt-10'>
+                  {resources.map((resource) => (
+                    <li className='px-0 py-2' key={resource.name}>
+                      <a className='no-underline' href={resource.url}>
+                        {resource.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )
           })}
-        </Grid>
-      </Grid>
+        </div>
+      </div>
     </>
   )
 }
