@@ -50,8 +50,11 @@ export default function ResourcesTab() {
 
               <ul className='w-full pt-0 text-left md:w-9/12 md:pt-10'>
                 {resources.map((resource) => (
-                  <li className='px-0 py-2' key={resource.name}>
-                    <a className='no-underline' href={resource.url}>
+                  <li className='px-0 py-1' key={resource.name}>
+                    <a
+                      className='no-underline hover:underline'
+                      href={resource.url}
+                    >
                       {resource.name}
                     </a>
                   </li>
