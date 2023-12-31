@@ -246,9 +246,10 @@ function MapCardWithKey(props: MapCardProps) {
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
   const HASH_ID: ScrollableHashId = 'rate-map'
 
-  const isSm = useIsBreakpointAndUp('sm')
+  const isMobile = !useIsBreakpointAndUp('sm')
+  const isMd = useIsBreakpointAndUp('md')
   const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = isSm && !isCompareMode
+  const mapIsWide = !isMobile && !isCompareMode
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
@@ -463,7 +464,7 @@ function MapCardWithKey(props: MapCardProps) {
                 !mapQueryResponse.dataIsMissing() &&
                 (props.dataTypeConfig.surveyCollectedData ?? false)
               }
-              pageIsSmall={isSm}
+              pageIsSmall={!isMd}
               reportTitle={props.reportTitle}
               subtitle={subtitle}
               scrollToHash={HASH_ID}

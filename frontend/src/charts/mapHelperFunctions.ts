@@ -157,12 +157,16 @@ export function createShapeMarks(
   overrideShapeWithCircle?: boolean,
   hideMissingDataTooltip?: boolean,
   outlineGeos?: boolean,
-  isMulti?: boolean
+  isMulti?: boolean,
+  isMobile?: boolean
 ) {
+  let territoryBubbleSize = isMulti ? 500 : 1000
+  if (isMobile) territoryBubbleSize /= 3
+
   let encodeEnter: any = {}
   if (overrideShapeWithCircle) {
     encodeEnter = {
-      size: { value: isMulti ? '500' : '1000' },
+      size: { value: territoryBubbleSize },
       fill: fillColor,
       stroke: { value: 'white' },
       strokeWidth: { value: 1.5 },

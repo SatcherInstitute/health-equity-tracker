@@ -5,7 +5,6 @@ import {
   DATA_CATALOG_PAGE_LINK,
   OLD_METHODOLOGY_PAGE_LINK,
 } from '../../utils/internalRoutes'
-import sass from '../../styles/variables.module.scss'
 import { useParamState } from '../../utils/hooks/useParamState'
 import { TOPIC_INFO_PARAM_KEY } from '../../utils/urlutils'
 import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'
@@ -47,7 +46,7 @@ export default function TopicInfoModal() {
         </Button>
         <DataTypeDefinitionsList />
       </DialogContent>
-      <DialogContent dividers={true} sx={{ fontSize: sass.smallest }}>
+      <DialogContent dividers={true} className='text-smallest'>
         For specific calculations and more detailed information, visit our{' '}
         <HashLink
           to={`${OLD_METHODOLOGY_PAGE_LINK as string}#${dropdownVarId}`}
