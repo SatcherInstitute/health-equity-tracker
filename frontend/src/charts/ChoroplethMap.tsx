@@ -507,12 +507,11 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   return (
     <div
-      className='justify-center'
+      className={`justify-center 
+      ${props.isUnknownsMap ? 'mt-1' : 'mt-0'} 
+      ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}
+      `}
       ref={props.overrideShapeWithCircle ? undefined : ref}
-      style={{
-        marginTop: props.isUnknownsMap ? 5 : 0,
-        display: width === INVISIBLE_PRELOAD_WIDTH ? 'none' : undefined,
-      }}
     >
       {mapIsReady && (
         <Vega

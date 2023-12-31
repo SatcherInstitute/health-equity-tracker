@@ -490,7 +490,6 @@ function MapCardWithKey(props: MapCardProps) {
                   className='flex items-center'
                   ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
-                  {/* @BEN: ok to keep MUI icon here? */}
                   <GridView />
                   <span className='mt-1 px-1'>
                     View {prettyDemoType} disparties across multiple small maps
