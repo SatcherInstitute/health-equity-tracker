@@ -35,6 +35,7 @@ const het = {
   borderColor: '#3e3e3e',
   darkBlue: '#255792',
   darkGreen: '#083f31',
+  dividerGrey: '#0000001f',
   exploreBgColor: '#f1f4f8',
   footerColor: '#edf3f0',
   greyDark: '#222',
