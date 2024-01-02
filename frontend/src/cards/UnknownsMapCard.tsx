@@ -23,7 +23,7 @@ import { useLocation } from 'react-router-dom'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import TerritoryCircles from './ui/TerritoryCircles'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { unknownMapConfig } from '../charts/mapGlobals'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
@@ -103,6 +103,12 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
     /* chartTitle:  */ metricConfig.chartTitle,
     /* fips: */ props.fips,
     demographicType
+  )
+
+  const subtitle = generateSubtitle(
+    ALL,
+    props.demographicType,
+    metricConfig.metricId
   )
 
   const HASH_ID: ScrollableHashId = 'unknown-demographic-map'
@@ -200,7 +206,7 @@ function UnknownsMapCardWithKey(props: UnknownsMapCardProps) {
 
         return (
           <>
-            <ChartTitle title={chartTitle} />
+            <ChartTitle title={chartTitle} subtitle={subtitle} />
             {showingVisualization && (
               <>
                 <ChoroplethMap

@@ -8,8 +8,8 @@ import {
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
-import { ReactRouterLinkButton } from '../../utils/urlutils'
 import { type FAQ, selectFAQs } from '../WhatIsHealthEquity/FaqData'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 interface FAQListItemProps {
   key: string
@@ -58,11 +58,12 @@ export default function FaqSection() {
         })}
       </Grid>
       <Grid item>
-        <ReactRouterLinkButton
-          url={`${FAQ_TAB_LINK}`}
-          className={styles.FaqLink}
-          displayName='See our full FAQ page'
-        />
+        <HetLinkButton
+          href={FAQ_TAB_LINK}
+          className='text-smallestHeader text-altGreen underline'
+        >
+          See our full FAQ page
+        </HetLinkButton>
       </Grid>
     </Grid>
   )

@@ -18,18 +18,18 @@ const MONTHLY_LENGTH = 7
 const YEARLY_LENGTH = 4
 
 const MONTHS: Record<string, string> = {
-  '01': 'January',
-  '02': 'February',
-  '03': 'March',
-  '04': 'April',
+  '01': 'Jan',
+  '02': 'Feb',
+  '03': 'Mar',
+  '04': 'Apr',
   '05': 'May',
-  '06': 'June',
-  '07': 'July',
-  '08': 'August',
-  '09': 'September',
-  10: 'October',
-  11: 'November',
-  12: 'December',
+  '06': 'Jun',
+  '07': 'Jul',
+  '08': 'Aug',
+  '09': 'Sep',
+  '10': 'Oct',
+  '11': 'Nov',
+  '12': 'Dec',
 }
 
 /*
@@ -179,7 +179,7 @@ export function makeA11yTableData(
 ): Row[] {
   const allTimePeriods = Array.from(
     new Set(knownsData.map((row) => row[TIME_PERIOD]))
-  ).sort()
+  ).sort((a, b) => b.localeCompare(a))
 
   const allDemographicGroups = Array.from(
     new Set(knownsData.map((row) => row[demographicType]))

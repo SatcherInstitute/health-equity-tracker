@@ -1,4 +1,3 @@
-import { Skeleton } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useUrlSearchParams, LinkWithStickyParams } from '../../utils/urlutils'
 import {
@@ -17,81 +16,10 @@ import { useQuery } from 'react-query'
 import { type Article } from './NewsPage'
 import SignupSection from '../ui/SignupSection'
 import { Link } from 'react-router-dom'
+import HetPostsLoading from '../../styles/HetComponents/HetPostsLoading'
+import PinnedArticles from './PinnedArticles'
 
 export const ARTICLES_TERM = 'Articles'
-const NUM_OF_LOADING_SKELETONS = 12
-
-/*
-displays several loading indicator elements while blog content is fetched
-*/
-
-export function ArticlesSkeleton(props: {
-  doPulse: boolean
-  numberLoading?: number
-}) {
-  const numberLoadingSkeletons = props.numberLoading ?? NUM_OF_LOADING_SKELETONS
-
-  return (
-    <div className='flex flex-wrap justify-between'>
-      {[...Array(numberLoadingSkeletons)].map((_, i) => {
-        return (
-          <div
-            className='flex w-full flex-col items-center sm:w-1/2 xl:w-1/3'
-            key={i}
-          >
-            <Skeleton
-              animation={props.doPulse && 'wave'}
-              variant='rectangular'
-              height={100}
-              width={150}
-            ></Skeleton>
-            <Skeleton
-              animation={false}
-              variant='text'
-              height={36}
-              width={200}
-            ></Skeleton>
-            <div className='mb-10'>
-              <Skeleton
-                animation={props.doPulse && 'wave'}
-                variant='text'
-                height={36}
-                width={175}
-              ></Skeleton>
-            </div>
-          </div>
-        )
-      })}
-    </div>
-  )
-}
-
-interface PinnedArticlesProps {
-  articles: Article[]
-}
-
-function PinnedArticles(props: PinnedArticlesProps) {
-  const { articles } = props
-
-  return articles?.length > 0 ? (
-    <div className='shadow-md'>
-      <h6 className='m-0 text-center font-serif font-light text-alt-green'>
-        Featured:
-      </h6>
-      <div className='flex'>
-        {articles.map((post: any) => {
-          return (
-            <div className='w-full sm:w-1/2' key={post.id}>
-              <NewsPreviewCard article={post} />
-            </div>
-          )
-        })}
-      </div>
-    </div>
-  ) : (
-    <></>
-  )
-}
 
 function AllPosts() {
   // articles matching client applied filters (author, category, etc)
@@ -202,7 +130,7 @@ function AllPosts() {
   if (data?.data.length === 0) return <></>
 
   return (
-    <div className='flex w-full flex-wrap'>
+    <div className='flex w-full flex-wrap justify-center'>
       <Helmet>
         <title>News - Health Equity Tracker</title>
       </Helmet>
@@ -213,7 +141,7 @@ function AllPosts() {
         border-0
         border-b
         border-solid
-        border-alt-grey
+        border-altGrey
         px-5
         py-12
       '
@@ -242,23 +170,19 @@ function AllPosts() {
                     m-0
                     text-center
                     font-serif
-                    text-bigHeader
+                    text-header
                     font-light
-                    text-alt-green'
+                    leading-lhNormal
+                    text-altGreen
+                    md:text-bigHeader
+
+                    '
                 >
                   News and Stories
                 </h2>
               </div>
-              <div>
-                <p
-                  className='
-                    leading-6
-                    text-left
-                    font-sansText
-                    text-title
-                    font-light
-                '
-                >
+              <div className='text-left font-sansText font-light leading-lhSomeSpace md:text-title md:leading-lhSomeMoreSpace'>
+                <p>
                   We believe in the power of storytelling. The Health Equity
                   Tracker is designed to enable transformative change through
                   data, but we know that is only part of the picture. Here, you
@@ -268,15 +192,7 @@ function AllPosts() {
                   the Health Equity movement.
                 </p>
 
-                <p
-                  className='
-                    leading-6
-                    text-left
-                    font-sansText
-                    text-title
-                    font-light
-                '
-                >
+                <p>
                   Health Equity is a transformative pursuit that empowers all
                   people: giving their voices the platform to be heard and their
                   experiences the visibility they deserve. We encourage your to{' '}
@@ -303,7 +219,7 @@ function AllPosts() {
                   <Link
                     to={NEWS_PAGE_LINK}
                     className='
-                    leading-7
+
                     inline
                     px-4
                     py-1.5
@@ -319,7 +235,7 @@ function AllPosts() {
                   </Link>
                   <span
                     className='
-                      leading-7
+
                       inline
                       px-4
                       py-1.5
@@ -337,7 +253,7 @@ function AllPosts() {
               )}
               <span
                 className='
-                      leading-7
+
                       inline
                       px-4
                       py-1.5
@@ -359,7 +275,10 @@ function AllPosts() {
             <div className='flex flex-wrap items-start justify-between'>
               {filteredArticles?.map((post: any) => {
                 return (
-                  <div className='w-full sm:w-1/2 xl:w-1/3' key={post.id}>
+                  <div
+                    className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'
+                    key={post.id}
+                  >
                     <div className='my-4'>
                       <NewsPreviewCard article={post} />
                     </div>
@@ -368,22 +287,25 @@ function AllPosts() {
               })}
             </div>
 
-            <div className='flex flex-col justify-center'>
+            <div className='flex flex-wrap items-start justify-between'>
               {isLoading && (
                 <>
-                  <ArticlesSkeleton doPulse={true} />
+                  <HetPostsLoading
+                    doPulse={true}
+                    className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'
+                  />
                   <div className='m-10'>
                     <i>Updating articles...</i>
                   </div>
                 </>
               )}
               {error && !isLoading && (
-                <>
+                <div className='w-full sm:w-1/2 lg:w-1/3 xl:w-1/4'>
                   <div className='m-10'>
                     <i>Problem updating articles.</i>
                   </div>
-                  <ArticlesSkeleton doPulse={false} />
-                </>
+                  <HetPostsLoading doPulse={false} />
+                </div>
               )}
             </div>
           </div>
@@ -400,7 +322,7 @@ function AllPosts() {
         '
         >
           <div className='w-full'>
-            <div className='mt-16 border-0	border-t border-solid border-alt-grey p-4'></div>
+            <div className='mt-16 border-0	border-t border-solid border-altGrey p-4'></div>
           </div>
           <div className='flex w-full justify-center sm:w-1/2'>
             <ArticleFilters

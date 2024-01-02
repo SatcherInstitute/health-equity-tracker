@@ -83,7 +83,6 @@ export function getOnboardingSteps(pageIsWide: boolean) {
         </p>
         <div className={styles.StepVideoBox}>
           <iframe
-            className={styles.ResourceVideoEmbed}
             src='https://www.youtube.com/embed/XBoqT9Jjc8w'
             title='YouTube video player'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'

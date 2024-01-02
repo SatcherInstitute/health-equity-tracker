@@ -27,7 +27,7 @@ test('Statin Adherence', async ({ page }) => {
     })
     .click()
   await page
-    .getByRole('heading', { name: 'Breakdown Summary in the United States' })
+    .getByRole('heading', { name: 'Breakdown summary for adherence to statins in the United States' })
     .click()
   await page.locator('#data-table').getByLabel('Card export options').click()
   await page.locator('.MuiBackdrop-root').first().click()

@@ -1,5 +1,3 @@
-import { Button, Grid, Tooltip } from '@mui/material'
-import Divider from '@mui/material/Divider'
 import ChoroplethMap from '../charts/ChoroplethMap'
 import { type MetricId, type DataTypeConfig } from '../data/config/MetricConfig'
 import { exclude } from '../data/query/BreakdownFilter'
@@ -34,13 +32,11 @@ import {
   PRIVATE_JAILS_QUALIFIER,
 } from '../data/providers/IncarcerationProvider'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
-import styles from './Card.module.scss'
 import CardWrapper from './CardWrapper'
 import DropDownMenu from './ui/DropDownMenu'
 import { HighestLowestGeosList } from './ui/HighestLowestGeosList'
 import MissingDataAlert from './ui/MissingDataAlert'
 import MultiMapDialog from './ui/MultiMapDialog'
-import { MultiMapLink } from './ui/MultiMapLink'
 import { findVerboseRating } from './ui/SviAlert'
 import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { generateChartTitle, generateSubtitle } from '../charts/utils'
@@ -75,7 +71,8 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { PHRMA_METRICS } from '../data/providers/PhrmaProvider'
 import { type MadLibId } from '../utils/MadLibs'
 import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
-import HetNotice from '../styles/HetComponents/HetNotice'
+import HetLinkButton from '../styles/HetComponents/HetLinkButton'
+import HetDivider from '../styles/HetComponents/HetDivider'
 
 const SIZE_OF_HIGHEST_LOWEST_GEOS_RATES_LIST = 5
 
@@ -249,9 +246,10 @@ function MapCardWithKey(props: MapCardProps) {
   const filename = `${title} ${subtitle ? `for ${subtitle}` : ''}`
   const HASH_ID: ScrollableHashId = 'rate-map'
 
-  const isSm = useIsBreakpointAndUp('sm')
+  const isMobile = !useIsBreakpointAndUp('sm')
+  const isMd = useIsBreakpointAndUp('md')
   const isCompareMode = window.location.href.includes('compare')
-  const mapIsWide = isSm && !isCompareMode
+  const mapIsWide = !isMobile && !isCompareMode
 
   const fipsTypeDisplayName = props.fips.getFipsTypeDisplayName()
 
@@ -407,14 +405,12 @@ function MapCardWithKey(props: MapCardProps) {
         if (!dataForActiveDemographicGroup?.length || !metricConfig)
           return (
             <>
-              <Grid item xs={12}>
+              <div className='w-full'>
                 <ChartTitle
-                  mt={0}
-                  mb={2}
                   title={'Rate map unavailable: ' + title}
                   subtitle={subtitle}
                 />
-              </Grid>
+              </div>
               <MissingDataAlert
                 dataName={title}
                 demographicTypeString={
@@ -468,66 +464,52 @@ function MapCardWithKey(props: MapCardProps) {
                 !mapQueryResponse.dataIsMissing() &&
                 (props.dataTypeConfig.surveyCollectedData ?? false)
               }
-              pageIsSmall={isSm}
+              pageIsSmall={!isMd}
               reportTitle={props.reportTitle}
+              subtitle={subtitle}
               scrollToHash={HASH_ID}
               isPhrmaAdherence={isPhrmaAdherence}
             />
 
             {!mapQueryResponse.dataIsMissing() && !hideGroupDropdown && (
-              <>
-                <Grid
-                  className='pb-1 pt-0 text-left'
-                  container
-                  justifyContent='space-between'
-                  align-items='flex-end'
-                  id={'map-group-dropdown'}
+              <div id='map-group-dropdown' className='pb-1 pt-0 text-left'>
+                <DropDownMenu
+                  idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
+                  demographicType={demographicType}
+                  dataTypeId={props.dataTypeConfig.dataTypeId}
+                  setMultimapOpen={setMultimapOpen}
+                  value={dropdownValue}
+                  options={filterOptions}
+                  onOptionUpdate={handleMapGroupClick}
+                />
+                <HetDivider />
+
+                <HetLinkButton
+                  onClick={() => {
+                    setMultimapOpen(true)
+                  }}
+                  className='flex items-center'
+                  ariaLabel={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
                 >
-                  <Grid item>
-                    <DropDownMenu
-                      idSuffix={`-${props.fips.code}-${props.dataTypeConfig.dataTypeId}`}
-                      demographicType={demographicType}
-                      dataTypeId={props.dataTypeConfig.dataTypeId}
-                      setMultimapOpen={setMultimapOpen}
-                      value={dropdownValue}
-                      options={filterOptions}
-                      onOptionUpdate={handleMapGroupClick}
-                    />
-                    <Divider />
-                    <Tooltip
-                      title={`Launch multiple maps view with side-by-side maps of each ${prettyDemoType} group`}
-                    >
-                      <Button
-                        onClick={() => {
-                          setMultimapOpen(true)
-                        }}
-                      >
-                        <GridView />
-                        <span className={styles.CompareMultipleText}>
-                          View {prettyDemoType} disparties across multiple small
-                          maps
-                        </span>
-                      </Button>
-                    </Tooltip>
-                  </Grid>
-                  <Divider />
-                </Grid>
-              </>
+                  <GridView />
+                  <span className='mt-1 px-1'>
+                    View {prettyDemoType} disparties across multiple small maps
+                  </span>
+                </HetLinkButton>
+              </div>
             )}
 
             <div className='pt-0'>
-              <Grid container>
-                <Grid item xs={12}>
-                  <ChartTitle mt={0} mb={2} title={title} subtitle={subtitle} />
-                </Grid>
+              <div className='flex flex-wrap'>
+                <div className='w-full'>
+                  <ChartTitle title={title} subtitle={subtitle} />
+                </div>
 
-                <Grid
-                  item
-                  xs={12}
-                  sm={mapIsWide ? 8 : 12}
-                  md={mapIsWide ? 9 : 12}
-                >
-                  <Grid item minHeight={preloadHeight * 0.3} xs={12}>
+                <div className={mapIsWide ? 'sm:w-8/12 md:w-9/12' : 'w-full'}>
+                  <div
+                    className='w-full'
+                    style={{ minHeight: preloadHeight * 0.3 }}
+                  >
                     <ChoroplethMap
                       demographicType={demographicType}
                       highestLowestGroupsByFips={highestLowestGroupsByFips}
@@ -551,10 +533,10 @@ function MapCardWithKey(props: MapCardProps) {
                       scaleConfig={scale}
                       isPhrmaAdherence={isPhrmaAdherence}
                     />
-                  </Grid>
+                  </div>
 
                   {props.fips.isUsa() && (
-                    <Grid item xs={12}>
+                    <div className='w-full'>
                       <TerritoryCircles
                         demographicType={demographicType}
                         activeDemographicGroup={activeDemographicGroup}
@@ -571,19 +553,11 @@ function MapCardWithKey(props: MapCardProps) {
                         scaleConfig={scale}
                         isPhrmaAdherence={isPhrmaAdherence}
                       />
-                    </Grid>
+                    </div>
                   )}
-                </Grid>
-                {/* Legend */}
-                <Grid
-                  container
-                  justifyItems={'center'}
-                  alignItems={'flex-start'}
-                  item
-                  xs={12}
-                  sm={mapIsWide ? 4 : 12}
-                  md={mapIsWide ? 3 : 12}
-                >
+                </div>
+
+                <div className={mapIsWide ? 'sm:w-4/12 md:w-3/12' : 'w-full'}>
                   <Legend
                     dataTypeConfig={props.dataTypeConfig}
                     metric={metricConfig}
@@ -602,28 +576,20 @@ function MapCardWithKey(props: MapCardProps) {
                     isPhrmaAdherence={isPhrmaAdherence}
                     handleScaleChange={handleScaleChange}
                   />
-                </Grid>
+                </div>
 
-                <Grid
-                  item
-                  xs={12}
-                  container
-                  justifyContent={'space-between'}
-                  alignItems={'center'}
-                >
-                  <Grid item>
-                    <GeoContext
-                      fips={props.fips}
-                      updateFipsCallback={props.updateFipsCallback}
-                      dataTypeConfig={props.dataTypeConfig}
-                      totalPopulationPhrase={totalPopulationPhrase}
-                      subPopulationPhrase={subPopulationPhrase}
-                      sviQueryResponse={sviQueryResponse}
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid
+                <div>
+                  <GeoContext
+                    fips={props.fips}
+                    updateFipsCallback={props.updateFipsCallback}
+                    dataTypeConfig={props.dataTypeConfig}
+                    totalPopulationPhrase={totalPopulationPhrase}
+                    subPopulationPhrase={subPopulationPhrase}
+                    sviQueryResponse={sviQueryResponse}
+                  />
+                </div>
+              </div>
+              <div
                 id={
                   props.isCompareCard
                     ? HIGHEST_LOWEST_GEOS_2_PARAM_KEY
@@ -648,22 +614,7 @@ function MapCardWithKey(props: MapCardProps) {
                       activeDemographicGroup={activeDemographicGroup}
                     />
                   )}
-              </Grid>
-
-              {!mapQueryResponse.dataIsMissing() &&
-                dataForActiveDemographicGroup.length === 0 &&
-                activeDemographicGroup !== ALL && (
-                  <HetNotice kind='data-integrity'>
-                    Insufficient data available for filter:{' '}
-                    <b>{activeDemographicGroup}</b>.{' '}
-                    {/* Offer multimap link if current demo group is missing info */}
-                    <MultiMapLink
-                      setMultimapOpen={setMultimapOpen}
-                      demographicType={demographicType}
-                      currentDataType={props.dataTypeConfig.fullDisplayName}
-                    />
-                  </HetNotice>
-                )}
+              </div>
             </div>
           </>
         )

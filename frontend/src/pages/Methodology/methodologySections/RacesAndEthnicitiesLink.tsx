@@ -300,12 +300,12 @@ const RacesAndEthnicitiesLink = () => {
                   >
                     <h3>{def.key}</h3>
                     <figure className='mt-0 flex flex-col items-start gap-3'>
-                      <p className='m-0 italic text-alt-black'>
+                      <p className='m-0 italic text-altBlack'>
                         {parseDescription(def.description)}
                       </p>
                       {def.considerations && def.considerations.length > 0 && (
                         <div>
-                          <h4 className='m-0 mb-4 text-alt-black'>
+                          <h4 className='m-0 mb-4 text-altBlack'>
                             Data Limitations and Specific Considerations
                           </h4>
                           {def.considerations.map((consideration) => (
@@ -321,7 +321,7 @@ const RacesAndEthnicitiesLink = () => {
                       {def.resource && (
                         <a
                           href={def.resource}
-                          className='font-sansTitle  font-medium leading-lhNormal text-alt-green no-underline'
+                          className='font-sansTitle  font-medium leading-lhNormal text-altGreen no-underline'
                         >
                           Explore {def.key} resources →
                         </a>

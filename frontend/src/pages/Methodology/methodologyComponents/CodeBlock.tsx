@@ -22,12 +22,12 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   minWidth = 700,
 }) => {
   return (
-    <TableContainer>
+    <TableContainer className=''>
       <Table
         className={
           border
-            ? 'mx-auto my-1 flex rounded-lg border border-solid border-grey-grid-color p-1'
-            : 'mx-auto my-1 border-none p-1'
+            ? 'mx-auto my-1 flex rounded-md border border-solid border-greyGridColor p-1'
+            : 'mx-auto my-1 flex border-none p-1'
         }
         aria-label='customized table'
       >

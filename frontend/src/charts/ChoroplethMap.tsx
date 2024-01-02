@@ -9,8 +9,6 @@ import {
 } from '../data/config/MetricConfig'
 import { type Row, type FieldRange } from '../data/utils/DatasetTypes'
 import { GEOGRAPHIES_DATASET_ID } from '../data/config/MetadataMap'
-import sass from '../styles/variables.module.scss'
-import { Grid } from '@mui/material'
 
 import {
   CAWP_DETERMINANTS,
@@ -60,12 +58,14 @@ import {
   setupColorScale,
 } from './mapHelperFunctions'
 import { setupUnknownsLegend } from './legendHelperFunctions'
+import { het } from '../styles/DesignTokens'
+import { useIsBreakpointAndUp } from '../utils/hooks/useIsBreakpointAndUp'
 
 const {
-  unknownGrey: UNKNOWN_GREY,
+  howToColor: UNKNOWN_GREY,
   redOrange: RED_ORANGE,
   darkBlue: DARK_BLUE,
-} = sass
+} = het
 
 const GEO_ID = 'id'
 
@@ -118,6 +118,8 @@ interface ChoroplethMapProps {
 }
 
 export default function ChoroplethMap(props: ChoroplethMapProps) {
+  const isMobile = !useIsBreakpointAndUp('md')
+
   const zeroData = props.data.filter((row) => row[props.metric.metricId] === 0)
   const isCawp = CAWP_DETERMINANTS.includes(props.metric.metricId)
   const isPhrma = PHRMA_METRICS.includes(props.metric.metricId)
@@ -346,20 +348,22 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
+      /* is multimap */ props.isMulti,
+      /* is mobile device */ isMobile
     ),
     // MISSING
     createShapeMarks(
       /* datasetName= */ MISSING_DATASET,
       /* fillColor= */ {
-        value: props.highestLowestGeosMode ? sass.white : UNKNOWN_GREY,
+        value: props.highestLowestGeosMode ? het.white : UNKNOWN_GREY,
       },
-      /* hoverColor= */ props.highestLowestGeosMode ? sass.white : RED_ORANGE,
+      /* hoverColor= */ props.highestLowestGeosMode ? het.white : RED_ORANGE,
       /* tooltipExpression= */ missingDataTooltipValue,
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
+      props.isMulti,
+      /* is mobile device */ isMobile
     ),
     // NON-ZERO
     createShapeMarks(
@@ -370,7 +374,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
       /* overrideShapeWithCircle */ props.overrideShapeWithCircle,
       /* hideMissingDataTooltip */ props.hideMissingDataTooltip,
       /* outlineGeos */ props.highestLowestGeosMode,
-      props.isMulti
+      props.isMulti,
+      /* is mobile device */ isMobile
     ),
   ]
 
@@ -392,7 +397,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   useEffect(() => {
     const newSpec = {
       $schema: 'https://vega.github.io/schema/vega/v5.json',
-      background: sass.white,
+      background: het.white,
       description: props.overrideShapeWithCircle
         ? `Territory: ${props.fips.getDisplayName()}`
         : altText,
@@ -507,12 +512,12 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
   )
 
   return (
-    <Grid
-      container
-      justifyContent={'center'}
+    <div
+      className={`justify-center 
+      ${props.isUnknownsMap ? 'mt-1' : 'mt-0'} 
+      ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}
+      `}
       ref={props.overrideShapeWithCircle ? undefined : ref}
-      sx={{ mt: props.isUnknownsMap ? 5 : 0 }}
-      display={width === INVISIBLE_PRELOAD_WIDTH ? 'none' : undefined}
     >
       {mapIsReady && (
         <Vega
@@ -524,6 +529,6 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
           signalListeners={props.signalListeners}
         />
       )}
-    </Grid>
+    </div>
   )
 }

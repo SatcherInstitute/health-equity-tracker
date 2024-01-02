@@ -7,8 +7,6 @@ import {
   type MapConfig,
 } from '../data/config/MetricConfig'
 import { type FieldRange } from '../data/utils/DatasetTypes'
-import sass from '../styles/variables.module.scss'
-import styles from './Legend.module.scss'
 import { type View, type Legend as LegendType, type Scale } from 'vega'
 import { type GeographicBreakdown } from '../data/query/Breakdowns'
 import { CAWP_DETERMINANTS } from '../data/providers/CawpProvider'
@@ -45,6 +43,7 @@ import {
   setupStandardColorScaleSpec,
   setupZeroLegend,
 } from './legendHelperFunctions'
+import { het } from '../styles/DesignTokens'
 
 /*
    Legend renders a vega chart that just contains a legend.
@@ -182,7 +181,7 @@ export function Legend(props: LegendProps) {
     setSpec({
       $schema: 'https://vega.github.io/schema/vega/v5.json',
       description: props.description,
-      background: sass.white,
+      background: het.white,
       padding: 10,
       data: [
         {
@@ -274,7 +273,7 @@ export function Legend(props: LegendProps) {
           type: ORDINAL,
 
           domain: { data: MISSING_PLACEHOLDER_VALUES, field: 'missing' },
-          range: [sass.unknownGrey],
+          range: [het.howToColor],
         },
         {
           name: GREY_DOT_SCALE,
@@ -301,9 +300,11 @@ export function Legend(props: LegendProps) {
   ])
 
   return (
-    <section className={styles.Legend}>
+    <section className='mx-4 text-left'>
       {props.isMulti ? (
-        <span className={styles.LegendHeader}>{props.legendTitle}</span>
+        <span className='inline-flex items-center break-words text-start text-smallest leading-lhSomeMoreSpace text-black'>
+          {props.legendTitle}
+        </span>
       ) : (
         <ClickableLegendHeader
           legendTitle={props.legendTitle}

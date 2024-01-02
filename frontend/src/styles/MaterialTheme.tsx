@@ -108,6 +108,13 @@ const MaterialTheme = createTheme({
         },
       },
     },
+    MuiListItemText: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"DM Sans", sans-serif',
+        },
+      },
+    },
     MuiStepButton: {
       styleOverrides: {
         root: {
@@ -165,6 +172,13 @@ const MaterialTheme = createTheme({
           outline: `1px solid ${sass.unknownGrey} !important`,
           borderRadius: '4px',
           overflow: 'hidden',
+        },
+      },
+    },
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"DM Sans", sans-serif',
         },
       },
     },

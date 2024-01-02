@@ -23,7 +23,6 @@ import {
   getExclusionList,
   shouldShowAltPopCompare,
 } from '../data/utils/datasetutils'
-import styles from './Card.module.scss'
 import { INCARCERATION_IDS } from '../data/providers/IncarcerationProvider'
 import IncarceratedChildrenShortAlert from './ui/IncarceratedChildrenShortAlert'
 import { type Row } from '../data/utils/DatasetTypes'
@@ -37,6 +36,7 @@ import GenderDataShortAlert from './ui/GenderDataShortAlert'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import { type CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
+import { generateSubtitle } from '../charts/utils'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -130,6 +130,8 @@ export default function TableCard(props: TableCardProps) {
     '#card-options-menu',
   ]
 
+  const subtitle = generateSubtitle(ALL, props.demographicType, metricIds[0])
+
   return (
     <CardWrapper
       downloadTitle={`Table card for ${
@@ -161,21 +163,20 @@ export default function TableCard(props: TableCardProps) {
         return (
           <>
             {!queryResponse.dataIsMissing() && data.length > 0 && (
-              <div className={styles.TableChart}>
-                <TableChart
-                  countColsMap={countColsMap}
-                  data={data}
-                  demographicType={props.demographicType}
-                  metrics={Object.values(metricConfigs).filter(
-                    (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
-                  )}
-                  dataTypeId={props.dataTypeConfig.dataTypeId}
-                  fips={props.fips}
-                  dataTableTitle={
-                    props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
-                  }
-                />
-              </div>
+              <TableChart
+                countColsMap={countColsMap}
+                data={data}
+                demographicType={props.demographicType}
+                metrics={Object.values(metricConfigs).filter(
+                  (colName) => !NEVER_SHOW_PROPERTIES.includes(colName)
+                )}
+                dataTypeId={props.dataTypeConfig.dataTypeId}
+                fips={props.fips}
+                dataTableTitle={
+                  props.dataTypeConfig.dataTableTitle ?? 'Breakdown Summary'
+                }
+                subtitle={subtitle}
+              />
             )}
 
             {isIncarceration && (

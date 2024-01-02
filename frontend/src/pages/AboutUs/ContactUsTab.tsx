@@ -16,25 +16,25 @@ function ContactUsTab() {
       <h2 className='sr-only'>Contact Us</h2>
       <div className=' flex w-full flex-col content-center items-center'>
         <div className='hidden w-full  md:flex '>
-          <div className='grid w-full place-content-center border-0 border-b border-solid border-border-color md:w-5/12'>
+          <div className='grid w-full place-content-center border-0 border-b border-solid border-borderColor md:w-5/12'>
             <h2
               id='main'
               className='font-serif
               text-biggerHeader
               font-light
-              text-alt-green'
+              text-altGreen'
             >
               Let's move
               <br aria-hidden='true' />
               equity <i className='font-normal'>forward</i>
             </h2>
           </div>
-          <div className='w-full border-0 border-b border-l border-solid border-border-color  md:w-7/12'>
+          <div className='w-full border-0 border-b border-l border-solid border-borderColor  md:w-7/12'>
             <img
               width='870'
               height='644'
               src='/img/stock/women-laughing-in-line.png'
-              className='rounded-3xl m-10 h-auto w-9/12 max-w-xl'
+              className='m-10 h-auto w-9/12 max-w-xl rounded-md'
               alt=''
             />
           </div>
@@ -43,14 +43,14 @@ function ContactUsTab() {
         <div className='flex w-full flex-col items-center px-12 md:w-8/12 lg:w-6/12'>
           <div className='grid  w-full place-content-center'>
             <h3
-              className='px-18
-              mb-0
+              className='mb-0
+              px-16
                 py-6
                 font-serif
                 text-header
                 font-light
                 leading-lhSomeMoreSpace
-                text-alt-green
+                text-altGreen
                 md:py-12'
             >
               Thank you for your interest in the Health Equity Tracker

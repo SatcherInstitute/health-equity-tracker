@@ -1,0 +1,83 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+# GitHub repository
+REPO="SatcherInstitute/health-equity-tracker"
+
+# Set default values
+ADDITIONAL_LINE=""
+ISSUE_NUMBERS=""
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    key="$1"
+    case $key in
+        --help|-h)
+        shift 1
+        usage
+        exit 0
+        ;;
+
+        -a|--additional-line)
+        ADDITIONAL_LINE="$2"
+        shift # past argument
+        shift # past value
+        ;;
+
+        -n|--issue-numbers)
+        ISSUE_NUMBERS="$2"
+        shift # past argument
+        shift # past value
+        ;;
+
+        *) # unknown option
+        echo "Unknown option: $1"
+        exit 1
+        ;;
+    esac
+done
+
+function usage() {
+  cat <<-USAGE
+update-issues [OPTIONS]
+This script adds a line to the description of multiple GitHub issues.
+Example: ./append_to_github_issues -a "This is a line to append" -n "111 222 369"
+
+OPTIONS
+  --help               -h  prints the command usage
+  --additional-line   -a  additional line to add to the issue description
+  --issue-numbers     -n  space-separated list of issue numbers without the # prefix
+USAGE
+}
+
+# Check if required arguments are provided
+if [ -z "$ADDITIONAL_LINE" ] || [ -z "$ISSUE_NUMBERS" ]; then
+    echo "Missing required arguments. Use --help for usage information."
+    exit 1
+fi
+
+# Convert the space-separated issue numbers to an array
+IFS=' ' read -ra ISSUE_NUMBERS <<< "$ISSUE_NUMBERS"
+
+# Loop through each issue number
+for issue_number in "${ISSUE_NUMBERS[@]}"
+do
+    # Get the current issue body
+    current_body=$(gh issue view "$issue_number" --json body -q ".body" --repo $REPO)
+
+    # Add the line to the issue body
+    updated_body="$current_body"$'\n'"$ADDITIONAL_LINE"
+
+    # Update the issue with the new body
+    gh issue edit "$issue_number" --body "$updated_body" --repo $REPO
+
+    # Check if the update was successful and print a message
+    # shellcheck disable=SC2181
+    if [ $? -eq 0 ]; then
+        echo "Issue $issue_number updated successfully."
+    else
+        echo "Failed to update issue $issue_number."
+    fi
+done

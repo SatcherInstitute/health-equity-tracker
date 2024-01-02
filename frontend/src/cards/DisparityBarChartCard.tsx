@@ -21,7 +21,7 @@ import { useGuessPreloadHeight } from '../utils/hooks/useGuessPreloadHeight'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import CAWPOverlappingRacesAlert from './ui/CAWPOverlappingRacesAlert'
 import ChartTitle from './ChartTitle'
-import { generateChartTitle } from '../charts/utils'
+import { generateChartTitle, generateSubtitle } from '../charts/utils'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
 import HetNotice from '../styles/HetComponents/HetNotice'
 
@@ -88,6 +88,12 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
     /* fips:  */ props.fips
   )
 
+  const subtitle = generateSubtitle(
+    ALL,
+    props.demographicType,
+    metricConfig.metricId
+  )
+
   const HASH_ID: ScrollableHashId = 'population-vs-distribution'
 
   const elementsToHide: ElementHashIdHiddenOnScreenshot[] = [
@@ -136,7 +142,7 @@ function DisparityBarChartCardWithKey(props: DisparityBarChartCardProps) {
           <>
             {dataAvailable && knownData.length !== 0 && (
               <>
-                <ChartTitle title={chartTitle} />
+                <ChartTitle title={chartTitle} subtitle={subtitle} />
 
                 <DisparityBarChart
                   data={knownData}

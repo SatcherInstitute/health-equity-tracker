@@ -6,6 +6,7 @@ import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
 import { type Row } from '../../data/utils/DatasetTypes'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetTerm from '../../styles/HetComponents/HetTerm'
 
 interface GenderDataShortAlertProps {
   queryResponse: MetricQueryResponse
@@ -71,34 +72,29 @@ function GenderDataShortAlert(props: GenderDataShortAlertProps) {
 
   return (
     <HetNotice kind='data-integrity'>
-      The groups above refer to <b>sex assigned at birth</b>, as opposed to{' '}
-      <b>gender identity</b>. Due to lack of reliable population data for
-      gender-expansive people, we are unable to present <b>rates per 100k</b>,
-      however our data sources do provide the following 2019 case counts for{' '}
-      <b>
-        people {hivPhraseMap?.[props?.dataTypeId]} in{' '}
+      The groups above refer to <HetTerm>sex assigned at birth</HetTerm>, as
+      opposed to <HetTerm>gender identity</HetTerm>. Due to lack of reliable
+      population data for gender-expansive people, we are unable to present{' '}
+      <HetTerm>rates per 100k</HetTerm>, however our data sources do provide the
+      following 2019 case counts for{' '}
+      <HetTerm>
+        people {hivPhraseMap?.[props?.dataTypeId] ?? ''} in{' '}
         {props.fips.getSentenceDisplayName()}
-      </b>
+      </HetTerm>
       :
       <ul>
         <li>
-          <b>
-            {transMenCount.toLocaleString()} individuals identified as
-            transgender men
-          </b>
+          {transMenCount.toLocaleString()} individuals identified as{' '}
+          <HetTerm>transgender men</HetTerm>
         </li>
 
         <li>
-          <b>
-            {transWomenCount.toLocaleString()} individuals identified as
-            transgender women
-          </b>
+          {transWomenCount.toLocaleString()} individuals identified as{' '}
+          <HetTerm>transgender women</HetTerm>
         </li>
         <li>
-          <b>
-            {agiCount.toLocaleString()} individuals with additional gender
-            identities (AGI)
-          </b>
+          {agiCount.toLocaleString()} individuals with{' '}
+          <HetTerm>additional gender identities (AGI)</HetTerm>
         </li>
       </ul>
       Visit the{' '}

@@ -5,7 +5,7 @@ import HetNotice from '../../styles/HetComponents/HetNotice'
 function LifelineAlert() {
   return (
     <HetNotice
-      className='m-2 mt-0 border border-secondary-main text-left text-small'
+      className='m-2 mt-0 border border-secondaryMain text-left text-small'
       icon={<PhoneIcon color='primary' />}
       title='988 Suicide & Crisis Lifeline'
       kind='text-only'

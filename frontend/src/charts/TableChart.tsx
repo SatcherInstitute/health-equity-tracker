@@ -28,19 +28,19 @@ import { Tooltip } from '@mui/material'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
-import styles from './Chart.module.scss'
-import sass from '../styles/variables.module.scss'
 import { type Fips } from '../data/utils/Fips'
 import ChartTitle from '../cards/ChartTitle'
 import { removeLastS } from './utils'
 import { type CountColsMap, NO_DATA_MESSAGE } from './mapGlobals'
 import Units from './Units'
+import HetUnitLabel from '../styles/HetComponents/HetUnitLabel'
+import { het } from '../styles/DesignTokens'
 
 export const MAX_NUM_ROWS_WITHOUT_PAGINATION = 20
 
 export const headerCellStyle = {
   width: '200px',
-  backgroundColor: sass.exploreBgColor,
+  backgroundColor: het.exploreBgColor,
 }
 
 export const cellStyle = {
@@ -48,7 +48,7 @@ export const cellStyle = {
 }
 
 export const altCellStyle = {
-  backgroundColor: sass.standardInfo,
+  backgroundColor: het.standardInfo,
   width: '200px',
 }
 
@@ -60,6 +60,7 @@ interface TableChartProps {
   dataTypeId: DataTypeId
   fips: Fips
   dataTableTitle: string
+  subtitle?: string
 }
 
 export function TableChart(props: TableChartProps) {
@@ -181,12 +182,11 @@ export function TableChart(props: TableChartProps) {
               {cell.render('Cell')}
               <Units column={index} metric={props.metrics} />
               {index === 1 && numeratorCount && denominatorCount ? (
-                <p className={styles.Unit}>
-                  <i>
-                    ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
-                    {denominatorLabel} )
-                  </i>
-                </p>
+                <HetUnitLabel>
+                  {' '}
+                  ( {numeratorCount} {numeratorLabel} / {denominatorCount}{' '}
+                  {denominatorLabel} )
+                </HetUnitLabel>
               ) : (
                 <></>
               )}
@@ -208,6 +208,7 @@ export function TableChart(props: TableChartProps) {
               title={`${
                 props.dataTableTitle
               } in ${props.fips.getSentenceDisplayName()}`}
+              subtitle={props.subtitle}
             />
           </figcaption>
 

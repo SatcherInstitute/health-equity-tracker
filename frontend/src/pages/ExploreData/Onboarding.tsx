@@ -1,16 +1,13 @@
 import Joyride from 'react-joyride'
 import { getOnboardingSteps } from './OnboardingSteps'
-import { getCssVar } from '../../utils/designUtils'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
+import { het, ThemeZIndexValues } from '../../styles/DesignTokens'
 
 export default function Onboarding(props: {
   callback: (data: any) => void
   activelyOnboarding: boolean
 }) {
   const isMd = useIsBreakpointAndUp('md')
-  const zAlmostTop = getCssVar<number>('z-almost-top') ?? 3
-  const altGreen = getCssVar<string>('alt-green')
-  const white = getCssVar<string>('white')
 
   return (
     <Joyride
@@ -28,12 +25,12 @@ export default function Onboarding(props: {
       run={props.activelyOnboarding}
       styles={{
         options: {
-          arrowColor: altGreen,
-          backgroundColor: altGreen,
-          primaryColor: altGreen,
-          textColor: white,
+          arrowColor: het.altGreen,
+          backgroundColor: het.altGreen,
+          primaryColor: het.altGreen,
+          textColor: het.white,
           width: 900,
-          zIndex: zAlmostTop,
+          zIndex: ThemeZIndexValues.almostTop,
         },
       }}
     />

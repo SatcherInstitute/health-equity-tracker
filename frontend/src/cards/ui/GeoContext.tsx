@@ -1,10 +1,8 @@
-import { Grid } from '@mui/material'
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
 import HetBreadcrumbs from '../../styles/HetComponents/HetBreadcrumbs'
 import SviAlert from './SviAlert'
-import styles from './GeoContext.module.scss'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import { ALL } from '../../data/utils/Constants'
@@ -34,17 +32,15 @@ export default function GeoContext(props: GeoContextProps) {
         totalPopulationPhrase={props.totalPopulationPhrase}
         subPopulationPhrase={props.subPopulationPhrase}
       />
-      <Grid className={styles.SviContainer}>
-        <Grid>
-          {props.fips.isCounty() && (
-            <SviAlert
-              svi={svi}
-              sviQueryResponse={props.sviQueryResponse}
-              fips={props.fips}
-            />
-          )}
-        </Grid>
-      </Grid>
+      <div className='md:flex md:items-center'>
+        {props.fips.isCounty() && (
+          <SviAlert
+            svi={svi}
+            sviQueryResponse={props.sviQueryResponse}
+            fips={props.fips}
+          />
+        )}
+      </div>
     </>
   )
 }

@@ -35,13 +35,13 @@ import {
   getDates,
   filterUnknownsByTimePeriod,
 } from './helpers'
-import { MOBILE_BREAKPOINT } from '../../App'
 import { type DemographicType } from '../../data/query/Breakdowns'
 import useEscape from '../../utils/hooks/useEscape'
 import { getMinMaxGroups } from '../../data/utils/DatasetTimeUtils'
 import { type DemographicGroup } from '../../data/utils/Constants'
 import ChartTitle from '../../cards/ChartTitle'
 import { useResponsiveWidth } from '../../utils/hooks/useResponsiveWidth'
+import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 /* Define type interface */
 export interface TrendsChartProps {
@@ -70,6 +70,7 @@ export function TrendsChart({
   setExpanded,
   hasUnknowns,
 }: TrendsChartProps) {
+  const isSm = useIsBreakpointAndUp('sm')
   /* Config */
   const { HEIGHT, MARGIN, MOBILE } = CONFIG
   const { groupLabel } = axisConfig ?? {}
@@ -92,14 +93,11 @@ export function TrendsChart({
 
   // manages dynamic svg width
   const [containerRef, width] = useResponsiveWidth()
-  const [isMobile, setIsMobile] = useState(
-    window.innerWidth < MOBILE_BREAKPOINT
-  )
 
   const isCompareMode = window.location.href.includes('compare')
 
   // treat medium screen compare mode like mobile
-  const isSkinny = isMobile || width < MOBILE_BREAKPOINT || isCompareMode
+  const isSkinny = !isSm || isCompareMode
 
   // Stores date that user is currently hovering
   const [hoveredDate, setHoveredDate] = useState<string | null>(null)
@@ -112,18 +110,6 @@ export function TrendsChart({
 
   // Stores width of tooltip to allow dynamic tooltip positioning
   const [tooltipWidth, setTooltipWidth] = useState<number>(0)
-
-  useEffect(() => {
-    function handleIsMobile() {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
-    }
-
-    window.addEventListener('resize', handleIsMobile)
-
-    return () => {
-      window.removeEventListener('resize', handleIsMobile)
-    }
-  }, [])
 
   // resets tooltip parent width on data, filter, or hover change
   // allows to dynamically position tooltip to left of hover line
@@ -267,7 +253,7 @@ export function TrendsChart({
           isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
         }
       >
-        {!isMobile && (
+        {isSm && (
           // Render Chart Title DESKTOP ABOVE LEGEND
           <ChartTitle title={chartTitle} />
         )}
@@ -287,7 +273,7 @@ export function TrendsChart({
             }`}
           />
         )}
-        {isMobile && (
+        {!isSm && (
           // Render Chart Title MOBILE BELOW LEGEND
           <ChartTitle title={chartTitle} />
         )}

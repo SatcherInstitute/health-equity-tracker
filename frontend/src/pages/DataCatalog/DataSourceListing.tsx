@@ -5,7 +5,6 @@ import {
   type DatasetMetadata,
 } from '../../data/utils/DatasetTypes'
 import { getLogger } from '../../utils/globals'
-import Button from '@mui/material/Button'
 import downloadDataset from './downloadDataset'
 import DialogTitle from '@mui/material/DialogTitle'
 import Dialog from '@mui/material/Dialog'
@@ -15,7 +14,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import CircularProgress from '@mui/material/CircularProgress'
 import ListItemText from '@mui/material/ListItemText'
 import { IconButton } from '@mui/material'
-import Link from '@mui/material/Link'
 import CloseIcon from '@mui/icons-material/Close'
 import GetAppIcon from '@mui/icons-material/GetApp'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
@@ -25,6 +23,7 @@ import {
   type DatasetIdWithStateFIPSCode,
 } from '../../data/config/DatasetMetadata'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
 export type LoadStatus = 'loading' | 'unloaded' | 'error' | 'loaded'
 
@@ -104,19 +103,19 @@ export function DataSourceListing(props: DataSourceListingProps) {
       data-testid={props.source_metadata.id}
     >
       <h4 className='m-0 text-left font-serif text-title font-light'>
-        <Link
+        <a
           href={props.source_metadata.data_source_link}
           target='_blank'
           rel='noopener noreferrer'
-          underline='hover'
+          className='no-underline hover:underline'
         >
           {props.source_metadata.data_source_name}
-        </Link>
+        </a>
       </h4>
       <ul className='list-none px-0 py-2 text-left'>
         {props.source_metadata.time_period_range && (
           <li className='pb-1 sm:flex'>
-            <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+            <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
               Time Series Range
             </p>
             <p className='m-0 text-small'>
@@ -126,7 +125,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
         )}
 
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Geographic Level
           </p>
           <p className='m-0 text-small'>
@@ -134,7 +133,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </p>
         </li>
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Demographic Granularity
           </p>
           <p className='m-0 text-small'>
@@ -142,7 +141,7 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </p>
         </li>
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Update Frequency
           </p>
           <p className='m-0 text-small'>
@@ -150,19 +149,19 @@ export function DataSourceListing(props: DataSourceListingProps) {
           </p>
         </li>
         <li className='pb-1 sm:flex'>
-          <p className='max-w-48 m-0 w-full text-small font-semibold sm:w-3/12'>
+          <p className='m-0 w-full text-small font-semibold sm:w-3/12'>
             Source Website
           </p>
-          <Link
+          <a
             href={props.source_metadata.data_source_link}
             target='_blank'
             rel='noopener noreferrer'
-            underline='hover'
+            className='no-underline hover:underline'
           >
             <p className='m-0 text-small'>
               {props.source_metadata.data_source_pretty_site_name}
             </p>
-          </Link>
+          </a>
         </li>
       </ul>
       <p className='text-left text-small'>
@@ -170,25 +169,22 @@ export function DataSourceListing(props: DataSourceListingProps) {
       </p>
       <footer className='mb-2 mt-4 flex h-auto w-full flex-col justify-end sm:flex-row'>
         {props.source_metadata.downloadable && (
-          <Button
-            color='primary'
+          <HetLinkButton
             onClick={() => {
               setDialogIsOpen(true)
             }}
-            className='px-6'
-            aria-label={'Download ' + props.source_metadata.data_source_name}
+            ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
             View downloadable tables
-          </Button>
+          </HetLinkButton>
         )}
         {props.source_metadata.downloadable_data_dictionary && (
-          <Button
-            color='primary'
+          <HetLinkButton
             href='/data_dictionaries/medicare_population.csv'
-            className='px-6'
+            ariaLabel={'Download ' + props.source_metadata.data_source_name}
           >
             Download data dictionary
-          </Button>
+          </HetLinkButton>
         )}
 
         {/* MODAL WITH DOWNLOADABLE FILES */}

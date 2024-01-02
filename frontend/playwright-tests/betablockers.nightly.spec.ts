@@ -32,7 +32,7 @@ test('Beta Blockers Adherence', async ({ page }) => {
     })
     .click()
   await page
-    .getByRole('heading', { name: 'Breakdown Summary in the United States' })
+    .getByRole('heading', { name: 'Breakdown summary for adherence to beta blockers in the United States' })
     .click()
   await page.locator('div:nth-child(8)').first().click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()

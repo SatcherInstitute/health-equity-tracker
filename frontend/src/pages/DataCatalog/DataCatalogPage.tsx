@@ -9,9 +9,9 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { WithMetadata } from '../../data/react/WithLoadingOrErrorUI'
-import { Button } from '@mui/material'
 import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { DATA_SOURCE_PRE_FILTERS, useSearchParams } from '../../utils/urlutils'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 // Map of filter id to list of datasets selected by that filter, or empty list
 // for filters that don't have anything selected.
@@ -63,7 +63,7 @@ export default function DataCatalogPage() {
         <header className='pb-2'>
           <h3
             id='main'
-            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-alt-black'
+            className='m-0 font-serif text-smallHeader font-light leading-lhSomeSpace text-altBlack'
           >
             View and download Health Equity Tracker data sources
           </h3>
@@ -100,13 +100,9 @@ export default function DataCatalogPage() {
                     </li>
                   ))}
                   {viewingSubsetOfSources && (
-                    <Button
-                      sx={{ mt: 5, color: 'white !important' }}
-                      href={DATA_CATALOG_PAGE_LINK}
-                      variant='contained'
-                    >
+                    <HetBigCTA href={DATA_CATALOG_PAGE_LINK} className='mt-10'>
                       View All Datasets
-                    </Button>
+                    </HetBigCTA>
                   )}
                 </>
               )
