@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import { type DataTypeConfig } from '../../data/config/MetricConfig'
 import { type Fips } from '../../data/utils/Fips'
 import { type ScrollableHashId } from '../../utils/hooks/useStepObserver'
@@ -33,17 +32,15 @@ export default function GeoContext(props: GeoContextProps) {
         totalPopulationPhrase={props.totalPopulationPhrase}
         subPopulationPhrase={props.subPopulationPhrase}
       />
-      <Grid className='md:flex md:items-center'>
-        <Grid>
-          {props.fips.isCounty() && (
-            <SviAlert
-              svi={svi}
-              sviQueryResponse={props.sviQueryResponse}
-              fips={props.fips}
-            />
-          )}
-        </Grid>
-      </Grid>
+      <div className='md:flex md:items-center'>
+        {props.fips.isCounty() && (
+          <SviAlert
+            svi={svi}
+            sviQueryResponse={props.sviQueryResponse}
+            fips={props.fips}
+          />
+        )}
+      </div>
     </>
   )
 }
