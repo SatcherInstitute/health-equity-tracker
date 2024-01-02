@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test.only('Frequent Mental Distress', async ({ page }) => {
+test('Frequent Mental Distress', async ({ page }) => {
   await page.goto('/exploredata?mls=1.frequent_mental_distress-3.00&group1=All')
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
