@@ -88,19 +88,16 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 ### End to End (E2E) Tests with Playwright
 
-- Run tests locally (ensure the localhost server is still running first):
+#### Full test of "Nightly" E2E tests ensuring app UI works as expected
 
-   ```bash
-   # run a full suite of E2E tests
-   npm run e2e
+- These tests automatically run against the dynamic Netlify deploy link on all PR updates, against the <dev.healthequitytracker.org> staging site on merges to `main`, and against the <healthequitytracker.org> production site every night.
+- To run full suite of tests locally (ensure the localhost server is still running first): `npm run e2e`
+- To run single test locally, add the filename after the command: `npm run e2e statins.nightly.spec.ts`
+- To run the tests locally, but target either the production or staging deployments instead of localhost, you can run `npm run e2e-prod` and `npm run e2e-staging` respectivally. Target a single test file the same way as above.
 
-   # to run a single test file just add it on to the command
-   npm run e2e statins.nightly.spec.ts
-   ```
+#### Outgoing Link Checker
 
-- To run the tests locally, but target either the production or staging deployments, you can run `npm run e2e-prod` and `npm run e2e-staging` respectivally. You can also tack on a single file name to the end of the command as shown in the previous code snippet.
-
-- Run the outgoing link checker, which is run weekly: `npm run url`
+- Run the outgoing link checker (ensuring external linked URLs return a `200`): `npm run url`. Note: this automatically runs weekly in GitHub Actions
 
 ## Making a Pull Request (PR)
 
