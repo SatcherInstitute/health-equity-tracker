@@ -31,7 +31,6 @@ import {
 import { reportProviderSteps } from './ReportProviderSteps'
 import NoDataAlert from './ui/NoDataAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
@@ -442,7 +441,7 @@ function CompareReport(props: {
             spacing={0}
             direction='column'
             alignItems='center'
-            className={styles.FloatingSidebarWrapper}
+            className='hidden md:block'
           >
             <Sidebar
               isScrolledToTop={props.isScrolledToTop}

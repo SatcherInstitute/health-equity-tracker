@@ -25,7 +25,6 @@ import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
-import styles from './Report.module.scss'
 
 import { reportProviderSteps } from './ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
@@ -203,7 +202,7 @@ export function Report(props: ReportProps) {
                       ? 'rates-over-time'
                       : undefined
                   }
-                  className={styles.ScrollPastHeader}
+                  className='scroll-m-0 md:scroll-mt-24'
                 >
                   {dataTypeConfig.timeSeriesData &&
                     !hideNonCountyBJSTimeCards && (
@@ -275,7 +274,7 @@ export function Report(props: ReportProps) {
                       ? 'inequities-over-time'
                       : undefined
                   }
-                  className={styles.ScrollPastHeader}
+                  className='scroll-m-0 md:scroll-mt-24'
                 >
                   <LazyLoad offset={600} height={750} once>
                     {dataTypeConfig.timeSeriesData &&
@@ -378,7 +377,7 @@ export function Report(props: ReportProps) {
             container
             direction='column'
             alignItems='center'
-            className={styles.FloatingSidebarWrapper}
+            className='hidden md:block'
           >
             <Sidebar
               floatTopOffset={props.headerScrollMargin}
