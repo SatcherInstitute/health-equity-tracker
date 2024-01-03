@@ -1,5 +1,4 @@
 import LazyLoad from 'react-lazyload'
-import styles from './ExploreDataPage.module.scss'
 import covidClick from '../../assets/screengrabs/covidClick.mp4'
 
 export function getOnboardingSteps(pageIsWide: boolean) {
@@ -21,7 +20,7 @@ export function getOnboardingSteps(pageIsWide: boolean) {
             loop
             muted
             playsInline
-            className={styles.HowToStepImg}
+            className='h-full max-h-[206px] w-full p-3'
           >
             <source src={covidClick} type='video/mp4' />
           </video>
@@ -81,13 +80,14 @@ export function getOnboardingSteps(pageIsWide: boolean) {
           starting with <b>COVID-19 Cases</b> in the <b>United States</b>. Want
           to learn more? Watch our demo video:
         </p>
-        <div className={styles.StepVideoBox}>
+        <div className='flex justify-center'>
           <iframe
             src='https://www.youtube.com/embed/XBoqT9Jjc8w'
             title='YouTube video player'
             allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
             allowFullScreen
             loading='lazy'
+            className='rounded-lg'
           ></iframe>
         </div>
       </>,

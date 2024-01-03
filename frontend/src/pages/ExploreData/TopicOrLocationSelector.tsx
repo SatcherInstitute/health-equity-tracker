@@ -195,17 +195,8 @@ export default function TopicOrLocationSelector(
                 <Grid container>
                   {CATEGORIES_LIST.map((category) => {
                     return (
-                      <Grid
-                        item
-                        xs={6}
-                        sm={4}
-                        key={category.title}
-                        className={styles.CategoryList}
-                      >
-                        <h3
-                          className={styles.CategoryTitleText}
-                          aria-label={category.title + ' options'}
-                        >
+                      <Grid item xs={6} sm={4} key={category.title}>
+                        <h3 aria-label={category.title + ' options'}>
                           {category.title}
                         </h3>
                         <List dense={true} role='menu'>

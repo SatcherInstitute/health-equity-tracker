@@ -1,5 +1,4 @@
 import { useRef, useLayoutEffect } from 'react'
-import styles from '../../pages/ExploreData/ExploreDataPage.module.scss'
 
 const EXPLORE_DATA_ID = 'main'
 const INDICATORS = '.MuiIconButton-sizeSmall'
@@ -28,11 +27,11 @@ const useScrollPosition = (
       const topOfMadLibContainer = window.pageYOffset > stickyBarOffsetFromTop
 
       if (topOfMadLibContainer) {
-        header?.classList.add(styles.Sticky)
-        indicators?.classList.add(styles.RemoveIndicators)
+        // header?.classList.add(styles.Sticky)
+        indicators?.classList.add('hidden')
       } else {
-        header?.classList.remove(styles.Sticky)
-        indicators?.classList.remove(styles.RemoveIndicators)
+        // header?.classList.remove(styles.Sticky)
+        indicators?.classList.remove('hidden')
       }
 
       if (wait) {
