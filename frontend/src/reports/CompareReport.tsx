@@ -1,4 +1,3 @@
-import { Box, Grid } from '@mui/material'
 import { useEffect } from 'react'
 import AgeAdjustedTableCard from '../cards/AgeAdjustedTableCard'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
@@ -31,7 +30,6 @@ import {
 import { reportProviderSteps } from './ReportProviderSteps'
 import NoDataAlert from './ui/NoDataAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
-import styles from './Report.module.scss'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
 import ShareButtons, { SHARE_LABEL } from './ui/ShareButtons'
@@ -48,7 +46,8 @@ import { useParamState } from '../utils/hooks/useParamState'
 
 /* Takes dropdownVar and fips inputs for each side-by-side column.
 Input values for each column can be the same. */
-function CompareReport(props: {
+
+interface CompareReportProps {
   key: string
   dropdownVarId1: DropdownVarId
   dropdownVarId2: DropdownVarId
@@ -64,7 +63,9 @@ function CompareReport(props: {
   isMobile: boolean
   trackerMode: MadLibId
   setTrackerMode: React.Dispatch<React.SetStateAction<MadLibId>>
-}) {
+}
+
+export default function CompareReport(props: CompareReportProps) {
   const isRaceBySex =
     props.dropdownVarId1 === 'hiv_black_women' ||
     props.dropdownVarId2 === 'hiv_black_women'
@@ -152,16 +153,18 @@ function CompareReport(props: {
 
   if (dataTypeConfig1 === null) {
     return (
-      <Grid container spacing={1} alignItems='center' justifyContent='center'>
-        <NoDataAlert dropdownVarId={props.dropdownVarId1} />
-      </Grid>
+      <NoDataAlert
+        dropdownVarId={props.dropdownVarId1}
+        className='grid place-items-center '
+      />
     )
   }
   if (dataTypeConfig2 === null) {
     return (
-      <Grid container spacing={1} alignItems='center' justifyContent='center'>
-        <NoDataAlert dropdownVarId={props.dropdownVarId2} />
-      </Grid>
+      <NoDataAlert
+        dropdownVarId={props.dropdownVarId2}
+        className='grid place-items-center '
+      />
     )
   }
 
@@ -192,9 +195,9 @@ function CompareReport(props: {
       <Helmet>
         <title>{browserTitle} - Health Equity Tracker</title>
       </Helmet>
-      <Grid container>
+      <div className='flex'>
         {/* CARDS COLUMN */}
-        <Grid item xs={12} md={10}>
+        <div className=' w-full md:w-10/12'>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -206,7 +209,7 @@ function CompareReport(props: {
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
-          <Grid container spacing={1} alignItems='flex-start'>
+          <div className='flex w-full flex-col content-center '>
             {/* SIDE-BY-SIDE 100K MAP CARDS */}
             <RowOfTwoOptionalMetrics
               trackerMode={props.trackerMode}
@@ -431,19 +434,11 @@ function CompareReport(props: {
                 )}
               />
             )}
-          </Grid>
-        </Grid>
-        {/* TABLE OF CONTENTS COLUMN - DESKTOP ONLY */}
+          </div>
+        </div>
+        {/* SIDEBAR COLUMN - DESKTOP ONLY */}
         {props.reportStepHashIds && (
-          <Grid
-            item
-            md={2}
-            container
-            spacing={0}
-            direction='column'
-            alignItems='center'
-            className={styles.FloatingSidebarWrapper}
-          >
+          <div className=' hidden items-start md:flex md:w-2/12 md:flex-col'>
             <Sidebar
               isScrolledToTop={props.isScrolledToTop}
               reportStepHashIds={props.reportStepHashIds}
@@ -457,18 +452,16 @@ function CompareReport(props: {
               enabledDemographicOptionsMap={enabledDemographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />
-          </Grid>
+          </div>
         )}
-      </Grid>
-      <Box mt={5}>
+      </div>
+      <div className='mt-24'>
         <p>{SHARE_LABEL}</p>
         <ShareButtons
           reportTitle={props.reportTitle}
           isMobile={props.isMobile}
         />{' '}
-      </Box>
+      </div>
     </>
   )
 }
-
-export default CompareReport

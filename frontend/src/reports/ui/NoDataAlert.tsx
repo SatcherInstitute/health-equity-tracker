@@ -1,29 +1,17 @@
-import { Grid, Button } from '@mui/material'
 import HetNotice from '../../styles/HetComponents/HetNotice'
+import { type DropdownVarId } from '../../data/config/MetricConfig'
 
-function NoDataAlert(props: { dropdownVarId: string }) {
+interface NoDataAlertProps {
+  dropdownVarId: DropdownVarId
+  className?: string
+}
+
+function NoDataAlert(props: NoDataAlertProps) {
   return (
-    <Grid item xs={5}>
+    <div className='w-5/12'>
       <HetNotice kind='health-crisis'>
         This data is not currently available in the Health Equity Tracker, but
         will be coming soon.
-        <br />
-        {/* TODO - buttons should be actual working a href links and better follow UX */}
-        <Button
-          style={{
-            padding: '0',
-            paddingLeft: '5px',
-            paddingRight: '5px',
-            background: 'none',
-            textDecoration: 'underline',
-          }}
-          /* TODO - https://github.com/SatcherInstitute/health-equity-tracker/issues/431 */
-          onClick={() => {
-            alert('unimplemented')
-          }}
-        >
-          See our roadmap to learn more.
-        </Button>
       </HetNotice>
       <HetNotice>
         Do you have information on {props.dropdownVarId} at the state or local
@@ -41,7 +29,7 @@ function NoDataAlert(props: { dropdownVarId: string }) {
           We would love to hear from you.
         </a>
       </HetNotice>
-    </Grid>
+    </div>
   )
 }
 

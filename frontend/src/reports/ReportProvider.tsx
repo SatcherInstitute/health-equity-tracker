@@ -8,9 +8,7 @@ import {
   getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
-import styles from './Report.module.scss'
 import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
-import { Box } from '@mui/material'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import LazyLoad from 'react-lazyload'
@@ -61,10 +59,6 @@ function ReportProvider(props: ReportProviderProps) {
     fips1 = new Fips(getPhraseValue(props.madLib, 3))
     fips2 = new Fips(getPhraseValue(props.madLib, 5))
   }
-
-  const reportWrapper = props.isSingleColumn
-    ? styles.OneColumnReportWrapper
-    : styles.TwoColumnReportWrapper
 
   function getReport() {
     const reportTitle = getMadLibPhraseText(props.madLib)
@@ -163,7 +157,13 @@ function ReportProvider(props: ReportProviderProps) {
 
   return (
     <>
-      <div className={reportWrapper}>
+      <div
+        className={`mx-auto my-0 w-full ${
+          props.isSingleColumn
+            ? ' max-w-exploreDataPage'
+            : 'max-w-exploreDataTwoColumnPage'
+        }`}
+      >
         {props.showLifeLineAlert && <LifelineAlert />}
         {props.showIncarceratedChildrenAlert && false && (
           <IncarceratedChildrenLongAlert />
@@ -172,24 +172,22 @@ function ReportProvider(props: ReportProviderProps) {
         {getReport()}
       </div>
 
-      <div className={styles.MissingDataContainer}>
-        <aside className={styles.MissingDataInfo}>
+      <div className='mt-20 flex min-h-preload-article w-full justify-center bg-white'>
+        <aside className='m-8 max-w-exploreDataPage text-left sm:m-16 '>
           {/* Display condition definition(s) based on the tracker madlib settings */}
-          <div>
-            {definedConditions?.length > 0 && (
-              <Box mb={5}>
-                <h3
-                  id='definitions-missing-data'
-                  className={styles.FootnoteLargeHeading}
-                >
-                  Definitions:
-                </h3>
-                <LazyLoad offset={300} height={181} once>
-                  <DefinitionsList dataTypesToDefine={metricConfigSubset} />
-                </LazyLoad>
-              </Box>
-            )}
-          </div>
+          {definedConditions?.length > 0 && (
+            <div className='mb-5'>
+              <h3
+                id='definitions-missing-data'
+                className='scroll-m-0 text-header first-of-type:mt-0 md:scroll-mt-24 '
+              >
+                Definitions:
+              </h3>
+              <LazyLoad offset={300} height={181} once>
+                <DefinitionsList dataTypesToDefine={metricConfigSubset} />
+              </LazyLoad>
+            </div>
+          )}
 
           <WhatDataAreMissing
             metricConfigSubset={metricConfigSubset}
