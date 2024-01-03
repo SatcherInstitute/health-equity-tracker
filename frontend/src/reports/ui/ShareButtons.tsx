@@ -8,7 +8,7 @@ import {
   LinkedinIcon,
   TwitterIcon,
 } from 'react-share'
-import { Grid, Tooltip } from '@mui/material'
+import { Tooltip } from '@mui/material'
 import { type Article } from '../../pages/News/NewsPage'
 import { getHtml } from '../../utils/urlutils'
 import { het } from '../../styles/DesignTokens'
@@ -44,12 +44,12 @@ export default function ShareButtons(props: ShareButtonProps) {
   }
 
   return (
-    <Grid
-      container
-      flexDirection={'column'}
-      justifyContent={props.reportTitle ? 'center' : 'flex-start'}
+    <div
+      className={`flex ${
+        props.reportTitle ? 'justify-center' : 'justify-start'
+      }`}
     >
-      <Grid item>
+      <div>
         {/* SOCIAL SHARE BUTTONS */}
 
         <Tooltip title='Tweet this page'>
@@ -67,7 +67,6 @@ export default function ShareButtons(props: ShareButtonProps) {
           <FacebookShareButton
             url={sharedUrl}
             hashtag={'#healthequity'}
-            quote={title}
             aria-label={'Post this page to Facebook'}
           >
             <FacebookIcon {...shareIconAttributes} />
@@ -96,7 +95,7 @@ export default function ShareButtons(props: ShareButtonProps) {
             <EmailIcon {...shareIconAttributes} />
           </EmailShareButton>
         </Tooltip>
-      </Grid>
-    </Grid>
+      </div>
+    </div>
   )
 }

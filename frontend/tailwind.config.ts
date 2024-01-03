@@ -1,23 +1,15 @@
 import type { Config } from 'tailwindcss'
-import { het, ThemeZIndexValues } from './src/styles/DesignTokens'
+import { het, ThemeZIndexValues, ThemeStandardScreenSizes } from './src/styles/DesignTokens'
 
-export const standardSizes = {
-  xs: '0px',
-  tiny: '350px',
-  sm: '600px',
-  smMd: '768px',
-  md: '960px',
-  lg: '1280px',
-  xl: '1920px',
-}
+
 
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
-    screens: standardSizes,
-    maxHeight: standardSizes,
-    maxWidth: standardSizes,
+    screens: ThemeStandardScreenSizes,
+    maxHeight: ThemeStandardScreenSizes,
+    maxWidth: ThemeStandardScreenSizes,
     borderRadius: {
       'sm': '4px',
       'md': '8px',
@@ -78,6 +70,8 @@ export default {
         teamHeadshot: '181px',
         teamLogo: '250px',
         newsPage: '1440px',
+        exploreDataPage: '1500px',
+        exploreDataTwoColumnPage: '2500px',
         newsText: '800px',
         equityLogo: '400px',
         helperBox: '1200px',
