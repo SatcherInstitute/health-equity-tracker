@@ -88,13 +88,17 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 ### End to End (E2E) Tests with Playwright
 
-- Run the limited suite of tests (same as ones that are run on CI against PR updates). Ensure the localhost server is still running first:
+- Run tests locally (ensure the localhost server is still running first):
 
    ```bash
+   # run a full suite of E2E tests
    npm run e2e
+
+   # to run a single test file just add it on to the command
+   npm run e2e statins.nightly.spec.ts
    ```
 
-- Run the more comprehensive tests that check the production site (same as the ones run nightly): `npm run e2e-prod`
+- To run the tests locally, but target either the production or staging deployments, you can run `npm run e2e-prod` and `npm run e2e-staging` respectivally. You can also tack on a single file name to the end of the command as shown in the previous code snippet.
 
 - Run the outgoing link checker, which is run weekly: `npm run url`
 
