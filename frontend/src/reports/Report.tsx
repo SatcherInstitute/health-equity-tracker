@@ -1,4 +1,3 @@
-import { Box, Grid } from '@mui/material'
 import { useEffect } from 'react'
 import LazyLoad from 'react-lazyload'
 import DisparityBarChartCard from '../cards/DisparityBarChartCard'
@@ -21,12 +20,9 @@ import {
   psSubscribe,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
-import { SINGLE_COLUMN_WIDTH } from './ReportProvider'
 import NoDataAlert from './ui/NoDataAlert'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
-import styles from './Report.module.scss'
-
 import { reportProviderSteps } from './ReportProviderSteps'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
@@ -141,9 +137,9 @@ export function Report(props: ReportProps) {
       <Helmet>
         <title>{browserTitle} - Health Equity Tracker</title>
       </Helmet>
-      <Grid container>
+      <div className='flex '>
         {/* CARDS COLUMN */}
-        <Grid item xs={12} md={10}>
+        <div className='w-full md:w-10/12'>
           {/* Mode selectors here on small/medium, in sidebar instead for larger screens */}
           <ModeSelectorBoxMobile
             trackerMode={props.trackerMode}
@@ -155,27 +151,18 @@ export function Report(props: ReportProps) {
             disabledDemographicOptions={disabledDemographicOptions}
           />
 
-          <Grid
-            item
-            container
-            xs={12}
-            alignItems='center'
-            spacing={0}
-            justifyContent='center'
-          >
+          <div className='flex w-full items-center justify-center'>
             {!dataTypeConfig && (
               <NoDataAlert dropdownVarId={props.dropdownVarId} />
             )}
 
             {dataTypeConfig && (
-              <Grid container justifyContent='center'>
+              <div className='flex w-full flex-col content-center'>
                 {/* 100k MAP CARD */}
-                <Grid
-                  item
-                  xs={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
                   tabIndex={-1}
                   id='rate-map'
+                  // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
                   }}
@@ -190,20 +177,17 @@ export function Report(props: ReportProps) {
                     reportTitle={props.reportTitle}
                     trackerMode={props.trackerMode}
                   />
-                </Grid>
+                </div>
 
                 {/* RATE TRENDS LINE CHART CARD */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
+                  tabIndex={-1}
+                  className='w-full scroll-m-0 md:scroll-mt-24'
                   id={
                     dataTypeConfig.timeSeriesData
                       ? 'rates-over-time'
                       : undefined
                   }
-                  className={styles.ScrollPastHeader}
                 >
                   {dataTypeConfig.timeSeriesData &&
                     !hideNonCountyBJSTimeCards && (
@@ -214,15 +198,12 @@ export function Report(props: ReportProps) {
                         reportTitle={props.reportTitle}
                       />
                     )}
-                </Grid>
+                </div>
 
                 {/* 100K BAR CHART CARD */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
                   tabIndex={-1}
+                  className='w-full'
                   id='rate-chart'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
@@ -234,15 +215,12 @@ export function Report(props: ReportProps) {
                     fips={props.fips}
                     reportTitle={props.reportTitle}
                   />
-                </Grid>
+                </div>
 
                 {/* UNKNOWNS MAP CARD */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
                   tabIndex={-1}
+                  className='w-full'
                   id='unknown-demographic-map'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
@@ -262,20 +240,17 @@ export function Report(props: ReportProps) {
                       />
                     )}
                   </LazyLoad>
-                </Grid>
+                </div>
 
                 {/* SHARE TRENDS LINE CHART CARD */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
+                  tabIndex={-1}
                   id={
                     dataTypeConfig.timeSeriesData
                       ? 'inequities-over-time'
                       : undefined
                   }
-                  className={styles.ScrollPastHeader}
+                  className='w-full scroll-m-0 md:scroll-mt-24'
                 >
                   <LazyLoad offset={600} height={750} once>
                     {dataTypeConfig.timeSeriesData &&
@@ -288,15 +263,12 @@ export function Report(props: ReportProps) {
                         />
                       )}
                   </LazyLoad>
-                </Grid>
+                </div>
 
                 {/* DISPARITY BAR CHART COMPARE VS POPULATION */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
                   tabIndex={-1}
+                  className='w-full'
                   id='population-vs-distribution'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
@@ -312,14 +284,12 @@ export function Report(props: ReportProps) {
                       />
                     )}
                   </LazyLoad>
-                </Grid>
+                </div>
 
                 {/* DATA TABLE CARD */}
-                <Grid
-                  item
-                  xs={12}
-                  md={SINGLE_COLUMN_WIDTH}
+                <div
                   tabIndex={-1}
+                  className='w-full'
                   id='data-table'
                   style={{
                     scrollMarginTop: props.headerScrollMargin,
@@ -331,15 +301,13 @@ export function Report(props: ReportProps) {
                     demographicType={demographicType}
                     reportTitle={props.reportTitle}
                   />
-                </Grid>
+                </div>
 
                 {/* AGE ADJUSTED TABLE CARD */}
                 {dataTypeConfig.metrics.age_adjusted_ratio?.ageAdjusted && (
-                  <Grid
-                    item
-                    xs={12}
-                    md={SINGLE_COLUMN_WIDTH}
+                  <div
                     tabIndex={-1}
+                    className='w-full'
                     id='age-adjusted-ratios'
                     style={{
                       scrollMarginTop: props.headerScrollMargin,
@@ -354,32 +322,22 @@ export function Report(props: ReportProps) {
                         reportTitle={props.reportTitle}
                       />
                     </LazyLoad>
-                  </Grid>
+                  </div>
                 )}
-                <Box mt={5}>
+                <div className='mt-16'>
                   <p>{SHARE_LABEL}</p>
                   <ShareButtons
                     reportTitle={props.reportTitle}
                     isMobile={props.isMobile}
                   />{' '}
-                </Box>
-              </Grid>
+                </div>
+              </div>
             )}
-          </Grid>
-        </Grid>
-        {/* TABLE OF CONTENTS COLUMN */}
+          </div>
+        </div>
+        {/* SIDEBAR COLUMN */}
         {props.reportStepHashIds && (
-          <Grid
-            item
-            // invisible
-            xs={12}
-            // icons + text
-            md={2}
-            container
-            direction='column'
-            alignItems='center'
-            className={styles.FloatingSidebarWrapper}
-          >
+          <div className='hidden items-center md:flex md:w-2/12 md:flex-col'>
             <Sidebar
               floatTopOffset={props.headerScrollMargin}
               isScrolledToTop={props.isScrolledToTop}
@@ -394,9 +352,9 @@ export function Report(props: ReportProps) {
               enabledDemographicOptionsMap={enabledDemographicOptionsMap}
               disabledDemographicOptions={disabledDemographicOptions}
             />
-          </Grid>
+          </div>
         )}
-      </Grid>
+      </div>
     </>
   )
 }

@@ -51,7 +51,6 @@ export default function CardShareIcons(props: CardShareIconsProps) {
         <FacebookShareButton
           aria-label={'Post this report to Facebook'}
           hashtag={'#healthequity'}
-          quote={''}
           url={sharedUrl}
           className='flex items-center px-2 py-1'
         >
