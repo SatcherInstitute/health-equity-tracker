@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import {
   type DataTypeConfig,
   type DropdownVarId,
@@ -43,13 +42,11 @@ export default function RowOfTwoOptionalMetrics(
       : props.dataTypeConfig2
 
   return (
-    <>
-      <Grid
-        item
-        xs={12}
-        md={6}
+    <div className='flex w-full flex-wrap'>
+      <div
+        className='w-full gap-2 md:w-1/2 lg:gap-3'
         id={props.id}
-        tabIndex={-1}
+        // NOTE: use inline styles to set dynamic scroll margin based on MadLib header height
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
         {props.dataTypeConfig1 && (
@@ -63,12 +60,9 @@ export default function RowOfTwoOptionalMetrics(
             )}
           </>
         )}
-      </Grid>
-      <Grid
-        item
-        xs={12}
-        md={6}
-        tabIndex={-1}
+      </div>
+      <div
+        className='w-full md:w-1/2'
         id={`${props.id}2`}
         style={{ scrollMarginTop: props.headerScrollMargin }}
       >
@@ -83,7 +77,7 @@ export default function RowOfTwoOptionalMetrics(
             )}
           </>
         )}
-      </Grid>
-    </>
+      </div>
+    </div>
   )
 }
