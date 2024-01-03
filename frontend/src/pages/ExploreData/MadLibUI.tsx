@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import React from 'react'
 import { Fips } from '../../data/utils/Fips'
 import {
@@ -113,7 +112,7 @@ export default function MadLibUI(props: MadLibUIProps) {
 
   return (
     <>
-      <Grid item xs={12} container justifyContent='center' alignItems='center'>
+      <div className='grid place-content-center'>
         <div
           className={`text-center text-title leading-lhLoose transition-all duration-200 ease-in-out sm:text-smallestHeader lg:text-smallerHeader
             ${
@@ -178,7 +177,7 @@ export default function MadLibUI(props: MadLibUIProps) {
             }
           )}
         </div>
-      </Grid>
+      </div>
     </>
   )
 }
