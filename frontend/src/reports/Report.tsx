@@ -316,7 +316,7 @@ export function Report(props: ReportProps) {
                     </LazyLoad>
                   </div>
                 )}
-                <div className='mt-5'>
+                <div className='mt-16'>
                   <p>{SHARE_LABEL}</p>
                   <ShareButtons
                     reportTitle={props.reportTitle}

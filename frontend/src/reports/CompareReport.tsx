@@ -455,7 +455,7 @@ export default function CompareReport(props: CompareReportProps) {
           </div>
         )}
       </div>
-      <div className='mt-5'>
+      <div className='mt-24'>
         <p>{SHARE_LABEL}</p>
         <ShareButtons
           reportTitle={props.reportTitle}

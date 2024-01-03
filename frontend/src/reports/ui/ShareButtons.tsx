@@ -45,7 +45,9 @@ export default function ShareButtons(props: ShareButtonProps) {
 
   return (
     <div
-      className={`flex ${props.reportTitle ? 'items-center' : 'items-start'}`}
+      className={`flex ${
+        props.reportTitle ? 'justify-center' : 'justify-start'
+      }`}
     >
       <div>
         {/* SOCIAL SHARE BUTTONS */}
@@ -65,7 +67,6 @@ export default function ShareButtons(props: ShareButtonProps) {
           <FacebookShareButton
             url={sharedUrl}
             hashtag={'#healthequity'}
-            quote={title}
             aria-label={'Post this page to Facebook'}
           >
             <FacebookIcon {...shareIconAttributes} />
