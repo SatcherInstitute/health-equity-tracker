@@ -3,11 +3,7 @@ import AppBarLogo from '../../assets/AppbarLogo.png'
 import { PAGE_URL_TO_NAMES } from '../../utils/urlutils'
 import HetLinkButton from './HetLinkButton'
 
-interface HetDesktopToolbarProps {
-  className?: string
-}
-
-export default function HetAppToolbar(props: HetDesktopToolbarProps) {
+export default function HetAppToolbar() {
   return (
     <Toolbar className='flex min-h-[65px] justify-between border-0 border-b border-solid border-black bg-white leading-lhSomeSpace'>
       <h1 className='m-0'>
