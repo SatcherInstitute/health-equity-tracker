@@ -1,7 +1,4 @@
 import { useRef } from 'react'
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   Box,
@@ -9,10 +6,10 @@ import {
   ListItemText,
   ListItemButton,
   List,
-  Button,
   Popover,
 } from '@mui/material'
 import { type DataTypeId } from '../../data/config/MetricConfig'
+import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 
 interface DataTypeSelectorProps {
   value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
@@ -31,18 +28,13 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
   return (
     <>
       <span ref={popoverRef}>
-        {/* Clickable Madlib Button with Dropdown Arrow */}
-        <Button
-          variant='text'
-          aria-haspopup='true'
-          className={styles.DataTypeMadLibButton}
-          onClick={popover.open}
+        <HetMadLibButton
+          className='ml-0'
+          isOpen={popover.isOpen}
+          handleClick={popover.open}
         >
-          <span>
-            {currentDisplayName}{' '}
-            {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
-          </span>
-        </Button>
+          {currentDisplayName}
+        </HetMadLibButton>
 
         <Popover
           className='m-4 flex'
