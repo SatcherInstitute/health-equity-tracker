@@ -98,6 +98,7 @@ export default {
       // for use w/spacing utilities: 'm', 'p', 'gap', etc.
       spacing: {
         cardGutter: '8px',
+        footer: '10rem',
       },
     },
   },

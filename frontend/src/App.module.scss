@@ -1,21 +1,21 @@
 @import 'styles/globals.scss';
 @import 'styles/variables.module';
 
-.App {
-  text-align: center;
-  position: relative;
-  min-height: 100%;
-  background-color: $white;
-}
+// .App {
+//   text-align: center;
+//   position: relative;
+//   min-height: 100%;
+//   background-color: $white;
+// }
 
-.FallbackPage {
-  min-height: 100vh;
-}
+// .FallbackPage {
+//   min-height: 100vh;
+// }
 
-.Content {
-  padding-bottom: $footer-size;
-  height: 100%;
-}
+// .Content {
+//   padding-bottom: $footer-size;
+//   height: 100%;
+// }
 
 .NavLink {
   @include dmSans500();

@@ -9,7 +9,6 @@ import {
   useLocation,
 } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie'
-import styles from './App.module.scss'
 import MaterialTheme from './styles/MaterialTheme'
 import { autoInitGlobals } from './utils/globals'
 import {
@@ -29,7 +28,7 @@ import {
   NEW_METHODOLOGY_PAGE_LINK,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
-import { Box, CircularProgress, StyledEngineProvider } from '@mui/material'
+import { CircularProgress, StyledEngineProvider } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
 
 // these make CSS modules which are imported by other components,
@@ -86,10 +85,10 @@ export default function App() {
         <ThemeProvider theme={MaterialTheme}>
           <CookiesProvider>
             <CssBaseline />
-            <div className={styles.App}>
+            <div className='relative min-h-full bg-white text-center'>
               <SkipLink />
 
-              <div className={styles.Content}>
+              <div className='h-full pb-footer'>
                 <Router>
                   <AppBar position='static' elevation={0}>
                     <div className='smMd:hidden'>
@@ -102,10 +101,11 @@ export default function App() {
                   <ScrollToTop />
                   <Suspense
                     fallback={
-                      <main className={styles.FallbackPage}>
-                        <Box mt={10}>
-                          <CircularProgress aria-label='loading' />
-                        </Box>
+                      <main className='min-h-screen'>
+                        <CircularProgress
+                          className='mt-10'
+                          aria-label='loading'
+                        />
                       </main>
                     }
                   >
