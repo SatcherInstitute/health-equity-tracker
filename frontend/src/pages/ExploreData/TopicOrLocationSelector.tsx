@@ -121,7 +121,7 @@ export default function TopicOrLocationSelector(
         </Button>
 
         <Popover
-          className={styles.PopoverOverride}
+          className='m-4 flex'
           aria-expanded='true'
           open={popover.isOpen}
           anchorEl={popover.anchor}
@@ -137,8 +137,10 @@ export default function TopicOrLocationSelector(
         >
           {/* Location Dropdown */}
           {isFips && (
-            <div className={styles.TopicOrLocationSelectorPopover}>
-              <h3 className={styles.SearchForText}>Search for location</h3>
+            <div className='p-5'>
+              <h3 className='my-1 text-small font-bold md:text-title'>
+                Search for location
+              </h3>
 
               <Autocomplete
                 disableClearable={true}
@@ -171,7 +173,7 @@ export default function TopicOrLocationSelector(
                   popover.close()
                 }}
               />
-              <span className={styles.NoteText}>
+              <span className='text-small font-light italic text-greyDark'>
                 County, state, territory, or{' '}
                 {isUsa ? (
                   USA_DISPLAY_NAME
@@ -200,10 +202,10 @@ export default function TopicOrLocationSelector(
                         xs={6}
                         sm={4}
                         key={category.title}
-                        className={styles.CategoryList}
+                        className='mb-4'
                       >
                         <h3
-                          className={styles.CategoryTitleText}
+                          className='m-0 mr-4 text-text font-bold'
                           aria-label={category.title + ' options'}
                         >
                           {category.title}
@@ -212,7 +214,7 @@ export default function TopicOrLocationSelector(
                           {category.options.map((optionId: DropdownVarId) => {
                             return (
                               <ListItemButton
-                                className={styles.ListItem}
+                                className='p-0'
                                 key={optionId}
                                 selected={optionId === props.value}
                                 onClick={() => {
@@ -221,7 +223,7 @@ export default function TopicOrLocationSelector(
                                 }}
                               >
                                 <ListItemText
-                                  className={styles.ListItemText}
+                                  className='my-0.5'
                                   primary={DROPDOWN_TOPIC_MAP[optionId]}
                                 />
                               </ListItemButton>
