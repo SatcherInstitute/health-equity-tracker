@@ -114,11 +114,7 @@ export default function MadLibUI(props: MadLibUIProps) {
     <>
       <div className='grid place-content-center'>
         <div
-          className={`text-center text-title leading-lhLoose transition-all duration-200 ease-in-out sm:text-smallestHeader lg:text-smallerHeader
-            ${
-              props.isSticking ? 'md:mx-0 md:my-2 md:p-0 ' : 'mx-auto my-2 p-0 '
-            }
-          `}
+          className='mx-0 my-2 p-0 text-center text-title leading-lhLoose transition-all duration-200 ease-in-out sm:text-smallestHeader lg:text-smallerHeader'
           id='madlib-box'
         >
           {props.madLib.phrase.map(

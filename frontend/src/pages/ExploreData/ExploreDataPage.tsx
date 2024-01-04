@@ -202,7 +202,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
       const topOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
-      if (topOfMadLibContainer) setIsSticking(true)
+      if (topOfMadLibContainer && !noTopicChosen) setIsSticking(true)
       else setIsSticking(false)
     },
     [isSticking],
@@ -296,10 +296,10 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         className={'h-full bg-exploreBgColor'}
       >
         <div
-          className={`z-almostTop bg-white shadow-raised transition-all duration-200 ease-in-out md:w-full
+          className={`z-almostTop bg-white shadow-raised-tighter transition-all duration-200 ease-in-out md:w-full
             ${
               isSticking
-                ? '   md:fixed md:top-0  md:py-0'
+                ? '   py-0 md:fixed md:top-0'
                 : ' m-0 mb-cardGutter p-4 '
             }
           `}
@@ -317,7 +317,11 @@ function ExploreDataPage(props: ExploreDataPageProps) {
             </p>
           )}
         </div>
-        <div className={isSticking ? 'md:pt-[150px]' : 'w-full'}>
+        <div
+          className={`transition-all duration-200 ${
+            isSticking ? 'md:pt-[150px]' : 'w-full pt-0'
+          }`}
+        >
           {noTopicChosen ? (
             <DefaultHelperBox />
           ) : (
