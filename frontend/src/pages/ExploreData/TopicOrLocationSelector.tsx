@@ -1,13 +1,10 @@
 import React, { useRef, useState } from 'react'
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
 import {
   Fips,
   USA_DISPLAY_NAME,
   USA_FIPS,
   isFipsString,
 } from '../../data/utils/Fips'
-import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
@@ -21,7 +18,6 @@ import {
   Grid,
   ListItemText,
   List,
-  Button,
   Popover,
   Autocomplete,
   TextField,
@@ -31,9 +27,9 @@ import {
   type DropdownVarId,
   type DataTypeId,
 } from '../../data/config/MetricConfig'
-import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
+import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 
 interface TopicOrLocationSelectorProps {
   value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
@@ -91,10 +87,6 @@ export default function TopicOrLocationSelector(
 
   const noTopic = props.value === DEFAULT
 
-  // only pulse the condition button when no topic is selected and dropdown menu is closed (and user hasn't set their machine to prefer reduced motion)
-  const prefersReducedMotion = usePrefersReducedMotion()
-  const doPulse = !prefersReducedMotion && !isFips && noTopic && !popover.isOpen
-
   const dropdownTarget = `${props.value}-dropdown-${isFips ? 'fips' : 'topic'}`
 
   function handleUsaButton() {
@@ -107,18 +99,9 @@ export default function TopicOrLocationSelector(
   return (
     <>
       <span ref={popoverRef}>
-        {/* Clickable Madlib Button with Dropdown Arrow */}
-        <Button
-          variant='text'
-          aria-haspopup='true'
-          className={doPulse ? styles.MadLibButtonPulse : styles.MadLibButton}
-          onClick={popover.open}
-        >
-          <span className={dropdownTarget}>
-            {currentDisplayName}{' '}
-            {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
-          </span>
-        </Button>
+        <HetMadLibButton handleClick={popover.open} isOpen={popover.isOpen}>
+          <span className={dropdownTarget}>{currentDisplayName}</span>
+        </HetMadLibButton>
 
         <Popover
           className='m-4 flex'
@@ -242,7 +225,7 @@ export default function TopicOrLocationSelector(
                   >
                     {!noTopic && (
                       <a
-                        className={styles.ClearSelectionsLink}
+                        className='no-underline hover:bg-standardInfo'
                         href={EXPLORE_DATA_PAGE_LINK}
                       >
                         <KeyboardBackspaceIcon
@@ -251,7 +234,7 @@ export default function TopicOrLocationSelector(
                             paddingBottom: '3px',
                           }}
                         />{' '}
-                        <span className={styles.ClearSelectionsLinkText}>
+                        <span className='p-1 text-smallest'>
                           Clear selections
                         </span>
                       </a>
