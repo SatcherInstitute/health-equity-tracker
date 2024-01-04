@@ -54,24 +54,6 @@ figure {
     stroke: url(#gradient);
   }
 
-  // legend for unknown circles
-  .CircleLegend,
-  .UnknownCircles {
-    text {
-      opacity: 1;
-      font-size: $smallest;
-      transition: opacity 200ms linear 100ms;
-
-      &.invisible {
-        opacity: 0;
-      }
-
-      &.title {
-        @include inter500; // make title bolder than number labels
-      }
-    }
-  }
-
   // visibility classes
   .hidden {
     display: none;
