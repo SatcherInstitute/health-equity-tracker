@@ -27,10 +27,8 @@ const useScrollPosition = (
       const topOfMadLibContainer = window.pageYOffset > stickyBarOffsetFromTop
 
       if (topOfMadLibContainer) {
-        // header?.classList.add(styles.Sticky)
         indicators?.classList.add('hidden')
       } else {
-        // header?.classList.remove(styles.Sticky)
         indicators?.classList.remove('hidden')
       }
 

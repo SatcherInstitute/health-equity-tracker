@@ -296,12 +296,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         className={'h-full bg-exploreBgColor'}
       >
         <div
-          className={`z-almostTop bg-white shadow-raised-tighter transition-all duration-200 ease-in-out md:w-full
-            ${
-              isSticking
-                ? '   py-0 md:fixed md:top-0'
-                : ' m-0 mb-cardGutter p-4 '
-            }
+          className={`z-almostTop mb-1 bg-white p-0 shadow-raised-tighter transition-all duration-200 ease-in-out md:top-0 md:w-full
+            ${isSticking ? 'md:fixed' : 'md:p-4 '}
           `}
           id='madlib-container'
         >
@@ -318,8 +314,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
           )}
         </div>
         <div
-          className={`transition-all duration-200 ${
-            isSticking ? 'md:pt-[150px]' : 'w-full pt-0'
+          className={`w-full pt-0 transition-all duration-200 ${
+            isSticking ? 'md:pt-[150px]' : ''
           }`}
         >
           {noTopicChosen ? (
