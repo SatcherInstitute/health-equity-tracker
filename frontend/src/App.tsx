@@ -1,4 +1,3 @@
-import AppBar from '@mui/material/AppBar'
 import CssBaseline from '@mui/material/CssBaseline'
 import React, { Suspense, useEffect } from 'react'
 import {
@@ -42,8 +41,7 @@ import SkipLink from './SkipLink'
 import OldMethodologyPage from './pages/DataCatalog/OldMethodologyPage'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
 import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
-import HetMobileAppToolbar from './styles/HetComponents/HetMobileAppToolbar'
-import HetAppToolbar from './styles/HetComponents/HetAppToolbar'
+import HetAppBar from './styles/HetComponents/HetAppBar'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -90,14 +88,7 @@ export default function App() {
 
               <div className='h-full pb-footer'>
                 <Router>
-                  <AppBar position='static' elevation={0}>
-                    <div className='smMd:hidden'>
-                      <HetMobileAppToolbar />
-                    </div>
-                    <div className='hidden  smMd:block'>
-                      <HetAppToolbar />
-                    </div>
-                  </AppBar>
+                  <HetAppBar />
                   <ScrollToTop />
                   <Suspense
                     fallback={
