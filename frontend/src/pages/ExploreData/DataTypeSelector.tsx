@@ -45,7 +45,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
         </Button>
 
         <Popover
-          className={styles.PopoverOverride}
+          className='m-4 flex'
           aria-expanded='true'
           open={popover.isOpen}
           anchorEl={popover.anchor}
@@ -67,7 +67,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                     const [optionId, optionDisplayName] = item
                     return (
                       <ListItemButton
-                        className={styles.ListItem}
+                        className='p-0'
                         key={optionId}
                         selected={optionId === props.value}
                         onClick={() => {
@@ -76,7 +76,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                         }}
                       >
                         <ListItemText
-                          className={styles.ListItemDataTypeText}
+                          className='my-0.5'
                           primary={optionDisplayName}
                         />
                       </ListItemButton>

@@ -1,67 +1,67 @@
 @import '../../styles/variables.module.scss';
 @import '../../styles/globals.scss';
 
-// heading for expanded TOPIC menu
-.PopoverTitle {
-  font-size: $text;
-  padding-inline: 1rem;
+// // heading for expanded TOPIC menu
+// .PopoverTitle {
+//   font-size: $text;
+//   padding-inline: 1rem;
 
-  @media only screen and (min-width: $sm) {
-    font-size: $title;
-  }
-}
+//   @media only screen and (min-width: $sm) {
+//     font-size: $title;
+//   }
+// }
 
 // heading for expanded LOCATION menu/combobox
-.SearchForText {
-  @include inter700();
+// .SearchForText {
+//   @include inter700();
 
-  margin-block: 0.3rem;
-  font-size: $text;
+//   margin-block: 0.3rem;
+//   font-size: $text;
 
-  @media only screen and (min-width: $md) {
-    font-size: $title;
-  }
-}
+//   @media only screen and (min-width: $md) {
+//     font-size: $title;
+//   }
+// }
 
 //
-.CategoryList {
-  margin-bottom: 1rem;
-}
+// .CategoryList {
+//   margin-bottom: 1rem;
+// }
 
-.CategoryTitleText {
-  @include inter700();
-  font-size: $text;
-  margin: 0px 16px 0px 0px;
-}
+// .CategoryTitleText {
+//   @include inter700();
+//   font-size: $text;
+//   margin: 0px 16px 0px 0px;
+// }
 
-.ListItem {
-  padding: 0px !important;
-}
+// .ListItem {
+//   padding: 0px !important;
+// }
 
-.ListItemText,
-.ListItemDataTypeText {
-  margin-top: 2px !important;
-  margin-bottom: 2px !important;
-}
+// .ListItemText,
+// .ListItemDataTypeText {
+//   margin-top: 2px !important;
+//   margin-bottom: 2px !important;
+// }
 
-.ListItemDataTypeText {
-  margin-right: 3rem;
-}
+// .ListItemDataTypeText {
+//   margin-right: 3rem;
+// }
 
-.NoteText {
-  font-size: $small;
-  color: grey;
-  font-style: italic;
-}
+// .NoteText {
+//   font-size: $small;
+//   color: grey;
+//   font-style: italic;
+// }
 
-.TopicOrLocationSelectorPopover {
-  padding: 20px;
-}
+// .TopicOrLocationSelectorPopover {
+//   padding: 20px;
+// }
 
-.PopoverOverride {
-  margin: 16px;
-  display: flex;
-}
+// .PopoverOverride {
+//   margin: 16px;
+//   display: flex;
+// }
 
 .MadLibButton,
 .MadLibButtonPulse,
