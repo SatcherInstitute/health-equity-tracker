@@ -1,4 +1,3 @@
-import { Grid } from '@mui/material'
 import React from 'react'
 import { Fips } from '../../data/utils/Fips'
 import {
@@ -10,7 +9,6 @@ import {
   type PhraseSegment,
 } from '../../utils/MadLibs'
 import TopicOrLocationSelector from './TopicOrLocationSelector'
-import styles from './ExploreDataPage.module.scss'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -33,10 +31,13 @@ import {
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
 
-export default function MadLibUI(props: {
+interface MadLibUIProps {
   madLib: MadLib
   setMadLibWithParam: (updatedMadLib: MadLib) => void
-}) {
+  isSticking: boolean
+}
+
+export default function MadLibUI(props: MadLibUIProps) {
   // TODO: this isn't efficient, these should be stored in an ordered way
   function getOptionsFromPhraseSegment(
     phraseSegment: PhraseSegment
@@ -111,8 +112,11 @@ export default function MadLibUI(props: {
 
   return (
     <>
-      <Grid item xs={12} container justifyContent='center' alignItems='center'>
-        <div className={styles.MadLibUI} id='madlib-box'>
+      <div className='grid place-content-center'>
+        <div
+          className='mx-0 my-2 p-0 text-center text-title leading-lhLoose transition-all duration-200 ease-in-out sm:text-smallestHeader lg:text-smallerHeader'
+          id='madlib-box'
+        >
           {props.madLib.phrase.map(
             (phraseSegment: PhraseSegment, index: number) => {
               let dataTypes: any[][] = []
@@ -138,7 +142,7 @@ export default function MadLibUI(props: {
               return (
                 <React.Fragment key={index}>
                   {typeof phraseSegment === 'string' ? (
-                    <span className={styles.NonClickableMadlibText}>
+                    <span className='text-altBlack'>
                       {phraseSegment}
                       {insertOptionalThe(props.madLib.activeSelections, index)}
                     </span>
@@ -169,7 +173,7 @@ export default function MadLibUI(props: {
             }
           )}
         </div>
-      </Grid>
+      </div>
     </>
   )
 }

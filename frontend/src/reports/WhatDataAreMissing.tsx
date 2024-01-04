@@ -2,8 +2,6 @@ import {
   DATA_CATALOG_PAGE_LINK,
   CONTACT_TAB_LINK,
 } from '../utils/internalRoutes'
-import ArrowForward from '@mui/icons-material/ArrowForward'
-import { Box, Button } from '@mui/material'
 import { LinkWithStickyParams } from '../utils/urlutils'
 import {
   MissingCovidData,
@@ -22,8 +20,8 @@ import {
 import { type Fips } from '../data/utils/Fips'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
-import styles from './Report.module.scss'
 import HetTerm from '../styles/HetComponents/HetTerm'
+import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 
 interface WhatDataAreMissingProps {
   metricConfigSubset: Array<[string, DataTypeConfig[]]>
@@ -52,11 +50,14 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
 
   return (
     <>
-      <Box mt={10}>
-        <h3 className={styles.FootnoteLargeHeading}>What data are missing?</h3>
-      </Box>
+      <h3 className='mt-10 text-header'>What data are missing?</h3>
 
       <p>Unfortunately there are crucial data missing in our sources.</p>
+
+      <HetLinkButton className='' href={DATA_CATALOG_PAGE_LINK}>
+        See Our Data Sources →
+      </HetLinkButton>
+
       <h4>Missing and misidentified people</h4>
       <p>
         Currently, there are no required or standardized race and ethnicity
@@ -81,17 +82,8 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
       {isPhrma && <MissingPhrmaData />}
       {isAHR && <MissingAHRData />}
 
-      <Button
-        className={styles.SeeOurDataSourcesButton}
-        href={DATA_CATALOG_PAGE_LINK}
-        color='primary'
-        endIcon={<ArrowForward />}
-      >
-        See Our Data Sources
-      </Button>
-
-      <div className={styles.MissingDataContactUs}>
-        <p>
+      <div className='mt-8 rounded-md bg-infobarColor px-2 py-1'>
+        <p className='px-8 py-4 text-center'>
           Do you have information that belongs on the Health Equity Tracker?{' '}
           <LinkWithStickyParams to={`${CONTACT_TAB_LINK}`}>
             We would love to hear from you!
