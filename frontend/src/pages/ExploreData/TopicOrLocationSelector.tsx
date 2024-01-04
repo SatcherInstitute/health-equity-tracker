@@ -206,7 +206,7 @@ export default function TopicOrLocationSelector(
                                 }}
                               >
                                 <ListItemText
-                                  className='my-0.5'
+                                  className='my-0.5 font-serif'
                                   primary={DROPDOWN_TOPIC_MAP[optionId]}
                                 />
                               </ListItemButton>
