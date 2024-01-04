@@ -30,6 +30,20 @@
   }
 }
 
+/* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
+// override the joyride component to show back button
+button[data-action='back'] {
+  color: $white !important;
+}
+
+//  custom focus styles for warm welcome buttons
+button[data-action='primary']:focus,
+button[data-action='close']:focus,
+button[data-action='skip']:focus,
+button[data-action='back']:focus {
+  outline: 1px solid white;
+}
+
 /* STYLING FOR FETCHED WORDPRESS HTML FOR NEWS AND STORIES */
 .fetched-wordpress-html {
   > div {
