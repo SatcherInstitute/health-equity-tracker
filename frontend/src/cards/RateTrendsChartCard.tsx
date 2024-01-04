@@ -31,11 +31,11 @@ import {
 } from '../data/providers/CawpProvider'
 import { type Row } from '../data/utils/DatasetTypes'
 import { hasNonZeroUnknowns } from '../charts/trendsChart/helpers'
-import styles from '../charts/trendsChart/Trends.module.scss'
 import { HIV_DETERMINANTS } from '../data/providers/HivProvider'
 import Hiv2020Alert from './ui/Hiv2020Alert'
 import ChartTitle from './ChartTitle'
 import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownloadCardImage'
+import { het } from '../styles/DesignTokens'
 
 /* minimize layout shift */
 const PRELOAD_HEIGHT = 668
@@ -217,16 +217,46 @@ export default function RateTrendsChartCard(props: RateTrendsChartCardProps) {
                     xmlns='http://www.w3.org/2000/svg'
                   >
                     <linearGradient id='gradient'>
-                      <stop className={styles.GradientMainStop} offset='0%' />
-                      <stop className={styles.GradientAltStop} offset='20%' />
-                      <stop className={styles.GradientMainStop} offset='30%' />
-                      <stop className={styles.GradientAltStop} offset='40%' />
-                      <stop className={styles.GradientMainStop} offset='50%' />
-                      <stop className={styles.GradientAltStop} offset='60%' />
-                      <stop className={styles.GradientMainStop} offset='70%' />
-                      <stop className={styles.GradientAltStop} offset='80%' />
-                      <stop className={styles.GradientMainStop} offset='90%' />
-                      <stop className={styles.GradientAltStop} offset='100%' />
+                      <stop
+                        style={{ stopColor: het.unknownMapMost }}
+                        offset='0%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMid }}
+                        offset='20%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMost }}
+                        offset='30%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMid }}
+                        offset='40%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMost }}
+                        offset='50%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMid }}
+                        offset='60%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMost }}
+                        offset='70%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMid }}
+                        offset='80%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMost }}
+                        offset='90%'
+                      />
+                      <stop
+                        style={{ stopColor: het.unknownMapMid }}
+                        offset='100%'
+                      />
                     </linearGradient>
                   </svg>
                 )}
