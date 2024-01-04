@@ -109,7 +109,7 @@
     "cspell": "cspell '../**/*.{ts,tsx,scss,md,py}' --no-progress --no-must-find-files --gitignore",
     "dev": "env-cmd -f .env.development npm run start -- --host",
     "e2e-staging": "export PLAYWRIGHT_BASE_URL=https://dev.healthequitytracker.org &&  npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 5",
-    "e2e-prod": "export PLAYWRIGHT_BASE_URL=https://healthequitytracker.org &&  npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 5",
+    "e2e-prod": "export PLAYWRIGHT_BASE_URL=https://healthequitytracker.org && npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 5",
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 2",
     "e2e-new": "npx playwright codegen http://localhost:3000",
     "lint": "eslint --fix src",
