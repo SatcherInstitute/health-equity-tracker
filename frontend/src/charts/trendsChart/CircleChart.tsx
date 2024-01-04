@@ -98,7 +98,6 @@ export function CircleChart({
               role='listitem'
               key={`dataCircleGroup-${i}`}
               transform={`translate(${xScale(new Date(date)) ?? ''}, 0)`}
-              // className={styles.UnknownCircles}
             >
               {/* return a circle for every data point on desktop, limited to every other on mobile (to create more space) and showing only the currently hovered bubble when hover state is active */}
               {(!isSkinny ||
