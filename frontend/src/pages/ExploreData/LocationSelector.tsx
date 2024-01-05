@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { Fips } from '../../data/utils/Fips'
+import { useMemo, useRef } from 'react'
+import { Fips, sortFipsObjects } from '../../data/utils/Fips'
 import { usePopover } from '../../utils/hooks/usePopover'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
@@ -17,14 +17,11 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const popover = usePopover()
   const dropdownTarget = `${props.newValue}-dropdown-fips`
 
-  const options = Object.keys(props.phraseSegment)
-    .sort((a: string, b: string) => {
-      if (a.length === b.length) {
-        return a.localeCompare(b)
-      }
-      return b.length > a.length ? -1 : 1
-    })
-    .map((fipsCode) => new Fips(fipsCode))
+  const options = useMemo(() => {
+    return sortFipsObjects(
+      Object.keys(props.phraseSegment).map((fipsCode) => new Fips(fipsCode))
+    )
+  }, [props.phraseSegment])
 
   return (
     <>

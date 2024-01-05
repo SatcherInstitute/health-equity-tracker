@@ -5,16 +5,16 @@ export const USA_DISPLAY_NAME = 'United States'
 export const USA_FIPS = '00'
 export const GEORGIA_FIPS = '13'
 
-// Fips code for District of Columbia (state and county).
+// Fips code for District of Columbia (state equivalent and county equivalent).
 export const DC = '11'
 export const DC_COUNTY_FIPS = '11001'
 
+// Territories
 export const AMERICAN_SAMOA = '60'
 export const GUAM = '66'
 export const NORTHERN_MARIANA_ISLANDS = '69'
 export const PUERTO_RICO = '72'
 export const VIRGIN_ISLANDS = '78'
-
 export const TERRITORY_CODES = {
   [AMERICAN_SAMOA]: 'AS',
   [GUAM]: 'GU',
@@ -23,13 +23,41 @@ export const TERRITORY_CODES = {
   [VIRGIN_ISLANDS]: 'VI',
   [DC]: 'DC',
 }
-
 export const ISLAND_AREAS_FIPS = [
   GUAM,
   VIRGIN_ISLANDS,
   NORTHERN_MARIANA_ISLANDS,
   AMERICAN_SAMOA,
 ]
+
+/**
+ * Sorts an array of Fips objects based on their category and code.
+ * This is needed to prevent warnings in the MUI Autocomplete
+ * @param fipsObjects - The array of Fips objects to be sorted.
+ * @returns The sorted array of Fips objects.
+ */
+export function sortFipsObjects(fipsObjects: Fips[]) {
+  const getCategoryOrder = (category: string) => {
+    if (category === 'National') return 1
+    if (category === 'States') return 2
+    if (category === 'Territories') return 3
+    if (category.endsWith('Counties')) return 4
+    if (category.endsWith('County Equivalents')) return 5
+    return 6 // Any other category (just in case)
+  }
+
+  return fipsObjects.sort((a, b) => {
+    const categoryA = getCategoryOrder(a.getFipsCategory())
+    const categoryB = getCategoryOrder(b.getFipsCategory())
+
+    if (categoryA !== categoryB) {
+      return categoryA - categoryB
+    } else {
+      // If categories are the same, sort by FIPS code
+      return a.code.localeCompare(b.code)
+    }
+  })
+}
 
 export function isFipsString(code: string): boolean {
   /* NOTE: Tried testing for presense of the string key in the state and county objects below, but it caused a noticeable slowdown as the location dropdown is creating a FIPS instance for every single entry */
@@ -148,7 +176,9 @@ class Fips {
     let optionalCounty =
       COUNTY_FIPS_MAP[this.code].includes('Borough') ||
       COUNTY_FIPS_MAP[this.code].includes('Census Area') ||
-      COUNTY_FIPS_MAP[this.code].includes('District')
+      COUNTY_FIPS_MAP[this.code].includes('District') ||
+      COUNTY_FIPS_MAP[this.code].endsWith(' County') ||
+      this.isIndependentCity()
         ? ''
         : ' County'
 
@@ -183,6 +213,58 @@ class Fips {
 
   isParentOf(countyFipsCode: string) {
     return countyFipsCode.substring(0, 2) === this.code
+  }
+
+  isIndependentCity() {
+    const independentCities = [
+      // Virginia
+      '51510',
+      '51520',
+      '51530',
+      '51540',
+      '51550',
+      '51570',
+      '51580',
+      '51590',
+      '51595',
+      '51600',
+      '51610',
+      '51620',
+      '51630',
+      '51640',
+      '51650',
+      '51660',
+      '51670',
+      '51678',
+      '51680',
+      '51683',
+      '51685',
+      '51690',
+      '51700',
+      '51710',
+      '51720',
+      '51730',
+      '51735',
+      '51740',
+      '51750',
+      '51760',
+      '51770',
+      '51775',
+      '51790',
+      '51800',
+      '51810',
+      '51820',
+      '51830',
+      '51840',
+      // Baltimore, MD
+      '24510',
+      // St. Louis, MO
+      '29510',
+      // Carson City, NV
+      '32510',
+    ]
+
+    return independentCities.includes(this.code)
   }
 }
 
@@ -1470,7 +1552,7 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   24043: 'Washington',
   24045: 'Wicomico',
   24047: 'Worcester',
-  24510: 'Baltimore city',
+  24510: 'Baltimore',
   25001: 'Barnstable',
   25003: 'Berkshire',
   25005: 'Bristol',
@@ -1851,7 +1933,7 @@ export const COUNTY_FIPS_MAP: Record<string, string> = {
   29225: 'Webster',
   29227: 'Worth',
   29229: 'Wright',
-  29510: 'St. Louis city',
+  29510: 'St. Louis City',
   30001: 'Beaverhead',
   30003: 'Big Horn',
   30005: 'Blaine',

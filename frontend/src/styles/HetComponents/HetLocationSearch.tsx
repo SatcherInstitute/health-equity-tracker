@@ -34,7 +34,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
 
   return (
     <div className='p-5'>
-      <h3 className='my-1 text-small font-bold md:text-title'>
+      <h3 className='my-1 text-small font-semibold md:text-title'>
         Search for location
       </h3>
 

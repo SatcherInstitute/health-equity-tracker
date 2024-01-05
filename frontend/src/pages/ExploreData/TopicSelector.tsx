@@ -52,17 +52,17 @@ export default function TopicSelector(props: TopicSelectorProps) {
 
         <HetPopover popover={popover}>
           {/* Condition Topic Dropdown */}
-          <menu className='m-5 grid grid-cols-1 gap-5 tiny:grid-cols-2 lg:grid-cols-3'>
+          <menu className='m-6 grid max-w-md grid-cols-1 gap-4 p-0 tiny:grid-cols-2 smMd:grid-cols-3'>
             {CATEGORIES_LIST.map((category) => {
               return (
                 <div key={category.title} className='mb-4'>
                   <h3
-                    className='m-0 mr-4 p-0 text-small font-bold sm:text-text'
+                    className='m-0 mb-1 mr-4 p-0 text-small font-semibold leading-lhSomeMoreSpace sm:text-text'
                     aria-label={category.title + ' options'}
                   >
                     {category.title}
                   </h3>
-                  <ul className='m-0 pl-0'>
+                  <ul className='m-0 p-0'>
                     {category.options.map((optionId: DropdownVarId) => {
                       return (
                         <HetListItemButton
@@ -82,7 +82,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
                 </div>
               )
             })}
-            <div className='flex w-full items-end justify-end'>
+            <div className='col-span-full flex w-full justify-end'>
               {!noTopic && (
                 <a
                   className='no-underline hover:bg-standardInfo'

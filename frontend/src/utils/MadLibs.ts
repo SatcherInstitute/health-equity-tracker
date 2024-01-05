@@ -201,17 +201,17 @@ const CATEGORIES_LIST: Category[] = [
     options: SDOH_CATEGORY_DROPDOWNIDS,
   },
   {
-    title: 'COVID-19',
-    definition: '',
-    options: COVID_CATEGORY_DROPDOWNIDS,
-  },
-  {
     title: 'Medication Utilization in the Medicare Population',
     definition: '',
     // TODO: clean this up once PHRMA fully launched all topics
     options: SHOW_PHRMA_MENTAL_HEALTH
       ? MEDICARE_CATEGORY_DROPDOWNIDS
       : MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
+  },
+  {
+    title: 'COVID-19',
+    definition: '',
+    options: COVID_CATEGORY_DROPDOWNIDS,
   },
 ]
 
