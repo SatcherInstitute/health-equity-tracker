@@ -15,7 +15,7 @@ export default function LocationSelector(props: LocationSelectorProps) {
   const currentDisplayName = new Fips(props.newValue).getFullDisplayName()
   const popoverRef = useRef(null)
   const popover = usePopover()
-  const dropdownTarget = `${props.newValue}-dropdown-fips}`
+  const dropdownTarget = `${props.newValue}-dropdown-fips`
 
   const options = Object.keys(props.phraseSegment)
     .sort((a: string, b: string) => {
