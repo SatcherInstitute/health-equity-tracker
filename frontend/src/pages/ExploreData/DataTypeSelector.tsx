@@ -6,13 +6,15 @@ import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 
 interface DataTypeSelectorProps {
-  value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
+  newValue: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
   options: string[][]
   onOptionUpdate: (option: string) => void
 }
 
 export default function DataTypeSelector(props: DataTypeSelectorProps) {
-  const chosenOption = props.options.find((i: string[]) => i[0] === props.value)
+  const chosenOption = props.options.find(
+    (i: string[]) => i[0] === props.newValue
+  )
   const currentDisplayName = chosenOption ? chosenOption[1] : ''
   const popoverRef = useRef(null)
   const popover = usePopover()
@@ -38,7 +40,7 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
                   return (
                     <HetListItemButton
                       key={optionId}
-                      selected={optionId === props.value}
+                      selected={optionId === props.newValue}
                       onClick={() => {
                         popover.close()
                         props.onOptionUpdate(optionId)

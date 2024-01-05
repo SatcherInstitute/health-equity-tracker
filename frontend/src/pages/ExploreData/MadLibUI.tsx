@@ -1,5 +1,5 @@
 import React from 'react'
-import { Fips } from '../../data/utils/Fips'
+import { isFipsString } from '../../data/utils/Fips'
 import {
   DEFAULT,
   MADLIB_LIST,
@@ -8,7 +8,7 @@ import {
   type MadLib,
   type PhraseSegment,
 } from '../../utils/MadLibs'
-import TopicOrLocationSelector from './TopicOrLocationSelector'
+// import TopicOrLocationSelector from './TopicOrLocationSelector'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -30,6 +30,8 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
+import TopicSelector from './TopicSelector'
+import LocationSelector from './LocationSelector'
 
 interface MadLibUIProps {
   madLib: MadLib
@@ -38,23 +40,6 @@ interface MadLibUIProps {
 }
 
 export default function MadLibUI(props: MadLibUIProps) {
-  // TODO: this isn't efficient, these should be stored in an ordered way
-  function getOptionsFromPhraseSegment(
-    phraseSegment: PhraseSegment
-  ): Fips[] | string[][] {
-    // check first option to tell if phraseSegment is FIPS or CONDITIONS
-    return isNaN(Object.keys(phraseSegment)[0] as any)
-      ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
-      : Object.keys(phraseSegment)
-          .sort((a: string, b: string) => {
-            if (a.length === b.length) {
-              return a.localeCompare(b)
-            }
-            return b.length > a.length ? -1 : 1
-          })
-          .map((fipsCode) => new Fips(fipsCode))
-  }
-
   function handleOptionUpdate(newValue: string, index: number) {
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
@@ -139,27 +124,45 @@ export default function MadLibUI(props: MadLibUIProps) {
                   ? setSelectedDataTypeConfig1
                   : setSelectedDataTypeConfig2
 
+              const isLocationMadLib = isFipsString(
+                props.madLib.activeSelections[index]
+              )
+
               return (
                 <React.Fragment key={index}>
                   {typeof phraseSegment === 'string' ? (
+                    // NON_INTERACTIVE MADLIB WORDS
                     <span className='text-altBlack'>
                       {phraseSegment}
                       {insertOptionalThe(props.madLib.activeSelections, index)}
                     </span>
                   ) : (
                     <>
-                      <TopicOrLocationSelector
-                        value={props.madLib.activeSelections[index]}
-                        onOptionUpdate={(newValue) => {
-                          handleOptionUpdate(newValue, index)
-                        }}
-                        options={getOptionsFromPhraseSegment(phraseSegment)}
-                      />
+                      {isLocationMadLib ? (
+                        // LOCATION
+                        <LocationSelector
+                          newValue={props.madLib.activeSelections[index]}
+                          onOptionUpdate={(newValue) => {
+                            handleOptionUpdate(newValue, index)
+                          }}
+                          phraseSegment={phraseSegment}
+                        />
+                      ) : (
+                        // MAIN PARENT TOPIC
+                        <TopicSelector
+                          newValue={props.madLib.activeSelections[index]}
+                          onOptionUpdate={(newValue) => {
+                            handleOptionUpdate(newValue, index)
+                          }}
+                          phraseSegment={phraseSegment}
+                        />
+                      )}
 
                       {dataTypes?.length > 1 && (
+                        // DATA TYPE SUB TOPIC
                         <DataTypeSelector
                           key={`${index}-datatype`}
-                          value={config?.dataTypeId ?? dataTypes[0][0]}
+                          newValue={config?.dataTypeId ?? dataTypes[0][0]}
                           onOptionUpdate={(newValue) => {
                             handleDataTypeUpdate(newValue, index, setConfig)
                           }}
