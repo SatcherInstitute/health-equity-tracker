@@ -6,8 +6,8 @@ import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
 import HetPopover from '../../styles/HetComponents/HetPopover'
 
 interface DataTypeSelectorProps {
-  newValue: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
-  options: string[][]
+  newValue: DataTypeId
+  options: Array<[DataTypeId, string]>
   onOptionUpdate: (option: string) => void
 }
 
