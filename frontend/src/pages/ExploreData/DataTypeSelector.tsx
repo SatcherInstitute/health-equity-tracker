@@ -1,92 +1,60 @@
 import { useRef } from 'react'
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp'
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown'
-import styles from './MadLibUI.module.scss'
 import { usePopover } from '../../utils/hooks/usePopover'
-import {
-  Box,
-  Grid,
-  ListItemText,
-  ListItemButton,
-  List,
-  Button,
-  Popover,
-} from '@mui/material'
 import { type DataTypeId } from '../../data/config/MetricConfig'
+import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
+import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetPopover from '../../styles/HetComponents/HetPopover'
 
 interface DataTypeSelectorProps {
-  value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
-  options: string[][]
+  newValue: DataTypeId
+  options: Array<[DataTypeId, string]>
   onOptionUpdate: (option: string) => void
 }
 
 export default function DataTypeSelector(props: DataTypeSelectorProps) {
-  const chosenOption = props.options.find((i: string[]) => i[0] === props.value)
+  const chosenOption = props.options.find(
+    (i: string[]) => i[0] === props.newValue
+  )
   const currentDisplayName = chosenOption ? chosenOption[1] : ''
   const popoverRef = useRef(null)
   const popover = usePopover()
-  const anchorO = 'bottom'
-  const transformO = 'top'
 
   return (
     <>
       <span ref={popoverRef}>
-        {/* Clickable Madlib Button with Dropdown Arrow */}
-        <Button
-          variant='text'
-          aria-haspopup='true'
-          className={styles.DataTypeMadLibButton}
-          onClick={popover.open}
+        <HetMadLibButton
+          className='ml-0'
+          isOpen={popover.isOpen}
+          handleClick={popover.open}
         >
-          <span>
-            {currentDisplayName}{' '}
-            {popover.isOpen ? <ArrowDropUp /> : <ArrowDropDown />}
-          </span>
-        </Button>
+          {currentDisplayName}
+        </HetMadLibButton>
 
-        <Popover
-          className={styles.PopoverOverride}
-          aria-expanded='true'
-          open={popover.isOpen}
-          anchorEl={popover.anchor}
-          onClose={popover.close}
-          anchorOrigin={{
-            vertical: anchorO,
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: transformO,
-            horizontal: 'center',
-          }}
-        >
+        <HetPopover popover={popover}>
+          {/* DataType SubTopic Dropdown */}
           <>
-            <Box my={3} mx={3}>
-              <Grid container>
-                <List dense={true} role='menu'>
-                  {props.options.map((item: string[]) => {
-                    const [optionId, optionDisplayName] = item
-                    return (
-                      <ListItemButton
-                        className={styles.ListItem}
-                        key={optionId}
-                        selected={optionId === props.value}
-                        onClick={() => {
-                          popover.close()
-                          props.onOptionUpdate(optionId)
-                        }}
-                      >
-                        <ListItemText
-                          className={styles.ListItemDataTypeText}
-                          primary={optionDisplayName}
-                        />
-                      </ListItemButton>
-                    )
-                  })}
-                </List>
-              </Grid>
-            </Box>
+            <menu className='m-3 flex p-5'>
+              <ul className='m-0 pl-0'>
+                {props.options.map((item: string[]) => {
+                  const [optionId, optionDisplayName] = item
+                  return (
+                    <HetListItemButton
+                      key={optionId}
+                      selected={optionId === props.newValue}
+                      onClick={() => {
+                        popover.close()
+                        props.onOptionUpdate(optionId)
+                      }}
+                      option='topicOption'
+                    >
+                      {optionDisplayName}
+                    </HetListItemButton>
+                  )
+                })}
+              </ul>
+            </menu>
           </>
-        </Popover>
+        </HetPopover>
       </span>
     </>
   )

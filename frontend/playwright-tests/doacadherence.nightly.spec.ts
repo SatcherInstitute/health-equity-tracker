@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test('test', async ({ page }) => {
+test('DOAC Adherence', async ({ page }) => {
   await page.goto(
     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&dt1=doac_adherence'
   )

@@ -11,7 +11,7 @@ import DataTypeDefinitionsList from '../ui/DataTypeDefinitionsList'
 import { useAtomValue } from 'jotai'
 import { selectedDataTypeConfig1Atom } from '../../utils/sharedSettingsState'
 import { type DropdownVarId } from '../../data/config/MetricConfig'
-import { getParentDropdownFromDataTypeId } from './MadLibUI'
+import { getParentDropdownFromDataTypeId } from '../../utils/MadLibs'
 
 export default function TopicInfoModal() {
   const [topicInfoModalIsOpen, setTopicInfoModalIsOpen] =
