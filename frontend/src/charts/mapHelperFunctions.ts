@@ -60,7 +60,11 @@ export function getCountyAddOn(fips: Fips, showCounties: boolean) {
     } else if (fips.code.startsWith('22')) {
       // Louisina
       return 'Parish (County Equivalent)'
-    } else if (fips.isTerritory() || fips.getParentFips().isTerritory()) {
+    } else if (
+      fips.isTerritory() ||
+      fips.getParentFips().isTerritory() ||
+      fips.isIndependentCity()
+    ) {
       return '(County Equivalent)'
     } else return 'County'
   }

@@ -189,6 +189,7 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
               const dataForValue = props.data.filter(
                 (row: Row) => row[props.demographicType] === demographicGroup
               )
+
               return (
                 <li
                   key={`${demographicGroup}-grid-item`}
