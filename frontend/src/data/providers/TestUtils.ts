@@ -1,4 +1,3 @@
-import { USA_FIPS, USA_DISPLAY_NAME } from '../utils/Fips'
 import { type Breakdowns, type DemographicType } from '../query/Breakdowns'
 import type FakeDataFetcher from '../../testing/FakeDataFetcher'
 import type VariableProvider from './VariableProvider'
@@ -9,6 +8,7 @@ import {
   type DatasetId,
   type DatasetIdWithStateFIPSCode,
 } from '../config/DatasetMetadata'
+import { USA_FIPS, USA_DISPLAY_NAME } from '../utils/ConstantsGeography'
 
 export interface FipsSpec {
   code: string
