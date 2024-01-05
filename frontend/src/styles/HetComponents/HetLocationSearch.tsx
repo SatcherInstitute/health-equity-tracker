@@ -3,15 +3,6 @@ import { useState } from 'react'
 import { type Fips, USA_DISPLAY_NAME, USA_FIPS } from '../../data/utils/Fips'
 import { type PopoverElements } from '../../utils/hooks/usePopover'
 
-function getGroupName(option: Fips): string {
-  if (option.isUsa()) return 'National'
-  if (option.isState()) return 'States'
-  if (option.isTerritory()) return 'Territories'
-  return `${option.getParentFips().getDisplayName()} ${
-    option.getParentFips().isTerritory() ? ' County Equivalents' : ' Counties'
-  }`
-}
-
 interface HetLocationSearchProps {
   options: Fips[]
   onOptionUpdate: (option: string) => void
@@ -51,7 +42,7 @@ export default function HetLocationSearch(props: HetLocationSearchProps) {
         disableClearable={true}
         autoHighlight={true}
         options={props.options}
-        groupBy={(option) => getGroupName(option)}
+        groupBy={(option) => option.getFipsCategory()}
         clearOnEscape={true}
         getOptionLabel={(fips) => fips.getFullDisplayName()}
         isOptionEqualToValue={(fips) => fips.code === props.value}
