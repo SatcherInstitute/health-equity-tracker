@@ -2,6 +2,7 @@ import {
   type DropdownVarId,
   METRIC_CONFIG,
   type DataTypeConfig,
+  type DataTypeId,
 } from '../data/config/MetricConfig'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigBehavioralHealth'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../data/config/MetricConfigChronicDisease'
@@ -253,4 +254,31 @@ function insertOptionalThe(phraseSelections: PhraseSelections, index: number) {
   return phraseSelections[index + 1] === USA_FIPS ? ' the' : ''
 }
 
-export { MADLIB_LIST, getMadLibPhraseText, CATEGORIES_LIST, insertOptionalThe }
+function getConfigFromDataTypeId(id: DataTypeId | string): DataTypeConfig {
+  const config = Object.values(METRIC_CONFIG)
+    .flat()
+    .find((config) => config.dataTypeId === id)
+  // fallback to covid cases
+  return config ?? METRIC_CONFIG.covid[0]
+}
+
+function getParentDropdownFromDataTypeId(
+  dataType: DataTypeId | string
+): DropdownVarId {
+  for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
+    if (configArray.map((config) => config.dataTypeId).includes(dataType)) {
+      return dropdownId as any as DropdownVarId
+    }
+  }
+  // fallback to covid
+  return 'covid'
+}
+
+export {
+  MADLIB_LIST,
+  getMadLibPhraseText,
+  CATEGORIES_LIST,
+  insertOptionalThe,
+  getConfigFromDataTypeId,
+  getParentDropdownFromDataTypeId,
+}

@@ -12,10 +12,6 @@ import {
 } from '../../data/config/MetricConfig'
 import { useAtomValue } from 'jotai'
 import {
-  getConfigFromDataTypeId,
-  getParentDropdownFromDataTypeId,
-} from '../../pages/ExploreData/MadLibUI'
-import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
@@ -27,6 +23,10 @@ import {
 } from './SourcesHelpers'
 import SourcesInfo from './SourcesInfo'
 import { PHRMA_DATATYPES } from '../../data/providers/PhrmaProvider'
+import {
+  getParentDropdownFromDataTypeId,
+  getConfigFromDataTypeId,
+} from '../../utils/MadLibs'
 
 interface SourcesProps {
   queryResponses: MetricQueryResponse[]

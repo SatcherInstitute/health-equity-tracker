@@ -7,8 +7,9 @@ import {
   insertOptionalThe,
   type MadLib,
   type PhraseSegment,
+  getConfigFromDataTypeId,
+  getParentDropdownFromDataTypeId,
 } from '../../utils/MadLibs'
-// import TopicOrLocationSelector from './TopicOrLocationSelector'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -179,30 +180,4 @@ export default function MadLibUI(props: MadLibUIProps) {
       </div>
     </>
   )
-}
-
-export function getConfigFromDataTypeId(
-  id: DataTypeId | string
-): DataTypeConfig {
-  const config = Object.values(METRIC_CONFIG)
-    .flat()
-    .find((config) => config.dataTypeId === id)
-  // fallback to covid cases
-  return config ?? METRIC_CONFIG.covid[0]
-}
-
-export function getParentDropdownFromDataTypeId(
-  dataType: DataTypeId | string
-): DropdownVarId {
-  for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
-    if (
-      configArray
-        .map((config) => config.dataTypeId)
-        .includes(dataType as any as DataTypeId)
-    ) {
-      return dropdownId as any as DropdownVarId
-    }
-  }
-  // fallback to covid
-  return 'covid'
 }
