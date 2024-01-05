@@ -39,7 +39,7 @@ export default function TopicSelector(props: TopicSelectorProps) {
   const popoverRef = useRef(null)
   const popover = usePopover()
   const noTopic = props.newValue === DEFAULT
-  const dropdownTarget = `${props.newValue}-dropdown-topic}`
+  const dropdownTarget = `${props.newValue}-dropdown-topic`
 
   // TODO: this isn't efficient, these should be stored in an ordered way
 
