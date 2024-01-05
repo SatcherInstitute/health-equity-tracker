@@ -104,7 +104,7 @@ export default function MadLibUI(props: MadLibUIProps) {
         >
           {props.madLib.phrase.map(
             (phraseSegment: PhraseSegment, index: number) => {
-              let dataTypes: any[][] = []
+              let dataTypes: Array<[DataTypeId, string]> = []
 
               const segmentDataTypeId: DropdownVarId | string =
                 props.madLib.activeSelections[index]
