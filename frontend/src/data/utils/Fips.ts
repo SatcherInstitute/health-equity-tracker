@@ -30,35 +30,6 @@ export const ISLAND_AREAS_FIPS = [
   AMERICAN_SAMOA,
 ]
 
-/**
- * Sorts an array of Fips objects based on their category and code.
- * This is needed to prevent warnings in the MUI Autocomplete
- * @param fipsObjects - The array of Fips objects to be sorted.
- * @returns The sorted array of Fips objects.
- */
-export function sortFipsObjects(fipsObjects: Fips[]) {
-  const getCategoryOrder = (category: string) => {
-    if (category === 'National') return 1
-    if (category === 'States') return 2
-    if (category === 'Territories') return 3
-    if (category.endsWith('Counties')) return 4
-    if (category.endsWith('County Equivalents')) return 5
-    return 6 // Any other category (just in case)
-  }
-
-  return fipsObjects.sort((a, b) => {
-    const categoryA = getCategoryOrder(a.getFipsCategory())
-    const categoryB = getCategoryOrder(b.getFipsCategory())
-
-    if (categoryA !== categoryB) {
-      return categoryA - categoryB
-    } else {
-      // If categories are the same, sort by FIPS code
-      return a.code.localeCompare(b.code)
-    }
-  })
-}
-
 export function isFipsString(code: string): boolean {
   /* NOTE: Tried testing for presense of the string key in the state and county objects below, but it caused a noticeable slowdown as the location dropdown is creating a FIPS instance for every single entry */
   const STATE_FIPS_REGEX = /^[0-9]{2}$/

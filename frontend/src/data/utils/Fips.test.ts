@@ -1,4 +1,4 @@
-import { failInvalidFips, Fips, sortFipsObjects } from './Fips'
+import { failInvalidFips, Fips } from './Fips'
 
 describe('Test getDisplayName()', () => {
   test('US/STATE with no addon', async () => {
