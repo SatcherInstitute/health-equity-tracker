@@ -1,5 +1,9 @@
-import AppBar from '@mui/material/AppBar'
+// TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
 import CssBaseline from '@mui/material/CssBaseline'
+import MaterialTheme from './styles/MaterialTheme'
+import { CircularProgress, StyledEngineProvider } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
+
 import React, { Suspense, useEffect } from 'react'
 import {
   BrowserRouter as Router,
@@ -9,8 +13,6 @@ import {
   useLocation,
 } from 'react-router-dom'
 import { CookiesProvider } from 'react-cookie'
-import styles from './App.module.scss'
-import MaterialTheme from './styles/MaterialTheme'
 import { autoInitGlobals } from './utils/globals'
 import {
   ABOUT_US_PAGE_LINK,
@@ -29,8 +31,7 @@ import {
   NEW_METHODOLOGY_PAGE_LINK,
 } from './utils/internalRoutes'
 import { HelmetProvider } from 'react-helmet-async'
-import { Box, CircularProgress, StyledEngineProvider } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
+import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
 
 // these make CSS modules which are imported by other components,
 // so they must load first and not be lazy loaded
@@ -42,9 +43,7 @@ import NewsPage from './pages/News/NewsPage'
 import SkipLink from './SkipLink'
 import OldMethodologyPage from './pages/DataCatalog/OldMethodologyPage'
 import MethodologyPage from './pages/Methodology/methodologyComponents/MethodologyPage'
-import { useIsBreakpointAndUp } from './utils/hooks/useIsBreakpointAndUp'
-import HetMobileAppToolbar from './styles/HetComponents/HetMobileAppToolbar'
-import HetAppToolbar from './styles/HetComponents/HetAppToolbar'
+import HetAppBar from './styles/HetComponents/HetAppBar'
 
 const ExploreDataPage = React.lazy(
   async () => await import('./pages/ExploreData/ExploreDataPage')
@@ -86,26 +85,20 @@ export default function App() {
         <ThemeProvider theme={MaterialTheme}>
           <CookiesProvider>
             <CssBaseline />
-            <div className={styles.App}>
+            <div className='relative min-h-full bg-white text-center'>
               <SkipLink />
 
-              <div className={styles.Content}>
+              <div className='h-full pb-footer'>
                 <Router>
-                  <AppBar position='static' elevation={0}>
-                    <div className='smMd:hidden'>
-                      <HetMobileAppToolbar />
-                    </div>
-                    <div className='hidden  smMd:block'>
-                      <HetAppToolbar />
-                    </div>
-                  </AppBar>
+                  <HetAppBar />
                   <ScrollToTop />
                   <Suspense
                     fallback={
-                      <main className={styles.FallbackPage}>
-                        <Box mt={10}>
-                          <CircularProgress aria-label='loading' />
-                        </Box>
+                      <main className='min-h-screen'>
+                        <CircularProgress
+                          className='mt-10'
+                          aria-label='loading'
+                        />
                       </main>
                     }
                   >

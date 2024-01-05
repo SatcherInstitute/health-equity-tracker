@@ -38,6 +38,7 @@ export default {
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
+      roboto: ['Roboto', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
       math: ['KaTeX_Math', 'mono'],
     },
@@ -98,6 +99,7 @@ export default {
       // for use w/spacing utilities: 'm', 'p', 'gap', etc.
       spacing: {
         cardGutter: '8px',
+        footer: '10rem',
       },
     },
   },

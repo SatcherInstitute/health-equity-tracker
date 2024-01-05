@@ -116,6 +116,15 @@ class Fips {
     }
   }
 
+  getFipsCategory(): string {
+    if (this.isUsa()) return 'National'
+    if (this.isState()) return 'States'
+    if (this.isTerritory()) return 'Territories'
+    return `${this.getParentFips().getDisplayName()} ${
+      this.getParentFips().isTerritory() ? 'County Equivalents' : 'Counties'
+    }`
+  }
+
   getPluralChildFipsTypeDisplayName() {
     if (this.isUsa()) {
       return 'states/territories'
