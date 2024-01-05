@@ -1,10 +1,5 @@
-import React, { useRef, useState } from 'react'
-import {
-  Fips,
-  USA_DISPLAY_NAME,
-  USA_FIPS,
-  isFipsString,
-} from '../../data/utils/Fips'
+import { useRef } from 'react'
+import { Fips, isFipsString } from '../../data/utils/Fips'
 import { usePopover } from '../../utils/hooks/usePopover'
 import {
   CATEGORIES_LIST,
@@ -14,22 +9,15 @@ import {
   DROPDOWN_TOPIC_MAP,
 } from '../../utils/MadLibs'
 import {
-  Box,
-  Grid,
-  ListItemText,
-  List,
-  Popover,
-  Autocomplete,
-  TextField,
-  ListItemButton,
-} from '@mui/material'
-import {
   type DropdownVarId,
   type DataTypeId,
 } from '../../data/config/MetricConfig'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace'
 import { EXPLORE_DATA_PAGE_LINK } from '../../utils/internalRoutes'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
+import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetPopover from '../../styles/HetComponents/HetPopover'
+import HetLocationSearch from '../../styles/HetComponents/HetLocationSearch'
 
 interface TopicOrLocationSelectorProps {
   value: DataTypeId | string | DefaultDropdownVarId // DataTypeId OR fips as string OR default setting with no topic selected
@@ -58,43 +46,9 @@ export default function TopicOrLocationSelector(
 
   const popoverRef = useRef(null)
   const popover = usePopover()
-
-  const [, setTextBoxValue] = useState('')
-  const updateTextBox = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTextBoxValue(event.target.value)
-  }
-
-  const [autoCompleteOpen, setAutoCompleteOpen] = useState(false)
-  const openAutoComplete = () => {
-    setAutoCompleteOpen(true)
-  }
-
-  const closeAutoComplete = () => {
-    setAutoCompleteOpen(false)
-  }
-
-  function getGroupName(option: Fips): string {
-    if (option.isUsa()) return 'National'
-    if (option.isState()) return 'States'
-    if (option.isTerritory()) return 'Territories'
-    return `${option.getParentFips().getDisplayName()} ${
-      option.getParentFips().isTerritory() ? ' County Equivalents' : ' Counties'
-    }`
-  }
-
-  const anchorO = 'bottom'
-  const transformO = 'top'
-
   const noTopic = props.value === DEFAULT
 
   const dropdownTarget = `${props.value}-dropdown-${isFips ? 'fips' : 'topic'}`
-
-  function handleUsaButton() {
-    props.onOptionUpdate(USA_FIPS)
-    popover.close()
-  }
-
-  const isUsa = props.value === '00'
 
   return (
     <>
@@ -103,148 +57,71 @@ export default function TopicOrLocationSelector(
           <span className={dropdownTarget}>{currentDisplayName}</span>
         </HetMadLibButton>
 
-        <Popover
-          className='m-4 flex'
-          aria-expanded='true'
-          open={popover.isOpen}
-          anchorEl={popover.anchor}
-          onClose={popover.close}
-          anchorOrigin={{
-            vertical: anchorO,
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: transformO,
-            horizontal: 'center',
-          }}
-        >
+        <HetPopover popover={popover}>
           {/* Location Dropdown */}
           {isFips && (
-            <div className='p-5'>
-              <h3 className='my-1 text-small font-bold md:text-title'>
-                Search for location
-              </h3>
-
-              <Autocomplete
-                disableClearable={true}
-                autoHighlight={true}
-                options={props.options as Fips[]}
-                groupBy={(option) => getGroupName(option)}
-                clearOnEscape={true}
-                getOptionLabel={(fips) => fips.getFullDisplayName()}
-                isOptionEqualToValue={(fips) => fips.code === props.value}
-                renderOption={(props, fips: Fips) => {
-                  return <li {...props}>{fips.getFullDisplayName()}</li>
-                }}
-                open={autoCompleteOpen}
-                onOpen={openAutoComplete}
-                onClose={closeAutoComplete}
-                renderInput={(params) => (
-                  <TextField
-                    placeholder=''
-                    /* eslint-disable-next-line */
-                    autoFocus
-                    margin='dense'
-                    variant='outlined'
-                    onChange={updateTextBox}
-                    {...params}
-                  />
-                )}
-                onChange={(e, fips) => {
-                  props.onOptionUpdate(fips.code)
-                  setTextBoxValue('')
-                  popover.close()
-                }}
-              />
-              <span className='text-small font-light italic text-greyDark'>
-                County, state, territory, or{' '}
-                {isUsa ? (
-                  USA_DISPLAY_NAME
-                ) : (
-                  <button
-                    className='cursor-pointer border-0 bg-transparent p-0 italic text-altGreen underline'
-                    onClick={handleUsaButton}
-                  >
-                    United States
-                  </button>
-                )}
-                . Some source data is unavailable at county and territory
-                levels.
-              </span>
-            </div>
+            <HetLocationSearch
+              value={props.value}
+              onOptionUpdate={props.onOptionUpdate}
+              popover={popover}
+              options={props.options as Fips[]}
+            />
           )}
           {/* Condition Dropdown */}
           {!isFips && (
             <>
-              <Box my={3} mx={3}>
-                <Grid container>
-                  {CATEGORIES_LIST.map((category) => {
-                    return (
-                      <Grid
-                        item
-                        xs={6}
-                        sm={4}
-                        key={category.title}
-                        className='mb-4'
+              <menu className='m-5 grid grid-cols-1 gap-5 tiny:grid-cols-2 lg:grid-cols-3'>
+                {CATEGORIES_LIST.map((category) => {
+                  return (
+                    <div key={category.title} className='mb-4'>
+                      <h3
+                        className='m-0 mr-4 p-0 text-small font-bold sm:text-text'
+                        aria-label={category.title + ' options'}
                       >
-                        <h3
-                          className='m-0 mr-4 text-text font-bold'
-                          aria-label={category.title + ' options'}
-                        >
-                          {category.title}
-                        </h3>
-                        <List dense={true} role='menu'>
-                          {category.options.map((optionId: DropdownVarId) => {
-                            return (
-                              <ListItemButton
-                                className='p-0'
-                                key={optionId}
-                                selected={optionId === props.value}
-                                onClick={() => {
-                                  popover.close()
-                                  props.onOptionUpdate(optionId)
-                                }}
-                              >
-                                <ListItemText
-                                  className='my-0.5 font-serif'
-                                  primary={DROPDOWN_TOPIC_MAP[optionId]}
-                                />
-                              </ListItemButton>
-                            )
-                          })}
-                        </List>
-                      </Grid>
-                    )
-                  })}
-                  <Grid
-                    item
-                    xs={12}
-                    container
-                    alignItems='flex-end'
-                    justifyContent='flex-end'
-                  >
-                    {!noTopic && (
-                      <a
-                        className='no-underline hover:bg-standardInfo'
-                        href={EXPLORE_DATA_PAGE_LINK}
-                      >
-                        <KeyboardBackspaceIcon
-                          style={{
-                            fontSize: 'small',
-                            paddingBottom: '3px',
-                          }}
-                        />{' '}
-                        <span className='p-1 text-smallest'>
-                          Clear selections
-                        </span>
-                      </a>
-                    )}
-                  </Grid>
-                </Grid>
-              </Box>
+                        {category.title}
+                      </h3>
+                      <ul className='m-0 pl-0'>
+                        {category.options.map((optionId: DropdownVarId) => {
+                          return (
+                            <HetListItemButton
+                              key={optionId}
+                              selected={optionId === props.value}
+                              onClick={() => {
+                                popover.close()
+                                props.onOptionUpdate(optionId)
+                              }}
+                              option='topicOption'
+                            >
+                              {DROPDOWN_TOPIC_MAP[optionId]}
+                            </HetListItemButton>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  )
+                })}
+                <div className='flex w-full items-end justify-end'>
+                  {!noTopic && (
+                    <a
+                      className='no-underline hover:bg-standardInfo'
+                      href={EXPLORE_DATA_PAGE_LINK}
+                    >
+                      <KeyboardBackspaceIcon
+                        style={{
+                          fontSize: 'small',
+                          paddingBottom: '3px',
+                        }}
+                      />{' '}
+                      <span className='p-1 text-smallest'>
+                        Clear selections
+                      </span>
+                    </a>
+                  )}
+                </div>
+              </menu>
             </>
           )}
-        </Popover>
+        </HetPopover>
       </span>
     </>
   )

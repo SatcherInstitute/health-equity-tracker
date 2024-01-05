@@ -1,15 +1,9 @@
 import { useRef } from 'react'
 import { usePopover } from '../../utils/hooks/usePopover'
-import {
-  Box,
-  Grid,
-  ListItemText,
-  ListItemButton,
-  List,
-  Popover,
-} from '@mui/material'
 import { type DataTypeId } from '../../data/config/MetricConfig'
 import HetMadLibButton from '../../styles/HetComponents/HetMadLibButton'
+import HetListItemButton from '../../styles/HetComponents/HetListItemButton'
+import HetPopover from '../../styles/HetComponents/HetPopover'
 
 interface DataTypeSelectorProps {
   value: DataTypeId // DataTypeId OR fips as string OR default setting with no topic selected
@@ -22,8 +16,6 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
   const currentDisplayName = chosenOption ? chosenOption[1] : ''
   const popoverRef = useRef(null)
   const popover = usePopover()
-  const anchorO = 'bottom'
-  const transformO = 'top'
 
   return (
     <>
@@ -36,49 +28,31 @@ export default function DataTypeSelector(props: DataTypeSelectorProps) {
           {currentDisplayName}
         </HetMadLibButton>
 
-        <Popover
-          className='m-4 flex'
-          aria-expanded='true'
-          open={popover.isOpen}
-          anchorEl={popover.anchor}
-          onClose={popover.close}
-          anchorOrigin={{
-            vertical: anchorO,
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: transformO,
-            horizontal: 'center',
-          }}
-        >
+        <HetPopover popover={popover}>
+          {/* DataType SubTopic Dropdown */}
           <>
-            <Box my={3} mx={3}>
-              <Grid container>
-                <List dense={true} role='menu'>
-                  {props.options.map((item: string[]) => {
-                    const [optionId, optionDisplayName] = item
-                    return (
-                      <ListItemButton
-                        className='p-0'
-                        key={optionId}
-                        selected={optionId === props.value}
-                        onClick={() => {
-                          popover.close()
-                          props.onOptionUpdate(optionId)
-                        }}
-                      >
-                        <ListItemText
-                          className='my-0.5'
-                          primary={optionDisplayName}
-                        />
-                      </ListItemButton>
-                    )
-                  })}
-                </List>
-              </Grid>
-            </Box>
+            <menu className='m-3 flex p-5'>
+              <ul className='m-0 pl-0'>
+                {props.options.map((item: string[]) => {
+                  const [optionId, optionDisplayName] = item
+                  return (
+                    <HetListItemButton
+                      key={optionId}
+                      selected={optionId === props.value}
+                      onClick={() => {
+                        popover.close()
+                        props.onOptionUpdate(optionId)
+                      }}
+                      option='topicOption'
+                    >
+                      {optionDisplayName}
+                    </HetListItemButton>
+                  )
+                })}
+              </ul>
+            </menu>
           </>
-        </Popover>
+        </HetPopover>
       </span>
     </>
   )
