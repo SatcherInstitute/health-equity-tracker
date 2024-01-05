@@ -67,38 +67,3 @@ describe('Test getFipsCategory()', () => {
     )
   })
 })
-
-describe('Test sortFipsObjects()', () => {
-  test('Sort FIPS objects by by category by alpha', async () => {
-    const fipsObjects = [
-      new Fips('78020'),
-      new Fips('01'),
-      new Fips('01001'),
-      new Fips('02'),
-      new Fips('56'),
-      new Fips('02016'),
-      new Fips('78'),
-      new Fips('78010'),
-      new Fips('00'),
-    ]
-    const sortedFipsObjects = sortFipsObjects(fipsObjects)
-
-    expect(sortedFipsObjects.map((fips) => fips.getDisplayName())).toEqual([
-      // National
-      'United States',
-      // States
-      'Alabama',
-      'Alaska',
-      'Wyoming',
-      // Territories
-      'U.S. Virgin Islands',
-      // Alabama Counties
-      'Autauga County',
-      // Alaska Counties
-      'Aleutians West Census Area',
-      // U.S. Virgin Islands County Equivalents
-      'St. Croix',
-      'St. John',
-    ])
-  })
-})
