@@ -1,4 +1,4 @@
-import { Button, Skeleton } from '@mui/material'
+import { Skeleton } from '@mui/material'
 import { useState, useEffect } from 'react'
 import { Link, Redirect, useHistory, useParams } from 'react-router-dom'
 import { getHtml } from '../../utils/urlutils'
@@ -19,6 +19,7 @@ import ShareButtons, {
 } from '../../reports/ui/ShareButtons'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 import HetPaginationButton from '../../styles/HetComponents/HetPaginationButton'
+import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 function prettyDate(dateString: string) {
   const options = { year: 'numeric', month: 'long', day: 'numeric' }
@@ -117,6 +118,7 @@ export default function SinglePost(props: SinglePostProps) {
         <div
           className='
             flex
+            w-full
             flex-row
             flex-wrap
             items-center
@@ -124,27 +126,24 @@ export default function SinglePost(props: SinglePostProps) {
             border-0
             border-b
             border-solid
-            border-borderColor
-            px-10 md:px-0
+            border-borderColor px-10
+            md:px-0
         '
         >
           {/* IMAGE SECTION OF HEADER OR LOADING INDICATOR */}
           <div className='flex w-10/12 items-center justify-center md:w-1/3'>
             {isLoading && (
-              <Skeleton width={300} height={300} animation='wave'></Skeleton>
+              <Skeleton
+                width={300}
+                height={300}
+                animation='wave'
+                className='m-10'
+              ></Skeleton>
             )}
             {error && (
               <img
                 src={hetLogo}
-                className='
-                mt-8
-                h-auto
-                w-3/5
-                max-w-md
-                rounded-md
-                object-contain
-                md:mt-0
-                md:max-h-articleLogo'
+                className='mt-8 h-auto w-3/5 max-w-md rounded-md object-contain md:mt-0 md:max-h-articleLogo'
                 alt={''}
                 width={200}
                 height={100}
@@ -153,17 +152,7 @@ export default function SinglePost(props: SinglePostProps) {
             {!isLoading && !error && articleImage && (
               <img
                 src={articleImage}
-                className='
-                mt-8
-                  hidden
-                  h-auto
-                  w-3/5
-                  max-w-md
-                  rounded-md
-                  object-contain
-                  sm:block
-                  md:mt-0
-                  md:max-h-articleLogo'
+                className='mt-8 hidden h-auto w-3/5 max-w-md rounded-md object-contain sm:block md:mt-0 md:max-h-articleLogo'
                 alt={articleImageAltText}
                 width={200}
                 height={100}
@@ -194,19 +183,25 @@ export default function SinglePost(props: SinglePostProps) {
             <div
               className='
               m-auto
+              flex
+              w-full
+              flex-wrap
+              justify-start
               pb-4
               text-left
               font-serif
               text-smallHeader
               font-light
               leading-lhTight
-              text-altGreen
-              sm:text-header
-              md:text-bigHeader
+              text-altGreen sm:text-header md:text-bigHeader
+
             '
             >
               {isLoading ? (
-                <Skeleton></Skeleton>
+                <>
+                  <Skeleton animation='wave' width={'100%'} height={'60'} />
+                  <Skeleton animation='wave' width={'100%'} height={'60'} />
+                </>
               ) : (
                 getHtml(fullArticle?.title?.rendered ?? '')
               )}
@@ -253,7 +248,7 @@ export default function SinglePost(props: SinglePostProps) {
             </div>
 
             {/* OPTIONAL ARTICLE CATEGORIES */}
-            {articleCategories && (
+            {articleCategories ? (
               <div className='text-start text-text text-altDark'>
                 Categorized under:{' '}
                 {articleCategories.map((categoryChunk, i) => (
@@ -267,6 +262,8 @@ export default function SinglePost(props: SinglePostProps) {
                   </span>
                 ))}
               </div>
+            ) : (
+              <Skeleton width='50%'></Skeleton>
             )}
 
             {/* SOCIAL MEDIA ICONS */}
@@ -279,32 +276,30 @@ export default function SinglePost(props: SinglePostProps) {
         {/* ARTICLE CONTENT SECTION */}
         <article className='fetched-wordpress-html m-20 flex min-h-preload-article w-full flex-col break-words'>
           {/* RENDER WP ARTICLE HTML */}
-          {fullArticle && getHtml(fullArticle.content?.rendered)}
+          {fullArticle ? (
+            getHtml(fullArticle.content?.rendered)
+          ) : (
+            <Skeleton
+              animation='wave'
+              width={'100%'}
+              height={'100%'}
+              className='m-10'
+            />
+          )}
 
           {/* OPTIONALLY RENDER CONTINUE READING BUTTON */}
           {fullArticle?.acf?.full_article_url && (
-            <div className='mt-10'>
-              <Button
-                variant='contained'
-                color='primary'
-                className='
-                      rounded-2xl
-                      bg-altGreen
-                      px-8
-                      py-4
-                      text-center
-                      font-sansTitle
-                      text-title
-                      font-medium
-                      text-white'
+            <div>
+              <HetBigCTA
                 href={fullArticle.acf.full_article_url}
+                className='mt-10'
               >
                 Continue Reading
                 {fullArticle?.acf?.friendly_site_name
                   ? ` on ${fullArticle.acf.friendly_site_name}`
                   : ''}{' '}
                 <OpenInNewIcon />
-              </Button>
+              </HetBigCTA>
             </div>
           )}
 
