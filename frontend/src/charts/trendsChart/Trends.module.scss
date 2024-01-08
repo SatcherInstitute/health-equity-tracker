@@ -1,22 +1,5 @@
 @import '../../styles/globals.scss';
 
-$spacingSmall: 6px;
-$spacingSmaller: 12px;
-$spacingMedium: 18px;
-$spacingLarge: 36px;
-$breakpoint-mobile: 600px;
-
-@mixin hoverTransition {
-  opacity: 1;
-  transition:
-    opacity 250ms ease-in-out,
-    transform 200ms linear;
-}
-
-figure {
-  margin: 0 0 0 0;
-}
-
 // Axes
 .Axes {
   > g path:first-child {
@@ -28,67 +11,8 @@ figure {
   }
 }
 
-.Indicators {
-  @include hoverTransition();
-
-  line {
-    stroke: $black;
-  }
-}
-
 // Line styles
-.StrokeLinecapButt {
-  stroke-linecap: butt;
-  stroke: url(#gradient);
-}
-
-.StrokeLinecapRound {
-  stroke-linecap: round;
-}
-
-.GradientMainStop {
-  stop-color: $unknown-map-most;
-}
-
-.GradientAltStop {
-  stop-color: $unknown-map-mid;
-}
-
-.TrendsChart {
-  // styles for trends chart container
-  @include inter400;
-
-  // visibility classes
-  .hidden {
-    display: none;
-  }
-
-  .invisible {
-    opacity: 0;
-  }
-
-  .disabled {
-    opacity: 0.3; // failing a11y; need minimum opacity .55
-    cursor: not-allowed !important;
-  }
-}
-
-/* Tooltip Styles */
-
-.TooltipWrapper {
-  position: absolute;
-  pointer-events: none;
-  @include hoverTransition();
-
-  div {
-    transition: transform 300ms linear;
-  }
-}
-
-// .Indicators,
-.HoverCircle {
-  @include hoverTransition();
-
+.Indicators {
   line {
     stroke: $black;
   }
