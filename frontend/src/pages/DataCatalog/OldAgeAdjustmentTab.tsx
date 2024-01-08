@@ -1,4 +1,3 @@
-import Grid from '@mui/material/Grid'
 import { Helmet } from 'react-helmet-async'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
@@ -17,13 +16,8 @@ export default function OldAgeAdjustmentTab() {
         <title>Age-Adjustment - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Age-Adjustment</h2>
-      <Grid
-        container
-        direction='column'
-        justifyContent='space-around'
-        alignItems='center'
-      >
-        <Grid container className='m-auto max-w-md px-5 pb-12 pt-1'>
+      <div className='flex flex-col items-center justify-around'>
+        <div className=' m-auto flex max-w-md px-5 pb-12 pt-1'>
           {/* Age-adjusted Info */}
           <article className='pb-6'>
             <h3
@@ -843,16 +837,14 @@ export default function OldAgeAdjustmentTab() {
               </table>
             </div>
           </article>
-        </Grid>
+        </div>
 
-        <Grid item xs={12} sm={12} md={8} lg={5}>
-          <HetBigCTA
-            href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
-          >
-            Explore age-adjusted ratios
-          </HetBigCTA>
-        </Grid>
-      </Grid>
+        <HetBigCTA
+          href={EXPLORE_DATA_PAGE_LINK + AGE_ADJUST_HIV_DEATHS_US_SETTING}
+        >
+          Explore age-adjusted ratios
+        </HetBigCTA>
+      </div>
     </>
   )
 }
