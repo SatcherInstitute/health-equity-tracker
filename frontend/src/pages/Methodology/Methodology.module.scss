@@ -1,5 +1,4 @@
 @import '../../styles/globals.scss';
-@import '../../styles/variables.module.scss';
 
 /** ------------------ METHODOLOGY v2 -------------------- **/
 
@@ -42,15 +41,15 @@ html {
 
 .ArticleContainer h3 {
   @include tav300();
-  font-size: $smallestHeader;
+  font-size: theme('fontSize.smallestHeader');
   text-align: left;
-  color: $alt-black;
+  color: theme('fontSize.smallestHeader');
   margin-top: 1rem;
 }
 
 .ArticleContainer h4 {
   @include inter500();
-  font-size: $text;
+  font-size: theme('fontSize.text');
   // margin-top: 2rem;
 }
 
@@ -63,9 +62,9 @@ html {
 .ArticleContainer p,
 li {
   @include inter400();
-  font-size: $small;
+  font-size: theme('fontSize.small');
   text-align: left;
-  color: $alt-black;
+  color: theme('colors.altBlack');
 }
 
 .Calculation {
@@ -385,7 +384,7 @@ tr {
 }
 
 .ResourcesList li {
-  font-size: $smallest;
+  font-size: theme('fontSize.smallest');
   list-style: none;
   margin: 2% 0;
 }
@@ -484,11 +483,6 @@ tr {
   margin: 0 auto;
 }
 
-// .CodeContainer {
-//   border: 2px solid red;
-// }
-
-// .TableContainer {
 .BorderTable {
   display: flex;
   border: 2px solid #fafafa;
@@ -526,273 +520,3 @@ td {
   background-color: transparent;
   margin: 0 auto;
 }
-
-// /** ------------------ METHODOLOGY -------------------- **/
-
-// .MethodologySection {
-//   padding: 50px 20px 50px 20px;
-//   margin: auto;
-//   max-width: $max-width;
-// }
-
-// .MethodologyQuestionAndAnswer {
-//   padding-bottom: 1.5rem;
-// }
-
-// .MethodologyQuestion {
-//   @include tav300();
-//   font-size: $smallestHeader;
-//   text-align: left;
-//   color: $alt-black;
-// }
-
-// .MethodologyAnswer {
-//   @include inter400();
-//   font-size: $small;
-//   text-align: left;
-//   color: $alt-black;
-// }
-
-// .Tooltip {
-//   display: inline-flex;
-//   flex-direction: row;
-// }
-
-// .Tooltip p {
-//   // font-weight: bold !important;
-//   font-size: normal;
-//   margin: 0 0.1rem 0 0.2rem;
-//   text-decoration: underline;
-//   text-decoration-style: dotted;
-//   cursor: help;
-// }
-
-// .Numerator,
-// .Denominator {
-//   font-size: 0.7rem;
-//   display: inline-block;
-//   text-align: center;
-//   // padding: 1%;
-//   width: max-content;
-// }
-
-// .Numerator {
-//   border-bottom: 1px solid black;
-//   overflow-wrap: break-word;
-// }
-
-// .Fraction {
-//   display: inline-flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   align-items: center;
-//   // width: -webkit-fill-available;
-//   width: max-content;
-//   @media screen and (max-width: 1400px) {
-//     display: flex;
-//     flex-direction: row;
-//   }
-// }
-
-// .WrappedInParentheses {
-//   display: flex;
-//   flex-direction: column;
-//   margin: 0 auto;
-//   align-items: center;
-//   justify-content: center;
-//   align-self: center;
-//   line-height: 0.8rem;
-// }
-
-// .Fraction::before {
-//   content: '(';
-//   // margin-left: 1%;
-//   font-size: 2rem;
-//   // flex-grow: 1;
-//   @media screen and (max-width: 1400px) {
-//     font-size: 1rem;
-//   }
-// }
-
-// .Fraction::after {
-//   content: ')';
-//   // margin-right: 1%;
-//   font-size: 2rem;
-//   // flex-grow: 1;
-//   @media screen and (max-width: 1400px) {
-//     font-size: 1rem;
-//   }
-// }
-
-// .FormulaFormat {
-//   // overflow-wrap: break-word;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   align-items: center;
-//   background-color: #fafafa;
-//   border-radius: 1rem;
-//   overflow-x: scroll;
-//   // overflow: auto;
-// }
-
-// .FormulaFormatFunction {
-//   font-family: KaTeX_Math;
-//   font-style: italic;
-// }
-
-// .FormulaFormatCode {
-//   border: none;
-//   background-color: transparent;
-//   margin: 0% auto;
-//   font-size: $smallest;
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   align-self: start;
-//   @media screen and (max-width: 1400px) {
-//     flex-direction: column;
-//     width: max-content;
-//   }
-//   // width: -webkit-fill-available;
-// }
-
-// .ExampleDiv {
-//   padding-inline-start: 40px;
-// }
-
-// .ExampleDiv ol {
-//   padding: 0;
-// }
-
-// .MethodologySubsubheaderText {
-//   @include inter500();
-//   font-size: $text;
-//   // margin-top: 5rem;
-//   margin-top: 2rem;
-// }
-
-// .MethodologyInfoBar {
-//   background-color: $infobarColor;
-//   padding: 2px 10px 2px 10px;
-//   border-radius: 8px;
-//   font-size: $small;
-// }
-
-// p.CitationAPA {
-//   padding-left: 3rem;
-//   padding-right: 1rem;
-//   margin: 1rem initial;
-// }
-
-// p.CitationAPA:first-of-type {
-//   text-indent: -2rem;
-// }
-
-// .MissingDataBox {
-//   padding: 1rem 2rem;
-//   background-color: $standard-warning !important;
-// }
-
-// .WhyBox {
-//   padding: 1rem 2rem;
-//   background-color: $standard-info !important;
-// }
-
-// /* AGE ADJUSTMENT */
-
-// .AgeAdjustmentSection {
-//   padding: 5px 20px 50px 20px;
-//   margin: auto;
-//   max-width: $max-width;
-// }
-
-// .AgeAdjustmentHeader {
-//   @include tav300();
-//   font-size: $smallHeader;
-//   text-align: center;
-//   color: $alt-black;
-// }
-
-// .StripedTable {
-//   .thickBorder {
-//     border-bottom: 3px solid var(--0-b-5240, #0b5240);
-//   }
-// }
-// .StripedTable td {
-//   font-family: Inter, sans-serif;
-//   font-weight: 400 !important;
-//   font-size: 0.875rem;
-//   text-align: left;
-// }
-// .StripedTable tbody > tr > th {
-//   font-family: Inter, sans-serif;
-//   font-weight: 400 !important;
-//   font-size: 0.875rem;
-//   text-align: left;
-// }
-
-// .StripedTableHeader {
-//   background: rgba(11, 82, 64, 0.3);
-//   color: var(--m-3-sys-light-on-surface, #1d1b20);
-// }
-
-// .StripedTableHeader th {
-//   font-family: DM Sans;
-//   font-size: 1rem;
-//   font-weight: 500;
-//   vertical-align: baseline;
-// }
-
-// .ExampleTable {
-//   margin: 1rem;
-// }
-
-// .ExampleTable,
-// .ExampleTable td {
-//   border: 1px solid $bg-color;
-//   border-collapse: collapse;
-//   padding: 5px;
-// }
-
-// .ExampleTable thead {
-//   background-color: $join-effort-bg1;
-//   font-weight: bold;
-// }
-
-// .ExampleTable tr:nth-child(even) {
-//   background-color: $explore-bg-color;
-// }
-
-// .Highlighted {
-//   background-color: $standard-warning;
-//   font-weight: bold;
-//   outline: 3px solid $alert-color;
-// }
-
-// .Calculation {
-//   font-style: italic;
-//   font-size: $smallest;
-// }
-
-// pre,
-// code {
-//   // border: 1px solid $bg-color;
-//   padding: 5px;
-//   margin: 3px 3px 2rem 3px;
-//   background-color: #fafafa;
-//   font-size: $smallest;
-//   overflow-x: auto;
-//   white-space: pre-wrap;
-//   word-wrap: break-word;
-// }
-
-// .StickyHeader {
-//   margin: 0;
-//   position: fixed;
-//   top: 0;
-//   z-index: 1000;
-//   /* Ensuring it stays above other elements. Adjust this value if needed. */
-//   background-color: white;
-//   /* To ensure the text is readable when overlaying other content. */
-// }
