@@ -102,6 +102,10 @@ export default {
         cardGutter: '8px',
         footer: '10rem',
       },
+      strokeWidth: {
+        '2.5': '2.5',
+        '5.5': '5.5'
+      }
     },
   },
   plugins: [],

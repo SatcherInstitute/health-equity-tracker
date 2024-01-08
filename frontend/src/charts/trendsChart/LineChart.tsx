@@ -88,9 +88,11 @@ export function LineChart({
           <path
             role='listitem'
             aria-label={groupA11yDescription}
-            className={
-              isUnknownLine ? styles.TrendLineGradient : styles.TrendLine
-            }
+            className={`fill-none ${
+              isUnknownLine
+                ? `stroke-5.5 ${styles.StrokeLinecapButt}`
+                : `stroke-2.5 ${styles.StrokeLinecapRound}`
+            }`}
             key={`group-${group}`}
             d={lineGen(d as any) ?? ''}
             stroke={C(group)}

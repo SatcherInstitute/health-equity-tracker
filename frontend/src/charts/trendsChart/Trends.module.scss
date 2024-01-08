@@ -28,6 +28,24 @@ figure {
   }
 }
 
+.Indicators {
+  @include hoverTransition();
+
+  line {
+    stroke: $black;
+  }
+}
+
+// Line styles
+.StrokeLinecapButt {
+  stroke-linecap: butt;
+  stroke: url(#gradient);
+}
+
+.StrokeLinecapRound {
+  stroke-linecap: round;
+}
+
 .GradientMainStop {
   stop-color: $unknown-map-most;
 }
@@ -39,20 +57,6 @@ figure {
 .TrendsChart {
   // styles for trends chart container
   @include inter400;
-
-  // lines styles
-  .TrendLine {
-    fill: none;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-  }
-
-  .TrendLineGradient {
-    fill: none;
-    stroke-width: 5.5;
-    stroke-linecap: butt;
-    stroke: url(#gradient);
-  }
 
   // visibility classes
   .hidden {
@@ -69,16 +73,6 @@ figure {
   }
 }
 
-/* Filter Legend Styles */
-.FilterWrapperSkinny {
-  // mobile and skinny compare views
-  margin: 0 0 $spacingMedium 8px; // align filter with chart margin
-}
-
-.FilterWrapperWide {
-  margin: 0 0 $spacingMedium 48px; // align filter with chart margin
-}
-
 /* Tooltip Styles */
 
 .TooltipWrapper {
@@ -91,7 +85,7 @@ figure {
   }
 }
 
-.Indicators,
+// .Indicators,
 .HoverCircle {
   @include hoverTransition();
 

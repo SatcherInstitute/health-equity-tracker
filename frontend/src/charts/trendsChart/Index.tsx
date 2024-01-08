@@ -247,12 +247,8 @@ export function TrendsChart({
 
   return (
     // Container
-    <figure className={styles.TrendsChart} ref={containerRef}>
-      <div
-        className={
-          isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
-        }
-      >
+    <figure className='font-sansText font-normal' ref={containerRef}>
+      <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
         {isSm && (
           // Render Chart Title DESKTOP ABOVE LEGEND
           <ChartTitle title={chartTitle} />
