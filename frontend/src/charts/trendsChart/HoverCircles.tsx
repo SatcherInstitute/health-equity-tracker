@@ -9,9 +9,6 @@
 
 /* External Imports */
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import { getAmountsByDate } from './helpers'
 import { type TrendsData, type YScale } from './types'
@@ -46,7 +43,7 @@ export function HoverCircles({
                 <>
                   <circle
                     // tabIndex={0}
-                    className={styles.HoverCircle}
+                    className='transition-opacity delay-300 duration-200 ease-linear'
                     r={4}
                     // use transform instead of cy to apply css transitions
                     // note - x positioning is handled by parent

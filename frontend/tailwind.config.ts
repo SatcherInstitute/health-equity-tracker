@@ -7,10 +7,11 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
-    screens: ThemeStandardScreenSizes,
+    screens: {...ThemeStandardScreenSizes, 'max-lg': {'max': '1440px'}, 'max-sm': {'max': '600px'}},
     maxHeight: ThemeStandardScreenSizes,
     maxWidth: ThemeStandardScreenSizes,
     borderRadius: {
+      'xs': '2px',
       'sm': '4px',
       'md': '8px',
       'lg': '16px',
@@ -101,6 +102,10 @@ export default {
         cardGutter: '8px',
         footer: '10rem',
       },
+      strokeWidth: {
+        '2.5': '2.5',
+        '5.5': '5.5'
+      }
     },
   },
   plugins: [],

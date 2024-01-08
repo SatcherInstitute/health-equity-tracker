@@ -247,12 +247,8 @@ export function TrendsChart({
 
   return (
     // Container
-    <figure className={styles.TrendsChart} ref={containerRef}>
-      <div
-        className={
-          isSkinny ? styles.FilterWrapperSkinny : styles.FilterWrapperWide
-        }
-      >
+    <figure className='m-0 font-sansText font-normal' ref={containerRef}>
+      <div className={isSkinny ? 'mb-5 ml-2' : 'mb-5 ml-12'}>
         {isSm && (
           // Render Chart Title DESKTOP ABOVE LEGEND
           <ChartTitle title={chartTitle} />
@@ -280,7 +276,7 @@ export function TrendsChart({
       </div>
       {/* Tooltip */}
       <div
-        className={styles.TooltipWrapper}
+        className='pointer-events-none absolute transition-transform duration-300 ease-linear'
         // Position tooltip to the right of the cursor until until cursor is half way across chart, then to left
         style={{
           transform: `translate(${xScale(new Date(hoveredDate ?? ''))}px, ${
@@ -290,6 +286,7 @@ export function TrendsChart({
         }}
       >
         <div
+          className='transition-transform duration-300 ease-linear'
           ref={toolTipRef}
           style={{
             transform: `translateX(${
@@ -342,7 +339,7 @@ export function TrendsChart({
             />
             {/* Group for hover indicator line and circles */}
             <g
-              className={styles.Indicators}
+              className={`transition-transform duration-300 ease-linear ${styles.Indicators}`}
               // transform group to hovered x position
               style={{
                 transform: `translateX(${xScale(

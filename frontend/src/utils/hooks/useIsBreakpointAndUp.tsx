@@ -6,7 +6,11 @@ const fullConfig = resolveConfig(tailwindConfig)
 type TailwindBreakpoint = keyof typeof fullConfig.theme.screens
 
 function getTailwindBreakpointValue(breakpoint: TailwindBreakpoint): number {
-  const breakpointStringValue = fullConfig.theme.screens[breakpoint]
+  const breakpointConfig = fullConfig.theme.screens[breakpoint]
+  const breakpointStringValue =
+    typeof breakpointConfig === 'object'
+      ? breakpointConfig.max
+      : breakpointConfig
   const pixelValue = parseInt(breakpointStringValue.replace('px', ''))
   return pixelValue || 0
 }
