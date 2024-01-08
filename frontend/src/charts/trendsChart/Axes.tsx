@@ -31,6 +31,7 @@ import {
 /* Helpers */
 import { getMinNumber, getMaxNumber, getDates } from './helpers'
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
+import { het } from '../../styles/DesignTokens'
 
 /* Define type interface */
 export interface AxesProps {
@@ -158,7 +159,7 @@ export function Axes({
       <g>
         {/* X-Axis */}
         <g
-          className='font-sansText	text-smallest font-normal'
+          className='xAxisGroup font-sansText	text-smallest font-normal'
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
@@ -167,7 +168,7 @@ export function Axes({
         />
         {/* Y-Axis */}
         <g
-          className='font-sansText	text-smallest font-normal'
+          className='yAxisGroup font-sansText text-smallest font-normal '
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${
@@ -186,7 +187,7 @@ export function Axes({
           y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
           y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
-          stroke='black' // handle in CSS?
+          stroke={het.altGrey}
         />
       </g>
       {/* Axis Labels */}

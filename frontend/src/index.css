@@ -42,6 +42,18 @@ button[data-action='back'] {
   color: theme('colors.white') !important;
 }
 
+/* STYLING OVERRIDES FOR D3 CHARTS */
+.yAxisGroup {
+  > path:first-child {
+    opacity: 0.3; /* fade y-domain axis line */
+  }
+}
+.xAxisGroup {
+  > path:first-child {
+    opacity: 0; /* remove x-domain axis line */
+  }
+}
+
 //  custom focus styles for warm welcome buttons
 button[data-action='primary']:focus,
 button[data-action='close']:focus,

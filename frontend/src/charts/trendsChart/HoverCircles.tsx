@@ -16,6 +16,7 @@ import { type TrendsData, type YScale } from './types'
 /* Helpers */
 import { COLORS as C } from './constants'
 import { type DemographicGroup } from '../../data/utils/Constants'
+import { het } from '../../styles/DesignTokens'
 
 /* Define type interface */
 interface HoverCirclesProps {
@@ -51,6 +52,7 @@ export function HoverCircles({
                       yScale(getAmountsByDate(d, selectedDate)) ?? 0
                     })`}
                     fill={C(group)}
+                    stroke={het.white}
                   />
                 </>
               )}

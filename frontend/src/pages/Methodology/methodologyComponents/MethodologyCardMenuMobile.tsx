@@ -170,7 +170,6 @@ export default function MethodologyCardMenuMobile(
           color='secondary'
           size='small'
           aria-label='scroll back to top'
-          // className={styles.Fab}
           className='fixed bottom-2 right-2 z-top bg-altGreen'
           onClick={scrollTop}
         >
