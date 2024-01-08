@@ -33,7 +33,7 @@
 /* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
 // override the joyride component to show back button
 button[data-action='back'] {
-  color: $white !important;
+  color: theme('colors.white') !important;
 }
 
 //  custom focus styles for warm welcome buttons
@@ -41,7 +41,7 @@ button[data-action='primary']:focus,
 button[data-action='close']:focus,
 button[data-action='skip']:focus,
 button[data-action='back']:focus {
-  outline: 1px solid white;
+  outline: 1px solid theme('colors.white');
 }
 
 /* STYLING FOR FETCHED WORDPRESS HTML FOR NEWS AND STORIES */
@@ -99,7 +99,7 @@ button[data-action='back']:focus {
 
   & h1 {
     font-family: 'Taviraj', serif !important;
-    font-size: $header !important;
+    font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
@@ -110,7 +110,7 @@ button[data-action='back']:focus {
 
   & h2 {
     font-family: 'Taviraj', serif !important;
-    font-size: $header !important;
+    font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
@@ -121,7 +121,7 @@ button[data-action='back']:focus {
 
   & h3 {
     font-family: 'Taviraj', serif !important;
-    font-size: $header !important;
+    font-size: theme('fontSize.header') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
@@ -132,7 +132,7 @@ button[data-action='back']:focus {
 
   & h4 {
     font-family: 'Taviraj', serif !important;
-    font-size: $smallestHeader !important;
+    font-size: theme('fontSize.smallestHeader') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
@@ -143,7 +143,7 @@ button[data-action='back']:focus {
 
   & h5 {
     font-family: 'Taviraj', serif !important;
-    font-size: $title !important;
+    font-size: theme('fontSize.title') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
@@ -154,7 +154,7 @@ button[data-action='back']:focus {
 
   & h6 {
     font-family: 'Taviraj', serif !important;
-    font-size: $text !important;
+    font-size: theme('fontSize.text') !important;
     line-height: 110%;
     color: theme('colors.altGreen');
     font-weight: 300;
