@@ -38,6 +38,7 @@ export default {
     fontFamily: {
       sansTitle: ['DM Sans', 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
+      roboto: ['Roboto', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
       math: ['KaTeX_Math', 'mono'],
     },
