@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
-import { Button, Dialog, DialogContent } from '@mui/material'
+// TODO: eventually should make a HetDialog to handle modals
+import { Dialog, DialogContent } from '@mui/material'
 import ChoroplethMap from '../../charts/ChoroplethMap'
 import { Fips } from '../../data/utils/Fips'
 import { Legend } from '../../charts/Legend'
@@ -326,15 +327,14 @@ export default function MultiMapDialog(props: MultiMapDialogProps) {
       <footer ref={footerContentRef}>
         <div className='flex justify-between pl-2 text-left text-small'>
           {/* mobile-only CLOSE button */}
-          <Button
+          <HetLinkButton
             aria-label='close this multiple maps modal'
             onClick={props.handleClose}
-            color='primary'
             id={'multi-map-close-button2'}
             className='sm:hidden'
           >
             Close
-          </Button>
+          </HetLinkButton>
           {/* Desktop only Sources and Card Options */}
           <div className='hidden w-full justify-between sm:flex'>
             <Sources
