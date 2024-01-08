@@ -19,9 +19,6 @@ import { axisLeft, axisBottom, select } from 'd3'
 
 /* Local Imports */
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import { CONFIG, TYPES, FORMATTERS as F } from './constants'
 import {
@@ -158,7 +155,7 @@ export function Axes({
   return (
     <g>
       {/* Axes */}
-      <g className={styles.Axes}>
+      <g>
         {/* X-Axis */}
         <g
           className='font-sansText	text-smallest font-normal'

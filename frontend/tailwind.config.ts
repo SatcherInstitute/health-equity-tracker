@@ -1,8 +1,6 @@
 import type { Config } from 'tailwindcss'
 import { het, ThemeZIndexValues, ThemeStandardScreenSizes } from './src/styles/DesignTokens'
 
-
-
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
@@ -37,7 +35,7 @@ export default {
       lhListBoxTitle: '47px',
     },
     fontFamily: {
-      sansTitle: ['DM Sans', 'sans-serif'],
+      sansTitle: ["'DM Sans Variable'", 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       roboto: ['Roboto', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
