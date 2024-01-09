@@ -56,16 +56,16 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'URL',
-      testMatch: /.*externalUrls.spec.ts/, // checks out outgoing links
+      testMatch: /.*externalUrls.spec.ts/, // checks outgoing links
     },
     {
       name: 'E2E_NIGHTLY',
-      testIgnore: /.*externalUrls.spec.ts/, // both nights and ci tests
+      testIgnore: /.*externalUrls.spec.ts/, // both nightly + ci tests
     },
     {
 
       name: 'E2E_CI',
-      testMatch: /.*ci.spec.ts/, // subset of quicker, more essential tests that run on ci
+      testMatch: /.*ci.spec.ts/, // only most essential tests run on ci
     },
   ],
 
