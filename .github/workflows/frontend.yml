@@ -85,8 +85,8 @@ jobs:
         run: npm ci
       - name: Install playwright deps
         run: npx playwright install --with-deps chromium
-      - name: run E2E_DEPLOY_PREVIEW
-        run: npx playwright test --project=E2E_NIGHTLY --workers 6
+      - name: run E2E on DEPLOY_PREVIEW
+        run: npx playwright test --project=E2E_CI --workers 8
         # base url based on the GITHUB_PR_NUMBER + NETLIFY_SITE_NAME
         env:
           E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
