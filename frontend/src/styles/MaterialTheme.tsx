@@ -1,5 +1,4 @@
 import { createTheme } from '@mui/material/styles'
-import 'typeface-dm-sans'
 import { het, ThemeLineHeightValues } from '../styles/DesignTokens'
 
 declare module '@mui/material/styles' {

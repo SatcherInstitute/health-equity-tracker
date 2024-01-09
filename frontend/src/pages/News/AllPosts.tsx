@@ -206,7 +206,7 @@ function AllPosts() {
           </div>
 
           <div className='flex flex-wrap justify-center'>
-            <div className='m-10'>
+            <div className='m-10 flex w-full justify-start'>
               {/* show featured card with "sticky" articles marked PIN TO TOP if any */}
               {selectedAuthor?.length === 0 &&
                 selectedCategory?.length === 0 && (

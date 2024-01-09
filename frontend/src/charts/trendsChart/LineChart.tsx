@@ -12,9 +12,6 @@ import { line, curveMonotoneX } from 'd3'
 
 /* Local Imports */
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import {
   type GroupData,
@@ -88,12 +85,17 @@ export function LineChart({
           <path
             role='listitem'
             aria-label={groupA11yDescription}
-            className={
-              isUnknownLine ? styles.TrendLineGradient : styles.TrendLine
-            }
+            className={`fill-none ${
+              isUnknownLine ? 'stroke-5.5' : 'stroke-2.5'
+            }`}
             key={`group-${group}`}
             d={lineGen(d as any) ?? ''}
             stroke={C(group)}
+            style={
+              isUnknownLine
+                ? { strokeLinecap: 'butt', stroke: 'url(#gradient)' }
+                : { strokeLinecap: 'round' }
+            }
           />
         )
       })}

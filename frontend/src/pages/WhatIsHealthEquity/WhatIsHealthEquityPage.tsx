@@ -9,7 +9,7 @@ import {
 } from '../../utils/internalRoutes'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
 
-// can't lazy load (yet) due to scss loading issues
+// can't lazy load (yet) due to loading issues
 import EquityTab from './EquityTab'
 import FaqTab from './FaqTab'
 import ResourcesTab from './ResourcesTab'

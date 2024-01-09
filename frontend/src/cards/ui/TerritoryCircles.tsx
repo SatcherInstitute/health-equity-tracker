@@ -45,7 +45,7 @@ export default function TerritoryCircles(props: TerritoryCirclesProps) {
       {Object.entries(TERRITORY_CODES).map(([fipsCode, postalCode]) => {
         const fips = new Fips(fipsCode)
         return (
-          <figure className='p-0.5' key={fipsCode}>
+          <figure className='m-0 p-0.5 sm:m-1' key={fipsCode}>
             <ChoroplethMap
               demographicType={props.demographicType}
               highestLowestGroupsByFips={props.highestLowestGroupsByFips}

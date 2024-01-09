@@ -12,11 +12,6 @@ import React, { Fragment } from 'react'
 /* Local Imports */
 import { LESS_THAN_1, raceNameToCodeMap } from '../../data/utils/Constants'
 
-/* Styles */
-import styles from './Trends.module.scss'
-
-/* Components */
-
 /* Constants */
 import {
   type TrendsData,
@@ -91,16 +86,24 @@ export function TrendsTooltip({
     : F.dateFromString_YYYY(selectedDate ?? '')
 
   return (
-    <div className={styles.Tooltip} role='tooltip'>
+    <div
+      className='h-full w-min whitespace-nowrap rounded-sm border border-solid border-altGrey bg-white p-3 font-sansText text-small font-medium'
+      role='tooltip'
+    >
       {/* Date title */}
-      <div className={styles.title}>
+      <div className='border-0 border-b border-solid border-altGrey pb-3 text-center'>
         <div>{displayDate}</div>
         {/* if per 100k chart and on mobile, add subtitle with units */}
         {isSkinny && type === TYPES.HUNDRED_K && (
-          <div className={styles.subtitle}>{F.capitalize(yAxisLabel)}</div>
+          <div className='mt-1 font-sansText text-smallest font-normal'>
+            {F.capitalize(yAxisLabel)}
+          </div>
         )}
       </div>
-      <div className={styles.grid}>
+      <div
+        className='grid items-center justify-items-start gap-x-2 gap-y-1 pt-3 text-smallest'
+        style={{ gridTemplateColumns: '1fr 50px 1fr' }}
+      >
         {data &&
           sortDataDescending(data, selectedDate ?? '').map(
             ([group, d]: GroupData) => {
@@ -126,13 +129,15 @@ export function TrendsTooltip({
                         data
                       )}px)`,
                     }}
-                    className={styles.bar}
+                    className='h-2.5 transition duration-200 ease-linear'
                   />
                   {/* amount */}
-                  <div className={styles.label}>
+                  <div className='justify-end whitespace-nowrap'>
                     {/* // TODO: update way rounding number */}
-                    <span>{value}</span>
-                    <span>{TYPE_CONFIG[type]?.UNIT}</span>
+                    <span className='font-sansText font-normal'>{value}</span>
+                    <span className='font-sansText font-normal'>
+                      {TYPE_CONFIG[type]?.UNIT}
+                    </span>
                   </div>
                 </Fragment>
               )
