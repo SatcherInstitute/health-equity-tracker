@@ -35,6 +35,7 @@ export default {
       lhListBoxTitle: '47px',
     },
     fontFamily: {
+      // Nested quotations are required for font names with spaces
       sansTitle: ["'DM Sans Variable'", 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       roboto: ['Roboto', 'sans-serif'],
