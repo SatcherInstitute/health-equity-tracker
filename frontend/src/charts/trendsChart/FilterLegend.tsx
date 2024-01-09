@@ -121,7 +121,7 @@ export function FilterLegend({
             >
               {/* Legend Item color swatch */}
               <div
-                className='rounded-xs	mr-1.5	h-4 w-4 shrink-0 border-2 border-dashed border-transparent text-start'
+                className='mr-1.5	h-4	w-4 shrink-0 rounded-xs border-2 border-dashed border-transparent text-start'
                 aria-hidden={true}
                 style={{
                   backgroundImage: isUnknown ? gradient : undefined,
