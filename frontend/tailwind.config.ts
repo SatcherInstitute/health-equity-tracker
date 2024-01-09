@@ -5,7 +5,7 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
-    screens: {...ThemeStandardScreenSizes, 'max-lg': {'max': '1440px'}, 'max-sm': {'max': '600px'}},
+    screens: ThemeStandardScreenSizes,
     maxHeight: ThemeStandardScreenSizes,
     maxWidth: ThemeStandardScreenSizes,
     borderRadius: {
