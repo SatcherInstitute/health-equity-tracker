@@ -107,7 +107,7 @@ export function Axes({
   const yAxisRef = useRef(null)
 
   /* Axes */
-  const numTicksIfSkinny = Math.min(4, axisConfig.xAxisMaxTicks as number)
+  const numTicksIfSkinny = 5
 
   const xAxis = axisBottom(xScale)
     .tickSize(0)
