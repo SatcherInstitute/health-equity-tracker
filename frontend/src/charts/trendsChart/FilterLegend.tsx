@@ -42,24 +42,10 @@ export function FilterLegend({
   selectedGroups,
   handleClick,
   handleMinMaxClick,
-  groupLabel,
-  isSkinny,
-  chartWidth,
   demographicType,
   legendId,
 }: FilterLegendProps) {
   const isComparing = window.location.href.includes('compare')
-
-  const getDataView = () => {
-    if (isComparing) {
-      if (chartWidth > 472 && chartWidth < 818) return 'grid-cols-2'
-      if (chartWidth < 472) return 'grid-cols-1'
-    }
-    return 'grid-cols-3'
-  }
-
-  const dataView = getDataView()
-  const shouldApplyMaxWidthClasses = dataView === 'grid-cols-3'
 
   const groupsAreMinMax =
     JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data))
@@ -107,11 +93,9 @@ export function FilterLegend({
       {/* Legend Items Wrapper */}
       <menu
         aria-labelledby={legendId}
-        className={`grid ${dataView} auto-cols-auto ${
-          shouldApplyMaxWidthClasses
-            ? 'max-lg:grid-cols-2 max-sm:grid-cols-1'
-            : ''
-        }`}
+        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${
+          isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
+        } `}
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {

@@ -47,10 +47,7 @@ const StripedTable: React.FC<StripedTableProps> = ({
     <TableContainer className=' overflow-x-auto' component={Paper} id={id}>
       <Table aria-label='customized table' className='min-w-full'>
         <TableHead>
-          <TableRow
-            // className={styles.StripedTableHeader}
-            className='bg-altGreen text-navlinkColor'
-          >
+          <TableRow className='bg-altGreen text-navlinkColor'>
             {columns.map((col) => (
               <TableCell key={col.accessor}>{col.header}</TableCell>
             ))}

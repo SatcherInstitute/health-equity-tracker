@@ -101,7 +101,7 @@ export default function ShareYourStory() {
             is selected for publication.
           </li>
 
-          <li>
+          <li className='p-3'>
             <b>Anonymity and Privacy:</b> If you prefer to remain anonymous or
             use a pseudonym, please let us know in your submission email. We
             respect your privacy and will handle your personal information with

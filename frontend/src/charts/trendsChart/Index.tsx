@@ -21,9 +21,6 @@ import { CircleChart } from './CircleChart'
 import { TrendsTooltip } from './TrendsTooltip'
 import { HoverCircles } from './HoverCircles'
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import { CONFIG, BASELINE_THRESHOLD_Y_AXIS_ZERO } from './constants'
 import { type UnknownData, type TrendsData, type AxisConfig } from './types'
@@ -339,7 +336,7 @@ export function TrendsChart({
             />
             {/* Group for hover indicator line and circles */}
             <g
-              className={`transition-transform duration-300 ease-linear ${styles.Indicators}`}
+              className={`transition-transform duration-300 ease-linear`}
               // transform group to hovered x position
               style={{
                 transform: `translateX(${xScale(
