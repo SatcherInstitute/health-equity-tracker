@@ -1,13 +1,11 @@
 import type { Config } from 'tailwindcss'
 import { het, ThemeZIndexValues, ThemeStandardScreenSizes } from './src/styles/DesignTokens'
 
-
-
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
   theme: {
-    screens: {...ThemeStandardScreenSizes, 'max-lg': {'max': '1440px'}, 'max-sm': {'max': '600px'}},
+    screens: ThemeStandardScreenSizes,
     maxHeight: ThemeStandardScreenSizes,
     maxWidth: ThemeStandardScreenSizes,
     borderRadius: {
@@ -37,7 +35,8 @@ export default {
       lhListBoxTitle: '47px',
     },
     fontFamily: {
-      sansTitle: ['DM Sans', 'sans-serif'],
+      // Nested quotations are required for font names with spaces
+      sansTitle: ["'DM Sans Variable'", 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       roboto: ['Roboto', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
