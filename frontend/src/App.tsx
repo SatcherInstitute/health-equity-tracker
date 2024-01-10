@@ -1,3 +1,9 @@
+import '@fontsource/taviraj/300.css'
+import '@fontsource/taviraj/500.css'
+import '@fontsource-variable/inter'
+import '@fontsource-variable/dm-sans'
+import '@fontsource/roboto'
+
 // TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
 import CssBaseline from '@mui/material/CssBaseline'
 import MaterialTheme from './styles/MaterialTheme'
@@ -64,15 +70,11 @@ const DataCatalogPage = React.lazy(
 
 autoInitGlobals()
 
-// TODO: this could be pulled into a hook
-// https://reactrouter.com/web/api/Hooks/uselocation
-// https://github.com/ReactTraining/react-router/issues/7015
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
-
   return null
 }
 

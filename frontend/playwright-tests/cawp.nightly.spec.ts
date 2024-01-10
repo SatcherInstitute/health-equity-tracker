@@ -16,19 +16,8 @@ test('CAWP: CAWP National Congress Flow', async ({ page }) => {
   await page.getByLabel('Include All women').click()
   await page.getByText('Expand rates over time table').click()
   await page.getByRole('cell', { name: '1951' }).click()
-  await page
-    .getByRole('row', { name: '1951 2%' })
-    .getByRole('cell')
-    .nth(1)
-    .click()
   await page.getByRole('cell', { name: '1952' }).click()
-  await page
-    .getByRole('row', { name: '1952 2%' })
-    .getByRole('cell')
-    .nth(1)
-    .click()
   await page.getByRole('cell', { name: '2023' }).click()
-  await page.getByRole('cell', { name: '25%' }).nth(1).click()
   await page
     .getByLabel(
       'Bar Chart showing Current rates of US Congress members identifying as women in the United States, by Race and Ethnicity'

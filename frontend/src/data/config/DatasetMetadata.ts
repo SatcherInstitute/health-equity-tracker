@@ -1,5 +1,5 @@
 import { type DatasetMetadata } from '../utils/DatasetTypes'
-import { type StateFipsCode } from '../utils/Fips'
+import { type StateFipsCode } from '../utils/FipsData'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
 export type DatasetId =

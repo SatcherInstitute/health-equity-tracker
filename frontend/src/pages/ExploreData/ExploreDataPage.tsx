@@ -296,8 +296,8 @@ function ExploreDataPage(props: ExploreDataPageProps) {
         className={'h-full bg-exploreBgColor'}
       >
         <div
-          className={`z-almostTop mb-1 bg-white p-0 shadow-raised-tighter transition-all duration-200 ease-in-out md:top-0 md:w-full
-            ${isSticking ? 'md:fixed' : 'md:p-4 '}
+          className={`z-almostTop mb-1 bg-white p-4 shadow-raised-tighter  transition-all duration-200 ease-in-out md:top-0 md:w-full
+            ${isSticking ? 'md:fixed' : ''}
           `}
           id='madlib-container'
         >

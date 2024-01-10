@@ -10,9 +10,6 @@
 
 /* External Imports */
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import { type TrendsData } from './types'
 import { COLORS as C } from './constants'
@@ -45,35 +42,28 @@ export function FilterLegend({
   selectedGroups,
   handleClick,
   handleMinMaxClick,
-  groupLabel,
-  isSkinny,
-  chartWidth,
   demographicType,
   legendId,
 }: FilterLegendProps) {
   const isComparing = window.location.href.includes('compare')
-  const getDataView = () => {
-    if (isComparing) {
-      if (chartWidth > 472 && chartWidth < 818) return 'compare-view'
-      if (chartWidth < 472) return 'compare-view-small'
-    }
-    return 'normal'
-  }
 
   const groupsAreMinMax =
     JSON.stringify(selectedGroups) === JSON.stringify(getMinMaxGroups(data))
 
   return (
     // Legend Wrapper
-    <div className={styles.FilterLegend}>
+    <div className='font-sansText text-small font-normal'>
       {/* Legend Title & Clear Button */}
-      <div className={styles.LegendTitle}>
+      <div className='mb-5 flex	items-center text-left font-sansText font-medium'>
         <p id={legendId}>Select groups:</p>
-
         {/* Reset to Highest Lowest Averages */}
         <button
           aria-disabled={!selectedGroups?.length}
-          className={groupsAreMinMax ? styles.disabled : undefined} // disable button when min/max is showing
+          className={`ml-5 ${
+            groupsAreMinMax
+              ? 'cursor-not-allowed opacity-30'
+              : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
+          }`}
           aria-label={`Highlight groups with lowest and highest average values over time`}
           onClick={() => {
             handleMinMaxClick(null)
@@ -86,7 +76,11 @@ export function FilterLegend({
         <button
           aria-label={`Clear demographic filters`}
           aria-disabled={!selectedGroups?.length}
-          className={!selectedGroups?.length ? styles.disabled : undefined} // disable button unless filters are applied
+          className={`ml-5 ${
+            !selectedGroups?.length
+              ? 'cursor-not-allowed opacity-30 '
+              : 'cursor-pointer rounded-sm border bg-transparent px-1.5'
+          }`}
           onClick={() => {
             handleClick(null)
           }} // clear selected groups on click
@@ -99,8 +93,9 @@ export function FilterLegend({
       {/* Legend Items Wrapper */}
       <menu
         aria-labelledby={legendId}
-        className={styles.LegendItems}
-        data-view={getDataView()}
+        className={`grid auto-cols-auto grid-cols-1 sm:grid-cols-2 ${
+          isComparing ? 'md:grid-cols-1 lg:grid-cols-2' : 'lg:grid-cols-3'
+        } `}
       >
         {/* Map over groups and create Legend Item for each */}
         {data?.map(([group]) => {
@@ -115,7 +110,7 @@ export function FilterLegend({
               key={`legendItem-${group}`}
               aria-label={`Include ${group}`}
               aria-pressed={groupEnabled}
-              className={styles.LegendItem}
+              className='mb-1.5 mr-5 flex cursor-pointer items-center border-0 bg-transparent p-0 text-start transition-opacity	duration-300 ease-in-out'
               onClick={() => {
                 handleClick(group)
               }} // send group name to parent on click
@@ -126,7 +121,7 @@ export function FilterLegend({
             >
               {/* Legend Item color swatch */}
               <div
-                className={styles.swatch}
+                className='mr-1.5	h-4	w-4 shrink-0 rounded-xs border-2 border-dashed border-transparent text-start'
                 aria-hidden={true}
                 style={{
                   backgroundImage: isUnknown ? gradient : undefined,

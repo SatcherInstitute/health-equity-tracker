@@ -6,7 +6,7 @@ import {
 } from '../../utils/internalRoutes'
 import { Link, Route, Switch } from 'react-router-dom'
 
-// can't lazy load (yet) due to scss loading issues
+// can't lazy load (yet) due to loading issues
 import OldMethodologyTab from './OldMethodologyTab'
 import OldAgeAdjustmentTab from './OldAgeAdjustmentTab'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'

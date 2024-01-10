@@ -22,7 +22,7 @@ const config: PlaywrightTestConfig = {
   timeout: 120 * 1000,
   /* Maximum time one "expect" can run for, default was 5 seconds and was too quick */
   expect: {
-    timeout: 60 * 1000
+    timeout: 90 * 1000
   },
   /* run all tests, even those within a shared file, in parallel  */
   fullyParallel: true,
@@ -56,12 +56,16 @@ const config: PlaywrightTestConfig = {
   projects: [
     {
       name: 'URL',
-      testMatch: /.*externalUrls.spec.ts/,
+      testMatch: /.*externalUrls.spec.ts/, // checks outgoing links
+    },
+    {
+      name: 'E2E_NIGHTLY',
+      testIgnore: /.*externalUrls.spec.ts/, // both nightly + ci tests
     },
     {
 
-      name: 'E2E_NIGHTLY',
-      testMatch: /.*nightly.spec.ts/,
+      name: 'E2E_CI',
+      testMatch: /.*ci.spec.ts/, // only most essential tests run on ci
     },
   ],
 

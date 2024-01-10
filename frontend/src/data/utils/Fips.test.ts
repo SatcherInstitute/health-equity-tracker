@@ -47,3 +47,23 @@ describe('Test failInvalidFips()', () => {
     }).toThrow('Invalid FIPS code')
   })
 })
+
+describe('Test getFipsCategory()', () => {
+  test('The US', async () => {
+    expect(new Fips('00').getFipsCategory()).toEqual('National')
+  })
+  test('A State', async () => {
+    expect(new Fips('01').getFipsCategory()).toEqual('States')
+  })
+  test('A Territory', async () => {
+    expect(new Fips('78').getFipsCategory()).toEqual('Territories')
+  })
+  test('A County of a State', async () => {
+    expect(new Fips('01001').getFipsCategory()).toEqual('Alabama Counties')
+  })
+  test('A County-Equivalent of a Territory', async () => {
+    expect(new Fips('78001').getFipsCategory()).toEqual(
+      'U.S. Virgin Islands County Equivalents'
+    )
+  })
+})
