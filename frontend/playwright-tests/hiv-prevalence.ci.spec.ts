@@ -2,9 +2,6 @@ import { test } from '@playwright/test'
 
 test('hiv prevalence', async ({ page }) => {
   await page.goto('/exploredata?mls=1.hiv-3.00&group1=All')
-  await page.locator('#landingPageCTA').click()
-  await page.getByRole('button', { name: 'select a topic' }).click()
-  await page.getByRole('button', { name: 'HIV', exact: true }).click()
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
   await page
@@ -38,3 +35,5 @@ test('hiv prevalence', async ({ page }) => {
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
   await page.getByText('Do you have information that').click()
 })
+
+// frontend\playwright-tests\hiv-prevalence.ci.spec.ts
