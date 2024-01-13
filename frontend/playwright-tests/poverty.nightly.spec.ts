@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test.only('Poverty', async ({ page }) => {
+test('Poverty', async ({ page }) => {
   await page.goto('/exploredata?mls=1.poverty-3.00&group1=All')
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
