@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test('HIV conditions and medication adherence', async ({ page }) => {
+test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
     await page.goto('/exploredata?mls=1.medicare_hiv-3.00&group1=All&dt1=medicare_hiv')
 
     await page.getByText('Investigate rates of', { exact: true }).click()
