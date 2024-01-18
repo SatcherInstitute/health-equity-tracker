@@ -182,6 +182,24 @@ BB_AMI_PREFIX = "bb_ami"
 RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
 
+# Gun violence
+NON_FATAL_PREFIX = "non_fatal"
+NON_FATAL_ASSAULT_SEXUAL = 'non_fatal_assault_sexual'
+NON_FATAL_LEGAL_INTERVENTION = 'non_fatal_legal_intervention'
+NON_FATAL_ASSUALT_OTHER = 'non_fatal_assault_other'
+NON_FATAL_POPULATION = "non_fatal_population"
+NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
+NON_FATAL_SELF_HARM = 'non_fatal_self_harm'
+NON_FATAL_UNINTENTIONAL = 'non_fatal_unintentional'
+
+FATAL_PREFIX = "fatal"
+FATAL_HOMICIDE = "fatal_homicide"
+FATAL_LEGAL_INTERVENTION = "fatal_legal_intervention"
+FATAL_POPULATION = "fatal_population"
+FATAL_POPULATION_PCT = "fatal_population_pct"
+FATAL_SUICIDE = "fatal_suicide"
+FATAL_UNDETERMINED = "fatal_undetermined"
+FATAL_UNINTENTIONAL = "fatal_unintentional"
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])
 
