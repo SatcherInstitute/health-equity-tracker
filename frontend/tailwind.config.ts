@@ -1,8 +1,6 @@
 import type { Config } from 'tailwindcss'
 import { het, ThemeZIndexValues, ThemeStandardScreenSizes } from './src/styles/DesignTokens'
 
-
-
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   important: true,
@@ -11,6 +9,7 @@ export default {
     maxHeight: ThemeStandardScreenSizes,
     maxWidth: ThemeStandardScreenSizes,
     borderRadius: {
+      'xs': '2px',
       'sm': '4px',
       'md': '8px',
       'lg': '16px',
@@ -36,8 +35,10 @@ export default {
       lhListBoxTitle: '47px',
     },
     fontFamily: {
-      sansTitle: ['DM Sans', 'sans-serif'],
+      // Nested quotations are required for font names with spaces
+      sansTitle: ["'DM Sans Variable'", 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
+      roboto: ['Roboto', 'sans-serif'],
       serif: ['Taviraj', 'serif'],
       math: ['KaTeX_Math', 'mono'],
     },
@@ -98,7 +99,12 @@ export default {
       // for use w/spacing utilities: 'm', 'p', 'gap', etc.
       spacing: {
         cardGutter: '8px',
+        footer: '10rem',
       },
+      strokeWidth: {
+        '2.5': '2.5',
+        '5.5': '5.5'
+      }
     },
   },
   plugins: [],

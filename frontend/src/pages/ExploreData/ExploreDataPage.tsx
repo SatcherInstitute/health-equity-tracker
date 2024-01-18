@@ -25,7 +25,6 @@ import {
   SHOW_ONBOARDING_PARAM,
   stringifyMls,
 } from '../../utils/urlutils'
-import styles from './ExploreDataPage.module.scss'
 import { srSpeak } from '../../utils/a11yutils'
 import { urlMap } from '../../utils/externalUrls'
 import {
@@ -203,7 +202,7 @@ function ExploreDataPage(props: ExploreDataPageProps) {
   useScrollPosition(
     ({ pageYOffset, stickyBarOffsetFromTop }) => {
       const topOfMadLibContainer = pageYOffset > stickyBarOffsetFromTop
-      if (topOfMadLibContainer) setIsSticking(true)
+      if (topOfMadLibContainer && !noTopicChosen) setIsSticking(true)
       else setIsSticking(false)
     },
     [isSticking],
@@ -291,20 +290,34 @@ function ExploreDataPage(props: ExploreDataPageProps) {
       />
 
       <h2 className='sr-only'>{getMadLibPhraseText(madLib)}</h2>
-      <div id={EXPLORE_DATA_ID} tabIndex={-1} className={styles.ExploreData}>
+      <div
+        id={EXPLORE_DATA_ID}
+        tabIndex={-1}
+        className={'h-full bg-exploreBgColor'}
+      >
         <div
-          className={styles.MadLibUIContainer + ' z-almostTop'}
+          className={`z-almostTop mb-1 bg-white p-4 shadow-raised-tighter  transition-all duration-200 ease-in-out md:top-0 md:w-full
+            ${isSticking ? 'md:fixed' : ''}
+          `}
           id='madlib-container'
         >
-          <MadLibUI madLib={madLib} setMadLibWithParam={setMadLibWithParam} />
+          <MadLibUI
+            isSticking={isSticking}
+            madLib={madLib}
+            setMadLibWithParam={setMadLibWithParam}
+          />
 
-          {showStickyLifeline && (
-            <p className={styles.LifelineSticky}>
+          {showStickyLifeline && isSticking && (
+            <p className='flex justify-center '>
               <a href={urlMap.lifeline}>988lifeline.org</a>
             </p>
           )}
         </div>
-        <div className={styles.ReportContainer}>
+        <div
+          className={`w-full pt-0 transition-all duration-200 ${
+            isSticking ? 'md:pt-[150px]' : ''
+          }`}
+        >
           {noTopicChosen ? (
             <DefaultHelperBox />
           ) : (

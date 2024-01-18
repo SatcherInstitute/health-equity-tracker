@@ -179,6 +179,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     props.metric.metricId,
     'highestGroup',
     'lowestGroup',
+    'fips_name',
   ]
 
   // if count col metricIds are available, add those columns to the transformed dataset for VEGA
@@ -252,7 +253,7 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* showCounties */ props.showCounties
   )
 
-  // Hover tooltip for null/undefined/missing data
+  // Hover tooltip for null/undefined/missing data, using the location name found in geographies.json
   const missingDataTooltipValue = buildTooltipTemplate(
     /* tooltipPairs */ { [tooltipLabel]: `"${NO_DATA_MESSAGE}"` },
     /* title */ `datum.properties.name + " ${geographyType}"`,
@@ -286,10 +287,10 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
     /* includeSvi */ true
   )
 
-  // Hover tooltip for non-zero data
+  // Hover tooltip for non-zero data, using source data's location name
   const tooltipValue = buildTooltipTemplate(
     /* tooltipPairs */ tooltipPairs,
-    /* title */ `datum.properties.name + " ${geographyType}"`,
+    /* title */ `datum.fips_name`,
     /* includeSvi */ props.showCounties
   )
 
@@ -513,8 +514,8 @@ export default function ChoroplethMap(props: ChoroplethMapProps) {
 
   return (
     <div
-      className={`justify-center 
-      ${props.isUnknownsMap ? 'mt-1' : 'mt-0'} 
+      className={`justify-center
+      ${props.isUnknownsMap ? 'mt-1' : 'mt-0'}
       ${width === INVISIBLE_PRELOAD_WIDTH ? 'hidden' : 'block'}
       `}
       ref={props.overrideShapeWithCircle ? undefined : ref}

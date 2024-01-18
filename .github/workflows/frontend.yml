@@ -66,7 +66,7 @@ jobs:
         id: wait-for-netflify-preview
         with:
           site_name: ${{env.NETLIFY_SITE_NAME}}
-          max_timeout: 60
+          max_timeout: 90
 
   tests_e2e_netlify:
     needs: tests_e2e_netlify_prepare
@@ -85,11 +85,11 @@ jobs:
         run: npm ci
       - name: Install playwright deps
         run: npx playwright install --with-deps chromium
-      - name: run E2E_DEPLOY_PREVIEW
-        run: npx playwright test --project=E2E_NIGHTLY --workers 6
+      - name: run E2E on DEPLOY_PREVIEW
+        run: npx playwright test --project=E2E_CI --workers 4
         # base url based on the GITHUB_PR_NUMBER + NETLIFY_SITE_NAME
         env:
-          PLAYWRIGHT_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
+          E2E_BASE_URL: 'https://deploy-preview-${{env.GITHUB_PR_NUMBER}}--${{env.NETLIFY_SITE_NAME}}.netlify.app'
       # store test run reports if they fail
       - uses: actions/upload-artifact@v3
         if: ${{ failure() }}

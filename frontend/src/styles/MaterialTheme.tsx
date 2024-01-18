@@ -1,6 +1,5 @@
 import { createTheme } from '@mui/material/styles'
-import 'typeface-dm-sans'
-import sass from './variables.module.scss'
+import { het, ThemeLineHeightValues } from '../styles/DesignTokens'
 
 declare module '@mui/material/styles' {
   interface BreakpointOverrides {
@@ -36,14 +35,14 @@ const MaterialTheme = createTheme({
   },
   palette: {
     primary: {
-      light: sass.barChartLight,
-      main: sass.altGreen,
-      dark: sass.darkGreen,
+      light: het.barChartLight,
+      main: het.altGreen,
+      dark: het.darkGreen,
     },
     secondary: {
-      light: sass.secondaryLight,
-      main: sass.secondaryMain,
-      dark: sass.secondaryDark,
+      light: het.secondaryLight,
+      main: het.secondaryMain,
+      dark: het.secondaryDark,
     },
   },
   components: {
@@ -53,10 +52,10 @@ const MaterialTheme = createTheme({
           fontFamily: '"Inter", sans-serif',
         },
         '.MuiAlert-standardInfo .MuiAlert-icon': {
-          color: `${sass.altGreen} !important`,
+          color: `${het.altGreen} !important`,
         },
         '.MuiAlert-standardWarning .MuiAlert-icon': {
-          color: `${sass.alertColor} !important`,
+          color: `${het.alertColor} !important`,
         },
       },
     },
@@ -66,13 +65,13 @@ const MaterialTheme = createTheme({
           fontFamily: '"Inter", sans-serif',
         },
         standardInfo: {
-          backgroundColor: `${sass.standardInfo} !important`,
-          color: `${sass.black} !important`,
+          backgroundColor: `${het.standardInfo} !important`,
+          color: `${het.black} !important`,
           textAlign: 'left',
         },
         standardWarning: {
-          backgroundColor: `${sass.standardWarning} !important`,
-          color: `${sass.black} !important`,
+          backgroundColor: `${het.standardWarning} !important`,
+          color: `${het.black} !important`,
           textAlign: 'left',
         },
         standardError: {
@@ -97,7 +96,7 @@ const MaterialTheme = createTheme({
           fontFamily: '"Inter", sans-serif',
         },
         containedPrimary: {
-          color: sass.white,
+          color: het.white,
         },
       },
     },
@@ -139,7 +138,7 @@ const MaterialTheme = createTheme({
     MuiStepLabel: {
       styleOverrides: {
         label: {
-          lineHeight: sass.lhTight,
+          lineHeight: ThemeLineHeightValues.lhTight,
         },
       },
     },
@@ -162,14 +161,14 @@ const MaterialTheme = createTheme({
       styleOverrides: {
         root: {
           marginTop: '40px',
-          borderBottom: `1px solid ${sass.borderColor}`,
+          borderBottom: `1px solid ${het.borderColor}`,
         },
       },
     },
     MuiToggleButtonGroup: {
       styleOverrides: {
         root: {
-          outline: `1px solid ${sass.unknownGrey} !important`,
+          outline: `1px solid ${het.howToColor} !important`,
           borderRadius: '4px',
           overflow: 'hidden',
         },
@@ -185,21 +184,21 @@ const MaterialTheme = createTheme({
     MuiToggleButton: {
       styleOverrides: {
         root: {
-          'outline': `1px solid ${sass.unknownGrey} !important`,
+          'outline': `1px solid ${het.howToColor} !important`,
           'fontWeight': 'normal',
           'fontSize': '14px',
-          'color': sass.black,
+          'color': het.black,
           'lineHeight': '16px !important',
           'padding': '11px !important',
-          'backgroundColor': `${sass.white} !important`,
+          'backgroundColor': `${het.white} !important`,
           'textTransform': 'none',
           '&.Mui-selected': {
-            color: sass.altGreen,
-            backgroundColor: `${sass.toggleColor} !important`,
+            color: het.altGreen,
+            backgroundColor: `${het.toggleColor} !important`,
           },
           '&:hover': {
-            color: sass.altGreen,
-            backgroundColor: sass.toggleColor,
+            color: het.altGreen,
+            backgroundColor: het.toggleColor,
           },
         },
       },

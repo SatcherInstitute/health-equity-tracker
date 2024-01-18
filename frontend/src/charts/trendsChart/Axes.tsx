@@ -19,9 +19,6 @@ import { axisLeft, axisBottom, select } from 'd3'
 
 /* Local Imports */
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import { CONFIG, TYPES, FORMATTERS as F } from './constants'
 import {
@@ -34,6 +31,7 @@ import {
 /* Helpers */
 import { getMinNumber, getMaxNumber, getDates } from './helpers'
 import { getPrettyDate } from '../../data/utils/DatasetTimeUtils'
+import { het } from '../../styles/DesignTokens'
 
 /* Define type interface */
 export interface AxesProps {
@@ -109,7 +107,7 @@ export function Axes({
   const yAxisRef = useRef(null)
 
   /* Axes */
-  const numTicksIfSkinny = Math.min(4, axisConfig.xAxisMaxTicks as number)
+  const numTicksIfSkinny = 5
 
   const xAxis = axisBottom(xScale)
     .tickSize(0)
@@ -158,10 +156,10 @@ export function Axes({
   return (
     <g>
       {/* Axes */}
-      <g className={styles.Axes}>
+      <g>
         {/* X-Axis */}
         <g
-          className={styles.xAxis}
+          className='xAxisGroup font-sansText	text-smallest font-normal'
           ref={xAxisRef}
           transform={`translate(0, ${HEIGHT - marginBottom})`}
           aria-label={`x axis as months ranging from ${startDate} through ${endDate}`}
@@ -170,7 +168,7 @@ export function Axes({
         />
         {/* Y-Axis */}
         <g
-          className={styles.yAxis}
+          className='yAxisGroup font-sansText text-smallest font-normal '
           ref={yAxisRef}
           transform={`translate(${marginLeft}, 0)`}
           aria-label={`y axis as ${
@@ -189,11 +187,11 @@ export function Axes({
           y1={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
           x2={width - marginRight}
           y2={yScale(Y_AXIS_CONFIG[type]?.yScaleMin ?? 0)}
-          stroke='black' // handle in CSS?
+          stroke={het.altGrey}
         />
       </g>
       {/* Axis Labels */}
-      <g className={styles.AxesLabels}>
+      <g className='font-sansText text-smallest font-medium'>
         {/* X-Axis Label */}
         <g
           transform={`translate(${width}, ${

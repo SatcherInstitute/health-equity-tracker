@@ -43,11 +43,12 @@ import {
   ACS_POVERTY_AGE_BUCKETS,
 } from './Constants'
 import { type Row } from './DatasetTypes'
-import { type StateFipsCode, type Fips } from './Fips'
+import { type Fips } from './Fips'
 import {
   type DatasetIdWithStateFIPSCode,
   type DatasetId,
 } from '../config/DatasetMetadata'
+import { type StateFipsCode } from './FipsData'
 
 export type JoinType = 'inner' | 'left' | 'outer'
 

@@ -17,7 +17,6 @@ import {
 import { exclude } from '../data/query/BreakdownFilter'
 import { ALL, RACE, SEX } from '../data/utils/Constants'
 import MissingDataAlert from './ui/MissingDataAlert'
-import Divider from '@mui/material/Divider'
 import { urlMap } from '../utils/externalUrls'
 import {
   getExclusionList,
@@ -37,6 +36,7 @@ import { type ElementHashIdHiddenOnScreenshot } from '../utils/hooks/useDownload
 import { type CountColsMap } from '../charts/mapGlobals'
 import HetNotice from '../styles/HetComponents/HetNotice'
 import { generateSubtitle } from '../charts/utils'
+import HetDivider from '../styles/HetComponents/HetDivider'
 
 // We need to get this property, but we want to show it as
 // part of the "population_pct" column, and not as its own column
@@ -223,7 +223,7 @@ export default function TableCard(props: TableCardProps) {
                     </a>
                     .
                   </HetNotice>
-                  <Divider />
+                  <HetDivider />
                 </>
               )}
           </>

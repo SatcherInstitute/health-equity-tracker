@@ -5,7 +5,7 @@ import HetLinkButton from './HetLinkButton'
 
 export default function HetAppToolbar() {
   return (
-    <Toolbar className='flex min-h-[65px] justify-between border-0 border-b border-solid border-black bg-white p-2 leading-lhSomeSpace'>
+    <Toolbar className='flex min-h-[65px] justify-between border-0 border-b border-solid border-black bg-white leading-lhSomeSpace'>
       <h1 className='m-0'>
         <HetLinkButton className='flex items-center pl-0' href='/'>
           <img

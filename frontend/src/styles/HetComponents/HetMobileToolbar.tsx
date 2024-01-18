@@ -19,7 +19,11 @@ export default function HetMobileAppToolbar() {
   const [open, setOpen] = useState(false)
 
   return (
-    <Toolbar>
+    <Toolbar
+      onBlur={() => {
+        setOpen(false)
+      }}
+    >
       <IconButton
         onClick={() => {
           setOpen(true)

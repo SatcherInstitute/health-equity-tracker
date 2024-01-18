@@ -1,11 +1,4 @@
-import styles from './FaqSection.module.scss'
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Grid,
-  Typography,
-} from '@mui/material'
+import { Accordion, AccordionSummary, AccordionDetails } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
 import { type FAQ, selectFAQs } from '../WhatIsHealthEquity/FaqData'
@@ -20,18 +13,20 @@ interface FAQListItemProps {
 
 function FAQListItem(props: FAQListItemProps) {
   return (
-    <Accordion className={styles.FaqListItem}>
+    <Accordion className='m-0 list-none'>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={props.ariaControls}
         id={props.id}
       >
-        <Typography className={styles.FaqQuestion} variant='h2' component='h4'>
+        <div className='text-left font-serif text-title leading-lhSuperLoose text-altBlack sm:text-smallHeader'>
           {props.faq.questionText}
-        </Typography>
+        </div>
       </AccordionSummary>
       <AccordionDetails>
-        <div className={styles.FaqAnswer}>{props.faq.answer}</div>
+        <div className='text-left text-small font-normal text-altBlack'>
+          {props.faq.answer}
+        </div>
       </AccordionDetails>
     </Accordion>
   )
@@ -39,13 +34,12 @@ function FAQListItem(props: FAQListItemProps) {
 
 export default function FaqSection() {
   return (
-    <Grid container component='article'>
-      <Grid item>
-        <Typography className={styles.FaqHeader} variant='h1' component='h3'>
-          Frequently asked questions
-        </Typography>
-      </Grid>
-      <Grid item xs={12} className={styles.FaqQAItem}>
+    <article className='grid'>
+      <div className='pb-5 text-left font-serif text-bigHeader text-altGreen'>
+        Frequently asked questions
+      </div>
+
+      <div className='px-0 py-5'>
         {selectFAQs.map((faq, index) => {
           return (
             <FAQListItem
@@ -56,15 +50,15 @@ export default function FaqSection() {
             />
           )
         })}
-      </Grid>
-      <Grid item>
+      </div>
+      <div className='text-left'>
         <HetLinkButton
           href={FAQ_TAB_LINK}
           className='text-smallestHeader text-altGreen underline'
         >
           See our full FAQ page
         </HetLinkButton>
-      </Grid>
-    </Grid>
+      </div>
+    </article>
   )
 }

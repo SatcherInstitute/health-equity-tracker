@@ -1,6 +1,5 @@
-import { Grid } from '@mui/material'
 import React from 'react'
-import { Fips } from '../../data/utils/Fips'
+import { isFipsString } from '../../data/utils/Fips'
 import {
   DEFAULT,
   MADLIB_LIST,
@@ -8,9 +7,9 @@ import {
   insertOptionalThe,
   type MadLib,
   type PhraseSegment,
+  getConfigFromDataTypeId,
+  getParentDropdownFromDataTypeId,
 } from '../../utils/MadLibs'
-import TopicOrLocationSelector from './TopicOrLocationSelector'
-import styles from './ExploreDataPage.module.scss'
 import {
   DATA_TYPE_1_PARAM,
   DATA_TYPE_2_PARAM,
@@ -32,28 +31,16 @@ import {
   selectedDataTypeConfig1Atom,
   selectedDataTypeConfig2Atom,
 } from '../../utils/sharedSettingsState'
+import TopicSelector from './TopicSelector'
+import LocationSelector from './LocationSelector'
 
-export default function MadLibUI(props: {
+interface MadLibUIProps {
   madLib: MadLib
   setMadLibWithParam: (updatedMadLib: MadLib) => void
-}) {
-  // TODO: this isn't efficient, these should be stored in an ordered way
-  function getOptionsFromPhraseSegment(
-    phraseSegment: PhraseSegment
-  ): Fips[] | string[][] {
-    // check first option to tell if phraseSegment is FIPS or CONDITIONS
-    return isNaN(Object.keys(phraseSegment)[0] as any)
-      ? Object.entries(phraseSegment).sort((a, b) => a[0].localeCompare(b[0]))
-      : Object.keys(phraseSegment)
-          .sort((a: string, b: string) => {
-            if (a.length === b.length) {
-              return a.localeCompare(b)
-            }
-            return b.length > a.length ? -1 : 1
-          })
-          .map((fipsCode) => new Fips(fipsCode))
-  }
+  isSticking: boolean
+}
 
+export default function MadLibUI(props: MadLibUIProps) {
   function handleOptionUpdate(newValue: string, index: number) {
     if (newValue === DEFAULT) {
       props.setMadLibWithParam(MADLIB_LIST[0])
@@ -111,11 +98,14 @@ export default function MadLibUI(props: {
 
   return (
     <>
-      <Grid item xs={12} container justifyContent='center' alignItems='center'>
-        <div className={styles.MadLibUI} id='madlib-box'>
+      <div className='grid place-content-center'>
+        <div
+          className='mx-0 my-2 p-0 text-center text-title leading-lhLoose transition-all duration-200 ease-in-out sm:text-smallestHeader lg:text-smallerHeader'
+          id='madlib-box'
+        >
           {props.madLib.phrase.map(
             (phraseSegment: PhraseSegment, index: number) => {
-              let dataTypes: any[][] = []
+              let dataTypes: Array<[DataTypeId, string]> = []
 
               const segmentDataTypeId: DropdownVarId | string =
                 props.madLib.activeSelections[index]
@@ -135,27 +125,45 @@ export default function MadLibUI(props: {
                   ? setSelectedDataTypeConfig1
                   : setSelectedDataTypeConfig2
 
+              const isLocationMadLib = isFipsString(
+                props.madLib.activeSelections[index]
+              )
+
               return (
                 <React.Fragment key={index}>
                   {typeof phraseSegment === 'string' ? (
-                    <span className={styles.NonClickableMadlibText}>
+                    // NON_INTERACTIVE MADLIB WORDS
+                    <span className='text-altBlack'>
                       {phraseSegment}
                       {insertOptionalThe(props.madLib.activeSelections, index)}
                     </span>
                   ) : (
                     <>
-                      <TopicOrLocationSelector
-                        value={props.madLib.activeSelections[index]}
-                        onOptionUpdate={(newValue) => {
-                          handleOptionUpdate(newValue, index)
-                        }}
-                        options={getOptionsFromPhraseSegment(phraseSegment)}
-                      />
+                      {isLocationMadLib ? (
+                        // LOCATION
+                        <LocationSelector
+                          newValue={props.madLib.activeSelections[index]}
+                          onOptionUpdate={(newValue) => {
+                            handleOptionUpdate(newValue, index)
+                          }}
+                          phraseSegment={phraseSegment}
+                        />
+                      ) : (
+                        // MAIN PARENT TOPIC
+                        <TopicSelector
+                          newValue={props.madLib.activeSelections[index]}
+                          onOptionUpdate={(newValue) => {
+                            handleOptionUpdate(newValue, index)
+                          }}
+                          phraseSegment={phraseSegment}
+                        />
+                      )}
 
                       {dataTypes?.length > 1 && (
+                        // DATA TYPE SUB TOPIC
                         <DataTypeSelector
                           key={`${index}-datatype`}
-                          value={config?.dataTypeId ?? dataTypes[0][0]}
+                          newValue={config?.dataTypeId ?? dataTypes[0][0]}
                           onOptionUpdate={(newValue) => {
                             handleDataTypeUpdate(newValue, index, setConfig)
                           }}
@@ -169,33 +177,7 @@ export default function MadLibUI(props: {
             }
           )}
         </div>
-      </Grid>
+      </div>
     </>
   )
-}
-
-export function getConfigFromDataTypeId(
-  id: DataTypeId | string
-): DataTypeConfig {
-  const config = Object.values(METRIC_CONFIG)
-    .flat()
-    .find((config) => config.dataTypeId === id)
-  // fallback to covid cases
-  return config ?? METRIC_CONFIG.covid[0]
-}
-
-export function getParentDropdownFromDataTypeId(
-  dataType: DataTypeId | string
-): DropdownVarId {
-  for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
-    if (
-      configArray
-        .map((config) => config.dataTypeId)
-        .includes(dataType as any as DataTypeId)
-    ) {
-      return dropdownId as any as DropdownVarId
-    }
-  }
-  // fallback to covid
-  return 'covid'
 }

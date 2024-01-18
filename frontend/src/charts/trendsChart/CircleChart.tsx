@@ -13,9 +13,6 @@
 /* External Imports */
 import { scaleSqrt, scaleLinear, extent, min, max } from 'd3'
 
-/* Styles */
-import styles from './Trends.module.scss'
-
 /* Constants */
 import {
   CONFIG,
@@ -101,7 +98,6 @@ export function CircleChart({
               role='listitem'
               key={`dataCircleGroup-${i}`}
               transform={`translate(${xScale(new Date(date)) ?? ''}, 0)`}
-              className={styles.UnknownCircles}
             >
               {/* return a circle for every data point on desktop, limited to every other on mobile (to create more space) and showing only the currently hovered bubble when hover state is active */}
               {(!isSkinny ||
@@ -119,7 +115,11 @@ export function CircleChart({
                   {/* show percent % annotation on hover */}
                   <text
                     id={`circleText-${i}-${circleId}`}
-                    className={selectedDate === date ? '' : styles.invisible}
+                    className={
+                      selectedDate === date
+                        ? 'text-smallest transition-opacity delay-100 duration-200 ease-linear'
+                        : 'opacity-0'
+                    }
                     textAnchor={'middle'}
                     dy='26px'
                   >
@@ -133,7 +133,6 @@ export function CircleChart({
       </g>
       {/* Circle Legend */}
       <g
-        className={styles.CircleLegend}
         // Translate into position (dynamic based on width & height alloted)
         transform={`translate(${legendXPlacement}, ${
           HEIGHT - 6.25 * MAX_RADIUS
@@ -163,6 +162,7 @@ export function CircleChart({
                 </circle>
                 {/* Circle label annotation (percent represented by circle) */}
                 <text
+                  className='text-smallest'
                   textAnchor='middle'
                   dy='25px'
                   id={`circleLegendText-${i}-${circleId}`}
@@ -170,7 +170,7 @@ export function CircleChart({
                 >
                   {F.pct(percent)}
                 </text>
-                <text textAnchor='middle' dy='36px'>
+                <text className='text-smallest' textAnchor='middle' dy='36px'>
                   <tspan>{legendHelper}</tspan>
                 </text>
               </g>
@@ -182,7 +182,7 @@ export function CircleChart({
         <text
           textAnchor='middle'
           dy='55px'
-          className={styles.title}
+          className='text-smallest font-medium'
           id={`unknown-circle-legend-title-${circleId}`}
         >
           {unknownCircleLegendText}

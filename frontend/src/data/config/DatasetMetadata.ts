@@ -1,5 +1,5 @@
 import { type DatasetMetadata } from '../utils/DatasetTypes'
-import { type StateFipsCode } from '../utils/Fips'
+import { type StateFipsCode } from '../utils/FipsData'
 import { GEOGRAPHIES_DATASET_ID } from './MetadataMap'
 
 export type DatasetId =
@@ -416,98 +416,98 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cdc_restricted_data-by_race_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and county',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity and state',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by race/ethnicity, nationally',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and county',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age and state',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by age, nationally',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and county',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex and state',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed_time_series': {
     name: 'Monthly COVID-19 deaths, cases, and hospitalizations by sex, nationally',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by race/ethnicity and county',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_state_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity and state',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_race_national_processed-with_age_adjust': {
     name: 'COVID-19 deaths, cases, and hospitalizations with age-adjusted ratios since January 2020 by race/ethnicity, nationally',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     contains_nh: true,
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and county',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age and state',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_age_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by age, nationally',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_county_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and county',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_state_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex and state',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_restricted_data-by_sex_national_processed': {
     name: 'COVID-19 deaths, cases, and hospitalizations since January 2020 by sex, nationally',
-    update_time: 'November 2023',
+    update_time: 'January 2024',
     source_id: 'cdc_restricted',
   },
   'cdc_svi_county-age': {
