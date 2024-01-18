@@ -11,4 +11,4 @@ jobs:
       - uses: streetsidesoftware/cspell-action@v5
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          config: '../../cspell.config.json'
+          config: 'cspell.config.json'
