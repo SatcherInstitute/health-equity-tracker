@@ -29,10 +29,6 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
 
     await page.getByRole('combobox', { name: 'Demographic Race/ethnicity' }).click()
     await page.getByRole('option', { name: 'Subsidy' }).click()
-
-    await page.locator('#rate-map').getByText('Low income subsidy:').click()
-    await page.locator('.MuiBackdrop-root').click()
-
     await page.getByRole('combobox', { name: 'Demographic Subsidy' }).click()
     await page.getByRole('option', { name: 'Eligibility' }).click()
 
