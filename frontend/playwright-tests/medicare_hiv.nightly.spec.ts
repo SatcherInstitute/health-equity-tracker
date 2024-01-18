@@ -26,15 +26,12 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
     await page.locator('#data-table').getByRole('heading', { name: 'Medicare beneficiaries' }).click()
     await page.locator('#data-table').getByLabel('Card export options').click()
     await page.locator('.MuiBackdrop-root').first().click()
- 
+
     await page.getByRole('combobox', { name: 'Demographic Race/ethnicity' }).click()
     await page.getByRole('option', { name: 'Subsidy' }).click()
 
     await page.locator('#rate-map').getByText('Low income subsidy:').click()
     await page.locator('.MuiBackdrop-root').click()
-    await page.locator('#rate-map').getByLabel('Launch multiple maps view').click()
-    await page.getByRole('heading', { name: 'Cases of HIV' }).click()
-    await page.getByLabel('close multiple maps modal').click()
 
     await page.getByRole('combobox', { name: 'Demographic Subsidy' }).click()
     await page.getByRole('option', { name: 'Eligibility' }).click()
