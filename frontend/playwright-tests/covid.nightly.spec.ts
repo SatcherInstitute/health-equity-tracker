@@ -44,8 +44,6 @@ test('Covid Cases', async ({ page }) => {
 
 test('Covid Deaths', async ({ page }) => {
   await page.goto('/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths')
-  await page.getByRole('button', { name: 'Deaths', exact: true }).click()
-  await page.getByRole('button', { name: 'Hospitalizations' }).click()
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
   await page.getByLabel('open the topic info modal').click()
@@ -77,8 +75,6 @@ test('Covid Deaths', async ({ page }) => {
 
 test('Covid Hospitalizations', async ({ page }) => {
   await page.goto('/exploredata?mls=1.covid-3.00&dt1=covid_hospitalizations')
-  await page.getByRole('button', { name: 'Deaths', exact: true }).click()
-  await page.getByRole('button', { name: 'Hospitalizations' }).click()
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
   await page.getByLabel('open the topic info modal').click()
@@ -101,5 +97,4 @@ test('Covid Hospitalizations', async ({ page }) => {
     .getByRole('heading', { name: 'Breakdown summary for COVID-' })
     .click()
   await page.getByRole('heading', { name: 'Age-adjusted COVID-19' }).click()
-  await page.getByText('COVID-19 hospitalizations', { exact: true }).click()
 })
