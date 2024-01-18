@@ -314,7 +314,7 @@ def clean_numeric(val):
 
 def convert_columns_to_numeric(df, columns_to_convert):
     """
-    applies clean_numeric to nececessary columns and convert values to float
+    applies clean_numeric to necessary columns and convert values to float
     """
     for column in columns_to_convert:
         df[column] = df[column].apply(clean_numeric)
