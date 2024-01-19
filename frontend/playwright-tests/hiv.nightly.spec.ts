@@ -1,6 +1,6 @@
 import { test } from '@playwright/test'
 
-test('hiv-prevalance-diagnoses-deaths', async ({ page }) => {
+test('HIV: Prevalance', async ({ page }) => {
   await page.goto('/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_prevalence')
   await page.getByText('Race and Ethnicity:').click()
   await page.locator('.MuiBackdrop-root').click()
@@ -36,8 +36,11 @@ test('hiv-prevalance-diagnoses-deaths', async ({ page }) => {
   await page.getByText('Do you have information that').click()
   await page.getByRole('button', { name: 'Prevalence', exact: true }).click()
   await page.getByRole('button', { name: 'New diagnoses' }).click()
+})
+
+test('HIV: Diagnoses', async ({ page }) => {
   await page.goto(
-    'http://localhost:3000/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_diagnoses'
+    '/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_diagnoses'
   )
   await page
     .locator('#rate-map')
@@ -65,6 +68,13 @@ test('hiv-prevalance-diagnoses-deaths', async ({ page }) => {
   await page.getByText('Do you have information that').click()
   await page.getByRole('button', { name: 'New diagnoses' }).click()
   await page.getByRole('button', { name: 'Deaths' }).click()
+
+})
+
+test('HIV: Deaths', async ({ page }) => {
+  await page.goto(
+    '/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths'
+  )
   await page
     .locator('#rate-map')
     .getByRole('heading', { name: 'HIV deaths in the United' })
