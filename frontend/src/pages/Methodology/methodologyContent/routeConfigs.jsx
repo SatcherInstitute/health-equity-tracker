@@ -35,7 +35,7 @@ import GlossaryLink from '../methodologySections/GlossaryLink'
 
 export const routeConfigs = [
   {
-    label: 'Methodology',
+    label: 'Methodology Introduction',
     path: NEW_METHODOLOGY_PAGE_LINK,
     component: MethodologyHomeLink,
     subLinks: [],
@@ -106,6 +106,25 @@ export const routeConfigs = [
       {
         label: 'Contact Information',
         path: '#contact-information',
+      },
+    ],
+  },
+  {
+    label: 'Categories and Limitations',
+    path: TOPICS_LINK,
+    component: TopicsLink,
+    subLinks: [
+      {
+        label: 'Categories',
+        path: '#categories',
+      },
+      {
+        label: 'Limitations',
+        path: '#limitations',
+      },
+      {
+        label: 'Missing Data',
+        path: '#missing-data',
       },
     ],
   },
@@ -286,6 +305,12 @@ export const routeConfigs = [
     ],
   },
   {
+    label: 'Data Methods',
+    path: DATA_METHOD_DEFINITIONS_LINK,
+    component: DataMethodDefinitionsLink,
+    subLinks: [],
+  },
+  {
     label: 'Metrics',
     path: METRICS_LINK,
     component: MetricsLink,
@@ -333,25 +358,7 @@ export const routeConfigs = [
       },
     ],
   },
-  {
-    label: 'Categories and Limitations',
-    path: TOPICS_LINK,
-    component: TopicsLink,
-    subLinks: [
-      {
-        label: 'Categories',
-        path: '#categories',
-      },
-      {
-        label: 'Limitations',
-        path: '#limitations',
-      },
-      {
-        label: 'Missing Data',
-        path: '#missing-data',
-      },
-    ],
-  },
+
   {
     label: 'Races and Ethnicities',
     path: RACES_AND_ETHNICITIES_LINK,
@@ -412,12 +419,6 @@ export const routeConfigs = [
         path: '#white',
       },
     ],
-  },
-  {
-    label: 'Data Methods',
-    path: DATA_METHOD_DEFINITIONS_LINK,
-    component: DataMethodDefinitionsLink,
-    subLinks: [],
   },
   {
     label: 'Recommended Citation',
