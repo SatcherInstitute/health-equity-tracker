@@ -16,7 +16,7 @@ function OurTeamTab() {
         <title>Our Team - About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Our Team</h2>
-      <div className='flex w-full max-w-xl flex-col p-10'>
+      <div className='flex w-full max-w-lg flex-col p-10'>
         <div className='flex w-full justify-center'>
           <div className='w-full justify-center sm:w-10/12 md:w-6/12 xl:w-8/12'>
             <h3
