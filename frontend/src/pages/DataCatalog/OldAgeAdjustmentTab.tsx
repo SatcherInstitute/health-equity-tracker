@@ -231,7 +231,10 @@ export default function OldAgeAdjustmentTab() {
                 </li>
               </ol>
 
-              <h3 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
+              <h3
+                id='age-adjustment-examples'
+                className='text-left font-serif text-smallestHeader font-light text-altBlack'
+              >
                 Age-Adjustment Example: HIV Deaths
               </h3>
               <p>

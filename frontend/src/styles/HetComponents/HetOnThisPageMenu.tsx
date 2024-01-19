@@ -60,7 +60,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
         aria-label='on this page quick navigation'
         className={`m-2 text-left  ${props.className ?? ''}`}
       >
-        <h4 className='text-left font-sansTitle text-smallest text-black'>
+        <h4 className='text-left font-sansTitle text-smallest font-normal text-black'>
           On this page
         </h4>
         <ul className='list-none space-y-1 pl-0 leading-lhTight lg:space-y-2'>
@@ -80,7 +80,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
                   activeLink === link.path ? 'font-semibold text-altGreen' : ''
                 }
               >
-                <span className='font-sansText text-smallest hover:cursor-pointer'>
+                <span className='font-roboto text-smallest text-altBlack hover:cursor-pointer'>
                   {link.label}
                 </span>
               </CombinedLink>
