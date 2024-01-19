@@ -19,7 +19,7 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
     >
       {/* ARROW AND DIRECTION WORD */}
       <span
-        className={`mt-5 flex items-center self-stretch font-sansText  text-text leading-lhLoose text-altBlack lg:leading-lhSomeMoreSpace ${
+        className={`mt-5 flex items-center self-stretch  font-sansText  text-text leading-lhLoose text-altBlack lg:leading-lhSomeMoreSpace ${
           isPrevious ? 'ml-5 justify-start' : 'mr-5 justify-end'
         }`}
       >
