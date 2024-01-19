@@ -38,7 +38,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
             <HetListItemButton
               selected={window.location.pathname === NEW_METHODOLOGY_PAGE_LINK}
             >
-              Methodology
+              Introduction
             </HetListItemButton>
           </Link>
         </li>
