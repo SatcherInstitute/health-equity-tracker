@@ -36,7 +36,7 @@ export default function MethodologyPage() {
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
-      <div className='flex justify-center'>
+      <div className='flex justify-start'>
         <h2 className='sr-only'>Methodology</h2>
 
         <section className='m-[2%] max-w-xl'>

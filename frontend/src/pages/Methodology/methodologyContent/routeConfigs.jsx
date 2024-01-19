@@ -49,7 +49,7 @@ export const routeConfigs = [
       { label: 'Data Sourcing', path: '#data-sourcing' },
       { label: 'Algorithm', path: '#algorithm' },
       {
-        label: 'Age-Adjustment Example: HIV Deaths',
+        label: 'Example: HIV Deaths',
         path: '#age-adjustment-examples',
       },
       {
