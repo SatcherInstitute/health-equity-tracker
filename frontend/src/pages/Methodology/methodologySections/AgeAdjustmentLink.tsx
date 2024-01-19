@@ -107,7 +107,10 @@ const AgeAdjustmentLink = () => {
             </a>
             .
           </p>
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h4
+            id='#data-sourcing'
+            className='mt-20 font-sansText text-text font-medium'
+          >
             Data Sourcing
           </h4>
           <p>
@@ -160,7 +163,10 @@ const AgeAdjustmentLink = () => {
               </ul>
             </li>
           </ol>
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h4
+            id='#algorithm'
+            className='mt-20 font-sansText text-text font-medium'
+          >
             Algorithm
           </h4>
           <p>
@@ -247,7 +253,10 @@ const AgeAdjustmentLink = () => {
             </li>
           </ol>
 
-          <h3 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
+          <h3
+            id='#age-adjustment-examples'
+            className='text-left font-serif text-smallestHeader font-light text-altBlack'
+          >
             Age-Adjustment Example: HIV Deaths
           </h3>
           <p>

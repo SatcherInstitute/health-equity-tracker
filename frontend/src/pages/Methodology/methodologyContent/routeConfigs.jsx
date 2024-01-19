@@ -52,13 +52,10 @@ export const routeConfigs = [
         label: 'Example: HIV Deaths',
         path: '#age-adjustment-examples',
       },
-      {
-        label: 'Data Sources',
-        path: '#age-adjustment-data-sources',
-      },
+      { label: 'Explore Examples', path: '#age-adjustment-explore' },
+
       { label: 'Key Terms', path: '#age-adjustment-key-terms' },
       { label: 'Resources', path: '#age-adjustment-resources' },
-      { label: 'Explore Examples', path: '#age-adjustment-explore' },
     ],
   },
   {
@@ -225,8 +222,7 @@ export const routeConfigs = [
       },
       { label: 'PrEP Coverage', path: '#prep-coverage' },
       {
-        label:
-          'Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data',
+        label: 'Missing PrEP Data',
         path: '#prep-missing-and-suppressed-data',
       },
       { label: 'Linkage to Care', path: '#linkage-to-care' },
@@ -315,7 +311,6 @@ export const routeConfigs = [
     path: METRICS_LINK,
     component: MetricsLink,
     subLinks: [
-      { label: 'Metrics', path: '#metrics' },
       { label: 'Age-adjusted ratios', path: '#age-adjusted-ratios-metrics' },
       { label: 'Total cases per 100k people', path: '#per-100k-metrics' },
       {

@@ -39,7 +39,7 @@ export default function MethodologyPage() {
       <div className='flex w-full justify-center'>
         <h2 className='sr-only'>Methodology</h2>
 
-        <section className='m-[2%] flex max-w-xl justify-start'>
+        <section className='m-[2%] flex max-w-lgXl justify-start'>
           <div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-2 md:gap-12'>
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
