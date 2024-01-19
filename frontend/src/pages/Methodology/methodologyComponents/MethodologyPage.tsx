@@ -4,7 +4,7 @@ import { currentYear } from '../../../cards/ui/SourcesHelpers'
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
-import NavigationButtons from './NavigationButtons'
+import MethodologyPagination from './MethodologyPagination'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
@@ -84,7 +84,7 @@ export default function MethodologyPage() {
                       />
                     ))}
                     {/* PREV / NEXT */}
-                    <NavigationButtons />
+                    <MethodologyPagination />
                   </>
                 </Switch>
               </article>
