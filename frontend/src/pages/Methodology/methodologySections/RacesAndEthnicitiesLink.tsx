@@ -265,29 +265,26 @@ const RacesAndEthnicitiesLink = () => {
           understand, partially due to non-standard race/ethnicity breakdowns
           across data sources.
         </p>
-        <p>
-          <HetNotice title='Dataset Definitions and Contextual Variances'>
-            <p>
-              Understanding race and ethnicity classifications within our
-              tracker requires a nuanced approach. Generally, we include
-              Hispanic/Latino in all race/ethnicity categories, unless stated
-              otherwise.
-            </p>
-            <p>
-              However, it's crucial to recognize that the precise definition of
-              a race or ethnicity is{' '}
-              <strong>
-                intrinsically tied to the context of the specific dataset
-              </strong>{' '}
-              from which it originates.
-            </p>
-            <p>
-              For instance, the inclusion of an "Other" category can influence
-              how individuals are categorized, potentially affecting
-              distinctions like "Asian" vs. "Other".
-            </p>
-          </HetNotice>
-        </p>
+        <HetNotice title='Dataset Definitions and Contextual Variances'>
+          <p>
+            Understanding race and ethnicity classifications within our tracker
+            requires a nuanced approach. Generally, we include Hispanic/Latino
+            in all race/ethnicity categories, unless stated otherwise.
+          </p>
+          <p>
+            However, it's crucial to recognize that the precise definition of a
+            race or ethnicity is{' '}
+            <strong>
+              intrinsically tied to the context of the specific dataset
+            </strong>{' '}
+            from which it originates.
+          </p>
+          <p>
+            For instance, the inclusion of an "Other" category can influence how
+            individuals are categorized, potentially affecting distinctions like
+            "Asian" vs. "Other".
+          </p>
+        </HetNotice>
         {raceDefinitions.map((item) => {
           return (
             <div id={item.topic} key={item.topic}>
