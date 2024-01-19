@@ -35,7 +35,7 @@ import GlossaryLink from '../methodologySections/GlossaryLink'
 
 export const routeConfigs = [
   {
-    label: 'Methodology',
+    label: 'Methodology Introduction',
     path: NEW_METHODOLOGY_PAGE_LINK,
     component: MethodologyHomeLink,
     subLinks: [],
@@ -49,16 +49,13 @@ export const routeConfigs = [
       { label: 'Data Sourcing', path: '#data-sourcing' },
       { label: 'Algorithm', path: '#algorithm' },
       {
-        label: 'Age-Adjustment Example: HIV Deaths',
+        label: 'Example: HIV Deaths',
         path: '#age-adjustment-examples',
       },
-      {
-        label: 'Data Sources',
-        path: '#age-adjustment-data-sources',
-      },
+      { label: 'Explore Examples', path: '#age-adjustment-explore' },
+
       { label: 'Key Terms', path: '#age-adjustment-key-terms' },
       { label: 'Resources', path: '#age-adjustment-resources' },
-      { label: 'Explore Examples', path: '#age-adjustment-explore' },
     ],
   },
   {
@@ -106,6 +103,25 @@ export const routeConfigs = [
       {
         label: 'Contact Information',
         path: '#contact-information',
+      },
+    ],
+  },
+  {
+    label: 'Categories and Limitations',
+    path: TOPICS_LINK,
+    component: TopicsLink,
+    subLinks: [
+      {
+        label: 'Categories',
+        path: '#categories',
+      },
+      {
+        label: 'Limitations',
+        path: '#limitations',
+      },
+      {
+        label: 'Missing Data',
+        path: '#missing-data',
       },
     ],
   },
@@ -206,8 +222,7 @@ export const routeConfigs = [
       },
       { label: 'PrEP Coverage', path: '#prep-coverage' },
       {
-        label:
-          'Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data',
+        label: 'Missing PrEP Data',
         path: '#prep-missing-and-suppressed-data',
       },
       { label: 'Linkage to Care', path: '#linkage-to-care' },
@@ -286,11 +301,16 @@ export const routeConfigs = [
     ],
   },
   {
+    label: 'Data Methods',
+    path: DATA_METHOD_DEFINITIONS_LINK,
+    component: DataMethodDefinitionsLink,
+    subLinks: [],
+  },
+  {
     label: 'Metrics',
     path: METRICS_LINK,
     component: MetricsLink,
     subLinks: [
-      { label: 'Metrics', path: '#metrics' },
       { label: 'Age-adjusted ratios', path: '#age-adjusted-ratios-metrics' },
       { label: 'Total cases per 100k people', path: '#per-100k-metrics' },
       {
@@ -333,25 +353,7 @@ export const routeConfigs = [
       },
     ],
   },
-  {
-    label: 'Categories and Limitations',
-    path: TOPICS_LINK,
-    component: TopicsLink,
-    subLinks: [
-      {
-        label: 'Categories',
-        path: '#categories',
-      },
-      {
-        label: 'Limitations',
-        path: '#limitations',
-      },
-      {
-        label: 'Missing Data',
-        path: '#missing-data',
-      },
-    ],
-  },
+
   {
     label: 'Races and Ethnicities',
     path: RACES_AND_ETHNICITIES_LINK,
@@ -412,12 +414,6 @@ export const routeConfigs = [
         path: '#white',
       },
     ],
-  },
-  {
-    label: 'Data Methods',
-    path: DATA_METHOD_DEFINITIONS_LINK,
-    component: DataMethodDefinitionsLink,
-    subLinks: [],
   },
   {
     label: 'Recommended Citation',

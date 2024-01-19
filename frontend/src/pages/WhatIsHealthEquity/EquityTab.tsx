@@ -50,7 +50,7 @@ function EquityTab() {
         <Helmet>
           <title>What is Health Equity? - Health Equity Tracker</title>
         </Helmet>
-        <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+        <div className='m-auto flex w-full max-w-lgXl flex-wrap'>
           <div className='flex w-full items-center justify-center border-0 border-b border-solid border-borderColor'>
             <figure className='mx-auto mt-0 hidden p-2 text-left md:block md:w-1/3'>
               <LazyLoad
