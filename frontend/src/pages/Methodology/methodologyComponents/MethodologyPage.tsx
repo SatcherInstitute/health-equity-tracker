@@ -44,11 +44,11 @@ export default function MethodologyPage() {
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
               <MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-              <MethodologyCardMenuMobile className='smMd:hidden' />
+              <MethodologyCardMenuMobile className='m-3 smMd:hidden' />
             </div>
 
             {/* CONTENT */}
-            <div className='flex flex-wrap p-0'>
+            <div className='flex flex-wrap p-1'>
               {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
               <div className='px-12 lg:hidden'>
                 {routeConfigs.map((route, index) => {

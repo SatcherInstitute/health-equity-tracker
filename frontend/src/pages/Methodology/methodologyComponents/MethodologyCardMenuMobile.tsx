@@ -74,93 +74,43 @@ export default function MethodologyCardMenuMobile(
               onChange={handleSelected}
               label='Methodology Pages'
             >
-              <MenuItem
-                value={NEW_METHODOLOGY_PAGE_LINK}
-                className='font-medium'
-              >
-                Methodology
+              <MenuItem value={NEW_METHODOLOGY_PAGE_LINK}>
+                Introduction
               </MenuItem>
-              <MenuItem value={NEW_AGE_ADJUSTMENT_LINK} className='font-medium'>
+              <MenuItem value={NEW_AGE_ADJUSTMENT_LINK}>
                 Age-Adjustment
               </MenuItem>
-              <MenuItem value={SOURCES_LINK} className='font-medium'>
-                Data Sources
-              </MenuItem>
-              <MenuItem value={TOPICS_LINK} className='font-medium'>
+              <MenuItem value={SOURCES_LINK}>Data Sources</MenuItem>
+              <MenuItem value={TOPICS_LINK}>
                 Categories and Limitations
               </MenuItem>
-              <MenuItem
-                value={BEHAVIORAL_HEALTH_LINK}
-                className='pl-10 font-light'
-              >
+              <MenuItem value={BEHAVIORAL_HEALTH_LINK}>
                 Behavioral Health
               </MenuItem>
-              <MenuItem
-                value={CHRONIC_DISEASE_LINK}
-                className='pl-10 font-light'
-              >
-                Chronic Diseases
-              </MenuItem>
-              <MenuItem value={COVID_19_LINK} className='pl-10 font-light'>
-                COVID-19
-              </MenuItem>
-              <MenuItem value={HIV_LINK} className='pl-10 font-light'>
-                HIV
-              </MenuItem>
-              <MenuItem value={PDOH_LINK} className='pl-10 font-light'>
+              <MenuItem value={CHRONIC_DISEASE_LINK}>Chronic Diseases</MenuItem>
+              <MenuItem value={COVID_19_LINK}>COVID-19</MenuItem>
+              <MenuItem value={HIV_LINK}>HIV</MenuItem>
+              <MenuItem value={PDOH_LINK}>
                 Political Determinants of Health (PDOH)
               </MenuItem>
-              <MenuItem value={SDOH_LINK} className='pl-10 font-light'>
+              <MenuItem value={SDOH_LINK}>
                 Social Determinants of Health (SDOH)
               </MenuItem>
-              <MenuItem
-                value={DATA_METHOD_DEFINITIONS_LINK}
-                className='font-medium'
-              >
+              <MenuItem value={DATA_METHOD_DEFINITIONS_LINK}>
                 Data Method Definitions
               </MenuItem>
-              <MenuItem value={METRICS_LINK} className='font-medium'>
-                Metrics
-              </MenuItem>
-              <MenuItem
-                value={CONDITION_VARIABLES_LINK}
-                className='font-medium'
-              >
+              <MenuItem value={METRICS_LINK}>Metrics</MenuItem>
+              <MenuItem value={CONDITION_VARIABLES_LINK}>
                 Condition Variables
               </MenuItem>
-              {/*
-                {
-    index: 13,
-    to: RACES_AND_ETHNICITIES_LINK,
-    secondary: 'Races and Ethnicities',
-    paddingLeft: 4,
-  },
-  {
-    index: 14,
-    to: RECOMMENDED_CITATION_LINK,
-    primary: 'Recommended Citation',
-  },
-  {
-    index: 15,
-    to: GLOSSARY_LINK,
-    primary: 'Glossary',
-  },
-              */}
-              <MenuItem
-                value={RACES_AND_ETHNICITIES_LINK}
-                className='pl-10 font-light'
-              >
+
+              <MenuItem value={RACES_AND_ETHNICITIES_LINK}>
                 Races and Ethnicities
               </MenuItem>
-              <MenuItem
-                value={RECOMMENDED_CITATION_LINK}
-                className='pl-10 font-light'
-              >
+              <MenuItem value={RECOMMENDED_CITATION_LINK}>
                 Recommended Citation
               </MenuItem>
-              <MenuItem value={GLOSSARY_LINK} className='pl-10 font-light'>
-                Glossary
-              </MenuItem>
+              <MenuItem value={GLOSSARY_LINK}>Glossary</MenuItem>
             </Select>
           </FormControl>
         </Toolbar>
