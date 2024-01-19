@@ -15,26 +15,26 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
   return (
     <Button
       onClick={props.onClick}
-      className='m-5 flex w-full flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle  font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack lg:w-80'
+      className='m-5 flex w-full flex-col justify-center rounded-3xl bg-methodologyGreen font-sansTitle  font-medium leading-lhSomeMoreSpace tracking-wide text-altBlack shadow-raised-tighter hover:shadow-raised lg:w-80 '
     >
       {/* ARROW AND DIRECTION WORD */}
       <span
-        className={`mt-5 flex items-center self-stretch font-sansText leading-lhLoose text-altBlack lg:leading-lhSomeMoreSpace ${
+        className={`mt-5 flex items-center self-stretch font-sansText  text-text leading-lhLoose text-altBlack lg:leading-lhSomeMoreSpace ${
           isPrevious ? 'ml-5 justify-start' : 'mr-5 justify-end'
         }`}
       >
         {isPrevious ? (
           <span>
-            <ArrowBack /> Previous
+            <ArrowBack /> <span className=''>Previous</span>
           </span>
         ) : (
           <span>
-            Up Next <ArrowForward />
+            <span>Up Next</span> <ArrowForward />
           </span>
         )}
       </span>
       {/* LABEL FOR LINKED PAGE */}
-      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 text-exploreButton'>
+      <span className='mb-5 flex shrink-0 flex-col justify-center gap-2 self-stretch p-2 text-exploreButton font-semibold'>
         <span
           className={
             isPrevious

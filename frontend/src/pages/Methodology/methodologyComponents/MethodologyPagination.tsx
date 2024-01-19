@@ -2,7 +2,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { routeConfigs } from '../methodologyContent/routeConfigs'
 import HetPaginationButton from '../../../styles/HetComponents/HetPaginationButton'
 
-export default function NavigationButtons() {
+export default function MethodologyPagination() {
   const history = useHistory()
   const location = useLocation()
 
