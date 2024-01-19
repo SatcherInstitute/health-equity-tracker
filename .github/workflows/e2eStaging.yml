@@ -1,9 +1,9 @@
 name: Run E2Es Against Staging CI
 
 on:
-  pull_request:
-    types:
-      - closed
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 defaults:
@@ -12,8 +12,7 @@ defaults:
 
 jobs:
   e2e_staging:
-    name: Runs frontend E2E_STAGING on PR merge
-    if: github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true
+    name: Runs frontend E2E_STAGING on main whenever code is pushed (or merged)
     runs-on: ubuntu-latest
 
     steps:
