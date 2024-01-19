@@ -70,7 +70,6 @@ export default {
         articleLogo: '700px',
         teamHeadshot: '181px',
         teamLogo: '250px',
-        newsPage: '1440px',
         exploreDataPage: '1500px',
         exploreDataTwoColumnPage: '2500px',
         newsText: '800px',

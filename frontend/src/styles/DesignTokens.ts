@@ -5,6 +5,7 @@ const ThemeStandardScreenSizes = {
   smMd: '768px',
   md: '960px',
   lg: '1280px',
+  lgXl: '1440px',
   xl: '1920px',
 }
 

@@ -46,7 +46,7 @@ function LandingPage() {
       </Helmet>
 
       <h2 className='sr-only'>Home Page</h2>
-      <div className='m-auto flex w-full max-w-newsPage flex-wrap justify-center'>
+      <div className='m-auto flex w-full max-w-lgXl flex-wrap justify-center'>
         <div className='flex flex-wrap items-center justify-center border-0 border-b border-solid pb-8 pt-4'>
           <div className='flex w-full flex-col items-center px-12 py-4 md:w-7/12'>
             <h3

@@ -3,7 +3,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
 
-const TopicsLink: React.FC = () => {
+export default function TopicsLink() {
   return (
     <section id='#categories'>
       <article>
@@ -104,5 +104,3 @@ const TopicsLink: React.FC = () => {
     </section>
   )
 }
-
-export default TopicsLink

@@ -174,7 +174,7 @@ const raceDefinitions: DataItem[] = [
       {
         key: 'NH',
         path: '#nh',
-        description: `Not Hispanic/Latino. To promote inclusion, we replace the source data labels 'Multiracial' with 'Two or more races,' and 'Some other' with 'Unrepresented'.`,
+        description: `Not Hispanic/Latino. To promote inclusion, we replace the source data labels ‘Multiracial’ with ‘Two or more races’, and ‘Some other’ with ‘Unrepresented’.`,
       },
       {
         key: 'Unrepresented race (NH)',

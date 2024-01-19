@@ -14,7 +14,7 @@ import LifelineAlert from '../../../reports/ui/LifelineAlert'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
-const BehavioralHealthLink: React.FC = () => {
+export default function BehavioralHealthLink() {
   return (
     <section id='#behavioral-health'>
       <article>
@@ -176,14 +176,15 @@ const BehavioralHealthLink: React.FC = () => {
           definitionsArray={behavioralHealthDefinitionsArray}
         />
 
-        <LifelineAlert />
         <Resources
           id='#behavioral-health-resources'
           resourceGroups={[MENTAL_HEALTH_RESOURCES]}
         />
+
+        <div className='pt-5'>
+          <LifelineAlert />
+        </div>
       </article>
     </section>
   )
 }
-
-export default BehavioralHealthLink

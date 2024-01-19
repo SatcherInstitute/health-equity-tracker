@@ -81,7 +81,7 @@ export default function NewsPage(props: NewsPageProps) {
 
   return (
     <section>
-      <div className='m-auto max-w-newsPage'>
+      <div className='m-auto max-w-lgXl'>
         <div className='flex-col'>
           <Route path='/'>
             <Tabs
