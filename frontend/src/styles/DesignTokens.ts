@@ -84,7 +84,7 @@ const het = {
   mapWomenLighter: '#f48849',
   mapWomenLightest: '#febc2b',
   mapWomenMid: '#b93389',
-  methodologyGreen: '##B5C7C2',
+  methodologyGreen: '#B5C7C2',
   navlinkColor: '#202124',
   redOrange: '#ed573f',
   reportAlert: '#ff9800',

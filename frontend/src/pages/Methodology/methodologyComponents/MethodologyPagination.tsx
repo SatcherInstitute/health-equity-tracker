@@ -2,7 +2,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { routeConfigs } from '../methodologyContent/routeConfigs'
 import HetPaginationButton from '../../../styles/HetComponents/HetPaginationButton'
 
-export default function NavigationButtons() {
+export default function MethodologyPagination() {
   const history = useHistory()
   const location = useLocation()
 
@@ -27,7 +27,7 @@ export default function NavigationButtons() {
 
   /* When a previous or next step isn't available, render empty div to keep flex alignment working */
   return (
-    <div className='mx-0 mb-0 mt-4 flex w-full flex-col justify-between lg:mt-8 lg:flex-row lg:self-stretch '>
+    <div className='mx-0 mb-0 mt-4 flex w-full flex-col justify-between md:mt-8 md:flex-row md:self-stretch '>
       {prevRoute ? (
         <HetPaginationButton direction='previous' onClick={goPrevious}>
           {prevRoute.label}

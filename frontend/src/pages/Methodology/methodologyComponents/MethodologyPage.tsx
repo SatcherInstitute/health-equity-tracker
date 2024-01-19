@@ -4,7 +4,7 @@ import { currentYear } from '../../../cards/ui/SourcesHelpers'
 import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom'
 import MethodologyCardMenu from './MethodologyCardMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
-import NavigationButtons from './NavigationButtons'
+import MethodologyPagination from './MethodologyPagination'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
@@ -44,11 +44,11 @@ export default function MethodologyPage() {
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
               <MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-              <MethodologyCardMenuMobile className='smMd:hidden' />
+              <MethodologyCardMenuMobile className='m-3 smMd:hidden' />
             </div>
 
             {/* CONTENT */}
-            <div className='flex flex-wrap p-0'>
+            <div className='flex flex-wrap p-1'>
               {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
               <div className='px-12 lg:hidden'>
                 {routeConfigs.map((route, index) => {
@@ -84,7 +84,7 @@ export default function MethodologyPage() {
                       />
                     ))}
                     {/* PREV / NEXT */}
-                    <NavigationButtons />
+                    <MethodologyPagination />
                   </>
                 </Switch>
               </article>
