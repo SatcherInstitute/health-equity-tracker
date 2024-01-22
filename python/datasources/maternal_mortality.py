@@ -28,9 +28,3 @@ class MaternalMortalityData(DataSource):
         )
 
         print(df)
-
-        # col_types = gcs_to_bq_util.get_bq_column_types(breakdown_df, float_cols)
-
-        # gcs_to_bq_util.add_df_to_bq(
-        #     breakdown_df, dataset, table_name, column_types=col_types
-        # )

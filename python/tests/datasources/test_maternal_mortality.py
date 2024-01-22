@@ -8,6 +8,7 @@ TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data", "maternal_mortality")
 GOLDEN_DIR = os.path.join(TEST_DIR, 'golden_data')
 
 
+# RUN THIS TO LOAD FAKE TEST DATA INSTEAD OF THE REAL /data
 def get_test_data_as_df():
     df = pd.read_csv(
         os.path.join(
@@ -17,11 +18,13 @@ def get_test_data_as_df():
     return df
 
 
+# READ IN FAKE TEST DATA INSTEAD OF REAL /data
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir',
     return_value=get_test_data_as_df(),
 )
 def testWriteToBq(
+    # VARIABLE THAT REPRESENTS THE MOCKED READ CSV FUNCTION
     mock_csv: mock.MagicMock,
 ):
     datasource = MaternalMortalityData()
@@ -34,4 +37,5 @@ def testWriteToBq(
 
     datasource.write_to_bq('dataset', 'gcs_bucket', **kwargs)
 
+    # ASSERT THAT THE MOCKED READ CSV FUNCTION WAS CALLED ONCE
     assert mock_csv.call_count == 1
