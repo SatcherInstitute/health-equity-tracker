@@ -51,7 +51,10 @@ const HivLink = () => {
           better understand the impact of HIV across the country.
         </p>
         <p>
-          <HetNotice title='A note about CDC NCHHSTP AtlasPlus'>
+          <HetNotice
+            className='my-12'
+            title='A note about CDC NCHHSTP AtlasPlus'
+          >
             <p>
               The CDC's NCHHSTP and other HIV surveillance programs have agreed
               to limit the amount of data released at the state and county
@@ -183,6 +186,7 @@ const HivLink = () => {
         />
 
         <HetNotice
+          className='my-12'
           title='A note about HIV Prevention and Care Rates for Transgender People
             (2019)'
         >
@@ -593,14 +597,10 @@ const HivLink = () => {
             ' 100 ',
           ]}
         />
-        <blockquote>
-          <p>
-            <em>
-              Where <span className='font-math italic'>f</span> is a function
-              that assesses the prevalence and impact of HIV stigma based on the
-              self-reported data.
-            </em>
-          </p>
+        <blockquote className='font-medium italic'>
+          Where <span className='font-math italic'>f</span> is a function that
+          assesses the prevalence and impact of HIV stigma based on the
+          self-reported data.
         </blockquote>
         <p>
           This method allows for the quantification and comparison of stigma
@@ -617,13 +617,8 @@ const HivLink = () => {
             },
           ]}
         />
-        <blockquote>
-          <p>
-            <em>
-              Or any other comparative metrics based on the exact methodology
-              used.
-            </em>
-          </p>
+        <blockquote className='font-medium italic'>
+          Or any other comparative metrics based on the exact methodology used.
         </blockquote>
         <h3 className='mt-12 text-title font-medium' id='#hiv-data-sources'>
           Data Sources

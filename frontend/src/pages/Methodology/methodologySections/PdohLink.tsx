@@ -46,13 +46,15 @@ const PdohLink = () => {
           We gather our information on incarcerated individuals (including
           children) in the U.S. from trusted sources:
         </p>
-        <h4>Bureau of Justice Statistic (BJS)</h4>
+        <h4 className='font-medium italic'>
+          Bureau of Justice Statistic (BJS)
+        </h4>
         <p>
           Provides comprehensive reports on people under correctional control.
           Our insights are based on combining data from their “Prisoners in
           2020” and “Census of Jails 2005-2019” reports.
         </p>
-        <h4>Vera Institute for Justice</h4>
+        <h4 className='font-medium italic'>Vera Institute for Justice</h4>
         <p>
           Offers detailed research on incarceration trends at the county level.
         </p>
@@ -175,7 +177,7 @@ const PdohLink = () => {
           convicted felons are among the key political forces that determine
           voter participation in the justice-involved population.
         </p>
-        <h4>Voter Disenfranchisement</h4>
+        <h4 className='font-medium italic'>Voter Disenfranchisement</h4>
 
         <p>
           The ability to vote is described as the singular most powerful,
@@ -190,18 +192,18 @@ const PdohLink = () => {
         >
           Health Impact of Incarceration
         </h3>
-        <h4>Immediate Health Consequences</h4>
+        <h4 className='font-medium italic'>Immediate Health Consequences</h4>
         <p>
           Studies indicate that incarceration heightens the risk of chronic
           health conditions, infectious diseases like HIV/AIDS, mental
           illnesses, and substance use disorders.
         </p>
-        <h4>Life Expectancy</h4>
+        <h4 className='font-medium italic'>Life Expectancy</h4>
         <p>
           Each year spent in prison is associated with a reduction of 2 years in
           life expectancy.
         </p>
-        <h4>Post-Incarceration Challenges</h4>
+        <h4 className='font-medium italic'>Post-Incarceration Challenges</h4>
         <p>
           The health impact of incarceration extends beyond the confinement
           period. Upon reentry into society, justice-involved individuals often

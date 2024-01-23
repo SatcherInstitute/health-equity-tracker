@@ -75,14 +75,10 @@ const Covid19Link = () => {
           we present this information in a summarized form, rather than broken
           down into detailed, individual case levels.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, if state data is not available, these aggregations may be
-              incomplete and potentially skewed.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, if state data is not available, these aggregations may be
+          incomplete and potentially skewed.
+        </blockquote>
         <p>
           In our calculations for the national-level COVID-19 rates per 100,000
           individuals, we consider only the populations of states that report
@@ -117,16 +113,13 @@ const Covid19Link = () => {
           death, and hospitalization based on the month and year recorded in the
           dataset.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, it's crucial to highlight that, for deaths and
-              hospitalizations, our data reflects the month when the case was
-              initially reported, not the actual month of the death or
-              hospitalization event.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, it's crucial to highlight that, for deaths and
+          hospitalizations, our data reflects the month when the case was
+          initially reported, not the actual month of the death or
+          hospitalization event.
+        </blockquote>
+
         <p>
           In our per 100,000 and inequitable distribution metrics, we only
           account for confirmed deaths and hospitalizations.
@@ -160,16 +153,13 @@ const Covid19Link = () => {
           data is reported by states, territories, and other jurisdictions to
           the CDC.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, many of these case records aren't broken down
-              comprehensively, may not specify hospitalization or death
-              statuses, or might lack the complete details needed to fully
-              understand COVID-19's overall impact.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, many of these case records aren't broken down
+          comprehensively, may not specify hospitalization or death statuses, or
+          might lack the complete details needed to fully understand COVID-19's
+          overall impact.
+        </blockquote>
+
         <p>
           National figures might be affected if specific state data is
           unavailable. In counties with minimal figures, data may be hidden to
@@ -217,7 +207,10 @@ const Covid19Link = () => {
           Demographic Population Estimates for Vaccination Data
         </h3>
 
-        <HetNotice title='A note about the 2019 American Community Survey (ACS)'>
+        <HetNotice
+          className='my-12'
+          title='A note about the 2019 American Community Survey (ACS)'
+        >
           <p>
             While the American Community Survey (ACS) is a valuable resource for
             many demographic insights, it has its limitations in the context of
@@ -248,16 +241,12 @@ const Covid19Link = () => {
           specific demographic groups at the state level, including Asian,
           Black, White, and Hispanic populations.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, since the KFF data doesn't comprehensively cover
-              indigenous groups, we supplement with ACS 2019 estimates for
-              American Indian and Alaska Native, as well as Native Hawaiian and
-              Pacific Islander groups.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, since the KFF data doesn't comprehensively cover indigenous
+          groups, we supplement with ACS 2019 estimates for American Indian and
+          Alaska Native, as well as Native Hawaiian and Pacific Islander groups.
+        </blockquote>
+
         <p>
           On our disparities bar chart, these specific population metrics stand
           out with a different color. Yet, the 'Unrepresented Race' category
@@ -285,17 +274,13 @@ const Covid19Link = () => {
           recipients to opt out of state records, potentially skewing the data
           since then.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              Additionally, there are disparities in state reporting methods;
-              some states differentiate race and ethnicity, leading to varied
-              percentages of unknown cases. We choose to display the higher
-              metric on national maps and both figures on state pages for
-              clarity.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          Additionally, there are disparities in state reporting methods; some
+          states differentiate race and ethnicity, leading to varied percentages
+          of unknown cases. We choose to display the higher metric on national
+          maps and both figures on state pages for clarity.
+        </blockquote>
+
         <p>
           The Kaiser Family Foundation's data collection primarily encompasses
           Asian, Black, White, and Hispanic demographics, limiting the scope of
