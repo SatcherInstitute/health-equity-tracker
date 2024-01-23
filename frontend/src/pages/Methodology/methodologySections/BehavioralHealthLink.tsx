@@ -41,7 +41,7 @@ export default function BehavioralHealthLink() {
           ]}
         />
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#behavioral-health-data-sourcing'
         >
           Data Sourcing
@@ -144,7 +144,7 @@ export default function BehavioralHealthLink() {
         />
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#behavioral-health-data-sources'
         >
           Data Sources

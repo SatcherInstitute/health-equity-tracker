@@ -10,7 +10,7 @@ export default function RecommendedCitationLink() {
       </Helmet>
       <article id='#recommended-citation'>
         <h2 className='sr-only'>Recommended Citation</h2>
-        <h3 className='font-sansTitle text-title'>
+        <h3 className='mt-12 text-title font-medium'>
           APA (American Psychological Association) Format
         </h3>
         <div className='text-left font-sansText text-small text-altBlack'>

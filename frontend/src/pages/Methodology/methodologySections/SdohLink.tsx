@@ -53,7 +53,7 @@ function SdohLink() {
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#sdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -127,7 +127,7 @@ function SdohLink() {
           ]}
         />
 
-        <h3 className='font-sansTitle text-title' id='#sdoh-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sources'>
           Data Sources
         </h3>
         <StripedTable

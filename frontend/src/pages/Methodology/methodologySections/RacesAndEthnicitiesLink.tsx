@@ -295,7 +295,7 @@ const RacesAndEthnicitiesLink = () => {
                     id={def.path}
                     key={def.key}
                   >
-                    <h3>{def.key}</h3>
+                    <h3 className='mt-12 text-title font-medium'>{def.key}</h3>
                     <figure className='mt-0 flex flex-col items-start gap-3'>
                       <p className='m-0 italic text-altBlack'>
                         {parseDescription(def.description)}

@@ -38,7 +38,7 @@ const ChronicDiseaseLink = () => {
           ]}
         />
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#chronic-diseases-data-sourcing'
         >
           Data Sourcing
@@ -138,7 +138,7 @@ const ChronicDiseaseLink = () => {
         />
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#chronic-diseases-data-sources'
         >
           Data Sources

@@ -41,7 +41,7 @@ const Covid19Link = () => {
           ]}
         />
 
-        <h3 className='font-sansTitle text-title' id='#covid-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#covid-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -52,7 +52,7 @@ const Covid19Link = () => {
           comprehensiveness of state data in our tracker.
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-age-and-demographic-data-analysis'
         >
           Age and Demographic Data Analysis
@@ -63,7 +63,7 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-geographical-reporting'
         >
           Geographical Distribution and Reporting
@@ -101,7 +101,7 @@ const Covid19Link = () => {
           lapse in accurate demographic reporting.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#covid-time-series'>
+        <h3 className='mt-12 text-title font-medium' id='#covid-time-series'>
           Time-Series and Temporal Analysis
         </h3>
         <p>
@@ -144,7 +144,7 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
@@ -180,7 +180,7 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-vaccination-data-analysis'
         >
           Vaccination Data Compilation and Analysis
@@ -212,7 +212,7 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-vaccination-demographic-estimates'
         >
           Demographic Population Estimates for Vaccination Data
@@ -273,7 +273,10 @@ const Covid19Link = () => {
           without any demographic breakdown.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#covid-data-limitations'>
+        <h3
+          className='mt-12 text-title font-medium'
+          id='#covid-data-limitations'
+        >
           Data Limitations and Specific Considerations
         </h3>
         <p>
@@ -307,7 +310,7 @@ const Covid19Link = () => {
           administered, adding another layer to our comprehensive analysis.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#covid-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='#covid-data-sources'>
           COVID-19 Data Sources
         </h3>
         <StripedTable

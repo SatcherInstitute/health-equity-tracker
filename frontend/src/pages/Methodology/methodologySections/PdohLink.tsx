@@ -39,7 +39,7 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -92,7 +92,7 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 className='font-sansTitle text-title' id='#jails-vs-prisons'>
+        <h3 className='mt-12 text-title font-medium' id='#jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
         <h4>Jails</h4>
@@ -133,7 +133,7 @@ const PdohLink = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#children-in-adult-facilities'
         >
           Children in Adult Facilities
@@ -157,7 +157,7 @@ const PdohLink = () => {
             </li>
           </ul>
         </p>
-        <h3 className='font-sansTitle text-title' id='#combined-systems'>
+        <h3 className='mt-12 text-title font-medium' id='#combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -166,7 +166,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#political-forces'>
+        <h3 className='mt-12 text-title font-medium' id='#political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -185,7 +185,7 @@ const PdohLink = () => {
           affected by this disenfranchisement (Sentencing Project).
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#health-impact-of-incarceration'
         >
           Health Impact of Incarceration
@@ -211,7 +211,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#women-in-gov'>
+        <h3 className='mt-12 text-title font-medium' id='#women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -223,7 +223,7 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-metrics'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
@@ -265,7 +265,7 @@ const PdohLink = () => {
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification.
         </p>
-        <h3 className='font-sansTitle text-title' id='#historical-tracking'>
+        <h3 className='mt-12 text-title font-medium' id='#historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -292,7 +292,7 @@ const PdohLink = () => {
           goes back only to 1983.
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
@@ -318,7 +318,7 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='font-sansTitle text-title' id='#pdoh-missing-data'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-missing-data'>
           Missing Data
         </h3>
         <p>
@@ -334,7 +334,7 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-resources'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable
