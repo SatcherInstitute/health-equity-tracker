@@ -400,10 +400,10 @@ const HivLink = () => {
           limited to four categories:
         </p>
         <ol>
-          <li>White,</li>
-          <li>Black,</li>
-          <li>Hispanic/Latino, and</li>
-          <li>Other.</li>
+          <li>White</li>
+          <li>Black</li>
+          <li>Hispanic/Latino</li>
+          <li>Other</li>
         </ol>
         <p>
           PrEP coverage data are suppressed at any level if

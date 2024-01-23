@@ -68,9 +68,8 @@ const Covid19Link = () => {
         >
           Geographical Distribution and Reporting
         </h3>
-        <p></p>
 
-        <h4>National Data</h4>
+        <h4 className='text-text font-light'>National Data</h4>
         <p>
           National statistics are aggregations of state-wide data, meaning that
           we present this information in a summarized form, rather than broken
@@ -91,7 +90,7 @@ const Covid19Link = () => {
           hospitalizations, or deaths are excluded from these calculations.
         </p>
 
-        <h4>County Data</h4>
+        <h4 className='text-text font-light'>County Data</h4>
         <p>
           Specific figures might be concealed in counties with low case counts
           to protect the privacy of affected individuals. The foundational data
@@ -187,19 +186,19 @@ const Covid19Link = () => {
         </h3>
         <p>
           Due to the lack of a consolidated national vaccine demographic
-          dataset, multiple sources are combined:
+          dataset, multiple sources are use across different geographic levels:
         </p>
 
-        <h4>National Data</h4>
+        <h4 className='text-text font-light'>National Data</h4>
         <p>Derived from the CDC vaccine demographic dataset.</p>
 
-        <h4>State Data</h4>
+        <h4 className='text-text font-light'>State Data</h4>
         <p>
           Extracted from the Kaiser Family Foundation's COVID-19 Indicators
           dataset.
         </p>
 
-        <h4>County Data</h4>
+        <h4 className='text-text font-light'>County Data</h4>
         <p>
           At the county level, our data differs from what we present nationally
           and at the state level. While we typically provide detailed vaccine
@@ -228,7 +227,7 @@ const Covid19Link = () => {
             incorporate their year-by-year data into our system.
           </p>
         </HetNotice>
-        <h4>National Estimates</h4>
+        <h4 className='text-text font-light'>National Estimates</h4>
         <p>
           We use the CDC's population numbers for our national figures,
           especially when considering regions like Palau, Micronesia, and the
@@ -236,7 +235,7 @@ const Covid19Link = () => {
           challenging.
         </p>
 
-        <h4>State and County Estimates</h4>
+        <h4 className='text-text font-light'>State and County Estimates</h4>
         <p>
           Accurate population estimates are essential for understanding the
           distribution of vaccinations and pinpointing disparities, especially

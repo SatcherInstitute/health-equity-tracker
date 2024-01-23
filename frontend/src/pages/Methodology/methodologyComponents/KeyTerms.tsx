@@ -8,6 +8,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
+import HetTerm from '../../../styles/HetComponents/HetTerm'
 
 interface KeyTermsProps {
   definitionsArray: Array<{
@@ -45,18 +46,16 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
           <AccordionDetails>
             {definitionsArray.map((item) => {
               return (
-                <div id={item.id} key={item.topic}>
-                  <h4>{item.topic}</h4>
+                <div className='mb-8' id={item.id} key={item.topic}>
+                  <HetTerm>{item.topic}</HetTerm>
                   {item.definitions.map((def) => {
                     return (
                       <figure
                         key={def.key}
                         className='mx-1 mb-2 mt-1 flex flex-col  p-0'
                       >
-                        <span className=''>
-                          <strong>{def.key}</strong>
-                        </span>
-                        <p className='m-0 ml-1 self-start text-smallest text-altBlack'>
+                        <p className='mb-1 text-small font-medium'>{def.key}</p>
+                        <p className='m-0 self-start pt-1 text-small text-altBlack'>
                           {parseDescription(def.description)}
                         </p>
                       </figure>
