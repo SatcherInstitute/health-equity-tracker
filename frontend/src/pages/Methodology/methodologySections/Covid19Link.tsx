@@ -41,7 +41,7 @@ const Covid19Link = () => {
           ]}
         />
 
-        <h3 className='font-sansTitle text-title' id='#covid-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#covid-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -52,7 +52,7 @@ const Covid19Link = () => {
           comprehensiveness of state data in our tracker.
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-age-and-demographic-data-analysis'
         >
           Age and Demographic Data Analysis
@@ -63,27 +63,22 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-geographical-reporting'
         >
           Geographical Distribution and Reporting
         </h3>
-        <p></p>
 
-        <h4>National Data</h4>
+        <h4 className='text-text font-light'>National Data</h4>
         <p>
           National statistics are aggregations of state-wide data, meaning that
           we present this information in a summarized form, rather than broken
           down into detailed, individual case levels.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, if state data is not available, these aggregations may be
-              incomplete and potentially skewed.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, if state data is not available, these aggregations may be
+          incomplete and potentially skewed.
+        </blockquote>
         <p>
           In our calculations for the national-level COVID-19 rates per 100,000
           individuals, we consider only the populations of states that report
@@ -91,7 +86,7 @@ const Covid19Link = () => {
           hospitalizations, or deaths are excluded from these calculations.
         </p>
 
-        <h4>County Data</h4>
+        <h4 className='text-text font-light'>County Data</h4>
         <p>
           Specific figures might be concealed in counties with low case counts
           to protect the privacy of affected individuals. The foundational data
@@ -101,7 +96,7 @@ const Covid19Link = () => {
           lapse in accurate demographic reporting.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#covid-time-series'>
+        <h3 className='mt-12 text-title font-medium' id='#covid-time-series'>
           Time-Series and Temporal Analysis
         </h3>
         <p>
@@ -118,16 +113,13 @@ const Covid19Link = () => {
           death, and hospitalization based on the month and year recorded in the
           dataset.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, it's crucial to highlight that, for deaths and
-              hospitalizations, our data reflects the month when the case was
-              initially reported, not the actual month of the death or
-              hospitalization event.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, it's crucial to highlight that, for deaths and
+          hospitalizations, our data reflects the month when the case was
+          initially reported, not the actual month of the death or
+          hospitalization event.
+        </blockquote>
+
         <p>
           In our per 100,000 and inequitable distribution metrics, we only
           account for confirmed deaths and hospitalizations.
@@ -144,7 +136,7 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
@@ -161,16 +153,13 @@ const Covid19Link = () => {
           data is reported by states, territories, and other jurisdictions to
           the CDC.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, many of these case records aren't broken down
-              comprehensively, may not specify hospitalization or death
-              statuses, or might lack the complete details needed to fully
-              understand COVID-19's overall impact.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, many of these case records aren't broken down
+          comprehensively, may not specify hospitalization or death statuses, or
+          might lack the complete details needed to fully understand COVID-19's
+          overall impact.
+        </blockquote>
+
         <p>
           National figures might be affected if specific state data is
           unavailable. In counties with minimal figures, data may be hidden to
@@ -180,26 +169,26 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-vaccination-data-analysis'
         >
           Vaccination Data Compilation and Analysis
         </h3>
         <p>
           Due to the lack of a consolidated national vaccine demographic
-          dataset, multiple sources are combined:
+          dataset, multiple sources are use across different geographic levels:
         </p>
 
-        <h4>National Data</h4>
+        <h4 className='text-text font-light'>National Data</h4>
         <p>Derived from the CDC vaccine demographic dataset.</p>
 
-        <h4>State Data</h4>
+        <h4 className='text-text font-light'>State Data</h4>
         <p>
           Extracted from the Kaiser Family Foundation's COVID-19 Indicators
           dataset.
         </p>
 
-        <h4>County Data</h4>
+        <h4 className='text-text font-light'>County Data</h4>
         <p>
           At the county level, our data differs from what we present nationally
           and at the state level. While we typically provide detailed vaccine
@@ -212,13 +201,16 @@ const Covid19Link = () => {
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#covid-vaccination-demographic-estimates'
         >
           Demographic Population Estimates for Vaccination Data
         </h3>
 
-        <HetNotice title='A note about the 2019 American Community Survey (ACS)'>
+        <HetNotice
+          className='my-12'
+          title='A note about the 2019 American Community Survey (ACS)'
+        >
           <p>
             While the American Community Survey (ACS) is a valuable resource for
             many demographic insights, it has its limitations in the context of
@@ -228,7 +220,7 @@ const Covid19Link = () => {
             incorporate their year-by-year data into our system.
           </p>
         </HetNotice>
-        <h4>National Estimates</h4>
+        <h4 className='text-text font-light'>National Estimates</h4>
         <p>
           We use the CDC's population numbers for our national figures,
           especially when considering regions like Palau, Micronesia, and the
@@ -236,7 +228,7 @@ const Covid19Link = () => {
           challenging.
         </p>
 
-        <h4>State and County Estimates</h4>
+        <h4 className='text-text font-light'>State and County Estimates</h4>
         <p>
           Accurate population estimates are essential for understanding the
           distribution of vaccinations and pinpointing disparities, especially
@@ -249,16 +241,12 @@ const Covid19Link = () => {
           specific demographic groups at the state level, including Asian,
           Black, White, and Hispanic populations.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              However, since the KFF data doesn't comprehensively cover
-              indigenous groups, we supplement with ACS 2019 estimates for
-              American Indian and Alaska Native, as well as Native Hawaiian and
-              Pacific Islander groups.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          However, since the KFF data doesn't comprehensively cover indigenous
+          groups, we supplement with ACS 2019 estimates for American Indian and
+          Alaska Native, as well as Native Hawaiian and Pacific Islander groups.
+        </blockquote>
+
         <p>
           On our disparities bar chart, these specific population metrics stand
           out with a different color. Yet, the 'Unrepresented Race' category
@@ -273,7 +261,10 @@ const Covid19Link = () => {
           without any demographic breakdown.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#covid-data-limitations'>
+        <h3
+          className='mt-12 text-title font-medium'
+          id='#covid-data-limitations'
+        >
           Data Limitations and Specific Considerations
         </h3>
         <p>
@@ -283,17 +274,13 @@ const Covid19Link = () => {
           recipients to opt out of state records, potentially skewing the data
           since then.
         </p>
-        <p>
-          <blockquote>
-            <strong>
-              Additionally, there are disparities in state reporting methods;
-              some states differentiate race and ethnicity, leading to varied
-              percentages of unknown cases. We choose to display the higher
-              metric on national maps and both figures on state pages for
-              clarity.
-            </strong>
-          </blockquote>
-        </p>
+        <blockquote className='font-medium italic'>
+          Additionally, there are disparities in state reporting methods; some
+          states differentiate race and ethnicity, leading to varied percentages
+          of unknown cases. We choose to display the higher metric on national
+          maps and both figures on state pages for clarity.
+        </blockquote>
+
         <p>
           The Kaiser Family Foundation's data collection primarily encompasses
           Asian, Black, White, and Hispanic demographics, limiting the scope of
@@ -307,7 +294,7 @@ const Covid19Link = () => {
           administered, adding another layer to our comprehensive analysis.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#covid-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='#covid-data-sources'>
           COVID-19 Data Sources
         </h3>
         <StripedTable
