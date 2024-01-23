@@ -34,7 +34,7 @@ export default function TopicsLink() {
           understanding the unique challenges and needs of diverse communities.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#categories'>
+        <h3 className='mt-12 text-title font-medium' id='#categories'>
           Categories
         </h3>
         <StripedTable
@@ -86,7 +86,7 @@ export default function TopicsLink() {
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#limitations'>
+        <h3 className='mt-12 text-title font-medium' id='#limitations'>
           Limitations
         </h3>
         <p>

@@ -17,7 +17,10 @@ const MetricsLink = () => {
         <h2 className='sr-only'>Metrics</h2>
         <ConditionVariable definitionsArray={metricDefinitionsArray} />
 
-        <h3 className='font-sansTitle text-title' id='#percent-share-example'>
+        <h3
+          className='mt-12 text-title font-medium'
+          id='#percent-share-example'
+        >
           Percent Share Example: COVID-19 Cases
         </h3>
         <HetNotice>

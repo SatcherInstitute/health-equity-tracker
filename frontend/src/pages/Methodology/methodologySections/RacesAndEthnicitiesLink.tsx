@@ -239,7 +239,7 @@ const RacesAndEthnicitiesLink = () => {
           <title>Races and Ethnicities - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Races and Ethnicities</h2>
-        <h3 className='font-sansTitle text-title' id='#data-gaps'>
+        <h3 className='mt-12 text-title font-medium' id='#data-gaps'>
           Addressing Data Gaps Stemming from Structural Inequities
         </h3>
         <p>
@@ -295,19 +295,21 @@ const RacesAndEthnicitiesLink = () => {
                     id={def.path}
                     key={def.key}
                   >
-                    <h3>{def.key}</h3>
-                    <figure className='mt-0 flex flex-col items-start gap-3'>
+                    <h3 className='mt-12 font-sansTitle text-title font-medium'>
+                      {def.key}
+                    </h3>
+                    <article className='mt-0 flex flex-col items-start gap-3 pl-6'>
+                      <p className='text-smallest font-semibold'>Definition</p>
                       <p className='m-0 italic text-altBlack'>
                         {parseDescription(def.description)}
                       </p>
                       {def.considerations && def.considerations.length > 0 && (
                         <div>
-                          <h4 className='m-0 mb-4 text-altBlack'>
-                            Data Limitations and Specific Considerations
-                          </h4>
                           {def.considerations.map((consideration) => (
                             <div key={consideration.title}>
-                              <h5>{consideration.title}</h5>
+                              <p className='text-smallest font-semibold'>
+                                {consideration.title}
+                              </p>
                               {consideration.points.map((point, idx) => (
                                 <p key={idx}>{point}</p>
                               ))}
@@ -323,7 +325,7 @@ const RacesAndEthnicitiesLink = () => {
                           Explore {def.key} resources →
                         </a>
                       )}
-                    </figure>
+                    </article>
                   </div>
                 )
               })}

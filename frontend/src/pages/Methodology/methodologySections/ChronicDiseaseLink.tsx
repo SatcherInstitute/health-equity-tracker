@@ -38,7 +38,7 @@ const ChronicDiseaseLink = () => {
           ]}
         />
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#chronic-diseases-data-sourcing'
         >
           Data Sourcing
@@ -71,6 +71,7 @@ const ChronicDiseaseLink = () => {
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
         <HetNotice
+          className='my-12'
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
@@ -138,7 +139,7 @@ const ChronicDiseaseLink = () => {
         />
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#chronic-diseases-data-sources'
         >
           Data Sources
