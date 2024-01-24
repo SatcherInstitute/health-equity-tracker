@@ -10,11 +10,6 @@ describe('Test Data Source URLs', () => {
 
       expect(testUrl.slice(0, 8)).toEqual('https://')
     })
-
-    // for (const source in dataSourceMetadataMap) {
-    //   const testUrl = dataSourceMetadataMap[source].data_source_link
-    //   expect(testUrl.slice(0, 8)).toEqual('https://')
-    // }
   })
 })
 
