@@ -11,7 +11,7 @@ import {
 } from '../../utils/internalRoutes'
 import { usePrefersReducedMotion } from '../../utils/hooks/usePrefersReducedMotion'
 import { Helmet } from 'react-helmet-async'
-import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
+import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../data/query/Breakdowns'
 import { LinkWithStickyParams } from '../../utils/urlutils'
@@ -20,7 +20,7 @@ import HetBigCTA from '../../styles/HetComponents/HetBigCTA'
 
 function TheProjectTab() {
   const prefersReducedMotion = usePrefersReducedMotion()
-  const numDataSources = Object.keys(DataSourceMetadataMap).length
+  const numDataSources = Object.keys(dataSourceMetadataMap).length
   // tally number of conditions (including sub-conditions like COVID) x # demographic options
   const numVariables =
     Object.keys(METRIC_CONFIG).reduce(
