@@ -1,6 +1,6 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
-import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { ageAdjustmentDefinitionsArray } from './AgeAdjustmentDefinitions'
 
 export const hivDefinitionsArray = [
@@ -174,6 +174,6 @@ export const hivDefinitionsArray = [
 ]
 
 export const hivDataSources = [
-  dataSourceMetadataList[8],
-  dataSourceMetadataList[1],
+  dataSourceMetadataMap.cdc_atlas,
+  dataSourceMetadataMap.acs,
 ]
