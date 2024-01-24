@@ -5,7 +5,7 @@ import { type DataSourceId } from '../config/MetadataMap'
 // Data sources may provide multiple datasets
 export interface DataSourceMetadata {
   hideFromUser?: boolean
-  readonly id: DataSourceId
+  readonly id: DataSourceId // TODO: this is already the key in dataSourceMetadataMap, so we should refactor to remove this id field
   readonly description: string
   readonly dataset_ids: DatasetId[]
   readonly data_source_name: string
