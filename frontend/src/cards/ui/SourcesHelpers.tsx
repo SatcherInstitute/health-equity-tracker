@@ -1,6 +1,6 @@
 import { type MapOfDatasetMetadata } from '../../data/utils/DatasetTypes'
 import { HET_URL } from '../../utils/internalRoutes'
-import { DataSourceMetadataMap } from '../../data/config/MetadataMap'
+import { dataSourceMetadataMap } from '../../data/config/MetadataMap'
 import { type MetricQueryResponse } from '../../data/query/MetricQuery'
 import {
   type DatasetId,
@@ -59,12 +59,12 @@ export function getDataSourceMapFromDatasetIds(
   datasetIds.forEach((datasetId) => {
     const dataSourceId = metadata?.[datasetId]?.source_id
 
-    if (dataSourceId === undefined) {
+    if (dataSourceId === undefined || dataSourceId === 'error') {
       return
     }
     if (!dataSourceMap[dataSourceId]) {
       dataSourceMap[dataSourceId] = {
-        name: DataSourceMetadataMap[dataSourceId]?.data_source_name || '',
+        name: dataSourceMetadataMap[dataSourceId]?.data_source_name || '',
         updateTimes:
           metadata[datasetId].update_time === 'unknown'
             ? new Set()

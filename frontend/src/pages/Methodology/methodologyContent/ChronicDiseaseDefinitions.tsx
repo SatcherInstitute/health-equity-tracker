@@ -1,6 +1,6 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
-import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 export const chronicDiseaseDefinitionsArray = [
   {
@@ -76,6 +76,6 @@ export const chronicDiseaseDefinitionsArray = [
 ]
 
 export const chronicDiseaseDataSources = [
-  dataSourceMetadataList[1],
-  dataSourceMetadataList[10],
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
 ]

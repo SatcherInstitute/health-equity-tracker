@@ -1,6 +1,6 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
-import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 export const sdohDefinitionsArray = [
   {
@@ -62,7 +62,7 @@ export const sdohDefinitionsArray = [
 ]
 
 export const sdohDataSources = [
-  dataSourceMetadataList[1],
-  dataSourceMetadataList[10],
-  dataSourceMetadataList[5],
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.cdc_svi_county,
 ]
