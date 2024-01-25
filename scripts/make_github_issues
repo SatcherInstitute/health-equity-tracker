@@ -1,18 +1,17 @@
 #!/bin/bash
 
-# SAMPLE USAGE
-# ./make_github_issues -f comma_or_newline_delimited_items_file.txt --milestone "Your Milestone" -l "help-wanted"
-
-
 # Function to display help
 function display_help() {
-    echo "Usage: $(basename "$0") -f <file_with_paths> -m <milestone> -l <label> -d <delay>"
+    echo "Usage: $(basename "$0") -f <file_with_paths> -m <milestone> -l <label> -b <markdown_file>"
     echo "Options:"
     echo "  -f, --file         Specify the file containing items to iterate over and make GitHub issues about."
     echo "  -p, --prefix       Specify the prefix to prepend to each item for the GitHub issue title."
+    echo "  -b, --body         Specify the markdown file for the body of the GitHub issue."
     echo "  -m, --milestone    Specify the milestone for the GitHub issues."
     echo "  -l, --label        Specify the label for the GitHub issues."
     echo "  -h, --help         Display this help message."
+    echo "Example: ./make_gihub_issues -f newline_delimited_file_with_keyword_per_issue.txt -p "Prefix to append to each keyword for issue title" -m "Milestone copy pasted from Milestone name on github, surrounded by double quotes" -l "Label from github, copy pasted and quoted" -b markdown_file_containing_generic_issue_body.md
+"
     exit 1
 }
 
@@ -23,6 +22,7 @@ while [[ "$#" -gt 0 ]]; do
         -p|--prefix) prefix="$2"; shift ;;
         -m|--milestone) milestone="$2"; shift ;;
         -l|--label) label="$2"; shift ;;
+        -b|--body) body_file="$2"; shift ;;
         -h|--help) display_help ;;
         *) echo "Unknown parameter passed: $1"; exit 1 ;;
     esac
@@ -30,7 +30,7 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 # Validate input
-if [ -z "$items" ] || [ -z "$prefix" ] || [ -z "$milestone" ] || [ -z "$label" ]; then
+if [ -z "$items" ] || [ -z "$prefix" ] || [ -z "$milestone" ] || [ -z "$label" ] || [ -z "$body_file" ]; then
     echo "Error: All options are required."
     display_help
 fi
@@ -40,7 +40,7 @@ while IFS= read -r item; do
 
   # Create the issue using gh command
   gh issue create --title "$prefix $item" \
-                  --body "$prefix $item" \
+                  --body-file "$body_file" \
                   --milestone "$milestone" \
                   --label "$label"
 
