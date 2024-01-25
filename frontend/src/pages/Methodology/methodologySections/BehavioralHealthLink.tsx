@@ -2,7 +2,6 @@ import {
   behavioralHealthDataSources,
   behavioralHealthDefinitionsArray,
 } from '../methodologyContent/BehavioralHealthDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -13,6 +12,11 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DEPRESSION_METRICS } from '../../../data/config/MetricConfigBehavioralHealth'
+import KeyTerms from '../methodologyComponents/KeyTerms'
+
+const datatypeConfigs = DEPRESSION_METRICS
 
 export default function BehavioralHealthLink() {
   return (
@@ -175,6 +179,10 @@ export default function BehavioralHealthLink() {
         <KeyTerms
           id='#behavioral-health-key-terms'
           definitionsArray={behavioralHealthDefinitionsArray}
+        />
+        <KeyTermsAccordion
+          hashId='#behavioral-health-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
 
         <Resources

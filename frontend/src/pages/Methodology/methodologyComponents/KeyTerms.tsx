@@ -23,7 +23,7 @@ interface KeyTermsProps {
   id?: string
 }
 
-const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
+export default function KeyTerms(props: KeyTermsProps) {
   const isMd = useIsBreakpointAndUp('md')
 
   const [expanded, setExpanded] = useState(isMd)
@@ -36,7 +36,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
   }
 
   return (
-    <div id={id} className='mt-8 w-full'>
+    <div id={props.id} className='mt-8 w-full'>
       <Paper>
         <Accordion expanded={expanded} onChange={handleAccordionToggle}>
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -44,13 +44,13 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
           </AccordionSummary>
 
           <AccordionDetails>
-            {definitionsArray.map((item) => {
+            {props.definitionsArray.map((item) => {
               return (
                 <div className='mb-8' id={item.id} key={item.topic}>
                   <HetTerm>{item.topic}</HetTerm>
                   {item.definitions.map((def) => {
                     return (
-                      <figure
+                      <article
                         key={def.key}
                         className='mx-1 mb-2 mt-1 flex flex-col  p-0'
                       >
@@ -58,7 +58,7 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
                         <p className='m-0 self-start pt-1 text-small text-altBlack'>
                           {parseDescription(def.description)}
                         </p>
-                      </figure>
+                      </article>
                     )
                   })}
                 </div>
@@ -70,5 +70,3 @@ const KeyTerms: React.FC<KeyTermsProps> = ({ definitionsArray, id }) => {
     </div>
   )
 }
-
-export default KeyTerms
