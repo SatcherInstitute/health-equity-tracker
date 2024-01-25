@@ -11,12 +11,12 @@ import { type DataTypeConfig } from '../../../data/config/MetricConfig'
 import InfoCitations from '../../../reports/ui/InfoCitations'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 
-interface KeyTermsProps {
+interface KeyTermsAccordionProps {
   datatypeConfigs: DataTypeConfig[]
   hashId?: string
 }
 
-export default function KeyTerms(props: KeyTermsProps) {
+export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
   const isMd = useIsBreakpointAndUp('md')
 
   const [expanded, setExpanded] = useState(isMd)
