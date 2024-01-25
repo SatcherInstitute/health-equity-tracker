@@ -17,6 +17,8 @@ interface DataItem {
   id?: string
 }
 
+// TODO: This file should be deleted once the new methodology pages all retrieve the existing definitions from the correct MetricConfig.ts files.
+
 export const conditionVariableDefinitions: DataItem[] = [
   {
     topic: 'Behavioral Health',

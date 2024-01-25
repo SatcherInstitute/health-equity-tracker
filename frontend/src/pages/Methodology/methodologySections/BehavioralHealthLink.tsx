@@ -1,8 +1,3 @@
-import {
-  behavioralHealthDataSources,
-  behavioralHealthDefinitionsArray,
-} from '../methodologyContent/BehavioralHealthDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -13,6 +8,32 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import CategoryTopicLinks from '../methodologyComponents/CategoryTopicLinks'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+
+// All data _sources_ used for Behavioral Health category
+const behavioralHealthDataSources = [
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+]
+
+// All metric configs used for Behavioral Health category topics
+const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return METRIC_CONFIG[dropdownId]
+  }
+).flat()
+
+// All sentence-cased topic names for Behavioral Health category
+const topicNamesWithCommas = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return DROPDOWN_TOPIC_MAP[dropdownId]
+  }
+).join(', ')
 
 export default function BehavioralHealthLink() {
   return (
@@ -34,8 +55,7 @@ export default function BehavioralHealthLink() {
           rows={[
             {
               category: 'Behavioral Health',
-              topic:
-                'Depression, Excessive Drinking, Frequent Mental Distress, Suicide, Opioid and Substance Misuse',
+              topic: topicNamesWithCommas,
               variable: 'Race/ethnicity, Sex, Age',
             },
           ]}
@@ -82,40 +102,10 @@ export default function BehavioralHealthLink() {
           downloadable data files. Click on the following to explore the
           reports:
         </p>
-        <ul className='list-none pl-0'>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.suicide-3.00&group1=All'
-            >
-              suicide
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.frequent_mental_distress-3.00&group1=All'
-            >
-              frequent mental distress
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'
-            >
-              depression
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All'
-            >
-              excessive drinking
-            </a>
-          </li>
-        </ul>
+
+        <CategoryTopicLinks
+          dropdownIds={BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS}
+        />
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide
@@ -172,9 +162,9 @@ export default function BehavioralHealthLink() {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#behavioral-health-key-terms'
-          definitionsArray={behavioralHealthDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#behavioral-health-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
 
         <Resources

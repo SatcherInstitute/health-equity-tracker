@@ -16,6 +16,8 @@ interface KeyTermsAccordionProps {
   hashId?: string
 }
 
+// TODO: once all new methodology pages are using this component, delete <KeyTerms />  See GH #2821
+
 export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
   const isMd = useIsBreakpointAndUp('md')
 
