@@ -1,4 +1,5 @@
 import {
+  BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
   COVID_19_LINK,
   HIV_LINK,
@@ -15,7 +16,42 @@ interface DataItem {
   path: string
 }
 
+// TODO: This file should be deleted once all content has been migrated over to the description: { text: ''}} fields of the corresponding MetricConfig file
+// NOTE: don't delete items from this array as you refactor, since the un-refactored code uses numerical indexing and deleting items causes errors
+
 export const methodologyTableDefinitions: DataItem[] = [
+  {
+    topic: 'Behavioral Health',
+    path: BEHAVIORAL_HEALTH_LINK,
+    definitions: [
+      {
+        key: 'depression',
+        description:
+          'Depression is a mental illness that can cause a number of problems, including sadness, fatigue, and difficulty concentrating. It is more common in people of color and people with low incomes. Studying depression can help us understand why these disparities exist and how to address them.',
+      },
+      {
+        key: 'excessive_drinking',
+        description:
+          'Excessive drinking is a major public health problem. It can lead to a number of health problems, including liver disease, heart disease, and cancer. It is more common in people of color and people with low incomes. Studying excessive drinking can help us understand why these disparities exist and how to address them.',
+      },
+      {
+        key: 'frequent_mental_distress',
+        description:
+          'Frequent mental distress is a common experience that can have a negative impact on physical and mental health. It is more common in people of color and people with low incomes. Studying frequent mental distress can help us understand why these disparities exist and how to address them.',
+      },
+      {
+        key: 'non_medical_drug_use and substance',
+        description:
+          'Non-medical drug use is a serious public health problem. People who use drugs are more likely to experience a variety of health problems, including HIV, hepatitis C, and overdose. People of color and people with low incomes are more likely to use substances. They are also more likely to die prematurely. Studying non-medical drug use in regard to health equity can help us to understand why certain populations are more likely to use drugs and how to address this problem.',
+      },
+      {
+        key: 'suicide',
+        description:
+          'Suicide is a leading cause of death in the United States. People of color and people with low incomes are more likely to die by suicide. Studying suicide can help us understand why these disparities exist and how to address them.',
+      },
+    ],
+  },
+
   {
     topic: 'Chronic Diseases',
     path: CHRONIC_DISEASE_LINK,
