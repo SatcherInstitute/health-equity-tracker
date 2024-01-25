@@ -1,6 +1,5 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
-import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 interface DataItem {
   topic: string
@@ -82,9 +81,4 @@ export const behavioralHealthDefinitionsArray: DataItem[] = [
       },
     ],
   },
-]
-
-export const behavioralHealthDataSources = [
-  dataSourceMetadataMap.acs,
-  dataSourceMetadataMap.ahr,
 ]

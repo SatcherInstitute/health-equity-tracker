@@ -1,4 +1,3 @@
-import { behavioralHealthDataSources } from '../methodologyContent/BehavioralHealthDefinitions'
 import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -14,7 +13,15 @@ import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/Met
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 import CategoryTopicLinks from '../methodologyComponents/CategoryTopicLinks'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
+// All data _sources_ used for Behavioral Health category
+const behavioralHealthDataSources = [
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+]
+
+// All metric configs used for Behavioral Health category topics
 const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
   (dropdownId) => {
     return METRIC_CONFIG[dropdownId]
