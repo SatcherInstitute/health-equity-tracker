@@ -28,6 +28,13 @@ const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
   }
 ).flat()
 
+// All sentence-cased topic names for Behavioral Health category
+const topicNamesWithCommas = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return DROPDOWN_TOPIC_MAP[dropdownId]
+  }
+).join(', ')
+
 export default function BehavioralHealthLink() {
   return (
     <section id='#behavioral-health'>
@@ -48,11 +55,7 @@ export default function BehavioralHealthLink() {
           rows={[
             {
               category: 'Behavioral Health',
-              topic: BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
-                (dropdownId) => {
-                  return DROPDOWN_TOPIC_MAP[dropdownId]
-                }
-              ).join(', '),
+              topic: topicNamesWithCommas,
               variable: 'Race/ethnicity, Sex, Age',
             },
           ]}
