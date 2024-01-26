@@ -67,7 +67,6 @@ export default {
       maxWidth: {
         aimToGo: '255px',
         menu: '320px',
-        subMenu: '150px',
         articleLogo: '700px',
         teamHeadshot: '181px',
         teamLogo: '250px',
