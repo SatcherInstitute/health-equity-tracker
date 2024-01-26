@@ -58,7 +58,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className={`m-2 text-left  ${props.className ?? ''}`}
+        className={`m-2 w-36 text-left  ${props.className ?? ''}`}
       >
         <h4 className='my-3 text-left font-roboto text-smallest font-semibold uppercase text-black'>
           On this page
