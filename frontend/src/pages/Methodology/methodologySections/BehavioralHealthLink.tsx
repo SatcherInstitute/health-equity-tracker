@@ -29,11 +29,10 @@ const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
 ).flat()
 
 // All sentence-cased topic names for Behavioral Health category
-const topicNamesWithCommas = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
-  (dropdownId) => {
+export const behavioralHealthTopicsString =
+  BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
     return DROPDOWN_TOPIC_MAP[dropdownId]
-  }
-).join(', ')
+  }).join(', ')
 
 export default function BehavioralHealthLink() {
   return (
@@ -50,13 +49,13 @@ export default function BehavioralHealthLink() {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
           ]}
           rows={[
             {
               category: 'Behavioral Health',
-              topic: topicNamesWithCommas,
-              variable: 'Race/ethnicity, Sex, Age',
+              topic: behavioralHealthTopicsString,
+              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
