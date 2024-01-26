@@ -28,7 +28,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
   return (
     <nav
       aria-label='methodology sections'
-      className={`flex  flex-col rounded-sm py-0 shadow-raised-tighter ${
+      className={`flex flex-col rounded-sm py-0 tracking-normal shadow-raised-tighter ${
         props.className ?? ''
       } `}
     >
@@ -36,9 +36,10 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link to={NEW_METHODOLOGY_PAGE_LINK} className='no-underline'>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === NEW_METHODOLOGY_PAGE_LINK}
             >
-              Methodology
+              Introduction
             </HetListItemButton>
           </Link>
         </li>
@@ -46,6 +47,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={NEW_AGE_ADJUSTMENT_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === NEW_AGE_ADJUSTMENT_LINK}
             >
               Age-Adjustment
@@ -56,6 +58,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={SOURCES_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === SOURCES_LINK}
             >
               Data Sources
@@ -66,6 +69,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={TOPICS_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === TOPICS_LINK}
             >
               Categories and Limitations
@@ -75,6 +79,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={BEHAVIORAL_HEALTH_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === BEHAVIORAL_HEALTH_LINK}
               option='normalBlack'
             >
@@ -85,6 +90,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={CHRONIC_DISEASE_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === CHRONIC_DISEASE_LINK}
               option='normalBlack'
             >
@@ -95,6 +101,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={COVID_19_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === COVID_19_LINK}
               option='normalBlack'
             >
@@ -105,6 +112,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={HIV_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === HIV_LINK}
               option='normalBlack'
             >
@@ -115,6 +123,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={PDOH_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === PDOH_LINK}
               option='normalBlack'
             >
@@ -125,6 +134,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={SDOH_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === SDOH_LINK}
               option='normalBlack'
             >
@@ -136,6 +146,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={DATA_METHOD_DEFINITIONS_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={
                 window.location.pathname === DATA_METHOD_DEFINITIONS_LINK
               }
@@ -147,6 +158,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={METRICS_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === METRICS_LINK}
               option='normalBlack'
             >
@@ -157,6 +169,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={CONDITION_VARIABLES_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === CONDITION_VARIABLES_LINK}
               option='normalBlack'
             >
@@ -168,6 +181,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={RACES_AND_ETHNICITIES_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === RACES_AND_ETHNICITIES_LINK}
               option='normalBlack'
             >
@@ -179,6 +193,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={RECOMMENDED_CITATION_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === RECOMMENDED_CITATION_LINK}
             >
               Recommended Citation
@@ -189,6 +204,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         <li>
           <Link className='no-underline' to={GLOSSARY_LINK}>
             <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
               selected={window.location.pathname === GLOSSARY_LINK}
             >
               Glossary

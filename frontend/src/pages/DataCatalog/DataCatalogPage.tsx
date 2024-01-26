@@ -1,7 +1,7 @@
 import DataSourceListing from './DataSourceListing'
 import {
   type DataSourceId,
-  DataSourceMetadataMap,
+  dataSourceMetadataMap,
 } from '../../data/config/MetadataMap'
 import { type DataSourceMetadata } from '../../data/utils/DatasetTypes'
 import {
@@ -79,7 +79,7 @@ export default function DataCatalogPage() {
           <WithMetadata>
             {(datasetMetadata) => {
               const filteredDatasets = getFilteredSources(
-                DataSourceMetadataMap,
+                dataSourceMetadataMap,
                 activeFilter
               )
               // Check if more than the default filters are enabled to see if you're viewing
@@ -93,8 +93,8 @@ export default function DataCatalogPage() {
                   {filteredDatasets.map((sourceId, index) => (
                     <li key={index}>
                       <DataSourceListing
-                        key={DataSourceMetadataMap[sourceId].id}
-                        source_metadata={DataSourceMetadataMap[sourceId]}
+                        key={dataSourceMetadataMap[sourceId].id}
+                        source_metadata={dataSourceMetadataMap[sourceId]}
                         dataset_metadata={datasetMetadata}
                       />
                     </li>

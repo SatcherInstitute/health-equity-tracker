@@ -9,7 +9,7 @@ const DataMethodDefinitionsLink = () => {
         </Helmet>
         <h2 className='sr-only'>Data Methods</h2>
 
-        <h3 className='font-sansTitle text-title'>Visualizations</h3>
+        <h3 className='mt-12 text-title font-medium'>Visualizations</h3>
         <p>
           Please consider the impact of under-reporting and data gaps when
           exploring the visualizations. These issues may lead to incorrect

@@ -2,8 +2,20 @@ import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
+import { behavioralHealthTopicsString } from './BehavioralHealthLink'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
 
-const TopicsLink: React.FC = () => {
+const numDataSources = Object.keys(dataSourceMetadataMap).length
+// tally number of conditions (including sub-conditions like COVID) x # demographic options
+const numVariables =
+  Object.keys(METRIC_CONFIG).reduce(
+    (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
+    0
+  ) * DEMOGRAPHIC_TYPES.length
+
+export default function TopicsLink() {
   return (
     <section id='#categories'>
       <article>
@@ -19,22 +31,22 @@ const TopicsLink: React.FC = () => {
           of health outcomes categorized by race, ethnicity, sex, and other
           significant factors, it is essential to acknowledge the limitations.
           One of the inherent constraints is that the tracker currently
-          aggregates data from 18 key sources, including the CDC and the U.S.
-          Census Bureau. While these are reputable sources, the availability and
-          granularity of data can sometimes be restrictive.
+          aggregates data from {numDataSources} key sources, including the CDC
+          and the U.S. Census Bureau. While these are reputable sources, the
+          availability and granularity of data can sometimes be restrictive.
         </p>
 
         <p>
           Our focus extends beyond just pandemic-related statistics; the tracker
-          encompasses 215 variables, covering chronic diseases like COPD and
-          diabetes, behavioral health indicators such as opioid misuse, and
-          social and political determinants including uninsurance rates and
+          encompasses {numVariables} variables, covering chronic diseases like
+          COPD and diabetes, behavioral health indicators such as opioid misuse,
+          and social and political determinants including uninsurance rates and
           poverty levels. These topics were deliberately chosen to provide a
           multi-dimensional view of health equity, guiding policymakers towards
           understanding the unique challenges and needs of diverse communities.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#categories'>
+        <h3 className='mt-12 text-title font-medium' id='#categories'>
           Categories
         </h3>
         <StripedTable
@@ -43,50 +55,51 @@ const TopicsLink: React.FC = () => {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Data Types', accessor: 'dataType' },
+            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
           ]}
           rows={[
             {
               category: 'Behavioral Health',
-              topic:
-                'Depression, Excessive Drinking, Frequent Mental Distress, Suicide, Opioid and Substance Misuse',
-              variable: 'Race/ethnicity, Sex, Age',
+              topic: behavioralHealthTopicsString,
+              demographicType: 'Race/ethnicity, Sex, Age',
             },
             {
               category: 'Chronic Diseases',
               topic:
                 'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
-              variable: 'Race/ethnicity, Sex, Age',
+              demographicType: 'Race/ethnicity, Sex, Age',
             },
             {
               category: 'COVID-19',
               topic: 'COVID-19, COVID-19 Vaccinations',
-              variable:
-                'Cases, Deaths, Hospitalizations, Race/ethnicity, Sex, Age',
+              demographicType: 'Race/ethnicity, Sex, Age',
+              dataType: 'Cases, Deaths, Hospitalizations',
             },
             {
               category: 'HIV',
               topic:
                 'HIV, HIV (Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
-              variable:
-                'Prevalence, New diagnoses, Deaths, Race/ethnicity, Sex, Age',
+              demographicType: 'Race/ethnicity, Sex, Age',
+              dataType: 'Prevalence, New diagnoses, Deaths',
             },
             {
               category: 'Political Determinants of Health',
               topic:
                 'Incarceration, Voter Participation, Women Serving in Legislative Office',
-              variable:
-                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures, Race/ethnicity, Sex, Age',
+              demographicType: 'Race/ethnicity, Sex, Age',
+              dataType:
+                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures',
             },
             {
               category: 'Social Determinants of Health',
               topic:
                 'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
-              variable: 'Race/ethnicity, Sex, Age',
+              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#limitations'>
+        <h3 className='mt-12 text-title font-medium' id='#limitations'>
           Limitations
         </h3>
         <p>
@@ -104,5 +117,3 @@ const TopicsLink: React.FC = () => {
     </section>
   )
 }
-
-export default TopicsLink

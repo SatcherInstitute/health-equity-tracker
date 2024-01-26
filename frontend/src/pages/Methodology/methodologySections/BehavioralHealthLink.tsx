@@ -1,8 +1,3 @@
-import {
-  behavioralHealthDataSources,
-  behavioralHealthDefinitionsArray,
-} from '../methodologyContent/BehavioralHealthDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -13,8 +8,33 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import CategoryTopicLinks from '../methodologyComponents/CategoryTopicLinks'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
-const BehavioralHealthLink: React.FC = () => {
+// All data _sources_ used for Behavioral Health category
+const behavioralHealthDataSources = [
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+]
+
+// All metric configs used for Behavioral Health category topics
+const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return METRIC_CONFIG[dropdownId]
+  }
+).flat()
+
+// All sentence-cased topic names for Behavioral Health category
+export const behavioralHealthTopicsString =
+  BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+    return DROPDOWN_TOPIC_MAP[dropdownId]
+  }).join(', ')
+
+export default function BehavioralHealthLink() {
   return (
     <section id='#behavioral-health'>
       <article>
@@ -29,19 +49,18 @@ const BehavioralHealthLink: React.FC = () => {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
           ]}
           rows={[
             {
               category: 'Behavioral Health',
-              topic:
-                'Depression, Excessive Drinking, Frequent Mental Distress, Suicide, Opioid and Substance Misuse',
-              variable: 'Race/ethnicity, Sex, Age',
+              topic: behavioralHealthTopicsString,
+              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#behavioral-health-data-sourcing'
         >
           Data Sourcing
@@ -60,6 +79,7 @@ const BehavioralHealthLink: React.FC = () => {
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
         <HetNotice
+          className='my-12'
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
@@ -81,40 +101,10 @@ const BehavioralHealthLink: React.FC = () => {
           downloadable data files. Click on the following to explore the
           reports:
         </p>
-        <ul className='list-none pl-0'>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.suicide-3.00&group1=All'
-            >
-              suicide
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.frequent_mental_distress-3.00&group1=All'
-            >
-              frequent mental distress
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.depression-3.00&group1=All'
-            >
-              depression
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.excessive_drinking-3.00&group1=All'
-            >
-              excessive drinking
-            </a>
-          </li>
-        </ul>
+
+        <CategoryTopicLinks
+          dropdownIds={BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS}
+        />
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide
@@ -144,7 +134,7 @@ const BehavioralHealthLink: React.FC = () => {
         />
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#behavioral-health-data-sources'
         >
           Data Sources
@@ -171,19 +161,20 @@ const BehavioralHealthLink: React.FC = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#behavioral-health-key-terms'
-          definitionsArray={behavioralHealthDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#behavioral-health-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
 
-        <LifelineAlert />
         <Resources
           id='#behavioral-health-resources'
           resourceGroups={[MENTAL_HEALTH_RESOURCES]}
         />
+
+        <div className='pt-5'>
+          <LifelineAlert />
+        </div>
       </article>
     </section>
   )
 }
-
-export default BehavioralHealthLink

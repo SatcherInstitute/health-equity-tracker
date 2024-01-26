@@ -39,25 +39,27 @@ const PdohLink = () => {
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
           We gather our information on incarcerated individuals (including
           children) in the U.S. from trusted sources:
         </p>
-        <h4>Bureau of Justice Statistic (BJS)</h4>
+        <h4 className='font-medium italic'>
+          Bureau of Justice Statistic (BJS)
+        </h4>
         <p>
           Provides comprehensive reports on people under correctional control.
           Our insights are based on combining data from their “Prisoners in
           2020” and “Census of Jails 2005-2019” reports.
         </p>
-        <h4>Vera Institute for Justice</h4>
+        <h4 className='font-medium italic'>Vera Institute for Justice</h4>
         <p>
           Offers detailed research on incarceration trends at the county level.
         </p>
         <h4>Breakdown of Our Reports</h4>
-        <h5>By Age</h5>
+        <h5 className='text-text font-light'>By Age</h5>
         <ul>
           <li className='font-sansTitle font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
@@ -66,20 +68,20 @@ const PdohLink = () => {
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5>By Race</h5>
+        <h5 className='text-text font-light'>By Race</h5>
         <ul>
           <li className='font-sansTitle font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
-        <h5>By Sex</h5>
+        <h5 className='text-text font-light'>By Sex</h5>
         <ul>
           <li className='font-sansTitle font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5>Special Reports</h5>
+        <h5 className='text-text font-light'>Special Reports</h5>
         <ul>
           <li className='font-sansTitle font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
@@ -92,7 +94,7 @@ const PdohLink = () => {
             Trends.
           </li>
         </ul>
-        <h3 className='font-sansTitle text-title' id='#jails-vs-prisons'>
+        <h3 className='mt-12 text-title font-medium' id='#jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
         <h4>Jails</h4>
@@ -111,29 +113,29 @@ const PdohLink = () => {
           person, not necessarily where they're held.
         </p>
         <p>Our data varies slightly based on the location and type:</p>
-        <h5>National report</h5>
+        <h5 className='text-text font-light'>National report</h5>
         <p>
           Includes all under the jurisdiction of a state or federal adult
           prison. Excludes territorial, military, or Indian Country facilities.
         </p>
-        <h5>State reports</h5>
+        <h5 className='text-text font-light'>State reports</h5>
         <p>
           Focuses on individuals within a state's prison system. Age-specific
           data is not available.
         </p>
-        <h5>Territory reports</h5>
+        <h5 className='text-text font-light'>Territory reports</h5>
         <p>
           Covers individuals in a territory's adult prison facilities. No
           specific demographic breakdown.
         </p>
-        <h5>County reports</h5>
+        <h5 className='text-text font-light'>County reports</h5>
         <p>
           Considers those under state prison systems but charged in a specific
           county.
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#children-in-adult-facilities'
         >
           Children in Adult Facilities
@@ -157,7 +159,7 @@ const PdohLink = () => {
             </li>
           </ul>
         </p>
-        <h3 className='font-sansTitle text-title' id='#combined-systems'>
+        <h3 className='mt-12 text-title font-medium' id='#combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -166,7 +168,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#political-forces'>
+        <h3 className='mt-12 text-title font-medium' id='#political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -175,7 +177,7 @@ const PdohLink = () => {
           convicted felons are among the key political forces that determine
           voter participation in the justice-involved population.
         </p>
-        <h4>Voter Disenfranchisement</h4>
+        <h4 className='font-medium italic'>Voter Disenfranchisement</h4>
 
         <p>
           The ability to vote is described as the singular most powerful,
@@ -185,23 +187,23 @@ const PdohLink = () => {
           affected by this disenfranchisement (Sentencing Project).
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#health-impact-of-incarceration'
         >
           Health Impact of Incarceration
         </h3>
-        <h4>Immediate Health Consequences</h4>
+        <h4 className='font-medium italic'>Immediate Health Consequences</h4>
         <p>
           Studies indicate that incarceration heightens the risk of chronic
           health conditions, infectious diseases like HIV/AIDS, mental
           illnesses, and substance use disorders.
         </p>
-        <h4>Life Expectancy</h4>
+        <h4 className='font-medium italic'>Life Expectancy</h4>
         <p>
           Each year spent in prison is associated with a reduction of 2 years in
           life expectancy.
         </p>
-        <h4>Post-Incarceration Challenges</h4>
+        <h4 className='font-medium italic'>Post-Incarceration Challenges</h4>
         <p>
           The health impact of incarceration extends beyond the confinement
           period. Upon reentry into society, justice-involved individuals often
@@ -211,7 +213,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#women-in-gov'>
+        <h3 className='mt-12 text-title font-medium' id='#women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -223,7 +225,7 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-metrics'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
@@ -265,7 +267,7 @@ const PdohLink = () => {
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification.
         </p>
-        <h3 className='font-sansTitle text-title' id='#historical-tracking'>
+        <h3 className='mt-12 text-title font-medium' id='#historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -292,7 +294,7 @@ const PdohLink = () => {
           goes back only to 1983.
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
@@ -318,7 +320,7 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='font-sansTitle text-title' id='#pdoh-missing-data'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-missing-data'>
           Missing Data
         </h3>
         <p>
@@ -334,7 +336,7 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-resources'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable

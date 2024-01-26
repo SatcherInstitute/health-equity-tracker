@@ -107,7 +107,7 @@ const AgeAdjustmentLink = () => {
             </a>
             .
           </p>
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h4 id='#data-sourcing' className='mt-20 text-title font-medium'>
             Data Sourcing
           </h4>
           <p>
@@ -160,7 +160,7 @@ const AgeAdjustmentLink = () => {
               </ul>
             </li>
           </ol>
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h4 id='#algorithm' className='mt-20 text-title font-medium'>
             Algorithm
           </h4>
           <p>
@@ -247,7 +247,10 @@ const AgeAdjustmentLink = () => {
             </li>
           </ol>
 
-          <h3 className='text-left font-serif text-smallestHeader font-light text-altBlack'>
+          <h3
+            id='#age-adjustment-examples'
+            className='text-left font-serif text-smallestHeader font-light text-altBlack'
+          >
             Age-Adjustment Example: HIV Deaths
           </h3>
           <p>
@@ -370,11 +373,11 @@ const AgeAdjustmentLink = () => {
             </tbody>
           </table>
 
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h3 className='mt-20 font-medium'>
             1) Calculate the <HetTerm>age-specific HIV death rates</HetTerm>{' '}
             which will be each race/age group's death count divided by its
             population.
-          </h4>
+          </h3>
 
           {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
@@ -515,11 +518,11 @@ const AgeAdjustmentLink = () => {
             </tbody>
           </table>
 
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h3 className='mt-20 font-medium'>
             2) Get the <HetTerm>standard population</HetTerm> per age group,
             which will be the summed population of all race/age groups within
             that age group.
-          </h4>
+          </h3>
 
           {/* A + B TABLE */}
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
@@ -579,9 +582,9 @@ const AgeAdjustmentLink = () => {
             </tbody>
           </table>
 
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h3 className='mt-20 font-medium'>
             3) Calculate the expected deaths for each age/race group:
-          </h4>
+          </h3>
           <p>As noted above, the formula for each row is:</p>
           <pre className='mx-1 mb-8 mt-1 overflow-x-auto whitespace-pre-wrap break-words border-solid border-bgColor bg-exploreBgColor p-1 text-smallest'>
             (HIV Deaths / Population) X Standard Population for Corresponding
@@ -743,11 +746,11 @@ const AgeAdjustmentLink = () => {
               </tr>
             </tbody>
           </table>
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h3 className='mt-20 font-medium'>
             4) For each race, we sum together the expected HIV deaths from each
             of its age groups to calculate the total expected HIV deaths for
             that race:
-          </h4>
+          </h3>
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
               <tr className='bg-joinEffortBg1'>
@@ -785,9 +788,9 @@ const AgeAdjustmentLink = () => {
               </tr>
             </tbody>
           </table>
-          <h4 className='mt-20 font-sansText text-text font-medium'>
+          <h3 className='mt-20 font-medium'>
             5) Calculate the age-adjusted death ratio:
-          </h4>
+          </h3>
           <table className='m-4 border-collapse border-solid border-bgColor p-1'>
             <thead className='font-bold'>
               <tr className='bg-joinEffortBg1'>

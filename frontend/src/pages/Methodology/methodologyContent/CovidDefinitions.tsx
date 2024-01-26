@@ -1,6 +1,6 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
-import { dataSourceMetadataList } from '../../../data/config/MetadataMap'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { ageAdjustmentDefinitionsArray } from './AgeAdjustmentDefinitions'
 
 export const covidDefinitionsArray = [
@@ -104,12 +104,12 @@ export const covidDefinitionsArray = [
 ]
 
 export const covidDataSources = [
-  dataSourceMetadataList[0],
-  dataSourceMetadataList[1],
-  dataSourceMetadataList[2],
-  dataSourceMetadataList[3],
-  dataSourceMetadataList[6],
-  dataSourceMetadataList[7],
-  dataSourceMetadataList[9],
-  dataSourceMetadataList[17],
+  dataSourceMetadataMap.cdc_restricted,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2010_territory_population,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.cdc_vaccination_county,
+  dataSourceMetadataMap.cdc_vaccination_national,
+  dataSourceMetadataMap.kff_vaccination,
+  dataSourceMetadataMap.covid_tracking_project,
 ]

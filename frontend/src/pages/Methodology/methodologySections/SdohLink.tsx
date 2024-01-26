@@ -53,7 +53,7 @@ function SdohLink() {
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#sdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
@@ -69,6 +69,7 @@ function SdohLink() {
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.
         </p>
         <HetNotice
+          className='my-12'
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
@@ -127,7 +128,7 @@ function SdohLink() {
           ]}
         />
 
-        <h3 className='font-sansTitle text-title' id='#sdoh-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sources'>
           Data Sources
         </h3>
         <StripedTable

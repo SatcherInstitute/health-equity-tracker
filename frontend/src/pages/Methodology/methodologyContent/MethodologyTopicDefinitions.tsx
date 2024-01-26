@@ -16,6 +16,9 @@ interface DataItem {
   path: string
 }
 
+// TODO: This file should be deleted once all content has been migrated over to the description: { text: ''}} fields of the corresponding MetricConfig file
+// NOTE: don't delete items from this array as you refactor, since the un-refactored code uses numerical indexing and deleting items causes errors
+
 export const methodologyTableDefinitions: DataItem[] = [
   {
     topic: 'Behavioral Health',

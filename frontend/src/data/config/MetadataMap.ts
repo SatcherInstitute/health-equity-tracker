@@ -26,8 +26,8 @@ export type DataSourceId =
   | 'the_unitedstates_project'
   | 'vera'
 
-export const dataSourceMetadataList: DataSourceMetadata[] = [
-  {
+export const dataSourceMetadataMap: Record<DataSourceId, DataSourceMetadata> = {
+  cdc_restricted: {
     id: 'cdc_restricted',
     data_source_name: 'CDC Case Surveillance Restricted Access Detailed Data',
     data_source_pretty_site_name: 'data.cdc.gov',
@@ -61,7 +61,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  acs: {
     id: 'acs',
     data_source_name: 'American Community Survey (ACS) 5-year estimates',
     data_source_pretty_site_name: 'census.gov',
@@ -94,7 +94,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  decia_2010_territory_population: {
     id: 'decia_2010_territory_population',
     data_source_name: 'Census 2010 Decennial Island Areas',
     data_source_pretty_site_name: 'census.gov',
@@ -112,7 +112,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  decia_2020_territory_population: {
     id: 'decia_2020_territory_population',
     data_source_name: 'Census 2020 Decennial Island Areas',
     data_source_pretty_site_name: 'census.gov',
@@ -133,7 +133,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  census_pop_estimates: {
     id: 'census_pop_estimates',
     data_source_name: 'County Population by Characteristics: 2010-2019',
     data_source_pretty_site_name: 'census.gov',
@@ -143,13 +143,11 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'None',
     description:
-      'Population percentage estimates by race/ethnicity, age, and sex to the ' +
-      'county level provided by the U.S Census Bureau. We use the single year ' +
-      'estimates from 2019.',
+      'Population percentage estimates by race/ethnicity, age, and sex to the county level provided by the U.S Census Bureau. We use the single year estimates from 2019.',
     dataset_ids: ['census_pop_estimates-race_and_ethnicity'],
     downloadable: true,
   },
-  {
+  cdc_svi_county: {
     id: 'cdc_svi_county',
     data_source_name: 'CDC SVI County Rankings',
     data_source_pretty_site_name: 'atsdr.cdc.gov',
@@ -163,7 +161,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: ['cdc_svi_county-age'],
     downloadable: true,
   },
-  {
+  cdc_vaccination_county: {
     id: 'cdc_vaccination_county',
     data_source_name: 'CDC COVID-19 Vaccinations in the United States, County',
     data_source_pretty_site_name: 'data.cdc.gov',
@@ -173,15 +171,11 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'None',
     update_frequency: 'Daily',
     description:
-      'Overall US COVID-19 Vaccine administration and vaccine equity data at county level ' +
-      'Data represents all vaccine partners including jurisdictional partner clinics, ' +
-      'retail pharmacies, long-term care facilities, dialysis centers, ' +
-      'Federal Emergency Management Agency and Health Resources and Services ' +
-      'Administration partner sites, and federal entity facilities.',
+      'Overall US COVID-19 Vaccine administration and vaccine equity data at county level Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities.',
     dataset_ids: ['cdc_vaccination_county-alls_county'],
     downloadable: true,
   },
-  {
+  cdc_vaccination_national: {
     id: 'cdc_vaccination_national',
     data_source_name:
       'CDC COVID-19 Vaccination Demographics in the United States, National',
@@ -192,11 +186,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'Race/ethnicity, age, sex',
     update_frequency: 'Daily',
     description:
-      'Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations ' +
-      'in the United States at national level. Data represents all vaccine partners ' +
-      'including jurisdictional partner clinics, retail pharmacies, long-term care facilities, ' +
-      'dialysis centers, Federal Emergency Management Agency and Health Resources and Services ' +
-      'Administration partner sites, and federal entity facilities. (CDC 2021)',
+      'Overall Demographic Characteristics of People Receiving COVID-19 Vaccinations in the United States at national level. Data represents all vaccine partners including jurisdictional partner clinics, retail pharmacies, long-term care facilities, dialysis centers, Federal Emergency Management Agency and Health Resources and Services Administration partner sites, and federal entity facilities. (CDC 2021)',
     dataset_ids: [
       'cdc_vaccination_national-age_processed',
       'cdc_vaccination_national-race_processed',
@@ -204,7 +194,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  cdc_atlas: {
     id: 'cdc_atlas',
     data_source_name: 'CDC NCHHSTP AtlasPlus',
     data_source_pretty_site_name: 'cdc.gov',
@@ -242,7 +232,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  kff_vaccination: {
     id: 'kff_vaccination',
     data_source_name: 'Kaiser Family Foundation COVID-19 Indicators',
     data_source_pretty_site_name: 'kff.org',
@@ -251,18 +241,14 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'Race/ethnicity',
     update_frequency: 'Biweekly',
     description:
-      'State level vaccination information based off of Kaiser Family Foundation ' +
-      'analysis of publicly available data from state websites. Per 100k metrics are found on ' +
-      "'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on " +
-      "'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' " +
-      "and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
+      "State level vaccination information based off of Kaiser Family Foundation analysis of publicly available data from state websites. Per 100k metrics are found on 'COVID-19 Vaccinations by Race/Ethnicity', percent share metrics are found on 'Percent of Total Population that has Received a COVID-19 Vaccine by Race/Ethnicity' and the All metric is found on 'COVID-19 Vaccines Delivered and Administered'",
     dataset_ids: [
       'kff_vaccination-race_and_ethnicity_state',
       'kff_vaccination-alls_state',
     ],
     downloadable: true,
   },
-  {
+  ahr: {
     id: 'ahr',
     data_source_name: "America's Health Rankings",
     data_source_pretty_site_name: 'americashealthrankings.org',
@@ -283,7 +269,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  bjs: {
     id: 'bjs',
     data_source_name: 'Bureau of Justice Statistics (BJS)',
     data_source_pretty_site_name: 'bjs.ojp.gov',
@@ -303,7 +289,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  vera: {
     id: 'vera',
     data_source_name: 'Vera Institute of Justice',
     data_source_pretty_site_name: 'vera.org',
@@ -320,7 +306,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  cawp: {
     id: 'cawp',
     data_source_name: 'Center for American Women in Politics (CAWP)',
     data_source_pretty_site_name: 'cawpdata.rutgers.edu',
@@ -341,7 +327,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  the_unitedstates_project: {
     id: 'the_unitedstates_project',
     data_source_name: 'The @unitedstates Project',
     data_source_pretty_site_name: 'theunitedstates.io',
@@ -354,7 +340,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     dataset_ids: ['the_unitedstates_project'],
     downloadable: false,
   },
-  {
+  geo_context: {
     id: 'geo_context',
     data_source_name: 'Geographic Context - Composite Dataset',
     data_source_pretty_site_name:
@@ -373,7 +359,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-  {
+  phrma: {
     id: 'phrma',
     data_source_name:
       'Medication Utilization and Disease Rates in the Medicare Population',
@@ -384,7 +370,8 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity:
       'Race/ethnicity, sex, age, low-income subsidy (LIS), Medicare eligibility',
     update_frequency: 'None',
-    description: `Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older.`,
+    description:
+      'Data Source: Medicare Administrative Data (January 1, 2020 - December 31st, 2020). Source Population: Medicare beneficiaries who were enrolled in Medicare FFS and Part D in 2020. Disease rates and medication adherence amongst 18 years and older.',
     dataset_ids: [
       'phrma_data-race_and_ethnicity_national',
       'phrma_data-race_and_ethnicity_state',
@@ -407,7 +394,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
       'Disease rates and medication adherence percentages for multiple HIV, mental health, and cardiovascular conditions within the Medicare beneficiary population.',
     downloadable_data_dictionary: true,
   },
-  {
+  covid_tracking_project: {
     id: 'covid_tracking_project',
     data_source_name: 'Covid Tracking Project’s Racial Data Tracker',
     data_source_pretty_site_name: 'covidtracking.com',
@@ -416,9 +403,7 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     demographic_granularity: 'Race/ethnicity',
     update_frequency: 'Final update was March 7 2021',
     description:
-      'The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. ' +
-      'Please note that Covid Tracking Project data is not used for any visualizations on the tracker, ' +
-      'it is only available for download.',
+      'The numbers of confirmed COVID-19 deaths, cases, hospitalizations, and tests at the state level. Please note that Covid Tracking Project data is not used for any visualizations on the tracker, it is only available for download.',
     dataset_ids: [
       'covid_tracking_project-cases_by_race_state',
       'covid_tracking_project-deaths_by_race_state',
@@ -427,7 +412,18 @@ export const dataSourceMetadataList: DataSourceMetadata[] = [
     ],
     downloadable: true,
   },
-]
-
-export const DataSourceMetadataMap: Record<string, DataSourceMetadata> =
-  Object.fromEntries(dataSourceMetadataList.map((m) => [m.id, m]))
+  geographies_source: {
+    id: 'geographies_source',
+    data_source_name: 'Map Data',
+    data_source_pretty_site_name:
+      'github.com/SatcherInstitute/health-equity-tracker',
+    data_source_link: 'https://github.com/topojson/us-atlas#counties-10m.json',
+    geographic_level: 'National, State, County',
+    demographic_granularity: 'N/A',
+    update_frequency: 'None',
+    description:
+      'This dataset contains the geographic boundaries for the United States, states, territories, counties, and county-equivalents.',
+    dataset_ids: [],
+    downloadable: false,
+  },
+}

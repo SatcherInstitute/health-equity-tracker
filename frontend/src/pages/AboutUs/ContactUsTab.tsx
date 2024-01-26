@@ -34,7 +34,7 @@ function ContactUsTab() {
               width='870'
               height='644'
               src='/img/stock/women-laughing-in-line.png'
-              className='m-10 h-auto w-9/12 max-w-xl rounded-md'
+              className='m-10 h-auto w-9/12 max-w-lg rounded-md'
               alt=''
             />
           </div>

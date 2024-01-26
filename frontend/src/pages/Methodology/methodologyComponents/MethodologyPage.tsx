@@ -36,21 +36,21 @@ export default function MethodologyPage() {
         <title>Methodology - Health Equity Tracker</title>
       </Helmet>
 
-      <div className='flex justify-center'>
+      <div className='flex w-full justify-center'>
         <h2 className='sr-only'>Methodology</h2>
 
-        <section className='m-[2%] max-w-xl'>
+        <section className='m-[2%] flex max-w-lgXl justify-start'>
           <div className='flex flex-col justify-items-center smMd:flex-row smMd:gap-2 md:gap-12'>
             {/* MAIN METHODOLOGY PAGES MENU */}
             <div className='min-w-fit'>
               <MethodologyCardMenu className='sticky top-4 z-top hidden h-min max-w-menu smMd:block' />
-              <MethodologyCardMenuMobile className='smMd:hidden' />
+              <MethodologyCardMenuMobile className='m-3 smMd:hidden' />
             </div>
 
             {/* CONTENT */}
-            <div className='flex flex-wrap p-0'>
+            <div className='flex flex-wrap p-1'>
               {/* ON THIS PAGE SUB-MENU - MOBILE/TABLET */}
-              <div className='px-12 lg:hidden'>
+              <div className='px-12 md:hidden'>
                 {routeConfigs.map((route, index) => {
                   const match = useRouteMatch({
                     path: route.path,
@@ -66,7 +66,7 @@ export default function MethodologyPage() {
                 })}
               </div>
 
-              <article className='flex w-full flex-col p-8 text-left lg:p-0 '>
+              <article className='flex w-full flex-col p-8 text-left md:p-0 '>
                 {/* HEADING */}
                 <h2 className='font-serif text-header font-light' id='main'>
                   {activeRoute?.label}
@@ -91,7 +91,7 @@ export default function MethodologyPage() {
             </div>
 
             {/* ON THIS PAGE SUB-MENU - DESKTOP */}
-            <div className='hidden min-w-fit lg:block'>
+            <div className='hidden min-w-fit md:block'>
               {routeConfigs.map((route, index) => {
                 const match = useRouteMatch({
                   path: route.path,
