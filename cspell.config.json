@@ -25,6 +25,7 @@
 	"allowCompoundWords": true,
 	"minWordLength": 3,
 	"words": [
+		"popperjs",
 		"aafp",
 		"aamc",
 		"AAMC",
@@ -271,6 +272,7 @@
 		"hyg",
 		"ICD",
 		"idx",
+		"IHME",
 		"IIS",
 		"iloc",
 		"inclusivity",
@@ -356,6 +358,7 @@
 		"mkdirp",
 		"mlp",
 		"mls",
+		"MMR",
 		"mmwr",
 		"MMWR",
 		"mochl",
