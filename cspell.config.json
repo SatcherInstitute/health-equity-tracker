@@ -25,6 +25,7 @@
 	"allowCompoundWords": true,
 	"minWordLength": 3,
 	"words": [
+		"popperjs",
 		"aafp",
 		"aamc",
 		"AAMC",
