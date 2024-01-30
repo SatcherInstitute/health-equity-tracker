@@ -1,7 +1,4 @@
-import {
-  covidDataSources,
-  covidDefinitionsArray,
-} from '../methodologyContent/CovidDefinitions'
+import { covidDefinitionsArray } from '../methodologyContent/CovidDefinitions'
 import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
@@ -13,8 +10,20 @@ import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
-const Covid19Link = () => {
+export const covidDataSources = [
+  dataSourceMetadataMap.cdc_restricted,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2010_territory_population,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.cdc_vaccination_county,
+  dataSourceMetadataMap.cdc_vaccination_national,
+  dataSourceMetadataMap.kff_vaccination,
+  dataSourceMetadataMap.covid_tracking_project,
+]
+
+export default function Covid19Link() {
   return (
     <section id='#covid-19'>
       <article>
@@ -335,5 +344,3 @@ const Covid19Link = () => {
     </section>
   )
 }
-
-export default Covid19Link
