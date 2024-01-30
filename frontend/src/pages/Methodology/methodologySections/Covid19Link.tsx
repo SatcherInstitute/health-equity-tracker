@@ -103,11 +103,13 @@ const Covid19Link = () => {
           Utilizes the <code>cdc_case_earliest_dt</code> ("CDC Case Earliest
           Date") field from the CDC Restricted dataset. Data is categorized
           based on the earliest of several factors:
-          <ol>
-            <li>symptom onset,</li>
-            <li>positive test date, or</li>
-            <li>report date</li>
-          </ol>
+        </p>
+        <ol>
+          <li>symptom onset,</li>
+          <li>positive test date, or</li>
+          <li>report date</li>
+        </ol>
+        <p>
           to the CDC. Monthly charts represent the incidence rate, indicating
           the number of new cases reported. We categorize each COVID case,
           death, and hospitalization based on the month and year recorded in the
