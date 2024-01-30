@@ -1,15 +1,21 @@
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  pdohDataSources,
-  pdohDefinitionsArray,
-} from '../methodologyContent/PdohDefinitions'
+import { pdohDefinitionsArray } from '../methodologyContent/PdohDefinitions'
 import Resources from '../methodologyComponents/Resources'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
-
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+export const pdohDataSources = [
+  dataSourceMetadataMap.bjs,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.vera,
+  dataSourceMetadataMap.cawp,
+  dataSourceMetadataMap.the_unitedstates_project,
+]
 const PdohLink = () => {
   return (
     <section id='#pdoh'>
