@@ -1,5 +1,3 @@
-import { covidDefinitionsArray } from '../methodologyContent/CovidDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import {
@@ -11,6 +9,10 @@ import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 
 export const covidDataSources = [
   dataSourceMetadataMap.cdc_restricted,
@@ -22,6 +24,22 @@ export const covidDataSources = [
   dataSourceMetadataMap.kff_vaccination,
   dataSourceMetadataMap.covid_tracking_project,
 ]
+
+const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const covidDataTypesString = datatypeConfigs
+  .map((config) => {
+    return config.dataTypeShortLabel
+  })
+  .join(', ')
+
+export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return DROPDOWN_TOPIC_MAP[dropdownId]
+  }
+).join(', ')
 
 export default function Covid19Link() {
   return (
@@ -38,14 +56,15 @@ export default function Covid19Link() {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Data Types', accessor: 'dataType' },
+            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
           ]}
           rows={[
             {
               category: 'COVID-19',
-              topic: 'COVID-19, COVID-19 Vaccinations',
-              variable:
-                'Cases, Deaths, Hospitalizations, Race/ethnicity, Sex, Age',
+              topic: covidTopicsString,
+              dataType: covidDataTypesString,
+              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -330,10 +349,9 @@ export default function Covid19Link() {
             updates: source.update_frequency,
           }))}
         />
-
-        <KeyTerms
-          id='#covid-key-terms'
-          definitionsArray={covidDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#covid-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
 
         <Resources

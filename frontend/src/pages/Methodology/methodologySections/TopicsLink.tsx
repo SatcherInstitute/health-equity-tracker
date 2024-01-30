@@ -6,6 +6,7 @@ import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
+import { covidDataTypesString, covidTopicsString } from './Covid19Link'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
@@ -72,9 +73,9 @@ export default function TopicsLink() {
             },
             {
               category: 'COVID-19',
-              topic: 'COVID-19, COVID-19 Vaccinations',
+              topic: covidTopicsString,
               demographicType: 'Race/ethnicity, Sex, Age',
-              dataType: 'Cases, Deaths, Hospitalizations',
+              dataType: covidDataTypesString,
             },
             {
               category: 'HIV',
