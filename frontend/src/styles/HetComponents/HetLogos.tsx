@@ -2,7 +2,7 @@ import AppbarLogo from '../../assets/AppbarLogo.png'
 import PartnerSatcher from '../../assets/PartnerSatcher.png'
 import { urlMap } from '../../utils/externalUrls'
 import HetLinkButton from './HetLinkButton'
-import TwitterIcon from '@mui/icons-material/Twitter'
+import XIcon from '@mui/icons-material/X'
 import LinkedInIcon from '@mui/icons-material/LinkedIn'
 import YouTubeIcon from '@mui/icons-material/YouTube'
 
@@ -36,9 +36,9 @@ export default function HetLogos() {
               <a
                 className='mx-[7px] my-0'
                 href={urlMap.shliTwitter}
-                aria-label='Satcher Health on Twitter'
+                aria-label='Satcher Health on X formerly Twitter'
               >
-                <TwitterIcon />
+                <XIcon />
               </a>
               <a
                 className='mx-[7px] my-0'

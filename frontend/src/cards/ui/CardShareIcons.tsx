@@ -7,7 +7,7 @@ import {
   EmailIcon,
   FacebookIcon,
   LinkedinIcon,
-  TwitterIcon,
+  XIcon,
 } from 'react-share'
 import { type PopoverElements } from '../../utils/hooks/usePopover'
 import { het } from '../../styles/DesignTokens'
@@ -42,7 +42,7 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           url={sharedUrl}
           className='flex items-center px-2 py-1'
         >
-          <TwitterIcon {...shareIconAttributes} className='mx-0 w-8' />
+          <XIcon {...shareIconAttributes} className='mx-0 w-8' />
           <div>Share on Twitter</div>
         </TwitterShareButton>
       </MenuItem>
