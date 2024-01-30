@@ -143,22 +143,22 @@ const PdohLink = () => {
         <p>
           We highlight the total count of children in adult facilities rather
           than a "per 100k" rate for a few reasons:
-          <ul>
-            <li>
-              Varying state and federal laws make it challenging to get an
-              accurate base population of minors in adult facilities.
-            </li>
-            <li>
-              Using the entire child population for rate calculations dilutes
-              the actual rate of incarcerated minors.
-            </li>
-            <li>
-              Our prison data for juveniles includes those confined to a
-              specific facility, unlike other reports which consider
-              jurisdictional populations.
-            </li>
-          </ul>
         </p>
+        <ul>
+          <li>
+            Varying state and federal laws make it challenging to get an
+            accurate base population of minors in adult facilities.
+          </li>
+          <li>
+            Using the entire child population for rate calculations dilutes the
+            actual rate of incarcerated minors.
+          </li>
+          <li>
+            Our prison data for juveniles includes those confined to a specific
+            facility, unlike other reports which consider jurisdictional
+            populations.
+          </li>
+        </ul>
         <h3 className='mt-12 text-title font-medium' id='#combined-systems'>
           Combined Systems
         </h3>
