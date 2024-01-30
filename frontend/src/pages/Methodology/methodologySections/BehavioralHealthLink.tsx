@@ -12,7 +12,6 @@ import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
-import CategoryTopicLinks from '../methodologyComponents/CategoryTopicLinks'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 // All data _sources_ used for Behavioral Health category
@@ -102,9 +101,13 @@ export default function BehavioralHealthLink() {
           reports:
         </p>
 
-        <CategoryTopicLinks
-          dropdownIds={BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS}
-        />
+        <p>
+          For all topics sourced from America's Health Rankings (AHR), we obtain{' '}
+          <HetTerm>percent share</HetTerm> metrics directly from the
+          organization via custom created files. It is our goal to switch to
+          their recently released GraphQL API in the near future for more data
+          visibility and flexibility.
+        </p>
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide

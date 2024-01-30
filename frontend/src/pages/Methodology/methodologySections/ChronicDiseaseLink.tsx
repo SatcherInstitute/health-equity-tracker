@@ -87,30 +87,12 @@ const ChronicDiseaseLink = () => {
           </p>
         </HetNotice>
         <p>
-          We obtain our data for the following specific issues directly from
-          America's Health Rankings (AHR). This data is based on{' '}
-          <HetTerm>percent share</HetTerm> metrics that AHR provides in
-          downloadable data files. Click on the following to explore the
-          reports:
+          For all topics sourced from America's Health Rankings (AHR), we obtain{' '}
+          <HetTerm>percent share</HetTerm> metrics directly from the
+          organization via custom created files. It is our goal to switch to
+          their recently released GraphQL API in the near future for more data
+          visibility and flexibility.
         </p>
-        <ul className='list-none pl-0'>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All'
-            >
-              COPD
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All'
-            >
-              diabetes
-            </a>
-          </li>
-        </ul>
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide
