@@ -79,7 +79,7 @@ export default function BehavioralHealthLink() {
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
         <HetNotice
-          className='my-12'
+          className='my-10'
           title="A note about the CDC's Behavioral Risk Factor Surveillance System
             (BRFSS) survey"
         >
