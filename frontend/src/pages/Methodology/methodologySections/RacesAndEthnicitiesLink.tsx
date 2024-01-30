@@ -265,7 +265,10 @@ const RacesAndEthnicitiesLink = () => {
           understand, partially due to non-standard race/ethnicity breakdowns
           across data sources.
         </p>
-        <HetNotice title='Dataset Definitions and Contextual Variances'>
+        <HetNotice
+          className='mt-10'
+          title='Dataset Definitions and Contextual Variances'
+        >
           <p>
             Understanding race and ethnicity classifications within our tracker
             requires a nuanced approach. Generally, we include Hispanic/Latino
