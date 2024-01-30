@@ -53,6 +53,9 @@ export const VOTER_PARTICIPATION_METRICS: DataTypeConfig[] = [
     categoryId: 'pdoh',
     dataTypeId: 'voter_participation',
     mapConfig: defaultHigherIsBetterMapConfig,
+    description: {
+      text: 'Voter participation is important for ensuring that all voices are heard in the political process. People of color and people with low incomes are less likely to vote. Studying voter participation can help us understand why these disparities exist and how to address them.',
+    },
     dataTypeShortLabel: 'Voter participation',
     fullDisplayName: 'Voter participation',
     fullDisplayNameInline: 'voter participation',
@@ -94,6 +97,9 @@ export const WOMEN_IN_GOV_METRICS: DataTypeConfig[] = [
     dataTypeId: 'women_in_us_congress',
     mapConfig: womenHigherIsBetterMapConfig,
     dataTypeShortLabel: 'US Congress',
+    description: {
+      text: 'The number of women in government has increased in recent years. However, women are still underrepresented in government, especially at the highest levels. Studying women in government in regard to health equity can help us to understand how to improve the health of women and to ensure that all voices are heard in the policymaking process.',
+    },
     fullDisplayName: 'Women in US Congress',
     surveyCollectedData: true,
     timeSeriesData: true,
@@ -217,6 +223,9 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     categoryId: 'pdoh',
     dataTypeId: 'prison',
     mapConfig: defaultHigherIsWorseMapConfig,
+    description: {
+      text: 'Incarceration has a negative impact on health. People who are incarcerated are more likely to experience chronic diseases, mental illness, and substance use disorders. They are also less likely to have access to quality healthcare. Studying incarceration in regard to health equity can help us to understand how to improve the health of people who are incarcerated and to prevent people from being incarcerated in the first place.',
+    },
     dataTypeShortLabel: 'Prison',
     fullDisplayName: 'People in prison',
     fullDisplayNameInline: 'people in prison',
@@ -270,6 +279,9 @@ export const INCARCERATION_METRICS: DataTypeConfig[] = [
     categoryId: 'pdoh',
     dataTypeId: 'jail',
     mapConfig: defaultHigherIsWorseMapConfig,
+    description: {
+      text: 'Incarceration has a negative impact on health. People who are incarcerated are more likely to experience chronic diseases, mental illness, and substance use disorders. They are also less likely to have access to quality healthcare. Studying incarceration in regard to health equity can help us to understand how to improve the health of people who are incarcerated and to prevent people from being incarcerated in the first place.',
+    },
     dataTypeShortLabel: 'Jail',
     fullDisplayName: 'People in jail',
     fullDisplayNameInline: 'people in jail',
