@@ -39,73 +39,72 @@ const MetricsLink = () => {
             />{' '}
             of <strong>COVID-19 deaths</strong> but only 52.7%
             <DefinitionTooltip
-              topic='share of the
-    population'
+              topic='share of the population'
               definitionItem={definitionsGlossary[29]}
             />
             , their disproportionate percent share would be{' '}
             <strong>+13%</strong>:
-            <CodeBlock
-              rowData={[
-                {
-                  content: '65.7%',
-                },
-                {
-                  content: '-',
-                },
-                {
-                  content: '52.7%',
-                },
-                {
-                  content: '=',
-                },
-                {
-                  content: (
-                    <>
-                      <b>+13.0%</b>
-                    </>
-                  ),
-                },
-              ]}
-            />
-            This value is then divided by the population percent share to give a
-            <HetTerm>percent relative inequity</HetTerm> of
-            <strong>+24.7%</strong>:
-            <CodeBlock
-              rowData={[
-                {
-                  content: '+13%',
-                },
-                {
-                  content: '/',
-                },
-                {
-                  content: '52.7%',
-                },
-                {
-                  content: '=',
-                },
-                {
-                  content: (
-                    <>
-                      <b>+24.7%</b>
-                    </>
-                  ),
-                },
-              ]}
-            />
-            In plain language, this would be interpreted as,{' '}
-            <div className='bg-standardInfo px-8 py-4 shadow-raised-tighter'>
-              <em>
-                “<strong>Deaths</strong> of individuals identifying as White
-                (Non Hispanic) in Georgia{' '}
-                <strong>
-                  from COVID-19 were almost 25% higher than expected
-                </strong>
-                , based on their share of Georgia’s overall population.”
-              </em>
-            </div>
           </p>
+          <CodeBlock
+            rowData={[
+              {
+                content: '65.7%',
+              },
+              {
+                content: '-',
+              },
+              {
+                content: '52.7%',
+              },
+              {
+                content: '=',
+              },
+              {
+                content: (
+                  <>
+                    <b>+13.0%</b>
+                  </>
+                ),
+              },
+            ]}
+          />
+          This value is then divided by the population percent share to give a
+          <HetTerm>percent relative inequity</HetTerm> of
+          <strong>+24.7%</strong>:
+          <CodeBlock
+            rowData={[
+              {
+                content: '+13%',
+              },
+              {
+                content: '/',
+              },
+              {
+                content: '52.7%',
+              },
+              {
+                content: '=',
+              },
+              {
+                content: (
+                  <>
+                    <b>+24.7%</b>
+                  </>
+                ),
+              },
+            ]}
+          />
+          In plain language, this would be interpreted as,{' '}
+          <div className='bg-standardInfo px-8 py-4 shadow-raised-tighter'>
+            <em>
+              “<strong>Deaths</strong> of individuals identifying as White (Non
+              Hispanic) in Georgia{' '}
+              <strong>
+                from COVID-19 were almost 25% higher than expected
+              </strong>
+              , based on their share of Georgia’s overall population.”
+            </em>
+          </div>
         </div>
       </article>
     </section>
