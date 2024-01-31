@@ -26,14 +26,12 @@ const ChronicDiseaseLink = () => {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
           ]}
           rows={[
             {
               category: 'Chronic Diseases',
               topic:
                 'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
-              variable: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -148,8 +146,6 @@ const ChronicDiseaseLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={chronicDiseaseDataSources.map((source, index) => ({
@@ -161,8 +157,6 @@ const ChronicDiseaseLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />
