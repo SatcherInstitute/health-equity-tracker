@@ -13,7 +13,7 @@ export const SDOH_CATEGORY_DROPDOWNIDS = [
   'poverty',
   'health_insurance',
   'preventable_hospitalizations',
-]
+] as const
 
 export type SDOHMetricId =
   | 'ahr_population_pct'

@@ -30,7 +30,7 @@ const PHRMA_ADHERENCE_DATATYPES: DataTypeId[] = [
 const PHRMA_DISEASE_DATATYPES: DataTypeId[] = [
   'medicare_ami',
   'medicare_hiv',
-  'medicare_schizoprhenia',
+  'medicare_schizophrenia',
 ]
 
 export const PHRMA_DATATYPES: DataTypeId[] = [
