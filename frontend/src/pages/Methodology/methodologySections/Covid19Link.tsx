@@ -29,17 +29,20 @@ const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
 
-export const covidDataTypesString = datatypeConfigs
-  .map((config) => {
-    return config.dataTypeShortLabel
-  })
-  .join(', ')
-
 export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
   (dropdownId) => {
     console.log(METRIC_CONFIG[dropdownId])
 
-    return DROPDOWN_TOPIC_MAP[dropdownId]
+    let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
+
+    if (METRIC_CONFIG[dropdownId].length > 1) {
+      const topicDataTypesString = METRIC_CONFIG[dropdownId]
+        .map((config) => config.dataTypeShortLabel)
+        .join(', ')
+      topicString += ` (${topicDataTypesString})`
+    }
+
+    return topicString
   }
 ).join(', ')
 
