@@ -37,6 +37,8 @@ export const covidDataTypesString = datatypeConfigs
 
 export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
   (dropdownId) => {
+    console.log(METRIC_CONFIG[dropdownId])
+
     return DROPDOWN_TOPIC_MAP[dropdownId]
   }
 ).join(', ')
@@ -55,16 +57,12 @@ export default function Covid19Link() {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Data Types', accessor: 'dataType' },
-            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'COVID-19',
               topic: covidTopicsString,
-              dataType: covidDataTypesString,
-              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -331,8 +329,6 @@ export default function Covid19Link() {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={covidDataSources.map((source, index) => ({
@@ -344,8 +340,6 @@ export default function Covid19Link() {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

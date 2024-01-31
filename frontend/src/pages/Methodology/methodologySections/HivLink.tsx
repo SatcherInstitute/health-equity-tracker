@@ -26,16 +26,13 @@ const HivLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'HIV',
               topic:
-                'HIV, HIV (Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
-              variable:
-                'Prevalence, New diagnoses, Deaths, Race/ethnicity, Sex, Age',
+                'HIV (Prevalence, New diagnoses, Deaths), HIV (Prevalence, New diagnoses, Deaths for Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
             },
           ]}
         />
@@ -50,21 +47,15 @@ const HivLink = () => {
           gathered from state and local HIV surveillance programs and is used to
           better understand the impact of HIV across the country.
         </p>
-        <p>
-          <HetNotice
-            className='my-12'
-            title='A note about CDC NCHHSTP AtlasPlus'
-          >
-            <p>
-              The CDC's NCHHSTP and other HIV surveillance programs have agreed
-              to limit the amount of data released at the state and county
-              levels in order to protect the privacy of those affected. It takes
-              12 months for the data to become official, so the numbers reported
-              before this time are not final and should be interpreted with
-              caution.
-            </p>
-          </HetNotice>
-        </p>
+        <HetNotice className='my-12' title='A note about CDC NCHHSTP AtlasPlus'>
+          <p>
+            The CDC's NCHHSTP and other HIV surveillance programs have agreed to
+            limit the amount of data released at the state and county levels in
+            order to protect the privacy of those affected. It takes 12 months
+            for the data to become official, so the numbers reported before this
+            time are not final and should be interpreted with caution.
+          </p>
+        </HetNotice>
         <p>
           To protect people’s privacy, the CDC and these programs have agreed to
           limit the amount of data released at the state and county levels.
@@ -229,20 +220,23 @@ const HivLink = () => {
         </HetNotice>
         <p>
           County-level data is suppressed when the population denominator is:
-          <ul>
-            <li>less than 100,</li>
-            <li>the total case count is between 1–4 cases, or </li>
-            <li>when querying HIV or AIDS deaths.</li>
-          </ul>
         </p>
+        <ul>
+          <li>less than 100,</li>
+          <li>the total case count is between 1–4 cases, or </li>
+          <li>when querying HIV or AIDS deaths.</li>
+        </ul>
+
         <p>
           For the Census Island Areas (US territories other than Puerto Rico),
           there isn't enough data to accurately calculate subpopulation rates by
-          <ul>
-            <li>age,</li>
-            <li>sex, and</li>
-            <li>race/ethnicity.</li>
-          </ul>
+        </p>
+        <ul>
+          <li>age</li>
+          <li>sex</li>
+          <li>race/ethnicity</li>
+        </ul>
+        <p>
           As a result, the analysis or report will not provide detailed
           information about these specific groups in those regions. The Asian
           category includes cases previously classified as "Asian/Pacific
@@ -409,17 +403,16 @@ const HivLink = () => {
           <li>Hispanic/Latino</li>
           <li>Other</li>
         </ol>
-        <p>
-          PrEP coverage data are suppressed at any level if
-          <ul>
-            <li>the number of persons prescribed PrEP is suppressed,</li>
-            <li>
-              the estimated number of persons with indications for PrEP
-              (PreEP-eligible population) is suppressed, or
-            </li>
-            <li>if the number of persons prescribed PrEP is less than 40.</li>
-          </ul>
-        </p>
+        <p>PrEP coverage data are suppressed at any level if</p>
+        <ul>
+          <li>the number of persons prescribed PrEP is suppressed,</li>
+          <li>
+            the estimated number of persons with indications for PrEP
+            (PreEP-eligible population) is suppressed, or
+          </li>
+          <li>if the number of persons prescribed PrEP is less than 40.</li>
+        </ul>
+
         <h3 className='mt-12 text-title font-medium' id='#linkage-to-care'>
           Linkage to Care
         </h3>
@@ -627,8 +620,6 @@ const HivLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={hivDataSources.map((source, index) => ({
@@ -640,8 +631,6 @@ const HivLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

@@ -26,16 +26,13 @@ const PdohLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'Political Determinants of Health',
               topic:
-                'Incarceration, Voter Participation, Women Serving in Legislative Office',
-              variable:
-                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures, Race/ethnicity, Sex, Age',
+                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
             },
           ]}
         />
@@ -343,8 +340,6 @@ const PdohLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={pdohDataSources.map((source, index) => ({
@@ -356,8 +351,6 @@ const PdohLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

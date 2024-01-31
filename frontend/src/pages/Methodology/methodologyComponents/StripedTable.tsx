@@ -38,12 +38,8 @@ interface StripedTableProps {
 
 export default function StripedTable(props: StripedTableProps) {
   return (
-    <TableContainer
-      className=' overflow-x-auto'
-      component={Paper}
-      id={props.id}
-    >
-      <Table aria-label='customized table' className='min-w-full'>
+    <TableContainer className='w-full' component={Paper} id={props.id}>
+      <Table className=''>
         <TableHead>
           <TableRow className='bg-methodologyGreen text-navlinkColor'>
             {props.columns.map((col) => (

@@ -35,7 +35,10 @@ export default function CardShareIcons(props: CardShareIconsProps) {
 
   return (
     <>
-      <MenuItem aria-label={'Share to Twitter'} onClick={handleClose}>
+      <MenuItem
+        aria-label={'Share to X (formerly Twitter)'}
+        onClick={handleClose}
+      >
         <TwitterShareButton
           hashtags={['healthequity']}
           related={['@SatcherHealth', '@MSMEDU']}
@@ -43,7 +46,7 @@ export default function CardShareIcons(props: CardShareIconsProps) {
           className='flex items-center px-2 py-1'
         >
           <XIcon {...shareIconAttributes} className='mx-0 w-8' />
-          <div>Share on Twitter</div>
+          <div>Share on X (Twitter)</div>
         </TwitterShareButton>
       </MenuItem>
 
