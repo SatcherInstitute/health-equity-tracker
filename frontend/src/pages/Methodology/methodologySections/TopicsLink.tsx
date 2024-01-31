@@ -4,14 +4,18 @@ import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import {
+  type DropdownVarId,
+  METRIC_CONFIG,
+} from '../../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
 const numVariables =
   Object.keys(METRIC_CONFIG).reduce(
-    (tally, conditionKey) => (tally += METRIC_CONFIG[conditionKey].length),
+    (tally, conditionKey) =>
+      (tally += METRIC_CONFIG[conditionKey as DropdownVarId].length),
     0
   ) * DEMOGRAPHIC_TYPES.length
 

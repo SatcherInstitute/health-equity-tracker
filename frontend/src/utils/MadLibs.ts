@@ -170,49 +170,50 @@ export const SELECTED_DROPDOWN_OVERRIDES: Partial<
 }
 
 export interface Category {
-  readonly title: CategoryTitle
-  readonly options: DropdownVarId[]
-  readonly definition?: string
+  title: CategoryTitle
+  options: DropdownVarId[]
+  definition?: string
 }
 
 const CATEGORIES_LIST: Category[] = [
   {
     title: 'HIV',
     definition: '',
-    options: HIV_CATEGORY_DROPDOWNIDS,
+    options: HIV_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Chronic Disease',
     definition: '',
-    options: CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
+    options: CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Behavioral Health',
     definition: '',
-    options: BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS,
+    options:
+      BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Political Determinants of Health',
     definition: '',
-    options: PDOH_CATEGORY_DROPDOWNIDS,
+    options: PDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Social Determinants of Health',
     definition: '',
-    options: SDOH_CATEGORY_DROPDOWNIDS,
+    options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
     title: 'Medication Utilization in the Medicare Population',
     definition: '',
     // TODO: clean this up once PHRMA fully launched all topics
     options: SHOW_PHRMA_MENTAL_HEALTH
-      ? MEDICARE_CATEGORY_DROPDOWNIDS
-      : MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS,
+      ? (MEDICARE_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[])
+      : (MEDICARE_CATEGORY_HIV_AND_CVD_DROPDOWNIDS as unknown as DropdownVarId[]),
   },
   {
     title: 'COVID-19',
     definition: '',
-    options: COVID_CATEGORY_DROPDOWNIDS,
+    options: COVID_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
 ]
 
@@ -263,9 +264,7 @@ function getConfigFromDataTypeId(id: DataTypeId | string): DataTypeConfig {
   return config ?? METRIC_CONFIG.covid[0]
 }
 
-function getParentDropdownFromDataTypeId(
-  dataType: DataTypeId | string
-): DropdownVarId {
+function getParentDropdownFromDataTypeId(dataType: DataTypeId): DropdownVarId {
   for (const [dropdownId, configArray] of Object.entries(METRIC_CONFIG)) {
     if (configArray.map((config) => config.dataTypeId).includes(dataType)) {
       return dropdownId as any as DropdownVarId

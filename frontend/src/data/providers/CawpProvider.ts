@@ -77,6 +77,7 @@ class CawpProvider extends VariableProvider {
 
   getDatasetId(
     breakdowns: Breakdowns,
+    dataTypeId?: DataTypeId,
     timeView?: TimeView
   ): DatasetId | undefined {
     if (timeView === 'current') {
@@ -98,7 +99,7 @@ class CawpProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, timeView)
+    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const cawp = await getDataManager().loadDataset(specificDatasetId)
