@@ -24,7 +24,7 @@ import HetTerm from '../styles/HetComponents/HetTerm'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 
 interface WhatDataAreMissingProps {
-  metricConfigSubset: Array<[string, DataTypeConfig[]]>
+  metricConfigSubset: Array<[DropdownVarId, DataTypeConfig[]]>
   fips1: Fips
   fips2?: Fips
 }

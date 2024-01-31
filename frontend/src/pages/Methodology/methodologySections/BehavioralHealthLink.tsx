@@ -12,7 +12,6 @@ import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
-import CategoryTopicLinks from '../methodologyComponents/CategoryTopicLinks'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 // All data _sources_ used for Behavioral Health category
@@ -99,10 +98,6 @@ export default function BehavioralHealthLink() {
           downloadable data files. Click on the following to explore the
           reports:
         </p>
-
-        <CategoryTopicLinks
-          dropdownIds={BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS}
-        />
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide

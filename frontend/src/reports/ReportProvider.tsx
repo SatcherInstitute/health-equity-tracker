@@ -8,7 +8,11 @@ import {
   getMadLibPhraseText,
 } from '../utils/MadLibs'
 import { Fips } from '../data/utils/Fips'
-import { METRIC_CONFIG, type DataTypeConfig } from '../data/config/MetricConfig'
+import {
+  METRIC_CONFIG,
+  type DataTypeConfig,
+  type DropdownVarId,
+} from '../data/config/MetricConfig'
 import DefinitionsList from './ui/DefinitionsList'
 import LifelineAlert from './ui/LifelineAlert'
 import LazyLoad from 'react-lazyload'
@@ -46,7 +50,7 @@ function ReportProvider(props: ReportProviderProps) {
   const metricConfigSubset = Object.entries(METRIC_CONFIG).filter(
     (dataTypeArray) =>
       dataTypeArray[1].some((dataType) => definedConditions?.includes(dataType))
-  )
+  ) as Array<[DropdownVarId, DataTypeConfig[]]>
 
   let fips1: Fips = new Fips('00')
   let fips2: Fips | null = null
@@ -66,7 +70,7 @@ function ReportProvider(props: ReportProviderProps) {
     // new instance and reset its state when the provided props change.
     switch (props.madLib.id) {
       case 'disparity': {
-        const dropdownOption = getPhraseValue(props.madLib, 1)
+        const dropdownOption = getPhraseValue(props.madLib, 1) as DropdownVarId
         return (
           <>
             <Report
@@ -92,7 +96,7 @@ function ReportProvider(props: ReportProviderProps) {
         )
       }
       case 'comparegeos': {
-        const dropdownOption = getPhraseValue(props.madLib, 1)
+        const dropdownOption = getPhraseValue(props.madLib, 1) as DropdownVarId
         return (
           fips2 && (
             <CompareReport
@@ -124,8 +128,8 @@ function ReportProvider(props: ReportProviderProps) {
         )
       }
       case 'comparevars': {
-        const dropdownOption1 = getPhraseValue(props.madLib, 1)
-        const dropdownOption2 = getPhraseValue(props.madLib, 3)
+        const dropdownOption1 = getPhraseValue(props.madLib, 1) as DropdownVarId
+        const dropdownOption2 = getPhraseValue(props.madLib, 3) as DropdownVarId
         const updateFips = (fips: Fips) => {
           props.setMadLib(getMadLibWithUpdatedValue(props.madLib, 5, fips.code))
         }
