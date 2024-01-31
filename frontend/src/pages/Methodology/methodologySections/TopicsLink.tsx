@@ -20,9 +20,9 @@ export default function TopicsLink() {
     <section id='#categories'>
       <article>
         <Helmet>
-          <title>Topic Categories - Health Equity Tracker</title>
+          <title>Topics by Category - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Topic Categories</h2>
+        <h2 className='sr-only'>Topics by Category</h2>
 
         <p>
           The Health Equity Tracker (HET) was initially conceived in 2020 as a

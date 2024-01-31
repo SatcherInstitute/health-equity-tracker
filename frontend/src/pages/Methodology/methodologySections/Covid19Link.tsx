@@ -28,15 +28,13 @@ const Covid19Link = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'COVID-19',
-              topic: 'COVID-19, COVID-19 Vaccinations',
-              variable:
-                'Cases, Deaths, Hospitalizations, Race/ethnicity, Sex, Age',
+              topic:
+                'COVID-19 (Cases, Deaths, Hospitalizations), COVID-19 Vaccinations',
             },
           ]}
         />
@@ -303,8 +301,6 @@ const Covid19Link = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={covidDataSources.map((source, index) => ({
@@ -316,8 +312,6 @@ const Covid19Link = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />
