@@ -6,7 +6,10 @@ import { GetAcsDatasetId } from './AcsPopulationProvider'
 import VariableProvider from './VariableProvider'
 import { appendFipsIfNeeded } from '../utils/datasetutils'
 import { type DatasetId } from '../config/DatasetMetadata'
-import { type AgeAdjustedDataTypeId } from '../config/MetricConfig'
+import {
+  type DataTypeId,
+  type AgeAdjustedDataTypeId,
+} from '../config/MetricConfig'
 import {
   AGE_ADJUST_COVID_DEATHS_US_SETTING,
   AGE_ADJUST_COVID_HOSP_US_SETTING,
@@ -48,7 +51,8 @@ class CdcCovidProvider extends VariableProvider {
   // ALERT! KEEP IN SYNC! Make sure you update data/config/DatasetMetadata AND data/config/MetadataMap.ts if you update dataset IDs
   getDatasetId(
     breakdowns: Breakdowns,
-    timeView: TimeView
+    dataTypeId?: DataTypeId,
+    timeView?: TimeView
   ): DatasetId | undefined {
     if (timeView === 'current') {
       if (breakdowns.hasOnlyRace()) {
@@ -109,7 +113,7 @@ class CdcCovidProvider extends VariableProvider {
   ): Promise<MetricQueryResponse> {
     const breakdowns = metricQuery.breakdowns
     const timeView = metricQuery.timeView
-    const datasetId = this.getDatasetId(breakdowns, timeView)
+    const datasetId = this.getDatasetId(breakdowns, undefined, timeView)
     if (!datasetId) throw Error('DatasetId undefined')
     const specificDatasetId = appendFipsIfNeeded(datasetId, breakdowns)
     const covidDataset = await getDataManager().loadDataset(specificDatasetId)

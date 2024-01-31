@@ -68,7 +68,7 @@ export default function MadLibUI(props: MadLibUIProps) {
   }
 
   function handleDataTypeUpdate(
-    newDataType: string,
+    newDataType: DataTypeId,
     index: number,
     setConfig: any
   ) {
@@ -151,7 +151,11 @@ export default function MadLibUI(props: MadLibUIProps) {
                       ) : (
                         // MAIN PARENT TOPIC
                         <TopicSelector
-                          newValue={props.madLib.activeSelections[index]}
+                          newValue={
+                            props.madLib.activeSelections[
+                              index
+                            ] as DropdownVarId
+                          }
                           onOptionUpdate={(newValue) => {
                             handleOptionUpdate(newValue, index)
                           }}
@@ -165,7 +169,11 @@ export default function MadLibUI(props: MadLibUIProps) {
                           key={`${index}-datatype`}
                           newValue={config?.dataTypeId ?? dataTypes[0][0]}
                           onOptionUpdate={(newValue) => {
-                            handleDataTypeUpdate(newValue, index, setConfig)
+                            handleDataTypeUpdate(
+                              newValue as DataTypeId,
+                              index,
+                              setConfig
+                            )
                           }}
                           options={dataTypes}
                         />
