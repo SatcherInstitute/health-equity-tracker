@@ -20,9 +20,9 @@ export default function TopicsLink() {
     <section id='#categories'>
       <article>
         <Helmet>
-          <title>Categories and Limitations - Health Equity Tracker</title>
+          <title>Topic Categories - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>Categories and Limitations</h2>
+        <h2 className='sr-only'>Topic Categories</h2>
 
         <p>
           The Health Equity Tracker (HET) was initially conceived in 2020 as a
@@ -54,48 +54,37 @@ export default function TopicsLink() {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Data Types', accessor: 'dataType' },
-            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'Behavioral Health',
               topic: behavioralHealthTopicsString,
-              demographicType: 'Race/ethnicity, Sex, Age',
             },
             {
               category: 'Chronic Diseases',
               topic:
                 'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
-              demographicType: 'Race/ethnicity, Sex, Age',
             },
             {
               category: 'COVID-19',
-              topic: 'COVID-19, COVID-19 Vaccinations',
-              demographicType: 'Race/ethnicity, Sex, Age',
-              dataType: 'Cases, Deaths, Hospitalizations',
+              topic:
+                'COVID-19 (Cases, Deaths, Hospitalizations), COVID-19 Vaccinations',
             },
             {
               category: 'HIV',
               topic:
-                'HIV, HIV (Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
-              demographicType: 'Race/ethnicity, Sex, Age',
-              dataType: 'Prevalence, New diagnoses, Deaths',
+                'HIV (Prevalence, New diagnoses, Deaths), HIV (Prevalence, New diagnoses, Deaths for Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
             },
             {
-              category: 'Political Determinants of Health',
+              category: 'Political Determinants of Health (PDOH)',
               topic:
-                'Incarceration, Voter Participation, Women Serving in Legislative Office',
-              demographicType: 'Race/ethnicity, Sex, Age',
-              dataType:
-                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures',
+                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
             },
             {
-              category: 'Social Determinants of Health',
+              category: 'Social Determinants of Health (SDOH)',
               topic:
                 'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
-              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />

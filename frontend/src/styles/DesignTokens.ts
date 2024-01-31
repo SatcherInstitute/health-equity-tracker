@@ -7,6 +7,7 @@ const ThemeStandardScreenSizes = {
   lg: '1280px',
   lgXl: '1440px',
   xl: '1920px',
+  full: '100%',
 }
 
 const ThemeZIndexValues = {
