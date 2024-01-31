@@ -49,13 +49,11 @@ export default function BehavioralHealthLink() {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
           ]}
           rows={[
             {
               category: 'Behavioral Health',
               topic: behavioralHealthTopicsString,
-              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -143,8 +141,6 @@ export default function BehavioralHealthLink() {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={behavioralHealthDataSources.map((source, index) => ({
@@ -156,8 +152,6 @@ export default function BehavioralHealthLink() {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

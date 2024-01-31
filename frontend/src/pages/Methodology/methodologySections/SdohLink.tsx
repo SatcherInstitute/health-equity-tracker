@@ -42,14 +42,12 @@ function SdohLink() {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
           ]}
           rows={[
             {
               category: 'Social Determinants of Health',
               topic:
                 'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
-              variable: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -135,8 +133,6 @@ function SdohLink() {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={sdohDataSources.map((source, index) => ({
@@ -148,8 +144,6 @@ function SdohLink() {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />
