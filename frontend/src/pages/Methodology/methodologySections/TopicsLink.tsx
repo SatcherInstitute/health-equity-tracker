@@ -9,6 +9,7 @@ import {
   METRIC_CONFIG,
 } from '../../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
+import { covidTopicsString } from './Covid19Link'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
@@ -72,8 +73,7 @@ export default function TopicsLink() {
             },
             {
               category: 'COVID-19',
-              topic:
-                'COVID-19 (Cases, Deaths, Hospitalizations), COVID-19 Vaccinations',
+              topic: covidTopicsString,
             },
             {
               category: 'HIV',

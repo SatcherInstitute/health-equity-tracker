@@ -100,6 +100,14 @@ export default function BehavioralHealthLink() {
         </p>
 
         <p>
+          For all topics sourced from America's Health Rankings (AHR), we obtain{' '}
+          <HetTerm>percent share</HetTerm> metrics directly from the
+          organization via custom created files. It is our goal to switch to
+          their recently released GraphQL API in the near future for more data
+          visibility and flexibility.
+        </p>
+
+        <p>
           AHR usually gives us rates as percentages. In some cases, they provide
           the number of cases for every 100,000 people. We keep the data in the
           format AHR provides it. If we need to change a{' '}
