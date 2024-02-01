@@ -1,4 +1,4 @@
-import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { MENTAL_HEALTH_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { Helmet } from 'react-helmet-async'

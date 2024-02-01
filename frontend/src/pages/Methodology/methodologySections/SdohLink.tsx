@@ -4,7 +4,7 @@ import {
   sdohDataSources,
   sdohDefinitionsArray,
 } from '../methodologyContent/SdohDefinitions'
-import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'

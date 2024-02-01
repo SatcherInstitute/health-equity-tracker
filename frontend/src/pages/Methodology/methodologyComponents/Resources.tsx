@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-import { type ResourceGroup } from '../../WhatIsHealthEquity/ResourcesData'
+import { type ResourceGroup } from '../methodologyContent/ResourcesData'
 
 interface ResourcesProps {
   resourceGroups: ResourceGroup[]

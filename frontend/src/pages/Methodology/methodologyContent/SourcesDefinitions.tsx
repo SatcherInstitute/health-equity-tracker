@@ -2,7 +2,6 @@ import {
   NEW_AGE_ADJUSTMENT_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
-  RESOURCES_TAB_LINK,
 } from '../../../utils/internalRoutes'
 import { metricDefinitionsArray } from './MetricsDefinitions'
 
@@ -28,7 +27,6 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
     { label: 'Data Catalog', url: `${DATA_CATALOG_PAGE_LINK}` },
     { label: 'Age-adjustment methodology', url: `${NEW_AGE_ADJUSTMENT_LINK}` },
     { label: 'GitHub', url: 'urlMap.hetGitHub' },
-    { label: 'Resources', url: `${RESOURCES_TAB_LINK}` },
     { label: 'Contact Us', url: `${CONTACT_TAB_LINK}` },
   ],
   listItems: [
@@ -38,7 +36,6 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
     'While we strive for accuracy, some datasets may have inherent limitations, including gaps, potential biases, or uncertainties. We transparently communicate these limitations whenever relevant.',
     'Data sources are continuously monitored for updates. The Health Equity Tracker ensures that all visualizations and datasets are refreshed in line with the latest available data.',
     'We value the input of various stakeholders, including health professionals, community leaders, and the general public, in shaping the content and presentation of our tracker.',
-    'All our data sources are duly cited, ensuring transparency and credibility. A comprehensive list of references can be found in our [resources](https://healthequitytracker.org/resources) section.',
     `The entire Health Equity Tracker codebase is publicly available and
     open-source; contributions are welcome via [Github](https://github.com/SatcherInstitute/health-equity-tracker). The Health Equity Tracker is a testament to our commitment to promoting health equity and justice. We believe in the power of data to drive positive change, and we invite the community to engage with our open-source platform. For any queries, feedback, or suggestions regarding our data acquisition and presentation, please [contact us](https://healthequitytracker.org/contact).`,
   ],
