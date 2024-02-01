@@ -1,8 +1,3 @@
-import {
-  covidDataSources,
-  covidDefinitionsArray,
-} from '../methodologyContent/CovidDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import {
@@ -13,8 +8,45 @@ import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 
-const Covid19Link = () => {
+export const covidDataSources = [
+  dataSourceMetadataMap.cdc_restricted,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2010_territory_population,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.cdc_vaccination_county,
+  dataSourceMetadataMap.cdc_vaccination_national,
+  dataSourceMetadataMap.kff_vaccination,
+  dataSourceMetadataMap.covid_tracking_project,
+]
+
+const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    console.log(METRIC_CONFIG[dropdownId])
+
+    let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
+
+    if (METRIC_CONFIG[dropdownId].length > 1) {
+      const topicDataTypesString = METRIC_CONFIG[dropdownId]
+        .map((config) => config.dataTypeShortLabel)
+        .join(', ')
+      topicString += ` (${topicDataTypesString})`
+    }
+
+    return topicString
+  }
+).join(', ')
+
+export default function Covid19Link() {
   return (
     <section id='#covid-19'>
       <article>
@@ -33,8 +65,7 @@ const Covid19Link = () => {
           rows={[
             {
               category: 'COVID-19',
-              topic:
-                'COVID-19 (Cases, Deaths, Hospitalizations), COVID-19 Vaccinations',
+              topic: covidTopicsString,
             },
           ]}
         />
@@ -315,10 +346,9 @@ const Covid19Link = () => {
             updates: source.update_frequency,
           }))}
         />
-
-        <KeyTerms
-          id='#covid-key-terms'
-          definitionsArray={covidDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#covid-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
 
         <Resources
@@ -329,5 +359,3 @@ const Covid19Link = () => {
     </section>
   )
 }
-
-export default Covid19Link
