@@ -64,6 +64,7 @@ const HivLink = () => {
           the data may change as more information becomes available.
         </p>
         <HetNotice
+          className='my-12'
           kind='data-integrity'
           title='2020 Data Disruption Due to COVID-19'
         >
@@ -133,6 +134,7 @@ const HivLink = () => {
               numerator: 'Number of cases in demographic group',
               denominator: 'Total number of cases',
             },
+
             ' * ',
             ' 100 ',
           ]}
@@ -148,7 +150,7 @@ const HivLink = () => {
           leftSide='Population Percent'
           rightSide={[
             {
-              numerator: 'Number of individuals in specific population',
+              numerator: 'Number in specific population',
               denominator: 'Total population',
             },
             ' * ',
@@ -336,9 +338,8 @@ const HivLink = () => {
           leftSide='PrEP-Eligible Percent'
           rightSide={[
             {
-              numerator:
-                'Number of individuals in specific demographic eligible for PrEP',
-              denominator: 'Total number of individuals eligible for PrEP',
+              numerator: 'Number in specific demographic eligible for PrEP',
+              denominator: 'Total number eligible for PrEP',
             },
             ' * ',
             ' 100 ',
@@ -356,10 +357,8 @@ const HivLink = () => {
           leftSide='PrEP Coverage'
           rightSide={[
             {
-              numerator:
-                'Number of individuals in specific demographic using PrEP',
-              denominator:
-                'Number of individuals in the same demographic eligible for PrEP',
+              numerator: 'Number in specific demographic using PrEP',
+              denominator: 'Number in the same demographic eligible for PrEP',
             },
             ' * ',
             ' 100 ',
@@ -378,7 +377,7 @@ const HivLink = () => {
           leftSide='Relative Inequity'
           rightSide={[
             {
-              numerator: '(Percent Share − PrEP-Eligible Percent)',
+              numerator: 'Percent Share − PrEP-Eligible Percent',
               denominator: 'PrEP-Eligible Percent',
             },
             ' * ',
@@ -452,9 +451,8 @@ const HivLink = () => {
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator:
-                'Number of people with access to HIV care in specific group',
-              denominator: 'Total number of people with access to HIV care',
+              numerator: 'Number with access to HIV care in specific group',
+              denominator: 'Total number with access to HIV care',
             },
             ' * ',
             ' 100 ',
@@ -471,8 +469,8 @@ const HivLink = () => {
           leftSide='Diagnosed Population Percent'
           rightSide={[
             {
-              numerator: 'Number of individuals with HIV in specific group',
-              denominator: 'Total number of individuals with HIV​',
+              numerator: 'Number with HIV in specific group',
+              denominator: 'Total number with HIV​',
             },
             ' * ',
             ' 100 ',
@@ -490,10 +488,8 @@ const HivLink = () => {
           leftSide='Linkage to Care'
           rightSide={[
             {
-              numerator:
-                'Number of individuals in specific group with access to care​',
-              denominator:
-                'Total number of individuals living with HIV in the specific group',
+              numerator: 'Number in specific group with access to care​',
+              denominator: 'Total number living with HIV in the specific group',
             },
             ' * ',
             ' 100 ',
@@ -514,8 +510,8 @@ const HivLink = () => {
             {
               numerator: (
                 <>
-                  (Prop. of all with access in specific group − <wbr />
-                  Prop. of diagnosed in specific group)
+                  Prop. of all with access in specific group − <wbr />
+                  Prop. of diagnosed in specific group
                 </>
               ),
               denominator: 'Proportion of diagnosed in specific group​',
@@ -581,7 +577,7 @@ const HivLink = () => {
               numerator: 'Self-Reported Data',
               denominator: (
                 <>
-                  <span className='font-math italic'>f</span>
+                  <span className=' italic'>f</span>
                   (Self-Reported Data)
                 </>
               ),
@@ -591,9 +587,9 @@ const HivLink = () => {
           ]}
         />
         <blockquote className='font-medium italic'>
-          Where <span className='font-math italic'>f</span> is a function that
-          assesses the prevalence and impact of HIV stigma based on the
-          self-reported data.
+          Where <span className=' italic'>f</span> is a function that assesses
+          the prevalence and impact of HIV stigma based on the self-reported
+          data.
         </blockquote>
         <p>
           This method allows for the quantification and comparison of stigma
@@ -605,7 +601,7 @@ const HivLink = () => {
           leftSide='Comparison Value'
           rightSide={[
             {
-              numerator: 'HIV Stigma Score of Population A​',
+              numerator: 'HIV Stigma Score of Population A',
               denominator: 'HIV Stigma Score of Population B',
             },
           ]}

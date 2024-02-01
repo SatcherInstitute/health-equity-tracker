@@ -1,33 +1,32 @@
-import React from 'react'
-import { FractionFormat, type FractionProps } from './FractionFormat'
+import FractionFormat, { type FractionFormatProps } from './FractionFormat'
 
-type RightSideItem = string | FractionProps
+type RightSideItem = string | FractionFormatProps
 
-interface FormulaProps {
+interface FormulaFormatProps {
   leftSide?: string
   rightSide: RightSideItem[]
 }
 
-const FormulaFormat: React.FC<FormulaProps> = ({ leftSide, rightSide }) => (
-  <div className='flex flex-row items-center justify-between overflow-x-scroll rounded-md bg-standardInfo'>
-    <code className='mx-auto my-0 flex w-max max-w-lg flex-col items-center justify-center self-start border-none bg-opacity-0 text-smallest lg:flex-row'>
-      <b>{leftSide}</b>
-      <div>{' = '}</div>
+export default function FormulaFormat(props: FormulaFormatProps) {
+  return (
+    <div className='flex w-full flex-row items-center justify-center rounded-md bg-standardInfo'>
+      <code className='mx-auto my-0 flex max-w-md flex-col items-center justify-center gap-1 self-start border-none bg-opacity-0  text-smallest smMd:flex-row smMd:text-title lg:text-bigHeader'>
+        <b>{props.leftSide}</b>
+        <div className='p-2'>{' = '}</div>
 
-      {rightSide.map((item, index) => (
-        <div key={index}>
-          {typeof item === 'string' ? (
-            item
-          ) : (
-            <FractionFormat
-              numerator={item.numerator}
-              denominator={item.denominator}
-            />
-          )}
-        </div>
-      ))}
-    </code>
-  </div>
-)
-
-export default FormulaFormat
+        {props.rightSide.map((item, index) => (
+          <div className='p-2' key={index}>
+            {typeof item === 'string' ? (
+              item
+            ) : (
+              <FractionFormat
+                numerator={item.numerator}
+                denominator={item.denominator}
+              />
+            )}
+          </div>
+        ))}
+      </code>
+    </div>
+  )
+}
