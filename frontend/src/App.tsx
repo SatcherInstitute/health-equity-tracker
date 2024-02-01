@@ -3,6 +3,7 @@ import '@fontsource/taviraj/500.css'
 import '@fontsource-variable/inter'
 import '@fontsource-variable/dm-sans'
 import '@fontsource/roboto'
+import '@fontsource/roboto-condensed'
 
 // TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
 import CssBaseline from '@mui/material/CssBaseline'
