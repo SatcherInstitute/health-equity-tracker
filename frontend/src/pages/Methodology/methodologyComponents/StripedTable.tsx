@@ -40,7 +40,7 @@ interface StripedTableProps {
 export default function StripedTable(props: StripedTableProps) {
   return (
     <TableContainer className='w-full' component={Paper} id={props.id}>
-      <Table className=''>
+      <Table>
         <TableHead>
           <TableRow className='bg-methodologyGreen text-navlinkColor'>
             {props.columns.map((col) => (

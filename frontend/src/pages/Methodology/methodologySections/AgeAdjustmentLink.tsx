@@ -278,7 +278,7 @@ const AgeAdjustmentLink = () => {
             ), and <HetTerm>Race B</HetTerm> is any other race group.
           </p>
           <table className='m-4 border-collapse border-solid border-bgColor p-1 font-roboto'>
-            <thead className=''>
+            <thead>
               <tr className='bg-methodologyGreen'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
@@ -396,7 +396,7 @@ const AgeAdjustmentLink = () => {
 
           {/* CALCULATE AGE SPECIFIC DEATH RATES TABLE */}
           <table className='m-4 border-collapse border-solid border-bgColor p-1 font-roboto'>
-            <thead className=''>
+            <thead>
               <tr className='bg-methodologyGreen'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
@@ -541,7 +541,7 @@ const AgeAdjustmentLink = () => {
 
           {/* A + B TABLE */}
           <table className='m-4 border-collapse border-solid border-bgColor p-1 font-roboto'>
-            <thead className=''>
+            <thead>
               <tr className='bg-methodologyGreen'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
@@ -617,7 +617,7 @@ const AgeAdjustmentLink = () => {
           />
 
           <table className='m-4 border-collapse border-solid border-bgColor p-1 font-roboto'>
-            <thead className=''>
+            <thead>
               <tr className='bg-methodologyGreen'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
@@ -778,7 +778,7 @@ const AgeAdjustmentLink = () => {
             that race:
           </h3>
           <table className='m-4 border-collapse border-solid border-bgColor p-1 font-roboto'>
-            <thead className=''>
+            <thead>
               <tr className='bg-methodologyGreen'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group
@@ -818,7 +818,7 @@ const AgeAdjustmentLink = () => {
             5) Calculate the age-adjusted death ratio:
           </h3>
           <table className='m-4 border-collapse border-solid border-bgColor p-1 font-roboto'>
-            <thead className=''>
+            <thead>
               <tr className='bg-methodologyGreen'>
                 <td className='border-collapse border-solid border-bgColor p-1'>
                   Race Group

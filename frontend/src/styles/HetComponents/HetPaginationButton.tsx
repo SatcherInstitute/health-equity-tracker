@@ -25,7 +25,7 @@ export default function HetPaginationButton(props: HetPaginationButtonsProps) {
       >
         {isPrevious ? (
           <span>
-            <ArrowBack /> <span className=''>Previous</span>
+            <ArrowBack /> <span>Previous</span>
           </span>
         ) : (
           <span>
