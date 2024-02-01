@@ -39,8 +39,8 @@ export default {
       sansTitle: ["'DM Sans Variable'", 'sans-serif'],
       sansText: ['Inter', 'sans-serif'],
       roboto: ['Roboto', 'sans-serif'],
+      robotoCondensed: ["'Roboto Condensed'", 'sans-serif'],
       serif: ['Taviraj', 'serif'],
-      math: ['KaTeX_Math', 'mono'],
     },
     fontSize: {
       smallest: '0.75rem',

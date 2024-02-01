@@ -4,12 +4,12 @@ import {
   chronicDiseaseDefinitionsArray,
 } from '../methodologyContent/ChronicDiseaseDefinitions'
 import { Helmet } from 'react-helmet-async'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const ChronicDiseaseLink = () => {
   return (
@@ -100,22 +100,9 @@ const ChronicDiseaseLink = () => {
           percentage by 1,000. For example, a 5% rate would become 5,000 per
           100,000 people.
         </p>
-        <CodeBlock
-          rowData={[
-            {
-              content: '5% rate (of 100)',
-            },
-            {
-              content: '===',
-            },
-            {
-              content: (
-                <>
-                  <b>5,000 per 100,000 people</b>
-                </>
-              ),
-            },
-          ]}
+        <FormulaFormat
+          leftSide='5% rate'
+          rightSide={['5 out of 100', ' = ', '5,000 per 100,000 people']}
         />
 
         <h3

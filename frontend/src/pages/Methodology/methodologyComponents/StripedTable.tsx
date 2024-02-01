@@ -8,13 +8,14 @@ import {
   Paper,
   TableBody,
 } from '@mui/material'
+import { het } from '../../../styles/DesignTokens'
 
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: '#fafafa',
+    backgroundColor: het.standardInfo,
   },
   '&:nth-of-type(even)': {
-    backgroundColor: '#fff',
+    backgroundColor: het.white,
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -39,7 +40,7 @@ interface StripedTableProps {
 export default function StripedTable(props: StripedTableProps) {
   return (
     <TableContainer className='w-full' component={Paper} id={props.id}>
-      <Table className=''>
+      <Table>
         <TableHead>
           <TableRow className='bg-methodologyGreen text-navlinkColor'>
             {props.columns.map((col) => (
