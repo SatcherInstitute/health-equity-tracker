@@ -7,6 +7,8 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
+
 export const pdohDataSources = [
   dataSourceMetadataMap.bjs,
   dataSourceMetadataMap.acs,
