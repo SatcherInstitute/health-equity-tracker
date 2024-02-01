@@ -2,7 +2,6 @@ import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { Helmet } from 'react-helmet-async'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
@@ -13,6 +12,7 @@ import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/Met
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 // All data _sources_ used for Behavioral Health category
 const behavioralHealthDataSources = [
@@ -108,22 +108,9 @@ export default function BehavioralHealthLink() {
           percentage by 1,000. For example, a 5% rate would become 5,000 per
           100,000 people.
         </p>
-        <CodeBlock
-          rowData={[
-            {
-              content: '5% rate (of 100)',
-            },
-            {
-              content: '===',
-            },
-            {
-              content: (
-                <>
-                  <b>5,000 per 100,000 people</b>
-                </>
-              ),
-            },
-          ]}
+        <FormulaFormat
+          leftSide='5% rate'
+          rightSide={['5 out of 100', ' = ', '5,000 per 100,000 people']}
         />
 
         <h3
