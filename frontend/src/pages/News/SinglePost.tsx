@@ -52,7 +52,7 @@ export default function SinglePost(props: SinglePostProps) {
   }
 
   // FETCH ARTICLES
-  const { data, isLoading, error } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     ARTICLES_KEY,
     fetchNewsData,
     REACT_QUERY_OPTIONS
@@ -91,7 +91,7 @@ export default function SinglePost(props: SinglePostProps) {
 
   return (
     <>
-      {error && (
+      {isError && (
         <Redirect
           to={{
             pathname: '/404',
@@ -140,7 +140,7 @@ export default function SinglePost(props: SinglePostProps) {
                 className='m-10'
               ></Skeleton>
             )}
-            {error && (
+            {isError && (
               <img
                 src={hetLogo}
                 className='mt-8 h-auto w-3/5 max-w-md rounded-md object-contain md:mt-0 md:max-h-articleLogo'
@@ -149,7 +149,7 @@ export default function SinglePost(props: SinglePostProps) {
                 height={100}
               />
             )}
-            {!isLoading && !error && articleImage && (
+            {!isLoading && !isError && articleImage && (
               <img
                 src={articleImage}
                 className='mt-8 hidden h-auto w-3/5 max-w-md rounded-md object-contain sm:block md:mt-0 md:max-h-articleLogo'
