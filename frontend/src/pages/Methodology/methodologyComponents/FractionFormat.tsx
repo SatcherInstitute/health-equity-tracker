@@ -7,7 +7,7 @@ export interface FractionFormatProps {
 
 export default function FractionFormat(props: FractionFormatProps) {
   return (
-    <div className='flex w-max flex-row items-center justify-center  lg:inline-flex '>
+    <div className='flex flex-row items-center justify-center  lg:inline-flex '>
       {props.numerator ? (
         <div className='flex'>
           <span className='text-bigHeader'>(</span>

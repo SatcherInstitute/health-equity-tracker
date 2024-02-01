@@ -131,12 +131,11 @@ const HivLink = () => {
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator: 'Number of cases in demographic group',
-              denominator: 'Total number of cases',
+              numerator: 'Group # cases',
+              denominator: 'Total # cases',
             },
 
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Population percent</h5>
@@ -150,11 +149,10 @@ const HivLink = () => {
           leftSide='Population Percent'
           rightSide={[
             {
-              numerator: 'Number in specific population',
-              denominator: 'Total population',
+              numerator: 'Group Pop.',
+              denominator: 'Total Pop.',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Rate Per 100,000 People (also referred to as 'Rate Per 100k')</h5>
@@ -170,11 +168,10 @@ const HivLink = () => {
           leftSide='Rate per 100,000 people'
           rightSide={[
             {
-              numerator: 'Number of cases within specific population',
-              denominator: 'Total population of that group',
+              numerator: 'Group # cases',
+              denominator: 'Group Pop.',
             },
-            ' * ',
-            ' 100,000 ',
+            ' * 100,000 ',
           ]}
         />
 
@@ -199,8 +196,8 @@ const HivLink = () => {
               <strong>2019 Case Counts:</strong>
             </span>{' '}
             Our data sources, based on the CDC's guidelines, do provide case
-            counts for HIV Prevention and Care specifically targeting
-            Transgender People.
+            <i>counts</i> for HIV outcomes specifically among Transgender
+            People.
           </p>
         </HetNotice>
         <h3
@@ -319,12 +316,10 @@ const HivLink = () => {
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator:
-                'Number of PrEP prescriptions filled by specific demographic',
-              denominator: 'Total number of PrEP prescriptions filled',
+              numerator: 'Group # Rx filled',
+              denominator: 'Total # Rx filled',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>PrEP-eligible population percent</h5>
@@ -335,14 +330,13 @@ const HivLink = () => {
           eligible for PrEP and multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide='PrEP-Eligible Percent'
+          leftSide='PrEP-Eligible Population Percent'
           rightSide={[
             {
-              numerator: 'Number in specific demographic eligible for PrEP',
-              denominator: 'Total number eligible for PrEP',
+              numerator: 'Group # eligible',
+              denominator: 'Total # eligible',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>PrEP coverage</h5>
@@ -357,11 +351,10 @@ const HivLink = () => {
           leftSide='PrEP Coverage'
           rightSide={[
             {
-              numerator: 'Number in specific demographic using PrEP',
-              denominator: 'Number in the same demographic eligible for PrEP',
+              numerator: 'Group # using',
+              denominator: 'Group # eligible',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Relative Inequity</h5>
@@ -377,11 +370,16 @@ const HivLink = () => {
           leftSide='Relative Inequity'
           rightSide={[
             {
-              numerator: 'Percent Share − PrEP-Eligible Percent',
-              denominator: 'PrEP-Eligible Percent',
+              numerator: (
+                <div className='flex flex-col gap-2 smMd:flex-row'>
+                  <span>Use Share - Eligible Pop. Share</span>
+                  {/* <span className='mx-5'> - </span> */}
+                  {/* <span></span> */}
+                </div>
+              ),
+              denominator: 'Eligible Pop. Share',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h3
@@ -443,19 +441,18 @@ const HivLink = () => {
         <p>
           Calculating the percent share of individuals who received testing or
           treatment within a month involves dividing the number of people with
-          access to HIV care by a specific population or demographic group by
-          the total number of people with access to HIV care and multiplying the
-          result by 100.
+          access to HIV care in a specific population or demographic group by
+          the total number of people with access to HIV care, and multiplying
+          the result by 100.
         </p>
         <FormulaFormat
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator: 'Number with access to HIV care in specific group',
-              denominator: 'Total number with access to HIV care',
+              numerator: 'Group # care access',
+              denominator: 'Total # care access',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Diagnosed population percent</h5>
@@ -469,11 +466,10 @@ const HivLink = () => {
           leftSide='Diagnosed Population Percent'
           rightSide={[
             {
-              numerator: 'Number with HIV in specific group',
-              denominator: 'Total number with HIV​',
+              numerator: 'Group # HIV cases',
+              denominator: 'Total # HIV cases​',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Linkage to Care</h5>
@@ -488,11 +484,10 @@ const HivLink = () => {
           leftSide='Linkage to Care'
           rightSide={[
             {
-              numerator: 'Number in specific group with access to care​',
-              denominator: 'Total number living with HIV in the specific group',
+              numerator: 'Group # care access​',
+              denominator: 'Group # living with HIV',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Relative Inequity</h5>
@@ -509,15 +504,15 @@ const HivLink = () => {
           rightSide={[
             {
               numerator: (
-                <>
-                  Prop. of all with access in specific group − <wbr />
-                  Prop. of diagnosed in specific group
-                </>
+                <div className='flex flex-col smMd:flex-row'>
+                  <span>Group Access Share</span>
+                  <span className='mx-5'> - </span>
+                  <span>Group HIV Pop. Share</span>
+                </div>
               ),
-              denominator: 'Proportion of diagnosed in specific group​',
+              denominator: 'Group HIV Pop. Share​',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
 
@@ -545,9 +540,9 @@ const HivLink = () => {
         <h4 className='text-text font-normal'>Algorithm</h4>
 
         <p>
-          All metrics related to HIV stigma, sourced from the CDC, are
-          calculated based on a national probability sample of individuals
-          diagnosed with HIV.
+          All metrics related to HIV stigma are calculated based on a national
+          probability sample of individuals diagnosed with HIV, and are sourced
+          directly from the CDC.
         </p>
         <h5>Stigma score</h5>
         <p>
@@ -570,45 +565,6 @@ const HivLink = () => {
           assess the prevalence and impact of HIV stigma.
         </p>
 
-        <FormulaFormat
-          leftSide='Analyzed Stigma Score'
-          rightSide={[
-            {
-              numerator: 'Self-Reported Data',
-              denominator: (
-                <>
-                  <span className=' italic'>f</span>
-                  (Self-Reported Data)
-                </>
-              ),
-            },
-            ' * ',
-            ' 100 ',
-          ]}
-        />
-        <blockquote className='font-medium italic'>
-          Where <span className=' italic'>f</span> is a function that assesses
-          the prevalence and impact of HIV stigma based on the self-reported
-          data.
-        </blockquote>
-        <p>
-          This method allows for the quantification and comparison of stigma
-          levels across different populations and geographic areas, providing
-          insights into the experiences of individuals living with HIV.
-        </p>
-
-        <FormulaFormat
-          leftSide='Comparison Value'
-          rightSide={[
-            {
-              numerator: 'HIV Stigma Score of Population A',
-              denominator: 'HIV Stigma Score of Population B',
-            },
-          ]}
-        />
-        <blockquote className='font-medium italic'>
-          Or any other comparative metrics based on the exact methodology used.
-        </blockquote>
         <h3 className='mt-12 text-title font-medium' id='#hiv-data-sources'>
           Data Sources
         </h3>

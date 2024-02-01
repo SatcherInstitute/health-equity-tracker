@@ -10,9 +10,9 @@ interface FormulaFormatProps {
 export default function FormulaFormat(props: FormulaFormatProps) {
   return (
     <div className='flex w-full flex-row items-center justify-center rounded-md bg-standardInfo'>
-      <code className='mx-auto my-0 flex max-w-md flex-col items-center justify-center gap-1 self-start border-none bg-opacity-0  text-smallest smMd:flex-row smMd:text-title lg:text-bigHeader'>
-        <b>{props.leftSide}</b>
-        <div className='p-2'>{' = '}</div>
+      <code className='flex flex-col flex-wrap items-center justify-center self-start border-none bg-opacity-0 text-smallest smMd:text-title md:flex-row md:gap-1 lg:text-smallestHeader'>
+        <b className='p-2'>{props.leftSide}</b>
+        <div className='px-2 py-1'>{' = '}</div>
 
         {props.rightSide.map((item, index) => (
           <div className='p-2' key={index}>
