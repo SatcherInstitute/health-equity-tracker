@@ -57,9 +57,9 @@ export default function ShareButtons(props: ShareButtonProps) {
             url={sharedUrl}
             hashtags={['healthequity']}
             related={['@SatcherHealth', '@MSMEDU']}
-            aria-label={'Share to Twitter'}
+            aria-label={'Share to X (formerly Twitter)'}
           >
-            <XIcon {...shareIconAttributes} />
+            <XIcon {...shareIconAttributes} fontSize={'small'} />
           </TwitterShareButton>
         </Tooltip>
 

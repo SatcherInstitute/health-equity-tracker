@@ -12,7 +12,7 @@ export const HIV_CATEGORY_DROPDOWNIDS = [
   'hiv_care',
   'hiv_prep',
   'hiv_stigma',
-]
+] as const
 
 export type HivCategoryDataTypeId =
   | 'hiv_deaths_black_women'

@@ -11,7 +11,7 @@ export const CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS = [
   'chronic_kidney_disease',
   'copd',
   'diabetes',
-]
+] as const
 
 export type ChronicDiseaseMetricId =
   | 'ahr_population_pct'

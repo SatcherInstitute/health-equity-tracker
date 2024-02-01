@@ -13,7 +13,7 @@ export const PDOH_CATEGORY_DROPDOWNIDS = [
   'incarceration',
   'voter_participation',
   'women_in_gov',
-]
+] as const
 
 export type PDOHDataTypeId =
   | 'jail'

@@ -4,12 +4,12 @@ import {
   chronicDiseaseDefinitionsArray,
 } from '../methodologyContent/ChronicDiseaseDefinitions'
 import { Helmet } from 'react-helmet-async'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const ChronicDiseaseLink = () => {
   return (
@@ -26,14 +26,12 @@ const ChronicDiseaseLink = () => {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
           ]}
           rows={[
             {
               category: 'Chronic Diseases',
               topic:
                 'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
-              variable: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -87,30 +85,12 @@ const ChronicDiseaseLink = () => {
           </p>
         </HetNotice>
         <p>
-          We obtain our data for the following specific issues directly from
-          America's Health Rankings (AHR). This data is based on{' '}
-          <HetTerm>percent share</HetTerm> metrics that AHR provides in
-          downloadable data files. Click on the following to explore the
-          reports:
+          For all topics sourced from America's Health Rankings (AHR), we obtain{' '}
+          <HetTerm>percent share</HetTerm> metrics directly from the
+          organization via custom created files. It is our goal to switch to
+          their recently released GraphQL API in the near future for more data
+          visibility and flexibility.
         </p>
-        <ul className='list-none pl-0'>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.copd-3.00&group1=All'
-            >
-              COPD
-            </a>
-          </li>
-          <li className='font-sansTitle font-medium'>
-            <a
-              className='no-underline'
-              href='https://healthequitytracker.org/exploredata?mls=1.diabetes-3.00&group1=All'
-            >
-              diabetes
-            </a>
-          </li>
-        </ul>
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide
@@ -120,22 +100,9 @@ const ChronicDiseaseLink = () => {
           percentage by 1,000. For example, a 5% rate would become 5,000 per
           100,000 people.
         </p>
-        <CodeBlock
-          rowData={[
-            {
-              content: '5% rate (of 100)',
-            },
-            {
-              content: '===',
-            },
-            {
-              content: (
-                <>
-                  <b>5,000 per 100,000 people</b>
-                </>
-              ),
-            },
-          ]}
+        <FormulaFormat
+          leftSide='5% rate'
+          rightSide={['5 out of 100', ' = ', '5,000 per 100,000 people']}
         />
 
         <h3
@@ -148,8 +115,6 @@ const ChronicDiseaseLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={chronicDiseaseDataSources.map((source, index) => ({
@@ -161,8 +126,6 @@ const ChronicDiseaseLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

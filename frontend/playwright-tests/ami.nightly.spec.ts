@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 
 test('PHRMA: Medicare AMI', async ({ page }) => {
-  await page.goto('/exploredata?mls=1.medicare_cardiovascular-3.12&group1=85PLUS&dt1=ami&demo=age');
+  await page.goto('/exploredata?mls=1.medicare_cardiovascular-3.12&group1=85PLUS&dt1=medicare_ami&demo=age');
   await page.locator('#rate-map').getByRole('heading', { name: 'Rates of Acute MI in Florida' }).click();
   await page.getByRole('heading', { name: 'Ages 85+, Medicare' }).click();
   await page.getByLabel('Legend for rate map').getByRole('img').click();

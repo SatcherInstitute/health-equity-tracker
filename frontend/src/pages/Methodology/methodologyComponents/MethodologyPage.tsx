@@ -57,11 +57,7 @@ export default function MethodologyPage() {
                     exact: true,
                   })
                   return match && route.subLinks.length > 0 ? (
-                    <HetOnThisPageMenu
-                      key={index}
-                      links={route.subLinks}
-                      className=''
-                    />
+                    <HetOnThisPageMenu key={index} links={route.subLinks} />
                   ) : null
                 })}
               </div>
