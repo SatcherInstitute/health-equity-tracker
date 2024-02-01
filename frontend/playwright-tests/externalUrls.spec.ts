@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
+// these are actually .ts files but load as .js to prevent some error I forget exactly what
 import { urlMap } from "../src/utils/externalUrls.js"
-import { RESOURCES, PDOH_RESOURCES, ECONOMIC_EQUITY_RESOURCES, EQUITY_INDEX_RESOURCES, AIAN_RESOURCES, API_RESOURCES, HISP_RESOURCES, MENTAL_HEALTH_RESOURCES, COVID_RESOURCES, COVID_VACCINATION_RESOURCES } from "../src/pages/WhatIsHealthEquity/ResourcesData.js"
+import { RESOURCES, PDOH_RESOURCES, ECONOMIC_EQUITY_RESOURCES, EQUITY_INDEX_RESOURCES, AIAN_RESOURCES, API_RESOURCES, HISP_RESOURCES, MENTAL_HEALTH_RESOURCES, COVID_RESOURCES, COVID_VACCINATION_RESOURCES } from "../src/pages/Methodology/methodologyContent/ResourcesData.js"
 
 
 const knownFlakyUrls = [
