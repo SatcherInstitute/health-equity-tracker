@@ -370,13 +370,7 @@ const HivLink = () => {
           leftSide='Relative Inequity'
           rightSide={[
             {
-              numerator: (
-                <div className='flex flex-col gap-2 smMd:flex-row'>
-                  <span>Use Share - Eligible Pop. Share</span>
-                  {/* <span className='mx-5'> - </span> */}
-                  {/* <span></span> */}
-                </div>
-              ),
+              numerator: 'Use Share - Eligible Pop. Share',
               denominator: 'Eligible Pop. Share',
             },
             '* 100',
@@ -503,14 +497,8 @@ const HivLink = () => {
           leftSide='Relative Inequity'
           rightSide={[
             {
-              numerator: (
-                <div className='flex flex-col smMd:flex-row'>
-                  <span>Group Access Share</span>
-                  <span className='mx-5'> - </span>
-                  <span>Group HIV Pop. Share</span>
-                </div>
-              ),
-              denominator: 'Group HIV Pop. Share​',
+              numerator: 'Access Share - HIV Pop. Share',
+              denominator: 'HIV Pop. Share​',
             },
             '* 100',
           ]}
