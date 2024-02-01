@@ -1,11 +1,11 @@
 import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 const MetricsLink = () => {
   return (
@@ -45,57 +45,19 @@ const MetricsLink = () => {
             , their disproportionate percent share would be{' '}
             <strong>+13%</strong>:
           </p>
-          <CodeBlock
-            rowData={[
-              {
-                content: '65.7%',
-              },
-              {
-                content: '-',
-              },
-              {
-                content: '52.7%',
-              },
-              {
-                content: '=',
-              },
-              {
-                content: (
-                  <>
-                    <b>+13.0%</b>
-                  </>
-                ),
-              },
-            ]}
-          />
+          <FormulaFormat leftSide='65.7% - 52.7%' rightSide={['+13.0%']} />
           This value is then divided by the population percent share to give a
           <HetTerm>percent relative inequity</HetTerm> of
           <strong>+24.7%</strong>:
-          <CodeBlock
-            rowData={[
-              {
-                content: '+13%',
-              },
-              {
-                content: '/',
-              },
-              {
-                content: '52.7%',
-              },
-              {
-                content: '=',
-              },
-              {
-                content: (
-                  <>
-                    <b>+24.7%</b>
-                  </>
-                ),
-              },
-            ]}
+          <FormulaFormat
+            leftSide={{
+              numerator: '+13%',
+              denominator: '52.7%​',
+            }}
+            rightSide={['+24.7%']}
           />
           In plain language, this would be interpreted as,{' '}
-          <div className='bg-standardInfo px-8 py-4 shadow-raised-tighter'>
+          <div className='bg-standardInfo px-8 py-4'>
             <em>
               “<strong>Deaths</strong> of individuals identifying as White (Non
               Hispanic) in Georgia{' '}

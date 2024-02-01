@@ -54,7 +54,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
 
       <p>Unfortunately there are crucial data missing in our sources.</p>
 
-      <HetLinkButton className='' href={DATA_CATALOG_PAGE_LINK}>
+      <HetLinkButton href={DATA_CATALOG_PAGE_LINK}>
         See Our Data Sources →
       </HetLinkButton>
 
