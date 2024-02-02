@@ -19,7 +19,10 @@ from ingestion.merge_utils import merge_state_ids
 
 
 def generate_cols_map(prefixes, suffix):
-    return {prefix: std_col.generate_column_name(prefix, suffix) for prefix in prefixes}
+    return {
+        prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}"
+        for prefix in prefixes
+    }
 
 
 DATA_DIR = "cdc_wisqars"
@@ -27,16 +30,20 @@ DATA_DIR = "cdc_wisqars"
 INJ_OUTCOMES = [std_col.FATAL_PREFIX, std_col.NON_FATAL_PREFIX]
 
 INJ_INTENTS = [
-    std_col.FATAL_HOMICIDE,
-    std_col.FATAL_LEGAL_INTERVENTION,
-    std_col.FATAL_SUICIDE,
+    std_col.HOMICIDE_PREFIX,
+    std_col.LEGAL_INTERVENTION_PREFIX,
+    std_col.SUICIDE_PREFIX,
+    std_col.NON_FATAL_INJURIES_PREFIX,
 ]
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
-PCT_REL_INEQUITY_MAP = generate_cols_map(INJ_INTENTS, std_col.PCT_REL_INEQUITY_SUFFIX)
-PCT_SHARE_MAP = generate_cols_map(INJ_INTENTS, std_col.PCT_SHARE_SUFFIX)
+RAW_TOTALS_MAP = generate_cols_map(INJ_INTENTS, std_col.RAW_SUFFIX)
+PCT_SHARE_MAP = generate_cols_map(RAW_TOTALS_MAP.values(), std_col.PCT_SHARE_SUFFIX)
 PCT_SHARE_MAP[std_col.FATAL_POPULATION] = std_col.FATAL_POPULATION_PCT
 PCT_SHARE_MAP[std_col.NON_FATAL_POPULATION] = std_col.NON_FATAL_POPULATION_PCT
+PCT_REL_INEQUITY_MAP = generate_cols_map(
+    RAW_TOTALS_MAP.values(), std_col.PCT_REL_INEQUITY_SUFFIX
+)
 
 PIVOT_DEM_COLS = {
     std_col.AGE_COL: ["Year", "State", "Age Group", "Population"],
@@ -102,7 +109,7 @@ class CDCWisqarsData(DataSource):
         df = self.generate_breakdown_df(demographic, geo_level, nat_totals_by_intent_df)
 
         float_cols = [std_col.FATAL_POPULATION, std_col.NON_FATAL_POPULATION]
-        float_cols.extend(INJ_INTENTS)
+        float_cols.extend(RAW_TOTALS_MAP.values())
         float_cols.extend(PER_100K_MAP.values())
         float_cols.extend(PCT_SHARE_MAP.values())
         float_cols.extend(PCT_REL_INEQUITY_MAP.values())
@@ -154,7 +161,7 @@ class CDCWisqarsData(DataSource):
         df = merge_state_ids(df)
 
         # adds missing columns
-        combined_cols = INJ_INTENTS + list(PER_100K_MAP.values())
+        combined_cols = list(PER_100K_MAP.values()) + list(RAW_TOTALS_MAP.values())
         for col in combined_cols:
             if col not in df.columns:
                 df[col] = np.nan
@@ -177,9 +184,9 @@ class CDCWisqarsData(DataSource):
                 df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE
             )
 
-        for col in INJ_INTENTS:
+        for col in RAW_TOTALS_MAP.values():
             pop_col = std_col.FATAL_POPULATION
-            if std_col.NON_FATAL_PREFIX in col:
+            if col == std_col.NON_FATAL_INJURIES_RAW:
                 pop_col = std_col.NON_FATAL_POPULATION
             df = generate_pct_rel_inequity_col(
                 df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col]
@@ -243,11 +250,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
             )
 
             pivot_df.columns = [
-                f"{outcome}_"
-                + "_".join(col[-1].lower().replace('-', ' ').split())
-                + ("" if col[0] == data_metric else "_per_100k")
-                if col[0] in ['Crude Rate', data_metric]
-                else "_".join(col)
+                f"{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
+                if col[0] == 'Deaths'
+                else f"{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
                 for col in pivot_df.columns
             ]
 
@@ -256,9 +261,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         df.rename(
             columns={
                 "Age Group": std_col.AGE_COL,
-                'Estimated Number': f'{outcome}_gun_injuries',
+                'Estimated Number': std_col.NON_FATAL_INJURIES_RAW,
                 'Population': f'{outcome}_population',
-                'Crude Rate': f'{outcome}_gun_injuries_per_100k',
+                'Crude Rate': std_col.NON_FATAL_INJURIES_PER_100K,
                 'Sex': std_col.SEX_COL,
             },
             inplace=True,

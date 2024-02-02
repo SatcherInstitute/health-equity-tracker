@@ -183,23 +183,22 @@ RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
 
 # Gun violence
-NON_FATAL_PREFIX = "non_fatal"
-NON_FATAL_ASSAULT_SEXUAL = 'non_fatal_assault_sexual'
-NON_FATAL_LEGAL_INTERVENTION = 'non_fatal_legal_intervention'
-NON_FATAL_ASSAULT_OTHER = 'non_fatal_assault_other'
-NON_FATAL_POPULATION = "non_fatal_population"
-NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
-NON_FATAL_SELF_HARM = 'non_fatal_self_harm'
-NON_FATAL_UNINTENTIONAL = 'non_fatal_unintentional'
-
 FATAL_PREFIX = "fatal"
-FATAL_HOMICIDE = "fatal_homicide"
-FATAL_LEGAL_INTERVENTION = "fatal_legal_intervention"
+NON_FATAL_PREFIX = "non_fatal"
+HOMICIDE_PREFIX = "homicide"
+LEGAL_INTERVENTION_PREFIX = "legal_intervention"
+SUICIDE_PREFIX = "suicide"
+NON_FATAL_INJURIES_PREFIX = "non_fatal_injuries"
+HOMICIDES_RAW = "homicides_estimtated_total"
+LEGAL_INTERVENTION_RAW = "legal_intervention_estimated_total"
+SUICIDES_RAW = "suicides_estimated_total"
+NON_FATAL_INJURIES_RAW = "non_fatal_injuries_estimated_total"
+NON_FATAL_INJURIES_PER_100K = "non_fatal_injuries_per_100k"
 FATAL_POPULATION = "fatal_population"
+NON_FATAL_POPULATION = "non_fatal_population"
 FATAL_POPULATION_PCT = "fatal_population_pct"
-FATAL_SUICIDE = "fatal_suicide"
-FATAL_UNDETERMINED = "fatal_undetermined"
-FATAL_UNINTENTIONAL = "fatal_unintentional"
+NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
+
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])
 
