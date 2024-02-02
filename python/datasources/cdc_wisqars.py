@@ -201,11 +201,11 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
     for outcome in INJ_OUTCOMES:
         data_metric = 'Deaths'
-        test = 'Intent'
+        data_column_name = 'Intent'
 
         if outcome == std_col.NON_FATAL_PREFIX:
             data_metric = 'Estimated Number'
-            test = 'Year'
+            data_column_name = 'Year'
             if geo_level == STATE_LEVEL or breakdown == std_col.RACE_OR_HISPANIC_COL:
                 continue
 
@@ -219,7 +219,7 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         )
 
         # removes the metadata section from the csv
-        metadata_start_index = df[df[test] == "Total"].index
+        metadata_start_index = df[df[data_column_name] == "Total"].index
         metadata_start_index = metadata_start_index[0]
         df = df.iloc[:metadata_start_index]
 
