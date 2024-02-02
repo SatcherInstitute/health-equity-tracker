@@ -21,7 +21,7 @@ from ingestion.merge_utils import merge_state_ids
 Data Source: CDC WISQARS (data on gun violence)
 
 Description:
-- The data on gun violence is downloaded from the CDC WISQARS (Web-based Injury Statistics Query and Reporting System) database.
+- The data on gun violence is downloaded from the CDC WISQARS database.
 - The downloaded data is stored locally in our directory for subsequent use.
 
 Instructions for Downloading Data:
@@ -36,7 +36,7 @@ Instructions for Downloading Data:
 
 Notes:
 - There is no state-level data on non-fatal injury outcomes
-- Race data is only available for fatal data and is available from 2018-2021 
+- Race data is only available for fatal data and is available from 2018-2021
 
 Last Updated: 2/24
 """
