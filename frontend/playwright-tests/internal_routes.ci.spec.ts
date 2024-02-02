@@ -7,7 +7,7 @@ test('Methodology Page Loads', async ({ page }) => {
     // TODO: update this route once we switch over to newer methodology version
     await page.goto('/new-methodology', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText(['Methodology']);
+    await expect(mainHeading).toHaveText(['Methodology Introduction']);
     // @ts-ignore
     await expect(page).toPassAxe()
 });
