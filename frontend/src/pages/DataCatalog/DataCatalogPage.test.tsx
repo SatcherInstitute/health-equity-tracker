@@ -12,7 +12,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 const ACS_DATASET_METADATA: DatasetMetadata = {
   name: 'ACS Population by Age and County',
-  update_time: 'update_time',
+  original_data_sourced: 'original_data_sourced',
   source_id: 'acs',
 }
 

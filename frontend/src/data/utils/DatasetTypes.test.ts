@@ -16,7 +16,7 @@ describe('DatasetTypes', () => {
     id: 'xyz_condition-race_and_ethnicity' as DatasetId,
     name: 'Some Data Place',
     source_id: 'this_that' as DataSourceId,
-    update_time: 'Jan 1983',
+    original_data_sourced: 'Jan 1983',
   }
 
   // including strings that have double-quotes and commas

@@ -24,7 +24,7 @@ export interface DataSourceMetadata {
 // For example: data by race and county or data by age and state
 export interface DatasetMetadata {
   readonly name: string
-  readonly update_time: string
+  readonly original_data_sourced: string
   readonly contains_nh?: boolean
   source_id: DataSourceId | 'error'
 }
