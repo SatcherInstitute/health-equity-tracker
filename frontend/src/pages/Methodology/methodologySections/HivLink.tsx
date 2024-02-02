@@ -3,7 +3,7 @@ import {
   hivDataSources,
   hivDefinitionsArray,
 } from '../methodologyContent/HIVDefinitions'
-import { HIV_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'

@@ -4,7 +4,6 @@ import Tab from '@mui/material/Tab'
 import { useUrlSearchParams } from '../../utils/urlutils'
 import {
   FAQ_TAB_LINK,
-  RESOURCES_TAB_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
 } from '../../utils/internalRoutes'
 import { Link, Redirect, Route, Switch } from 'react-router-dom'
@@ -12,7 +11,6 @@ import { Link, Redirect, Route, Switch } from 'react-router-dom'
 // can't lazy load (yet) due to loading issues
 import EquityTab from './EquityTab'
 import FaqTab from './FaqTab'
-import ResourcesTab from './ResourcesTab'
 import { useIsBreakpointAndUp } from '../../utils/hooks/useIsBreakpointAndUp'
 
 export default function WhatIsHealthEquityPage() {
@@ -54,21 +52,12 @@ export default function WhatIsHealthEquityPage() {
             component={Link}
             to={FAQ_TAB_LINK}
           />
-          <Tab
-            value={RESOURCES_TAB_LINK}
-            label='Resources'
-            component={Link}
-            to={RESOURCES_TAB_LINK}
-          />
         </Tabs>
       </Route>
 
       <Switch>
         <Route path={`${FAQ_TAB_LINK}/`}>
           <FaqTab />
-        </Route>
-        <Route path={`${RESOURCES_TAB_LINK}/`}>
-          <ResourcesTab />
         </Route>
         <Route path={`${WHAT_IS_HEALTH_EQUITY_PAGE_LINK}/`}>
           <EquityTab />

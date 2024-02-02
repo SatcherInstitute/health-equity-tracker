@@ -3,7 +3,7 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import {
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
+} from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -31,8 +31,6 @@ const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
 
 export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
   (dropdownId) => {
-    console.log(METRIC_CONFIG[dropdownId])
-
     let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
 
     if (METRIC_CONFIG[dropdownId].length > 1) {
