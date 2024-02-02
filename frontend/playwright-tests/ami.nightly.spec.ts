@@ -7,7 +7,7 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.getByLabel('Legend for rate map').getByRole('img').click();
   await page.locator('li').filter({ hasText: 'Total Medicare Population:' }).click();
   const page1Promise = page.waitForEvent('popup');
-  await page.locator('#rate-chart').getByText('Medication Utilization and Disease Rates in the Medicare Population (updated 2020)').click();
+  await page.locator('#rate-chart').getByText('Medication Utilization and Disease Rates in the Medicare Population (data from 2020)').click();
   const page1 = await page1Promise;
   await page.getByRole('note').click();
   await page.getByLabel('Comparison bar chart showing').getByRole('img').click();

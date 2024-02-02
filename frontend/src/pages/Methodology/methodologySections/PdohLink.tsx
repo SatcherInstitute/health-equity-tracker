@@ -1,15 +1,41 @@
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  pdohDataSources,
-  pdohDefinitionsArray,
-} from '../methodologyContent/PdohDefinitions'
+import { pdohDefinitionsArray } from '../methodologyContent/PdohDefinitions'
 import Resources from '../methodologyComponents/Resources'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+<<<<<<< HEAD
+import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
+=======
+>>>>>>> 6e7d340f (move sources)
+export const pdohDataSources = [
+  dataSourceMetadataMap.bjs,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.vera,
+  dataSourceMetadataMap.cawp,
+  dataSourceMetadataMap.the_unitedstates_project,
+]
+<<<<<<< HEAD
+
+const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const pdohTopicsString = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return DROPDOWN_TOPIC_MAP[dropdownId]
+}).join(', ')
+
+=======
+>>>>>>> 6e7d340f (move sources)
 const PdohLink = () => {
   return (
     <section id='#pdoh'>
@@ -31,8 +57,7 @@ const PdohLink = () => {
           rows={[
             {
               category: 'Political Determinants of Health',
-              topic:
-                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
+              topic: pdohTopicsString,
             },
           ]}
         />
@@ -354,10 +379,11 @@ const PdohLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#pdoh-key-terms'
-          definitionsArray={pdohDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#pdoh-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
+
         <Resources id='#pdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>

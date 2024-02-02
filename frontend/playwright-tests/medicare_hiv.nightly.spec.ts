@@ -32,8 +32,7 @@ test('PHRMA HIV conditions and medication adherence', async ({ page }) => {
     await page.getByRole('combobox', { name: 'Demographic Subsidy' }).click()
     await page.getByRole('option', { name: 'Eligibility' }).click()
 
-    await await page.locator('#rate-map').getByText('Medicare eligibility:').click()
-    await page.locator('.MuiBackdrop-root').click()
+    await await page.locator('#rate-map').getByText('Medicare eligibility:').hover()
     await page.locator('#unknown-demographic-map').getByRole('heading', { name: 'Share of total beneficiaries living with HIV with unknown eligibility' }).click()
     await page.getByRole('cell', { name: 'Eligible due to age' }).click()
 })
