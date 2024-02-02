@@ -31,8 +31,6 @@ const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
 
 export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
   (dropdownId) => {
-    console.log(METRIC_CONFIG[dropdownId])
-
     let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
 
     if (METRIC_CONFIG[dropdownId].length > 1) {

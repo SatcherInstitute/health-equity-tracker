@@ -66,14 +66,14 @@ export function getDataSourceMapFromDatasetIds(
       dataSourceMap[dataSourceId] = {
         name: dataSourceMetadataMap[dataSourceId]?.data_source_name || '',
         updateTimes:
-          metadata[datasetId].update_time === 'unknown'
+          metadata[datasetId].original_data_sourced === 'unknown'
             ? new Set()
-            : new Set([metadata[datasetId].update_time]),
+            : new Set([metadata[datasetId].original_data_sourced]),
       }
-    } else if (metadata[datasetId].update_time !== 'unknown') {
+    } else if (metadata[datasetId].original_data_sourced !== 'unknown') {
       dataSourceMap[dataSourceId].updateTimes = dataSourceMap[
         dataSourceId
-      ].updateTimes.add(metadata[datasetId].update_time)
+      ].updateTimes.add(metadata[datasetId].original_data_sourced)
     }
   })
   return dataSourceMap
