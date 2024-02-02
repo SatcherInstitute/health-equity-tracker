@@ -8,6 +8,9 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const pdohDataSources = [
   dataSourceMetadataMap.bjs,
@@ -18,6 +21,15 @@ export const pdohDataSources = [
   dataSourceMetadataMap.cawp,
   dataSourceMetadataMap.the_unitedstates_project,
 ]
+
+const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const pdohTopicsString = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return DROPDOWN_TOPIC_MAP[dropdownId]
+}).join(', ')
+
 const PdohLink = () => {
   return (
     <section id='#pdoh'>
@@ -39,8 +51,7 @@ const PdohLink = () => {
           rows={[
             {
               category: 'Political Determinants of Health',
-              topic:
-                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
+              topic: pdohTopicsString,
             },
           ]}
         />
@@ -362,10 +373,11 @@ const PdohLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#pdoh-key-terms'
-          definitionsArray={pdohDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#pdoh-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
+
         <Resources id='#pdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
