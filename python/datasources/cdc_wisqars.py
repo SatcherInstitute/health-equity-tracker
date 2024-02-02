@@ -17,6 +17,30 @@ from ingestion.dataset_utils import (
 )
 from ingestion.merge_utils import merge_state_ids
 
+"""
+Data Source: CDC WISQARS (data on gun violence)
+
+Description:
+- The data on gun violence is downloaded from the CDC WISQARS (Web-based Injury Statistics Query and Reporting System) database.
+- The downloaded data is stored locally in our directory for subsequent use.
+
+Instructions for Downloading Data:
+1. Visit the WISQARS website: https://wisqars.cdc.gov/reports/
+2. Select the desired injury outcome:
+   - select either fatal or non-fatal data
+3. Choose the demographic selections for the report:
+   - select appropiate data years, geographic level, and other demgographic groups, i.e (age)
+4. Select the mechanisim (Firearm)
+5. Select appropiate report layout:
+   - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
+
+Notes:
+- There is no state-level data on non-fatal injury outcomes
+- Race data is only availble for fatal data and is avaibable from 2018-2021 
+
+Last Updated: 2/24
+"""
+
 
 def generate_cols_map(prefixes, suffix):
     return {
