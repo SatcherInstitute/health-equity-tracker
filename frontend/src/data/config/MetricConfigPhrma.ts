@@ -13,12 +13,13 @@ export const MEDICARE_CATEGORY_DROPDOWNIDS = [
   'medicare_cardiovascular',
   'medicare_hiv',
   'medicare_mental_health',
-]
+] as const
 
 export type PhrmaDataTypeId =
   | 'medicare_ami'
   | 'medicare_hiv'
-  | 'medicare_anti_psychotics'
+  | 'medicare_schizophrenia'
+  | 'anti_psychotics_adherence'
   | 'arv_adherence'
   | 'beta_blockers_adherence'
   | 'ras_antagonists_adherence'
@@ -485,7 +486,7 @@ export const PHRMA_CARDIOVASCULAR_METRICS: DataTypeConfig[] = [
     },
   },
   {
-    dataTypeId: 'ami',
+    dataTypeId: 'medicare_ami',
     mapConfig: medicareHigherIsWorseMapConfig,
     dataTypeShortLabel: 'Cases of Heart Attacks (Acute MI)',
     dataTableTitle:

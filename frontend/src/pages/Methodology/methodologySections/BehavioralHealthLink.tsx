@@ -1,8 +1,7 @@
-import { MENTAL_HEALTH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { MENTAL_HEALTH_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { Helmet } from 'react-helmet-async'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
@@ -12,8 +11,8 @@ import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
-import CategoryTopicLinks from '../methodologyComponents/CategoryTopicLinks'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 // All data _sources_ used for Behavioral Health category
 const behavioralHealthDataSources = [
@@ -49,13 +48,11 @@ export default function BehavioralHealthLink() {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Demographic Breakdowns', accessor: 'demographicType' },
           ]}
           rows={[
             {
               category: 'Behavioral Health',
               topic: behavioralHealthTopicsString,
-              demographicType: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -102,9 +99,13 @@ export default function BehavioralHealthLink() {
           reports:
         </p>
 
-        <CategoryTopicLinks
-          dropdownIds={BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS}
-        />
+        <p>
+          For all topics sourced from America's Health Rankings (AHR), we obtain{' '}
+          <HetTerm>percent share</HetTerm> metrics directly from the
+          organization via custom created files. It is our goal to switch to
+          their recently released GraphQL API in the near future for more data
+          visibility and flexibility.
+        </p>
 
         <p>
           AHR usually gives us rates as percentages. In some cases, they provide
@@ -115,22 +116,9 @@ export default function BehavioralHealthLink() {
           percentage by 1,000. For example, a 5% rate would become 5,000 per
           100,000 people.
         </p>
-        <CodeBlock
-          rowData={[
-            {
-              content: '5% rate (of 100)',
-            },
-            {
-              content: '===',
-            },
-            {
-              content: (
-                <>
-                  <b>5,000 per 100,000 people</b>
-                </>
-              ),
-            },
-          ]}
+        <FormulaFormat
+          leftSide='5% rate'
+          rightSide={['5 out of 100', ' = ', '5,000 per 100,000 people']}
         />
 
         <h3
@@ -143,8 +131,6 @@ export default function BehavioralHealthLink() {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={behavioralHealthDataSources.map((source, index) => ({
@@ -156,8 +142,6 @@ export default function BehavioralHealthLink() {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

@@ -46,16 +46,15 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
 
   if (isXs) {
     return (
-      <div className='inline-flex flex-row'>
-        <span>
-          <Typography
-            className='text-left font-sansText text-small text-altBlack'
-            onClick={handleDrawerOpen}
-          >
-            {' '}
-            {topic.toLowerCase()}{' '}
-          </Typography>
-        </span>
+      <span className='inline-flex flex-row'>
+        <Typography
+          component='span'
+          className='text-left font-sansText text-small text-altBlack'
+          onClick={handleDrawerOpen}
+        >
+          {' '}
+          {topic.toLowerCase()}{' '}
+        </Typography>
 
         <Drawer anchor='bottom' open={isDrawerOpen} onClose={handleDrawerClose}>
           <div style={{ padding: '16px' }}>
@@ -71,7 +70,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
             </Typography>
           </div>
         </Drawer>
-      </div>
+      </span>
     )
   }
 
@@ -88,6 +87,7 @@ const DefinitionTooltip: React.FC<DefinitionTooltipProps> = ({
         className='inline-flex flex-row'
       >
         <Typography
+          component='span'
           className='text-left font-sansText text-small text-altBlack'
           onClick={handleTooltipOpen}
         >

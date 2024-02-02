@@ -1,20 +1,50 @@
-import {
-  covidDataSources,
-  covidDefinitionsArray,
-} from '../methodologyContent/CovidDefinitions'
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import {
   COVID_RESOURCES,
   COVID_VACCINATION_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
+} from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 
-const Covid19Link = () => {
+export const covidDataSources = [
+  dataSourceMetadataMap.cdc_restricted,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2010_territory_population,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.cdc_vaccination_county,
+  dataSourceMetadataMap.cdc_vaccination_national,
+  dataSourceMetadataMap.kff_vaccination,
+  dataSourceMetadataMap.covid_tracking_project,
+]
+
+const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
+
+    if (METRIC_CONFIG[dropdownId].length > 1) {
+      const topicDataTypesString = METRIC_CONFIG[dropdownId]
+        .map((config) => config.dataTypeShortLabel)
+        .join(', ')
+      topicString += ` (${topicDataTypesString})`
+    }
+
+    return topicString
+  }
+).join(', ')
+
+export default function Covid19Link() {
   return (
     <section id='#covid-19'>
       <article>
@@ -28,15 +58,12 @@ const Covid19Link = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'COVID-19',
-              topic: 'COVID-19, COVID-19 Vaccinations',
-              variable:
-                'Cases, Deaths, Hospitalizations, Race/ethnicity, Sex, Age',
+              topic: covidTopicsString,
             },
           ]}
         />
@@ -103,11 +130,13 @@ const Covid19Link = () => {
           Utilizes the <code>cdc_case_earliest_dt</code> ("CDC Case Earliest
           Date") field from the CDC Restricted dataset. Data is categorized
           based on the earliest of several factors:
-          <ol>
-            <li>symptom onset,</li>
-            <li>positive test date, or</li>
-            <li>report date</li>
-          </ol>
+        </p>
+        <ol>
+          <li>symptom onset,</li>
+          <li>positive test date, or</li>
+          <li>report date</li>
+        </ol>
+        <p>
           to the CDC. Monthly charts represent the incidence rate, indicating
           the number of new cases reported. We categorize each COVID case,
           death, and hospitalization based on the month and year recorded in the
@@ -301,8 +330,6 @@ const Covid19Link = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={covidDataSources.map((source, index) => ({
@@ -314,15 +341,12 @@ const Covid19Link = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />
-
-        <KeyTerms
-          id='#covid-key-terms'
-          definitionsArray={covidDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#covid-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
 
         <Resources
@@ -333,5 +357,3 @@ const Covid19Link = () => {
     </section>
   )
 }
-
-export default Covid19Link

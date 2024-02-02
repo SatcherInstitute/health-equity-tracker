@@ -76,7 +76,9 @@ function DownloadDatasetListItem(props: {
           <ListItemIcon>{getIcon()}</ListItemIcon>
           <ListItemText
             primary={props.datasetMetadata.name + '.csv'}
-            secondary={'Last updated: ' + props.datasetMetadata.update_time}
+            secondary={
+              'Last updated: ' + props.datasetMetadata.original_data_sourced
+            }
           />
         </>
       ) : (

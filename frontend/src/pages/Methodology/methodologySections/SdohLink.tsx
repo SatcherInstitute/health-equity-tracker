@@ -4,14 +4,14 @@ import {
   sdohDataSources,
   sdohDefinitionsArray,
 } from '../methodologyContent/SdohDefinitions'
-import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
-import { CodeBlock } from '../methodologyComponents/CodeBlock'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
+import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
 export const missingAhrDataArray = [
   {
@@ -42,14 +42,12 @@ function SdohLink() {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
           ]}
           rows={[
             {
               category: 'Social Determinants of Health',
               topic:
                 'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
-              variable: 'Race/ethnicity, Sex, Age',
             },
           ]}
         />
@@ -110,22 +108,9 @@ function SdohLink() {
           percentage by 1,000. For example, a 5% rate would become 5,000 per
           100,000 people.
         </p>
-        <CodeBlock
-          rowData={[
-            {
-              content: '5% rate (of 100)',
-            },
-            {
-              content: '===',
-            },
-            {
-              content: (
-                <>
-                  <b>5,000 per 100,000 people</b>
-                </>
-              ),
-            },
-          ]}
+        <FormulaFormat
+          leftSide='5% rate'
+          rightSide={['5 out of 100', ' = ', '5,000 per 100,000 people']}
         />
 
         <h3 className='mt-12 text-title font-medium' id='#sdoh-data-sources'>
@@ -135,8 +120,6 @@ function SdohLink() {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={sdohDataSources.map((source, index) => ({
@@ -148,8 +131,6 @@ function SdohLink() {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

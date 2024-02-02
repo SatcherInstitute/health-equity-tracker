@@ -14,14 +14,14 @@ const cawp = new CawpProvider()
 describe('CAWP Unit Tests', () => {
   test('Test getDatasetId() National', async () => {
     const national = Breakdowns.forFips(new Fips('00')).addBreakdown(RACE)
-    expect(cawp.getDatasetId(national, 'current')).toEqual(
+    expect(cawp.getDatasetId(national, undefined, 'current')).toEqual(
       'cawp_time_data-race_and_ethnicity_national_current'
     )
   })
 
   test('Test getDatasetId() State', async () => {
     const national = Breakdowns.forFips(new Fips('01')).addBreakdown(RACE)
-    expect(cawp.getDatasetId(national, 'historical')).toEqual(
+    expect(cawp.getDatasetId(national, undefined, 'historical')).toEqual(
       'cawp_time_data-race_and_ethnicity_state_historical'
     )
   })

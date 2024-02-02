@@ -25,7 +25,7 @@ export default function SourcesInfo(props: SourcesInfoProps) {
             <>(last update unknown) </>
           ) : (
             <>
-              (updated{' '}
+              (data from{' '}
               {Array.from(props.dataSourceMap[dataSourceId].updateTimes).join(
                 ', '
               )}

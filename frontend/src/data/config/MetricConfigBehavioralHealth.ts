@@ -11,7 +11,7 @@ export const BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS = [
   'frequent_mental_distress',
   'suicide',
   'substance',
-]
+] as const
 
 // TODO: this isn't really a sub-data type, just a different name than the parent dropdown. we should really use the parent dropdown here
 export type BehavioralHealthDataTypeId = 'non_medical_drug_use'

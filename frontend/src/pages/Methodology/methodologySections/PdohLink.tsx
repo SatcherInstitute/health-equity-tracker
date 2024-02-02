@@ -4,7 +4,7 @@ import {
   pdohDefinitionsArray,
 } from '../methodologyContent/PdohDefinitions'
 import Resources from '../methodologyComponents/Resources'
-import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
@@ -26,16 +26,13 @@ const PdohLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
+            { header: 'Topics (and Data Types)', accessor: 'topic' },
           ]}
           rows={[
             {
               category: 'Political Determinants of Health',
               topic:
-                'Incarceration, Voter Participation, Women Serving in Legislative Office',
-              variable:
-                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures, Race/ethnicity, Sex, Age',
+                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
             },
           ]}
         />
@@ -143,22 +140,22 @@ const PdohLink = () => {
         <p>
           We highlight the total count of children in adult facilities rather
           than a "per 100k" rate for a few reasons:
-          <ul>
-            <li>
-              Varying state and federal laws make it challenging to get an
-              accurate base population of minors in adult facilities.
-            </li>
-            <li>
-              Using the entire child population for rate calculations dilutes
-              the actual rate of incarcerated minors.
-            </li>
-            <li>
-              Our prison data for juveniles includes those confined to a
-              specific facility, unlike other reports which consider
-              jurisdictional populations.
-            </li>
-          </ul>
         </p>
+        <ul>
+          <li>
+            Varying state and federal laws make it challenging to get an
+            accurate base population of minors in adult facilities.
+          </li>
+          <li>
+            Using the entire child population for rate calculations dilutes the
+            actual rate of incarcerated minors.
+          </li>
+          <li>
+            Our prison data for juveniles includes those confined to a specific
+            facility, unlike other reports which consider jurisdictional
+            populations.
+          </li>
+        </ul>
         <h3 className='mt-12 text-title font-medium' id='#combined-systems'>
           Combined Systems
         </h3>
@@ -343,8 +340,6 @@ const PdohLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={pdohDataSources.map((source, index) => ({
@@ -356,8 +351,6 @@ const PdohLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />

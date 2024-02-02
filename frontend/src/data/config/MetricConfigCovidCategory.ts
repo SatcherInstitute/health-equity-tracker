@@ -8,7 +8,10 @@ import {
   populationPctTitle,
 } from './MetricConfigUtils'
 
-export const COVID_CATEGORY_DROPDOWNIDS = ['covid_vaccinations', 'covid']
+export const COVID_CATEGORY_DROPDOWNIDS = [
+  'covid_vaccinations',
+  'covid',
+] as const
 
 export type CovidCategoryDataTypeId =
   | 'covid_cases'
@@ -57,6 +60,9 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     definition: {
       text: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a “case definition”. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
     },
+    description: {
+      text: 'COVID-19 has had a disproportionate impact on certain populations, including people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 cases',
     metrics: {
@@ -102,6 +108,9 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'COVID-19 deaths',
     definition: {
       text: `The number of people who died due to COVID-19.`,
+    },
+    description: {
+      text: 'COVID-19 has had a disproportionate impact on certain populations, including people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 deaths',
@@ -155,6 +164,9 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'COVID-19 hospitalizations',
     definition: {
       text: `The number of people hospitalized at any point while ill with COVID-19.`,
+    },
+    description: {
+      text: 'COVID-19 has had a disproportionate impact on certain populations, including people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 hospitalizations',
@@ -213,6 +225,9 @@ export const COVID_VACCINATION_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'COVID-19 vaccinations',
     definition: {
       text: `For the national level and most states this indicates people who have received at least one dose of a COVID-19 vaccine.`,
+    },
+    description: {
+      text: 'COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations. Studying COVID-19 vaccinations in regard to health equity can help us to understand why these disparities exist and how to increase vaccination rates among all populations.',
     },
     dataTableTitle: 'Breakdown summary for COVID-19 vaccinations',
     metrics: {

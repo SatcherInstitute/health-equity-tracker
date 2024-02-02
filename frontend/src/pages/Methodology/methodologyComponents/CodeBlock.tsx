@@ -22,7 +22,7 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({
   minWidth = 700,
 }) => {
   return (
-    <TableContainer className=''>
+    <TableContainer>
       <Table
         className={
           border
