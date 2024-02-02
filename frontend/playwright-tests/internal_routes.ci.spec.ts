@@ -2,24 +2,15 @@ import { test, expect } from '@playwright/test';
 
 test.describe.configure({ mode: 'parallel' });
 
-test('Resources Tab Loads', async ({ page }) => {
-    await page.goto('/resources', { waitUntil: "commit" });
+
+test('Methodology Page Loads', async ({ page }) => {
+    // TODO: update this route once we switch over to newer methodology version
+    await page.goto('/new-methodology', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText(['Health Equity']);
+    await expect(mainHeading).toHaveText(['Methodology Introduction']);
     // @ts-ignore
     await expect(page).toPassAxe()
 });
-
-
-// TODO: re-enable once it's on PROD
-// test('Methodology Page Loads', async ({ page }) => {
-//     // TODO: update this route once we switch over to newer methodology version
-//     await page.goto('/new-methodology', { waitUntil: "commit" });
-//     const mainHeading = page.locator('#main');
-//     await expect(mainHeading).toHaveText(['Methodology']);
-//     // @ts-ignore
-//     await expect(page).toPassAxe()
-// });
 
 test('Age-Adjustment Tab Loads', async ({ page }) => {
     await page.goto('/ageadjustment', { waitUntil: "commit" });
