@@ -29,14 +29,14 @@ Instructions for Downloading Data:
 2. Select the desired injury outcome:
    - select either fatal or non-fatal data
 3. Choose the demographic selections for the report:
-   - select appropiate data years, geographic level, and other demgographic groups, i.e (age)
-4. Select the mechanisim (Firearm)
-5. Select appropiate report layout:
+   - select the appropriate data years, geographic level, and other demographic groups, i.e (age)
+4. Select the mechanism (Firearm)
+5. Select appropriate report layout:
    - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
 
 Notes:
 - There is no state-level data on non-fatal injury outcomes
-- Race data is only availble for fatal data and is avaibable from 2018-2021 
+- Race data is only available for fatal data and is available from 2018-2021 
 
 Last Updated: 2/24
 """
