@@ -15,6 +15,7 @@ HISTORICAL = "_historical"
 AGE_NATIONAL = "age_national"
 RACE_NATIONAL = "race_and_ethnicity_national"
 SEX_NATIONAL = "sex_national"
+SEX_STATE = "sex_state"
 
 AGE_NATIONAL_CURRENT = AGE_NATIONAL + CURRENT
 AGE_NATIONAL_HISTORICAL = AGE_NATIONAL + HISTORICAL
@@ -22,7 +23,8 @@ RACE_NATIONAL_CURRENT = RACE_NATIONAL + CURRENT
 RACE_NATIONAL_HISTORICAL = RACE_NATIONAL + HISTORICAL
 SEX_NATIONAL_CURRENT = SEX_NATIONAL + CURRENT
 SEX_NATIONAL_HISTORICAL = SEX_NATIONAL + HISTORICAL
-
+SEX_STATE_CURRENT = SEX_STATE + CURRENT
+SEX_STATE_HISTORICAL = SEX_STATE + HISTORICAL
 
 GOLDEN_DATA = {
     AGE_NATIONAL_CURRENT: os.path.join(GOLDEN_DIR, f"{AGE_NATIONAL_CURRENT}.csv"),
@@ -33,8 +35,8 @@ GOLDEN_DATA = {
     ),
     SEX_NATIONAL_CURRENT: os.path.join(GOLDEN_DIR, f"{SEX_NATIONAL_CURRENT}.csv"),
     SEX_NATIONAL_HISTORICAL: os.path.join(GOLDEN_DIR, f"{SEX_NATIONAL_HISTORICAL}.csv"),
-    "age_state_current": os.path.join(GOLDEN_DIR, "age_state_current.csv"),
-    "age_state_historical": os.path.join(GOLDEN_DIR, "age_state_historical.csv"),
+    SEX_STATE_CURRENT: os.path.join(GOLDEN_DIR, f"{SEX_STATE_CURRENT}.csv"),
+    SEX_STATE_HISTORICAL: os.path.join(GOLDEN_DIR, f"{SEX_STATE_HISTORICAL}.csv"),
 }
 
 DTYPE = {"state_fips": str, "time_period": str}
@@ -176,18 +178,18 @@ def test_write_to_bq_age_state(
 ):
     datasource = CDCWisqarsData()
     datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="age", geographic="state"
+        "dataset", "gcs_bucket", demographic="sex", geographic="state"
     )
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
     expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
-    assert table_name == "age_state_current"
+    assert table_name == "sex_state_current"
 
     actual_historical_df, _, table_name = mock_historical[0]
     expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
-    assert table_name == "age_state_historical"
+    assert table_name == "sex_state_historical"
 
     assert mock_bq.call_count == 2
 
