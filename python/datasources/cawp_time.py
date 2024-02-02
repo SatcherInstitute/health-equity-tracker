@@ -204,10 +204,6 @@ class CAWPTimeData(DataSource):
 
             # make _historical table with limited cols
             df_historical = df.copy()
-            print("starting hist", bq_table_name)
-            print(df_historical)
-            df_historical.to_csv("starting1", index=False)
-
             df_historical = df.drop(
                 columns=[
                     std_col.CONGRESS_COUNT,
@@ -238,11 +234,6 @@ class CAWPTimeData(DataSource):
 
             # make _current table with limited rows
             df_current = df.copy()
-
-            print("starting curr", bq_table_name)
-            print(df_current)
-            df_current.to_csv("starting2", index=False)
-
             df_current = df_current.drop(
                 columns=[
                     std_col.W_CONGRESS_PCT_INEQUITY,
