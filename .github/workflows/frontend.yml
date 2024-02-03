@@ -24,9 +24,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 19
+          node-version-file: frontend/package.json
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
       - name: Install dependencies
@@ -41,9 +41,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 19
+          node-version-file: frontend/package.json
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
       - name: Install dependencies
@@ -74,9 +74,9 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 19
+          node-version-file: frontend/package.json
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
       - name: Install dependencies

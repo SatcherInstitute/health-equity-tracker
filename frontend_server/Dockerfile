@@ -1,6 +1,6 @@
 # We use a two-stage build for the frontend. The first stage builds the frontend
 # React app.
-FROM node:16 AS build_react
+FROM node:20.11.0 AS build_react
 ARG DEPLOY_CONTEXT
 
 WORKDIR /usr/src/build
@@ -16,7 +16,7 @@ RUN npm run build:$DEPLOY_CONTEXT
 
 # Second stage: copy frontend build files from the first stage, build the server
 # code, and serve the frontend using node.
-FROM node:16
+FROM node:20.11.0
 ARG DEPLOY_CONTEXT
 ENV DEPLOY_CONTEXT=$DEPLOY_CONTEXT
 ARG BASIC_AUTH_USERNAME
