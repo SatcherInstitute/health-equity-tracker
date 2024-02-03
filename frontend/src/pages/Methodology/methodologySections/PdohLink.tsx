@@ -1,5 +1,3 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import { pdohDefinitionsArray } from '../methodologyContent/PdohDefinitions'
 import Resources from '../methodologyComponents/Resources'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
