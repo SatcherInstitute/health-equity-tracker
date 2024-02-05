@@ -10,6 +10,7 @@ import {
 } from '../../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
 import { covidTopicsString } from './Covid19Link'
+import { pdohTopicsString } from './PdohLink'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
@@ -82,8 +83,7 @@ export default function TopicsLink() {
             },
             {
               category: 'Political Determinants of Health (PDOH)',
-              topic:
-                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
+              topic: pdohTopicsString,
             },
             {
               category: 'Social Determinants of Health (SDOH)',
