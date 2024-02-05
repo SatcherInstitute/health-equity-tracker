@@ -1,5 +1,6 @@
 import { methodologyTableDefinitions } from './MethodologyTopicDefinitions'
 import { conditionVariableDefinitions } from './ConditionVariableDefinitions'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 
 export const pdohDefinitionsArray = [
   {
@@ -72,4 +73,14 @@ export const pdohDefinitionsArray = [
       },
     ],
   },
+]
+
+export const pdohDataSources = [
+  dataSourceMetadataMap.bjs,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.vera,
+  dataSourceMetadataMap.cawp,
+  dataSourceMetadataMap.the_unitedstates_project,
 ]
