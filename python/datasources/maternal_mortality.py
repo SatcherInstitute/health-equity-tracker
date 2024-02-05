@@ -1,6 +1,8 @@
 from ingestion import gcs_to_bq_util
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
+from ingestion.merge_utils import merge_state_ids
+
 
 RACE_GROUPS_TO_STANDARD = {
     'Non-Hispanic American Indian and Alaska Native': std_col.Race.AIAN_NH.value,
@@ -40,6 +42,8 @@ class MaternalMortalityData(DataSource):
             columns={
                 'val': 'maternal_mortality_per_100k',
                 'race_group': std_col.RACE_CATEGORY_ID_COL,
+                'location_name': std_col.STATE_NAME_COL,
+                'year_id': std_col.TIME_PERIOD_COL,
             }
         )
 
@@ -48,6 +52,11 @@ class MaternalMortalityData(DataSource):
 
         df = df.replace(RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(df)
+        df = merge_state_ids(df)
+
+        df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
 
         print("\n")
         print(df)
+
+        print(df.dtypes)
