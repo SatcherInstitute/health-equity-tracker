@@ -29,7 +29,6 @@ export type LinkName =
   | 'doi2'
   | 'doi3'
   | 'cawp'
-  | 'propublica'
   | 'repJohnLewisTweet'
   | 'deniedVoting'
   | 'aafp'
@@ -90,7 +89,7 @@ export const urlMap: Record<LinkName, string> = {
   kffCovid: 'https://www.kff.org/state-category/covid-19/',
   cdcVaxCounty:
     'https://data.cdc.gov/Vaccinations/COVID-19-Vaccinations-in-the-United-States-County/8xkx-amqh',
-  amr: 'https://www.americashealthrankings.org/explore/annual/measure/Overall_a/state/ALL',
+  amr: 'https://www.americashealthrankings.org/explore/measures',
   amrMethodology:
     'https://www.americashealthrankings.org/about/methodology/data-sources-and-measures',
   cdcCovidRestricted:
@@ -100,8 +99,6 @@ export const urlMap: Record<LinkName, string> = {
   doi2: 'https://doi.org/10.1111/j.1540-5907.2011.00512.x',
   doi3: 'https://doi.org/10.1146/annurev.polisci.11.053106.123839',
   cawp: 'https://cawpdata.rutgers.edu/',
-  propublica:
-    'https://www.propublica.org/datastore/api/propublica-congress-api',
   senateMENA:
     'https://www.hsgac.senate.gov/media/majority-media/peters-urges-omb-to-include-middle-east-north-africa-category-in-federal-standards-for-gathering-data-on-race-and-ethnicity',
   unitedStatesIo: 'https://theunitedstates.io/',
