@@ -1,7 +1,7 @@
 from ingestion import gcs_to_bq_util
 from datasources.data_source import DataSource
 import ingestion.standardized_columns as std_col
-from ingestion.merge_utils import merge_state_ids
+from ingestion.merge_utils import merge_state_ids, merge_pop_numbers
 
 
 RACE_GROUPS_TO_STANDARD = {
@@ -53,8 +53,21 @@ class MaternalMortalityData(DataSource):
         df = df.replace(RACE_GROUPS_TO_STANDARD)
         std_col.add_race_columns_from_category_id(df)
         df = merge_state_ids(df)
+        df = merge_pop_numbers(df, "race", 'state')
 
         df[std_col.TIME_PERIOD_COL] = df[std_col.TIME_PERIOD_COL].astype(str)
+
+        df = df[
+            [
+                std_col.TIME_PERIOD_COL,
+                std_col.STATE_FIPS_COL,
+                std_col.RACE_CATEGORY_ID_COL,
+                'maternal_mortality_per_100k',
+                std_col.STATE_NAME_COL,
+                std_col.RACE_OR_HISPANIC_COL,
+                std_col.POPULATION_PCT_COL,
+            ]
+        ]
 
         print("\n")
         print(df)
