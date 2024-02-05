@@ -29,7 +29,7 @@ Instructions for Downloading Data:
 2. Select the desired injury outcome:
    - select either fatal or non-fatal data
 3. Choose the demographic selections for the report:
-   - select the appropriate data years, geographic level, and other demographic groups, i.e (age)
+   - select the appropriate data years, geographic level, and other demographic groups, i.e (age, race)
 4. Select the mechanism (Firearm)
 5. Select appropriate report layout:
    - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
