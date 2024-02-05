@@ -37,7 +37,7 @@ export const LEADERSHIP_TEAM = [
   },
   {
     name: 'Kim Cinco, MPsy, USN Vet.',
-    role: 'Product Manager',
+    role: 'UX Engineer',
     imageUrl: Kim,
   },
   {
@@ -74,6 +74,17 @@ export const LEADERSHIP_TEAM = [
     name: 'Shaneeta M. Johnson MD, MBA, FACS, FASMBS, ABOM',
     role: 'Senior Advisor',
     imageUrl: Shaneeta,
+  },
+]
+
+export const HET_DEV_PROGRAM = [
+  {
+    name: 'Ali Nix',
+    role: 'Software Engineer',
+  },
+  {
+    name: 'James Demlow',
+    role: 'Software Engineer',
   },
 ]
 
