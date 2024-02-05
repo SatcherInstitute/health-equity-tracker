@@ -27,4 +27,10 @@ class MaternalMortalityData(DataSource):
             'IHME_USA_MMR_STATE_RACE_ETHN_1999_2019_ESTIMATES_Y2023M07D03.CSV',
         )
 
+        df = df.rename(columns={'val': 'maternal_mortality_per_100k'})
+
+        # round to whole numbers
+        df['maternal_mortality_per_100k'] = df['maternal_mortality_per_100k'].round(0)
+
+        print("\n")
         print(df)
