@@ -1,5 +1,3 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import { chronicDiseaseDefinitionsArray } from '../methodologyContent/ChronicDiseaseDefinitions'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
@@ -8,11 +6,20 @@ import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 
 export const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,
   dataSourceMetadataMap.ahr,
 ]
+
+const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return METRIC_CONFIG[dropdownId]
+  }
+).flat()
 
 const ChronicDiseaseLink = () => {
   return (
@@ -132,9 +139,10 @@ const ChronicDiseaseLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#chronic-diseases-key-terms'
-          definitionsArray={chronicDiseaseDefinitionsArray}
+
+        <KeyTermsAccordion
+          hashId='#chronic-diseases-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
       </article>
     </section>
