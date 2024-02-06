@@ -44,8 +44,7 @@ const HivLink = () => {
           rows={[
             {
               category: 'HIV',
-              topic:
-                'HIV (Prevalence, New diagnoses, Deaths), HIV (Prevalence, New diagnoses, Deaths for Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
+              topic: hivTopicsString,
             },
           ]}
         />
