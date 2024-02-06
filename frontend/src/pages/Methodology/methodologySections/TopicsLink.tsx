@@ -12,6 +12,7 @@ import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
 import { covidTopicsString } from './Covid19Link'
 import { pdohTopicsString } from './PdohLink'
 import { hivTopicsString } from './HivLink'
+import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
@@ -70,8 +71,7 @@ export default function TopicsLink() {
             },
             {
               category: 'Chronic Diseases',
-              topic:
-                'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
+              topic: chronicDiseaseTopicsString,
             },
             {
               category: 'COVID-19',
