@@ -46,8 +46,7 @@ const ChronicDiseaseLink = () => {
           rows={[
             {
               category: 'Chronic Diseases',
-              topic:
-                'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
+              topic: chronicDiseaseTopicsString,
             },
           ]}
         />
