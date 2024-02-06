@@ -11,8 +11,8 @@ import {
   HET_DEV_PROGRAM,
 } from './OurTeamData'
 import { urlMap } from '../../utils/externalUrls'
-import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
 import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
+import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
 
 export default function AboutUsPage() {
   return (
