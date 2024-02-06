@@ -12,6 +12,7 @@ import {
 } from './OurTeamData'
 import { urlMap } from '../../utils/externalUrls'
 import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
+import HetAddressBlock from '../../styles/HetComponents/HetAddressBlock'
 
 export default function AboutUsPage() {
   return (
@@ -23,7 +24,7 @@ export default function AboutUsPage() {
       <header className=' flex w-full flex-col content-center items-center'>
         <div className=' flex  w-full '>
           <div className='hidden w-full  place-content-center border-0 border-b border-borderColor md:grid md:w-5/12 md:border-solid'>
-            <AddressBlock />
+            <HetAddressBlock />
           </div>
           <div className='hidden w-full border-0 border-b border-l border-borderColor md:block md:w-7/12  md:border-solid'>
             <img
@@ -44,7 +45,7 @@ export default function AboutUsPage() {
         >
           About the Health Equity Tracker
         </h3>
-        <AddressBlock className='block md:hidden' />
+        <HetAddressBlock className='block md:hidden' />
         <p className='max-w-md px-6 text-left'>
           The Health Equity Tracker is a project of the{' '}
           <a href={urlMap.shli}>Satcher Health Leadership Institute (SHLI)</a>{' '}
@@ -240,7 +241,7 @@ export default function AboutUsPage() {
             Grantors
           </h3>
 
-          <ul className='grid list-none grid-cols-3 justify-between gap-5  lg:grid-cols-6 '>
+          <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6'>
             {GRANTORS.map((grantor) => (
               <li key={grantor.url}>
                 <a href={grantor.url}>
@@ -256,38 +257,5 @@ export default function AboutUsPage() {
         </section>
       </div>
     </>
-  )
-}
-
-interface AddressBlockProps {
-  className?: string
-}
-function AddressBlock(props: AddressBlockProps) {
-  return (
-    <article
-      className={`min-w-fit text-left font-sansTitle text-small sm:text-text lg:text-title ${
-        props.className ?? ''
-      }`}
-    >
-      Morehouse School of Medicine
-      <br />
-      Satcher Health Leadership Institute
-      <br />
-      720 Westview Drive SW
-      <br />
-      Atlanta, Georgia 30310
-      <p>
-        <a className='no-underline hover:underline' href='tel:4047528654'>
-          (404) 752-8654
-        </a>
-        <br />
-        <a
-          className='no-underline hover:underline'
-          href='mailto:info@healthequitytracker.org'
-        >
-          info@healthequitytracker.org
-        </a>
-      </p>
-    </article>
   )
 }
