@@ -1,8 +1,3 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  hivDataSources,
-  hivDefinitionsArray,
-} from '../methodologyContent/HIVDefinitions'
 import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
@@ -11,6 +6,24 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+
+export const hivDataSources = [
+  dataSourceMetadataMap.cdc_atlas,
+  dataSourceMetadataMap.acs,
+]
+
+const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const hivTopicsString = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return DROPDOWN_TOPIC_MAP[dropdownId]
+}).join(', ')
 
 const HivLink = () => {
   return (
@@ -31,8 +44,7 @@ const HivLink = () => {
           rows={[
             {
               category: 'HIV',
-              topic:
-                'HIV (Prevalence, New diagnoses, Deaths), HIV (Prevalence, New diagnoses, Deaths for Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
+              topic: hivTopicsString,
             },
           ]}
         />
@@ -574,7 +586,11 @@ const HivLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms id='#hiv-key-terms' definitionsArray={hivDefinitionsArray} />
+
+        <KeyTermsAccordion
+          hashId='#hiv-key-terms'
+          datatypeConfigs={datatypeConfigs}
+        />
         <Resources id='#hiv-resources' resourceGroups={[HIV_RESOURCES]} />
       </article>
     </section>
