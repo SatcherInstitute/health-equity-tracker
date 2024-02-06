@@ -76,20 +76,12 @@ export default function AboutUsPage() {
           In 1981, MSM became an independently chartered institution. MSM is
           among the nation’s leading educators of primary care physicians and
           was recently recognized as the top institution among U.S. medical
-          schools for our social mission. Our faculty and alumni are noted in
-          their fields for excellence in teaching, research and public policy.
-        </p>
-        <p className='max-w-md text-left'>
-          MSM is accredited by the Southern Association of Colleges and Schools
-          Commission on Colleges, Liaison Committee on Medical Education,
-          Council on Education for Public Health, Accreditation Council for
-          Continuing Medical Education and Accreditation Council for Graduate
-          Medical Education. We exist to: improve the health and well-being of
-          individuals and communities; increase the diversity of the health
-          professional and scientific workforce; and address primary health care
-          through programs in education, research, and service, all with an
-          emphasis on people of color and the underserved urban and rural
-          populations in Georgia, the nation, and the world.
+          schools for our social mission. We exist to: improve the health and
+          well-being of individuals and communities; increase the diversity of
+          the health professional and scientific workforce; and address primary
+          health care through programs in education, research, and service, all
+          with an emphasis on people of color and the underserved urban and
+          rural populations in Georgia, the nation, and the world.
         </p>
 
         <h4>Satcher Health Leadership Institute</h4>

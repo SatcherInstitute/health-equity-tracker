@@ -106,7 +106,7 @@ export const HET_ALUMNI = [
     role: 'Product Manager',
   },
   {
-    name: 'Josh Zarrabi',
+    name: 'Josh Zarrabi, BA',
     role: 'Senior Software Engineer',
   },
   {
@@ -122,7 +122,7 @@ export const HET_ALUMNI = [
     role: 'Senior Advisor',
   },
   {
-    name: 'Ebony Respress',
+    name: 'Ebony Respress, MSPH, MA',
     role: 'Project Director',
   },
   {
