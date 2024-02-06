@@ -32,9 +32,17 @@ export default function AboutUsPage() {
               <br />
               Atlanta, Georgia 30310
               <p>
-                <a href='tel:4047528654'>(404) 752-8654</a>
+                <a
+                  className='no-underline hover:underline'
+                  href='tel:4047528654'
+                >
+                  (404) 752-8654
+                </a>
                 <br />
-                <a href='mailto:info@healthequitytracker.org'>
+                <a
+                  className='no-underline hover:underline'
+                  href='mailto:info@healthequitytracker.org'
+                >
                   info@healthequitytracker.org
                 </a>
               </p>
