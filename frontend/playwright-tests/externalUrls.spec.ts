@@ -16,7 +16,11 @@ const knownFlakyUrls = [
     "https://www.apha.org/topics-and-issues/communicable-disease/coronavirus/equity",
     "https://www.policylink.org/health-equity-resources",
     "https://www.uihi.org/resources/best-practices-for-american-indian-and-alaska-native-data-collection/",
-    "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf"
+    "https://www.atsdr.cdc.gov/placeandhealth/svi/documentation/pdf/SVI2018Documentation_01192022_1.pdf",
+    "https://www.naccho.org/programs/public-health-infrastructure/health-equity",
+    "https://www.naccho.org/programs/public-health-infrastructure/performance-improvement/community-health-assessment/mapp",
+    "https://pubmed.ncbi.nlm.nih.gov/21563622/"
+
 
 ]
 
@@ -26,7 +30,7 @@ test.describe.configure({ mode: 'parallel' });
 test(`Fetch First 100 Blog Posts`, async ({ page }) => {
     const url = "https://hetblog.dreamhosters.com/wp-json/wp/v2/posts?_embed&per_page=100"
     const response = await page.goto(url, { waitUntil: "domcontentloaded" });
-    if (response?.status() !== 200) console.log(url, response?.status());
+    if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
 });
 
 
@@ -34,7 +38,7 @@ for (const url of Object.values(urlMap)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`${url}`, async ({ page }) => {
         const response = await page.goto(url, { waitUntil: "domcontentloaded" });
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -42,7 +46,7 @@ for (const url of RESOURCES.resources.filter(resource => resource.url).map(fello
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`Resource Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -50,7 +54,7 @@ for (const url of PDOH_RESOURCES.resources.filter(resource => resource.url).map(
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`PDOH_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -58,7 +62,7 @@ for (const url of EQUITY_INDEX_RESOURCES.resources.filter(resource => resource.u
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`EQUITY_INDEX_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -66,7 +70,7 @@ for (const url of ECONOMIC_EQUITY_RESOURCES.resources.filter(resource => resourc
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`ECONOMIC_EQUITY_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -74,7 +78,7 @@ for (const url of AIAN_RESOURCES.resources.filter(resource => resource.url).map(
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`AIAN_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -82,7 +86,7 @@ for (const url of API_RESOURCES.resources.filter(resource => resource.url).map(f
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`API_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -90,7 +94,7 @@ for (const url of HISP_RESOURCES.resources.filter(resource => resource.url).map(
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`HISP_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 
@@ -98,19 +102,19 @@ for (const url of MENTAL_HEALTH_RESOURCES.resources.filter(resource => resource.
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`MENTAL_HEALTH_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
 for (const url of COVID_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`COVID_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 } for (const url of COVID_VACCINATION_RESOURCES.resources.filter(resource => resource.url).map(fellow => fellow.url)) {
     if (!url || knownFlakyUrls.includes(url)) continue
     test(`COVID_VACCINATION_RESOURCES Page: ${url}`, async ({ page }) => {
         const response = await page.goto(url);
-        if (response?.status() !== 200) console.log(url, response?.status());
+        if (response?.status() !== 200) console.log("\n🙀", url, response?.status(), "\n");
     });
 }
