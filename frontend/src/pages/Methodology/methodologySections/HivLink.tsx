@@ -1,8 +1,5 @@
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  hivDataSources,
-  hivDefinitionsArray,
-} from '../methodologyContent/HIVDefinitions'
+import { hivDefinitionsArray } from '../methodologyContent/HIVDefinitions'
 import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
@@ -11,6 +8,12 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+
+export const hivDataSources = [
+  dataSourceMetadataMap.cdc_atlas,
+  dataSourceMetadataMap.acs,
+]
 
 const HivLink = () => {
   return (
