@@ -21,7 +21,7 @@ test('Age-Adjustment Tab Loads', async ({ page }) => {
 test('About Us Page Loads', async ({ page }) => {
     await page.goto('/aboutus', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText([`We are committed to the following ethics`]);
+    await expect(mainHeading).toHaveText([`About the Health Equity Tracker`]);
     // @ts-ignore
     await expect(page).toPassAxe()
 });

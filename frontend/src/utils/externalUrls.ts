@@ -42,6 +42,7 @@ export type LinkName =
   | 'unitedStatesIo'
   | 'cdcTrans'
   | 'hetTikTok'
+  | 'msm'
 
 export const urlMap: Record<LinkName, string> = {
   hetTikTok: 'https://www.tiktok.com/@healthequitytracker',
@@ -102,4 +103,5 @@ export const urlMap: Record<LinkName, string> = {
   senateMENA:
     'https://www.hsgac.senate.gov/media/majority-media/peters-urges-omb-to-include-middle-east-north-africa-category-in-federal-standards-for-gathering-data-on-race-and-ethnicity',
   unitedStatesIo: 'https://theunitedstates.io/',
+  msm: 'https://www.msm.edu/',
 }

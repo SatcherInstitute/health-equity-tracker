@@ -11,18 +11,19 @@ import {
   GRANTORS,
   HET_DEV_PROGRAM,
 } from './OurTeamData'
+import { urlMap } from '../../utils/externalUrls'
 
 export default function AboutUsPage() {
   return (
     <>
       <Helmet>
-        <title>Contact Us - About Us - Health Equity Tracker</title>
+        <title>About Us - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Contact Us</h2>
-      <div className=' flex w-full flex-col content-center items-center'>
+      <header className=' flex w-full flex-col content-center items-center'>
         <div className=' flex  w-full '>
           <div className='grid w-full place-content-center border-0 border-b border-borderColor md:w-5/12 md:border-solid'>
-            <article className='min-w-fit pb-0 pt-10 text-left text-title md:py-5 lg:text-smallestHeader'>
+            <article className='min-w-fit pb-0 pt-16 text-left md:py-5 lg:text-title'>
               Morehouse School of Medicine
               <br />
               Satcher Health Leadership Institute
@@ -49,13 +50,67 @@ export default function AboutUsPage() {
             />
           </div>
         </div>
-      </div>
+      </header>
 
-      <section className='border-0 border-t border-borderColor pt-24 md:border-solid'>
+      <section className='mx-4 flex flex-col items-center border-0 border-t border-borderColor md:border-solid md:pt-20'>
         <h3
           id='main'
-          className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-altGreen'
+          className='mx-4 text-center font-serif  text-header font-light italic leading-lhSomeSpace text-altGreen md:text-bigHeader'
         >
+          About the Health Equity Tracker
+        </h3>
+        <p className='max-w-md text-left'>
+          The Health Equity Tracker is a project of the{' '}
+          <a href={urlMap.shli}>Satcher Health Leadership Institute (SHLI)</a>{' '}
+          at <a href={urlMap.msm}>Morehouse School of Medicine</a>. We aim to
+          address health disparities in the United States by identifying at-risk
+          populations and highlighting data inequities. By providing
+          policymakers, community leaders, and researchers the data they need to
+          make informed decisions, this scalable, feature-rich platform supports
+          efforts to achieve health equity and justice for all.
+        </p>
+        <h4>Morehouse School of Medicine</h4>
+        <p className='max-w-md text-left'>
+          Morehouse School of Medicine (MSM), located in Atlanta, Ga., was
+          founded in 1975 as the Medical Education Program at Morehouse College.
+          In 1981, MSM became an independently chartered institution. MSM is
+          among the nation’s leading educators of primary care physicians and
+          was recently recognized as the top institution among U.S. medical
+          schools for our social mission. Our faculty and alumni are noted in
+          their fields for excellence in teaching, research and public policy.
+        </p>
+        <p className='max-w-md text-left'>
+          MSM is accredited by the Southern Association of Colleges and Schools
+          Commission on Colleges, Liaison Committee on Medical Education,
+          Council on Education for Public Health, Accreditation Council for
+          Continuing Medical Education and Accreditation Council for Graduate
+          Medical Education. We exist to: improve the health and well-being of
+          individuals and communities; increase the diversity of the health
+          professional and scientific workforce; and address primary health care
+          through programs in education, research, and service, all with an
+          emphasis on people of color and the underserved urban and rural
+          populations in Georgia, the nation, and the world.
+        </p>
+
+        <h4>Satcher Health Leadership Institute</h4>
+
+        <p className='max-w-md text-left'>
+          Rooted in the legacy of our founder, the 16th U.S. Surgeon General,
+          Dr. David Satcher, SHLI’s mission is to create systemic change at the
+          intersection of policy and equity by focusing on three priority areas:
+          the political determinants of health, health system transformation,
+          and mental and behavioral health. In conjunction with key strategic
+          partners, SHLI enhances leadership among diverse learners, conducts
+          forward-thinking research on the drivers of health inequities, and
+          advances evidence-based policies; all in an effort to contribute to
+          the achievement of health equity for all population groups.
+        </p>
+
+        <HetEmailSignup className='p-24' id='contact-email-signup' />
+      </section>
+
+      <section className='border-0 border-t border-borderColor md:border-solid  md:pt-20'>
+        <h3 className='mx-4 text-center font-serif  text-header font-light italic leading-lhSomeSpace text-altGreen sm:text-bigHeader'>
           We are committed to the following ethics
         </h3>
         <ul className='flex list-none flex-wrap'>
@@ -79,8 +134,6 @@ export default function AboutUsPage() {
                 recommendations.'
           />
         </ul>
-
-        <HetEmailSignup className='pt-24' id='contact-email-signup' />
       </section>
 
       <div className='flex w-full  flex-col p-10'>
