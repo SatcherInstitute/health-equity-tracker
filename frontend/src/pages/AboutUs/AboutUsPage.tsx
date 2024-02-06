@@ -52,7 +52,10 @@ export default function AboutUsPage() {
       </div>
 
       <section className='border-0 border-t border-borderColor pt-24 md:border-solid'>
-        <h3 className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-altGreen'>
+        <h3
+          id='main'
+          className='text-center font-serif text-biggerHeader font-light italic leading-lhSomeSpace text-altGreen'
+        >
           We are committed to the following ethics
         </h3>
         <ul className='flex list-none flex-wrap'>

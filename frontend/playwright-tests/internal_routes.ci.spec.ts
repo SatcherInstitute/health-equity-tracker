@@ -18,26 +18,10 @@ test('Age-Adjustment Tab Loads', async ({ page }) => {
     await expect(page).toPassAxe()
 });
 
-test('About Us Page / Project Tab Loads', async ({ page }) => {
+test('About Us Page Loads', async ({ page }) => {
     await page.goto('/aboutus', { waitUntil: "commit" });
     const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText([`We're focused on equitable data.`]);
-    // @ts-ignore
-    await expect(page).toPassAxe()
-});
-
-test('Our Team Tab Loads', async ({ page }) => {
-    await page.goto('/ourteam', { waitUntil: "commit" });
-    const mainHeading = page.locator('#main');
-    await expect(mainHeading).toHaveText([`We're working towards a better tomorrow.`]);
-    // @ts-ignore
-    await expect(page).toPassAxe()
-});
-
-test('Contact Tab Loads', async ({ page }) => {
-    await page.goto('/contact', { waitUntil: "commit" });
-    const mainHeading = page.locator('#main');
-    await expect(mainHeading).toContainText([`Let's move`], { useInnerText: true });
+    await expect(mainHeading).toHaveText([`We are committed to the following ethics`]);
     // @ts-ignore
     await expect(page).toPassAxe()
 });
