@@ -6,7 +6,7 @@ import {
   EXPLORE_DATA_PAGE_LINK,
 } from '../../../utils/internalRoutes'
 import { Link } from 'react-router-dom'
-import KeyTerms from '../methodologyComponents/KeyTerms'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
 import Resources from '../methodologyComponents/Resources'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
@@ -872,7 +872,7 @@ const AgeAdjustmentLink = () => {
         </div>
       </article>
       <aside>
-        <KeyTerms
+        <KeyTermsAccordion
           id='#age-adjustment-key-terms'
           definitionsArray={ageAdjustmentDefinitionsArray}
         />

@@ -7,7 +7,7 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
@@ -145,7 +145,7 @@ export default function BehavioralHealthLink() {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#behavioral-health-key-terms'
           datatypeConfigs={datatypeConfigs}
         />

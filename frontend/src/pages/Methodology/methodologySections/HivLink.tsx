@@ -9,7 +9,7 @@ import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const hivDataSources = [
@@ -587,7 +587,7 @@ const HivLink = () => {
           }))}
         />
 
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#hiv-key-terms'
           datatypeConfigs={datatypeConfigs}
         />

@@ -8,7 +8,7 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const chronicDiseaseDataSources = [
@@ -145,7 +145,7 @@ const ChronicDiseaseLink = () => {
           }))}
         />
 
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#chronic-diseases-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
