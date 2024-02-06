@@ -10,6 +10,7 @@ import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,
@@ -19,6 +20,10 @@ export const hivDataSources = [
 const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
+
+export const hivTopicsString = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return DROPDOWN_TOPIC_MAP[dropdownId]
+}).join(', ')
 
 const HivLink = () => {
   return (
