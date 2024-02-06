@@ -1,9 +1,7 @@
-import { het } from '../../styles/DesignTokens'
-
 export default function TikTokIcon() {
   return (
     <svg
-      fill={het.altGreen}
+      fill='currentColor'
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 50 50'
       width='22px'

@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async'
-import HetEmailSignup from '../../styles/HetComponents/HetEmailSignup'
 import GoalListItem from './GoalListItem'
 import LazyLoad from 'react-lazyload'
 import {
@@ -12,6 +11,7 @@ import {
   HET_DEV_PROGRAM,
 } from './OurTeamData'
 import { urlMap } from '../../utils/externalUrls'
+import HetSocialIconLinks from '../../styles/HetComponents/HetSocialIconLinks'
 
 export default function AboutUsPage() {
   return (
@@ -22,31 +22,8 @@ export default function AboutUsPage() {
       <h2 className='sr-only'>Contact Us</h2>
       <header className=' flex w-full flex-col content-center items-center'>
         <div className=' flex  w-full '>
-          <div className='grid w-full place-content-center border-0 border-b border-borderColor md:w-5/12 md:border-solid'>
-            <article className='min-w-fit pb-0 pt-16 text-left md:py-5 lg:text-title'>
-              Morehouse School of Medicine
-              <br />
-              Satcher Health Leadership Institute
-              <br />
-              720 Westview Drive SW
-              <br />
-              Atlanta, Georgia 30310
-              <p>
-                <a
-                  className='no-underline hover:underline'
-                  href='tel:4047528654'
-                >
-                  (404) 752-8654
-                </a>
-                <br />
-                <a
-                  className='no-underline hover:underline'
-                  href='mailto:info@healthequitytracker.org'
-                >
-                  info@healthequitytracker.org
-                </a>
-              </p>
-            </article>
+          <div className='hidden w-full  place-content-center border-0 border-b border-borderColor md:grid md:w-5/12 md:border-solid'>
+            <AddressBlock />
           </div>
           <div className='hidden w-full border-0 border-b border-l border-borderColor md:block md:w-7/12  md:border-solid'>
             <img
@@ -60,14 +37,15 @@ export default function AboutUsPage() {
         </div>
       </header>
 
-      <section className='mx-4 flex flex-col items-center border-0 border-t border-borderColor md:border-solid md:pt-20'>
+      <section className='mx-4 flex flex-col items-center  md:pt-20'>
         <h3
           id='main'
           className='mx-4 text-center font-serif  text-header font-light italic leading-lhSomeSpace text-altGreen md:text-bigHeader'
         >
           About the Health Equity Tracker
         </h3>
-        <p className='max-w-md text-left'>
+        <AddressBlock className='block md:hidden' />
+        <p className='max-w-md px-6 text-left'>
           The Health Equity Tracker is a project of the{' '}
           <a href={urlMap.shli}>Satcher Health Leadership Institute (SHLI)</a>{' '}
           at <a href={urlMap.msm}>Morehouse School of Medicine</a>. We aim to
@@ -77,8 +55,10 @@ export default function AboutUsPage() {
           make informed decisions, this scalable, feature-rich platform supports
           efforts to achieve health equity and justice for all.
         </p>
-        <h4>Morehouse School of Medicine</h4>
-        <p className='max-w-md text-left'>
+        <h4 className='font-sansTitle font-medium'>
+          Morehouse School of Medicine
+        </h4>
+        <p className='max-w-md px-6 text-left'>
           Morehouse School of Medicine (MSM), located in Atlanta, Ga., was
           founded in 1975 as the Medical Education Program at Morehouse College.
           In 1981, MSM became an independently chartered institution. MSM is
@@ -92,9 +72,11 @@ export default function AboutUsPage() {
           rural populations in Georgia, the nation, and the world.
         </p>
 
-        <h4>Satcher Health Leadership Institute</h4>
+        <h4 className='font-sansTitle font-medium'>
+          Satcher Health Leadership Institute
+        </h4>
 
-        <p className='max-w-md text-left'>
+        <p className='max-w-md px-6 text-left'>
           Rooted in the legacy of our founder, the 16th U.S. Surgeon General,
           Dr. David Satcher, SHLI’s mission is to create systemic change at the
           intersection of policy and equity by focusing on three priority areas:
@@ -106,14 +88,14 @@ export default function AboutUsPage() {
           the achievement of health equity for all population groups.
         </p>
 
-        <HetEmailSignup className='p-24' id='contact-email-signup' />
+        <HetSocialIconLinks className='py-16' colorOverride='altBlack' />
       </section>
 
       <section className='border-0 border-t border-borderColor md:border-solid  md:pt-20'>
         <h3 className='mx-4 text-center font-serif  text-header font-light italic leading-lhSomeSpace text-altGreen sm:text-bigHeader'>
           We are committed to the following ethics
         </h3>
-        <ul className='flex list-none flex-wrap'>
+        <ul className='mx-4 flex list-none flex-wrap pl-0'>
           <GoalListItem
             title='Transparency & Accountability'
             text='We partner closely with diverse communities and are clear
@@ -137,8 +119,8 @@ export default function AboutUsPage() {
       </section>
 
       <div className='flex w-full  flex-col p-10'>
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Leadership Team
           </h3>
           <ul className='grid list-none grid-cols-1 justify-between gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
@@ -160,8 +142,8 @@ export default function AboutUsPage() {
           </ul>
         </section>
 
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             HET Development Program
           </h3>
 
@@ -177,8 +159,8 @@ export default function AboutUsPage() {
           </ul>
         </section>
 
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Former SHLI Contributors
           </h3>
 
@@ -194,8 +176,8 @@ export default function AboutUsPage() {
           </ul>
         </section>
 
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Google.org Fellows
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-5 md:grid-cols-3  lg:grid-cols-4 xl:grid-cols-5'>
@@ -220,8 +202,8 @@ export default function AboutUsPage() {
           </ul>
         </section>
 
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Health Equity Task Force
           </h3>
           <ul className='grid list-none grid-cols-2 justify-between gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
@@ -231,8 +213,8 @@ export default function AboutUsPage() {
           </ul>
         </section>
 
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Founding Partners
           </h3>
 
@@ -253,8 +235,8 @@ export default function AboutUsPage() {
           </LazyLoad>
         </section>
 
-        <section className='flex flex-col'>
-          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-thin leading-lhSomeMoreSpace'>
+        <section className='flex flex-col pt-8'>
+          <h3 className='border-[0] border-b border-solid   border-black text-left font-serif text-smallHeader font-light leading-lhSomeMoreSpace'>
             Grantors
           </h3>
 
@@ -274,5 +256,38 @@ export default function AboutUsPage() {
         </section>
       </div>
     </>
+  )
+}
+
+interface AddressBlockProps {
+  className?: string
+}
+function AddressBlock(props: AddressBlockProps) {
+  return (
+    <article
+      className={`min-w-fit text-left font-sansTitle text-small sm:text-text lg:text-title ${
+        props.className ?? ''
+      }`}
+    >
+      Morehouse School of Medicine
+      <br />
+      Satcher Health Leadership Institute
+      <br />
+      720 Westview Drive SW
+      <br />
+      Atlanta, Georgia 30310
+      <p>
+        <a className='no-underline hover:underline' href='tel:4047528654'>
+          (404) 752-8654
+        </a>
+        <br />
+        <a
+          className='no-underline hover:underline'
+          href='mailto:info@healthequitytracker.org'
+        >
+          info@healthequitytracker.org
+        </a>
+      </p>
+    </article>
   )
 }
