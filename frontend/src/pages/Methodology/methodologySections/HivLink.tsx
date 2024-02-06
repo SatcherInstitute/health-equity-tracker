@@ -1,5 +1,3 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import { hivDefinitionsArray } from '../methodologyContent/HIVDefinitions'
 import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
@@ -9,11 +7,18 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
 
 export const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,
   dataSourceMetadataMap.acs,
 ]
+
+const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
 
 const HivLink = () => {
   return (
@@ -577,7 +582,11 @@ const HivLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms id='#hiv-key-terms' definitionsArray={hivDefinitionsArray} />
+
+        <KeyTermsAccordion
+          hashId='#hiv-key-terms'
+          datatypeConfigs={datatypeConfigs}
+        />
         <Resources id='#hiv-resources' resourceGroups={[HIV_RESOURCES]} />
       </article>
     </section>
