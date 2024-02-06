@@ -1,8 +1,5 @@
 import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  chronicDiseaseDataSources,
-  chronicDiseaseDefinitionsArray,
-} from '../methodologyContent/ChronicDiseaseDefinitions'
+import { chronicDiseaseDefinitionsArray } from '../methodologyContent/ChronicDiseaseDefinitions'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
@@ -10,6 +7,12 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+
+export const chronicDiseaseDataSources = [
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+]
 
 const ChronicDiseaseLink = () => {
   return (
