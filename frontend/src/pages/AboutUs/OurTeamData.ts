@@ -37,7 +37,7 @@ export const LEADERSHIP_TEAM = [
   },
   {
     name: 'Kim Cinco, MPsy, USN Vet.',
-    role: 'Product Manager',
+    role: 'UX Engineer',
     imageUrl: Kim,
   },
   {
@@ -77,6 +77,17 @@ export const LEADERSHIP_TEAM = [
   },
 ]
 
+export const HET_DEV_PROGRAM = [
+  {
+    name: 'Ali Nix',
+    role: 'Software Engineer',
+  },
+  {
+    name: 'James Demlow',
+    role: 'Software Engineer',
+  },
+]
+
 export const HET_ALUMNI = [
   {
     name: 'Daniel Dawes, JD',
@@ -95,7 +106,7 @@ export const HET_ALUMNI = [
     role: 'Product Manager',
   },
   {
-    name: 'Josh Zarrabi',
+    name: 'Josh Zarrabi, BA',
     role: 'Senior Software Engineer',
   },
   {
@@ -111,7 +122,7 @@ export const HET_ALUMNI = [
     role: 'Senior Advisor',
   },
   {
-    name: 'Ebony Respress',
+    name: 'Ebony Respress, MSPH, MA',
     role: 'Project Director',
   },
   {
