@@ -528,3 +528,35 @@ def preserve_only_current_time_period_rows(
     filtered_df = filtered_df.drop(columns=drop_cols)
 
     return filtered_df.reset_index(drop=True)
+
+
+def combine_race_ethnicity(df: pd.DataFrame, RACE_NAMES_MAPPING: Dict[str, str]):
+    """Combines the race and ethnicity fields into the legacy race/ethnicity category.
+    We will keep this in place until we can figure out a plan on how to display
+    the race and ethnicity to our users in a disaggregated way."""
+
+    # Create a mask for Hispanic/Latino
+    hispanic_mask = df[std_col.ETH_COL] == 'Hispanic'
+
+    # Create masks for 'NA', 'Missing', 'Unknown'
+    race_missing_mask = df[std_col.RACE_COL].isin({'NA', 'Missing', 'Unknown'})
+    eth_missing_mask = df[std_col.ETH_COL].isin({'NA', 'Missing', 'Unknown'})
+
+    # Create a mask for other cases
+    other_mask = ~race_missing_mask & ~eth_missing_mask
+
+    # Create a new combined race/eth column Initialize with UNKNOWN
+    df[std_col.RACE_ETH_COL] = std_col.Race.UNKNOWN.value
+
+    # Overwrite specific race if given
+    df.loc[other_mask, std_col.RACE_ETH_COL] = df.loc[other_mask, std_col.RACE_COL].map(
+        RACE_NAMES_MAPPING
+    )
+
+    # overwrite with Hispanic if given
+    df.loc[hispanic_mask, std_col.RACE_ETH_COL] = std_col.Race.HISP.value
+
+    # Drop unnecessary columns
+    df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
+
+    return df
