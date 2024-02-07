@@ -9,14 +9,9 @@ test('Chronic Kidney Disease', async ({ page }) => {
     .getByRole('heading', { name: 'Chronic kidney disease in the' })
     .click()
   await page.getByLabel('open the topic info modal').click()
-  await page
-    .locator('div')
-    .filter({
-      hasText:
-        'Cases of chronic kidney diseaseMeasurement Definition: Adults who reported',
-    })
-    .nth(1)
-    .click()
+  await page.getByRole('heading', { name: 'Cases of chronic kidney' }).click();
+  await page.getByRole('dialog').getByText('Measurement Definition:').click();
+  await page.getByText('For specific calculations and').click();
   await page.getByLabel('close topic info modal').click()
   await page.getByText('Demographic').nth(2).click()
   await page.getByText('Off').nth(1).click()
