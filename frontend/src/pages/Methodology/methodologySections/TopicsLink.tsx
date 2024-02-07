@@ -10,6 +10,9 @@ import {
 } from '../../../data/config/MetricConfig'
 import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
 import { covidTopicsString } from './Covid19Link'
+import { pdohTopicsString } from './PdohLink'
+import { hivTopicsString } from './HivLink'
+import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
@@ -68,8 +71,7 @@ export default function TopicsLink() {
             },
             {
               category: 'Chronic Diseases',
-              topic:
-                'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
+              topic: chronicDiseaseTopicsString,
             },
             {
               category: 'COVID-19',
@@ -77,13 +79,11 @@ export default function TopicsLink() {
             },
             {
               category: 'HIV',
-              topic:
-                'HIV (Prevalence, New diagnoses, Deaths), HIV (Prevalence, New diagnoses, Deaths for Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
+              topic: hivTopicsString,
             },
             {
               category: 'Political Determinants of Health (PDOH)',
-              topic:
-                'Incarceration (Prison, Jail), Voter Participation, Women Serving in Legislative Office (US Congress, State legislatures)',
+              topic: pdohTopicsString,
             },
             {
               category: 'Social Determinants of Health (SDOH)',

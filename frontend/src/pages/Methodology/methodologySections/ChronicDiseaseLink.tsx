@@ -1,8 +1,3 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  chronicDiseaseDataSources,
-  chronicDiseaseDefinitionsArray,
-} from '../methodologyContent/ChronicDiseaseDefinitions'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
@@ -10,6 +5,27 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+
+export const chronicDiseaseDataSources = [
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+]
+
+const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.map(
+  (dropdownId) => {
+    return METRIC_CONFIG[dropdownId]
+  }
+).flat()
+
+export const chronicDiseaseTopicsString =
+  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+    return DROPDOWN_TOPIC_MAP[dropdownId]
+  }).join(', ')
 
 const ChronicDiseaseLink = () => {
   return (
@@ -30,8 +46,7 @@ const ChronicDiseaseLink = () => {
           rows={[
             {
               category: 'Chronic Diseases',
-              topic:
-                'Asthma, Cardiovascular Diseases, Chronic Kidney Disease, COPD, Diabetes',
+              topic: chronicDiseaseTopicsString,
             },
           ]}
         />
@@ -129,9 +144,10 @@ const ChronicDiseaseLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#chronic-diseases-key-terms'
-          definitionsArray={chronicDiseaseDefinitionsArray}
+
+        <KeyTermsAccordion
+          hashId='#chronic-diseases-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
       </article>
     </section>

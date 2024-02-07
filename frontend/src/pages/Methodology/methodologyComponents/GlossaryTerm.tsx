@@ -20,7 +20,7 @@ export const parseDescription = (description: string) => {
   const elements: any[] = []
   let remainingText = description
 
-  while (remainingText.length > 0) {
+  while (remainingText?.length > 0) {
     const codeStart = remainingText.indexOf('<code>')
     const linkStart = remainingText.indexOf('[')
 

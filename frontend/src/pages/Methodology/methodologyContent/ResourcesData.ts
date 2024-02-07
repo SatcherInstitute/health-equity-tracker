@@ -274,16 +274,8 @@ export const COVID_VACCINATION_RESOURCES: ResourceGroup = {
       url: 'https://www.tfah.org/report-details/trust-and-access-to-covid-19-vaccine-within-communities-of-color/',
     },
     {
-      name: 'CDC - Johnson & Johnson’s Janssen COVID-19 Vaccine Overview and Safety',
-      url: 'https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/janssen.html',
-    },
-    {
-      name: 'CDC - Pfizer-BioNTech COVID-19 Vaccine Overview and Safety',
-      url: 'https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/Pfizer-BioNTech.html',
-    },
-    {
-      name: 'CDC - Moderna COVID-19 Vaccine Overview and Safety',
-      url: 'https://www.cdc.gov/coronavirus/2019-ncov/vaccines/different-vaccines/Moderna.html',
+      name: 'CDC - U.S. COVID-19 Vaccine Product Information',
+      url: 'https://www.cdc.gov/vaccines/covid-19/info-by-product/',
     },
     {
       name: 'APM Research: Death & Vaccination Statistics',
