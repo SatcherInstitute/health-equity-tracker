@@ -6,9 +6,11 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const pdohDataSources = [
   dataSourceMetadataMap.bjs,
@@ -24,9 +26,7 @@ const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
 
-export const pdohTopicsString = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
-  return DROPDOWN_TOPIC_MAP[dropdownId]
-}).join(', ')
+export const pdohTopicsString = buildTopicsString(PDOH_CATEGORY_DROPDOWNIDS)
 
 const PdohLink = () => {
   return (

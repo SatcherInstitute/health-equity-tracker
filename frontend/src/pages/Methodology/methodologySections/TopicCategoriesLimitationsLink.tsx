@@ -6,11 +6,6 @@ import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import {
-  type DropdownVarId,
-  METRIC_CONFIG,
-} from '../../../data/config/MetricConfig'
-import { DEMOGRAPHIC_TYPES } from '../../../data/query/Breakdowns'
 import { covidTopicsString } from './Covid19Link'
 import { pdohTopicsString } from './PdohLink'
 import { hivTopicsString } from './HivLink'
@@ -18,13 +13,6 @@ import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
 import { sdohTopicsString } from './SdohLink'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
-// tally number of conditions (including sub-conditions like COVID) x # demographic options
-const numVariables =
-  Object.keys(METRIC_CONFIG).reduce(
-    (tally, conditionKey) =>
-      (tally += METRIC_CONFIG[conditionKey as DropdownVarId].length),
-    0
-  ) * DEMOGRAPHIC_TYPES.length
 
 export default function TopicCategoriesLimitationsLink() {
   return (
@@ -42,19 +30,23 @@ export default function TopicCategoriesLimitationsLink() {
           of health outcomes categorized by race, ethnicity, sex, and other
           significant factors, it is essential to acknowledge the limitations.
           One of the inherent constraints is that the tracker currently
-          aggregates data from {numDataSources} key sources, including the CDC
-          and the U.S. Census Bureau. While these are reputable sources, the
-          availability and granularity of data can sometimes be restrictive.
+          aggregates data from sources that are nation-wide in scope. Our
+          current {numDataSources} key sources, including the CDC and the U.S.
+          Census Bureau are reputable, well established sources, but might not
+          provide the availability and granularity of data that can be obtained
+          from individual county or city-specific providers.
         </p>
 
         <p>
           Our focus extends beyond just pandemic-related statistics; the tracker
-          encompasses {numVariables} variables, covering chronic diseases like
-          COPD and diabetes, behavioral health indicators such as opioid misuse,
-          and social and political determinants including uninsurance rates and
-          poverty levels. These topics were deliberately chosen to provide a
-          multi-dimensional view of health equity, guiding policymakers towards
-          understanding the unique challenges and needs of diverse communities.
+          encompasses thousands of report configurations, covering chronic
+          diseases like COPD and diabetes, behavioral health indicators such as
+          opioid misuse, and social and political determinants including
+          uninsurance rates and poverty levels. These topics, along with
+          multiple demographic and geographic filtering options, were
+          deliberately chosen to provide a multi-dimensional view of health
+          equity, guiding policymakers towards understanding the unique
+          challenges and needs of diverse communities.
         </p>
 
         <h3 className='mt-12 text-title font-medium' id='#categories'>
