@@ -12,7 +12,7 @@ import {
   RECOMMENDED_CITATION_LINK,
   SDOH_LINK,
   SOURCES_LINK,
-  TOPICS_LINK,
+  TOPIC_CATEGORIES_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
 } from '../../../utils/internalRoutes'
@@ -29,7 +29,7 @@ import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesL
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink'
 import SdohLink from '../methodologySections/SdohLink'
 import SourcesLink from '../methodologySections/SourcesLink'
-import TopicsLink from '../methodologySections/TopicsLink'
+import TopicCategoriesLimitationsLink from '../methodologySections/TopicCategoriesLimitationsLink'
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
 import GlossaryLink from '../methodologySections/GlossaryLink'
 
@@ -107,9 +107,9 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Categories and Limitations',
-    path: TOPICS_LINK,
-    component: TopicsLink,
+    label: 'Topic Categories & Limitations',
+    path: TOPIC_CATEGORIES_LINK,
+    component: TopicCategoriesLimitationsLink,
     subLinks: [
       {
         label: 'Categories',

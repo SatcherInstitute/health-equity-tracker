@@ -8,7 +8,7 @@ import {
   NEW_METHODOLOGY_PAGE_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
   SOURCES_LINK,
-  TOPICS_LINK,
+  TOPIC_CATEGORIES_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
   COVID_19_LINK,
@@ -81,8 +81,8 @@ export default function MethodologyCardMenuMobile(
                 Age-Adjustment
               </MenuItem>
               <MenuItem value={SOURCES_LINK}>Data Sources</MenuItem>
-              <MenuItem value={TOPICS_LINK}>
-                Categories and Limitations
+              <MenuItem value={TOPIC_CATEGORIES_LINK}>
+                Topic Categories & Limitations
               </MenuItem>
               <MenuItem value={BEHAVIORAL_HEALTH_LINK}>
                 Behavioral Health

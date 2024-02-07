@@ -24,7 +24,7 @@ const numVariables =
     0
   ) * DEMOGRAPHIC_TYPES.length
 
-export default function TopicsLink() {
+export default function TopicCategoriesLimitationsLink() {
   return (
     <section id='#categories'>
       <article>

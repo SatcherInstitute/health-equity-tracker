@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import {
   SOURCES_LINK,
-  TOPICS_LINK,
+  TOPIC_CATEGORIES_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
   COVID_19_LINK,
@@ -65,12 +65,12 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
 
       <HetDivider />
 
-      <Link className='no-underline' to={TOPICS_LINK}>
+      <Link className='no-underline' to={TOPIC_CATEGORIES_LINK}>
         <HetListItemButton
           className='mx-2 pl-2 font-roboto'
-          selected={window.location.pathname === TOPICS_LINK}
+          selected={window.location.pathname === TOPIC_CATEGORIES_LINK}
         >
-          Categories and Limitations
+          Topic Categories & Limitations
         </HetListItemButton>
       </Link>
       <ul className='my-0 list-none pl-0 leading-lhLoose'>
