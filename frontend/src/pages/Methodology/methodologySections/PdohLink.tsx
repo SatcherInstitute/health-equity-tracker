@@ -74,36 +74,36 @@ const PdohLink = () => {
         </p>
         <h4>Breakdown of Our Reports</h4>
         <h5 className='text-text font-light'>By Age</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium'>
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
         <h5 className='text-text font-light'>By Race</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
         <h5 className='text-text font-light'>By Sex</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
         <h5 className='text-text font-light'>Special Reports</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium'>
             Data for all territories: From BJS's "Prisoners Table 23".
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium'>
             County-level data: Sourced from Vera Institute's Incarceration
             Trends.
           </li>
@@ -158,7 +158,7 @@ const PdohLink = () => {
           We highlight the total count of children in adult facilities rather
           than a "per 100k" rate for a few reasons:
         </p>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>
             Varying state and federal laws make it challenging to get an
             accurate base population of minors in adult facilities.
@@ -246,26 +246,8 @@ const PdohLink = () => {
           We use data from the Center for American Women in Politics (CAWP) to
           present metrics on the representation of women in legislative roles:
         </p>
-        <ol>
-          <li>
-            <span>
-              <strong>Intersectional Representation:</strong>
-            </span>{' '}
-            For example, the percentage of all Georgia state legislators who are
-            black women.
-          </li>
-          <li>
-            <span>
-              <strong>
-                Race/Ethnicity Distribution Among Women Legislators:
-              </strong>
-            </span>{' '}
-            For instance, the percentage of women in the Georgia State
-            Legislature who are black.
-          </li>
-        </ol>
-        <p></p>
-        <ul>
+
+        <ul className='list-disc pl-4'>
           <li className='font-sansTitle font-medium'>
             Women in State Legislature
           </li>
@@ -274,13 +256,39 @@ const PdohLink = () => {
             Women in U.S. Congress
           </li>
         </ul>
+
         <p>
-          Both metrics cover state, territory, and national levels. Our national
-          level calculations include legislators from U.S. territories, leading
-          to variations from the CAWP website's data. All gender and
+          Both data types cover state, territory, and national levels. Our
+          national level calculations include legislators from U.S. territories,
+          leading to variations from the CAWP website's data. All gender and
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification.
         </p>
+
+        <p>
+          For each of those data types we calculate and present two metrics to
+          study the proportion of women legislators:
+        </p>
+
+        <ol>
+          <li>
+            <span>
+              <strong>Intersectional Representation:</strong>
+            </span>{' '}
+            For example, the percentage of the entire Georgia State Legislature
+            who identify as Black women.
+          </li>
+          <li>
+            <span>
+              <strong>
+                Race/Ethnicity Distribution Among Women Legislators:
+              </strong>
+            </span>{' '}
+            For instance, the percentage of self-identified women in the Georgia
+            State Legislature who also identify as Black.
+          </li>
+        </ol>
+
         <h3 className='mt-12 text-title font-medium' id='#historical-tracking'>
           Historical Tracking
         </h3>
@@ -318,7 +326,7 @@ const PdohLink = () => {
           complicating direct comparisons. We've adjusted our methods to address
           these discrepancies:
         </p>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>
             Women identifying with multiple races appear in each corresponding
             race visualization.

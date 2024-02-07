@@ -6,22 +6,9 @@ import MethodologyCardMenu from './MethodologyCardMenu'
 import { routeConfigs } from '.././methodologyContent/routeConfigs'
 import MethodologyPagination from './MethodologyPagination'
 import MethodologyCardMenuMobile from './MethodologyCardMenuMobile'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import HetOnThisPageMenu from '../../../styles/HetComponents/HetOnThisPageMenu'
 
 export const CITATION_APA = `Health Equity Tracker. (${currentYear()}). Satcher Health Leadership Institute. Morehouse School of Medicine. ${HET_URL}.`
-export const defLookup = () => {
-  const indexedDefinitions = definitionsGlossary.map((item, index) => ({
-    item,
-    originalIndex: index,
-  }))
-
-  indexedDefinitions
-    .sort((a, b) => a.item.topic.localeCompare(b.item.topic))
-    .forEach(({ item, originalIndex }) => {
-      console.log(item.topic, originalIndex)
-    })
-}
 
 export default function MethodologyPage() {
   const location = useLocation()
