@@ -3,11 +3,17 @@ import { urlMap } from '../../utils/externalUrls'
 
 interface HetEmailSignupProps {
   id: string
+  className?: string
 }
 
 export default function HetEmailSignup(props: HetEmailSignupProps) {
   return (
-    <form action={urlMap.newsletterSignup} method='post' target='_blank'>
+    <form
+      action={urlMap.newsletterSignup}
+      method='post'
+      target='_blank'
+      className={props.className}
+    >
       <div className='flex content-center justify-center gap-1 '>
         <TextField
           id={props.id}
