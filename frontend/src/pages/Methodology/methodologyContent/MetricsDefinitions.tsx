@@ -15,7 +15,7 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Examples to Explore',
-        description: `As of October 2023, we are able to calculate these age-adjusted ratios for [HIV deaths](https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios), [COVID-19 deaths](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios) and [COVID-19 hospitalizations](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios), and we present the findings in a distinct, age-adjusted table.`,
+        description: `Currently, we are able to calculate these age-adjusted ratios for [HIV deaths](https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios), [COVID-19 deaths](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios) and [COVID-19 hospitalizations](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios), and we present the findings in a distinct, age-adjusted table.`,
       },
     ],
   },
