@@ -5,8 +5,6 @@ import { Helmet } from 'react-helmet-async'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import LifelineAlert from '../../../reports/ui/LifelineAlert'
-import HetNotice from '../../../styles/HetComponents/HetNotice'
-import HetTerm from '../../../styles/HetComponents/HetTerm'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
 import {
@@ -14,7 +12,8 @@ import {
   buildTopicsString,
 } from '../../../data/config/MetricConfig'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
-import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import NoteBrfss from '../methodologyComponents/NoteBrfss'
+import AhrMetrics from '../methodologyComponents/AhrMetrics'
 
 // All data _sources_ used for Behavioral Health category
 const behavioralHealthDataSources = [
@@ -75,51 +74,9 @@ export default function BehavioralHealthLink() {
           <a href={'urlMap.cdcWonder'}>CDC WONDER</a> and the{' '}
           <a href={'urlMap.censusVoting'}>U.S. Census</a>.{' '}
         </p>
-        <HetNotice
-          className='my-12'
-          title="A note about the CDC's Behavioral Risk Factor Surveillance System
-            (BRFSS) survey"
-        >
-          <p>
-            It's important to note that because BRFSS is survey-based, it
-            sometimes lacks sufficient data for smaller or marginalized racial
-            groups, making some estimates less statistically robust.
-          </p>
-          <p>
-            Additionally, BRFSS data by race and ethnicity is not available at
-            the county level, limiting our tracker's granularity for these
-            metrics.
-          </p>
-        </HetNotice>
-        <p>
-          We obtain our data for the following specific issues directly from
-          America's Health Rankings (AHR). This data is based on{' '}
-          <HetTerm>percent share</HetTerm> metrics that AHR provides in
-          downloadable data files. Click on the following to explore the
-          reports:
-        </p>
+        <NoteBrfss />
 
-        <p>
-          For all topics sourced from America's Health Rankings (AHR), we obtain{' '}
-          <HetTerm>percent share</HetTerm> metrics directly from the
-          organization via custom created files. It is our goal to switch to
-          their recently released GraphQL API in the near future for more data
-          visibility and flexibility.
-        </p>
-
-        <p>
-          AHR usually gives us rates as percentages. In some cases, they provide
-          the number of cases for every 100,000 people. We keep the data in the
-          format AHR provides it. If we need to change a{' '}
-          <HetTerm>percentage rate</HetTerm> into a{' '}
-          <HetTerm>cases per 100k</HetTerm> rate, we simply multiply the
-          percentage by 1,000. For example, a 5% rate would become 5,000 per
-          100,000 people.
-        </p>
-        <FormulaFormat
-          leftSide='5% rate'
-          rightSide={['5 out of 100', ' = ', '5,000 per 100,000 people']}
-        />
+        <AhrMetrics />
 
         <h3
           className='mt-12 text-title font-medium'

@@ -39,14 +39,14 @@ export default function TopicCategoriesLimitationsLink() {
 
         <p>
           Our focus extends beyond just pandemic-related statistics; the tracker
-          encompasses thousands of report options, covering chronic diseases
-          like COPD and diabetes, behavioral health indicators such as opioid
-          misuse, and social and political determinants including uninsurance
-          rates and poverty levels. These topics, along with multiple
-          demographic and geographic filtering options, were deliberately chosen
-          to provide a multi-dimensional view of health equity, guiding
-          policymakers towards understanding the unique challenges and needs of
-          diverse communities.
+          encompasses thousands of report configurations, covering chronic
+          diseases like COPD and diabetes, behavioral health indicators such as
+          opioid misuse, and social and political determinants including
+          uninsurance rates and poverty levels. These topics, along with
+          multiple demographic and geographic filtering options, were
+          deliberately chosen to provide a multi-dimensional view of health
+          equity, guiding policymakers towards understanding the unique
+          challenges and needs of diverse communities.
         </p>
 
         <h3 className='mt-12 text-title font-medium' id='#categories'>
