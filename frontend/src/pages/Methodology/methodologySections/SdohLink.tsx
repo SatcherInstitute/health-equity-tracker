@@ -9,9 +9,11 @@ import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 const sdohDataSources = [
   dataSourceMetadataMap.acs,
@@ -37,9 +39,7 @@ const datatypeConfigs = SDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
 
-export const sdohTopicsString = SDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
-  return DROPDOWN_TOPIC_MAP[dropdownId]
-}).join(', ')
+export const sdohTopicsString = buildTopicsString(SDOH_CATEGORY_DROPDOWNIDS)
 
 function SdohLink() {
   return (

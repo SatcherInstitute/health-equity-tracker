@@ -10,8 +10,10 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 
 export const covidDataSources = [
@@ -29,20 +31,7 @@ const datatypeConfigs = COVID_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
 
-export const covidTopicsString = COVID_CATEGORY_DROPDOWNIDS.map(
-  (dropdownId) => {
-    let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
-
-    if (METRIC_CONFIG[dropdownId].length > 1) {
-      const topicDataTypesString = METRIC_CONFIG[dropdownId]
-        .map((config) => config.dataTypeShortLabel)
-        .join(', ')
-      topicString += ` (${topicDataTypesString})`
-    }
-
-    return topicString
-  }
-).join(', ')
+export const covidTopicsString = buildTopicsString(COVID_CATEGORY_DROPDOWNIDS)
 
 export default function Covid19Link() {
   return (

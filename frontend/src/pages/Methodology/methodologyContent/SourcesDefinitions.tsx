@@ -31,7 +31,7 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
   ],
   listItems: [
     'All data in the Health Equity Tracker is sourced from reputable and public databases, including the Centers for Disease Control and Prevention (CDC), U.S Census Bureau, Kaiser Family Foundation, and several others. A comprehensive list of our data sources, along with relevant details, can be found in our [data catalog](https://healthequitytracker.org/datacatalog).',
-    'Our data analysis aims to provide insights into health disparities across various demographic groups. Age-adjustment methodology is employed to ensure to illustrate the disproportionate impact of morbidity and mortality among different races and ethnic groups throughout the U.S.in comparison to the white(non-Hispanic) population.',
+    '',
     'The Health Equity Tracker employs a range of visualization techniques to present data in an intuitive and user-friendly manner. This includes charts, graphs, and interactive visualizations tailored to the specific type of data being presented.',
     'While we strive for accuracy, some datasets may have inherent limitations, including gaps, potential biases, or uncertainties. We transparently communicate these limitations whenever relevant.',
     'Data sources are continuously monitored for updates. The Health Equity Tracker ensures that all visualizations and datasets are refreshed in line with the latest available data.',

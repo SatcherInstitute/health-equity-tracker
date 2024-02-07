@@ -9,8 +9,10 @@ import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigBehavioralHealth'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
@@ -27,11 +29,9 @@ const datatypeConfigs = BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map(
   }
 ).flat()
 
-// All sentence-cased topic names for Behavioral Health category
-export const behavioralHealthTopicsString =
-  BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
-    return DROPDOWN_TOPIC_MAP[dropdownId]
-  }).join(', ')
+export const behavioralHealthTopicsString = buildTopicsString(
+  BEHAVIORAL_HEALTH_CATEGORY_DROPDOWNIDS
+)
 
 export default function BehavioralHealthLink() {
   return (

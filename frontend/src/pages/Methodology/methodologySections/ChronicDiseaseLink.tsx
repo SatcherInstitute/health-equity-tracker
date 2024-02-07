@@ -7,9 +7,11 @@ import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigChronicDisease'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const chronicDiseaseDataSources = [
   dataSourceMetadataMap.acs,
@@ -22,10 +24,9 @@ const datatypeConfigs = CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.map(
   }
 ).flat()
 
-export const chronicDiseaseTopicsString =
-  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
-    return DROPDOWN_TOPIC_MAP[dropdownId]
-  }).join(', ')
+export const chronicDiseaseTopicsString = buildTopicsString(
+  CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS
+)
 
 const ChronicDiseaseLink = () => {
   return (
