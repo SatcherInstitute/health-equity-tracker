@@ -1,0 +1,19 @@
+time_period,state_name,state_fips,race_and_ethnicity,race_category_id,population,gun_deaths_estimated_total,gun_deaths_per_100k,gun_deaths_pct_share,population_pct,gun_deaths_pct_relative_inequity
+2021,United States,00,American Indian and Alaska Native (NH),AIAN_NH,882778.0,740.0,83.83,1.8,0.8,125.0
+2021,United States,00,Asian (NH),ASIAN_NH,5940330.0,855.0,14.39,2.1,5.5,-61.8
+2021,United States,00,Black or African American (NH),BLACK_NH,14921868.0,11178.0,74.91,27.8,13.8,101.4
+2021,United States,00,Hispanic or Latino,HISP,26916004.0,8427.0,31.0,20.9,24.9,-16.1
+2021,United States,00,Two or more races (NH),MULTI_NH,4594493.0,984.0,21.42,2.4,4.3,-44.2
+2021,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,226770.0,111.0,48.95,0.3,0.2,50.0
+2021,United States,00,White (NH),WHITE_NH,54482236.0,17934.0,32.92,44.6,50.5,-11.7
+2021,United States,00,Unknown race,UNKNOWN,,,,,,
+2021,United States,00,All,ALL,107964479.0,40289.0,37.32,100.0,100.0,0.0
+2018,United States,00,American Indian and Alaska Native (NH),AIAN_NH,906420.0,556.0,61.34,1.7,0.8,112.5
+2018,United States,00,Asian (NH),ASIAN_NH,5864953.0,729.0,12.43,2.2,5.4,-59.3
+2018,United States,00,Black or African American (NH),BLACK_NH,15095909.0,7566.0,50.12,23.2,13.9,66.9
+2018,United States,00,Hispanic or Latino,HISP,26304741.0,6021.0,23.0,18.5,24.3,-23.9
+2018,United States,00,Two or more races (NH),MULTI_NH,4325731.0,675.0,15.6,2.1,4.0,-47.5
+2018,United States,00,Native Hawaiian and Pacific Islander (NH),NHPI_NH,223071.0,83.0,37.21,0.3,0.2,50.0
+2018,United States,00,White (NH),WHITE_NH,55660282.0,16959.0,30.47,52.0,51.4,1.2
+2018,United States,00,Unknown race,UNKNOWN,,,,,,
+2018,United States,00,All,ALL,108381107.0,32706.0,30.18,100.0,100.0,0.0
