@@ -13,6 +13,7 @@ import { covidTopicsString } from './Covid19Link'
 import { pdohTopicsString } from './PdohLink'
 import { hivTopicsString } from './HivLink'
 import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
+import { sdohTopicsString } from './SdohLink'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 // tally number of conditions (including sub-conditions like COVID) x # demographic options
@@ -87,8 +88,7 @@ export default function TopicsLink() {
             },
             {
               category: 'Social Determinants of Health (SDOH)',
-              topic:
-                'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
+              topic: sdohTopicsString,
             },
           ]}
         />
