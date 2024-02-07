@@ -292,3 +292,13 @@ export function getDemographicGroupFromGroupParam(
 
   return groupName
 }
+
+export function slugify(s: string): string {
+  // Convert to lowercase and replace spaces with dashes
+  s = s.toLowerCase().replace(/ /g, '-')
+
+  // Remove special characters using regex
+  s = s.replace(/[^a-z0-9-]/g, '')
+
+  return s
+}

@@ -329,27 +329,31 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Condition Variables',
+    label: 'Condition Topics',
     path: CONDITION_VARIABLES_LINK,
     component: ConditionVariablesLink,
     subLinks: [
       {
-        label: 'Behavioral Health Variables',
-        path: '#behavioral-health-variables',
+        label: 'Behavioral Health Topics',
+        path: 'behavioral-health',
       },
       {
-        label: 'Chronic Diseases Variables',
-        path: '#chronic-diseases-variables',
+        label: 'Chronic Disease Topics',
+        path: 'chronic-disease',
       },
-      { label: 'COVID-19 Variables', path: '#covid-19-variables' },
-      { label: 'HIV Variables', path: '#hiv-variables' },
+      { label: 'COVID-19 Topics', path: 'covid-19' },
+      { label: 'HIV Topics', path: 'hiv' },
       {
-        label: 'Political Determinants of Health Variables',
-        path: '#pdoh-variables',
+        label: 'Political Determinants of Health Topics',
+        path: 'political-determinants-of-health',
       },
       {
-        label: 'Social Determinants of Health Variables',
-        path: '#sdoh-variables',
+        label: 'Social Determinants of Health Topics',
+        path: 'social-determinants-of-health',
+      },
+      {
+        label: 'Medication Utilization in the Medicare Population',
+        path: 'medication-utilization-in-the-medicare-population',
       },
     ],
   },
