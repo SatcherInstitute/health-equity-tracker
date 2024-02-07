@@ -1,8 +1,11 @@
-import pandas as pd
 import os
-from pandas._testing import assert_frame_equal
 from unittest import mock
+
+import pandas as pd
+from pandas._testing import assert_frame_equal
+
 from datasources.cdc_wisqars_youth_by_race import CDCWisqarsYouthByRaceData
+from test_utils import _load_public_dataset_from_bigquery_as_df
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
@@ -41,11 +44,16 @@ def _load_csv_as_df_from_data_dir(*args, **kwargs):
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
+    "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_youth_by_race_national(
     mock_data_dir: mock.MagicMock,
+    mock_public_bq: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCWisqarsYouthByRaceData()
@@ -75,11 +83,16 @@ def test_write_to_bq_youth_by_race_national(
 
 @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
 @mock.patch(
+    "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
+    side_effect=_load_public_dataset_from_bigquery_as_df,
+)
+@mock.patch(
     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
     side_effect=_load_csv_as_df_from_data_dir,
 )
 def test_write_to_bq_youth_by_race_state(
     mock_data_dir: mock.MagicMock,
+    mock_public_bq: mock.MagicMock,
     mock_bq: mock.MagicMock,
 ):
     datasource = CDCWisqarsYouthByRaceData()
