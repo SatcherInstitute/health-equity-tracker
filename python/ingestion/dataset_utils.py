@@ -13,8 +13,6 @@ from ingestion.constants import (
 )
 from functools import reduce
 
-DT_FORMAT_YYYY_MM = '%Y-%m'
-
 
 def melt_to_het_style_df(
         source_df: pd.DataFrame,
