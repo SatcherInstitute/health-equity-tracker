@@ -17,6 +17,10 @@ HISPANIC_COL = "hispanic_or_latino"
 # whether Hispanic/Latino people are included.
 RACE_COL = "race"
 
+ETH_COL = "ethnicity"
+
+RACE_ETH_COL = "race_ethnicity_combined"
+
 AGE_COL = "age"
 SEX_COL = "sex"
 

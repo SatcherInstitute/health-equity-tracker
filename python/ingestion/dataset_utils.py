@@ -471,56 +471,56 @@ def zero_out_pct_rel_inequity(df: pd.DataFrame,
     df_without_all_unknown = df.loc[~df[demo_col].isin({unknown_val, all_val})]
     df_all_unknown = df.loc[df[demo_col].isin({unknown_val, all_val})]
 
-    grouped_df = df_without_all_unknown.groupby(
-        geo_cols + [std_col.TIME_PERIOD_COL]).sum(min_count=1).reset_index()
+    grouped_df = (
+        df_without_all_unknown.groupby(geo_cols + [std_col.TIME_PERIOD_COL])
+        .sum(min_count=1)
+        .reset_index()
+    )
     grouped_df = grouped_df.rename(columns=per_100k_col_names)
-    grouped_df = grouped_df[geo_cols +
-                            list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]]
+    grouped_df = grouped_df[
+        geo_cols + list(per_100k_col_names.values()) + [std_col.TIME_PERIOD_COL]
+    ]
 
-    df = pd.merge(df_without_all_unknown, grouped_df,
-                  on=geo_cols + [std_col.TIME_PERIOD_COL])
+    df = pd.merge(
+        df_without_all_unknown, grouped_df, on=geo_cols + [std_col.TIME_PERIOD_COL]
+    )
     for rate_col, pct_inequity_col in rate_to_inequity_col_map.items():
         grouped_col = f'{rate_col}_grouped'
         # set pct_inequity to 0 in a place/time_period if the summed rates are zero
-        df.loc[df[grouped_col] == 0,
-               pct_inequity_col] = 0
+        df.loc[df[grouped_col] == 0, pct_inequity_col] = 0
 
     df = df.drop(columns=list(per_100k_col_names.values()))
     df = pd.concat([df, df_all_unknown])
 
     # optionally preserve null pct_inequity for race rows that have no population info
     if pop_pct_col:
-        df.loc[df[pop_pct_col].isnull(
-        ), pct_inequity_col] = np.nan
+        df.loc[df[pop_pct_col].isnull(), pct_inequity_col] = np.nan
 
     return df
 
 
 def preserve_only_current_time_period_rows(
-    df: pd.DataFrame,
-    time_period_col: str = None,
-    keep_time_period_col: bool = False
+    df: pd.DataFrame, time_period_col: str = None, keep_time_period_col: bool = False
 ):
-    """ Takes a dataframe with a time col (default `time_period`) that contains datatime strings
+    """Takes a dataframe with a time col (default `time_period`) that contains datetime strings
     in formats like `YYYY` or `YYYY-MM`,
     calculates the most recent time_period value,
     removes all rows that contain older time_periods,
-    and removes (or optionally keeps) the original string time_period col """
+    and removes (or optionally keeps) the original string time_period col"""
     if time_period_col is None:
-        time_period_col = std_col.TIME_PERIOD_COL
+        time_period_col = 'time_period'
 
     if time_period_col not in df.columns:
-        raise ValueError(
-            f'df does not contain column: {time_period_col}.')
+        raise ValueError(f'df does not contain column: {time_period_col}.')
 
     # Convert time_period to datetime-like object
-    df["time_period_dt"] = pd.to_datetime(df[time_period_col], format=DT_FORMAT_YYYY_MM, errors='coerce')
+    df["time_period_dt"] = pd.to_datetime(df[time_period_col], errors='coerce')
 
-    # Filter the DataFrame to keep only the rows with the most recent rows
+    # Filter the DataFrame to keep only the rows with the most recent time period
     most_recent = df["time_period_dt"].max()
     filtered_df = df[df["time_period_dt"] == most_recent]
 
-    # optionally keep the original string "time_period" col
+    # Optionally keep the original string "time_period" col
     drop_cols = ["time_period_dt"]
     if not keep_time_period_col:
         drop_cols.append(time_period_col)
@@ -530,13 +530,17 @@ def preserve_only_current_time_period_rows(
     return filtered_df.reset_index(drop=True)
 
 
-def combine_race_ethnicity(df: pd.DataFrame, RACE_NAMES_MAPPING: Dict[str, str]):
+def combine_race_ethnicity(
+    df: pd.DataFrame,
+    RACE_NAMES_MAPPING: Dict[str, str],
+    ethnicity_value: str = 'Hispanic',
+):
     """Combines the race and ethnicity fields into the legacy race/ethnicity category.
     We will keep this in place until we can figure out a plan on how to display
     the race and ethnicity to our users in a disaggregated way."""
 
     # Create a mask for Hispanic/Latino
-    hispanic_mask = df[std_col.ETH_COL] == 'Hispanic'
+    hispanic_mask = df[std_col.ETH_COL].isin([ethnicity_value])
 
     # Create masks for 'NA', 'Missing', 'Unknown'
     race_missing_mask = df[std_col.RACE_COL].isin({'NA', 'Missing', 'Unknown'})

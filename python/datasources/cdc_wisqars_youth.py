@@ -4,7 +4,7 @@ from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
     convert_columns_to_numeric,
-    standardize_and_merge_race_ethnicity,
+    RACE_NAMES_MAPPING,
     WISQARS_COLS,
 )
 from ingestion.constants import (
@@ -16,10 +16,11 @@ from ingestion.constants import (
 from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
     generate_pct_share_col_with_unknowns,
+    generate_per_100k_col,
     preserve_only_current_time_period_rows,
+    combine_race_ethnicity,
 )
 from ingestion.merge_utils import merge_state_ids
-
 
 DATA_DIR = "cdc_wisqars"
 
@@ -28,21 +29,32 @@ Data Source: CDC WISQARS Youth (data on gun violence)
 
 Description:
 - The data on gun violence by youth and race is downloaded from the CDC WISQARS database.
-- The downloaded data is stored locally in our directory for subsequent use.
+- The downloaded data is stored locally in our data/cdc_wisqars directory for subsequent use.
 
 Instructions for Downloading Data:
 1. Visit the WISQARS website: https://wisqars.cdc.gov/reports/
-2. Select the desired injury outcome:
-   - select fatal data
-3. Choose the demographic selections for the report:
-   - select the appropriate data years, geographic level, and other demographic groups, i.e (age, race)
-4. Select the mechanism (Firearm)
+2. Select the injury outcome:
+    - `Fatal`
+3. Select the year and race options:
+    - `2018-2021 by Single Race`
+4. Select the desired data years:
+    - `2018-2021`
+5. Select the geography:
+    - `United States`
+6. Select the intent:
+    - `All Intents`
+7. Select the mechanism:
+    - `Firearm`
+8. Select the demographic selections:
+   - `Custom Age Range: <1 to Unkknown`, `Both Sexes`, `All Races`
 5. Select appropriate report layout:
-   - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
-
+   - For youth-national-all: `Intent`, `None`, `None`, `None`
+   - For youth-national-race: `Intent`, `Race`, `Ethnicity`, `None`
+   - For youth-state-all: `Intent`, `State`, `None`, `None`
+   - For youth-state-race: `Intent`, `State`, `Race`, `Ethnicity`
 Notes:
-- There is no county-level data
-- Race data is only available for fatal data and is available from 2018-2021
+- There is no county-level data.
+- Race data is only available for fatal data and is available from 2018-2021.
 
 Last Updated: 2/24
 """
@@ -64,9 +76,11 @@ class CDCWisqarsYouthData(DataSource):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        nat_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
+        national_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
 
-        df = self.generate_breakdown_df(demographic, geo_level, nat_totals_by_intent_df)
+        df = self.generate_breakdown_df(
+            demographic, geo_level, national_totals_by_intent_df
+        )
 
         float_cols = [
             std_col.POPULATION_COL,
@@ -84,10 +98,6 @@ class CDCWisqarsYouthData(DataSource):
             table_name = f"youth_by_{demographic}_{geo_level}_{table_type}"
 
             if table_type == CURRENT:
-                df_for_bq[std_col.TIME_PERIOD_COL] = (
-                    df_for_bq[std_col.TIME_PERIOD_COL] + '-01'
-                )
-
                 df_for_bq = preserve_only_current_time_period_rows(df_for_bq)
 
             col_types = gcs_to_bq_util.get_bq_column_types(df_for_bq, float_cols)
@@ -100,12 +110,12 @@ class CDCWisqarsYouthData(DataSource):
         self, breakdown: str, geo_level: str, alls_df: pd.DataFrame
     ):
         cols_to_standard = {
-            "Year": std_col.TIME_PERIOD_COL,
-            "State": std_col.STATE_NAME_COL,
-            "Race": std_col.RACE_CATEGORY_ID_COL,
-            "Population": std_col.POPULATION_COL,
-            "Deaths": std_col.GUN_DEATHS_RAW,
-            "Crude Rate": std_col.GUN_DEATHS_PER_100K,
+            "year": std_col.TIME_PERIOD_COL,
+            "state": std_col.STATE_NAME_COL,
+            "race": std_col.RACE_CATEGORY_ID_COL,
+            "population": std_col.POPULATION_COL,
+            "deaths": std_col.GUN_DEATHS_RAW,
+            "crude rate": std_col.GUN_DEATHS_PER_100K,
         }
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
@@ -126,7 +136,7 @@ class CDCWisqarsYouthData(DataSource):
             },
             std_col.RACE_OR_HISPANIC_COL,
             std_col.ALL_VALUE,
-            std_col.Race.ETHNICITY_UNKNOWN.race,
+            'Unknown race',
         )
 
         df = generate_pct_rel_inequity_col(
@@ -172,24 +182,40 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         dtype={"Year": str},
     )
 
+    df.columns = df.columns.str.lower()
+
     # removes the metadata section from the csv
-    metadata_start_index = df[df["Year"] == "Total"].index
+    metadata_start_index = df[df["year"] == "Total"].index
     metadata_start_index = metadata_start_index[0]
     df = df.iloc[:metadata_start_index]
 
     # cleans data frame
-    columns_to_convert = ["Deaths", "Crude Rate"]
+    columns_to_convert = ["deaths", "crude rate"]
     convert_columns_to_numeric(df, columns_to_convert)
 
     if geo_level == NATIONAL_LEVEL:
-        df.insert(1, "State", US_NAME)
+        df.insert(1, "state", US_NAME)
 
     if breakdown == "all":
-        df.insert(2, "Race", std_col.Race.ALL.value)
+        df.insert(2, std_col.RACE_COL, std_col.Race.ALL.value)
 
-    if 'Ethnicity' in df.columns.to_list():
-        df = standardize_and_merge_race_ethnicity(df)
+    if std_col.ETH_COL in df.columns.to_list():
+        df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
+        df = df.rename(columns={'race_ethnicity_combined': 'race'})
 
-    df = df[["Year", "State", "Race", "Population", "Deaths", "Crude Rate"]]
+        # Combines the unknown and hispanic rows
+        df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
+
+        # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
+        subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
+
+        # Create a temporary DataFrame with just the subset
+        temp_df = df[subset_mask].copy()
+
+        # Apply the function to the temporary DataFrame
+        temp_df = generate_per_100k_col(temp_df, 'deaths', 'population', 'crude rate')
+
+        # Update the original DataFrame with the results for the 'crude rate' column
+        df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
 
     return df
