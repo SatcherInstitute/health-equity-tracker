@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
+
+// TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
@@ -24,7 +26,7 @@ const numVariables =
     0
   ) * DEMOGRAPHIC_TYPES.length
 
-export default function TopicsLink() {
+export default function TopicCategoriesLimitationsLink() {
   return (
     <section id='#categories'>
       <article>
@@ -63,7 +65,7 @@ export default function TopicsLink() {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics (and Data Types)', accessor: 'topic' },
+            { header: 'Topics', accessor: 'topic' },
           ]}
           rows={[
             {

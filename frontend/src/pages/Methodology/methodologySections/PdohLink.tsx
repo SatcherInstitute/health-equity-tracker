@@ -7,7 +7,7 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const pdohDataSources = [
@@ -44,7 +44,7 @@ const PdohLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics (and Data Types)', accessor: 'topic' },
+            { header: 'Topics', accessor: 'topic' },
           ]}
           rows={[
             {
@@ -371,7 +371,7 @@ const PdohLink = () => {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#pdoh-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
