@@ -35,7 +35,7 @@ def clean_numeric(val):
     return val
 
 
-def convert_columns_to_numeric(df, columns_to_convert):
+def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: list[str]):
     """
     applies clean_numeric to necessary columns and convert values to float
     """

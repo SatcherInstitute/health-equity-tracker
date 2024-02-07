@@ -1,4 +1,5 @@
 import pandas as pd
+
 from datasources.data_source import DataSource
 from ingestion import gcs_to_bq_util, standardized_columns as std_col
 from ingestion.cdc_wisqars_utils import (
@@ -19,17 +20,42 @@ from ingestion.dataset_utils import (
 )
 from ingestion.merge_utils import merge_state_ids
 
+
 DATA_DIR = "cdc_wisqars"
 
+"""
+Data Source: CDC WISQARS Youth (data on gun violence)
 
-class CDCWisqarsYouthByRaceData(DataSource):
+Description:
+- The data on gun violence by youth and race is downloaded from the CDC WISQARS database.
+- The downloaded data is stored locally in our directory for subsequent use.
+
+Instructions for Downloading Data:
+1. Visit the WISQARS website: https://wisqars.cdc.gov/reports/
+2. Select the desired injury outcome:
+   - select fatal data
+3. Choose the demographic selections for the report:
+   - select the appropriate data years, geographic level, and other demographic groups, i.e (age, race)
+4. Select the mechanism (Firearm)
+5. Select appropriate report layout:
+   - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
+
+Notes:
+- There is no county-level data
+- Race data is only available for fatal data and is available from 2018-2021
+
+Last Updated: 2/24
+"""
+
+
+class CDCWisqarsYouthData(DataSource):
     @staticmethod
     def get_id():
-        return "CDC_WISQARS_YOUTH_BY_RACE_DATA"
+        return "CDC_WISQARS_YOUTH_DATA"
 
     @staticmethod
     def get_table_name():
-        return "cdc_wisqars_youth_by_race_data"
+        return "cdc_wisqars_youth_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
         raise NotImplementedError("upload_to_gcs should not be called for CDCHIVData")
