@@ -8,9 +8,11 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
 import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 export const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,
@@ -21,9 +23,7 @@ const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
 
-export const hivTopicsString = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
-  return DROPDOWN_TOPIC_MAP[dropdownId]
-}).join(', ')
+export const hivTopicsString = buildTopicsString(HIV_CATEGORY_DROPDOWNIDS)
 
 const HivLink = () => {
   return (

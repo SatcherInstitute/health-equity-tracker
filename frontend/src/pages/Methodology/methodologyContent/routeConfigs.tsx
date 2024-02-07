@@ -75,11 +75,6 @@ export const routeConfigs = [
         label: 'Data Processing',
         path: '#data-processing',
       },
-
-      {
-        label: 'Data Analysis',
-        path: '#data-analysis',
-      },
       {
         label: 'Visualization Techniques',
         path: '#visualization-techniques',
