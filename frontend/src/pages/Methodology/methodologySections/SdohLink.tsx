@@ -1,9 +1,4 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
 import Resources from '../methodologyComponents/Resources'
-import {
-  sdohDataSources,
-  sdohDefinitionsArray,
-} from '../methodologyContent/SdohDefinitions'
 import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -12,6 +7,17 @@ import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
+import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
+import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+
+const sdohDataSources = [
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.cdc_svi_county,
+]
 
 export const missingAhrDataArray = [
   {
@@ -26,6 +32,14 @@ export const missingAhrDataArray = [
     ],
   },
 ]
+
+const datatypeConfigs = SDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const sdohTopicsString = SDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return DROPDOWN_TOPIC_MAP[dropdownId]
+}).join(', ')
 
 function SdohLink() {
   return (
@@ -46,8 +60,7 @@ function SdohLink() {
           rows={[
             {
               category: 'Social Determinants of Health',
-              topic:
-                'Care Avoidance Due to Cost, Poverty, Uninsured Individuals, Preventable Hospitalization',
+              topic: sdohTopicsString,
             },
           ]}
         />
@@ -135,10 +148,11 @@ function SdohLink() {
           }))}
         />
 
-        <KeyTerms
-          id='#sdoh-key-terms'
-          definitionsArray={sdohDefinitionsArray}
+        <KeyTermsAccordion
+          hashId='#sdoh-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
+
         <Resources id='#sdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>
