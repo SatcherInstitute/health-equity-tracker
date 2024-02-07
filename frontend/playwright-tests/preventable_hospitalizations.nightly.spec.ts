@@ -57,22 +57,22 @@ test('Preventable Hospitalizations', async ({ page }) => {
       name: 'Breakdown summary for preventable hospitalizations in the United States',
     })
     .click()
-  await page.getByRole('heading', { name: 'Definitions:' }).click()
-  await page.getByText('Social Determinants of Health').click()
-  await page
-    .locator('#definitionsList')
-    .getByText('Preventable hospitalizations')
-    .click()
-  await page.getByRole('heading', { name: 'What data are missing?' }).click()
-  await page
-    .getByText('Unfortunately there are crucial data missing in our sources.')
-    .click()
-  await page
-    .getByRole('heading', { name: 'Missing and misidentified people' })
-    .click()
-  await page
-    .getByRole('heading', { name: "Missing America's Health Rankings data" })
-    .click()
+  await page.getByRole('button', { name: 'Definitions & missing data' }).click();
+
+  await page.getByRole('heading', { name: 'Definitions:' }).click();
+  await page.getByRole('heading', { name: 'Social Determinants of' }).click();
+  await page.locator('#definitionsList').getByText('Preventable hospitalizations', { exact: true }).click();
+  await page.getByText('Measurement Definition:').click();
+  await page.getByText('Measurement Definition: Discharges following hospitalization for diabetes with').click();
+  await page.getByText('Clinical Importance:').click();
+  await page.getByText('Clinical Importance: Studying').click();
+  await page.getByRole('heading', { name: 'What data are missing?' }).click();
+  await page.getByText('Unfortunately there are').click();
+  await page.getByRole('heading', { name: 'Missing and misidentified' }).click();
+  await page.getByText('Native Hawaiian and Pacific').click();
+  await page.getByRole('heading', { name: 'Missing America\'s Health' }).click();
+  await page.getByText('Population data:').click();
+  await page.getByText('Population data: AHR does not').click();
   await page
     .getByText(
       'Do you have information that belongs on the Health Equity Tracker? We would love to hear from you!'
