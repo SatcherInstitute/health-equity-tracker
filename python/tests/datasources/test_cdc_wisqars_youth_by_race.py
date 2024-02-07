@@ -5,11 +5,15 @@ import pandas as pd
 from pandas._testing import assert_frame_equal
 
 from datasources.cdc_wisqars_youth_by_race import CDCWisqarsYouthByRaceData
+from ingestion import standardized_columns as std_col
+from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from test_utils import _load_public_dataset_from_bigquery_as_df
 
 THIS_DIR = os.path.dirname(os.path.abspath(__file__))
 TEST_DIR = os.path.join(THIS_DIR, os.pardir, "data")
 GOLDEN_DIR = os.path.join(TEST_DIR, "cdc_wisqars", "golden_data")
+
+DTYPE = {std_col.TIME_PERIOD_COL: str, std_col.STATE_FIPS_COL: str}
 
 GOLDEN_DATA = {
     "youth_by_race_and_ethnicity_national_current": os.path.join(
@@ -58,21 +62,20 @@ def test_write_to_bq_youth_by_race_national(
 ):
     datasource = CDCWisqarsYouthByRaceData()
     datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="national"
+        "dataset",
+        "gcs_bucket",
+        demographic=std_col.RACE_OR_HISPANIC_COL,
+        geographic=NATIONAL_LEVEL,
     )
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
-    expected_current_df = pd.read_csv(
-        GOLDEN_DATA[table_name], dtype={"time_period": str, "state_fips": str}
-    )
+    expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_national_current"
 
     actual_historical_df, _, table_name = mock_historical[0]
-    expected_historical_df = pd.read_csv(
-        GOLDEN_DATA[table_name], dtype={"time_period": str, "state_fips": str}
-    )
+    expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_national_historical"
 
     assert mock_bq.call_count == 2
@@ -97,21 +100,20 @@ def test_write_to_bq_youth_by_race_state(
 ):
     datasource = CDCWisqarsYouthByRaceData()
     datasource.write_to_bq(
-        "dataset", "gcs_bucket", demographic="race_and_ethnicity", geographic="state"
+        "dataset",
+        "gcs_bucket",
+        demographic=std_col.RACE_OR_HISPANIC_COL,
+        geographic=STATE_LEVEL,
     )
 
     (mock_current, mock_historical) = mock_bq.call_args_list
 
     actual_current_df, _, table_name = mock_current[0]
-    expected_current_df = pd.read_csv(
-        GOLDEN_DATA[table_name], dtype={"time_period": str, "state_fips": str}
-    )
+    expected_current_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_state_current"
 
     actual_historical_df, _, table_name = mock_historical[0]
-    expected_historical_df = pd.read_csv(
-        GOLDEN_DATA[table_name], dtype={"time_period": str, "state_fips": str}
-    )
+    expected_historical_df = pd.read_csv(GOLDEN_DATA[table_name], dtype=DTYPE)
     assert table_name == "youth_by_race_and_ethnicity_state_historical"
 
     assert mock_bq.call_count == 2
