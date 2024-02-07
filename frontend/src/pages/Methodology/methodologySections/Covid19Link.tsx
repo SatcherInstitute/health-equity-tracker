@@ -12,7 +12,7 @@ import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { COVID_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigCovidCategory'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 
 export const covidDataSources = [
   dataSourceMetadataMap.cdc_restricted,
@@ -58,7 +58,7 @@ export default function Covid19Link() {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics (and Data Types)', accessor: 'topic' },
+            { header: 'Topics', accessor: 'topic' },
           ]}
           rows={[
             {
@@ -344,7 +344,7 @@ export default function Covid19Link() {
             updates: source.update_frequency,
           }))}
         />
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#covid-key-terms'
           datatypeConfigs={datatypeConfigs}
         />

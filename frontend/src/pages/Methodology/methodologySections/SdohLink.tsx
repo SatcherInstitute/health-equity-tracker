@@ -10,7 +10,7 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { SDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigSDOH'
 import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
 
 const sdohDataSources = [
@@ -148,7 +148,7 @@ function SdohLink() {
           }))}
         />
 
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#sdoh-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
