@@ -47,6 +47,9 @@ export const UNINSURANCE_METRICS: DataTypeConfig[] = [
       dental, vision, life, and disability insurance are not considered comprehensive health
       insurance coverage.`,
     },
+    description: {
+      text: 'Health insurance is important for ensuring that people have access to quality healthcare. People of color and people with low incomes are less likely to have health insurance. Studying health insurance can help us understand why these disparities exist and how to address them.',
+    },
     dataTableTitle: 'Breakdown summary for uninsured people',
     timeSeriesData: true,
     metrics: {
@@ -92,6 +95,9 @@ export const POVERTY_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'people below the poverty line',
     definition: {
       text: `Following the Office of Management and Budget's (OMB) Statistical Policy Directive 14, the Census Bureau uses a set of money income thresholds that vary by family size and composition to determine who is in poverty. If a family's total income is less than the family's threshold, then that family and every individual in it is considered in poverty. The official poverty thresholds do not vary geographically, but they are updated for inflation using the Consumer Price Index (CPI-U). The official poverty definition uses money income before taxes and does not include capital gains or noncash benefits (such as public housing, Medicaid, and food stamps).`,
+    },
+    description: {
+      text: 'Poverty is a major determinant of health. People who are poor are more likely to experience a number of health problems, including chronic diseases, mental illness, and substance use disorders. Studying poverty can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for people below the poverty line',
     timeSeriesData: true,
@@ -140,6 +146,9 @@ export const CARE_AVOIDANCE_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Adults who reported a time in the past 12 months when they needed to see a doctor but could not because of cost.`,
     },
+    description: {
+      text: 'Avoiding care can lead to worse health outcomes. Studying avoided care in regard to health equity can help us to understand why people avoid care and how to reduce these barriers.',
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for care avoidance due to cost',
     metrics: {
@@ -179,6 +188,9 @@ export const PREVENTABLE_HOSP_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'preventable hospitalizations',
     definition: {
       text: `Discharges following hospitalization for diabetes with short- or long-term complications, uncontrolled diabetes without complications, diabetes with lower-extremity amputation, chronic obstructive pulmonary disease, angina without a procedure, asthma, hypertension, heart failure, dehydration, bacterial pneumonia or urinary tract infection per 100,000 Medicare beneficiaries ages 18 and older continuously enrolled in Medicare fee-for-service Part A.`,
+    },
+    description: {
+      text: 'Studying preventable hospitalizations can help us understand why these disparities exist and how to address them.',
     },
     dataTableTitle: 'Breakdown summary for preventable hospitalizations',
     metrics: {
