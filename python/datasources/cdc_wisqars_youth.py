@@ -46,7 +46,7 @@ Instructions for Downloading Data:
 7. Select the mechanism:
     - `Firearm`
 8. Select the demographic selections:
-   - `Custom Age Range: <1 to Unkknown`, `Both Sexes`, `All Races`
+   - `Custom Age Range: <1 to Unknown`, `Both Sexes`, `All Races`
 5. Select appropriate report layout:
    - For youth-national-all: `Intent`, `None`, `None`, `None`
    - For youth-national-race: `Intent`, `Race`, `Ethnicity`, `None`
