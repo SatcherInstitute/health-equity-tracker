@@ -529,6 +529,7 @@ def preserve_only_current_time_period_rows(
 
     return filtered_df.reset_index(drop=True)
 
+
 def combine_race_ethnicity(
     df: pd.DataFrame,
     RACE_NAMES_MAPPING: Dict[str, str],
