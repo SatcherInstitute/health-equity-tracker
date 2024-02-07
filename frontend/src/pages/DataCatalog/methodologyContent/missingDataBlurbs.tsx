@@ -1,5 +1,7 @@
 import { urlMap } from '../../../utils/externalUrls'
 
+// TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
+
 export function MissingIslandAreaPopulationData() {
   return (
     <>

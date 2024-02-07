@@ -89,6 +89,8 @@ test('HIV Black Women: Deaths', async ({ page }) => {
   await page.getByLabel('Scroll to Top').click();
   await page.getByLabel('open the topic info modal').click();
   await page.getByRole('heading', { name: 'HIV deaths for Black women' }).click();
-  await page.getByText('HIV deaths for Black womenMeasurement Definition: Black or African-American (NH').click();
+  await page.getByRole('dialog').getByText('Measurement Definition:').click();
+  await page.getByRole('paragraph').getByText('Clinical Importance:').click();
+
   await page.getByLabel('close topic info modal').click();
 });

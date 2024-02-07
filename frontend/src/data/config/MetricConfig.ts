@@ -63,7 +63,7 @@ import {
   PREVENTABLE_HOSP_METRICS,
   SDOH_CATEGORY_DROPDOWNIDS,
 } from './MetricConfigSDOH'
-import { type CategoryTypeId } from '../../utils/MadLibs'
+import { DROPDOWN_TOPIC_MAP, type CategoryTypeId } from '../../utils/MadLibs'
 
 const dropdownVarIds = [
   ...CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS,
@@ -310,4 +310,20 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
   medicare_cardiovascular: PHRMA_CARDIOVASCULAR_METRICS,
   medicare_hiv: PHRMA_HIV_METRICS,
   medicare_mental_health: PHRMA_MENTAL_HEALTH_METRICS,
+}
+
+export function buildTopicsString(topics: readonly DropdownVarId[]): string {
+  const x = [...topics]
+  return x
+    .map((dropdownId) => {
+      let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
+      if (METRIC_CONFIG[dropdownId].length > 1) {
+        const topicDataTypesString = METRIC_CONFIG[dropdownId]
+          .map((config) => config.dataTypeShortLabel)
+          .join(', ')
+        topicString += ` (${topicDataTypesString})`
+      }
+      return topicString
+    })
+    .join(', ')
 }

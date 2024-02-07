@@ -8,7 +8,7 @@ import {
   NEW_METHODOLOGY_PAGE_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
   SOURCES_LINK,
-  TOPICS_LINK,
+  TOPIC_CATEGORIES_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
   COVID_19_LINK,
@@ -17,7 +17,7 @@ import {
   SDOH_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   METRICS_LINK,
-  CONDITION_VARIABLES_LINK,
+  TOPIC_DEFINITIONS_LINK,
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   GLOSSARY_LINK,
@@ -81,8 +81,8 @@ export default function MethodologyCardMenuMobile(
                 Age-Adjustment
               </MenuItem>
               <MenuItem value={SOURCES_LINK}>Data Sources</MenuItem>
-              <MenuItem value={TOPICS_LINK}>
-                Categories and Limitations
+              <MenuItem value={TOPIC_CATEGORIES_LINK}>
+                Topic Categories & Limitations
               </MenuItem>
               <MenuItem value={BEHAVIORAL_HEALTH_LINK}>
                 Behavioral Health
@@ -100,8 +100,8 @@ export default function MethodologyCardMenuMobile(
                 Data Method Definitions
               </MenuItem>
               <MenuItem value={METRICS_LINK}>Metrics</MenuItem>
-              <MenuItem value={CONDITION_VARIABLES_LINK}>
-                Condition Variables
+              <MenuItem value={TOPIC_DEFINITIONS_LINK}>
+                Topic Definitions
               </MenuItem>
 
               <MenuItem value={RACES_AND_ETHNICITIES_LINK}>

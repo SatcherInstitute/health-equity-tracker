@@ -8,9 +8,11 @@ import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
-import { METRIC_CONFIG } from '../../../data/config/MetricConfig'
-import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
-import { DROPDOWN_TOPIC_MAP } from '../../../utils/MadLibs'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
 
 export const hivDataSources = [
   dataSourceMetadataMap.cdc_atlas,
@@ -21,9 +23,7 @@ const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
   return METRIC_CONFIG[dropdownId]
 }).flat()
 
-export const hivTopicsString = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
-  return DROPDOWN_TOPIC_MAP[dropdownId]
-}).join(', ')
+export const hivTopicsString = buildTopicsString(HIV_CATEGORY_DROPDOWNIDS)
 
 const HivLink = () => {
   return (
@@ -39,7 +39,7 @@ const HivLink = () => {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics (and Data Types)', accessor: 'topic' },
+            { header: 'Topics', accessor: 'topic' },
           ]}
           rows={[
             {
@@ -587,7 +587,7 @@ const HivLink = () => {
           }))}
         />
 
-        <KeyTermsAccordion
+        <KeyTermsTopicsAccordion
           hashId='#hiv-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
