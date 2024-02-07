@@ -1,9 +1,8 @@
 import AppbarLogo from '../../assets/AppbarLogo.png'
 import PartnerSatcher from '../../assets/PartnerSatcher.png'
-import TikTokIcon from '../../assets/icons/tiktok'
 import { urlMap } from '../../utils/externalUrls'
 import HetLinkButton from './HetLinkButton'
-import { X, LinkedIn, YouTube } from '@mui/icons-material'
+import HetSocialIconLinks from './HetSocialIconLinks'
 
 export default function HetLogos() {
   return (
@@ -24,36 +23,7 @@ export default function HetLogos() {
             >
               Health Equity Tracker
             </span>
-            <div className='flex justify-center'>
-              <a
-                className='mx-[7px] my-0'
-                href={urlMap.shliLinkedIn}
-                aria-label='Satcher Health on LinkedIn'
-              >
-                <LinkedIn />
-              </a>
-              <a
-                className='mx-[8px] my-0'
-                href={urlMap.shliTwitter}
-                aria-label='Satcher Health on X formerly Twitter'
-              >
-                <X fontSize={'small'} />
-              </a>
-              <a
-                className='mx-[7px] my-0'
-                href={urlMap.shliYoutube}
-                aria-label='Satcher Health on YouTube'
-              >
-                <YouTube />
-              </a>
-              <a
-                className='mx-[7px] my-0'
-                href={urlMap.hetTikTok}
-                aria-label='Health Equity Tracker on TikTok'
-              >
-                <TikTokIcon />
-              </a>
-            </div>
+            <HetSocialIconLinks />
           </div>
         </div>
       </div>

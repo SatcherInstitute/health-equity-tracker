@@ -1,4 +1,6 @@
+import '@fontsource/taviraj/200.css'
 import '@fontsource/taviraj/300.css'
+import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
 import '@fontsource-variable/inter'
 import '@fontsource-variable/dm-sans'
