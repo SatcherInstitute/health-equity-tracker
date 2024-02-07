@@ -25,6 +25,13 @@ test('COPD Flow', async ({ page }) => {
     .getByRole('heading', { name: 'Breakdown summary for COPD in' })
     .click()
   await page.getByText('Share this report:').click()
-  await page.locator('#definitionsList').getByText('COPD').click()
+
+  await page.getByRole('button', { name: 'Definitions & missing data' }).click();
+  await page.getByRole('heading', { name: 'Definitions:' }).click();
+  await page.getByText('Chronic Disease').click();
+  await page.locator('#definitionsList').getByText('COPD', { exact: true }).click();
+  await page.getByText('Measurement Definition: Adults who reported being told by a health professional').click();
+  await page.getByText('Clinical Importance: COPD is').click();
+
   await page.getByText('Do you have information that').click()
 })
