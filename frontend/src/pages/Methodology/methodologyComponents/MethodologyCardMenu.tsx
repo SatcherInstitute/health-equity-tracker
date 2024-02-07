@@ -10,7 +10,7 @@ import {
   SDOH_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   METRICS_LINK,
-  CONDITION_VARIABLES_LINK,
+  TOPIC_DEFINITIONS_LINK,
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
@@ -163,13 +163,13 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
           </Link>
         </li>
         <li>
-          <Link className='no-underline' to={CONDITION_VARIABLES_LINK}>
+          <Link className='no-underline' to={TOPIC_DEFINITIONS_LINK}>
             <HetListItemButton
               className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === CONDITION_VARIABLES_LINK}
+              selected={window.location.pathname === TOPIC_DEFINITIONS_LINK}
               option='normalBlack'
             >
-              Condition Variables
+              Topic Definitions
             </HetListItemButton>
           </Link>
         </li>

@@ -58,7 +58,7 @@ export default function Covid19Link() {
           applyThickBorder={false}
           columns={[
             { header: 'Category', accessor: 'category' },
-            { header: 'Topics (and Data Types)', accessor: 'topic' },
+            { header: 'Topics', accessor: 'topic' },
           ]}
           rows={[
             {

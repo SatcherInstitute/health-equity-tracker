@@ -1,7 +1,7 @@
 import {
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
-  CONDITION_VARIABLES_LINK,
+  TOPIC_DEFINITIONS_LINK,
   COVID_19_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   GLOSSARY_LINK,
@@ -19,7 +19,7 @@ import {
 import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink'
 import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink'
 import ChronicDiseaseLink from '../methodologySections/ChronicDiseaseLink'
-import ConditionVariablesLink from '../methodologySections/ConditionVariablesLink'
+import TopicDefinitionsLink from '../methodologySections/TopicDefinitionsLink'
 import DataMethodDefinitionsLink from '../methodologySections/DataMethodDefinitionsLink'
 import Covid19Link from '../methodologySections/Covid19Link'
 import HivLink from '../methodologySections/HivLink'
@@ -329,20 +329,19 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Condition Topics',
-    path: CONDITION_VARIABLES_LINK,
-    component: ConditionVariablesLink,
+    label: 'Topic Definitions',
+    path: TOPIC_DEFINITIONS_LINK,
+    component: TopicDefinitionsLink,
     subLinks: [
-      {
-        label: 'Behavioral Health Topics',
-        path: 'behavioral-health',
-      },
+      { label: 'HIV Topics', path: 'hiv' },
       {
         label: 'Chronic Disease Topics',
         path: 'chronic-disease',
       },
-      { label: 'COVID-19 Topics', path: 'covid-19' },
-      { label: 'HIV Topics', path: 'hiv' },
+      {
+        label: 'Behavioral Health Topics',
+        path: 'behavioral-health',
+      },
       {
         label: 'Political Determinants of Health Topics',
         path: 'political-determinants-of-health',
@@ -355,6 +354,7 @@ export const routeConfigs = [
         label: 'Medication Utilization in the Medicare Population',
         path: 'medication-utilization-in-the-medicare-population',
       },
+      { label: 'COVID-19 Topics', path: 'covid-19' },
     ],
   },
 

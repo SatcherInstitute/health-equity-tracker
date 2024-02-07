@@ -32,8 +32,8 @@ export const SDOH_LINK = TOPICS_LINK + '/sdoh'
 export const DATA_METHOD_DEFINITIONS_LINK =
   NEW_METHODOLOGY_PAGE_LINK + '/definitions'
 export const METRICS_LINK = DATA_METHOD_DEFINITIONS_LINK + '/metrics'
-export const CONDITION_VARIABLES_LINK =
-  DATA_METHOD_DEFINITIONS_LINK + '/condition-variables'
+export const TOPIC_DEFINITIONS_LINK =
+  DATA_METHOD_DEFINITIONS_LINK + '/topic-definitions'
 export const RACES_AND_ETHNICITIES_LINK =
   DATA_METHOD_DEFINITIONS_LINK + '/races-and-ethnicities'
 export const RECOMMENDED_CITATION_LINK =
