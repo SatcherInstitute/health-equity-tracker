@@ -4,7 +4,7 @@ from unittest import mock
 import pandas as pd
 from pandas._testing import assert_frame_equal
 
-from datasources.cdc_wisqars_youth_by_race import CDCWisqarsYouthData
+from datasources.cdc_wisqars_youth import CDCWisqarsYouthData
 from ingestion import standardized_columns as std_col
 from ingestion.constants import NATIONAL_LEVEL, STATE_LEVEL
 from test_utils import _load_public_dataset_from_bigquery_as_df

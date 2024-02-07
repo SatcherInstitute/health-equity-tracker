@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from typing import List
 from ingestion import standardized_columns as std_col
 from ingestion.dataset_utils import generate_per_100k_col
 
@@ -35,7 +36,7 @@ def clean_numeric(val):
     return val
 
 
-def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: list[str]):
+def convert_columns_to_numeric(df: pd.DataFrame, columns_to_convert: List[str]):
     """
     applies clean_numeric to necessary columns and convert values to float
     """
