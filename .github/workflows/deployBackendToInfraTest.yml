@@ -18,15 +18,15 @@ jobs:
       image-digest: ${{ steps.ingestion.outputs.image-digest }}
     steps:
       - name: Check Out Code from infra-test
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: infra-test
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: ingestion
@@ -43,15 +43,15 @@ jobs:
       image-digest: ${{ steps.gcstobq.outputs.image-digest }}
     steps:
       - name: Check Out Code from infra-test
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: infra-test
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: gcstobq
@@ -68,15 +68,15 @@ jobs:
       image-digest: ${{ steps.exporter.outputs.image-digest }}
     steps:
       - name: Check Out Code from infra-test
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: infra-test
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: exporter
@@ -93,15 +93,15 @@ jobs:
       image-digest: ${{ steps.serving.outputs.image-digest }}
     steps:
       - name: Check Out Code from infra-test
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: infra-test
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: serving
@@ -118,16 +118,16 @@ jobs:
       image-digest: ${{ steps.frontend.outputs.image-digest }}
     steps:
       - name: Check Out Code from main
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           # don't update dev.healthequitytracker.org frontend with push to infra-test branch
           ref: main
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - id: frontend
@@ -147,19 +147,19 @@ jobs:
 
     steps:
       - name: Check Out Code from infra-test
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: infra-test
       - id: auth
-        uses: google-github-actions/auth@v1
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.TEST_DEPLOYER_SA_KEY }}
       - name: Set Up gcloud
-        uses: google-github-actions/setup-gcloud@v1
+        uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.TEST_PROJECT_ID }}
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v2
+        uses: hashicorp/setup-terraform@v3
         # Disable wrapper to enable access to terraform output.
         with:
           terraform_wrapper: false
@@ -213,6 +213,6 @@ jobs:
         run: |
           ./upload-dags.sh
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
