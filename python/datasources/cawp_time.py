@@ -1118,9 +1118,7 @@ def handle_other_and_multi_races(df):
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"
-    df_multiple_specific = df[
-        df[RACE_ETH].apply(lambda x: isinstance(x, str) and len(x) > 1)
-    ]
+    df_multiple_specific = df[df[RACE_ETH].map(len) > 1]
     df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 
