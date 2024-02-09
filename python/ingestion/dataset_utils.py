@@ -13,6 +13,7 @@ from ingestion.constants import (
     COUNTY_LEVEL_FIPS_LIST,
 )
 from functools import reduce
+import datetime
 
 
 def melt_to_het_style_df(
@@ -104,7 +105,7 @@ def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.Da
         )
 
     raise ValueError(
-        f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.'
+        f'The provided geo_level: {geo_level} must be `national`, `state`, or `county`.'
     )
 
 
@@ -354,7 +355,7 @@ def add_sum_of_rows(
     group_by_cols = list(df.columns)
     group_by_cols.remove(breakdown_col)
 
-    if type(value_col) == str:
+    if type(value_col) is str:
         group_by_cols.remove(value_col)
     else:
         for col in value_col:
@@ -373,7 +374,7 @@ def estimate_total(row, condition_name_per_100k):
     Parameters:
         row: a dataframe row containing a "per_100k" column with values for the incidence rate
             and a "population" column containing the total number of people
-        condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc
+        condition_name_per_100k: str col name of "per_100k" referenced above used for calc
     Returns:
         float value representing the estimated raw total for the row
     """
@@ -590,3 +591,8 @@ def combine_race_ethnicity(
     df = df.drop(columns=[std_col.RACE_COL, std_col.ETH_COL])
 
     return df
+
+
+def get_current_year_as_string():
+    """Returns the current year as a 4 character string, e.g. '1999'"""
+    return str(datetime.datetime.now().year).zfill(4)
