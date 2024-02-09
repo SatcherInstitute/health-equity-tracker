@@ -29,10 +29,10 @@ Instructions for Downloading Data:
 2. Select the desired injury outcome:
    - select either fatal or non-fatal data
 3. Choose the demographic selections for the report:
-   - select the appropriate data years, geographic level, and other demographic groups, i.e (age, race)
+   - select the appropriate data years, geo level, and other demo groups, i.e (age, race)
 4. Select the mechanism (Firearm)
 5. Select appropriate report layout:
-   - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
+   - For fatal: Year, Intent, State(only if state-level data is needed), and demo (if not all)
 
 Notes:
 - There is no state-level data on non-fatal injury outcomes
@@ -274,9 +274,11 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
             )
 
             pivot_df.columns = [
-                f"{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
-                if col[0] == 'Deaths'
-                else f"{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
+                (
+                    f"{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
+                    if col[0] == 'Deaths'
+                    else f"{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
+                )
                 for col in pivot_df.columns
             ]
 

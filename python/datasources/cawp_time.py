@@ -1,3 +1,30 @@
+"""
+Data Source: CAWP (data on women in elected office)
+
+Description:
+- The data on women by race by year by office is downloaded from the CAWP website.
+- The downloaded data is stored locally in /data/cawp_time
+
+Instructions for Downloading Data:
+1. Visit the CAWP Database by Race website:
+    https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity
+2. Under "Filter By Date", select "Show All Years"
+3. Under "Level of Office", select "Congress", "State Legislative", and "Territorial/D.C."
+4. Click the "Search" button at the bottom to refresh the page with the new selections
+5. Once the page loads, click "Download" button
+6. In the modal that pops up, log in with valid account info (it's free)
+7. Once logged in, click the "Download" button again
+8. In the next modal, download, slowly, as a .csv file
+9. Once exported, save (renaming) as /data/cawp_time/cawp-by_race_and_ethnicity_time_series.csv
+10. Commit to the repo, and if needed rerun the STAGING (infra TEST) and PROD DAG pipelines
+
+Notes:
+- This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
+ for state legislature demoninators, and UnitedStates.io for Congress denominators.
+
+Last Updated: Feb. 2024
+"""
+
 import pandas as pd
 from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_LATEST_YEAR
 from ingestion.standardized_columns import Race
@@ -303,9 +330,9 @@ class CAWPTimeData(DataSource):
 
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
-            lambda x: "ALL"
-            if x == Race.ALL.value
-            else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x)
+            lambda x: (
+                "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x)
+            )
         )
         std_col.add_race_columns_from_category_id(df)
         df = df.drop(columns=[RACE_ETH])
@@ -328,7 +355,7 @@ class CAWPTimeData(DataSource):
             std_col.W_THIS_RACE_STLEG_NAMES,
         ]
 
-        # replace null name lists with empty list and then convert existing lists into list-like strings
+        # replace null name lists with empty list then convert existing lists into list-like strs
         for col in names_cols:
             df[col].loc[df[col].isnull()] = (
                 df[col].loc[df[col].isnull()].apply(lambda x: [])
@@ -993,10 +1020,10 @@ def build_base_rows_df(
     - TOTAL STATE LEG, WOMEN IN STATE LEG, WOMEN THIS RACE STATE LEG
 
     Parameters:
-        us_congress_totals_df: previously loaded and processed df with congress info from unitedstates project
-        state_leg_totals_df: previously loaded and processed df with state legislature info from CAWP state info pages
-        women_us_congress_df: previously loaded and processed df with women in US Congress info from CAWP database
-        women_state_leg_df: previously loaded and processed df with women in state leg. info from CAWP database
+        us_congress_totals_df: prev. processed df with congress info from unitedstates project
+        state_leg_totals_df: prev. processed df with state leg info from CAWP state info pages
+        women_us_congress_df: prev. processed df with women in US Congress info from CAWP database
+        women_state_leg_df: prev. processed df with women in state leg. info from CAWP database
         race_list: a list of strings representing which races should be included in this base chunk
 
     Returns: a df with rows per year/state/race from race list, with columns incl.
