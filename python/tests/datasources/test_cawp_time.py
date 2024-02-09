@@ -32,7 +32,7 @@ def test_get_consecutive_time_periods():
     assert get_consecutive_time_periods(2020, 2022) == ["2020", "2021", "2022"]
     default_time_periods = get_consecutive_time_periods()
     assert default_time_periods[0] == "1915"
-    assert default_time_periods[-1] == "2023"
+    assert default_time_periods[-1] == "2024"  # TODO: make dynamic; see GitHub #2897
 
 
 # INTEGRATION TEST SETUP
@@ -150,9 +150,9 @@ def _load_csv_as_df_from_web(*args, **kwargs):
 def testWriteToBq(
     mock_test_fips: mock.MagicMock,  # only use a restricted set of FIPS codes in test
     mock_test_time_periods: mock.MagicMock,  # only use a restricted number of years in test
-    mock_df_from_bq: mock.MagicMock,  # shared util mock for any read from HET generated BQ tables like acs_population
-    mock_public_bq: mock.MagicMock,  # shared mock mock for any read from public BQ tables like FIPS CODES
-    mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG. TOTAL CSV
+    mock_df_from_bq: mock.MagicMock,  # shared mock for read HET BQ like acs_population
+    mock_public_bq: mock.MagicMock,  # shared mock for read public BQ tables like FIPS
+    mock_data_dir: mock.MagicMock,  # reading either CAWP LINE ITEM CSV or MANUAL TERRITORY LEG.
     mock_csv_from_web: mock.MagicMock,  # reading STATE LEG TOTAL from CAWP site
     mock_json_from_web: mock.MagicMock,  # reading CONGRESS TOTALS from UNITEDSTATES.IO
     mock_bq: mock.MagicMock,  # writing HET tables to HET BQ
