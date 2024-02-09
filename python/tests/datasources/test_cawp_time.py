@@ -45,8 +45,6 @@ GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
 
 def _get_consecutive_time_periods(*args, **kwargs):
     print("mocking with reduced years")
-    if len(kwargs) == 1:
-        return get_consecutive_time_periods(first_year=2018)
     # NOTE: ensure this end date is updated to reflect current test data set's last year
     return get_consecutive_time_periods(first_year=2018, last_year=2023)
 
