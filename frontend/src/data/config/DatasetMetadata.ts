@@ -633,12 +633,12 @@ export const DatasetMetadataMap: Record<DatasetId, DatasetMetadata> = {
   },
   'cawp_time_data-race_and_ethnicity_national_current': {
     name: 'Current, national representation of women by race/ethnicity in the U.S. Congress and state/territory legislatures',
-    original_data_sourced: 'August 2023',
+    original_data_sourced: 'Feb. 2024',
     source_id: 'cawp',
   },
   'cawp_time_data-race_and_ethnicity_state_current': {
     name: 'Current representation of women by race/ethnicity from each state and territory to the U.S. Congress and to their respective state/territory legislature',
-    original_data_sourced: 'August 2023',
+    original_data_sourced: 'Feb. 2024',
     source_id: 'cawp',
   },
   'cawp_time_data-race_and_ethnicity_national_historical': {
