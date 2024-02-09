@@ -62,19 +62,15 @@ const HivLink = () => {
         <HetNotice className='my-12' title='A note about CDC NCHHSTP AtlasPlus'>
           <p>
             The CDC's NCHHSTP and other HIV surveillance programs have agreed to
-            limit the amount of data released at the state and county levels in
-            order to protect the privacy of those affected. It takes 12 months
-            for the data to become official, so the numbers reported before this
-            time are not final and should be interpreted with caution.
+            limit the data released at the state and county levels in order to
+            protect the privacy of those affected. It takes 12 months for the
+            data to become official, so the numbers reported before this time
+            are not final and should be interpreted with caution. Additionally,
+            some of the data is adjusted to account for missing information on
+            how people became infected with HIV. This means that the data may
+            change as more information becomes available.
           </p>
         </HetNotice>
-        <p>
-          To protect people’s privacy, the CDC and these programs have agreed to
-          limit the amount of data released at the state and county levels.
-          Additionally, some of the data is adjusted to account for missing
-          information on how people became infected with HIV. This means that
-          the data may change as more information becomes available.
-        </p>
         <HetNotice
           className='my-12'
           kind='data-integrity'
@@ -90,10 +86,9 @@ const HivLink = () => {
           The data for 2022 and 2023 is still in its initial stages of
           collection and has not been finalized, making it "preliminary."
           Single-year figures refer to data that represents just one specific
-          year, rather than an average or cumulative total over multiple years.
-          Given the preliminary status of the 2022 and 2023 data, we've opted to
-          use 2021 as our reference year when showcasing data from a single
-          year.
+          year rather than an average or cumulative total over multiple years.
+          Given the preliminary status of the 2022 and 2023 data, we've used
+          2021 as our reference year when showcasing data from a single year.
         </p>
         <h3
           className='mt-12 text-title font-medium'
@@ -101,27 +96,28 @@ const HivLink = () => {
         >
           Variable Data Compilation and Analysis
         </h3>
-        <h4 className='text-text font-normal'>HIV Diagnosis</h4>
+        <h4 className='text-text font-normal'>HIV Diagnoses</h4>
         <p>
           Refers to confirmed HIV infections via laboratory or clinical evidence
           within a specific calendar year. Counts are for individuals aged 13 or
           older diagnosed with HIV during the year. Age is determined by the
           person's age at the time of infection. All metrics sourced from the
-          CDC for HIV deaths are calculated directly from the raw count of those
-          cases.
+          CDC for HIV diagnoses are calculated directly from the raw count of
+          those cases.
         </p>
         <h4 className='text-text font-normal'>HIV Prevalence</h4>
         <p>
           Represents estimated individuals aged 13 and older living with HIV by
           the year's end. Accounts for both diagnosed and undiagnosed cases.
-          Adjusted using the total number of diagnosed cases and subsequent
-          deaths from CDC’s Atlas database. The Asian category includes cases
-          classified as "Asian/Pacific Islander" using the pre-1997 OMB
-          race/ethnicity system when querying HIV prevalence. HIV prevalence
-          metrics are determined by estimating the total number of individuals
-          who have ever been infected with HIV (diagnosed and undiagnosed cases)
-          and then adjusting for the reported total number of people diagnosed
-          with HIV and subsequently died provided by the CDC’s Atlas database.
+          They were adjusted using the total number of diagnosed cases and
+          subsequent deaths from the CDC’s Atlas database. The Asian category
+          includes cases classified as "Asian/Pacific Islander" using the
+          pre-1997 OMB race/ethnicity system when querying HIV prevalence. HIV
+          prevalence metrics are determined by estimating the total number of
+          individuals who have ever been infected with HIV (diagnosed and
+          undiagnosed cases) and then adjusting for the reported total number of
+          people diagnosed with HIV and subsequently died provided by the CDC’s
+          Atlas database.
         </p>
         <h4 className='text-text font-normal'>HIV Deaths</h4>
         <p>
@@ -169,7 +165,7 @@ const HivLink = () => {
         />
         <h5>Rate Per 100,000 People (also referred to as 'Rate Per 100k')</h5>
         <p>
-          The rate per 100k for HIV diagnoses, prevalence, and deaths, is
+          The rate per 100k for HIV diagnoses, prevalence, and deaths is
           obtained directly from the CDC. Calculating the rate per 100k of HIV
           deaths, diagnoses, or prevalence involves dividing the number of
           deaths, diagnoses, or prevalence within a specific population by the
@@ -259,7 +255,7 @@ const HivLink = () => {
         </h3>
         <p>
           PrEP coverage is quantified as a percentage. It represents the ratio
-          of people, aged 16 and older, who were prescribed PrEP in a given year
+          of people aged 16 and older who were prescribed PrEP in a given year
           to the estimated number of individuals in the same age group with
           indications for PrEP during that year.
         </p>
