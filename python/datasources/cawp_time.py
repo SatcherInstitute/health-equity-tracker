@@ -5,7 +5,7 @@ Description:
 - The data on women by race by year by office is downloaded from the CAWP website.
 - The downloaded data is stored locally in /data/cawp_time
 
-Instructions for Downloading Data:
+Instructions for Downloading NUMERATOR Data:
 1. Visit the CAWP Database by Race website:
     https://cawpdata.rutgers.edu/women-elected-officials/race-ethnicity
 2. Under "Filter By Date", select "Show All Years"
@@ -20,7 +20,12 @@ Instructions for Downloading Data:
 
 Notes:
 - This is simply the "numerator" data; we rely on directly downloaded table data from CAWP
- for state legislature demoninators, and UnitedStates.io for Congress denominators.
+ for state legislature demoninators, and UnitedStates.io for Congress denominators
+
+Instructions for Updating TERRITORIAL LEGISLATURE DENOMINATOR Data:
+- Once per year, we should also update our custom-made denominator files for territorial leg
+- These are the other .csv files in that same /data/cawp_time directory, named by their FIPS code.
+- Data source: ncsl.org/resources/details/number-of-legislators-and-length-of-terms-in-years
 
 Last Updated: Feb. 2024
 """
