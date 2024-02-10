@@ -37,7 +37,7 @@ export default {
     fontFamily: {
       // Nested quotations are required for font names with spaces
       sansTitle: ["'DM Sans Variable'", 'sans-serif'],
-      sansText: ['Inter', 'sans-serif'],
+      sansText: ['"Inter Variable"', 'sans-serif'],
       roboto: ['Roboto', 'sans-serif'],
       robotoCondensed: ["'Roboto Condensed'", 'sans-serif'],
       serif: ['Taviraj', 'serif'],
