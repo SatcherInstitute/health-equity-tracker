@@ -4,6 +4,9 @@ import re
 import pandas as pd
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
+import ingestion.standardized_columns as std_col
+from ingestion.dataset_utils import combine_race_ethnicity
+
 
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
@@ -189,6 +192,16 @@ _fake_data_missing_zeros = [
     ['4', 'Arizona', 'Some other race alone', '46'],
     ['4', 'Arizona', 'Two or more races', '26'],
 ]
+
+RACE_NAMES_MAPPING = {
+    "American Indian/Alaska Native": std_col.Race.AIAN_NH.value,
+    "Asian": std_col.Race.ASIAN_NH.value,
+    "Black": std_col.Race.BLACK_NH.value,
+    "Multiple/Other": std_col.Race.MULTI_OR_OTHER_STANDARD_NH.value,
+    "Native Hawaiian/Other Pacific Islander": std_col.Race.NHPI_NH.value,
+    "White": std_col.Race.WHITE_NH.value,
+    'Hispanic/Latino': std_col.Race.HISP.value,
+}
 
 
 def testRatioRoundToNone():
@@ -387,18 +400,22 @@ _expected_HET_style_data = [
 def test_melt_to_het_style_df():
 
     source_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_wide_short_source_data)).reset_index(drop=True)
+        json.dumps(_fake_wide_short_source_data)
+    ).reset_index(drop=True)
 
     df = dataset_utils.melt_to_het_style_df(
         source_df,
         "race",
         ["time_period", "state_fips", "state_name"],
-        {"A_100k": {"black_A_100k": "black", "white_A_100k": "white"},
-            "B_100k": {"black_B_100k": "black", "white_B_100k": "white"}}
+        {
+            "A_100k": {"black_A_100k": "black", "white_A_100k": "white"},
+            "B_100k": {"black_B_100k": "black", "white_B_100k": "white"},
+        },
     )
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_HET_style_data)).reset_index(drop=True)
+        json.dumps(_expected_HET_style_data)
+    ).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df, check_dtype=False)
 
@@ -416,8 +433,9 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'black', 101, 998],
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
-    time_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_time_data)).reset_index(drop=True)
+    time_df = gcs_to_bq_util.values_json_to_df(json.dumps(_time_data)).reset_index(
+        drop=True
+    )
 
     # normal mode: drop time_period
     current_df = dataset_utils.preserve_only_current_time_period_rows(time_df)
@@ -429,11 +447,15 @@ def test_preserve_only_current_time_period_rows():
         ['99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_current_data)).reset_index(drop=True)
+        json.dumps(_expected_current_data)
+    ).reset_index(drop=True)
+
     assert_frame_equal(current_df, expected_current_df, check_like=True)
 
     # optional mode: keep time_period
-    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(time_df, keep_time_period_col=True)
+    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(
+        time_df, keep_time_period_col=True
+    )
     _expected_current_data = [
         ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
         ['2000', '88', 'North Somestate', 'black', 100, 999],
@@ -442,13 +464,22 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df_with_time = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_current_data),
-        dtype={"time_period": str}).reset_index(drop=True)
-    assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
+        json.dumps(_expected_current_data), dtype={"time_period": str}
+    ).reset_index(drop=True)
+    assert_frame_equal(
+        current_df_with_time, expected_current_df_with_time, check_like=True
+    )
 
     # optional alt name for time_period column
     _time_alt_col_data = [
-        ['some_other_datetime_col', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
+        [
+            'some_other_datetime_col',
+            'state_fips',
+            'state_name',
+            'race',
+            'A_100k',
+            'B_100k',
+        ],
         ['1999-01', '88', 'North Somestate', 'black', 100, 999],
         ['1999', '88', 'North Somestate', 'white', 50, 2222],
         ['1999', '99', 'South Somestate', 'black', 101, 998],
@@ -459,11 +490,11 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
     time_alt_col_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_time_alt_col_data)).reset_index(drop=True)
+        json.dumps(_time_alt_col_data)
+    ).reset_index(drop=True)
 
     current_df_with_alt_col = dataset_utils.preserve_only_current_time_period_rows(
-        time_alt_col_df,
-        time_period_col="some_other_datetime_col"
+        time_alt_col_df, time_period_col="some_other_datetime_col"
     )
     _expected_alt_col_current_data = [
         ['state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
@@ -473,12 +504,57 @@ def test_preserve_only_current_time_period_rows():
         ['99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_alt_col_current_data)).reset_index(drop=True)
-    assert_frame_equal(current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True)
+        json.dumps(_expected_alt_col_current_data)
+    ).reset_index(drop=True)
+    assert_frame_equal(
+        current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True
+    )
 
     # expect error
     with pytest.raises(
-        ValueError,
-        match="df does not contain column: BAD_COLUMN_NAME."
+        ValueError, match="df does not contain column: BAD_COLUMN_NAME."
     ):
-        _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")
+        _ = dataset_utils.preserve_only_current_time_period_rows(
+            time_alt_col_df, time_period_col="BAD_COLUMN_NAME"
+        )
+
+
+def test_combine_race_ethnicity_example():
+    ethnicity_val = 'Hispanic/Latino'
+
+    def create_test_case(
+        ethnicity, race, expected_combined_value, ethnicity_value=None
+    ):
+        test_data = [['ethnicity', 'race'], [ethnicity, race]]
+        expected_data = [['race_ethnicity_combined'], [expected_combined_value]]
+
+        df = gcs_to_bq_util.values_json_to_df(
+            json.dumps(test_data), dtype=str
+        ).reset_index(drop=True)
+
+        expected_df = gcs_to_bq_util.values_json_to_df(
+            json.dumps(expected_data), dtype=str
+        ).reset_index(drop=True)
+
+        if ethnicity_value:
+            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING, ethnicity_value)
+        else:
+            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
+
+        assert_frame_equal(df, expected_df, check_like=True)
+
+    # Default behavior tests (assuming 'Hispanic' as default)
+    create_test_case('Hispanic', 'White', std_col.Race.HISP.value)
+    create_test_case('Hispanic', 'Black', std_col.Race.HISP.value)
+
+    # Specified behavior tests ('Hispanic/Latino')
+    create_test_case('Hispanic/Latino', 'White', std_col.Race.HISP.value, ethnicity_val)
+    create_test_case('Hispanic/Latino', 'Black', std_col.Race.HISP.value, ethnicity_val)
+
+    # Non-Hispanic tests
+    create_test_case('Non-Hispanic/Latino', 'Black', std_col.Race.BLACK_NH.value)
+    create_test_case('Non-Hispanic/Latino', 'White', std_col.Race.WHITE_NH.value)
+
+    # Unknown and Missing tests
+    create_test_case('Unknown', 'Asian', std_col.Race.UNKNOWN.value)
+    create_test_case('Missing', 'Missing', std_col.Race.UNKNOWN.value)

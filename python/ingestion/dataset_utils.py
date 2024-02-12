@@ -540,7 +540,13 @@ def preserve_only_current_time_period_rows(
         raise ValueError(f'df does not contain column: {time_period_col}.')
 
     # Convert time_period to datetime-like object
-    df["time_period_dt"] = pd.to_datetime(df[time_period_col], errors='coerce')
+    df['time_period_dt'] = pd.to_datetime(
+        df[time_period_col], errors='coerce', format='%Y-%m'
+    )
+    # For rows that failed to convert (NaT), try again assuming just a year is provided
+    df.loc[df['time_period_dt'].isna(), 'time_period_dt'] = pd.to_datetime(
+        df[time_period_col], format='%Y', errors='coerce'
+    )
 
     # Filter the DataFrame to keep only the rows with the most recent rows
     most_recent = df["time_period_dt"].max()
