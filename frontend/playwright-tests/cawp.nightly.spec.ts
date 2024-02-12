@@ -16,7 +16,6 @@ test('CAWP: Congress', async ({ page }) => {
   await page.getByText('Expand rates over time table').click()
   await page.getByRole('cell', { name: '1951' }).click()
   await page.getByRole('cell', { name: '1952' }).click()
-  await page.getByRole('cell', { name: '2024' }).click()
 
   await page
     .getByText(
