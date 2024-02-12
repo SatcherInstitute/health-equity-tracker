@@ -519,7 +519,7 @@ def test_preserve_only_current_time_period_rows():
         )
 
 
-def test_combine_race_ethnicity_example():
+def test_combine_race_ethnicity():
     ethnicity_val = 'Hispanic/Latino'
 
     def create_test_case(
