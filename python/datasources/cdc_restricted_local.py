@@ -20,16 +20,19 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
+
+from ingestion.dataset_utils import combine_race_ethnicity
+
 pd.options.mode.chained_assignment = None  # default='warn'
 
 CHUNK_SIZE = 5_000_000
 
 # Command line flags for the dir and file name prefix for the data.
 parser = argparse.ArgumentParser()
+parser.add_argument("-dir", "--dir", help="Path to the CDC restricted data CSV files")
 parser.add_argument(
-    "-dir", "--dir", help="Path to the CDC restricted data CSV files")
-parser.add_argument("-prefix", "--prefix",
-                    help="Prefix for the CDC restricted CSV files")
+    "-prefix", "--prefix", help="Prefix for the CDC restricted CSV files"
+)
 
 # These are the columns that we want to keep from the data.
 # Geo columns (state, county) - we aggregate or groupby either state or county.
@@ -123,36 +126,11 @@ DEMOGRAPHIC_COL_MAPPING = {
     'race': ([RACE_COL, ETH_COL], RACE_NAMES_MAPPING),
     'sex': ([SEX_COL], SEX_NAMES_MAPPING),
     'age': ([AGE_COL], AGE_NAMES_MAPPING),
-    'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
+    'race_and_age': (
+        [RACE_COL, ETH_COL, AGE_COL],
+        {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING},
+    ),
 }
-
-
-def combine_race_eth(df):
-    """Combines the race and ethnicity fields into the legacy race/ethnicity category.
-       We will keep this in place until we can figure out a plan on how to display
-       the race and ethnicity to our users in a disaggregated way."""
-
-    # Create a mask for Hispanic/Latino
-    hispanic_mask = df[ETH_COL] == 'Hispanic/Latino'
-
-    # Create masks for 'NA', 'Missing', 'Unknown'
-    race_missing_mask = df[RACE_COL].isin({'NA', 'Missing', 'Unknown'})
-    eth_missing_mask = df[ETH_COL].isin({'NA', 'Missing', 'Unknown'})
-
-    # Create a mask for other cases
-    other_mask = ~race_missing_mask & ~eth_missing_mask
-
-    # Create a new combined race/eth column Initialize with UNKNOWN
-    df[RACE_ETH_COL] = std_col.Race.UNKNOWN.value
-    # Overwrite specific race if given
-    df.loc[other_mask, RACE_ETH_COL] = df.loc[other_mask, RACE_COL].map(RACE_NAMES_MAPPING)
-    # overwrite with Hispanic if given
-    df.loc[hispanic_mask, RACE_ETH_COL] = std_col.Race.HISP.value
-
-    # Drop unnecessary columns
-    df = df.drop(columns=[RACE_COL, ETH_COL])
-
-    return df
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
@@ -194,7 +172,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # Standardize the values in demog_col using names_mapping.
     for demog_col in demog_cols:
         if demog_col == RACE_ETH_COL:
-            df = combine_race_eth(df)
+            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING, 'Hispanic/Latino')
         else:
             df = df.replace({demog_col: names_mapping})
 
