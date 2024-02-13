@@ -354,6 +354,7 @@ def add_sum_of_rows(
                            all values.
     """
     filtered_df = df
+
     if breakdown_vals_to_sum is not None:
         filtered_df = df.loc[df[breakdown_col].isin(breakdown_vals_to_sum)]
 

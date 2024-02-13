@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from google.cloud import bigquery, storage
 from zipfile import ZipFile
-from io import BytesIO, StringIO
+from io import BytesIO
 from typing import List
 
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
@@ -172,7 +172,7 @@ def load_values_as_df(gcs_bucket, filename):
 
 
 def values_json_to_df(json_string, dtype=None):
-    frame = pd.read_json(StringIO(json_string), orient='values', dtype=dtype)
+    frame = pd.read_json(json_string, orient='values', dtype=dtype)
     frame.rename(columns=frame.iloc[0], inplace=True)
     frame.drop([0], inplace=True)
     return frame
