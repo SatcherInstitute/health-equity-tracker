@@ -222,7 +222,11 @@ def testGenerateBreakdownAgeNational(
         GOLDEN_DATA['age_national'], dtype=expected_dtype_age
     )
 
-    assert_frame_equal(df, expected_df_age_national, check_like=True)
+    assert_frame_equal(
+        df.sort_values(by=["age"]).reset_index(drop=True),
+        expected_df_age_national.sort_values(by=["age"]).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # - RACE
@@ -254,7 +258,13 @@ def testGenerateBreakdownRaceNational(
         GOLDEN_DATA['race_national'], dtype=expected_dtype_race
     )
 
-    assert_frame_equal(df, expected_df_race_national, check_like=True)
+    assert_frame_equal(
+        df.sort_values(by=["race_category_id"]).reset_index(drop=True),
+        expected_df_race_national.sort_values(by=["race_category_id"]).reset_index(
+            drop=True
+        ),
+        check_like=True,
+    )
 
 
 # - SEX
@@ -284,7 +294,11 @@ def testGenerateBreakdownSexNational(
         GOLDEN_DATA['sex_national'], dtype=expected_dtype_sex
     )
 
-    assert_frame_equal(df, expected_df_sex_national, check_like=True)
+    assert_frame_equal(
+        df.sort_values(by=["sex"]).reset_index(drop=True),
+        expected_df_sex_national.sort_values(by=["sex"]).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # # INTEGRATION TEST - STATE LEVEL
@@ -313,7 +327,13 @@ def testGenerateBreakdownSexState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
         GOLDEN_DATA['sex_state'], dtype=expected_dtype_sex
     )
 
-    assert_frame_equal(df, expected_df_sex_state, check_like=True)
+    assert_frame_equal(
+        df.sort_values(by=["state_name", "sex"]).reset_index(drop=True),
+        expected_df_sex_state.sort_values(by=["state_name", "sex"]).reset_index(
+            drop=True
+        ),
+        check_like=True,
+    )
 
 
 # - AGE
@@ -339,7 +359,13 @@ def testGenerateBreakdownAgeState(mock_fips: mock.MagicMock, mock_pop: mock.Magi
         GOLDEN_DATA['age_state'], dtype=expected_dtype_age
     )
 
-    assert_frame_equal(df, expected_df_age_state, check_like=True)
+    assert_frame_equal(
+        df.sort_values(by=["state_name", "age"]).reset_index(drop=True),
+        expected_df_age_state.sort_values(by=["state_name", "age"]).reset_index(
+            drop=True
+        ),
+        check_like=True,
+    )
 
 
 # - RACE
@@ -368,7 +394,14 @@ def testGenerateBreakdownRaceState(mock_fips: mock.MagicMock, mock_pop: mock.Mag
     expected_df_race_state = pd.read_json(
         GOLDEN_DATA['race_state'], dtype=expected_dtype_race
     )
-    assert_frame_equal(df, expected_df_race_state, check_like=True)
+
+    assert_frame_equal(
+        df.sort_values(by=["state_name", "race_category_id"]).reset_index(drop=True),
+        expected_df_race_state.sort_values(
+            by=["state_name", "race_category_id"]
+        ).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # INTEGRATION TEST - CORRECT NETWORK CALLS
