@@ -197,46 +197,58 @@ def test_write_to_bq_age_national(
     )
 
 
-# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-# @mock.patch(
-#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-#     side_effect=_load_csv_as_df_from_data_dir,
-# )
-# def test_write_to_bq_sex_state(
-#     mock_data_dir: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-# ):
-#     datasource = CDCHIVData()
-#     datasource.write_to_bq(
-#         "dataset", "gcs_bucket", demographic="sex", geographic="state"
-#     )
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+    side_effect=_load_csv_as_df_from_data_dir,
+)
+def test_write_to_bq_sex_state(
+    mock_data_dir: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+):
+    datasource = CDCHIVData()
+    datasource.write_to_bq(
+        "dataset", "gcs_bucket", demographic="sex", geographic="state"
+    )
 
-#     assert mock_bq.call_count == 2
-#     mock_bq_sex_state_current, mock_bq_sex_state_historical = mock_bq.call_args_list
+    assert mock_bq.call_count == 2
+    mock_bq_sex_state_current, mock_bq_sex_state_historical = mock_bq.call_args_list
 
-#     (sex_state_current_df, _dataset, table_name), _col_types = mock_bq_sex_state_current
-#     assert table_name == "sex_state_current"
-#     expected_sex_state_current_df = pd.read_csv(
-#         GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE
-#     )
+    (sex_state_current_df, _dataset, table_name), _col_types = mock_bq_sex_state_current
+    assert table_name == "sex_state_current"
+    expected_sex_state_current_df = pd.read_csv(
+        GOLDEN_DATA["sex_state_current"], dtype=EXP_DTYPE
+    )
 
-#     assert_frame_equal(
-#         sex_state_current_df, expected_sex_state_current_df, check_like=True
-#     )
+    assert_frame_equal(
+        sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(
+            drop=True
+        ),
+        expected_sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(
+            drop=True
+        ),
+        check_like=True,
+    )
 
-#     (
-#         sex_state_historical_df,
-#         _dataset,
-#         table_name,
-#     ), _col_types = mock_bq_sex_state_historical
-#     assert table_name == "sex_state_historical"
-#     expected_sex_state_historical_df = pd.read_csv(
-#         GOLDEN_DATA["sex_state_historical"], dtype=EXP_DTYPE
-#     )
+    (
+        sex_state_historical_df,
+        _dataset,
+        table_name,
+    ), _col_types = mock_bq_sex_state_historical
+    assert table_name == "sex_state_historical"
+    expected_sex_state_historical_df = pd.read_csv(
+        GOLDEN_DATA["sex_state_historical"], dtype=EXP_DTYPE
+    )
 
-#     assert_frame_equal(
-#         sex_state_historical_df, expected_sex_state_historical_df, check_like=True
-#     )
+    assert_frame_equal(
+        sex_state_historical_df.sort_values(
+            by=['time_period', 'sex', 'state_name']
+        ).reset_index(drop=True),
+        expected_sex_state_historical_df.sort_values(
+            by=['time_period', 'sex', 'state_name']
+        ).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
