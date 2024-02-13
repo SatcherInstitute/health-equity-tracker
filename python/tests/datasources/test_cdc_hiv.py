@@ -140,55 +140,61 @@ def test_write_to_bq_race_national(
     )
 
 
-# @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
-# @mock.patch(
-#     "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
-#     side_effect=_load_csv_as_df_from_data_dir,
-# )
-# def test_write_to_bq_age_national(
-#     mock_data_dir: mock.MagicMock,
-#     mock_bq: mock.MagicMock,
-# ):
-#     datasource = CDCHIVData()
-#     datasource.write_to_bq(
-#         "dataset", "gcs_bucket", demographic="age", geographic="national"
-#     )
+@mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
+@mock.patch(
+    "ingestion.gcs_to_bq_util.load_csv_as_df_from_data_dir",
+    side_effect=_load_csv_as_df_from_data_dir,
+)
+def test_write_to_bq_age_national(
+    mock_data_dir: mock.MagicMock,
+    mock_bq: mock.MagicMock,
+):
+    datasource = CDCHIVData()
+    datasource.write_to_bq(
+        "dataset", "gcs_bucket", demographic="age", geographic="national"
+    )
 
-#     assert mock_bq.call_count == 2
-#     (
-#         mock_bq_age_national_current,
-#         mock_bq_age_national_historical,
-#     ) = mock_bq.call_args_list
+    assert mock_bq.call_count == 2
+    (
+        mock_bq_age_national_current,
+        mock_bq_age_national_historical,
+    ) = mock_bq.call_args_list
 
-#     (
-#         age_national_current_df,
-#         _dataset,
-#         table_name,
-#     ), _col_types = mock_bq_age_national_current
-#     assert table_name == "age_national_current"
-#     expected_age_national_current_df = pd.read_csv(
-#         GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE
-#     )
+    (
+        age_national_current_df,
+        _dataset,
+        table_name,
+    ), _col_types = mock_bq_age_national_current
+    assert table_name == "age_national_current"
+    expected_age_national_current_df = pd.read_csv(
+        GOLDEN_DATA["age_national_current"], dtype=EXP_DTYPE
+    )
 
-#     assert_frame_equal(
-#         age_national_current_df, expected_age_national_current_df, check_like=True
-#     )
+    assert_frame_equal(
+        age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
+        expected_age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
+        check_like=True,
+    )
 
-#     (
-#         age_national_historical_df,
-#         _dataset,
-#         table_name,
-#     ), _col_types = mock_bq_age_national_historical
-#     assert table_name == "age_national_historical"
-#     expected_age_national_historical_df = pd.read_csv(
-#         GOLDEN_DATA["age_national_historical"], dtype=EXP_DTYPE
-#     )
+    (
+        age_national_historical_df,
+        _dataset,
+        table_name,
+    ), _col_types = mock_bq_age_national_historical
+    assert table_name == "age_national_historical"
+    expected_age_national_historical_df = pd.read_csv(
+        GOLDEN_DATA["age_national_historical"], dtype=EXP_DTYPE
+    )
 
-#     assert_frame_equal(
-#         age_national_historical_df,
-#         expected_age_national_historical_df,
-#         check_like=True,
-#     )
+    assert_frame_equal(
+        age_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(
+            drop=True
+        ),
+        expected_age_national_historical_df.sort_values(
+            by=['time_period', 'age']
+        ).reset_index(drop=True),
+        check_like=True,
+    )
 
 
 # @mock.patch("ingestion.gcs_to_bq_util.add_df_to_bq", return_value=None)
