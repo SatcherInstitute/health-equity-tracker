@@ -354,7 +354,7 @@ def add_sum_of_rows(
     group_by_cols = list(df.columns)
     group_by_cols.remove(breakdown_col)
 
-    if type(value_col) == str:
+    if isinstance(value_col, str):
         group_by_cols.remove(value_col)
     else:
         for col in value_col:
