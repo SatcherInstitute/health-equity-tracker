@@ -25,7 +25,9 @@ TEST_DATA = [
 GOLDEN_DATA = {
     ("state", "race"): os.path.join(TEST_DIR, "cdc_restricted_by_race_state.csv"),
     ("county", "race"): os.path.join(TEST_DIR, "cdc_restricted_by_race_county.csv"),
-    ("state", "race_and_age"): os.path.join(TEST_DIR, "cdc_restricted_by_race_and_age_state.csv"),
+    ("state", "race_and_age"): os.path.join(
+        TEST_DIR, "cdc_restricted_by_race_and_age_state.csv"
+    ),
     ("state", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_state.csv"),
     ("county", "age"): os.path.join(TEST_DIR, "cdc_restricted_by_age_county.csv"),
     ("state", "sex"): os.path.join(TEST_DIR, "cdc_restricted_by_sex_state.csv"),
@@ -34,7 +36,8 @@ GOLDEN_DATA = {
 
 
 GOLDEN_DATA_NATIONAL = os.path.join(
-    TEST_DIR, "cdc_restricted_by_race_and_age_national.csv")
+    TEST_DIR, "cdc_restricted_by_race_and_age_national.csv"
+)
 
 
 def testKeyMap():
@@ -52,8 +55,7 @@ def testKeyMap():
 
 def run_test(key):
     dfs = cdc.process_data(TEST_DIR, TEST_DATA)
-    expected_df = pd.read_csv(
-        GOLDEN_DATA[key], dtype=str, keep_default_na=False)
+    expected_df = pd.read_csv(GOLDEN_DATA[key], dtype=str, keep_default_na=False)
 
     expected_df = expected_df.replace({'nan': ''})
 
@@ -62,7 +64,8 @@ def run_test(key):
     assert_frame_equal(
         dfs[key].sort_values(by=sortby_cols).reset_index(drop=True),
         expected_df.sort_values(by=sortby_cols).reset_index(drop=True),
-        check_like=True)
+        check_like=True,
+    )
 
 
 def testStateRace():
