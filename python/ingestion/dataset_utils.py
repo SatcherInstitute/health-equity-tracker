@@ -104,7 +104,7 @@ def scaffold_fips_df(geo_level: Literal["national", "state", "county"]) -> pd.Da
         )
 
     raise ValueError(
-        f'The provided geo_level: {geo_level} in invalid; it must be `national`, `state`, or `county`.'
+        f'geo_level: {geo_level} must be `national`, `state`, or `county`.'
     )
 
 
@@ -300,8 +300,14 @@ def percent_avoid_rounding_to_zero(
     and `max_decimals` should be >= -1 and `max_decimals` should be >=
     `default_decimals`."""
 
-    if (float(denominator) == 0.0) or (numerator is None) or (denominator is None):
-        return None
+    if (
+        (float(denominator) == 0.0)
+        or (numerator is None)
+        or (numerator is np.nan)
+        or (denominator is None)
+        or (denominator is np.nan)
+    ):
+        return np.nan
 
     decimals = default_decimals
     pct = round((float(numerator) / float(denominator) * 100), decimals)
@@ -319,7 +325,7 @@ def ratio_round_to_None(numerator, denominator):
     ratio = float(numerator) / float(denominator)
 
     if ratio < 0.1:
-        return None
+        return np.nan
 
     return round(ratio, 1)
 
@@ -354,7 +360,7 @@ def add_sum_of_rows(
     group_by_cols = list(df.columns)
     group_by_cols.remove(breakdown_col)
 
-    if type(value_col) == str:
+    if type(value_col) is str:
         group_by_cols.remove(value_col)
     else:
         for col in value_col:
@@ -373,7 +379,7 @@ def estimate_total(row, condition_name_per_100k):
     Parameters:
         row: a dataframe row containing a "per_100k" column with values for the incidence rate
             and a "population" column containing the total number of people
-        condition_name_per_100k: string column name of the "per_100k" referenced above used for the calc
+        condition_name_per_100k: str col name of the "per_100k" referenced above used for the calc
     Returns:
         float value representing the estimated raw total for the row
     """
@@ -383,7 +389,7 @@ def estimate_total(row, condition_name_per_100k):
         or pd.isna(row[std_col.POPULATION_COL])
         or int(row[std_col.POPULATION_COL]) == 0
     ):
-        return None
+        return np.nan
 
     return round(
         (float(row[condition_name_per_100k]) / 100_000)
@@ -539,8 +545,20 @@ def preserve_only_current_time_period_rows(
     if time_period_col not in df.columns:
         raise ValueError(f'df does not contain column: {time_period_col}.')
 
-    # Convert time_period to datetime-like object
-    df["time_period_dt"] = pd.to_datetime(df[time_period_col], errors='coerce')
+    # Split the DataFrame into "YYYY" and "YYYY-MM"
+    df_4_digits = df[df[time_period_col].str.len() == 4].copy()
+    df_7_digits = df[df[time_period_col].str.len() == 7].copy()
+
+    # Convert "time_period" column to datetime with different formats
+    df_4_digits.loc[:, 'time_period_dt'] = pd.to_datetime(
+        df_4_digits[time_period_col], format='%Y'
+    )
+    df_7_digits.loc[:, 'time_period_dt'] = pd.to_datetime(
+        df_7_digits[time_period_col], format='%Y-%m'
+    )
+
+    # Concatenate the two DataFrames back together
+    df = pd.concat([df_4_digits, df_7_digits])
 
     # Filter the DataFrame to keep only the rows with the most recent rows
     most_recent = df["time_period_dt"].max()

@@ -4,6 +4,7 @@ import re
 import pandas as pd
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, dataset_utils
+import numpy as np
 
 _fake_race_data = [
     ['state_fips', 'state_name', 'race', 'population'],
@@ -67,64 +68,82 @@ _fake_data_without_pct_relative_inequity_col = [
     ['01', 'Alabama', 'Race 1', 0, 10.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0],
     ['01', 'Alabama', 'Race 3', 60.0, 10.0],
-    ['01', 'Alabama', 'Race 4', 60.0, None],
-    ['01', 'Alabama', 'Race 5', None, 10.0],
+    ['01', 'Alabama', 'Race 4', 60.0, np.nan],
+    ['01', 'Alabama', 'Race 5', np.nan, 10.0],
     ['01', 'Alabama', 'Race 6', 100.0, 0],
 ]
 
 _expected_data_with_pct_relative_inequity_col = [
-    ['state_fips', 'state_name', 'race', 'pct_share',
-
-        'pct_pop', 'pct_relative_inequity'],
+    [
+        'state_fips',
+        'state_name',
+        'race',
+        'pct_share',
+        'pct_pop',
+        'pct_relative_inequity',
+    ],
     ['01', 'Alabama', 'Race 1', 0, 10.0, -100.0],
     ['01', 'Alabama', 'Race 2', 10.001, 10.0, 0.0],
     ['01', 'Alabama', 'Race 3', 60.0, 10.0, 500.0],
-    ['01', 'Alabama', 'Race 4', 60.0, None, None],
-    ['01', 'Alabama', 'Race 5', None, 10.0, None],
-    ['01', 'Alabama', 'Race 6', 100.0, 0, None],
+    ['01', 'Alabama', 'Race 4', 60.0, np.nan, np.nan],
+    ['01', 'Alabama', 'Race 5', np.nan, 10.0, np.nan],
+    ['01', 'Alabama', 'Race 6', 100.0, 0, np.nan],
 ]
 
 _fake_data_with_pct_rel_inequity_with_zero_rates = [
-    ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
-        'something_pct_relative_inequity', 'something_pop_pct'],
-    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
+    [
+        'time_period',
+        'state_fips',
+        'state_name',
+        'race_category_id',
+        'something_per_100k',
+        'something_pct_relative_inequity',
+        'something_pop_pct',
+    ],
+    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, np.nan, np.nan],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
     ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
-    ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
+    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan, 10.0],
+    ['2019', '01', 'Alabama', 'RaceNoPop', 1, np.nan, np.nan],
+    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan, 10.0],
     ['2020', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2020', '01', 'Alabama', 'Race2', 0, 0.0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 500.0, 10.0],
-    ['2020', '01', 'Alabama', 'Race4', 0, None, 10.0],
-    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
-    ['2020', '01', 'Alabama', 'Race6', 0, None, 10.0],
+    ['2020', '01', 'Alabama', 'Race4', 0, np.nan, 10.0],
+    ['2020', '01', 'Alabama', 'RaceNoPop', 0, np.nan, np.nan],
+    ['2020', '01', 'Alabama', 'Race6', 0, np.nan, 10.0],
     ['2020', '99', 'StateWithRates', 'Race6', 100_000, 50.0, 10.0],
 ]
 
 _expected_data_with_properly_zeroed_pct_rel_inequity = [
-    ['time_period', 'state_fips', 'state_name', 'race_category_id', 'something_per_100k',
-     'something_pct_relative_inequity', 'something_pop_pct'],
-    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, None, None],
+    [
+        'time_period',
+        'state_fips',
+        'state_name',
+        'race_category_id',
+        'something_per_100k',
+        'something_pct_relative_inequity',
+        'something_pop_pct',
+    ],
+    ['2018', '99', 'StateWithRates', 'RaceNoPop', 90_000, np.nan, np.nan],
     ['2019', '01', 'Alabama', 'Race1', 0, -100.0, 10.0],
     ['2019', '01', 'Alabama', 'Race2', 10.001, 0.0, 10.0],
     ['2019', '01', 'Alabama', 'Race3', 60.0, 500.0, 10.0],
-    ['2019', '01', 'Alabama', 'Race4', 60.0, None, 10.0],
-    ['2019', '01', 'Alabama', 'RaceNoPop', 1, None, None],
-    ['2019', '01', 'Alabama', 'Race6', 100.0, None, 10.0],
+    ['2019', '01', 'Alabama', 'Race4', 60.0, np.nan, 10.0],
+    ['2019', '01', 'Alabama', 'RaceNoPop', 1, np.nan, np.nan],
+    ['2019', '01', 'Alabama', 'Race6', 100.0, np.nan, 10.0],
     # all rates in Alabama in 2020 are zero, so all pct_rel_inequity are ZEROED
     # expect for races where the population_pct_share is null
     ['2020', '01', 'Alabama', 'Race1', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race2', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race3', 0, 0, 10.0],
     ['2020', '01', 'Alabama', 'Race4', 0, 0, 10.0],
-    ['2020', '01', 'Alabama', 'RaceNoPop', 0, None, None],
+    ['2020', '01', 'Alabama', 'RaceNoPop', 0, np.nan, np.nan],
     ['2020', '01', 'Alabama', 'Race6', 0, 0, 10.0],
     # each PLACE/YEAR is considered independently so the fact Race6
     # has a rate in StateWithRates doesn't prevent the zeroing above
     ['2020', '99', 'StateWithRates', 'Race6', 100_000, 50.0, 10.0],
-
 ]
 
 _fake_condition_data = [
@@ -138,8 +157,14 @@ _fake_condition_data = [
 ]
 
 _fake_condition_data_with_per_100k = [
-    ['state_fips', 'state_name', 'race', 'some_condition_total',
-        'population', 'condition_per_100k'],
+    [
+        'state_fips',
+        'state_name',
+        'race',
+        'some_condition_total',
+        'population',
+        'condition_per_100k',
+    ],
     ['01', 'Alabama', 'Asian alone', 100, 1000, 10000],
     ['01', 'Alabama', 'Some other race alone', 200, 5000, 4000],
     ['02', 'Alaska', 'Two or more races', 10, 2000, 500],
@@ -193,24 +218,26 @@ _fake_data_missing_zeros = [
 
 def testRatioRoundToNone():
     assert dataset_utils.ratio_round_to_None(1, 3) == 0.3
-    assert dataset_utils.ratio_round_to_None(1, 11) is None
+    assert dataset_utils.ratio_round_to_None(1, 11) is np.nan
 
 
 def testPercentAvoidRoundingToZero():
     assert dataset_utils.percent_avoid_rounding_to_zero(1, 3) == 33.3
-    assert dataset_utils.percent_avoid_rounding_to_zero(1, 5000) == .02
-    assert dataset_utils.percent_avoid_rounding_to_zero(1, 0) is None
+    assert dataset_utils.percent_avoid_rounding_to_zero(1, 5000) == 0.02
+    assert dataset_utils.percent_avoid_rounding_to_zero(1, 0) is np.nan
 
 
 def testAddSumOfRows():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
+        json.dumps(_fake_race_data_without_totals)
+    ).reset_index(drop=True)
 
     df['population'] = df['population'].astype(int)
     df = dataset_utils.add_sum_of_rows(df, 'race', 'population', 'ALL')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_race_data_with_totals)).reset_index(drop=True)
+        json.dumps(_expected_race_data_with_totals)
+    ).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(int)
 
@@ -218,78 +245,91 @@ def testAddSumOfRows():
 
 
 def testGeneratePctShareColWithoutUnknowns():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data)).reset_index(
+        drop=True
+    )
 
     df = df.loc[df['race'] != 'UNKNOWN']
     df['population'] = df['population'].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_pct_share_data_without_unknowns)).reset_index(drop=True)
+        json.dumps(_expected_pct_share_data_without_unknowns)
+    ).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(float)
 
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
     df = dataset_utils.generate_pct_share_col_without_unknowns(
-        df, {'population': 'pct_share'}, 'race', 'ALL')
+        df, {'population': 'pct_share'}, 'race', 'ALL'
+    )
 
     assert_frame_equal(expected_df, df)
 
 
 def testGeneratePctShareColWithUnknowns():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data)).reset_index(
+        drop=True
+    )
 
     df['population'] = df['population'].astype(float)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_pct_share_data_with_unknowns)).reset_index(drop=True)
+        json.dumps(_expected_pct_share_data_with_unknowns)
+    ).reset_index(drop=True)
 
     expected_df['population'] = expected_df['population'].astype(float)
 
     expected_df['pct_share'] = expected_df['pct_share'].astype(float)
 
     df = dataset_utils.generate_pct_share_col_with_unknowns(
-        df, {'population': 'pct_share'}, 'race', 'ALL', 'UNKNOWN')
+        df, {'population': 'pct_share'}, 'race', 'ALL', 'UNKNOWN'
+    )
 
     df = df.sort_values(by=['state_fips']).reset_index(drop=True)
     assert_frame_equal(expected_df, df)
 
 
 def testGeneratePctShareColExtraTotalError():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_race_data)).reset_index(
+        drop=True
+    )
 
-    extra_row = pd.DataFrame([{
-        'state_fips': '01',
-        'state_name': 'Alabama',
-        'race': 'ALL',
-        'population': '66',
-    }])
+    extra_row = pd.DataFrame(
+        [
+            {
+                'state_fips': '01',
+                'state_name': 'Alabama',
+                'race': 'ALL',
+                'population': '66',
+            }
+        ]
+    )
 
     df = pd.concat([df, extra_row])
 
     df = df.loc[df['race'] != 'UNKNOWN']
     df['population'] = df['population'].astype(float)
 
-    expected_error = re.escape(
-
-        "Fips ('01',) has 2 ALL rows, there should be 1")
+    expected_error = re.escape("Fips ('01',) has 2 ALL rows, there should be 1")
     with pytest.raises(ValueError, match=expected_error):
         df = dataset_utils.generate_pct_share_col_without_unknowns(
-            df, {'population': 'pct_share'}, 'race', 'ALL')
+            df, {'population': 'pct_share'}, 'race', 'ALL'
+        )
 
 
 def testGeneratePer100kCol():
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_condition_data)).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_fake_condition_data)).reset_index(
+        drop=True
+    )
 
     df = dataset_utils.generate_per_100k_col(
-        df, 'some_condition_total', 'population', 'condition_per_100k')
+        df, 'some_condition_total', 'population', 'condition_per_100k'
+    )
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_condition_data_with_per_100k)).reset_index(drop=True)
+        json.dumps(_fake_condition_data_with_per_100k)
+    ).reset_index(drop=True)
 
     expected_df['condition_per_100k'] = df['condition_per_100k'].astype(float)
 
@@ -302,20 +342,25 @@ def test_generate_pct_rate_col():
         {'some_condition_total': 11, 'population': 1000},
         {'some_condition_total': 0, 'population': 1000},
         {'some_condition_total': 1, 'population': 0},
-        {'some_condition_total': None, 'population': 1000},
+        {'some_condition_total': np.nan, 'population': 1000},
         {'some_condition_total': 1, 'population': 1000},
     ]
     df = pd.DataFrame(data)
 
     df = dataset_utils.generate_pct_rate_col(
-        df, 'some_condition_total', 'population', 'condition_pct_rate')
+        df, 'some_condition_total', 'population', 'condition_pct_rate'
+    )
 
     expected_data = [
         {'some_condition_total': 1, 'population': 2, 'condition_pct_rate': 50},
         {'some_condition_total': 11, 'population': 1000, 'condition_pct_rate': 1.0},
         {'some_condition_total': 0, 'population': 1000, 'condition_pct_rate': 0.0},
-        {'some_condition_total': 1, 'population': 0, 'condition_pct_rate': None},
-        {'some_condition_total': None, 'population': 1000, 'condition_pct_rate': None},
+        {'some_condition_total': 1, 'population': 0, 'condition_pct_rate': np.nan},
+        {
+            'some_condition_total': np.nan,
+            'population': 1000,
+            'condition_pct_rate': np.nan,
+        },
         {'some_condition_total': 1, 'population': 1000, 'condition_pct_rate': 0.0},
     ]
     expected_df = pd.DataFrame(expected_data)
@@ -327,44 +372,66 @@ def test_generate_pct_rate_col():
 def test_ensure_leading_zeros():
 
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_data_missing_zeros)).reset_index(drop=True)
+        json.dumps(_fake_data_missing_zeros)
+    ).reset_index(drop=True)
     df = dataset_utils.ensure_leading_zeros(df, "state_fips", 2)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_race_data_without_totals)).reset_index(drop=True)
+        json.dumps(_fake_race_data_without_totals)
+    ).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 def testGeneratePctRelInequityCol():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_data_without_pct_relative_inequity_col)).reset_index(drop=True)
+        json.dumps(_fake_data_without_pct_relative_inequity_col)
+    ).reset_index(drop=True)
     df = dataset_utils.generate_pct_rel_inequity_col(
-        df, 'pct_share', 'pct_pop', 'pct_relative_inequity')
+        df, 'pct_share', 'pct_pop', 'pct_relative_inequity'
+    )
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_data_with_pct_relative_inequity_col)).reset_index(drop=True)
+        json.dumps(_expected_data_with_pct_relative_inequity_col)
+    ).reset_index(drop=True)
     expected_df['pct_relative_inequity'] = expected_df['pct_relative_inequity'].astype(
-        float)
+        float
+    )
 
     assert_frame_equal(df, expected_df, check_like=True)
 
 
 def testZeroOutPctRelInequity():
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates)).reset_index(drop=True)
+        json.dumps(_fake_data_with_pct_rel_inequity_with_zero_rates)
+    ).reset_index(drop=True)
     rate_to_inequity_cols_map = {
-        "something_per_100k": "something_pct_relative_inequity"}
+        "something_per_100k": "something_pct_relative_inequity"
+    }
     df = dataset_utils.zero_out_pct_rel_inequity(
-        df, 'state', 'race', rate_to_inequity_cols_map, pop_pct_col="something_pop_pct")
+        df, 'state', 'race', rate_to_inequity_cols_map, pop_pct_col="something_pop_pct"
+    )
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)).reset_index(drop=True)
+        json.dumps(_expected_data_with_properly_zeroed_pct_rel_inequity)
+    ).reset_index(drop=True)
+    df = df.infer_objects(copy=False)
+    df.replace(to_replace=[None], value=np.nan, inplace=True)
+
+    expected_df = expected_df.infer_objects(copy=False)
+    expected_df.replace(to_replace=[None], value=np.nan, inplace=True)
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
 
 
 _fake_wide_short_source_data = [
-    ['time_period', 'state_fips', 'state_name', 'black_A_100k',
-        'white_A_100k', 'black_B_100k', 'white_B_100k'],
+    [
+        'time_period',
+        'state_fips',
+        'state_name',
+        'black_A_100k',
+        'white_A_100k',
+        'black_B_100k',
+        'white_B_100k',
+    ],
     ['1999', '88', 'North Somestate', 100, 50, 999, 2222],
     ['1999', '99', 'South Somestate', 101, 51, 998, 2221],
     ['2000', '88', 'North Somestate', 100, 50, 999, 2222],
@@ -387,18 +454,22 @@ _expected_HET_style_data = [
 def test_melt_to_het_style_df():
 
     source_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fake_wide_short_source_data)).reset_index(drop=True)
+        json.dumps(_fake_wide_short_source_data)
+    ).reset_index(drop=True)
 
     df = dataset_utils.melt_to_het_style_df(
         source_df,
         "race",
         ["time_period", "state_fips", "state_name"],
-        {"A_100k": {"black_A_100k": "black", "white_A_100k": "white"},
-            "B_100k": {"black_B_100k": "black", "white_B_100k": "white"}}
+        {
+            "A_100k": {"black_A_100k": "black", "white_A_100k": "white"},
+            "B_100k": {"black_B_100k": "black", "white_B_100k": "white"},
+        },
     )
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_HET_style_data)).reset_index(drop=True)
+        json.dumps(_expected_HET_style_data)
+    ).reset_index(drop=True)
 
     assert_frame_equal(df, expected_df, check_dtype=False)
 
@@ -416,8 +487,9 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'black', 101, 998],
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
-    time_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_time_data)).reset_index(drop=True)
+    time_df = gcs_to_bq_util.values_json_to_df(json.dumps(_time_data)).reset_index(
+        drop=True
+    )
 
     # normal mode: drop time_period
     current_df = dataset_utils.preserve_only_current_time_period_rows(time_df)
@@ -429,11 +501,18 @@ def test_preserve_only_current_time_period_rows():
         ['99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_current_data)).reset_index(drop=True)
+        json.dumps(_expected_current_data)
+    ).reset_index(drop=True)
+    print("\n")
+    print(current_df)
+    print("\n")
+    print(expected_current_df)
     assert_frame_equal(current_df, expected_current_df, check_like=True)
 
     # optional mode: keep time_period
-    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(time_df, keep_time_period_col=True)
+    current_df_with_time = dataset_utils.preserve_only_current_time_period_rows(
+        time_df, keep_time_period_col=True
+    )
     _expected_current_data = [
         ['time_period', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
         ['2000', '88', 'North Somestate', 'black', 100, 999],
@@ -442,13 +521,22 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df_with_time = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_current_data),
-        dtype={"time_period": str}).reset_index(drop=True)
-    assert_frame_equal(current_df_with_time, expected_current_df_with_time, check_like=True)
+        json.dumps(_expected_current_data), dtype={"time_period": str}
+    ).reset_index(drop=True)
+    assert_frame_equal(
+        current_df_with_time, expected_current_df_with_time, check_like=True
+    )
 
     # optional alt name for time_period column
     _time_alt_col_data = [
-        ['some_other_datetime_col', 'state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
+        [
+            'some_other_datetime_col',
+            'state_fips',
+            'state_name',
+            'race',
+            'A_100k',
+            'B_100k',
+        ],
         ['1999-01', '88', 'North Somestate', 'black', 100, 999],
         ['1999', '88', 'North Somestate', 'white', 50, 2222],
         ['1999', '99', 'South Somestate', 'black', 101, 998],
@@ -459,11 +547,11 @@ def test_preserve_only_current_time_period_rows():
         ['2000', '99', 'South Somestate', 'white', 51, 2221],
     ]
     time_alt_col_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_time_alt_col_data)).reset_index(drop=True)
+        json.dumps(_time_alt_col_data)
+    ).reset_index(drop=True)
 
     current_df_with_alt_col = dataset_utils.preserve_only_current_time_period_rows(
-        time_alt_col_df,
-        time_period_col="some_other_datetime_col"
+        time_alt_col_df, time_period_col="some_other_datetime_col"
     )
     _expected_alt_col_current_data = [
         ['state_fips', 'state_name', 'race', 'A_100k', 'B_100k'],
@@ -473,12 +561,16 @@ def test_preserve_only_current_time_period_rows():
         ['99', 'South Somestate', 'white', 51, 2221],
     ]
     expected_current_df_with_alt_col = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_alt_col_current_data)).reset_index(drop=True)
-    assert_frame_equal(current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True)
+        json.dumps(_expected_alt_col_current_data)
+    ).reset_index(drop=True)
+    assert_frame_equal(
+        current_df_with_alt_col, expected_current_df_with_alt_col, check_like=True
+    )
 
     # expect error
     with pytest.raises(
-        ValueError,
-        match="df does not contain column: BAD_COLUMN_NAME."
+        ValueError, match="df does not contain column: BAD_COLUMN_NAME."
     ):
-        _ = dataset_utils.preserve_only_current_time_period_rows(time_alt_col_df, time_period_col="BAD_COLUMN_NAME")
+        _ = dataset_utils.preserve_only_current_time_period_rows(
+            time_alt_col_df, time_period_col="BAD_COLUMN_NAME"
+        )

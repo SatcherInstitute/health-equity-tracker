@@ -111,7 +111,10 @@ def _get_prison_23():
 
 
 def _get_prison_app2():
-    header_line = "ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name"
+    header_line = (
+        "ALL,WHITE_NH,BLACK_NH,HISP,AIAN_NH,ASIAN_NH,NHPI_NH,"
+        "MULTI_NH,OTHER_STANDARD_NH,UNKNOWN,state_name"
+    )
     table_app_2_data = StringIO(
         f"""{header_line}
 152156.0,44852.0,55391.0,46162.0,3488.0,2262.0,,,0.0,1.0,Federal
