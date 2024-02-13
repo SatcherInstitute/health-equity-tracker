@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { styled } from '@mui/material/styles'
 import {
   Table,
@@ -9,13 +8,14 @@ import {
   Paper,
   TableBody,
 } from '@mui/material'
+import { het } from '../../../styles/DesignTokens'
 
 export const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: '#fafafa',
+    backgroundColor: het.standardInfo,
   },
   '&:nth-of-type(even)': {
-    backgroundColor: '#fff',
+    backgroundColor: het.white,
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -37,35 +37,30 @@ interface StripedTableProps {
   applyThickBorder?: boolean
 }
 
-const StripedTable: React.FC<StripedTableProps> = ({
-  rows,
-  columns,
-  id,
-  applyThickBorder = true,
-}) => {
+export default function StripedTable(props: StripedTableProps) {
   return (
-    <TableContainer className=' overflow-x-auto' component={Paper} id={id}>
-      <Table aria-label='customized table' className='min-w-full'>
+    <TableContainer className='w-full' component={Paper} id={props.id}>
+      <Table>
         <TableHead>
-          <TableRow className='bg-altGreen text-navlinkColor'>
-            {columns.map((col) => (
+          <TableRow className='bg-methodologyGreen text-navlinkColor'>
+            {props.columns.map((col) => (
               <TableCell key={col.accessor}>{col.header}</TableCell>
             ))}
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, rowIndex) => (
+          {props.rows.map((row, rowIndex) => (
             <StyledTableRow
               key={rowIndex}
               className={
-                applyThickBorder &&
-                rows.length !== 3 &&
+                props.applyThickBorder &&
+                props.rows.length !== 3 &&
                 (rowIndex + 1) % 2 === 0
-                  ? 'border-0 border-b-2 border-altGreen'
+                  ? 'border-0 border-b-2 border-methodologyGreen'
                   : ''
               }
             >
-              {columns.map((col) => (
+              {props.columns.map((col) => (
                 <TableCell
                   key={col.accessor}
                   component='td'
@@ -82,5 +77,3 @@ const StripedTable: React.FC<StripedTableProps> = ({
     </TableContainer>
   )
 }
-
-export default StripedTable

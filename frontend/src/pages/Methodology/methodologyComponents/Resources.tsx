@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import { Helmet } from 'react-helmet-async'
-import { type ResourceGroup } from '../../WhatIsHealthEquity/ResourcesData'
+import { type ResourceGroup } from '../methodologyContent/ResourcesData'
 
 interface ResourcesProps {
   resourceGroups: ResourceGroup[]
@@ -34,7 +34,7 @@ export default function Resources(props: ResourcesProps) {
   }) => (
     <Grid container id={id} key={heading}>
       <Grid item xs={12}>
-        <h4 className='mb-2 text-altBlack'>{heading} Resources</h4>
+        <h3 className='mt-12 text-title font-medium'>{heading} Resources</h3>
       </Grid>
       <Grid item xs={12} md={resources.length >= 10 ? 6 : 12}>
         {renderResourcesList(

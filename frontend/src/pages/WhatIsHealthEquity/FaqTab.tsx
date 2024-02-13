@@ -11,7 +11,7 @@ function FaqTab() {
         <title>FAQ - What Is Health Equity - Health Equity Tracker</title>
       </Helmet>
       <h2 className='sr-only'>Frequently Asked Questions</h2>
-      <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+      <div className='m-auto flex w-full max-w-lgXl flex-wrap'>
         <div className='border-0 border-b border-solid border-altGrey px-5 py-12 md:flex'>
           <div className='w-full md:w-1/4'>
             <h2

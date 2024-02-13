@@ -17,6 +17,10 @@ HISPANIC_COL = "hispanic_or_latino"
 # whether Hispanic/Latino people are included.
 RACE_COL = "race"
 
+ETH_COL = "ethnicity"
+
+RACE_ETH_COL = "race_ethnicity_combined"
+
 AGE_COL = "age"
 SEX_COL = "sex"
 
@@ -181,6 +185,27 @@ DOAC_PREFIX = "doac"
 BB_AMI_PREFIX = "bb_ami"
 RASA_PREFIX = "ras_antagonists"
 STATINS_PREFIX = "statins"
+
+# Gun violence
+FATAL_PREFIX = "fatal"
+NON_FATAL_PREFIX = "non_fatal"
+HOMICIDE_PREFIX = "homicide"
+LEGAL_INTERVENTION_PREFIX = "legal_intervention"
+SUICIDE_PREFIX = "suicide"
+NON_FATAL_INJURIES_PREFIX = "non_fatal_injuries"
+GUN_DEATHS_RAW = 'gun_deaths_estimated_total'
+HOMICIDES_RAW = "homicides_estimtated_total"
+LEGAL_INTERVENTION_RAW = "legal_intervention_estimated_total"
+SUICIDES_RAW = "suicides_estimated_total"
+NON_FATAL_INJURIES_RAW = "non_fatal_injuries_estimated_total"
+GUN_DEATHS_PER_100K = "gun_deaths_per_100k"
+GUN_DEATHS_PCT_SHARE = "gun_deaths_pct_share"
+GUN_DEATHS_PCT_REL_INEQUITY = "gun_deaths_pct_relative_inequity"
+NON_FATAL_INJURIES_PER_100K = "non_fatal_injuries_per_100k"
+FATAL_POPULATION = "fatal_population"
+NON_FATAL_POPULATION = "non_fatal_population"
+FATAL_POPULATION_PCT = "fatal_population_pct"
+NON_FATAL_POPULATION_PCT = "non_fatal_population_pct"
 
 
 RaceTuple = namedtuple("RaceTuple", ["race_category_id", "race_and_ethnicity"])

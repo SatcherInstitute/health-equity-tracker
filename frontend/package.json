@@ -4,7 +4,11 @@
   "type": "module",
   "private": true,
   "overrides": {
-    "chokidar": "3.5.3"
+    "chokidar": "3.5.3",
+    "react-lazyload": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0"
+    }
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "^7.22.5",
@@ -13,14 +17,14 @@
     "@fontsource-variable/dm-sans": "^5.0.3",
     "@fontsource-variable/inter": "^5.0.16",
     "@fontsource/roboto": "^5.0.8",
+    "@fontsource/roboto-condensed": "^5.0.14",
     "@fontsource/taviraj": "^5.0.18",
-    "@mui/icons-material": "^5.14.9",
+    "@mui/icons-material": "^5.15.6",
     "@mui/lab": "^5.0.0-alpha.124",
     "@mui/material": "^5.14.9",
-    "@mui/styles": "^5.14.9",
     "@popperjs/core": "^2.11.8",
     "@tailwindcss/nesting": "^0.0.0-insiders.565cd3e",
-    "@vitejs/plugin-react": "^4.1.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "axios": "^1.5.0",
     "cspell": "^6.31.3",
     "d3": "^7.8.5",
@@ -35,10 +39,10 @@
     "lru-cache": "^6.0.0",
     "mini-css-extract-plugin": "^2.7.2",
     "postcss-import": "^15.1.0",
-    "react": "^17.0.2",
+    "react": "^18.2.0",
     "react-animate-height": "^3.2.2",
     "react-cookie": "^4.1.1",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "react-floater": "^0.8.2",
     "react-helmet-async": "^1.3.0",
     "react-joyride": "^2.5.5",
@@ -47,30 +51,30 @@
     "react-router-dom": "^5.3.4",
     "react-router-hash-link": "^2.4.3",
     "react-scroll": "^1.9.0",
-    "react-share": "^4.4.1",
+    "react-share": "^5.0.3",
     "react-table": "^7.8.0",
     "react-vega": "^7.6.0",
     "seamless-scroll-polyfill": "^2.3.4",
     "ts-node": "^10.9.1",
-    "use-react-screenshot": "^3.0.0",
+    "use-react-screenshot": "^4.0.0",
     "vega": "^5.25.0",
     "vega-lite": "^5.15.0",
-    "vite": "^4.4.9",
-    "vite-plugin-babel": "^1.1.3",
-    "vite-plugin-svgr": "^2.4.0",
+    "vite": "^5.0.12",
+    "vite-plugin-babel": "^1.2.0",
+    "vite-plugin-svgr": "^4.2.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
     "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^12.1.5",
-    "@testing-library/user-event": "^13.5.0",
+    "@testing-library/react": "^14.2.0",
+    "@testing-library/user-event": "^14.5.2",
     "@types/d3": "^7.4.0",
     "@types/lodash": "^4.14.199",
     "@types/lru-cache": "^5.1.1",
     "@types/node": "^18.17.15",
-    "@types/react": "^17.0.65",
-    "@types/react-dom": "^17.0.20",
+    "@types/react": "^18.2.50",
+    "@types/react-dom": "^18.2.18",
     "@types/react-lazyload": "^3.2.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-router-hash-link": "^2.4.6",
@@ -109,6 +113,7 @@
     "e2e-staging": "npx playwright install chromium && cross-env E2E_BASE_URL=https://dev.healthequitytracker.org npx playwright test --project=E2E_NIGHTLY --workers 5",
     "e2e-prod": "npx playwright install chromium && cross-env E2E_BASE_URL=https://healthequitytracker.org npx playwright test --project=E2E_NIGHTLY --workers 5",
     "e2e": "npx playwright install chromium && npx playwright test --project=E2E_NIGHTLY --workers 2",
+    "e2e:watch": "npx playwright install chromium && cross-env PWTEST_WATCH=1 npx playwright test --project=E2E_NIGHTLY --workers 2",
     "e2e-new": "npx playwright codegen http://localhost:3000",
     "lint": "eslint --fix src",
     "format": "prettier --write src",
@@ -123,8 +128,8 @@
     "url": "npx playwright install chromium && npx playwright test --project=URL"
   },
   "engines": {
-    "node": ">=19",
-    "npm": ">=6.14.8"
+    "node": ">=20.11.0",
+    "npm": ">=10.2.4"
   },
   "browserslist": {
     "production": [

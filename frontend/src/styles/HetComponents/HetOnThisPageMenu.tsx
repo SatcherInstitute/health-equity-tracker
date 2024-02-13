@@ -58,12 +58,12 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
     <>
       <nav
         aria-label='on this page quick navigation'
-        className={`m-2 text-left  ${props.className ?? ''}`}
+        className={`m-2 w-36 text-left  ${props.className ?? ''}`}
       >
-        <h4 className='text-left font-sansTitle text-smallest text-black'>
+        <h4 className='my-3 text-left font-roboto text-smallest font-semibold uppercase text-black'>
           On this page
         </h4>
-        <ul className='list-none space-y-1 pl-0 leading-lhTight lg:space-y-2'>
+        <ul className='my-1 list-none space-y-1 pl-0 leading-lhTight lg:space-y-2'>
           {props.links.map((link, index) => (
             <li key={index}>
               <CombinedLink
@@ -80,7 +80,7 @@ export default function HetOnThisPageMenu(props: HetOnThisPageMenuProps) {
                   activeLink === link.path ? 'font-semibold text-altGreen' : ''
                 }
               >
-                <span className='font-sansText text-smallest hover:cursor-pointer'>
+                <span className='font-roboto text-smallest text-altBlack hover:cursor-pointer'>
                   {link.label}
                 </span>
               </CombinedLink>

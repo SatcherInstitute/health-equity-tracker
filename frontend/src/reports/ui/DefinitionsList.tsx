@@ -3,7 +3,10 @@ Receives list of dataType objects for which definitions should be displayed;
 Retrieves their parent categories (with optional category definitions)
 */
 
-import { type DataTypeConfig } from '../../data/config/MetricConfig'
+import {
+  type DropdownVarId,
+  type DataTypeConfig,
+} from '../../data/config/MetricConfig'
 import HetTerm from '../../styles/HetComponents/HetTerm'
 import { CATEGORIES_LIST, type Category } from '../../utils/MadLibs'
 import InfoCitations from './InfoCitations'
@@ -19,7 +22,7 @@ export default function DefinitionsList(
   const relevantCategoriesSet = new Set<Category>()
   props.dataTypesToDefine.forEach((dataType) => {
     const matchingCategory = CATEGORIES_LIST.find((category) =>
-      category.options.includes(dataType[0])
+      category.options.includes(dataType[0] as DropdownVarId)
     )
     matchingCategory && relevantCategoriesSet.add(matchingCategory)
   })
@@ -35,9 +38,11 @@ export default function DefinitionsList(
         )
 
         return (
-          <div key={category.title}>
+          <aside key={category.title} className='px-5 pb-10'>
             {/* display category name and optional category definition */}
-            <b>{category.title}</b>
+            <h4 className='m-0 pb-5  text-title font-semibold'>
+              {category.title}
+            </h4>
             {category.definition && <p>{category.definition}</p>}
 
             <ul>
@@ -48,15 +53,18 @@ export default function DefinitionsList(
                   return dataType[1].map((dataTypeConfig: DataTypeConfig) => {
                     const hasAddedInfo = Boolean(dataTypeConfig?.description)
                     return (
-                      <li key={dataTypeConfig?.fullDisplayName}>
+                      <li
+                        key={dataTypeConfig?.fullDisplayName}
+                        className='pt-1'
+                      >
                         <HetTerm>
                           {dataTypeConfig?.fullDisplayName ?? 'Data Type'}
                         </HetTerm>
-                        <ul>
+                        <ul className='list-outside list-disc pl-5'>
                           <li>
                             {hasAddedInfo && (
                               <>
-                                <b>Measurement Definition:</b>{' '}
+                                <span>Measurement Definition:</span>{' '}
                               </>
                             )}
 
@@ -67,7 +75,7 @@ export default function DefinitionsList(
                           </li>
                           {hasAddedInfo && (
                             <li>
-                              <b>Clinical Importance:</b>{' '}
+                              <span>Clinical Importance:</span>{' '}
                               {dataTypeConfig.description?.text}
                               <InfoCitations
                                 citations={
@@ -83,7 +91,7 @@ export default function DefinitionsList(
                 })
               }
             </ul>
-          </div>
+          </aside>
         )
       })}
     </div>

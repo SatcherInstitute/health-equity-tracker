@@ -7,7 +7,6 @@ export const ABOUT_US_PAGE_LINK = '/aboutus'
 export const WHAT_IS_HEALTH_EQUITY_PAGE_LINK = '/whatishealthequity'
 export const TERMS_OF_USE_PAGE_LINK = '/termsofuse'
 export const FAQ_TAB_LINK = '/faqs'
-export const RESOURCES_TAB_LINK = '/resources'
 export const CONTACT_TAB_LINK = '/contact'
 export const OURTEAM_TAB_LINK = '/ourteam'
 export const SHARE_YOUR_STORY_TAB_LINK = '/shareyourstory'
@@ -22,19 +21,21 @@ export const NEW_METHODOLOGY_PAGE_LINK = '/new-methodology'
 export const NEW_AGE_ADJUSTMENT_LINK =
   NEW_METHODOLOGY_PAGE_LINK + '/age-adjustment'
 export const SOURCES_LINK = NEW_METHODOLOGY_PAGE_LINK + '/data-sources'
-export const TOPICS_LINK = NEW_METHODOLOGY_PAGE_LINK + '/topics'
-export const BEHAVIORAL_HEALTH_LINK = TOPICS_LINK + '/behavioral-health'
-export const CHRONIC_DISEASE_LINK = TOPICS_LINK + '/chronic-disease'
-export const COVID_19_LINK = TOPICS_LINK + '/covid'
+export const TOPIC_CATEGORIES_LINK =
+  NEW_METHODOLOGY_PAGE_LINK + '/topic-categories'
+export const BEHAVIORAL_HEALTH_LINK =
+  TOPIC_CATEGORIES_LINK + '/behavioral-health'
+export const CHRONIC_DISEASE_LINK = TOPIC_CATEGORIES_LINK + '/chronic-disease'
+export const COVID_19_LINK = TOPIC_CATEGORIES_LINK + '/covid'
 export const GLOSSARY_LINK = NEW_METHODOLOGY_PAGE_LINK + '/glossary'
-export const HIV_LINK = TOPICS_LINK + '/hiv'
-export const PDOH_LINK = TOPICS_LINK + '/pdoh'
-export const SDOH_LINK = TOPICS_LINK + '/sdoh'
+export const HIV_LINK = TOPIC_CATEGORIES_LINK + '/hiv'
+export const PDOH_LINK = TOPIC_CATEGORIES_LINK + '/pdoh'
+export const SDOH_LINK = TOPIC_CATEGORIES_LINK + '/sdoh'
 export const DATA_METHOD_DEFINITIONS_LINK =
   NEW_METHODOLOGY_PAGE_LINK + '/definitions'
 export const METRICS_LINK = DATA_METHOD_DEFINITIONS_LINK + '/metrics'
-export const CONDITION_VARIABLES_LINK =
-  DATA_METHOD_DEFINITIONS_LINK + '/condition-variables'
+export const TOPIC_DEFINITIONS_LINK =
+  DATA_METHOD_DEFINITIONS_LINK + '/topic-definitions'
 export const RACES_AND_ETHNICITIES_LINK =
   DATA_METHOD_DEFINITIONS_LINK + '/races-and-ethnicities'
 export const RECOMMENDED_CITATION_LINK =

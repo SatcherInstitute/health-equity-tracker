@@ -20,6 +20,11 @@
     height: 100%;
     background: theme('colors.white');
   }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 /* DEFINE CSS VARIABLES / CUSTOM PROPERTIES */
@@ -31,7 +36,7 @@
 }
 
 /* STYLING OVERRIDES FOR JOYRIDE ONBOARDING GUIDED TOUR */
-// override the joyride component to show back button
+/* override the joyride component to show back button */
 button[data-action='back'] {
   color: theme('colors.white') !important;
 }
@@ -48,7 +53,7 @@ button[data-action='back'] {
   }
 }
 
-//  custom focus styles for warm welcome buttons
+/* custom focus styles for warm welcome buttons */
 button[data-action='primary']:focus,
 button[data-action='close']:focus,
 button[data-action='skip']:focus,

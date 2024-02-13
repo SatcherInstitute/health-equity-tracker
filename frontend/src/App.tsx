@@ -1,8 +1,11 @@
+import '@fontsource/taviraj/200.css'
 import '@fontsource/taviraj/300.css'
+import '@fontsource/taviraj/400.css'
 import '@fontsource/taviraj/500.css'
 import '@fontsource-variable/inter'
 import '@fontsource-variable/dm-sans'
 import '@fontsource/roboto'
+import '@fontsource/roboto-condensed'
 
 // TODO: Delete these imports if possible once MUI is removed/isolated in HetComponents
 import CssBaseline from '@mui/material/CssBaseline'
@@ -27,7 +30,6 @@ import {
   EXPLORE_DATA_PAGE_LINK,
   FAQ_TAB_LINK,
   OURTEAM_TAB_LINK,
-  RESOURCES_TAB_LINK,
   TERMS_OF_USE_PAGE_LINK,
   WHAT_IS_HEALTH_EQUITY_PAGE_LINK,
   NEWS_PAGE_LINK,
@@ -151,10 +153,6 @@ export default function App() {
                         </Route>
 
                         <Route path={FAQ_TAB_LINK}>
-                          <WhatIsHealthEquityPage />
-                        </Route>
-
-                        <Route path={RESOURCES_TAB_LINK}>
                           <WhatIsHealthEquityPage />
                         </Route>
 

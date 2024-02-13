@@ -6,7 +6,7 @@ import {
   EmailIcon,
   FacebookIcon,
   LinkedinIcon,
-  TwitterIcon,
+  XIcon,
 } from 'react-share'
 import { Tooltip } from '@mui/material'
 import { type Article } from '../../pages/News/NewsPage'
@@ -57,9 +57,9 @@ export default function ShareButtons(props: ShareButtonProps) {
             url={sharedUrl}
             hashtags={['healthequity']}
             related={['@SatcherHealth', '@MSMEDU']}
-            aria-label={'Share to Twitter'}
+            aria-label={'Share to X (formerly Twitter)'}
           >
-            <TwitterIcon {...shareIconAttributes} />
+            <XIcon {...shareIconAttributes} fontSize={'small'} />
           </TwitterShareButton>
         </Tooltip>
 

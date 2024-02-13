@@ -10,6 +10,8 @@ from datasources.cdc_restricted import CDCRestrictedData
 from datasources.cdc_svi_county import CDCSviCounty
 from datasources.cdc_vaccination_county import CDCVaccinationCounty
 from datasources.cdc_vaccination_national import CDCVaccinationNational
+from datasources.cdc_wisqars import CDCWisqarsData
+from datasources.cdc_wisqars_youth import CDCWisqarsYouthData
 from datasources.census_pop_estimates import CensusPopEstimates
 from datasources.census_pop_estimates_sc import CensusPopEstimatesSC
 from datasources.decia_2010_territory_population import Decia2010TerritoryPopulationData
@@ -34,6 +36,8 @@ DATA_SOURCES_DICT = {
     CDCSviCounty.get_id(): CDCSviCounty(),
     CDCVaccinationCounty.get_id(): CDCVaccinationCounty(),
     CDCVaccinationNational.get_id(): CDCVaccinationNational(),
+    CDCWisqarsData.get_id(): CDCWisqarsData(),
+    CDCWisqarsYouthData.get_id(): CDCWisqarsYouthData(),
     CensusPopEstimates.get_id(): CensusPopEstimates(),
     CensusPopEstimatesSC.get_id(): CensusPopEstimatesSC(),
     Decia2010TerritoryPopulationData.get_id(): Decia2010TerritoryPopulationData(),

@@ -24,7 +24,7 @@ import HetTerm from '../styles/HetComponents/HetTerm'
 import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 
 interface WhatDataAreMissingProps {
-  metricConfigSubset: Array<[string, DataTypeConfig[]]>
+  metricConfigSubset: Array<[DropdownVarId, DataTypeConfig[]]>
   fips1: Fips
   fips2?: Fips
 }
@@ -54,7 +54,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
 
       <p>Unfortunately there are crucial data missing in our sources.</p>
 
-      <HetLinkButton className='' href={DATA_CATALOG_PAGE_LINK}>
+      <HetLinkButton href={DATA_CATALOG_PAGE_LINK}>
         See Our Data Sources →
       </HetLinkButton>
 

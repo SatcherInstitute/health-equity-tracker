@@ -28,7 +28,6 @@ import {
   swapOldDatatypeParams,
 } from '../utils/urlutils'
 import { reportProviderSteps } from './ReportProviderSteps'
-import NoDataAlert from './ui/NoDataAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import { Helmet } from 'react-helmet-async'
 import Sidebar from '../pages/ui/Sidebar'
@@ -152,20 +151,10 @@ export default function CompareReport(props: CompareReportProps) {
   }, [dataTypeConfig1, dataTypeConfig2])
 
   if (dataTypeConfig1 === null) {
-    return (
-      <NoDataAlert
-        dropdownVarId={props.dropdownVarId1}
-        className='grid place-items-center '
-      />
-    )
+    return <></>
   }
   if (dataTypeConfig2 === null) {
-    return (
-      <NoDataAlert
-        dropdownVarId={props.dropdownVarId2}
-        className='grid place-items-center '
-      />
-    )
+    return <></>
   }
 
   const showTrendCardRow =

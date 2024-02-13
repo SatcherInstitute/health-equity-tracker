@@ -1,33 +1,39 @@
-import React from 'react'
-import { FractionFormat, type FractionProps } from './FractionFormat'
+import FractionFormat, { type FractionFormatProps } from './FractionFormat'
 
-type RightSideItem = string | FractionProps
-
-interface FormulaProps {
-  leftSide?: string
-  rightSide: RightSideItem[]
+interface FormulaFormatProps {
+  leftSide?: string | FractionFormatProps
+  rightSide: Array<string | FractionFormatProps>
 }
 
-const FormulaFormat: React.FC<FormulaProps> = ({ leftSide, rightSide }) => (
-  <div className='flex flex-row items-center justify-between overflow-x-scroll rounded-md bg-standardInfo'>
-    <code className='mx-auto my-0 flex w-max max-w-lg flex-col items-center justify-center self-start border-none bg-opacity-0 text-smallest lg:flex-row'>
-      <b>{leftSide}</b>
-      <div>{' = '}</div>
-
-      {rightSide.map((item, index) => (
-        <div key={index}>
-          {typeof item === 'string' ? (
-            item
+export default function FormulaFormat(props: FormulaFormatProps) {
+  return (
+    <div className='flex w-full flex-row items-center justify-center rounded-md bg-standardInfo '>
+      <code className='flex flex-col flex-wrap items-center justify-center self-start border-none bg-opacity-0 font-robotoCondensed text-smallest  smMd:text-text md:flex-row md:gap-1 lg:text-title'>
+        <div className='p-2'>
+          {typeof props.leftSide === 'string' ? (
+            props.leftSide
           ) : (
             <FractionFormat
-              numerator={item.numerator}
-              denominator={item.denominator}
+              numerator={props.leftSide?.numerator}
+              denominator={props.leftSide?.denominator}
             />
           )}
         </div>
-      ))}
-    </code>
-  </div>
-)
+        <div className='px-2 py-1'>{' = '}</div>
 
-export default FormulaFormat
+        {props.rightSide.map((item, index) => (
+          <div className='p-2' key={index}>
+            {typeof item === 'string' ? (
+              item
+            ) : (
+              <FractionFormat
+                numerator={item.numerator}
+                denominator={item.denominator}
+              />
+            )}
+          </div>
+        ))}
+      </code>
+    </div>
+  )
+}

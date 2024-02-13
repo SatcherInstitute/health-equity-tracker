@@ -1,13 +1,15 @@
-import { dataSourceMetadataList } from './MetadataMap'
+import { dataSourceMetadataMap } from './MetadataMap'
 import { DatasetId, DatasetMetadataMap } from './DatasetMetadata'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../providers/PhrmaProvider'
 
 describe('Test Data Source URLs', () => {
   test('Links all use HTTPS', () => {
-    for (const source in dataSourceMetadataList) {
-      const testUrl = dataSourceMetadataList[source].data_source_link
+    Object.values(dataSourceMetadataMap).forEach((metadata) => {
+      const testUrl = metadata.data_source_link
+      console.log(testUrl, '--')
+
       expect(testUrl.slice(0, 8)).toEqual('https://')
-    }
+    })
   })
 })
 
@@ -15,7 +17,7 @@ describe('Test Data Source IDs', () => {
   const datasetMetadaIds = Object.keys(DatasetMetadataMap)
 
   const dataSourceMetadataIds: DatasetId[] = ['geographies']
-  for (const item of dataSourceMetadataList) {
+  for (const item of Object.values(dataSourceMetadataMap)) {
     dataSourceMetadataIds.push(...item.dataset_ids)
   }
 

@@ -37,10 +37,10 @@ export default {
     fontFamily: {
       // Nested quotations are required for font names with spaces
       sansTitle: ["'DM Sans Variable'", 'sans-serif'],
-      sansText: ['Inter', 'sans-serif'],
+      sansText: ['"Inter Variable"', 'sans-serif'],
       roboto: ['Roboto', 'sans-serif'],
+      robotoCondensed: ["'Roboto Condensed'", 'sans-serif'],
       serif: ['Taviraj', 'serif'],
-      math: ['KaTeX_Math', 'mono'],
     },
     fontSize: {
       smallest: '0.75rem',
@@ -70,7 +70,6 @@ export default {
         articleLogo: '700px',
         teamHeadshot: '181px',
         teamLogo: '250px',
-        newsPage: '1440px',
         exploreDataPage: '1500px',
         exploreDataTwoColumnPage: '2500px',
         newsText: '800px',

@@ -1,14 +1,32 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  pdohDataSources,
-  pdohDefinitionsArray,
-} from '../methodologyContent/PdohDefinitions'
 import Resources from '../methodologyComponents/Resources'
-import { PDOH_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { PDOH_RESOURCES } from '../methodologyContent/ResourcesData'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
 import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { PDOH_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigPDOH'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+
+export const pdohDataSources = [
+  dataSourceMetadataMap.bjs,
+  dataSourceMetadataMap.acs,
+  dataSourceMetadataMap.decia_2020_territory_population,
+  dataSourceMetadataMap.ahr,
+  dataSourceMetadataMap.vera,
+  dataSourceMetadataMap.cawp,
+  dataSourceMetadataMap.the_unitedstates_project,
+]
+
+const datatypeConfigs = PDOH_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const pdohTopicsString = buildTopicsString(PDOH_CATEGORY_DROPDOWNIDS)
 
 const PdohLink = () => {
   return (
@@ -27,72 +45,70 @@ const PdohLink = () => {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
           ]}
           rows={[
             {
               category: 'Political Determinants of Health',
-              topic:
-                'Incarceration, Voter Participation, Women Serving in Legislative Office',
-              variable:
-                'Prison, Jail, Women serving in US Congress, Women serving in State legislatures, Race/ethnicity, Sex, Age',
+              topic: pdohTopicsString,
             },
           ]}
         />
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-sourcing'>
           Data Sourcing
         </h3>
         <p>
           We gather our information on incarcerated individuals (including
           children) in the U.S. from trusted sources:
         </p>
-        <h4>Bureau of Justice Statistic (BJS)</h4>
+        <h4 className='font-medium italic'>
+          Bureau of Justice Statistic (BJS)
+        </h4>
         <p>
           Provides comprehensive reports on people under correctional control.
           Our insights are based on combining data from their “Prisoners in
           2020” and “Census of Jails 2005-2019” reports.
         </p>
-        <h4>Vera Institute for Justice</h4>
+        <h4 className='font-medium italic'>Vera Institute for Justice</h4>
         <p>
           Offers detailed research on incarceration trends at the county level.
         </p>
         <h4>Breakdown of Our Reports</h4>
-        <h5>By Age</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <h5 className='text-text font-light'>By Age</h5>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Nationwide data: From BJS's "Prisoners Table 10"
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium'>
             State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5>By Race</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <h5 className='text-text font-light'>By Race</h5>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Appendix
             Table 2".
           </li>
         </ul>
-        <h5>By Sex</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <h5 className='text-text font-light'>By Sex</h5>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Nationwide & State-specific data: From BJS's "Prisoners Table 2".
           </li>
         </ul>
-        <h5>Special Reports</h5>
-        <ul>
-          <li className='font-sansTitle font-medium'>
+        <h5 className='text-text font-light'>Special Reports</h5>
+        <ul className='list-disc pl-4'>
+          <li className='font-medium'>
             Information on children in prison: From BJS's "Prisoners Table 13".
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium'>
             Data for all territories: From BJS's "Prisoners Table 23".
           </li>
-          <li className='font-sansTitle font-medium'>
+          <li className='font-medium'>
             County-level data: Sourced from Vera Institute's Incarceration
             Trends.
           </li>
         </ul>
-        <h3 className='font-sansTitle text-title' id='#jails-vs-prisons'>
+        <h3 className='mt-12 text-title font-medium' id='#jails-vs-prisons'>
           Understanding Jails vs. Prisons
         </h3>
         <h4>Jails</h4>
@@ -111,29 +127,29 @@ const PdohLink = () => {
           person, not necessarily where they're held.
         </p>
         <p>Our data varies slightly based on the location and type:</p>
-        <h5>National report</h5>
+        <h5 className='text-text font-light'>National report</h5>
         <p>
           Includes all under the jurisdiction of a state or federal adult
           prison. Excludes territorial, military, or Indian Country facilities.
         </p>
-        <h5>State reports</h5>
+        <h5 className='text-text font-light'>State reports</h5>
         <p>
           Focuses on individuals within a state's prison system. Age-specific
           data is not available.
         </p>
-        <h5>Territory reports</h5>
+        <h5 className='text-text font-light'>Territory reports</h5>
         <p>
           Covers individuals in a territory's adult prison facilities. No
           specific demographic breakdown.
         </p>
-        <h5>County reports</h5>
+        <h5 className='text-text font-light'>County reports</h5>
         <p>
           Considers those under state prison systems but charged in a specific
           county.
         </p>
 
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#children-in-adult-facilities'
         >
           Children in Adult Facilities
@@ -141,23 +157,23 @@ const PdohLink = () => {
         <p>
           We highlight the total count of children in adult facilities rather
           than a "per 100k" rate for a few reasons:
-          <ul>
-            <li>
-              Varying state and federal laws make it challenging to get an
-              accurate base population of minors in adult facilities.
-            </li>
-            <li>
-              Using the entire child population for rate calculations dilutes
-              the actual rate of incarcerated minors.
-            </li>
-            <li>
-              Our prison data for juveniles includes those confined to a
-              specific facility, unlike other reports which consider
-              jurisdictional populations.
-            </li>
-          </ul>
         </p>
-        <h3 className='font-sansTitle text-title' id='#combined-systems'>
+        <ul className='list-disc pl-4'>
+          <li>
+            Varying state and federal laws make it challenging to get an
+            accurate base population of minors in adult facilities.
+          </li>
+          <li>
+            Using the entire child population for rate calculations dilutes the
+            actual rate of incarcerated minors.
+          </li>
+          <li>
+            Our prison data for juveniles includes those confined to a specific
+            facility, unlike other reports which consider jurisdictional
+            populations.
+          </li>
+        </ul>
+        <h3 className='mt-12 text-title font-medium' id='#combined-systems'>
           Combined Systems
         </h3>
         <p>
@@ -166,7 +182,7 @@ const PdohLink = () => {
           these are categorized as prison facilities only.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#political-forces'>
+        <h3 className='mt-12 text-title font-medium' id='#political-forces'>
           Political Forces and Incarceration
         </h3>
         <p>
@@ -175,7 +191,7 @@ const PdohLink = () => {
           convicted felons are among the key political forces that determine
           voter participation in the justice-involved population.
         </p>
-        <h4>Voter Disenfranchisement</h4>
+        <h4 className='font-medium italic'>Voter Disenfranchisement</h4>
 
         <p>
           The ability to vote is described as the singular most powerful,
@@ -185,23 +201,23 @@ const PdohLink = () => {
           affected by this disenfranchisement (Sentencing Project).
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#health-impact-of-incarceration'
         >
           Health Impact of Incarceration
         </h3>
-        <h4>Immediate Health Consequences</h4>
+        <h4 className='font-medium italic'>Immediate Health Consequences</h4>
         <p>
           Studies indicate that incarceration heightens the risk of chronic
           health conditions, infectious diseases like HIV/AIDS, mental
           illnesses, and substance use disorders.
         </p>
-        <h4>Life Expectancy</h4>
+        <h4 className='font-medium italic'>Life Expectancy</h4>
         <p>
           Each year spent in prison is associated with a reduction of 2 years in
           life expectancy.
         </p>
-        <h4>Post-Incarceration Challenges</h4>
+        <h4 className='font-medium italic'>Post-Incarceration Challenges</h4>
         <p>
           The health impact of incarceration extends beyond the confinement
           period. Upon reentry into society, justice-involved individuals often
@@ -211,7 +227,7 @@ const PdohLink = () => {
           inequities experienced by this group.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#women-in-gov'>
+        <h3 className='mt-12 text-title font-medium' id='#women-in-gov'>
           Women in Legislative Office and Health Impacts
         </h3>
 
@@ -223,33 +239,15 @@ const PdohLink = () => {
           policies significantly advance health equity.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-metrics'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-metrics'>
           Data Metrics and Methodology
         </h3>
         <p>
           We use data from the Center for American Women in Politics (CAWP) to
           present metrics on the representation of women in legislative roles:
         </p>
-        <ol>
-          <li>
-            <span>
-              <strong>Intersectional Representation:</strong>
-            </span>{' '}
-            For example, the percentage of all Georgia state legislators who are
-            black women.
-          </li>
-          <li>
-            <span>
-              <strong>
-                Race/Ethnicity Distribution Among Women Legislators:
-              </strong>
-            </span>{' '}
-            For instance, the percentage of women in the Georgia State
-            Legislature who are black.
-          </li>
-        </ol>
-        <p></p>
-        <ul>
+
+        <ul className='list-disc pl-4'>
           <li className='font-sansTitle font-medium'>
             Women in State Legislature
           </li>
@@ -258,14 +256,40 @@ const PdohLink = () => {
             Women in U.S. Congress
           </li>
         </ul>
+
         <p>
-          Both metrics cover state, territory, and national levels. Our national
-          level calculations include legislators from U.S. territories, leading
-          to variations from the CAWP website's data. All gender and
+          Both data types cover state, territory, and national levels. Our
+          national level calculations include legislators from U.S. territories,
+          leading to variations from the CAWP website's data. All gender and
           race/ethnicity categorizations are self-reported. A legislator might
           appear in multiple race groups based on their identification.
         </p>
-        <h3 className='font-sansTitle text-title' id='#historical-tracking'>
+
+        <p>
+          For each of those data types we calculate and present two metrics to
+          study the proportion of women legislators:
+        </p>
+
+        <ol>
+          <li>
+            <span>
+              <strong>Intersectional Representation:</strong>
+            </span>{' '}
+            For example, the percentage of the entire Georgia State Legislature
+            who identify as Black women.
+          </li>
+          <li>
+            <span>
+              <strong>
+                Race/Ethnicity Distribution Among Women Legislators:
+              </strong>
+            </span>{' '}
+            For instance, the percentage of self-identified women in the Georgia
+            State Legislature who also identify as Black.
+          </li>
+        </ol>
+
+        <h3 className='mt-12 text-title font-medium' id='#historical-tracking'>
           Historical Tracking
         </h3>
         <ul>
@@ -292,7 +316,7 @@ const PdohLink = () => {
           goes back only to 1983.
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#race-ethnicity-groupings-and-challenges'
         >
           Race/Ethnicity Groupings and Challenges
@@ -302,7 +326,7 @@ const PdohLink = () => {
           complicating direct comparisons. We've adjusted our methods to address
           these discrepancies:
         </p>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>
             Women identifying with multiple races appear in each corresponding
             race visualization.
@@ -318,7 +342,7 @@ const PdohLink = () => {
             the ACS.
           </li>
         </ul>
-        <h3 className='font-sansTitle text-title' id='#pdoh-missing-data'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-missing-data'>
           Missing Data
         </h3>
         <p>
@@ -334,15 +358,13 @@ const PdohLink = () => {
           representation calculations before that year.
         </p>
 
-        <h3 className='font-sansTitle text-title' id='#pdoh-data-resources'>
+        <h3 className='mt-12 text-title font-medium' id='#pdoh-data-resources'>
           Data Sources
         </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={pdohDataSources.map((source, index) => ({
@@ -354,15 +376,14 @@ const PdohLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms
-          id='#pdoh-key-terms'
-          definitionsArray={pdohDefinitionsArray}
+        <KeyTermsTopicsAccordion
+          hashId='#pdoh-key-terms'
+          datatypeConfigs={datatypeConfigs}
         />
+
         <Resources id='#pdoh-resources' resourceGroups={[PDOH_RESOURCES]} />
       </article>
     </section>

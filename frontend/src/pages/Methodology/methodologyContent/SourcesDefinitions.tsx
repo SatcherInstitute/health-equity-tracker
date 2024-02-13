@@ -2,7 +2,6 @@ import {
   NEW_AGE_ADJUSTMENT_LINK,
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
-  RESOURCES_TAB_LINK,
 } from '../../../utils/internalRoutes'
 import { metricDefinitionsArray } from './MetricsDefinitions'
 
@@ -28,17 +27,15 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
     { label: 'Data Catalog', url: `${DATA_CATALOG_PAGE_LINK}` },
     { label: 'Age-adjustment methodology', url: `${NEW_AGE_ADJUSTMENT_LINK}` },
     { label: 'GitHub', url: 'urlMap.hetGitHub' },
-    { label: 'Resources', url: `${RESOURCES_TAB_LINK}` },
     { label: 'Contact Us', url: `${CONTACT_TAB_LINK}` },
   ],
   listItems: [
     'All data in the Health Equity Tracker is sourced from reputable and public databases, including the Centers for Disease Control and Prevention (CDC), U.S Census Bureau, Kaiser Family Foundation, and several others. A comprehensive list of our data sources, along with relevant details, can be found in our [data catalog](https://healthequitytracker.org/datacatalog).',
-    'Our data analysis aims to provide insights into health disparities across various demographic groups. Age-adjustment methodology is employed to ensure to illustrate the disproportionate impact of morbidity and mortality among different races and ethnic groups throughout the U.S.in comparison to the white(non-Hispanic) population.',
+    '',
     'The Health Equity Tracker employs a range of visualization techniques to present data in an intuitive and user-friendly manner. This includes charts, graphs, and interactive visualizations tailored to the specific type of data being presented.',
     'While we strive for accuracy, some datasets may have inherent limitations, including gaps, potential biases, or uncertainties. We transparently communicate these limitations whenever relevant.',
     'Data sources are continuously monitored for updates. The Health Equity Tracker ensures that all visualizations and datasets are refreshed in line with the latest available data.',
     'We value the input of various stakeholders, including health professionals, community leaders, and the general public, in shaping the content and presentation of our tracker.',
-    'All our data sources are duly cited, ensuring transparency and credibility. A comprehensive list of references can be found in our [resources](https://healthequitytracker.org/resources) section.',
     `The entire Health Equity Tracker codebase is publicly available and
     open-source; contributions are welcome via [Github](https://github.com/SatcherInstitute/health-equity-tracker). The Health Equity Tracker is a testament to our commitment to promoting health equity and justice. We believe in the power of data to drive positive change, and we invite the community to engage with our open-source platform. For any queries, feedback, or suggestions regarding our data acquisition and presentation, please [contact us](https://healthequitytracker.org/contact).`,
   ],
@@ -159,6 +156,7 @@ export const sourcesDefinitionsArray = [
   },
 ]
 
+// TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 export const missingDataArray = [
   {
     topic: 'Missing Data',

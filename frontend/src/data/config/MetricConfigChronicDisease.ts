@@ -11,7 +11,7 @@ export const CHRONIC_DISEASE_CATEGORY_DROPDOWNIDS = [
   'chronic_kidney_disease',
   'copd',
   'diabetes',
-]
+] as const
 
 export type ChronicDiseaseMetricId =
   | 'ahr_population_pct'
@@ -38,6 +38,9 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
     dataTableTitle: 'Breakdown summary for asthma cases',
     definition: {
       text: `Adults who reported being told by a health professional that they currently have asthma.`,
+    },
+    description: {
+      text: `Asthma is a chronic condition that affects the airways. It can cause wheezing, coughing, shortness of breath, and chest tightness. Asthma is more common in children and in people of color. Studying asthma in regard to health equity can help us to understand why these disparities exist and how to improve the health of people with asthma.`,
     },
     metrics: {
       per100k: {
@@ -78,6 +81,9 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
     },
+    description: {
+      text: `Cardiovascular diseases are a leading cause of death in the United States. They are more common in people of color and people with low incomes. Studying cardiovascular diseases can help us understand why these disparities exist and how to address them.`,
+    },
     metrics: {
       per100k: {
         metricId: 'cardiovascular_diseases_per_100k',
@@ -116,6 +122,9 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayNameInline: 'cases of chronic kidney disease',
     definition: {
       text: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
+    },
+    description: {
+      text: `Chronic kidney disease is a serious condition that can lead to kidney failure. It is more common in people of color and people with low incomes. Studying chronic kidney disease can help us understand why these disparities exist and how to address them.`,
     },
     dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
     metrics: {
@@ -156,6 +165,9 @@ export const DIABETES_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Adults who reported being told by a health professional that they have diabetes (excluding prediabetes and gestational diabetes).`,
     },
+    description: {
+      text: `Diabetes is a chronic condition that affects the way the body uses sugar. It is more common in people of color and people with low incomes. Studying diabetes can help us understand why these disparities exist and how to address them.`,
+    },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for diabetes',
     metrics: {
@@ -193,6 +205,9 @@ export const COPD_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'COPD',
     definition: {
       text: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
+    },
+    description: {
+      text: `COPD is a lung disease that makes it difficult to breathe. It is more common in people of color and people with low incomes. Studying COPD can help us understand why these disparities exist and how to address them.`,
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for COPD',

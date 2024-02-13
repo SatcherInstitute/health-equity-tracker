@@ -15,7 +15,7 @@ function TermsOfUsePage() {
             Terms of Use
           </h2>
         </div>
-        <ul className='w-full max-w-xl list-none text-left md:w-3/4'>
+        <ul className='w-full max-w-lg list-none text-left md:w-3/4'>
           <li className='pb-5'>
             <h3 className='font-sansTitle text-title font-medium'>
               Privacy Policy

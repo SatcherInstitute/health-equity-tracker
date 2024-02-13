@@ -21,7 +21,7 @@ export default function ConditionVariable({
       {definitionsArray.map((item) => {
         return (
           <div id={item.id} key={item.topic}>
-            <h4 className='m-0'>{item.topic}</h4>
+            <h3 className='mt-12 text-title font-medium'>{item.topic}</h3>
             {item.definitions.map((def) => {
               return (
                 <figure

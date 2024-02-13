@@ -50,7 +50,7 @@ function EquityTab() {
         <Helmet>
           <title>What is Health Equity? - Health Equity Tracker</title>
         </Helmet>
-        <div className='m-auto flex w-full max-w-newsPage flex-wrap'>
+        <div className='m-auto flex w-full max-w-lgXl flex-wrap'>
           <div className='flex w-full items-center justify-center border-0 border-b border-solid border-borderColor'>
             <figure className='mx-auto mt-0 hidden p-2 text-left md:block md:w-1/3'>
               <LazyLoad
@@ -133,7 +133,7 @@ function EquityTab() {
           <div className='flex w-full flex-col flex-wrap items-center justify-center'>
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
-                <h3 className='ms:text-bigHeader m-0 text-center font-serif text-header font-light leading-lhLoose text-altGreen md:text-biggerHeader'>
+                <h3 className='m-0 text-center font-serif text-header font-light leading-lhLoose text-altGreen sm:text-bigHeader md:text-biggerHeader'>
                   Health equity learning
                 </h3>
               </section>
@@ -214,7 +214,7 @@ function EquityTab() {
             </div>
             <div className='flex w-full flex-wrap justify-center py-5'>
               <section>
-                <h3 className='ms:text-bigHeader m-0 pb-2 text-center font-serif text-header font-light text-altGreen md:text-biggerHeader'>
+                <h3 className='m-0 pb-2 text-center font-serif text-header font-light text-altGreen sm:text-bigHeader md:text-biggerHeader'>
                   News and stories
                 </h3>
                 <p className='text-left font-sansText text-title font-light text-black'>
@@ -378,7 +378,7 @@ function EquityTab() {
           <section className='flex w-full flex-col items-center justify-center py-16'>
             <h3
               id={WIHE_JOIN_THE_EFFORT_SECTION_ID}
-              className='ms:text-bigHeader m-0 mb-4 text-center font-serif text-header font-light leading-lhModalHeading text-altGreen md:text-biggerHeader'
+              className='m-0 mb-4 text-center font-serif text-header font-light leading-lhModalHeading text-altGreen sm:text-bigHeader md:text-biggerHeader'
             >
               How do I join the movement?
             </h3>

@@ -12,7 +12,7 @@ export const HIV_CATEGORY_DROPDOWNIDS = [
   'hiv_care',
   'hiv_prep',
   'hiv_stigma',
-]
+] as const
 
 export type HivCategoryDataTypeId =
   | 'hiv_deaths_black_women'
@@ -79,6 +79,9 @@ export const HIV_CARE_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Individuals ages 13+ with linkage to HIV care in a particular year.`,
     },
+    description: {
+      text: 'Access to quality HIV care is essential for ensuring that people living with HIV can live long and healthy lives. However, not everyone with HIV has access to quality care. Studying HIV care in regard to health equity can help us to understand why these disparities exist and how to improve access to quality care for all people living with HIV.',
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for linkage to HIV care',
     metrics: {
@@ -127,6 +130,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Individuals ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
     },
+    description: {
+      text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV prevalence',
     metrics: {
@@ -171,6 +177,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Individuals ages 13+ diagnosed with HIV in a particular year.`,
     },
+    description: {
+      text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV diagnoses',
     metrics: {
@@ -213,6 +222,9 @@ export const HIV_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'HIV deaths',
     definition: {
       text: `Individuals ages 13+ who died from HIV or AIDS in a particular year.`,
+    },
+    description: {
+      text: 'HIV is a serious and chronic disease that can be fatal if not treated. However, HIV is now a manageable condition thanks to effective antiretroviral therapy. Studying HIV in regard to health equity can help us to understand why certain populations are more likely to be diagnosed with HIV and why they are less likely to receive effective treatment.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV deaths',
@@ -268,6 +280,9 @@ export const HIV_STIGMA_METRICS: DataTypeConfig[] = [
     definition: {
       text: `Self-reported stigma scores ranging from 0 (no stigma) to 100 (high stigma) for HIV-diagnosed individuals ages 18+ in a particular year.`,
     },
+    description: {
+      text: 'HIV stigma often intersects with other forms of stigma and discrimination, such as racism, homophobia, and sexism. Studying HIV stigma can shed light on broader issues of social injustice and inequality.',
+    },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV stigma',
     metrics: {
@@ -305,6 +320,9 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'HIV prevalence for Black women',
     definition: {
       text: `Black or African-American (NH) women ages 13+ living with HIV (diagnosed & undiagnosed) in a particular year.`,
+    },
+    description: {
+      text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV prevalence for Black (NH) women',
@@ -351,6 +369,9 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'New HIV diagnoses for Black women',
     definition: {
       text: `Black or African-American (NH) women ages 13+ diagnosed with HIV in a particular year.`,
+    },
+    description: {
+      text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
     timeSeriesData: true,
     dataTableTitle:
@@ -399,6 +420,9 @@ export const HIV_BW_DISEASE_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'HIV deaths for Black women',
     definition: {
       text: `Black or African-American (NH) women ages 13+ who died from HIV or AIDS in a particular year.`,
+    },
+    description: {
+      text: 'Black women are disproportionately affected by HIV. In fact, Black women are six times more likely to be diagnosed with HIV than white women. Studying HIV among Black women in regard to health equity can help us to understand why this disparity exists and how to address it.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for HIV deaths for Black (NH) women',
@@ -449,6 +473,9 @@ export const HIV_PREP_METRICS: DataTypeConfig[] = [
     fullDisplayName: 'PrEP coverage',
     definition: {
       text: `Individuals ages 16+ prescribed PrEP medication in a particular year.`,
+    },
+    description: {
+      text: 'HIV PrEP is a medication that can help to prevent HIV infection. PrEP is highly effective when taken as prescribed. Studying HIV PrEP in regard to health equity can help us to understand why certain populations are more likely to use PrEP and why others are less likely to use it.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for PrEP coverage',

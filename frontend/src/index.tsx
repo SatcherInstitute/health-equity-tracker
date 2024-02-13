@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { persistQueryClient } from 'react-query/persistQueryClient-experimental'
 import { createWebStoragePersistor } from 'react-query/createWebStoragePersistor-experimental'
+import { persistQueryClient } from 'react-query/persistQueryClient-experimental'
+import App from './App'
+import './index.css'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,11 +25,14 @@ void persistQueryClient({
   persistor: localStoragePersistor,
 })
 
-ReactDOM.render(
-  <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App />
-    </QueryClientProvider>
-  </StrictMode>,
-  document.getElementById('root')
-)
+const container = document.getElementById('root')
+if (container !== null) {
+  const root = createRoot(container)
+  root.render(
+    <StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </StrictMode>
+  )
+}

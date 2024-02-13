@@ -90,10 +90,15 @@ Codebase for the [Health Equity Tracker](https://healthequitytracker.org/), Satc
 
 #### Full test of "Nightly" E2E tests ensuring app UI works as expected
 
-- These tests automatically run against the dynamic Netlify deploy link on all PR updates, against the <dev.healthequitytracker.org> staging site on PR merges to `main`, and against the <healthequitytracker.org> production site every night.
+- These tests automatically run:
+  - against the dynamic Netlify deploy link on all PR updates
+  - against the <dev.healthequitytracker.org> staging site on PR merges to `main`
+  - against the <healthequitytracker.org> production site every night
 - To manually run full suite of tests locally (ensure the localhost server is still running first): `npm run e2e`
-- To run single test locally, just add the filename (without the path) after the command: `npm run e2e statins.nightly.spec.ts`
-- To run the tests locally, but target either the production or staging deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-staging` respectivally. Target single test files the same way described above.
+- To run subsets of the full test suite locally, just add the filename (without the path) or even a portion of a work after the command:
+  - `npm run e2e statins.nightly.spec.ts` runs the single file
+  - `npm run e2e hiv` runs all tests that include the string `hiv` in the filename
+- To run the tests locally, but target either the production or staging deployments instead of localhost: `npm run e2e-prod` and `npm run e2e-staging` respectivally. Target specific test files the same way described above.
 
 #### Outgoing Link Checker
 

@@ -1,3 +1,4 @@
+import { DataTypeId } from '../data/config/MetricConfig'
 import {
   VOTER_PARTICIPATION_METRICS,
   WOMEN_IN_GOV_METRICS,
@@ -35,7 +36,11 @@ describe('Test configsContainsMatchingId()', () => {
     expect(
       configsContainsMatchingId(
         /* configs */ VOTER_PARTICIPATION_METRICS,
-        /* ids */ ['voter_participation', 'something', 'something_else']
+        /* ids */ [
+          'voter_participation',
+          'something' as DataTypeId,
+          'something_else' as DataTypeId,
+        ]
       )
     ).toBe(true)
   })
@@ -44,7 +49,7 @@ describe('Test configsContainsMatchingId()', () => {
     expect(
       configsContainsMatchingId(
         /* configs */ VOTER_PARTICIPATION_METRICS,
-        /* ids */ ['something', 'something_else']
+        /* ids */ ['something' as DataTypeId, 'something_else' as DataTypeId]
       )
     ).toBe(false)
   })
@@ -53,7 +58,11 @@ describe('Test configsContainsMatchingId()', () => {
     expect(
       configsContainsMatchingId(
         /* configs */ WOMEN_IN_GOV_METRICS,
-        /* ids */ ['women_in_us_congress', 'something', 'something_else']
+        /* ids */ [
+          'women_in_us_congress',
+          'something' as DataTypeId,
+          'something_else' as DataTypeId,
+        ]
       )
     ).toBe(true)
   })
@@ -62,7 +71,11 @@ describe('Test configsContainsMatchingId()', () => {
     expect(
       configsContainsMatchingId(
         /* configs */ WOMEN_IN_GOV_METRICS,
-        /* ids */ ['women_in_us_congress', 'something', 'something_else'],
+        /* ids */ [
+          'women_in_us_congress',
+          'something' as DataTypeId,
+          'something_else' as DataTypeId,
+        ],
         /* bothNeedToMatch? */ true
       )
     ).toBe(false)

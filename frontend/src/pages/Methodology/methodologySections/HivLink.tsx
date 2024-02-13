@@ -1,9 +1,4 @@
-import KeyTerms from '../methodologyComponents/KeyTerms'
-import {
-  hivDataSources,
-  hivDefinitionsArray,
-} from '../methodologyContent/HIVDefinitions'
-import { HIV_RESOURCES } from '../../WhatIsHealthEquity/ResourcesData'
+import { HIV_RESOURCES } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
@@ -11,6 +6,24 @@ import { DATA_CATALOG_PAGE_LINK } from '../../../utils/internalRoutes'
 import { DATA_SOURCE_PRE_FILTERS } from '../../../utils/urlutils'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
+import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
+import { HIV_CATEGORY_DROPDOWNIDS } from '../../../data/config/MetricConfigHivCategory'
+import {
+  METRIC_CONFIG,
+  buildTopicsString,
+} from '../../../data/config/MetricConfig'
+import KeyTermsTopicsAccordion from '../methodologyComponents/KeyTermsTopicsAccordion'
+
+export const hivDataSources = [
+  dataSourceMetadataMap.cdc_atlas,
+  dataSourceMetadataMap.acs,
+]
+
+const datatypeConfigs = HIV_CATEGORY_DROPDOWNIDS.map((dropdownId) => {
+  return METRIC_CONFIG[dropdownId]
+}).flat()
+
+export const hivTopicsString = buildTopicsString(HIV_CATEGORY_DROPDOWNIDS)
 
 const HivLink = () => {
   return (
@@ -27,20 +40,16 @@ const HivLink = () => {
           columns={[
             { header: 'Category', accessor: 'category' },
             { header: 'Topics', accessor: 'topic' },
-            { header: 'Variables', accessor: 'variable' },
           ]}
           rows={[
             {
               category: 'HIV',
-              topic:
-                'HIV, HIV (Black Women), Linkage to HIV Care, PrEP Coverage, HIV Stigma',
-              variable:
-                'Prevalence, New diagnoses, Deaths, Race/ethnicity, Sex, Age',
+              topic: hivTopicsString,
             },
           ]}
         />
 
-        <h3 className='font-sansTitle text-title' id='#hiv-data-sourcing'>
+        <h3 className='mt-12 text-title font-medium' id='#hiv-data-sourcing'>
           Data Sourcing
         </h3>
         <p id='#hiv'>
@@ -50,26 +59,20 @@ const HivLink = () => {
           gathered from state and local HIV surveillance programs and is used to
           better understand the impact of HIV across the country.
         </p>
-        <p>
-          <HetNotice title='A note about CDC NCHHSTP AtlasPlus'>
-            <p>
-              The CDC's NCHHSTP and other HIV surveillance programs have agreed
-              to limit the amount of data released at the state and county
-              levels in order to protect the privacy of those affected. It takes
-              12 months for the data to become official, so the numbers reported
-              before this time are not final and should be interpreted with
-              caution.
-            </p>
-          </HetNotice>
-        </p>
-        <p>
-          To protect people’s privacy, the CDC and these programs have agreed to
-          limit the amount of data released at the state and county levels.
-          Additionally, some of the data is adjusted to account for missing
-          information on how people became infected with HIV. This means that
-          the data may change as more information becomes available.
-        </p>
+        <HetNotice className='my-12' title='A note about CDC NCHHSTP AtlasPlus'>
+          <p>
+            The CDC's NCHHSTP and other HIV surveillance programs have agreed to
+            limit the data released at the state and county levels in order to
+            protect the privacy of those affected. It takes 12 months for the
+            data to become official, so the numbers reported before this time
+            are not final and should be interpreted with caution. Additionally,
+            some of the data is adjusted to account for missing information on
+            how people became infected with HIV. This means that the data may
+            change as more information becomes available.
+          </p>
+        </HetNotice>
         <HetNotice
+          className='my-12'
           kind='data-integrity'
           title='2020 Data Disruption Due to COVID-19'
         >
@@ -83,40 +86,40 @@ const HivLink = () => {
           The data for 2022 and 2023 is still in its initial stages of
           collection and has not been finalized, making it "preliminary."
           Single-year figures refer to data that represents just one specific
-          year, rather than an average or cumulative total over multiple years.
-          Given the preliminary status of the 2022 and 2023 data, we've opted to
-          use 2021 as our reference year when showcasing data from a single
-          year.
+          year rather than an average or cumulative total over multiple years.
+          Given the preliminary status of the 2022 and 2023 data, we've used
+          2021 as our reference year when showcasing data from a single year.
         </p>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#hiv-variable-data-compilation'
         >
           Variable Data Compilation and Analysis
         </h3>
-        <h4>HIV Diagnosis</h4>
+        <h4 className='text-text font-normal'>HIV Diagnoses</h4>
         <p>
           Refers to confirmed HIV infections via laboratory or clinical evidence
           within a specific calendar year. Counts are for individuals aged 13 or
           older diagnosed with HIV during the year. Age is determined by the
           person's age at the time of infection. All metrics sourced from the
-          CDC for HIV deaths are calculated directly from the raw count of those
-          cases.
+          CDC for HIV diagnoses are calculated directly from the raw count of
+          those cases.
         </p>
-        <h4>HIV Prevalence</h4>
+        <h4 className='text-text font-normal'>HIV Prevalence</h4>
         <p>
           Represents estimated individuals aged 13 and older living with HIV by
           the year's end. Accounts for both diagnosed and undiagnosed cases.
-          Adjusted using the total number of diagnosed cases and subsequent
-          deaths from CDC’s Atlas database. The Asian category includes cases
-          classified as "Asian/Pacific Islander" using the pre-1997 OMB
-          race/ethnicity system when querying HIV prevalence. HIV prevalence
-          metrics are determined by estimating the total number of individuals
-          who have ever been infected with HIV (diagnosed and undiagnosed cases)
-          and then adjusting for the reported total number of people diagnosed
-          with HIV and subsequently died provided by the CDC’s Atlas database.
+          They were adjusted using the total number of diagnosed cases and
+          subsequent deaths from the CDC’s Atlas database. The Asian category
+          includes cases classified as "Asian/Pacific Islander" using the
+          pre-1997 OMB race/ethnicity system when querying HIV prevalence. HIV
+          prevalence metrics are determined by estimating the total number of
+          individuals who have ever been infected with HIV (diagnosed and
+          undiagnosed cases) and then adjusting for the reported total number of
+          people diagnosed with HIV and subsequently died provided by the CDC’s
+          Atlas database.
         </p>
-        <h4>HIV Deaths</h4>
+        <h4 className='text-text font-normal'>HIV Deaths</h4>
         <p>
           Counts deaths of persons aged 13 and older with diagnosed HIV or AIDS,
           irrespective of death cause. Data has a 12-month reporting delay for
@@ -124,7 +127,7 @@ const HivLink = () => {
           death. All metrics sourced from the CDC for HIV deaths are calculated
           directly from the raw count of those cases.
         </p>
-        <h4>Algorithms</h4>
+        <h4 className='text-text font-normal'>Algorithms</h4>
         <h5>Percent share</h5>
         <p>
           To calculate the percent share of HIV diagnoses, prevalence, or
@@ -136,11 +139,11 @@ const HivLink = () => {
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator: 'Number of cases in demographic group',
-              denominator: 'Total number of cases',
+              numerator: 'Group # cases',
+              denominator: 'Total # cases',
             },
-            ' * ',
-            ' 100 ',
+
+            '* 100',
           ]}
         />
         <h5>Population percent</h5>
@@ -154,16 +157,15 @@ const HivLink = () => {
           leftSide='Population Percent'
           rightSide={[
             {
-              numerator: 'Number of individuals in specific population',
-              denominator: 'Total population',
+              numerator: 'Group Pop.',
+              denominator: 'Total Pop.',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Rate Per 100,000 People (also referred to as 'Rate Per 100k')</h5>
         <p>
-          The rate per 100k for HIV diagnoses, prevalence, and deaths, is
+          The rate per 100k for HIV diagnoses, prevalence, and deaths is
           obtained directly from the CDC. Calculating the rate per 100k of HIV
           deaths, diagnoses, or prevalence involves dividing the number of
           deaths, diagnoses, or prevalence within a specific population by the
@@ -174,15 +176,15 @@ const HivLink = () => {
           leftSide='Rate per 100,000 people'
           rightSide={[
             {
-              numerator: 'Number of cases within specific population',
-              denominator: 'Total population of that group',
+              numerator: 'Group # cases',
+              denominator: 'Group Pop.',
             },
-            ' * ',
-            ' 100,000 ',
+            ' * 100,000 ',
           ]}
         />
 
         <HetNotice
+          className='my-12'
           title='A note about HIV Prevention and Care Rates for Transgender People
             (2019)'
         >
@@ -202,12 +204,12 @@ const HivLink = () => {
               <strong>2019 Case Counts:</strong>
             </span>{' '}
             Our data sources, based on the CDC's guidelines, do provide case
-            counts for HIV Prevention and Care specifically targeting
-            Transgender People.
+            <i>counts</i> for HIV outcomes specifically among Transgender
+            People.
           </p>
         </HetNotice>
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#hiv-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed Data
@@ -225,36 +227,41 @@ const HivLink = () => {
         </HetNotice>
         <p>
           County-level data is suppressed when the population denominator is:
-          <ul>
-            <li>less than 100,</li>
-            <li>the total case count is between 1–4 cases, or </li>
-            <li>when querying HIV or AIDS deaths.</li>
-          </ul>
         </p>
+        <ul>
+          <li>less than 100,</li>
+          <li>the total case count is between 1–4 cases, or </li>
+          <li>when querying HIV or AIDS deaths.</li>
+        </ul>
+
         <p>
           For the Census Island Areas (US territories other than Puerto Rico),
           there isn't enough data to accurately calculate subpopulation rates by
-          <ul>
-            <li>age,</li>
-            <li>sex, and</li>
-            <li>race/ethnicity.</li>
-          </ul>
+        </p>
+        <ul>
+          <li>age</li>
+          <li>sex</li>
+          <li>race/ethnicity</li>
+        </ul>
+        <p>
           As a result, the analysis or report will not provide detailed
           information about these specific groups in those regions. The Asian
           category includes cases previously classified as "Asian/Pacific
           Islander" under the pre-1997 Office of Management and Budget (OMB)
           race/ethnicity classification system when querying HIV prevalence.
         </p>
-        <h3 className='font-sansTitle text-title' id='#prep-coverage'>
+        <h3 className='mt-12 text-title font-medium' id='#prep-coverage'>
           Defining PrEP Coverage as a Percentage
         </h3>
         <p>
           PrEP coverage is quantified as a percentage. It represents the ratio
-          of people, aged 16 and older, who were prescribed PrEP in a given year
+          of people aged 16 and older who were prescribed PrEP in a given year
           to the estimated number of individuals in the same age group with
           indications for PrEP during that year.
         </p>
-        <h4>Significance of Measuring PrEP Coverage</h4>
+        <h4 className='text-text font-normal'>
+          Significance of Measuring PrEP Coverage
+        </h4>
         <ul>
           <li>
             <span>
@@ -289,7 +296,9 @@ const HivLink = () => {
             effectiveness of PrEP implementation and uptake initiatives.
           </li>
         </ul>
-        <h4>The Interrelation Between PrEP Coverage and Usage</h4>
+        <h4 className='text-text font-normal'>
+          The Interrelation Between PrEP Coverage and Usage
+        </h4>
         <p>
           Adequate PrEP coverage is a foundational step towards its utilization.
           If PrEP coverage is insufficient, high-risk individuals might remain
@@ -298,7 +307,7 @@ const HivLink = () => {
           limited access.
         </p>
 
-        <h4>Algorithms</h4>
+        <h4 className='text-text font-normal'>Algorithms</h4>
 
         <p>
           All metrics sourced from the CDC are calculated based on the number of
@@ -315,12 +324,10 @@ const HivLink = () => {
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator:
-                'Number of PrEP prescriptions filled by specific demographic',
-              denominator: 'Total number of PrEP prescriptions filled',
+              numerator: 'Group # Rx filled',
+              denominator: 'Total # Rx filled',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>PrEP-eligible population percent</h5>
@@ -331,15 +338,13 @@ const HivLink = () => {
           eligible for PrEP and multiplying the result by 100.
         </p>
         <FormulaFormat
-          leftSide='PrEP-Eligible Percent'
+          leftSide='PrEP-Eligible Population Percent'
           rightSide={[
             {
-              numerator:
-                'Number of individuals in specific demographic eligible for PrEP',
-              denominator: 'Total number of individuals eligible for PrEP',
+              numerator: 'Group # eligible',
+              denominator: 'Total # eligible',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>PrEP coverage</h5>
@@ -354,13 +359,10 @@ const HivLink = () => {
           leftSide='PrEP Coverage'
           rightSide={[
             {
-              numerator:
-                'Number of individuals in specific demographic using PrEP',
-              denominator:
-                'Number of individuals in the same demographic eligible for PrEP',
+              numerator: 'Group # using',
+              denominator: 'Group # eligible',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Relative Inequity</h5>
@@ -376,15 +378,14 @@ const HivLink = () => {
           leftSide='Relative Inequity'
           rightSide={[
             {
-              numerator: '(Percent Share − PrEP-Eligible Percent)',
-              denominator: 'PrEP-Eligible Percent',
+              numerator: 'Use Share - Eligible Pop. Share',
+              denominator: 'Eligible Pop. Share',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h3
-          className='font-sansTitle text-title'
+          className='mt-12 text-title font-medium'
           id='#prep-missing-and-suppressed-data'
         >
           Addressing Missing and Suppressed PrEP Coverage and Prescriptions Data
@@ -396,23 +397,22 @@ const HivLink = () => {
           limited to four categories:
         </p>
         <ol>
-          <li>White,</li>
-          <li>Black,</li>
-          <li>Hispanic/Latino, and</li>
-          <li>Other.</li>
+          <li>White</li>
+          <li>Black</li>
+          <li>Hispanic/Latino</li>
+          <li>Other</li>
         </ol>
-        <p>
-          PrEP coverage data are suppressed at any level if
-          <ul>
-            <li>the number of persons prescribed PrEP is suppressed,</li>
-            <li>
-              the estimated number of persons with indications for PrEP
-              (PreEP-eligible population) is suppressed, or
-            </li>
-            <li>if the number of persons prescribed PrEP is less than 40.</li>
-          </ul>
-        </p>
-        <h3 className='font-sansTitle text-title' id='#linkage-to-care'>
+        <p>PrEP coverage data are suppressed at any level if</p>
+        <ul>
+          <li>the number of persons prescribed PrEP is suppressed,</li>
+          <li>
+            the estimated number of persons with indications for PrEP
+            (PreEP-eligible population) is suppressed, or
+          </li>
+          <li>if the number of persons prescribed PrEP is less than 40.</li>
+        </ul>
+
+        <h3 className='mt-12 text-title font-medium' id='#linkage-to-care'>
           Linkage to Care
         </h3>
         <p>
@@ -433,7 +433,7 @@ const HivLink = () => {
           care can result in poorer health outcomes for individuals living with
           HIV and can increase the risk of transmitting HIV to others.
         </p>
-        <h4>Algorithms</h4>
+        <h4 className='text-text font-normal'>Algorithms</h4>
         <p>
           All metrics sourced from the CDC are calculated based on the number of
           cases of HIV diagnosis where individuals have received at least 1 CD4
@@ -443,20 +443,18 @@ const HivLink = () => {
         <p>
           Calculating the percent share of individuals who received testing or
           treatment within a month involves dividing the number of people with
-          access to HIV care by a specific population or demographic group by
-          the total number of people with access to HIV care and multiplying the
-          result by 100.
+          access to HIV care in a specific population or demographic group by
+          the total number of people with access to HIV care, and multiplying
+          the result by 100.
         </p>
         <FormulaFormat
           leftSide='Percent Share'
           rightSide={[
             {
-              numerator:
-                'Number of people with access to HIV care in specific group',
-              denominator: 'Total number of people with access to HIV care',
+              numerator: 'Group # care access',
+              denominator: 'Total # care access',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Diagnosed population percent</h5>
@@ -470,11 +468,10 @@ const HivLink = () => {
           leftSide='Diagnosed Population Percent'
           rightSide={[
             {
-              numerator: 'Number of individuals with HIV in specific group',
-              denominator: 'Total number of individuals with HIV​',
+              numerator: 'Group # HIV cases',
+              denominator: 'Total # HIV cases​',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Linkage to Care</h5>
@@ -489,13 +486,10 @@ const HivLink = () => {
           leftSide='Linkage to Care'
           rightSide={[
             {
-              numerator:
-                'Number of individuals in specific group with access to care​',
-              denominator:
-                'Total number of individuals living with HIV in the specific group',
+              numerator: 'Group # care access​',
+              denominator: 'Group # living with HIV',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
         <h5>Relative Inequity</h5>
@@ -511,20 +505,14 @@ const HivLink = () => {
           leftSide='Relative Inequity'
           rightSide={[
             {
-              numerator: (
-                <>
-                  (Prop. of all with access in specific group − <wbr />
-                  Prop. of diagnosed in specific group)
-                </>
-              ),
-              denominator: 'Proportion of diagnosed in specific group​',
+              numerator: 'Access Share - HIV Pop. Share',
+              denominator: 'HIV Pop. Share​',
             },
-            ' * ',
-            ' 100 ',
+            '* 100',
           ]}
         />
 
-        <h3 className='font-sansTitle text-title' id='#stigma'>
+        <h3 className='mt-12 text-title font-medium' id='#stigma'>
           HIV Stigma
         </h3>
         <p>
@@ -545,12 +533,12 @@ const HivLink = () => {
           stigma, promote social support, and improve the well-being of
           individuals living with HIV.
         </p>
-        <h4>Algorithm</h4>
+        <h4 className='text-text font-normal'>Algorithm</h4>
 
         <p>
-          All metrics related to HIV stigma, sourced from the CDC, are
-          calculated based on a national probability sample of individuals
-          diagnosed with HIV.
+          All metrics related to HIV stigma are calculated based on a national
+          probability sample of individuals diagnosed with HIV, and are sourced
+          directly from the CDC.
         </p>
         <h5>Stigma score</h5>
         <p>
@@ -573,63 +561,13 @@ const HivLink = () => {
           assess the prevalence and impact of HIV stigma.
         </p>
 
-        <FormulaFormat
-          leftSide='Analyzed Stigma Score'
-          rightSide={[
-            {
-              numerator: 'Self-Reported Data',
-              denominator: (
-                <>
-                  <span className='font-math italic'>f</span>
-                  (Self-Reported Data)
-                </>
-              ),
-            },
-            ' * ',
-            ' 100 ',
-          ]}
-        />
-        <blockquote>
-          <p>
-            <em>
-              Where <span className='font-math italic'>f</span> is a function
-              that assesses the prevalence and impact of HIV stigma based on the
-              self-reported data.
-            </em>
-          </p>
-        </blockquote>
-        <p>
-          This method allows for the quantification and comparison of stigma
-          levels across different populations and geographic areas, providing
-          insights into the experiences of individuals living with HIV.
-        </p>
-
-        <FormulaFormat
-          leftSide='Comparison Value'
-          rightSide={[
-            {
-              numerator: 'HIV Stigma Score of Population A​',
-              denominator: 'HIV Stigma Score of Population B',
-            },
-          ]}
-        />
-        <blockquote>
-          <p>
-            <em>
-              Or any other comparative metrics based on the exact methodology
-              used.
-            </em>
-          </p>
-        </blockquote>
-        <h3 className='font-sansTitle text-title' id='#hiv-data-sources'>
+        <h3 className='mt-12 text-title font-medium' id='#hiv-data-sources'>
           Data Sources
         </h3>
         <StripedTable
           applyThickBorder={false}
           columns={[
             { header: 'Source', accessor: 'source' },
-            { header: 'Geographic Level', accessor: 'geo' },
-            { header: 'Granularity', accessor: 'granularity' },
             { header: 'Update Frequency', accessor: 'updates' },
           ]}
           rows={hivDataSources.map((source, index) => ({
@@ -641,12 +579,14 @@ const HivLink = () => {
                 {source.data_source_name}
               </a>
             ),
-            geo: source.geographic_level,
-            granularity: source.demographic_granularity,
             updates: source.update_frequency,
           }))}
         />
-        <KeyTerms id='#hiv-key-terms' definitionsArray={hivDefinitionsArray} />
+
+        <KeyTermsTopicsAccordion
+          hashId='#hiv-key-terms'
+          datatypeConfigs={datatypeConfigs}
+        />
         <Resources id='#hiv-resources' resourceGroups={[HIV_RESOURCES]} />
       </article>
     </section>
