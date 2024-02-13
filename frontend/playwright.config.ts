@@ -1,12 +1,5 @@
 import type { PlaywrightTestConfig } from '@playwright/test';
 
-
-// For AXE a11y
-import { expect } from '@playwright/test'
-import matchers from 'expect-axe-playwright'
-expect.extend(matchers)
-
-
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -44,13 +37,6 @@ const config: PlaywrightTestConfig = {
     trace: 'on',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
-    axeOptions: {
-      rules: {
-        // TODO: figure out how to ignore React Dev overlay that was triggering failure
-        "frame-title": { enabled: false },
-      },
-    },
-
   },
 
   projects: [
