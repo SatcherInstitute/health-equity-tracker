@@ -11,6 +11,7 @@ to the manual-uploads GCS bucket for consumption by the ingestion pipeline.
 Example usage:
 python cdc_restricted_local.py --dir="/Users/vanshkumar/Downloads" --prefix="COVID_Cases_Restricted_Detailed_01312021"
 """
+
 import argparse
 import os
 import sys
@@ -150,19 +151,27 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # Add columns for hospitalization yes/no/unknown and death yes/no/unknown,
     # as we aggregate and count these individually. Do a sanity check that we
     # covered all the data and drop the original hospitalization/death columns.
-    df[std_col.COVID_HOSP_Y] = (df['hosp_yn'] == 'Yes')
-    df[std_col.COVID_HOSP_N] = (df['hosp_yn'] == 'No')
-    df[std_col.COVID_HOSP_UNKNOWN] = ((df['hosp_yn'] == 'Unknown') |
-                                      (df['hosp_yn'] == 'Missing'))
-    df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
-    df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
-    df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |
-                                       (df['death_yn'] == 'Missing'))
+    df[std_col.COVID_HOSP_Y] = df['hosp_yn'] == 'Yes'
+    df[std_col.COVID_HOSP_N] = df['hosp_yn'] == 'No'
+    df[std_col.COVID_HOSP_UNKNOWN] = (df['hosp_yn'] == 'Unknown') | (
+        df['hosp_yn'] == 'Missing'
+    )
+    df[std_col.COVID_DEATH_Y] = df['death_yn'] == 'Yes'
+    df[std_col.COVID_DEATH_N] = df['death_yn'] == 'No'
+    df[std_col.COVID_DEATH_UNKNOWN] = (df['death_yn'] == 'Unknown') | (
+        df['death_yn'] == 'Missing'
+    )
 
-    check_hosp = (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] |
-                  df[std_col.COVID_HOSP_UNKNOWN]).all()
-    check_deaths = (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] |
-                    df[std_col.COVID_DEATH_UNKNOWN]).all()
+    check_hosp = (
+        df[std_col.COVID_HOSP_Y]
+        | df[std_col.COVID_HOSP_N]
+        | df[std_col.COVID_HOSP_UNKNOWN]
+    ).all()
+    check_deaths = (
+        df[std_col.COVID_DEATH_Y]
+        | df[std_col.COVID_DEATH_N]
+        | df[std_col.COVID_DEATH_UNKNOWN]
+    ).all()
 
     assert check_hosp, "All possible hosp_yn values are not accounted for"
     assert check_deaths, "All possible death_yn values are not accounted for"
@@ -208,23 +217,28 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
 def sanity_check_data(df):
     # Perform some simple sanity checks that we are covering all the data.
     cases = df[std_col.COVID_CASES]
-    assert cases.equals(df[std_col.COVID_HOSP_Y] + df[std_col.COVID_HOSP_N] +
-                        df[std_col.COVID_HOSP_UNKNOWN])
-    assert cases.equals(df[std_col.COVID_DEATH_Y] + df[std_col.COVID_DEATH_N] +
-                        df[std_col.COVID_DEATH_UNKNOWN])
+    assert cases.equals(
+        df[std_col.COVID_HOSP_Y]
+        + df[std_col.COVID_HOSP_N]
+        + df[std_col.COVID_HOSP_UNKNOWN]
+    )
+    assert cases.equals(
+        df[std_col.COVID_DEATH_Y]
+        + df[std_col.COVID_DEATH_N]
+        + df[std_col.COVID_DEATH_UNKNOWN]
+    )
 
 
 def generate_national_dataset(state_df, groupby_cols):
     """Generates a national level dataset from the state_df.
-       Returns a national level dataframe
+    Returns a national level dataframe
 
-       state_df: state level dataframe
-       groupby_cols: list of columns to group on"""
+    state_df: state level dataframe
+    groupby_cols: list of columns to group on"""
 
     # This is hacky but I think we have to do this because everything comes
     # from big query as a string.
-    int_cols = [std_col.COVID_CASES,
-                std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
+    int_cols = [std_col.COVID_CASES, std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
     state_df[int_cols] = state_df[int_cols].fillna(0)
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
@@ -262,7 +276,6 @@ def process_data(dir, files):
         ("county", "age"),
         ("state", "sex"),
         ("county", "sex"),
-
         # for age adjustment
         ("state", "race_and_age"),
     ]
@@ -281,7 +294,7 @@ def process_data(dir, files):
             dtype=str,
             chunksize=CHUNK_SIZE,
             keep_default_na=False,
-            usecols=USE_COLS
+            usecols=USE_COLS,
         )
 
         for chunk in chunked_frame:
@@ -294,7 +307,8 @@ def process_data(dir, files):
             # For county fips, we make sure they are strings of length 5 as per
             # our standardization (ignoring empty values).
             df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
-                lambda x: x.zfill(5) if len(x) > 0 else x)
+                lambda x: x.zfill(5) if len(x) > 0 else x
+            )
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
@@ -313,8 +327,12 @@ def process_data(dir, files):
                     demog_col = [RACE_ETH_COL, AGE_COL]
 
                 all_dfs[(geo, demo)] = accumulate_data(
-                    sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
-                    demog_names_mapping)
+                    sliced_df,
+                    geo_cols,
+                    all_dfs[(geo, demo)],
+                    demog_col,
+                    demog_names_mapping,
+                )
 
         end = time.time()
         print("Took", round(end - start), "seconds to process file", f)
@@ -349,12 +367,14 @@ def main():
 
     # Get the files in the specified directory which match the prefix.
     matching_files = []
-    files = [
-        f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
+    files = [f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
     for f in files:
         filename_parts = f.split('.')
-        if (len(filename_parts) == 2 and prefix in filename_parts[0] and
-                filename_parts[1] == 'csv'):
+        if (
+            len(filename_parts) == 2
+            and prefix in filename_parts[0]
+            and filename_parts[1] == 'csv'
+        ):
             matching_files.append(f)
 
     if len(matching_files) == 0:
