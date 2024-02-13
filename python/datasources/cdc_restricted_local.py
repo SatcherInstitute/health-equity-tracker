@@ -42,22 +42,19 @@ parser.add_argument(
 STATE_COL = 'res_state'
 COUNTY_FIPS_COL = 'county_fips_code'
 COUNTY_COL = 'res_county'
-SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
-RACE_COL = 'race'
-ETH_COL = 'ethnicity'
 CASE_DATE_COL = 'cdc_case_earliest_dt'
 
 USE_COLS = [
     STATE_COL,
     COUNTY_FIPS_COL,
     COUNTY_COL,
-    SEX_COL,
+    std_col.SEX_COL,
     AGE_COL,
     *OUTCOME_COLS,
-    RACE_COL,
-    ETH_COL,
+    std_col.RACE_COL,
+    std_col.ETH_COL,
     CASE_DATE_COL,
 ]
 
@@ -73,7 +70,7 @@ COL_NAME_MAPPING = {
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
     RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
-    SEX_COL: std_col.SEX_COL,
+    std_col.SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
     CASE_DATE_COL: std_col.TIME_PERIOD_COL,
 }
@@ -124,11 +121,11 @@ AGE_NAMES_MAPPING = {
 # to their standardized form.
 GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
 DEMOGRAPHIC_COL_MAPPING = {
-    'race': ([RACE_COL, ETH_COL], RACE_NAMES_MAPPING),
-    'sex': ([SEX_COL], SEX_NAMES_MAPPING),
+    'race': ([std_col.RACE_COL, std_col.ETH_COL], RACE_NAMES_MAPPING),
+    'sex': ([std_col.SEX_COL], SEX_NAMES_MAPPING),
     'age': ([AGE_COL], AGE_NAMES_MAPPING),
     'race_and_age': (
-        [RACE_COL, ETH_COL, AGE_COL],
+        [std_col.RACE_COL, std_col.ETH_COL, AGE_COL],
         {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING},
     ),
 }
