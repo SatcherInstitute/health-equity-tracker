@@ -84,7 +84,7 @@ markupsafe==1.1.1
     # via jinja2
 mypy-extensions==0.4.3
     # via typing-inspect
-numpy==1.19.2
+numpy==1.23.2
     # via pandas
 packaging==20.4
     # via pytest

@@ -162,11 +162,9 @@ function EquityTab() {
                 </div>
                 <section className='w-full md:w-1/4'>
                   <div className='flex w-full flex-col flex-wrap items-center justify-evenly'>
-                    <aside
-                      className='flex flex-col items-start p-4 text-left'
-                      aria-label="Jessica's Story Video"
-                    >
+                    <aside className='flex flex-col items-start p-4 text-left'>
                       <iframe
+                        aria-label="Jessica's Story Video"
                         className='h-44 w-full rounded-md'
                         src='https://www.youtube.com/embed/cmMutvgQIcU'
                         title="YouTube video player -
