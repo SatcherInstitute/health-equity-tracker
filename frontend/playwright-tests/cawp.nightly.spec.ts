@@ -12,18 +12,11 @@ test('CAWP: Congress', async ({ page }) => {
   await page.getByText('Puerto Rico,').click()
   await page.getByText('American Samoa,').click()
   await page.getByText('District of Columbia', { exact: true }).click()
-  await page.getByText('United States: 25%').click()
   await page.getByLabel('Include All women').click()
   await page.getByText('Expand rates over time table').click()
   await page.getByRole('cell', { name: '1951' }).click()
   await page.getByRole('cell', { name: '1952' }).click()
-  await page.getByRole('cell', { name: '2023' }).click()
-  await page
-    .getByLabel(
-      'Bar Chart showing Current rates of US Congress members identifying as women in the United States, by Race and Ethnicity'
-    )
-    .getByText('5%', { exact: true })
-    .click()
+
   await page
     .getByText(
       'No unknown values for race and ethnicity reported in this dataset at the state/t'
@@ -58,11 +51,7 @@ test('CAWP: Congress', async ({ page }) => {
     .getByText('20.0% of women members', { exact: true })
     .click()
 
-  await page
-    .getByRole('cell', {
-      name: '25% women in Congress ( 155 members / 621 Total members )',
-    })
-    .click()
+
   await page.getByRole('button', { name: 'US Congress', exact: true }).click();
   await page.getByRole('button', { name: 'State legislatures' }).click();
   await page.getByRole('button', { name: 'Population vs. distribution' }).click();

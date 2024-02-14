@@ -11,7 +11,7 @@ import {
   COVID_VACCINATION_RESOURCES,
   ECONOMIC_EQUITY_RESOURCES,
   HIV_RESOURCES,
-} from '../../WhatIsHealthEquity/ResourcesData'
+} from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
 import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import GlossaryTerm from '../methodologyComponents/GlossaryTerm'

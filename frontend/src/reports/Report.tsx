@@ -20,7 +20,6 @@ import {
   psSubscribe,
   swapOldDatatypeParams,
 } from '../utils/urlutils'
-import NoDataAlert from './ui/NoDataAlert'
 import RateTrendsChartCard from '../cards/RateTrendsChartCard'
 import ShareTrendsChartCard from '../cards/ShareTrendsChartCard'
 import { reportProviderSteps } from './ReportProviderSteps'
@@ -152,10 +151,6 @@ export function Report(props: ReportProps) {
           />
 
           <div className='flex w-full items-center justify-center'>
-            {!dataTypeConfig && (
-              <NoDataAlert dropdownVarId={props.dropdownVarId} />
-            )}
-
             {dataTypeConfig && (
               <div className='flex w-full flex-col content-center'>
                 {/* 100k MAP CARD */}

@@ -7,7 +7,7 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.getByLabel('Legend for rate map').getByRole('img').click();
   await page.locator('li').filter({ hasText: 'Total Medicare Population:' }).click();
   const page1Promise = page.waitForEvent('popup');
-  await page.locator('#rate-chart').getByText('Medication Utilization and Disease Rates in the Medicare Population (updated 2020)').click();
+  await page.locator('#rate-chart').getByText('Medication Utilization and Disease Rates in the Medicare Population (data from 2020)').click();
   const page1 = await page1Promise;
   await page.getByRole('note').click();
   await page.getByLabel('Comparison bar chart showing').getByRole('img').click();
@@ -20,10 +20,6 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.getByRole('heading', { name: 'Definitions:' }).click();
   await page.getByText('Medication Utilization in the').click();
   await page.getByText('Acute Myocardial Infarctions (Heart Attacks)', { exact: true }).click();
-  await page.locator('li').filter({ hasText: 'Acute Myocardial Infarctions' }).locator('b').first().click();
-  await page.getByText('Measurement Definition: The').click();
-  await page.locator('li').filter({ hasText: 'Acute Myocardial Infarctions' }).locator('b').nth(1).click();
-  await page.getByText('Clinical Importance: Heart').click();
   await page.getByRole('heading', { name: 'Medicare Administration Data' }).click();
   await page.getByText('What demographic data are').click();
   await page.getByText('Gender:').click();

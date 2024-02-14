@@ -1,7 +1,7 @@
 import {
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
-  CONDITION_VARIABLES_LINK,
+  TOPIC_DEFINITIONS_LINK,
   COVID_19_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   GLOSSARY_LINK,
@@ -12,14 +12,14 @@ import {
   RECOMMENDED_CITATION_LINK,
   SDOH_LINK,
   SOURCES_LINK,
-  TOPICS_LINK,
+  TOPIC_CATEGORIES_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
 } from '../../../utils/internalRoutes'
 import AgeAdjustmentLink from '../methodologySections/AgeAdjustmentLink'
 import BehavioralHealthLink from '../methodologySections/BehavioralHealthLink'
 import ChronicDiseaseLink from '../methodologySections/ChronicDiseaseLink'
-import ConditionVariablesLink from '../methodologySections/ConditionVariablesLink'
+import TopicDefinitionsLink from '../methodologySections/TopicDefinitionsLink'
 import DataMethodDefinitionsLink from '../methodologySections/DataMethodDefinitionsLink'
 import Covid19Link from '../methodologySections/Covid19Link'
 import HivLink from '../methodologySections/HivLink'
@@ -29,7 +29,7 @@ import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesL
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink'
 import SdohLink from '../methodologySections/SdohLink'
 import SourcesLink from '../methodologySections/SourcesLink'
-import TopicsLink from '../methodologySections/TopicsLink'
+import TopicCategoriesLimitationsLink from '../methodologySections/TopicCategoriesLimitationsLink'
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
 import GlossaryLink from '../methodologySections/GlossaryLink'
 
@@ -75,11 +75,6 @@ export const routeConfigs = [
         label: 'Data Processing',
         path: '#data-processing',
       },
-
-      {
-        label: 'Data Analysis',
-        path: '#data-analysis',
-      },
       {
         label: 'Visualization Techniques',
         path: '#visualization-techniques',
@@ -107,9 +102,9 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Categories and Limitations',
-    path: TOPICS_LINK,
-    component: TopicsLink,
+    label: 'Topic Categories & Limitations',
+    path: TOPIC_CATEGORIES_LINK,
+    component: TopicCategoriesLimitationsLink,
     subLinks: [
       {
         label: 'Categories',
@@ -329,28 +324,32 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Condition Variables',
-    path: CONDITION_VARIABLES_LINK,
-    component: ConditionVariablesLink,
+    label: 'Topic Definitions',
+    path: TOPIC_DEFINITIONS_LINK,
+    component: TopicDefinitionsLink,
     subLinks: [
+      { label: 'HIV Topics', path: 'hiv' },
       {
-        label: 'Behavioral Health Variables',
-        path: '#behavioral-health-variables',
+        label: 'Chronic Disease Topics',
+        path: 'chronic-disease',
       },
       {
-        label: 'Chronic Diseases Variables',
-        path: '#chronic-diseases-variables',
-      },
-      { label: 'COVID-19 Variables', path: '#covid-19-variables' },
-      { label: 'HIV Variables', path: '#hiv-variables' },
-      {
-        label: 'Political Determinants of Health Variables',
-        path: '#pdoh-variables',
+        label: 'Behavioral Health Topics',
+        path: 'behavioral-health',
       },
       {
-        label: 'Social Determinants of Health Variables',
-        path: '#sdoh-variables',
+        label: 'Political Determinants of Health Topics',
+        path: 'political-determinants-of-health',
       },
+      {
+        label: 'Social Determinants of Health Topics',
+        path: 'social-determinants-of-health',
+      },
+      {
+        label: 'Medication Utilization in the Medicare Population',
+        path: 'medication-utilization-in-the-medicare-population',
+      },
+      { label: 'COVID-19 Topics', path: 'covid-19' },
     ],
   },
 

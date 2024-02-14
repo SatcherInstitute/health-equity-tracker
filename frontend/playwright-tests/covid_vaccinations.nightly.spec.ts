@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 test.describe.configure({ mode: 'parallel' });
 
@@ -10,8 +11,10 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.goto('/', { waitUntil: "commit" });
         await expect(page.locator('#main')).toContainText('Advancing Health Justice');
 
-        // @ts-ignore
-        await expect(page).toPassAxe()
+        const accessibilityScanResults = await new AxeBuilder({ page })
+            .exclude('iframe') // YouTube embed is not fully accessible
+            .analyze();
+        expect(accessibilityScanResults.violations).toEqual([]);
 
         // Clicking large CTA button takes us to the tracker
         const exploreButton = page.locator('#landingPageCTA')
@@ -39,9 +42,10 @@ test.describe('Home to COVID Vax by Age', () => {
         await page.goBack()
         await expect(page).not.toHaveURL(/.*mls=1.covid_vaccinations-3.00/);
 
-        // @ts-ignore
-        await expect(page).toPassAxe()
-
+        const accessibilityScanResults = await new AxeBuilder({ page })
+            .exclude('iframe') // YouTube embed is not fully accessible
+            .analyze();
+        expect(accessibilityScanResults.violations).toEqual([]);
 
     })
 

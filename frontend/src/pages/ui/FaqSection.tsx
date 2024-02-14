@@ -4,38 +4,10 @@ import { FAQ_TAB_LINK } from '../../utils/internalRoutes'
 import { type FAQ, selectFAQs } from '../WhatIsHealthEquity/FaqData'
 import HetLinkButton from '../../styles/HetComponents/HetLinkButton'
 
-interface FAQListItemProps {
-  key: string
-  ariaControls: string
-  id: string
-  faq: FAQ
-}
-
-function FAQListItem(props: FAQListItemProps) {
-  return (
-    <Accordion className='m-0 list-none'>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon />}
-        aria-controls={props.ariaControls}
-        id={props.id}
-      >
-        <div className='text-left font-serif text-title leading-lhSuperLoose text-altBlack sm:text-smallHeader'>
-          {props.faq.questionText}
-        </div>
-      </AccordionSummary>
-      <AccordionDetails>
-        <div className='text-left text-small font-normal text-altBlack'>
-          {props.faq.answer}
-        </div>
-      </AccordionDetails>
-    </Accordion>
-  )
-}
-
 export default function FaqSection() {
   return (
     <article className='grid'>
-      <div className='pb-5 text-left font-serif text-bigHeader text-altGreen'>
+      <div className='pb-5 text-left font-serif text-bigHeader font-light text-altGreen'>
         Frequently asked questions
       </div>
 
@@ -60,5 +32,33 @@ export default function FaqSection() {
         </HetLinkButton>
       </div>
     </article>
+  )
+}
+
+interface FAQListItemProps {
+  key: string
+  ariaControls: string
+  id: string
+  faq: FAQ
+}
+
+function FAQListItem(props: FAQListItemProps) {
+  return (
+    <Accordion className='m-0 list-none font-light'>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls={props.ariaControls}
+        id={props.id}
+      >
+        <div className='text-left font-serif text-title leading-lhSuperLoose text-altBlack sm:text-smallHeader'>
+          {props.faq.questionText}
+        </div>
+      </AccordionSummary>
+      <AccordionDetails>
+        <div className='text-left text-small font-normal text-altBlack'>
+          {props.faq.answer}
+        </div>
+      </AccordionDetails>
+    </Accordion>
   )
 }

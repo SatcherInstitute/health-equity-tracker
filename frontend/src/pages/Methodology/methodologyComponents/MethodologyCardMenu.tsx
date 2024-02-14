@@ -1,8 +1,7 @@
-import Divider from '@mui/material/Divider'
 import { Link } from 'react-router-dom'
 import {
   SOURCES_LINK,
-  TOPICS_LINK,
+  TOPIC_CATEGORIES_LINK,
   BEHAVIORAL_HEALTH_LINK,
   CHRONIC_DISEASE_LINK,
   COVID_19_LINK,
@@ -11,7 +10,7 @@ import {
   SDOH_LINK,
   DATA_METHOD_DEFINITIONS_LINK,
   METRICS_LINK,
-  CONDITION_VARIABLES_LINK,
+  TOPIC_DEFINITIONS_LINK,
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
@@ -19,6 +18,7 @@ import {
   GLOSSARY_LINK,
 } from '../../../utils/internalRoutes'
 import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
+import HetDivider from '../../../styles/HetComponents/HetDivider'
 
 interface MethodologyCardMenuProps {
   className?: string
@@ -32,50 +32,48 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
         props.className ?? ''
       } `}
     >
+      <Link to={NEW_METHODOLOGY_PAGE_LINK} className='no-underline'>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === NEW_METHODOLOGY_PAGE_LINK}
+        >
+          Introduction
+        </HetListItemButton>
+      </Link>
+
+      <HetDivider />
+
+      <Link className='no-underline' to={NEW_AGE_ADJUSTMENT_LINK}>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === NEW_AGE_ADJUSTMENT_LINK}
+        >
+          Age-Adjustment
+        </HetListItemButton>
+      </Link>
+
+      <HetDivider />
+
+      <Link className='no-underline' to={SOURCES_LINK}>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === SOURCES_LINK}
+        >
+          Data Sources
+        </HetListItemButton>
+      </Link>
+
+      <HetDivider />
+
+      <Link className='no-underline' to={TOPIC_CATEGORIES_LINK}>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === TOPIC_CATEGORIES_LINK}
+        >
+          Topic Categories & Limitations
+        </HetListItemButton>
+      </Link>
       <ul className='my-0 list-none pl-0 leading-lhLoose'>
-        <li>
-          <Link to={NEW_METHODOLOGY_PAGE_LINK} className='no-underline'>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === NEW_METHODOLOGY_PAGE_LINK}
-            >
-              Introduction
-            </HetListItemButton>
-          </Link>
-        </li>
-        <Divider />
-        <li>
-          <Link className='no-underline' to={NEW_AGE_ADJUSTMENT_LINK}>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === NEW_AGE_ADJUSTMENT_LINK}
-            >
-              Age-Adjustment
-            </HetListItemButton>
-          </Link>
-        </li>
-        <Divider />
-        <li>
-          <Link className='no-underline' to={SOURCES_LINK}>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === SOURCES_LINK}
-            >
-              Data Sources
-            </HetListItemButton>
-          </Link>
-        </li>
-        <Divider />
-        <li>
-          <Link className='no-underline' to={TOPICS_LINK}>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === TOPICS_LINK}
-            >
-              Categories and Limitations
-            </HetListItemButton>
-          </Link>
-        </li>
         <li>
           <Link className='no-underline' to={BEHAVIORAL_HEALTH_LINK}>
             <HetListItemButton
@@ -142,19 +140,17 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
             </HetListItemButton>
           </Link>
         </li>
-        <Divider />
-        <li>
-          <Link className='no-underline' to={DATA_METHOD_DEFINITIONS_LINK}>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={
-                window.location.pathname === DATA_METHOD_DEFINITIONS_LINK
-              }
-            >
-              Data Method Definitions
-            </HetListItemButton>
-          </Link>
-        </li>
+      </ul>
+      <HetDivider />
+      <Link className='no-underline' to={DATA_METHOD_DEFINITIONS_LINK}>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === DATA_METHOD_DEFINITIONS_LINK}
+        >
+          Data Method Definitions
+        </HetListItemButton>
+      </Link>
+      <ul className='my-0 list-none pl-0 leading-lhLoose'>
         <li>
           <Link className='no-underline' to={METRICS_LINK}>
             <HetListItemButton
@@ -167,13 +163,13 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
           </Link>
         </li>
         <li>
-          <Link className='no-underline' to={CONDITION_VARIABLES_LINK}>
+          <Link className='no-underline' to={TOPIC_DEFINITIONS_LINK}>
             <HetListItemButton
               className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === CONDITION_VARIABLES_LINK}
+              selected={window.location.pathname === TOPIC_DEFINITIONS_LINK}
               option='normalBlack'
             >
-              Condition Variables
+              Topic Definitions
             </HetListItemButton>
           </Link>
         </li>
@@ -189,29 +185,25 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
             </HetListItemButton>
           </Link>
         </li>
-        <Divider />
-        <li>
-          <Link className='no-underline' to={RECOMMENDED_CITATION_LINK}>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === RECOMMENDED_CITATION_LINK}
-            >
-              Recommended Citation
-            </HetListItemButton>
-          </Link>
-        </li>
-        <Divider />
-        <li>
-          <Link className='no-underline' to={GLOSSARY_LINK}>
-            <HetListItemButton
-              className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === GLOSSARY_LINK}
-            >
-              Glossary
-            </HetListItemButton>
-          </Link>
-        </li>
       </ul>
+      <HetDivider />
+      <Link className='no-underline' to={RECOMMENDED_CITATION_LINK}>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === RECOMMENDED_CITATION_LINK}
+        >
+          Recommended Citation
+        </HetListItemButton>
+      </Link>
+      <HetDivider />
+      <Link className='no-underline' to={GLOSSARY_LINK}>
+        <HetListItemButton
+          className='mx-2 pl-2 font-roboto'
+          selected={window.location.pathname === GLOSSARY_LINK}
+        >
+          Glossary
+        </HetListItemButton>
+      </Link>
     </nav>
   )
 }
