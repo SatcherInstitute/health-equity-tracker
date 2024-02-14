@@ -42,7 +42,7 @@ export const CategoryMap = {
   'chronic-disease': 'Chronic Disease',
   'covid': 'COVID-19',
   'hiv': 'HIV',
-  'medicare': 'Medication Utilization in the Medicare Population',
+  'medicare': 'Medication Utilization',
   'pdoh': 'Political Determinants of Health',
   'sdoh': 'Social Determinants of Health',
 }
@@ -203,7 +203,7 @@ const CATEGORIES_LIST: Category[] = [
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
-    title: 'Medication Utilization in the Medicare Population',
+    title: 'Medication Utilization',
     definition: '',
     // TODO: clean this up once PHRMA fully launched all topics
     options: SHOW_PHRMA_MENTAL_HEALTH

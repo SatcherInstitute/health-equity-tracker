@@ -18,7 +18,7 @@ import {
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   GLOSSARY_LINK,
-  MEDICARE_MEDICATION_LINK,
+  MEDICATION_UTILIZATION_LINK,
 } from '../../../utils/internalRoutes'
 
 interface MethodologyCardMenuMobileProps {
@@ -74,8 +74,8 @@ export default function MethodologyCardMenuMobile(
               <MenuItem value={SDOH_LINK}>
                 Social Determinants of Health (SDOH)
               </MenuItem>
-              <MenuItem value={MEDICARE_MEDICATION_LINK}>
-                Medication Utilization in the Medicare Population
+              <MenuItem value={MEDICATION_UTILIZATION_LINK}>
+                Medication Utilization
               </MenuItem>
               <MenuItem value={DATA_METHOD_DEFINITIONS_LINK}>
                 Data Method Definitions

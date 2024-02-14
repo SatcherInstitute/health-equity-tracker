@@ -27,13 +27,10 @@ export const medicareTopicsString = buildTopicsString(
 
 export default function MedicareMedicationLink() {
   return (
-    <section id='#medicare-medication'>
+    <section id='#medication-utilization'>
       <article>
         <Helmet>
-          <title>
-            Medication Utilization in the Medicare Population - Health Equity
-            Tracker
-          </title>
+          <title>Medication Utilization - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>HIV</h2>
 
@@ -52,7 +49,10 @@ export default function MedicareMedicationLink() {
           ]}
         />
 
-        <h3 className='mt-12 text-title font-medium' id='#hiv-data-sourcing'>
+        <h3
+          className='mt-12 text-title font-medium'
+          id='#medication-utilization-data-sourcing'
+        >
           Data Sourcing
         </h3>
         <p>
@@ -404,7 +404,10 @@ export default function MedicareMedicationLink() {
           </div>
         </section>
 
-        <h3 className='mt-12 text-title font-medium' id='#hiv-data-sources'>
+        <h3
+          className='mt-12 text-title font-medium'
+          id='#medication-utilization-data-sources'
+        >
           Data Sources
         </h3>
         <StripedTable
@@ -427,11 +430,11 @@ export default function MedicareMedicationLink() {
         />
 
         <KeyTermsTopicsAccordion
-          hashId='#hiv-key-terms'
+          hashId='#medication-utilization-key-terms'
           datatypeConfigs={datatypeConfigs}
         />
         <Resources
-          id='#hiv-resources'
+          id='#medication-utilization-resources'
           resourceGroups={[MEDICARE_MEDICATION_RESOURCES]}
         />
       </article>

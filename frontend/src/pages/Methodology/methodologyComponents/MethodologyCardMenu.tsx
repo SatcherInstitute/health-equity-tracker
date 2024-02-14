@@ -16,7 +16,7 @@ import {
   NEW_AGE_ADJUSTMENT_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
   GLOSSARY_LINK,
-  MEDICARE_MEDICATION_LINK,
+  MEDICATION_UTILIZATION_LINK,
 } from '../../../utils/internalRoutes'
 import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
 import HetDivider from '../../../styles/HetComponents/HetDivider'
@@ -142,13 +142,15 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
           </Link>
         </li>
         <li>
-          <Link className='no-underline' to={MEDICARE_MEDICATION_LINK}>
+          <Link className='no-underline' to={MEDICATION_UTILIZATION_LINK}>
             <HetListItemButton
               className='mx-2 pl-2 font-roboto'
-              selected={window.location.pathname === MEDICARE_MEDICATION_LINK}
+              selected={
+                window.location.pathname === MEDICATION_UTILIZATION_LINK
+              }
               option='normalBlack'
             >
-              Medication Utilization in the Medicare Population
+              Medication Utilization
             </HetListItemButton>
           </Link>
         </li>

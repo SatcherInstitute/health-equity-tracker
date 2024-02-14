@@ -36,7 +36,7 @@ test('RAS Antagonists', async ({ page }) => {
   await page.getByText('Share this report:').click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
   await page
-    .getByText('Medication Utilization in the Medicare Population')
+    .getByText('Medication Utilization')
     .click()
   await page.getByText('Adherence to RASA', { exact: true }).click()
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
