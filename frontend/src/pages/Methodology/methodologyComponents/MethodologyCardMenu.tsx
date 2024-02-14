@@ -16,6 +16,7 @@ import {
   NEW_AGE_ADJUSTMENT_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
   GLOSSARY_LINK,
+  MEDICARE_MEDICATION_LINK,
 } from '../../../utils/internalRoutes'
 import HetListItemButton from '../../../styles/HetComponents/HetListItemButton'
 import HetDivider from '../../../styles/HetComponents/HetDivider'
@@ -137,6 +138,17 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
               option='normalBlack'
             >
               Social Determinants of Health
+            </HetListItemButton>
+          </Link>
+        </li>
+        <li>
+          <Link className='no-underline' to={MEDICARE_MEDICATION_LINK}>
+            <HetListItemButton
+              className='mx-2 pl-2 font-roboto'
+              selected={window.location.pathname === MEDICARE_MEDICATION_LINK}
+              option='normalBlack'
+            >
+              Medicare Medication Usage
             </HetListItemButton>
           </Link>
         </li>

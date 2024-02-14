@@ -341,3 +341,8 @@ export const HIV_RESOURCES: ResourceGroup = {
     },
   ],
 }
+
+export const MEDICARE_MEDICATION_RESOURCES: ResourceGroup = {
+  heading: 'Medicare Medication Usage',
+  resources: [],
+}

@@ -11,6 +11,7 @@ import {
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   SDOH_LINK,
+  MEDICARE_MEDICATION_LINK,
   SOURCES_LINK,
   TOPIC_CATEGORIES_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
@@ -25,6 +26,7 @@ import Covid19Link from '../methodologySections/Covid19Link'
 import HivLink from '../methodologySections/HivLink'
 import MetricsLink from '../methodologySections/MetricsLink'
 import PdohLink from '../methodologySections/PdohLink'
+import MedicareMedicationLink from '../methodologySections/MedicareMedicationLink'
 import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesLink'
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink'
 import SdohLink from '../methodologySections/SdohLink'
@@ -293,6 +295,17 @@ export const routeConfigs = [
       { label: 'Data Sources', path: '#sdoh-data-sources' },
       { label: 'Key Terms', path: '#sdoh-key-terms' },
       { label: 'Resources', path: '#sdoh-resources' },
+    ],
+  },
+  {
+    label: 'Medicare Medication Usage',
+    path: MEDICARE_MEDICATION_LINK,
+    component: MedicareMedicationLink,
+    subLinks: [
+      { label: 'Data Sourcing', path: '#medicare-medication-data-sourcing' },
+      { label: 'Data Sources', path: '#medicare-medication-data-sources' },
+      { label: 'Key Terms', path: '#medicare-medication-key-terms' },
+      { label: 'Resources', path: '#medicare-medication-resources' },
     ],
   },
   {
