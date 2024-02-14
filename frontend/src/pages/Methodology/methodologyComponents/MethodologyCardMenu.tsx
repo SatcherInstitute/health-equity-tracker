@@ -148,7 +148,7 @@ export default function MethodologyCardMenu(props: MethodologyCardMenuProps) {
               selected={window.location.pathname === MEDICARE_MEDICATION_LINK}
               option='normalBlack'
             >
-              Medicare Medication Usage
+              Medication Utilization in the Medicare Population
             </HetListItemButton>
           </Link>
         </li>

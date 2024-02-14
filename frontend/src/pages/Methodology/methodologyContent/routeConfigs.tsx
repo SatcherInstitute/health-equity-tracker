@@ -298,7 +298,7 @@ export const routeConfigs = [
     ],
   },
   {
-    label: 'Medicare Medication Usage',
+    label: 'Medication Utilization in the Medicare Population',
     path: MEDICARE_MEDICATION_LINK,
     component: MedicareMedicationLink,
     subLinks: [

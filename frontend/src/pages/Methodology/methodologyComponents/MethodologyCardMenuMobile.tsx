@@ -75,7 +75,7 @@ export default function MethodologyCardMenuMobile(
                 Social Determinants of Health (SDOH)
               </MenuItem>
               <MenuItem value={MEDICARE_MEDICATION_LINK}>
-                Medicare Medication Usage
+                Medication Utilization in the Medicare Population
               </MenuItem>
               <MenuItem value={DATA_METHOD_DEFINITIONS_LINK}>
                 Data Method Definitions
