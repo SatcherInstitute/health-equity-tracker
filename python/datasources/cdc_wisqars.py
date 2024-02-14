@@ -14,25 +14,48 @@ from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
     preserve_only_current_time_period_rows,
     generate_pct_share_col_with_unknowns,
+    combine_race_ethnicity,
+    generate_per_100k_col,
 )
 from ingestion.merge_utils import merge_state_ids
+
+from ingestion.cdc_wisqars_utils import (
+    generate_cols_map,
+    DATA_DIR,
+    WISQARS_COLS,
+    convert_columns_to_numeric,
+    contains_unknown,
+    RACE_NAMES_MAPPING,
+    INJ_INTENTS,
+    INJ_OUTCOMES,
+)
 
 """
 Data Source: CDC WISQARS (data on gun violence)
 
 Description:
-- The data on gun violence is downloaded from the CDC WISQARS database.
-- The downloaded data is stored locally in our directory for subsequent use.
+- The data on gun violence (general population) is downloaded from the CDC WISQARS database.
+- The downloaded data is stored locally in our data/cdc_wisqars directory for subsequent use.
 
 Instructions for Downloading Data:
 1. Visit the WISQARS website: https://wisqars.cdc.gov/reports/
-2. Select the desired injury outcome:
-   - select either fatal or non-fatal data
-3. Choose the demographic selections for the report:
-   - select the appropriate data years, geographic level, and other demographic groups, i.e (age, race)
-4. Select the mechanism (Firearm)
-5. Select appropriate report layout:
-   - For fatal: Year, Intent, State(only if state-level data is needed), and demographic (if not all)
+2. Select the injury outcome:
+    - `Fatal` or `Nonfatal`
+3. Select the desired data years:
+    - `2001-2021`
+4. Select the geography:
+    - `United States`
+5. Select the intent:
+    - `All Intents`
+6. Select the mechanism:
+    - `Firearm`
+7. Select the demographic selections:
+   - `All ages`, `Both Sexes`, `All Races`
+8. Select appropriate report layout:
+   - For fatal_gun_injuries-national-all: `Intent`, `None`, `None`, `None`
+   - For fatal_gun_injuries-national-race: `Intent`, `Race`, `Ethnicity`, `None`
+   - For non_fatal_gun_injuries--state-all: `Intent`, `State`, `None`, `None`
+   - For non_fatal_gun_injuries-state-age: `Intent`, `State`, `Age Group`, `None`
 
 Notes:
 - There is no state-level data on non-fatal injury outcomes
@@ -40,25 +63,6 @@ Notes:
 
 Last Updated: 2/24
 """
-
-
-def generate_cols_map(prefixes, suffix):
-    return {
-        prefix: prefix.replace(f"_{std_col.RAW_SUFFIX}", "") + f"_{suffix}"
-        for prefix in prefixes
-    }
-
-
-DATA_DIR = "cdc_wisqars"
-
-INJ_OUTCOMES = [std_col.FATAL_PREFIX, std_col.NON_FATAL_PREFIX]
-
-INJ_INTENTS = [
-    std_col.HOMICIDE_PREFIX,
-    std_col.LEGAL_INTERVENTION_PREFIX,
-    std_col.SUICIDE_PREFIX,
-    std_col.NON_FATAL_INJURIES_PREFIX,
-]
 
 PER_100K_MAP = generate_cols_map(INJ_INTENTS, std_col.PER_100K_SUFFIX)
 RAW_TOTALS_MAP = generate_cols_map(INJ_INTENTS, std_col.RAW_SUFFIX)
@@ -70,42 +74,11 @@ PCT_REL_INEQUITY_MAP = generate_cols_map(
 )
 
 PIVOT_DEM_COLS = {
-    std_col.AGE_COL: ["Year", "State", "Age Group", "Population"],
-    std_col.RACE_OR_HISPANIC_COL: ["Year", "State", "Race", "Ethnicity", "Population"],
-    std_col.SEX_COL: ["Year", "State", "Sex", "Population"],
-    "all": ["Year", "State", "Population"],
+    std_col.AGE_COL: ["year", "state", "age group", "population"],
+    std_col.RACE_OR_HISPANIC_COL: ["year", "state", "race", "ethnicity", "population"],
+    std_col.SEX_COL: ["year", "state", "sex", "population"],
+    "all": ["year", "state", "population"],
 }
-
-RACE_COLS_TO_STANDARD = {
-    "American Indian / Alaska Native Hispanic": std_col.Race.AIAN.value,
-    "American Indian / Alaska Native Non-Hispanic": std_col.Race.AIAN_NH.value,
-    "American Indian / Alaska Native Unknown": std_col.Race.ETHNICITY_UNKNOWN.value,
-    "Asian Hispanic": std_col.Race.ASIAN.value,
-    "Asian Non-Hispanic": std_col.Race.ASIAN_NH.value,
-    "Asian Unknown": std_col.Race.ETHNICITY_UNKNOWN.value,
-    "Black Hispanic": std_col.Race.BLACK.value,
-    "Black Non-Hispanic": std_col.Race.BLACK_NH.value,
-    "Black Unknown": std_col.Race.ETHNICITY_UNKNOWN.value,
-    "HI Native / Pacific Islander Hispanic": std_col.Race.NHPI.value,
-    "HI Native / Pacific Islander Non-Hispanic": std_col.Race.NHPI_NH.value,
-    "HI Native / Pacific Islander Unknown": std_col.Race.ETHNICITY_UNKNOWN.value,
-    "More than One Race Hispanic": std_col.Race.MULTI.value,
-    "More than One Race Non-Hispanic": std_col.Race.MULTI_NH.value,
-    "More than One Race Unknown": std_col.Race.ETHNICITY_UNKNOWN.value,
-    "White Hispanic": std_col.Race.WHITE.value,
-    "White Non-Hispanic": std_col.Race.WHITE_NH.value,
-    "White Unknown": std_col.Race.ETHNICITY_UNKNOWN.value,
-}
-
-WISQARS_COLS = [
-    "Age-Adjusted Rate",
-    "Cases (Sample)",
-    "CV",
-    "Lower 95% CI",
-    "Standard Error",
-    "Upper 95% CI",
-    "Years of Potential Life Lost",
-]
 
 
 class CDCWisqarsData(DataSource):
@@ -118,19 +91,22 @@ class CDCWisqarsData(DataSource):
         return "cdc_wisqars_data"
 
     def upload_to_gcs(self, gcs_bucket, **attrs):
-        raise NotImplementedError("upload_to_gcs should not be called for CDCHIVData")
+        raise NotImplementedError("upload_to_gcs should not be called for CDCWISQARS")
 
     def write_to_bq(self, dataset, gcs_bucket, **attrs):
         demographic = self.get_attr(attrs, "demographic")
         geo_level = self.get_attr(attrs, "geographic")
 
-        nat_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
-        if demographic == std_col.RACE_OR_HISPANIC_COL:
-            nat_totals_by_intent_df.insert(2, demographic, std_col.Race.ALL.value)
-        else:
-            nat_totals_by_intent_df.insert(2, demographic, std_col.ALL_VALUE)
+        national_totals_by_intent_df = load_wisqars_df_from_data_dir("all", geo_level)
 
-        df = self.generate_breakdown_df(demographic, geo_level, nat_totals_by_intent_df)
+        if demographic == std_col.RACE_OR_HISPANIC_COL:
+            national_totals_by_intent_df.insert(2, 'race', std_col.Race.ALL.value)
+        else:
+            national_totals_by_intent_df.insert(2, demographic, std_col.ALL_VALUE)
+
+        df = self.generate_breakdown_df(
+            demographic, geo_level, national_totals_by_intent_df
+        )
 
         float_cols = [std_col.FATAL_POPULATION, std_col.NON_FATAL_POPULATION]
         float_cols.extend(RAW_TOTALS_MAP.values())
@@ -160,7 +136,7 @@ class CDCWisqarsData(DataSource):
     def generate_breakdown_df(
         self, breakdown: str, geo_level: str, alls_df: pd.DataFrame
     ):
-        """generate_breakdown_df generates a HIV data frame by breakdown and geo_level
+        """generate_breakdown_df generates a gun violence data frame by breakdown and geo_level
 
         breakdown: string equal to `age`, `race_and_ethnicity, or `sex`
         geo_level: string equal to `national` or `state`
@@ -168,9 +144,9 @@ class CDCWisqarsData(DataSource):
         return: a data frame of national time-based WISQARS data by breakdown"""
 
         cols_to_standard = {
-            std_col.RACE_OR_HISPANIC_COL: std_col.RACE_CATEGORY_ID_COL,
-            "State": std_col.STATE_NAME_COL,
-            "Year": std_col.TIME_PERIOD_COL,
+            "race": std_col.RACE_CATEGORY_ID_COL,
+            "state": std_col.STATE_NAME_COL,
+            "year": std_col.TIME_PERIOD_COL,
         }
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
@@ -199,7 +175,7 @@ class CDCWisqarsData(DataSource):
         if has_unknown:
             unknown = 'Unknown'
             if breakdown == std_col.RACE_OR_HISPANIC_COL:
-                unknown = std_col.Race.ETHNICITY_UNKNOWN.race
+                unknown = 'Unknown race'
             df = generate_pct_share_col_with_unknowns(
                 df, PCT_SHARE_MAP, breakdown, std_col.ALL_VALUE, unknown
             )
@@ -228,15 +204,15 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
     return: a data frame of time-based WISQARS data by breakdown and geo_level with
     WISQARS columns
     """
-    output_df = pd.DataFrame(columns=["Year"])
+    output_df = pd.DataFrame(columns=["year"])
 
     for outcome in INJ_OUTCOMES:
-        data_metric = 'Deaths'
-        data_column_name = 'Intent'
+        data_metric = 'deaths'
+        data_column_name = 'intent'
 
         if outcome == std_col.NON_FATAL_PREFIX:
-            data_metric = 'Estimated Number'
-            data_column_name = 'Year'
+            data_metric = 'estimated number'
+            data_column_name = 'year'
             if geo_level == STATE_LEVEL or breakdown == std_col.RACE_OR_HISPANIC_COL:
                 continue
 
@@ -249,34 +225,38 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
             dtype={"Year": str},
         )
 
+        df.columns = df.columns.str.lower()
+
         # removes the metadata section from the csv
         metadata_start_index = df[df[data_column_name] == "Total"].index
         metadata_start_index = metadata_start_index[0]
         df = df.iloc[:metadata_start_index]
 
         # cleans data frame
-        columns_to_convert = [data_metric, 'Crude Rate']
+        columns_to_convert = [data_metric, 'crude rate']
         convert_columns_to_numeric(df, columns_to_convert)
 
         if geo_level == NATIONAL_LEVEL:
-            df.insert(1, "State", US_NAME)
+            df.insert(1, "state", US_NAME)
 
         if outcome == std_col.FATAL_PREFIX:
             df = df[
-                (df['Intent'] != 'Unintentional') & (df['Intent'] != 'Undetermined')
+                (df['intent'] != 'Unintentional') & (df['intent'] != 'Undetermined')
             ]
 
             # reshapes df to add the intent rows as columns
             pivot_df = df.pivot(
                 index=PIVOT_DEM_COLS.get(breakdown, []),
-                columns="Intent",
-                values=['Deaths', 'Crude Rate'],
+                columns="intent",
+                values=['deaths', 'crude rate'],
             )
 
             pivot_df.columns = [
-                f"{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
-                if col[0] == 'Deaths'
-                else f"{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
+                (
+                    f"{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
+                    if col[0] == 'deaths'
+                    else f"{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
+                )
                 for col in pivot_df.columns
             ]
 
@@ -284,73 +264,38 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
         df.rename(
             columns={
-                "Age Group": std_col.AGE_COL,
-                'Estimated Number': std_col.NON_FATAL_INJURIES_RAW,
-                'Population': f'{outcome}_population',
-                'Crude Rate': std_col.NON_FATAL_INJURIES_PER_100K,
-                'Sex': std_col.SEX_COL,
+                "age group": std_col.AGE_COL,
+                'estimated number': std_col.NON_FATAL_INJURIES_RAW,
+                'population': f'{outcome}_population',
+                'crude rate': std_col.NON_FATAL_INJURIES_PER_100K,
+                'sex': std_col.SEX_COL,
             },
             inplace=True,
         )
 
-        if breakdown == std_col.RACE_OR_HISPANIC_COL:
-            df['RaceEthn'] = df.apply(
-                lambda row: f"{row['Race']} {row['Ethnicity']}", axis=1
-            )
+        if std_col.ETH_COL in df.columns.to_list():
+            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING)
+            df = df.rename(columns={'race_ethnicity_combined': 'race'})
 
-            df.insert(2, std_col.RACE_OR_HISPANIC_COL, df['RaceEthn'])
+            # Combines the unknown and hispanic rows
+            df = df.groupby(['year', 'state', 'race']).sum(min_count=1).reset_index()
 
-            df.drop(
-                columns=['Race', 'Ethnicity', 'RaceEthn'],
-                inplace=True,
-            )
-            df = df.replace(to_replace=RACE_COLS_TO_STANDARD)
+            # Identify rows where 'race' is 'HISP' or 'UNKNOWN'
+            subset_mask = df['race'].isin(['HISP', 'UNKNOWN'])
 
-            unknown_ethnicity_df = df[
-                df[std_col.RACE_OR_HISPANIC_COL] == std_col.Race.ETHNICITY_UNKNOWN.value
-            ]
+            # Create a temporary DataFrame with just the subset
+            temp_df = df[subset_mask].copy()
 
-            unknown_ethnicity_df = (
-                unknown_ethnicity_df.groupby(
-                    ['Year', 'State', std_col.RACE_OR_HISPANIC_COL]
-                )
-                .sum(min_count=1)
-                .reset_index()
-            )
+            # Apply the function to the temporary DataFrame
+            for raw_total in RAW_TOTALS_MAP.values():
+                if raw_total in df.columns:
+                    temp_df = generate_per_100k_col(
+                        temp_df, raw_total, f'{outcome}_population', 'crude rate'
+                    )
 
-            df_filtered = df[
-                df[std_col.RACE_OR_HISPANIC_COL] != std_col.Race.ETHNICITY_UNKNOWN.value
-            ]
-
-            df = pd.concat([df_filtered, unknown_ethnicity_df], ignore_index=True)
+            # Update the original DataFrame with the results for the 'crude rate' column
+            df.loc[subset_mask, 'crude rate'] = temp_df['crude rate']
 
         output_df = output_df.merge(df, how="outer")
 
     return output_df
-
-
-def clean_numeric(val):
-    """
-    removes strings with '**' subset and replaces commas
-    """
-    if isinstance(val, str):
-        if '**' in val:
-            return np.nan
-        if ',' in val:
-            return val.replace(',', '')
-    return val
-
-
-def convert_columns_to_numeric(df, columns_to_convert):
-    """
-    applies clean_numeric to necessary columns and convert values to float
-    """
-    for column in columns_to_convert:
-        df[column] = df[column].apply(clean_numeric)
-        df[column] = pd.to_numeric(df[column], errors='coerce')
-
-
-def contains_unknown(x):
-    if isinstance(x, str) and 'unknown' in x.lower():
-        return True
-    return False
