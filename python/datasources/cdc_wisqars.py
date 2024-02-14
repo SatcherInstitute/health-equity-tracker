@@ -186,7 +186,7 @@ class CDCWisqarsData(DataSource):
 
         for col in RAW_TOTALS_MAP.values():
             pop_col = std_col.FATAL_POPULATION
-            if col == std_col.NON_FATAL_INJURIES_RAW:
+            if col == std_col.GUN_VIOLENCE_INJURIES_RAW:
                 pop_col = std_col.NON_FATAL_POPULATION
             df = generate_pct_rel_inequity_col(
                 df, PCT_SHARE_MAP[col], pop_col, PCT_REL_INEQUITY_MAP[col]
@@ -253,9 +253,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
 
             pivot_df.columns = [
                 (
-                    f"{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
+                    f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.RAW_SUFFIX}"
                     if col[0] == 'deaths'
-                    else f"{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
+                    else f"gun_violence_{col[1].lower().replace(' ', '_')}_{std_col.PER_100K_SUFFIX}"
                 )
                 for col in pivot_df.columns
             ]
@@ -265,9 +265,9 @@ def load_wisqars_df_from_data_dir(breakdown: str, geo_level: str):
         df.rename(
             columns={
                 "age group": std_col.AGE_COL,
-                'estimated number': std_col.NON_FATAL_INJURIES_RAW,
+                'estimated number': std_col.GUN_VIOLENCE_INJURIES_RAW,
                 'population': f'{outcome}_population',
-                'crude rate': std_col.NON_FATAL_INJURIES_PER_100K,
+                'crude rate': std_col.GUN_VIOLENCE_INJURIES_PER_100K,
                 'sex': std_col.SEX_COL,
             },
             inplace=True,
