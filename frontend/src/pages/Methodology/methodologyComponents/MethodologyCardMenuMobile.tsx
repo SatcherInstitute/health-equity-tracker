@@ -1,9 +1,6 @@
 import Toolbar from '@mui/material/Toolbar'
 import { Select, FormControl, MenuItem, InputLabel } from '@mui/material'
 import { useHistory } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import Fab from '@mui/material/Fab'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import {
   NEW_METHODOLOGY_PAGE_LINK,
   NEW_AGE_ADJUSTMENT_LINK,
@@ -30,31 +27,11 @@ interface MethodologyCardMenuMobileProps {
 export default function MethodologyCardMenuMobile(
   props: MethodologyCardMenuMobileProps
 ) {
-  const [showScrollTop, setShowScrollTop] = useState(false) // State to track visibility of the FAB
   const history = useHistory()
 
   const handleSelected = (event: any) => {
     history.push(event.target.value)
   }
-
-  const checkScrollTop = () => {
-    if (!showScrollTop && window.pageYOffset > window.innerHeight) {
-      setShowScrollTop(true)
-    } else if (showScrollTop && window.pageYOffset <= window.innerHeight) {
-      setShowScrollTop(false)
-    }
-  }
-
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
-  }
-
-  useEffect(() => {
-    window.addEventListener('scroll', checkScrollTop)
-    return () => {
-      window.removeEventListener('scroll', checkScrollTop)
-    }
-  }, [])
 
   return (
     <>
@@ -115,17 +92,6 @@ export default function MethodologyCardMenuMobile(
           </FormControl>
         </Toolbar>
       </div>
-      {showScrollTop && (
-        <Fab
-          color='secondary'
-          size='small'
-          aria-label='scroll back to top'
-          className='fixed bottom-2 right-2 z-top bg-altGreen'
-          onClick={scrollTop}
-        >
-          <KeyboardArrowUpIcon />
-        </Fab>
-      )}
     </>
   )
 }
