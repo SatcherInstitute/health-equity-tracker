@@ -561,6 +561,9 @@ def load_atlas_df_from_data_dir(geo_level: str, breakdown: str):
             if determinant == std_col.HIV_STIGMA_INDEX:
                 df = df.drop(columns=["Cases", "population"])
 
+            # TODO: GitHub #2907 this is causing FutureWarning: not sure how to fix
+            # In a future version, the Index constructor will not infer
+            # numeric dtypes when passed object-dtype sequences (matching Series behavior)
             output_df = output_df.merge(df, how="outer")
 
     return output_df
