@@ -1,6 +1,6 @@
-import { type GlossaryTerm } from './TermsDefinitions'
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
-export const metricDefinitions: Record<string, GlossaryTerm> = {
+export const metricDefinitions: Record<string, GlossaryTermItem> = {
   'Age-adjusted ratios': {
     topic: 'Age-adjusted ratios',
     path: '',
@@ -22,7 +22,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           'Currently, we are able to calculate these age-adjusted ratios for [HIV deaths](https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios), [COVID-19 deaths](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios) and [COVID-19 hospitalizations](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios), and we present the findings in a distinct, age-adjusted table.',
       },
     ],
-    index: 0,
   },
   'Total cases per 100k people': {
     topic: 'Total cases per 100k people',
@@ -40,7 +39,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           'This metric normalizes for population size, allowing for comparisons across demographic groups. This metric is rounded to the nearest integer in the tracker. The total rate of occurrence of COVID-19 cases expressed per 100,000 people (i.e. 10,000 per 100k implies a 10% occurrence rate).',
       },
     ],
-    index: 1,
   },
   'Share of total cases with unknown race and ethnicity': {
     topic: 'Share of total cases with unknown race and ethnicity',
@@ -63,7 +61,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           "In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. For example, a value of 20% for Georgia means that 20% of Georgia's reported cases had unknown race/ethnicity. This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.",
       },
     ],
-    index: 2,
   },
   'Index score': {
     topic: 'Index score',
@@ -75,7 +72,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           'It provides a single numerical value that reflects the overall status or level of equity in a given context, facilitating easy comparisons and policy assessments.',
       },
     ],
-    index: 3,
   },
   'Percent share': {
     topic: 'Percent share',
@@ -87,7 +83,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           "Percent share represents the proportion of a specific subgroup's contribution to a total metric, often expressed as a percentage.",
       },
     ],
-    index: 4,
   },
   'Share of total cases': {
     topic: 'Share of total cases',
@@ -105,7 +100,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the <code>(OBSERVED - EXPECTED) / EXPECTED</code>. In this case, <code>OBSERVED</code> is each group's percent share of the condition, and <code>EXPECTED</code> is that group's share of the total population.",
       },
     ],
-    index: 5,
   },
   'Population share': {
     topic: 'Population share',
@@ -123,7 +117,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           'The percentage of the total population that identified as a particular race/ethnicity in the ACS (American Community Survey). This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.',
       },
     ],
-    index: 6,
   },
   'Percent rate': {
     topic: 'Percent rate',
@@ -135,7 +128,6 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           'A percent rate, in health equity data visualization, is a measure that expresses a particular metric as a percentage of a given population.',
       },
     ],
-    index: 7,
   },
   'Relative inequity': {
     topic: 'Relative inequity',
@@ -158,6 +150,5 @@ export const metricDefinitions: Record<string, GlossaryTerm> = {
           'In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations.',
       },
     ],
-    index: 8,
   },
 }

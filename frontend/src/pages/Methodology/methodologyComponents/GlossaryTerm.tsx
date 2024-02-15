@@ -1,13 +1,13 @@
-import React from 'react'
-
-interface GlossaryDefinition {
+export interface GlossaryDefinition {
   key: string
   description: string
 }
 
-interface GlossaryTermItem {
+export interface GlossaryTermItem {
   topic: string
   definitions: GlossaryDefinition[]
+  path?: string
+  id?: string
 }
 
 interface GlossaryTermProps {
