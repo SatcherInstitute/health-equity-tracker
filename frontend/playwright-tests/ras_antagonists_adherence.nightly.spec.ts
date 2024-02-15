@@ -33,10 +33,12 @@ test('RAS Antagonists', async ({ page }) => {
       name: 'Breakdown summary for adherence to renin angiotensin system antagonists in the United States',
     })
     .click()
+  await page.getByRole('button', { name: 'Population vs. distribution' }).click();
   await page.getByText('Share this report:').click()
   await page.getByRole('heading', { name: 'Definitions:' }).click()
+  // failing here
   await page
-    .getByText('Medication Utilization')
+    .getByText('Medication Utilization in the Medicare Population')
     .click()
   await page.getByText('Adherence to RASA', { exact: true }).click()
   await page.getByRole('heading', { name: 'What data are missing?' }).click()
