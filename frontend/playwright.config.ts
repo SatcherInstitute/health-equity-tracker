@@ -21,7 +21,7 @@ const config: PlaywrightTestConfig = {
   fullyParallel: true,
   retries: process.env.CI ? 2 : 0,
   reporter: [
-    [process.env.CI ? 'list' : 'list'],
+    [process.env.CI ? 'github' : 'list'],
     ['html']
   ],
 

@@ -203,7 +203,7 @@ const CATEGORIES_LIST: Category[] = [
     options: SDOH_CATEGORY_DROPDOWNIDS as unknown as DropdownVarId[],
   },
   {
-    title: 'Medication Utilization',
+    title: 'Medication Utilization in the Medicare Population',
     definition: '',
     // TODO: clean this up once PHRMA fully launched all topics
     options: SHOW_PHRMA_MENTAL_HEALTH
