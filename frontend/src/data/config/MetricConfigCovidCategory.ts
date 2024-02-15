@@ -61,7 +61,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       text: `A COVID-19 case is an individual who has been determined to have COVID-19 using a set of criteria known as a “case definition”. Cases can be classified as suspect, probable, or confirmed. CDC counts include probable and confirmed cases and deaths. Suspect cases and deaths are excluded.`,
     },
     description: {
-      text: 'COVID-19 has had a disproportionate impact on certain populations, including people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
+      text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 cases',
@@ -110,7 +110,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       text: `The number of people who died due to COVID-19.`,
     },
     description: {
-      text: 'COVID-19 has had a disproportionate impact on certain populations, including people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
+      text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 deaths',
@@ -166,7 +166,7 @@ export const COVID_DISEASE_METRICS: DataTypeConfig[] = [
       text: `The number of people hospitalized at any point while ill with COVID-19.`,
     },
     description: {
-      text: 'COVID-19 has had a disproportionate impact on certain populations, including people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
+      text: 'COVID-19 has had a disproportionate impact on certain populations, including older adults, people of color, people with disabilities, and people living in poverty. Studying COVID-19 in regard to health equity can help us to understand why these disparities exist and how to address them.',
     },
     timeSeriesData: true,
     dataTableTitle: 'Breakdown summary for COVID-19 hospitalizations',

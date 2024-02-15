@@ -58,6 +58,28 @@ export const metricDefinitionsArray = [
     ],
   },
   {
+    topic: 'Index score',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'It provides a single numerical value that reflects the overall status or level of equity in a given context, facilitating easy comparisons and policy assessments.',
+      },
+    ],
+  },
+  {
+    topic: 'Percent share',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          "Percent share represents the proportion of a specific subgroup's contribution to a total metric, often expressed as a percentage.",
+      },
+    ],
+  },
+  {
     topic: 'Share of total cases',
     path: '',
     id: '#total-share-metrics',
@@ -86,6 +108,17 @@ export const metricDefinitionsArray = [
         key: 'Measurement Definition',
         description:
           'The percentage of the total population that identified as a particular race/ethnicity in the ACS (American Community Survey). This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.',
+      },
+    ],
+  },
+  {
+    topic: 'Percent rate',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'A percent rate, in health equity data visualization, is a measure that expresses a particular metric as a percentage of a given population.',
       },
     ],
   },
