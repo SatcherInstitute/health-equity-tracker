@@ -42,7 +42,7 @@ export const CategoryMap = {
   'chronic-disease': 'Chronic Disease',
   'covid': 'COVID-19',
   'hiv': 'HIV',
-  'medicare': 'Medication Utilization in the Medicare Population',
+  'medicare': 'Medication Utilization',
   'pdoh': 'Political Determinants of Health',
   'sdoh': 'Social Determinants of Health',
 }

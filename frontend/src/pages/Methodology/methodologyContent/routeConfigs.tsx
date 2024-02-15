@@ -11,6 +11,7 @@ import {
   RACES_AND_ETHNICITIES_LINK,
   RECOMMENDED_CITATION_LINK,
   SDOH_LINK,
+  MEDICATION_UTILIZATION_LINK,
   SOURCES_LINK,
   TOPIC_CATEGORIES_LINK,
   NEW_METHODOLOGY_PAGE_LINK,
@@ -25,6 +26,7 @@ import Covid19Link from '../methodologySections/Covid19Link'
 import HivLink from '../methodologySections/HivLink'
 import MetricsLink from '../methodologySections/MetricsLink'
 import PdohLink from '../methodologySections/PdohLink'
+import MedicationUtilizationLink from '../methodologySections/MedicationUtilizationLink'
 import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesLink'
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink'
 import SdohLink from '../methodologySections/SdohLink'
@@ -296,6 +298,17 @@ export const routeConfigs = [
     ],
   },
   {
+    label: 'Medication Utilization',
+    path: MEDICATION_UTILIZATION_LINK,
+    component: MedicationUtilizationLink,
+    subLinks: [
+      { label: 'Data Sourcing', path: '#medication-utilization-data-sourcing' },
+      { label: 'Data Sources', path: '#medication-utilization-data-sources' },
+      { label: 'Key Terms', path: '#medication-utilization-key-terms' },
+      { label: 'Resources', path: '#medication-utilization-resources' },
+    ],
+  },
+  {
     label: 'Data Methods',
     path: DATA_METHOD_DEFINITIONS_LINK,
     component: DataMethodDefinitionsLink,
@@ -346,7 +359,7 @@ export const routeConfigs = [
         path: 'social-determinants-of-health',
       },
       {
-        label: 'Medication Utilization in the Medicare Population',
+        label: 'Medication Utilization',
         path: 'medication-utilization-in-the-medicare-population',
       },
       { label: 'COVID-19 Topics', path: 'covid-19' },
