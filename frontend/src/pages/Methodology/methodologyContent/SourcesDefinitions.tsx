@@ -3,7 +3,6 @@ import {
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
 } from '../../../utils/internalRoutes'
-import { metricDefinitionsArray } from './MetricsDefinitions'
 
 interface SourceAcquisitionData {
   title: string
@@ -57,104 +56,6 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
     },
   ],
 }
-
-export const sourcesDefinitionsArray = [
-  {
-    topic: metricDefinitionsArray[0].topic,
-    path: '',
-    definitions: [
-      {
-        key: metricDefinitionsArray[0].definitions[0].key,
-        description: metricDefinitionsArray[0].definitions[0].description,
-      },
-      {
-        key: metricDefinitionsArray[0].definitions[1].key,
-        description: metricDefinitionsArray[0].definitions[1].description,
-      },
-      {
-        key: metricDefinitionsArray[0].definitions[2].key,
-        description: metricDefinitionsArray[0].definitions[2].description,
-      },
-    ],
-  },
-  {
-    topic: 'Crude rates',
-    path: '',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'They are useful for providing a basic understanding of health outcomes but may not provide an accurate picture of disparities when age distributions differ significantly among groups.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'These rates represent the number of cases or events per unit of population without accounting for age differences. ',
-      },
-    ],
-  },
-  {
-    topic: metricDefinitionsArray[1].topic,
-    path: '',
-    definitions: [
-      {
-        key: metricDefinitionsArray[1].definitions[0].key,
-        description: metricDefinitionsArray[1].definitions[0].description,
-      },
-      {
-        key: metricDefinitionsArray[1].definitions[1].key,
-        description: metricDefinitionsArray[1].definitions[1].description,
-      },
-    ],
-  },
-  {
-    topic: 'Percent rate',
-    path: '',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'It is often used to compare the prevalence or incidence of a health condition relative to the total population size, enabling straightforward comparisons across different demographic groups or regions.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'A percent rate, in health equity data visualization, is a measure that expresses a particular metric as a percentage of a given population.',
-      },
-    ],
-  },
-  {
-    topic: 'Percent share',
-    path: '',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'In health equity data visualization, it helps highlight the relative importance of different population groups in terms of health outcomes or disparities.',
-      },
-      {
-        key: 'Measurement Definition',
-        description: `Percent share represents the proportion of a specific subgroup's contribution to a total metric, often expressed as a percentage.`,
-      },
-    ],
-  },
-  {
-    topic: 'Index score',
-    path: '',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'An index score is a composite measure used to summarize and compare multiple indicators or metrics related to health equity or justice.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'It provides a single numerical value that reflects the overall status or level of equity in a given context, facilitating easy comparisons and policy assessments.',
-      },
-    ],
-  },
-]
 
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
 export const missingDataArray = [

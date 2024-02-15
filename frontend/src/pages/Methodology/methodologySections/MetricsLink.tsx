@@ -1,4 +1,4 @@
-import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
+import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
@@ -13,7 +13,9 @@ const MetricsLink = () => {
           <title>Metrics - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Metrics</h2>
-        <ConditionVariable definitionsArray={metricDefinitionsArray} />
+        <ConditionVariable
+          definitionsArray={Object.values(metricDefinitions)}
+        />
 
         <h3
           className='mt-12 text-title font-medium'

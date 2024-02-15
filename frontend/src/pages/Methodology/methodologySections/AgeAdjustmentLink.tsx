@@ -7,12 +7,25 @@ import {
 } from '../../../utils/internalRoutes'
 import { Link } from 'react-router-dom'
 import KeyTermsAccordion from '../methodologyComponents/KeyTermsAccordion'
-import { ageAdjustmentDefinitionsArray } from '../methodologyContent/AgeAdjustmentDefinitions'
 import Resources from '../methodologyComponents/Resources'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetBigCTA from '../../../styles/HetComponents/HetBigCTA'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
+import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
+import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+
+const ageAdjustTerms = [
+  metricDefinitions['Age-adjusted ratios'],
+  definitionsGlossary['Direct standardization method'],
+  definitionsGlossary['Internal standard population'],
+  definitionsGlossary['Condition counts broken down by both age and race'],
+  definitionsGlossary['Population counts broken down by both age and race'],
+  definitionsGlossary['Age-specific rate'],
+  definitionsGlossary['Standard population'],
+  definitionsGlossary['Expected condition counts'],
+  definitionsGlossary['Edge cases'],
+]
 
 const AGE_ADJUSTED_RESOURCES = [
   {
@@ -874,7 +887,7 @@ const AgeAdjustmentLink = () => {
       <aside>
         <KeyTermsAccordion
           id='#age-adjustment-key-terms'
-          definitionsArray={ageAdjustmentDefinitionsArray}
+          definitionsArray={ageAdjustTerms}
         />
         <Resources
           id='#age-adjustment-resources'

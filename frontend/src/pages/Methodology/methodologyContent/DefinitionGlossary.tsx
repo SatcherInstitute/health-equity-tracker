@@ -6,6 +6,8 @@ export interface TermDefinition {
 export interface GlossaryTerm {
   topic: string
   path: string
+  index?: number
+  id?: string
   definitions: TermDefinition[]
 }
 
