@@ -13,18 +13,18 @@ import HetBigCTA from '../../../styles/HetComponents/HetBigCTA'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import { termDefinitions } from '../methodologyContent/TermsDefinitions'
 
 const ageAdjustTerms = [
   metricDefinitions['Age-adjusted ratios'],
-  definitionsGlossary['Direct standardization method'],
-  definitionsGlossary['Internal standard population'],
-  definitionsGlossary['Condition counts broken down by both age and race'],
-  definitionsGlossary['Population counts broken down by both age and race'],
-  definitionsGlossary['Age-specific rate'],
-  definitionsGlossary['Standard population'],
-  definitionsGlossary['Expected condition counts'],
-  definitionsGlossary['Edge cases'],
+  termDefinitions['Direct standardization method'],
+  termDefinitions['Internal standard population'],
+  termDefinitions['Condition counts broken down by both age and race'],
+  termDefinitions['Population counts broken down by both age and race'],
+  termDefinitions['Age-specific rate'],
+  termDefinitions['Standard population'],
+  termDefinitions['Expected condition counts'],
+  termDefinitions['Edge cases'],
 ]
 
 const AGE_ADJUSTED_RESOURCES = [

@@ -1,4 +1,4 @@
-import { type GlossaryTerm } from './DefinitionGlossary'
+import { type GlossaryTerm } from './TermsDefinitions'
 
 export const metricDefinitions: Record<string, GlossaryTerm> = {
   'Age-adjusted ratios': {

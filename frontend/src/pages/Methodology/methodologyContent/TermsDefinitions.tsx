@@ -11,7 +11,7 @@ export interface GlossaryTerm {
   definitions: TermDefinition[]
 }
 
-export const definitionsGlossary: Record<string, GlossaryTerm> = {
+export const termDefinitions: Record<string, GlossaryTerm> = {
   'Direct standardization method': {
     topic: 'Direct standardization method',
     path: '',
