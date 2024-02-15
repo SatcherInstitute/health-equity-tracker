@@ -40,7 +40,14 @@ export const ASTHMA_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they currently have asthma.`,
     },
     description: {
-      text: `Asthma is a chronic condition that affects the airways. It can cause wheezing, coughing, shortness of breath, and chest tightness. Asthma is more common in children and in people of color. Studying asthma in regard to health equity can help us to understand why these disparities exist and how to improve the health of people with asthma.`,
+      text: `Asthma is a chronic condition that affects the airways. It can cause wheezing, coughing, shortness of breath, and chest tightness. Asthma disproportionately affects women, multiracial, Indigenous, and Black adults, individuals with lower household incomes, those residing in non-metropolitan areas, and individuals with a disability experiencing difficulty with self-care. Studying asthma in regard to health equity can help us to understand why these disparities exist and how to improve the health of people with asthma.`,
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/Asthma_a',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     metrics: {
       per100k: {
@@ -82,7 +89,14 @@ export const CARDIOVASCULAR_DISEASES_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they had angina or coronary heart disease; a heart attack or myocardial infarction; or a stroke.`,
     },
     description: {
-      text: `Cardiovascular diseases are a leading cause of death in the United States. They are more common in people of color and people with low incomes. Studying cardiovascular diseases can help us understand why these disparities exist and how to address them.`,
+      text: `Cardiovascular diseases are a leading cause of death in the United States. Cardiovascular diseases exhibit higher prevalence among men, older adults aged 65 and above, American Indian/Alaska Native individuals, those with lower education levels and household incomes, residents of non-metropolitan areas, individuals with disablities experiencing difficulty with self-care, and veterans. Studying cardiovascular diseases can help us understand why these disparities exist and how to address them.`,
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/CVD',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     metrics: {
       per100k: {
@@ -124,7 +138,14 @@ export const CHRONIC_KIDNEY_DISEASE_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they have kidney disease not including kidney stones, bladder infection or incontinence.`,
     },
     description: {
-      text: `Chronic kidney disease is a serious condition that can lead to kidney failure. It is more common in people of color and people with low incomes. Studying chronic kidney disease can help us understand why these disparities exist and how to address them.`,
+      text: `Chronic kidney disease is a serious condition that can lead to kidney failure. Chronic kidney disease exhibits a higher prevalence among women, adults aged 65 and older, American Indian/Alaska Native and Black individuals, those with lower educational attainment and household income, residents of non-metropolitan areas, individuals with disabilties experiencing difficulty with self-care, and veterans. Studying chronic kidney disease can help us understand why these disparities exist and how to address them.`,
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/CKD',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     dataTableTitle: 'Breakdown summary for cases of chronic kidney disease',
     metrics: {
@@ -207,7 +228,14 @@ export const COPD_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they have chronic obstructive pulmonary disease, emphysema or chronic bronchitis.`,
     },
     description: {
-      text: `COPD is a lung disease that makes it difficult to breathe. It is more common in people of color and people with low incomes. Studying COPD can help us understand why these disparities exist and how to address them.`,
+      text: `COPD is a lung disease that makes it difficult to breathe. Populations with a higher prevalence of COPD include women, adults aged 65 and older, American Indian/Alaska Native and multiracial individuals, those with lower educational attainment and household income, residents of non-metropolitan areas, individuals with disablities experiencing difficulty with self-care, and veterans. Studying COPD can help us understand why these disparities exist and how to address them.`,
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/COPD',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for COPD',
