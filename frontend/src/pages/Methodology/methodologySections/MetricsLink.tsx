@@ -13,9 +13,7 @@ const MetricsLink = () => {
           <title>Metrics - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Metrics</h2>
-        <ConditionVariable
-          definitionsArray={Object.values(metricDefinitions)}
-        />
+        <ConditionVariable definitions={metricDefinitions} />
 
         <h3
           className='mt-12 text-title font-medium'

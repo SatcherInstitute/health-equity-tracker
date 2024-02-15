@@ -3,6 +3,7 @@ import {
   CONTACT_TAB_LINK,
   DATA_CATALOG_PAGE_LINK,
 } from '../../../utils/internalRoutes'
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 interface SourceAcquisitionData {
   title: string
@@ -58,8 +59,8 @@ export const sourceAcquisitionData: SourceAcquisitionData = {
 }
 
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
-export const missingDataArray = [
-  {
+export const missingData: Record<string, GlossaryTermItem> = {
+  'Missing Data': {
     topic: 'Missing Data',
     path: '',
     id: '',
@@ -165,4 +166,4 @@ export const missingDataArray = [
       },
     ],
   },
-]
+}

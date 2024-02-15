@@ -41,7 +41,7 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
     },
     description: {
-      text: 'Depression is a mental illness that can cause a number of problems, including sadness, fatigue, and difficulty concentrating. Populations at a higher risk for depression include women, young adults, Indigenous and multiracial Americans, individuals with lower income, and LGBQ+ individuals. Studying depression can help us understand why these disparities exist and how to address them.',
+      text: 'Depression is a mental illness that can cause a number of problems, including sadness, fatigue, and difficulty concentrating. Populations at a higher risk for depression include women, young adults, Indigenous and multiracial Americans, individuals with lower income, and non-heterosexual individuals. Studying depression can help us understand why these disparities exist and how to address them.',
       citations: [
         {
           url: 'https://www.americashealthrankings.org/explore/measures/Depression_a',
@@ -192,7 +192,7 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
       text: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
     },
     description: {
-      text: 'Frequent mental distress is a major public health problem. It can lead to a number of health problems, including heart disease, stroke, and cancer. Frequent mental distress disproportionately affects women, younger adults, individuals of multiracial, Indigenous, or Pacific Islander descent, those with lower education levels or household income, individuals experiencing cognitive difficulty disabilities, and LGBQ+ individuals. Studying frequent mental distress can help us understand why these disparities exist and how to address them.',
+      text: 'Frequent mental distress is a major public health problem. It can lead to a number of health problems, including heart disease, stroke, and cancer. Frequent mental distress disproportionately affects women, younger adults, individuals of multiracial, Indigenous, or Pacific Islander descent, those with lower education levels or household income, individuals experiencing cognitive difficulty disabilities, and non-heterosexual individuals. Studying frequent mental distress can help us understand why these disparities exist and how to address them.',
       citations: [
         {
           url: 'https://www.americashealthrankings.org/explore/measures/mental_distress',

@@ -25,10 +25,7 @@ function GlossaryLink() {
         </Helmet>
         <h2 className='sr-only'>Glossary</h2>
 
-        <GlossaryTerm
-          topic={''}
-          definitionItems={Object.values(termDefinitions)}
-        />
+        <GlossaryTerm topic={''} definitionItems={termDefinitions} />
 
         <Resources resourceGroups={[RESOURCES]} id='#health-equity-resources' />
         <Resources

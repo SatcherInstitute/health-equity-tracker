@@ -3,7 +3,7 @@ import StripedTable from '../methodologyComponents/StripedTable'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
-import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
+import { missingData } from '../methodologyContent/SourcesDefinitions'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { covidTopicsString } from './Covid19Link'
@@ -98,7 +98,7 @@ export default function TopicCategoriesLimitationsLink() {
           values.
         </p>
         <div id='#missing-data'>
-          <ConditionVariable definitionsArray={missingDataArray} />
+          <ConditionVariable definitions={missingData} />
         </div>
       </article>
     </section>

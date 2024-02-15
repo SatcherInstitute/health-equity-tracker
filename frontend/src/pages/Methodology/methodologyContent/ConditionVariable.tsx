@@ -1,26 +1,19 @@
-interface Definition {
-  id?: string | undefined
-  topic: string
-  definitions: Array<{
-    key: string
-    description: string
-  }>
-}
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
 interface ConditionVariableProps {
-  definitionsArray: Definition[]
+  definitions: Record<string, GlossaryTermItem>
 }
 
 export default function ConditionVariable({
-  definitionsArray,
+  definitions,
 }: ConditionVariableProps) {
   return (
     <div className='mx-auto my-4'>
-      {definitionsArray.map((item) => {
+      {Object.entries(definitions).map(([itemKey, itemVal]) => {
         return (
-          <div id={item.id} key={item.topic}>
-            <h3 className='mt-12 text-title font-medium'>{item.topic}</h3>
-            {item.definitions.map((def) => {
+          <div id={itemKey} key={itemKey}>
+            <h3 className='mt-12 text-title font-medium'>{itemKey}</h3>
+            {itemVal.definitions.map((def) => {
               return (
                 <figure
                   key={def.key}
