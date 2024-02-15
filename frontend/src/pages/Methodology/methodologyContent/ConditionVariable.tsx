@@ -1,5 +1,3 @@
-import { parseDescription } from '../methodologyComponents/GlossaryTerm'
-
 interface Definition {
   id?: string | undefined
   topic: string
@@ -32,7 +30,7 @@ export default function ConditionVariable({
                     <strong>{def.key}</strong>
                   </span>
                   <p className='m-0 ml-1 self-start text-smallest text-altBlack'>
-                    {parseDescription(def.description)}
+                    {def.description}
                   </p>
                 </figure>
               )

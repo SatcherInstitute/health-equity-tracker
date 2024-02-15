@@ -5,7 +5,6 @@ import {
   Paper,
 } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import { parseDescription } from './GlossaryTerm'
 import React, { useState } from 'react'
 import { useIsBreakpointAndUp } from '../../../utils/hooks/useIsBreakpointAndUp'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
@@ -56,7 +55,7 @@ export default function KeyTermsAccordion(props: KeyTermsAccordionProps) {
                       >
                         <p className='mb-1 text-small font-medium'>{def.key}</p>
                         <p className='m-0 self-start pt-1 text-small text-altBlack'>
-                          {parseDescription(def.description)}
+                          {def.description}
                         </p>
                       </figure>
                     )

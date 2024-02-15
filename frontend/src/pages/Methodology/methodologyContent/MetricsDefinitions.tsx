@@ -16,11 +16,6 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
         description:
           "A statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.",
       },
-      {
-        key: 'Examples to Explore',
-        description:
-          'Currently, we are able to calculate these age-adjusted ratios for [HIV deaths](https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios), [COVID-19 deaths](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios) and [COVID-19 hospitalizations](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios), and we present the findings in a distinct, age-adjusted table.',
-      },
     ],
   },
   'Total cases per 100k people': {
@@ -97,7 +92,7 @@ export const metricDefinitions: Record<string, GlossaryTermItem> = {
       {
         key: 'Measurement Definition',
         description:
-          "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the <code>(OBSERVED - EXPECTED) / EXPECTED</code>. In this case, <code>OBSERVED</code> is each group's percent share of the condition, and <code>EXPECTED</code> is that group's share of the total population.",
+          "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the (OBSERVED - EXPECTED) / EXPECTEDOBSERVED is each group's percent share of the condition, and EXPECTED is that group's share of the total population.",
       },
     ],
   },
