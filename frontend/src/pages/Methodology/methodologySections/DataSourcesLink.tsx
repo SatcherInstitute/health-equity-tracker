@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
 
-const SourcesLink = () => {
+export default function DataSourcesLink() {
   const { title, description, listItems, nestedListItems } =
     sourceAcquisitionData
 
@@ -97,5 +97,3 @@ const SourcesLink = () => {
     </section>
   )
 }
-
-export default SourcesLink

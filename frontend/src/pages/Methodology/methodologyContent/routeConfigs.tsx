@@ -30,7 +30,7 @@ import MedicationUtilizationLink from '../methodologySections/MedicationUtilizat
 import RacesAndEthnicitiesLink from '../methodologySections/RacesAndEthnicitiesLink'
 import RecommendedCitationLink from '../methodologySections/RecommendedCitationLink'
 import SdohLink from '../methodologySections/SdohLink'
-import SourcesLink from '../methodologySections/SourcesLink'
+import DataSourcesLink from '../methodologySections/DataSourcesLink'
 import TopicCategoriesLimitationsLink from '../methodologySections/TopicCategoriesLimitationsLink'
 import MethodologyHomeLink from '../methodologySections/MethodologyHomeLink'
 import GlossaryLink from '../methodologySections/GlossaryLink'
@@ -63,7 +63,7 @@ export const routeConfigs = [
   {
     label: 'Data Sources',
     path: SOURCES_LINK,
-    component: SourcesLink,
+    component: DataSourcesLink,
     subLinks: [
       {
         label: 'Data Sources',
