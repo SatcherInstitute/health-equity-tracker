@@ -7,6 +7,11 @@ from zipfile import ZipFile
 from io import BytesIO
 from typing import List
 
+from ingestion.graphql_ahr_utils import (
+    AHR_QUERY,
+    TEST_VARS,
+)
+
 DATA_DIR = os.path.join(os.sep, 'app', 'data')
 
 BQ_STRING = 'STRING'
@@ -479,7 +484,7 @@ def get_bq_column_types(df, float_cols: List[str]):
     return column_types
 
 
-def fetch_ahr_data_from_graphql(query: str, variables: dict):
+def fetch_ahr_data_from_graphql():
     """
     Fetches data from AmericasHealthRankings GraphQL API.
 
@@ -491,11 +496,19 @@ def fetch_ahr_data_from_graphql(query: str, variables: dict):
     """
     graphql_url = 'https://api.americashealthrankings.org/graphql'
     headers = {'Content-Type': 'application/json', 'x-api-key': API_KEY}
-    graphql_request = {'query': query, 'variables': variables}
+    all_responses = []  # Initialize an empty list to collect responses
 
+    variables = json.loads(TEST_VARS)
+    graphql_request = {'query': AHR_QUERY, 'variables': variables}
     response = requests.post(graphql_url, json=graphql_request, headers=headers)
 
     if response.status_code == 200:
-        return response.json()['data']
+        # Collect each successful response
+        all_responses.append(response.json().get('data')['measures_A'])
     else:
         print("HTTP Error:", response.status_code)
+        if response.json():
+            print(response.json())
+        # Optionally, handle error responses differently
+
+    return all_responses
