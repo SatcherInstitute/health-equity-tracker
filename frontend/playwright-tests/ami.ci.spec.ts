@@ -31,6 +31,6 @@ test('PHRMA: Medicare AMI', async ({ page }) => {
   await page.getByText('Social and Political').click();
   await page.getByText('Social and Political Determinants of Health: Unfortunately, there are crucial').click();
   await page.getByText('Who is missing?').click();
-  await page.getByText('Data Suppression: In').click();
+  await page.getByText('Data Suppression').click();
   await page.getByRole('combobox', { name: 'Demographic Age' }).click();
 });
