@@ -41,7 +41,14 @@ export const DEPRESSION_METRICS: DataTypeConfig[] = [
       text: `Adults who reported being told by a health professional that they have a depressive disorder including depression, major depression, minor depression or dysthymia.`,
     },
     description: {
-      text: 'Depression is a mental illness that can cause a number of problems, including sadness, fatigue, and difficulty concentrating. It is more common in people of color and people with low incomes. Studying depression can help us understand why these disparities exist and how to address them.',
+      text: 'Depression is a mental illness that can cause a number of problems, including sadness, fatigue, and difficulty concentrating. Populations at a higher risk for depression include women, young adults, Indigenous and multiracial Americans, individuals with lower income, and LGBQ+ individuals. Studying depression can help us understand why these disparities exist and how to address them.',
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/Depression_a',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for depression cases',
@@ -83,7 +90,14 @@ export const EXCESSIVE_DRINKING_METRICS: DataTypeConfig[] = [
       text: `Adults who reported binge drinking (four or more [females] or five or more [males] drinks on one occasion in the past 30 days) or heavy drinking (eight or more [females] or 15 or more [males] drinks per week).`,
     },
     description: {
-      text: 'Excessive drinking is a major public health problem. It can lead to a number of health problems, including liver disease, heart disease, and cancer. It is more common in people of color and people with low incomes. Studying excessive drinking can help us understand why these disparities exist and how to address them.',
+      text: 'Excessive drinking is a major public health problem. It can lead to a number of health problems, including liver disease, heart disease, and cancer. It is more common in men, younger adults, and LGBTQ+ individuals. Studying excessive drinking can help us understand why these disparities exist and how to address them.',
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/ExcessDrink',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for excessive drinking cases',
@@ -127,7 +141,14 @@ export const SUBSTANCE_MISUSE_METRICS: DataTypeConfig[] = [
       text: `Adults who reported using prescription drugs non-medically (including pain relievers, stimulants, sedatives) or illicit drugs (excluding cannabis) in the last 12 months.`,
     },
     description: {
-      text: 'Opioid and other non-medical drug use is a major public health problem. It can lead to a number of health problems, including overdose and death. It is more common in people of color and people with low incomes. Studying opioid and other non-medical drug use can help us understand why these disparities exist and how to address them.',
+      text: 'Opioid and other non-medical drug use is a major public health problem. It can lead to a number of health problems, including overdose and death. It is more common in people with low incomes. Studying opioid and other non-medical drug use can help us understand why these disparities exist and how to address them.',
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/drug_use',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     surveyCollectedData: true,
     dataTableTitle:
@@ -171,7 +192,14 @@ export const FREQUENT_MENTAL_DISTRESS_METRICS: DataTypeConfig[] = [
       text: `Adults who reported their mental health was not good 14 or more days in the past 30 days.`,
     },
     description: {
-      text: 'Frequent mental distress is a major public health problem. It can lead to a number of health problems, including heart disease, stroke, and cancer. It is more common in people of color and people with low incomes. Studying frequent mental distress can help us understand why these disparities exist and how to address them.',
+      text: 'Frequent mental distress is a major public health problem. It can lead to a number of health problems, including heart disease, stroke, and cancer. Frequent mental distress disproportionately affects women, younger adults, individuals of multiracial, Indigenous, or Pacific Islander descent, those with lower education levels or household income, individuals experiencing cognitive difficulty disabilities, and LGBQ+ individuals. Studying frequent mental distress can help us understand why these disparities exist and how to address them.',
+      citations: [
+        {
+          url: 'https://www.americashealthrankings.org/explore/measures/mental_distress',
+          shortLabel: 'AHR',
+          longerTitle: "America's Health Rankings",
+        },
+      ],
     },
     surveyCollectedData: true,
     dataTableTitle: 'Breakdown summary for frequent mental distress cases',

@@ -11,6 +11,7 @@ to the manual-uploads GCS bucket for consumption by the ingestion pipeline.
 Example usage:
 python cdc_restricted_local.py --dir="/Users/vanshkumar/Downloads" --prefix="COVID_Cases_Restricted_Detailed_01312021"
 """
+
 import argparse
 import os
 import sys
@@ -20,16 +21,19 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 import numpy as np  # type: ignore
 import pandas as pd  # type: ignore
+
+from ingestion.dataset_utils import combine_race_ethnicity
+
 pd.options.mode.chained_assignment = None  # default='warn'
 
 CHUNK_SIZE = 5_000_000
 
 # Command line flags for the dir and file name prefix for the data.
 parser = argparse.ArgumentParser()
+parser.add_argument("-dir", "--dir", help="Path to the CDC restricted data CSV files")
 parser.add_argument(
-    "-dir", "--dir", help="Path to the CDC restricted data CSV files")
-parser.add_argument("-prefix", "--prefix",
-                    help="Prefix for the CDC restricted CSV files")
+    "-prefix", "--prefix", help="Prefix for the CDC restricted CSV files"
+)
 
 # These are the columns that we want to keep from the data.
 # Geo columns (state, county) - we aggregate or groupby either state or county.
@@ -38,22 +42,19 @@ parser.add_argument("-prefix", "--prefix",
 STATE_COL = 'res_state'
 COUNTY_FIPS_COL = 'county_fips_code'
 COUNTY_COL = 'res_county'
-SEX_COL = 'sex'
 AGE_COL = 'age_group'
 OUTCOME_COLS = ['hosp_yn', 'death_yn']
-RACE_COL = 'race'
-ETH_COL = 'ethnicity'
 CASE_DATE_COL = 'cdc_case_earliest_dt'
 
 USE_COLS = [
     STATE_COL,
     COUNTY_FIPS_COL,
     COUNTY_COL,
-    SEX_COL,
+    std_col.SEX_COL,
     AGE_COL,
     *OUTCOME_COLS,
-    RACE_COL,
-    ETH_COL,
+    std_col.RACE_COL,
+    std_col.ETH_COL,
     CASE_DATE_COL,
 ]
 
@@ -69,7 +70,7 @@ COL_NAME_MAPPING = {
     COUNTY_FIPS_COL: std_col.COUNTY_FIPS_COL,
     COUNTY_COL: std_col.COUNTY_NAME_COL,
     RACE_ETH_COL: std_col.RACE_CATEGORY_ID_COL,
-    SEX_COL: std_col.SEX_COL,
+    std_col.SEX_COL: std_col.SEX_COL,
     AGE_COL: std_col.AGE_COL,
     CASE_DATE_COL: std_col.TIME_PERIOD_COL,
 }
@@ -120,39 +121,14 @@ AGE_NAMES_MAPPING = {
 # to their standardized form.
 GEO_COL_MAPPING = {'state': [STATE_COL], 'county': COUNTY_COLS}
 DEMOGRAPHIC_COL_MAPPING = {
-    'race': ([RACE_COL, ETH_COL], RACE_NAMES_MAPPING),
-    'sex': ([SEX_COL], SEX_NAMES_MAPPING),
+    'race': ([std_col.RACE_COL, std_col.ETH_COL], RACE_NAMES_MAPPING),
+    'sex': ([std_col.SEX_COL], SEX_NAMES_MAPPING),
     'age': ([AGE_COL], AGE_NAMES_MAPPING),
-    'race_and_age': ([RACE_COL, ETH_COL, AGE_COL], {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING}),
+    'race_and_age': (
+        [std_col.RACE_COL, std_col.ETH_COL, AGE_COL],
+        {**AGE_NAMES_MAPPING, **RACE_NAMES_MAPPING},
+    ),
 }
-
-
-def combine_race_eth(df):
-    """Combines the race and ethnicity fields into the legacy race/ethnicity category.
-       We will keep this in place until we can figure out a plan on how to display
-       the race and ethnicity to our users in a disaggregated way."""
-
-    # Create a mask for Hispanic/Latino
-    hispanic_mask = df[ETH_COL] == 'Hispanic/Latino'
-
-    # Create masks for 'NA', 'Missing', 'Unknown'
-    race_missing_mask = df[RACE_COL].isin({'NA', 'Missing', 'Unknown'})
-    eth_missing_mask = df[ETH_COL].isin({'NA', 'Missing', 'Unknown'})
-
-    # Create a mask for other cases
-    other_mask = ~race_missing_mask & ~eth_missing_mask
-
-    # Create a new combined race/eth column Initialize with UNKNOWN
-    df[RACE_ETH_COL] = std_col.Race.UNKNOWN.value
-    # Overwrite specific race if given
-    df.loc[other_mask, RACE_ETH_COL] = df.loc[other_mask, RACE_COL].map(RACE_NAMES_MAPPING)
-    # overwrite with Hispanic if given
-    df.loc[hispanic_mask, RACE_ETH_COL] = std_col.Race.HISP.value
-
-    # Drop unnecessary columns
-    df = df.drop(columns=[RACE_COL, ETH_COL])
-
-    return df
 
 
 def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
@@ -172,19 +148,27 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # Add columns for hospitalization yes/no/unknown and death yes/no/unknown,
     # as we aggregate and count these individually. Do a sanity check that we
     # covered all the data and drop the original hospitalization/death columns.
-    df[std_col.COVID_HOSP_Y] = (df['hosp_yn'] == 'Yes')
-    df[std_col.COVID_HOSP_N] = (df['hosp_yn'] == 'No')
-    df[std_col.COVID_HOSP_UNKNOWN] = ((df['hosp_yn'] == 'Unknown') |
-                                      (df['hosp_yn'] == 'Missing'))
-    df[std_col.COVID_DEATH_Y] = (df['death_yn'] == 'Yes')
-    df[std_col.COVID_DEATH_N] = (df['death_yn'] == 'No')
-    df[std_col.COVID_DEATH_UNKNOWN] = ((df['death_yn'] == 'Unknown') |
-                                       (df['death_yn'] == 'Missing'))
+    df[std_col.COVID_HOSP_Y] = df['hosp_yn'] == 'Yes'
+    df[std_col.COVID_HOSP_N] = df['hosp_yn'] == 'No'
+    df[std_col.COVID_HOSP_UNKNOWN] = (df['hosp_yn'] == 'Unknown') | (
+        df['hosp_yn'] == 'Missing'
+    )
+    df[std_col.COVID_DEATH_Y] = df['death_yn'] == 'Yes'
+    df[std_col.COVID_DEATH_N] = df['death_yn'] == 'No'
+    df[std_col.COVID_DEATH_UNKNOWN] = (df['death_yn'] == 'Unknown') | (
+        df['death_yn'] == 'Missing'
+    )
 
-    check_hosp = (df[std_col.COVID_HOSP_Y] | df[std_col.COVID_HOSP_N] |
-                  df[std_col.COVID_HOSP_UNKNOWN]).all()
-    check_deaths = (df[std_col.COVID_DEATH_Y] | df[std_col.COVID_DEATH_N] |
-                    df[std_col.COVID_DEATH_UNKNOWN]).all()
+    check_hosp = (
+        df[std_col.COVID_HOSP_Y]
+        | df[std_col.COVID_HOSP_N]
+        | df[std_col.COVID_HOSP_UNKNOWN]
+    ).all()
+    check_deaths = (
+        df[std_col.COVID_DEATH_Y]
+        | df[std_col.COVID_DEATH_N]
+        | df[std_col.COVID_DEATH_UNKNOWN]
+    ).all()
 
     assert check_hosp, "All possible hosp_yn values are not accounted for"
     assert check_deaths, "All possible death_yn values are not accounted for"
@@ -194,7 +178,7 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
     # Standardize the values in demog_col using names_mapping.
     for demog_col in demog_cols:
         if demog_col == RACE_ETH_COL:
-            df = combine_race_eth(df)
+            df = combine_race_ethnicity(df, RACE_NAMES_MAPPING, 'Hispanic/Latino')
         else:
             df = df.replace({demog_col: names_mapping})
 
@@ -230,23 +214,28 @@ def accumulate_data(df, geo_cols, overall_df, demog_cols, names_mapping):
 def sanity_check_data(df):
     # Perform some simple sanity checks that we are covering all the data.
     cases = df[std_col.COVID_CASES]
-    assert cases.equals(df[std_col.COVID_HOSP_Y] + df[std_col.COVID_HOSP_N] +
-                        df[std_col.COVID_HOSP_UNKNOWN])
-    assert cases.equals(df[std_col.COVID_DEATH_Y] + df[std_col.COVID_DEATH_N] +
-                        df[std_col.COVID_DEATH_UNKNOWN])
+    assert cases.equals(
+        df[std_col.COVID_HOSP_Y]
+        + df[std_col.COVID_HOSP_N]
+        + df[std_col.COVID_HOSP_UNKNOWN]
+    )
+    assert cases.equals(
+        df[std_col.COVID_DEATH_Y]
+        + df[std_col.COVID_DEATH_N]
+        + df[std_col.COVID_DEATH_UNKNOWN]
+    )
 
 
 def generate_national_dataset(state_df, groupby_cols):
     """Generates a national level dataset from the state_df.
-       Returns a national level dataframe
+    Returns a national level dataframe
 
-       state_df: state level dataframe
-       groupby_cols: list of columns to group on"""
+    state_df: state level dataframe
+    groupby_cols: list of columns to group on"""
 
     # This is hacky but I think we have to do this because everything comes
     # from big query as a string.
-    int_cols = [std_col.COVID_CASES,
-                std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
+    int_cols = [std_col.COVID_CASES, std_col.COVID_DEATH_Y, std_col.COVID_HOSP_Y]
     state_df[int_cols] = state_df[int_cols].fillna(0)
     state_df[int_cols] = state_df[int_cols].replace("", 0)
     state_df[int_cols] = state_df[int_cols].astype(int)
@@ -284,7 +273,6 @@ def process_data(dir, files):
         ("county", "age"),
         ("state", "sex"),
         ("county", "sex"),
-
         # for age adjustment
         ("state", "race_and_age"),
     ]
@@ -303,7 +291,7 @@ def process_data(dir, files):
             dtype=str,
             chunksize=CHUNK_SIZE,
             keep_default_na=False,
-            usecols=USE_COLS
+            usecols=USE_COLS,
         )
 
         for chunk in chunked_frame:
@@ -316,7 +304,8 @@ def process_data(dir, files):
             # For county fips, we make sure they are strings of length 5 as per
             # our standardization (ignoring empty values).
             df[COUNTY_FIPS_COL] = df[COUNTY_FIPS_COL].map(
-                lambda x: x.zfill(5) if len(x) > 0 else x)
+                lambda x: x.zfill(5) if len(x) > 0 else x
+            )
 
             # For each of ({state, county} x {race, sex, age}), we slice the
             # data to focus on that dimension and aggregate.
@@ -335,8 +324,12 @@ def process_data(dir, files):
                     demog_col = [RACE_ETH_COL, AGE_COL]
 
                 all_dfs[(geo, demo)] = accumulate_data(
-                    sliced_df, geo_cols, all_dfs[(geo, demo)], demog_col,
-                    demog_names_mapping)
+                    sliced_df,
+                    geo_cols,
+                    all_dfs[(geo, demo)],
+                    demog_col,
+                    demog_names_mapping,
+                )
 
         end = time.time()
         print("Took", round(end - start), "seconds to process file", f)
@@ -371,12 +364,14 @@ def main():
 
     # Get the files in the specified directory which match the prefix.
     matching_files = []
-    files = [
-        f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
+    files = [f for f in os.listdir(dir) if os.path.isfile(os.path.join(dir, f))]
     for f in files:
         filename_parts = f.split('.')
-        if (len(filename_parts) == 2 and prefix in filename_parts[0] and
-                filename_parts[1] == 'csv'):
+        if (
+            len(filename_parts) == 2
+            and prefix in filename_parts[0]
+            and filename_parts[1] == 'csv'
+        ):
             matching_files.append(f)
 
     if len(matching_files) == 0:

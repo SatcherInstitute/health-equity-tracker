@@ -1,4 +1,4 @@
-time_period,state_name,state_fips,race_and_ethnicity,race_category_id,population,gun_deaths_estimated_total,gun_deaths_per_100k,gun_deaths_pct_share,population_pct,gun_deaths_pct_relative_inequity
+time_period,state_name,state_fips,race_and_ethnicity,race_category_id,population,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,population_pct,gun_violence_youth_deaths_pct_relative_inequity
 2021,United States,00,American Indian and Alaska Native (NH),AIAN_NH,882778.0,740.0,83.83,1.8,0.8,125.0
 2021,United States,00,Asian (NH),ASIAN_NH,5940330.0,855.0,14.39,2.1,5.5,-61.8
 2021,United States,00,Black or African American (NH),BLACK_NH,14921868.0,11178.0,74.91,27.8,13.8,101.4

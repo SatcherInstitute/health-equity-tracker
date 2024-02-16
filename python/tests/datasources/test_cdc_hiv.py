@@ -105,7 +105,13 @@ def test_write_to_bq_race_national(
     )
 
     assert_frame_equal(
-        race_national_current_df, expected_race_national_current_df, check_like=True
+        race_national_current_df.sort_values(by='race_and_ethnicity').reset_index(
+            drop=True
+        ),
+        expected_race_national_current_df.sort_values(
+            by='race_and_ethnicity'
+        ).reset_index(drop=True),
+        check_like=True,
     )
 
     # BY RACE NATIONAL HISTORICAL
@@ -121,8 +127,12 @@ def test_write_to_bq_race_national(
     )
 
     assert_frame_equal(
-        race_national_historical_df,
-        expected_race_national_historical_df,
+        race_national_historical_df.sort_values(
+            by=['time_period', 'race_and_ethnicity']
+        ).reset_index(drop=True),
+        expected_race_national_historical_df.sort_values(
+            by=['time_period', 'race_and_ethnicity']
+        ).reset_index(drop=True),
         check_like=True,
     )
 
@@ -158,7 +168,9 @@ def test_write_to_bq_age_national(
     )
 
     assert_frame_equal(
-        age_national_current_df, expected_age_national_current_df, check_like=True
+        age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
+        expected_age_national_current_df.sort_values(by=['age']).reset_index(drop=True),
+        check_like=True,
     )
 
     (
@@ -172,8 +184,12 @@ def test_write_to_bq_age_national(
     )
 
     assert_frame_equal(
-        age_national_historical_df,
-        expected_age_national_historical_df,
+        age_national_historical_df.sort_values(by=['time_period', 'age']).reset_index(
+            drop=True
+        ),
+        expected_age_national_historical_df.sort_values(
+            by=['time_period', 'age']
+        ).reset_index(drop=True),
         check_like=True,
     )
 
@@ -202,7 +218,13 @@ def test_write_to_bq_sex_state(
     )
 
     assert_frame_equal(
-        sex_state_current_df, expected_sex_state_current_df, check_like=True
+        sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(
+            drop=True
+        ),
+        expected_sex_state_current_df.sort_values(by=['sex', 'state_name']).reset_index(
+            drop=True
+        ),
+        check_like=True,
     )
 
     (
@@ -216,7 +238,13 @@ def test_write_to_bq_sex_state(
     )
 
     assert_frame_equal(
-        sex_state_historical_df, expected_sex_state_historical_df, check_like=True
+        sex_state_historical_df.sort_values(
+            by=['time_period', 'sex', 'state_name']
+        ).reset_index(drop=True),
+        expected_sex_state_historical_df.sort_values(
+            by=['time_period', 'sex', 'state_name']
+        ).reset_index(drop=True),
+        check_like=True,
     )
 
 
@@ -265,7 +293,13 @@ def test_write_to_bq_sex_county(
         GOLDEN_DATA["sex_county_historical"], dtype=EXP_DTYPE
     )
     assert_frame_equal(
-        sex_county_historical_df, expected_sex_county_historical_df, check_like=True
+        sex_county_historical_df.sort_values(by=['time_period', 'sex']).reset_index(
+            drop=True
+        ),
+        expected_sex_county_historical_df.sort_values(
+            by=['time_period', 'sex']
+        ).reset_index(drop=True),
+        check_like=True,
     )
 
 
@@ -299,8 +333,10 @@ def test_write_to_bq_black_women_national(
         GOLDEN_DATA["black_women_national_current"], dtype=EXP_DTYPE
     )
     assert_frame_equal(
-        black_women_national_current_df,
-        expected_black_women_national_current_df,
+        black_women_national_current_df.sort_values(by=['age']).reset_index(drop=True),
+        expected_black_women_national_current_df.sort_values(by=['age']).reset_index(
+            drop=True
+        ),
         check_like=True,
     )
 
@@ -314,7 +350,11 @@ def test_write_to_bq_black_women_national(
         GOLDEN_DATA["black_women_national_historical"], dtype=EXP_DTYPE
     )
     assert_frame_equal(
-        black_women_national_historical_df,
-        expected_black_women_national_historical_df,
+        black_women_national_historical_df.sort_values(
+            by=['time_period', 'age']
+        ).reset_index(drop=True),
+        expected_black_women_national_historical_df.sort_values(
+            by=['time_period', 'age']
+        ).reset_index(drop=True),
         check_like=True,
     )

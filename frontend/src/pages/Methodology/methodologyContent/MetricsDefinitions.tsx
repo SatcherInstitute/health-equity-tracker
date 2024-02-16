@@ -58,6 +58,28 @@ export const metricDefinitionsArray = [
     ],
   },
   {
+    topic: 'Index score',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'It provides a single numerical value that reflects the overall status or level of equity in a given context, facilitating easy comparisons and policy assessments.',
+      },
+    ],
+  },
+  {
+    topic: 'Percent share',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          "Percent share represents the proportion of a specific subgroup's contribution to a total metric, often expressed as a percentage.",
+      },
+    ],
+  },
+  {
     topic: 'Share of total cases',
     path: '',
     id: '#total-share-metrics',
@@ -90,6 +112,17 @@ export const metricDefinitionsArray = [
     ],
   },
   {
+    topic: 'Percent rate',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'A percent rate, in health equity data visualization, is a measure that expresses a particular metric as a percentage of a given population.',
+      },
+    ],
+  },
+  {
     topic: 'Relative inequity',
     path: '',
     id: '#relative-inequity-metrics',
@@ -106,40 +139,6 @@ export const metricDefinitionsArray = [
       {
         key: 'Example',
         description: `In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations.`,
-      },
-    ],
-  },
-  {
-    topic: 'Time-series',
-    path: '',
-    id: '#time-series-metrics',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'Identifies long-term trends and fluctuations in health disparities or access to healthcare services.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'A collection of data points or observations recorded over a series of distinct and equally spaced time intervals. These data are used to track changes in health-related metrics, outcomes, or disparities over time, allowing for the analysis of trends, patterns, and the impact of interventions or policies.',
-      },
-    ],
-  },
-  {
-    topic: 'Social Vulnerability Index',
-    path: '',
-    id: '#svi',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'The Social Vulnerability Index uses percentile ranking values ranging from 0 to 1 to assess the resilience of communities when confronted by external stresses. Scores between 0-0.33 indicate a low level of vulnerability, 0.34-0.66 signify a medium level, and 0.67-1 designate a high level of vulnerability. Specifically, areas that fall in the top 10%, or at the 90th percentile of values, are marked as highly vulnerable, while those below this threshold have comparatively lower vulnerability. From a health equity perspective, understanding these vulnerability scores is crucial. It enables policymakers and health officials to allocate resources effectively, ensuring that the most vulnerable communities receive the necessary support during crises, thus promoting equitable health outcomes.Identifies long-term trends and fluctuations in health disparities or access to healthcare services.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'The measurement of social vulnerability grants policymakers, public health officials, and local planners the ability to effectively decide how to best protect their most vulnerable communities in case of a natural disaster or public health crisis. This advances health equity by ensuring that the communities that need resources the most, in times of devastation, receive them.',
       },
     ],
   },
