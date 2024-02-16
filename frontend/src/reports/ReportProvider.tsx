@@ -19,6 +19,8 @@ import LazyLoad from 'react-lazyload'
 import IncarceratedChildrenLongAlert from './ui/IncarceratedChildrenLongAlert'
 import { type ScrollableHashId } from '../utils/hooks/useStepObserver'
 import WhatDataAreMissing from './WhatDataAreMissing'
+import HetLinkButton from '../styles/HetComponents/HetLinkButton'
+import { DATA_CATALOG_PAGE_LINK } from '../utils/internalRoutes'
 
 export const SINGLE_COLUMN_WIDTH = 12
 
@@ -192,6 +194,14 @@ function ReportProvider(props: ReportProviderProps) {
               </LazyLoad>
             </div>
           )}
+
+          <h3 className='mt-12 text-header '>What data are missing?</h3>
+
+          <p>Unfortunately there are crucial data missing in our sources.</p>
+
+          <HetLinkButton href={DATA_CATALOG_PAGE_LINK}>
+            See Our Data Sources →
+          </HetLinkButton>
 
           <WhatDataAreMissing
             metricConfigSubset={metricConfigSubset}

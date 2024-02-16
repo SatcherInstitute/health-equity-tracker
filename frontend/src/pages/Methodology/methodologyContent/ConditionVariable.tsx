@@ -22,7 +22,7 @@ export default function ConditionVariable({
                   <span>
                     <strong>{def.key}</strong>
                   </span>
-                  <p className='m-0 ml-1 self-start text-smallest text-altBlack'>
+                  <p className='m-0 ml-1 self-start text-small text-altBlack'>
                     {def.description}
                   </p>
                 </figure>

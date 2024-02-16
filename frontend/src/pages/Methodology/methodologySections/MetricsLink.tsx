@@ -5,7 +5,7 @@ import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
-const MetricsLink = () => {
+export default function MetricsLink() {
   return (
     <section id='#metrics'>
       <article>
@@ -62,5 +62,3 @@ const MetricsLink = () => {
     </section>
   )
 }
-
-export default MetricsLink
