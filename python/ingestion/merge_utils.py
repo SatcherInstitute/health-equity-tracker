@@ -23,7 +23,7 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
 
     if std_col.COUNTY_FIPS_COL not in df.columns:
         raise ValueError(
-            'Dataframe must be a county-level table with a `county_fips` column containing 5 digit FIPS strings.'
+            'df must be county-level with `county_fips` col of 5 digit FIPS strings.'
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
@@ -198,7 +198,7 @@ def merge_yearly_pop_numbers(
     ]
     acs_rows_df = _merge_pop(acs_rows_df, demo, geo_level, on_time_period=True)
 
-    # merge the most recent SOURCE data (without equivalent years from ACS) with the most recent ACS data
+    # merge most recent SOURCE data (without equiv years from ACS) with most recent ACS data
     post_acs_rows_df = df[df[_tmp_time_period_col] > int(ACS_LATEST_YEAR)]
     # temporarily save the original SOURCE years in a new column
     _tmp_src_yr_col = "temp_source_year_col"
