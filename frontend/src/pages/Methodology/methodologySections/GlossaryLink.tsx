@@ -13,7 +13,7 @@ import {
   HIV_RESOURCES,
 } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
-import { termDefinitions } from '../methodologyContent/TermsDefinitions'
+import { termDefinitions } from '../methodologyContent/TermDefinitions'
 import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
 
 function GlossaryLink() {

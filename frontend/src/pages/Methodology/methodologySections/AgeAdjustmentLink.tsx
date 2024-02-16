@@ -13,7 +13,7 @@ import HetBigCTA from '../../../styles/HetComponents/HetBigCTA'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
-import { termDefinitions } from '../methodologyContent/TermsDefinitions'
+import { termDefinitions } from '../methodologyContent/TermDefinitions'
 
 const ageAdjustTerms = [
   metricDefinitions['Age-adjusted ratios'],
