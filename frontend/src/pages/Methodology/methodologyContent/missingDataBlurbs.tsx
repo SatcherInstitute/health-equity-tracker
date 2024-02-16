@@ -1,22 +1,4 @@
-import { type DataSourceId } from '../../../data/config/MetadataMap'
 import { urlMap } from '../../../utils/externalUrls'
-
-// make a record of DataSourceId to MissingData functional component
-
-export const MissingDataLookup: Partial<
-  Record<DataSourceId, () => JSX.Element>
-> = {
-  decia_2020_territory_population: MissingIslandAreaPopulationData,
-  decia_2010_territory_population: MissingIslandAreaPopulationData,
-  cdc_restricted: MissingCovidData,
-  cdc_vaccination_national: MissingCovidVaccinationData,
-  cdc_vaccination_county: MissingCovidVaccinationData,
-  kff_vaccination: MissingCovidVaccinationData,
-  cawp: MissingCAWPData,
-  cdc_atlas: MissingCdcAtlasData,
-  phrma: MissingPhrmaData,
-  ahr: MissingAHRData,
-}
 
 export function MissingCdcAtlasData() {
   return (
