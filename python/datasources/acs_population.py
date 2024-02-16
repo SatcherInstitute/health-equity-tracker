@@ -565,7 +565,6 @@ class ACSPopulationIngester:
         """Alternative format where race categories include Hispanic/Latino.
         Totals are also included because summing over the column will give a
         larger number than the actual total."""
-
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.HISPANIC_COL)
