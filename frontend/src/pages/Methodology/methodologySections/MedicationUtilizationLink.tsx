@@ -304,35 +304,35 @@ export default function MedicareMedicationLink() {
             </p>
             <ul className='list-inside list-disc pl-4'>
               <li>
-                <code>Asian/Pacific Islander</code> we represent as{' '}
+                <i>Asian/Pacific Islander</i> we represent as{' '}
                 <HetTerm>
                   Asian, Native Hawaiian, and Pacific Islander (Non-Hispanic)
                 </HetTerm>
               </li>
               <li>
-                <code>American Indian / Alaska Native</code> we represent as{' '}
+                <i>American Indian / Alaska Native</i> we represent as{' '}
                 <HetTerm>
                   American Indian and Alaska Native (Non-Hispanic)
                 </HetTerm>
               </li>
               <li>
-                <code>Non-Hispanic White</code> we represent as{' '}
+                <i>Non-Hispanic White</i> we represent as{' '}
                 <HetTerm>White (Non-Hispanic)</HetTerm>
               </li>
               <li>
-                <code>Black or African-American</code> we represented as{' '}
+                <i>Black or African-American</i> we represented as{' '}
                 <HetTerm>Black or African American (Non-Hispanic)</HetTerm>
               </li>
               <li>
-                <code>Hispanic</code> we represent as{' '}
+                <i>Hispanic</i> we represent as{' '}
                 <HetTerm>Hispanic or Latino</HetTerm>
               </li>
               <li>
-                <code>Other</code> we represent as{' '}
+                <i>Other</i> we represent as{' '}
                 <HetTerm>Unrepresented race (Non-Hispanic)</HetTerm>
               </li>
               <li>
-                <code>Unknown</code> we represent on our{' '}
+                <i>Unknown</i> we represent on our{' '}
                 <HashLink
                   to={
                     '/exploredata?mls=1.medicare_cardiovascular-3.00&group1=All&demo=race_and_ethnicity#unknown-demographic-map'

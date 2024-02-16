@@ -18,7 +18,7 @@ import {
   MissingPrepData,
   MissingAHRData,
   MissingPhrmaData,
-} from './methodologyContent/missingDataBlurbs'
+} from '../Methodology/methodologyContent/missingDataBlurbs'
 import { SHOW_PHRMA_MENTAL_HEALTH } from '../../data/providers/PhrmaProvider'
 import { HashLink } from 'react-router-hash-link'
 import { selectFAQs } from '../WhatIsHealthEquity/FaqData'

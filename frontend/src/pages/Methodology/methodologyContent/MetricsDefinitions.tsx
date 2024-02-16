@@ -1,5 +1,7 @@
-export const metricDefinitionsArray = [
-  {
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
+
+export const metricDefinitions: Record<string, GlossaryTermItem> = {
+  'Age-adjusted ratios': {
     topic: 'Age-adjusted ratios',
     path: '',
     id: '#age-adjusted-ratios-metrics',
@@ -11,15 +13,12 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Measurement Definition',
-        description: `A statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.`,
-      },
-      {
-        key: 'Examples to Explore',
-        description: `Currently, we are able to calculate these age-adjusted ratios for [HIV deaths](https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios), [COVID-19 deaths](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios) and [COVID-19 hospitalizations](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios), and we present the findings in a distinct, age-adjusted table.`,
+        description:
+          "A statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.",
       },
     ],
   },
-  {
+  'Total cases per 100k people': {
     topic: 'Total cases per 100k people',
     path: '',
     id: '#per-100k-metrics',
@@ -36,7 +35,7 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Share of total cases with unknown race and ethnicity': {
     topic: 'Share of total cases with unknown race and ethnicity',
     path: '',
     id: '#unknown-cases-metrics',
@@ -53,11 +52,12 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Example',
-        description: `In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. For example, a value of 20% for Georgia means that 20% of Georgia's reported cases had unknown race/ethnicity. This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.`,
+        description:
+          "In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. For example, a value of 20% for Georgia means that 20% of Georgia's reported cases had unknown race/ethnicity. This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.",
       },
     ],
   },
-  {
+  'Index score': {
     topic: 'Index score',
     path: '',
     definitions: [
@@ -68,7 +68,7 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Percent share': {
     topic: 'Percent share',
     path: '',
     definitions: [
@@ -79,22 +79,24 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Share of total cases': {
     topic: 'Share of total cases',
     path: '',
     id: '#total-share-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: `This calculation is done for every point in time for which we have data, allowing visualization of inequity relative to population, over time.`,
+        description:
+          'This calculation is done for every point in time for which we have data, allowing visualization of inequity relative to population, over time.',
       },
       {
         key: 'Measurement Definition',
-        description: `To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the ${'<code>'}(OBSERVED - EXPECTED) / EXPECTED${'</code>'}. In this case, ${'<code>'}OBSERVED${'</code>'} is each group's percent share of the condition, and ${'<code>'}EXPECTED${'</code>'} is that group's share of the total population.`,
+        description:
+          "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the (OBSERVED - EXPECTED) / EXPECTEDOBSERVED is each group's percent share of the condition, and EXPECTED is that group's share of the total population.",
       },
     ],
   },
-  {
+  'Population share': {
     topic: 'Population share',
     path: '',
     id: '#population-share-metrics',
@@ -111,7 +113,7 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Percent rate': {
     topic: 'Percent rate',
     path: '',
     definitions: [
@@ -122,7 +124,7 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Relative inequity': {
     topic: 'Relative inequity',
     path: '',
     id: '#relative-inequity-metrics',
@@ -134,12 +136,14 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Measurement Definition',
-        description: `Relative inequity refers to disparities in health outcomes, access to healthcare, or resource allocation between different demographic groups within a population. It measures the extent to which one group's health status or healthcare access deviates from the overall population's.`,
+        description:
+          "Relative inequity refers to disparities in health outcomes, access to healthcare, or resource allocation between different demographic groups within a population. It measures the extent to which one group's health status or healthcare access deviates from the overall population's.",
       },
       {
         key: 'Example',
-        description: `In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations.`,
+        description:
+          'In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations.',
       },
     ],
   },
-]
+}

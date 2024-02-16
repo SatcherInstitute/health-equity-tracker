@@ -1,15 +1,6 @@
-export interface TermDefinition {
-  key: string
-  description: string
-}
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
-export interface GlossaryTerm {
-  topic: string
-  path: string
-  definitions: TermDefinition[]
-}
-
-export const definitionsGlossary: Record<string, GlossaryTerm> = {
+export const termDefinitions: Record<string, GlossaryTermItem> = {
   'Direct standardization method': {
     topic: 'Direct standardization method',
     path: '',

@@ -1,11 +1,11 @@
-import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
+import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
 import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
-const MetricsLink = () => {
+export default function MetricsLink() {
   return (
     <section id='#metrics'>
       <article>
@@ -13,7 +13,7 @@ const MetricsLink = () => {
           <title>Metrics - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Metrics</h2>
-        <ConditionVariable definitionsArray={metricDefinitionsArray} />
+        <ConditionVariable definitions={metricDefinitions} />
 
         <h3
           className='mt-12 text-title font-medium'
@@ -62,5 +62,3 @@ const MetricsLink = () => {
     </section>
   )
 }
-
-export default MetricsLink

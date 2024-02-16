@@ -1,5 +1,4 @@
 import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
-import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
@@ -16,10 +15,10 @@ const SourcesLink = () => {
         </Helmet>
         <h2 className='sr-only'>{title}</h2>
         <div>
-          <p>{parseDescription(description)}</p>
+          <p>{description}</p>
 
           <h3 className='mt-12 text-title font-medium'>Data Sources</h3>
-          <p>{parseDescription(listItems[0])}</p>
+          <p>{listItems[0]}</p>
 
           <h3 className='mt-12 text-title font-medium' id='#data-collection'>
             Data Collection
@@ -84,7 +83,7 @@ const SourcesLink = () => {
           >
             References and Citations
           </h3>
-          <p>{parseDescription(listItems[6])}</p>
+          <p>{listItems[6]}</p>
 
           <h3
             className='mt-12 text-title font-medium'

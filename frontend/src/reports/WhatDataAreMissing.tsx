@@ -1,7 +1,4 @@
-import {
-  DATA_CATALOG_PAGE_LINK,
-  CONTACT_TAB_LINK,
-} from '../utils/internalRoutes'
+import { CONTACT_TAB_LINK } from '../utils/internalRoutes'
 import { LinkWithStickyParams } from '../utils/urlutils'
 import {
   MissingCovidData,
@@ -12,7 +9,7 @@ import {
   MissingPrepData,
   MissingPhrmaData,
   MissingIslandAreaPopulationData,
-} from '../pages/DataCatalog/methodologyContent/missingDataBlurbs'
+} from '../pages/Methodology/methodologyContent/missingDataBlurbs'
 import {
   type DropdownVarId,
   type DataTypeConfig,
@@ -21,7 +18,6 @@ import { type Fips } from '../data/utils/Fips'
 import { AHR_CONDITIONS } from '../data/providers/AhrProvider'
 import { PHRMA_CONDITIONS } from '../data/providers/PhrmaProvider'
 import HetTerm from '../styles/HetComponents/HetTerm'
-import HetLinkButton from '../styles/HetComponents/HetLinkButton'
 
 interface WhatDataAreMissingProps {
   metricConfigSubset: Array<[DropdownVarId, DataTypeConfig[]]>
@@ -50,15 +46,7 @@ export default function WhatDataAreMissing(props: WhatDataAreMissingProps) {
 
   return (
     <>
-      <h3 className='mt-10 text-header'>What data are missing?</h3>
-
-      <p>Unfortunately there are crucial data missing in our sources.</p>
-
-      <HetLinkButton href={DATA_CATALOG_PAGE_LINK}>
-        See Our Data Sources →
-      </HetLinkButton>
-
-      <h4>Missing and misidentified people</h4>
+      <h4 className='text-text font-light'>Missing and misidentified people</h4>
       <p>
         Currently, there are no required or standardized race and ethnicity
         categories for data collection across state and local jurisdictions. The
