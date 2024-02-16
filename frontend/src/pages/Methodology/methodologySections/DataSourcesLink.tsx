@@ -1,40 +1,56 @@
-import { sourceAcquisitionData } from '../methodologyContent/SourcesDefinitions'
 import { Helmet } from 'react-helmet-async'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import HetAddressBlock from '../../../styles/HetComponents/HetAddressBlock'
 
 export default function DataSourcesLink() {
-  const { title, description, listItems, nestedListItems } =
-    sourceAcquisitionData
-
   return (
     <section id='#data-sources'>
       <article>
         <Helmet>
           <title>Data Sources - Health Equity Tracker</title>
         </Helmet>
-        <h2 className='sr-only'>{title}</h2>
+        <h2 className='sr-only'>Source Acquisition</h2>
         <div>
-          <p>{description}</p>
+          <p>
+            The Health Equity Tracker is committed to providing accurate,
+            transparent, and up-to-date information on health equity issues.
+            This section elaborates on how we acquire, standardize, and present
+            our data.
+          </p>
 
           <h3 className='mt-12 text-title font-medium'>Data Sources</h3>
-          <p>{listItems[0]}</p>
+          <p>
+            All data in the Health Equity Tracker is sourced from reputable and
+            public databases, including the Centers for Disease Control and
+            Prevention (CDC), U.S Census Bureau, Kaiser Family Foundation, and
+            several others. A comprehensive list of our data sources, along with
+            relevant details, can be found in our data catalog.
+          </p>
 
           <h3 className='mt-12 text-title font-medium' id='#data-collection'>
             Data Collection
           </h3>
-          <ul>
-            {nestedListItems[0].sub.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
+          <ul className='list-disc pl-4'>
+            <li>
+              Methods: Data are retrieved from publicly sourced application
+              programming interfaces (APIs) and manual downloads. These methods
+              ensure that we have the most recent and relevant data.
+            </li>
+            <li>
+              Quality Assurance: Sources are refreshed upon receiving update
+              notifications to ensure data accuracy and timeliness.
+            </li>
           </ul>
 
           <h3 className='mt-12 text-title font-medium' id='#data-processing'>
             Data Processing
           </h3>
 
-          <ul>
-            <li>{nestedListItems[1].sub[0]}</li>
+          <ul className='list-disc pl-4'>
+            <li>
+              Cleaning: We process raw data to remove any inconsistencies,
+              duplicates, or irrelevant information.
+            </li>
             <li>
               Transformation: Graphic visualizations reflect{' '}
               <HetTerm>crude rates</HetTerm> (non-age-adjusted) presented in
@@ -42,7 +58,12 @@ export default function DataSourcesLink() {
               <HetTerm>percent rate</HetTerm>, <HetTerm>percent share</HetTerm>,
               or as an <HetTerm>index score</HetTerm>.
             </li>
-            <li>{nestedListItems[1].sub[2]}</li>
+            <li>
+              Integration: Where data are available, we calculate age-adjusted
+              ratios. These ratios help illustrate the disproportionate impact
+              of morbidity and mortality among different races and ethnic groups
+              in the U.S. compared to the white (non-Hispanic) population.
+            </li>
           </ul>
 
           <h3
@@ -51,7 +72,12 @@ export default function DataSourcesLink() {
           >
             Visualization Techniques
           </h3>
-          <p>{listItems[2]}</p>
+          <p>
+            The Health Equity Tracker employs a range of visualization
+            techniques to present data in an intuitive and user-friendly manner.
+            This includes charts, graphs, and interactive visualizations
+            tailored to the specific type of data being presented.
+          </p>
 
           <h3
             className='mt-12 text-title font-medium'
@@ -59,7 +85,11 @@ export default function DataSourcesLink() {
           >
             Dataset Limitations
           </h3>
-          <p>{listItems[3]}</p>
+          <p>
+            While we strive for accuracy, some datasets may have inherent
+            limitations, including gaps, potential biases, or uncertainties. We
+            transparently communicate these limitations whenever relevant.
+          </p>
 
           <h3
             className='mt-12 text-title font-medium'
@@ -67,7 +97,11 @@ export default function DataSourcesLink() {
           >
             Updates and Revisions
           </h3>
-          <p>{listItems[4]}</p>
+          <p>
+            Data sources are continuously monitored for updates. The Health
+            Equity Tracker ensures that all visualizations and datasets are
+            refreshed in line with the latest available data.
+          </p>
 
           <h3
             className='mt-12 text-title font-medium'
@@ -75,7 +109,11 @@ export default function DataSourcesLink() {
           >
             Stakeholder Engagement
           </h3>
-          <p>{listItems[5]}</p>
+          <p>
+            We value the input of various stakeholders, including health
+            professionals, community leaders, and the general public, in shaping
+            the content and presentation of our tracker.
+          </p>
 
           <h3
             className='mt-12 text-title font-medium'
@@ -83,7 +121,23 @@ export default function DataSourcesLink() {
           >
             References and Citations
           </h3>
-          <p>{listItems[6]}</p>
+          <p>
+            The entire Health Equity Tracker codebase is publicly available and
+            open-source; contributions are welcome via{' '}
+            <a
+              href='https://github.com/SatcherInstitute/health-equity-tracker'
+              target='_blank'
+              rel='noreferrer'
+            >
+              Github
+            </a>
+            . The Health Equity Tracker is a testament to our commitment to
+            promoting health equity and justice. We believe in the power of data
+            to drive positive change, and we invite the community to engage with
+            our open-source platform. For any queries, feedback, or suggestions
+            regarding our data acquisition and presentation, please{' '}
+            <a href='https://healthequitytracker.org/contact'>contact us</a>.
+          </p>
 
           <h3
             className='mt-12 text-title font-medium'
@@ -91,7 +145,9 @@ export default function DataSourcesLink() {
           >
             Contact Information
           </h3>
-          <HetAddressBlock />
+          <div className='flex w-full flex-col items-center'>
+            <HetAddressBlock className='flex w-10/12 flex-col  rounded-lg bg-standardInfo px-10 py-5' />
+          </div>
         </div>
       </article>
     </section>
