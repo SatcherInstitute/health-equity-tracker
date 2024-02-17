@@ -562,10 +562,12 @@ class ACSPopulationIngester:
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.RACE_COL)
         by_race = by_race.groupby(group_by_cols).sum().reset_index()
-        by_race[std_col.RACE_CATEGORY_ID_COL] = by_race.apply(
-            lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[std_col.RACE_COL]],
-            axis=1,
-        )
+        if not by_race.empty:
+            by_race[std_col.RACE_CATEGORY_ID_COL] = by_race.apply(
+                lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[std_col.RACE_COL]],
+                axis=1,
+            )
+        by_race.drop(std_col.RACE_COL, axis=1, inplace=True)
 
         return pd.concat([by_hispanic, by_race])
 
