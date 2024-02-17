@@ -307,6 +307,8 @@ class ACSPopulationIngester:
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
 
+        print("self.base_acs_url: " + self.base_acs_url)
+
         metadata = census.fetch_acs_metadata(self.base_acs_url)
         var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
 
@@ -315,10 +317,14 @@ class ACSPopulationIngester:
 
         file_diff = False
         for concept in concepts:
+            print("concept: " + concept)
             group_vars = get_vars_for_group(concept, var_map, 2)
+            print("group_vars: " + str(group_vars))
             cols = list(group_vars.keys())
+            print("cols: " + str(cols))
             url_params = get_census_params(cols, self.county_level)
             filename = self.get_filename(concept)
+            print("filename: " + filename)
             concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket, filename
             )
@@ -525,7 +531,9 @@ class ACSPopulationIngester:
 
         if df.empty:
             # If DataFrame is empty, return an empty DataFrame with the expected columns
-            return pd.DataFrame(columns=[std_col.RACE_CATEGORY_ID_COL] + self.base_group_by_cols)
+            return pd.DataFrame(
+                columns=[std_col.RACE_CATEGORY_ID_COL] + self.base_group_by_cols
+            )
 
         def get_race_category_id_exclude_hispanic(row):
             if row[std_col.HISPANIC_COL] == 'Hispanic or Latino':
