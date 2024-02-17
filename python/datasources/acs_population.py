@@ -64,9 +64,9 @@ GROUPS_TITLE = {
     "B01001C": "Sex by Age (American Indian and Alaska Native Alone)",
     "B01001D": "Sex by Age (Asian Alone)",
     "B01001E": "Sex by Age (Native Hawaiian and Other Pacific Islander Alone)",
-    "B01001F": "Sex by Age (Some other race Alone)",
-    "B01001G": "Sex by Age (Two or more races)",
-    "B01001H": "Sex by Age (White Alone, not Hispanic or Latino)",
+    "B01001F": "Sex by Age (Some Other Race Alone)",
+    "B01001G": "Sex by Age (Two or More Races)",
+    "B01001H": "Sex by Age (White Alone, Not Hispanic or Latino)",
     "B01001I": "Sex by Age (Hispanic or Latino)",
 }
 
@@ -93,32 +93,32 @@ SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE = {
     "Sex by Age (American Indian and Alaska Native Alone)": Race.AIAN.value,
     "Sex by Age (Asian Alone)": Race.ASIAN.value,
     "Sex by Age (Native Hawaiian and Other Pacific Islander Alone)": Race.NHPI.value,
-    "Sex by Age (Some other race Alone)": Race.OTHER_STANDARD.value,
-    "Sex by Age (Two or more races)": Race.MULTI.value,
+    "Sex by Age (Some Other Race Alone)": Race.OTHER_STANDARD.value,
+    "Sex by Age (Two or More Races)": Race.MULTI.value,
     "Sex by Age (Hispanic or Latino)": Race.HISP.value,
-    "Sex by Age (White Alone, not Hispanic or Latino)": Race.WHITE_NH.value,
+    "Sex by Age (White Alone, Not Hispanic or Latino)": Race.WHITE_NH.value,
 }
 
 
 RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP = {
-    "American Indian and Alaska Native alone": Race.AIAN.value,
-    "Asian alone": Race.ASIAN.value,
-    "Black or African American alone": Race.BLACK.value,
-    "Native Hawaiian and Other Pacific Islander alone": Race.NHPI.value,
-    "Some other race alone": Race.OTHER_STANDARD.value,
+    "American Indian and Alaska Native Alone": Race.AIAN.value,
+    "Asian Alone": Race.ASIAN.value,
+    "Black or African American Alone": Race.BLACK.value,
+    "Native Hawaiian and Other Pacific Islander Alone": Race.NHPI.value,
+    "Some other race Alone": Race.OTHER_STANDARD.value,
     "Two or more races": Race.MULTI.value,
-    "White alone": Race.WHITE.value,
+    "White Alone": Race.WHITE.value,
 }
 
 
 RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
-    "American Indian and Alaska Native alone": Race.AIAN_NH.value,
-    "Asian alone": Race.ASIAN_NH.value,
-    "Black or African American alone": Race.BLACK_NH.value,
-    "Native Hawaiian and Other Pacific Islander alone": Race.NHPI_NH.value,
-    "Some other race alone": Race.OTHER_STANDARD_NH.value,
+    "American Indian and Alaska Native Alone": Race.AIAN_NH.value,
+    "Asian Alone": Race.ASIAN_NH.value,
+    "Black or African American Alone": Race.BLACK_NH.value,
+    "Native Hawaiian and Other Pacific Islander Alone": Race.NHPI_NH.value,
+    "Some other race Alone": Race.OTHER_STANDARD_NH.value,
     "Two or more races": Race.MULTI_NH.value,
-    "White alone": Race.WHITE_NH.value,
+    "White Alone": Race.WHITE_NH.value,
 }
 
 
