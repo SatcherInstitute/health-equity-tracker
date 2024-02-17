@@ -1,13 +1,11 @@
-import { metricDefinitionsArray } from '../methodologyContent/MetricsDefinitions'
+import { metricDefinitions } from '../methodologyContent/MetricsDefinitions'
 import ConditionVariable from '../methodologyContent/ConditionVariable'
-import DefinitionTooltip from '../methodologyComponents/DefinitionTooltip'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
 import { Helmet } from 'react-helmet-async'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 import HetTerm from '../../../styles/HetComponents/HetTerm'
 import FormulaFormat from '../methodologyComponents/FormulaFormat'
 
-const MetricsLink = () => {
+export default function MetricsLink() {
   return (
     <section id='#metrics'>
       <article>
@@ -15,7 +13,7 @@ const MetricsLink = () => {
           <title>Metrics - Health Equity Tracker</title>
         </Helmet>
         <h2 className='sr-only'>Metrics</h2>
-        <ConditionVariable definitionsArray={metricDefinitionsArray} />
+        <ConditionVariable definitions={metricDefinitions} />
 
         <h3
           className='mt-12 text-title font-medium'
@@ -24,8 +22,8 @@ const MetricsLink = () => {
           Percent Share Example: COVID-19 Cases
         </h3>
         <HetNotice>
-          In the example below, we use <strong>COVID-19 cases</strong> as the
-          variable, and <strong>race and ethnicity</strong> as the demographic
+          In the example below, we use <HetTerm>COVID-19 cases</HetTerm> as the
+          variable, and <HetTerm>race and ethnicity</HetTerm> as the demographic
           breakdown for simplicity; the definitions apply to all variables and
           demographic breakdowns.
         </HetNotice>
@@ -33,16 +31,8 @@ const MetricsLink = () => {
           <p>
             As an example, if in a certain month,{' '}
             <strong>White (Non-Hispanic) people</strong> in Georgia had 65.7%
-            <DefinitionTooltip
-              topic='share'
-              definitionItem={definitionsGlossary[41]}
-            />{' '}
-            of <strong>COVID-19 deaths</strong> but only 52.7%
-            <DefinitionTooltip
-              topic='share of the population'
-              definitionItem={definitionsGlossary[29]}
-            />
-            , their disproportionate percent share would be{' '}
+            share of all <strong>COVID-19 deaths</strong>, but only 52.7% share
+            of their population, their disproportionate percent share would be{' '}
             <strong>+13%</strong>:
           </p>
           <FormulaFormat leftSide='65.7% - 52.7%' rightSide={['+13.0%']} />
@@ -72,5 +62,3 @@ const MetricsLink = () => {
     </section>
   )
 }
-
-export default MetricsLink

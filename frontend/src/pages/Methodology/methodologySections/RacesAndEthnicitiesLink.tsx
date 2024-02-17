@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async'
 import { GLOSSARY_LINK } from '../../../utils/internalRoutes'
-import { parseDescription } from '../methodologyComponents/GlossaryTerm'
 import HetNotice from '../../../styles/HetComponents/HetNotice'
 
 interface DataItem {
@@ -304,7 +303,7 @@ const RacesAndEthnicitiesLink = () => {
                     <article className='mt-0 flex flex-col items-start gap-3 pl-6'>
                       <p className='text-smallest font-semibold'>Definition</p>
                       <p className='m-0 italic text-altBlack'>
-                        {parseDescription(def.description)}
+                        {def.description}
                       </p>
                       {def.considerations && def.considerations.length > 0 && (
                         <div>

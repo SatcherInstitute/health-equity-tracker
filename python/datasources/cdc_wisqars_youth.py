@@ -84,11 +84,11 @@ class CDCWisqarsYouthData(DataSource):
 
         float_cols = [
             std_col.POPULATION_COL,
-            std_col.GUN_DEATHS_RAW,
-            std_col.GUN_DEATHS_PER_100K,
-            std_col.GUN_DEATHS_PCT_SHARE,
+            std_col.GUN_VIOLENCE_DEATHS_RAW,
+            std_col.GUN_VIOLENCE_DEATHS_PER_100K,
+            std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
             std_col.POPULATION_PCT_COL,
-            std_col.GUN_DEATHS_PCT_REL_INEQUITY,
+            std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
         ]
 
         df[float_cols] = df[float_cols].astype(float)
@@ -114,8 +114,8 @@ class CDCWisqarsYouthData(DataSource):
             "state": std_col.STATE_NAME_COL,
             "race": std_col.RACE_CATEGORY_ID_COL,
             "population": std_col.POPULATION_COL,
-            "deaths": std_col.GUN_DEATHS_RAW,
-            "crude rate": std_col.GUN_DEATHS_PER_100K,
+            "deaths": std_col.GUN_VIOLENCE_DEATHS_RAW,
+            "crude rate": std_col.GUN_VIOLENCE_DEATHS_PER_100K,
         }
 
         breakdown_group_df = load_wisqars_df_from_data_dir(breakdown, geo_level)
@@ -131,7 +131,7 @@ class CDCWisqarsYouthData(DataSource):
         df = generate_pct_share_col_with_unknowns(
             df,
             {
-                std_col.GUN_DEATHS_RAW: std_col.GUN_DEATHS_PCT_SHARE,
+                std_col.GUN_VIOLENCE_DEATHS_RAW: std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
                 std_col.POPULATION_COL: std_col.POPULATION_PCT_COL,
             },
             std_col.RACE_OR_HISPANIC_COL,
@@ -141,9 +141,9 @@ class CDCWisqarsYouthData(DataSource):
 
         df = generate_pct_rel_inequity_col(
             df,
-            std_col.GUN_DEATHS_PCT_SHARE,
+            std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
             std_col.POPULATION_PCT_COL,
-            std_col.GUN_DEATHS_PCT_REL_INEQUITY,
+            std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
         )
 
         gun_deaths_column_order = [
@@ -153,11 +153,11 @@ class CDCWisqarsYouthData(DataSource):
             std_col.RACE_OR_HISPANIC_COL,
             std_col.RACE_CATEGORY_ID_COL,
             std_col.POPULATION_COL,
-            std_col.GUN_DEATHS_RAW,
-            std_col.GUN_DEATHS_PER_100K,
-            std_col.GUN_DEATHS_PCT_SHARE,
+            std_col.GUN_VIOLENCE_DEATHS_RAW,
+            std_col.GUN_VIOLENCE_DEATHS_PER_100K,
+            std_col.GUN_VIOLENCE_DEATHS_PCT_SHARE,
             std_col.POPULATION_PCT_COL,
-            std_col.GUN_DEATHS_PCT_REL_INEQUITY,
+            std_col.GUN_VIOLENCE_DEATHS_PCT_REL_INEQUITY,
         ]
 
         df = (

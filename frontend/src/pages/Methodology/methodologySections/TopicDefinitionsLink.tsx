@@ -44,7 +44,7 @@ export default function TopicDefinitionsLink() {
                       <span>
                         <strong>{config.fullDisplayName}</strong>
                       </span>
-                      <p className='m-0 ml-1 self-start text-smallest text-altBlack'>
+                      <p className='m-0 ml-1 self-start text-small text-altBlack'>
                         {config.definition?.text}
                       </p>
                     </div>

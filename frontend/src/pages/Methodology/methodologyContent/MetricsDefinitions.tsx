@@ -1,5 +1,7 @@
-export const metricDefinitionsArray = [
-  {
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
+
+export const metricDefinitions: Record<string, GlossaryTermItem> = {
+  'Age-adjusted ratios': {
     topic: 'Age-adjusted ratios',
     path: '',
     id: '#age-adjusted-ratios-metrics',
@@ -11,15 +13,12 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Measurement Definition',
-        description: `A statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.`,
-      },
-      {
-        key: 'Examples to Explore',
-        description: `Currently, we are able to calculate these age-adjusted ratios for [HIV deaths](https://healthequitytracker.org/exploredata?mls=1.hiv-3.00&group1=All&dt1=hiv_deaths#age-adjusted-ratios), [COVID-19 deaths](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_deaths#age-adjusted-ratios) and [COVID-19 hospitalizations](https://healthequitytracker.org/exploredata?mls=1.covid-3.00&group1=All&dt1=covid_hospitalizations#age-adjusted-ratios), and we present the findings in a distinct, age-adjusted table.`,
+        description:
+          "A statistical process applied to rates of disease, death, or other health outcomes that correlate with an individual's age.",
       },
     ],
   },
-  {
+  'Total cases per 100k people': {
     topic: 'Total cases per 100k people',
     path: '',
     id: '#per-100k-metrics',
@@ -36,7 +35,7 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Share of total cases with unknown race and ethnicity': {
     topic: 'Share of total cases with unknown race and ethnicity',
     path: '',
     id: '#unknown-cases-metrics',
@@ -53,26 +52,51 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Example',
-        description: `In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. For example, a value of 20% for Georgia means that 20% of Georgia's reported cases had unknown race/ethnicity. This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.`,
+        description:
+          "In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. For example, a value of 20% for Georgia means that 20% of Georgia's reported cases had unknown race/ethnicity. This metric is rounded to one decimal place. In instances where this would round to 0%, two decimal places are used.",
       },
     ],
   },
-  {
+  'Index score': {
+    topic: 'Index score',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'It provides a single numerical value that reflects the overall status or level of equity in a given context, facilitating easy comparisons and policy assessments.',
+      },
+    ],
+  },
+  'Percent share': {
+    topic: 'Percent share',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          "Percent share represents the proportion of a specific subgroup's contribution to a total metric, often expressed as a percentage.",
+      },
+    ],
+  },
+  'Share of total cases': {
     topic: 'Share of total cases',
     path: '',
     id: '#total-share-metrics',
     definitions: [
       {
         key: 'Health Equity Significance',
-        description: `This calculation is done for every point in time for which we have data, allowing visualization of inequity relative to population, over time.`,
+        description:
+          'This calculation is done for every point in time for which we have data, allowing visualization of inequity relative to population, over time.',
       },
       {
         key: 'Measurement Definition',
-        description: `To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the ${'<code>'}(OBSERVED - EXPECTED) / EXPECTED${'</code>'}. In this case, ${'<code>'}OBSERVED${'</code>'} is each group's percent share of the condition, and ${'<code>'}EXPECTED${'</code>'} is that group's share of the total population.`,
+        description:
+          "To demonstrate the often inequitable distribution of a condition or disease, we calculate each demographic group's relative inequity using the (OBSERVED - EXPECTED) / EXPECTEDOBSERVED is each group's percent share of the condition, and EXPECTED is that group's share of the total population.",
       },
     ],
   },
-  {
+  'Population share': {
     topic: 'Population share',
     path: '',
     id: '#population-share-metrics',
@@ -89,7 +113,18 @@ export const metricDefinitionsArray = [
       },
     ],
   },
-  {
+  'Percent rate': {
+    topic: 'Percent rate',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'A percent rate, in health equity data visualization, is a measure that expresses a particular metric as a percentage of a given population.',
+      },
+    ],
+  },
+  'Relative inequity': {
     topic: 'Relative inequity',
     path: '',
     id: '#relative-inequity-metrics',
@@ -101,46 +136,14 @@ export const metricDefinitionsArray = [
       },
       {
         key: 'Measurement Definition',
-        description: `Relative inequity refers to disparities in health outcomes, access to healthcare, or resource allocation between different demographic groups within a population. It measures the extent to which one group's health status or healthcare access deviates from the overall population's.`,
+        description:
+          "Relative inequity refers to disparities in health outcomes, access to healthcare, or resource allocation between different demographic groups within a population. It measures the extent to which one group's health status or healthcare access deviates from the overall population's.",
       },
       {
         key: 'Example',
-        description: `In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations.`,
+        description:
+          'In this example, we use COVID-19 cases as the variable, and race and ethnicity as the demographic breakdown for simplicity. COVID-19 vaccinations are an important tool for preventing the spread of the virus and protecting people from serious illness. However, vaccination rates vary significantly across different populations.',
       },
     ],
   },
-  {
-    topic: 'Time-series',
-    path: '',
-    id: '#time-series-metrics',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'Identifies long-term trends and fluctuations in health disparities or access to healthcare services.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'A collection of data points or observations recorded over a series of distinct and equally spaced time intervals. These data are used to track changes in health-related metrics, outcomes, or disparities over time, allowing for the analysis of trends, patterns, and the impact of interventions or policies.',
-      },
-    ],
-  },
-  {
-    topic: 'Social Vulnerability Index',
-    path: '',
-    id: '#svi',
-    definitions: [
-      {
-        key: 'Health Equity Significance',
-        description:
-          'The Social Vulnerability Index uses percentile ranking values ranging from 0 to 1 to assess the resilience of communities when confronted by external stresses. Scores between 0-0.33 indicate a low level of vulnerability, 0.34-0.66 signify a medium level, and 0.67-1 designate a high level of vulnerability. Specifically, areas that fall in the top 10%, or at the 90th percentile of values, are marked as highly vulnerable, while those below this threshold have comparatively lower vulnerability. From a health equity perspective, understanding these vulnerability scores is crucial. It enables policymakers and health officials to allocate resources effectively, ensuring that the most vulnerable communities receive the necessary support during crises, thus promoting equitable health outcomes.Identifies long-term trends and fluctuations in health disparities or access to healthcare services.',
-      },
-      {
-        key: 'Measurement Definition',
-        description:
-          'The measurement of social vulnerability grants policymakers, public health officials, and local planners the ability to effectively decide how to best protect their most vulnerable communities in case of a natural disaster or public health crisis. This advances health equity by ensuring that the communities that need resources the most, in times of devastation, receive them.',
-      },
-    ],
-  },
-]
+}

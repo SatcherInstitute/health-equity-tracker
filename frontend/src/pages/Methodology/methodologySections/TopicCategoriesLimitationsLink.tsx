@@ -1,9 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 import StripedTable from '../methodologyComponents/StripedTable'
-import ConditionVariable from '../methodologyContent/ConditionVariable'
 
 // TODO: Refactor the missingDataBlurbs to be structured data, then use both here and conditionally on the ExploreData pages. Use the endnote citation concept from the description fields on METRIC_CONFIG to handle any embedded links. See GitHub #2866
-import { missingDataArray } from '../methodologyContent/SourcesDefinitions'
 import { behavioralHealthTopicsString } from './BehavioralHealthLink'
 import { dataSourceMetadataMap } from '../../../data/config/MetadataMap'
 import { covidTopicsString } from './Covid19Link'
@@ -11,6 +9,13 @@ import { pdohTopicsString } from './PdohLink'
 import { hivTopicsString } from './HivLink'
 import { chronicDiseaseTopicsString } from './ChronicDiseaseLink'
 import { sdohTopicsString } from './SdohLink'
+import WhatDataAreMissing from '../../../reports/WhatDataAreMissing'
+import {
+  type DataTypeConfig,
+  type DropdownVarId,
+  METRIC_CONFIG,
+} from '../../../data/config/MetricConfig'
+import { Fips } from '../../../data/utils/Fips'
 
 const numDataSources = Object.keys(dataSourceMetadataMap).length
 
@@ -89,16 +94,17 @@ export default function TopicCategoriesLimitationsLink() {
         <h3 className='mt-12 text-title font-medium' id='#limitations'>
           Limitations
         </h3>
-        <p>
-          One challenge is inconsistent breakdown values across datasets. We do
-          our best to standardize the values. However, this may not always be
-          possible. This matters most when attempting to join with population
-          statistics to compute a rate. For comparing two health outcomes, it’s
-          less critical since a visualization can still show the different
-          values.
-        </p>
+
         <div id='#missing-data'>
-          <ConditionVariable definitionsArray={missingDataArray} />
+          <WhatDataAreMissing
+            metricConfigSubset={
+              Object.entries(METRIC_CONFIG) as Array<
+                [DropdownVarId, DataTypeConfig[]]
+              >
+            }
+            fips1={new Fips('78')}
+          />
+          {/* <ConditionVariable definitions={missingData} /> */}
         </div>
       </article>
     </section>

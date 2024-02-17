@@ -26,6 +26,9 @@
 	"minWordLength": 3,
 	"words": [
 		"aafp",
+		"xlrd",
+		"numpy",
+		"rpc",
 		"aamc",
 		"AAMC",
 		"aapi",

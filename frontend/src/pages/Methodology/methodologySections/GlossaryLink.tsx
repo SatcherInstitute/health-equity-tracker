@@ -13,7 +13,7 @@ import {
   HIV_RESOURCES,
 } from '../methodologyContent/ResourcesData'
 import Resources from '../methodologyComponents/Resources'
-import { definitionsGlossary } from '../methodologyContent/DefinitionGlossary'
+import { termDefinitions } from '../methodologyContent/TermDefinitions'
 import GlossaryTerm from '../methodologyComponents/GlossaryTerm'
 
 function GlossaryLink() {
@@ -25,7 +25,7 @@ function GlossaryLink() {
         </Helmet>
         <h2 className='sr-only'>Glossary</h2>
 
-        <GlossaryTerm topic={''} definitionItems={definitionsGlossary} />
+        <GlossaryTerm topic={''} definitionItems={termDefinitions} />
 
         <Resources resourceGroups={[RESOURCES]} id='#health-equity-resources' />
         <Resources

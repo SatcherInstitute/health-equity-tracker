@@ -313,8 +313,8 @@ export const METRIC_CONFIG: Record<DropdownVarId, DataTypeConfig[]> = {
 }
 
 export function buildTopicsString(topics: readonly DropdownVarId[]): string {
-  const x = [...topics]
-  return x
+  const mutableTopics = [...topics]
+  return mutableTopics
     .map((dropdownId) => {
       let topicString = DROPDOWN_TOPIC_MAP[dropdownId]
       if (METRIC_CONFIG[dropdownId].length > 1) {

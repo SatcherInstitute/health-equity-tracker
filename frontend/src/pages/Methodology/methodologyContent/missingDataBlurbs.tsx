@@ -1,19 +1,32 @@
 import { urlMap } from '../../../utils/externalUrls'
 
+export function MissingCdcAtlasData() {
+  return (
+    <>
+      <MissingHIVData />
+      <MissingPrepData />
+    </>
+  )
+}
+
 export function MissingIslandAreaPopulationData() {
   return (
     <>
-      <h4>Missing population data for Census Island Areas</h4>
+      <h4 className='text-text font-light'>
+        Missing population data for Census Island Areas
+      </h4>
 
-      <p>
+      <p className='m-0 ml-1 self-start text-small text-altBlack'>
         Population data for <b>Northern Mariana Islands</b>, <b>Guam</b>,{' '}
         <b>American Samoa</b>, and the <b>U.S. Virgin Islands</b> are not
         reported in the ACS five year estimates; in these territories, for
         current and time-series based population figures back to 2016, we
         incorporate the 2020 Decennial Island Areas report. For time-series data
-        from 2009-2015, we incorporate the [2010 release of the Decennial
-        report](https://www.census.gov/data/datasets/2010/dec/virgin-islands.html).
-        Note: The NH, or Non-Hispanic race groups are only provided by the
+        from 2009-2015, we incorporate the{' '}
+        <a href='https://www.census.gov/data/datasets/2010/dec/virgin-islands.html'>
+          2010 release of the Decennial report
+        </a>
+        . Note: The NH, or Non-Hispanic race groups are only provided by the
         Decennial report for <b>VI</b> but not the other Island Areas. As the
         overall number of Hispanic-identifying people is very low in these
         Island Areas (hence the Census not providing these race groups), we use
@@ -28,8 +41,10 @@ export function MissingIslandAreaPopulationData() {
 export function MissingCovidData() {
   return (
     <>
-      <h4>Missing and suppressed COVID data</h4>
-      <p>
+      <h4 className='text-text font-light'>
+        Missing and suppressed COVID data
+      </h4>
+      <p className='m-0 ml-1 self-start text-small text-altBlack'>
         For COVID-19 related reports, this tracker uses disaggregated,
         individual{' '}
         <a href={urlMap.cdcCovidRestricted}>
@@ -47,8 +62,10 @@ export function MissingCovidData() {
 export function MissingCovidVaccinationData() {
   return (
     <>
-      <h4>Missing COVID-19 vaccination data</h4>
-      <ul>
+      <h4 className='text-text font-light'>
+        Missing COVID-19 vaccination data
+      </h4>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
         <li>
           <b>Population data:</b> Because state-reported population categories
           do not always coincide with the categories reported by the census, we
@@ -75,8 +92,10 @@ export function MissingCovidVaccinationData() {
 export function MissingCAWPData() {
   return (
     <>
-      <h4>Missing data for women in legislative office</h4>
-      <ul>
+      <h4 className='text-text font-light'>
+        Missing data for women in legislative office
+      </h4>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
         <li>
           The Center for American Women in Politics (CAWP) dataset uses unique
           race/ethnicity groupings that do not correspond directly with the
@@ -99,8 +118,10 @@ export function MissingCAWPData() {
 export function MissingHIVData() {
   return (
     <>
-      <h4>Missing data for HIV deaths, diagnoses, and prevalence</h4>
-      <ul>
+      <h4 className='text-text font-light'>
+        Missing data for HIV deaths, diagnoses, and prevalence
+      </h4>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
         <li>
           County-level data is suppressed when the population denominator is
           less than 100, the total case count is between 1–4 cases, or when
@@ -133,8 +154,8 @@ export function MissingHIVData() {
 export function MissingPrepData() {
   return (
     <>
-      <h4>PrEP Coverage and Prescriptions</h4>
-      <ul>
+      <h4 className='text-text font-light'>PrEP Coverage and Prescriptions</h4>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
         <li>
           The race and ethnicity of individuals prescribed PrEP are only
           available for less than 40% of all people prescribed PrEP and are
@@ -158,11 +179,13 @@ export function MissingPrepData() {
 export function MissingPhrmaData() {
   return (
     <>
-      <h4>Medicare Administration Data</h4>
+      <h4 className='text-text font-light'>Medicare Administration Data</h4>
 
-      <p>What demographic data are missing?</p>
+      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+        What demographic data are missing?
+      </p>
 
-      <ul>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
         <li>
           <b>Gender:</b> The Medicare source files did not include information
           on gender. Gender is not presented in this data.
@@ -173,8 +196,6 @@ export function MissingPhrmaData() {
           in this data.
         </li>
         <li>
-          <b>Disability:</b> Although important, we do not present data on
-          disparities associated with physical or mental disabilities.
           <b>Disability:</b> Although we can display rates for those who are
           eligible due to disability generally, we can not represent disparities
           associated with specific physical or mental disabilities.
@@ -187,17 +208,37 @@ export function MissingPhrmaData() {
         </li>
       </ul>
 
-      <p>Who is missing?</p>
-      <ul>
+      <p className='m-0 ml-1 self-start text-small text-altBlack'>
+        Who is missing?
+      </p>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
         <li>
           <b>Data Suppression:</b> To{' '}
           <a href='https://resdac.org/articles/cms-cell-size-suppression-policy#:~:text=The%20policy%20stipulates%20that%20no,the%20minimum%20cell%20size%20policy.'>
             protect patient privacy
           </a>
           , all data representing 1-10 people were suppressed.
-          <b>Data Suppression:</b> To protect patient privacy, all data
-          representing less than 12 people were suppressed. representing 1-10
-          people were suppressed.
+        </li>
+      </ul>
+    </>
+  )
+}
+
+export function MissingAHRData() {
+  return (
+    <>
+      <h4 className='text-text font-light'>
+        Missing America's Health Rankings data
+      </h4>
+      <ul className='m-0 ml-1 self-start text-small text-altBlack'>
+        <li>
+          <b>Population data:</b> AHR does not have population data available
+          for: preventable hospitalizations, voter participation, and
+          non-medical drug use. We have chosen not to show any percent share
+          metrics for the measures without population data because the source
+          only provides the metrics as rates. Without population data, it is
+          difficult to accurately calculate percent share measures, which could
+          potentially result in misleading data.
         </li>
       </ul>
     </>

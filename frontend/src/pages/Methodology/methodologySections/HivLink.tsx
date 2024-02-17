@@ -228,7 +228,7 @@ const HivLink = () => {
         <p>
           County-level data is suppressed when the population denominator is:
         </p>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>less than 100,</li>
           <li>the total case count is between 1–4 cases, or </li>
           <li>when querying HIV or AIDS deaths.</li>
@@ -238,7 +238,7 @@ const HivLink = () => {
           For the Census Island Areas (US territories other than Puerto Rico),
           there isn't enough data to accurately calculate subpopulation rates by
         </p>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>age</li>
           <li>sex</li>
           <li>race/ethnicity</li>
@@ -262,7 +262,7 @@ const HivLink = () => {
         <h4 className='text-text font-normal'>
           Significance of Measuring PrEP Coverage
         </h4>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>
             <span>
               <strong>Identifying Disparities:</strong>
@@ -403,7 +403,7 @@ const HivLink = () => {
           <li>Other</li>
         </ol>
         <p>PrEP coverage data are suppressed at any level if</p>
-        <ul>
+        <ul className='list-disc pl-4'>
           <li>the number of persons prescribed PrEP is suppressed,</li>
           <li>
             the estimated number of persons with indications for PrEP

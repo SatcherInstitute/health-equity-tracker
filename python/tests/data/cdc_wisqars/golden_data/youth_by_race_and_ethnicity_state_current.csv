@@ -1,4 +1,4 @@
-state_name,state_fips,race_and_ethnicity,race_category_id,population,gun_deaths_estimated_total,gun_deaths_per_100k,gun_deaths_pct_share,population_pct,gun_deaths_pct_relative_inequity
+state_name,state_fips,race_and_ethnicity,race_category_id,population,gun_violence_youth_deaths_estimated_total,gun_violence_youth_deaths_per_100k,gun_violence_youth_deaths_pct_share,population_pct,gun_violence_youth_deaths_pct_relative_inequity
 Alabama,01,American Indian and Alaska Native (NH),AIAN_NH,7214.0,,,,0.4,
 Alabama,01,Asian (NH),ASIAN_NH,25270.0,,,,1.5,
 Alabama,01,Black or African American (NH),BLACK_NH,481490.0,416.0,86.4,51.7,29.3,76.5

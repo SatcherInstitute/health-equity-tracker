@@ -1,25 +1,7 @@
-import { metricDefinitionsArray } from './MetricsDefinitions'
+import { type GlossaryTermItem } from '../methodologyComponents/GlossaryTerm'
 
-export const ageAdjustmentDefinitionsArray = [
-  {
-    topic: metricDefinitionsArray[0].topic,
-    path: '',
-    definitions: [
-      {
-        key: metricDefinitionsArray[0].definitions[0].key,
-        description: metricDefinitionsArray[0].definitions[0].description,
-      },
-      {
-        key: metricDefinitionsArray[0].definitions[1].key,
-        description: metricDefinitionsArray[0].definitions[1].description,
-      },
-      {
-        key: metricDefinitionsArray[0].definitions[2].key,
-        description: metricDefinitionsArray[0].definitions[2].description,
-      },
-    ],
-  },
-  {
+export const termDefinitions: Record<string, GlossaryTermItem> = {
+  'Direct standardization method': {
     topic: 'Direct standardization method',
     path: '',
     definitions: [
@@ -35,7 +17,7 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-  {
+  'Internal standard population': {
     topic: 'Internal standard population',
     path: '',
     definitions: [
@@ -47,11 +29,11 @@ export const ageAdjustmentDefinitionsArray = [
       {
         key: 'Measurement Definition',
         description:
-          'It is defined as a population with known age-specific rates and serves as the basis for calculating age-adjusted rates.',
+          'A population with known age-specific rates and serves as the basis for calculating age-adjusted rates.',
       },
     ],
   },
-  {
+  'Condition counts broken down by both age and race': {
     topic: 'Condition counts broken down by both age and race',
     path: '',
     definitions: [
@@ -67,7 +49,7 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-  {
+  'Population counts broken down by both age and race': {
     topic: 'Population counts broken down by both age and race',
     path: '',
     definitions: [
@@ -83,7 +65,7 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-  {
+  'Age-specific rate': {
     topic: 'Age-specific rate',
     path: '',
     definitions: [
@@ -99,7 +81,7 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-  {
+  'Standard population': {
     topic: 'Standard population',
     path: '',
     definitions: [
@@ -115,7 +97,7 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-  {
+  'Expected condition counts': {
     topic: 'Expected condition counts',
     path: '',
     definitions: [
@@ -131,7 +113,7 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-  {
+  'Edge cases': {
     topic: 'Edge cases',
     path: '',
     definitions: [
@@ -147,4 +129,45 @@ export const ageAdjustmentDefinitionsArray = [
       },
     ],
   },
-]
+
+  'Time-series': {
+    topic: 'Time-series',
+    path: '',
+    definitions: [
+      {
+        key: 'Health Equity Significance',
+        description:
+          'Identifies long-term trends and fluctuations in health disparities or access to healthcare services.',
+      },
+      {
+        key: 'Measurement Definition',
+        description:
+          'A collection of data points or observations recorded over a series of distinct and equally spaced time intervals. These data are used to track changes in health-related metrics, outcomes, or disparities over time, allowing for the analysis of trends, patterns, and the impact of interventions or policies.',
+      },
+    ],
+  },
+
+  'Crude rates': {
+    topic: 'Crude rates',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'These rates represent the number of cases or events per unit of population without accounting for age differences. ',
+      },
+    ],
+  },
+
+  'Inequitable Burden': {
+    topic: 'Inequitable burden',
+    path: '',
+    definitions: [
+      {
+        key: 'Measurement Definition',
+        description:
+          'The relative disproportionality of a specific health outcome experienced by a demographic group, normalized to their representation in the general population. It quantifies the extent to which a specific group is unfairly affected by a health issue compared to what would be expected based on their share of the overall population.',
+      },
+    ],
+  },
+}
