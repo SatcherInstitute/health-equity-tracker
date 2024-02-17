@@ -544,6 +544,9 @@ class ACSPopulationIngester:
         """Alternative format where race categories include Hispanic/Latino.
         Totals are also included because summing over the column will give a
         larger number than the actual total."""
+
+        print("df in --->")
+        print(df.to_string())
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.HISPANIC_COL)
@@ -567,7 +570,6 @@ class ACSPopulationIngester:
                 lambda r: RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP[r[std_col.RACE_COL]],
                 axis=1,
             )
-        by_race.drop(std_col.RACE_COL, axis=1, inplace=True)
 
         return pd.concat([by_hispanic, by_race])
 
