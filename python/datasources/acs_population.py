@@ -439,7 +439,7 @@ class ACSPopulationIngester:
             else HISPANIC_BY_RACE_CONCEPT_CAPS
         )
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-            hispanic_by_race_concept
+            gcs_bucket, self.get_filename(hispanic_by_race_concept)
         )
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
