@@ -557,8 +557,6 @@ class ACSPopulationIngester:
         Totals are also included because summing over the column will give a
         larger number than the actual total."""
 
-        print("df in --->")
-        print(df.to_string())
         by_hispanic = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.HISPANIC_COL)
