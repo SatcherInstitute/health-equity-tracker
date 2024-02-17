@@ -523,6 +523,10 @@ class ACSPopulationIngester:
         Hispanic or Latino from other racial groups. Summing across all race
         categories equals the total population."""
 
+        if df.empty:
+            # If DataFrame is empty, return an empty DataFrame with the expected columns
+            return pd.DataFrame(columns=[std_col.RACE_CATEGORY_ID_COL] + self.base_group_by_cols)
+
         def get_race_category_id_exclude_hispanic(row):
             if row[std_col.HISPANIC_COL] == 'Hispanic or Latino':
                 return Race.HISP.value
