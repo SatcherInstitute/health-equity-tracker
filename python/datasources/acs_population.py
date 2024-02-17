@@ -548,16 +548,16 @@ class ACSPopulationIngester:
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.HISPANIC_COL)
         by_hispanic = by_hispanic.groupby(group_by_cols).sum().reset_index()
-        by_hispanic[std_col.RACE_CATEGORY_ID_COL] = by_hispanic.apply(
-            lambda r: (
-                Race.HISP.value
-                if r[std_col.HISPANIC_COL] == 'Hispanic or Latino'
-                else Race.NH.value
-            ),
-            axis=1,
-        )
+        if not by_hispanic.empty:
+            by_hispanic[std_col.RACE_CATEGORY_ID_COL] = by_hispanic.apply(
+                lambda r: (
+                    Race.HISP.value
+                    if r[std_col.HISPANIC_COL] == 'Hispanic or Latino'
+                    else Race.NH.value
+                ),
+                axis=1,
+            )
         by_hispanic.drop(std_col.HISPANIC_COL, axis=1, inplace=True)
-
         by_race = df.copy()
         group_by_cols = self.base_group_by_cols.copy()
         group_by_cols.append(std_col.RACE_COL)
