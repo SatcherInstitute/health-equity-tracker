@@ -59,14 +59,14 @@ GROUPS_CAPS = {
 GROUPS_TITLE = {
     "B03002": HISPANIC_BY_RACE_CONCEPT_TITLE,
     "B01001": "Sex by Age",
-    "B01001A": "Sex by Age (White alone)",
-    "B01001B": "Sex by Age (Black or African American alone)",
-    "B01001C": "Sex by Age (American Indian and Alaska Native alone)",
-    "B01001D": "Sex by Age (Asian alone)",
-    "B01001E": "Sex by Age (Native Hawaiian and Other Pacific Islander alone)",
-    "B01001F": "Sex by Age (Some other race alone)",
+    "B01001A": "Sex by Age (White Alone)",
+    "B01001B": "Sex by Age (Black or African American Alone)",
+    "B01001C": "Sex by Age (American Indian and Alaska Native Alone)",
+    "B01001D": "Sex by Age (Asian Alone)",
+    "B01001E": "Sex by Age (Native Hawaiian and Other Pacific Islander Alone)",
+    "B01001F": "Sex by Age (Some other race Alone)",
     "B01001G": "Sex by Age (Two or more races)",
-    "B01001H": "Sex by Age (White alone, not Hispanic or Latino)",
+    "B01001H": "Sex by Age (White Alone, not Hispanic or Latino)",
     "B01001I": "Sex by Age (Hispanic or Latino)",
 }
 
@@ -88,15 +88,15 @@ SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS = {
 
 SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE = {
     "Sex by Age": Race.ALL.value,
-    "Sex by Age (White alone)": Race.WHITE.value,
-    "Sex by Age (Black or African American alone)": Race.BLACK.value,
-    "Sex by Age (American Indian and Alaska Native alone)": Race.AIAN.value,
-    "Sex by Age (Asian alone)": Race.ASIAN.value,
-    "Sex by Age (Native Hawaiian and Other Pacific Islander alone)": Race.NHPI.value,
-    "Sex by Age (Some other race alone)": Race.OTHER_STANDARD.value,
+    "Sex by Age (White Alone)": Race.WHITE.value,
+    "Sex by Age (Black or African American Alone)": Race.BLACK.value,
+    "Sex by Age (American Indian and Alaska Native Alone)": Race.AIAN.value,
+    "Sex by Age (Asian Alone)": Race.ASIAN.value,
+    "Sex by Age (Native Hawaiian and Other Pacific Islander Alone)": Race.NHPI.value,
+    "Sex by Age (Some other race Alone)": Race.OTHER_STANDARD.value,
     "Sex by Age (Two or more races)": Race.MULTI.value,
     "Sex by Age (Hispanic or Latino)": Race.HISP.value,
-    "Sex by Age (White alone, not Hispanic or Latino)": Race.WHITE_NH.value,
+    "Sex by Age (White Alone, not Hispanic or Latino)": Race.WHITE_NH.value,
 }
 
 
