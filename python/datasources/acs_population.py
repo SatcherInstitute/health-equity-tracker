@@ -101,24 +101,24 @@ SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE = {
 
 
 RACE_STRING_TO_CATEGORY_ID_INCLUDE_HISP = {
-    "American Indian and Alaska Native Alone": Race.AIAN.value,
-    "Asian Alone": Race.ASIAN.value,
-    "Black or African American Alone": Race.BLACK.value,
-    "Native Hawaiian and Other Pacific Islander Alone": Race.NHPI.value,
-    "Some other race Alone": Race.OTHER_STANDARD.value,
+    "American Indian and Alaska Native alone": Race.AIAN.value,
+    "Asian alone": Race.ASIAN.value,
+    "Black or African American alone": Race.BLACK.value,
+    "Native Hawaiian and Other Pacific Islander alone": Race.NHPI.value,
+    "Some other race alone": Race.OTHER_STANDARD.value,
     "Two or more races": Race.MULTI.value,
-    "White Alone": Race.WHITE.value,
+    "White alone": Race.WHITE.value,
 }
 
 
 RACE_STRING_TO_CATEGORY_ID_EXCLUDE_HISP = {
-    "American Indian and Alaska Native Alone": Race.AIAN_NH.value,
-    "Asian Alone": Race.ASIAN_NH.value,
-    "Black or African American Alone": Race.BLACK_NH.value,
-    "Native Hawaiian and Other Pacific Islander Alone": Race.NHPI_NH.value,
-    "Some other race Alone": Race.OTHER_STANDARD_NH.value,
+    "American Indian and Alaska Native alone": Race.AIAN_NH.value,
+    "Asian alone": Race.ASIAN_NH.value,
+    "Black or African American alone": Race.BLACK_NH.value,
+    "Native Hawaiian and Other Pacific Islander alone": Race.NHPI_NH.value,
+    "Some other race alone": Race.OTHER_STANDARD_NH.value,
     "Two or more races": Race.MULTI_NH.value,
-    "White Alone": Race.WHITE_NH.value,
+    "White alone": Race.WHITE_NH.value,
 }
 
 
