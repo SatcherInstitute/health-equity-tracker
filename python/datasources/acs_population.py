@@ -35,13 +35,14 @@ ACS_URLS_MAP = {
     ACS_LATEST_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
 }
 
-HISPANIC_BY_RACE_CONCEPT = "HISPANIC OR LATINO ORIGIN BY RACE"
+HISPANIC_BY_RACE_CONCEPT_CAPS = "HISPANIC OR LATINO ORIGIN BY RACE"
+HISPANIC_BY_RACE_CONCEPT_TITLE = "Hispanic or Latino Origin by Race"
 
 
-GROUPS = {
+GROUPS_CAPS = {
     # Hispanic/latino separate. When doing it this way, we don't get sex/age
     # breakdowns. This is the best way to get canonical race/ethnicity categories
-    "B03002": HISPANIC_BY_RACE_CONCEPT,
+    "B03002": HISPANIC_BY_RACE_CONCEPT_CAPS,
     # By sex and age, for various races.
     "B01001": "SEX BY AGE",
     "B01001A": "SEX BY AGE (WHITE ALONE)",
@@ -55,8 +56,22 @@ GROUPS = {
     "B01001I": "SEX BY AGE (HISPANIC OR LATINO)",
 }
 
+GROUPS_TITLE = {
+    "B03002": HISPANIC_BY_RACE_CONCEPT_TITLE,
+    "B01001": "Sex by Age",
+    "B01001A": "Sex by Age (White alone)",
+    "B01001B": "Sex by Age (Black or African American alone)",
+    "B01001C": "Sex by Age (American Indian and Alaska Native alone)",
+    "B01001D": "Sex by Age (Asian alone)",
+    "B01001E": "Sex by Age (Native Hawaiian and Other Pacific Islander alone)",
+    "B01001F": "Sex by Age (Some other race alone)",
+    "B01001G": "Sex by Age (Two or more races)",
+    "B01001H": "Sex by Age (White alone, not Hispanic or Latino)",
+    "B01001I": "Sex by Age (Hispanic or Latino)",
+}
 
-SEX_BY_AGE_CONCEPTS_TO_RACE = {
+
+SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS = {
     # These include Hispanic/Latino, so they're not standardized categories.
     "SEX BY AGE": Race.ALL.value,
     "SEX BY AGE (WHITE ALONE)": Race.WHITE.value,
@@ -69,6 +84,19 @@ SEX_BY_AGE_CONCEPTS_TO_RACE = {
     "SEX BY AGE (HISPANIC OR LATINO)": Race.HISP.value,
     # Doesn't include Hispanic/Latino
     "SEX BY AGE (WHITE ALONE, NOT HISPANIC OR LATINO)": Race.WHITE_NH.value,
+}
+
+SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE = {
+    "Sex by Age": Race.ALL.value,
+    "Sex by Age (White alone)": Race.WHITE.value,
+    "Sex by Age (Black or African American alone)": Race.BLACK.value,
+    "Sex by Age (American Indian and Alaska Native alone)": Race.AIAN.value,
+    "Sex by Age (Asian alone)": Race.ASIAN.value,
+    "Sex by Age (Native Hawaiian and Other Pacific Islander alone)": Race.NHPI.value,
+    "Sex by Age (Some other race alone)": Race.OTHER_STANDARD.value,
+    "Sex by Age (Two or more races)": Race.MULTI.value,
+    "Sex by Age (Hispanic or Latino)": Race.HISP.value,
+    "Sex by Age (White alone, not Hispanic or Latino)": Race.WHITE_NH.value,
 }
 
 
@@ -309,11 +337,24 @@ class ACSPopulationIngester:
 
         print("self.base_acs_url: " + self.base_acs_url)
 
-        metadata = census.fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
+        groups = (
+            list(GROUPS_TITLE.keys())
+            if self.year == '2022'
+            else list(GROUPS_CAPS.keys())
+        )
 
-        concepts = list(SEX_BY_AGE_CONCEPTS_TO_RACE.keys())
-        concepts.append(HISPANIC_BY_RACE_CONCEPT)
+        metadata = census.fetch_acs_metadata(self.base_acs_url)
+        var_map = parse_acs_metadata(metadata, groups)
+
+        concepts = (
+            list(SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE.keys())
+            if self.year == '2022'
+            else list(SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS.keys())
+        )
+        if self.year == '2022':
+            concepts.append(HISPANIC_BY_RACE_CONCEPT_TITLE)
+        else:
+            concepts.append(HISPANIC_BY_RACE_CONCEPT_CAPS)
 
         file_diff = False
         for concept in concepts:
@@ -385,23 +426,38 @@ class ACSPopulationIngester:
         """Builds the various breakdown frames needed for this year's URL string"""
 
         metadata = census.fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, list(GROUPS.keys()))
+        groups = (
+            list(GROUPS_TITLE.keys())
+            if self.year == '2022'
+            else list(GROUPS_CAPS.keys())
+        )
+        var_map = parse_acs_metadata(metadata, groups)
 
+        hispanic_by_race_concept = (
+            HISPANIC_BY_RACE_CONCEPT_TITLE
+            if self.year == '2022'
+            else HISPANIC_BY_RACE_CONCEPT_CAPS
+        )
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-            gcs_bucket, self.get_filename(HISPANIC_BY_RACE_CONCEPT)
+            hispanic_by_race_concept
         )
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardize_frame(
             race_and_hispanic_frame,
-            get_vars_for_group(HISPANIC_BY_RACE_CONCEPT, var_map, 2),
+            get_vars_for_group(hispanic_by_race_concept, var_map, 2),
             [std_col.HISPANIC_COL, std_col.RACE_COL],
             self.county_level,
             std_col.POPULATION_COL,
         )
 
         sex_by_age_frames = {}
-        for concept in SEX_BY_AGE_CONCEPTS_TO_RACE:
+        sex_by_age_concept_to_race = (
+            SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
+            if self.year == '2022'
+            else SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
+        )
+        for concept in sex_by_age_concept_to_race:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
                 gcs_bucket, self.get_filename(concept)
             )
@@ -657,7 +713,12 @@ class ACSPopulationIngester:
         sex_by_age_frames: Map of concept to non-standardized DataFrame for
                            that concept."""
         frames = []
-        for concept, race in SEX_BY_AGE_CONCEPTS_TO_RACE.items():
+        sex_by_age_concepts_to_race = (
+            SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
+            if self.year == '2022'
+            else SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
+        )
+        for concept, race in sex_by_age_concepts_to_race.items():
             frame = sex_by_age_frames[concept]
             group_vars = get_vars_for_group(concept, var_map, 2)
             sex_by_age = standardize_frame(
