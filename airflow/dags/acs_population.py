@@ -173,8 +173,8 @@ connector3 = DummyOperator(
     >> connector2
     >> [acs_pop_bq_operator_2016, acs_pop_bq_operator_2017, acs_pop_bq_operator_2018]
     >> connector3
-    >> [acs_pop_bq_operator_2020, acs_pop_bq_operator_2021, acs_pop_bq_operator_2022]
-    >> acs_pop_bq_operator_2019
+    >> [acs_pop_bq_operator_2019, acs_pop_bq_operator_2020, acs_pop_bq_operator_2021]
+    >> acs_pop_bq_operator_2022
     >> [
         acs_pop_exporter_operator_race,
         acs_pop_exporter_operator_age,

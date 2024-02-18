@@ -31,7 +31,7 @@ Last Updated: Feb. 2024
 """
 
 import pandas as pd
-from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_LATEST_YEAR
+from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_CURRENT_YEAR
 from ingestion.standardized_columns import Race
 from ingestion.dataset_utils import (
     generate_pct_rel_inequity_col,
@@ -915,7 +915,7 @@ def add_aian_api_rows(df):
 
     # only keep rows with years that will get population
     target_time_periods = get_consecutive_time_periods(
-        first_year=int(ACS_EARLIEST_YEAR), last_year=int(ACS_LATEST_YEAR)
+        first_year=int(ACS_EARLIEST_YEAR), last_year=int(ACS_CURRENT_YEAR)
     )
     df_aian_api_rows = df[df[std_col.TIME_PERIOD_COL].isin(target_time_periods)]
 

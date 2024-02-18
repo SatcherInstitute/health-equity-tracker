@@ -15,7 +15,7 @@ from ingestion.dataset_utils import (
     add_sum_of_rows,
     generate_pct_share_col_without_unknowns,
 )
-from ingestion.merge_utils import ACS_DEFAULT_YEAR, ACS_EARLIEST_YEAR, ACS_LATEST_YEAR
+from ingestion.merge_utils import ACS_EARLIEST_YEAR, ACS_CURRENT_YEAR
 
 
 ACS_URLS_MAP = {
@@ -29,10 +29,10 @@ ACS_URLS_MAP = {
     '2016': 'https://api.census.gov/data/2016/acs/acs5',
     '2017': 'https://api.census.gov/data/2017/acs/acs5',
     '2018': 'https://api.census.gov/data/2018/acs/acs5',
-    ACS_DEFAULT_YEAR: 'https://api.census.gov/data/2019/acs/acs5',
+    '2019': 'https://api.census.gov/data/2019/acs/acs5',
     '2020': 'https://api.census.gov/data/2020/acs/acs5',
     '2021': 'https://api.census.gov/data/2021/acs/acs5',
-    ACS_LATEST_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
+    ACS_CURRENT_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
 }
 
 # For the 2022 ACS, the variable names in the metadata are title-cased, not all caps
@@ -378,7 +378,7 @@ class ACSPopulationIngester:
         for table_name, df in frames.items():
 
             # SINGLE YEAR TABLE
-            if self.year == ACS_DEFAULT_YEAR:
+            if self.year == ACS_CURRENT_YEAR:
                 df_single_year = df.copy()
                 float_cols = [std_col.POPULATION_COL]
                 if std_col.POPULATION_PCT_COL in df_single_year.columns:
