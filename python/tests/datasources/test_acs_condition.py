@@ -42,7 +42,7 @@ acsCondition.year = '2019'
 )
 def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        'sex', 'national', get_acs_metadata_as_json(), 'some-bucket'
+        'sex', 'national', get_acs_metadata_as_json(2019), 'some-bucket'
     )
     df = acsCondition.post_process(df, 'sex', 'national')
 
@@ -64,7 +64,7 @@ def testSexNational(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 )
 def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        'sex', 'state', get_acs_metadata_as_json(), 'some-bucket'
+        'sex', 'state', get_acs_metadata_as_json(2019), 'some-bucket'
     )
     df = acsCondition.post_process(df, 'sex', 'state')
 
@@ -86,7 +86,7 @@ def testSexState(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 )
 def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        'sex', 'county', get_acs_metadata_as_json(), 'some-bucket'
+        'sex', 'county', get_acs_metadata_as_json(2019), 'some-bucket'
     )
     df = acsCondition.post_process(df, 'sex', 'county')
 
@@ -110,7 +110,7 @@ def testSexCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 )
 def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
     df = acsCondition.get_raw_data(
-        'race', 'county', get_acs_metadata_as_json(), 'some-bucket'
+        'race', 'county', get_acs_metadata_as_json(2019), 'some-bucket'
     )
     df = acsCondition.post_process(df, 'race', 'county')
 
@@ -126,7 +126,7 @@ def testRaceCounty(mock_acs: mock.MagicMock, mock_fips: mock.MagicMock):
 
 
 @mock.patch(
-    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2019)
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df
@@ -151,7 +151,7 @@ def testWriteToBqOverwriteFirstYear2012(
 
 
 @mock.patch(
-    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2019)
 )
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_get_by_race_as_df
