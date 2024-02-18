@@ -333,29 +333,26 @@ class ACSPopulationIngester:
         self.year = year
         self.base_acs_url = ACS_URLS_MAP[year]
 
+        self.groups = GROUPS_CAPS
+        self.hispanic_by_race_concept = HISPANIC_BY_RACE_CONCEPT_CAPS
+        self.sex_by_age_concept_to_race = SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
+
+        # Starting with 2022 ACS, the variable names in the metadata are title-cased, not all caps
+        if int(self.year) >= 2022:
+            self.groups = GROUPS_TITLE
+            self.hispanic_by_race_concept = HISPANIC_BY_RACE_CONCEPT_TITLE
+            self.sex_by_age_concept_to_race = SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
+
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
 
-        groups = (
-            list(GROUPS_TITLE.keys())
-            if self.year == '2022'
-            else list(GROUPS_CAPS.keys())
-        )
-
         metadata = census.fetch_acs_metadata(self.base_acs_url)
-        var_map = parse_acs_metadata(metadata, groups)
-
-        concepts = (
-            list(SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE.keys())
-            if self.year == '2022'
-            else list(SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS.keys())
-        )
-        if self.year == '2022':
-            concepts.append(HISPANIC_BY_RACE_CONCEPT_TITLE)
-        else:
-            concepts.append(HISPANIC_BY_RACE_CONCEPT_CAPS)
+        var_map = parse_acs_metadata(metadata, self.groups)
 
         file_diff = False
+        concepts = list(self.sex_by_age_concept_to_race.keys())
+        concepts.append(self.hispanic_by_race_concept)
+
         for concept in concepts:
             group_vars = get_vars_for_group(concept, var_map, 2)
             cols = list(group_vars.keys())
@@ -421,38 +418,25 @@ class ACSPopulationIngester:
         """Builds the various breakdown frames needed for this year's URL string"""
 
         metadata = census.fetch_acs_metadata(self.base_acs_url)
-        groups = (
-            list(GROUPS_TITLE.keys())
-            if self.year == '2022'
-            else list(GROUPS_CAPS.keys())
-        )
-        var_map = parse_acs_metadata(metadata, groups)
 
-        hispanic_by_race_concept = (
-            HISPANIC_BY_RACE_CONCEPT_TITLE
-            if self.year == '2022'
-            else HISPANIC_BY_RACE_CONCEPT_CAPS
-        )
+        var_map = parse_acs_metadata(metadata, self.groups)
+
         race_and_hispanic_frame = gcs_to_bq_util.load_values_as_df(
-            gcs_bucket, self.get_filename(hispanic_by_race_concept)
+            gcs_bucket, self.get_filename(self.hispanic_by_race_concept)
         )
         race_and_hispanic_frame = update_col_types(race_and_hispanic_frame)
 
         race_and_hispanic_frame = standardize_frame(
             race_and_hispanic_frame,
-            get_vars_for_group(hispanic_by_race_concept, var_map, 2),
+            get_vars_for_group(self.hispanic_by_race_concept, var_map, 2),
             [std_col.HISPANIC_COL, std_col.RACE_COL],
             self.county_level,
             std_col.POPULATION_COL,
         )
 
         sex_by_age_frames = {}
-        sex_by_age_concept_to_race = (
-            SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
-            if self.year == '2022'
-            else SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
-        )
-        for concept in sex_by_age_concept_to_race:
+
+        for concept in self.sex_by_age_concept_to_race:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
                 gcs_bucket, self.get_filename(concept)
             )
@@ -708,12 +692,8 @@ class ACSPopulationIngester:
         sex_by_age_frames: Map of concept to non-standardized DataFrame for
                            that concept."""
         frames = []
-        sex_by_age_concepts_to_race = (
-            SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
-            if self.year == '2022'
-            else SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
-        )
-        for concept, race in sex_by_age_concepts_to_race.items():
+
+        for concept, race in self.sex_by_age_concepts_to_race.items():
             frame = sex_by_age_frames[concept]
             group_vars = get_vars_for_group(concept, var_map, 2)
             sex_by_age = standardize_frame(
