@@ -21,9 +21,7 @@ data_ingestion_dag = DAG(
 
 
 acs_pop_gcs_payload = util.generate_gcs_payload(_ACS_WORKFLOW_ID)
-acs_pop_gcs_operator = util.create_gcs_ingest_operator(
-    'acs_population_to_gcs', acs_pop_gcs_payload, data_ingestion_dag
-)
+acs_pop_gcs_operator = util.create_gcs_ingest_operator('acs_population_to_gcs', acs_pop_gcs_payload, data_ingestion_dag)
 
 
 acs_pop_bq_payload_2009 = util.generate_bq_payload(_ACS_WORKFLOW_ID, _ACS_DATASET_NAME, year='2009')
