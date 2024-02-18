@@ -64,8 +64,10 @@ HEALTH_INSURANCE_RACE_TO_CONCEPT = {
     Race.MULTI.value: 'HEALTH INSURANCE COVERAGE STATUS BY AGE (TWO OR MORE RACES)',
 }
 
-NHPI_POVERTY_VALUE = 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
-
+NHPI_POVERTY_VALUE = (
+    'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE '
+    '(NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
+)
 POVERTY_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
     Race.ASIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (ASIAN ALONE)',
@@ -323,8 +325,7 @@ class AcsCondition(DataSource):
             float_cols = []
             for acs_item in ACS_ITEMS.values():
                 float_cols += [
-                    generate_column_name(acs_item.bq_prefix, suffix)
-                    for suffix in suffixes
+                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes
                 ]
 
             col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
@@ -364,9 +365,7 @@ class AcsCondition(DataSource):
 
                     concept_df = gcs_to_bq_util.load_values_as_df(
                         gcs_bucket,
-                        self.get_filename_race(
-                            measure, race, geo == COUNTY_LEVEL, self.year
-                        ),
+                        self.get_filename_race(measure, race, geo == COUNTY_LEVEL, self.year),
                     )
 
                     concept_df = self.generate_df_for_concept(
@@ -401,9 +400,7 @@ class AcsCondition(DataSource):
 
             return df
 
-    def generate_df_for_concept(
-        self, measure, acs_item, df, demo, geo, concept, var_map
-    ):
+    def generate_df_for_concept(self, measure, acs_item, df, demo, geo, concept, var_map):
         """Transforms the encoded census data into a dataframe ready
         to have post processing functions run on it.
 
@@ -440,9 +437,7 @@ class AcsCondition(DataSource):
         # Creates a df with different rows for the amount of people
         # in a demographic group with and without the condition
         # We want each of these values on the same row however.
-        df_with_without = standardize_frame(
-            df, group_vars, group_cols, geo == COUNTY_LEVEL, AMOUNT
-        )
+        df_with_without = standardize_frame(df, group_vars, group_cols, geo == COUNTY_LEVEL, AMOUNT)
 
         # Create two separate df's, one for people with the condition, and one for
         # people without. Rename the columns so that we can merge them later.
@@ -469,15 +464,11 @@ class AcsCondition(DataSource):
             merge_cols.append(std_col.COUNTY_FIPS_COL)
 
         df_with_condition = df_with_condition[merge_cols + [raw_count]]
-        df_without_condition = df_without_condition[
-            merge_cols + [without_condition_raw_count]
-        ]
+        df_without_condition = df_without_condition[merge_cols + [without_condition_raw_count]]
 
         # Generate the population for each condition by adding together
         # the raw counts of people with and without the condition.
-        population_df = pd.merge(
-            df_without_condition, df_with_condition, on=merge_cols, how='left'
-        )
+        population_df = pd.merge(df_without_condition, df_with_condition, on=merge_cols, how='left')
         population = generate_column_name(measure, POP_SUFFIX)
         population_df[[raw_count, without_condition_raw_count]] = population_df[
             [raw_count, without_condition_raw_count]
@@ -564,9 +555,7 @@ class AcsCondition(DataSource):
             raw_count_col = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
             pop_col = generate_column_name(measure, POP_SUFFIX)
 
-            pct_rate_col = generate_column_name(
-                acs_item.bq_prefix, std_col.PCT_RATE_SUFFIX
-            )
+            pct_rate_col = generate_column_name(acs_item.bq_prefix, std_col.PCT_RATE_SUFFIX)
             all_columns.append(pct_rate_col)
 
             # PCT_RATE
@@ -574,24 +563,16 @@ class AcsCondition(DataSource):
 
         pct_share_cols = {}
         for measure, acs_item in ACS_ITEMS.items():
-            pct_share_col = generate_column_name(
-                acs_item.bq_prefix, std_col.PCT_SHARE_SUFFIX
-            )
-            pct_share_cols[generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)] = (
-                pct_share_col
-            )
+            pct_share_col = generate_column_name(acs_item.bq_prefix, std_col.PCT_SHARE_SUFFIX)
+            pct_share_cols[generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)] = pct_share_col
             all_columns.append(pct_share_col)
 
-            pop_pct_col = generate_column_name(
-                acs_item.bq_prefix, std_col.POP_PCT_SUFFIX
-            )
+            pop_pct_col = generate_column_name(acs_item.bq_prefix, std_col.POP_PCT_SUFFIX)
             pct_share_cols[generate_column_name(measure, POP_SUFFIX)] = pop_pct_col
             all_columns.append(pop_pct_col)
 
         # PCT_SHARE
-        df = generate_pct_share_col_without_unknowns(
-            df, pct_share_cols, demo_col, all_val
-        )
+        df = generate_pct_share_col_without_unknowns(df, pct_share_cols, demo_col, all_val)
 
         for item in ACS_ITEMS.values():
             pct_rel_inequity_col = f'{item.bq_prefix}_{std_col.PCT_REL_INEQUITY_SUFFIX}'
