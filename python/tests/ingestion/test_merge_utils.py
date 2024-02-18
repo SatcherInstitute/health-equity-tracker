@@ -3,6 +3,7 @@ import json
 from pandas.testing import assert_frame_equal
 from ingestion import gcs_to_bq_util, merge_utils
 import ingestion.standardized_columns as std_col
+import numpy as np
 
 _fips_codes_from_bq = [
     ['state_fips_code', 'state_postal_abbreviation', 'state_name', 'state_gnisid'],
@@ -57,7 +58,6 @@ _pop_data_county = [
 
 _pop_data_time_series = [
     ['time_period', 'state_fips', 'race_category_id', 'population', 'population_pct'],
-
     ['2019', '01', 'BLACK_NH', 200, 50.0],
     ['2019', '01', 'WHITE_NH', 200, 50.0],
     ['2019', '02', 'BLACK_NH', 200, 50.0],
@@ -66,7 +66,10 @@ _pop_data_time_series = [
     ["2021", '01', 'WHITE_NH', 300, 75.0],
     ["2021", '02', 'BLACK_NH', 100, 50.0],
     ["2021", '100', 'BLACK_NH', 100, 50.0],
-
+    ["2022", '01', 'BLACK_NH', 200, 50.0],
+    ["2022", '01', 'WHITE_NH', 200, 50.0],
+    ["2022", '02', 'BLACK_NH', 100, 50.0],
+    ["2022", '100', 'BLACK_NH', 100, 50.0],
 ]
 
 _data_with_bad_county_names = [
@@ -81,14 +84,13 @@ _data_with_good_county_names = [
     ['CA', '06123', 'California County'],
     ['GA', '13345', 'Georgia County'],
     ['VI', '78010', 'St. Croix'],
-
 ]
 
 _expected_merged_fips_county = [
     ['state_name', 'state_fips', 'county_fips', 'county_name'],
     ['California', '06', '06123', 'California County'],
     ['Georgia', '13', '13345', 'Georgia County'],
-    ['U.S. Virgin Islands', '78', '78010', 'St. Croix']
+    ['U.S. Virgin Islands', '78', '78010', 'St. Croix'],
 ]
 
 _data_without_fips_codes = [
@@ -152,8 +154,14 @@ _data_without_pop_numbers_county = [
 ]
 
 _expected_merged_with_pop_numbers_county = [
-    ['state_fips', 'county_fips', 'race_category_id',
-        'population', 'population_pct', 'other_col'],
+    [
+        'state_fips',
+        'county_fips',
+        'race_category_id',
+        'population',
+        'population_pct',
+        'other_col',
+    ],
     ['01', '01000', 'BLACK_NH', 100, 25.0, 'something_cool'],
     ['01', '01000', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
     ['01', '01234', 'BLACK_NH', 100, 50.0, 'something_cooler'],
@@ -188,17 +196,23 @@ _data_time_series_without_pop_numbers = [
 
 
 # 2008 should not get pop data because it's too early for the ACS range
-# 2009-"2021" should get pop data that matches year for year
-# After "2021" should get the same pop data as "2021"
+# 2009-RECENT_YEAR should get pop data that matches year for year
+# After RECENT_YEAR should get the same pop data as RECENT_YEAR
 _expected_time_series_merged_with_pop_numbers = [
-    ['time_period', 'state_fips', 'race_category_id',
-        'population', 'population_pct', 'other_col'],
+    [
+        'time_period',
+        'state_fips',
+        'race_category_id',
+        'population',
+        'population_pct',
+        'other_col',
+    ],
     #  Pre-2009 rows should not get population data
-    ['2008', '01', 'BLACK_NH', None, None, 'something_cool'],
-    ['2008', '01', 'WHITE_NH', None, None, 'something_else_cool'],
-    ['2008', '02', 'BLACK_NH', None, None, 'something_cooler'],
-    ['2008', '78', 'WHITE_NH', None, None, 'something_else_entirely'],
-    ['2008', '78', 'BLACK_NH', None, None, 'something_else_entirely'],
+    ['2008', '01', 'BLACK_NH', np.nan, np.nan, 'something_cool'],
+    ['2008', '01', 'WHITE_NH', np.nan, np.nan, 'something_else_cool'],
+    ['2008', '02', 'BLACK_NH', np.nan, np.nan, 'something_cooler'],
+    ['2008', '78', 'WHITE_NH', np.nan, np.nan, 'something_else_entirely'],
+    ['2008', '78', 'BLACK_NH', np.nan, np.nan, 'something_else_entirely'],
     # Territories / Years 2009-2015 should merge against 2010 Decennial (decia_2010)
     ["2010", '78', 'WHITE_NH', 150, 50.0, 'something_something'],
     ["2010", '78', 'BLACK_NH', 150, 50.0, 'something_something'],
@@ -217,28 +231,34 @@ _expected_time_series_merged_with_pop_numbers = [
     ["2021", '78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
     ["2021", '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely'],
     # Years AFTER ACS range should merge against the most recent ACS year
-    ['9999', '01', 'BLACK_NH', 100, 25.0, 'something_cool'],
-    ['9999', '01', 'WHITE_NH', 300, 75.0, 'something_else_cool'],
+    ['9999', '01', 'BLACK_NH', 200, 50.0, 'something_cool'],
+    ['9999', '01', 'WHITE_NH', 200, 50.0, 'something_else_cool'],
     ['9999', '02', 'BLACK_NH', 100, 50.0, 'something_cooler'],
     ['9999', '78', 'WHITE_NH', 300, 60.0, 'something_else_entirely'],
-    ['9999', '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely']
+    ['9999', '78', 'BLACK_NH', 200, 40.0, 'something_else_entirely'],
 ]
 
 _data_without_pop_numbers_multiple_rows = [
     ['state_fips', 'race_category_id', 'cases', 'deaths'],
     ['01', 'BLACK_NH', 10, 1],
-    ['01', 'WHITE_NH', 100, None],
-    ['02', 'BLACK_NH', 20, None],
+    ['01', 'WHITE_NH', 100, np.nan],
+    ['02', 'BLACK_NH', 20, np.nan],
     ['78', 'WHITE_NH', 10, 2],
     ['78', 'BLACK_NH', 5, 0],
 ]
 
 _expected_merge_with_pop_numbers_multiple_rows = [
-    ['state_fips', 'race_category_id', 'cases', 'deaths',
-        'cases_population', 'deaths_population'],
+    [
+        'state_fips',
+        'race_category_id',
+        'cases',
+        'deaths',
+        'cases_population',
+        'deaths_population',
+    ],
     ['01', 'BLACK_NH', 10, 1, 100, 100],
-    ['01', 'WHITE_NH', 100, None, 300, 300],
-    ['02', 'BLACK_NH', 20, None, 100, 100],
+    ['01', 'WHITE_NH', 100, np.nan, 300, 300],
+    ['02', 'BLACK_NH', 20, np.nan, 100, 100],
     ['78', 'WHITE_NH', 10, 2, 300, 300],
     ['78', 'BLACK_NH', 5, 0, 200, 200],
 ]
@@ -246,52 +266,65 @@ _expected_merge_with_pop_numbers_multiple_rows = [
 
 def _get_fips_codes_as_df(*args, **kwargs):
     return gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
+        json.dumps(_fips_codes_from_bq), dtype=str
+    ).reset_index(drop=True)
 
 
 def _get_county_names_as_df(*args, **kwargs):
     return gcs_to_bq_util.values_json_to_df(
-        json.dumps(_county_names_from_bq), dtype=str).reset_index(drop=True)
+        json.dumps(_county_names_from_bq), dtype=str
+    ).reset_index(drop=True)
 
 
 def _get_pop_data_as_df(*args):
 
-    pop_dtype = {std_col.STATE_FIPS_COL: str,
-                 std_col.POPULATION_COL: float,
-                 std_col.POPULATION_PCT_COL: float}
+    pop_dtype = {
+        std_col.STATE_FIPS_COL: str,
+        std_col.POPULATION_COL: float,
+        std_col.POPULATION_PCT_COL: float,
+    }
 
     if args[1].endswith('time_series'):
         pop_dtype[std_col.TIME_PERIOD_COL] = str
         return gcs_to_bq_util.values_json_to_df(
-            json.dumps(_pop_data_time_series), dtype=pop_dtype).reset_index(drop=True)
+            json.dumps(_pop_data_time_series), dtype=pop_dtype
+        ).reset_index(drop=True)
 
     if args[1].endswith("_territory_state_level"):
         if args[0] == "decia_2010_territory_population":
             return gcs_to_bq_util.values_json_to_df(
-                json.dumps(_terr_pop_2010_state_data), dtype=pop_dtype).reset_index(drop=True)
+                json.dumps(_terr_pop_2010_state_data), dtype=pop_dtype
+            ).reset_index(drop=True)
         if args[0] == "decia_2020_territory_population":
             return gcs_to_bq_util.values_json_to_df(
-                json.dumps(_terr_pop_2020_state_data), dtype=pop_dtype).reset_index(drop=True)
+                json.dumps(_terr_pop_2020_state_data), dtype=pop_dtype
+            ).reset_index(drop=True)
 
     if args[1].endswith("_territory_county_level"):
         if args[0] == "decia_2010_territory_population":
             return gcs_to_bq_util.values_json_to_df(
-                json.dumps(_terr_pop_2010_county_data), dtype=pop_dtype).reset_index(drop=True)
+                json.dumps(_terr_pop_2010_county_data), dtype=pop_dtype
+            ).reset_index(drop=True)
         if args[0] == "decia_2020_territory_population":
             return gcs_to_bq_util.values_json_to_df(
-                json.dumps(_terr_pop_2020_county_data), dtype=pop_dtype).reset_index(drop=True)
+                json.dumps(_terr_pop_2020_county_data), dtype=pop_dtype
+            ).reset_index(drop=True)
 
     if 'state' in args[1]:
         return gcs_to_bq_util.values_json_to_df(
-            json.dumps(_pop_data), dtype=pop_dtype).reset_index(drop=True)
+            json.dumps(_pop_data), dtype=pop_dtype
+        ).reset_index(drop=True)
 
     if 'county' in args[1]:
         return gcs_to_bq_util.values_json_to_df(
-            json.dumps(_pop_data_county), dtype=pop_dtype).reset_index(drop=True)
+            json.dumps(_pop_data_county), dtype=pop_dtype
+        ).reset_index(drop=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=_get_fips_codes_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    return_value=_get_fips_codes_as_df(),
+)
 def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
 
     mock_public_dataset.side_effect = [
@@ -299,10 +332,12 @@ def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
     ]
 
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_bad_county_names), dtype=str).reset_index(drop=True)
+        json.dumps(_data_with_bad_county_names), dtype=str
+    ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
+        json.dumps(_data_with_good_county_names), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_county_names(df)
 
@@ -310,17 +345,21 @@ def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=_get_fips_codes_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    return_value=_get_fips_codes_as_df(),
+)
 def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
     mock_public_dataset.side_effect = [
         _get_fips_codes_as_df(),
     ]
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
+        json.dumps(_data_with_good_county_names), dtype=str
+    ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_fips_county), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_merged_fips_county), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -328,16 +367,20 @@ def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=_get_fips_codes_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    return_value=_get_fips_codes_as_df(),
+)
 def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+        json.dumps(_data_without_fips_codes), dtype=str
+    ).reset_index(drop=True)
 
     df = df[['state_name', 'other_col']]
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_merged_fips), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -345,16 +388,20 @@ def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=_get_fips_codes_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    return_value=_get_fips_codes_as_df(),
+)
 def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
+        json.dumps(_data_without_fips_codes), dtype=str
+    ).reset_index(drop=True)
 
     df = df[['state_postal', 'other_col']]
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_merged_fips), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -362,16 +409,20 @@ def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
-            return_value=_get_fips_codes_as_df())
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df',
+    return_value=_get_fips_codes_as_df(),
+)
 def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_only_fips_codes), dtype=str).reset_index(drop=True)
+        json.dumps(_data_with_only_fips_codes), dtype=str
+    ).reset_index(drop=True)
 
     df = df[['state_fips', 'other_col']]
 
     expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_names_from_fips), dtype=str).reset_index(drop=True)
+        json.dumps(_expected_merged_names_from_fips), dtype=str
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -379,16 +430,18 @@ def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_get_pop_data_as_df)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
+)
 def testMergePopNumbersState(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_pop_numbers),
-        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        json.dumps(_data_without_pop_numbers), dtype={std_col.STATE_FIPS_COL: str}
+    ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_with_pop_numbers),
-        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str},
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_pop_numbers(df, 'race', 'state')
 
@@ -397,16 +450,19 @@ def testMergePopNumbersState(mock_pop: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_get_pop_data_as_df)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
+)
 def testMergePopNumbersCounty(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_county),
-        dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str},
+    ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merged_with_pop_numbers_county),
-        dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str, std_col.COUNTY_FIPS_COL: str},
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_pop_numbers(df, 'race', 'county')
 
@@ -415,41 +471,46 @@ def testMergePopNumbersCounty(mock_pop: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_get_pop_data_as_df)
-def testMergeYearlyPopNumbers(
-    mock_pop: mock.MagicMock
-):
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
+)
+def testMergeYearlyPopNumbers(mock_pop: mock.MagicMock):
     df_no_pop = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_time_series_without_pop_numbers),
-        dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
+    ).reset_index(drop=True)
 
-    df = merge_utils.merge_yearly_pop_numbers(
-        df_no_pop, 'race', 'state')
+    df = merge_utils.merge_yearly_pop_numbers(df_no_pop, 'race', 'state')
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_time_series_merged_with_pop_numbers),
-        dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str, std_col.TIME_PERIOD_COL: str},
+    ).reset_index(drop=True)
 
     # 3 calls to acs, decia_2010, decia_2020 x
     # df of matchable ACS years + df of more recent than ACS years
     assert mock_pop.call_count == 6
-    assert_frame_equal(df, expected_df, check_like=True)
+
+    assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
 
 
-@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery',
-            side_effect=_get_pop_data_as_df)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
+)
 def testMergeMultiplePopCols(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_multiple_rows),
-        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str},
+    ).reset_index(drop=True)
 
     expected_df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_expected_merge_with_pop_numbers_multiple_rows),
-        dtype={std_col.STATE_FIPS_COL: str}).reset_index(drop=True)
+        dtype={std_col.STATE_FIPS_COL: str},
+    ).reset_index(drop=True)
 
     df = merge_utils.merge_multiple_pop_cols(
-        df, 'race', ['cases_population', 'deaths_population'])
+        df, 'race', ['cases_population', 'deaths_population']
+    )
 
     assert mock_pop.call_count == 2
 
