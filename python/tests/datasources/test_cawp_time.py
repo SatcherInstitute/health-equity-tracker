@@ -46,7 +46,7 @@ GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
 def _get_consecutive_time_periods(*args, **kwargs):
     print("mocking with reduced years")
     # NOTE: ensure this end date is updated to reflect current test data set's last year
-    return get_consecutive_time_periods(first_year=2018, last_year=2023)
+    return get_consecutive_time_periods(first_year=2018, last_year=2024)
 
 
 def _fetch_json_from_web(*args):
@@ -217,6 +217,7 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_state_historical,
         expected_df_state_historical,
@@ -230,6 +231,7 @@ def testWriteToBq(
         table_name_state_current,
     ), _bq_types = state_current_call
     assert table_name_state_current == "race_and_ethnicity_state_current"
+
     expected_df_state_current = pd.read_csv(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_current.csv"),
         dtype={"state_fips": str, "time_period": str},
@@ -252,6 +254,7 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_national_historical,
         expected_df_national_historical,
@@ -264,6 +267,7 @@ def testWriteToBq(
         _dataset,
         table_name_national_current,
     ), _bq_types = national_current_call
+
     assert table_name_national_current == "race_and_ethnicity_national_current"
 
     expected_df_national_current = pd.read_csv(

@@ -35,6 +35,7 @@ ACS_URLS_MAP = {
     ACS_LATEST_YEAR: 'https://api.census.gov/data/2022/acs/acs5',
 }
 
+# For the 2022 ACS, the variable names in the metadata are title-cased, not all caps
 HISPANIC_BY_RACE_CONCEPT_CAPS = "HISPANIC OR LATINO ORIGIN BY RACE"
 HISPANIC_BY_RACE_CONCEPT_TITLE = "Hispanic or Latino Origin by Race"
 
@@ -335,8 +336,6 @@ class ACSPopulationIngester:
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
 
-        print("self.base_acs_url: " + self.base_acs_url)
-
         groups = (
             list(GROUPS_TITLE.keys())
             if self.year == '2022'
@@ -358,14 +357,10 @@ class ACSPopulationIngester:
 
         file_diff = False
         for concept in concepts:
-            print("concept: " + concept)
             group_vars = get_vars_for_group(concept, var_map, 2)
-            print("group_vars: " + str(group_vars))
             cols = list(group_vars.keys())
-            print("cols: " + str(cols))
             url_params = get_census_params(cols, self.county_level)
             filename = self.get_filename(concept)
-            print("filename: " + filename)
             concept_file_diff = url_file_to_gcs.url_file_to_gcs(
                 self.base_acs_url, url_params, gcs_bucket, filename
             )
