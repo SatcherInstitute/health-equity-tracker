@@ -335,13 +335,13 @@ class ACSPopulationIngester:
 
         self.groups = GROUPS_CAPS
         self.hispanic_by_race_concept = HISPANIC_BY_RACE_CONCEPT_CAPS
-        self.sex_by_age_concept_to_race = SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
+        self.sex_by_age_concepts_to_race = SEX_BY_AGE_CONCEPTS_TO_RACE_CAPS
 
         # Starting with 2022 ACS, the variable names in the metadata are title-cased, not all caps
         if int(self.year) >= 2022:
             self.groups = GROUPS_TITLE
             self.hispanic_by_race_concept = HISPANIC_BY_RACE_CONCEPT_TITLE
-            self.sex_by_age_concept_to_race = SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
+            self.sex_by_age_concepts_to_race = SEX_BY_AGE_CONCEPTS_TO_RACE_TITLE
 
     def upload_to_gcs(self, gcs_bucket):
         """Uploads population data from census to GCS bucket."""
@@ -350,7 +350,7 @@ class ACSPopulationIngester:
         var_map = parse_acs_metadata(metadata, self.groups)
 
         file_diff = False
-        concepts = list(self.sex_by_age_concept_to_race.keys())
+        concepts = list(self.sex_by_age_concepts_to_race.keys())
         concepts.append(self.hispanic_by_race_concept)
 
         for concept in concepts:
@@ -436,7 +436,7 @@ class ACSPopulationIngester:
 
         sex_by_age_frames = {}
 
-        for concept in self.sex_by_age_concept_to_race:
+        for concept in self.sex_by_age_concepts_to_race:
             sex_by_age_frame = gcs_to_bq_util.load_values_as_df(
                 gcs_bucket, self.get_filename(concept)
             )
