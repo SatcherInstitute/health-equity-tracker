@@ -248,36 +248,20 @@ def testWriteToBqCountyCallsAppend2022(
         call[0][1] for call in mock_cache.call_args_list
     ]
     assert called_cached_gcs_names_in_order == [
-        '2022-HISPANIC_OR_LATINO_ORIGIN_BY_RACE_county.json',
-        '2022-SEX_BY_AGE_county.json',
-        '2022-SEX_BY_AGE_(WHITE_ALONE)_county.json',
-        '2022-SEX_BY_AGE_(BLACK_OR_AFRICAN_AMERICAN_ALONE)_county.json',
-        '2022-SEX_BY_AGE_(AMERICAN_INDIAN_AND_ALASKA_NATIVE_ALONE)_county.json',
-        '2022-SEX_BY_AGE_(ASIAN_ALONE)_county.json',
-        '2022-SEX_BY_AGE_(NATIVE_HAWAIIAN_AND_OTHER_PACIFIC_ISLANDER_ALONE)_county.json',
-        '2022-SEX_BY_AGE_(SOME_OTHER_RACE_ALONE)_county.json',
-        '2022-SEX_BY_AGE_(TWO_OR_MORE_RACES)_county.json',
-        '2022-SEX_BY_AGE_(HISPANIC_OR_LATINO)_county.json',
-        '2022-SEX_BY_AGE_(WHITE_ALONE,_NOT_HISPANIC_OR_LATINO)_county.json',
+        '2022-Hispanic_or_Latino_Origin_by_Race_county.json',
+        '2022-Sex_by_Age_county.json',
+        '2022-Sex_by_Age_(White_Alone)_county.json',
+        '2022-Sex_by_Age_(Black_or_African_American_Alone)_county.json',
+        '2022-Sex_by_Age_(American_Indian_and_Alaska_Native_Alone)_county.json',
+        '2022-Sex_by_Age_(Asian_Alone)_county.json',
+        '2022-Sex_by_Age_(Native_Hawaiian_and_Other_Pacific_Islander_Alone)_county.json',
+        '2022-Sex_by_Age_(Some_Other_Race_Alone)_county.json',
+        '2022-Sex_by_Age_(Two_or_More_Races)_county.json',
+        '2022-Sex_by_Age_(Hispanic_or_Latino)_county.json',
+        '2022-Sex_by_Age_(White_Alone,_Not_Hispanic_or_Latino)_county.json',
     ]
 
     table_names_for_bq = [call[0][2] for call in mock_bq.call_args_list]
-
-    print(table_names_for_bq)
-    print(
-        [
-            'by_race_county',
-            'by_race_county_time_series',
-            'by_sex_age_race_county',
-            'by_sex_age_race_county_time_series',
-            'by_sex_age_county',
-            'by_sex_age_county_time_series',
-            'by_age_county',
-            'by_age_county_time_series',
-            'by_sex_county',
-            'by_sex_county_time_series',
-        ]
-    )
 
     assert table_names_for_bq == [
         # 2022 should write to both SINGLE YEAR and TIME SERIES tables
@@ -294,211 +278,214 @@ def testWriteToBqCountyCallsAppend2022(
     ]
 
 
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqRaceAppend2019(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqRaceAppend2022(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
 
-#     acsPopulationIngester = ACSPopulationIngester(False, "2019")
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+    acsPopulationIngester = ACSPopulationIngester(False, "2022")
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-#     # 2019 should send a SINGLE YEAR table
-#     single_year_df = mock_bq.call_args_list[0][0][0]
-#     expected_single_year_df = pd.read_csv(GOLDEN_DATA_RACE, dtype=DTYPE)
-#     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
+    # 2022 should send a SINGLE YEAR table
+    single_year_df = mock_bq.call_args_list[0][0][0]
+    expected_single_year_df = pd.read_csv(GOLDEN_DATA_RACE, dtype=DTYPE)
+    assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
 
-#     # 2019 should only APPEND to an existing time_series table
-#     assert mock_bq.call_args_list[1][1]['overwrite'] is False
-#     time_series_append_df = mock_bq.call_args_list[1][0][0]
-#     expected_time_series_append_df = pd.read_csv(
-#         GOLDEN_DATA_RACE_TIME_SERIES_APPEND, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_append_df, expected_time_series_append_df, check_like=True
-#     )
-
-
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqSexAgeRaceOverwrite2009(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
-
-#     acsPopulationIngester = ACSPopulationIngester(False, '2009')
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
-
-#     # 2009 should NOT send a SINGLE YEAR table
-#     # 2009 should only OVERWRITE an existing time_series table (starting it fresh)
-#     assert mock_bq.call_args_list[1][1]['overwrite'] is True
-#     time_series_overwrite_df = mock_bq.call_args_list[1][0][0]
-#     expected_time_series_overwrite_df = pd.read_csv(
-#         GOLDEN_DATA_SEX_AGE_RACE_TIME_SERIES_OVERWRITES, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True
-#     )
+    # 2022 should only APPEND to an existing time_series table
+    assert mock_bq.call_args_list[1][1]['overwrite'] is False
+    time_series_append_df = mock_bq.call_args_list[1][0][0]
+    expected_time_series_append_df = pd.read_csv(
+        GOLDEN_DATA_RACE_TIME_SERIES_APPEND, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_append_df, expected_time_series_append_df, check_like=True
+    )
 
 
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqSexAgeAppend2019(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2009)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqSexAgeRaceOverwrite2009(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
 
-#     acsPopulationIngester = ACSPopulationIngester(False, "2019")
+    acsPopulationIngester = ACSPopulationIngester(False, '2009')
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
-
-#     # 2019 should send a SINGLE YEAR table
-#     single_year_df = mock_bq.call_args_list[4][0][0]
-#     expected_single_year_df = pd.read_csv(GOLDEN_DATA_SEX_AGE, dtype=DTYPE)
-#     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
-
-#     # 2019 should only APPEND to an existing time_series table
-#     assert mock_bq.call_args_list[5][1]['overwrite'] is False
-#     time_series_append_df = mock_bq.call_args_list[5][0][0]
-#     expected_time_series_append_df = pd.read_csv(
-#         GOLDEN_DATA_SEX_AGE_TIME_SERIES_APPEND, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_append_df, expected_time_series_append_df, check_like=True
-#     )
+    # 2009 should NOT send a SINGLE YEAR table
+    # 2009 should only OVERWRITE an existing time_series table (starting it fresh)
+    assert mock_bq.call_args_list[1][1]['overwrite'] is True
+    time_series_overwrite_df = mock_bq.call_args_list[1][0][0]
+    expected_time_series_overwrite_df = pd.read_csv(
+        GOLDEN_DATA_SEX_AGE_RACE_TIME_SERIES_OVERWRITES, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_overwrite_df, expected_time_series_overwrite_df, check_like=True
+    )
 
 
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqSex(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqSexAgeAppend2022(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
 
-#     acsPopulationIngester = ACSPopulationIngester(False, "2019")
+    acsPopulationIngester = ACSPopulationIngester(False, "2022")
 
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-#     # 2019 should send a SINGLE YEAR table
-#     single_year_df = mock_bq.call_args_list[8][0][0]
-#     expected_single_year_df = pd.read_csv(GOLDEN_DATA_SEX, dtype=DTYPE)
-#     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
+    # 2022 should send a SINGLE YEAR table
+    single_year_df = mock_bq.call_args_list[4][0][0]
+    expected_single_year_df = pd.read_csv(GOLDEN_DATA_SEX_AGE, dtype=DTYPE)
 
-#     # 2019 should only APPEND to an existing time_series table
-#     assert mock_bq.call_args_list[9][1]['overwrite'] is False
-#     time_series_append_df = mock_bq.call_args_list[9][0][0]
-#     expected_time_series_append_df = pd.read_csv(
-#         GOLDEN_DATA_SEX_TIME_SERIES_APPEND, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_append_df, expected_time_series_append_df, check_like=True
-#     )
+    assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
 
-
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqRaceNational(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
-
-#     acsPopulationIngester = ACSPopulationIngester(False, "2019")
-
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
-
-#     # 2019 should send a SINGLE YEAR table
-#     single_year_df = mock_bq.call_args_list[12][0][0]
-#     expected_single_year_df = pd.read_csv(GOLDEN_DATA_RACE_NATIONAL, dtype=DTYPE)
-#     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
-
-#     # 2019 should only APPEND to an existing time_series table
-#     assert mock_bq.call_args_list[13][1]['overwrite'] is False
-#     time_series_append_df = mock_bq.call_args_list[13][0][0]
-#     expected_time_series_append_df = pd.read_csv(
-#         GOLDEN_DATA_RACE_NATIONAL_TIME_SERIES_APPEND, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_append_df, expected_time_series_append_df, check_like=True
-#     )
+    # 2022 should only APPEND to an existing time_series table
+    assert mock_bq.call_args_list[5][1]['overwrite'] is False
+    time_series_append_df = mock_bq.call_args_list[5][0][0]
+    expected_time_series_append_df = pd.read_csv(
+        GOLDEN_DATA_SEX_AGE_TIME_SERIES_APPEND, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_append_df, expected_time_series_append_df, check_like=True
+    )
 
 
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqSexNational(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqSex2022(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
 
-#     acsPopulationIngester = ACSPopulationIngester(False, "2019")
+    acsPopulationIngester = ACSPopulationIngester(False, "2022")
 
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-#     # 2019 should send a SINGLE YEAR table
-#     single_year_df = mock_bq.call_args_list[14][0][0]
-#     expected_single_year_df = pd.read_csv(GOLDEN_DATA_SEX_NATIONAL, dtype=DTYPE)
-#     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
+    # 2022 should send a SINGLE YEAR table
+    single_year_df = mock_bq.call_args_list[8][0][0]
+    expected_single_year_df = pd.read_csv(GOLDEN_DATA_SEX, dtype=DTYPE)
+    assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
 
-#     # 2019 should only APPEND to an existing time_series table
-#     assert mock_bq.call_args_list[15][1]['overwrite'] is False
-#     time_series_append_df = mock_bq.call_args_list[15][0][0]
-#     expected_time_series_append_df = pd.read_csv(
-#         GOLDEN_DATA_SEX_NATIONAL_TIME_SERIES_APPEND, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_append_df, expected_time_series_append_df, check_like=True
-#     )
+    # 2022 should only APPEND to an existing time_series table
+    assert mock_bq.call_args_list[9][1]['overwrite'] is False
+    time_series_append_df = mock_bq.call_args_list[9][0][0]
+
+    expected_time_series_append_df = pd.read_csv(
+        GOLDEN_DATA_SEX_TIME_SERIES_APPEND, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_append_df, expected_time_series_append_df, check_like=True
+    )
 
 
-# # # Do one County level test to make sure our logic there is correct
-# @mock.patch(
-#     'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json()
-# )
-# @mock.patch(
-#     'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
-# )
-# @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-# def testWriteToBqAgeCounty(
-#     mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
-# ):
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqRaceNational2022(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
 
-#     acsPopulationIngester = ACSPopulationIngester(True, "2019")
+    acsPopulationIngester = ACSPopulationIngester(False, "2022")
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
 
-#     acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+    # 2022 should send a SINGLE YEAR table
+    single_year_df = mock_bq.call_args_list[12][0][0]
+    expected_single_year_df = pd.read_csv(GOLDEN_DATA_RACE_NATIONAL, dtype=DTYPE)
+    assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
 
-#     single_year_df = mock_bq.call_args_list[6][0][0]
-#     expected_single_year_df = pd.read_csv(GOLDEN_DATA_AGE_COUNTY, dtype=DTYPE)
-#     assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
+    # 2022 should only APPEND to an existing time_series table
+    assert mock_bq.call_args_list[13][1]['overwrite'] is False
+    time_series_append_df = mock_bq.call_args_list[13][0][0]
 
-#     time_series_append_df = mock_bq.call_args_list[7][0][0]
-#     expected_time_series_append_df = pd.read_csv(
-#         GOLDEN_DATA_AGE_COUNTY_TIME_SERIES_APPEND, dtype=DTYPE
-#     )
-#     assert_frame_equal(
-#         time_series_append_df, expected_time_series_append_df, check_like=True
-#     )
-#     assert mock_bq.call_args_list[7][1]['overwrite'] is False
+    expected_time_series_append_df = pd.read_csv(
+        GOLDEN_DATA_RACE_NATIONAL_TIME_SERIES_APPEND, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_append_df, expected_time_series_append_df, check_like=True
+    )
+
+
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqSexNational2022(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
+
+    acsPopulationIngester = ACSPopulationIngester(False, "2022")
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+
+    # 2022 should send a SINGLE YEAR table
+    single_year_df = mock_bq.call_args_list[14][0][0]
+    expected_single_year_df = pd.read_csv(GOLDEN_DATA_SEX_NATIONAL, dtype=DTYPE)
+    assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
+
+    # 2022 should only APPEND to an existing time_series table
+    assert mock_bq.call_args_list[15][1]['overwrite'] is False
+    time_series_append_df = mock_bq.call_args_list[15][0][0]
+
+    expected_time_series_append_df = pd.read_csv(
+        GOLDEN_DATA_SEX_NATIONAL_TIME_SERIES_APPEND, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_append_df, expected_time_series_append_df, check_like=True
+    )
+
+
+# # Do one County level test to make sure our logic there is correct
+@mock.patch(
+    'ingestion.census.fetch_acs_metadata', return_value=get_acs_metadata_as_json(2022)
+)
+@mock.patch(
+    'ingestion.gcs_to_bq_util.load_values_as_df', side_effect=_load_values_as_df
+)
+@mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
+def testWriteToBqAgeCounty2022(
+    mock_bq: mock.MagicMock, mock_cache: mock.MagicMock, mock_json: mock.MagicMock
+):
+
+    acsPopulationIngester = ACSPopulationIngester(True, "2022")
+
+    acsPopulationIngester.write_to_bq('dataset', 'gcs_bucket')
+
+    single_year_df = mock_bq.call_args_list[6][0][0]
+    expected_single_year_df = pd.read_csv(GOLDEN_DATA_AGE_COUNTY, dtype=DTYPE)
+    assert_frame_equal(single_year_df, expected_single_year_df, check_like=True)
+
+    time_series_append_df = mock_bq.call_args_list[7][0][0]
+
+    expected_time_series_append_df = pd.read_csv(
+        GOLDEN_DATA_AGE_COUNTY_TIME_SERIES_APPEND, dtype=DTYPE
+    )
+    assert_frame_equal(
+        time_series_append_df, expected_time_series_append_df, check_like=True
+    )
+    assert mock_bq.call_args_list[7][1]['overwrite'] is False
