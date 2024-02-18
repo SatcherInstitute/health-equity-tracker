@@ -1,273 +1,294 @@
-{"state_fips":"00","state_name":"United States","population":310346358,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":334369975,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":333036755,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":322087547,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":329824950,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":317746049,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":324473370,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":326289971,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":305401642,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":315219560,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":333036755,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":307727594,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":312855438,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":320098094,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":322087547,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":328016242,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":14508886,"population_pct":4.7,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":19119274,"population_pct":5.7,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":18789187,"population_pct":5.6,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":16624199,"population_pct":5.2,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":18427519,"population_pct":5.6,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":15722143,"population_pct":4.9,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":17194109,"population_pct":5.3,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":17581234,"population_pct":5.4,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":13213141,"population_pct":4.3,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":15244082,"population_pct":4.8,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":18789187,"population_pct":5.6,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":14197907,"population_pct":4.6,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":14872290,"population_pct":4.8,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":16245464,"population_pct":5.1,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":16624199,"population_pct":5.2,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":17930446,"population_pct":5.5,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":229862927,"population_pct":74.1,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":219548855,"population_pct":65.7,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":226482760,"population_pct":68,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":236105163,"population_pct":73.3,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":231913264,"population_pct":70.3,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":234383294,"population_pct":73.8,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":236759648,"population_pct":73,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":237188538,"population_pct":72.7,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":227433916,"population_pct":74.5,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":233168413,"population_pct":74,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":226482760,"population_pct":68,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":227657208,"population_pct":74,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":231930694,"population_pct":74.1,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":235439052,"population_pct":73.6,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":236105163,"population_pct":73.3,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":237565676,"population_pct":72.4,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":14335378,"population_pct":4.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":18875968,"population_pct":5.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":18557013,"population_pct":5.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":16427688,"population_pct":5.1,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":18186371,"population_pct":5.5,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":15538497,"population_pct":4.9,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":16991765,"population_pct":5.2,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":17369506,"population_pct":5.3,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":13046689,"population_pct":4.3,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":15063825,"population_pct":4.8,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":18557013,"population_pct":5.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":14024878,"population_pct":4.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":14695202,"population_pct":4.7,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":16056402,"population_pct":5,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":16427688,"population_pct":5.1,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":17711305,"population_pct":5.4,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":196763239,"population_pct":63.4,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":194913654,"population_pct":58.3,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":196038784,"population_pct":58.9,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":197389272,"population_pct":61.3,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":196283090,"population_pct":59.5,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":197185075,"population_pct":62.1,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":197304205,"population_pct":60.8,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":197209192,"population_pct":60.4,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":198453440,"population_pct":65,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":197078273,"population_pct":62.5,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":196038784,"population_pct":58.9,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":196606503,"population_pct":63.9,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":196933295,"population_pct":62.9,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":197283178,"population_pct":61.6,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":197389272,"population_pct":61.3,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":197132096,"population_pct":60.1,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":8192935,"population_pct":2.6,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":29905388,"population_pct":8.9,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":23600575,"population_pct":7.1,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":10017711,"population_pct":3.1,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":17190923,"population_pct":5.2,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":9521963,"population_pct":3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":10291063,"population_pct":3.2,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":10611263,"population_pct":3.3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":6922884,"population_pct":2.3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":9166589,"population_pct":2.9,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":23600575,"population_pct":7.1,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":7639427,"population_pct":2.5,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":8723698,"population_pct":2.8,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":9779934,"population_pct":3.1,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":10017711,"population_pct":3.1,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":10939551,"population_pct":3.3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":52913517,"population_pct":17,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":64987193,"population_pct":19.4,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":64077330,"population_pct":19.2,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":58691273,"population_pct":18.2,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":62573645,"population_pct":19,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":56672014,"population_pct":17.8,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":59943182,"population_pct":18.5,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":60867275,"population_pct":18.7,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":49366183,"population_pct":16.2,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":55429828,"population_pct":17.6,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":64077330,"population_pct":19.2,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":51444403,"population_pct":16.7,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":54221164,"population_pct":17.3,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":57779493,"population_pct":18.1,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":58691273,"population_pct":18.2,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":61755289,"population_pct":18.8,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":16100677,"population_pct":5.2,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":20804859,"population_pct":6.2,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":19097700,"population_pct":5.7,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":15608735,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":17391981,"population_pct":5.3,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":15150353,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":16065593,"population_pct":5,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":16337215,"population_pct":5,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":17402151,"population_pct":5.7,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":15111418,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":19097700,"population_pct":5.7,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":16999803,"population_pct":5.5,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":15168592,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":15296701,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":15608735,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":16602133,"population_pct":5.1,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":257432841,"population_pct":83,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":269382782,"population_pct":80.6,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":268959425,"population_pct":80.8,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":263396274,"population_pct":81.8,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":267251305,"population_pct":81,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":261074035,"population_pct":82.2,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":264530188,"population_pct":81.5,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":265422696,"population_pct":81.3,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":256035459,"population_pct":83.8,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":259789732,"population_pct":82.4,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":268959425,"population_pct":80.8,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":256283191,"population_pct":83.3,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":258634274,"population_pct":82.7,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":262318601,"population_pct":81.9,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":263396274,"population_pct":81.8,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":266260953,"population_pct":81.2,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":5705110,"population_pct":1.8,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":11632025,"population_pct":3.5,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":10458883,"population_pct":3.1,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":7207043,"population_pct":2.2,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":9136862,"population_pct":2.8,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":6697201,"population_pct":2.1,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":7454186,"population_pct":2.3,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":7707505,"population_pct":2.4,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":4848404,"population_pct":1.6,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":6391919,"population_pct":2,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":10458883,"population_pct":3.1,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":5329267,"population_pct":1.7,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":6066582,"population_pct":1.9,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":6972124,"population_pct":2.2,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":7207043,"population_pct":2.2,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":7943601,"population_pct":2.4,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":656692,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":1422741,"population_pct":0.4,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":1212067,"population_pct":0.4,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":677720,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":1021008,"population_pct":0.3,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":613550,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":717393,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":756785,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":742974,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":607933,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":1212067,"population_pct":0.4,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":688071,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":618024,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":640089,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":677720,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":792190,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":38670057,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":41574960,"population_pct":12.4,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":41722663,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":40561905,"population_pct":12.6,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":41595290,"population_pct":12.6,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":39855784,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":40949754,"population_pct":12.6,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":41281123,"population_pct":12.7,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":37550431,"population_pct":12.3,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":39451870,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":41722663,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":38253595,"population_pct":12.4,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":39108010,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":40209614,"population_pct":12.6,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":40561905,"population_pct":12.6,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":41621318,"population_pct":12.7,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":37453957,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":40150435,"population_pct":12,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":40200000,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":39101125,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":39997867,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":38463635,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":39448215,"population_pct":12.2,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":39719024,"population_pct":12.2,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":36500661,"population_pct":12,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":38097233,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":40200000,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":37126836,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":37790228,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":38788533,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":39101125,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":39980733,"population_pct":12.2,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":2510207,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":2791497,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":2728068,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":2609631,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":2694311,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":2576622,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":2642951,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":2707577,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":2431350,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":2550780,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":2728068,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":2487880,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":2537708,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":2580945,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":2609631,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":2756981,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":500669,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":625142,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":615802,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":560203,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":611662,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":535890,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":570252,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":583021,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":447769,"population_pct":0.1,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":526408,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":615802,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":491774,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":514446,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":546384,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":560203,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":600137,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":2049195,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":1826398,"population_pct":0.5,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":1936966,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":2084416,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":2076003,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":2082867,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":2098847,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":2135538,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":2030500,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":2061854,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":1936966,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":2048832,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":2050841,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":2078689,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":2084416,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":2160496,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":24293612,"population_pct":7.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":50710247,"population_pct":15.2,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":42698275,"population_pct":12.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":25626446,"population_pct":8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":34582904,"population_pct":10.5,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":24672316,"population_pct":7.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":26356656,"population_pct":8.1,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":26948478,"population_pct":8.3,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":24325035,"population_pct":8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":24278007,"population_pct":7.7,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":42698275,"population_pct":12.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":24639230,"population_pct":8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":23892290,"population_pct":7.6,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":25076635,"population_pct":7.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":25626446,"population_pct":8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":27541684,"population_pct":8.4,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":469270,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":561561,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":555712,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":509010,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":550104,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":493210,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":515577,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":525146,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":412791,"population_pct":0.1,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":488695,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":555712,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":458804,"population_pct":0.1,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":480102,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":499586,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":509010,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":540532,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":6361802,"population_pct":2,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":13054766,"population_pct":3.9,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":11670950,"population_pct":3.5,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":7884763,"population_pct":2.4,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":10157870,"population_pct":3.1,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":7310751,"population_pct":2.3,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":8171579,"population_pct":2.5,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":8464290,"population_pct":2.6,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":5591378,"population_pct":1.8,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":6999852,"population_pct":2.2,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":11670950,"population_pct":3.5,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":6017338,"population_pct":2,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":6684606,"population_pct":2.1,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":7612213,"population_pct":2.4,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":7884763,"population_pct":2.4,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":8735791,"population_pct":2.7,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":14804648,"population_pct":4.8,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":19437529,"population_pct":5.8,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":19112725,"population_pct":5.7,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":16936698,"population_pct":5.3,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":18736475,"population_pct":5.7,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":16031707,"population_pct":5,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":17507342,"population_pct":5.4,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":17894652,"population_pct":5.5,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2018"}
-{"state_fips":"00","state_name":"United States","population":13459480,"population_pct":4.4,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2009"}
-{"state_fips":"00","state_name":"United States","population":15552520,"population_pct":4.9,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":19112725,"population_pct":5.7,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2021"}
-{"state_fips":"00","state_name":"United States","population":14483682,"population_pct":4.7,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":15175304,"population_pct":4.9,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":16555988,"population_pct":5.2,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":16936698,"population_pct":5.3,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":18251837,"population_pct":5.6,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2019"}
-{"state_fips":"00","state_name":"United States","population":17519762,"population_pct":5.6,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":22535913,"population_pct":6.7,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2022"}
+{"state_fips":"00","state_name":"United States","population":22133057,"population_pct":6.6,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":19794033,"population_pct":6.1,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2016"}
 {"state_fips":"00","state_name":"United States","population":21733492,"population_pct":6.6,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2020"}
-{"state_fips":"00","state_name":"United States","population":18834655,"population_pct":5.9,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2014"}
 {"state_fips":"00","state_name":"United States","population":20407312,"population_pct":6.3,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2017"}
 {"state_fips":"00","state_name":"United States","population":20871832,"population_pct":6.4,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2018"}
+{"state_fips":"00","state_name":"United States","population":17930446,"population_pct":5.5,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":21287564,"population_pct":6.5,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":328016242,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":7943601,"population_pct":2.4,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":10939551,"population_pct":3.3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":16602133,"population_pct":5.1,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":18251837,"population_pct":5.6,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":39980733,"population_pct":12.2,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":41621318,"population_pct":12.7,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":2160496,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":237565676,"population_pct":72.4,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":8735791,"population_pct":2.7,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":17711305,"population_pct":5.4,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":600137,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":540532,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":792190,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":2756981,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":197132096,"population_pct":60.1,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":266260953,"population_pct":81.2,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":27541684,"population_pct":8.4,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":61755289,"population_pct":18.8,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2019"}
+{"state_fips":"00","state_name":"United States","population":320098094,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":312855438,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":305401642,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":315219560,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":317746049,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":310346358,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":307727594,"population_pct":100,"race_category_id":"ALL","race_and_ethnicity":"All","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":16245464,"population_pct":5.1,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":14872290,"population_pct":4.8,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":13213141,"population_pct":4.3,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":15244082,"population_pct":4.8,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":15722143,"population_pct":4.9,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":14508886,"population_pct":4.7,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":14197907,"population_pct":4.6,"race_category_id":"ASIAN","race_and_ethnicity":"Asian","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":235439052,"population_pct":73.6,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":231930694,"population_pct":74.1,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":227433916,"population_pct":74.5,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":233168413,"population_pct":74,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":234383294,"population_pct":73.8,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":229862927,"population_pct":74.1,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":227657208,"population_pct":74,"race_category_id":"WHITE","race_and_ethnicity":"White","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":16056402,"population_pct":5,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":14695202,"population_pct":4.7,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":13046689,"population_pct":4.3,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":15063825,"population_pct":4.8,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":15538497,"population_pct":4.9,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":14335378,"population_pct":4.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":14024878,"population_pct":4.6,"race_category_id":"ASIAN_NH","race_and_ethnicity":"Asian (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":197283178,"population_pct":61.6,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":196933295,"population_pct":62.9,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":198453440,"population_pct":65,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":197078273,"population_pct":62.5,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":197185075,"population_pct":62.1,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":196763239,"population_pct":63.4,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":196606503,"population_pct":63.9,"race_category_id":"WHITE_NH","race_and_ethnicity":"White (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":9779934,"population_pct":3.1,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":8723698,"population_pct":2.8,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":6922884,"population_pct":2.3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":9166589,"population_pct":2.9,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":9521963,"population_pct":3,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":8192935,"population_pct":2.6,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":7639427,"population_pct":2.5,"race_category_id":"MULTI","race_and_ethnicity":"Two or more races","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":57779493,"population_pct":18.1,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":54221164,"population_pct":17.3,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":49366183,"population_pct":16.2,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":55429828,"population_pct":17.6,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":56672014,"population_pct":17.8,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":52913517,"population_pct":17,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":51444403,"population_pct":16.7,"race_category_id":"HISP","race_and_ethnicity":"Hispanic or Latino","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":15296701,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":15168592,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":17402151,"population_pct":5.7,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":15111418,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":15150353,"population_pct":4.8,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":16100677,"population_pct":5.2,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":16999803,"population_pct":5.5,"race_category_id":"OTHER_STANDARD","race_and_ethnicity":"Unrepresented race","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":262318601,"population_pct":81.9,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":258634274,"population_pct":82.7,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":256035459,"population_pct":83.8,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":259789732,"population_pct":82.4,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":261074035,"population_pct":82.2,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":257432841,"population_pct":83,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":256283191,"population_pct":83.3,"race_category_id":"NH","race_and_ethnicity":"Not Hispanic or Latino","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":6972124,"population_pct":2.2,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":6066582,"population_pct":1.9,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":4848404,"population_pct":1.6,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":6391919,"population_pct":2,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":6697201,"population_pct":2.1,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":5705110,"population_pct":1.8,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":5329267,"population_pct":1.7,"race_category_id":"MULTI_NH","race_and_ethnicity":"Two or more races (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":640089,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":618024,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":742974,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":607933,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":613550,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":656692,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":688071,"population_pct":0.2,"race_category_id":"OTHER_STANDARD_NH","race_and_ethnicity":"Unrepresented race (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":40209614,"population_pct":12.6,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":39108010,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":37550431,"population_pct":12.3,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":39451870,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":39855784,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":38670057,"population_pct":12.5,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":38253595,"population_pct":12.4,"race_category_id":"BLACK","race_and_ethnicity":"Black or African American","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":38788533,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":37790228,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":36500661,"population_pct":12,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":38097233,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":38463635,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":37453957,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":37126836,"population_pct":12.1,"race_category_id":"BLACK_NH","race_and_ethnicity":"Black or African American (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":2580945,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":2537708,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":2431350,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":2550780,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":2576622,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":2510207,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":2487880,"population_pct":0.8,"race_category_id":"AIAN","race_and_ethnicity":"American Indian and Alaska Native","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":546384,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":514446,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":447769,"population_pct":0.1,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":526408,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":535890,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":500669,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":491774,"population_pct":0.2,"race_category_id":"NHPI","race_and_ethnicity":"Native Hawaiian and Pacific Islander","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":2078689,"population_pct":0.6,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":2050841,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":2030500,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":2061854,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":2082867,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":2049195,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":2048832,"population_pct":0.7,"race_category_id":"AIAN_NH","race_and_ethnicity":"American Indian and Alaska Native (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":25076635,"population_pct":7.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":23892290,"population_pct":7.6,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":24325035,"population_pct":8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":24278007,"population_pct":7.7,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":24672316,"population_pct":7.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":24293612,"population_pct":7.8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":24639230,"population_pct":8,"race_category_id":"MULTI_OR_OTHER_STANDARD","race_and_ethnicity":"Two or more races \u0026 Unrepresented race","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":499586,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":480102,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":412791,"population_pct":0.1,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":488695,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":493210,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":469270,"population_pct":0.2,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":458804,"population_pct":0.1,"race_category_id":"NHPI_NH","race_and_ethnicity":"Native Hawaiian and Pacific Islander (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":7612213,"population_pct":2.4,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":6684606,"population_pct":2.1,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":5591378,"population_pct":1.8,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":6999852,"population_pct":2.2,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":7310751,"population_pct":2.3,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":6361802,"population_pct":2,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":6017338,"population_pct":2,"race_category_id":"MULTI_OR_OTHER_STANDARD_NH","race_and_ethnicity":"Two or more races \u0026 Unrepresented race (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":16555988,"population_pct":5.2,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":15175304,"population_pct":4.9,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2012"}
+{"state_fips":"00","state_name":"United States","population":13459480,"population_pct":4.4,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2009"}
+{"state_fips":"00","state_name":"United States","population":15552520,"population_pct":4.9,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2013"}
+{"state_fips":"00","state_name":"United States","population":16031707,"population_pct":5,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":14804648,"population_pct":4.8,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2011"}
+{"state_fips":"00","state_name":"United States","population":14483682,"population_pct":4.7,"race_category_id":"API_NH","race_and_ethnicity":"Asian, Native Hawaiian, and Pacific Islander (NH)","time_period":"2010"}
+{"state_fips":"00","state_name":"United States","population":19372793,"population_pct":6.1,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2015"}
+{"state_fips":"00","state_name":"United States","population":17924444,"population_pct":5.7,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2012"}
 {"state_fips":"00","state_name":"United States","population":16092260,"population_pct":5.3,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2009"}
 {"state_fips":"00","state_name":"United States","population":18321270,"population_pct":5.8,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2013"}
-{"state_fips":"00","state_name":"United States","population":22133057,"population_pct":6.6,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2021"}
+{"state_fips":"00","state_name":"United States","population":18834655,"population_pct":5.9,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2014"}
+{"state_fips":"00","state_name":"United States","population":17519762,"population_pct":5.6,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2011"}
 {"state_fips":"00","state_name":"United States","population":17177561,"population_pct":5.6,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2010"}
-{"state_fips":"00","state_name":"United States","population":17924444,"population_pct":5.7,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2012"}
-{"state_fips":"00","state_name":"United States","population":19372793,"population_pct":6.1,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2015"}
-{"state_fips":"00","state_name":"United States","population":19794033,"population_pct":6.1,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2016"}
-{"state_fips":"00","state_name":"United States","population":21287564,"population_pct":6.5,"race_category_id":"AIAN_API","race_and_ethnicity":"American Indian, Alaska Native, Asian \u0026 Pacific Islander","time_period":"2019"}
