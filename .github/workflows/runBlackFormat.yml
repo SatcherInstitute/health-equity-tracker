@@ -1,0 +1,31 @@
+name: Format Python Files with Black
+
+on:
+  pull_request:
+    paths:
+      - '**/*.py' # Trigger only on Python files
+
+jobs:
+  format:
+    name: Format with Black
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install black
+
+      - name: Format with Black
+        run: black --line-length 120 .
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Auto-format Python files using Black" || echo "No changes to commit"
