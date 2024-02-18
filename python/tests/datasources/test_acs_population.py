@@ -26,42 +26,11 @@ GOLDEN_DATA_SEX_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_sex_national.csv')
 GOLDEN_DATA_RACE_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_race_national.csv')
 GOLDEN_DATA_AGE_COUNTY = os.path.join(GOLDEN_DIR, 'table_by_age_county.csv')
 
-# TODO: these are not tested, should either delete them or test them
-GOLDEN_DATA_SEX_AGE_RACE = os.path.join(GOLDEN_DIR, 'table_by_sex_age_race_state.csv')
-GOLDEN_DATA_AGE = os.path.join(GOLDEN_DIR, 'table_by_age.csv')
-GOLDEN_DATA_AGE_NATIONAL = os.path.join(GOLDEN_DIR, 'table_by_age_national.csv')
-
 
 # time series golden data initial year OVERWRITES
 
 GOLDEN_DATA_SEX_AGE_RACE_TIME_SERIES_OVERWRITES = os.path.join(
     GOLDEN_DIR, 'time_series_overwrites', 'table_by_sex_age_race_state_time_series.csv'
-)
-
-# TODO: these are not tested, should either delete them or test them
-GOLDEN_DATA_RACE_TIME_SERIES_OVERWRITE = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_race_state_time_series.csv'
-)
-GOLDEN_DATA_SEX_AGE_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_sex_age_time_series.csv'
-)
-GOLDEN_DATA_AGE_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_age_time_series.csv'
-)
-GOLDEN_DATA_SEX_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_sex_time_series.csv'
-)
-GOLDEN_DATA_SEX_NATIONAL_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_sex_national_time_series.csv'
-)
-GOLDEN_DATA_AGE_NATIONAL_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_age_national_time_series.csv'
-)
-GOLDEN_DATA_RACE_NATIONAL_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_race_national_time_series.csv'
-)
-GOLDEN_DATA_AGE_COUNTY_TIME_SERIES_OVERWRITES = os.path.join(
-    GOLDEN_DIR, 'time_series_overwrites', 'table_by_age_county_time_series.csv'
 )
 
 # time series golden data subsequent year APPENDS
@@ -83,17 +52,6 @@ GOLDEN_DATA_RACE_NATIONAL_TIME_SERIES_APPEND = os.path.join(
 )
 GOLDEN_DATA_AGE_COUNTY_TIME_SERIES_APPEND = os.path.join(
     GOLDEN_DIR, 'time_series_appends', 'table_by_age_county_time_series.csv'
-)
-
-# TODO: these are not tested, should either delete them or test them
-GOLDEN_DATA_SEX_AGE_RACE_TIME_SERIES_APPEND = os.path.join(
-    GOLDEN_DIR, 'time_series_appends', 'table_by_sex_age_race_state_time_series.csv'
-)
-GOLDEN_DATA_AGE_TIME_SERIES_APPEND = os.path.join(
-    GOLDEN_DIR, 'time_series_appends', 'table_by_age_time_series.csv'
-)
-GOLDEN_DATA_AGE_NATIONAL_TIME_SERIES_APPEND = os.path.join(
-    GOLDEN_DIR, 'time_series_appends', 'table_by_age_national_time_series.csv'
 )
 
 
@@ -187,10 +145,10 @@ def testOverWriteToBqStateNationalCalls2009(
 
     # our GCS caching of ACS raw tables
     assert mock_cache.call_count == 11
-    called_cached_gcs_names_in_order = [
+    called_cached_gcs_names_in_order_ALL_CAPS = [
         call[0][1] for call in mock_cache.call_args_list
     ]
-    assert called_cached_gcs_names_in_order == [
+    assert called_cached_gcs_names_in_order_ALL_CAPS == [
         '2009-HISPANIC_OR_LATINO_ORIGIN_BY_RACE_state.json',
         '2009-SEX_BY_AGE_state.json',
         '2009-SEX_BY_AGE_(WHITE_ALONE)_state.json',
@@ -244,10 +202,10 @@ def testWriteToBqCountyCallsAppend2022(
 
     # our GCS caching of ACS raw tables
     assert mock_cache.call_count == 11
-    called_cached_gcs_names_in_order = [
+    called_cached_gcs_names_in_order_title_cases = [
         call[0][1] for call in mock_cache.call_args_list
     ]
-    assert called_cached_gcs_names_in_order == [
+    assert called_cached_gcs_names_in_order_title_cases == [
         '2022-Hispanic_or_Latino_Origin_by_Race_county.json',
         '2022-Sex_by_Age_county.json',
         '2022-Sex_by_Age_(White_Alone)_county.json',
