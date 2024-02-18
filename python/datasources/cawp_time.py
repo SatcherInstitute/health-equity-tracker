@@ -117,12 +117,8 @@ DEFAULT_STLEG_FIRST_YR = 1983
 DEFAULT_LAST_YR = 2024
 
 # data urls
-US_CONGRESS_CURRENT_URL = (
-    "https://theunitedstates.io/congress-legislators/legislators-current.json"
-)
-US_CONGRESS_HISTORICAL_URL = (
-    "https://theunitedstates.io/congress-legislators/legislators-historical.json"
-)
+US_CONGRESS_CURRENT_URL = "https://theunitedstates.io/congress-legislators/legislators-current.json"
+US_CONGRESS_HISTORICAL_URL = "https://theunitedstates.io/congress-legislators/legislators-historical.json"
 CAWP_LINE_ITEMS_FILE = "cawp-by_race_and_ethnicity_time_series.csv"
 
 
@@ -137,9 +133,7 @@ def get_stleg_url(id: str):
     state info pages, for example:
     https://cawp.rutgers.edu/facts/state-state-information/alabama
     """
-    return (
-        f'https://cawp.rutgers.edu/tablefield/export/paragraph/{id}/field_table/und/0'
-    )
+    return f'https://cawp.rutgers.edu/tablefield/export/paragraph/{id}/field_table/und/0'
 
 
 CAWP_MULTI = "Multiracial Alone"
@@ -336,16 +330,14 @@ class CAWPTimeData(DataSource):
 
         # standardize race labels
         df[std_col.RACE_CATEGORY_ID_COL] = df[RACE_ETH].apply(
-            lambda x: (
-                "ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x)
-            )
+            lambda x: ("ALL" if x == Race.ALL.value else CAWP_RACE_GROUPS_TO_STANDARD.get(x, x))
         )
         std_col.add_race_columns_from_category_id(df)
         df = df.drop(columns=[RACE_ETH])
 
-        df = df.sort_values(
-            by=[std_col.TIME_PERIOD_COL, *STATE_COLS, std_col.RACE_OR_HISPANIC_COL]
-        ).reset_index(drop=True)
+        df = df.sort_values(by=[std_col.TIME_PERIOD_COL, *STATE_COLS, std_col.RACE_OR_HISPANIC_COL]).reset_index(
+            drop=True
+        )
 
         df = df.drop(
             [
@@ -363,9 +355,7 @@ class CAWPTimeData(DataSource):
 
         # replace null name lists with empty list then convert existing lists into list-like strs
         for col in names_cols:
-            df[col].loc[df[col].isnull()] = (
-                df[col].loc[df[col].isnull()].apply(lambda x: [])
-            )
+            df[col].loc[df[col].isnull()] = df[col].loc[df[col].isnull()].apply(lambda x: [])
             df[col] = [','.join(map(str, item)) for item in df[col]]
 
         # remove brackets and inner quotes, leaving just comma separated names
@@ -373,9 +363,7 @@ class CAWPTimeData(DataSource):
 
         # we only need TOTAL CONGRESS names once, since they're the same for every race breakdown,
         # so keep them only on the ALL race and null everything else
-        df[std_col.CONGRESS_NAMES].loc[
-            df[std_col.RACE_CATEGORY_ID_COL] != Race.ALL.value
-        ] = None
+        df[std_col.CONGRESS_NAMES].loc[df[std_col.RACE_CATEGORY_ID_COL] != Race.ALL.value] = None
 
         return df
 
@@ -416,18 +404,12 @@ class CAWPTimeData(DataSource):
             df[std_col.W_THIS_RACE_CONGRESS_COUNT] / df[std_col.CONGRESS_COUNT] * 100, 1
         )
         df[std_col.PCT_OF_W_CONGRESS] = round(
-            df[std_col.W_THIS_RACE_CONGRESS_COUNT]
-            / df[std_col.W_ALL_RACES_CONGRESS_COUNT]
-            * 100,
+            df[std_col.W_THIS_RACE_CONGRESS_COUNT] / df[std_col.W_ALL_RACES_CONGRESS_COUNT] * 100,
             1,
         ).fillna(0)
-        df[std_col.PCT_OF_STLEG] = round(
-            df[std_col.W_THIS_RACE_STLEG_COUNT] / df[std_col.STLEG_COUNT] * 100, 1
-        )
+        df[std_col.PCT_OF_STLEG] = round(df[std_col.W_THIS_RACE_STLEG_COUNT] / df[std_col.STLEG_COUNT] * 100, 1)
         df[std_col.PCT_OF_W_STLEG] = round(
-            df[std_col.W_THIS_RACE_STLEG_COUNT]
-            / df[std_col.W_ALL_RACES_STLEG_COUNT]
-            * 100,
+            df[std_col.W_THIS_RACE_STLEG_COUNT] / df[std_col.W_ALL_RACES_STLEG_COUNT] * 100,
             1,
         )
 
@@ -475,12 +457,8 @@ class CAWPTimeData(DataSource):
 
         # we will only use AIAN_API for the disparity bar chart and
         # pct_relative_inequity calculations
-        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value][
-            std_col.PCT_OF_CONGRESS
-        ] = None
-        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value][
-            std_col.PCT_OF_STLEG
-        ] = None
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value][std_col.PCT_OF_CONGRESS] = None
+        df.loc[df[std_col.RACE_CATEGORY_ID_COL] == Race.AIAN_API.value][std_col.PCT_OF_STLEG] = None
 
         df = df.rename(
             columns={
@@ -559,12 +537,8 @@ def get_us_congress_totals_df():
         columns "time_period" by year and "state_postal" """
 
     # load US congress data for total_counts
-    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(
-        US_CONGRESS_HISTORICAL_URL
-    )
-    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(
-        US_CONGRESS_CURRENT_URL
-    )
+    raw_historical_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_HISTORICAL_URL)
+    raw_current_congress_json = gcs_to_bq_util.fetch_json_from_web(US_CONGRESS_CURRENT_URL)
 
     raw_legislators_json = [*raw_historical_congress_json, *raw_current_congress_json]
 
@@ -581,13 +555,9 @@ def get_us_congress_totals_df():
             for year in term_years:
                 year = str(year)
                 title = (
-                    f'{POSITION_LABELS[CONGRESS][term[TYPE]]}'
-                    if term[STATE] not in TERRITORY_POSTALS
-                    else "U.S. Del."
+                    f'{POSITION_LABELS[CONGRESS][term[TYPE]]}' if term[STATE] not in TERRITORY_POSTALS else "U.S. Del."
                 )
-                full_name = (
-                    f'{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}'
-                )
+                full_name = f'{title} {legislator[NAME][FIRST]} {legislator[NAME][LAST]}'
                 entry = {
                     ID: legislator[ID]["govtrack"],
                     NAME: full_name,
@@ -604,24 +574,16 @@ def get_us_congress_totals_df():
     df = pd.DataFrame.from_dict(us_congress_totals_list_of_dict)
 
     # get names of all TOTAL members in lists per row
-    df = (
-        df.groupby([std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME]
-        .apply(list)
-        .reset_index()
-    )
+    df = df.groupby([std_col.STATE_POSTAL_COL, std_col.TIME_PERIOD_COL])[NAME].apply(list).reset_index()
     df = df.rename(columns={NAME: std_col.CONGRESS_NAMES})
 
     # get counts of all TOTAL members in lists per row
-    df[std_col.CONGRESS_COUNT] = (
-        df[std_col.CONGRESS_NAMES].apply(lambda list: len(list)).astype(float)
-    )
+    df[std_col.CONGRESS_COUNT] = df[std_col.CONGRESS_NAMES].apply(lambda list: len(list)).astype(float)
 
     return df
 
 
-def merge_total_cols(
-    scaffold_congress_df, scaffold_stleg_df, us_congress_df, state_leg_df
-):
+def merge_total_cols(scaffold_congress_df, scaffold_stleg_df, us_congress_df, state_leg_df):
     """Merges previously made congress df and state_leg_df info into the incoming scaffold df
     Parameters:
         scaffold_congress_df: df containing a row for every combo of
@@ -643,12 +605,8 @@ def merge_total_cols(
         how="left",
     )
     # fill counts with 0 and names with empty string where no info available
-    df_congress_totals[std_col.CONGRESS_COUNT] = df_congress_totals[
-        std_col.CONGRESS_COUNT
-    ].fillna(0)
-    df_congress_totals[std_col.CONGRESS_NAMES] = df_congress_totals[
-        std_col.CONGRESS_NAMES
-    ].fillna("")
+    df_congress_totals[std_col.CONGRESS_COUNT] = df_congress_totals[std_col.CONGRESS_COUNT].fillna(0)
+    df_congress_totals[std_col.CONGRESS_NAMES] = df_congress_totals[std_col.CONGRESS_NAMES].fillna("")
 
     # merge in STATE LEG counts by state/year where they exist;
     df_stateleg_totals = pd.merge(
@@ -696,29 +654,17 @@ def get_women_dfs():
 
     for gov_level in [CONGRESS, STATE_LEG]:
         # remove non-legislative line items
-        df_gov_level = df.copy().loc[
-            df[POSITION].isin(POSITION_LABELS[gov_level].keys())
-        ]
+        df_gov_level = df.copy().loc[df[POSITION].isin(POSITION_LABELS[gov_level].keys())]
         # standardize gov. titles between sources
-        df_gov_level[POSITION] = df_gov_level[POSITION].apply(
-            lambda x: POSITION_LABELS[gov_level][x]
-        )
+        df_gov_level[POSITION] = df_gov_level[POSITION].apply(lambda x: POSITION_LABELS[gov_level][x])
         # consolidate name columns
-        df_gov_level[NAME] = (
-            df_gov_level[POSITION]
-            + " "
-            + df_gov_level[FIRST_NAME]
-            + " "
-            + df_gov_level[LAST_NAME]
-        )
+        df_gov_level[NAME] = df_gov_level[POSITION] + " " + df_gov_level[FIRST_NAME] + " " + df_gov_level[LAST_NAME]
         df_gov_level = df_gov_level.drop(columns=[FIRST_NAME, LAST_NAME, POSITION])
         women_dfs.append(df_gov_level)
     return women_dfs
 
 
-def merge_women_cols(
-    scaffold_df, women_df, gov_level: str, preserve_races: bool = False
-):
+def merge_women_cols(scaffold_df, women_df, gov_level: str, preserve_races: bool = False):
     """Merges previously made CAWP df info into the incoming scaffold df
     Parameters:
         scaffold_df: df containing a row for every combo of
@@ -810,9 +756,7 @@ def get_state_leg_totals_df():
         # Drop rows where year is NaN
         state_df = state_df.dropna(subset=[std_col.TIME_PERIOD_COL])
 
-        state_df[std_col.TIME_PERIOD_COL] = state_df[std_col.TIME_PERIOD_COL].astype(
-            str
-        )
+        state_df[std_col.TIME_PERIOD_COL] = state_df[std_col.TIME_PERIOD_COL].astype(str)
 
         # extract totals
         state_df[[std_col.W_ALL_RACES_STLEG_COUNT, std_col.STLEG_COUNT]] = state_df[
@@ -831,9 +775,7 @@ def get_state_leg_totals_df():
 
     # combine all territory ROWS as well
     df = pd.concat([df_rows_by_state, df_rows_by_territory])
-    df = df.sort_values(
-        by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]
-    ).reset_index(drop=True)
+    df = df.sort_values(by=[std_col.TIME_PERIOD_COL, std_col.STATE_FIPS_COL]).reset_index(drop=True)
 
     return df
 
@@ -890,9 +832,7 @@ def get_postal_from_cawp_phrase(cawp_place_phrase: str):
     return cawp_place_phrase.split(" - ")[1]
 
 
-def get_consecutive_time_periods(
-    first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = DEFAULT_LAST_YR
-):
+def get_consecutive_time_periods(first_year: int = DEFAULT_CONGRESS_FIRST_YR, last_year: int = DEFAULT_LAST_YR):
     """Generates a list of consecutive time periods in the "YYYY" format
 
     Parameters:
@@ -920,9 +860,7 @@ def add_aian_api_rows(df):
     df_aian_api_rows = df[df[std_col.TIME_PERIOD_COL].isin(target_time_periods)]
 
     # only keep rows with races to be combined
-    df_aian_api_rows = df_aian_api_rows.loc[
-        df_aian_api_rows[RACE_ETH].isin(AIAN_API_RACES)
-    ]
+    df_aian_api_rows = df_aian_api_rows.loc[df_aian_api_rows[RACE_ETH].isin(AIAN_API_RACES)]
 
     level_names_col_map = {
         CONGRESS: std_col.W_THIS_RACE_CONGRESS_NAMES,
@@ -965,14 +903,10 @@ def add_aian_api_rows(df):
         )[names_col].agg(lambda nested_list: [x for list in nested_list for x in list])
 
         # remove any duplicates if a women was in both of the combined race groups
-        df_aian_api_rows_gov_level[names_col] = (
-            df_aian_api_rows_gov_level[names_col].apply(set).apply(list)
-        )
+        df_aian_api_rows_gov_level[names_col] = df_aian_api_rows_gov_level[names_col].apply(set).apply(list)
 
         df_aian_api_rows_gov_level[count_col] = (
-            df_aian_api_rows_gov_level[names_col]
-            .apply(lambda list: len(list))
-            .astype(float)
+            df_aian_api_rows_gov_level[names_col].apply(lambda list: len(list)).astype(float)
         )
         df_aian_api_rows_gov_level[RACE_ETH] = Race.AIAN_API.value
         df_aian_api_rows_gov_level = df_aian_api_rows_gov_level.reset_index(drop=True)
@@ -980,9 +914,7 @@ def add_aian_api_rows(df):
         # re-merge with this to preserve the non-summed rows like "total_congress_count", etc
         # could use either Asian or AIAN, the totals would be the same
         orig_df = df.copy()
-        df_denom_cols_aian_api_rows = orig_df.copy().loc[
-            orig_df[RACE_ETH] == 'Asian American/Pacific Islander'
-        ]
+        df_denom_cols_aian_api_rows = orig_df.copy().loc[orig_df[RACE_ETH] == 'Asian American/Pacific Islander']
 
         denom_cols = [std_col.TIME_PERIOD_COL, *STATE_COLS, *level_denom_cols]
 
@@ -1037,12 +969,8 @@ def build_base_rows_df(
     """
 
     # create chunks with needed COLUMNS
-    df_congress_scaffold = scaffold_df_by_year_by_state_by_race_list(
-        race_list, DEFAULT_CONGRESS_FIRST_YR
-    )
-    df_stleg_scaffold = scaffold_df_by_year_by_state_by_race_list(
-        race_list, DEFAULT_STLEG_FIRST_YR
-    )
+    df_congress_scaffold = scaffold_df_by_year_by_state_by_race_list(race_list, DEFAULT_CONGRESS_FIRST_YR)
+    df_stleg_scaffold = scaffold_df_by_year_by_state_by_race_list(race_list, DEFAULT_STLEG_FIRST_YR)
 
     df_total_cols = merge_total_cols(
         df_congress_scaffold.copy(),
@@ -1051,15 +979,11 @@ def build_base_rows_df(
         state_leg_totals_df,
     )
 
-    df_w_any_race_us_congress_cols = merge_women_cols(
-        df_congress_scaffold.copy(), women_us_congress_df, CONGRESS
-    )
+    df_w_any_race_us_congress_cols = merge_women_cols(df_congress_scaffold.copy(), women_us_congress_df, CONGRESS)
 
     # intentionally merging onto congress scaffold because we can have
     #  STLEG WOMEN COUNTS back further than the STLEG TOTALS
-    df_w_any_race_state_leg_cols = merge_women_cols(
-        df_congress_scaffold.copy(), women_state_leg_df, STATE_LEG
-    )
+    df_w_any_race_state_leg_cols = merge_women_cols(df_congress_scaffold.copy(), women_state_leg_df, STATE_LEG)
 
     # for the ALL rows, the ALL_W cols will be the same as the W_THIS_RACE cols
     # so don't need to waste time recalculating them
@@ -1118,9 +1042,7 @@ def handle_other_and_multi_races(df):
 
     # rows with multiple specific races will sum later with
     # CAWP's incoming "multiracial alone"
-    df_multiple_specific = df[
-        df[RACE_ETH].apply(lambda x: isinstance(x, str) and len(x) > 1)
-    ]
+    df_multiple_specific = df[df[RACE_ETH].apply(lambda x: isinstance(x, str) and len(x) > 1)]
     df_multiple_specific[RACE_ETH] = CAWP_MULTI
     df = pd.concat([df, df_multiple_specific])
 

@@ -65,8 +65,7 @@ HEALTH_INSURANCE_RACE_TO_CONCEPT = {
 }
 
 NHPI_POVERTY_VALUE = (
-    'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE '
-    '(NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
+    'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE ' '(NATIVE HAWAIIAN AND OTHER PACIFIC ISLANDER ALONE)'
 )
 POVERTY_RACE_TO_CONCEPT = {
     Race.AIAN.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (AMERICAN INDIAN AND ALASKA NATIVE ALONE)',
@@ -324,15 +323,11 @@ class AcsCondition(DataSource):
 
             float_cols = []
             for acs_item in ACS_ITEMS.values():
-                float_cols += [
-                    generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes
-                ]
+                float_cols += [generate_column_name(acs_item.bq_prefix, suffix) for suffix in suffixes]
 
             col_types = gcs_to_bq_util.get_bq_column_types(df, float_cols)
 
-            gcs_to_bq_util.add_df_to_bq(
-                df, dataset, table_name, column_types=col_types, overwrite=overwrite
-            )
+            gcs_to_bq_util.add_df_to_bq(df, dataset, table_name, column_types=col_types, overwrite=overwrite)
 
     def get_raw_data(self, demo, geo, metadata, gcs_bucket):
         groups = []
@@ -450,9 +445,7 @@ class AcsCondition(DataSource):
         ].reset_index(drop=True)
 
         without_condition_raw_count = generate_column_name(measure, 'without')
-        df_without_condition = df_without_condition.rename(
-            columns={AMOUNT: without_condition_raw_count}
-        )
+        df_without_condition = df_without_condition.rename(columns={AMOUNT: without_condition_raw_count})
 
         raw_count = generate_column_name(measure, HAS_ACS_ITEM_SUFFIX)
         df_with_condition = df_with_condition.rename(columns={AMOUNT: raw_count})
@@ -473,9 +466,7 @@ class AcsCondition(DataSource):
         population_df[[raw_count, without_condition_raw_count]] = population_df[
             [raw_count, without_condition_raw_count]
         ].astype(float)
-        population_df[population] = (
-            population_df[raw_count] + population_df[without_condition_raw_count]
-        )
+        population_df[population] = population_df[raw_count] + population_df[without_condition_raw_count]
         population_df = population_df[merge_cols + [population]]
 
         # Merge the population df back into the df of people with the condition

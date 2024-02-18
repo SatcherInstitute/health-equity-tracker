@@ -12,11 +12,7 @@ def get_state_fips_codes_as_df() -> pd.DataFrame:
 
 
 def get_acs_metadata_as_json(year: int):
-    metadata_file = (
-        'acs_metadata_2021_and_earlier.json'
-        if year < 2022
-        else 'acs_metadata_2022_and_later.json'
-    )
+    metadata_file = 'acs_metadata_2021_and_earlier.json' if year < 2022 else 'acs_metadata_2022_and_later.json'
     with open(os.path.join(TEST_DIR, metadata_file)) as f:
         return json.load(f)
 

@@ -114,17 +114,13 @@ def _load_csv_as_df_from_web(*args, **kwargs):
         fips = "XX"
 
     return pd.read_csv(
-        os.path.join(
-            TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv'
-        ),
+        os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv'),
         dtype=dtype,
     )
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web
-)
+@mock.patch('ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
     side_effect=_load_csv_as_df_from_web,
@@ -137,9 +133,7 @@ def _load_csv_as_df_from_web(*args, **kwargs):
     "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'datasources.cawp_time.get_consecutive_time_periods',
     side_effect=_get_consecutive_time_periods,

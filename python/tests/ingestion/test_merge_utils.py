@@ -265,15 +265,11 @@ _expected_merge_with_pop_numbers_multiple_rows = [
 
 
 def _get_fips_codes_as_df(*args, **kwargs):
-    return gcs_to_bq_util.values_json_to_df(
-        json.dumps(_fips_codes_from_bq), dtype=str
-    ).reset_index(drop=True)
+    return gcs_to_bq_util.values_json_to_df(json.dumps(_fips_codes_from_bq), dtype=str).reset_index(drop=True)
 
 
 def _get_county_names_as_df(*args, **kwargs):
-    return gcs_to_bq_util.values_json_to_df(
-        json.dumps(_county_names_from_bq), dtype=str
-    ).reset_index(drop=True)
+    return gcs_to_bq_util.values_json_to_df(json.dumps(_county_names_from_bq), dtype=str).reset_index(drop=True)
 
 
 def _get_pop_data_as_df(*args):
@@ -286,19 +282,19 @@ def _get_pop_data_as_df(*args):
 
     if args[1].endswith('time_series'):
         pop_dtype[std_col.TIME_PERIOD_COL] = str
-        return gcs_to_bq_util.values_json_to_df(
-            json.dumps(_pop_data_time_series), dtype=pop_dtype
-        ).reset_index(drop=True)
+        return gcs_to_bq_util.values_json_to_df(json.dumps(_pop_data_time_series), dtype=pop_dtype).reset_index(
+            drop=True
+        )
 
     if args[1].endswith("_territory_state_level"):
         if args[0] == "decia_2010_territory_population":
-            return gcs_to_bq_util.values_json_to_df(
-                json.dumps(_terr_pop_2010_state_data), dtype=pop_dtype
-            ).reset_index(drop=True)
+            return gcs_to_bq_util.values_json_to_df(json.dumps(_terr_pop_2010_state_data), dtype=pop_dtype).reset_index(
+                drop=True
+            )
         if args[0] == "decia_2020_territory_population":
-            return gcs_to_bq_util.values_json_to_df(
-                json.dumps(_terr_pop_2020_state_data), dtype=pop_dtype
-            ).reset_index(drop=True)
+            return gcs_to_bq_util.values_json_to_df(json.dumps(_terr_pop_2020_state_data), dtype=pop_dtype).reset_index(
+                drop=True
+            )
 
     if args[1].endswith("_territory_county_level"):
         if args[0] == "decia_2010_territory_population":
@@ -311,14 +307,10 @@ def _get_pop_data_as_df(*args):
             ).reset_index(drop=True)
 
     if 'state' in args[1]:
-        return gcs_to_bq_util.values_json_to_df(
-            json.dumps(_pop_data), dtype=pop_dtype
-        ).reset_index(drop=True)
+        return gcs_to_bq_util.values_json_to_df(json.dumps(_pop_data), dtype=pop_dtype).reset_index(drop=True)
 
     if 'county' in args[1]:
-        return gcs_to_bq_util.values_json_to_df(
-            json.dumps(_pop_data_county), dtype=pop_dtype
-        ).reset_index(drop=True)
+        return gcs_to_bq_util.values_json_to_df(json.dumps(_pop_data_county), dtype=pop_dtype).reset_index(drop=True)
 
 
 @mock.patch(
@@ -331,13 +323,11 @@ def testStandardizeCountyNames(mock_public_dataset: mock.MagicMock):
         _get_county_names_as_df(),
     ]
 
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_bad_county_names), dtype=str
-    ).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_bad_county_names), dtype=str).reset_index(drop=True)
 
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_good_county_names), dtype=str
-    ).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_good_county_names), dtype=str).reset_index(
+        drop=True
+    )
 
     df = merge_utils.merge_county_names(df)
 
@@ -353,13 +343,11 @@ def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
     mock_public_dataset.side_effect = [
         _get_fips_codes_as_df(),
     ]
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_good_county_names), dtype=str
-    ).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_good_county_names), dtype=str).reset_index(drop=True)
 
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_fips_county), dtype=str
-    ).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips_county), dtype=str).reset_index(
+        drop=True
+    )
 
     df = merge_utils.merge_state_ids(df)
 
@@ -372,15 +360,11 @@ def testMergeFipsCodesCounty(mock_public_dataset: mock.MagicMock):
     return_value=_get_fips_codes_as_df(),
 )
 def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_fips_codes), dtype=str
-    ).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
     df = df[['state_name', 'other_col']]
 
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_fips), dtype=str
-    ).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -393,15 +377,11 @@ def testMergeStateInfoByName(mock_public_dataset: mock.MagicMock):
     return_value=_get_fips_codes_as_df(),
 )
 def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_without_fips_codes), dtype=str
-    ).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_without_fips_codes), dtype=str).reset_index(drop=True)
 
     df = df[['state_postal', 'other_col']]
 
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_fips), dtype=str
-    ).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_fips), dtype=str).reset_index(drop=True)
 
     df = merge_utils.merge_state_ids(df)
 
@@ -414,15 +394,13 @@ def testMergeStateInfoByPostal(mock_public_dataset: mock.MagicMock):
     return_value=_get_fips_codes_as_df(),
 )
 def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
-    df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_data_with_only_fips_codes), dtype=str
-    ).reset_index(drop=True)
+    df = gcs_to_bq_util.values_json_to_df(json.dumps(_data_with_only_fips_codes), dtype=str).reset_index(drop=True)
 
     df = df[['state_fips', 'other_col']]
 
-    expected_df = gcs_to_bq_util.values_json_to_df(
-        json.dumps(_expected_merged_names_from_fips), dtype=str
-    ).reset_index(drop=True)
+    expected_df = gcs_to_bq_util.values_json_to_df(json.dumps(_expected_merged_names_from_fips), dtype=str).reset_index(
+        drop=True
+    )
 
     df = merge_utils.merge_state_ids(df)
 
@@ -430,9 +408,7 @@ def testMergeStateInfoByFips(mock_public_dataset: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df)
 def testMergePopNumbersState(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers), dtype={std_col.STATE_FIPS_COL: str}
@@ -450,9 +426,7 @@ def testMergePopNumbersState(mock_pop: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df)
 def testMergePopNumbersCounty(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_county),
@@ -471,9 +445,7 @@ def testMergePopNumbersCounty(mock_pop: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df)
 def testMergeYearlyPopNumbers(mock_pop: mock.MagicMock):
     df_no_pop = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_time_series_without_pop_numbers),
@@ -494,9 +466,7 @@ def testMergeYearlyPopNumbers(mock_pop: mock.MagicMock):
     assert_frame_equal(df, expected_df, check_like=True, check_dtype=False)
 
 
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_get_pop_data_as_df)
 def testMergeMultiplePopCols(mock_pop: mock.MagicMock):
     df = gcs_to_bq_util.values_json_to_df(
         json.dumps(_data_without_pop_numbers_multiple_rows),
@@ -508,9 +478,7 @@ def testMergeMultiplePopCols(mock_pop: mock.MagicMock):
         dtype={std_col.STATE_FIPS_COL: str},
     ).reset_index(drop=True)
 
-    df = merge_utils.merge_multiple_pop_cols(
-        df, 'race', ['cases_population', 'deaths_population']
-    )
+    df = merge_utils.merge_multiple_pop_cols(df, 'race', ['cases_population', 'deaths_population'])
 
     assert mock_pop.call_count == 2
 
