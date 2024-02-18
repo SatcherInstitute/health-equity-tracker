@@ -79,7 +79,7 @@ POVERTY_RACE_TO_CONCEPT = {
     Race.MULTI.value: 'POVERTY STATUS IN THE PAST 12 MONTHS BY SEX BY AGE (TWO OR MORE RACES)',
 }
 
-# Acs variables are in the form C27001A_xxx0 C27001A_xxx2 ect
+# Acs variables are in the form C27001A_xxx0 C27001A_xxx2 etc
 # to determine age buckets.  The metadata variables are merged with the suffixes to form the entire metadata.
 HEALTH_INSURANCE_BY_RACE_GROUP_PREFIXES = {
     'C27001A': Race.WHITE.value,
