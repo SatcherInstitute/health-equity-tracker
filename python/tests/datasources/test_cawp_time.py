@@ -236,6 +236,7 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_current.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_state_current,
         expected_df_state_current,
@@ -274,6 +275,7 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_current.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_national_current,
         expected_df_national_current,
