@@ -156,6 +156,9 @@
     ],
     "src/**/*.{css,scss,md,html}": [
       "npm run format"
+    ],
+    "**/*.py": [
+      "black"
     ]
   }
 }
