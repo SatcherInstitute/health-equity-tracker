@@ -1,4 +1,4 @@
-name: Format Python Files with Black
+name: Format Changed Python Files with Black
 
 on:
   pull_request:
@@ -22,10 +22,20 @@ jobs:
       - name: Install dependencies
         run: pip install black
 
+      - name: Identify modified Python files in this commit
+        id: changed-files
+        run: |
+          echo "::set-output name=files::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.py$')"
+
       - name: Format with Black
-        run: black --line-length 120 .
+        run: |
+          for file in ${{ steps.changed-files.outputs.files }}; do
+            black --line-length 120 $file
+          done
 
       - name: Commit changes
         run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "info@healthequitytracker.org"
           git add .
           git commit -m "Auto-format Python files using Black" || echo "No changes to commit"
