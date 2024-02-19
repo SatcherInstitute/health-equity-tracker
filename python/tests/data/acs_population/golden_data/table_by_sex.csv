@@ -1,7 +1,157 @@
 state_fips,state_name,sex,population,population_pct
-01,Alabama,All,4876250,100.0
-01,Alabama,Female,2516895,51.6
-01,Alabama,Male,2359355,48.4
-72,Puerto Rico,All,3318447,100.0
-72,Puerto Rico,Female,1740129,52.4
-72,Puerto Rico,Male,1578318,47.6
+01,Alabama,All,5028092,100.0
+01,Alabama,Female,2582097,51.4
+01,Alabama,Male,2445995,48.6
+02,Alaska,All,734821,100.0
+02,Alaska,Female,348172,47.4
+02,Alaska,Male,386649,52.6
+04,Arizona,All,7172282,100.0
+04,Arizona,Female,3583772,50.0
+04,Arizona,Male,3588510,50.0
+05,Arkansas,All,3018669,100.0
+05,Arkansas,Female,1527047,50.6
+05,Arkansas,Male,1491622,49.4
+06,California,All,39356104,100.0
+06,California,Female,19647157,49.9
+06,California,Male,19708947,50.1
+08,Colorado,All,5770790,100.0
+08,Colorado,Female,2843202,49.3
+08,Colorado,Male,2927588,50.7
+09,Connecticut,All,3611317,100.0
+09,Connecticut,Female,1842121,51.0
+09,Connecticut,Male,1769196,49.0
+10,Delaware,All,993635,100.0
+10,Delaware,Female,510726,51.4
+10,Delaware,Male,482909,48.6
+11,District of Columbia,All,670587,100.0
+11,District of Columbia,Female,349790,52.2
+11,District of Columbia,Male,320797,47.8
+12,Florida,All,21634529,100.0
+12,Florida,Female,10987743,50.8
+12,Florida,Male,10646786,49.2
+13,Georgia,All,10722325,100.0
+13,Georgia,Female,5477849,51.1
+13,Georgia,Male,5244476,48.9
+15,Hawaii,All,1450589,100.0
+15,Hawaii,Female,718529,49.5
+15,Hawaii,Male,732060,50.5
+16,Idaho,All,1854109,100.0
+16,Idaho,Female,920381,49.6
+16,Idaho,Male,933728,50.4
+17,Illinois,All,12757634,100.0
+17,Illinois,Female,6444615,50.5
+17,Illinois,Male,6313019,49.5
+18,Indiana,All,6784403,100.0
+18,Indiana,Female,3417605,50.4
+18,Indiana,Male,3366798,49.6
+19,Iowa,All,3188836,100.0
+19,Iowa,Female,1590281,49.9
+19,Iowa,Male,1598555,50.1
+20,Kansas,All,2935922,100.0
+20,Kansas,Female,1460974,49.8
+20,Kansas,Male,1474948,50.2
+21,Kentucky,All,4502935,100.0
+21,Kentucky,Female,2268894,50.4
+21,Kentucky,Male,2234041,49.6
+22,Louisiana,All,4640546,100.0
+22,Louisiana,Female,2365197,51.0
+22,Louisiana,Male,2275349,49.0
+23,Maine,All,1366949,100.0
+23,Maine,Female,692719,50.7
+23,Maine,Male,674230,49.3
+24,Maryland,All,6161707,100.0
+24,Maryland,Female,3158811,51.3
+24,Maryland,Male,3002896,48.7
+25,Massachusetts,All,6984205,100.0
+25,Massachusetts,Female,3564866,51.0
+25,Massachusetts,Male,3419339,49.0
+26,Michigan,All,10057921,100.0
+26,Michigan,Female,5064225,50.4
+26,Michigan,Male,4993696,49.6
+27,Minnesota,All,5695292,100.0
+27,Minnesota,Female,2837328,49.8
+27,Minnesota,Male,2857964,50.2
+28,Mississippi,All,2958846,100.0
+28,Mississippi,Female,1520858,51.4
+28,Mississippi,Male,1437988,48.6
+29,Missouri,All,6154422,100.0
+29,Missouri,Female,3115202,50.6
+29,Missouri,Male,3039220,49.4
+30,Montana,All,1091840,100.0
+30,Montana,Female,538124,49.3
+30,Montana,Male,553716,50.7
+31,Nebraska,All,1958939,100.0
+31,Nebraska,Female,974369,49.7
+31,Nebraska,Male,984570,50.3
+32,Nevada,All,3104817,100.0
+32,Nevada,Female,1536485,49.5
+32,Nevada,Male,1568332,50.5
+33,New Hampshire,All,1379610,100.0
+33,New Hampshire,Female,689885,50.0
+33,New Hampshire,Male,689725,50.0
+34,New Jersey,All,9249063,100.0
+34,New Jersey,Female,4692732,50.7
+34,New Jersey,Male,4556331,49.3
+35,New Mexico,All,2112463,100.0
+35,New Mexico,Female,1059605,50.2
+35,New Mexico,Male,1052858,49.8
+36,New York,All,19994379,100.0
+36,New York,Female,10213093,51.1
+36,New York,Male,9781286,48.9
+37,North Carolina,All,10470214,100.0
+37,North Carolina,Female,5338844,51.0
+37,North Carolina,Male,5131370,49.0
+38,North Dakota,All,776874,100.0
+38,North Dakota,Female,377529,48.6
+38,North Dakota,Male,399345,51.4
+39,Ohio,All,11774683,100.0
+39,Ohio,Female,5959947,50.6
+39,Ohio,Male,5814736,49.4
+40,Oklahoma,All,3970497,100.0
+40,Oklahoma,Female,1990019,50.1
+40,Oklahoma,Male,1980478,49.9
+41,Oregon,All,4229374,100.0
+41,Oregon,Female,2116033,50.0
+41,Oregon,Male,2113341,50.0
+42,Pennsylvania,All,12989208,100.0
+42,Pennsylvania,Female,6578442,50.6
+42,Pennsylvania,Male,6410766,49.4
+44,Rhode Island,All,1094250,100.0
+44,Rhode Island,Female,557029,50.9
+44,Rhode Island,Male,537221,49.1
+45,South Carolina,All,5142750,100.0
+45,South Carolina,Female,2632731,51.2
+45,South Carolina,Male,2510019,48.8
+46,South Dakota,All,890342,100.0
+46,South Dakota,Female,438671,49.3
+46,South Dakota,Male,451671,50.7
+47,Tennessee,All,6923772,100.0
+47,Tennessee,Female,3522793,50.9
+47,Tennessee,Male,3400979,49.1
+48,Texas,All,29243342,100.0
+48,Texas,Female,14618704,50.0
+48,Texas,Male,14624638,50.0
+49,Utah,All,3283809,100.0
+49,Utah,Female,1618600,49.3
+49,Utah,Male,1665209,50.7
+50,Vermont,All,643816,100.0
+50,Vermont,Female,323477,50.2
+50,Vermont,Male,320339,49.8
+51,Virginia,All,8624511,100.0
+51,Virginia,Female,4355736,50.5
+51,Virginia,Male,4268775,49.5
+53,Washington,All,7688549,100.0
+53,Washington,Female,3810631,49.6
+53,Washington,Male,3877918,50.4
+54,West Virginia,All,1792967,100.0
+54,West Virginia,Female,898195,50.1
+54,West Virginia,Male,894772,49.9
+55,Wisconsin,All,5882128,100.0
+55,Wisconsin,Female,2933366,49.9
+55,Wisconsin,Male,2948762,50.1
+56,Wyoming,All,577929,100.0
+56,Wyoming,Female,282094,48.8
+56,Wyoming,Male,295835,51.2
+72,Puerto Rico,All,3272382,100.0
+72,Puerto Rico,Female,1720714,52.6
+72,Puerto Rico,Male,1551668,47.4

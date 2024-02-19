@@ -4,9 +4,8 @@ import ingestion.standardized_columns as std_col
 import ingestion.constants as constants
 from typing import Literal, List
 
-ACS_DEFAULT_YEAR = '2019'
 ACS_EARLIEST_YEAR = '2009'
-ACS_LATEST_YEAR = '2021'
+ACS_CURRENT_YEAR = '2022'
 DECIA_CUTOFF_YEAR = '2016'
 
 
@@ -23,7 +22,7 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
 
     if std_col.COUNTY_FIPS_COL not in df.columns:
         raise ValueError(
-            'Dataframe must be a county-level table with a `county_fips` column containing 5 digit FIPS strings.'
+            'df must be county-level with `county_fips` col of 5 digit FIPS strings.'
             + f'This dataframe only contains these columns: {list(df.columns)}'
         )
 
@@ -33,9 +32,7 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
         dtype={'state_fips_code': str, 'county_fips_code': str},
     )
 
-    all_county_names = all_county_names.loc[
-        all_county_names['summary_level_name'] == 'state-county'
-    ]
+    all_county_names = all_county_names.loc[all_county_names['summary_level_name'] == 'state-county']
 
     all_county_names = all_county_names[['county_fips_code', 'area_name']]
     all_county_names = all_county_names.rename(
@@ -51,16 +48,12 @@ def merge_county_names(df: pd.DataFrame) -> pd.DataFrame:
         columns=[std_col.COUNTY_FIPS_COL, std_col.COUNTY_NAME_COL],
     )
 
-    all_county_names = pd.concat(
-        [all_county_names, county_equivalent_names]
-    ).reset_index(drop=True)
+    all_county_names = pd.concat([all_county_names, county_equivalent_names]).reset_index(drop=True)
 
     if std_col.COUNTY_NAME_COL in df.columns:
         df = df.drop(columns=std_col.COUNTY_NAME_COL)
 
-    df = pd.merge(
-        df, all_county_names, how='left', on=std_col.COUNTY_FIPS_COL
-    ).reset_index(drop=True)
+    df = pd.merge(df, all_county_names, how='left', on=std_col.COUNTY_FIPS_COL).reset_index(drop=True)
 
     return df
 
@@ -117,9 +110,7 @@ def merge_state_ids(df, keep_postal=False):
         ]
     )
 
-    all_fips_codes_df = all_fips_codes_df[
-        ['state_fips_code', 'state_name', 'state_postal_abbreviation']
-    ]
+    all_fips_codes_df = all_fips_codes_df[['state_fips_code', 'state_name', 'state_postal_abbreviation']]
     all_fips_codes_df = pd.concat([all_fips_codes_df, united_states_fips, unknown_fips])
 
     all_fips_codes_df = all_fips_codes_df.rename(
@@ -135,9 +126,7 @@ def merge_state_ids(df, keep_postal=False):
     if std_col.STATE_FIPS_COL in df.columns:
         merge_col = std_col.STATE_FIPS_COL
 
-    df = pd.merge(df, all_fips_codes_df, how='left', on=merge_col).reset_index(
-        drop=True
-    )
+    df = pd.merge(df, all_fips_codes_df, how='left', on=merge_col).reset_index(drop=True)
 
     if (not keep_postal) and (std_col.STATE_POSTAL_COL in df.columns):
         df = df.drop(columns=std_col.STATE_POSTAL_COL)
@@ -145,9 +134,7 @@ def merge_state_ids(df, keep_postal=False):
     return df
 
 
-def merge_pop_numbers(
-    df, demo: Literal['age', 'sex', 'race'], loc: Literal['county', 'state', 'national']
-):
+def merge_pop_numbers(df, demo: Literal['age', 'sex', 'race'], loc: Literal['county', 'state', 'national']):
     """Merges the corresponding `population` and `population_pct` column into the given df
 
     df: a pandas df with demographic column and a `state_fips` column
@@ -181,9 +168,7 @@ def merge_yearly_pop_numbers(
     """
 
     if std_col.TIME_PERIOD_COL not in df.columns:
-        raise ValueError(
-            "Cannot merge by year as the provided df does not contain a `time_period` col"
-        )
+        raise ValueError("Cannot merge by year as the provided df does not contain a `time_period` col")
 
     _tmp_time_period_col = "temp_time_period_col_as_int"
     df[_tmp_time_period_col] = df[std_col.TIME_PERIOD_COL].astype(int)
@@ -193,38 +178,31 @@ def merge_yearly_pop_numbers(
 
     # merge matchable years directly
     acs_rows_df = df.loc[
-        (df[_tmp_time_period_col] >= int(ACS_EARLIEST_YEAR))
-        & (df[_tmp_time_period_col] <= int(ACS_LATEST_YEAR))
+        (df[_tmp_time_period_col] >= int(ACS_EARLIEST_YEAR)) & (df[_tmp_time_period_col] <= int(ACS_CURRENT_YEAR))
     ]
     acs_rows_df = _merge_pop(acs_rows_df, demo, geo_level, on_time_period=True)
 
-    # merge the most recent SOURCE data (without equivalent years from ACS) with the most recent ACS data
-    post_acs_rows_df = df[df[_tmp_time_period_col] > int(ACS_LATEST_YEAR)]
+    # merge most recent SOURCE data (without equiv years from ACS) with most recent ACS data
+    post_acs_rows_df = df[df[_tmp_time_period_col] > int(ACS_CURRENT_YEAR)]
     # temporarily save the original SOURCE years in a new column
     _tmp_src_yr_col = "temp_source_year_col"
     post_acs_rows_df[_tmp_src_yr_col] = post_acs_rows_df[std_col.TIME_PERIOD_COL]
     # set the mergeable column year to the most recent to merge that data from ACS
-    post_acs_rows_df[std_col.TIME_PERIOD_COL] = ACS_LATEST_YEAR
+    post_acs_rows_df[std_col.TIME_PERIOD_COL] = ACS_CURRENT_YEAR
     # merge that recent year pop data
-    post_acs_rows_df = _merge_pop(
-        post_acs_rows_df, demo, geo_level, on_time_period=True
-    )
+    post_acs_rows_df = _merge_pop(post_acs_rows_df, demo, geo_level, on_time_period=True)
     # swap back to the real year data
     post_acs_rows_df[std_col.TIME_PERIOD_COL] = post_acs_rows_df[_tmp_src_yr_col]
     post_acs_rows_df = post_acs_rows_df.drop(columns=[_tmp_src_yr_col])
 
     # combine the three sub-dfs
-    df = pd.concat(
-        [pre_acs_rows_df, acs_rows_df, post_acs_rows_df], axis=0
-    ).reset_index(drop=True)
+    df = pd.concat([pre_acs_rows_df, acs_rows_df, post_acs_rows_df], axis=0).reset_index(drop=True)
     df = df.drop(columns=[_tmp_time_period_col])
 
     return df
 
 
-def merge_multiple_pop_cols(
-    df: pd.DataFrame, demo: Literal['age', 'race', 'sex'], condition_cols: List[str]
-):
+def merge_multiple_pop_cols(df: pd.DataFrame, demo: Literal['age', 'race', 'sex'], condition_cols: List[str]):
     """Merges the population of each state into a column for each condition in `condition_cols`.
        If a condition is NaN for that state the population gets counted as zero.
 
@@ -258,9 +236,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
     }
 
     if demo not in on_col_map:
-        raise ValueError(
-            f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}'
-        )
+        raise ValueError(f'{demo} not a demographic option, must be one of: {list(on_col_map.keys())}')
 
     pop_table_name = f'by_{demo}_{loc}'
 
@@ -268,9 +244,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
         pop_table_name += "_time_series"
         pop_dtype[std_col.TIME_PERIOD_COL] = str
 
-    pop_df = gcs_to_bq_util.load_df_from_bigquery(
-        'acs_population', pop_table_name, pop_dtype
-    )
+    pop_df = gcs_to_bq_util.load_df_from_bigquery('acs_population', pop_table_name, pop_dtype)
 
     needed_cols = [on_col_map[demo], std_col.POPULATION_COL, std_col.POPULATION_PCT_COL]
 
@@ -280,9 +254,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
     if loc == 'county':
         needed_cols.append(std_col.COUNTY_FIPS_COL)
 
-    keep_cols = (
-        [*needed_cols, std_col.TIME_PERIOD_COL] if on_time_period else needed_cols
-    )
+    keep_cols = [*needed_cols, std_col.TIME_PERIOD_COL] if on_time_period else needed_cols
 
     pop_df = pop_df[keep_cols]
 
@@ -317,11 +289,7 @@ def _merge_pop(df, demo, loc, on_time_period: bool = None):
             end_year = max(df[std_col.TIME_PERIOD_COL].astype(int)) + 1
             for year_num in range(start_year, end_year):
                 year_str = str(year_num)
-                yearly_df = (
-                    pop_terr_2010_df.copy()
-                    if year_num < int(DECIA_CUTOFF_YEAR)
-                    else pop_terr_df.copy()
-                )
+                yearly_df = pop_terr_2010_df.copy() if year_num < int(DECIA_CUTOFF_YEAR) else pop_terr_df.copy()
                 yearly_df[std_col.TIME_PERIOD_COL] = year_str
                 yearly_pop_terr_dfs.append(yearly_df)
 

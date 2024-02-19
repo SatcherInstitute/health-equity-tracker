@@ -46,7 +46,7 @@ GOLDEN_DATA_DIR = os.path.join(TEST_DIR, "golden_data")
 def _get_consecutive_time_periods(*args, **kwargs):
     print("mocking with reduced years")
     # NOTE: ensure this end date is updated to reflect current test data set's last year
-    return get_consecutive_time_periods(first_year=2018, last_year=2023)
+    return get_consecutive_time_periods(first_year=2018, last_year=2024)
 
 
 def _fetch_json_from_web(*args):
@@ -114,17 +114,13 @@ def _load_csv_as_df_from_web(*args, **kwargs):
         fips = "XX"
 
     return pd.read_csv(
-        os.path.join(
-            TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv'
-        ),
+        os.path.join(TEST_DIR, "mock_cawp_state_leg_tables", f'cawp_state_leg_{fips}.csv'),
         dtype=dtype,
     )
 
 
 @mock.patch('ingestion.gcs_to_bq_util.add_df_to_bq', return_value=None)
-@mock.patch(
-    'ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web
-)
+@mock.patch('ingestion.gcs_to_bq_util.fetch_json_from_web', side_effect=_fetch_json_from_web)
 @mock.patch(
     'ingestion.gcs_to_bq_util.load_csv_as_df_from_web',
     side_effect=_load_csv_as_df_from_web,
@@ -137,9 +133,7 @@ def _load_csv_as_df_from_web(*args, **kwargs):
     "ingestion.gcs_to_bq_util.load_public_dataset_from_bigquery_as_df",
     side_effect=_load_public_dataset_from_bigquery_as_df,
 )
-@mock.patch(
-    'ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery
-)
+@mock.patch('ingestion.gcs_to_bq_util.load_df_from_bigquery', side_effect=_load_df_from_bigquery)
 @mock.patch(
     'datasources.cawp_time.get_consecutive_time_periods',
     side_effect=_get_consecutive_time_periods,
@@ -217,6 +211,7 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_state_historical,
         expected_df_state_historical,
@@ -230,10 +225,12 @@ def testWriteToBq(
         table_name_state_current,
     ), _bq_types = state_current_call
     assert table_name_state_current == "race_and_ethnicity_state_current"
+
     expected_df_state_current = pd.read_csv(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_state_current.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_state_current,
         expected_df_state_current,
@@ -252,6 +249,7 @@ def testWriteToBq(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_historical.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_national_historical,
         expected_df_national_historical,
@@ -264,12 +262,14 @@ def testWriteToBq(
         _dataset,
         table_name_national_current,
     ), _bq_types = national_current_call
+
     assert table_name_national_current == "race_and_ethnicity_national_current"
 
     expected_df_national_current = pd.read_csv(
         os.path.join(GOLDEN_DATA_DIR, "race_and_ethnicity_national_current.csv"),
         dtype={"state_fips": str, "time_period": str},
     )
+
     assert_frame_equal(
         df_national_current,
         expected_df_national_current,
