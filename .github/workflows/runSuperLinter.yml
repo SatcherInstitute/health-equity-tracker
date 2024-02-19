@@ -1,10 +1,38 @@
-name: SuperLinter
+name: Format & Lint
 on:
+  push:
+    branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
 jobs:
+  format:
+    name: Format Python with Black
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install black
+
+      - name: Format Python files
+        run: black --line-length 120 .
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "info@healthequitytracker.org"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Auto-format Python files using Black"
   lint:
+    needs: [format]
     name: Lint Code Base
     runs-on: ubuntu-latest
     permissions:
