@@ -1,0 +1,66 @@
+name: Format & Lint
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  format:
+    name: Format Python with Black
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install black
+
+      - name: Format Python files
+        run: black --line-length 120 .
+
+      - name: Commit changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "info@healthequitytracker.org"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Auto-format Python files using Black"
+  lint:
+    needs: format
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+    steps:
+      - name: Check Out Code
+        uses: actions/checkout@v4
+        with:
+          # Full git history is needed to get a proper list of changed files
+          fetch-depth: 0
+        # Lint changed files of these langauges using Super Linter shared action
+      - name: Lint Code Base
+        uses: super-linter/super-linter/slim@v6.0.0
+        env:
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: false
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          VALIDATE_DOCKERFILE: true
+          VALIDATE_TSX: true
+          VALIDATE_TYPESCRIPT_ES: true
+          PYTHON_BLACK_CONFIG_FILE: black.ini
+          VALIDATE_PYTHON_BLACK: true
+          VALIDATE_PYTHON_PYLINT: true
+          VALIDATE_PYTHON_FLAKE8: true
+          VALIDATE_TERRAFORM_FMT: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_ENV: true
+          VALIDATE_BASH: true
+          VALIDATE_YAML: true
