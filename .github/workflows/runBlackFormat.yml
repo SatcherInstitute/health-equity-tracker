@@ -1,4 +1,4 @@
-name: Format Changed Python Files with Black
+name: Format Python Files with Black
 
 on:
   pull_request:
@@ -22,16 +22,8 @@ jobs:
       - name: Install dependencies
         run: pip install black
 
-      - name: Identify modified Python files in this commit
-        id: changed-files
-        run: |
-          echo "::set-output name=files::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '\.py$')"
-
-      - name: Format with Black
-        run: |
-          for file in ${{ steps.changed-files.outputs.files }}; do
-            black --line-length 120 $file
-          done
+      - name: Format changed Python files
+        run: git diff --name-only $GITHUB_BASE_REF $GITHUB_HEAD_REF | grep "*.py" | xargs black
 
       - name: Commit changes
         run: |
