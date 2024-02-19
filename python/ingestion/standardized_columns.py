@@ -16,9 +16,7 @@ HISPANIC_COL = "hispanic_or_latino"
 # The name of the column that displays the basic race name, not specifying
 # whether Hispanic/Latino people are included.
 RACE_COL = "race"
-
 ETH_COL = "ethnicity"
-
 RACE_ETH_COL = "race_ethnicity_combined"
 
 AGE_COL = "age"
@@ -379,9 +377,7 @@ class Race(Enum):
 def add_race_columns_from_category_id(df):
     """Adds all race-related columns to the dataframe using the race category id
     to determine these values."""
-    df["race_tuple"] = df.apply(
-        lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1
-    )
+    df["race_tuple"] = df.apply(lambda r: Race.from_category_id(r[RACE_CATEGORY_ID_COL]).as_tuple(), axis=1)
     df[Race.get_col_names()] = pd.DataFrame(df["race_tuple"].tolist(), index=df.index)
     df.drop("race_tuple", axis=1, inplace=True)
 
