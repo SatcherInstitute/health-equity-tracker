@@ -16,6 +16,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          push-to-fork: benhammondmusic/health-equity-tracker
           title: 'Format with psf/black push'
           commit-message: ':art: Format Python code with psf/black'
           body: |
